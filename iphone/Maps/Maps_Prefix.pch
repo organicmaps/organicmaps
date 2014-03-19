@@ -2,7 +2,7 @@
 // Prefix header for all source files of the 'Maps' target in the 'Maps' project
 //
 
-#import "Config.h"
+#import "Common.h"
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>

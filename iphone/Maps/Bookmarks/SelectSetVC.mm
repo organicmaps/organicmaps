@@ -1,6 +1,8 @@
+
 #import "SelectSetVC.h"
 #import "Framework.h"
 #import "AddSetVC.h"
+#import "UIKitCategories.h"
 
 @implementation SelectSetVC
 
@@ -66,7 +68,7 @@
   if (indexPath.section == 0)
   {
     AddSetVC * asVC = [[AddSetVC alloc] initWithIndex:m_index];
-    if (isIPad)
+    if (IPAD)
       [asVC setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
     [self.navigationController pushViewController:asVC animated:YES];
   }

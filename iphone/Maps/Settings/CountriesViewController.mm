@@ -7,6 +7,7 @@
 #import "DiskFreeSpace.h"
 #import "Statistics.h"
 #import "Reachability.h"
+#import "UIKitCategories.h"
 
 #include "Framework.h"
 
@@ -286,14 +287,15 @@ static bool getGuideName(string & name, storage::TIndex const & index)
       NSURL * guideUrl = [NSURL URLWithString:[NSString stringWithUTF8String:info.GetAppID().c_str()]];
       NSString * countryName = [NSString stringWithUTF8String:f.Storage().CountryName(m_clickedIndex).c_str()];
       [[Statistics instance] logEvent:@"Open Guide Country" withParameters:@{@"Country Name" : countryName}];
-      if ([APP canOpenURL:guideUrl])
+      UIApplication * application = [UIApplication sharedApplication];
+      if ([application canOpenURL:guideUrl])
       {
-        [APP openURL:guideUrl];
+        [application openURL:guideUrl];
         [[Statistics instance] logEvent:@"Open Guide Button" withParameters:@{@"Guide downloaded" : @"YES"}];
       }
       else
       {
-        [APP openURL:[NSURL URLWithString:[NSString stringWithUTF8String:info.GetURL().c_str()]]];
+        [application openURL:[NSURL URLWithString:[NSString stringWithUTF8String:info.GetURL().c_str()]]];
         [[Statistics instance] logEvent:@"Open Guide Button" withParameters:@{@"Guide downloaded" : @"NO"}];
       }
     }
@@ -495,7 +497,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
     [as addButtonWithTitle:[NSString stringWithUTF8String:guideAdevertiseString.c_str()]];
     ++numOfButtons;
   }
-  if (isIPhone)
+  if (!IPAD)
   {
     [as addButtonWithTitle:NSLocalizedString(@"cancel", nil)];
     as.cancelButtonIndex = numOfButtons;

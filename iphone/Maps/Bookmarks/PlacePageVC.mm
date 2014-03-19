@@ -140,7 +140,7 @@
   if ([_pinTitle isEqualToString:NSLocalizedString(@"dropped_pin", nil)])
     [[[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].contentView viewWithTag:TEXTFIELD_TAG] becomeFirstResponder];
 
-  if (isIPad)
+  if (IPAD)
   {
     CGSize size = CGSizeMake(320, 480);
     self.contentSizeForViewInPopover = size;
@@ -321,7 +321,7 @@
 
 - (void)pushToNavigationControllerAndSetControllerToPopoverSize:(UIViewController *)vc
 {
-  if (isIPad)
+  if (IPAD)
     [vc setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
   [self.navigationController pushViewController:vc animated:YES];
 }
@@ -333,7 +333,7 @@
 
 - (void)getSuperView:(double &)height width:(double &)width rect:(CGRect &)rect
 {
-  if (isIPhone)
+  if (!IPAD)
   {
     rect = [UIScreen mainScreen].bounds;
     height = self.view.window.frame.size.height;
@@ -609,7 +609,7 @@
 - (void)goToTheMap
 {
   GetFramework().GetBalloonManager().Hide();
-  if (isIPad)
+  if (IPAD)
     [[MapsAppDelegate theApp].m_mapViewController dismissPopover];
   else
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -712,12 +712,12 @@
   [self.pickerView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
   UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPicker)];
   [self.pickerView addGestureRecognizer:tap];
-  if (isIPhone)
+  if (!IPAD)
   {
     [self.view endEditing:YES];
-    UIWindow * window = APP.keyWindow;
+    UIWindow * window = [UIApplication sharedApplication].keyWindow;
     if (!window)
-      window = [APP.windows objectAtIndex:0];
+      window = [[UIApplication sharedApplication].windows objectAtIndex:0];
     [[[window subviews] objectAtIndex:0] addSubview:self.pickerView];
   }
   else

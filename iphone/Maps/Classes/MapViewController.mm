@@ -8,7 +8,6 @@
 #import "UIKitCategories.h"
 #import "SettingsViewController.h"
 #import "UIViewController+Navigation.h"
-#import "Config.h"
 #import "ShareActionSheet.h"
 #import "MPInterstitialAdController.h"
 #import "MPInterstitialViewController.h"
@@ -958,7 +957,7 @@ const long long LITE_IDL = 431183278L;
     case FACEBOOK_ALERT_VIEW:
     {
       NSString * url = [NSString stringWithFormat:FACEBOOK_SCHEME];
-      if (![APP canOpenURL: [NSURL URLWithString: url]])
+      if (![[UIApplication sharedApplication] canOpenURL: [NSURL URLWithString: url]])
         url = [NSString stringWithFormat:FACEBOOK_URL];
       [self manageAlert:buttonIndex andUrl:[NSURL URLWithString: url] andDlgSetting:dlg_settings::FacebookDlg];
       return;
@@ -1044,7 +1043,7 @@ NSInteger compareAddress(id l, id r, void * context)
 
 - (void)pushViewController:(UIViewController *)vc
 {
-  if (isIPad)
+  if (IPAD)
   {
     NavigationController * navC = [[NavigationController alloc] init];
     self.popoverVC = [[UIPopoverController alloc] initWithContentViewController:navC];
@@ -1096,7 +1095,7 @@ NSInteger compareAddress(id l, id r, void * context)
     case 1:
     {
       dlg_settings::SaveResult(set, dlg_settings::OK);
-      [APP openURL: url];
+      [[UIApplication sharedApplication] openURL:url];
       break;
     }
     case 2:

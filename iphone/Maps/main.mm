@@ -1,7 +1,6 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <Foundation/NSThread.h>
-#import "Config.h"
 
 #include "../../platform/settings.hpp"
 #include "../../platform/platform.hpp"

@@ -6,7 +6,6 @@
 #import "Statistics.h"
 #import "AarkiContact.h"
 #import <MobileAppTracker/MobileAppTracker.h>
-#import "Config.h"
 #import "UIKitCategories.h"
 #import "AppInfo.h"
 
@@ -157,7 +156,8 @@ void InitLocalizedStrings()
   attributes[UITextAttributeTextColor] = [UIColor whiteColor];
   attributes[UITextAttributeTextShadowColor] = [UIColor clearColor];
   [[UINavigationBar appearance] setTintColor:[UIColor colorWithColorCode:@"393655"]];
-  if (!SYSTEM_VERSION_IS_LESS_THAN(@"7")) {
+  if (!SYSTEM_VERSION_IS_LESS_THAN(@"7"))
+  {
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
 

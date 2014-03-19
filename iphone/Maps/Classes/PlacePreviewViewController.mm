@@ -79,8 +79,8 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  if (isIPad)
-    self.contentSizeForViewInPopover = CGSizeMake(320, 480);;
+  if (IPAD)
+    self.contentSizeForViewInPopover = CGSizeMake(320, 480);
 }
 
 #pragma mark - Table view data source

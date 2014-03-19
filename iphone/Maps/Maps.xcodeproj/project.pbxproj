@@ -1715,7 +1715,6 @@
 		ED48BBB917C2B1E2003E7E92 /* CircleView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CircleView.mm; sourceTree = "<group>"; };
 		ED5D141B181AA8C900B51FB1 /* ic_guide_mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_guide_mark.png; sourceTree = "<group>"; };
 		ED5D141C181AA8C900B51FB1 /* ic_guide_mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_guide_mark@2x.png"; sourceTree = "<group>"; };
-		ED7F47F917D47FD20016850C /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		ED8676FA16A0793800D9A02A /* 22x29-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "22x29-pro.png"; sourceTree = "<group>"; };
 		ED8676FB16A0793800D9A02A /* 44x58-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "44x58-pro.png"; sourceTree = "<group>"; };
 		ED8676FC16A0793800D9A02A /* 64-pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "64-pro.png"; sourceTree = "<group>"; };
@@ -2502,7 +2501,7 @@
 				EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */,
 				ED48BBAF17BE6EA8003E7E92 /* MWMApi.h */,
 				ED48BBB017BE6EA8003E7E92 /* MWMApi.mm */,
-				ED7F47F917D47FD20016850C /* Config.h */,
+				97DEA09018D706C300C5F963 /* Common.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
