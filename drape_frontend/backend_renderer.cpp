@@ -2,6 +2,7 @@
 #include "read_manager.hpp"
 #include "batchers_pool.hpp"
 #include "visual_params.hpp"
+#include "map_shape.hpp"
 
 #include "threads_commutator.hpp"
 #include "message_subclasses.hpp"
@@ -58,9 +59,20 @@ namespace df
       }
       break;
     case Message::TileReadStarted:
+      m_batchersPool->ReserveBatcher(static_cast<BaseTileMessage *>(message.GetRaw())->GetKey());
+      break;
     case Message::TileReadEnded:
+      m_batchersPool->ReleaseBatcher(static_cast<BaseTileMessage *>(message.GetRaw())->GetKey());
+      break;
     case Message::MapShapeReaded:
-      m_batchersPool->AcceptMessage(message);
+      {
+        MapShapeReadedMessage * msg = static_cast<MapShapeReadedMessage *>(message.GetRaw());
+        RefPointer<Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
+        MasterPointer<MapShape> shape(msg->GetShape());
+        shape->Draw(batcher);
+
+        shape.Destroy();
+      }
       break;
     default:
       ASSERT(false, ());

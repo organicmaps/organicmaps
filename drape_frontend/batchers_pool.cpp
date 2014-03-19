@@ -1,7 +1,5 @@
 #include "batchers_pool.hpp"
-#include "message.hpp"
 #include "message_subclasses.hpp"
-#include "map_shape.hpp"
 
 #include "../drape/batcher.hpp"
 
@@ -32,42 +30,17 @@ namespace df
 
   BatchersPool::~BatchersPool()
   {
-    ASSERT(m_reservedBatchers.empty(), ());
+    for (reserved_batchers_t::iterator it = m_reservedBatchers.begin();
+         it != m_reservedBatchers.end(); ++it)
+    {
+      it->second.first.Destroy();
+    }
+    m_reservedBatchers.clear();
+
     while (!m_batchers.empty())
     {
       m_batchers.top().Destroy();
       m_batchers.pop();
-    }
-  }
-
-  void BatchersPool::AcceptMessage(RefPointer<Message> message)
-  {
-    switch (message->GetType())
-    {
-    case Message::TileReadStarted:
-      {
-        BaseTileMessage * msg = static_cast<BaseTileMessage *>(message.GetRaw());
-        ReserveBatcher(msg->GetKey());
-        break;
-      }
-    case Message::TileReadEnded:
-      {
-        BaseTileMessage * msg = static_cast<BaseTileMessage *>(message.GetRaw());
-        ReleaseBatcher(msg->GetKey());
-        break;
-      }
-    case Message::MapShapeReaded:
-      {
-        MapShapeReadedMessage * mapShapeMessage = static_cast<MapShapeReadedMessage *>(message.GetRaw());
-        RefPointer<Batcher> b = GetTileBatcher(mapShapeMessage->GetKey());
-        MasterPointer<MapShape> shape(mapShapeMessage->GetShape());
-        shape->Draw(b);
-        shape.Destroy();
-        break;
-      }
-    default:
-      ASSERT(false, ());
-      break;
     }
   }
 

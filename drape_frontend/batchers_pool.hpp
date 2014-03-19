@@ -22,9 +22,6 @@ namespace df
     BatchersPool(int initBatcherCount, const send_message_fn & sendMessageFn);
     ~BatchersPool();
 
-    void AcceptMessage(RefPointer<Message> message);
-
-  private:
     void ReserveBatcher(TileKey const & key);
     RefPointer<Batcher> GetTileBatcher(TileKey const & key);
     void ReleaseBatcher(TileKey const & key);
