@@ -102,8 +102,6 @@ void DrapeSurface::CreateEngine()
 
   m_drapeEngine = MasterPointer<df::DrapeEngine>(
                     new df::DrapeEngine(f , pixelRatio, df::Viewport(pixelRatio, 0, 0, width(), height())));
-
-  sizeChanged(0);
 }
 
 void DrapeSurface::sizeChanged(int)

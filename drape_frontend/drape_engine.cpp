@@ -12,6 +12,7 @@ namespace df
     GLFunctions::Init();
     VisualParams::Init(vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
     m_navigator.LoadState();
+    m_navigator.OnSize(0, 0, m_viewport.GetWidth(), m_viewport.GetHeight());
 
     m_threadCommutator = MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
     RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
@@ -24,7 +25,6 @@ namespace df
 
   DrapeEngine::~DrapeEngine()
   {
-    //m_modelView.Save();
     m_navigator.SaveState();
     m_backend.Destroy();
     m_frontend.Destroy();
@@ -36,7 +36,6 @@ namespace df
     if (m_viewport.GetWidth() == w && m_viewport.GetHeight() == h)
       return;
 
-    //m_modelView.Resize(w, h);
     m_viewport.SetViewport(0, 0, w, h);
     m_navigator.OnSize(0, 0, w, h);
     m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
@@ -46,21 +45,18 @@ namespace df
 
   void DrapeEngine::DragStarted(const m2::PointF & p)
   {
-    //m_modelView.DrawStarted(p);
     m_navigator.StartDrag(p, 0.0);
     UpdateCoverage();
   }
 
   void DrapeEngine::Drag(m2::PointF const & p)
   {
-    //m_modelView.Drag(p);
     m_navigator.DoDrag(p, 0.0);
     UpdateCoverage();
   }
 
   void DrapeEngine::DragEnded(m2::PointF const & p)
   {
-    //m_modelView.DragEnded(p);
     m_navigator.StopDrag(p, 0.0, false);
     UpdateCoverage();
   }
