@@ -75,6 +75,7 @@ class Ruler : public gui::Element
     Framework & m_f;
     shared_ptr<graphics::DisplayList> m_dl;
     shared_ptr<graphics::DisplayList> m_textDL;
+    int m_textLengthInPx;
     double m_scale;
     double m_depth;
     m2::PointD m_orgPt;

@@ -109,6 +109,7 @@ namespace
 // ========================================================= //
 Ruler::RulerFrame::RulerFrame(Framework & f, const Ruler::RulerFrame::frame_end_fn & fn, double depth)
   : m_f(f)
+  , m_textLengthInPx(0)
   , m_scale(0.0)
   , m_depth(depth)
   , m_callback(fn)
@@ -121,6 +122,7 @@ Ruler::RulerFrame::RulerFrame(const Ruler::RulerFrame & other, const Ruler::Rule
 {
   m_dl = other.m_dl;
   m_textDL = other.m_textDL;
+  m_textLengthInPx = other.m_textLengthInPx;
   m_scale = other.m_scale;
   m_depth = other.m_depth;
   m_orgPt = other.m_orgPt;
@@ -350,6 +352,7 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
         texCoords.push_back(texture->mapPixel(m2::PointF(resourceRect.maxX(), resourceRect.minY())));
       }
 
+      m_textLengthInPx = lengthFromStart;
       cs->addTexturedListStrided(coords.data(), sizeof(m2::PointF),
                                  normals.data(), sizeof(m2::PointF),
                                  texCoords.data(), sizeof(m2::PointF),
@@ -407,7 +410,7 @@ void Ruler::RulerFrame::ShowAnimate(bool needPause)
 
 void Ruler::RulerFrame::HideAnimate(bool needPause)
 {
-  double offset = (needPause == true) ? 0.3 : 0.0;
+  double offset = (needPause == true) ? 1.0 : 0.0;
   double timeInterval = (needPause == true) ? 0.3 : 0.15;
   CreateAnim(1.0, 0.0, timeInterval, offset, false);
 }
@@ -426,7 +429,7 @@ void Ruler::RulerFrame::Draw(graphics::OverlayRenderer * r, const math::Matrix<d
 
   double yOffset = -(2 + 3 * m_f.GetVisualScale());
   r->drawDisplayList(m_textDL.get(),
-                     math::Shift(m, m_orgPt + m2::PointF(0.0, yOffset)),
+                     math::Shift(m, m_orgPt + m2::PointF(CacheLength * m_scale - m_textLengthInPx, yOffset)),
                      &holder);
 }
 
@@ -589,6 +592,9 @@ void Ruler::layout()
 void Ruler::UpdateText(const string & text)
 {
   RulerFrame * frame = GetMainFrame();
+  if (frame->IsAnimActive() && frame->IsHidingAnim())
+    return;
+
   if (frame->IsValid())
   {
     delete m_animFrame;
@@ -703,7 +709,9 @@ vector<m2::AnyRectD> const & Ruler::boundRects() const
   {
     graphics::FontDesc const & f = font(EActive);
     RulerFrame * frame = GetMainFrame();
-    m2::RectD rect(frame->GetOrgPoint(), m2::PointD(CacheLength * frame->GetScale(), f.m_size * 2));
+    m2::PointD org = frame->GetOrgPoint();
+    m2::PointD size = m2::PointD(CacheLength * frame->GetScale(), f.m_size * 2);
+    m2::RectD rect(org - m2::PointD(size.x, 0.0), org + m2::PointD(0.0, size.y));
     m_boundRects[0] = m2::AnyRectD(rect);
     setIsDirtyRect(false);
   }
