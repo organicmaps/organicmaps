@@ -119,5 +119,5 @@ void Animator::StopChangeViewport()
 double Animator::GetRotationSpeed() const
 {
   /// making full circle in 3 seconds.
-  return 3;
+  return 1;
 }

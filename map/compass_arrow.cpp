@@ -47,7 +47,7 @@ void CompassArrow::AnimateShow()
 void CompassArrow::AnimateHide()
 {
   if (isBaseVisible() && (m_animTask == NULL || !IsHidingAnim()))
-    CreateAnim(1.0, 0.0, 0.3, 0.3, false);
+    CreateAnim(1.0, 0.0, 0.3, 0.0, false);
 }
 
 void CompassArrow::SetAngle(double angle)
