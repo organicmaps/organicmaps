@@ -104,4 +104,19 @@ UNIT_TEST(LatLon_Degree_Match)
   TEST(MatchLatLonDegree("55°45’20.9916\"N, 37°37’3.6228\"E hsdfjgkdsjbv", lat, lon), ());
   TEST_ALMOST_EQUAL(lat, 55.755831, ());
   TEST_ALMOST_EQUAL(lon, 37.617673, ());
+
+  TEST(MatchLatLonDegree("55°45′20.9916″S, 37°37′3.6228″W", lat, lon), ());
+  TEST_ALMOST_EQUAL(lat, -55.755831, ());
+  TEST_ALMOST_EQUAL(lon, -37.617673, ());
+
+  TEST(MatchLatLonDegree("W55°45′20.9916″, S37°37′3.6228″", lat, lon), ());
+  TEST_ALMOST_EQUAL(lon, -55.755831, ());
+  TEST_ALMOST_EQUAL(lat, -37.617673, ());
+
+  TEST(MatchLatLonDegree("55°45′20.9916″ W 37°37′3.6228″ N", lat, lon), ());
+  TEST_ALMOST_EQUAL(lon, -55.755831, ());
+  TEST_ALMOST_EQUAL(lat, 37.617673, ());
+
+  TEST(!MatchLatLonDegree("55°45′20.9916″W 37°37′3.6228″E", lat, lon), ());
+  TEST(!MatchLatLonDegree("N55°45′20.9916″ S37°37′3.6228″", lat, lon), ());
 }

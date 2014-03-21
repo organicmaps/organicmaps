@@ -22,8 +22,7 @@ template <typename CharT> void SkipSpaces(CharT * & s)
 template <typename CharT> void Skip(CharT * & s)
 {
   while (*s && (*s == ' ' || *s == '\t' || *s == ',' || *s == ';' ||
-                *s == ':' || *s == '.' || *s == '(' || *s == ')' ||
-                *s == 'N' || *s == 'E' || *s == 'n' || *s == 'e'))
+                *s == ':' || *s == '.' || *s == '(' || *s == ')'))
     ++s;
 }
 
@@ -136,6 +135,25 @@ int GetDMSIndex(char const * & s)
   }
 }
 
+void SkipNSEW(char const * & s, char const * (&arrPos) [4])
+{
+  Skip(s);
+
+  int ind;
+  switch (*s)
+  {
+  case 'N': case 'n': ind = 0; break;
+  case 'S': case 's': ind = 1; break;
+  case 'E': case 'e': ind = 2; break;
+  case 'W': case 'w': ind = 3; break;
+  default: return;
+  }
+
+  arrPos[ind] = s++;
+
+  Skip(s);
+}
+
 }
 
 bool MatchLatLonDegree(string const & query, double & lat, double & lon)
@@ -145,11 +163,14 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
 
   int base = 0;
 
+  // Positions of N, S, E, W symbols
+  char const * arrPos[] = { 0, 0, 0, 0 };
+
   char const * s = query.c_str();
   while (true)
   {
     char const * s1 = s;
-    Skip(s);
+    SkipNSEW(s, arrPos);
     if (!*s)
     {
       // End of the string - check matching.
@@ -210,11 +231,24 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
     return false;
   }
 
+  if ((arrPos[0] && arrPos[1]) || (arrPos[2] && arrPos[3]))
+  {
+    // control symbols should match only once
+    return false;
+  }
+
+  // Calculate Lat, Lon with correct sign.
   lat = fabs(v[0].first) + v[1].first / 60.0 + v[2].first / 3600.0;
   if (v[0].first < 0.0) lat = -lat;
 
   lon = fabs(v[3].first) + v[4].first / 60.0 + v[5].first / 3600.0;
   if (v[3].first < 0.0) lon = -lon;
+
+  if (max(arrPos[0], arrPos[1]) > max(arrPos[2], arrPos[3]))
+    swap(lat, lon);
+
+  if (arrPos[1]) lat = -lat;
+  if (arrPos[3]) lon = -lon;
 
   if (lon > 180.0) lon -= 360.0;
   if (lon < -180.0) lon += 360.0;
