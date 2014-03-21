@@ -1,9 +1,10 @@
 #include "measurement_utils.hpp"
 
 #include "../platform/settings.hpp"
-#include "../base/string_utils.hpp"
 
-#include "../std/cmath.hpp"
+#include "../base/string_utils.hpp"
+#include "../base/math.hpp"
+
 #include "../std/iomanip.hpp"
 #include "../std/sstream.hpp"
 
@@ -14,8 +15,7 @@ namespace MeasurementUtils
 string ToStringPrecision(double d, int pr)
 {
   stringstream ss;
-  ss.precision(pr);
-  ss << std::fixed << d;
+  ss << setprecision(pr) << fixed << d;
   return ss.str();
 }
 
@@ -57,54 +57,53 @@ bool FormatDistance(double m, string & res)
 }
 
 
-/// @todo change ostreamstring to something faster
-string FormatLatLonAsDMSImpl(string const & posPost, string const & negPost,
-                             double value,bool roundSec)
+string FormatLatLonAsDMSImpl(double value, char positive, char negative, int dac)
 {
-   double i = 0.0;
-   double d = 0.0;
-   string postfix;
-   ostringstream sstream;
-   sstream << setfill('0');
+  using namespace my;
 
-   // Degreess
-   d = modf(fabs(value), &i);
-   sstream << setw(2) << i << "°";
-   // Minutes
-   d = modf(d * 60, &i);
-   sstream << setw(2) << i << "′";
-   // Seconds
-   if (roundSec)
-   {
-     d = modf(round(d * 60), &i);
-     sstream << setw(2) << i;
-   }
-   else
-   {
-     d = modf(d * 60, &i);
-     sstream << setw(2) << setprecision(2) << i;
-     if (d > 1e-5)
-     {
-       ostringstream tstream;
-       tstream << setprecision(4) << d;
-       string dStr = tstream.str().substr(1, 5);
-       sstream << dStr;
-     }
-   }
-   sstream << "″";
+  ostringstream sstream;
+  sstream << setfill('0');
 
-   if (value > 0)
-     postfix = posPost;
-   else if (value < 0)
-     postfix = negPost;
-   sstream << postfix;
+  // Degrees
+  double i;
+  double d = modf(fabs(value), &i);
+  sstream << setw(2) << i << "°";
 
-   return sstream.str();
+  // Minutes
+  d = modf(d * 60.0, &i);
+  sstream << setw(2) << i << "′";
+
+  // Seconds
+  d = d * 60.0;
+  if (dac == 0)
+    d = rounds(d);
+
+  d = modf(d, &i);
+  sstream << setw(2) << i;
+
+  if (dac > 0)
+    sstream << strings::to_string_dac(d, dac).substr(1);
+
+  sstream << "″";
+
+  // This condition is too heavy for production purposes (but more correct).
+  //if (my::rounds(value * 3600.0 * pow(10, dac)) != 0)
+  if (!AlmostEqual(value, 0.0))
+  {
+    char postfix = positive;
+    if (value < 0.0)
+      postfix = negative;
+
+    sstream << postfix;
+  }
+
+  return sstream.str();
 }
 
-string FormatLatLonAsDMS(double lat, double lon, bool roundSecToInt)
+string FormatLatLonAsDMS(double lat, double lon, int dac)
 {
-  return FormatLatLonAsDMSImpl("N", "S", lat, roundSecToInt) + " "  + FormatLatLonAsDMSImpl("E", "W", lon, roundSecToInt);
+  return (FormatLatLonAsDMSImpl(lat, 'N', 'S', dac) + " "  +
+          FormatLatLonAsDMSImpl(lon, 'E', 'W', dac));
 }
 
 } // namespace MeasurementUtils
