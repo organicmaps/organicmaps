@@ -1,3 +1,5 @@
+# Please use android/.gitignore for all Android stuff
+
 syntax: glob
 *~
 .DS_Store
@@ -63,79 +65,6 @@ bada/Maps/Res
 bada/Maps/Home
 bada/Maps/*.zip
 
-# android temporal
-mobile_api
-
-# android
-android/bin
-android/gen
-android/libs/*/
-android/obj
-android/.settings
-android/.classpath
-android/.cproject
-android/.project
-android/local.properties
-android/lint.xml
-.idea/
-# local android scripts, such as debugger helper scrips
-android/local
-# ignore flags symlinks
-android/res/drawable-xhdpi/??.png
-android/res/drawable-xhdpi/do_hack.png
-android/res/drawable-xhdpi/uk_england.png
-android/res/drawable-xhdpi/uk_northern_ireland.png
-android/res/drawable-xhdpi/uk_scotland.png
-android/res/drawable-xhdpi/uk_wales.png
-android/res/drawable-mdpi/??.png
-android/res/drawable-mdpi/do_hack.png
-android/res/drawable-mdpi/uk_england.png
-android/res/drawable-mdpi/uk_northern_ireland.png
-android/res/drawable-mdpi/uk_scotland.png
-android/res/drawable-mdpi/uk_wales.png
-
-# android MapsWithMeLite
-android/MapsWithMeLite/bin
-android/MapsWithMeLite/gen
-android/MapsWithMeLite/libs
-android/MapsWithMeLite/obj
-android/MapsWithMeLite/.settings
-android/MapsWithMeLite/.classpath
-android/MapsWithMeLite/.cproject
-android/MapsWithMeLite/.project
-android/MapsWithMeLite/assets
-android/MapsWithMeLite/local.properties
-# local android scripts, such as debugger helper scrips
-android/MapsWithMeLite/local
-
-# android MapsWithMeLite.Samsung
-android/MapsWithMeLite.Samsung/bin
-android/MapsWithMeLite.Samsung/gen
-android/MapsWithMeLite.Samsung/libs
-android/MapsWithMeLite.Samsung/obj
-android/MapsWithMeLite.Samsung/.settings
-android/MapsWithMeLite.Samsung/.classpath
-android/MapsWithMeLite.Samsung/.cproject
-android/MapsWithMeLite.Samsung/.project
-android/MapsWithMeLite.Samsung/assets
-android/MapsWithMeLite.Samsung/local.properties
-# local android scripts, such as debugger helper scrips
-android/MapsWithMeLite.Samsung/local
-
-# android MapsWithMePro
-android/MapsWithMePro/bin
-android/MapsWithMePro/gen
-android/MapsWithMePro/libs
-android/MapsWithMePro/obj
-android/MapsWithMePro/.settings
-android/MapsWithMePro/.classpath
-android/MapsWithMePro/.cproject
-android/MapsWithMePro/.project
-android/MapsWithMePro/assets
-android/MapsWithMePro/local.properties
-# local android scripts, such as debugger helper scrips
-android/MapsWithMePro/local
-
 # data
 data/intermediate_data
 data/*.mwm
@@ -170,11 +99,6 @@ data/benchmarks/maps/*
 qtc_packaging
 
 tools/twine/.git
-
-syntax: regexp
-(.*/)?\#[^/]*\#$
-android/YoPme/.gradletasknamecache
-android/.gradletasknamecache
 
 # shader preprocessing moc files
 drape/shader_def.hpp
