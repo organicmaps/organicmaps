@@ -173,7 +173,7 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
 //    double glyphHalfH = glyphRect.SizeY() / 2.0;
 //    double zeroMarkOffset = (glyphHalfH + 2) + 5 * k;
 
-    graphics::Brush::Info brushInfo(graphics::Color(3, 3, 3, 255));
+    graphics::Brush::Info brushInfo(graphics::Color(0, 0, 0, 0x99));
     uint32_t brushId = cs->mapInfo(brushInfo);
     graphics::Resource const * brushRes = cs->fromID(brushId);
     m2::RectU brushRect = brushRes->m_texRect;
@@ -333,7 +333,7 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
         resourceRect.Inflate(-1, -1);
         double w = resourceRect.SizeX();
         double h = resourceRect.SizeY();
-        lengthFromStart += w;
+        lengthFromStart += infos[i].m_metrics.m_xAdvance;
 
         normals.push_back(m2::PointF(0.0, 0.0));
         normals.push_back(m2::PointF(0.0, -h));
