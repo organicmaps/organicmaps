@@ -618,7 +618,10 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     @Override
     public boolean processIntent(Intent intent)
     {
-      mMapTaskToForward = new OpenUrlTask(intent.getData().toString());
+      final String url = intent.getData().toString();
+      Log.i(TAG, "Query = " + url);
+
+      mMapTaskToForward = new OpenUrlTask(url);
       return true;
     }
   }
@@ -634,7 +637,10 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     @Override
     public boolean processIntent(Intent intent)
     {
-      mMapTaskToForward = new OpenUrlTask(intent.getData().toString());
+      final String url = intent.getData().toString();
+      Log.i(TAG, "Query = " + url);
+
+      mMapTaskToForward = new OpenUrlTask(url);
       return true;
     }
   }
@@ -660,6 +666,8 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       final Uri data = intent.getData();
       if (data != null)
       {
+        Log.i(TAG, "Query = " + data.toString());
+
         final String ge0Url = "ge0:/" + data.getPath();
         mMapTaskToForward = new OpenUrlTask(ge0Url);
         return true;
@@ -728,6 +736,8 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       final Uri data = intent.getData();
       if (data != null)
       {
+        Log.i(TAG, "Query = " + data.toString());
+
         final Pattern pattern = Pattern.compile("(-?\\d+\\.?,?)+");
 
         String ll = extractCoordinates(data.getQueryParameter("ll"), pattern);
@@ -748,7 +758,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   public static String EXTRA_COUNTRY_INDEX = ".extra.index";
   private class OpenCountryTaskProcessor implements IntentProcessor
   {
-
     @Override
     public boolean isIntentSupported(Intent intent)
     {

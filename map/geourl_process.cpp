@@ -23,23 +23,16 @@ namespace url_scheme
   {
     Info & m_info;
 
-    enum TMode { START, LAT, LON, ZOOM, FINISH };
+    enum TMode { START, LAT, LON, ZOOM, TOKEN };
     TMode m_mode;
-
-    static void ToDouble(string const & token, double & d)
-    {
-      double temp;
-      if (strings::to_double(token, temp))
-        d = temp;
-    }
 
     bool CheckKeyword(string const & token)
     {
-      if (token == "lat" || token == "point")
+      if (token == "lat" || token == "point" || token == "q")
         m_mode = LAT;
       else if (token == "lon")
         m_mode = LON;
-      else if (token == "zoom")
+      else if (token == "zoom" || token == "z")
         m_mode = ZOOM;
       else
         return false;
@@ -47,72 +40,79 @@ namespace url_scheme
       return true;
     }
 
+    void CorrectZoomBounds(double & x)
+    {
+      if (x < 0.0)
+        x = 0.0;
+      int const upperScale = scales::GetUpperScale();
+      if (x > upperScale)
+        x = upperScale;
+    }
+
   public:
     DoGeoParse(Info & info) : m_info(info), m_mode(START)
     {
     }
 
-    void operator()(string const & token)
+    bool operator()(string const & token)
     {
+      // Check correct scheme and initialize mode.
+      if (m_mode == START)
+      {
+        if (token != "geo")
+          return false;
+        else
+        {
+          m_mode = LAT;
+          return true;
+        }
+      }
+
+      // Check for any keyword.
+      if (CheckKeyword(token))
+        return true;
+      else if (m_mode == TOKEN)
+        return false;
+
+      // Expect double value.
+      double x;
+      if (!strings::to_double(token, x))
+        return false;
+
+      // Assign value to the expected field.
       switch (m_mode)
       {
-      case START:
-        // Only geo scheme is supported by this parser
-        if (token != "geo")
-          m_mode = FINISH;
-        else
-          m_mode = LAT;
-        break;
-
       case LAT:
-        if (!CheckKeyword(token))
-        {
-          ToDouble(token, m_info.m_lat);
-          m_mode = LON;
-        }
+        m_info.m_lat = x;
+        m_mode = LON;
         break;
 
       case LON:
-        if (!CheckKeyword(token))
-        {
-          ToDouble(token, m_info.m_lon);
-          m_mode = ZOOM;
-        }
+        m_info.m_lon = x;
+        m_mode = TOKEN;
         break;
 
       case ZOOM:
-        if (!CheckKeyword(token))
-        {
-          ToDouble(token, m_info.m_zoom);
-
-          // validate zoom bounds
-          if (m_info.m_zoom < 0.0)
-            m_info.m_zoom = 0.0;
-          int const upperScale = scales::GetUpperScale();
-          if (m_info.m_zoom > upperScale)
-            m_info.m_zoom = upperScale;
-
-          m_mode = FINISH;
-        }
+        CorrectZoomBounds(x);
+        m_info.m_zoom = x;
+        m_mode = TOKEN;
         break;
 
       default:
-        break;
+        ASSERT(false, ());
+        return false;
       }
-    }
 
-    bool IsEnd() const { return m_mode == FINISH; }
+      return true;
+    }
   };
 
   void ParseGeoURL(string const & s, Info & info)
   {
     DoGeoParse parser(info);
-    strings::SimpleTokenizer iter(s, ":/?&=,");
+    strings::SimpleTokenizer iter(s, ":/?&=, \t");
 
-    while (iter && !parser.IsEnd())
-    {
-      parser(*iter);
+    while (iter && parser(*iter))
       ++iter;
-    }
   }
 }
