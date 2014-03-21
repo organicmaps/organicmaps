@@ -4,8 +4,7 @@
 #include "../std/target_os.hpp"
 #include "../std/iterator.hpp"
 #include "../std/cmath.hpp"
-
-#include <iomanip>  // setprecision
+#include "../std/iomanip.hpp"
 
 #include <boost/algorithm/string.hpp> // boost::trim
 
@@ -165,8 +164,18 @@ bool StartsWith(string const & s1, char const * s2)
 
 string to_string_dac(double d, int dac)
 {
+  double fD = fabs(d);
+
+  // Calc digits before comma (log10).
+  int dbc = 0;
+  while (fD >= 1.0 && dbc < numeric_limits<double>::digits10)
+  {
+    fD /= 10.0;
+    ++dbc;
+  }
+
   ostringstream ss;
-  ss << std::setprecision(dac + int(log10(fabs(d))) + 1) << d;
+  ss << setprecision(dac + dbc) << d;
   return ss.str();
 }
 
