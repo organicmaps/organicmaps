@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2010-present Facebook.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<resources>
+    <string name="app_name">Scrumptious</string>
+    <string name="app_id">233936543368280</string>
+    <string name="get_started">To get started, login using Facebook</string>
+    <string name="skip_login">Skip Login</string>
+    <string name="action_eating">What are you eating?</string>
+    <string name="action_location">Where are you?</string>
+    <string name="action_people">With whom?</string>
+    <string name="action_photo">Got a picture?</string>
+    <string name="action_eating_default">Select a meal</string>
+    <string name="action_location_default">Select a place</string>
+    <string name="action_people_default">Select friends</string>
+    <string name="action_photo_default">Take one</string>
+    <string name="action_photo_ready">Ready</string>
+    <string name="action_photo_camera">Take Photo</string>
+    <string name="action_photo_gallery">Choose Existing</string>
+    <string name="announce">Announce</string>
+    <string name="login">Login</string>
+    <string name="settings">Settings</string>
+    <string name="select_meal">Select a meal</string>
+    <string name="enter_meal">Enter meal</string>
+    <string name="result_dialog_title">Result</string>
+    <string name="result_dialog_button_text">Thanks!</string>
+    <string name="result_dialog_text_with_id">Posted Open Graph action, id: %1$s</string>
+    <string name="result_dialog_text_default">Post action complete.</string>
+    <string name="result_dialog_text_canceled">Post canceled.</string>
+    <string name="progress_dialog_text">Announcing, please wait...</string>
+    <string name="single_user_selected">%1$s</string>
+    <string name="two_users_selected">%1$s and %2$s</string>
+    <string name="multiple_users_selected">%1$s and %2$s others</string>
+    <string name="error_dialog_title">Something Went Wrong</string>
+    <string name="error_dialog_button_text">OK</string>
+    <string name="error_dialog_default_text">No response from server.</string>
+    <string name="no_location_error">Could not obtain your current location</string>
+    <string name="select_picture">Select Picture</string>
+    <string name="error_authentication_retry">An error occurred that requires your attention. %1$s</string>
+    <string name="error_authentication_reopen">An error occurred, please re-login.</string>
+    <string name="error_permission">Please allow us to post on your behalf.</string>
+    <string name="error_server">The server is busy, please retry later.</string>
+    <string name="error_bad_request">An error occurred, please contact the developer with the following message: %1$s</string>
+    <string name="error_unknown">An unknown error occurred, please contact the developer with the following message: %1$s</string>
+    <string name="exception">Exception: %1$s</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string-array name="food_types">
+        <item>Cheeseburger</item>
+        <item>Pizza</item>
+        <item>Hotdog</item>
+        <item>Italian</item>
+        <item>French</item>
+        <item>Chinese</item>
+        <item>Thai</item>
+        <item>Indian</item>
+        <item>&lt;Other&gt;</item>
+    </string-array>
+
+    <string-array name="food_og_urls">
+        <item>http://samples.ogp.me/314483151980285</item> <!-- Cheeseburger -->
+        <item>http://samples.ogp.me/314483221980278</item> <!-- Pizza -->
+        <item>http://samples.ogp.me/314483265313607</item> <!-- Hotdog -->
+        <item>http://samples.ogp.me/314483348646932</item> <!-- Italian -->
+        <item>http://samples.ogp.me/314483375313596</item> <!-- French -->
+        <item>http://samples.ogp.me/314483421980258</item> <!-- Chinese -->
+        <item>http://samples.ogp.me/314483451980255</item> <!-- Thai -->
+        <item>http://samples.ogp.me/314483491980251</item> <!-- Indian -->
+        <item></item>
+    </string-array>
+</resources>

@@ -515,6 +515,14 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
         return adapter.getGraphObjectsById(selectionStrategy.getSelectedIds());
     }
 
+    void setSelectedGraphObjects(List<String> objectIds) {
+        for(String objectId : objectIds) {
+            if(!this.selectionStrategy.isSelected(objectId)) {
+                this.selectionStrategy.toggleSelection(objectId);
+            }
+        }
+    }
+
     void saveSettingsToBundle(Bundle outState) {
         outState.putBoolean(SHOW_PICTURES_BUNDLE_KEY, showPictures);
         if (!extraFields.isEmpty()) {

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2010-present Facebook.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<resources>
+    <string name="app_name">RPSSample</string>
+    <string name="app_id">157578437735213</string>
+    <string name="rock">Rock</string>
+    <string name="paper">Paper</string>
+    <string name="scissors">Scissors</string>
+    <string name="shoot">Shoot!</string>
+    <string name="win">Win!</string>
+    <string name="loss">Loss</string>
+    <string name="tie">Tie</string>
+    <string name="again">Again!</string>
+    <string name="play">Play!</string>
+    <string name="result_won">won</string>
+    <string name="result_lost">lost</string>
+    <string name="result_tied">tied</string>
+    <string name="share_on_facebook">Share on Facebook</string>
+    <string name="see_friends">See Friends</string>
+    <string name="check_settings">Check Facebook Settings</string>
+    <string name="friends_using_rps">Friends Rockin\' RPS</string>
+    <string name="friend_activity">Friend\'s Activity</string>
+    <string name="invite_friends">Invite Friends</string>
+    <string name="invite_dialog_title">Invite a Friend</string>
+    <string name="invite_dialog_message">Please come play RPS with me!</string>
+    <string name="stats_format">W = %1$d  L = %2$d  T = %3$d</string>
+    <string name="action_display_format">%1$s vs %2$s</string>
+    <string name="feature_requires_login_title">Social Features Disabled</string>
+    <string name="feature_requires_login_message">
+        You have not logged in with Facebook.
+        Please use the menu and check your Facebook settings.
+    </string>
+    <string name="share_with_friends_title">Share on Facebook</string>
+    <string name="share_with_friends_message">Share game activity with friends?</string>
+    <string name="share_with_friends_yes">Yes</string>
+    <string name="share_with_friends_no">Maybe Later</string>
+    <string name="error_ok_button">OK</string>
+    <string name="error_dialog_title">Error!</string>
+    <string name="login_error">An error occurred during login. Please try again.</string>
+</resources>

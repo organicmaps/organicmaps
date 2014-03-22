@@ -19,8 +19,6 @@ package com.facebook;
 /**
  * Predefined event and parameter names for logging events common to many apps. Logging occurs through the
  * {@link AppEventsLogger#logEvent(String, android.os.Bundle)} family of methods.
- *
- * @beta
  */
 public class AppEventsConstants {
     // Event names

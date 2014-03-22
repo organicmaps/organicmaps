@@ -67,6 +67,7 @@ public final class FileLruCache {
     private final Limits limits;
     private final File directory;
     private boolean isTrimPending;
+    private boolean isTrimInProgress;
     private final Object lock;
     private AtomicLong lastClearCacheTime = new AtomicLong(0);
 
@@ -91,7 +92,7 @@ public final class FileLruCache {
     // Also, since trim() runs asynchronously now, this blocks until any pending trim has completed.
     long sizeInBytesForTest() {
         synchronized (lock) {
-            while (isTrimPending) {
+            while (isTrimPending || isTrimInProgress) {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
@@ -277,6 +278,10 @@ public final class FileLruCache {
     }
 
     private void trim() {
+        synchronized (lock) {
+            isTrimPending = false;
+            isTrimInProgress = true;
+        }
         try {
             Logger.log(LoggingBehavior.CACHE, TAG, "trim started");
             PriorityQueue<ModifiedFile> heap = new PriorityQueue<ModifiedFile>();
@@ -304,7 +309,7 @@ public final class FileLruCache {
             }
         } finally {
             synchronized (lock) {
-                isTrimPending = false;
+                isTrimInProgress = false;
                 lock.notifyAll();
             }
         }

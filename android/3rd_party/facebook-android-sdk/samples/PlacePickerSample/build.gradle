@@ -1,0 +1,23 @@
+apply plugin: 'android'
+
+dependencies {
+    compile project(':facebook')
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19"
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 19
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+        }
+    }
+}

@@ -720,6 +720,13 @@ class AuthorizationClient implements Serializable {
             }
         }
 
+        @Override
+        boolean needsRestart() {
+            // if the getTokenClient is null, that means an orientation change has occurred, and we need
+            // to recreate the GetTokenClient, so return true to indicate we need a restart
+            return getTokenClient == null;
+        }
+
         boolean tryAuthorize(final AuthorizationRequest request) {
             getTokenClient = new GetTokenClient(context, request.getApplicationId());
             if (!getTokenClient.start()) {

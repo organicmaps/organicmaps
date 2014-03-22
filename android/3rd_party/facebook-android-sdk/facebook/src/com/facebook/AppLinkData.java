@@ -28,8 +28,11 @@ import com.facebook.internal.NativeProtocol;
 import com.facebook.internal.PlatformServiceClient;
 import com.facebook.internal.Utility;
 import com.facebook.internal.Validate;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Iterator;
 
 /**
  * Class to encapsulate an app link, and provide methods for constructing the data from various sources
@@ -40,21 +43,26 @@ public class AppLinkData {
      * Key that should be used to pull out the UTC Unix tap-time from the arguments for this app link.
      */
     public static final String ARGUMENTS_TAPTIME_KEY = "com.facebook.platform.APPLINK_TAP_TIME_UTC";
+    /**
+     * Key that should be used to get the "referer_data" field for this app link.
+     */
+    public static final String ARGUMENTS_REFERER_DATA_KEY = "referer_data";
 
-    private static final String BUNDLE_APPLINK_ARGS_KEY = "com.facebook.platform.APPLINK_ARGS";
+    static final String BUNDLE_APPLINK_ARGS_KEY = "com.facebook.platform.APPLINK_ARGS";
+    private static final String BUNDLE_AL_APPLINK_DATA_KEY = "al_applink_data";
     private static final String APPLINK_BRIDGE_ARGS_KEY = "bridge_args";
     private static final String APPLINK_METHOD_ARGS_KEY = "method_args";
     private static final String APPLINK_VERSION_KEY = "version";
     private static final String BRIDGE_ARGS_METHOD_KEY = "method";
     private static final String METHOD_ARGS_TARGET_URL_KEY = "target_url";
     private static final String METHOD_ARGS_REF_KEY = "ref";
+    private static final String REFERER_DATA_REF_KEY = "fb_ref";
     private static final String TAG = AppLinkData.class.getCanonicalName();
 
-    private String[] ref;
+    private String ref;
     private Uri targetUri;
-    @SuppressWarnings("unused")
-    private String version;
     private JSONObject arguments;
+    private Bundle argumentBundle;
 
     /**
      * Asynchronously fetches app link information that might have been stored for use
@@ -101,7 +109,12 @@ public class AppLinkData {
                     appLinkData = createFromJson(appLinkArgsJsonString);
                     if (tapTimeUtc != -1) {
                         try {
-                            appLinkData.getArguments().put(ARGUMENTS_TAPTIME_KEY, tapTimeUtc);
+                            if (appLinkData.arguments != null) {
+                                appLinkData.arguments.put(ARGUMENTS_TAPTIME_KEY, tapTimeUtc);
+                            }
+                            if (appLinkData.argumentBundle != null) {
+                                appLinkData.argumentBundle.putString(ARGUMENTS_TAPTIME_KEY, Long.toString(tapTimeUtc));
+                            }
                         } catch (JSONException e) {
                             Log.d(TAG, "Unable to put tap time in AppLinkData.arguments");
                         }
@@ -137,12 +150,38 @@ public class AppLinkData {
             return null;
         }
 
-        String appLinkArgsJsonString = intent.getStringExtra(BUNDLE_APPLINK_ARGS_KEY);
-        // Try v2 app linking first
-        AppLinkData appLinkData = createFromJson(appLinkArgsJsonString);
+        AppLinkData appLinkData = createFromAlApplinkData(intent);
+        if (appLinkData == null) {
+            String appLinkArgsJsonString = intent.getStringExtra(BUNDLE_APPLINK_ARGS_KEY);
+            appLinkData = createFromJson(appLinkArgsJsonString);
+        }
         if (appLinkData == null) {
             // Try regular app linking
             appLinkData = createFromUri(intent.getData());
+        }
+
+        return appLinkData;
+    }
+
+    private static AppLinkData createFromAlApplinkData(Intent intent) {
+        Bundle applinks = intent.getBundleExtra(BUNDLE_AL_APPLINK_DATA_KEY);
+        if (applinks == null) {
+            return null;
+        }
+
+        AppLinkData appLinkData = new AppLinkData();
+        appLinkData.targetUri = intent.getData();
+        if (appLinkData.targetUri == null) {
+            String targetUriString = applinks.getString(METHOD_ARGS_TARGET_URL_KEY);
+            if (targetUriString != null) {
+                appLinkData.targetUri = Uri.parse(targetUriString);
+            }
+        }
+        appLinkData.argumentBundle = applinks;
+        appLinkData.arguments = null;
+        Bundle refererData = applinks.getBundle(ARGUMENTS_REFERER_DATA_KEY);
+        if (refererData != null) {
+            appLinkData.ref = refererData.getString(REFERER_DATA_REF_KEY);
         }
 
         return appLinkData;
@@ -163,13 +202,16 @@ public class AppLinkData {
             if (method.equals("applink") && version.equals("2")) {
                 // We have a new deep link
                 AppLinkData appLinkData = new AppLinkData();
-                appLinkData.version = version;
 
                 appLinkData.arguments = appLinkArgsJson.getJSONObject(APPLINK_METHOD_ARGS_KEY);
+                // first look for the "ref" key in the top level args
                 if (appLinkData.arguments.has(METHOD_ARGS_REF_KEY)) {
-                    String ref = appLinkData.arguments.getString(METHOD_ARGS_REF_KEY);
-                    if (ref != null) {
-                        appLinkData.ref = ref.split(",");
+                    appLinkData.ref = appLinkData.arguments.getString(METHOD_ARGS_REF_KEY);
+                } else if (appLinkData.arguments.has(ARGUMENTS_REFERER_DATA_KEY)) {
+                    // if it's not in the top level args, it could be in the "referer_data" blob
+                    JSONObject refererData = appLinkData.arguments.getJSONObject(ARGUMENTS_REFERER_DATA_KEY);
+                    if (refererData.has(REFERER_DATA_REF_KEY)) {
+                        appLinkData.ref = refererData.getString(REFERER_DATA_REF_KEY);
                     }
                 }
 
@@ -177,10 +219,14 @@ public class AppLinkData {
                     appLinkData.targetUri = Uri.parse(appLinkData.arguments.getString(METHOD_ARGS_TARGET_URL_KEY));
                 }
 
+                appLinkData.argumentBundle = toBundle(appLinkData.arguments);
+
                 return appLinkData;
             }
         } catch (JSONException e) {
-            Log.d(TAG, "Unable to parse AppLink JSON");
+            Log.d(TAG, "Unable to parse AppLink JSON", e);
+        } catch (FacebookException e) {
+            Log.d(TAG, "Unable to parse AppLink JSON", e);
         }
 
         return null;
@@ -191,37 +237,100 @@ public class AppLinkData {
             return null;
         }
 
-        // TODO : Try old-school deep linking
-        // Task : #2583027
-       return null;
+        AppLinkData appLinkData = new AppLinkData();
+        appLinkData.targetUri = appLinkDataUri;
+        return appLinkData;
     }
+
+    private static Bundle toBundle(JSONObject node) throws JSONException {
+        Bundle bundle = new Bundle();
+        @SuppressWarnings("unchecked")
+        Iterator<String> fields = node.keys();
+        while (fields.hasNext()) {
+            String key = fields.next();
+            Object value;
+            value = node.get(key);
+
+            if (value instanceof JSONObject) {
+                bundle.putBundle(key, toBundle((JSONObject) value));
+            } else if (value instanceof JSONArray) {
+                JSONArray valueArr = (JSONArray) value;
+                if (valueArr.length() == 0) {
+                    bundle.putStringArray(key, new String[0]);
+                } else {
+                    Object firstNode = valueArr.get(0);
+                    if (firstNode instanceof JSONObject) {
+                        Bundle[] bundles = new Bundle[valueArr.length()];
+                        for (int i = 0; i < valueArr.length(); i++) {
+                            bundles[i] = toBundle(valueArr.getJSONObject(i));
+                        }
+                        bundle.putParcelableArray(key, bundles);
+                    } else if (firstNode instanceof JSONArray) {
+                        // we don't support nested arrays
+                        throw new FacebookException("Nested arrays are not supported.");
+                    } else { // just use the string value
+                        String[] arrValues = new String[valueArr.length()];
+                        for (int i = 0; i < valueArr.length(); i++) {
+                            arrValues[i] = valueArr.get(i).toString();
+                        }
+                        bundle.putStringArray(key, arrValues);
+                    }
+                }
+            } else {
+                bundle.putString(key, value.toString());
+            }
+        }
+        return bundle;
+    }
+
 
     private AppLinkData() {
     }
 
     /**
-     * TargetUri for this App Link
-     * @return targetUri
+     * Returns the target uri for this App Link.
+     * @return target uri
      */
     public Uri getTargetUri() {
         return targetUri;
     }
 
     /**
-     * Ref for this App Link
+     * Returns the ref for this App Link.
      * @return ref
      */
-    public String[] getRef() {
+    public String getRef() {
         return ref;
     }
 
     /**
-     * The full set of arguments for this app link. Properties like TargetUri & Ref are typically
-     * picked out of this set of arguments.
+     * This method has been deprecated. Please use {@link AppLinkData#getArgumentBundle()} instead.
      * @return JSONObject property bag.
      */
+    @Deprecated
     public JSONObject getArguments() {
         return arguments;
+    }
+
+    /**
+     * The full set of arguments for this app link. Properties like target uri & ref are typically
+     * picked out of this set of arguments.
+     * @return App link related arguments as a bundle.
+     */
+    public Bundle getArgumentBundle() {
+        return argumentBundle;
+    }
+
+    /**
+     * The referer data associated with the app link. This will contain Facebook specific information like
+     * fb_access_token, fb_expires_in, and fb_ref.
+     * @return the referer data.
+     */
+    public Bundle getRefererData() {
+        if (argumentBundle != null) {
+            return argumentBundle.getBundle(ARGUMENTS_REFERER_DATA_KEY);
+        }
+        return null;
     }
 
     /**

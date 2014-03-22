@@ -1018,6 +1018,7 @@ public class Session implements Serializable {
             }
 
             newPermissionsRequest.setValidateSameFbidAsToken(getAccessToken());
+            addCallback(newPermissionsRequest.getCallback());
             authorize(newPermissionsRequest);
         }
     }
@@ -1289,12 +1290,12 @@ public class Session implements Serializable {
             this.tokenInfo = AccessToken.createEmptyToken(Collections.<String>emptyList());
         }
 
-        synchronized (callbacks) {
-            // Need to schedule the callbacks inside the same queue to preserve ordering.
-            // Otherwise these callbacks could have been added to the queue before the SessionTracker
-            // gets the ACTIVE_SESSION_SET action.
-            Runnable runCallbacks = new Runnable() {
-                public void run() {
+        // Need to schedule the callbacks inside the same queue to preserve ordering.
+        // Otherwise these callbacks could have been added to the queue before the SessionTracker
+        // gets the ACTIVE_SESSION_SET action.
+        Runnable runCallbacks = new Runnable() {
+            public void run() {
+                synchronized (callbacks) {
                     for (final StatusCallback callback : callbacks) {
                         Runnable closure = new Runnable() {
                             public void run() {
@@ -1306,9 +1307,9 @@ public class Session implements Serializable {
                         runWithHandlerOrExecutor(handler, closure);
                     }
                 }
-            };
-            runWithHandlerOrExecutor(handler, runCallbacks);
-        }
+            }
+        };
+        runWithHandlerOrExecutor(handler, runCallbacks);
 
         if (this == Session.activeSession) {
             if (oldState.isOpened() != newState.isOpened()) {
@@ -2011,7 +2012,8 @@ public class Session implements Serializable {
         }
 
         /**
-         * Sets the StatusCallback for the NewPermissionsRequest.
+         * Sets the StatusCallback for the NewPermissionsRequest. Note that once the request is made, this callback
+         * will be added to the session, and will receive all future state changes on the session.
          *
          * @param statusCallback The {@link StatusCallback SessionStatusCallback} to
          *                       notify regarding Session state changes.

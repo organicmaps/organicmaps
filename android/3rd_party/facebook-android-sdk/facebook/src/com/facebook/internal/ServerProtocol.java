@@ -39,6 +39,7 @@ public final class ServerProtocol {
     public static final String DIALOG_PARAM_E2E = "e2e";
 
     // URL components
+    private static final String GRAPH_VIDEO_URL_FORMAT = "https://graph-video.%s";
     private static final String GRAPH_URL_FORMAT = "https://graph.%s";
     private static final String REST_URL_FORMAT = "https://api.%s/method";
     public static final String BATCHED_REST_METHOD_URL_BASE = "method/";
@@ -54,6 +55,10 @@ public final class ServerProtocol {
 
     public static final String getGraphUrlBase() {
         return String.format(GRAPH_URL_FORMAT, Settings.getFacebookDomain());
+    }
+
+    public static final String getGraphVideoUrlBase() {
+        return String.format(GRAPH_VIDEO_URL_FORMAT, Settings.getFacebookDomain());
     }
 
     public static final String getRestUrlBase() {

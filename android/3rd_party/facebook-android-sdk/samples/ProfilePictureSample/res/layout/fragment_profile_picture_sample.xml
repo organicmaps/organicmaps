@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2010-present Facebook.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+<LinearLayout
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        >
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/description"
+            android:layout_marginBottom="15dp"
+            />
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
+        <LinearLayout
+                android:id="@+id/presetSizeView"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                >
+            <Button
+                    android:id="@+id/smallerButton"
+                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:layout_weight="0"
+                    android:text="@string/smaller_button_text"
+                    android:textSize="18dp"
+                    />
+            <Button
+                    android:id="@+id/largerButton"
+                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:layout_weight="0"
+                    android:text="@string/larger_button_text"
+                    android:textSize="18dp"
+                    android:enabled="false"
+                    />
+            <TextView
+                    android:id="@+id/sizeLabel"
+                    android:layout_height="40dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:text="@string/large_image_size"
+                    android:textSize="18dp"
+                    />
+        </LinearLayout>
+        <SeekBar
+                android:id="@+id/customSizeView"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                />
+        <Button
+                android:id="@+id/sizeToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/custom_size_button_text"
+                />
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            >
+        <com.facebook.widget.ProfilePictureView
+                android:id="@+id/profilepic"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                app:preset_size="large"
+                app:is_cropped="true"
+                />
+        <LinearLayout
+                android:id="@+id/userbuttoncontainer"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                >
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_chris_name"
+                    android:tag="chris.lang.92123"
+                    />
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_ming_name"
+                    android:tag="mingfli"
+                    />
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_karthik_name"
+                    android:tag="ksubraman"
+                    />
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_random_name"
+                    />
+
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_none_name"
+                    android:tag=""
+                    />
+        </LinearLayout>
+    </LinearLayout>
+
+    <CheckBox
+            android:id="@+id/squareCropToggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cropping_label"
+            android:checked="true"
+            />
+</LinearLayout>
+</ScrollView>

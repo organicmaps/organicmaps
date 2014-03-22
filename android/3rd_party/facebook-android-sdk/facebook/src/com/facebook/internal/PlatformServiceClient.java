@@ -70,7 +70,7 @@ abstract public class PlatformServiceClient implements ServiceConnection {
         }
 
         // Make sure that the service can handle the requested protocol version
-        int availableVersion = NativeProtocol.getLatestAvailableProtocolVersion(context, protocolVersion);
+        int availableVersion = NativeProtocol.getLatestAvailableProtocolVersionForService(context, protocolVersion);
         if (availableVersion == NativeProtocol.NO_PROTOCOL_AVAILABLE) {
             return false;
         }
