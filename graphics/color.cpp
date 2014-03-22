@@ -3,7 +3,7 @@
 
 namespace graphics
 {
-  Color::Color(unsigned char r1, unsigned char g1, unsigned char b1, unsigned char a1)
+  Color::Color(uint8_t r1, uint8_t g1, uint8_t b1, uint8_t a1)
     : r(r1), g(g1), b(b1), a(a1)
   {}
 
@@ -30,7 +30,7 @@ namespace graphics
     return *this;
   }
 
-  Color const Color::fromXRGB(uint32_t _c, unsigned char _a)
+  Color const Color::fromXRGB(uint32_t _c, uint8_t _a)
   {
     return Color(
         redFromARGB(_c),

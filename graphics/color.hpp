@@ -8,18 +8,18 @@ namespace graphics
 {
   struct Color
   {
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
-    unsigned char a;
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+    uint8_t a;
 
-    Color(unsigned char r1, unsigned char g1, unsigned char b1, unsigned char a1);
+    Color(uint8_t r1, uint8_t g1, uint8_t b1, uint8_t a1);
     Color();
     Color(Color const & p);
     Color const & operator=(Color const & p);
 
     static Color const fromARGB(uint32_t _c);
-    static Color const fromXRGB(uint32_t _c, unsigned char _a = 0);
+    static Color const fromXRGB(uint32_t _c, uint8_t _a = 0);
 
     Color const & operator /= (unsigned k);
 

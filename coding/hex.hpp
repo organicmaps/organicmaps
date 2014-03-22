@@ -34,6 +34,8 @@ inline string ToHex(ContainerT const & container)
   return ToHex(&*container.begin(), container.end() - container.begin());
 }
 
+/// Conversion with specializations to avoid warnings
+/// @{
 template <typename IntT>
 inline string NumToHex(IntT n)
 {
@@ -44,21 +46,30 @@ inline string NumToHex(IntT n)
   for (size_t i = 0; i < sizeof(n); ++i)
   {
     buf[i] = (n >> ((sizeof(n) - 1) * 8));
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wshift-count-overflow"
     n <<= 8;
-#pragma GCC diagnostic pop
   }
 
   return ToHex(buf, sizeof(buf));
 }
 
-/// Specialization to avoid warnings
+template <>
+inline string NumToHex<int8_t>(int8_t c)
+{
+  return ToHex(&c, sizeof(c));
+}
+
+template <>
+inline string NumToHex<uint8_t>(uint8_t c)
+{
+  return ToHex(&c, sizeof(c));
+}
+
 template <>
 inline string NumToHex<char>(char c)
 {
   return ToHex(&c, sizeof(c));
 }
+/// @}
 
 inline string FromHex(void const * ptr, size_t size) {
   string result;
