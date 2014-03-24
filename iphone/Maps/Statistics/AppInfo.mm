@@ -85,7 +85,7 @@ NSString * const AppFeatureMoreAppsBanner = @"AppFeatureMoreAppsBanner";
 
   self.featuresByDefault = @{AppFeatureInterstitial : @NO,
                              AppFeatureBanner : @NO,
-                             AppFeatureProButtonOnMap : @NO,
+                             AppFeatureProButtonOnMap : @YES,
                              AppFeatureMoreAppsBanner : @YES,
                             };
 
