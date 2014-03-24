@@ -3,4 +3,6 @@
 
 @interface MoreAppsCell : UITableViewCell
 
+- (void)setFree:(BOOL)free;
+
 @end

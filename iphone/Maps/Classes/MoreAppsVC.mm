@@ -111,12 +111,14 @@ using namespace::storage;
     {
       cell.textLabel.text = TitleMWM;
       cell.imageView.image = [self iconImageWithImage:[UIImage imageNamed:@"MapsWithMeProIcon"]];
+      [cell setFree:NO];
     }
     else if ([title isEqualToString:TitleGuides])
     {
       NSDictionary * guide = self.guideRegions[indexPath.row];
       cell.textLabel.text = guide[@"Country"];
       cell.imageView.image = [self iconImageWithImage:[UIImage imageNamed:guide[@"GuideName"]]];
+      [cell setFree:YES];
     }
     return cell;
   }
