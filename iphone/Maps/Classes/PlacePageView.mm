@@ -233,8 +233,8 @@
   UIMenuController * menuController = [UIMenuController sharedMenuController];
   if (!menuController.isMenuVisible)
   {
-    UIMenuItem * item1 = [[UIMenuItem alloc] initWithTitle:@"Copy degrees" action:@selector(copyDegreesLocation:)];
-    UIMenuItem * item2 = [[UIMenuItem alloc] initWithTitle:@"Copy decimal" action:@selector(copyDecimalLocation:)];
+    UIMenuItem * item1 = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"copy_degrees", nil) action:@selector(copyDegreesLocation:)];
+    UIMenuItem * item2 = [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"copy_decimal", nil) action:@selector(copyDecimalLocation:)];
     menuController.menuItems = @[item1, item2];
     CGPoint tapPoint = [sender locationInView:sender.view.superview];
     [menuController setTargetRect:CGRectMake(tapPoint.x, sender.view.minY, 0, 0) inView:sender.view.superview];

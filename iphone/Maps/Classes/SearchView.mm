@@ -360,7 +360,7 @@ static void OnSearchResultCallback(search::Results const & results)
   {
     if (indexPath.row == 0)
     {
-      cell.titleLabel.text = @"Показать все";
+      cell.titleLabel.text = NSLocalizedString(@"show_all_search_results", nil);
       cell.subtitleLabel.text = nil;
       cell.distanceLabel.text = nil;
     }
@@ -397,7 +397,7 @@ static void OnSearchResultCallback(search::Results const & results)
   {
     if (indexPath.row == 0)
     {
-      return [SearchUniversalCell cellHeightWithTitle:@"Показать все" subtitle:nil distance:nil viewWidth:tableView.width];
+      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"show_all_search_results", nil) subtitle:nil distance:nil viewWidth:tableView.width];
     }
     else
     {
@@ -566,7 +566,7 @@ static void OnSearchResultCallback(search::Results const & results)
     _emptyResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, 60)];
     _emptyResultLabel.backgroundColor = [UIColor clearColor];
     _emptyResultLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-    _emptyResultLabel.text = @"Нет результатов";
+    _emptyResultLabel.text = NSLocalizedString(@"no_search_results_found", nil);
     _emptyResultLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
     _emptyResultLabel.textAlignment = NSTextAlignmentCenter;
   }
