@@ -106,6 +106,7 @@
   NSNumberFormatter * numberFormatter = [[NSNumberFormatter alloc] init];
   [numberFormatter setMaximumFractionDigits:digitsCount];
   [numberFormatter setMinimumFractionDigits:digitsCount];
+  [numberFormatter setMinimumIntegerDigits:1];
   return [numberFormatter stringFromNumber:@(coordinate)];
 }
 
