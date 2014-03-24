@@ -265,7 +265,8 @@ static void OnSearchResultCallback(search::Results const & results)
       self.tableView.alpha = 1;
       self.tableView.minY = 0;
     } completion:^(BOOL finished){
-      [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
+      if (!self.searchBar.resultText)
+        [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
     }];
   }
   else
