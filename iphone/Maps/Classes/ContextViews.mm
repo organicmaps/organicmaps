@@ -4,6 +4,7 @@
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "Framework.h"
+#include "../../../map/measurement_utils.hpp"
 
 @implementation LocationImageView
 
@@ -122,13 +123,16 @@
 {
   double const longitude = MercatorBounds::XToLon(self.pinPoint.x);
   double const latitude = MercatorBounds::YToLat(self.pinPoint.y);
-  NSString * coordinates = [NSString stringWithFormat:@"%@ %@", [self coordinateString:longitude digitsCount:7], [self coordinateString:latitude digitsCount:7]];
+  NSString * coordinates = [NSString stringWithFormat:@"%@ %@", [self coordinateString:longitude digitsCount:6], [self coordinateString:latitude digitsCount:6]];
   [UIPasteboard generalPasteboard].string = coordinates;
 }
 
 - (void)copyDegreesLocation:(id)sender
 {
-  [self copyDecimalLocation:nil];
+  double const latitude = MercatorBounds::YToLat(self.pinPoint.y);
+  double const longitude = MercatorBounds::XToLon(self.pinPoint.x);
+  string const coordinates = MeasurementUtils::FormatLatLonAsDMS(latitude, longitude, 3);
+  [UIPasteboard generalPasteboard].string = [NSString stringWithUTF8String:coordinates.c_str()];
 }
 
 - (UILabel *)longitudeValueLabel
@@ -202,6 +206,8 @@
   self = [super initWithFrame:frame];
 
   self.userInteractionEnabled = YES;
+  UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+  [self addGestureRecognizer:tap];
 
   return self;
 }

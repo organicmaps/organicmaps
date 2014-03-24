@@ -88,6 +88,10 @@
 
   UILongPressGestureRecognizer * locationPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(locationPress:)];
   [self.locationView addGestureRecognizer:locationPress];
+  UITapGestureRecognizer * locationTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMenuTap:)];
+  [self.locationView addGestureRecognizer:locationTap];
+  UITapGestureRecognizer * addressTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideMenuTap:)];
+  [self.addressLabel addGestureRecognizer:addressTap];
 
   UILongPressGestureRecognizer * titlePress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(labelPress:)];
   [self.titleLabel addGestureRecognizer:titlePress];
@@ -242,10 +246,16 @@
 
 - (void)tap:(UITapGestureRecognizer *)sender
 {
+  [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
   if (self.state == PlacePageStateBitShown)
     [self setState:PlacePageStateOpened animated:YES];
   else if (self.state == PlacePageStateOpened)
     [self setState:PlacePageStateBitShown animated:YES];
+}
+
+- (void)hideMenuTap:(UITapGestureRecognizer *)sender
+{
+  [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
 }
 
 - (void)pan:(UIPanGestureRecognizer *)sender
