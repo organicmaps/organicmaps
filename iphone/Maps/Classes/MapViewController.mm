@@ -988,22 +988,39 @@ const long long LITE_IDL = 431183278L;
       switch (self.placePageView.state)
       {
       case PlacePageStateHidden:
-        self.sideToolbar.slideView.midY = SLIDE_VIEW_MID_Y;
-        self.locationButton.midY = LOCATION_BUTTON_MID_Y;
-        GetFramework().GetBalloonManager().RemovePin();
-        break;
+        {
+          self.sideToolbar.slideView.midY = SLIDE_VIEW_MID_Y;
+          self.locationButton.midY = LOCATION_BUTTON_MID_Y;
+          GetFramework().GetBalloonManager().RemovePin();
+          break;
+        }
       case PlacePageStateBitShown:
-        self.sideToolbar.slideView.midY = SLIDE_VIEW_MID_Y - (self.view.height - self.placePageView.minY);
-        self.locationButton.midY = LOCATION_BUTTON_MID_Y - (self.view.height - self.placePageView.minY);
-        break;
+        {
+          self.sideToolbar.slideView.midY = SLIDE_VIEW_MID_Y - (self.view.height - self.placePageView.minY);
+          self.locationButton.midY = LOCATION_BUTTON_MID_Y - (self.view.height - self.placePageView.minY);
+
+          Framework & framework = GetFramework();
+          CGFloat const x = self.view.width / 2;
+          CGFloat const y = self.placePageView.minY - 20;
+          CGPoint const pinPoint = [(EAGLView *)self.view globalPoint2ViewPoint:CGPointMake(self.placePageView.pinPoint.x, self.placePageView.pinPoint.y)];
+          if (pinPoint.y > y) {
+            CGPoint const deadAreaPoint = [(EAGLView *)self.view viewPoint2GlobalPoint:CGPointMake(x, y)];
+            m2::PointD const newPoint = m2::PointD(self.placePageView.pinPoint.x, deadAreaPoint.y);
+            m2::PointD const offset = self.placePageView.pinPoint - newPoint;
+            framework.SetViewportCenterAnimated(framework.GetViewportCenter() + offset);
+          }
+          break;
+        }
       case PlacePageStateOpened:
-        Framework & f = GetFramework();
-        CGFloat x = self.view.width / 2;
-        CGFloat y = (self.searchView.searchBar.maxY + self.placePageView.minY) / 2;
-        CGPoint const center = [(EAGLView *)self.view viewPoint2GlobalPoint:CGPointMake(x, y)];
-        m2::PointD const offsetV = self.placePageView.pinPoint - m2::PointD(center.x, center.y);
-        f.SetViewportCenterAnimated(f.GetViewportCenter() + offsetV);
-        break;
+        {
+          Framework & framework = GetFramework();
+          CGFloat const x = self.view.width / 2;
+          CGFloat const y = (self.searchView.searchBar.maxY + self.placePageView.minY) / 2;
+          CGPoint const center = [(EAGLView *)self.view viewPoint2GlobalPoint:CGPointMake(x, y)];
+          m2::PointD const offset = self.placePageView.pinPoint - m2::PointD(center.x, center.y);
+          framework.SetViewportCenterAnimated(framework.GetViewportCenter() + offset);
+          break;
+        }
       }
     } completion:nil];
   }
