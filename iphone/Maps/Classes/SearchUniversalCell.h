@@ -8,6 +8,6 @@
 @property (nonatomic, readonly) UILabel * subtitleLabel;
 @property (nonatomic, readonly) UILabel * distanceLabel;
 
-+ (CGFloat)cellHeightWithTitle:(NSString *)title subtitle:(NSString *)subtitle viewWidth:(CGFloat)width;
++ (CGFloat)cellHeightWithTitle:(NSString *)title subtitle:(NSString *)subtitle distance:(NSString *)distance viewWidth:(CGFloat)width;
 
 @end

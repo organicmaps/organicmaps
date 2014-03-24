@@ -167,9 +167,11 @@ __weak SearchView * selfPointer;
   double lat, lon;
   if ([locationManager getLat:lat Lon:lon])
   {
-    for (NSInteger segment = 0; segment < [self.segmentedControl segmentsCount]; segment++) {
+    for (NSInteger segment = 0; segment < [self.segmentedControl segmentsCount]; segment++)
+    {
       SearchResultsWrapper * wrapper = self.searchData[segment];
-      for (NSInteger position = 0; position < [wrapper count]; position++) {
+      for (NSInteger position = 0; position < [wrapper count]; position++)
+      {
         search::Result const & result = [wrapper resultWithPosition:position];
         string distance;
         GetFramework().GetDistanceAndAzimut(result.GetFeatureCenter(), lat, lon, north, distance, azimut);
@@ -310,6 +312,7 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (void)segmentedControl:(SegmentedControl *)segmentControl didSelectSegment:(NSInteger)segmentIndex
 {
+  Settings::Set("SearchMode", (int)segmentIndex);
   [self search];
 }
 
@@ -342,9 +345,9 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  SearchUniversalCell * cell = [tableView dequeueReusableCellWithIdentifier:@"UniversalCell"];
+  SearchUniversalCell * cell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
   if (!cell)
-    cell = [[SearchUniversalCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UniversalCell"];
+    cell = [[SearchUniversalCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchUniversalCell className]];
 
   if ([self isShowingCategories])
   {
@@ -387,13 +390,13 @@ static void OnSearchResultCallback(search::Results const & results)
 {
   if ([self isShowingCategories])
   {
-    return [SearchUniversalCell cellHeightWithTitle:self.categoriesNames[indexPath.row] subtitle:nil viewWidth:tableView.width];
+    return [SearchUniversalCell cellHeightWithTitle:self.categoriesNames[indexPath.row] subtitle:nil distance:nil viewWidth:tableView.width];
   }
   else
   {
     if (indexPath.row == 0)
     {
-      return [SearchUniversalCell cellHeightWithTitle:@"Показать все" subtitle:nil viewWidth:tableView.width];
+      return [SearchUniversalCell cellHeightWithTitle:@"Показать все" subtitle:nil distance:nil viewWidth:tableView.width];
     }
     else
     {
@@ -402,7 +405,7 @@ static void OnSearchResultCallback(search::Results const & results)
       search::Result const & result = [wrapper resultWithPosition:position];
       NSString * title = [NSString stringWithUTF8String:result.GetString()];
       NSString * subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
-      return [SearchUniversalCell cellHeightWithTitle:title subtitle:subtitle viewWidth:tableView.width];
+      return [SearchUniversalCell cellHeightWithTitle:title subtitle:subtitle distance:wrapper.distances[@(position)] viewWidth:tableView.width];
     }
   }
 }
@@ -433,7 +436,7 @@ static void OnSearchResultCallback(search::Results const & results)
   if (indexPath.row == 0)
   {
     GetFramework().ShowAllSearchResults();
-    self.searchBar.isShowingResult = YES;
+    self.searchBar.resultText = self.searchBar.textField.text;
     [self setActive:NO animated:YES];
   }
   else
@@ -458,9 +461,7 @@ static void OnSearchResultCallback(search::Results const & results)
       else
         [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"Everywhere"}];
 
-      self.searchBar.textField.text = [NSString stringWithUTF8String:result.GetString()];
-
-      self.searchBar.isShowingResult = YES;
+      self.searchBar.resultText = [NSString stringWithUTF8String:result.GetString()];
       [self setActive:NO animated:YES];
     }
   }

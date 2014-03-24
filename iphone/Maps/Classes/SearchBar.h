@@ -13,7 +13,7 @@
 @interface SearchBar : UIView <SearchActivityProtocol>
 
 @property (nonatomic, readonly) UITextField * textField;
-@property (nonatomic) BOOL isShowingResult;
+@property (nonatomic) NSString * resultText;
 @property (nonatomic, weak) id <SearchBarDelegate> delegate;
 @property (nonatomic) NSString * apiText;
 

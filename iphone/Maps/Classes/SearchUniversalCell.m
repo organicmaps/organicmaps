@@ -23,8 +23,9 @@
   return self;
 }
 
+#define DISTANCE_FONT [UIFont fontWithName:@"HelveticaNeue" size:15]
 #define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:15]
-#define TITLE_WIDTH_REST 150
+#define TITLE_WIDTH_REST 70
 #define TITLE_HEIGHT 60
 
 - (void)layoutSubviews
@@ -32,9 +33,10 @@
   [super layoutSubviews];
 
   self.distanceLabel.maxX = self.width - 45;
-  self.distanceLabel.midY = self.height / 2 - 0.5;
+  self.distanceLabel.midY = self.height / 2 - 1;
 
-  self.titleLabel.width = self.width - TITLE_WIDTH_REST;
+  CGFloat distanceWidth = [self.distanceLabel.text sizeWithDrawSize:CGSizeMake(100, 20) font:DISTANCE_FONT].width;
+  self.titleLabel.width = self.width - distanceWidth - TITLE_WIDTH_REST;
   self.titleLabel.minX = 16;
   [self.titleLabel sizeToFit];
   if ([self.subtitleLabel.text length])
@@ -44,9 +46,11 @@
   self.subtitleLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY - 1);
 }
 
-+ (CGFloat)cellHeightWithTitle:(NSString *)title subtitle:(NSString *)subtitle viewWidth:(CGFloat)width
++ (CGFloat)cellHeightWithTitle:(NSString *)title subtitle:(NSString *)subtitle distance:(NSString *)distance viewWidth:(CGFloat)width
 {
-  return MAX(44, [title sizeWithDrawSize:CGSizeMake(width - TITLE_WIDTH_REST, TITLE_HEIGHT) font:TITLE_FONT].height + ([subtitle length] ? 27 : 15));
+  CGFloat distanceWidth = [distance sizeWithDrawSize:CGSizeMake(100, 20) font:DISTANCE_FONT].width;
+  CGFloat titleHeight = [title sizeWithDrawSize:CGSizeMake(width - distanceWidth - TITLE_WIDTH_REST, TITLE_HEIGHT) font:TITLE_FONT].height;
+  return MAX(44, titleHeight + ([subtitle length] ? 27 : 15));
 }
 
 - (UILabel *)distanceLabel
@@ -56,7 +60,7 @@
     _distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 16)];
     _distanceLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     _distanceLabel.backgroundColor = [UIColor clearColor];
-    _distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
+    _distanceLabel.font = DISTANCE_FONT;
     _distanceLabel.textColor = [UIColor blackColor];
     _distanceLabel.textAlignment = NSTextAlignmentRight;
     _distanceLabel.alpha = 0.5;

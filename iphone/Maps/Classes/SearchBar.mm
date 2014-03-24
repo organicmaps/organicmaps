@@ -140,7 +140,7 @@
     } completion:nil];
 
     [UIView animateWithDuration:(animated ? 0.35 : 0) delay:0 damping:0.8 initialVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-      if (self.isShowingResult)
+      if (self.resultText)
       {
         self.searchLabel.minX = 47;
       }
@@ -176,7 +176,7 @@
     [UIView animateWithDuration:(animated ? 0.45 : 0) delay:0 damping:0.8 initialVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
       self.backgroundImageView.frame = CGRectMake(backgroundImageOffset, 0, self.width - 2 * backgroundImageOffset, self.backgroundImageView.height);
 
-      self.searchLabel.text = self.isShowingResult ? self.textField.text : NSLocalizedString(@"search", nil);
+      self.searchLabel.text = self.resultText ? self.resultText : NSLocalizedString(@"search", nil);
       [self.searchLabel sizeToFit];
 
       [self layoutImageAndLabelInNonActiveState];
@@ -184,7 +184,7 @@
       self.cancelButton.alpha = 0;
       self.cancelButton.minX = self.width;
 
-      if (!self.isShowingResult)
+      if (!self.resultText)
         self.clearButton.alpha = 0;
 
       [self.textField resignFirstResponder];
@@ -196,7 +196,7 @@
 - (void)layoutImageAndLabelInNonActiveState
 {
   self.searchLabel.alpha = 1;
-  if (self.isShowingResult)
+  if (self.resultText)
   {
     self.searchLabel.midX = self.searchLabel.superview.width / 2;
     self.searchImageView.alpha = 0;
@@ -226,7 +226,7 @@
   if (self.active)
   {
     self.textField.text = nil;
-    self.isShowingResult = NO;
+    self.resultText = nil;
     [self.textField becomeFirstResponder];
   }
   else
@@ -244,7 +244,7 @@
 - (void)hideSearchedText
 {
   self.textField.text = nil;
-  self.isShowingResult = NO;
+  self.resultText = nil;
   self.searchLabel.text = NSLocalizedString(@"search", nil);
   [self.searchLabel sizeToFit];
   [UIView animateWithDuration:0.4 delay:0 damping:0.8 initialVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -257,8 +257,7 @@
 {
   if (apiText)
   {
-    self.textField.text = apiText;
-    self.isShowingResult = YES;
+    self.resultText = apiText;
     [self setActive:NO animated:YES];
     self.clearButton.alpha = 1;
   }
