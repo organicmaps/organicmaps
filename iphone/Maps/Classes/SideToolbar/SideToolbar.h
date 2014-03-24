@@ -4,8 +4,11 @@
 @class SideToolbar;
 @protocol SideToolbarDelegate <NSObject>
 
-- (void)sideToolbar:(SideToolbar *)toolbar didPressButtonAtIndex:(NSInteger)buttonIndex;
+- (void)sideToolbar:(SideToolbar *)toolbar didPressItemWithName:(NSString *)itemName;
 - (void)sideToolbarDidUpdateShift:(SideToolbar *)toolbar;
+- (void)sideToolbarWillOpenMenu:(SideToolbar *)toolbar;
+- (void)sideToolbarWillCloseMenu:(SideToolbar *)toolbar;
+- (void)sideToolbarDidCloseMenu:(SideToolbar *)toolbar;
 
 @end
 

@@ -3,6 +3,7 @@
 #import "SideToolbarCell.h"
 #import "UIKitCategories.h"
 #include "../../../../platform/platform.hpp"
+#import "AppInfo.h"
 
 typedef NS_ENUM(NSUInteger, Section)
 {
@@ -19,6 +20,7 @@ typedef NS_ENUM(NSUInteger, Section)
 @property (nonatomic) UIPanGestureRecognizer * menuPanGesture;
 @property (nonatomic) UIButton * buyButton;
 @property (nonatomic) UIView * backgroundView;
+@property (nonatomic) CGFloat startMenuShift;
 
 @property (nonatomic) BOOL isMenuHidden;
 
@@ -26,9 +28,7 @@ typedef NS_ENUM(NSUInteger, Section)
 
 @implementation SideToolbar
 {
-  NSArray * menuTitles;
-  NSArray * menuImageNames;
-  NSArray * disabledInTrial;
+  NSArray * menuItems;
   CGPoint slideViewOffset;
 }
 
@@ -36,21 +36,11 @@ typedef NS_ENUM(NSUInteger, Section)
 {
   self = [super initWithFrame:frame];
 
-  menuTitles = @[NSLocalizedString(@"search", nil),
-                 NSLocalizedString(@"download_maps", nil),
-                 NSLocalizedString(@"bookmarks", nil),
-                 NSLocalizedString(@"settings", nil),
-                 NSLocalizedString(@"share_my_location", nil),
-                 NSLocalizedString(@"more_apps_title", nil)];
-
-  menuImageNames = @[@"IconSearch",
-                     @"IconMap",
-                     @"IconBookmarks",
-                     @"IconSettings",
-                     @"IconShare",
-                     @"IconMoreApps"];
-
-  disabledInTrial = @[@YES, @NO, @YES, @NO, @NO, @NO, @NO];
+  menuItems = @[@{@"Item" : @"Maps",      @"Title" : NSLocalizedString(@"download_maps", nil),     @"Icon" : @"IconMap",       @"Disabled" : @NO},
+                @{@"Item" : @"Bookmarks", @"Title" : NSLocalizedString(@"bookmarks", nil),         @"Icon" : @"IconBookmarks", @"Disabled" : @YES},
+                @{@"Item" : @"Settings",  @"Title" : NSLocalizedString(@"settings", nil),          @"Icon" : @"IconSettings",  @"Disabled" : @NO},
+                @{@"Item" : @"Share",     @"Title" : NSLocalizedString(@"share_my_location", nil), @"Icon" : @"IconShare",     @"Disabled" : @NO},
+                @{@"Item" : @"MoreApps",  @"Title" : NSLocalizedString(@"more_apps_title", nil),   @"Icon" : @"IconMoreApps",  @"Disabled" : @NO}];
 
   self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin;
   [self addGestureRecognizer:self.menuPanGesture];
@@ -66,7 +56,7 @@ typedef NS_ENUM(NSUInteger, Section)
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   if (section == SectionMenu)
-    return [menuTitles count];
+    return [menuItems count];
   else
     return 1;
 }
@@ -89,10 +79,10 @@ typedef NS_ENUM(NSUInteger, Section)
     if (GetPlatform().IsPro())
       customCell.disabled = NO;
     else
-      customCell.disabled = [disabledInTrial[indexPath.row] boolValue];
+      customCell.disabled = [menuItems[indexPath.row][@"Disabled"] boolValue];
 
-    customCell.iconImageView.image = [UIImage imageNamed:menuImageNames[indexPath.row]];
-    NSInteger wordsCount = [[menuTitles[indexPath.row] componentsSeparatedByString:@" "] count];
+    customCell.iconImageView.image = [UIImage imageNamed:menuItems[indexPath.row][@"Icon"]];
+    NSInteger wordsCount = [[menuItems[indexPath.row][@"Title"] componentsSeparatedByString:@" "] count];
     if (wordsCount > 1)
     {
       customCell.titleLabel.numberOfLines = 0;
@@ -103,7 +93,7 @@ typedef NS_ENUM(NSUInteger, Section)
       customCell.titleLabel.numberOfLines = 1;
       customCell.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     }
-    customCell.titleLabel.text = menuTitles[indexPath.row];
+    customCell.titleLabel.text = menuItems[indexPath.row][@"Title"];
 
     cell = customCell;
   }
@@ -123,7 +113,7 @@ typedef NS_ENUM(NSUInteger, Section)
 
 - (CGFloat)restSpace
 {
-  return self.height - [SideToolbarCell cellHeight] * [menuTitles count];
+  return self.height - [SideToolbarCell cellHeight] * [menuItems count];
 }
 
 - (CGFloat)topSpaceRatio
@@ -161,22 +151,13 @@ typedef NS_ENUM(NSUInteger, Section)
 {
   if (indexPath.section == SectionMenu)
   {
-    [self.delegate sideToolbar:self didPressButtonAtIndex:indexPath.row];
+    [self.delegate sideToolbar:self didPressItemWithName:menuItems[indexPath.row][@"Item"]];
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
   }
 }
 
 - (void)layoutSubviews
 {
-  NSTimeInterval rotationDuration = 0.3;
-
-  if (self.isMenuHidden)
-    self.hidden = YES;
-  [UIView animateWithDuration:rotationDuration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    self.menuShift = self.isMenuHidden ? self.minimumMenuShift : self.maximumMenuShift;
-  } completion:^(BOOL finished) {
-    self.hidden = NO;
-  }];
   NSMutableIndexSet * indexSet = [[NSMutableIndexSet alloc] init];
   [indexSet addIndex:SectionTopSpace];
   [indexSet addIndex:SectionBottomSpace];
@@ -184,7 +165,7 @@ typedef NS_ENUM(NSUInteger, Section)
 
   for (CALayer * backgroundLayer in self.backgroundView.layer.sublayers)
   {
-    NSTimeInterval delay = backgroundLayer.frame.size.height > self.height ? rotationDuration : 0;
+    NSTimeInterval delay = backgroundLayer.frame.size.height > self.height ? 0.3 : 0;
     [self performAfterDelay:delay block:^{
       CGRect frame = backgroundLayer.frame;
       frame.size.height = self.height;
@@ -213,14 +194,16 @@ typedef NS_ENUM(NSUInteger, Section)
 
 - (void)panGesture:(UIPanGestureRecognizer *)sender
 {
-  self.menuShift -= [sender translationInView:self.superview].x;
-  [sender setTranslation:CGPointZero inView:self.superview];
-
   if (sender.state == UIGestureRecognizerStateBegan)
   {
+    self.startMenuShift = self.menuShift;
     self.isMenuHidden = NO;
+    [self.delegate sideToolbarWillOpenMenu:self];
   }
-  else if (sender.state == UIGestureRecognizerStateCancelled || sender.state == UIGestureRecognizerStateEnded)
+
+  self.menuShift = self.startMenuShift - [sender translationInView:self.superview].x;
+
+  if (sender.state == UIGestureRecognizerStateCancelled || sender.state == UIGestureRecognizerStateEnded)
   {
     CGFloat velocity = [sender velocityInView:self.superview].x;
     CGFloat minV = 1000;
@@ -228,32 +211,53 @@ typedef NS_ENUM(NSUInteger, Section)
     BOOL isPositive = velocity > 0;
     CGFloat absV = ABS(velocity);
     absV = MIN(maxV, MAX(minV, absV));
-    [self setMenuHidden:isPositive duration:(300 / absV)];
+    double damping = isPositive ? 1 : 700 / absV;
+    damping = MAX(damping, 0.55);
+    [self setMenuHidden:isPositive duration:(400 / absV) damping:damping];
   }
   [self.delegate sideToolbarDidUpdateShift:self];
 }
 
 #pragma mark - Setters
 
-- (void)setMenuHidden:(BOOL)hidden duration:(NSTimeInterval)duration
+- (void)setMenuHidden:(BOOL)hidden duration:(NSTimeInterval)duration damping:(double)damping
 {
-  [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    self.menuShift = hidden ? self.minimumMenuShift : self.maximumMenuShift;
-  } completion:^(BOOL finished) {}];
   self.isMenuHidden = hidden;
+  if (hidden)
+    [self.delegate sideToolbarWillCloseMenu:self];
+  else
+    [self.delegate sideToolbarWillOpenMenu:self];
+  [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
+    self.menuShift = hidden ? self.minimumMenuShift : self.maximumMenuShift;
+  } completion:^(BOOL finished){
+    if (hidden)
+      [self.delegate sideToolbarDidCloseMenu:self];
+  }];
 }
 
 - (void)setMenuHidden:(BOOL)hidden animated:(BOOL)animated
 {
-  NSTimeInterval duration = animated ? 0.25 : 0;
-  [self setMenuHidden:hidden duration:duration];
+  NSTimeInterval duration = animated ? 0.4 : 0;
+  double damping = hidden ? 1 : 0.77;
+  [self setMenuHidden:hidden duration:duration damping:damping];
 }
 
 - (void)setMenuShift:(CGFloat)menuShift
 {
-  menuShift = MIN(self.maximumMenuShift, MAX(self.minimumMenuShift, menuShift));
+  CGFloat delta = menuShift - self.maximumMenuShift;
+  if (delta > 0)
+  {
+    CGFloat springDistance = 40;
+    CGFloat springStrength = 0.6;
+    delta = MIN(springDistance, powf(delta, springStrength));
+    menuShift = self.maximumMenuShift + delta;
+  }
+
+  menuShift = MAX(0, menuShift);
   self.minX = self.superview.width - menuShift;
+
   self.slideView.midX = self.minX - slideViewOffset.x;
+
   _menuShift = menuShift;
 }
 
@@ -265,15 +269,6 @@ typedef NS_ENUM(NSUInteger, Section)
   _slideView = slideView;
 }
 
-- (void)setIsMenuHidden:(BOOL)isMenuHidden
-{
-  if (_isMenuHidden != isMenuHidden)
-  {
-    _isMenuHidden = isMenuHidden;
-    [self didChangeValueForKey:@"isMenuHidden"];
-  }
-}
-
 #pragma mark - Getters
 
 - (CGFloat)minimumMenuShift
@@ -283,7 +278,7 @@ typedef NS_ENUM(NSUInteger, Section)
 
 - (CGFloat)maximumMenuShift
 {
-  return self.width;
+  return 260;
 }
 
 - (UIPanGestureRecognizer *)slidePanGesture
