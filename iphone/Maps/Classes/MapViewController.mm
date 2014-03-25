@@ -1003,7 +1003,8 @@ const long long LITE_IDL = 431183278L;
           CGFloat const x = self.view.width / 2;
           CGFloat const y = self.placePageView.minY - 20;
           CGPoint const pinPoint = [(EAGLView *)self.view globalPoint2ViewPoint:CGPointMake(self.placePageView.pinPoint.x, self.placePageView.pinPoint.y)];
-          if (pinPoint.y > y) {
+          if (pinPoint.y > y)
+          {
             CGPoint const deadAreaPoint = [(EAGLView *)self.view viewPoint2GlobalPoint:CGPointMake(x, y)];
             m2::PointD const newPoint = m2::PointD(self.placePageView.pinPoint.x, deadAreaPoint.y);
             m2::PointD const offset = self.placePageView.pinPoint - newPoint;

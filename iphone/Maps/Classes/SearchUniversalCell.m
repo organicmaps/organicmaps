@@ -26,7 +26,7 @@
 #define DISTANCE_FONT [UIFont fontWithName:@"HelveticaNeue" size:15]
 #define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:15]
 #define TITLE_WIDTH_REST 70
-#define TITLE_HEIGHT 60
+#define MAX_TITLE_HEIGHT 200
 
 - (void)layoutSubviews
 {
@@ -49,7 +49,7 @@
 + (CGFloat)cellHeightWithTitle:(NSString *)title subtitle:(NSString *)subtitle distance:(NSString *)distance viewWidth:(CGFloat)width
 {
   CGFloat distanceWidth = [distance sizeWithDrawSize:CGSizeMake(100, 20) font:DISTANCE_FONT].width;
-  CGFloat titleHeight = [title sizeWithDrawSize:CGSizeMake(width - distanceWidth - TITLE_WIDTH_REST, TITLE_HEIGHT) font:TITLE_FONT].height;
+  CGFloat titleHeight = [title sizeWithDrawSize:CGSizeMake(width - distanceWidth - TITLE_WIDTH_REST, MAX_TITLE_HEIGHT) font:TITLE_FONT].height;
   return MAX(44, titleHeight + ([subtitle length] ? 27 : 15));
 }
 
@@ -84,7 +84,7 @@
 {
   if (!_titleLabel)
   {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, TITLE_HEIGHT)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, MAX_TITLE_HEIGHT)];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.font = TITLE_FONT;
     _titleLabel.textColor = [UIColor blackColor];
