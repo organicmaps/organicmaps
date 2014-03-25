@@ -37,18 +37,20 @@
 
 @interface SearchResultsWrapper ()
 
-@property (nonatomic) search::Results results;
 @property (nonatomic) NSMutableDictionary * distances;
 
 @end
 
 @implementation SearchResultsWrapper
+{
+  search::Results m_results;
+}
 
 - (id)initWithResults:(search::Results const &)results
 {
   self = [super init];
 
-  self.results = results;
+  m_results = results;
 
   return self;
 }
@@ -62,22 +64,22 @@
 
 - (NSInteger)count
 {
-  return self.results.GetCount();
+  return m_results.GetCount();
 }
 
 - (search::Result const &)resultWithPosition:(NSInteger)position
 {
-  return self.results.GetResult(position);
+  return m_results.GetResult(position);
 }
 
 - (BOOL)isEndMarker
 {
-  return self.results.IsEndMarker();
+  return m_results.IsEndMarker();
 }
 
 - (BOOL)isEndedNormal
 {
-  return self.results.IsEndedNormal();
+  return m_results.IsEndedNormal();
 }
 
 @end

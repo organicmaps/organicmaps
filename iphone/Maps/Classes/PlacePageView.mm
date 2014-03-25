@@ -35,11 +35,7 @@
 @property (nonatomic) BOOL isBookmark;
 @property (nonatomic) BOOL loadedAsBookmark;
 @property (nonatomic) BOOL isApiPoint;
-
-@property (nonatomic) search::AddressInfo addressInfo;
-@property (nonatomic) BookmarkAndCategory bookmarkAndCategory;
 @property (nonatomic) m2::PointD pinPoint;
-@property (nonatomic) Bookmark bookmark;
 
 @end
 
@@ -48,6 +44,10 @@
   CGFloat locationMidY;
   CGFloat addressMidY;
   CGFloat shareMidY;
+
+  search::AddressInfo m_addressInfo;
+  BookmarkAndCategory m_bookmarkAndCategory;
+  Bookmark m_bookmark;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -131,7 +131,7 @@
 
 - (void)bookmarkCategoryDeletedNotification:(NSNotification *)notification
 {
-  if (self.bookmarkAndCategory.first == [[notification object] integerValue])
+  if (m_bookmarkAndCategory.first == [[notification object] integerValue])
   {
     [self deleteBookmark];
     [self updateBookmarkStateAnimated:NO];
@@ -142,7 +142,7 @@
 {
   BookmarkAndCategory bookmarkAndCategory;
   [[notification object] getValue:&bookmarkAndCategory];
-  if (bookmarkAndCategory == self.bookmarkAndCategory)
+  if (bookmarkAndCategory == m_bookmarkAndCategory)
   {
     [self deleteBookmark];
     [self updateBookmarkStateAnimated:NO];
@@ -385,14 +385,14 @@
 - (void)editButtonPressed:(id)sender
 {
   if (self.isBookmark)
-    [self.delegate placePageView:self willEditBookmarkAndCategory:self.bookmarkAndCategory];
+    [self.delegate placePageView:self willEditBookmarkAndCategory:m_bookmarkAndCategory];
   else
-    [self.delegate placePageView:self willEditBookmarkWithInfo:self.addressInfo point:self.pinPoint];
+    [self.delegate placePageView:self willEditBookmarkWithInfo:m_addressInfo point:self.pinPoint];
 }
 
 - (void)shareButtonPressed:(id)sender
 {
-  [self.delegate placePageView:self willShareInfo:self.addressInfo point:self.pinPoint];
+  [self.delegate placePageView:self willShareInfo:m_addressInfo point:self.pinPoint];
 }
 
 - (void)bookmarkButtonPressed:(UIButton *)sender
@@ -410,10 +410,10 @@
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
-- (void)showPoint:(m2::PointD const &)point addressInfo:(search::AddressInfo const &)addressInfo
+- (void)showPoint:(m2::PointD const &)point addressInfo:(search::AddressInfo const &)anAddressInfo
 {
   self.isApiPoint = NO;
-  [self processPoint:point addressInfo:addressInfo];
+  [self processPoint:point addressInfo:anAddressInfo];
 }
 
 - (void)showApiPoint:(url_scheme::ApiPoint const &)apiPoint
@@ -471,8 +471,8 @@
   [[MapsAppDelegate theApp].m_locationManager start:self];
 
   self.loadedAsBookmark = NO;
-  self.addressInfo = addressInfo;
   self.pinPoint = point;
+  m_addressInfo = addressInfo;
 
   self.empty = NO;
   [self hideAll];
@@ -511,7 +511,7 @@
   search::AddressInfo addressInfo;
   framework.GetAddressInfoForGlobalPoint(self.pinPoint, addressInfo);
   addressInfo.m_name = bookmark.GetName();
-  self.addressInfo = addressInfo;
+  m_addressInfo = addressInfo;
 
   self.empty = NO;
   [self hideAll];
@@ -541,31 +541,31 @@
   Framework & framework = GetFramework();
   [[MapsAppDelegate theApp].m_locationManager start:self];
 
-  self.bookmarkAndCategory = bookmarkAndCategory;
+  m_bookmarkAndCategory = bookmarkAndCategory;
   self.loadedAsBookmark = YES;
   self.isApiPoint = NO;
 
   BookmarkCategory const * category = framework.GetBmCategory(bookmarkAndCategory.first);
-  self.bookmark = *(category->GetBookmark(bookmarkAndCategory.second));
-  self.pinPoint = self.bookmark.GetOrg();
+  m_bookmark = *(category->GetBookmark(bookmarkAndCategory.second));
+  self.pinPoint = m_bookmark.GetOrg();
 
   self.empty = NO;
   [self hideAll];
 
-  self.titleLabel.text = self.bookmark.GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:self.bookmark.GetName().c_str()];
+  self.titleLabel.text = m_bookmark.GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:m_bookmark.GetName().c_str()];
   self.titleLabel.hidden = NO;
 
-  if (!self.bookmark.GetType().empty())
+  if (!m_bookmark.GetType().empty())
   {
-    self.typeLabel.text = [NSString stringWithUTF8String:self.bookmark.GetType().c_str()];
+    self.typeLabel.text = [NSString stringWithUTF8String:m_bookmark.GetType().c_str()];
     self.typeLabel.hidden = NO;
   }
 
   search::AddressInfo addressInfo;
   framework.GetAddressInfoForGlobalPoint(self.pinPoint, addressInfo);
-  self.addressInfo = addressInfo;
   self.addressLabel.text = [NSString stringWithUTF8String:addressInfo.FormatAddress().c_str()];
   self.addressLabel.hidden = ![self.addressLabel.text length];
+  m_addressInfo = addressInfo;
 
   self.locationView.hidden = NO;
   self.locationView.pinPoint = self.pinPoint;
@@ -589,9 +589,9 @@
 
 - (void)deleteBookmark
 {
-  BookmarkCategory * category = GetFramework().GetBmCategory(self.bookmarkAndCategory.first);
+  BookmarkCategory * category = GetFramework().GetBmCategory(m_bookmarkAndCategory.first);
   if (category)
-    category->DeleteBookmark(self.bookmarkAndCategory.second);
+    category->DeleteBookmark(m_bookmarkAndCategory.second);
 
   self.isBookmark = NO;
 }
@@ -601,23 +601,23 @@
   Framework & framework = GetFramework();
   if (self.loadedAsBookmark)
   {
-    size_t categoryIndex = self.bookmarkAndCategory.first;
+    size_t categoryIndex = m_bookmarkAndCategory.first;
     BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
     if (!category)
       categoryIndex = framework.LastEditedBMCategory();
 
-    Bookmark bookmark(self.bookmark.GetOrg(), self.bookmark.GetName(), self.bookmark.GetType());
-    bookmark.SetDescription(self.bookmark.GetDescription());
-    bookmark.SetTimeStamp(self.bookmark.GetTimeStamp());
-    bookmark.SetScale(self.bookmark.GetScale());
+    Bookmark bookmark(m_bookmark.GetOrg(), m_bookmark.GetName(), m_bookmark.GetType());
+    bookmark.SetDescription(m_bookmark.GetDescription());
+    bookmark.SetTimeStamp(m_bookmark.GetTimeStamp());
+    bookmark.SetScale(m_bookmark.GetScale());
     framework.AddBookmark(categoryIndex, bookmark);
   }
   else
   {
     size_t categoryIndex = framework.LastEditedBMCategory();
-    std::string const & name = self.addressInfo.GetPinName().empty() ? [NSLocalizedString(@"dropped_pin", nil) UTF8String] : self.addressInfo.GetPinName().c_str();
+    std::string const & name = m_addressInfo.GetPinName().empty() ? [NSLocalizedString(@"dropped_pin", nil) UTF8String] : m_addressInfo.GetPinName().c_str();
     Bookmark bookmark(self.pinPoint, name, "placemark-red");
-    self.bookmarkAndCategory = BookmarkAndCategory(categoryIndex, framework.AddBookmark(categoryIndex, bookmark));
+    m_bookmarkAndCategory = BookmarkAndCategory(categoryIndex, framework.AddBookmark(categoryIndex, bookmark));
   }
   self.isBookmark = YES;
 }
