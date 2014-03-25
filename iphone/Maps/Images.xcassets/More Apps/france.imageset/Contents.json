@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "France.png"
+      "filename" : "france.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "France@2x.png"
+      "filename" : "france@2x.png"
     }
   ],
   "info" : {

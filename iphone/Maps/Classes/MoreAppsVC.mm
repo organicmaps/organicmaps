@@ -117,7 +117,8 @@ using namespace::storage;
     {
       NSDictionary * guide = self.guideRegions[indexPath.row];
       cell.textLabel.text = guide[@"Country"];
-      cell.imageView.image = [self iconImageWithImage:[UIImage imageNamed:guide[@"GuideName"]]];
+      NSString * imageName = [[guide[@"GuideName"] stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString];
+      cell.imageView.image = [self iconImageWithImage:[UIImage imageNamed:imageName]];
       [cell setFree:YES];
     }
     return cell;

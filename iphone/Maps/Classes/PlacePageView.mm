@@ -431,7 +431,7 @@
   {
     NSString * urlString = [NSString stringWithUTF8String:framework.GetMapApiBackUrl().c_str()];
     NSString * lastComponent = [urlString componentsSeparatedByString:@"-"][1];
-    NSString * imageName = [[lastComponent substringWithRange:NSMakeRange(0, [lastComponent length] - 3)] capitalizedString];
+    NSString * imageName = [[lastComponent substringWithRange:NSMakeRange(0, [lastComponent length] - 3)] lowercaseString];
 
     self.guideLeftLabel.text = NSLocalizedString(@"more_info", nil);
     [self.guideLeftLabel sizeToFit];
