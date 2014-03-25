@@ -114,9 +114,9 @@ __weak SearchView * selfPointer;
   [self addSubview:self.topBackgroundView];
   [self addSubview:self.segmentedControl];
   [self addSubview:self.searchBar];
-  [self addSubview:self.emptyResultLabel];
+  [self.tableView addSubview:self.emptyResultLabel];
 
-  self.emptyResultLabel.center = CGPointMake(self.width / 2, 160);
+  self.emptyResultLabel.center = CGPointMake(self.width / 2, 30);
   self.emptyResultLabel.hidden = YES;
 
   self.searchBar.midX = self.width / 2;
@@ -372,7 +372,7 @@ static void OnSearchResultCallback(search::Results const & results)
     }
     else
     {
-      cell.titleLabel.text = NSLocalizedString(@"show_all_search_results", nil);
+      cell.titleLabel.text = NSLocalizedString(@"search_show_on_map", nil);
       cell.subtitleLabel.text = nil;
       cell.distanceLabel.text = nil;
     }
@@ -410,7 +410,7 @@ static void OnSearchResultCallback(search::Results const & results)
     }
     else
     {
-      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"show_all_search_results", nil) subtitle:nil distance:nil viewWidth:tableView.width];
+      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"search_show_on_map", nil) subtitle:nil distance:nil viewWidth:tableView.width];
     }
   }
 }
@@ -577,7 +577,7 @@ static void OnSearchResultCallback(search::Results const & results)
     _emptyResultLabel.backgroundColor = [UIColor clearColor];
     _emptyResultLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
     _emptyResultLabel.text = NSLocalizedString(@"no_search_results_found", nil);
-    _emptyResultLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
+    _emptyResultLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _emptyResultLabel.textAlignment = NSTextAlignmentCenter;
   }
   return _emptyResultLabel;
