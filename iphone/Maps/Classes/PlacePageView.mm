@@ -112,7 +112,7 @@
 {
   CGFloat const borderOffset = 21;
   CGFloat const betweenOffset = 4;
-  CGFloat width = (self.width - 2 * borderOffset - betweenOffset) / 2;
+  CGFloat const width = (self.width - 2 * borderOffset - betweenOffset) / 2;
 
   self.shareButton.width = width;
   self.shareButton.minX = borderOffset;

@@ -205,12 +205,13 @@
   }
   else
   {
-    CGFloat width = self.searchImageView.width + 8 + self.searchLabel.width;
+    CGFloat const width = self.searchImageView.width + 8 + self.searchLabel.width;
+    CGFloat const midX = self.backgroundImageView.width / 2 - 3;
     self.searchImageView.midY = self.backgroundImageView.height / 2;
-    self.searchImageView.minX = self.backgroundImageView.width / 2 - width / 2 + self.backgroundImageView.minX;
+    self.searchImageView.minX = midX - width / 2 + self.backgroundImageView.minX;
     self.searchImageView.alpha = 1;
     self.searchLabel.midY = self.backgroundImageView.height / 2;
-    self.searchLabel.maxX = self.backgroundImageView.width / 2 + width / 2 + self.backgroundImageView.minX;
+    self.searchLabel.maxX = midX + width / 2 + self.backgroundImageView.minX;
   }
 }
 
@@ -341,6 +342,7 @@
     _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _textField.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
     _textField.returnKeyType = UIReturnKeySearch;
+    _textField.autocorrectionType = UITextAutocorrectionTypeNo;
   }
   return _textField;
 }
