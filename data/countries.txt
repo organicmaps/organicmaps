@@ -1011,56 +1011,53 @@
      "g":[
       {
        "n":"Moscow & Central",
-       "c":"ru",
        "p":2,
        "f":"Russia_Central",
        "s":214741371
       },
       {
+       "n":"Crimea",
+       "p":2,
+       "s":9013587
+      },
+      {
        "n":"Far Eastern",
-       "c":"ru",
        "p":1,
        "f":"Russia_Far Eastern",
        "s":69336423
       },
       {
        "n":"North Caucasian",
-       "c":"ru",
        "p":0,
        "f":"Russia_North Caucasian",
        "s":15626596
       },
       {
        "n":"Saint Petersburg & Northwestern",
-       "c":"ru",
        "p":2,
        "f":"Russia_Northwestern",
        "s":229749513
       },
       {
        "n":"Siberian",
-       "c":"ru",
        "p":1,
        "f":"Russia_Siberian",
        "s":122916830
       },
       {
        "n":"Southern",
-       "c":"ru",
        "p":1,
        "f":"Russia_Southern",
        "s":78405602
       },
       {
        "n":"Urals",
-       "c":"ru",
        "p":1,
        "f":"Russia_Urals",
        "s":116385516
       },
       {
        "n":"Volga",
-       "c":"ru",
        "p":2,
        "f":"Russia_Volga",
        "s":182564944
@@ -1164,8 +1161,18 @@
     {
      "n":"Ukraine",
      "c":"ua",
-     "p":1,
-     "s":148894830
+     "g":[
+      {
+       "n":"Crimea",
+       "p":2,
+       "s":9013587
+      },
+      {
+       "n":"Ukraine",
+       "p":1,
+       "s":148894830
+      }
+     ]
     }
    ]
   },
