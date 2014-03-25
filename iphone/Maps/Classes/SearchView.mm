@@ -350,6 +350,7 @@ static void OnSearchResultCallback(search::Results const & results)
   if (!cell)
     cell = [[SearchUniversalCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchUniversalCell className]];
 
+  NSInteger const rowsCount = [self rowsCount];
   if ([self isShowingCategories])
   {
     cell.titleLabel.text = NSLocalizedString(self.categoriesNames[indexPath.row], nil);
@@ -358,28 +359,28 @@ static void OnSearchResultCallback(search::Results const & results)
   }
   else
   {
-    if (indexPath.row == 0)
+    NSInteger const position = rowsCount == 1 ? 0 : indexPath.row - 1;
+    if (rowsCount == 1 || indexPath.row > 0)
+    {
+      SearchResultsWrapper * wrapper = self.searchData[self.segmentedControl.selectedSegmentIndex];
+      search::Result const & result = [wrapper resultWithPosition:position];
+      cell.titleLabel.text = [NSString stringWithUTF8String:result.GetString()];
+      cell.subtitleLabel.text = [NSString stringWithUTF8String:result.GetRegionString()];
+      cell.distanceLabel.text = wrapper.distances[@(position)];
+    }
+    else
     {
       cell.titleLabel.text = NSLocalizedString(@"show_all_search_results", nil);
       cell.subtitleLabel.text = nil;
       cell.distanceLabel.text = nil;
     }
-    else
-    {
-      SearchResultsWrapper * wrapper = self.searchData[self.segmentedControl.selectedSegmentIndex];
-      NSInteger position = indexPath.row - 1;
-      search::Result const & result = [wrapper resultWithPosition:position];
-      cell.titleLabel.text = [NSString stringWithUTF8String:result.GetString()];
-      cell.subtitleLabel.text = result.GetRegionString() ? [NSString stringWithUTF8String:result.GetRegionString()] : nil;
-      cell.distanceLabel.text = wrapper.distances[@(position)];
-    }
   }
 
-  if ([self rowsCount] == 1)
+  if (rowsCount == 1)
     cell.position = SearchCellPositionAlone;
   else if (indexPath.row == 0)
     cell.position = SearchCellPositionFirst;
-  else if (indexPath.row == [self rowsCount] - 1)
+  else if (indexPath.row == rowsCount - 1)
     cell.position = SearchCellPositionLast;
   else
     cell.position = SearchCellPositionMiddle;
@@ -395,18 +396,19 @@ static void OnSearchResultCallback(search::Results const & results)
   }
   else
   {
-    if (indexPath.row == 0)
-    {
-      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"show_all_search_results", nil) subtitle:nil distance:nil viewWidth:tableView.width];
-    }
-    else
+    NSInteger const rowsCount = [self rowsCount];
+    NSInteger const position = rowsCount == 1 ? 0 : indexPath.row - 1;
+    if (rowsCount == 1 || indexPath.row > 0)
     {
       SearchResultsWrapper * wrapper = self.searchData[self.segmentedControl.selectedSegmentIndex];
-      NSInteger position = indexPath.row - 1;
       search::Result const & result = [wrapper resultWithPosition:position];
       NSString * title = [NSString stringWithUTF8String:result.GetString()];
       NSString * subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
       return [SearchUniversalCell cellHeightWithTitle:title subtitle:subtitle distance:wrapper.distances[@(position)] viewWidth:tableView.width];
+    }
+    else
+    {
+      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"show_all_search_results", nil) subtitle:nil distance:nil viewWidth:tableView.width];
     }
   }
 }
@@ -419,7 +421,12 @@ static void OnSearchResultCallback(search::Results const & results)
 - (NSInteger)rowsCount
 {
   SearchResultsWrapper * wrapper = self.searchData[self.segmentedControl.selectedSegmentIndex];
-  NSInteger resultsCount = [wrapper count] ? [wrapper count] + 1 : 0;
+  NSInteger const wrapperCount = [wrapper count];
+  NSInteger resultsCount;
+  if (wrapperCount)
+    resultsCount = wrapperCount == 1 ? 1 : wrapperCount + 1;
+  else
+    resultsCount = 0;
   return [self isShowingCategories] ? [self.categoriesNames count] : resultsCount;
 }
 
@@ -434,16 +441,11 @@ static void OnSearchResultCallback(search::Results const & results)
     return;
   }
 
-  if (indexPath.row == 0)
+  NSInteger const rowsCount = [self rowsCount];
+  NSInteger const position = rowsCount == 1 ? 0 : indexPath.row - 1;
+  if (rowsCount == 1 || indexPath.row > 0)
   {
-    GetFramework().ShowAllSearchResults();
-    self.searchBar.resultText = self.searchBar.textField.text;
-    [self setActive:NO animated:YES];
-  }
-  else
-  {
-    NSInteger segmentIndex = self.segmentedControl.selectedSegmentIndex;
-    NSInteger position = indexPath.row - 1;
+    NSInteger const segmentIndex = self.segmentedControl.selectedSegmentIndex;
     search::Result const & result = [self.searchData[segmentIndex] resultWithPosition:position];
     if (result.GetResultType() == search::Result::RESULT_SUGGESTION)
     {
@@ -465,6 +467,12 @@ static void OnSearchResultCallback(search::Results const & results)
       self.searchBar.resultText = [NSString stringWithUTF8String:result.GetString()];
       [self setActive:NO animated:YES];
     }
+  }
+  else
+  {
+    GetFramework().ShowAllSearchResults();
+    self.searchBar.resultText = self.searchBar.textField.text;
+    [self setActive:NO animated:YES];
   }
 }
 
@@ -567,7 +575,7 @@ static void OnSearchResultCallback(search::Results const & results)
     _emptyResultLabel.backgroundColor = [UIColor clearColor];
     _emptyResultLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
     _emptyResultLabel.text = NSLocalizedString(@"no_search_results_found", nil);
-    _emptyResultLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    _emptyResultLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleTopMargin;
     _emptyResultLabel.textAlignment = NSTextAlignmentCenter;
   }
   return _emptyResultLabel;
