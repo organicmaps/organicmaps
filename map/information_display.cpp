@@ -32,7 +32,7 @@ namespace
   static int const RULLER_X_OFFSET = 30;
   static int const RULLER_Y_OFFSET = 8;
   static int const FONT_SIZE = 14;
-  static int const COMPASS_W_OFFSET = 13;
+  static int const COMPASS_W_OFFSET = 5;
   static int const COMPASS_H_OFFSET = 71;
 }
 
