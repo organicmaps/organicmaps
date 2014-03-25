@@ -246,7 +246,7 @@ public:
   static int const DEFAULT_OFFSET_M = 200;
   void ReadAllHouses(double offsetMeters = DEFAULT_OFFSET_M);
 
-  void GetHouseForName(string const & houseNumber, vector<AddressSearchResult> &res);
+  void GetHouseForName(string const & houseNumber, vector<AddressSearchResult> & res);
 
   void ClearCaches();
 };
@@ -256,20 +256,17 @@ struct AddressSearchResult
   House const * m_house;
   MergedStreet const * m_street;
 
-  AddressSearchResult(House const * house, MergedStreet const * street):m_house(house), m_street(street)
+  AddressSearchResult(House const * house, MergedStreet const * street)
+    : m_house(house), m_street(street)
   {}
 
-  bool operator<(AddressSearchResult const & a) const
-  {
-    if (m_house == a.m_house)
-      return m_street < a.m_street;
-    return m_house < a.m_house;
-  }
-
-  bool operator==(AddressSearchResult const & a) const
-  {
-    return (m_house == a.m_house && m_street == a.m_street);
-  }
+  inline bool operator<(AddressSearchResult const & a) const { return m_house < a.m_house; }
+  inline bool operator==(AddressSearchResult const & a) const { return m_house == a.m_house; }
 };
+
+inline string DebugPrint(AddressSearchResult const & r)
+{
+  return r.m_house->GetNumber() + ", " + r.m_street->GetName();
+}
 
 }

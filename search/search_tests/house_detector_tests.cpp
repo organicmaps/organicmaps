@@ -262,7 +262,7 @@ m2::PointD FindHouse(Index & index, vector<string> const & streets,
   vector<search::AddressSearchResult> houses;
   houser.GetHouseForName(houseName, houses);
 
-  TEST_EQUAL(houses.size(), 1, ());
+  TEST_EQUAL(houses.size(), 1, (houses));
   return houses[0].m_house->GetPosition();
 }
 

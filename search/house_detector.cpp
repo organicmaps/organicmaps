@@ -961,11 +961,28 @@ public:
       m_results[ind] = ScoredHouse(p.m_house, p.m_distance);
   }
 
-  void FlushResults(vector<AddressSearchResult> & res, MergedStreet const & st) const
+  template <class TCont>
+  void FlushResults(TCont & cont) const
   {
+    size_t const baseScore = 1 << (ARRAY_SIZE(m_results) - 2);
+
     for (size_t i = 0; i < ARRAY_SIZE(m_results) - 1; ++i)
       if (m_results[i].house)
-        res.push_back(AddressSearchResult(m_results[i].house, &st));
+      {
+        // Scores are: 4, 2, 1 according to the matching.
+        size_t const score = baseScore >> i;
+
+        size_t j = 0;
+        for (; j < cont.size(); ++j)
+          if (cont[j].first == m_results[i].house)
+          {
+            cont[j].second += score;
+            break;
+          }
+
+        if (j == cont.size())
+          cont.push_back(make_pair(m_results[i].house, score));
+      }
   }
 
   House const * GetBestMatchHouse() const
@@ -973,11 +990,8 @@ public:
     return m_results[0].house;
   }
 
-
   bool HasBestMatch() const { return (m_results[0].house != 0); }
   House const * GetNearbyCandidate() const { return (HasBestMatch() ? 0 : m_results[3].house); }
-
-
 };
 
 void ProcessNearbyHouses(vector<HouseProjection const *> const & v, ResultAccumulator & acc)
@@ -1086,12 +1100,11 @@ pair <int, int> GetBestHouseFromChains(vector<HouseChain> & houseChains, string 
 
 struct Competitiors
 {
-
   int m_candidateIndex;
   int m_chainIndex;
   double m_score;
-  Competitiors(int candidateIndex, int chainIndex, double score):
-  m_candidateIndex(candidateIndex), m_chainIndex(chainIndex), m_score(score)
+  Competitiors(int candidateIndex, int chainIndex, double score)
+    : m_candidateIndex(candidateIndex), m_chainIndex(chainIndex), m_score(score)
   {}
   bool operator<(Competitiors const & c) const
   {
@@ -1249,57 +1262,49 @@ void GetLSHouse(MergedStreet const & st, double offsetMeters, ResultAccumulator 
   ProcessNearbyHouses(v, acc);
 }
 
-}
-
-void ProduceVoting(vector <ResultAccumulator> const & acc, vector<AddressSearchResult> & res, MergedStreet const & st)
+struct GreaterSecond
 {
-  vector < pair<House const *, vector<size_t> > > voting;
+  template <class T>
+  bool operator() (T const & t1, T const & t2) const { return t1.second > t2.second; }
+};
+
+void ProduceVoting(vector<ResultAccumulator> const & acc,
+                   vector<AddressSearchResult> & res,
+                   MergedStreet const & st)
+{
+  buffer_vector<pair<House const *, size_t>, 4> voting;
+
+  // Calculate score for every house.
   for (size_t i = 0; i < acc.size(); ++i)
-    if (acc[i].HasBestMatch())
-    {
-      size_t j = 0;
-      for (; j < voting.size(); ++j)
-        if (voting[j].first == acc[i].GetBestMatchHouse())
-        {
-          voting[j].second.push_back(i);
-          break;
-        }
-      if (j == voting.size())
-        voting.push_back(make_pair(acc[i].GetBestMatchHouse(), vector <size_t> (1, i)));
-    }
-  if (!voting.empty())
-  {
-    if (voting[0].second.size() > 1)
-    {
-      acc[voting[0].second.front()].FlushResults(res, st);
-      return;
-    }
-    if (voting.size() > 1 && voting[1].second.size() > 1)
-    {
-      acc[voting[1].second.front()].FlushResults(res, st);
-      return;
-    }
-  }
-  else
+    acc[i].FlushResults(voting);
+
+  if (voting.empty())
     return;
 
-  for (size_t i = 0; i < acc.size(); ++i)
-    if (acc[i].HasBestMatch())
-    {
-      acc[i].FlushResults(res, st);
-      return;
-    }
-  acc[0].FlushResults(res, st);
+  // Sort according to the score (bigger is better).
+  sort(voting.begin(), voting.end(), GreaterSecond());
+
+  // Emit results with equal best score.
+  size_t const score = voting[0].second;
+  for (size_t i = 0; i < voting.size(); ++i)
+  {
+    if (score == voting[i].second)
+      res.push_back(AddressSearchResult(voting[i].first, &st));
+    else
+      break;
+  }
 }
 
-void HouseDetector::GetHouseForName(string const & houseNumber, vector<AddressSearchResult> &res)
+}
+
+void HouseDetector::GetHouseForName(string const & houseNumber, vector<AddressSearchResult> & res)
 {
   size_t const count = m_streets.size();
   res.reserve(count);
 
   LOG(LDEBUG, ("Streets count", count));
 
-  vector <ResultAccumulator> acc(3, ResultAccumulator(houseNumber));
+  vector<ResultAccumulator> acc(3, ResultAccumulator(houseNumber));
 
   for (size_t i = 0; i < count; ++i)
   {
@@ -1333,6 +1338,7 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<AddressSe
     }
 
     ProduceVoting(acc, res, m_streets[i]);
+
     for (size_t j = 0; j < acc.size(); ++j)
       acc[j].Reset();
   }
