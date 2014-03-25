@@ -1,10 +1,13 @@
 #include "defines.hpp"
+
 #include "../coding/file_name_utils.hpp"
+
 #include "../base/macros.hpp"
 #include "../base/logging.hpp"
+
 #include "../std/string.hpp"
-// for strcmp
-#include "../std/memcpy.hpp"
+#include "../std/cstring.hpp"
+
 
 namespace graphics
 {

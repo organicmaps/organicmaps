@@ -2,7 +2,7 @@
 #include "../base/base.hpp"
 
 #include "../std/vector.hpp"
-#include "../std/memcpy.hpp"
+#include "../std/cstring.hpp"
 
 
 class ArrayByteSource

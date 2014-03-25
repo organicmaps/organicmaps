@@ -1,6 +1,9 @@
 #pragma once
 #include "../../testing/testing.hpp"
 
+#include "../../std/cstring.hpp"
+
+
 namespace coding
 {
   inline void TestCompressor(char const * pSrc, size_t srcSize, string & res)

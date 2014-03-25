@@ -4,6 +4,9 @@
 #include "../graphics/glyph.hpp"
 #include "../graphics/depth_constants.hpp"
 
+#include "../std/cstring.hpp"
+
+
 namespace gui
 {
   DisplayListCache::DisplayListCache(graphics::Screen * CacheScreen,

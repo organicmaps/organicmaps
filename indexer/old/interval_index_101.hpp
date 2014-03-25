@@ -7,7 +7,7 @@
 #include "../../base/base.hpp"
 #include "../../base/macros.hpp"
 
-#include "../../std/memcpy.hpp"
+#include "../../std/cstring.hpp"
 
 
 namespace old_101 {

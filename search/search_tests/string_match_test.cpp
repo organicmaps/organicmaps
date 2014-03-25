@@ -7,7 +7,7 @@
 
 #include "../../base/stl_add.hpp"
 
-#include "../../std/memcpy.hpp"
+#include "../../std/cstring.hpp"
 
 
 using namespace search;

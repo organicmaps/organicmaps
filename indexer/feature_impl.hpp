@@ -4,6 +4,7 @@
 #include "../base/assert.hpp"
 
 #include "../std/string.hpp"
+#include "../std/cstring.hpp"
 
 
 namespace strings { class UniString; }

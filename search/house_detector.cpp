@@ -116,7 +116,6 @@ char const * affics[] =
   "Блок", "бл", "Булевард", "Вход", "вх", "Генерал", "ген", "Град", "гр", "Доктор", "д-р", "Доцент", "доц", "Капитан", "кап", "Митрополит", "мит", "Площад", "Професор", "проф", "Свети", "Св", "Улица", "Село", "с", "Квартал", "кв", "Жилищен Комплекс", "ж.к",
 
   // Canada - Canada
-
   "abbey", "acres", "allée", "allÉe", "alley", "autoroute", "aut", "bay", "beach", "bend", "boul", "by-pass", "bypass", "byway", "campus", "cape", "carré", "car", "carrefour", "carref", "centre", "ctr", "c", "cercle", "chase", "chemin", "ch", "circle", "cir", "circuit", "circt", "common", "concession", "conc", "corners", "crnrs", "côte", "cÔte", "cour", "cours", "crt", "cove", "croissant", "crois", "crossing", "cross", "cul-de-sac", "cds", "dale", "dell", "diversion", "divers", "downs", "Échangeur", "Éch", "end", "esplanade", "espl", "estates", "estate", "expressway", "expy", "extension", "exten", "farm", "field", "forest", "freeway", "fwy", "front", "gardens", "gdns", "gate", "glade", "glen", "green", "grounds", "grnds", "grove", "harbour", "harbr", "heath", "heights", "hts", "highlands", "hghlds", "hill", "hollow", "Île", "impasse", "imp", "inlet", "island", "key", "knoll", "landing", "landng", "limits", "lmts", "line", "link", "lookout", "lkout", "loop", "mall", "manor", "maze", "meadow", "mews", "montée", "montÉe", "moor", "mount", "mountain", "mtn", "orchard", "orch", "parade", "parc", "park", "pk", "parkway", "pky", "passage", "pass", "path", "pathway", "ptway", "pines", "place", "plateau", "plat", "plaza", "point", "pt", "pointe", "port", "private", "pvt", "promenade", "prom", "quai", "quay", "ramp", "rang", "range", "rg", "ridge", "rise", "rond-point", "rdpt", "route", "rte", "row", "rue", "ruelle", "rle", "run", "sentier", "sent", "subdivision", "subdiv", "terrace", "terr", "terrasse", "tsse", "thicket", "thick", "towers", "townline", "tline", "trail", "turnabout", "trnabt", "vale", "via", "view", "village", "villge", "villas", "vista", "voie", "walk", "wharf", "wood", "wynd",
 
   // Cesky - Czech
@@ -191,7 +190,7 @@ size_t const HN_COUNT_FOR_ODD_TEST = 16;
 /// @todo We need FeatureType::BEST_GEOMETRY for tests (compare with ethalon),
 /// but 15 - is enough for production code.
 int const HOUSE_READING_SCALE = FeatureType::BEST_GEOMETRY;
-double const HN_MIN_READ_OFFSET_M = 50.0;
+//double const HN_MIN_READ_OFFSET_M = 50.0;
 int const HN_HEARBY_INDEX_RANGE = 5;
 double const HN_MAX_CONNECTION_DIST_M = 300.0;
 

@@ -8,8 +8,10 @@
 #include "../base/assert.hpp"
 
 #include "../std/bind.hpp"
+#include "../std/cstring.hpp"
 
 #include <freetype/ftcache.h>
+
 
 namespace graphics
 {

@@ -4,7 +4,7 @@
 #include "../base/exception.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/shared_ptr.hpp"
-#include "../std/memcpy.hpp"
+#include "../std/cstring.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 

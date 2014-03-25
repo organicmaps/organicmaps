@@ -1,4 +1,3 @@
-#include "../../base/SRC_FIRST.hpp"
 #include "../../testing/testing.hpp"
 
 #include "reader_test.hpp"
@@ -9,6 +8,7 @@
 #include "../reader_streambuf.hpp"
 
 #include "../../std/iostream.hpp"
+#include "../../std/cstring.hpp"
 
 
 namespace

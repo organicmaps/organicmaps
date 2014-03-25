@@ -10,7 +10,11 @@
 #include "defines.hpp"
 
 #include "../geometry/screenbase.hpp"
+
 #include "../base/logging.hpp"
+
+#include "../std/cstring.hpp"
+
 
 namespace graphics
 {

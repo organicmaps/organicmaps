@@ -1,11 +1,15 @@
 #pragma once
 #include "reader.hpp"
+
 #include "../base/base.hpp"
 #include "../base/cache.hpp"
 #include "../base/logging.hpp"
 #include "../base/stats.hpp"
+
 #include "../std/scoped_ptr.hpp"
 #include "../std/vector.hpp"
+#include "../std/cstring.hpp"
+
 
 namespace impl
 {

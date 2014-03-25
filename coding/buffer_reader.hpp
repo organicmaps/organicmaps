@@ -1,6 +1,7 @@
 #include "reader.hpp"
 
 #include "../std/shared_ptr.hpp"
+#include "../std/cstring.hpp"
 
 
 /// Reader from buffer with ownership on it, but cheap copy constructor.

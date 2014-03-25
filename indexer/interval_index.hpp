@@ -13,7 +13,6 @@
 #include "../base/macros.hpp"
 
 #include "../std/algorithm.hpp"
-#include "../std/memcpy.hpp"
 #include "../std/static_assert.hpp"
 
 

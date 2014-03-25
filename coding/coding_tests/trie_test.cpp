@@ -4,12 +4,17 @@
 #include "../trie_reader.hpp"
 #include "../byte_stream.hpp"
 #include "../write_to_sink.hpp"
+
 #include "../../base/logging.hpp"
+
 #include "../../std/algorithm.hpp"
 #include "../../std/scoped_ptr.hpp"
 #include "../../std/string.hpp"
 #include "../../std/vector.hpp"
+#include "../../std/cstring.hpp"
+
 #include <boost/utility/binary.hpp>
+
 
 namespace
 {

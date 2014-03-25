@@ -7,7 +7,10 @@
 
 #include "glmock_functions.hpp"
 
+#include "../../std/cstring.hpp"
+
 #include <gmock/gmock.h>
+
 
 using ::testing::_;
 using ::testing::Return;

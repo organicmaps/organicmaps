@@ -11,6 +11,8 @@
 
 #include "../base/logging.hpp"
 
+#include "../std/cstring.hpp"
+
 
 using namespace feature;
 

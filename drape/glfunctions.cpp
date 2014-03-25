@@ -1,9 +1,11 @@
 #include "glfunctions.hpp"
 #include "glIncludes.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
 
-#include <cstring>
+#include "../std/cstring.hpp"
+
 
 namespace
 {

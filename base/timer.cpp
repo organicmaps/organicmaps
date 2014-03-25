@@ -5,7 +5,8 @@
 #include "../std/target_os.hpp"
 #include "../std/systime.hpp"
 #include "../std/cstdio.hpp"
-#include "../std/memcpy.hpp"
+#include "../std/cstring.hpp"
+
 
 namespace my
 {

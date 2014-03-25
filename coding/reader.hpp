@@ -8,7 +8,7 @@
 #include "../std/shared_array.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/string.hpp"
-#include "../std/memcpy.hpp"
+#include "../std/cstring.hpp"
 
 
 // Base class for random-access Reader. Not thread-safe.

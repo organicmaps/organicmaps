@@ -1,10 +1,9 @@
 #include "shader.hpp"
-
 #include "defines_conv.hpp"
 #include "opengl.hpp"
 
-// For strlen
-#include "../../std/memcpy.hpp"
+#include "../../std/cstring.hpp"
+
 
 namespace graphics
 {

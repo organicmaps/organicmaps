@@ -8,7 +8,6 @@
 #include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
-#include "../std/memcpy.hpp"
 
 
 MwmInfo::MwmInfo() : m_lockCount(0), m_status(STATUS_REMOVED)

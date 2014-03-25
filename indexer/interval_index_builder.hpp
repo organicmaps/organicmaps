@@ -9,7 +9,6 @@
 #include "../base/bits.hpp"
 #include "../base/logging.hpp"
 #include "../std/vector.hpp"
-#include "../std/memcpy.hpp"
 
 // +------------------------------+
 // |            Header            |
