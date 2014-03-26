@@ -1066,11 +1066,21 @@ struct HouseChain
   void CountScore()
   {
     sort(houses.begin(), houses.end(), HouseProjection::LessDistance());
-    size_t const s = min(houses.size(), size_t(3));
+    size_t const size = houses.size();
     score = 0;
-    for (size_t i = 0; i < s; ++i)
-      score += houses[i]->m_distance;
-    score /= s;
+    size_t const scoreNumber = 3;
+    for (size_t i = 0; i < scoreNumber; ++i)
+      score += i < size ? houses[i]->m_distance : houses.back()->m_distance;
+    score /= scoreNumber;
+  }
+
+  bool IsIntersecting(HouseChain const & chain) const
+  {
+    if (minHouseNumber >= chain.maxHouseNumber)
+      return false;
+    if (chain.minHouseNumber >= maxHouseNumber)
+      return false;
+    return true;
   }
 
   bool operator<(HouseChain const & p) const
@@ -1079,21 +1089,29 @@ struct HouseChain
   }
 };
 
-pair <int, int> GetBestHouseFromChains(vector<HouseChain> & houseChains, string const & houseNumber, vector<HouseProjection const *> const & st, ResultAccumulator & acc)
+void GetBestHouseFromChains(vector<HouseChain> & houseChains, ResultAccumulator & acc)
 {
   for (size_t i = 0; i < houseChains.size(); ++i)
     houseChains[i].CountScore();
   sort(houseChains.begin(), houseChains.end());
 
+  ParsedNumber number(acc.GetFullNumber());
+
   for (size_t i = 0; i < houseChains.size(); ++i)
   {
-    for (size_t j = 0; j < houseChains[i].houses.size(); ++j)
+    if (i == 0 || !houseChains[0].IsIntersecting(houseChains[i]))
     {
-      if (houseNumber == houseChains[i].houses[j]->m_house->GetNumber())
-        return make_pair(i, j);
+      for (size_t j = 0; j < houseChains[i].houses.size(); ++j)
+      {
+        if (houseChains[i].houses[j]->m_house->GetMatch(number) != -1)
+        {
+          for (size_t k = 0; k < houseChains[i].houses.size(); ++k)
+            acc.MatchCandidate(*houseChains[i].houses[k], true);
+          break;
+        }
+      }
     }
   }
-  return make_pair(-1, -1);
 }
 
 
@@ -1201,9 +1219,7 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
       }
     }
   }
-  pair <int, int> ind = GetBestHouseFromChains(houseChains, houseNumber, st, acc);
-  if (ind.first != -1)
-    acc.MatchCandidate(*houseChains[ind.first].houses[ind.second], false);
+  GetBestHouseFromChains(houseChains, acc);
 }
 
 void GetBestHouseWithNumber(MergedStreet const & st, double offsetMeters, ResultAccumulator & acc)
@@ -1325,13 +1341,13 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<AddressSe
 
     resultIndex = 1;
 
-    GetClosestHouse(m_streets[i], acc[resultIndex]); //0.880247
+    GetClosestHouse(m_streets[i], acc[resultIndex]); //0.880716
 
     resultIndex = 2;
 
     for (size_t j = 0; j < ARRAY_SIZE(arrOffsets) && arrOffsets[j] <= m_houseOffsetM; ++j)
     {
-       GetBestHouseWithNumber(m_streets[i], arrOffsets[j], acc[resultIndex]); //0.88403
+       GetBestHouseWithNumber(m_streets[i], arrOffsets[j], acc[resultIndex]); //0.88668
        if (acc[resultIndex].HasBestMatch())
          break;
     }
