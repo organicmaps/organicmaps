@@ -125,7 +125,7 @@
 
 - (void)setSearching:(BOOL)searching
 {
-  self.searchImageView.animating = searching;
+  [self.searchImageView setAnimating:searching];
 }
 
 #define LABEL_MIN_X 23

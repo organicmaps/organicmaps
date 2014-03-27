@@ -252,6 +252,9 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (void)searchBarDidPressCancelButton:(id)searchBar
 {
+  self.searchBar.textField.text = nil;
+  [self.searchBar setSearching:NO];
+  [self.tableView reloadData];
   [self setActive:NO animated:YES];
 }
 
