@@ -1,13 +1,14 @@
-attribute mediump vec2 position;
-attribute mediump float depth;
-attribute mediump vec4 texCoords;
+attribute highp vec4 a_position;
+attribute highp vec4 a_normal;
+attribute highp vec4 a_texCoords;
 
-uniform highp mat4 modelViewProjectionMatrix;
+uniform highp mat4 modelView;
+uniform highp mat4 projection;
 
-varying highp vec4 varTexCoords;
+varying highp vec4 v_texCoords;
 
 void main(void)
 {
-    gl_Position = modelViewProjectionMatrix * vec4(position, depth, 1.0);
-    varTexCoords = texCoords;
+  gl_Position = ((a_position * modelView) + a_normal) * projection;
+  v_texCoords = a_texCoords;
 }
