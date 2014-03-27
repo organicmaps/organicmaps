@@ -2,6 +2,8 @@
 
 #include "../drape/color.hpp"
 
+#include "../std/string.hpp"
+
 namespace df
 {
   enum LineCap
@@ -18,7 +20,28 @@ namespace df
     RoundJoin = 1,
   };
 
-  struct LineViewParams
+  struct CommonViewParams
+  {
+    float m_depth;
+  };
+
+  struct PoiSymbolViewParams : CommonViewParams
+  {
+    string m_symbolName;
+  };
+
+  struct CircleViewParams : CommonViewParams
+  {
+    Color m_color;
+    float m_radius;
+  };
+
+  struct AreaViewParams : CommonViewParams
+  {
+    Color m_color;
+  };
+
+  struct LineViewParams : CommonViewParams
   {
     Color m_color;
     float m_width;
