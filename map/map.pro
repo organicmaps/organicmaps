@@ -9,7 +9,9 @@ ROOT_DIR = ..
 
 INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
 # use expat from the system on linux
-!linux*: INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
+#!linux*: INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
+# TODO fix correctly for TIZEN
+INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 
 
 include($$ROOT_DIR/common.pri)
@@ -116,7 +118,7 @@ SOURCES += \
     track.cpp \
     alfa_animation_task.cpp
 
-!iphone*:!bada*:!android* {
+!iphone*:!tizen*:!android* {
   HEADERS += qgl_render_context.hpp
   SOURCES += qgl_render_context.cpp
   QT += opengl

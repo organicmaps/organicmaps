@@ -10,7 +10,7 @@ include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
-!iphone*:!android*:!bada {
+!iphone*:!android*:!tizen {
   QT *= core
 
   SOURCES += platform_qt.cpp \

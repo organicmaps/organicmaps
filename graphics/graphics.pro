@@ -10,7 +10,9 @@ ROOT_DIR = ..
 INCLUDEPATH += $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/agg
 
 # use expat from the system on linux
-!linux*: INCLUDEPATH *= ../3party/expat/lib
+# TODO FIX CORRECTLY!!!!
+#!linux*: INCLUDEPATH *= ../3party/expat/lib
+INCLUDEPATH *= ../3party/expat/lib
 
 include($$ROOT_DIR/common.pri)
 
@@ -152,7 +154,7 @@ HEADERS += \
 
 win32* {
   SOURCES += opengl/opengl_win32.cpp
-} else: android*|iphone* {
+} else: android*|iphone*|tizen* {
   HEADERS +=
   SOURCES += opengl/opengl_es2.cpp
 } else {

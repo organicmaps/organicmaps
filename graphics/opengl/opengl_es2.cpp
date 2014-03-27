@@ -1,20 +1,6 @@
 #include "opengl.hpp"
 #include "opengl_glsl_impl.hpp"
 
-#ifdef OMIM_OS_MAEMO
-  #define GL_GLEXT_PROTOTYPES
-  #include <GLES2/gl2ext.h>
-#endif
-
-#ifdef OMIM_OS_ANDROID
-  #define GL_GLEXT_PROTOTYPES
-  #include <GLES2/gl2ext.h>
-#endif
-
-#ifdef OMIM_OS_IPHONE
-  #include <OpenGLES/ES2/glext.h>
-#endif
-
 namespace graphics
 {
   namespace gl
@@ -60,7 +46,7 @@ namespace graphics
 
       g_isMapBufferSupported = false; //HasExtension("GL_OES_mapbuffer");
 
-#ifdef OMIM_OS_MAEMO
+#if defined(OMIM_OS_MAEMO) || defined(OMIM_OS_TIZEN)
       glMapBufferFn = 0;
       glUnmapBufferFn = 0;
 #else
@@ -83,7 +69,7 @@ namespace graphics
       glDeleteFramebuffersFn = &glDeleteFramebuffers;
       glCheckFramebufferStatusFn = &glCheckFramebufferStatus;
       // this extension is defined in headers but absent in library on Android ARM platform
-#if (defined(OMIM_OS_ANDROID) && defined(__arm__)) || defined(OMIM_OS_MAEMO)
+#if (defined(OMIM_OS_ANDROID) && defined(__arm__)) || defined(OMIM_OS_MAEMO) || defined(OMIM_OS_TIZEN)
       glDiscardFramebufferFn = 0;
 #else
       glDiscardFramebufferFn = &glDiscardFramebufferEXT;

@@ -20,6 +20,7 @@ HEADERS += \
     config_android.h \
     config_ios.h \
     config_win32.h \
+    config_tizen.h \
     lib/run.h \
     lib/mem.h \
     lib/joining-types.h \

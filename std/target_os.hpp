@@ -6,9 +6,9 @@
   #define OMIM_OS_MOBILE
   #define OMIM_HAS_DEBUG_STL 1
 
-#elif defined(_BADA_SIMULATOR) || defined(_BADA_DEVICE)
-  #define OMIM_OS_BADA
-  #define OMIM_OS_NAME "bada"
+#elif defined(_TIZEN_EMULATOR) || defined(_TIZEN_DEVICE)
+  #define OMIM_OS_TIZEN
+  #define OMIM_OS_NAME "tizen"
   #define OMIM_OS_MOBILE
 
 #elif defined(__APPLE__)

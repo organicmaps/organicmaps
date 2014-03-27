@@ -324,13 +324,14 @@ graphics::ResourceManager::TexturePoolParams RenderPolicy::GetTextureParam(size_
 
 RenderPolicy * CreateRenderPolicy(RenderPolicy::Params const & params)
 {
-#ifdef OMIM_OS_ANDROID
-    return new TilingRenderPolicyST(params);
+  // @TODO!!! Check which policy is better for TIZEN
+#if defined(OMIM_OS_ANDROID) || defined(OMIM_OS_TIZEN)
+  return new TilingRenderPolicyST(params);
 #endif
 #ifdef OMIM_OS_IPHONE
-    return new TilingRenderPolicyMT(params);
+  return new TilingRenderPolicyMT(params);
 #endif
 #ifdef OMIM_OS_DESKTOP
-    return new TilingRenderPolicyST(params);
+  return new TilingRenderPolicyST(params);
 #endif
 }

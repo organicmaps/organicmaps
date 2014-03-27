@@ -14,7 +14,7 @@ CONFIG += ordered
 HEADERS += defines.hpp
 
 # desktop projects
-!iphone*:!bada*:!android* {
+!iphone*:!tizen*:!android* {
 SUBDIRS = 3party \
           base base/base_tests \
           coding coding/coding_tests \

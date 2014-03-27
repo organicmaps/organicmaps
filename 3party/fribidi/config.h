@@ -15,6 +15,9 @@
 #elif defined(OMIM_OS_LINUX)
   #include "config_linux.h"
 
+#elif defined(OMIM_OS_TIZEN)
+  #include "config_tizen.h"
+
 #else
 #error "Add your platform"
 #endif

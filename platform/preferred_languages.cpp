@@ -23,6 +23,9 @@
   /// Body for this function is inside android/jni sources
   string GetAndroidSystemLanguage();
 
+#elif defined(OMIM_OS_TIZEN)
+// @TODO
+
 #else
   #error "Define language preferences for your platform"
 
@@ -169,6 +172,9 @@ void SystemPreferredLanguages(vector<string> & languages)
 
 #elif defined(OMIM_OS_ANDROID)
   languages.push_back(GetAndroidSystemLanguage());
+
+#elif defined(OMIM_OS_TIZEN)
+// @TODO
 
 #else
   #error "Define language preferences for your platform"
