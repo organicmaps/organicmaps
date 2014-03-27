@@ -1,26 +1,72 @@
 #include "glstate.hpp"
 #include "glfunctions.hpp"
 
+#include "../base/buffer_vector.hpp"
 #include "../std/bind.hpp"
+
+#define COLOR_BIT     0x1
+#define TEXTURE_BIT   0x2
 
 GLState::GLState(uint32_t gpuProgramIndex, int16_t depthLayer)
   : m_gpuProgramIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
+  , m_textureSet(-1)
+  , m_color(0, 0, 0, 0)
+  , m_mask(0)
 {
+}
+
+void GLState::SetTextureSet(int32_t textureSet)
+{
+  m_mask |= TEXTURE_BIT;
+  m_textureSet = textureSet;
+}
+
+int32_t GLState::GetTextureSet() const
+{
+  return m_textureSet;
+}
+
+bool GLState::HasTextureSet() const
+{
+  return (m_mask & TEXTURE_BIT) != 0;
+}
+
+void GLState::SetColor(const Color & c)
+{
+  m_mask |= COLOR_BIT;
+  m_color = c;
+}
+
+const Color & GLState::GetColor() const
+{
+  return m_color;
+}
+
+bool GLState::HasColor() const
+{
+  return (m_mask & COLOR_BIT) != 0;
 }
 
 int GLState::GetProgramIndex() const
 {
   return m_gpuProgramIndex;
 }
-const UniformValuesStorage &GLState::GetUniformValues() const
-{
-  return m_uniforms;
-}
 
-UniformValuesStorage & GLState::GetUniformValues()
+bool GLState::operator<(const GLState & other) const
 {
-  return m_uniforms;
+  if (m_mask != other.m_mask)
+    return m_mask < other.m_mask;
+
+  if (m_depthLayer != other.m_depthLayer)
+    return m_depthLayer < other.m_depthLayer;
+  if (m_gpuProgramIndex != other.m_gpuProgramIndex)
+    return m_gpuProgramIndex < other.m_gpuProgramIndex;
+
+  if (m_textureSet != other.m_textureSet)
+    return m_textureSet < other.m_textureSet;
+
+  return m_color < other.m_color;
 }
 
 namespace
@@ -36,7 +82,27 @@ void ApplyUniforms(const UniformValuesStorage & uniforms, RefPointer<GpuProgram>
   uniforms.ForeachValue(bind(&ApplyUniformValue, _1, program));
 }
 
-void ApplyState(GLState state, RefPointer<GpuProgram> program)
+void ApplyState(GLState state, RefPointer<GpuProgram> program,
+                               RefPointer<TextureSetController> textures)
 {
-  ApplyUniforms(state.GetUniformValues(), program);
+  if (state.HasColor())
+  {
+    int8_t location = program->GetUniformLocation("u_color");
+    float c[4];
+    ::Convert(state.GetColor(), c[0], c[1], c[2], c[3]);
+    GLFunctions::glUniformValuef(location, c[0], c[1], c[2], c[3]);
+  }
+
+  if (state.HasTextureSet())
+  {
+    uint32_t textureSet = state.GetTextureSet();
+    uint32_t count = textures->GetTextureCount(textureSet);
+    textures->BindTextureSet(textureSet);
+    buffer_vector<int32_t, 16> ids;
+    for (uint32_t i = 0; i < count; ++i)
+      ids.push_back(i);
+
+    int8_t location = program->GetUniformLocation("u_textures");
+    GLFunctions::glUniformValueiv(location, ids.data(), count);
+  }
 }
