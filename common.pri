@@ -48,7 +48,7 @@ win32-msvc*|symbian {
   LIB_EXT = .lib
   LIB_PREFIX =
 }
-unix|win32-g++|tizen {
+unix|win32-g++|tizen* {
  LIB_EXT = .a
  LIB_PREFIX = lib
 }

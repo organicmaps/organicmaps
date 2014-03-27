@@ -10,9 +10,7 @@ ROOT_DIR = ..
 INCLUDEPATH += $$ROOT_DIR/3party/freetype/include $$ROOT_DIR/3party/agg
 
 # use expat from the system on linux
-# TODO FIX CORRECTLY!!!!
-#!linux*: INCLUDEPATH *= ../3party/expat/lib
-INCLUDEPATH *= ../3party/expat/lib
+!linux*: INCLUDEPATH *= ../3party/expat/lib
 
 include($$ROOT_DIR/common.pri)
 

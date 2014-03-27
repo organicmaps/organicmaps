@@ -9,8 +9,7 @@ ROOT_DIR = ..
 
 INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
 # use expat from the system on linux
-#!linux*: INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
-# TODO fix correctly for TIZEN
+!linux*: INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
 
 
