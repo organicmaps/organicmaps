@@ -27,6 +27,9 @@
 
 namespace GLConst
 {
+  const glConst GLMaxFragmentTextures = GL_MAX_TEXTURE_IMAGE_UNITS;
+  const glConst GLMaxVertexTextures   = GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS;
+
   const glConst GLArrayBuffer         = GL_ARRAY_BUFFER;
   const glConst GLElementArrayBuffer  = GL_ELEMENT_ARRAY_BUFFER;
 
@@ -57,9 +60,6 @@ namespace GLConst
   const glConst GLTexture2D           = GL_TEXTURE_2D;
 
   const glConst GLTexture0            = GL_TEXTURE0;
-  const glConst GLTexture1            = GL_TEXTURE1;
-  const glConst GLTexture2            = GL_TEXTURE2;
-  const glConst GLTexture3            = GL_TEXTURE3;
 
   const glConst GLMinFilter           = GL_TEXTURE_MIN_FILTER;
   const glConst GLMagFilter           = GL_TEXTURE_MAG_FILTER;

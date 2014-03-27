@@ -6,6 +6,10 @@ typedef uint32_t glConst;
 
 namespace GLConst
 {
+  /// Hardware specific params
+  extern const glConst GLMaxFragmentTextures;
+  extern const glConst GLMaxVertexTextures;
+
   /// Buffer targets
   extern const glConst GLArrayBuffer;
   extern const glConst GLElementArrayBuffer;
@@ -44,9 +48,6 @@ namespace GLConst
 
   /// Texture uniform blocks
   extern const glConst GLTexture0;
-  extern const glConst GLTexture1;
-  extern const glConst GLTexture2;
-  extern const glConst GLTexture3;
 
   /// Texture param names
   extern const glConst GLMinFilter;

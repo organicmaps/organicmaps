@@ -75,11 +75,13 @@ namespace
   void (*glUniform2iFn)(GLint location, GLint v1, GLint v2)                                               = NULL;
   void (*glUniform3iFn)(GLint location, GLint v1, GLint v2, GLint v3)                                     = NULL;
   void (*glUniform4iFn)(GLint location, GLint v1, GLint v2, GLint v3, GLint v4)                           = NULL;
+  void (*glUniform1ivFn)(GLint location, GLsizei count, const GLint * value)                              = NULL;
 
   void (*glUniform1fFn)(GLint location, GLfloat value)                                                    = NULL;
   void (*glUniform2fFn)(GLint location, GLfloat v1, GLfloat v2)                                           = NULL;
   void (*glUniform3fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3)                               = NULL;
   void (*glUniform4fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4)                   = NULL;
+  void (*glUniform1fvFn)(GLint location, GLsizei count, const GLfloat * value)                            = NULL;
 
   void (*glUniformMatrix4fvFn)(GLint location, GLsizei count, GLboolean transpose, const GLfloat * value) = NULL;
 
@@ -148,11 +150,13 @@ void GLFunctions::Init()
   glUniform2iFn = &::glUniform2i;
   glUniform3iFn = &::glUniform3i;
   glUniform4iFn = &::glUniform4i;
+  glUniform1ivFn = &::glUniform1iv;
 
   glUniform1fFn = &::glUniform1f;
   glUniform2fFn = &::glUniform2f;
   glUniform3fFn = &::glUniform3f;
   glUniform4fFn = &::glUniform4f;
+  glUniform1fvFn = &::glUniform1fv;
 
   glUniformMatrix4fvFn = &glUniformMatrix4fv;
 }
@@ -196,6 +200,13 @@ void GLFunctions::glFlush()
 {
   ASSERT(glFlushFn != NULL, ());
   GLCHECK(glFlushFn());
+}
+
+int32_t GLFunctions::glGetInteger(glConst pname)
+{
+  GLint value;
+  GLCHECK(::glGetIntegerv(pname, &value));
+  return (int32_t)value;
 }
 
 void GLFunctions::glEnable(glConst mode)
@@ -457,6 +468,13 @@ void GLFunctions::glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32
   GLCHECK(glUniform4iFn(location, v1, v2, v3, v4));
 }
 
+void GLFunctions::glUniformValueiv(int8_t location, int32_t * v, uint32_t size)
+{
+  ASSERT(glUniform1ivFn != NULL, ());
+  ASSERT(location != -1, ());
+  GLCHECK(glUniform1ivFn(location, size, v));
+}
+
 void GLFunctions::glUniformValuef(int8_t location, float v)
 {
   ASSERT(glUniform1fFn != NULL, ());
@@ -483,6 +501,13 @@ void GLFunctions::glUniformValuef(int8_t location, float v1, float v2, float v3,
   ASSERT(glUniform4fFn != NULL, ());
   ASSERT(location != -1, ());
   GLCHECK(glUniform4fFn(location, v1, v2, v3, v4));
+}
+
+void GLFunctions::glUniformValuefv(int8_t location, float * v, uint32_t size)
+{
+  ASSERT(glUniform1fvFn != NULL, ());
+  ASSERT(location != -1, ());
+  GLCHECK(glUniform1fvFn(location, size, v));
 }
 
 void GLFunctions::glUniformMatrix4x4Value(int8_t location, const float * values)
@@ -517,6 +542,11 @@ uint32_t GLFunctions::glGenTexture()
   GLuint result = 0;
   GLCHECK(::glGenTextures(1, &result));
   return result;
+}
+
+void GLFunctions::glDeleteTexture(uint32_t id)
+{
+  GLCHECK(::glDeleteTextures(1, &id));
 }
 
 void GLFunctions::glBindTexture(uint32_t textureID)

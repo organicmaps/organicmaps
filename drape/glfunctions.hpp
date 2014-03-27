@@ -14,6 +14,8 @@ public:
   static void glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
   static void glFlush();
 
+  static int32_t glGetInteger(glConst pname);
+
   static void glEnable(glConst mode);
   static void glDisable(glConst mode);
   static void glClearDepth(double depth);
@@ -77,11 +79,13 @@ public:
   static void glUniformValuei(int8_t location, int32_t v1, int32_t v2);
   static void glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3);
   static void glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
+  static void glUniformValueiv(int8_t location, int32_t * v, uint32_t size);
 
   static void glUniformValuef(int8_t location, float v);
   static void glUniformValuef(int8_t location, float v1, float v2);
   static void glUniformValuef(int8_t location, float v1, float v2, float v3);
   static void glUniformValuef(int8_t location, float v1, float v2, float v3, float v4);
+  static void glUniformValuefv(int8_t location, float * v, uint32_t size);
 
   static void glUniformMatrix4x4Value(int8_t location, const float *values);
 
@@ -92,6 +96,7 @@ public:
   // Textures support
   static void glActiveTexture(glConst texBlock);
   static uint32_t glGenTexture();
+  static void glDeleteTexture(uint32_t id);
   static void glBindTexture(uint32_t textureID);
   static void glTexImage2D(int width, int height, glConst layout, glConst pixelType, const void * data);
   static void glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType, const void * data);
