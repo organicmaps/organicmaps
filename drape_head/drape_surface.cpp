@@ -2,7 +2,6 @@
 
 #include "../drape_frontend/viewport.hpp"
 
-#include "../drape/utils/list_generator.hpp"
 #include "../drape/shader_def.hpp"
 
 #include "../base/stl_add.hpp"

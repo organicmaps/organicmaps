@@ -21,7 +21,7 @@ Color::Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alfa)
 {
 }
 
-bool Color::operator< (Color const & other)
+bool Color::operator< (Color const & other) const
 {
   if (other.m_red != m_red)
     return m_red < other.m_red;
@@ -33,7 +33,7 @@ bool Color::operator< (Color const & other)
   return m_alfa < other.m_alfa;
 }
 
-bool Color::operator== (Color const & other)
+bool Color::operator== (Color const & other) const
 {
   return m_red   == other.m_red   &&
          m_green == other.m_green &&

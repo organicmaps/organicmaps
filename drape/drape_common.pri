@@ -16,7 +16,6 @@ SOURCES += \
     $$DRAPE_DIR/glconstants.cpp \
     $$DRAPE_DIR/glstate.cpp \
     $$DRAPE_DIR/gpu_buffer.cpp \
-    $$DRAPE_DIR/utils/list_generator.cpp \
     $$DRAPE_DIR/shader_def.cpp \
     $$DRAPE_DIR/glextensions_list.cpp \
     $$DRAPE_DIR/pointers.cpp \
@@ -48,7 +47,6 @@ HEADERS += \
     $$DRAPE_DIR/glconstants.hpp \
     $$DRAPE_DIR/glfunctions.hpp \
     $$DRAPE_DIR/gpu_buffer.hpp \
-    $$DRAPE_DIR/utils/list_generator.hpp \
     $$DRAPE_DIR/shader_def.hpp \
     $$DRAPE_DIR/glextensions_list.hpp \
     $$DRAPE_DIR/oglcontext.hpp \
@@ -60,4 +58,6 @@ HEADERS += \
     $$DRAPE_DIR/utils/lodepng.h \
     $$DRAPE_DIR/texture_structure_desc.hpp \
     $$DRAPE_DIR/symbols_texture.hpp \
-    $$DRAPE_DIR/texture_manager.hpp
+    $$DRAPE_DIR/texture_manager.hpp \
+    $$DRAPE_DIR/texture_set_controller.hpp \
+    $$DRAPE_DIR/texture_set_holder.hpp

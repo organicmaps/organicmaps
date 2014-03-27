@@ -7,8 +7,8 @@
 
 namespace
 {
-  const uint32_t AllocateIndexCount = 3000;
-  const uint32_t AllocateVertexCount = 3000;
+  const uint32_t AllocateIndexCount = 9000;
+  const uint32_t AllocateVertexCount = 10000;
 
   class IndexGenerator
   {

@@ -12,8 +12,8 @@ struct Color
   uint8_t m_blue;
   uint8_t m_alfa;
 
-  bool operator <  (Color const & other);
-  bool operator == (Color const & other);
+  bool operator <  (Color const & other) const;
+  bool operator == (Color const & other) const;
 };
 
 inline uint8_t ExtractRed(uint32_t argb);
