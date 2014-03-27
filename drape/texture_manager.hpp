@@ -1,20 +1,22 @@
 #pragma once
 
-#include "symbols_texture.hpp"
+#include "pointers.hpp"
+#include "texture_set_holder.hpp"
+#include "texture_set_controller.hpp"
 
-class TextureManager
+class TextureManager : public TextureSetHolder,
+                       public TextureSetController
 {
 public:
-  void LoadExternalResources(const string & resourcePostfix);
+  void Init(const string & resourcePrefix);
+  void Release();
+  void GetSymbolRegion(const string & symbolName, TextureRegion & region) const;
 
-  struct Symbol
-  {
-    m2::RectD m_texCoord;
-    uint32_t m_textureBlock;
-  };
-
-  void GetSymbolRect(const string & symbolName, Symbol & symbol) const;
+  void BindTextureSet(uint32_t textureSet) const;
+  uint32_t GetTextureCount(uint32_t textureSet) const;
 
 private:
-  SymbolsTexture m_symbols;
+  class TextureSet;
+  MasterPointer<TextureSet> m_textures;
+  uint32_t m_maxTextureBlocks;
 };

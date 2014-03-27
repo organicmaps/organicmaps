@@ -18,6 +18,8 @@ namespace df
     df::VisualParams::Init(vs, df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
     m_contextFactory->getDrawContext()->makeCurrent();
 
+    m_textures.Reset(new TextureManager());
+    m_textures->Init(df::VisualParams::Instance().GetResourcePostfix());
     m_batcher.Reset(new Batcher());
     m_programManager.Reset(new GpuProgramManager());
 
@@ -29,6 +31,8 @@ namespace df
   {
     ClearScene();
     m_batcher.Destroy();
+    m_textures->Release();
+    m_textures.Destroy();
     m_programManager.Destroy();
   }
 
@@ -52,7 +56,7 @@ namespace df
       const GLState & state = it->first;
       RefPointer<GpuProgram> prg = m_programManager->GetProgram(state.GetProgramIndex());
       prg->Bind();
-      ApplyState(state, prg);
+      ApplyState(state, prg, m_textures.GetRefPointer());
       ApplyUniforms(m_generalUniforms, prg);
 
       it->second->Render();
@@ -109,12 +113,13 @@ namespace df
     linePoints1.push_back(grid[29][4]);
 
     LineViewParams params1;
+    params1.m_depth = 0.0f;
     params1.m_cap   = RoundCap;
     params1.m_join  = RoundJoin;
     params1.m_color = Color(255, 255, 50, 255);
     params1.m_width = 80.f;
-    df::LineShape * line1 = new df::LineShape(linePoints1, 0.0f, params1);
-    line1->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureManager>(NULL));
+    df::LineShape * line1 = new df::LineShape(linePoints1, params1);
+    line1->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureSetHolder>(NULL));
     //
 
     //2
@@ -128,12 +133,13 @@ namespace df
     linePoints2.push_back(grid[6][16]);
 
     LineViewParams params2;
+    params1.m_depth = 0.0f;
     params2.m_cap   = SquareCap;
     params2.m_join  = RoundJoin;
     params2.m_color = Color(0, 255, 255, 255);
     params2.m_width = 50.f;
-    df::LineShape * line2 = new df::LineShape(linePoints2, 0.0f, params2);
-    line2->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureManager>(NULL));
+    df::LineShape * line2 = new df::LineShape(linePoints2, params2);
+    line2->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureSetHolder>(NULL));
     //
 
     //3
@@ -147,12 +153,13 @@ namespace df
     linePoints3.push_back(grid[29][12]);
 
     LineViewParams params3;
+    params1.m_depth = 0.0f;
     params3.m_cap   = ButtCap;
     params3.m_join  = MiterJoin;
     params3.m_color = Color(255, 0, 255, 255);
     params3.m_width = 60.f;
-    df::LineShape * line3 = new df::LineShape(linePoints3, 0.0f, params3);
-    line3->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureManager>(NULL));
+    df::LineShape * line3 = new df::LineShape(linePoints3, params3);
+    line3->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureSetHolder>(NULL));
     //
   }
 

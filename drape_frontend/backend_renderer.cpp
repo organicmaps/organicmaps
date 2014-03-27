@@ -7,6 +7,9 @@
 #include "threads_commutator.hpp"
 #include "message_subclasses.hpp"
 
+#include "../drape/texture_set_holder.hpp"
+#include "../drape/oglcontextfactory.hpp"
+
 #include "../platform/platform.hpp"
 
 #include "../std/bind.hpp"
@@ -15,10 +18,12 @@
 namespace df
 {
   BackendRenderer::BackendRenderer(RefPointer<ThreadsCommutator> commutator,
-                                   RefPointer<OGLContextFactory> oglcontextfactory)
+                                   RefPointer<OGLContextFactory> oglcontextfactory,
+                                   RefPointer<TextureSetHolder> textureHolder)
     : m_engineContext(commutator)
     , m_commutator(commutator)
     , m_contextFactory(oglcontextfactory)
+    , m_textures(textureHolder)
   {
     ///{ Temporary initialization
     m_model.InitClassificator();
@@ -69,7 +74,7 @@ namespace df
         MapShapeReadedMessage * msg = static_cast<MapShapeReadedMessage *>(message.GetRaw());
         RefPointer<Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
         MasterPointer<MapShape> shape(msg->GetShape());
-        shape->Draw(batcher, MakeStackRefPointer(&m_textureManager));
+        shape->Draw(batcher, m_textures);
 
         shape.Destroy();
       }
@@ -99,7 +104,7 @@ namespace df
   {
     m_contextFactory->getResourcesUploadContext()->makeCurrent();
 
-    m_textureManager.LoadExternalResources(VisualParams::Instance().GetResourcePostfix());
+    InitGLDependentResource();
 
     while (!IsCancelled())
       ProcessSingleMessage(true);
@@ -113,11 +118,18 @@ namespace df
 
     m_readManager.Destroy();
     m_batchersPool.Destroy();
+
+    m_textures->Release();
   }
 
   void BackendRenderer::Do()
   {
     ThreadMain();
+  }
+
+  void BackendRenderer::InitGLDependentResource()
+  {
+    m_textures->Init(VisualParams::Instance().GetResourcePostfix());
   }
 
   void BackendRenderer::PostToRenderThreads(TransferPointer<Message> message)

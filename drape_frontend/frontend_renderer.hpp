@@ -18,6 +18,7 @@
 #include "../drape/vertex_array_buffer.hpp"
 #include "../drape/gpu_program_manager.hpp"
 #include "../drape/oglcontextfactory.hpp"
+#include "../drape/texture_set_controller.hpp"
 
 #include "../drape/uniform_values_storage.hpp"
 
@@ -33,6 +34,7 @@ namespace df
   public:
     FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
                      RefPointer<OGLContextFactory> oglcontextfactory,
+                     RefPointer<TextureSetController> textureController,
                      Viewport viewport);
 
     ~FrontendRenderer();
@@ -73,9 +75,10 @@ namespace df
 
   private:
     RefPointer<ThreadsCommutator> m_commutator;
+    RefPointer<OGLContextFactory> m_contextFactory;
+    RefPointer<TextureSetController> m_textureController;
     MasterPointer<GpuProgramManager> m_gpuProgramManager;
     threads::Thread m_selfThread;
-    RefPointer<OGLContextFactory> m_contextFactory;
 
   private:
     typedef multimap<GLState, MasterPointer<VertexArrayBuffer> > render_data_t;

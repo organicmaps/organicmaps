@@ -25,10 +25,12 @@ namespace df
 
   FrontendRenderer::FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
                                      RefPointer<OGLContextFactory> oglcontextfactory,
+                                     RefPointer<TextureSetController> textureController,
                                      Viewport viewport)
     : m_commutator(commutator)
-    , m_gpuProgramManager(new GpuProgramManager())
     , m_contextFactory(oglcontextfactory)
+    , m_textureController(textureController)
+    , m_gpuProgramManager(new GpuProgramManager())
     , m_viewport(viewport)
   {
 #ifdef DRAW_INFO
@@ -219,7 +221,7 @@ namespace df
     RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(node.first.GetProgramIndex());
 
     program->Bind();
-    ApplyState(node.first, program);
+    ApplyState(node.first, program, m_textureController);
     ApplyUniforms(m_generalUniforms, program);
 
     node.second->Render();

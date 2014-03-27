@@ -3,6 +3,8 @@
 #include "pointers.hpp"
 #include "glconstants.hpp"
 
+#include "../geometry/rect2d.hpp"
+
 #include "../std/stdint.hpp"
 
 class Texture
@@ -14,7 +16,21 @@ public:
     RGBA4
   };
 
+  class Key
+  {
+  public:
+    enum Type
+    {
+      Symbol,
+      Font,
+      UniformValue
+    };
+
+    virtual Type GetType() const = 0;
+  };
+
   Texture();
+  virtual ~Texture();
 
   void Create(uint32_t width, uint32_t height, TextureFormat format);
   void Create(uint32_t width, uint32_t height, TextureFormat format, RefPointer<void> data);
@@ -23,6 +39,8 @@ public:
 
   void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, TextureFormat format,
                   RefPointer<void> data);
+
+  virtual bool FindResource(Key const & key, m2::RectF & texRect, m2::PointU & pixelSize) const = 0;
 
   uint32_t GetWidth() const;
   uint32_t GetHeight() const;

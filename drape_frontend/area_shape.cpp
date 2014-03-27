@@ -3,34 +3,29 @@
 #include "../drape/shader_def.hpp"
 #include "../drape/attribute_provider.hpp"
 
+#include "../std/bind.hpp"
+
 namespace df
 {
-  AreaShape::AreaShape(const Color & c, float depth)
-    : m_color(c)
-    , m_depth(depth)
-  {}
-
-  void AreaShape::AddTriangle(const m2::PointF & v1,
-                              const m2::PointF & v2,
-                              const m2::PointF & v3)
+  AreaShape::AreaShape(vector<m2::PointF> const & triangleList, AreaViewParams const & params)
+    : m_params(params)
   {
-    m_vertexes.push_back(Point3D(v1.x, v1.y, m_depth));
-    m_vertexes.push_back(Point3D(v2.x, v2.y, m_depth));
-    m_vertexes.push_back(Point3D(v3.x, v3.y, m_depth));
+    m_vertexes.reserve(triangleList.size());
+    for_each(triangleList.begin(), triangleList.end(),
+             bind(&vector<Point3D>::push_back, &m_vertexes,
+                  bind(&Point3D::From2D, _1, params.m_depth)));
   }
 
-  void AreaShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureManager> /*textures*/) const
+  void AreaShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const
   {
     GLState state(gpu::SOLID_AREA_PROGRAM, 0);
-    float r, g, b, a;
-    ::Convert(m_color, r, g, b, a);
-    state.GetUniformValues().SetFloatValue("color", r, g, b, a);
+    state.SetColor(m_params.m_color);
 
     AttributeProvider provider(1, m_vertexes.size());
     {
       BindingInfo info(1);
       BindingDecl & decl = info.GetBindingDecl(0);
-      decl.m_attributeName = "position";
+      decl.m_attributeName = "a_position";
       decl.m_componentCount = 3;
       decl.m_componentType = GLConst::GLFloatType;
       decl.m_offset = 0;

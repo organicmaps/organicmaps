@@ -3,6 +3,8 @@
 #include "message_subclasses.hpp"
 #include "visual_params.hpp"
 
+#include "../drape/texture_manager.hpp"
+
 namespace df
 {
   DrapeEngine::DrapeEngine(RefPointer<OGLContextFactory> contextfactory, double vs, Viewport const & viewport)
@@ -14,11 +16,19 @@ namespace df
     m_navigator.LoadState();
     m_navigator.OnSize(0, 0, m_viewport.GetWidth(), m_viewport.GetHeight());
 
+    RefPointer<TextureSetController> controller = MakeStackRefPointer<TextureSetController>(&m_textures);
+    RefPointer<TextureSetHolder>     textureHolder = MakeStackRefPointer<TextureSetHolder>(&m_textures);
+
     m_threadCommutator = MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
     RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
 
-    m_frontend = MasterPointer<FrontendRenderer>(new FrontendRenderer(commutatorRef, contextfactory, m_viewport));
-    m_backend =  MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef, contextfactory));
+    m_frontend = MasterPointer<FrontendRenderer>(new FrontendRenderer(commutatorRef,
+                                                                      contextfactory,
+                                                                      controller,
+                                                                      m_viewport));
+    m_backend =  MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef,
+                                                                    contextfactory,
+                                                                    textureHolder));
 
     UpdateCoverage();
   }

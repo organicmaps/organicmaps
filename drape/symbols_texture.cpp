@@ -4,6 +4,21 @@
 
 #include "../platform/platform.hpp"
 
+SymbolsTexture::SymbolKey::SymbolKey(const string & symbolName)
+  : m_symbolName(symbolName)
+{
+}
+
+Texture::Key::Type SymbolsTexture::SymbolKey::GetType() const
+{
+  return Texture::Key::Symbol;
+}
+
+const string & SymbolsTexture::SymbolKey::GetSymbolName() const
+{
+  return m_symbolName;
+}
+
 void SymbolsTexture::Load(const string & skinPathName)
 {
   uint32_t width, height;
@@ -23,11 +38,19 @@ void SymbolsTexture::Load(const string & skinPathName)
   Create(width, height, Texture::RGBA8, MakeStackRefPointer<void>(&pngData[0]));
 }
 
-m2::RectD SymbolsTexture::FindSymbol(const string & symbolName) const
+bool SymbolsTexture::FindResource(const Texture::Key & key, m2::RectF & texRect, m2::PointU & pixelSize) const
 {
+  if (key.GetType() != Texture::Key::Symbol)
+    return false;
+
+  const string & symbolName = static_cast<const SymbolKey &>(key).GetSymbolName();
+
   m2::RectU r;
   if (!m_desc.GetResource(symbolName, r))
-    return m2::RectD();
+    return false;
 
-  return m2::RectD(GetS(r.minX()), GetT(r.minY()), GetS(r.maxX()), GetT(r.maxY()));
+  pixelSize.x = r.SizeX();
+  pixelSize.y = r.SizeY();
+  texRect = m2::RectF(GetS(r.minX()), GetT(r.minY()), GetS(r.maxX()), GetT(r.maxY()));
+  return true;
 }

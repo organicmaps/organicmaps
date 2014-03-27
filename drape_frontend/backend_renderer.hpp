@@ -5,16 +5,16 @@
 #include "viewport.hpp"
 
 #include "../drape/pointers.hpp"
-#include "../drape/oglcontextfactory.hpp"
-#include "../drape/texture_manager.hpp"
 
 #include "../map/feature_vec_model.hpp"
 
 #include "../base/thread.hpp"
 
+class OGLContextFactory;
+class TextureSetHolder;
+
 namespace df
 {
-
   class Message;
   class ThreadsCommutator;
   class BatchersPool;
@@ -25,7 +25,8 @@ namespace df
   {
   public:
     BackendRenderer(RefPointer<ThreadsCommutator> commutator,
-                    RefPointer<OGLContextFactory> oglcontextfactory);
+                    RefPointer<OGLContextFactory> oglcontextfactory,
+                    RefPointer<TextureSetHolder> textureHolder);
 
     ~BackendRenderer();
 
@@ -39,7 +40,6 @@ namespace df
     EngineContext m_engineContext;
     MasterPointer<BatchersPool> m_batchersPool;
     MasterPointer<ReadManager>  m_readManager;
-    TextureManager m_textureManager;
 
     /////////////////////////////////////////
     //           MessageAcceptor           //
@@ -57,11 +57,13 @@ namespace df
     void ReleaseResources();
     virtual void Do();
 
+    void InitGLDependentResource();
     void PostToRenderThreads(TransferPointer<Message> message);
 
   private:
     threads::Thread m_selfThread;
     RefPointer<ThreadsCommutator> m_commutator;
     RefPointer<OGLContextFactory> m_contextFactory;
+    RefPointer<TextureSetHolder> m_textures;
   };
 }

@@ -5,6 +5,7 @@
 #include "../drape/batcher.hpp"
 #include "../drape/gpu_program_manager.hpp"
 #include "../drape/uniform_values_storage.hpp"
+#include "../drape/texture_manager.hpp"
 
 #include "../drape_frontend/viewport.hpp"
 
@@ -33,6 +34,7 @@ namespace df
     RefPointer<OGLContextFactory> m_contextFactory;
     MasterPointer<Batcher> m_batcher;
     MasterPointer<GpuProgramManager> m_programManager;
+    MasterPointer<TextureManager> m_textures;
     df::Viewport m_viewport;
 
     typedef map<GLState, MasterPointer<VertexArrayBuffer> > scene_t;

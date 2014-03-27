@@ -12,6 +12,12 @@ Texture::Texture()
 {
 }
 
+Texture::~Texture()
+{
+  if (m_textureID != -1)
+    GLFunctions::glDeleteTexture(m_textureID);
+}
+
 void Texture::Create(uint32_t width, uint32_t height, TextureFormat format)
 {
   Create(width, height, format, MakeStackRefPointer<void>(NULL));

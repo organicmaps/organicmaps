@@ -1,6 +1,8 @@
 #pragma once
 
+#include "shape_view_params.hpp"
 #include "map_shape.hpp"
+
 #include "../drape/batcher.hpp"
 #include "../drape/pointers.hpp"
 #include "../drape/color.hpp"
@@ -13,17 +15,12 @@ namespace df
   class AreaShape : public MapShape
   {
   public:
-    AreaShape(Color const & c, float depth);
+    AreaShape(vector<m2::PointF> const & triangleList, AreaViewParams const & params);
 
-    void AddTriangle(const m2::PointF & v1,
-                     const m2::PointF & v2,
-                     const m2::PointF & v3);
-
-    virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureManager> /*textures*/) const;
+    virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const;
 
   private:
-    Color m_color;
     vector<Point3D> m_vertexes;
-    float m_depth;
+    AreaViewParams m_params;
   };
 }

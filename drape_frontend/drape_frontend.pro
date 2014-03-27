@@ -31,7 +31,9 @@ SOURCES += \
     viewport.cpp \
     tile_key.cpp \
     apply_feature_functors.cpp \
-    visual_params.cpp
+    visual_params.cpp \
+    poi_symbol_shape.cpp \
+    circle_shape.cpp
 
 HEADERS += \
     engine_context.hpp \
@@ -58,4 +60,6 @@ HEADERS += \
     viewport.hpp \
     tile_key.hpp \
     apply_feature_functors.hpp \
-    visual_params.hpp
+    visual_params.hpp \
+    poi_symbol_shape.hpp \
+    circle_shape.hpp

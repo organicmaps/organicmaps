@@ -13,17 +13,15 @@
 
 namespace df
 {
-  LineShape::LineShape(const vector<m2::PointF> & points,
-                       float depth,
-                       const LineViewParams & params)
+  LineShape::LineShape(vector<m2::PointF> const & points,
+                       LineViewParams const & params)
     : m_points(points)
-    , m_depth(depth)
     , m_params(params)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
 
-  void LineShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureManager> /*textures*/) const
+  void LineShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const
   {
     //join, cap, segment params
     // vertex type:
@@ -61,11 +59,11 @@ namespace df
     // Add start cap quad
     if (doAddCap)
     {
-      renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // A
+      renderPoints.push_back(Point3D::From2D(firstPoint, m_params.m_depth)); // A
       renderDirections.push_back(Point3D::From2D(direction, hw));
       renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
 
-      renderPoints.push_back(Point3D::From2D(firstPoint, m_depth)); // B
+      renderPoints.push_back(Point3D::From2D(firstPoint, m_params.m_depth)); // B
       renderDirections.push_back(Point3D::From2D(direction, -hw));
       renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
     }
@@ -95,8 +93,8 @@ namespace df
           continue;
       }
 
-      const Point3D start3d = Point3D::From2D(start, m_depth);
-      const Point3D end3d   = Point3D::From2D(end, m_depth);
+      const Point3D start3d = Point3D::From2D(start, m_params.m_depth);
+      const Point3D end3d   = Point3D::From2D(end, m_params.m_depth);
 
       const Point3D directionPos = Point3D::From2D(segment, hw);
       const Point3D directionNeg = Point3D::From2D(segment, -hw);
@@ -137,7 +135,7 @@ namespace df
                                    : 2*hw; // ensure we have enough space for sector
 
           // Add join triangles
-          Point3D pivot = Point3D::From2D(m_points[i], m_depth);
+          Point3D pivot = Point3D::From2D(m_points[i], m_params.m_depth);
 
           // T123
           vec2 nIn(-vIn.y, vIn.x);
@@ -187,20 +185,18 @@ namespace df
       m2::PointF lastPoint = m_points[count-1];
       direction = -lastSegment;
 
-      renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // A
+      renderPoints.push_back(Point3D::From2D(lastPoint, m_params.m_depth)); // A
       renderDirections.push_back(Point3D::From2D(direction, -hw));
       renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
 
-      renderPoints.push_back(Point3D::From2D(lastPoint, m_depth)); // B
+      renderPoints.push_back(Point3D::From2D(lastPoint, m_params.m_depth)); // B
       renderDirections.push_back(Point3D::From2D(direction, hw));
       renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
     }
     //
 
     GLState state(gpu::SOLID_LINE_PROGRAM, 0);
-    float r, g, b, a;
-    ::Convert(GetColor(), r, g, b, a);
-    state.GetUniformValues().SetFloatValue("u_color", r, g, b, a);
+    state.SetColor(GetColor());
 
     AttributeProvider provider(3, renderPoints.size());
 
