@@ -5,6 +5,8 @@
 
 #include "area_shape.hpp"
 #include "line_shape.hpp"
+#include "poi_symbol_shape.hpp"
+#include "circle_shape.hpp"
 
 #include "../indexer/drawing_rules.hpp"
 #include "../indexer/drules_include.hpp"
@@ -113,11 +115,22 @@ namespace df
     }
     else if (m_circleRule)
     {
-      // draw circle
+      CircleViewParams params;
+      params.m_depth = m_circleDepth;
+      params.m_color = ToDrapeColor(m_circleRule->color());
+      params.m_radius = m_circleRule->radius();
+
+      CircleShape * shape = new CircleShape(m_centerPoint, params);
+      m_context.InsertShape(m_tileKey, MovePointer<MapShape>(shape));
     }
     else if (m_symbolRule)
     {
-      // draw symbol
+      PoiSymbolViewParams params;
+      params.m_depth = m_symbolDepth;
+      params.m_symbolName = m_symbolRule->name();
+
+      PoiSymbolShape * shape = new PoiSymbolShape(m_centerPoint, params);
+      m_context.InsertShape(m_tileKey, MovePointer<MapShape>(shape));
     }
   }
 
@@ -144,10 +157,11 @@ namespace df
 
     if (areaRule)
     {
-      AreaShape * shape = new AreaShape(ToDrapeColor(areaRule->color()), depth);
-      for (size_t i = 0; i < m_triangles.size(); i += 3)
-        shape->AddTriangle(m_triangles[i], m_triangles[i + 1], m_triangles[i + 2]);
+      AreaViewParams params;
+      params.m_depth = depth;
+      params.m_color = ToDrapeColor(areaRule->color());
 
+      AreaShape * shape = new AreaShape(m_triangles, params);
       m_context.InsertShape(m_tileKey, MovePointer<MapShape>(shape));
     }
     else
@@ -175,8 +189,9 @@ namespace df
     {
       LineViewParams params;
       Extract(pRule, params);
+      params.m_depth = depth;
 
-      m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new LineShape(m_path, depth, params)));
+      m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new LineShape(m_path, params)));
     }
   }
 }
