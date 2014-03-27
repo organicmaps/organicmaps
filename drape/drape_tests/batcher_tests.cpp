@@ -128,7 +128,9 @@ UNIT_TEST(BatchLists_Test)
         .WillOnce(Invoke(&dataCmp, &MemoryComparer::cmp));
 
     // build VertexArrayBuffer
-    EXPECTGL(glHasExtension("GL_APPLE_vertex_array_object")).WillOnce(Return(true));
+    EXPECTGL(glHasExtension(_)).WillOnce(Return(true));
+    EXPECTGL(glHasExtension(_)).WillOnce(Return(true));
+    EXPECTGL(glHasExtension(_)).WillOnce(Return(true));
     EXPECTGL(glGenVertexArray()).WillOnce(Return(VaoID));
     EXPECTGL(glBindVertexArray(VaoID));
 
