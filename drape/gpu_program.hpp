@@ -27,11 +27,9 @@ public:
 
   int8_t GetAttributeLocation(const string & attributeName) const;
   int8_t GetUniformLocation(const string & uniformName) const;
-  void ActivateSampler(uint8_t textureBlock, const string & samplerName);
 
 private:
   uint32_t m_programID;
-
 
 #ifdef DEBUG
 private:
