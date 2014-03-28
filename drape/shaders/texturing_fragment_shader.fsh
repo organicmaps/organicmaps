@@ -1,5 +1,6 @@
 uniform sampler2D u_textures[8];
-varying highp vec4 v_texCoords;
+varying highp vec2 v_texCoords;
+varying highp float v_textureIndex;
 
 const int Index0  = 0;
 const int Index1  = 1;
@@ -12,24 +13,24 @@ const int Index7  = 7;
 
 void main(void)
 {
-  int index = int(floor(v_texCoords.z));
   highp vec4 color;
-  if (index == Index0)
-    color = texture2D(u_textures[Index0], v_texCoords.st);
-  else if (index == Index1)
-    color = texture2D(u_textures[Index1], v_texCoords.st);
-  else if (index == Index2)
-    color = texture2D(u_textures[Index2], v_texCoords.st);
-  else if (index == Index3)
-    color = texture2D(u_textures[Index3], v_texCoords.st);
-  else if (index == Index4)
-    color = texture2D(u_textures[Index4], v_texCoords.st);
-  else if (index == Index5)
-    color = texture2D(u_textures[Index5], v_texCoords.st);
-  else if (index == Index6)
-    color = texture2D(u_textures[Index6], v_texCoords.st);
-  else if (index == Index7)
-    color = texture2D(u_textures[Index7], v_texCoords.st);
+  int textureIndex = int(v_textureIndex);
+  if (textureIndex == Index0)
+    color = texture2D(u_textures[Index0], v_texCoords);
+  else if (textureIndex == Index1)
+    color = texture2D(u_textures[Index1], v_texCoords);
+  else if (textureIndex == Index2)
+    color = texture2D(u_textures[Index2], v_texCoords);
+  else if (textureIndex == Index3)
+    color = texture2D(u_textures[Index3], v_texCoords);
+  else if (textureIndex == Index4)
+    color = texture2D(u_textures[Index4], v_texCoords);
+  else if (textureIndex == Index5)
+    color = texture2D(u_textures[Index5], v_texCoords);
+  else if (textureIndex == Index6)
+    color = texture2D(u_textures[Index6], v_texCoords);
+  else if (textureIndex == Index7)
+    color = texture2D(u_textures[Index7], v_texCoords);
 
   gl_FragColor = color;
 }
