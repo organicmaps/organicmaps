@@ -211,27 +211,37 @@ int32_t GLFunctions::glGetInteger(glConst pname)
 
 void GLFunctions::glEnable(glConst mode)
 {
-  ::glEnable(mode);
+  GLCHECK(::glEnable(mode));
 }
 
 void GLFunctions::glDisable(glConst mode)
 {
-  ::glDisable(mode);
+  GLCHECK(::glDisable(mode));
 }
 
 void GLFunctions::glClearDepth(double depth)
 {
-  ::glClearDepth(depth);
+  GLCHECK(::glClearDepth(depth));
 }
 
 void GLFunctions::glDepthMask(bool needWriteToDepthBuffer)
 {
-  ::glDepthMask(convert(needWriteToDepthBuffer));
+  GLCHECK(::glDepthMask(convert(needWriteToDepthBuffer)));
 }
 
 void GLFunctions::glDepthFunc(glConst depthFunc)
 {
-  ::glDepthFunc(depthFunc);
+  GLCHECK(::glDepthFunc(depthFunc));
+}
+
+void GLFunctions::glBlendEquation(glConst function)
+{
+  GLCHECK(::glBlendEquation(function));
+}
+
+void GLFunctions::glBlendFunc(glConst srcFactor, glConst dstFactor)
+{
+  GLCHECK(::glBlendFunc(srcFactor, dstFactor));
 }
 
 void GLFunctions::glBindFramebuffer(glConst target, uint32_t id)

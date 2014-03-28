@@ -7,6 +7,46 @@
 #define COLOR_BIT     0x1
 #define TEXTURE_BIT   0x2
 
+Blending::Blending(bool isEnabled)
+  : m_isEnabled(isEnabled)
+  , m_blendFunction(GLConst::GLAddBlend)
+  , m_blendSrcFactor(GLConst::GLSrcAlfa)
+  , m_blendDstFactor(GLConst::GLOneMinusSrcAlfa)
+{
+}
+
+void Blending::Apply() const
+{
+  if (m_isEnabled)
+  {
+    GLFunctions::glEnable(GLConst::GLBlending);
+    GLFunctions::glBlendEquation(m_blendFunction);
+    GLFunctions::glBlendFunc(m_blendSrcFactor, m_blendDstFactor);
+  }
+  else
+    GLFunctions::glDisable(GLConst::GLBlending);
+}
+
+bool Blending::operator < (const Blending & other) const
+{
+  if (m_isEnabled != other.m_isEnabled)
+    return m_isEnabled < other.m_isEnabled;
+  if (m_blendFunction != other.m_blendFunction)
+    return m_blendFunction < other.m_blendFunction;
+  if (m_blendSrcFactor != other.m_blendSrcFactor)
+    return m_blendSrcFactor < other.m_blendSrcFactor;
+
+  return m_blendDstFactor < other.m_blendDstFactor;
+}
+
+bool Blending::operator == (const Blending & other) const
+{
+  return m_isEnabled == other.m_isEnabled &&
+         m_blendFunction == other.m_blendFunction &&
+         m_blendSrcFactor == other.m_blendSrcFactor &&
+         m_blendDstFactor == other.m_blendDstFactor;
+}
+
 GLState::GLState(uint32_t gpuProgramIndex, int16_t depthLayer)
   : m_gpuProgramIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
@@ -46,6 +86,16 @@ const Color & GLState::GetColor() const
 bool GLState::HasColor() const
 {
   return (m_mask & COLOR_BIT) != 0;
+}
+
+void GLState::SetBlending(const Blending & blending)
+{
+  m_blending = blending;
+}
+
+const Blending & GLState::GetBlending() const
+{
+  return m_blending;
 }
 
 int GLState::GetProgramIndex() const
@@ -105,4 +155,6 @@ void ApplyState(GLState state, RefPointer<GpuProgram> program,
     int8_t location = program->GetUniformLocation("u_textures");
     GLFunctions::glUniformValueiv(location, ids.data(), count);
   }
+
+  state.GetBlending().Apply();
 }

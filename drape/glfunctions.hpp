@@ -21,6 +21,8 @@ public:
   static void glClearDepth(double depth);
   static void glDepthMask(bool needWriteToDepthBuffer);
   static void glDepthFunc(glConst depthFunc);
+  static void glBlendEquation(glConst function);
+  static void glBlendFunc(glConst srcFactor, glConst dstFactor);
 
   static void glBindFramebuffer(glConst target, uint32_t id);
 

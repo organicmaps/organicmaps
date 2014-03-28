@@ -84,9 +84,26 @@ namespace GLConst
 
   extern const glConst GLFloatMat4;
 
+  /// Blend Functions
+  extern const glConst GLAddBlend;
+  extern const glConst GLSubstractBlend;
+  extern const glConst GLReverseSubstrBlend;
+
+  /// Blend Factors
+  extern const glConst GLZero;
+  extern const glConst GLOne;
+  extern const glConst GLSrcColor;
+  extern const glConst GLOneMinusSrcColor;
+  extern const glConst GLDstColor;
+  extern const glConst GLOneMinusDstColor;
+  extern const glConst GLSrcAlfa;
+  extern const glConst GLOneMinusSrcAlfa;
+  extern const glConst GLDstAlfa;
+  extern const glConst GLOneMinusDstAlfa;
 
   /// OpenGL states
   extern const glConst GLDepthTest;
+  extern const glConst GLBlending;
 
   /// OpenGL depth functions
   extern const glConst GLNever;

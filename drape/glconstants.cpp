@@ -82,26 +82,42 @@ namespace GLConst
   const glConst GLFloatType           = GL_FLOAT;
   const glConst GLDoubleType          = GL_DOUBLE;
 
-  const glConst GLFloatVec2 = GL_FLOAT_VEC2;
-  const glConst GLFloatVec3 = GL_FLOAT_VEC3;
-  const glConst GLFloatVec4 = GL_FLOAT_VEC4;
+  const glConst GLFloatVec2           = GL_FLOAT_VEC2;
+  const glConst GLFloatVec3           = GL_FLOAT_VEC3;
+  const glConst GLFloatVec4           = GL_FLOAT_VEC4;
 
-  const glConst GLIntVec2 = GL_INT_VEC2;
-  const glConst GLIntVec3 = GL_INT_VEC3;
-  const glConst GLIntVec4 = GL_INT_VEC4;
+  const glConst GLIntVec2             = GL_INT_VEC2;
+  const glConst GLIntVec3             = GL_INT_VEC3;
+  const glConst GLIntVec4             = GL_INT_VEC4;
 
-  const glConst GLFloatMat4 = GL_FLOAT_MAT4;
+  const glConst GLFloatMat4           = GL_FLOAT_MAT4;
 
-  const glConst GLDepthTest = GL_DEPTH_TEST;
+  const glConst GLAddBlend            = GL_FUNC_ADD;
+  const glConst GLSubstractBlend      = GL_FUNC_SUBTRACT;
+  const glConst GLReverseSubstrBlend  = GL_FUNC_REVERSE_SUBTRACT;
 
-  const glConst GLNever = GL_NEVER;
-  const glConst GLLess = GL_LESS;
-  const glConst GLEqual = GL_EQUAL;
-  const glConst GLLessOrEqual = GL_LEQUAL;
-  const glConst GLGreat = GL_GREATER;
-  const glConst GLNotEqual = GL_NOTEQUAL;
-  const glConst GLGreatOrEqual = GL_GEQUAL;
-  const glConst GLAlways = GL_ALWAYS;
+  const glConst GLZero                = GL_ZERO;
+  const glConst GLOne                 = GL_ONE;
+  const glConst GLSrcColor            = GL_SRC_COLOR;
+  const glConst GLOneMinusSrcColor    = GL_ONE_MINUS_SRC_COLOR;
+  const glConst GLDstColor            = GL_DST_COLOR;
+  const glConst GLOneMinusDstColor    = GL_ONE_MINUS_DST_COLOR;
+  const glConst GLSrcAlfa             = GL_SRC_ALPHA;
+  const glConst GLOneMinusSrcAlfa     = GL_ONE_MINUS_SRC_ALPHA;
+  const glConst GLDstAlfa             = GL_DST_ALPHA;
+  const glConst GLOneMinusDstAlfa     = GL_ONE_MINUS_DST_ALPHA;
+
+  const glConst GLDepthTest           = GL_DEPTH_TEST;
+  const glConst GLBlending            = GL_BLEND;
+
+  const glConst GLNever               = GL_NEVER;
+  const glConst GLLess                = GL_LESS;
+  const glConst GLEqual               = GL_EQUAL;
+  const glConst GLLessOrEqual         = GL_LEQUAL;
+  const glConst GLGreat               = GL_GREATER;
+  const glConst GLNotEqual            = GL_NOTEQUAL;
+  const glConst GLGreatOrEqual        = GL_GEQUAL;
+  const glConst GLAlways              = GL_ALWAYS;
 
   const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
 }
