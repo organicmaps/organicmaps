@@ -109,6 +109,13 @@ int Match2Bytes(char const * & s)
   case 0x9D:  // ”
     return 2;
   case 0xB2:  // ′
+    if (static_cast<uint8_t>(*s) == 0xE2
+        && static_cast<uint8_t>(*(s+1)) == 0x80
+        && static_cast<uint8_t>(*(s+2)) == 0xB2)
+    {
+      s += 3;
+      return 2;  // this specific case when the string is normalized and ″ is splitted to ′′
+    }
     return 1;
   case 0xB3:  // ″
     return 2;

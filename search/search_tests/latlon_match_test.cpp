@@ -109,6 +109,11 @@ UNIT_TEST(LatLon_Degree_Match)
   TEST_ALMOST_EQUAL(lat, -55.755831, ());
   TEST_ALMOST_EQUAL(lon, -37.617673, ());
 
+  // We can receive already normalized string, and double quotes become two single quotes
+  TEST(MatchLatLonDegree("55°45′20.9916′′S, 37°37′3.6228′′W", lat, lon), ());
+  TEST_ALMOST_EQUAL(lat, -55.755831, ());
+  TEST_ALMOST_EQUAL(lon, -37.617673, ());
+
   TEST(MatchLatLonDegree("W55°45′20.9916″, S37°37′3.6228″", lat, lon), ());
   TEST_ALMOST_EQUAL(lon, -55.755831, ());
   TEST_ALMOST_EQUAL(lat, -37.617673, ());
