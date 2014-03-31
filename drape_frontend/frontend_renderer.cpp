@@ -25,7 +25,7 @@ namespace df
 
   FrontendRenderer::FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
                                      RefPointer<OGLContextFactory> oglcontextfactory,
-                                     RefPointer<TextureSetController> textureController,
+                                     TransferPointer<TextureSetController> textureController,
                                      Viewport viewport)
     : m_commutator(commutator)
     , m_contextFactory(oglcontextfactory)
@@ -221,7 +221,7 @@ namespace df
     RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(node.first.GetProgramIndex());
 
     program->Bind();
-    ApplyState(node.first, program, m_textureController);
+    ApplyState(node.first, program, m_textureController.GetRefPointer());
     ApplyUniforms(m_generalUniforms, program);
 
     node.second->Render();
@@ -282,6 +282,7 @@ namespace df
   {
     DeleteRenderData();
     m_gpuProgramManager.Destroy();
+    m_textureController.Destroy();
   }
 
   void FrontendRenderer::Do()

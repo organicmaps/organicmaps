@@ -9,6 +9,8 @@
 
 Texture::Texture()
   : m_textureID(-1)
+  , m_width(0)
+  , m_height(0)
 {
 }
 

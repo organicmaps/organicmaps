@@ -33,7 +33,7 @@ namespace df
     MasterPointer<FrontendRenderer> m_frontend;
     MasterPointer<BackendRenderer>  m_backend;
 
-    TextureManager m_textures;
+    MasterPointer<TextureManager> m_textures;
     MasterPointer<ThreadsCommutator> m_threadCommutator;
 
     ScalesProcessor m_scales;

@@ -100,3 +100,19 @@ uint32_t TextureManager::GetTextureCount(uint32_t textureSet) const
   ASSERT_LESS(textureSet, 1, ()); // TODO replace 1 to m_textureSets.size()
   return m_textures->GetSize();
 }
+
+
+TextureSetBinder::TextureSetBinder(RefPointer<TextureManager> manager)
+  : m_manager(manager)
+{
+}
+
+void TextureSetBinder::BindTextureSet(uint32_t textureSet) const
+{
+  m_manager->BindTextureSet(textureSet);
+}
+
+uint32_t TextureSetBinder::GetTextureCount(uint32_t textureSet) const
+{
+  return m_manager->GetTextureCount(textureSet);
+}

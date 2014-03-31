@@ -14,8 +14,8 @@ public:
   {
     m2::PointU m_pixelSize;
     m2::RectF  m_stRect;        // texture coodinates in range [0, 1]
-    int32_t   m_textureSet;    // numer of texture set where region placed
-    int32_t   m_textureOffset; // number of texture in set
+    int32_t    m_textureSet;    // number of texture set where region placed
+    int32_t    m_textureOffset; // number of texture in set
   };
 
   virtual void GetSymbolRegion(const string & symbolName, TextureRegion & region) const = 0;

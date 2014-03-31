@@ -34,7 +34,7 @@ namespace df
   public:
     FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
                      RefPointer<OGLContextFactory> oglcontextfactory,
-                     RefPointer<TextureSetController> textureController,
+                     TransferPointer<TextureSetController> textureController,
                      Viewport viewport);
 
     ~FrontendRenderer();
@@ -76,7 +76,7 @@ namespace df
   private:
     RefPointer<ThreadsCommutator> m_commutator;
     RefPointer<OGLContextFactory> m_contextFactory;
-    RefPointer<TextureSetController> m_textureController;
+    MasterPointer<TextureSetController> m_textureController;
     MasterPointer<GpuProgramManager> m_gpuProgramManager;
     threads::Thread m_selfThread;
 

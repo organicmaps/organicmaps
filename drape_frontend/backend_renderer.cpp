@@ -120,6 +120,7 @@ namespace df
     m_batchersPool.Destroy();
 
     m_textures->Release();
+    m_textures = RefPointer<TextureSetHolder>();
   }
 
   void BackendRenderer::Do()

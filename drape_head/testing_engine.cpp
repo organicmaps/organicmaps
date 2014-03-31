@@ -56,7 +56,8 @@ namespace df
       const GLState & state = it->first;
       RefPointer<GpuProgram> prg = m_programManager->GetProgram(state.GetProgramIndex());
       prg->Bind();
-      ApplyState(state, prg, m_textures.GetRefPointer());
+      TextureSetBinder binder(m_textures.GetRefPointer());
+      ApplyState(state, prg, MakeStackRefPointer<TextureSetController>(&binder));
       ApplyUniforms(m_generalUniforms, prg);
 
       it->second->Render();
@@ -120,6 +121,7 @@ namespace df
     params1.m_width = 80.f;
     df::LineShape * line1 = new df::LineShape(linePoints1, params1);
     line1->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureSetHolder>(NULL));
+    delete line1;
     //
 
     //2
@@ -140,6 +142,7 @@ namespace df
     params2.m_width = 50.f;
     df::LineShape * line2 = new df::LineShape(linePoints2, params2);
     line2->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureSetHolder>(NULL));
+    delete line2;
     //
 
     //3
@@ -160,6 +163,7 @@ namespace df
     params3.m_width = 60.f;
     df::LineShape * line3 = new df::LineShape(linePoints3, params3);
     line3->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureSetHolder>(NULL));
+    delete line3;
     //
   }
 

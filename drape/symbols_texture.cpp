@@ -22,13 +22,23 @@ const string & SymbolsTexture::SymbolKey::GetSymbolName() const
 void SymbolsTexture::Load(const string & skinPathName)
 {
   uint32_t width, height;
-  m_desc.Load(skinPathName + ".sdf", width, height);
-
-  ReaderPtr<ModelReader> reader = GetPlatform().GetReader(skinPathName + ".png");
-  uint64_t size = reader.Size();
   vector<unsigned char> rawData;
-  rawData.resize(size);
-  reader.Read(0, &rawData[0], size);
+
+  try
+  {
+    m_desc.Load(skinPathName + ".sdf", width, height);
+    ReaderPtr<ModelReader> reader = GetPlatform().GetReader(skinPathName + ".png");
+    uint64_t size = reader.Size();
+    rawData.resize(size);
+    reader.Read(0, &rawData[0], size);
+  }
+  catch (RootException & e)
+  {
+    LOG(LERROR, (e.what()));
+    int32_t alfaTexture = 0;
+    Create(1, 1, Texture::RGBA8, MakeStackRefPointer(&alfaTexture));
+    return;
+  }
 
   vector<unsigned char> pngData;
   unsigned w, h;

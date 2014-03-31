@@ -16,15 +16,16 @@ namespace df
     m_navigator.LoadState();
     m_navigator.OnSize(0, 0, m_viewport.GetWidth(), m_viewport.GetHeight());
 
-    RefPointer<TextureSetController> controller = MakeStackRefPointer<TextureSetController>(&m_textures);
-    RefPointer<TextureSetHolder>     textureHolder = MakeStackRefPointer<TextureSetHolder>(&m_textures);
+    m_textures.Reset(new TextureManager());
+    RefPointer<TextureSetHolder>     textureHolder = m_textures.GetRefPointer();
+    TextureSetBinder * binder = new TextureSetBinder(m_textures.GetRefPointer());
 
     m_threadCommutator = MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
     RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
 
     m_frontend = MasterPointer<FrontendRenderer>(new FrontendRenderer(commutatorRef,
                                                                       contextfactory,
-                                                                      controller,
+                                                                      MovePointer<TextureSetController>(binder),
                                                                       m_viewport));
     m_backend =  MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef,
                                                                     contextfactory,
@@ -38,6 +39,7 @@ namespace df
     m_navigator.SaveState();
     m_backend.Destroy();
     m_frontend.Destroy();
+    m_textures.Destroy();
     m_threadCommutator.Destroy();
   }
 
