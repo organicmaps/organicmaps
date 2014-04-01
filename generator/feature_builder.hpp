@@ -52,6 +52,7 @@ public:
 
   /// Clear name if it's not visible in scale range [minS, maxS].
   void RemoveNameIfInvisible(int minS = 0, int maxS = 1000);
+  void RemoveUselessNames();
 
   template <class FnT> bool RemoveTypesIf(FnT fn)
   {
@@ -148,10 +149,10 @@ public:
     else return false;
   }
 
-  inline string GetName() const
+  inline string GetName(int8_t lang = StringUtf8Multilang::DEFAULT_CODE) const
   {
     string s;
-    m_Params.name.GetString(0, s);
+    m_Params.name.GetString(lang, s);
     return s;
   }
 

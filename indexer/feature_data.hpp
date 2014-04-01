@@ -9,6 +9,7 @@
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
+#include "../std/algorithm.hpp"
 
 
 class FeatureBase;
@@ -92,7 +93,21 @@ namespace feature
     }
     //@}
 
+    template <class FnT> bool RemoveIf(FnT fn)
+    {
+      if (m_size > 0)
+      {
+        size_t const oldSize = m_size;
+
+        uint32_t * e = remove_if(m_types, m_types + m_size, fn);
+        m_size = distance(m_types, e);
+
+        return (m_size != oldSize);
+      }
+      return false;
+    }
     void Remove(uint32_t t);
+
     string DebugPrint() const;
 
     /// Sort types by it's specification (more detailed type goes first).

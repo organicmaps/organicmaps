@@ -81,3 +81,36 @@ UNIT_TEST(FVisibility_RemoveNoDrawableTypes)
   TEST(feature::RemoveNoDrawableTypes(types, feature::FEATURE_TYPE_AREA), ());
   TEST_EQUAL(types.size(), 2, ());
 }
+
+UNIT_TEST(FBuilder_RemoveUselessNames)
+{
+  classificator::Load();
+
+  FeatureParams params;
+
+  char const * arr3[][3] = { { "boundary", "administrative", "2" } };
+  AddTypes(params, arr3);
+  char const * arr2[][2] = { { "barrier", "fence" } };
+  AddTypes(params, arr2);
+  params.FinishAddingTypes();
+
+  params.name.AddString(0, "Name");
+  params.name.AddString(8, "Имя");
+
+  FeatureBuilder1 fb1;
+  fb1.SetParams(params);
+
+  fb1.AddPoint(m2::PointD(0, 0));
+  fb1.AddPoint(m2::PointD(1, 1));
+  fb1.SetLinear();
+
+  TEST(!fb1.GetName(0).empty(), ());
+  TEST(!fb1.GetName(8).empty(), ());
+
+  fb1.RemoveUselessNames();
+
+  TEST(fb1.GetName(0).empty(), ());
+  TEST(fb1.GetName(8).empty(), ());
+
+  TEST(fb1.CheckValid(), ());
+}

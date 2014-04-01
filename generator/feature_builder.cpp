@@ -212,8 +212,29 @@ bool FeatureBuilder1::PreSerialize()
   // AlexZ: Commented this line to enable captions on subway exits, which
   // are not drawn but should be visible in balloons and search results
   //RemoveNameIfInvisible();
+  RemoveUselessNames();
 
   return true;
+}
+
+void FeatureBuilder1::RemoveUselessNames()
+{
+  int64_t dummy;
+  if (!m_Params.name.IsEmpty() && !GetCoastCell(dummy))
+  {
+    using namespace feature;
+
+    char const * arr[] = { "boundary", "administrative" };
+    static TypeSetChecker checkBoundary(arr, ARRAY_SIZE(arr));
+
+    TypesHolder types(GetFeatureBase());
+    if (types.RemoveIf(bind(&TypeSetChecker::IsEqual, cref(checkBoundary), _1)))
+    {
+      pair<int, int> const range = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT);
+      if (range.first == -1)
+        m_Params.name.Clear();
+    }
+  }
 }
 
 void FeatureBuilder1::RemoveNameIfInvisible(int minS, int maxS)

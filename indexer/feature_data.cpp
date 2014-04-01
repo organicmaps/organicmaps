@@ -3,7 +3,8 @@
 #include "classificator.hpp"
 #include "feature.hpp"
 
-#include "../std/algorithm.hpp"
+#include "../base/stl_add.hpp"
+
 #include "../std/bind.hpp"
 
 
@@ -31,12 +32,7 @@ string TypesHolder::DebugPrint() const
 
 void TypesHolder::Remove(uint32_t t)
 {
-  if (m_size > 0)
-  {
-    uint32_t * e = m_types + m_size;
-    if (std::remove(m_types, e, t) != e)
-      --m_size;
-  }
+  (void) RemoveIf(EqualFunctor<uint32_t>(t));
 }
 
 namespace

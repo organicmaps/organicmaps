@@ -154,6 +154,13 @@ struct IdFunctor
   }
 };
 
+template <class T> struct EqualFunctor
+{
+  T const & m_t;
+  explicit EqualFunctor(T const & t) : m_t(t) {}
+  inline bool operator() (T const & t) const { return (t == m_t); }
+};
+
 template <typename IterT> IterT NextIterInCycle(IterT it, IterT beg, IterT end)
 {
   if (++it == end)
