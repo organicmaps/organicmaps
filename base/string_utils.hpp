@@ -37,7 +37,7 @@ void Normalize(UniString & s);
 void AsciiToLower(string & s);
 void Trim(string & s);
 
-//void MakeLowerCase(string & s);
+void MakeLowerCase(string & s);
 string MakeLowerCase(string const & s);
 bool EqualNoCase(string const & s1, string const & s2);
 
