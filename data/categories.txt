@@ -1189,22 +1189,21 @@ pt:floresta
 hu:erdő
 
 leisure-garden
-en:garden
-ru:сад
-uk:садок
-de:Garten
-fr:jardin
-it:giardino
-es:jardín
-ko:1정원
-ja:1庭園|庭|園
-cs:zahrada
-nl:tuin
-zh:1花園
-pl:ogród
-pt:jardim
-hu:kert
-
+en:2garden|sights
+ru:2сад|достопримечательность
+uk:2садок|пам’ятні місця
+de:2Garten|Sehenswürdigkeit
+fr:2jardin|site touristique
+it:2giardino|turistico
+es:2jardín|turismo
+ko:1정원|관광|
+ja:1庭園|庭|園|観光
+cs:2zahrada|pamětihodnosti
+nl:2tuin|toerisme
+zh:1花園|旅遊景點
+pl:2ogród|osobliwości miasta
+pt:2jardim|vistas
+hu:2kert|látnivaló
 
 leisure-park
 en:park
