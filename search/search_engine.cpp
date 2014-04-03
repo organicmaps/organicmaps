@@ -193,6 +193,7 @@ void Engine::SetViewportAsync(m2::RectD const & viewport, m2::RectD const & near
   m_pQuery->SetViewport(arrRects, ARRAY_SIZE(arrRects));
 }
 
+/*
 namespace
 {
   bool LessByDistance(Result const & r1, Result const & r2)
@@ -214,16 +215,17 @@ namespace
       return false;
   }
 }
+*/
 
 void Engine::EmitResults(SearchParams const & params, Results & res)
 {
-  if (params.IsValidPosition() &&
-      params.NeedSearch(SearchParams::AROUND_POSITION) &&
-      !params.NeedSearch(SearchParams::IN_VIEWPORT) &&
-      !params.NeedSearch(SearchParams::SEARCH_WORLD))
-  {
-    res.Sort(&LessByDistance);
-  }
+//  if (params.IsValidPosition() &&
+//      params.NeedSearch(SearchParams::AROUND_POSITION) &&
+//      !params.NeedSearch(SearchParams::IN_VIEWPORT) &&
+//      !params.NeedSearch(SearchParams::SEARCH_WORLD))
+//  {
+//    res.Sort(&LessByDistance);
+//  }
 
   m_searchResults = res;
   params.m_callback(res);

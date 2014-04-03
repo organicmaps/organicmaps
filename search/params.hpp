@@ -33,8 +33,12 @@ namespace search
       ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD | SEARCH_ADDRESS
     };
 
-    void SetSearchMode(int mode) { m_searchMode = mode; }
-    bool NeedSearch(SearchModeT mode) const { return ((m_searchMode & mode) != 0); }
+    inline void SetSearchMode(int /*mode*/)
+    {
+      // Always do search in default mode (ALL).
+      //m_searchMode = mode;
+    }
+    inline bool NeedSearch(SearchModeT mode) const { return ((m_searchMode & mode) != 0); }
     //@}
 
     void SetPosition(double lat, double lon);
