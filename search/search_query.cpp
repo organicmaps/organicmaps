@@ -2,6 +2,8 @@
 #include "feature_offset_match.hpp"
 #include "latlon_match.hpp"
 #include "search_common.hpp"
+#include "indexed_value.hpp"
+#include "geometry_utils.hpp"
 
 #include "../storage/country_info.hpp"
 
@@ -23,8 +25,6 @@
 #include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
-#include "../std/array.hpp"
-#include "../std/bind.hpp"
 
 
 namespace search
@@ -70,8 +70,7 @@ namespace
 Query::Query(Index const * pIndex,
              CategoriesHolder const * pCategories,
              StringsToSuggestVectorT const * pStringsToSuggest,
-             storage::CountryInfoGetter const * pInfoGetter,
-             size_t resultsNeeded /*= 10*/)
+             storage::CountryInfoGetter const * pInfoGetter)
   : m_pIndex(pIndex),
     m_pCategories(pCategories),
     m_pStringsToSuggest(pStringsToSuggest),
@@ -88,10 +87,13 @@ Query::Query(Index const * pIndex,
   STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare1) );
   STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare2) );
 
+  // Maximum result candidates count for each viewport/criteria.
+  size_t const PRE_RESULTS_COUNT = 200;
+
   for (size_t i = 0; i < m_qCount; ++i)
   {
-    m_results[i] = QueueT(2 * resultsNeeded, QueueCompareT(g_arrCompare1[i]));
-    m_results[i].reserve(2 * resultsNeeded);
+    m_results[i] = QueueT(PRE_RESULTS_COUNT, QueueCompareT(g_arrCompare1[i]));
+    m_results[i].reserve(PRE_RESULTS_COUNT);
   }
 
   // Initialize keywords scorer.
@@ -328,7 +330,7 @@ void Query::SearchCoordinates(string const & query, Results & res) const
   }
 }
 
-void Query::Search(Results & res, bool searchAddress)
+void Query::Search(Results & res, size_t resCount)
 {
   ClearQueues();
 
@@ -336,14 +338,13 @@ void Query::Search(Results & res, bool searchAddress)
   SuggestStrings(res);
 
   if (m_cancel) return;
-  if (searchAddress)
-    SearchAddress();
+  SearchAddress();
 
   if (m_cancel) return;
   SearchFeatures();
 
   if (m_cancel) return;
-  FlushResults(res, &Results::AddResult);
+  FlushResults(res, false, resCount);
 }
 
 namespace
@@ -370,52 +371,26 @@ namespace
   };
   //@}
 
-  class IndexedValue
+  class IndexedValue : public search::IndexedValueBase<Query::m_qCount>
   {
-  public:
-     typedef impl::PreResult2 element_type;
-
-  private:
-    array<size_t, Query::m_qCount> m_ind;
+    typedef impl::PreResult2 ValueT;
 
     /// @todo Do not use shared_ptr for optimization issues.
     /// Need to rewrite std::unique algorithm.
-    shared_ptr<element_type> m_val;
+    shared_ptr<ValueT> m_val;
 
   public:
-    explicit IndexedValue(element_type * v) : m_val(v)
-    {
-      for (size_t i = 0; i < m_ind.size(); ++i)
-        m_ind[i] = numeric_limits<size_t>::max();
-    }
+    explicit IndexedValue(ValueT * v) : m_val(v) {}
 
-    element_type const & operator*() const { return *m_val; }
-
-    void SetIndex(size_t i, size_t v) { m_ind[i] = v; }
-
-    void SortIndex()
-    {
-      sort(m_ind.begin(), m_ind.end());
-    }
+    ValueT const & operator*() const { return *m_val; }
 
     string DebugPrint() const
     {
       string index;
-      for (size_t i = 0; i < m_ind.size(); ++i)
+      for (size_t i = 0; i < SIZE; ++i)
         index = index + " " + strings::to_string(m_ind[i]);
 
       return impl::DebugPrint(*m_val) + "; Index:" + index;
-    }
-
-    bool operator < (IndexedValue const & r) const
-    {
-      for (size_t i = 0; i < m_ind.size(); ++i)
-      {
-        if (m_ind[i] != r.m_ind[i])
-          return (m_ind[i] < r.m_ind[i]);
-      }
-
-      return false;
     }
   };
 
@@ -424,12 +399,41 @@ namespace
     return t.DebugPrint();
   }
 
-  struct LessByFeatureID
+  struct CompFactory2
+  {
+    struct CompT
+    {
+      CompareFunctionT2 m_fn;
+      explicit CompT(CompareFunctionT2 fn) : m_fn(fn) {}
+      template <class T> bool operator() (T const & r1, T const & r2) const
+      {
+        return m_fn(*r1, *r2);
+      }
+    };
+
+    static size_t const SIZE = 3;
+
+    CompT Get(size_t i) { return CompT(g_arrCompare2[i]); }
+  };
+
+  struct LessFeatureID
   {
     typedef impl::PreResult1 ValueT;
     bool operator() (ValueT const & r1, ValueT const & r2) const
     {
       return (r1.GetID() < r2.GetID());
+    }
+  };
+
+  class EqualFeatureID
+  {
+    typedef impl::PreResult1 ValueT;
+    ValueT const & m_val;
+  public:
+    EqualFeatureID(ValueT const & v) : m_val(v) {}
+    bool operator() (ValueT const & r) const
+    {
+      return (m_val.GetID() == r.GetID());
     }
   };
 
@@ -510,16 +514,64 @@ namespace impl
         return 0;
     }
   };
+
+  class HouseCompFactory
+  {
+    Query & m_query;
+
+    bool LessViewport(HouseResult const & r1, HouseResult const & r2) const
+    {
+      m2::RectD const & v = m_query.GetViewport();
+
+      uint8_t const d1 = ViewportDistance(v, r1.GetOrg());
+      uint8_t const d2 = ViewportDistance(v, r2.GetOrg());
+
+      return (d1 != d2 ? d1 < d2 : LessDistance(r1, r2));
+    }
+
+    bool LessDistance(HouseResult const & r1, HouseResult const & r2) const
+    {
+      if (m_query.IsValidPosition())
+      {
+        return (PointDistance(m_query.m_position, r1.GetOrg()) <
+                PointDistance(m_query.m_position, r2.GetOrg()));
+      }
+      else
+        return false;
+    }
+
+  public:
+    HouseCompFactory(Query & q) : m_query(q) {}
+
+    struct CompT
+    {
+      HouseCompFactory * m_parent;
+      size_t m_alg;
+
+      CompT(HouseCompFactory * parent, size_t alg) : m_parent(parent), m_alg(alg) {}
+      bool operator() (HouseResult const & r1, HouseResult const & r2) const
+      {
+        if (m_alg == 0)
+          return m_parent->LessViewport(r1, r2);
+        else
+          return m_parent->LessDistance(r1, r2);
+      }
+    };
+
+    static size_t const SIZE = 2;
+
+    CompT Get(size_t i) { return CompT(this, i); }
+  };
 }
 
-void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
+void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
 {
   vector<IndexedValue> indV;
   vector<FeatureID> streets;
 
   {
     // make unique set of PreResult1
-    typedef set<impl::PreResult1, LessByFeatureID> PreResultSetT;
+    typedef set<impl::PreResult1, LessFeatureID> PreResultSetT;
     PreResultSetT theSet;
 
     for (size_t i = 0; i < m_qCount; ++i)
@@ -549,6 +601,10 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
   if (indV.empty())
     return;
 
+  void (Results::*addFn)(Result const &) = allMWMs ?
+        &Results::AddResultCheckExisting :
+        &Results::AddResult;
+
 #ifdef HOUSE_SEARCH_TEST
   if (!m_house.empty() && !streets.empty())
   {
@@ -557,44 +613,29 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
 
     m_houseDetector.ReadAllHouses();
 
-    vector<search::AddressSearchResult> houses;
+    vector<HouseResult> houses;
     m_houseDetector.GetHouseForName(strings::ToUtf8(m_house), houses);
 
-    for (size_t i = 0; i < houses.size(); ++i)
+    SortByIndexedValue(houses, impl::HouseCompFactory(*this));
+
+    // Limit address results when searching in first pass (position, viewport, locality).
+    size_t count = houses.size();
+    if (!allMWMs)
+      count = min(count, size_t(3));
+
+    for (size_t i = 0; i < count; ++i)
     {
       House const * h = houses[i].m_house;
-      (res.*pAddFn)(Result(h->GetPosition(), h->GetNumber() + ", " + houses[i].m_street->GetName(),
-                           string(), string(),
-                           IsValidPosition() ? h->GetPosition().Length(m_position) : -1.0));
+      (res.*addFn)(Result(h->GetPosition(), h->GetNumber() + ", " + houses[i].m_street->GetName(),
+                          string(), string(),
+                          IsValidPosition() ? h->GetPosition().Length(m_position) : -1.0));
     }
   }
 #endif
 
   RemoveDuplicatingLinear(indV);
 
-  for (size_t i = 0; i < m_qCount; ++i)
-  {
-    CompareT<impl::PreResult2, RefPointer> comp(g_arrCompare2[i]);
-
-    // sort by needed criteria
-    sort(indV.begin(), indV.end(), comp);
-
-    // assign ranks
-    size_t rank = 0;
-    for (size_t j = 0; j < indV.size(); ++j)
-    {
-      if (j > 0 && comp(indV[j-1], indV[j]))
-        ++rank;
-
-      indV[j].SetIndex(i, rank);
-    }
-  }
-
-  // prepare combined criteria
-  for_each(indV.begin(), indV.end(), bind(&IndexedValue::SortIndex, _1));
-
-  // sort results according to combined criteria
-  sort(indV.begin(), indV.end());
+  SortByIndexedValue(indV, CompFactory2());
 
   // get preffered types to show in results
   set<uint32_t> prefferedTypes;
@@ -608,30 +649,15 @@ void Query::FlushResults(Results & res, void (Results::*pAddFn)(Result const &))
   }
 
   // emit feature results
-  for (size_t i = 0; i < indV.size(); ++i)
+  size_t count = res.GetCount();
+  for (size_t i = 0; i < indV.size() && count < resCount; ++i, ++count)
   {
     if (m_cancel) break;
 
     LOG(LDEBUG, (indV[i]));
 
-    (res.*pAddFn)(MakeResult(*(indV[i]), &prefferedTypes));
+    (res.*addFn)(MakeResult(*(indV[i]), &prefferedTypes));
   }
-}
-
-namespace
-{
-  class EqualFeature
-  {
-    typedef impl::PreResult1 ValueT;
-    ValueT const & m_val;
-
-  public:
-    EqualFeature(ValueT const & v) : m_val(v) {}
-    bool operator() (ValueT const & r) const
-    {
-      return (m_val.GetID() == r.GetID());
-    }
-  };
 }
 
 void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID, int8_t viewportID)
@@ -642,7 +668,7 @@ void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID, int8_t viewp
   for (size_t i = 0; i < m_qCount; ++i)
   {
     // here can be the duplicates because of different language match (for suggest token)
-    if (m_results[i].end() == find_if(m_results[i].begin(), m_results[i].end(), EqualFeature(res)))
+    if (m_results[i].end() == find_if(m_results[i].begin(), m_results[i].end(), EqualFeatureID(res)))
       m_results[i].push(res);
   }
 }
@@ -1899,8 +1925,7 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
     RemoveDuplicatingLinear(indV);
 
     // sort by distance from m_position
-    sort(indV.begin(), indV.end(),
-         CompareT<impl::PreResult2, RefPointer>(&impl::PreResult2::LessDistance));
+    sort(indV.begin(), indV.end(), CompFactory2::CompT(&impl::PreResult2::LessDistance));
 
     // emit results
     size_t const count = min(indV.size(), static_cast<size_t>(resultsNeeded));
@@ -1918,7 +1943,7 @@ bool Query::IsValidPosition() const
   return (m_position.x > empty_pos_value && m_position.y > empty_pos_value);
 }
 
-void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport)
+void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport, size_t resCount)
 {
   ClearQueues();
 
@@ -1950,7 +1975,7 @@ void Query::SearchAdditional(Results & res, bool nearMe, bool inViewport)
         SearchInMWM(mwmLock, params);
     }
 
-    FlushResults(res, &Results::AddResultCheckExisting);
+    FlushResults(res, true, resCount);
   }
 }
 

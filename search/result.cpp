@@ -1,4 +1,5 @@
 #include "result.hpp"
+#include "geometry_utils.hpp"
 
 
 namespace search
@@ -23,7 +24,7 @@ Result::Result(m2::PointD const & fCenter,
                string const & str, string const & region,
                string const & flag, double distance)
   : m_center(fCenter), m_str(str), m_region(region),
-    m_flag(flag), m_distance(distance)
+    m_flag(flag), m_featureType(0), m_distance(distance)
 {
 }
 
@@ -68,9 +69,18 @@ char const * Result::GetSuggestionString() const
 
 bool Result::operator== (Result const & r) const
 {
-  return (m_str == r.m_str && m_region == r.m_region && m_featureType == r.m_featureType &&
-          GetResultType() == r.GetResultType() &&
-          my::AlmostEqual(m_distance, r.m_distance));
+  ResultType const type = GetResultType();
+  if (type == r.GetResultType() && type != RESULT_SUGGESTION)
+  {
+    // This function is used to filter duplicate results in cases:
+    // - emitted Wrold.mwm and Country.mwm
+    // - after additional search in all mwm
+    // so it's suitable here to test for 500m
+    return (m_str == r.m_str && m_region == r.m_region &&
+            m_featureType == r.m_featureType &&
+            PointDistance(m_center, r.m_center) < 500.0);
+  }
+  return false;
 }
 
 void Results::AddResultCheckExisting(Result const & r)

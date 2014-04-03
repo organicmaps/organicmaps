@@ -259,7 +259,7 @@ m2::PointD FindHouse(Index & index, vector<string> const & streets,
 
   houser.ReadAllHouses(offset);
 
-  vector<search::AddressSearchResult> houses;
+  vector<search::HouseResult> houses;
   houser.GetHouseForName(houseName, houses);
 
   TEST_EQUAL(houses.size(), 1, (houses));
@@ -442,7 +442,7 @@ UNIT_TEST(HS_MWMSearch)
     detector.MergeStreets();
     detector.ReadAllHouses();
 
-    vector<search::AddressSearchResult> houses;
+    vector<search::HouseResult> houses;
     detector.GetHouseForName(a.m_house, houses);
     if (houses.empty())
     {

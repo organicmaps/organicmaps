@@ -87,6 +87,15 @@ namespace
   }
 }
 
+void SearchPanel::ClearResults()
+{
+  m_pTable->clear();
+  m_pTable->setRowCount(0);
+  m_results.clear();
+
+  m_pDrawWidget->GetFramework().AdditionalPoiLayerClear();
+}
+
 void SearchPanel::OnSearchResult(ResultsT * res)
 {
   scoped_ptr<ResultsT> guard(res);
@@ -102,13 +111,9 @@ void SearchPanel::OnSearchResult(ResultsT * res)
   }
   else
   {
-    // clear old results
-    m_pTable->clear();
-    m_pTable->setRowCount(0);
-    m_results.clear();
+    ClearResults();
 
     Framework & frm = m_pDrawWidget->GetFramework();
-    frm.AdditionalPoiLayerClear();
 
     for (ResultsT::IterT i = res->Begin(); i != res->End(); ++i)
     {
@@ -140,7 +145,7 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
 
   // search even with empty query
-  //if (!normalized.isEmpty())
+  if (!normalized.isEmpty())
   {
     m_params.m_query = normalized.toUtf8().constData();
     if (m_pDrawWidget->Search(m_params))
@@ -153,11 +158,13 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
       m_pClearButton->setVisible(true);
     }
   }
-  //else
-  //{
-  //  // hide X button
-  //  m_pClearButton->setVisible(false);
-  //}
+  else
+  {
+    ClearResults();
+
+    // hide X button
+    m_pClearButton->setVisible(false);
+  }
 }
 
 void SearchPanel::OnSearchPanelItemClicked(int row, int)

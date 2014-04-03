@@ -84,8 +84,7 @@ Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
   m_pQuery.reset(new Query(pIndex,
                            &m_pData->m_categories,
                            &m_pData->m_stringsToSuggest,
-                           &m_pData->m_infoGetter,
-                           100));   /// @todo temporary solution for house search, we should increase size, because for one street we can have a lot of features.
+                           &m_pData->m_infoGetter));
   m_pQuery->SetPreferredLanguage(lang);
 }
 
@@ -214,20 +213,20 @@ namespace
     else
       return false;
   }
+}
 
-  /// @todo Temporary solution to ensure that results are sorted by distance only for AROUND_POSITION mode.
-  void EmitResults(SearchParams const & params, Results & res)
+void Engine::EmitResults(SearchParams const & params, Results & res)
+{
+  if (params.IsValidPosition() &&
+      params.NeedSearch(SearchParams::AROUND_POSITION) &&
+      !params.NeedSearch(SearchParams::IN_VIEWPORT) &&
+      !params.NeedSearch(SearchParams::SEARCH_WORLD))
   {
-    if (params.IsValidPosition() &&
-        params.NeedSearch(SearchParams::AROUND_POSITION) &&
-        !params.NeedSearch(SearchParams::IN_VIEWPORT) &&
-        !params.NeedSearch(SearchParams::SEARCH_WORLD))
-    {
-      res.Sort(&LessByDistance);
-    }
-
-    params.m_callback(res);
+    res.Sort(&LessByDistance);
   }
+
+  m_searchResults = res;
+  params.m_callback(res);
 }
 
 void Engine::SearchAsync()
@@ -301,6 +300,7 @@ void Engine::SearchAsync()
 
   try
   {
+    /*
     if (emptyQuery)
     {
       // Search for empty query only around viewport.
@@ -319,10 +319,11 @@ void Engine::SearchAsync()
       }
     }
     else
+    */
     {
       // Do search for address in all modes.
       // params.NeedSearch(SearchParams::SEARCH_ADDRESS)
-      m_pQuery->Search(res, true);
+      m_pQuery->Search(res, RESULTS_COUNT);
     }
   }
   catch (Query::CancelException const &)
@@ -332,10 +333,7 @@ void Engine::SearchAsync()
   // Emit results even if search was canceled and we have something.
   size_t const count = res.GetCount();
   if (!m_pQuery->IsCanceled() || count > 0)
-  {
-    m_searchResults = res;
     EmitResults(params, res);
-  }
 
   // Make additional search in whole mwm when not enough results (only for non-empty query).
   if (!emptyQuery && !m_pQuery->IsCanceled() && count < RESULTS_COUNT)
@@ -344,7 +342,8 @@ void Engine::SearchAsync()
     {
       m_pQuery->SearchAdditional(res,
                                  params.NeedSearch(SearchParams::AROUND_POSITION),
-                                 params.NeedSearch(SearchParams::IN_VIEWPORT));
+                                 params.NeedSearch(SearchParams::IN_VIEWPORT),
+                                 2 * RESULTS_COUNT);
     }
     catch (Query::CancelException const &)
     {
@@ -352,10 +351,7 @@ void Engine::SearchAsync()
 
     // Emit if we have more results.
     if (res.GetCount() > count)
-    {
-      m_searchResults = res;
       EmitResults(params, res);
-    }
   }
 
   // Emit finish marker to client.

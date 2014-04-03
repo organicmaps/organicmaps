@@ -50,6 +50,7 @@ private:
   virtual void hideEvent(QHideEvent *);
 
   void SearchResultThreadFunc(ResultsT const & result);
+  void ClearResults();
 
 signals:
   void SearchResultSignal(ResultsT * result);

@@ -159,6 +159,7 @@ private:
   ResultType m_resultType;
   uint8_t m_rank;
   uint8_t m_viewportDistance;
+  feature::EGeomType m_geomType;
 };
 
 inline string DebugPrint(PreResult2 const & t)

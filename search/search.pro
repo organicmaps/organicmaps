@@ -23,6 +23,8 @@ HEADERS += \
     house_detector.hpp \
     ftypes_matcher.hpp \
     algos.hpp \
+    indexed_value.hpp \
+    geometry_utils.hpp \
 
 SOURCES += \
     search_engine.cpp \
@@ -36,3 +38,4 @@ SOURCES += \
     params.cpp \
     house_detector.cpp \
     ftypes_matcher.cpp \
+    geometry_utils.cpp \

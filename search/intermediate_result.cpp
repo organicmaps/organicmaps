@@ -1,16 +1,15 @@
 #include "intermediate_result.hpp"
 #include "ftypes_matcher.hpp"
+#include "geometry_utils.hpp"
 
 #include "../storage/country_info.hpp"
 
 #include "../indexer/classificator.hpp"
 #include "../indexer/feature.hpp"
-#include "../indexer/mercator.hpp"
 #include "../indexer/scales.hpp"
 #include "../indexer/categories_holder.hpp"
 
 #include "../geometry/angles.hpp"
-#include "../geometry/distance_on_sphere.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
@@ -18,39 +17,10 @@
 
 namespace search
 {
-namespace
-{
 
-/// All constants in meters (call ResultDistance for center points).
+/// All constants in meters.
 double const DIST_EQUAL_RESULTS = 100.0;
 double const DIST_SAME_STREET = 5000.0;
-
-double ResultDistance(m2::PointD const & a, m2::PointD const & b)
-{
-  return ms::DistanceOnEarth(MercatorBounds::YToLat(a.y), MercatorBounds::XToLon(a.x),
-                             MercatorBounds::YToLat(b.y), MercatorBounds::XToLon(b.x));
-}
-
-uint8_t ViewportDistance(m2::RectD const & viewport, m2::PointD const & p)
-{
-  if (viewport.IsPointInside(p))
-    return 0;
-
-  m2::RectD r = viewport;
-  r.Scale(3);
-  if (r.IsPointInside(p))
-    return 1;
-
-  r = viewport;
-  r.Scale(5);
-  if (r.IsPointInside(p))
-    return 2;
-
-  return 3;
-}
-
-}
-
 
 namespace impl
 {
@@ -128,7 +98,7 @@ void PreResult1::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
   if (pos.x > -500 && pos.y > -500)
   {
     AssertValid(pos);
-    m_distance = ResultDistance(m_center, pos);
+    m_distance = PointDistance(m_center, pos);
   }
   else
   {
@@ -137,7 +107,7 @@ void PreResult1::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
   }
 
   m_viewportDistance = ViewportDistance(viewport, m_center);
-  m_distanceFromViewportCenter = ResultDistance(m_center, viewport.Center());
+  m_distanceFromViewportCenter = PointDistance(m_center, viewport.Center());
 }
 
 bool PreResult1::LessRank(PreResult1 const & r1, PreResult1 const & r2)
@@ -172,7 +142,8 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p,
   : m_id(f.GetID()),
     m_types(f),
     m_str(displayName),
-    m_resultType(RESULT_FEATURE)
+    m_resultType(RESULT_FEATURE),
+    m_geomType(f.GetFeatureType())
 {
   ASSERT(m_id.IsValid(), ());
   ASSERT(!m_types.Empty(), ());
@@ -197,7 +168,8 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p,
 PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos, double lat, double lon)
   : m_str("(" + strings::to_string_dac(lat, 5) + ", " + strings::to_string_dac(lon, 5) + ")"),
     m_resultType(RESULT_LATLON),
-    m_rank(255)
+    m_rank(255),
+    m_geomType(feature::GEOM_UNDEFINED)
 {
   m2::PointD const fCenter(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
   m_region.SetParams(string(), fCenter);
@@ -212,7 +184,8 @@ PreResult2::PreResult2(string const & name, int penalty)
     m_distanceFromViewportCenter(-1000.0),
     m_resultType(RESULT_CATEGORY),
     m_rank(255),            // best rank
-    m_viewportDistance(0)   // closest to viewport
+    m_viewportDistance(0),  // closest to viewport
+    m_geomType(feature::GEOM_UNDEFINED)
 {
 }
 
@@ -299,50 +272,16 @@ bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
   if (m_r.m_resultType == r.m_resultType && m_r.m_resultType == RESULT_FEATURE)
   {
     if (m_r.m_str == r.m_str && m_r.GetBestType() == r.GetBestType())
-      return (ResultDistance(m_r.GetCenter(), r.GetCenter()) < DIST_EQUAL_RESULTS);
+      return (PointDistance(m_r.GetCenter(), r.GetCenter()) < DIST_EQUAL_RESULTS);
   }
 
   return false;
 }
 
-namespace
-{
-  /// @todo Using the criteria that may be inappropriate in some cases
-  /// ("highway" may be point and area objects - "bus_stop").
-  class IsLinearChecker
-  {
-    uint8_t m_index[2];
-
-    static uint8_t FirstLevelIndex(uint32_t t)
-    {
-      uint8_t v;
-      VERIFY ( ftype::GetValue(t, 0, v), (t) );
-      return v;
-    }
-
-  public:
-    IsLinearChecker()
-    {
-      char const * arr[] = { "highway", "waterway" };
-      STATIC_ASSERT ( ARRAY_SIZE(arr) == ARRAY_SIZE(m_index) );
-
-      ClassifObject const * c = classif().GetRoot();
-      for (size_t i = 0; i < ARRAY_SIZE(m_index); ++i)
-        m_index[i] = static_cast<uint8_t>(c->BinaryFind(arr[i]).GetIndex());
-    }
-
-    bool IsMy(uint32_t type) const
-    {
-      uint8_t const * e = m_index + ARRAY_SIZE(m_index);
-      return (find(m_index, e, FirstLevelIndex(type)) != e);
-    }
-  };
-}
-
 bool PreResult2::LessLinearTypesF::operator() (PreResult2 const & r1, PreResult2 const & r2) const
 {
-  if (r1.m_resultType != r2.m_resultType)
-    return (r1.m_resultType < r2.m_resultType);
+  if (r1.m_geomType != r2.m_geomType)
+    return (r1.m_geomType < r2.m_geomType);
 
   if (r1.m_str != r2.m_str)
     return (r1.m_str < r2.m_str);
@@ -362,24 +301,16 @@ bool PreResult2::EqualLinearTypesF::operator() (PreResult2 const & r1, PreResult
 {
   // Note! Do compare for distance when filtering linear objects.
   // Otherwise we will skip the results for different parts of the map.
-  if (r1.m_resultType == r2.m_resultType && r1.m_str == r2.m_str &&
-      //r1.m_viewportDistance == r2.m_viewportDistance &&
-      ResultDistance(r1.GetCenter(), r2.GetCenter()) < DIST_SAME_STREET)
-  {
-    // filter equal linear features
-    static IsLinearChecker checker;
-
-    uint32_t const t1 = r1.GetBestType();
-    return (t1 == r2.GetBestType() && checker.IsMy(t1));
-  }
-
-  return false;
+  return (r1.m_geomType == r2.m_geomType &&
+          r1.m_geomType == feature::GEOM_LINE &&
+          r1.m_str == r2.m_str &&
+          PointDistance(r1.GetCenter(), r2.GetCenter()) < DIST_SAME_STREET);
 }
 
 bool PreResult2::IsStreet() const
 {
   static ftypes::IsStreetChecker checker;
-  return checker(m_types);
+  return (m_geomType == feature::GEOM_LINE && checker(m_types));
 }
 
 string PreResult2::DebugPrint() const

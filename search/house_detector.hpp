@@ -1,4 +1,5 @@
 #pragma once
+#include "indexed_value.hpp"
 
 #include "../indexer/feature_decl.hpp"
 #include "../indexer/index.hpp"
@@ -206,7 +207,25 @@ inline void swap(MergedStreet & s1, MergedStreet & s2)
   s1.Swap(s2);
 }
 
-struct AddressSearchResult;
+struct HouseResult : public IndexedValueBase<2>
+{
+  House const * m_house;
+  MergedStreet const * m_street;
+
+  HouseResult(House const * house, MergedStreet const * street)
+    : m_house(house), m_street(street)
+  {}
+
+  inline bool operator<(HouseResult const & a) const { return m_house < a.m_house; }
+  inline bool operator==(HouseResult const & a) const { return m_house == a.m_house; }
+
+  m2::PointD const & GetOrg() const { return m_house->GetPosition(); }
+};
+
+inline string DebugPrint(HouseResult const & r)
+{
+  return r.m_house->GetNumber() + ", " + r.m_street->GetName();
+}
 
 class HouseDetector
 {
@@ -246,27 +265,9 @@ public:
   static int const DEFAULT_OFFSET_M = 200;
   void ReadAllHouses(double offsetMeters = DEFAULT_OFFSET_M);
 
-  void GetHouseForName(string const & houseNumber, vector<AddressSearchResult> & res);
+  void GetHouseForName(string const & houseNumber, vector<HouseResult> & res);
 
   void ClearCaches();
 };
-
-struct AddressSearchResult
-{
-  House const * m_house;
-  MergedStreet const * m_street;
-
-  AddressSearchResult(House const * house, MergedStreet const * street)
-    : m_house(house), m_street(street)
-  {}
-
-  inline bool operator<(AddressSearchResult const & a) const { return m_house < a.m_house; }
-  inline bool operator==(AddressSearchResult const & a) const { return m_house == a.m_house; }
-};
-
-inline string DebugPrint(AddressSearchResult const & r)
-{
-  return r.m_house->GetNumber() + ", " + r.m_street->GetName();
-}
 
 }

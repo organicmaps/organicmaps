@@ -41,6 +41,7 @@ namespace impl
   struct Locality;
   struct Region;
   class DoFindLocality;
+  class HouseCompFactory;
 }
 
 class Query
@@ -67,8 +68,7 @@ public:
   Query(Index const * pIndex,
         CategoriesHolder const * pCategories,
         StringsToSuggestVectorT const * pStringsToSuggest,
-        storage::CountryInfoGetter const * pInfoGetter,
-        size_t resultsNeeded = 10);
+        storage::CountryInfoGetter const * pInfoGetter);
   ~Query();
 
   inline void SupportOldFormat(bool b) { m_supportOldFormat = b; }
@@ -93,9 +93,9 @@ public:
   /// @name Different search functions.
   //@{
   void SearchCoordinates(string const & query, Results & res) const;
-  void Search(Results & res, bool searchAddress);
+  void Search(Results & res, size_t resCount);
   void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
-  void SearchAdditional(Results & res, bool nearMe, bool inViewport);
+  void SearchAdditional(Results & res, bool nearMe, bool inViewport, size_t resCount);
   //@}
 
   void ClearCaches();
@@ -143,6 +143,7 @@ private:
   friend class impl::BestNameFinder;
   friend class impl::PreResult2Maker;
   friend class impl::DoFindLocality;
+  friend class impl::HouseCompFactory;
 
   void ClearQueues();
 
@@ -158,7 +159,7 @@ private:
   /// @param[in]  viewportID  @see m_viewport
   void AddResultFromTrie(TrieValueT const & val, size_t mwmID, int8_t viewportID = -1);
 
-  void FlushResults(Results & res, void (Results::*pAddFn)(Result const &));
+  void FlushResults(Results & res, bool allMWMs, size_t resCount);
 
   void SearchAddress();
 
@@ -231,7 +232,7 @@ private:
   OffsetsVectorT m_offsetsInViewport[RECTSCOUNT];
   bool m_supportOldFormat;
 
-  template <class ParamT, class RefT> class CompareT
+  template <class ParamT> class CompareT
   {
     typedef bool (*FunctionT) (ParamT const &, ParamT const &);
     FunctionT m_fn;
@@ -242,22 +243,11 @@ private:
 
     template <class T> bool operator() (T const & v1, T const & v2) const
     {
-      RefT getR;
-      return m_fn(getR(v1), getR(v2));
+      return m_fn(v1, v2);
     }
   };
 
-  struct NothingRef
-  {
-    template <class T> T const & operator() (T const & t) const { return t; }
-  };
-  struct RefPointer
-  {
-    template <class T> typename T::element_type const & operator() (T const & t) const { return *t; }
-    template <class T> T const & operator() (T const * t) const { return *t; }
-  };
-
-  typedef CompareT<impl::PreResult1, NothingRef> QueueCompareT;
+  typedef CompareT<impl::PreResult1> QueueCompareT;
   typedef my::limited_priority_queue<impl::PreResult1, QueueCompareT> QueueT;
 
 public:

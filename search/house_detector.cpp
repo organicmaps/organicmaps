@@ -498,13 +498,17 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
     typedef pair<FeatureID, Street *> ValueT;
     function<ValueT::first_type const & (ValueT const &)> f = bind(&ValueT::first, _1);
 
-    CounterIterator it = set_difference(ids.begin(), ids.end(),
-                                        make_transform_iterator(m_id2st.begin(), f),
-                                        make_transform_iterator(m_id2st.end(), f),
-                                        CounterIterator());
-    if (it.GetCount() > ids.size() / 2)
+    // Do clear cache if we have elements that are present in the one set,
+    // but not in the other one (set's order is irrelevant).
+    size_t const count = set_intersection(make_transform_iterator(m_id2st.begin(), f),
+                                          make_transform_iterator(m_id2st.end(), f),
+                                          ids.begin(), ids.end(),
+                                          CounterIterator()).GetCount();
+
+    if (count < min(ids.size(), m_id2st.size()))
     {
-      LOG(LDEBUG, ("Clear HouseDetector cache: missed", it.GetCount(), "of", ids.size(), "elements."));
+      LOG(LDEBUG, ("Clear HouseDetector cache: "
+                   "Common =", count, "Cache =", m_id2st.size(), "Input =", ids.size()));
       ClearCaches();
     }
   }
@@ -1284,7 +1288,7 @@ struct GreaterSecond
 };
 
 void ProduceVoting(vector<ResultAccumulator> const & acc,
-                   vector<AddressSearchResult> & res,
+                   vector<HouseResult> & res,
                    MergedStreet const & st)
 {
   buffer_vector<pair<House const *, size_t>, 4> voting;
@@ -1304,7 +1308,7 @@ void ProduceVoting(vector<ResultAccumulator> const & acc,
   for (size_t i = 0; i < voting.size(); ++i)
   {
     if (score == voting[i].second)
-      res.push_back(AddressSearchResult(voting[i].first, &st));
+      res.push_back(HouseResult(voting[i].first, &st));
     else
       break;
   }
@@ -1312,7 +1316,7 @@ void ProduceVoting(vector<ResultAccumulator> const & acc,
 
 }
 
-void HouseDetector::GetHouseForName(string const & houseNumber, vector<AddressSearchResult> & res)
+void HouseDetector::GetHouseForName(string const & houseNumber, vector<HouseResult> & res)
 {
   size_t const count = m_streets.size();
   res.reserve(count);
