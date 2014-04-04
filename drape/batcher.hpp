@@ -2,11 +2,16 @@
 
 #include "pointers.hpp"
 #include "glstate.hpp"
-#include "vertex_array_buffer.hpp"
+#include "render_bucket.hpp"
 #include "attribute_provider.hpp"
+#include "overlay_handle.hpp"
 
 #include "../std/map.hpp"
 #include "../std/function.hpp"
+
+class RenderBucket;
+class AttributeProvider;
+class OverlayHandle;
 
 class Batcher
 {
@@ -14,25 +19,40 @@ public:
   Batcher();
   ~Batcher();
 
-  void InsertTriangleList(const GLState & state, RefPointer<AttributeProvider> params);
-  void InsertTriangleStrip(const GLState & state, RefPointer<AttributeProvider> params);
-  void InsertTriangleFan(const GLState & state, RefPointer<AttributeProvider> params);
+  void InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params);
+  void InsertTriangleList(GLState const & state, RefPointer<AttributeProvider> params,
+                          TransferPointer<OverlayHandle> handle);
 
-  typedef function<void (const GLState &, TransferPointer<VertexArrayBuffer> )> flush_fn;
-  void StartSession(const flush_fn & flusher);
+  void InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params);
+  void InsertTriangleStrip(GLState const & state, RefPointer<AttributeProvider> params,
+                           TransferPointer<OverlayHandle> handle);
+
+  void InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params);
+  void InsertTriangleFan(GLState const & state, RefPointer<AttributeProvider> params,
+                         TransferPointer<OverlayHandle> handle);
+
+  typedef function<void (GLState const &, TransferPointer<RenderBucket> )> flush_fn;
+  void StartSession(flush_fn const & flusher);
   void EndSession();
 
 private:
-  RefPointer<VertexArrayBuffer> GetBuffer(const GLState & state);
-  /// return true if GLBuffer is finished
-  bool UploadBufferData(RefPointer<GPUBuffer> vertexBuffer, RefPointer<AttributeProvider> params);
-  void FinalizeBuffer(const GLState & state);
+
+  template<typename TBacher>
+  void InsertTriangles(GLState const & state,
+                       RefPointer<AttributeProvider> params,
+                       TransferPointer<OverlayHandle> handle);
+
+  class CallbacksWrapper;
+  void ChangeBuffer(RefPointer<CallbacksWrapper> wrapper);
+  RefPointer<RenderBucket> GetBucket(GLState const & state);
+
+  void FinalizeBucket(GLState const & state);
   void Flush();
 
 private:
   flush_fn m_flushInterface;
 
 private:
-  typedef map<GLState, MasterPointer<VertexArrayBuffer> > buckets_t;
+  typedef map<GLState, MasterPointer<RenderBucket> > buckets_t;
   buckets_t m_buckets;
 };

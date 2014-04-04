@@ -39,6 +39,7 @@ using std::pop_heap;
 using std::sort_heap;
 using std::distance;
 using std::remove_copy_if;
+using std::generate;
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW
