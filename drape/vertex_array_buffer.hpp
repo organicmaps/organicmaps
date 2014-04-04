@@ -22,15 +22,20 @@ public:
   void Build(RefPointer<GpuProgram> program);
   ///@}
 
-  RefPointer<GPUBuffer> GetBuffer(const BindingInfo & bindingInfo);
-
   uint16_t GetAvailableVertexCount() const;
   uint16_t GetAvailableIndexCount() const;
   uint16_t GetStartIndexValue() const;
   bool IsFilled() const;
-  void UploadIndexes(uint16_t * data, uint16_t count);
+
+  void UploadData(BindingInfo const & bindingInfo, void const * data, uint16_t count);
+  void UploadIndexes(uint16_t const * data, uint16_t count);
 
 private:
+  friend class IndexBufferMutator;
+  void UpdateIndexBuffer(uint16_t const * data, uint16_t count);
+
+private:
+  RefPointer<DataBuffer> GetBuffer(const BindingInfo & bindingInfo);
   void Bind();
   void BindBuffers();
 

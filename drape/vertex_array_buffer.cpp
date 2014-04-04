@@ -60,7 +60,13 @@ void VertexArrayBuffer::Build(RefPointer<GpuProgram> program)
   BindBuffers();
 }
 
-RefPointer<GPUBuffer> VertexArrayBuffer::GetBuffer(const BindingInfo & bindingInfo)
+void VertexArrayBuffer::UploadData(BindingInfo const & bindingInfo, void const * data, uint16_t count)
+{
+  RefPointer<DataBuffer> buffer = GetBuffer(bindingInfo);
+  buffer->UploadData(data, count);
+}
+
+RefPointer<DataBuffer> VertexArrayBuffer::GetBuffer(BindingInfo const & bindingInfo)
 {
   buffers_map_t::iterator it = m_buffers.find(bindingInfo);
   if (it == m_buffers.end())
@@ -113,10 +119,15 @@ bool VertexArrayBuffer::IsFilled() const
   return GetAvailableIndexCount() < 3 || GetAvailableVertexCount() < 3;
 }
 
-void VertexArrayBuffer::UploadIndexes(uint16_t * data, uint16_t count)
+void VertexArrayBuffer::UploadIndexes(uint16_t const * data, uint16_t count)
 {
   ASSERT(count <= m_indexBuffer->GetAvailableSize(), ());
   m_indexBuffer->UploadData(data, count);
+}
+
+void VertexArrayBuffer::UpdateIndexBuffer(uint16_t const * data, uint16_t count)
+{
+  m_indexBuffer->UpdateData(data, count);
 }
 
 void VertexArrayBuffer::Bind()
