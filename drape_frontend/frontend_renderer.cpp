@@ -83,13 +83,13 @@ namespace df
     {
     case Message::FlushTile:
       {
-        FlushTileMessage * msg = static_cast<FlushTileMessage *>(message.GetRaw());
+        FlushRenderBucketMessage * msg = static_cast<FlushRenderBucketMessage *>(message.GetRaw());
         const GLState & state = msg->GetState();
         const TileKey & key = msg->GetKey();
-        MasterPointer<VertexArrayBuffer> buffer(msg->AcceptBuffer());
+        MasterPointer<RenderBucket> buffer(msg->AcceptBuffer());
         RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
         program->Bind();
-        buffer->Build(program);
+        buffer->GetBuffer()->Build(program);
         render_data_t::iterator renderIterator = m_renderData.insert(make_pair(state, buffer));
         m_tileData.insert(make_pair(key, renderIterator));
         break;
@@ -186,7 +186,7 @@ namespace df
     GLFunctions::glDepthMask(true);
 
     GLFunctions::glClear();
-    for_each(m_renderData.begin(), m_renderData.end(), bind(&FrontendRenderer::RenderPartImpl, this, _1));
+    //for_each(m_renderData.begin(), m_renderData.end(), bind(&FrontendRenderer::RenderPartImpl, this, _1));
 
 #ifdef DRAW_INFO
     AfterDrawFrame();

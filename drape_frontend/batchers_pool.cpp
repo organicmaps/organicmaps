@@ -14,10 +14,10 @@ namespace df
     void FlushGeometry(const BatchersPool::send_message_fn & sendMessage,
                        const TileKey & key,
                        const GLState & state,
-                       TransferPointer<VertexArrayBuffer> buffer)
+                       TransferPointer<RenderBucket> buffer)
     {
       GLFunctions::glFlush();
-      sendMessage(MovePointer<Message>(new FlushTileMessage(key, state, buffer)));
+      sendMessage(MovePointer<Message>(new FlushRenderBucketMessage(key, state, buffer)));
     }
   }
 

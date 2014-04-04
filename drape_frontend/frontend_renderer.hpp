@@ -26,6 +26,8 @@
 
 #include "../std/map.hpp"
 
+class RenderBucket;
+
 namespace df
 {
   class FrontendRenderer : public MessageAcceptor,
@@ -81,7 +83,7 @@ namespace df
     threads::Thread m_selfThread;
 
   private:
-    typedef multimap<GLState, MasterPointer<VertexArrayBuffer> > render_data_t;
+    typedef multimap<GLState, MasterPointer<RenderBucket> > render_data_t;
     typedef render_data_t::iterator render_data_iter;
     typedef multimap<TileKey, render_data_iter> tile_data_t;
     typedef tile_data_t::iterator tile_data_iter;

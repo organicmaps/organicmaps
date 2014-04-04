@@ -9,7 +9,7 @@
 
 #include "../drape/glstate.hpp"
 #include "../drape/pointers.hpp"
-#include "../drape/vertex_array_buffer.hpp"
+#include "../drape/render_bucket.hpp"
 
 namespace df
 {
@@ -60,27 +60,27 @@ namespace df
     CoverageUpdateDescriptor m_coverageUpdateDescr;
   };
 
-  class FlushTileMessage : public BaseTileMessage
+  class FlushRenderBucketMessage : public BaseTileMessage
   {
   public:
-    FlushTileMessage(const TileKey & key, const GLState state, TransferPointer<VertexArrayBuffer> buffer)
+    FlushRenderBucketMessage(const TileKey & key, const GLState state, TransferPointer<RenderBucket> buffer)
       : BaseTileMessage(key, Message::FlushTile)
       , m_state(state)
       , m_buffer(buffer)
     {
     }
 
-    ~FlushTileMessage()
+    ~FlushRenderBucketMessage()
     {
       m_buffer.Destroy();
     }
 
     const GLState & GetState() const { return m_state; }
-    MasterPointer<VertexArrayBuffer> AcceptBuffer() { return MasterPointer<VertexArrayBuffer>(m_buffer); }
+    MasterPointer<RenderBucket> AcceptBuffer() { return MasterPointer<RenderBucket>(m_buffer); }
 
   private:
     GLState m_state;
-    TransferPointer<VertexArrayBuffer> m_buffer;
+    TransferPointer<RenderBucket> m_buffer;
   };
 
   class ResizeMessage : public Message
