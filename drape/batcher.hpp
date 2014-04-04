@@ -43,7 +43,7 @@ private:
                        TransferPointer<OverlayHandle> handle);
 
   class CallbacksWrapper;
-  void ChangeBuffer(RefPointer<CallbacksWrapper> wrapper);
+  void ChangeBuffer(RefPointer<CallbacksWrapper> wrapper, bool checkFilledBuffer);
   RefPointer<RenderBucket> GetBucket(GLState const & state);
 
   void FinalizeBucket(GLState const & state);

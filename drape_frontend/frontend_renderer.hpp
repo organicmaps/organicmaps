@@ -62,7 +62,7 @@ namespace df
     void RefreshProjection();
     void RefreshModelView();
 
-    void RenderPartImpl(pair<const GLState, MasterPointer<VertexArrayBuffer> > & node);
+    void RenderPartImpl(pair<const GLState, MasterPointer<RenderBucket> > & node);
 
   private:
     void StartThread();

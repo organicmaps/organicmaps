@@ -14,7 +14,7 @@ public:
   typedef function<uint16_t* (uint16_t, uint16_t &)> get_index_storage_fn;
   typedef function<void ()> submit_index_fn;
   typedef function<uint16_t ()> get_available_fn;
-  typedef function<void ()> change_buffer_fn;
+  typedef function<void (bool)> change_buffer_fn;
 
   flush_vertex_fn      m_flushVertex;
   get_index_storage_fn m_getIndexStorage;
@@ -40,7 +40,7 @@ protected:
   void SubmitIndex();
   uint16_t GetAvailableVertexCount() const;
   uint16_t GetAvailableIndexCount() const;
-  void ChangeBuffer() const;
+  void ChangeBuffer(bool checkFilled) const;
 
 protected:
   bool IsEnoughMemory(uint16_t avVertex, uint16_t existVertex, uint16_t avIndex, uint16_t existIndex);

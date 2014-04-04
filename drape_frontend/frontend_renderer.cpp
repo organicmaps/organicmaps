@@ -186,7 +186,7 @@ namespace df
     GLFunctions::glDepthMask(true);
 
     GLFunctions::glClear();
-    //for_each(m_renderData.begin(), m_renderData.end(), bind(&FrontendRenderer::RenderPartImpl, this, _1));
+    for_each(m_renderData.begin(), m_renderData.end(), bind(&FrontendRenderer::RenderPartImpl, this, _1));
 
 #ifdef DRAW_INFO
     AfterDrawFrame();
@@ -216,7 +216,7 @@ namespace df
     m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
   }
 
-  void FrontendRenderer::RenderPartImpl(pair<const GLState, MasterPointer<VertexArrayBuffer> > & node)
+  void FrontendRenderer::RenderPartImpl(pair<const GLState, MasterPointer<RenderBucket> > & node)
   {
     RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(node.first.GetProgramIndex());
 

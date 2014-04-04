@@ -105,10 +105,10 @@ uint16_t TriangleBatch::GetAvailableIndexCount() const
   return m_callbacks.m_getAvailableIndex();
 }
 
-void TriangleBatch::ChangeBuffer() const
+void TriangleBatch::ChangeBuffer(bool checkFilled) const
 {
   ASSERT(m_callbacks.m_changeBuffer != NULL, ());
-  m_callbacks.m_changeBuffer();
+  m_callbacks.m_changeBuffer(checkFilled);
 }
 
 bool TriangleBatch::IsEnoughMemory(uint16_t avVertex, uint16_t existVertex, uint16_t avIndex, uint16_t existIndex)
@@ -135,7 +135,7 @@ void TriangleListBatch::BatchData(RefPointer<AttributeProvider> streams)
     }
     else if (!IsEnoughMemory(avVertex, vertexCount, avIndex, vertexCount))
     {
-      ChangeBuffer();
+      ChangeBuffer(false);
       avVertex = GetAvailableVertexCount();
       avIndex  = GetAvailableIndexCount();
       ASSERT(!IsEnoughMemory(avVertex, vertexCount, avIndex, vertexCount), ());
@@ -149,6 +149,7 @@ void TriangleListBatch::BatchData(RefPointer<AttributeProvider> streams)
 
     FlushData(streams, vertexCount);
     streams->Advance(vertexCount);
+    ChangeBuffer(true);
   }
 }
 
@@ -218,7 +219,7 @@ void TriangleStripBatch::BatchData(RefPointer<AttributeProvider> streams)
 
     if (!IsFullUploaded() && !IsCanDevideStreams())
     {
-      ChangeBuffer();
+      ChangeBuffer(false);
       avVertex = GetAvailableVertexCount();
       avIndex  = GetAvailableIndexCount();
       CalcBatchPortion(vertexCount, avVertex, avIndex, batchVertexCount, batchIndexCount);
@@ -231,8 +232,10 @@ void TriangleStripBatch::BatchData(RefPointer<AttributeProvider> streams)
     SubmitIndex();
     FlushData(streams, batchVertexCount);
 
-    if (IsFullUploaded())
-      streams->Advance(batchVertexCount - 2);
+    uint16_t advanceCount = IsFullUploaded() ? batchVertexCount : (batchVertexCount - 2);
+    streams->Advance(advanceCount);
+
+    ChangeBuffer(true);
   }
 }
 
@@ -272,7 +275,7 @@ void TriangleFanBatch::BatchData(RefPointer<AttributeProvider> streams)
 
     if (!IsFullUploaded() && !IsCanDevideStreams())
     {
-      ChangeBuffer();
+      ChangeBuffer(false);
       avVertex = GetAvailableVertexCount();
       avIndex  = GetAvailableIndexCount();
       CalcBatchPortion(vertexCount, avVertex, avIndex, batchVertexCount, batchIndexCount);
@@ -351,5 +354,7 @@ void TriangleFanBatch::BatchData(RefPointer<AttributeProvider> streams)
         streams->Advance(batchVertexCount - 1);
       }
     }
+
+    ChangeBuffer(true);
   }
 }

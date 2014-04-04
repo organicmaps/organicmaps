@@ -27,6 +27,11 @@ public:
     m_buffer = buffer;
   }
 
+  bool IsVAOFilled() const
+  {
+    return m_buffer->IsFilled();
+  }
+
   void FlushData(BindingInfo const & info, void const * data, uint16_t count)
   {
     m_buffer->UploadData(info, data, count);
@@ -129,13 +134,16 @@ void Batcher::EndSession()
   m_flushInterface = flush_fn();
 }
 
-void Batcher::ChangeBuffer(RefPointer<CallbacksWrapper> wrapper)
+void Batcher::ChangeBuffer(RefPointer<CallbacksWrapper> wrapper, bool checkFilledBuffer)
 {
-  GLState const & state = wrapper->GetState();
-  FinalizeBucket(state);
+  if (wrapper->IsVAOFilled() || checkFilledBuffer == false)
+  {
+    GLState const & state = wrapper->GetState();
+    FinalizeBucket(state);
 
-  RefPointer<RenderBucket> bucket = GetBucket(state);
-  wrapper->SetVAO(bucket->GetBuffer());
+    RefPointer<RenderBucket> bucket = GetBucket(state);
+    wrapper->SetVAO(bucket->GetBuffer());
+  }
 }
 
 RefPointer<RenderBucket> Batcher::GetBucket(GLState const & state)
@@ -186,13 +194,13 @@ void Batcher::InsertTriangles(GLState const & state,
     callbacks.m_submitIndex = bind(&CallbacksWrapper::SubmitIndexes, &wrapper);
     callbacks.m_getAvailableVertex = bind(&CallbacksWrapper::GetAvailableVertexCount, &wrapper);
     callbacks.m_getAvailableIndex = bind(&CallbacksWrapper::GetAvailableIndexCount, &wrapper);
-    callbacks.m_changeBuffer = bind(&Batcher::ChangeBuffer, this, MakeStackRefPointer(&wrapper));
+    callbacks.m_changeBuffer = bind(&Batcher::ChangeBuffer, this, MakeStackRefPointer(&wrapper), _1);
 
     TBatcher batch(callbacks);
     batch.SetIsCanDevideStreams(handle.IsNull());
     batch.BatchData(params);
   }
 
-  if (handle.IsNull())
+  if (!handle.IsNull())
     bucket->AddOverlayHandle(handle.Move());
 }

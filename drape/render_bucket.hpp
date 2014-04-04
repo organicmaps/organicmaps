@@ -14,7 +14,6 @@ public:
   RefPointer<VertexArrayBuffer> GetBuffer();
 
   void AddOverlayHandle(TransferPointer<OverlayHandle> handle);
-  void InsertUniform(TransferPointer<UniformValue> uniform);
 
   void CollectOverlayHandles(/*OverlayTree */);
   void Render();
@@ -22,5 +21,4 @@ public:
 private:
   vector<MasterPointer<OverlayHandle> > m_overlay;
   MasterPointer<VertexArrayBuffer> m_buffer;
-  UniformValuesStorage m_uniforms;
 };
