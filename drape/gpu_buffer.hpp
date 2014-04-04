@@ -16,8 +16,12 @@ public:
   GPUBuffer(Target t, uint8_t elementSize, uint16_t capacity);
   ~GPUBuffer();
 
-  void UploadData(const void * data, uint16_t elementCount);
+  void UploadData(void const * data, uint16_t elementCount);
   void Bind();
+
+protected:
+  /// discard old data
+  void Resize(uint16_t elementCount);
 
 private:
   Target m_t;

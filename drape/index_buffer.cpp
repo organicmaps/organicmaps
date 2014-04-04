@@ -5,7 +5,13 @@ IndexBuffer::IndexBuffer(uint16_t capacity)
 {
 }
 
-void IndexBuffer::UploadData(uint16_t * data, uint16_t size)
+void IndexBuffer::UploadData(uint16_t const * data, uint16_t size)
 {
   GPUBuffer::UploadData((void *)data, size);
+}
+
+void IndexBuffer::UpdateData(uint16_t const * data, uint16_t size)
+{
+  GPUBuffer::Resize(size);
+  UploadData(data, size);
 }

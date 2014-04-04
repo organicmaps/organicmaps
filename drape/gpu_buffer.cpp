@@ -17,7 +17,7 @@ GPUBuffer::GPUBuffer(Target t, uint8_t elementSize, uint16_t capacity)
 {
   m_bufferID = GLFunctions::glGenBuffer();
   Bind();
-  GLFunctions::glBufferData(glTarget(m_t), GetCapacity() * GetElementSize(), NULL, GLConst::GLStaticDraw);
+  Resize(capacity);
 }
 
 GPUBuffer::~GPUBuffer()
@@ -25,7 +25,7 @@ GPUBuffer::~GPUBuffer()
   GLFunctions::glDeleteBuffer(m_bufferID);
 }
 
-void GPUBuffer::UploadData(const void * data, uint16_t elementCount)
+void GPUBuffer::UploadData(void const * data, uint16_t elementCount)
 {
   uint16_t currentSize = GetCurrentSize();
   uint8_t elementSize = GetElementSize();
@@ -38,4 +38,10 @@ void GPUBuffer::UploadData(const void * data, uint16_t elementCount)
 void GPUBuffer::Bind()
 {
   GLFunctions::glBindBuffer(m_bufferID, glTarget((m_t)));
+}
+
+void GPUBuffer::Resize(uint16_t elementCount)
+{
+  base_t::Resize(elementCount);
+  GLFunctions::glBufferData(glTarget(m_t), GetCapacity() * GetElementSize(), NULL, GLConst::GLStaticDraw);
 }

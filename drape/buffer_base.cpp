@@ -23,6 +23,12 @@ uint16_t BufferBase::GetAvailableSize() const
   return m_capacity - m_size;
 }
 
+void BufferBase::Resize(uint16_t elementCount)
+{
+  m_capacity = elementCount;
+  m_size = 0;
+}
+
 uint8_t BufferBase::GetElementSize() const
 {
   return m_elementSize;
