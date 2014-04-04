@@ -47,7 +47,7 @@ bool Blending::operator == (const Blending & other) const
          m_blendDstFactor == other.m_blendDstFactor;
 }
 
-GLState::GLState(uint32_t gpuProgramIndex, int16_t depthLayer)
+GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
   : m_gpuProgramIndex(gpuProgramIndex)
   , m_depthLayer(depthLayer)
   , m_textureSet(-1)

@@ -23,7 +23,13 @@ struct Blending
 class GLState
 {
 public:
-  GLState(uint32_t gpuProgramIndex, int16_t depthLayer);
+  enum DepthLayer
+  {
+    GeometryLayer,
+    OverlayLayer
+  };
+
+  GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer);
 
   void SetTextureSet(int32_t textureSet);
   int32_t GetTextureSet() const;
@@ -42,7 +48,7 @@ public:
 
 private:
   uint32_t m_gpuProgramIndex;
-  uint16_t m_depthLayer;
+  DepthLayer m_depthLayer;
   int32_t m_textureSet;
   Blending m_blending;
   Color m_color;
