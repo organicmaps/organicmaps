@@ -40,8 +40,8 @@ namespace df
   DrapeEngine::~DrapeEngine()
   {
     m_navigator.SaveState();
-    m_backend.Destroy();
     m_frontend.Destroy();
+    m_backend.Destroy();
     m_textures.Destroy();
     m_threadCommutator.Destroy();
   }
