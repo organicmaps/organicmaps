@@ -27,7 +27,11 @@ SOURCES += \
     $$DRAPE_DIR/utils/lodepng.cpp \
     $$DRAPE_DIR/texture_structure_desc.cpp \
     $$DRAPE_DIR/symbols_texture.cpp \
-    $$DRAPE_DIR/texture_manager.cpp
+    $$DRAPE_DIR/texture_manager.cpp \
+    $$DRAPE_DIR/render_bucket.cpp \
+    $$DRAPE_DIR/overlay_handle.cpp \
+    $$DRAPE_DIR/index_buffer_mutator.cpp \
+    $$DRAPE_DIR/batcher_helpers.cpp
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -60,4 +64,8 @@ HEADERS += \
     $$DRAPE_DIR/symbols_texture.hpp \
     $$DRAPE_DIR/texture_manager.hpp \
     $$DRAPE_DIR/texture_set_controller.hpp \
-    $$DRAPE_DIR/texture_set_holder.hpp
+    $$DRAPE_DIR/texture_set_holder.hpp \
+    $$DRAPE_DIR/render_bucket.hpp \
+    $$DRAPE_DIR/overlay_handle.hpp \
+    $$DRAPE_DIR/index_buffer_mutator.hpp \
+    $$DRAPE_DIR/batcher_helpers.hpp

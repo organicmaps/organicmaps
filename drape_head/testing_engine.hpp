@@ -27,7 +27,7 @@ namespace df
     void DrawImpl();
     void ModelViewInit();
     void ProjectionInit();
-    void OnFlushData(const GLState & state, TransferPointer<VertexArrayBuffer> vao);
+    void OnFlushData(const GLState & state, TransferPointer<RenderBucket> vao);
     void ClearScene();
 
   private:
@@ -37,7 +37,7 @@ namespace df
     MasterPointer<TextureManager> m_textures;
     df::Viewport m_viewport;
 
-    typedef map<GLState, MasterPointer<VertexArrayBuffer> > scene_t;
+    typedef map<GLState, MasterPointer<RenderBucket> > scene_t;
     scene_t m_scene;
 
     UniformValuesStorage m_generalUniforms;

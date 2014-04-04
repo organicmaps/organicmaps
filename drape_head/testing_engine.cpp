@@ -60,7 +60,7 @@ namespace df
       ApplyState(state, prg, MakeStackRefPointer<TextureSetController>(&binder));
       ApplyUniforms(m_generalUniforms, prg);
 
-      it->second->Render();
+      it->second->GetBuffer()->Render();
     }
 
     context->present();
@@ -202,15 +202,15 @@ namespace df
     m_generalUniforms.SetMatrix4x4Value("projection", m);
   }
 
-  void TestingEngine::OnFlushData(const GLState & state, TransferPointer<VertexArrayBuffer> vao)
+  void TestingEngine::OnFlushData(const GLState & state, TransferPointer<RenderBucket> vao)
   {
-    MasterPointer<VertexArrayBuffer> vaoMaster(vao);
-    vaoMaster->Build(m_programManager->GetProgram(state.GetProgramIndex()));
-    m_scene.insert(make_pair(state, vaoMaster));
+    MasterPointer<RenderBucket> bucket(vao);
+    bucket->GetBuffer()->Build(m_programManager->GetProgram(state.GetProgramIndex()));
+    m_scene.insert(make_pair(state, bucket));
   }
 
   void TestingEngine::ClearScene()
   {
-    GetRangeDeletor(m_scene, MasterPointerDeleter())();
+    (void)GetRangeDeletor(m_scene, MasterPointerDeleter())();
   }
 }

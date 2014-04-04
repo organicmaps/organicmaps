@@ -26,14 +26,14 @@ namespace
 {
   struct VAOAcceptor
   {
-    virtual void FlushFullBucket(const GLState & state, TransferPointer<VertexArrayBuffer> bucket)
+    virtual void FlushFullBucket(const GLState & state, TransferPointer<RenderBucket> bucket)
     {
-      MasterPointer<VertexArrayBuffer> masterBucket(bucket);
-      masterBucket->Build(m_program);
+      MasterPointer<RenderBucket> masterBucket(bucket);
+      masterBucket->GetBuffer()->Build(m_program);
       m_vao.push_back(masterBucket);
     }
 
-    vector<MasterPointer<VertexArrayBuffer> > m_vao;
+    vector<MasterPointer<RenderBucket> > m_vao;
     RefPointer<GpuProgram> m_program;
   };
 
