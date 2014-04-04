@@ -52,7 +52,7 @@ namespace df
       AddPoint(stream, i + 1, m_pt.x, m_pt.y, m_params.m_depth, rotatedNormal.x, rotatedNormal.y);
     }
 
-    GLState state(gpu::SOLID_SHAPE_PROGRAM, 0);
+    GLState state(gpu::SOLID_SHAPE_PROGRAM, GLState::OverlayLayer);
     state.SetColor(m_params.m_color);
 
     AttributeProvider provider(1, TriangleCount + 2);
@@ -71,7 +71,10 @@ namespace df
     normalDecl.m_offset = 3 * sizeof(float);
     normalDecl.m_stride = 5 * sizeof(float);
 
+    OverlayHandle * overlay = new OverlayHandle(OverlayHandle::Center, m_pt,
+                                                m2::PointD(m_params.m_radius, m_params.m_radius));
+
     provider.InitStream(0, info, MakeStackRefPointer<void>(&stream[0]));
-    batcher->InsertTriangleFan(state, MakeStackRefPointer(&provider));
+    batcher->InsertTriangleFan(state, MakeStackRefPointer(&provider), MovePointer(overlay));
   }
 }

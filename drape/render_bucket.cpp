@@ -20,7 +20,7 @@ RefPointer<VertexArrayBuffer> RenderBucket::GetBuffer()
 
 void RenderBucket::AddOverlayHandle(TransferPointer<OverlayHandle> handle)
 {
-
+  m_overlay.push_back(MasterPointer<OverlayHandle>(handle));
 }
 
 void RenderBucket::InsertUniform(TransferPointer<UniformValue> uniform)

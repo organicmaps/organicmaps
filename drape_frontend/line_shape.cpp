@@ -195,7 +195,7 @@ namespace df
     }
     //
 
-    GLState state(gpu::SOLID_LINE_PROGRAM, 0);
+    GLState state(gpu::SOLID_LINE_PROGRAM, GLState::GeometryLayer);
     state.SetColor(GetColor());
 
     AttributeProvider provider(3, renderPoints.size());

@@ -151,7 +151,7 @@ UNIT_TEST(BatchLists_Test)
     EXPECTGL(glDeleteProgram(ProgramID));
   }
 
-  GLState state(0, 0);
+  GLState state(0, GLState::GeometryLayer);
 
   BindingInfo binding(1);
   BindingDecl & decl = binding.GetBindingDecl(0);

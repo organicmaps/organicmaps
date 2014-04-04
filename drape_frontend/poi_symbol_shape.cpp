@@ -20,7 +20,7 @@ namespace df
     TextureSetHolder::TextureRegion region;
     textures->GetSymbolRegion(m_params.m_symbolName, region);
 
-    GLState state(gpu::TEXTURING_PROGRAM, 0);
+    GLState state(gpu::TEXTURING_PROGRAM, GLState::OverlayLayer);
     state.SetTextureSet(region.m_textureSet);
 
     state.SetBlending(Blending(true));
@@ -61,7 +61,9 @@ namespace df
     texDecl.m_offset = (3 + 2) * sizeof(float);
     texDecl.m_stride = 8 * sizeof(float);
 
+    OverlayHandle * handle = new OverlayHandle(OverlayHandle::Center, m_pt, region.m_pixelSize);
+
     provider.InitStream(0, info, MakeStackRefPointer<void>(stream));
-    batcher->InsertTriangleStrip(state, MakeStackRefPointer(&provider));
+    batcher->InsertTriangleStrip(state, MakeStackRefPointer(&provider), MovePointer(handle));
   }
 }

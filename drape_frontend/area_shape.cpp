@@ -18,7 +18,7 @@ namespace df
 
   void AreaShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const
   {
-    GLState state(gpu::SOLID_AREA_PROGRAM, 0);
+    GLState state(gpu::SOLID_AREA_PROGRAM, GLState::GeometryLayer);
     state.SetColor(m_params.m_color);
 
     AttributeProvider provider(1, m_vertexes.size());
