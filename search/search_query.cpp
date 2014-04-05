@@ -517,7 +517,7 @@ namespace impl
 
   class HouseCompFactory
   {
-    Query & m_query;
+    Query const & m_query;
 
     bool LessViewport(HouseResult const & r1, HouseResult const & r2) const
     {
@@ -541,14 +541,14 @@ namespace impl
     }
 
   public:
-    HouseCompFactory(Query & q) : m_query(q) {}
+    HouseCompFactory(Query const & q) : m_query(q) {}
 
     struct CompT
     {
-      HouseCompFactory * m_parent;
+      HouseCompFactory const * m_parent;
       size_t m_alg;
 
-      CompT(HouseCompFactory * parent, size_t alg) : m_parent(parent), m_alg(alg) {}
+      CompT(HouseCompFactory const * parent, size_t alg) : m_parent(parent), m_alg(alg) {}
       bool operator() (HouseResult const & r1, HouseResult const & r2) const
       {
         if (m_alg == 0)
@@ -601,6 +601,8 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
   if (indV.empty())
     return;
 
+  RemoveDuplicatingLinear(indV);
+
   void (Results::*addFn)(Result const &) = allMWMs ?
         &Results::AddResultCheckExisting :
         &Results::AddResult;
@@ -621,7 +623,7 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
     // Limit address results when searching in first pass (position, viewport, locality).
     size_t count = houses.size();
     if (!allMWMs)
-      count = min(count, size_t(3));
+      count = min(count, size_t(5));
 
     for (size_t i = 0; i < count; ++i)
     {
@@ -632,8 +634,6 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
     }
   }
 #endif
-
-  RemoveDuplicatingLinear(indV);
 
   SortByIndexedValue(indV, CompFactory2());
 

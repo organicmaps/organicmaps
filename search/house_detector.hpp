@@ -268,6 +268,7 @@ public:
   void GetHouseForName(string const & houseNumber, vector<HouseResult> & res);
 
   void ClearCaches();
+  void ClearUnusedStreets(vector<FeatureID> const & ids);
 };
 
 }

@@ -511,6 +511,11 @@ int HouseDetector::LoadStreets(vector<FeatureID> const & ids)
                    "Common =", count, "Cache =", m_id2st.size(), "Input =", ids.size()));
       ClearCaches();
     }
+    else if (m_id2st.size() > ids.size() * 1.2)
+    {
+      LOG(LDEBUG, ("Clear unused"));
+      ClearUnusedStreets(ids);
+    }
   }
 
   // Load streets.
@@ -865,7 +870,7 @@ void HouseDetector::ReadAllHouses(double offsetMeters)
 
 void HouseDetector::ClearCaches()
 {
-  for (StreetMapT::iterator it = m_id2st.begin(); it != m_id2st.end();++it)
+  for (StreetMapT::iterator it = m_id2st.begin(); it != m_id2st.end(); ++it)
     delete it->second;
   m_id2st.clear();
 
@@ -877,6 +882,56 @@ void HouseDetector::ClearCaches()
   m_id2house.clear();
   m_end2st.clear();
   m_streets.clear();
+}
+
+namespace
+{
+
+class HasSecond
+{
+  set<Street *> const & m_streets;
+public:
+  HasSecond(set<Street *> const & streets) : m_streets(streets) {}
+  template <class T> bool operator() (T const & t) const
+  {
+    return m_streets.count(t.second) > 0;
+  }
+};
+
+class HasStreet
+{
+  set<Street *> const & m_streets;
+public:
+  HasStreet(set<Street *> const & streets) : m_streets(streets) {}
+  bool operator() (MergedStreet const & st) const
+  {
+    for (size_t i = 0; i < st.m_cont.size(); ++i)
+      if (m_streets.count(st.m_cont[i]) > 0)
+        return true;
+    return false;
+  }
+};
+
+}
+
+void HouseDetector::ClearUnusedStreets(vector<FeatureID> const & ids)
+{
+  set<Street *> streets;
+  for (StreetMapT::iterator it = m_id2st.begin(); it != m_id2st.end();)
+  {
+    if (!binary_search(ids.begin(), ids.end(), it->first))
+    {
+      streets.insert(it->second);
+      m_id2st.erase(it++);
+    }
+    else
+      ++it;
+  }
+
+  m_end2st.erase(remove_if(m_end2st.begin(), m_end2st.end(), HasSecond(streets)), m_end2st.end());
+  m_streets.erase(remove_if(m_streets.begin(), m_streets.end(), HasStreet(streets)), m_streets.end());
+
+  for_each(streets.begin(), streets.end(), DeleteFunctor());
 }
 
 string DebugPrint(HouseProjection const & p)
