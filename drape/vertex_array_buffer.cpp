@@ -40,6 +40,7 @@ void VertexArrayBuffer::Render()
     else
       BindBuffers();
 
+    m_indexBuffer->Bind();
     GLFunctions::glDrawElements(m_indexBuffer->GetCurrentSize());
   }
 }
@@ -159,6 +160,4 @@ void VertexArrayBuffer::BindBuffers()
                                             decl.m_offset);
     }
   }
-
-  m_indexBuffer->Bind();
 }
