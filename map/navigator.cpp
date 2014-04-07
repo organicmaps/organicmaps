@@ -507,7 +507,7 @@ void Navigator::StartMomentScaleReseter()
 
 void Navigator::KillMomentScaleReseter()
 {
-  if (m_reseterTask == NULL)
+  if (m_reseterTask)
     m_reseterTask->CancelBlocking();
 }
 
