@@ -40,6 +40,8 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 } else:android* {
   SOURCES += platform_android.cpp \
              pthread_video_timer.cpp
+} else:tizen* {
+  SOURCES += platform_tizen.cpp
 }
 
 macx-*|iphone* {

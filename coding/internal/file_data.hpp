@@ -1,12 +1,21 @@
 #pragma once
+
 #include "file64_api.hpp"
 
 #include "../../base/base.hpp"
 
 #include "../../std/string.hpp"
 
-#ifdef OMIM_OS_BADA
-  #include <FIoFile.h>
+#ifdef OMIM_OS_TIZEN
+
+namespace Tizen
+{
+  namespace Io
+  {
+    class File;
+  }
+}
+
 #endif
 
 
@@ -35,8 +44,12 @@ public:
   string GetName() const { return m_FileName; }
 
 private:
-#ifdef OMIM_OS_BADA
-  Osp::Io::File m_File;
+
+  FileData(FileData const & other);
+  FileData const & operator()(FileData const & other);
+
+#ifdef OMIM_OS_TIZEN
+  Tizen::Io::File * m_File;
 #else
   FILE * m_File;
 #endif
