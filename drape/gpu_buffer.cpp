@@ -43,5 +43,6 @@ void GPUBuffer::Bind()
 void GPUBuffer::Resize(uint16_t elementCount)
 {
   base_t::Resize(elementCount);
+  Bind();
   GLFunctions::glBufferData(glTarget(m_t), GetCapacity() * GetElementSize(), NULL, GLConst::GLStaticDraw);
 }
