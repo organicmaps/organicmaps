@@ -496,22 +496,19 @@ void Navigator::ResetMomentScaleAction()
 {
   m_InMomentScaleAction = false;
   m_invalidateFn();
-  LOG(LINFO, ("Invalidate Call"));
 }
 
 void Navigator::StartMomentScaleReseter()
 {
-  KillMomentScalereseter();
+  KillMomentScaleReseter();
   m_InMomentScaleAction = true;
   m_reseterTask.reset(new ScheduledTask(bind(&Navigator::ResetMomentScaleAction, this), 250));
 }
 
-void Navigator::KillMomentScalereseter()
+void Navigator::KillMomentScaleReseter()
 {
   if (m_reseterTask == NULL)
-    return;
-
-  m_reseterTask->CancelBlocking();
+    m_reseterTask->CancelBlocking();
 }
 
 void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)

@@ -562,7 +562,6 @@ void Ruler::AnimateShow()
 
 void Ruler::AnimateHide()
 {
-  LOG(LINFO, ("Animate hide"));
   RulerFrame * frame = GetMainFrame();
   if (isVisible() && (!frame->IsAnimActive() || !frame->IsHidingAnim()))
   {

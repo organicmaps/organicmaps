@@ -796,7 +796,6 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   // somewhere here I can add current place mark
   m_balloonManager.DrawPin(e);
 
-  LOG(LINFO, ("Draw gui"));
   m_guiController->UpdateElements();
   m_guiController->DrawFrame(pScreen);
 }

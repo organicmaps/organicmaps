@@ -15,7 +15,7 @@ class Navigator
 {
 public:
   typedef function<void ()> invalidate_fn;
-  explicit Navigator(ScalesProcessor const & scales, invalidate_fn const & invalidateFn);
+  Navigator(ScalesProcessor const & scales, invalidate_fn const & invalidateFn);
 
   void SetFromRect(m2::AnyRectD const & r);
   void CenterViewport(m2::PointD const & p);
@@ -130,7 +130,7 @@ private:
 
   void ResetMomentScaleAction();
   void StartMomentScaleReseter();
-  void KillMomentScalereseter();
+  void KillMomentScaleReseter();
 
   scoped_ptr<ScheduledTask> m_reseterTask;
   invalidate_fn m_invalidateFn;
