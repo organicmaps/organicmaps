@@ -551,16 +551,24 @@ void Ruler::AnimateShow()
   {
     setIsVisible(true);
     frame->ShowAnimate(false);
+    m_framework->Invalidate();
   }
   else if (isVisible() && (frame->IsAnimActive() && frame->IsHidingAnim()))
+  {
     frame->ShowAnimate(false);
+    m_framework->Invalidate();
+  }
 }
 
 void Ruler::AnimateHide()
 {
+  LOG(LINFO, ("Animate hide"));
   RulerFrame * frame = GetMainFrame();
   if (isVisible() && (!frame->IsAnimActive() || !frame->IsHidingAnim()))
+  {
     frame->HideAnimate(true);
+    m_framework->Invalidate();
+  }
 }
 
 void Ruler::layout()

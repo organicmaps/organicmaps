@@ -4,13 +4,18 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../base/matrix.hpp"
+#include "../base/scheduled_task.hpp"
+
+#include "../std/function.hpp"
+#include "../std/scoped_ptr.hpp"
 
 
 /// Calculates screen parameters in navigation (dragging, scaling, etc.).
 class Navigator
 {
 public:
-  explicit Navigator(ScalesProcessor const & scales);
+  typedef function<void ()> invalidate_fn;
+  explicit Navigator(ScalesProcessor const & scales, invalidate_fn const & invalidateFn);
 
   void SetFromRect(m2::AnyRectD const & r);
   void CenterViewport(m2::PointD const & p);
@@ -108,6 +113,7 @@ private:
   math::Matrix<float, 3, 3> m_DeltaMatrix;
   // Flag, which indicates, whether we are in the middle of some action.
   bool m_InAction;
+  bool m_InMomentScaleAction;
   // Does Navigator supports screen rotation.
   bool m_DoSupportRotation;
   // Should we check for threshold while scaling by two fingers.
@@ -121,4 +127,11 @@ private:
                  m2::PointD const & oldPt2,
                  bool skipMinScaleAndBordersCheck,
                  bool doRotateScreen);
+
+  void ResetMomentScaleAction();
+  void StartMomentScaleReseter();
+  void KillMomentScalereseter();
+
+  scoped_ptr<ScheduledTask> m_reseterTask;
+  invalidate_fn m_invalidateFn;
 };

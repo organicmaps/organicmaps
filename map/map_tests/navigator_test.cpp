@@ -5,6 +5,12 @@
 #include "../../geometry/screenbase.hpp"
 
 #include "../../std/cmath.hpp"
+#include "../../std/bind.hpp"
+
+namespace
+{
+  void Dummy() {}
+}
 
 
 // -3 -2 -1  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
@@ -30,7 +36,7 @@
 UNIT_TEST(Navigator_Scale2Points)
 {
   ScalesProcessor scales;
-  Navigator navigator(scales);
+  Navigator navigator(scales, bind(&Dummy));
 
   navigator.OnSize(0, 0, 200, 100);
   navigator.SetFromRect(m2::AnyRectD(m2::RectD(0, 0, 8, 4)));
@@ -69,7 +75,7 @@ namespace
 UNIT_TEST(Navigator_G2P_P2G)
 {
   ScalesProcessor scales;
-  Navigator navigator(scales);
+  Navigator navigator(scales, bind(&Dummy));
 
   // Initialize.
   navigator.OnSize(0, 0, 200, 100);

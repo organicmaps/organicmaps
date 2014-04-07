@@ -176,7 +176,7 @@ static void GetResourcesMaps(vector<string> & outMaps)
 }
 
 Framework::Framework()
-  : m_navigator(m_scales),
+  : m_navigator(m_scales, bind(&Framework::Invalidate, this, false)),
     m_animator(this),
     m_queryMaxScaleMode(false),
     m_width(0),
@@ -796,6 +796,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   // somewhere here I can add current place mark
   m_balloonManager.DrawPin(e);
 
+  LOG(LINFO, ("Draw gui"));
   m_guiController->UpdateElements();
   m_guiController->DrawFrame(pScreen);
 }
