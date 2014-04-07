@@ -2,12 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "LocationDefault.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "NavigationBarBackground7@2x.png"
+      "filename" : "LocationDefault@2x.png"
     }
   ],
   "info" : {
