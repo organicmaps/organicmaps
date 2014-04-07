@@ -84,6 +84,7 @@ namespace
         catch (Reader::Exception const & ex)
         {
           LOG(LERROR, (ex.Msg()));
+          break;
         }
       }
     }
