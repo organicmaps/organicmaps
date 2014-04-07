@@ -1293,8 +1293,15 @@ int scale_expansion_zeroelim(int elen, REAL * e, REAL b, REAL * h)   /* e and h 
 /*                                                                           */
 /*****************************************************************************/
 
-int compress(int elen, REAL * e, REAL * h)                         /* e and h may be the same. */
-{
+/*
+commented because of compile error:
+
+/omim-tizen-emulator-debug/out/debug/libzlib.a(compress.o): In function `compress':
+omim/3party/zlib/compress.c:67: multiple definition of `compress'
+omim-tizen-emulator-debug/out/debug/libgeometry.a(robust_orientation.o):/Users/Sergey/omim/geometry/../3party/robust/predicates.c:1297: first defined here
+
+int compress(int elen, REAL * e, REAL * h)             */            /* e and h may be the same. */
+/*{
   REAL Q, q;
   INEXACT REAL Qnew;
   int eindex, hindex;
@@ -1325,7 +1332,7 @@ int compress(int elen, REAL * e, REAL * h)                         /* e and h ma
   }
   h[top] = Q;
   return top + 1;
-}
+}*/
 
 /*****************************************************************************/
 /*                                                                           */
