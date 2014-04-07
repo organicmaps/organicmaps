@@ -25,11 +25,28 @@ namespace my
     }
   }
 
-#ifdef OMIM_OS_BADA
+#ifdef OMIM_OS_TIZEN
+#include <FBaseLog.h>
   void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg)
   {
     /// @todo need bada console
-    LogCheckIfErrorLevel(level);
+
+    ostringstream out;
+    out << DebugPrint(srcPoint) << msg << endl;
+    switch (level)
+    {
+    case LDEBUG:
+      AppLogDebug(out.str().c_str());
+      break;
+    case LINFO:
+    case LWARNING:
+      AppLog(out.str().c_str());
+      break;
+    case LERROR:
+    case LCRITICAL:
+      AppLogException(out.str().c_str());
+    }
+
   }
 #else
 
