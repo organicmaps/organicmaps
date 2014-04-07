@@ -34,7 +34,7 @@ SOURCES += \
   src/google/protobuf/io/zero_copy_stream.cc            \
   src/google/protobuf/io/zero_copy_stream_impl_lite.cc  \
 
-linux*|android*|win32-g++ {
+linux*|android*|win32-g++|tizen* {
   SOURCES += src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc
 }
 
