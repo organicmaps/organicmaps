@@ -104,3 +104,6 @@ tools/twine/.git
 drape/shader_def.hpp
 drape/shader_def.cpp
 drape/drape_tests/enum_shaders.hpp
+
+tizen/*/Debug/*
+tizen/*/.*
