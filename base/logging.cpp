@@ -29,8 +29,6 @@ namespace my
 #include <FBaseLog.h>
   void LogMessageDefault(LogLevel level, SrcPoint const & srcPoint, string const & msg)
   {
-    /// @todo need bada console
-
     ostringstream out;
     out << DebugPrint(srcPoint) << msg << endl;
     switch (level)
