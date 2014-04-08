@@ -1,6 +1,6 @@
 #include "../std/target_os.hpp"
 
-#if !defined(OMIM_OS_BADA) && !defined(OMIM_OS_WINDOWS_NATIVE)
+#if !defined(OMIM_OS_WINDOWS_NATIVE)
 
 #include "condition.hpp"
 #include "mutex.hpp"

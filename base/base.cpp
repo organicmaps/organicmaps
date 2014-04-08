@@ -7,7 +7,7 @@
 
 #include <cassert>
 
-#ifdef OMIM_OS_BADA
+#ifdef OMIM_OS_TIZEN
   #include <FBaseSys.h>
 #endif
 
@@ -15,7 +15,7 @@ namespace my
 {
   void OnAssertFailedDefault(SrcPoint const & srcPoint, string const & msg)
   {
-#ifdef OMIM_OS_BADA
+#ifdef OMIM_OS_TIZEN
     AppLog("ASSERT FAILED%s:%d:%s", srcPoint.FileName(), srcPoint.Line(), msg.c_str());
     AppAssert(false);
 

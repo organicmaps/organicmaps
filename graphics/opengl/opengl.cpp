@@ -6,8 +6,8 @@
 
 #include "../../std/bind.hpp"
 
-#ifdef OMIM_OS_BADA
-  #include <FBaseSys.h>
+#ifdef OMIM_OS_TIZEN
+  #include <egl.h>
 #endif
 
 
@@ -148,9 +148,6 @@ namespace graphics
     {
       if (err)
       {
-#ifdef OMIM_OS_BADA
-        AppLog("%s", err);
-#endif
         LOG(LERROR, (err, srcPt.FileName(), srcPt.Line()));
       }
     }
@@ -165,7 +162,7 @@ namespace graphics
 //      case GL_STACK_OVERFLOW: return "GL_STACK_OVERFLOW"; //< not supported in OpenGL ES2.0
 //      case GL_STACK_UNDERFLOW: return "GL_STACK_UNDERFLOW"; //< not supported in OpenGL ES2.0
       case GL_OUT_OF_MEMORY: return "GL_OUT_OF_MEMORY";
-#ifdef OMIM_OS_BADA        /* Errors / GetError return values */
+#ifdef OMIM_OS_TIZEN        /* Errors / GetError return values */
       case EGL_SUCCESS : return 0;
       case EGL_NOT_INITIALIZED : return "EGL_NOT_INITIALIZED";
       case EGL_BAD_ACCESS : return "EGL_BAD_ACCESS";
@@ -191,7 +188,7 @@ namespace graphics
       LogError(Error2String(glGetError()), srcPt);
     }
 
-#ifdef OMIM_OS_BADA
+#ifdef OMIM_OS_TIZEN
     void CheckEGLError(my::SrcPoint const & srcPt)
     {
       LogError(Error2String(eglGetError()), srcPt);

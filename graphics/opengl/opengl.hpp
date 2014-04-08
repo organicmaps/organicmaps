@@ -11,9 +11,9 @@
   #define GL_GLEXT_PROTOTYPES
   #include "../../3party/GL/glext.h"
 
-#elif defined(OMIM_OS_BADA)
-  #include <FGraphicsOpengl.h>
-  using namespace Osp::Graphics::Opengl;
+#elif defined(OMIM_OS_TIZEN)
+  #include <FGraphicsOpengl2.h>
+  using namespace Tizen::Graphics::Opengl;
   #define OMIM_GL_ES
 
 #elif defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)

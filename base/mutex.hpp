@@ -4,9 +4,7 @@
 
 #include "../std/target_os.hpp"
 
-#if defined(OMIM_OS_BADA)
-  #include <FBaseRtThreadMutex.h>
-#elif defined(OMIM_OS_WINDOWS_NATIVE)
+#if defined(OMIM_OS_WINDOWS_NATIVE)
   #include "../std/windows.hpp"
 #else
   #include <pthread.h>
@@ -30,9 +28,7 @@ namespace threads
   {
   private:
 
-#if defined(OMIM_OS_BADA)
-    Osp::Base::Runtime::Mutex m_Mutex;
-#elif defined(OMIM_OS_WINDOWS_NATIVE)
+#if defined(OMIM_OS_WINDOWS_NATIVE)
     CRITICAL_SECTION m_Mutex;
 #else
     pthread_mutex_t m_Mutex;
@@ -49,9 +45,7 @@ namespace threads
 
     Mutex()
     {
-#if defined(OMIM_OS_BADA)
-      m_Mutex.Create();
-#elif defined(OMIM_OS_WINDOWS_NATIVE)
+#if defined(OMIM_OS_WINDOWS_NATIVE)
       ::InitializeCriticalSection(&m_Mutex);
 #else
       ::pthread_mutex_init(&m_Mutex, 0);
@@ -62,16 +56,14 @@ namespace threads
     {
 #if defined(OMIM_OS_WINDOWS_NATIVE)
       ::DeleteCriticalSection(&m_Mutex);
-#elif !defined(OMIM_OS_BADA)
+#else
       ::pthread_mutex_destroy(&m_Mutex);
 #endif
     }
     
     void Lock()
     {
-#if defined(OMIM_OS_BADA)
-      m_Mutex.Acquire();
-#elif defined(OMIM_OS_WINDOWS_NATIVE)
+#if defined(OMIM_OS_WINDOWS_NATIVE)
       ::EnterCriticalSection(&m_Mutex);
 #else
       VERIFY(0 == ::pthread_mutex_lock(&m_Mutex), ());
@@ -89,9 +81,7 @@ namespace threads
 
     void Unlock()
     {
-#if defined(OMIM_OS_BADA)
-      m_Mutex.Release();
-#elif defined(OMIM_OS_WINDOWS_NATIVE)
+#if defined(OMIM_OS_WINDOWS_NATIVE)
       ::LeaveCriticalSection(&m_Mutex);
 #else
       VERIFY(0 == ::pthread_mutex_unlock(&m_Mutex), ());

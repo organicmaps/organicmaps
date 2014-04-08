@@ -1,8 +1,8 @@
 #include "thread.hpp"
 #include "assert.hpp"
 
-#if defined(OMIM_OS_BADA)
-  #include <FBaseRtThreadThread.h>
+#if defined(OMIM_OS_TIZEN)
+  #include "../../tizen/inc/FBase.hpp"
 #elif defined(OMIM_OS_WINDOWS_NATIVE)
   #include "../std/windows.hpp"
 #else
@@ -17,20 +17,20 @@
 
 namespace threads
 {
-#if defined(OMIM_OS_BADA)
-  /// BADA specific implementation
-  class ThreadImpl : public Osp::Base::Runtime::Thread
+#if defined(OMIM_OS_TIZEN)
+  /// TIZEN specific implementation
+  class ThreadImpl : public Tizen::Base::Runtime::Thread
   {
-    typedef Osp::Base::Runtime::Thread BaseT;
+    typedef Tizen::Base::Runtime::Thread BaseT;
     IRoutine * m_pRoutine;
 
   public:
     /// Doesn't own pRoutine
     ThreadImpl() : m_pRoutine(0)
     {
-      result error = Construct(Osp::Base::Runtime::THREAD_TYPE_WORKER,
-                               Osp::Base::Runtime::Thread::DEFAULT_STACK_SIZE,
-                               Osp::Base::Runtime::THREAD_PRIORITY_MID);
+      result error = Construct(Tizen::Base::Runtime::THREAD_TYPE_WORKER,
+                               Tizen::Base::Runtime::Thread::DEFAULT_STACK_SIZE,
+                               Tizen::Base::Runtime::THREAD_PRIORITY_MID);
       ASSERT_EQUAL(error, E_SUCCESS, ("Constructing thread error"));
     }
 
@@ -45,7 +45,7 @@ namespace threads
       return BaseT::Join();
     }
 
-    virtual Osp::Base::Object * Run()
+    virtual Tizen::Base::Object * Run()
     {
       m_pRoutine->Do();
       return 0;
