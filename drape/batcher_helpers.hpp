@@ -42,9 +42,6 @@ protected:
   uint16_t GetAvailableIndexCount() const;
   void ChangeBuffer(bool checkFilled) const;
 
-protected:
-  bool IsEnoughMemory(uint16_t avVertex, uint16_t existVertex, uint16_t avIndex, uint16_t existIndex);
-
 private:
   BatchCallbacks m_callbacks;
   bool m_canDevideStreams;
@@ -68,6 +65,7 @@ public:
   FanStripHelper(BatchCallbacks const & callbacks);
 
 protected:
+  uint16_t BatchIndexes(uint16_t vertexCount);
   void CalcBatchPortion(uint16_t vertexCount, uint16_t avVertex, uint16_t avIndex,
                         uint16_t & batchVertexCount, uint16_t & batchIndexCount);
   bool IsFullUploaded() const;

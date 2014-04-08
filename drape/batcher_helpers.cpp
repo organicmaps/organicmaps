@@ -8,6 +8,11 @@
 
 namespace
 {
+  bool IsEnoughMemory(uint16_t avVertex, uint16_t existVertex, uint16_t avIndex, uint16_t existIndex)
+  {
+    return avVertex >= existVertex && avIndex >= existIndex;
+  }
+
   class IndexGenerator
   {
   public:
@@ -111,11 +116,6 @@ void TriangleBatch::ChangeBuffer(bool checkFilled) const
   m_callbacks.m_changeBuffer(checkFilled);
 }
 
-bool TriangleBatch::IsEnoughMemory(uint16_t avVertex, uint16_t existVertex, uint16_t avIndex, uint16_t existIndex)
-{
-  return avVertex >= existVertex && avIndex >= existIndex;
-}
-
 TriangleListBatch::TriangleListBatch(BatchCallbacks const & callbacks) : base_t(callbacks) {}
 
 void TriangleListBatch::BatchData(RefPointer<AttributeProvider> streams)
@@ -138,7 +138,7 @@ void TriangleListBatch::BatchData(RefPointer<AttributeProvider> streams)
       ChangeBuffer(false);
       avVertex = GetAvailableVertexCount();
       avIndex  = GetAvailableIndexCount();
-      ASSERT(!IsEnoughMemory(avVertex, vertexCount, avIndex, vertexCount), ());
+      ASSERT(IsEnoughMemory(avVertex, vertexCount, avIndex, vertexCount), ());
       ASSERT(vertexCount % 3 == 0, ());
     }
 
@@ -158,6 +158,32 @@ FanStripHelper::FanStripHelper(const BatchCallbacks & callbacks)
   : base_t(callbacks)
   , m_isFullUploaded(false)
 {
+}
+
+uint16_t FanStripHelper::BatchIndexes(uint16_t vertexCount)
+{
+  uint16_t avVertex = GetAvailableVertexCount();
+  uint16_t avIndex  = GetAvailableIndexCount();
+
+  uint16_t batchVertexCount = 0;
+  uint16_t batchIndexCount = 0;
+  CalcBatchPortion(vertexCount, avVertex, avIndex, batchVertexCount, batchIndexCount);
+
+  if (!IsFullUploaded() && !IsCanDevideStreams())
+  {
+    ChangeBuffer(false);
+    avVertex = GetAvailableVertexCount();
+    avIndex  = GetAvailableIndexCount();
+    CalcBatchPortion(vertexCount, avVertex, avIndex, batchVertexCount, batchIndexCount);
+    ASSERT(IsFullUploaded(), ());
+  }
+
+  uint16_t startIndex = 0;
+  uint16_t * pIndexStorage = GetIndexStorage(batchIndexCount, startIndex);
+  generate(pIndexStorage, pIndexStorage + batchIndexCount, StripIndexGenerator(startIndex));
+  SubmitIndex();
+
+  return batchVertexCount;
 }
 
 void FanStripHelper::CalcBatchPortion(uint16_t vertexCount, uint16_t avVertex, uint16_t avIndex,
@@ -209,27 +235,7 @@ void TriangleStripBatch::BatchData(RefPointer<AttributeProvider> streams)
 {
   while (streams->IsDataExists())
   {
-    uint16_t avVertex = GetAvailableVertexCount();
-    uint16_t avIndex  = GetAvailableIndexCount();
-    uint16_t vertexCount = streams->GetVertexCount();
-
-    uint16_t batchVertexCount = 0;
-    uint16_t batchIndexCount = 0;
-    CalcBatchPortion(vertexCount, avVertex, avIndex, batchVertexCount, batchIndexCount);
-
-    if (!IsFullUploaded() && !IsCanDevideStreams())
-    {
-      ChangeBuffer(false);
-      avVertex = GetAvailableVertexCount();
-      avIndex  = GetAvailableIndexCount();
-      CalcBatchPortion(vertexCount, avVertex, avIndex, batchVertexCount, batchIndexCount);
-      ASSERT(IsFullUploaded(), ());
-    }
-
-    uint16_t startIndex = 0;
-    uint16_t * pIndexStorage = GetIndexStorage(batchIndexCount, startIndex);
-    generate(pIndexStorage, pIndexStorage + batchIndexCount, StripIndexGenerator(startIndex));
-    SubmitIndex();
+    uint16_t batchVertexCount = BatchIndexes(streams->GetVertexCount());
     FlushData(streams, batchVertexCount);
 
     uint16_t advanceCount = IsFullUploaded() ? batchVertexCount : (batchVertexCount - 2);
@@ -265,27 +271,8 @@ void TriangleFanBatch::BatchData(RefPointer<AttributeProvider> streams)
   vector<CPUBuffer> cpuBuffers;
   while (streams->IsDataExists())
   {
-    uint16_t avVertex = GetAvailableVertexCount();
-    uint16_t avIndex  = GetAvailableIndexCount();
     uint16_t vertexCount = streams->GetVertexCount();
-
-    uint16_t batchVertexCount = 0;
-    uint16_t batchIndexCount = 0;
-    CalcBatchPortion(vertexCount, avVertex, avIndex, batchVertexCount, batchIndexCount);
-
-    if (!IsFullUploaded() && !IsCanDevideStreams())
-    {
-      ChangeBuffer(false);
-      avVertex = GetAvailableVertexCount();
-      avIndex  = GetAvailableIndexCount();
-      CalcBatchPortion(vertexCount, avVertex, avIndex, batchVertexCount, batchIndexCount);
-      ASSERT(IsFullUploaded(), ());
-    }
-
-    uint16_t startIndex = 0;
-    uint16_t * pIndexStorage = GetIndexStorage(batchIndexCount, startIndex);
-    generate(pIndexStorage, pIndexStorage + batchIndexCount, FanIndexGenerator(startIndex));
-    SubmitIndex();
+    uint16_t batchVertexCount = BatchIndexes(vertexCount);
 
     if (!cpuBuffers.empty())
     {

@@ -1,6 +1,8 @@
 #include "index_buffer_mutator.hpp"
 #include "vertex_array_buffer.hpp"
 
+#include "../std/algorithm.hpp" // for max
+
 IndexBufferMutator::IndexBufferMutator(uint16_t baseSize)
   : m_activeSize(0)
 {
@@ -9,11 +11,12 @@ IndexBufferMutator::IndexBufferMutator(uint16_t baseSize)
 
 void IndexBufferMutator::AppendIndexes(uint16_t const * indexes, uint16_t count)
 {
-  if (m_activeSize + count > m_buffer.size())
-    m_buffer.resize(m_buffer.size() * 2);
+  size_t dstActiveSize = m_activeSize + count;
+  if (dstActiveSize  > m_buffer.size())
+    m_buffer.resize(max(m_buffer.size() * 2, dstActiveSize));
 
   memcpy(&m_buffer[m_activeSize], indexes, count * sizeof(uint16_t));
-  m_activeSize += count;
+  m_activeSize = dstActiveSize;
 }
 
 void IndexBufferMutator::Submit(RefPointer<VertexArrayBuffer> vao)

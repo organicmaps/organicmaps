@@ -55,17 +55,17 @@ public:
       m_buffer->UploadIndexes(&m_indexStorage[0], m_indexStorage.size());
   }
 
-  uint16_t GetAvailableVertexCount()
+  uint16_t GetAvailableVertexCount() const
   {
     return m_buffer->GetAvailableVertexCount();
   }
 
-  uint16_t GetAvailableIndexCount()
+  uint16_t GetAvailableIndexCount() const
   {
     return m_buffer->GetAvailableIndexCount();
   }
 
-  GLState const & GetState()
+  GLState const & GetState() const
   {
     return m_state;
   }
