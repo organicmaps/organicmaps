@@ -29,7 +29,7 @@ FileData::FileData(string const & fileName, Op op)
   char const * const modes [] = {"rb", "wb", "r+b", "ab"};
 #ifdef OMIM_OS_TIZEN
   m_File = new Tizen::Io::File();
-  result error = m_File->Construct(fileName.c_str(), modes[op]);
+  result const error = m_File->Construct(fileName.c_str(), modes[op]);
   if (error == E_SUCCESS)
   {
     return;
@@ -88,7 +88,7 @@ uint64_t FileData::Size() const
 {
 #ifdef OMIM_OS_TIZEN
   Tizen::Io::FileAttributes attr;
-  result error = Tizen::Io::File::GetAttributes(m_FileName.c_str(), attr);
+  result const error = Tizen::Io::File::GetAttributes(m_FileName.c_str(), attr);
   if (IsFailed(error))
     MYTHROW(Reader::SizeException, (m_FileName, m_Op, error));
   return attr.GetFileSize();
@@ -136,7 +136,7 @@ uint64_t FileData::Pos() const
 {
 #ifdef OMIM_OS_TIZEN
   int const pos = m_File->Tell();
-  result error = GetLastResult();
+  result const error = GetLastResult();
   if (IsFailed(error))
     MYTHROW(Writer::PosException, (m_FileName, m_Op, error, pos));
   return pos;
@@ -154,8 +154,8 @@ void FileData::Seek(uint64_t pos)
 {
   ASSERT_NOT_EQUAL(m_Op, OP_APPEND, (m_FileName, m_Op, pos));
 #ifdef OMIM_OS_TIZEN
-  result error = m_File->Seek(Tizen::Io::FILESEEKPOSITION_BEGIN, pos);
-  if (  (error))
+  result const error = m_File->Seek(Tizen::Io::FILESEEKPOSITION_BEGIN, pos);
+  if (IsFailed(error))
     MYTHROW(Writer::SeekException, (m_FileName, m_Op, error, pos));
 #else
   if (fseek64(m_File, pos, SEEK_SET))
@@ -166,7 +166,7 @@ void FileData::Seek(uint64_t pos)
 void FileData::Write(void const * p, size_t size)
 {
 #ifdef OMIM_OS_TIZEN
-  result error = m_File->Write(p, size);
+  result const error = m_File->Write(p, size);
   if (IsFailed(error))
     MYTHROW(Writer::WriteException, (m_FileName, m_Op, error, size));
 #else
@@ -179,7 +179,7 @@ void FileData::Write(void const * p, size_t size)
 void FileData::Flush()
 {
 #ifdef OMIM_OS_TIZEN
-  result error = m_File->Flush();
+  result const error = m_File->Flush();
   if (IsFailed(error))
     MYTHROW(Writer::WriteException, (m_FileName, m_Op, error));
 #else
@@ -192,12 +192,10 @@ void FileData::Truncate(uint64_t sz)
 {
 #ifdef OMIM_OS_WINDOWS
   int const res = _chsize(fileno(m_File), sz);
-#else
-#ifdef OMIM_OS_TIZEN
+#elif defined OMIM_OS_TIZEN
   result res = m_File->Truncate(sz);
 #else
   int const res = ftruncate(fileno(m_File), sz);
-#endif
 #endif
 
   if (res)
