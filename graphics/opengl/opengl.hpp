@@ -226,7 +226,6 @@ namespace graphics
     };
 
     void CheckError(my::SrcPoint const & srcPt);
-    void CheckEGLError(my::SrcPoint const & srcPt);
 
   }
 }
@@ -237,15 +236,12 @@ namespace graphics
   #ifdef OMIM_GL_ENABLE_TRACE
     #define OGLCHECK(f) do { if (graphics::gl::g_doLogOGLCalls) LOG(LDEBUG, (#f)); if (graphics::gl::g_hasContext) {f; graphics::gl::CheckError(SRC());} else LOG(LDEBUG, ("no OGL context. skipping OGL call")); } while(false)
     #define OGLCHECKAFTER if (graphics::gl::g_doLogOGLCalls) LOG(LDEBUG, ("OGLCHECKAFTER")); graphics::gl::CheckError(SRC())
-    #define EGLCHECK do { LOG(LDEBUG, ("EGLCHECK")); graphics::gl::CheckEGLError(SRC()); } while(false)
   #else
     #define OGLCHECK(f) do { if (graphics::gl::g_hasContext) {f; graphics::gl::CheckError(SRC());} else LOG(LDEBUG, ("no OGL context. skipping OGL call.")); } while(false)
     #define OGLCHECKAFTER graphics::gl::CheckError(SRC())
-    #define EGLCHECK do { graphics::gl::CheckEGLError(SRC()); } while(false)
   #endif
 
 #else
 #define OGLCHECK(f) do {if (graphics::gl::g_hasContext) {f;} else LOG(LDEBUG, ("no OGL context. skipping OGL call."));} while (false)
 #define OGLCHECKAFTER
-#define EGLCHECK
 #endif
