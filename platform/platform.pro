@@ -41,7 +41,9 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
   SOURCES += platform_android.cpp \
              pthread_video_timer.cpp
 } else:tizen* {
-  SOURCES += platform_tizen.cpp
+  HEADERS += tizen_string_utils.hpp
+  SOURCES += platform_tizen.cpp \
+    tizen_string_utils.cpp
 }
 
 macx-*|iphone* {
@@ -66,7 +68,7 @@ HEADERS += \
     http_thread_callback.hpp \
     chunks_download_strategy.hpp \
     servers_list.hpp \
-    constants.hpp \
+    constants.hpp
 
 SOURCES += \
     preferred_languages.cpp \
@@ -75,4 +77,4 @@ SOURCES += \
     http_request.cpp \
     chunks_download_strategy.cpp \
     platform.cpp \
-    servers_list.cpp \
+    servers_list.cpp

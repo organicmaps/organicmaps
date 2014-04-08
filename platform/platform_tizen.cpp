@@ -2,7 +2,6 @@
 #include "platform.hpp"
 
 #include <FAppApp.h>
-#include <FBaseUtilStringUtil.h>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wignored-qualifiers"
@@ -21,36 +20,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-string FromTizenString(Tizen::Base::String const & str_tizen)
-{
-  string utf8Str;
-    if (str_tizen.GetLength() == 0)
-      return utf8Str;
-//    str_tizen.GetPointer();
-    Tizen::Base::ByteBuffer* pBuffer = Tizen::Base::Utility::StringUtil::StringToUtf8N(str_tizen);
-    if (pBuffer != null)
-    {
-      int byteCount = pBuffer->GetLimit();
-      char* chPtrBuf = new char[byteCount + 1];
-      if (chPtrBuf != null) {
-        pBuffer->GetArray((byte*) chPtrBuf, 0, byteCount);
-        utf8Str.assign(chPtrBuf, byteCount - 1);
-        delete[] chPtrBuf;
-      }
-      if (pBuffer != null)
-        delete pBuffer;
-    }
-    return utf8Str;
-}
-
-
-/// @return directory where binary resides, including slash at the end
-static bool GetBinaryFolder(string & outPath)
-{
-  Tizen::App::App * pApp = Tizen::App::App::GetInstance();
-  outPath = FromTizenString(pApp->GetAppRootPath());
-  return true;
-}
+#include "tizen_string_utils.hpp"
 
 Platform::Platform()
 {
