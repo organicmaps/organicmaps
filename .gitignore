@@ -107,4 +107,4 @@ drape/drape_tests/enum_shaders.hpp
 
 tizen/*/Debug/*
 tizen/*/.*
-#tizen/*/crash-info/*
+tizen/*/crash-info/*
