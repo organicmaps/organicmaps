@@ -61,7 +61,11 @@ namespace df
     texDecl.m_offset = (3 + 2) * sizeof(float);
     texDecl.m_stride = 8 * sizeof(float);
 
-    OverlayHandle * handle = new OverlayHandle(OverlayHandle::Center, m_pt, region.m_pixelSize);
+    OverlayHandle * handle = new OverlayHandle(m_params.m_id,
+                                               OverlayHandle::Center,
+                                               m_pt,
+                                               region.m_pixelSize,
+                                               m_params.m_depth);
 
     provider.InitStream(0, info, MakeStackRefPointer<void>(stream));
     batcher->InsertTriangleStrip(state, MakeStackRefPointer(&provider), MovePointer(handle));

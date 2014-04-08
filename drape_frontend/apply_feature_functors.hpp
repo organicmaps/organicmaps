@@ -19,18 +19,22 @@ namespace df
   {
   public:
     BaseApplyFeature(EngineContext & context,
-                     TileKey tileKey);
+                     TileKey tileKey,
+                     FeatureID const & id);
 
   protected:
     EngineContext & m_context;
     TileKey m_tileKey;
+    FeatureID m_id;
   };
 
   class ApplyPointFeature : public BaseApplyFeature
   {
     typedef BaseApplyFeature base_t;
   public:
-    ApplyPointFeature(EngineContext & context, TileKey tileKey);
+    ApplyPointFeature(EngineContext & context,
+                      TileKey tileKey,
+                      FeatureID const & id);
 
     void operator()(CoordPointT const & point);
     void operator()(m2::PointD const & point);
@@ -50,7 +54,9 @@ namespace df
   {
     typedef ApplyPointFeature base_t;
   public:
-    ApplyAreaFeature(EngineContext & context, TileKey tileKey);
+    ApplyAreaFeature(EngineContext & context,
+                     TileKey tileKey,
+                     FeatureID const & id);
 
     using base_t::operator ();
 
@@ -65,7 +71,9 @@ namespace df
   {
     typedef BaseApplyFeature base_t;
   public:
-    ApplyLineFeature(EngineContext & context, TileKey tileKey);
+    ApplyLineFeature(EngineContext & context,
+                     TileKey tileKey,
+                     FeatureID const & id);
 
     void operator ()(CoordPointT const & point);
     void ProcessRule(Stylist::rule_wrapper_t const & rule);

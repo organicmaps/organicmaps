@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../indexer/feature_decl.hpp"
+
 #include "../geometry/screenbase.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
@@ -22,8 +24,10 @@ public:
     RightBottom = Right | Bottom
   };
 
-  OverlayHandle(Anchor anchor, m2::PointD const & gbPivot,
-                m2::PointD const & pxSize);
+  OverlayHandle(FeatureID const & id,
+                Anchor anchor, m2::PointD const & gbPivot,
+                m2::PointD const & pxSize,
+                double priority);
 
   bool IsVisible() const;
   void SetIsVisible(bool isVisible);
@@ -33,10 +37,15 @@ public:
   size_t GetIndexCount() const;
   void GetElementIndexes(RefPointer<IndexBufferMutator> mutator) const;
 
+  FeatureID const & GetFeatureID() const;
+  double const & GetPriority() const;
+
 private:
+  FeatureID m_id;
   Anchor m_anchor;
   m2::PointD m_gbPivot;
   m2::PointD m_pxHalfSize;
+  double m_priority;
   bool m_isVisible;
 
   vector<uint16_t> m_indexes;

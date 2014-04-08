@@ -1,10 +1,12 @@
 #include "overlay_handle.hpp"
 
-OverlayHandle::OverlayHandle(OverlayHandle::Anchor anchor, m2::PointD const & gbPivot,
-                             m2::PointD const & pxSize)
-  : m_anchor(anchor)
+OverlayHandle::OverlayHandle(const FeatureID & id, OverlayHandle::Anchor anchor, m2::PointD const & gbPivot,
+                             m2::PointD const & pxSize, double priority)
+  : m_id(id)
+  , m_anchor(anchor)
   , m_gbPivot(gbPivot)
   , m_pxHalfSize(pxSize.x / 2.0, pxSize.y / 2.0)
+  , m_priority(priority)
   , m_isVisible(false)
 {
 }
@@ -54,4 +56,14 @@ void OverlayHandle::GetElementIndexes(RefPointer<IndexBufferMutator> mutator) co
 {
   ASSERT_EQUAL(m_isVisible, true, ());
   mutator->AppendIndexes(&m_indexes[0], m_indexes.size());
+}
+
+FeatureID const & OverlayHandle::GetFeatureID() const
+{
+  return m_id;
+}
+
+double const & OverlayHandle::GetPriority() const
+{
+  return m_priority;
 }

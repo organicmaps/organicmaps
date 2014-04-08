@@ -56,16 +56,17 @@ namespace df
     }
   }
 
-  BaseApplyFeature::BaseApplyFeature(EngineContext & context, TileKey tileKey)
+  BaseApplyFeature::BaseApplyFeature(EngineContext & context, TileKey tileKey, FeatureID const & id)
     : m_context(context)
     , m_tileKey(tileKey)
+    , m_id(id)
   {
   }
 
   // ============================================= //
 
-  ApplyPointFeature::ApplyPointFeature(EngineContext & context, TileKey tileKey)
-    : base_t(context, tileKey)
+  ApplyPointFeature::ApplyPointFeature(EngineContext & context, TileKey tileKey, FeatureID const & id)
+    : base_t(context, tileKey, id)
     , m_hasPoint(false)
     , m_symbolDepth(graphics::minDepth)
     , m_circleDepth(graphics::minDepth)
@@ -115,7 +116,7 @@ namespace df
     }
     else if (m_circleRule)
     {
-      CircleViewParams params;
+      CircleViewParams params(m_id);
       params.m_depth = m_circleDepth;
       params.m_color = ToDrapeColor(m_circleRule->color());
       params.m_radius = m_circleRule->radius();
@@ -125,7 +126,7 @@ namespace df
     }
     else if (m_symbolRule)
     {
-      PoiSymbolViewParams params;
+      PoiSymbolViewParams params(m_id);
       params.m_depth = m_symbolDepth;
       params.m_symbolName = m_symbolRule->name();
 
@@ -136,8 +137,8 @@ namespace df
 
   // ============================================= //
 
-  ApplyAreaFeature::ApplyAreaFeature(EngineContext & context, TileKey tileKey)
-    : base_t(context, tileKey)
+  ApplyAreaFeature::ApplyAreaFeature(EngineContext & context, TileKey tileKey, FeatureID const & id)
+    : base_t(context, tileKey, id)
   {
   }
 
@@ -170,8 +171,8 @@ namespace df
 
   // ============================================= //
 
-  ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey)
-    : base_t(context, tileKey)
+  ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey, FeatureID const & id)
+    : base_t(context, tileKey, id)
   {
   }
 

@@ -47,7 +47,7 @@ namespace df
 
     if (s.AreaStyleExists())
     {
-      ApplyAreaFeature apply(m_context, m_tileKey);
+      ApplyAreaFeature apply(m_context, m_tileKey, f.GetID());
       f.ForEachTriangleRef(apply, m_tileKey.m_zoomLevel);
 
       if (s.PointStyleExists())
@@ -58,7 +58,7 @@ namespace df
     }
     else if (s.LineStyleExists())
     {
-      ApplyLineFeature apply(m_context, m_tileKey);
+      ApplyLineFeature apply(m_context, m_tileKey, f.GetID());
       f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
 
       s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
@@ -67,7 +67,7 @@ namespace df
     else
     {
       ASSERT(s.PointStyleExists(), ());
-      ApplyPointFeature apply(m_context, m_tileKey);
+      ApplyPointFeature apply(m_context, m_tileKey, f.GetID());
       f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
       s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
       apply.Finish();

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../indexer/feature_decl.hpp"
+
 #include "../drape/color.hpp"
 
 #include "../std/string.hpp"
@@ -27,11 +29,17 @@ namespace df
 
   struct PoiSymbolViewParams : CommonViewParams
   {
+    PoiSymbolViewParams(FeatureID const & id) : m_id(id) {}
+
+    FeatureID m_id;
     string m_symbolName;
   };
 
   struct CircleViewParams : CommonViewParams
   {
+    CircleViewParams(FeatureID const & id) : m_id(id) {}
+
+    FeatureID m_id;
     Color m_color;
     float m_radius;
   };
