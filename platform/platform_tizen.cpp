@@ -24,29 +24,19 @@
 
 Platform::Platform()
 {
+  Tizen::App::App * pApp = Tizen::App::App::GetInstance();
   // init directories
-  string app_root;
-  CHECK(GetBinaryFolder(app_root), ("Can't retrieve path to executable"));
+  string app_root = FromTizenString(pApp->GetAppRootPath());
 
-
-  string home = app_root;
-  home += "data/";
-  m_settingsDir = home + ".config/";
-
+  m_writableDir = FromTizenString(pApp->GetAppDataPath());
+  m_resourcesDir = FromTizenString(pApp->GetAppResourcePath());
+  m_settingsDir = m_writableDir + "settings/";
   Tizen::Io::Directory::Create(m_settingsDir.c_str(), true);
 
-  m_writableDir = home + ".local/share/";
-  Tizen::Io::Directory::Create((home + ".local/").c_str(), true);
-  Tizen::Io::Directory::Create(m_writableDir.c_str(), true);
-
-  m_resourcesDir = app_root + "res/";
-  m_writableDir = home;
-
-  m_tmpDir = home + "tmp/";
+  m_tmpDir = m_writableDir + "tmp/";
   Tizen::Io::Directory::Create(m_tmpDir.c_str(), true);
 
   LOG(LDEBUG, ("App directory:", app_root));
-  LOG(LDEBUG, ("Home directory:", home));
   LOG(LDEBUG, ("Resources directory:", m_resourcesDir));
   LOG(LDEBUG, ("Writable directory:", m_writableDir));
   LOG(LDEBUG, ("Tmp directory:", m_tmpDir));
@@ -65,20 +55,8 @@ int Platform::CpuCores() const
 
 string Platform::UniqueClientId() const
 {
-  /// @todo
-
-//  string machineFile = "/var/lib/dbus/machine-id";
-//  if (IsFileExistsByFullPath("/etc/machine-id"))
-//    machineFile = "/etc/machine-id";
-
-//  if (IsFileExistsByFullPath(machineFile))
-//  {
-//    string content;
-//    FileReader(machineFile).ReadAsString(content);
-//    return content.substr(0, 32);
-//  }
-//  else
-    return "n0dbus0n0lsb00000000000000000000";
+  Tizen::App::App * pApp = Tizen::App::App::GetInstance();
+  return FromTizenString(pApp->GetAppId());
 
 }
 
