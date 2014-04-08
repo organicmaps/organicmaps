@@ -5,9 +5,14 @@
 #include "../../base/base.hpp"
 
 #include "../../std/string.hpp"
+#include "../../std/target_os.hpp"
+#include "../../std/noncopyable.hpp"
+
+#ifdef OMIM_OS_WINDOWS
+  #include <io.h>
+#endif
 
 #ifdef OMIM_OS_TIZEN
-
 namespace Tizen
 {
   namespace Io
@@ -15,13 +20,12 @@ namespace Tizen
     class File;
   }
 }
-
 #endif
 
 
 namespace my {
 
-class FileData
+class FileData: private noncopyable
 {
 public:
   /// @note Do not change order (@see FileData::FileData).
@@ -44,9 +48,6 @@ public:
   string GetName() const { return m_FileName; }
 
 private:
-
-  FileData(FileData const & other);
-  FileData const & operator()(FileData const & other);
 
 #ifdef OMIM_OS_TIZEN
   Tizen::Io::File * m_File;
