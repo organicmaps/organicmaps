@@ -8,10 +8,6 @@
 #include "../../std/target_os.hpp"
 #include "../../std/noncopyable.hpp"
 
-#ifdef OMIM_OS_WINDOWS
-  #include <io.h>
-#endif
-
 #ifdef OMIM_OS_TIZEN
 namespace Tizen
 {

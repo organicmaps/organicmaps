@@ -12,6 +12,10 @@
 #include "../../std/exception.hpp"
 #include "../../std/cerrno.hpp"
 
+#ifdef OMIM_OS_WINDOWS
+  #include <io.h>
+#endif
+
 #ifdef OMIM_OS_TIZEN
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wignored-qualifiers"
