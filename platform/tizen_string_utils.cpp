@@ -1,9 +1,8 @@
 #include "tizen_string_utils.hpp"
 #include "../../std/vector.hpp"
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wignored-qualifiers"
-  #include <FBase.h>
-#pragma clang diagnostic pop
+
+#include "../../tizen/inc/FBase.hpp"
+
 
 string FromTizenString(Tizen::Base::String const & str_tizen)
 {

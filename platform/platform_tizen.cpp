@@ -3,10 +3,7 @@
 
 #include <FAppApp.h>
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wignored-qualifiers"
-  #include <FIo.h>
-#pragma clang diagnostic pop
+#include "../../tizen/inc/FIo.hpp"
 
 #include "constants.hpp"
 #include "platform_unix_impl.hpp"

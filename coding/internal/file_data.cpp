@@ -17,10 +17,7 @@
 #endif
 
 #ifdef OMIM_OS_TIZEN
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wignored-qualifiers"
-  #include <FIo.h>
-#pragma clang diagnostic pop
+#include "../../tizen/inc/FIo.hpp"
 #endif
 
 
