@@ -1,11 +1,10 @@
 #pragma once
-
-#include "../../std/target_os.hpp"
 #include "file64_api.hpp"
 
 #include "../../base/base.hpp"
 
 #include "../../std/string.hpp"
+#include "../../std/target_os.hpp"
 #include "../../std/noncopyable.hpp"
 
 #ifdef OMIM_OS_TIZEN
