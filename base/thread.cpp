@@ -1,9 +1,7 @@
 #include "thread.hpp"
 #include "assert.hpp"
 
-#if defined(OMIM_OS_TIZEN)
-  #include "../../tizen/inc/FBase.hpp"
-#elif defined(OMIM_OS_WINDOWS_NATIVE)
+#if defined(OMIM_OS_WINDOWS_NATIVE)
   #include "../std/windows.hpp"
 #else
   #include <pthread.h>
@@ -17,42 +15,7 @@
 
 namespace threads
 {
-#if defined(OMIM_OS_TIZEN)
-  /// TIZEN specific implementation
-  class ThreadImpl : public Tizen::Base::Runtime::Thread
-  {
-    typedef Tizen::Base::Runtime::Thread BaseT;
-    IRoutine * m_pRoutine;
-
-  public:
-    /// Doesn't own pRoutine
-    ThreadImpl() : m_pRoutine(0)
-    {
-      result error = Construct(Tizen::Base::Runtime::THREAD_TYPE_WORKER,
-                               Tizen::Base::Runtime::Thread::DEFAULT_STACK_SIZE,
-                               Tizen::Base::Runtime::THREAD_PRIORITY_MID);
-      ASSERT_EQUAL(error, E_SUCCESS, ("Constructing thread error"));
-    }
-
-    int Create(IRoutine * pRoutine)
-    {
-      m_pRoutine = pRoutine;
-      return BaseT::Start();
-    }
-
-    int Join()
-    {
-      return BaseT::Join();
-    }
-
-    virtual Tizen::Base::Object * Run()
-    {
-      m_pRoutine->Do();
-      return 0;
-    }
-  };
-
-#elif defined(OMIM_OS_WINDOWS_NATIVE)
+#if defined(OMIM_OS_WINDOWS_NATIVE)
   /// Windows native implementation
   class ThreadImpl
   {
