@@ -1,4 +1,13 @@
-#ifndef TIZEN_STRING_UTILS_HPP
-#define TIZEN_STRING_UTILS_HPP
+#pragma once
+#include "../../std/string.hpp"
 
-#endif // TIZEN_STRING_UTILS_HPP
+namespace Tizen
+{
+  namespace Base
+  {
+    class String;
+  }
+}
+
+//Convert from Tizen string to std::string
+string FromTizenString(Tizen::Base::String const & str_tizen);
