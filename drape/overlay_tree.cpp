@@ -14,10 +14,20 @@ void OverlayTree::Add(RefPointer<OverlayHandle> handle)
   m2::RectD pixelRect = handle->GetPixelRect(m_modelView);
   
   find_result_t elements;
+  /*
+   * Find elements that already on OverlayTree and it's pixel rect
+   * intersect with handle pixel rect ("Intersected elements")
+   */
   FindIntersectedFunctor f(pixelRect, elements);
   m_tree.for_each(f);
 
   double inputPriority = handle->GetPriority();
+  /*
+   * In this loop we decide which element must be visible
+   * If input element "handle" more priority than all "Intersected elements"
+   * than we remove all "Intersected elements" and insert input element "handle"
+   * But if some of already inserted elements more priority than we don't insert "handle"
+   */
   for (find_result_t::const_iterator it = elements.begin(); it != elements.end(); ++it)
   {
     if (inputPriority < (*it)->m_nodeValue->GetPriority())
@@ -88,7 +98,7 @@ void OverlayTree::FindIntersectedFunctor::operator()(OverlayTree::Node const & n
   m2::RectD const & r = base_t::m_rect;
 
   bool isIntersect = !((node.m_pts[2] <= r.minX()) || (node.m_pts[0] >= r.maxX()) ||
-      (node.m_pts[3] <= r.minY()) || (node.m_pts[1] >= r.maxY()));
+                       (node.m_pts[3] <= r.minY()) || (node.m_pts[1] >= r.maxY()));
   if (isIntersect)
     m_intersections.push_back(&node);
 }

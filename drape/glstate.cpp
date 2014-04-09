@@ -27,7 +27,7 @@ void Blending::Apply() const
     GLFunctions::glDisable(GLConst::GLBlending);
 }
 
-bool Blending::operator < (const Blending & other) const
+bool Blending::operator < (Blending const & other) const
 {
   if (m_isEnabled != other.m_isEnabled)
     return m_isEnabled < other.m_isEnabled;
@@ -39,7 +39,7 @@ bool Blending::operator < (const Blending & other) const
   return m_blendDstFactor < other.m_blendDstFactor;
 }
 
-bool Blending::operator == (const Blending & other) const
+bool Blending::operator == (Blending const & other) const
 {
   return m_isEnabled == other.m_isEnabled &&
          m_blendFunction == other.m_blendFunction &&
@@ -56,20 +56,10 @@ GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
 {
 }
 
-const GLState::DepthLayer &GLState::GetDepthLayer() const
-{
-  return m_depthLayer;
-}
-
 void GLState::SetTextureSet(int32_t textureSet)
 {
   m_mask |= TEXTURE_BIT;
   m_textureSet = textureSet;
-}
-
-int32_t GLState::GetTextureSet() const
-{
-  return m_textureSet;
 }
 
 bool GLState::HasTextureSet() const
@@ -77,15 +67,10 @@ bool GLState::HasTextureSet() const
   return (m_mask & TEXTURE_BIT) != 0;
 }
 
-void GLState::SetColor(const Color & c)
+void GLState::SetColor(Color const & c)
 {
   m_mask |= COLOR_BIT;
   m_color = c;
-}
-
-const Color & GLState::GetColor() const
-{
-  return m_color;
 }
 
 bool GLState::HasColor() const
@@ -93,14 +78,9 @@ bool GLState::HasColor() const
   return (m_mask & COLOR_BIT) != 0;
 }
 
-void GLState::SetBlending(const Blending & blending)
+void GLState::SetBlending(Blending const & blending)
 {
   m_blending = blending;
-}
-
-const Blending & GLState::GetBlending() const
-{
-  return m_blending;
 }
 
 int GLState::GetProgramIndex() const
@@ -108,7 +88,7 @@ int GLState::GetProgramIndex() const
   return m_gpuProgramIndex;
 }
 
-bool GLState::operator<(const GLState & other) const
+bool GLState::operator<(GLState const & other) const
 {
   if (m_mask != other.m_mask)
     return m_mask < other.m_mask;
@@ -126,13 +106,13 @@ bool GLState::operator<(const GLState & other) const
 
 namespace
 {
-  void ApplyUniformValue(const UniformValue & value, RefPointer<GpuProgram> program)
+  void ApplyUniformValue(UniformValue const & value, RefPointer<GpuProgram> program)
   {
     value.Apply(program);
   }
 }
 
-void ApplyUniforms(const UniformValuesStorage & uniforms, RefPointer<GpuProgram> program)
+void ApplyUniforms(UniformValuesStorage const & uniforms, RefPointer<GpuProgram> program)
 {
   uniforms.ForeachValue(bind(&ApplyUniformValue, _1, program));
 }

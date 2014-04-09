@@ -31,22 +31,22 @@ public:
 
   GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer);
 
-  DepthLayer const & GetDepthLayer() const;
+  DepthLayer const & GetDepthLayer() const { return m_depthLayer; }
 
   void SetTextureSet(int32_t textureSet);
-  int32_t GetTextureSet() const;
+  int32_t GetTextureSet() const { return m_textureSet; }
   bool HasTextureSet() const;
 
   void SetColor(Color const & c);
-  Color const & GetColor() const;
+  Color const & GetColor() const { return m_color; }
   bool HasColor() const;
 
   void SetBlending(Blending const & blending);
-  const Blending & GetBlending() const;
+  const Blending & GetBlending() const { return m_blending; }
 
-  int GetProgramIndex() const;
+  int GetProgramIndex() const { return m_gpuProgramIndex; }
 
-  bool operator<(const GLState & other) const;
+  bool operator<(GLState const & other) const;
 
 private:
   uint32_t m_gpuProgramIndex;
@@ -58,5 +58,5 @@ private:
   uint32_t m_mask;
 };
 
-void ApplyUniforms(const UniformValuesStorage & uniforms, RefPointer<GpuProgram> program);
+void ApplyUniforms(UniformValuesStorage const & uniforms, RefPointer<GpuProgram> program);
 void ApplyState(GLState state, RefPointer<GpuProgram> program, RefPointer<TextureSetController> textures);
