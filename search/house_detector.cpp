@@ -1074,14 +1074,15 @@ void GetClosestHouse(MergedStreet const & st, ResultAccumulator & acc)
     acc.ProcessCandidate(st.Get(i));
 }
 
-void AddToQueue(int houseNumber, queue<int> & q)
+///  if it's odd or even part of the street pass 2, else pass 1
+void AddToQueue(int houseNumber, int step, queue<int> & q)
 {
-  q.push(houseNumber + 2);
-  if (houseNumber - 2 > 0)
-    q.push(houseNumber - 2);
-  if (houseNumber - 4 > 0)
-    q.push(houseNumber - 4);
-  q.push(houseNumber + 4);
+  for (size_t i = 1; i <= 2; ++i)
+  {
+    q.push(houseNumber + step * i);
+    if (houseNumber - step * i > 0)
+      q.push(houseNumber - step * i);
+  }
 }
 
 struct HouseChain
@@ -1211,7 +1212,7 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
     return;
 
   queue<int> houseNumbersToCheck;
-  AddToQueue(houseChains[0].houses[0]->m_house->GetIntNumber(), houseNumbersToCheck);
+  AddToQueue(houseChains[0].houses[0]->m_house->GetIntNumber(), 2, houseNumbersToCheck);
   while (numberOfStreetHouses > 0)
   {
     if (!houseNumbersToCheck.empty())
@@ -1261,7 +1262,7 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
         }
       }
       if (shouldAddHouseToQueue)
-        AddToQueue(candidateHouseNumber, houseNumbersToCheck);
+        AddToQueue(candidateHouseNumber, 2, houseNumbersToCheck);
     }
     else
     {
@@ -1272,7 +1273,7 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
           houseChains.push_back(HouseChain(st[i]));
           --numberOfStreetHouses;
           used[i] = true;
-          AddToQueue(st[i]->m_house->GetIntNumber(), houseNumbersToCheck);
+          AddToQueue(st[i]->m_house->GetIntNumber(), 2, houseNumbersToCheck);
           break;
         }
       }
