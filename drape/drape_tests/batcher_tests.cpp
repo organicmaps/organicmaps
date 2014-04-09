@@ -4,6 +4,7 @@
 #include "../batcher.hpp"
 #include "../gpu_program_manager.hpp"
 #include "../shader_def.hpp"
+#include "../vertex_array_buffer.hpp"
 
 #include "glmock_functions.hpp"
 

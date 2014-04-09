@@ -1,5 +1,7 @@
 #include "testing_engine.hpp"
 
+#include "../drape/vertex_array_buffer.hpp"
+
 #include "../drape_frontend/visual_params.hpp"
 #include "../drape_frontend/line_shape.hpp"
 

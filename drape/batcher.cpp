@@ -1,6 +1,7 @@
 #include "batcher.hpp"
 #include "cpu_buffer.hpp"
 #include "batcher_helpers.hpp"
+#include "vertex_array_buffer.hpp"
 
 #include "../base/assert.hpp"
 
