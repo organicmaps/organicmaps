@@ -19,6 +19,7 @@
 #include "../drape/gpu_program_manager.hpp"
 #include "../drape/oglcontextfactory.hpp"
 #include "../drape/texture_set_controller.hpp"
+#include "../drape/overlay_tree.hpp"
 
 #include "../drape/uniform_values_storage.hpp"
 
@@ -62,6 +63,7 @@ namespace df
     void RefreshProjection();
     void RefreshModelView();
 
+    void CollectOverlay(pair<const GLState, MasterPointer<RenderBucket> > & node);
     void RenderPartImpl(pair<const GLState, MasterPointer<RenderBucket> > & node);
 
   private:
@@ -94,5 +96,6 @@ namespace df
     UniformValuesStorage m_generalUniforms;
     Viewport m_viewport;
     ScreenBase m_view;
+    OverlayTree m_overlayTree;
   };
 }

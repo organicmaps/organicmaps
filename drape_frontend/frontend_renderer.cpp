@@ -186,6 +186,9 @@ namespace df
     GLFunctions::glDepthMask(true);
 
     GLFunctions::glClear();
+    m_overlayTree.StartOverlayPlacing(m_view);
+    for_each(m_renderData.begin(), m_renderData.end(), bind(&FrontendRenderer::CollectOverlay, this, _1));
+    m_overlayTree.EndOverlayPlacing();
     for_each(m_renderData.begin(), m_renderData.end(), bind(&FrontendRenderer::RenderPartImpl, this, _1));
 
 #ifdef DRAW_INFO
@@ -214,6 +217,12 @@ namespace df
     mv(3, 0) = m(0, 2); mv(3, 1) = m(1, 2); mv(3, 2) = 0; mv(3, 3) = m(2, 2);
 
     m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  }
+
+  void FrontendRenderer::CollectOverlay(pair<const GLState, MasterPointer<RenderBucket> > & node)
+  {
+    if (node.first.GetDepthLayer() == GLState::OverlayLayer)
+      node.second->CollectOverlayHandles(MakeStackRefPointer(&m_overlayTree));
   }
 
   void FrontendRenderer::RenderPartImpl(pair<const GLState, MasterPointer<RenderBucket> > & node)

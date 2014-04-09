@@ -31,6 +31,8 @@ public:
 
   GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer);
 
+  DepthLayer const & GetDepthLayer() const;
+
   void SetTextureSet(int32_t textureSet);
   int32_t GetTextureSet() const;
   bool HasTextureSet() const;

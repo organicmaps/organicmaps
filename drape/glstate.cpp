@@ -56,6 +56,11 @@ GLState::GLState(uint32_t gpuProgramIndex, DepthLayer depthLayer)
 {
 }
 
+const GLState::DepthLayer &GLState::GetDepthLayer() const
+{
+  return m_depthLayer;
+}
+
 void GLState::SetTextureSet(int32_t textureSet)
 {
   m_mask |= TEXTURE_BIT;
