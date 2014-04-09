@@ -1,6 +1,7 @@
 #include "index_buffer_mutator.hpp"
 #include "vertex_array_buffer.hpp"
 
+#include "../std/cstring.hpp"    // for memcpy
 #include "../std/algorithm.hpp" // for max
 
 IndexBufferMutator::IndexBufferMutator(uint16_t baseSize)
