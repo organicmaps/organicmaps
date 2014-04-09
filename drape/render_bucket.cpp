@@ -1,5 +1,9 @@
 #include "render_bucket.hpp"
 
+#include "overlay_handle.hpp"
+#include "vertex_array_buffer.hpp"
+#include "overlay_tree.hpp"
+
 #include "../base/stl_add.hpp"
 #include "../std/bind.hpp"
 
@@ -24,17 +28,18 @@ void RenderBucket::AddOverlayHandle(TransferPointer<OverlayHandle> handle)
   m_overlay.push_back(MasterPointer<OverlayHandle>(handle));
 }
 
-void RenderBucket::CollectOverlayHandles()
+void RenderBucket::CollectOverlayHandles(RefPointer<OverlayTree> tree)
 {
-
+  for_each(m_overlay.begin(), m_overlay.end(), bind(&OverlayTree::Add, tree.GetRaw(),
+                                                    bind(&MasterPointer<OverlayHandle>::GetRefPointer, _1)));
 }
 
 namespace
 {
   void AccumulateIndexes(MasterPointer<OverlayHandle> handle, RefPointer<IndexBufferMutator> mutator)
   {
-    handle->SetIsVisible(true);
-    handle->GetElementIndexes(mutator);
+    if (handle->IsVisible())
+      handle->GetElementIndexes(mutator);
   }
 }
 

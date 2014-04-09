@@ -1,9 +1,10 @@
 #pragma once
 
-#include "overlay_handle.hpp"
-#include "vertex_array_buffer.hpp"
-#include "uniform_value.hpp"
-#include "uniform_values_storage.hpp"
+#include "pointers.hpp"
+
+class OverlayHandle;
+class OverlayTree;
+class VertexArrayBuffer;
 
 class RenderBucket
 {
@@ -15,7 +16,7 @@ public:
 
   void AddOverlayHandle(TransferPointer<OverlayHandle> handle);
 
-  void CollectOverlayHandles(/*OverlayTree */);
+  void CollectOverlayHandles(RefPointer<OverlayTree> tree);
   void Render();
 
 private:

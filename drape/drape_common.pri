@@ -31,7 +31,8 @@ SOURCES += \
     $$DRAPE_DIR/render_bucket.cpp \
     $$DRAPE_DIR/overlay_handle.cpp \
     $$DRAPE_DIR/index_buffer_mutator.cpp \
-    $$DRAPE_DIR/batcher_helpers.cpp
+    $$DRAPE_DIR/batcher_helpers.cpp \
+    $$DRAPE_DIR/overlay_tree.cpp
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -68,4 +69,5 @@ HEADERS += \
     $$DRAPE_DIR/render_bucket.hpp \
     $$DRAPE_DIR/overlay_handle.hpp \
     $$DRAPE_DIR/index_buffer_mutator.hpp \
-    $$DRAPE_DIR/batcher_helpers.hpp
+    $$DRAPE_DIR/batcher_helpers.hpp \
+    $$DRAPE_DIR/overlay_tree.hpp
