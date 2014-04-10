@@ -1074,14 +1074,15 @@ void GetClosestHouse(MergedStreet const & st, ResultAccumulator & acc)
     acc.ProcessCandidate(st.Get(i));
 }
 
-///  if it's odd or even part of the street pass 2, else pass 1
+// If it's odd or even part of the street pass 2, else pass 1.
 void AddToQueue(int houseNumber, int step, queue<int> & q)
 {
-  for (size_t i = 1; i <= 2; ++i)
+  for (int i = 1; i <= 2; ++i)
   {
-    q.push(houseNumber + step * i);
-    if (houseNumber - step * i > 0)
-      q.push(houseNumber - step * i);
+    int const delta = step * i;
+    q.push(houseNumber + delta);
+    if (houseNumber - delta > 0)
+      q.push(houseNumber - delta);
   }
 }
 

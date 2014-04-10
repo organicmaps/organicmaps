@@ -149,12 +149,6 @@ public:
 
   HouseProjection const * GetHousePivot(bool isOdd, bool & sign) const;
 
-  /// @name Temporary
-  //@{
-  inline size_t size() const { return m_cont.size(); }
-  inline Street const * operator[] (size_t i) const { return m_cont[i]; }
-  //@}
-
   struct GreaterLength
   {
     bool operator() (MergedStreet const & s1, MergedStreet const & s2) const

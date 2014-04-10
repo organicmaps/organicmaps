@@ -2,6 +2,8 @@
 
 #include "../indexer/mercator.hpp"
 
+#include "../base/macros.hpp"
+
 #include "../std/array.hpp"
 #include "../std/cmath.hpp"
 #include "../std/cstdlib.hpp"
@@ -83,63 +85,34 @@ bool MatchLatLon(string const & str, double & latRes, double & lonRes,
 namespace
 {
 
-int Match1Byte(char const * & s)
+bool MatchDMSArray(char const * & s, char const * arr[], size_t count)
 {
-  uint8_t const ch = static_cast<uint8_t>(*s++);
-  switch (ch)
+  for (size_t i = 0; i < count; ++i)
   {
-  case 0xB0:    // °
-    return 0;
-  default:
-    return -1;
-  }
-}
-
-int Match2Bytes(char const * & s)
-{
-  uint8_t ch = static_cast<uint8_t>(*s++);
-  if (ch != 0x80)
-    return -1;
-
-  ch = static_cast<uint8_t>(*s++);
-  switch (ch)
-  {
-  case 0x99:  // ’
-    return 1;
-  case 0x9D:  // ”
-    return 2;
-  case 0xB2:  // ′
-    if (static_cast<uint8_t>(*s) == 0xE2
-        && static_cast<uint8_t>(*(s+1)) == 0x80
-        && static_cast<uint8_t>(*(s+2)) == 0xB2)
+    int const len = strlen(arr[i]);
+    if (strncmp(s, arr[i], len) == 0)
     {
-      s += 3;
-      return 2;  // this specific case when the string is normalized and ″ is splitted to ′′
+      s += len;
+      return true;
     }
-    return 1;
-  case 0xB3:  // ″
-    return 2;
-  default:
-    return -1;
   }
+  return false;
 }
 
 int GetDMSIndex(char const * & s)
 {
-  uint8_t const ch = static_cast<uint8_t>(*s++);
-  switch (ch)
-  {
-  // UTF8 control symbols
-  case 0xC2:
-    return Match1Byte(s);
-  case 0xE2:
-    return Match2Bytes(s);
+  char const * arrDegree[] = { "*", "°" };
+  char const * arrMinutes[] = { "\'", "’", "′" };
+  char const * arrSeconds[] = { "\"", "”", "″", "\'\'", "’’", "′′" };
 
-  case '*': return 0;
-  case '\'': return 1;
-  case '\"': return 2;
-  default: return -1;
-  }
+  if (MatchDMSArray(s, arrDegree, ARRAY_SIZE(arrDegree)))
+      return 0;
+  if (MatchDMSArray(s, arrSeconds, ARRAY_SIZE(arrSeconds)))
+    return 2;
+  if (MatchDMSArray(s, arrMinutes, ARRAY_SIZE(arrMinutes)))
+    return 1;
+
+  return -1;
 }
 
 void SkipNSEW(char const * & s, char const * (&arrPos) [4])
