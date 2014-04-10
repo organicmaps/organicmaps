@@ -134,7 +134,7 @@ namespace graphics
         else
         {
           m_isUsingMapBuffer = false;
-          OGLCHECK(glBufferSubDataFn(m_target, 0, m_size, m_gpuData));
+          OGLCHECK(glBufferDataFn(m_target, m_size, m_gpuData, GL_DYNAMIC_DRAW));
           SharedBufferManager::instance().freeSharedBuffer(m_size, m_sharedBuffer);
           m_sharedBuffer.reset();
         }
