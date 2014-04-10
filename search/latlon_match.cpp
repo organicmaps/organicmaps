@@ -7,7 +7,7 @@
 #include "../std/array.hpp"
 #include "../std/cmath.hpp"
 #include "../std/cstdlib.hpp"
-
+#include "../std/cstring.hpp"
 
 namespace search
 {
