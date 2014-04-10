@@ -83,11 +83,6 @@ void GLState::SetBlending(Blending const & blending)
   m_blending = blending;
 }
 
-int GLState::GetProgramIndex() const
-{
-  return m_gpuProgramIndex;
-}
-
 bool GLState::operator<(GLState const & other) const
 {
   if (m_mask != other.m_mask)
