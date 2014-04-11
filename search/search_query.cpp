@@ -321,9 +321,8 @@ void Query::SetQuery(string const & query)
 
 void Query::SearchCoordinates(string const & query, Results & res) const
 {
-  double lat, lon, latPrec, lonPrec;
-  if (MatchLatLon(query, lat, lon, latPrec, lonPrec) ||
-      MatchLatLonDegree(query, lat, lon))
+  double lat, lon;
+  if (MatchLatLonDegree(query, lat, lon))
   {
     //double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
     res.AddResult(MakeResult(impl::PreResult2(GetViewport(), m_position, lat, lon)));

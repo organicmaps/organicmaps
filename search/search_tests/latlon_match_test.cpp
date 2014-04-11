@@ -18,6 +18,12 @@ pair<pair<double, double>, pair<double, double> > TestLatLonMatchSuccessful(stri
   double precLat = -3503;
   double precLon = -3504;
   TEST(search::MatchLatLon(s, lat, lon, precLat, precLon), (s, lat, lon, precLat, precLon));
+
+  double lat1, lon1;
+  TEST(search::MatchLatLonDegree(s, lat1, lon1), (s));
+  TEST_ALMOST_EQUAL(lat, lat1, ());
+  TEST_ALMOST_EQUAL(lon, lon1, ());
+
   return make_pair(make_pair(lat, lon), make_pair(precLat, precLon));
 }
 
@@ -27,11 +33,14 @@ void TestLatLonFailed(string const & s)
   double lon = -3502;
   double latPrec = -3503;
   double lonPrec = -3504;
+
   TEST(!search::MatchLatLon(s, lat, lon, latPrec, lonPrec), (s, lat, lon, latPrec, lonPrec));
   TEST_EQUAL(lat, -3501, ());
   TEST_EQUAL(lon, -3502, ());
   TEST_EQUAL(latPrec, -3503, ());
   TEST_EQUAL(lonPrec, -3504, ());
+
+  TEST(!search::MatchLatLonDegree(s, lat, lon), (s));
 }
 
 }  // unnamed namespace
@@ -124,4 +133,12 @@ UNIT_TEST(LatLon_Degree_Match)
 
   TEST(!MatchLatLonDegree("55°45′20.9916″W 37°37′3.6228″E", lat, lon), ());
   TEST(!MatchLatLonDegree("N55°45′20.9916″ S37°37′3.6228″", lat, lon), ());
+
+  TEST(MatchLatLonDegree("54° 25' 0N 1° 53' 46W", lat, lon), ());
+  TEST_ALMOST_EQUAL(lat, 54.41666666666667, ());
+  TEST_ALMOST_EQUAL(lon, -1.89611111111111, ());
+
+  TEST(MatchLatLonDegree("47.33471°N 8.53112°E", lat, lon), ());
+  TEST_ALMOST_EQUAL(lat, 47.33471, ());
+  TEST_ALMOST_EQUAL(lon, 8.53112, ());
 }

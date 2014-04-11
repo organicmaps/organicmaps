@@ -1,13 +1,14 @@
 #include "latlon_match.hpp"
 
-#include "../indexer/mercator.hpp"
-
 #include "../base/macros.hpp"
 
 #include "../std/array.hpp"
 #include "../std/cmath.hpp"
 #include "../std/cstdlib.hpp"
 #include "../std/cstring.hpp"
+#include "../std/algorithm.hpp"
+#include "../std/utility.hpp"
+
 
 namespace search
 {
@@ -161,10 +162,10 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
     double const x = strtod(s, &s2);
     if (s == s2)
     {
-      // Invalid token
+      // invalid token
       if (s == s1)
       {
-        // Return error if there are no any delimiters
+        // Return error if there are no any delimiters.
         return false;
       }
       else
@@ -177,26 +178,36 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
     s = s2;
     SkipSpaces(s);
 
-    int const i = GetDMSIndex(s);
-    switch (i)
+    int i = GetDMSIndex(s);
+    if (i == -1)
     {
-    case -1:  // expect valid control symbol
-      return false;
+      if (v[base].second && v[base + 1].second && !v[base + 2].second)
+      {
+        // assume seconds if degrees and minutes are present
+        i = 2;
+      }
+      else
+      {
+        // assume degrees by default
+        i = 0;
+      }
+    }
 
-    case 0:   // degree
+    if (i == 0) // degrees
+    {
       if (v[base].second)
       {
         if (base == 0)
           base += 3;
         else
         {
-          // repeated value
+          // too many degree values
           return false;
         }
       }
-      break;
-
-    default:  // minutes or seconds
+    }
+    else        // minutes or seconds
+    {
       if (x < 0.0 || v[base + i].second || !v[base].second)
         return false;
     }
@@ -230,10 +241,18 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
   if (arrPos[1]) lat = -lat;
   if (arrPos[3]) lon = -lon;
 
-  if (lon > 180.0) lon -= 360.0;
-  if (lon < -180.0) lon += 360.0;
+  // Valid input ranges for longitude are: [0, 360] or [-180, 180].
+  // We do normilize it to [-180, 180].
+  if (lon > 180.0)
+  {
+    if (lon > 360.0)
+      return false;
+    lon -= 360.0;
+  }
+  else if (lon < -180.0)
+    return false;
 
-  return MercatorBounds::ValidLat(lat) && MercatorBounds::ValidLon(lon);
+  return (fabs(lat) <= 90.0);
 }
 
 } // search
