@@ -28,14 +28,13 @@ namespace df
   public:
     ReadManager(EngineContext & context, model::FeaturesFetcher & model);
 
-    void UpdateCoverage(ScreenBase const & screen);
+    void UpdateCoverage(ScreenBase const & screen, set<TileKey> const & tiles);
     void Stop();
 
     static size_t ReadCount();
 
   private:
     void OnTaskFinished(threads::IRoutine * task);
-    void GetTileKeys(set<TileKey> & out, const ScreenBase & screen) const;
     bool MustDropAllTiles(ScreenBase const & screen) const;
 
     void PushTaskBackForTileKey(TileKey const & tileKey);

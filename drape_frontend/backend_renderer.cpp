@@ -53,10 +53,12 @@ namespace df
   {
     switch (message->GetType())
     {
-    case Message::UpdateCoverage:
+    case Message::UpdateReadManager:
       {
-        ScreenBase const & screen = static_cast<UpdateCoverageMessage *>(message.GetRaw())->GetScreen();
-        m_readManager->UpdateCoverage(screen);
+        UpdateReadManagerMessage * msg = static_cast<UpdateReadManagerMessage *>(message.GetRaw());
+        ScreenBase const & screen = msg->GetScreen();
+        set<TileKey> const & tiles = msg->GetTiles();
+        m_readManager->UpdateCoverage(screen, tiles);
       }
       break;
     case Message::TileReadStarted:

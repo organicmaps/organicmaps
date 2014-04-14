@@ -45,13 +45,10 @@ namespace df
     delete task;
   }
 
-  void ReadManager::UpdateCoverage(const ScreenBase & screen)
+  void ReadManager::UpdateCoverage(ScreenBase const & screen, set<TileKey> const & tiles)
   {
     if (screen == m_currentViewport)
       return;
-
-    set<TileKey> tiles;
-    GetTileKeys(tiles, screen);
 
     if (MustDropAllTiles(screen))
     {
@@ -98,37 +95,6 @@ namespace df
   size_t ReadManager::ReadCount()
   {
     return max(GetPlatform().CpuCores() - 2, 1);
-  }
-
-  void ReadManager::GetTileKeys(set<TileKey> & out, ScreenBase const & screen) const
-  {
-    out.clear();
-
-    int const tileScale = df::GetTileScaleBase(screen);
-    // equal for x and y
-    double const range = MercatorBounds::maxX - MercatorBounds::minX;
-    double const rectSize = range / (1 << tileScale);
-
-    m2::AnyRectD const & globalRect = screen.GlobalRect();
-    m2::RectD    const & clipRect   = screen.ClipRect();
-
-    int const minTileX = static_cast<int>(floor(clipRect.minX() / rectSize));
-    int const maxTileX = static_cast<int>(ceil(clipRect.maxX() / rectSize));
-    int const minTileY = static_cast<int>(floor(clipRect.minY() / rectSize));
-    int const maxTileY = static_cast<int>(ceil(clipRect.maxY() / rectSize));
-
-    for (int tileY = minTileY; tileY < maxTileY; ++tileY)
-      for (int tileX = minTileX; tileX < maxTileX; ++tileX)
-      {
-        double const left = tileX * rectSize;
-        double const top  = tileY * rectSize;
-
-        m2::RectD currentTileRect(left, top,
-                                  left + rectSize, top + rectSize);
-
-        if (globalRect.IsIntersect(m2::AnyRectD(currentTileRect)))
-          out.insert(TileKey(tileX, tileY, tileScale));
-      }
   }
 
   bool ReadManager::MustDropAllTiles(ScreenBase const & screen) const

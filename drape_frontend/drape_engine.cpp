@@ -55,7 +55,6 @@ namespace df
     m_navigator.OnSize(0, 0, w, h);
     m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                     MovePointer<Message>(new ResizeMessage(m_viewport)));
-    UpdateCoverage();
   }
 
   void DrapeEngine::DragStarted(const m2::PointF & p)
@@ -85,6 +84,6 @@ namespace df
   void DrapeEngine::UpdateCoverage()
   {
     m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                    MovePointer<Message>(new UpdateCoverageMessage(m_navigator.Screen())));
+                                    MovePointer<Message>(new UpdateModelViewMessage(m_navigator.Screen())));
   }
 }

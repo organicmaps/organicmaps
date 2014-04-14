@@ -11,6 +11,9 @@
 #include "../drape/pointers.hpp"
 #include "../drape/render_bucket.hpp"
 
+#include "../std/shared_ptr.hpp"
+#include "../std/set.hpp"
+
 namespace df
 {
   class BaseTileMessage : public Message
@@ -79,16 +82,34 @@ namespace df
     Viewport m_viewport;
   };
 
-  class UpdateCoverageMessage : public Message
+  class UpdateModelViewMessage : public Message
   {
   public:
-    UpdateCoverageMessage(ScreenBase const & screen) : m_screen(screen)
+    UpdateModelViewMessage(ScreenBase const & screen)
+      : m_screen(screen)
     {
-      SetType(UpdateCoverage);
+      SetType(UpdateModelView);
     }
-    const ScreenBase & GetScreen() const { return m_screen; }
+
+    ScreenBase const & GetScreen() const { return m_screen; }
 
   private:
     ScreenBase m_screen;
+  };
+
+  class UpdateReadManagerMessage : public UpdateModelViewMessage
+  {
+  public:
+    UpdateReadManagerMessage(ScreenBase const & screen, shared_ptr<set<TileKey> > tiles)
+      : UpdateModelViewMessage(screen)
+      , m_tiles(tiles)
+    {
+      SetType(UpdateReadManager);
+    }
+
+    set<TileKey> const & GetTiles() const { return *m_tiles; }
+
+  private:
+    shared_ptr<set<TileKey> > m_tiles;
   };
 }

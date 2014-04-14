@@ -1,5 +1,6 @@
 #include "frontend_renderer.hpp"
 #include "message_subclasses.hpp"
+#include "visual_params.hpp"
 
 #include "../base/timer.hpp"
 #include "../base/assert.hpp"
@@ -99,20 +100,25 @@ namespace df
       {
         ResizeMessage * rszMsg = static_cast<ResizeMessage *>(message.GetRaw());
         m_viewport = rszMsg->GetViewport();
+        m_view.OnSize(0, 0, m_viewport.GetWidth(), m_viewport.GetHeight());
         RefreshProjection();
         RefreshModelView();
+        ResolveTileKeys();
+        ASSERT(m_tiles != NULL, ());
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  MovePointer<Message>(new UpdateCoverageMessage(m_view)));
+                                  MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
         break;
       }
 
-    case Message::UpdateCoverage:
+    case Message::UpdateModelView:
       {
-        UpdateCoverageMessage * coverMessage = static_cast<UpdateCoverageMessage *>(message.GetRaw());
+        UpdateModelViewMessage * coverMessage = static_cast<UpdateModelViewMessage *>(message.GetRaw());
         m_view = coverMessage->GetScreen();
         RefreshModelView();
+        ResolveTileKeys();
+        ASSERT(m_tiles != NULL, ());
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  MovePointer<Message>(new UpdateCoverageMessage(m_view)));
+                                  MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
         break;
       }
 
@@ -199,6 +205,38 @@ namespace df
     ApplyUniforms(m_generalUniforms, program);
 
     node.second->Render();
+  }
+
+  void FrontendRenderer::ResolveTileKeys()
+  {
+    set<TileKey> & tiles = GetTileKeyStorage();
+    tiles.clear();
+
+    int const tileScale = df::GetTileScaleBase(m_view);
+    // equal for x and y
+    double const range = MercatorBounds::maxX - MercatorBounds::minX;
+    double const rectSize = range / (1 << tileScale);
+
+    m2::RectD    const & clipRect   = m_view.ClipRect();
+
+    int const minTileX = static_cast<int>(floor(clipRect.minX() / rectSize));
+    int const maxTileX = static_cast<int>(ceil(clipRect.maxX() / rectSize));
+    int const minTileY = static_cast<int>(floor(clipRect.minY() / rectSize));
+    int const maxTileY = static_cast<int>(ceil(clipRect.maxY() / rectSize));
+
+    for (int tileY = minTileY; tileY < maxTileY; ++tileY)
+    {
+      for (int tileX = minTileX; tileX < maxTileX; ++tileX)
+        tiles.insert(TileKey(tileX, tileY, tileScale));
+    }
+  }
+
+  set<TileKey> & FrontendRenderer::GetTileKeyStorage()
+  {
+    if (m_tiles == NULL)
+      m_tiles.reset(new set<TileKey>());
+
+    return *m_tiles;
   }
 
   void FrontendRenderer::StartThread()

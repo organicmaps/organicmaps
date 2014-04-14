@@ -66,6 +66,9 @@ namespace df
     void CollectOverlay(pair<const GLState, MasterPointer<RenderBucket> > & node);
     void RenderPartImpl(pair<const GLState, MasterPointer<RenderBucket> > & node);
 
+    void ResolveTileKeys();
+    set<TileKey> & GetTileKeyStorage();
+
   private:
     void StartThread();
     void StopThread();
@@ -94,8 +97,11 @@ namespace df
     tile_data_t   m_tileData;
 
     UniformValuesStorage m_generalUniforms;
+
     Viewport m_viewport;
     ScreenBase m_view;
+    shared_ptr<set<TileKey> > m_tiles;
+
     OverlayTree m_overlayTree;
   };
 }

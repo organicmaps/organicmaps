@@ -14,7 +14,8 @@ namespace df
       TileReadEnded,
       FlushTile,
       MapShapeReaded,
-      UpdateCoverage,
+      UpdateModelView,
+      UpdateReadManager,
       Resize,
       Rotate
     };
