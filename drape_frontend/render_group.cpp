@@ -1,5 +1,7 @@
 #include "render_group.hpp"
 
+#include "../base/stl_add.hpp"
+
 namespace df
 {
   RenderGroup::RenderGroup(const GLState & state, const df::TileKey & tileKey)
@@ -7,6 +9,11 @@ namespace df
     , m_tileKey(tileKey)
     , m_pendingOnDelete(false)
   {
+  }
+
+  RenderGroup::~RenderGroup()
+  {
+    (void)GetRangeDeletor(m_renderBuckets, MasterPointerDeleter())();
   }
 
   void RenderGroup::PrepareForAdd(size_t countForAdd)
@@ -61,13 +68,11 @@ namespace df
       m_needGroupMergeOperation = true;
 
     if (rPendingOnDelete == lPendingOnDelete)
-      return l < r;
+      return lState < rState;
 
     if (rPendingOnDelete)
       return true;
 
-    if (lPendingOnDelete)
-      return false;
+    return false;
   }
-
 }

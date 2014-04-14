@@ -1,6 +1,5 @@
 #include "read_manager.hpp"
 #include "read_mwm_task.hpp"
-#include "coverage_update_descriptor.hpp"
 #include "visual_params.hpp"
 
 #include "../platform/platform.hpp"
@@ -46,7 +45,7 @@ namespace df
     delete task;
   }
 
-  void ReadManager::UpdateCoverage(const ScreenBase & screen, CoverageUpdateDescriptor & updateDescr)
+  void ReadManager::UpdateCoverage(const ScreenBase & screen)
   {
     if (screen == m_currentViewport)
       return;
@@ -60,8 +59,6 @@ namespace df
       m_tileInfos.clear();
 
       for_each(tiles.begin(), tiles.end(), bind(&ReadManager::PushTaskBackForTileKey, this, _1));
-
-      updateDescr.DropAll();
     }
     else
     {
@@ -82,8 +79,6 @@ namespace df
       buffer_vector<TileKey, 16> outdatedTileKeys;
       transform(outdatedTiles.begin(), outdatedTiles.end(),
                 back_inserter(outdatedTileKeys), &TileInfoPtrToTileKey);
-
-      updateDescr.DropTiles(outdatedTileKeys.data(), outdatedTileKeys.size());
 
       for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::PushTaskFront, this, _1));
       for_each(inputRects.begin(),  inputRects.end(),  bind(&ReadManager::PushTaskBackForTileKey, this, _1));

@@ -24,7 +24,6 @@ SOURCES += \
     area_shape.cpp \
     read_manager.cpp \
     tile_info.cpp \
-    coverage_update_descriptor.cpp \
     stylist.cpp \
     line_shape.cpp \
     rule_drawer.cpp \
@@ -53,7 +52,6 @@ HEADERS += \
     drape_engine.hpp \
     area_shape.hpp \
     read_manager.hpp \
-    coverage_update_descriptor.hpp \
     stylist.hpp \
     line_shape.hpp \
     shape_view_params.hpp \

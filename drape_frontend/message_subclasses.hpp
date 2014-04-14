@@ -1,8 +1,8 @@
 #pragma once
 
 #include "message.hpp"
-#include "coverage_update_descriptor.hpp"
 #include "viewport.hpp"
+#include "tile_key.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
@@ -40,24 +40,6 @@ namespace df
   public:
     TileReadEndMessage(const TileKey & key)
       : BaseTileMessage(key, Message::TileReadEnded) {}
-  };
-
-  class DropTilesMessage : public Message
-  {
-  public:
-    DropTilesMessage(CoverageUpdateDescriptor const & descr)
-      : m_coverageUpdateDescr(descr)
-    {
-      SetType(DropTiles);
-    }
-
-    CoverageUpdateDescriptor const & GetDescriptor() const
-    {
-      return m_coverageUpdateDescr;
-    }
-
-  private:
-    CoverageUpdateDescriptor m_coverageUpdateDescr;
   };
 
   class FlushRenderBucketMessage : public BaseTileMessage
@@ -108,20 +90,5 @@ namespace df
 
   private:
     ScreenBase m_screen;
-  };
-
-  class RotateMessage: public Message
-  {
-  public:
-    RotateMessage(float dstAngleRadians)
-      : m_dstAngle(dstAngleRadians)
-    {
-      SetType(Rotate);
-    }
-
-    float GetDstAngle() const { return m_dstAngle; }
-
-  private:
-    float m_dstAngle;
   };
 }

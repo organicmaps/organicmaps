@@ -56,11 +56,7 @@ namespace df
     case Message::UpdateCoverage:
       {
         ScreenBase const & screen = static_cast<UpdateCoverageMessage *>(message.GetRaw())->GetScreen();
-        CoverageUpdateDescriptor descr;
-        m_readManager->UpdateCoverage(screen, descr);
-
-        if (!descr.IsEmpty())
-          PostToRenderThreads(MovePointer<Message>(new DropTilesMessage(descr)));
+        m_readManager->UpdateCoverage(screen);
       }
       break;
     case Message::TileReadStarted:

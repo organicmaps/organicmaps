@@ -15,6 +15,7 @@ namespace df
   {
   public:
     RenderGroup(GLState const & state, TileKey const & tileKey);
+    ~RenderGroup();
 
     void PrepareForAdd(size_t countForAdd);
 

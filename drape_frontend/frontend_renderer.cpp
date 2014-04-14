@@ -94,30 +94,6 @@ namespace df
         m_tileData.insert(make_pair(key, renderIterator));
         break;
       }
-    case Message::DropTiles:
-      {
-        CoverageUpdateDescriptor const & descr = static_cast<DropTilesMessage *>(message.GetRaw())->GetDescriptor();
-        ASSERT(!descr.IsEmpty(), ());
-
-        if (!descr.IsDropAll())
-        {
-          vector<TileKey> const & tilesToDrop = descr.GetTilesToDrop();
-          for (size_t i = 0; i < tilesToDrop.size(); ++i)
-          {
-            tile_data_range_t range = m_tileData.equal_range(tilesToDrop[i]);
-            for (tile_data_iter eraseIter = range.first; eraseIter != range.second; ++eraseIter)
-            {
-              eraseIter->second->second.Destroy();
-              m_renderData.erase(eraseIter->second);
-            }
-            m_tileData.erase(range.first, range.second);
-          }
-        }
-        else
-          DeleteRenderData();
-
-        break;
-      }
 
     case Message::Resize:
       {
@@ -137,17 +113,6 @@ namespace df
         RefreshModelView();
         m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   MovePointer<Message>(new UpdateCoverageMessage(m_view)));
-        break;
-      }
-
-    case Message::Rotate:
-      {
-        //RotateMessage * rtMsg = static_cast<RotateMessage *>(message.GetRaw());
-        //m_modelView.Rotate(rtMsg->GetDstAngle());
-        //RefreshModelView();
-
-        //m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-        //                          MovePointer<Message>(new UpdateCoverageMessage(m_modelView)));
         break;
       }
 
