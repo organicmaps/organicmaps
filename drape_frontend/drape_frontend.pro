@@ -33,7 +33,8 @@ SOURCES += \
     apply_feature_functors.cpp \
     visual_params.cpp \
     poi_symbol_shape.cpp \
-    circle_shape.cpp
+    circle_shape.cpp \
+    render_group.cpp
 
 HEADERS += \
     engine_context.hpp \
@@ -62,4 +63,5 @@ HEADERS += \
     apply_feature_functors.hpp \
     visual_params.hpp \
     poi_symbol_shape.hpp \
-    circle_shape.hpp
+    circle_shape.hpp \
+    render_group.hpp
