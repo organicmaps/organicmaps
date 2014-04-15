@@ -100,7 +100,7 @@ namespace df
   class UpdateReadManagerMessage : public UpdateModelViewMessage
   {
   public:
-    UpdateReadManagerMessage(ScreenBase const & screen, shared_ptr<set<TileKey> > tiles)
+    UpdateReadManagerMessage(ScreenBase const & screen, shared_ptr<set<TileKey> > const & tiles)
       : UpdateModelViewMessage(screen)
       , m_tiles(tiles)
     {

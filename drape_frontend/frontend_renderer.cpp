@@ -249,7 +249,7 @@ namespace df
     double const range = MercatorBounds::maxX - MercatorBounds::minX;
     double const rectSize = range / (1 << tileScale);
 
-    m2::RectD    const & clipRect   = m_view.ClipRect();
+    m2::RectD const & clipRect   = m_view.ClipRect();
 
     int const minTileX = static_cast<int>(floor(clipRect.minX() / rectSize));
     int const maxTileX = static_cast<int>(ceil(clipRect.maxX() / rectSize));

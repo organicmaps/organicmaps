@@ -13,47 +13,49 @@ class OverlayTree;
 
 namespace df
 {
-  class RenderGroup
-  {
-  public:
-    RenderGroup(GLState const & state, TileKey const & tileKey);
-    ~RenderGroup();
 
-    void CollectOverlay(RefPointer<OverlayTree> tree);
-    void Render();
+class RenderGroup
+{
+public:
+  RenderGroup(GLState const & state, TileKey const & tileKey);
+  ~RenderGroup();
 
-    void PrepareForAdd(size_t countForAdd);
-    void AddBucket(TransferPointer<RenderBucket> bucket);
+  void CollectOverlay(RefPointer<OverlayTree> tree);
+  void Render();
 
-    GLState const & GetState() const { return m_state; }
-    TileKey const & GetTileKey() const { return m_tileKey; }
+  void PrepareForAdd(size_t countForAdd);
+  void AddBucket(TransferPointer<RenderBucket> bucket);
 
-    bool IsEmpty() const { return m_renderBuckets.empty(); }
-    void DeleteLater() const { m_pendingOnDelete = true; }
-    bool IsPendingOnDelete() const { return m_pendingOnDelete; }
+  GLState const & GetState() const { return m_state; }
+  TileKey const & GetTileKey() const { return m_tileKey; }
 
-    bool IsLess(RenderGroup const & other) const;
+  bool IsEmpty() const { return m_renderBuckets.empty(); }
+  void DeleteLater() const { m_pendingOnDelete = true; }
+  bool IsPendingOnDelete() const { return m_pendingOnDelete; }
 
-  private:
-    GLState m_state;
-    TileKey m_tileKey;
-    vector<MasterPointer<RenderBucket> > m_renderBuckets;
+  bool IsLess(RenderGroup const & other) const;
 
-    mutable bool m_pendingOnDelete;
-  };
+private:
+  GLState m_state;
+  TileKey m_tileKey;
+  vector<MasterPointer<RenderBucket> > m_renderBuckets;
 
-  class RenderBucketComparator
-  {
-  public:
-    RenderBucketComparator(set<TileKey> const & activeTiles);
+  mutable bool m_pendingOnDelete;
+};
 
-    void ResetInternalState();
+class RenderBucketComparator
+{
+public:
+  RenderBucketComparator(set<TileKey> const & activeTiles);
 
-    bool operator()(RenderGroup const * l, RenderGroup const * r);
+  void ResetInternalState();
 
-  private:
-    set<TileKey> const & m_activeTiles;
-    bool m_needGroupMergeOperation;
-    bool m_needBucketsMergeOperation;
-  };
-}
+  bool operator()(RenderGroup const * l, RenderGroup const * r);
+
+private:
+  set<TileKey> const & m_activeTiles;
+  bool m_needGroupMergeOperation;
+  bool m_needBucketsMergeOperation;
+};
+
+} // namespace df

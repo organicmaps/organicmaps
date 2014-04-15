@@ -105,6 +105,7 @@ bool GLState::operator==(const GLState & other) const
          m_depthLayer == other.m_depthLayer &&
          m_gpuProgramIndex == other.m_gpuProgramIndex &&
          m_textureSet == other.m_textureSet &&
+         m_blending == other.m_blending &&
          m_color == other.m_color;
 }
 
