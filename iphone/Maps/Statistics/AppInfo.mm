@@ -187,7 +187,10 @@ NSString * const AppFeatureMoreAppsBanner = @"AppFeatureMoreAppsBanner";
     }
     else
     {
-      Settings::Set("CountryCode", std::string([_countryCode UTF8String])); // saving code first time
+      if (_countryCode)
+        Settings::Set("CountryCode", std::string([_countryCode UTF8String])); // saving code first time
+      else
+        _countryCode = @"";
     }
   }
   return _countryCode;
