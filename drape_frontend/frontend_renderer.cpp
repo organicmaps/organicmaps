@@ -289,7 +289,7 @@ namespace df
     context->makeCurrent();
 
     my::Timer timer;
-    double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms
+    //double processingTime = InitAvarageTimePerMessage; // By init we think that one message processed by 1ms
 
     timer.Reset();
     while (!IsCancelled())
@@ -297,23 +297,19 @@ namespace df
       context->setDefaultFramebuffer();
       RenderScene();
 
-      double avarageMessageTime = processingTime;
-      processingTime = timer.ElapsedSeconds();
-      int messageCount = 0;
+      //double avarageMessageTime = processingTime;
+      //processingTime = timer.ElapsedSeconds();
+      //int messageCount = 0;
+      double availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
 
-      while (timer.ElapsedSeconds() + avarageMessageTime < VSyncInterval)
+      while (availableTime > 0)
       {
-        ProcessSingleMessage(false);
-        messageCount++;
+        ProcessSingleMessage(availableTime * 1000.0);
+        availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
+        //messageCount++;
       }
 
-      if (messageCount == 0)
-      {
-        ProcessSingleMessage(false);
-        messageCount++;
-      }
-
-      processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
+      //processingTime = (timer.ElapsedSeconds() - processingTime) / messageCount;
 
       context->present();
       timer.Reset();

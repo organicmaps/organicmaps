@@ -16,13 +16,13 @@ namespace df
     ~MessageQueue();
 
     /// if queue is empty than return NULL
-    TransferPointer<Message> PopMessage(bool waitMessage);
+    TransferPointer<Message> PopMessage(unsigned maxTimeWait);
     void PushMessage(TransferPointer<Message> message);
     void CancelWait();
     void ClearQuery();
 
   private:
-    void WaitMessage();
+    void WaitMessage(unsigned maxTimeWait);
 
   private:
     threads::Condition m_condition;

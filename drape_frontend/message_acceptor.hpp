@@ -14,7 +14,7 @@ namespace df
     virtual void AcceptMessage(RefPointer<Message> message) = 0;
 
     /// Must be called by subclass on message target thread
-    void ProcessSingleMessage(bool waitMessage);
+    void ProcessSingleMessage(unsigned maxTimeWait = -1);
     void CloseQueue();
 
   private:

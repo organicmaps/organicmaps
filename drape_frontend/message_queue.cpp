@@ -11,12 +11,11 @@ namespace df
     ClearQuery();
   }
 
-  TransferPointer<Message> MessageQueue::PopMessage(bool waitMessage)
+  TransferPointer<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
   {
     threads::ConditionGuard guard(m_condition);
 
-    if (waitMessage)
-      WaitMessage();
+    WaitMessage(maxTimeWait);
 
     /// even waitNonEmpty == true m_messages can be empty after WaitMessage call
     /// if application preparing to close and CancelWait been called
@@ -39,10 +38,10 @@ namespace df
       guard.Signal();
   }
 
-  void MessageQueue::WaitMessage()
+  void MessageQueue::WaitMessage(unsigned maxTimeWait)
   {
     if (m_messages.empty())
-      m_condition.Wait();
+      m_condition.Wait(maxTimeWait);
   }
 
   void MessageQueue::CancelWait()

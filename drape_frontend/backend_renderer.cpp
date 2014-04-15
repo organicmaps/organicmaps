@@ -105,7 +105,7 @@ namespace df
     InitGLDependentResource();
 
     while (!IsCancelled())
-      ProcessSingleMessage(true);
+      ProcessSingleMessage();
 
     ReleaseResources();
   }
