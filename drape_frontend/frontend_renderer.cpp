@@ -87,12 +87,13 @@ namespace df
         FlushRenderBucketMessage * msg = static_cast<FlushRenderBucketMessage *>(message.GetRaw());
         const GLState & state = msg->GetState();
         const TileKey & key = msg->GetKey();
-        MasterPointer<RenderBucket> buffer(msg->AcceptBuffer());
+        MasterPointer<RenderBucket> bucket(msg->AcceptBuffer());
         RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
         program->Bind();
-        buffer->GetBuffer()->Build(program);
-        render_data_t::iterator renderIterator = m_renderData.insert(make_pair(state, buffer));
-        m_tileData.insert(make_pair(key, renderIterator));
+        bucket->GetBuffer()->Build(program);
+        RenderGroup * group = new RenderGroup(state, key);
+        group->AddBucket(bucket.Move());
+        m_renderGroups.push_back(group);
         break;
       }
 
@@ -148,6 +149,29 @@ namespace df
     BeforeDrawFrame();
 #endif
 
+    RenderBucketComparator comparator(GetTileKeyStorage());
+    sort(m_renderGroups.begin(), m_renderGroups.end(), bind(&RenderBucketComparator::operator (), &comparator, _1, _2));
+
+    m_overlayTree.StartOverlayPlacing(m_view);
+    size_t eraseCount = 0;
+    for (size_t i = 0; i < m_renderGroups.size(); ++i)
+    {
+      if (m_renderGroups[i]->IsEmpty())
+        continue;
+
+      if (m_renderGroups[i]->IsPendingOnDelete())
+      {
+        delete m_renderGroups[i];
+        ++eraseCount;
+        continue;
+      }
+
+      if (m_renderGroups[i]->GetState().GetDepthLayer() == GLState::OverlayLayer)
+        m_renderGroups[i]->CollectOverlay(MakeStackRefPointer(&m_overlayTree));
+    }
+    m_overlayTree.EndOverlayPlacing();
+    m_renderGroups.resize(m_renderGroups.size() - eraseCount);
+
     m_viewport.Apply();
     GLFunctions::glEnable(GLConst::GLDepthTest);
 
@@ -157,10 +181,18 @@ namespace df
     GLFunctions::glDepthMask(true);
 
     GLFunctions::glClear();
-    m_overlayTree.StartOverlayPlacing(m_view);
-    for_each(m_renderData.begin(), m_renderData.end(), bind(&FrontendRenderer::CollectOverlay, this, _1));
-    m_overlayTree.EndOverlayPlacing();
-    for_each(m_renderData.begin(), m_renderData.end(), bind(&FrontendRenderer::RenderPartImpl, this, _1));
+
+    for (size_t i = 0; i < m_renderGroups.size(); ++i)
+    {
+      RenderGroup * group = m_renderGroups[i];
+      GLState const & state = group->GetState();
+      RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+      program->Bind();
+      ApplyUniforms(m_generalUniforms, program);
+      ApplyState(state, program, m_textureController.GetRefPointer());
+
+      group->Render();
+    }
 
 #ifdef DRAW_INFO
     AfterDrawFrame();
@@ -190,22 +222,22 @@ namespace df
     m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
   }
 
-  void FrontendRenderer::CollectOverlay(pair<const GLState, MasterPointer<RenderBucket> > & node)
-  {
-    if (node.first.GetDepthLayer() == GLState::OverlayLayer)
-      node.second->CollectOverlayHandles(MakeStackRefPointer(&m_overlayTree));
-  }
+//  void FrontendRenderer::CollectOverlay(pair<const GLState, MasterPointer<RenderBucket> > & node)
+//  {
+//    if (node.first.GetDepthLayer() == GLState::OverlayLayer)
+//      node.second->CollectOverlayHandles(MakeStackRefPointer(&m_overlayTree));
+//  }
 
-  void FrontendRenderer::RenderPartImpl(pair<const GLState, MasterPointer<RenderBucket> > & node)
-  {
-    RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(node.first.GetProgramIndex());
+//  void FrontendRenderer::RenderPartImpl(pair<const GLState, MasterPointer<RenderBucket> > & node)
+//  {
+//    RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(node.first.GetProgramIndex());
 
-    program->Bind();
-    ApplyState(node.first, program, m_textureController.GetRefPointer());
-    ApplyUniforms(m_generalUniforms, program);
+//    program->Bind();
+//    ApplyState(node.first, program, m_textureController.GetRefPointer());
+//    ApplyUniforms(m_generalUniforms, program);
 
-    node.second->Render();
-  }
+//    node.second->Render();
+//  }
 
   void FrontendRenderer::ResolveTileKeys()
   {
@@ -304,7 +336,6 @@ namespace df
 
   void FrontendRenderer::DeleteRenderData()
   {
-    m_tileData.clear();
-    GetRangeDeletor(m_renderData, MasterPointerDeleter())();
+    (void)GetRangeDeletor(m_renderGroups, DeleteFunctor())();
   }
 }

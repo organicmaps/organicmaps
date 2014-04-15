@@ -99,6 +99,15 @@ bool GLState::operator<(GLState const & other) const
   return m_color < other.m_color;
 }
 
+bool GLState::operator==(const GLState & other) const
+{
+  return m_mask == other.m_mask &&
+         m_depthLayer == other.m_depthLayer &&
+         m_gpuProgramIndex == other.m_gpuProgramIndex &&
+         m_textureSet == other.m_textureSet &&
+         m_color == other.m_color;
+}
+
 namespace
 {
   void ApplyUniformValue(UniformValue const & value, RefPointer<GpuProgram> program)

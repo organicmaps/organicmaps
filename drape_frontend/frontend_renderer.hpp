@@ -12,6 +12,7 @@
 #include "threads_commutator.hpp"
 #include "tile_info.hpp"
 #include "backend_renderer.hpp"
+#include "render_group.hpp"
 
 #include "../drape/pointers.hpp"
 #include "../drape/glstate.hpp"
@@ -63,9 +64,6 @@ namespace df
     void RefreshProjection();
     void RefreshModelView();
 
-    void CollectOverlay(pair<const GLState, MasterPointer<RenderBucket> > & node);
-    void RenderPartImpl(pair<const GLState, MasterPointer<RenderBucket> > & node);
-
     void ResolveTileKeys();
     set<TileKey> & GetTileKeyStorage();
 
@@ -88,13 +86,7 @@ namespace df
     threads::Thread m_selfThread;
 
   private:
-    typedef multimap<GLState, MasterPointer<RenderBucket> > render_data_t;
-    typedef render_data_t::iterator render_data_iter;
-    typedef multimap<TileKey, render_data_iter> tile_data_t;
-    typedef tile_data_t::iterator tile_data_iter;
-    typedef pair<tile_data_iter, tile_data_iter> tile_data_range_t;
-    render_data_t m_renderData;
-    tile_data_t   m_tileData;
+    vector<RenderGroup *> m_renderGroups;
 
     UniformValuesStorage m_generalUniforms;
 

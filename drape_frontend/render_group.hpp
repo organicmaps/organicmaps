@@ -9,6 +9,8 @@
 #include "../std/vector.hpp"
 #include "../std/set.hpp"
 
+class OverlayTree;
+
 namespace df
 {
   class RenderGroup
@@ -17,8 +19,10 @@ namespace df
     RenderGroup(GLState const & state, TileKey const & tileKey);
     ~RenderGroup();
 
-    void PrepareForAdd(size_t countForAdd);
+    void CollectOverlay(RefPointer<OverlayTree> tree);
+    void Render();
 
+    void PrepareForAdd(size_t countForAdd);
     void AddBucket(TransferPointer<RenderBucket> bucket);
 
     GLState const & GetState() const { return m_state; }
@@ -45,7 +49,7 @@ namespace df
 
     void ResetInternalState();
 
-    bool operator()(RenderGroup const & l, RenderGroup const & r);
+    bool operator()(RenderGroup const * l, RenderGroup const * r);
 
   private:
     set<TileKey> const & m_activeTiles;
