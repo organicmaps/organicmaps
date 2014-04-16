@@ -169,13 +169,18 @@
 
 @implementation UIApplication (URLs)
 
-- (void)openProVersion
+- (void)openProVersionFrom:(NSString *)launchPlaceName
 {
   NSURL * url = [NSURL URLWithString:MAPSWITHME_PREMIUM_LOCAL_URL];
   if ([self canOpenURL:url])
+  {
     [self openURL:url];
+  }
   else
-    [self openURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_APPSTORE_URL]];
+  {
+    NSString * urlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id510623322?mt=8&at=1l3v7ya&ct=%@", launchPlaceName];
+    [self openURL:[NSURL URLWithString:urlString]];
+  }
 }
 
 - (void)openGuideWithName:(NSString *)guideName itunesURL:(NSString *)itunesURL

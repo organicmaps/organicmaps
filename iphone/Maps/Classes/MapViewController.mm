@@ -867,7 +867,7 @@ const long long LITE_IDL = 431183278L;
     else
     {
       [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
-      [[UIApplication sharedApplication] openProVersion];
+      [[UIApplication sharedApplication] openProVersionFrom:@"mwm_side_menu_bookmarks"];
     }
   }
   else if ([itemName isEqualToString:@"Settings"])
@@ -935,7 +935,7 @@ const long long LITE_IDL = 431183278L;
 - (void)buyButtonPressed:(id)sender
 {
   [[Statistics instance] logProposalReason:@"Pro button on map" withAnswer:@"YES"];
-  [[UIApplication sharedApplication] openProVersion];
+  [[UIApplication sharedApplication] openProVersionFrom:@"mwm_bottom_map"];
 }
 
 #pragma mark - UIKitViews delegates

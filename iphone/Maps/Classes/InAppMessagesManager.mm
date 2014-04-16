@@ -408,7 +408,7 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
   {
     if ([interstitial.imageType hasPrefix:MWMProVersionPrefix])
     {
-      [[UIApplication sharedApplication] openProVersion];
+      [[UIApplication sharedApplication] openProVersionFrom:@"mwm_interstitial"];
     }
     else
     {
@@ -430,7 +430,7 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
 
   if ([imageType hasPrefix:MWMProVersionPrefix])
   {
-    [[UIApplication sharedApplication] openProVersion];
+    [[UIApplication sharedApplication] openProVersionFrom:@"mwm_banner"];
   }
   else
   {

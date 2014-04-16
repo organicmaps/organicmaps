@@ -236,7 +236,7 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
     if (buttonIndex != alertView.cancelButtonIndex)
     {
       // Launch appstore
-      [[UIApplication sharedApplication] openProVersion];
+      [[UIApplication sharedApplication] openProVersionFrom:@"mwm_balloon"];
       [[Statistics instance] logProposalReason:@"Balloon Touch" withAnswer:@"YES"];
     }
     else

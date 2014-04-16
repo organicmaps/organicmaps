@@ -1,7 +1,6 @@
 
 #define FIRST_LAUNCH_KEY @"FIRST_LAUNCH_KEY"
 
-#define MAPSWITHME_PREMIUM_APPSTORE_URL @"itms-apps://itunes.apple.com/app/id510623322"
 #define MAPSWITHME_PREMIUM_LOCAL_URL @"mapswithmepro://"
 #define MAPSWITHME_LITE_LOCAL_URL @"mapswithmelite://"
 
