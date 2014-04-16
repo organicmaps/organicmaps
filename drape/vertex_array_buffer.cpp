@@ -16,7 +16,7 @@ VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBuff
 VertexArrayBuffer::~VertexArrayBuffer()
 {
   m_indexBuffer.Destroy();
-  GetRangeDeletor(m_buffers, MasterPointerDeleter())();
+  (void)GetRangeDeletor(m_buffers, MasterPointerDeleter())();
 
   if (m_VAO != 0)
   {
@@ -142,7 +142,7 @@ void VertexArrayBuffer::BindBuffers()
   buffers_map_t::iterator it = m_buffers.begin();
   for (; it != m_buffers.end(); ++it)
   {
-    const BindingInfo & binding = it->first;
+    BindingInfo const & binding = it->first;
     RefPointer<DataBuffer> buffer = it->second.GetRefPointer();
     buffer->Bind();
 

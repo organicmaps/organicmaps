@@ -6,7 +6,6 @@
 
 #include "../std/cstring.hpp"
 
-
 CPUBuffer::CPUBuffer(uint8_t elementSize, uint16_t capacity)
   : base_t(elementSize, capacity)
 {
@@ -21,7 +20,7 @@ CPUBuffer::~CPUBuffer()
   SharedBufferManager::instance().freeSharedBuffer(m_memory->size(), m_memory);
 }
 
-void CPUBuffer::UploadData(const void * data, uint16_t elementCount)
+void CPUBuffer::UploadData(void const * data, uint16_t elementCount)
 {
   uint32_t byteCountToCopy = GetElementSize() * elementCount;
 #ifdef DEBUG
@@ -48,7 +47,7 @@ uint16_t CPUBuffer::GetCurrentElementNumber() const
   return pointerDiff / GetElementSize();
 }
 
-const unsigned char * CPUBuffer::Data() const
+unsigned char const * CPUBuffer::Data() const
 {
   return &((*m_memory)[0]);
 }

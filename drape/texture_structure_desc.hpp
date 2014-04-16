@@ -8,7 +8,7 @@
 class TextureStructureDesc
 {
 public:
-  void Load(const string & descFilePath, uint32_t & width, uint32_t & height);
+  void Load(string const & descFilePath, uint32_t & width, uint32_t & height);
   bool GetResource(string const & name, m2::RectU & rect) const;
 
 private:

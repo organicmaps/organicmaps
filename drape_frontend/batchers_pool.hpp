@@ -12,29 +12,31 @@ class Batcher;
 
 namespace df
 {
-  class Message;
-  // Not thread safe
-  class BatchersPool
-  {
-  public:
-    typedef function<void (TransferPointer<Message>)> send_message_fn;
 
-    BatchersPool(int initBatcherCount, const send_message_fn & sendMessageFn);
-    ~BatchersPool();
+class Message;
+// Not thread safe
+class BatchersPool
+{
+public:
+  typedef function<void (TransferPointer<Message>)> send_message_fn;
 
-    void ReserveBatcher(TileKey const & key);
-    RefPointer<Batcher> GetTileBatcher(TileKey const & key);
-    void ReleaseBatcher(TileKey const & key);
+  BatchersPool(int initBatcherCount, send_message_fn const & sendMessageFn);
+  ~BatchersPool();
 
-  private:
-    typedef MasterPointer<Batcher> batcher_ptr;
-    typedef stack<batcher_ptr> batchers_pool_t;
-    typedef pair<batcher_ptr, int> counted_batcher_t;
-    typedef map<TileKey, counted_batcher_t> reserved_batchers_t;
+  void ReserveBatcher(TileKey const & key);
+  RefPointer<Batcher> GetTileBatcher(TileKey const & key);
+  void ReleaseBatcher(TileKey const & key);
 
-    batchers_pool_t m_batchers;
-    reserved_batchers_t m_reservedBatchers;
+private:
+  typedef MasterPointer<Batcher> batcher_ptr;
+  typedef stack<batcher_ptr> batchers_pool_t;
+  typedef pair<batcher_ptr, int> counted_batcher_t;
+  typedef map<TileKey, counted_batcher_t> reserved_batchers_t;
 
-    send_message_fn m_sendMessageFn;
-  };
-}
+  batchers_pool_t m_batchers;
+  reserved_batchers_t m_reservedBatchers;
+
+  send_message_fn m_sendMessageFn;
+};
+
+} // namespace df

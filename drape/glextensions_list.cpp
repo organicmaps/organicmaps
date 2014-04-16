@@ -79,7 +79,7 @@ GLExtensionsList & GLExtensionsList::Instance()
   return extList;
 }
 
-bool GLExtensionsList::IsSupported(const ExtensionName & extName) const
+bool GLExtensionsList::IsSupported(ExtensionName const & extName) const
 {
   return m_impl->IsSupported(extName);
 }

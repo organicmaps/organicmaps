@@ -4,18 +4,20 @@
 
 namespace df
 {
-  struct TileKey
-  {
-    TileKey();
-    TileKey(int x, int y, int zoomLevel);
 
-    bool operator < (const TileKey & other) const;
-    bool operator == (const TileKey & other) const;
+struct TileKey
+{
+  TileKey();
+  TileKey(int x, int y, int zoomLevel);
 
-    m2::RectD GetGlobalRect() const;
+  bool operator < (TileKey const & other) const;
+  bool operator == (TileKey const & other) const;
 
-    int m_x;
-    int m_y;
-    int m_zoomLevel;
-  };
-}
+  m2::RectD GetGlobalRect() const;
+
+  int m_x;
+  int m_y;
+  int m_zoomLevel;
+};
+
+} // namespace df

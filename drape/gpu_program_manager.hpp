@@ -15,7 +15,7 @@ public:
   RefPointer<GpuProgram> GetProgram(int index);
 
 private:
-  RefPointer<Shader> GetShader(int index, const string & source, Shader::Type t);
+  RefPointer<Shader> GetShader(int index, string const & source, Shader::Type t);
 
 private:
   typedef map<int, MasterPointer<GpuProgram> > program_map_t;

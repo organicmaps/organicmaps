@@ -9,20 +9,22 @@
 
 namespace df
 {
-  class LineShape : public MapShape
-  {
-  public:
-    LineShape(vector<m2::PointF> const & points,
-              LineViewParams const & params);
 
-    virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const;
+class LineShape : public MapShape
+{
+public:
+  LineShape(vector<m2::PointF> const & points,
+            LineViewParams const & params);
 
-    float         GetWidth() const { return m_params.m_width; }
-    Color const & GetColor() const { return m_params.m_color; }
+  virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const;
 
-  private:
-    vector<m2::PointF> m_points;
-    LineViewParams m_params;
-  };
-}
+  float         GetWidth() const { return m_params.m_width; }
+  Color const & GetColor() const { return m_params.m_color; }
+
+private:
+  vector<m2::PointF> m_points;
+  LineViewParams m_params;
+};
+
+} // namespace df
 

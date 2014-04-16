@@ -5,33 +5,35 @@
 #include "../base/thread.hpp"
 
 #ifdef DEBUG
-  #include "../base/object_tracker.hpp"
+#include "../base/object_tracker.hpp"
 #endif
 
 #include "../std/weak_ptr.hpp"
 
 namespace df
 {
-  class EngineContext;
 
-  class ReadMWMTask : public threads::IRoutine
-  {
-  public:
-    ReadMWMTask(weak_ptr<TileInfo> const & tileInfo,
-                MemoryFeatureIndex & memIndex,
-                model::FeaturesFetcher & model,
-                EngineContext & context);
+class EngineContext;
 
-    virtual void Do();
+class ReadMWMTask : public threads::IRoutine
+{
+public:
+  ReadMWMTask(weak_ptr<TileInfo> const & tileInfo,
+              MemoryFeatureIndex & memIndex,
+              model::FeaturesFetcher & model,
+              EngineContext & context);
 
-  private:
-    weak_ptr<TileInfo> m_tileInfo;
-    MemoryFeatureIndex & m_memIndex;
-    model::FeaturesFetcher & m_model;
-    EngineContext & m_context;
+  virtual void Do();
 
-  #ifdef DEBUG
-    dbg::ObjectTracker m_objTracker;
-  #endif
-  };
-}
+private:
+  weak_ptr<TileInfo> m_tileInfo;
+  MemoryFeatureIndex & m_memIndex;
+  model::FeaturesFetcher & m_model;
+  EngineContext & m_context;
+
+#ifdef DEBUG
+  dbg::ObjectTracker m_objTracker;
+#endif
+};
+
+} // namespace df

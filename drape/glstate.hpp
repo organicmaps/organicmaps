@@ -42,7 +42,7 @@ public:
   bool HasColor() const;
 
   void SetBlending(Blending const & blending);
-  const Blending & GetBlending() const { return m_blending; }
+  Blending const & GetBlending() const { return m_blending; }
 
   int GetProgramIndex() const { return m_gpuProgramIndex; }
 

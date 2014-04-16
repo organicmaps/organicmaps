@@ -6,17 +6,19 @@
 
 namespace df
 {
-  void ThreadsCommutator::RegisterThread(ThreadName name, MessageAcceptor * acceptor)
-  {
-    VERIFY(m_acceptors.insert(make_pair(name, acceptor)).second, ());
-  }
 
-  void ThreadsCommutator::PostMessage(ThreadName name, TransferPointer<Message> message)
-  {
-    acceptors_map_t::iterator it = m_acceptors.find(name);
-    ASSERT(it != m_acceptors.end(), ());
-    if (it != m_acceptors.end())
-      it->second->PostMessage(message);
-  }
+void ThreadsCommutator::RegisterThread(ThreadName name, MessageAcceptor * acceptor)
+{
+  VERIFY(m_acceptors.insert(make_pair(name, acceptor)).second, ());
 }
+
+void ThreadsCommutator::PostMessage(ThreadName name, TransferPointer<Message> message)
+{
+  acceptors_map_t::iterator it = m_acceptors.find(name);
+  ASSERT(it != m_acceptors.end(), ());
+  if (it != m_acceptors.end())
+    it->second->PostMessage(message);
+}
+
+} // namespace df
 

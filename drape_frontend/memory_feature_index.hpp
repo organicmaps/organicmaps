@@ -10,31 +10,33 @@
 
 namespace df
 {
-  struct FeatureInfo
+
+struct FeatureInfo
+{
+  FeatureInfo(FeatureID const & id)
+    : m_id(id), m_isOwner(false) {}
+
+  bool operator < (FeatureInfo const & other) const
   {
-    FeatureInfo(const FeatureID & id)
-      : m_id(id), m_isOwner(false) {}
+    if (m_id != other.m_id)
+      return m_id < other.m_id;
 
-    bool operator < (FeatureInfo const & other) const
-    {
-      if (m_id != other.m_id)
-        return m_id < other.m_id;
+    return m_isOwner < other.m_isOwner;
+  }
 
-      return m_isOwner < other.m_isOwner;
-    }
+  FeatureID m_id;
+  bool m_isOwner;
+};
 
-    FeatureID m_id;
-    bool m_isOwner;
-  };
+class MemoryFeatureIndex : private noncopyable
+{
+public:
+  void ReadFeaturesRequest(vector<FeatureInfo> & features, vector<size_t> & indexes);
+  void RemoveFeatures(vector<FeatureInfo> & features);
 
-  class MemoryFeatureIndex : private noncopyable
-  {
-  public:
-    void ReadFeaturesRequest(vector<FeatureInfo> & features, vector<size_t> & indexes);
-    void RemoveFeatures(vector<FeatureInfo> & features);
+private:
+  threads::Mutex m_mutex;
+  set<FeatureID> m_features;
+};
 
-  private:
-    threads::Mutex m_mutex;
-    set<FeatureID> m_features;
-  };
-}
+} // namespace df

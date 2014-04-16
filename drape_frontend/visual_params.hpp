@@ -9,41 +9,43 @@
 
 namespace df
 {
-  extern const uint32_t YotaDevice;
 
-  class VisualParams : private noncopyable
-  {
-  public:
-    static void Init(double vs, uint32_t tileSize, vector<uint32_t> const & additionalOptions = vector<uint32_t>());
-    static VisualParams & Instance();
+extern uint32_t const YotaDevice;
 
-    VisualParams();
+class VisualParams : private noncopyable
+{
+public:
+  static void Init(double vs, uint32_t tileSize, vector<uint32_t> const & additionalOptions = vector<uint32_t>());
+  static VisualParams & Instance();
 
-    const string & GetResourcePostfix() const;
-    double GetVisualScale() const;
-    uint32_t GetTileSize() const;
+  VisualParams();
 
-  private:
-    int m_tileSize;
-    double m_visualScale;
-    bool m_isYotaDevice;
-  };
+  string const & GetResourcePostfix() const;
+  double GetVisualScale() const;
+  uint32_t GetTileSize() const;
 
-  m2::RectD const & GetWorldRect();
+private:
+  int m_tileSize;
+  double m_visualScale;
+  bool m_isYotaDevice;
+};
 
-  int GetTileScaleBase(ScreenBase const & s);
-  int GetTileScaleBase(m2::RectD const & r);
+m2::RectD const & GetWorldRect();
 
-  /// @return Adjusting base tile scale to look the same across devices with different
-  /// tile size and visual scale values.
-  int GetTileScaleIncrement();
+int GetTileScaleBase(ScreenBase const & s);
+int GetTileScaleBase(m2::RectD const & r);
 
-  int GetDrawTileScale(int baseScale);
-  int GetDrawTileScale(ScreenBase const & s);
-  int GetDrawTileScale(m2::RectD const & r);
+/// @return Adjusting base tile scale to look the same across devices with different
+/// tile size and visual scale values.
+int GetTileScaleIncrement();
 
-  m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center);
-  m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center);
+int GetDrawTileScale(int baseScale);
+int GetDrawTileScale(ScreenBase const & s);
+int GetDrawTileScale(m2::RectD const & r);
 
-  int CalculateTileSize(int screenWidth, int screenHeight);
-}
+m2::RectD GetRectForDrawScale(int drawScale, m2::PointD const & center);
+m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center);
+
+int CalculateTileSize(int screenWidth, int screenHeight);
+
+} // namespace df

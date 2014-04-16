@@ -6,23 +6,25 @@
 
 namespace df
 {
-  class Message;
 
-  class MessageAcceptor
-  {
-  protected:
-    virtual void AcceptMessage(RefPointer<Message> message) = 0;
+class Message;
 
-    /// Must be called by subclass on message target thread
-    void ProcessSingleMessage(unsigned maxTimeWait = -1);
-    void CloseQueue();
+class MessageAcceptor
+{
+protected:
+  virtual void AcceptMessage(RefPointer<Message> message) = 0;
 
-  private:
-    friend class ThreadsCommutator;
+  /// Must be called by subclass on message target thread
+  void ProcessSingleMessage(unsigned maxTimeWait = -1);
+  void CloseQueue();
 
-    void PostMessage(TransferPointer<Message> message);
+private:
+  friend class ThreadsCommutator;
 
-  private:
-    MessageQueue m_messageQueue;
-  };
-}
+  void PostMessage(TransferPointer<Message> message);
+
+private:
+  MessageQueue m_messageQueue;
+};
+
+} // namespace df

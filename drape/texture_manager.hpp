@@ -7,9 +7,9 @@
 class TextureManager : public TextureSetHolder
 {
 public:
-  void Init(const string & resourcePrefix);
+  void Init(string const & resourcePrefix);
   void Release();
-  void GetSymbolRegion(const string & symbolName, TextureRegion & region) const;
+  void GetSymbolRegion(string const & symbolName, TextureRegion & region) const;
 
   void BindTextureSet(uint32_t textureSet) const;
   uint32_t GetTextureCount(uint32_t textureSet) const;

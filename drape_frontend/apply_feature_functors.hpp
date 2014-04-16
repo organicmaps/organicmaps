@@ -13,72 +13,74 @@ class SymbolRuleProto;
 
 namespace df
 {
-  class EngineContext;
 
-  class BaseApplyFeature
-  {
-  public:
-    BaseApplyFeature(EngineContext & context,
-                     TileKey tileKey,
-                     FeatureID const & id);
+class EngineContext;
 
-  protected:
-    EngineContext & m_context;
-    TileKey m_tileKey;
-    FeatureID m_id;
-  };
+class BaseApplyFeature
+{
+public:
+  BaseApplyFeature(EngineContext & context,
+                   TileKey tileKey,
+                   FeatureID const & id);
 
-  class ApplyPointFeature : public BaseApplyFeature
-  {
-    typedef BaseApplyFeature base_t;
-  public:
-    ApplyPointFeature(EngineContext & context,
-                      TileKey tileKey,
-                      FeatureID const & id);
+protected:
+  EngineContext & m_context;
+  TileKey m_tileKey;
+  FeatureID m_id;
+};
 
-    void operator()(CoordPointT const & point);
-    void operator()(m2::PointD const & point);
-    void ProcessRule(Stylist::rule_wrapper_t const & rule);
-    void Finish();
+class ApplyPointFeature : public BaseApplyFeature
+{
+  typedef BaseApplyFeature base_t;
+public:
+  ApplyPointFeature(EngineContext & context,
+                    TileKey tileKey,
+                    FeatureID const & id);
 
-  private:
-    bool m_hasPoint;
-    double m_symbolDepth;
-    double m_circleDepth;
-    SymbolRuleProto const * m_symbolRule;
-    CircleRuleProto const * m_circleRule;
-    m2::PointF m_centerPoint;
-  };
+  void operator()(CoordPointT const & point);
+  void operator()(m2::PointD const & point);
+  void ProcessRule(Stylist::rule_wrapper_t const & rule);
+  void Finish();
 
-  class ApplyAreaFeature : public ApplyPointFeature
-  {
-    typedef ApplyPointFeature base_t;
-  public:
-    ApplyAreaFeature(EngineContext & context,
-                     TileKey tileKey,
-                     FeatureID const & id);
+private:
+  bool m_hasPoint;
+  double m_symbolDepth;
+  double m_circleDepth;
+  SymbolRuleProto const * m_symbolRule;
+  CircleRuleProto const * m_circleRule;
+  m2::PointF m_centerPoint;
+};
 
-    using base_t::operator ();
+class ApplyAreaFeature : public ApplyPointFeature
+{
+  typedef ApplyPointFeature base_t;
+public:
+  ApplyAreaFeature(EngineContext & context,
+                   TileKey tileKey,
+                   FeatureID const & id);
 
-    void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
-    void ProcessRule(Stylist::rule_wrapper_t const & rule);
+  using base_t::operator ();
 
-  private:
-    vector<m2::PointF> m_triangles;
-  };
+  void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
+  void ProcessRule(Stylist::rule_wrapper_t const & rule);
 
-  class ApplyLineFeature : public BaseApplyFeature
-  {
-    typedef BaseApplyFeature base_t;
-  public:
-    ApplyLineFeature(EngineContext & context,
-                     TileKey tileKey,
-                     FeatureID const & id);
+private:
+  vector<m2::PointF> m_triangles;
+};
 
-    void operator ()(CoordPointT const & point);
-    void ProcessRule(Stylist::rule_wrapper_t const & rule);
+class ApplyLineFeature : public BaseApplyFeature
+{
+  typedef BaseApplyFeature base_t;
+public:
+  ApplyLineFeature(EngineContext & context,
+                   TileKey tileKey,
+                   FeatureID const & id);
 
-  private:
-    vector<m2::PointF> m_path;
-  };
-}
+  void operator ()(CoordPointT const & point);
+  void ProcessRule(Stylist::rule_wrapper_t const & rule);
+
+private:
+  vector<m2::PointF> m_path;
+};
+
+} // namespace df

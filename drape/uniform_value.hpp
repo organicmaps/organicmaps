@@ -7,7 +7,6 @@
 #include "../std/shared_array.hpp"
 #include "../std/cstring.hpp"
 
-
 class UniformValue
 {
 public:
@@ -18,19 +17,19 @@ public:
     Matrix4x4
   };
 
-  explicit UniformValue(const string & name, int32_t v);
-  explicit UniformValue(const string & name, int32_t v1, int32_t v2);
-  explicit UniformValue(const string & name, int32_t v1, int32_t v2, int32_t v3);
-  explicit UniformValue(const string & name, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
+  explicit UniformValue(string const & name, int32_t v);
+  explicit UniformValue(string const & name, int32_t v1, int32_t v2);
+  explicit UniformValue(string const & name, int32_t v1, int32_t v2, int32_t v3);
+  explicit UniformValue(string const & name, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
 
-  explicit UniformValue(const string & name, float v);
-  explicit UniformValue(const string & name, float v1, float v2);
-  explicit UniformValue(const string & name, float v1, float v2, float v3);
-  explicit UniformValue(const string & name, float v1, float v2, float v3, float v4);
+  explicit UniformValue(string const & name, float v);
+  explicit UniformValue(string const & name, float v1, float v2);
+  explicit UniformValue(string const & name, float v1, float v2, float v3);
+  explicit UniformValue(string const & name, float v1, float v2, float v3, float v4);
 
-  explicit UniformValue(const string & name, const float * matrixValue);
+  explicit UniformValue(string const & name, float const * matrixValue);
 
-  const string & GetName() const;
+  string const & GetName() const;
   Type GetType() const;
   size_t GetComponentCount() const;
 
@@ -44,11 +43,11 @@ public:
   void SetFloatValue(float v1, float v2, float v3);
   void SetFloatValue(float v1, float v2, float v3, float v4);
 
-  void SetMatrix4x4Value(const float * matrixValue);
+  void SetMatrix4x4Value(float const * matrixValue);
 
   void Apply(RefPointer<GpuProgram> program) const;
 
-  bool operator<(const UniformValue & other) const
+  bool operator<(UniformValue const & other) const
   {
     if (m_name != other.m_name)
       return m_name < other.m_name;

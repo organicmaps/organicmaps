@@ -72,42 +72,43 @@ def writeDefinitionFile(programIndex, defFilePath):
     file.write("#include \"../std/map.hpp\"\n\n")
     file.write("namespace gpu\n")
     file.write("{\n")
-    file.write("  struct ProgramInfo\n")
-    file.write("  {\n")
-    file.write("    ProgramInfo();\n")
-    file.write("    ProgramInfo(int vertexIndex, int fragmentIndex,\n")
-    file.write("                const char * vertexSource, const char * fragmentSource);\n")
-    file.write("    int m_vertexIndex;\n")
-    file.write("    int m_fragmentIndex;\n")
-    file.write("    const char * m_vertexSource;\n")
-    file.write("    const char * m_fragmentSource;\n")
-    file.write("  };\n\n")
+    file.write("\n")
+    file.write("struct ProgramInfo\n")
+    file.write("{\n")
+    file.write("  ProgramInfo();\n")
+    file.write("  ProgramInfo(int vertexIndex, int fragmentIndex,\n")
+    file.write("              char const * vertexSource, char const  * fragmentSource);\n")
+    file.write("  int m_vertexIndex;\n")
+    file.write("  int m_fragmentIndex;\n")
+    file.write("  char const * m_vertexSource;\n")
+    file.write("  char const * m_fragmentSource;\n")
+    file.write("};\n\n")
 
     for programName in programIndex.keys():
-        file.write("  extern const int %s;\n" % (programName));
+        file.write("extern int const %s;\n" % (programName));
 
     file.write("\n")
-    file.write("  void InitGpuProgramsLib(map<int, ProgramInfo> & gpuIndex);\n")
-    file.write("}\n")
+    file.write("void InitGpuProgramsLib(map<int, ProgramInfo> & gpuIndex);\n\n")
+    file.write("} // namespace gpu\n")
     file.close()
 
 def writeShader(outputFile, shaderFile, shaderDir):
-    outputFile.write("  static const char %s[] = \" \\\n" % (formatShaderSourceName(shaderFile)));
+    outputFile.write("  static char const %s[] = \" \\\n" % (formatShaderSourceName(shaderFile)));
     for line in open(os.path.join(shaderDir, shaderFile)):
         outputLine = line.rstrip().replace(lowPSearch, "\" " + lowPDefine + " \"")
         outputLine = outputLine.replace(mediumPSearch, "\" " + mediumPDefine + " \"")
         outputLine = outputLine.replace(highPSearch, "\" " + highPDefine+ " \"")
-        outputFile.write("    %s \\\n" % (outputLine))
+        outputFile.write("  %s \\\n" % (outputLine))
     outputFile.write("  \";\n\n")
 
 def writeShadersIndex(outputFile, shaderIndex):
     for shader in shaderIndex:
-        outputFile.write("  #define %s %s\n" % (formatShaderIndexName(shader), shaderIndex[shader]))
+        outputFile.write("#define %s %s\n" % (formatShaderIndexName(shader), shaderIndex[shader]))
 
 def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, implFile, defFile):
     file = open(formatOutFilePath(shaderDir, implFile), 'w')
     file.write("#include \"%s\"\n\n" % (defFile))
-    file.write("#include \"../std/utility.hpp\"\n\n\n")
+    file.write("#include \"../std/utility.hpp\"\n\n")
     file.write("#if defined(OMIM_OS_DESKTOP)\n")
     file.write("  #define %s\n" % (lowPDefine))
     file.write("  #define %s\n" % (mediumPDefine))
@@ -119,34 +120,34 @@ def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, i
     file.write("#endif\n\n")
 
     file.write("namespace gpu\n")
-    file.write("{\n")
+    file.write("{\n\n")
 
     for shader in shaderIndex.keys():
         writeShader(file, shader, shaderDir)
 
-    file.write("  //---------------------------------------------//\n")
+    file.write("//---------------------------------------------//\n")
     writeShadersIndex(file, shaderIndex)
-    file.write("  //---------------------------------------------//\n")
+    file.write("//---------------------------------------------//\n")
     for program in programIndex:
-        file.write("  const int %s = %s;\n" % (program, programIndex[program]));
-    file.write("  //---------------------------------------------//\n")
+        file.write("const int %s = %s;\n" % (program, programIndex[program]));
+    file.write("//---------------------------------------------//\n")
     file.write("\n")
-    file.write("  ProgramInfo::ProgramInfo()\n")
-    file.write("    : m_vertexIndex(-1)\n")
-    file.write("    , m_fragmentIndex(-1)\n")
-    file.write("    , m_vertexSource(NULL)\n")
-    file.write("    , m_fragmentSource(NULL) {}\n\n")
-    file.write("  ProgramInfo::ProgramInfo(int vertexIndex, int fragmentIndex,\n")
-    file.write("                           const char * vertexSource, const char * fragmentSource)\n")
-    file.write("    : m_vertexIndex(vertexIndex)\n")
-    file.write("    , m_fragmentIndex(fragmentIndex)\n")
-    file.write("    , m_vertexSource(vertexSource)\n")
-    file.write("    , m_fragmentSource(fragmentSource)\n")
-    file.write("  {\n")
-    file.write("  }\n")
+    file.write("ProgramInfo::ProgramInfo()\n")
+    file.write("  : m_vertexIndex(-1)\n")
+    file.write("  , m_fragmentIndex(-1)\n")
+    file.write("  , m_vertexSource(NULL)\n")
+    file.write("  , m_fragmentSource(NULL) {}\n\n")
+    file.write("ProgramInfo::ProgramInfo(int vertexIndex, int fragmentIndex,\n")
+    file.write("                         char const * vertexSource, char const * fragmentSource)\n")
+    file.write("  : m_vertexIndex(vertexIndex)\n")
+    file.write("  , m_fragmentIndex(fragmentIndex)\n")
+    file.write("  , m_vertexSource(vertexSource)\n")
+    file.write("  , m_fragmentSource(fragmentSource)\n")
+    file.write("{\n")
+    file.write("}\n")
     file.write("\n")
-    file.write("  void InitGpuProgramsLib(map<int, ProgramInfo> & gpuIndex)\n")
-    file.write("  {\n")
+    file.write("void InitGpuProgramsLib(map<int, ProgramInfo> & gpuIndex)\n")
+    file.write("{\n")
     for program in programsDef.keys():
         vertexShader = programsDef[program][0]
         vertexIndexName = formatShaderIndexName(vertexShader)
@@ -156,9 +157,9 @@ def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, i
         fragmentIndexName = formatShaderIndexName(fragmentShader)
         fragmentSourceName = formatShaderSourceName(fragmentShader)
 
-        file.write("    gpuIndex.insert(make_pair(%s, ProgramInfo(%s, %s, %s, %s)));\n" % (program, vertexIndexName, fragmentIndexName, vertexSourceName, fragmentSourceName))
-    file.write("  }\n")
-    file.write("}\n")
+        file.write("  gpuIndex.insert(make_pair(%s, ProgramInfo(%s, %s, %s, %s)));\n" % (program, vertexIndexName, fragmentIndexName, vertexSourceName, fragmentSourceName))
+    file.write("}\n\n")
+    file.write("} // namespace gpu\n")
     file.close()
 
 def validateDocumentation(shaders, shaderDir):
@@ -181,21 +182,21 @@ def writeEnumerationFile(shaderDir, shaders, outputFile):
     file.write("#include \"../../std/vector.hpp\"\n")
     file.write("#include \"../../std/string.hpp\"\n\n")
     file.write("namespace gpu_test\n")
+    file.write("{\n\n")
+
+    file.write("vector<string> VertexEnum;\n")
+    file.write("vector<string> FragmentEnum;\n\n")
+
+    file.write("void InitEnumeration()\n")
     file.write("{\n")
 
-    file.write("  vector<string> VertexEnum;\n")
-    file.write("  vector<string> FragmentEnum;\n\n")
-
-    file.write("  void InitEnumeration()\n")
-    file.write("  {\n")
-
     for s in vertexShaders:
-        file.write("    VertexEnum.push_back(\"%s\");\n" % (os.path.abspath(os.path.join(shaderDir, s))))
+        file.write("  VertexEnum.push_back(\"%s\");\n" % (os.path.abspath(os.path.join(shaderDir, s))))
     for s in fragmentShaders:
-        file.write("    FragmentEnum.push_back(\"%s\");\n" % (os.path.abspath(os.path.join(shaderDir, s))))
+        file.write("  FragmentEnum.push_back(\"%s\");\n" % (os.path.abspath(os.path.join(shaderDir, s))))
 
-    file.write("  }\n")
-    file.write("}\n")
+    file.write("}\n\n")
+    file.write("} // namespace gpu_test\n")
 
 if len(sys.argv) < 4:
   print "Usage : " + sys.argv[0] + " <shader_dir> <index_file_name> <generate_file_name>"

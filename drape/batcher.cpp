@@ -9,9 +9,11 @@
 
 namespace
 {
-  uint32_t const AllocateIndexCount = 9000;
-  uint32_t const AllocateVertexCount = 10000;
-}
+
+uint32_t const AllocateIndexCount = 9000;
+uint32_t const AllocateVertexCount = 10000;
+
+} // namespace
 
 class Batcher::CallbacksWrapper
 {

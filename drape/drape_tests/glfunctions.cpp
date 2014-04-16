@@ -42,12 +42,12 @@ void GLFunctions::glDeleteBuffer(uint32_t vbo)
   MOCK_CALL(glDeleteBuffer(vbo));
 }
 
-void GLFunctions::glBufferData(glConst target, uint32_t size, const void * data, glConst usage)
+void GLFunctions::glBufferData(glConst target, uint32_t size, void const * data, glConst usage)
 {
   MOCK_CALL(glBufferData(target, size, data, usage));
 }
 
-void GLFunctions::glBufferSubData(glConst target, uint32_t size, const void *data, uint32_t offset)
+void GLFunctions::glBufferSubData(glConst target, uint32_t size, void const * data, uint32_t offset)
 {
   MOCK_CALL(glBufferSubData(target, size, data, offset));
 }
@@ -57,7 +57,7 @@ uint32_t GLFunctions::glCreateShader(glConst type)
   return MOCK_CALL(glCreateShader(type));
 }
 
-void GLFunctions::glShaderSource(uint32_t shaderID, const string & src)
+void GLFunctions::glShaderSource(uint32_t shaderID, string const & src)
 {
   MOCK_CALL(glShaderSource(shaderID, src));
 }
@@ -102,12 +102,12 @@ void GLFunctions::glUseProgram(uint32_t programID)
   MOCK_CALL(glUseProgram(programID));
 }
 
-int8_t GLFunctions::glGetAttribLocation(uint32_t programID, const string & name)
+int8_t GLFunctions::glGetAttribLocation(uint32_t programID, string const & name)
 {
   return MOCK_CALL(glGetAttribLocation(programID, name));
 }
 
-void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, const string & name)
+void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, string const & name)
 {
 
 }
@@ -128,7 +128,7 @@ void GLFunctions::glVertexAttributePointer(int32_t attrLocation,
   MOCK_CALL(glVertexAttributePointer(attrLocation, count, type, needNormalize, stride, offset));
 }
 
-int8_t GLFunctions::glGetUniformLocation(uint32_t programID, const string & name)
+int8_t GLFunctions::glGetUniformLocation(uint32_t programID, string const & name)
 {
   return MOCK_CALL(glGetUniformLocation(programID, name));
 }
@@ -173,7 +173,7 @@ void GLFunctions::glUniformValuef(int8_t location, float v1, float v2, float v3,
   MOCK_CALL(glUniformValuef(location, v1, v2, v3, v4));
 }
 
-void GLFunctions::glUniformMatrix4x4Value(int8_t location, const float * values)
+void GLFunctions::glUniformMatrix4x4Value(int8_t location, float const * values)
 {
   MOCK_CALL(glUniformMatrix4x4Value(location, values));
 }
@@ -194,7 +194,7 @@ int32_t GLFunctions::glGetProgramiv(uint32_t program, glConst paramName)
 }
 
 void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
-                                     int32_t *uniformSize, glConst *type, string &name)
+                                     int32_t * uniformSize, glConst * type, string &name)
 {
   MOCK_CALL(glGetActiveUniform(programID, uniformIndex, uniformSize, type, name));
 }

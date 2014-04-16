@@ -4,46 +4,46 @@
 #include "../base/assert.hpp"
 
 #ifdef DEBUG
-#include "../std/map.hpp"
+  #include "../std/map.hpp"
 
-class UniformValidator
-{
-private:
-  uint32_t m_programID;
-  map<string, UniformTypeAndSize> m_uniformsMap;
-
-public:
-  UniformValidator(uint32_t programId)
-    : m_programID(programId)
+  class UniformValidator
   {
-    int32_t numberOfUnis = GLFunctions::glGetProgramiv(m_programID, GLConst::GLActiveUniforms);
-    for (size_t unIndex = 0; unIndex < numberOfUnis; ++unIndex)
-    {
-      string name;
-      glConst type;
-      UniformSize size;
-      GLCHECK(GLFunctions::glGetActiveUniform(m_programID, unIndex, &size, &type, name));
-      m_uniformsMap[name] = make_pair(type, size);
-    }
-  }
+  private:
+    uint32_t m_programID;
+    map<string, UniformTypeAndSize> m_uniformsMap;
 
-  bool HasValidTypeAndSizeForName(string const & name, glConst type, UniformSize size)
+  public:
+    UniformValidator(uint32_t programId)
+      : m_programID(programId)
+    {
+      int32_t numberOfUnis = GLFunctions::glGetProgramiv(m_programID, gl_const::GLActiveUniforms);
+      for (size_t unIndex = 0; unIndex < numberOfUnis; ++unIndex)
+      {
+        string name;
+        glConst type;
+        UniformSize size;
+        GLCHECK(GLFunctions::glGetActiveUniform(m_programID, unIndex, &size, &type, name));
+        m_uniformsMap[name] = make_pair(type, size);
+      }
+    }
+
+    bool HasValidTypeAndSizeForName(string const & name, glConst type, UniformSize size)
+    {
+      map<string, UniformTypeAndSize>::iterator it = m_uniformsMap.find(name);
+      if (it != m_uniformsMap.end())
+      {
+        UniformTypeAndSize actualParams = (*it).second;
+        return type == actualParams.first && size == actualParams.second;
+      }
+      else
+        return false;
+    }
+  };
+
+  bool GpuProgram::HasUniform(string const & name, glConst type, UniformSize size)
   {
-    map<string, UniformTypeAndSize>::iterator it = m_uniformsMap.find(name);
-    if (it != m_uniformsMap.end())
-    {
-      UniformTypeAndSize actualParams = (*it).second;
-      return type == actualParams.first && size == actualParams.second;
-    }
-    else
-      return false;
+    return m_validator->HasValidTypeAndSizeForName(name, type, size);
   }
-};
-
-bool GpuProgram::HasUniform(string const & name, glConst type, UniformSize size)
-{
-  return m_validator->HasValidTypeAndSizeForName(name, type, size);
-}
 #endif // UniformValidator
 
 
@@ -81,12 +81,12 @@ void GpuProgram::Unbind()
   GLFunctions::glUseProgram(0);
 }
 
-int8_t GpuProgram::GetAttributeLocation(const string & attributeName) const
+int8_t GpuProgram::GetAttributeLocation(string const & attributeName) const
 {
   return GLFunctions::glGetAttribLocation(m_programID, attributeName);
 }
 
-int8_t GpuProgram::GetUniformLocation(const string & uniformName) const
+int8_t GpuProgram::GetUniformLocation(string const & uniformName) const
 {
   return GLFunctions::glGetUniformLocation(m_programID, uniformName);
 }

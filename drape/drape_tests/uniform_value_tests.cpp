@@ -11,7 +11,6 @@
 
 #include <gmock/gmock.h>
 
-
 using ::testing::_;
 using ::testing::Return;
 using ::testing::AnyOf;
@@ -21,72 +20,74 @@ using ::testing::InSequence;
 
 namespace
 {
-  template<typename T>
-  class MemoryComparer
+
+template<typename T>
+class MemoryComparer
+{
+public:
+  MemoryComparer(T const * memory, uint32_t size)
+    : m_result(false)
+    , m_memory(memory)
+    , m_size(size)
   {
-  public:
-    MemoryComparer(const T * memory, uint32_t size)
-      : m_result(false)
-      , m_memory(memory)
-      , m_size(size)
-    {
-    }
+  }
 
-    void Compare(int32_t id, const T * memory)
-    {
-      m_result = memcmp(m_memory, memory, m_size) == 0;
-    }
+  void Compare(int32_t id, T const * memory)
+  {
+    m_result = memcmp(m_memory, memory, m_size) == 0;
+  }
 
-    bool GetResult() const
-    {
-      return m_result;
-    }
+  bool GetResult() const
+  {
+    return m_result;
+  }
 
-  private:
-    bool m_result;
-    const T * m_memory;
-    uint32_t m_size;
-  };
+private:
+  bool m_result;
+  T const * m_memory;
+  uint32_t m_size;
+};
 
 #ifdef DEBUG
-  void mock_glGetActiveUniform(uint32_t programID,
-                               uint32_t index,
-                               int32_t * size,
-                               glConst * type,
-                               string & name)
+void mock_glGetActiveUniform(uint32_t programID,
+                             uint32_t index,
+                             int32_t * size,
+                             glConst * type,
+                             string & name)
+{
+  *size = 1;
+  if (index < 9)
   {
-    *size = 1;
-    if (index < 9)
+    static pair<string, glConst> mockUniforms[9] =
     {
-      static pair<string, glConst> mockUniforms[9] =
-      {
-        make_pair("position0", GLConst::GLIntType),
-        make_pair("position1", GLConst::GLIntVec2),
-        make_pair("position2", GLConst::GLIntVec3),
-        make_pair("position3", GLConst::GLIntVec4),
-        make_pair("position4", GLConst::GLFloatType),
-        make_pair("position5", GLConst::GLFloatVec2),
-        make_pair("position6", GLConst::GLFloatVec3),
-        make_pair("position7", GLConst::GLFloatVec4),
-        make_pair("viewModel", GLConst::GLFloatMat4)
-      };
-      name = mockUniforms[index].first;
-      *type = mockUniforms[index].second;
-    }
-    else
-      ASSERT(false, ("Undefined index:", index));
+      make_pair("position0", gl_const::GLIntType),
+      make_pair("position1", gl_const::GLIntVec2),
+      make_pair("position2", gl_const::GLIntVec3),
+      make_pair("position3", gl_const::GLIntVec4),
+      make_pair("position4", gl_const::GLFloatType),
+      make_pair("position5", gl_const::GLFloatVec2),
+      make_pair("position6", gl_const::GLFloatVec3),
+      make_pair("position7", gl_const::GLFloatVec4),
+      make_pair("viewModel", gl_const::GLFloatMat4)
+    };
+    name = mockUniforms[index].first;
+    *type = mockUniforms[index].second;
   }
-#endif
+  else
+    ASSERT(false, ("Undefined index:", index));
 }
+#endif
+
+} // namespace
 
 UNIT_TEST(UniformValueTest)
 {
-  const uint32_t VertexShaderID = 1;
-  const uint32_t FragmentShaderID = 2;
-  const uint32_t ProgramID = 3;
+  uint32_t const VertexShaderID = 1;
+  uint32_t const FragmentShaderID = 2;
+  uint32_t const ProgramID = 3;
 
-  const int32_t positionLoc = 10;
-  const int32_t modelViewLoc = 11;
+  int32_t const positionLoc = 10;
+  int32_t const modelViewLoc = 11;
 
 
   float matrix[16] =
@@ -102,11 +103,11 @@ UNIT_TEST(UniformValueTest)
   {
     InSequence seq;
     // vertexShader->Ref()
-    EXPECTGL(glCreateShader(GLConst::GLVertexShader)).WillOnce(Return(VertexShaderID));
+    EXPECTGL(glCreateShader(gl_const::GLVertexShader)).WillOnce(Return(VertexShaderID));
     EXPECTGL(glShaderSource(VertexShaderID, _)).Times(1);
     EXPECTGL(glCompileShader(VertexShaderID, _)).WillOnce(Return(true));
     // fragmentShader->Ref()
-    EXPECTGL(glCreateShader(GLConst::GLFragmentShader)).WillOnce(Return(FragmentShaderID));
+    EXPECTGL(glCreateShader(gl_const::GLFragmentShader)).WillOnce(Return(FragmentShaderID));
     EXPECTGL(glShaderSource(FragmentShaderID, _)).Times(1);
     EXPECTGL(glCompileShader(FragmentShaderID, _)).WillOnce(Return(true));
 
@@ -120,7 +121,7 @@ UNIT_TEST(UniformValueTest)
     EXPECTGL(glDetachShader(ProgramID, FragmentShaderID));
 
 #ifdef DEBUG
-    EXPECTGL(glGetProgramiv(ProgramID, GLConst::GLActiveUniforms)).WillOnce(Return(9));
+    EXPECTGL(glGetProgramiv(ProgramID, gl_const::GLActiveUniforms)).WillOnce(Return(9));
     EXPECTGL(glGetActiveUniform(ProgramID, _, _, _, _)).Times(9).WillRepeatedly(Invoke(mock_glGetActiveUniform));
 #endif
 

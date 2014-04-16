@@ -16,100 +16,102 @@
 
 namespace df
 {
-  class BaseTileMessage : public Message
+
+class BaseTileMessage : public Message
+{
+public:
+  BaseTileMessage(TileKey const & key, Message::Type type)
+    : m_tileKey(key)
   {
-  public:
-    BaseTileMessage(const TileKey & key, Message::Type type)
-      : m_tileKey(key)
-    {
-      SetType(type);
-    }
+    SetType(type);
+  }
 
-    const TileKey & GetKey() const { return m_tileKey; }
+  TileKey const & GetKey() const { return m_tileKey; }
 
-  private:
-    TileKey m_tileKey;
-  };
+private:
+  TileKey m_tileKey;
+};
 
-  class TileReadStartMessage : public BaseTileMessage
+class TileReadStartMessage : public BaseTileMessage
+{
+public:
+  TileReadStartMessage(TileKey const & key)
+    : BaseTileMessage(key, Message::TileReadStarted) {}
+};
+
+class TileReadEndMessage : public BaseTileMessage
+{
+public:
+  TileReadEndMessage(TileKey const & key)
+    : BaseTileMessage(key, Message::TileReadEnded) {}
+};
+
+class FlushRenderBucketMessage : public BaseTileMessage
+{
+public:
+  FlushRenderBucketMessage(TileKey const & key, GLState const & state, TransferPointer<RenderBucket> buffer)
+    : BaseTileMessage(key, Message::FlushTile)
+    , m_state(state)
+    , m_buffer(buffer)
   {
-  public:
-    TileReadStartMessage(const TileKey & key)
-      : BaseTileMessage(key, Message::TileReadStarted) {}
-  };
+  }
 
-  class TileReadEndMessage : public BaseTileMessage
+  ~FlushRenderBucketMessage()
   {
-  public:
-    TileReadEndMessage(const TileKey & key)
-      : BaseTileMessage(key, Message::TileReadEnded) {}
-  };
+    m_buffer.Destroy();
+  }
 
-  class FlushRenderBucketMessage : public BaseTileMessage
+  GLState const & GetState() const { return m_state; }
+  MasterPointer<RenderBucket> AcceptBuffer() { return MasterPointer<RenderBucket>(m_buffer); }
+
+private:
+  GLState m_state;
+  TransferPointer<RenderBucket> m_buffer;
+};
+
+class ResizeMessage : public Message
+{
+public:
+  ResizeMessage(Viewport const & viewport) : m_viewport(viewport)
   {
-  public:
-    FlushRenderBucketMessage(const TileKey & key, const GLState state, TransferPointer<RenderBucket> buffer)
-      : BaseTileMessage(key, Message::FlushTile)
-      , m_state(state)
-      , m_buffer(buffer)
-    {
-    }
+    SetType(Resize);
+  }
 
-    ~FlushRenderBucketMessage()
-    {
-      m_buffer.Destroy();
-    }
+  Viewport const & GetViewport() const { return m_viewport; }
 
-    const GLState & GetState() const { return m_state; }
-    MasterPointer<RenderBucket> AcceptBuffer() { return MasterPointer<RenderBucket>(m_buffer); }
+private:
+  Viewport m_viewport;
+};
 
-  private:
-    GLState m_state;
-    TransferPointer<RenderBucket> m_buffer;
-  };
-
-  class ResizeMessage : public Message
+class UpdateModelViewMessage : public Message
+{
+public:
+  UpdateModelViewMessage(ScreenBase const & screen)
+    : m_screen(screen)
   {
-  public:
-    ResizeMessage(Viewport const & viewport) : m_viewport(viewport)
-    {
-      SetType(Resize);
-    }
+    SetType(UpdateModelView);
+  }
 
-    const Viewport & GetViewport() const { return m_viewport; }
+  ScreenBase const & GetScreen() const { return m_screen; }
 
-  private:
-    Viewport m_viewport;
-  };
+private:
+  ScreenBase m_screen;
+};
 
-  class UpdateModelViewMessage : public Message
+class UpdateReadManagerMessage : public UpdateModelViewMessage
+{
+public:
+  UpdateReadManagerMessage(ScreenBase const & screen, shared_ptr<set<TileKey> > const & tiles)
+    : UpdateModelViewMessage(screen)
+    , m_tiles(tiles)
   {
-  public:
-    UpdateModelViewMessage(ScreenBase const & screen)
-      : m_screen(screen)
-    {
-      SetType(UpdateModelView);
-    }
+    SetType(UpdateReadManager);
+  }
 
-    ScreenBase const & GetScreen() const { return m_screen; }
+  set<TileKey> const & GetTiles() const { return *m_tiles; }
 
-  private:
-    ScreenBase m_screen;
-  };
+private:
+  shared_ptr<set<TileKey> > m_tiles;
+};
 
-  class UpdateReadManagerMessage : public UpdateModelViewMessage
-  {
-  public:
-    UpdateReadManagerMessage(ScreenBase const & screen, shared_ptr<set<TileKey> > const & tiles)
-      : UpdateModelViewMessage(screen)
-      , m_tiles(tiles)
-    {
-      SetType(UpdateReadManager);
-    }
-
-    set<TileKey> const & GetTiles() const { return *m_tiles; }
-
-  private:
-    shared_ptr<set<TileKey> > m_tiles;
-  };
-}
+} // namespace df

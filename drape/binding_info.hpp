@@ -13,8 +13,8 @@ struct BindingDecl
   uint8_t   m_stride;
   uint16_t  m_offset;
 
-  bool operator != (const BindingDecl & other) const;
-  bool operator < (const BindingDecl & other) const;
+  bool operator != (BindingDecl const & other) const;
+  bool operator < (BindingDecl const & other) const;
 };
 
 class BindingInfo
@@ -25,11 +25,11 @@ public:
   ~BindingInfo();
 
   uint16_t GetCount() const;
-  const BindingDecl & GetBindingDecl(uint16_t index) const;
+  BindingDecl const & GetBindingDecl(uint16_t index) const;
   BindingDecl & GetBindingDecl(uint16_t index);
   uint16_t GetElementSize() const;
 
-  bool operator< (const BindingInfo & other) const;
+  bool operator< (BindingInfo const & other) const;
 
 protected:
   shared_array<BindingDecl> m_bindings;

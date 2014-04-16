@@ -13,25 +13,27 @@ class FeatureType;
 
 namespace df
 {
-  class EngineContext;
-  class Stylist;
-  typedef function<void (FeatureType const &, Stylist &)> drawer_callback_fn;
 
-  class RuleDrawer
-  {
-  public:
-    RuleDrawer(drawer_callback_fn const & fn,
-               TileKey const & tileKey,
-               EngineContext & context);
+class EngineContext;
+class Stylist;
+typedef function<void (FeatureType const &, Stylist &)> drawer_callback_fn;
 
-    void operator() (FeatureType const & f);
+class RuleDrawer
+{
+public:
+  RuleDrawer(drawer_callback_fn const & fn,
+             TileKey const & tileKey,
+             EngineContext & context);
 
-  private:
-    drawer_callback_fn m_callback;
-    TileKey m_tileKey;
-    EngineContext & m_context;
-    m2::RectD m_globalRect;
-    ScreenBase m_geometryConvertor;
-    set<string> m_coastlines;
-  };
-}
+  void operator() (FeatureType const & f);
+
+private:
+  drawer_callback_fn m_callback;
+  TileKey m_tileKey;
+  EngineContext & m_context;
+  m2::RectD m_globalRect;
+  ScreenBase m_geometryConvertor;
+  set<string> m_coastlines;
+};
+
+} // namespace dfo

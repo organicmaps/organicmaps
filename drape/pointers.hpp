@@ -138,7 +138,7 @@ class TransferPointer : public DrapePointer<T>
 {
   typedef DrapePointer<T> base_t;
 public:
-  TransferPointer(const TransferPointer<T> & other)
+  TransferPointer(TransferPointer<T> const & other)
     : base_t(other)
   {
     ASSERT(GET_CHECK_FLAG(other), ());
@@ -180,7 +180,7 @@ public:
   ~RefPointer() { base_t::Reset(NULL); }
 
   template <typename Y>
-  RefPointer(const RefPointer<Y> & p) : base_t(p.GetNonConstRaw(), GET_CHECK_FLAG(p)) {}
+  RefPointer(RefPointer<Y> const & p) : base_t(p.GetNonConstRaw(), GET_CHECK_FLAG(p)) {}
 
   bool IsContentLess(RefPointer<T> const & other) const { return *GetRaw() < *other.GetRaw(); }
   bool IsNull() const          { return base_t::GetRaw() == NULL; }

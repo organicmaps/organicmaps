@@ -7,10 +7,10 @@
 #include "../drape/uniform_values_storage.hpp"
 
 #if defined(USE_TESTING_ENGINE)
-  #include "testing_engine.hpp"
-  #define DrapeEngine TestingEngine
+#include "testing_engine.hpp"
+#define DrapeEngine TestingEngine
 #else
-  #include "../drape_frontend/drape_engine.hpp"
+#include "../drape_frontend/drape_engine.hpp"
 #endif
 
 #include <QtGui/QWindow>
@@ -37,7 +37,7 @@ private:
   Q_SLOT void sizeChanged(int);
 
 private:
-  m2::PointF GetDevicePosition(const QPoint & p);
+  m2::PointF GetDevicePosition(QPoint const & p);
 
   bool m_dragState;
 

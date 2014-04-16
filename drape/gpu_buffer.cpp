@@ -6,9 +6,9 @@
 glConst glTarget(GPUBuffer::Target t)
 {
   if (t == GPUBuffer::ElementBuffer)
-    return GLConst::GLArrayBuffer;
+    return gl_const::GLArrayBuffer;
 
-  return GLConst::GLElementArrayBuffer;
+  return gl_const::GLElementArrayBuffer;
 }
 
 GPUBuffer::GPUBuffer(Target t, uint8_t elementSize, uint16_t capacity)
@@ -44,5 +44,5 @@ void GPUBuffer::Resize(uint16_t elementCount)
 {
   base_t::Resize(elementCount);
   Bind();
-  GLFunctions::glBufferData(glTarget(m_t), GetCapacity() * GetElementSize(), NULL, GLConst::GLStaticDraw);
+  GLFunctions::glBufferData(glTarget(m_t), GetCapacity() * GetElementSize(), NULL, gl_const::GLStaticDraw);
 }

@@ -32,68 +32,70 @@ class RenderBucket;
 
 namespace df
 {
-  class FrontendRenderer : public MessageAcceptor,
-                           public threads::IRoutine
-  {
-  public:
-    FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
-                     RefPointer<OGLContextFactory> oglcontextfactory,
-                     TransferPointer<TextureSetController> textureController,
-                     Viewport viewport);
 
-    ~FrontendRenderer();
+class FrontendRenderer : public MessageAcceptor,
+                         public threads::IRoutine
+{
+public:
+  FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
+                   RefPointer<OGLContextFactory> oglcontextfactory,
+                   TransferPointer<TextureSetController> textureController,
+                   Viewport viewport);
+
+  ~FrontendRenderer();
 
 #ifdef DRAW_INFO
-    double m_tpf;
-    double m_fps;
+  double m_tpf;
+  double m_fps;
 
-    my::Timer m_timer;
-    double m_frameStartTime;
-    vector<double> m_tpfs;
-    int m_drawedFrames;
+  my::Timer m_timer;
+  double m_frameStartTime;
+  vector<double> m_tpfs;
+  int m_drawedFrames;
 
-    void BeforeDrawFrame();
-    void AfterDrawFrame();
+  void BeforeDrawFrame();
+  void AfterDrawFrame();
 #endif
 
-  protected:
-    virtual void AcceptMessage(RefPointer<Message> message);
+protected:
+  virtual void AcceptMessage(RefPointer<Message> message);
 
-  private:
-    void RenderScene();
-    void RefreshProjection();
-    void RefreshModelView();
+private:
+  void RenderScene();
+  void RefreshProjection();
+  void RefreshModelView();
 
-    void ResolveTileKeys();
-    set<TileKey> & GetTileKeyStorage();
+  void ResolveTileKeys();
+  set<TileKey> & GetTileKeyStorage();
 
-  private:
-    void StartThread();
-    void StopThread();
-    void ThreadMain();
-    void ReleaseResources();
+private:
+  void StartThread();
+  void StopThread();
+  void ThreadMain();
+  void ReleaseResources();
 
-    virtual void Do();
+  virtual void Do();
 
-  private:
-    void DeleteRenderData();
+private:
+  void DeleteRenderData();
 
-  private:
-    RefPointer<ThreadsCommutator> m_commutator;
-    RefPointer<OGLContextFactory> m_contextFactory;
-    MasterPointer<TextureSetController> m_textureController;
-    MasterPointer<GpuProgramManager> m_gpuProgramManager;
-    threads::Thread m_selfThread;
+private:
+  RefPointer<ThreadsCommutator> m_commutator;
+  RefPointer<OGLContextFactory> m_contextFactory;
+  MasterPointer<TextureSetController> m_textureController;
+  MasterPointer<GpuProgramManager> m_gpuProgramManager;
+  threads::Thread m_selfThread;
 
-  private:
-    vector<RenderGroup *> m_renderGroups;
+private:
+  vector<RenderGroup *> m_renderGroups;
 
-    UniformValuesStorage m_generalUniforms;
+  UniformValuesStorage m_generalUniforms;
 
-    Viewport m_viewport;
-    ScreenBase m_view;
-    shared_ptr<set<TileKey> > m_tiles;
+  Viewport m_viewport;
+  ScreenBase m_view;
+  shared_ptr<set<TileKey> > m_tiles;
 
-    OverlayTree m_overlayTree;
-  };
-}
+  OverlayTree m_overlayTree;
+};
+
+} // namespace df

@@ -4,33 +4,37 @@
 
 namespace testing
 {
-  namespace internal
+
+namespace internal
+{
+
+class MwmFailureReporter : public FailureReporterInterface
+{
+  bool m_throwed;
+public:
+  MwmFailureReporter()
+    : m_throwed(false) {}
+
+  virtual void ReportFailure(FailureType type,
+                             char const * file,
+                             int line,
+                             string const & message)
   {
-    class MwmFailureReporter : public FailureReporterInterface
+    if (!m_throwed)
     {
-      bool m_throwed;
-    public:
-      MwmFailureReporter()
-        : m_throwed(false) {}
-
-      virtual void ReportFailure(FailureType type,
-                                 const char* file,
-                                 int line,
-                                 const string& message)
-      {
-        if (!m_throwed)
-        {
-          m_throwed = true;
-          my::OnTestFailed(my::SrcPoint(file == NULL ? "" : file,
-                                        line, ""), message);
-        }
-      }
-    };
-
-    FailureReporterInterface * GetFailureReporter()
-    {
-      static MwmFailureReporter reporter;
-      return &reporter;
+      m_throwed = true;
+      my::OnTestFailed(my::SrcPoint(file == NULL ? "" : file,
+                                    line, ""), message);
     }
   }
+};
+
+FailureReporterInterface * GetFailureReporter()
+{
+  static MwmFailureReporter reporter;
+  return &reporter;
 }
+
+} // namespace internal
+
+} // namespace testing

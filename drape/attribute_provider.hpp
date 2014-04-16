@@ -15,13 +15,13 @@ public:
   uint16_t GetVertexCount() const;
 
   uint8_t GetStreamCount() const;
-  const void * GetRawPointer(uint8_t streamIndex);
-  const BindingInfo & GetBindingInfo(uint8_t streamIndex) const;
+  void const * GetRawPointer(uint8_t streamIndex);
+  BindingInfo const & GetBindingInfo(uint8_t streamIndex) const;
 
   void Advance(uint16_t vertexCount);
 
   void InitStream(uint8_t streamIndex,
-                  const BindingInfo & bindingInfo,
+                  BindingInfo const & bindingInfo,
                   RefPointer<void> data);
 
 private:

@@ -13,7 +13,7 @@ public:
   };
 
   static GLExtensionsList & Instance();
-  bool IsSupported(const ExtensionName & extName) const;
+  bool IsSupported(ExtensionName const & extName) const;
 
 private:
   GLExtensionsList();

@@ -4,26 +4,28 @@
 
 namespace
 {
-  #include "glIncludes.hpp"
-  uint16_t sizeOfType(glConst type)
-  {
-    if (type == GLConst::GLByteType || type == GLConst::GLUnsignedByteType)
-      return sizeof(GLbyte);
-    else if (type == GLConst::GLShortType || type == GLConst::GLUnsignedShortType)
-      return sizeof(GLshort);
-    else if (type == GLConst::GLIntType || type == GLConst::GLUnsignedIntType)
-      return sizeof(GLint);
-    else if (type == GLConst::GLFloatType)
-      return sizeof(GLfloat);
-    else if (type == GLConst::GLDoubleType)
-      return sizeof(GLdouble);
 
-    ASSERT(false, ());
-    return 0;
-  }
+#include "glIncludes.hpp"
+uint16_t sizeOfType(glConst type)
+{
+  if (type == gl_const::GLByteType || type == gl_const::GLUnsignedByteType)
+    return sizeof(GLbyte);
+  else if (type == gl_const::GLShortType || type == gl_const::GLUnsignedShortType)
+    return sizeof(GLshort);
+  else if (type == gl_const::GLIntType || type == gl_const::GLUnsignedIntType)
+    return sizeof(GLint);
+  else if (type == gl_const::GLFloatType)
+    return sizeof(GLfloat);
+  else if (type == gl_const::GLDoubleType)
+    return sizeof(GLdouble);
+
+  ASSERT(false, ());
+  return 0;
 }
 
-bool BindingDecl::operator !=(const BindingDecl & other) const
+} // namespace
+
+bool BindingDecl::operator!=(BindingDecl const & other) const
 {
   return m_attributeName != other.m_attributeName ||
       m_componentCount != other.m_componentCount  ||
@@ -32,7 +34,7 @@ bool BindingDecl::operator !=(const BindingDecl & other) const
       m_offset != other.m_offset;
 }
 
-bool BindingDecl::operator <(const BindingDecl & other) const
+bool BindingDecl::operator<(BindingDecl const & other) const
 {
   if (m_attributeName != other.m_attributeName)
     return m_attributeName < other.m_attributeName;
@@ -65,7 +67,7 @@ uint16_t BindingInfo::GetCount() const
   return m_size;
 }
 
-const BindingDecl & BindingInfo::GetBindingDecl(uint16_t index) const
+BindingDecl const & BindingInfo::GetBindingDecl(uint16_t index) const
 {
   ASSERT_LESS(index, m_size, ());
   return m_bindings[index];
@@ -93,7 +95,7 @@ uint16_t BindingInfo::GetElementSize() const
   return calcStride;
 }
 
-bool BindingInfo::operator< (const BindingInfo & other) const
+bool BindingInfo::operator<(BindingInfo const & other) const
 {
   if (m_size != other.m_size)
     return m_size < other.m_size;

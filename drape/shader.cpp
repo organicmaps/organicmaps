@@ -5,16 +5,18 @@
 
 namespace
 {
-  glConst convert(Shader::Type t)
-  {
-    if (t == Shader::VertexShader)
-      return GLConst::GLVertexShader;
 
-    return GLConst::GLFragmentShader;
-  }
+glConst convert(Shader::Type t)
+{
+  if (t == Shader::VertexShader)
+    return gl_const::GLVertexShader;
+
+  return gl_const::GLFragmentShader;
 }
 
-Shader::Shader(const string & shaderSource, Type type)
+} // namespace
+
+Shader::Shader(string const & shaderSource, Type type)
   : m_source(shaderSource)
   , m_type(type)
   , m_glID(0)

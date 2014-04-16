@@ -25,7 +25,8 @@ public:
   };
 
   OverlayHandle(FeatureID const & id,
-                Anchor anchor, m2::PointD const & gbPivot,
+                Anchor anchor,
+                m2::PointD const & gbPivot,
                 m2::PointD const & pxSize,
                 double priority);
 

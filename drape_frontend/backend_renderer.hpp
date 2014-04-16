@@ -15,55 +15,52 @@ class TextureSetHolder;
 
 namespace df
 {
-  class Message;
-  class ThreadsCommutator;
-  class BatchersPool;
-  class ReadManager;
 
-  class BackendRenderer : public MessageAcceptor,
-                          public threads::IRoutine
-  {
-  public:
-    BackendRenderer(RefPointer<ThreadsCommutator> commutator,
-                    RefPointer<OGLContextFactory> oglcontextfactory,
-                    RefPointer<TextureSetHolder> textureHolder);
+class Message;
+class ThreadsCommutator;
+class BatchersPool;
+class ReadManager;
 
-    ~BackendRenderer();
+class BackendRenderer : public MessageAcceptor,
+                        public threads::IRoutine
+{
+public:
+  BackendRenderer(RefPointer<ThreadsCommutator> commutator,
+                  RefPointer<OGLContextFactory> oglcontextfactory,
+                  RefPointer<TextureSetHolder> textureHolder);
 
-  private:
-    void TileReadStarted(const TileKey & key);
-    void TileReadEnded(const TileKey & key);
-    void ShapeReaded(const TileKey & key, MapShape const * shape);
+  ~BackendRenderer();
 
-  private:
-    model::FeaturesFetcher m_model;
-    EngineContext m_engineContext;
-    MasterPointer<BatchersPool> m_batchersPool;
-    MasterPointer<ReadManager>  m_readManager;
+private:
+  model::FeaturesFetcher m_model;
+  EngineContext m_engineContext;
+  MasterPointer<BatchersPool> m_batchersPool;
+  MasterPointer<ReadManager>  m_readManager;
+
+  /////////////////////////////////////////
+  //           MessageAcceptor           //
+  /////////////////////////////////////////
+private:
+  void AcceptMessage(RefPointer<Message> message);
 
     /////////////////////////////////////////
-    //           MessageAcceptor           //
+    //             ThreadPart              //
     /////////////////////////////////////////
-  private:
-    void AcceptMessage(RefPointer<Message> message);
+private:
+  void StartThread();
+  void StopThread();
+  void ThreadMain();
+  void ReleaseResources();
+  virtual void Do();
 
-      /////////////////////////////////////////
-      //             ThreadPart              //
-      /////////////////////////////////////////
-  private:
-    void StartThread();
-    void StopThread();
-    void ThreadMain();
-    void ReleaseResources();
-    virtual void Do();
+  void InitGLDependentResource();
+  void PostToRenderThreads(TransferPointer<Message> message);
 
-    void InitGLDependentResource();
-    void PostToRenderThreads(TransferPointer<Message> message);
+private:
+  threads::Thread m_selfThread;
+  RefPointer<ThreadsCommutator> m_commutator;
+  RefPointer<OGLContextFactory> m_contextFactory;
+  RefPointer<TextureSetHolder> m_textures;
+};
 
-  private:
-    threads::Thread m_selfThread;
-    RefPointer<ThreadsCommutator> m_commutator;
-    RefPointer<OGLContextFactory> m_contextFactory;
-    RefPointer<TextureSetHolder> m_textures;
-  };
-}
+} // namespace df

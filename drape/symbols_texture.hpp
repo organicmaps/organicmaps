@@ -11,9 +11,9 @@ public:
   class SymbolKey : public Key
   {
   public:
-    SymbolKey(const string & symbolName);
+    SymbolKey(string const & symbolName);
     virtual Type GetType() const;
-    const string & GetSymbolName() const;
+    string const & GetSymbolName() const;
 
   private:
     string m_symbolName;

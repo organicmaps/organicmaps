@@ -11,48 +11,49 @@
 #include "../std/vector.hpp"
 #include "../std/noncopyable.hpp"
 
-
 namespace model { class FeaturesFetcher; }
 
 class FeatureType;
 
 namespace df
 {
-  class EngineContext;
-  class Stylist;
 
-  class TileInfo : private noncopyable
-  {
-  public:
-    DECLARE_EXCEPTION(ReadCanceledException, RootException);
+class EngineContext;
+class Stylist;
 
-    TileInfo(TileKey const & key);
+class TileInfo : private noncopyable
+{
+public:
+  DECLARE_EXCEPTION(ReadCanceledException, RootException);
 
-    void ReadFeatureIndex(model::FeaturesFetcher const & model);
-    void ReadFeatures(model::FeaturesFetcher const & model,
-                      MemoryFeatureIndex & memIndex,
-                      EngineContext & context);
-    void Cancel(MemoryFeatureIndex & memIndex);
+  TileInfo(TileKey const & key);
 
-    m2::RectD GetGlobalRect() const;
-    TileKey const & GetTileKey() const { return m_key; }
+  void ReadFeatureIndex(model::FeaturesFetcher const & model);
+  void ReadFeatures(model::FeaturesFetcher const & model,
+                    MemoryFeatureIndex & memIndex,
+                    EngineContext & context);
+  void Cancel(MemoryFeatureIndex & memIndex);
 
-    void operator ()(FeatureID const & id);
-    bool operator <(TileInfo const & other) const { return m_key < other.m_key; }
+  m2::RectD GetGlobalRect() const;
+  TileKey const & GetTileKey() const { return m_key; }
 
-  private:
-    void InitStylist(FeatureType const & f, Stylist & s);
-    void RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes);
-    void CheckCanceled() const;
-    bool DoNeedReadIndex() const;
+  void operator ()(FeatureID const & id);
+  bool operator <(TileInfo const & other) const { return m_key < other.m_key; }
 
-    int GetZoomLevel() const;
+private:
+  void InitStylist(FeatureType const & f, Stylist & s);
+  void RequestFeatures(MemoryFeatureIndex & memIndex, vector<size_t> & featureIndexes);
+  void CheckCanceled() const;
+  bool DoNeedReadIndex() const;
 
-  private:
-    TileKey m_key;
-    vector<FeatureInfo> m_featureInfo;
+  int GetZoomLevel() const;
 
-    bool m_isCanceled;
-    threads::Mutex m_mutex;
-  };
-}
+private:
+  TileKey m_key;
+  vector<FeatureInfo> m_featureInfo;
+
+  bool m_isCanceled;
+  threads::Mutex m_mutex;
+};
+
+} // namespace df

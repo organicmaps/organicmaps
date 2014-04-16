@@ -3,11 +3,11 @@
 
 #include "glfunctions.hpp"
 
-#include "../base/stl_add.hpp"
+#include "../platform/platform.hpp"
 
 #include "../coding/file_name_utils.hpp"
 
-#include "../platform/platform.hpp"
+#include "../base/stl_add.hpp"
 
 #include "../std/vector.hpp"
 
@@ -50,7 +50,7 @@ public:
   {
     for (size_t i = 0; i < m_textures.size(); ++i)
     {
-      GLFunctions::glActiveTexture(GLConst::GLTexture0 + i);
+      GLFunctions::glActiveTexture(gl_const::GLTexture0 + i);
       m_textures[i]->Bind();
     }
   }
@@ -65,10 +65,10 @@ private:
   uint32_t m_maxSize;
 };
 
-void TextureManager::Init(const string & resourcePostfix)
+void TextureManager::Init(string const & resourcePostfix)
 {
   // in shader we handle only 8 textures
-  m_maxTextureBlocks = min(8, GLFunctions::glGetInteger(GLConst::GLMaxFragmentTextures));
+  m_maxTextureBlocks = min(8, GLFunctions::glGetInteger(gl_const::GLMaxFragmentTextures));
   SymbolsTexture * symbols = new SymbolsTexture();
   symbols->Load(my::JoinFoldersToPath(string("resources-") + resourcePostfix, "symbols"));
 
@@ -81,7 +81,7 @@ void TextureManager::Release()
   m_textures.Destroy();
 }
 
-void TextureManager::GetSymbolRegion(const string & symbolName, TextureRegion & symbol) const
+void TextureManager::GetSymbolRegion(string const & symbolName, TextureRegion & symbol) const
 {
   SymbolsTexture::SymbolKey key(symbolName);
   symbol.m_textureSet = 0;

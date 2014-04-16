@@ -1,7 +1,10 @@
 #include "overlay_handle.hpp"
 
-OverlayHandle::OverlayHandle(const FeatureID & id, OverlayHandle::Anchor anchor, m2::PointD const & gbPivot,
-                             m2::PointD const & pxSize, double priority)
+OverlayHandle::OverlayHandle(FeatureID const & id,
+                             OverlayHandle::Anchor anchor,
+                             m2::PointD const & gbPivot,
+                             m2::PointD const & pxSize,
+                             double priority)
   : m_id(id)
   , m_anchor(anchor)
   , m_gbPivot(gbPivot)

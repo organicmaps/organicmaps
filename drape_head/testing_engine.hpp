@@ -13,33 +13,35 @@
 
 namespace df
 {
-  class TestingEngine
-  {
-  public:
-    TestingEngine(RefPointer<OGLContextFactory> oglcontextfactory, double vs, df::Viewport const & viewport);
-    ~TestingEngine();
 
-    void Draw();
-    void OnSizeChanged(int x0, int y0, int w, int h);
-    void SetAngle(float radians);
+class TestingEngine
+{
+public:
+  TestingEngine(RefPointer<OGLContextFactory> oglcontextfactory, double vs, df::Viewport const & viewport);
+  ~TestingEngine();
 
-  private:
-    void DrawImpl();
-    void ModelViewInit();
-    void ProjectionInit();
-    void OnFlushData(const GLState & state, TransferPointer<RenderBucket> vao);
-    void ClearScene();
+  void Draw();
+  void OnSizeChanged(int x0, int y0, int w, int h);
+  void SetAngle(float radians);
 
-  private:
-    RefPointer<OGLContextFactory> m_contextFactory;
-    MasterPointer<Batcher> m_batcher;
-    MasterPointer<GpuProgramManager> m_programManager;
-    MasterPointer<TextureManager> m_textures;
-    df::Viewport m_viewport;
+private:
+  void DrawImpl();
+  void ModelViewInit();
+  void ProjectionInit();
+  void OnFlushData(GLState const & state, TransferPointer<RenderBucket> vao);
+  void ClearScene();
 
-    typedef map<GLState, MasterPointer<RenderBucket> > scene_t;
-    scene_t m_scene;
+private:
+  RefPointer<OGLContextFactory> m_contextFactory;
+  MasterPointer<Batcher> m_batcher;
+  MasterPointer<GpuProgramManager> m_programManager;
+  MasterPointer<TextureManager> m_textures;
+  df::Viewport m_viewport;
 
-    UniformValuesStorage m_generalUniforms;
-  };
-}
+  typedef map<GLState, MasterPointer<RenderBucket> > scene_t;
+  scene_t m_scene;
+
+  UniformValuesStorage m_generalUniforms;
+};
+
+} // namespace df

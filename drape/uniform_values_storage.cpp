@@ -5,7 +5,7 @@
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
 
-void UniformValuesStorage::SetIntValue(const string & name, int32_t v)
+void UniformValuesStorage::SetIntValue(string const & name, int32_t v)
 {
   UniformValue * uniform = findByName(name);
   if (uniform)
@@ -14,7 +14,7 @@ void UniformValuesStorage::SetIntValue(const string & name, int32_t v)
     m_uniforms.push_back(UniformValue(name, v));
 }
 
-void UniformValuesStorage::SetIntValue(const string & name, int32_t v1, int32_t v2)
+void UniformValuesStorage::SetIntValue(string const & name, int32_t v1, int32_t v2)
 {
   UniformValue * uniform = findByName(name);
   if (uniform)
@@ -23,7 +23,7 @@ void UniformValuesStorage::SetIntValue(const string & name, int32_t v1, int32_t 
     m_uniforms.push_back(UniformValue(name, v1, v2));
 }
 
-void UniformValuesStorage::SetIntValue(const string & name, int32_t v1, int32_t v2, int32_t v3)
+void UniformValuesStorage::SetIntValue(string const & name, int32_t v1, int32_t v2, int32_t v3)
 {
   UniformValue * uniform = findByName(name);
   if (uniform)
@@ -32,7 +32,7 @@ void UniformValuesStorage::SetIntValue(const string & name, int32_t v1, int32_t 
     m_uniforms.push_back(UniformValue(name, v1, v2, v3));
 }
 
-void UniformValuesStorage::SetIntValue(const string & name, int32_t v1, int32_t v2, int32_t v3, int32_t v4)
+void UniformValuesStorage::SetIntValue(string const & name, int32_t v1, int32_t v2, int32_t v3, int32_t v4)
 {
   UniformValue * uniform = findByName(name);
   if (uniform)
@@ -41,7 +41,7 @@ void UniformValuesStorage::SetIntValue(const string & name, int32_t v1, int32_t 
     m_uniforms.push_back(UniformValue(name, v1, v2, v3, v4));
 }
 
-void UniformValuesStorage::SetFloatValue(const string & name, float v)
+void UniformValuesStorage::SetFloatValue(string const & name, float v)
 {
   UniformValue * uniform = findByName(name);
   if (uniform)
@@ -50,7 +50,7 @@ void UniformValuesStorage::SetFloatValue(const string & name, float v)
     m_uniforms.push_back(UniformValue(name, v));
 }
 
-void UniformValuesStorage::SetFloatValue(const string & name, float v1, float v2)
+void UniformValuesStorage::SetFloatValue(string const & name, float v1, float v2)
 {
   UniformValue * uniform = findByName(name);
   if (uniform)
@@ -59,7 +59,7 @@ void UniformValuesStorage::SetFloatValue(const string & name, float v1, float v2
     m_uniforms.push_back(UniformValue(name, v1, v2));
 }
 
-void UniformValuesStorage::SetFloatValue(const string & name, float v1, float v2, float v3)
+void UniformValuesStorage::SetFloatValue(string const & name, float v1, float v2, float v3)
 {
   UniformValue * uniform = findByName(name);
   if (uniform)
@@ -68,7 +68,7 @@ void UniformValuesStorage::SetFloatValue(const string & name, float v1, float v2
     m_uniforms.push_back(UniformValue(name, v1, v2, v3));
 }
 
-void UniformValuesStorage::SetFloatValue(const string & name, float v1, float v2, float v3, float v4)
+void UniformValuesStorage::SetFloatValue(string const & name, float v1, float v2, float v3, float v4)
 {
   UniformValue * uniform = findByName(name);
   if (uniform)
@@ -77,7 +77,7 @@ void UniformValuesStorage::SetFloatValue(const string & name, float v1, float v2
     m_uniforms.push_back(UniformValue(name, v1, v2, v3, v4));
 }
 
-void UniformValuesStorage::SetMatrix4x4Value(const string & name, float * matrixValue)
+void UniformValuesStorage::SetMatrix4x4Value(string const & name, float * matrixValue)
 {
   UniformValue * uniform = findByName(name);
   if (uniform)
@@ -91,7 +91,7 @@ void UniformValuesStorage::ForeachValue(enum_uniforms_fn action) const
   for_each(m_uniforms.begin(), m_uniforms.end(), action);
 }
 
-bool UniformValuesStorage::operator< (const UniformValuesStorage & other) const
+bool UniformValuesStorage::operator< (UniformValuesStorage const & other) const
 {
   if (m_uniforms.size() < other.m_uniforms.size())
     return true;
@@ -110,13 +110,15 @@ bool UniformValuesStorage::operator< (const UniformValuesStorage & other) const
 
 namespace
 {
-  bool isNameEqual(const string & name, UniformValue const & value)
-  {
-    return name == value.GetName();
-  }
+
+bool isNameEqual(string const & name, UniformValue const & value)
+{
+  return name == value.GetName();
 }
 
-UniformValue * UniformValuesStorage::findByName(const string & name)
+} // namespace
+
+UniformValue * UniformValuesStorage::findByName(string const & name)
 {
   uniforms_t::iterator it = find_if(m_uniforms.begin(), m_uniforms.end(), bind(&isNameEqual, name, _1));
   if (it == m_uniforms.end())

@@ -8,7 +8,7 @@ class GLFunctions
 public:
   static void Init();
 
-  static bool glHasExtension(const string & name);
+  static bool glHasExtension(string const & name);
   static void glClearColor(float r, float g, float b, float a);
   static void glClear();
   static void glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
@@ -37,12 +37,12 @@ public:
   static void glBindBuffer(uint32_t vbo, glConst target);
   static void glDeleteBuffer(uint32_t vbo);
   /// usage - Look GLConst
-  static void glBufferData(glConst target, uint32_t size, const void * data, glConst usage);
-  static void glBufferSubData(glConst target, uint32_t size, const void *data, uint32_t offset);
+  static void glBufferData(glConst target, uint32_t size, void const * data, glConst usage);
+  static void glBufferSubData(glConst target, uint32_t size, void const * data, uint32_t offset);
 
   /// Shaders support
   static uint32_t glCreateShader(glConst type);
-  static void glShaderSource(uint32_t shaderID, const string & src);
+  static void glShaderSource(uint32_t shaderID, string const & src);
   static bool glCompileShader(uint32_t shaderID, string & errorLog);
   static void glDeleteShader(uint32_t shaderID);
 
@@ -53,8 +53,8 @@ public:
   static void glDeleteProgram(uint32_t programID);
 
   static void glUseProgram(uint32_t programID);
-  static int8_t glGetAttribLocation(uint32_t programID, const string & name);
-  static void glBindAttribLocation(uint32_t programID, uint8_t index, const string & name);
+  static int8_t glGetAttribLocation(uint32_t programID, string const & name);
+  static void glBindAttribLocation(uint32_t programID, uint8_t index, string const & name);
 
   /// enable vertex attribute binding. To get attributeLocation need to call glGetAttributeLocation
   static void glEnableVertexAttribute(int32_t attributeLocation);
@@ -76,7 +76,7 @@ public:
   static void glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
                                  int32_t * uniformSize, glConst * type, string & name);
 
-  static int8_t glGetUniformLocation(uint32_t programID, const string & name);
+  static int8_t glGetUniformLocation(uint32_t programID, string const & name);
   static void glUniformValuei(int8_t location, int32_t v);
   static void glUniformValuei(int8_t location, int32_t v1, int32_t v2);
   static void glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3);
@@ -89,7 +89,7 @@ public:
   static void glUniformValuef(int8_t location, float v1, float v2, float v3, float v4);
   static void glUniformValuefv(int8_t location, float * v, uint32_t size);
 
-  static void glUniformMatrix4x4Value(int8_t location, const float *values);
+  static void glUniformMatrix4x4Value(int8_t location, float const *values);
 
   static uint32_t glGetCurrentProgram();
 
@@ -100,8 +100,8 @@ public:
   static uint32_t glGenTexture();
   static void glDeleteTexture(uint32_t id);
   static void glBindTexture(uint32_t textureID);
-  static void glTexImage2D(int width, int height, glConst layout, glConst pixelType, const void * data);
-  static void glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType, const void * data);
+  static void glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data);
+  static void glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType, void const * data);
   static void glTexParameter(glConst param, glConst value);
 
   // Draw support

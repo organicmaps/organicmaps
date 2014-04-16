@@ -25,49 +25,51 @@ using testing::AnyOf;
 
 namespace
 {
-  struct VAOAcceptor
+
+struct VAOAcceptor
+{
+  virtual void FlushFullBucket(GLState const & state, TransferPointer<RenderBucket> bucket)
   {
-    virtual void FlushFullBucket(const GLState & state, TransferPointer<RenderBucket> bucket)
-    {
-      MasterPointer<RenderBucket> masterBucket(bucket);
-      masterBucket->GetBuffer()->Build(m_program);
-      m_vao.push_back(masterBucket);
-    }
+    MasterPointer<RenderBucket> masterBucket(bucket);
+    masterBucket->GetBuffer()->Build(m_program);
+    m_vao.push_back(masterBucket);
+  }
 
-    vector<MasterPointer<RenderBucket> > m_vao;
-    RefPointer<GpuProgram> m_program;
-  };
+  vector<MasterPointer<RenderBucket> > m_vao;
+  RefPointer<GpuProgram> m_program;
+};
 
-  struct MemoryComparer
+struct MemoryComparer
+{
+  void * m_mem;
+  int m_size;
+
+  MemoryComparer(void * memory, int size)
+    : m_mem(memory)
+    , m_size(size)
   {
-    void * m_mem;
-    int m_size;
+  }
 
-    MemoryComparer(void * memory, int size)
-      : m_mem(memory)
-      , m_size(size)
-    {
-    }
+  void cmp(glConst /*type*/, uint32_t size, void const * data, uint32_t /*offset*/)
+  {
+    TEST_EQUAL(size, m_size, ());
+    TEST_EQUAL(memcmp(m_mem, data, size), 0, ());
+  }
+};
 
-    void cmp(glConst /*type*/, uint32_t size, void const * data, uint32_t /*offset*/)
-    {
-      TEST_EQUAL(size, m_size, ());
-      TEST_EQUAL(memcmp(m_mem, data, size), 0, ());
-    }
-  };
-}
+} // namespace
 
 UNIT_TEST(BatchLists_Test)
 {
-  const uint32_t VertexShaderID = 10;
-  const uint32_t FragmentShaderID = 11;
-  const uint32_t ProgramID = 20;
+  uint32_t const VertexShaderID = 10;
+  uint32_t const FragmentShaderID = 11;
+  uint32_t const ProgramID = 20;
 
-  const uint32_t IndexBufferID = 1;
-  const uint32_t DataBufferID = 2;
-  const uint32_t VaoID = 3;
+  uint32_t const IndexBufferID = 1;
+  uint32_t const DataBufferID = 2;
+  uint32_t const VaoID = 3;
 
-  const int VERTEX_COUNT = 12;
+  int const VERTEX_COUNT = 12;
   float data[3 * VERTEX_COUNT];
   for (int i = 0; i < VERTEX_COUNT * 3; ++i)
     data[i] = (float)i;
@@ -81,11 +83,11 @@ UNIT_TEST(BatchLists_Test)
 
   {
     InSequence shaderSeq;
-    EXPECTGL(glCreateShader(GLConst::GLVertexShader)).WillOnce(Return(VertexShaderID));
+    EXPECTGL(glCreateShader(gl_const::GLVertexShader)).WillOnce(Return(VertexShaderID));
     EXPECTGL(glShaderSource(VertexShaderID, _));
     EXPECTGL(glCompileShader(VertexShaderID, _)).WillOnce(Return(true));
 
-    EXPECTGL(glCreateShader(GLConst::GLFragmentShader)).WillOnce(Return(FragmentShaderID));
+    EXPECTGL(glCreateShader(gl_const::GLFragmentShader)).WillOnce(Return(FragmentShaderID));
     EXPECTGL(glShaderSource(FragmentShaderID, _));
     EXPECTGL(glCompileShader(FragmentShaderID, _)).WillOnce(Return(true));
 
@@ -110,22 +112,22 @@ UNIT_TEST(BatchLists_Test)
     InSequence vaoSeq;
     // Index buffer creation
     EXPECTGL(glGenBuffer()).WillOnce(Return(IndexBufferID));
-    EXPECTGL(glBindBuffer(IndexBufferID, GLConst::GLElementArrayBuffer));
-    EXPECTGL(glBufferData(GLConst::GLElementArrayBuffer, _, NULL, _));
+    EXPECTGL(glBindBuffer(IndexBufferID, gl_const::GLElementArrayBuffer));
+    EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, _, NULL, _));
 
     // upload indexes
-    EXPECTGL(glBindBuffer(IndexBufferID, GLConst::GLElementArrayBuffer));
-    EXPECTGL(glBufferSubData(GLConst::GLElementArrayBuffer, VERTEX_COUNT * sizeof(unsigned short), _, 0))
+    EXPECTGL(glBindBuffer(IndexBufferID, gl_const::GLElementArrayBuffer));
+    EXPECTGL(glBufferSubData(gl_const::GLElementArrayBuffer, VERTEX_COUNT * sizeof(unsigned short), _, 0))
         .WillOnce(Invoke(&indexCmp, &MemoryComparer::cmp));
 
     // data buffer creation
     EXPECTGL(glGenBuffer()).WillOnce(Return(DataBufferID));
-    EXPECTGL(glBindBuffer(DataBufferID, GLConst::GLArrayBuffer));
-    EXPECTGL(glBufferData(GLConst::GLArrayBuffer, _, NULL, _));
+    EXPECTGL(glBindBuffer(DataBufferID, gl_const::GLArrayBuffer));
+    EXPECTGL(glBufferData(gl_const::GLArrayBuffer, _, NULL, _));
 
     // upload data
-    EXPECTGL(glBindBuffer(DataBufferID, GLConst::GLArrayBuffer));
-    EXPECTGL(glBufferSubData(GLConst::GLArrayBuffer, 3 * VERTEX_COUNT * sizeof(float), _, 0))
+    EXPECTGL(glBindBuffer(DataBufferID, gl_const::GLArrayBuffer));
+    EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, 3 * VERTEX_COUNT * sizeof(float), _, 0))
         .WillOnce(Invoke(&dataCmp, &MemoryComparer::cmp));
 
     // build VertexArrayBuffer
@@ -136,13 +138,13 @@ UNIT_TEST(BatchLists_Test)
     EXPECTGL(glBindVertexArray(VaoID));
 
     // bind buffer pointer to program attribute
-    EXPECTGL(glBindBuffer(DataBufferID, GLConst::GLArrayBuffer));
+    EXPECTGL(glBindBuffer(DataBufferID, gl_const::GLArrayBuffer));
     EXPECTGL(glGetAttribLocation(ProgramID, "position")).WillOnce(Return(1));
     EXPECTGL(glEnableVertexAttribute(1));
-    EXPECTGL(glVertexAttributePointer(1, 3, GLConst::GLFloatType, false, 0, 0));
+    EXPECTGL(glVertexAttributePointer(1, 3, gl_const::GLFloatType, false, 0, 0));
 
     // bind index buffer
-    EXPECTGL(glBindBuffer(IndexBufferID, GLConst::GLElementArrayBuffer));
+    EXPECTGL(glBindBuffer(IndexBufferID, gl_const::GLElementArrayBuffer));
 
     // delete bucket
     EXPECTGL(glDeleteBuffer(IndexBufferID));
@@ -158,7 +160,7 @@ UNIT_TEST(BatchLists_Test)
   BindingDecl & decl = binding.GetBindingDecl(0);
   decl.m_attributeName = "position";
   decl.m_componentCount = 3;
-  decl.m_componentType = GLConst::GLFloatType;
+  decl.m_componentType = gl_const::GLFloatType;
   decl.m_offset = 0;
   decl.m_stride = 0;
 

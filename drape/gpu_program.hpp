@@ -6,13 +6,12 @@
 
 #include "../std/string.hpp"
 
-
 #ifdef DEBUG
-#include "../std/scoped_ptr.hpp"
+  #include "../std/scoped_ptr.hpp"
 
-class UniformValidator;
-typedef int32_t UniformSize;
-typedef pair<glConst, UniformSize> UniformTypeAndSize;
+  class UniformValidator;
+  typedef int32_t UniformSize;
+  typedef pair<glConst, UniformSize> UniformTypeAndSize;
 #endif
 
 class GpuProgram
@@ -25,8 +24,8 @@ public:
   void Bind();
   void Unbind();
 
-  int8_t GetAttributeLocation(const string & attributeName) const;
-  int8_t GetUniformLocation(const string & uniformName) const;
+  int8_t GetAttributeLocation(string const & attributeName) const;
+  int8_t GetUniformLocation(string const & uniformName) const;
 
 private:
   uint32_t m_programID;

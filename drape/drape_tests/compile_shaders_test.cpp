@@ -9,7 +9,6 @@
 #include <QtCore/QProcess>
 #include <QtCore/QTextStream>
 
-
 #if defined (OMIM_OS_MAC)
   #define SHADERS_COMPILER "GLSLESCompiler_Series5.mac"
 #elif defined (OMIM_OS_LINUX)

@@ -36,12 +36,14 @@ void RenderBucket::CollectOverlayHandles(RefPointer<OverlayTree> tree)
 
 namespace
 {
-  void AccumulateIndexes(MasterPointer<OverlayHandle> handle, RefPointer<IndexBufferMutator> mutator)
-  {
-    if (handle->IsVisible())
-      handle->GetElementIndexes(mutator);
-  }
+
+void AccumulateIndexes(MasterPointer<OverlayHandle> handle, RefPointer<IndexBufferMutator> mutator)
+{
+  if (handle->IsVisible())
+    handle->GetElementIndexes(mutator);
 }
+
+} // namespace
 
 void RenderBucket::Render()
 {

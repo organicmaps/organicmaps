@@ -12,65 +12,67 @@
 
 namespace df
 {
-  RuleDrawer::RuleDrawer(drawer_callback_fn const & fn, const TileKey & tileKey, EngineContext & context)
-    : m_callback(fn)
-    , m_tileKey(tileKey)
-    , m_context(context)
-  {
-    m_globalRect = m_tileKey.GetGlobalRect();
 
-    int32_t tileSize = df::VisualParams::Instance().GetTileSize();
-    m_geometryConvertor.OnSize(0, 0, tileSize, tileSize);
-    m_geometryConvertor.SetFromRect(m2::AnyRectD(m_globalRect));
-  }
+RuleDrawer::RuleDrawer(drawer_callback_fn const & fn, TileKey const & tileKey, EngineContext & context)
+  : m_callback(fn)
+  , m_tileKey(tileKey)
+  , m_context(context)
+{
+  m_globalRect = m_tileKey.GetGlobalRect();
 
-  void RuleDrawer::operator()(FeatureType const & f)
-  {
-    Stylist s;
-    m_callback(f, s);
+  int32_t tileSize = df::VisualParams::Instance().GetTileSize();
+  m_geometryConvertor.OnSize(0, 0, tileSize, tileSize);
+  m_geometryConvertor.SetFromRect(m2::AnyRectD(m_globalRect));
+}
 
-    if (s.IsEmpty())
-      return;
+void RuleDrawer::operator()(FeatureType const & f)
+{
+  Stylist s;
+  m_callback(f, s);
 
-    if (s.IsCoastLine() && (!m_coastlines.insert(s.GetCaptionDescription().GetMainText()).second))
-      return;
+  if (s.IsEmpty())
+    return;
+
+  if (s.IsCoastLine() && (!m_coastlines.insert(s.GetCaptionDescription().GetMainText()).second))
+    return;
 
 #ifdef DEBUG
-    // Validate on feature styles
-    if (s.AreaStyleExists() == false)
-    {
-      int checkFlag = s.PointStyleExists() ? 1 : 0;
-      checkFlag += s.LineStyleExists() ? 1 : 0;
-      ASSERT(checkFlag == 1, ());
-    }
+  // Validate on feature styles
+  if (s.AreaStyleExists() == false)
+  {
+    int checkFlag = s.PointStyleExists() ? 1 : 0;
+    checkFlag += s.LineStyleExists() ? 1 : 0;
+    ASSERT(checkFlag == 1, ());
+  }
 #endif
 
-    if (s.AreaStyleExists())
-    {
-      ApplyAreaFeature apply(m_context, m_tileKey, f.GetID());
-      f.ForEachTriangleRef(apply, m_tileKey.m_zoomLevel);
+  if (s.AreaStyleExists())
+  {
+    ApplyAreaFeature apply(m_context, m_tileKey, f.GetID());
+    f.ForEachTriangleRef(apply, m_tileKey.m_zoomLevel);
 
-      if (s.PointStyleExists())
-        apply(feature::GetCenter(f, m_tileKey.m_zoomLevel));
+    if (s.PointStyleExists())
+      apply(feature::GetCenter(f, m_tileKey.m_zoomLevel));
 
-      s.ForEachRule(bind(&ApplyAreaFeature::ProcessRule, &apply, _1));
-      apply.Finish();
-    }
-    else if (s.LineStyleExists())
-    {
-      ApplyLineFeature apply(m_context, m_tileKey, f.GetID());
-      f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
+    s.ForEachRule(bind(&ApplyAreaFeature::ProcessRule, &apply, _1));
+    apply.Finish();
+  }
+  else if (s.LineStyleExists())
+  {
+    ApplyLineFeature apply(m_context, m_tileKey, f.GetID());
+    f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
 
-      s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
-      //apply.Finish();
-    }
-    else
-    {
-      ASSERT(s.PointStyleExists(), ());
-      ApplyPointFeature apply(m_context, m_tileKey, f.GetID());
-      f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
-      s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
-      apply.Finish();
-    }
+    s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
+    //apply.Finish();
+  }
+  else
+  {
+    ASSERT(s.PointStyleExists(), ());
+    ApplyPointFeature apply(m_context, m_tileKey, f.GetID());
+    f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
+    s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
+    apply.Finish();
   }
 }
+
+} // namespace df

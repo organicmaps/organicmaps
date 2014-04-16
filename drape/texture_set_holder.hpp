@@ -7,7 +7,7 @@ class TextureSetHolder
 {
 public:
   virtual ~TextureSetHolder() {}
-  virtual void Init(const string & resourcePrefix) = 0;
+  virtual void Init(string const & resourcePrefix) = 0;
   virtual void Release() = 0;
 
   struct TextureRegion
@@ -18,5 +18,5 @@ public:
     int32_t    m_textureOffset; // number of texture in set
   };
 
-  virtual void GetSymbolRegion(const string & symbolName, TextureRegion & region) const = 0;
+  virtual void GetSymbolRegion(string const & symbolName, TextureRegion & region) const = 0;
 };

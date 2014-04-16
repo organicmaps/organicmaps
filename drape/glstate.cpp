@@ -9,9 +9,9 @@
 
 Blending::Blending(bool isEnabled)
   : m_isEnabled(isEnabled)
-  , m_blendFunction(GLConst::GLAddBlend)
-  , m_blendSrcFactor(GLConst::GLSrcAlfa)
-  , m_blendDstFactor(GLConst::GLOneMinusSrcAlfa)
+  , m_blendFunction(gl_const::GLAddBlend)
+  , m_blendSrcFactor(gl_const::GLSrcAlfa)
+  , m_blendDstFactor(gl_const::GLOneMinusSrcAlfa)
 {
 }
 
@@ -19,12 +19,12 @@ void Blending::Apply() const
 {
   if (m_isEnabled)
   {
-    GLFunctions::glEnable(GLConst::GLBlending);
+    GLFunctions::glEnable(gl_const::GLBlending);
     GLFunctions::glBlendEquation(m_blendFunction);
     GLFunctions::glBlendFunc(m_blendSrcFactor, m_blendDstFactor);
   }
   else
-    GLFunctions::glDisable(GLConst::GLBlending);
+    GLFunctions::glDisable(gl_const::GLBlending);
 }
 
 bool Blending::operator < (Blending const & other) const
@@ -99,7 +99,7 @@ bool GLState::operator<(GLState const & other) const
   return m_color < other.m_color;
 }
 
-bool GLState::operator==(const GLState & other) const
+bool GLState::operator==(GLState const & other) const
 {
   return m_mask == other.m_mask &&
          m_depthLayer == other.m_depthLayer &&

@@ -8,55 +8,57 @@
 
 namespace
 {
-  bool IsEnoughMemory(uint16_t avVertex, uint16_t existVertex, uint16_t avIndex, uint16_t existIndex)
-  {
-    return avVertex >= existVertex && avIndex >= existIndex;
-  }
 
-  class IndexGenerator
-  {
-  public:
-    IndexGenerator(uint16_t startIndex) : m_startIndex(startIndex) , m_counter(0) {}
-
-  protected:
-    uint16_t GetCounter() { return m_counter++; }
-    uint16_t const m_startIndex;
-
-  private:
-    uint16_t m_counter;
-  };
-
-  class ListIndexGenerator : public IndexGenerator
-  {
-  public:
-    ListIndexGenerator(uint16_t startIndex) : IndexGenerator(startIndex) {}
-    uint16_t operator()() { return m_startIndex + GetCounter(); }
-  };
-
-  class StripIndexGenerator : public IndexGenerator
-  {
-  public:
-    StripIndexGenerator(uint16_t startIndex) : IndexGenerator(startIndex) {}
-    uint16_t operator()()
-    {
-      uint16_t counter = GetCounter();
-      return m_startIndex + counter - 2 * (counter / 3);
-    }
-  };
-
-  class FanIndexGenerator : public IndexGenerator
-  {
-  public:
-    FanIndexGenerator(uint16_t startIndex) : IndexGenerator(startIndex) {}
-    uint16_t operator()()
-    {
-      uint16_t counter = GetCounter();
-      if ((counter % 3) == 0)
-        return m_startIndex;
-      return m_startIndex + counter - 2 * (counter / 3);
-    }
-  };
+bool IsEnoughMemory(uint16_t avVertex, uint16_t existVertex, uint16_t avIndex, uint16_t existIndex)
+{
+  return avVertex >= existVertex && avIndex >= existIndex;
 }
+
+class IndexGenerator
+{
+public:
+  IndexGenerator(uint16_t startIndex) : m_startIndex(startIndex) , m_counter(0) {}
+
+protected:
+  uint16_t GetCounter() { return m_counter++; }
+  uint16_t const m_startIndex;
+
+private:
+  uint16_t m_counter;
+};
+
+class ListIndexGenerator : public IndexGenerator
+{
+public:
+  ListIndexGenerator(uint16_t startIndex) : IndexGenerator(startIndex) {}
+  uint16_t operator()() { return m_startIndex + GetCounter(); }
+};
+
+class StripIndexGenerator : public IndexGenerator
+{
+public:
+  StripIndexGenerator(uint16_t startIndex) : IndexGenerator(startIndex) {}
+  uint16_t operator()()
+  {
+    uint16_t counter = GetCounter();
+    return m_startIndex + counter - 2 * (counter / 3);
+  }
+};
+
+class FanIndexGenerator : public IndexGenerator
+{
+public:
+  FanIndexGenerator(uint16_t startIndex) : IndexGenerator(startIndex) {}
+  uint16_t operator()()
+  {
+    uint16_t counter = GetCounter();
+    if ((counter % 3) == 0)
+      return m_startIndex;
+    return m_startIndex + counter - 2 * (counter / 3);
+  }
+};
+
+} // namespace
 
 TriangleBatch::TriangleBatch(BatchCallbacks const & callbacks)
   : m_callbacks(callbacks)
@@ -154,7 +156,7 @@ void TriangleListBatch::BatchData(RefPointer<AttributeProvider> streams)
 }
 
 
-FanStripHelper::FanStripHelper(const BatchCallbacks & callbacks)
+FanStripHelper::FanStripHelper(BatchCallbacks const & callbacks)
   : base_t(callbacks)
   , m_isFullUploaded(false)
 {
@@ -245,7 +247,7 @@ void TriangleStripBatch::BatchData(RefPointer<AttributeProvider> streams)
   }
 }
 
-TriangleFanBatch::TriangleFanBatch(const BatchCallbacks & callbacks) : base_t(callbacks) {}
+TriangleFanBatch::TriangleFanBatch(BatchCallbacks const & callbacks) : base_t(callbacks) {}
 
 
 /*

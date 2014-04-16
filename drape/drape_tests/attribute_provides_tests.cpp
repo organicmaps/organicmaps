@@ -6,7 +6,7 @@
 
 UNIT_TEST(InitStreamsTest)
 {
-  const int VERTEX_COUNT = 10;
+  int const VERTEX_COUNT = 10;
   AttributeProvider provider(3, VERTEX_COUNT);
   float positions[2 * VERTEX_COUNT];
   float depth[VERTEX_COUNT];
@@ -26,7 +26,7 @@ UNIT_TEST(InitStreamsTest)
     BindingDecl & decl = zeroStreamBinding.GetBindingDecl(0);
     decl.m_attributeName = "position";
     decl.m_componentCount = 2;
-    decl.m_componentType = GLConst::GLFloatType;
+    decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
     provider.InitStream(0, zeroStreamBinding, MakeStackRefPointer(positions));
@@ -37,7 +37,7 @@ UNIT_TEST(InitStreamsTest)
     BindingDecl & decl = firstStreamBinding.GetBindingDecl(0);
     decl.m_attributeName = "depth";
     decl.m_componentCount = 1;
-    decl.m_componentType = GLConst::GLFloatType;
+    decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
     provider.InitStream(1, firstStreamBinding, MakeStackRefPointer(depth));
@@ -48,7 +48,7 @@ UNIT_TEST(InitStreamsTest)
     BindingDecl & decl = secondStreamBinding.GetBindingDecl(0);
     decl.m_attributeName = "normal";
     decl.m_componentCount = 2;
-    decl.m_componentType = GLConst::GLFloatType;
+    decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
     provider.InitStream(2, secondStreamBinding, MakeStackRefPointer(normals));
@@ -75,7 +75,7 @@ UNIT_TEST(InitStreamsTest)
 
 UNIT_TEST(InterleavedStreamTest)
 {
-  const int VERTEX_COUNT = 10;
+  int const VERTEX_COUNT = 10;
   AttributeProvider provider(1, 10);
   float data[5 * VERTEX_COUNT];
 
@@ -93,7 +93,7 @@ UNIT_TEST(InterleavedStreamTest)
     BindingDecl & decl = binding.GetBindingDecl(0);
     decl.m_attributeName = "position";
     decl.m_componentCount = 2;
-    decl.m_componentType = GLConst::GLFloatType;
+    decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 5 * sizeof(float);
   }
@@ -101,7 +101,7 @@ UNIT_TEST(InterleavedStreamTest)
     BindingDecl & decl = binding.GetBindingDecl(1);
     decl.m_attributeName = "depth";
     decl.m_componentCount = 1;
-    decl.m_componentType = GLConst::GLFloatType;
+    decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 2 * sizeof(float);
     decl.m_stride = 5 * sizeof(float);
   }
@@ -109,7 +109,7 @@ UNIT_TEST(InterleavedStreamTest)
     BindingDecl & decl = binding.GetBindingDecl(2);
     decl.m_attributeName = "normal";
     decl.m_componentCount = 2;
-    decl.m_componentType = GLConst::GLFloatType;
+    decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 3 * sizeof(float);
     decl.m_stride = 5 * sizeof(float);
   }
@@ -133,7 +133,7 @@ UNIT_TEST(InterleavedStreamTest)
 
 UNIT_TEST(MixedStreamsTest)
 {
-  const int VERTEX_COUNT = 10;
+  int const VERTEX_COUNT = 10;
   AttributeProvider provider(2, 10);
   float position[3 * VERTEX_COUNT];
   float normal[2 * VERTEX_COUNT];
@@ -153,7 +153,7 @@ UNIT_TEST(MixedStreamsTest)
       BindingDecl & decl = binding.GetBindingDecl(0);
       decl.m_attributeName = "position";
       decl.m_componentCount = 2;
-      decl.m_componentType = GLConst::GLFloatType;
+      decl.m_componentType = gl_const::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 3 * sizeof(float);
     }
@@ -162,7 +162,7 @@ UNIT_TEST(MixedStreamsTest)
       BindingDecl & decl = binding.GetBindingDecl(1);
       decl.m_attributeName = "depth";
       decl.m_componentCount = 1;
-      decl.m_componentType = GLConst::GLFloatType;
+      decl.m_componentType = gl_const::GLFloatType;
       decl.m_offset = 2 * sizeof(float);
       decl.m_stride = 3 * sizeof(float);
     }
@@ -175,7 +175,7 @@ UNIT_TEST(MixedStreamsTest)
     BindingDecl & decl = binding.GetBindingDecl(0);
     decl.m_attributeName = "normal";
     decl.m_componentCount = 2;
-    decl.m_componentType = GLConst::GLFloatType;
+    decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
     provider.InitStream(1, binding, MakeStackRefPointer(normal));

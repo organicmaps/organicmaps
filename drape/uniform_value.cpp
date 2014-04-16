@@ -5,62 +5,64 @@
 
 namespace
 {
-  template<typename T>
-  void CopyValues(T * dstPointer, T * values, size_t valuesCount)
-  {
-    for (size_t i = 0; i < valuesCount; ++i)
-      dstPointer[i] = values[i];
-  }
 
-  void ApplyInt(int8_t location, const int32_t * pointer, size_t componentCount)
-  {
-    switch (componentCount)
-    {
-    case 1:
-      GLFunctions::glUniformValuei(location, pointer[0]);
-      break;
-    case 2:
-      GLFunctions::glUniformValuei(location, pointer[0], pointer[1]);
-      break;
-    case 3:
-      GLFunctions::glUniformValuei(location, pointer[0], pointer[1], pointer[2]);
-      break;
-    case 4:
-      GLFunctions::glUniformValuei(location, pointer[0], pointer[1], pointer[2], pointer[3]);
-      break;
-    default:
-      ASSERT(false, ());
-    }
-  }
+template<typename T>
+void CopyValues(T * dstPointer, T * values, size_t valuesCount)
+{
+  for (size_t i = 0; i < valuesCount; ++i)
+    dstPointer[i] = values[i];
+}
 
-  void ApplyFloat(int8_t location, const float * pointer, size_t componentCount)
+void ApplyInt(int8_t location, int32_t const * pointer, size_t componentCount)
+{
+  switch (componentCount)
   {
-    switch (componentCount)
-    {
-    case 1:
-      GLFunctions::glUniformValuef(location, pointer[0]);
-      break;
-    case 2:
-      GLFunctions::glUniformValuef(location, pointer[0], pointer[1]);
-      break;
-    case 3:
-      GLFunctions::glUniformValuef(location, pointer[0], pointer[1], pointer[2]);
-      break;
-    case 4:
-      GLFunctions::glUniformValuef(location, pointer[0], pointer[1], pointer[2], pointer[3]);
-      break;
-    default:
-      ASSERT(false, ());
-    }
-  }
-
-  void ApplyMatrix(uint8_t location, const float * matrix)
-  {
-    GLFunctions::glUniformMatrix4x4Value(location, matrix);
+  case 1:
+    GLFunctions::glUniformValuei(location, pointer[0]);
+    break;
+  case 2:
+    GLFunctions::glUniformValuei(location, pointer[0], pointer[1]);
+    break;
+  case 3:
+    GLFunctions::glUniformValuei(location, pointer[0], pointer[1], pointer[2]);
+    break;
+  case 4:
+    GLFunctions::glUniformValuei(location, pointer[0], pointer[1], pointer[2], pointer[3]);
+    break;
+  default:
+    ASSERT(false, ());
   }
 }
 
-UniformValue::UniformValue(const string & name, int32_t v)
+void ApplyFloat(int8_t location, float const * pointer, size_t componentCount)
+{
+  switch (componentCount)
+  {
+  case 1:
+    GLFunctions::glUniformValuef(location, pointer[0]);
+    break;
+  case 2:
+    GLFunctions::glUniformValuef(location, pointer[0], pointer[1]);
+    break;
+  case 3:
+    GLFunctions::glUniformValuef(location, pointer[0], pointer[1], pointer[2]);
+    break;
+  case 4:
+    GLFunctions::glUniformValuef(location, pointer[0], pointer[1], pointer[2], pointer[3]);
+    break;
+  default:
+    ASSERT(false, ());
+  }
+}
+
+void ApplyMatrix(uint8_t location, float const * matrix)
+{
+  GLFunctions::glUniformMatrix4x4Value(location, matrix);
+}
+
+} // namespace
+
+UniformValue::UniformValue(string const & name, int32_t v)
   : m_name(name)
   , m_type(Int)
   , m_componentCount(1)
@@ -69,7 +71,7 @@ UniformValue::UniformValue(const string & name, int32_t v)
   SetIntValue(v);
 }
 
-UniformValue::UniformValue(const string & name, int32_t v1, int32_t v2)
+UniformValue::UniformValue(string const & name, int32_t v1, int32_t v2)
   : m_name(name)
   , m_type(Int)
   , m_componentCount(2)
@@ -78,7 +80,7 @@ UniformValue::UniformValue(const string & name, int32_t v1, int32_t v2)
   SetIntValue(v1, v2);
 }
 
-UniformValue::UniformValue(const string & name, int32_t v1, int32_t v2, int32_t v3)
+UniformValue::UniformValue(string const & name, int32_t v1, int32_t v2, int32_t v3)
   : m_name(name)
   , m_type(Int)
   , m_componentCount(3)
@@ -87,7 +89,7 @@ UniformValue::UniformValue(const string & name, int32_t v1, int32_t v2, int32_t 
   SetIntValue(v1, v2, v3);
 }
 
-UniformValue::UniformValue(const string & name, int32_t v1, int32_t v2, int32_t v3, int32_t v4)
+UniformValue::UniformValue(string const & name, int32_t v1, int32_t v2, int32_t v3, int32_t v4)
   : m_name(name)
   , m_type(Int)
   , m_componentCount(4)
@@ -96,7 +98,7 @@ UniformValue::UniformValue(const string & name, int32_t v1, int32_t v2, int32_t 
   SetIntValue(v1, v2, v3, v4);
 }
 
-UniformValue::UniformValue(const string & name, float v)
+UniformValue::UniformValue(string const & name, float v)
   : m_name(name)
   , m_type(Float)
   , m_componentCount(1)
@@ -105,7 +107,7 @@ UniformValue::UniformValue(const string & name, float v)
   SetFloatValue(v);
 }
 
-UniformValue::UniformValue(const string & name, float v1, float v2)
+UniformValue::UniformValue(string const & name, float v1, float v2)
   : m_name(name)
   , m_type(Float)
   , m_componentCount(2)
@@ -114,7 +116,7 @@ UniformValue::UniformValue(const string & name, float v1, float v2)
   SetFloatValue(v1, v2);
 }
 
-UniformValue::UniformValue(const string & name, float v1, float v2, float v3)
+UniformValue::UniformValue(string const & name, float v1, float v2, float v3)
   : m_name(name)
   , m_type(Float)
   , m_componentCount(3)
@@ -123,7 +125,7 @@ UniformValue::UniformValue(const string & name, float v1, float v2, float v3)
   SetFloatValue(v1, v2, v3);
 }
 
-UniformValue::UniformValue(const string & name, float v1, float v2, float v3, float v4)
+UniformValue::UniformValue(string const & name, float v1, float v2, float v3, float v4)
   : m_name(name)
   , m_type(Float)
   , m_componentCount(4)
@@ -132,7 +134,7 @@ UniformValue::UniformValue(const string & name, float v1, float v2, float v3, fl
   SetFloatValue(v1, v2, v3, v4);
 }
 
-UniformValue::UniformValue(const string & name, const float * matrixValue)
+UniformValue::UniformValue(string const & name, const float * matrixValue)
   : m_name(name)
   , m_type(Matrix4x4)
   , m_componentCount(16)
@@ -141,7 +143,7 @@ UniformValue::UniformValue(const string & name, const float * matrixValue)
   SetMatrix4x4Value(matrixValue);
 }
 
-const string & UniformValue::GetName() const
+string const & UniformValue::GetName() const
 {
   return m_name;
 }
@@ -218,7 +220,7 @@ void UniformValue::SetFloatValue(float v1, float v2, float v3, float v4)
   CopyValues(CastMemory<float>(), v, m_componentCount);
 }
 
-void UniformValue::SetMatrix4x4Value(const float * matrixValue)
+void UniformValue::SetMatrix4x4Value(float const * matrixValue)
 {
   ASSERT(m_type == Matrix4x4, ());
   ASSERT(m_componentCount == 16, ());
@@ -252,26 +254,26 @@ glConst UniformValue::GetCorrespondingGLType() const
   if (Int == m_type)
   {
     static glConst intTypes[4] = {
-      GLConst::GLIntType,
-      GLConst::GLIntVec2,
-      GLConst::GLIntVec3,
-      GLConst::GLIntVec4
+      gl_const::GLIntType,
+      gl_const::GLIntVec2,
+      gl_const::GLIntVec3,
+      gl_const::GLIntVec4
     };
     return intTypes[m_componentCount - 1];
   }
   else if (Float == m_type)
   {
     static glConst floatTypes[4] = {
-      GLConst::GLFloatType,
-      GLConst::GLFloatVec2,
-      GLConst::GLFloatVec3,
-      GLConst::GLFloatVec4
+      gl_const::GLFloatType,
+      gl_const::GLFloatVec2,
+      gl_const::GLFloatVec3,
+      gl_const::GLFloatVec4
     };
     return floatTypes[m_componentCount - 1];
   }
   else if (Matrix4x4 == m_type)
   {
-    return GLConst::GLFloatMat4;
+    return gl_const::GLFloatMat4;
   }
   else
   {

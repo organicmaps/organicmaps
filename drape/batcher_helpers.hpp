@@ -11,7 +11,7 @@ class BatchCallbacks
 {
 public:
   typedef function<void (BindingInfo const &, void const *, uint16_t)> flush_vertex_fn;
-  typedef function<uint16_t* (uint16_t, uint16_t &)> get_index_storage_fn;
+  typedef function<uint16_t * (uint16_t, uint16_t &)> get_index_storage_fn;
   typedef function<void ()> submit_index_fn;
   typedef function<uint16_t ()> get_available_fn;
   typedef function<void (bool)> change_buffer_fn;

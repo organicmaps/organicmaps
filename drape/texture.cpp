@@ -43,22 +43,22 @@ void Texture::Create(uint32_t width, uint32_t height, TextureFormat format, RefP
   UnpackFormat(format, layout, pixelType);
 
   GLFunctions::glTexImage2D(m_width, m_height, layout, pixelType, data.GetRaw());
-  SetFilterParams(GLConst::GLLinear, GLConst::GLLinear);
-  SetWrapMode(GLConst::GLClampToEdge, GLConst::GLClampToEdge);
+  SetFilterParams(gl_const::GLLinear, gl_const::GLLinear);
+  SetWrapMode(gl_const::GLClampToEdge, gl_const::GLClampToEdge);
 }
 
 void Texture::SetFilterParams(glConst minFilter, glConst magFilter)
 {
   ASSERT_ID;
-  GLFunctions::glTexParameter(GLConst::GLMinFilter, minFilter);
-  GLFunctions::glTexParameter(GLConst::GLMagFilter, magFilter);
+  GLFunctions::glTexParameter(gl_const::GLMinFilter, minFilter);
+  GLFunctions::glTexParameter(gl_const::GLMagFilter, magFilter);
 }
 
 void Texture::SetWrapMode(glConst sMode, glConst tMode)
 {
   ASSERT_ID;
-  GLFunctions::glTexParameter(GLConst::GLWrapS, sMode);
-  GLFunctions::glTexParameter(GLConst::GLWrapT, tMode);
+  GLFunctions::glTexParameter(gl_const::GLWrapS, sMode);
+  GLFunctions::glTexParameter(gl_const::GLWrapT, tMode);
 }
 
 void Texture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
@@ -108,12 +108,12 @@ void Texture::UnpackFormat(Texture::TextureFormat format, glConst & layout, glCo
   bool requiredFormat = GLExtensionsList::Instance().IsSupported(GLExtensionsList::RequiredInternalFormat);
   switch (format) {
   case RGBA8:
-    layout = requiredFormat ? GLConst::GLRGBA8 : GLConst::GLRGBA;
-    pixelType = GLConst::GL8BitOnChannel;
+    layout = requiredFormat ? gl_const::GLRGBA8 : gl_const::GLRGBA;
+    pixelType = gl_const::GL8BitOnChannel;
     break;
   case RGBA4:
-    layout = requiredFormat ? GLConst::GLRGBA4 : GLConst::GLRGBA;
-    pixelType = GLConst::GL4BitOnChannel;
+    layout = requiredFormat ? gl_const::GLRGBA4 : gl_const::GLRGBA;
+    pixelType = gl_const::GL4BitOnChannel;
     break;
   default:
     ASSERT(false, ());

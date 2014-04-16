@@ -43,7 +43,6 @@ void QtOGLContext::present()
   m_nativeContext->swapBuffers(m_surface);
 }
 
-
 void QtOGLContext::setDefaultFramebuffer()
 {
   GLFunctions::glBindFramebuffer(GL_FRAMEBUFFER, 0);

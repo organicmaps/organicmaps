@@ -12,15 +12,17 @@
 
 namespace df
 {
-  class AreaShape : public MapShape
-  {
-  public:
-    AreaShape(vector<m2::PointF> const & triangleList, AreaViewParams const & params);
 
-    virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const;
+class AreaShape : public MapShape
+{
+public:
+  AreaShape(vector<m2::PointF> const & triangleList, AreaViewParams const & params);
 
-  private:
-    vector<Point3D> m_vertexes;
-    AreaViewParams m_params;
-  };
-}
+  virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const;
+
+private:
+  vector<Point3D> m_vertexes;
+  AreaViewParams m_params;
+};
+
+} // namespace df

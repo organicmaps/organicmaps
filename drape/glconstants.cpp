@@ -25,99 +25,101 @@
   #define GL_LUMINANCE8_ALPHA4_OES 0x8043
 #endif
 
-namespace GLConst
+namespace gl_const
 {
-  const glConst GLMaxFragmentTextures = GL_MAX_TEXTURE_IMAGE_UNITS;
-  const glConst GLMaxVertexTextures   = GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS;
 
-  const glConst GLArrayBuffer         = GL_ARRAY_BUFFER;
-  const glConst GLElementArrayBuffer  = GL_ELEMENT_ARRAY_BUFFER;
+const glConst GLMaxFragmentTextures = GL_MAX_TEXTURE_IMAGE_UNITS;
+const glConst GLMaxVertexTextures   = GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS;
 
-  const glConst GLStaticDraw          = GL_STATIC_DRAW;
-  const glConst GLStreamDraw          = GL_STREAM_DRAW;
-  const glConst GLDynamicDraw         = GL_DYNAMIC_DRAW;
+const glConst GLArrayBuffer         = GL_ARRAY_BUFFER;
+const glConst GLElementArrayBuffer  = GL_ELEMENT_ARRAY_BUFFER;
 
-  const glConst GLVertexShader        = GL_VERTEX_SHADER;
-  const glConst GLFragmentShader      = GL_FRAGMENT_SHADER;
-  const glConst GLCurrentProgram      = GL_CURRENT_PROGRAM;
+const glConst GLStaticDraw          = GL_STATIC_DRAW;
+const glConst GLStreamDraw          = GL_STREAM_DRAW;
+const glConst GLDynamicDraw         = GL_DYNAMIC_DRAW;
 
-  const glConst GLRGBA                = GL_RGBA;
-  const glConst GLRGB                 = GL_RGB;
-  const glConst GLAlpha               = GL_ALPHA;
-  const glConst GLLuminance           = GL_LUMINANCE;
-  const glConst GLAlphaLuminance      = GL_LUMINANCE_ALPHA;
+const glConst GLVertexShader        = GL_VERTEX_SHADER;
+const glConst GLFragmentShader      = GL_FRAGMENT_SHADER;
+const glConst GLCurrentProgram      = GL_CURRENT_PROGRAM;
 
-  const glConst GLRGBA8               = GL_RGBA8_OES;
-  const glConst GLRGBA4               = GL_RGBA4_OES;
-  const glConst GLAlpha8              = GL_ALPHA8_OES;
-  const glConst GLLuminance8          = GL_LUMINANCE8_OES;
-  const glConst GLAlphaLuminance8     = GL_LUMINANCE8_ALPHA8_OES;
-  const glConst GLAlphaLuminance4     = GL_LUMINANCE8_ALPHA4_OES;
+const glConst GLRGBA                = GL_RGBA;
+const glConst GLRGB                 = GL_RGB;
+const glConst GLAlpha               = GL_ALPHA;
+const glConst GLLuminance           = GL_LUMINANCE;
+const glConst GLAlphaLuminance      = GL_LUMINANCE_ALPHA;
 
-  const glConst GL8BitOnChannel       = GL_UNSIGNED_BYTE;
-  const glConst GL4BitOnChannel       = GL_UNSIGNED_SHORT_4_4_4_4;
+const glConst GLRGBA8               = GL_RGBA8_OES;
+const glConst GLRGBA4               = GL_RGBA4_OES;
+const glConst GLAlpha8              = GL_ALPHA8_OES;
+const glConst GLLuminance8          = GL_LUMINANCE8_OES;
+const glConst GLAlphaLuminance8     = GL_LUMINANCE8_ALPHA8_OES;
+const glConst GLAlphaLuminance4     = GL_LUMINANCE8_ALPHA4_OES;
 
-  const glConst GLTexture2D           = GL_TEXTURE_2D;
+const glConst GL8BitOnChannel       = GL_UNSIGNED_BYTE;
+const glConst GL4BitOnChannel       = GL_UNSIGNED_SHORT_4_4_4_4;
 
-  const glConst GLTexture0            = GL_TEXTURE0;
+const glConst GLTexture2D           = GL_TEXTURE_2D;
 
-  const glConst GLMinFilter           = GL_TEXTURE_MIN_FILTER;
-  const glConst GLMagFilter           = GL_TEXTURE_MAG_FILTER;
-  const glConst GLWrapS               = GL_TEXTURE_WRAP_S;
-  const glConst GLWrapT               = GL_TEXTURE_WRAP_T;
+const glConst GLTexture0            = GL_TEXTURE0;
 
-  const glConst GLRepeate             = GL_REPEAT;
-  const glConst GLMirroredRepeate     = GL_MIRRORED_REPEAT;
-  const glConst GLClampToEdge         = GL_CLAMP_TO_EDGE;
+const glConst GLMinFilter           = GL_TEXTURE_MIN_FILTER;
+const glConst GLMagFilter           = GL_TEXTURE_MAG_FILTER;
+const glConst GLWrapS               = GL_TEXTURE_WRAP_S;
+const glConst GLWrapT               = GL_TEXTURE_WRAP_T;
 
-  const glConst GLLinear              = GL_LINEAR;
-  const glConst GLNearest             = GL_NEAREST;
+const glConst GLRepeate             = GL_REPEAT;
+const glConst GLMirroredRepeate     = GL_MIRRORED_REPEAT;
+const glConst GLClampToEdge         = GL_CLAMP_TO_EDGE;
 
-  const glConst GLByteType            = GL_BYTE;
-  const glConst GLUnsignedByteType    = GL_UNSIGNED_BYTE;
-  const glConst GLShortType           = GL_SHORT;
-  const glConst GLUnsignedShortType   = GL_UNSIGNED_SHORT;
-  const glConst GLIntType             = GL_INT;
-  const glConst GLUnsignedIntType     = GL_UNSIGNED_INT;
-  const glConst GLFloatType           = GL_FLOAT;
-  const glConst GLDoubleType          = GL_DOUBLE;
+const glConst GLLinear              = GL_LINEAR;
+const glConst GLNearest             = GL_NEAREST;
 
-  const glConst GLFloatVec2           = GL_FLOAT_VEC2;
-  const glConst GLFloatVec3           = GL_FLOAT_VEC3;
-  const glConst GLFloatVec4           = GL_FLOAT_VEC4;
+const glConst GLByteType            = GL_BYTE;
+const glConst GLUnsignedByteType    = GL_UNSIGNED_BYTE;
+const glConst GLShortType           = GL_SHORT;
+const glConst GLUnsignedShortType   = GL_UNSIGNED_SHORT;
+const glConst GLIntType             = GL_INT;
+const glConst GLUnsignedIntType     = GL_UNSIGNED_INT;
+const glConst GLFloatType           = GL_FLOAT;
+const glConst GLDoubleType          = GL_DOUBLE;
 
-  const glConst GLIntVec2             = GL_INT_VEC2;
-  const glConst GLIntVec3             = GL_INT_VEC3;
-  const glConst GLIntVec4             = GL_INT_VEC4;
+const glConst GLFloatVec2           = GL_FLOAT_VEC2;
+const glConst GLFloatVec3           = GL_FLOAT_VEC3;
+const glConst GLFloatVec4           = GL_FLOAT_VEC4;
 
-  const glConst GLFloatMat4           = GL_FLOAT_MAT4;
+const glConst GLIntVec2             = GL_INT_VEC2;
+const glConst GLIntVec3             = GL_INT_VEC3;
+const glConst GLIntVec4             = GL_INT_VEC4;
 
-  const glConst GLAddBlend            = GL_FUNC_ADD;
-  const glConst GLSubstractBlend      = GL_FUNC_SUBTRACT;
-  const glConst GLReverseSubstrBlend  = GL_FUNC_REVERSE_SUBTRACT;
+const glConst GLFloatMat4           = GL_FLOAT_MAT4;
 
-  const glConst GLZero                = GL_ZERO;
-  const glConst GLOne                 = GL_ONE;
-  const glConst GLSrcColor            = GL_SRC_COLOR;
-  const glConst GLOneMinusSrcColor    = GL_ONE_MINUS_SRC_COLOR;
-  const glConst GLDstColor            = GL_DST_COLOR;
-  const glConst GLOneMinusDstColor    = GL_ONE_MINUS_DST_COLOR;
-  const glConst GLSrcAlfa             = GL_SRC_ALPHA;
-  const glConst GLOneMinusSrcAlfa     = GL_ONE_MINUS_SRC_ALPHA;
-  const glConst GLDstAlfa             = GL_DST_ALPHA;
-  const glConst GLOneMinusDstAlfa     = GL_ONE_MINUS_DST_ALPHA;
+const glConst GLAddBlend            = GL_FUNC_ADD;
+const glConst GLSubstractBlend      = GL_FUNC_SUBTRACT;
+const glConst GLReverseSubstrBlend  = GL_FUNC_REVERSE_SUBTRACT;
 
-  const glConst GLDepthTest           = GL_DEPTH_TEST;
-  const glConst GLBlending            = GL_BLEND;
+const glConst GLZero                = GL_ZERO;
+const glConst GLOne                 = GL_ONE;
+const glConst GLSrcColor            = GL_SRC_COLOR;
+const glConst GLOneMinusSrcColor    = GL_ONE_MINUS_SRC_COLOR;
+const glConst GLDstColor            = GL_DST_COLOR;
+const glConst GLOneMinusDstColor    = GL_ONE_MINUS_DST_COLOR;
+const glConst GLSrcAlfa             = GL_SRC_ALPHA;
+const glConst GLOneMinusSrcAlfa     = GL_ONE_MINUS_SRC_ALPHA;
+const glConst GLDstAlfa             = GL_DST_ALPHA;
+const glConst GLOneMinusDstAlfa     = GL_ONE_MINUS_DST_ALPHA;
 
-  const glConst GLNever               = GL_NEVER;
-  const glConst GLLess                = GL_LESS;
-  const glConst GLEqual               = GL_EQUAL;
-  const glConst GLLessOrEqual         = GL_LEQUAL;
-  const glConst GLGreat               = GL_GREATER;
-  const glConst GLNotEqual            = GL_NOTEQUAL;
-  const glConst GLGreatOrEqual        = GL_GEQUAL;
-  const glConst GLAlways              = GL_ALWAYS;
+const glConst GLDepthTest           = GL_DEPTH_TEST;
+const glConst GLBlending            = GL_BLEND;
 
-  const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
-}
+const glConst GLNever               = GL_NEVER;
+const glConst GLLess                = GL_LESS;
+const glConst GLEqual               = GL_EQUAL;
+const glConst GLLessOrEqual         = GL_LEQUAL;
+const glConst GLGreat               = GL_GREATER;
+const glConst GLNotEqual            = GL_NOTEQUAL;
+const glConst GLGreatOrEqual        = GL_GEQUAL;
+const glConst GLAlways              = GL_ALWAYS;
+
+const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
+
+} // namespace GLConst

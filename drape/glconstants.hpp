@@ -4,117 +4,119 @@
 
 typedef uint32_t glConst;
 
-namespace GLConst
+namespace gl_const
 {
-  /// Hardware specific params
-  extern const glConst GLMaxFragmentTextures;
-  extern const glConst GLMaxVertexTextures;
 
-  /// Buffer targets
-  extern const glConst GLArrayBuffer;
-  extern const glConst GLElementArrayBuffer;
+/// Hardware specific params
+extern const glConst GLMaxFragmentTextures;
+extern const glConst GLMaxVertexTextures;
 
-  /// BufferUsage
-  extern const glConst GLStaticDraw;
-  extern const glConst GLStreamDraw;
-  extern const glConst GLDynamicDraw;
+/// Buffer targets
+extern const glConst GLArrayBuffer;
+extern const glConst GLElementArrayBuffer;
 
-  /// ShaderType
-  extern const glConst GLVertexShader;
-  extern const glConst GLFragmentShader;
-  extern const glConst GLCurrentProgram;
+/// BufferUsage
+extern const glConst GLStaticDraw;
+extern const glConst GLStreamDraw;
+extern const glConst GLDynamicDraw;
 
-  /// Texture layouts
-  extern const glConst GLRGBA;
-  extern const glConst GLRGB;
-  extern const glConst GLAlpha;
-  extern const glConst GLLuminance;
-  extern const glConst GLAlphaLuminance;
+/// ShaderType
+extern const glConst GLVertexShader;
+extern const glConst GLFragmentShader;
+extern const glConst GLCurrentProgram;
 
-  /// Texture layout size
-  extern const glConst GLRGBA8;
-  extern const glConst GLRGBA4;
-  extern const glConst GLAlpha8;
-  extern const glConst GLLuminance8;
-  extern const glConst GLAlphaLuminance8;
-  extern const glConst GLAlphaLuminance4;
+/// Texture layouts
+extern const glConst GLRGBA;
+extern const glConst GLRGB;
+extern const glConst GLAlpha;
+extern const glConst GLLuminance;
+extern const glConst GLAlphaLuminance;
 
-  /// Pixel type for texture upload
-  extern const glConst GL8BitOnChannel;
-  extern const glConst GL4BitOnChannel;
+/// Texture layout size
+extern const glConst GLRGBA8;
+extern const glConst GLRGBA4;
+extern const glConst GLAlpha8;
+extern const glConst GLLuminance8;
+extern const glConst GLAlphaLuminance8;
+extern const glConst GLAlphaLuminance4;
 
-  /// Texture targets
-  extern const glConst GLTexture2D;
+/// Pixel type for texture upload
+extern const glConst GL8BitOnChannel;
+extern const glConst GL4BitOnChannel;
 
-  /// Texture uniform blocks
-  extern const glConst GLTexture0;
+/// Texture targets
+extern const glConst GLTexture2D;
 
-  /// Texture param names
-  extern const glConst GLMinFilter;
-  extern const glConst GLMagFilter;
-  extern const glConst GLWrapS;
-  extern const glConst GLWrapT;
+/// Texture uniform blocks
+extern const glConst GLTexture0;
 
-  /// Texture Wrap Modes
-  extern const glConst GLRepeate;
-  extern const glConst GLMirroredRepeate;
-  extern const glConst GLClampToEdge;
+/// Texture param names
+extern const glConst GLMinFilter;
+extern const glConst GLMagFilter;
+extern const glConst GLWrapS;
+extern const glConst GLWrapT;
 
-  /// Texture Filter Modes
-  extern const glConst GLLinear;
-  extern const glConst GLNearest;
+/// Texture Wrap Modes
+extern const glConst GLRepeate;
+extern const glConst GLMirroredRepeate;
+extern const glConst GLClampToEdge;
 
-  /// OpenGL types
-  extern const glConst GLByteType;
-  extern const glConst GLUnsignedByteType;
-  extern const glConst GLShortType;
-  extern const glConst GLUnsignedShortType;
-  extern const glConst GLIntType;
-  extern const glConst GLUnsignedIntType;
-  extern const glConst GLFloatType;
-  extern const glConst GLDoubleType;
+/// Texture Filter Modes
+extern const glConst GLLinear;
+extern const glConst GLNearest;
 
-  extern const glConst GLFloatVec2;
-  extern const glConst GLFloatVec3;
-  extern const glConst GLFloatVec4;
+/// OpenGL types
+extern const glConst GLByteType;
+extern const glConst GLUnsignedByteType;
+extern const glConst GLShortType;
+extern const glConst GLUnsignedShortType;
+extern const glConst GLIntType;
+extern const glConst GLUnsignedIntType;
+extern const glConst GLFloatType;
+extern const glConst GLDoubleType;
 
-  extern const glConst GLIntVec2;
-  extern const glConst GLIntVec3;
-  extern const glConst GLIntVec4;
+extern const glConst GLFloatVec2;
+extern const glConst GLFloatVec3;
+extern const glConst GLFloatVec4;
 
-  extern const glConst GLFloatMat4;
+extern const glConst GLIntVec2;
+extern const glConst GLIntVec3;
+extern const glConst GLIntVec4;
 
-  /// Blend Functions
-  extern const glConst GLAddBlend;
-  extern const glConst GLSubstractBlend;
-  extern const glConst GLReverseSubstrBlend;
+extern const glConst GLFloatMat4;
 
-  /// Blend Factors
-  extern const glConst GLZero;
-  extern const glConst GLOne;
-  extern const glConst GLSrcColor;
-  extern const glConst GLOneMinusSrcColor;
-  extern const glConst GLDstColor;
-  extern const glConst GLOneMinusDstColor;
-  extern const glConst GLSrcAlfa;
-  extern const glConst GLOneMinusSrcAlfa;
-  extern const glConst GLDstAlfa;
-  extern const glConst GLOneMinusDstAlfa;
+/// Blend Functions
+extern const glConst GLAddBlend;
+extern const glConst GLSubstractBlend;
+extern const glConst GLReverseSubstrBlend;
 
-  /// OpenGL states
-  extern const glConst GLDepthTest;
-  extern const glConst GLBlending;
+/// Blend Factors
+extern const glConst GLZero;
+extern const glConst GLOne;
+extern const glConst GLSrcColor;
+extern const glConst GLOneMinusSrcColor;
+extern const glConst GLDstColor;
+extern const glConst GLOneMinusDstColor;
+extern const glConst GLSrcAlfa;
+extern const glConst GLOneMinusSrcAlfa;
+extern const glConst GLDstAlfa;
+extern const glConst GLOneMinusDstAlfa;
 
-  /// OpenGL depth functions
-  extern const glConst GLNever;
-  extern const glConst GLLess;
-  extern const glConst GLEqual;
-  extern const glConst GLLessOrEqual;
-  extern const glConst GLGreat;
-  extern const glConst GLNotEqual;
-  extern const glConst GLGreatOrEqual;
-  extern const glConst GLAlways;
+/// OpenGL states
+extern const glConst GLDepthTest;
+extern const glConst GLBlending;
 
-  // Program object parameter names
-  extern const glConst GLActiveUniforms;
-}
+/// OpenGL depth functions
+extern const glConst GLNever;
+extern const glConst GLLess;
+extern const glConst GLEqual;
+extern const glConst GLLessOrEqual;
+extern const glConst GLGreat;
+extern const glConst GLNotEqual;
+extern const glConst GLGreatOrEqual;
+extern const glConst GLAlways;
+
+/// Program object parameter names
+extern const glConst GLActiveUniforms;
+
+} // namespace GLConst

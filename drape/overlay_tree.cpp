@@ -2,7 +2,7 @@
 
 #include "../std/bind.hpp"
 
-void OverlayTree::StartOverlayPlacing(const ScreenBase & screen)
+void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
 {
   m_modelView = screen;
   ASSERT(m_tree.empty(), ());

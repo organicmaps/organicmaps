@@ -13,74 +13,76 @@ namespace drule { class BaseRule; }
 
 namespace df
 {
-  struct CaptionDescription
-  {
-    CaptionDescription();
 
-    void Init(FeatureType const & f,
-              int const zoomLevel);
+struct CaptionDescription
+{
+  CaptionDescription();
 
-    void FormatCaptions(FeatureType const & f,
-                        feature::EGeomType type,
-                        bool auxCaptionExists);
+  void Init(FeatureType const & f,
+            int const zoomLevel);
 
-    const string & GetMainText() const;
-    const string & GetAuxText() const;
-    const string & GetRoadNumber() const;
-    double GetPopulationRank() const;
-    bool IsNameExists() const;
+  void FormatCaptions(FeatureType const & f,
+                      feature::EGeomType type,
+                      bool auxCaptionExists);
 
-  private:
-    void SwapCaptions(int const zoomLevel);
-    void DiscardLongCaption(int const zoomLevel);
+  string const & GetMainText() const;
+  string const & GetAuxText() const;
+  string const & GetRoadNumber() const;
+  double GetPopulationRank() const;
+  bool IsNameExists() const;
 
-  private:
-    string m_mainText;
-    string m_auxText;
-    string m_roadNumber;
-    string m_houseNumber;
-    double m_populationRank;
-  };
+private:
+  void SwapCaptions(int const zoomLevel);
+  void DiscardLongCaption(int const zoomLevel);
 
-  class Stylist
-  {
-  public:
-    Stylist();
+private:
+  string m_mainText;
+  string m_auxText;
+  string m_roadNumber;
+  string m_houseNumber;
+  double m_populationRank;
+};
 
-    bool IsCoastLine() const;
-    bool AreaStyleExists() const;
-    bool LineStyleExists() const;
-    bool PointStyleExists() const;
+class Stylist
+{
+public:
+  Stylist();
 
-    CaptionDescription const & GetCaptionDescription() const;
+  bool IsCoastLine() const;
+  bool AreaStyleExists() const;
+  bool LineStyleExists() const;
+  bool PointStyleExists() const;
 
-    typedef pair<drule::BaseRule const *, double> rule_wrapper_t;
-    typedef function<void (rule_wrapper_t const &)> rule_callback_t;
-    void ForEachRule(rule_callback_t const & fn);
+  CaptionDescription const & GetCaptionDescription() const;
 
-    bool IsEmpty() const;
+  typedef pair<drule::BaseRule const *, double> rule_wrapper_t;
+  typedef function<void (rule_wrapper_t const &)> rule_callback_t;
+  void ForEachRule(rule_callback_t const & fn);
 
-  private:
-    friend bool InitStylist(FeatureType const &,
-                            int const,
-                            Stylist &);
+  bool IsEmpty() const;
 
-    void RaiseCoastlineFlag();
-    void RaiseAreaStyleFlag();
-    void RaiseLineStyleFlag();
-    void RaisePointStyleFlag();
+private:
+  friend bool InitStylist(FeatureType const &,
+                          int const,
+                          Stylist &);
 
-    CaptionDescription & GetCaptionDescriptionImpl();
+  void RaiseCoastlineFlag();
+  void RaiseAreaStyleFlag();
+  void RaiseLineStyleFlag();
+  void RaisePointStyleFlag();
 
-  private:
-    typedef buffer_vector<rule_wrapper_t, 8> rules_t;
-    rules_t m_rules;
+  CaptionDescription & GetCaptionDescriptionImpl();
 
-    uint8_t m_state;
-    CaptionDescription m_captionDescriptor;
-  };
+private:
+  typedef buffer_vector<rule_wrapper_t, 8> rules_t;
+  rules_t m_rules;
 
-  bool InitStylist(FeatureType const & f,
-                   int const zoomLevel,
-                   Stylist & s);
-}
+  uint8_t m_state;
+  CaptionDescription m_captionDescriptor;
+};
+
+bool InitStylist(FeatureType const & f,
+                 int const zoomLevel,
+                 Stylist & s);
+
+} // namespace df

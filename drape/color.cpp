@@ -2,8 +2,10 @@
 
 namespace
 {
-  static const uint8_t MaxChannelValue = 255;
-}
+
+static const uint8_t MaxChannelValue = 255;
+
+} // namespace
 
 Color::Color()
   : m_red(0)

@@ -13,13 +13,12 @@ using ::testing::_;
 using ::testing::Return;
 using ::testing::InSequence;
 
-
 UNIT_TEST(CreateDestroyDataBufferTest)
 {
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
-  EXPECTGL(glBindBuffer(1, GLConst::GLArrayBuffer));
-  EXPECTGL(glBufferData(GLConst::GLArrayBuffer, 3 * 100 * sizeof(float), NULL, GLConst::GLStaticDraw));
+  EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), NULL, gl_const::GLStaticDraw));
   EXPECTGL(glDeleteBuffer(1));
 
   GPUBuffer * buffer = new DataBuffer(3 * sizeof(float), 100);
@@ -30,8 +29,8 @@ UNIT_TEST(CreateDestroyIndexBufferTest)
 {
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
-  EXPECTGL(glBindBuffer(1, GLConst::GLElementArrayBuffer));
-  EXPECTGL(glBufferData(GLConst::GLElementArrayBuffer, 100 * sizeof(uint16_t), NULL, GLConst::GLStaticDraw));
+  EXPECTGL(glBindBuffer(1, gl_const::GLElementArrayBuffer));
+  EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, 100 * sizeof(uint16_t), NULL, gl_const::GLStaticDraw));
   EXPECTGL(glDeleteBuffer(1));
 
   GPUBuffer * buffer = new IndexBuffer(100);
@@ -46,10 +45,10 @@ UNIT_TEST(UploadDataTest)
 
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
-  EXPECTGL(glBindBuffer(1, GLConst::GLArrayBuffer));
-  EXPECTGL(glBufferData(GLConst::GLArrayBuffer, 3 * 100 * sizeof(float), NULL, GLConst::GLStaticDraw));
-  EXPECTGL(glBindBuffer(1, GLConst::GLArrayBuffer));
-  EXPECTGL(glBufferSubData(GLConst::GLArrayBuffer, 3 * 100 * sizeof(float), data, 0));
+  EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), NULL, gl_const::GLStaticDraw));
+  EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
+  EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), data, 0));
   EXPECTGL(glDeleteBuffer(1));
 
   GPUBuffer * buffer = new GPUBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);
@@ -69,12 +68,12 @@ UNIT_TEST(ParticalUploadDataTest)
 
   InSequence s;
   EXPECTGL(glGenBuffer()).WillOnce(Return(1));
-  EXPECTGL(glBindBuffer(1, GLConst::GLArrayBuffer));
-  EXPECTGL(glBufferData(GLConst::GLArrayBuffer, 3 * 100 * sizeof(float), NULL, GLConst::GLStaticDraw));
-  EXPECTGL(glBindBuffer(1, GLConst::GLArrayBuffer));
-  EXPECTGL(glBufferSubData(GLConst::GLArrayBuffer, 3 * 30 * sizeof(float), part1Data, 0));
-  EXPECTGL(glBindBuffer(1, GLConst::GLArrayBuffer));
-  EXPECTGL(glBufferSubData(GLConst::GLArrayBuffer, 3 * 70 * sizeof(float), part2Data, 3 * 30 * sizeof(float)));
+  EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
+  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, 3 * 100 * sizeof(float), NULL, gl_const::GLStaticDraw));
+  EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
+  EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, 3 * 30 * sizeof(float), part1Data, 0));
+  EXPECTGL(glBindBuffer(1, gl_const::GLArrayBuffer));
+  EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, 3 * 70 * sizeof(float), part2Data, 3 * 30 * sizeof(float)));
   EXPECTGL(glDeleteBuffer(1));
 
   GPUBuffer * buffer = new GPUBuffer(GPUBuffer::ElementBuffer, 3 * sizeof(float), 100);

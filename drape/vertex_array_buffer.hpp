@@ -35,7 +35,7 @@ private:
   void UpdateIndexBuffer(uint16_t const * data, uint16_t count);
 
 private:
-  RefPointer<DataBuffer> GetBuffer(const BindingInfo & bindingInfo);
+  RefPointer<DataBuffer> GetBuffer(BindingInfo const & bindingInfo);
   void Bind();
   void BindBuffers();
 

@@ -13,31 +13,33 @@ class OGLContextFactory;
 
 namespace df
 {
-  class Viewport;
-  class DrapeEngine
-  {
-  public:
-    DrapeEngine(RefPointer<OGLContextFactory> oglcontextfactory, double vs, Viewport const & viewport);
-    ~DrapeEngine();
 
-    void Resize(int w, int h);
-    void DragStarted(m2::PointF const & p);
-    void Drag(m2::PointF const & p);
-    void DragEnded(m2::PointF const & p);
-    void Scale(m2::PointF const & p, double factor);
+class Viewport;
+class DrapeEngine
+{
+public:
+  DrapeEngine(RefPointer<OGLContextFactory> oglcontextfactory, double vs, Viewport const & viewport);
+  ~DrapeEngine();
 
-  private:
-    void UpdateCoverage();
+  void Resize(int w, int h);
+  void DragStarted(m2::PointF const & p);
+  void Drag(m2::PointF const & p);
+  void DragEnded(m2::PointF const & p);
+  void Scale(m2::PointF const & p, double factor);
 
-  private:
-    MasterPointer<FrontendRenderer> m_frontend;
-    MasterPointer<BackendRenderer>  m_backend;
+private:
+  void UpdateCoverage();
 
-    MasterPointer<TextureManager> m_textures;
-    MasterPointer<ThreadsCommutator> m_threadCommutator;
+private:
+  MasterPointer<FrontendRenderer> m_frontend;
+  MasterPointer<BackendRenderer>  m_backend;
 
-    ScalesProcessor m_scales;
-    Viewport m_viewport;
-    Navigator m_navigator;
-  };
-}
+  MasterPointer<TextureManager> m_textures;
+  MasterPointer<ThreadsCommutator> m_threadCommutator;
+
+  ScalesProcessor m_scales;
+  Viewport m_viewport;
+  Navigator m_navigator;
+};
+
+} // namespace df
