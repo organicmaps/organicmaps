@@ -157,25 +157,10 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   string const & flag = s.CountryFlag(countryIndex);
   guides::GuideInfo info;
 
-  if (!flag.empty())
-  {
+  if (flag.empty())
+    cell.imageView.image = nil;
+  else
     cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%s.png", flag.c_str()]];
-    [cell layoutSubviews];
-    for (UIView * v in cell.imageView.subviews)
-      if (v.tag == BAG_TAG)
-        [v removeFromSuperview];
-    if ((s.CountriesCount(countryIndex) == 0) && frm.GetGuideInfo(countryIndex, info))
-    {
-      UIImageView * im = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_guide_mark"]];
-      UIView * v = [[UIView alloc] initWithFrame:im.frame];
-      [v addSubview:im];
-      v.tag = BAG_TAG;
-      CGRect r = v.frame;
-      r = CGRectMake(0, cell.imageView.frame.size.height - v.frame.size.height, v.frame.size.width, v.frame.size.height);
-      v.frame = r;
-      [cell.imageView addSubview:v];
-    }
-  }
 
   // do not show status for parent categories
   if (![cell.reuseIdentifier isEqual:@"ParentCell"])
