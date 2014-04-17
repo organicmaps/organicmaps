@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Manifest xmlns="http://schemas.tizen.org/2012/12/manifest">
+	<Id>3BMaQARPoL</Id>
+	<Version>1.0.0</Version>
+	<Type>C++App</Type>
+	<Requirements>
+	<Feature Name="http://tizen.org/feature/platform.native.api.version">2.2</Feature>
+	</Requirements>
+	<Apps>
+		<ApiVersion>2.2</ApiVersion>
+		<Privileges></Privileges>
+		<UiApp Name="MapsWithMe" Main="True" MenuIconVisible="True">
+			<UiScalability CoordinateSystem="Logical" BaseScreenSize="Normal" LogicalCoordinate="720"></UiScalability>
+			<UiTheme SystemTheme="White"></UiTheme>
+			<DisplayNames>
+				<DisplayName Locale="eng-GB">MapsWithMe</DisplayName>
+			</DisplayNames>
+			<Icons>
+				<Icon Section="MainMenu" >mainmenu.png</Icon>
+			</Icons>
+
+		</UiApp>
+	</Apps>
+</Manifest>
