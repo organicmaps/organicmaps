@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -121,24 +122,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
     // get url for PRO version
     if (!m_isPro)
     {
-      final AssetManager assets = getAssets();
-      InputStream stream = null;
-      try
-      {
-        stream = assets.open("app_info.txt");
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-
-        final String s = reader.readLine();
-        if (s.length() > 0)
-          m_proVersionURL = s;
-
-        Log.i(TAG, "Pro version url: " + m_proVersionURL);
-      }
-      catch (final IOException ex)
-      {
-        // suppress exceptions - pro version doesn't need app_info.txt
-      }
-      Utils.closeStream(stream);
+      m_proVersionURL = BuildConfig.PRO_URL;
+      Log.i(TAG, "Pro version url: " + m_proVersionURL);
     }
 
     final String extStoragePath = getDataStoragePath();

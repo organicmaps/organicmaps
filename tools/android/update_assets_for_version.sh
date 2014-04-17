@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x -u
 
-SRC=../../../data
+SRC=../../data
 DST=$1
 
 # Remove old links

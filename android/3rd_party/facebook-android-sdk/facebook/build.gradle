@@ -1,16 +1,16 @@
 apply plugin: 'android-library'
 
 dependencies {
-    compile 'com.android.support:support-v4:13.0.+'
+    compile 'com.android.support:support-v4:19.1.+'
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19"
+    compileSdkVersion propTargetSdkVersion.toInteger()
+    buildToolsVersion propBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 19
+        minSdkVersion propMinSdkVersion.toInteger()
+        targetSdkVersion propTargetSdkVersion.toInteger()
     }
 
     sourceSets {
@@ -19,5 +19,9 @@ android {
             java.srcDirs = ['src']
             res.srcDirs = ['res']
         }
+    }
+
+    lintOptions {
+        abortOnError false
     }
 }

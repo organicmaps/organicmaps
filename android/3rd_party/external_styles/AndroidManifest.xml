@@ -4,8 +4,4 @@
     android:versionCode="1005000"
     android:versionName="1.5.0" >
 
-    <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="19" />
-
 </manifest>

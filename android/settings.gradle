@@ -1,3 +1,1 @@
-include ':YoPme'
-include ':3rd_party:api-android:lib'
-include ':3rd_party:yota_sdk'
+include ':3rd_party:external_styles', ':3rd_party:facebook-android-sdk:facebook'

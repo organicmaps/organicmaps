@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# This script should replace original aapt tool,
-# which should be renamed to aapt2, see below:
-
-# Main purpose is transparently disable compression
-# for given file types inside .zip (.apk) file
-
-${0}2 "$@" -0 txt -0 bin -0 skn -0 html -0 png -0 json -0 mwm -0 ttf

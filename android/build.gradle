@@ -1,9 +1,231 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.5.+'
-    }
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath 'com.android.tools.build:gradle:0.9.2'
+  }
 }
+
+apply plugin: 'android'
+
+dependencies {
+  compile propAndroidSupportLibrary, propGooglePlayServices
+  compile project(':3rd_party:external_styles')
+  compile project(':3rd_party:facebook-android-sdk:facebook')
+  compile fileTree(dir: '3rd_party', include: '*.jar')
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyMMdd')
+    return formattedDate
+}
+
+android {
+  // All properties are read from gradle.properties file
+  compileSdkVersion propTargetSdkVersion.toInteger()
+  buildToolsVersion propBuildToolsVersion
+
+  defaultConfig {
+    // Default package name is taken from the manifest and should be com.mapswithme.maps
+    versionCode propVersionCode.toInteger()
+    versionName propVersionName
+    minSdkVersion propMinSdkVersion.toInteger()
+    targetSdkVersion propTargetSdkVersion.toInteger()
+  }
+
+  sourceSets.main {
+    manifest.srcFile 'AndroidManifest.xml'
+    java.srcDirs = ['src']
+    res.srcDirs = ['res']
+    assets.srcDirs = ['assets']
+  }
+
+  flavorDimensions 'store'
+  productFlavors {
+    pro {
+      packageName 'com.mapswithme.maps.pro'
+      buildConfigField 'String', 'PRO_URL', '""'      // Empty url string for the pro version
+      android.sourceSets.pro.setRoot('flavors/pro')
+    }
+
+    google {
+      flavorDimension 'store'
+      buildConfigField 'String', 'PRO_URL', '"market://details?id=com.mapswithme.maps.pro"'
+      android.sourceSets.google.setRoot('flavors/lite')
+    }
+
+    // Linked to the Pro version on Samsung Apps
+    samsung {
+      flavorDimension 'store'
+      packageName 'com.mapswithme.maps.samsung'      // Custom package name for Samsung Lite version - due to historical reasons
+      buildConfigField 'String', 'PRO_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
+      android.sourceSets.samsung.setRoot('flavors/lite')
+    }
+
+    // Linked to the Pro version on Amazon Apps
+    amazon {
+      flavorDimension 'store'
+      buildConfigField 'String', 'PRO_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
+      android.sourceSets.amazon.setRoot('flavors/lite')
+    }
+
+    // Linked to the Pro version on AndroidPit store
+    androidpit {
+      flavorDimension 'store'
+      buildConfigField 'String', 'PRO_URL', '"appcenter://package/com.mapswithme.maps.pro"'
+      android.sourceSets.androidpit.setRoot('flavors/lite')
+    }
+    // Linked to the Pro version on SlideMe store
+    slideme {
+      flavorDimension 'store'
+      buildConfigField 'String', 'PRO_URL', '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
+      android.sourceSets.slideme.setRoot('flavors/lite')
+    }
+
+    // Linked to the Pro version on Yandex store
+    yandex {
+      flavorDimension 'store'
+      buildConfigField 'String', 'PRO_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
+      android.sourceSets.yandex.setRoot('flavors/lite')
+    }
+  }
+
+  // TODO: Fix a lot of lint errors in our code
+  lintOptions {
+    abortOnError false
+  }
+
+  applicationVariants.all { variant ->
+    // This is an annoying hack to get around the fact that the Gradle plugin does not support
+    // having libraries with different minSdkVersions. Play Services has a min version of 9 but we support 7 still
+    variant.processManifest.doFirst {
+      File manifestFile = file("${buildDir}/exploded-aar/com.google.android.gms/play-services/4.3.23/AndroidManifest.xml")
+      if (manifestFile.exists()) {
+        println("Replacing minSdkVersion in Google Play Services")
+        String content = manifestFile.getText('UTF-8')
+        content = content.replaceAll(/minSdkVersion="9"/, 'minSdkVersion=\"7\"')
+        manifestFile.write(content, 'UTF-8')
+        println(content)
+      }
+    }
+
+    // Also add version at the end of each built apk
+    def file = variant.outputFile
+    variant.outputFile = new File(file.parent, file.name.replace(".apk", "-" + defaultConfig.versionName + "-" + getDate() + ".apk"))
+  }
+
+  signingConfigs {
+    mapswithme {
+      storeFile file('../tools/android/mapswithme.keystore')
+      storePassword '***REMOVED***'
+      keyAlias 'mapswithme'
+      keyPassword '***REMOVED***'
+    }
+
+    yopme {
+      storeFile file('YopMe/key/android.keystore')
+      storePassword '***REMOVED***'
+      keyAlias 'yopme'
+      keyPassword '***REMOVED***'
+    }
+  }
+
+  buildTypes {
+    debug {
+      packageNameSuffix '.debug'   // Allows to install debug and release builds together
+      versionNameSuffix '-debug'
+      jniDebugBuild true           // Enable jni debug build
+    }
+
+    release {
+      signingConfig signingConfigs.mapswithme
+    }
+
+    beta {
+      packageNameSuffix '.beta'
+      versionNameSuffix '-beta'
+      signingConfig signingConfigs.mapswithme
+    }
+  }
+
+  // We don't compress these extensions in assets/ because our random FileReader can't read zip-compressed files from apk
+  aaptOptions {
+    noCompress 'txt', 'bin', 'skn', 'html', 'png', 'json', 'mwm', 'ttf'
+    ignoreAssetsPattern "!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
+  }
+
+  // Enables new Java features in KitKat+ but needs Java 1.7 installed
+  //compileOptions {
+  //  sourceCompatibility JavaVersion.VERSION_1_7
+  //  targetCompatibility JavaVersion.VERSION_1_7
+  //}
+}
+
+
+//@{ Below are tasks needed to compile our NDK part
+apply plugin:'base'
+
+task cppLibsBuildDebug(type:Exec, description: 'Building DEBUG version of static C++ libraries') {
+  commandLine 'bash', '../tools/autobuild/android.sh', 'debug'
+}
+
+task cppLibsBuildRelease(type:Exec, description: 'Building RELEASE/PRODUCTION version of static C++ libraries') {
+  commandLine 'bash', '../tools/autobuild/android.sh', 'production'
+}
+
+def NUM_OF_PARALLEL_MAKE_TASKS = Runtime.runtime.availableProcessors() + 1
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def NDK_BUILD = properties.getProperty('ndk.dir') + '/ndk-build'
+
+task ndkBuildDebug(type:Exec, dependsOn: 'cppLibsBuildDebug', description: 'Building DEBUG jni sources') {
+  def clArgs = ([NDK_BUILD, '-j' + NUM_OF_PARALLEL_MAKE_TASKS] + propDebugNdkFlags.split(' ')).flatten()
+  commandLine clArgs
+}
+
+task ndkBuildRelease(type:Exec, dependsOn: 'cppLibsBuildRelease', description: 'Building RELEASE/PRODUCTION jni sources') {
+  def clArgs = ([NDK_BUILD, '-j' + NUM_OF_PARALLEL_MAKE_TASKS] + propReleaseNdkFlags.split(' ')).flatten()
+  commandLine clArgs
+}
+
+task ndkBuildClean(type:Exec, description: 'Clean native libraries') {
+  commandLine NDK_BUILD, 'clean'
+}
+
+// This one is needed for clean task
+task copyNativeLibs(type:Copy, description: 'Copy native libraries') {
+  from(new File('libs')) { include '**/*.so' }
+  into new File(buildDir, 'native-libs')
+}
+
+// TODO: avoid copypaste and resolve tasks dependencies in more convenient way
+task copyNativeLibsRelease(type:Copy, dependsOn: ndkBuildRelease, description: 'Copy native libraries') {
+  from(new File('libs')) { include '**/*.so' }
+  into new File(buildDir, 'native-libs')
+}
+
+task copyNativeLibsDebug(type:Copy, dependsOn: ndkBuildDebug, description: 'Copy native libraries') {
+  from(new File('libs')) { include '**/*.so' }
+  into new File(buildDir, 'native-libs')
+}
+
+tasks.withType(Compile) { compileTask ->
+  if (compileTask.name.contains('Release')) {
+    compileTask.dependsOn copyNativeLibsRelease
+  } else {
+    compileTask.dependsOn copyNativeLibsDebug
+  }
+}
+
+clean.dependsOn 'cleanCopyNativeLibs'
+clean.dependsOn 'ndkBuildClean'
+
+tasks.withType(com.android.build.gradle.tasks.PackageApplication) { pkgTask ->
+  pkgTask.jniFolders = new HashSet<File>()
+  pkgTask.jniFolders.add(new File(buildDir, 'native-libs'))
+}
+
+//@} End of tasks needed to compile our NDK part

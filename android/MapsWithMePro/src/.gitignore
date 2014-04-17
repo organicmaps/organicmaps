@@ -1,5 +1,0 @@
-# This file is needed to keep directory in git.
-# Ignore everything in this directory
-*
-# Except this file
-!.gitignore
