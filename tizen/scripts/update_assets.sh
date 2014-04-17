@@ -1,2 +1,2 @@
 #!/bin/bash
-./update_assets_for_version.sh ../RunUnitTests/res
+./update_assets_for_version.sh ../MapsWithMe/data
