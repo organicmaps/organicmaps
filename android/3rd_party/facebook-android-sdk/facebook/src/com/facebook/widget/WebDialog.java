@@ -36,6 +36,7 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import com.facebook.*;
 import com.facebook.android.*;
 import com.facebook.internal.Logger;
@@ -333,6 +334,7 @@ public class WebDialog extends Dialog {
         crossImageView.setVisibility(View.INVISIBLE);
     }
 
+    @SuppressWarnings("deprecation")
     @SuppressLint("SetJavaScriptEnabled")
     private void setUpWebView(int margin) {
         LinearLayout webViewContainer = new LinearLayout(getContext());

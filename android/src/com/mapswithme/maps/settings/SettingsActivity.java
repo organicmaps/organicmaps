@@ -133,6 +133,7 @@ public class SettingsActivity extends PreferenceActivity
     yotaSetup();
   }
 
+  @SuppressWarnings("deprecation")
   private void yotaSetup()
   {
     final Preference yopPreference = findPreference(getString(R.string.pref_yota));

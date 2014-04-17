@@ -2,11 +2,9 @@ package com.mapswithme.util;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -53,12 +51,6 @@ final public class Utils
         Log.e(TAG, "Can't close stream", e);
       }
     }
-  }
-
-  public static String readStreamAsString(InputStream is)
-  {
-    final Scanner scanner = new Scanner(is).useDelimiter("\\A");
-    return scanner.hasNext() ? scanner.next() : "";
   }
 
   public static boolean isAmazonDevice()

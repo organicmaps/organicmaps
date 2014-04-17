@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.animation.AlphaAnimation;
 import android.widget.*;
+
 import com.facebook.*;
 import com.facebook.android.R;
 import com.facebook.model.GraphObject;
@@ -623,6 +624,7 @@ public abstract class PickerFragment<T extends GraphObject> extends Fragment {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void inflateTitleBar(ViewGroup view) {
         ViewStub stub = (ViewStub) view.findViewById(R.id.com_facebook_picker_title_bar_stub);
         if (stub != null) {

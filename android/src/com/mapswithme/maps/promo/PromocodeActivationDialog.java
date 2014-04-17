@@ -21,6 +21,7 @@ import com.mapswithme.util.statistics.Statistics;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Scanner;
 
 public class PromocodeActivationDialog extends Dialog
                                        implements OnClickListener, PromoActivationRequest.RequestListener
@@ -45,8 +46,9 @@ public class PromocodeActivationDialog extends Dialog
       @Override
       public boolean parseResponse(InputStream is)
       {
-        final String response = Utils.readStreamAsString(is);
-        return "VALID".equalsIgnoreCase(response);
+        @SuppressWarnings("resource")
+        final Scanner scanner = new Scanner(is).useDelimiter("\\A");
+        return scanner.hasNext() ? "VALID".equalsIgnoreCase(scanner.next()) : false;
       }
 
       @Override

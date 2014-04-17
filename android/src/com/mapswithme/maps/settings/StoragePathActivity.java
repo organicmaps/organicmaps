@@ -152,6 +152,8 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
       notifyDataSetChanged();
     }
 
+    @SuppressWarnings("deprecation")
+    @SuppressLint("NewApi")
     private boolean addStorage(String path)
     {
       try
@@ -163,7 +165,9 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
             return false;
 
           final StatFs stat = new StatFs(path);
-          final long size = (long)stat.getAvailableBlocks() * (long)stat.getBlockSize();
+          final long size = Utils.apiLowerThan(android.os.Build.VERSION_CODES.JELLY_BEAN_MR2)
+                            ? (long)stat.getAvailableBlocks() * (long)stat.getBlockSize()
+                            : stat.getAvailableBytes();
           Log.i(TAG, "Available size = " + size);
 
           final StorageItem item = new StorageItem();
