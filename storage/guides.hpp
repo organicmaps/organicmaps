@@ -8,7 +8,7 @@
 #include "../std/scoped_ptr.hpp"
 #include "../std/noncopyable.hpp"
 
-#include "../../3party/jansson/jansson_handle.hpp"
+#include "../3party/jansson/jansson_handle.hpp"
 
 namespace guides
 {
