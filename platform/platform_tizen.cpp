@@ -44,9 +44,9 @@ Platform::Platform()
 int Platform::CpuCores() const
 {
   /// @todo
-//  const long numCPU = sysconf(_SC_NPROCESSORS_ONLN);
-//  if (numCPU >= 1)
-//    return static_cast<int>(numCPU);
+  //  const long numCPU = sysconf(_SC_NPROCESSORS_ONLN);
+  //  if (numCPU >= 1)
+  //    return static_cast<int>(numCPU);
   return 1;
 }
 
@@ -92,9 +92,42 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   }
 }
 
+int Platform::VideoMemoryLimit() const
+{
+  return 10 * 1024 * 1024;
+}
+
+int Platform::PreCachingDepth() const
+{
+  return 3;
+}
 ////////////////////////////////////////////////////////////////////////
 extern Platform & GetPlatform()
 {
   static Platform platform;
   return platform;
+}
+
+class HttpThread;
+
+namespace downloader
+{
+class IHttpThreadCallback;
+
+HttpThread * CreateNativeHttpThread(string const & url,
+                                    downloader::IHttpThreadCallback & cb,
+                                    int64_t beg,
+                                    int64_t end,
+                                    int64_t size,
+                                    string const & pb)
+{
+  // todo;
+  return 0;
+}
+
+void DeleteNativeHttpThread(HttpThread * request)
+{
+  // todo;
+}
+
 }

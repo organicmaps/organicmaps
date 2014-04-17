@@ -43,7 +43,8 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 } else:tizen* {
   HEADERS += tizen_string_utils.hpp
   SOURCES += platform_tizen.cpp \
-    tizen_string_utils.cpp
+    tizen_string_utils.cpp \
+    pthread_video_timer.cpp
 }
 
 macx-*|iphone* {
