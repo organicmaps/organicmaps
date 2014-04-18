@@ -119,4 +119,4 @@ RenderContext * RenderContext::createShared()
   return 0;
 }
 
-} /* namespace tizen */
+}

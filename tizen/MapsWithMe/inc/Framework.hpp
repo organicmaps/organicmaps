@@ -28,4 +28,4 @@ private:
   shared_ptr<RenderContext> m_context;
 };
 
-} /* namespace tizen */
+}
