@@ -5,11 +5,10 @@
 
 class MapsWithMeApp;
 
-class MapsWithMeForm
-: public Tizen::Ui::Controls::Form
+class MapsWithMeForm: public Tizen::Ui::Controls::Form
   , public Tizen::Ui::ITouchEventListener
-  {
-  public:
+{
+public:
   MapsWithMeForm(MapsWithMeApp* pApp);
   virtual ~MapsWithMeForm(void);
 
@@ -31,6 +30,6 @@ class MapsWithMeForm
   virtual void  OnTouchReleased (const Tizen::Ui::Control &source,
       const Tizen::Graphics::Point &currentPosition,
       const Tizen::Ui::TouchEventInfo &touchInfo);
-  private:
+private:
   MapsWithMeApp* m_pApp;
-  };
+};
