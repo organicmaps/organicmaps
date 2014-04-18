@@ -1,28 +1,19 @@
-#include <new>
 #include "MapsWithMeApp.h"
 #include "MapsWithMeFrame.h"
 #include "MapsWithMeForm.hpp"
-#include "../../../base/logging.hpp"
 #include "Framework.hpp"
+#include "../../../base/logging.hpp"
 #include <FUi.h>
 
 using namespace Tizen::App;
 using namespace Tizen::System;
 
-MapsWithMeApp::MapsWithMeApp(void)
-{
-}
+MapsWithMeApp::MapsWithMeApp(void) {}
 
-MapsWithMeApp::~MapsWithMeApp(void)
-{
-}
+MapsWithMeApp::~MapsWithMeApp(void) {}
 
 UiApp*
-MapsWithMeApp::CreateInstance(void)
-{
-  // Create the application instance through the constructor.
-  return new (std::nothrow) MapsWithMeApp();
-}
+MapsWithMeApp::CreateInstance(void) {return new (std::nothrow) MapsWithMeApp();}
 
 bool
 MapsWithMeApp::OnAppInitializing(AppRegistry& appRegistry)
@@ -48,6 +39,7 @@ MapsWithMeApp::OnAppInitializing(AppRegistry& appRegistry)
   TryReturn(pForm != null, false, "The memory is insufficient.");
   pForm->Construct(Tizen::Ui::Controls::FORM_STYLE_NORMAL);
   pMapsWithMeFrame->AddControl(pForm);
+  pForm->AddTouchEventListener(*pForm);
 
   m_pFramework = new tizen::Framework(pForm);
 
@@ -61,10 +53,7 @@ result MapsWithMeApp::Draw()
 }
 
 bool
-MapsWithMeApp::OnAppInitialized(void)
-{
-  return true;
-}
+MapsWithMeApp::OnAppInitialized(void) {return true;}
 
 bool
 MapsWithMeApp::OnAppWillTerminate(void)
@@ -120,5 +109,4 @@ MapsWithMeApp::OnScreenOff(void)
   // Only perform quick operations in this event handler. Any lengthy operations can be risky;
   // for example, invoking a long asynchronous method within this event handler can cause problems
   // because the device can enter the sleep mode before the callback is invoked.
-
 }

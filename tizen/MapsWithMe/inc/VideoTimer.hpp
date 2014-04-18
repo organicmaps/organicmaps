@@ -1,7 +1,7 @@
+#pragma once
+
 #include <FBase.h>
 #include "../../../map/framework.hpp"
-
-#pragma once
 
 namespace tizen
 {

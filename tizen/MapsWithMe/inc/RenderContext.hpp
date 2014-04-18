@@ -1,16 +1,6 @@
 #pragma once
 #include "../../../graphics/opengl/gl_render_context.hpp"
-
-namespace Tizen
-{
-namespace Ui
-{
-namespace Controls
-{
-class Form;
-}
-}
-}
+#include <FUi.h>
 
 namespace tizen
 {
@@ -21,9 +11,7 @@ public:
   virtual ~RenderContext();
 
   bool Init(::Tizen::Ui::Controls::Form * form);
-
   void SwapBuffers();
-
   virtual void makeCurrent();
   virtual RenderContext * createShared();
 private:

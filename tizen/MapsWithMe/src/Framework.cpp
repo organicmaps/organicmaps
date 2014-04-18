@@ -1,16 +1,19 @@
 #include "Framework.hpp"
+#include "RenderContext.hpp"
+#include "VideoTimer.hpp"
+
 #include <FBase.h>
 #include <FUi.h>
+
 #include "../../../map/framework.hpp"
 #include "../../../map/render_policy.hpp"
+
 #include "../../../graphics/defines.hpp"
 #include "../../../graphics/data_formats.hpp"
 
-#include "../../../std/bind.hpp"
 #include "../../../platform/platform.hpp"
 
-#include "RenderContext.hpp"
-#include "VideoTimer.hpp"
+#include "../../../std/bind.hpp"
 
 namespace tizen
 {

@@ -105,10 +105,12 @@ void RenderContext::SwapBuffers()
 void RenderContext::makeCurrent()
 {
   EGLBoolean b_res = eglMakeCurrent(m_display, m_surface, m_surface, m_context);
+
   if (b_res == EGL_FALSE)
   {
     /// todo throw eglGetError();
   }
+  eglSwapInterval(m_display, 1);
 }
 
 RenderContext * RenderContext::createShared()
