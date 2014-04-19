@@ -66,6 +66,8 @@ namespace android
     // It stores path to current maps storage.
     m_settingsDir = jni::ToNativeString(env, storagePath);
 
+    // @TODO it's a bug when user had all his maps on SD but when space is low,
+    // he loses access to all downloaded maps. We should display warnings in these cases in UI.
     if (!Settings::Get("StoragePath", m_writableDir) || !HasAvailableSpaceForWriting(1024))
     {
       // If no saved storage path or the storage is unavailable
