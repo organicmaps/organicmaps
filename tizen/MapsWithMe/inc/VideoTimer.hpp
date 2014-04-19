@@ -6,7 +6,9 @@
 namespace tizen
 {
 
-class VideoTimer1: public ::VideoTimer, public Tizen::Base::Runtime::ITimerEventListener
+class VideoTimer1
+  : public ::VideoTimer
+  , public Tizen::Base::Runtime::ITimerEventListener
 {
 public:
   VideoTimer1(TFrameFn fn);

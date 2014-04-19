@@ -26,7 +26,7 @@ Framework::Framework(Tizen::Ui::Controls::Form * form)
   {
     LOG(LINFO, ("Context Init failed"));
     /// ToDo
-  };
+  }
   pContext->makeCurrent();
   m_context.reset(pContext);
 

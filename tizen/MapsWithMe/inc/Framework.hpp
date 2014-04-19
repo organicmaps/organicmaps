@@ -4,7 +4,7 @@
 #include "../../../std/shared_ptr.hpp"
 
 class Framework;
-namespace Tizen{namespace Ui{namespace Controls
+namespace Tizen { namespace Ui { namespace Controls
 {
 class Form;
 }}}
@@ -14,7 +14,7 @@ namespace tizen
 class RenderContext;
 class VideoTimer1;
 
-class Framework: public noncopyable
+class Framework : public noncopyable
 {
 public:
   Framework(Tizen::Ui::Controls::Form * form);

@@ -5,7 +5,8 @@
 
 class MapsWithMeApp;
 
-class MapsWithMeForm: public Tizen::Ui::Controls::Form
+class MapsWithMeForm
+  : public Tizen::Ui::Controls::Form
   , public Tizen::Ui::ITouchEventListener
 {
 public:

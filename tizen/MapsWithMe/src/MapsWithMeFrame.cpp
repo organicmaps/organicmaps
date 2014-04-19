@@ -11,8 +11,7 @@ MapsWithMeFrame::~MapsWithMeFrame(void)
 {
 }
 
-result
-MapsWithMeFrame::OnInitializing(void)
+result MapsWithMeFrame::OnInitializing(void)
 {
   result r = E_SUCCESS;
 
@@ -22,8 +21,7 @@ MapsWithMeFrame::OnInitializing(void)
   return r;
 }
 
-result
-MapsWithMeFrame::OnTerminating(void)
+result MapsWithMeFrame::OnTerminating(void)
 {
   result r = E_SUCCESS;
 
@@ -31,8 +29,7 @@ MapsWithMeFrame::OnTerminating(void)
   return r;
 }
 
-bool
-MapsWithMeFrame::OnKeyReleased(Tizen::Ui::Control& source, const Tizen::Ui::KeyEventInfo& keyEventInfo)
+bool MapsWithMeFrame::OnKeyReleased(Tizen::Ui::Control& source, const Tizen::Ui::KeyEventInfo& keyEventInfo)
 {
   KeyCode keyCode = keyEventInfo.GetKeyCode();
 

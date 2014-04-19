@@ -4,7 +4,7 @@
 
 namespace tizen
 {
-class RenderContext: public graphics::gl::RenderContext
+class RenderContext : public graphics::gl::RenderContext
 {
 public:
   RenderContext();

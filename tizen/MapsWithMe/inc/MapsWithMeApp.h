@@ -13,7 +13,8 @@ class Framework;
 //  The MapsWithMeApp class must inherit from the UiApp class,
 //  which provides the basic features necessary to define a UI application.
 
-class MapsWithMeApp : public Tizen::App::UiApp
+class MapsWithMeApp
+  : public Tizen::App::UiApp
   , public Tizen::System::IScreenEventListener
 {
 public:

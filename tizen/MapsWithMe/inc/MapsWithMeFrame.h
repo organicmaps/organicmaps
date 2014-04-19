@@ -4,7 +4,8 @@
 #include <FUi.h>
 #include <FApp.h>
 
-class MapsWithMeFrame : public Tizen::Ui::Controls::Frame
+class MapsWithMeFrame
+  : public Tizen::Ui::Controls::Frame
   , public Tizen::Ui::IPropagatedKeyEventListener
 {
 public:
