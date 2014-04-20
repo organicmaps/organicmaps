@@ -956,3 +956,4 @@ shop|furniture
 natural|grassland
 natural|waterfall
 waterway|waterfall
+railway|proposed
