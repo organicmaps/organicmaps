@@ -11,6 +11,7 @@ fi
 
 source "$LOCAL_DIRNAME/ndk_helper.sh"
 
+export NDK_PROJECT_PATH="$LOCAL_DIRNAME/../../android"
 if [[ "$1" != "clean" ]] ; then
   $(GetNdkRoot)/ndk-build APP_ABI=armeabi V=1 NDK_DEBUG=1 DEBUG=1
 else
