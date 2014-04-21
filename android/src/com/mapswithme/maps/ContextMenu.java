@@ -2,9 +2,11 @@ package com.mapswithme.maps;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.MailTo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,6 +41,41 @@ public class ContextMenu
         final AlphaAnimation aAnim = new AlphaAnimation(0, 1);
         aAnim.setDuration(750);
         myWebView.startAnimation(aAnim);
+      }
+      
+      @Override
+      public boolean shouldOverrideUrlLoading(WebView v, String url)
+      {
+        if (MailTo.isMailTo(url))
+        {
+          MailTo parser = MailTo.parse(url);
+          Context ctx = v.getContext();
+          Intent mailIntent = CreateEmailIntent(ctx,
+                                                parser.getTo(),
+                                                parser.getSubject(),
+                                                parser.getBody(), 
+                                                parser.getCc());
+          ctx.startActivity(mailIntent);
+          v.reload();
+          return true;
+        }
+        else
+          return false;
+      }
+      
+      private Intent CreateEmailIntent(Context context,
+                                       String address,
+                                       String subject,
+                                       String body,
+                                       String cc)
+      {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { address });
+        intent.putExtra(Intent.EXTRA_TEXT, body);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_CC, cc);
+        intent.setType("message/rfc822");
+        return intent;
       }
     });
 
