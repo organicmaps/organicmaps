@@ -2374,10 +2374,6 @@
     pl = Pobierz mapę kraju (%@), którego aktualnie poszukujesz
     pt = Descarregue o país (%@) em que está a fazer a procura
     hu = Töltse le a keresés országát (%@)
-  [flurry_app_key]
-    en =
-    tags = android
-    comment = The app key for Flurry; needed in order for the Android library to build properly.
   [cant_change_this_setting]
     en = Sorry, Map Storage settings are currently disabled.
     tags = android

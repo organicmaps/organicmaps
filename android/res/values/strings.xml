@@ -263,8 +263,6 @@
 	<string name="download_location_country">Download the country (%s) of your current location</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">Download the country (%s) you are searching on</string>
-	<!-- The app key for Flurry; needed in order for the Android library to build properly. -->
-	<string name="flurry_app_key"></string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Sorry, Map Storage settings are currently disabled.</string>
 	<!-- Alert message that downloading is in progress. -->

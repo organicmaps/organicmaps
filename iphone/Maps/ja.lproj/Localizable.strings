@@ -407,9 +407,6 @@
 /* Warning message when viewport country isn't downloaded during search */
 "download_viewport_country_to_search" = "現在マップで検索している国(%@)をダウンロード";
 
-/* The app key for Flurry; needed in order for the Android library to build properly. */
-"flurry_app_key" = "";
-
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "恐れ入ります、マップストレージ設定が無効になっています。";
 

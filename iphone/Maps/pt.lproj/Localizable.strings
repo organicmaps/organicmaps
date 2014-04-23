@@ -407,9 +407,6 @@
 /* Warning message when viewport country isn't downloaded during search */
 "download_viewport_country_to_search" = "Descarregue o país (%@) em que está a fazer a procura";
 
-/* The app key for Flurry; needed in order for the Android library to build properly. */
-"flurry_app_key" = "";
-
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Lamentamos, as definições do Map Storage estão atualmente desativadas.";
 
