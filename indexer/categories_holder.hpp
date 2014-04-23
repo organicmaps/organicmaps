@@ -96,6 +96,7 @@ public:
 
 private:
   void AddCategory(Category & cat, vector<uint32_t> & types);
+  static bool ValidKeyToken(StringT const & s);
 };
 
 inline void swap(CategoriesHolder & a, CategoriesHolder & b)

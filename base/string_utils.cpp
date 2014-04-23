@@ -12,6 +12,11 @@
 namespace strings
 {
 
+bool UniString::IsEqualAscii(char const * s) const
+{
+  return (size() == strlen(s) && equal(begin(), end(), s));
+}
+
 SimpleDelimiter::SimpleDelimiter(char const * delimChars)
 {
   string const s(delimChars);

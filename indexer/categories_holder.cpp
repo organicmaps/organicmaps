@@ -49,12 +49,27 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
 
       for (size_t j = 0; j < tokens.size(); ++j)
         for (size_t k = 0; k < types.size(); ++k)
-          m_name2type.insert(make_pair(tokens[j], types[k]));
+          if (ValidKeyToken(tokens[j]))
+            m_name2type.insert(make_pair(tokens[j], types[k]));
     }
   }
 
   cat.m_synonyms.clear();
   types.clear();
+}
+
+bool CategoriesHolder::ValidKeyToken(StringT const & s)
+{
+  if (s.size() > 2)
+    return true;
+
+  /// @todo We need to have global stop words array for the most used languages.
+  char const * arr[] = { "a", "z", "s", "d", "di", "de", "le" };
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    if (s.IsEqualAscii(arr[i]))
+      return false;
+
+  return true;
 }
 
 void CategoriesHolder::LoadFromStream(istream & s)

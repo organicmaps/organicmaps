@@ -25,6 +25,8 @@ public:
   UniString() {}
   explicit UniString(size_t n, UniChar c = UniChar()) : BaseT(n, c) {}
   template <class IterT> UniString(IterT b, IterT e) : BaseT(b, e) {}
+
+  bool IsEqualAscii(char const * s) const;
 };
 
 UniString MakeLowerCase(UniString const & s);
