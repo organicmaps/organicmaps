@@ -11,7 +11,7 @@
 
 UNIT_TEST(Open_KMZ_Test)
 {
-  string const KMZFILE = GetPlatform().WritablePathForFile("test.kmz");
+  string const KMZFILE = GetPlatform().SettingsPathForFile("test.kmz");
   ZipFileReader::FileListT files;
   ZipFileReader::FilesList(KMZFILE, files);
 
@@ -27,7 +27,7 @@ UNIT_TEST(Open_KMZ_Test)
   }
   TEST(isKMLinZip, ("No KML file in KMZ"));
 
-  string const KMLFILE = GetPlatform().WritablePathForFile("newKml.kml");
+  string const KMLFILE = GetPlatform().SettingsPathForFile("newKml.kml");
   MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, KMLFILE));
   ZipFileReader::UnzipFile(KMZFILE, "doc.kml", KMLFILE);
 

@@ -155,7 +155,7 @@ void BookmarkManager::LoadBookmarks()
 {
   ClearItems();
 
-  string const dir = GetPlatform().WritableDir();
+  string const dir = GetPlatform().SettingsDir();
 
   Platform::FilesList files;
   Platform::GetFilesByExt(dir, BOOKMARKS_FILE_EXTENSION, files);

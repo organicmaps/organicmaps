@@ -768,12 +768,12 @@ bool BookmarkCategory::SaveToKMLFile()
     // If m_file doesn't match name, assign new m_file for this category and save old file name.
     if (m_file.substr(i1, i2 - i1).find(name) != 0)
     {
-      oldFile = GenerateUniqueFileName(GetPlatform().WritableDir(), name);
+      oldFile = GenerateUniqueFileName(GetPlatform().SettingsDir(), name);
       m_file.swap(oldFile);
     }
   }
   else
-    m_file = GenerateUniqueFileName(GetPlatform().WritableDir(), name);
+    m_file = GenerateUniqueFileName(GetPlatform().SettingsDir(), name);
 
   string const fileTmp = m_file + ".tmp";
 

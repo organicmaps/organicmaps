@@ -197,7 +197,7 @@ UNIT_TEST(Bookmarks_ExportKML)
   TEST(!my::GetFileSize(BOOKMARKS_FILE_NAME, dummy), ());
 
   // MapName is the <name> tag in test kml data.
-  string const catFileName = GetPlatform().WritableDir() + "MapName.kml";
+  string const catFileName = GetPlatform().SettingsDir() + "MapName.kml";
   cat2.reset(BookmarkCategory::CreateFromKMLFile(catFileName));
   CheckBookmarks(*cat2);
   TEST(my::DeleteFileX(catFileName), ());
@@ -207,7 +207,7 @@ namespace
 {
   template <size_t N> void DeleteCategoryFiles(char const * (&arrFiles)[N])
   {
-    string const path = GetPlatform().WritableDir();
+    string const path = GetPlatform().SettingsDir();
     for (size_t i = 0; i < N; ++i)
       FileWriter::DeleteFileX(path + arrFiles[i] + BOOKMARKS_FILE_EXTENSION);
   }
@@ -624,7 +624,7 @@ bool AlmostEqual(double const & a, double const & b)
 
 UNIT_TEST(TrackParsingTest_1)
 {
-  string const KML = GetPlatform().WritablePathForFile("kml-with-track-kml.test");
+  string const KML = GetPlatform().SettingsPathForFile("kml-with-track-kml.test");
   BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(KML);
   if (!cat)
     TEST(false, ("Category can't be created"));
@@ -647,7 +647,7 @@ UNIT_TEST(TrackParsingTest_1)
 
 UNIT_TEST(TrackParsingTest_2)
 {
-  string const KML = GetPlatform().WritablePathForFile("kml-with-track-from-google-earth.test");
+  string const KML = GetPlatform().SettingsPathForFile("kml-with-track-from-google-earth.test");
   BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(KML);
   if (!cat)
     TEST(false, ("Category can't be created"));

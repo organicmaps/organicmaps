@@ -486,7 +486,7 @@ string const GetFileName(string const & filePath)
 string const GenerateValidAndUniqueFilePathForKML(string const & fileName)
 {
   string filePath = BookmarkCategory::RemoveInvalidSymbols(fileName);
-  filePath = BookmarkCategory::GenerateUniqueFileName(GetPlatform().WritableDir(), filePath);
+  filePath = BookmarkCategory::GenerateUniqueFileName(GetPlatform().SettingsDir(), filePath);
   return filePath;
 }
 
