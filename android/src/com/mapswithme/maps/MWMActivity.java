@@ -61,6 +61,7 @@ import com.mapswithme.util.StoragePathManager;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
+import com.mapswithme.util.StoragePathManager.SetStoragePathListener;
 import com.mapswithme.util.statistics.Statistics;
 import com.nvidia.devtech.NvEventQueueActivity;
 
@@ -197,7 +198,7 @@ public class MWMActivity extends NvEventQueueActivity
         // Run all checks in main thread after rendering is initialized.
         checkMeasurementSystem();
         checkUpdateMaps();
-        checkKmlMove();
+        checkKitkatMigrationMove();
         checkFacebookDialog();
         checkBuyProDialog();
       }
@@ -316,7 +317,21 @@ public class MWMActivity extends NvEventQueueActivity
 
   private boolean mRenderingInitialized = false;
   
-  private void checkKmlMove()
+  private void ShowAlertDlg(int tittleID)
+  {
+    new AlertDialog.Builder(this)
+    .setCancelable(false)
+    .setTitle(tittleID)
+    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+    {
+      @Override
+      public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
+    })
+    .create()
+    .show();
+  }
+  
+  private void checkKitkatMigrationMove()
   {
     final String KmlMovedFlag = "KmlBeenMoved";
     if (MWMApplication.get().nativeGetBoolean(KmlMovedFlag, false))
@@ -324,9 +339,21 @@ public class MWMActivity extends NvEventQueueActivity
 
     Log.i(TAG, "Check kml move called");
     if (StoragePathManager.MoveBookmarks())
+    {
       MWMApplication.get().nativeSetBoolean(KmlMovedFlag, true);
-    //else
-    // show some dialog
+      SetStoragePathListener listener = new SetStoragePathListener()
+      {
+        @Override
+        public void MoveFilesFinished(String newPath)
+        {
+          ShowAlertDlg(R.string.kitkat_migrate_ok); 
+        }
+      };
+      if (StoragePathManager.CheckWritableDir(this, listener) == false)
+        ShowAlertDlg(R.string.kitkat_migrate_filed);
+    }
+    else
+      ShowAlertDlg(R.string.bookmark_move_fail);
   }
 
   private void checkUpdateMaps()

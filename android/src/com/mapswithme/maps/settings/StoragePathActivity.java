@@ -103,7 +103,6 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
     public void updateList()
     {
       m_sizeNeeded = StoragePathManager.getDirSize(m_currPath);
-      Log.i(TAG, "Needed size for maps: " + m_sizeNeeded);
       m_items = StoragePathManager.GetStorages(m_context, m_currPath, m_defPath);
 
       // Find index of the current path.
@@ -112,29 +111,6 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
 
       notifyDataSetChanged();
     }
-
-    // delete all files (except settings.ini) in directory
-    private void deleteFiles(File dir)
-    {
-      assert(dir.exists());
-      assert(dir.isDirectory());
-
-      for (final File file : dir.listFiles())
-      {
-        assert(file.isFile());
-
-        // skip settings.ini - this file should be always in one place
-        if (file.getName().equalsIgnoreCase("settings.ini"))
-          continue;
-        
-        if (file.getName().endsWith("kml"))
-          continue;
-
-        if (!file.delete())
-          Log.w(TAG, "Can't delete file: " + file.getName());
-      }
-    }
-    //@}
 
     private static int HEADERS_COUNT = 1;
 
@@ -226,70 +202,11 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
       return StoragePathManager.getFullPath(m_items.get(index));
     }
 
-    private boolean doMoveMaps(String path)
-    {
-      if (StoragePathActivity.nativeSetStoragePath(path))
-      {
-        if (m_current != -1)
-          deleteFiles(new File(getFullPath(m_current)));
-
-        return true;
-      }
-
-      return false;
-    }
-
     private void doUpdateAfterMove(String path)
     {
       m_currPath = path;
 
       updateList();
-    }
-
-    private class MoveFilesTask extends AsyncTask<String, Void, Boolean>
-    {
-      private final ProgressDialog m_dlg;
-      private final String m_resPath;
-
-      public MoveFilesTask(Activity context, String path)
-      {
-        m_resPath = path;
-
-        m_dlg = new ProgressDialog(context);
-        m_dlg.setMessage(context.getString(R.string.wait_several_minutes));
-        m_dlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        m_dlg.setIndeterminate(true);
-        m_dlg.setCancelable(false);
-      }
-
-      @Override
-      protected void onPreExecute()
-      {
-        m_dlg.show();
-      }
-
-      @Override
-      protected Boolean doInBackground(String... params)
-      {
-        return doMoveMaps(params[0]);
-      }
-
-      @Override
-      protected void onPostExecute(Boolean result)
-      {
-        // Using dummy try-catch because of the following:
-        // http://stackoverflow.com/questions/2745061/java-lang-illegalargumentexception-view-not-attached-to-window-manager
-        try
-        {
-          m_dlg.dismiss();
-        }
-        catch (final Exception e)
-        {
-        }
-
-        if (result)
-          doUpdateAfterMove(m_resPath);
-      }
     }
 
     public void onListItemClick(final int position)
@@ -316,8 +233,19 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
           {
             Log.i(TAG, "Transfer data to storage: " + path);
 
-            final MoveFilesTask task = new MoveFilesTask(m_context, m_items.get(index).m_path);
-            task.execute(path);
+            StoragePathManager.StorageItem oldItem = null;
+            if (m_current != -1)
+              oldItem = m_items.get(m_current);
+            StoragePathManager.SetStoragePath(m_context, new StoragePathManager.SetStoragePathListener()
+            {
+              
+              @Override
+              public void MoveFilesFinished(String newPath)
+              {
+                doUpdateAfterMove(newPath);
+                
+              }
+            }, m_items.get(index), oldItem);
 
             dlg.dismiss();
           }
@@ -369,5 +297,4 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
   }
 
   private native String nativeGetStoragePath();
-  private static native boolean nativeSetStoragePath(String newPath);
 }

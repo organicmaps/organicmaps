@@ -2373,7 +2373,7 @@
     zh-Hant = 下載您正在搜尋的國家 (%@) 地圖
     pl = Pobierz mapę kraju (%@), którego aktualnie poszukujesz
     pt = Descarregue o país (%@) em que está a fazer a procura
-    hu = Töltse le a keresés országát (%@) 
+    hu = Töltse le a keresés országát (%@)
   [flurry_app_key]
     en =
     tags = android
@@ -3122,3 +3122,11 @@
     es = Ver en el mapa
     ru = Посмотреть на карте
     hu = Megtekintés a térképen
+  [kitkat_migrate_ok]
+    en = All maps been copyed. You can delete MapsWithMe folder from your sdcard
+  [kitkat_migrate_filed]
+    en = Not enough space for maps
+  [bookmark_move_fail]
+    en = Not enough space for bookmarks
+  [kitkat_optimization_in_progress]
+    en = Optimization. This can take several minutes.\nPlease wait…

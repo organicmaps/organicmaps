@@ -6,9 +6,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.settings.StoragePathActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.StatFs;
 import android.util.Log;
 
@@ -79,7 +88,12 @@ public class StoragePathManager
   //@{
   static public long getDirSize(String basePath)
   {
-    final File dir = new File(basePath + MWM_DIR_POSTFIX);
+    return getDirSizeImpl(basePath + MWM_DIR_POSTFIX);
+  }
+  
+  static private long getDirSizeImpl(String path)
+  {
+    final File dir = new File(path);
     assert(dir.exists());
     assert(dir.isDirectory());
 
@@ -114,6 +128,57 @@ public class StoragePathManager
     }
     String tmp[] = approvedPathes.toArray(new String[approvedPathes.size()]);
     return nativeMoveBookmarks(tmp, getAvailablePath(nativeGetBookmarkDir()));
+  }
+  
+  static public boolean CheckWritableDir(Context context, SetStoragePathListener listener)
+  {
+    if (Utils.apiLowerThan(android.os.Build.VERSION_CODES.KITKAT))
+      return true;
+    
+    String settingsDir = nativeGetSettingsDir();
+    String writableDir = nativeGetWritableDir();
+    
+    if (settingsDir == writableDir)
+      return true;
+    
+    File f = new File(writableDir + "testDir");
+    f.mkdir();
+    if (f.exists())
+    {
+      // this path is writable. Don't try copy maps
+      f.delete();
+      return true;
+    }
+    
+    ArrayList<StorageItem> items = GetStorages(context, writableDir, settingsDir);
+    long size = getDirSizeImpl(writableDir);
+    for (StorageItem item : items)
+    {
+      if (item.m_size > size)
+      {
+        SetStoragePathImpl(context, listener, item, null, R.string.kitkat_optimization_in_progress);
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  public interface SetStoragePathListener
+  {
+    void MoveFilesFinished(String newPath);
+  }
+  
+  static public void SetStoragePath(Context context, SetStoragePathListener listener, StorageItem newStorage, StorageItem oldStorage)
+  {
+    SetStoragePathImpl(context, listener, newStorage, oldStorage, R.string.wait_several_minutes);
+  }
+  
+  static private void SetStoragePathImpl(Context context, SetStoragePathListener listener,
+                                         StorageItem newStorage, StorageItem oldStorage,
+                                         int messageId)
+  {
+    MoveFilesTask task = new MoveFilesTask(context, listener, newStorage, oldStorage, messageId);
+    task.execute("");
   }
   
   private static int VOLD_MODE = 1;
@@ -233,6 +298,105 @@ public class StoragePathManager
     return size;
   }
   
+  static private boolean doMoveMaps(StorageItem newStorage, StorageItem oldStorage)
+  {
+    String fullNewPath = getFullPath(newStorage);
+    File f = new File(fullNewPath);
+    if (!f.exists())
+      f.mkdir();
+    
+    assert(f.canWrite());
+    assert(f.isDirectory());
+    
+    if (StoragePathManager.nativeSetStoragePath(fullNewPath))
+    {
+      if (oldStorage != null)
+        deleteFiles(new File(getFullPath(oldStorage)));
+
+      return true;
+    }
+
+    return false;
+  }
+  
+  //delete all files (except settings.ini) in directory and bookmarks
+  static private void deleteFiles(File dir)
+  {
+    assert(dir.exists());
+    assert(dir.isDirectory());
+
+    for (final File file : dir.listFiles())
+    {
+      assert(file.isFile());
+
+      // skip settings.ini - this file should be always in one place
+      if (file.getName().equalsIgnoreCase("settings.ini"))
+        continue;
+      
+      // skip bookmarks
+      if (file.getName().endsWith("kml"))
+        continue;
+
+      if (!file.delete())
+        Log.w(TAG, "Can't delete file: " + file.getName());
+    }
+  }
+  //@}
+  
+  private static class MoveFilesTask extends AsyncTask<String, Void, Boolean>
+  {
+    private final ProgressDialog m_dlg;
+    private final StorageItem m_newStorage;
+    private final StorageItem m_oldStorage;
+    private final SetStoragePathListener m_listener;
+
+    public MoveFilesTask(Context context, SetStoragePathListener listener,
+                         StorageItem newStorage, StorageItem oldStorage, int messageID)
+    {
+      m_newStorage = newStorage;
+      m_oldStorage = oldStorage;
+      m_listener = listener;
+      
+      m_dlg = new ProgressDialog(context);
+      m_dlg.setMessage(context.getString(messageID));
+      m_dlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+      m_dlg.setIndeterminate(true);
+      m_dlg.setCancelable(false);
+    }
+
+    @Override
+    protected void onPreExecute()
+    {
+      m_dlg.show();
+    }
+
+    @Override
+    protected Boolean doInBackground(String... params)
+    {
+      return doMoveMaps(m_newStorage, m_oldStorage);
+    }
+
+    @Override
+    protected void onPostExecute(Boolean result)
+    {
+      // Using dummy try-catch because of the following:
+      // http://stackoverflow.com/questions/2745061/java-lang-illegalargumentexception-view-not-attached-to-window-manager
+      try
+      {
+        m_dlg.dismiss();
+      }
+      catch (final Exception e)
+      {
+      }
+
+      if (result)
+        m_listener.MoveFilesFinished(m_newStorage.m_path);
+    }
+  }
+  
   static private native boolean nativeMoveBookmarks(String[] additionalFindPathes, long availableSize);
+  static private native boolean nativeSetStoragePath(String newPath);
   static private native String nativeGetBookmarkDir();
+  static private native String nativeGetSettingsDir();
+  static private native String nativeGetWritableDir();
 }

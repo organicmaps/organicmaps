@@ -4,7 +4,7 @@
  *  Created on: 23 ???. 2014 ?.
  *      Author: ExMix
  */
-#include "../../platform/Platform.hpp"
+#include "../platform/Platform.hpp"
 #include "../core/jni_helper.hpp"
 #include "Framework.hpp"
 
@@ -47,6 +47,61 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_util_StoragePathManager_nativeGetBookmarkDir(JNIEnv * env, jclass thiz)
 {
   return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_util_StoragePathManager_nativeGetWritableDir(JNIEnv * env, jclass thiz)
+{
+  return jni::ToJavaString(env, GetPlatform().WritableDir().c_str());
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_util_StoragePathManager_nativeGetSettingsDir(JNIEnv * env, jclass thiz)
+{
+  return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_util_StoragePathManager_nativeSetStoragePath(JNIEnv * env, jobject thiz,
+                                                               jstring s)
+{
+  string const from = GetPlatform().WritableDir();
+  string const to = jni::ToNativeString(env, s);
+
+  // Remove all maps from container.
+  g_framework->RemoveLocalMaps();
+
+  // Get files to copy.
+  Platform & pl = GetPlatform();
+
+  // Get regexp like this: (\.mwm$|\.ttf$)
+  string const regexp = "(" "\\"DATA_FILE_EXTENSION"$" "|"
+                            "\\"FONT_FILE_EXTENSION"$" ")";
+  Platform::FilesList files;
+  pl.GetFilesByRegExp(from, regexp, files);
+
+  // Copy all needed files.
+  for (size_t i = 0; i < files.size(); ++i)
+    if (!my::CopyFileX(from + files[i], to + files[i]))
+    {
+      // Do the undo - delete all previously copied files.
+      for (size_t j = 0; j <= i; ++j)
+      {
+        string const path = to + files[j];
+        VERIFY ( my::DeleteFileX(path), (path) );
+      }
+      return false;
+    }
+
+  // Set new storage path.
+  android::Platform::Instance().SetStoragePath(to);
+
+  // Add all maps again.
+  g_framework->AddLocalMaps();
+
+  // Reload bookmarks again
+  g_framework->NativeFramework()->LoadBookmarks();
+  return true;
 }
 
 JNIEXPORT jboolean JNICALL
