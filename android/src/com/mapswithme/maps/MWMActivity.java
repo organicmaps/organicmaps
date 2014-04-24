@@ -57,6 +57,7 @@ import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
 import com.mapswithme.maps.widget.MapInfoView.State;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.ShareAction;
+import com.mapswithme.util.StoragePathManager;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
@@ -196,6 +197,7 @@ public class MWMActivity extends NvEventQueueActivity
         // Run all checks in main thread after rendering is initialized.
         checkMeasurementSystem();
         checkUpdateMaps();
+        checkKmlMove();
         checkFacebookDialog();
         checkBuyProDialog();
       }
@@ -313,7 +315,19 @@ public class MWMActivity extends NvEventQueueActivity
   private boolean m_needCheckUpdate = true;
 
   private boolean mRenderingInitialized = false;
+  
+  private void checkKmlMove()
+  {
+    final String KmlMovedFlag = "KmlBeenMoved";
+    if (MWMApplication.get().nativeGetBoolean(KmlMovedFlag, false))
+      return;
 
+    Log.i(TAG, "Check kml move called");
+    if (StoragePathManager.MoveBookmarks())
+      MWMApplication.get().nativeSetBoolean(KmlMovedFlag, true);
+    //else
+    // show some dialog
+  }
 
   private void checkUpdateMaps()
   {

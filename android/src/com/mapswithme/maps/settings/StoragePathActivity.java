@@ -1,11 +1,7 @@
 package com.mapswithme.maps.settings;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -16,7 +12,6 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.StatFs;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +23,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
+import com.mapswithme.util.StoragePathManager;
 import com.mapswithme.util.Utils;
 
 
@@ -39,7 +35,6 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
   private static class StoragePathAdapter extends BaseAdapter
   {
     private static String TAG = "StoragePathAdapter";
-    private static String MWM_DIR_POSTFIX = "/MapsWithMe/";
 
     /// @name Different row types.
     //@{
@@ -88,27 +83,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
       return String.format("%.1f %s", (double)size / (double)current, arrS[i]);
     }
 
-    private static class StorageItem
-    {
-      String m_path;
-      long m_size;
-
-      @Override
-      public boolean equals(Object o)
-      {
-        if (o == this) return true;
-        if (o == null) return false;
-        return m_size == ((StorageItem)o).m_size;
-      }
-
-      @Override
-      public int hashCode()
-      {
-        return Long.valueOf(m_size).hashCode();
-      }
-    }
-
-    private List<StorageItem> m_items = new ArrayList<StorageItem>();
+    private List<StoragePathManager.StorageItem> m_items = new ArrayList<StoragePathManager.StorageItem>();
     private int m_current = -1;
 
     private boolean isAvailable(int index)
@@ -127,147 +102,15 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
 
     public void updateList()
     {
-      m_sizeNeeded = getDirSize(m_currPath + MWM_DIR_POSTFIX);
+      m_sizeNeeded = StoragePathManager.getDirSize(m_currPath);
       Log.i(TAG, "Needed size for maps: " + m_sizeNeeded);
+      m_items = StoragePathManager.GetStorages(m_context, m_currPath, m_defPath);
 
-      m_items.clear();
-
-      // Parse mounted volumes.
-      parseMountFile("/etc/vold.conf", VOLD_MODE);
-      parseMountFile("/etc/vold.fstab", VOLD_MODE);
-      parseMountFile("/system/etc/vold.fstab", VOLD_MODE);
-      parseMountFile("/proc/mounts", MOUNTS_MODE);
-
-      // Add current and default paths.
-      addStorage(m_currPath);
-      addStorage(m_defPath);
-
-      // Remove duplicates
-      m_items = new ArrayList<StorageItem>(new LinkedHashSet<StorageItem>(m_items));
       // Find index of the current path.
       m_current = findItemByPath(m_currPath);
       assert(m_current != -1);
 
-
       notifyDataSetChanged();
-    }
-
-    @SuppressWarnings("deprecation")
-    @SuppressLint("NewApi")
-    private boolean addStorage(String path)
-    {
-      try
-      {
-        final File f = new File(path + "/");
-        if (f.exists() && f.isDirectory() && f.canWrite())
-        {
-          if (findItemByPath(path) != -1)
-            return false;
-
-          final StatFs stat = new StatFs(path);
-          final long size = Utils.apiLowerThan(android.os.Build.VERSION_CODES.JELLY_BEAN_MR2)
-                            ? (long)stat.getAvailableBlocks() * (long)stat.getBlockSize()
-                            : stat.getAvailableBytes();
-          Log.i(TAG, "Available size = " + size);
-
-          final StorageItem item = new StorageItem();
-          item.m_path = path;
-          item.m_size = size;
-
-          m_items.add(item);
-          return true;
-        }
-        else
-          Log.i(TAG, "File error for storage: " + path);
-      }
-      catch (final IllegalArgumentException ex)
-      {
-        // Suppress exceptions for unavailable storages.
-        Log.i(TAG, "StatFs error for storage: " + path);
-      }
-
-      return false;
-    }
-
-    private static int VOLD_MODE = 1;
-    private static int MOUNTS_MODE = 2;
-
-    // http://stackoverflow.com/questions/8151779/find-sd-card-volume-label-on-android
-    // http://stackoverflow.com/questions/5694933/find-an-external-sd-card-location
-    // http://stackoverflow.com/questions/14212969/file-canwrite-returns-false-on-some-devices-although-write-external-storage-pe
-    private void parseMountFile(String file, int mode)
-    {
-      Log.i(TAG, "Parsing " + file);
-
-      BufferedReader reader = null;
-      try
-      {
-        reader = new BufferedReader(new FileReader(file));
-
-        while (true)
-        {
-          final String line = reader.readLine();
-          if (line == null) break;
-
-          // standard regexp for all possible whitespaces (space, tab, etc)
-          final String[] arr = line.split("\\s+");
-
-          // split may return empty first strings
-          int start = 0;
-          while (start < arr.length && arr[start].length() == 0)
-            ++start;
-
-          if (arr.length - start > 3)
-          {
-            if (arr[start + 0].charAt(0) == '#')
-              continue;
-
-            if (mode == VOLD_MODE)
-            {
-              Log.i(TAG, "Label = " + arr[start + 1] + "; Path = " + arr[start + 2]);
-
-              if (arr[start + 0].startsWith("dev_mount"))
-                addStorage(arr[start + 2]);
-            }
-            else
-            {
-              assert(mode == MOUNTS_MODE);
-              Log.i(TAG, "Label = " + arr[start + 0] + "; Path = " + arr[start + 1]);
-
-              final String prefixes[] = { "tmpfs", "/dev/block/vold", "/dev/fuse" };
-              for (final String s : prefixes)
-                if (arr[start + 0].startsWith(s))
-                  addStorage(arr[start + 1]);
-            }
-          }
-        }
-      }
-      catch (final IOException e)
-      {
-        Log.w(TAG, "Can't read file: " + file);
-      }
-      finally
-      {
-        Utils.closeStream(reader);
-      }
-    }
-
-    /// @name Assume that MapsWithMe folder doesn't have inner folders and symbolic links.
-    //@{
-    private long getDirSize(String name)
-    {
-      final File dir = new File(name);
-      assert(dir.exists());
-      assert(dir.isDirectory());
-
-      long size = 0;
-      for (final File f : dir.listFiles())
-      {
-        assert(f.isFile());
-        size += f.length();
-      }
-
-      return (size + 1024*1024);
     }
 
     // delete all files (except settings.ini) in directory
@@ -282,6 +125,9 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
 
         // skip settings.ini - this file should be always in one place
         if (file.getName().equalsIgnoreCase("settings.ini"))
+          continue;
+        
+        if (file.getName().endsWith("kml"))
           continue;
 
         if (!file.delete())
@@ -311,7 +157,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
     }
 
     @Override
-    public StorageItem getItem(int position)
+    public StoragePathManager.StorageItem getItem(int position)
     {
       return (position == 0 ? null : m_items.get(getIndexFromPos(position)));
     }
@@ -348,7 +194,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
       case TYPE_ITEM:
       {
         final int index = getIndexFromPos(position);
-        final StorageItem item = m_items.get(index);
+        final StoragePathManager.StorageItem item = m_items.get(index);
 
         if (convertView == null)
         {
@@ -377,7 +223,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
     private String getFullPath(int index)
     {
       assert(index >= 0 && index < m_items.size());
-      return (m_items.get(index).m_path + MWM_DIR_POSTFIX);
+      return StoragePathManager.getFullPath(m_items.get(index));
     }
 
     private boolean doMoveMaps(String path)

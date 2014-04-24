@@ -179,6 +179,7 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/maps/NativeEventTracker.cpp \
 	com/mapswithme/maps/settings/StoragePathActivity.cpp \
 	com/mapswithme/maps/settings/UnitLocale.cpp \
+	com/mapswithme/maps/StoragePathManager.cpp \
 	com/mapswithme/platform/Platform.cpp \
 	com/mapswithme/platform/HttpThread.cpp \
 	com/mapswithme/platform/Language.cpp \
