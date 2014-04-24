@@ -334,26 +334,35 @@ public class MWMActivity extends NvEventQueueActivity
   private void checkKitkatMigrationMove()
   {
     final String KmlMovedFlag = "KmlBeenMoved";
-    if (MWMApplication.get().nativeGetBoolean(KmlMovedFlag, false))
-      return;
-
-    Log.i(TAG, "Check kml move called");
-    if (StoragePathManager.MoveBookmarks())
+    final String KitKatMigrationCompleted = "KitKatMigrationCompleted";
+    boolean kmlMoved = MWMApplication.get().nativeGetBoolean(KmlMovedFlag, false);
+    boolean mapsCpy = MWMApplication.get().nativeGetBoolean(KitKatMigrationCompleted, false);
+    
+    if (!kmlMoved)
     {
-      MWMApplication.get().nativeSetBoolean(KmlMovedFlag, true);
+      if (StoragePathManager.MoveBookmarks())
+        MWMApplication.get().nativeSetBoolean(KmlMovedFlag, true);
+      else
+      {
+        ShowAlertDlg(R.string.bookmark_move_fail);
+        return;
+      }
+    }
+    
+    if (!mapsCpy)
+    {
       SetStoragePathListener listener = new SetStoragePathListener()
       {
         @Override
         public void MoveFilesFinished(String newPath)
         {
-          ShowAlertDlg(R.string.kitkat_migrate_ok); 
+          MWMApplication.get().nativeSetBoolean(KitKatMigrationCompleted, true);
+          ShowAlertDlg(R.string.kitkat_migrate_ok);
         }
       };
       if (StoragePathManager.CheckWritableDir(this, listener) == false)
         ShowAlertDlg(R.string.kitkat_migrate_filed);
     }
-    else
-      ShowAlertDlg(R.string.bookmark_move_fail);
   }
 
   private void checkUpdateMaps()

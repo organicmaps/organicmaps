@@ -149,8 +149,9 @@ public class StoragePathManager
       f.delete();
       return true;
     }
-    
-    ArrayList<StorageItem> items = GetStorages(context, writableDir, settingsDir);
+
+    ArrayList<StorageItem> items = GetStorages(context, writableDir.replace(MWM_DIR_POSTFIX, ""),
+        settingsDir.replace(MWM_DIR_POSTFIX, ""));
     long size = getDirSizeImpl(writableDir);
     for (StorageItem item : items)
     {

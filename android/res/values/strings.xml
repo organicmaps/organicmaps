@@ -343,8 +343,8 @@
 	<string name="placepage_coordinates">Coordinates</string>
 	<string name="placepage_unsorted">Unsorted</string>
 	<string name="search_show_on_map">View on map</string>
-	<string name="kitkat_migrate_ok">All maps been copyed</string>
+	<string name="kitkat_migrate_ok">All maps been copyed. You can delete MapsWithMe folder from your sdcard</string>
 	<string name="kitkat_migrate_filed">Not enough space for maps</string>
 	<string name="bookmark_move_fail">Not enough space for bookmarks</string>
-	<string name="kitkat_optimization_in_progress">Optimization. Please wait</string>
+	<string name="kitkat_optimization_in_progress">Optimization. This can take several minutes.\nPlease wait…</string>
 </resources>
