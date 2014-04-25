@@ -2355,7 +2355,7 @@
     zh-Hant = 下載您目前所在位置的國家 (%@) 地圖
     pl = Pobierz mapę kraju (%@), w którym aktualnie przebywasz
     pt = Descarregue o país (%@) da sua localização atual
-    hu = Töltse le az aktuális helyzet országát (%@) 
+    hu = Töltse le az aktuális helyzet országát (%@)
   [download_viewport_country_to_search]
     en = Download the country (%@) you are searching on
     tags = ios,android
@@ -3123,10 +3123,10 @@
     ru = Посмотреть на карте
     hu = Megtekintés a térképen
   [kitkat_migrate_ok]
-    en = All maps been copyed. You can delete MapsWithMe folder from your sdcard
-  [kitkat_migrate_filed]
-    en = Not enough space for maps
+    en = Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.
+  [kitkat_migrate_failed]
+    en = Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.
   [bookmark_move_fail]
-    en = Not enough space for bookmarks
+    en = We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.
   [kitkat_optimization_in_progress]
-    en = Optimization. This can take several minutes.\nPlease wait…
+    en = Your map storage is being optimized now. Please wait, it may take a few minutes.

@@ -321,7 +321,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     new AlertDialog.Builder(this)
     .setCancelable(false)
-    .setTitle(tittleID)
+    .setMessage(tittleID)
     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
     {
       @Override
@@ -335,8 +335,8 @@ public class MWMActivity extends NvEventQueueActivity
   {
     final String KmlMovedFlag = "KmlBeenMoved";
     final String KitKatMigrationCompleted = "KitKatMigrationCompleted";
-    boolean kmlMoved = MWMApplication.get().nativeGetBoolean(KmlMovedFlag, false);
-    boolean mapsCpy = MWMApplication.get().nativeGetBoolean(KitKatMigrationCompleted, false);
+    final boolean kmlMoved = MWMApplication.get().nativeGetBoolean(KmlMovedFlag, false);
+    final boolean mapsCpy = MWMApplication.get().nativeGetBoolean(KitKatMigrationCompleted, false);
     
     if (!kmlMoved)
     {
@@ -361,7 +361,7 @@ public class MWMActivity extends NvEventQueueActivity
         }
       };
       if (StoragePathManager.CheckWritableDir(this, listener) == false)
-        ShowAlertDlg(R.string.kitkat_migrate_filed);
+        ShowAlertDlg(R.string.kitkat_migrate_failed);
     }
   }
 

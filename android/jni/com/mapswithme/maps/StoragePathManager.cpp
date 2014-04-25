@@ -1,9 +1,3 @@
-/*
- * StoragePathManager.cpp
- *
- *  Created on: 23 ???. 2014 ?.
- *      Author: ExMix
- */
 #include "../platform/Platform.hpp"
 #include "../core/jni_helper.hpp"
 #include "Framework.hpp"
@@ -31,7 +25,7 @@ namespace
 
     void operator() (string const & name)
     {
-      m_set.insert(m_dirPath + "/" + name);
+      m_set.insert(m_dirPath + name);
     }
 
   private:
@@ -108,17 +102,17 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_util_StoragePathManager_nativeMoveBookmarks(JNIEnv * env, jclass thiz, jobjectArray pathArray, jlong storageAvSize)
 {
   set<string> fullBookmarkSet;
-  Platform * pl = &GetPlatform();
-  string settingsDir = pl->SettingsDir();
-  string writableDir = pl->WritableDir();
+  Platform & pl = GetPlatform();
+  string const settingsDir = pl.SettingsDir();
+  string const writableDir = pl.WritableDir();
   if (writableDir != settingsDir)
   {
     Platform::FilesList list;
-    pl->GetFilesByExt(writableDir, BOOKMARKS_FILE_EXTENSION, list);
+    pl.GetFilesByExt(writableDir, BOOKMARKS_FILE_EXTENSION, list);
     for_each(list.begin(), list.end(), PathInserter(writableDir, fullBookmarkSet));
   }
 
-  int arraySize = env->GetArrayLength(pathArray);
+  int const arraySize = env->GetArrayLength(pathArray);
   for (int i = 0; i < arraySize; ++i)
   {
     jstring jPath = (jstring)env->GetObjectArrayElement(pathArray, i);
@@ -127,7 +121,7 @@ Java_com_mapswithme_util_StoragePathManager_nativeMoveBookmarks(JNIEnv * env, jc
     if (path != settingsDir)
     {
       Platform::FilesList list;
-      pl->GetFilesByExt(path, BOOKMARKS_FILE_EXTENSION, list);
+      pl.GetFilesByExt(path, BOOKMARKS_FILE_EXTENSION, list);
       for_each(list.begin(), list.end(), PathInserter(path, fullBookmarkSet));
     }
   }
@@ -147,11 +141,11 @@ Java_com_mapswithme_util_StoragePathManager_nativeMoveBookmarks(JNIEnv * env, jc
 
   for (fileIt it = fullBookmarkSet.begin(); it != fullBookmarkSet.end(); ++it)
   {
-    string oldFilePath = *it;
+    string const oldFilePath = *it;
     string fileName = oldFilePath;
     my::GetNameFromFullPath(fileName);
     my::GetNameWithoutExt(fileName);
-    string newFilePath = BookmarkCategory::GenerateUniqueFileName(settingsDir, fileName);
+    string const newFilePath = BookmarkCategory::GenerateUniqueFileName(settingsDir, fileName);
 
     if (my::CopyFileX(oldFilePath, newFilePath))
       my::DeleteFileX(oldFilePath);

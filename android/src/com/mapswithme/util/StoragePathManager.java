@@ -63,7 +63,10 @@ public class StoragePathManager
         File primaryStorageDir = context.getExternalFilesDir(null);
         for(File f : files)
         {
-          if (!f.equals(primaryStorageDir))
+          // On kitkat and Greater we ignore private folder on primary storage
+          // like "PrimaryStorage/Android/data/com.mapswithme.maps.pro/file/" because
+          // we can write to root of PrimaryStorage/
+          if (f != null && !f.equals(primaryStorageDir))
             pathes.add(f.getPath());
         }
       }
@@ -127,7 +130,7 @@ public class StoragePathManager
         approvedPathes.add(mwmPath);
     }
     String tmp[] = approvedPathes.toArray(new String[approvedPathes.size()]);
-    return nativeMoveBookmarks(tmp, getAvailablePath(nativeGetBookmarkDir()));
+    return nativeMoveBookmarks(tmp, getFreeBytesAtPath(nativeGetBookmarkDir()));
   }
   
   static public boolean CheckWritableDir(Context context, SetStoragePathListener listener)
@@ -135,24 +138,18 @@ public class StoragePathManager
     if (Utils.apiLowerThan(android.os.Build.VERSION_CODES.KITKAT))
       return true;
     
-    String settingsDir = nativeGetSettingsDir();
-    String writableDir = nativeGetWritableDir();
+    final String settingsDir = nativeGetSettingsDir();
+    final String writableDir = nativeGetWritableDir();
     
-    if (settingsDir == writableDir)
+    if (settingsDir.equals(writableDir))
       return true;
     
-    File f = new File(writableDir + "testDir");
-    f.mkdir();
-    if (f.exists())
-    {
-      // this path is writable. Don't try copy maps
-      f.delete();
+    if (isDirWritable(writableDir))
       return true;
-    }
 
-    ArrayList<StorageItem> items = GetStorages(context, writableDir.replace(MWM_DIR_POSTFIX, ""),
+    final ArrayList<StorageItem> items = GetStorages(context, writableDir.replace(MWM_DIR_POSTFIX, ""),
         settingsDir.replace(MWM_DIR_POSTFIX, ""));
-    long size = getDirSizeImpl(writableDir);
+    final long size = getDirSizeImpl(writableDir);
     for (StorageItem item : items)
     {
       if (item.m_size > size)
@@ -180,6 +177,21 @@ public class StoragePathManager
   {
     MoveFilesTask task = new MoveFilesTask(context, listener, newStorage, oldStorage, messageId);
     task.execute("");
+  }
+  
+  static private boolean isDirWritable(String path)
+  {
+    final File f = new File(path + "/testDir");
+    f.mkdir();
+    // we can't only call canWrite, because on KitKat (Samsung S4) this return true
+    // for sdcard but actually it's read only
+    if (f.exists())
+    {
+      f.delete();
+      return true;
+    }
+    
+    return false;
   }
   
   private static int VOLD_MODE = 1;
@@ -252,22 +264,16 @@ public class StoragePathManager
       final File f = new File(path + "/");
       if (f.exists() && f.isDirectory() && f.canWrite())
       {
-        // we can't only call canWrite, because on KitKat (Samsung S4) this return true
-        // for sdcard but actually it's read only
-        File ff = new File(path + "/" + "TestDir");
-        ff.mkdir();
-        if (!ff.exists())
+        if (!isDirWritable(path))
           return false;
-        else 
-          ff.delete();
+
         for (StorageItem item : items)
         {
           if (item.m_path.equals(path))
             return true;
         }
 
-        final long size = getAvailablePath(path);
-        Log.i(TAG, "Available size = " + size);
+        final long size = getFreeBytesAtPath(path);
 
         final StorageItem item = new StorageItem();
         item.m_path = path;
@@ -290,7 +296,7 @@ public class StoragePathManager
   
   @SuppressWarnings("deprecation")
   @SuppressLint("NewApi")
-  static private long getAvailablePath(String path)
+  static private long getFreeBytesAtPath(String path)
   {
     final StatFs stat = new StatFs(path);
     final long size = Utils.apiLowerThan(android.os.Build.VERSION_CODES.JELLY_BEAN_MR2)

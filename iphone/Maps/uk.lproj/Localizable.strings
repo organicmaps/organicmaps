@@ -532,3 +532,11 @@
 "placepage_unsorted" = "Без категорії";
 
 "search_show_on_map" = "Подивитись на карті";
+
+"kitkat_migrate_ok" = "Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.";
+
+"kitkat_migrate_failed" = "Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.";
+
+"bookmark_move_fail" = "We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.";
+
+"kitkat_optimization_in_progress" = "Your map storage is being optimized now. Please wait, it may take a few minutes.";

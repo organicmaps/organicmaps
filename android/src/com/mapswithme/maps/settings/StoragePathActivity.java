@@ -238,12 +238,10 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
               oldItem = m_items.get(m_current);
             StoragePathManager.SetStoragePath(m_context, new StoragePathManager.SetStoragePathListener()
             {
-              
               @Override
               public void MoveFilesFinished(String newPath)
               {
                 doUpdateAfterMove(newPath);
-                
               }
             }, m_items.get(index), oldItem);
 
