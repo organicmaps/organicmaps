@@ -45,11 +45,14 @@ int run_all_tests()
   for (TestRegister * pTest = TestRegister::FirstRegister(); pTest; ++iTest, pTest = pTest->m_pNext)
   {
     string s = testNames[iTest];
+    AppLog("////////////////////////////////////////////////////////////////////////");
     s = "Running test " + s;
     AppLog(s.c_str());
+    AppLog("////////////////////////////////////////////////////////////////////////");
 
     if (!g_bLastTestOK)
     {
+      AppLog("g_bLastTestOK - false");
       return 5;
     }
     try
@@ -80,7 +83,7 @@ int run_all_tests()
       testResults[iTest] = false;
       ++numFailedTests;
       std::ostringstream os;
-      os << "Failed test with std exception " << testNames[iTest];
+      os << "Failed test with std exception "<< ex.what() << " in test " << testNames[iTest];
       AppLogException(os.str().c_str());
 
     }
