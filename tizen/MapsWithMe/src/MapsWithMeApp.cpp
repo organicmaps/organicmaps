@@ -35,7 +35,7 @@ bool MapsWithMeApp::OnAppInitializing(AppRegistry& appRegistry)
 
   MapsWithMeForm * pForm = new MapsWithMeForm(this);
   TryReturn(pForm != null, false, "The memory is insufficient.");
-  pForm->Construct(Tizen::Ui::Controls::FORM_STYLE_NORMAL);
+  pForm->Initialize();
   pMapsWithMeFrame->AddControl(pForm);
   pForm->AddTouchEventListener(*pForm);
 

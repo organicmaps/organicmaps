@@ -1,23 +1,22 @@
 
 #include "platform.hpp"
 
-#include <FAppApp.h>
-
-#include "../../tizen/inc/FIo.hpp"
-
-#include "constants.hpp"
-#include "platform_unix_impl.hpp"
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "../base/logging.hpp"
 #include "../coding/file_reader.hpp"
 
-#include <stdlib.h>
-#include <unistd.h>
-
-#include <sys/stat.h>
-#include <sys/types.h>
+#include "constants.hpp"
+#include "platform_unix_impl.hpp"
 
 #include "tizen_string_utils.hpp"
+#include "http_thread_tizen.hpp"
+
+#include <FAppApp.h>
+#include "../../tizen/inc/FIo.hpp"
 
 Platform::Platform()
 {
@@ -121,13 +120,14 @@ HttpThread * CreateNativeHttpThread(string const & url,
                                     int64_t size,
                                     string const & pb)
 {
-  // todo;
-  return 0;
+
+  HttpThread * pRes = new HttpThread(url, cb, beg, end, size, pb);
+  return pRes;
 }
 
 void DeleteNativeHttpThread(HttpThread * request)
 {
-  // todo;
+  delete request;
 }
 
 }
