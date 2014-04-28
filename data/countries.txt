@@ -1472,7 +1472,9 @@
       },
       {
        "n":"Saint Martin",
-       "c":"sx"
+       "c":"sx",
+       "p":0,
+       "s":228694
       },
       {
        "n":"Saint Vincent and the Grenadines",
@@ -2188,7 +2190,9 @@
     },
     {
      "n":"Tonga",
-     "c":"to"
+     "c":"to",
+     "p":0,
+     "s":524334
     },
     {
      "n":"Tuvalu",
