@@ -320,4 +320,8 @@
 	<string name="placepage_coordinates">Souřadnice</string>
 	<string name="placepage_unsorted">Nezařazené</string>
 	<string name="search_show_on_map">Zobrazit a mapě</string>
+	<string name="kitkat_migrate_ok">Úložiště mapových dat bylo optimalizováno. Restartujte prosím aplikaci.\n\nSložka MapsWithMe v kořenovém adresáři karty SD už není potřebná a můžete ji vymazat.</string>
+	<string name="kitkat_migrate_failed">V důsledku změn v OS Android 4.4 budeme muset optimalizovat ukládání mapových dat, avšak na zkopírování mapových dat není dostatek místa.\n\nUvolněte prosím více paměti. Jinak budou mapy dostupné pouze v režimu pouze pro čtení.</string>
+	<string name="bookmark_move_fail">Potřebujeme přemístit Vaše záložky do vnitřní paměti, ale není na ně volné místo. Uvolněte prosím více paměti, jinak nebudete mít k dispozici záložky.</string>
+	<string name="kitkat_optimization_in_progress">Vaše úložiště map je právě optimalizováno. Čekejte, prosím. Může to několik minut trvat.</string>
 </resources>

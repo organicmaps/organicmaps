@@ -3122,11 +3122,71 @@
     es = Ver en el mapa
     ru = Посмотреть на карте
     hu = Megtekintés a térképen
+
   [kitkat_migrate_ok]
     en = Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.
+    ru = Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.
+    uk = Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.
+    zh-Hant = 地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的MapsWithMe資料夾，您可以將它 刪除。
+    ko = 지도 데이터 저장소가 최적화되어 있습니다. 앱을 다시 시작하십시오.\n\nSD 카드의 루트에 MapsWithMe 폴더가 더 이상 필요하지 않으므로, 이를 삭제할 수 있습니다.
+    it = L'archiviazione dei dati delle mappe è stata ottimizzata. Ti preghiamo di riavviare l'app.\n\nLa cartella MapsWithMe nel canale della scheda SD non è più necessario ed è possibile eliminarla.
+    fr = Le stockage des données cartographiques a été optimisé. Veuillez redémarrer l'application.\n\nLe fichier MapsWithMe qui se trouve dans le répertoire racine de la carte SD n'est plus nécessaire, vous pouvez le supprimer.
+    ja = マップデータのストレージは最適化されました。アプリを再起動させてください。\n\nSDカードのルートにあるMapsWithMeフォルダは不要となりましたので削除しても構いません。
+    pt = O armazenamento de dados do mapa foi otimizado. Por favor, reinicie a app.\n\nA pasta MapsWithMe na raiz do cartão SD já não é necessária, pode excluí-la.
+    nl = Opslag van kaartgegevens is geoptimaliseerd. Herstart de app.\n\nMapsWithMe map is niet langer nodig in de root van de SD-kaart, u kunt het verwijderen.
+    hu = A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA MapsWithMe mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.
+    cs = Úložiště mapových dat bylo optimalizováno. Restartujte prosím aplikaci.\n\nSložka MapsWithMe v kořenovém adresáři karty SD už není potřebná a můžete ji vymazat.
+    pl = Przechowywanie danych mapy zostało zoptymalizowane. Prosimy zrestartować aplikację.\n\nFolder MapsWithMe w katalogu głównym karty SD nie jest już potrzebny, można go usunąć.
+    es = Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta MapsWithMe en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.
+    de = Der Kartendaten-Speicherplatz wurde optimiert. Bitte die App neu starten.\n\nDer Ordner MapsWithMe im Stammverzeichnis der SD-Karte wird nicht mehr benötigt. Sie können ihn löschen.
+
   [kitkat_migrate_failed]
     en = Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.
+    ru = В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.
+    uk = В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но не сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.
+    zh-Hant = 由於安卓4.4版本有所更改，我們需要對地圖數據存儲進行優化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些內存，否則將只能以只讀模式使用地圖。
+    ko = Android 4.4의 변경으로 인해, 우리는 지도 데이터 저장소를 최적화해야 하지만, 지도 데이터를 복사할 충분한 공간이 없습니다.\n\n메모리를 확보하지 않으면, 지도는 읽기 전용 모드로 사용할 수 있습니다.
+    it = A causa di modifiche alla versione Android 4.4, abbiamo bisogno di ottimizzare l'archiviazione delle mappe, ma non c'è abbastanza spazio per copiarne i dati:\n\nTi preghiamo di liberare la memoria, altrimenti le mappe saranno disponibili in sola lettura.
+    fr = En raison des changements qui se sont produits sur l'Android 4.4, nous avons besoin d'optimiser le stockage des données cartographiques, mais il n'y a pas assez d'espace pour copier les données cartographiques.\n\nVeuillez libérer de la mémoire, sinon les cartes seront disponibles en mode lecture seule.
+    ja = Android 4.4の変更に伴いマップデータのストレージを最適化しなければなりませんが、マップデータをコピーするだけの空き容量がありません。\n\nメモリの空き容量を増やさなければ、閲覧モードのみとしてマップをご利用いただくことになります。
+    pt = Devido às alterações no Android 4.4, é necessário otimizar o armazenamento de dados do mapa, mas não há espaço suficiente para copiar os dados do mapa.\n\nPor favor, liberte a memória, caso contrário, os mapas estarão disponíveis no modo somente de leitura.
+    nl = Door veranderingen in Android 4.4 moeten we de opslag van kaartgegevens optimaliseren, maar er is niet genoeg ruimte om kaartgegevens te kopiëren.\n\nMaak alstublieft geheugen vrij, anders zullen kaarten alleen in de leesmodus beschikbaar zijn.
+    hu = Az Android 4.4 változásai miatt optimalizálnunk kell a térképadatok tárolását, azonban ehhez nincs elegendő szabad tárhely.\n\nKérjük, szabadítson fel lemezterületet, ellenkező esetben a térképei csak írásvédett módban lesznek elérhetőek.
+    cs = V důsledku změn v OS Android 4.4 budeme muset optimalizovat ukládání mapových dat, avšak na zkopírování mapových dat není dostatek místa.\n\nUvolněte prosím více paměti. Jinak budou mapy dostupné pouze v režimu pouze pro čtení.
+    pl = Ze względu na zmiany w Android 4.4, musimy zoptymalizować przechowywanie danych mapy, ale nie ma wystarczająco dużo miejsca, aby skopiować dane mapy.\n\nProsimy zwolnić pamięć, inaczej mapy będą dostępne tylko w trybie do odczytu.
+    es = Debido a cambios en Android 4.4, tenemos que optimizar el almacenamiento de datos de mapas, pero no hay espacio suficiente para copiar los datos de los mapas.\n\nPor favor, libera la memoria, en caso contrario los mapas solo estarán disponibles en modo de solo lectura.
+    de = Bedingt durch Änderungen in Android 4.4, müssen wir den Kartendaten-Speicherplatz optimieren, es steht jedoch zum Kopieren der Kartendaten nicht genügend Speicherplatz zur Verfügung.\n\nGeben Sie bitte Speicherplatz frei, ansonsten werden Karten nur im Lesemodus verfügbar sein.
+
   [bookmark_move_fail]
     en = We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.
+    ru = Для оптимизации хранения данных нам необходимо переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе букмарки вам будут недоступны.
+    uk = Для оптимизации хранения данных нам необходимо переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе букмарки вам будут недоступны.
+    zh-Hant = 我們需要將您的書籤移至內存儲器中，但沒有足夠的存儲空間。請釋放一些內存，否則，書籤將不可用。
+    ko = 우리는 내부 메모리로 북마크를 이동해야 하지만, 이에 대한 사용 가능한 공간이 없습니다. 메모리를 확보하지 않으면, 북마크를 사용할 수 없습니다.
+    it = Abbiamo bisogno di trasferire i tuoi preferiti nella memoria interna, ma non c'è abbastanza spazio disponibile. Ti preghiamo di liberare la memoria, altrimenti i preferiti non saranno disponibili.
+    fr = Nous devons déplacer vos marque-pages dans la mémoire interne, mais il n'existe pas d'espace disponible pour eux. Veuillez libérer de la mémoire, sinon les marque-pages ne seront pas disponibles.
+    ja = ブックマークを内部メモリに移動させなければなりませんが、メモリの空き容量がありません。空き容量を増やさなければ、ブックマークをご利用いただくことができません。
+    pt = É necessário mover os seus marcadores para a memória interna, mas não há espaço disponível para eles. Por favor, liberte a memória, caso contrário, os marcadores não estarão disponíveis.
+    nl = We moeten uw bladwijzers naar het interne geheugen verplaatsen, maar er is geen ruimte beschikbaar voor ze. Maak alstublieft geheugen vrij, anders zullen de bladwijzers niet beschikbaar zijn.
+    hu = A könyvjelzőit át kell helyeznünk a belső memóriába, azonban ehhez nincs elegendő szabad tárhely. Kérjük, szabadítson fel lemezterületet, ellenkező esetben a könyvjelzői nem lesznek elérhetőek.
+    cs = Potřebujeme přemístit Vaše záložky do vnitřní paměti, ale není na ně volné místo. Uvolněte prosím více paměti, jinak nebudete mít k dispozici záložky.
+    pl = Musimy przenieść Twoje zakładki do pamięci wewnętrznej, ale nie ma tam dla nich wolnego miejsca. Prosimy zwolnić pamięć, inaczej zakładki nie będą dostępne.
+    es = Tenemos que mover tus marcadores a la memoria interna, pero no hay espacio disponible para ellos. Por favor, libera memoria, en caso contrario, los marcadores no estarán disponibles.
+    de = Wir müssen Ihre Lesezeichen in den internen Speicher verschieben, aber es gibt dafür keinen verfügbaren Speicherplatz. Bitte geben Sie Speicherplatz frei, sonst werden Ihre Lesezeichen nicht verfügbar sein.
+
   [kitkat_optimization_in_progress]
     en = Your map storage is being optimized now. Please wait, it may take a few minutes.
+    ru = Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.
+    uk = Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.
+    zh-Hant = 正在優化您的地圖存儲。請等待，這可能需要幾分鐘的時間。
+    ko = 지금 지도 저장소가 최적화되는 중입니다. 이는 몇 분 정도 걸릴 수 있으므로, 기다려 주십시오.
+    it = L'archiviazione delle tue mappe è in fase di ottimizzazione. Ti preghiamo di attendere, il processo durerà alcuni minuti.
+    fr = Le stockage de votre carte est en cours d'optimisation. Veuillez patienter, cela peut prendre quelques minutes.
+    ja = 現在マップのストレージを最適化しています。この操作には数分かかる場合があるのでお待ちください。
+    pt = O seu armazenamento de mapa está agora a ser otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.
+    nl = De kaartopslag wordt nu geoptimaliseerd. Een moment geduld alstublieft, dit kan een paar minuten duren.
+    hu = A térképadatai optimalizálás alatt állnak. Kérjük, várjon, ez néhány percet igénybe vesz.
+    cs = Vaše úložiště map je právě optimalizováno. Čekejte, prosím. Může to několik minut trvat.
+    pl = Twoje przechowywanie map jest teraz optymalizowane. Prosimy czekać, może to zająć kilka minut.
+    es = Tu almacenamiento de mapas se está optimizando ahora. Por favor, espera, podría tardar unos minutos.
+    de = Ihr Kartenspeicher wird jetzt optimiert. Bitte warten Sie, es kann ein paar Minuten dauern.

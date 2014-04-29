@@ -533,10 +533,10 @@
 
 "search_show_on_map" = "在地图上查看";
 
-"kitkat_migrate_ok" = "Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.";
+"kitkat_migrate_ok" = "地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的MapsWithMe資料夾，您可以將它 刪除。";
 
-"kitkat_migrate_failed" = "Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.";
+"kitkat_migrate_failed" = "由於安卓4.4版本有所更改，我們需要對地圖數據存儲進行優化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些內存，否則將只能以只讀模式使用地圖。";
 
-"bookmark_move_fail" = "We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.";
+"bookmark_move_fail" = "我們需要將您的書籤移至內存儲器中，但沒有足夠的存儲空間。請釋放一些內存，否則，書籤將不可用。";
 
-"kitkat_optimization_in_progress" = "Your map storage is being optimized now. Please wait, it may take a few minutes.";
+"kitkat_optimization_in_progress" = "正在優化您的地圖存儲。請等待，這可能需要幾分鐘的時間。";

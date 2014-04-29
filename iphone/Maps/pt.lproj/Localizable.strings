@@ -533,10 +533,10 @@
 
 "search_show_on_map" = "Ver no mapa";
 
-"kitkat_migrate_ok" = "Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.";
+"kitkat_migrate_ok" = "O armazenamento de dados do mapa foi otimizado. Por favor, reinicie a app.\n\nA pasta MapsWithMe na raiz do cartão SD já não é necessária, pode excluí-la.";
 
-"kitkat_migrate_failed" = "Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.";
+"kitkat_migrate_failed" = "Devido às alterações no Android 4.4, é necessário otimizar o armazenamento de dados do mapa, mas não há espaço suficiente para copiar os dados do mapa.\n\nPor favor, liberte a memória, caso contrário, os mapas estarão disponíveis no modo somente de leitura.";
 
-"bookmark_move_fail" = "We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.";
+"bookmark_move_fail" = "É necessário mover os seus marcadores para a memória interna, mas não há espaço disponível para eles. Por favor, liberte a memória, caso contrário, os marcadores não estarão disponíveis.";
 
-"kitkat_optimization_in_progress" = "Your map storage is being optimized now. Please wait, it may take a few minutes.";
+"kitkat_optimization_in_progress" = "O seu armazenamento de mapa está agora a ser otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.";
