@@ -55,12 +55,12 @@ public:
   ///
   virtual void 	OnHttpDownloadInProgress (HttpSession &httpSession,
                                           HttpTransaction &httpTransaction,
-                                          long long currentLength,
-                                          long long totalLength);
+                                          int64_t currentLength,
+                                          int64_t totalLength);
   virtual void 	OnHttpUploadInProgress (HttpSession &httpSession,
                                         HttpTransaction &httpTransaction,
-                                        long long currentLength,
-                                        long long totalLength);
+                                        int64_t currentLength,
+                                        int64_t totalLength);
 
 private:
   downloader::IHttpThreadCallback & m_callback;
