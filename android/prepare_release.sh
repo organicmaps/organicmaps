@@ -15,6 +15,17 @@ VERSION_TAG=$(echo "$VERSION-$DATE")
 echo "Build as: $VERSION $OUTPUT_DIR $DATE"
 
 ##
+# Clean targets once
+##
+CLEAN_DIRS=(MapsWithMeLite MapsWithMeLite.Samsung MapsWithMePro)
+for DIR in ${CLEAN_DIRS[*]}
+  do
+    pushd $DIR
+    ant clean
+    popd
+  done
+
+##
 # MapsWithMeLite: Google, Amazon, Yandex, SlideMe, AndroidPit
 ##
 SOURCE_DIR=MapsWithMeLite
@@ -24,9 +35,10 @@ BASE_NAME=MapsWithMeLite
 pushd $SOURCE_DIR
   for TARGET in ${LITE_TARGETS[*]}
     do
-      ant clean ${TARGET}-production
-      NAME=$(echo "${BASE_NAME}-${VERSION_TAG}-${TARGET}")
-      cp bin/*-production.apk ../$OUTPUT_DIR/${NAME}.apk
+      ant ${TARGET}-production
+      SRC_NAME=${BASE_NAME}-${TARGET}-production.apk
+      DEST_NAME=${BASE_NAME}-${VERSION_TAG}-${TARGET}.apk
+      cp bin/$SRC_NAME ../$OUTPUT_DIR/$DEST_NAME
     done
 popd
 
@@ -36,7 +48,7 @@ popd
 SOURCE_DIR=MapsWithMeLite.Samsung
 TARGET=samsung
 pushd $SOURCE_DIR
-  ant clean ${TARGET}-production
+  ant ${TARGET}-production
   NAME=$(echo "${BASE_NAME}-${VERSION_TAG}-${TARGET}")
   cp bin/*-production.apk ../$OUTPUT_DIR/${NAME}.apk
 popd
@@ -47,7 +59,7 @@ popd
 SOURCE_DIR=MapsWithMePro
 BASE_NAME=MapsWithMePro
 pushd $SOURCE_DIR
-  ant clean production
+  ant production
   NAME=$(echo "${BASE_NAME}-${VERSION_TAG}")
   cp bin/*-production.apk ../$OUTPUT_DIR/${NAME}.apk
 popd
