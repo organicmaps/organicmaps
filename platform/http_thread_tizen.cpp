@@ -128,6 +128,9 @@ void HttpThread::OnTransactionHeaderCompleted(HttpSession & httpSession,
   if ((r = GetLastResult()) != E_SUCCESS)
   {
     LOG(LWARNING, ("httpTransaction.GetResponse error", r));
+    httpSession.CancelTransaction(httpTransaction);
+    httpSession.CloseTransaction(httpTransaction);
+    m_callback.OnFinish(-1, m_begRange, m_endRange);
     return;
   }
 
@@ -138,8 +141,9 @@ void HttpThread::OnTransactionHeaderCompleted(HttpSession & httpSession,
   if ((isChunk && httpStatusCode != 206) || (!isChunk && httpStatusCode != 200))
   {
     LOG(LWARNING, ("Http request to", m_url, " aborted with HTTP code", httpStatusCode));
-    r = httpSession.CancelTransaction(httpTransaction);
+    httpSession.CancelTransaction(httpTransaction);
     r = httpSession.CloseTransaction(httpTransaction);
+   m_callback.OnFinish(-4, m_begRange, m_endRange);
     LOG(LDEBUG, ("CloseTransaction result", r));
     return;
   }
@@ -169,8 +173,9 @@ void HttpThread::OnTransactionHeaderCompleted(HttpSession & httpSession,
         {
           LOG(LWARNING, ("Http request to", m_url,
                          "aborted - invalid Content-Range:", value, " expected:" ,m_expectedSize ));
-          r = httpSession.CancelTransaction(httpTransaction);
+          httpSession.CancelTransaction(httpTransaction);
           r = httpSession.CloseTransaction(httpTransaction);
+          m_callback.OnFinish(-2, m_begRange, m_endRange);
           LOG(LDEBUG, ("CloseTransaction result", r));
         }
       }
@@ -193,8 +198,9 @@ void HttpThread::OnTransactionHeaderCompleted(HttpSession & httpSession,
           {
             LOG(LWARNING, ("Http request to", m_url,
                            "aborted - invalid Content-Length:", value, " expected:" ,m_expectedSize ));
-            r = httpSession.CancelTransaction(httpTransaction);
+            httpSession.CancelTransaction(httpTransaction);
             r = httpSession.CloseTransaction(httpTransaction);
+           m_callback.OnFinish(-2, m_begRange, m_endRange);
             LOG(LDEBUG, ("CloseTransaction result", r));
           }
         }
@@ -206,8 +212,9 @@ void HttpThread::OnTransactionHeaderCompleted(HttpSession & httpSession,
 
       LOG(LWARNING, ("Http request to", m_url,
                      "aborted, server didn't send any valid file size"));
-      r = httpSession.CancelTransaction(httpTransaction);
+      httpSession.CancelTransaction(httpTransaction);
       r = httpSession.CloseTransaction(httpTransaction);
+     m_callback.OnFinish(-2, m_begRange, m_endRange);
       LOG(LDEBUG, ("CloseTransaction result", r));
     }
   }
