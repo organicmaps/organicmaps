@@ -14,7 +14,7 @@ class IHttpThreadCallback;
 using namespace Tizen::Net::Http;
 
 class HttpThread
-    : public   Tizen::Net::Http::IHttpTransactionEventListener
+    : public Tizen::Net::Http::IHttpTransactionEventListener
     , public Tizen::Net::Http::IHttpProgressEventListener
     , noncopyable
 {
@@ -32,33 +32,33 @@ public:
   ///
   ///Tizen::Net::Http::IHttpTransactionEventListener
   ///
-  virtual void 	OnTransactionAborted (HttpSession &httpSession,
-                                      HttpTransaction &httpTransaction,
+  virtual void OnTransactionAborted (HttpSession & httpSession,
+                                      HttpTransaction & httpTransaction,
                                       result r);
-  virtual void 	OnTransactionCertVerificationRequiredN (HttpSession &httpSession,
-                                                        HttpTransaction &httpTransaction,
+  virtual void OnTransactionCertVerificationRequiredN (HttpSession & httpSession,
+                                                        HttpTransaction & httpTransaction,
                                                         Tizen::Base::String *pCert);
-  virtual void 	OnTransactionCompleted (HttpSession &httpSession,
-                                        HttpTransaction &httpTransaction);
-  virtual void 	OnTransactionHeaderCompleted (HttpSession &httpSession,
-                                              HttpTransaction &httpTransaction,
+  virtual void OnTransactionCompleted (HttpSession & httpSession,
+                                        HttpTransaction & httpTransaction);
+  virtual void OnTransactionHeaderCompleted (HttpSession & httpSession,
+                                              HttpTransaction & httpTransaction,
                                               int headerLen, bool bAuthRequired);
-  virtual void 	OnTransactionReadyToRead (HttpSession &httpSession,
-                                          HttpTransaction &httpTransaction,
+  virtual void OnTransactionReadyToRead (HttpSession & httpSession,
+                                          HttpTransaction & httpTransaction,
                                           int availableBodyLen);
-  virtual void 	OnTransactionReadyToWrite (HttpSession &httpSession,
-                                           HttpTransaction &httpTransaction,
+  virtual void OnTransactionReadyToWrite (HttpSession & httpSession,
+                                           HttpTransaction & httpTransaction,
                                            int recommendedChunkSize);
 
   ///
   ///Tizen::Net::Http::IHttpProgressEventListener
   ///
-  virtual void 	OnHttpDownloadInProgress (HttpSession &httpSession,
-                                          HttpTransaction &httpTransaction,
+  virtual void OnHttpDownloadInProgress (HttpSession & httpSession,
+                                          HttpTransaction & httpTransaction,
                                           int64_t currentLength,
                                           int64_t totalLength);
-  virtual void 	OnHttpUploadInProgress (HttpSession &httpSession,
-                                        HttpTransaction &httpTransaction,
+  virtual void OnHttpUploadInProgress (HttpSession & httpSession,
+                                        HttpTransaction & httpTransaction,
                                         int64_t currentLength,
                                         int64_t totalLength);
 

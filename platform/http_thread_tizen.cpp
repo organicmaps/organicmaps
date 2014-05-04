@@ -96,10 +96,10 @@ HttpThread::HttpThread(std::string const & url,
   {
     pRequest->SetMethod(NET_HTTP_METHOD_POST);
     pHeader->AddField("Content-Type", "application/json");
-    int64_t sz = m_pb.size();
-    String lenght;
-    lenght.Append(sz);
-    pHeader->AddField("Content-Length", lenght);
+    int64_t const sz = m_pb.size();
+    String length;
+    length.Append(sz);
+    pHeader->AddField("Content-Length", length);
     ByteBuffer body;
     body.Construct((const byte *)m_pb.c_str(), 0, sz, sz);
     pRequest->WriteBody(body);
@@ -120,8 +120,8 @@ HttpThread::~HttpThread()
 
 
 void HttpThread::OnTransactionHeaderCompleted(HttpSession & httpSession,
-                                                HttpTransaction & httpTransaction,
-                                                int headerLen, bool bAuthRequired)
+                                              HttpTransaction & httpTransaction,
+                                              int headerLen, bool bAuthRequired)
 {
   result r = E_SUCCESS;
   HttpResponse * pResponse = httpTransaction.GetResponse();
@@ -143,7 +143,7 @@ void HttpThread::OnTransactionHeaderCompleted(HttpSession & httpSession,
     LOG(LWARNING, ("Http request to", m_url, " aborted with HTTP code", httpStatusCode));
     httpSession.CancelTransaction(httpTransaction);
     r = httpSession.CloseTransaction(httpTransaction);
-   m_callback.OnFinish(-4, m_begRange, m_endRange);
+    m_callback.OnFinish(-4, m_begRange, m_endRange);
     LOG(LDEBUG, ("CloseTransaction result", r));
     return;
   }
@@ -172,7 +172,7 @@ void HttpThread::OnTransactionHeaderCompleted(HttpSession & httpSession,
         if (value != m_expectedSize)
         {
           LOG(LWARNING, ("Http request to", m_url,
-                         "aborted - invalid Content-Range:", value, " expected:" ,m_expectedSize ));
+                         "aborted - invalid Content-Range:", value, " expected:", m_expectedSize ));
           httpSession.CancelTransaction(httpTransaction);
           r = httpSession.CloseTransaction(httpTransaction);
           m_callback.OnFinish(-2, m_begRange, m_endRange);
@@ -182,14 +182,12 @@ void HttpThread::OnTransactionHeaderCompleted(HttpSession & httpSession,
     }
     else
     {
-
       pValues = pHeader->GetFieldValuesN("Content-Length");
       if (GetLastResult() == E_SUCCESS)
       {
         bGoodSize = true;
         pValues->MoveNext();  // strange, but works
         String const * pString = dynamic_cast<String const *>(pValues->GetCurrent());
-
         if (pString)
         {
           int64_t value = -1;
@@ -197,10 +195,10 @@ void HttpThread::OnTransactionHeaderCompleted(HttpSession & httpSession,
           if (value != m_expectedSize)
           {
             LOG(LWARNING, ("Http request to", m_url,
-                           "aborted - invalid Content-Length:", value, " expected:" ,m_expectedSize ));
+                           "aborted - invalid Content-Length:", value, " expected:", m_expectedSize));
             httpSession.CancelTransaction(httpTransaction);
             r = httpSession.CloseTransaction(httpTransaction);
-           m_callback.OnFinish(-2, m_begRange, m_endRange);
+            m_callback.OnFinish(-2, m_begRange, m_endRange);
             LOG(LDEBUG, ("CloseTransaction result", r));
           }
         }
@@ -209,12 +207,11 @@ void HttpThread::OnTransactionHeaderCompleted(HttpSession & httpSession,
 
     if (!bGoodSize)
     {
-
       LOG(LWARNING, ("Http request to", m_url,
                      "aborted, server didn't send any valid file size"));
       httpSession.CancelTransaction(httpTransaction);
       r = httpSession.CloseTransaction(httpTransaction);
-     m_callback.OnFinish(-2, m_begRange, m_endRange);
+      m_callback.OnFinish(-2, m_begRange, m_endRange);
       LOG(LDEBUG, ("CloseTransaction result", r));
     }
   }
@@ -226,7 +223,6 @@ void HttpThread::OnHttpDownloadInProgress(HttpSession & /*httpSession*/,
                                           int64_t totalLength)
 {
   HttpResponse * pResponse = httpTransaction.GetResponse();
-
   if (pResponse->GetHttpStatusCode() == HTTP_STATUS_OK || pResponse->GetHttpStatusCode() == HTTP_STATUS_PARTIAL_CONTENT)
   {
     ByteBuffer * pBuffer = 0;
@@ -240,7 +236,7 @@ void HttpThread::OnHttpDownloadInProgress(HttpSession & /*httpSession*/,
     LOG(LERROR, ("OnHttpDownloadInProgress ERROR", FromTizenString(pResponse->GetStatusText())));
 }
 
-void 	HttpThread::OnTransactionCompleted (HttpSession &/*httpSession*/,
+void HttpThread::OnTransactionCompleted(HttpSession & /*httpSession*/,
                                           HttpTransaction & httpTransaction)
 {
   HttpResponse * pResponse = httpTransaction.GetResponse();
@@ -258,35 +254,35 @@ void 	HttpThread::OnTransactionCompleted (HttpSession &/*httpSession*/,
 }
 
 void HttpThread::OnTransactionAborted(HttpSession & /*httpSession*/,
-                                        HttpTransaction & /*httpTransaction*/,
-                                        result r)
+                                      HttpTransaction & /*httpTransaction*/,
+                                      result r)
 {
   LOG(LINFO, ("OnTransactionAborted result:", r));
   m_callback.OnFinish(-100, m_begRange, m_endRange);
 }
 
 void HttpThread::OnTransactionCertVerificationRequiredN(HttpSession & /*httpSession*/,
-                                                          HttpTransaction & /*httpTransaction*/,
-                                                          String * /*pCert*/)
+                                                        HttpTransaction & /*httpTransaction*/,
+                                                        String * /*pCert*/)
 {
   LOG(LERROR, ("OnTransactionCertVerificationRequiredN"));
 }
 
 void HttpThread::OnTransactionReadyToRead(HttpSession & /*httpSession*/,
-                                            HttpTransaction & /*httpTransaction*/,
-                                            int /*availableBodyLen*/)
+                                          HttpTransaction & /*httpTransaction*/,
+                                          int /*availableBodyLen*/)
 {
 }
 
 void HttpThread::OnTransactionReadyToWrite(HttpSession & /*httpSession*/,
-                                             HttpTransaction & /*httpTransaction*/,
-                                             int /*recommendedChunkSize*/)
+                                           HttpTransaction & /*httpTransaction*/,
+                                           int /*recommendedChunkSize*/)
 {
 }
 
 void HttpThread::OnHttpUploadInProgress(Tizen::Net::Http::HttpSession & /*httpSession*/,
-                                          Tizen::Net::Http::HttpTransaction & /*httpTransaction*/,
-                                          int64_t /*currentLength*/,
-                                          int64_t /*totalLength*/)
+                                        Tizen::Net::Http::HttpTransaction & /*httpTransaction*/,
+                                        int64_t /*currentLength*/,
+                                        int64_t /*totalLength*/)
 {
 }
