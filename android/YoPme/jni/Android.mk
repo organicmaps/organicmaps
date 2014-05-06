@@ -16,6 +16,9 @@ $(info "***** Building $(OMIM_CONFIG) configuration for $(TARGET_ARCH_ABI) *****
 
 # Build static libraries
 
+# Avoid clean errors due to missing external static libs
+ifneq ($(MAKECMDGOALS),clean)
+
 BUILD_RESULT := $(shell (bash $(LOCAL_PATH)/../../../tools/autobuild/android.sh $(OMIM_CONFIG) $(TARGET_ARCH_ABI) $(APP_PLATFORM)))
 
 ####################################################################################
@@ -118,6 +121,8 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := map
 LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libmap.a
 include $(PREBUILT_STATIC_LIBRARY)
+
+endif
 
 ########################### Main YoPMe module ############################
 

@@ -15,6 +15,9 @@ endif
 
 MY_PREBUILT_LIBS_PATH := ../../../omim-android-$(OMIM_CONFIG)-$(TARGET_ARCH_ABI)/out/$(OMIM_CONFIG)
 
+# Avoid clean errors due to missing external static libs
+ifneq ($(MAKECMDGOALS),clean)
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := protobuf
 LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libprotobuf.a
@@ -114,6 +117,8 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := stats_client
 LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libstats_client.a
 include $(PREBUILT_STATIC_LIBRARY)
+
+endif
 
 ########################### Main MapsWithMe module ############################
 
