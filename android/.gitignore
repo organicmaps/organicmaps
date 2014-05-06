@@ -12,6 +12,9 @@ build
 RELEASE
 .idea
 
+# For now, ignore Android Studio projects
+*.iml
+
 *.class
 .classpath
 .cproject
@@ -34,11 +37,5 @@ res/drawable-mdpi/uk_northern_ireland.png
 res/drawable-mdpi/uk_scotland.png
 res/drawable-mdpi/uk_wales.png
 
-MapsWithMeLite/assets
-
-MapsWithMeLite.Samsung/assets/*
-!MapsWithMeLite.Samsung/assets/promo_disclaimer.html
-
-MapsWithMePro/assets
-
+assets
 Yopme/assets
