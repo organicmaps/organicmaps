@@ -1,5 +1,5 @@
 NDK_TOOLCHAIN_VERSION := 4.6
-APP_PLATFORM := android-15
+APP_PLATFORM := android-17
 
 APP_ABI := armeabi-v7a
 
