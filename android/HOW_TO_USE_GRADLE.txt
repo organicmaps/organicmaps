@@ -1,0 +1,17 @@
+@NOTE1: Run <omim>/tools/android/update_assets.sh once every time when assets are added/removed
+@NOTE2: To increase apk version, please edit gradle.properties
+
+
+To clean everything, use './gradlew clean'
+
+To build all production apks, use './gradlew assembleRelease' or './gradlew aR'
+
+To build production Pro version, use './gradlew assembleProRelease'
+
+To build beta, use './gradlew assembleProBeta'
+
+To build specific Lite version, use './gradlew assembleGoogleRelease'
+
+To see all available build targets './gradlew tasks'
+
+To build and install debug version on a device './gradlew installProDebug'
