@@ -660,7 +660,7 @@ public class MWMActivity extends NvEventQueueActivity
         final int id = v.getId();
 
         if (R.id.menuitem_settings_activity == id)
-          ContextMenu.onItemSelected(R.id.menuitem_settings_activity, MWMActivity.this);
+          startActivity(new Intent(MWMActivity.this, SettingsActivity.class));
         else if (R.id.map_container_bookmarks == id)
         {
           if (isPro || Yota.isYota())
