@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceScreen;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,8 +36,8 @@ import com.mapswithme.util.statistics.Statistics;
 public class SettingsActivity extends PreferenceActivity
 {
   private final static String ZOOM_BUTTON_ENABLED = "ZoomButtonsEnabled";
-
-  private native boolean isDownloadingActive();
+  private BroadcastReceiver m_receiver = null;
+  private Preference m_storagePreference = null;
 
   @SuppressLint("NewApi")
   @SuppressWarnings("deprecation")
@@ -43,7 +45,6 @@ public class SettingsActivity extends PreferenceActivity
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-
 
     if (Utils.apiEqualOrGreaterThan(11))
     {
@@ -137,8 +138,23 @@ public class SettingsActivity extends PreferenceActivity
         return true;
       }
     });
+    
+    m_storagePreference = findPreference(getString(R.string.pref_storage_activity));
 
     yotaSetup();
+    storagePathSetup();
+  }
+  
+  @SuppressWarnings("deprecation")
+  private void storagePathSetup()
+  {
+    PreferenceScreen screen = getPreferenceScreen();
+    if (Yota.isYota())
+      screen.removePreference(m_storagePreference);
+    else if (MWMApplication.get().GetPathManager().HasMoreThanOnceStorage())
+      screen.addPreference(m_storagePreference);
+    else
+      screen.removePreference(m_storagePreference);
   }
 
   @SuppressWarnings("deprecation")
@@ -158,9 +174,6 @@ public class SettingsActivity extends PreferenceActivity
           return true;
         }
       });
-      // we dont allow to change maps location
-      getPreferenceScreen()
-        .removePreference(findPreference(getString(R.string.pref_storage_activity)));
     }
   }
 
@@ -178,6 +191,29 @@ public class SettingsActivity extends PreferenceActivity
     super.onStop();
 
     Statistics.INSTANCE.stopActivity(this);
+  }
+  
+  @Override
+  protected void onResume()
+  {
+    super.onResume();
+    m_receiver = new BroadcastReceiver()
+    {
+      @Override
+      public void onReceive(Context context, Intent intent)
+      {
+        storagePathSetup();
+      }
+    };
+    MWMApplication.get().GetPathManager().StartExtStorageWatching(this, m_receiver);
+  }
+  
+  @Override
+  protected void onPause()
+  {
+    super.onPause();
+    MWMApplication.get().GetPathManager().StopExtStorageWatching();
+    m_receiver = null;
   }
 
   @Override
@@ -287,4 +323,6 @@ public class SettingsActivity extends PreferenceActivity
 
     myWebView.loadUrl(url);
   }
+  
+  private native boolean isDownloadingActive();
 }

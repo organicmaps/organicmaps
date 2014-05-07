@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.net.Uri;
@@ -117,6 +116,11 @@ public class MWMActivity extends NvEventQueueActivity
   private LocationState getLocationState()
   {
     return mApplication.getLocationState();
+  }
+  
+  private StoragePathManager GetPathManager()
+  {
+    return mApplication.GetPathManager();
   }
 
   private void startLocation()
@@ -337,11 +341,12 @@ public class MWMActivity extends NvEventQueueActivity
     final String KitKatMigrationCompleted = "KitKatMigrationCompleted";
     final boolean kmlMoved = MWMApplication.get().nativeGetBoolean(KmlMovedFlag, false);
     final boolean mapsCpy = MWMApplication.get().nativeGetBoolean(KitKatMigrationCompleted, false);
+    StoragePathManager pathManager = mApplication.GetPathManager();
     
     if (!kmlMoved)
     {
-      if (StoragePathManager.MoveBookmarks())
-        MWMApplication.get().nativeSetBoolean(KmlMovedFlag, true);
+      if (pathManager.MoveBookmarks())
+        mApplication.nativeSetBoolean(KmlMovedFlag, true);
       else
       {
         ShowAlertDlg(R.string.bookmark_move_fail);
@@ -356,12 +361,17 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void MoveFilesFinished(String newPath)
         {
-          MWMApplication.get().nativeSetBoolean(KitKatMigrationCompleted, true);
+          mApplication.nativeSetBoolean(KitKatMigrationCompleted, true);
           ShowAlertDlg(R.string.kitkat_migrate_ok);
         }
+        
+        @Override
+        public void MoveFilesFailed()
+        {
+          ShowAlertDlg(R.string.kitkat_migrate_failed);
+        }
       };
-      if (StoragePathManager.CheckWritableDir(this, listener) == false)
-        ShowAlertDlg(R.string.kitkat_migrate_failed);
+      pathManager.CheckWritableDir(this, listener);
     }
   }
 
@@ -1129,19 +1139,7 @@ public class MWMActivity extends NvEventQueueActivity
       }
     };
 
-    final IntentFilter filter = new IntentFilter();
-    filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
-    filter.addAction(Intent.ACTION_MEDIA_REMOVED);
-    filter.addAction(Intent.ACTION_MEDIA_EJECT);
-    filter.addAction(Intent.ACTION_MEDIA_SHARED);
-    filter.addAction(Intent.ACTION_MEDIA_UNMOUNTED);
-    filter.addAction(Intent.ACTION_MEDIA_BAD_REMOVAL);
-    filter.addAction(Intent.ACTION_MEDIA_UNMOUNTABLE);
-    filter.addAction(Intent.ACTION_MEDIA_CHECKING);
-    filter.addAction(Intent.ACTION_MEDIA_NOFS);
-    filter.addDataScheme("file");
-    registerReceiver(m_externalStorageReceiver, filter);
-
+    GetPathManager().StartExtStorageWatching(this, m_externalStorageReceiver);
     updateExternalStorageState();
   }
 
@@ -1211,11 +1209,8 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void stopWatchingExternalStorage()
   {
-    if (m_externalStorageReceiver != null)
-    {
-      unregisterReceiver(m_externalStorageReceiver);
-      m_externalStorageReceiver = null;
-    }
+    GetPathManager().StopExtStorageWatching();
+    m_externalStorageReceiver = null;
   }
 
 

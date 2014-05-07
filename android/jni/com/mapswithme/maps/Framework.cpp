@@ -4,6 +4,7 @@
 
 #include "../core/jni_helper.hpp"
 #include "../core/render_context.hpp"
+#include "../platform/Platform.hpp"
 
 #include "../../../../../map/framework.hpp"
 #include "../../../../../map/measurement_utils.hpp"
@@ -39,10 +40,7 @@ android::Framework * g_framework = 0;
 
 namespace android
 {
-  void Framework::CallRepaint()
-  {
-    //LOG(LINFO, ("Calling Repaint"));
-  }
+  void Framework::CallRepaint() {}
 
   Framework::Framework()
    : m_mask(0),
@@ -54,12 +52,6 @@ namespace android
     g_framework = this;
 
     m_videoTimer = new VideoTimer(bind(&Framework::CallRepaint, this));
-
-    /*
-    size_t const measurementsCount = 5;
-    m_sensors[0].SetCount(measurementsCount);
-    m_sensors[1].SetCount(measurementsCount);
-    */
   }
 
   Framework::~Framework()
@@ -89,9 +81,7 @@ namespace android
 
   void Framework::UpdateCompassSensor(int ind, float * arr)
   {
-    //LOG ( LINFO, ("Sensors before, C++: ", arr[0], arr[1], arr[2]) );
     m_sensors[ind].Next(arr);
-    //LOG ( LINFO, ("Sensors after, C++: ", arr[0], arr[1], arr[2]) );
   }
 
   void Framework::DeleteRenderPolicy()
@@ -501,7 +491,7 @@ namespace android
   {
     ASSERT ( out.empty(), () );
 
-    Platform const & pl = GetPlatform();
+    ::Platform const & pl = GetPlatform();
 
     vector<string> v;
     m_work.GetLocalMaps(v);
@@ -949,4 +939,57 @@ extern "C"
     g_framework->Invalidate();
   }
 
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetBookmarkDir(JNIEnv * env, jclass thiz)
+  {
+    return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetWritableDir(JNIEnv * env, jclass thiz)
+  {
+    return jni::ToJavaString(env, GetPlatform().WritableDir().c_str());
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetSettingsDir(JNIEnv * env, jclass thiz)
+  {
+    return jni::ToJavaString(env, GetPlatform().SettingsDir().c_str());
+  }
+
+  JNIEXPORT jobjectArray JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetMovablefilesExt(JNIEnv * env, jclass thiz)
+  {
+    jstring fakeString = jni::ToJavaString(env, "");
+    jclass stringClass = env->GetObjectClass(fakeString);
+
+    string exts[] = { DATA_FILE_EXTENSION, FONT_FILE_EXTENSION};
+    jobjectArray resultArray = env->NewObjectArray(ARRAY_SIZE(exts), stringClass, NULL);
+
+    for (int i = 0; i < ARRAY_SIZE(exts); ++i)
+      env->SetObjectArrayElement(resultArray, i, jni::ToJavaString(env, exts[i]));
+
+    return resultArray;
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetBookmarksExt(JNIEnv * env, jclass thiz)
+  {
+    return jni::ToJavaString(env, BOOKMARKS_FILE_EXTENSION);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetWritableDir(JNIEnv * env, jclass thiz, jstring _newPath)
+  {
+    string newPath = jni::ToNativeString(env, _newPath);
+    g_framework->RemoveLocalMaps();
+    android::Platform::Instance().SetStoragePath(newPath);
+    g_framework->AddLocalMaps();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeLoadbookmarks(JNIEnv * env, jclass thiz)
+  {
+    g_framework->NativeFramework()->LoadBookmarks();
+  }
 }

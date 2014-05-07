@@ -4,31 +4,37 @@
     <Preference
         android:key="@string/pref_storage_activity"
         android:summary="@string/maps_storage_summary"
-        android:title="@string/maps_storage" />
+        android:title="@string/maps_storage" 
+        android:order="0"/>
 
     <ListPreference
         android:entries="@array/measument_units"
         android:entryValues="@array/measument_units_values"
         android:key="@string/pref_munits"
         android:summary="@string/measurement_units_summary"
-        android:title="@string/measurement_units" />
+        android:title="@string/measurement_units"
+        android:order="1"/>
 
     <CheckBoxPreference
         android:key="@string/pref_allow_stat"
         android:summary="@string/allow_statistics_hint"
-        android:title="@string/allow_statistics" />
+        android:title="@string/allow_statistics"
+        android:order="2"/>
     <CheckBoxPreference
         android:key="@string/pref_zoom_btns_enabled"
         android:summary="@string/pref_zoom_summary"
-        android:title="@string/pref_zoom_title" />
+        android:title="@string/pref_zoom_title"
+        android:order="3"/>
 
     <Preference
         android:key="@string/pref_yota"
         android:summary="@string/yopme_pref_summary"
-        android:title="@string/yopme_pref_title" />
+        android:title="@string/yopme_pref_title"
+        android:order="98"/>
 
     <Preference
         android:key="@string/pref_about"
-        android:title="@string/about_menu_title" />
+        android:title="@string/about_menu_title"
+        android:order="99"/>
 
 </PreferenceScreen>

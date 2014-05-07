@@ -22,6 +22,41 @@ public class Framework
     public void onAdditionalLayerActivated(long index);
     public void onDismiss();
   }
+  
+  static public String GetSettingsDir()
+  {
+    return nativeGetSettingsDir();
+  }
+  
+  static public String GetBookmarksDir()
+  {
+    return nativeGetBookmarkDir();
+  }
+  
+  static public String GetWritableDir()
+  {
+    return nativeGetWritableDir();
+  }
+  
+  static public String GetBookmarkFileExt()
+  {
+    return nativeGetBookmarksExt();
+  }
+  
+  static public String[] GetMovableFilesExt()
+  {
+    return nativeGetMovablefilesExt();
+  }
+  
+  static public void SetWritableDir(String newPath)
+  {
+    nativeSetWritableDir(newPath);
+  }
+  
+  static public void ReloadBookmarks()
+  {
+    nativeLoadbookmarks();
+  }
 
   // Interface
 
@@ -135,4 +170,12 @@ public class Framework
   public native static void cleanSearchLayerOnMap();
   public native static void invalidate();
   public native static String getPoiTypeNameForLatLon(double lat, double lon);
+  
+  private native static String[] nativeGetMovablefilesExt();
+  private native static String   nativeGetBookmarksExt();
+  private native static String   nativeGetBookmarkDir();
+  private native static String   nativeGetSettingsDir();
+  private native static String   nativeGetWritableDir();
+  private native static void     nativeSetWritableDir(String newPath);
+  private native static void     nativeLoadbookmarks();
 }
