@@ -32,6 +32,9 @@ namespace jni
     return ToJavaString(env, s.c_str());
   }
 
+  jclass GetStringClass(JNIEnv * env);
+  char const * GetStringClassName();
+
   string DescribeException();
 
   shared_ptr<jobject> make_global_ref(jobject obj);

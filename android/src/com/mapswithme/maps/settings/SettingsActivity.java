@@ -28,6 +28,7 @@ import android.webkit.WebViewClient;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.StoragePathManager;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
@@ -36,8 +37,8 @@ import com.mapswithme.util.statistics.Statistics;
 public class SettingsActivity extends PreferenceActivity
 {
   private final static String ZOOM_BUTTON_ENABLED = "ZoomButtonsEnabled";
-  private BroadcastReceiver m_receiver = null;
   private Preference m_storagePreference = null;
+  private StoragePathManager m_pathManager = new StoragePathManager();
 
   @SuppressLint("NewApi")
   @SuppressWarnings("deprecation")
@@ -138,20 +139,19 @@ public class SettingsActivity extends PreferenceActivity
         return true;
       }
     });
-    
+
     m_storagePreference = findPreference(getString(R.string.pref_storage_activity));
 
     yotaSetup();
-    storagePathSetup();
   }
-  
+
   @SuppressWarnings("deprecation")
   private void storagePathSetup()
   {
     PreferenceScreen screen = getPreferenceScreen();
     if (Yota.isYota())
       screen.removePreference(m_storagePreference);
-    else if (MWMApplication.get().GetPathManager().HasMoreThanOnceStorage())
+    else if (m_pathManager.HasMoreThanOnceStorage())
       screen.addPreference(m_storagePreference);
     else
       screen.removePreference(m_storagePreference);
@@ -192,12 +192,12 @@ public class SettingsActivity extends PreferenceActivity
 
     Statistics.INSTANCE.stopActivity(this);
   }
-  
+
   @Override
   protected void onResume()
   {
     super.onResume();
-    m_receiver = new BroadcastReceiver()
+    BroadcastReceiver receiver = new BroadcastReceiver()
     {
       @Override
       public void onReceive(Context context, Intent intent)
@@ -205,15 +205,15 @@ public class SettingsActivity extends PreferenceActivity
         storagePathSetup();
       }
     };
-    MWMApplication.get().GetPathManager().StartExtStorageWatching(this, m_receiver);
+    m_pathManager.StartExtStorageWatching(this, receiver);
+    storagePathSetup();
   }
-  
+
   @Override
   protected void onPause()
   {
     super.onPause();
-    MWMApplication.get().GetPathManager().StopExtStorageWatching();
-    m_receiver = null;
+    m_pathManager.StopExtStorageWatching();
   }
 
   @Override
@@ -239,7 +239,7 @@ public class SettingsActivity extends PreferenceActivity
   {
     app.nativeSetBoolean(ZOOM_BUTTON_ENABLED, isEnabled);
   }
-  
+
   public static void onAboutDialogClicked(Activity parent)
   {
     final String url = "file:///android_asset/about.html";
@@ -260,7 +260,7 @@ public class SettingsActivity extends PreferenceActivity
         aAnim.setDuration(750);
         myWebView.startAnimation(aAnim);
       }
-      
+
       @Override
       public boolean shouldOverrideUrlLoading(WebView v, String url)
       {
@@ -271,7 +271,7 @@ public class SettingsActivity extends PreferenceActivity
           Intent mailIntent = CreateEmailIntent(ctx,
                                                 parser.getTo(),
                                                 parser.getSubject(),
-                                                parser.getBody(), 
+                                                parser.getBody(),
                                                 parser.getCc());
           ctx.startActivity(mailIntent);
           v.reload();
@@ -280,7 +280,7 @@ public class SettingsActivity extends PreferenceActivity
         else
           return false;
       }
-      
+
       private Intent CreateEmailIntent(Context context,
                                        String address,
                                        String subject,
@@ -323,6 +323,6 @@ public class SettingsActivity extends PreferenceActivity
 
     myWebView.loadUrl(url);
   }
-  
+
   private native boolean isDownloadingActive();
 }

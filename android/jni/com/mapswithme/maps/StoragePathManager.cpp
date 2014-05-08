@@ -9,9 +9,9 @@ extern "C"
 {
 
 JNIEXPORT jstring JNICALL
-Java_com_mapswithme_util_StoragePathManager_nativeGenerateUniqueBookmarkName(JNIEnv * env, jclass thiz, jstring _baseName)
+Java_com_mapswithme_util_StoragePathManager_nativeGenerateUniqueBookmarkName(JNIEnv * env, jclass thiz, jstring jBaseName)
 {
-  string baseName = jni::ToNativeString(env, _baseName);
+  string baseName = jni::ToNativeString(env, jBaseName);
   string bookmarkFileName = BookmarkCategory::GenerateUniqueFileName(GetPlatform().SettingsDir(), baseName);
   return jni::ToJavaString(env, bookmarkFileName);
 }

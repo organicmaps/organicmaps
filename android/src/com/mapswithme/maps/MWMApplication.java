@@ -21,7 +21,6 @@ import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.FbUtil;
-import com.mapswithme.util.StoragePathManager;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
@@ -35,7 +34,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   private static MWMApplication mSelf;
 
-  private StoragePathManager m_pathManager = new StoragePathManager();
   private LocationService m_location = null;
   private LocationState m_locationState = null;
   private MapStorage m_storage = null;
@@ -101,11 +99,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
         Framework.setWasAdvertised(info.mAppId);
       }
     }
-  }
-  
-  public StoragePathManager GetPathManager()
-  {
-    return m_pathManager;
   }
 
   @Override

@@ -57,10 +57,10 @@ import com.mapswithme.maps.widget.MapInfoView.State;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.StoragePathManager;
+import com.mapswithme.util.StoragePathManager.SetStoragePathListener;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
-import com.mapswithme.util.StoragePathManager.SetStoragePathListener;
 import com.mapswithme.util.statistics.Statistics;
 import com.nvidia.devtech.NvEventQueueActivity;
 
@@ -79,6 +79,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private MWMApplication mApplication = null;
   private BroadcastReceiver m_externalStorageReceiver = null;
+  private StoragePathManager m_pathManager = new StoragePathManager();
   private AlertDialog m_storageDisconnectedDialog = null;
 
   private ImageButton mLocationButton;
@@ -116,11 +117,6 @@ public class MWMActivity extends NvEventQueueActivity
   private LocationState getLocationState()
   {
     return mApplication.getLocationState();
-  }
-  
-  private StoragePathManager GetPathManager()
-  {
-    return mApplication.GetPathManager();
   }
 
   private void startLocation()
@@ -320,7 +316,7 @@ public class MWMActivity extends NvEventQueueActivity
   private boolean m_needCheckUpdate = true;
 
   private boolean mRenderingInitialized = false;
-  
+
   private void ShowAlertDlg(int tittleID)
   {
     new AlertDialog.Builder(this)
@@ -334,18 +330,17 @@ public class MWMActivity extends NvEventQueueActivity
     .create()
     .show();
   }
-  
+
   private void checkKitkatMigrationMove()
   {
     final String KmlMovedFlag = "KmlBeenMoved";
     final String KitKatMigrationCompleted = "KitKatMigrationCompleted";
     final boolean kmlMoved = MWMApplication.get().nativeGetBoolean(KmlMovedFlag, false);
     final boolean mapsCpy = MWMApplication.get().nativeGetBoolean(KitKatMigrationCompleted, false);
-    StoragePathManager pathManager = mApplication.GetPathManager();
-    
+
     if (!kmlMoved)
     {
-      if (pathManager.MoveBookmarks())
+      if (m_pathManager.MoveBookmarks())
         mApplication.nativeSetBoolean(KmlMovedFlag, true);
       else
       {
@@ -353,7 +348,7 @@ public class MWMActivity extends NvEventQueueActivity
         return;
       }
     }
-    
+
     if (!mapsCpy)
     {
       SetStoragePathListener listener = new SetStoragePathListener()
@@ -364,14 +359,14 @@ public class MWMActivity extends NvEventQueueActivity
           mApplication.nativeSetBoolean(KitKatMigrationCompleted, true);
           ShowAlertDlg(R.string.kitkat_migrate_ok);
         }
-        
+
         @Override
         public void MoveFilesFailed()
         {
           ShowAlertDlg(R.string.kitkat_migrate_failed);
         }
       };
-      pathManager.CheckWritableDir(this, listener);
+      m_pathManager.CheckWritableDir(this, listener);
     }
   }
 
@@ -1139,7 +1134,7 @@ public class MWMActivity extends NvEventQueueActivity
       }
     };
 
-    GetPathManager().StartExtStorageWatching(this, m_externalStorageReceiver);
+    m_pathManager.StartExtStorageWatching(this, m_externalStorageReceiver);
     updateExternalStorageState();
   }
 
@@ -1209,7 +1204,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void stopWatchingExternalStorage()
   {
-    GetPathManager().StopExtStorageWatching();
+    m_pathManager.StopExtStorageWatching();
     m_externalStorageReceiver = null;
   }
 

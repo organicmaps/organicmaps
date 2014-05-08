@@ -107,6 +107,17 @@ namespace jni
     return env->NewStringUTF(s);
   }
 
+  jclass GetStringClass(JNIEnv * env)
+  {
+    static jclass stringClass = env->FindClass(GetStringClassName());
+    return stringClass;
+  }
+
+  char const * GetStringClassName()
+  {
+    return "java/lang/String";
+  }
+
   JNIEnv * GetEnv()
   {
     JNIEnv * env;

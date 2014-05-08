@@ -958,10 +958,9 @@ extern "C"
   }
 
   JNIEXPORT jobjectArray JNICALL
-  Java_com_mapswithme_maps_Framework_nativeGetMovablefilesExt(JNIEnv * env, jclass thiz)
+  Java_com_mapswithme_maps_Framework_nativeGetMovableFilesExt(JNIEnv * env, jclass thiz)
   {
-    jstring fakeString = jni::ToJavaString(env, "");
-    jclass stringClass = env->GetObjectClass(fakeString);
+    jclass stringClass = jni::GetStringClass(env);
 
     string exts[] = { DATA_FILE_EXTENSION, FONT_FILE_EXTENSION};
     jobjectArray resultArray = env->NewObjectArray(ARRAY_SIZE(exts), stringClass, NULL);
@@ -979,9 +978,9 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetWritableDir(JNIEnv * env, jclass thiz, jstring _newPath)
+  Java_com_mapswithme_maps_Framework_nativeSetWritableDir(JNIEnv * env, jclass thiz, jstring jNewPath)
   {
-    string newPath = jni::ToNativeString(env, _newPath);
+    string newPath = jni::ToNativeString(env, jNewPath);
     g_framework->RemoveLocalMaps();
     android::Platform::Instance().SetStoragePath(newPath);
     g_framework->AddLocalMaps();

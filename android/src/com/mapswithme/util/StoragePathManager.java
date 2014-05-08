@@ -7,16 +7,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.R;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -38,13 +34,16 @@ import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.R;
+
 public class StoragePathManager
 {
   public static class StorageItem
   {
     public final String m_path;
-    public final long m_size;
-    
+    public final long   m_size;
+
     StorageItem(String path, long size)
     {
       m_path = path;
@@ -54,9 +53,11 @@ public class StoragePathManager
     @Override
     public boolean equals(Object o)
     {
-      if (o == this) return true;
-      if (o == null) return false;
-      StorageItem other = (StorageItem)o;
+      if (o == this)
+        return true;
+      if (o == null)
+        return false;
+      StorageItem other = (StorageItem) o;
       return m_size == other.m_size || m_path.equals(other.m_size);
     }
 
@@ -66,66 +67,46 @@ public class StoragePathManager
       return Long.valueOf(m_size).hashCode();
     }
   }
-  
-  public interface OnStorageItemClickListener
-  {
-    void onItemClick(int position);
-  }
-  
+
   public interface SetStoragePathListener
   {
     void MoveFilesFinished(String newPath);
+
     void MoveFilesFailed();
   }
-  
-  public static class StoragePathAdapter extends BaseAdapter
-                                         implements OnStorageItemClickListener
+
+  abstract public static class StoragePathAdapter extends BaseAdapter
   {
-    @Override
-    public int getCount(){ return 0; }
-    
-    @Override
-    public Object getItem(int position) { return null; }
-
-    @Override
-    public long getItemId(int position) { return 0; }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) { return null; }
-
-    @Override
-    public void onItemClick(int position) {}
+    abstract public void onItemClick(int position);
   };
-  
-  /// ListView adapter
+
+  // / ListView adapter
   private class StoragePathAdapterImpl extends StoragePathAdapter
   {
-    private static final String TAG = "StoragePathAdapter";
-
-    /// @name Different row types.
-    //@{
-    private static final int TYPE_HEADER = 0;
-    private static final int TYPE_ITEM = 1;
-    private static final int HEADERS_COUNT = 1;
-    private static final int TYPES_COUNT = 2;
-    //@}
+    // / @name Different row types.
+    // @{
+    private static final int     TYPE_HEADER   = 0;
+    private static final int     TYPE_ITEM     = 1;
+    private static final int     HEADERS_COUNT = 1;
+    private static final int     TYPES_COUNT   = 2;
+    // @}
 
     private final LayoutInflater m_inflater;
-    private final Activity m_context;
-    private final int m_listItemHeight;
-    
-    private List<StorageItem> m_items = null;
-    private int m_current = -1;
-    private long m_sizeNeeded;
+    private final Activity       m_context;
+    private final int            m_listItemHeight;
+
+    private List<StorageItem>    m_items       = null;
+    private int                  m_current     = -1;
+    private long                 m_sizeNeeded;
 
     public StoragePathAdapterImpl(Activity context)
     {
       m_context = context;
       m_inflater = m_context.getLayoutInflater();
 
-      m_listItemHeight = (int)Utils.getAttributeDimension(context, android.R.attr.listPreferredItemHeight);
+      m_listItemHeight = (int) Utils.getAttributeDimension(context, android.R.attr.listPreferredItemHeight);
     }
-    
+
     @Override
     public int getItemViewType(int position)
     {
@@ -166,41 +147,41 @@ public class StoragePathManager
 
       switch (getItemViewType(position))
       {
-      case TYPE_HEADER:
-      {
-        if (convertView == null)
+        case TYPE_HEADER:
         {
-          convertView = m_inflater.inflate(android.R.layout.simple_list_item_1, null);
-          convertView.setMinimumHeight(m_listItemHeight);
+          if (convertView == null)
+          {
+            convertView = m_inflater.inflate(android.R.layout.simple_list_item_1, null);
+            convertView.setMinimumHeight(m_listItemHeight);
+          }
+
+          final TextView v = (TextView) convertView;
+          v.setText(m_context.getString(R.string.maps) + ": " + getSizeString(m_sizeNeeded));
+          break;
         }
 
-        final TextView v = (TextView) convertView;
-        v.setText(m_context.getString(R.string.maps) + ": " + getSizeString(m_sizeNeeded));
-        break;
-      }
-
-      case TYPE_ITEM:
-      {
-        final int index = getIndexFromPos(position);
-        final StorageItem item = m_items.get(index);
-
-        if (convertView == null)
+        case TYPE_ITEM:
         {
-          convertView = m_inflater.inflate(android.R.layout.simple_list_item_single_choice, null);
-          convertView.setMinimumHeight(m_listItemHeight);
-        }
+          final int index = getIndexFromPos(position);
+          final StorageItem item = m_items.get(index);
 
-        final CheckedTextView v = (CheckedTextView) convertView;
-        v.setText(item.m_path + ": " + getSizeString(item.m_size));
-        v.setChecked(index == m_current);
-        v.setEnabled((index == m_current) || isAvailable(index));
-        break;
-      }
+          if (convertView == null)
+          {
+            convertView = m_inflater.inflate(android.R.layout.simple_list_item_single_choice, null);
+            convertView.setMinimumHeight(m_listItemHeight);
+          }
+
+          final CheckedTextView v = (CheckedTextView) convertView;
+          v.setText(item.m_path + ": " + getSizeString(item.m_size));
+          v.setChecked(index == m_current);
+          v.setEnabled((index == m_current) || isAvailable(index));
+          break;
+        }
       }
 
       return convertView;
     }
-    
+
     @Override
     public void onItemClick(int position)
     {
@@ -208,7 +189,7 @@ public class StoragePathManager
       if (isAvailable(index))
         onStorageItemClick(index);
     }
-    
+
     public void updateList(ArrayList<StorageItem> items, int currentItemIndex, long dirSize)
     {
       m_sizeNeeded = dirSize;
@@ -235,38 +216,38 @@ public class StoragePathManager
       }
 
       // left 1 digit after the comma and add postfix string
-      return String.format("%.1f %s", (double)size / (double)current, arrS[i]);
+      return String.format("%.1f %s", (double) size / (double) current, arrS[i]);
     }
 
     private boolean isAvailable(int index)
     {
-      assert(index >= 0 && index < m_items.size());
+      assert (index >= 0 && index < m_items.size());
       return ((m_current != index) && (m_items.get(index).m_size >= m_sizeNeeded));
     }
 
     private int getIndexFromPos(int position)
     {
       final int index = position - HEADERS_COUNT;
-      assert(index >= 0 && index < m_items.size());
+      assert (index >= 0 && index < m_items.size());
       return index;
     }
   }
-  
-  private static String TAG = "StoragePathManager";
-  private static String MWM_DIR_POSTFIX = "/MapsWithMe/";
-  
-  private BroadcastReceiver m_externalListener;
-  private BroadcastReceiver m_internalListener;
-  private Activity m_context = null;
-  private ArrayList<StorageItem> m_items = null;
-  private StoragePathAdapterImpl m_adapter = null;
-  private int m_currentItemIndex = -1;
-  
+
+  private static String          TAG                = "StoragePathManager";
+  private static String          MWM_DIR_POSTFIX    = "/MapsWithMe/";
+
+  private BroadcastReceiver      m_externalListener;
+  private BroadcastReceiver      m_internalListener;
+  private Activity               m_context          = null;
+  private ArrayList<StorageItem> m_items            = null;
+  private StoragePathAdapterImpl m_adapter          = null;
+  private int                    m_currentItemIndex = -1;
+
   public void StartExtStorageWatching(Activity context, BroadcastReceiver listener)
   {
     m_context = context;
     m_externalListener = listener;
-    
+
     m_internalListener = new BroadcastReceiver()
     {
       @Override
@@ -274,11 +255,11 @@ public class StoragePathManager
       {
         if (m_externalListener != null)
           m_externalListener.onReceive(context, intent);
-        
+
         UpdateExternalStorages();
       }
     };
-    
+
     final IntentFilter filter = new IntentFilter();
     filter.addAction(Intent.ACTION_MEDIA_MOUNTED);
     filter.addAction(Intent.ACTION_MEDIA_REMOVED);
@@ -290,11 +271,11 @@ public class StoragePathManager
     filter.addAction(Intent.ACTION_MEDIA_CHECKING);
     filter.addAction(Intent.ACTION_MEDIA_NOFS);
     filter.addDataScheme("file");
-    
+
     m_context.registerReceiver(m_internalListener, filter);
     UpdateExternalStorages();
   }
-  
+
   public StoragePathAdapter GetAdapter()
   {
     if (m_adapter == null)
@@ -302,10 +283,10 @@ public class StoragePathManager
       m_adapter = new StoragePathAdapterImpl(m_context);
       UpdateExternalStorages();
     }
-    
+
     return m_adapter;
   }
-  
+
   public void StopExtStorageWatching()
   {
     if (m_internalListener != null)
@@ -316,51 +297,52 @@ public class StoragePathManager
       m_adapter = null;
     }
   }
-  
+
   public boolean HasMoreThanOnceStorage()
   {
     return m_items.size() > 1;
   }
-  
+
   public void UpdateExternalStorages()
   {
     ArrayList<String> pathes = new ArrayList<String>();
-    
+
     if (Utils.apiEqualOrGreaterThan(android.os.Build.VERSION_CODES.KITKAT))
     {
       File[] files = m_context.getExternalFilesDirs(null);
       if (files != null)
       {
         File primaryStorageDir = m_context.getExternalFilesDir(null);
-        for(File f : files)
+        for (File f : files)
         {
           // On kitkat and Greater we ignore private folder on primary storage
-          // like "PrimaryStorage/Android/data/com.mapswithme.maps.pro/file/" because
+          // like "PrimaryStorage/Android/data/com.mapswithme.maps.pro/file/"
+          // because
           // we can write to root of PrimaryStorage/
           if (f != null && !f.equals(primaryStorageDir))
             pathes.add(f.getPath());
         }
       }
     }
-    
+
     ParseMountFile("/etc/vold.conf", VOLD_MODE, pathes);
     ParseMountFile("/etc/vold.fstab", VOLD_MODE, pathes);
     ParseMountFile("/system/etc/vold.fstab", VOLD_MODE, pathes);
     ParseMountFile("/proc/mounts", MOUNTS_MODE, pathes);
-    
+
     ArrayList<StorageItem> items = new ArrayList<StorageItem>();
     for (String path : pathes)
       AddStorage(path, items);
-    
+
     AddStorage(Environment.getExternalStorageDirectory().getAbsolutePath(), items);
-    
+
     String writableDir = GetWritableDirRoot();
-    
+
     StorageItem currentItem = AddStorage(writableDir, items);
     LinkedHashSet<StorageItem> itemsSet = new LinkedHashSet<StorageItem>(items);
     if (currentItem != null)
       itemsSet.remove(currentItem);
-    
+
     m_items = new ArrayList<StorageItem>(itemsSet);
     if (currentItem != null)
     {
@@ -372,28 +354,30 @@ public class StoragePathManager
     if (m_adapter != null)
       m_adapter.updateList(m_items, m_currentItemIndex, GetMWMDirSize());
   }
-  
-  /// @name Assume that MapsWithMe folder doesn't have inner folders and symbolic links.
-  //@{
+
+  // / @name Assume that MapsWithMe folder doesn't have inner folders and
+  // symbolic links.
+  // @{
   public long GetMWMDirSize()
   {
     String writableDir = Framework.GetWritableDir();
-    
+
     final File dir = new File(writableDir);
-    assert(dir.exists());
-    assert(dir.isDirectory());
+    assert (dir.exists());
+    assert (dir.isDirectory());
 
     long size = 0;
     for (final File f : dir.listFiles())
     {
-      assert(f.isFile());
+      assert (f.isFile());
       size += f.length();
     }
-    
+
     return size;
   }
-  //@}
-  
+
+  // @}
+
   public boolean MoveBookmarks()
   {
     ArrayList<String> pathes = new ArrayList<String>();
@@ -404,7 +388,7 @@ public class StoragePathManager
       ParseMountFile("/system/etc/vold.fstab", VOLD_MODE, pathes);
       ParseMountFile("/proc/mounts", MOUNTS_MODE, pathes);
     }
-    
+
     ArrayList<String> approvedPathes = new ArrayList<String>();
     for (String path : pathes)
     {
@@ -417,24 +401,24 @@ public class StoragePathManager
     final String writableDir = Framework.GetWritableDir();
     final String bookmarkDir = Framework.GetBookmarksDir();
     final String bookmarkFileExt = Framework.GetBookmarkFileExt();
-    
+
     LinkedHashSet<File> bookmarks = new LinkedHashSet<File>();
     if (!settingsDir.equals(writableDir))
       approvedPathes.add(writableDir);
-    
+
     for (String path : approvedPathes)
     {
       if (!path.equals(settingsDir))
         AccamulateFiles(path, bookmarkFileExt, bookmarks);
     }
-    
+
     long bookmarksSize = 0;
     for (File f : bookmarks)
       bookmarksSize += f.length();
-    
+
     if (GetFreeBytesAtPath(bookmarkDir) < bookmarksSize)
       return false;
-    
+
     for (File f : bookmarks)
     {
       String name = f.getName();
@@ -445,32 +429,32 @@ public class StoragePathManager
         copyFile(f, new File(name));
         f.delete();
       }
-      catch(IOException e)
+      catch (IOException e)
       {
         return false;
       }
     }
-    
+
     Framework.ReloadBookmarks();
-    
+
     return true;
   }
-  
+
   private void AccamulateFiles(final String dirPath, final String filesExtension, Set<File> result)
   {
     File f = new File(dirPath);
     File[] bookmarks = f.listFiles(new FileFilter()
+    {
+      @Override
+      public boolean accept(File pathname)
       {
-        @Override
-        public boolean accept(File pathname)
-        {
-          return pathname.getName().endsWith(filesExtension);
-        }
-      });
-    
+        return pathname.getName().endsWith(filesExtension);
+      }
+    });
+
     result.addAll(Arrays.asList(bookmarks));
   }
-  
+
   private void onStorageItemClick(int index)
   {
     final StorageItem oldItem = (m_currentItemIndex != -1) ? m_items.get(m_currentItemIndex) : null;
@@ -484,55 +468,50 @@ public class StoragePathManager
       return;
     }
 
-    new AlertDialog.Builder(m_context)
-      .setCancelable(false)
-      .setTitle(R.string.move_maps)
-      .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
+    new AlertDialog.Builder(m_context).setCancelable(false).setTitle(R.string.move_maps)
+        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
         {
-          SetStoragePathImpl(m_context, new StoragePathManager.SetStoragePathListener()
+          @Override
+          public void onClick(DialogInterface dlg, int which)
           {
-            @Override
-            public void MoveFilesFinished(String newPath)
+            SetStoragePathImpl(m_context, new StoragePathManager.SetStoragePathListener()
             {
-              UpdateExternalStorages();
-            }
-            
-            @Override
-            public void MoveFilesFailed()
-            {
-              UpdateExternalStorages();
-            }
-          }, item, oldItem, R.string.wait_several_minutes);
+              @Override
+              public void MoveFilesFinished(String newPath)
+              {
+                UpdateExternalStorages();
+              }
 
-          dlg.dismiss();
-        }
-      })
-      .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
+              @Override
+              public void MoveFilesFailed()
+              {
+                UpdateExternalStorages();
+              }
+            }, item, oldItem, R.string.wait_several_minutes);
+
+            dlg.dismiss();
+          }
+        }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
         {
-          dlg.dismiss();
-        }
-      })
-      .create()
-      .show();
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+          }
+        }).create().show();
   }
-  
+
   public void CheckWritableDir(Context context, SetStoragePathListener listener)
   {
     if (Utils.apiLowerThan(android.os.Build.VERSION_CODES.KITKAT))
       return;
-    
+
     final String settingsDir = Framework.GetSettingsDir();
     final String writableDir = Framework.GetWritableDir();
-    
+
     if (settingsDir.equals(writableDir))
       return;
-    
+
     if (IsDirWritable(writableDir))
       return;
 
@@ -541,21 +520,22 @@ public class StoragePathManager
     {
       if (item.m_size > size)
       {
-        SetStoragePathImpl(context, listener, item, new StorageItem(GetWritableDirRoot(), 0), R.string.kitkat_optimization_in_progress);
+        SetStoragePathImpl(context, listener, item, new StorageItem(GetWritableDirRoot(), 0),
+            R.string.kitkat_optimization_in_progress);
         return;
       }
     }
-    
+
     listener.MoveFilesFailed();
   }
-  
-  private void SetStoragePathImpl(Context context, SetStoragePathListener listener,
-                                  StorageItem newStorage, StorageItem oldStorage, int messageId)
+
+  private void SetStoragePathImpl(Context context, SetStoragePathListener listener, StorageItem newStorage,
+      StorageItem oldStorage, int messageId)
   {
     MoveFilesTask task = new MoveFilesTask(context, listener, newStorage, oldStorage, messageId);
     task.execute("");
   }
-  
+
   static private boolean DoMoveMaps(StorageItem newStorage, StorageItem oldStorage)
   {
     String fullOldPath = GetItemFullPath(oldStorage);
@@ -564,16 +544,16 @@ public class StoragePathManager
     File newDir = new File(fullNewPath);
     if (!newDir.exists())
       newDir.mkdir();
-    
-    assert(IsDirWritable(fullNewPath));
-    assert(newDir.isDirectory());
-    assert(oldDir.isDirectory());
-    
+
+    assert (IsDirWritable(fullNewPath));
+    assert (newDir.isDirectory());
+    assert (oldDir.isDirectory());
+
     final String[] extensions = Framework.GetMovableFilesExt();
-    
+
     File[] internalFiles = oldDir.listFiles(new FileFilter()
     {
-      
+
       @Override
       public boolean accept(File pathname)
       {
@@ -585,7 +565,7 @@ public class StoragePathManager
         return false;
       }
     });
-    
+
     try
     {
       for (File moveFile : internalFiles)
@@ -597,46 +577,46 @@ public class StoragePathManager
         new File(fullNewPath + moveFile.getName()).delete();
       return false;
     }
-    
+
     Framework.SetWritableDir(fullNewPath);
-    
+
     for (File moveFile : internalFiles)
       moveFile.delete();
-      
+
     return true;
   }
-  
+
   private static void copyFile(File source, File dest) throws IOException
   {
     FileChannel inputChannel = null;
     FileChannel outputChannel = null;
     try
     {
-        inputChannel = new FileInputStream(source).getChannel();
-        outputChannel = new FileOutputStream(dest).getChannel();
-        outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+      inputChannel = new FileInputStream(source).getChannel();
+      outputChannel = new FileOutputStream(dest).getChannel();
+      outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
     }
     finally
     {
-        inputChannel.close();
-        outputChannel.close();
+      inputChannel.close();
+      outputChannel.close();
     }
   }
 
   private class MoveFilesTask extends AsyncTask<String, Void, Boolean>
   {
-    private final ProgressDialog m_dlg;
-    private final StorageItem m_newStorage;
-    private final StorageItem m_oldStorage;
+    private final ProgressDialog         m_dlg;
+    private final StorageItem            m_newStorage;
+    private final StorageItem            m_oldStorage;
     private final SetStoragePathListener m_listener;
 
-    public MoveFilesTask(Context context, SetStoragePathListener listener,
-                         StorageItem newStorage, StorageItem oldStorage, int messageID)
+    public MoveFilesTask(Context context, SetStoragePathListener listener, StorageItem newStorage,
+        StorageItem oldStorage, int messageID)
     {
       m_newStorage = newStorage;
       m_oldStorage = oldStorage;
       m_listener = listener;
-      
+
       m_dlg = new ProgressDialog(context);
       m_dlg.setMessage(context.getString(messageID));
       m_dlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -666,18 +646,17 @@ public class StoragePathManager
         m_dlg.dismiss();
       }
       catch (final Exception e)
-      {
-      }
+      {}
 
       if (result)
         m_listener.MoveFilesFinished(m_newStorage.m_path);
       else
         m_listener.MoveFilesFailed();
-      
+
       UpdateExternalStorages();
     }
   }
-  
+
   static private StorageItem AddStorage(String path, ArrayList<StorageItem> items)
   {
     try
@@ -690,12 +669,13 @@ public class StoragePathManager
 
         final long size = GetFreeBytesAtPath(path);
 
-        final StorageItem item = new StorageItem(path, size);
-        items.add(item);
-        return item;
+        if (size > 0)
+        {
+          final StorageItem item = new StorageItem(path, size);
+          items.add(item);
+          return item;
+        }
       }
-      else
-        Log.i(TAG, "File error for storage: " + path);
     }
     catch (final IllegalArgumentException ex)
     {
@@ -705,10 +685,10 @@ public class StoragePathManager
 
     return null;
   }
-  
-  private static int VOLD_MODE = 1;
+
+  private static int VOLD_MODE   = 1;
   private static int MOUNTS_MODE = 2;
-  
+
   // http://stackoverflow.com/questions/8151779/find-sd-card-volume-label-on-android
   // http://stackoverflow.com/questions/5694933/find-an-external-sd-card-location
   // http://stackoverflow.com/questions/14212969/file-canwrite-returns-false-on-some-devices-although-write-external-storage-pe
@@ -724,7 +704,8 @@ public class StoragePathManager
       while (true)
       {
         final String line = reader.readLine();
-        if (line == null) break;
+        if (line == null)
+          break;
 
         // standard regexp for all possible whitespaces (space, tab, etc)
         final String[] arr = line.split("\\s+");
@@ -748,7 +729,7 @@ public class StoragePathManager
           }
           else
           {
-            assert(mode == MOUNTS_MODE);
+            assert (mode == MOUNTS_MODE);
             Log.i(TAG, "Label = " + arr[start + 0] + "; Path = " + arr[start + 1]);
 
             final String prefixes[] = { "tmpfs", "/dev/block/vold", "/dev/fuse", "/mnt/media_rw" };
@@ -768,47 +749,61 @@ public class StoragePathManager
       Utils.closeStream(reader);
     }
   }
-  
+
   @SuppressWarnings("deprecation")
   @SuppressLint("NewApi")
   static private long GetFreeBytesAtPath(String path)
   {
-    final StatFs stat = new StatFs(path);
-    final long size = Utils.apiLowerThan(android.os.Build.VERSION_CODES.JELLY_BEAN_MR2)
-                      ? (long)stat.getAvailableBlocks() * (long)stat.getBlockSize()
-                      : stat.getAvailableBytes();
+    long size = 0;
+    try
+    {
+      if (Utils.apiLowerThan(android.os.Build.VERSION_CODES.GINGERBREAD))
+      {
+        final StatFs stat = new StatFs(path);
+        size = stat.getAvailableBlocks() * (long) stat.getBlockSize();
+      }
+      else
+        size = new File(path).getFreeSpace();
+    }
+    catch (RuntimeException e)
+    {
+      Log.d(TAG, e.getMessage());
+      Log.d(TAG, e.getStackTrace().toString());
+    }
+
     return size;
   }
-  
+
   static private boolean IsDirWritable(String path)
   {
     final File f = new File(path + "/testDir");
     f.mkdir();
-    // we can't only call canWrite, because on KitKat (Samsung S4) this return true
+    // we can't only call canWrite, because on KitKat (Samsung S4) this return
+    // true
     // for sdcard but actually it's read only
     if (f.exists())
     {
       f.delete();
       return true;
     }
-    
+
     return false;
   }
-  
+
   static private String GetItemFullPath(StorageItem item)
   {
     return item.m_path + MWM_DIR_POSTFIX;
   }
-  
+
   static private String GetWritableDirRoot()
   {
     String writableDir = Framework.GetWritableDir();
     int index = writableDir.lastIndexOf(MWM_DIR_POSTFIX);
     if (index != -1)
       writableDir = writableDir.substring(0, index);
-    
+
     return writableDir;
   }
-  
+
   static private native String nativeGenerateUniqueBookmarkName(String baseName);
 }
