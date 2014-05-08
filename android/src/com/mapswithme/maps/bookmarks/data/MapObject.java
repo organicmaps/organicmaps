@@ -24,7 +24,7 @@ public abstract class MapObject
 
   private static boolean isEmpty(String s)
   {
-    return (s == null || s.isEmpty());
+    return (s == null || s.length() == 0);
   }
 
   public void setDefaultIfEmpty(Resources res)

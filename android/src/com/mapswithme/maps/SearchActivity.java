@@ -407,7 +407,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private boolean isShowCategories()
   {
-    return getSearchString().isEmpty();
+    return getSearchString().length() == 0;
   }
 
   private LocationService m_location;
@@ -417,7 +417,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private View mClearQueryBtn;
   private View mVoiceInput;
   private View mSearchIcon;
-  //
 
   private RadioGroup mSearchScopeGroup;
 

@@ -47,7 +47,7 @@ public class StringUtils
     for (int i = 0; i < arr.length; ++i)
     {
       String s = (arr[i] != null) ? arr[i].toString() : null;
-      if (s != null && !s.isEmpty())
+      if (s != null && s.length() > 0)
         res = (res == null) ? s : res + delim + s;
     }
     return res;
