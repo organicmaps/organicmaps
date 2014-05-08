@@ -7,7 +7,7 @@
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
 	<string name="pro_version_available">Získej více možností s plnou verzí MapsWithMe, zahrnující offline vyhledávání. Nainstaluj si ji nyní!</string>
 	<!-- About button text (should be short) -->
-	<string name="about">O programu</string>
+	<string name="about">O aplikaci</string>
 	<!-- Button text (should be short) -->
 	<string name="back">Zpět</string>
 	<!-- Button text (should be short) -->
@@ -173,7 +173,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Skupina</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Zatím nemáte žádné záložky.\nZáložku můžete přidat poklepáním na jakékoli místo na mapě.\nV MapsWithMe také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
+	<string name="bookmarks_usage_hint">Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MapsWithMe také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">V MapsWithMe mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
 	<!-- Settings button in system menu -->
@@ -292,7 +292,7 @@
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Odesílat statistiky</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Dovolte nám shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšovat</string>
+	<string name="allow_statistics_hint">Dovol nám, prosím, shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšit</string>
 	<!-- place preview title -->
 	<string name="info">Více informací</string>
 	<!-- Used for bookmark editing -->
@@ -320,8 +320,8 @@
 	<string name="placepage_coordinates">Souřadnice</string>
 	<string name="placepage_unsorted">Nezařazené</string>
 	<string name="search_show_on_map">Zobrazit a mapě</string>
-	<string name="kitkat_migrate_ok">Úložiště mapových dat bylo optimalizováno. Restartujte prosím aplikaci.\n\nSložka MapsWithMe v kořenovém adresáři karty SD už není potřebná a můžete ji vymazat.</string>
-	<string name="kitkat_migrate_failed">V důsledku změn v OS Android 4.4 budeme muset optimalizovat ukládání mapových dat, avšak na zkopírování mapových dat není dostatek místa.\n\nUvolněte prosím více paměti. Jinak budou mapy dostupné pouze v režimu pouze pro čtení.</string>
-	<string name="bookmark_move_fail">Potřebujeme přemístit Vaše záložky do vnitřní paměti, ale není na ně volné místo. Uvolněte prosím více paměti, jinak nebudete mít k dispozici záložky.</string>
-	<string name="kitkat_optimization_in_progress">Vaše úložiště map je právě optimalizováno. Čekejte, prosím. Může to několik minut trvat.</string>
+	<string name="kitkat_migrate_ok">Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžeš ho smazat.</string>
+	<string name="kitkat_migrate_failed">Kvůli změnám v Androidu 4.4 musíme optimalizovat uložiště map, ale není dostatek prostoru pro jejich zkopírování.\n\nProsím, uvolni paměť, jinak budou mapy dostupné pouze v režimu pro čtení.</string>
+	<string name="bookmark_move_fail">Potřebujeme přesunout tvé záložky do vnitřní paměti zařízení, ale není pro ně volné místo. Prosím, uvolni paměť, jinak nebudou záložky dostupné.</string>
+	<string name="kitkat_optimization_in_progress">Uložiště map se právě optimalizuje. Může to trvat i pár minut. Prosíme o chvilku strpení.</string>
 </resources>

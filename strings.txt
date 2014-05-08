@@ -23,7 +23,7 @@
   [about]
     en = About
     comment = About button text (should be short)
-    cs = O programu
+    cs = O aplikaci
     de = Über Karten
     es = Acerca de
     fr = À propos
@@ -1630,7 +1630,7 @@
     en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MapsWithMe. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.
     tags = ios,android
     comment = Text hint in Bookmarks dialog when no any bookmarks are added
-    cs = Zatím nemáte žádné záložky.\nZáložku můžete přidat poklepáním na jakékoli místo na mapě.\nV MapsWithMe také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
+    cs = Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MapsWithMe také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
     de = Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MapsWithMe-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
     es = Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MapsWithMe. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
     fr = Vous n'avez encore aucun favori.\nTapotez n'importe où sur la carte pour ajouter un favori.\nLes signets provenant d'autres sources peuvent également être importés et affichés dans MapsWithMe. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.
@@ -2740,7 +2740,7 @@
     comment = Hint near allow statictics checkbox
     ru = Разрешить сбор статистики. Это помогает нам совершенствовать приложение.
     ja = アプリを向上できるよう、使用状況の統計を収集させてください
-    cs = Dovolte nám shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšovat
+    cs = Dovol nám, prosím, shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšit
     pl = Pozwól nam na zbieranie statystyk dotyczących używania aplikacji, abyśmy mogli ją udoskonalić
     uk = Просимо дозволити нам збирати статистичні дані по використанню, щоб поліпшити застосунок
     nl = Sta ons toe om gebruiksstatistieken te verzamelen om de app te verbeteren
@@ -3029,7 +3029,7 @@
     it = Guide turistiche
     kr = 여행 가이드
     du = Reisgidsen
-    cz = Cestovní průvodci
+    cz = Cestovní průvodce
     ja = トラベルガイド
     hu = Útikönyvek
 
@@ -3131,7 +3131,7 @@
     pt = O armazenamento de dados do mapa foi otimizado. Por favor, reinicie a app.\n\nA pasta MapsWithMe na raiz do cartão SD já não é necessária, pode excluí-la.
     nl = Opslag van kaartgegevens is geoptimaliseerd. Herstart de app.\n\nMapsWithMe map is niet langer nodig in de root van de SD-kaart, u kunt het verwijderen.
     hu = A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA MapsWithMe mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.
-    cs = Úložiště mapových dat bylo optimalizováno. Restartujte prosím aplikaci.\n\nSložka MapsWithMe v kořenovém adresáři karty SD už není potřebná a můžete ji vymazat.
+    cs = Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžeš ho smazat.
     pl = Przechowywanie danych mapy zostało zoptymalizowane. Prosimy zrestartować aplikację.\n\nFolder MapsWithMe w katalogu głównym karty SD nie jest już potrzebny, można go usunąć.
     es = Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta MapsWithMe en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.
     de = Der Kartendaten-Speicherplatz wurde optimiert. Bitte die App neu starten.\n\nDer Ordner MapsWithMe im Stammverzeichnis der SD-Karte wird nicht mehr benötigt. Sie können ihn löschen.
@@ -3148,7 +3148,7 @@
     pt = Devido às alterações no Android 4.4, é necessário otimizar o armazenamento de dados do mapa, mas não há espaço suficiente para copiar os dados do mapa.\n\nPor favor, liberte a memória, caso contrário, os mapas estarão disponíveis no modo somente de leitura.
     nl = Door veranderingen in Android 4.4 moeten we de opslag van kaartgegevens optimaliseren, maar er is niet genoeg ruimte om kaartgegevens te kopiëren.\n\nMaak alstublieft geheugen vrij, anders zullen kaarten alleen in de leesmodus beschikbaar zijn.
     hu = Az Android 4.4 változásai miatt optimalizálnunk kell a térképadatok tárolását, azonban ehhez nincs elegendő szabad tárhely.\n\nKérjük, szabadítson fel lemezterületet, ellenkező esetben a térképei csak írásvédett módban lesznek elérhetőek.
-    cs = V důsledku změn v OS Android 4.4 budeme muset optimalizovat ukládání mapových dat, avšak na zkopírování mapových dat není dostatek místa.\n\nUvolněte prosím více paměti. Jinak budou mapy dostupné pouze v režimu pouze pro čtení.
+    cs = Kvůli změnám v Androidu 4.4 musíme optimalizovat uložiště map, ale není dostatek prostoru pro jejich zkopírování.\n\nProsím, uvolni paměť, jinak budou mapy dostupné pouze v režimu pro čtení.
     pl = Ze względu na zmiany w Android 4.4, musimy zoptymalizować przechowywanie danych mapy, ale nie ma wystarczająco dużo miejsca, aby skopiować dane mapy.\n\nProsimy zwolnić pamięć, inaczej mapy będą dostępne tylko w trybie do odczytu.
     es = Debido a cambios en Android 4.4, tenemos que optimizar el almacenamiento de datos de mapas, pero no hay espacio suficiente para copiar los datos de los mapas.\n\nPor favor, libera la memoria, en caso contrario los mapas solo estarán disponibles en modo de solo lectura.
     de = Bedingt durch Änderungen in Android 4.4, müssen wir den Kartendaten-Speicherplatz optimieren, es steht jedoch zum Kopieren der Kartendaten nicht genügend Speicherplatz zur Verfügung.\n\nGeben Sie bitte Speicherplatz frei, ansonsten werden Karten nur im Lesemodus verfügbar sein.
@@ -3165,7 +3165,7 @@
     pt = É necessário mover os seus marcadores para a memória interna, mas não há espaço disponível para eles. Por favor, liberte a memória, caso contrário, os marcadores não estarão disponíveis.
     nl = We moeten uw bladwijzers naar het interne geheugen verplaatsen, maar er is geen ruimte beschikbaar voor ze. Maak alstublieft geheugen vrij, anders zullen de bladwijzers niet beschikbaar zijn.
     hu = A könyvjelzőit át kell helyeznünk a belső memóriába, azonban ehhez nincs elegendő szabad tárhely. Kérjük, szabadítson fel lemezterületet, ellenkező esetben a könyvjelzői nem lesznek elérhetőek.
-    cs = Potřebujeme přemístit Vaše záložky do vnitřní paměti, ale není na ně volné místo. Uvolněte prosím více paměti, jinak nebudete mít k dispozici záložky.
+    cs = Potřebujeme přesunout tvé záložky do vnitřní paměti zařízení, ale není pro ně volné místo. Prosím, uvolni paměť, jinak nebudou záložky dostupné.
     pl = Musimy przenieść Twoje zakładki do pamięci wewnętrznej, ale nie ma tam dla nich wolnego miejsca. Prosimy zwolnić pamięć, inaczej zakładki nie będą dostępne.
     es = Tenemos que mover tus marcadores a la memoria interna, pero no hay espacio disponible para ellos. Por favor, libera memoria, en caso contrario, los marcadores no estarán disponibles.
     de = Wir müssen Ihre Lesezeichen in den internen Speicher verschieben, aber es gibt dafür keinen verfügbaren Speicherplatz. Bitte geben Sie Speicherplatz frei, sonst werden Ihre Lesezeichen nicht verfügbar sein.
@@ -3182,7 +3182,7 @@
     pt = O seu armazenamento de mapa está agora a ser otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.
     nl = De kaartopslag wordt nu geoptimaliseerd. Een moment geduld alstublieft, dit kan een paar minuten duren.
     hu = A térképadatai optimalizálás alatt állnak. Kérjük, várjon, ez néhány percet igénybe vesz.
-    cs = Vaše úložiště map je právě optimalizováno. Čekejte, prosím. Může to několik minut trvat.
+    cs = Uložiště map se právě optimalizuje. Může to trvat i pár minut. Prosíme o chvilku strpení.
     pl = Twoje przechowywanie map jest teraz optymalizowane. Prosimy czekać, może to zająć kilka minut.
     es = Tu almacenamiento de mapas se está optimizando ahora. Por favor, espera, podría tardar unos minutos.
     de = Ihr Kartenspeicher wird jetzt optimiert. Bitte warten Sie, es kann ein paar Minuten dauern.
