@@ -20,7 +20,8 @@ namespace location
     EAppleNative,
     EWindowsNative,
     EAndroidNative,
-    EGoogle
+    EGoogle,
+    ETizen
   };
 
   /// Our structure ALWAYS has valid lat, lon and horizontal accuracy.

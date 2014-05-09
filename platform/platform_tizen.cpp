@@ -38,6 +38,9 @@ Platform::Platform()
   LOG(LDEBUG, ("Tmp directory:", m_tmpDir));
   LOG(LDEBUG, ("Settings directory:", m_settingsDir));
   LOG(LDEBUG, ("Client ID:", UniqueClientId()));
+
+  m_flags[HAS_BOOKMARKS] = true;
+  m_flags[HAS_ROTATION] = true;
 }
 
 int Platform::CpuCores() const

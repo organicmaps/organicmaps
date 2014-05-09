@@ -10,7 +10,7 @@
         <ApiVersion>2.2</ApiVersion>
         <Privileges>
             <Privilege>http://tizen.org/privilege/http</Privilege>
-            <Privilege>http://tizen.org/privilege/download</Privilege>
+            <Privilege>http://tizen.org/privilege/location</Privilege>
         </Privileges>
         <UiApp LaunchingHistoryVisible="True" Main="True" MenuIconVisible="True" Name="MapsWithMe">
             <UiScalability BaseScreenSize="Normal" CoordinateSystem="Logical" LogicalCoordinate="720"/>
