@@ -684,21 +684,7 @@ const long long LITE_IDL = 431183278L;
   }
 }
 
-- (UIButton *)buyButton
 {
-    if (!_buyButton)
-    {
-        UIImage * buyImage = [[UIImage imageNamed:@"ProVersionButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 14, 14, 14)];
-        _buyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 115, 44.5)];
-        _buyButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        _buyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-        _buyButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
-        _buyButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-        [_buyButton setBackgroundImage:buyImage forState:UIControlStateNormal];
-        [_buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_buyButton addTarget:self action:@selector(buyButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _buyButton;
 }
 
 {
