@@ -38,12 +38,12 @@ namespace search { struct AddressInfo; }
 
 - (IBAction)onMyPositionClicked:(id)sender;
 
-- (void)prepareForApi;
-
 - (void)dismissPopover;
 
 @property (weak, nonatomic) IBOutlet UIView * zoomButtonsView;
 @property (nonatomic, strong) UIPopoverController * popoverVC;
 @property (nonatomic) BottomMenu * bottomMenu;
+@property (nonatomic, readonly) BOOL apiMode;
+- (void)setApiMode:(BOOL)apiMode animated:(BOOL)animated;
 
 @end

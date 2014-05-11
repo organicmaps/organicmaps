@@ -5,7 +5,7 @@
 
 @implementation AddSetVC
 
-- (id)initWithIndex:(size_t *)index;
+- (id)init
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
@@ -13,7 +13,6 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSaveClicked)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancelClicked)];
     self.title = NSLocalizedString(@"add_new_set", @"Add New Bookmark Set dialog title");
-    m_index = index;
   }
   return self;
 }
@@ -29,14 +28,8 @@
   NSString * text = textField.text;
   if (text.length)
   {
-    *m_index = GetFramework().AddCategory([text UTF8String]);
-    NSArray * arr = self.navigationController.viewControllers;
-    for (UIViewController * v in arr)
-      if ([v isMemberOfClass:NSClassFromString(@"PlacePageVC")])
-      {
-        [self.navigationController popToViewController:v animated:YES];
-        break;
-      }
+    [self.delegate addSetVC:self didAddSetWithIndex:GetFramework().AddCategory([text UTF8String])];
+    [self.navigationController popViewControllerAnimated:YES];
   }
 }
 

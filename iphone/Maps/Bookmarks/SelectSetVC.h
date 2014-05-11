@@ -1,9 +1,18 @@
+
 #import <UIKit/UIKit.h>
+#include "../../map/bookmark.hpp"
+
+@class SelectSetVC;
+@protocol SelectSetVCDelegate <NSObject>
+
+- (void)selectSetVC:(SelectSetVC *)vc didUpdateBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory;
+
+@end
 
 @interface SelectSetVC : UITableViewController
-{
-  size_t * m_index;
-}
-- (id)initWithIndex:(size_t *)index;
+
+- (id)initWithBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory;
+
+@property (nonatomic, weak) id <SelectSetVCDelegate> delegate;
 
 @end

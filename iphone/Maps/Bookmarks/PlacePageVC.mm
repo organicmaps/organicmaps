@@ -168,7 +168,10 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return 4;
+  if (self.mode == PlacePageVCModeEditing)
+    return 4;
+  else
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -190,9 +193,8 @@
     {
       //return zero, because want to use headers and footers
       //coordinates cell
-      case 0: return 1;
+      case 0: return 0;
       case 1: return 0;
-      case 2: return 0;
     }
   return 0;
 }
@@ -226,15 +228,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
   if (section == 0 && self.mode == PlacePageVCModeSaved)
-    return [self getCompassView].frame.size.height;
-  if (section == 1 && self.mode == PlacePageVCModeSaved)
     return TWOBUTTONSHEIGHT;
   return [self.tableView sectionHeaderHeight];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-  if (section == 1 && [self.pinNotes length] && self.mode == PlacePageVCModeSaved)
+  if (section == 0 && [self.pinNotes length] && self.mode == PlacePageVCModeSaved)
     return webView.scrollView.contentSize.height + 10;
   return [self.tableView sectionFooterHeight];
 }
@@ -242,8 +242,6 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
   if (section == 0 && self.mode == PlacePageVCModeSaved)
-    return [self getCompassView];
-  if (section == 1 && self.mode == PlacePageVCModeSaved)
     return [[TwoButtonsView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, TWOBUTTONSHEIGHT)
                               leftButtonSelector:@selector(share)
                              rightButtonSelector:@selector(remove)
@@ -255,7 +253,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-  if (self.mode == PlacePageVCModeSaved && section == 1 && [self.pinNotes length])
+  if (self.mode == PlacePageVCModeSaved && section == 0 && [self.pinNotes length])
   {
     UIView * contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, 20)];
     if (!webView)
@@ -294,8 +292,8 @@
   {
     if (indexPath.section == 1)
     {
-      SelectSetVC * vc = [[SelectSetVC alloc] initWithIndex:&m_categoryIndex];
-      [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
+//      SelectSetVC * vc = [[SelectSetVC alloc] initWithIndex:&m_categoryIndex];
+//      [self pushToNavigationControllerAndSetControllerToPopoverSize:vc];
     }
     else if (indexPath.section == 2)
       [self showPicker];
@@ -686,13 +684,6 @@
 - (NSString *)descriptionPlaceholderText
 {
   return NSLocalizedString(@"description", nil);
-}
-
-- (PlaceAndCompasView *)getCompassView
-{
-  if (!self.placeAndCompass)
-    _placeAndCompass = [[PlaceAndCompasView alloc] initWithName:self.pinTitle placeSecondaryName:[NSString stringWithUTF8String:GetFramework().GetBmCategory(_pinEditedBookmark.first)->GetName().c_str()] placeGlobalPoint:_pinGlobalPosition width:self.tableView.frame.size.width];
-  return self.placeAndCompass;
 }
 
 - (void)showPicker

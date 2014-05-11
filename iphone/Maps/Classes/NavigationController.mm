@@ -12,7 +12,7 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  return [self.viewControllers count] > 1 ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+  return UIStatusBarStyleLightContent;
 }
 
 - (void)viewDidLoad
@@ -33,7 +33,7 @@
 
 - (BOOL)shouldAutorotate
 {
-  return self.autorotate;;
+  return self.autorotate;
 }
 
 @end

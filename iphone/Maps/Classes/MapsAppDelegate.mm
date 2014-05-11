@@ -155,7 +155,7 @@ void InitLocalizedStrings()
   NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];
   attributes[UITextAttributeTextColor] = [UIColor whiteColor];
   attributes[UITextAttributeTextShadowColor] = [UIColor clearColor];
-  [[UINavigationBar appearance] setTintColor:[UIColor colorWithColorCode:@"393655"]];
+  [[UINavigationBar appearance] setTintColor:[UIColor colorWithColorCode:@"15c584"]];
   if (!SYSTEM_VERSION_IS_LESS_THAN(@"7"))
   {
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
@@ -264,7 +264,7 @@ void InitLocalizedStrings()
       [[Statistics instance] logApiUsage:sourceApplication];
 
       [self showMap];
-      [self.m_mapViewController prepareForApi];
+      [self.m_mapViewController setApiMode:YES animated:YES];
       return YES;
     }
   }
@@ -324,7 +324,6 @@ void InitLocalizedStrings()
 - (void)showMap
 {
   [m_navController popToRootViewControllerAnimated:YES];
-  [self.m_mapViewController.sideToolbar setMenuHidden:YES animated:NO];
   [self.m_mapViewController dismissPopover];
 }
 

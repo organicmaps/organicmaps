@@ -4,14 +4,21 @@
 #import "AddSetVC.h"
 #import "UIKitCategories.h"
 
-@implementation SelectSetVC
+@interface SelectSetVC () <AddSetVCDelegate>
 
-- (id)initWithIndex:(size_t *)index
+@end
+
+@implementation SelectSetVC
+{
+  BookmarkAndCategory m_bookmarkAndCategory;
+}
+
+- (id)initWithBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
   if (self)
   {
-    m_index = index;
+    m_bookmarkAndCategory = bookmarkAndCategory;
     self.title = NSLocalizedString(@"bookmark_sets", @"Bookmark Sets dialog title");
   }
   return self;
@@ -54,7 +61,7 @@
     if (cat)
       cell.textLabel.text = [NSString stringWithUTF8String:cat->GetName().c_str()];
 
-    if ((*m_index) == indexPath.row)
+    if (m_bookmarkAndCategory.first == indexPath.row)
       cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
       cell.accessoryType = UITableViewCellAccessoryNone;
@@ -62,19 +69,35 @@
   return cell;
 }
 
+- (void)addSetVC:(AddSetVC *)vc didAddSetWithIndex:(size_t)setIndex
+{
+  [self moveBookmarkToSetWithIndex:setIndex];
+
+  [self.tableView reloadData];
+  [self.delegate selectSetVC:self didUpdateBookmarkAndCategory:m_bookmarkAndCategory];
+}
+
+- (void)moveBookmarkToSetWithIndex:(size_t)setIndex
+{
+  m_bookmarkAndCategory.second = GetFramework().MoveBookmark(m_bookmarkAndCategory.second, m_bookmarkAndCategory.first, setIndex);
+  m_bookmarkAndCategory.first = setIndex;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   if (indexPath.section == 0)
   {
-    AddSetVC * asVC = [[AddSetVC alloc] initWithIndex:m_index];
+    AddSetVC * asVC = [[AddSetVC alloc] init];
+    asVC.delegate = self;
     if (IPAD)
       [asVC setContentSizeForViewInPopover:[self contentSizeForViewInPopover]];
     [self.navigationController pushViewController:asVC animated:YES];
   }
   else
   {
-    *m_index = indexPath.row;
+    [self moveBookmarkToSetWithIndex:indexPath.row];
+    [self.delegate selectSetVC:self didUpdateBookmarkAndCategory:m_bookmarkAndCategory];
     [self.navigationController popViewControllerAnimated:YES];
   }
 }

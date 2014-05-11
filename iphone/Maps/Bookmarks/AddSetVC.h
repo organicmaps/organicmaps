@@ -1,10 +1,14 @@
 #import <UIKit/UIKit.h>
 
-@interface AddSetVC : UITableViewController <UITextFieldDelegate>
-{
-  size_t * m_index;
-}
+@class AddSetVC;
+@protocol AddSetVCDelegate <NSObject>
 
-- (id)initWithIndex:(size_t *)index;
+- (void)addSetVC:(AddSetVC *)vc didAddSetWithIndex:(size_t)setIndex;
+
+@end
+
+@interface AddSetVC : UITableViewController <UITextFieldDelegate>
+
+@property (nonatomic, weak) id <AddSetVCDelegate> delegate;
 
 @end
