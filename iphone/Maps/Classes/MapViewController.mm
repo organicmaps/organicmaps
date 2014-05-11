@@ -19,6 +19,7 @@
 #import "MoreAppsVC.h"
 #import "PlacePageView.h"
 #import "SearchView.h"
+#import "ToolbarView.h"
 
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
@@ -45,11 +46,11 @@ const long long LITE_IDL = 431183278L;
 
 @interface MapViewController () <SideToolbarDelegate, PlacePageViewDelegate, PlacePageVCDelegate>
 
-@property (nonatomic) LocationButton * locationButton;
 @property (nonatomic) ShareActionSheet * shareActionSheet;
 @property (nonatomic) UIButton * buyButton;
 @property (nonatomic) PlacePageView * placePageView;
 @property (nonatomic) SearchView * searchView;
+@property (nonatomic) ToolbarView * toolbarView;
 
 @end
 
@@ -91,7 +92,7 @@ const long long LITE_IDL = 431183278L;
     default:
       break;
   }
-  [self.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
+  [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
 }
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
@@ -102,7 +103,7 @@ const long long LITE_IDL = 431183278L;
     Framework & f = GetFramework();
 
     if (f.GetLocationState()->IsFirstPosition())
-      [self.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
+      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
 
     f.OnLocationUpdate(info);
 
@@ -129,16 +130,16 @@ const long long LITE_IDL = 431183278L;
 
   if (newStatus == location::ECompassFollow)
   {
-    [self.locationButton setImage:[UIImage imageNamed:@"LocationFollow"] forState:UIControlStateSelected];
+    [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationFollow"] forState:UIControlStateSelected];
   }
   else
   {
     if (ls->HasPosition())
-      [self.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
+      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
     else
-      [self.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
+      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
 
-    self.locationButton.selected = YES;
+    self.toolbarView.locationButton.selected = YES;
   }
 }
 
@@ -164,9 +165,9 @@ const long long LITE_IDL = 431183278L;
   {
     if (!ls->IsFirstPosition())
     {
-      self.locationButton.selected = YES;
-      [self.locationButton setImage:[UIImage imageNamed:@"LocationSearch"] forState:UIControlStateSelected];
-      [self.locationButton setSearching];
+      self.toolbarView.locationButton.selected = YES;
+      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSearch"] forState:UIControlStateSelected];
+      [self.toolbarView.locationButton setSearching];
 
       ls->OnStartLocation();
 
@@ -181,7 +182,7 @@ const long long LITE_IDL = 431183278L;
     if (!ls->IsCentered())
     {
       ls->AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationCenterOnly);
-      self.locationButton.selected = YES;
+      self.toolbarView.locationButton.selected = YES;
       return;
     }
     else
@@ -196,8 +197,8 @@ const long long LITE_IDL = 431183278L;
             else
               ls->AnimateToPositionAndEnqueueFollowing();
 
-            self.locationButton.selected = YES;
-            [self.locationButton setImage:[UIImage imageNamed:@"LocationFollow"] forState:UIControlStateSelected];
+            self.toolbarView.locationButton.selected = YES;
+            [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationFollow"] forState:UIControlStateSelected];
 
             return;
           }
@@ -226,8 +227,8 @@ const long long LITE_IDL = 431183278L;
   [[MapsAppDelegate theApp] enableStandby];
   [[MapsAppDelegate theApp].m_locationManager stop:self];
 
-  self.locationButton.selected = NO;
-  [self.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
+  self.toolbarView.locationButton.selected = NO;
+  [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
 }
 
 - (IBAction)zoomInPressed:(id)sender
@@ -315,9 +316,6 @@ const long long LITE_IDL = 431183278L;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  if (!self.sideToolbar.isMenuHidden)
-    return;
-
   // To cancel single tap timer
   UITouch * theTouch = (UITouch *)[touches anyObject];
   if (theTouch.tapCount > 1)
@@ -347,18 +345,10 @@ const long long LITE_IDL = 431183278L;
 	}
 
 	m_isSticking = true;
-
-  if (!self.sideToolbar.isMenuHidden)
-    [self.sideToolbar setMenuHidden:YES animated:YES];
-  if (self.placePageView.state == PlacePageStateOpened)
-    [self.placePageView setState:PlacePageStateBitShown animated:YES];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  if (!self.sideToolbar.isMenuHidden)
-    return;
-
   m2::PointD const TempPt1 = m_Pt1;
 	m2::PointD const TempPt2 = m_Pt2;
 
@@ -410,12 +400,6 @@ const long long LITE_IDL = 431183278L;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-  if (!self.sideToolbar.isMenuHidden)
-  {
-    [self.sideToolbar setMenuHidden:YES animated:YES];
-    return;
-  }
-
 	[self updatePointsFromEvent:event];
 	[self stopCurrentAction];
 
@@ -538,13 +522,6 @@ const long long LITE_IDL = 431183278L;
 #endif
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-  [super viewDidDisappear:animated];
-
-  [self.sideToolbar setMenuHidden:YES animated:NO];
-}
-
 - (void)viewDidLoad
 {
   [super viewDidLoad];
@@ -575,27 +552,14 @@ const long long LITE_IDL = 431183278L;
   }
 #endif
 
-  [self.view addSubview:self.locationButton];
+  [self.view addSubview:self.toolbarView];
+  self.toolbarView.maxY = self.toolbarView.superview.height;
 
   [self.view addSubview:self.searchView];
 
   [self.view addSubview:self.placePageView];
 
-  [self.view addSubview:self.sideToolbar];
 
-  self.sideToolbar.slideView = slideView;
-
-  [self.sideToolbar setMenuHidden:YES animated:NO];
-}
-
-- (BOOL)prefersStatusBarHidden
-{
-  return !self.sideToolbar.isMenuHidden;
-}
-
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
-{
-  return UIStatusBarAnimationFade;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -659,16 +623,22 @@ const long long LITE_IDL = 431183278L;
 #pragma mark - Getters
 
 - (PlacePageView *)placePageView
+- (ToolbarView *)toolbarView
 {
   if (!_placePageView)
+  if (!_toolbarView)
   {
     _placePageView = [[PlacePageView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 0)];
     _placePageView.minY = self.view.height;
     _placePageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     _placePageView.delegate = self;
     [_placePageView addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+    _toolbarView = [[ToolbarView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
+    _toolbarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    _toolbarView.delegate = self;
   }
   return _placePageView;
+  return _toolbarView;
 }
 
 - (SearchView *)searchView
@@ -750,11 +720,37 @@ const long long LITE_IDL = 431183278L;
 #pragma mark - PlacePageViewDelegate
 
 - (void)placePageView:(PlacePageView *)placePage willEditBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
+- (void)toolbar:(ToolbarView *)toolbar didPressItemWithName:(NSString *)itemName
 {
-  PlacePageVC * vc = [[PlacePageVC alloc] initWithBookmark:bookmarkAndCategory];
-  vc.delegate = self;
-  vc.mode = PlacePageVCModeEditing;
-  [self pushViewController:vc];
+  if ([itemName isEqualToString:@"Location"])
+  {
+    [self onMyPositionClicked:nil];
+  }
+  else if ([itemName isEqualToString:@"Search"])
+  {
+//    if (self.placePageView.state == PlacePageStateSearch)
+//      [self.placePageView setState:PlacePageStateBitShown animated:YES];
+//    else
+//      [self.placePageView setState:PlacePageStateSearch animated:YES];
+    [self.searchView setState:SearchViewStateFullscreen animated:YES withCallback:YES];
+  }
+  else if ([itemName isEqualToString:@"Bookmarks"])
+  {
+    if (GetPlatform().IsPro())
+    {
+      BookmarksRootVC * vc = [[BookmarksRootVC alloc] init];
+      [self.navigationController pushViewController:vc animated:YES];
+    }
+    else
+    {
+      [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
+      [[UIApplication sharedApplication] openProVersionFrom:@"ios_toolabar_bookmarks"];
+    }
+  }
+  else if ([itemName isEqualToString:@"Menu"])
+  {
+    [self.bottomMenu setMenuHidden:NO animated:YES];
+  }
 }
 
 - (void)placePageView:(PlacePageView *)placePage willEditBookmarkWithInfo:(search::AddressInfo const &)addressInfo point:(m2::PointD const &)point

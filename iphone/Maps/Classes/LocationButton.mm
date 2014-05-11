@@ -13,7 +13,6 @@
   self = [super initWithFrame:frame];
 
   self.contentMode = UIViewContentModeCenter;
-  [super setImage:[UIImage imageNamed:@"LocationBackground"] forState:UIControlStateNormal];
   [self setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];

@@ -2,7 +2,7 @@
 #import <UIKit/UIKit.h>
 #import "LocationManager.h"
 #import "LocationButton.h"
-#import "SideToolbar.h"
+#import "BottomMenu.h"
 
 #include "../../geometry/point2d.hpp"
 #include "../../geometry/rect2d.hpp"
@@ -43,8 +43,7 @@ namespace search { struct AddressInfo; }
 - (void)dismissPopover;
 
 @property (weak, nonatomic) IBOutlet UIView * zoomButtonsView;
-@property (nonatomic) SideToolbar * sideToolbar;
 @property (nonatomic, strong) UIPopoverController * popoverVC;
-@property (nonatomic) UIView * fadeView;
+@property (nonatomic) BottomMenu * bottomMenu;
 
 @end
