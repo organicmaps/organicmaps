@@ -579,11 +579,6 @@ const long long LITE_IDL = 431183278L;
 
   [self.view addSubview:self.searchView];
 
-  [self.view addSubview:self.fadeView];
-
-  UIButton * slideView = [self slideView];
-  [self.view addSubview:slideView];
-
   [self.view addSubview:self.placePageView];
 
   [self.view addSubview:self.sideToolbar];
@@ -687,30 +682,14 @@ const long long LITE_IDL = 431183278L;
   return _searchView;
 }
 
-#define LOCATION_BUTTON_MID_Y (self.view.height - 28)
-
-- (LocationButton *)locationButton
 {
-  if (!_locationButton)
   {
-    _locationButton = [[LocationButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
-    _locationButton.center = CGPointMake(28, LOCATION_BUTTON_MID_Y);
-    _locationButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-    [_locationButton addTarget:self action:@selector(onMyPositionClicked:) forControlEvents:UIControlEventTouchUpInside];
   }
-  return _locationButton;
 }
 
-- (UIView *)fadeView
 {
-  if (!_fadeView)
   {
-    _fadeView = [[UIView alloc] initWithFrame:self.view.bounds];
-    _fadeView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-    _fadeView.alpha = 0;
-    _fadeView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   }
-  return _fadeView;
 }
 
 - (UIButton *)buyButton

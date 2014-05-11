@@ -29,10 +29,10 @@
 		97387547184E475000170BC4 /* MessageComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97387545184E475000170BC4 /* MessageComposeViewController.m */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
 		9747264418323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
-		9747277B18328E65006B7CB7 /* SideToolbar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747277818328E65006B7CB7 /* SideToolbar.mm */; };
-		9747277C18328E65006B7CB7 /* SideToolbar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747277818328E65006B7CB7 /* SideToolbar.mm */; };
-		9747277D18328E65006B7CB7 /* SideToolbarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747277A18328E65006B7CB7 /* SideToolbarCell.m */; };
-		9747277E18328E65006B7CB7 /* SideToolbarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747277A18328E65006B7CB7 /* SideToolbarCell.m */; };
+		9747277B18328E65006B7CB7 /* BottomMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747277818328E65006B7CB7 /* BottomMenu.mm */; };
+		9747277C18328E65006B7CB7 /* BottomMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747277818328E65006B7CB7 /* BottomMenu.mm */; };
+		9747277D18328E65006B7CB7 /* BottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747277A18328E65006B7CB7 /* BottomMenuCell.m */; };
+		9747277E18328E65006B7CB7 /* BottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747277A18328E65006B7CB7 /* BottomMenuCell.m */; };
 		9747278418338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */; };
 		9747278518338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */; };
 		97719D421843AF1E00BDD815 /* ScopeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97719D411843AF1E00BDD815 /* ScopeView.m */; };
@@ -1427,10 +1427,10 @@
 		97387545184E475000170BC4 /* MessageComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageComposeViewController.m; sourceTree = "<group>"; };
 		9747264118323080006B7CB7 /* UIKitCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIKitCategories.m; path = Categories/UIKitCategories.m; sourceTree = "<group>"; };
 		9747264218323080006B7CB7 /* UIKitCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIKitCategories.h; path = Categories/UIKitCategories.h; sourceTree = "<group>"; };
-		9747277718328E65006B7CB7 /* SideToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideToolbar.h; sourceTree = "<group>"; };
-		9747277818328E65006B7CB7 /* SideToolbar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SideToolbar.mm; sourceTree = "<group>"; };
-		9747277918328E65006B7CB7 /* SideToolbarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideToolbarCell.h; sourceTree = "<group>"; };
-		9747277A18328E65006B7CB7 /* SideToolbarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideToolbarCell.m; sourceTree = "<group>"; };
+		9747277718328E65006B7CB7 /* BottomMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomMenu.h; sourceTree = "<group>"; };
+		9747277818328E65006B7CB7 /* BottomMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BottomMenu.mm; sourceTree = "<group>"; };
+		9747277918328E65006B7CB7 /* BottomMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomMenuCell.h; sourceTree = "<group>"; };
+		9747277A18328E65006B7CB7 /* BottomMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomMenuCell.m; sourceTree = "<group>"; };
 		9747278218338F0C006B7CB7 /* UIViewController+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+Navigation.h"; path = "Classes/UIViewController+Navigation.h"; sourceTree = "<group>"; };
 		9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+Navigation.m"; path = "Classes/UIViewController+Navigation.m"; sourceTree = "<group>"; };
 		97719D401843AF1E00BDD815 /* ScopeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScopeView.h; sourceTree = "<group>"; };
@@ -2574,14 +2574,15 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		9747277618328E65006B7CB7 /* SideToolbar */ = {
+		9747277618328E65006B7CB7 /* Bottom Menu */ = {
 			isa = PBXGroup;
 			children = (
-				9747277718328E65006B7CB7 /* SideToolbar.h */,
-				9747277818328E65006B7CB7 /* SideToolbar.mm */,
-				9747277918328E65006B7CB7 /* SideToolbarCell.h */,
-				9747277A18328E65006B7CB7 /* SideToolbarCell.m */,
+				9747277718328E65006B7CB7 /* BottomMenu.h */,
+				9747277818328E65006B7CB7 /* BottomMenu.mm */,
+				9747277918328E65006B7CB7 /* BottomMenuCell.h */,
+				9747277A18328E65006B7CB7 /* BottomMenuCell.m */,
 			);
+			name = "Bottom Menu";
 			path = SideToolbar;
 			sourceTree = "<group>";
 		};
@@ -5030,11 +5031,11 @@
 				97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
 				978F9242183B660F000D6C7C /* SelectableCell.m in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */,
-				9747277D18328E65006B7CB7 /* SideToolbarCell.m in Sources */,
+				9747277D18328E65006B7CB7 /* BottomMenuCell.m in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
 				97ABBA4518C8DF620079333C /* PlacePageView.mm in Sources */,
-				9747277B18328E65006B7CB7 /* SideToolbar.mm in Sources */,
+				9747277B18328E65006B7CB7 /* BottomMenu.mm in Sources */,
 				97F61794183E7445009919E2 /* LinkCell.m in Sources */,
 				EDCB4E8E175E67120005AA35 /* PlacePreviewViewController.mm in Sources */,
 				97A8001018B21395000C07A2 /* SearchBar.mm in Sources */,
@@ -5153,10 +5154,10 @@
 				97C985FE186C487900AF7E9E /* CFilteringJSONSerializer.m in Sources */,
 				97C98625186C487900AF7E9E /* MPMRAIDBannerCustomEvent.m in Sources */,
 				CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */,
-				9747277E18328E65006B7CB7 /* SideToolbarCell.m in Sources */,
+				9747277E18328E65006B7CB7 /* BottomMenuCell.m in Sources */,
 				978F9245183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
-				9747277C18328E65006B7CB7 /* SideToolbar.mm in Sources */,
+				9747277C18328E65006B7CB7 /* BottomMenu.mm in Sources */,
 				97F61795183E7445009919E2 /* LinkCell.m in Sources */,
 				97C98623186C487900AF7E9E /* MPInstanceProvider.m in Sources */,
 				97C98606186C487900AF7E9E /* CJSONSerializer.m in Sources */,
