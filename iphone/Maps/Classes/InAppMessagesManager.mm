@@ -151,7 +151,7 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
           bannerView.minY = 20;
         bannerView.midX = vc.view.width / 2;
         bannerView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        [vc.view insertSubview:bannerView belowSubview:((MapViewController *)vc).fadeView];
+        [vc.view addSubview:bannerView];
       }
     }
   }];
@@ -408,7 +408,7 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
   {
     if ([interstitial.imageType hasPrefix:MWMProVersionPrefix])
     {
-      [[UIApplication sharedApplication] openProVersionFrom:@"mwm_interstitial"];
+      [[UIApplication sharedApplication] openProVersionFrom:@"ios_interstitial"];
     }
     else
     {
@@ -430,7 +430,7 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
 
   if ([imageType hasPrefix:MWMProVersionPrefix])
   {
-    [[UIApplication sharedApplication] openProVersionFrom:@"mwm_banner"];
+    [[UIApplication sharedApplication] openProVersionFrom:@"ios_banner"];
   }
   else
   {

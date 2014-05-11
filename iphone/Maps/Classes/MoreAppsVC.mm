@@ -145,7 +145,7 @@ using namespace::storage;
   if ([title isEqualToString:TitleMWM])
   {
     [[Statistics instance] logEvent:@"MoreApps MWM clicked"];
-    [[UIApplication sharedApplication] openProVersionFrom:@"mwm_more_apps"];
+    [[UIApplication sharedApplication] openProVersionFrom:@"ios_more_apps"];
   }
   else if ([title isEqualToString:TitleGuides])
   {
