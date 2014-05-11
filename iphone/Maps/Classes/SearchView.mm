@@ -1,6 +1,5 @@
 
 #import "SearchView.h"
-#import "SegmentedControl.h"
 #import "SearchUniversalCell.h"
 #import "UIKitCategories.h"
 #import "MapsAppDelegate.h"
@@ -85,49 +84,41 @@
 @end
 
 
-@interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, SegmentedControlDelegate, LocationObserver>
+@interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver>
 
-@property (nonatomic) SegmentedControl * segmentedControl;
 @property (nonatomic) UITableView * tableView;
-@property (nonatomic) UIView * backgroundView;
 @property (nonatomic) UIImageView * topBackgroundView;
 @property (nonatomic) UILabel * emptyResultLabel;
 
 - (BOOL)isShowingCategories;
 
-@property (nonatomic) NSMutableArray * searchData;
+@property (nonatomic) SearchResultsWrapper * wrapper;
 @property (nonatomic) NSArray *categoriesNames;
 
 @end
 
 @implementation SearchView
-@synthesize active = _active;
-
+{
+  BOOL needToScroll;
+}
 __weak SearchView * selfPointer;
 
 - (id)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
 
-  [self addSubview:self.backgroundView];
   [self addSubview:self.tableView];
   [self addSubview:self.topBackgroundView];
-  [self addSubview:self.segmentedControl];
+  self.topBackgroundView.height = 64;
   [self addSubview:self.searchBar];
   [self.tableView addSubview:self.emptyResultLabel];
 
-  self.emptyResultLabel.center = CGPointMake(self.width / 2, 30);
+  self.emptyResultLabel.center = CGPointMake(self.width / 2, 40);
   self.emptyResultLabel.hidden = YES;
 
   self.searchBar.midX = self.width / 2;
-  UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(barTapped:)];
-  [self.searchBar addGestureRecognizer:tap];
 
-  NSInteger value;
-  self.segmentedControl.selectedSegmentIndex = Settings::Get("SearchMode", value) ? value : 0;
-  self.segmentedControl.midX = self.width / 2;
-
-  [self setActive:NO animated:NO];
+  [self setState:SearchViewStateHidden animated:NO withCallback:NO];
 
   selfPointer = self;
 
@@ -139,12 +130,100 @@ __weak SearchView * selfPointer;
 
   [locationManager start:self];
 
+  [self addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+
+  needToScroll = NO;
+
+  [self.tableView registerClass:[SearchUniversalCell class] forCellReuseIdentifier:[SearchUniversalCell className]];
+
   return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+  if (object == self && [keyPath isEqualToString:@"state"])
+    [self setState:self.state animated:YES withCallback:NO];
+}
+
+- (void)setState:(SearchViewState)state animated:(BOOL)animated withCallback:(BOOL)withCallback
+{
+  UIViewAnimationOptions options = UIViewAnimationOptionCurveEaseInOut;
+  double damping = 0.9;
+  NSTimeInterval duration = animated ? 0.3 : 0;
+  CGFloat searchBarOffset = (state == SearchViewStateHidden) ? -self.searchBar.height : [self defaultSearchBarMinY];
+
+  CGRect fieldBackgroundFrame = CGRectMake(15, self.searchBar.fieldBackgroundView.minY, self.searchBar.width - 84, self.searchBar.fieldBackgroundView.height);
+  CGRect textFieldFrame = CGRectMake(24, self.searchBar.textField.minY, self.searchBar.width - 119, 22);
+
+  CGFloat const shift = 55;
+
+  CGRect shiftedFieldBackgroundFrame = fieldBackgroundFrame;
+  shiftedFieldBackgroundFrame.size.width += shift;
+
+  CGRect shiftedTextFieldFrame = textFieldFrame;
+  shiftedTextFieldFrame.size.width += shift;
+
+  if (state == SearchViewStateFullscreen)
+  {
+    [self.searchBar.textField becomeFirstResponder];
+    [UIView animateWithDuration:0.25 delay:0. options:UIViewAnimationOptionCurveEaseInOut animations:^{
+      self.tableView.alpha = 1;
+    } completion:^(BOOL finished) {}];
+    [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{
+      self.searchBar.cancelButton.alpha = 1;
+      self.topBackgroundView.minY = 0;
+      self.searchBar.minY = searchBarOffset;
+      self.searchBar.alpha = 1;
+      self.searchBar.fieldBackgroundView.frame = fieldBackgroundFrame;
+      self.searchBar.textField.frame = textFieldFrame;
+    } completion:^(BOOL finished){
+      if (needToScroll)
+      {
+        needToScroll = NO;
+        [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
+      }
+    }];
+  }
+  else if (state == SearchViewStateResults)
+  {
+    [self.searchBar.textField resignFirstResponder];
+    [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{
+      self.searchBar.cancelButton.alpha = 0;
+      self.searchBar.minY = searchBarOffset;
+      self.searchBar.alpha = 1;
+      self.topBackgroundView.minY = 0;
+      self.tableView.alpha = 0;
+      self.searchBar.fieldBackgroundView.frame = shiftedFieldBackgroundFrame;
+      self.searchBar.textField.frame = shiftedTextFieldFrame;
+    } completion:nil];
+  }
+  else if (state == SearchViewStateHidden)
+  {
+    [self.searchBar.textField resignFirstResponder];
+    [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{
+      self.searchBar.cancelButton.alpha = 1;
+      self.searchBar.maxY = 0;
+      self.searchBar.alpha = 0;
+      self.topBackgroundView.maxY = 0;
+      self.tableView.alpha = 0;
+      self.searchBar.fieldBackgroundView.frame = fieldBackgroundFrame;
+      self.searchBar.textField.frame = textFieldFrame;
+    } completion:nil];
+  }
+  else if (state == SearchViewStateAlpha)
+  {
+    [self.searchBar.textField resignFirstResponder];
+  }
+  if (withCallback)
+    [self willChangeValueForKey:@"state"];
+  _state = state;
+  if (withCallback)
+    [self didChangeValueForKey:@"state"];
 }
 
 - (void)onLocationError:(location::TLocationError)errorCode
 {
-  NSLog(@"Location error in SearchView");
+  NSLog(@"Location error %i in %@", errorCode, self);
 }
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
@@ -169,13 +248,13 @@ __weak SearchView * selfPointer;
   double lat, lon;
   if ([locationManager getLat:lat Lon:lon])
   {
-    for (NSInteger segment = 0; segment < [self.segmentedControl segmentsCount]; segment++)
+    SearchResultsWrapper * wrapper = self.wrapper;
+    for (NSInteger position = 0; position < [wrapper count]; position++)
     {
-      SearchResultsWrapper * wrapper = self.searchData[segment];
-      for (NSInteger position = 0; position < [wrapper count]; position++)
+      search::Result const & result = [wrapper resultWithPosition:position];
+      string distance;
+      if (result.GetResultType() != search::Result::RESULT_SUGGESTION)
       {
-        search::Result const & result = [wrapper resultWithPosition:position];
-        string distance;
         GetFramework().GetDistanceAndAzimut(result.GetFeatureCenter(), lat, lon, north, distance, azimut);
         wrapper.distances[@(position)] = [NSString stringWithUTF8String:distance.c_str()];
       }
@@ -190,15 +269,8 @@ __weak SearchView * selfPointer;
 
 - (search::SearchParams)searchParameters
 {
-  NSInteger scopeIndex = self.segmentedControl.selectedSegmentIndex;
   search::SearchParams params;
-  if (scopeIndex == 0)
-    params.SetSearchMode(search::SearchParams::AROUND_POSITION);
-  else if (scopeIndex == 1)
-    params.SetSearchMode(search::SearchParams::IN_VIEWPORT);
-  else if (scopeIndex == 2)
-    params.SetSearchMode(search::SearchParams::ALL);
-
+  params.SetSearchMode(search::SearchParams::ALL);
   params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
   params.m_callback = bind(&OnSearchResultCallback, _1);
   params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
@@ -239,7 +311,7 @@ static void OnSearchResultCallback(search::Results const & results)
   else
   {
     self.emptyResultLabel.hidden = [self isShowingCategories] ? YES : ([wrapper count] > 0);
-    self.searchData[self.segmentedControl.selectedSegmentIndex] = wrapper;
+    self.wrapper = wrapper;
     [self.tableView reloadData];
     [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
   }
@@ -247,6 +319,20 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (void)searchBarDidPressClearButton:(SearchBar *)searchBar
 {
+  if (self.state == SearchViewStateResults)
+  {
+    Framework & framework = GetFramework();
+    framework.GetBookmarkManager().AdditionalPoiLayerClear();
+    framework.GetBalloonManager().RemovePin();
+    framework.GetBalloonManager().Dismiss();
+    framework.Invalidate();
+    [self setState:SearchViewStateHidden animated:YES withCallback:YES];
+  }
+  else
+  {
+    [self.searchBar.textField becomeFirstResponder];
+  }
+  self.searchBar.textField.text = nil;
   [self processTextChanging];
 }
 
@@ -255,47 +341,17 @@ static void OnSearchResultCallback(search::Results const & results)
   self.searchBar.textField.text = nil;
   [self.searchBar setSearching:NO];
   [self.tableView reloadData];
-  [self setActive:NO animated:YES];
-}
-
-- (void)setActive:(BOOL)active animated:(BOOL)animated
-{
-  [self.searchBar setActive:active animated:animated];
-  [self.segmentedControl setActive:active animated:animated];
-  if (active)
-  {
-    [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:0.9 initialVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-      self.backgroundView.alpha = 1;
-      self.topBackgroundView.alpha = 1;
-      self.tableView.alpha = 1;
-      self.tableView.minY = 0;
-    } completion:^(BOOL finished){
-      if (!self.searchBar.resultText)
-        [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
-    }];
-  }
-  else
-  {
-    [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:0.9 initialVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-      self.backgroundView.alpha = 0;
-      self.topBackgroundView.alpha = 0;
-      self.tableView.alpha = 0;
-      self.tableView.minY = self.height;
-    } completion:nil];
-  }
-  [self willChangeValueForKey:@"active"];
-  _active = active;
-  [self didChangeValueForKey:@"active"];
-}
-
-- (void)barTapped:(UITapGestureRecognizer *)sender
-{
-  [self setActive:YES animated:YES];
+  [self setState:SearchViewStateHidden animated:YES withCallback:YES];
 }
 
 - (void)textFieldTextChanged:(id)sender
 {
   [self processTextChanging];
+}
+
+- (void)textFieldBegin:(id)sender
+{
+  [self setState:SearchViewStateFullscreen animated:YES withCallback:YES];
 }
 
 - (void)processTextChanging
@@ -313,82 +369,78 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  return [textField.text length] > 0;
-}
-
-- (void)segmentedControl:(SegmentedControl *)segmentControl didSelectSegment:(NSInteger)segmentIndex
-{
-  Settings::Set("SearchMode", (int)segmentIndex);
-  [self search];
+  if ([self.wrapper count] && ![self isShowingCategories])
+  {
+    GetFramework().ShowAllSearchResults();
+    [self setState:SearchViewStateResults animated:YES withCallback:YES];
+    return YES;
+  }
+  return NO;
 }
 
 - (CGFloat)defaultSearchBarMinY
 {
-  if (SYSTEM_VERSION_IS_LESS_THAN(@"7"))
-    return self.width < self.height ? 10 : 4;
-  else
-    return self.width < self.height ? 30 : 20;
+  return SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 0 : 20;
 }
 
 - (void)layoutSubviews
 {
-  self.searchBar.minY = [self defaultSearchBarMinY];
-  if (self.width < self.height)
-  {
-    self.segmentedControl.minY = self.searchBar.maxY - 4;
-    self.segmentedControl.height = 40;
-    self.topBackgroundView.height = self.segmentedControl.maxY + 3;
-  }
-  else
-  {
-    self.segmentedControl.minY = self.searchBar.maxY - 6;
-    self.segmentedControl.height = 27;
-    self.topBackgroundView.height = self.segmentedControl.maxY + 1;
-  }
-  self.tableView.contentInset = UIEdgeInsetsMake(self.topBackgroundView.maxY + 13.5, 0, 14, 0);
-  self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.topBackgroundView.maxY, 0, 0, 0);
+  if (self.state == SearchViewStateFullscreen)
+    self.searchBar.minY = [self defaultSearchBarMinY];
+  self.tableView.contentInset = UIEdgeInsetsMake(self.topBackgroundView.height, 0, 0, 0);
+  self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   SearchUniversalCell * cell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
-  if (!cell)
-    cell = [[SearchUniversalCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchUniversalCell className]];
 
-  NSInteger const rowsCount = [self rowsCount];
   if ([self isShowingCategories])
   {
-    cell.titleLabel.text = NSLocalizedString(self.categoriesNames[indexPath.row], nil);
-    cell.subtitleLabel.text = nil;
+    // initial categories
+    cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
     cell.distanceLabel.text = nil;
+    [cell setTitle:NSLocalizedString(self.categoriesNames[indexPath.row], nil) selectedRange:NSMakeRange(0, 0)];
+    [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
   }
   else
   {
-    NSInteger const position = rowsCount == 1 ? 0 : indexPath.row - 1;
-    if (rowsCount == 1 || indexPath.row > 0)
+    if ([self indexPathIsForSearchResultItem:indexPath])
     {
-      SearchResultsWrapper * wrapper = self.searchData[self.segmentedControl.selectedSegmentIndex];
+      NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
+      SearchResultsWrapper * wrapper = self.wrapper;
       search::Result const & result = [wrapper resultWithPosition:position];
-      cell.titleLabel.text = [NSString stringWithUTF8String:result.GetString()];
-      cell.subtitleLabel.text = [NSString stringWithUTF8String:result.GetRegionString()];
-      cell.distanceLabel.text = wrapper.distances[@(position)];
+
+      NSString * title = [NSString stringWithUTF8String:result.GetString()];
+      NSRange titleRange = [title rangeOfString:self.searchBar.textField.text options:NSCaseInsensitiveSearch];
+      [cell setTitle:title selectedRange:titleRange];
+
+      if (result.GetResultType() == search::Result::RESULT_SUGGESTION)
+      {
+        // suggest item
+        cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
+        cell.distanceLabel.text = nil;
+        [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
+      }
+      else
+      {
+        // final search result item
+        cell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinIcon"];
+        cell.distanceLabel.text = wrapper.distances[@(position)];
+        NSString * subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
+        NSRange subtitleRange = [subtitle rangeOfString:self.searchBar.textField.text options:NSCaseInsensitiveSearch];
+        [cell setSubtitle:subtitle selectedRange:subtitleRange];
+      }
     }
     else
     {
-      cell.titleLabel.text = NSLocalizedString(@"search_show_on_map", nil);
-      cell.subtitleLabel.text = nil;
+      // 'show on map' cell
+      cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
       cell.distanceLabel.text = nil;
+      [cell setTitle:NSLocalizedString(@"search_show_on_map", nil) selectedRange:NSMakeRange(0, 0)];
+      [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
     }
   }
-
-  if (rowsCount == 1)
-    cell.position = SearchCellPositionAlone;
-  else if (indexPath.row == 0)
-    cell.position = SearchCellPositionFirst;
-  else if (indexPath.row == rowsCount - 1)
-    cell.position = SearchCellPositionLast;
-  else
-    cell.position = SearchCellPositionMiddle;
 
   return cell;
 }
@@ -401,11 +453,10 @@ static void OnSearchResultCallback(search::Results const & results)
   }
   else
   {
-    NSInteger const rowsCount = [self rowsCount];
-    NSInteger const position = rowsCount == 1 ? 0 : indexPath.row - 1;
-    if (rowsCount == 1 || indexPath.row > 0)
+    if ([self indexPathIsForSearchResultItem:indexPath])
     {
-      SearchResultsWrapper * wrapper = self.searchData[self.segmentedControl.selectedSegmentIndex];
+      NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
+      SearchResultsWrapper * wrapper = self.wrapper;
       search::Result const & result = [wrapper resultWithPosition:position];
       NSString * title = [NSString stringWithUTF8String:result.GetString()];
       NSString * subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
@@ -423,18 +474,6 @@ static void OnSearchResultCallback(search::Results const & results)
   return [self rowsCount];
 }
 
-- (NSInteger)rowsCount
-{
-  SearchResultsWrapper * wrapper = self.searchData[self.segmentedControl.selectedSegmentIndex];
-  NSInteger const wrapperCount = [wrapper count];
-  NSInteger resultsCount;
-  if (wrapperCount)
-    resultsCount = wrapperCount == 1 ? 1 : wrapperCount + 1;
-  else
-    resultsCount = 0;
-  return [self isShowingCategories] ? [self.categoriesNames count] : resultsCount;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -446,12 +485,10 @@ static void OnSearchResultCallback(search::Results const & results)
     return;
   }
 
-  NSInteger const rowsCount = [self rowsCount];
-  NSInteger const position = rowsCount == 1 ? 0 : indexPath.row - 1;
-  if (rowsCount == 1 || indexPath.row > 0)
+  if ([self indexPathIsForSearchResultItem:indexPath])
   {
-    NSInteger const segmentIndex = self.segmentedControl.selectedSegmentIndex;
-    search::Result const & result = [self.searchData[segmentIndex] resultWithPosition:position];
+    NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
+    search::Result const & result = [self.wrapper resultWithPosition:position];
     if (result.GetResultType() == search::Result::RESULT_SUGGESTION)
     {
       self.searchBar.textField.text = [NSString stringWithUTF8String:result.GetSuggestionString()];
@@ -461,23 +498,15 @@ static void OnSearchResultCallback(search::Results const & results)
     else
     {
       GetFramework().ShowSearchResult(result);
-
-      if (segmentIndex == 0)
-        [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"Near Me"}];
-      else if (segmentIndex == 1)
-        [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"On the Screen"}];
-      else
-        [[Statistics instance] logEvent:@"Search Filter" withParameters:@{@"Filter Name" : @"Everywhere"}];
-
-      self.searchBar.resultText = [NSString stringWithUTF8String:result.GetString()];
-      [self setActive:NO animated:YES];
+      needToScroll = YES;
+      [self setState:SearchViewStateHidden animated:YES withCallback:YES];
     }
   }
   else
   {
     GetFramework().ShowAllSearchResults();
-    self.searchBar.resultText = self.searchBar.textField.text;
-    [self setActive:NO animated:YES];
+    needToScroll = YES;
+    [self setState:SearchViewStateResults animated:YES withCallback:YES];
   }
 }
 
@@ -487,28 +516,43 @@ static void OnSearchResultCallback(search::Results const & results)
     [self.searchBar.textField resignFirstResponder];
 }
 
+- (BOOL)indexPathIsForSearchResultItem:(NSIndexPath *)indexPath
+{
+  return indexPath.row || [self rowsCount] == 1;
+}
+
+- (NSInteger)searchResultPositionForIndexPath:(NSIndexPath *)indexPath
+{
+  return ([self rowsCount] == 1) ? 0 : indexPath.row - 1;
+}
+
+- (NSInteger)rowsCount
+{
+  SearchResultsWrapper * wrapper = self.wrapper;
+  NSInteger const wrapperCount = [wrapper count];
+  NSInteger resultsCount;
+  if (wrapperCount)
+    resultsCount = (wrapperCount == 1) ? 1 : wrapperCount + 1;
+  else
+    resultsCount = 0;
+  return [self isShowingCategories] ? [self.categoriesNames count] : resultsCount;
+}
+
 - (BOOL)isShowingCategories
 {
   return ![self.searchBar.textField.text length];
 }
 
-- (NSMutableArray *)searchData
-{
-  if (!_searchData)
-    _searchData = [@[[[SearchResultsWrapper alloc] init], [[SearchResultsWrapper alloc] init], [[SearchResultsWrapper alloc] init]] mutableCopy];
-  return _searchData;
-}
-
 - (NSArray *)categoriesNames
 {
   if (!_categoriesNames)
-    _categoriesNames = @[@"food", @"shop", @"hotel", @"tourism", @"entertainment", @"atm", @"bank", @"transport", @"fuel", @"parking", @"pharmacy", @"hospital", @"toilet", @"post", @"police",];
+    _categoriesNames = @[@"food", @"shop", @"hotel", @"tourism", @"entertainment", @"atm", @"bank", @"transport", @"fuel", @"parking", @"pharmacy", @"hospital", @"toilet", @"post", @"police"];
   return _categoriesNames;
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-  return CGRectContainsPoint(self.searchBar.frame, point) || self.active;
+  return CGRectContainsPoint(self.searchBar.frame, point) || self.state == SearchViewStateFullscreen;
 }
 
 - (UITableView *)tableView
@@ -519,7 +563,7 @@ static void OnSearchResultCallback(search::Results const & results)
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.backgroundColor = [UIColor colorWithColorCode:@"414451"];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   }
   return _tableView;
@@ -530,33 +574,11 @@ static void OnSearchResultCallback(search::Results const & results)
   if (!_topBackgroundView)
   {
     _topBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0)];
-    _topBackgroundView.image = [[UIImage imageNamed:@"SearchViewTopBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0)];
+    _topBackgroundView.image = [[UIImage imageNamed:@"SearchViewTopBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0) resizingMode:UIImageResizingModeStretch];
     _topBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _topBackgroundView.userInteractionEnabled = YES;
   }
   return _topBackgroundView;
-}
-
-- (UIView *)backgroundView
-{
-  if (!_backgroundView)
-  {
-    _backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-    _backgroundView.backgroundColor = [UIColor colorWithColorCode:@"efeff4"];
-    _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  }
-  return _backgroundView;
-}
-
-- (SegmentedControl *)segmentedControl
-{
-  if (!_segmentedControl)
-  {
-    _segmentedControl = [[SegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 294, 0)];
-    _segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
-    _segmentedControl.delegate = self;
-  }
-  return _segmentedControl;
 }
 
 - (SearchBar *)searchBar
@@ -568,6 +590,7 @@ static void OnSearchResultCallback(search::Results const & results)
     _searchBar.textField.delegate = self;
     _searchBar.delegate = self;
     [_searchBar.textField addTarget:self action:@selector(textFieldTextChanged:) forControlEvents:UIControlEventEditingChanged];
+    [_searchBar.textField addTarget:self action:@selector(textFieldBegin:) forControlEvents:UIControlEventEditingDidBegin];
   }
   return _searchBar;
 }
@@ -578,8 +601,9 @@ static void OnSearchResultCallback(search::Results const & results)
   {
     _emptyResultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.width, 60)];
     _emptyResultLabel.backgroundColor = [UIColor clearColor];
-    _emptyResultLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
+    _emptyResultLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
     _emptyResultLabel.text = NSLocalizedString(@"no_search_results_found", nil);
+    _emptyResultLabel.textColor = [UIColor whiteColor];
     _emptyResultLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _emptyResultLabel.textAlignment = NSTextAlignmentCenter;
   }

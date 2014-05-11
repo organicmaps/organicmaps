@@ -1,10 +1,19 @@
 
 #import <UIKit/UIKit.h>
-#import "SearchActivityProtocol.h"
 #import "SearchBar.h"
 
-@interface SearchView : UIView <SearchActivityProtocol>
+typedef NS_ENUM(NSUInteger, SearchViewState) {
+  SearchViewStateHidden,
+  SearchViewStateResults,
+  SearchViewStateAlpha,
+  SearchViewStateFullscreen,
+};
+
+@interface SearchView : UIView
 
 @property (nonatomic) SearchBar * searchBar;
+
+- (void)setState:(SearchViewState)state animated:(BOOL)animated withCallback:(BOOL)withCallback;
+@property (readonly, nonatomic) SearchViewState state;
 
 @end

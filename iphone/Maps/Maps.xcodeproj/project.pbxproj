@@ -63,8 +63,6 @@
 		97A8001118B21395000C07A2 /* SearchBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A8000F18B21395000C07A2 /* SearchBar.mm */; };
 		97A8001418B2140A000C07A2 /* SearchUniversalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8001318B2140A000C07A2 /* SearchUniversalCell.m */; };
 		97A8001518B2140A000C07A2 /* SearchUniversalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8001318B2140A000C07A2 /* SearchUniversalCell.m */; };
-		97A8001C18B25497000C07A2 /* SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8001B18B25497000C07A2 /* SegmentedControl.m */; };
-		97A8001D18B25497000C07A2 /* SegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8001B18B25497000C07A2 /* SegmentedControl.m */; };
 		97A8002718B2741C000C07A2 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8002618B2741C000C07A2 /* SearchCell.m */; };
 		97A8002818B2741C000C07A2 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A8002618B2741C000C07A2 /* SearchCell.m */; };
 		97ABBA4518C8DF620079333C /* PlacePageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97ABBA4418C8DF620079333C /* PlacePageView.mm */; };
@@ -1459,11 +1457,8 @@
 		97A8000F18B21395000C07A2 /* SearchBar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchBar.mm; sourceTree = "<group>"; };
 		97A8001218B2140A000C07A2 /* SearchUniversalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchUniversalCell.h; sourceTree = "<group>"; };
 		97A8001318B2140A000C07A2 /* SearchUniversalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchUniversalCell.m; sourceTree = "<group>"; };
-		97A8001A18B25497000C07A2 /* SegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedControl.h; sourceTree = "<group>"; };
-		97A8001B18B25497000C07A2 /* SegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentedControl.m; sourceTree = "<group>"; };
 		97A8002518B2741C000C07A2 /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		97A8002618B2741C000C07A2 /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
-		97A8002918B51238000C07A2 /* SearchActivityProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchActivityProtocol.h; sourceTree = "<group>"; };
 		97ABBA4318C8DF620079333C /* PlacePageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePageView.h; sourceTree = "<group>"; };
 		97ABBA4418C8DF620079333C /* PlacePageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageView.mm; sourceTree = "<group>"; };
 		97C9851C186AE3C500AF7E9E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -2632,13 +2627,10 @@
 				97A8000B18B21363000C07A2 /* SearchView.mm */,
 				97A8000E18B21395000C07A2 /* SearchBar.h */,
 				97A8000F18B21395000C07A2 /* SearchBar.mm */,
-				97A8001A18B25497000C07A2 /* SegmentedControl.h */,
-				97A8001B18B25497000C07A2 /* SegmentedControl.m */,
 				97A8002518B2741C000C07A2 /* SearchCell.h */,
 				97A8002618B2741C000C07A2 /* SearchCell.m */,
 				97A8001218B2140A000C07A2 /* SearchUniversalCell.h */,
 				97A8001318B2140A000C07A2 /* SearchUniversalCell.m */,
-				97A8002918B51238000C07A2 /* SearchActivityProtocol.h */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -5020,7 +5012,6 @@
 				FABF223E13FAA97A003D4D49 /* CompassView.mm in Sources */,
 				9789DB5A188D94F9007C6FAE /* InterstitialView.mm in Sources */,
 				FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */,
-				97A8001C18B25497000C07A2 /* SegmentedControl.m in Sources */,
 				97A8000C18B21363000C07A2 /* SearchView.mm in Sources */,
 				FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */,
 				97DEA09618D75BB000C5F963 /* ContextViews.mm in Sources */,
@@ -5095,7 +5086,6 @@
 				97C9863C186C487900AF7E9E /* MPSessionTracker.m in Sources */,
 				97C98637186C487900AF7E9E /* MPError.m in Sources */,
 				97C9863E186C487900AF7E9E /* MPTimer.m in Sources */,
-				97A8001D18B25497000C07A2 /* SegmentedControl.m in Sources */,
 				97C9860C186C487900AF7E9E /* MPLegacyBannerCustomEventAdapter.m in Sources */,
 				FAFB08F2151215EE0041901D /* CustomAlertView.mm in Sources */,
 				97F61782183E6172009919E2 /* LocationButton.mm in Sources */,

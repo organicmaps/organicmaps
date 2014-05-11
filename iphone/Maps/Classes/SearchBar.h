@@ -1,6 +1,5 @@
 
 #import <UIKit/UIKit.h>
-#import "SearchActivityProtocol.h"
 
 @class SearchBar;
 @protocol SearchBarDelegate <NSObject>
@@ -10,12 +9,14 @@
 
 @end
 
-@interface SearchBar : UIView <SearchActivityProtocol>
+@interface SearchBar : UIView
 
 @property (nonatomic, readonly) UITextField * textField;
-@property (nonatomic) NSString * resultText;
+@property (nonatomic, readonly) UIButton * clearButton;
+@property (nonatomic, readonly) UIButton * cancelButton;
+@property (nonatomic, readonly) UIImageView * fieldBackgroundView;
+
 @property (nonatomic, weak) id <SearchBarDelegate> delegate;
-@property (nonatomic) NSString * apiText;
 
 - (void)setSearching:(BOOL)searching;
 
