@@ -2674,6 +2674,7 @@
 			isa = PBXGroup;
 			children = (
 				9747277618328E65006B7CB7 /* SideToolbar */,
+				9747277618328E65006B7CB7 /* Bottom Menu */,
 				9746492518EEE2F8004B4658 /* ToolbarView.h */,
 				9746492618EEE2F8004B4658 /* ToolbarView.m */,
 				ED48BBB317C267F5003E7E92 /* ColorPickerView.h */,
