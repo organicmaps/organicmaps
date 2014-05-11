@@ -559,6 +559,7 @@ const long long LITE_IDL = 431183278L;
 
   [self.view addSubview:self.placePageView];
 
+  [self.view addSubview:self.bottomMenu];
 
 }
 
@@ -569,6 +570,13 @@ const long long LITE_IDL = 431183278L;
   [[InAppMessagesManager sharedManager] unregisterControllerFromAllMessages:self];
 
   [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+  [super viewDidDisappear:animated];
+  if (!self.bottomMenu.menuHidden)
+    [self.bottomMenu setMenuHidden:YES animated:NO];
 }
 
 - (id)initWithCoder:(NSCoder *)coder
@@ -623,6 +631,20 @@ const long long LITE_IDL = 431183278L;
 #pragma mark - Getters
 
 - (PlacePageView *)placePageView
+- (BottomMenu *)bottomMenu
+{
+  if (!_bottomMenu)
+  {
+    NSArray * items = @[@{@"Item" : @"Maps",      @"Title" : NSLocalizedString(@"download_maps", nil),     @"Icon" : [UIImage imageNamed:@"IconMap"]},
+                        @{@"Item" : @"Settings",  @"Title" : NSLocalizedString(@"settings", nil),          @"Icon" : [UIImage imageNamed:@"IconSettings"]},
+                        @{@"Item" : @"Share",     @"Title" : NSLocalizedString(@"share_my_location", nil), @"Icon" : [UIImage imageNamed:@"IconShare"]},
+                        @{@"Item" : @"MoreApps",  @"Title" : NSLocalizedString(@"more_apps_title", nil),   @"Icon" : [UIImage imageNamed:@"IconMoreApps"]}];
+    _bottomMenu = [[BottomMenu alloc] initWithFrame:self.view.bounds items:items];
+    _bottomMenu.delegate = self;
+  }
+  return _bottomMenu;
+}
+
 - (ToolbarView *)toolbarView
 {
   if (!_placePageView)
@@ -679,42 +701,12 @@ const long long LITE_IDL = 431183278L;
     return _buyButton;
 }
 
-#define SLIDE_VIEW_DARK_PART_TAG 1
-#define SLIDE_VIEW_MID_Y (self.view.height - 35)
-
-- (SideToolbar *)sideToolbar
 {
-  if (!_sideToolbar)
   {
-    _sideToolbar = [[SideToolbar alloc] initWithFrame:CGRectMake(self.view.width, 0, 310, self.view.height)];
-    _sideToolbar.delegate = self;
   }
-  return _sideToolbar;
 }
 
-- (UIButton *)slideView
 {
-  UIButton * toolbarButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 70)];
-  toolbarButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-  toolbarButton.maxX = self.view.width;
-  toolbarButton.midY = SLIDE_VIEW_MID_Y;
-  [toolbarButton addTarget:self action:@selector(toolbarButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
-  CGFloat tailShift = 7;
-
-  UIImageView * tailLight = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SlideViewLight"]];
-  tailLight.maxX = toolbarButton.width;
-  tailLight.midY = toolbarButton.height / 2 + tailShift;
-  [toolbarButton addSubview:tailLight];
-
-  UIImageView * tailDark = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SlideViewDark"]];
-  tailDark.maxX = toolbarButton.width;
-  tailDark.midY = toolbarButton.height / 2 + tailShift;
-  tailDark.alpha = 0;
-  tailDark.tag = SLIDE_VIEW_DARK_PART_TAG;
-  [toolbarButton addSubview:tailDark];
-
-  return toolbarButton;
 }
 
 #pragma mark - PlacePageViewDelegate
@@ -775,26 +767,19 @@ const long long LITE_IDL = 431183278L;
   [self.placePageView showUserMark:fm.GetBmCategory(bookmarkAndCategory.first)->GetBookmark(bookmarkAndCategory.second)];
 }
 
-#pragma mark - SideToolbarDelegate
+#pragma mark - BottomMenuDelegate
 
-- (void)sideToolbar:(SideToolbar *)toolbar didPressItemWithName:(NSString *)itemName
+- (void)bottomMenuDidPressBuyButton:(BottomMenu *)menu
+{
+  [[Statistics instance] logProposalReason:@"Pro button in menu" withAnswer:@"YES"];
+  [[UIApplication sharedApplication] openProVersionFrom:@"ios_bottom_menu"];
+}
+
+- (void)bottomMenu:(BottomMenu *)menu didPressItemWithName:(NSString *)itemName
 {
   if ([itemName isEqualToString:@"Maps"])
   {
     [[[MapsAppDelegate theApp] settingsManager] show:self];
-  }
-  else if ([itemName isEqualToString:@"Bookmarks"])
-  {
-    if (GetPlatform().IsPro())
-    {
-      BookmarksRootVC * vc = [[BookmarksRootVC alloc] init];
-      [self.navigationController pushViewController:vc animated:YES];
-    }
-    else
-    {
-      [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
-      [[UIApplication sharedApplication] openProVersionFrom:@"mwm_side_menu_bookmarks"];
-    }
   }
   else if ([itemName isEqualToString:@"Settings"])
   {
@@ -803,6 +788,8 @@ const long long LITE_IDL = 431183278L;
   }
   else if ([itemName isEqualToString:@"Share"])
   {
+    [menu setMenuHidden:YES animated:YES];
+
     CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
     if (location)
     {
@@ -811,7 +798,6 @@ const long long LITE_IDL = 431183278L;
       ShareInfo * info = [[ShareInfo alloc] initWithText:nil gX:gX gY:gY myPosition:YES];
       self.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self];
       [self.shareActionSheet show];
-      [self.sideToolbar setMenuHidden:YES animated:YES];
     }
     else
     {
@@ -823,39 +809,6 @@ const long long LITE_IDL = 431183278L;
     MoreAppsVC * vc = [[MoreAppsVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
   }
-}
-
-- (void)sideToolbarDidCloseMenu:(SideToolbar *)toolbar
-{
-  [self.view bringSubviewToFront:self.placePageView];
-}
-
-- (void)sideToolbarWillCloseMenu:(SideToolbar *)toolbar
-{
-  [UIView animateWithDuration:0.25 animations:^{
-    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-      [self setNeedsStatusBarAppearanceUpdate];
-    self.fadeView.alpha = 0;
-    UIView * darkTail = [self.sideToolbar.slideView viewWithTag:SLIDE_VIEW_DARK_PART_TAG];
-    darkTail.alpha = 0;
-  }];
-}
-
-- (void)sideToolbarWillOpenMenu:(SideToolbar *)toolbar
-{
-  [UIView animateWithDuration:0.25 animations:^{
-    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-      [self setNeedsStatusBarAppearanceUpdate];
-    self.fadeView.alpha = 1;
-    UIView * darkTail = [self.sideToolbar.slideView viewWithTag:SLIDE_VIEW_DARK_PART_TAG];
-    darkTail.alpha = 1;
-  }];
-  [self.view sendSubviewToBack:self.placePageView];
-}
-
-- (void)sideToolbarDidUpdateShift:(SideToolbar *)toolbar
-{
-  self.fadeView.alpha = toolbar.menuShift / (toolbar.maximumMenuShift - toolbar.minimumMenuShift);
 }
 
 - (void)buyButtonPressed:(id)sender
@@ -891,11 +844,6 @@ const long long LITE_IDL = 431183278L;
     default:
       break;
   }
-}
-
-- (void)toolbarButtonPressed:(id)sender
-{
-  [self.sideToolbar setMenuHidden:!self.sideToolbar.isMenuHidden animated:YES];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
