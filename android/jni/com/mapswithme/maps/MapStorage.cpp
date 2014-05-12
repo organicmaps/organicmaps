@@ -46,15 +46,6 @@ extern "C"
     }
   };
 
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_MapStorage_countryFileNameByIndex(JNIEnv * env, jobject thiz, jobject idx)
-  {
-    return jni::ToJavaString(env, g_framework->Storage()
-        .CountryByIndex(IndexBinding(idx).toNative())
-        .GetFile()
-        .GetFileWithoutExt());
-  }
-
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_MapStorage_countriesCount(JNIEnv * env, jobject thiz, jobject idx)
   {

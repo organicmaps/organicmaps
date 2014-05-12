@@ -774,7 +774,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   }
 
   private native int getBytesToDownload();
-  private native boolean isWorldExists(String path);
   private native int startNextFileDownload(Object observer);
   private native Index findIndexByPos(double lat, double lon);
   private native void cancelCurrentFile();

@@ -280,9 +280,8 @@ void Query::SetQuery(string const & query)
   SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(m_tokens), delims);
 
 #ifdef HOUSE_SEARCH_TEST
-  int tokenIndex = m_tokens.size() - 1;
-
-  while(tokenIndex >= 0)
+  int tokenIndex = static_cast<int>(m_tokens.size()) - 1;
+  while (tokenIndex >= 0)
   {
     if (feature::IsHouseNumberDeepCheck(m_tokens[tokenIndex]))
     {

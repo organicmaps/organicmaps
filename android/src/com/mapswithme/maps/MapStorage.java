@@ -133,7 +133,6 @@ public class MapStorage
     }
   }
 
-  public native String countryFileNameByIndex(Index idx);
   public native int countriesCount(Index idx);
   public native int countryStatus(Index idx);
   public native long countryLocalSizeInBytes(Index idx);

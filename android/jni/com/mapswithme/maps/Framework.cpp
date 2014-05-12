@@ -727,17 +727,6 @@ extern "C"
     return jni::ToJavaString(env, info.FormatNameAndAddress());
   }
 
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_Framework_getPoiTypeNameForLatLon(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
-  {
-    search::AddressInfo info;
-
-    g_framework->NativeFramework()->GetAddressInfoForGlobalPoint(
-        m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)), info);
-
-    return jni::ToJavaString(env, info.GetPinType());
-  }
-
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
   {

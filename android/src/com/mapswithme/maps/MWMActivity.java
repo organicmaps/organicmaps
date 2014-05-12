@@ -91,8 +91,6 @@ public class MWMActivity extends NvEventQueueActivity
 
   // Info box (place page).
   private MapInfoView mInfoView;
-  private boolean mIsInfoBoxVisible;
-
 
   // Drawer components
   private DrawerLayout mDrawerLayout;
@@ -507,7 +505,6 @@ public class MWMActivity extends NvEventQueueActivity
     mProDialogMessage = message;
     runOnUiThread(new Runnable()
     {
-
       @SuppressWarnings("deprecation")
       @Override
       public void run()

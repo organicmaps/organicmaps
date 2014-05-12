@@ -1,20 +1,14 @@
 package com.mapswithme.maps;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import android.app.Activity;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.AssetManager;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -38,7 +32,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private LocationService m_location = null;
   private LocationState m_locationState = null;
   private MapStorage m_storage = null;
-  private int m_slotID = 0;
 
   private boolean m_isPro = false;
   private boolean m_isYota = false;
@@ -137,7 +130,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     nativeInit(getApkPath(), extStoragePath, extTmpPath,
                getOBBGooglePath(), m_isPro, m_isYota);
 
-    m_slotID = getMapStorage().subscribe(this);
+    getMapStorage().subscribe(this);
 
     // init cross-platform strings bundle
     nativeAddLocalization("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
@@ -304,10 +297,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
     final long DELTA = 60*1000;
     final File mwmDir = new File(getDataStoragePath());
-
-    final boolean isNewUser = mwmDir.exists()
-            ? (System.currentTimeMillis() - mwmDir.lastModified()) < DELTA
-            : true;
+    final boolean isNewUser = !mwmDir.exists() || (System.currentTimeMillis() - mwmDir.lastModified() >= DELTA);
 
     final String advId = getString(R.string.advertiser_id);
     final String convKey = getString(R.string.conversion_key);
