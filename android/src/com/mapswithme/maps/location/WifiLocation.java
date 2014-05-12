@@ -58,7 +58,10 @@ public class WifiLocation extends BroadcastReceiver
       mWifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
       context.registerReceiver(this, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
       if (mWifi.startScan())
+      {
+        mLogger.d("WiFi scan is started.");
         return true;
+      }
       else
       {
         // onReceive() will never be called on fail
@@ -67,12 +70,15 @@ public class WifiLocation extends BroadcastReceiver
         return false;
       }
     }
+
     // Already in progress
+    mLogger.d("WiFi scan is already in progress.");
     return true;
   }
 
   public void stopScan(Context context)
   {
+    mLogger.d("WiFi scan is stopped.");
     context.unregisterReceiver(this);
     mWifi = null;
   }
@@ -112,6 +118,8 @@ public class WifiLocation extends BroadcastReceiver
     final StringBuilder json = new StringBuilder("{\"version\":\"2.0\"");
     appendID(json);
 
+    final boolean statsEnabled = Statistics.INSTANCE.isStatisticsEnabled(context);
+
     boolean wifiHeaderAdded = false;
     List<ScanResult> results = mWifi.getScanResults();
     for (ScanResult r : results)
@@ -127,7 +135,7 @@ public class WifiLocation extends BroadcastReceiver
         json.append(r.BSSID);
         json.append("\",\"ss\":\"");
         json.append(String.valueOf(r.level));
-        if (Statistics.INSTANCE.isStatisticsEnabled(context))
+        if (statsEnabled)
         {
           json.append("\",\"ssid\":\"");
           json.append(r.SSID == null ? " " : r.SSID);
@@ -145,7 +153,7 @@ public class WifiLocation extends BroadcastReceiver
       json.append("]");
     }
 
-    if (Statistics.INSTANCE.isStatisticsEnabled(context))
+    if (statsEnabled)
     {
       final Location l = mObserver.getLastGPSLocation();
       if (l != null)

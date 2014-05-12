@@ -157,6 +157,8 @@ public class LocationService implements
     {
       if (mWifiScanner == null)
         mWifiScanner = new WifiLocation();
+
+      mLogger.d("Invoke WiFi scanner.");
       mWifiScanner.startScan(mApplication, this);
     }
   }
