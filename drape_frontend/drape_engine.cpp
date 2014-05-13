@@ -10,11 +10,9 @@
 namespace df
 {
 
-void Dummy() {}
-
 DrapeEngine::DrapeEngine(RefPointer<OGLContextFactory> contextfactory, double vs, Viewport const & viewport)
   : m_viewport(viewport)
-  , m_navigator(m_scales, bind(&Dummy))
+  , m_navigator(m_scales)
 {
   GLFunctions::Init();
   VisualParams::Init(vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));

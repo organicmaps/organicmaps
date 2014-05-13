@@ -176,7 +176,7 @@ static void GetResourcesMaps(vector<string> & outMaps)
 }
 
 Framework::Framework()
-  : m_navigator(m_scales, bind(&Framework::Invalidate, this, false)),
+  : m_navigator(m_scales),
     m_animator(this),
     m_queryMaxScaleMode(false),
     m_width(0),
@@ -664,7 +664,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   int drawScale = GetDrawScale();
   m_informationDisplay.setDebugInfo(0, drawScale);
 
-  m_informationDisplay.enableRuler(m_navigator.InAction() && drawScale > 5);
+  m_informationDisplay.enableRuler(drawScale > 4);
 #ifdef DEBUG
   m_informationDisplay.enableDebugInfo(true);
 #endif

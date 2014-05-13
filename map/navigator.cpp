@@ -28,12 +28,10 @@ namespace
   }
 }
 
-Navigator::Navigator(ScalesProcessor const & scales, const invalidate_fn & invalidateFn)
+Navigator::Navigator(ScalesProcessor const & scales)
   : m_scales(scales),
     m_InAction(false),
-    m_InMomentScaleAction(false),
-    m_DoSupportRotation(false),
-    m_invalidateFn(invalidateFn)
+    m_DoSupportRotation(false)
 {
 }
 
@@ -383,7 +381,7 @@ void Navigator::StopDrag(m2::PointD const & pt, double timeInSec, bool /*animate
 
 bool Navigator::InAction() const
 {
-  return m_InAction || m_InMomentScaleAction;
+  return m_InAction;
 }
 
 void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)
@@ -431,7 +429,6 @@ void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*time
   }
 
   ScaleImpl(pt, endPt, pt, startPt, factor > 1, false);
-  StartMomentScaleReseter();
 }
 
 bool Navigator::CheckMinScale(ScreenBase const & screen) const
@@ -490,25 +487,6 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
 
   m_Screen = tmp;
   return true;
-}
-
-void Navigator::ResetMomentScaleAction()
-{
-  m_InMomentScaleAction = false;
-  m_invalidateFn();
-}
-
-void Navigator::StartMomentScaleReseter()
-{
-  KillMomentScaleReseter();
-  m_InMomentScaleAction = true;
-  m_reseterTask.reset(new ScheduledTask(bind(&Navigator::ResetMomentScaleAction, this), 250));
-}
-
-void Navigator::KillMomentScaleReseter()
-{
-  if (m_reseterTask)
-    m_reseterTask->CancelBlocking();
 }
 
 void Navigator::DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)

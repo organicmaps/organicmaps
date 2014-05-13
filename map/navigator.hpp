@@ -14,8 +14,7 @@
 class Navigator
 {
 public:
-  typedef function<void ()> invalidate_fn;
-  Navigator(ScalesProcessor const & scales, invalidate_fn const & invalidateFn);
+  Navigator(ScalesProcessor const & scales);
 
   void SetFromRect(m2::AnyRectD const & r);
   void CenterViewport(m2::PointD const & p);
@@ -113,7 +112,6 @@ private:
   math::Matrix<float, 3, 3> m_DeltaMatrix;
   // Flag, which indicates, whether we are in the middle of some action.
   bool m_InAction;
-  bool m_InMomentScaleAction;
   // Does Navigator supports screen rotation.
   bool m_DoSupportRotation;
   // Should we check for threshold while scaling by two fingers.
@@ -127,11 +125,4 @@ private:
                  m2::PointD const & oldPt2,
                  bool skipMinScaleAndBordersCheck,
                  bool doRotateScreen);
-
-  void ResetMomentScaleAction();
-  void StartMomentScaleReseter();
-  void KillMomentScaleReseter();
-
-  scoped_ptr<ScheduledTask> m_reseterTask;
-  invalidate_fn m_invalidateFn;
 };
