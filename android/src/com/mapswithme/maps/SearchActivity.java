@@ -719,13 +719,13 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       updateDistance();
   }
 
-
-  private final static long COMPAS_DELTA = 300;
-  private long mLastCompasUpdate;
+  //private final static long COMPAS_DELTA = 300;
+  //private long mLastCompasUpdate;
 
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
+    /*
     if (isShowCategories())
       return;
 
@@ -746,6 +746,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       m_north = ret;
       updateDistance();
     }
+    */
   }
 
   @Override
