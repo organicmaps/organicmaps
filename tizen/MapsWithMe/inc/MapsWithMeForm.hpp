@@ -22,27 +22,27 @@ public:
   virtual result OnInitializing(void);
 
   // ITouchEventListener
-  virtual void  OnTouchFocusIn (const Tizen::Ui::Control &source,
-      const Tizen::Graphics::Point &currentPosition,
-      const Tizen::Ui::TouchEventInfo &touchInfo);
-  virtual void  OnTouchFocusOut (const Tizen::Ui::Control &source,
-      const Tizen::Graphics::Point &currentPosition,
-      const Tizen::Ui::TouchEventInfo &touchInfo);
-  virtual void  OnTouchMoved (const Tizen::Ui::Control &source,
-      const Tizen::Graphics::Point &currentPosition,
-      const Tizen::Ui::TouchEventInfo &touchInfo);
-  virtual void  OnTouchPressed (const Tizen::Ui::Control &source,
-      const Tizen::Graphics::Point &currentPosition,
-      const Tizen::Ui::TouchEventInfo &touchInfo);
-  virtual void  OnTouchReleased (const Tizen::Ui::Control &source,
-      const Tizen::Graphics::Point &currentPosition,
-      const Tizen::Ui::TouchEventInfo &touchInfo);
+  virtual void  OnTouchFocusIn (Tizen::Ui::Control const & source,
+      Tizen::Graphics::Point const & currentPosition,
+      Tizen::Ui::TouchEventInfo const & touchInfo);
+  virtual void  OnTouchFocusOut (Tizen::Ui::Control const & source,
+      Tizen::Graphics::Point const & currentPosition,
+      Tizen::Ui::TouchEventInfo const & touchInfo);
+  virtual void  OnTouchMoved (Tizen::Ui::Control const & source,
+      Tizen::Graphics::Point const & currentPosition,
+      Tizen::Ui::TouchEventInfo const & touchInfo);
+  virtual void  OnTouchPressed (Tizen::Ui::Control const & source,
+      Tizen::Graphics::Point const & currentPosition,
+      Tizen::Ui::TouchEventInfo const & touchInfo);
+  virtual void  OnTouchReleased (Tizen::Ui::Control const & source,
+      Tizen::Graphics::Point const & currentPosition,
+      Tizen::Ui::TouchEventInfo const & touchInfo);
 
   // IActionEventListener
-  virtual void OnActionPerformed(const Tizen::Ui::Control& source, int actionId);
+  virtual void OnActionPerformed(Tizen::Ui::Control const & source, int actionId);
 
   // ILocationProviderListener
-  virtual void OnLocationUpdated(const Tizen::Locations::Location& location);
+  virtual void OnLocationUpdated(Tizen::Locations::Location const & location);
   virtual void OnLocationUpdateStatusChanged(Tizen::Locations::LocationServiceStatus status);
   virtual void OnAccuracyChanged(Tizen::Locations::LocationAccuracy accuracy);
 private:

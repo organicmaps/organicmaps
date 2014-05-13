@@ -68,7 +68,7 @@ result MapsWithMeForm::OnInitializing(void)
   return E_SUCCESS;
 }
 
-void MapsWithMeForm::OnActionPerformed(const Tizen::Ui::Control& source, int actionId)
+void MapsWithMeForm::OnActionPerformed(Tizen::Ui::Control const & source, int actionId)
 {
   switch(actionId)
   {
@@ -79,15 +79,18 @@ void MapsWithMeForm::OnActionPerformed(const Tizen::Ui::Control& source, int act
       if (m_locationEnabled)
       {
         LocationCriteria criteria;
-//        criteria.SetAccuracy(LOC_ACCURACY_FINEST);
-        criteria.SetAccuracy(LOC_ACCURACY_TEN_METERS);
+        criteria.SetAccuracy(LOC_ACCURACY_FINEST);
+        //criteria.SetAccuracy(LOC_ACCURACY_TEN_METERS);
         //criteria.SetAccuracy(LOC_ACCURACY_ANY);
-        m_pLocProvider = new LocationProvider();
-        m_pLocProvider->Construct(criteria, *this);
+        if (m_pLocProvider == 0)
+        {
+          m_pLocProvider = new LocationProvider();
+          m_pLocProvider->Construct(criteria, *this);
+        }
         int updateInterval = 1;
         m_pLocProvider->StartLocationUpdatesByInterval(updateInterval);
-//        double distanceThreshold = 1.0;
-//        m_pLocProvider->StartLocationUpdatesByDistance(distanceThreshold);
+        //double distanceThreshold = 1.0;
+        //m_pLocProvider->StartLocationUpdatesByDistance(distanceThreshold);
         m_pLabel->SetText(L"GPS ENABLED");
         m_pButton->SetText(L"GPS\nON");
         pFramework->StartLocation();
@@ -95,8 +98,6 @@ void MapsWithMeForm::OnActionPerformed(const Tizen::Ui::Control& source, int act
       else
       {
         m_pLocProvider->StopLocationUpdates();
-        delete m_pLocProvider;
-        m_pLocProvider = 0;
         pFramework->StopLocation();
         m_pLabel->SetText(L"GPS off");
         m_pButton->SetText(L"GPS\noff");
@@ -107,24 +108,45 @@ void MapsWithMeForm::OnActionPerformed(const Tizen::Ui::Control& source, int act
   Invalidate(true);
 }
 
-void MapsWithMeForm::OnLocationUpdated(const Tizen::Locations::Location& location)
+namespace detail
+{
+int ConverToSecondsFrom1970(DateTime const & time)
+{
+  struct tm y1970;
+  y1970.tm_hour = 0;   y1970.tm_min = 0; y1970.tm_sec = 0;
+  y1970.tm_year = 1970; y1970.tm_mon = 0; y1970.tm_mday = 1;
+
+  struct tm cur_t;
+  cur_t.tm_hour = time.GetHour();   cur_t.tm_min = time.GetMinute(); cur_t.tm_sec = time.GetSecond();
+  cur_t.tm_year = time.GetYear(); cur_t.tm_mon = time.GetMonth(); cur_t.tm_mday = time.GetDay();
+
+  return difftime(mktime(&cur_t),mktime(&y1970));
+}
+}
+
+void MapsWithMeForm::OnLocationUpdated(Tizen::Locations::Location const & location)
 {
   ::Framework * pFramework = tizen::Framework::GetInstance();
   location::GpsInfo info;
-  Coordinates  const & coord = location.GetCoordinates();
-
+  Coordinates const & coord = location.GetCoordinates();
   info.m_source = location::ETizen;
-  long long ticks = 0;
-  Tizen::System::SystemTime::GetTicks(ticks);
-
-  info.m_timestamp = ticks/1000;           //!< seconds from 1st Jan 1970
-  info.m_latitude = coord.GetLatitude();            //!< degrees
-  info.m_longitude = coord.GetLongitude();           //!< degrees
+  info.m_timestamp = detail::ConverToSecondsFrom1970(location.GetTimestamp());//!< seconds from 1st Jan 1970
+  info.m_latitude = coord.GetLatitude();              //!< degrees
+  info.m_longitude = coord.GetLongitude();            //!< degrees
   info.m_horizontalAccuracy = location.GetHorizontalAccuracy();  //!< metres
-  info.m_altitude = coord.GetAltitude();            //!< metres
-  info.m_verticalAccuracy = location.GetVerticalAccuracy();    //!< metres
-  info.m_course = 0;              //!< positive degrees from the true North
-  info.m_speed = 0;
+  info.m_altitude = coord.GetAltitude();              //!< metres
+  if (!isnan(location.GetVerticalAccuracy()))
+    info.m_verticalAccuracy = location.GetVerticalAccuracy();    //!< metres
+  else
+    info.m_verticalAccuracy = -1;
+  if (!isnan(location.GetCourse()))
+    info.m_course = location.GetCourse();             //!< positive degrees from the true North
+  else
+    info.m_course = -1;
+  if (!isnan(location.GetSpeed()))
+    info.m_speed = location.GetSpeed() / 3.6;         //!< metres per second
+  else
+    info.m_speed = -1;
 
   static int count = 0;
   count++;
@@ -143,11 +165,26 @@ void MapsWithMeForm::OnLocationUpdated(const Tizen::Locations::Location& locatio
 
 void MapsWithMeForm::OnLocationUpdateStatusChanged(Tizen::Locations::LocationServiceStatus status)
 {
-
+#ifdef _DEBUG
+  static string const ar[5] = {"LOC_SVC_STATUS_IDLE",
+      "LOC_SVC_STATUS_RUNNING",
+      "LOC_SVC_STATUS_PAUSED",
+      "LOC_SVC_STATUS_DENIED",
+      "LOC_SVC_STATUS_NOT_FIXED"};
+  LOG(LDEBUG,(ar[status]));
+#endif
 }
 void MapsWithMeForm::OnAccuracyChanged(Tizen::Locations::LocationAccuracy accuracy)
 {
-
+#ifdef _DEBUG
+  static string const ar[6] = {"LOC_ACCURACY_INVALID",
+      "LOC_ACCURACY_FINEST",
+      "LOC_ACCURACY_TEN_METERS",
+      "LOC_ACCURACY_HUNDRED_METERS",
+      "LOC_ACCURACY_ONE_KILOMETER",
+      "LOC_ACCURACY_ANY"};
+  LOG(LDEBUG,(ar[accuracy]));
+#endif
 }
 
 result MapsWithMeForm::OnDraw(void)
@@ -158,7 +195,7 @@ result MapsWithMeForm::OnDraw(void)
 namespace detail
 {
 std::vector<std::pair<double, double> > GetTouchedPoints()
-{
+                                                {
   std::vector<std::pair<double, double> > res;
   IListT<TouchEventInfo *> * pList = TouchEventManager::GetInstance()->GetTouchInfoListN();
   if (pList)
@@ -177,12 +214,12 @@ std::vector<std::pair<double, double> > GetTouchedPoints()
     delete pList;
   }
   return res;
-}
+                                                }
 }
 
-void MapsWithMeForm::OnTouchPressed(const Tizen::Ui::Control& source,
-    const Tizen::Graphics::Point& currentPosition,
-    const Tizen::Ui::TouchEventInfo& touchInfo)
+void MapsWithMeForm::OnTouchPressed(Tizen::Ui::Control const & source,
+    Tizen::Graphics::Point const & currentPosition,
+    Tizen::Ui::TouchEventInfo const & touchInfo)
 {
   std::vector<std::pair<double, double> > pts = detail::GetTouchedPoints();
 
@@ -198,9 +235,9 @@ void MapsWithMeForm::OnTouchPressed(const Tizen::Ui::Control& source,
   std::swap(m_prev_pts, pts);
 }
 
-void MapsWithMeForm::OnTouchMoved(const Tizen::Ui::Control& source,
-    const Tizen::Graphics::Point& currentPosition,
-    const Tizen::Ui::TouchEventInfo& touchInfo)
+void MapsWithMeForm::OnTouchMoved(Tizen::Ui::Control const & source,
+    Tizen::Graphics::Point const & currentPosition,
+    Tizen::Ui::TouchEventInfo const & touchInfo)
 {
   std::vector<std::pair<double, double> > pts = detail::GetTouchedPoints();
   ::Framework * pFramework = tizen::Framework::GetInstance();
@@ -229,9 +266,9 @@ void MapsWithMeForm::OnTouchMoved(const Tizen::Ui::Control& source,
   std::swap(m_prev_pts, pts);
 }
 
-void MapsWithMeForm::OnTouchReleased(const Tizen::Ui::Control& source,
-    const Tizen::Graphics::Point& currentPosition,
-    const Tizen::Ui::TouchEventInfo& touchInfo)
+void MapsWithMeForm::OnTouchReleased(Tizen::Ui::Control const & source,
+    Tizen::Graphics::Point const & currentPosition,
+    Tizen::Ui::TouchEventInfo const & touchInfo)
 {
   std::vector<std::pair<double, double> > pts = detail::GetTouchedPoints();
   ::Framework * pFramework = tizen::Framework::GetInstance();
@@ -250,14 +287,14 @@ void MapsWithMeForm::OnTouchReleased(const Tizen::Ui::Control& source,
   }
 }
 
-void MapsWithMeForm::OnTouchFocusIn(const Tizen::Ui::Control& source,
-    const Tizen::Graphics::Point& currentPosition,
-    const Tizen::Ui::TouchEventInfo& touchInfo)
+void MapsWithMeForm::OnTouchFocusIn(Tizen::Ui::Control const & source,
+    Tizen::Graphics::Point const & currentPosition,
+    Tizen::Ui::TouchEventInfo const & touchInfo)
 {
 }
 
-void MapsWithMeForm::OnTouchFocusOut(const Tizen::Ui::Control& source,
-    const Tizen::Graphics::Point& currentPosition,
-    const Tizen::Ui::TouchEventInfo& touchInfo)
+void MapsWithMeForm::OnTouchFocusOut(Tizen::Ui::Control const & source,
+    Tizen::Graphics::Point const & currentPosition,
+    Tizen::Ui::TouchEventInfo const & touchInfo)
 {
 }
