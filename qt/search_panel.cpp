@@ -2,6 +2,8 @@
 #include "draw_widget.hpp"
 
 #include "../map/measurement_utils.hpp"
+#include "../map/bookmark_manager.hpp"
+#include "../map/user_mark_container.hpp"
 
 #include "../std/bind.hpp"
 
@@ -93,7 +95,7 @@ void SearchPanel::ClearResults()
   m_pTable->setRowCount(0);
   m_results.clear();
 
-  m_pDrawWidget->GetFramework().AdditionalPoiLayerClear();
+  m_pDrawWidget->GetFramework().GetBookmarkManager().UserMarksClear(UserMarkContainer::SEARCH_MARK);
 }
 
 void SearchPanel::OnSearchResult(ResultsT * res)
@@ -114,6 +116,7 @@ void SearchPanel::OnSearchResult(ResultsT * res)
     ClearResults();
 
     Framework & frm = m_pDrawWidget->GetFramework();
+    BookmarkManager & manager = frm.GetBookmarkManager();
 
     for (ResultsT::IterT i = res->Begin(); i != res->End(); ++i)
     {
@@ -126,10 +129,9 @@ void SearchPanel::OnSearchResult(ResultsT * res)
 
       if (e.GetResultType() != ResultT::RESULT_SUGGESTION)
       {
+        UserMark * mark = manager.UserMarksAddMark(UserMarkContainer::SEARCH_MARK, e.GetFeatureCenter());
+        mark->InjectCustomData(new SearchCustomData(e.GetString(), "", ""));
         // For debug purposes: add bookmarks for search results
-        Bookmark bm(e.GetFeatureCenter(), e.GetString(), "placemark-red");
-        frm.AdditionalPoiLayerAddPoi(bm);
-
         m_pTable->setItem(rowCount, 0, create_item(QString::fromUtf8(e.GetFeatureType())));
 
         m_pTable->setItem(rowCount, 3, create_item(m_pDrawWidget->GetDistance(e).c_str()));
@@ -197,7 +199,7 @@ void SearchPanel::showEvent(QShowEvent *)
 
 void SearchPanel::hideEvent(QHideEvent *)
 {
-  m_pDrawWidget->GetFramework().AdditionalPoiLayerClear();
+  m_pDrawWidget->GetFramework().GetBookmarkManager().UserMarksClear(UserMarkContainer::SEARCH_MARK);
 
   disconnect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
 

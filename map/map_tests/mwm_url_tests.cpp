@@ -1,5 +1,6 @@
 #include "../../testing/testing.hpp"
 
+#include "../framework.hpp"
 #include "../mwm_url.hpp"
 #include "../../coding/uri.hpp"
 
@@ -9,126 +10,208 @@
 
 using namespace url_scheme;
 
+namespace
+{
+  void ToMercatoToLatLon(double & lat, double & lon)
+  {
+    lon = MercatorBounds::XToLon(MercatorBounds::LonToX(lon));
+    lat = MercatorBounds::YToLat(MercatorBounds::LatToY(lat));
+  }
+
+  const UserMarkContainer::Type type = UserMarkContainer::API_MARK;
+  class ApiTest
+  {
+  public:
+    ApiTest(string const & uriString)
+    {
+      m_m = &m_fm.GetBookmarkManager();
+      m_c = &m_m->UserMarksGetController(type);
+      m_api.SetController(m_c);
+      m_api.SetUriAndParse(uriString);
+    }
+
+    bool IsValid() const { return m_api.IsValid(); }
+    m2::RectD GetViewport()
+    {
+      m2::RectD rect;
+      ScalesProcessor scales;
+      m_api.GetViewportRect(scales, rect);
+      return rect;
+    }
+    string const & GetAppTitle() { return m_api.GetAppTitle(); }
+    bool GoBackOnBalloonClick() { return m_api.GoBackOnBalloonClick(); }
+    int GetPointCount() { return m_c->GetUserMarkCount(); }
+    string const & GetGlobalBackUrl() { return m_api.GetGlobalBackUrl(); }
+    int GetApiVersion() { return m_api.GetApiVersion(); }
+    bool TestLatLon(int index, double lat, double lon) const
+    {
+      double tLat, tLon;
+      GetMark(index)->GetLatLon(tLat, tLon);
+      return my::AlmostEqual(tLat, lat) && my::AlmostEqual(tLon, lon);
+    }
+
+    bool TestName(int index, string const & name)
+    {
+      return GetData(index).GetName() == name;
+    }
+
+    bool TestID(int index, string const & id)
+    {
+      return GetData(index).GetID() == id;
+    }
+
+  private:
+    UserMark const * GetMark(int index) const
+    {
+      TEST_LESS(index, m_c->GetUserMarkCount(), ());
+      return m_c->GetUserMark(index);
+    }
+
+    ApiCustomData const & GetData(int index) const
+    {
+      UserMark const * mark = GetMark(index);
+      TEST_NOT_EQUAL(mark->GetContainer(), NULL, ());
+      TEST_EQUAL(mark->GetContainer()->GetType(), type, ());
+      TEST_EQUAL(mark->GetCustomData().GetType(), UserCustomData::API, ());
+      return static_cast<ApiCustomData const &>(mark->GetCustomData());
+    }
+
+  private:
+    Framework m_fm;
+    ParsedMapApi m_api;
+    UserMarkContainer::Controller * m_c;
+    BookmarkManager * m_m;
+  };
+
+  bool IsValid(Framework & fm, string const & uriStrig)
+  {
+    ParsedMapApi api;
+    UserMarkContainer::Type type = UserMarkContainer::API_MARK;
+    api.SetController(&fm.GetBookmarkManager().UserMarksGetController(type));
+    api.SetUriAndParse(uriStrig);
+    bool res = api.IsValid();
+    fm.GetBookmarkManager().UserMarksClear(type);
+    return res;
+  }
+}
+
 UNIT_TEST(MapApiSmoke)
 {
-  Uri uri("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name");
-  TEST(uri.IsValid(), ());
+  string uriString = "mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name";
+  TEST(Uri(uriString).IsValid(), ());
 
-  ParsedMapApi api(uri);
-  TEST(api.IsValid(), ());
-  TEST_EQUAL(api.GetPoints().size(), 1, ());
-  TEST_EQUAL(api.GetPoints()[0].m_lat, 38.970559, ());
-  TEST_EQUAL(api.GetPoints()[0].m_lon, -9.419289, ());
-  TEST_EQUAL(api.GetPoints()[0].m_name, "Point Name", ());
-  TEST_EQUAL(api.GetPoints()[0].m_id, "", ());
-  TEST_EQUAL(api.GetGlobalBackUrl(), "", ());
+  ApiTest test(uriString);
+
+  TEST(test.IsValid(), ());
+  TEST_EQUAL(test.GetPointCount(), 1, ());
+  TEST(test.TestLatLon(0, 38.970559, -9.419289), ());
+  TEST(test.TestName(0, "Point Name"), ());
+  TEST(test.TestID(0, ""), ());
+  TEST_EQUAL(test.GetGlobalBackUrl(), "", ());
 }
 
 UNIT_TEST(MapApiInvalidUrl)
 {
-  TEST(!ParsedMapApi(Uri("competitors://map?ll=12.3,34.54")).IsValid(), ());
-  TEST(!ParsedMapApi(Uri("mapswithme://ggg?ll=12.3,34.54")).IsValid(), ());
-  TEST(!ParsedMapApi(Uri("mwm://")).IsValid(), ("No path"));
-  TEST(!ParsedMapApi(Uri("mapswithme://map?")).IsValid(), ("No parameters"));
-  TEST(!ParsedMapApi(Uri("mapswithme://map?ll=23.55")).IsValid(), ("No longtitude"));
-  TEST(!ParsedMapApi(Uri("mapswithme://map?ll=1,2,3")).IsValid(), ("Too many values for ll"));
+  Framework fm;
+  TEST(!IsValid(fm, "competitors://map?ll=12.3,34.54"), ());
+  TEST(!IsValid(fm, "mapswithme://ggg?ll=12.3,34.54"), ());
+  TEST(!IsValid(fm, "mwm://"), ("No parameters"));
+  TEST(!IsValid(fm, "mapswithme://map?"), ("No longtitude"));
+  TEST(!IsValid(fm, "mapswithme://map?ll=1,2,3"), ("Too many values for ll"));
 }
 
 UNIT_TEST(MapApiLatLonLimits)
 {
-  TEST(!ParsedMapApi(Uri("mapswithme://map?ll=-91,10")).IsValid(), ("Invalid latitude"));
-  TEST(!ParsedMapApi(Uri("mwm://map?ll=523.55,10")).IsValid(), ("Invalid latitude"));
-  TEST(!ParsedMapApi(Uri("mapswithme://map?ll=23.55,450")).IsValid(), ("Invalid longtitude"));
-  TEST(!ParsedMapApi(Uri("mapswithme://map?ll=23.55,-450")).IsValid(), ("Invalid longtitude"));
+  Framework fm;
+  TEST(!IsValid(fm, "mapswithme://map?ll=-91,10"), ("Invalid latitude"));
+  TEST(!IsValid(fm, "mwm://map?ll=523.55,10"), ("Invalid latitude"));
+  TEST(!IsValid(fm, "mapswithme://map?ll=23.55,450"), ("Invalid longtitude"));
+  TEST(!IsValid(fm, "mapswithme://map?ll=23.55,-450"), ("Invalid longtitude"));
 }
 
 UNIT_TEST(MapApiPointNameBeforeLatLon)
 {
-  ParsedMapApi api(Uri("mapswithme://map?n=Name&ll=1,2"));
-  TEST(api.IsValid(), ());
-  TEST_EQUAL(api.GetPoints().size(), 1, ());
-  TEST_EQUAL(api.GetPoints()[0].m_name, "", ());
+  ApiTest test("mapswithme://map?n=Name&ll=1,2");
+  TEST(test.IsValid(), ());
+  TEST_EQUAL(test.GetPointCount(), 1, ());
+  TEST(test.TestName(0, ""), ());
 }
 
 UNIT_TEST(MapApiPointNameOverwritten)
 {
-  ParsedMapApi api(Uri("mapswithme://map?ll=1,2&n=A&N=B"));
+  ApiTest api("mapswithme://map?ll=1,2&n=A&N=B");
   TEST(api.IsValid(), ());
-  TEST_EQUAL(api.GetPoints().size(), 1, ());
-  TEST_EQUAL(api.GetPoints()[0].m_name, "B", ());
+  TEST_EQUAL(api.GetPointCount(), 1, ());
+  TEST(api.TestName(0, "B"), ());
 }
 
 UNIT_TEST(MapApiMultiplePoints)
 {
-  ParsedMapApi api(Uri("mwm://map?ll=1.1,1.2&n=A&LL=2.1,2.2&ll=-3.1,-3.2&n=C"));
+  ApiTest api("mwm://map?ll=1.1,1.2&n=A&LL=2.1,2.2&ll=-3.1,-3.2&n=C");
   TEST(api.IsValid(), ());
-  TEST_EQUAL(api.GetPoints().size(), 3, ());
-  TEST_EQUAL(api.GetPoints()[0].m_lat, 1.1, ());
-  TEST_EQUAL(api.GetPoints()[0].m_lon, 1.2, ());
-  TEST_EQUAL(api.GetPoints()[0].m_name, "A", ());
-  TEST_EQUAL(api.GetPoints()[1].m_name, "", ());
-  TEST_EQUAL(api.GetPoints()[1].m_lat, 2.1, ());
-  TEST_EQUAL(api.GetPoints()[1].m_lon, 2.2, ());
-  TEST_EQUAL(api.GetPoints()[2].m_name, "C", ());
-  TEST_EQUAL(api.GetPoints()[2].m_lat, -3.1, ());
-  TEST_EQUAL(api.GetPoints()[2].m_lon, -3.2, ());
+  TEST_EQUAL(api.GetPointCount(), 3, ());
+  TEST(api.TestLatLon(0, 1.1, 1.2), ());
+  TEST(api.TestName(0, "A"), ());
+  TEST(api.TestLatLon(1, 2.1, 2.2), ());
+  TEST(api.TestName(1, ""), ());
+  TEST(api.TestLatLon(2, -3.1, -3.2), ());
+  TEST(api.TestName(2, "C"), ());
 }
 
 UNIT_TEST(MapApiInvalidPointLatLonButValidOtherParts)
 {
-  ParsedMapApi api(Uri("mapswithme://map?ll=1,1,1&n=A&ll=2,2&n=B&ll=3,3,3&n=C"));
+  ApiTest api("mapswithme://map?ll=1,1,1&n=A&ll=2,2&n=B&ll=3,3,3&n=C");
   TEST(api.IsValid(), ());
-  TEST_EQUAL(api.GetPoints().size(), 1, ());
-  TEST_EQUAL(api.GetPoints()[0].m_lat, 2, ());
-  TEST_EQUAL(api.GetPoints()[0].m_lon, 2, ());
-  TEST_EQUAL(api.GetPoints()[0].m_name, "B", ());
+  TEST_EQUAL(api.GetPointCount(), 1, ());
+  TEST(api.TestLatLon(0, 2, 2), ());
+  TEST(api.TestName(0, "B"), ());
 }
 
 UNIT_TEST(MapApiPointURLEncoded)
 {
-  ParsedMapApi api(Uri("mwm://map?ll=1,2&n=%D0%9C%D0%B8%D0%BD%D1%81%D0%BA&id=http%3A%2F%2Fmap%3Fll%3D1%2C2%26n%3Dtest"));
+  ApiTest api("mwm://map?ll=1,2&n=%D0%9C%D0%B8%D0%BD%D1%81%D0%BA&id=http%3A%2F%2Fmap%3Fll%3D1%2C2%26n%3Dtest");
   TEST(api.IsValid(), ());
-  TEST_EQUAL(api.GetPoints().size(), 1, ());
-  TEST_EQUAL(api.GetPoints()[0].m_name, "\xd0\x9c\xd0\xb8\xd0\xbd\xd1\x81\xd0\xba", ());
-  TEST_EQUAL(api.GetPoints()[0].m_id, "http://map?ll=1,2&n=test", ());
+  TEST_EQUAL(api.GetPointCount(), 1, ());
+  TEST(api.TestName(0, "\xd0\x9c\xd0\xb8\xd0\xbd\xd1\x81\xd0\xba"), ());
+  TEST(api.TestID(0, "http://map?ll=1,2&n=test"), ());
 }
 
 UNIT_TEST(GlobalBackUrl)
 {
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=someTestAppBackUrl"));
+    ApiTest api("mwm://map?ll=1,2&n=PointName&backurl=someTestAppBackUrl");
     TEST_EQUAL(api.GetGlobalBackUrl(), "someTestAppBackUrl://", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=ge0://"));
+    ApiTest api("mwm://map?ll=1,2&n=PointName&backurl=ge0://");
     TEST_EQUAL(api.GetGlobalBackUrl(), "ge0://", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=ge0%3A%2F%2F"));
+    ApiTest api("mwm://map?ll=1,2&n=PointName&backurl=ge0%3A%2F%2F");
     TEST_EQUAL(api.GetGlobalBackUrl(), "ge0://", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=http://mapswithme.com"));
+    ApiTest api("mwm://map?ll=1,2&n=PointName&backurl=http://mapswithme.com");
     TEST_EQUAL(api.GetGlobalBackUrl(), "http://mapswithme.com", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backUrl=someapp://%D0%9C%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%9A%D0%B0%D1%80%D1%82%D1%8B"));
+    ApiTest api("mwm://map?ll=1,2&n=PointName&backUrl=someapp://%D0%9C%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%9A%D0%B0%D1%80%D1%82%D1%8B");
     TEST_EQUAL(api.GetGlobalBackUrl(), "someapp://\xd0\x9c\xd0\xbe\xd0\xb1\xd0\xb8\xd0\xbb\xd1\x8c\xd0\xbd\xd1\x8b\xd0\xb5 \xd0\x9a\xd0\xb0\xd1\x80\xd1\x82\xd1\x8b", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName"));
+    ApiTest api("mwm://map?ll=1,2&n=PointName");
     TEST_EQUAL(api.GetGlobalBackUrl(), "", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%3A%2F%2F%D0%BE%D1%82%D0%BA%D1%80%D0%BE%D0%B9%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D1%83"));
+    ApiTest api("mwm://map?ll=1,2&n=PointName&backurl=%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%3A%2F%2F%D0%BE%D1%82%D0%BA%D1%80%D0%BE%D0%B9%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D1%83");
     TEST_EQUAL(api.GetGlobalBackUrl(), "приложение://откройСсылку", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%3A%2F%2F%D0%BE%D1%82%D0%BA%D1%80%D0%BE%D0%B9%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D1%83"));
+    ApiTest api("mwm://map?ll=1,2&n=PointName&backurl=%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%3A%2F%2F%D0%BE%D1%82%D0%BA%D1%80%D0%BE%D0%B9%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D1%83");
     TEST_EQUAL(api.GetGlobalBackUrl(), "приложение://откройСсылку", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName&backurl=%E6%88%91%E6%84%9Bmapswithme"));
+    ApiTest api("mwm://map?ll=1,2&n=PointName&backurl=%E6%88%91%E6%84%9Bmapswithme");
     TEST_EQUAL(api.GetGlobalBackUrl(), "我愛mapswithme://", ());
   }
 }
@@ -136,23 +219,23 @@ UNIT_TEST(GlobalBackUrl)
 UNIT_TEST(VersionTest)
 {
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=1&n=PointName"));
+    ApiTest api("mwm://map?ll=1,2&v=1&n=PointName");
     TEST_EQUAL(api.GetApiVersion(), 1, ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=kotik&n=PointName"));
+    ApiTest api("mwm://map?ll=1,2&v=kotik&n=PointName");
     TEST_EQUAL(api.GetApiVersion(), 0, ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=APacanyVoobsheKotjata&n=PointName"));
+    ApiTest api("mwm://map?ll=1,2&v=APacanyVoobsheKotjata&n=PointName");
     TEST_EQUAL(api.GetApiVersion(), 0, ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&n=PointName"));
+    ApiTest api("mwm://map?ll=1,2&n=PointName");
     TEST_EQUAL(api.GetApiVersion(), 0, ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?V=666&ll=1,2&n=PointName"));
+    ApiTest api("mwm://map?V=666&ll=1,2&n=PointName");
     TEST_EQUAL(api.GetApiVersion(), 666, ());
   }
 }
@@ -160,57 +243,16 @@ UNIT_TEST(VersionTest)
 UNIT_TEST(AppNameTest)
 {
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=1&n=PointName&appname=Google"));
+    ApiTest api("mwm://map?ll=1,2&v=1&n=PointName&appname=Google");
     TEST_EQUAL(api.GetAppTitle(), "Google", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=1&n=PointName&AppName=%D0%AF%D0%BD%D0%B4%D0%B5%D0%BA%D1%81"));
+    ApiTest api("mwm://map?ll=1,2&v=1&n=PointName&AppName=%D0%AF%D0%BD%D0%B4%D0%B5%D0%BA%D1%81");
     TEST_EQUAL(api.GetAppTitle(), "Яндекс", ());
   }
   {
-    ParsedMapApi api(Uri("mwm://map?ll=1,2&v=1&n=PointName"));
+    ApiTest api("mwm://map?ll=1,2&v=1&n=PointName");
     TEST_EQUAL(api.GetAppTitle(), "", ());
-  }
-}
-
-UNIT_TEST(RectTest)
-{
-  {
-    ParsedMapApi api(Uri("mwm://map?ll=0,0"));
-    m2::RectD rect = api.GetLatLonRect();
-    TEST_EQUAL(rect.maxX(), 0, ());
-    TEST_EQUAL(rect.maxY(), 0, ());
-    TEST_EQUAL(rect.minX(), 0, ());
-    TEST_EQUAL(rect.minX(), 0, ());
-  }
-  {
-    ParsedMapApi api(Uri("mwm://map?ll=0,0&ll=1,1&ll=2,2&ll=3,3&ll=4,4&ll=5,5&"));
-    m2::RectD rect = api.GetLatLonRect();
-    TEST_EQUAL(rect.maxX(), 5, ());
-    TEST_EQUAL(rect.maxY(), 5, ());
-    TEST_EQUAL(rect.minX(), 0, ());
-    TEST_EQUAL(rect.minX(), 0, ());
-  }
-  {
-    ParsedMapApi api(Uri("mwm://map?ll=-90,90&ll=90,-90"));
-    m2::RectD rect = api.GetLatLonRect();
-    TEST_EQUAL(rect.maxX(), 90, ());
-    TEST_EQUAL(rect.maxY(), 90, ());
-    TEST_EQUAL(rect.minX(), -90, ());
-    TEST_EQUAL(rect.minX(), -90, ());
-  }
-  {
-    ParsedMapApi api(Uri("mwm://map?ll=180,180&ll=0,0&ll=-180,-180"));
-    m2::RectD rect = api.GetLatLonRect();
-    TEST_EQUAL(rect.maxX(), 0, ());
-    TEST_EQUAL(rect.maxY(), 0, ());
-    TEST_EQUAL(rect.minX(), 0, ());
-    TEST_EQUAL(rect.minX(), 0, ());
-  }
-  {
-    ParsedMapApi api(Uri("mwm://"));
-    m2::RectD rect = api.GetLatLonRect();
-    TEST(!rect.IsValid(), ());
   }
 }
 
@@ -252,16 +294,21 @@ void generateRandomTest(size_t numberOfPoints, size_t stringLength)
   string result = "mapswithme://map?v=1";
   for (size_t i = 0; i < vect.size(); ++i)
     result += generatePartOfUrl(vect[i]);
-  Uri uri(result);
-  ParsedMapApi api(uri);
-  vector <url_scheme::ApiPoint> const & points = api.GetPoints();
-  TEST_EQUAL(points.size(), vect.size(), ());
+
+  ApiTest api(result);
+  TEST_EQUAL(api.GetPointCount(), vect.size(), ());
   for (size_t i = 0; i < vect.size();++i)
   {
-    TEST_EQUAL(points[i].m_lat, vect[i].m_lat, ());
-    TEST_EQUAL(points[i].m_lon, vect[i].m_lon, ());
-    TEST_EQUAL(points[i].m_name, vect[i].m_name, ());
-    TEST_EQUAL(points[i].m_id, vect[i].m_id, ());
+    /// Mercator defined not on all range of lat\lon values.
+    /// Some part of lat\lon is clamp on convertation
+    /// By this we convert  source data lat\lon to mercator and then into lat\lon
+    /// to emulate core convertions
+    double lat = vect[i].m_lat;
+    double lon = vect[i].m_lon;
+    ToMercatoToLatLon(lat, lon);
+    TEST(api.TestLatLon(i, lat, lon), ());
+    TEST(api.TestName(i, vect[i].m_name), ());
+    TEST(api.TestID(i, vect[i].m_id), ());
   }
   TEST_EQUAL(api.GetApiVersion(), 1, ());
 }
@@ -278,37 +325,22 @@ UNIT_TEST(StressTestRandomTest)
   generateRandomTest(10000, 100);
 }
 
-UNIT_TEST(MWMApiZoomLevelTest)
-{
-  m2::RectD const r1 = ParsedMapApi(Uri("mwm://map?ll=0,0")).GetLatLonRect();
-  m2::RectD const r2 = ParsedMapApi(Uri("mwm://map?z=14&ll=0,0")).GetLatLonRect();
-  TEST_EQUAL(r1, r2, ());
-
-  m2::RectD const r3 = ParsedMapApi(Uri("mwm://map?ll=1,1&z=14")).GetLatLonRect();
-  TEST_NOT_EQUAL(r2, r3, ());
-  TEST_NOT_EQUAL(r1, r3, ());
-}
-
 UNIT_TEST(MWMApiBalloonActionDefaultTest)
 {
   {
-    Uri uri("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name");
-    ParsedMapApi api(uri);
+    ApiTest api("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name");
     TEST(!api.GoBackOnBalloonClick(), (""));
   }
   {
-    Uri uri("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=false");
-    ParsedMapApi api(uri);
+    ApiTest api("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=false");
     TEST(api.GoBackOnBalloonClick(), (""));
   }
   {
-    Uri uri("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=true");
-    ParsedMapApi api(uri);
+    ApiTest api("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=true");
     TEST(api.GoBackOnBalloonClick(), (""));
   }
   {
-    Uri uri("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=");
-    ParsedMapApi api(uri);
+    ApiTest api("mapswithme://map?ll=38.970559,-9.419289&ignoreThisParam=Yes&z=17&n=Point%20Name&balloonAction=");
     TEST(api.GoBackOnBalloonClick(), (""));
   }
 }

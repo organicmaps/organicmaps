@@ -68,11 +68,7 @@ namespace qt
     m_frameFn();
   }
 
-  void DummyAPI(url_scheme::ApiPoint const &) {}
-  void DummyBookmark(BookmarkAndCategory const &) {}
-  void DummyPOI(m2::PointD const &, search::AddressInfo const &) {}
-  void DummyPosition(double, double) {}
-  void DummyAdditional(size_t) {}
+  void DummyUserMark(UserMark const * ){}
   void DummyDismiss() {}
 
   DrawWidget::DrawWidget(QWidget * pParent)
@@ -88,11 +84,7 @@ namespace qt
   {
     // Initialize with some stubs for test.
     PinClickManager & manager = GetBalloonManager();
-    manager.ConnectApiListener(&DummyAPI);
-    manager.ConnectBookmarkListener(&DummyBookmark);
-    manager.ConnectPoiListener(&DummyPOI);
-    manager.ConnectPositionListener(&DummyPosition);
-    manager.ConnectAdditionalListener(&DummyAdditional);
+    manager.ConnectUserMarkListener(&DummyUserMark);
     manager.ConnectDismissListener(&DummyDismiss);
   }
 

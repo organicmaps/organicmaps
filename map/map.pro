@@ -64,7 +64,9 @@ HEADERS += \
     scales_processor.hpp \
     yopme_render_policy.hpp \
     track.hpp \
-    alfa_animation_task.hpp
+    alfa_animation_task.hpp \
+    user_mark_container.hpp \
+    user_mark.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -115,7 +117,9 @@ SOURCES += \
     scales_processor.cpp \
     yopme_render_policy.cpp \
     track.cpp \
-    alfa_animation_task.cpp
+    alfa_animation_task.cpp \
+    user_mark_container.cpp \
+    user_mark.cpp
 
 !iphone*:!tizen*:!android* {
   HEADERS += qgl_render_context.hpp

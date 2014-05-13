@@ -153,7 +153,8 @@ char const * kmlString =
 
 UNIT_TEST(Bookmarks_ImportKML)
 {
-  BookmarkCategory cat("Default");
+  Framework framework;
+  BookmarkCategory cat("Default", framework);
   TEST(cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString))), ());
 
   CheckBookmarks(cat);
@@ -167,7 +168,8 @@ UNIT_TEST(Bookmarks_ExportKML)
 {
   char const * BOOKMARKS_FILE_NAME = "UnitTestBookmarks.kml";
 
-  BookmarkCategory cat("Default");
+  Framework framework;
+  BookmarkCategory cat("Default", framework);
   TEST(cat.LoadFromKML(new MemReader(kmlString, strlen(kmlString))), ());
   CheckBookmarks(cat);
 
@@ -188,7 +190,7 @@ UNIT_TEST(Bookmarks_ExportKML)
   CheckBookmarks(cat);
   TEST_EQUAL(cat.IsVisible(), true, ());
 
-  scoped_ptr<BookmarkCategory> cat2(BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME));
+  scoped_ptr<BookmarkCategory> cat2(BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME, framework));
   CheckBookmarks(*cat2);
 
   cat2->SaveToKMLFile();
@@ -198,7 +200,7 @@ UNIT_TEST(Bookmarks_ExportKML)
 
   // MapName is the <name> tag in test kml data.
   string const catFileName = GetPlatform().SettingsDir() + "MapName.kml";
-  cat2.reset(BookmarkCategory::CreateFromKMLFile(catFileName));
+  cat2.reset(BookmarkCategory::CreateFromKMLFile(catFileName, framework));
   CheckBookmarks(*cat2);
   TEST(my::DeleteFileX(catFileName), ());
 }
@@ -212,10 +214,44 @@ namespace
       FileWriter::DeleteFileX(path + arrFiles[i] + BOOKMARKS_FILE_EXTENSION);
   }
 
-  Bookmark const * GetBookmark(Framework const & fm, m2::PointD const & pt)
+  UserMark const * GetMark(Framework & fm, m2::PointD const & pt)
   {
-    BookmarkAndCategory const res = fm.GetBookmark(fm.GtoP(pt), 1.0);
-    return fm.GetBmCategory(res.first)->GetBookmark(res.second);
+    m2::AnyRectD rect;
+    fm.GetNavigator().GetTouchRect(fm.GtoP(pt), 20, rect);
+    return fm.GetBookmarkManager().FindNearestUserMark(rect);
+  }
+
+  Bookmark const * GetBookmark(Framework & fm, m2::PointD const & pt)
+  {
+    UserMark const * mark = GetMark(fm, pt);
+    ASSERT(mark != NULL, ());
+    ASSERT(mark->GetContainer() != NULL, ());
+    ASSERT(mark->GetContainer()->GetType() == UserMarkContainer::BOOKMARK_MARK, ());
+    return static_cast<Bookmark const *>(mark);
+  }
+
+  Bookmark const * GetBookmarkPxPoint(Framework & fm, m2::PointD const & pt)
+  {
+    return GetBookmark(fm, fm.PtoG(pt));
+  }
+
+  BookmarkCategory const * GetCategory(Bookmark const * bm)
+  {
+    ASSERT(bm->GetContainer() != NULL, ());
+    ASSERT(bm->GetContainer()->GetType() == UserMarkContainer::BOOKMARK_MARK, ());
+    return static_cast<BookmarkCategory const *>(bm->GetContainer());
+  }
+
+  bool IsValidBookmark(Framework & fm, m2::PointD const & pt)
+  {
+    UserMark const * mark = GetMark(fm, pt);
+    if (mark == NULL)
+      return false;
+
+    if (mark->GetContainer()->GetType() != UserMarkContainer::BOOKMARK_MARK)
+      return false;
+
+    return true;
   }
 }
 
@@ -226,19 +262,19 @@ UNIT_TEST(Bookmarks_Timestamp)
 
   char const * arrCat[] = { "cat", "cat1" };
 
-  Bookmark b1(orgPoint, "name", "type");
+  BookmarkCustomData b1("name", "type");
   fm.AddCategory(arrCat[0]);
-  fm.AddBookmark(0, b1);
+  fm.AddBookmark(0, orgPoint, b1);
 
   Bookmark const * pBm = GetBookmark(fm, orgPoint);
   time_t const timeStamp = pBm->GetTimeStamp();
   TEST_NOT_EQUAL(timeStamp, my::INVALID_TIME_STAMP, ());
 
-  Bookmark b3(orgPoint, "newName", "newType");
+  BookmarkCustomData b3("newName", "newType");
   b3.SetTimeStamp(12345);
   TEST_NOT_EQUAL(b3.GetTimeStamp(), timeStamp, ());
 
-  fm.AddBookmark(0, b3);
+  fm.AddBookmark(0, orgPoint, b3);
 
   pBm = GetBookmark(fm, orgPoint);
   TEST_EQUAL(pBm->GetTimeStamp(), timeStamp, ());
@@ -247,7 +283,7 @@ UNIT_TEST(Bookmarks_Timestamp)
   TEST_NOT_EQUAL(b3.GetTimeStamp(), timeStamp, ());
 
   fm.AddCategory(arrCat[1]);
-  fm.AddBookmark(1, b3);
+  fm.AddBookmark(1, orgPoint, b3);
 
   TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(0)->GetName(), "name", ());
   TEST_EQUAL(fm.GetBmCategory(0)->GetBookmark(0)->GetType(), "type", ());
@@ -280,14 +316,14 @@ UNIT_TEST(Bookmarks_Getting)
   for (int i = 0; i < 3; ++i)
     fm.AddCategory(arrCat[i]);
 
-  Bookmark bm(m2::PointD(38, 20), "1", "placemark-red");
-  fm.AddBookmark(0, bm);
+  BookmarkCustomData bm("1", "placemark-red");
+  fm.AddBookmark(0, m2::PointD(38, 20), bm);
   BookmarkCategory const * c1 = fm.GetBmCategory(0);
-  bm = Bookmark(m2::PointD(41, 20), "2", "placemark-red");
-  fm.AddBookmark(1, bm);
+  bm = BookmarkCustomData("2", "placemark-red");
+  fm.AddBookmark(1, m2::PointD(41, 20), bm);
   BookmarkCategory const * c2 = fm.GetBmCategory(1);
-  bm = Bookmark(m2::PointD(41, 40), "3", "placemark-red");
-  fm.AddBookmark(2, bm);
+  bm = BookmarkCustomData("3", "placemark-red");
+  fm.AddBookmark(2, m2::PointD(41, 40), bm);
   BookmarkCategory const * c3 = fm.GetBmCategory(2);
 
 
@@ -298,43 +334,34 @@ UNIT_TEST(Bookmarks_Getting)
   (void)fm.GetBmCategory(4);
   TEST_EQUAL(fm.GetBmCategoriesCount(), 3, ());
 
-  BookmarkAndCategory res = fm.GetBookmark(fm.GtoP(m2::PointD(40, 20)), 1.0);
-  TEST(IsValid(res), ());
-  TEST_EQUAL(res.second, 0, ());
-  TEST_EQUAL(res.first, 1 , ());
-  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[1], ());
+  Bookmark const * mark = GetBookmark(fm, m2::PointD(40, 20));
+  BookmarkCategory const * cat = GetCategory(mark);
 
-  res = fm.GetBookmark(fm.GtoP(m2::PointD(0, 0)), 1.0);
-  TEST(!IsValid(res), ());
-  res = fm.GetBookmark(fm.GtoP(m2::PointD(800, 400)), 1.0);
-  TEST(!IsValid(res), ());
+  TEST_EQUAL(cat->GetName(), arrCat[1], ());
 
-  res = fm.GetBookmark(fm.GtoP(m2::PointD(41, 40)), 1.0);
-  TEST(IsValid(res), ());
-  TEST_EQUAL(res.first, 2, ());
-  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[2], ());
-  Bookmark const * pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
-  TEST_EQUAL(pBm->GetName(), "3", ());
-  TEST_EQUAL(pBm->GetType(), "placemark-red", ());
+  TEST(!IsValidBookmark(fm, m2::PointD(0, 0)), ());
+  TEST(!IsValidBookmark(fm, m2::PointD(800, 400)), ());
 
-  bm = Bookmark(m2::PointD(41, 40), "4", "placemark-blue");
-  fm.AddBookmark(2, bm);
+  TEST(IsValidBookmark(fm, m2::PointD(41, 40)), ());
+  mark = GetBookmark(fm, m2::PointD(41, 40));
+  cat = GetCategory(mark);
+  TEST_EQUAL(cat->GetName(), arrCat[2], ());
+
+  bm = BookmarkCustomData("4", "placemark-blue");
+  fm.AddBookmark(2, m2::PointD(41, 40), bm);
   BookmarkCategory const * c33 = fm.GetBmCategory(2);
 
   TEST_EQUAL(c33, c3, ());
 
-  res = fm.GetBookmark(fm.GtoP(m2::PointD(41, 40)), 1.0);
-  TEST(IsValid(res), ());
-  BookmarkCategory * cat = fm.GetBmCategory(res.first);
-  TEST(cat, ());
-  pBm = cat->GetBookmark(res.second);
+  mark = GetBookmark(fm, m2::PointD(41, 40));
+  cat = GetCategory(mark);
   //should find first valid result, there two results with the same coordinates 3 and 4
-  TEST_EQUAL(pBm->GetName(), "3", ());
-  TEST_EQUAL(pBm->GetType(), "placemark-red", ());
+  TEST_EQUAL(mark->GetName(), "3", ());
+  TEST_EQUAL(mark->GetType(), "placemark-red", ());
 
   TEST_EQUAL(cat->GetBookmarksCount(), 2, ());
 
-  cat->DeleteBookmark(0);
+  fm.GetBmCategory(2)->DeleteBookmark(0);
   TEST_EQUAL(cat->GetBookmarksCount(), 1, ());
 
   DeleteCategoryFiles(arrCat);
@@ -463,44 +490,36 @@ UNIT_TEST(Bookmarks_AddingMoving)
   m2::PointD const globalPoint = m2::PointD(40, 20);
   m2::PointD const pixelPoint = fm.GtoP(globalPoint);
 
-  Bookmark bm(globalPoint, "name", "placemark-red");
-  fm.AddBookmark(0, bm);
+  BookmarkCustomData bm("name", "placemark-red");
+  fm.AddBookmark(0, globalPoint, bm);
   BookmarkCategory const * c1 = fm.GetBmCategory(0);
-  BookmarkAndCategory res = fm.GetBookmark(pixelPoint, 1.0);
-  TEST(IsValid(res), ());
-  TEST_EQUAL(res.second, 0, ());
-  TEST_EQUAL(res.first, 0, ());
-  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[0], ());
+  Bookmark const * mark = GetBookmarkPxPoint(fm, pixelPoint);
+  BookmarkCategory const * cat = GetCategory(mark);
+  TEST_EQUAL(cat->GetName(), arrCat[0], ());
 
-  bm = Bookmark(globalPoint, "name2", "placemark-blue");
-  fm.AddBookmark(0, bm);
+  bm = BookmarkCustomData("name2", "placemark-blue");
+  fm.AddBookmark(0, globalPoint, bm);
   BookmarkCategory const * c11 = fm.GetBmCategory(0);
   TEST_EQUAL(c1, c11, ());
-  res = fm.GetBookmark(pixelPoint, 1.0);
-  TEST(IsValid(res), ());
-  TEST_EQUAL(res.second, 0, ());
-  TEST_EQUAL(res.first, 0, ());
-  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[0], ());
-  Bookmark const * pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
-  TEST_EQUAL(pBm->GetName(), "name", ());
-  TEST_EQUAL(pBm->GetType(), "placemark-red", ());
+  mark = GetBookmarkPxPoint(fm, pixelPoint);
+  cat = GetCategory(mark);
+  TEST_EQUAL(cat->GetName(), arrCat[0], ());
+  TEST_EQUAL(mark->GetName(), "name", ());
+  TEST_EQUAL(mark->GetType(), "placemark-red", ());
 
   // Edit name, type and category of bookmark
-  bm = Bookmark(globalPoint, "name3", "placemark-green");
-  fm.AddBookmark(1, bm);
+  bm = BookmarkCustomData("name3", "placemark-green");
+  fm.AddBookmark(1, globalPoint, bm);
   BookmarkCategory const * c2 = fm.GetBmCategory(1);
   TEST_NOT_EQUAL(c1, c2, ());
   TEST_EQUAL(fm.GetBmCategoriesCount(), 2, ());
-  res = fm.GetBookmark(pixelPoint, 1.0);
-  TEST(IsValid(res), ());
-  TEST_EQUAL(res.second, 0, ());
-  TEST_EQUAL(res.first, 0, ());
-  TEST_EQUAL(fm.GetBmCategory(res.first)->GetName(), arrCat[0], ());
+  mark = GetBookmarkPxPoint(fm, pixelPoint);
+  cat = GetCategory(mark);
+  TEST_EQUAL(cat->GetName(), arrCat[0], ());
   TEST_EQUAL(fm.GetBmCategory(0)->GetBookmarksCount(), 2,
              ("Bookmark wasn't moved from one category to another"));
-  pBm = fm.GetBmCategory(res.first)->GetBookmark(res.second);
-  TEST_EQUAL(pBm->GetName(), "name", ());
-  TEST_EQUAL(pBm->GetType(), "placemark-red", ());
+  TEST_EQUAL(mark->GetName(), "name", ());
+  TEST_EQUAL(mark->GetType(), "placemark-red", ());
 
   DeleteCategoryFiles(arrCat);
 }
@@ -536,7 +555,8 @@ char const * kmlString2 =
 
 UNIT_TEST(Bookmarks_InnerFolder)
 {
-  BookmarkCategory cat("Default");
+  Framework framework;
+  BookmarkCategory cat("Default", framework);
   TEST(cat.LoadFromKML(new MemReader(kmlString2, strlen(kmlString2))), ());
 
   TEST_EQUAL(cat.GetBookmarksCount(), 1, ());
@@ -544,8 +564,9 @@ UNIT_TEST(Bookmarks_InnerFolder)
 
 UNIT_TEST(BookmarkCategory_EmptyName)
 {
-  BookmarkCategory * pCat = new BookmarkCategory("");
-  pCat->AddBookmark(Bookmark(m2::PointD(0, 0), "", "placemark-red"));
+  Framework framework;
+  BookmarkCategory * pCat = new BookmarkCategory("", framework);
+  pCat->AddBookmark(m2::PointD(0, 0), BookmarkCustomData("", "placemark-red"));
   pCat->SaveToKMLFile();
 
   pCat->SetName("xxx");
@@ -593,13 +614,14 @@ char const * kmlString3 =
 
 UNIT_TEST(Bookmarks_SpecialXMLNames)
 {
-  BookmarkCategory cat1("");
+  Framework framework;
+  BookmarkCategory cat1("", framework);
   TEST(cat1.LoadFromKML(new MemReader(kmlString3, strlen(kmlString3))), ());
 
   TEST_EQUAL(cat1.GetBookmarksCount(), 1, ());
   TEST(cat1.SaveToKMLFile(), ());
 
-  scoped_ptr<BookmarkCategory> cat2(BookmarkCategory::CreateFromKMLFile(cat1.GetFileName()));
+  scoped_ptr<BookmarkCategory> cat2(BookmarkCategory::CreateFromKMLFile(cat1.GetFileName(), framework));
   TEST(cat2.get(), ());
   TEST_EQUAL(cat2->GetBookmarksCount(), 1, ());
 
@@ -624,8 +646,9 @@ bool AlmostEqual(double const & a, double const & b)
 
 UNIT_TEST(TrackParsingTest_1)
 {
+  Framework framework;
   string const KML = GetPlatform().SettingsPathForFile("kml-with-track-kml.test");
-  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(KML);
+  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(KML, framework);
   if (!cat)
     TEST(false, ("Category can't be created"));
   TEST_EQUAL(cat->GetTracksCount(), 4, ());
@@ -647,8 +670,9 @@ UNIT_TEST(TrackParsingTest_1)
 
 UNIT_TEST(TrackParsingTest_2)
 {
+  Framework framework;
   string const KML = GetPlatform().SettingsPathForFile("kml-with-track-from-google-earth.test");
-  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(KML);
+  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(KML, framework);
   if (!cat)
     TEST(false, ("Category can't be created"));
   TEST_EQUAL(cat->GetTracksCount(), 1, ());
