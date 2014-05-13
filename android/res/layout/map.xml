@@ -12,11 +12,17 @@
         android:layout_gravity="bottom|center_horizontal"
         android:background="@android:color/transparent" />
 
+    <!--
+    	Default margin = @dimen/map_controls_margin - 1 (like in map_button_bottom)
+     	Right margin = @dimen/zoom_margin + @dimen/zoom_margin_right - 1 (like in map_navigation_buttons)
+    -->
     <include
         android:id="@+id/omni_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="8dp"
         layout="@layout/search_box" />
 
     <include

@@ -19,15 +19,17 @@
             android:layout_marginBottom="0dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             layout="@layout/search_box" />
 
+        <!--
         <RadioGroup
             android:id="@+id/search_scope"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="8dp" >
+            android:padding="8dp"
+            android:visibility="gone" >
 
             <RadioButton
                 android:id="@+id/search_scope_near"
@@ -86,6 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@drawable/horizontal_two_px_separator" />
+    -->
     </LinearLayout>
 
     <ListView

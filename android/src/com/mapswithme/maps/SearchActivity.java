@@ -478,14 +478,16 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     });
   }
 
-  private void setSearchGroupSelectionByMode(final int savedSearchMode)
+  private void setSearchGroupSelectionByMode(int savedSearchMode)
   {
+    /*
     switch (savedSearchMode)
     {
       case ALL:         mSearchScopeGroup.check(R.id.search_scope_everywhere); break;
       case IN_VIEWPORT: mSearchScopeGroup.check(R.id.search_scope_on_screen);  break;
       default:          mSearchScopeGroup.check(R.id.search_scope_near);       break;
     }
+    */
   }
 
   @Override
@@ -578,6 +580,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private void setUpSearchModes()
   {
+    /*
     // Initialize search modes group
     mSearchScopeGroup = (RadioGroup)findViewById(R.id.search_scope);
     // Default mode is AROUND_POSITION
@@ -603,6 +606,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         runSearch(mode);
       }
     });
+    */
   }
 
   @Override
