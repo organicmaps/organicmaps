@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../base/commands_queue.hpp"
+#include "../geometry/screenbase.hpp"
 
 #include "../geometry/point2d.hpp"
 
@@ -60,4 +61,18 @@ public:
   bool isCancelled() const;
   bool isEmptyDrawing() const;
   void setIsEmptyDrawing(bool flag);
+};
+
+class PaintOverlayEvent
+{
+public:
+  PaintOverlayEvent(Drawer * drawer, ScreenBase const & modelView)
+    : m_drawer(drawer), m_modelView(modelView) {}
+
+  ScreenBase const & GetModelView() const { return m_modelView; }
+  Drawer * GetDrawer() const { return m_drawer; }
+
+private:
+  Drawer * m_drawer;
+  ScreenBase m_modelView;
 };

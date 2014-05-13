@@ -1,4 +1,5 @@
 #include "mwm_url.hpp"
+#include "scales_processor.hpp"
 
 #include "../indexer/mercator.hpp"
 #include "../indexer/scales.hpp"
@@ -15,12 +16,6 @@
 namespace url_scheme
 {
 
-void ResultPoint::Init()
-{
-  m_org = m2::PointD(MercatorBounds::LonToX(m_point.m_lon),
-                     MercatorBounds::LatToY(m_point.m_lat));
-}
-
 namespace
 {
 
@@ -30,14 +25,17 @@ bool IsInvalidApiPoint(ApiPoint const & p) { return p.m_lat == INVALID_LAT_VALUE
 
 }  // unnames namespace
 
-ParsedMapApi::ParsedMapApi() : m_version(0), m_zoomLevel(0.0), m_goBackOnBalloonClick(false)
+ParsedMapApi::ParsedMapApi()
+  : m_controller(NULL)
+  , m_version(0)
+  , m_zoomLevel(0.0)
+  , m_goBackOnBalloonClick(false)
 {
 }
 
-ParsedMapApi::ParsedMapApi(Uri const & uri) : m_version(0), m_zoomLevel(0.0), m_goBackOnBalloonClick(false)
+void ParsedMapApi::SetController(UserMarkContainer::Controller * controller)
 {
-  if (!Parse(uri))
-    Reset();
+  m_controller = controller;
 }
 
 bool ParsedMapApi::SetUriAndParse(string const & url)
@@ -48,29 +46,42 @@ bool ParsedMapApi::SetUriAndParse(string const & url)
 
 bool ParsedMapApi::IsValid() const
 {
-  return !m_points.empty();
+  ASSERT(m_controller != NULL,  ());
+  return m_controller->GetUserMarkCount() > 0;
 }
 
 bool ParsedMapApi::Parse(Uri const & uri)
 {
+  ASSERT(m_controller != NULL, ());
+
   string const & scheme = uri.GetScheme();
   if ((scheme != "mapswithme" && scheme != "mwm") || uri.GetPath() != "map")
     return false;
 
-  uri.ForEachKeyValue(bind(&ParsedMapApi::AddKeyValue, this, _1, _2));
-  m_points.erase(remove_if(m_points.begin(), m_points.end(), &IsInvalidApiPoint), m_points.end());
+  vector<ApiPoint> points;
+  uri.ForEachKeyValue(bind(&ParsedMapApi::AddKeyValue, this, _1, _2, ref(points)));
+  points.erase(remove_if(points.begin(), points.end(), &IsInvalidApiPoint), points.end());
+
+  for (size_t i = 0; i < points.size(); ++i)
+  {
+    ApiPoint const & p = points[i];
+    m2::PointD glPoint(MercatorBounds::LonToX(p.m_lon),
+                       MercatorBounds::LatToY(p.m_lat));
+    UserMark * mark = m_controller->CreateUserMark(glPoint);
+    mark->InjectCustomData(new ApiCustomData(p.m_name, p.m_id));
+  }
 
   return true;
 }
 
-void ParsedMapApi::AddKeyValue(string key, string const & value)
+void ParsedMapApi::AddKeyValue(string key, string const & value, vector<ApiPoint> & points)
 {
   strings::AsciiToLower(key);
 
   if (key == "ll")
   {
-    m_points.push_back(ApiPoint());
-    m_points.back().m_lat = INVALID_LAT_VALUE;
+    points.push_back(ApiPoint());
+    points.back().m_lat = INVALID_LAT_VALUE;
 
     size_t const firstComma = value.find(',');
     if (firstComma == string::npos)
@@ -99,9 +110,8 @@ void ParsedMapApi::AddKeyValue(string key, string const & value)
       return;
     }
 
-    m_points.back().m_lat = lat;
-    m_points.back().m_lon = lon;
-    m_showRect = m2::Add(m_showRect, m2::PointD(lon, lat));
+    points.back().m_lat = lat;
+    points.back().m_lon = lon;
   }
   else if (key == "z")
   {
@@ -110,15 +120,15 @@ void ParsedMapApi::AddKeyValue(string key, string const & value)
   }
   else if (key == "n")
   {
-    if (!m_points.empty())
-      m_points.back().m_name = value;
+    if (!points.empty())
+      points.back().m_name = value;
     else
       LOG(LWARNING, ("Map API: Point name with no point. 'll' should come first!"));
   }
   else if (key == "id")
   {
-    if (!m_points.empty())
-      m_points.back().m_id = value;
+    if (!points.empty())
+      points.back().m_id = value;
     else
       LOG(LWARNING, ("Map API: Point url with no point. 'll' should come first!"));
   }
@@ -147,37 +157,47 @@ void ParsedMapApi::AddKeyValue(string key, string const & value)
 
 void ParsedMapApi::Reset()
 {
-  m_points.clear();
   m_globalBackUrl.clear();
   m_appTitle.clear();
   m_version = 0;
-  m_showRect = m2::RectD();
   m_zoomLevel = 0.0;
   m_goBackOnBalloonClick = false;
 }
 
-bool ParsedMapApi::GetViewport(m2::PointD & pt, double & zoom) const
+bool ParsedMapApi::GetViewportRect(ScalesProcessor const & scales, m2::RectD & rect) const
 {
-  if (m_zoomLevel >= 1.0 && m_points.size() == 1)
+  ASSERT(m_controller != NULL, ());
+  size_t markCount = m_controller->GetUserMarkCount();
+  if (markCount == 1 && m_zoomLevel >= 1)
   {
-    zoom = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
-    pt.x = MercatorBounds::LonToX(m_points.front().m_lon);
-    pt.y = MercatorBounds::LatToY(m_points.front().m_lat);
-    return true;
-  }
-
-  return false;
-}
-
-bool ParsedMapApi::GetViewportRect(m2::RectD & rect) const
-{
-  if (m_showRect.IsValid())
-  {
-    rect = MercatorBounds::FromLatLonRect(m_showRect);
+    double zoom = min(static_cast<double>(scales::GetUpperComfortScale()), m_zoomLevel);
+    rect = scales.GetRectForDrawScale(zoom, m_controller->GetUserMark(0)->GetOrg());
     return true;
   }
   else
+  {
+    m2::RectD result;
+    for (size_t i = 0; i < m_controller->GetUserMarkCount(); ++i)
+      result.Add(m_controller->GetUserMark(i)->GetOrg());
+
+    if (result.IsValid())
+    {
+      rect = result;
+      return true;
+    }
+
     return false;
+  }
+}
+
+bool ParsedMapApi::GetSinglePoint(m2::PointD & point) const
+{
+  ASSERT(m_controller != NULL, ());
+  if (m_controller->GetUserMarkCount() != 1)
+    return false;
+
+  point = m_controller->GetUserMark(0)->GetOrg();
+  return true;
 }
 
 }

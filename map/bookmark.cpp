@@ -1,6 +1,8 @@
 #include "bookmark.hpp"
 #include "track.hpp"
 
+#include "../graphics/depth_constants.hpp"
+
 #include "../indexer/mercator.hpp"
 
 #include "../coding/file_reader.hpp"
@@ -27,34 +29,24 @@ Track const * BookmarkCategory::GetTrack(size_t index) const
   return (index < m_tracks.size() ? m_tracks[index] : 0);
 }
 
-void BookmarkCategory::AddBookmark(Bookmark const & bm)
+void BookmarkCategory::AddBookmark(m2::PointD const & ptOrg, BookmarkCustomData const & bm)
 {
-  Bookmark * p = new Bookmark(bm);
-  m_bookmarks.push_back(p);
+  UserMark * mark = base_t::GetController().CreateUserMark(ptOrg);
+  mark->InjectCustomData(new BookmarkCustomData(bm));
 }
 
-void BookmarkCategory::ReplaceBookmark(size_t index, Bookmark const & bm)
+void BookmarkCategory::ReplaceBookmark(size_t index, BookmarkCustomData const & bm)
 {
-  ASSERT_LESS ( index, m_bookmarks.size(), () );
-  if (index < m_bookmarks.size())
-  {
-    Bookmark * p = new Bookmark(bm);
-    AssignPrivateParams(index, *p);
-
-    delete m_bookmarks[index];
-    m_bookmarks[index] = p;
-  }
+  Controller c = base_t::GetController();
+  ASSERT_LESS (index, c.GetUserMarkCount(), ());
+  if (index < c.GetUserMarkCount())
+    base_t::GetController().EditUserMark(index, new BookmarkCustomData(bm));
 }
 
-void BookmarkCategory::AssignPrivateParams(size_t index, Bookmark & bm) const
+BookmarkCategory::BookmarkCategory(const string & name, Framework & framework)
+  : base_t(UserMarkContainer::BOOKMARK_MARK, graphics::bookmarkDepth, framework)
+  , m_name(name)
 {
-  ASSERT_LESS ( index, m_bookmarks.size(), () );
-  if (index < m_bookmarks.size())
-  {
-    Bookmark const * p = m_bookmarks[index];
-    bm.SetTimeStamp(p->GetTimeStamp());
-    bm.SetScale(p->GetScale());
-  }
 }
 
 BookmarkCategory::~BookmarkCategory()
@@ -65,8 +57,7 @@ BookmarkCategory::~BookmarkCategory()
 
 void BookmarkCategory::ClearBookmarks()
 {
-  for_each(m_bookmarks.begin(), m_bookmarks.end(), DeleteFunctor());
-  m_bookmarks.clear();
+  base_t::Clear();
 }
 
 void BookmarkCategory::ClearTracks()
@@ -95,7 +86,9 @@ template <class T> void DeleteItem(vector<T> & v, size_t i)
 
 void BookmarkCategory::DeleteBookmark(size_t index)
 {
-  DeleteItem(m_bookmarks, index);
+  base_t::Controller c = base_t::GetController();
+  ASSERT_LESS(index, c.GetUserMarkCount(), ());
+  c.DeleteUserMark(index);
 }
 
 void BookmarkCategory::DeleteTrack(size_t index)
@@ -103,14 +96,21 @@ void BookmarkCategory::DeleteTrack(size_t index)
   DeleteItem(m_tracks, index);
 }
 
+size_t BookmarkCategory::GetBookmarksCount() const
+{
+  return base_t::GetController().GetUserMarkCount();
+}
+
 Bookmark const * BookmarkCategory::GetBookmark(size_t index) const
 {
-  return (index < m_bookmarks.size() ? m_bookmarks[index] : 0);
+  base_t::Controller const & c = base_t::GetController();
+  return (Bookmark *)(index < c.GetUserMarkCount() ? c.GetUserMark(index) : 0);
 }
 
 Bookmark * BookmarkCategory::GetBookmark(size_t index)
 {
-  return (index < m_bookmarks.size() ? m_bookmarks[index] : 0);
+  base_t::Controller & c = base_t::GetController();
+  return (Bookmark *)(index < c.GetUserMarkCount() ? c.GetUserMark(index) : 0);
 }
 
 namespace
@@ -344,13 +344,7 @@ namespace
         if (MakeValid())
         {
           if (POINT == m_geometryType)
-          {
-            Bookmark bm(m_org, m_name, m_type);
-            bm.SetTimeStamp(m_timeStamp);
-            bm.SetDescription(m_description);
-            bm.SetScale(m_scale);
-            m_category.AddBookmark(bm);
-          }
+            m_category.AddBookmark(m_org, BookmarkCustomData(m_name, m_type, m_description, m_scale, m_timeStamp));
           else if (LINE == m_geometryType)
           {
             Track track(m_points);
@@ -509,9 +503,9 @@ bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
   }
 }
 
-BookmarkCategory * BookmarkCategory::CreateFromKMLFile(string const & file)
+BookmarkCategory * BookmarkCategory::CreateFromKMLFile(string const & file, Framework & framework)
 {
-  auto_ptr<BookmarkCategory> cat(new BookmarkCategory(""));
+  auto_ptr<BookmarkCategory> cat(new BookmarkCategory("", framework));
   try
   {
     if (cat->LoadFromKML(new FileReader(file)))
@@ -620,9 +614,9 @@ void BookmarkCategory::SaveToKML(ostream & s)
 
   s << "  <visibility>" << (IsVisible() ? "1" : "0") <<"</visibility>\n";
 
-  for (size_t i = 0; i < m_bookmarks.size(); ++i)
+  for (size_t i = 0; i < GetBookmarksCount(); ++i)
   {
-    Bookmark const * bm = m_bookmarks[i];
+    Bookmark const * bm = GetBookmark(i);
     s << "  <Placemark>\n";
     s << "    <name>";
     SaveStringWithCDATA(s, bm->GetName());

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "user_mark.hpp"
+#include "user_mark_container.hpp"
+
 #include "../coding/reader.hpp"
 
 #include "../geometry/point2d.hpp"
@@ -14,61 +17,106 @@
 
 class Track;
 
-
-class Bookmark
+class BookmarkCustomData : public UserCustomData
 {
-  m2::PointD m_org;
-  string m_name;
-  string m_description;
-  string m_type;    ///< Now it stores bookmark color (category style).
-  double m_scale;   ///< Viewport scale. -1.0 - is a default value (no scale set).
-  time_t m_timeStamp;
-
 public:
-  Bookmark() : m_scale(-1.0), m_timeStamp(my::INVALID_TIME_STAMP) {}
-  Bookmark(m2::PointD const & org, string const & name, string const & type)
-    : m_org(org), m_name(name), m_type(type), m_scale(-1.0), m_timeStamp(my::INVALID_TIME_STAMP)
+  BookmarkCustomData(string const & name, string const & type,
+                     string const & description = "", double scale = -1.0,
+                     time_t timeStamp = my::INVALID_TIME_STAMP)
+    : m_name(name)
+    , m_description(description)
+    , m_type(type)
+    , m_scale(scale)
+    , m_timeStamp(timeStamp)
   {
   }
 
-  m2::PointD const & GetOrg() const { return m_org; }
+  virtual Type GetType() const { return BOOKMARK; }
+
   string const & GetName() const { return m_name; }
-  //void SetName(string const & name) { m_name = name; }
-  /// @return Now its a bookmark color - name of icon file
-  string const & GetType() const { return m_type; }
-  //void SetType(string const & type) { m_type = type; }
-  m2::RectD GetViewport() const { return m2::RectD(m_org, m_org); }
+  void SetName(const string & name) { m_name = name; }
 
   string const & GetDescription() const { return m_description; }
-  void SetDescription(string const & description) { m_description = description; }
+  void SetDescription(const string & description) { m_description = description; }
 
-  /// @return my::INVALID_TIME_STAMP if bookmark has no timestamp
-  time_t GetTimeStamp() const { return m_timeStamp; }
-  void SetTimeStamp(time_t timeStamp) { m_timeStamp = timeStamp; }
+  string const & GetTypeName() const { return m_type; }
+  void SetTypeName(const string & type) { m_type = type; }
 
-  double GetScale() const { return m_scale; }
+  double const & GetScale() const { return m_scale; }
   void SetScale(double scale) { m_scale = scale; }
+
+  time_t const & GetTimeStamp() const { return m_timeStamp; }
+  void SetTimeStamp(const time_t & timeStamp) { m_timeStamp = timeStamp; }
+
+private:
+  string m_name;
+  string m_description;
+  string m_type;  ///< Now it stores bookmark color (category style).
+  double m_scale; ///< Viewport scale. -1.0 - is a default value (no scale set).
+  time_t m_timeStamp;
 };
 
-class BookmarkCategory : private noncopyable
+class Bookmark : public UserMark
 {
+public:
+  Bookmark(UserMarkContainer * container)
+    : UserMark(m2::PointD(0.0, 0.0), container)
+  {
+    Inject();
+  }
+
+  m2::PointD const & GetOrg() const { return UserMark::GetOrg(); }
+  string const & GetName() const { return GetData()->GetName(); }
+  //void SetName(string const & name) { m_name = name; }
+  /// @return Now its a bookmark color - name of icon file
+  string const & GetType() const { return GetData()->GetTypeName(); }
+  //void SetType(string const & type) { m_type = type; }
+  m2::RectD GetViewport() const { return m2::RectD(GetOrg(), GetOrg()); }
+
+  string const & GetDescription() const { return GetData()->GetDescription(); }
+  void SetDescription(string const & description) { GetData()->SetDescription(description); }
+
+  /// @return my::INVALID_TIME_STAMP if bookmark has no timestamp
+  time_t GetTimeStamp() const { return GetData()->GetTimeStamp(); }
+  void SetTimeStamp(time_t timeStamp) { GetData()->SetTimeStamp(timeStamp); }
+
+  double GetScale() const { return GetData()->GetScale(); }
+  void SetScale(double scale) { GetData()->SetScale(scale); }
+
+private:
+  void Inject(m2::PointD const & org = m2::PointD(), string const & name = "",
+              string const & type = "", string const & descr = "",
+              double scale = -1, time_t timeStamp = my::INVALID_TIME_STAMP)
+  {
+    InjectCustomData(new BookmarkCustomData(name, descr, type, scale, timeStamp));
+  }
+
+  BookmarkCustomData * GetData()
+  {
+    return static_cast<BookmarkCustomData *>(&GetCustomData());
+  }
+
+  BookmarkCustomData const * GetData() const
+  {
+    return static_cast<BookmarkCustomData const *>(&GetCustomData());
+  }
+};
+
+class BookmarkCategory : public UserMarkContainer
+{
+  typedef UserMarkContainer base_t;
   /// @name Data
   //@{
-  vector<Bookmark *> m_bookmarks;
+  /// TODO move track into UserMarkContainer as a IDrawable custom data
   vector<Track *> m_tracks;
   //@}
 
   string m_name;
-  bool m_visible;
   /// Stores file name from which category was loaded
   string m_file;
 
-  /// This function is called when bookmark is editing or replacing.
-  /// We need to assign private params to the newly created bookmark from the old one.
-  void AssignPrivateParams(size_t index, Bookmark & bm) const;
-
 public:
-  BookmarkCategory(string const & name) : m_name(name), m_visible(true) {}
+  BookmarkCategory(string const & name, Framework & framework);
   ~BookmarkCategory();
 
   void ClearBookmarks();
@@ -78,8 +126,8 @@ public:
 
   /// @name Theese functions are called from Framework only.
   //@{
-  void AddBookmark(Bookmark const & bm);
-  void ReplaceBookmark(size_t index, Bookmark const & bm);
+  void AddBookmark(m2::PointD const & ptOrg, BookmarkCustomData const & bm);
+  void ReplaceBookmark(size_t index, BookmarkCustomData const & bm);
   //@}
 
   /// @name Tracks routine.
@@ -91,18 +139,14 @@ public:
   void DeleteTrack(size_t index);
   //@}
 
-  void SetVisible(bool isVisible) { m_visible = isVisible; }
-  bool IsVisible() const { return m_visible; }
-
   void SetName(string const & name) { m_name = name; }
   string const & GetName() const { return m_name; }
   string const & GetFileName() const { return m_file; }
 
-  inline size_t GetBookmarksCount() const { return m_bookmarks.size(); }
+  size_t GetBookmarksCount() const;
 
   Bookmark const * GetBookmark(size_t index) const;
   Bookmark * GetBookmark(size_t index);
-
   void DeleteBookmark(size_t index);
 
   /// @name Theese fuctions are public for unit tests only.
@@ -116,7 +160,7 @@ public:
   bool SaveToKMLFile();
 
   /// @return 0 in the case of error
-  static BookmarkCategory * CreateFromKMLFile(string const & file);
+  static BookmarkCategory * CreateFromKMLFile(string const & file, Framework & framework);
 
   /// Get valid file name from input (remove illegal symbols).
   static string RemoveInvalidSymbols(string const & name);

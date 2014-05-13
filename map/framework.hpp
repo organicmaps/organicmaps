@@ -179,8 +179,8 @@ public:
   void LoadBookmarks();
 
   /// @return Created bookmark index in category.
-  size_t AddBookmark(size_t categoryIndex, Bookmark & bm);
-  void ReplaceBookmark(size_t catIndex, size_t bmIndex, Bookmark const & bm);
+  size_t AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkCustomData & bm);
+  void ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkCustomData const & bm);
   /// @return Created bookmark category index.
   size_t AddCategory(string const & categoryName);
 
@@ -195,33 +195,12 @@ public:
   /// @return true if category was deleted
   bool DeleteBmCategory(size_t index);
 
-  /// @name Get bookmark by touch.
-  /// @param[in]  pixPt   Coordinates of touch point in pixels.
-  /// @return     NULL    If there is no bookmark found
-  //@{
-  BookmarkAndCategory GetBookmark(m2::PointD const & pxPoint) const;
-  BookmarkAndCategory GetBookmark(m2::PointD const & pxPoint, double visualScale) const;
-  //@}
-
   void ShowBookmark(BookmarkAndCategory const & bnc);
   void ShowTrack(Track const & track);
 
   void ClearBookmarks();
 
   bool AddBookmarksFile(string const & filePath);
-
-  /// @name Additional Layer methods.
-  //@{
-  void AdditionalPoiLayerSetInvisible();
-  void AdditionalPoiLayerSetVisible();
-  void AdditionalPoiLayerAddPoi(Bookmark const & bm);
-  Bookmark const * AdditionalPoiLayerGetBookmark(size_t index) const;
-  Bookmark * AdditionalPoiLayerGetBookmark(size_t index);
-  void AdditionalPoiLayerClear();
-  bool IsAdditionalLayerPoi(const BookmarkAndCategory & bm) const;
-  bool AdditionalLayerIsVisible();
-  size_t AdditionalLayerNumberOfPoi();
-  //@}
 
   inline m2::PointD PtoG(m2::PointD const & p) const { return m_navigator.PtoG(p); }
   inline m2::PointD GtoP(m2::PointD const & p) const { return m_navigator.GtoP(p); }
@@ -356,17 +335,6 @@ private:
 public:
   bool GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot, search::AddressInfo & info) const;
 
-  enum BookmarkOrPoi
-  {
-    NOTHING_FOUND = 0,
-    BOOKMARK = 1,
-    POI = 2,
-    ADDTIONAL_LAYER = 3
-  };
-
-  BookmarkOrPoi GetBookmarkOrPoi(m2::PointD const & pxPoint, m2::PointD & pxPivot,
-                                 search::AddressInfo & info, BookmarkAndCategory & bmCat);
-
   virtual void BeginPaint(shared_ptr<PaintEvent> const & e);
   /// Function for calling from platform dependent-paint function.
   virtual void DoPaint(shared_ptr<PaintEvent> const & e);
@@ -457,6 +425,7 @@ public:
   bool IsCountryLoaded(m2::PointD const & pt) const;
 
   shared_ptr<location::State> const & GetLocationState() const;
+  const UserMark * ActivateUserMark(m2::PointD const & pxPoint, bool isLongPress);
 
 public:
   string CodeGe0url(Bookmark const * bmk, bool addName);
@@ -464,23 +433,14 @@ public:
 
   /// @name Api
   //@{
+  string GenerateApiBackUrl(url_scheme::ApiPoint const & point);
+  url_scheme::ParsedMapApi const & GetApiDataHolder() const { return m_ParsedMapApi; }
+
 private:
   url_scheme::ParsedMapApi m_ParsedMapApi;
-  void DrawMapApiPoints(shared_ptr<PaintEvent> const & e);
   void SetViewPortASync(m2::RectD const & rect);
 
 public:
-  bool GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ResultPoint & point);
-
-  vector<url_scheme::ApiPoint> const & GetMapApiPoints() { return m_ParsedMapApi.GetPoints(); }
-  void ClearMapApiPoints() { m_ParsedMapApi.Reset(); }
-  int GetMapApiVersion() const { return m_ParsedMapApi.GetApiVersion(); }
-  string const & GetMapApiAppTitle() const { return m_ParsedMapApi.GetAppTitle(); }
-  string const & GetMapApiBackUrl() const { return m_ParsedMapApi.GetGlobalBackUrl(); }
-  m2::RectD GetMapApiViewportRect() const;
-  bool IsValidMapApi() const { return m_ParsedMapApi.IsValid(); }
-  string GenerateApiBackUrl(url_scheme::ApiPoint const & point);
-  bool GoBackOnBalloonClick() const { return m_ParsedMapApi.GoBackOnBalloonClick(); }
   //@}
 
   /// @name Map updates

@@ -1,5 +1,8 @@
 #include "bookmark_manager.hpp"
 #include "framework.hpp"
+#include "user_mark.hpp"
+
+#include "../graphics/depth_constants.hpp"
 
 #include "../platform/platform.hpp"
 #include "../platform/settings.hpp"
@@ -16,16 +19,24 @@
 
 
 BookmarkManager::BookmarkManager(Framework & f)
-  : m_framework(f), m_bmScreen(0), m_lastScale(1.0)
+  : m_framework(f)
+  , m_activeMark(NULL)
+  , m_bmScreen(0)
+  , m_lastScale(1.0)
 {
-  m_additionalPoiLayer = new BookmarkCategory("");
+  m_userMarkLayers.reserve(2);
+  m_userMarkLayers.push_back(new UserMarkContainer(UserMarkContainer::SEARCH_MARK, graphics::activePinDepth, m_framework));
+  m_userMarkLayers.push_back(new UserMarkContainer(UserMarkContainer::API_MARK, graphics::activePinDepth, m_framework));
+  UserMarkContainer::InitPoiSelectionMark(FindUserMarksContainer(UserMarkContainer::SEARCH_MARK));
 }
 
 BookmarkManager::~BookmarkManager()
 {
-  delete m_additionalPoiLayer;
+  for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), DeleteFunctor());
+  m_userMarkLayers.clear();
+
   ClearItems();
-  DeleteScreen();
+  ResetScreen();
 }
 
 namespace
@@ -116,6 +127,7 @@ public:
 
 void BookmarkManager::DrawCategory(BookmarkCategory const * cat, shared_ptr<PaintEvent> const & e) const
 {
+  /// TODO cutomize draw in UserMarkContainer for user Draw method
   Navigator const & navigator = m_framework.GetNavigator();
   InformationDisplay & informationDisplay = m_framework.GetInformationDisplay();
   ScreenBase const & screen = navigator.Screen();
@@ -141,7 +153,7 @@ void BookmarkManager::DrawCategory(BookmarkCategory const * cat, shared_ptr<Pain
     m2::PointD const & org = bm->GetOrg();
 
     if (glbRect.IsPointInside(org))
-      informationDisplay.drawPlacemark(pDrawer, bm->GetType().c_str(), navigator.GtoP(org));
+      informationDisplay.drawPlacemark(pDrawer, bm->GetType().c_str(), navigator.GtoP(org) + m2::PointD(0.0, 4.0));
   }
 }
 
@@ -167,18 +179,18 @@ void BookmarkManager::LoadBookmarks()
 
 void BookmarkManager::LoadBookmark(string const & filePath)
 {
-  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(filePath);
+  BookmarkCategory * cat = BookmarkCategory::CreateFromKMLFile(filePath, m_framework);
   if (cat)
     m_categories.push_back(cat);
 }
 
-size_t BookmarkManager::AddBookmark(size_t categoryIndex, Bookmark & bm)
+size_t BookmarkManager::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkCustomData & bm)
 {
   bm.SetTimeStamp(time(0));
   bm.SetScale(m_framework.GetDrawScale());
 
   BookmarkCategory * pCat = m_categories[categoryIndex];
-  pCat->AddBookmark(bm);
+  pCat->AddBookmark(ptOrg, bm);
   pCat->SetVisible(true);
   pCat->SaveToKMLFile();
 
@@ -189,7 +201,7 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, Bookmark & bm)
   return (pCat->GetBookmarksCount() - 1);
 }
 
-void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, Bookmark const & bm)
+void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkCustomData const & bm)
 {
   BookmarkCategory * pCat = m_categories[catIndex];
   pCat->ReplaceBookmark(bmIndex, bm);
@@ -208,7 +220,7 @@ size_t BookmarkManager::LastEditedBMCategory()
   }
 
   if (m_categories.empty())
-    m_categories.push_back(new BookmarkCategory(m_framework.GetStringsBundle().GetString("my_places")));
+    m_categories.push_back(new BookmarkCategory(m_framework.GetStringsBundle().GetString("my_places"), m_framework));
 
   return 0;
 }
@@ -225,7 +237,7 @@ BookmarkCategory * BookmarkManager::GetBmCategory(size_t index) const
 
 size_t BookmarkManager::CreateBmCategory(string const & name)
 {
-  m_categories.push_back(new BookmarkCategory(name));
+  m_categories.push_back(new BookmarkCategory(name, m_framework));
   return (m_categories.size()-1);
 }
 
@@ -259,14 +271,14 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
   graphics::Screen * pScreen = e->drawer()->screen();
   pScreen->beginFrame();
 
+  PaintOverlayEvent event(e->drawer(), screen);
+  for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event));
+
   for (size_t i = 0; i < m_categories.size(); ++i)
   {
     if (m_categories[i]->IsVisible())
       DrawCategory(m_categories[i], e);
   }
-
-  if (m_additionalPoiLayer->IsVisible())
-    DrawCategory(m_additionalPoiLayer, e);
 
   pScreen->endFrame();
 }
@@ -293,48 +305,103 @@ bool BookmarkManager::DeleteBmCategory(size_t index)
     return false;
 }
 
-void BookmarkManager::AdditionalPoiLayerSetInvisible()
+void BookmarkManager::ActivateMark(UserMark const * mark)
 {
-  m_additionalPoiLayer->SetVisible(false);
+  if (m_activeMark != NULL)
+  {
+    m_activeMark->Diactivate();
+    m_activeMark = NULL;
+  }
+
+  if (mark == NULL)
+    return;
+
+  m_activeMark = mark;
+  /// TODO remove this hack when resctuct Bookmark drawing code.
+  /// now it's need to activate bookmark element
+  UserCustomData const & data = m_activeMark->GetCustomData();
+  if (data.GetType() == UserCustomData::BOOKMARK)
+  {
+    m_activeMark = UserMarkContainer::UserMarkForPoi(mark->GetOrg());
+    BookmarkCustomData const & bookmarkData = static_cast<BookmarkCustomData const &>(data);
+    search::AddressInfo addrInfo;
+    m_framework.GetAddressInfoForGlobalPoint(mark->GetOrg(), addrInfo);
+    UserMark * hackMark = const_cast<UserMark *>(m_activeMark);
+    hackMark->InjectCustomData(new PoiCustomData(bookmarkData.GetName(),
+                                                 bookmarkData.GetTypeName(),
+                                                 addrInfo.FormatNameAndAddress()));
+  }
+
+  m_activeMark->Activate();
 }
 
-void BookmarkManager::AdditionalPoiLayerSetVisible()
+UserMark const * BookmarkManager::FindNearestUserMark(const m2::AnyRectD & rect)
 {
-  m_additionalPoiLayer->SetVisible(true);
+  double d = numeric_limits<double>::max();
+  UserMark const * mark = FindUserMarksContainer(UserMarkContainer::API_MARK)->FindMarkInRect(rect, d);
+  if (mark != NULL)
+    return mark;
+
+  mark = FindUserMarksContainer(UserMarkContainer::SEARCH_MARK)->FindMarkInRect(rect, d);
+  for (size_t i = 0; i < GetBmCategoriesCount(); ++i)
+  {
+    BookmarkCategory * category = GetBmCategory(i);
+    if (!category->IsVisible())
+      continue;
+
+    for (size_t j = 0; j < category->GetBookmarksCount(); ++ j)
+    {
+      Bookmark const * bookmark = category->GetBookmark(j);
+      m2::PointD bmOrg = bookmark->GetOrg();
+      if (rect.IsPointInside(bmOrg))
+      {
+        double currentD = rect.GetGlobalRect().Center().SquareLength(bmOrg);
+        if (currentD < d)
+        {
+          mark = bookmark;
+          d = currentD;
+        }
+      }
+    }
+  }
+
+  return mark;
 }
 
-void BookmarkManager::AdditionalPoiLayerAddPoi(Bookmark const & bm)
+void BookmarkManager::UserMarksSetVisible(UserMarkContainer::Type type, bool isVisible)
 {
-  m_additionalPoiLayer->AddBookmark(bm);
+  FindUserMarksContainer(type)->SetVisible(isVisible);
 }
 
-Bookmark const * BookmarkManager::AdditionalPoiLayerGetBookmark(size_t index) const
+bool BookmarkManager::UserMarksIsVisible(UserMarkContainer::Type type) const
 {
-  return m_additionalPoiLayer->GetBookmark(index);
+  return FindUserMarksContainer(type)->IsVisible();
 }
 
-Bookmark * BookmarkManager::AdditionalPoiLayerGetBookmark(size_t index)
+UserMark * BookmarkManager::UserMarksAddMark(UserMarkContainer::Type type, const m2::PointD & ptOrg)
 {
-  return m_additionalPoiLayer->GetBookmark(index);
+  return FindUserMarksContainer(type)->GetController().CreateUserMark(ptOrg);
 }
 
-void BookmarkManager::AdditionalPoiLayerClear()
+void BookmarkManager::UserMarksClear(UserMarkContainer::Type type)
 {
-  m_additionalPoiLayer->ClearBookmarks();
+  FindUserMarksContainer(type)->Clear();
 }
 
-bool BookmarkManager::IsAdditionalLayerPoi(const BookmarkAndCategory & bm) const
+UserMarkContainer::Controller & BookmarkManager::UserMarksGetController(UserMarkContainer::Type type)
 {
-  return (bm.first == additionalLayerCategory && bm.second >= 0);
+  return FindUserMarksContainer(type)->GetController();
 }
 
 void BookmarkManager::SetScreen(graphics::Screen * screen)
 {
-  DeleteScreen();
+  ResetScreen();
   m_bmScreen = screen;
+  for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(),
+           bind(&UserMarkContainer::SetScreen, _1, m_bmScreen));
 }
 
-void BookmarkManager::DeleteScreen()
+void BookmarkManager::ResetScreen()
 {
   if (m_bmScreen)
   {
@@ -343,7 +410,23 @@ void BookmarkManager::DeleteScreen()
       for (size_t j = 0; j < m_categories[i]->GetTracksCount(); ++j)
         m_categories[i]->GetTrack(j)->DeleteDisplayList();
 
-    delete m_bmScreen;
+    for (size_t i = 0; i < m_userMarkLayers.size(); ++i)
+      m_userMarkLayers[i]->SetScreen(0);
+
     m_bmScreen = 0;
   }
+}
+
+UserMarkContainer const * BookmarkManager::FindUserMarksContainer(UserMarkContainer::Type type) const
+{
+  ASSERT(type >= 0 && type < m_userMarkLayers.size(), ());
+  ASSERT(m_userMarkLayers[(size_t)type]->GetType() == type, ());
+  return m_userMarkLayers[(size_t)type];
+}
+
+UserMarkContainer * BookmarkManager::FindUserMarksContainer(UserMarkContainer::Type type)
+{
+  ASSERT(type >= 0 && type < m_userMarkLayers.size(), ());
+  ASSERT(m_userMarkLayers[(size_t)type]->GetType() == type, ());
+  return m_userMarkLayers[(size_t)type];
 }

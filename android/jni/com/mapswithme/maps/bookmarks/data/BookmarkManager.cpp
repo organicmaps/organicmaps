@@ -71,14 +71,6 @@ extern "C"
     }
   }
 
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_getBookmark(
-      JNIEnv * env, jobject thiz, jdouble px, jdouble py)
-  {
-    BookmarkAndCategory const bac = frm()->GetBookmark(m2::PointD(px, py));
-    return jni::GetNewPoint(env, m2::PointI(bac.first, bac.second));
-  }
-
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_saveToKMZFile(
       JNIEnv * env, jobject thiz, jint catID, jstring tmpPath)

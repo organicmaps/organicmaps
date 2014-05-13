@@ -193,6 +193,8 @@ Framework::Framework()
   if (isBenchmarkingEnabled)
     m_benchmarkEngine = new BenchmarkEngine(this);
 
+  m_ParsedMapApi.SetController(&m_bmManager.UserMarksGetController(UserMarkContainer::API_MARK));
+
   // Init strings bundle.
   m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^is added to the downloading queue");
   m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading^^%");
@@ -334,12 +336,12 @@ void Framework::LoadBookmarks()
     m_bmManager.LoadBookmarks();
 }
 
-size_t Framework::AddBookmark(size_t categoryIndex, Bookmark & bm)
+size_t Framework::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkCustomData & bm)
 {
-  return m_bmManager.AddBookmark(categoryIndex, bm);
+  return m_bmManager.AddBookmark(categoryIndex, ptOrg, bm);
 }
 
-void Framework::ReplaceBookmark(size_t catIndex, size_t bmIndex, Bookmark const & bm)
+void Framework::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkCustomData const & bm)
 {
   m_bmManager.ReplaceBookmark(catIndex, bmIndex, bm);
 }
@@ -371,71 +373,6 @@ BookmarkCategory * Framework::GetBmCategory(size_t index) const
 bool Framework::DeleteBmCategory(size_t index)
 {
   return m_bmManager.DeleteBmCategory(index);
-}
-
-BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint) const
-{
-  return GetBookmark(pxPoint, GetVisualScale());
-}
-
-BookmarkAndCategory Framework::GetBookmark(m2::PointD const & pxPoint, double visualScale) const
-{
-  // Get the global rect of touching area.
-  m2::AnyRectD rect;
-  m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * visualScale, rect);
-  m2::PointD const center = rect.GlobalCenter();
-
-  int retBookmarkCategory = -1;
-  int retBookmark = -1;
-  double minD = numeric_limits<double>::max();
-  bool returnBookmarkIsVisible = false;
-
-  if (m_bmManager.AdditionalLayerIsVisible())
-  {
-    for (size_t i = 0; i < m_bmManager.AdditionalLayerNumberOfPoi(); ++i)
-    {
-      m2::PointD const pt = m_bmManager.AdditionalPoiLayerGetBookmark(i)->GetOrg();
-      if (rect.IsPointInside(pt))
-      {
-        double const d = center.SquareLength(pt);
-        if (d < minD)
-        {
-          retBookmarkCategory = static_cast<int>(additionalLayerCategory);
-          retBookmark = static_cast<int>(i);
-          minD = d;
-        }
-      }
-    }
-  }
-
-  for (size_t i = 0; i < m_bmManager.GetBmCategoriesCount(); ++i)
-  {
-    bool const currentCategoryIsVisible = m_bmManager.GetBmCategory(i)->IsVisible();
-    if (!currentCategoryIsVisible && returnBookmarkIsVisible)
-      continue;
-
-    size_t const count = m_bmManager.GetBmCategory(i)->GetBookmarksCount();
-    for (size_t j = 0; j < count; ++j)
-    {
-      Bookmark const * bm = m_bmManager.GetBmCategory(i)->GetBookmark(j);
-      m2::PointD const pt = bm->GetOrg();
-
-      if (rect.IsPointInside(pt))
-      {
-        double const d = center.SquareLength(pt);
-        if ((currentCategoryIsVisible && !returnBookmarkIsVisible) ||
-            (d < minD))
-        {
-          retBookmarkCategory = static_cast<int>(i);
-          retBookmark = static_cast<int>(j);
-          minD = d;
-          returnBookmarkIsVisible = m_bmManager.GetBmCategory(i)->IsVisible();
-        }
-      }
-    }
-  }
-
-  return make_pair(retBookmarkCategory, retBookmark);
 }
 
 void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
@@ -541,51 +478,6 @@ bool Framework::AddBookmarksFile(string const & filePath)
   return true;
 }
 
-void Framework::AdditionalPoiLayerSetInvisible()
-{
-  m_bmManager.AdditionalPoiLayerSetInvisible();
-}
-
-void Framework::AdditionalPoiLayerSetVisible()
-{
-  m_bmManager.AdditionalPoiLayerSetVisible();
-}
-
-void Framework::AdditionalPoiLayerAddPoi(Bookmark const & bm)
-{
-  m_bmManager.AdditionalPoiLayerAddPoi(bm);
-}
-
-Bookmark const * Framework::AdditionalPoiLayerGetBookmark(size_t index) const
-{
-  return m_bmManager.AdditionalPoiLayerGetBookmark(index);
-}
-
-Bookmark * Framework::AdditionalPoiLayerGetBookmark(size_t index)
-{
-  return m_bmManager.AdditionalPoiLayerGetBookmark(index);
-}
-
-void Framework::AdditionalPoiLayerClear()
-{
-  m_bmManager.AdditionalPoiLayerClear();
-}
-
-bool Framework::IsAdditionalLayerPoi(const BookmarkAndCategory & bm) const
-{
-  return m_bmManager.IsAdditionalLayerPoi(bm);
-}
-
-bool Framework::AdditionalLayerIsVisible()
-{
-  return m_bmManager.AdditionalLayerIsVisible();
-}
-
-size_t Framework::AdditionalLayerNumberOfPoi()
-{
-  return m_bmManager.AdditionalLayerNumberOfPoi();
-}
-
 void Framework::GetLocalMaps(vector<string> & outMaps) const
 {
   Platform & pl = GetPlatform();
@@ -639,14 +531,6 @@ void Framework::InvalidateRect(m2::RectD const & rect, bool doForceUpdate)
     m_renderPolicy->SetInvalidRect(m2::AnyRectD(rect));
     m_renderPolicy->GetWindowHandle()->invalidate();
   }
-  /*
-  else
-  {
-    m_hasPendingInvalidate = true;
-    m_doForceUpdate = doForceUpdate;
-    m_invalidRect = m2::AnyRectD(rect);
-  }
-  */
 }
 
 void Framework::SaveState()
@@ -786,15 +670,9 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 #endif
 
   m_informationDisplay.doDraw(pDrawer);
-
-  DrawMapApiPoints(e);
   pScreen->endFrame();
 
   m_bmManager.DrawItems(e);
-
-
-  // somewhere here I can add current place mark
-  m_balloonManager.DrawPin(e);
 
   m_guiController->UpdateElements();
   m_guiController->DrawFrame(pScreen);
@@ -1222,12 +1100,14 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
 
 void Framework::ShowSearchResult(search::Result const & res)
 {
-  m_bmManager.AdditionalPoiLayerSetVisible();
-  m_bmManager.AdditionalPoiLayerClear();
-
-  Bookmark bmk(res.GetFeatureCenter(), res.GetString(), "search-result");
-  bmk.SetDescription(res.GetFeatureType());
-  m_bmManager.AdditionalPoiLayerAddPoi(bmk);
+  UserMarkContainer::Type type = UserMarkContainer::SEARCH_MARK;
+  m_bmManager.UserMarksSetVisible(type, true);
+  m_bmManager.UserMarksClear(type);
+  UserMark * mark = m_bmManager.UserMarksAddMark(type, res.GetFeatureCenter());
+  search::AddressInfo info;
+  GetAddressInfoForGlobalPoint(mark->GetOrg(), info);
+  mark->InjectCustomData(new SearchCustomData(res.GetString(), res.GetFeatureType(),
+                                              info.FormatNameAndAddress()));
 
   int scale;
   m2::PointD center;
@@ -1268,9 +1148,6 @@ void Framework::ShowAllSearchResults()
 {
   using namespace search;
 
-  m_bmManager.AdditionalPoiLayerSetVisible();
-  m_bmManager.AdditionalPoiLayerClear();
-
   Results searchRes;
   GetSearchEngine()->GetResults(searchRes);
 
@@ -1281,6 +1158,10 @@ void Framework::ShowAllSearchResults()
   case 0: return;
   }
 
+  UserMarkContainer::Type type = UserMarkContainer::SEARCH_MARK;
+  m_bmManager.UserMarksSetVisible(type, true);
+  m_bmManager.UserMarksClear(type);
+
   m2::RectD rect;
   for (size_t i = 0; i < count; ++i)
   {
@@ -1288,9 +1169,11 @@ void Framework::ShowAllSearchResults()
     search::Result const & r = searchRes.GetResult(i);
     if (r.GetResultType() != Result::RESULT_SUGGESTION)
     {
-      Bookmark bmk(r.GetFeatureCenter(), r.GetString(), "search-result");
-      bmk.SetDescription(r.GetFeatureType());
-      m_bmManager.AdditionalPoiLayerAddPoi(bmk);
+      UserMark * mark = m_bmManager.UserMarksAddMark(type, r.GetFeatureCenter());
+      AddressInfo info;
+      GetAddressInfoForGlobalPoint(mark->GetOrg(), info);
+      mark->InjectCustomData(new SearchCustomData(r.GetString(), r.GetFeatureType(),
+                                                  info.FormatNameAndAddress()));
 
       rect.Add(r.GetFeatureCenter());
     }
@@ -1339,8 +1222,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
 
 void Framework::SetRenderPolicy(RenderPolicy * renderPolicy)
 {
-  m_balloonManager.Shutdown();
-  m_bmManager.DeleteScreen();
+  m_bmManager.ResetScreen();
   m_guiController->ResetRenderParams();
   m_renderPolicy.reset();
   m_renderPolicy.reset(renderPolicy);
@@ -1387,7 +1269,7 @@ void Framework::InitGuiSubsystem()
     pr.m_storageType = graphics::EMediumStorage;
     pr.m_textureType = graphics::ESmallTexture;
 
-    m_bmManager.SetScreen(m_renderPolicy->CreateScreenWithParams(pr));
+    m_bmManager.SetScreen(m_renderPolicy->GetCacheScreen().get());
     //@}
 
     // Do full invalidate instead of any "pending" stuff.
@@ -1421,34 +1303,12 @@ anim::Controller * Framework::GetAnimController() const
   return m_animController.get();
 }
 
-/*
-void Framework::AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewPort)
-{
-  bm.SetType(LastEditedBMType());
-  m_bmManager.AddBookmark(LastEditedBMCategory(), bm);
-
-  ShowRectExVisibleScale(viewPort);
-}
-*/
-
-namespace
-{
-
-void CheckPointName(url_scheme::ResultPoint & point, StringsBundle const & bundle)
-{
-  string & name = point.GetName();
-  if (name.empty())
-    name = bundle.GetString("dropped_pin");
-}
-
-}
-
 bool Framework::ShowMapForURL(string const & url)
 {
-  url_scheme::ResultPoint point;
+  m2::PointD clickPoint;
   m2::RectD rect;
 
-  enum ResultT { FAILED, NO_BALLOON, BALLOON, BALLOON_PADDING };
+  enum ResultT { FAILED, NEED_CLICK, NO_NEED_CLICK };
   ResultT result = FAILED;
 
   // always hide current balloon here
@@ -1463,11 +1323,10 @@ bool Framework::ShowMapForURL(string const & url)
     ParseGeoURL(url, info);
     if (info.IsValid())
     {
-      point.MakeFrom(info.m_lat, info.m_lon);
-      CheckPointName(point, m_stringsBundle);
-
-      rect = m_scales.GetRectForDrawScale(info.m_zoom, point.GetOrg());
-      result = BALLOON;
+      clickPoint = m2::PointD(MercatorBounds::LonToX(info.m_lon),
+                              MercatorBounds::LatToY(info.m_lat));
+      rect = m_scales.GetRectForDrawScale(info.m_zoom, clickPoint);
+      result = NEED_CLICK;
     }
   }
   else if (StartsWith(url, "ge0"))
@@ -1478,29 +1337,23 @@ bool Framework::ShowMapForURL(string const & url)
 
     if (parser.Parse(url, pt, zoom))
     {
-      point.MakeFrom(pt);
-      CheckPointName(point, m_stringsBundle);
-
-      rect = m_scales.GetRectForDrawScale(zoom, point.GetOrg());
-      result = BALLOON;
+      clickPoint = m2::PointD(MercatorBounds::LonToX(pt.m_lon),
+                              MercatorBounds::LatToY(pt.m_lat));
+      rect = m_scales.GetRectForDrawScale(zoom, clickPoint);
+      result = NEED_CLICK;
     }
   }
   else if (StartsWith(url, "mapswithme://") || StartsWith(url, "mwm://"))
   {
     if (m_ParsedMapApi.SetUriAndParse(url))
     {
-      rect = GetMapApiViewportRect();
+      if (!m_ParsedMapApi.GetViewportRect(m_scales, rect))
+        rect = ScalesProcessor::GetWorldRect();
 
-      if (m_ParsedMapApi.GetPoints().size() == 1)
-      {
-        point.MakeFrom(m_ParsedMapApi.GetPoints().front());
-        result = BALLOON_PADDING;
-      }
+      if (m_ParsedMapApi.GetSinglePoint(clickPoint))
+        result = NEED_CLICK;
       else
-      {
-        // show world rect without balloon
-        result = NO_BALLOON;
-      }
+        result = NO_NEED_CLICK;
     }
   }
 
@@ -1510,8 +1363,8 @@ bool Framework::ShowMapForURL(string const & url)
     StopLocationFollow();
     SetViewPortASync(rect);
 
-    if (result != NO_BALLOON)
-      m_balloonManager.OnClick(GtoP(point.GetOrg()), true);
+    if (result != NO_NEED_CLICK)
+      m_balloonManager.OnClick(GtoP(clickPoint), true);
     return true;
   }
   else
@@ -1609,29 +1462,6 @@ bool Framework::GetVisiblePOI(m2::PointD const & pxPoint, m2::PointD & pxPivot,
   return false;
 }
 
-Framework::BookmarkOrPoi Framework::GetBookmarkOrPoi(m2::PointD const & pxPoint, m2::PointD & pxPivot,
-                                                     search::AddressInfo & info, BookmarkAndCategory & bmCat)
-{
-  bmCat = GetBookmark(pxPoint);
-  bool const isCorrectBookmark = IsValid(bmCat) && m_bmManager.GetBmCategory(bmCat.first)->IsVisible();
-  if (isCorrectBookmark)
-    return Framework::BOOKMARK;
-  else if (m_bmManager.IsAdditionalLayerPoi(bmCat))
-    return Framework::ADDTIONAL_LAYER;
-
-  if (GetVisiblePOI(pxPoint, pxPivot, info))
-  {
-    // We need almost the exact position of the bookmark, parameter 0.1 resolves the error in 2 pixels
-    bmCat = GetBookmark(pxPivot, 0.1);
-    if (isCorrectBookmark)
-      return Framework::BOOKMARK;
-    else
-      return Framework::POI;
-  }
-
-  return Framework::NOTHING_FOUND;
-}
-
 Animator & Framework::GetAnimator()
 {
   return m_animator;
@@ -1645,6 +1475,41 @@ Navigator & Framework::GetNavigator()
 shared_ptr<location::State> const & Framework::GetLocationState() const
 {
   return m_informationDisplay.locationState();
+}
+
+UserMark const * Framework::ActivateUserMark(m2::PointD const & pxPoint, bool isLongPress)
+{
+  m2::AnyRectD rect;
+  m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * GetVisualScale(), rect);
+  UserMark const * mark = m_bmManager.FindNearestUserMark(rect);
+
+  if (mark == NULL)
+  {
+    bool needMark = false;
+    m2::PointD pxPivot;
+    search::AddressInfo info;
+    if (GetVisiblePOI(pxPoint, pxPivot, info))
+      needMark = true;
+    else if (isLongPress)
+    {
+      GetAddressInfoForPixelPoint(pxPoint, info);
+      pxPivot = pxPoint;
+      needMark = true;
+    }
+
+    if (needMark)
+    {
+      UserMark * poiMark = UserMarkContainer::UserMarkForPoi(m_navigator.PtoG(pxPivot));
+      poiMark->InjectCustomData(new PoiCustomData(info.GetPinName(), info.GetPinType(),
+                                                  info.FormatAddress()));
+      mark = poiMark;
+    }
+  }
+
+  if (mark)
+    m_bmManager.ActivateMark(mark);
+
+  return mark;
 }
 
 StringsBundle const & Framework::GetStringsBundle()
@@ -1670,75 +1535,6 @@ string Framework::CodeGe0url(double lat, double lon, double zoomLevel, string co
   res.resize(len);
 
   return res;
-}
-
-void Framework::DrawMapApiPoints(shared_ptr<PaintEvent> const & e)
-{
-  // get viewport limit rect
-  m2::AnyRectD const & glbRect = m_navigator.Screen().GlobalRect();
-  Drawer * pDrawer = e->drawer();
-
-  vector<url_scheme::ApiPoint> const & v = GetMapApiPoints();
-
-  for (size_t i = 0; i < v.size(); ++i)
-  {
-    m2::PointD const & org = m2::PointD(MercatorBounds::LonToX(v[i].m_lon),
-                                        MercatorBounds::LatToY(v[i].m_lat));
-    if (glbRect.IsPointInside(org))
-    {
-      /// @todo Use custom pins from 3-party app
-      m_informationDisplay.drawPlacemark(pDrawer, "search-result", m_navigator.GtoP(org));
-    }
-  }
-}
-
-/// @todo Create method that will run all layers without copy/past
-bool Framework::GetMapApiPoint(m2::PointD const & pxPoint, url_scheme::ResultPoint & point)
-{
-  m2::AnyRectD rect;
-  m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * GetVisualScale(), rect);
-  m2::PointD const center = rect.GlobalCenter();
-
-  double minD = numeric_limits<double>::max();
-  bool result = false;
-
-  vector<url_scheme::ApiPoint> const & v = m_ParsedMapApi.GetPoints();
-  for (size_t i = 0; i < v.size(); ++i)
-  {
-    url_scheme::ResultPoint pt;
-    pt.MakeFrom(v[i]);
-
-    if (rect.IsPointInside(pt.GetOrg()))
-    {
-      double const d = center.SquareLength(pt.GetOrg());
-      if (d < minD)
-      {
-        point = pt;
-        minD = d;
-        result = true;
-      }
-    }
-  }
-
-  return result;
-}
-
-m2::RectD Framework::GetMapApiViewportRect() const
-{
-  double zoom;
-  m2::PointD center;
-  if (m_ParsedMapApi.GetViewport(center, zoom))
-  {
-    return m_scales.GetRectForDrawScale(zoom, center);
-  }
-  else
-  {
-    m2::RectD rect;
-    if (m_ParsedMapApi.GetViewportRect(rect))
-      return rect;
-
-    return ScalesProcessor::GetWorldRect();
-  }
 }
 
 string Framework::GenerateApiBackUrl(url_scheme::ApiPoint const & point)

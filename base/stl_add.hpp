@@ -139,6 +139,12 @@ GetRangeDeletor(TContainer & cont, TDeletor const & deletor)
   return impl::DeleteRangeFunctor<TContainer, TDeletor>(cont, deletor);
 }
 
+template <class TContainer, class TDeletor>
+void DeleteRange(TContainer & cont, TDeletor const & deletor)
+{
+  (void)GetRangeDeletor(cont, deletor)();
+}
+
 struct NoopFunctor
 {
   template <typename T> void operator () (T const &) const

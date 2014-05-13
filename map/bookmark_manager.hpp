@@ -1,9 +1,6 @@
 #pragma once
 #include "bookmark.hpp"
-
-
-/// Special number for additional layer category.
-const int additionalLayerCategory = -2;
+#include "user_mark_container.hpp"
 
 class Framework;
 class PaintEvent;
@@ -18,7 +15,8 @@ class BookmarkManager : private noncopyable
 
   Framework & m_framework;
 
-  BookmarkCategory * m_additionalPoiLayer;
+  vector<UserMarkContainer * > m_userMarkLayers;
+  UserMark const * m_activeMark;
 
   graphics::Screen * m_bmScreen;
   mutable double m_lastScale;
@@ -41,8 +39,8 @@ public:
   void LoadBookmark(string const & filePath);
 
   /// Client should know where it adds bookmark
-  size_t AddBookmark(size_t categoryIndex, Bookmark & bm);
-  void ReplaceBookmark(size_t catIndex, size_t bmIndex, Bookmark const & bm);
+  size_t AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkCustomData & bm);
+  void ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkCustomData const & bm);
 
   size_t LastEditedBMCategory();
   string LastEditedBMType() const;
@@ -60,17 +58,20 @@ public:
   void DeleteBmCategory(CategoryIter i);
   bool DeleteBmCategory(size_t index);
 
+  void ActivateMark(UserMark const * mark);
+  UserMark const * FindNearestUserMark(m2::AnyRectD const & rect);
+
   /// Additional layer methods
-  void AdditionalPoiLayerSetInvisible();
-  void AdditionalPoiLayerSetVisible();
-  void AdditionalPoiLayerAddPoi(Bookmark const & bm);
-  Bookmark const * AdditionalPoiLayerGetBookmark(size_t index) const;
-  Bookmark * AdditionalPoiLayerGetBookmark(size_t index);
-  void AdditionalPoiLayerClear();
-  bool IsAdditionalLayerPoi(const BookmarkAndCategory & bm) const;
-  bool AdditionalLayerIsVisible() const { return m_additionalPoiLayer->IsVisible(); }
-  size_t AdditionalLayerNumberOfPoi() const { return m_additionalPoiLayer->GetBookmarksCount(); }
+  void UserMarksSetVisible(UserMarkContainer::Type type, bool isVisible);
+  bool UserMarksIsVisible(UserMarkContainer::Type type) const;
+  UserMark * UserMarksAddMark(UserMarkContainer::Type type, m2::PointD const & ptOrg);
+  void UserMarksClear(UserMarkContainer::Type type);
+  UserMarkContainer::Controller & UserMarksGetController(UserMarkContainer::Type type);
 
   void SetScreen(graphics::Screen * screen);
-  void DeleteScreen();
+  void ResetScreen();
+
+private:
+  UserMarkContainer const * FindUserMarksContainer(UserMarkContainer::Type type) const;
+  UserMarkContainer * FindUserMarksContainer(UserMarkContainer::Type type);
 };
