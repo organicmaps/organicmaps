@@ -11,79 +11,41 @@
 
 class Framework;
 class PaintEvent;
-namespace anim { class Task; }
-namespace graphics { class DisplayList; }
 namespace location { class GpsInfo; }
 namespace gui { class Element; }
-namespace search { struct AddressInfo; }
-namespace url_scheme
-{
-  struct ApiPoint;
-  class ResultPoint;
-}
+namespace url_scheme { struct ApiPoint; }
 
 class PinClickManager
 {
-  shared_ptr<anim::Task> m_animTask;
-  void StartAnimation();
-  void ResetAnimation();
-  double GetCurrentPinScale();
-
-  graphics::DisplayList * m_searchPinDL;
-  graphics::DisplayList * GetSearchPinDL();
-
   Framework & m_f;
-  bool m_updateForLocation;
 
-  void OnPositionClicked(m2::PointD const & pt);
-  void OnActivateMyPosition();
-  void OnActivatePOI(const m2::PointD & globalPoint, search::AddressInfo const & info);
-  void OnActivateAPI(url_scheme::ResultPoint const & apiPoint);
-  void OnActivateBookmark(BookmarkAndCategory const & bmAndCat);
-  void OnAdditonalLayer(size_t index);
+  void OnActivateUserMark(UserMark const * mark);
   void OnDismiss();
 
   void SetBalloonVisible(bool isVisible);
 
 public:
   PinClickManager(Framework & f);
-  ~PinClickManager();
 
-  void Shutdown();
-
-  void RenderPolicyCreated(graphics::EDensity density);
-  void LocationChanged(location::GpsInfo const & info);
+  void RenderPolicyCreated(graphics::EDensity density) {}
+  void LocationChanged(location::GpsInfo const & info) {}
 
   void OnClick(m2::PointD const & pxPoint, bool isLongTouch);
   void OnBookmarkClick(BookmarkAndCategory const & bnc);
 
   void Hide();
 
-  void DrawPin(shared_ptr<PaintEvent> const & e);
   void RemovePin();
   void Dismiss();
-
-
-private:
-  bool m_hasPin;
-  m2::PointD m_pinGlobalLocation;
 
 private:
   /// @name Platform dependent listeners to show special activities.
   //@{
-  function<void (m2::PointD const &, search::AddressInfo const &)> m_poiListener;
-  function<void (BookmarkAndCategory const &)>                     m_bookmarkListener;
-  function<void (url_scheme::ApiPoint const &)>                    m_apiListener;
-  function<void (double, double)>                                  m_positionListener;
-  function<void (size_t)>                                          m_additionalLayerListener;
-  function<void (void)>                                            m_dismissListener;
+  function<void (UserMark const *)>      m_userMarkListener;
+  function<void (void)>            m_dismissListener;
 
 public:
-  template <class T> void ConnectPoiListener(T const & t)        { m_poiListener = t; }
-  template <class T> void ConnectBookmarkListener(T const & t)   { m_bookmarkListener = t; }
-  template <class T> void ConnectApiListener(T const & t)        { m_apiListener = t; }
-  template <class T> void ConnectPositionListener(T const & t)   { m_positionListener = t; }
-  template <class T> void ConnectAdditionalListener(T const & t) { m_additionalLayerListener = t; }
+  template <class T> void ConnectUserMarkListener(T const & t)   { m_userMarkListener = t; }
   template <class T> void ConnectDismissListener(T const & t)    { m_dismissListener = t; }
 
   void ClearListeners();
