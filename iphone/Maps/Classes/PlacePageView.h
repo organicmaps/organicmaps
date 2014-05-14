@@ -23,10 +23,7 @@ typedef NS_ENUM(NSUInteger, PlacePageState) {
 
 @interface PlacePageView : UIView
 
-- (void)showPoint:(m2::PointD const &)point addressInfo:(search::AddressInfo const &)addressInfo;
-- (void)showBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory;
-- (void)showBookmark:(Bookmark const &)bookmark;
-- (void)showApiPoint:(url_scheme::ApiPoint const &)point;
+- (void)showUserMark:(UserMark const *)mark;
 
 - (void)setState:(PlacePageState)state animated:(BOOL)animated;
 @property (nonatomic, readonly) PlacePageState state;

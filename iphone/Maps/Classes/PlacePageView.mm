@@ -31,12 +31,6 @@
 @property (nonatomic) CGFloat maximumPageShift;
 @property (nonatomic) CGFloat startPageShift;
 
-@property (nonatomic) BOOL empty;
-@property (nonatomic) BOOL isBookmark;
-@property (nonatomic) BOOL loadedAsBookmark;
-@property (nonatomic) BOOL isApiPoint;
-@property (nonatomic) m2::PointD pinPoint;
-
 @end
 
 @implementation PlacePageView
@@ -45,9 +39,61 @@
   CGFloat addressMidY;
   CGFloat shareMidY;
 
-  search::AddressInfo m_addressInfo;
-  BookmarkAndCategory m_bookmarkAndCategory;
-  Bookmark m_bookmark;
+  UserMark const * m_mark;
+}
+
+-(BOOL)isMarkOfType:(UserCustomData::Type)type
+{
+  ASSERT(m_mark != NULL, ());
+  ASSERT(m_mark->GetContainer() != NULL, ());
+  return m_mark->GetCustomData().GetType() == type;
+}
+
+-(BOOL)isBookmark
+{
+  return [self isMarkOfType:UserCustomData::BOOKMARK];
+}
+
+-(BOOL)isApiPoint
+{
+  return [self isMarkOfType:UserCustomData::API];
+}
+
+-(BOOL)isEmpty
+{
+  return m_mark == NULL;
+}
+
+-(BookmarkAndCategory)initBookmarkandCategory
+{
+  Framework & fm = GetFramework();
+  BookmarkAndCategory bmAndCat = MakeEmptyBookmarkAndCategory();
+  if ([self isBookmark] == YES)
+  {
+    for (size_t i = 0; i < fm.GetBmCategoriesCount(); ++i)
+    {
+      if (m_mark->GetContainer() == fm.GetBmCategory(i))
+      {
+        bmAndCat.first = i;
+        break;
+      }
+    }
+    
+    ASSERT(bmAndCat.first != MakeEmptyBookmarkAndCategory().first, ());
+    
+    BookmarkCategory const * bmCat = fm.GetBmCategory(bmAndCat.first);
+    for (size_t i = 0; i < bmCat->GetBookmarksCount(); ++i)
+    {
+      if (bmCat->GetBookmark(i) == m_mark)
+      {
+        bmAndCat.second = i;
+        break;
+      }
+    }
+  }
+  
+  ASSERT(IsValid(bmAndCat), ());
+  return bmAndCat;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -56,7 +102,7 @@
 
   self.backgroundColor = [UIColor applicationBackgroundColor];
   self.clipsToBounds = YES;
-  self.empty = YES;
+  m_mark = NULL;
 
   UIView * tapView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 56)];
   tapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -126,12 +172,12 @@
 
 - (void)metricsChangedNotification:(NSNotification *)notification
 {
-  self.locationView.pinPoint = self.pinPoint;
+  self.locationView.pinPoint = m_mark->GetOrg();
 }
 
 - (void)bookmarkCategoryDeletedNotification:(NSNotification *)notification
 {
-  if (m_bookmarkAndCategory.first == [[notification object] integerValue])
+  if ([self initBookmarkandCategory].first == [[notification object] integerValue])
   {
     [self deleteBookmark];
     [self updateBookmarkStateAnimated:NO];
@@ -142,7 +188,7 @@
 {
   BookmarkAndCategory bookmarkAndCategory;
   [[notification object] getValue:&bookmarkAndCategory];
-  if (bookmarkAndCategory == m_bookmarkAndCategory)
+  if (bookmarkAndCategory == [self initBookmarkandCategory])
   {
     [self deleteBookmark];
     [self updateBookmarkStateAnimated:NO];
@@ -302,7 +348,7 @@
 
 - (void)updateHeight
 {
-  if (self.empty)
+  if ([self isEmpty] == YES)
   {
     self.height = 0;
     return;
@@ -351,7 +397,7 @@
     locationMidY = self.locationView.midY;
   }
 
-  if (self.isApiPoint)
+  if ([self isApiPoint] == YES)
   {
     self.guideButton.hidden = NO;
     self.guideButton.midX = self.width / 2;
@@ -384,15 +430,21 @@
 
 - (void)editButtonPressed:(id)sender
 {
-  if (self.isBookmark)
-    [self.delegate placePageView:self willEditBookmarkAndCategory:m_bookmarkAndCategory];
+  if ([self isBookmark] == YES)
+    [self.delegate placePageView:self willEditBookmarkAndCategory:[self initBookmarkandCategory]];
   else
-    [self.delegate placePageView:self willEditBookmarkWithInfo:m_addressInfo point:self.pinPoint];
+  {
+    search::AddressInfo info;
+    GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), info);
+    [self.delegate placePageView:self willEditBookmarkWithInfo:info point:m_mark->GetOrg()];
+  }
 }
 
 - (void)shareButtonPressed:(id)sender
 {
-  [self.delegate placePageView:self willShareInfo:m_addressInfo point:self.pinPoint];
+  search::AddressInfo info;
+  GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), info);
+  [self.delegate placePageView:self willShareInfo:info point:m_mark->GetOrg()];
 }
 
 - (void)bookmarkButtonPressed:(UIButton *)sender
@@ -406,39 +458,88 @@
 
 - (void)guideButtonPressed:(id)sender
 {
-  NSString * urlString = [NSString stringWithUTF8String:GetFramework().GetMapApiBackUrl().c_str()];
+  NSString * urlString = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetGlobalBackUrl().c_str()];
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
-- (void)showPoint:(m2::PointD const &)point addressInfo:(search::AddressInfo const &)anAddressInfo
+namespace
 {
-  self.isApiPoint = NO;
-  [self processPoint:point addressInfo:anAddressInfo];
+  template <class T>
+  T const & CastData(UserCustomData const & data) { return static_cast<T const &>(data); }
 }
 
-- (void)showApiPoint:(url_scheme::ApiPoint const &)apiPoint
+- (void)showUserMark:(UserMark const *)mark
+{
+  m_mark = mark;
+  UserCustomData const & customData = m_mark->GetCustomData();
+  UserCustomData::Type type = customData.GetType();
+  switch (type)
+  {
+    case UserCustomData::BOOKMARK:
+      [self bookmarkActivated:CastData<BookmarkCustomData>(customData)];
+      break;
+    case UserCustomData::POI:
+      [self poiActivated:CastData<PoiCustomData>(customData)];
+      break;
+    case UserCustomData::API:
+      [self apiPointActivated:CastData<ApiCustomData>(customData)];
+      break;
+    case UserCustomData::SEARCH:
+      [self searchResultActivated:CastData<SearchCustomData>(customData)];
+      break;
+      
+    default:
+      break;
+  }
+}
+
+- (void)poiActivated:(PoiCustomData const &)data
+{
+  [self processName:data.GetName() type:data.GetTypeName() address:data.GetAddress()];
+}
+
+- (void)searchResultActivated:(SearchCustomData const &)data
+{
+  [[MapsAppDelegate theApp].m_locationManager start:self];
+  [self hideAll];
+  
+  string name = data.GetName();
+  self.titleLabel.text = name.empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:name.c_str()];
+  self.titleLabel.hidden = NO;
+  
+  if (!data.GetTypeName().empty())
+  {
+    self.typeLabel.text = [NSString stringWithUTF8String:data.GetTypeName().c_str()];
+    self.typeLabel.hidden = NO;
+  }
+  
+  self.addressLabel.text = [NSString stringWithUTF8String:data.GetAddress().c_str()];
+  self.addressLabel.hidden = ![self.addressLabel.text length];
+  
+  self.locationView.hidden = NO;
+  self.locationView.pinPoint = m_mark->GetOrg();
+  
+  [self updateHeight];
+  [self updateBookmarkStateAnimated:NO];
+}
+
+- (void)apiPointActivated:(ApiCustomData const &)data
 {
   Framework & framework = GetFramework();
-  m2::PointD point;
-  point.x = MercatorBounds::LonToX(apiPoint.m_lon);
-  point.y = MercatorBounds::LatToY(apiPoint.m_lat);
-  search::AddressInfo addressInfo;
-  framework.GetAddressInfoForGlobalPoint(point, addressInfo);
-
-  self.isApiPoint = YES;
-  NSString * appTitle = [NSString stringWithUTF8String:framework.GetMapApiAppTitle().c_str()];
+  
+  NSString * appTitle = [NSString stringWithUTF8String:framework.GetApiDataHolder().GetAppTitle().c_str()];
   if ([appTitle isEqualToString:@"GuideWithMe"])
   {
-    NSString * urlString = [NSString stringWithUTF8String:framework.GetMapApiBackUrl().c_str()];
+    NSString * urlString = [NSString stringWithUTF8String:framework.GetApiDataHolder().GetGlobalBackUrl().c_str()];
     NSString * lastComponent = [urlString componentsSeparatedByString:@"-"][1];
     NSString * imageName = [[lastComponent substringWithRange:NSMakeRange(0, [lastComponent length] - 3)] lowercaseString];
-
+    
     self.guideLeftLabel.text = NSLocalizedString(@"more_info", nil);
     [self.guideLeftLabel sizeToFit];
     self.guideRightLabel.text = appTitle;
     [self.guideRightLabel sizeToFit];
     self.guideImageView.image = [self iconImageWithImage:[UIImage imageNamed:imageName]];
-
+    
     CGFloat const betweenSpace = 4;
     CGFloat const width = self.guideLeftLabel.width + self.guideImageView.width + self.guideRightLabel.width + 2 * betweenSpace;
     UIView * contentView = self.guideImageView.superview;
@@ -446,11 +547,11 @@
     self.guideLeftLabel.minX = startX;
     self.guideImageView.minX = self.guideLeftLabel.maxX + betweenSpace;
     self.guideRightLabel.minX = self.guideImageView.maxX + betweenSpace;
-
+    
     self.guideLeftLabel.midY = contentView.height / 2;
     self.guideImageView.midY = contentView.height / 2;
     self.guideRightLabel.midY = contentView.height / 2;
-
+    
     [self.guideButton setTitle:nil forState:UIControlStateNormal];
   }
   else
@@ -460,117 +561,63 @@
     self.guideImageView.image = nil;
     [self.guideButton setTitle:appTitle forState:UIControlStateNormal];
   }
-
-  self.titleLabel.text = [NSString stringWithUTF8String:apiPoint.m_name.c_str()];
-
-  [self processPoint:point addressInfo:addressInfo];
+  
+  self.titleLabel.text = [NSString stringWithUTF8String:data.GetName().c_str()];
+  
+  search::AddressInfo info;
+  framework.GetAddressInfoForGlobalPoint(m_mark->GetOrg(), info);
+  [self processName:info.GetPinName() type:info.GetPinType() address:info.FormatAddress()];
 }
 
-- (void)processPoint:(m2::PointD const &)point addressInfo:(search::AddressInfo const &)addressInfo
+- (void)bookmarkActivated:(BookmarkCustomData const &)data
 {
+  Framework & framework = GetFramework();
   [[MapsAppDelegate theApp].m_locationManager start:self];
-
-  self.loadedAsBookmark = NO;
-  self.pinPoint = point;
-  m_addressInfo = addressInfo;
-
-  self.empty = NO;
   [self hideAll];
-
-  if (!self.isApiPoint)
-    self.titleLabel.text = addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
+  
+  string name = data.GetName();
+  self.titleLabel.text = name.empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:name.c_str()];
   self.titleLabel.hidden = NO;
-
-  if (!addressInfo.GetPinType().empty())
+  
+  if (!data.GetTypeName().empty())
   {
-    self.typeLabel.text = [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
+    self.typeLabel.text = [NSString stringWithUTF8String:data.GetTypeName().c_str()];
     self.typeLabel.hidden = NO;
   }
-
+  
+  search::AddressInfo addressInfo;
+  framework.GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
   self.addressLabel.text = [NSString stringWithUTF8String:addressInfo.FormatAddress().c_str()];
   self.addressLabel.hidden = ![self.addressLabel.text length];
-
+  
   self.locationView.hidden = NO;
-  self.locationView.pinPoint = self.pinPoint;
-
-  self.isBookmark = NO;
+  self.locationView.pinPoint = m_mark->GetOrg();
+  
   [self updateHeight];
   [self updateBookmarkStateAnimated:NO];
 }
 
-- (void)showBookmark:(Bookmark const &)bookmark
+- (void)processName:(string const &)name type:(string const &)type address:(string const &)address
 {
-  Framework & framework = GetFramework();
   [[MapsAppDelegate theApp].m_locationManager start:self];
-
-  self.loadedAsBookmark = NO;
-  self.isApiPoint = NO;
-
-  self.pinPoint = bookmark.GetOrg();
-
-  search::AddressInfo addressInfo;
-  framework.GetAddressInfoForGlobalPoint(self.pinPoint, addressInfo);
-  addressInfo.m_name = bookmark.GetName();
-  m_addressInfo = addressInfo;
-
-  self.empty = NO;
   [self hideAll];
 
-  self.titleLabel.text = addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
+  if ([self isApiPoint] == NO)
+    self.titleLabel.text = name.empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:name.c_str()];
   self.titleLabel.hidden = NO;
 
-  if (!addressInfo.GetPinType().empty())
+  if (!type.empty())
   {
-    self.typeLabel.text = [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
+    self.typeLabel.text = [NSString stringWithUTF8String:type.c_str()];
     self.typeLabel.hidden = NO;
   }
 
-  self.addressLabel.text = [NSString stringWithUTF8String:addressInfo.FormatAddress().c_str()];
+  self.addressLabel.text = [NSString stringWithUTF8String:address.c_str()];
   self.addressLabel.hidden = ![self.addressLabel.text length];
 
   self.locationView.hidden = NO;
-  self.locationView.pinPoint = self.pinPoint;
+  self.locationView.pinPoint = m_mark->GetOrg();
 
-  self.isBookmark = NO;
-  [self updateHeight];
-  [self updateBookmarkStateAnimated:NO];
-}
-
-- (void)showBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
-{
-  Framework & framework = GetFramework();
-  [[MapsAppDelegate theApp].m_locationManager start:self];
-
-  m_bookmarkAndCategory = bookmarkAndCategory;
-  self.loadedAsBookmark = YES;
-  self.isApiPoint = NO;
-
-  BookmarkCategory const * category = framework.GetBmCategory(bookmarkAndCategory.first);
-  m_bookmark = *(category->GetBookmark(bookmarkAndCategory.second));
-  self.pinPoint = m_bookmark.GetOrg();
-
-  self.empty = NO;
-  [self hideAll];
-
-  self.titleLabel.text = m_bookmark.GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:m_bookmark.GetName().c_str()];
-  self.titleLabel.hidden = NO;
-
-  if (!m_bookmark.GetType().empty())
-  {
-    self.typeLabel.text = [NSString stringWithUTF8String:m_bookmark.GetType().c_str()];
-    self.typeLabel.hidden = NO;
-  }
-
-  search::AddressInfo addressInfo;
-  framework.GetAddressInfoForGlobalPoint(self.pinPoint, addressInfo);
-  self.addressLabel.text = [NSString stringWithUTF8String:addressInfo.FormatAddress().c_str()];
-  self.addressLabel.hidden = ![self.addressLabel.text length];
-  m_addressInfo = addressInfo;
-
-  self.locationView.hidden = NO;
-  self.locationView.pinPoint = self.pinPoint;
-
-  self.isBookmark = YES;
   [self updateHeight];
   [self updateBookmarkStateAnimated:NO];
 }
@@ -589,44 +636,64 @@
 
 - (void)deleteBookmark
 {
-  BookmarkCategory * category = GetFramework().GetBmCategory(m_bookmarkAndCategory.first);
-  if (category)
-    category->DeleteBookmark(m_bookmarkAndCategory.second);
-
-  self.isBookmark = NO;
+  ASSERT(m_mark->GetCustomData().GetType() == UserCustomData::BOOKMARK, ());
+  ASSERT(m_mark->GetContainer() != NULL, ());
+  ASSERT(m_mark->GetContainer()->GetType() == UserMarkContainer::BOOKMARK_MARK, ());
+  Framework & fm = GetFramework();
+  
+  BookmarkCategory const * category = static_cast<BookmarkCategory const *>(m_mark->GetContainer());
+  int categoryIndex = -1;
+  for (int i = 0; i < fm.GetBmCategoriesCount(); ++i)
+  {
+    if (category == fm.GetBmCategory(i))
+    {
+      categoryIndex = i;
+      break;
+    }
+  }
+  
+  ASSERT(categoryIndex != -1, ());
+  
+  for (int i = 0; i < category->GetBookmarksCount(); ++i)
+  {
+    Bookmark const * bm = category->GetBookmark(i);
+    if (bm == m_mark)
+    {
+      m2::PointD orgPt = m_mark->GetOrg();
+      fm.GetBmCategory(categoryIndex)->DeleteBookmark(i);
+      m_mark = fm.ActivateAddressMark(orgPt);
+      ASSERT(m_mark != NULL, ());
+      break;
+    }
+  }
+  
+  fm.Invalidate();
 }
 
 - (void)addBookmark
 {
   Framework & framework = GetFramework();
-  if (self.loadedAsBookmark)
-  {
-    size_t categoryIndex = m_bookmarkAndCategory.first;
-    BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
-    if (!category)
-      categoryIndex = framework.LastEditedBMCategory();
-
-    Bookmark bookmark(m_bookmark.GetOrg(), m_bookmark.GetName(), m_bookmark.GetType());
-    bookmark.SetDescription(m_bookmark.GetDescription());
-    bookmark.SetTimeStamp(m_bookmark.GetTimeStamp());
-    bookmark.SetScale(m_bookmark.GetScale());
-    framework.AddBookmark(categoryIndex, bookmark);
-  }
-  else
-  {
-    size_t categoryIndex = framework.LastEditedBMCategory();
-    std::string const & name = m_addressInfo.GetPinName().empty() ? [NSLocalizedString(@"dropped_pin", nil) UTF8String] : m_addressInfo.GetPinName().c_str();
-    Bookmark bookmark(self.pinPoint, name, "placemark-red");
-    m_bookmarkAndCategory = BookmarkAndCategory(categoryIndex, framework.AddBookmark(categoryIndex, bookmark));
-  }
-  self.isBookmark = YES;
+  
+  search::AddressInfo info;
+  framework.GetAddressInfoForGlobalPoint(m_mark->GetOrg(), info);
+  
+  size_t categoryIndex = framework.LastEditedBMCategory();
+  string boomarkType = framework.LastEditedBMType();
+  
+  string pinName = info.GetPinName();
+  string name = pinName.empty() ? [NSLocalizedString(@"dropped_pin", nil) UTF8String] : pinName.c_str();
+  BookmarkCustomData bm(name, boomarkType);
+  size_t bmIndex = framework.AddBookmark(categoryIndex, m_mark->GetOrg(), bm);
+  m_mark = framework.GetBmCategory(categoryIndex)->GetBookmark(bmIndex);
+  framework.Invalidate();
 }
 
 - (void)updateBookmarkStateAnimated:(BOOL)animated
 {
-  self.bookmarkButton.selected = self.isBookmark;
+  bool isBookmark = m_mark->GetCustomData().GetType() == UserCustomData::BOOKMARK;
+  self.bookmarkButton.selected = isBookmark;
   [UIView animateWithDuration:0.25 animations:^{
-    self.largeShareButton.alpha = self.isBookmark ? 0 : 1;
+    self.largeShareButton.alpha = isBookmark ? 0 : 1;
   }];
 }
 
@@ -819,6 +886,11 @@
     _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
   }
   return _scrollView;
+}
+
+- (m2::PointD)pinPoint
+{
+  return m_mark->GetOrg();
 }
 
 - (void)dealloc

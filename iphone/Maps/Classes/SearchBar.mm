@@ -223,7 +223,8 @@
 - (void)clearButtonPressed:(id)sender
 {
   Framework & framework = GetFramework();
-  GetFramework().ClearMapApiPoints();
+  BookmarkManager & manager = framework.GetBookmarkManager();
+  manager.UserMarksClear(UserMarkContainer::API_MARK);
   if (self.active)
   {
     self.textField.text = nil;
@@ -236,7 +237,7 @@
   }
   [self.delegate searchBarDidPressClearButton:self];
 
-  framework.GetBookmarkManager().AdditionalPoiLayerClear();
+  manager.UserMarksClear(UserMarkContainer::SEARCH_MARK);
   framework.GetBalloonManager().RemovePin();
   framework.GetBalloonManager().Dismiss();
   framework.Invalidate();
@@ -265,7 +266,7 @@
   else if (_apiText)
   {
     [self hideSearchedText];
-    GetFramework().ClearMapApiPoints();
+    GetFramework().GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
   }
   _apiText = apiText;
 }

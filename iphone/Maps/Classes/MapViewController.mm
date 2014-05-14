@@ -31,6 +31,7 @@
 #include "../../../platform/platform.hpp"
 #include "../Statistics/Statistics.h"
 #include "../../../map/dialog_settings.hpp"
+#include "../../../map/user_mark.hpp"
 #include "../../../platform/settings.hpp"
 
 #define FACEBOOK_ALERT_VIEW 1
@@ -143,45 +144,14 @@ const long long LITE_IDL = 431183278L;
 
 #pragma mark - Map Navigation
 
-- (void)poiBalloonClicked:(m2::PointD const &)point info:(search::AddressInfo const &)addressInfo
-{
-  [self showPlacePageWithPoint:point addressInfo:addressInfo];
-}
-
-- (void)poiBalloonDismissed
+- (void)dismissPlacePage
 {
   [self.placePageView setState:PlacePageStateHidden animated:YES];
 }
 
-- (void)additionalLayer:(size_t)index
+- (void)onUserMarkActivated:(UserMark const *)mark
 {
-  Framework & framework = GetFramework();
-  Bookmark * bookmark = framework.AdditionalPoiLayerGetBookmark(index);
-
-  [self.placePageView showBookmark:*bookmark];
-  [self.placePageView setState:PlacePageStateBitShown animated:YES];
-}
-
-- (void)apiBalloonClicked:(url_scheme::ApiPoint const &)apiPoint
-{
-  [self.placePageView showApiPoint:apiPoint];
-  [self.placePageView setState:PlacePageStateBitShown animated:YES];
-}
-
-- (void)bookmarkBalloonClicked:(BookmarkAndCategory const &)bookmarkAndCategory
-{
-  [self showPlacePageWithBookmarkAndCategory:bookmarkAndCategory];
-}
-
-- (void)showPlacePageWithPoint:(m2::PointD)point addressInfo:(search::AddressInfo)addressInfo
-{
-  [self.placePageView showPoint:point addressInfo:addressInfo];
-  [self.placePageView setState:PlacePageStateBitShown animated:YES];
-}
-
-- (void)showPlacePageWithBookmarkAndCategory:(BookmarkAndCategory)bookmarkAndCategory
-{
-  [self.placePageView showBookmarkAndCategory:bookmarkAndCategory];
+  [self.placePageView showUserMark:mark];
   [self.placePageView setState:PlacePageStateBitShown animated:YES];
 }
 
@@ -652,38 +622,18 @@ const long long LITE_IDL = 431183278L;
 
     Framework & f = GetFramework();
 
-    typedef void (*POSITIONBalloonFnT)(id, SEL, double, double);
-    typedef void (*POIBalloonFnT)(id, SEL, m2::PointD const &, search::AddressInfo const &);
-    typedef void (*POIBalloonDismissedFnT)(id, SEL);
-    typedef void (*APIPOINTBalloonFnT)(id, SEL, url_scheme::ApiPoint const &);
-    typedef void (*BOOKMARKBalloonFnT)(id, SEL, BookmarkAndCategory const &);
-    typedef void (*ADDITIONALLayerFnT)(id, SEL, size_t index);
+    typedef void (*UserMarkActivatedFnT)(id, SEL, UserMark const *);
+    typedef void (*PlacePageDismissedFnT)(id, SEL);
 
     PinClickManager & manager = f.GetBalloonManager();
+    
+    SEL userMarkSelector = @selector(onUserMarkActivated:);
+    UserMarkActivatedFnT userMarkFn = (UserMarkActivatedFnT)[self methodForSelector:userMarkSelector];
+    manager.ConnectUserMarkListener(bind(userMarkFn, self, userMarkSelector, _1));
 
-    SEL positionSel = @selector(positionBallonClickedLat:lon:);
-    POSITIONBalloonFnT positionFn = (POSITIONBalloonFnT)[self methodForSelector:positionSel];
-    manager.ConnectPositionListener(bind(positionFn, self, positionSel,_1,_2));
-
-    SEL ballonPOIsel = @selector(poiBalloonClicked:info:);
-    POIBalloonFnT balloonFn = (POIBalloonFnT)[self methodForSelector:ballonPOIsel];
-    manager.ConnectPoiListener(bind(balloonFn, self, ballonPOIsel, _1, _2));
-
-    SEL apiPointSel = @selector(apiBalloonClicked:);
-    APIPOINTBalloonFnT apiFn = (APIPOINTBalloonFnT)[self methodForSelector:apiPointSel];
-    manager.ConnectApiListener(bind(apiFn, self, apiPointSel, _1));
-
-    SEL bookmarkSel = @selector(bookmarkBalloonClicked:);
-    BOOKMARKBalloonFnT bookmarkFn = (BOOKMARKBalloonFnT)[self methodForSelector:bookmarkSel];
-    manager.ConnectBookmarkListener(bind(bookmarkFn, self, bookmarkSel, _1));
-
-    SEL ballonPOIdismissedSel = @selector(poiBalloonDismissed);
-    POIBalloonDismissedFnT balloonDismissedFn = (POIBalloonDismissedFnT)[self methodForSelector:ballonPOIdismissedSel];
-    manager.ConnectDismissListener(bind(balloonDismissedFn, self, ballonPOIdismissedSel));
-
-    SEL additionalLayerSel = @selector(additionalLayer:);
-    ADDITIONALLayerFnT additionalLayerFn = (ADDITIONALLayerFnT)[self methodForSelector:additionalLayerSel];
-    manager.ConnectAdditionalListener(bind(additionalLayerFn, self, additionalLayerSel, _1));
+    SEL dismissSelector = @selector(dismissPlacePage);
+    PlacePageDismissedFnT dismissFn = (PlacePageDismissedFnT)[self methodForSelector:dismissSelector];
+    manager.ConnectDismissListener(bind(dismissFn, self, dismissSelector));
 
     typedef void (*CompassStatusFnT)(id, SEL, int);
     SEL compassStatusSelector = @selector(onCompassStatusChanged:);
@@ -846,7 +796,8 @@ const long long LITE_IDL = 431183278L;
 
 - (void)placePageVC:(PlacePageVC *)placePageVC didUpdateBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
 {
-  [self.placePageView showBookmarkAndCategory:bookmarkAndCategory];
+  Framework & fm = GetFramework();
+  [self.placePageView showUserMark:fm.GetBmCategory(bookmarkAndCategory.first)->GetBookmark(bookmarkAndCategory.second)];
 }
 
 #pragma mark - SideToolbarDelegate
@@ -1032,12 +983,12 @@ const long long LITE_IDL = 431183278L;
 - (void)prepareForApi
 {
   [self dismissPopover];
-  self.searchView.searchBar.apiText = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
+  self.searchView.searchBar.apiText = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()];
 }
 
 + (NSURL *)getBackUrl
 {
-  return [NSURL URLWithString:[NSString stringWithUTF8String:GetFramework().GetMapApiBackUrl().c_str()]];
+  return [NSURL URLWithString:[NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetGlobalBackUrl().c_str()]];
 }
 
 - (void)setupMeasurementSystem

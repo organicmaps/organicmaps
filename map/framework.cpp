@@ -1512,6 +1512,16 @@ UserMark const * Framework::ActivateUserMark(m2::PointD const & pxPoint, bool is
   return mark;
 }
 
+UserMark const * Framework::ActivateAddressMark(m2::PointD const & globalPoint)
+{
+  search::AddressInfo info;
+  GetAddressInfoForGlobalPoint(globalPoint, info);
+  UserMark * mark = UserMarkContainer::UserMarkForPoi(globalPoint);
+  mark->InjectCustomData(new PoiCustomData(info.GetPinName(), info.GetPinType(), info.FormatAddress()));
+  m_bmManager.ActivateMark(mark);
+  return mark;
+}
+
 StringsBundle const & Framework::GetStringsBundle()
 {
   return m_stringsBundle;

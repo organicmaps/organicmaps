@@ -425,7 +425,8 @@ public:
   bool IsCountryLoaded(m2::PointD const & pt) const;
 
   shared_ptr<location::State> const & GetLocationState() const;
-  const UserMark * ActivateUserMark(m2::PointD const & pxPoint, bool isLongPress);
+  UserMark const * ActivateUserMark(m2::PointD const & pxPoint, bool isLongPress);
+  UserMark const * ActivateAddressMark(m2::PointD const & globalPoint);
 
 public:
   string CodeGe0url(Bookmark const * bmk, bool addName);

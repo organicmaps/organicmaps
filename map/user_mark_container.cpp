@@ -319,6 +319,10 @@ template <class T> void DeleteItem(vector<T> & v, size_t i)
 
 void UserMarkContainer::DeleteUserMark(size_t index)
 {
+  ASSERT_LESS(index, m_userMarks.size(), ());
+  if (m_activeMark == m_userMarks[index])
+    m_activeMark = NULL;
+
   DeleteItem(m_userMarks, index);
 }
 

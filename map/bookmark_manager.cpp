@@ -195,7 +195,7 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, const m2::PointD & ptO
   pCat->SaveToKMLFile();
 
   m_lastCategoryUrl = pCat->GetFileName();
-  m_lastType = bm.GetType();
+  m_lastType = bm.GetTypeName();
   SaveState();
 
   return (pCat->GetBookmarksCount() - 1);
@@ -207,7 +207,7 @@ void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkC
   pCat->ReplaceBookmark(bmIndex, bm);
   pCat->SaveToKMLFile();
 
-  m_lastType = bm.GetType();
+  m_lastType = bm.GetTypeName();
   SaveState();
 }
 

@@ -76,7 +76,8 @@ void PinClickManager::Hide()
 void PinClickManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
 {
   UserMark const * mark = m_f.ActivateUserMark(pxPoint, isLongTouch);
-  OnActivateUserMark(mark);
+  if (mark != NULL)
+    OnActivateUserMark(mark);
   SetBalloonVisible(mark != NULL);
 }
 
