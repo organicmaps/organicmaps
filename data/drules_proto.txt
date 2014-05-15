@@ -1495,6 +1495,45 @@ cont {
   }
 }
 cont {
+  name: "amenity-brothel"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
   name: "amenity-bureau_de_change"
   element {
     scale: 16
@@ -1791,6 +1830,45 @@ cont {
       name: "car_sharing"
       priority: 16002
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "amenity-casino"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
     caption {
       primary {
         height: 11

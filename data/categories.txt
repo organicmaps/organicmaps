@@ -1901,3 +1901,11 @@ zh:海洋
 pl:ocean
 pt:oceano
 hu:óceán
+
+amenity-brothel
+en:brothel
+ru:бордель
+
+amenity-casino
+en:casino|entertainment
+ru:казино|развлечения

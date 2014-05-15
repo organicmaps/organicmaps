@@ -956,3 +956,6 @@ shop|furniture;[shop=furniture];;name;int_name;955;
 natural|grassland;[natural=grassland];;name;int_name;956;
 natural|waterfall;[natural=waterfall];;name;int_name;957;
 waterway|waterfall;[waterway=waterfall];;name;int_name;958;
+railway|proposed;[railway=proposed];name;int_name;959;
+amenity|casino;[amenity=casino];;name;int_name;960;
+amenity|brothel;[amenity=brothel];;name;int_name;961;

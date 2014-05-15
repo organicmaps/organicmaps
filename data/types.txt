@@ -957,3 +957,5 @@ natural|grassland
 natural|waterfall
 waterway|waterfall
 railway|proposed
+amenity|casino
+amenity|brothel

@@ -22,11 +22,13 @@ world  +
         bar  -
         bench  -
         bicycle_rental  -
+        brothel  -
         bureau_de_change  -
         bus_station  -
         cafe  -
         car_rental  -
         car_sharing  -
+        casino  -
         cinema  -
         college  -
         doctors  -
