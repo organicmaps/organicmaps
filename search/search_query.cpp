@@ -270,6 +270,8 @@ void Query::ClearQueues()
 
 void Query::SetQuery(string const & query)
 {
+  m_query = &query;
+
 #ifdef HOUSE_SEARCH_TEST
   m_house.clear();
   m_streetID.clear();
@@ -301,7 +303,6 @@ void Query::SetQuery(string const & query)
     m_house.swap(m_prefix);
     m_prefix.clear();
   }
-
 #endif
 
   if (!m_tokens.empty() && !delims(strings::LastUniChar(query)))
@@ -316,6 +317,17 @@ void Query::SetQuery(string const & query)
 
   // assign tokens and prefix to scorer
   m_keywordsScorer.SetKeywords(m_tokens.data(), m_tokens.size(), m_prefix);
+
+  // get preffered types to show in results
+  m_prefferedTypes.clear();
+  if (m_pCategories)
+  {
+    for (size_t i = 0; i < m_tokens.size(); ++i)
+      m_pCategories->ForEachTypeByName(m_tokens[i], MakeInsertFunctor(m_prefferedTypes));
+
+    if (!m_prefix.empty())
+      m_pCategories->ForEachTypeByName(m_prefix, MakeInsertFunctor(m_prefferedTypes));
+  }
 }
 
 void Query::SearchCoordinates(string const & query, Results & res) const
@@ -635,16 +647,7 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
 
   SortByIndexedValue(indV, CompFactory2());
 
-  // get preffered types to show in results
-  set<uint32_t> prefferedTypes;
-  if (m_pCategories)
-  {
-    for (size_t i = 0; i < m_tokens.size(); ++i)
-      m_pCategories->ForEachTypeByName(m_tokens[i], MakeInsertFunctor(prefferedTypes));
-
-    if (!m_prefix.empty())
-      m_pCategories->ForEachTypeByName(m_prefix, MakeInsertFunctor(prefferedTypes));
-  }
+  ProcessSuggestions(indV, res);
 
   // emit feature results
   size_t count = res.GetCount();
@@ -654,7 +657,94 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
 
     LOG(LDEBUG, (indV[i]));
 
-    (res.*addFn)(MakeResult(*(indV[i]), &prefferedTypes));
+    (res.*addFn)(MakeResult(*(indV[i])));
+  }
+}
+
+ftypes::Type Query::GetLocalityIndex(feature::TypesHolder const & types) const
+{
+  static ftypes::IsLocalityChecker checker;
+  return checker.GetLocalityType(types);
+}
+
+void Query::GetSuggestion(string const & name, string & suggest) const
+{
+  // Split result's name on tokens.
+  search::Delimiters delims;
+  vector<strings::UniString> vName;
+  SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(vName), delims);
+
+  // Find tokens that already present in input query.
+  vector<bool> tokensMatched(vName.size());
+  bool prefixMatched = false;
+  for (size_t i = 0; i < vName.size(); ++i)
+  {
+    if (find(m_tokens.begin(), m_tokens.end(), vName[i]) != m_tokens.end())
+      tokensMatched[i] = true;
+    else
+      if (vName[i].size() > m_prefix.size() &&
+          StartsWith(vName[i].begin(), vName[i].end(), m_prefix.begin(), m_prefix.end()))
+      {
+        prefixMatched = true;
+      }
+  }
+
+  // Name doesn't match prefix - do nothing.
+  if (!prefixMatched)
+    return;
+
+  // Find start iterator of prefix in input query.
+  typedef utf8::unchecked::iterator<string::const_iterator> IterT;
+  IterT iter(m_query->end());
+  while (iter.base() != m_query->begin())
+  {
+    IterT prev = iter;
+    --prev;
+
+    if (delims(*prev))
+      break;
+    else
+      iter = prev;
+  }
+
+  // Assign suggest with input query without prefix.
+  suggest.assign(m_query->begin(), iter.base());
+
+  // Append unmatched result's tokens to the suggestion.
+  for (size_t i = 0; i < vName.size(); ++i)
+    if (!tokensMatched[i])
+    {
+      suggest += strings::ToUtf8(vName[i]);
+      suggest += " ";
+    }
+}
+
+template <class T> void Query::ProcessSuggestions(vector<T> & vec, Results & res) const
+{
+  if (m_prefix.empty())
+    return;
+
+  int added = 0;
+  for (typename vector<T>::iterator i = vec.begin(); i != vec.end();)
+  {
+    impl::PreResult2 const & r = **i;
+
+    ftypes::Type const type = GetLocalityIndex(r.GetTypes());
+    if ((type == ftypes::COUNTRY || type == ftypes::CITY)  || r.IsStreet())
+    {
+      string suggest;
+      GetSuggestion(r.GetName(), suggest);
+      if (!suggest.empty() && added < MAX_SUGGESTS_COUNT)
+      {
+        if (res.AddResultCheckExistingEx(Result(r.GetName(), suggest)))
+        {
+          ++added;
+          i = vec.erase(i);
+          continue;
+        }
+      }
+    }
+    ++i;
   }
 }
 
@@ -705,9 +795,9 @@ void Query::GetBestMatchName(FeatureType const & f, string & name) const
   (void)f.ForEachNameRef(bestNameFinder);
 }
 
-Result Query::MakeResult(impl::PreResult2 const & r, set<uint32_t> const * pPrefferedTypes/* = 0*/) const
+Result Query::MakeResult(impl::PreResult2 const & r) const
 {
-  return r.GenerateFinalResult(m_pInfoGetter, m_pCategories, pPrefferedTypes, GetLanguage(LANG_CURRENT));
+  return r.GenerateFinalResult(m_pInfoGetter, m_pCategories, &m_prefferedTypes, GetLanguage(LANG_CURRENT));
 }
 
 namespace impl
@@ -1097,17 +1187,17 @@ namespace impl
     Query::TrieValueT m_value;
     vector<size_t> m_matchedTokens; ///< indexes of matched tokens for locality
 
-    /// Type of locality (do not change values - they have detalization order)
-    /// COUNTRY < STATE < CITY
-    enum Type { NONE = -1, COUNTRY = 0, STATE, CITY };
-    Type m_type;
+    ftypes::Type m_type;
 
-    Locality() : m_type(NONE) {}
-    Locality(Query::TrieValueT const & val, Type type) : m_value(val), m_type(type) {}
+    Locality() : m_type(ftypes::NONE) {}
+    Locality(Query::TrieValueT const & val, ftypes::Type type)
+      : m_value(val), m_type(type)
+    {
+    }
 
     bool IsValid() const
     {
-      if (m_type != NONE)
+      if (m_type != ftypes::NONE)
       {
         ASSERT ( !m_matchedTokens.empty(), () );
         return true;
@@ -1183,6 +1273,8 @@ namespace impl
       bool const isMatched = IsFullNameMatched();
 
       // Do filtering of possible localities.
+      using namespace ftypes;
+
       switch (m_type)
       {
       case STATE:   // we process USA, Canada states only for now
@@ -1336,51 +1428,6 @@ namespace impl
     FeaturesVector m_vector;
     size_t m_index;         ///< index of processing token
 
-    /// Check for "locality" types.
-    class TypeChecker
-    {
-      vector<uint32_t> m_vec;
-
-    public:
-      TypeChecker()
-      {
-        Classificator const & c = classif();
-
-        char const * arr[][2] = {
-          { "place", "country" },
-          { "place", "state" },
-          { "place", "city" },
-          { "place", "town" }
-        };
-
-        for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-          m_vec.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
-      }
-
-      /// @return Feature type and locality type @see Locality::m_index.
-      Locality::Type GetLocalityIndex(FeatureType const & f)
-      {
-        feature::TypesHolder types(f);
-        for (size_t i = 0; i < types.Size(); ++i)
-        {
-          uint32_t t = types[i];
-          ftype::TruncValue(t, 2);
-
-          if (t == m_vec[0])
-            return Locality::COUNTRY;
-
-          if (t == m_vec[1])
-            return Locality::STATE;
-
-          for (int j = 2; j < m_vec.size(); ++j)
-            if (t == m_vec[j])
-              return Locality::CITY;
-        }
-
-        return Locality::NONE;
-      }
-    };
-
     Locality * PushLocality(Locality const & l)
     {
       ASSERT ( 0 <= l.m_type && l.m_type <= ARRAY_SIZE(m_localities), (l.m_type) );
@@ -1508,9 +1555,8 @@ namespace impl
       m_vector.Get(v.m_featureId, f);
 
       // check, if feature is locality
-      static TypeChecker checker;
-      Locality::Type const index = checker.GetLocalityIndex(f);
-      if (index != Locality::NONE)
+      ftypes::Type const index = m_query.GetLocalityIndex(feature::TypesHolder(f));
+      if (index != ftypes::NONE)
       {
         Locality * loc = PushLocality(Locality(v, index));
         if (loc)
@@ -1527,17 +1573,17 @@ namespace impl
 
     void SortLocalities()
     {
-      for (int i = Locality::COUNTRY; i <= Locality::CITY; ++i)
+      for (int i = ftypes::COUNTRY; i <= ftypes::CITY; ++i)
         sort(m_localities[i].begin(), m_localities[i].end());
     }
 
     void GetRegions(vector<Region> & regions) const
     {
-      //LOG(LDEBUG, ("Countries before processing = ", m_localities[Locality::COUNTRY]));
-      //LOG(LDEBUG, ("States before processing = ", m_localities[Locality::STATE]));
+      //LOG(LDEBUG, ("Countries before processing = ", m_localities[ftypes::COUNTRY]));
+      //LOG(LDEBUG, ("States before processing = ", m_localities[ftypes::STATE]));
 
-      AddRegions(Locality::STATE, regions);
-      AddRegions(Locality::COUNTRY, regions);
+      AddRegions(ftypes::STATE, regions);
+      AddRegions(ftypes::COUNTRY, regions);
 
       //LOG(LDEBUG, ("Regions after processing = ", regions));
     }
@@ -1545,7 +1591,7 @@ namespace impl
     void GetBestCity(Locality & res, vector<Region> const & regions)
     {
       size_t const regsCount = regions.size();
-      vector<Locality> & arr = m_localities[Locality::CITY];
+      vector<Locality> & arr = m_localities[ftypes::CITY];
 
       // Interate in reverse order from better to generic locality.
       for (vector<Locality>::reverse_iterator i = arr.rbegin(); i != arr.rend(); ++i)
@@ -1842,7 +1888,8 @@ bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t lan
         (it->m_lang == lang) &&  // push suggestions only for needed language
         StartsWith(s.begin(), s.end(), token.begin(), token.end()))
     {
-      res.AddResult(MakeResult(impl::PreResult2(strings::ToUtf8(s), it->m_prefixLength)));
+      string const utf8Str = strings::ToUtf8(s);
+      res.AddResult(Result(utf8Str, utf8Str + " "));
       ret = true;
     }
   }

@@ -33,7 +33,7 @@ public:
          string const & flag, double distance);
 
   /// For RESULT_SUGGESTION.
-  Result(string const & str, string const & suggestionStr);
+  Result(string const & str, string const & suggest);
 
   /// Strings that is displayed in the GUI.
   //@{
@@ -100,7 +100,11 @@ public:
   //@}
 
   inline void AddResult(Result const & r) { m_vec.push_back(r); }
-  void AddResultCheckExisting(Result const & r);
+  inline void AddResultCheckExisting(Result const & r)
+  {
+    (void)AddResultCheckExistingEx(r);
+  }
+  bool AddResultCheckExistingEx(Result const & r);
 
   inline void Clear() { m_vec.clear(); }
 

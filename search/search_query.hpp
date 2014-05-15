@@ -1,6 +1,7 @@
 #pragma once
 #include "intermediate_result.hpp"
 #include "keyword_lang_matcher.hpp"
+#include "ftypes_matcher.hpp"
 
 #include "../indexer/search_trie.hpp"
 #include "../indexer/index.hpp"   // for Index::MwmLock
@@ -161,6 +162,10 @@ private:
 
   void FlushResults(Results & res, bool allMWMs, size_t resCount);
 
+  ftypes::Type GetLocalityIndex(feature::TypesHolder const & types) const;
+  void GetSuggestion(string const & name, string & suggest) const;
+  template <class T> void ProcessSuggestions(vector<T> & vec, Results & res) const;
+
   void SearchAddress();
 
   /// Search for best localities by input tokens.
@@ -186,7 +191,7 @@ private:
 
   void GetBestMatchName(FeatureType const & f, string & name) const;
 
-  Result MakeResult(impl::PreResult2 const & r, set<uint32_t> const * pPrefferedTypes = 0) const;
+  Result MakeResult(impl::PreResult2 const & r) const;
 
   Index const * m_pIndex;
   CategoriesHolder const * m_pCategories;
@@ -195,14 +200,18 @@ private:
 
   volatile bool m_cancel;
 
+  string const * m_query;
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;
+  set<uint32_t> m_prefferedTypes;
 
 #ifdef HOUSE_SEARCH_TEST
   strings::UniString m_house;
   vector<FeatureID> m_streetID;
   search::HouseDetector m_houseDetector;
 #endif
+
+  static int const MAX_SUGGESTS_COUNT = 5;
 
   /// 0 - current viewport rect
   /// 1 - near me rect

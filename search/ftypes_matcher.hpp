@@ -36,4 +36,17 @@ public:
   IsBuildingChecker();
 };
 
+/// Type of locality (do not change values - they have detalization order)
+/// COUNTRY < STATE < CITY
+enum Type { NONE = -1, COUNTRY = 0, STATE, CITY };
+
+class IsLocalityChecker : public BaseChecker
+{
+public:
+  IsLocalityChecker();
+
+  Type GetLocalityType(feature::TypesHolder const & types) const;
+  Type GetLocalityType(FeatureType const & f) const;
+};
+
 }

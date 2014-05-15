@@ -209,6 +209,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     public static class SearchResult
     {
       public String m_name;
+      public String m_suggestion;
       public String m_country;
       public String m_amenity;
       public String m_distance;
@@ -219,9 +220,10 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
       // Called from native code
       @SuppressWarnings("unused")
-      public SearchResult(String suggestion)
+      public SearchResult(String name, String suggestion)
       {
-        m_name = suggestion;
+        m_name = name;
+        m_suggestion = suggestion;
         m_type = 0;
       }
 
@@ -389,7 +391,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
             else
             {
               // advise suggestion
-              return r.m_name + ' ';
+              return r.m_suggestion;
             }
           }
         }

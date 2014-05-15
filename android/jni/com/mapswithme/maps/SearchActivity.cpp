@@ -271,10 +271,12 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
   }
   else
   {
-    jmethodID methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;)V");
+    jmethodID methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
     ASSERT ( methodID, () );
 
-    return env->NewObject(klass, methodID, jni::ToJavaString(env, res->GetSuggestionString()));
+    return env->NewObject(klass, methodID,
+                          jni::ToJavaString(env, res->GetString()),
+                          jni::ToJavaString(env, res->GetSuggestionString()));
   }
 }
 

@@ -69,4 +69,46 @@ IsBuildingChecker::IsBuildingChecker()
   m_types.push_back(c.GetTypeByPath(vector<string>(arr1, arr1 + 2)));
 }
 
+IsLocalityChecker::IsLocalityChecker()
+{
+  Classificator const & c = classif();
+
+  char const * arr[][2] = {
+    { "place", "country" },
+    { "place", "state" },
+    { "place", "city" },
+    { "place", "town" }
+  };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
+}
+
+Type IsLocalityChecker::GetLocalityType(feature::TypesHolder const & types) const
+{
+  for (size_t i = 0; i < types.Size(); ++i)
+  {
+    uint32_t t = types[i];
+    ftype::TruncValue(t, 2);
+
+    if (t == m_types[0])
+      return COUNTRY;
+
+    if (t == m_types[1])
+      return STATE;
+
+    for (int j = 2; j < m_types.size(); ++j)
+      if (t == m_types[j])
+        return CITY;
+  }
+
+  return NONE;
+}
+
+Type IsLocalityChecker::GetLocalityType(const FeatureType & f) const
+{
+  feature::TypesHolder types(f);
+  return GetLocalityType(types);
+}
+
 }

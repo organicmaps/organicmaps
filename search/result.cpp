@@ -28,8 +28,8 @@ Result::Result(m2::PointD const & fCenter,
 {
 }
 
-Result::Result(string const & str, string const & suggestionStr)
-  : m_str(str), m_suggestionStr(suggestionStr)
+Result::Result(string const & str, string const & suggest)
+  : m_str(str), m_suggestionStr(suggest)
 {
 }
 
@@ -70,23 +70,33 @@ char const * Result::GetSuggestionString() const
 bool Result::operator== (Result const & r) const
 {
   ResultType const type = GetResultType();
-  if (type == r.GetResultType() && type != RESULT_SUGGESTION)
+  if (type == r.GetResultType())
   {
-    // This function is used to filter duplicate results in cases:
-    // - emitted Wrold.mwm and Country.mwm
-    // - after additional search in all mwm
-    // so it's suitable here to test for 500m
-    return (m_str == r.m_str && m_region == r.m_region &&
-            m_featureType == r.m_featureType &&
-            PointDistance(m_center, r.m_center) < 500.0);
+    if (type == RESULT_SUGGESTION)
+      return m_suggestionStr == r.m_suggestionStr;
+    else
+    {
+      // This function is used to filter duplicate results in cases:
+      // - emitted World.mwm and Country.mwm
+      // - after additional search in all mwm
+      // so it's suitable here to test for 500m
+      return (m_str == r.m_str && m_region == r.m_region &&
+              m_featureType == r.m_featureType &&
+              PointDistance(m_center, r.m_center) < 500.0);
+    }
   }
   return false;
 }
 
-void Results::AddResultCheckExisting(Result const & r)
+bool Results::AddResultCheckExistingEx(Result const & r)
 {
   if (find(m_vec.begin(), m_vec.end(), r) == m_vec.end())
+  {
     AddResult(r);
+    return true;
+  }
+  else
+    return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

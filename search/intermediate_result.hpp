@@ -66,7 +66,6 @@ public:
   enum ResultType
   {
     RESULT_LATLON,
-    RESULT_CATEGORY,
     RESULT_FEATURE
   };
 
@@ -78,9 +77,6 @@ public:
   // For RESULT_LATLON.
   PreResult2(m2::RectD const & viewport, m2::PointD const & pos,
              double lat, double lon);
-
-  // For RESULT_CATEGORY.
-  PreResult2(string const & name, int penalty);
 
   /// @param[in]  pInfo   Need to get region for result.
   /// @param[in]  pCat    Categories need to display readable type string.
@@ -120,12 +116,17 @@ public:
   string DebugPrint() const;
 
   bool IsStreet() const;
+
   inline FeatureID const & GetID() const { return m_id; }
+  inline string const & GetName() const { return m_str; }
+  inline feature::TypesHolder const & GetTypes() const { return m_types; }
 
 private:
   template <class T> friend bool LessRankT(T const & r1, T const & r2);
   template <class T> friend bool LessViewportDistanceT(T const & r1, T const & r2);
   template <class T> friend bool LessDistanceT(T const & r1, T const & r2);
+
+  bool IsEqualCommon(PreResult2 const & r) const;
 
   string GetFeatureType(CategoriesHolder const * pCat,
                         set<uint32_t> const * pTypes,
@@ -136,7 +137,7 @@ private:
 
   uint32_t GetBestType(set<uint32_t> const * pPrefferedTypes = 0) const;
 
-  string m_str, m_completionString;
+  string m_str;
 
   struct RegionInfo
   {

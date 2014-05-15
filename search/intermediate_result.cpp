@@ -176,19 +176,6 @@ PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos, doubl
   CalcParams(viewport, pos);
 }
 
-PreResult2::PreResult2(string const & name, int penalty)
-  : m_str(name), m_completionString(name + " "),
-
-    // Categories should always be the first:
-    m_distance(-1000.0),    // smallest distance :)
-    m_distanceFromViewportCenter(-1000.0),
-    m_resultType(RESULT_CATEGORY),
-    m_rank(255),            // best rank
-    m_viewportDistance(0),  // closest to viewport
-    m_geomType(feature::GEOM_UNDEFINED)
-{
-}
-
 namespace
 {
   class SkipRegionInfo
@@ -243,12 +230,9 @@ Result PreResult2::GenerateFinalResult(
               #endif
                   , type, m_distance);
 
-  case RESULT_LATLON:
-    return Result(GetCenter(), m_str, info.m_name, info.m_flag, m_distance);
-
   default:
-    ASSERT_EQUAL ( m_resultType, RESULT_CATEGORY, () );
-    return Result(m_str, m_completionString);
+    ASSERT_EQUAL(m_resultType, RESULT_LATLON, ());
+    return Result(GetCenter(), m_str, info.m_name, info.m_flag, m_distance);
   }
 }
 
@@ -271,7 +255,7 @@ bool PreResult2::StrictEqualF::operator() (PreResult2 const & r) const
 {
   if (m_r.m_resultType == r.m_resultType && m_r.m_resultType == RESULT_FEATURE)
   {
-    if (m_r.m_str == r.m_str && m_r.GetBestType() == r.GetBestType())
+    if (m_r.IsEqualCommon(r))
       return (PointDistance(m_r.GetCenter(), r.GetCenter()) < DIST_EQUAL_RESULTS);
   }
 
@@ -301,10 +285,16 @@ bool PreResult2::EqualLinearTypesF::operator() (PreResult2 const & r1, PreResult
 {
   // Note! Do compare for distance when filtering linear objects.
   // Otherwise we will skip the results for different parts of the map.
-  return (r1.m_geomType == r2.m_geomType &&
-          r1.m_geomType == feature::GEOM_LINE &&
-          r1.m_str == r2.m_str &&
+  return (r1.m_geomType == feature::GEOM_LINE &&
+          r1.IsEqualCommon(r2) &&
           PointDistance(r1.GetCenter(), r2.GetCenter()) < DIST_SAME_STREET);
+}
+
+bool PreResult2::IsEqualCommon(PreResult2 const & r) const
+{
+  return (m_geomType == r.m_geomType &&
+          GetBestType() == r.GetBestType() &&
+          m_str == r.m_str);
 }
 
 bool PreResult2::IsStreet() const
