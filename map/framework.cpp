@@ -1506,8 +1506,7 @@ UserMark const * Framework::ActivateUserMark(m2::PointD const & pxPoint, bool is
     }
   }
 
-  if (mark)
-    m_bmManager.ActivateMark(mark);
+  m_bmManager.ActivateMark(mark);
 
   return mark;
 }

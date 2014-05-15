@@ -205,7 +205,10 @@ void UserMarkContainer::Draw(PaintOverlayEvent const & e)
   graphics::Screen * screen = e.GetDrawer()->screen();
   ScreenBase modelView = e.GetModelView();
   if (m_activeMark != NULL)
+  {
+    LOG(LINFO, ("Scale for active mark = ", GetActiveMarkScale()));
     (void)DrawFunctor(GetActiveMarkScale(), modelView, GetActiveDL(), screen)(m_activeMark);
+  }
 
   DrawFunctor f(1.0, modelView, GetDL(), screen);
   for_each(m_userMarks.begin(), m_userMarks.end(), f);
@@ -344,11 +347,43 @@ graphics::DisplayList * UserMarkContainer::GetActiveDL()
 
 graphics::DisplayList * UserMarkContainer::CreateDL(const string & symbolName)
 {
+  using namespace graphics;
+
   graphics::DisplayList * dl = m_cacheScreen->createDisplayList();
   m_cacheScreen->beginFrame();
   m_cacheScreen->setDisplayList(dl);
-  m_cacheScreen->drawSymbol(m2::PointD(0.0, 0.0), symbolName, graphics::EPosCenter, m_layerDepth);
-  m_cacheScreen->setDisplayList(0);
+
+  Icon::Info infoKey(symbolName);
+  Resource const * res = m_cacheScreen->fromID(m_cacheScreen->findInfo(infoKey));
+  shared_ptr<gl::BaseTexture> texture = m_cacheScreen->pipeline(res->m_pipelineID).texture();
+
+  m2::RectU texRect = res->m_texRect;
+  double halfSizeX = texRect.SizeX() / 2.0;
+  double halfSizeY = texRect.SizeY() / 2.0;
+
+  m2::PointD coords[] =
+  {
+    m2::PointD(-halfSizeX, -halfSizeY),
+    m2::PointD(-halfSizeX, halfSizeY),
+    m2::PointD(halfSizeX, -halfSizeY),
+    m2::PointD(halfSizeX, halfSizeY)
+  };
+  m2::PointF normal(0.0, 0.0);
+
+  m2::PointF texCoords[] =
+  {
+    texture->mapPixel(m2::PointF(texRect.minX(), texRect.minY())),
+    texture->mapPixel(m2::PointF(texRect.minX(), texRect.maxY())),
+    texture->mapPixel(m2::PointF(texRect.maxX(), texRect.minY())),
+    texture->mapPixel(m2::PointF(texRect.maxX(), texRect.maxY()))
+  };
+
+  m_cacheScreen->addTexturedStripStrided(coords, sizeof(m2::PointD),
+                                       &normal, 0,
+                                       texCoords, sizeof(m2::PointF),
+                                       4, m_layerDepth, res->m_pipelineID);
+
+  m_cacheScreen->setDisplayList(NULL);
   m_cacheScreen->endFrame();
 
   return dl;

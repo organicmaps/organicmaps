@@ -118,8 +118,8 @@ namespace android
 
     void Scale(double k);
 
-    BookmarkAndCategory AddBookmark(size_t category, Bookmark & bm);
-    void ReplaceBookmark(BookmarkAndCategory const & ind, Bookmark & bm);
+    BookmarkAndCategory AddBookmark(size_t category, m2::PointD const & pt, BookmarkCustomData & bm);
+    void ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkCustomData & bm);
     size_t ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat);
 
     ::Framework * NativeFramework();

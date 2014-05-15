@@ -8,6 +8,7 @@
 
 #include "../../../../../map/framework.hpp"
 #include "../../../../../map/measurement_utils.hpp"
+#include "../../../../../map/user_mark.hpp"
 
 #include "../../../../../gui/controller.hpp"
 
@@ -444,7 +445,7 @@ namespace android
     ::Framework * f = NativeFramework();
 
     // Call ClearXXX first, then RemovePin (Framework::Invalidate is called inside).
-    f->GetBookmarkManager().AdditionalPoiLayerClear();
+    f->GetBookmarkManager().UserMarksClear(UserMarkContainer::SEARCH_MARK);
     f->GetBalloonManager().RemovePin();
     f->GetBalloonManager().Dismiss();
     f->Invalidate();
@@ -570,12 +571,12 @@ namespace android
     GetPinClickManager().OnClick(m2::PointD(x, y), m_wasLongClick);
   }
 
-  BookmarkAndCategory Framework::AddBookmark(size_t cat, Bookmark & bm)
+  BookmarkAndCategory Framework::AddBookmark(size_t cat, m2::PointD const & pt, BookmarkCustomData & bm)
   {
-    return BookmarkAndCategory(cat, m_work.AddBookmark(cat, bm));
+    return BookmarkAndCategory(cat, m_work.AddBookmark(cat, pt, bm));
   }
 
-  void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, Bookmark & bm)
+  void Framework::ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkCustomData & bm)
   {
     m_work.ReplaceBookmark(ind.first, ind.second, bm);
   }
@@ -583,13 +584,14 @@ namespace android
   size_t Framework::ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat)
   {
     BookmarkCategory * pOld = m_work.GetBmCategory(ind.first);
-
-    Bookmark bmk(*(pOld->GetBookmark(ind.second)));
+    Bookmark const * oldBm = pOld->GetBookmark(ind.second);
+    m2::PointD pt = oldBm->GetOrg();
+    BookmarkCustomData bm(static_cast<BookmarkCustomData const &>(oldBm->GetCustomData()));
 
     pOld->DeleteBookmark(ind.second);
     pOld->SaveToKMLFile();
 
-    return AddBookmark(newCat, bmk).second;
+    return AddBookmark(newCat, pt, bm).second;
   }
 
   bool Framework::IsDownloadingActive()
@@ -607,6 +609,7 @@ namespace android
 
   void Framework::DeactivatePopup()
   {
+    GetPinClickManager().RemovePin();
     GetPinClickManager().Hide();
   }
 
@@ -634,6 +637,13 @@ namespace android
 
 }
 
+template <class T>
+T const & CastData(UserCustomData const & data)
+{
+  return static_cast<T const &>(data);
+}
+
+
 //============ GLUE CODE for com.mapswithme.maps.Framework class =============//
 /*            ____
  *          _ |||| _
@@ -646,7 +656,7 @@ namespace android
 extern "C"
 {
   // API
-  void CallOnApiPointActivatedListener(shared_ptr<jobject> obj, url_scheme::ApiPoint const & apiPoint)
+  void CallOnApiPointActivatedListener(shared_ptr<jobject> obj, ApiCustomData const & data, double lat, double lon)
   {
     JNIEnv * jniEnv = jni::GetEnv();
     const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
@@ -654,22 +664,23 @@ extern "C"
                                                    "onApiPointActivated",
                                                    "(DDLjava/lang/String;Ljava/lang/String;)V");
 
-    jstring j_name = jni::ToJavaString(jniEnv, apiPoint.m_name);
-    jstring j_id   = jni::ToJavaString(jniEnv, apiPoint.m_id);
-    jniEnv->CallVoidMethod(*obj.get(), methodID, apiPoint.m_lat, apiPoint.m_lon, j_name, j_id);
+    jstring j_name = jni::ToJavaString(jniEnv, data.GetName());
+    jstring j_id   = jni::ToJavaString(jniEnv, data.GetID());
+
+    jniEnv->CallVoidMethod(*obj.get(), methodID, lat, lon, j_name, j_id);
   }
 
   // Additional layer
-    void CallOnAdditionalLayerActivatedListener(shared_ptr<jobject> obj, size_t index)
-    {
-      JNIEnv * jniEnv = jni::GetEnv();
-      const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
-                                                      *obj.get(),
-                                                     "onAdditionalLayerActivated",
-                                                     "(J)V");
+  void CallOnAdditionalLayerActivatedListener(shared_ptr<jobject> obj, size_t index)
+  {
+    JNIEnv * jniEnv = jni::GetEnv();
+    const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
+                                                    *obj.get(),
+                                                    "onAdditionalLayerActivated",
+                                                    "(J)V");
 
-      jniEnv->CallVoidMethod(*obj.get(), methodID, static_cast<jlong>(index));
-    }
+    jniEnv->CallVoidMethod(*obj.get(), methodID, static_cast<jlong>(index));
+  }
 
   // POI
   void CallOnPoiActivatedListener(shared_ptr<jobject> obj, m2::PointD const & globalPoint, search::AddressInfo const & addrInfo)
@@ -684,7 +695,7 @@ extern "C"
 
     const char * signature = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;DD)V";
     const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(),
-                                                    "onPoiActivated", signature);
+                                                      "onPoiActivated", signature);
     jniEnv->CallVoidMethod(*obj.get(), methodId, j_name, j_type, j_address, lat, lon);
   }
 
@@ -697,13 +708,71 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodId, bmkAndCat.first, bmkAndCat.second);
   }
 
-  // My Position
-  void CallOnMyPositionActivatedListener(shared_ptr<jobject> obj,  double lat, double lon)
+  void CallOnUserMarkActivated(shared_ptr<jobject> obj, UserMark const * mark)
   {
-    JNIEnv * jniEnv = jni::GetEnv();
-    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(),
-                                                    "onMyPositionActivated", "(DD)V");
-    jniEnv->CallVoidMethod(*obj.get(), methodId, lat, lon);
+    ::Framework * fm = g_framework->NativeFramework();
+    UserCustomData const & data = mark->GetCustomData();
+    switch (data.GetType())
+    {
+    case UserCustomData::API:
+      {
+        double lat, lon;
+        mark->GetLatLon(lat, lon);
+        CallOnApiPointActivatedListener(obj, CastData<ApiCustomData>(data), lat, lon);
+      }
+      break;
+    case UserCustomData::BOOKMARK:
+      {
+        BookmarkAndCategory bmAndCat = MakeEmptyBookmarkAndCategory();
+        for (size_t i = 0; i < fm->GetBmCategoriesCount(); ++i)
+        {
+          if (fm->GetBmCategory(i) == mark->GetContainer())
+          {
+            bmAndCat.first = i;
+            break;
+          }
+        }
+
+        ASSERT(bmAndCat.first != MakeEmptyBookmarkAndCategory().first, ());
+
+        BookmarkCategory const * cat = fm->GetBmCategory(bmAndCat.first);
+        for (size_t i = 0; i < cat->GetBookmarksCount(); ++i)
+        {
+          if (cat->GetBookmark(i) == mark)
+          {
+            bmAndCat.second = i;
+            break;
+          }
+        }
+
+        ASSERT(IsValid(bmAndCat), ());
+        CallOnBookmarkActivatedListener(obj, bmAndCat);
+      }
+      break;
+    case UserCustomData::POI:
+      {
+        search::AddressInfo info;
+        fm->GetAddressInfoForGlobalPoint(mark->GetOrg(), info);
+        CallOnPoiActivatedListener(obj, mark->GetOrg(), info);
+      }
+      break;
+    case UserCustomData::SEARCH:
+      {
+        UserMarkContainer::Controller & c = fm->GetBookmarkManager().UserMarksGetController(UserMarkContainer::SEARCH_MARK);
+        size_t index = (size_t)-1;
+        for (size_t i = 0; i < c.GetUserMarkCount(); ++i)
+        {
+            if (c.GetUserMark(i) == mark)
+            {
+              index = i;
+              break;
+            }
+        }
+        ASSERT(index != (size_t) -1, ());
+        CallOnAdditionalLayerActivatedListener(obj, index);
+      }
+      break;
+    }
   }
 
   // Dismiss information box
@@ -730,7 +799,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
   {
-    g_framework->NativeFramework()->ClearMapApiPoints();
+    g_framework->NativeFramework()->GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
   }
 
   JNIEXPORT void JNICALL
@@ -739,11 +808,7 @@ extern "C"
     PinClickManager & manager = g_framework->GetPinClickManager();
     shared_ptr<jobject> obj = jni::make_global_ref(l);
 
-    manager.ConnectApiListener(bind(&CallOnApiPointActivatedListener, obj, _1));
-    manager.ConnectPoiListener(bind(&CallOnPoiActivatedListener, obj, _1, _2));
-    manager.ConnectBookmarkListener(bind(&CallOnBookmarkActivatedListener, obj, _1));
-    manager.ConnectPositionListener(bind(&CallOnMyPositionActivatedListener, obj, _1, _2));
-    manager.ConnectAdditionalListener(bind(&CallOnAdditionalLayerActivatedListener, obj, _1));
+    manager.ConnectUserMarkListener(bind(&CallOnUserMarkActivated, obj, _1));
     manager.ConnectDismissListener(bind(&CallOnDismissListener, obj));
   }
 
@@ -896,24 +961,26 @@ extern "C"
   Java_com_mapswithme_maps_Framework_injectData(JNIEnv * env, jclass clazz, jobject jsearchResult, jlong index)
   {
     const size_t nIndex = static_cast<size_t>(index);
-    ASSERT_LESS(nIndex , g_framework->NativeFramework()->AdditionalLayerNumberOfPoi(), ("Invalid index", nIndex));
 
-    Bookmark * b = g_framework->NativeFramework()->
-        GetBookmarkManager().AdditionalPoiLayerGetBookmark(nIndex);
+    BookmarkManager & m = g_framework->NativeFramework()->GetBookmarkManager();
+    UserMarkContainer::Controller & c = m.UserMarksGetController(UserMarkContainer::SEARCH_MARK);
+    ASSERT_LESS(nIndex , c.GetUserMarkCount(), ("Invalid index", nIndex));
+    UserMark const * mark = c.GetUserMark(nIndex);
+    SearchCustomData const & data = CastData<SearchCustomData>(mark->GetCustomData());
 
     const jclass javaClazz = env->GetObjectClass(jsearchResult);
 
     const jfieldID nameId = env->GetFieldID(javaClazz, "mName", "Ljava/lang/String;");
-    env->SetObjectField(jsearchResult, nameId, jni::ToJavaString(env, b->GetName()));
+    env->SetObjectField(jsearchResult, nameId, jni::ToJavaString(env, data.GetName()));
 
     const jfieldID typeId = env->GetFieldID(javaClazz, "mTypeName", "Ljava/lang/String;");
-    env->SetObjectField(jsearchResult, typeId, jni::ToJavaString(env, b->GetDescription()));
+    env->SetObjectField(jsearchResult, typeId, jni::ToJavaString(env, data.GetTypeName()));
 
     const jfieldID latId = env->GetFieldID(javaClazz, "mLat", "D");
-    env->SetDoubleField(jsearchResult, latId, MercatorBounds::YToLat(b->GetOrg().y));
+    env->SetDoubleField(jsearchResult, latId, MercatorBounds::YToLat(mark->GetOrg().y));
 
     const jfieldID lonId = env->GetFieldID(javaClazz, "mLon", "D");
-    env->SetDoubleField(jsearchResult, lonId, MercatorBounds::XToLon(b->GetOrg().x));
+    env->SetDoubleField(jsearchResult, lonId, MercatorBounds::XToLon(mark->GetOrg().x));
   }
 
   JNIEXPORT void JNICALL
