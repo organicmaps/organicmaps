@@ -23,6 +23,7 @@ BookmarkManager::BookmarkManager(Framework & f)
   , m_activeMark(NULL)
   , m_bmScreen(0)
   , m_lastScale(1.0)
+  , m_cache(NULL)
 {
   m_userMarkLayers.reserve(2);
   m_userMarkLayers.push_back(new UserMarkContainer(UserMarkContainer::SEARCH_MARK, graphics::activePinDepth, m_framework));
@@ -125,14 +126,13 @@ public:
 
 }
 
-void BookmarkManager::DrawCategory(BookmarkCategory const * cat, shared_ptr<PaintEvent> const & e) const
+void BookmarkManager::DrawCategory(BookmarkCategory const * cat, PaintOverlayEvent const & e) const
 {
   /// TODO cutomize draw in UserMarkContainer for user Draw method
   Navigator const & navigator = m_framework.GetNavigator();
-  InformationDisplay & informationDisplay = m_framework.GetInformationDisplay();
   ScreenBase const & screen = navigator.Screen();
 
-  Drawer * pDrawer = e->drawer();
+  Drawer * pDrawer = e.GetDrawer();
   graphics::Screen * pScreen = pDrawer->screen();
 
   LazyMatrixCalc matrix(screen, m_lastScale);
@@ -145,16 +145,7 @@ void BookmarkManager::DrawCategory(BookmarkCategory const * cat, shared_ptr<Pain
       track->Draw(pScreen, matrix.GetFinalG2P());
   }
 
-  // Draw bookmarks.
-  m2::AnyRectD const & glbRect = screen.GlobalRect();
-  for (size_t j = 0; j < cat->GetBookmarksCount(); ++j)
-  {
-    Bookmark const * bm = cat->GetBookmark(j);
-    m2::PointD const & org = bm->GetOrg();
-
-    if (glbRect.IsPointInside(org))
-      informationDisplay.drawPlacemark(pDrawer, bm->GetType().c_str(), navigator.GtoP(org) + m2::PointD(0.0, 4.0));
-  }
+  cat->Draw(e, m_cache);
 }
 
 void BookmarkManager::ClearItems()
@@ -243,6 +234,7 @@ size_t BookmarkManager::CreateBmCategory(string const & name)
 
 void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
 {
+  ASSERT(m_cache != NULL, ());
   ScreenBase const & screen = m_framework.GetNavigator().Screen();
   m2::RectD const limitRect = screen.ClipRect();
 
@@ -272,13 +264,8 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
   pScreen->beginFrame();
 
   PaintOverlayEvent event(e->drawer(), screen);
-  for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event));
-
-  for (size_t i = 0; i < m_categories.size(); ++i)
-  {
-    if (m_categories[i]->IsVisible())
-      DrawCategory(m_categories[i], e);
-  }
+  for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event, m_cache));
+  for_each(m_categories.begin(), m_categories.end(), bind(&BookmarkManager::DrawCategory, this, _1, event));
 
   pScreen->endFrame();
 }
@@ -317,21 +304,6 @@ void BookmarkManager::ActivateMark(UserMark const * mark)
     return;
 
   m_activeMark = mark;
-  /// TODO remove this hack when resctuct Bookmark drawing code.
-  /// now it's need to activate bookmark element
-  UserCustomData const & data = m_activeMark->GetCustomData();
-  if (data.GetType() == UserCustomData::BOOKMARK)
-  {
-    m_activeMark = UserMarkContainer::UserMarkForPoi(mark->GetOrg());
-    BookmarkCustomData const & bookmarkData = static_cast<BookmarkCustomData const &>(data);
-    search::AddressInfo addrInfo;
-    m_framework.GetAddressInfoForGlobalPoint(mark->GetOrg(), addrInfo);
-    UserMark * hackMark = const_cast<UserMark *>(m_activeMark);
-    hackMark->InjectCustomData(new PoiCustomData(bookmarkData.GetName(),
-                                                 bookmarkData.GetTypeName(),
-                                                 addrInfo.FormatNameAndAddress()));
-  }
-
   m_activeMark->Activate();
 }
 
@@ -397,21 +369,19 @@ void BookmarkManager::SetScreen(graphics::Screen * screen)
 {
   ResetScreen();
   m_bmScreen = screen;
-  for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(),
-           bind(&UserMarkContainer::SetScreen, _1, m_bmScreen));
+  m_cache = new UserMarkDLCache(m_bmScreen);
 }
 
 void BookmarkManager::ResetScreen()
 {
+  delete m_cache;
+  m_cache = NULL;
   if (m_bmScreen)
   {
     // Delete display lists for all tracks
     for (size_t i = 0; i < m_categories.size(); ++i)
       for (size_t j = 0; j < m_categories[i]->GetTracksCount(); ++j)
         m_categories[i]->GetTrack(j)->DeleteDisplayList();
-
-    for (size_t i = 0; i < m_userMarkLayers.size(); ++i)
-      m_userMarkLayers[i]->SetScreen(0);
 
     m_bmScreen = 0;
   }

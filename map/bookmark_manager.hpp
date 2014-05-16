@@ -1,6 +1,7 @@
 #pragma once
 #include "bookmark.hpp"
 #include "user_mark_container.hpp"
+#include "user_mark_dl_cache.hpp"
 
 class Framework;
 class PaintEvent;
@@ -23,7 +24,7 @@ class BookmarkManager : private noncopyable
 
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
 
-  void DrawCategory(BookmarkCategory const * cat, shared_ptr<PaintEvent> const & e) const;
+  void DrawCategory(BookmarkCategory const * cat, PaintOverlayEvent const & e) const;
 
   void SaveState() const;
   void LoadState();
@@ -74,4 +75,6 @@ public:
 private:
   UserMarkContainer const * FindUserMarksContainer(UserMarkContainer::Type type) const;
   UserMarkContainer * FindUserMarksContainer(UserMarkContainer::Type type);
+
+  UserMarkDLCache * m_cache;
 };

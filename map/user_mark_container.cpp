@@ -127,35 +127,40 @@ namespace
     m2::PointD m_globalCenter;
   };
 
-  class DrawFunctor
+  void DrawUserMarkImpl(double scale,
+                        PaintOverlayEvent const & event,
+                        graphics::DisplayList * dl,
+                        UserMark const * mark)
   {
-  public:
-    DrawFunctor(double scale,
-                ScreenBase const & modelView,
-                graphics::DisplayList * dl,
-                graphics::Screen * screen)
-      : m_scale(scale)
-      , m_modelView(modelView)
-      , m_dl(dl)
-      , m_screen(screen)
-    {
-    }
+    ScreenBase modelView = event.GetModelView();
+    graphics::Screen * screen = event.GetDrawer()->screen();
+    m2::PointD pxPoint = modelView.GtoP(mark->GetOrg());
+    math::Matrix<double, 3, 3> m = math::Shift(math::Scale(math::Identity<double, 3>(),
+                                                           scale, scale),
+                                               pxPoint.x, pxPoint.y);
+    dl->draw(screen, m);
+  }
 
-    void operator()(UserMark const * mark)
-    {
-      m2::PointD pxPoint = m_modelView.GtoP(mark->GetOrg());
-      math::Matrix<double, 3, 3> m = math::Shift(math::Scale(math::Identity<double, 3>(),
-                                                             m_scale, m_scale),
-                                                 pxPoint.x, pxPoint.y);
-      m_dl->draw(m_screen, m);
-    }
+  void DefaultDrawUserMark(double scale,
+                           PaintOverlayEvent const & event,
+                           UserMarkDLCache * cache,
+                           UserMarkDLCache::Key const & defaultKey,
+                           UserMark const * mark)
+  {
+    DrawUserMarkImpl(scale, event, cache->FindUserMark(defaultKey), mark);
+  }
 
-  private:
-    double m_scale;
-    ScreenBase const & m_modelView;
-    graphics::DisplayList * m_dl;
-    graphics::Screen * m_screen;
-  };
+  void DrawUserMark(double scale,
+                    PaintOverlayEvent const & event,
+                    UserMarkDLCache * cache,
+                    UserMarkDLCache::Key const & defaultKey,
+                    UserMark const * mark)
+  {
+    if (mark->IsCustomDrawable())
+      DrawUserMarkImpl(scale, event, static_cast<ICustomDrawable const *>(mark)->GetDisplayList(cache), mark);
+    else
+      DefaultDrawUserMark(scale, event, cache, defaultKey, mark);
+  }
 }
 
 UserMarkContainer::UserMarkContainer(Type type, double layerDepth, Framework & framework)
@@ -164,9 +169,6 @@ UserMarkContainer::UserMarkContainer(Type type, double layerDepth, Framework & f
   , m_isVisible(true)
   , m_layerDepth(layerDepth)
   , m_activeMark(NULL)
-  , m_symbolDL(NULL)
-  , m_activeSymbolDL(NULL)
-  , m_cacheScreen(NULL)
   , m_framework(framework)
 {
   ASSERT(m_type >= 0 && m_type < TERMINANT, ());
@@ -175,13 +177,6 @@ UserMarkContainer::UserMarkContainer(Type type, double layerDepth, Framework & f
 UserMarkContainer::~UserMarkContainer()
 {
   Clear();
-  ReleaseScreen();
-}
-
-void UserMarkContainer::SetScreen(graphics::Screen * cacheScreen)
-{
-  Purge();
-  m_cacheScreen = cacheScreen;
 }
 
 UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, double & d)
@@ -193,25 +188,19 @@ UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, do
   return mark;
 }
 
-void UserMarkContainer::Draw(PaintOverlayEvent const & e)
+void UserMarkContainer::Draw(PaintOverlayEvent const & e, UserMarkDLCache * cache) const
 {
   if (m_isVisible == false)
     return;
 
-  ASSERT(m_cacheScreen != NULL, ());
-  if (m_cacheScreen == NULL)
-    return;
-
-  graphics::Screen * screen = e.GetDrawer()->screen();
-  ScreenBase modelView = e.GetModelView();
   if (m_activeMark != NULL)
   {
-    LOG(LINFO, ("Scale for active mark = ", GetActiveMarkScale()));
-    (void)DrawFunctor(GetActiveMarkScale(), modelView, GetActiveDL(), screen)(m_activeMark);
+    UserMarkDLCache::Key defaultKey(GetActiveTypeName(), graphics::EPosCenter, m_layerDepth);
+    DefaultDrawUserMark(GetActiveMarkScale(), e, cache, defaultKey, m_activeMark);
   }
 
-  DrawFunctor f(1.0, modelView, GetDL(), screen);
-  for_each(m_userMarks.begin(), m_userMarks.end(), f);
+  UserMarkDLCache::Key defaultKey(GetTypeName(), graphics::EPosCenter, m_layerDepth);
+  for_each(m_userMarks.begin(), m_userMarks.end(), bind(&DrawUserMark, 1.0, e, cache, defaultKey, _1));
 }
 
 void UserMarkContainer::ActivateMark(UserMark const * mark)
@@ -229,7 +218,6 @@ void UserMarkContainer::DiactivateMark()
 
 void UserMarkContainer::Clear()
 {
-  Purge();
   DeleteRange(m_userMarks, DeleteFunctor());
   m_activeMark = NULL;
 }
@@ -237,13 +225,24 @@ void UserMarkContainer::Clear()
 static string s_TypeNames[] =
 {
   "search-result",
-  "api-result"
+  "api-result",
+  "search-result" // Bookmark active we draw as a search active
 };
 
-string const & UserMarkContainer::GetTypeName() const
+string UserMarkContainer::GetTypeName() const
 {
   ASSERT(m_type < ARRAY_SIZE(s_TypeNames), ());
   return s_TypeNames[m_type];
+}
+
+string UserMarkContainer::GetActiveTypeName() const
+{
+  return GetTypeName() + "-active";
+}
+
+UserMark * UserMarkContainer::AllocateUserMark(m2::PointD const & ptOrg)
+{
+  return new UserMark(ptOrg, this);
 }
 
 namespace
@@ -273,9 +272,9 @@ UserMark * UserMarkContainer::UserMarkForPoi(m2::PointD const & ptOrg)
   return s_selectionUserMark.get();
 }
 
-UserMark * UserMarkContainer::CreateUserMark(m2::PointD ptOrg)
+UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
 {
-  m_userMarks.push_back(new UserMark(ptOrg, this));
+  m_userMarks.push_back(AllocateUserMark(ptOrg));
   return m_userMarks.back();
 }
 
@@ -327,79 +326,6 @@ void UserMarkContainer::DeleteUserMark(size_t index)
     m_activeMark = NULL;
 
   DeleteItem(m_userMarks, index);
-}
-
-graphics::DisplayList * UserMarkContainer::GetDL()
-{
-  if (m_symbolDL == NULL)
-    m_symbolDL = CreateDL(GetTypeName());
-
-  return m_symbolDL;
-}
-
-graphics::DisplayList * UserMarkContainer::GetActiveDL()
-{
-  if (m_activeSymbolDL == NULL)
-    m_activeSymbolDL = CreateDL(GetTypeName() + "-active");
-
-  return m_activeSymbolDL;
-}
-
-graphics::DisplayList * UserMarkContainer::CreateDL(const string & symbolName)
-{
-  using namespace graphics;
-
-  graphics::DisplayList * dl = m_cacheScreen->createDisplayList();
-  m_cacheScreen->beginFrame();
-  m_cacheScreen->setDisplayList(dl);
-
-  Icon::Info infoKey(symbolName);
-  Resource const * res = m_cacheScreen->fromID(m_cacheScreen->findInfo(infoKey));
-  shared_ptr<gl::BaseTexture> texture = m_cacheScreen->pipeline(res->m_pipelineID).texture();
-
-  m2::RectU texRect = res->m_texRect;
-  double halfSizeX = texRect.SizeX() / 2.0;
-  double halfSizeY = texRect.SizeY() / 2.0;
-
-  m2::PointD coords[] =
-  {
-    m2::PointD(-halfSizeX, -halfSizeY),
-    m2::PointD(-halfSizeX, halfSizeY),
-    m2::PointD(halfSizeX, -halfSizeY),
-    m2::PointD(halfSizeX, halfSizeY)
-  };
-  m2::PointF normal(0.0, 0.0);
-
-  m2::PointF texCoords[] =
-  {
-    texture->mapPixel(m2::PointF(texRect.minX(), texRect.minY())),
-    texture->mapPixel(m2::PointF(texRect.minX(), texRect.maxY())),
-    texture->mapPixel(m2::PointF(texRect.maxX(), texRect.minY())),
-    texture->mapPixel(m2::PointF(texRect.maxX(), texRect.maxY()))
-  };
-
-  m_cacheScreen->addTexturedStripStrided(coords, sizeof(m2::PointD),
-                                       &normal, 0,
-                                       texCoords, sizeof(m2::PointF),
-                                       4, m_layerDepth, res->m_pipelineID);
-
-  m_cacheScreen->setDisplayList(NULL);
-  m_cacheScreen->endFrame();
-
-  return dl;
-}
-
-void UserMarkContainer::Purge()
-{
-  delete m_symbolDL;
-  m_symbolDL = NULL;
-  delete m_activeSymbolDL;
-  m_activeSymbolDL = NULL;
-}
-
-void UserMarkContainer::ReleaseScreen()
-{
-  m_cacheScreen = NULL;
 }
 
 void UserMarkContainer::StartActivationAnim()

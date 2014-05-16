@@ -2,6 +2,7 @@
 
 #include "events.hpp"
 #include "user_mark.hpp"
+#include "user_mark_dl_cache.hpp"
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
@@ -49,7 +50,7 @@ public:
   };
 
   UserMarkContainer(Type type, double layerDepth, Framework & framework);
-  ~UserMarkContainer();
+  virtual ~UserMarkContainer();
 
   void SetScreen(graphics::Screen * cacheScreen);
 
@@ -61,14 +62,14 @@ public:
   // In multiple select choose mark with min(d)
   UserMark const * FindMarkInRect(m2::AnyRectD const & rect, double & d);
 
-  void Draw(PaintOverlayEvent const & e);
+  void Draw(PaintOverlayEvent const & e, UserMarkDLCache * cache) const;
   void ActivateMark(UserMark const * mark);
   void DiactivateMark();
 
   void Clear();
 
   Type const & GetType() const { return m_type; }
-  string const & GetTypeName() const;
+  double GetDepth() const { return m_layerDepth; }
 
   static void InitPoiSelectionMark(UserMarkContainer * container);
   static UserMark * UserMarkForPoi(m2::PointD const & ptOrg);
@@ -76,21 +77,19 @@ public:
   Controller const & GetController() const { return m_controller; }
   Controller & GetController() { return m_controller; }
 
+protected:
+  virtual string GetTypeName() const;
+  virtual string GetActiveTypeName() const;
+  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
+
 private:
   friend class Controller;
-  UserMark * CreateUserMark(m2::PointD ptOrg);
+  UserMark * CreateUserMark(m2::PointD const & ptOrg);
   size_t GetUserMarkCount() const;
   UserMark const * GetUserMark(size_t index) const;
   UserMark * GetUserMark(size_t index);
   void EditUserMark(size_t index, UserCustomData * data);
   void DeleteUserMark(size_t index);
-
-private:
-  graphics::DisplayList * GetDL();
-  graphics::DisplayList * GetActiveDL();
-  graphics::DisplayList * CreateDL(string const & symbolName);
-  void Purge();
-  void ReleaseScreen();
 
 private:
   Controller m_controller;
@@ -99,9 +98,6 @@ private:
   double m_layerDepth;
   vector<UserMark *> m_userMarks;
   UserMark const * m_activeMark;
-  graphics::DisplayList * m_symbolDL;
-  graphics::DisplayList * m_activeSymbolDL;
-  graphics::Screen * m_cacheScreen;
 
 private:
   /// animation support

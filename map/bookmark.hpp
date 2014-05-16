@@ -56,11 +56,11 @@ private:
   time_t m_timeStamp;
 };
 
-class Bookmark : public UserMark
+class Bookmark : public ICustomDrawable
 {
 public:
-  Bookmark(UserMarkContainer * container)
-    : UserMark(m2::PointD(0.0, 0.0), container)
+  Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
+    : ICustomDrawable(ptOrg, container)
   {
     Inject();
   }
@@ -82,6 +82,11 @@ public:
 
   double GetScale() const { return GetData()->GetScale(); }
   void SetScale(double scale) { GetData()->SetScale(scale); }
+
+  virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const
+  {
+    return cache->FindUserMark(UserMarkDLCache::Key(GetType(), graphics::EPosAbove, GetContainer()->GetDepth()));
+  }
 
 private:
   void Inject(m2::PointD const & org = m2::PointD(), string const & name = "",
@@ -167,6 +172,9 @@ public:
   /// Get unique bookmark file name from path and valid file name.
   static string GenerateUniqueFileName(const string & path, string name);
   //@}
+
+protected:
+  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
 };
 
 /// <category index, bookmark index>

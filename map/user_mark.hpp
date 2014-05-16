@@ -6,6 +6,13 @@
 #include "../std/noncopyable.hpp"
 
 class UserMarkContainer;
+class PaintOverlayEvent;
+class UserMarkDLCache;
+
+namespace graphics
+{
+  class DisplayList;
+}
 
 class UserCustomData
 {
@@ -95,6 +102,7 @@ public:
   UserMarkContainer const * GetContainer() const;
   m2::PointD const & GetOrg() const;
   void GetLatLon(double & lat, double & lon) const;
+  virtual bool IsCustomDrawable() const { return false;}
 
   // custom data must be allocated in head
   // memory where allocated custom data will be deallocated by UserMark
@@ -111,4 +119,12 @@ protected:
   m2::PointD m_ptOrg;
   mutable UserMarkContainer * m_container;
   UserCustomData * m_customData;
+};
+
+class ICustomDrawable : public UserMark
+{
+public:
+  ICustomDrawable(m2::PointD const & ptOrg, UserMarkContainer * container) : UserMark(ptOrg, container) {}
+  bool IsCustomDrawable() const { return true; }
+  virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const = 0;
 };

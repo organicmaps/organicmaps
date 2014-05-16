@@ -741,6 +741,11 @@ string BookmarkCategory::GenerateUniqueFileName(const string & path, string name
   return (path + name + suffix + kmlExt);
 }
 
+UserMark * BookmarkCategory::AllocateUserMark(m2::PointD const & ptOrg)
+{
+  return new Bookmark(ptOrg, this);
+}
+
 bool BookmarkCategory::SaveToKMLFile()
 {
   string oldFile;

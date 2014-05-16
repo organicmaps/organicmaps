@@ -35,7 +35,7 @@ void PinClickManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
 void PinClickManager::OnBookmarkClick(BookmarkAndCategory const & bnc)
 {
   Bookmark * mark = m_f.GetBmCategory(bnc.first)->GetBookmark(bnc.second);
-  m_f.GetBookmarkManager().ActivateMark(mark);
+  m_f.GetBookmarkManager ().ActivateMark(mark);
   SetBalloonVisible(true);
 }
 
