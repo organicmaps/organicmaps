@@ -87,7 +87,7 @@ public class Framework
 
   public static void clearApiPoints()
   {
-    nativeClearApiPoints();
+    //nativeClearApiPoints();
   }
 
   public static DistanceAndAzimut getDistanceAndAzimut(double merX, double merY, double cLat, double cLon, double north)

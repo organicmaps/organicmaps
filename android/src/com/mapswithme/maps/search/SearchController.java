@@ -80,7 +80,7 @@ public class SearchController implements OnClickListener
     {
       // Clear API points first, then clear additional layer
       // (Framework::Invalidate is called inside).
-      cancelApiCall();
+      //cancelApiCall(); // temporary comment for see search result and api points on map
 
       Framework.cleanSearchLayerOnMap();
 
