@@ -2,6 +2,7 @@
 
 #include "drawer.hpp"
 #include "framework.hpp"
+#include "anim_phase_chain.hpp"
 
 #include "../graphics/display_list.hpp"
 #include "../graphics/screen.hpp"
@@ -17,65 +18,17 @@
 #include "../std/scoped_ptr.hpp"
 #include "../std/algorithm.hpp"
 
+////////////////////////////////////////////////////////////////////////
+
 namespace
 {
-  struct AnimPhase
-  {
-    AnimPhase(double endScale, double timeInterval)
-      : m_endScale(endScale)
-      , m_timeInterval(timeInterval)
-    {
-    }
-
-    double m_endScale;
-    double m_timeInterval;
-  };
-
-  class PinAnimation : public anim::Task
+  class PinAnimation : public AnimPhaseChain
   {
   public:
     PinAnimation(Framework & f)
-      : m_f(f)
-      , m_scale(0.0)
+      : AnimPhaseChain(f, m_scale)
     {
-    }
-
-    void AddAnimPhase(AnimPhase const & phase)
-    {
-      m_animPhases.push_back(phase);
-    }
-
-    virtual void OnStart(double ts)
-    {
-      m_startTime = ts;
-      m_startScale = m_scale;
-      m_phaseIndex = 0;
-    }
-
-    virtual void OnStep(double ts)
-    {
-      ASSERT(m_phaseIndex < m_animPhases.size(), ());
-
-      AnimPhase const * phase = &m_animPhases[m_phaseIndex];
-      double elapsedTime = ts - m_startTime;
-      if (elapsedTime > phase->m_timeInterval)
-      {
-        m_startTime = ts;
-        m_scale = phase->m_endScale;
-        m_startScale = m_scale;
-        m_phaseIndex++;
-        if (m_phaseIndex >= m_animPhases.size())
-        {
-          End();
-          return;
-        }
-      }
-
-      elapsedTime = ts - m_startTime;
-      double t = elapsedTime / phase->m_timeInterval;
-      m_scale = m_startScale + t * (phase->m_endScale - m_startScale);
-
-      m_f.Invalidate();
+      InitDefaultPinAnim(this);
     }
 
     double GetScale() const
@@ -84,19 +37,9 @@ namespace
     }
 
   private:
-    Framework & m_f;
-    vector<AnimPhase> m_animPhases;
-    size_t m_phaseIndex;
     double m_scale;
-    double m_startTime;
-    double m_startScale;
   };
-}
 
-////////////////////////////////////////////////////////////////////////
-
-namespace
-{
   class FindMarkFunctor
   {
   public:
@@ -158,7 +101,10 @@ namespace
                     UserMark const * mark)
   {
     if (mark->IsCustomDrawable())
-      DrawUserMarkImpl(scale, event, static_cast<ICustomDrawable const *>(mark)->GetDisplayList(cache), mark);
+    {
+      ICustomDrawable const * drawable = static_cast<ICustomDrawable const *>(mark);
+      DrawUserMarkImpl(drawable->GetAnimScaleFactor(), event, drawable->GetDisplayList(cache), mark);
+    }
     else
       DefaultDrawUserMark(scale, event, cache, defaultKey, mark);
   }
@@ -298,11 +244,7 @@ void UserMarkContainer::DeleteUserMark(UserMark const * mark)
 
 void UserMarkContainer::StartActivationAnim()
 {
-  PinAnimation * anim = new PinAnimation(m_framework);
-  anim->AddAnimPhase(AnimPhase(1.2, 0.15));
-  anim->AddAnimPhase(AnimPhase(0.8, 0.08));
-  anim->AddAnimPhase(AnimPhase(1, 0.05));
-  m_animTask.reset(anim);
+  m_animTask.reset(new PinAnimation(m_framework));
   m_framework.GetAnimController()->AddTask(m_animTask);
 }
 

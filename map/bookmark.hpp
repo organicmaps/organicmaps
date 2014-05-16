@@ -13,7 +13,12 @@
 #include "../std/string.hpp"
 #include "../std/noncopyable.hpp"
 #include "../std/iostream.hpp"
+#include "../std/shared_ptr.hpp"
 
+namespace anim
+{
+  class Task;
+}
 
 class Track;
 
@@ -27,8 +32,8 @@ public:
   }
 
   BookmarkData(string const & name, string const & type,
-               string const & description = "", double scale = -1.0,
-               time_t timeStamp = my::INVALID_TIME_STAMP)
+                     string const & description = "", double scale = -1.0,
+                     time_t timeStamp = my::INVALID_TIME_STAMP)
     : m_name(name)
     , m_description(description)
     , m_type(type)
@@ -63,10 +68,12 @@ private:
 class Bookmark : public ICustomDrawable
 {
   BookmarkData m_data;
+  double m_animScaleFactor;
 
 public:
   Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
     : ICustomDrawable(ptOrg, container)
+    , m_animScaleFactor(1.0)
   {
   }
 
@@ -75,6 +82,7 @@ public:
            UserMarkContainer * container)
     : ICustomDrawable(ptOrg, container)
     , m_data(data)
+    , m_animScaleFactor(1.0)
   {
   }
 
@@ -100,10 +108,9 @@ public:
   double GetScale() const { return m_data.GetScale(); }
   void SetScale(double scale) { m_data.SetScale(scale); }
 
-  virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const
-  {
-    return cache->FindUserMark(UserMarkDLCache::Key(GetType(), graphics::EPosAbove, GetContainer()->GetDepth()));
-  }
+  virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const;
+  virtual double GetAnimScaleFactor() const;
+  shared_ptr<anim::Task> CreateAnimTask(Framework & fm);
 };
 
 class BookmarkCategory : public UserMarkContainer
@@ -178,6 +185,9 @@ protected:
   virtual string GetTypeName() const { return "search-result"; }
   virtual string GetActiveTypeName() const { return "search-result-active"; }
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
+  
+private:
+  bool m_blockAnimation;
 };
 
 /// <category index, bookmark index>

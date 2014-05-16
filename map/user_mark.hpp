@@ -119,4 +119,5 @@ public:
   ICustomDrawable(m2::PointD const & ptOrg, UserMarkContainer * container) : UserMark(ptOrg, container) {}
   bool IsCustomDrawable() const { return true; }
   virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const = 0;
+  virtual double GetAnimScaleFactor() const = 0;
 };

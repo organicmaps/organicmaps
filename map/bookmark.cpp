@@ -1,5 +1,12 @@
 #include "bookmark.hpp"
 #include "track.hpp"
+#include "anim_phase_chain.hpp"
+
+#include "framework.hpp"
+
+#include "../anim/controller.hpp"
+
+#include "../base/scope_guard.hpp"
 
 #include "../graphics/depth_constants.hpp"
 
@@ -18,6 +25,22 @@
 #include "../std/fstream.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/auto_ptr.hpp"
+
+graphics::DisplayList * Bookmark::GetDisplayList(UserMarkDLCache * cache) const
+{
+  return cache->FindUserMark(UserMarkDLCache::Key(GetType(), graphics::EPosAbove, GetContainer()->GetDepth()));
+}
+
+double Bookmark::GetAnimScaleFactor() const
+{
+  return m_animScaleFactor;
+}
+
+shared_ptr<anim::Task> Bookmark::CreateAnimTask(Framework & fm)
+{
+  m_animScaleFactor = 0.0;
+  return CreateDefaultPinAnim(fm, m_animScaleFactor);
+}
 
 void BookmarkCategory::AddTrack(Track & track)
 {
@@ -49,6 +72,7 @@ void BookmarkCategory::ReplaceBookmark(size_t index, BookmarkData const & bm)
 BookmarkCategory::BookmarkCategory(const string & name, Framework & framework)
   : base_t(graphics::bookmarkDepth, framework)
   , m_name(name)
+  , m_blockAnimation(false)
 {
 }
 
@@ -493,8 +517,31 @@ string BookmarkCategory::GetDefaultType()
   return s_arrSupportedColors[0];
 }
 
+namespace
+{
+  struct AnimBlockGuard
+  {
+  public:
+    AnimBlockGuard(bool & block)
+      : m_block(block)
+    {
+      m_block = true;
+    }
+
+    ~AnimBlockGuard()
+    {
+      m_block = false;
+    }
+
+  private:
+    bool & m_block;
+  };
+}
+
 bool BookmarkCategory::LoadFromKML(ReaderPtr<Reader> const & reader)
 {
+  AnimBlockGuard g(m_blockAnimation);
+
   ReaderSource<ReaderPtr<Reader> > src(reader);
   KMLParser parser(*this);
   if (ParseXML(src, parser, true))
@@ -746,7 +793,10 @@ string BookmarkCategory::GenerateUniqueFileName(const string & path, string name
 
 UserMark * BookmarkCategory::AllocateUserMark(m2::PointD const & ptOrg)
 {
-  return new Bookmark(ptOrg, this);
+  Bookmark * b = new Bookmark(ptOrg, this);
+  if (!m_blockAnimation)
+    m_framework.GetAnimController()->AddTask(b->CreateAnimTask(m_framework));
+  return b;
 }
 
 bool BookmarkCategory::SaveToKMLFile()

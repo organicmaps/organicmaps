@@ -67,7 +67,8 @@ HEADERS += \
     alfa_animation_task.hpp \
     user_mark_container.hpp \
     user_mark.hpp \
-    user_mark_dl_cache.hpp
+    user_mark_dl_cache.hpp \
+    anim_phase_chain.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -121,7 +122,8 @@ SOURCES += \
     alfa_animation_task.cpp \
     user_mark_container.cpp \
     user_mark.cpp \
-    user_mark_dl_cache.cpp
+    user_mark_dl_cache.cpp \
+    anim_phase_chain.cpp
 
 !iphone*:!tizen*:!android* {
   HEADERS += qgl_render_context.hpp

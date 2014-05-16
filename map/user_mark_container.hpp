@@ -98,13 +98,15 @@ private:
   vector<UserMark *> m_userMarks;
   UserMark const * m_activeMark;
 
+protected:
+  Framework & m_framework;
+
 private:
   /// animation support
   void StartActivationAnim();
   void KillActivationAnim();
   double GetActiveMarkScale() const;
 
-  Framework & m_framework;
   shared_ptr<anim::Task> m_animTask;
 };
 
