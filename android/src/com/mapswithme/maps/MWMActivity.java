@@ -722,6 +722,8 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public boolean onTouch(View v, MotionEvent event)
       {
+        if (mRenderingInitialized == false)
+          return false;
         return MWMActivity.this.onTouchEvent(event);
       }
     });
