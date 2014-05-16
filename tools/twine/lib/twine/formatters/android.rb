@@ -40,7 +40,7 @@ module Twine
               lang = match[1]
               lang = LANG_CODES.fetch(lang, lang)
               lang.sub!('-r', '-')
-              return lang =~ /land|port|v\d+|sw\d+/ ? nil : lang
+              return lang
             end
           end
         end
@@ -49,7 +49,7 @@ module Twine
       end
 
       def read_file(path, lang)
-        resources_regex = /<resources>(.*)<\/resources>/m
+        resources_regex = /<resources(?:[^>]*)>(.*)<\/resources>/m
         key_regex = /<string name="(\w+)">/
         comment_regex = /<!-- (.*) -->/
         value_regex = /<string name="\w+">(.*)<\/string>/
@@ -71,6 +71,7 @@ module Twine
                   value.gsub!('\\\'', '\'')
                   value.gsub!('\\"', '"')
                   value = iosify_substitutions(value)
+                  value.gsub!(/(\\u0020)*|(\\u0020)*\z/) { |spaces| ' ' * (spaces.length / 6) }
                 else
                   value = ""
                 end
@@ -129,6 +130,8 @@ module Twine
                   value = CGI.escapeHTML(value)
                   #  3) fix substitutions (e.g. %s/%@)
                   value = androidify_substitutions(value)
+                  #  4) replace beginning and end spaces with \0020. Otherwise Android strips them.
+                  value.gsub!(/\A *| *\z/) { |spaces| '\u0020' * spaces.length }
 
                   comment = row.comment
                   if comment
