@@ -5170,35 +5170,35 @@ cont {
   element {
     scale: 15
     area {
-      color: 14535867
+      color: 13421738
       priority: 1372
     }
   }
   element {
     scale: 16
     area {
-      color: 14535867
+      color: 13421738
       priority: 1372
     }
   }
   element {
     scale: 17
     area {
-      color: 14535867
+      color: 13421738
       priority: 1372
     }
   }
   element {
     scale: 18
     area {
-      color: 14535867
+      color: 13421738
       priority: 1372
     }
   }
   element {
     scale: 19
     area {
-      color: 14535867
+      color: 13421738
       priority: 1372
     }
   }
@@ -18105,11 +18105,15 @@ cont {
   element {
     scale: 15
     lines {
-      width: 3.0
-      color: 15658734
+      width: 2.0
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+    area {
+      color: 13421738
+      priority: 1035
     }
     path_text {
       primary {
@@ -18122,11 +18126,15 @@ cont {
   element {
     scale: 16
     lines {
-      width: 4.0
-      color: 15658734
+      width: 3.0
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+    area {
+      color: 13421738
+      priority: 1035
     }
     path_text {
       primary {
@@ -18140,10 +18148,14 @@ cont {
     scale: 17
     lines {
       width: 7.0
-      color: 15658734
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+    area {
+      color: 13421738
+      priority: 1035
     }
     path_text {
       primary {
@@ -18157,10 +18169,14 @@ cont {
     scale: 18
     lines {
       width: 9.0
-      color: 15658734
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+    area {
+      color: 13421738
+      priority: 1035
     }
     path_text {
       primary {
@@ -18174,10 +18190,14 @@ cont {
     scale: 19
     lines {
       width: 17.0
-      color: 15658734
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+    area {
+      color: 13421738
+      priority: 1035
     }
     path_text {
       primary {
@@ -18193,7 +18213,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 15658734
+      color: 13421738
       priority: 1035
     }
     path_text {
@@ -18207,7 +18227,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 15658734
+      color: 13421738
       priority: 1035
     }
     path_text {
@@ -18221,7 +18241,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 15658734
+      color: 13421738
       priority: 1035
     }
     path_text {
@@ -18235,7 +18255,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 15658734
+      color: 13421738
       priority: 1035
     }
     path_text {
@@ -18249,7 +18269,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 15658734
+      color: 13421738
       priority: 1035
     }
     path_text {
@@ -18266,8 +18286,43 @@ cont {
   element {
     scale: 15
     lines {
+      width: 2.0
+      color: 13421738
+      priority: 1034
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 10.0
+      color: 16777215
+      priority: 1030
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 12.0
+      color: 7829367
+      priority: 1027
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    area {
+      color: 13421738
+      priority: 1035
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 16034
+    }
+  }
+  element {
+    scale: 16
+    lines {
       width: 3.0
-      color: 15658734
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -18286,36 +18341,9 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
-    path_text {
-      primary {
-        height: 10
-        color: 5592405
-      }
-      priority: 16034
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 4.0
-      color: 15658734
-      priority: 1034
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 16777215
-      priority: 1030
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 14.0
-      color: 7829367
-      priority: 1027
-      join: ROUNDJOIN
-      cap: BUTTCAP
+    area {
+      color: 13421738
+      priority: 1035
     }
     path_text {
       primary {
@@ -18329,7 +18357,7 @@ cont {
     scale: 17
     lines {
       width: 7.0
-      color: 15658734
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -18348,6 +18376,10 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
+    area {
+      color: 13421738
+      priority: 1035
+    }
     path_text {
       primary {
         height: 10
@@ -18360,7 +18392,7 @@ cont {
     scale: 18
     lines {
       width: 9.0
-      color: 15658734
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -18379,6 +18411,10 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
+    area {
+      color: 13421738
+      priority: 1035
+    }
     path_text {
       primary {
         height: 10
@@ -18391,7 +18427,7 @@ cont {
     scale: 19
     lines {
       width: 17.0
-      color: 15658734
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -18409,6 +18445,10 @@ cont {
       priority: 1027
       join: ROUNDJOIN
       cap: BUTTCAP
+    }
+    area {
+      color: 13421738
+      priority: 1035
     }
     path_text {
       primary {
@@ -18424,8 +18464,47 @@ cont {
   element {
     scale: 15
     lines {
+      width: 2.0
+      color: 13421738
+      priority: 1034
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 10.0
+      color: 16777215
+      priority: 1030
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 12.0
+      color: 7829367
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1027
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    area {
+      color: 13421738
+      priority: 1035
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 5592405
+      }
+      priority: 16034
+    }
+  }
+  element {
+    scale: 16
+    lines {
       width: 3.0
-      color: 15658734
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -18448,40 +18527,9 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
-    path_text {
-      primary {
-        height: 10
-        color: 5592405
-      }
-      priority: 16034
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 4.0
-      color: 15658734
-      priority: 1034
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 16777215
-      priority: 1030
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 14.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1027
-      join: ROUNDJOIN
-      cap: BUTTCAP
+    area {
+      color: 13421738
+      priority: 1035
     }
     path_text {
       primary {
@@ -18495,7 +18543,7 @@ cont {
     scale: 17
     lines {
       width: 7.0
-      color: 15658734
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -18518,6 +18566,10 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
+    area {
+      color: 13421738
+      priority: 1035
+    }
     path_text {
       primary {
         height: 10
@@ -18530,7 +18582,7 @@ cont {
     scale: 18
     lines {
       width: 9.0
-      color: 15658734
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -18553,6 +18605,10 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
+    area {
+      color: 13421738
+      priority: 1035
+    }
     path_text {
       primary {
         height: 10
@@ -18565,7 +18621,7 @@ cont {
     scale: 19
     lines {
       width: 17.0
-      color: 15658734
+      color: 13421738
       priority: 1034
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -18587,6 +18643,10 @@ cont {
       priority: 1027
       join: ROUNDJOIN
       cap: BUTTCAP
+    }
+    area {
+      color: 13421738
+      priority: 1035
     }
     path_text {
       primary {

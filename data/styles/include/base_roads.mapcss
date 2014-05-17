@@ -465,11 +465,18 @@ line|z15[highway=track]
   color: #c0a87c;
   width: 2;
 }
+line|z15-[highway=pedestrian]
+{
+  color: #c8c8af;
+}
+area|z15-[highway=pedestrian],
+area|z15-[area:highway=pedestrian]
+{
+  fill-color: #c8c8af;
+}
 line|z15[highway=pedestrian]
 {
-  color: #e8e8e8;
-  width: 3;
-  casing-color: #c0bc9c;
+  width: 2;
 }
 line|z15[highway=byway]
 {
@@ -607,10 +614,6 @@ line|z15[highway=cycleway]
   color: #90bc90;
   width: 1;
 }
-area|z15-[highway=pedestrian][area?]
-{
-  fill-color: #f0f0f0;
-}
 line|z16[highway=footway][sac_scale=demanding_mountain_hiking],
 line|z16[highway=path][sac_scale=demanding_mountain_hiking]
 {
@@ -678,9 +681,7 @@ line|z16[highway=raceway]::d2p3
 }
 line|z16[highway=pedestrian]
 {
-  color: #e8e8e8;
-  width: 4;
-  casing-color: #c0bc9c;
+  width: 3;
 }
 line|z16[highway=secondary]
 {
@@ -841,9 +842,7 @@ line|z16[highway=track]
 }
 line|z17-[highway=pedestrian]
 {
-  color: #e8e8e8;
   width: 7;
-  casing-color: #c0bc9c;
 }
 line|z17[highway=steps]::d1p2
 {
@@ -1133,7 +1132,6 @@ line|z19-[highway=living_street]
   width: 41;
 }
 area|z15-[area:highway=footway],
-area|z15-[area:highway=pedestrian],
 area|z15-[area:highway=path],
 area|z15-[area:highway=steps]
 {
