@@ -5,16 +5,20 @@
 #include <FLocations.h>
 #include "../../../std/vector.hpp"
 
-class MapsWithMeApp;
+namespace tizen
+{
+class Framework;
+}
 
 class MapsWithMeForm
 : public Tizen::Ui::Controls::Form
   , public Tizen::Ui::ITouchEventListener
   , public Tizen::Ui::IActionEventListener
   , public Tizen::Locations::ILocationProviderListener
+  , public Tizen::Ui::Controls::IFormBackEventListener
 {
 public:
-  MapsWithMeForm(MapsWithMeApp* pApp);
+  MapsWithMeForm();
   virtual ~MapsWithMeForm(void);
 
   virtual result OnDraw(void);
@@ -45,14 +49,28 @@ public:
   virtual void OnLocationUpdated(Tizen::Locations::Location const & location);
   virtual void OnLocationUpdateStatusChanged(Tizen::Locations::LocationServiceStatus status);
   virtual void OnAccuracyChanged(Tizen::Locations::LocationAccuracy accuracy);
+
+  // IFormBackEventListener
+  virtual void OnFormBackRequested(Tizen::Ui::Controls::Form& source);
+
+  void  UpdateButtons();
 private:
 
   bool m_locationEnabled;
   std::vector<std::pair<double, double> > m_prev_pts;
-  static const int ID_BUTTON = 101;
+
+  static const int ID_BUTTON_GPS = 101;
+  static const int ID_BUTTON_SETTINGS = 102;
+  static const int ID_BUTTON_SCALE_PLUS = 103;
+  static const int ID_BUTTON_SCALE_MINUS = 104;
 
   Tizen::Locations::LocationProvider * m_pLocProvider;
   Tizen::Ui::Controls::Label * m_pLabel;
-  Tizen::Ui::Controls::Button * m_pButton;
-  MapsWithMeApp* m_pApp;
+  Tizen::Ui::Controls::Button * m_pButtonGPS;
+  Tizen::Ui::Controls::Button * m_pButtonSettings;
+
+  Tizen::Ui::Controls::Button * m_pButtonScalePlus;
+  Tizen::Ui::Controls::Button * m_pButtonScaleMinus;
+
+  tizen::Framework * m_pFramework;
 };

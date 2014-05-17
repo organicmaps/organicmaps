@@ -54,7 +54,5 @@ private:
 
   // Called when the screen switches off.
   virtual void OnScreenOff(void);
-private:
-  tizen::Framework * m_pFramework;
 };
 

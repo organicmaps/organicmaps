@@ -1,6 +1,7 @@
 #include "MapsWithMeApp.h"
 #include "MapsWithMeFrame.h"
 #include "MapsWithMeForm.hpp"
+#include "SettingsForm.hpp"
 #include "Framework.hpp"
 #include "../../../base/logging.hpp"
 #include <FUi.h>
@@ -33,20 +34,11 @@ bool MapsWithMeApp::OnAppInitializing(AppRegistry& appRegistry)
   pMapsWithMeFrame->SetName(L"MapsWithMe");
   AddFrame(*pMapsWithMeFrame);
 
-  MapsWithMeForm * pForm = new MapsWithMeForm(this);
-  TryReturn(pForm != null, false, "The memory is insufficient.");
-  pForm->Initialize();
-  pMapsWithMeFrame->AddControl(pForm);
-  pForm->AddTouchEventListener(*pForm);
-
-  m_pFramework = new tizen::Framework(pForm);
-
   return true;
 }
 
 result MapsWithMeApp::Draw()
 {
-  m_pFramework->Draw();
   return E_SUCCESS;
 }
 
