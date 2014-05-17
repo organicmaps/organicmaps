@@ -33,8 +33,8 @@ Framework::Framework(Tizen::Ui::Controls::Form * form)
   ::Framework * pFramework = GetInstance();
   VideoTimer1 * m_VideoTimer = new VideoTimer1(bind(&Framework::Draw, this));
   RenderPolicy::Params params;
-  params.m_screenHeight = form->GetHeight();
-  params.m_screenWidth = form->GetWidth();
+  params.m_screenHeight = form->GetClientAreaBounds().height;
+  params.m_screenWidth = form->GetClientAreaBounds().width;
   params.m_useDefaultFB = true;
   params.m_skinName = "basic.skn";
   params.m_density = graphics::EDensityHDPI; // todo
@@ -65,7 +65,7 @@ Framework::Framework(Tizen::Ui::Controls::Form * form)
 
 Framework::~Framework()
 {
-  delete m_VideoTimer;
+  //delete m_VideoTimer;  ?? ERROR on timer destructor...
 }
 
 ::Framework* Framework::GetInstance()
