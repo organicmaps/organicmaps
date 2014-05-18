@@ -21,6 +21,7 @@
     pt = Navegue mais facilmente com a versão completa do MapsWithMe com a funcionalidade de procura offline. Obtenha-a agora mesmo!
     hu = További lehetőségek a MapsWithMe teljes verziójában. Töltse le most!
   [about]
+    tags = tizen
     en = About
     comment = About button text (should be short)
     cs = O aplikaci
@@ -55,6 +56,7 @@
     pt = Voltar
     hu = Vissza
   [cancel]
+    tags = tizen
     en = Cancel
     comment = Button text (should be short)
     cs = Zrušit
@@ -332,6 +334,7 @@
     pt = kB
     hu = kB
   [kilometres]
+    tags = tizen
     en = Kilometres
     comment = Choose measurement on first launch alert - choose metric system button
     cs = Kilometry
@@ -427,6 +430,7 @@
     pt = MB
     hu = MB
   [miles]
+    tags = tizen
     en = Miles
     comment = Choose measurement on first launch alert - choose imperial system button
     cs = Míle
@@ -1806,8 +1810,8 @@
     pt = O GPS está desativado. Por favor ative-o nas Definições.
     hu = GPS kikapcsolva. Kérjük kapcsolja be a Beállítások között.
   [measurement_units]
+    tags = ios,android,tizen
     en = Measurement Units
-    tags = ios,android
     comment = Measurement units title in settings activity
     cs = Měřicí jednotky
     de = Maßeinheiten
@@ -1824,8 +1828,8 @@
     pt = Unidades de medida
     hu = Mértékegységek
   [measurement_units_summary]
+    tags = ios,android,tizen
     en = Choose between miles and kilometres
-    tags = ios,android
     comment = Detailed description of Measurement Units settings button
     cs = Vyber si míle nebo kilometry
     de = Auswahl zwischen Meilen und Kilometern
@@ -2838,7 +2842,7 @@
     hu = Mutassa a vissza képernyőn
 
   [version]
-    tags = android
+    tags = android,tizen
     comment = Prints version number in About dialog
     en = Version: %@
     ru = Версия: %@
@@ -2964,6 +2968,7 @@
     hu = Keresés
 
   [pref_zoom_title]
+    tags = tizen
     en = Zoom buttons
     ru = Кнопки масштаба
     uk = Кнопки трансфокації
@@ -2981,6 +2986,7 @@
     hu = Nagyítás/kicsinyítés gombok
 
   [pref_zoom_summary]
+    tags = tizen
     en = Display on the screen
     ru = Показать на карте
     uk = Відображення на екрані
