@@ -144,7 +144,7 @@ void MapsWithMeForm::OnActionPerformed(Tizen::Ui::Control const & source, int ac
       break;
     case ID_BUTTON_SETTINGS:
     {
-      SceneManager* pSceneManager = SceneManager::GetInstance();
+      SceneManager * pSceneManager = SceneManager::GetInstance();
       pSceneManager->GoForward(ForwardSceneTransition(SCENE_SETTINGS, SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP));
       break;
     }
@@ -173,7 +173,7 @@ void MapsWithMeForm::OnLocationUpdated(const Tizen::Locations::Location& locatio
 {
   ::Framework * pFramework = tizen::Framework::GetInstance();
   location::GpsInfo info;
-  Coordinates  const & coord = location.GetCoordinates();
+  Coordinates const & coord = location.GetCoordinates();
   info.m_source = location::ETizen;
   info.m_timestamp = detail::ConverToSecondsFrom1970(location.GetTimestamp());//!< seconds from 1st Jan 1970
   info.m_latitude = coord.GetLatitude();            //!< degrees
@@ -343,7 +343,7 @@ void MapsWithMeForm::OnTouchFocusOut(Tizen::Ui::Control const & source,
 
 void MapsWithMeForm::OnFormBackRequested(Tizen::Ui::Controls::Form& source)
 {
-  UiApp* pApp = UiApp::GetInstance();
+  UiApp * pApp = UiApp::GetInstance();
   AppAssert(pApp);
   pApp->Terminate();
 }

@@ -44,11 +44,11 @@ Tizen::Ui::Controls::Form * FormFactory::CreateFormN(String const & formId, Scen
     pNewForm = pForm;
   }
   else if (formId == FORM_ABOUT)
-    {
+  {
     AboutForm * pForm = new (std::nothrow) AboutForm();
-      pForm->Initialize();
-      pNewForm = pForm;
-    }
+    pForm->Initialize();
+    pNewForm = pForm;
+  }
 
   return pNewForm;
 }
