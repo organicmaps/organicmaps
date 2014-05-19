@@ -137,7 +137,7 @@ Bookmark const * BookmarkCategory::GetBookmark(size_t index) const
 Bookmark * BookmarkCategory::GetBookmark(size_t index)
 {
   base_t::Controller & c = base_t::GetController();
-  return static_cast<Bookmark *>(index < c.GetUserMarkCount() ? c.GetUserMark(index) : 0);
+  return static_cast<Bookmark *>(index < c.GetUserMarkCount() ? c.GetUserMarkForEdit(index) : 0);
 }
 
 namespace
