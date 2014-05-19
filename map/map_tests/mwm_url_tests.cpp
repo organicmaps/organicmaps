@@ -52,28 +52,19 @@ namespace
 
     bool TestName(int index, string const & name)
     {
-      return GetData(index).GetName() == name;
+      return GetMark(index)->GetName() == name;
     }
 
     bool TestID(int index, string const & id)
     {
-      return GetData(index).GetID() == id;
+      return GetMark(index)->GetID() == id;
     }
 
   private:
-    UserMark const * GetMark(int index) const
+    ApiMarkPoint const * GetMark(int index) const
     {
       TEST_LESS(index, m_c->GetUserMarkCount(), ());
-      return m_c->GetUserMark(index);
-    }
-
-    ApiCustomData const & GetData(int index) const
-    {
-      UserMark const * mark = GetMark(index);
-      TEST_NOT_EQUAL(mark->GetContainer(), NULL, ());
-      TEST_EQUAL(mark->GetContainer()->GetType(), type, ());
-      TEST_EQUAL(mark->GetCustomData().GetType(), UserCustomData::API, ());
-      return static_cast<ApiCustomData const &>(mark->GetCustomData());
+      return static_cast<ApiMarkPoint const *>(m_c->GetUserMark(index));
     }
 
   private:

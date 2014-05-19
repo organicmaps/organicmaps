@@ -34,8 +34,9 @@ public:
     UserMark * CreateUserMark(m2::PointD ptOrg) { return m_container->CreateUserMark(ptOrg); }
     size_t GetUserMarkCount() const { return m_container->GetUserMarkCount(); }
     UserMark const * GetUserMark(size_t index) const { return m_container->GetUserMark(index); }
-    void EditUserMark(size_t index, UserCustomData * data) { m_container->EditUserMark(index, data); }
+    UserMark * GetUserMarkForEdit(size_t index) { return m_container->GetUserMark(index); }
     void DeleteUserMark(size_t index) { m_container->DeleteUserMark(index); }
+    void DeleteUserMark(UserMark const * mark) { m_container->DeleteUserMark(mark); }
 
   private:
     UserMarkContainer * m_container;
@@ -45,14 +46,14 @@ public:
   {
     SEARCH_MARK,
     API_MARK,
-    BOOKMARK_MARK,
-    TERMINANT
+    BOOKMARK_MARK
   };
 
-  UserMarkContainer(Type type, double layerDepth, Framework & framework);
+  UserMarkContainer(double layerDepth, Framework & framework);
   virtual ~UserMarkContainer();
 
   void SetScreen(graphics::Screen * cacheScreen);
+  virtual Type GetType() const = 0;
 
   bool IsVisible() const { return m_isVisible; }
   void SetVisible(bool isVisible) { m_isVisible = isVisible; }
@@ -68,19 +69,18 @@ public:
 
   void Clear();
 
-  Type const & GetType() const { return m_type; }
   double GetDepth() const { return m_layerDepth; }
 
   static void InitPoiSelectionMark(UserMarkContainer * container);
-  static UserMark * UserMarkForPoi(m2::PointD const & ptOrg);
+  static PoiMarkPoint * UserMarkForPoi(m2::PointD const & ptOrg);
 
   Controller const & GetController() const { return m_controller; }
   Controller & GetController() { return m_controller; }
 
 protected:
-  virtual string GetTypeName() const;
-  virtual string GetActiveTypeName() const;
-  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
+  virtual string GetTypeName() const = 0;
+  virtual string GetActiveTypeName() const = 0;
+  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) = 0;
 
 private:
   friend class Controller;
@@ -88,12 +88,11 @@ private:
   size_t GetUserMarkCount() const;
   UserMark const * GetUserMark(size_t index) const;
   UserMark * GetUserMark(size_t index);
-  void EditUserMark(size_t index, UserCustomData * data);
   void DeleteUserMark(size_t index);
+  void DeleteUserMark(UserMark const * mark);
 
 private:
   Controller m_controller;
-  Type m_type;
   bool m_isVisible;
   double m_layerDepth;
   vector<UserMark *> m_userMarks;
@@ -107,4 +106,30 @@ private:
 
   Framework & m_framework;
   shared_ptr<anim::Task> m_animTask;
+};
+
+class SearchUserMarkContainer : public UserMarkContainer
+{
+public:
+  SearchUserMarkContainer(double layerDepth, Framework & framework);
+
+  virtual Type GetType() const { return SEARCH_MARK; }
+
+protected:
+  virtual string GetTypeName() const;
+  virtual string GetActiveTypeName() const;
+  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
+};
+
+class ApiUserMarkContainer : public UserMarkContainer
+{
+public:
+  ApiUserMarkContainer(double layerDepth, Framework & framework);
+
+  virtual Type GetType() const { return API_MARK; }
+
+protected:
+  virtual string GetTypeName() const;
+  virtual string GetActiveTypeName() const;
+  virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
 };

@@ -450,7 +450,7 @@
     {
       [[Statistics instance] logEvent:@"Bookmark Category" withParameters:@{@"Changed" : @"NO"}];
 
-      BookmarkCustomData newBm([self.pinTitle UTF8String], [self.pinColor UTF8String]);
+      BookmarkData newBm([self.pinTitle UTF8String], [self.pinColor UTF8String]);
       newBm.SetDescription([self.pinNotes UTF8String]);
       f.ReplaceBookmark(_pinEditedBookmark.first, _pinEditedBookmark.second, newBm);
     }
@@ -460,7 +460,7 @@
 
 - (void)addBookmarkToCategory:(size_t)index
 {
-  BookmarkCustomData bm([self.pinTitle UTF8String], [self.pinColor UTF8String]);
+  BookmarkData bm([self.pinTitle UTF8String], [self.pinColor UTF8String]);
   bm.SetDescription([self.pinNotes UTF8String]);
 
   _pinEditedBookmark = pair<int, int>(index, GetFramework().AddBookmark(index, m2::PointD(_pinGlobalPosition.x, _pinGlobalPosition.y), bm));

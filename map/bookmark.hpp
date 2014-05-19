@@ -17,12 +17,18 @@
 
 class Track;
 
-class BookmarkCustomData : public UserCustomData
+class BookmarkData
 {
 public:
-  BookmarkCustomData(string const & name, string const & type,
-                     string const & description = "", double scale = -1.0,
-                     time_t timeStamp = my::INVALID_TIME_STAMP)
+  BookmarkData()
+    : m_scale(-1.0)
+    , m_timeStamp(my::INVALID_TIME_STAMP)
+  {
+  }
+
+  BookmarkData(string const & name, string const & type,
+               string const & description = "", double scale = -1.0,
+               time_t timeStamp = my::INVALID_TIME_STAMP)
     : m_name(name)
     , m_description(description)
     , m_type(type)
@@ -31,16 +37,14 @@ public:
   {
   }
 
-  virtual Type GetType() const { return BOOKMARK; }
-
   string const & GetName() const { return m_name; }
   void SetName(const string & name) { m_name = name; }
 
   string const & GetDescription() const { return m_description; }
   void SetDescription(const string & description) { m_description = description; }
 
-  string const & GetTypeName() const { return m_type; }
-  void SetTypeName(const string & type) { m_type = type; }
+  string const & GetType() const { return m_type; }
+  void SetType(const string & type) { m_type = type; }
 
   double const & GetScale() const { return m_scale; }
   void SetScale(double scale) { m_scale = scale; }
@@ -58,52 +62,47 @@ private:
 
 class Bookmark : public ICustomDrawable
 {
+  BookmarkData m_data;
+
 public:
   Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container)
     : ICustomDrawable(ptOrg, container)
   {
-    Inject();
   }
 
+  Bookmark(BookmarkData const & data,
+           m2::PointD const & ptOrg,
+           UserMarkContainer * container)
+    : ICustomDrawable(ptOrg, container)
+    , m_data(data)
+  {
+  }
+
+  void SetData(BookmarkData const & data) { m_data = data; }
+
+  virtual Type GetMarkType() const { return BOOKMARK; }
+
   m2::PointD const & GetOrg() const { return UserMark::GetOrg(); }
-  string const & GetName() const { return GetData()->GetName(); }
+  string const & GetName() const { return m_data.GetName(); }
   //void SetName(string const & name) { m_name = name; }
   /// @return Now its a bookmark color - name of icon file
-  string const & GetType() const { return GetData()->GetTypeName(); }
+  string const & GetType() const { return m_data.GetType(); }
   //void SetType(string const & type) { m_type = type; }
   m2::RectD GetViewport() const { return m2::RectD(GetOrg(), GetOrg()); }
 
-  string const & GetDescription() const { return GetData()->GetDescription(); }
-  void SetDescription(string const & description) { GetData()->SetDescription(description); }
+  string const & GetDescription() const { return m_data.GetDescription(); }
+  void SetDescription(string const & description) { m_data.SetDescription(description); }
 
   /// @return my::INVALID_TIME_STAMP if bookmark has no timestamp
-  time_t GetTimeStamp() const { return GetData()->GetTimeStamp(); }
-  void SetTimeStamp(time_t timeStamp) { GetData()->SetTimeStamp(timeStamp); }
+  time_t GetTimeStamp() const { return m_data.GetTimeStamp(); }
+  void SetTimeStamp(time_t timeStamp) { m_data.SetTimeStamp(timeStamp); }
 
-  double GetScale() const { return GetData()->GetScale(); }
-  void SetScale(double scale) { GetData()->SetScale(scale); }
+  double GetScale() const { return m_data.GetScale(); }
+  void SetScale(double scale) { m_data.SetScale(scale); }
 
   virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const
   {
     return cache->FindUserMark(UserMarkDLCache::Key(GetType(), graphics::EPosAbove, GetContainer()->GetDepth()));
-  }
-
-private:
-  void Inject(m2::PointD const & org = m2::PointD(), string const & name = "",
-              string const & type = "", string const & descr = "",
-              double scale = -1, time_t timeStamp = my::INVALID_TIME_STAMP)
-  {
-    InjectCustomData(new BookmarkCustomData(name, descr, type, scale, timeStamp));
-  }
-
-  BookmarkCustomData * GetData()
-  {
-    return static_cast<BookmarkCustomData *>(&GetCustomData());
-  }
-
-  BookmarkCustomData const * GetData() const
-  {
-    return static_cast<BookmarkCustomData const *>(&GetCustomData());
   }
 };
 
@@ -124,6 +123,8 @@ public:
   BookmarkCategory(string const & name, Framework & framework);
   ~BookmarkCategory();
 
+  virtual Type GetType() const { return BOOKMARK_MARK; }
+
   void ClearBookmarks();
   void ClearTracks();
 
@@ -131,8 +132,8 @@ public:
 
   /// @name Theese functions are called from Framework only.
   //@{
-  void AddBookmark(m2::PointD const & ptOrg, BookmarkCustomData const & bm);
-  void ReplaceBookmark(size_t index, BookmarkCustomData const & bm);
+  void AddBookmark(m2::PointD const & ptOrg, BookmarkData const & bm);
+  void ReplaceBookmark(size_t index, BookmarkData const & bm);
   //@}
 
   /// @name Tracks routine.
@@ -174,6 +175,8 @@ public:
   //@}
 
 protected:
+  virtual string GetTypeName() const { return "search-result"; }
+  virtual string GetActiveTypeName() const { return "search-result-active"; }
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
 };
 

@@ -336,12 +336,12 @@ void Framework::LoadBookmarks()
     m_bmManager.LoadBookmarks();
 }
 
-size_t Framework::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkCustomData & bm)
+size_t Framework::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkData & bm)
 {
   return m_bmManager.AddBookmark(categoryIndex, ptOrg, bm);
 }
 
-void Framework::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkCustomData const & bm)
+void Framework::ReplaceBookmark(size_t catIndex, size_t bmIndex, const BookmarkData & bm)
 {
   m_bmManager.ReplaceBookmark(catIndex, bmIndex, bm);
 }
@@ -1103,11 +1103,12 @@ void Framework::ShowSearchResult(search::Result const & res)
   UserMarkContainer::Type type = UserMarkContainer::SEARCH_MARK;
   m_bmManager.UserMarksSetVisible(type, true);
   m_bmManager.UserMarksClear(type);
-  UserMark * mark = m_bmManager.UserMarksAddMark(type, res.GetFeatureCenter());
+
   search::AddressInfo info;
-  GetAddressInfoForGlobalPoint(mark->GetOrg(), info);
-  mark->InjectCustomData(new SearchCustomData(res.GetString(), res.GetFeatureType(),
-                                              info.FormatNameAndAddress()));
+  m2::PointD ptOrg = res.GetFeatureCenter();
+  GetAddressInfoForGlobalPoint(ptOrg, info);
+  SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, ptOrg));
+  mark->SetInfo(info);
 
   int scale;
   m2::PointD center;
@@ -1169,12 +1170,11 @@ void Framework::ShowAllSearchResults()
     search::Result const & r = searchRes.GetResult(i);
     if (r.GetResultType() != Result::RESULT_SUGGESTION)
     {
-      UserMark * mark = m_bmManager.UserMarksAddMark(type, r.GetFeatureCenter());
       AddressInfo info;
-      GetAddressInfoForGlobalPoint(mark->GetOrg(), info);
-      mark->InjectCustomData(new SearchCustomData(r.GetString(), r.GetFeatureType(),
-                                                  info.FormatNameAndAddress()));
-
+      m2::PointD ptOrg = r.GetFeatureCenter();
+      GetAddressInfoForGlobalPoint(ptOrg, info);
+      SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, ptOrg));
+      mark->SetInfo(info);
       rect.Add(r.GetFeatureCenter());
     }
   }
@@ -1499,9 +1499,8 @@ UserMark const * Framework::ActivateUserMark(m2::PointD const & pxPoint, bool is
 
     if (needMark)
     {
-      UserMark * poiMark = UserMarkContainer::UserMarkForPoi(m_navigator.PtoG(pxPivot));
-      poiMark->InjectCustomData(new PoiCustomData(info.GetPinName(), info.GetPinType(),
-                                                  info.FormatAddress()));
+      PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi(m_navigator.PtoG(pxPivot));
+      poiMark->SetInfo(info);
       mark = poiMark;
     }
   }
@@ -1515,10 +1514,38 @@ UserMark const * Framework::ActivateAddressMark(m2::PointD const & globalPoint)
 {
   search::AddressInfo info;
   GetAddressInfoForGlobalPoint(globalPoint, info);
-  UserMark * mark = UserMarkContainer::UserMarkForPoi(globalPoint);
-  mark->InjectCustomData(new PoiCustomData(info.GetPinName(), info.GetPinType(), info.FormatAddress()));
+  PoiMarkPoint * mark = UserMarkContainer::UserMarkForPoi(globalPoint);
+  mark->SetInfo(info);
   m_bmManager.ActivateMark(mark);
   return mark;
+}
+
+BookmarkAndCategory Framework::FindBookmark(UserMark const * mark)
+{
+  BookmarkAndCategory empty = MakeEmptyBookmarkAndCategory();
+  BookmarkAndCategory result = empty;
+  for (size_t i = 0; i < GetBmCategoriesCount(); ++i)
+  {
+    if (mark->GetContainer() == GetBmCategory(i))
+    {
+      result.first = i;
+      break;
+    }
+  }
+
+  ASSERT(result.first != empty.first, ());
+  BookmarkCategory const * cat = GetBmCategory(result.first);
+  for (size_t i = 0; i < cat->GetBookmarksCount(); ++i)
+  {
+    if (mark == cat->GetBookmark(i))
+    {
+      result.second = i;
+      break;
+    }
+  }
+
+  ASSERT(result != empty, ());
+  return result;
 }
 
 StringsBundle const & Framework::GetStringsBundle()

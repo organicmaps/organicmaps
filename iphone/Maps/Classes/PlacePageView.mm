@@ -42,58 +42,26 @@
   UserMark const * m_mark;
 }
 
--(BOOL)isMarkOfType:(UserCustomData::Type)type
+-(BOOL)isMarkOfType:(UserMark::Type)type
 {
   ASSERT(m_mark != NULL, ());
   ASSERT(m_mark->GetContainer() != NULL, ());
-  return m_mark->GetCustomData().GetType() == type;
+  return m_mark->GetMarkType() == type;
 }
 
 -(BOOL)isBookmark
 {
-  return [self isMarkOfType:UserCustomData::BOOKMARK];
+  return [self isMarkOfType:UserMark::BOOKMARK];
 }
 
 -(BOOL)isApiPoint
 {
-  return [self isMarkOfType:UserCustomData::API];
+  return [self isMarkOfType:UserMark::API];
 }
 
 -(BOOL)isEmpty
 {
   return m_mark == NULL;
-}
-
--(BookmarkAndCategory)initBookmarkandCategory
-{
-  Framework & fm = GetFramework();
-  BookmarkAndCategory bmAndCat = MakeEmptyBookmarkAndCategory();
-  if ([self isBookmark] == YES)
-  {
-    for (size_t i = 0; i < fm.GetBmCategoriesCount(); ++i)
-    {
-      if (m_mark->GetContainer() == fm.GetBmCategory(i))
-      {
-        bmAndCat.first = i;
-        break;
-      }
-    }
-    
-    ASSERT(bmAndCat.first != MakeEmptyBookmarkAndCategory().first, ());
-    
-    BookmarkCategory const * bmCat = fm.GetBmCategory(bmAndCat.first);
-    for (size_t i = 0; i < bmCat->GetBookmarksCount(); ++i)
-    {
-      if (bmCat->GetBookmark(i) == m_mark)
-      {
-        bmAndCat.second = i;
-        break;
-      }
-    }
-  }
-  
-  ASSERT(IsValid(bmAndCat), ());
-  return bmAndCat;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -177,7 +145,8 @@
 
 - (void)bookmarkCategoryDeletedNotification:(NSNotification *)notification
 {
-  if ([self initBookmarkandCategory].first == [[notification object] integerValue])
+  BookmarkAndCategory bmAndCat = GetFramework().FindBookmark(m_mark);
+  if (bmAndCat.first == [[notification object] integerValue])
   {
     [self deleteBookmark];
     [self updateBookmarkStateAnimated:NO];
@@ -186,9 +155,10 @@
 
 - (void)bookmarkDeletedNotification:(NSNotification *)notification
 {
+  BookmarkAndCategory bmAndCat = GetFramework().FindBookmark(m_mark);
   BookmarkAndCategory bookmarkAndCategory;
   [[notification object] getValue:&bookmarkAndCategory];
-  if (bookmarkAndCategory == [self initBookmarkandCategory])
+  if (bookmarkAndCategory == bmAndCat)
   {
     [self deleteBookmark];
     [self updateBookmarkStateAnimated:NO];
@@ -431,7 +401,7 @@
 - (void)editButtonPressed:(id)sender
 {
   if ([self isBookmark] == YES)
-    [self.delegate placePageView:self willEditBookmarkAndCategory:[self initBookmarkandCategory]];
+    [self.delegate placePageView:self willEditBookmarkAndCategory:GetFramework().FindBookmark(m_mark)];
   else
   {
     search::AddressInfo info;
@@ -465,27 +435,30 @@
 namespace
 {
   template <class T>
-  T const & CastData(UserCustomData const & data) { return static_cast<T const &>(data); }
+  T const * CastData(UserMark const * data)
+  {
+    ASSERT(dynamic_cast<T const *>(data) != NULL, ());
+    return static_cast<T const *>(data);
+  }
 }
 
 - (void)showUserMark:(UserMark const *)mark
 {
   m_mark = mark;
-  UserCustomData const & customData = m_mark->GetCustomData();
-  UserCustomData::Type type = customData.GetType();
+  UserMark::Type type = mark->GetMarkType();
   switch (type)
   {
-    case UserCustomData::BOOKMARK:
-      [self bookmarkActivated:CastData<BookmarkCustomData>(customData)];
+    case UserMark::BOOKMARK:
+      [self bookmarkActivated:CastData<Bookmark>(m_mark)];
       break;
-    case UserCustomData::POI:
-      [self poiActivated:CastData<PoiCustomData>(customData)];
+    case UserMark::POI:
+      [self poiActivated:CastData<PoiMarkPoint>(m_mark)];
       break;
-    case UserCustomData::API:
-      [self apiPointActivated:CastData<ApiCustomData>(customData)];
+    case UserMark::API:
+      [self apiPointActivated:CastData<ApiMarkPoint>(m_mark)];
       break;
-    case UserCustomData::SEARCH:
-      [self searchResultActivated:CastData<SearchCustomData>(customData)];
+    case UserMark::SEARCH:
+      [self searchResultActivated:CastData<SearchMarkPoint>(m_mark)];
       break;
       
     default:
@@ -493,27 +466,29 @@ namespace
   }
 }
 
-- (void)poiActivated:(PoiCustomData const &)data
+- (void)poiActivated:(PoiMarkPoint const *)data
 {
-  [self processName:data.GetName() type:data.GetTypeName() address:data.GetAddress()];
+  search::AddressInfo info = data->GetInfo();
+  [self processName:info.GetPinName() type:info.GetPinType() address:info.FormatAddress()];
 }
 
-- (void)searchResultActivated:(SearchCustomData const &)data
+- (void)searchResultActivated:(SearchMarkPoint const *)data
 {
   [[MapsAppDelegate theApp].m_locationManager start:self];
   [self hideAll];
   
-  string name = data.GetName();
+  search::AddressInfo info = data->GetInfo();
+  string name = info.GetPinName();
   self.titleLabel.text = name.empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:name.c_str()];
   self.titleLabel.hidden = NO;
   
-  if (!data.GetTypeName().empty())
+  if (!info.GetPinType().empty())
   {
-    self.typeLabel.text = [NSString stringWithUTF8String:data.GetTypeName().c_str()];
+    self.typeLabel.text = [NSString stringWithUTF8String:info.GetPinType().c_str()];
     self.typeLabel.hidden = NO;
   }
   
-  self.addressLabel.text = [NSString stringWithUTF8String:data.GetAddress().c_str()];
+  self.addressLabel.text = [NSString stringWithUTF8String:info.FormatAddress().c_str()];
   self.addressLabel.hidden = ![self.addressLabel.text length];
   
   self.locationView.hidden = NO;
@@ -523,7 +498,7 @@ namespace
   [self updateBookmarkStateAnimated:NO];
 }
 
-- (void)apiPointActivated:(ApiCustomData const &)data
+- (void)apiPointActivated:(ApiMarkPoint const *)data
 {
   Framework & framework = GetFramework();
   
@@ -562,26 +537,26 @@ namespace
     [self.guideButton setTitle:appTitle forState:UIControlStateNormal];
   }
   
-  self.titleLabel.text = [NSString stringWithUTF8String:data.GetName().c_str()];
+  self.titleLabel.text = [NSString stringWithUTF8String:data->GetName().c_str()];
   
   search::AddressInfo info;
   framework.GetAddressInfoForGlobalPoint(m_mark->GetOrg(), info);
   [self processName:info.GetPinName() type:info.GetPinType() address:info.FormatAddress()];
 }
 
-- (void)bookmarkActivated:(BookmarkCustomData const &)data
+- (void)bookmarkActivated:(Bookmark const *)data
 {
   Framework & framework = GetFramework();
   [[MapsAppDelegate theApp].m_locationManager start:self];
   [self hideAll];
   
-  string name = data.GetName();
+  string name = data->GetName();
   self.titleLabel.text = name.empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:name.c_str()];
   self.titleLabel.hidden = NO;
   
-  if (!data.GetTypeName().empty())
+  if (!data->GetType().empty())
   {
-    self.typeLabel.text = [NSString stringWithUTF8String:data.GetTypeName().c_str()];
+    self.typeLabel.text = [NSString stringWithUTF8String:data->GetType().c_str()];
     self.typeLabel.hidden = NO;
   }
   
@@ -636,35 +611,17 @@ namespace
 
 - (void)deleteBookmark
 {
-  ASSERT(m_mark->GetCustomData().GetType() == UserCustomData::BOOKMARK, ());
+  ASSERT(m_mark->GetMarkType() == UserMark::BOOKMARK, ());
   ASSERT(m_mark->GetContainer() != NULL, ());
   ASSERT(m_mark->GetContainer()->GetType() == UserMarkContainer::BOOKMARK_MARK, ());
   Framework & fm = GetFramework();
-  
-  BookmarkCategory const * category = static_cast<BookmarkCategory const *>(m_mark->GetContainer());
-  int categoryIndex = -1;
-  for (int i = 0; i < fm.GetBmCategoriesCount(); ++i)
+  BookmarkAndCategory bmAndCat = fm.FindBookmark(m_mark);
+  if (IsValid(bmAndCat))
   {
-    if (category == fm.GetBmCategory(i))
-    {
-      categoryIndex = i;
-      break;
-    }
-  }
-  
-  ASSERT(categoryIndex != -1, ());
-  
-  for (int i = 0; i < category->GetBookmarksCount(); ++i)
-  {
-    Bookmark const * bm = category->GetBookmark(i);
-    if (bm == m_mark)
-    {
-      m2::PointD orgPt = m_mark->GetOrg();
-      fm.GetBmCategory(categoryIndex)->DeleteBookmark(i);
-      m_mark = fm.ActivateAddressMark(orgPt);
-      ASSERT(m_mark != NULL, ());
-      break;
-    }
+    m2::PointD orgPt = m_mark->GetOrg();
+    fm.GetBmCategory(bmAndCat.first)->DeleteBookmark(bmAndCat.second);
+    m_mark = fm.ActivateAddressMark(orgPt);
+    ASSERT(m_mark != NULL, ());
   }
   
   fm.Invalidate();
@@ -682,7 +639,7 @@ namespace
   
   string pinName = info.GetPinName();
   string name = pinName.empty() ? [NSLocalizedString(@"dropped_pin", nil) UTF8String] : pinName.c_str();
-  BookmarkCustomData bm(name, boomarkType);
+  BookmarkData bm(name, boomarkType);
   size_t bmIndex = framework.AddBookmark(categoryIndex, m_mark->GetOrg(), bm);
   m_mark = framework.GetBmCategory(categoryIndex)->GetBookmark(bmIndex);
   framework.Invalidate();
@@ -690,7 +647,7 @@ namespace
 
 - (void)updateBookmarkStateAnimated:(BOOL)animated
 {
-  bool isBookmark = m_mark->GetCustomData().GetType() == UserCustomData::BOOKMARK;
+  bool isBookmark = [self isBookmark];
   self.bookmarkButton.selected = isBookmark;
   [UIView animateWithDuration:0.25 animations:^{
     self.largeShareButton.alpha = isBookmark ? 0 : 1;

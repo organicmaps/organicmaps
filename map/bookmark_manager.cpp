@@ -26,8 +26,8 @@ BookmarkManager::BookmarkManager(Framework & f)
   , m_cache(NULL)
 {
   m_userMarkLayers.reserve(2);
-  m_userMarkLayers.push_back(new UserMarkContainer(UserMarkContainer::SEARCH_MARK, graphics::activePinDepth, m_framework));
-  m_userMarkLayers.push_back(new UserMarkContainer(UserMarkContainer::API_MARK, graphics::activePinDepth, m_framework));
+  m_userMarkLayers.push_back(new SearchUserMarkContainer(graphics::activePinDepth, m_framework));
+  m_userMarkLayers.push_back(new ApiUserMarkContainer(graphics::activePinDepth, m_framework));
   UserMarkContainer::InitPoiSelectionMark(FindUserMarksContainer(UserMarkContainer::SEARCH_MARK));
 }
 
@@ -175,7 +175,7 @@ void BookmarkManager::LoadBookmark(string const & filePath)
     m_categories.push_back(cat);
 }
 
-size_t BookmarkManager::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkCustomData & bm)
+size_t BookmarkManager::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, BookmarkData & bm)
 {
   bm.SetTimeStamp(time(0));
   bm.SetScale(m_framework.GetDrawScale());
@@ -186,19 +186,19 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, const m2::PointD & ptO
   pCat->SaveToKMLFile();
 
   m_lastCategoryUrl = pCat->GetFileName();
-  m_lastType = bm.GetTypeName();
+  m_lastType = bm.GetType();
   SaveState();
 
   return (pCat->GetBookmarksCount() - 1);
 }
 
-void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkCustomData const & bm)
+void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm)
 {
   BookmarkCategory * pCat = m_categories[catIndex];
   pCat->ReplaceBookmark(bmIndex, bm);
   pCat->SaveToKMLFile();
 
-  m_lastType = bm.GetTypeName();
+  m_lastType = bm.GetType();
   SaveState();
 }
 

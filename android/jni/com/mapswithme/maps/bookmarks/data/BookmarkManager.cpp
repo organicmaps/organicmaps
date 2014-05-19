@@ -94,7 +94,7 @@ extern "C"
                               MercatorBounds::LatToY(lat));
 
     ::Framework * f = frm();
-    BookmarkCustomData bmk(jni::ToNativeString(env, name), f->LastEditedBMType());
+    BookmarkData bmk(jni::ToNativeString(env, name), f->LastEditedBMType());
     return g_framework->AddBookmark(frm()->LastEditedBMCategory(), glbPoint, bmk).second;
   }
 

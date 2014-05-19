@@ -15,6 +15,7 @@
 #include "../base/stl_add.hpp"
 
 #include "../std/scoped_ptr.hpp"
+#include "../std/algorithm.hpp"
 
 namespace
 {
@@ -163,15 +164,13 @@ namespace
   }
 }
 
-UserMarkContainer::UserMarkContainer(Type type, double layerDepth, Framework & framework)
+UserMarkContainer::UserMarkContainer(double layerDepth, Framework & framework)
   : m_controller(this)
-  , m_type(type)
   , m_isVisible(true)
   , m_layerDepth(layerDepth)
   , m_activeMark(NULL)
   , m_framework(framework)
 {
-  ASSERT(m_type >= 0 && m_type < TERMINANT, ());
 }
 
 UserMarkContainer::~UserMarkContainer()
@@ -222,50 +221,18 @@ void UserMarkContainer::Clear()
   m_activeMark = NULL;
 }
 
-static string s_TypeNames[] =
-{
-  "search-result",
-  "api-result",
-  "search-result" // Bookmark active we draw as a search active
-};
-
-string UserMarkContainer::GetTypeName() const
-{
-  ASSERT(m_type < ARRAY_SIZE(s_TypeNames), ());
-  return s_TypeNames[m_type];
-}
-
-string UserMarkContainer::GetActiveTypeName() const
-{
-  return GetTypeName() + "-active";
-}
-
-UserMark * UserMarkContainer::AllocateUserMark(m2::PointD const & ptOrg)
-{
-  return new UserMark(ptOrg, this);
-}
-
 namespace
 {
-  class PoiUserMark : public UserMark
-  {
-  public:
-    PoiUserMark(UserMarkContainer * container)
-      : UserMark(m2::PointD(0.0, 0.0), container) {}
-
-    void SetPtOrg(m2::PointD const & ptOrg) { m_ptOrg = ptOrg; }
-  };
-
-  static scoped_ptr<PoiUserMark> s_selectionUserMark;
+  static scoped_ptr<PoiMarkPoint> s_selectionUserMark;
 }
 
 void UserMarkContainer::InitPoiSelectionMark(UserMarkContainer * container)
 {
   ASSERT(s_selectionUserMark == NULL, ());
-  s_selectionUserMark.reset(new PoiUserMark(container));
+  s_selectionUserMark.reset(new PoiMarkPoint(container));
 }
 
-UserMark * UserMarkContainer::UserMarkForPoi(m2::PointD const & ptOrg)
+PoiMarkPoint * UserMarkContainer::UserMarkForPoi(m2::PointD const & ptOrg)
 {
   ASSERT(s_selectionUserMark != NULL, ());
   s_selectionUserMark->SetPtOrg(ptOrg);
@@ -295,12 +262,6 @@ UserMark * UserMarkContainer::GetUserMark(size_t index)
   return m_userMarks[index];
 }
 
-void UserMarkContainer::EditUserMark(size_t index, UserCustomData * data)
-{
-  UserMark * mark = GetUserMark(index);
-  mark->InjectCustomData(data);
-}
-
 namespace
 {
 
@@ -328,6 +289,13 @@ void UserMarkContainer::DeleteUserMark(size_t index)
   DeleteItem(m_userMarks, index);
 }
 
+void UserMarkContainer::DeleteUserMark(UserMark const * mark)
+{
+  vector<UserMark *>::iterator it = find(m_userMarks.begin(), m_userMarks.end(), mark);
+  if (it != m_userMarks.end())
+    DeleteUserMark(distance(m_userMarks.begin(), it));
+}
+
 void UserMarkContainer::StartActivationAnim()
 {
   PinAnimation * anim = new PinAnimation(m_framework);
@@ -352,4 +320,44 @@ double UserMarkContainer::GetActiveMarkScale() const
   }
 
   return 1.0;
+}
+
+SearchUserMarkContainer::SearchUserMarkContainer(double layerDepth, Framework & framework)
+  : UserMarkContainer(layerDepth, framework)
+{
+}
+
+string SearchUserMarkContainer::GetTypeName() const
+{
+  return "search-result";
+}
+
+string SearchUserMarkContainer::GetActiveTypeName() const
+{
+  return "search-result-active";
+}
+
+UserMark * SearchUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
+{
+  return new SearchMarkPoint(ptOrg, this);
+}
+
+ApiUserMarkContainer::ApiUserMarkContainer(double layerDepth, Framework & framework)
+  : UserMarkContainer(layerDepth, framework)
+{
+}
+
+string ApiUserMarkContainer::GetTypeName() const
+{
+  return "api-result";
+}
+
+string ApiUserMarkContainer::GetActiveTypeName() const
+{
+  return "search-result-active";
+}
+
+UserMark * ApiUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
+{
+  return new ApiMarkPoint(ptOrg, this);
 }

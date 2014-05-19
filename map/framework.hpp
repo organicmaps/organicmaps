@@ -179,8 +179,8 @@ public:
   void LoadBookmarks();
 
   /// @return Created bookmark index in category.
-  size_t AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkCustomData & bm);
-  void ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkCustomData const & bm);
+  size_t AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkData & bm);
+  void ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm);
   /// @return Created bookmark category index.
   size_t AddCategory(string const & categoryName);
 
@@ -427,6 +427,7 @@ public:
   shared_ptr<location::State> const & GetLocationState() const;
   UserMark const * ActivateUserMark(m2::PointD const & pxPoint, bool isLongPress);
   UserMark const * ActivateAddressMark(m2::PointD const & globalPoint);
+  BookmarkAndCategory FindBookmark(UserMark const * mark);
 
 public:
   string CodeGe0url(Bookmark const * bmk, bool addName);

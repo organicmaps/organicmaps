@@ -2,6 +2,8 @@
 
 #include "../geometry/point2d.hpp"
 
+#include "../search/result.hpp"
+
 #include "../std/string.hpp"
 #include "../std/noncopyable.hpp"
 
@@ -14,88 +16,17 @@ namespace graphics
   class DisplayList;
 }
 
-class UserCustomData
+class UserMark : private noncopyable
 {
 public:
   enum Type
   {
-    EMPTY,
-    POI,
-    SEARCH,
     API,
+    SEARCH,
+    POI,
     BOOKMARK
   };
 
-  virtual ~UserCustomData() {}
-
-  virtual Type GetType() const = 0;
-};
-
-class EmptyCustomData : public UserCustomData
-{
-public:
-  virtual Type GetType() const { return EMPTY; }
-};
-
-class BaseCustomData : public UserCustomData
-{
-public:
-  BaseCustomData(string const & name, string const & typeName, string address)
-    : m_name(name)
-    , m_typeName(typeName)
-    , m_address(address) {}
-
-  string const & GetName() const { return m_name; }
-  string const & GetTypeName() const { return m_typeName; }
-  string const & GetAddress() const { return m_address; }
-
-private:
-  string m_name;
-  string m_typeName;
-  string m_address;
-};
-
-class PoiCustomData : public BaseCustomData
-{
-  typedef BaseCustomData base_t;
-public:
-  PoiCustomData(string const & name, string const & typeName, string address)
-   : base_t(name, typeName, address) {}
-
-  virtual Type GetType() const { return POI; }
-};
-
-class SearchCustomData : public BaseCustomData
-{
-  typedef BaseCustomData base_t;
-public:
-  SearchCustomData(string const & name, string const & typeName, string address)
-    : base_t(name, typeName, address) {}
-
-  virtual Type GetType() const { return SEARCH; }
-};
-
-class ApiCustomData : public UserCustomData
-{
-  typedef UserCustomData base_t;
-public:
-  ApiCustomData(string const & name, string const & id)
-    : m_name(name)
-    , m_id(id) {}
-
-  virtual Type GetType() const { return API; }
-
-  string const & GetName() const { return m_name; }
-  string const & GetID() const {return m_id; }
-
-private:
-  string m_name;
-  string m_id;
-};
-
-class UserMark : private noncopyable
-{
-public:
   UserMark(m2::PointD const & ptOrg, UserMarkContainer * container);
   virtual ~UserMark();
 
@@ -103,22 +34,83 @@ public:
   m2::PointD const & GetOrg() const;
   void GetLatLon(double & lat, double & lon) const;
   virtual bool IsCustomDrawable() const { return false;}
-
-  // custom data must be allocated in head
-  // memory where allocated custom data will be deallocated by UserMark
-  void InjectCustomData(UserCustomData * customData);
-  UserCustomData const & GetCustomData() const;
+  virtual Type GetMarkType() const = 0;
 
 protected:
   friend class BookmarkManager;
   void Activate() const;
   void Diactivate() const;
-  UserCustomData & GetCustomData();
 
 protected:
   m2::PointD m_ptOrg;
   mutable UserMarkContainer * m_container;
-  UserCustomData * m_customData;
+};
+
+class ApiMarkPoint : public UserMark
+{
+public:
+  ApiMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
+    : UserMark(ptOrg, container)
+  {
+  }
+
+  ApiMarkPoint(string const & name,
+           string const & id,
+           m2::PointD const & ptOrg,
+           UserMarkContainer * container)
+    : UserMark(ptOrg, container)
+    , m_name(name)
+    , m_id(id)
+  {
+  }
+
+  UserMark::Type GetMarkType() const { return API; }
+
+  string const & GetName() const { return m_name; }
+  void SetName(string const & name) { m_name = name; }
+
+  string const & GetID() const   { return m_id; }
+  void SetID(string const & id)  { m_id = id; }
+
+private:
+  string m_name;
+  string m_id;
+};
+
+class SearchMarkPoint : public UserMark
+{
+public:
+  SearchMarkPoint(search::AddressInfo const & info,
+           m2::PointD const & ptOrg,
+           UserMarkContainer * container)
+    : UserMark(ptOrg, container)
+    , m_info(info)
+  {
+  }
+
+  SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
+    : UserMark(ptOrg, container)
+  {
+  }
+
+  UserMark::Type GetMarkType() const { return SEARCH; }
+
+  search::AddressInfo const & GetInfo() const { return m_info; }
+  void SetInfo(search::AddressInfo const & info) { m_info = info; }
+
+private:
+  search::AddressInfo m_info;
+};
+
+class PoiMarkPoint : public SearchMarkPoint
+{
+public:
+  PoiMarkPoint(UserMarkContainer * container)
+    : SearchMarkPoint(m2::PointD(0.0, 0.0), container) {}
+
+  UserMark::Type GetMarkType() const { return POI; }
+
+  void SetPtOrg(m2::PointD const & ptOrg) { m_ptOrg = ptOrg; }
 };
 
 class ICustomDrawable : public UserMark

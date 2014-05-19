@@ -262,7 +262,7 @@ UNIT_TEST(Bookmarks_Timestamp)
 
   char const * arrCat[] = { "cat", "cat1" };
 
-  BookmarkCustomData b1("name", "type");
+  BookmarkData b1("name", "type");
   fm.AddCategory(arrCat[0]);
   fm.AddBookmark(0, orgPoint, b1);
 
@@ -270,7 +270,7 @@ UNIT_TEST(Bookmarks_Timestamp)
   time_t const timeStamp = pBm->GetTimeStamp();
   TEST_NOT_EQUAL(timeStamp, my::INVALID_TIME_STAMP, ());
 
-  BookmarkCustomData b3("newName", "newType");
+  BookmarkData b3("newName", "newType");
   b3.SetTimeStamp(12345);
   TEST_NOT_EQUAL(b3.GetTimeStamp(), timeStamp, ());
 
@@ -316,13 +316,13 @@ UNIT_TEST(Bookmarks_Getting)
   for (int i = 0; i < 3; ++i)
     fm.AddCategory(arrCat[i]);
 
-  BookmarkCustomData bm("1", "placemark-red");
+  BookmarkData bm("1", "placemark-red");
   fm.AddBookmark(0, m2::PointD(38, 20), bm);
   BookmarkCategory const * c1 = fm.GetBmCategory(0);
-  bm = BookmarkCustomData("2", "placemark-red");
+  bm = BookmarkData("2", "placemark-red");
   fm.AddBookmark(1, m2::PointD(41, 20), bm);
   BookmarkCategory const * c2 = fm.GetBmCategory(1);
-  bm = BookmarkCustomData("3", "placemark-red");
+  bm = BookmarkData("3", "placemark-red");
   fm.AddBookmark(2, m2::PointD(41, 40), bm);
   BookmarkCategory const * c3 = fm.GetBmCategory(2);
 
@@ -347,7 +347,7 @@ UNIT_TEST(Bookmarks_Getting)
   cat = GetCategory(mark);
   TEST_EQUAL(cat->GetName(), arrCat[2], ());
 
-  bm = BookmarkCustomData("4", "placemark-blue");
+  bm = BookmarkData("4", "placemark-blue");
   fm.AddBookmark(2, m2::PointD(41, 40), bm);
   BookmarkCategory const * c33 = fm.GetBmCategory(2);
 
@@ -490,14 +490,14 @@ UNIT_TEST(Bookmarks_AddingMoving)
   m2::PointD const globalPoint = m2::PointD(40, 20);
   m2::PointD const pixelPoint = fm.GtoP(globalPoint);
 
-  BookmarkCustomData bm("name", "placemark-red");
+  BookmarkData bm("name", "placemark-red");
   fm.AddBookmark(0, globalPoint, bm);
   BookmarkCategory const * c1 = fm.GetBmCategory(0);
   Bookmark const * mark = GetBookmarkPxPoint(fm, pixelPoint);
   BookmarkCategory const * cat = GetCategory(mark);
   TEST_EQUAL(cat->GetName(), arrCat[0], ());
 
-  bm = BookmarkCustomData("name2", "placemark-blue");
+  bm = BookmarkData("name2", "placemark-blue");
   fm.AddBookmark(0, globalPoint, bm);
   BookmarkCategory const * c11 = fm.GetBmCategory(0);
   TEST_EQUAL(c1, c11, ());
@@ -508,7 +508,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(mark->GetType(), "placemark-red", ());
 
   // Edit name, type and category of bookmark
-  bm = BookmarkCustomData("name3", "placemark-green");
+  bm = BookmarkData("name3", "placemark-green");
   fm.AddBookmark(1, globalPoint, bm);
   BookmarkCategory const * c2 = fm.GetBmCategory(1);
   TEST_NOT_EQUAL(c1, c2, ());
@@ -566,7 +566,7 @@ UNIT_TEST(BookmarkCategory_EmptyName)
 {
   Framework framework;
   BookmarkCategory * pCat = new BookmarkCategory("", framework);
-  pCat->AddBookmark(m2::PointD(0, 0), BookmarkCustomData("", "placemark-red"));
+  pCat->AddBookmark(m2::PointD(0, 0), BookmarkData("", "placemark-red"));
   pCat->SaveToKMLFile();
 
   pCat->SetName("xxx");

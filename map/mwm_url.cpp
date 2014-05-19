@@ -67,8 +67,9 @@ bool ParsedMapApi::Parse(Uri const & uri)
     ApiPoint const & p = points[i];
     m2::PointD glPoint(MercatorBounds::LonToX(p.m_lon),
                        MercatorBounds::LatToY(p.m_lat));
-    UserMark * mark = m_controller->CreateUserMark(glPoint);
-    mark->InjectCustomData(new ApiCustomData(p.m_name, p.m_id));
+    ApiMarkPoint * mark = static_cast<ApiMarkPoint *>(m_controller->CreateUserMark(glPoint));
+    mark->SetName(p.m_name);
+    mark->SetID(p.m_id);
   }
 
   return true;

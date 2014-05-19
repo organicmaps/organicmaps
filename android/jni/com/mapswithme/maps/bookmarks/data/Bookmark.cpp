@@ -48,7 +48,7 @@ extern "C"
     Bookmark const * p = getBookmark(cat, bmk);
 
     // initialize new bookmark
-    BookmarkCustomData bm(jni::ToNativeString(env, name), jni::ToNativeString(env, type));
+    BookmarkData bm(jni::ToNativeString(env, name), jni::ToNativeString(env, type));
     if (descr != 0)
       bm.SetDescription(jni::ToNativeString(env, descr));
     else

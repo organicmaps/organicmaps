@@ -29,22 +29,25 @@ Track const * BookmarkCategory::GetTrack(size_t index) const
   return (index < m_tracks.size() ? m_tracks[index] : 0);
 }
 
-void BookmarkCategory::AddBookmark(m2::PointD const & ptOrg, BookmarkCustomData const & bm)
+void BookmarkCategory::AddBookmark(m2::PointD const & ptOrg, BookmarkData const & bm)
 {
   UserMark * mark = base_t::GetController().CreateUserMark(ptOrg);
-  mark->InjectCustomData(new BookmarkCustomData(bm));
+  static_cast<Bookmark *>(mark)->SetData(bm);
 }
 
-void BookmarkCategory::ReplaceBookmark(size_t index, BookmarkCustomData const & bm)
+void BookmarkCategory::ReplaceBookmark(size_t index, BookmarkData const & bm)
 {
   Controller c = base_t::GetController();
   ASSERT_LESS (index, c.GetUserMarkCount(), ());
   if (index < c.GetUserMarkCount())
-    base_t::GetController().EditUserMark(index, new BookmarkCustomData(bm));
+  {
+    Bookmark * mark = static_cast<Bookmark *>(c.GetUserMarkForEdit(index));
+    mark->SetData(bm);
+  }
 }
 
 BookmarkCategory::BookmarkCategory(const string & name, Framework & framework)
-  : base_t(UserMarkContainer::BOOKMARK_MARK, graphics::bookmarkDepth, framework)
+  : base_t(graphics::bookmarkDepth, framework)
   , m_name(name)
 {
 }
@@ -104,13 +107,13 @@ size_t BookmarkCategory::GetBookmarksCount() const
 Bookmark const * BookmarkCategory::GetBookmark(size_t index) const
 {
   base_t::Controller const & c = base_t::GetController();
-  return (Bookmark *)(index < c.GetUserMarkCount() ? c.GetUserMark(index) : 0);
+  return static_cast<Bookmark const *>(index < c.GetUserMarkCount() ? c.GetUserMark(index) : 0);
 }
 
 Bookmark * BookmarkCategory::GetBookmark(size_t index)
 {
   base_t::Controller & c = base_t::GetController();
-  return (Bookmark *)(index < c.GetUserMarkCount() ? c.GetUserMark(index) : 0);
+  return static_cast<Bookmark *>(index < c.GetUserMarkCount() ? c.GetUserMark(index) : 0);
 }
 
 namespace
@@ -344,7 +347,7 @@ namespace
         if (MakeValid())
         {
           if (POINT == m_geometryType)
-            m_category.AddBookmark(m_org, BookmarkCustomData(m_name, m_type, m_description, m_scale, m_timeStamp));
+            m_category.AddBookmark(m_org, BookmarkData(m_name, m_type, m_description, m_scale, m_timeStamp));
           else if (LINE == m_geometryType)
           {
             Track track(m_points);

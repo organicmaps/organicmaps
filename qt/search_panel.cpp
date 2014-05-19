@@ -129,8 +129,10 @@ void SearchPanel::OnSearchResult(ResultsT * res)
 
       if (e.GetResultType() != ResultT::RESULT_SUGGESTION)
       {
-        UserMark * mark = manager.UserMarksAddMark(UserMarkContainer::SEARCH_MARK, e.GetFeatureCenter());
-        mark->InjectCustomData(new SearchCustomData(e.GetString(), "", ""));
+        SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(manager.UserMarksAddMark(UserMarkContainer::SEARCH_MARK, e.GetFeatureCenter()));
+        search::AddressInfo info;
+        info.MakeFrom(e);
+        mark->SetInfo(info);
         // For debug purposes: add bookmarks for search results
         m_pTable->setItem(rowCount, 0, create_item(QString::fromUtf8(e.GetFeatureType())));
 
