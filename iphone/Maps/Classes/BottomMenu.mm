@@ -2,7 +2,7 @@
 #import "BottomMenu.h"
 #import "BottomMenuCell.h"
 #import "UIKitCategories.h"
-#include "../../../../platform/platform.hpp"
+#include "../../../platform/platform.hpp"
 #import "AppInfo.h"
 
 @interface BottomMenu () <UITableViewDataSource, UITableViewDelegate>
@@ -10,7 +10,7 @@
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) UIView * fadeView;
 
-@property (nonatomic) NSArray *items;
+@property (nonatomic) NSArray * items;
 
 @end
 
@@ -26,7 +26,7 @@
   [self addSubview:self.fadeView];
 
   CGFloat menuHeight = [items count] * [BottomMenuCell cellHeight];
-  if (!Platform().IsPro())
+  if (!GetPlatform().IsPro())
     menuHeight += [BottomMenuCell cellHeight];
 
   self.tableView.frame = CGRectMake(0, 0, self.width, menuHeight);
@@ -44,7 +44,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (Platform().IsPro())
+  if (GetPlatform().IsPro())
     return [self.items count];
   else
     return (section == 0) ? 1 : [self.items count];
@@ -52,12 +52,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return Platform().IsPro() ? 1 : 2;
+  return GetPlatform().IsPro() ? 1 : 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (Platform().IsPro() || (!Platform().IsPro() && indexPath.section == 1))
+  if (GetPlatform().IsPro() || (!GetPlatform().IsPro() && indexPath.section == 1))
   {
     BottomMenuCell * cell = (BottomMenuCell *)[tableView dequeueReusableCellWithIdentifier:[BottomMenuCell className]];
     if (!cell)
@@ -99,7 +99,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (Platform().IsPro() || (!Platform().IsPro() && indexPath.section == 1))
+  if (GetPlatform().IsPro() || (!GetPlatform().IsPro() && indexPath.section == 1))
   {
     [self.delegate bottomMenu:self didPressItemWithName:self.items[indexPath.row][@"Item"]];
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
