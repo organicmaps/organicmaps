@@ -192,6 +192,19 @@ size_t BookmarkManager::AddBookmark(size_t categoryIndex, const m2::PointD & ptO
   return (pCat->GetBookmarksCount() - 1);
 }
 
+size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t newCatIndex)
+{
+  BookmarkCategory * cat = m_framework.GetBmCategory(curCatIndex);
+
+  Bookmark * bm = cat->GetBookmark(bmIndex);
+  Bookmark bmCopy = Bookmark(*bm);
+
+  cat->DeleteBookmark(bmIndex);
+  cat->SaveToKMLFile();
+
+  return m_framework.AddBookmark(newCatIndex, bmCopy);
+}
+
 void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm)
 {
   BookmarkCategory * pCat = m_categories[catIndex];

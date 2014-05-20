@@ -1,4 +1,4 @@
-﻿#include "framework.hpp"
+#include "framework.hpp"
 #include "feature_processor.hpp"
 #include "drawer.hpp"
 #include "benchmark_provider.hpp"
@@ -341,7 +341,12 @@ size_t Framework::AddBookmark(size_t categoryIndex, const m2::PointD & ptOrg, Bo
   return m_bmManager.AddBookmark(categoryIndex, ptOrg, bm);
 }
 
-void Framework::ReplaceBookmark(size_t catIndex, size_t bmIndex, const BookmarkData & bm)
+size_t Framework::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t newCatIndex)
+{
+  return m_bmManager.MoveBookmark(bmIndex, curCatIndex, newCatIndex);
+}
+
+void Framework::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm)
 {
   m_bmManager.ReplaceBookmark(catIndex, bmIndex, bm);
 }
