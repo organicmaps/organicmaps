@@ -5,6 +5,7 @@
 @interface SearchUniversalCell ()
 
 @property (nonatomic) UILabel * titleLabel;
+@property (nonatomic) UILabel * typeLabel;
 @property (nonatomic) UILabel * subtitleLabel;
 @property (nonatomic) UILabel * distanceLabel;
 @property (nonatomic) UIImageView * iconImageView;
@@ -18,6 +19,7 @@
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 
   [self.contentView addSubview:self.titleLabel];
+  [self.contentView addSubview:self.typeLabel];
   [self.contentView addSubview:self.subtitleLabel];
   [self.contentView addSubview:self.iconImageView];
   [self.contentView addSubview:self.distanceLabel];
@@ -25,11 +27,12 @@
   return self;
 }
 
-#define DISTANCE_FONT [UIFont fontWithName:@"HelveticaNeue" size:10]
-#define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue" size:17]
-#define SUBTITLE_FONT [UIFont fontWithName:@"HelveticaNeue" size:12.5]
+#define DISTANCE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12.5]
+#define TYPE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12.5]
+#define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:17]
+#define SUBTITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12.5]
 #define TITLE_LEFT_SHIFT 44
-#define TITLE_RIGHT_SHIFT 35
+#define TITLE_RIGHT_SHIFT 23
 #define MAX_TITLE_HEIGHT 200
 
 - (void)setTitle:(NSString *)title selectedRange:(NSRange)selectedRange
@@ -110,27 +113,45 @@
 {
   [super layoutSubviews];
 
-  [self.distanceLabel sizeToFit];
-  self.distanceLabel.width += 4;
-  self.distanceLabel.maxX = self.width - 25;
-  self.distanceLabel.minY = 12;
+  [self.typeLabel sizeToFit];
+  self.typeLabel.maxX = self.width - TITLE_RIGHT_SHIFT;
+  self.typeLabel.minY = 10;
 
-  CGFloat distanceWidth = [self.distanceLabel.text sizeWithDrawSize:CGSizeMake(100, 20) font:DISTANCE_FONT].width;
-  self.titleLabel.width = self.width - distanceWidth - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT;
+  [self.distanceLabel sizeToFit];
+  self.distanceLabel.maxX = self.width - TITLE_RIGHT_SHIFT;
+  self.distanceLabel.maxY = self.height - 10;
+
+  CGFloat const space = 4;
+  self.titleLabel.width = self.width - self.typeLabel.width - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT - space;
   self.titleLabel.minX = TITLE_LEFT_SHIFT;
   [self.titleLabel sizeToFit];
   if ([self.subtitleLabel.text length])
-    self.titleLabel.minY = 8;
+    self.titleLabel.minY = 6;
   else
     self.titleLabel.midY = self.height / 2 - 1.5;
-  self.subtitleLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY - 2);
+
+  self.subtitleLabel.width = self.width - self.distanceLabel.width - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT - space;
+  self.subtitleLabel.origin = CGPointMake(TITLE_LEFT_SHIFT, self.titleLabel.maxY - 2);
 }
 
-+ (CGFloat)cellHeightWithTitle:(NSString *)title subtitle:(NSString *)subtitle distance:(NSString *)distance viewWidth:(CGFloat)width
++ (CGFloat)cellHeightWithTitle:(NSString *)title type:(NSString *)type subtitle:(NSString *)subtitle distance:(NSString *)distance viewWidth:(CGFloat)width
 {
-  CGFloat distanceWidth = [distance sizeWithDrawSize:CGSizeMake(100, 20) font:DISTANCE_FONT].width;
-  CGFloat titleHeight = [title sizeWithDrawSize:CGSizeMake(width - distanceWidth - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT, MAX_TITLE_HEIGHT) font:TITLE_FONT].height;
+  CGFloat typeWidth = [type sizeWithDrawSize:CGSizeMake(100, 22) font:TYPE_FONT].width;
+  CGFloat titleHeight = [title sizeWithDrawSize:CGSizeMake(width - typeWidth - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT, MAX_TITLE_HEIGHT) font:TITLE_FONT].height;
   return MAX(50, titleHeight + ([subtitle length] ? 27 : 15));
+}
+
+- (UILabel *)typeLabel
+{
+  if (!_typeLabel)
+  {
+    _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 16)];
+    _typeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    _typeLabel.font = TYPE_FONT;
+    _typeLabel.textColor = [UIColor colorWithColorCode:@"c9c9c9"];
+    _typeLabel.textAlignment = NSTextAlignmentRight;
+  }
+  return _typeLabel;
 }
 
 - (UILabel *)distanceLabel
@@ -139,10 +160,9 @@
   {
     _distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 16)];
     _distanceLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-    _distanceLabel.backgroundColor = [UIColor colorWithColorCode:@"16b78a"];
+    _distanceLabel.textColor = [UIColor colorWithColorCode:@"c9c9c9"];
     _distanceLabel.font = DISTANCE_FONT;
-    _distanceLabel.textColor = [UIColor whiteColor];
-    _distanceLabel.textAlignment = NSTextAlignmentCenter;
+    _distanceLabel.textAlignment = NSTextAlignmentRight;
   }
   return _distanceLabel;
 }
@@ -174,7 +194,7 @@
 {
   if (!_iconImageView)
   {
-    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(17, 16, 18, 18)];
+    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(17, 15.5, 18, 18)];
     _iconImageView.contentMode = UIViewContentModeCenter;
   }
   return _iconImageView;

@@ -391,6 +391,7 @@ static void OnSearchResultCallback(search::Results const & results)
   self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   SearchUniversalCell * cell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
@@ -400,6 +401,7 @@ static void OnSearchResultCallback(search::Results const & results)
     // initial categories
     cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
     cell.distanceLabel.text = nil;
+    cell.typeLabel.text = nil;
     [cell setTitle:NSLocalizedString(self.categoriesNames[indexPath.row], nil) selectedRange:NSMakeRange(0, 0)];
     [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
   }
@@ -420,6 +422,15 @@ static void OnSearchResultCallback(search::Results const & results)
         // suggest item
         cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
         cell.distanceLabel.text = nil;
+        cell.typeLabel.text = nil;
+        [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
+      }
+      else if (result.GetResultType() == search::Result::RESULT_POI_SUGGEST)
+      {
+        // poi suggest item
+        cell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinsIcon"];
+        cell.distanceLabel.text = nil;
+        cell.typeLabel.text = nil;
         [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
       }
       else
@@ -427,6 +438,7 @@ static void OnSearchResultCallback(search::Results const & results)
         // final search result item
         cell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinIcon"];
         cell.distanceLabel.text = wrapper.distances[@(position)];
+        cell.typeLabel.text = [NSString stringWithUTF8String:result.GetFeatureType()];
         NSString * subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
         NSRange subtitleRange = [subtitle rangeOfString:self.searchBar.textField.text options:NSCaseInsensitiveSearch];
         [cell setSubtitle:subtitle selectedRange:subtitleRange];
@@ -437,11 +449,11 @@ static void OnSearchResultCallback(search::Results const & results)
       // 'show on map' cell
       cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
       cell.distanceLabel.text = nil;
+      cell.typeLabel.text = nil;
       [cell setTitle:NSLocalizedString(@"search_show_on_map", nil) selectedRange:NSMakeRange(0, 0)];
       [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
     }
   }
-
   return cell;
 }
 
@@ -449,7 +461,7 @@ static void OnSearchResultCallback(search::Results const & results)
 {
   if ([self isShowingCategories])
   {
-    return [SearchUniversalCell cellHeightWithTitle:self.categoriesNames[indexPath.row] subtitle:nil distance:nil viewWidth:tableView.width];
+    return [SearchUniversalCell cellHeightWithTitle:self.categoriesNames[indexPath.row] type:nil subtitle:nil distance:nil viewWidth:tableView.width];
   }
   else
   {
@@ -460,11 +472,12 @@ static void OnSearchResultCallback(search::Results const & results)
       search::Result const & result = [wrapper resultWithPosition:position];
       NSString * title = [NSString stringWithUTF8String:result.GetString()];
       NSString * subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
-      return [SearchUniversalCell cellHeightWithTitle:title subtitle:subtitle distance:wrapper.distances[@(position)] viewWidth:tableView.width];
+      NSString * type = [NSString stringWithUTF8String:result.GetFeatureType()];
+      return [SearchUniversalCell cellHeightWithTitle:title type:type subtitle:subtitle distance:wrapper.distances[@(position)] viewWidth:tableView.width];
     }
     else
     {
-      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"search_show_on_map", nil) subtitle:nil distance:nil viewWidth:tableView.width];
+      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"search_show_on_map", nil) type:nil subtitle:nil distance:nil viewWidth:tableView.width];
     }
   }
 }
@@ -493,7 +506,11 @@ static void OnSearchResultCallback(search::Results const & results)
     {
       self.searchBar.textField.text = [NSString stringWithUTF8String:result.GetSuggestionString()];
       [self search];
-      return;
+    }
+    else if (result.GetResultType() == search::Result::RESULT_POI_SUGGEST)
+    {
+      self.searchBar.textField.text = [NSString stringWithUTF8String:result.GetSuggestionString()];
+      [self search];
     }
     else
     {
@@ -518,12 +535,12 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (BOOL)indexPathIsForSearchResultItem:(NSIndexPath *)indexPath
 {
-  return indexPath.row || [self rowsCount] == 1;
+  return YES;//indexPath.row || [self rowsCount] == 1;
 }
 
 - (NSInteger)searchResultPositionForIndexPath:(NSIndexPath *)indexPath
 {
-  return ([self rowsCount] == 1) ? 0 : indexPath.row - 1;
+  return indexPath.row;//([self rowsCount] == 1) ? 0 : indexPath.row - 1;
 }
 
 - (NSInteger)rowsCount
@@ -535,6 +552,9 @@ static void OnSearchResultCallback(search::Results const & results)
     resultsCount = (wrapperCount == 1) ? 1 : wrapperCount + 1;
   else
     resultsCount = 0;
+
+  resultsCount = wrapperCount;
+
   return [self isShowingCategories] ? [self.categoriesNames count] : resultsCount;
 }
 
