@@ -2,13 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "btn-zoom-in.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "btn-zoom-in@2x.png"
+      "filename" : "ButtonZoomIn@2x.png"
     }
   ],
   "info" : {

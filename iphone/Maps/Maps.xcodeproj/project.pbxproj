@@ -1447,10 +1447,10 @@
 		9746492618EEE2F8004B4658 /* ToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolbarView.m; sourceTree = "<group>"; };
 		9747264118323080006B7CB7 /* UIKitCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIKitCategories.m; path = Categories/UIKitCategories.m; sourceTree = "<group>"; };
 		9747264218323080006B7CB7 /* UIKitCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIKitCategories.h; path = Categories/UIKitCategories.h; sourceTree = "<group>"; };
-		9747277718328E65006B7CB7 /* BottomMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomMenu.h; sourceTree = "<group>"; };
-		9747277818328E65006B7CB7 /* BottomMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BottomMenu.mm; sourceTree = "<group>"; };
-		9747277918328E65006B7CB7 /* BottomMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomMenuCell.h; sourceTree = "<group>"; };
-		9747277A18328E65006B7CB7 /* BottomMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomMenuCell.m; sourceTree = "<group>"; };
+		9747277718328E65006B7CB7 /* BottomMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BottomMenu.h; path = ../BottomMenu.h; sourceTree = "<group>"; };
+		9747277818328E65006B7CB7 /* BottomMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BottomMenu.mm; path = ../BottomMenu.mm; sourceTree = "<group>"; };
+		9747277918328E65006B7CB7 /* BottomMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BottomMenuCell.h; path = ../BottomMenuCell.h; sourceTree = "<group>"; };
+		9747277A18328E65006B7CB7 /* BottomMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BottomMenuCell.m; path = ../BottomMenuCell.m; sourceTree = "<group>"; };
 		9747278218338F0C006B7CB7 /* UIViewController+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+Navigation.h"; path = "Classes/UIViewController+Navigation.h"; sourceTree = "<group>"; };
 		9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+Navigation.m"; path = "Classes/UIViewController+Navigation.m"; sourceTree = "<group>"; };
 		9769D6ED1912BF3000CA6158 /* ContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerView.h; sourceTree = "<group>"; };
@@ -2674,7 +2674,6 @@
 		97B4E9271851DAB300BEC5D7 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				9747277618328E65006B7CB7 /* SideToolbar */,
 				9747277618328E65006B7CB7 /* Bottom Menu */,
 				97D092AD190A67CA00FF645B /* Place Page */,
 				97A8000918B210DC000C07A2 /* Search */,
@@ -3057,11 +3056,11 @@
 		97D092AD190A67CA00FF645B /* Place Page */ = {
 			isa = PBXGroup;
 			children = (
+				97D092AE190A67E800FF645B /* Cells */,
 				9778E99B191A5B6600AD850A /* BookmarkDescriptionVC.h */,
 				9778E99C191A5B6600AD850A /* BookmarkDescriptionVC.mm */,
 				9778E99F191A663700AD850A /* BookmarkNameVC.h */,
 				9778E9A0191A663700AD850A /* BookmarkNameVC.mm */,
-				97D092AE190A67E800FF645B /* Cells */,
 				97DEA09418D75BB000C5F963 /* ContextViews.h */,
 				97DEA09518D75BB000C5F963 /* ContextViews.mm */,
 				97ABBA4318C8DF620079333C /* PlacePageView.h */,
@@ -5077,7 +5076,6 @@
 				EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */,
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */,
-				9746493518EEFE4E004B4658 /* UIImage+ImageEffects.m in Sources */,
 				97F61781183E6172009919E2 /* LocationButton.mm in Sources */,
 				9747264318323080006B7CB7 /* UIKitCategories.m in Sources */,
 				97719D421843AF1E00BDD815 /* ScopeView.m in Sources */,
@@ -5105,7 +5103,6 @@
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				9789DB56188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */,
-				9746492318EEE291004B4658 /* FXBlurView.m in Sources */,
 				9778E99D191A5B6600AD850A /* BookmarkDescriptionVC.mm in Sources */,
 				97387546184E475000170BC4 /* MessageComposeViewController.m in Sources */,
 				97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
@@ -5183,7 +5180,6 @@
 				FAFB08F4151215EE0041901D /* CompassView.mm in Sources */,
 				FAFB08F5151215EE0041901D /* Preferences.mm in Sources */,
 				97D807BD18A933FB00D416E0 /* MoreAppsCell.m in Sources */,
-				9746493618EEFE4E004B4658 /* UIImage+ImageEffects.m in Sources */,
 				FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */,
 				97C9860D186C487900AF7E9E /* MPAdAlertGestureRecognizer.m in Sources */,
 				97C98641186C487900AF7E9E /* MPBannerCustomEvent.m in Sources */,
@@ -5215,7 +5211,6 @@
 				97C98614186C487900AF7E9E /* MPAdServerURLBuilder.m in Sources */,
 				97C98638186C487900AF7E9E /* MPGlobal.m in Sources */,
 				97C98609186C487900AF7E9E /* MPBannerAdManager.m in Sources */,
-				9746492418EEE291004B4658 /* FXBlurView.m in Sources */,
 				97D807B918A92AAB00D416E0 /* MoreAppsVC.mm in Sources */,
 				97C9860F186C487900AF7E9E /* MPAdBrowserController.m in Sources */,
 				FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */,
