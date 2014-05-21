@@ -8,16 +8,27 @@
 	<text id="IDS_ABOUT">Про програму</text>
 	<!-- Button text (should be short) -->
 	<text id="IDS_CANCEL">Скасувати</text>
+	<!-- Button which interrupts country download -->
+	<text id="IDS_CANCEL_DOWNLOAD">Вiдмiнити завантаження</text>
+	<!-- Button which deletes downloaded country -->
+	<text id="IDS_DELETE">Видалити</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">Кілометри</text>
+	<!-- Settings/Downloader - size string -->
+	<text id="IDS_MB">МБ</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Милі</text>
+	<text id="IDS_DOWNLOAD">Завантажити</text>
+	<!-- Show popup notification on top of the map when country download has failed. -->
+	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">Не вдалося завантажити %s</text>
 	<!-- Measurement units title in settings activity -->
 	<text id="IDS_MEASUREMENT_UNITS">Одиниці виміру</text>
 	<!-- Detailed description of Measurement Units settings button -->
 	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Використовувати милі чи кілометри</text>
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Версія: %s</text>
+	<!-- Confirmation in downloading countries dialog -->
+	<text id="IDS_ARE_YOU_SURE">Продовжити?</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Кнопки трансфокації</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Відображення на екрані</text>
 </string_table>

@@ -74,6 +74,7 @@
     pt = Cancelar
     hu = Mégse
   [cancel_download]
+    tags = tizen
     en = Cancel Download
     comment = Button which interrupts country download
     cs = Zrušit stahování
@@ -91,6 +92,7 @@
     pt = Cancelar Descarga
     hu = Letöltés megszakítása
   [delete]
+    tags = tizen
     en = Delete
     comment = Button which deletes downloaded country
     cs = Smazat
@@ -420,6 +422,7 @@
     pt = Marcado para descarga, toque para cancelar
     hu = Letöltésre kijelölve, elvetéshez érintse meg
   [mb]
+    tags = tizen
     en = MB
     comment = Settings/Downloader - size string
     fr = Mo
@@ -1003,6 +1006,7 @@
     pt = É necessário um OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é suportado.
     hu = Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.
   [download]
+    tags = tizen
     en = Download
     cs = Stáhnout
     de = Herunterladen
@@ -1383,7 +1387,7 @@
     hu = %@ letöltése sikeres
   [download_country_failed]
     en = %@ download has failed
-    tags = android
+    tags = android,tizen
     comment = Show popup notification on top of the map when country download has failed.
     cs = Stahování selhalo: %@
     de = %@ herunterladen fehlgeschlagen
@@ -2861,7 +2865,7 @@
     hu = Verzió: %@
 
   [are_you_sure]
-    tags = android
+    tags = android,tizen
     comment = Confirmation in downloading countries dialog
     en = Are you sure you want to continue?
     cs = Opravdu chceš pokračovat?

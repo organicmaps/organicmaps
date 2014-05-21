@@ -8,16 +8,27 @@
 	<text id="IDS_ABOUT">About</text>
 	<!-- Button text (should be short) -->
 	<text id="IDS_CANCEL">Cancel</text>
+	<!-- Button which interrupts country download -->
+	<text id="IDS_CANCEL_DOWNLOAD">Cancel Download</text>
+	<!-- Button which deletes downloaded country -->
+	<text id="IDS_DELETE">Delete</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">Kilometres</text>
+	<!-- Settings/Downloader - size string -->
+	<text id="IDS_MB">MB</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Miles</text>
+	<text id="IDS_DOWNLOAD">Download</text>
+	<!-- Show popup notification on top of the map when country download has failed. -->
+	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">%s download has failed</text>
 	<!-- Measurement units title in settings activity -->
 	<text id="IDS_MEASUREMENT_UNITS">Measurement Units</text>
 	<!-- Detailed description of Measurement Units settings button -->
 	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Choose between miles and kilometres</text>
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Version: %s</text>
+	<!-- Confirmation in downloading countries dialog -->
+	<text id="IDS_ARE_YOU_SURE">Are you sure you want to continue?</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Zoom buttons</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Display on the screen</text>
 </string_table>
