@@ -2,6 +2,7 @@
 #include "MapsWithMeForm.hpp"
 #include "SettingsForm.hpp"
 #include "AboutForm.hpp"
+#include "DownloadCountryForm.hpp"
 #include "../../../base/logging.hpp"
 #include "../../../platform/tizen_utils.hpp"
 
@@ -9,10 +10,12 @@ using namespace Tizen::Ui::Scenes;
 using namespace Tizen::Base;
 
 // Definitions of extern.
-const wchar_t* FORM_MAP = L"FormMap";
-const wchar_t* FORM_SETTINGS = L"FormSettings";
-const wchar_t* FORM_DOWNLOAD = L"FormDownload";
-const wchar_t* FORM_ABOUT = L"FormAbout";
+const wchar_t * FORM_MAP = L"FormMap";
+const wchar_t * FORM_SETTINGS = L"FormSettings";
+const wchar_t * FORM_DOWNLOAD_GROUP = L"FormDownloadGroup";
+const wchar_t * FORM_DOWNLOAD_COUNTRY = L"FormDownloadCountry";
+const wchar_t * FORM_DOWNLOAD_REGION = L"FormDownloadRegion";
+const wchar_t * FORM_ABOUT = L"FormAbout";
 
 
 FormFactory::FormFactory(void)
@@ -47,6 +50,15 @@ Tizen::Ui::Controls::Form * FormFactory::CreateFormN(String const & formId, Scen
   {
     AboutForm * pForm = new (std::nothrow) AboutForm();
     pForm->Initialize();
+    pNewForm = pForm;
+  }
+  else if (formId == FORM_DOWNLOAD_GROUP ||
+      formId == FORM_DOWNLOAD_COUNTRY ||
+      formId == FORM_DOWNLOAD_REGION)
+  {
+    DownloadCountryForm * pForm = new (std::nothrow) DownloadCountryForm();
+    pForm->Initialize();
+    pSceneManager->AddSceneEventListener(sceneId, *pForm);
     pNewForm = pForm;
   }
 

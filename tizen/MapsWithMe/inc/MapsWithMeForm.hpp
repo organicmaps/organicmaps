@@ -63,6 +63,8 @@ private:
   static const int ID_BUTTON_SETTINGS = 102;
   static const int ID_BUTTON_SCALE_PLUS = 103;
   static const int ID_BUTTON_SCALE_MINUS = 104;
+  static const int ID_BUTTON_DOWNLOAD = 105;
+
 
   Tizen::Locations::LocationProvider * m_pLocProvider;
   Tizen::Ui::Controls::Label * m_pLabel;

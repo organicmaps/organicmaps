@@ -71,13 +71,21 @@ result MapsWithMeForm::OnInitializing(void)
   m_pButtonGPS->AddActionEventListener(*this);
   AddControl(m_pButtonGPS);
 
-  // Create a Button GPS
+  // Create a Button Settings
   m_pButtonSettings = new (std::nothrow) Button();
   m_pButtonSettings->Construct(Rectangle(width - 150, height -150, 100, 100));
   m_pButtonSettings->SetText(L"Set\ntings");
   m_pButtonSettings->SetActionId(ID_BUTTON_SETTINGS);
   m_pButtonSettings->AddActionEventListener(*this);
   AddControl(m_pButtonSettings);
+
+  // Create a Button Download
+  Button * pButtonDownload = new (std::nothrow) Button();
+  pButtonDownload->Construct(Rectangle(width - 270, height -150, 100, 100));
+  pButtonDownload->SetText(L"Down\nload");
+  pButtonDownload->SetActionId(ID_BUTTON_DOWNLOAD);
+  pButtonDownload->AddActionEventListener(*this);
+  AddControl(pButtonDownload);
 
   m_pButtonScalePlus = new (std::nothrow) Button();
   m_pButtonScalePlus->Construct(Rectangle(width - 150, height / 2, 100, 100));
@@ -146,6 +154,19 @@ void MapsWithMeForm::OnActionPerformed(Tizen::Ui::Control const & source, int ac
     {
       SceneManager * pSceneManager = SceneManager::GetInstance();
       pSceneManager->GoForward(ForwardSceneTransition(SCENE_SETTINGS, SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP));
+      break;
+    }
+    case ID_BUTTON_DOWNLOAD:
+    {
+      ArrayList * pList = new (std::nothrow) ArrayList;
+      pList->Construct();
+      pList->Add(*(new (std::nothrow) Integer(0)));
+      pList->Add(*(new (std::nothrow) Integer(storage::TIndex::INVALID)));
+      pList->Add(*(new (std::nothrow) Integer(storage::TIndex::INVALID)));
+
+      SceneManager * pSceneManager = SceneManager::GetInstance();
+      pSceneManager->GoForward(ForwardSceneTransition(SCENE_DOWNLOAD_GROUP,
+          SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP), pList);
       break;
     }
   }
@@ -237,7 +258,7 @@ result MapsWithMeForm::OnDraw(void)
 namespace detail
 {
 std::vector<std::pair<double, double> > GetTouchedPoints(Tizen::Graphics::Rectangle const & rect)
-                                {
+{
   std::vector<std::pair<double, double> > res;
   IListT<TouchEventInfo *> * pList = TouchEventManager::GetInstance()->GetTouchInfoListN();
   if (pList)
@@ -256,7 +277,7 @@ std::vector<std::pair<double, double> > GetTouchedPoints(Tizen::Graphics::Rectan
     delete pList;
   }
   return res;
-                                }
+}
 }
 
 void MapsWithMeForm::OnTouchPressed(Tizen::Ui::Control const & source,

@@ -8,6 +8,7 @@
 #include <FWeb.h>
 #include <FAppApp.h>
 #include <FApp.h>
+#include "Utils.hpp"
 
 using namespace Tizen::Base;
 using namespace Tizen::Ui;
@@ -35,13 +36,8 @@ result AboutForm::OnInitializing(void)
   Label * pCurrentVersionLabel = static_cast<Label*>(GetControl(IDC_VERSION_LABEL, true));
 
   //  version
-  AppResource* pApp = App::GetInstance()->GetAppResource();
-  String strVersionFormatter;
-  pApp->GetString(IDS_VERSION, strVersionFormatter);
   String const strVersion = App::GetInstance()->GetAppVersion();
-  char buff[100];
-  sprintf(buff, FromTizenString(strVersionFormatter).c_str(), FromTizenString(strVersion).c_str());
-  pCurrentVersionLabel->SetText(buff);
+  pCurrentVersionLabel->SetText(FormatString1(IDS_VERSION, strVersion));
 
   //  web page
   Web * pWeb = static_cast<Web *>(GetControl(IDC_WEB, true));

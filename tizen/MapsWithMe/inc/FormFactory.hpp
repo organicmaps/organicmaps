@@ -2,10 +2,12 @@
 #include <FUi.h>
 
 // Use 'extern' to eliminate duplicate data allocation.
-extern const wchar_t* FORM_MAP;
-extern const wchar_t* FORM_SETTINGS;
-extern const wchar_t* FORM_DOWNLOAD;
-extern const wchar_t* FORM_ABOUT;
+extern const wchar_t * FORM_MAP;
+extern const wchar_t * FORM_SETTINGS;
+extern const wchar_t * FORM_DOWNLOAD_GROUP;
+extern const wchar_t * FORM_DOWNLOAD_COUNTRY;
+extern const wchar_t * FORM_DOWNLOAD_REGION;
+extern const wchar_t * FORM_ABOUT;
 
 
 class FormFactory
