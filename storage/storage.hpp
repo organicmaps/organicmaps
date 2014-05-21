@@ -112,7 +112,9 @@ namespace storage
     /// @return Country file name without extension.
     string const & CountryFileName(TIndex const & index) const;
     LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index) const;
+    /// Fast version, doesn't check if country is out of date
     TStatus CountryStatus(TIndex const & index) const;
+    /// Slow version, but checks if country is out of date
     TStatus CountryStatusEx(TIndex const & index) const;
     //m2::RectD CountryBounds(TIndex const & index) const;
 
