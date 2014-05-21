@@ -29,11 +29,11 @@
 
 namespace
 {
-  static int const RULLER_X_OFFSET = 30;
-  static int const RULLER_Y_OFFSET = 8;
+  static int const RULLER_X_OFFSET = 10;
+  static int const RULLER_Y_OFFSET = 51;
   static int const FONT_SIZE = 14;
-  static int const COMPASS_W_OFFSET = 5;
-  static int const COMPASS_H_OFFSET = 71;
+  static int const COMPASS_X_OFFSET = 21;
+  static int const COMPASS_Y_OFFSET = 53;
 }
 
 InformationDisplay::InformationDisplay(Framework * fw)
@@ -135,9 +135,9 @@ void InformationDisplay::setScreen(ScreenBase const & screen)
 {
   m_screen = screen;
 
+  m2::RectD const & pxRect = m_screen.PixelRect();
   if (m_countryStatusDisplay->isVisible())
   {
-    m2::RectD pxRect = m_screen.PixelRect();
     m2::PointD pt = m2::PointD(pxRect.SizeX() / 2, pxRect.SizeY() / 2) - m2::PointD(0, m_bottomShift * m_visualScale);
     m_countryStatusDisplay->setPivot(pt);
   }
@@ -145,8 +145,10 @@ void InformationDisplay::setScreen(ScreenBase const & screen)
   double k = m_controller->GetVisualScale();
   m2::PointD size = m_compassArrow->GetPixelSize();
 
-  m_compassArrow->setPivot(m2::PointD(COMPASS_W_OFFSET * k + size.x / 2.0,
-                                      COMPASS_H_OFFSET * k + size.y / 2.0));
+  double compassX = COMPASS_X_OFFSET * k + size.x / 2.0;
+  double compassY = pxRect.maxY() - COMPASS_Y_OFFSET * k - size.y / 2.0;
+
+  m_compassArrow->setPivot(m2::PointD(compassX, compassY));
 }
 
 void InformationDisplay::setBottomShift(double bottomShift)
@@ -266,88 +268,6 @@ void InformationDisplay::drawPlacemark(Drawer * pDrawer, string const & symbol, 
                                      math::Shift(math::Identity<double, 3>(), pt));
 }
 
-/*
-bool InformationDisplay::s_isLogEnabled = false;
-list<string> InformationDisplay::s_log;
-size_t InformationDisplay::s_logSize = 10;
-my::LogMessageFn InformationDisplay::s_oldLogFn = 0;
-threads::Mutex s_logMutex;
-WindowHandle * InformationDisplay::s_windowHandle = 0;
-size_t s_msgNum = 0;
-
-void InformationDisplay::logMessage(my::LogLevel level, my::SrcPoint const &, string const & msg)
-void InformationDisplay::setEmptyCountryName(const char * country)
-{
-  {
-    threads::MutexGuard guard(s_logMutex);
-    ostringstream out;
-    char const * names[] = { "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" };
-    out << s_msgNum++ << ":";
-    if (level >= 0 && level <= static_cast<int>(ARRAY_SIZE(names)))
-      out << names[level];
-    else
-      out << level;
-    out << msg << endl;
-    s_log.push_back(out.str());
-    while (s_log.size() > s_logSize)
-      s_log.pop_front();
-  }
-
-  /// call redisplay
-  s_windowHandle->invalidate();
-  m_countryStatusDisplay->setCountryName(country);
-}
-
-void InformationDisplay::enableLog(bool doEnable, WindowHandle * windowHandle)
-{
-  if (doEnable == s_isLogEnabled)
-    return;
-  s_isLogEnabled = doEnable;
-  if (s_isLogEnabled)
-  {
-    s_oldLogFn = my::LogMessage;
-    my::LogMessage = logMessage;
-    s_windowHandle = windowHandle;
-  }
-  else
-  {
-    my::LogMessage = s_oldLogFn;
-    s_windowHandle = 0;
-  }
-}
-
-void InformationDisplay::drawLog(Drawer * drawer)
-{
-  threads::MutexGuard guard(s_logMutex);
-
-  for (list<string>::const_iterator it = s_log.begin(); it != s_log.end(); ++it)
-  {
-    m_yOffset += 20;
-
-    m2::PointD startPt(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
-
-    graphics::StraightTextElement::Params params;
-    params.m_depth = graphics::maxDepth;
-    params.m_fontDesc = m_fontDesc;
-    params.m_log2vis = false;
-    params.m_pivot = startPt;
-    params.m_position = graphics::EPosAboveRight;
-    params.m_glyphCache = drawer->screen()->glyphCache();
-    params.m_logText = strings::MakeUniString(*it);
-
-    graphics::StraightTextElement ste(params);
-
-    drawer->screen()->drawRectangle(
-        m2::Inflate(ste.roughBoundRect(), m2::PointD(2, 2)),
-        graphics::Color(0, 0, 0, 128),
-        graphics::maxDepth - 1
-        );
-
-    ste.draw(drawer->screen().get(), math::Identity<double, 3>());
-  }
-}
-*/
-
 void InformationDisplay::enableCompassArrow(bool doEnable)
 {
   if (doEnable)
@@ -394,19 +314,6 @@ bool InformationDisplay::addBenchmarkInfo(string const & name, m2::RectD const &
   info.m_rect = globalRect;
   m_benchmarkInfo.push_back(info);
 
-/*  string deviceID = GetPlatform().DeviceID();
-  transform(deviceID.begin(), deviceID.end(), deviceID.begin(), ::tolower);
-
-  ofstream fout(GetPlatform().WritablePathForFile(deviceID + "_benchmark_results.txt").c_str(), ios::app);
-  fout << GetPlatform().DeviceID() << " "
-       << VERSION_STRING << " "
-       << info.m_name << " "
-       << info.m_rect.minX() << " "
-       << info.m_rect.minY() << " "
-       << info.m_rect.maxX() << " "
-       << info.m_rect.maxY() << " "
-       << info.m_duration << endl;
-*/
   return true;
 }
 
@@ -452,8 +359,6 @@ void InformationDisplay::doDraw(Drawer *drawer)
     drawMemoryWarning(drawer);
   if (m_isBenchmarkInfoEnabled)
     drawBenchmarkInfo(drawer);
-  //if (s_isLogEnabled)
-  //  drawLog(drawer);
 }
 
 shared_ptr<CountryStatusDisplay> const & InformationDisplay::countryStatusDisplay() const

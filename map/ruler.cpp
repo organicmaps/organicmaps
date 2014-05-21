@@ -26,6 +26,7 @@
 
 namespace
 {
+  static const float RulerHeight = 2.0;
   static const int32_t MinPixelWidth = 60;
   static const int32_t MinMetersWidth = 10;
   static const int32_t MaxMetersWidth = 1000000;
@@ -202,7 +203,7 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
     /* 0*/  //m2::PointD(0.0, -5.0 * k),
     /* 1*/  //m2::PointD(0.0, -5.0 * k),
     /* 2*/  //m2::PointD(0.0, -3.0 * k),
-    /* 3*/  m2::PointD(0.0, -3.0 * k),
+    /* 3*/  m2::PointD(0.0, -RulerHeight * k),
     /* 4*/  m2::PointD(0.0,  0.0),
     /* 5*/  //m2::PointD(0.0,  0.0),
     /* 6*/  //m2::PointD(0.0, -3.0 * k),
@@ -213,7 +214,7 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
     /*11*/  //m2::PointD(halfLength - 0.5, -7.0 * k),
     /*12*/  //m2::PointD(halfLength - 0.5, -3.0 * k),
     /*13*/  //m2::PointD(halfLength - 0.5,  0.0 * k),
-    /*14*/  m2::PointD(CacheLength, -3.0 * k),
+    /*14*/  m2::PointD(CacheLength, -RulerHeight * k),
     /*15*/  m2::PointD(CacheLength,  0.0 * k),
     /*16*/  //m2::PointD(CacheLength, -3.0 * k),
     /*17*/  //m2::PointD(CacheLength, -5.0 * k),
