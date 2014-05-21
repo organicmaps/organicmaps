@@ -17,9 +17,9 @@
   self.title = NSLocalizedString(@"description", nil);
 
   BookmarkCategory const * category = GetFramework().GetBmCategory(self.bookmarkAndCategory.first);
-  Bookmark bookmark = *(category->GetBookmark(self.bookmarkAndCategory.second));
+  Bookmark const * bookmark = category->GetBookmark(self.bookmarkAndCategory.second);
 
-  self.textView.text = [NSString stringWithUTF8String:bookmark.GetDescription().c_str()];
+  self.textView.text = [NSString stringWithUTF8String:bookmark->GetDescription().c_str()];
 }
 
 - (void)viewDidAppear:(BOOL)animated

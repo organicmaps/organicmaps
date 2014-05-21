@@ -197,12 +197,13 @@ size_t BookmarkManager::MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t 
   BookmarkCategory * cat = m_framework.GetBmCategory(curCatIndex);
 
   Bookmark * bm = cat->GetBookmark(bmIndex);
-  Bookmark bmCopy = Bookmark(*bm);
+  BookmarkData data = bm->GetData();
+  m2::PointD ptOrg = bm->GetOrg();
 
   cat->DeleteBookmark(bmIndex);
   cat->SaveToKMLFile();
 
-  return m_framework.AddBookmark(newCatIndex, bmCopy);
+  return m_framework.AddBookmark(newCatIndex, ptOrg, data);
 }
 
 void BookmarkManager::ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm)

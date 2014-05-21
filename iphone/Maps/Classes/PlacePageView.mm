@@ -19,13 +19,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
   CellRowShare,
 };
 
-typedef NS_ENUM(NSUInteger, TableAction)
-{
-  TableActionNone,
-  TableActionInsert,
-  TableActionDelete,
-};
-
 @interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, LocationObserver, PlacePageShareCellDelegate, PlacePageInfoCellDelegate>
 
 @property (nonatomic) UIView * backgroundView;
@@ -42,47 +35,39 @@ typedef NS_ENUM(NSUInteger, TableAction)
 @property (nonatomic) UIImageView * editImageView;
 @property (nonatomic) UIImageView * arrowImageView;
 
-@property (nonatomic) BOOL isBookmark;
-
-@property (nonatomic) BOOL loadedAsBookmark;
-@property (nonatomic) BOOL isApiPoint;
-@property (nonatomic) m2::PointD pinPoint;
-
-@property (nonatomic) NSString * title;
-@property (nonatomic) NSString * types;
-@property (nonatomic) NSString * address;
-@property (nonatomic) NSString * info;
-@property (nonatomic) NSString * setName;
+- (NSString *)title;
+- (NSString *)types;
+- (NSString *)address;
+- (NSString *)info;
+- (NSString *)setName;
 
 @end
 
 @implementation PlacePageView
 {
-  CGFloat locationMidY;
-  CGFloat addressMidY;
-  CGFloat shareMidY;
-
   UserMark const * m_mark;
+  BookmarkData * m_bookmarkData;
+  size_t m_categoryIndex;
 }
 
--(BOOL)isMarkOfType:(UserMark::Type)type
+- (BOOL)isMarkOfType:(UserMark::Type)type
 {
-  ASSERT(m_mark != NULL, ());
-  ASSERT(m_mark->GetContainer() != NULL, ());
+  if (m_mark == NULL)
+    return NO;
   return m_mark->GetMarkType() == type;
 }
 
--(BOOL)isBookmark
+- (BOOL)isBookmark
 {
   return [self isMarkOfType:UserMark::BOOKMARK];
 }
 
--(BOOL)isApiPoint
+- (BOOL)isApiPoint
 {
   return [self isMarkOfType:UserMark::API];
 }
 
--(BOOL)isEmpty
+- (BOOL)isEmpty
 {
   return m_mark == NULL;
 }
@@ -94,6 +79,7 @@ typedef NS_ENUM(NSUInteger, TableAction)
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   self.clipsToBounds = YES;
   m_mark = NULL;
+  m_bookmarkData = NULL;
 
   self.statusBarIncluded = !SYSTEM_VERSION_IS_LESS_THAN(@"7");
 
@@ -130,7 +116,7 @@ typedef NS_ENUM(NSUInteger, TableAction)
 
 - (void)onLocationError:(location::TLocationError)errorCode
 {
-  NSLog(@"Location error in %@", [[self class] className]);
+  NSLog(@"Location error %i in %@", errorCode, [[self class] className]);
 }
 
 #define ROW_COMMON 0
@@ -153,7 +139,7 @@ typedef NS_ENUM(NSUInteger, TableAction)
   if (indexPath.row == ROW_COMMON)
     return CellRowCommon;
   else if (indexPath.row == ROW_SET)
-    return self.isBookmark ? CellRowSet : CellRowShare;
+    return [self isBookmark] ? CellRowSet : CellRowShare;
   else if (indexPath.row == ROW_INFO)
     return CellRowInfo;
   else if (indexPath.row == 3)
@@ -168,7 +154,7 @@ typedef NS_ENUM(NSUInteger, TableAction)
 
 - (NSInteger)rowsCount
 {
-  return self.isBookmark ? 4 : 2;
+  return [self isBookmark] ? 4 : 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -177,20 +163,20 @@ typedef NS_ENUM(NSUInteger, TableAction)
   if (row == CellRowCommon)
   {
     PlacePageInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageInfoCell className]];
-    [cell setAddress:self.address pinPoint:self.pinPoint];
+    [cell setAddress:[self address] pinPoint:[self pinPoint]];
     cell.delegate = self;
     return cell;
   }
   else if (row == CellRowSet)
   {
     PlacePageEditCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageEditCell className]];
-    cell.titleLabel.text = self.setName;
+    cell.titleLabel.text = [self setName];
     return cell;
   }
   else if (row == CellRowInfo)
   {
     PlacePageEditCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageEditCell className]];
-    cell.titleLabel.text = self.info;
+    cell.titleLabel.text = [self info];
     return cell;
   }
   else if (row == CellRowShare)
@@ -198,7 +184,7 @@ typedef NS_ENUM(NSUInteger, TableAction)
     PlacePageShareCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageShareCell className]];
     cell.delegate = self;
     if (self.isApiPoint)
-      [cell setApiAppTitle:[NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()]];
+      [cell setApiAppTitle:[NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()]];
     else
       [cell setApiAppTitle:nil];
     return cell;
@@ -210,11 +196,11 @@ typedef NS_ENUM(NSUInteger, TableAction)
 {
   CellRow row = [self cellRowForIndexPath:indexPath];
   if (row == CellRowCommon)
-    return [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:tableView.width];
+    return [PlacePageInfoCell cellHeightWithAddress:[self address] viewWidth:tableView.width];
   else if (row == CellRowSet)
-    return [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:tableView.width];
+    return [PlacePageEditCell cellHeightWithTextValue:[self setName] viewWidth:tableView.width];
   else if (row == CellRowInfo)
-    return [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:tableView.width];
+    return [PlacePageEditCell cellHeightWithTextValue:[self info] viewWidth:tableView.width];
   else if (row == CellRowShare)
     return [PlacePageShareCell cellHeight];
   return 0;
@@ -225,23 +211,19 @@ typedef NS_ENUM(NSUInteger, TableAction)
   CellRow row = [self cellRowForIndexPath:indexPath];
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   if (row == CellRowSet)
-  {
-    [self.delegate placePageView:self willEditProperty:@"Set" inBookmarkAndCategory:m_bookmarkAndCategory];
-  }
+    [self.delegate placePageView:self willEditProperty:@"Set" inBookmarkAndCategory:GetFramework().FindBookmark(m_mark)];
   else if (row == CellRowInfo)
-  {
-    [self.delegate placePageView:self willEditProperty:@"Description" inBookmarkAndCategory:m_bookmarkAndCategory];
-  }
+    [self.delegate placePageView:self willEditProperty:@"Description" inBookmarkAndCategory:GetFramework().FindBookmark(m_mark)];
 }
 
 - (void)reloadHeader
 {
-  self.titleLabel.text = self.title;
+  self.titleLabel.text = [self title];
   self.titleLabel.width = [self titleWidth];
   [self.titleLabel sizeToFit];
   self.titleLabel.origin = CGPointMake(23, 29);
 
-  self.typeLabel.text = self.types;
+  self.typeLabel.text = [self types];
   self.typeLabel.width = [self typesWidth];
   [self.typeLabel sizeToFit];
   self.typeLabel.origin = CGPointMake(self.titleLabel.minX + 1, self.titleLabel.maxY + 1);
@@ -261,16 +243,9 @@ typedef NS_ENUM(NSUInteger, TableAction)
 
 - (CGFloat)headerHeight
 {
-  CGFloat titleHeight = [self.title sizeWithDrawSize:CGSizeMake([self titleWidth], 100) font:self.titleLabel.font].height;
-  CGFloat typesHeight = [self.types sizeWithDrawSize:CGSizeMake([self typesWidth], 30) font:self.typeLabel.font].height;
+  CGFloat titleHeight = [[self title] sizeWithDrawSize:CGSizeMake([self titleWidth], 100) font:self.titleLabel.font].height;
+  CGFloat typesHeight = [[self types] sizeWithDrawSize:CGSizeMake([self typesWidth], 30) font:self.typeLabel.font].height;
   return MAX(74, titleHeight + typesHeight + 50);
-}
-
-- (NSString *)info
-{
-  if (!_info)
-    return NSLocalizedString(@"description", nil);
-  return _info;
 }
 
 - (void)setState:(PlacePageState)state animated:(BOOL)animated withCallback:(BOOL)withCallback
@@ -287,10 +262,10 @@ typedef NS_ENUM(NSUInteger, TableAction)
 - (void)applyState:(PlacePageState)state animated:(BOOL)animated
 {
   _state = state;
+  [self updateBookmarkStateAnimated:NO];
   [self.tableView reloadData];
   [self reloadHeader];
   [self alignAnimated:animated];
-  [self updateBookmarkState:self.isBookmark animated:NO];
   self.tableView.contentInset = UIEdgeInsetsMake([self headerHeight], 0, 0, 0);
   [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:animated];
 }
@@ -338,8 +313,8 @@ typedef NS_ENUM(NSUInteger, TableAction)
     CGFloat fullHeight = [self headerHeight] + [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:self.tableView.width] + [PlacePageShareCell cellHeight];
     if (self.isBookmark)
     {
-      fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
-      fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:self.tableView.width];
+      fullHeight += [PlacePageEditCell cellHeightWithTextValue:[self setName] viewWidth:self.tableView.width];
+      fullHeight += [PlacePageEditCell cellHeightWithTextValue:[self info] viewWidth:self.tableView.width];
     }
     fullHeight = MIN(fullHeight, [self maxHeight]);
     self.headerSeparator.maxY = [self headerHeight];
@@ -371,38 +346,28 @@ typedef NS_ENUM(NSUInteger, TableAction)
   } completion:^(BOOL finished) {}];
 }
 
-- (void)updateBookmarkState:(BOOL)isBookmark animated:(BOOL)animated
+- (void)updateBookmarkStateAnimated:(BOOL)animated
 {
-  self.bookmarkButton.selected = isBookmark;
-
-  TableAction action = TableActionNone;
-  if (isBookmark && !_isBookmark)
-    action = TableActionInsert;
-  else if (!isBookmark && _isBookmark)
-    action = TableActionDelete;
-
-  if (isBookmark)
-  {
-    BookmarkCategory const * category = GetFramework().GetBmCategory(m_bookmarkAndCategory.first);
-    self.setName = [NSString stringWithUTF8String:category->GetName().c_str()];
-    Bookmark const bookmark = *category->GetBookmark(m_bookmarkAndCategory.second);
-    self.info = bookmark.GetDescription().empty() ? nil : [NSString stringWithUTF8String:bookmark.GetDescription().c_str()];
-  }
-  _isBookmark = isBookmark;
-
   NSIndexPath * indexPath1 = [NSIndexPath indexPathForRow:ROW_SET inSection:0];
   NSIndexPath * indexPath2 = [NSIndexPath indexPathForRow:ROW_INFO inSection:0];
-  if (action != TableActionNone)
+  if (self.bookmarkButton.selected != [self isBookmark])
   {
-    if (action == TableActionInsert)
+    NSTimeInterval delay = 0;
+    if ([self isBookmark] && !self.bookmarkButton.selected)
+    {
+      delay = 0;
       [self.tableView insertRowsAtIndexPaths:@[indexPath1, indexPath2] withRowAnimation:UITableViewRowAnimationFade];
-    else if (action == TableActionDelete)
+    }
+    else if (![self isBookmark] && self.bookmarkButton.selected)
+    {
+      delay = 0.07;
       [self.tableView deleteRowsAtIndexPaths:@[indexPath1, indexPath2] withRowAnimation:UITableViewRowAnimationFade];
-
-    [self performAfterDelay:(action == TableActionDelete ? 0.07 : 0) block:^{
+    }
+    [self performAfterDelay:delay block:^{
       [self alignAnimated:YES];
     }];
   }
+  self.bookmarkButton.selected = [self isBookmark];
   [self updateEditImageViewAnimated:animated];
 }
 
@@ -423,20 +388,16 @@ typedef NS_ENUM(NSUInteger, TableAction)
 
 - (void)bookmarkCategoryDeletedNotification:(NSNotification *)notification
 {
-  if (m_bookmarkAndCategory.first == [[notification object] integerValue])
-  {
+  if (GetFramework().FindBookmark(m_mark).first == [[notification object] integerValue])
     [self deleteBookmark];
-  }
 }
 
 - (void)bookmarkDeletedNotification:(NSNotification *)notification
 {
   BookmarkAndCategory bookmarkAndCategory;
   [[notification object] getValue:&bookmarkAndCategory];
-  if (bookmarkAndCategory == m_bookmarkAndCategory)
-  {
+  if (bookmarkAndCategory == GetFramework().FindBookmark(m_mark))
     [self deleteBookmark];
-  }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {}
@@ -503,7 +464,7 @@ typedef NS_ENUM(NSUInteger, TableAction)
 - (void)titleTap:(UITapGestureRecognizer *)sender
 {
   if (self.isBookmark && self.state == PlacePageStateOpened)
-    [self.delegate placePageView:self willEditProperty:@"Name" inBookmarkAndCategory:m_bookmarkAndCategory];
+    [self.delegate placePageView:self willEditProperty:@"Name" inBookmarkAndCategory:GetFramework().FindBookmark(m_mark)];
 }
 
 - (void)tap:(UITapGestureRecognizer *)sender
@@ -512,13 +473,6 @@ typedef NS_ENUM(NSUInteger, TableAction)
     [self setState:PlacePageStatePreview animated:YES withCallback:YES];
   else
     [self setState:PlacePageStateOpened animated:YES withCallback:YES];
-}
-
-- (void)shareButtonPressed:(id)sender
-{
-  search::AddressInfo info;
-  GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), info);
-  [self.delegate placePageView:self willShareInfo:info point:m_mark->GetOrg()];
 }
 
 - (void)bookmarkButtonPressed:(UIButton *)sender
@@ -535,90 +489,138 @@ typedef NS_ENUM(NSUInteger, TableAction)
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
-- (void)showPoint:(m2::PointD const &)point addressInfo:(search::AddressInfo const &)addressInfo
-{
-  self.isApiPoint = NO;
-  [self processPoint:point addressInfo:addressInfo];
-}
-
 - (void)showUserMark:(UserMark const *)mark
 {
-  m_apiPoint = apiPoint;
-
-  Framework & framework = GetFramework();
-  m2::PointD point;
-  point.x = MercatorBounds::LonToX(apiPoint.m_lon);
-  point.y = MercatorBounds::LatToY(apiPoint.m_lat);
-  search::AddressInfo addressInfo;
-  framework.GetAddressInfoForGlobalPoint(point, addressInfo);
-
-  self.isApiPoint = YES;
-  self.title = [NSString stringWithUTF8String:apiPoint.m_name.c_str()];
-
-  [self processPoint:point addressInfo:addressInfo];
+  m_mark = mark;
+  UserMark::Type type = mark->GetMarkType();
+  switch (type)
+  {
+    case UserMark::BOOKMARK:
+      [self bookmarkActivated:static_cast<Bookmark const *>(mark)];
+      break;
+    case UserMark::API:
+      [self userMarkActivated:mark];
+      break;
+    case UserMark::POI:
+      [self userMarkActivated:mark];
+      break;
+    case UserMark::SEARCH:
+      [self userMarkActivated:mark];
+      break;
+    default:
+      break;
+  }
 }
 
-- (void)bookmarkActivated:(Bookmark const *)data
+- (void)bookmarkActivated:(Bookmark const *)bookmark
 {
-  self.loadedAsBookmark = NO;
-  self.pinPoint = point;
-  m_addressInfo = addressInfo;
-
-  if (!self.isApiPoint)
-    self.title = addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
-
-  self.types = addressInfo.GetPinType().empty() ? nil : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
-
-  self.address = [NSString stringWithUTF8String:addressInfo.FormatAddress().c_str()];
-
-  self.isBookmark = NO;
+//  delete m_bookmarkData;
+  m_categoryIndex = GetFramework().FindBookmark(bookmark).first;
+  m_bookmarkData = new BookmarkData(bookmark->GetName(), bookmark->GetType());
+  m_bookmarkData->SetDescription(bookmark->GetDescription());
+  m_bookmarkData->SetTimeStamp(bookmark->GetTimeStamp());
+  m_bookmarkData->SetScale(bookmark->GetScale());
 }
 
-- (void)showBookmark:(Bookmark const &)bookmark
+- (void)userMarkActivated:(UserMark const *)mark
 {
-  Framework & framework = GetFramework();
-
-  self.loadedAsBookmark = NO;
-  self.isApiPoint = NO;
-
-  self.pinPoint = bookmark.GetOrg();
-
-  search::AddressInfo addressInfo;
-  framework.GetAddressInfoForGlobalPoint(self.pinPoint, addressInfo);
-  addressInfo.m_name = bookmark.GetName();
-  m_addressInfo = addressInfo;
-
-  self.title = addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
-  self.types = addressInfo.GetPinType().empty() ? nil : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
-
-  self.isBookmark = NO;
+//  delete m_bookmarkData;
+  m_bookmarkData = NULL;
 }
 
-- (void)processName:(string const &)name type:(string const &)type address:(string const &)address
+- (m2::PointD)pinPoint
 {
-  Framework & framework = GetFramework();
+  return m_mark ? m_mark->GetOrg() : m2::PointD();
+}
 
-  m_bookmarkAndCategory = bookmarkAndCategory;
-  self.loadedAsBookmark = YES;
-  self.isApiPoint = NO;
+- (NSString *)title
+{
+  if ([self isMarkOfType:UserMark::BOOKMARK])
+  {
+    Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
+    return bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
+  }
+  else if ([self isMarkOfType:UserMark::API])
+  {
+    ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>(m_mark);
+    return apiMark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:apiMark->GetName().c_str()];
+  }
+  else if ([self isMarkOfType:UserMark::POI])
+  {
+    PoiMarkPoint const * poiMark = static_cast<PoiMarkPoint const *>(m_mark);
+    search::AddressInfo addressInfo = poiMark->GetInfo();
+    return addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
+  }
+  else if (m_mark)
+  {
+    search::AddressInfo addressInfo;
+    GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
+    return addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
+  }
+  else
+  {
+    return @"";
+  }
+}
 
-  BookmarkCategory const * category = framework.GetBmCategory(bookmarkAndCategory.first);
-  self.setName = [NSString stringWithUTF8String:category->GetName().c_str()];
-  m_bookmark = *(category->GetBookmark(bookmarkAndCategory.second));
-  self.pinPoint = m_bookmark.GetOrg();
+- (NSString *)types
+{
+  if ([self isMarkOfType:UserMark::BOOKMARK])
+  {
+    Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
+    return bookmark->GetType().empty() ? @"" : [NSString stringWithUTF8String:bookmark->GetType().c_str()];
+  }
+  else if (m_mark)
+  {
+    search::AddressInfo addressInfo;
+    GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
+    return addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
+  }
+  else
+  {
+    return @"";
+  }
+}
 
-  search::AddressInfo addressInfo;
-  framework.GetAddressInfoForGlobalPoint(self.pinPoint, addressInfo);
-  addressInfo.m_name = m_bookmark.GetName();
-  m_addressInfo = addressInfo;
+- (NSString *)setName
+{
+  if ([self isMarkOfType:UserMark::BOOKMARK])
+  {
+    Framework & framework = GetFramework();
+    BookmarkCategory const * category = framework.GetBmCategory(framework.FindBookmark(m_mark).first);
+    return [NSString stringWithUTF8String:category->GetName().c_str()];
+  }
+  else
+  {
+    return @"";
+  }
+}
 
-  self.address = [NSString stringWithUTF8String:addressInfo.FormatAddress().c_str()];
+- (NSString *)info
+{
+  if ([self isMarkOfType:UserMark::BOOKMARK])
+  {
+    Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
+    return bookmark->GetDescription().empty() ? NSLocalizedString(@"description", nil) : [NSString stringWithUTF8String:bookmark->GetDescription().c_str()];
+  }
+  else
+  {
+    return @"";
+  }
+}
 
-  self.title = m_bookmark.GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:m_bookmark.GetName().c_str()];
-  self.info = m_bookmark.GetDescription().empty() ? nil : [NSString stringWithUTF8String:m_bookmark.GetDescription().c_str()];
-  self.types = m_bookmark.GetType().empty() ? nil : [NSString stringWithUTF8String:m_bookmark.GetType().c_str()];
-
-  self.isBookmark = YES;
+- (NSString *)address
+{
+  if (m_mark)
+  {
+    search::AddressInfo addressInfo;
+    GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
+    return [NSString stringWithUTF8String:addressInfo.FormatAddress().c_str()];
+  }
+  else
+  {
+    return @"";
+  }
 }
 
 - (UIImage *)iconImageWithImage:(UIImage *)image
@@ -635,47 +637,55 @@ typedef NS_ENUM(NSUInteger, TableAction)
 
 - (void)deleteBookmark
 {
-  BookmarkCategory * category = GetFramework().GetBmCategory(m_bookmarkAndCategory.first);
+  Framework & framework = GetFramework();
+  BookmarkAndCategory const & bookmarkAndCategory = framework.FindBookmark(m_mark);
+  BookmarkCategory * category = framework.GetBmCategory(bookmarkAndCategory.first);
+//  delete m_mark;
+  m_mark = UserMarkContainer::UserMarkForPoi(self.pinPoint);
   if (category)
-    category->DeleteBookmark(m_bookmarkAndCategory.second);
-
-  [self updateBookmarkState:NO animated:YES];
+  {
+    category->DeleteBookmark(bookmarkAndCategory.second);
+    category->SaveToKMLFile();
+  }
+  framework.ActivateAddressMark([self pinPoint]);
+  
+  [self reloadHeader];
+  [self updateBookmarkStateAnimated:YES];
 }
 
 - (void)addBookmark
 {
   Framework & framework = GetFramework();
-  if (self.loadedAsBookmark)
+  if (m_bookmarkData)
   {
-    size_t categoryIndex = m_bookmarkAndCategory.first;
-    BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
+    BookmarkCategory const * category = framework.GetBmCategory(m_categoryIndex);
     if (!category)
-      categoryIndex = framework.LastEditedBMCategory();
+      m_categoryIndex = framework.LastEditedBMCategory();
 
-    Bookmark bookmark(m_bookmark.GetOrg(), m_bookmark.GetName(), m_bookmark.GetType());
-    bookmark.SetDescription(m_bookmark.GetDescription());
-    bookmark.SetTimeStamp(m_bookmark.GetTimeStamp());
-    bookmark.SetScale(m_bookmark.GetScale());
-    framework.AddBookmark(categoryIndex, bookmark);
+    size_t bookmarkIndex = framework.GetBookmarkManager().AddBookmark(m_categoryIndex, self.pinPoint, *m_bookmarkData);
+    m_mark = category->GetBookmark(bookmarkIndex);
   }
   else
   {
     size_t categoryIndex = framework.LastEditedBMCategory();
-    std::string const & name = m_addressInfo.GetPinName().empty() ? [NSLocalizedString(@"dropped_pin", nil) UTF8String] : m_addressInfo.GetPinName().c_str();
-    Bookmark bookmark(self.pinPoint, name, "placemark-red");
-    m_bookmarkAndCategory = BookmarkAndCategory(categoryIndex, framework.AddBookmark(categoryIndex, bookmark));
+    BookmarkData data = BookmarkData([[self title] UTF8String], "placemark-red");
+    size_t bookmarkIndex = framework.AddBookmark(categoryIndex, self.pinPoint, data);
+    BookmarkCategory * const category = framework.GetBmCategory(categoryIndex);
+//    delete m_mark;
+    m_mark = category->GetBookmark(bookmarkIndex);
   }
-  [self updateBookmarkState:YES animated:YES];
+  [self reloadHeader];
+  [self updateBookmarkStateAnimated:YES];
 }
 
 - (void)shareCellDidPressApiButton:(PlacePageShareCell *)cell
 {
-  [self.delegate placePageView:self willShareApiPoint:m_apiPoint];
+  [self.delegate placePageView:self willShareApiPoint:static_cast<ApiMarkPoint const *>(m_mark)];
 }
 
 - (void)shareCellDidPressShareButton:(PlacePageShareCell *)cell
 {
-  [self.delegate placePageView:self willShareInfo:m_addressInfo point:self.pinPoint];
+  [self.delegate placePageView:self willShareText:[self title] point:self.pinPoint];
 }
 
 - (UIView *)wrapView
@@ -763,17 +773,7 @@ typedef NS_ENUM(NSUInteger, TableAction)
     _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 
     [_headerView addSubview:self.titleLabel];
-    self.titleLabel.text = self.title;
-    self.titleLabel.width = [self titleWidth];
-    [self.titleLabel sizeToFit];
-    self.titleLabel.origin = CGPointMake(23, 29);
-
     [_headerView addSubview:self.typeLabel];
-    self.typeLabel.text = self.types;
-    self.typeLabel.width = [self typesWidth];
-    [self.typeLabel sizeToFit];
-    self.typeLabel.origin = CGPointMake(self.titleLabel.minX + 1, self.titleLabel.maxY + 1);
-
     [_headerView addSubview:self.bookmarkButton];
     self.bookmarkButton.center = CGPointMake(_headerView.width - 32, 42);
 
@@ -848,11 +848,6 @@ typedef NS_ENUM(NSUInteger, TableAction)
     _arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PlacePageArrow"]];
   }
   return _arrowImageView;
-}
-
-- (m2::PointD)pinPoint
-{
-  return m_mark->GetOrg();
 }
 
 - (void)dealloc

@@ -152,13 +152,13 @@ const long long LITE_IDL = 431183278L;
 
 - (void)dismissPlacePage
 {
-  [self.placePageView setState:PlacePageStateHidden animated:YES];
+  [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
 - (void)onUserMarkActivated:(UserMark const *)mark
 {
-  [self.placePageView showUserMark:mark];
-  [self.placePageView setState:PlacePageStateBitShown animated:YES];
+  [self.containerView.placePage showUserMark:mark];
+  [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
 }
 
 - (void)onMyPositionClicked:(id)sender
@@ -798,17 +798,8 @@ const long long LITE_IDL = 431183278L;
 
 #pragma mark - PlacePageViewDelegate
 
-- (void)placePageView:(PlacePageView *)placePage willEditBookmarkWithInfo:(search::AddressInfo const &)addressInfo point:(m2::PointD const &)point
+- (void)placePageView:(PlacePageView *)placePage willShareText:(NSString *)text point:(m2::PointD)point
 {
-  PlacePageVC * vc = [[PlacePageVC alloc] initWithInfo:addressInfo point:CGPointMake(point.x, point.y)];
-  vc.delegate = self;
-//  vc.mode = PlacePageVCModeSaved;
-  [self pushViewController:vc];
-}
-
-- (void)placePageView:(PlacePageView *)placePage willShareInfo:(search::AddressInfo const &)addressInfo point:(m2::PointD const &)point
-{
-  NSString * text = [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
   ShareInfo * info = [[ShareInfo alloc] initWithText:text gX:point.x gY:point.y myPosition:NO];
   self.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self];
   [self.shareActionSheet show];
@@ -855,20 +846,22 @@ const long long LITE_IDL = 431183278L;
 
 - (void)updatePlacePageWithBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
 {
-  [self.containerView.placePage showBookmarkAndCategory:bookmarkAndCategory];
+  BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bookmarkAndCategory.first);
+  Bookmark const * bookmark = category->GetBookmark(bookmarkAndCategory.second);
+  [self.containerView.placePage showUserMark:bookmark];
   [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:NO];
 }
 
-- (void)placePageView:(PlacePageView *)placePage willShareApiPoint:(const url_scheme::ApiPoint &)point
+- (void)placePageView:(PlacePageView *)placePage willShareApiPoint:(ApiMarkPoint const *)point
 {
-  NSString * urlString = [NSString stringWithUTF8String:GetFramework().GenerateApiBackUrl(point).c_str()];
+  NSString * urlString = [NSString stringWithUTF8String:GetFramework().GenerateApiBackUrl(*point).c_str()];
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
 - (void)placePageVC:(PlacePageVC *)placePageVC didUpdateBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
 {
-  Framework & fm = GetFramework();
-  [self.placePageView showUserMark:fm.GetBmCategory(bookmarkAndCategory.first)->GetBookmark(bookmarkAndCategory.second)];
+  UserMark const * userMark = GetFramework().GetBmCategory(bookmarkAndCategory.first)->GetBookmark(bookmarkAndCategory.second);
+  [self.containerView.placePage showUserMark:userMark];
 }
 
 #pragma mark - BottomMenuDelegate
@@ -1010,7 +1003,7 @@ const long long LITE_IDL = 431183278L;
     self.containerView.placePage.statusBarIncluded = NO;
     [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:NO];
 
-    self.apiTitleLabel.text = [NSString stringWithUTF8String:GetFramework().GetMapApiAppTitle().c_str()];
+    self.apiTitleLabel.text = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()];
   }
   else
   {
@@ -1029,7 +1022,6 @@ const long long LITE_IDL = 431183278L;
     [self setNeedsStatusBarAppearanceUpdate];
 
   [self dismissPopover];
-  self.searchView.searchBar.apiText = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()];
   _apiMode = apiMode;
 }
 

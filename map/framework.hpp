@@ -179,7 +179,7 @@ public:
   void LoadBookmarks();
 
   /// @return Created bookmark index in category.
-  size_t AddBookmark(size_t categoryIndex, BookmarkData & bm);
+  size_t AddBookmark(size_t categoryIndex, m2::PointD const & ptOrg, BookmarkData & bm);
   /// @return New moved bookmark index in category.
   size_t MoveBookmark(size_t bmIndex, size_t curCatIndex, size_t newCatIndex);
   void ReplaceBookmark(size_t catIndex, size_t bmIndex, BookmarkData const & bm);
@@ -437,7 +437,7 @@ public:
 
   /// @name Api
   //@{
-  string GenerateApiBackUrl(url_scheme::ApiPoint const & point);
+  string GenerateApiBackUrl(ApiMarkPoint const & point);
   url_scheme::ParsedMapApi const & GetApiDataHolder() const { return m_ParsedMapApi; }
 
 private:

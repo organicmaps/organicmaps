@@ -8,8 +8,10 @@
 
 + (NSURL *)getBackUrl:(url_scheme::ApiPoint const &)apiPoint
 {
-  string const str = GetFramework().GenerateApiBackUrl(apiPoint);
-  return [NSURL URLWithString:[NSString stringWithUTF8String:str.c_str()]];
+#warning <#message#>
+//  string const str = GetFramework().GenerateApiBackUrl(apiPoint);
+//  return [NSURL URLWithString:[NSString stringWithUTF8String:str.c_str()]];
+    return nil;
 }
 
 + (void)openAppWithPoint:(url_scheme::ApiPoint const &)apiPoint

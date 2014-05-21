@@ -322,7 +322,6 @@ static void OnSearchResultCallback(search::Results const & results)
   if (self.state == SearchViewStateResults)
   {
     Framework & framework = GetFramework();
-    framework.GetBookmarkManager().AdditionalPoiLayerClear();
     framework.GetBalloonManager().RemovePin();
     framework.GetBalloonManager().Dismiss();
     framework.Invalidate();

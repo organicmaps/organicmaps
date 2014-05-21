@@ -115,7 +115,12 @@ void AddressInfo::MakeFrom(Result const & res)
   // assign name if it's not equal with type
   string name = res.GetString();
   if (name != type)
-    m_name.swap(name);
+      m_name.swap(name);
+}
+
+void AddressInfo::SetPinName(string const & name)
+{
+  m_name = name;
 }
 
 string AddressInfo::GetPinName() const

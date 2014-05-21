@@ -244,12 +244,6 @@ typedef enum {APIPOINT, POI, MYPOSITION} Type;
   }
 }
 
-- (NSURL *)getBackUrl
-{
-  string const str = GetFramework().GenerateApiBackUrl(m_apiPoint);
-  return [NSURL URLWithString:[NSString stringWithUTF8String:str.c_str()]];
-}
-
 - (void)orientationChanged
 {
   [self.placeAndCompass drawView];

@@ -1115,6 +1115,8 @@ void Framework::ShowSearchResult(search::Result const & res)
   SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, ptOrg));
   mark->SetInfo(info);
 
+  m_balloonManager.OnClick(GtoP(res.GetFeatureCenter()), true);
+
   int scale;
   m2::PointD center;
 
@@ -1578,16 +1580,18 @@ string Framework::CodeGe0url(double lat, double lon, double zoomLevel, string co
   return res;
 }
 
-string Framework::GenerateApiBackUrl(url_scheme::ApiPoint const & point)
+string Framework::GenerateApiBackUrl(ApiMarkPoint const & point)
 {
   string res = m_ParsedMapApi.GetGlobalBackUrl();
   if (!res.empty())
   {
-    res += "pin?ll=" + strings::to_string(point.m_lat) + "," + strings::to_string(point.m_lon);
-    if (!point.m_name.empty())
-      res += "&n=" + UrlEncode(point.m_name);
-    if (!point.m_id.empty())
-      res += "&id=" + UrlEncode(point.m_id);
+    double lat, lon;
+    point.GetLatLon(lat, lon);
+    res += "pin?ll=" + strings::to_string(lat) + "," + strings::to_string(lon);
+    if (!point.GetName().empty())
+      res += "&n=" + UrlEncode(point.GetName());
+    if (!point.GetID().empty())
+      res += "&id=" + UrlEncode(point.GetID());
   }
   return res;
 }

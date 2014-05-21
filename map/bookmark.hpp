@@ -87,12 +87,12 @@ public:
   }
 
   void SetData(BookmarkData const & data) { m_data = data; }
+  BookmarkData const & GetData() { return m_data; }
 
   virtual Type GetMarkType() const { return BOOKMARK; }
 
-  m2::PointD const & GetOrg() const { return m_org; }
-  string const & GetName() const { return m_name; }
-  void SetName(string const & name) { m_name = name; }
+  string const & GetName() const { return m_data.GetName(); }
+  void SetName(string const & name) { m_data.SetName(name); }
   /// @return Now its a bookmark color - name of icon file
   string const & GetType() const { return m_data.GetType(); }
   //void SetType(string const & type) { m_type = type; }

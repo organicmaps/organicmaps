@@ -139,6 +139,7 @@ struct AddressInfo
 
   void MakeFrom(search::Result const & res);
 
+  void SetPinName(string const & name);
   string GetPinName() const;
   string GetPinType() const;
 

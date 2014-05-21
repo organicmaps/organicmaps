@@ -31,10 +31,6 @@
 		9746492818EEE2F8004B4658 /* ToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.m */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
 		9747264418323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
-		9747277B18328E65006B7CB7 /* BottomMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747277818328E65006B7CB7 /* BottomMenu.mm */; };
-		9747277C18328E65006B7CB7 /* BottomMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9747277818328E65006B7CB7 /* BottomMenu.mm */; };
-		9747277D18328E65006B7CB7 /* BottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747277A18328E65006B7CB7 /* BottomMenuCell.m */; };
-		9747277E18328E65006B7CB7 /* BottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747277A18328E65006B7CB7 /* BottomMenuCell.m */; };
 		9747278418338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */; };
 		9747278518338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */; };
 		9769D6EF1912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
@@ -67,6 +63,10 @@
 		978F9248183B6671000D6C7C /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978F9246183B6671000D6C7C /* Main_iPhone.storyboard */; };
 		978F9253183BD530000D6C7C /* NavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9252183BD530000D6C7C /* NavigationController.mm */; };
 		978F9254183BD530000D6C7C /* NavigationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9252183BD530000D6C7C /* NavigationController.mm */; };
+		97A0EEFA192F3B43009B2779 /* BottomMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF7192F3B43009B2779 /* BottomMenu.mm */; };
+		97A0EEFB192F3B43009B2779 /* BottomMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF7192F3B43009B2779 /* BottomMenu.mm */; };
+		97A0EEFC192F3B43009B2779 /* BottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF9192F3B43009B2779 /* BottomMenuCell.m */; };
+		97A0EEFD192F3B43009B2779 /* BottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF9192F3B43009B2779 /* BottomMenuCell.m */; };
 		97A8000C18B21363000C07A2 /* SearchView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A8000B18B21363000C07A2 /* SearchView.mm */; };
 		97A8000D18B21363000C07A2 /* SearchView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A8000B18B21363000C07A2 /* SearchView.mm */; };
 		97A8001018B21395000C07A2 /* SearchBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A8000F18B21395000C07A2 /* SearchBar.mm */; };
@@ -1447,10 +1447,6 @@
 		9746492618EEE2F8004B4658 /* ToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolbarView.m; sourceTree = "<group>"; };
 		9747264118323080006B7CB7 /* UIKitCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIKitCategories.m; path = Categories/UIKitCategories.m; sourceTree = "<group>"; };
 		9747264218323080006B7CB7 /* UIKitCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIKitCategories.h; path = Categories/UIKitCategories.h; sourceTree = "<group>"; };
-		9747277718328E65006B7CB7 /* BottomMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BottomMenu.h; path = ../BottomMenu.h; sourceTree = "<group>"; };
-		9747277818328E65006B7CB7 /* BottomMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BottomMenu.mm; path = ../BottomMenu.mm; sourceTree = "<group>"; };
-		9747277918328E65006B7CB7 /* BottomMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BottomMenuCell.h; path = ../BottomMenuCell.h; sourceTree = "<group>"; };
-		9747277A18328E65006B7CB7 /* BottomMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BottomMenuCell.m; path = ../BottomMenuCell.m; sourceTree = "<group>"; };
 		9747278218338F0C006B7CB7 /* UIViewController+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+Navigation.h"; path = "Classes/UIViewController+Navigation.h"; sourceTree = "<group>"; };
 		9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+Navigation.m"; path = "Classes/UIViewController+Navigation.m"; sourceTree = "<group>"; };
 		9769D6ED1912BF3000CA6158 /* ContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerView.h; sourceTree = "<group>"; };
@@ -1479,6 +1475,10 @@
 		978F9246183B6671000D6C7C /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		978F9251183BD530000D6C7C /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		978F9252183BD530000D6C7C /* NavigationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NavigationController.mm; sourceTree = "<group>"; };
+		97A0EEF6192F3B43009B2779 /* BottomMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomMenu.h; sourceTree = "<group>"; };
+		97A0EEF7192F3B43009B2779 /* BottomMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BottomMenu.mm; sourceTree = "<group>"; };
+		97A0EEF8192F3B43009B2779 /* BottomMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomMenuCell.h; sourceTree = "<group>"; };
+		97A0EEF9192F3B43009B2779 /* BottomMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomMenuCell.m; sourceTree = "<group>"; };
 		97A8000A18B21363000C07A2 /* SearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
 		97A8000B18B21363000C07A2 /* SearchView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchView.mm; sourceTree = "<group>"; };
 		97A8000E18B21395000C07A2 /* SearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBar.h; sourceTree = "<group>"; };
@@ -2609,18 +2609,6 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		9747277618328E65006B7CB7 /* Bottom Menu */ = {
-			isa = PBXGroup;
-			children = (
-				9747277718328E65006B7CB7 /* BottomMenu.h */,
-				9747277818328E65006B7CB7 /* BottomMenu.mm */,
-				9747277918328E65006B7CB7 /* BottomMenuCell.h */,
-				9747277A18328E65006B7CB7 /* BottomMenuCell.m */,
-			);
-			name = "Bottom Menu";
-			path = SideToolbar;
-			sourceTree = "<group>";
-		};
 		9770A04618AD19D300126E5C /* More Apps */ = {
 			isa = PBXGroup;
 			children = (
@@ -2656,6 +2644,17 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		97A0EEFE192F3B48009B2779 /* Bottom Menu */ = {
+			isa = PBXGroup;
+			children = (
+				97A0EEF6192F3B43009B2779 /* BottomMenu.h */,
+				97A0EEF7192F3B43009B2779 /* BottomMenu.mm */,
+				97A0EEF8192F3B43009B2779 /* BottomMenuCell.h */,
+				97A0EEF9192F3B43009B2779 /* BottomMenuCell.m */,
+			);
+			name = "Bottom Menu";
+			sourceTree = "<group>";
+		};
 		97A8000918B210DC000C07A2 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -2674,7 +2673,7 @@
 		97B4E9271851DAB300BEC5D7 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				9747277618328E65006B7CB7 /* Bottom Menu */,
+				97A0EEFE192F3B48009B2779 /* Bottom Menu */,
 				97D092AD190A67CA00FF645B /* Place Page */,
 				97A8000918B210DC000C07A2 /* Search */,
 				9746492518EEE2F8004B4658 /* ToolbarView.h */,
@@ -5062,6 +5061,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
+				97A0EEFA192F3B43009B2779 /* BottomMenu.mm in Sources */,
 				9747278418338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */,
 				1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */,
 				9746492718EEE2F8004B4658 /* ToolbarView.m in Sources */,
@@ -5078,6 +5078,7 @@
 				FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */,
 				97F61781183E6172009919E2 /* LocationButton.mm in Sources */,
 				9747264318323080006B7CB7 /* UIKitCategories.m in Sources */,
+				97A0EEFC192F3B43009B2779 /* BottomMenuCell.m in Sources */,
 				97719D421843AF1E00BDD815 /* ScopeView.m in Sources */,
 				97D092B9190AA69700FF645B /* SmallCompassView.mm in Sources */,
 				97A8001418B2140A000C07A2 /* SearchUniversalCell.m in Sources */,
@@ -5108,11 +5109,9 @@
 				97C98522186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
 				978F9242183B660F000D6C7C /* SelectableCell.m in Sources */,
 				CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */,
-				9747277D18328E65006B7CB7 /* BottomMenuCell.m in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
 				97ABBA4518C8DF620079333C /* PlacePageView.mm in Sources */,
-				9747277B18328E65006B7CB7 /* BottomMenu.mm in Sources */,
 				97F61794183E7445009919E2 /* LinkCell.m in Sources */,
 				EDCB4E8E175E67120005AA35 /* PlacePreviewViewController.mm in Sources */,
 				97D092B1190A681F00FF645B /* PlacePageInfoCell.mm in Sources */,
@@ -5152,6 +5151,7 @@
 				FAFB08EF151215EE0041901D /* RenderBuffer.mm in Sources */,
 				97DEA09718D75BB000C5F963 /* ContextViews.mm in Sources */,
 				978F9254183BD530000D6C7C /* NavigationController.mm in Sources */,
+				97A0EEFD192F3B43009B2779 /* BottomMenuCell.m in Sources */,
 				97C9851F186AE3C500AF7E9E /* Reachability.m in Sources */,
 				97ABBA4618C8DF620079333C /* PlacePageView.mm in Sources */,
 				9789DB5B188D94F9007C6FAE /* InterstitialView.mm in Sources */,
@@ -5235,14 +5235,13 @@
 				97C98622186C487900AF7E9E /* MPLegacyInterstitialCustomEventAdapter.m in Sources */,
 				97C98620186C487900AF7E9E /* MPInterstitialCustomEventAdapter.m in Sources */,
 				978F9243183B660F000D6C7C /* SelectableCell.m in Sources */,
+				97A0EEFB192F3B43009B2779 /* BottomMenu.mm in Sources */,
 				97C985FE186C487900AF7E9E /* CFilteringJSONSerializer.m in Sources */,
 				97C98625186C487900AF7E9E /* MPMRAIDBannerCustomEvent.m in Sources */,
 				CB252D7016FF82C9001E41E9 /* Statistics.mm in Sources */,
-				9747277E18328E65006B7CB7 /* BottomMenuCell.m in Sources */,
 				9778E99E191A5B6600AD850A /* BookmarkDescriptionVC.mm in Sources */,
 				978F9245183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
-				9747277C18328E65006B7CB7 /* BottomMenu.mm in Sources */,
 				97F61795183E7445009919E2 /* LinkCell.m in Sources */,
 				97C98623186C487900AF7E9E /* MPInstanceProvider.m in Sources */,
 				97C98606186C487900AF7E9E /* CJSONSerializer.m in Sources */,
