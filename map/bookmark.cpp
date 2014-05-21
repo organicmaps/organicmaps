@@ -36,6 +36,12 @@ double Bookmark::GetAnimScaleFactor() const
   return m_animScaleFactor;
 }
 
+m2::PointD const & Bookmark::GetPixelOffset() const
+{
+  static m2::PointD s_offset(0.0, 3.0);
+  return s_offset;
+}
+
 shared_ptr<anim::Task> Bookmark::CreateAnimTask(Framework & fm)
 {
   m_animScaleFactor = 0.0;

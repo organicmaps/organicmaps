@@ -92,6 +92,25 @@ private:
   void DeleteUserMark(UserMark const * mark);
 
 private:
+  void DrawUserMark(double scale,
+                    PaintOverlayEvent const & event,
+                    UserMarkDLCache * cache,
+                    UserMarkDLCache::Key const & defaultKey,
+                    UserMark const * mark) const;
+
+  void DefaultDrawUserMark(double scale,
+                           PaintOverlayEvent const & event,
+                           UserMarkDLCache * cache,
+                           UserMarkDLCache::Key const & defaultKey,
+                           UserMark const * mark) const;
+
+  void DrawUserMarkImpl(double scale,
+                        const m2::PointD & pixelOfsset,
+                        PaintOverlayEvent const & event,
+                        graphics::DisplayList * dl,
+                        UserMark const * mark) const;
+
+private:
   Controller m_controller;
   bool m_isVisible;
   double m_layerDepth;

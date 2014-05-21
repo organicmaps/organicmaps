@@ -120,4 +120,5 @@ public:
   bool IsCustomDrawable() const { return true; }
   virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const = 0;
   virtual double GetAnimScaleFactor() const = 0;
+  virtual m2::PointD const & GetPixelOffset() const = 0;
 };

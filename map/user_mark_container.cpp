@@ -70,44 +70,6 @@ namespace
     m2::AnyRectD const & m_rect;
     m2::PointD m_globalCenter;
   };
-
-  void DrawUserMarkImpl(double scale,
-                        PaintOverlayEvent const & event,
-                        graphics::DisplayList * dl,
-                        UserMark const * mark)
-  {
-    ScreenBase modelView = event.GetModelView();
-    graphics::Screen * screen = event.GetDrawer()->screen();
-    m2::PointD pxPoint = modelView.GtoP(mark->GetOrg());
-    math::Matrix<double, 3, 3> m = math::Shift(math::Scale(math::Identity<double, 3>(),
-                                                           scale, scale),
-                                               pxPoint.x, pxPoint.y);
-    dl->draw(screen, m);
-  }
-
-  void DefaultDrawUserMark(double scale,
-                           PaintOverlayEvent const & event,
-                           UserMarkDLCache * cache,
-                           UserMarkDLCache::Key const & defaultKey,
-                           UserMark const * mark)
-  {
-    DrawUserMarkImpl(scale, event, cache->FindUserMark(defaultKey), mark);
-  }
-
-  void DrawUserMark(double scale,
-                    PaintOverlayEvent const & event,
-                    UserMarkDLCache * cache,
-                    UserMarkDLCache::Key const & defaultKey,
-                    UserMark const * mark)
-  {
-    if (mark->IsCustomDrawable())
-    {
-      ICustomDrawable const * drawable = static_cast<ICustomDrawable const *>(mark);
-      DrawUserMarkImpl(drawable->GetAnimScaleFactor(), event, drawable->GetDisplayList(cache), mark);
-    }
-    else
-      DefaultDrawUserMark(scale, event, cache, defaultKey, mark);
-  }
 }
 
 UserMarkContainer::UserMarkContainer(double layerDepth, Framework & framework)
@@ -145,7 +107,8 @@ void UserMarkContainer::Draw(PaintOverlayEvent const & e, UserMarkDLCache * cach
   }
 
   UserMarkDLCache::Key defaultKey(GetTypeName(), graphics::EPosCenter, m_layerDepth);
-  for_each(m_userMarks.begin(), m_userMarks.end(), bind(&DrawUserMark, 1.0, e, cache, defaultKey, _1));
+  for_each(m_userMarks.begin(), m_userMarks.end(), bind(&UserMarkContainer::DrawUserMark, this,
+                                                         1.0, e, cache, defaultKey, _1));
 }
 
 void UserMarkContainer::ActivateMark(UserMark const * mark)
@@ -240,6 +203,46 @@ void UserMarkContainer::DeleteUserMark(UserMark const * mark)
   vector<UserMark *>::iterator it = find(m_userMarks.begin(), m_userMarks.end(), mark);
   if (it != m_userMarks.end())
     DeleteUserMark(distance(m_userMarks.begin(), it));
+}
+
+void UserMarkContainer::DrawUserMarkImpl(double scale,
+                                         m2::PointD const & pixelOfsset,
+                                         PaintOverlayEvent const & event,
+                                         graphics::DisplayList * dl,
+                                         UserMark const * mark) const
+{
+  ScreenBase modelView = event.GetModelView();
+  graphics::Screen * screen = event.GetDrawer()->screen();
+  m2::PointD pxPoint = modelView.GtoP(mark->GetOrg());
+  pxPoint += (pixelOfsset * m_framework.GetVisualScale());
+  math::Matrix<double, 3, 3> m = math::Shift(math::Scale(math::Identity<double, 3>(),
+                                                         scale, scale),
+                                             pxPoint.x, pxPoint.y);
+  dl->draw(screen, m);
+}
+
+void UserMarkContainer::DrawUserMark(double scale,
+                                     PaintOverlayEvent const & event,
+                                     UserMarkDLCache * cache,
+                                     UserMarkDLCache::Key const & defaultKey,
+                                     UserMark const * mark) const
+{
+  if (mark->IsCustomDrawable())
+  {
+    ICustomDrawable const * drawable = static_cast<ICustomDrawable const *>(mark);
+    DrawUserMarkImpl(drawable->GetAnimScaleFactor(), drawable->GetPixelOffset(), event, drawable->GetDisplayList(cache), mark);
+  }
+  else
+    DefaultDrawUserMark(scale, event, cache, defaultKey, mark);
+}
+
+void UserMarkContainer::DefaultDrawUserMark(double scale,
+                                            PaintOverlayEvent const & event,
+                                            UserMarkDLCache * cache,
+                                            UserMarkDLCache::Key const & defaultKey,
+                                            const UserMark * mark) const
+{
+  DrawUserMarkImpl(scale, m2::PointD(0.0, 0.0), event, cache->FindUserMark(defaultKey), mark);
 }
 
 void UserMarkContainer::StartActivationAnim()
