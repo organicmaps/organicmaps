@@ -12,7 +12,7 @@
 #include "constants.hpp"
 #include "platform_unix_impl.hpp"
 
-#include "tizen_string_utils.hpp"
+#include "tizen_utils.hpp"
 #include "http_thread_tizen.hpp"
 
 #include <FAppApp.h>

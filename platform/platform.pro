@@ -41,10 +41,10 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
   SOURCES += platform_android.cpp \
              pthread_video_timer.cpp
 } else:tizen* {
-  HEADERS += tizen_string_utils.hpp \
+  HEADERS += tizen_utils.hpp \
     http_thread_tizen.hpp
   SOURCES += platform_tizen.cpp \
-    tizen_string_utils.cpp \
+    tizen_utils.cpp \
     pthread_video_timer.cpp \
     http_thread_tizen.cpp \
 }

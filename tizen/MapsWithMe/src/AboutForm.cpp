@@ -4,7 +4,7 @@
 #include "AppResourceId.h"
 #include "../../../base/logging.hpp"
 #include "../../../platform/settings.hpp"
-#include "../../../platform/tizen_string_utils.hpp"
+#include "../../../platform/tizen_utils.hpp"
 #include <FWeb.h>
 #include <FAppApp.h>
 #include <FApp.h>

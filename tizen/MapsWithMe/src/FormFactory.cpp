@@ -3,7 +3,7 @@
 #include "SettingsForm.hpp"
 #include "AboutForm.hpp"
 #include "../../../base/logging.hpp"
-#include "../../../platform/tizen_string_utils.hpp"
+#include "../../../platform/tizen_utils.hpp"
 
 using namespace Tizen::Ui::Scenes;
 using namespace Tizen::Base;

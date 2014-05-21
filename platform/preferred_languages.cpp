@@ -24,8 +24,7 @@
   string GetAndroidSystemLanguage();
 
 #elif defined(OMIM_OS_TIZEN)
-// @TODO
-
+  #include "tizen_utils.hpp"
 #else
   #error "Define language preferences for your platform"
 
@@ -174,8 +173,7 @@ void SystemPreferredLanguages(vector<string> & languages)
   languages.push_back(GetAndroidSystemLanguage());
 
 #elif defined(OMIM_OS_TIZEN)
-// @TODO
-
+  languages.push_back(GetTizenLocale());
 #else
   #error "Define language preferences for your platform"
 #endif

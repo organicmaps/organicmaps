@@ -4,7 +4,7 @@
 #include "SceneRegister.hpp"
 #include "../../../map/framework.hpp"
 #include "../../../gui/controller.hpp"
-#include "../../../platform/tizen_string_utils.hpp"
+#include "../../../platform/tizen_utils.hpp"
 #include "../../../platform/settings.hpp"
 #include <FUi.h>
 #include <FBase.h>

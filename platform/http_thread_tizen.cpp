@@ -3,7 +3,7 @@
 
 #include "platform.hpp"
 #include "http_thread_callback.hpp"
-#include "tizen_string_utils.hpp"
+#include "tizen_utils.hpp"
 
 #include <FBaseColIEnumerator.h>
 
