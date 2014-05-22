@@ -61,9 +61,14 @@ namespace location
     double m_drawHeading;
 
     bool m_hasPosition;
+    double m_positionFault;
     bool m_hasCompass;
+    double m_compassFault;
     bool m_isCentered;
     bool m_isFirstPosition;
+
+    bool IsPositionFaultCritical() const;
+    bool IsCompassFaultCritical() const;
 
     ELocationProcessMode m_locationProcessMode;
     ECompassProcessMode m_compassProcessMode;

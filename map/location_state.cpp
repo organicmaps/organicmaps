@@ -24,6 +24,9 @@ namespace location
 {
   namespace
   {
+    const float MaxPositionFault = 10.0;
+    const float MaxHeadingFaultDeg = 3.0;
+
     class ErrorSectorAnimator : public anim::Task
     {
       typedef anim::Task base_t;
@@ -119,7 +122,9 @@ namespace location
       m_position(0, 0),
       m_drawHeading(0.0),
       m_hasPosition(false),
+      m_positionFault(0.0),
       m_hasCompass(false),
+      m_compassFault(0.0),
       m_isCentered(false),
       m_isFirstPosition(false),
       m_locationProcessMode(ELocationDoNothing),
@@ -147,7 +152,7 @@ namespace location
 
   bool State::HasCompass() const
   {
-    return m_hasCompass;
+    return m_hasCompass && !IsPositionFaultCritical() && !IsCompassFaultCritical();
   }
 
   bool State::IsFirstPosition() const
@@ -214,10 +219,11 @@ namespace location
   void State::OnLocationUpdate(location::GpsInfo const & info)
   {
     m_isFirstPosition = false;
+    m_positionFault = info.m_horizontalAccuracy;
 
     m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude,
                                                 info.m_latitude,
-                                                info.m_horizontalAccuracy);
+                                                m_positionFault);
     m2::PointD const center = rect.Center();
 
     m_hasPosition = true;
@@ -254,9 +260,14 @@ namespace location
   void State::OnCompassUpdate(location::CompassInfo const & info)
   {
     m_hasCompass = true;
-
-    m_drawHeading =
-        ((info.m_trueHeading >= 0.0) ? info.m_trueHeading : info.m_magneticHeading);
+    m_compassFault = info.m_accuracy;
+    if (info.m_trueHeading >= 0.0)
+    {
+      m_compassFault = 0.0;
+      m_drawHeading = info.m_trueHeading;
+    }
+    else
+      m_drawHeading = info.m_magneticHeading;
 
     CheckCompassFollowing();
 
@@ -305,13 +316,24 @@ namespace location
 
   float State::GetTransparency() const
   {
-    if (m_radiusAnimation)
+    if (m_radiusAnimation && !IsPositionFaultCritical())
     {
       ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
       return a->GetTransparency();
     }
 
     return m_locationAreaColor.a;
+  }
+
+  bool State::IsPositionFaultCritical() const
+  {
+    return m_positionFault > MaxPositionFault;
+  }
+
+  bool State::IsCompassFaultCritical() const
+  {
+    static double s_maxOffset = my::DegToRad(MaxHeadingFaultDeg);
+    return m_compassFault > s_maxOffset;
   }
 
   void State::cachePositionArrow()
@@ -465,7 +487,7 @@ namespace location
         holder.insertValue(graphics::ETransparency, GetTransparency());
         r->drawDisplayList(m_locationMarkDL.get(), drawM, &holder);
 
-        if (m_hasCompass)
+        if (HasCompass())
         {
           double screenAngle = m_framework->GetNavigator().Screen().GetAngle();
 
@@ -501,7 +523,7 @@ namespace location
 
   void State::CheckCompassFollowing()
   {
-    if (m_hasCompass
+    if (HasCompass()
     && (GetCompassProcessMode() == ECompassFollow)
     && IsCentered())
       FollowCompass();
