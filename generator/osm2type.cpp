@@ -287,12 +287,24 @@ namespace ftype
 //  };
 //#endif
 
-  uint32_t GetAddressType()
+  class AddressTypes
   {
-    static char const * arr[] = { "building", "address" };
-    static uint32_t const res = classif().GetTypeByPath(vector<string>(arr, arr + 2));
-    return res;
-  }
+    uint32_t m_types[2];
+  public:
+    AddressTypes()
+    {
+      Classificator const & c = classif();
+
+      char const * arr1[] = { "building", "address" };
+      m_types[0] = c.GetTypeByPath(vector<string>(arr1, arr1 + 2));
+
+      char const * arr2[] = { "entrance" };
+      m_types[1] = c.GetTypeByPath(vector<string>(arr2, arr2 + 1));
+    }
+
+    uint32_t Address() const { return m_types[0]; }
+    uint32_t Entrance() const { return m_types[1]; }
+  };
 
   void GetNameAndType(XMLElement * p, FeatureParams & params)
   {
@@ -354,12 +366,19 @@ namespace ftype
 
     } while (true);
 
-    if (!params.IsValid() && !params.house.IsEmpty())
+    if (!params.house.IsEmpty())
     {
-      params.name.Clear();
-      // If we have address (house name or number), we should assign valid type.
-      // There are a lot of features like this in Czech Republic.
-      params.AddType(GetAddressType());
+      static AddressTypes types;
+
+      // Delete "entrance" type for house number (use it only with refs).
+      // Add "address" type if we have house number but no valid types.
+      if (params.PopExactType(types.Entrance()))
+      {
+        params.name.Clear();
+        // If we have address (house name or number), we should assign valid type.
+        // There are a lot of features like this in Czech Republic.
+        params.AddType(types.Address());
+      }
     }
   }
 
