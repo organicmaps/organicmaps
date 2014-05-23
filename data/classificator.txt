@@ -495,7 +495,9 @@ world  +
         hamlet  -
         island  -
         islet  -
+        isolated_dwelling  -
         locality  -
+        neighbourhood  -
         ocean  -
         region  -
         sea  -

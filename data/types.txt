@@ -959,3 +959,5 @@ waterway|waterfall
 railway|proposed
 amenity|casino
 amenity|brothel
+place|neighbourhood
+place|isolated_dwelling

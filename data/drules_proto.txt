@@ -43875,7 +43875,139 @@ cont {
   }
 }
 cont {
+  name: "place-isolated_dwelling"
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 16
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 10066329
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "place-locality"
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+      }
+      secondary {
+        height: 12
+        color: 10066329
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 12
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 10066329
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 16
+        color: 6710886
+        stroke_color: 15658717
+      }
+      secondary {
+        height: 12
+        color: 10066329
+        stroke_color: 16777215
+        offset_y: 20
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "place-neighbourhood"
   element {
     scale: 14
     caption {

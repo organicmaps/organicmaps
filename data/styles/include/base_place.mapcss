@@ -157,7 +157,8 @@ node|z6[place=country]
 }
 node|z6[place=city],
 node|z15[place=locality],
-node|z12-13[place=village]
+node|z15[place=neighbourhood],
+node|z12-13[place=village],
 {
   font-size: 12;
   text-halo-radius: 2;
@@ -226,14 +227,17 @@ area|z15-[place=farm],
 node|z15-[place=farm],
 node|z12-15[place=hamlet],
 node|z14[place=locality],
-node|z8-9[place=region]
+node|z14[place=neighbourhood],
+node|z8-9[place=region],
 {
   text: name;
   font-size: 12;
   text-color: #606060;
 }
 node|z8-9[place=city][capital?],
-node|z16[place=locality]
+node|z16[place=locality],
+node|z16[place=neighbourhood],
+node|z16[place=isolated_dwelling],
 {
   font-size: 16;
   text-halo-radius: 2;
@@ -464,7 +468,12 @@ node|z14[place=village]
   text-halo-color: #eeeedd;
 }
 area|z14-16[place=locality]::int_name,
-node|z14-16[place=locality]::int_name
+node|z14-16[place=locality]::int_name,
+area|z14-16[place=neighbourhood]::int_name,
+node|z14-16[place=neighbourhood]::int_name,
+area|z16[place=isolated_dwelling]::int_name,
+node|z16[place=isolated_dwelling]::int_name,
+
 {
   text: int_name;
   font-size: 12;
@@ -519,7 +528,11 @@ node|z17-[place=village]
   text-halo-color: #eeeedd;
 }
 area|z17-[place=locality],
-node|z17-[place=locality]
+node|z17-[place=locality],
+area|z17-[place=neighbourhood],
+node|z17-[place=neighbourhood],
+area|z17-[place=isolated_dwelling],
+node|z17-[place=isolated_dwelling],
 {
   text: name;
   font-size: 16;
