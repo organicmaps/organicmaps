@@ -57,7 +57,7 @@ using namespace::storage;
   }
   self.guideRegions = [guideRegions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"Country" ascending:YES]]];
 
-  TitleMWM = @"MapsWithMe Pro";
+  TitleMWM = @"maps.me pro";
   TitleGuides = NSLocalizedString(@"more_apps_guides", nil);
   TitleAds = NSLocalizedString(@"more_apps_ads", nil);
 

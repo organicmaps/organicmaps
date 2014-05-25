@@ -265,7 +265,7 @@
       NSString * filePath = [NSString stringWithUTF8String:cat->GetFileName().c_str()];
       NSMutableString * catName = [NSMutableString stringWithUTF8String:cat->GetName().c_str()];
       if (![catName length])
-        [catName setString:@"MapsWithMe"];
+        [catName setString:@"maps.me"];
       NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];
       [kmzFile replaceCharactersInRange:NSMakeRange([filePath length] - 1, 1) withString:@"z"];
       if (CreateZipFromPathDeflatedAndDefaultCompression([filePath UTF8String], [kmzFile UTF8String]))

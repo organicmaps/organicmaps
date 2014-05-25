@@ -5355,7 +5355,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstats_client";
-				PRODUCT_NAME = "MWM Dbg Lite";
+				PRODUCT_NAME = "maps.me dbg lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5402,7 +5402,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstats_client";
-				PRODUCT_NAME = MapsWithMe;
+				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5469,7 +5469,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstats_client";
-				PRODUCT_NAME = "MWM Dbg Lite";
+				PRODUCT_NAME = "maps.me dbg lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5540,7 +5540,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstats_client";
-				PRODUCT_NAME = "MWM Beta Lite";
+				PRODUCT_NAME = "maps.me beta lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5607,7 +5607,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstats_client";
-				PRODUCT_NAME = "MWM Dbg";
+				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5674,7 +5674,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstats_client";
-				PRODUCT_NAME = "MWM Dbg";
+				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5745,7 +5745,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstats_client";
-				PRODUCT_NAME = "MWM Beta";
+				PRODUCT_NAME = "maps.me beta";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5816,7 +5816,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstats_client";
-				PRODUCT_NAME = MapsWithMe;
+				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5886,7 +5886,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstats_client";
-				PRODUCT_NAME = "MWM Rel Lite";
+				PRODUCT_NAME = "maps.me rel lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5956,7 +5956,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstats_client";
-				PRODUCT_NAME = "MWM Rel";
+				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6026,7 +6026,7 @@
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-lstats_client";
-				PRODUCT_NAME = "MWM Rel";
+				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";

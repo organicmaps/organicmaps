@@ -29,7 +29,7 @@ static void exceptionHandler(NSException * ex)
 
 int main(int argc, char * argv[])
 {
-  LOG(LINFO, ("MapsWithMe started, detected CPU cores:", GetPlatform().CpuCores()));
+  LOG(LINFO, ("maps.me started, detected CPU cores:", GetPlatform().CpuCores()));
 
   NSSetUncaughtExceptionHandler(&exceptionHandler);
   int retVal;

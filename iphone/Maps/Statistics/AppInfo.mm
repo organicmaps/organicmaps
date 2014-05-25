@@ -120,7 +120,7 @@ NSString * const AppFeatureMoreAppsBanner = @"AppFeatureMoreAppsBanner";
 
 - (NSString *)snapshot
 {
-  return [NSString stringWithFormat:@"MapsWithMe ver. %@, %@ (iOS %@) %@", self.bundleVersion, self.deviceInfo, self.firmwareVersion, self.countryCode];
+  return [NSString stringWithFormat:@"maps.me ver. %@, %@ (iOS %@) %@", self.bundleVersion, self.deviceInfo, self.firmwareVersion, self.countryCode];
 }
 
 #pragma mark - Public properties
