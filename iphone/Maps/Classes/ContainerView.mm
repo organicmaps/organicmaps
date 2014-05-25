@@ -61,7 +61,7 @@
 {
   if (!_placePage)
   {
-    _placePage = [[PlacePageView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height)];
+    _placePage = [[PlacePageView alloc] initWithFrame:self.bounds];
     [_placePage addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
   }
   return _placePage;
@@ -84,6 +84,7 @@
   {
     _swipeView = [[UIView alloc] initWithFrame:CGRectZero];
     _swipeView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    _swipeView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.3];
 
     UISwipeGestureRecognizer * swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
     [_swipeView addGestureRecognizer:swipe];

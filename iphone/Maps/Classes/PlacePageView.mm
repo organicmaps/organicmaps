@@ -364,11 +364,14 @@ typedef NS_ENUM(NSUInteger, CellRow)
       [self.tableView deleteRowsAtIndexPaths:@[indexPath1, indexPath2] withRowAnimation:UITableViewRowAnimationFade];
     }
     [self performAfterDelay:delay block:^{
+      [self willChangeValueForKey:@"state"];
       [self alignAnimated:YES];
+      [self didChangeValueForKey:@"state"];
     }];
   }
   self.bookmarkButton.selected = [self isBookmark];
   [self updateEditImageViewAnimated:animated];
+
 }
 
 - (CGFloat)maxHeight
@@ -569,6 +572,12 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
     return bookmark->GetType().empty() ? @"" : [NSString stringWithUTF8String:bookmark->GetType().c_str()];
+  }
+  else if ([self isMarkOfType:UserMark::POI])
+  {
+    PoiMarkPoint const * poiMark = static_cast<PoiMarkPoint const *>(m_mark);
+    search::AddressInfo addressInfo = poiMark->GetInfo();
+    return addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
   }
   else if (m_mark)
   {
