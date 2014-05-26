@@ -24,7 +24,7 @@ namespace location
 {
   namespace
   {
-    const float MaxPositionFault = 10.0;
+    const float MaxPositionFault = 25.0;
     const float MaxHeadingFaultDeg = 3.0;
 
     class ErrorSectorAnimator : public anim::Task
