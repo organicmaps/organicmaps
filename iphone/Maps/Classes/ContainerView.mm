@@ -84,7 +84,6 @@
   {
     _swipeView = [[UIView alloc] initWithFrame:CGRectZero];
     _swipeView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _swipeView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.3];
 
     UISwipeGestureRecognizer * swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
     [_swipeView addGestureRecognizer:swipe];

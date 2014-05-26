@@ -1,4 +1,5 @@
 
+
 #import "PlacePageView.h"
 #import "UIKitCategories.h"
 #import "MapsAppDelegate.h"
@@ -35,50 +36,30 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) UIImageView * editImageView;
 @property (nonatomic) UIImageView * arrowImageView;
 
-- (NSString *)title;
-- (NSString *)types;
-- (NSString *)address;
-- (NSString *)info;
-- (NSString *)setName;
+@property (nonatomic) NSString * title;
+@property (nonatomic) NSString * types;
+@property (nonatomic) NSString * address;
+@property (nonatomic) NSString * info;
+@property (nonatomic) NSString * setName;
 
 @end
 
 @implementation PlacePageView
 {
   UserMark const * m_mark;
+  UserMark const * m_cached_mark;
   BookmarkData * m_bookmarkData;
   size_t m_categoryIndex;
-}
-
-- (BOOL)isMarkOfType:(UserMark::Type)type
-{
-  if (m_mark == NULL)
-    return NO;
-  return m_mark->GetMarkType() == type;
-}
-
-- (BOOL)isBookmark
-{
-  return [self isMarkOfType:UserMark::BOOKMARK];
-}
-
-- (BOOL)isApiPoint
-{
-  return [self isMarkOfType:UserMark::API];
-}
-
-- (BOOL)isEmpty
-{
-  return m_mark == NULL;
 }
 
 - (id)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
-
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   self.clipsToBounds = YES;
+
   m_mark = NULL;
+  m_cached_mark = NULL;
   m_bookmarkData = NULL;
 
   self.statusBarIncluded = !SYSTEM_VERSION_IS_LESS_THAN(@"7");
@@ -183,7 +164,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     PlacePageShareCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageShareCell className]];
     cell.delegate = self;
-    if (self.isApiPoint)
+    if ([self isMarkOfType:UserMark::API])
       [cell setApiAppTitle:[NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()]];
     else
       [cell setApiAppTitle:nil];
@@ -371,7 +352,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
   self.bookmarkButton.selected = [self isBookmark];
   [self updateEditImageViewAnimated:animated];
-
 }
 
 - (CGFloat)maxHeight
@@ -494,142 +474,167 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)showUserMark:(UserMark const *)mark
 {
+  _title = nil;
+  _types = nil;
+  _address = nil;
+  _setName = nil;
+  _info = nil;
+
   m_mark = mark;
-  UserMark::Type type = mark->GetMarkType();
-  switch (type)
-  {
-    case UserMark::BOOKMARK:
-      [self bookmarkActivated:static_cast<Bookmark const *>(mark)];
-      break;
-    case UserMark::API:
-      [self userMarkActivated:mark];
-      break;
-    case UserMark::POI:
-      [self userMarkActivated:mark];
-      break;
-    case UserMark::SEARCH:
-      [self userMarkActivated:mark];
-      break;
-    default:
-      break;
-  }
+  m_cached_mark = mark;
+
+  if ([self isBookmark])
+    [self bookmarkActivated:static_cast<Bookmark const *>(mark)];
+  else if ([self isMarkOfType:UserMark::API] || [self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
+    [self userMarkActivated:mark];
 }
 
 - (void)bookmarkActivated:(Bookmark const *)bookmark
 {
-//  delete m_bookmarkData;
   m_categoryIndex = GetFramework().FindBookmark(bookmark).first;
-  m_bookmarkData = new BookmarkData(bookmark->GetName(), bookmark->GetType());
-  m_bookmarkData->SetDescription(bookmark->GetDescription());
-  m_bookmarkData->SetTimeStamp(bookmark->GetTimeStamp());
-  m_bookmarkData->SetScale(bookmark->GetScale());
+  delete m_bookmarkData;
+  m_bookmarkData = new BookmarkData(bookmark->GetName(), bookmark->GetType(), bookmark->GetDescription(), bookmark->GetScale(), bookmark->GetTimeStamp());
+  m_cached_mark = NULL;
 }
 
 - (void)userMarkActivated:(UserMark const *)mark
 {
-//  delete m_bookmarkData;
+  delete m_bookmarkData;
   m_bookmarkData = NULL;
+}
+
+- (BOOL)isMarkOfType:(UserMark::Type)type
+{
+  if (m_mark == NULL)
+    return NO;
+  return m_mark->GetMarkType() == type;
+}
+
+- (BOOL)isBookmark
+{
+  return [self isMarkOfType:UserMark::BOOKMARK];
 }
 
 - (m2::PointD)pinPoint
 {
-  return m_mark ? m_mark->GetOrg() : m2::PointD();
+  return m_mark != NULL ? m_mark->GetOrg() : m2::PointD();
 }
 
 - (NSString *)title
 {
-  if ([self isMarkOfType:UserMark::BOOKMARK])
+  if (!_title)
   {
-    Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
-    return bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
+    if ([self isBookmark])
+    {
+      Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
+      _title = bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
+    }
+    else if ([self isMarkOfType:UserMark::API])
+    {
+      ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>(m_mark);
+      _title = apiMark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:apiMark->GetName().c_str()];
+    }
+    else if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
+    {
+      SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>(m_mark);
+      search::AddressInfo const & addressInfo = mark->GetInfo();
+      _title = addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
+    }
+    else if (m_mark != NULL)
+    {
+      search::AddressInfo addressInfo;
+      GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
+      _title = addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
+    }
+    else
+    {
+      _title = @"";
+    }
   }
-  else if ([self isMarkOfType:UserMark::API])
-  {
-    ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>(m_mark);
-    return apiMark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:apiMark->GetName().c_str()];
-  }
-  else if ([self isMarkOfType:UserMark::POI])
-  {
-    PoiMarkPoint const * poiMark = static_cast<PoiMarkPoint const *>(m_mark);
-    search::AddressInfo addressInfo = poiMark->GetInfo();
-    return addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
-  }
-  else if (m_mark)
-  {
-    search::AddressInfo addressInfo;
-    GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
-    return addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
-  }
-  else
-  {
-    return @"";
-  }
+  return _title;
 }
 
 - (NSString *)types
 {
-  if ([self isMarkOfType:UserMark::BOOKMARK])
+  if (!_types)
   {
-    Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
-    return bookmark->GetType().empty() ? @"" : [NSString stringWithUTF8String:bookmark->GetType().c_str()];
+    if ([self isBookmark])
+    {
+      search::AddressInfo addressInfo;
+      GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
+      _types = addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
+    }
+    else if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
+    {
+      SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>(m_mark);
+      search::AddressInfo const & addressInfo = mark->GetInfo();
+      _types = addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
+    }
+    else if (m_mark != NULL)
+    {
+      search::AddressInfo addressInfo;
+      GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
+      _types = addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
+    }
+    else
+    {
+      _types = @"";
+    }
   }
-  else if ([self isMarkOfType:UserMark::POI])
-  {
-    PoiMarkPoint const * poiMark = static_cast<PoiMarkPoint const *>(m_mark);
-    search::AddressInfo addressInfo = poiMark->GetInfo();
-    return addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
-  }
-  else if (m_mark)
-  {
-    search::AddressInfo addressInfo;
-    GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
-    return addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
-  }
-  else
-  {
-    return @"";
-  }
+  return _types;
 }
 
 - (NSString *)setName
 {
-  if ([self isMarkOfType:UserMark::BOOKMARK])
+  if (!_setName)
   {
-    Framework & framework = GetFramework();
-    BookmarkCategory const * category = framework.GetBmCategory(framework.FindBookmark(m_mark).first);
-    return [NSString stringWithUTF8String:category->GetName().c_str()];
+    if ([self isBookmark])
+    {
+      Framework & framework = GetFramework();
+      BookmarkCategory const * category = framework.GetBmCategory(framework.FindBookmark(m_mark).first);
+      _setName = [NSString stringWithUTF8String:category->GetName().c_str()];
+    }
+    else
+    {
+      _setName = @"";
+    }
   }
-  else
-  {
-    return @"";
-  }
+  return _setName;
 }
 
 - (NSString *)info
 {
-  if ([self isMarkOfType:UserMark::BOOKMARK])
+  if (!_info)
   {
-    Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
-    return bookmark->GetDescription().empty() ? NSLocalizedString(@"description", nil) : [NSString stringWithUTF8String:bookmark->GetDescription().c_str()];
+    if ([self isBookmark])
+    {
+      Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
+      _info = bookmark->GetDescription().empty() ? NSLocalizedString(@"description", nil) : [NSString stringWithUTF8String:bookmark->GetDescription().c_str()];
+    }
+    else
+    {
+      _info = @"";
+    }
   }
-  else
-  {
-    return @"";
-  }
+  return _info;
 }
 
 - (NSString *)address
 {
-  if (m_mark)
+  if (!_address)
   {
-    search::AddressInfo addressInfo;
-    GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
-    return [NSString stringWithUTF8String:addressInfo.FormatAddress().c_str()];
+    if (m_mark != NULL)
+    {
+      search::AddressInfo addressInfo;
+      GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
+      _address = [NSString stringWithUTF8String:addressInfo.FormatAddress().c_str()];
+    }
+    else
+    {
+      _address = @"";
+    }
   }
-  else
-  {
-    return @"";
-  }
+  return _address;
 }
 
 - (UIImage *)iconImageWithImage:(UIImage *)image
@@ -649,15 +654,15 @@ typedef NS_ENUM(NSUInteger, CellRow)
   Framework & framework = GetFramework();
   BookmarkAndCategory const & bookmarkAndCategory = framework.FindBookmark(m_mark);
   BookmarkCategory * category = framework.GetBmCategory(bookmarkAndCategory.first);
-//  delete m_mark;
-  m_mark = UserMarkContainer::UserMarkForPoi(self.pinPoint);
+  m_mark = m_cached_mark != NULL ? m_cached_mark : framework.GetAddressMark([self pinPoint]);
   if (category)
   {
     category->DeleteBookmark(bookmarkAndCategory.second);
     category->SaveToKMLFile();
   }
-  framework.ActivateAddressMark([self pinPoint]);
-  
+  framework.ActivateUserMark(m_mark);
+  framework.Invalidate();
+
   [self reloadHeader];
   [self updateBookmarkStateAnimated:YES];
 }
@@ -671,18 +676,20 @@ typedef NS_ENUM(NSUInteger, CellRow)
     if (!category)
       m_categoryIndex = framework.LastEditedBMCategory();
 
-    size_t bookmarkIndex = framework.GetBookmarkManager().AddBookmark(m_categoryIndex, self.pinPoint, *m_bookmarkData);
+    size_t const bookmarkIndex = framework.GetBookmarkManager().AddBookmark(m_categoryIndex, [self pinPoint], *m_bookmarkData);
     m_mark = category->GetBookmark(bookmarkIndex);
   }
   else
   {
-    size_t categoryIndex = framework.LastEditedBMCategory();
+    size_t const categoryIndex = framework.LastEditedBMCategory();
     BookmarkData data = BookmarkData([[self title] UTF8String], "placemark-red");
-    size_t bookmarkIndex = framework.AddBookmark(categoryIndex, self.pinPoint, data);
-    BookmarkCategory * const category = framework.GetBmCategory(categoryIndex);
-//    delete m_mark;
+    size_t const bookmarkIndex = framework.AddBookmark(categoryIndex, [self pinPoint], data);
+    BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
     m_mark = category->GetBookmark(bookmarkIndex);
   }
+  framework.ActivateUserMark(m_mark);
+  framework.Invalidate();
+
   [self reloadHeader];
   [self updateBookmarkStateAnimated:YES];
 }

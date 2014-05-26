@@ -427,8 +427,9 @@ public:
   bool IsCountryLoaded(m2::PointD const & pt) const;
 
   shared_ptr<location::State> const & GetLocationState() const;
-  UserMark const * ActivateUserMark(m2::PointD const & pxPoint, bool isLongPress);
-  UserMark const * ActivateAddressMark(m2::PointD const & globalPoint);
+  void ActivateUserMark(UserMark const * mark);
+  UserMark const * GetUserMark(m2::PointD const & pxPoint, bool isLongPress);
+  UserMark const * GetAddressMark(m2::PointD const & globalPoint);
   BookmarkAndCategory FindBookmark(UserMark const * mark);
 
 public:

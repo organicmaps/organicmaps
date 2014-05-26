@@ -324,6 +324,7 @@ static void OnSearchResultCallback(search::Results const & results)
     Framework & framework = GetFramework();
     framework.GetBalloonManager().RemovePin();
     framework.GetBalloonManager().Dismiss();
+    framework.GetBookmarkManager().UserMarksClear(UserMarkContainer::SEARCH_MARK);
     framework.Invalidate();
     [self setState:SearchViewStateHidden animated:YES withCallback:YES];
   }

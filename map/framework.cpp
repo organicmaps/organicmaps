@@ -1110,12 +1110,13 @@ void Framework::ShowSearchResult(search::Result const & res)
   m_bmManager.UserMarksClear(type);
 
   search::AddressInfo info;
+  info.MakeFrom(res);
+
   m2::PointD ptOrg = res.GetFeatureCenter();
-  GetAddressInfoForGlobalPoint(ptOrg, info);
   SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, ptOrg));
   mark->SetInfo(info);
 
-  m_balloonManager.OnClick(GtoP(res.GetFeatureCenter()), true);
+  m_balloonManager.OnClick(GtoP(mark->GetOrg()), true);
 
   int scale;
   m2::PointD center;
@@ -1178,8 +1179,8 @@ void Framework::ShowAllSearchResults()
     if (r.GetResultType() != Result::RESULT_SUGGESTION)
     {
       AddressInfo info;
+      info.MakeFrom(r);
       m2::PointD ptOrg = r.GetFeatureCenter();
-      GetAddressInfoForGlobalPoint(ptOrg, info);
       SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, ptOrg));
       mark->SetInfo(info);
       rect.Add(r.GetFeatureCenter());
@@ -1484,7 +1485,12 @@ shared_ptr<location::State> const & Framework::GetLocationState() const
   return m_informationDisplay.locationState();
 }
 
-UserMark const * Framework::ActivateUserMark(m2::PointD const & pxPoint, bool isLongPress)
+void Framework::ActivateUserMark(UserMark const * mark)
+{
+  m_bmManager.ActivateMark(mark);
+}
+
+UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongPress)
 {
   m2::AnyRectD rect;
   m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * GetVisualScale(), rect);
@@ -1511,19 +1517,15 @@ UserMark const * Framework::ActivateUserMark(m2::PointD const & pxPoint, bool is
       mark = poiMark;
     }
   }
-
-  m_bmManager.ActivateMark(mark);
-
   return mark;
 }
 
-UserMark const * Framework::ActivateAddressMark(m2::PointD const & globalPoint)
+UserMark const * Framework::GetAddressMark(m2::PointD const & globalPoint)
 {
   search::AddressInfo info;
   GetAddressInfoForGlobalPoint(globalPoint, info);
   PoiMarkPoint * mark = UserMarkContainer::UserMarkForPoi(globalPoint);
   mark->SetInfo(info);
-  m_bmManager.ActivateMark(mark);
   return mark;
 }
 

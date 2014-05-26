@@ -152,13 +152,15 @@ const long long LITE_IDL = 431183278L;
 
 - (void)dismissPlacePage
 {
+  [self.containerView.placePage showUserMark:NULL];
   [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
-- (void)onUserMarkActivated:(UserMark const *)mark
+- (void)onUserMarkClicked:(UserMark const *)mark
 {
   [self.containerView.placePage showUserMark:mark];
   [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
+  GetFramework().ActivateUserMark(mark);
 }
 
 - (void)onMyPositionClicked:(id)sender
@@ -606,7 +608,7 @@ const long long LITE_IDL = 431183278L;
 
     PinClickManager & manager = f.GetBalloonManager();
     
-    SEL userMarkSelector = @selector(onUserMarkActivated:);
+    SEL userMarkSelector = @selector(onUserMarkClicked:);
     UserMarkActivatedFnT userMarkFn = (UserMarkActivatedFnT)[self methodForSelector:userMarkSelector];
     manager.ConnectUserMarkListener(bind(userMarkFn, self, userMarkSelector, _1));
 
@@ -969,7 +971,7 @@ const long long LITE_IDL = 431183278L;
             CGFloat const x = self.view.width / 2;
             CGFloat const y = self.view.height / 2;
             CGPoint const center = [(EAGLView *)self.view viewPoint2GlobalPoint:CGPointMake(x, y)];
-            m2::PointD const offset = self.containerView.placePage.pinPoint - m2::PointD(center.x, center.y);
+            m2::PointD const offset = [self.containerView.placePage pinPoint] - m2::PointD(center.x, center.y);
             framework.SetViewportCenterAnimated(framework.GetViewportCenter() + offset);
           }
           break;
@@ -1017,9 +1019,16 @@ const long long LITE_IDL = 431183278L;
     [self.view insertSubview:self.searchView belowSubview:self.containerView];
     self.containerView.placePage.statusBarIncluded = YES;
     [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:NO];
+
+    Framework & framework = GetFramework();
+    framework.GetBalloonManager().RemovePin();
+    framework.GetBalloonManager().Dismiss();
+    framework.GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
+    framework.Invalidate();
   }
   if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
     [self setNeedsStatusBarAppearanceUpdate];
+
 
   [self dismissPopover];
   _apiMode = apiMode;

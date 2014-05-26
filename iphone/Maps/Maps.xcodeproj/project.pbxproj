@@ -1420,7 +1420,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* MapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		1D6058910D05DD3D006BFB54 /* MWM Dbg Lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MWM Dbg Lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* maps.me dbg lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -2357,7 +2357,7 @@
 		FAF8FFFD1417D7E50024E8C1 /* rw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rw.png; path = ../../data/flags/rw.png; sourceTree = SOURCE_ROOT; };
 		FAF8FFFE1417D7E50024E8C1 /* sa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sa.png; path = ../../data/flags/sa.png; sourceTree = SOURCE_ROOT; };
 		FAF8FFFF1417D7E50024E8C1 /* sb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sb.png; path = ../../data/flags/sb.png; sourceTree = SOURCE_ROOT; };
-		FAFB091E151215EE0041901D /* MWM Dbg Lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MWM Dbg Lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAFB091E151215EE0041901D /* maps.me dbg lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "maps.me dbg lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFB0920151215EF0041901D /* MapsWithMe-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Lite.plist"; sourceTree = "<group>"; };
 		FAFCB63413366E78001A5C59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		FAFCB63513366E78001A5C59 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
@@ -2506,8 +2506,8 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* MWM Dbg Lite.app */,
-				FAFB091E151215EE0041901D /* MWM Dbg Lite.app */,
+				1D6058910D05DD3D006BFB54 /* maps.me dbg lite.app */,
+				FAFB091E151215EE0041901D /* maps.me dbg lite.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3814,7 +3814,7 @@
 			);
 			name = "MapsWithMe Pro";
 			productName = Maps;
-			productReference = 1D6058910D05DD3D006BFB54 /* MWM Dbg Lite.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* maps.me dbg lite.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FAFB06A9151215EE0041901D /* MapsWithMe Lite */ = {
@@ -3832,7 +3832,7 @@
 			);
 			name = "MapsWithMe Lite";
 			productName = Maps;
-			productReference = FAFB091E151215EE0041901D /* MWM Dbg Lite.app */;
+			productReference = FAFB091E151215EE0041901D /* maps.me dbg lite.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
