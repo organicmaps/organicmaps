@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Больше возможностей в полной версии MapsWithMe с офлайн поиском. Установить ее сейчас?</string>
+	<string name="pro_version_available">Больше возможностей в полной версии maps.me с офлайн поиском. Установить ее сейчас?</string>
 	<!-- About button text (should be short) -->
 	<string name="about">О программе</string>
 	<!-- Button text (should be short) -->
@@ -37,9 +37,9 @@
 	<string name="downloading">Загружается…</string>
 	<string name="get_it_now">Установить</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Нравится MapsWithMe? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!</string>
+	<string name="share_on_facebook_text">Нравится maps.me? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!</string>
 	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами.</string>
+	<string name="leave_review_text">Если вам нравится maps.me, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами.</string>
 	<!-- Settings/Downloader - size string -->
 	<string name="kb">КБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -77,7 +77,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Поиск</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Поиск доступен только в полной версии MapsWithMe. Установите ее прямо сейчас!</string>
+	<string name="search_available_in_pro_version">Поиск доступен только в полной версии maps.me. Установите ее прямо сейчас!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Поиск на карте</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -145,7 +145,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Доступно обновление для следующих карт:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">MapsWithMe Lite больше не нужна. Рекомендуем ее удалить.</string>
+	<string name="suggest_uninstall_lite">maps.me Lite больше не нужна. Рекомендуем ее удалить.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s успешно загружена</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -177,9 +177,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Группа</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">У вас пока нет закладок.\nВыберите любое место на карте, чтобы добавить его в закладки.\nТак же закладки можно импортировать из MapsWithMe либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
+	<string name="bookmarks_usage_hint">У вас пока нет закладок.\nВыберите любое место на карте, чтобы добавить его в закладки.\nТак же закладки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Закладки можно импортировать из MapsWithMe либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
+	<string name="bookmarks_usage_hint_import_only">Закладки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Настройки</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -193,7 +193,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Показывать на карте</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Закладки доступны только в полной верии MapsWithMe. Установите ее прямо сейчас!</string>
+	<string name="bookmarks_in_pro_version">Закладки доступны только в полной верии maps.me. Установите ее прямо сейчас!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.</string>
 	<!-- Measurement units title in settings activity -->
@@ -242,9 +242,9 @@
 	<!-- Button text -->
 	<string name="share_by_email">Послать по email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">С вами поделились закладками MapsWithMe</string>
+	<string name="share_bookmarks_email_subject">С вами поделились закладками maps.me</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле \&quot;%s.kmz\&quot;. Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kmz\n\nСпасибо!</string>
+	<string name="share_bookmarks_email_body">Здравствуйте!\n\nМои закладки из офлайн карт maps.me находятся в прикрепленном файле \&quot;%s.kmz\&quot;. Если у вас уже установлено приложение maps.me Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  maps.me Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.maps.me/get?kmz\n\nСпасибо!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Загрузка закладок</string>
 	<!-- Kmz file successful loading -->
@@ -264,7 +264,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Идет процесс загрузки карт.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Надеемся, вам нравится пользоваться MapsWithMe! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!</string>
+	<string name="appStore_message">Надеемся, вам нравится пользоваться maps.me! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Нет, спасибо</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -272,13 +272,13 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Смотри где я сейчас. Жми %1$s или %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Смотри мою метку на карте MapsWithMe</string>
+	<string name="bookmark_share_email_subject">Смотри мою метку на карте maps.me</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Привет!\n\nОткрой эту ссылку %2$s либо эту %3$s, для того, чтобы увидеть мою метку %1$s на карте MapsWithMe.\n\nСпасибо.</string>
+	<string name="bookmark_share_email">Привет!\n\nОткрой эту ссылку %2$s либо эту %3$s, для того, чтобы увидеть мою метку %1$s на карте maps.me.\n\nСпасибо.</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Посмотри на карте MapsWithMe, где я сейчас нахожусь</string>
+	<string name="my_position_share_email_subject">Посмотри на карте maps.me, где я сейчас нахожусь</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">Привет!\n\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте MapsWithMe, открой эту ссылку %2$s или эту %3$s \n\nСпасибо.</string>
+	<string name="my_position_share_email">Привет!\n\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте maps.me, открой эту ссылку %2$s или эту %3$s \n\nСпасибо.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Отправить сообщением</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -325,7 +325,7 @@
 	<string name="placepage_coordinates">Координаты</string>
 	<string name="placepage_unsorted">Без категории</string>
 	<string name="search_show_on_map">Посмотреть на карте</string>
-	<string name="kitkat_migrate_ok">Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.</string>
+	<string name="kitkat_migrate_ok">Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка maps.me, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.</string>
 	<string name="kitkat_migrate_failed">В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.</string>
 	<string name="bookmark_move_fail">Для оптимизации хранения данных нам необходимо переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе букмарки вам будут недоступны.</string>
 	<string name="kitkat_optimization_in_progress">Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.</string>

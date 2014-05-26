@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">További lehetőségek a MapsWithMe teljes verziójában. Töltse le most!</string>
+	<string name="pro_version_available">További lehetőségek a maps.me teljes verziójában. Töltse le most!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">A programról</string>
 	<!-- Button text (should be short) -->
@@ -37,9 +37,9 @@
 	<string name="downloading">Letöltés…</string>
 	<string name="get_it_now">Telepítés most</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Tetszik a MapsWithMe? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!</string>
+	<string name="share_on_facebook_text">Tetszik a maps.me? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!</string>
 	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Ha tetszik Önnek a MapsWithMe, kérjük támogasson minket ajánlás írásával. Ha probléma adódik, kérjük tájékoztasson minket a formanyomtatványon keresztül.</string>
+	<string name="leave_review_text">Ha tetszik Önnek a maps.me, kérjük támogasson minket ajánlás írásával. Ha probléma adódik, kérjük tájékoztasson minket a formanyomtatványon keresztül.</string>
 	<!-- Settings/Downloader - size string -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -78,7 +78,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Keresés</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Keresés csak a MapsWithMe teljes verziójában érhető el. Vásárolja meg most!</string>
+	<string name="search_available_in_pro_version">Keresés csak a maps.me teljes verziójában érhető el. Vásárolja meg most!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Keresés a térképen</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -109,7 +109,7 @@
 	<string name="country_status_download_failed">^ letöltése sikertelen</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Újrapróbálkozás</string>
-	<string name="about_menu_title">A MapsWithMe programról</string>
+	<string name="about_menu_title">A maps.me programról</string>
 	<string name="downloading_touch_to_cancel">%d%% letöltése, elvetéshez érintse meg</string>
 	<string name="downloaded_touch_to_delete">Letölve (%s), érintse meg törléshez</string>
 	<string name="connection_settings">Kapcsolat beállítások</string>
@@ -118,7 +118,7 @@
 	<string name="unsupported_phone">Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.</string>
 	<string name="download">Letöltés</string>
 	<string name="external_storage_is_not_available">Nem található téképeket tartalmazó SD kártya / USB tároló</string>
-	<string name="disconnect_usb_cable">Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a MapsWithMe használatához</string>
+	<string name="disconnect_usb_cable">Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a maps.me használatához</string>
 	<string name="not_enough_free_space_on_sdcard">Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!</string>
 	<string name="not_enough_memory">Nincs elegendő memória az alkalmazás futtatásához</string>
 	<string name="free_space_for_country">Kérjük szabadítson fel %1$s-t az eszközön $2$@ letöltéséhez!</string>
@@ -146,7 +146,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Az aktuális térképhez elérhető frissítések:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Már nincs szüksége a MapsWithMe lite alkalmazásra, nyugodtan letörölheti.</string>
+	<string name="suggest_uninstall_lite">Már nincs szüksége a maps.me lite alkalmazásra, nyugodtan letörölheti.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s letöltése sikeres</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -178,9 +178,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Csoport</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MapsWithMe programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
+	<string name="bookmarks_usage_hint">Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Más forrásokból származó könyvjelzőket is beolvashat a MapsWithMe programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
+	<string name="bookmarks_usage_hint_import_only">Más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Beállítások</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -194,7 +194,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">látható</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Könyvjelzők csak a MapsWithMe teljes verziójában érhetőek el. Vásárolja meg most!</string>
+	<string name="bookmarks_in_pro_version">Könyvjelzők csak a maps.me teljes verziójában érhetőek el. Vásárolja meg most!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS kikapcsolva. Kérjük kapcsolja be a Beállítások között.</string>
 	<!-- Measurement units title in settings activity -->
@@ -243,9 +243,9 @@
 	<!-- Button text -->
 	<string name="share_by_email">Megosztás email-en</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Egy MapsWithMe könyvjelzőt osztottak meg Önnel</string>
+	<string name="share_bookmarks_email_subject">Egy maps.me könyvjelzőt osztottak meg Önnel</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Üdvözlöm!\n\nA mellékelt \&quot;%s.kmz\&quot; fájl tartalmazza a MapsWithMe könyvjelzőimet. Kérem nyissa meg, ha a MapsWithMe már telepítve van. Ha még nincs, akkor innen töltheti le: http://www.mapswithme.com/get?kmz. \n\nSok sikert a program használatához!</string>
+	<string name="share_bookmarks_email_body">Üdvözlöm!\n\nA mellékelt \&quot;%s.kmz\&quot; fájl tartalmazza a maps.me könyvjelzőimet. Kérem nyissa meg, ha a maps.me már telepítve van. Ha még nincs, akkor innen töltheti le: http://www.maps.me/get?kmz. \n\nSok sikert a program használatához!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Könyvjelzők letöltése</string>
 	<!-- Kmz file successful loading -->
@@ -265,19 +265,19 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Országletöltés folyamatban.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Reméljük élvezi a MapsWithMe használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!</string>
+	<string name="appStore_message">Reméljük élvezi a maps.me használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Köszönöm, nem</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Nézd meg a MapsWithMe jelzőt! %1$s vagy %2$s A program letöltése: http://mapswith.me/get</string>
+	<string name="bookmark_share_sms">Nézd meg a maps.me jelzőt! %1$s vagy %2$s A program letöltése: http://mapswith.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Nézd meg a MapsWithMe helyzetemet! %1$s vagy %2$s A program letöltése: http://mapswith.me/get</string>
+	<string name="my_position_share_sms">Nézd meg a maps.me helyzetemet! %1$s vagy %2$s A program letöltése: http://mapswith.me/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Nézze meg a MapsWithMe jelzőmet</string>
+	<string name="bookmark_share_email_subject">Nézze meg a maps.me jelzőmet</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Üdvözlöm, \n\nleszúrtam egy MapsWithMe jelzőt: %1$s. Kattintson erre a hivatkozásra %2$s vagy erre %3$s hogy lássa a helyet a térképen.\n\nKöszönöm.</string>
+	<string name="bookmark_share_email">Üdvözlöm, \n\nleszúrtam egy maps.me jelzőt: %1$s. Kattintson erre a hivatkozásra %2$s vagy erre %3$s hogy lássa a helyet a térképen.\n\nKöszönöm.</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Nézze meg a helyzetemet a MapsWithMe térképen!</string>
+	<string name="my_position_share_email_subject">Nézze meg a helyzetemet a maps.me térképen!</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Üdvözlöm!\n\nJelenleg itt vagyok: %1$s Kattintson erre a hivatkozásra %2$s vagy erre %3$s, hogy lássa a helyet a térképen.\n\nKöszönöm.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -336,7 +336,7 @@
 	<string name="placepage_coordinates">Koordináták</string>
 	<string name="placepage_unsorted">Osztályozatlan</string>
 	<string name="search_show_on_map">Megtekintés a térképen</string>
-	<string name="kitkat_migrate_ok">A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA MapsWithMe mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.</string>
+	<string name="kitkat_migrate_ok">A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA maps.me mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.</string>
 	<string name="kitkat_migrate_failed">Az Android 4.4 változásai miatt optimalizálnunk kell a térképadatok tárolását, azonban ehhez nincs elegendő szabad tárhely.\n\nKérjük, szabadítson fel lemezterületet, ellenkező esetben a térképei csak írásvédett módban lesznek elérhetőek.</string>
 	<string name="bookmark_move_fail">A könyvjelzőit át kell helyeznünk a belső memóriába, azonban ehhez nincs elegendő szabad tárhely. Kérjük, szabadítson fel lemezterületet, ellenkező esetben a könyvjelzői nem lesznek elérhetőek.</string>
 	<string name="kitkat_optimization_in_progress">A térképadatai optimalizálás alatt állnak. Kérjük, várjon, ez néhány percet igénybe vesz.</string>

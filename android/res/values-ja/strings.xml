@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">MapsWithMe完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。</string>
+	<string name="pro_version_available">maps.me完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。</string>
 	<!-- About button text (should be short) -->
 	<string name="about">情報</string>
 	<!-- Button text (should be short) -->
@@ -39,7 +39,7 @@
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">アプリの使い勝手はいかがでしょうか？ ぜひFacebookで友人にシェアしてください</string>
 	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">MapsWithMeを気に入って頂けましたら、感想をぜひレビューで評価ください。問題等ございましたらフォームよりご報告いただければ幸いです。</string>
+	<string name="leave_review_text">maps.meを気に入って頂けましたら、感想をぜひレビューで評価ください。問題等ございましたらフォームよりご報告いただければ幸いです。</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">キロメートル</string>
 	<!-- Leave Review dialog - Review button -->
@@ -73,7 +73,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">検索</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">検索機能はMapsWithMe完全版で利用可能です。ぜひお買い求めください。</string>
+	<string name="search_available_in_pro_version">検索機能はmaps.me完全版で利用可能です。ぜひお買い求めください。</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">マップを検索</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -102,7 +102,7 @@
 	<string name="country_status_download_failed">^のダウンロードに失敗しました</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再実行</string>
-	<string name="about_menu_title">MapsWithMeについて</string>
+	<string name="about_menu_title">maps.meについて</string>
 	<string name="downloading_touch_to_cancel">%d%%をダウンロード中です。キャンセルするには画面をタッチしてください。</string>
 	<string name="downloaded_touch_to_delete">(%s)をダウンロードしました。削除するには画面をタッチしてください。</string>
 	<string name="connection_settings">接続設定</string>
@@ -111,7 +111,7 @@
 	<string name="unsupported_phone">ハードウェアアクセラレーションされたOpenGLが必要です。残念ながらご利用中のデバイスではサポートされていません。</string>
 	<string name="download">ダウンロード</string>
 	<string name="external_storage_is_not_available">マップをダウンロードしたSDカード/USBストレージへ接続できません</string>
-	<string name="disconnect_usb_cable">MapsWithMeを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
+	<string name="disconnect_usb_cable">maps.meを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください</string>
 	<string name="not_enough_free_space_on_sdcard">アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります</string>
 	<string name="not_enough_memory">メモリ不足のためアプリを起動できません</string>
 	<string name="free_space_for_country">%2$sをダウンロードするにはデバイスに%1$sの空き容量が必要です</string>
@@ -139,7 +139,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">以下のマップが更新されています:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">MapsWithMe Liteは削除してもかまいません</string>
+	<string name="suggest_uninstall_lite">maps.me Liteは削除してもかまいません</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%sのダウンロードが成功しました</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -171,9 +171,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">セット</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nMapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。</string>
+	<string name="bookmarks_usage_hint">未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nmaps.me以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">MapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。</string>
+	<string name="bookmarks_usage_hint_import_only">maps.me以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">設定</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -187,7 +187,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">マップに表示</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">ブックマーク機能はMapsWithMe完全版で利用可能です。ぜひお買い求めください。</string>
+	<string name="bookmarks_in_pro_version">ブックマーク機能はmaps.me完全版で利用可能です。ぜひお買い求めください。</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS機能が無効です。端末の設定画面から有効にしてください。</string>
 	<!-- Measurement units title in settings activity -->
@@ -236,9 +236,9 @@
 	<!-- Button text -->
 	<string name="share_by_email">Eメールで共有</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">MapsWithMeの位置情報シェア</string>
+	<string name="share_bookmarks_email_subject">maps.meの位置情報シェア</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">MapsWithMeで作成したブックマークを添付ファイル\&quot;%s.kmz\&quot;で送付します。MapsWithMe Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://www.mapswithme.com/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nMapsWithMeで楽しい時間をお過ごしください！</string>
+	<string name="share_bookmarks_email_body">maps.meで作成したブックマークを添付ファイル\&quot;%s.kmz\&quot;で送付します。maps.me Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://www.maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nmaps.meで楽しい時間をお過ごしください！</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">ブックマークの読み込み中</string>
 	<!-- Kmz file successful loading -->
@@ -256,7 +256,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">ダウンロードを実行中です</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">MapsWithMeの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！</string>
+	<string name="appStore_message">maps.meの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">いいえ</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -264,11 +264,11 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">私は今ここにいます。リンク: %1$s , %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">MapsWithMeでピン情報を確認</string>
+	<string name="bookmark_share_email_subject">maps.meでピン情報を確認</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">オフラインマップ MapsWithMe でこの位置にピンを作成しました: %1$s\n\nリンク %2$s または %3$s をクリックするとマップ上で確認できます。</string>
+	<string name="bookmark_share_email">オフラインマップ maps.me でこの位置にピンを作成しました: %1$s\n\nリンク %2$s または %3$s をクリックするとマップ上で確認できます。</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">MapsWithMeで現在地を確認</string>
+	<string name="my_position_share_email_subject">maps.meで現在地を確認</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">私は今ここにいます: %1$s\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$s\n\n%3$s</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -313,7 +313,7 @@
 	<string name="placepage_coordinates">コーディネート</string>
 	<string name="placepage_unsorted">未分類</string>
 	<string name="search_show_on_map">地図に表示</string>
-	<string name="kitkat_migrate_ok">マップデータのストレージは最適化されました。アプリを再起動させてください。\n\nSDカードのルートにあるMapsWithMeフォルダは不要となりましたので削除しても構いません。</string>
+	<string name="kitkat_migrate_ok">マップデータのストレージは最適化されました。アプリを再起動させてください。\n\nSDカードのルートにあるmaps.meフォルダは不要となりましたので削除しても構いません。</string>
 	<string name="kitkat_migrate_failed">Android 4.4の変更に伴いマップデータのストレージを最適化しなければなりませんが、マップデータをコピーするだけの空き容量がありません。\n\nメモリの空き容量を増やさなければ、閲覧モードのみとしてマップをご利用いただくことになります。</string>
 	<string name="bookmark_move_fail">ブックマークを内部メモリに移動させなければなりませんが、メモリの空き容量がありません。空き容量を増やさなければ、ブックマークをご利用いただくことができません。</string>
 	<string name="kitkat_optimization_in_progress">現在マップのストレージを最適化しています。この操作には数分かかる場合があるのでお待ちください。</string>

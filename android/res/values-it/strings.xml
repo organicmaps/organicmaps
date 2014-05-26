@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Naviga più facilmente con la versione completa di MapsWithMe con la ricerca offline. Scaricala subito!</string>
+	<string name="pro_version_available">Naviga più facilmente con la versione completa di maps.me con la ricerca offline. Scaricala subito!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">Informazioni</string>
 	<!-- Button text (should be short) -->
@@ -37,9 +37,9 @@
 	<string name="downloading">In fase di download…</string>
 	<string name="get_it_now">Prendila ora</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Ti stai divertendo MapsWithMe? Aiuta i tuoi amici e la famiglia a conoscere l\&#39;app, condividila con loro su Facebook!</string>
+	<string name="share_on_facebook_text">Ti stai divertendo maps.me? Aiuta i tuoi amici e la famiglia a conoscere l\&#39;app, condividila con loro su Facebook!</string>
 	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Se ti piace MapsWithMe, cortesemente sostienici, scrivendo una recensione. Se incontri problemi, faccelo sapere compilando l\&#39;apposito modulo.</string>
+	<string name="leave_review_text">Se ti piace maps.me, cortesemente sostienici, scrivendo una recensione. Se incontri problemi, faccelo sapere compilando l\&#39;apposito modulo.</string>
 	<!-- Settings/Downloader - size string -->
 	<string name="kb">kB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -77,7 +77,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Cerca</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">La ricerca è disponibile solo nella versione completa di MapsWithMe. Scaricala subito!</string>
+	<string name="search_available_in_pro_version">La ricerca è disponibile solo nella versione completa di maps.me. Scaricala subito!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Ricerca Mappa</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -106,7 +106,7 @@
 	<string name="country_status_download_failed">Lo scaricamento^è fallito</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Riprova</string>
-	<string name="about_menu_title">Informazioni su MapsWithMe</string>
+	<string name="about_menu_title">Informazioni su maps.me</string>
 	<string name="downloading_touch_to_cancel">Download di %d%%, tocca per cancellare</string>
 	<string name="downloaded_touch_to_delete">Scaricato (%s), tocca per cancellare</string>
 	<string name="connection_settings">Impostazioni di connessione</string>
@@ -143,7 +143,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Aggiornamento disponibile per queste mappe:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Non hai più bisogno di MapsWithMe Lite, quindi puoi disinstallarlo.</string>
+	<string name="suggest_uninstall_lite">Non hai più bisogno di maps.me Lite, quindi puoi disinstallarlo.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">Scaricato %s con successo</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -173,9 +173,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Seleziona</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Non hai ancora nessun segnalibro.\nTocca qualsiasi luogo sulla cartina per aggiungere un segnalibro.\nPossono essere anche importati Preferiti da altre fonti e visualizzate nell\&#39;app MapsWithMe. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.</string>
+	<string name="bookmarks_usage_hint">Non hai ancora nessun segnalibro.\nTocca qualsiasi luogo sulla cartina per aggiungere un segnalibro.\nPossono essere anche importati Preferiti da altre fonti e visualizzate nell\&#39;app maps.me. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Possono essere anche importati Preferiti da altre fonti e visualizzate nell\&#39;app MapsWithMe. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.</string>
+	<string name="bookmarks_usage_hint_import_only">Possono essere anche importati Preferiti da altre fonti e visualizzate nell\&#39;app maps.me. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Impostazioni</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -189,7 +189,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Visibile</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">I segnalibri sono disponibili solo nella versione completa di MapsWithMe. Scaricalo subito!</string>
+	<string name="bookmarks_in_pro_version">I segnalibri sono disponibili solo nella versione completa di maps.me. Scaricalo subito!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">Il GPS è disabilitato. Cortesemente abilitalo nelle Impostazioni.</string>
 	<!-- Measurement units title in settings activity -->
@@ -238,9 +238,9 @@
 	<!-- Button text -->
 	<string name="share_by_email">Condividi via email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Il segnalibri MapsWithMe è stato condiviso con te</string>
+	<string name="share_bookmarks_email_subject">Il segnalibri maps.me è stato condiviso con te</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Ciao,\n\nQuesti sono i miei \&quot;preferiti\&quot; fra le mappe offline di MapsWithMe, che si trovano nel file allegato \&quot;%s.kmz\&quot;. Il file può essere aperto se l\&#39;app MapsWithMe Pro è già stata installata. In caso contrario, occorre scaricare l\&#39;app per il tuo iOS o dispositivo Android dal link http://www.mapswithme.com/get?kmz.\n\nBuon divertimento con MapsWithMe!</string>
+	<string name="share_bookmarks_email_body">Ciao,\n\nQuesti sono i miei \&quot;preferiti\&quot; fra le mappe offline di maps.me, che si trovano nel file allegato \&quot;%s.kmz\&quot;. Il file può essere aperto se l\&#39;app maps.me Pro è già stata installata. In caso contrario, occorre scaricare l\&#39;app per il tuo iOS o dispositivo Android dal link http://www.maps.me/get?kmz.\n\nBuon divertimento con maps.me!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Caricamento segnalibri in corso</string>
 	<!-- Kmz file successful loading -->
@@ -260,7 +260,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Il download della nazione è in corso.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Confidiamo nel fatto che sia piacevole utilizzare MapsWithMe! In caso positivo, ti preghiamo di valutare o recensire l\&#39;app all\&#39;interno dell\&#39;app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!</string>
+	<string name="appStore_message">Confidiamo nel fatto che sia piacevole utilizzare maps.me! In caso positivo, ti preghiamo di valutare o recensire l\&#39;app all\&#39;interno dell\&#39;app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">No, grazie</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -268,11 +268,11 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Vedi dove sono ora. Apri %1$s o %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Dai uno sguardo al mio pin sulla mappa di MapsWithMe</string>
+	<string name="bookmark_share_email_subject">Dai uno sguardo al mio pin sulla mappa di maps.me</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Ciao,\n\nHo segnato %1$s su MapsWithMe, le mappe del mondo offline. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</string>
+	<string name="bookmark_share_email">Ciao,\n\nHo segnato %1$s su maps.me, le mappe del mondo offline. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Guarda dove mi trovo attualmente sulla mappa MapsWithMe</string>
+	<string name="my_position_share_email_subject">Guarda dove mi trovo attualmente sulla mappa maps.me</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Ciao,\n\nSono qui adesso: %1$s. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -323,7 +323,7 @@
 	<string name="placepage_coordinates">Coordinate</string>
 	<string name="placepage_unsorted">Non classificato</string>
 	<string name="search_show_on_map">Visualizza sulla mappa</string>
-	<string name="kitkat_migrate_ok">L\&#39;archiviazione dei dati delle mappe è stata ottimizzata. Ti preghiamo di riavviare l\&#39;app.\n\nLa cartella MapsWithMe nel canale della scheda SD non è più necessario ed è possibile eliminarla.</string>
+	<string name="kitkat_migrate_ok">L\&#39;archiviazione dei dati delle mappe è stata ottimizzata. Ti preghiamo di riavviare l\&#39;app.\n\nLa cartella maps.me nel canale della scheda SD non è più necessario ed è possibile eliminarla.</string>
 	<string name="kitkat_migrate_failed">A causa di modifiche alla versione Android 4.4, abbiamo bisogno di ottimizzare l\&#39;archiviazione delle mappe, ma non c\&#39;è abbastanza spazio per copiarne i dati:\n\nTi preghiamo di liberare la memoria, altrimenti le mappe saranno disponibili in sola lettura.</string>
 	<string name="bookmark_move_fail">Abbiamo bisogno di trasferire i tuoi preferiti nella memoria interna, ma non c\&#39;è abbastanza spazio disponibile. Ti preghiamo di liberare la memoria, altrimenti i preferiti non saranno disponibili.</string>
 	<string name="kitkat_optimization_in_progress">L\&#39;archiviazione delle tue mappe è in fase di ottimizzazione. Ti preghiamo di attendere, il processo durerà alcuni minuti.</string>
