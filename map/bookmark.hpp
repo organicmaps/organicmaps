@@ -87,7 +87,7 @@ public:
   }
 
   void SetData(BookmarkData const & data) { m_data = data; }
-  BookmarkData const & GetData() { return m_data; }
+  BookmarkData const & GetData() const { return m_data; }
 
   virtual Type GetMarkType() const { return BOOKMARK; }
 
