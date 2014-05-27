@@ -36,6 +36,7 @@
 //  webView.scalesPageToFit = YES;
   webView.autoresizesSubviews = YES;
   webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+  webView.delegate = self;
 
   if (self.m_htmlText)
     [webView loadHTMLString:self.m_htmlText baseURL:self.m_url];
@@ -47,6 +48,17 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+  return YES;
+}
+
+-(BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
+{
+  if (self.openInSafari && inType == UIWebViewNavigationTypeLinkClicked)
+  {
+    [[UIApplication sharedApplication] openURL:[inRequest URL]];
+    return NO;
+  }
+
   return YES;
 }
 

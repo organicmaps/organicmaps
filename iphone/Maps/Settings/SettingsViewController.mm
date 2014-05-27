@@ -150,6 +150,7 @@ Settings::Units unitsForIndex(NSInteger index)
     NSString * str = [NSString stringWithFormat:@"Version: %@ \n", [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
     NSString * text = [NSString stringWithFormat:@"%@%@", str, [NSString stringWithUTF8String:s.c_str()]];
     WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:NSLocalizedString(@"about", nil)];
+    aboutViewController.openInSafari = YES;
     [self.navigationController pushViewController:aboutViewController animated:YES];
   }
 }
