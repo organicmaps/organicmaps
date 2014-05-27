@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Navigeer makkelijker met MapsWithMe Pro met offline zoeken. Instelleer het nu!";
+"pro_version_available" = "Navigeer makkelijker met maps.me Pro met offline zoeken. Instelleer het nu!";
 
 /* About button text (should be short) */
 "about" = "Over";
@@ -62,7 +62,7 @@
 "share_on_facebook_text" = "Deel dit programma met uw vrienden op Facebook, als ons programma u bevalt.";
 
 /* Leave Review dialog title */
-"leave_review_text" = "Ondersteun MapsWithMe door een review te schrijven. Vul een speciaal formulier in als u problemen ondervindt";
+"leave_review_text" = "Ondersteun maps.me door een review te schrijven. Vul een speciaal formulier in als u problemen ondervindt";
 
 /* Settings/Downloader - size string */
 "kb" = "KB";
@@ -121,7 +121,7 @@
 "search" = "Zoeken";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Zoeken is alleen beschikbaar in de Pro versie van MapsWithMe. Wilt u hem nu installeren?";
+"search_available_in_pro_version" = "Zoeken is alleen beschikbaar in de Pro versie van maps.me. Wilt u hem nu installeren?";
 
 /* Search box placeholder text */
 "search_map" = "Zoek Kaart";
@@ -168,9 +168,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Probeer opnieuw";
 
-"app_name" = "MapsWithMe";
+"app_name" = "maps.me";
 
-"about_menu_title" = "Over MapsWithMe";
+"about_menu_title" = "Over maps.me";
 
 "downloading_touch_to_cancel" = "%d%% aan het downloaden, klik om te annuleren";
 
@@ -188,7 +188,7 @@
 
 "external_storage_is_not_available" = "SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar";
 
-"disconnect_usb_cable" = "Verwijder de USB kabel of plaats een geheugen kaart om MapsWithMe te gebruiken";
+"disconnect_usb_cable" = "Verwijder de USB kabel of plaats een geheugen kaart om maps.me te gebruiken";
 
 "not_enough_free_space_on_sdcard" = "Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken";
 
@@ -235,7 +235,7 @@
 "advise_update_maps" = "Update beschikbaar voor deze kaarten:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "U heeft MapsWithMe Lite niet meer nodig, dus u kunt de app deïnstalleren";
+"suggest_uninstall_lite" = "U heeft maps.me Lite niet meer nodig, dus u kunt de app deïnstalleren";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ is succesvol gedownload";
@@ -283,10 +283,10 @@
 "set" = "Groep";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MapsWithMe app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
+"bookmarks_usage_hint" = "Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de maps.me app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de MapsWithMe app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
+"bookmarks_usage_hint_import_only" = "Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de maps.me app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.";
 
 /* Settings button in system menu */
 "settings" = "Instellingen";
@@ -307,7 +307,7 @@
 "visible" = "Zichtbaar";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Bladwijzers zijn beschikbaar in de volledige versie van MapsWithMe. Wilt u die nu gelijk?";
+"bookmarks_in_pro_version" = "Bladwijzers zijn beschikbaar in de volledige versie van maps.me. Wilt u die nu gelijk?";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS is uitgeschakeld. Schakel ze in bij Instellingen.";
@@ -381,10 +381,10 @@
 "share_by_email" = "Delen via e-mail";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Bladwijzers van MapsWithMe met u gedeeld";
+"share_bookmarks_email_subject" = "Bladwijzers van maps.me met u gedeeld";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Hallo,\n\nHier zijn mijn bladwijzers uit de MapsWithMe offline kaarten, in het bijgevoegde \"%@.kmz\"-bestand. Open het bestand als u MapsWithMe Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.mapswithme.com/get?kmz.\n\nVeel plezier met MapsWithMe!";
+"share_bookmarks_email_body" = "Hallo,\n\nHier zijn mijn bladwijzers uit de maps.me offline kaarten, in het bijgevoegde \"%@.kmz\"-bestand. Open het bestand als u maps.me Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.maps.me/get?kmz.\n\nVeel plezier met maps.me!";
 
 /* message title of loading file */
 "load_kmz_title" = "Bladwijzers aan het uploaden";
@@ -414,7 +414,7 @@
 "downloading_is_active" = "Het downloaden van het land is nu aan de gang.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Ik hoop dat u veel plezier hebt met MapsWithMe! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!";
+"appStore_message" = "Ik hoop dat u veel plezier hebt met maps.me! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!";
 
 /* No, thanks */
 "no_thanks" = "Nee, bedankt";
@@ -426,13 +426,13 @@
 "my_position_share_sms" = "Kijk waar ik nu ben. Open %1$@ of %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Kijk naar mijn pin op MapsWithMe kaart";
+"bookmark_share_email_subject" = "Kijk naar mijn pin op maps.me kaart";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Hoi,\n\nIk heb: %1$@ geprikt bij MapsWithMe, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.";
+"bookmark_share_email" = "Hoi,\n\nIk heb: %1$@ geprikt bij maps.me, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Kijk naar mijn huidige locatie op MapsWithMe kaart";
+"my_position_share_email_subject" = "Kijk naar mijn huidige locatie op maps.me kaart";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hoi,\n\nMomenteel ben ik hier: %1$@. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "Op kaart bekijken";
 
-"kitkat_migrate_ok" = "Opslag van kaartgegevens is geoptimaliseerd. Herstart de app.\n\nMapsWithMe map is niet langer nodig in de root van de SD-kaart, u kunt het verwijderen.";
+"kitkat_migrate_ok" = "Opslag van kaartgegevens is geoptimaliseerd. Herstart de app.\n\nmaps.me map is niet langer nodig in de root van de SD-kaart, u kunt het verwijderen.";
 
 "kitkat_migrate_failed" = "Door veranderingen in Android 4.4 moeten we de opslag van kaartgegevens optimaliseren, maar er is niet genoeg ruimte om kaartgegevens te kopiëren.\n\nMaak alstublieft geheugen vrij, anders zullen kaarten alleen in de leesmodus beschikbaar zijn.";
 

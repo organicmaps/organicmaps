@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Navigate easier with the full version of MapsWithMe featuring offline search. Get it right now!";
+"pro_version_available" = "Navigate easier with the full version of maps.me featuring offline search. Get it right now!";
 
 /* About button text (should be short) */
 "about" = "About";
@@ -59,10 +59,10 @@
 "get_it_now" = "Get it now";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Are you enjoying MapsWithMe? Help your friends and family learn about the app, share it with them on Facebook!";
+"share_on_facebook_text" = "Are you enjoying maps.me? Help your friends and family learn about the app, share it with them on Facebook!";
 
 /* Leave Review dialog title */
-"leave_review_text" = "If you like MapsWithMe, please support us by writing a review. If you face any issues, please let us know by filling in a special form.";
+"leave_review_text" = "If you like maps.me, please support us by writing a review. If you face any issues, please let us know by filling in a special form.";
 
 /* Settings/Downloader - size string */
 "kb" = "kB";
@@ -121,7 +121,7 @@
 "search" = "Search";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Search is only available in the full version of MapsWithMe. Get it right now!";
+"search_available_in_pro_version" = "Search is only available in the full version of maps.me. Get it right now!";
 
 /* Search box placeholder text */
 "search_map" = "Search Map";
@@ -168,9 +168,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Try Again";
 
-"app_name" = "MapsWithMe";
+"app_name" = "maps.me";
 
-"about_menu_title" = "About MapsWithMe";
+"about_menu_title" = "About maps.me";
 
 "downloading_touch_to_cancel" = "Downloading %d%%, touch to cancel";
 
@@ -188,7 +188,7 @@
 
 "external_storage_is_not_available" = "SD card/USB storage with downloaded maps is not available";
 
-"disconnect_usb_cable" = "Please disconnect USB cable or insert memory card to use MapsWithMe";
+"disconnect_usb_cable" = "Please disconnect USB cable or insert memory card to use maps.me";
 
 "not_enough_free_space_on_sdcard" = "Please free some space on SD card/USB storage first in order to use the app";
 
@@ -235,7 +235,7 @@
 "advise_update_maps" = "Update available for these maps:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "You don't need MapsWithMe Lite any more, so you can uninstall it.";
+"suggest_uninstall_lite" = "You don't need maps.me Lite any more, so you can uninstall it.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ downloaded successfuly";
@@ -283,10 +283,10 @@
 "set" = "Set";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MapsWithMe. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.";
+"bookmarks_usage_hint" = "You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in maps.me. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Bookmarks from other sources can be imported and displayed in MapsWithMe. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.";
+"bookmarks_usage_hint_import_only" = "Bookmarks from other sources can be imported and displayed in maps.me. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.";
 
 /* Settings button in system menu */
 "settings" = "Settings";
@@ -307,7 +307,7 @@
 "visible" = "Visible";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Bookmarks are only available in the full version of MapsWithMe. Get it right now!";
+"bookmarks_in_pro_version" = "Bookmarks are only available in the full version of maps.me. Get it right now!";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS is disabled. Please enable it in Settings.";
@@ -381,10 +381,10 @@
 "share_by_email" = "Share by email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "MapsWithMe bookmarks has been shared with you";
+"share_bookmarks_email_subject" = "maps.me bookmarks has been shared with you";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Hello,\n\nHere are my bookmarks from MapsWithMe offline maps in the attached \"%@.kmz\" file. Please open it if you have MapsWithMe Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.mapswithme.com/get?kmz.\n\nHave a good time with MapsWithMe!";
+"share_bookmarks_email_body" = "Hello,\n\nHere are my bookmarks from maps.me offline maps in the attached \"%@.kmz\" file. Please open it if you have maps.me Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.maps.me/get?kmz.\n\nHave a good time with maps.me!";
 
 /* message title of loading file */
 "load_kmz_title" = "Loading Bookmarks";
@@ -414,25 +414,25 @@
 "downloading_is_active" = "Country download is in progress now.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Hope you enjoy using MapsWithMe! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!";
+"appStore_message" = "Hope you enjoy using maps.me! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!";
 
 /* No, thanks */
 "no_thanks" = "No, thanks";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, check out my pin at MapsWithMe! %1$@ or %2$@ Don't have offline maps installed? Download here: http://mapswith.me/get";
+"bookmark_share_sms" = "Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://mapswith.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, check out my current location at MapsWithMe! %1$@ or %2$@ Don't have offline maps? Download here: http://mapswith.me/get";
+"my_position_share_sms" = "Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://mapswith.me/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, check out my pin at MapsWithMe map!";
+"bookmark_share_email_subject" = "Hey, check out my pin at maps.me map!";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Hi,\n\nI pinned: %1$@ at MapsWithMe, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
+"bookmark_share_email" = "Hi,\n\nI pinned: %1$@ at maps.me, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, check out my current location at MapsWithMe map!";
+"my_position_share_email_subject" = "Hey, check out my current location at maps.me map!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "View on map";
 
-"kitkat_migrate_ok" = "Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.";
+"kitkat_migrate_ok" = "Map data storage has been optimized. Please restart the app.\n\nmaps.me folder in the root of SD card is not needed anymore, you can delete it.";
 
 "kitkat_migrate_failed" = "Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.";
 

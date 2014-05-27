@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Mas facil navegar con la version completa MapsWithMe con el buscador fuera de la Internet. Bajalo ya!";
+"pro_version_available" = "Mas facil navegar con la version completa maps.me con el buscador fuera de la Internet. Bajalo ya!";
 
 /* About button text (should be short) */
 "about" = "Acerca de";
@@ -59,10 +59,10 @@
 "get_it_now" = "Instalar";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Are you enjoying MapsWithMe? Help your friends and family learn about the app, share it with them on Facebook!";
+"share_on_facebook_text" = "Are you enjoying maps.me? Help your friends and family learn about the app, share it with them on Facebook!";
 
 /* Leave Review dialog title */
-"leave_review_text" = "Si te gusta MapsWithMe, por favor apóyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.";
+"leave_review_text" = "Si te gusta maps.me, por favor apóyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.";
 
 /* Settings/Downloader - size string */
 "kb" = "kB";
@@ -168,9 +168,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Intentarla otra vez";
 
-"app_name" = "MapsWithMe";
+"app_name" = "maps.me";
 
-"about_menu_title" = "Sobre MapsWithMe";
+"about_menu_title" = "Sobre maps.me";
 
 "downloading_touch_to_cancel" = "Descargando %d%%, presionar para cancelar";
 
@@ -188,7 +188,7 @@
 
 "external_storage_is_not_available" = "La memoria SD/almacenamiento USB con los mapas descargados no está disponible";
 
-"disconnect_usb_cable" = "Por favor desconectar el cable USB o insertar la memoria SD para usar MapsWithMe";
+"disconnect_usb_cable" = "Por favor desconectar el cable USB o insertar la memoria SD para usar maps.me";
 
 "not_enough_free_space_on_sdcard" = "Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación";
 
@@ -235,7 +235,7 @@
 "advise_update_maps" = "Hay actualizaciones disponibles para estos mapas:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Ahora no necesita MapsWithMe Lite, la puede desinstalar.";
+"suggest_uninstall_lite" = "Ahora no necesita maps.me Lite, la puede desinstalar.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ se descargó exitosamente";
@@ -283,10 +283,10 @@
 "set" = "Grupo";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MapsWithMe. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.";
+"bookmarks_usage_hint" = "Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación maps.me. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MapsWithMe. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.";
+"bookmarks_usage_hint_import_only" = "Se pueden importar y mostrar marcadores de otras fuentes en la aplicación maps.me. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.";
 
 /* Settings button in system menu */
 "settings" = "Ajustes";
@@ -307,7 +307,7 @@
 "visible" = "Visible";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "La opción de marcadores está disponible en la versión completa de MapsWithMe. ¿La quieres ya?";
+"bookmarks_in_pro_version" = "La opción de marcadores está disponible en la versión completa de maps.me. ¿La quieres ya?";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "El GPS está inhabilitado. Por favor, activelo en los ajustes.";
@@ -381,10 +381,10 @@
 "share_by_email" = "Enviar por e-mail";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Marcapáginas de MapsWithMe compartidos contigo";
+"share_bookmarks_email_subject" = "Marcapáginas de maps.me compartidos contigo";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "¡Hola!\n\nEn el archivo adjunto \"%@.kmz\", están mis marcadores de los mapas offline MapsWithMe. Por favor, ábrelo con MapsWithMe Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.mapswithme.com/get?kmz.\n\n¡Que disfrutes de MapsWithMe!";
+"share_bookmarks_email_body" = "¡Hola!\n\nEn el archivo adjunto \"%@.kmz\", están mis marcadores de los mapas offline maps.me. Por favor, ábrelo con maps.me Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.maps.me/get?kmz.\n\n¡Que disfrutes de maps.me!";
 
 /* message title of loading file */
 "load_kmz_title" = "Cargando favoritos";
@@ -414,7 +414,7 @@
 "downloading_is_active" = "Se está descargando un país.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "¡Ojalá disfrute mucho con MapsWithMe! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!";
+"appStore_message" = "¡Ojalá disfrute mucho con maps.me! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!";
 
 /* No, thanks */
 "no_thanks" = "No, gracias";
@@ -426,13 +426,13 @@
 "my_position_share_sms" = "Mira dónde estoy. Abre %1$@ o %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Mira mi alfiler en el mapa de MapsWithMe";
+"bookmark_share_email_subject" = "Mira mi alfiler en el mapa de maps.me";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "¡Hola!\n\nMarqué con un alfiler: %1$@ en MapsWithMe, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.";
+"bookmark_share_email" = "¡Hola!\n\nMarqué con un alfiler: %1$@ en maps.me, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Mira mi ubicación actual en el mapa en MapsWithMe";
+"my_position_share_email_subject" = "Mira mi ubicación actual en el mapa en maps.me";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hola:\n\nAhora estoy aquí: %1$@. Haz clic en este enlace %2$@ o esta %3$@ para verlo en el mapa. \n\nGracias.";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "Ver en el mapa";
 
-"kitkat_migrate_ok" = "Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta MapsWithMe en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.";
+"kitkat_migrate_ok" = "Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta maps.me en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.";
 
 "kitkat_migrate_failed" = "Debido a cambios en Android 4.4, tenemos que optimizar el almacenamiento de datos de mapas, pero no hay espacio suficiente para copiar los datos de los mapas.\n\nPor favor, libera la memoria, en caso contrario los mapas solo estarán disponibles en modo de solo lectura.";
 

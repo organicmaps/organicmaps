@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Больше возможностей в полной версии MapsWithMe с офлайн поиском. Установить ее сейчас?";
+"pro_version_available" = "Больше возможностей в полной версии maps.me с офлайн поиском. Установить ее сейчас?";
 
 /* About button text (should be short) */
 "about" = "О программе";
@@ -59,10 +59,10 @@
 "get_it_now" = "Установить";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Нравится MapsWithMe? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!";
+"share_on_facebook_text" = "Нравится maps.me? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!";
 
 /* Leave Review dialog title */
-"leave_review_text" = "Если вам нравится MapsWithMe, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами.";
+"leave_review_text" = "Если вам нравится maps.me, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами.";
 
 /* Settings/Downloader - size string */
 "kb" = "КБ";
@@ -121,7 +121,7 @@
 "search" = "Поиск";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Поиск доступен только в полной версии MapsWithMe. Установите ее прямо сейчас!";
+"search_available_in_pro_version" = "Поиск доступен только в полной версии maps.me. Установите ее прямо сейчас!";
 
 /* Search box placeholder text */
 "search_map" = "Поиск на карте";
@@ -168,7 +168,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Попробуйте еще раз";
 
-"app_name" = "MapsWithMe";
+"app_name" = "maps.me";
 
 "about_menu_title" = "О программе";
 
@@ -235,7 +235,7 @@
 "advise_update_maps" = "Доступно обновление для следующих карт:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "MapsWithMe Lite больше не нужна. Рекомендуем ее удалить.";
+"suggest_uninstall_lite" = "maps.me Lite больше не нужна. Рекомендуем ее удалить.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ успешно загружена";
@@ -283,10 +283,10 @@
 "set" = "Группа";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "У вас пока нет закладок.\nВыберите любое место на карте, чтобы добавить его в закладки.\nТак же закладки можно импортировать из MapsWithMe либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.";
+"bookmarks_usage_hint" = "У вас пока нет закладок.\nВыберите любое место на карте, чтобы добавить его в закладки.\nТак же закладки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Закладки можно импортировать из MapsWithMe либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.";
+"bookmarks_usage_hint_import_only" = "Закладки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.";
 
 /* Settings button in system menu */
 "settings" = "Настройки";
@@ -307,7 +307,7 @@
 "visible" = "Показывать на карте";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Закладки доступны только в полной верии MapsWithMe. Установите ее прямо сейчас!";
+"bookmarks_in_pro_version" = "Закладки доступны только в полной верии maps.me. Установите ее прямо сейчас!";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.";
@@ -381,10 +381,10 @@
 "share_by_email" = "Послать по email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "С вами поделились закладками MapsWithMe";
+"share_bookmarks_email_subject" = "С вами поделились закладками maps.me";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Здравствуйте!\n\nМои закладки из офлайн карт MapsWithMe находятся в прикрепленном файле \"%@.kmz\". Если у вас уже установлено приложение MapsWithMe Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  MapsWithMe Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.mapswithme.com/get?kmz\n\nСпасибо!";
+"share_bookmarks_email_body" = "Здравствуйте!\n\nМои закладки из офлайн карт maps.me находятся в прикрепленном файле \"%@.kmz\". Если у вас уже установлено приложение maps.me Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  maps.me Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.maps.me/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка закладок";
@@ -414,7 +414,7 @@
 "downloading_is_active" = "Идет процесс загрузки карт.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Надеемся, вам нравится пользоваться MapsWithMe! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!";
+"appStore_message" = "Надеемся, вам нравится пользоваться maps.me! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!";
 
 /* No, thanks */
 "no_thanks" = "Нет, спасибо";
@@ -426,16 +426,16 @@
 "my_position_share_sms" = "Смотри где я сейчас. Жми %1$@ или %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Смотри мою метку на карте MapsWithMe";
+"bookmark_share_email_subject" = "Смотри мою метку на карте maps.me";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте MapsWithMe.\n\nСпасибо.";
+"bookmark_share_email" = "Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте maps.me.\n\nСпасибо.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Посмотри на карте MapsWithMe, где я сейчас нахожусь";
+"my_position_share_email_subject" = "Посмотри на карте maps.me, где я сейчас нахожусь";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте MapsWithMe, открой эту ссылку %2$@ или эту %3$@ \n\nСпасибо.";
+"my_position_share_email" = "Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте maps.me, открой эту ссылку %2$@ или эту %3$@ \n\nСпасибо.";
 
 /* Android share by Message/SMS button text (including SMS) */
 "share_by_message" = "Отправить сообщением";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "Посмотреть на карте";
 
-"kitkat_migrate_ok" = "Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.";
+"kitkat_migrate_ok" = "Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка maps.me, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.";
 
 "kitkat_migrate_failed" = "В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.";
 

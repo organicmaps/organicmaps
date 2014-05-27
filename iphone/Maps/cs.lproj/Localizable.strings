@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Získej více možností s plnou verzí MapsWithMe, zahrnující offline vyhledávání. Nainstaluj si ji nyní!";
+"pro_version_available" = "Získej více možností s plnou verzí maps.me, zahrnující offline vyhledávání. Nainstaluj si ji nyní!";
 
 /* About button text (should be short) */
 "about" = "O aplikaci";
@@ -59,10 +59,10 @@
 "get_it_now" = "Získat nyní";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Líbí se ti MapsWithMe? Pomoz svým přátelům a rodině dozvědět se o této aplikaci. Sdílej ji s nimi prostřednictvím Facebooku!";
+"share_on_facebook_text" = "Líbí se ti maps.me? Pomoz svým přátelům a rodině dozvědět se o této aplikaci. Sdílej ji s nimi prostřednictvím Facebooku!";
 
 /* Leave Review dialog title */
-"leave_review_text" = "Pokud se ti MapsWithMe líbí, napiš nám, prosím, svůj názor. Pokud jsi nalezl/a nějaké chyby, dej nám, prosím, vědět vyplněním speciálního formuláře.";
+"leave_review_text" = "Pokud se ti maps.me líbí, napiš nám, prosím, svůj názor. Pokud jsi nalezl/a nějaké chyby, dej nám, prosím, vědět vyplněním speciálního formuláře.";
 
 /* Settings/Downloader - size string */
 "kb" = "kB";
@@ -121,7 +121,7 @@
 "search" = "Hledat";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Vyhledávání je dostupné jen v placené verzi MapsWithMe. Stáhni si ji nyní!";
+"search_available_in_pro_version" = "Vyhledávání je dostupné jen v placené verzi maps.me. Stáhni si ji nyní!";
 
 /* Search box placeholder text */
 "search_map" = "Prohledat mapu";
@@ -168,9 +168,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Zkusit znovu";
 
-"app_name" = "MapsWithMe";
+"app_name" = "maps.me";
 
-"about_menu_title" = "O aplikaci MapsWithMe";
+"about_menu_title" = "O aplikaci maps.me";
 
 "downloading_touch_to_cancel" = "Stahování %d%%, klepni pro zrušení";
 
@@ -188,7 +188,7 @@
 
 "external_storage_is_not_available" = "SD karta/USB uložiště s uloženými mapami není k dispozici";
 
-"disconnect_usb_cable" = "Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s MapsWithMe";
+"disconnect_usb_cable" = "Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s maps.me";
 
 "not_enough_free_space_on_sdcard" = "Prosím, uvolni nejprve nějaký prostor na SD kartě/USB uložišti";
 
@@ -235,7 +235,7 @@
 "advise_update_maps" = "Je k dispozici aktualizace pro tyto mapy:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Aplikaci MapsWithMe Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.";
+"suggest_uninstall_lite" = "Aplikaci maps.me Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "Úspěšně staženo: %@";
@@ -283,10 +283,10 @@
 "set" = "Skupina";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MapsWithMe také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.";
+"bookmarks_usage_hint" = "Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV maps.me také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "V MapsWithMe mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.";
+"bookmarks_usage_hint_import_only" = "V maps.me mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.";
 
 /* Settings button in system menu */
 "settings" = "Nastavení";
@@ -307,7 +307,7 @@
 "visible" = "Viditelné";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Záložky jsou dostupné jen v plné verzi MapsWithMe. Chceš ji nyní stáhnout?";
+"bookmarks_in_pro_version" = "Záložky jsou dostupné jen v plné verzi maps.me. Chceš ji nyní stáhnout?";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "Navigace GPS deaktivována. Prosím, povol ji v Nastavení.";
@@ -381,10 +381,10 @@
 "share_by_email" = "Sdílet emailem";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Sdílené záložky MapsWithMe";
+"share_bookmarks_email_subject" = "Sdílené záložky maps.me";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Ahoj!\n\nZde jsou mé záložky z offline map aplikace MapsWithMe v přiloženém souboru \"%@.kmz\". Pokud máš již aplikaci MapsWithMe Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://www.mapswithme.com/get?kmz.\n\nSkvěle se bav s MapsWithMe!";
+"share_bookmarks_email_body" = "Ahoj!\n\nZde jsou mé záložky z offline map aplikace maps.me v přiloženém souboru \"%@.kmz\". Pokud máš již aplikaci maps.me Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://www.maps.me/get?kmz.\n\nSkvěle se bav s maps.me!";
 
 /* message title of loading file */
 "load_kmz_title" = "Nahrávání záložek";
@@ -414,7 +414,7 @@
 "downloading_is_active" = "Právě probíhá stahování země.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Doufáme, že se Ti používání MapsWithMe líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere Ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme Ti za Tvou podporu!";
+"appStore_message" = "Doufáme, že se Ti používání maps.me líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere Ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme Ti za Tvou podporu!";
 
 /* No, thanks */
 "no_thanks" = "Ne, díky";
@@ -426,13 +426,13 @@
 "my_position_share_sms" = "Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Koukni na moji značku na mapě MapsWithMe";
+"bookmark_share_email_subject" = "Koukni na moji značku na mapě maps.me";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Ahoj,\n\nOznačil/a jsem: %1$@ v MapsWithMe, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.";
+"bookmark_share_email" = "Ahoj,\n\nOznačil/a jsem: %1$@ v maps.me, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Podívejte se na mou aktuální polohu na mapě na MapsWithMe";
+"my_position_share_email_subject" = "Podívejte se na mou aktuální polohu na mapě na maps.me";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "Zobrazit a mapě";
 
-"kitkat_migrate_ok" = "Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžeš ho smazat.";
+"kitkat_migrate_ok" = "Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář maps.me v kořenové složce SD karty již není potřeba, můžeš ho smazat.";
 
 "kitkat_migrate_failed" = "Kvůli změnám v Androidu 4.4 musíme optimalizovat uložiště map, ale není dostatek prostoru pro jejich zkopírování.\n\nProsím, uvolni paměť, jinak budou mapy dostupné pouze v režimu pro čtení.";
 

@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "MapsWithMe完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。";
+"pro_version_available" = "maps.me完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。";
 
 /* About button text (should be short) */
 "about" = "情報";
@@ -62,7 +62,7 @@
 "share_on_facebook_text" = "アプリの使い勝手はいかがでしょうか？ ぜひFacebookで友人にシェアしてください";
 
 /* Leave Review dialog title */
-"leave_review_text" = "MapsWithMeを気に入って頂けましたら、感想をぜひレビューで評価ください。問題等ございましたらフォームよりご報告いただければ幸いです。";
+"leave_review_text" = "maps.meを気に入って頂けましたら、感想をぜひレビューで評価ください。問題等ございましたらフォームよりご報告いただければ幸いです。";
 
 /* Settings/Downloader - size string */
 "kb" = "kB";
@@ -121,7 +121,7 @@
 "search" = "検索";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "検索機能はMapsWithMe完全版で利用可能です。ぜひお買い求めください。";
+"search_available_in_pro_version" = "検索機能はmaps.me完全版で利用可能です。ぜひお買い求めください。";
 
 /* Search box placeholder text */
 "search_map" = "マップを検索";
@@ -168,9 +168,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再実行";
 
-"app_name" = "MapsWithMe";
+"app_name" = "maps.me";
 
-"about_menu_title" = "MapsWithMeについて";
+"about_menu_title" = "maps.meについて";
 
 "downloading_touch_to_cancel" = "%d%%をダウンロード中です。キャンセルするには画面をタッチしてください。";
 
@@ -188,7 +188,7 @@
 
 "external_storage_is_not_available" = "マップをダウンロードしたSDカード/USBストレージへ接続できません";
 
-"disconnect_usb_cable" = "MapsWithMeを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください";
+"disconnect_usb_cable" = "maps.meを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください";
 
 "not_enough_free_space_on_sdcard" = "アプリを起動するにはSDカード/USBストレージの空き容量を確保する必要があります";
 
@@ -235,7 +235,7 @@
 "advise_update_maps" = "以下のマップが更新されています:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "MapsWithMe Liteは削除してもかまいません";
+"suggest_uninstall_lite" = "maps.me Liteは削除してもかまいません";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@のダウンロードが成功しました";
@@ -283,10 +283,10 @@
 "set" = "セット";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nMapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
+"bookmarks_usage_hint" = "未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nmaps.me以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "MapsWithMe以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
+"bookmarks_usage_hint_import_only" = "maps.me以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。";
 
 /* Settings button in system menu */
 "settings" = "設定";
@@ -307,7 +307,7 @@
 "visible" = "マップに表示";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "ブックマーク機能はMapsWithMe完全版で利用可能です。ぜひお買い求めください。";
+"bookmarks_in_pro_version" = "ブックマーク機能はmaps.me完全版で利用可能です。ぜひお買い求めください。";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS機能が無効です。端末の設定画面から有効にしてください。";
@@ -381,10 +381,10 @@
 "share_by_email" = "Eメールで共有";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "MapsWithMeの位置情報シェア";
+"share_bookmarks_email_subject" = "maps.meの位置情報シェア";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "MapsWithMeで作成したブックマークを添付ファイル\"%@.kmz\"で送付します。MapsWithMe Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://www.mapswithme.com/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nMapsWithMeで楽しい時間をお過ごしください！";
+"share_bookmarks_email_body" = "maps.meで作成したブックマークを添付ファイル\"%@.kmz\"で送付します。maps.me Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://www.maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nmaps.meで楽しい時間をお過ごしください！";
 
 /* message title of loading file */
 "load_kmz_title" = "ブックマークの読み込み中";
@@ -414,7 +414,7 @@
 "downloading_is_active" = "ダウンロードを実行中です";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "MapsWithMeの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！";
+"appStore_message" = "maps.meの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！";
 
 /* No, thanks */
 "no_thanks" = "いいえ";
@@ -426,13 +426,13 @@
 "my_position_share_sms" = "私は今ここにいます。リンク: %1$@ , %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "MapsWithMeでピン情報を確認";
+"bookmark_share_email_subject" = "maps.meでピン情報を確認";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "オフラインマップ MapsWithMe でこの位置にピンを作成しました: %1$@\n\nリンク %2$@ または %3$@ をクリックするとマップ上で確認できます。";
+"bookmark_share_email" = "オフラインマップ maps.me でこの位置にピンを作成しました: %1$@\n\nリンク %2$@ または %3$@ をクリックするとマップ上で確認できます。";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "MapsWithMeで現在地を確認";
+"my_position_share_email_subject" = "maps.meで現在地を確認";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "私は今ここにいます: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "地図に表示";
 
-"kitkat_migrate_ok" = "マップデータのストレージは最適化されました。アプリを再起動させてください。\n\nSDカードのルートにあるMapsWithMeフォルダは不要となりましたので削除しても構いません。";
+"kitkat_migrate_ok" = "マップデータのストレージは最適化されました。アプリを再起動させてください。\n\nSDカードのルートにあるmaps.meフォルダは不要となりましたので削除しても構いません。";
 
 "kitkat_migrate_failed" = "Android 4.4の変更に伴いマップデータのストレージを最適化しなければなりませんが、マップデータをコピーするだけの空き容量がありません。\n\nメモリの空き容量を増やさなければ、閲覧モードのみとしてマップをご利用いただくことになります。";
 

@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "完整版的MapsWithMe特色在於更完善的離線搜尋，立即購買!";
+"pro_version_available" = "完整版的maps.me特色在於更完善的離線搜尋，立即購買!";
 
 /* About button text (should be short) */
 "about" = "關於";
@@ -59,10 +59,10 @@
 "get_it_now" = "馬上取得";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "喜歡MapsWithMe嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！";
+"share_on_facebook_text" = "喜歡maps.me嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！";
 
 /* Leave Review dialog title */
-"leave_review_text" = "如果您喜歡MapsWithMe，請支持我們並幫我們寫寫評論。如果您遇到任何問題，請填寫表單讓我們知道。";
+"leave_review_text" = "如果您喜歡maps.me，請支持我們並幫我們寫寫評論。如果您遇到任何問題，請填寫表單讓我們知道。";
 
 /* Settings/Downloader - size string */
 "kb" = "kB";
@@ -121,7 +121,7 @@
 "search" = "搜尋";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "搜尋功能僅適用於MapsWithMe專業完整版。馬上購買！";
+"search_available_in_pro_version" = "搜尋功能僅適用於maps.me專業完整版。馬上購買！";
 
 /* Search box placeholder text */
 "search_map" = "搜尋地圖";
@@ -168,9 +168,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再試一次";
 
-"app_name" = "MapsWithMe 專業版";
+"app_name" = "maps.me 專業版";
 
-"about_menu_title" = "關於 MapsWithMe";
+"about_menu_title" = "關於 maps.me";
 
 "downloading_touch_to_cancel" = "正在下載 %d%%, 輕觸以取消";
 
@@ -188,7 +188,7 @@
 
 "external_storage_is_not_available" = "SD 卡/USB 無法有效儲存下載的地圖";
 
-"disconnect_usb_cable" = "請拔除USB線或插入SD卡以使用MapsWithMe";
+"disconnect_usb_cable" = "請拔除USB線或插入SD卡以使用maps.me";
 
 "not_enough_free_space_on_sdcard" = "如要繼續使用，請先釋放一些SD卡/ USB儲存空間";
 
@@ -235,7 +235,7 @@
 "advise_update_maps" = "以下為可用的更新地圖：";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "你再也不需要 MapsWithMe Lite了,所以您可以移除它!";
+"suggest_uninstall_lite" = "你再也不需要 maps.me Lite了,所以您可以移除它!";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ 已成功下載";
@@ -283,10 +283,10 @@
 "set" = "收藏夾";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "您還沒有任何書簽。\n點擊地圖上的任何地方以添加書簽。\n其他來源的書簽也可在MapsWithMe應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。";
+"bookmarks_usage_hint" = "您還沒有任何書簽。\n點擊地圖上的任何地方以添加書簽。\n其他來源的書簽也可在maps.me應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "其他來源的書簽也可在MapsWithMe應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。";
+"bookmarks_usage_hint_import_only" = "其他來源的書簽也可在maps.me應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。";
 
 /* Settings button in system menu */
 "settings" = "設定";
@@ -307,7 +307,7 @@
 "visible" = "看得到的";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "書籤是MapsWithMe完整版本才有的功能，馬上購買?";
+"bookmarks_in_pro_version" = "書籤是maps.me完整版本才有的功能，馬上購買?";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS 目前是關閉的，請在系統中設定為開啟使用";
@@ -381,10 +381,10 @@
 "share_by_email" = "以 email 分享";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "您已分享了 MapsWithMe 書籤";
+"share_bookmarks_email_subject" = "您已分享了 maps.me 書籤";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 \"%@.kmz\" 書籤檔案。若您已安裝MapsWithMe專業版的話請開啟它，否則請先從 http://www.mapswithme.com/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MapsWithMe愉快!";
+"share_bookmarks_email_body" = "哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 \"%@.kmz\" 書籤檔案。若您已安裝maps.me專業版的話請開啟它，否則請先從 http://www.maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用maps.me愉快!";
 
 /* message title of loading file */
 "load_kmz_title" = "正在載入書籤…";
@@ -414,25 +414,25 @@
 "downloading_is_active" = "國家地圖正在進行下載";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "祝您使用 MapsWithMe愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!";
+"appStore_message" = "祝您使用 maps.me愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!";
 
 /* No, thanks */
 "no_thanks" = "不, 謝了!";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, check out my pin at MapsWithMe! %1$@ or %2$@ Don't have offline maps installed? Download here: http://mapswith.me/get";
+"bookmark_share_sms" = "Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://mapswith.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, check out my current location at MapsWithMe! %1$@ or %2$@ Don't have offline maps? Download here: http://mapswith.me/get";
+"my_position_share_sms" = "Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://mapswith.me/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Hey, check out my pin at MapsWithMe map!";
+"bookmark_share_email_subject" = "Hey, check out my pin at maps.me map!";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Hi,\n\nI pinned: %1$@ at MapsWithMe, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
+"bookmark_share_email" = "Hi,\n\nI pinned: %1$@ at maps.me, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Hey, check out my current location at MapsWithMe map!";
+"my_position_share_email_subject" = "Hey, check out my current location at maps.me map!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "在地图上查看";
 
-"kitkat_migrate_ok" = "地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的MapsWithMe資料夾，您可以將它 刪除。";
+"kitkat_migrate_ok" = "地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的maps.me資料夾，您可以將它 刪除。";
 
 "kitkat_migrate_failed" = "由於安卓4.4版本有所更改，我們需要對地圖數據存儲進行優化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些內存，否則將只能以只讀模式使用地圖。";
 
