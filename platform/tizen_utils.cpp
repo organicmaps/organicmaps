@@ -247,10 +247,12 @@ string CodeFromISO369_2to_1(string const & code_ISO_639_2)
     "zul",	"zu"
   };
   for (size_t i = 0; i < sizeof(ar)/sizeof(ar[0]); i += 2)
+  {
     if (code_ISO_639_2 == ar[i])
     {
       return ar[i + 1];
     }
+  }
   LOG(LDEBUG, ("Language not found", code_ISO_639_2));
   return "en";
 }
