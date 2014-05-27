@@ -655,12 +655,12 @@ typedef NS_ENUM(NSUInteger, CellRow)
   BookmarkAndCategory const & bookmarkAndCategory = framework.FindBookmark(m_mark);
   BookmarkCategory * category = framework.GetBmCategory(bookmarkAndCategory.first);
   m_mark = m_cached_mark != NULL ? m_cached_mark : framework.GetAddressMark([self pinPoint]);
+  framework.ActivateUserMark(m_mark);
   if (category)
   {
     category->DeleteBookmark(bookmarkAndCategory.second);
     category->SaveToKMLFile();
   }
-  framework.ActivateUserMark(m_mark);
   framework.Invalidate();
 
   [self reloadHeader];
