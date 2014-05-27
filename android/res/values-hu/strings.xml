@@ -161,7 +161,7 @@
 	<string name="bookmark_set_name">Könyvjelzőcsoport neve</string>
 	<!-- Bookmark Sets dialog title -->
 	<string name="bookmark_sets">Könyvjelzőcsoportok</string>
-	<!-- Boormarks - dialog title -->
+	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Könyvjelzők</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Szín</string>
@@ -245,7 +245,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Egy maps.me könyvjelzőt osztottak meg Önnel</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Üdvözlöm!\n\nA mellékelt \&quot;%s.kmz\&quot; fájl tartalmazza a maps.me könyvjelzőimet. Kérem nyissa meg, ha a maps.me már telepítve van. Ha még nincs, akkor innen töltheti le: http://www.maps.me/get?kmz. \n\nSok sikert a program használatához!</string>
+	<string name="share_bookmarks_email_body">Üdvözlöm!\n\nA mellékelt \&quot;%s.kmz\&quot; fájl tartalmazza a maps.me könyvjelzőimet. Kérem nyissa meg, ha a maps.me már telepítve van. Ha még nincs, akkor innen töltheti le: http://maps.me/get?kmz. \n\nSok sikert a program használatához!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Könyvjelzők letöltése</string>
 	<!-- Kmz file successful loading -->
@@ -269,9 +269,9 @@
 	<!-- No, thanks -->
 	<string name="no_thanks">Köszönöm, nem</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Nézd meg a maps.me jelzőt! %1$s vagy %2$s A program letöltése: http://mapswith.me/get</string>
+	<string name="bookmark_share_sms">Nézd meg a maps.me jelzőt! %1$s vagy %2$s A program letöltése: http://maps.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Nézd meg a maps.me helyzetemet! %1$s vagy %2$s A program letöltése: http://mapswith.me/get</string>
+	<string name="my_position_share_sms">Nézd meg a maps.me helyzetemet! %1$s vagy %2$s A program letöltése: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Nézze meg a maps.me jelzőmet</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
@@ -336,7 +336,7 @@
 	<string name="placepage_coordinates">Koordináták</string>
 	<string name="placepage_unsorted">Osztályozatlan</string>
 	<string name="search_show_on_map">Megtekintés a térképen</string>
-	<string name="kitkat_migrate_ok">A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA maps.me mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.</string>
+	<string name="kitkat_migrate_ok">A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA MapsWithMe mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.</string>
 	<string name="kitkat_migrate_failed">Az Android 4.4 változásai miatt optimalizálnunk kell a térképadatok tárolását, azonban ehhez nincs elegendő szabad tárhely.\n\nKérjük, szabadítson fel lemezterületet, ellenkező esetben a térképei csak írásvédett módban lesznek elérhetőek.</string>
 	<string name="bookmark_move_fail">A könyvjelzőit át kell helyeznünk a belső memóriába, azonban ehhez nincs elegendő szabad tárhely. Kérjük, szabadítson fel lemezterületet, ellenkező esetben a könyvjelzői nem lesznek elérhetőek.</string>
 	<string name="kitkat_optimization_in_progress">A térképadatai optimalizálás alatt állnak. Kérjük, várjon, ez néhány percet igénybe vesz.</string>

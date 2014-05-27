@@ -158,7 +158,7 @@
 	<string name="bookmark_set_name">收藏夾名稱</string>
 	<!-- Bookmark Sets dialog title -->
 	<string name="bookmark_sets">收藏夾</string>
-	<!-- Boormarks - dialog title -->
+	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">書籤</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">顏色</string>
@@ -240,7 +240,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">您已分享了 maps.me 書籤</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 \&quot;%s.kmz\&quot; 書籤檔案。若您已安裝maps.me專業版的話請開啟它，否則請先從 http://www.maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用maps.me愉快!</string>
+	<string name="share_bookmarks_email_body">哈囉!\n\n這是我的maps.me離線地圖中所夾帶的 \&quot;%s.kmz\&quot; 書籤檔案。若您已安裝maps.me專業版的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用maps.me愉快!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">正在載入書籤…</string>
 	<!-- Kmz file successful loading -->
@@ -302,7 +302,7 @@
 	<string name="placepage_coordinates">坐标</string>
 	<string name="placepage_unsorted">未分类的</string>
 	<string name="search_show_on_map">在地图上查看</string>
-	<string name="kitkat_migrate_ok">地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的maps.me資料夾，您可以將它 刪除。</string>
+	<string name="kitkat_migrate_ok">地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的MapsWithMe資料夾，您可以將它 刪除。</string>
 	<string name="kitkat_migrate_failed">由於安卓4.4版本有所更改，我們需要對地圖數據存儲進行優化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些內存，否則將只能以只讀模式使用地圖。</string>
 	<string name="bookmark_move_fail">我們需要將您的書籤移至內存儲器中，但沒有足夠的存儲空間。請釋放一些內存，否則，書籤將不可用。</string>
 	<string name="kitkat_optimization_in_progress">正在優化您的地圖存儲。請等待，這可能需要幾分鐘的時間。</string>

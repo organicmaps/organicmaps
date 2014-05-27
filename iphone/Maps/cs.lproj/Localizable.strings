@@ -258,7 +258,7 @@
 /* Bookmark Sets dialog title */
 "bookmark_sets" = "Skupiny záložek";
 
-/* Boormarks - dialog title */
+/* Bookmarks - dialog title */
 "bookmarks" = "Záložky";
 
 /* Add bookmark dialog - bookmark color */
@@ -384,7 +384,7 @@
 "share_bookmarks_email_subject" = "Sdílené záložky maps.me";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Ahoj!\n\nZde jsou mé záložky z offline map aplikace maps.me v přiloženém souboru \"%@.kmz\". Pokud máš již aplikaci maps.me Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://www.maps.me/get?kmz.\n\nSkvěle se bav s maps.me!";
+"share_bookmarks_email_body" = "Ahoj!\n\nZde jsou mé záložky z offline map aplikace maps.me v přiloženém souboru \"%@.kmz\". Pokud máš již aplikaci maps.me Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz.\n\nSkvěle se bav s maps.me!";
 
 /* message title of loading file */
 "load_kmz_title" = "Nahrávání záložek";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "Zobrazit a mapě";
 
-"kitkat_migrate_ok" = "Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář maps.me v kořenové složce SD karty již není potřeba, můžeš ho smazat.";
+"kitkat_migrate_ok" = "Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžeš ho smazat.";
 
 "kitkat_migrate_failed" = "Kvůli změnám v Androidu 4.4 musíme optimalizovat uložiště map, ale není dostatek prostoru pro jejich zkopírování.\n\nProsím, uvolni paměť, jinak budou mapy dostupné pouze v režimu pro čtení.";
 

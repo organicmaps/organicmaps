@@ -164,7 +164,7 @@
 	<string name="bookmark_set_name">Bookmark Set Name</string>
 	<!-- Bookmark Sets dialog title -->
 	<string name="bookmark_sets">Bookmark Sets</string>
-	<!-- Boormarks - dialog title -->
+	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Bookmarks</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Color</string>
@@ -248,7 +248,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">maps.me bookmarks has been shared with you</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Hello,\n\nHere are my bookmarks from maps.me offline maps in the attached \&quot;%s.kmz\&quot; file. Please open it if you have maps.me Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.maps.me/get?kmz.\n\nHave a good time with maps.me!</string>
+	<string name="share_bookmarks_email_body">Hello,\n\nHere are my bookmarks from maps.me offline maps in the attached \&quot;%s.kmz\&quot; file. Please open it if you have maps.me Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://maps.me/get?kmz.\n\nHave a good time with maps.me!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Loading Bookmarks</string>
 	<!-- Kmz file successful loading -->
@@ -272,9 +272,9 @@
 	<!-- No, thanks -->
 	<string name="no_thanks">No, thanks</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hey, check out my pin at maps.me! %1$s or %2$s Don\&#39;t have offline maps installed? Download here: http://mapswith.me/get</string>
+	<string name="bookmark_share_sms">Hey, check out my pin at maps.me! %1$s or %2$s Don\&#39;t have offline maps installed? Download here: http://maps.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Hey, check out my current location at maps.me! %1$s or %2$s Don\&#39;t have offline maps? Download here: http://mapswith.me/get</string>
+	<string name="my_position_share_sms">Hey, check out my current location at maps.me! %1$s or %2$s Don\&#39;t have offline maps? Download here: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
 	<string name="bookmark_share_email_subject">Hey, check out my pin at maps.me map!</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
@@ -341,7 +341,7 @@
 	<string name="placepage_coordinates">Coordinates</string>
 	<string name="placepage_unsorted">Unsorted</string>
 	<string name="search_show_on_map">View on map</string>
-	<string name="kitkat_migrate_ok">Map data storage has been optimized. Please restart the app.\n\nmaps.me folder in the root of SD card is not needed anymore, you can delete it.</string>
+	<string name="kitkat_migrate_ok">Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.</string>
 	<string name="kitkat_migrate_failed">Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.</string>
 	<string name="bookmark_move_fail">We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.</string>
 	<string name="kitkat_optimization_in_progress">Your map storage is being optimized now. Please wait, it may take a few minutes.</string>

@@ -160,7 +160,7 @@
 	<string name="bookmark_set_name">Название группы</string>
 	<!-- Bookmark Sets dialog title -->
 	<string name="bookmark_sets">Группы закладок</string>
-	<!-- Boormarks - dialog title -->
+	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Закладки</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Цвет</string>
@@ -244,7 +244,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">С вами поделились закладками maps.me</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Здравствуйте!\n\nМои закладки из офлайн карт maps.me находятся в прикрепленном файле \&quot;%s.kmz\&quot;. Если у вас уже установлено приложение maps.me Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  maps.me Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.maps.me/get?kmz\n\nСпасибо!</string>
+	<string name="share_bookmarks_email_body">Здравствуйте!\n\nМои закладки из офлайн карт maps.me находятся в прикрепленном файле \&quot;%s.kmz\&quot;. Если у вас уже установлено приложение maps.me Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  maps.me Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://maps.me/get?kmz\n\nСпасибо!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Загрузка закладок</string>
 	<!-- Kmz file successful loading -->
@@ -325,8 +325,8 @@
 	<string name="placepage_coordinates">Координаты</string>
 	<string name="placepage_unsorted">Без категории</string>
 	<string name="search_show_on_map">Посмотреть на карте</string>
-	<string name="kitkat_migrate_ok">Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка maps.me, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.</string>
+	<string name="kitkat_migrate_ok">Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.</string>
 	<string name="kitkat_migrate_failed">В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.</string>
-	<string name="bookmark_move_fail">Для оптимизации хранения данных нам необходимо переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе букмарки вам будут недоступны.</string>
+	<string name="bookmark_move_fail">Для оптимизации хранения данных нам нужно переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе закладки вам будут недоступны.</string>
 	<string name="kitkat_optimization_in_progress">Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.</string>
 </resources>

@@ -258,7 +258,7 @@
 /* Bookmark Sets dialog title */
 "bookmark_sets" = "Grupos de marcadores";
 
-/* Boormarks - dialog title */
+/* Bookmarks - dialog title */
 "bookmarks" = "Marcadores";
 
 /* Add bookmark dialog - bookmark color */
@@ -384,7 +384,7 @@
 "share_bookmarks_email_subject" = "Marcapáginas de maps.me compartidos contigo";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "¡Hola!\n\nEn el archivo adjunto \"%@.kmz\", están mis marcadores de los mapas offline maps.me. Por favor, ábrelo con maps.me Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.maps.me/get?kmz.\n\n¡Que disfrutes de maps.me!";
+"share_bookmarks_email_body" = "¡Hola!\n\nEn el archivo adjunto \"%@.kmz\", están mis marcadores de los mapas offline maps.me. Por favor, ábrelo con maps.me Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz.\n\n¡Que disfrutes de maps.me!";
 
 /* message title of loading file */
 "load_kmz_title" = "Cargando favoritos";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "Ver en el mapa";
 
-"kitkat_migrate_ok" = "Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta maps.me en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.";
+"kitkat_migrate_ok" = "Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta MapsWithMe en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.";
 
 "kitkat_migrate_failed" = "Debido a cambios en Android 4.4, tenemos que optimizar el almacenamiento de datos de mapas, pero no hay espacio suficiente para copiar los datos de los mapas.\n\nPor favor, libera la memoria, en caso contrario los mapas solo estarán disponibles en modo de solo lectura.";
 

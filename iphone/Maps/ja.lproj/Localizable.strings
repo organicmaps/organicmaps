@@ -258,7 +258,7 @@
 /* Bookmark Sets dialog title */
 "bookmark_sets" = "ブックマークセット";
 
-/* Boormarks - dialog title */
+/* Bookmarks - dialog title */
 "bookmarks" = "ブックマーク";
 
 /* Add bookmark dialog - bookmark color */
@@ -384,7 +384,7 @@
 "share_bookmarks_email_subject" = "maps.meの位置情報シェア";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "maps.meで作成したブックマークを添付ファイル\"%@.kmz\"で送付します。maps.me Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://www.maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nmaps.meで楽しい時間をお過ごしください！";
+"share_bookmarks_email_body" = "maps.meで作成したブックマークを添付ファイル\"%@.kmz\"で送付します。maps.me Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nmaps.meで楽しい時間をお過ごしください！";
 
 /* message title of loading file */
 "load_kmz_title" = "ブックマークの読み込み中";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "地図に表示";
 
-"kitkat_migrate_ok" = "マップデータのストレージは最適化されました。アプリを再起動させてください。\n\nSDカードのルートにあるmaps.meフォルダは不要となりましたので削除しても構いません。";
+"kitkat_migrate_ok" = "マップデータのストレージは最適化されました。アプリを再起動させてください。\n\nSDカードのルートにあるMapsWithMeフォルダは不要となりましたので削除しても構いません。";
 
 "kitkat_migrate_failed" = "Android 4.4の変更に伴いマップデータのストレージを最適化しなければなりませんが、マップデータをコピーするだけの空き容量がありません。\n\nメモリの空き容量を増やさなければ、閲覧モードのみとしてマップをご利用いただくことになります。";
 

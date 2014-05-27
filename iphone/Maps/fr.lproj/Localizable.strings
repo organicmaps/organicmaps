@@ -258,7 +258,7 @@
 /* Bookmark Sets dialog title */
 "bookmark_sets" = "Groupes de signets";
 
-/* Boormarks - dialog title */
+/* Bookmarks - dialog title */
 "bookmarks" = "Signets";
 
 /* Add bookmark dialog - bookmark color */
@@ -384,7 +384,7 @@
 "share_bookmarks_email_subject" = "Signets maps.me partagés avec vous";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne maps.me dans le fichier \"%@.kmz:\" ci-joint. Veuillez l'ouvrir si vous avez déjà installé maps.me Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://www.maps.me/get?kmz.\n\nAmusez-vous bien avec maps.me !";
+"share_bookmarks_email_body" = "Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne maps.me dans le fichier \"%@.kmz:\" ci-joint. Veuillez l'ouvrir si vous avez déjà installé maps.me Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://maps.me/get?kmz.\n\nAmusez-vous bien avec maps.me !";
 
 /* message title of loading file */
 "load_kmz_title" = "Chargement des signets";
@@ -420,10 +420,10 @@
 "no_thanks" = "Non, merci";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Regarde cette epingle sur la carte ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://mapswith.me/get";
+"bookmark_share_sms" = "Regarde cette epingle sur la carte ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Regarde ma position sur maps.me ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://mapswith.me/get";
+"my_position_share_sms" = "Regarde ma position sur maps.me ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Regarde mon épingle sur la carte maps.me";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "Afficher sur la carte";
 
-"kitkat_migrate_ok" = "Le stockage des données cartographiques a été optimisé. Veuillez redémarrer l'application.\n\nLe fichier maps.me qui se trouve dans le répertoire racine de la carte SD n'est plus nécessaire, vous pouvez le supprimer.";
+"kitkat_migrate_ok" = "Le stockage des données cartographiques a été optimisé. Veuillez redémarrer l'application.\n\nLe fichier MapsWithMe qui se trouve dans le répertoire racine de la carte SD n'est plus nécessaire, vous pouvez le supprimer.";
 
 "kitkat_migrate_failed" = "En raison des changements qui se sont produits sur l'Android 4.4, nous avons besoin d'optimiser le stockage des données cartographiques, mais il n'y a pas assez d'espace pour copier les données cartographiques.\n\nVeuillez libérer de la mémoire, sinon les cartes seront disponibles en mode lecture seule.";
 

@@ -157,7 +157,7 @@
 	<string name="bookmark_set_name">Nome do conjunto dos favoritos</string>
 	<!-- Bookmark Sets dialog title -->
 	<string name="bookmark_sets">Conjuntos de favoritos</string>
-	<!-- Boormarks - dialog title -->
+	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Favoritos</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Cor</string>
@@ -241,7 +241,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Os favoritos do maps.me foram partilhados consigo</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Olá,\n\nAqui estão os meus favoritos dos mapas offline do maps.me, anexados no ficheiro \&quot;%s.kmz\&quot;. Por favor abra-os se já tiver instalado o maps.me Pro. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://www.maps.me/get?kmz.\n\nDisfrute do maps.me!</string>
+	<string name="share_bookmarks_email_body">Olá,\n\nAqui estão os meus favoritos dos mapas offline do maps.me, anexados no ficheiro \&quot;%s.kmz\&quot;. Por favor abra-os se já tiver instalado o maps.me Pro. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://maps.me/get?kmz.\n\nDisfrute do maps.me!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">A carregar favoritos</string>
 	<!-- Kmz file successful loading -->
@@ -334,7 +334,7 @@
 	<string name="placepage_coordinates">Coordenadas</string>
 	<string name="placepage_unsorted">Não classificado</string>
 	<string name="search_show_on_map">Ver no mapa</string>
-	<string name="kitkat_migrate_ok">O armazenamento de dados do mapa foi otimizado. Por favor, reinicie a app.\n\nA pasta maps.me na raiz do cartão SD já não é necessária, pode excluí-la.</string>
+	<string name="kitkat_migrate_ok">O armazenamento de dados do mapa foi otimizado. Por favor, reinicie a app.\n\nA pasta MapsWithMe na raiz do cartão SD já não é necessária, pode excluí-la.</string>
 	<string name="kitkat_migrate_failed">Devido às alterações no Android 4.4, é necessário otimizar o armazenamento de dados do mapa, mas não há espaço suficiente para copiar os dados do mapa.\n\nPor favor, liberte a memória, caso contrário, os mapas estarão disponíveis no modo somente de leitura.</string>
 	<string name="bookmark_move_fail">É necessário mover os seus marcadores para a memória interna, mas não há espaço disponível para eles. Por favor, liberte a memória, caso contrário, os marcadores não estarão disponíveis.</string>
 	<string name="kitkat_optimization_in_progress">O seu armazenamento de mapa está agora a ser otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.</string>

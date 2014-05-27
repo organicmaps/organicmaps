@@ -150,7 +150,7 @@
 	<string name="bookmark_set_name">집합 이름을 즐겨찾기에 추가</string>
 	<!-- Bookmark Sets dialog title -->
 	<string name="bookmark_sets">세트를 즐겨찾기에 추가</string>
-	<!-- Boormarks - dialog title -->
+	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">북마크</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">색깔</string>
@@ -234,7 +234,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">귀하와 공유된 maps.me 즐겨찾기</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">안녕하세요.\n\n첨부된 \&quot;%s.kmz\&quot; 파일에 maps.me 오프라인 지도로부터의 제 즐겨찾기가 있습니다. maps.me 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nmaps.me와 함께 즐거운 시간 되시기 바랍니다!</string>
+	<string name="share_bookmarks_email_body">안녕하세요.\n\n첨부된 \&quot;%s.kmz\&quot; 파일에 maps.me 오프라인 지도로부터의 제 즐겨찾기가 있습니다. maps.me 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nmaps.me와 함께 즐거운 시간 되시기 바랍니다!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">즐겨찾기 로드</string>
 	<!-- Kmz file successful loading -->
@@ -306,7 +306,7 @@
 	<string name="placepage_coordinates">좌표</string>
 	<string name="placepage_unsorted">분류되지 않음</string>
 	<string name="search_show_on_map">지도 보기</string>
-	<string name="kitkat_migrate_ok">지도 데이터 저장소가 최적화되어 있습니다. 앱을 다시 시작하십시오.\n\nSD 카드의 루트에 maps.me 폴더가 더 이상 필요하지 않으므로, 이를 삭제할 수 있습니다.</string>
+	<string name="kitkat_migrate_ok">지도 데이터 저장소가 최적화되어 있습니다. 앱을 다시 시작하십시오.\n\nSD 카드의 루트에 MapsWithMe 폴더가 더 이상 필요하지 않으므로, 이를 삭제할 수 있습니다.</string>
 	<string name="kitkat_migrate_failed">Android 4.4의 변경으로 인해, 우리는 지도 데이터 저장소를 최적화해야 하지만, 지도 데이터를 복사할 충분한 공간이 없습니다.\n\n메모리를 확보하지 않으면, 지도는 읽기 전용 모드로 사용할 수 있습니다.</string>
 	<string name="bookmark_move_fail">우리는 내부 메모리로 북마크를 이동해야 하지만, 이에 대한 사용 가능한 공간이 없습니다. 메모리를 확보하지 않으면, 북마크를 사용할 수 없습니다.</string>
 	<string name="kitkat_optimization_in_progress">지금 지도 저장소가 최적화되는 중입니다. 이는 몇 분 정도 걸릴 수 있으므로, 기다려 주십시오.</string>

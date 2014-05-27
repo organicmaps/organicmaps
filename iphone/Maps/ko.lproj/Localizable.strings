@@ -258,7 +258,7 @@
 /* Bookmark Sets dialog title */
 "bookmark_sets" = "세트를 즐겨찾기에 추가";
 
-/* Boormarks - dialog title */
+/* Bookmarks - dialog title */
 "bookmarks" = "북마크";
 
 /* Add bookmark dialog - bookmark color */
@@ -384,7 +384,7 @@
 "share_bookmarks_email_subject" = "귀하와 공유된 maps.me 즐겨찾기";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "안녕하세요.\n\n첨부된 \"%@.kmz\" 파일에 maps.me 오프라인 지도로부터의 제 즐겨찾기가 있습니다. maps.me 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nmaps.me와 함께 즐거운 시간 되시기 바랍니다!";
+"share_bookmarks_email_body" = "안녕하세요.\n\n첨부된 \"%@.kmz\" 파일에 maps.me 오프라인 지도로부터의 제 즐겨찾기가 있습니다. maps.me 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nmaps.me와 함께 즐거운 시간 되시기 바랍니다!";
 
 /* message title of loading file */
 "load_kmz_title" = "즐겨찾기 로드";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "지도 보기";
 
-"kitkat_migrate_ok" = "지도 데이터 저장소가 최적화되어 있습니다. 앱을 다시 시작하십시오.\n\nSD 카드의 루트에 maps.me 폴더가 더 이상 필요하지 않으므로, 이를 삭제할 수 있습니다.";
+"kitkat_migrate_ok" = "지도 데이터 저장소가 최적화되어 있습니다. 앱을 다시 시작하십시오.\n\nSD 카드의 루트에 MapsWithMe 폴더가 더 이상 필요하지 않으므로, 이를 삭제할 수 있습니다.";
 
 "kitkat_migrate_failed" = "Android 4.4의 변경으로 인해, 우리는 지도 데이터 저장소를 최적화해야 하지만, 지도 데이터를 복사할 충분한 공간이 없습니다.\n\n메모리를 확보하지 않으면, 지도는 읽기 전용 모드로 사용할 수 있습니다.";
 

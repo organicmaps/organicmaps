@@ -1491,7 +1491,7 @@
   [bookmarks]
     en = Bookmarks
     tags = ios
-    comment = Boormarks - dialog title
+    comment = Bookmarks - dialog title
     cs = Záložky
     de = Lesezeichengruppen
     es = Marcadores
@@ -2240,23 +2240,23 @@
     pt = Os favoritos do maps.me foram partilhados consigo
     hu = Egy maps.me könyvjelzőt osztottak meg Önnel
   [share_bookmarks_email_body]
-    en = Hello,\n\nHere are my bookmarks from maps.me offline maps in the attached "%@.kmz" file. Please open it if you have maps.me Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.maps.me/get?kmz.\n\nHave a good time with maps.me!
+    en = Hello,\n\nHere are my bookmarks from maps.me offline maps in the attached "%@.kmz" file. Please open it if you have maps.me Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://maps.me/get?kmz.\n\nHave a good time with maps.me!
     tags = ios,android
     comment = Email text when sharing bookmarks category
-    cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace maps.me v přiloženém souboru "%@.kmz". Pokud máš již aplikaci maps.me Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://www.maps.me/get?kmz.\n\nSkvěle se bav s maps.me!
-    de = Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von maps.me. Falls Sie maps.me Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://www.maps.me/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit maps.me!
-    es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline maps.me. Por favor, ábrelo con maps.me Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://www.maps.me/get?kmz.\n\n¡Que disfrutes de maps.me!
-    fr = Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne maps.me dans le fichier "%@.kmz:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé maps.me Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://www.maps.me/get?kmz.\n\nAmusez-vous bien avec maps.me !
-    it = Ciao,\n\nQuesti sono i miei "preferiti" fra le mappe offline di maps.me, che si trovano nel file allegato "%@.kmz". Il file può essere aperto se l'app maps.me Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.maps.me/get?kmz.\n\nBuon divertimento con maps.me!
-    ja = maps.meで作成したブックマークを添付ファイル"%@.kmz"で送付します。maps.me Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://www.maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nmaps.meで楽しい時間をお過ごしください！
-    ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 maps.me 오프라인 지도로부터의 제 즐겨찾기가 있습니다. maps.me 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://www.maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nmaps.me와 함께 즐거운 시간 되시기 바랍니다!
-    nl = Hallo,\n\nHier zijn mijn bladwijzers uit de maps.me offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u maps.me Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.maps.me/get?kmz.\n\nVeel plezier met maps.me!
-    ru = Здравствуйте!\n\nМои закладки из офлайн карт maps.me находятся в прикрепленном файле "%@.kmz". Если у вас уже установлено приложение maps.me Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  maps.me Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://www.maps.me/get?kmz\n\nСпасибо!
-    uk = Вітаю!\n\nОсь мої закладки з офлайн карт maps.me у доданому файлі "%@.kmz". Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://www.maps.me/get?kmz.\n\nПриємних розваг з maps.me!
-    zh-Hant = 哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝maps.me專業版的話請開啟它，否則請先從 http://www.maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用maps.me愉快!
-    pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji maps.me wraz z załączonymi mapami offline w pliku "%@.kmz". Proszę otwórz to jeśli posiadasz zainstalowaną aplikację maps.me Pro. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://www.maps.me/get?kmz. \n\nBaw się dobrze z maps.me!
-    pt = Olá,\n\nAqui estão os meus favoritos dos mapas offline do maps.me, anexados no ficheiro "%@.kmz". Por favor abra-os se já tiver instalado o maps.me Pro. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://www.maps.me/get?kmz.\n\nDisfrute do maps.me!
-    hu = Üdvözlöm!\n\nA mellékelt "%@.kmz" fájl tartalmazza a maps.me könyvjelzőimet. Kérem nyissa meg, ha a maps.me már telepítve van. Ha még nincs, akkor innen töltheti le: http://www.maps.me/get?kmz. \n\nSok sikert a program használatához!
+    cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace maps.me v přiloženém souboru "%@.kmz". Pokud máš již aplikaci maps.me Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz.\n\nSkvěle se bav s maps.me!
+    de = Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von maps.me. Falls Sie maps.me Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit maps.me!
+    es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline maps.me. Por favor, ábrelo con maps.me Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz.\n\n¡Que disfrutes de maps.me!
+    fr = Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne maps.me dans le fichier "%@.kmz:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé maps.me Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://maps.me/get?kmz.\n\nAmusez-vous bien avec maps.me !
+    it = Ciao,\n\nQuesti sono i miei "preferiti" fra le mappe offline di maps.me, che si trovano nel file allegato "%@.kmz". Il file può essere aperto se l'app maps.me Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://maps.me/get?kmz.\n\nBuon divertimento con maps.me!
+    ja = maps.meで作成したブックマークを添付ファイル"%@.kmz"で送付します。maps.me Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nmaps.meで楽しい時間をお過ごしください！
+    ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 maps.me 오프라인 지도로부터의 제 즐겨찾기가 있습니다. maps.me 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nmaps.me와 함께 즐거운 시간 되시기 바랍니다!
+    nl = Hallo,\n\nHier zijn mijn bladwijzers uit de maps.me offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u maps.me Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz.\n\nVeel plezier met maps.me!
+    ru = Здравствуйте!\n\nМои закладки из офлайн карт maps.me находятся в прикрепленном файле "%@.kmz". Если у вас уже установлено приложение maps.me Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  maps.me Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://maps.me/get?kmz\n\nСпасибо!
+    uk = Вітаю!\n\nОсь мої закладки з офлайн карт maps.me у доданому файлі "%@.kmz". Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz.\n\nПриємних розваг з maps.me!
+    zh-Hant = 哈囉!\n\n這是我的maps.me離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝maps.me專業版的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用maps.me愉快!
+    pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji maps.me wraz z załączonymi mapami offline w pliku "%@.kmz". Proszę otwórz to jeśli posiadasz zainstalowaną aplikację maps.me Pro. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://maps.me/get?kmz. \n\nBaw się dobrze z maps.me!
+    pt = Olá,\n\nAqui estão os meus favoritos dos mapas offline do maps.me, anexados no ficheiro "%@.kmz". Por favor abra-os se já tiver instalado o maps.me Pro. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://maps.me/get?kmz.\n\nDisfrute do maps.me!
+    hu = Üdvözlöm!\n\nA mellékelt "%@.kmz" fájl tartalmazza a maps.me könyvjelzőimet. Kérem nyissa meg, ha a maps.me már telepítve van. Ha még nincs, akkor innen töltheti le: http://maps.me/get?kmz. \n\nSok sikert a program használatához!
   [load_kmz_title]
     en = Loading Bookmarks
     tags = ios,android
@@ -2451,7 +2451,7 @@
     pt = Não, obrigado
     hu = Köszönöm, nem
   [bookmark_share_sms]
-    en = Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://mapswith.me/get
+    en = Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get
     tags = ios,android
     comment = Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
     ru = Моя метка на карте. Жми %1$@ или %2$@
@@ -2461,14 +2461,14 @@
     de = Meine Nadel auf der Karte sehen. Klicke auf den Link %1$@ oder %2$@
     nl = Bekijk mijn pin op de kaart. Open %1$@ of %2$@
     cs = Koukni na mou značku na mapě. Otevři odkaz: %1$@ nebo %2$@
-    fr = Regarde cette epingle sur la carte ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://mapswith.me/get
+    fr = Regarde cette epingle sur la carte ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get
     uk = Моя мітка на карті. Іди %1$@ або %2$@
     es = Ve mi alfiler en mapa. Abre %1$@ o %2$@
     pl = Mój znacznik w maps.me %1$@ i %2$@
     pt = Veja o meu marcador no mapa do maps.me. Abra a hiperligação: %1$@ ou %2$@
-    hu = Nézd meg a maps.me jelzőt! %1$@ vagy %2$@ A program letöltése: http://mapswith.me/get
+    hu = Nézd meg a maps.me jelzőt! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
   [my_position_share_sms]
-    en = Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://mapswith.me/get
+    en = Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
     tags = ios,android
     comment = Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
     ru = Смотри где я сейчас. Жми %1$@ или %2$@
@@ -2478,12 +2478,12 @@
     de = Sieh, wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@
     nl = Kijk waar ik nu ben. Open %1$@ of %2$@
     cs = Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@
-    fr = Regarde ma position sur maps.me ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://mapswith.me/get
+    fr = Regarde ma position sur maps.me ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get
     uk = Глянь де я зараз. Іди %1$@ або %2$@
     es = Mira dónde estoy. Abre %1$@ o %2$@
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
     pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@
-    hu = Nézd meg a maps.me helyzetemet! %1$@ vagy %2$@ A program letöltése: http://mapswith.me/get
+    hu = Nézd meg a maps.me helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
   [bookmark_share_email_subject]
     en = Hey, check out my pin at maps.me map!
     tags = ios,android
@@ -3126,21 +3126,21 @@
     hu = Megtekintés a térképen
 
   [kitkat_migrate_ok]
-    en = Map data storage has been optimized. Please restart the app.\n\nmaps.me folder in the root of SD card is not needed anymore, you can delete it.
-    ru = Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка maps.me, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.
-    uk = Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка maps.me, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.
-    zh-Hant = 地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的maps.me資料夾，您可以將它 刪除。
-    ko = 지도 데이터 저장소가 최적화되어 있습니다. 앱을 다시 시작하십시오.\n\nSD 카드의 루트에 maps.me 폴더가 더 이상 필요하지 않으므로, 이를 삭제할 수 있습니다.
-    it = L'archiviazione dei dati delle mappe è stata ottimizzata. Ti preghiamo di riavviare l'app.\n\nLa cartella maps.me nel canale della scheda SD non è più necessario ed è possibile eliminarla.
-    fr = Le stockage des données cartographiques a été optimisé. Veuillez redémarrer l'application.\n\nLe fichier maps.me qui se trouve dans le répertoire racine de la carte SD n'est plus nécessaire, vous pouvez le supprimer.
-    ja = マップデータのストレージは最適化されました。アプリを再起動させてください。\n\nSDカードのルートにあるmaps.meフォルダは不要となりましたので削除しても構いません。
-    pt = O armazenamento de dados do mapa foi otimizado. Por favor, reinicie a app.\n\nA pasta maps.me na raiz do cartão SD já não é necessária, pode excluí-la.
-    nl = Opslag van kaartgegevens is geoptimaliseerd. Herstart de app.\n\nmaps.me map is niet langer nodig in de root van de SD-kaart, u kunt het verwijderen.
-    hu = A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA maps.me mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.
-    cs = Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář maps.me v kořenové složce SD karty již není potřeba, můžeš ho smazat.
-    pl = Przechowywanie danych mapy zostało zoptymalizowane. Prosimy zrestartować aplikację.\n\nFolder maps.me w katalogu głównym karty SD nie jest już potrzebny, można go usunąć.
-    es = Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta maps.me en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.
-    de = Der Kartendaten-Speicherplatz wurde optimiert. Bitte die App neu starten.\n\nDer Ordner maps.me im Stammverzeichnis der SD-Karte wird nicht mehr benötigt. Sie können ihn löschen.
+    en = Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.
+    ru = Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.
+    uk = Ми оптимiзували збереження данних. Для подальшої работи, будь ласка, перезавантажте програму.\n\nПапка MapsWithMe, яка знаходится на SD-картi, вже не потрiбна, її можна видалити.
+    zh-Hant = 地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的MapsWithMe資料夾，您可以將它 刪除。
+    ko = 지도 데이터 저장소가 최적화되어 있습니다. 앱을 다시 시작하십시오.\n\nSD 카드의 루트에 MapsWithMe 폴더가 더 이상 필요하지 않으므로, 이를 삭제할 수 있습니다.
+    it = L'archiviazione dei dati delle mappe è stata ottimizzata. Ti preghiamo di riavviare l'app.\n\nLa cartella MapsWithMe nel canale della scheda SD non è più necessario ed è possibile eliminarla.
+    fr = Le stockage des données cartographiques a été optimisé. Veuillez redémarrer l'application.\n\nLe fichier MapsWithMe qui se trouve dans le répertoire racine de la carte SD n'est plus nécessaire, vous pouvez le supprimer.
+    ja = マップデータのストレージは最適化されました。アプリを再起動させてください。\n\nSDカードのルートにあるMapsWithMeフォルダは不要となりましたので削除しても構いません。
+    pt = O armazenamento de dados do mapa foi otimizado. Por favor, reinicie a app.\n\nA pasta MapsWithMe na raiz do cartão SD já não é necessária, pode excluí-la.
+    nl = Opslag van kaartgegevens is geoptimaliseerd. Herstart de app.\n\nMapsWithMe map is niet langer nodig in de root van de SD-kaart, u kunt het verwijderen.
+    hu = A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA MapsWithMe mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.
+    cs = Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžeš ho smazat.
+    pl = Przechowywanie danych mapy zostało zoptymalizowane. Prosimy zrestartować aplikację.\n\nFolder MapsWithMe w katalogu głównym karty SD nie jest już potrzebny, można go usunąć.
+    es = Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta MapsWithMe en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.
+    de = Der Kartendaten-Speicherplatz wurde optimiert. Bitte die App neu starten.\n\nDer Ordner MapsWithMe im Stammverzeichnis der SD-Karte wird nicht mehr benötigt. Sie können ihn löschen.
 
   [kitkat_migrate_failed]
     en = Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.
@@ -3161,8 +3161,8 @@
 
   [bookmark_move_fail]
     en = We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.
-    ru = Для оптимизации хранения данных нам необходимо переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе букмарки вам будут недоступны.
-    uk = Для оптимизации хранения данных нам необходимо переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе букмарки вам будут недоступны.
+    ru = Для оптимизации хранения данных нам нужно переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе закладки вам будут недоступны.
+    uk = Для оптимiзацiї збереження данних нам потрiбно перенести закладки до внутрiшньої пам'ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо закладки вам не будуть доступнi.
     zh-Hant = 我們需要將您的書籤移至內存儲器中，但沒有足夠的存儲空間。請釋放一些內存，否則，書籤將不可用。
     ko = 우리는 내부 메모리로 북마크를 이동해야 하지만, 이에 대한 사용 가능한 공간이 없습니다. 메모리를 확보하지 않으면, 북마크를 사용할 수 없습니다.
     it = Abbiamo bisogno di trasferire i tuoi preferiti nella memoria interna, ma non c'è abbastanza spazio disponibile. Ti preghiamo di liberare la memoria, altrimenti i preferiti non saranno disponibili.
@@ -3179,7 +3179,7 @@
   [kitkat_optimization_in_progress]
     en = Your map storage is being optimized now. Please wait, it may take a few minutes.
     ru = Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.
-    uk = Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.
+    uk = Наразi ми оптимiзуємо збереження данних. Це може зайняти декiлька хвилин, почекайте, будь ласка.
     zh-Hant = 正在優化您的地圖存儲。請等待，這可能需要幾分鐘的時間。
     ko = 지금 지도 저장소가 최적화되는 중입니다. 이는 몇 분 정도 걸릴 수 있으므로, 기다려 주십시오.
     it = L'archiviazione delle tue mappe è in fase di ottimizzazione. Ti preghiamo di attendere, il processo durerà alcuni minuti.

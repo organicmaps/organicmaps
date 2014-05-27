@@ -258,7 +258,7 @@
 /* Bookmark Sets dialog title */
 "bookmark_sets" = "Seleziona un segnalibro";
 
-/* Boormarks - dialog title */
+/* Bookmarks - dialog title */
 "bookmarks" = "Segnalibri";
 
 /* Add bookmark dialog - bookmark color */
@@ -384,7 +384,7 @@
 "share_bookmarks_email_subject" = "Il segnalibri maps.me è stato condiviso con te";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Ciao,\n\nQuesti sono i miei \"preferiti\" fra le mappe offline di maps.me, che si trovano nel file allegato \"%@.kmz\". Il file può essere aperto se l'app maps.me Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://www.maps.me/get?kmz.\n\nBuon divertimento con maps.me!";
+"share_bookmarks_email_body" = "Ciao,\n\nQuesti sono i miei \"preferiti\" fra le mappe offline di maps.me, che si trovano nel file allegato \"%@.kmz\". Il file può essere aperto se l'app maps.me Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://maps.me/get?kmz.\n\nBuon divertimento con maps.me!";
 
 /* message title of loading file */
 "load_kmz_title" = "Caricamento segnalibri in corso";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "Visualizza sulla mappa";
 
-"kitkat_migrate_ok" = "L'archiviazione dei dati delle mappe è stata ottimizzata. Ti preghiamo di riavviare l'app.\n\nLa cartella maps.me nel canale della scheda SD non è più necessario ed è possibile eliminarla.";
+"kitkat_migrate_ok" = "L'archiviazione dei dati delle mappe è stata ottimizzata. Ti preghiamo di riavviare l'app.\n\nLa cartella MapsWithMe nel canale della scheda SD non è più necessario ed è possibile eliminarla.";
 
 "kitkat_migrate_failed" = "A causa di modifiche alla versione Android 4.4, abbiamo bisogno di ottimizzare l'archiviazione delle mappe, ma non c'è abbastanza spazio per copiarne i dati:\n\nTi preghiamo di liberare la memoria, altrimenti le mappe saranno disponibili in sola lettura.";
 

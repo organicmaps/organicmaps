@@ -158,7 +158,7 @@
 	<string name="bookmark_set_name">Seleziona un nome del segnalibro</string>
 	<!-- Bookmark Sets dialog title -->
 	<string name="bookmark_sets">Seleziona un segnalibro</string>
-	<!-- Boormarks - dialog title -->
+	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Segnalibri</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Colore</string>
@@ -240,7 +240,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Il segnalibri maps.me è stato condiviso con te</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Ciao,\n\nQuesti sono i miei \&quot;preferiti\&quot; fra le mappe offline di maps.me, che si trovano nel file allegato \&quot;%s.kmz\&quot;. Il file può essere aperto se l\&#39;app maps.me Pro è già stata installata. In caso contrario, occorre scaricare l\&#39;app per il tuo iOS o dispositivo Android dal link http://www.maps.me/get?kmz.\n\nBuon divertimento con maps.me!</string>
+	<string name="share_bookmarks_email_body">Ciao,\n\nQuesti sono i miei \&quot;preferiti\&quot; fra le mappe offline di maps.me, che si trovano nel file allegato \&quot;%s.kmz\&quot;. Il file può essere aperto se l\&#39;app maps.me Pro è già stata installata. In caso contrario, occorre scaricare l\&#39;app per il tuo iOS o dispositivo Android dal link http://maps.me/get?kmz.\n\nBuon divertimento con maps.me!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Caricamento segnalibri in corso</string>
 	<!-- Kmz file successful loading -->
@@ -323,7 +323,7 @@
 	<string name="placepage_coordinates">Coordinate</string>
 	<string name="placepage_unsorted">Non classificato</string>
 	<string name="search_show_on_map">Visualizza sulla mappa</string>
-	<string name="kitkat_migrate_ok">L\&#39;archiviazione dei dati delle mappe è stata ottimizzata. Ti preghiamo di riavviare l\&#39;app.\n\nLa cartella maps.me nel canale della scheda SD non è più necessario ed è possibile eliminarla.</string>
+	<string name="kitkat_migrate_ok">L\&#39;archiviazione dei dati delle mappe è stata ottimizzata. Ti preghiamo di riavviare l\&#39;app.\n\nLa cartella MapsWithMe nel canale della scheda SD non è più necessario ed è possibile eliminarla.</string>
 	<string name="kitkat_migrate_failed">A causa di modifiche alla versione Android 4.4, abbiamo bisogno di ottimizzare l\&#39;archiviazione delle mappe, ma non c\&#39;è abbastanza spazio per copiarne i dati:\n\nTi preghiamo di liberare la memoria, altrimenti le mappe saranno disponibili in sola lettura.</string>
 	<string name="bookmark_move_fail">Abbiamo bisogno di trasferire i tuoi preferiti nella memoria interna, ma non c\&#39;è abbastanza spazio disponibile. Ti preghiamo di liberare la memoria, altrimenti i preferiti non saranno disponibili.</string>
 	<string name="kitkat_optimization_in_progress">L\&#39;archiviazione delle tue mappe è in fase di ottimizzazione. Ti preghiamo di attendere, il processo durerà alcuni minuti.</string>

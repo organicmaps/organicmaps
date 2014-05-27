@@ -258,7 +258,7 @@
 /* Bookmark Sets dialog title */
 "bookmark_sets" = "收藏夾";
 
-/* Boormarks - dialog title */
+/* Bookmarks - dialog title */
 "bookmarks" = "書籤";
 
 /* Add bookmark dialog - bookmark color */
@@ -384,7 +384,7 @@
 "share_bookmarks_email_subject" = "您已分享了 maps.me 書籤";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "哈囉!\n\n這是我的MapsWithe離線地圖中所夾帶的 \"%@.kmz\" 書籤檔案。若您已安裝maps.me專業版的話請開啟它，否則請先從 http://www.maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用maps.me愉快!";
+"share_bookmarks_email_body" = "哈囉!\n\n這是我的maps.me離線地圖中所夾帶的 \"%@.kmz\" 書籤檔案。若您已安裝maps.me專業版的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用maps.me愉快!";
 
 /* message title of loading file */
 "load_kmz_title" = "正在載入書籤…";
@@ -420,10 +420,10 @@
 "no_thanks" = "不, 謝了!";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://mapswith.me/get";
+"bookmark_share_sms" = "Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://mapswith.me/get";
+"my_position_share_sms" = "Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, check out my pin at maps.me map!";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "在地图上查看";
 
-"kitkat_migrate_ok" = "地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的maps.me資料夾，您可以將它 刪除。";
+"kitkat_migrate_ok" = "地圖數據存儲已被優化。請重啟應用。\n\n不再需要SD卡根目錄中的MapsWithMe資料夾，您可以將它 刪除。";
 
 "kitkat_migrate_failed" = "由於安卓4.4版本有所更改，我們需要對地圖數據存儲進行優化，但沒有足夠的空間複製地圖數據。\n\n請釋放一些內存，否則將只能以只讀模式使用地圖。";
 

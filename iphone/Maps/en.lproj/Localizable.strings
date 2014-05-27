@@ -258,7 +258,7 @@
 /* Bookmark Sets dialog title */
 "bookmark_sets" = "Bookmark Sets";
 
-/* Boormarks - dialog title */
+/* Bookmarks - dialog title */
 "bookmarks" = "Bookmarks";
 
 /* Add bookmark dialog - bookmark color */
@@ -384,7 +384,7 @@
 "share_bookmarks_email_subject" = "maps.me bookmarks has been shared with you";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Hello,\n\nHere are my bookmarks from maps.me offline maps in the attached \"%@.kmz\" file. Please open it if you have maps.me Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://www.maps.me/get?kmz.\n\nHave a good time with maps.me!";
+"share_bookmarks_email_body" = "Hello,\n\nHere are my bookmarks from maps.me offline maps in the attached \"%@.kmz\" file. Please open it if you have maps.me Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://maps.me/get?kmz.\n\nHave a good time with maps.me!";
 
 /* message title of loading file */
 "load_kmz_title" = "Loading Bookmarks";
@@ -420,10 +420,10 @@
 "no_thanks" = "No, thanks";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://mapswith.me/get";
+"bookmark_share_sms" = "Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://mapswith.me/get";
+"my_position_share_sms" = "Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get";
 
 /* Subject for emailed bookmark */
 "bookmark_share_email_subject" = "Hey, check out my pin at maps.me map!";
@@ -530,7 +530,7 @@
 
 "search_show_on_map" = "View on map";
 
-"kitkat_migrate_ok" = "Map data storage has been optimized. Please restart the app.\n\nmaps.me folder in the root of SD card is not needed anymore, you can delete it.";
+"kitkat_migrate_ok" = "Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.";
 
 "kitkat_migrate_failed" = "Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.";
 

@@ -160,7 +160,7 @@
 	<string name="bookmark_set_name">Назва групи</string>
 	<!-- Bookmark Sets dialog title -->
 	<string name="bookmark_sets">Групи закладок</string>
-	<!-- Boormarks - dialog title -->
+	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Закладки</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Колір</string>
@@ -244,7 +244,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">З вами поділилися закладками maps.me</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Вітаю!\n\nОсь мої закладки з офлайн карт maps.me у доданому файлі \&quot;%s.kmz\&quot;. Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://www.maps.me/get?kmz.\n\nПриємних розваг з maps.me!</string>
+	<string name="share_bookmarks_email_body">Вітаю!\n\nОсь мої закладки з офлайн карт maps.me у доданому файлі \&quot;%s.kmz\&quot;. Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz.\n\nПриємних розваг з maps.me!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Завантаження закладок</string>
 	<!-- Kmz file successful loading -->
@@ -327,8 +327,8 @@
 	<string name="placepage_coordinates">Координати</string>
 	<string name="placepage_unsorted">Без категорії</string>
 	<string name="search_show_on_map">Подивитись на карті</string>
-	<string name="kitkat_migrate_ok">Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка maps.me, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.</string>
+	<string name="kitkat_migrate_ok">Ми оптимiзували збереження данних. Для подальшої работи, будь ласка, перезавантажте програму.\n\nПапка MapsWithMe, яка знаходится на SD-картi, вже не потрiбна, її можна видалити.</string>
 	<string name="kitkat_migrate_failed">В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но не сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.</string>
-	<string name="bookmark_move_fail">Для оптимизации хранения данных нам необходимо переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе букмарки вам будут недоступны.</string>
-	<string name="kitkat_optimization_in_progress">Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.</string>
+	<string name="bookmark_move_fail">Для оптимiзацiї збереження данних нам потрiбно перенести закладки до внутрiшньої пам\&#39;ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо закладки вам не будуть доступнi.</string>
+	<string name="kitkat_optimization_in_progress">Наразi ми оптимiзуємо збереження данних. Це може зайняти декiлька хвилин, почекайте, будь ласка.</string>
 </resources>

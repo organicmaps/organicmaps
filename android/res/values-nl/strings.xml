@@ -147,7 +147,7 @@
 	<string name="bookmark_set_name">Bladwijzer Groep Naam</string>
 	<!-- Bookmark Sets dialog title -->
 	<string name="bookmark_sets">Bladwijzer groepen</string>
-	<!-- Boormarks - dialog title -->
+	<!-- Bookmarks - dialog title -->
 	<string name="bookmarks">Bladwijzers</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Kleur</string>
@@ -231,7 +231,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Bladwijzers van maps.me met u gedeeld</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Hallo,\n\nHier zijn mijn bladwijzers uit de maps.me offline kaarten, in het bijgevoegde \&quot;%s.kmz\&quot;-bestand. Open het bestand als u maps.me Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://www.maps.me/get?kmz.\n\nVeel plezier met maps.me!</string>
+	<string name="share_bookmarks_email_body">Hallo,\n\nHier zijn mijn bladwijzers uit de maps.me offline kaarten, in het bijgevoegde \&quot;%s.kmz\&quot;-bestand. Open het bestand als u maps.me Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz.\n\nVeel plezier met maps.me!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Bladwijzers aan het uploaden</string>
 	<!-- Kmz file successful loading -->
@@ -309,7 +309,7 @@
 	<string name="placepage_coordinates">Coördinaten</string>
 	<string name="placepage_unsorted">Ongeclassificeerd</string>
 	<string name="search_show_on_map">Op kaart bekijken</string>
-	<string name="kitkat_migrate_ok">Opslag van kaartgegevens is geoptimaliseerd. Herstart de app.\n\nmaps.me map is niet langer nodig in de root van de SD-kaart, u kunt het verwijderen.</string>
+	<string name="kitkat_migrate_ok">Opslag van kaartgegevens is geoptimaliseerd. Herstart de app.\n\nMapsWithMe map is niet langer nodig in de root van de SD-kaart, u kunt het verwijderen.</string>
 	<string name="kitkat_migrate_failed">Door veranderingen in Android 4.4 moeten we de opslag van kaartgegevens optimaliseren, maar er is niet genoeg ruimte om kaartgegevens te kopiëren.\n\nMaak alstublieft geheugen vrij, anders zullen kaarten alleen in de leesmodus beschikbaar zijn.</string>
 	<string name="bookmark_move_fail">We moeten uw bladwijzers naar het interne geheugen verplaatsen, maar er is geen ruimte beschikbaar voor ze. Maak alstublieft geheugen vrij, anders zullen de bladwijzers niet beschikbaar zijn.</string>
 	<string name="kitkat_optimization_in_progress">De kaartopslag wordt nu geoptimaliseerd. Een moment geduld alstublieft, dit kan een paar minuten duren.</string>
