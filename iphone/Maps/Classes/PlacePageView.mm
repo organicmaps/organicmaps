@@ -11,6 +11,7 @@
 #import "PlacePageEditCell.h"
 #import "PlacePageShareCell.h"
 #include "../../search/result.hpp"
+#import "ColorPickerView.h"
 
 typedef NS_ENUM(NSUInteger, CellRow)
 {
@@ -35,12 +36,15 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) CALayer * maskLayer2;
 @property (nonatomic) UIImageView * editImageView;
 @property (nonatomic) UIImageView * arrowImageView;
+@property (nonatomic) UIView * pickerView;
 
 @property (nonatomic) NSString * title;
 @property (nonatomic) NSString * types;
 @property (nonatomic) NSString * address;
 @property (nonatomic) NSString * info;
 @property (nonatomic) NSString * setName;
+
+- (NSString *)colorName;
 
 @end
 
@@ -145,6 +149,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     PlacePageInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageInfoCell className]];
     [cell setAddress:[self address] pinPoint:[self pinPoint]];
+    [cell setColor:[ColorPickerView colorForName:[self colorName]]];
+    cell.selectedColorView.alpha = [self isBookmark] ? 1 : 0;
     cell.delegate = self;
     return cell;
   }
@@ -418,6 +424,49 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
 }
 
+- (void)infoCellDidPressColorSelector:(PlacePageInfoCell *)cell
+{
+  UIWindow * appWindow = [[UIApplication sharedApplication].windows firstObject];
+  UIWindow * window = [[appWindow subviews] firstObject];
+
+  self.pickerView = [[UIView alloc] initWithFrame:window.bounds];
+  ColorPickerView * colorPicker = [[ColorPickerView alloc] initWithWidth:MIN(window.height, window.width) andSelectButton:[ColorPickerView getColorIndex:self.colorName]];
+  colorPicker.delegate = self;
+  colorPicker.minX = (self.pickerView.width - colorPicker.width) / 2;
+  colorPicker.minY = (self.pickerView.height - colorPicker.height) / 2;
+  [self.pickerView addSubview:colorPicker];
+  self.pickerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  self.pickerView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+  UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPicker)];
+  [self.pickerView addGestureRecognizer:tap];
+
+  [window addSubview:self.pickerView];
+}
+
+- (void)dismissPicker
+{
+  [self.pickerView removeFromSuperview];
+}
+
+- (void)colorPicked:(size_t)colorIndex
+{
+  PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
+  UIColor * color = [ColorPickerView colorForName:[ColorPickerView colorName:colorIndex]];
+  [cell setColor:color];
+
+  Framework & framework = GetFramework();
+  BookmarkAndCategory bookmarkAndCategory = framework.FindBookmark(m_mark);
+  BookmarkCategory * category = GetFramework().GetBmCategory(bookmarkAndCategory.first);
+  Bookmark * bookmark = category->GetBookmark(bookmarkAndCategory.second);
+  bookmark->SetType([[ColorPickerView colorName:colorIndex] UTF8String]);
+  category->SaveToKMLFile();
+
+  framework.Invalidate();
+  framework.ActivateUserMark(m_mark);
+
+  [self dismissPicker];
+}
+
 - (void)infoCellDidPressAddress:(PlacePageInfoCell *)cell withGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 {
   UIMenuController * menuController = [UIMenuController sharedMenuController];
@@ -636,6 +685,19 @@ typedef NS_ENUM(NSUInteger, CellRow)
     }
   }
   return _address;
+}
+
+- (NSString *)colorName
+{
+  if ([self isBookmark])
+  {
+    Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
+    return bookmark->GetType().empty() ? @"placemark-red" : [NSString stringWithUTF8String:bookmark->GetType().c_str()];
+  }
+  else
+  {
+    return @"placemark-red";
+  }
 }
 
 - (UIImage *)iconImageWithImage:(UIImage *)image

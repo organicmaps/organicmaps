@@ -9,12 +9,15 @@
 #include "../../../geometry/distance_on_sphere.hpp"
 #import "ContextViews.h"
 
-@interface PlacePageInfoCell () <LocationObserver>
+@interface PlacePageInfoCell () <LocationObserver, SelectedColorViewDelegate>
 
 @property (nonatomic) UILabel * distanceLabel;
 @property (nonatomic) CopyLabel * addressLabel;
 @property (nonatomic) CopyLabel * coordinatesLabel;
 @property (nonatomic) SmallCompassView * compassView;
+@property (nonatomic) UIImageView * separator;
+@property (nonatomic) SelectedColorView * selectedColorView;
+
 @property (nonatomic) m2::PointD pinPoint;
 
 @end
@@ -31,6 +34,7 @@
   [self addSubview:self.distanceLabel];
   [self addSubview:self.addressLabel];
   [self addSubview:self.coordinatesLabel];
+  [self addSubview:self.selectedColorView];
 
   UIImage * separatorImage = [[UIImage imageNamed:@"PlacePageSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
   CGFloat const offset = 15;
@@ -98,13 +102,17 @@
   self.distanceLabel.text = [self distance];
 }
 
+- (void)setColor:(UIColor *)color
+{
+  [self.selectedColorView setColor:color];
+}
+
 #define RIGHT_SHIFT 55
 
 #define DISTANCE_LEFT_SHIFT 55
 
 #define ADDRESS_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5]
 #define ADDRESS_LEFT_SHIFT 19
-
 
 - (void)layoutSubviews
 {
@@ -129,6 +137,8 @@
   self.addressLabel.origin = CGPointMake(ADDRESS_LEFT_SHIFT, addressY);
 
   self.coordinatesLabel.frame = CGRectMake(ADDRESS_LEFT_SHIFT, self.addressLabel.maxY + 10, self.width - ADDRESS_LEFT_SHIFT - RIGHT_SHIFT, 24);
+
+  self.selectedColorView.center = CGPointMake(self.width - 32, 27);
 }
 
 + (CGFloat)cellHeightWithAddress:(NSString *)address viewWidth:(CGFloat)viewWidth
@@ -145,6 +155,11 @@
 - (void)coordinatesPress:(id)sender
 {
   [self.delegate infoCellDidPressCoordinates:self withGestureRecognizer:sender];
+}
+
+- (void)selectedColorViewDidPress:(SelectedColorView *)selectedColorView
+{
+  [self.delegate infoCellDidPressColorSelector:self];
 }
 
 - (UILabel *)distanceLabel
@@ -191,6 +206,17 @@
     [_coordinatesLabel addGestureRecognizer:press];
   }
   return _coordinatesLabel;
+}
+
+- (SelectedColorView *)selectedColorView
+{
+  if (!_selectedColorView)
+  {
+    _selectedColorView = [[SelectedColorView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    _selectedColorView.delegate = self;
+    _selectedColorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+  }
+  return _selectedColorView;
 }
 
 - (SmallCompassView *)compassView
