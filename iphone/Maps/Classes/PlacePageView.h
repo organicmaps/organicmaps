@@ -2,6 +2,7 @@
 #import <UIKit/UIKit.h>
 #include "../../map/bookmark.hpp"
 #include "../../geometry/point2d.hpp"
+#import "UIKitCategories.h"
 
 typedef NS_ENUM(NSUInteger, PlacePageState) {
   PlacePageStateHidden,
@@ -19,7 +20,7 @@ typedef NS_ENUM(NSUInteger, PlacePageState) {
 
 @end
 
-@interface PlacePageView : UIView
+@interface PlacePageView : SolidTouchView
 
 - (void)showUserMark:(UserMark const *)mark;
 

@@ -84,7 +84,7 @@
 @end
 
 
-@interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver>
+@interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver, UIAlertViewDelegate>
 
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) UIImageView * topBackgroundView;
@@ -341,6 +341,7 @@ static void OnSearchResultCallback(search::Results const & results)
   self.searchBar.textField.text = nil;
   [self.searchBar setSearching:NO];
   [self.tableView reloadData];
+  self.emptyResultLabel.alpha = 0;
   [self setState:SearchViewStateHidden animated:YES withCallback:YES];
 }
 
@@ -514,9 +515,17 @@ static void OnSearchResultCallback(search::Results const & results)
     }
     else
     {
-      GetFramework().ShowSearchResult(result);
-      needToScroll = YES;
-      [self setState:SearchViewStateHidden animated:YES withCallback:YES];
+      if (GetPlatform().IsPro())
+      {
+        GetFramework().ShowSearchResult(result);
+        needToScroll = YES;
+        [self setState:SearchViewStateHidden animated:YES withCallback:YES];
+      }
+      else
+      {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"search_available_in_pro_version", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+        [alert show];
+      }
     }
   }
   else
@@ -524,6 +533,19 @@ static void OnSearchResultCallback(search::Results const & results)
     GetFramework().ShowAllSearchResults();
     needToScroll = YES;
     [self setState:SearchViewStateResults animated:YES withCallback:YES];
+  }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex != alertView.cancelButtonIndex)
+  {
+    [[UIApplication sharedApplication] openProVersionFrom:@"ios_search_alert"];
+    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"YES"];
+  }
+  else
+  {
+    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"NO"];
   }
 }
 

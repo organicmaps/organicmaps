@@ -4,8 +4,8 @@
 
 @interface ContainerView ()
 
-@property (nonatomic) UIView * fadeView;
-@property (nonatomic) UIView * swipeView;
+@property (nonatomic) SolidTouchView * fadeView;
+@property (nonatomic) SolidTouchView * swipeView;
 
 @end
 
@@ -43,8 +43,7 @@
 {
   if (object == self.placePage && [keyPath isEqualToString:@"state"])
   {
-    CGFloat const panViewShift = 12;
-    self.swipeView.frame = CGRectMake(0, self.placePage.maxY - panViewShift, self.width, self.height - self.placePage.height - panViewShift);
+    self.swipeView.frame = CGRectMake(0, self.placePage.maxY, self.width, self.height - self.placePage.height);
     self.swipeView.userInteractionEnabled = (self.placePage.state == PlacePageStateOpened) ? YES : NO;
     [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
       self.fadeView.alpha = (self.placePage.state == PlacePageStateOpened) ? 1 : 0;
@@ -67,22 +66,22 @@
   return _placePage;
 }
 
-- (UIView *)fadeView
+- (SolidTouchView *)fadeView
 {
   if (!_fadeView)
   {
-    _fadeView = [[UIView alloc] initWithFrame:self.bounds];
+    _fadeView = [[SolidTouchView alloc] initWithFrame:self.bounds];
     _fadeView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     _fadeView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
   }
   return _fadeView;
 }
 
-- (UIView *)swipeView
+- (SolidTouchView *)swipeView
 {
   if (!_swipeView)
   {
-    _swipeView = [[UIView alloc] initWithFrame:CGRectZero];
+    _swipeView = [[SolidTouchView alloc] initWithFrame:CGRectZero];
     _swipeView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
     UISwipeGestureRecognizer * swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];

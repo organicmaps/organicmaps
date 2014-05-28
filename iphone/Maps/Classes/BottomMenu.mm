@@ -8,7 +8,7 @@
 @interface BottomMenu () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) UITableView * tableView;
-@property (nonatomic) UIView * fadeView;
+@property (nonatomic) SolidTouchView * fadeView;
 
 @property (nonatomic) NSArray * items;
 
@@ -64,18 +64,8 @@
       cell = [[BottomMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[BottomMenuCell className]];
 
     cell.iconImageView.image = self.items[indexPath.row][@"Icon"];
-    NSInteger wordsCount = [[self.items[indexPath.row][@"Title"] componentsSeparatedByString:@" "] count];
-    if (wordsCount > 1)
-    {
-      cell.titleLabel.numberOfLines = 0;
-      cell.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    }
-    else
-    {
-      cell.titleLabel.numberOfLines = 1;
-      cell.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    }
     cell.titleLabel.text = self.items[indexPath.row][@"Title"];
+    cell.titleLabel.textColor = [UIColor whiteColor];
 
     return cell;
   }
@@ -86,7 +76,8 @@
       cell = [[BottomMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[BottomMenuCell className]];
 
     cell.titleLabel.text = NSLocalizedString(@"become_a_pro", nil);
-    cell.iconImageView.image = [UIImage imageNamed:@"IconMWMPro"];
+    cell.iconImageView.image = [UIImage imageNamed:@"MWMProIcon"];
+    cell.titleLabel.textColor = [UIColor applicationColor];
 
     return cell;
   }
@@ -100,14 +91,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if (GetPlatform().IsPro() || (!GetPlatform().IsPro() && indexPath.section == 1))
-  {
     [self.delegate bottomMenu:self didPressItemWithName:self.items[indexPath.row][@"Item"]];
-    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
-  }
   else
-  {
     [self.delegate bottomMenuDidPressBuyButton:self];
-  }
+
+  [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
 
 - (void)setMenuHidden:(BOOL)hidden animated:(BOOL)animated
@@ -154,11 +142,11 @@
   return _tableView;
 }
 
-- (UIView *)fadeView
+- (SolidTouchView *)fadeView
 {
   if (!_fadeView)
   {
-    _fadeView = [[UIView alloc] initWithFrame:self.bounds];
+    _fadeView = [[SolidTouchView alloc] initWithFrame:self.bounds];
     _fadeView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     _fadeView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];

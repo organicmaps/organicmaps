@@ -22,6 +22,7 @@
 
 + (UIColor *)colorWithColorCode:(NSString *)colorCode;
 + (UIColor *)applicationBackgroundColor;
++ (UIColor *)applicationColor;
 + (UIColor *)navigationBarColor;
 
 @end
@@ -59,3 +60,7 @@
 
 @end
 
+
+@interface SolidTouchView : UIView
+
+@end

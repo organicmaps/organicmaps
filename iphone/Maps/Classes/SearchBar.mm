@@ -23,7 +23,7 @@
 
   [self.fieldBackgroundView addSubview:self.clearButton];
   self.clearButton.midY = self.fieldBackgroundView.height / 2;
-  self.clearButton.maxX = self.fieldBackgroundView.width + 2;
+  self.clearButton.midX = self.fieldBackgroundView.width - 14;
 
   self.cancelButton.midY = self.height / 2 - 5;
   self.cancelButton.maxX = self.width - 3;
@@ -32,8 +32,8 @@
   self.textField.midY = self.height / 2 - 3;
   [self addSubview:self.textField];
 
-  if ([UITextField instancesRespondToSelector:@selector(setTintColor:)])
-    [[UITextField appearance] setTintColor:[UIColor whiteColor]];
+  if ([self.textField respondsToSelector:@selector(setTintColor:)])
+    self.textField.tintColor = [UIColor whiteColor];
 
   return self;
 }
@@ -50,25 +50,7 @@
 
 - (void)clearButtonPressed:(id)sender
 {
-//  Framework & framework = GetFramework();
-//  GetFramework().ClearMapApiPoints();
-//  if (self.active)
-//  {
-//    self.textField.text = nil;
-//    self.resultText = nil;
-//    [self.textField becomeFirstResponder];
-//  }
-//  else
-//  {
-//    [self hideSearchedText];
-//  }
-
   [self.delegate searchBarDidPressClearButton:self];
-//
-//  framework.GetBookmarkManager().AdditionalPoiLayerClear();
-//  framework.GetBalloonManager().RemovePin();
-//  framework.GetBalloonManager().Dismiss();
-//  framework.Invalidate();
 }
 
 - (void)hideSearchedText
@@ -85,6 +67,8 @@
     _cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, 44)];
     _cancelButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
     _cancelButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_cancelButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [_cancelButton setTitle:@"cancel" forState:UIControlStateNormal];
     [_cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
@@ -95,7 +79,7 @@
 {
   if (!_clearButton)
   {
-    _clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 44)];
+    _clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
     _clearButton.contentMode = UIViewContentModeCenter;
     _clearButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [_clearButton setImage:[UIImage imageNamed:@"SearchBarClearButton"] forState:UIControlStateNormal];

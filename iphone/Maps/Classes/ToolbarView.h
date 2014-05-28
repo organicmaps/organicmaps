@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LocationButton.h"
+#import "UIKitCategories.h"
 
 @class ToolbarView;
 @protocol ToolbarViewDelegate <NSObject>
@@ -9,7 +10,7 @@
 
 @end
 
-@interface ToolbarView : UIView
+@interface ToolbarView : SolidTouchView
 
 @property (nonatomic, weak) id <ToolbarViewDelegate> delegate;
 @property (nonatomic) LocationButton * locationButton;

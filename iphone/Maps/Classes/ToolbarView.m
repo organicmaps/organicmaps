@@ -1,6 +1,5 @@
 
 #import "ToolbarView.h"
-#import "UIKitCategories.h"
 
 @interface ToolbarView ()
 
@@ -54,14 +53,6 @@
 {
   [self.delegate toolbar:self didPressItemWithName:@"Menu"];
 }
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {}
 
 - (void)layoutButtons
 {

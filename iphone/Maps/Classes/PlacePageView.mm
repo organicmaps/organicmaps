@@ -1,7 +1,5 @@
 
-
 #import "PlacePageView.h"
-#import "UIKitCategories.h"
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
 #import "BookmarksRootVC.h"
@@ -12,6 +10,7 @@
 #import "PlacePageShareCell.h"
 #include "../../search/result.hpp"
 #import "ColorPickerView.h"
+#import "Statistics.h"
 
 typedef NS_ENUM(NSUInteger, CellRow)
 {
@@ -21,10 +20,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   CellRowShare,
 };
 
-@interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, LocationObserver, PlacePageShareCellDelegate, PlacePageInfoCellDelegate>
+@interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, LocationObserver, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) UIView * backgroundView;
-@property (nonatomic) UIView * wrapView;
 @property (nonatomic) UIView * headerView;
 @property (nonatomic) UIView * headerSeparator;
 @property (nonatomic) UITableView * tableView;
@@ -32,8 +30,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) UIButton * bookmarkButton;
 @property (nonatomic) UILabel * typeLabel;
 @property (nonatomic) UIButton * shareButton;
-@property (nonatomic) CALayer * maskLayer1;
-@property (nonatomic) CALayer * maskLayer2;
 @property (nonatomic) UIImageView * editImageView;
 @property (nonatomic) UIImageView * arrowImageView;
 @property (nonatomic) UIView * pickerView;
@@ -51,9 +47,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @implementation PlacePageView
 {
   UserMark const * m_mark;
-  UserMark const * m_cached_mark;
+  UserMark const * m_cachedMark;
   BookmarkData * m_bookmarkData;
   size_t m_categoryIndex;
+  BOOL updatingTable;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -61,16 +58,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
   self = [super initWithFrame:frame];
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   self.clipsToBounds = YES;
-
-  m_mark = NULL;
-  m_cached_mark = NULL;
-  m_bookmarkData = NULL;
-
   self.statusBarIncluded = !SYSTEM_VERSION_IS_LESS_THAN(@"7");
 
-  [self addSubview:self.backgroundView];
-
-  [self addSubview:self.arrowImageView];
+  m_mark = NULL;
+  m_cachedMark = NULL;
+  m_bookmarkData = NULL;
 
   UISwipeGestureRecognizer * swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
   swipeUp.direction = UISwipeGestureRecognizerDirectionUp;
@@ -80,10 +72,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   swipeDown.direction = UISwipeGestureRecognizerDirectionDown;
   [self addGestureRecognizer:swipeDown];
 
-  [self addSubview:self.wrapView];
-  [self.wrapView addSubview:self.tableView];
-
+  [self addSubview:self.backgroundView];
+  [self addSubview:self.tableView];
   [self addSubview:self.headerView];
+  [self addSubview:self.arrowImageView];
 
   NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
   [nc addObserver:self selector:@selector(bookmarkDeletedNotification:) name:BOOKMARK_DELETED_NOTIFICATION object:nil];
@@ -95,6 +87,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self.tableView registerClass:[PlacePageShareCell class] forCellReuseIdentifier:[PlacePageShareCell className]];
 
   [[MapsAppDelegate theApp].m_locationManager start:self];
+
+  CGFloat const defaultHeight = 93;
+  [self updateHeight:defaultHeight];
+
+  updatingTable = NO;
 
   return self;
 }
@@ -148,7 +145,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if (row == CellRowCommon)
   {
     PlacePageInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageInfoCell className]];
-    [cell setAddress:[self address] pinPoint:[self pinPoint]];
+    [cell setAddress:self.address pinPoint:[self pinPoint]];
     [cell setColor:[ColorPickerView colorForName:[self colorName]]];
     cell.selectedColorView.alpha = [self isBookmark] ? 1 : 0;
     cell.delegate = self;
@@ -157,13 +154,13 @@ typedef NS_ENUM(NSUInteger, CellRow)
   else if (row == CellRowSet)
   {
     PlacePageEditCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageEditCell className]];
-    cell.titleLabel.text = [self setName];
+    cell.titleLabel.text = self.setName;
     return cell;
   }
   else if (row == CellRowInfo)
   {
     PlacePageEditCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageEditCell className]];
-    cell.titleLabel.text = [self info];
+    cell.titleLabel.text = self.info;
     return cell;
   }
   else if (row == CellRowShare)
@@ -171,9 +168,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
     PlacePageShareCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageShareCell className]];
     cell.delegate = self;
     if ([self isMarkOfType:UserMark::API])
-      [cell setApiAppTitle:[NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()]];
+      cell.apiAppTitle = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()];
     else
-      [cell setApiAppTitle:nil];
+      cell.apiAppTitle = nil;
     return cell;
   }
   return nil;
@@ -183,11 +180,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   CellRow row = [self cellRowForIndexPath:indexPath];
   if (row == CellRowCommon)
-    return [PlacePageInfoCell cellHeightWithAddress:[self address] viewWidth:tableView.width];
+    return [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:tableView.width];
   else if (row == CellRowSet)
-    return [PlacePageEditCell cellHeightWithTextValue:[self setName] viewWidth:tableView.width];
+    return [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:tableView.width];
   else if (row == CellRowInfo)
-    return [PlacePageEditCell cellHeightWithTextValue:[self info] viewWidth:tableView.width];
+    return [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:tableView.width];
   else if (row == CellRowShare)
     return [PlacePageShareCell cellHeight];
   return 0;
@@ -205,12 +202,12 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)reloadHeader
 {
-  self.titleLabel.text = [self title];
+  self.titleLabel.text = self.title;
   self.titleLabel.width = [self titleWidth];
   [self.titleLabel sizeToFit];
   self.titleLabel.origin = CGPointMake(23, 29);
 
-  self.typeLabel.text = [self types];
+  self.typeLabel.text = self.types;
   self.typeLabel.width = [self typesWidth];
   [self.typeLabel sizeToFit];
   self.typeLabel.origin = CGPointMake(self.titleLabel.minX + 1, self.titleLabel.maxY + 1);
@@ -230,8 +227,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (CGFloat)headerHeight
 {
-  CGFloat titleHeight = [[self title] sizeWithDrawSize:CGSizeMake([self titleWidth], 100) font:self.titleLabel.font].height;
-  CGFloat typesHeight = [[self types] sizeWithDrawSize:CGSizeMake([self typesWidth], 30) font:self.typeLabel.font].height;
+  CGFloat titleHeight = [self.title sizeWithDrawSize:CGSizeMake([self titleWidth], 100) font:self.titleLabel.font].height;
+  CGFloat typesHeight = [self.types sizeWithDrawSize:CGSizeMake([self typesWidth], 30) font:self.typeLabel.font].height;
   return MAX(74, titleHeight + typesHeight + 50);
 }
 
@@ -259,8 +256,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)layoutSubviews
 {
-  [self alignAnimated:YES];
-//  self.tableView.frame = CGRectMake(0, 0, self.superview.width, self.backgroundView.height);
+  if (!updatingTable)
+  {
+    [self alignAnimated:YES];
+    self.tableView.frame = CGRectMake(0, 0, self.superview.width, self.backgroundView.height);
+  }
 }
 
 - (void)updateHeight:(CGFloat)height
@@ -271,9 +271,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
   CALayer * layer = [self.backgroundView.layer.sublayers firstObject];
   layer.frame = self.backgroundView.bounds;
-
-  self.maskLayer1.frame = CGRectMake(0, 0, self.superview.frame.size.width, [self headerHeight]);
-  self.maskLayer2.frame = CGRectMake(0, [self headerHeight], self.superview.frame.size.width, self.maskLayer2.superlayer.frame.size.height - [self headerHeight]);
 }
 
 - (void)alignAnimated:(BOOL)animated
@@ -300,8 +297,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
     CGFloat fullHeight = [self headerHeight] + [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:self.tableView.width] + [PlacePageShareCell cellHeight];
     if (self.isBookmark)
     {
-      fullHeight += [PlacePageEditCell cellHeightWithTextValue:[self setName] viewWidth:self.tableView.width];
-      fullHeight += [PlacePageEditCell cellHeightWithTextValue:[self info] viewWidth:self.tableView.width];
+      fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
+      fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:self.tableView.width];
     }
     fullHeight = MIN(fullHeight, [self maxHeight]);
     self.headerSeparator.maxY = [self headerHeight];
@@ -320,25 +317,44 @@ typedef NS_ENUM(NSUInteger, CellRow)
     } completion:nil];
   }
 
-  [self updateEditImageViewAnimated:animated];
+  [self updateBookmarkViewsAlpha:animated];
 }
 
-- (void)updateEditImageViewAnimated:(BOOL)animated
+- (void)updateBookmarkViewsAlpha:(BOOL)animated
 {
   self.editImageView.center = CGPointMake(self.titleLabel.maxX + 14, self.titleLabel.minY + 10.5);
   [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    self.editImageView.alpha = self.isBookmark ? (self.state == PlacePageStateOpened ? 1 : 0) : 0;
+    self.editImageView.alpha = [self isBookmark] ? (self.state == PlacePageStateOpened ? 1 : 0) : 0;
     PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
-    cell.separator.alpha = self.isBookmark ? 1 : 0;
-  } completion:^(BOOL finished) {}];
+    cell.separator.alpha = [self isBookmark] ? 1 : 0;
+    cell.selectedColorView.alpha = [self isBookmark] ? 1 : 0;
+  } completion:nil];
 }
 
 - (void)updateBookmarkStateAnimated:(BOOL)animated
 {
-  NSIndexPath * indexPath1 = [NSIndexPath indexPathForRow:ROW_SET inSection:0];
-  NSIndexPath * indexPath2 = [NSIndexPath indexPathForRow:ROW_INFO inSection:0];
+  if ([self isBookmark])
+  {
+    CGFloat newHeight = self.backgroundView.height + [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:self.tableView.width] + [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
+    self.tableView.frame = CGRectMake(0, 0, self.superview.width, newHeight);
+  }
+
+//  [self performAfterDelay:0 block:^{
+    [self resizeTableAnimated:animated];
+//  }];
+
+  [self updateBookmarkViewsAlpha:animated];
+}
+
+- (void)resizeTableAnimated:(BOOL)animated
+{
   if (self.bookmarkButton.selected != [self isBookmark])
   {
+    updatingTable = YES;
+
+    NSIndexPath * indexPath1 = [NSIndexPath indexPathForRow:ROW_SET inSection:0];
+    NSIndexPath * indexPath2 = [NSIndexPath indexPathForRow:ROW_INFO inSection:0];
+
     NSTimeInterval delay = 0;
     if ([self isBookmark] && !self.bookmarkButton.selected)
     {
@@ -354,15 +370,17 @@ typedef NS_ENUM(NSUInteger, CellRow)
       [self willChangeValueForKey:@"state"];
       [self alignAnimated:YES];
       [self didChangeValueForKey:@"state"];
+      [self performAfterDelay:0 block:^{
+        updatingTable = NO;
+      }];
     }];
   }
   self.bookmarkButton.selected = [self isBookmark];
-  [self updateEditImageViewAnimated:animated];
 }
 
 - (CGFloat)maxHeight
 {
-  return IPAD ? 600 : (self.superview.width > self.superview.height ? 250 : 430);
+  return IPAD ? 600 : (self.superview.width > self.superview.height ? 270 : 470);
 }
 
 - (void)didMoveToSuperview
@@ -377,8 +395,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)bookmarkCategoryDeletedNotification:(NSNotification *)notification
 {
-  if (GetFramework().FindBookmark(m_mark).first == [[notification object] integerValue])
-    [self deleteBookmark];
+  if (m_categoryIndex == [[notification object] integerValue])
+    [self abortBookmarkState];
 }
 
 - (void)bookmarkDeletedNotification:(NSNotification *)notification
@@ -386,16 +404,19 @@ typedef NS_ENUM(NSUInteger, CellRow)
   BookmarkAndCategory bookmarkAndCategory;
   [[notification object] getValue:&bookmarkAndCategory];
   if (bookmarkAndCategory == GetFramework().FindBookmark(m_mark))
-    [self deleteBookmark];
+    [self abortBookmarkState];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {}
+- (void)abortBookmarkState
+{
+  Framework & framework = GetFramework();
+  m_mark = m_cachedMark != NULL ? m_cachedMark : framework.GetAddressMark([self pinPoint]);
+  framework.ActivateUserMark(m_mark);
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {}
+  [self clearCachedProperties];
+  [self reloadHeader];
+  [self updateBookmarkStateAnimated:YES];
+}
 
 - (void)swipe:(UISwipeGestureRecognizer *)sender
 {
@@ -509,7 +530,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)bookmarkButtonPressed:(UIButton *)sender
 {
-  if (self.isBookmark)
+  if ([self isBookmark])
     [self deleteBookmark];
   else
     [self addBookmark];
@@ -521,16 +542,21 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
-- (void)showUserMark:(UserMark const *)mark
+- (void)clearCachedProperties
 {
   _title = nil;
   _types = nil;
   _address = nil;
   _setName = nil;
   _info = nil;
+}
+
+- (void)showUserMark:(UserMark const *)mark
+{
+  [self clearCachedProperties];
 
   m_mark = mark;
-  m_cached_mark = mark;
+  m_cachedMark = mark;
 
   if ([self isBookmark])
     [self bookmarkActivated:static_cast<Bookmark const *>(mark)];
@@ -544,7 +570,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   m_categoryIndex = GetFramework().FindBookmark(bookmark).first;
   delete m_bookmarkData;
   m_bookmarkData = new BookmarkData(bookmark->GetName(), bookmark->GetType(), bookmark->GetDescription(), bookmark->GetScale(), bookmark->GetTimeStamp());
-  m_cached_mark = NULL;
+  m_cachedMark = NULL;
 }
 
 - (void)userMarkActivated:(UserMark const *)mark
@@ -717,7 +743,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   Framework & framework = GetFramework();
   BookmarkAndCategory const & bookmarkAndCategory = framework.FindBookmark(m_mark);
   BookmarkCategory * category = framework.GetBmCategory(bookmarkAndCategory.first);
-  m_mark = m_cached_mark != NULL ? m_cached_mark : framework.GetAddressMark([self pinPoint]);
+  m_mark = m_cachedMark != NULL ? m_cachedMark : framework.GetAddressMark([self pinPoint]);
   framework.ActivateUserMark(m_mark);
   if (category)
   {
@@ -732,29 +758,37 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)addBookmark
 {
-  Framework & framework = GetFramework();
-  if (m_bookmarkData)
+  if (GetPlatform().IsPro())
   {
-    BookmarkCategory const * category = framework.GetBmCategory(m_categoryIndex);
-    if (!category)
-      m_categoryIndex = framework.LastEditedBMCategory();
+    Framework & framework = GetFramework();
+    if (m_bookmarkData)
+    {
+      BookmarkCategory const * category = framework.GetBmCategory(m_categoryIndex);
+      if (!category)
+        m_categoryIndex = framework.LastEditedBMCategory();
 
-    size_t const bookmarkIndex = framework.GetBookmarkManager().AddBookmark(m_categoryIndex, [self pinPoint], *m_bookmarkData);
-    m_mark = category->GetBookmark(bookmarkIndex);
+      size_t const bookmarkIndex = framework.GetBookmarkManager().AddBookmark(m_categoryIndex, [self pinPoint], *m_bookmarkData);
+      m_mark = category->GetBookmark(bookmarkIndex);
+    }
+    else
+    {
+      size_t const categoryIndex = framework.LastEditedBMCategory();
+      BookmarkData data = BookmarkData([self.title UTF8String], "placemark-red");
+      size_t const bookmarkIndex = framework.AddBookmark(categoryIndex, [self pinPoint], data);
+      BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
+      m_mark = category->GetBookmark(bookmarkIndex);
+    }
+    framework.ActivateUserMark(m_mark);
+    framework.Invalidate();
+
+    [self reloadHeader];
+    [self updateBookmarkStateAnimated:YES];
   }
   else
   {
-    size_t const categoryIndex = framework.LastEditedBMCategory();
-    BookmarkData data = BookmarkData([[self title] UTF8String], "placemark-red");
-    size_t const bookmarkIndex = framework.AddBookmark(categoryIndex, [self pinPoint], data);
-    BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
-    m_mark = category->GetBookmark(bookmarkIndex);
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"bookmarks_in_pro_version", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+    [alert show];
   }
-  framework.ActivateUserMark(m_mark);
-  framework.Invalidate();
-
-  [self reloadHeader];
-  [self updateBookmarkStateAnimated:YES];
 }
 
 - (void)shareCellDidPressApiButton:(PlacePageShareCell *)cell
@@ -764,38 +798,30 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)shareCellDidPressShareButton:(PlacePageShareCell *)cell
 {
-  [self.delegate placePageView:self willShareText:[self title] point:self.pinPoint];
+  [self.delegate placePageView:self willShareText:self.title point:self.pinPoint];
 }
 
-- (UIView *)wrapView
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-  if (!_wrapView)
+  UIScrollView * sv = scrollView;
+  if ((sv.contentOffset.y + sv.height > sv.contentSize.height + 60) && !sv.dragging && sv.decelerating)
   {
-    _wrapView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    _wrapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
-    CALayer * mask = [CALayer layer];
-    mask.frame = _wrapView.bounds;
-
-    CGFloat height1 = [self headerHeight];
-    CGFloat height2 = _wrapView.height - height1;
-
-    CALayer * submask1 = [CALayer layer];
-    submask1.frame = CGRectMake(0, 0, _wrapView.width, height1);
-    submask1.backgroundColor = [[UIColor clearColor] CGColor];
-    [mask addSublayer:submask1];
-    self.maskLayer1 = submask1;
-
-    CALayer * submask2 = [CALayer layer];
-    submask2.frame = CGRectMake(0, height1, _wrapView.width, height2);
-    submask2.backgroundColor = [[UIColor blackColor] CGColor];
-    [mask addSublayer:submask2];
-    self.maskLayer2 = submask2;
-
-    [_wrapView.layer addSublayer:mask];
-    _wrapView.layer.mask = mask;
+    if (self.state == PlacePageStateOpened)
+      [self setState:PlacePageStatePreview animated:YES withCallback:YES];
   }
-  return _wrapView;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+  if (buttonIndex != alertView.cancelButtonIndex)
+  {
+    [[Statistics instance] logProposalReason:@"Add Bookmark" withAnswer:@"YES"];
+    [[UIApplication sharedApplication] openProVersionFrom:@"ios_pp_bookmark"];
+  }
+  else
+  {
+    [[Statistics instance] logProposalReason:@"Add Bookmark" withAnswer:@"NO"];
+  }
 }
 
 - (CopyLabel *)titleLabel
@@ -849,6 +875,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if (!_headerView)
   {
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, [self headerHeight])];
+    _headerView.backgroundColor = [UIColor applicationColor];
     _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 
     [_headerView addSubview:self.titleLabel];

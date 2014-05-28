@@ -31,7 +31,7 @@
   CGFloat const shift = 15;
   self.separatorView.width = self.width - 2 * shift;
   self.separatorView.minX = shift;
-  self.selectedBackgroundView.height = self.height;
+  self.selectedBackgroundView.frame = self.bounds;
 }
 
 - (UIView *)separatorView

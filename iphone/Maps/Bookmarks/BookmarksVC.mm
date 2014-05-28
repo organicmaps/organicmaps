@@ -305,10 +305,10 @@
         }
         else
         {
-          cat->DeleteBookmark(indexPath.row);
           BookmarkAndCategory bookmarkAndCategory = BookmarkAndCategory(m_categoryIndex, indexPath.row);
           NSValue * value = [NSValue valueWithBytes:&bookmarkAndCategory objCType:@encode(BookmarkAndCategory)];
           [[NSNotificationCenter defaultCenter] postNotificationName:BOOKMARK_DELETED_NOTIFICATION object:value];
+          cat->DeleteBookmark(indexPath.row);
         }
       }
       cat->SaveToKMLFile();

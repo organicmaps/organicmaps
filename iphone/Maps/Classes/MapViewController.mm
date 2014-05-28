@@ -38,8 +38,9 @@
 #include "../../../map/user_mark.hpp"
 #include "../../../platform/settings.hpp"
 
-#define FACEBOOK_ALERT_VIEW 1
-#define APPSTORE_ALERT_VIEW 2
+#define ALERT_VIEW_FACEBOOK 1
+#define ALERT_VIEW_APPSTORE 2
+#define ALERT_VIEW_BOOKMARKS 4
 #define ITUNES_URL @"itms-apps://itunes.apple.com/app/id%lld"
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
@@ -539,14 +540,24 @@ const long long LITE_IDL = 431183278L;
 
   self.view.clipsToBounds = YES;
 
+
+  [self.view addSubview:self.toolbarView];
+  self.toolbarView.maxY = self.toolbarView.superview.height;
+
+  [self.view addSubview:self.searchView];
+
+  [self.view addSubview:self.containerView];
+
+  [self.view addSubview:self.bottomMenu];
+
 #ifdef OMIM_LITE
   AppInfo * info = [AppInfo sharedInfo];
   if ([info featureAvailable:AppFeatureProButtonOnMap])
   {
-    [self.view addSubview:self.buyButton];
+    [self.view insertSubview:self.buyButton belowSubview:self.toolbarView];
     self.buyButton.midX = self.view.width / 2;
-    self.buyButton.maxY = self.toolbarView.minY - 5;
-    
+    self.buyButton.maxY = self.toolbarView.minY - 14;
+
     NSDictionary * texts = [info featureValue:AppFeatureProButtonOnMap forKey:@"Texts"];
     NSString * proText = texts[[[NSLocale preferredLanguages] firstObject]];
     if (!proText)
@@ -557,15 +568,6 @@ const long long LITE_IDL = 431183278L;
     [self.buyButton setTitle:proText forState:UIControlStateNormal];
   }
 #endif
-
-  [self.view addSubview:self.toolbarView];
-  self.toolbarView.maxY = self.toolbarView.superview.height;
-
-  [self.view addSubview:self.searchView];
-
-  [self.view addSubview:self.containerView];
-
-  [self.view addSubview:self.bottomMenu];
 
   [self setApiMode:NO animated:NO];
 }
@@ -787,8 +789,9 @@ const long long LITE_IDL = 431183278L;
     }
     else
     {
-      [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
-      [[UIApplication sharedApplication] openProVersionFrom:@"ios_toolabar_bookmarks"];
+      UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"bookmarks_in_pro_version", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+      alert.tag = ALERT_VIEW_BOOKMARKS;
+      [alert show];
     }
   }
   else if ([itemName isEqualToString:@"Menu"])
@@ -921,7 +924,7 @@ const long long LITE_IDL = 431183278L;
 {
   switch (alertView.tag)
   {
-    case APPSTORE_ALERT_VIEW:
+    case ALERT_VIEW_APPSTORE:
     {
       NSString * url = nil;
       if (GetPlatform().IsPro())
@@ -931,13 +934,25 @@ const long long LITE_IDL = 431183278L;
       [self manageAlert:buttonIndex andUrl:[NSURL URLWithString:url] andDlgSetting:dlg_settings::AppStore];
       return;
     }
-    case FACEBOOK_ALERT_VIEW:
+    case ALERT_VIEW_FACEBOOK:
     {
       NSString * url = [NSString stringWithFormat:FACEBOOK_SCHEME];
       if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]])
         url = [NSString stringWithFormat:FACEBOOK_URL];
       [self manageAlert:buttonIndex andUrl:[NSURL URLWithString:url] andDlgSetting:dlg_settings::FacebookDlg];
       return;
+    }
+    case ALERT_VIEW_BOOKMARKS:
+    {
+      if (buttonIndex != alertView.cancelButtonIndex)
+      {
+        [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
+        [[UIApplication sharedApplication] openProVersionFrom:@"ios_toolabar_bookmarks"];
+      }
+      else
+      {
+        [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"NO"];
+      }
     }
     default:
       break;
@@ -950,33 +965,56 @@ const long long LITE_IDL = 431183278L;
   {
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
       [self setNeedsStatusBarAppearanceUpdate];
-    [UIView animateWithDuration:0.5 delay:0 damping:0.8 initialVelocity:0 options:(UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction) animations:^{
-      switch (self.containerView.placePage.state)
+    switch (self.containerView.placePage.state)
+    {
+    case PlacePageStateHidden:
       {
-      case PlacePageStateHidden:
-        {
-          if (self.searchView.state == SearchViewStateAlpha)
-            [self.searchView setState:SearchViewStateResults animated:YES withCallback:NO];
-          GetFramework().GetBalloonManager().RemovePin();
-          break;
-        }
-      case PlacePageStatePreview:
-        {
-          if (self.searchView.state == SearchViewStateResults)
-            [self.searchView setState:SearchViewStateAlpha animated:YES withCallback:NO];
-          if ([change[@"old"] integerValue] == PlacePageStatePreview || [change[@"old"] integerValue] == PlacePageStateHidden)
-          {
-            Framework & framework = GetFramework();
-            CGFloat const x = self.view.width / 2;
-            CGFloat const y = self.view.height / 2;
-            CGPoint const center = [(EAGLView *)self.view viewPoint2GlobalPoint:CGPointMake(x, y)];
-            m2::PointD const offset = [self.containerView.placePage pinPoint] - m2::PointD(center.x, center.y);
-            framework.SetViewportCenterAnimated(framework.GetViewportCenter() + offset);
-          }
-          break;
-        }
+        if (self.searchView.state == SearchViewStateAlpha)
+          [self.searchView setState:SearchViewStateResults animated:YES withCallback:NO];
+
+        GetFramework().GetBalloonManager().RemovePin();
+
+        [UIView animateWithDuration:0.3 animations:^{
+          self.toolbarView.maxY = self.view.height;
+        }];
+        break;
       }
-    } completion:nil];
+    case PlacePageStatePreview:
+      {
+        if (self.searchView.state == SearchViewStateResults)
+          [self.searchView setState:SearchViewStateAlpha animated:YES withCallback:NO];
+
+        if ([change[@"old"] integerValue] == PlacePageStatePreview || [change[@"old"] integerValue] == PlacePageStateHidden)
+        {
+          m2::PointD const pinPoint = [self.containerView.placePage pinPoint];
+          CGPoint viewPinPoint = [(EAGLView *)self.view globalPoint2ViewPoint:CGPointMake(pinPoint.x, pinPoint.y)];
+
+          CGFloat const minOffset = 40;
+          viewPinPoint.x = MIN(self.view.width - minOffset, viewPinPoint.x);
+          viewPinPoint.x = MAX(minOffset, viewPinPoint.x);
+          viewPinPoint.y = MIN(self.view.height - minOffset - self.toolbarView.height, viewPinPoint.y);
+          viewPinPoint.y = MAX(minOffset + self.containerView.placePage.maxY, viewPinPoint.y);
+
+          CGPoint const center = [(EAGLView *)self.view viewPoint2GlobalPoint:viewPinPoint];
+          m2::PointD const offset = [self.containerView.placePage pinPoint] - m2::PointD(center.x, center.y);
+          Framework & framework = GetFramework();
+          framework.SetViewportCenterAnimated(framework.GetViewportCenter() + offset);
+        }
+
+        [UIView animateWithDuration:0.3 animations:^{
+          self.toolbarView.maxY = self.view.height;
+        }];
+
+        break;
+      }
+    case PlacePageStateOpened:
+      {
+        [UIView animateWithDuration:0.3 animations:^{
+          self.toolbarView.minY = self.view.height;
+        }];
+      }
+      break;
+    }
   }
   else if (object == self.searchView && [keyPath isEqualToString:@"state"])
   {
@@ -1084,7 +1122,7 @@ NSInteger compareAddress(id l, id r, void * context)
                                                       delegate:self
                                              cancelButtonTitle:NSLocalizedString(@"no_thanks", nil)
                                              otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil), nil];
-  alertView.tag = APPSTORE_ALERT_VIEW;
+  alertView.tag = ALERT_VIEW_APPSTORE;
   [alertView show];
 }
 
@@ -1095,7 +1133,7 @@ NSInteger compareAddress(id l, id r, void * context)
                                                       delegate:self
                                              cancelButtonTitle:NSLocalizedString(@"no_thanks", nil)
                                              otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil),  nil];
-  alertView.tag = FACEBOOK_ALERT_VIEW;
+  alertView.tag = ALERT_VIEW_FACEBOOK;
   [alertView show];
 }
 

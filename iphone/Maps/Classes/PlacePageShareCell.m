@@ -23,18 +23,18 @@
   return self;
 }
 
-- (void)setApiAppTitle:(NSString *)appTitle
+- (void)layoutSubviews
 {
   CGFloat const xOffset = 20;
   CGFloat const yOffset = 14;
   CGFloat const height = [self.shareButton backgroundImageForState:UIControlStateNormal].size.height;
-  if (appTitle)
+  if (self.apiAppTitle)
   {
     CGFloat const betweenOffset = 10;
     self.shareButton.frame = CGRectMake(xOffset, yOffset, (self.width - 2 * xOffset - betweenOffset) / 2, height);
     self.apiButton.frame = CGRectMake(self.shareButton.maxX + betweenOffset, yOffset, (self.width - 2 * xOffset - betweenOffset) / 2, height);
     self.apiButton.hidden = NO;
-    [self.apiButton setTitle:appTitle forState:UIControlStateNormal];
+    [self.apiButton setTitle:self.apiAppTitle forState:UIControlStateNormal];
   }
   else
   {

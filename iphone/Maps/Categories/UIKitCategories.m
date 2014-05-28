@@ -46,9 +46,14 @@
   return [UIColor colorWithColorCode:@"efeff4"];
 }
 
++ (UIColor *)applicationColor
+{
+  return [UIColor colorWithColorCode:@"15c783"];
+}
+
 + (UIColor *)navigationBarColor
 {
-  return [UIColor colorWithColorCode:@"28384b"];
+  return [UIColor colorWithColorCode:@"15c783"];
 }
 
 @end
@@ -208,3 +213,15 @@
 
 @end
 
+
+@implementation SolidTouchView
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {}
+
+@end

@@ -13,7 +13,7 @@
 
 @property (nonatomic, weak) id <PlacePageShareCellDelegate> delegate;
 
-- (void)setApiAppTitle:(NSString *)appTitle;
+@property (nonatomic) NSString * apiAppTitle;
 
 + (CGFloat)cellHeight;
 

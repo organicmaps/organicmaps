@@ -31,20 +31,20 @@
 
 + (CGFloat)cellHeight
 {
-  return 55;
+  return 50;
 }
 
 - (void)layoutSubviews
 {
-  self.selectedBackgroundView.height = self.height;
+  self.selectedBackgroundView.frame = self.bounds;
 
   CGFloat shift = 19;
   self.separator.minX = shift;
   self.separator.width = self.width - 2 * shift;
   self.separator.maxY = self.height;
 
-  self.titleLabel.frame = CGRectMake(53, -1.5, 246, self.height);
-  self.iconImageView.origin = CGPointMake(11, 6.5);
+  self.titleLabel.frame = CGRectMake(53, -1.5, self.width - 70, self.height);
+  self.iconImageView.origin = CGPointMake(11, 4.5);
 }
 
 - (UIImageView *)separator

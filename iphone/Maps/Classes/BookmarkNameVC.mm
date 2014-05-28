@@ -1,6 +1,7 @@
 
 #import "BookmarkNameVC.h"
 #import "Framework.h"
+#import "UIKitCategories.h"
 
 @interface BookmarkNameVC ()
 
@@ -20,6 +21,12 @@
   Bookmark const * bookmark = category->GetBookmark(self.bookmarkAndCategory.second);
 
   self.textField.text = bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
+  [self.textField addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingChanged];
+}
+
+- (void)textDidChange:(UITextField *)textField
+{
+  textField.text = [textField.text capitalizedString];
 }
 
 - (void)viewDidAppear:(BOOL)animated
