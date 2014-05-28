@@ -20,7 +20,6 @@
 
 BookmarkManager::BookmarkManager(Framework & f)
   : m_framework(f)
-  , m_activeMark(NULL)
   , m_bmScreen(0)
   , m_lastScale(1.0)
   , m_cache(NULL)
@@ -308,17 +307,10 @@ bool BookmarkManager::DeleteBmCategory(size_t index)
 
 void BookmarkManager::ActivateMark(UserMark const * mark)
 {
-  if (m_activeMark != NULL)
-  {
-    m_activeMark->Diactivate();
-    m_activeMark = NULL;
-  }
-
-  if (mark == NULL)
-    return;
-
-  m_activeMark = mark;
-  m_activeMark->Activate();
+  for_each(m_categories.begin(), m_categories.end(), bind(&UserMarkContainer::DiactivateMark, _1));
+  for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::DiactivateMark, _1));
+  if (mark != NULL)
+    mark->Activate();
 }
 
 UserMark const * BookmarkManager::FindNearestUserMark(const m2::AnyRectD & rect)

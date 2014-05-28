@@ -39,7 +39,6 @@ public:
 protected:
   friend class BookmarkManager;
   void Activate() const;
-  void Diactivate() const;
 
 protected:
   m2::PointD m_ptOrg;

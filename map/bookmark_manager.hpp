@@ -17,7 +17,6 @@ class BookmarkManager : private noncopyable
   Framework & m_framework;
 
   vector<UserMarkContainer * > m_userMarkLayers;
-  UserMark const * m_activeMark;
 
   graphics::Screen * m_bmScreen;
   mutable double m_lastScale;

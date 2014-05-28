@@ -120,8 +120,11 @@ void UserMarkContainer::ActivateMark(UserMark const * mark)
 
 void UserMarkContainer::DiactivateMark()
 {
-  KillActivationAnim();
-  m_activeMark = NULL;
+  if (m_activeMark != NULL)
+  {
+    KillActivationAnim();
+    m_activeMark = NULL;
+  }
 }
 
 void UserMarkContainer::Clear()

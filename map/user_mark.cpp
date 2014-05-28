@@ -31,8 +31,3 @@ void UserMark::Activate() const
 {
   m_container->ActivateMark(this);
 }
-
-void UserMark::Diactivate() const
-{
-  m_container->DiactivateMark();
-}
