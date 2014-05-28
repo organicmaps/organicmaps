@@ -381,10 +381,10 @@
 "share_by_email" = "Share by email";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "maps.me bookmarks has been shared with you";
+"share_bookmarks_email_subject" = "Shared maps.me bookmarks";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Hello,\n\nHere are my bookmarks from maps.me offline maps in the attached \"%@.kmz\" file. Please open it if you have maps.me Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://maps.me/get?kmz.\n\nHave a good time with maps.me!";
+"share_bookmarks_email_body" = "Greetings,\n\nAttached are my bookmarks from maps.me offline maps. Please open it if you have maps.me Pro installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz.\n\nEnjoy traveling with maps.me!";
 
 /* message title of loading file */
 "load_kmz_title" = "Loading Bookmarks";

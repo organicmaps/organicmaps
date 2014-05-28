@@ -384,7 +384,7 @@
 "share_bookmarks_email_subject" = "С вами поделились закладками maps.me";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Здравствуйте!\n\nМои закладки из офлайн карт maps.me находятся в прикрепленном файле \"%@.kmz\". Если у вас уже установлено приложение maps.me Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  maps.me Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://maps.me/get?kmz\n\nСпасибо!";
+"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле \"%@.kmz\" мои закладки из офлайновых карт maps.me. Для того, чтобы открыть этот файл, вам потребуется приложение maps.me Pro, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка закладок";

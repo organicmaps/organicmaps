@@ -2222,7 +2222,7 @@
     pt = Partilhar por e-mail
     hu = Megosztás email-en
   [share_bookmarks_email_subject]
-    en = maps.me bookmarks has been shared with you
+    en = Shared maps.me bookmarks
     tags = ios,android
     comment = Email Subject when sharing bookmarks category
     cs = Sdílené záložky maps.me
@@ -2240,7 +2240,7 @@
     pt = Os favoritos do maps.me foram partilhados consigo
     hu = Egy maps.me könyvjelzőt osztottak meg Önnel
   [share_bookmarks_email_body]
-    en = Hello,\n\nHere are my bookmarks from maps.me offline maps in the attached "%@.kmz" file. Please open it if you have maps.me Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://maps.me/get?kmz.\n\nHave a good time with maps.me!
+    en = Greetings,\n\nAttached are my bookmarks from maps.me offline maps. Please open it if you have maps.me Pro installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz.\n\nEnjoy traveling with maps.me!
     tags = ios,android
     comment = Email text when sharing bookmarks category
     cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace maps.me v přiloženém souboru "%@.kmz". Pokud máš již aplikaci maps.me Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz.\n\nSkvěle se bav s maps.me!
@@ -2251,7 +2251,7 @@
     ja = maps.meで作成したブックマークを添付ファイル"%@.kmz"で送付します。maps.me Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nmaps.meで楽しい時間をお過ごしください！
     ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 maps.me 오프라인 지도로부터의 제 즐겨찾기가 있습니다. maps.me 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nmaps.me와 함께 즐거운 시간 되시기 바랍니다!
     nl = Hallo,\n\nHier zijn mijn bladwijzers uit de maps.me offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u maps.me Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz.\n\nVeel plezier met maps.me!
-    ru = Здравствуйте!\n\nМои закладки из офлайн карт maps.me находятся в прикрепленном файле "%@.kmz". Если у вас уже установлено приложение maps.me Pro, то вам просто нужно открыть этот файл. Если нет, то для их просмотра вам нужно предварительно скачать  maps.me Pro на свое iOS или Android устройство, пройдя по этой ссылке: http://maps.me/get?kmz\n\nСпасибо!
+    ru = Здравствуйте!\n\nВ прикрепленном файле "%@.kmz" мои закладки из офлайновых карт maps.me. Для того, чтобы открыть этот файл, вам потребуется приложение maps.me Pro, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!
     uk = Вітаю!\n\nОсь мої закладки з офлайн карт maps.me у доданому файлі "%@.kmz". Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz.\n\nПриємних розваг з maps.me!
     zh-Hant = 哈囉!\n\n這是我的maps.me離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝maps.me專業版的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用maps.me愉快!
     pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji maps.me wraz z załączonymi mapami offline w pliku "%@.kmz". Proszę otwórz to jeśli posiadasz zainstalowaną aplikację maps.me Pro. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://maps.me/get?kmz. \n\nBaw się dobrze z maps.me!

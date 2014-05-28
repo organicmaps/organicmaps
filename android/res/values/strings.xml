@@ -246,9 +246,9 @@
 	<!-- Button text -->
 	<string name="share_by_email">Share by email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">maps.me bookmarks has been shared with you</string>
+	<string name="share_bookmarks_email_subject">Shared maps.me bookmarks</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Hello,\n\nHere are my bookmarks from maps.me offline maps in the attached \&quot;%s.kmz\&quot; file. Please open it if you have maps.me Pro installed already. If not, firstly download the app for your iOS or Android device from this link: http://maps.me/get?kmz.\n\nHave a good time with maps.me!</string>
+	<string name="share_bookmarks_email_body">Greetings,\n\nAttached are my bookmarks from maps.me offline maps. Please open it if you have maps.me Pro installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz.\n\nEnjoy traveling with maps.me!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Loading Bookmarks</string>
 	<!-- Kmz file successful loading -->
