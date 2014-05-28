@@ -487,6 +487,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self bookmarkActivated:static_cast<Bookmark const *>(mark)];
   else if ([self isMarkOfType:UserMark::API] || [self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
     [self userMarkActivated:mark];
+  GetFramework().ActivateUserMark(mark);
 }
 
 - (void)bookmarkActivated:(Bookmark const *)bookmark

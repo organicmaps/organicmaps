@@ -160,7 +160,6 @@ const long long LITE_IDL = 431183278L;
 {
   [self.containerView.placePage showUserMark:mark];
   [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
-  GetFramework().ActivateUserMark(mark);
 }
 
 - (void)onMyPositionClicked:(id)sender
