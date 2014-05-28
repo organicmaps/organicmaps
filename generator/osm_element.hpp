@@ -508,6 +508,6 @@ public:
     : base_type(emitter, holder), m_coastType(coastType)
   {
     if (!addrFilePath.empty())
-      m_addrWriter.reset(new FileWriter(addrFilePath, FileWriter::OP_APPEND));
+      m_addrWriter.reset(new FileWriter(addrFilePath));
   }
 };
