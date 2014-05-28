@@ -95,7 +95,7 @@ public:
   void SetName(string const & name) { m_data.SetName(name); }
   /// @return Now its a bookmark color - name of icon file
   string const & GetType() const { return m_data.GetType(); }
-  //void SetType(string const & type) { m_type = type; }
+  void SetType(string const & type) { m_data.SetType(type); }
   m2::RectD GetViewport() const { return m2::RectD(GetOrg(), GetOrg()); }
 
   string const & GetDescription() const { return m_data.GetDescription(); }
