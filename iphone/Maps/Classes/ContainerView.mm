@@ -82,7 +82,6 @@
   if (!_swipeView)
   {
     _swipeView = [[SolidTouchView alloc] initWithFrame:CGRectZero];
-    _swipeView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
     UISwipeGestureRecognizer * swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
     [_swipeView addGestureRecognizer:swipe];

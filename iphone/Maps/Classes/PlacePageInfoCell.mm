@@ -15,7 +15,7 @@
 @property (nonatomic) CopyLabel * addressLabel;
 @property (nonatomic) CopyLabel * coordinatesLabel;
 @property (nonatomic) SmallCompassView * compassView;
-@property (nonatomic) UIImageView * separator;
+@property (nonatomic) UIImageView * separatorView;
 @property (nonatomic) SelectedColorView * selectedColorView;
 
 @property (nonatomic) m2::PointD pinPoint;
@@ -28,22 +28,13 @@
 {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   self.selectionStyle = UITableViewCellSelectionStyleNone;
-  self.backgroundColor = [UIColor clearColor];
 
   [self addSubview:self.compassView];
   [self addSubview:self.distanceLabel];
   [self addSubview:self.addressLabel];
   [self addSubview:self.coordinatesLabel];
   [self addSubview:self.selectedColorView];
-
-  UIImage * separatorImage = [[UIImage imageNamed:@"PlacePageSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
-  CGFloat const offset = 15;
-  UIImageView * separator = [[UIImageView alloc] initWithFrame:CGRectMake(offset, self.height - separatorImage.size.height, self.width - 2 * offset, separatorImage.size.height)];
-  separator.image = separatorImage;
-  separator.maxY = self.height;
-  separator.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-  [self addSubview:separator];
-  self.separator = separator;
+  [self addSubview:self.separatorView];
 
   [[MapsAppDelegate theApp].m_locationManager start:self];
 
@@ -107,12 +98,11 @@
   [self.selectedColorView setColor:color];
 }
 
+#define ADDRESS_LEFT_SHIFT 19
 #define RIGHT_SHIFT 55
-
 #define DISTANCE_LEFT_SHIFT 55
 
 #define ADDRESS_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5]
-#define ADDRESS_LEFT_SHIFT 19
 
 - (void)layoutSubviews
 {
@@ -131,7 +121,6 @@
     self.distanceLabel.hidden = YES;
     addressY = 15;
   }
-
   self.addressLabel.width = self.width - ADDRESS_LEFT_SHIFT - RIGHT_SHIFT;
   [self.addressLabel sizeToFit];
   self.addressLabel.origin = CGPointMake(ADDRESS_LEFT_SHIFT, addressY);
@@ -139,6 +128,13 @@
   self.coordinatesLabel.frame = CGRectMake(ADDRESS_LEFT_SHIFT, self.addressLabel.maxY + 10, self.width - ADDRESS_LEFT_SHIFT - RIGHT_SHIFT, 24);
 
   self.selectedColorView.center = CGPointMake(self.width - 32, 27);
+
+  self.separatorView.maxY = self.height;
+  CGFloat const shift = 15;
+  self.separatorView.width = self.width - 2 * shift;
+  self.separatorView.minX = shift;
+
+ self.backgroundColor = [UIColor clearColor];
 }
 
 + (CGFloat)cellHeightWithAddress:(NSString *)address viewWidth:(CGFloat)viewWidth
@@ -162,6 +158,17 @@
   [self.delegate infoCellDidPressColorSelector:self];
 }
 
+- (UIImageView *)separatorView
+{
+  if (!_separatorView)
+  {
+    _separatorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1)];
+    _separatorView.image = [[UIImage imageNamed:@"PlacePageSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    _separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+  }
+  return _separatorView;
+}
+
 - (UILabel *)distanceLabel
 {
   if (!_distanceLabel)
@@ -183,6 +190,8 @@
     _addressLabel = [[CopyLabel alloc] initWithFrame:CGRectZero];
     _addressLabel.backgroundColor = [UIColor clearColor];
     _addressLabel.font = ADDRESS_FONT;
+    _addressLabel.numberOfLines = 0;
+    _addressLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _addressLabel.textAlignment = NSTextAlignmentLeft;
     _addressLabel.textColor = [UIColor whiteColor];
     _addressLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;

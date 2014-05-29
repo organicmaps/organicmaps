@@ -11,7 +11,6 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-  self.backgroundColor = [UIColor clearColor];
 
   [self.contentView addSubview:self.titleLabel];
 
@@ -52,6 +51,7 @@
   self.titleLabel.origin = CGPointMake(LEFT_SHIFT, 10);
 
   self.selectedBackgroundView.frame = self.bounds;
+  self.backgroundColor = [UIColor clearColor];
 }
 
 - (UILabel *)titleLabel

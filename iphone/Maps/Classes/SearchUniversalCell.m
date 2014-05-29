@@ -148,6 +148,7 @@
     _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 16)];
     _typeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     _typeLabel.font = TYPE_FONT;
+    _typeLabel.backgroundColor = [UIColor clearColor];
     _typeLabel.textColor = [UIColor colorWithColorCode:@"c9c9c9"];
     _typeLabel.textAlignment = NSTextAlignmentRight;
   }
@@ -161,6 +162,7 @@
     _distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 16)];
     _distanceLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     _distanceLabel.textColor = [UIColor colorWithColorCode:@"c9c9c9"];
+    _distanceLabel.backgroundColor = [UIColor clearColor];
     _distanceLabel.font = DISTANCE_FONT;
     _distanceLabel.textAlignment = NSTextAlignmentRight;
   }

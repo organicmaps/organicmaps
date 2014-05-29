@@ -4,7 +4,7 @@
 
 @interface SearchCell ()
 
-@property (nonatomic) UIView * separatorView;
+@property (nonatomic) UIImageView * separatorView;
 
 @end
 
@@ -34,13 +34,13 @@
   self.selectedBackgroundView.frame = self.bounds;
 }
 
-- (UIView *)separatorView
+- (UIImageView *)separatorView
 {
   if (!_separatorView)
   {
-    _separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0.5)];
+    _separatorView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1)];
+    _separatorView.image = [[UIImage imageNamed:@"SearchCellSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     _separatorView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _separatorView.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.5];
   }
   return _separatorView;
 }

@@ -24,8 +24,6 @@
   [self.contentView addSubview:self.iconImageView];
   [self.contentView addSubview:self.separator];
 
-  self.titleLabel.textColor = [UIColor whiteColor];
-
   return self;
 }
 
@@ -43,7 +41,7 @@
   self.separator.width = self.width - 2 * shift;
   self.separator.maxY = self.height;
 
-  self.titleLabel.frame = CGRectMake(53, -1.5, self.width - 70, self.height);
+  self.titleLabel.frame = CGRectMake(53, -2, self.width - 70, self.height);
   self.iconImageView.origin = CGPointMake(11, 4.5);
 }
 

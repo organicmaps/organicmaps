@@ -815,21 +815,21 @@ const long long LITE_IDL = 431183278L;
   {
     SelectSetVC * vc = [[SelectSetVC alloc] initWithBookmarkAndCategory:bookmarkAndCategory];
     vc.delegate = self;
-    [self pushViewController:vc];
+    [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([propertyName isEqualToString:@"Description"])
   {
     BookmarkDescriptionVC * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[BookmarkDescriptionVC className]];
     vc.delegate = self;
     vc.bookmarkAndCategory = bookmarkAndCategory;
-    [self pushViewController:vc];
+    [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([propertyName isEqualToString:@"Name"])
   {
     BookmarkNameVC * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[BookmarkNameVC className]];
     vc.delegate = self;
     vc.bookmarkAndCategory = bookmarkAndCategory;
-    [self pushViewController:vc];
+    [self.navigationController pushViewController:vc animated:YES];
   }
 }
 
@@ -1093,26 +1093,6 @@ NSInteger compareAddress(id l, id r, void * context)
   Framework & f = GetFramework();
   if (!f.SetUpdatesEnabled(true))
     f.Invalidate();
-}
-
-- (void)pushViewController:(UIViewController *)vc
-{
-  if (IPAD)
-  {
-    NavigationController * navC = [[NavigationController alloc] init];
-    self.popoverVC = [[UIPopoverController alloc] initWithContentViewController:navC];
-    self.popoverVC.delegate = self;
-
-    [navC pushViewController:vc animated:YES];
-    navC.navigationBar.barStyle = UIBarStyleBlack;
-
-    [self.popoverVC setPopoverContentSize:CGSizeMake(320, 480)];
-    [self showPopover];
-  }
-  else
-  {
-    [self.navigationController pushViewController:vc animated:YES];
-  }
 }
 
 - (void)showAppStoreRatingMenu

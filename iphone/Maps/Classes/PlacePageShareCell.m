@@ -14,11 +14,10 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-  self.backgroundColor = [UIColor clearColor];
   self.selectionStyle = UITableViewCellSelectionStyleNone;
 
-  [self.contentView addSubview:self.shareButton];
-  [self.contentView addSubview:self.apiButton];
+  [self addSubview:self.shareButton];
+  [self addSubview:self.apiButton];
 
   return self;
 }
@@ -41,6 +40,7 @@
     self.shareButton.frame = CGRectMake(xOffset, yOffset, self.width - 2 * xOffset, height);
     self.apiButton.hidden = YES;
   }
+  self.backgroundColor = [UIColor clearColor];
 }
 
 + (CGFloat)cellHeight

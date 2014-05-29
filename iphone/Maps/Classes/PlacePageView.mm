@@ -247,6 +247,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   _state = state;
   [self updateBookmarkStateAnimated:NO];
+  [self updateBookmarkViewsAlpha:animated];
   [self.tableView reloadData];
   [self reloadHeader];
   [self alignAnimated:animated];
@@ -258,8 +259,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if (!updatingTable)
   {
-    [self alignAnimated:YES];
+    [self setState:self.state animated:YES withCallback:YES];
     self.tableView.frame = CGRectMake(0, 0, self.superview.width, self.backgroundView.height);
+//    [self reloadHeader];
+//    [self alignAnimated:YES];
+//    self.tableView.contentInset = UIEdgeInsetsMake([self headerHeight], 0, 0, 0);
   }
 }
 
@@ -287,9 +291,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
       [self updateHeight:[self headerHeight]];
       self.minY = self.statusBarIncluded ? 0 : -20;
       self.headerSeparator.alpha = 0;
-    } completion:^(BOOL finished) {
-//      self.tableView.frame = CGRectMake(0, 0, self.superview.width, self.backgroundView.height);
-    }];
+    } completion:nil];
   }
   else if (self.state == PlacePageStateOpened)
   {
@@ -342,8 +344,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
 //  [self performAfterDelay:0 block:^{
     [self resizeTableAnimated:animated];
 //  }];
-
-  [self updateBookmarkViewsAlpha:animated];
 }
 
 - (void)resizeTableAnimated:(BOOL)animated
@@ -374,8 +374,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
         updatingTable = NO;
       }];
     }];
+    self.bookmarkButton.selected = [self isBookmark];
   }
-  self.bookmarkButton.selected = [self isBookmark];
 }
 
 - (CGFloat)maxHeight
@@ -395,6 +395,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)bookmarkCategoryDeletedNotification:(NSNotification *)notification
 {
+#warning <#message#>
   if (m_categoryIndex == [[notification object] integerValue])
     [self abortBookmarkState];
 }
@@ -415,7 +416,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
   [self clearCachedProperties];
   [self reloadHeader];
-  [self updateBookmarkStateAnimated:YES];
+  [self updateBookmarkStateAnimated:NO];
+  [self updateBookmarkViewsAlpha:NO];
 }
 
 - (void)swipe:(UISwipeGestureRecognizer *)sender
@@ -451,7 +453,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   UIWindow * window = [[appWindow subviews] firstObject];
 
   self.pickerView = [[UIView alloc] initWithFrame:window.bounds];
-  ColorPickerView * colorPicker = [[ColorPickerView alloc] initWithWidth:MIN(window.height, window.width) andSelectButton:[ColorPickerView getColorIndex:self.colorName]];
+  ColorPickerView * colorPicker = [[ColorPickerView alloc] initWithWidth:(IPAD ? 340 : 300) andSelectButton:[ColorPickerView getColorIndex:self.colorName]];
   colorPicker.delegate = self;
   colorPicker.minX = (self.pickerView.width - colorPicker.width) / 2;
   colorPicker.minY = (self.pickerView.height - colorPicker.height) / 2;
@@ -754,6 +756,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
   [self reloadHeader];
   [self updateBookmarkStateAnimated:YES];
+  [self updateBookmarkViewsAlpha:YES];
 }
 
 - (void)addBookmark
@@ -783,6 +786,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
     [self reloadHeader];
     [self updateBookmarkStateAnimated:YES];
+    [self updateBookmarkViewsAlpha:YES];
   }
   else
   {
@@ -874,7 +878,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if (!_headerView)
   {
-    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.width, [self headerHeight])];
+    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, [self headerHeight])];
     _headerView.backgroundColor = [UIColor applicationColor];
     _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 

@@ -110,7 +110,7 @@ __weak SearchView * selfPointer;
 
   [self addSubview:self.tableView];
   [self addSubview:self.topBackgroundView];
-  self.topBackgroundView.height = 64;
+  self.topBackgroundView.height = SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 44 : 64;
   [self addSubview:self.searchBar];
   [self.tableView addSubview:self.emptyResultLabel];
 
@@ -387,7 +387,7 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (CGFloat)defaultSearchBarMinY
 {
-  return SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 0 : 20;
+  return SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 3 : 20;
 }
 
 - (void)layoutSubviews
