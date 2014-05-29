@@ -100,12 +100,12 @@ public:
   bool IsEndedNormal() const { return (m_status == ENDED); }
   //@}
 
-  inline void AddResult(Result const & r) { m_vec.push_back(r); }
-  inline void AddResultCheckExisting(Result const & r)
+  inline bool AddResult(Result const & r)
   {
-    (void)AddResultCheckExistingEx(r);
+    m_vec.push_back(r);
+    return true;
   }
-  bool AddResultCheckExistingEx(Result const & r);
+  bool AddResultCheckExisting(Result const & r);
 
   inline void Clear() { m_vec.clear(); }
 

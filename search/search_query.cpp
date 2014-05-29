@@ -612,7 +612,7 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
 
   RemoveDuplicatingLinear(indV);
 
-  void (Results::*addFn)(Result const &) = allMWMs ?
+  bool (Results::*addFn)(Result const &) = allMWMs ?
         &Results::AddResultCheckExisting :
         &Results::AddResult;
 
@@ -650,13 +650,14 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
 
   // emit feature results
   size_t count = res.GetCount();
-  for (size_t i = 0; i < indV.size() && count < resCount; ++i, ++count)
+  for (size_t i = 0; i < indV.size() && count < resCount; ++i)
   {
     if (m_cancel) break;
 
     LOG(LDEBUG, (indV[i]));
 
-    (res.*addFn)(MakeResult(*(indV[i])));
+    if ((res.*addFn)(MakeResult(*(indV[i]))))
+      ++count;
   }
 }
 
@@ -735,7 +736,7 @@ template <class T> void Query::ProcessSuggestions(vector<T> & vec, Results & res
       GetSuggestion(r.GetName(), suggest);
       if (!suggest.empty() && added < MAX_SUGGESTS_COUNT)
       {
-        if (res.AddResultCheckExistingEx(Result(r.GetName(), suggest)))
+        if (res.AddResultCheckExisting(Result(r.GetName(), suggest)))
         {
           ++added;
           i = vec.erase(i);

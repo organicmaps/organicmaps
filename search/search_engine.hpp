@@ -64,7 +64,7 @@ public:
   void ClearAllCaches();
 
 private:
-  static const int RESULTS_COUNT = 15;
+  static const int RESULTS_COUNT = 30;
 
   void SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby);
   void SearchAsync();

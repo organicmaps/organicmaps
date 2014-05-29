@@ -88,7 +88,7 @@ bool Result::operator== (Result const & r) const
   return false;
 }
 
-bool Results::AddResultCheckExistingEx(Result const & r)
+bool Results::AddResultCheckExisting(Result const & r)
 {
   if (find(m_vec.begin(), m_vec.end(), r) == m_vec.end())
   {
