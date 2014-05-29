@@ -7,6 +7,7 @@
 #import "Statistics.h"
 #import "MapViewController.h"
 #import "LocationManager.h"
+#import "ToastView.h"
 
 #include "Framework.h"
 
@@ -374,6 +375,11 @@ static void OnSearchResultCallback(search::Results const & results)
   {
     GetFramework().ShowAllSearchResults();
     [self setState:SearchViewStateResults animated:YES withCallback:YES];
+
+#warning Change text
+    ToastView * toastView = [[ToastView alloc] initWithMessage:@"Sorry, but we could not find anything. Download any map and try again"];
+    [toastView show];
+
     return YES;
   }
   return NO;
@@ -391,7 +397,6 @@ static void OnSearchResultCallback(search::Results const & results)
   self.tableView.contentInset = UIEdgeInsetsMake(self.topBackgroundView.height, 0, 0, 0);
   self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
