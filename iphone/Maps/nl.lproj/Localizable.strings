@@ -537,3 +537,7 @@
 "bookmark_move_fail" = "We moeten uw bladwijzers naar het interne geheugen verplaatsen, maar er is geen ruimte beschikbaar voor ze. Maak alstublieft geheugen vrij, anders zullen de bladwijzers niet beschikbaar zijn.";
 
 "kitkat_optimization_in_progress" = "De kaartopslag wordt nu geoptimaliseerd. Een moment geduld alstublieft, dit kan een paar minuten duren.";
+
+"price_free" = "gratis";
+
+"price_paid" = "betalend";

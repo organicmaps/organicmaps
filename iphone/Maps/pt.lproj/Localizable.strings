@@ -537,3 +537,7 @@
 "bookmark_move_fail" = "É necessário mover os seus marcadores para a memória interna, mas não há espaço disponível para eles. Por favor, liberte a memória, caso contrário, os marcadores não estarão disponíveis.";
 
 "kitkat_optimization_in_progress" = "O seu armazenamento de mapa está agora a ser otimizado. Por favor, aguarde. Este processo pode demorar alguns minutos.";
+
+"price_free" = "grátis";
+
+"price_paid" = "pago";

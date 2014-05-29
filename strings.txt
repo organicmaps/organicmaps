@@ -3196,3 +3196,37 @@
     pl = Twoje przechowywanie map jest teraz optymalizowane. Prosimy czekać, może to zająć kilka minut.
     es = Tu almacenamiento de mapas se está optimizando ahora. Por favor, espera, podría tardar unos minutos.
     de = Ihr Kartenspeicher wird jetzt optimiert. Bitte warten Sie, es kann ein paar Minuten dauern.
+
+   [price_free]
+    en = free
+    ru = бесплатно
+    uk = безкоштовно
+    es = gratis
+    pt = grátis
+    pl = darmowy
+    it = gratis
+    nl = gratis
+    de = kostenlos
+    cs = zdarma
+    fr = gratuit
+    ja = 無料
+    ko = 무료
+    zh-Hant = 免費
+    hu = ingyenes
+
+   [price_paid]
+    en = paid
+    ru = платно
+    uk = платно
+    es = de pago
+    pt = pago
+    pl = płatny
+    it = a pagamento
+    nl = betalend
+    de = kostenpflichtig
+    cs = placené
+    fr = payé
+    ja = 有料
+    ko = 유료
+    zh-Hant = 付費
+    hu = fizetve

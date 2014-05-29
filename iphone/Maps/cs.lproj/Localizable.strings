@@ -537,3 +537,7 @@
 "bookmark_move_fail" = "Potřebujeme přesunout tvé záložky do vnitřní paměti zařízení, ale není pro ně volné místo. Prosím, uvolni paměť, jinak nebudou záložky dostupné.";
 
 "kitkat_optimization_in_progress" = "Uložiště map se právě optimalizuje. Může to trvat i pár minut. Prosíme o chvilku strpení.";
+
+"price_free" = "zdarma";
+
+"price_paid" = "placené";

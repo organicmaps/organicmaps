@@ -537,3 +537,7 @@
 "bookmark_move_fail" = "Abbiamo bisogno di trasferire i tuoi preferiti nella memoria interna, ma non c'è abbastanza spazio disponibile. Ti preghiamo di liberare la memoria, altrimenti i preferiti non saranno disponibili.";
 
 "kitkat_optimization_in_progress" = "L'archiviazione delle tue mappe è in fase di ottimizzazione. Ti preghiamo di attendere, il processo durerà alcuni minuti.";
+
+"price_free" = "gratis";
+
+"price_paid" = "a pagamento";

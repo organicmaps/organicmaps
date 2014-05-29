@@ -537,3 +537,7 @@
 "bookmark_move_fail" = "Musimy przenieść Twoje zakładki do pamięci wewnętrznej, ale nie ma tam dla nich wolnego miejsca. Prosimy zwolnić pamięć, inaczej zakładki nie będą dostępne.";
 
 "kitkat_optimization_in_progress" = "Twoje przechowywanie map jest teraz optymalizowane. Prosimy czekać, może to zająć kilka minut.";
+
+"price_free" = "darmowy";
+
+"price_paid" = "płatny";

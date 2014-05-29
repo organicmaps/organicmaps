@@ -324,4 +324,6 @@
 	<string name="kitkat_migrate_failed">Kvůli změnám v Androidu 4.4 musíme optimalizovat uložiště map, ale není dostatek prostoru pro jejich zkopírování.\n\nProsím, uvolni paměť, jinak budou mapy dostupné pouze v režimu pro čtení.</string>
 	<string name="bookmark_move_fail">Potřebujeme přesunout tvé záložky do vnitřní paměti zařízení, ale není pro ně volné místo. Prosím, uvolni paměť, jinak nebudou záložky dostupné.</string>
 	<string name="kitkat_optimization_in_progress">Uložiště map se právě optimalizuje. Může to trvat i pár minut. Prosíme o chvilku strpení.</string>
+	<string name="price_free">zdarma</string>
+	<string name="price_paid">placené</string>
 </resources>

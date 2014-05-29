@@ -537,3 +537,7 @@
 "bookmark_move_fail" = "We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.";
 
 "kitkat_optimization_in_progress" = "Your map storage is being optimized now. Please wait, it may take a few minutes.";
+
+"price_free" = "free";
+
+"price_paid" = "paid";

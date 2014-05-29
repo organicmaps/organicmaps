@@ -537,3 +537,7 @@
 "bookmark_move_fail" = "我們需要將您的書籤移至內存儲器中，但沒有足夠的存儲空間。請釋放一些內存，否則，書籤將不可用。";
 
 "kitkat_optimization_in_progress" = "正在優化您的地圖存儲。請等待，這可能需要幾分鐘的時間。";
+
+"price_free" = "免費";
+
+"price_paid" = "付費";

@@ -537,3 +537,7 @@
 "bookmark_move_fail" = "A könyvjelzőit át kell helyeznünk a belső memóriába, azonban ehhez nincs elegendő szabad tárhely. Kérjük, szabadítson fel lemezterületet, ellenkező esetben a könyvjelzői nem lesznek elérhetőek.";
 
 "kitkat_optimization_in_progress" = "A térképadatai optimalizálás alatt állnak. Kérjük, várjon, ez néhány percet igénybe vesz.";
+
+"price_free" = "ingyenes";
+
+"price_paid" = "fizetve";

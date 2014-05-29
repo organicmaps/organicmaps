@@ -327,4 +327,6 @@
 	<string name="kitkat_migrate_failed">A causa di modifiche alla versione Android 4.4, abbiamo bisogno di ottimizzare l\&#39;archiviazione delle mappe, ma non c\&#39;è abbastanza spazio per copiarne i dati:\n\nTi preghiamo di liberare la memoria, altrimenti le mappe saranno disponibili in sola lettura.</string>
 	<string name="bookmark_move_fail">Abbiamo bisogno di trasferire i tuoi preferiti nella memoria interna, ma non c\&#39;è abbastanza spazio disponibile. Ti preghiamo di liberare la memoria, altrimenti i preferiti non saranno disponibili.</string>
 	<string name="kitkat_optimization_in_progress">L\&#39;archiviazione delle tue mappe è in fase di ottimizzazione. Ti preghiamo di attendere, il processo durerà alcuni minuti.</string>
+	<string name="price_free">gratis</string>
+	<string name="price_paid">a pagamento</string>
 </resources>

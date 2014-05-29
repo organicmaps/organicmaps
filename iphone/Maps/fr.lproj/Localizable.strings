@@ -537,3 +537,7 @@
 "bookmark_move_fail" = "Nous devons déplacer vos marque-pages dans la mémoire interne, mais il n'existe pas d'espace disponible pour eux. Veuillez libérer de la mémoire, sinon les marque-pages ne seront pas disponibles.";
 
 "kitkat_optimization_in_progress" = "Le stockage de votre carte est en cours d'optimisation. Veuillez patienter, cela peut prendre quelques minutes.";
+
+"price_free" = "gratuit";
+
+"price_paid" = "payé";

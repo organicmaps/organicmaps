@@ -317,4 +317,6 @@
 	<string name="kitkat_migrate_failed">Android 4.4の変更に伴いマップデータのストレージを最適化しなければなりませんが、マップデータをコピーするだけの空き容量がありません。\n\nメモリの空き容量を増やさなければ、閲覧モードのみとしてマップをご利用いただくことになります。</string>
 	<string name="bookmark_move_fail">ブックマークを内部メモリに移動させなければなりませんが、メモリの空き容量がありません。空き容量を増やさなければ、ブックマークをご利用いただくことができません。</string>
 	<string name="kitkat_optimization_in_progress">現在マップのストレージを最適化しています。この操作には数分かかる場合があるのでお待ちください。</string>
+	<string name="price_free">無料</string>
+	<string name="price_paid">有料</string>
 </resources>

@@ -537,3 +537,7 @@
 "bookmark_move_fail" = "Wir müssen Ihre Lesezeichen in den internen Speicher verschieben, aber es gibt dafür keinen verfügbaren Speicherplatz. Bitte geben Sie Speicherplatz frei, sonst werden Ihre Lesezeichen nicht verfügbar sein.";
 
 "kitkat_optimization_in_progress" = "Ihr Kartenspeicher wird jetzt optimiert. Bitte warten Sie, es kann ein paar Minuten dauern.";
+
+"price_free" = "kostenlos";
+
+"price_paid" = "kostenpflichtig";
