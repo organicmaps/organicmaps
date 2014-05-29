@@ -806,13 +806,15 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private static final int ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD;
   //@}
   private static final String SEARCH_MODE_SETTING = "SearchMode";
-  private int m_searchMode = AROUND_POSITION;
+  private int m_searchMode = ALL;
 
+  /*
   private void runSearch(int mode)
   {
     m_searchMode = mode;
     runSearch();
   }
+  */
 
   private static final int SEARCH_LAUNCHED = 0;
   private static final int QUERY_EMPTY = 1;

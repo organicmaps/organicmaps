@@ -286,6 +286,7 @@ void Engine::SearchAsync()
   m_pQuery->SetViewport(arrRects, 2);
 
   m_pQuery->SetSearchInWorld(params.NeedSearch(SearchParams::SEARCH_WORLD));
+  m_pQuery->SetSortByViewport(params.IsSortByViewport());
 
   if (params.IsLanguageValid())
     m_pQuery->SetInputLanguage(params.m_inputLanguageCode);

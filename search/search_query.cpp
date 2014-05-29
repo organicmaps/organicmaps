@@ -77,6 +77,7 @@ Query::Query(Index const * pIndex,
     m_pInfoGetter(pInfoGetter),
     m_houseDetector(pIndex),
     m_worldSearch(true),
+    m_sortByViewport(false),
     m_position(empty_pos_value, empty_pos_value)
 {
   // m_viewport is initialized as empty rects
@@ -134,8 +135,7 @@ namespace
 
 void Query::SetViewport(m2::RectD viewport[], size_t count)
 {
-  // use static_cast to avoid GCC linker dummy bug
-  ASSERT_LESS ( count, static_cast<size_t>(RECTSCOUNT), () );
+  ASSERT(count < COUNT_V, (count));
 
   m_cancel = false;
 
@@ -148,8 +148,7 @@ void Query::SetViewport(m2::RectD viewport[], size_t count)
 
 void Query::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD const & viewport, size_t idx)
 {
-  // use static_cast to avoid GCC linker dummy bug
-  ASSERT_LESS ( idx, static_cast<size_t>(RECTSCOUNT), () );
+  ASSERT(idx < COUNT_V, (idx));
 
   if (viewport.IsValid())
   {
@@ -187,7 +186,7 @@ int8_t Query::GetPrefferedLanguage() const
 
 void Query::ClearCaches()
 {
-  for (size_t i = 0; i < RECTSCOUNT; ++i)
+  for (size_t i = 0; i < COUNT_V; ++i)
     ClearCache(i);
 }
 
@@ -502,7 +501,7 @@ namespace impl
       string name, country;
       LoadFeature(res.GetID(), feature, name, country);
 
-      int8_t const viewportID = res.GetViewportID();
+      Query::ViewportID const viewportID = static_cast<Query::ViewportID>(res.GetViewportID());
       return new impl::PreResult2(feature, &res,
                                   m_query.GetViewport(viewportID), m_query.GetPosition(viewportID),
                                   name, country);
@@ -748,10 +747,10 @@ template <class T> void Query::ProcessSuggestions(vector<T> & vec, Results & res
   }
 }
 
-void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID, int8_t viewportID)
+void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID, ViewportID vID /*= DEFAULT_V*/)
 {
   impl::PreResult1 res(FeatureID(mwmID, val.m_featureId), val.m_rank, val.m_pt,
-                       GetPosition(viewportID), GetViewport(viewportID), viewportID);
+                       GetPosition(vID), GetViewport(vID), vID);
 
   for (size_t i = 0; i < m_qCount; ++i)
   {
@@ -807,13 +806,14 @@ class FeatureLoader
 {
   Query & m_query;
   size_t m_mwmID, m_count;
-  int8_t m_viewportID;
+  Query::ViewportID m_viewportID;
 
 public:
-  FeatureLoader(Query & query, size_t mwmID, int viewportID)
-    : m_query(query), m_mwmID(mwmID), m_count(0),
-      m_viewportID(static_cast<int8_t>(viewportID))
+  FeatureLoader(Query & query, size_t mwmID, Query::ViewportID viewportID)
+    : m_query(query), m_mwmID(mwmID), m_count(0), m_viewportID(viewportID)
   {
+    if (query.m_sortByViewport)
+      m_viewportID = Query::CURRENT_V;
   }
 
   void operator() (Query::TrieValueT const & value)
@@ -1379,12 +1379,12 @@ void Query::SearchAddress()
         {
           params.ProcessAddressTokens();
 
-          SetViewportByIndex(mwmInfo, scales::GetRectForLevel(ADDRESS_SCALE, city.m_value.m_pt), ADDRESS_RECT_ID);
+          SetViewportByIndex(mwmInfo, scales::GetRectForLevel(ADDRESS_SCALE, city.m_value.m_pt), LOCALITY_V);
 
           /// @todo Hack - do not search for address in World.mwm; Do it better in future.
           bool const b = m_worldSearch;
           m_worldSearch = false;
-          SearchFeatures(params, mwmInfo, ADDRESS_RECT_ID);
+          SearchFeatures(params, mwmInfo, LOCALITY_V);
           m_worldSearch = b;
         }
         else
@@ -1691,10 +1691,10 @@ void Query::SearchFeatures()
   Params params(*this);
 
   // do usual search in viewport and near me (without last rect)
-  for (size_t i = 0; i < RECTSCOUNT-1; ++i)
+  for (int i = 0; i < LOCALITY_V; ++i)
   {
     if (m_viewport[i].IsValid())
-      SearchFeatures(params, mwmInfo, i);
+      SearchFeatures(params, mwmInfo, static_cast<ViewportID>(i));
   }
 }
 
@@ -1754,15 +1754,15 @@ namespace
   };
 }
 
-void Query::SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, int ind)
+void Query::SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, ViewportID vID)
 {
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {
     // Search only mwms that intersect with viewport (world always does).
-    if (m_viewport[ind].IsIntersect(mwmInfo[mwmId].m_limitRect))
+    if (m_viewport[vID].IsIntersect(mwmInfo[mwmId].m_limitRect))
     {
       Index::MwmLock mwmLock(*m_pIndex, mwmId);
-      SearchInMWM(mwmLock, params, ind);
+      SearchInMWM(mwmLock, params, vID);
     }
   }
 }
@@ -1799,7 +1799,8 @@ void FillCategories(Query::Params const & params, TrieIterator const * pTrieRoot
 
 }
 
-void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, int ind/* = -1*/)
+void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
+                        ViewportID vID /*= DEFAULT_V*/)
 {
   if (MwmValue * pMwm = mwmLock.GetValue())
   {
@@ -1821,19 +1822,21 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, i
                                          trie::EdgeValueReader()));
 
       MwmSet::MwmId const mwmId = mwmLock.GetID();
-      FeaturesFilter filter((ind == -1 || isWorld) ? 0 : &m_offsetsInViewport[ind][mwmId], m_cancel);
+      FeaturesFilter filter((vID == DEFAULT_V || isWorld) ? 0 : &m_offsetsInViewport[vID][mwmId], m_cancel);
 
       // Get categories for each token separately - find needed edge with categories.
       TrieValuesHolder<FeaturesFilter> categoriesHolder(filter);
       FillCategories(params, pTrieRoot.get(), categoriesHolder);
 
       // Match tokens to feature for each language - iterate through first edges.
-      impl::FeatureLoader emitter(*this, mwmId, ind);
+      impl::FeatureLoader emitter(*this, mwmId, vID);
       size_t const count = pTrieRoot->m_edge.size();
       for (size_t i = 0; i < count; ++i)
       {
         TrieIterator::Edge::EdgeStrT const & edge = pTrieRoot->m_edge[i].m_str;
-        if (edge[0] < search::CATEGORIES_LANG && params.IsLangExist(static_cast<int8_t>(edge[0])))
+        int8_t const lang = static_cast<int8_t>(edge[0]);
+
+        if (edge[0] < search::CATEGORIES_LANG && params.IsLangExist(lang))
         {
           scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
 
@@ -1842,7 +1845,7 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, i
                               filter, categoriesHolder, emitter);
 
           LOG(LDEBUG, ("Country", pMwm->GetFileName(),
-                       "Lang", StringUtf8Multilang::GetLangByCode(static_cast<int8_t>(edge[0])),
+                       "Lang", StringUtf8Multilang::GetLangByCode(lang),
                        "Matched", emitter.GetCount()));
 
           emitter.Reset();
@@ -1903,12 +1906,12 @@ void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
     MatchForSuggestionsImpl(token, GetLanguage(LANG_EN), res);
 }
 
-m2::RectD const & Query::GetViewport(int8_t viewportID/* = -1*/) const
+m2::RectD const & Query::GetViewport(ViewportID vID /*= DEFAULT_V*/) const
 {
-  if (viewportID == ADDRESS_RECT_ID)
+  if (vID == LOCALITY_V)
   {
     // special case for search address - return viewport around location
-    return m_viewport[viewportID];
+    return m_viewport[vID];
   }
 
   // return first valid actual viewport
@@ -1921,14 +1924,20 @@ m2::RectD const & Query::GetViewport(int8_t viewportID/* = -1*/) const
   }
 }
 
-m2::PointD Query::GetPosition(int8_t viewportID/* = -1*/) const
+m2::PointD Query::GetPosition(ViewportID vID /*= DEFAULT_V*/) const
 {
-  if (viewportID == ADDRESS_RECT_ID)
+  switch (vID)
   {
-    // special case for search address - return center of location
-    return m_viewport[viewportID].Center();
+  case LOCALITY_V:      // center of the founded locality
+    return m_viewport[vID].Center();
+
+  case CURRENT_V:       // center of viewport for special sort mode
+    if (m_sortByViewport)
+      return m_viewport[vID].Center();
+
+  default:
+    return m_position;
   }
-  return m_position;
 }
 
 void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded)

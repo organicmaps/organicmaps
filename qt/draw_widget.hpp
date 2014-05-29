@@ -64,9 +64,6 @@ namespace qt
 
     Q_OBJECT
 
-  signals:
-    void ViewportChanged();
-
   public Q_SLOTS:
     void MoveLeft();
     void MoveRight();

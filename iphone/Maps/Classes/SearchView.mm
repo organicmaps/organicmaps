@@ -325,8 +325,7 @@ static void OnSearchResultCallback(search::Results const & results)
   Framework & framework = GetFramework();
   framework.GetBalloonManager().RemovePin();
   framework.GetBalloonManager().Dismiss();
-  framework.GetBookmarkManager().UserMarksClear(UserMarkContainer::SEARCH_MARK);
-  framework.Invalidate();
+  framework.CancelInteractiveSearch();
 }
 
 - (void)searchBarDidPressClearButton:(SearchBar *)searchBar

@@ -94,8 +94,6 @@ void SearchPanel::ClearResults()
   m_pTable->clear();
   m_pTable->setRowCount(0);
   m_results.clear();
-
-  m_pDrawWidget->GetFramework().GetBookmarkManager().UserMarksClear(UserMarkContainer::SEARCH_MARK);
 }
 
 void SearchPanel::OnSearchResult(ResultsT * res)
@@ -115,9 +113,6 @@ void SearchPanel::OnSearchResult(ResultsT * res)
   {
     ClearResults();
 
-    Framework & frm = m_pDrawWidget->GetFramework();
-    BookmarkManager & manager = frm.GetBookmarkManager();
-
     for (ResultsT::IterT i = res->Begin(); i != res->End(); ++i)
     {
       ResultT const & e = *i;
@@ -127,15 +122,9 @@ void SearchPanel::OnSearchResult(ResultsT * res)
       m_pTable->setItem(rowCount, 1, create_item(QString::fromUtf8(e.GetString())));
       m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(e.GetRegionString())));
 
-      if (e.GetResultType() != ResultT::RESULT_SUGGESTION)
+      if (e.GetResultType() == ResultT::RESULT_FEATURE)
       {
-        SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(manager.UserMarksAddMark(UserMarkContainer::SEARCH_MARK, e.GetFeatureCenter()));
-        search::AddressInfo info;
-        info.MakeFrom(e);
-        mark->SetInfo(info);
-        // For debug purposes: add bookmarks for search results
         m_pTable->setItem(rowCount, 0, create_item(QString::fromUtf8(e.GetFeatureType())));
-
         m_pTable->setItem(rowCount, 3, create_item(m_pDrawWidget->GetDistance(e).c_str()));
       }
 
@@ -166,6 +155,8 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   {
     ClearResults();
 
+    m_pDrawWidget->GetFramework().CancelInteractiveSearch();
+
     // hide X button
     m_pClearButton->setVisible(false);
   }
@@ -173,8 +164,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
 
 void SearchPanel::OnSearchPanelItemClicked(int row, int)
 {
-  disconnect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
-
   ASSERT_EQUAL(m_results.size(), static_cast<size_t>(m_pTable->rowCount()), ());
 
   if (m_results[row].GetResultType() != ResultT::RESULT_SUGGESTION)
@@ -188,31 +177,12 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
     string const suggestion = m_results[row].GetSuggestionString();
     m_pEditor->setText(QString::fromUtf8(suggestion.c_str()));
   }
-
-  connect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
-}
-
-void SearchPanel::showEvent(QShowEvent *)
-{
-  connect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
-
-  OnViewportChanged();
 }
 
 void SearchPanel::hideEvent(QHideEvent *)
 {
-  m_pDrawWidget->GetFramework().GetBookmarkManager().UserMarksClear(UserMarkContainer::SEARCH_MARK);
-
-  disconnect(m_pDrawWidget, SIGNAL(ViewportChanged()), this, SLOT(OnViewportChanged()));
-
+  m_pDrawWidget->GetFramework().CancelInteractiveSearch();
   m_pDrawWidget->CloseSearch();
-}
-
-void SearchPanel::OnViewportChanged()
-{
-  QString const txt = m_pEditor->text();
-  if (!txt.isEmpty())
-    OnSearchTextChanged(txt);
 }
 
 void SearchPanel::OnAnimationTimer()

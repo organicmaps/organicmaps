@@ -46,7 +46,6 @@ public:
   SearchPanel(DrawWidget * drawWidget, QWidget * parent);
 
 private:
-  virtual void showEvent(QShowEvent *);
   virtual void hideEvent(QHideEvent *);
 
   void SearchResultThreadFunc(ResultsT const & result);
@@ -62,7 +61,6 @@ private slots:
   /// Called via signal to support multithreading
   void OnSearchResult(ResultsT * result);
 
-  void OnViewportChanged();
   void OnAnimationTimer();
   void OnClearButton();
 };

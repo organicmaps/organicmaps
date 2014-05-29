@@ -48,6 +48,7 @@
 namespace search
 {
   class Result;
+  class Results;
   struct AddressInfo;
 }
 
@@ -245,7 +246,13 @@ public:
 
 private:
   search::Engine * GetSearchEngine() const;
-  //void AddBookmarkAndSetViewport(Bookmark & bm, m2::RectD const & viewPort);
+  search::SearchParams m_lastSearch;
+
+  void UpdateUserViewportChanged();
+
+  void OnSearchResultsCallback(search::Results const & results);
+  void OnSearchResultsCallbackUI(search::Results const & results);
+  void FillSearchResultsMarks(search::Results const & results, m2::RectD & rect);
 
 public:
   m2::RectD GetCurrentViewport() const;
@@ -260,6 +267,8 @@ public:
 
   void ShowSearchResult(search::Result const & res);
   size_t ShowAllSearchResults();
+
+  void CancelInteractiveSearch();
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;

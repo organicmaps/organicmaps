@@ -143,60 +143,51 @@ namespace qt
   void DrawWidget::MoveLeft()
   {
     m_framework->Move(math::pi, 0.5);
-    emit ViewportChanged();
   }
 
   void DrawWidget::MoveRight()
   {
     m_framework->Move(0.0, 0.5);
-    emit ViewportChanged();
   }
 
   void DrawWidget::MoveUp()
   {
     m_framework->Move(math::pi/2.0, 0.5);
-    emit ViewportChanged();
   }
 
   void DrawWidget::MoveDown()
   {
     m_framework->Move(-math::pi/2.0, 0.5);
-    emit ViewportChanged();
   }
 
   void DrawWidget::ScalePlus()
   {
     m_framework->Scale(2.0);
     UpdateScaleControl();
-    emit ViewportChanged();
   }
 
   void DrawWidget::ScaleMinus()
   {
     m_framework->Scale(0.5);
     UpdateScaleControl();
-    emit ViewportChanged();
   }
 
   void DrawWidget::ScalePlusLight()
   {
     m_framework->Scale(1.5);
     UpdateScaleControl();
-    emit ViewportChanged();
   }
 
   void DrawWidget::ScaleMinusLight()
   {
     m_framework->Scale(2.0/3.0);
     UpdateScaleControl();
-    emit ViewportChanged();
   }
 
   void DrawWidget::ShowAll()
   {
     m_framework->ShowAll();
     UpdateScaleControl();
-    emit ViewportChanged();
   }
 
   void DrawWidget::Repaint()
@@ -222,10 +213,7 @@ namespace qt
     {
       double const factor = m_pScale->GetScaleFactor();
       if (factor != 1.0)
-      {
         m_framework->Scale(factor);
-        emit ViewportChanged();
-      }
     }
   }
 
@@ -290,7 +278,6 @@ namespace qt
       DrawFrame();
 
     UpdateScaleControl();
-    emit ViewportChanged();
   }
 
   void DrawWidget::paintGL()
@@ -463,7 +450,6 @@ namespace qt
       m_framework->ScaleToPoint(ScaleToPointEvent(L2D(e->x()), L2D(e->y()), 1.5));
 
       UpdateScaleControl();
-      emit ViewportChanged();
     }
   }
 
@@ -504,8 +490,6 @@ namespace qt
 
     StopDragging(e);
     StopRotating(e);
-
-    emit ViewportChanged();
   }
 
   void DrawWidget::keyReleaseEvent(QKeyEvent * e)
@@ -513,8 +497,6 @@ namespace qt
     QGLWidget::keyReleaseEvent(e);
 
     StopRotating(e);
-
-    emit ViewportChanged();
   }
 
   void DrawWidget::StopRotating(QMouseEvent * e)
@@ -559,7 +541,6 @@ namespace qt
       m_framework->ScaleToPoint(ScaleToPointEvent(L2D(e->x()), L2D(e->y()), exp(e->delta() / 360.0)));
 
       UpdateScaleControl();
-      emit ViewportChanged();
     }
   }
 

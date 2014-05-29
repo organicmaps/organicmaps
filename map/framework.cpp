@@ -797,6 +797,36 @@ void Framework::ShowRectFixed(m2::RectD const & r)
   Invalidate();
 }
 
+void Framework::UpdateUserViewportChanged()
+{
+  if (!m_lastSearch.m_query.empty())
+  {
+    (void)GetCurrentPosition(m_lastSearch.m_lat, m_lastSearch.m_lon);
+    m_lastSearch.m_callback = bind(&Framework::OnSearchResultsCallback, this, _1);
+    m_lastSearch.SetSearchMode(search::SearchParams::IN_VIEWPORT);
+
+    (void)GetSearchEngine()->Search(m_lastSearch, GetCurrentViewport());
+  }
+}
+
+void Framework::OnSearchResultsCallback(search::Results const & results)
+{
+  if (!results.IsEndMarker() && results.GetCount() > 0)
+  {
+    // Got here from search thread. Need to switch into GUI thread to modify search mark container.
+    // Do copy the results structure to pass into GUI thread.
+    GetPlatform().RunOnGuiThread(bind(&Framework::OnSearchResultsCallbackUI, this, results));
+  }
+}
+
+void Framework::OnSearchResultsCallbackUI(search::Results const & results)
+{
+  m2::RectD dummy;
+  FillSearchResultsMarks(results, dummy);
+
+  Invalidate();
+}
+
 void Framework::ClearAllCaches()
 {
   m_model.ClearCaches();
@@ -905,7 +935,10 @@ void Framework::StopDrag(DragEvent const & e)
   }
 
   if (m_renderPolicy)
+  {
     m_renderPolicy->StopDrag();
+    UpdateUserViewportChanged();
+  }
 }
 
 void Framework::StartRotate(RotateEvent const & e)
@@ -932,6 +965,8 @@ void Framework::StopRotate(RotateEvent const & e)
   {
     m_navigator.StopRotate(e.Angle(), ElapsedSeconds());
     m_renderPolicy->StopRotate(e.Angle(), ElapsedSeconds());
+
+    UpdateUserViewportChanged();
   }
 }
 
@@ -954,6 +989,7 @@ void Framework::ScaleToPoint(ScaleToPointEvent const & e)
   m_navigator.ScaleToPoint(pt, e.ScaleFactor(), ElapsedSeconds());
 
   Invalidate();
+  UpdateUserViewportChanged();
 }
 
 void Framework::ScaleDefault(bool enlarge)
@@ -966,6 +1002,7 @@ void Framework::Scale(double scale)
   m_navigator.Scale(scale);
 
   Invalidate();
+  UpdateUserViewportChanged();
 }
 
 void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::PointD & pt2) const
@@ -1022,8 +1059,12 @@ void Framework::StopScale(ScaleEvent const & e)
   CalcScalePoints(e, pt1, pt2);
 
   m_navigator.StopScale(pt1, pt2, ElapsedSeconds());
+
   if (m_renderPolicy)
+  {
     m_renderPolicy->StopScale();
+    UpdateUserViewportChanged();
+  }
 }
 //@}
 
@@ -1086,7 +1127,13 @@ bool Framework::Search(search::SearchParams const & params)
   search::SearchParams const & rParams = params;
 #endif
 
-  return GetSearchEngine()->Search(rParams, GetCurrentViewport());
+  if (GetSearchEngine()->Search(rParams, GetCurrentViewport()))
+  {
+    m_lastSearch = rParams;
+    return true;
+  }
+  else
+    return false;
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
@@ -1157,40 +1204,55 @@ size_t Framework::ShowAllSearchResults()
 {
   using namespace search;
 
-  Results searchRes;
-  GetSearchEngine()->GetResults(searchRes);
+  Results results;
+  GetSearchEngine()->GetResults(results);
 
-  size_t const count = searchRes.GetCount();
+  size_t const count = results.GetCount();
   switch (count)
   {
-  case 1: ShowSearchResult(searchRes.GetResult(0));
+  case 1: ShowSearchResult(results.GetResult(0));
   case 0: return count;
   }
 
-  UserMarkContainer::Type type = UserMarkContainer::SEARCH_MARK;
-  m_bmManager.UserMarksSetVisible(type, true);
-  m_bmManager.UserMarksClear(type);
-
   m2::RectD rect;
-  for (size_t i = 0; i < count; ++i)
-  {
-    // @todo add type for each search result pin
-    search::Result const & r = searchRes.GetResult(i);
-    if (r.GetResultType() == Result::RESULT_FEATURE)
-    {
-      AddressInfo info;
-      info.MakeFrom(r);
-      m2::PointD ptOrg = r.GetFeatureCenter();
-      SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, ptOrg));
-      mark->SetInfo(info);
-      rect.Add(r.GetFeatureCenter());
-    }
-  }
+  FillSearchResultsMarks(results, rect);
 
   ShowRectEx(rect);
   StopLocationFollow();
 
   return count;
+}
+
+void Framework::FillSearchResultsMarks(search::Results const & results, m2::RectD & rect)
+{
+  UserMarkContainer::Type const type = UserMarkContainer::SEARCH_MARK;
+  m_bmManager.UserMarksSetVisible(type, true);
+  m_bmManager.UserMarksClear(type);
+
+  size_t const count = results.GetCount();
+  for (size_t i = 0; i < count; ++i)
+  {
+    using namespace search;
+
+    Result const & r = results.GetResult(i);
+    if (r.GetResultType() == Result::RESULT_FEATURE)
+    {
+      AddressInfo info;
+      info.MakeFrom(r);
+      m2::PointD const pt = r.GetFeatureCenter();
+      SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, pt));
+      mark->SetInfo(info);
+      rect.Add(pt);
+    }
+  }
+}
+
+void Framework::CancelInteractiveSearch()
+{
+  m_lastSearch.Clear();
+  m_bmManager.UserMarksClear(UserMarkContainer::SEARCH_MARK);
+
+  Invalidate();
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,

@@ -83,6 +83,7 @@ public:
   inline void NullPosition() { m_position = m2::PointD(empty_pos_value, empty_pos_value); }
 
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
+  inline void SetSortByViewport(bool b) { m_sortByViewport = b; }
 
   void SetPreferredLanguage(string const & lang);
   void SetInputLanguage(int8_t lang);
@@ -157,8 +158,15 @@ private:
                              OffsetsVectorT & offsets);
   void ClearCache(size_t ind);
 
-  /// @param[in]  viewportID  @see m_viewport
-  void AddResultFromTrie(TrieValueT const & val, size_t mwmID, int8_t viewportID = -1);
+  enum ViewportID {
+    DEFAULT_V = -1,
+    CURRENT_V = 0,
+    POSITION_V = 1,
+    LOCALITY_V = 2,
+    COUNT_V = 3   // Should always be the last
+  };
+
+  void AddResultFromTrie(TrieValueT const & val, size_t mwmID, ViewportID vID = DEFAULT_V);
 
   void FlushResults(Results & res, bool allMWMs, size_t resCount);
 
@@ -180,9 +188,9 @@ private:
   /// If ind == -1, don't do any matching with features in viewport (@see m_offsetsInViewport).
   //@{
   /// Do search in all maps from mwmInfo.
-  void SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, int ind);
+  void SearchFeatures(Params const & params, MWMVectorT const & mwmInfo, ViewportID vID);
   /// Do search in particular map (mwmLock).
-  void SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, int ind = -1);
+  void SearchInMWM(Index::MwmLock const & mwmLock, Params const & params, ViewportID vID = DEFAULT_V);
   //@}
 
   void SuggestStrings(Results & res);
@@ -213,21 +221,15 @@ private:
 
   static int const MAX_SUGGESTS_COUNT = 5;
 
-  /// 0 - current viewport rect
-  /// 1 - near me rect
-  /// 2 - around city rect
-  static size_t const RECTSCOUNT = 3;
-  static int const ADDRESS_RECT_ID = RECTSCOUNT-1;
-
-  m2::RectD m_viewport[RECTSCOUNT];
-  bool m_worldSearch;
+  m2::RectD m_viewport[COUNT_V];
+  bool m_worldSearch, m_sortByViewport;
 
   /// @name Get ranking params.
-  /// @param[in]  viewportID  Index of search viewport (@see comments above); -1 means default viewport.
   //@{
   /// @return Rect for viewport-distance calculation.
-  m2::RectD const & GetViewport(int8_t viewportID = -1) const;
-  m2::PointD GetPosition(int8_t viewportID = -1) const;
+  m2::RectD const & GetViewport(ViewportID vID = DEFAULT_V) const;
+  /// @return Control point for distance-to calculation.
+  m2::PointD GetPosition(ViewportID vID = DEFAULT_V) const;
   //@}
 
   m2::PointD m_position;
@@ -238,7 +240,7 @@ private:
 
   KeywordLangMatcher m_keywordsScorer;
 
-  OffsetsVectorT m_offsetsInViewport[RECTSCOUNT];
+  OffsetsVectorT m_offsetsInViewport[COUNT_V];
   bool m_supportOldFormat;
 
   template <class ParamT> class CompareT

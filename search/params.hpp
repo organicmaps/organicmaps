@@ -33,12 +33,9 @@ namespace search
       ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD | SEARCH_ADDRESS
     };
 
-    inline void SetSearchMode(int /*mode*/)
-    {
-      // Always do search in default mode (ALL).
-      //m_searchMode = mode;
-    }
+    inline void SetSearchMode(int mode) { m_searchMode = mode; }
     inline bool NeedSearch(SearchModeT mode) const { return ((m_searchMode & mode) != 0); }
+    inline bool IsSortByViewport() const { return m_searchMode == IN_VIEWPORT; }
     //@}
 
     void SetPosition(double lat, double lon);
@@ -49,6 +46,8 @@ namespace search
     bool IsLanguageValid() const;
 
     bool IsEqualCommon(SearchParams const & rhs) const;
+
+    void Clear() { m_query.clear(); }
 
   public:
     SearchCallbackT m_callback;
