@@ -2,12 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "star.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "BookmarkButton@2x.png"
+      "filename" : "star@2x.png"
     }
   ],
   "info" : {

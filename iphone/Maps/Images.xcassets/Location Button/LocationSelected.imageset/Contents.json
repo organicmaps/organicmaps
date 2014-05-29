@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "LocationSelected.png"
+      "filename" : "my-position-pressed.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "LocationSelected@2x.png"
+      "filename" : "my-position-pressed@2x.png"
     }
   ],
   "info" : {

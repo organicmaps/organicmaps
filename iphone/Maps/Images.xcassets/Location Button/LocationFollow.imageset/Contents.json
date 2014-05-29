@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "LocationFollow.png"
+      "filename" : "my-position-auto-follow.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "LocationFollow@2x.png"
+      "filename" : "my-position-auto-follow@2x.png"
     }
   ],
   "info" : {

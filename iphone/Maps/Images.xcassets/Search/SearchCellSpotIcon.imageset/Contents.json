@@ -2,12 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "suggestion-result.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "SearchCellSpotIcon@2x.png"
+      "filename" : "suggestion-result@2x.png"
     }
   ],
   "info" : {
