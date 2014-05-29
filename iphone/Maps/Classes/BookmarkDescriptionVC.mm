@@ -28,9 +28,9 @@
   [self.textView becomeFirstResponder];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
-  [super viewWillDisappear:animated];
+  [super viewDidDisappear:animated];
 
   BookmarkCategory * category = GetFramework().GetBmCategory(self.bookmarkAndCategory.first);
   Bookmark * bookmark = category->GetBookmark(self.bookmarkAndCategory.second);
