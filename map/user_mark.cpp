@@ -26,8 +26,3 @@ void UserMark::GetLatLon(double & lat, double & lon) const
   lon = MercatorBounds::XToLon(m_ptOrg.x);
   lat = MercatorBounds::YToLat(m_ptOrg.y);
 }
-
-void UserMark::Activate() const
-{
-  m_container->ActivateMark(this);
-}

@@ -49,7 +49,7 @@ public:
     BOOKMARK_MARK
   };
 
-  UserMarkContainer(double layerDepth, Framework & framework);
+  UserMarkContainer(double layerDepth, Framework & fm);
   virtual ~UserMarkContainer();
 
   void SetScreen(graphics::Screen * cacheScreen);
@@ -77,9 +77,10 @@ public:
   Controller const & GetController() const { return m_controller; }
   Controller & GetController() { return m_controller; }
 
+  virtual string GetActiveTypeName() const = 0;
+
 protected:
   virtual string GetTypeName() const = 0;
-  virtual string GetActiveTypeName() const = 0;
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg) = 0;
 
 private:
@@ -91,42 +92,14 @@ private:
   void DeleteUserMark(size_t index);
   void DeleteUserMark(UserMark const * mark);
 
-private:
-  void DrawUserMark(double scale,
-                    PaintOverlayEvent const & event,
-                    UserMarkDLCache * cache,
-                    UserMarkDLCache::Key const & defaultKey,
-                    UserMark const * mark) const;
-
-  void DefaultDrawUserMark(double scale,
-                           PaintOverlayEvent const & event,
-                           UserMarkDLCache * cache,
-                           UserMarkDLCache::Key const & defaultKey,
-                           UserMark const * mark) const;
-
-  void DrawUserMarkImpl(double scale,
-                        const m2::PointD & pixelOfsset,
-                        PaintOverlayEvent const & event,
-                        graphics::DisplayList * dl,
-                        UserMark const * mark) const;
+protected:
+  Framework & m_framework;
 
 private:
   Controller m_controller;
   bool m_isVisible;
   double m_layerDepth;
   vector<UserMark *> m_userMarks;
-  UserMark const * m_activeMark;
-
-protected:
-  Framework & m_framework;
-
-private:
-  /// animation support
-  void StartActivationAnim();
-  void KillActivationAnim();
-  double GetActiveMarkScale() const;
-
-  shared_ptr<anim::Task> m_animTask;
 };
 
 class SearchUserMarkContainer : public UserMarkContainer
@@ -136,9 +109,9 @@ public:
 
   virtual Type GetType() const { return SEARCH_MARK; }
 
+  virtual string GetActiveTypeName() const;
 protected:
   virtual string GetTypeName() const;
-  virtual string GetActiveTypeName() const;
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
 };
 
@@ -149,8 +122,32 @@ public:
 
   virtual Type GetType() const { return API_MARK; }
 
+  virtual string GetActiveTypeName() const;
 protected:
   virtual string GetTypeName() const;
-  virtual string GetActiveTypeName() const;
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
+};
+
+class SelectionContainer
+{
+public:
+  SelectionContainer(Framework & fm);
+
+  void ActivateMark(UserMark const * userMark);
+  void Draw(PaintOverlayEvent const & e, UserMarkDLCache * cache) const;
+
+private:
+  /// animation support
+  void StartActivationAnim();
+  void KillActivationAnim();
+  double GetActiveMarkScale() const;
+
+  shared_ptr<anim::Task> m_animTask;
+
+private:
+  bool m_hasActiveMark;
+  double m_depth;
+  string m_pinImageName;
+  m2::PointD m_ptOrg;
+  Framework & m_fm;
 };

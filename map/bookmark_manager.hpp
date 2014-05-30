@@ -78,4 +78,6 @@ private:
   UserMarkContainer * FindUserMarksContainer(UserMarkContainer::Type type);
 
   UserMarkDLCache * m_cache;
+
+  SelectionContainer m_selection;
 };

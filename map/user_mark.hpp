@@ -37,10 +37,6 @@ public:
   virtual Type GetMarkType() const = 0;
 
 protected:
-  friend class BookmarkManager;
-  void Activate() const;
-
-protected:
   m2::PointD m_ptOrg;
   mutable UserMarkContainer * m_container;
 };

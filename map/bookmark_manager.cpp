@@ -23,6 +23,7 @@ BookmarkManager::BookmarkManager(Framework & f)
   , m_bmScreen(0)
   , m_lastScale(1.0)
   , m_cache(NULL)
+  , m_selection(f)
 {
   m_userMarkLayers.reserve(2);
   m_userMarkLayers.push_back(new SearchUserMarkContainer(graphics::activePinDepth, m_framework));
@@ -276,7 +277,9 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
   graphics::Screen * pScreen = e->drawer()->screen();
   pScreen->beginFrame();
 
+
   PaintOverlayEvent event(e->drawer(), screen);
+  m_selection.Draw(event, m_cache);
   for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event, m_cache));
   for_each(m_categories.begin(), m_categories.end(), bind(&BookmarkManager::DrawCategory, this, _1, event));
 
@@ -307,10 +310,7 @@ bool BookmarkManager::DeleteBmCategory(size_t index)
 
 void BookmarkManager::ActivateMark(UserMark const * mark)
 {
-  for_each(m_categories.begin(), m_categories.end(), bind(&UserMarkContainer::DiactivateMark, _1));
-  for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::DiactivateMark, _1));
-  if (mark != NULL)
-    mark->Activate();
+  m_selection.ActivateMark(mark);
 }
 
 UserMark const * BookmarkManager::FindNearestUserMark(const m2::AnyRectD & rect)
