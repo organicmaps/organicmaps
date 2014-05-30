@@ -79,7 +79,7 @@ namespace
                            graphics::DisplayList * dl,
                            m2::PointD const & ptOrg)
   {
-    ScreenBase modelView = event.GetModelView();
+    ScreenBase const & modelView = event.GetModelView();
     graphics::Screen * screen = event.GetDrawer()->screen();
     m2::PointD pxPoint = modelView.GtoP(ptOrg);
     pxPoint += (pixelOfsset * visualScale);
@@ -113,16 +113,6 @@ namespace
     }
     else
       DrawUserMarkImpl(scale, visualScale, m2::PointD(0.0, 0.0), event, cache->FindUserMark(defaultKey), mark);
-  }
-
-  void DefaultDrawUserMark(double scale,
-                           double visualScale,
-                           PaintOverlayEvent const & event,
-                           UserMarkDLCache * cache,
-                           UserMarkDLCache::Key const & defaultKey,
-                           UserMark const * mark)
-  {
-    DrawUserMarkImpl(scale, visualScale, m2::PointD(0.0, 0.0), event, cache->FindUserMark(defaultKey), mark);
   }
 }
 
@@ -277,8 +267,7 @@ UserMark * ApiUserMarkContainer::AllocateUserMark(const m2::PointD & ptOrg)
 
 
 SelectionContainer::SelectionContainer(Framework & fm)
-  : m_hasActiveMark(false)
-  , m_depth(graphics::minDepth - 100)
+  : m_container(NULL)
   , m_fm(fm)
 {
 }
@@ -288,25 +277,22 @@ void SelectionContainer::ActivateMark(UserMark const * userMark)
   KillActivationAnim();
   if (userMark != NULL)
   {
-    m_hasActiveMark = true;
     m_ptOrg = userMark->GetOrg();
-    UserMarkContainer const * container = userMark->GetContainer();
-    m_pinImageName = container->GetActiveTypeName();
-    m_depth = container->GetDepth();
+    m_container = userMark->GetContainer();
     StartActivationAnim();
   }
   else
-  {
-    m_hasActiveMark = false;
-    m_depth = graphics::minDepth - 100;
-  }
+    m_container = NULL;
 }
 
 void SelectionContainer::Draw(const PaintOverlayEvent & e, UserMarkDLCache * cache) const
 {
-  if (m_hasActiveMark)
+  if (m_container != NULL)
   {
-    UserMarkDLCache::Key defaultKey(m_pinImageName, graphics::EPosCenter, m_depth);
+    UserMarkDLCache::Key defaultKey(m_container->GetActiveTypeName(),
+                                    graphics::EPosCenter,
+                                    m_container->GetDepth());
+
     DrawUserMarkByPoint(GetActiveMarkScale(),
                         m_fm.GetVisualScale(),
                         m2::PointD(0, 0),

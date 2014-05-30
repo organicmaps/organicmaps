@@ -145,9 +145,7 @@ private:
   shared_ptr<anim::Task> m_animTask;
 
 private:
-  bool m_hasActiveMark;
-  double m_depth;
-  string m_pinImageName;
+  UserMarkContainer const * m_container;
   m2::PointD m_ptOrg;
   Framework & m_fm;
 };
