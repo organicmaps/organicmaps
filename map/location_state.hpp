@@ -48,9 +48,9 @@ namespace location
   private:
 
     static const double s_cacheRadius;
-    shared_ptr<anim::Task> m_radiusAnimation;
-    void UpdateAnimation();
-    void SetErrorRadius(double errorRadius);
+    //shared_ptr<anim::Task> m_radiusAnimation;
+    //void UpdateAnimation();
+    //void SetErrorRadius(double errorRadius);
     double GetErrorRadius() const;
     float GetTransparency() const;
 

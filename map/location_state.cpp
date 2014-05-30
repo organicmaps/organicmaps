@@ -27,86 +27,86 @@ namespace location
     const float MaxPositionFault = 25.0;
     const float MaxHeadingFaultDeg = 3.0;
 
-    class ErrorSectorAnimator : public anim::Task
-    {
-      typedef anim::Task base_t;
-    public:
-      ErrorSectorAnimator(double maxRadius, ::location::State * state)
-        : m_maxRadius(maxRadius)
-        , m_currentRadius(0.0)
-        , m_pause(0.0)
-        , m_state(state)
-      {
-      }
+//    class ErrorSectorAnimator : public anim::Task
+//    {
+//      typedef anim::Task base_t;
+//    public:
+//      ErrorSectorAnimator(double maxRadius, ::location::State * state)
+//        : m_maxRadius(maxRadius)
+//        , m_currentRadius(0.0)
+//        , m_pause(0.0)
+//        , m_state(state)
+//      {
+//      }
 
-      void Update(Framework * f)
-      {
-        ScreenBase s = f->GetNavigator().Screen();
-        m2::PointD pxPosition = m_state->pivot();
-        double pxRadius = pxPosition.Length(s.GtoP(m_state->Position() + m2::PointD(m_maxRadius, 0)));
+//      void Update(Framework * f)
+//      {
+//        ScreenBase s = f->GetNavigator().Screen();
+//        m2::PointD pxPosition = m_state->pivot();
+//        double pxRadius = pxPosition.Length(s.GtoP(m_state->Position() + m2::PointD(m_maxRadius, 0)));
 
-        m2::RectD r = s.PixelRect();
-        double minSize = min(r.SizeX(), r.SizeY());
-        double factor = pxRadius / minSize;
+//        m2::RectD r = s.PixelRect();
+//        double minSize = min(r.SizeX(), r.SizeY());
+//        double factor = pxRadius / minSize;
 
-        double percent = 1E-2;
-        if (factor > 1.0)
-          percent = 5E-3;
-        else if (factor > 0.1)
-          percent = 9E-3;
+//        double percent = 1E-2;
+//        if (factor > 1.0)
+//          percent = 5E-3;
+//        else if (factor > 0.1)
+//          percent = 9E-3;
 
-        m_baseVelocity = percent * m_maxRadius;
-      }
+//        m_baseVelocity = percent * m_maxRadius;
+//      }
 
-      void SetMaxRadius(double maxRadius)
-      {
-        m_maxRadius = maxRadius;
-      }
+//      void SetMaxRadius(double maxRadius)
+//      {
+//        m_maxRadius = maxRadius;
+//      }
 
-      double GetCurrentRadius() const
-      {
-        return m_currentRadius;
-      }
+//      double GetCurrentRadius() const
+//      {
+//        return m_currentRadius;
+//      }
 
-      float GetTransparency() const
-      {
-        return 0.3 * (1 - m_currentRadius / m_maxRadius);
-      }
+//      float GetTransparency() const
+//      {
+//        return 0.3 * (1 - m_currentRadius / m_maxRadius);
+//      }
 
-      virtual void OnStart(double ts)
-      {
-        m_startTime = ts;
-      }
+//      virtual void OnStart(double ts)
+//      {
+//        m_startTime = ts;
+//      }
 
-      virtual void OnStep(double ts)
-      {
-        base_t::OnStep(ts);
+//      virtual void OnStep(double ts)
+//      {
+//        base_t::OnStep(ts);
 
-        double time = ts - (m_startTime + m_pause);
-        if (time > 0.0)
-        {
-          double e = exp(-time) + 0.5;
-          m_currentRadius += (max(e, 0.3) * m_baseVelocity);
+//        double time = ts - (m_startTime + m_pause);
+//        if (time > 0.0)
+//        {
+//          double e = exp(-time) + 0.5;
+//          m_currentRadius += (max(e, 0.3) * m_baseVelocity);
 
-          if (m_currentRadius > m_maxRadius)
-          {
-            m_currentRadius = 0.0;
-            m_startTime = ts;
-            m_pause = 0.5;
-          }
-        }
+//          if (m_currentRadius > m_maxRadius)
+//          {
+//            m_currentRadius = 0.0;
+//            m_startTime = ts;
+//            m_pause = 0.5;
+//          }
+//        }
 
-        m_state->invalidate();
-      }
+//        m_state->invalidate();
+//      }
 
-    private:
-      double m_maxRadius;
-      double m_currentRadius;
-      double m_startTime;
-      double m_pause;
-      double m_baseVelocity;
-      location::State * m_state;
-    };
+//    private:
+//      double m_maxRadius;
+//      double m_currentRadius;
+//      double m_startTime;
+//      double m_pause;
+//      double m_baseVelocity;
+//      location::State * m_state;
+//    };
   }
 
   double const State::s_cacheRadius = 500;
@@ -198,22 +198,22 @@ namespace location
   void State::setIsVisible(bool isVisible)
   {
     gui::Element::setIsVisible(isVisible);
-    if (isVisible)
-    {
-      if (m_radiusAnimation == NULL)
-      {
-        m_radiusAnimation.reset(new ErrorSectorAnimator(m_errorRadius, this));
-        m_framework->GetAnimController()->AddTask(m_radiusAnimation);
-      }
-    }
-    else
-    {
-      if (m_radiusAnimation)
-      {
-        m_radiusAnimation->End();
-        m_radiusAnimation.reset();
-      }
-    }
+//    if (isVisible)
+//    {
+//      if (m_radiusAnimation == NULL)
+//      {
+//        m_radiusAnimation.reset(new ErrorSectorAnimator(m_errorRadius, this));
+//        m_framework->GetAnimController()->AddTask(m_radiusAnimation);
+//      }
+//    }
+//    else
+//    {
+//      if (m_radiusAnimation)
+//      {
+//        m_radiusAnimation->End();
+//        m_radiusAnimation.reset();
+//      }
+//    }
   }
 
   void State::OnLocationUpdate(location::GpsInfo const & info)
@@ -230,7 +230,7 @@ namespace location
     setIsVisible(true);
     m_position = center;
     m_errorRadius = rect.SizeX() / 2;
-    SetErrorRadius(m_errorRadius);
+    //SetErrorRadius(m_errorRadius);
 
     switch (m_locationProcessMode)
     {
@@ -285,42 +285,42 @@ namespace location
     return m_boundRects;
   }
 
-  void State::UpdateAnimation()
-  {
-    if (m_radiusAnimation)
-    {
-      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
-      a->Update(m_framework);
-    }
-  }
+//  void State::UpdateAnimation()
+//  {
+//    if (m_radiusAnimation)
+//    {
+//      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
+//      a->Update(m_framework);
+//    }
+//  }
 
-  void State::SetErrorRadius(double errorRadius)
-  {
-    if (m_radiusAnimation)
-    {
-      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
-      a->SetMaxRadius(errorRadius);
-    }
-  }
+//  void State::SetErrorRadius(double errorRadius)
+//  {
+//    if (m_radiusAnimation)
+//    {
+//      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
+//      a->SetMaxRadius(errorRadius);
+//    }
+//  }
 
   double State::GetErrorRadius() const
   {
-    if (m_radiusAnimation)
-    {
-      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
-      return a->GetCurrentRadius();
-    }
+//    if (m_radiusAnimation)
+//    {
+//      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
+//      return a->GetCurrentRadius();
+//    }
 
-    return 0.0;
+    return m_errorRadius;
   }
 
   float State::GetTransparency() const
   {
-    if (m_radiusAnimation && !IsPositionFaultCritical())
-    {
-      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
-      return a->GetTransparency();
-    }
+//    if (m_radiusAnimation && !IsPositionFaultCritical())
+//    {
+//      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
+//      return a->GetTransparency();
+//    }
 
     return m_locationAreaColor.a;
   }
@@ -451,7 +451,7 @@ namespace location
         setIsDirtyRect(true);
       }
 
-      UpdateAnimation();
+      //UpdateAnimation();
     }
   }
 
