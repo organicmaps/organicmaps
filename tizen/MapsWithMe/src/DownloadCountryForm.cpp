@@ -4,6 +4,7 @@
 #include "AppResourceId.h"
 #include "Framework.hpp"
 #include "Utils.hpp"
+#include "FormFactory.hpp"
 #include "../../../std/bind.hpp"
 #include "../../../base/logging.hpp"
 #include "../../../platform/settings.hpp"
@@ -24,7 +25,8 @@ using namespace Tizen::Graphics;
 using namespace storage;
 
 DownloadCountryForm::DownloadCountryForm()
-: m_downloadedBitmap(0), m_updateBitmap(0)
+: m_downloadedBitmap(0),
+  m_updateBitmap(0)
 {
   m_DowloadStatusSlot = Storage().Subscribe(bind(&DownloadCountryForm::OnCountryDownloaded, this, _1),
       bind(&DownloadCountryForm::OnCountryDowloadProgres, this, _1, _2));
@@ -168,17 +170,16 @@ int DownloadCountryForm::GetItemCount(void)
 void DownloadCountryForm::OnSceneActivatedN(const Tizen::Ui::Scenes::SceneId& previousSceneId,
     const Tizen::Ui::Scenes::SceneId& currentSceneId, Tizen::Base::Collection::IList* pArgs)
 {
+  m_form_id = SceneManager::GetInstance()->GetCurrentScene()->GetFormId();
   if (pArgs != null)
   {
-    if (pArgs->GetCount() == 3)
+    if (pArgs->GetCount() == 2)
     {
-      Integer * pLevel = dynamic_cast<Integer *>(pArgs->GetAt(0));
-      Integer * pGroup = dynamic_cast<Integer *>(pArgs->GetAt(1));
-      Integer * pCountry = dynamic_cast<Integer *>(pArgs->GetAt(2));
+      Integer * pGroup = dynamic_cast<Integer *>(pArgs->GetAt(0));
+      Integer * pCountry = dynamic_cast<Integer *>(pArgs->GetAt(1));
       m_group_index.m_group = pGroup->value;
       m_group_index.m_country = pCountry->value;
       m_group_index.m_region = TIndex::INVALID;
-      m_valid_values_in_gp_index = pLevel->value;
     }
     ListView * __pList = static_cast<ListView *>(GetControl(IDC_DOWNLOAD_LISTVIEW));
     __pList->SetItemProvider(*this);
@@ -203,37 +204,30 @@ bool DownloadCountryForm::IsGroup(storage::TIndex const & index) const
 TIndex DownloadCountryForm::GetIndex(int const ind) const
 {
   TIndex res = m_group_index;
-  if (m_valid_values_in_gp_index == 0)
+  if (m_form_id == FORM_DOWNLOAD_GROUP)
     res.m_group = ind;
-  if (m_valid_values_in_gp_index == 1)
+  if (m_form_id == FORM_DOWNLOAD_COUNTRY)
     res.m_country = ind;
-  else if (m_valid_values_in_gp_index == 2)
+  else if (m_form_id == FORM_DOWNLOAD_REGION)
     res.m_region = ind;
   return res;
 }
 
 wchar_t const * DownloadCountryForm::GetNextScene() const
 {
-  switch (m_valid_values_in_gp_index)
-  {
-    case 0:
-      return SCENE_DOWNLOAD_COUNTRY;
-    case 1:
-      return SCENE_DOWNLOAD_REGION;
-    default:
-      return SCENE_DOWNLOAD_REGION;
-  }
+  if (m_form_id == FORM_DOWNLOAD_GROUP)
+    return SCENE_DOWNLOAD_COUNTRY;
+  return SCENE_DOWNLOAD_REGION;
 }
 
 void DownloadCountryForm::OnListViewItemStateChanged(ListView & listView, int index, int elementId,
     ListItemStatus status)
 {
-   TIndex country = GetIndex(index);
+  TIndex country = GetIndex(index);
   if (IsGroup(country))
   {
     ArrayList * pList = new (std::nothrow) ArrayList;
     pList->Construct();
-    pList->Add(*(new (std::nothrow) Integer(m_valid_values_in_gp_index + 1)));
     pList->Add(*(new (std::nothrow) Integer(country.m_group)));
     pList->Add(*(new (std::nothrow) Integer(country.m_country)));
 
@@ -287,21 +281,20 @@ void DownloadCountryForm::UpdateList()
 
 void DownloadCountryForm::OnCountryDownloaded(TIndex const & country)
 {
+  if (m_form_id != SceneManager::GetInstance()->GetCurrentScene()->GetFormId())
+    return;
   if (Storage().CountryStatusEx(country) == EDownloadFailed)
   {
-    bool static bOddEnterHack = true; // message about download fail comes twice. Hack for showing only one of them
-    bOddEnterHack = !bOddEnterHack;
-    if (bOddEnterHack)
-    {
-      String sName = Storage().CountryName(country).c_str();
-      MessageBoxOk(sName, FormatString1(IDS_DOWNLOAD_COUNTRY_FAILED, sName));
-    }
+    String sName = Storage().CountryName(country).c_str();
+    MessageBoxOk(sName, FormatString1(IDS_DOWNLOAD_COUNTRY_FAILED, sName));
   }
   UpdateList();
 }
 
 void DownloadCountryForm::OnCountryDowloadProgres(TIndex const & index, pair<int64_t, int64_t> const & p)
 {
+  if (m_form_id != SceneManager::GetInstance()->GetCurrentScene()->GetFormId())
+    return;
   m_lastDownload_value[index] = p;
   UpdateList();
 }

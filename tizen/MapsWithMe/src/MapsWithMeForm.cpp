@@ -160,7 +160,6 @@ void MapsWithMeForm::OnActionPerformed(Tizen::Ui::Control const & source, int ac
     {
       ArrayList * pList = new (std::nothrow) ArrayList;
       pList->Construct();
-      pList->Add(*(new (std::nothrow) Integer(0)));
       pList->Add(*(new (std::nothrow) Integer(storage::TIndex::INVALID)));
       pList->Add(*(new (std::nothrow) Integer(storage::TIndex::INVALID)));
 

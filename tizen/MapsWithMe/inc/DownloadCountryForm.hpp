@@ -65,7 +65,7 @@ private:
   Tizen::Graphics::Bitmap const * m_updateBitmap;
 
   storage::TIndex m_group_index;
-  int m_valid_values_in_gp_index;
+  Tizen::Base::String m_form_id;
   int m_DowloadStatusSlot;
   map<storage::TIndex, pair<int64_t, int64_t> > m_lastDownload_value;
 };
