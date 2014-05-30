@@ -11,7 +11,6 @@
 
 @implementation ToastView
 
-
 - (id)initWithMessage:(NSString *)message
 {
   CGFloat const xOffset = 18;

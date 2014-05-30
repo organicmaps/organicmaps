@@ -36,9 +36,14 @@
   [self addSubview:self.selectedColorView];
   [self addSubview:self.separatorView];
 
-  [[MapsAppDelegate theApp].m_locationManager start:self];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMonitoringLocation:) name:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
 
   return self;
+}
+
+- (void)startMonitoringLocation:(NSNotification *)notification
+{
+  [[MapsAppDelegate theApp].m_locationManager start:self];
 }
 
 - (NSString *)distance
@@ -237,6 +242,7 @@
 
 - (void)dealloc
 {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   [[MapsAppDelegate theApp].m_locationManager stop:self];
 }
 

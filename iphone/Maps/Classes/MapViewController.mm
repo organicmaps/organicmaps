@@ -3,8 +3,6 @@
 #import "EAGLView.h"
 #import "BookmarksRootVC.h"
 #import "PlacePageVC.h"
-#import "PlacePreviewViewController.h"
-#import "MWMApi.h"
 #import "UIKitCategories.h"
 #import "SettingsViewController.h"
 #import "UIViewController+Navigation.h"
@@ -180,6 +178,7 @@ const long long LITE_IDL = 431183278L;
 
       [[MapsAppDelegate theApp] disableStandby];
       [[MapsAppDelegate theApp].m_locationManager start:self];
+      [[NSNotificationCenter defaultCenter] postNotificationName:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
 
       return;
     }
@@ -767,7 +766,8 @@ const long long LITE_IDL = 431183278L;
 
 - (void)backToApiApp:(id)sender
 {
-  [[UIApplication sharedApplication] openURL:[[self class] getBackUrl]];
+  NSURL * url = [NSURL URLWithString:[NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetGlobalBackUrl().c_str()]];
+  [[UIApplication sharedApplication] openURL:url];
 }
 
 - (void)toolbar:(ToolbarView *)toolbar didPressItemWithName:(NSString *)itemName
@@ -1069,11 +1069,6 @@ const long long LITE_IDL = 431183278L;
 
   [self dismissPopover];
   _apiMode = apiMode;
-}
-
-+ (NSURL *)getBackUrl
-{
-  return [NSURL URLWithString:[NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetGlobalBackUrl().c_str()]];
 }
 
 - (void)setupMeasurementSystem

@@ -1,6 +1,5 @@
 
 #import "SearchBar.h"
-#import "UIKitCategories.h"
 #import "Framework.h"
 
 @interface SearchBar ()
@@ -8,7 +7,7 @@
 @property (nonatomic) UITextField * textField;
 @property (nonatomic) UIButton * clearButton;
 @property (nonatomic) UIButton * cancelButton;
-@property (nonatomic) UIImageView * fieldBackgroundView;
+@property (nonatomic) SolidTouchViewImageView * fieldBackgroundView;
 
 @end
 
@@ -68,7 +67,7 @@
     _cancelButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
     _cancelButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_cancelButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    [_cancelButton setTitleColor:[UIColor colorWithWhite:1 alpha:0.5] forState:UIControlStateHighlighted];
     [_cancelButton setTitle:@"cancel" forState:UIControlStateNormal];
     [_cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
@@ -88,12 +87,12 @@
   return _clearButton;
 }
 
-- (UIImageView *)fieldBackgroundView
+- (SolidTouchViewImageView *)fieldBackgroundView
 {
   if (!_fieldBackgroundView)
   {
     UIImage * image = [[UIImage imageNamed:@"SearchFieldBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(6, 6, 6, 6)];
-    _fieldBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, image.size.height)];
+    _fieldBackgroundView = [[SolidTouchViewImageView alloc] initWithFrame:CGRectMake(0, 0, 0, image.size.height)];
     _fieldBackgroundView.image = image;
     _fieldBackgroundView.userInteractionEnabled = YES;
     _fieldBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;

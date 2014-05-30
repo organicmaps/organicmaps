@@ -1,5 +1,6 @@
 
 #import <UIKit/UIKit.h>
+#import "UIKitCategories.h"
 
 @class SearchBar;
 @protocol SearchBarDelegate <NSObject>
@@ -14,7 +15,7 @@
 @property (nonatomic, readonly) UITextField * textField;
 @property (nonatomic, readonly) UIButton * clearButton;
 @property (nonatomic, readonly) UIButton * cancelButton;
-@property (nonatomic, readonly) UIImageView * fieldBackgroundView;
+@property (nonatomic, readonly) SolidTouchViewImageView * fieldBackgroundView;
 
 @property (nonatomic, weak) id <SearchBarDelegate> delegate;
 

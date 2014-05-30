@@ -43,6 +43,7 @@
     _priceButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     _priceButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:12.5];
     _priceButton.userInteractionEnabled = NO;
+    _priceButton.contentEdgeInsets = UIEdgeInsetsMake(0, 1, 0, 0);
     [_priceButton setBackgroundImage:image forState:UIControlStateNormal];
     [_priceButton setTitleColor:[UIColor colorWithColorCode:@"007aff"] forState:UIControlStateNormal];
   }

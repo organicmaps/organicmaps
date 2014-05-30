@@ -64,3 +64,8 @@
 @interface SolidTouchView : UIView
 
 @end
+
+
+@interface SolidTouchViewImageView : UIImageView
+
+@end

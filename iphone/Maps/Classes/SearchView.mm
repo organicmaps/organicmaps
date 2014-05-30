@@ -88,7 +88,7 @@
 @interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver, UIAlertViewDelegate>
 
 @property (nonatomic) UITableView * tableView;
-@property (nonatomic) UIImageView * topBackgroundView;
+@property (nonatomic) SolidTouchViewImageView * topBackgroundView;
 @property (nonatomic) UILabel * emptyResultLabel;
 
 - (BOOL)isShowingCategories;
@@ -125,11 +125,8 @@ __weak SearchView * selfPointer;
 
   double latitude;
   double longitude;
-  LocationManager * locationManager = [MapsAppDelegate theApp].m_locationManager;
-  bool const hasPt = [locationManager getLat:latitude Lon:longitude];
+  bool const hasPt = [[MapsAppDelegate theApp].m_locationManager getLat:latitude Lon:longitude];
   GetFramework().PrepareSearch(hasPt, latitude, longitude);
-
-  [locationManager start:self];
 
   [self addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
 
@@ -137,7 +134,14 @@ __weak SearchView * selfPointer;
 
   [self.tableView registerClass:[SearchUniversalCell class] forCellReuseIdentifier:[SearchUniversalCell className]];
 
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMonitoringLocation:) name:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
+
   return self;
+}
+
+- (void)startMonitoringLocation:(NSNotification *)notification
+{
+  [[MapsAppDelegate theApp].m_locationManager start:self];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -177,6 +181,7 @@ __weak SearchView * selfPointer;
       self.searchBar.alpha = 1;
       self.searchBar.fieldBackgroundView.frame = fieldBackgroundFrame;
       self.searchBar.textField.frame = textFieldFrame;
+      [self.searchBar.clearButton setImage:[UIImage imageNamed:@"SearchBarClearButton"] forState:UIControlStateNormal];
     } completion:^(BOOL finished){
       if (needToScroll)
       {
@@ -196,6 +201,7 @@ __weak SearchView * selfPointer;
       self.tableView.alpha = 0;
       self.searchBar.fieldBackgroundView.frame = shiftedFieldBackgroundFrame;
       self.searchBar.textField.frame = shiftedTextFieldFrame;
+      [self.searchBar.clearButton setImage:[UIImage imageNamed:@"SearchBarClearResultsButton"] forState:UIControlStateNormal];
     } completion:nil];
   }
   else if (state == SearchViewStateHidden)
@@ -209,6 +215,7 @@ __weak SearchView * selfPointer;
       self.tableView.alpha = 0;
       self.searchBar.fieldBackgroundView.frame = fieldBackgroundFrame;
       self.searchBar.textField.frame = textFieldFrame;
+      [self.searchBar.clearButton setImage:[UIImage imageNamed:@"SearchBarClearButton"] forState:UIControlStateNormal];
     } completion:nil];
   }
   else if (state == SearchViewStateAlpha)
@@ -263,11 +270,6 @@ __weak SearchView * selfPointer;
   }
 }
 
-- (void)onCompassUpdate:(location::CompassInfo const &)info
-{
-
-}
-
 - (search::SearchParams)searchParameters
 {
   search::SearchParams params;
@@ -318,15 +320,20 @@ static void OnSearchResultCallback(search::Results const & results)
   }
 }
 
+- (void)clearSearchResultsMode
+{
+  Framework & framework = GetFramework();
+  framework.GetBalloonManager().RemovePin();
+  framework.GetBalloonManager().Dismiss();
+  framework.GetBookmarkManager().UserMarksClear(UserMarkContainer::SEARCH_MARK);
+  framework.Invalidate();
+}
+
 - (void)searchBarDidPressClearButton:(SearchBar *)searchBar
 {
   if (self.state == SearchViewStateResults)
   {
-    Framework & framework = GetFramework();
-    framework.GetBalloonManager().RemovePin();
-    framework.GetBalloonManager().Dismiss();
-    framework.GetBookmarkManager().UserMarksClear(UserMarkContainer::SEARCH_MARK);
-    framework.Invalidate();
+    [self clearSearchResultsMode];
     [self setState:SearchViewStateHidden animated:YES withCallback:YES];
   }
   else
@@ -353,6 +360,8 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (void)textFieldBegin:(id)sender
 {
+  if (self.state == SearchViewStateResults)
+    [self clearSearchResultsMode];
   [self setState:SearchViewStateFullscreen animated:YES withCallback:YES];
 }
 
@@ -373,13 +382,12 @@ static void OnSearchResultCallback(search::Results const & results)
 {
   if ([self.wrapper count] && ![self isShowingCategories])
   {
-    GetFramework().ShowAllSearchResults();
+    if (!GetFramework().ShowAllSearchResults())
+    {
+      ToastView * toastView = [[ToastView alloc] initWithMessage:NSLocalizedString(@"Sorry, but we could not find anything. Download any map and try again", nil)];
+      [toastView show];
+    }
     [self setState:SearchViewStateResults animated:YES withCallback:YES];
-
-#warning Change text
-    ToastView * toastView = [[ToastView alloc] initWithMessage:@"Sorry, but we could not find anything. Download any map and try again"];
-    [toastView show];
-
     return YES;
   }
   return NO;
@@ -616,11 +624,11 @@ static void OnSearchResultCallback(search::Results const & results)
   return _tableView;
 }
 
-- (UIImageView *)topBackgroundView
+- (SolidTouchViewImageView *)topBackgroundView
 {
   if (!_topBackgroundView)
   {
-    _topBackgroundView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0)];
+    _topBackgroundView = [[SolidTouchViewImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0)];
     _topBackgroundView.image = [[UIImage imageNamed:@"SearchViewTopBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0) resizingMode:UIImageResizingModeStretch];
     _topBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _topBackgroundView.userInteractionEnabled = YES;
@@ -655,6 +663,11 @@ static void OnSearchResultCallback(search::Results const & results)
     _emptyResultLabel.textAlignment = NSTextAlignmentCenter;
   }
   return _emptyResultLabel;
+}
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

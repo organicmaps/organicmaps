@@ -34,6 +34,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) UIImageView * arrowImageView;
 @property (nonatomic) UIView * pickerView;
 
+@property (nonatomic) UIView * swipeView;
+
 @property (nonatomic) NSString * title;
 @property (nonatomic) NSString * types;
 @property (nonatomic) NSString * address;
@@ -58,7 +60,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
   self = [super initWithFrame:frame];
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   self.clipsToBounds = YES;
-  self.statusBarIncluded = !SYSTEM_VERSION_IS_LESS_THAN(@"7");
 
   m_mark = NULL;
   m_cachedMark = NULL;
@@ -76,6 +77,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self addSubview:self.tableView];
   [self addSubview:self.headerView];
   [self addSubview:self.arrowImageView];
+  [self addSubview:self.swipeView];
 
   NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
   [nc addObserver:self selector:@selector(bookmarkDeletedNotification:) name:BOOKMARK_DELETED_NOTIFICATION object:nil];
@@ -86,14 +88,19 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self.tableView registerClass:[PlacePageEditCell class] forCellReuseIdentifier:[PlacePageEditCell className]];
   [self.tableView registerClass:[PlacePageShareCell class] forCellReuseIdentifier:[PlacePageShareCell className]];
 
-  [[MapsAppDelegate theApp].m_locationManager start:self];
-
   CGFloat const defaultHeight = 93;
   [self updateHeight:defaultHeight];
 
   updatingTable = NO;
 
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMonitoringLocation:) name:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
+
   return self;
+}
+
+- (void)startMonitoringLocation:(NSNotification *)notification
+{
+  [[MapsAppDelegate theApp].m_locationManager start:self];
 }
 
 - (void)onLocationError:(location::TLocationError)errorCode
@@ -217,12 +224,12 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (CGFloat)titleWidth
 {
-  return self.width - 94;
+  return self.width - 90;
 }
 
 - (CGFloat)typesWidth
 {
-  return self.width - 94;
+  return self.width - 90;
 }
 
 - (CGFloat)headerHeight
@@ -264,6 +271,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 //    [self reloadHeader];
 //    [self alignAnimated:YES];
 //    self.tableView.contentInset = UIEdgeInsetsMake([self headerHeight], 0, 0, 0);
+    self.swipeView.frame = self.bounds;
   }
 }
 
@@ -289,7 +297,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.arrowImageView.alpha = 1;
       [self updateHeight:[self headerHeight]];
-      self.minY = self.statusBarIncluded ? 0 : -20;
+      self.minY = self.statusBarIncluded ? (SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -20 : 0) : -20;
       self.headerSeparator.alpha = 0;
     } completion:nil];
   }
@@ -307,7 +315,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.arrowImageView.alpha = 0;
       [self updateHeight:fullHeight];
-      self.minY = self.statusBarIncluded ? 0 : -20;
+      self.minY = self.statusBarIncluded ? (SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -20 : 0) : -20;
       self.headerSeparator.alpha = 1;
     } completion:^(BOOL finished){
     }];
@@ -393,9 +401,20 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+- (void)abortBookmarkState
+{
+  Framework & framework = GetFramework();
+  m_mark = [self cachedMark];
+  framework.ActivateUserMark(m_mark);
+
+  [self clearCachedProperties];
+  [self reloadHeader];
+  [self updateBookmarkStateAnimated:NO];
+  [self updateBookmarkViewsAlpha:NO];
+}
+
 - (void)bookmarkCategoryDeletedNotification:(NSNotification *)notification
 {
-#warning <#message#>
   if (m_categoryIndex == [[notification object] integerValue])
     [self abortBookmarkState];
 }
@@ -406,18 +425,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [[notification object] getValue:&bookmarkAndCategory];
   if (bookmarkAndCategory == GetFramework().FindBookmark(m_mark))
     [self abortBookmarkState];
-}
-
-- (void)abortBookmarkState
-{
-  Framework & framework = GetFramework();
-  m_mark = m_cachedMark != NULL ? m_cachedMark : framework.GetAddressMark([self pinPoint]);
-  framework.ActivateUserMark(m_mark);
-
-  [self clearCachedProperties];
-  [self reloadHeader];
-  [self updateBookmarkStateAnimated:NO];
-  [self updateBookmarkViewsAlpha:NO];
 }
 
 - (void)swipe:(UISwipeGestureRecognizer *)sender
@@ -740,12 +747,17 @@ typedef NS_ENUM(NSUInteger, CellRow)
   return iconImage;
 }
 
+- (UserMark const *)cachedMark
+{
+  return (m_cachedMark != NULL) ? m_cachedMark : GetFramework().GetAddressMark([self pinPoint]);
+}
+
 - (void)deleteBookmark
 {
   Framework & framework = GetFramework();
   BookmarkAndCategory const & bookmarkAndCategory = framework.FindBookmark(m_mark);
   BookmarkCategory * category = framework.GetBmCategory(bookmarkAndCategory.first);
-  m_mark = m_cachedMark != NULL ? m_cachedMark : framework.GetAddressMark([self pinPoint]);
+  m_mark = [self cachedMark];
   framework.ActivateUserMark(m_mark);
   if (category)
   {
@@ -808,10 +820,19 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
   UIScrollView * sv = scrollView;
-  if ((sv.contentOffset.y + sv.height > sv.contentSize.height + 60) && !sv.dragging && sv.decelerating)
+  if ((sv.contentOffset.y + sv.height > sv.contentSize.height + 70) && !sv.dragging && sv.decelerating)
   {
     if (self.state == PlacePageStateOpened)
       [self setState:PlacePageStatePreview animated:YES withCallback:YES];
+  }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+  NSLog(@"%f %f", scrollView.contentSize.height, scrollView.height);
+  if (scrollView.contentSize.height <= scrollView.height && (*targetContentOffset).y <= scrollView.contentOffset.y)
+  {
+    [self setState:PlacePageStateHidden animated:YES withCallback:YES];
   }
 }
 
@@ -926,7 +947,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
     _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.alwaysBounceVertical = NO;
   }
   return _tableView;
 }

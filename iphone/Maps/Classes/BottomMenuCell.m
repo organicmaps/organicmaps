@@ -17,7 +17,7 @@
   self.backgroundColor = [UIColor clearColor];
 
   UIView * highlightView = [[UIView alloc] initWithFrame:self.bounds];
-  highlightView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.25];
+  highlightView.backgroundColor = [UIColor colorWithColorCode:@"15d081"];
   self.selectedBackgroundView = highlightView;
 
   [self.contentView addSubview:self.titleLabel];
