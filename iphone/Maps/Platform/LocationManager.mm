@@ -97,12 +97,12 @@
 
 - (CLLocation *)lastLocation
 {
-  return m_locationManager.location;
+  return m_isStarted ? m_locationManager.location : nil;
 }
 
 - (CLHeading *)lastHeading
 {
-  return m_locationManager.heading;
+  return m_isStarted ? m_locationManager.heading : nil;
 }
 
 - (void)location:(CLLocation *)location toGpsInfo:(location::GpsInfo &)info
