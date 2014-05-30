@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "menu-buy-pro.png"
+      "filename" : "search-delete-onmap.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "menu-buy-pro@2x.png"
+      "filename" : "search-delete-onmap@2x.png"
     }
   ],
   "info" : {

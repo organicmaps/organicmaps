@@ -2,12 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "menu-download.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "IconMap@2x.png"
+      "filename" : "menu-download@2x.png"
     }
   ],
   "info" : {

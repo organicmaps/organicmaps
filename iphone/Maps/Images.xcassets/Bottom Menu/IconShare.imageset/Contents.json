@@ -2,12 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "menu-send-my-location.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "IconShare@2x.png"
+      "filename" : "menu-send-my-location@2x.png"
     }
   ],
   "info" : {
