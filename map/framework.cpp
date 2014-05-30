@@ -1153,7 +1153,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   StopLocationFollow();
 }
 
-void Framework::ShowAllSearchResults()
+size_t Framework::ShowAllSearchResults()
 {
   using namespace search;
 
@@ -1164,7 +1164,7 @@ void Framework::ShowAllSearchResults()
   switch (count)
   {
   case 1: ShowSearchResult(searchRes.GetResult(0));
-  case 0: return;
+  case 0: return count;
   }
 
   UserMarkContainer::Type type = UserMarkContainer::SEARCH_MARK;
@@ -1176,7 +1176,7 @@ void Framework::ShowAllSearchResults()
   {
     // @todo add type for each search result pin
     search::Result const & r = searchRes.GetResult(i);
-    if (r.GetResultType() != Result::RESULT_SUGGESTION)
+    if (r.GetResultType() == Result::RESULT_FEATURE)
     {
       AddressInfo info;
       info.MakeFrom(r);
@@ -1189,6 +1189,8 @@ void Framework::ShowAllSearchResults()
 
   ShowRectEx(rect);
   StopLocationFollow();
+
+  return count;
 }
 
 bool Framework::GetDistanceAndAzimut(m2::PointD const & point,

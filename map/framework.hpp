@@ -259,7 +259,7 @@ public:
   bool GetCurrentPosition(double & lat, double & lon) const;
 
   void ShowSearchResult(search::Result const & res);
-  void ShowAllSearchResults();
+  size_t ShowAllSearchResults();
 
   /// Calculate distance and direction to POI for the given position.
   /// @param[in]  point             POI's position;
