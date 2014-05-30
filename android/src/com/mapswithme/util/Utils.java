@@ -151,7 +151,7 @@ final public class Utils
       // This is different classes in different packages
       final android.content.ClipboardManager clipboard =
            (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-      final ClipData clip = ClipData.newPlainText("MapsWithMe: " + text, text);
+      final ClipData clip = ClipData.newPlainText("maps.me: " + text, text);
       clipboard.setPrimaryClip(clip);
     }
   }
