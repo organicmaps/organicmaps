@@ -13,7 +13,7 @@ namespace Tizen
 
 //Convert from Tizen string to std::string
 string FromTizenString(Tizen::Base::String const & str_tizen);
-string CodeFromISO369_2to_1(string const & code_ISO_639_2);
+string CodeFromISO369_2to_1(string const & code);
 string GetTizenLocale();
 
 #endif

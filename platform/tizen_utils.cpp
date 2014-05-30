@@ -1,8 +1,8 @@
 #include "tizen_utils.hpp"
 #include "../../std/vector.hpp"
-
 #include "../../tizen/inc/FBase.hpp"
 #include "../base/logging.hpp"
+#include "../base/macros.hpp"
 #include <FSystem.h>
 
 
@@ -14,9 +14,7 @@ string FromTizenString(Tizen::Base::String const & str_tizen)
   Tizen::Base::ByteBuffer * pBuffer = Tizen::Base::Utility::StringUtil::StringToUtf8N(str_tizen);
   if (pBuffer)
   {
-    int byteCount = pBuffer->GetLimit();
-
-    byteCount--; // Don't copy Zero at the end
+    int byteCount = pBuffer->GetLimit() - 1; // Don't copy Zero at the end
     if (byteCount > 0)
     {
       vector<char> chBuf(byteCount);
@@ -37,9 +35,9 @@ string GetTizenLocale()
   return CodeFromISO369_2to_1(FromTizenString(languageCode_truncated));
 }
 
-string CodeFromISO369_2to_1(string const & code_ISO_639_2)
+string CodeFromISO369_2to_1(string const & code)
 {
-  static const string ar [] =
+  static char const * ar [] =
   {
     "aar",	"aa",
     "abk",	"ab",
@@ -246,13 +244,13 @@ string CodeFromISO369_2to_1(string const & code_ISO_639_2)
     "zho",	"zh",
     "zul",	"zu"
   };
-  for (size_t i = 0; i < sizeof(ar)/sizeof(ar[0]); i += 2)
+  for (size_t i = 0; i < ARRAY_SIZE(ar); i += 2)
   {
-    if (code_ISO_639_2 == ar[i])
+    if (code == ar[i])
     {
       return ar[i + 1];
     }
   }
-  LOG(LDEBUG, ("Language not found", code_ISO_639_2));
+  LOG(LDEBUG, ("Language not found", code));
   return "en";
 }

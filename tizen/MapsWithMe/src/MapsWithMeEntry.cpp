@@ -22,7 +22,7 @@ _EXPORT_ int OspMain(int argc, char* pArgv[])
   args.Construct();
   for (int i = 0; i < argc; i++)
   {
-    args.Add(new (std::nothrow) String(pArgv[i]));
+    args.Add(new String(pArgv[i]));
   }
 
   result r = Tizen::App::UiApp::Execute(MapsWithMeApp::CreateInstance, &args);

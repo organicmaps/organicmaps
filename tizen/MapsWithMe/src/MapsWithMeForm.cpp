@@ -58,13 +58,13 @@ result MapsWithMeForm::OnInitializing(void)
   width = GetClientAreaBounds().width;
   height = GetClientAreaBounds().height;
   // Create a Label
-  m_pLabel = new (std::nothrow) Label();
+  m_pLabel = new Label();
   m_pLabel->Construct(Rectangle(width / 4, 10, width *3/4, 120), L"GPS off");
   m_pLabel->SetTextVerticalAlignment(ALIGNMENT_MIDDLE);
   m_pLabel->SetTextHorizontalAlignment(ALIGNMENT_LEFT);
   AddControl(m_pLabel);
   // Create a Button GPS
-  m_pButtonGPS = new (std::nothrow) Button();
+  m_pButtonGPS = new Button();
   m_pButtonGPS->Construct(Rectangle(50, height -150, 100, 100));
   m_pButtonGPS->SetText(L"GPS\noff");
   m_pButtonGPS->SetActionId(ID_BUTTON_GPS);
@@ -72,7 +72,7 @@ result MapsWithMeForm::OnInitializing(void)
   AddControl(m_pButtonGPS);
 
   // Create a Button Settings
-  m_pButtonSettings = new (std::nothrow) Button();
+  m_pButtonSettings = new Button();
   m_pButtonSettings->Construct(Rectangle(width - 150, height -150, 100, 100));
   m_pButtonSettings->SetText(L"Set\ntings");
   m_pButtonSettings->SetActionId(ID_BUTTON_SETTINGS);
@@ -80,21 +80,21 @@ result MapsWithMeForm::OnInitializing(void)
   AddControl(m_pButtonSettings);
 
   // Create a Button Download
-  Button * pButtonDownload = new (std::nothrow) Button();
+  Button * pButtonDownload = new Button();
   pButtonDownload->Construct(Rectangle(width - 270, height -150, 100, 100));
   pButtonDownload->SetText(L"Down\nload");
   pButtonDownload->SetActionId(ID_BUTTON_DOWNLOAD);
   pButtonDownload->AddActionEventListener(*this);
   AddControl(pButtonDownload);
 
-  m_pButtonScalePlus = new (std::nothrow) Button();
+  m_pButtonScalePlus = new Button();
   m_pButtonScalePlus->Construct(Rectangle(width - 150, height / 2, 100, 100));
   m_pButtonScalePlus->SetText(L"+");
   m_pButtonScalePlus->SetActionId(ID_BUTTON_SCALE_PLUS);
   m_pButtonScalePlus->AddActionEventListener(*this);
   AddControl(m_pButtonScalePlus);
 
-  m_pButtonScaleMinus = new (std::nothrow) Button();
+  m_pButtonScaleMinus = new Button();
   m_pButtonScaleMinus->Construct(Rectangle(width - 150,( height / 2) + 120, 100, 100));
   m_pButtonScaleMinus->SetText(L"-");
   m_pButtonScaleMinus->SetActionId(ID_BUTTON_SCALE_MINUS);
@@ -158,10 +158,10 @@ void MapsWithMeForm::OnActionPerformed(Tizen::Ui::Control const & source, int ac
     }
     case ID_BUTTON_DOWNLOAD:
     {
-      ArrayList * pList = new (std::nothrow) ArrayList;
+      ArrayList * pList = new ArrayList;
       pList->Construct();
-      pList->Add(*(new (std::nothrow) Integer(storage::TIndex::INVALID)));
-      pList->Add(*(new (std::nothrow) Integer(storage::TIndex::INVALID)));
+      pList->Add(new Integer(storage::TIndex::INVALID));
+      pList->Add(new Integer(storage::TIndex::INVALID));
 
       SceneManager * pSceneManager = SceneManager::GetInstance();
       pSceneManager->GoForward(ForwardSceneTransition(SCENE_DOWNLOAD_GROUP,

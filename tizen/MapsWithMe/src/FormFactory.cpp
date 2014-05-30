@@ -35,20 +35,20 @@ Tizen::Ui::Controls::Form * FormFactory::CreateFormN(String const & formId, Scen
   static MapsWithMeForm * pMWMForm = 0;
   if (formId == FORM_MAP)
   {
-    pMWMForm = new (std::nothrow) MapsWithMeForm();
+    pMWMForm = new MapsWithMeForm();
     pMWMForm->Initialize();
     pMWMForm->AddTouchEventListener(*pMWMForm);
     pNewForm = pMWMForm;
   }
   else if (formId == FORM_SETTINGS)
   {
-    SettingsForm * pForm = new (std::nothrow) SettingsForm(pMWMForm);
+    SettingsForm * pForm = new SettingsForm(pMWMForm);
     pForm->Initialize();
     pNewForm = pForm;
   }
   else if (formId == FORM_ABOUT)
   {
-    AboutForm * pForm = new (std::nothrow) AboutForm();
+    AboutForm * pForm = new AboutForm();
     pForm->Initialize();
     pNewForm = pForm;
   }
@@ -56,7 +56,7 @@ Tizen::Ui::Controls::Form * FormFactory::CreateFormN(String const & formId, Scen
       formId == FORM_DOWNLOAD_COUNTRY ||
       formId == FORM_DOWNLOAD_REGION)
   {
-    DownloadCountryForm * pForm = new (std::nothrow) DownloadCountryForm();
+    DownloadCountryForm * pForm = new DownloadCountryForm();
     pForm->Initialize();
     pSceneManager->AddSceneEventListener(sceneId, *pForm);
     pNewForm = pForm;

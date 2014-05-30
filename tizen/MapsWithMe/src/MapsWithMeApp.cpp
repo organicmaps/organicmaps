@@ -13,7 +13,7 @@ MapsWithMeApp::MapsWithMeApp(void) {}
 
 MapsWithMeApp::~MapsWithMeApp(void) {}
 
-UiApp * MapsWithMeApp::CreateInstance(void) {return new (std::nothrow) MapsWithMeApp();}
+UiApp * MapsWithMeApp::CreateInstance(void) {return new MapsWithMeApp();}
 
 bool MapsWithMeApp::OnAppInitializing(AppRegistry& appRegistry)
 {
@@ -28,7 +28,7 @@ bool MapsWithMeApp::OnAppInitializing(AppRegistry& appRegistry)
 
 
   // Create the application frame.
-  MapsWithMeFrame* pMapsWithMeFrame = new (std::nothrow) MapsWithMeFrame;
+  MapsWithMeFrame* pMapsWithMeFrame = new MapsWithMeFrame;
   TryReturn(pMapsWithMeFrame != null, false, "The memory is insufficient.");
   pMapsWithMeFrame->Construct();
   pMapsWithMeFrame->SetName(L"MapsWithMe");

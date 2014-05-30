@@ -5,11 +5,13 @@
 #include "Framework.hpp"
 #include "Utils.hpp"
 #include "FormFactory.hpp"
-#include "../../../std/bind.hpp"
-#include "../../../base/logging.hpp"
+
+#include "../../../map/framework.hpp"
 #include "../../../platform/settings.hpp"
 #include "../../../platform/tizen_utils.hpp"
-#include "../../../map/framework.hpp"
+#include "../../../base/logging.hpp"
+#include "../../../std/bind.hpp"
+
 #include <FWeb.h>
 #include <FAppApp.h>
 #include <FApp.h>
@@ -25,10 +27,9 @@ using namespace Tizen::Graphics;
 using namespace storage;
 
 DownloadCountryForm::DownloadCountryForm()
-: m_downloadedBitmap(0),
-  m_updateBitmap(0)
+    : m_downloadedBitmap(0), m_updateBitmap(0)
 {
-  m_DowloadStatusSlot = Storage().Subscribe(bind(&DownloadCountryForm::OnCountryDownloaded, this, _1),
+  m_dowloadStatusSlot = Storage().Subscribe(bind(&DownloadCountryForm::OnCountryDownloaded, this, _1),
       bind(&DownloadCountryForm::OnCountryDowloadProgres, this, _1, _2));
 
   AppResource * pAppResource = Application::GetInstance()->GetAppResource();
@@ -42,7 +43,7 @@ DownloadCountryForm::~DownloadCountryForm(void)
     delete (m_downloadedBitmap);
   if (m_updateBitmap)
     delete (m_updateBitmap);
-  Storage().Unsubscribe(m_DowloadStatusSlot);
+  Storage().Unsubscribe(m_dowloadStatusSlot);
 }
 
 bool DownloadCountryForm::Initialize(void)
@@ -53,7 +54,7 @@ bool DownloadCountryForm::Initialize(void)
 
 result DownloadCountryForm::OnInitializing(void)
 {
-  m_group_index = -1;
+  m_groupIndex = -1;
 
   SetFormBackEventListener(this);
   return E_SUCCESS;
@@ -77,22 +78,22 @@ storage::Storage & DownloadCountryForm::Storage() const
 
 Tizen::Graphics::Bitmap const * DownloadCountryForm::GetFlag(storage::TIndex const & country)
 {
-  if (m_Flags.count(country) == 0)
+  if (m_flags.count(country) == 0)
   {
     AppResource * pAppResource = Application::GetInstance()->GetAppResource();
     String sFlagName = "flags/";
     sFlagName += Storage().CountryFlag(country).c_str();
     sFlagName += ".png";
-    m_Flags[country] = pAppResource->GetBitmapN(sFlagName);
+    m_flags[country] = pAppResource->GetBitmapN(sFlagName);
   }
-  return m_Flags[country];
+  return m_flags[country];
 }
 
 Tizen::Ui::Controls::ListItemBase * DownloadCountryForm::CreateItem(int index, float itemWidth)
 {
   TIndex country = GetIndex(index);
   FloatDimension itemDimension(itemWidth, 120.0f);
-  CustomItem* pItem = new (std::nothrow) CustomItem();
+  CustomItem * pItem = new CustomItem();
   String sName = Storage().CountryName(country).c_str();
 
   bool bNeedFlag = GetFlag(country) != 0;
@@ -135,8 +136,8 @@ Tizen::Ui::Controls::ListItemBase * DownloadCountryForm::CreateItem(int index, f
   {
     int pr = 0;
 
-    if (m_lastDownload_value.count(country) > 0)
-      pr = 100 * m_lastDownload_value[country].first / m_lastDownload_value[country].second;
+    if (m_lastDownloadValue.count(country) > 0)
+      pr = 100 * m_lastDownloadValue[country].first / m_lastDownloadValue[country].second;
     String s;
     s.Append(pr);
     s.Append("%");
@@ -156,34 +157,35 @@ bool DownloadCountryForm::DeleteItem(int index, Tizen::Ui::Controls::ListItemBas
 {
   delete pItem;
   pItem = null;
-  if (m_Flags.count(GetIndex(index)) != 0)
-    delete m_Flags[GetIndex(index)];
-  m_Flags.erase(GetIndex(index));
+  TIndex const ind = GetIndex(index);
+  if (m_flags.count(ind) != 0)
+    delete m_flags[ind];
+  m_flags.erase(ind);
   return true;
 }
 
 int DownloadCountryForm::GetItemCount(void)
 {
-  return Storage().CountriesCount(m_group_index);
+  return Storage().CountriesCount(m_groupIndex);
 }
 
 void DownloadCountryForm::OnSceneActivatedN(const Tizen::Ui::Scenes::SceneId& previousSceneId,
     const Tizen::Ui::Scenes::SceneId& currentSceneId, Tizen::Base::Collection::IList* pArgs)
 {
-  m_form_id = SceneManager::GetInstance()->GetCurrentScene()->GetFormId();
+  m_fromId = SceneManager::GetInstance()->GetCurrentScene()->GetFormId();
   if (pArgs != null)
   {
     if (pArgs->GetCount() == 2)
     {
       Integer * pGroup = dynamic_cast<Integer *>(pArgs->GetAt(0));
       Integer * pCountry = dynamic_cast<Integer *>(pArgs->GetAt(1));
-      m_group_index.m_group = pGroup->value;
-      m_group_index.m_country = pCountry->value;
-      m_group_index.m_region = TIndex::INVALID;
+      m_groupIndex.m_group = pGroup->value;
+      m_groupIndex.m_country = pCountry->value;
+      m_groupIndex.m_region = TIndex::INVALID;
     }
-    ListView * __pList = static_cast<ListView *>(GetControl(IDC_DOWNLOAD_LISTVIEW));
-    __pList->SetItemProvider(*this);
-    __pList->AddListViewItemEventListener(*this);
+    ListView *pList = static_cast<ListView *>(GetControl(IDC_DOWNLOAD_LISTVIEW));
+    pList->SetItemProvider(*this);
+    pList->AddListViewItemEventListener(*this);
     pArgs->RemoveAll(true);
     delete pArgs;
   }
@@ -203,19 +205,19 @@ bool DownloadCountryForm::IsGroup(storage::TIndex const & index) const
 
 TIndex DownloadCountryForm::GetIndex(int const ind) const
 {
-  TIndex res = m_group_index;
-  if (m_form_id == FORM_DOWNLOAD_GROUP)
+  TIndex res = m_groupIndex;
+  if (m_fromId == FORM_DOWNLOAD_GROUP)
     res.m_group = ind;
-  if (m_form_id == FORM_DOWNLOAD_COUNTRY)
+  if (m_fromId == FORM_DOWNLOAD_COUNTRY)
     res.m_country = ind;
-  else if (m_form_id == FORM_DOWNLOAD_REGION)
+  else if (m_fromId == FORM_DOWNLOAD_REGION)
     res.m_region = ind;
   return res;
 }
 
 wchar_t const * DownloadCountryForm::GetNextScene() const
 {
-  if (m_form_id == FORM_DOWNLOAD_GROUP)
+  if (m_fromId == FORM_DOWNLOAD_GROUP)
     return SCENE_DOWNLOAD_COUNTRY;
   return SCENE_DOWNLOAD_REGION;
 }
@@ -226,10 +228,10 @@ void DownloadCountryForm::OnListViewItemStateChanged(ListView & listView, int in
   TIndex country = GetIndex(index);
   if (IsGroup(country))
   {
-    ArrayList * pList = new (std::nothrow) ArrayList;
+    ArrayList * pList = new ArrayList;
     pList->Construct();
-    pList->Add(*(new (std::nothrow) Integer(country.m_group)));
-    pList->Add(*(new (std::nothrow) Integer(country.m_country)));
+    pList->Add(new Integer(country.m_group));
+    pList->Add(new Integer(country.m_country));
 
     SceneManager * pSceneManager = SceneManager::GetInstance();
     pSceneManager->GoForward(
@@ -238,6 +240,7 @@ void DownloadCountryForm::OnListViewItemStateChanged(ListView & listView, int in
   }
   else
   {
+    String name = Storage().CountryName(country).c_str();
     TStatus status = Storage().CountryStatusEx(country);
     if (status == ENotDownloaded || status == EDownloadFailed)
     {
@@ -247,16 +250,16 @@ void DownloadCountryForm::OnListViewItemStateChanged(ListView & listView, int in
       msg.Append(int((size.second - size.first) >> 20));
       msg.Append(GetString(IDS_MB));
 
-      if (MessageBoxAsk(Storage().CountryName(country).c_str(), msg))
+      if (MessageBoxAsk(name, msg))
         Storage().DownloadCountry(country);
     }
     else if (status == EDownloading || status == EInQueue)
     {
-      if (MessageBoxAsk(String(Storage().CountryName(country).c_str()), GetString(IDS_CANCEL_DOWNLOAD)))
-        if (MessageBoxAsk(String(Storage().CountryName(country).c_str()), GetString(IDS_ARE_YOU_SURE)))
+      if (MessageBoxAsk(name, GetString(IDS_CANCEL_DOWNLOAD)))
+        if (MessageBoxAsk(name, GetString(IDS_ARE_YOU_SURE)))
         {
           Storage().DeleteFromDownloader(country);
-          m_lastDownload_value.erase(country);
+          m_lastDownloadValue.erase(country);
         }
     }
     else if (status == EOnDisk)
@@ -265,8 +268,8 @@ void DownloadCountryForm::OnListViewItemStateChanged(ListView & listView, int in
       msg.Append(" ");
       msg.Append(int(Storage().CountrySizeInBytes(country).first >> 20));
       msg.Append(GetString(IDS_MB));
-      if (MessageBoxAsk(String(Storage().CountryName(country).c_str()), msg))
-        if (MessageBoxAsk(String(Storage().CountryName(country).c_str()), GetString(IDS_ARE_YOU_SURE)))
+      if (MessageBoxAsk(name, msg))
+        if (MessageBoxAsk(name, GetString(IDS_ARE_YOU_SURE)))
           tizen::Framework::GetInstance()->DeleteCountry(country);
     }
     UpdateList();
@@ -275,13 +278,13 @@ void DownloadCountryForm::OnListViewItemStateChanged(ListView & listView, int in
 
 void DownloadCountryForm::UpdateList()
 {
-  ListView * __pList = static_cast<ListView *>(GetControl(IDC_DOWNLOAD_LISTVIEW));
-  __pList->UpdateList();
+  ListView * pList = static_cast<ListView *>(GetControl(IDC_DOWNLOAD_LISTVIEW));
+  pList->UpdateList();
 }
 
 void DownloadCountryForm::OnCountryDownloaded(TIndex const & country)
 {
-  if (m_form_id != SceneManager::GetInstance()->GetCurrentScene()->GetFormId())
+  if (m_fromId != SceneManager::GetInstance()->GetCurrentScene()->GetFormId())
     return;
   if (Storage().CountryStatusEx(country) == EDownloadFailed)
   {
@@ -293,9 +296,9 @@ void DownloadCountryForm::OnCountryDownloaded(TIndex const & country)
 
 void DownloadCountryForm::OnCountryDowloadProgres(TIndex const & index, pair<int64_t, int64_t> const & p)
 {
-  if (m_form_id != SceneManager::GetInstance()->GetCurrentScene()->GetFormId())
+  if (m_fromId != SceneManager::GetInstance()->GetCurrentScene()->GetFormId())
     return;
-  m_lastDownload_value[index] = p;
+  m_lastDownloadValue[index] = p;
   UpdateList();
 }
 

@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 
 #include <FUi.h>
 #include "../../../std/map.hpp"
@@ -10,7 +9,8 @@ namespace storage
 class Storage;
 }
 
-namespace Tizen{namespace Graphics{
+namespace Tizen{namespace Graphics
+{
 class Bitmap;
 }}
 
@@ -55,17 +55,20 @@ private:
   void OnCountryDownloaded(storage::TIndex const & country);
   void OnCountryDowloadProgres(storage::TIndex const & index, pair<int64_t, int64_t> const & p);
 
-  static const int ID_FORMAT_STRING = 500;
-  static const int ID_FORMAT_FLAG = 501;
-  static const int ID_FORMAT_STATUS = 502;
-  static const int ID_FORMAT_DOWNLOADING_PROGR = 503;
+  enum
+  {
+    ID_FORMAT_STRING = 500,
+    ID_FORMAT_FLAG = 501,
+    ID_FORMAT_STATUS = 502,
+    ID_FORMAT_DOWNLOADING_PROGR = 503
+  } EEventIDs;
 
-  map<storage::TIndex, Tizen::Graphics::Bitmap const *> m_Flags;
+  map<storage::TIndex, Tizen::Graphics::Bitmap const *> m_flags;
   Tizen::Graphics::Bitmap const * m_downloadedBitmap;
   Tizen::Graphics::Bitmap const * m_updateBitmap;
 
-  storage::TIndex m_group_index;
-  Tizen::Base::String m_form_id;
-  int m_DowloadStatusSlot;
-  map<storage::TIndex, pair<int64_t, int64_t> > m_lastDownload_value;
+  storage::TIndex m_groupIndex;
+  Tizen::Base::String m_fromId;
+  int m_dowloadStatusSlot;
+  map<storage::TIndex, pair<int64_t, int64_t> > m_lastDownloadValue;
 };
