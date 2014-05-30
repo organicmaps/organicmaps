@@ -108,6 +108,8 @@ public:
   double GetScale() const { return m_data.GetScale(); }
   void SetScale(double scale) { m_data.SetScale(scale); }
 
+  virtual UserMarkCopy * Copy() const;
+
   virtual graphics::DisplayList * GetDisplayList(UserMarkDLCache * cache) const;
   virtual double GetAnimScaleFactor() const;
   virtual m2::PointD const & GetPixelOffset() const;

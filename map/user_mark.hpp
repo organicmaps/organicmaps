@@ -16,6 +16,8 @@ namespace graphics
   class DisplayList;
 }
 
+class UserMarkCopy;
+
 class UserMark : private noncopyable
 {
 public:
@@ -35,10 +37,33 @@ public:
   void GetLatLon(double & lat, double & lon) const;
   virtual bool IsCustomDrawable() const { return false;}
   virtual Type GetMarkType() const = 0;
+  virtual UserMarkCopy * Copy() const = 0;
 
 protected:
   m2::PointD m_ptOrg;
   mutable UserMarkContainer * m_container;
+};
+
+class UserMarkCopy
+{
+public:
+  UserMarkCopy(UserMark const * srcMark, bool needDestroy = true)
+    : m_srcMark(srcMark)
+    , m_needDestroy(needDestroy)
+  {
+  }
+
+  ~UserMarkCopy()
+  {
+    if (m_needDestroy)
+      delete m_srcMark;
+  }
+
+  UserMark const * GetUserMark() const { return m_srcMark; }
+
+private:
+  UserMark const * m_srcMark;
+  bool m_needDestroy;
 };
 
 class ApiMarkPoint : public UserMark
@@ -67,6 +92,11 @@ public:
   string const & GetID() const   { return m_id; }
   void SetID(string const & id)  { m_id = id; }
 
+  virtual UserMarkCopy * Copy() const
+  {
+    return new UserMarkCopy(new ApiMarkPoint(m_name, m_id, m_ptOrg, m_container));
+  }
+
 private:
   string m_name;
   string m_id;
@@ -92,6 +122,10 @@ public:
 
   search::AddressInfo const & GetInfo() const { return m_info; }
   void SetInfo(search::AddressInfo const & info) { m_info = info; }
+  virtual UserMarkCopy * Copy() const
+  {
+    return new UserMarkCopy(new SearchMarkPoint(m_info, m_ptOrg, m_container));
+  }
 
 private:
   search::AddressInfo m_info;
@@ -104,6 +138,10 @@ public:
     : SearchMarkPoint(m2::PointD(0.0, 0.0), container) {}
 
   UserMark::Type GetMarkType() const { return POI; }
+  virtual UserMarkCopy * Copy() const
+  {
+    return new UserMarkCopy(this, false);
+  }
 
   void SetPtOrg(m2::PointD const & ptOrg) { m_ptOrg = ptOrg; }
 };

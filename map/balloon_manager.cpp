@@ -28,7 +28,7 @@ void PinClickManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
 {
   UserMark const * mark = m_f.GetUserMark(pxPoint, isLongTouch);
   if (mark != NULL)
-    OnActivateUserMark(mark);
+    OnActivateUserMark(mark->Copy());
   SetBalloonVisible(mark != NULL);
 }
 
@@ -64,7 +64,7 @@ void PinClickManager::ClearListeners()
   m_dismissListener.clear();
 }
 
-void PinClickManager::OnActivateUserMark(UserMark const * mark)
+void PinClickManager::OnActivateUserMark(UserMarkCopy * mark)
 {
   m_userMarkListener(mark);
 }

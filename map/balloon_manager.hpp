@@ -19,7 +19,7 @@ class PinClickManager
 {
   Framework & m_f;
 
-  void OnActivateUserMark(UserMark const * mark);
+  void OnActivateUserMark(UserMarkCopy * mark);
   void OnDismiss();
 
   void SetBalloonVisible(bool isVisible);
@@ -41,7 +41,8 @@ public:
 private:
   /// @name Platform dependent listeners to show special activities.
   //@{
-  function<void (UserMark const *)>      m_userMarkListener;
+  // Use must remove UserMarkCopy that transfer for you by this callback
+  function<void (UserMarkCopy *)>      m_userMarkListener;
   function<void (void)>            m_dismissListener;
 
 public:

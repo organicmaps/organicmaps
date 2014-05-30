@@ -26,6 +26,11 @@
 #include "../std/algorithm.hpp"
 #include "../std/auto_ptr.hpp"
 
+UserMarkCopy *Bookmark::Copy() const
+{
+  return new UserMarkCopy(this, false);
+}
+
 graphics::DisplayList * Bookmark::GetDisplayList(UserMarkDLCache * cache) const
 {
   return cache->FindUserMark(UserMarkDLCache::Key(GetType(), graphics::EPosAbove, GetContainer()->GetDepth()));
