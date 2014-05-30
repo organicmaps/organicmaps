@@ -27,6 +27,7 @@ namespace
   public:
     PinAnimation(Framework & f)
       : AnimPhaseChain(f, m_scale)
+      , m_scale(0.0)
     {
       InitDefaultPinAnim(this);
     }
