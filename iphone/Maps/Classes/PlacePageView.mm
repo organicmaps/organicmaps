@@ -11,6 +11,7 @@
 #include "../../search/result.hpp"
 #import "ColorPickerView.h"
 #import "Statistics.h"
+#include "../../std/shared_ptr.hpp"
 
 typedef NS_ENUM(NSUInteger, CellRow)
 {
@@ -48,8 +49,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 @implementation PlacePageView
 {
-  UserMark const * m_mark;
-  UserMark const * m_cachedMark;
+  shared_ptr<UserMarkCopy> m_mark;
+  shared_ptr<UserMarkCopy> m_cachedMark;
   BookmarkData * m_bookmarkData;
   size_t m_categoryIndex;
   BOOL updatingTable;
@@ -61,8 +62,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   self.clipsToBounds = YES;
 
-  m_mark = NULL;
-  m_cachedMark = NULL;
+  m_mark.reset();
+  m_cachedMark.reset();
   m_bookmarkData = NULL;
 
   UISwipeGestureRecognizer * swipeUp = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
@@ -202,9 +203,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   CellRow row = [self cellRowForIndexPath:indexPath];
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   if (row == CellRowSet)
-    [self.delegate placePageView:self willEditProperty:@"Set" inBookmarkAndCategory:GetFramework().FindBookmark(m_mark)];
+    [self.delegate placePageView:self willEditProperty:@"Set" inBookmarkAndCategory:GetFramework().FindBookmark([self userMark])];
   else if (row == CellRowInfo)
-    [self.delegate placePageView:self willEditProperty:@"Description" inBookmarkAndCategory:GetFramework().FindBookmark(m_mark)];
+    [self.delegate placePageView:self willEditProperty:@"Description" inBookmarkAndCategory:GetFramework().FindBookmark([self userMark])];
 }
 
 - (void)reloadHeader
@@ -405,7 +406,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   Framework & framework = GetFramework();
   m_mark = [self cachedMark];
-  framework.ActivateUserMark(m_mark);
+  framework.ActivateUserMark([self userMark]);
 
   [self clearCachedProperties];
   [self reloadHeader];
@@ -423,7 +424,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   BookmarkAndCategory bookmarkAndCategory;
   [[notification object] getValue:&bookmarkAndCategory];
-  if (bookmarkAndCategory == GetFramework().FindBookmark(m_mark))
+  if (bookmarkAndCategory == GetFramework().FindBookmark([self userMark]))
     [self abortBookmarkState];
 }
 
@@ -485,14 +486,15 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [cell setColor:color];
 
   Framework & framework = GetFramework();
-  BookmarkAndCategory bookmarkAndCategory = framework.FindBookmark(m_mark);
+  UserMark const * mark = [self userMark];
+  BookmarkAndCategory bookmarkAndCategory = framework.FindBookmark(mark);
   BookmarkCategory * category = GetFramework().GetBmCategory(bookmarkAndCategory.first);
   Bookmark * bookmark = category->GetBookmark(bookmarkAndCategory.second);
   bookmark->SetType([[ColorPickerView colorName:colorIndex] UTF8String]);
   category->SaveToKMLFile();
 
+  framework.ActivateUserMark(mark);
   framework.Invalidate();
-  framework.ActivateUserMark(m_mark);
 
   [self dismissPicker];
 }
@@ -526,7 +528,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (void)titleTap:(UITapGestureRecognizer *)sender
 {
   if (self.isBookmark && self.state == PlacePageStateOpened)
-    [self.delegate placePageView:self willEditProperty:@"Name" inBookmarkAndCategory:GetFramework().FindBookmark(m_mark)];
+    [self.delegate placePageView:self willEditProperty:@"Name" inBookmarkAndCategory:GetFramework().FindBookmark([self userMark])];
 }
 
 - (void)tap:(UITapGestureRecognizer *)sender
@@ -560,18 +562,19 @@ typedef NS_ENUM(NSUInteger, CellRow)
   _info = nil;
 }
 
-- (void)showUserMark:(UserMark const *)mark
+- (void)showUserMark:(UserMarkCopy *)mark
 {
   [self clearCachedProperties];
 
-  m_mark = mark;
-  m_cachedMark = mark;
+  m_mark.reset(mark);
+  m_cachedMark = m_mark;
 
+  UserMark const * innerMark = [self userMark];
   if ([self isBookmark])
-    [self bookmarkActivated:static_cast<Bookmark const *>(mark)];
+    [self bookmarkActivated:static_cast<Bookmark const *>(innerMark)];
   else if ([self isMarkOfType:UserMark::API] || [self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
-    [self userMarkActivated:mark];
-  GetFramework().ActivateUserMark(mark);
+    [self userMarkActivated:innerMark];
+  GetFramework().ActivateUserMark(innerMark);
 }
 
 - (void)bookmarkActivated:(Bookmark const *)bookmark
@@ -579,7 +582,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   m_categoryIndex = GetFramework().FindBookmark(bookmark).first;
   delete m_bookmarkData;
   m_bookmarkData = new BookmarkData(bookmark->GetName(), bookmark->GetType(), bookmark->GetDescription(), bookmark->GetScale(), bookmark->GetTimeStamp());
-  m_cachedMark = NULL;
+  m_cachedMark.reset();
 }
 
 - (void)userMarkActivated:(UserMark const *)mark
@@ -592,7 +595,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if (m_mark == NULL)
     return NO;
-  return m_mark->GetMarkType() == type;
+  return [self userMark]->GetMarkType() == type;
 }
 
 - (BOOL)isBookmark
@@ -602,7 +605,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (m2::PointD)pinPoint
 {
-  return m_mark != NULL ? m_mark->GetOrg() : m2::PointD();
+  return m_mark != NULL ? [self userMark]->GetOrg() : m2::PointD();
 }
 
 - (NSString *)title
@@ -611,24 +614,24 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     if ([self isBookmark])
     {
-      Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
+      Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
       _title = bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
     }
     else if ([self isMarkOfType:UserMark::API])
     {
-      ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>(m_mark);
+      ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>([self userMark]);
       _title = apiMark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:apiMark->GetName().c_str()];
     }
     else if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
     {
-      SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>(m_mark);
+      SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>([self userMark]);
       search::AddressInfo const & addressInfo = mark->GetInfo();
       _title = addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
     }
     else if (m_mark != NULL)
     {
       search::AddressInfo addressInfo;
-      GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
+      GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
       _title = addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
     }
     else
@@ -646,19 +649,19 @@ typedef NS_ENUM(NSUInteger, CellRow)
     if ([self isBookmark])
     {
       search::AddressInfo addressInfo;
-      GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
+      GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
       _types = addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
     }
     else if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
     {
-      SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>(m_mark);
+      SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>([self userMark]);
       search::AddressInfo const & addressInfo = mark->GetInfo();
       _types = addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
     }
     else if (m_mark != NULL)
     {
       search::AddressInfo addressInfo;
-      GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
+      GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
       _types = addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
     }
     else
@@ -676,7 +679,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     if ([self isBookmark])
     {
       Framework & framework = GetFramework();
-      BookmarkCategory const * category = framework.GetBmCategory(framework.FindBookmark(m_mark).first);
+      BookmarkCategory const * category = framework.GetBmCategory(framework.FindBookmark([self userMark]).first);
       _setName = [NSString stringWithUTF8String:category->GetName().c_str()];
     }
     else
@@ -693,7 +696,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     if ([self isBookmark])
     {
-      Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
+      Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
       _info = bookmark->GetDescription().empty() ? NSLocalizedString(@"description", nil) : [NSString stringWithUTF8String:bookmark->GetDescription().c_str()];
     }
     else
@@ -711,7 +714,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     if (m_mark != NULL)
     {
       search::AddressInfo addressInfo;
-      GetFramework().GetAddressInfoForGlobalPoint(m_mark->GetOrg(), addressInfo);
+      GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
       _address = [NSString stringWithUTF8String:addressInfo.FormatAddress().c_str()];
     }
     else
@@ -726,7 +729,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if ([self isBookmark])
   {
-    Bookmark const * bookmark = static_cast<Bookmark const *>(m_mark);
+    Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
     return bookmark->GetType().empty() ? @"placemark-red" : [NSString stringWithUTF8String:bookmark->GetType().c_str()];
   }
   else
@@ -747,18 +750,19 @@ typedef NS_ENUM(NSUInteger, CellRow)
   return iconImage;
 }
 
-- (UserMark const *)cachedMark
+- (shared_ptr<UserMarkCopy>)cachedMark
 {
-  return (m_cachedMark != NULL) ? m_cachedMark : GetFramework().GetAddressMark([self pinPoint]);
+  return (m_cachedMark != NULL) ? m_cachedMark : make_shared_ptr(GetFramework().GetAddressMark([self pinPoint])->Copy());
 }
 
 - (void)deleteBookmark
 {
   Framework & framework = GetFramework();
-  BookmarkAndCategory const & bookmarkAndCategory = framework.FindBookmark(m_mark);
+  UserMark const * mark = [self userMark];
+  BookmarkAndCategory const & bookmarkAndCategory = framework.FindBookmark(mark);
   BookmarkCategory * category = framework.GetBmCategory(bookmarkAndCategory.first);
   m_mark = [self cachedMark];
-  framework.ActivateUserMark(m_mark);
+  framework.ActivateUserMark(mark);
   if (category)
   {
     category->DeleteBookmark(bookmarkAndCategory.second);
@@ -783,7 +787,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
         m_categoryIndex = framework.LastEditedBMCategory();
 
       size_t const bookmarkIndex = framework.GetBookmarkManager().AddBookmark(m_categoryIndex, [self pinPoint], *m_bookmarkData);
-      m_mark = category->GetBookmark(bookmarkIndex);
+      m_mark = make_shared_ptr(category->GetBookmark(bookmarkIndex)->Copy());
     }
     else
     {
@@ -791,9 +795,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
       BookmarkData data = BookmarkData([self.title UTF8String], "placemark-red");
       size_t const bookmarkIndex = framework.AddBookmark(categoryIndex, [self pinPoint], data);
       BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
-      m_mark = category->GetBookmark(bookmarkIndex);
+      m_mark = make_shared_ptr(category->GetBookmark(bookmarkIndex)->Copy());
     }
-    framework.ActivateUserMark(m_mark);
+    framework.ActivateUserMark([self userMark]);
     framework.Invalidate();
 
     [self reloadHeader];
@@ -809,7 +813,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)shareCellDidPressApiButton:(PlacePageShareCell *)cell
 {
-  [self.delegate placePageView:self willShareApiPoint:static_cast<ApiMarkPoint const *>(m_mark)];
+  [self.delegate placePageView:self willShareApiPoint:static_cast<ApiMarkPoint const *>([self userMark])];
 }
 
 - (void)shareCellDidPressShareButton:(PlacePageShareCell *)cell
@@ -847,6 +851,14 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     [[Statistics instance] logProposalReason:@"Add Bookmark" withAnswer:@"NO"];
   }
+}
+
+-(UserMark const *) userMark
+{
+  if (m_mark)
+    return m_mark->GetUserMark();
+    
+  return NULL;
 }
 
 - (CopyLabel *)titleLabel

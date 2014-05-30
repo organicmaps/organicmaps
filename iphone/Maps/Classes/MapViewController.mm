@@ -155,7 +155,7 @@ const long long LITE_IDL = 431183278L;
   [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
-- (void)onUserMarkClicked:(UserMark const *)mark
+- (void)onUserMarkClicked:(UserMarkCopy *)mark
 {
   [self.containerView.placePage showUserMark:mark];
   [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
@@ -603,7 +603,7 @@ const long long LITE_IDL = 431183278L;
 
     Framework & f = GetFramework();
 
-    typedef void (*UserMarkActivatedFnT)(id, SEL, UserMark const *);
+    typedef void (*UserMarkActivatedFnT)(id, SEL, UserMarkCopy *);
     typedef void (*PlacePageDismissedFnT)(id, SEL);
 
     PinClickManager & manager = f.GetBalloonManager();
@@ -852,7 +852,7 @@ const long long LITE_IDL = 431183278L;
 {
   BookmarkCategory const * category = GetFramework().GetBookmarkManager().GetBmCategory(bookmarkAndCategory.first);
   Bookmark const * bookmark = category->GetBookmark(bookmarkAndCategory.second);
-  [self.containerView.placePage showUserMark:bookmark];
+  [self.containerView.placePage showUserMark:bookmark->Copy()];
   [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:NO];
 }
 
@@ -865,7 +865,7 @@ const long long LITE_IDL = 431183278L;
 - (void)placePageVC:(PlacePageVC *)placePageVC didUpdateBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
 {
   UserMark const * userMark = GetFramework().GetBmCategory(bookmarkAndCategory.first)->GetBookmark(bookmarkAndCategory.second);
-  [self.containerView.placePage showUserMark:userMark];
+  [self.containerView.placePage showUserMark:userMark->Copy()];
 }
 
 #pragma mark - BottomMenuDelegate

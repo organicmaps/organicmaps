@@ -709,9 +709,10 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodId, bmkAndCat.first, bmkAndCat.second);
   }
 
-  void CallOnUserMarkActivated(shared_ptr<jobject> obj, UserMark const * mark)
+  void CallOnUserMarkActivated(shared_ptr<jobject> obj, UserMarkCopy * markCopy)
   {
     ::Framework * fm = g_framework->NativeFramework();
+    UserMark const * mark = markCopy->GetUserMark();
     switch (mark->GetMarkType())
     {
     case UserMark::API:
