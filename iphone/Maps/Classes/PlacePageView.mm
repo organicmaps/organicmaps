@@ -424,7 +424,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   BookmarkAndCategory bookmarkAndCategory;
   [[notification object] getValue:&bookmarkAndCategory];
-  if (bookmarkAndCategory == GetFramework().FindBookmark([self userMark]))
+  if ([self isBookmark] && bookmarkAndCategory == GetFramework().FindBookmark([self userMark]))
     [self abortBookmarkState];
 }
 
@@ -481,18 +481,18 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)colorPicked:(size_t)colorIndex
 {
+  ASSERT([self isBookmark], ());
   PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
   UIColor * color = [ColorPickerView colorForName:[ColorPickerView colorName:colorIndex]];
   [cell setColor:color];
 
   Framework & framework = GetFramework();
   UserMark const * mark = [self userMark];
+  BookmarkData newData = static_cast<Bookmark const *>(mark)->GetData();
+  newData.SetType([[ColorPickerView colorName:colorIndex] UTF8String]);
+  
   BookmarkAndCategory bookmarkAndCategory = framework.FindBookmark(mark);
-  BookmarkCategory * category = GetFramework().GetBmCategory(bookmarkAndCategory.first);
-  Bookmark * bookmark = category->GetBookmark(bookmarkAndCategory.second);
-  bookmark->SetType([[ColorPickerView colorName:colorIndex] UTF8String]);
-  category->SaveToKMLFile();
-
+  framework.ReplaceBookmark(bookmarkAndCategory.first, bookmarkAndCategory.second, newData);
   framework.ActivateUserMark(mark);
   framework.Invalidate();
 
@@ -792,7 +792,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     else
     {
       size_t const categoryIndex = framework.LastEditedBMCategory();
-      BookmarkData data = BookmarkData([self.title UTF8String], "placemark-red");
+      BookmarkData data = BookmarkData([self.title UTF8String], framework.LastEditedBMType());
       size_t const bookmarkIndex = framework.AddBookmark(categoryIndex, [self pinPoint], data);
       BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
       m_mark = make_shared_ptr(category->GetBookmark(bookmarkIndex)->Copy());
