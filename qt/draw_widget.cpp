@@ -68,7 +68,7 @@ namespace qt
     m_frameFn();
   }
 
-  void DummyUserMark(UserMark const * ){}
+  void DummyUserMark(UserMarkCopy * ){}
   void DummyDismiss() {}
 
   DrawWidget::DrawWidget(QWidget * pParent)
