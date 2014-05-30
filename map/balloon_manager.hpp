@@ -41,7 +41,7 @@ public:
 private:
   /// @name Platform dependent listeners to show special activities.
   //@{
-  // Use must remove UserMarkCopy that transfer for you by this callback
+  // You must delete UserMarkCopy obtained by this callback
   function<void (UserMarkCopy *)>      m_userMarkListener;
   function<void (void)>            m_dismissListener;
 

@@ -855,10 +855,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 -(UserMark const *) userMark
 {
-  if (m_mark)
-    return m_mark->GetUserMark();
-    
-  return NULL;
+  return m_mark ? m_mark->GetUserMark() : NULL;
 }
 
 - (CopyLabel *)titleLabel
