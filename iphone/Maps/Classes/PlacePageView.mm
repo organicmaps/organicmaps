@@ -122,6 +122,20 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     [self alignAnimated:YES];
   }
+  PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
+  [cell updateDistance];
+}
+
+- (void)onCompassUpdate:(location::CompassInfo const &)info
+{
+  double lat, lon;
+  if (![[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
+    return;
+  double const northRad = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
+  m2::PointD const point = m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+
+  PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
+  cell.compassView.angle = ang::AngleTo(point, [self pinPoint]) + northRad;
 }
 
 - (CellRow)cellRowForIndexPath:(NSIndexPath *)indexPath

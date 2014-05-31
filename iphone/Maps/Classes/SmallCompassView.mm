@@ -19,8 +19,8 @@
   [self addSubview:background];
 
   self.arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CompassArrow"]];
-  [self addSubview:self.arrow];
   self.arrow.center = CGPointMake(self.width / 2, self.height / 2);
+  [self addSubview:self.arrow];
 
   return self;
 }
@@ -28,7 +28,7 @@
 - (void)setAngle:(CGFloat)angle
 {
   self.arrow.transform = CGAffineTransformIdentity;
-  self.arrow.transform = CGAffineTransformMakeRotation(angle);
+  self.arrow.transform = CGAffineTransformMakeRotation(M_PI_2 - angle);
   _angle = angle;
 }
 

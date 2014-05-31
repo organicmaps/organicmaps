@@ -3,13 +3,12 @@
 #import "UIKitCategories.h"
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
-#import "SmallCompassView.h"
 #import "Framework.h"
 #include "../../../map/measurement_utils.hpp"
 #include "../../../geometry/distance_on_sphere.hpp"
 #import "ContextViews.h"
 
-@interface PlacePageInfoCell () <LocationObserver, SelectedColorViewDelegate>
+@interface PlacePageInfoCell () <SelectedColorViewDelegate>
 
 @property (nonatomic) UILabel * distanceLabel;
 @property (nonatomic) CopyLabel * addressLabel;
@@ -36,14 +35,12 @@
   [self addSubview:self.selectedColorView];
   [self addSubview:self.separatorView];
 
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMonitoringLocation:) name:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
-
   return self;
 }
 
-- (void)startMonitoringLocation:(NSNotification *)notification
+- (void)updateDistance
 {
-  [[MapsAppDelegate theApp].m_locationManager start:self];
+  self.distanceLabel.text = [self distance];
 }
 
 - (NSString *)distance
@@ -63,28 +60,6 @@
     return [NSString stringWithUTF8String:distance.c_str()];
   }
   return nil;
-}
-
-- (void)onLocationError:(location::TLocationError)errorCode
-{
-  NSLog(@"Location error in %@", [[self class] className]);
-}
-
-- (void)onLocationUpdate:(location::GpsInfo const &)info
-{
-  self.distanceLabel.text = [self distance];
-}
-
-- (void)onCompassUpdate:(location::CompassInfo const &)info
-{
-  double lat, lon;
-  if (![[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
-    return;
-  double const northRad = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
-  m2::PointD const point1 = m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
-  m2::PointD const point2 = m2::PointD(self.pinPoint.x, self.pinPoint.y);
-
-  self.compassView.angle = ang::AngleTo(point1, point2) + northRad;
 }
 
 - (void)setAddress:(NSString *)address pinPoint:(m2::PointD)point
@@ -243,7 +218,6 @@
 - (void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [[MapsAppDelegate theApp].m_locationManager stop:self];
 }
 
 @end
