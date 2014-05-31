@@ -16,8 +16,10 @@ class MapsWithMeForm
   , public Tizen::Ui::IActionEventListener
   , public Tizen::Locations::ILocationProviderListener
   , public Tizen::Ui::Controls::IFormBackEventListener
-{
-public:
+  , public Tizen::Ui::Controls::IListViewItemProviderF
+  , public Tizen::Ui::Controls::IListViewItemEventListener
+  {
+  public:
   MapsWithMeForm();
   virtual ~MapsWithMeForm(void);
 
@@ -53,26 +55,50 @@ public:
   // IFormBackEventListener
   virtual void OnFormBackRequested(Tizen::Ui::Controls::Form& source);
 
-  void  UpdateButtons();
-private:
+  //IListViewItemProvider
+  virtual Tizen::Ui::Controls::ListItemBase * CreateItem (int index, float itemWidth);
+  virtual bool  DeleteItem (int index, Tizen::Ui::Controls::ListItemBase * pItem, float itemWidth);
+  virtual int GetItemCount(void);
+  // IListViewItemEventListener
+  virtual void OnListViewContextItemStateChanged(Tizen::Ui::Controls::ListView & listView, int index, int elementId, Tizen::Ui::Controls::ListContextItemStatus state);
+  virtual void OnListViewItemStateChanged(Tizen::Ui::Controls::ListView & listView, int index, int elementId, Tizen::Ui::Controls::ListItemStatus status);
+  virtual void OnListViewItemSwept(Tizen::Ui::Controls::ListView & listView, int index, Tizen::Ui::Controls::SweepDirection direction);
+  virtual void OnListViewItemLongPressed(Tizen::Ui::Controls::ListView & listView, int index, int elementId, bool & invokeListViewItemCallback);
 
+  void UpdateButtons();
+  void ShowSplitPanel();
+  void HideSplitPanel();
+
+  private:
   bool m_locationEnabled;
   std::vector<std::pair<double, double> > m_prev_pts;
 
-  static const int ID_BUTTON_GPS = 101;
-  static const int ID_BUTTON_SETTINGS = 102;
-  static const int ID_BUTTON_SCALE_PLUS = 103;
-  static const int ID_BUTTON_SCALE_MINUS = 104;
-  static const int ID_BUTTON_DOWNLOAD = 105;
+  enum
+  {
+    ID_GPS = 101,
+    ID_SEARCH,
+    ID_MENU,
+    ID_STAR,
+    ID_BUTTON_SCALE_PLUS,
+    ID_BUTTON_SCALE_MINUS
+  } EEventIDs;
 
+  enum
+  {
+    eDownloadProVer = 0,
+    eDownloadMaps,
+    eSettings,
+    eSharePlace
+  } EMainMenuItems;
 
   Tizen::Locations::LocationProvider * m_pLocProvider;
-  Tizen::Ui::Controls::Label * m_pLabel;
-  Tizen::Ui::Controls::Button * m_pButtonGPS;
-  Tizen::Ui::Controls::Button * m_pButtonSettings;
 
   Tizen::Ui::Controls::Button * m_pButtonScalePlus;
   Tizen::Ui::Controls::Button * m_pButtonScaleMinus;
 
+  Tizen::Ui::Controls::SplitPanel * m_pSplitPanel;
+  Tizen::Ui::Controls::Panel* m_pFirstPanel;
+  Tizen::Ui::Controls::Panel* m_pSecondPanel;
+
   tizen::Framework * m_pFramework;
-};
+  };

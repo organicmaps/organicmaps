@@ -29,15 +29,15 @@ public:
   virtual result OnInitializing(void);
   virtual void OnFormBackRequested(Tizen::Ui::Controls::Form & source);
   virtual void OnActionPerformed(const Tizen::Ui::Control & source, int actionId);
-  //IListViewItemProvider
-  virtual Tizen::Ui::Controls::ListItemBase * CreateItem (int index, float itemWidth);
-  virtual bool  DeleteItem (int index, Tizen::Ui::Controls::ListItemBase * pItem, float itemWidth);
-  virtual int GetItemCount(void);
   // ISceneEventListener
   virtual void OnSceneActivatedN(const Tizen::Ui::Scenes::SceneId & previousSceneId,
       const Tizen::Ui::Scenes::SceneId & currentSceneId, Tizen::Base::Collection::IList * pArgs);
   virtual void OnSceneDeactivated(const Tizen::Ui::Scenes::SceneId & currentSceneId,
       const Tizen::Ui::Scenes::SceneId & nextSceneId);
+  //IListViewItemProvider
+  virtual Tizen::Ui::Controls::ListItemBase * CreateItem (int index, float itemWidth);
+  virtual bool  DeleteItem (int index, Tizen::Ui::Controls::ListItemBase * pItem, float itemWidth);
+  virtual int GetItemCount(void);
   // IListViewItemEventListener
   virtual void OnListViewContextItemStateChanged(Tizen::Ui::Controls::ListView & listView, int index, int elementId, Tizen::Ui::Controls::ListContextItemStatus state);
   virtual void OnListViewItemStateChanged(Tizen::Ui::Controls::ListView & listView, int index, int elementId, Tizen::Ui::Controls::ListItemStatus status);
@@ -58,9 +58,9 @@ private:
   enum
   {
     ID_FORMAT_STRING = 500,
-    ID_FORMAT_FLAG = 501,
-    ID_FORMAT_STATUS = 502,
-    ID_FORMAT_DOWNLOADING_PROGR = 503
+    ID_FORMAT_FLAG,
+    ID_FORMAT_STATUS,
+    ID_FORMAT_DOWNLOADING_PROGR
   } EEventIDs;
 
   map<storage::TIndex, Tizen::Graphics::Bitmap const *> m_flags;
