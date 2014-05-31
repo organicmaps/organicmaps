@@ -55,13 +55,13 @@ private:
   void OnCountryDownloaded(storage::TIndex const & country);
   void OnCountryDowloadProgres(storage::TIndex const & index, pair<int64_t, int64_t> const & p);
 
-  enum
+  enum EEventIDs
   {
     ID_FORMAT_STRING = 500,
     ID_FORMAT_FLAG,
     ID_FORMAT_STATUS,
     ID_FORMAT_DOWNLOADING_PROGR
-  } EEventIDs;
+  };
 
   map<storage::TIndex, Tizen::Graphics::Bitmap const *> m_flags;
   Tizen::Graphics::Bitmap const * m_downloadedBitmap;

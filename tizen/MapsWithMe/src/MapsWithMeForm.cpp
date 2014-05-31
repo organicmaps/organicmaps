@@ -225,6 +225,7 @@ void MapsWithMeForm::OnLocationUpdateStatusChanged(Tizen::Locations::LocationSer
       "LOC_SVC_STATUS_NOT_FIXED"};
   LOG(LINFO,(ar[status]));
 }
+
 void MapsWithMeForm::OnAccuracyChanged(Tizen::Locations::LocationAccuracy accuracy)
 {
   static string const ar[6] = {"LOC_ACCURACY_INVALID",
@@ -336,7 +337,7 @@ void MapsWithMeForm::OnTouchFocusOut(Tizen::Ui::Control const & source,
 
 void MapsWithMeForm::ShowSplitPanel()
 {
-  m_pSplitPanel = new (std::nothrow) SplitPanel();
+  m_pSplitPanel = new SplitPanel();
   SetActionBarsVisible(FORM_ACTION_BAR_FOOTER, false);
   Rectangle rect = GetClientAreaBounds();
   rect.y = 0;
@@ -402,11 +403,7 @@ void MapsWithMeForm::UpdateButtons()
   Footer* pFooter = GetFooter();
   FooterItem footerItem;
   footerItem.Construct(ID_GPS);
-  if (m_locationEnabled)
-    footerItem.SetIcon(FOOTER_ITEM_STATUS_NORMAL, GetBitmap(IDB_MY_POSITION_PRESSED));
-  else
-    footerItem.SetIcon(FOOTER_ITEM_STATUS_NORMAL, GetBitmap(IDB_MY_POSITION_NORMAL));
-
+  footerItem.SetIcon(FOOTER_ITEM_STATUS_NORMAL, GetBitmap(m_locationEnabled ? IDB_MY_POSITION_PRESSED : IDB_MY_POSITION_NORMAL));
   pFooter->SetItemAt (0, footerItem);
   Invalidate(true);
 }
@@ -425,40 +422,34 @@ ListItemBase * MapsWithMeForm::CreateItem (int index, float itemWidth)
   switch (index)
   {
     case eDownloadProVer:
-    {
       pItem->AddElement(rectImg, 0, *GetBitmap(IDB_MWM_PRO), null, null);
       pItem->AddElement(rectTxt, 1, GetString(IDS_BECOME_A_PRO), fontSize, green, green, green);
-    }
-    break;
+      break;
     case eDownloadMaps:
-    {
       pItem->AddElement(rectImg, 0, *GetBitmap(IDB_DOWNLOAD_MAP), null, null);
       pItem->AddElement(rectTxt, 1, GetString(IDS_DOWNLOAD_MAPS), fontSize, white, white, white);
-    }
-    break;
+      break;
     case eSettings:
-    {
       pItem->AddElement(rectImg, 0, *GetBitmap(IDB_SETTINGS), null, null);
       pItem->AddElement(rectTxt, 1, GetString(IDS_SETTINGS), fontSize, white, white, white);
-    }
-    break;
+      break;
     case eSharePlace:
-    {
       pItem->AddElement(rectImg, 0, *GetBitmap(IDB_SHARE), null, null);
       pItem->AddElement(rectTxt, 1, GetString(IDS_SHARE_MY_LOCATION), fontSize, white, white, white);
-    }
-    break;
+      break;
     default:
       break;
   }
 
   return pItem;
 }
+
 bool  MapsWithMeForm::DeleteItem (int index, ListItemBase * pItem, float itemWidth)
 {
   delete pItem;
   return true;
 }
+
 int MapsWithMeForm::GetItemCount(void)
 {
   return 4;
@@ -468,6 +459,7 @@ void MapsWithMeForm::OnListViewContextItemStateChanged(ListView & listView, int 
 {
 
 }
+
 void MapsWithMeForm::OnListViewItemStateChanged(ListView & listView, int index, int elementId, ListItemStatus status)
 {
   switch (index)
@@ -507,10 +499,12 @@ void MapsWithMeForm::OnListViewItemStateChanged(ListView & listView, int index, 
       break;
   }
 }
+
 void MapsWithMeForm::OnListViewItemSwept(ListView & listView, int index, SweepDirection direction)
 {
 
 }
+
 void MapsWithMeForm::OnListViewItemLongPressed(ListView & listView, int index, int elementId, bool & invokeListViewItemCallback)
 {
 

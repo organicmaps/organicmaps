@@ -1,10 +1,13 @@
 #pragma once
 #include <FBase.h>
 
-namespace Tizen{namespace Graphics
+namespace Tizen
+{
+namespace Graphics
 {
 class Bitmap;
-}}
+} // namespace Graphics
+} // namespace Tizen
 
 Tizen::Base::String GetString(const wchar_t * IDC);
 Tizen::Base::String FormatString1(const wchar_t * IDC, Tizen::Base::String const & param1);

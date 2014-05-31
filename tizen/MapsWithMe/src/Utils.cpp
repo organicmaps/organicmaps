@@ -68,8 +68,9 @@ Tizen::Graphics::Bitmap const * GetBitmap(const wchar_t * sBitmapPath)
 {
   static BitmapContainer cont;
 
-  if (cont.m_Bitmaps.count(sBitmapPath) == 0)
-    cont.m_Bitmaps[sBitmapPath] = Application::GetInstance()->GetAppResource()->GetBitmapN(sBitmapPath);
+  BitmapContainer::TContainer::iterator it = cont.m_Bitmaps.find(sBitmapPath);
+  if (it == cont.m_Bitmaps.end())
+    it = cont.m_Bitmaps.insert(std::make_pair(sBitmapPath, Application::GetInstance()->GetAppResource()->GetBitmapN(sBitmapPath))).first;
 
-  return cont.m_Bitmaps[sBitmapPath];
+  return it->second;
 }

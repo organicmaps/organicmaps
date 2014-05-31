@@ -18,8 +18,8 @@ class MapsWithMeForm
   , public Tizen::Ui::Controls::IFormBackEventListener
   , public Tizen::Ui::Controls::IListViewItemProviderF
   , public Tizen::Ui::Controls::IListViewItemEventListener
-  {
-  public:
+{
+public:
   MapsWithMeForm();
   virtual ~MapsWithMeForm(void);
 
@@ -69,11 +69,11 @@ class MapsWithMeForm
   void ShowSplitPanel();
   void HideSplitPanel();
 
-  private:
+private:
   bool m_locationEnabled;
   std::vector<std::pair<double, double> > m_prev_pts;
 
-  enum
+  enum EEventIDs
   {
     ID_GPS = 101,
     ID_SEARCH,
@@ -81,15 +81,15 @@ class MapsWithMeForm
     ID_STAR,
     ID_BUTTON_SCALE_PLUS,
     ID_BUTTON_SCALE_MINUS
-  } EEventIDs;
+  };
 
-  enum
+  enum EMainMenuItems
   {
     eDownloadProVer = 0,
     eDownloadMaps,
     eSettings,
     eSharePlace
-  } EMainMenuItems;
+  };
 
   Tizen::Locations::LocationProvider * m_pLocProvider;
 
@@ -101,4 +101,4 @@ class MapsWithMeForm
   Tizen::Ui::Controls::Panel* m_pSecondPanel;
 
   tizen::Framework * m_pFramework;
-  };
+};
