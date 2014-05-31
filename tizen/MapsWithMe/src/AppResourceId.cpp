@@ -37,3 +37,15 @@ const wchar_t* IDS_PREF_ZOOM_TITLE = L"IDS_PREF_ZOOM_TITLE";
 const wchar_t* IDS_SETTINGS = L"IDS_SETTINGS";
 const wchar_t* IDS_SHARE_MY_LOCATION = L"IDS_SHARE_MY_LOCATION";
 const wchar_t* IDS_VERSION = L"IDS_VERSION";
+// main form
+const wchar_t * IDB_MY_POSITION_NORMAL = L"main_form_menu/my-position-normal.png";
+const wchar_t * IDB_MY_POSITION_PRESSED = L"main_form_menu/my-position-pressed.png";
+const wchar_t * IDB_MY_POSITION_SEARCH = L"main_form_menu/my-position-search.png";
+const wchar_t * IDB_SEARCH = L"main_form_menu/search.png";
+const wchar_t * IDB_STAR = L"main_form_menu/star.png";
+const wchar_t * IDB_MENU = L"main_form_menu/menu.png";
+//main menu
+const wchar_t * IDB_MWM_PRO = L"main_menu/MWMProIcon.png";
+const wchar_t * IDB_DOWNLOAD_MAP = L"main_menu/IconMap.png";
+const wchar_t * IDB_SETTINGS = L"main_menu/IconSettings.png";
+const wchar_t * IDB_SHARE = L"main_menu/IconShare.png";

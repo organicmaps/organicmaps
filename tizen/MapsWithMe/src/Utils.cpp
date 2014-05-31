@@ -3,10 +3,12 @@
 #include <FAppApp.h>
 #include <FApp.h>
 #include <FUi.h>
-#include "../../../platform/tizen_utils.hpp"
+#include <FGraphics.h>
 
-using Tizen::App::App;
-using Tizen::App::AppResource;
+#include "../../../platform/tizen_utils.hpp"
+#include "../../../std/map.hpp"
+
+using namespace Tizen::App;
 using Tizen::Base::String;
 using namespace Tizen::Ui::Controls;
 
@@ -46,7 +48,28 @@ bool MessageBoxAsk(Tizen::Base::String const & title, Tizen::Base::String const 
 void MessageBoxOk(Tizen::Base::String const & title, Tizen::Base::String const & msg)
 {
   MessageBox messageBox;
-   messageBox.Construct(title, msg, MSGBOX_STYLE_OK, 5000);
-   int modalResult = 0;
-   messageBox.ShowAndWait(modalResult);
+  messageBox.Construct(title, msg, MSGBOX_STYLE_OK, 5000);
+  int modalResult = 0;
+  messageBox.ShowAndWait(modalResult);
+}
+
+struct BitmapContainer
+{
+  typedef map<const wchar_t *, Tizen::Graphics::Bitmap const *> TContainer;
+  ~BitmapContainer()
+  {
+    for (TContainer::iterator it = m_Bitmaps.begin(); it != m_Bitmaps.end(); ++it)
+      delete it->second;
+  }
+  TContainer m_Bitmaps;
+};
+
+Tizen::Graphics::Bitmap const * GetBitmap(const wchar_t * sBitmapPath)
+{
+  static BitmapContainer cont;
+
+  if (cont.m_Bitmaps.count(sBitmapPath) == 0)
+    cont.m_Bitmaps[sBitmapPath] = Application::GetInstance()->GetAppResource()->GetBitmapN(sBitmapPath);
+
+  return cont.m_Bitmaps[sBitmapPath];
 }

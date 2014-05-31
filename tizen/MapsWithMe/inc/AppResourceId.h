@@ -40,3 +40,15 @@ extern const wchar_t* IDS_PREF_ZOOM_TITLE;
 extern const wchar_t* IDS_SETTINGS;
 extern const wchar_t* IDS_SHARE_MY_LOCATION;
 extern const wchar_t* IDS_VERSION;
+// main form
+extern const wchar_t * IDB_MY_POSITION_NORMAL;
+extern const wchar_t * IDB_MY_POSITION_PRESSED;
+extern const wchar_t * IDB_MY_POSITION_SEARCH;
+extern const wchar_t * IDB_SEARCH;
+extern const wchar_t * IDB_STAR;
+extern const wchar_t * IDB_MENU;
+// main menu
+extern const wchar_t * IDB_MWM_PRO;
+extern const wchar_t * IDB_DOWNLOAD_MAP;
+extern const wchar_t * IDB_SETTINGS;
+extern const wchar_t * IDB_SHARE;
