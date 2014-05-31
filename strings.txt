@@ -161,6 +161,7 @@
     pt = Continuar
     hu = Folytatás
   [download_maps]
+    tags = tizen
     en = Download Maps
     cs = Stáhnout mapy
     de = Karten herunterladen
@@ -1672,7 +1673,7 @@
     hu = Más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
   [settings]
     en = Settings
-    tags = android
+    tags = android,tizen
     comment = Settings button in system menu
     cs = Nastavení
     de = Einstellungen
@@ -2921,6 +2922,7 @@
     hu = Hossz
 
   [share_my_location]
+    tags = tizen
     en = Share my location
     ru = Поделиться местоположением
     uk = Поділитися моїм місцезнаходженням
@@ -2938,6 +2940,7 @@
     hu = Helyzetem megosztása
 
   [become_a_pro]
+    tags = tizen
     en = Upgrade
     ru = Скачать PRO
     uk = Купити PRO

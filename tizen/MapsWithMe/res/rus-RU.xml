@@ -12,6 +12,7 @@
 	<text id="IDS_CANCEL_DOWNLOAD">Отменить загрузку</text>
 	<!-- Button which deletes downloaded country -->
 	<text id="IDS_DELETE">Удалить</text>
+	<text id="IDS_DOWNLOAD_MAPS">Загрузить карты</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">Километры</text>
 	<!-- Settings/Downloader - size string -->
@@ -21,6 +22,8 @@
 	<text id="IDS_DOWNLOAD">Загрузить</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">Не удалось загрузить %s</text>
+	<!-- Settings button in system menu -->
+	<text id="IDS_SETTINGS">Настройки</text>
 	<!-- Measurement units title in settings activity -->
 	<text id="IDS_MEASUREMENT_UNITS">Единицы измерения</text>
 	<!-- Detailed description of Measurement Units settings button -->
@@ -29,6 +32,8 @@
 	<text id="IDS_VERSION">Версия: %s</text>
 	<!-- Confirmation in downloading countries dialog -->
 	<text id="IDS_ARE_YOU_SURE">Вы уверены, что хотите продолжить?</text>
+	<text id="IDS_SHARE_MY_LOCATION">Поделиться местоположением</text>
+	<text id="IDS_BECOME_A_PRO">Скачать PRO</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Кнопки масштаба</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Показать на карте</text>
 </string_table>

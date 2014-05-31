@@ -12,6 +12,7 @@
 	<text id="IDS_CANCEL_DOWNLOAD">Вiдмiнити завантаження</text>
 	<!-- Button which deletes downloaded country -->
 	<text id="IDS_DELETE">Видалити</text>
+	<text id="IDS_DOWNLOAD_MAPS">Завантажити карти</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">Кілометри</text>
 	<!-- Settings/Downloader - size string -->
@@ -21,6 +22,8 @@
 	<text id="IDS_DOWNLOAD">Завантажити</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">Не вдалося завантажити %s</text>
+	<!-- Settings button in system menu -->
+	<text id="IDS_SETTINGS">Налаштування</text>
 	<!-- Measurement units title in settings activity -->
 	<text id="IDS_MEASUREMENT_UNITS">Одиниці виміру</text>
 	<!-- Detailed description of Measurement Units settings button -->
@@ -29,6 +32,8 @@
 	<text id="IDS_VERSION">Версія: %s</text>
 	<!-- Confirmation in downloading countries dialog -->
 	<text id="IDS_ARE_YOU_SURE">Продовжити?</text>
+	<text id="IDS_SHARE_MY_LOCATION">Поділитися моїм місцезнаходженням</text>
+	<text id="IDS_BECOME_A_PRO">Купити PRO</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Кнопки трансфокації</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Відображення на екрані</text>
 </string_table>

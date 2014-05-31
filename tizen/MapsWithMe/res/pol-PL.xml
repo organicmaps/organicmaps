@@ -12,6 +12,7 @@
 	<text id="IDS_CANCEL_DOWNLOAD">Anuluj pobieranie</text>
 	<!-- Button which deletes downloaded country -->
 	<text id="IDS_DELETE">Usuń</text>
+	<text id="IDS_DOWNLOAD_MAPS">Pobierz mapy</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">Kilometry</text>
 	<!-- Settings/Downloader - size string -->
@@ -21,6 +22,8 @@
 	<text id="IDS_DOWNLOAD">Pobierz</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">%s pobieranie nie powiodło się</text>
+	<!-- Settings button in system menu -->
+	<text id="IDS_SETTINGS">Ustawienia</text>
 	<!-- Measurement units title in settings activity -->
 	<text id="IDS_MEASUREMENT_UNITS">Jednostki miary</text>
 	<!-- Detailed description of Measurement Units settings button -->
@@ -29,6 +32,8 @@
 	<text id="IDS_VERSION">Wersja: %s</text>
 	<!-- Confirmation in downloading countries dialog -->
 	<text id="IDS_ARE_YOU_SURE">Czy na pewno kontynuować?</text>
+	<text id="IDS_SHARE_MY_LOCATION">Udostępnij moją lokalizację</text>
+	<text id="IDS_BECOME_A_PRO">Uaktualnij</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Przyciski powiększania</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Wyświetl na ekranie</text>
 </string_table>

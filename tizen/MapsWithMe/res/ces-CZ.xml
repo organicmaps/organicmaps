@@ -12,6 +12,7 @@
 	<text id="IDS_CANCEL_DOWNLOAD">Zrušit stahování</text>
 	<!-- Button which deletes downloaded country -->
 	<text id="IDS_DELETE">Smazat</text>
+	<text id="IDS_DOWNLOAD_MAPS">Stáhnout mapy</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">Kilometry</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
@@ -19,6 +20,8 @@
 	<text id="IDS_DOWNLOAD">Stáhnout</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">Stahování selhalo: %s</text>
+	<!-- Settings button in system menu -->
+	<text id="IDS_SETTINGS">Nastavení</text>
 	<!-- Measurement units title in settings activity -->
 	<text id="IDS_MEASUREMENT_UNITS">Měřicí jednotky</text>
 	<!-- Detailed description of Measurement Units settings button -->
@@ -27,6 +30,8 @@
 	<text id="IDS_VERSION">Verze: %s</text>
 	<!-- Confirmation in downloading countries dialog -->
 	<text id="IDS_ARE_YOU_SURE">Opravdu chceš pokračovat?</text>
+	<text id="IDS_SHARE_MY_LOCATION">Sdílet mé umístění</text>
+	<text id="IDS_BECOME_A_PRO">Provést upgrade</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Tlačítka přiblížení/oddálení</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Zobrazit na obrazovce</text>
 </string_table>
