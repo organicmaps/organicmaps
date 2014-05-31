@@ -539,7 +539,6 @@ const long long LITE_IDL = 431183278L;
 
   self.view.clipsToBounds = YES;
 
-
   [self.view addSubview:self.toolbarView];
   self.toolbarView.maxY = self.toolbarView.superview.height;
 
@@ -590,7 +589,10 @@ const long long LITE_IDL = 431183278L;
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
   BOOL topViewsAreHidden = self.containerView.placePage.state == PlacePageStateHidden && self.searchView.state == SearchViewStateHidden;
-  return (topViewsAreHidden && !self.apiMode) ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
+  if (self.apiMode)
+    return UIStatusBarStyleLightContent;
+  else
+    return topViewsAreHidden ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
 }
 
 - (id)initWithCoder:(NSCoder *)coder
@@ -1040,7 +1042,7 @@ const long long LITE_IDL = 431183278L;
 
     [self.view insertSubview:self.searchView aboveSubview:self.apiBar];
     self.containerView.placePage.statusBarIncluded = NO;
-    [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:NO];
+    [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
 
     self.apiTitleLabel.text = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()];
   }
@@ -1055,7 +1057,7 @@ const long long LITE_IDL = 431183278L;
 
     [self.view insertSubview:self.searchView belowSubview:self.containerView];
     self.containerView.placePage.statusBarIncluded = YES;
-    [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:NO];
+    [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:YES];
 
     Framework & framework = GetFramework();
     framework.GetBalloonManager().RemovePin();
@@ -1063,12 +1065,15 @@ const long long LITE_IDL = 431183278L;
     framework.GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
     framework.Invalidate();
   }
-  if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
-    [self setNeedsStatusBarAppearanceUpdate];
-
 
   [self dismissPopover];
+  [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
+  [self.bottomMenu setMenuHidden:YES animated:YES];
+
   _apiMode = apiMode;
+
+  if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)setupMeasurementSystem
