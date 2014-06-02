@@ -28,6 +28,37 @@
 	<text id="IDS_MEASUREMENT_UNITS">Unités de mesure</text>
 	<!-- Detailed description of Measurement Units settings button -->
 	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Choisissez entre miles et kilomètres</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_FOOD">alimentation</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_TRANSPORT">transport</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_FUEL">carburant</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_PARKING">parking</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_SHOP">magasin</text>
+	<text id="IDS_HOTEL">hôtel</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_TOURISM">site touristique</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_ENTERTAINMENT">divertissement</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_ATM">distributeur de billets</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_BANK">banque</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_PHARMACY">pharmacie</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_HOSPITAL">hôpital/clinique</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_TOILET">toilettes</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_POST">poste</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_POLICE">police/gendarmerie</text>
+	<!-- String in search result list, when nothing found -->
+	<text id="IDS_NO_SEARCH_RESULTS_FOUND">Aucun résultat trouvé</text>
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Version : %s</text>
 	<!-- Confirmation in downloading countries dialog -->

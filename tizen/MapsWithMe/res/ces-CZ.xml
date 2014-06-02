@@ -26,6 +26,37 @@
 	<text id="IDS_MEASUREMENT_UNITS">Měřicí jednotky</text>
 	<!-- Detailed description of Measurement Units settings button -->
 	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Vyber si míle nebo kilometry</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_FOOD">jídlo</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_TRANSPORT">doprava</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_FUEL">čerpací stanice</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_PARKING">parkoviště</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_SHOP">obchod</text>
+	<text id="IDS_HOTEL">hotel</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_TOURISM">pamětihodnosti</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_ENTERTAINMENT">zábava</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_ATM">bankomat</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_BANK">banka</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_PHARMACY">lékárna</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_HOSPITAL">nemocnice</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_TOILET">záchody</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_POST">pošta</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_POLICE">policie</text>
+	<!-- String in search result list, when nothing found -->
+	<text id="IDS_NO_SEARCH_RESULTS_FOUND">Žádné výsledky</text>
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Verze: %s</text>
 	<!-- Confirmation in downloading countries dialog -->

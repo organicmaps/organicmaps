@@ -28,6 +28,37 @@
 	<text id="IDS_MEASUREMENT_UNITS">Одиниці виміру</text>
 	<!-- Detailed description of Measurement Units settings button -->
 	<text id="IDS_MEASUREMENT_UNITS_SUMMARY">Використовувати милі чи кілометри</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_FOOD">їжа</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_TRANSPORT">транспорт</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_FUEL">заправка</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_PARKING">парковка</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_SHOP">крамниця</text>
+	<text id="IDS_HOTEL">готель</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_TOURISM">пам’ятні місця</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_ENTERTAINMENT">розваги</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_ATM">банкомат</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_BANK">банк</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_PHARMACY">аптека</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_HOSPITAL">лікарня</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_TOILET">туалет</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_POST">пошта</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_POLICE">міліція</text>
+	<!-- String in search result list, when nothing found -->
+	<text id="IDS_NO_SEARCH_RESULTS_FOUND">Результатів не знайдено</text>
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Версія: %s</text>
 	<!-- Confirmation in downloading countries dialog -->

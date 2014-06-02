@@ -1906,7 +1906,7 @@
     hu = A képernyőn
   [food]
     en = food
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = jídlo
     de = Essen
@@ -1924,7 +1924,7 @@
     hu = élelmiszer
   [transport]
     en = transport
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = doprava
     de = Verkehr
@@ -1942,7 +1942,7 @@
     hu = közlekedés
   [fuel]
     en = gas
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = čerpací stanice
     de = Tankstelle
@@ -1960,7 +1960,7 @@
     hu = benzinkút
   [parking]
     en = parking
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = parkoviště
     de = Parkplatz
@@ -1978,7 +1978,7 @@
     hu = parkoló
   [shop]
     en = shop
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = obchod
     de = Laden
@@ -1996,7 +1996,7 @@
     hu = bolt
   [hotel]
     en = hotel
-    tags = ios,android
+    tags = ios,android,tizen
     cs = hotel
     de = Hotel
     es = hotel
@@ -2013,7 +2013,7 @@
     hu = szálloda
   [tourism]
     en = sights
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = pamětihodnosti
     de = Sehenswürdigkeit
@@ -2031,7 +2031,7 @@
     hu = látnivaló
   [entertainment]
     en = entertainment
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = zábava
     de = Unterhaltung
@@ -2049,7 +2049,7 @@
     hu = szórakozás
   [atm]
     en = atm
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = bankomat
     de = Geldautomat
@@ -2066,7 +2066,7 @@
     hu = pénzautomata
   [bank]
     en = bank
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = banka
     de = Bank
@@ -2084,7 +2084,7 @@
     hu = bank
   [pharmacy]
     en = pharmacy
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = lékárna
     de = Apotheke
@@ -2102,7 +2102,7 @@
     hu = gyógyszertár
   [hospital]
     en = hospital
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = nemocnice
     de = Spital
@@ -2120,7 +2120,7 @@
     hu = kórház
   [toilet]
     en = toilet
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = záchody
     de = Toilette
@@ -2138,7 +2138,7 @@
     hu = mosdó
   [post]
     en = post
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = pošta
     de = Post
@@ -2156,7 +2156,7 @@
     hu = posta
   [police]
     en = police
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Search Suggestion
     cs = policie
     de = Polizeistation
@@ -2174,7 +2174,7 @@
     hu = rendőrség
   [no_search_results_found]
     en = No results found
-    tags = ios,android
+    tags = ios,android,tizen
     comment = String in search result list, when nothing found
     cs = Žádné výsledky
     de = Keine Ergebnisse gefunden

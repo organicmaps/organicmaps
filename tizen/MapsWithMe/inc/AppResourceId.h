@@ -1,19 +1,17 @@
-#ifndef _APP_RESOURCE_ID_H_
-#define _APP_RESOURCE_ID_H_
+#pragma once
 
-
-
-#endif // _APP_RESOURCE_ID_H_
 extern const wchar_t* IDC_ABOUT_BUTTON;
 extern const wchar_t* IDC_CLOSE_BUTTON;
 extern const wchar_t* IDC_DOWNLOAD_LISTVIEW;
 extern const wchar_t* IDC_ENABLE_GPS;
 extern const wchar_t* IDC_ENABLE_SCALE_BUTTONS_CB;
 extern const wchar_t* IDC_FOOTS_CHECKBUTTON;
+extern const wchar_t* IDC_LISTVIEW;
 extern const wchar_t* IDC_MEASUREMENT_NOTE;
 extern const wchar_t* IDC_MEASUREMENT_UNITS_LABEL;
 extern const wchar_t* IDC_MENU;
 extern const wchar_t* IDC_METERS_CHECKBUTTON;
+extern const wchar_t* IDC_SEARCHBAR;
 extern const wchar_t* IDC_VERSION_LABEL;
 extern const wchar_t* IDC_WEB;
 extern const wchar_t* IDC_ZOOM_IN;
@@ -21,8 +19,11 @@ extern const wchar_t* IDC_ZOOM_OUT;
 extern const wchar_t* IDF_ABOUT_FORM;
 extern const wchar_t* IDF_DOWNLOAD_FORM;
 extern const wchar_t* IDF_MAIN_FORM;
+extern const wchar_t* IDF_SEARCH_FORM;
 extern const wchar_t* IDS_ABOUT;
 extern const wchar_t* IDS_ARE_YOU_SURE;
+extern const wchar_t* IDS_ATM;
+extern const wchar_t* IDS_BANK;
 extern const wchar_t* IDS_BECOME_A_PRO;
 extern const wchar_t* IDS_CANCEL;
 extern const wchar_t* IDS_CANCEL_DOWNLOAD;
@@ -30,15 +31,29 @@ extern const wchar_t* IDS_DELETE;
 extern const wchar_t* IDS_DOWNLOAD;
 extern const wchar_t* IDS_DOWNLOAD_COUNTRY_FAILED;
 extern const wchar_t* IDS_DOWNLOAD_MAPS;
+extern const wchar_t* IDS_ENTERTAINMENT;
+extern const wchar_t* IDS_FOOD;
+extern const wchar_t* IDS_FUEL;
+extern const wchar_t* IDS_HOSPITAL;
+extern const wchar_t* IDS_HOTEL;
 extern const wchar_t* IDS_KILOMETRES;
 extern const wchar_t* IDS_MB;
 extern const wchar_t* IDS_MEASUREMENT_UNITS;
 extern const wchar_t* IDS_MEASUREMENT_UNITS_SUMMARY;
 extern const wchar_t* IDS_MILES;
+extern const wchar_t* IDS_NO_SEARCH_RESULTS_FOUND;
+extern const wchar_t* IDS_PARKING;
+extern const wchar_t* IDS_PHARMACY;
+extern const wchar_t* IDS_POLICE;
+extern const wchar_t* IDS_POST;
 extern const wchar_t* IDS_PREF_ZOOM_SUMMARY;
 extern const wchar_t* IDS_PREF_ZOOM_TITLE;
 extern const wchar_t* IDS_SETTINGS;
 extern const wchar_t* IDS_SHARE_MY_LOCATION;
+extern const wchar_t* IDS_SHOP;
+extern const wchar_t* IDS_TOILET;
+extern const wchar_t* IDS_TOURISM;
+extern const wchar_t* IDS_TRANSPORT;
 extern const wchar_t* IDS_VERSION;
 // main form
 extern const wchar_t * IDB_MY_POSITION_NORMAL;
@@ -52,3 +67,6 @@ extern const wchar_t * IDB_MWM_PRO;
 extern const wchar_t * IDB_DOWNLOAD_MAP;
 extern const wchar_t * IDB_SETTINGS;
 extern const wchar_t * IDB_SHARE;
+//search
+extern const wchar_t * IDB_SINGLE_RESULT;
+extern const wchar_t * IDB_SUGGESTION_RESULT;
