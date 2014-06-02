@@ -7,6 +7,7 @@ extern const wchar_t * SCENE_DOWNLOAD_GROUP;
 extern const wchar_t * SCENE_DOWNLOAD_COUNTRY;
 extern const wchar_t * SCENE_DOWNLOAD_REGION;
 extern const wchar_t * SCENE_ABOUT;
+extern const wchar_t * SCENE_SEARCH;
 
 class SceneRegister
 {

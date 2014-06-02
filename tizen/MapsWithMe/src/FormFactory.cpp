@@ -2,6 +2,7 @@
 #include "MapsWithMeForm.hpp"
 #include "SettingsForm.hpp"
 #include "AboutForm.hpp"
+#include "SearchForm.hpp"
 #include "DownloadCountryForm.hpp"
 #include "../../../base/logging.hpp"
 #include "../../../platform/tizen_utils.hpp"
@@ -16,6 +17,7 @@ const wchar_t * FORM_DOWNLOAD_GROUP = L"FormDownloadGroup";
 const wchar_t * FORM_DOWNLOAD_COUNTRY = L"FormDownloadCountry";
 const wchar_t * FORM_DOWNLOAD_REGION = L"FormDownloadRegion";
 const wchar_t * FORM_ABOUT = L"FormAbout";
+const wchar_t * FORM_SEARCH = L"FormSearch";
 
 
 FormFactory::FormFactory(void)
@@ -59,6 +61,12 @@ Tizen::Ui::Controls::Form * FormFactory::CreateFormN(String const & formId, Scen
     DownloadCountryForm * pForm = new DownloadCountryForm();
     pForm->Initialize();
     pSceneManager->AddSceneEventListener(sceneId, *pForm);
+    pNewForm = pForm;
+  }
+  else if (formId == FORM_SEARCH)
+  {
+    SearchForm * pForm = new SearchForm();
+    pForm->Initialize();
     pNewForm = pForm;
   }
 

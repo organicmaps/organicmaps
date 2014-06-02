@@ -11,6 +11,7 @@ const wchar_t * SCENE_DOWNLOAD_GROUP = L"ScnDownloadGroup";
 const wchar_t * SCENE_DOWNLOAD_COUNTRY = L"ScnDownloadCountry";
 const wchar_t * SCENE_DOWNLOAD_REGION = L"ScnDownloadRegion";
 const wchar_t * SCENE_ABOUT = L"ScnAbout";
+const wchar_t * SCENE_SEARCH = L"ScnSearch";
 
 SceneRegister::SceneRegister(void)
 {
@@ -36,4 +37,5 @@ SceneRegister::RegisterAllScenes(void)
   pSceneManager->RegisterScene(SCENE_DOWNLOAD_COUNTRY, FORM_DOWNLOAD_COUNTRY, PANEL_BLANK);
   pSceneManager->RegisterScene(SCENE_DOWNLOAD_REGION, FORM_DOWNLOAD_REGION, PANEL_BLANK);
   pSceneManager->RegisterScene(SCENE_ABOUT, FORM_ABOUT, PANEL_BLANK);
+  pSceneManager->RegisterScene(SCENE_SEARCH, FORM_SEARCH, PANEL_BLANK);
 }

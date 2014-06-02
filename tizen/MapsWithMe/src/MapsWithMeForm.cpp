@@ -141,6 +141,11 @@ void MapsWithMeForm::OnActionPerformed(Tizen::Ui::Control const & source, int ac
     }
     case ID_SEARCH:
     {
+      ::Framework * pFramework = tizen::Framework::GetInstance();
+      pFramework->PrepareSearch(false);
+      SceneManager * pSceneManager = SceneManager::GetInstance();
+      pSceneManager->GoForward(ForwardSceneTransition(SCENE_SEARCH,
+          SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP));
       break;
     }
   }

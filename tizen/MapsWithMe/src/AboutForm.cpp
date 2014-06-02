@@ -54,7 +54,7 @@ result AboutForm::OnInitializing(void)
   return E_SUCCESS;
 }
 
-void AboutForm::OnActionPerformed(const Tizen::Ui::Control & source, int actionId)
+void AboutForm::OnActionPerformed(Tizen::Ui::Control const & source, int actionId)
 {
   switch(actionId)
   {
