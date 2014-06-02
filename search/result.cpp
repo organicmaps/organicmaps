@@ -43,6 +43,11 @@ Result::ResultType Result::GetResultType() const
     return RESULT_LATLON;
 }
 
+bool Result::IsSuggest() const
+{
+  return !m_suggestionStr.empty();
+}
+
 FeatureID Result::GetFeatureID() const
 {
   ASSERT_EQUAL(GetResultType(), RESULT_FEATURE, ());
@@ -51,19 +56,19 @@ FeatureID Result::GetFeatureID() const
 
 double Result::GetDistance() const
 {
-  ASSERT_NOT_EQUAL(GetResultType(), RESULT_SUGGESTION, ());
+  ASSERT(!IsSuggest(), ());
   return m_distance;
 }
 
 m2::PointD Result::GetFeatureCenter() const
 {
-  ASSERT_NOT_EQUAL(GetResultType(), RESULT_SUGGESTION, ());
+  ASSERT(!IsSuggest(), ());
   return m_center;
 }
 
 char const * Result::GetSuggestionString() const
 {
-  ASSERT_EQUAL(GetResultType(), RESULT_SUGGESTION, ());
+  ASSERT(IsSuggest(), ());
   return m_suggestionStr.c_str();
 }
 

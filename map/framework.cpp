@@ -134,8 +134,12 @@ void Framework::OnLocationUpdate(location::GpsInfo const & info)
   location::GpsInfo const & rInfo = info;
 #endif
 
-  m_informationDisplay.locationState()->OnLocationUpdate(rInfo);
+  shared_ptr<location::State> const & state = m_informationDisplay.locationState();
+  state->OnLocationUpdate(rInfo);
   m_balloonManager.LocationChanged(rInfo);
+
+  if (state->GetLocationProcessMode() != location::ELocationDoNothing)
+    UpdateUserViewportChanged();
 }
 
 void Framework::OnCompassUpdate(location::CompassInfo const & info)
@@ -1192,7 +1196,6 @@ void Framework::ShowSearchResult(search::Result const & res)
       break;
 
     default:
-      ASSERT(false, ());
       return;
   }
 
@@ -1207,18 +1210,30 @@ size_t Framework::ShowAllSearchResults()
   Results results;
   GetSearchEngine()->GetResults(results);
 
-  size_t const count = results.GetCount();
+  size_t count = results.GetCount();
   switch (count)
   {
-  case 1: ShowSearchResult(results.GetResult(0));
-  case 0: return count;
+  case 1:
+    {
+      Result const & r = results.GetResult(0);
+      if (!r.IsSuggest())
+        ShowSearchResult(r);
+      else
+        count = 0;
+      // do not put break here
+    }
+  case 0:
+    return count;
   }
 
   m2::RectD rect;
   FillSearchResultsMarks(results, rect);
 
-  ShowRectEx(rect);
-  StopLocationFollow();
+  if (rect.IsValid())
+  {
+    ShowRectEx(rect);
+    StopLocationFollow();
+  }
 
   return count;
 }
@@ -1235,7 +1250,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results, m2::Rect
     using namespace search;
 
     Result const & r = results.GetResult(i);
-    if (r.GetResultType() == Result::RESULT_FEATURE)
+    if (!r.IsSuggest())
     {
       AddressInfo info;
       info.MakeFrom(r);

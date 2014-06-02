@@ -44,6 +44,8 @@ public:
   char const * GetFeatureType() const { return m_type.c_str(); }
   //@}
 
+  bool IsSuggest() const;
+
   /// Type of the result.
   ResultType GetResultType() const;
 
