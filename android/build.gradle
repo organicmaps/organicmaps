@@ -102,7 +102,7 @@ android {
     // This is an annoying hack to get around the fact that the Gradle plugin does not support
     // having libraries with different minSdkVersions. Play Services has a min version of 9 but we support 7 still
     variant.processManifest.doFirst {
-      File manifestFile = file("${buildDir}/exploded-aar/com.google.android.gms/play-services/4.3.23/AndroidManifest.xml")
+      File manifestFile = file("${buildDir}/exploded-aar/com.google.android.gms/play-services/4.4.52/AndroidManifest.xml")
       if (manifestFile.exists()) {
         println("Replacing minSdkVersion in Google Play Services")
         String content = manifestFile.getText('UTF-8')
