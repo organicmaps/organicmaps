@@ -279,6 +279,10 @@ void SearchForm::Search(String const & val)
   search::SearchParams m_params;
   m_params.m_callback = bind(&SearchForm::OnSearchResultsReceived, this, _1);
   m_params.m_query = FromTizenString(val);
+
+  Tizen::Locales::LanguageCode language;
+  if (m_searchBar->GetCurrentLanguage(language) == E_SUCCESS)
+    m_params.SetInputLanguage(CodeFromISO369_2to_1(GetLanguageCode(language)));
   double lat, lon;
   GetFramework()->GetCurrentPosition(lat, lon);
   m_params.SetPosition(lat, lon);
