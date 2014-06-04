@@ -609,9 +609,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (BOOL)isMarkOfType:(UserMark::Type)type
 {
-  if (m_mark == NULL)
-    return NO;
-  return [self userMark]->GetMarkType() == type;
+  return m_mark ? [self userMark]->GetMarkType() == type : NO;
 }
 
 - (BOOL)isBookmark
@@ -621,7 +619,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (m2::PointD)pinPoint
 {
-  return m_mark != NULL ? [self userMark]->GetOrg() : m2::PointD();
+  return m_mark ? [self userMark]->GetOrg() : m2::PointD();
 }
 
 - (NSString *)title
@@ -645,7 +643,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
       search::AddressInfo const & addressInfo = mark->GetInfo();
       _title = addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
     }
-    else if (m_mark != NULL)
+    else if (m_mark)
     {
       search::AddressInfo addressInfo;
       GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
@@ -685,7 +683,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
       search::AddressInfo const & addressInfo = mark->GetInfo();
       _types = addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
     }
-    else if (m_mark != NULL)
+    else if (m_mark)
     {
       search::AddressInfo addressInfo;
       GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
@@ -738,7 +736,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if (!_address)
   {
-    if (m_mark != NULL)
+    if (m_mark)
     {
       search::AddressInfo addressInfo;
       GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
@@ -765,21 +763,14 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
 }
 
-- (UIImage *)iconImageWithImage:(UIImage *)image
+- (UserMark const *)userMark
 {
-  CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
-  UIGraphicsBeginImageContextWithOptions(rect.size, NO, [UIScreen mainScreen].scale);
-  [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:5.5] addClip];
-  [image drawInRect:rect];
-  UIImage * iconImage = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-
-  return iconImage;
+  return m_mark ? m_mark->GetUserMark() : NULL;
 }
 
 - (shared_ptr<UserMarkCopy>)cachedMark
 {
-  return (m_cachedMark != NULL) ? m_cachedMark : make_shared_ptr(GetFramework().GetAddressMark([self pinPoint])->Copy());
+  return m_cachedMark ? m_cachedMark : make_shared_ptr(GetFramework().GetAddressMark([self pinPoint])->Copy());
 }
 
 - (void)deleteBookmark
@@ -797,6 +788,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
   framework.Invalidate();
 
+  _title = nil;
+  _types = nil;
   [self reloadHeader];
   [self updateBookmarkStateAnimated:YES];
   [self updateBookmarkViewsAlpha:YES];
@@ -827,6 +820,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
     framework.ActivateUserMark([self userMark]);
     framework.Invalidate();
 
+    _title = nil;
+    _types = nil;
     [self reloadHeader];
     [self updateBookmarkStateAnimated:YES];
     [self updateBookmarkViewsAlpha:YES];
@@ -851,19 +846,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
   UIScrollView * sv = scrollView;
-  if ((sv.contentOffset.y + sv.height > sv.contentSize.height + 70) && !sv.dragging && sv.decelerating)
+  if ((sv.contentOffset.y + sv.height > sv.contentSize.height + 40) && !sv.dragging && sv.decelerating)
   {
     if (self.state == PlacePageStateOpened)
-      [self setState:PlacePageStatePreview animated:YES withCallback:YES];
-  }
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-{
-  NSLog(@"%f %f", scrollView.contentSize.height, scrollView.height);
-  if (scrollView.contentSize.height <= scrollView.height && (*targetContentOffset).y <= scrollView.contentOffset.y)
-  {
-    [self setState:PlacePageStateHidden animated:YES withCallback:YES];
+      [self setState:PlacePageStateHidden animated:YES withCallback:YES];
   }
 }
 
@@ -878,11 +864,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     [[Statistics instance] logProposalReason:@"Add Bookmark" withAnswer:@"NO"];
   }
-}
-
--(UserMark const *) userMark
-{
-  return m_mark ? m_mark->GetUserMark() : NULL;
 }
 
 - (CopyLabel *)titleLabel
