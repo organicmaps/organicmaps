@@ -830,6 +830,7 @@ const long long LITE_IDL = 431183278L;
   {
     BookmarkNameVC * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[BookmarkNameVC className]];
     vc.delegate = self;
+    vc.nameIsTemporary = placePage.titleIsTemporary;
     vc.bookmarkAndCategory = bookmarkAndCategory;
     [self.navigationController pushViewController:vc animated:YES];
   }

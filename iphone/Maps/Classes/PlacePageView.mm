@@ -43,6 +43,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) NSString * info;
 @property (nonatomic) NSString * setName;
 
+@property (nonatomic) BOOL titleIsTemporary;
+
 - (NSString *)colorName;
 
 @end
@@ -626,6 +628,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if (!_title)
   {
+    self.titleIsTemporary = NO;
     if ([self isBookmark])
     {
       Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
@@ -651,6 +654,16 @@ typedef NS_ENUM(NSUInteger, CellRow)
     else
     {
       _title = @"";
+    }
+
+    if (![_title length])
+    {
+      self.titleIsTemporary = YES;
+      _title = [[self types] capitalizedString];
+    }
+    else if ([_title isEqualToString:NSLocalizedString(@"dropped_pin", nil)])
+    {
+      self.titleIsTemporary = YES;
     }
   }
   return _title;

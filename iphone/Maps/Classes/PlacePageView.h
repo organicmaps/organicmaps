@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger, PlacePageState) {
 @property (nonatomic, weak) id <PlacePageViewDelegate> delegate;
 
 - (m2::PointD)pinPoint;
+@property (nonatomic, readonly) BOOL titleIsTemporary;
 
 @property (nonatomic) BOOL statusBarIncluded;
 

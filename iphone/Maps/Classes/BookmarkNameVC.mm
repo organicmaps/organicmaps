@@ -20,7 +20,8 @@
   BookmarkCategory const * category = GetFramework().GetBmCategory(self.bookmarkAndCategory.first);
   Bookmark const * bookmark = category->GetBookmark(self.bookmarkAndCategory.second);
 
-  self.textField.text = bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
+  if (!self.nameIsTemporary)
+    self.textField.text = bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
   [self.textField addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
@@ -39,12 +40,14 @@
 {
   [super viewDidDisappear:animated];
 
-  BookmarkCategory * category = GetFramework().GetBmCategory(self.bookmarkAndCategory.first);
-  Bookmark * bookmark = category->GetBookmark(self.bookmarkAndCategory.second);
-  bookmark->SetName(([self.textField.text UTF8String]));
-  category->SaveToKMLFile();
-
-  [self.delegate bookmarkNameVC:self didUpdateBookmarkAndCategory:self.bookmarkAndCategory];
+  if (!self.nameIsTemporary || (self.nameIsTemporary && [self.textField.text length]))
+  {
+    BookmarkCategory * category = GetFramework().GetBmCategory(self.bookmarkAndCategory.first);
+    Bookmark * bookmark = category->GetBookmark(self.bookmarkAndCategory.second);
+    bookmark->SetName(([self.textField.text UTF8String]));
+    category->SaveToKMLFile();
+    [self.delegate bookmarkNameVC:self didUpdateBookmarkAndCategory:self.bookmarkAndCategory];
+  }
 }
 
 @end
