@@ -31,7 +31,7 @@
 - (void)swipe:(UISwipeGestureRecognizer *)sender
 {
   if (self.placePage.state == PlacePageStateOpened)
-    [self.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
+    [self.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
@@ -53,7 +53,7 @@
 
 - (void)tap:(UITapGestureRecognizer *)sender
 {
-  [self.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
+  [self.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
 - (PlacePageView *)placePage
