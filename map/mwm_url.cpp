@@ -191,14 +191,13 @@ bool ParsedMapApi::GetViewportRect(ScalesProcessor const & scales, m2::RectD & r
   }
 }
 
-bool ParsedMapApi::GetSinglePoint(m2::PointD & point) const
+UserMark const * ParsedMapApi::GetSinglePoint() const
 {
   ASSERT(m_controller != NULL, ());
   if (m_controller->GetUserMarkCount() != 1)
-    return false;
+    return 0;
 
-  point = m_controller->GetUserMark(0)->GetOrg();
-  return true;
+  return m_controller->GetUserMark(0);
 }
 
 }

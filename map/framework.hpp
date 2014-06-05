@@ -248,8 +248,6 @@ private:
   search::Engine * GetSearchEngine() const;
   search::SearchParams m_lastSearch;
 
-  void UpdateUserViewportChanged();
-
   void OnSearchResultsCallback(search::Results const & results);
   void OnSearchResultsCallbackUI(search::Results const & results);
   void FillSearchResultsMarks(search::Results const & results, m2::RectD & rect);
@@ -257,12 +255,14 @@ private:
 public:
   m2::RectD GetCurrentViewport() const;
 
+  void UpdateUserViewportChanged();
+
   /// Call this function before entering search GUI.
   /// While it's loading, we can cache features near user's position.
   /// @param[in] hasPt Are (lat, lon) valid
   /// @param[in] (lat, lon) Current user's position
   void PrepareSearch(bool hasPt, double lat = 0.0, double lon = 0.0);
-  bool Search(search::SearchParams const & params);
+  bool Search(search::SearchParams const & params, bool saveQuery = true);
   bool GetCurrentPosition(double & lat, double & lon) const;
 
   void ShowSearchResult(search::Result const & res);
@@ -437,9 +437,9 @@ public:
 
   shared_ptr<location::State> const & GetLocationState() const;
   void ActivateUserMark(UserMark const * mark);
-  UserMark const * GetUserMark(m2::PointD const & pxPoint, bool isLongPress);
-  UserMark const * GetAddressMark(m2::PointD const & globalPoint);
-  BookmarkAndCategory FindBookmark(UserMark const * mark);
+  UserMark const * GetUserMark(m2::PointD const & pxPoint, bool isLongPress) const;
+  PoiMarkPoint * GetAddressMark(m2::PointD const & globalPoint) const;
+  BookmarkAndCategory FindBookmark(UserMark const * mark) const;
 
 public:
   string CodeGe0url(Bookmark const * bmk, bool addName);

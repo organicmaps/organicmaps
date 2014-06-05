@@ -26,6 +26,7 @@ void MoveScreenTask::OnEnd(double ts)
   anim::SegmentInterpolation::OnEnd(ts);
   Navigator & nav = m_framework->GetNavigator();
   nav.SetOrg(m_outPt);
+  m_framework->UpdateUserViewportChanged();
 }
 
 bool MoveScreenTask::IsVisual() const

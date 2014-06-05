@@ -336,7 +336,7 @@ namespace qt
   void DrawWidget::OnPressTaskEvent(m2::PointD const & pt, unsigned ms)
   {
     m_wasLongClick = (ms == LONG_TOUCH_MS);
-    GetBalloonManager().OnClick(pt, m_wasLongClick);
+    GetBalloonManager().OnShowMark(m_framework->GetUserMark(pt, m_wasLongClick));
   }
 
   m2::PointD DrawWidget::GetDevicePoint(QMouseEvent * e) const

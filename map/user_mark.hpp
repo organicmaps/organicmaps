@@ -127,7 +127,7 @@ public:
     return new UserMarkCopy(new SearchMarkPoint(m_info, m_ptOrg, m_container));
   }
 
-private:
+protected:
   search::AddressInfo m_info;
 };
 
@@ -144,6 +144,7 @@ public:
   }
 
   void SetPtOrg(m2::PointD const & ptOrg) { m_ptOrg = ptOrg; }
+  void SetName(string const & name) { m_info.m_name = name; }
 };
 
 class ICustomDrawable : public UserMark

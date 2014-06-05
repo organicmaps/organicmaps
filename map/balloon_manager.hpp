@@ -30,8 +30,9 @@ public:
   void RenderPolicyCreated(graphics::EDensity density) {}
   void LocationChanged(location::GpsInfo const & info) {}
 
-  void OnClick(m2::PointD const & pxPoint, bool isLongTouch);
   void OnBookmarkClick(BookmarkAndCategory const & bnc);
+
+  void OnShowMark(UserMark const * mark);
 
   void Hide();
 
@@ -42,8 +43,8 @@ private:
   /// @name Platform dependent listeners to show special activities.
   //@{
   // You must delete UserMarkCopy obtained by this callback
-  function<void (UserMarkCopy *)>      m_userMarkListener;
-  function<void (void)>            m_dismissListener;
+  function<void (UserMarkCopy *)> m_userMarkListener;
+  function<void (void)>           m_dismissListener;
 
 public:
   template <class T> void ConnectUserMarkListener(T const & t)   { m_userMarkListener = t; }

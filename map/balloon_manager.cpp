@@ -15,6 +15,7 @@
 
 #include "../gui/controller.hpp"
 
+
 PinClickManager::PinClickManager(Framework & f)
   : m_f(f)
 {}
@@ -24,9 +25,8 @@ void PinClickManager::Hide()
   m_f.Invalidate();
 }
 
-void PinClickManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
+void PinClickManager::OnShowMark(UserMark const * mark)
 {
-  UserMark const * mark = m_f.GetUserMark(pxPoint, isLongTouch);
   if (mark != NULL)
     OnActivateUserMark(mark->Copy());
   SetBalloonVisible(mark != NULL);
@@ -35,7 +35,7 @@ void PinClickManager::OnClick(m2::PointD const & pxPoint, bool isLongTouch)
 void PinClickManager::OnBookmarkClick(BookmarkAndCategory const & bnc)
 {
   Bookmark * mark = m_f.GetBmCategory(bnc.first)->GetBookmark(bnc.second);
-  m_f.GetBookmarkManager ().ActivateMark(mark);
+  m_f.GetBookmarkManager().ActivateMark(mark);
   SetBalloonVisible(true);
 }
 

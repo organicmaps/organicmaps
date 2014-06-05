@@ -251,7 +251,9 @@ const long long LITE_IDL = 431183278L;
 {
   CGFloat const scaleFactor = self.view.contentScaleFactor;
   m2::PointD pxClicked(point.x * scaleFactor, point.y * scaleFactor);
-  GetFramework().GetBalloonManager().OnClick(m2::PointD(pxClicked.x, pxClicked.y), isLongClick);
+
+  Framework & f = GetFramework();
+  f.GetBalloonManager().OnShowMark(f.GetUserMark(m2::PointD(pxClicked.x, pxClicked.y), isLongClick));
 }
 
 - (void)onSingleTap:(NSValue *)point

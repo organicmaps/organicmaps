@@ -1118,7 +1118,7 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
   GetSearchEngine()->PrepareSearch(GetCurrentViewport(), hasPt, lat, lon);
 }
 
-bool Framework::Search(search::SearchParams const & params)
+bool Framework::Search(search::SearchParams const & params, bool saveQuery /*= true*/)
 {
 #ifdef FIXED_LOCATION
   search::SearchParams rParams(params);
@@ -1133,7 +1133,8 @@ bool Framework::Search(search::SearchParams const & params)
 
   if (GetSearchEngine()->Search(rParams, GetCurrentViewport()))
   {
-    m_lastSearch = rParams;
+    if (saveQuery)
+      m_lastSearch = rParams;
     return true;
   }
   else
@@ -1160,14 +1161,16 @@ void Framework::ShowSearchResult(search::Result const & res)
   m_bmManager.UserMarksSetVisible(type, true);
   m_bmManager.UserMarksClear(type);
 
+  m_lastSearch.Clear();
+
   search::AddressInfo info;
   info.MakeFrom(res);
 
-  m2::PointD ptOrg = res.GetFeatureCenter();
+  m2::PointD const ptOrg = res.GetFeatureCenter();
   SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, ptOrg));
   mark->SetInfo(info);
 
-  m_balloonManager.OnClick(GtoP(mark->GetOrg()), true);
+  m_balloonManager.OnShowMark(mark);
 
   int scale;
   m2::PointD center;
@@ -1392,8 +1395,10 @@ anim::Controller * Framework::GetAnimController() const
 
 bool Framework::ShowMapForURL(string const & url)
 {
-  m2::PointD clickPoint;
+  m2::PointD point;
   m2::RectD rect;
+  string name;
+  UserMark const * apiMark = 0;
 
   enum ResultT { FAILED, NEED_CLICK, NO_NEED_CLICK };
   ResultT result = FAILED;
@@ -1410,9 +1415,8 @@ bool Framework::ShowMapForURL(string const & url)
     ParseGeoURL(url, info);
     if (info.IsValid())
     {
-      clickPoint = m2::PointD(MercatorBounds::LonToX(info.m_lon),
-                              MercatorBounds::LatToY(info.m_lat));
-      rect = m_scales.GetRectForDrawScale(info.m_zoom, clickPoint);
+      point = m2::PointD(MercatorBounds::LonToX(info.m_lon), MercatorBounds::LatToY(info.m_lat));
+      rect = m_scales.GetRectForDrawScale(info.m_zoom, point);
       result = NEED_CLICK;
     }
   }
@@ -1424,9 +1428,9 @@ bool Framework::ShowMapForURL(string const & url)
 
     if (parser.Parse(url, pt, zoom))
     {
-      clickPoint = m2::PointD(MercatorBounds::LonToX(pt.m_lon),
-                              MercatorBounds::LatToY(pt.m_lat));
-      rect = m_scales.GetRectForDrawScale(zoom, clickPoint);
+      point = m2::PointD(MercatorBounds::LonToX(pt.m_lon), MercatorBounds::LatToY(pt.m_lat));
+      rect = m_scales.GetRectForDrawScale(zoom, point);
+      name = pt.m_name;
       result = NEED_CLICK;
     }
   }
@@ -1437,7 +1441,7 @@ bool Framework::ShowMapForURL(string const & url)
       if (!m_ParsedMapApi.GetViewportRect(m_scales, rect))
         rect = ScalesProcessor::GetWorldRect();
 
-      if (m_ParsedMapApi.GetSinglePoint(clickPoint))
+      if (apiMark = m_ParsedMapApi.GetSinglePoint())
         result = NEED_CLICK;
       else
         result = NO_NEED_CLICK;
@@ -1448,10 +1452,21 @@ bool Framework::ShowMapForURL(string const & url)
   {
     // set viewport and stop follow mode if any
     StopLocationFollow();
-    SetViewPortASync(rect);
+    ShowRectExVisibleScale(rect);
 
     if (result != NO_NEED_CLICK)
-      m_balloonManager.OnClick(GtoP(clickPoint), true);
+    {
+      if (apiMark)
+        m_balloonManager.OnShowMark(apiMark);
+      else
+      {
+        PoiMarkPoint * mark = GetAddressMark(point);
+        if (!name.empty())
+          mark->SetName(name);
+        m_balloonManager.OnShowMark(mark);
+      }
+    }
+
     return true;
   }
   else
@@ -1569,7 +1584,7 @@ void Framework::ActivateUserMark(UserMark const * mark)
   m_bmManager.ActivateMark(mark);
 }
 
-UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongPress)
+UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongPress) const
 {
   m2::AnyRectD rect;
   m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * GetVisualScale(), rect);
@@ -1596,10 +1611,11 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
       mark = poiMark;
     }
   }
+
   return mark;
 }
 
-UserMark const * Framework::GetAddressMark(m2::PointD const & globalPoint)
+PoiMarkPoint * Framework::GetAddressMark(m2::PointD const & globalPoint) const
 {
   search::AddressInfo info;
   GetAddressInfoForGlobalPoint(globalPoint, info);
@@ -1608,7 +1624,7 @@ UserMark const * Framework::GetAddressMark(m2::PointD const & globalPoint)
   return mark;
 }
 
-BookmarkAndCategory Framework::FindBookmark(UserMark const * mark)
+BookmarkAndCategory Framework::FindBookmark(UserMark const * mark) const
 {
   BookmarkAndCategory empty = MakeEmptyBookmarkAndCategory();
   BookmarkAndCategory result = empty;

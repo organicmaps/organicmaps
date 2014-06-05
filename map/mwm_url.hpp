@@ -39,7 +39,7 @@ public:
 
   /// @name Used in settings map viewport after invoking API.
   bool GetViewportRect(ScalesProcessor const & scales, m2::RectD & rect) const;
-  bool GetSinglePoint(m2::PointD & point) const;
+  UserMark const * GetSinglePoint() const;
 
 private:
   bool Parse(Uri const & uri);

@@ -240,7 +240,7 @@ __weak SearchView * selfPointer;
   {
     search::SearchParams params = [self searchParameters];
     params.SetPosition(info.m_latitude, info.m_longitude);
-    GetFramework().Search(params);
+    GetFramework().Search(params, false);
 
     [self recalculateDistances];
     [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
