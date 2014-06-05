@@ -61,7 +61,7 @@ public:
   bool DeleteBmCategory(size_t index);
 
   void ActivateMark(UserMark const * mark);
-  UserMark const * FindNearestUserMark(m2::AnyRectD const & rect);
+  UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
 
   /// Additional layer methods
   void UserMarksSetVisible(UserMarkContainer::Type type, bool isVisible);

@@ -313,7 +313,7 @@ void BookmarkManager::ActivateMark(UserMark const * mark)
   m_selection.ActivateMark(mark);
 }
 
-UserMark const * BookmarkManager::FindNearestUserMark(const m2::AnyRectD & rect)
+UserMark const * BookmarkManager::FindNearestUserMark(const m2::AnyRectD & rect) const
 {
   double d = numeric_limits<double>::max();
   UserMark const * mark = FindUserMarksContainer(UserMarkContainer::API_MARK)->FindMarkInRect(rect, d);

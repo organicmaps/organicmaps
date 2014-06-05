@@ -31,7 +31,7 @@ public:
     Controller(UserMarkContainer * container)
       : m_container(container) {}
 
-    UserMark * CreateUserMark(m2::PointD ptOrg) { return m_container->CreateUserMark(ptOrg); }
+    UserMark * CreateUserMark(m2::PointD const & ptOrg) { return m_container->CreateUserMark(ptOrg); }
     size_t GetUserMarkCount() const { return m_container->GetUserMarkCount(); }
     UserMark const * GetUserMark(size_t index) const { return m_container->GetUserMark(index); }
     UserMark * GetUserMarkForEdit(size_t index) { return m_container->GetUserMark(index); }
@@ -61,7 +61,7 @@ public:
   // If not found mark on rect result is NULL
   // If mark is found in "d" return distance from rect center
   // In multiple select choose mark with min(d)
-  UserMark const * FindMarkInRect(m2::AnyRectD const & rect, double & d);
+  UserMark const * FindMarkInRect(m2::AnyRectD const & rect, double & d) const;
 
   void Draw(PaintOverlayEvent const & e, UserMarkDLCache * cache) const;
   void ActivateMark(UserMark const * mark);

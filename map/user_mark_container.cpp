@@ -129,7 +129,7 @@ UserMarkContainer::~UserMarkContainer()
   Clear();
 }
 
-UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, double & d)
+UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, double & d) const
 {
   UserMark * mark = NULL;
   d = numeric_limits<double>::max();

@@ -71,7 +71,7 @@ void BookmarkCategory::AddBookmark(m2::PointD const & ptOrg, BookmarkData const 
 
 void BookmarkCategory::ReplaceBookmark(size_t index, BookmarkData const & bm)
 {
-  Controller c = base_t::GetController();
+  Controller & c = base_t::GetController();
   ASSERT_LESS (index, c.GetUserMarkCount(), ());
   if (index < c.GetUserMarkCount())
   {
@@ -124,7 +124,7 @@ template <class T> void DeleteItem(vector<T> & v, size_t i)
 
 void BookmarkCategory::DeleteBookmark(size_t index)
 {
-  base_t::Controller c = base_t::GetController();
+  base_t::Controller & c = base_t::GetController();
   ASSERT_LESS(index, c.GetUserMarkCount(), ());
   c.DeleteUserMark(index);
 }
