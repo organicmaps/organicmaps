@@ -22,12 +22,7 @@
 
   if (!self.nameIsTemporary)
     self.textField.text = bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
-  [self.textField addTarget:self action:@selector(textDidChange:) forControlEvents:UIControlEventEditingChanged];
-}
-
-- (void)textDidChange:(UITextField *)textField
-{
-  textField.text = [textField.text capitalizedString];
+  self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 }
 
 - (void)viewDidAppear:(BOOL)animated
