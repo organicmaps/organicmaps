@@ -3,7 +3,7 @@
 #import "Framework.h"
 #import "UIKitCategories.h"
 
-@interface BookmarkNameVC ()
+@interface BookmarkNameVC () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField * textField;
 
@@ -20,9 +20,17 @@
   BookmarkCategory const * category = GetFramework().GetBmCategory(self.bookmarkAndCategory.first);
   Bookmark const * bookmark = category->GetBookmark(self.bookmarkAndCategory.second);
 
+  self.textField.delegate = self;
+
   if (!self.nameIsTemporary)
     self.textField.text = bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
   self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  [self.navigationController popViewControllerAnimated:YES];
+  return YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
