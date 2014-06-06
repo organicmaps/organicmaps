@@ -718,6 +718,7 @@ const long long LITE_IDL = 431183278L;
   {
     UIImage * image = SYSTEM_VERSION_IS_LESS_THAN(@"7") ? [UIImage imageNamed:@"ApiBarBackground6"] : [UIImage imageNamed:@"ApiBarBackground7"];
     _apiBar = [[UIImageView alloc] initWithImage:[image resizableImageWithCapInsets:UIEdgeInsetsZero]];
+    _apiBar.width = self.view.width;
     _apiBar.userInteractionEnabled = YES;
     _apiBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 

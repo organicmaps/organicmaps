@@ -152,6 +152,9 @@ __weak SearchView * selfPointer;
 
 - (void)setState:(SearchViewState)state animated:(BOOL)animated withCallback:(BOOL)withCallback
 {
+  if (_state == SearchViewStateResults && state == SearchViewStateHidden)
+    [self clearSearchResultsMode];
+
   UIViewAnimationOptions options = UIViewAnimationOptionCurveEaseInOut;
   double damping = 0.9;
   NSTimeInterval duration = animated ? 0.3 : 0;
@@ -331,14 +334,10 @@ static void OnSearchResultCallback(search::Results const & results)
 - (void)searchBarDidPressClearButton:(SearchBar *)searchBar
 {
   if (self.state == SearchViewStateResults)
-  {
-    [self clearSearchResultsMode];
     [self setState:SearchViewStateHidden animated:YES withCallback:YES];
-  }
   else
-  {
     [self.searchBar.textField becomeFirstResponder];
-  }
+
   self.searchBar.textField.text = nil;
   [self processTextChanging];
 }
