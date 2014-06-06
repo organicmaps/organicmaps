@@ -808,6 +808,7 @@ void Framework::UpdateUserViewportChanged()
     (void)GetCurrentPosition(m_lastSearch.m_lat, m_lastSearch.m_lon);
     m_lastSearch.m_callback = bind(&Framework::OnSearchResultsCallback, this, _1);
     m_lastSearch.SetSearchMode(search::SearchParams::IN_VIEWPORT);
+    m_lastSearch.SetForceSearch(false);
 
     (void)GetSearchEngine()->Search(m_lastSearch, GetCurrentViewport());
   }

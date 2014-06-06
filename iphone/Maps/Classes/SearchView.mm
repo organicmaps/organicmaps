@@ -239,9 +239,9 @@ __weak SearchView * selfPointer;
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  if ([self.searchBar.textField.text length])
+  if ([self.searchBar.textField.text length] && self.state == SearchViewStateFullscreen)
   {
-    search::SearchParams params = [self searchParameters];
+    search::SearchParams params = [self searchParametersWithForce:NO];
     params.SetPosition(info.m_latitude, info.m_longitude);
     GetFramework().Search(params, false);
 
@@ -273,14 +273,14 @@ __weak SearchView * selfPointer;
   }
 }
 
-- (search::SearchParams)searchParameters
+- (search::SearchParams)searchParametersWithForce:(BOOL)force
 {
   search::SearchParams params;
   params.SetSearchMode(search::SearchParams::ALL);
   params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
   params.m_callback = bind(&OnSearchResultCallback, _1);
   params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
-  params.SetForceSearch(true);
+  params.SetForceSearch(force);
 
   return params;
 }
@@ -289,7 +289,7 @@ __weak SearchView * selfPointer;
 {
   self.emptyResultLabel.hidden = YES;
   [self.searchBar setSearching:YES];
-  search::SearchParams params = [self searchParameters];
+  search::SearchParams params = [self searchParametersWithForce:YES];
   double lat, lon;
   if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
     params.SetPosition(lat, lon);
