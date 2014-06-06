@@ -382,7 +382,9 @@ static void OnSearchResultCallback(search::Results const & results)
   {
     if (!GetFramework().ShowAllSearchResults())
     {
-      ToastView * toastView = [[ToastView alloc] initWithMessage:NSLocalizedString(@"Sorry, but we could not find anything. Download any map and try again", nil)];
+      NSString * message = [NSString stringWithFormat:@"%@. %@", NSLocalizedString(@"no_search_results_found", nil), NSLocalizedString(@"download_location_country", nil)];
+      message = [message stringByReplacingOccurrencesOfString:@" (%@)" withString:@""];
+      ToastView * toastView = [[ToastView alloc] initWithMessage:message];
       [toastView show];
     }
     [self setState:SearchViewStateResults animated:YES withCallback:YES];
