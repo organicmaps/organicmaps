@@ -264,7 +264,7 @@ void InitLocalizedStrings()
       [[Statistics instance] logApiUsage:sourceApplication];
 
       [self showMap];
-      [self.m_mapViewController setApiMode:YES animated:YES];
+      [self.m_mapViewController setApiMode:YES animated:NO];
       return YES;
     }
   }

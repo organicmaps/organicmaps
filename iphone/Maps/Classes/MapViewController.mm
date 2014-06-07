@@ -568,8 +568,12 @@ const long long LITE_IDL = 431183278L;
     [self.buyButton setTitle:proText forState:UIControlStateNormal];
   }
 #endif
+}
 
-  [self setApiMode:NO animated:NO];
+- (void)viewDidAppear:(BOOL)animated
+{
+  [super viewDidAppear:animated];
+  [self setApiMode:_apiMode animated:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
