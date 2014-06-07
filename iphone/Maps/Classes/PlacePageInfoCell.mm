@@ -66,9 +66,9 @@
 {
   self.pinPoint = point;
   self.addressLabel.text = address;
-  NSString * longitude = [NSString stringWithFormat:@"%.7f", MercatorBounds::XToLon(self.pinPoint.x)];
   NSString * latitude = [NSString stringWithFormat:@"%.7f", MercatorBounds::YToLat(self.pinPoint.y)];
-  self.coordinatesLabel.text = [NSString stringWithFormat:@"%@, %@", longitude, latitude];
+  NSString * longitude = [NSString stringWithFormat:@"%.7f", MercatorBounds::XToLon(self.pinPoint.x)];
+  self.coordinatesLabel.text = [NSString stringWithFormat:@"%@, %@", latitude, longitude];
 
   self.distanceLabel.text = [self distance];
 }
