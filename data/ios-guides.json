@@ -1,5 +1,487 @@
 {
-  "version":3,
+  "version":4,
+
+"Lithuania":{
+ "url":"itms-apps://itunes.apple.com/app/id887290323",
+    "appId":"guidewithme-lithuania://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Lithuania: free offline travel guide",
+        "nl":"Litouwen: gratis offline reisgids",
+        "uk":"Литва: безкоштовні путівники оф-лайн.",
+        "zh":"立陶宛：免費離線旅行指南",
+        "cs":"Litva: bezplatný off-line turistický průvodce",
+        "fr":"Lituanie: guide de voyage gratuit hors ligne",
+        "it":"Lituania: guida turistica gratuita offline",
+        "ja":"リトアニア：無料オフライン旅行ガイド",
+        "ko":"리투아니아: 무료 오프라인 여행 가이드",
+        "pt":"Lituânia: guia de viagem grátis offline",
+        "es":"Lituania: guía de viaje offline gratis",
+        "pl":"Litwa: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Litauen: kostenloser Offline-Reiseführer",
+        "ru":"Литва: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Lithuania"
+     ]
+},
+
+"Estonia":{
+ "url":"itms-apps://itunes.apple.com/app/id887285508",
+    "appId":"guidewithme-estonia://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Estonia: free offline travel guide",
+        "nl":"Estland: gratis offline reisgids",
+        "uk":"Естонія: безкоштовні путівники оф-лайн.",
+        "zh":"愛沙尼亞：免費離線旅行指南",
+        "cs":"Estonsko: bezplatný off-line turistický průvodce",
+        "fr":"Estonie: guide de voyage gratuit hors ligne",
+        "it":"Estonia: guida turistica gratuita offline",
+        "ja":"エストニア：無料オフライン旅行ガイド",
+        "ko":"에스토니아: 무료 오프라인 여행 가이드",
+        "pt":"Estônia: guia de viagem grátis offline",
+        "es":"Estonia: guía de viaje offline gratis",
+        "pl":"Estonia: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Estland: kostenloser Offline-Reiseführer",
+        "ru":"Эстония: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Estonia"
+     ]
+},
+
+"Sri Lanka":{
+ "url":"itms-apps://itunes.apple.com/app/id887293220",
+    "appId":"guidewithme-srilanka://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Sri Lanka: free offline travel guide",
+        "nl":"Sri Lanka: gratis offline reisgids",
+        "uk":"Шрі Ланка: безкоштовні путівники оф-лайн.",
+        "zh":"斯里蘭卡：免費離線旅行指南",
+        "cs":"Sri Lanka: bezplatný off-line turistický průvodce",
+        "fr":"Sri Lanka: guide de voyage gratuit hors ligne",
+        "it":"Sri Lanka: guida turistica gratuita offline",
+        "ja":"スリ·ランカ：無料オフライン旅行ガイド",
+        "ko":"스리랑카: 무료 오프라인 여행 가이드",
+        "pt":"Sri Lanka: guia de viagem grátis offline",
+        "es":"Sri Lanka: guía de viaje offline gratis",
+        "pl":"Sri Lanka: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Sri Lanka: kostenloser Offline-Reiseführer",
+        "ru":"Шри Ланка: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Sri Lanka"
+     ]
+},
+
+"Hong Kong":{
+ "url":"itms-apps://itunes.apple.com/app/id887297387",
+    "appId":"guidewithme-hongkong://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Hong Kong: free offline travel guide",
+        "nl":"Hong Kong: gratis offline reisgids",
+        "uk":"Гонконг: безкоштовні путівники оф-лайн.",
+        "zh":"香港：免費離線旅行指南",
+        "cs":"Hongkong: bezplatný off-line turistický průvodce",
+        "fr":"Hong-Kong: guide de voyage gratuit hors ligne",
+        "it":"Hong Kong: guida turistica gratuita offline",
+        "ja":"香港：無料オフライン旅行ガイド",
+        "ko":"홍콩: 무료 오프라인 여행 가이드",
+        "pt":"Hong Kong: guia de viagem grátis offline",
+        "es":"Hong Kong: guía de viaje offline gratis",
+        "pl":"Hongkong: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Hongkong: kostenloser Offline-Reiseführer",
+        "ru":"Гонконг: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "China"
+     ]
+},
+
+"Thailand":{
+ "url":"itms-apps://itunes.apple.com/app/id887297091",
+    "appId":"guidewithme-thailand://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Thailand: free offline travel guide",
+        "nl":"Thailand: gratis offline reisgids",
+        "uk":"Таїланд: безкоштовні путівники оф-лайн.",
+        "zh":"泰國：免費離線旅行指南",
+        "cs":"Thajsko: bezplatný off-line turistický průvodce",
+        "fr":"Thaïlande: guide de voyage gratuit hors ligne",
+        "it":"Thailandia: guida turistica gratuita offline",
+        "ja":"タイ：無料オフライン旅行ガイド",
+        "ko":"태국: 무료 오프라인 여행 가이드",
+        "pt":"Tailândia: guia de viagem grátis offline",
+        "es":"Tailandia: guía de viaje offline gratis",
+        "pl":"Tajlandia: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Thailand: kostenloser Offline-Reiseführer",
+        "ru":"Таиланд: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Thailand"
+     ]
+},
+
+"Taiwan":{
+ "url":"itms-apps://itunes.apple.com/app/id887293876",
+    "appId":"guidewithme-taiwan://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Taiwan: free offline travel guide",
+        "nl":"Taiwan: gratis offline reisgids",
+        "uk":"Тайвань: безкоштовні путівники оф-лайн.",
+        "zh":"台灣：免費離線旅行指南",
+        "cs":"Tchaj-wan: bezplatný off-line turistický průvodce",
+        "fr":"Taiwan: guide de voyage gratuit hors ligne",
+        "it":"Taiwan: guida turistica gratuita offline",
+        "ja":"台湾：無料オフライン旅行ガイド",
+        "ko":"대만: 무료 오프라인 여행 가이드",
+        "pt":"Taiwan: guia de viagem grátis offline",
+        "es":"Taiwan: guía de viaje offline gratis",
+        "pl":"Tajwan: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Taiwan: kostenloser Offline-Reiseführer",
+        "ru":"Тайвань: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Taiwan"
+     ]
+},
+
+"Latvia":{
+ "url":"itms-apps://itunes.apple.com/app/id887288685",
+    "appId":"guidewithme-latvia://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Latvia: free offline travel guide",
+        "nl":"Letland: gratis offline reisgids",
+        "uk":"Латвія: безкоштовні путівники оф-лайн.",
+        "zh":"拉脫維亞：免費離線旅行指南",
+        "cs":"Lotyšsko: bezplatný off-line turistický průvodce",
+        "fr":"Lettonie: guide de voyage gratuit hors ligne",
+        "it":"Lettonia: guida turistica gratuita offline",
+        "ja":"ラトビア：無料オフライン旅行ガイド",
+        "ko":"라트비아: 무료 오프라인 여행 가이드",
+        "pt":"Látvia: guia de viagem grátis offline",
+        "es":"Letonia: guía de viaje offline gratis",
+        "pl":"Łotwa: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Lettland: kostenloser Offline-Reiseführer",
+        "ru":"Латвия: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Latvia"
+     ]
+},
+
+
+"Czech Republic":{
+ "url":"itms-apps://itunes.apple.com/app/id887284914",
+    "appId":"guidewithme-czechrepublic://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Czech Republic: free offline travel guide",
+        "nl":"Tsjechië: gratis offline reisgids",
+        "uk":"Чехiя: безкоштовні путівники оф-лайн.",
+        "zh":"捷克：免費離線旅行指南",
+        "cs":"Česko: bezplatný off-line turistický průvodce",
+        "fr":"République tchèque: guide de voyage gratuit hors ligne",
+        "it":"Repubblica Ceca: guida turistica gratuita offline",
+        "ja":"チェコ：無料オフライン旅行ガイド",
+        "ko":"체코: 무료 오프라인 여행 가이드",
+        "pt":"República Checa: guia de viagem grátis offline",
+        "es":"República Checa: guía de viaje offline gratis",
+        "pl":"Czechy: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Tschechien: kostenloser Offline-Reiseführer",
+        "ru":"Чехия: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Czech Republic"
+     ]
+},
+
+"Poland":{
+ "url":"itms-apps://itunes.apple.com/app/id883171693",
+    "appId":"guidewithme-poland://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Poland: free offline travel guide",
+        "nl":"Polen: gratis offline reisgids",
+        "uk":"Польща: безкоштовні путівники оф-лайн.",
+        "zh":"波蘭：免費離線旅行指南",
+        "cs":"Polsko: bezplatný off-line turistický průvodce",
+        "fr":"Pologne: guide de voyage gratuit hors ligne",
+        "it":"Polonia: guida turistica gratuita offline",
+        "ja":"ポーランド：無料オフライン旅行ガイド",
+        "ko":"폴란드: 무료 오프라인 여행 가이드",
+        "pt":"Polônia: guia de viagem grátis offline",
+        "es":"Polonia: guía de viaje offline gratis",
+        "pl":"Polska: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Polen: kostenloser Offline-Reiseführer",
+        "ru":"Польша: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Poland"
+     ]
+},
+
+"Malaysia":{
+ "url":"itms-apps://itunes.apple.com/app/id887271649",
+    "appId":"guidewithme-malaysia://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Malaysia: free offline travel guide",
+        "nl":"Maleisië: gratis offline reisgids",
+        "uk":"Малайзія: безкоштовні путівники оф-лайн.",
+        "zh":"馬來西亞：免費離線旅行指南",
+        "cs":"Malajsie: bezplatný off-line turistický průvodce",
+        "fr":"Malaisie: guide de voyage gratuit hors ligne",
+        "it":"Malaysia: guida turistica gratuita offline",
+        "ja":"マレーシア：無料オフライン旅行ガイド",
+        "ko":"말레이시아: 무료 오프라인 여행 가이드",
+        "pt":"Malásia: guia de viagem grátis offline",
+        "es":"Malasia: guía de viaje offline gratis",
+        "pl":"Malezja: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Malaysia: kostenloser Offline-Reiseführer",
+        "ru":"Малайзия: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Malaysia"
+     ]
+},
+
+"Singapore":{
+ "url":"itms-apps://itunes.apple.com/app/id887297283",
+    "appId":"guidewithme-singapore://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Singapore: free offline travel guide",
+        "nl":"Singapore: gratis offline reisgids",
+        "uk":"Сінгапур: безкоштовні путівники оф-лайн.",
+        "zh":"新加坡：免費離線旅行指南",
+        "cs":"Singapur: bezplatný off-line turistický průvodce",
+        "fr":"Singapour: guide de voyage gratuit hors ligne",
+        "it":"Singapore: guida turistica gratuita offline",
+        "ja":"シンガポール：無料オフライン旅行ガイド",
+        "ko":"싱가포르: 무료 오프라인 여행 가이드",
+        "pt":"Cingapura: guia de viagem grátis offline",
+        "es":"Singapur: guía de viaje offline gratis",
+        "pl":"Singapur: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Singapur: kostenloser Offline-Reiseführer",
+        "ru":"Сингапур: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Singapore"
+     ]
+},
+
+"Nepal":{
+ "url":"itms-apps://itunes.apple.com/app/id885036651",
+    "appId":"guidewithme-nepal://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Nepal: free offline travel guide",
+        "nl":"Nepal: gratis offline reisgids",
+        "uk":"Непал: безкоштовні путівники оф-лайн.",
+        "zh":"尼泊爾：免費離線旅行指南",
+        "cs":"Nepál: bezplatný off-line turistický průvodce",
+        "fr":"Népal: guide de voyage gratuit hors ligne",
+        "it":"Nepal: guida turistica gratuita offline",
+        "ja":"ネパール：無料オフライン旅行ガイド",
+        "ko":"네팔: 무료 오프라인 여행 가이드",
+        "pt":"Nepal: guia de viagem grátis offline",
+        "es":"Nepal: guía de viaje offline gratis",
+        "pl":"Nepal: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Nepal: kostenloser Offline-Reiseführer",
+        "ru":"Непал: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Nepal"
+     ]
+},
+
   "New Zealand":{
     "url":"itms-apps://itunes.apple.com/app/id779605195",
     "appId":"guidewithme-newzealand://",
