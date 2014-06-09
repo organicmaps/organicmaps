@@ -402,13 +402,16 @@ class DownloadAdapter extends BaseAdapter
       id = R.drawable.class.getField(strID).getInt(null);
 
       if (id > 0)
+      {
         v.setImageResource(id);
+        v.setVisibility(View.VISIBLE);
+      }
       else
-        Log.e(DownloadUI.TAG, "Failed to get resource id from: " + strID);
+        v.setVisibility(View.INVISIBLE);
     }
     catch (final Exception e)
     {
-      e.printStackTrace();
+      v.setVisibility(View.INVISIBLE);
     }
   }
 
