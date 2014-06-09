@@ -117,23 +117,28 @@ bool GuidesManager::RestoreFromFile()
   {
   }
 
-  if (downloadedVersion > resourcesVersion)
+  if (resourcesVersion >= 0)
   {
-    RestoreFromParsedData(downloadedVersion, fromDownloaded);
-    return true;
-  }
-  else if (resourcesVersion >= 0)
-  {
+    if (downloadedVersion > resourcesVersion)
+    {
+      RestoreFromParsedData(downloadedVersion, fromDownloaded);
+      return true;
+    }
     RestoreFromParsedData(resourcesVersion, fromResources);
     return true;
   }
 
-  LOG(LWARNING, ("Guides descriptions were not loaded from bundle"));
+  LOG(LINFO, ("Travel Guides descriptions were not loaded from bundle and they are disabled"));
   return false;
 }
 
 void GuidesManager::UpdateGuidesData()
 {
+  // Do not download any updated guides if they are not present at all in the resources.
+  // This means that some app stores, like Amazon and Samsung, doesn't want us to promote guides on Google Play.
+  if (m_file2Info.empty())
+    return;
+
   if (m_httpRequest)
     return;
 
