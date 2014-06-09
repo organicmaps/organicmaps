@@ -49,12 +49,21 @@ android {
       packageName 'com.mapswithme.maps.pro'
       buildConfigField 'String', 'PRO_URL', '""'      // Empty url string for the pro version
       android.sourceSets.pro.setRoot('flavors/pro')
+      android.sourceSets.pro.assets.srcDirs = ['flavors/guides-assets']
+    }
+
+    // Pro version for Amazon doesn't include links to our travel guides
+    proNoGuides {
+      packageName 'com.mapswithme.maps.pro'
+      buildConfigField 'String', 'PRO_URL', '""'      // Empty url string for the pro version
+      android.sourceSets.proNoGuides.setRoot('flavors/pro')
     }
 
     google {
       flavorDimension 'store'
       buildConfigField 'String', 'PRO_URL', '"market://details?id=com.mapswithme.maps.pro"'
       android.sourceSets.google.setRoot('flavors/lite')
+      android.sourceSets.google.assets.srcDirs = ['flavors/guides-assets']
     }
 
     // Linked to the Pro version on Samsung Apps
@@ -63,9 +72,11 @@ android {
       packageName 'com.mapswithme.maps.samsung'      // Custom package name for Samsung Lite version - due to historical reasons
       buildConfigField 'String', 'PRO_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       android.sourceSets.samsung.setRoot('flavors/lite')
+      android.sourceSets.samsung.assets.srcDirs = ['flavors/guides-assets']
     }
 
     // Linked to the Pro version on Amazon Apps
+    // Lite version for Amazon doesn't include links to our travel guides
     amazon {
       flavorDimension 'store'
       buildConfigField 'String', 'PRO_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
@@ -77,12 +88,14 @@ android {
       flavorDimension 'store'
       buildConfigField 'String', 'PRO_URL', '"appcenter://package/com.mapswithme.maps.pro"'
       android.sourceSets.androidpit.setRoot('flavors/lite')
+      android.sourceSets.androidpit.assets.srcDirs = ['flavors/guides-assets']
     }
     // Linked to the Pro version on SlideMe store
     slideme {
       flavorDimension 'store'
       buildConfigField 'String', 'PRO_URL', '"sam://details?bundleId=5eed1b74-8c8b-11e2-8af8-1670ef61174f"'
       android.sourceSets.slideme.setRoot('flavors/lite')
+      android.sourceSets.slideme.assets.srcDirs = ['flavors/guides-assets']
     }
 
     // Linked to the Pro version on Yandex store
@@ -90,6 +103,7 @@ android {
       flavorDimension 'store'
       buildConfigField 'String', 'PRO_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
       android.sourceSets.yandex.setRoot('flavors/lite')
+      android.sourceSets.yandex.assets.srcDirs = ['flavors/guides-assets']
     }
   }
 
