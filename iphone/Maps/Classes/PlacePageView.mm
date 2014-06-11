@@ -349,7 +349,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)updateBookmarkViewsAlpha:(BOOL)animated
 {
-  self.editImageView.center = CGPointMake(self.titleLabel.maxX + 14, self.titleLabel.minY + 10.5);
+  self.editImageView.center = CGPointMake(self.titleLabel.maxX + 14, self.titleLabel.minY + 11.5);
   [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
     self.editImageView.alpha = [self isBookmark] ? (self.state == PlacePageStateOpened ? 1 : 0) : 0;
     PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
