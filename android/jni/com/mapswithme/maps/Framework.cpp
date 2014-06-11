@@ -568,7 +568,7 @@ namespace android
   void Framework::OnProcessTouchTask(double x, double y, unsigned ms)
   {
     m_wasLongClick = (ms == LONG_TOUCH_MS);
-    GetPinClickManager().OnClick(m2::PointD(x, y), m_wasLongClick);
+    GetPinClickManager().OnShowMark(m_work.GetUserMark(m2::PointD(x, y), m_wasLongClick));
   }
 
   BookmarkAndCategory Framework::AddBookmark(size_t cat, m2::PointD const & pt, BookmarkData & bm)
