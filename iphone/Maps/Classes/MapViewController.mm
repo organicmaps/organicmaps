@@ -573,7 +573,12 @@ const long long LITE_IDL = 431183278L;
 - (void)viewDidAppear:(BOOL)animated
 {
   [super viewDidAppear:animated];
-  [self setApiMode:_apiMode animated:NO];
+  static BOOL firstTime = YES;
+  if (firstTime)
+  {
+    firstTime = NO;
+    [self setApiMode:_apiMode animated:NO];
+  }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
