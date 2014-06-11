@@ -1437,6 +1437,8 @@ bool Framework::ShowMapForURL(string const & url)
   }
   else if (StartsWith(url, "mapswithme://") || StartsWith(url, "mwm://"))
   {
+    m_bmManager.UserMarksClear(UserMarkContainer::API_MARK);
+
     if (m_ParsedMapApi.SetUriAndParse(url))
     {
       if (!m_ParsedMapApi.GetViewportRect(m_scales, rect))
@@ -1458,7 +1460,11 @@ bool Framework::ShowMapForURL(string const & url)
     if (result != NO_NEED_CLICK)
     {
       if (apiMark)
+      {
+        LOG(LINFO, ("Show API mark:", static_cast<ApiMarkPoint const *>(apiMark)->GetName()));
+
         m_balloonManager.OnShowMark(apiMark);
+      }
       else
       {
         PoiMarkPoint * mark = GetAddressMark(point);

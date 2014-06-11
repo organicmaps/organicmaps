@@ -176,7 +176,7 @@ bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
 void Engine::GetResults(Results & res)
 {
   threads::MutexGuard guard(m_searchMutex);
-  m_searchResults.Swap(res);
+  res = m_searchResults;
 }
 
 void Engine::SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby)

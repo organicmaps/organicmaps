@@ -280,7 +280,7 @@ __weak SearchView * selfPointer;
   params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
   params.m_callback = bind(&OnSearchResultCallback, _1);
   params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
-  params.SetForceSearch(force);
+  params.SetForceSearch(force == YES);
 
   return params;
 }
