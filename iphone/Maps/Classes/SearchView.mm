@@ -243,7 +243,7 @@ __weak SearchView * selfPointer;
   {
     search::SearchParams params = [self searchParametersWithForce:NO];
     params.SetPosition(info.m_latitude, info.m_longitude);
-    GetFramework().Search(params, false);
+    GetFramework().Search(params);
 
     [self recalculateDistances];
     [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
@@ -380,13 +380,21 @@ static void OnSearchResultCallback(search::Results const & results)
 {
   if ([self.wrapper count] && ![self isShowingCategories])
   {
-    if (!GetFramework().ShowAllSearchResults())
+    Framework & f = GetFramework();
+    if (f.ShowAllSearchResults() == 0)
     {
       NSString * message = [NSString stringWithFormat:@"%@. %@", NSLocalizedString(@"no_search_results_found", nil), NSLocalizedString(@"download_location_country", nil)];
       message = [message stringByReplacingOccurrencesOfString:@" (%@)" withString:@""];
       ToastView * toastView = [[ToastView alloc] initWithMessage:message];
       [toastView show];
     }
+
+    search::SearchParams params;
+    params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
+    params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
+
+    f.StartInteractiveSearch(params);
+
     [self setState:SearchViewStateResults animated:YES withCallback:YES];
     return YES;
   }

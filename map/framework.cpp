@@ -1119,7 +1119,7 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
   GetSearchEngine()->PrepareSearch(GetCurrentViewport(), hasPt, lat, lon);
 }
 
-bool Framework::Search(search::SearchParams const & params, bool saveQuery /*= true*/)
+bool Framework::Search(search::SearchParams const & params)
 {
 #ifdef FIXED_LOCATION
   search::SearchParams rParams(params);
@@ -1132,14 +1132,7 @@ bool Framework::Search(search::SearchParams const & params, bool saveQuery /*= t
   search::SearchParams const & rParams = params;
 #endif
 
-  if (GetSearchEngine()->Search(rParams, GetCurrentViewport()))
-  {
-    if (saveQuery)
-      m_lastSearch = rParams;
-    return true;
-  }
-  else
-    return false;
+  return GetSearchEngine()->Search(rParams, GetCurrentViewport());
 }
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
