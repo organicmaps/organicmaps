@@ -34,6 +34,7 @@
 #define TITLE_LEFT_SHIFT 44
 #define TITLE_RIGHT_SHIFT 23
 #define MAX_TITLE_HEIGHT 200
+#define SPACE 4
 
 - (void)setTitle:(NSString *)title selectedRange:(NSRange)selectedRange
 {
@@ -121,8 +122,7 @@
   self.distanceLabel.maxX = self.width - TITLE_RIGHT_SHIFT;
   self.distanceLabel.maxY = self.height - 10;
 
-  CGFloat const space = 4;
-  self.titleLabel.width = self.width - self.typeLabel.width - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT - space;
+  self.titleLabel.width = self.width - self.typeLabel.width - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT - SPACE;
   self.titleLabel.minX = TITLE_LEFT_SHIFT;
   [self.titleLabel sizeToFit];
   if ([self.subtitleLabel.text length])
@@ -130,14 +130,14 @@
   else
     self.titleLabel.midY = self.height / 2 - 1.5;
 
-  self.subtitleLabel.width = self.width - self.distanceLabel.width - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT - space;
+  self.subtitleLabel.width = self.width - self.distanceLabel.width - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT - SPACE;
   self.subtitleLabel.origin = CGPointMake(TITLE_LEFT_SHIFT, self.titleLabel.maxY - 2);
 }
 
 + (CGFloat)cellHeightWithTitle:(NSString *)title type:(NSString *)type subtitle:(NSString *)subtitle distance:(NSString *)distance viewWidth:(CGFloat)width
 {
   CGFloat typeWidth = [type sizeWithDrawSize:CGSizeMake(100, 22) font:TYPE_FONT].width;
-  CGFloat titleHeight = [title sizeWithDrawSize:CGSizeMake(width - typeWidth - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT, MAX_TITLE_HEIGHT) font:TITLE_FONT].height;
+  CGFloat titleHeight = [title sizeWithDrawSize:CGSizeMake(width - typeWidth - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT - SPACE, MAX_TITLE_HEIGHT) font:TITLE_FONT].height;
   return MAX(50, titleHeight + ([subtitle length] ? 27 : 15));
 }
 

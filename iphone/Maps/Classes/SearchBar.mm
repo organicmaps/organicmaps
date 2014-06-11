@@ -7,6 +7,8 @@
 @property (nonatomic) UITextField * textField;
 @property (nonatomic) UIButton * clearButton;
 @property (nonatomic) UIButton * cancelButton;
+@property (nonatomic) UIImageView * spotImageView;
+@property (nonatomic) UIActivityIndicatorView * activity;
 @property (nonatomic) SolidTouchViewImageView * fieldBackgroundView;
 
 @end
@@ -19,6 +21,11 @@
 
   [self addSubview:self.fieldBackgroundView];
   self.fieldBackgroundView.maxY = self.height - 12;
+
+  [self.fieldBackgroundView addSubview:self.spotImageView];
+  self.spotImageView.center = CGPointMake(14, self.fieldBackgroundView.height / 2 - 1);
+  [self.fieldBackgroundView addSubview:self.activity];
+  self.activity.center = CGPointMake(self.spotImageView.center.x, self.spotImageView.center.y + 0.5);
 
   [self.fieldBackgroundView addSubview:self.clearButton];
   self.clearButton.midY = self.fieldBackgroundView.height / 2;
@@ -39,7 +46,16 @@
 
 - (void)setSearching:(BOOL)searching
 {
-
+  if (searching)
+  {
+    [self.activity startAnimating];
+    self.spotImageView.alpha = 0;
+  }
+  else
+  {
+    [self.activity stopAnimating];
+    self.spotImageView.alpha = 1;
+  }
 }
 
 - (void)cancelButtonPressed:(id)sender
@@ -113,6 +129,26 @@
     _textField.enablesReturnKeyAutomatically = YES;
   }
   return _textField;
+}
+
+- (UIImageView *)spotImageView
+{
+  if (!_spotImageView)
+  {
+    _spotImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SearchSpot"]];
+    _spotImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+  }
+  return _spotImageView;
+}
+
+- (UIActivityIndicatorView *)activity
+{
+  if (!_activity)
+  {
+    _activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    _activity.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+  }
+  return _activity;
 }
 
 @end

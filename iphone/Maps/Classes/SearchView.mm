@@ -294,7 +294,6 @@ __weak SearchView * selfPointer;
   if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
     params.SetPosition(lat, lon);
   GetFramework().Search(params);
-  [self.tableView reloadData];
 }
 
 static void OnSearchResultCallback(search::Results const & results)
