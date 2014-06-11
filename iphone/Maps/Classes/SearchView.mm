@@ -123,25 +123,13 @@ __weak SearchView * selfPointer;
 
   selfPointer = self;
 
-  double latitude;
-  double longitude;
-  bool const hasPt = [[MapsAppDelegate theApp].m_locationManager getLat:latitude Lon:longitude];
-  GetFramework().PrepareSearch(hasPt, latitude, longitude);
-
   [self addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
 
   needToScroll = NO;
 
   [self.tableView registerClass:[SearchUniversalCell class] forCellReuseIdentifier:[SearchUniversalCell className]];
 
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMonitoringLocation:) name:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
-
   return self;
-}
-
-- (void)startMonitoringLocation:(NSNotification *)notification
-{
-  [[MapsAppDelegate theApp].m_locationManager start:self];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -160,11 +148,13 @@ __weak SearchView * selfPointer;
   NSTimeInterval duration = animated ? 0.3 : 0;
   CGFloat searchBarOffset = (state == SearchViewStateHidden) ? -self.searchBar.height : [self defaultSearchBarMinY];
 
-  CGRect fieldBackgroundFrame = CGRectMake(15, self.searchBar.fieldBackgroundView.minY, self.searchBar.width - 84, self.searchBar.fieldBackgroundView.height);
-  CGRect textFieldFrame = CGRectMake(24, self.searchBar.textField.minY, self.searchBar.width - 119, 22);
+  CGFloat const fieldBackgroundMinX = 12.5;
+  CGRect const fieldBackgroundFrame = CGRectMake(fieldBackgroundMinX, self.searchBar.fieldBackgroundView.minY, self.searchBar.width - fieldBackgroundMinX - 69, self.searchBar.fieldBackgroundView.height);
+
+  CGFloat const textFieldMinX = 44;
+  CGRect const textFieldFrame = CGRectMake(textFieldMinX, self.searchBar.textField.minY, self.searchBar.width - textFieldMinX - 95, 22);
 
   CGFloat const shift = 55;
-
   CGRect shiftedFieldBackgroundFrame = fieldBackgroundFrame;
   shiftedFieldBackgroundFrame.size.width += shift;
 
@@ -173,6 +163,13 @@ __weak SearchView * selfPointer;
 
   if (state == SearchViewStateFullscreen)
   {
+    [[MapsAppDelegate theApp].m_locationManager start:self];
+
+    double latitude;
+    double longitude;
+    bool const hasPt = [[MapsAppDelegate theApp].m_locationManager getLat:latitude Lon:longitude];
+    GetFramework().PrepareSearch(hasPt, latitude, longitude);
+
     [self.searchBar.textField becomeFirstResponder];
     [UIView animateWithDuration:0.25 delay:0. options:UIViewAnimationOptionCurveEaseInOut animations:^{
       self.tableView.alpha = 1;
@@ -246,7 +243,7 @@ __weak SearchView * selfPointer;
     GetFramework().Search(params);
 
     [self recalculateDistances];
-    [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadData];
   }
 }
 
@@ -492,8 +489,14 @@ static void OnSearchResultCallback(search::Results const & results)
       SearchResultsWrapper * wrapper = self.wrapper;
       search::Result const & result = [wrapper resultWithPosition:position];
       NSString * title = [NSString stringWithUTF8String:result.GetString()];
-      NSString * subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
-      NSString * type = [NSString stringWithUTF8String:result.GetFeatureType()];
+      NSString * subtitle;
+      NSString * type;
+      if (result.GetResultType() == search::Result::RESULT_FEATURE || search::Result::RESULT_LATLON)
+      {
+        subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
+        type = [NSString stringWithUTF8String:result.GetFeatureType()];
+      }
+
       return [SearchUniversalCell cellHeightWithTitle:title type:type subtitle:subtitle distance:wrapper.distances[@(position)] viewWidth:tableView.width];
     }
     else
@@ -530,6 +533,7 @@ static void OnSearchResultCallback(search::Results const & results)
     }
     else if (result.GetResultType() == search::Result::RESULT_POI_SUGGEST)
     {
+      needToScroll = YES;
       self.searchBar.textField.text = [NSString stringWithUTF8String:result.GetSuggestionString()];
       [self search];
     }
@@ -538,7 +542,6 @@ static void OnSearchResultCallback(search::Results const & results)
       if (GetPlatform().IsPro())
       {
         GetFramework().ShowSearchResult(result);
-        needToScroll = YES;
         [self setState:SearchViewStateHidden animated:YES withCallback:YES];
       }
       else
