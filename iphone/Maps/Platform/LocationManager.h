@@ -37,5 +37,6 @@
 + (NSString *)formatDistance:(double)meters;
 
 - (bool)lastLocationIsValid;
+- (BOOL)enabledOnMap;
 
 @end

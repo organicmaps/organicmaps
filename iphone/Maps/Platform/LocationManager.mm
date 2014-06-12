@@ -5,7 +5,7 @@
 #include "../../platform/settings.hpp"
 
 #include "../../base/math.hpp"
-
+#import "MapViewController.h"
 
 @implementation LocationManager
 
@@ -227,6 +227,14 @@
 - (bool)lastLocationIsValid
 {
   return (([self lastLocation] != nil) && ([m_lastLocationTime timeIntervalSinceNow] > -300.0));
+}
+
+- (BOOL)enabledOnMap
+{
+  for (id observer in m_observers)
+    if ([observer isKindOfClass:[MapViewController class]])
+      return YES;
+  return NO;
 }
 
 - (void)orientationChanged

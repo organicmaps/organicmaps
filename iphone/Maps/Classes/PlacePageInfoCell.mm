@@ -87,7 +87,7 @@
 - (void)layoutSubviews
 {
   CGFloat addressY;
-  if ([MapsAppDelegate theApp].m_locationManager.lastLocation)
+  if ([[MapsAppDelegate theApp].m_locationManager enabledOnMap])
   {
     self.compassView.origin = CGPointMake(19, 17);
     self.compassView.hidden = NO;
@@ -114,13 +114,13 @@
   self.separatorView.width = self.width - 2 * shift;
   self.separatorView.minX = shift;
 
- self.backgroundColor = [UIColor clearColor];
+  self.backgroundColor = [UIColor clearColor];
 }
 
 + (CGFloat)cellHeightWithAddress:(NSString *)address viewWidth:(CGFloat)viewWidth
 {
   CGFloat addressHeight = [address sizeWithDrawSize:CGSizeMake(viewWidth - ADDRESS_LEFT_SHIFT - RIGHT_SHIFT, 200) font:ADDRESS_FONT].height;
-  return addressHeight + ([MapsAppDelegate theApp].m_locationManager.lastLocation ? 110 : 66);
+  return addressHeight + ([[MapsAppDelegate theApp].m_locationManager enabledOnMap] ? 110 : 66);
 }
 
 - (void)addressPress:(id)sender
