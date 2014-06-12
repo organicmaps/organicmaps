@@ -1,4 +1,6 @@
 #include "Utils.hpp"
+#include "Framework.hpp"
+
 #include <FBase.h>
 #include <FAppApp.h>
 #include <FApp.h>
@@ -7,6 +9,8 @@
 
 #include "../../../platform/tizen_utils.hpp"
 #include "../../../std/map.hpp"
+#include "../../../map/user_mark.hpp"
+#include "../../../map/framework.hpp"
 
 using namespace Tizen::App;
 using Tizen::Base::String;
@@ -73,4 +77,21 @@ Tizen::Graphics::Bitmap const * GetBitmap(const wchar_t * sBitmapPath)
     it = cont.m_Bitmaps.insert(std::make_pair(sBitmapPath, Application::GetInstance()->GetAppResource()->GetBitmapN(sBitmapPath))).first;
 
   return it->second;
+}
+
+::Framework * GetFramework()
+{
+  return ::tizen::Framework::GetInstance();
+}
+
+Tizen::Base::String GetFeature(Tizen::Base::String const & feature)
+{
+  int ind;
+  if (feature.IndexOf(" ", 0, ind) == E_SUCCESS)
+  {
+    String s;
+    feature.SubString(0,ind,s);
+    return s;
+  }
+  return feature;
 }
