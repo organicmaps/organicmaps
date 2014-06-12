@@ -30,7 +30,9 @@ Framework::Framework(Tizen::Ui::Controls::Form * form)
   pContext->makeCurrent();
   m_context.reset(pContext);
 
+  setlocale(LC_NUMERIC, "C");
   ::Framework * pFramework = GetInstance();
+  pFramework->LoadBookmarks();
   VideoTimer1 * m_VideoTimer = new VideoTimer1(bind(&Framework::Draw, this));
   RenderPolicy::Params params;
   params.m_screenHeight = form->GetBounds().height - form->GetClientAreaBounds().y;
