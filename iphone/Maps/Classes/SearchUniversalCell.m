@@ -34,6 +34,7 @@
 #define TITLE_LEFT_SHIFT 44
 #define TITLE_RIGHT_SHIFT 23
 #define MAX_TITLE_HEIGHT 200
+#define MAX_TYPE_WIDTH 150
 #define SPACE 4
 
 - (void)setTitle:(NSString *)title selectedRange:(NSRange)selectedRange
@@ -114,6 +115,7 @@
 {
   [super layoutSubviews];
 
+  self.typeLabel.width = MAX_TYPE_WIDTH;
   [self.typeLabel sizeToFit];
   self.typeLabel.maxX = self.width - TITLE_RIGHT_SHIFT;
   self.typeLabel.minY = 10;
@@ -136,7 +138,7 @@
 
 + (CGFloat)cellHeightWithTitle:(NSString *)title type:(NSString *)type subtitle:(NSString *)subtitle distance:(NSString *)distance viewWidth:(CGFloat)width
 {
-  CGFloat typeWidth = [type sizeWithDrawSize:CGSizeMake(100, 22) font:TYPE_FONT].width;
+  CGFloat typeWidth = [type sizeWithDrawSize:CGSizeMake(MAX_TYPE_WIDTH, 22) font:TYPE_FONT].width;
   CGFloat titleHeight = [title sizeWithDrawSize:CGSizeMake(width - typeWidth - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT - SPACE, MAX_TITLE_HEIGHT) font:TITLE_FONT].height;
   return MAX(50, titleHeight + ([subtitle length] ? 27 : 15));
 }
@@ -145,7 +147,7 @@
 {
   if (!_typeLabel)
   {
-    _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 16)];
+    _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAX_TYPE_WIDTH, 16)];
     _typeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     _typeLabel.font = TYPE_FONT;
     _typeLabel.backgroundColor = [UIColor clearColor];
