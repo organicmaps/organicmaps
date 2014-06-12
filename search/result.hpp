@@ -142,14 +142,13 @@ struct AddressInfo
   void MakeFrom(search::Result const & res);
 
   void SetPinName(string const & name);
-  string GetPinName() const;
-  string GetPinType() const;
+  string GetPinName() const;    // Caroline
+  string GetPinType() const;    // shop
 
-  string FormatPinText() const;
-  string FormatAddress() const;
-  string FormatTypes() const;
-  string FormatNameAndAddress() const;
-
+  string FormatPinText() const; // Caroline (clothes shop)
+  string FormatAddress() const; // 7 vulica Frunze, Belarus
+  string FormatTypes() const;   // clothes shop
+  string FormatNameAndAddress() const;  // Caroline, 7 vulica Frunze, Belarus
   char const * GetBestType() const;
 
   void Clear();
