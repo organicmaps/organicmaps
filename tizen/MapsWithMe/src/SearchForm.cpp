@@ -15,6 +15,7 @@
 #include <FApp.h>
 #include "Utils.hpp"
 #include "Framework.hpp"
+#include "Constants.hpp"
 
 using namespace Tizen::Base;
 using namespace Tizen::Ui;
@@ -24,6 +25,7 @@ using namespace Tizen::App;
 using namespace Tizen::Web::Controls;
 using namespace Tizen::Graphics;
 using namespace search;
+using namespace consts;
 
 namespace detail
 {
@@ -52,23 +54,6 @@ CategoriesT const & GetCategories()
   return vr;
 }
 
-::Framework * GetFramework()
-{
-  return ::tizen::Framework::GetInstance();
-}
-
-static Color const white(0xFF,0xFF,0xFF);
-static Color const gray(0xB0,0xB0,0xB0);
-
-static int topHght = 27; //margin from top to text
-static int btwWdth = 20; //margin between texts
-static int imgWdth = 60; //left img width
-static int imgHght = 60; //left img height
-static int lstItmHght = 120; //list item height
-static int backWdth = 150; //back txt width
-static int mainFontSz = 45; //big font
-static int minorFontSz = 25; //small font
-
 CustomItem * CreateFeatureItem(Result const & val, double itemWidth)
 {
   String itemText = val.GetString();
@@ -81,14 +66,7 @@ CustomItem * CreateFeatureItem(Result const & val, double itemWidth)
   pItem->AddElement(FloatRectangle(btwWdth + imgWdth + btwWdth, 15, txtWdht, imgHght), 1, val.GetString(), mainFontSz, white, white, white);
   pItem->AddElement(FloatRectangle(btwWdth + imgWdth + btwWdth, 60.0f, txtWdht, imgHght), 2, val.GetRegionString(), minorFontSz, white, white, white);
   String feature = val.GetFeatureType();
-  int ind;
-  if (feature.IndexOf(" ", 0, ind) == E_SUCCESS)
-  {
-    String s;
-    feature.SubString(0,ind,s);
-    feature = s;
-  }
-  pItem->AddElement(FloatRectangle(itemWidth - backWdth, 10, backWdth, imgHght), 3, feature, minorFontSz, gray, gray, gray);
+  pItem->AddElement(FloatRectangle(itemWidth - backWdth, 10, backWdth, imgHght), 3, GetFeature(feature), minorFontSz, gray, gray, gray);
   double lat, lon;
   GetFramework()->GetCurrentPosition(lat, lon);
   double north = 0;
@@ -140,6 +118,7 @@ result SearchForm::OnInitializing(void)
   m_searchBar->SetMode(SEARCH_BAR_MODE_INPUT);
   m_searchBar->AddActionEventListener(*this);
   m_searchBar->AddTextEventListener(*this);
+  m_searchBar->AddKeypadEventListener(*this);
 
   ListView * pList = static_cast<ListView *>(GetControl(IDC_LISTVIEW, true));
   pList->SetItemProvider(*this);
@@ -155,6 +134,7 @@ void SearchForm::OnActionPerformed(Tizen::Ui::Control const & source, int action
 {
   if (actionId == m_searchBar->GetButtonActionId())
   {
+    GetFramework()->CancelInteractiveSearch();
     SceneManager * pSceneManager = SceneManager::GetInstance();
     pSceneManager->GoBackward(BackwardSceneTransition(SCENE_TRANSITION_ANIMATION_TYPE_RIGHT));
   }
@@ -179,6 +159,7 @@ void SearchForm::OnSearchResultsReceived(search::Results const & results)
 
 void SearchForm::OnFormBackRequested(Tizen::Ui::Controls::Form & source)
 {
+  GetFramework()->CancelInteractiveSearch();
   SceneManager * pSceneManager = SceneManager::GetInstance();
   pSceneManager->GoBackward(BackwardSceneTransition(SCENE_TRANSITION_ANIMATION_TYPE_RIGHT));
 }
@@ -298,4 +279,14 @@ String SearchForm::GetSearchString() const
 bool SearchForm::IsShowCategories() const
 {
   return GetSearchString().IsEmpty();
+}
+
+void SearchForm::OnKeypadActionPerformed (Tizen::Ui::Control & source, Tizen::Ui::KeypadAction keypadAction)
+{
+  if (keypadAction == KEYPAD_ACTION_SEARCH)
+  {
+    GetFramework()->ShowAllSearchResults();
+    SceneManager * pSceneManager = SceneManager::GetInstance();
+    pSceneManager->GoBackward(BackwardSceneTransition(SCENE_TRANSITION_ANIMATION_TYPE_RIGHT));
+  }
 }

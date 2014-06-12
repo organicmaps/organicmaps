@@ -12,6 +12,7 @@ class SearchForm: public Tizen::Ui::Controls::Form
 , public Tizen::Ui::Controls::IListViewItemProviderF
 , public Tizen::Ui::Controls::IListViewItemEventListener
 , public Tizen::Ui::ITextEventListener
+, public Tizen::Ui::IKeypadEventListener
 {
 public:
   SearchForm();
@@ -41,6 +42,12 @@ private:
   // IScrollEventListener
   virtual void  OnScrollEndReached (Tizen::Ui::Control & source, Tizen::Ui::Controls::ScrollEndEvent type){};
   virtual void  OnScrollPositionChanged (Tizen::Ui::Control & source, int scrollPosition);
+  // IKeypadEventListener
+  virtual void  OnKeypadActionPerformed (Tizen::Ui::Control & source, Tizen::Ui::KeypadAction keypadAction);
+  virtual void  OnKeypadBoundsChanged (Tizen::Ui::Control & source) {};
+  virtual void  OnKeypadClosed (Tizen::Ui::Control & source){}
+  virtual void  OnKeypadOpened (Tizen::Ui::Control & source){}
+  virtual void  OnKeypadWillOpen (Tizen::Ui::Control & source){}
   // search
   void OnSearchResultsReceived(search::Results const & results);
 
