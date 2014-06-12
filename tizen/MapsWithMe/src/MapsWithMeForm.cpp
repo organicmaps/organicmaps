@@ -5,15 +5,21 @@
 #include "AppResourceId.h"
 
 #include "../../../map/framework.hpp"
+#include "../../../map/balloon_manager.hpp"
 #include "../../../gui/controller.hpp"
 #include "../../../platform/tizen_utils.hpp"
 #include "../../../platform/settings.hpp"
+#include "../../../std/bind.hpp"
 
 #include <FUi.h>
 #include <FBase.h>
 #include <FMedia.h>
 #include <FGraphics.h>
 #include "Utils.hpp"
+#include "Constants.hpp"
+#include "UserMarkPanel.hpp"
+#include "BookMarkSplitPanel.hpp"
+#include "BookMarkUtils.hpp"
 
 using namespace Tizen::Ui;
 using namespace Tizen::Ui::Controls;
@@ -25,9 +31,12 @@ using namespace Tizen::Base::Collection;
 using namespace Tizen::Base::Utility;
 using namespace Tizen::Locations;
 using namespace Tizen::App;
+using namespace consts;
 
 MapsWithMeForm::MapsWithMeForm()
 :m_pLocProvider(0),
+ m_userMarkPanel(0),
+ m_bookMarkSplitPanel(0),
  m_pFramework(0)
 {
   SetMultipointTouchEnabled(true);
@@ -83,12 +92,26 @@ result MapsWithMeForm::OnInitializing(void)
   m_pButtonScaleMinus->SetActionId(ID_BUTTON_SCALE_MINUS);
   m_pButtonScaleMinus->AddActionEventListener(*this);
 
-  UpdateButtons();
   m_locationEnabled = false;
 
   SetFormBackEventListener(this);
 
+  CreateBookMarkPanel();
+  CreateSplitPanel();
+  CreateBookMarkSplitPanel();
+
+  HideSplitPanel();
+  HideBookMarkPanel();
+  HideBookMarkSplitPanel();
+
+
   m_pFramework = new tizen::Framework(this);
+  PinClickManager & pinManager = m_pFramework->GetInstance()->GetBalloonManager();
+  pinManager.ConnectUserMarkListener(bind(&MapsWithMeForm::OnUserMark, this, _1));
+  pinManager.ConnectDismissListener(bind(&MapsWithMeForm::OnDismissListener, this));
+
+  UpdateButtons();
+
   return E_SUCCESS;
 }
 
@@ -132,6 +155,9 @@ void MapsWithMeForm::OnActionPerformed(Tizen::Ui::Control const & source, int ac
       break;
     case ID_STAR:
     {
+      SceneManager * pSceneManager = SceneManager::GetInstance();
+      pSceneManager->GoForward(ForwardSceneTransition(SCENE_BMCATEGORIES,
+          SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP));
       break;
     }
     case ID_MENU:
@@ -192,6 +218,7 @@ TPointPairs GetTouchedPoints(Rectangle const & rect)
 }
 }
 using namespace detail;
+using bookmark::BookMarkManager;
 
 void MapsWithMeForm::OnLocationUpdated(const Tizen::Locations::Location& location)
 {
@@ -251,15 +278,18 @@ void MapsWithMeForm::OnTouchPressed(Tizen::Ui::Control const & source,
     Point const & currentPosition,
     Tizen::Ui::TouchEventInfo const & touchInfo)
 {
-  if (&source == m_pFirstPanel)
+  if (m_splitPanelEnabled)
   {
     HideSplitPanel();
   }
   else
   {
+    m_wasLongPress = false;
     TPointPairs pts = detail::GetTouchedPoints(GetClientAreaBounds());
-
     ::Framework * pFramework = tizen::Framework::GetInstance();
+//    pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(m2::PointD(pts[0].first, pts[0].second), false));
+
+    m_startTouchPoint = make_pair(pts[0].first, pts[0].second);
     if (!pFramework->GetGuiController()->OnTapStarted(m2::PointD(pts[0].first, pts[0].second)))
     {
       if (pts.size() == 1)
@@ -269,6 +299,32 @@ void MapsWithMeForm::OnTouchPressed(Tizen::Ui::Control const & source,
     }
 
     std::swap(m_prev_pts, pts);
+  }
+}
+
+void MapsWithMeForm::OnUserMark(UserMarkCopy * pCopy)
+{
+  BookMarkManager::GetInstance().ActivateBookMark(pCopy);
+  ShowBookMarkPanel();
+}
+
+void MapsWithMeForm::OnDismissListener()
+{
+  LOG(LINFO, ("OnDismissListener"));
+  HideBookMarkPanel();
+  GetFramework()->ActivateUserMark(0);
+}
+
+void MapsWithMeForm::OnTouchLongPressed(Tizen::Ui::Control const & source,
+    Tizen::Graphics::Point const & currentPosition,
+    Tizen::Ui::TouchEventInfo const & touchInfo)
+{
+  m_wasLongPress = true;
+  TPointPairs pts = detail::GetTouchedPoints(GetClientAreaBounds());
+  if (pts.size() > 0)
+  {
+    ::Framework * pFramework = tizen::Framework::GetInstance();
+    pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(m2::PointD(pts[0].first, pts[0].second), true));
   }
 }
 
@@ -314,9 +370,17 @@ void MapsWithMeForm::OnTouchReleased(Tizen::Ui::Control const & source,
   TPointPairs pts = detail::GetTouchedPoints(GetClientAreaBounds());
   ::Framework * pFramework = tizen::Framework::GetInstance();
 
+
   //using prev_pts because pts contains not all points
   if (!m_prev_pts.empty())
   {
+    pair<double, double> cur = make_pair(m_prev_pts[0].first, m_prev_pts[0].second);
+    double dist = sqrt(pow(cur.first - m_startTouchPoint.first, 2) + pow(cur.second - m_startTouchPoint.second, 2));
+    if (dist < 20 && !m_wasLongPress)
+    {
+      ::Framework * pFramework = tizen::Framework::GetInstance();
+      pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(m2::PointD(m_startTouchPoint.first, m_startTouchPoint.second), false));
+    }
     if (!pFramework->GetGuiController()->OnTapEnded(m2::PointD(m_prev_pts[0].first, m_prev_pts[0].second)))
     {
       if (m_prev_pts.size() == 1)
@@ -340,7 +404,7 @@ void MapsWithMeForm::OnTouchFocusOut(Tizen::Ui::Control const & source,
 {
 }
 
-void MapsWithMeForm::ShowSplitPanel()
+void MapsWithMeForm::CreateSplitPanel()
 {
   m_pSplitPanel = new SplitPanel();
   SetActionBarsVisible(FORM_ACTION_BAR_FOOTER, false);
@@ -356,7 +420,7 @@ void MapsWithMeForm::ShowSplitPanel()
 
   m_pSecondPanel = new Panel();
   m_pSecondPanel->Construct(rect);
-  m_pSecondPanel->SetBackgroundColor(Color::GetColor(COLOR_ID_BLUE));
+  m_pSecondPanel->SetBackgroundColor(mainMenuGray);
 
   m_pSplitPanel->SetDividerPosition(rect.height - 112 * GetItemCount());
   m_pSplitPanel->SetPane(m_pFirstPanel, SPLIT_PANEL_PANE_ORDER_FIRST);
@@ -371,22 +435,94 @@ void MapsWithMeForm::ShowSplitPanel()
   AddControl(m_pSplitPanel);
 }
 
+void MapsWithMeForm::ShowSplitPanel()
+{
+  m_splitPanelEnabled = true;
+  SetActionBarsVisible(FORM_ACTION_BAR_FOOTER, false);
+  m_pSplitPanel->SetShowState(true);
+  UpdateButtons();
+}
+
 void MapsWithMeForm::HideSplitPanel()
 {
-  if (m_pSplitPanel)
-  {
-    RemoveControl(m_pSplitPanel);
-    SetActionBarsVisible(FORM_ACTION_BAR_FOOTER, true);
-    m_pSplitPanel = 0;
-  }
+  m_splitPanelEnabled = false;
+  m_pSplitPanel->SetShowState(false);
+  SetActionBarsVisible(FORM_ACTION_BAR_FOOTER, true);
   UpdateButtons();
+}
+
+void MapsWithMeForm::CreateBookMarkPanel()
+{
+  m_userMarkPanel = new UserMarkPanel();
+  FloatRectangle rect = GetClientAreaBoundsF();
+  rect.height = markPanelHeight;
+  rect.y = 0;
+  m_userMarkPanel->Construct(rect);
+  m_userMarkPanel->SetMainForm(this);
+  m_userMarkPanel->Enable();
+  AddControl(m_userMarkPanel);
+}
+
+void MapsWithMeForm::ShowBookMarkPanel()
+{
+  m_bookMarkPanelEnabled = true;
+  m_userMarkPanel->Enable();
+}
+
+void MapsWithMeForm::HideBookMarkPanel()
+{
+  m_bookMarkPanelEnabled = false;
+  m_userMarkPanel->Disable();
+}
+
+void MapsWithMeForm::CreateBookMarkSplitPanel()
+{
+  SetActionBarsVisible(FORM_ACTION_BAR_FOOTER, false);
+  m_bookMarkSplitPanel = new BookMarkSplitPanel();
+  FloatRectangle rect = GetClientAreaBoundsF();
+  rect.y = 0;
+  m_bookMarkSplitPanel->Construct(rect);
+  m_bookMarkSplitPanel->SetMainForm(this);
+  m_bookMarkSplitPanel->Enable();
+  AddControl(m_bookMarkSplitPanel);
+}
+
+void MapsWithMeForm::ShowBookMarkSplitPanel()
+{
+  HideBookMarkPanel();
+  m_bookMArkSplitPanelEnabled = true;
+  m_bookMarkSplitPanel->Enable();
+  SetActionBarsVisible(FORM_ACTION_BAR_FOOTER, false);
+  UpdateButtons();
+}
+
+void MapsWithMeForm::HideBookMarkSplitPanel()
+{
+  m_bookMArkSplitPanelEnabled = false;
+  m_bookMarkSplitPanel->Disable();
+  SetActionBarsVisible(FORM_ACTION_BAR_FOOTER, true);
+  UpdateButtons();
+}
+
+void MapsWithMeForm::UpdateBookMarkSplitPanelState()
+{
+  m_bookMarkSplitPanel->UpdateState();
 }
 
 void MapsWithMeForm::OnFormBackRequested(Form& source)
 {
-  if (m_pSplitPanel)
+  if (m_splitPanelEnabled)
   {
     HideSplitPanel();
+  }
+  else if (m_bookMarkPanelEnabled)
+  {
+    HideBookMarkPanel();
+  }
+  else if (m_bookMArkSplitPanelEnabled)
+  {
+    HideBookMarkSplitPanel();
+    ShowBookMarkPanel();
   }
   else
   {
@@ -410,6 +546,8 @@ void MapsWithMeForm::UpdateButtons()
   footerItem.Construct(ID_GPS);
   footerItem.SetIcon(FOOTER_ITEM_STATUS_NORMAL, GetBitmap(m_locationEnabled ? IDB_MY_POSITION_PRESSED : IDB_MY_POSITION_NORMAL));
   pFooter->SetItemAt (0, footerItem);
+  UpdateBookMarkSplitPanelState();
+
   Invalidate(true);
 }
 
@@ -423,13 +561,13 @@ ListItemBase * MapsWithMeForm::CreateItem (int index, float itemWidth)
   FloatRectangle const rectImg(20.0f, 27.0f, 60, 60.0f);
   FloatRectangle const rectTxt(100, 25, 650, 50);
 
-  int fontSize = 34;
+  int fontSize = mediumFontSz;
   switch (index)
   {
-    case eDownloadProVer:
-      pItem->AddElement(rectImg, 0, *GetBitmap(IDB_MWM_PRO), null, null);
-      pItem->AddElement(rectTxt, 1, GetString(IDS_BECOME_A_PRO), fontSize, green, green, green);
-      break;
+//    case eDownloadProVer:
+//      pItem->AddElement(rectImg, 0, *GetBitmap(IDB_MWM_PRO), null, null);
+//      pItem->AddElement(rectTxt, 1, GetString(IDS_BECOME_A_PRO), fontSize, green, green, green);
+//      break;
     case eDownloadMaps:
       pItem->AddElement(rectImg, 0, *GetBitmap(IDB_DOWNLOAD_MAP), null, null);
       pItem->AddElement(rectTxt, 1, GetString(IDS_DOWNLOAD_MAPS), fontSize, white, white, white);
@@ -457,23 +595,18 @@ bool  MapsWithMeForm::DeleteItem (int index, ListItemBase * pItem, float itemWid
 
 int MapsWithMeForm::GetItemCount(void)
 {
-  return 4;
-}
-
-void MapsWithMeForm::OnListViewContextItemStateChanged(ListView & listView, int index, int elementId, ListContextItemStatus state)
-{
-
+  return 3;
 }
 
 void MapsWithMeForm::OnListViewItemStateChanged(ListView & listView, int index, int elementId, ListItemStatus status)
 {
   switch (index)
   {
-    case eDownloadProVer:
-    {
-
-    }
-    break;
+//    case eDownloadProVer:
+//    {
+//
+//    }
+//    break;
     case eDownloadMaps:
     {
       HideSplitPanel();
@@ -505,12 +638,11 @@ void MapsWithMeForm::OnListViewItemStateChanged(ListView & listView, int index, 
   }
 }
 
-void MapsWithMeForm::OnListViewItemSwept(ListView & listView, int index, SweepDirection direction)
+void MapsWithMeForm::OnSceneActivatedN(const Tizen::Ui::Scenes::SceneId& previousSceneId,
+                   const Tizen::Ui::Scenes::SceneId& currentSceneId, Tizen::Base::Collection::IList* pArgs)
 {
-
-}
-
-void MapsWithMeForm::OnListViewItemLongPressed(ListView & listView, int index, int elementId, bool & invokeListViewItemCallback)
-{
-
+  if (currentSceneId == SceneManager::GetInstance()->GetCurrentScene()->GetSceneId())
+  {
+    UpdateButtons();
+  }
 }

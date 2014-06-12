@@ -4,11 +4,15 @@
 #include <FUiITouchEventListener.h>
 #include <FLocations.h>
 #include "../../../std/vector.hpp"
+#include "../../../map/user_mark.hpp"
 
 namespace tizen
 {
 class Framework;
 }
+
+class UserMarkPanel;
+class BookMarkSplitPanel;
 
 class MapsWithMeForm
 : public Tizen::Ui::Controls::Form
@@ -18,6 +22,7 @@ class MapsWithMeForm
   , public Tizen::Ui::Controls::IFormBackEventListener
   , public Tizen::Ui::Controls::IListViewItemProviderF
   , public Tizen::Ui::Controls::IListViewItemEventListener
+  , public Tizen::Ui::Scenes::ISceneEventListener
 {
 public:
   MapsWithMeForm();
@@ -43,6 +48,9 @@ public:
   virtual void  OnTouchReleased (Tizen::Ui::Control const & source,
       Tizen::Graphics::Point const & currentPosition,
       Tizen::Ui::TouchEventInfo const & touchInfo);
+  virtual void OnTouchLongPressed(Tizen::Ui::Control const & source,
+      Tizen::Graphics::Point const & currentPosition,
+      Tizen::Ui::TouchEventInfo const & touchInfo);
 
   // IActionEventListener
   virtual void OnActionPerformed(Tizen::Ui::Control const & source, int actionId);
@@ -60,14 +68,37 @@ public:
   virtual bool  DeleteItem (int index, Tizen::Ui::Controls::ListItemBase * pItem, float itemWidth);
   virtual int GetItemCount(void);
   // IListViewItemEventListener
-  virtual void OnListViewContextItemStateChanged(Tizen::Ui::Controls::ListView & listView, int index, int elementId, Tizen::Ui::Controls::ListContextItemStatus state);
+  virtual void OnListViewContextItemStateChanged(Tizen::Ui::Controls::ListView & listView, int index, int elementId, Tizen::Ui::Controls::ListContextItemStatus state){}
   virtual void OnListViewItemStateChanged(Tizen::Ui::Controls::ListView & listView, int index, int elementId, Tizen::Ui::Controls::ListItemStatus status);
-  virtual void OnListViewItemSwept(Tizen::Ui::Controls::ListView & listView, int index, Tizen::Ui::Controls::SweepDirection direction);
-  virtual void OnListViewItemLongPressed(Tizen::Ui::Controls::ListView & listView, int index, int elementId, bool & invokeListViewItemCallback);
+  virtual void OnListViewItemSwept(Tizen::Ui::Controls::ListView & listView, int index, Tizen::Ui::Controls::SweepDirection direction){}
+  virtual void OnListViewItemLongPressed(Tizen::Ui::Controls::ListView & listView, int index, int elementId, bool & invokeListViewItemCallback){}
+  // ISceneEventListener
+  virtual void OnSceneActivatedN(const Tizen::Ui::Scenes::SceneId& previousSceneId,
+                   const Tizen::Ui::Scenes::SceneId& currentSceneId, Tizen::Base::Collection::IList* pArgs);
+  virtual void OnSceneDeactivated(const Tizen::Ui::Scenes::SceneId& currentSceneId,
+                  const Tizen::Ui::Scenes::SceneId& nextSceneId){}
+
+  //IUserMarkListener
+  void OnUserMark(UserMarkCopy * pCopy);
+  void OnDismissListener();
 
   void UpdateButtons();
+
+  void CreateSplitPanel();
   void ShowSplitPanel();
   void HideSplitPanel();
+  bool m_splitPanelEnabled;
+
+  void CreateBookMarkPanel();
+  void ShowBookMarkPanel();
+  void HideBookMarkPanel();
+  bool m_bookMarkPanelEnabled;
+
+  void CreateBookMarkSplitPanel();
+  void ShowBookMarkSplitPanel();
+  void HideBookMarkSplitPanel();
+  void UpdateBookMarkSplitPanelState();
+  bool m_bookMArkSplitPanelEnabled;
 
 private:
   bool m_locationEnabled;
@@ -85,7 +116,7 @@ private:
 
   enum EMainMenuItems
   {
-    eDownloadProVer = 0,
+    //eDownloadProVer = 0,
     eDownloadMaps,
     eSettings,
     eSharePlace
@@ -100,5 +131,11 @@ private:
   Tizen::Ui::Controls::Panel* m_pFirstPanel;
   Tizen::Ui::Controls::Panel* m_pSecondPanel;
 
+  UserMarkPanel * m_userMarkPanel;
+  BookMarkSplitPanel * m_bookMarkSplitPanel;
+
   tizen::Framework * m_pFramework;
+
+  bool m_wasLongPress;
+  pair<double, double> m_startTouchPoint;
 };
