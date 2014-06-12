@@ -3,9 +3,13 @@
 #include "SettingsForm.hpp"
 #include "AboutForm.hpp"
 #include "SearchForm.hpp"
+#include "BMCategoriesForm.hpp"
 #include "DownloadCountryForm.hpp"
+#include "SelectBMCategoryForm.hpp"
 #include "../../../base/logging.hpp"
 #include "../../../platform/tizen_utils.hpp"
+#include "SelectColorForm.hpp"
+#include "CategoryForm.hpp"
 
 using namespace Tizen::Ui::Scenes;
 using namespace Tizen::Base;
@@ -18,7 +22,10 @@ const wchar_t * FORM_DOWNLOAD_COUNTRY = L"FormDownloadCountry";
 const wchar_t * FORM_DOWNLOAD_REGION = L"FormDownloadRegion";
 const wchar_t * FORM_ABOUT = L"FormAbout";
 const wchar_t * FORM_SEARCH = L"FormSearch";
-
+const wchar_t * FORM_BMCATEGORIES = L"FormCategories";
+const wchar_t * FORM_SELECT_BM_CATEGORY = L"FormSelectBMCategory";
+const wchar_t * FORM_SELECT_COLOR = L"FormSelectColor";
+const wchar_t * FORM_CATEGORY = L"FormCategory";
 
 FormFactory::FormFactory(void)
 {
@@ -40,6 +47,7 @@ Tizen::Ui::Controls::Form * FormFactory::CreateFormN(String const & formId, Scen
     pMWMForm = new MapsWithMeForm();
     pMWMForm->Initialize();
     pMWMForm->AddTouchEventListener(*pMWMForm);
+    pSceneManager->AddSceneEventListener(sceneId, *pMWMForm);
     pNewForm = pMWMForm;
   }
   else if (formId == FORM_SETTINGS)
@@ -67,6 +75,31 @@ Tizen::Ui::Controls::Form * FormFactory::CreateFormN(String const & formId, Scen
   {
     SearchForm * pForm = new SearchForm();
     pForm->Initialize();
+    pNewForm = pForm;
+  }
+  else if (formId == FORM_BMCATEGORIES)
+  {
+    BMCategoriesForm * pForm = new BMCategoriesForm();
+    pForm->Initialize();
+    pNewForm = pForm;
+  }
+  else if (formId == FORM_SELECT_BM_CATEGORY)
+  {
+    SelectBMCategoryForm * pForm = new SelectBMCategoryForm();
+    pForm->Initialize();
+    pNewForm = pForm;
+  }
+  else if (formId == FORM_SELECT_COLOR)
+  {
+    SelectColorForm * pForm = new SelectColorForm();
+    pForm->Initialize();
+    pNewForm = pForm;
+  }
+  else if (formId == FORM_CATEGORY)
+  {
+    CategoryForm * pForm = new CategoryForm();
+    pForm->Initialize();
+    pSceneManager->AddSceneEventListener(sceneId, *pForm);
     pNewForm = pForm;
   }
 

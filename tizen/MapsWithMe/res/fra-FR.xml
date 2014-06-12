@@ -22,8 +22,16 @@
 	<text id="IDS_DOWNLOAD">Télécharger</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">%s : échec du téléchargement</text>
+	<!-- Add New Bookmark Set dialog title -->
+	<text id="IDS_ADD_NEW_SET">Ajouter un groupe de signets</text>
+	<!-- Bookmark Color dialog title -->
+	<text id="IDS_BOOKMARK_COLOR">Couleur du signet</text>
+	<!-- Bookmarks - dialog title -->
+	<text id="IDS_BOOKMARKS">Signets</text>
 	<!-- Settings button in system menu -->
 	<text id="IDS_SETTINGS">Réglages</text>
+	<!-- Show bookmarks from this category on a map or not -->
+	<text id="IDS_VISIBLE">Visible</text>
 	<!-- Measurement units title in settings activity -->
 	<text id="IDS_MEASUREMENT_UNITS">Unités de mesure</text>
 	<!-- Detailed description of Measurement Units settings button -->
@@ -59,6 +67,12 @@
 	<text id="IDS_POLICE">police/gendarmerie</text>
 	<!-- String in search result list, when nothing found -->
 	<text id="IDS_NO_SEARCH_RESULTS_FOUND">Aucun résultat trouvé</text>
+	<!-- resource for context menu -->
+	<text id="IDS_EDIT">Modifier</text>
+	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<text id="IDS_SHARE">Partager</text>
+	<!-- Used for bookmark editing -->
+	<text id="IDS_DONE">Fin</text>
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Version : %s</text>
 	<!-- Confirmation in downloading countries dialog -->

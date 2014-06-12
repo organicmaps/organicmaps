@@ -9,6 +9,10 @@ extern const wchar_t * FORM_DOWNLOAD_COUNTRY;
 extern const wchar_t * FORM_DOWNLOAD_REGION;
 extern const wchar_t * FORM_ABOUT;
 extern const wchar_t * FORM_SEARCH;
+extern const wchar_t * FORM_BMCATEGORIES;
+extern const wchar_t * FORM_SELECT_BM_CATEGORY;
+extern const wchar_t * FORM_SELECT_COLOR;
+extern const wchar_t * FORM_CATEGORY;
 
 
 class FormFactory

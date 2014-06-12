@@ -22,8 +22,16 @@
 	<text id="IDS_DOWNLOAD">Загрузить</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">Не удалось загрузить %s</text>
+	<!-- Add New Bookmark Set dialog title -->
+	<text id="IDS_ADD_NEW_SET">Добавить группу</text>
+	<!-- Bookmark Color dialog title -->
+	<text id="IDS_BOOKMARK_COLOR">Цвет закладки</text>
+	<!-- Bookmarks - dialog title -->
+	<text id="IDS_BOOKMARKS">Закладки</text>
 	<!-- Settings button in system menu -->
 	<text id="IDS_SETTINGS">Настройки</text>
+	<!-- Show bookmarks from this category on a map or not -->
+	<text id="IDS_VISIBLE">Показывать на карте</text>
 	<!-- Measurement units title in settings activity -->
 	<text id="IDS_MEASUREMENT_UNITS">Единицы измерения</text>
 	<!-- Detailed description of Measurement Units settings button -->
@@ -59,6 +67,12 @@
 	<text id="IDS_POLICE">полиция</text>
 	<!-- String in search result list, when nothing found -->
 	<text id="IDS_NO_SEARCH_RESULTS_FOUND">Нет результатов поиска</text>
+	<!-- resource for context menu -->
+	<text id="IDS_EDIT">Редактировать</text>
+	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<text id="IDS_SHARE">Поделиться</text>
+	<!-- Used for bookmark editing -->
+	<text id="IDS_DONE">Готово</text>
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Версия: %s</text>
 	<!-- Confirmation in downloading countries dialog -->

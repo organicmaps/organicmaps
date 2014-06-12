@@ -12,6 +12,10 @@ const wchar_t * SCENE_DOWNLOAD_COUNTRY = L"ScnDownloadCountry";
 const wchar_t * SCENE_DOWNLOAD_REGION = L"ScnDownloadRegion";
 const wchar_t * SCENE_ABOUT = L"ScnAbout";
 const wchar_t * SCENE_SEARCH = L"ScnSearch";
+const wchar_t * SCENE_BMCATEGORIES = L"ScnBMCategories";
+const wchar_t * SCENE_SELECT_BM_CATEGORY = L"ScnSelectBMCategory";
+const wchar_t * SCENE_SELECT_COLOR = L"ScnSelectColor";
+const wchar_t * SCENE_CATEGORY = L"ScnCategory";
 
 SceneRegister::SceneRegister(void)
 {
@@ -38,4 +42,8 @@ SceneRegister::RegisterAllScenes(void)
   pSceneManager->RegisterScene(SCENE_DOWNLOAD_REGION, FORM_DOWNLOAD_REGION, PANEL_BLANK);
   pSceneManager->RegisterScene(SCENE_ABOUT, FORM_ABOUT, PANEL_BLANK);
   pSceneManager->RegisterScene(SCENE_SEARCH, FORM_SEARCH, PANEL_BLANK);
+  pSceneManager->RegisterScene(SCENE_BMCATEGORIES, FORM_BMCATEGORIES, PANEL_BLANK);
+  pSceneManager->RegisterScene(SCENE_SELECT_BM_CATEGORY, FORM_SELECT_BM_CATEGORY, PANEL_BLANK);
+  pSceneManager->RegisterScene(SCENE_SELECT_COLOR, FORM_SELECT_COLOR, PANEL_BLANK);
+  pSceneManager->RegisterScene(SCENE_CATEGORY, FORM_CATEGORY, PANEL_BLANK);
 }

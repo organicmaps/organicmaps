@@ -20,6 +20,12 @@
 	<text id="IDS_DOWNLOAD">Descargar</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">%s la descarga ha fallado</text>
+	<!-- Add New Bookmark Set dialog title -->
+	<text id="IDS_ADD_NEW_SET">Agregar un grupo nuevo</text>
+	<!-- Bookmark Color dialog title -->
+	<text id="IDS_BOOKMARK_COLOR">Color del marcador</text>
+	<!-- Bookmarks - dialog title -->
+	<text id="IDS_BOOKMARKS">Marcadores</text>
 	<!-- Settings button in system menu -->
 	<text id="IDS_SETTINGS">Ajustes</text>
 	<!-- Measurement units title in settings activity -->
@@ -57,6 +63,10 @@
 	<text id="IDS_POLICE">policía</text>
 	<!-- String in search result list, when nothing found -->
 	<text id="IDS_NO_SEARCH_RESULTS_FOUND">No se han encontrado resultados</text>
+	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<text id="IDS_SHARE">Compartir</text>
+	<!-- Used for bookmark editing -->
+	<text id="IDS_DONE">Hecho</text>
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Versión: %s</text>
 	<!-- Confirmation in downloading countries dialog -->

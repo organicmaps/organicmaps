@@ -20,8 +20,16 @@
 	<text id="IDS_DOWNLOAD">Stáhnout</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">Stahování selhalo: %s</text>
+	<!-- Add New Bookmark Set dialog title -->
+	<text id="IDS_ADD_NEW_SET">Přidat novou skupinu záložek</text>
+	<!-- Bookmark Color dialog title -->
+	<text id="IDS_BOOKMARK_COLOR">Barva záložky</text>
+	<!-- Bookmarks - dialog title -->
+	<text id="IDS_BOOKMARKS">Záložky</text>
 	<!-- Settings button in system menu -->
 	<text id="IDS_SETTINGS">Nastavení</text>
+	<!-- Show bookmarks from this category on a map or not -->
+	<text id="IDS_VISIBLE">Viditelné</text>
 	<!-- Measurement units title in settings activity -->
 	<text id="IDS_MEASUREMENT_UNITS">Měřicí jednotky</text>
 	<!-- Detailed description of Measurement Units settings button -->
@@ -57,6 +65,12 @@
 	<text id="IDS_POLICE">policie</text>
 	<!-- String in search result list, when nothing found -->
 	<text id="IDS_NO_SEARCH_RESULTS_FOUND">Žádné výsledky</text>
+	<!-- resource for context menu -->
+	<text id="IDS_EDIT">Upravit</text>
+	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
+	<text id="IDS_SHARE">Sdílet</text>
+	<!-- Used for bookmark editing -->
+	<text id="IDS_DONE">Hotovo</text>
 	<!-- Prints version number in About dialog -->
 	<text id="IDS_VERSION">Verze: %s</text>
 	<!-- Confirmation in downloading countries dialog -->

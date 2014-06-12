@@ -1406,7 +1406,7 @@
     hu = %@ letöltése sikertelen
   [add_new_set]
     en = Add new Set
-    tags = ios
+    tags = ios,tizen
     comment = Add New Bookmark Set dialog title
     cs = Přidat novou skupinu záložek
     de = Neue Gruppe hinzufügen
@@ -1441,7 +1441,7 @@
     hu = Könyvjelzőkhöz hozzáadás
   [bookmark_color]
     en = Bookmark Color
-    tags = ios
+    tags = ios,tizen
     comment = Bookmark Color dialog title
     cs = Barva záložky
     de = Lesezeichen Farbe
@@ -1495,7 +1495,7 @@
     hu = Könyvjelzőcsoportok
   [bookmarks]
     en = Bookmarks
-    tags = ios
+    tags = ios,tizen
     comment = Bookmarks - dialog title
     cs = Záložky
     de = Lesezeichengruppen
@@ -1763,7 +1763,7 @@
     hu = Ez több percig is eltarthat.\nKérjük várjon…
   [visible]
     en = Visible
-    tags = ios
+    tags = ios,tizen
     comment = Show bookmarks from this category on a map or not
     cs = Viditelné
     de = Sichtbar
@@ -2318,7 +2318,7 @@
     hu = Könyvjelzők feltöltése sikertelen. A fájl sérült lehet.
   [edit]
     en = Edit
-    tags = android
+    tags = android,tizen
     comment = resource for context menu
     cs = Upravit
     fr = Modifier
@@ -2576,7 +2576,7 @@
     hu = Megosztás üzenetben
   [share]
     en = Share
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Share button text which opens menu with more buttons, like Message, EMail, Facebook etc.
     ru = Поделиться
     cs = Sdílet
@@ -2781,7 +2781,7 @@
     hu = Info
   [done]
     en = Done
-    tags = android
+    tags = android,tizen
     comment = Used for bookmark editing
     ru = Готово
     ja = 完了
