@@ -1055,7 +1055,6 @@ const long long LITE_IDL = 431183278L;
 
     [self.view insertSubview:self.searchView aboveSubview:self.apiBar];
     self.containerView.placePage.statusBarIncluded = NO;
-    [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
 
     self.apiTitleLabel.text = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()];
   }
@@ -1070,7 +1069,6 @@ const long long LITE_IDL = 431183278L;
 
     [self.view insertSubview:self.searchView belowSubview:self.containerView];
     self.containerView.placePage.statusBarIncluded = YES;
-    [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:YES];
 
     Framework & framework = GetFramework();
     framework.GetBalloonManager().RemovePin();
@@ -1080,6 +1078,7 @@ const long long LITE_IDL = 431183278L;
   }
 
   [self dismissPopover];
+  [self.containerView.placePage setState:self.containerView.placePage.state animated:YES withCallback:YES];
   [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
   [self.bottomMenu setMenuHidden:YES animated:YES];
 

@@ -45,6 +45,14 @@ void InitLocalizedStrings()
 @end
 
 @implementation MapsAppDelegate
+{
+  NSString * m_geoURL;
+  NSString * m_mwmURL;
+  NSString * m_fileURL;
+
+  NSString * m_scheme;
+  NSString * m_sourceApplication;
+}
 
 + (MapsAppDelegate *)theApp
 {
@@ -76,7 +84,38 @@ void InitLocalizedStrings()
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-  if (!m_didOpenedWithUrl)
+  Framework & f = GetFramework();
+  if (m_geoURL)
+  {
+    if (f.ShowMapForURL([m_geoURL UTF8String]))
+    {
+      if ([m_scheme isEqualToString:@"geo"])
+        [[Statistics instance] logEvent:@"geo Import"];
+      if ([m_scheme isEqualToString:@"ge0"])
+        [[Statistics instance] logEvent:@"ge0(zero) Import"];
+
+      [self showMap];
+    }
+  }
+  else if (m_mwmURL)
+  {
+    if (f.ShowMapForURL([m_mwmURL UTF8String]));
+    {
+      [self.m_mapViewController setApiMode:YES animated:NO];
+      [[Statistics instance] logApiUsage:m_sourceApplication];
+      [self showMap];
+    }
+  }
+  else if (m_fileURL)
+  {
+    if (!f.AddBookmarksFile([m_fileURL UTF8String]))
+      [self showLoadFileAlertIsSuccessful:NO];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"KML file added" object:nil];
+    [self showLoadFileAlertIsSuccessful:YES];
+    [[Statistics instance] logEvent:@"KML Import"];
+  }
+  else
   {
     UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
     if ([pasteboard.string length])
@@ -88,10 +127,12 @@ void InitLocalizedStrings()
       }
     }
   }
+  m_geoURL = nil;
+  m_mwmURL = nil;
+  m_fileURL = nil;
+
   [FBSettings setDefaultAppID:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"]];
   [FBAppEvents activateApp];
-
-  m_didOpenedWithUrl = NO;
 
   if ([[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY])
   {
@@ -194,8 +235,6 @@ void InitLocalizedStrings()
   [m_window setRootViewController:m_navController];
   [m_window makeKeyAndVisible];
 
-  m_didOpenedWithUrl = NO;
-
   if (GetPlatform().HasBookmarks())
   {
     int val = 0;
@@ -237,52 +276,28 @@ void InitLocalizedStrings()
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
   NSString * scheme = url.scheme;
-  Framework & f = GetFramework();
+
+  m_scheme = scheme;
+  m_sourceApplication = sourceApplication;
 
   // geo scheme support, see http://tools.ietf.org/html/rfc5870
   if ([scheme isEqualToString:@"geo"] || [scheme isEqualToString:@"ge0"])
   {
-    if (f.ShowMapForURL([url.absoluteString UTF8String]))
-    {
-      m_didOpenedWithUrl = YES;
-
-      if ([scheme isEqualToString:@"geo"])
-        [[Statistics instance] logEvent:@"geo Import"];
-      if ([scheme isEqualToString:@"ge0"])
-        [[Statistics instance] logEvent:@"ge0(zero) Import"];
-
-      [self showMap];
-      return YES;
-    }
+    m_geoURL = [url absoluteString];
+    return YES;
   }
-
-  if ([scheme isEqualToString:@"mapswithme"] || [scheme isEqualToString:@"mwm"])
+  else if ([scheme isEqualToString:@"mapswithme"] || [scheme isEqualToString:@"mwm"])
   {
-    if (f.ShowMapForURL([url.absoluteString UTF8String]));
-    {
-      m_didOpenedWithUrl = YES;
-      [[Statistics instance] logApiUsage:sourceApplication];
-
-      [self showMap];
-      [self.m_mapViewController setApiMode:YES animated:NO];
-      return YES;
-    }
+    m_mwmURL = [url absoluteString];
+    return YES;
   }
-
-  if ([scheme isEqualToString:@"file"])
+  else if ([scheme isEqualToString:@"file"])
   {
-     if (!f.AddBookmarksFile([[url relativePath] UTF8String]))
-     {
-       [self showLoadFileAlertIsSuccessful:NO];
-       return NO;
-     }
-     [[NSNotificationCenter defaultCenter] postNotificationName:@"KML file added" object:nil];
-     [self showLoadFileAlertIsSuccessful:YES];
-     m_didOpenedWithUrl = YES;
-     [[Statistics instance] logEvent:@"KML Import"];
-     return YES;
+    m_fileURL = [url relativePath];
+    return YES;
   }
   NSLog(@"Scheme %@ is not supported", scheme);
+
   return NO;
 }
 
