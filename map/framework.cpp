@@ -1437,7 +1437,7 @@ bool Framework::ShowMapForURL(string const & url)
       if (!m_ParsedMapApi.GetViewportRect(m_scales, rect))
         rect = ScalesProcessor::GetWorldRect();
 
-      if (apiMark = m_ParsedMapApi.GetSinglePoint())
+      if ((apiMark = m_ParsedMapApi.GetSinglePoint()))
         result = NEED_CLICK;
       else
         result = NO_NEED_CLICK;
