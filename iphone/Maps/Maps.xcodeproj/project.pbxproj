@@ -5298,7 +5298,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
 				);
@@ -5413,7 +5412,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
 				);
@@ -5481,7 +5479,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
 				);
@@ -5553,7 +5550,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
 				);
@@ -5621,7 +5617,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
 				);
@@ -5689,7 +5684,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
 				);
@@ -5761,7 +5755,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
 				);
@@ -5833,7 +5826,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
 				);
@@ -5904,7 +5896,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
 				);
@@ -5975,7 +5966,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
 				);
@@ -6046,7 +6036,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"$(PROJECT_DIR)",
 				);
@@ -6071,7 +6060,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
@@ -6103,7 +6091,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
@@ -6135,7 +6122,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
@@ -6167,7 +6153,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
@@ -6199,7 +6184,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
@@ -6231,7 +6215,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
@@ -6263,7 +6246,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
@@ -6295,7 +6277,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
@@ -6327,7 +6308,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
@@ -6359,7 +6339,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
@@ -6391,7 +6370,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/FacebookSDK",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
