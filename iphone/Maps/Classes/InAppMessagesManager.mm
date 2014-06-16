@@ -1,8 +1,5 @@
 
 #import "InAppMessagesManager.h"
-#import "MPInterstitialAdController.h"
-#import "MPInterstitialViewController.h"
-#import "MPAdView.h"
 #import "AppInfo.h"
 #import "Statistics.h"
 #import "InterstitialView.h"
@@ -26,15 +23,12 @@ typedef void (^CompletionBlock)(NSArray * images, NSString * imageType);
 NSString * const InAppMessageInterstitial = @"InAppMessageInterstitial";
 NSString * const InAppMessageBanner = @"InAppMessageBanner";
 
-NSString * const MoPubImageType = @"MoPub";
 NSString * const MWMProVersionPrefix = @"MWMPro";
 
-@interface InAppMessagesManager () <MPInterstitialAdControllerDelegate, MPAdViewDelegate, InterstitialViewDelegate>
+@interface InAppMessagesManager () <InterstitialViewDelegate>
 
 @property (nonatomic) NSMutableDictionary * observers;
 
-@property (nonatomic) MPInterstitialAdController * interstitialAd;
-@property (nonatomic) MPAdView * moPubBanner;
 @property (nonatomic) BannerImageView * banner;
 
 @end
@@ -89,24 +83,7 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
   [self findVariantForMessage:messageName completion:^(NSArray * images, NSString * imageType){
     if ([messageName isEqualToString:InAppMessageInterstitial])
     {
-      if ([imageType isEqualToString:MoPubImageType])
-      {
-#ifdef OMIM_LITE
-        if (self.interstitialAd.ready)
-        {
-          [self.interstitialAd showFromViewController:vc];
-        }
-        else
-        {
-          NSDictionary * imageVariants = [[AppInfo sharedInfo] featureValue:[self appFeatureNameForMessage:messageName] forKey:@"Variants"];
-          NSString * unitId = imageVariants[imageType][@"UnitId"];
-          self.interstitialAd = [MPInterstitialAdController interstitialAdControllerForAdUnitId:unitId];
-          self.interstitialAd.delegate = self;
-          [self.interstitialAd loadAd];
-        }
-#endif
-      }
-      else if ([images count])
+      if ([images count])
       {
         InterstitialView * interstitial = [[InterstitialView alloc] initWithImages:images inAppMessageName:messageName imageType:imageType delegate:self];
         [interstitial show];
@@ -115,43 +92,22 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
     else if ([messageName isEqualToString:InAppMessageBanner])
     {
       [self cleanBanners];
-
-      UIView * bannerView;
-      if ([imageType isEqualToString:MoPubImageType])
-      {
-#ifdef OMIM_LITE
-        NSDictionary * imageVariants = [[AppInfo sharedInfo] featureValue:[self appFeatureNameForMessage:messageName] forKey:@"Variants"];
-        NSString * unitId = imageVariants[imageType][@"UnitId"];
-        MPAdView * moPubBanner = [[MPAdView alloc] initWithAdUnitId:unitId size:MOPUB_BANNER_SIZE];
-        moPubBanner.hidden = YES;
-        moPubBanner.delegate = self;
-        [moPubBanner startAutomaticallyRefreshingContents];
-        [moPubBanner loadAd];
-        self.moPubBanner = moPubBanner;
-        bannerView = moPubBanner;
-#endif
-      }
-      else if ([images count])
+      if ([images count])
       {
         BannerImageView * banner = [[BannerImageView alloc] initWithImage:[images firstObject]];
         banner.imageType = imageType;
         banner.userInteractionEnabled = YES;
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bannerTap:)];
         [banner addGestureRecognizer:tap];
+        if (!SYSTEM_VERSION_IS_LESS_THAN(@"7"))
+          banner.minY = 20;
+        banner.midX = vc.view.width / 2;
+        banner.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        [vc.view addSubview:banner];
         self.banner = banner;
-        bannerView = banner;
 
         NSString * eventName = [NSString stringWithFormat:@"%@ showed", InAppMessageBanner];
         [[Statistics instance] logInAppMessageEvent:eventName imageType:imageType];
-      }
-
-      if (bannerView)
-      {
-        if (!SYSTEM_VERSION_IS_LESS_THAN(@"7"))
-          bannerView.minY = 20;
-        bannerView.midX = vc.view.width / 2;
-        bannerView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        [vc.view addSubview:bannerView];
       }
     }
   }];
@@ -163,9 +119,6 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
 {
   [self.banner removeFromSuperview];
   self.banner = nil;
-  [self.moPubBanner removeFromSuperview];
-  self.moPubBanner.delegate = nil;
-  self.moPubBanner = nil;
 }
 
 - (BOOL)shouldShowMessage:(NSString *)messageName
@@ -258,10 +211,7 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
     }
   }
 
-  if ([imageType isEqualToString:MoPubImageType])
-    block(nil, imageType);
-  else
-    [self downloadAndSaveImagesForMessage:messageName imageType:imageType completion:block];
+  [self downloadAndSaveImagesForMessage:messageName imageType:imageType completion:block];
 }
 
 - (void)downloadAndSaveImagesForMessage:(NSString *)messageName imageType:(NSString *)imageType completion:(CompletionBlock)block
@@ -439,52 +389,6 @@ NSString * const MWMProVersionPrefix = @"MWMPro";
     if (url)
       [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
   }
-}
-
-#pragma mark - MPInterstitialAdController callbacks
-
-- (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
-{
-  UIViewController * vc = self.observers[InAppMessageInterstitial];
-  [interstitial showFromViewController:vc];
-}
-
-- (void)interstitialWillAppear:(MPInterstitialAdController *)interstitial
-{
-  [self updateShowTimeOfMessage:InAppMessageInterstitial];
-  NSString * eventName = [NSString stringWithFormat:@"%@ showed", InAppMessageInterstitial];
-  [[Statistics instance] logInAppMessageEvent:eventName imageType:MoPubImageType];
-}
-
-- (void)interstitialDidDisappear:(MPInterstitialAdController *)interstitial
-{
-  NSString * eventName = [NSString stringWithFormat:@"%@ dismissed", InAppMessageInterstitial];
-  [[Statistics instance] logInAppMessageEvent:eventName imageType:MoPubImageType];
-}
-
-#pragma mark - MPAdView callbacks
-
-- (void)adViewDidLoadAd:(MPAdView *)view
-{
-  view.hidden = NO;
-  NSString * eventName = [NSString stringWithFormat:@"%@ showed", InAppMessageBanner];
-  [[Statistics instance] logInAppMessageEvent:eventName imageType:MoPubImageType];
-}
-
-- (void)willPresentModalViewForAd:(MPAdView *)view
-{
-  NSString * eventName = [NSString stringWithFormat:@"%@ clicked", InAppMessageBanner];
-  [[Statistics instance] logInAppMessageEvent:eventName imageType:MoPubImageType];
-}
-
-- (void)adViewDidFailToLoadAd:(MPAdView *)view
-{
-  view.hidden = YES;
-}
-
-- (UIViewController *)viewControllerForPresentingModalView
-{
-  return self.observers[InAppMessageBanner];
 }
 
 #pragma mark - Other
