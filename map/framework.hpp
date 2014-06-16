@@ -456,6 +456,7 @@ private:
   void SetViewPortASync(m2::RectD const & rect);
 
   void UpdateSelectedMyPosition(m2::PointD const & pt);
+  void DisconnectMyPositionUpdate();
   int m_locationChangedSlotID;
 
 public:

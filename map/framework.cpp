@@ -1489,6 +1489,15 @@ void Framework::UpdateSelectedMyPosition(m2::PointD const & pt)
   ActivateUserMark(poiMark, false);
 }
 
+void Framework::DisconnectMyPositionUpdate()
+{
+  if (m_locationChangedSlotID != -1)
+  {
+    GetLocationState()->RemovePositionChangedListener(m_locationChangedSlotID);
+    m_locationChangedSlotID = -1;
+  }
+}
+
 m2::RectD Framework::GetCurrentViewport() const
 {
   return m_navigator.Screen().ClipRect();
@@ -1591,13 +1600,14 @@ shared_ptr<location::State> const & Framework::GetLocationState() const
 
 void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
 {
-  if (mark != UserMarkContainer::UserMarkForPoi() && m_locationChangedSlotID != -1)
-    GetLocationState()->RemovePositionChangedListener(m_locationChangedSlotID);
+  if (mark != UserMarkContainer::UserMarkForPoi())
+    DisconnectMyPositionUpdate();
   m_bmManager.ActivateMark(mark, needAnim);
 }
 
 UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongPress)
 {
+  DisconnectMyPositionUpdate();
   m2::AnyRectD rect;
   m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * GetVisualScale(), rect);
 
