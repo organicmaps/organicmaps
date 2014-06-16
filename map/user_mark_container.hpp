@@ -58,6 +58,9 @@ public:
   bool IsVisible() const { return m_isVisible; }
   void SetVisible(bool isVisible) { m_isVisible = isVisible; }
 
+  bool IsDrawable() const { return m_isDrawable; }
+  void SetIsDrawable(bool isDrawable) { m_isDrawable = isDrawable; }
+
   // If not found mark on rect result is NULL
   // If mark is found in "d" return distance from rect center
   // In multiple select choose mark with min(d)
@@ -98,6 +101,7 @@ protected:
 private:
   Controller m_controller;
   bool m_isVisible;
+  bool m_isDrawable;
   double m_layerDepth;
   vector<UserMark *> m_userMarks;
 };

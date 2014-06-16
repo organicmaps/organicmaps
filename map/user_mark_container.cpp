@@ -120,6 +120,7 @@ UserMarkContainer::UserMarkContainer(double layerDepth, Framework & fm)
   : m_framework(fm)
   , m_controller(this)
   , m_isVisible(true)
+  , m_isDrawable(true)
   , m_layerDepth(layerDepth)
 {
 }
@@ -132,19 +133,22 @@ UserMarkContainer::~UserMarkContainer()
 UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, double & d) const
 {
   UserMark * mark = NULL;
-  FindMarkFunctor f(&mark, d, rect);
-  for_each(m_userMarks.begin(), m_userMarks.end(), f);
+  if (IsVisible())
+  {
+    FindMarkFunctor f(&mark, d, rect);
+    for_each(m_userMarks.begin(), m_userMarks.end(), f);
+  }
   return mark;
 }
 
 void UserMarkContainer::Draw(PaintOverlayEvent const & e, UserMarkDLCache * cache) const
 {
-  if (m_isVisible == false)
-    return;
-
-  UserMarkDLCache::Key defaultKey(GetTypeName(), graphics::EPosCenter, m_layerDepth);
-  for_each(m_userMarks.begin(), m_userMarks.end(), bind(&DrawUserMark, 1.0, m_framework.GetVisualScale(),
-                                                        e, cache, defaultKey, _1));
+  if (IsVisible() && IsDrawable())
+  {
+    UserMarkDLCache::Key defaultKey(GetTypeName(), graphics::EPosCenter, m_layerDepth);
+    for_each(m_userMarks.begin(), m_userMarks.end(), bind(&DrawUserMark, 1.0, m_framework.GetVisualScale(),
+                                                          e, cache, defaultKey, _1));
+  }
 }
 
 void UserMarkContainer::Clear()

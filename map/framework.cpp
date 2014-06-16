@@ -1155,6 +1155,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   UserMarkContainer::Type type = UserMarkContainer::SEARCH_MARK;
   m_bmManager.UserMarksSetVisible(type, true);
   m_bmManager.UserMarksClear(type);
+  m_bmManager.UserMarksSetDrawable(type, false);
 
   m_lastSearch.Clear();
 
@@ -1241,6 +1242,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results, m2::Rect
   UserMarkContainer::Type const type = UserMarkContainer::SEARCH_MARK;
   m_bmManager.UserMarksSetVisible(type, true);
   m_bmManager.UserMarksClear(type);
+  m_bmManager.UserMarksSetDrawable(type, true);
 
   size_t const count = results.GetCount();
   for (size_t i = 0; i < count; ++i)

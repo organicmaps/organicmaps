@@ -359,6 +359,16 @@ bool BookmarkManager::UserMarksIsVisible(UserMarkContainer::Type type) const
   return FindUserMarksContainer(type)->IsVisible();
 }
 
+void BookmarkManager::UserMarksSetDrawable(UserMarkContainer::Type type, bool isDrawable)
+{
+  FindUserMarksContainer(type)->SetIsDrawable(isDrawable);
+}
+
+void BookmarkManager::UserMarksIsDrawable(UserMarkContainer::Type type)
+{
+  FindUserMarksContainer(type)->IsDrawable();
+}
+
 UserMark * BookmarkManager::UserMarksAddMark(UserMarkContainer::Type type, const m2::PointD & ptOrg)
 {
   return FindUserMarksContainer(type)->GetController().CreateUserMark(ptOrg);

@@ -66,6 +66,8 @@ public:
   /// Additional layer methods
   void UserMarksSetVisible(UserMarkContainer::Type type, bool isVisible);
   bool UserMarksIsVisible(UserMarkContainer::Type type) const;
+  void UserMarksSetDrawable(UserMarkContainer::Type type, bool isDrawable);
+  void UserMarksIsDrawable(UserMarkContainer::Type type);
   UserMark * UserMarksAddMark(UserMarkContainer::Type type, m2::PointD const & ptOrg);
   void UserMarksClear(UserMarkContainer::Type type);
   UserMarkContainer::Controller & UserMarksGetController(UserMarkContainer::Type type);
