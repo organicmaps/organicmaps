@@ -36,8 +36,6 @@
 		9747278518338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */; };
 		9769D6EF1912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
 		9769D6F01912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
-		97719D421843AF1E00BDD815 /* ScopeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97719D411843AF1E00BDD815 /* ScopeView.m */; };
-		97719D431843AF1E00BDD815 /* ScopeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97719D411843AF1E00BDD815 /* ScopeView.m */; };
 		97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
 		97719D461843B6E500BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
 		97719D481843B6F200BDD815 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D471843B6F200BDD815 /* Security.framework */; };
@@ -144,8 +142,6 @@
 		EDBB18B916972B3000AF0742 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBB18B716972B0600AF0742 /* libzlib.a */; };
 		EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; };
 		EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; };
-		EDFC74D0177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */; };
-		EDFC74D1177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
 		EE12020911CD464100ABDD5D /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1201FF11CD464100ABDD5D /* libbase.a */; };
 		EE12020A11CD464100ABDD5D /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020011CD464100ABDD5D /* libcoding.a */; };
@@ -230,8 +226,6 @@
 		FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E7120A263C0062D5B4 /* SettingsManager.mm */; };
 		FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		FA46DA2C12D4166E00968C36 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
-		FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
-		FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */; };
 		FA64D9A913F975AD00350ECF /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
 		FA7F4B0017F1FFE800FAB1B5 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 		FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
@@ -247,7 +241,6 @@
 		FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAAEA7D3161D8D3100CCD661 /* BookmarksRootVC.mm */; };
 		FAAFD697139D9BE2000AE70C /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
 		FAAFD699139D9C6B000AE70C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAFD698139D9C6B000AE70C /* libsearch.a */; };
-		FABF223E13FAA97A003D4D49 /* CompassView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FABF223D13FAA97A003D4D49 /* CompassView.mm */; };
 		FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEA8B291437CA80002A6737 /* libjansson.a */; };
 		FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF29846146EEF4A00FF0057 /* libprotobuf.a */; };
 		FAF30A95173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
@@ -1299,7 +1292,6 @@
 		FAFB08F0151215EE0041901D /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		FAFB08F1151215EE0041901D /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB63513366E78001A5C59 /* WebViewController.mm */; };
 		FAFB08F2151215EE0041901D /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
-		FAFB08F4151215EE0041901D /* CompassView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FABF223D13FAA97A003D4D49 /* CompassView.mm */; };
 		FAFB08F5151215EE0041901D /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
 		FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C2A1144F135F005337F6 /* LocationManager.mm */; };
 		FAFB08FB151215EE0041901D /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020311CD464100ABDD5D /* libfreetype.a */; };
@@ -1366,8 +1358,6 @@
 		9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+Navigation.m"; path = "Classes/UIViewController+Navigation.m"; sourceTree = "<group>"; };
 		9769D6ED1912BF3000CA6158 /* ContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerView.h; sourceTree = "<group>"; };
 		9769D6EE1912BF3000CA6158 /* ContainerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContainerView.mm; sourceTree = "<group>"; };
-		97719D401843AF1E00BDD815 /* ScopeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScopeView.h; sourceTree = "<group>"; };
-		97719D411843AF1E00BDD815 /* ScopeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScopeView.m; sourceTree = "<group>"; };
 		97719D441843B6DC00BDD815 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		97719D471843B6F200BDD815 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		97719D4A1843B86700BDD815 /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
@@ -1463,8 +1453,6 @@
 		EDBB18B716972B0600AF0742 /* libzlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzlib.a; sourceTree = "<group>"; };
 		EDC5C541175F2CA600420E92 /* ShareActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareActionSheet.h; sourceTree = "<group>"; };
 		EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = ShareActionSheet.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		EDFC74CE177AE6C500FAF21F /* PlaceAndCompasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceAndCompasView.h; sourceTree = "<group>"; };
-		EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlaceAndCompasView.mm; sourceTree = "<group>"; };
 		EE026F0511D6AC0D00645242 /* classificator.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = classificator.txt; path = ../../data/classificator.txt; sourceTree = SOURCE_ROOT; };
 		EE1201FF11CD464100ABDD5D /* libbase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbase.a; sourceTree = SOURCE_ROOT; };
 		EE12020011CD464100ABDD5D /* libcoding.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcoding.a; sourceTree = SOURCE_ROOT; };
@@ -1555,8 +1543,6 @@
 		FA5940D3171C964D0045C9BB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA5940D4171C964D0045C9BB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA5940D5171C964D0045C9BB /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		FA5D4F151557F79900E7D8BB /* PlacePageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = PlacePageVC.h; path = Bookmarks/PlacePageVC.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = PlacePageVC.mm; path = Bookmarks/PlacePageVC.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA64D9A813F975AD00350ECF /* types.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = types.txt; path = ../../data/types.txt; sourceTree = SOURCE_ROOT; };
 		FA85F632145DDDC20090E1A0 /* packed_polygons.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = packed_polygons.bin; path = ../../data/packed_polygons.bin; sourceTree = SOURCE_ROOT; };
 		FA87151A12B1518F00592DAF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1575,8 +1561,6 @@
 		FAAFD698139D9C6B000AE70C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsearch.a; sourceTree = SOURCE_ROOT; };
 		FAB09895148E2F1500892860 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FAB0FC6019251E85003B396F /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
-		FABF223C13FAA97A003D4D49 /* CompassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassView.h; sourceTree = "<group>"; };
-		FABF223D13FAA97A003D4D49 /* CompassView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CompassView.mm; sourceTree = "<group>"; };
 		FAEA8B291437CA80002A6737 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjansson.a; sourceTree = SOURCE_ROOT; };
 		FAF29846146EEF4A00FF0057 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprotobuf.a; sourceTree = SOURCE_ROOT; };
 		FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 00_roboto_regular.ttf; path = ../../data/00_roboto_regular.ttf; sourceTree = "<group>"; };
@@ -2404,16 +2388,10 @@
 				ED48BBB417C267F5003E7E92 /* ColorPickerView.mm */,
 				ED48BBB817C2B1E2003E7E92 /* CircleView.h */,
 				ED48BBB917C2B1E2003E7E92 /* CircleView.mm */,
-				FABF223C13FAA97A003D4D49 /* CompassView.h */,
-				FABF223D13FAA97A003D4D49 /* CompassView.mm */,
 				F7B90CD11521E6D100C054EE /* CustomNavigationView.h */,
 				F7B90CD21521E6D100C054EE /* CustomNavigationView.mm */,
 				EDB811A1175E1A9C00E36BF2 /* TwoButtonsView.h */,
 				EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */,
-				EDFC74CE177AE6C500FAF21F /* PlaceAndCompasView.h */,
-				EDFC74CF177AE6C500FAF21F /* PlaceAndCompasView.mm */,
-				97719D401843AF1E00BDD815 /* ScopeView.h */,
-				97719D411843AF1E00BDD815 /* ScopeView.m */,
 				97F61780183E6172009919E2 /* LocationButton.h */,
 				97F6177F183E6172009919E2 /* LocationButton.mm */,
 			);
@@ -2562,8 +2540,6 @@
 				FAA614B7155F16950031C345 /* AddSetVC.mm */,
 				FA054610155C465E001F4E37 /* SelectSetVC.h */,
 				FA054611155C465E001F4E37 /* SelectSetVC.mm */,
-				FA5D4F151557F79900E7D8BB /* PlacePageVC.h */,
-				FA5D4F161557F79900E7D8BB /* PlacePageVC.mm */,
 				FA36B80515403A4F004560CC /* BookmarksVC.h */,
 				FA36B80615403A4F004560CC /* BookmarksVC.mm */,
 				FAAEA7D4161D8D3100CCD661 /* BookmarksRootVC.h */,
@@ -2587,13 +2563,13 @@
 		FA4135DF120A25B90062D5B4 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				978F924D183BB5D6000D6C7C /* Cells */,
 				FA4135E1120A263C0062D5B4 /* CountriesViewController.h */,
 				FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */,
 				FA4135E6120A263C0062D5B4 /* SettingsManager.h */,
 				FA4135E7120A263C0062D5B4 /* SettingsManager.mm */,
 				978F923F183B660F000D6C7C /* SettingsViewController.h */,
 				978F9239183B660F000D6C7C /* SettingsViewController.mm */,
-				978F924D183BB5D6000D6C7C /* Cells */,
 				FA29FDA8141E77F8004ADF66 /* Preferences.h */,
 				FA29FDA9141E77F8004ADF66 /* Preferences.mm */,
 			);
@@ -4439,13 +4415,11 @@
 				97F61781183E6172009919E2 /* LocationButton.mm in Sources */,
 				9747264318323080006B7CB7 /* UIKitCategories.m in Sources */,
 				97A0EEFC192F3B43009B2779 /* BottomMenuCell.m in Sources */,
-				97719D421843AF1E00BDD815 /* ScopeView.m in Sources */,
 				97D092B9190AA69700FF645B /* SmallCompassView.mm in Sources */,
 				97A8001418B2140A000C07A2 /* SearchUniversalCell.m in Sources */,
 				97A8002718B2741C000C07A2 /* SearchCell.m in Sources */,
 				9778E9A5191A86D800AD850A /* SelectedColorView.m in Sources */,
 				97D807B818A92AAB00D416E0 /* MoreAppsVC.mm in Sources */,
-				FABF223E13FAA97A003D4D49 /* CompassView.mm in Sources */,
 				9789DB5A188D94F9007C6FAE /* InterstitialView.mm in Sources */,
 				FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */,
 				97A8000C18B21363000C07A2 /* SearchView.mm in Sources */,
@@ -4457,7 +4431,6 @@
 				F7B90CD31521E6D200C054EE /* CustomNavigationView.mm in Sources */,
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
 				9769D6EF1912BF3000CA6158 /* ContainerView.mm in Sources */,
-				FA5D4F191557F79900E7D8BB /* PlacePageVC.mm in Sources */,
 				FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */,
 				FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */,
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
@@ -4476,7 +4449,6 @@
 				97D092B1190A681F00FF645B /* PlacePageInfoCell.mm in Sources */,
 				97A8001018B21395000C07A2 /* SearchBar.mm in Sources */,
 				EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
-				EDFC74D0177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */,
 				9778E9A1191A663700AD850A /* BookmarkNameVC.mm in Sources */,
 				ED48BBB517C267F5003E7E92 /* ColorPickerView.mm in Sources */,
 				97D40C0E184E389000A1D572 /* MailComposeViewController.m in Sources */,
@@ -4509,8 +4481,6 @@
 				FAFB08F2151215EE0041901D /* CustomAlertView.mm in Sources */,
 				97F61782183E6172009919E2 /* LocationButton.mm in Sources */,
 				9747264418323080006B7CB7 /* UIKitCategories.m in Sources */,
-				97719D431843AF1E00BDD815 /* ScopeView.m in Sources */,
-				FAFB08F4151215EE0041901D /* CompassView.mm in Sources */,
 				FAFB08F5151215EE0041901D /* Preferences.mm in Sources */,
 				97D807BD18A933FB00D416E0 /* MoreAppsCell.m in Sources */,
 				FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */,
@@ -4523,7 +4493,6 @@
 				9778E9A2191A663700AD850A /* BookmarkNameVC.mm in Sources */,
 				FA36B80E15403A4F004560CC /* BookmarksVC.mm in Sources */,
 				97D807B918A92AAB00D416E0 /* MoreAppsVC.mm in Sources */,
-				FA5D4F1A1557F79900E7D8BB /* PlacePageVC.mm in Sources */,
 				FAF457E815597D4600DCCC49 /* Framework.cpp in Sources */,
 				97A8002818B2741C000C07A2 /* SearchCell.m in Sources */,
 				974386DE19373EA400FD5659 /* ToastView.m in Sources */,
@@ -4543,7 +4512,6 @@
 				97F61795183E7445009919E2 /* LinkCell.m in Sources */,
 				EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
 				9778E9A6191A86D800AD850A /* SelectedColorView.m in Sources */,
-				EDFC74D1177AE6C500FAF21F /* PlaceAndCompasView.mm in Sources */,
 				97A8000D18B21363000C07A2 /* SearchView.mm in Sources */,
 				ED48BBBB17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 				97D092B2190A681F00FF645B /* PlacePageInfoCell.mm in Sources */,

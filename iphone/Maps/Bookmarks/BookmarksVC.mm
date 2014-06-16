@@ -1,7 +1,6 @@
 #import "BookmarksVC.h"
 #import "CustomNavigationView.h"
 #import "MapsAppDelegate.h"
-#import "CompassView.h"
 #import "BookmarkCell.h"
 #import "MapViewController.h"
 #import "Statistics.h"

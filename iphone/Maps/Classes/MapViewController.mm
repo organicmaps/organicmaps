@@ -2,7 +2,6 @@
 #import "MapsAppDelegate.h"
 #import "EAGLView.h"
 #import "BookmarksRootVC.h"
-#import "PlacePageVC.h"
 #import "UIKitCategories.h"
 #import "SettingsViewController.h"
 #import "UIViewController+Navigation.h"
@@ -42,7 +41,7 @@
 const long long PRO_IDL = 510623322L;
 const long long LITE_IDL = 431183278L;
 
-@interface MapViewController () <PlacePageViewDelegate, PlacePageVCDelegate, ToolbarViewDelegate, BottomMenuDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate>
+@interface MapViewController () <PlacePageViewDelegate, ToolbarViewDelegate, BottomMenuDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate>
 
 @property (nonatomic) ShareActionSheet * shareActionSheet;
 @property (nonatomic) UIButton * buyButton;
@@ -871,12 +870,6 @@ const long long LITE_IDL = 431183278L;
 {
   NSString * urlString = [NSString stringWithUTF8String:GetFramework().GenerateApiBackUrl(*point).c_str()];
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
-}
-
-- (void)placePageVC:(PlacePageVC *)placePageVC didUpdateBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
-{
-  UserMark const * userMark = GetFramework().GetBmCategory(bookmarkAndCategory.first)->GetBookmark(bookmarkAndCategory.second);
-  [self.containerView.placePage showUserMark:userMark->Copy()];
 }
 
 #pragma mark - BottomMenuDelegate
