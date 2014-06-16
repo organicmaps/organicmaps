@@ -73,6 +73,9 @@ public:
   Tizen::Base::String GetCategoryName(int const index) const;
   void SetCategoryName(int const index, Tizen::Base::String const & sName) const;
 
+  Tizen::Base::String GetSMSTextMyPosition(double lat, double lon);
+  Tizen::Base::String GetSMSTextMark(UserMark const * pMark);
+
 private:
   shared_ptr<UserMarkCopy> m_pCurBookMarkCopy;
 };

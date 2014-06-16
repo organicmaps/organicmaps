@@ -19,6 +19,7 @@ using namespace Tizen::Ui::Scenes;
 using namespace Tizen::Graphics;
 using namespace consts;
 using namespace bookmark;
+using Tizen::Base::Collection::ArrayList;
 
 BookMarkSplitPanel::BookMarkSplitPanel()
 :m_pMainForm(0)
@@ -45,7 +46,7 @@ bool BookMarkSplitPanel::Construct(const Tizen::Graphics::FloatRectangle& rect)
   m_pButton->SetColor(BUTTON_STATUS_PRESSED ,green);
   m_pButton->SetText(GetString(IDS_SHARE));
   m_pButton->SetTextColor(white);
-  m_pButton->SetActionId(100);
+  m_pButton->SetActionId(ID_SHARE_BUTTON);
   m_pButton->AddActionEventListener(*this);
 
   m_pLabel = new Label();
@@ -122,19 +123,24 @@ void BookMarkSplitPanel::Disable()
   SetShowState(false);
 }
 
-
-
 void BookMarkSplitPanel::OnActionPerformed(Tizen::Ui::Control const & source, int actionId)
 {
-  //  switch(actionId)
-  //  {
-  //    case 100:
-  //    {
-  //
-  //      break;
-  //    }
-  //  }
-  //  Invalidate(true);
+  switch(actionId)
+  {
+    case ID_SHARE_BUTTON:
+    {
+      String textVal = GetBMMnger().GetSMSTextMark(GetBMMnger().GetCurMark());
+      ArrayList * pList = new ArrayList;
+      pList->Construct();
+      pList->Add(new String(textVal));
+      SceneManager * pSceneManager = SceneManager::GetInstance();
+      pSceneManager->GoForward(ForwardSceneTransition(SCENE_SHARE_POSITION,
+          SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP), pList);
+      //
+      break;
+    }
+  }
+  Invalidate(true);
 }
 
 Tizen::Ui::Controls::ListItemBase * BookMarkSplitPanel::CreateHeaderItem (float itemWidth)

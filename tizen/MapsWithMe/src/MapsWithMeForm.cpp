@@ -287,7 +287,7 @@ void MapsWithMeForm::OnTouchPressed(Tizen::Ui::Control const & source,
     m_wasLongPress = false;
     TPointPairs pts = detail::GetTouchedPoints(GetClientAreaBounds());
     ::Framework * pFramework = tizen::Framework::GetInstance();
-//    pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(m2::PointD(pts[0].first, pts[0].second), false));
+    //    pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(m2::PointD(pts[0].first, pts[0].second), false));
 
     m_startTouchPoint = make_pair(pts[0].first, pts[0].second);
     if (!pFramework->GetGuiController()->OnTapStarted(m2::PointD(pts[0].first, pts[0].second)))
@@ -564,10 +564,10 @@ ListItemBase * MapsWithMeForm::CreateItem (int index, float itemWidth)
   int fontSize = mediumFontSz;
   switch (index)
   {
-//    case eDownloadProVer:
-//      pItem->AddElement(rectImg, 0, *GetBitmap(IDB_MWM_PRO), null, null);
-//      pItem->AddElement(rectTxt, 1, GetString(IDS_BECOME_A_PRO), fontSize, green, green, green);
-//      break;
+    //    case eDownloadProVer:
+    //      pItem->AddElement(rectImg, 0, *GetBitmap(IDB_MWM_PRO), null, null);
+    //      pItem->AddElement(rectTxt, 1, GetString(IDS_BECOME_A_PRO), fontSize, green, green, green);
+    //      break;
     case eDownloadMaps:
       pItem->AddElement(rectImg, 0, *GetBitmap(IDB_DOWNLOAD_MAP), null, null);
       pItem->AddElement(rectTxt, 1, GetString(IDS_DOWNLOAD_MAPS), fontSize, white, white, white);
@@ -602,11 +602,11 @@ void MapsWithMeForm::OnListViewItemStateChanged(ListView & listView, int index, 
 {
   switch (index)
   {
-//    case eDownloadProVer:
-//    {
-//
-//    }
-//    break;
+    //    case eDownloadProVer:
+    //    {
+    //
+    //    }
+    //    break;
     case eDownloadMaps:
     {
       HideSplitPanel();
@@ -630,7 +630,21 @@ void MapsWithMeForm::OnListViewItemStateChanged(ListView & listView, int index, 
     break;
     case eSharePlace:
     {
-
+      double lat, lon;
+      if (GetFramework()->GetCurrentPosition(lat, lon))
+      {
+        String textVal = bookmark::GetBMMnger().GetSMSTextMyPosition(lat, lon);
+        ArrayList * pList = new ArrayList;
+        pList->Construct();
+        pList->Add(new String(textVal));
+        SceneManager * pSceneManager = SceneManager::GetInstance();
+        pSceneManager->GoForward(ForwardSceneTransition(SCENE_SHARE_POSITION,
+            SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP), pList);
+      }
+      else
+      {
+        MessageBoxOk(GetString(IDS_UNKNOWN_CURRENT_POSITION), GetString(IDS_UNKNOWN_CURRENT_POSITION));
+      }
     }
     break;
     default:
@@ -639,7 +653,7 @@ void MapsWithMeForm::OnListViewItemStateChanged(ListView & listView, int index, 
 }
 
 void MapsWithMeForm::OnSceneActivatedN(const Tizen::Ui::Scenes::SceneId& previousSceneId,
-                   const Tizen::Ui::Scenes::SceneId& currentSceneId, Tizen::Base::Collection::IList* pArgs)
+    const Tizen::Ui::Scenes::SceneId& currentSceneId, Tizen::Base::Collection::IList* pArgs)
 {
   if (currentSceneId == SceneManager::GetInstance()->GetCurrentScene()->GetSceneId())
   {

@@ -9,8 +9,9 @@
     <Apps>
         <ApiVersion>2.2</ApiVersion>
         <Privileges>
-            <Privilege>http://tizen.org/privilege/location</Privilege>
             <Privilege>http://tizen.org/privilege/web.service</Privilege>
+            <Privilege>http://tizen.org/privilege/location</Privilege>
+            <Privilege>http://tizen.org/privilege/application.launch</Privilege>
             <Privilege>http://tizen.org/privilege/http</Privilege>
         </Privileges>
         <UiApp HwAcceleration="On" LaunchingHistoryVisible="True" Main="True" MenuIconVisible="True" Name="MapsWithMe">

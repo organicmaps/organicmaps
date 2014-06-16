@@ -6,10 +6,11 @@
 #include "BMCategoriesForm.hpp"
 #include "DownloadCountryForm.hpp"
 #include "SelectBMCategoryForm.hpp"
-#include "../../../base/logging.hpp"
-#include "../../../platform/tizen_utils.hpp"
 #include "SelectColorForm.hpp"
 #include "CategoryForm.hpp"
+#include "SharePositionForm.hpp"
+#include "../../../platform/tizen_utils.hpp"
+#include "../../../base/logging.hpp"
 
 using namespace Tizen::Ui::Scenes;
 using namespace Tizen::Base;
@@ -26,6 +27,7 @@ const wchar_t * FORM_BMCATEGORIES = L"FormCategories";
 const wchar_t * FORM_SELECT_BM_CATEGORY = L"FormSelectBMCategory";
 const wchar_t * FORM_SELECT_COLOR = L"FormSelectColor";
 const wchar_t * FORM_CATEGORY = L"FormCategory";
+const wchar_t * FORM_SHARE_POSITION = L"FormSharePosition";
 
 FormFactory::FormFactory(void)
 {
@@ -98,6 +100,13 @@ Tizen::Ui::Controls::Form * FormFactory::CreateFormN(String const & formId, Scen
   else if (formId == FORM_CATEGORY)
   {
     CategoryForm * pForm = new CategoryForm();
+    pForm->Initialize();
+    pSceneManager->AddSceneEventListener(sceneId, *pForm);
+    pNewForm = pForm;
+  }
+  else if (formId == FORM_SHARE_POSITION)
+  {
+    SharePositionForm * pForm = new SharePositionForm();
     pForm->Initialize();
     pSceneManager->AddSceneEventListener(sceneId, *pForm);
     pNewForm = pForm;

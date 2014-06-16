@@ -69,8 +69,18 @@
 	<text id="IDS_NO_SEARCH_RESULTS_FOUND">No results found</text>
 	<!-- resource for context menu -->
 	<text id="IDS_EDIT">Edit</text>
+	<!-- Warning message when doing search around current position -->
+	<text id="IDS_UNKNOWN_CURRENT_POSITION">Your location hasn\&#39;t been determined yet</text>
+	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<text id="IDS_BOOKMARK_SHARE_SMS">Hey, check out my pin at maps.me! %1$s or %2$s Don\&#39;t have offline maps installed? Download here: http://maps.me/get</text>
+	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<text id="IDS_MY_POSITION_SHARE_SMS">Hey, check out my current location at maps.me! %1$s or %2$s Don\&#39;t have offline maps? Download here: http://maps.me/get</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<text id="IDS_SHARE">Share</text>
+	<!-- iOS share by Message button text (including SMS) -->
+	<text id="IDS_MESSAGE">Message</text>
+	<!-- Copy Link -->
+	<text id="IDS_COPY_LINK">Copy Link</text>
 	<!-- Used for bookmark editing -->
 	<text id="IDS_DONE">Done</text>
 	<!-- Prints version number in About dialog -->

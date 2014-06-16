@@ -85,7 +85,8 @@ private:
     COUNTRY_TXT,
     POSITION_TXT,
     GROUP_TXT,
-    MESSAGE_TXT
+    MESSAGE_TXT,
+    ID_SHARE_BUTTON
   };
 
   enum EItems

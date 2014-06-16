@@ -436,4 +436,43 @@ size_t BookMarkManager::GetCategorySize(int index)
   return pFW->GetBmCategory(index)->GetBookmarksCount();
 }
 
+Tizen::Base::String BookMarkManager::GetSMSTextMyPosition(double lat, double lon)
+{
+  Framework * pFW = GetFramework();
+
+  String s = pFW->CodeGe0url(lat, lon, pFW->GetDrawScale(), "").c_str();
+
+  String r = GetString(IDS_MY_POSITION_SHARE_SMS);
+  r.Replace("%1$s", s);
+  String s2 = "http://ge0.me/";
+  String s3;
+  s.SubString(6, s3);
+  s2.Append(s3);
+  r.Replace("%2$s", s2);
+  return r;
+}
+
+Tizen::Base::String BookMarkManager::GetSMSTextMark(UserMark const * pMark)
+{
+  if (!pMark)
+    return "";
+
+  double lat;
+  double lon;
+
+  pMark->GetLatLon(lat, lon);
+  Framework * pFW = GetFramework();
+  String s = pFW->CodeGe0url(lat, lon, pFW->GetDrawScale(), "").c_str();
+
+
+  String r = GetString(IDS_BOOKMARK_SHARE_SMS);
+  r.Replace("%1$s", s);
+  String s2 = "http://ge0.me/";
+  String s3;
+  s.SubString(6, s3);
+  s2.Append(s3);
+  r.Replace("%2$s", s2);
+  return r;
+}
+
 }//bookmark

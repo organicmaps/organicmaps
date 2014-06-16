@@ -65,8 +65,18 @@
 	<text id="IDS_POLICE">Polizeistation</text>
 	<!-- String in search result list, when nothing found -->
 	<text id="IDS_NO_SEARCH_RESULTS_FOUND">Keine Ergebnisse gefunden</text>
+	<!-- Warning message when doing search around current position -->
+	<text id="IDS_UNKNOWN_CURRENT_POSITION">Ihr Standort wurde bisher noch nicht bestimmt</text>
+	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<text id="IDS_BOOKMARK_SHARE_SMS">Meine Nadel auf der Karte sehen. Klicke auf den Link %1$s oder %2$s</text>
+	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
+	<text id="IDS_MY_POSITION_SHARE_SMS">Sieh, wo ich gerade bin. Klicke auf den Link %1$s oder %2$s</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<text id="IDS_SHARE">Teilen</text>
+	<!-- iOS share by Message button text (including SMS) -->
+	<text id="IDS_MESSAGE">Nachricht</text>
+	<!-- Copy Link -->
+	<text id="IDS_COPY_LINK">Link kopieren</text>
 	<!-- Used for bookmark editing -->
 	<text id="IDS_DONE">Erledigt</text>
 	<!-- Prints version number in About dialog -->

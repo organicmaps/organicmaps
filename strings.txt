@@ -2331,7 +2331,7 @@
     hu = Szerkeszt
   [unknown_current_position]
     en = Your location hasn't been determined yet
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Warning message when doing search around current position
     cs = Tvá poloha zatím nebyla určena
     de = Ihr Standort wurde bisher noch nicht bestimmt
@@ -2457,7 +2457,7 @@
     hu = Köszönöm, nem
   [bookmark_share_sms]
     en = Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
     ru = Моя метка на карте. Жми %1$@ или %2$@
     ko = 지도에서 내 PIN을 참조하십시오. %1$@ 또는 %2$@ 열기
@@ -2474,7 +2474,7 @@
     hu = Nézd meg a maps.me jelzőt! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
   [my_position_share_sms]
     en = Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
     ru = Смотри где я сейчас. Жми %1$@ или %2$@
     ko = 현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기
@@ -2594,7 +2594,7 @@
     hu = Megosztás
   [message]
     en = Message
-    tags = ios,android
+    tags = ios,android,tizen
     comment = iOS share by Message button text (including SMS)
     ru = Сообщение
     cs = Zpráva
@@ -2673,7 +2673,7 @@
     hu = Érvénytelen kód. Kérjük próbálja újra.
   [copy_link]
     en = Copy Link
-    tags = ios
+    tags = ios,tizen
     comment = Copy Link
     cs = Zkopírovat odkaz
     de = Link kopieren

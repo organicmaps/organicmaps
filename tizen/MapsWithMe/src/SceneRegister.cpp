@@ -16,6 +16,7 @@ const wchar_t * SCENE_BMCATEGORIES = L"ScnBMCategories";
 const wchar_t * SCENE_SELECT_BM_CATEGORY = L"ScnSelectBMCategory";
 const wchar_t * SCENE_SELECT_COLOR = L"ScnSelectColor";
 const wchar_t * SCENE_CATEGORY = L"ScnCategory";
+const wchar_t * SCENE_SHARE_POSITION = L"ScnSharePosition";
 
 SceneRegister::SceneRegister(void)
 {
@@ -46,4 +47,5 @@ SceneRegister::RegisterAllScenes(void)
   pSceneManager->RegisterScene(SCENE_SELECT_BM_CATEGORY, FORM_SELECT_BM_CATEGORY, PANEL_BLANK);
   pSceneManager->RegisterScene(SCENE_SELECT_COLOR, FORM_SELECT_COLOR, PANEL_BLANK);
   pSceneManager->RegisterScene(SCENE_CATEGORY, FORM_CATEGORY, PANEL_BLANK);
+  pSceneManager->RegisterScene(SCENE_SHARE_POSITION, FORM_SHARE_POSITION, PANEL_BLANK);
 }

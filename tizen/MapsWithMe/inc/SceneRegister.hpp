@@ -12,6 +12,7 @@ extern const wchar_t * SCENE_BMCATEGORIES;
 extern const wchar_t * SCENE_SELECT_BM_CATEGORY;
 extern const wchar_t * SCENE_SELECT_COLOR;
 extern const wchar_t * SCENE_CATEGORY;
+extern const wchar_t * SCENE_SHARE_POSITION;
 
 class SceneRegister
 {
