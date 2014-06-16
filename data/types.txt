@@ -961,3 +961,8 @@ amenity|casino
 amenity|brothel
 place|neighbourhood
 place|isolated_dwelling
+historic|wayside_cross
+historic|wayside_shrine
+historic|boundary_stone
+historic|citywalls
+historic|tomb

@@ -4583,35 +4583,35 @@ cont {
   element {
     scale: 15
     area {
-      color: 14535867
+      color: 13421738
       priority: 1368
     }
   }
   element {
     scale: 16
     area {
-      color: 14535867
+      color: 13421738
       priority: 1368
     }
   }
   element {
     scale: 17
     area {
-      color: 14535867
+      color: 13421738
       priority: 1368
     }
   }
   element {
     scale: 18
     area {
-      color: 14535867
+      color: 13421738
       priority: 1368
     }
   }
   element {
     scale: 19
     area {
-      color: 14535867
+      color: 13421738
       priority: 1368
     }
   }
@@ -16086,11 +16086,15 @@ cont {
   element {
     scale: 15
     lines {
-      width: 3.0
-      color: 15658734
+      width: 2.0
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+    area {
+      color: 13421738
+      priority: 1027
     }
     path_text {
       primary {
@@ -16103,11 +16107,15 @@ cont {
   element {
     scale: 16
     lines {
-      width: 4.0
-      color: 15658734
+      width: 3.0
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+    area {
+      color: 13421738
+      priority: 1027
     }
     path_text {
       primary {
@@ -16121,10 +16129,14 @@ cont {
     scale: 17
     lines {
       width: 7.0
-      color: 15658734
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+    area {
+      color: 13421738
+      priority: 1027
     }
     path_text {
       primary {
@@ -16138,10 +16150,14 @@ cont {
     scale: 18
     lines {
       width: 9.0
-      color: 15658734
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+    area {
+      color: 13421738
+      priority: 1027
     }
     path_text {
       primary {
@@ -16155,10 +16171,14 @@ cont {
     scale: 19
     lines {
       width: 17.0
-      color: 15658734
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
+    }
+    area {
+      color: 13421738
+      priority: 1027
     }
     path_text {
       primary {
@@ -16174,7 +16194,7 @@ cont {
   element {
     scale: 15
     area {
-      color: 15658734
+      color: 13421738
       priority: 1027
     }
     path_text {
@@ -16188,7 +16208,7 @@ cont {
   element {
     scale: 16
     area {
-      color: 15658734
+      color: 13421738
       priority: 1027
     }
     path_text {
@@ -16202,7 +16222,7 @@ cont {
   element {
     scale: 17
     area {
-      color: 15658734
+      color: 13421738
       priority: 1027
     }
     path_text {
@@ -16216,7 +16236,7 @@ cont {
   element {
     scale: 18
     area {
-      color: 15658734
+      color: 13421738
       priority: 1027
     }
     path_text {
@@ -16230,7 +16250,7 @@ cont {
   element {
     scale: 19
     area {
-      color: 15658734
+      color: 13421738
       priority: 1027
     }
     path_text {
@@ -16247,8 +16267,43 @@ cont {
   element {
     scale: 15
     lines {
+      width: 2.0
+      color: 13421738
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 10.0
+      color: 16777215
+      priority: 1007
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 12.0
+      color: 7829367
+      priority: 1004
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    area {
+      color: 13421738
+      priority: 1027
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 0
+      }
+      priority: 16026
+    }
+  }
+  element {
+    scale: 16
+    lines {
       width: 3.0
-      color: 15658734
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -16267,36 +16322,9 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 4.0
-      color: 15658734
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 14.0
-      color: 7829367
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
+    area {
+      color: 13421738
+      priority: 1027
     }
     path_text {
       primary {
@@ -16310,7 +16338,7 @@ cont {
     scale: 17
     lines {
       width: 7.0
-      color: 15658734
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -16329,6 +16357,10 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
+    area {
+      color: 13421738
+      priority: 1027
+    }
     path_text {
       primary {
         height: 10
@@ -16341,7 +16373,7 @@ cont {
     scale: 18
     lines {
       width: 9.0
-      color: 15658734
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -16360,6 +16392,10 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
+    area {
+      color: 13421738
+      priority: 1027
+    }
     path_text {
       primary {
         height: 10
@@ -16372,7 +16408,7 @@ cont {
     scale: 19
     lines {
       width: 17.0
-      color: 15658734
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -16390,6 +16426,10 @@ cont {
       priority: 1004
       join: ROUNDJOIN
       cap: BUTTCAP
+    }
+    area {
+      color: 13421738
+      priority: 1027
     }
     path_text {
       primary {
@@ -16405,8 +16445,47 @@ cont {
   element {
     scale: 15
     lines {
+      width: 2.0
+      color: 13421738
+      priority: 1026
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    lines {
+      width: 10.0
+      color: 16777215
+      priority: 1007
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    lines {
+      width: 12.0
+      color: 7829367
+      dashdot {
+        dd: 5.0
+        dd: 5.0
+      }
+      priority: 1004
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+    area {
+      color: 13421738
+      priority: 1027
+    }
+    path_text {
+      primary {
+        height: 10
+        color: 0
+      }
+      priority: 16026
+    }
+  }
+  element {
+    scale: 16
+    lines {
       width: 3.0
-      color: 15658734
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -16429,40 +16508,9 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 4.0
-      color: 15658734
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 12.0
-      color: 16777215
-      priority: 1007
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 14.0
-      color: 7829367
-      dashdot {
-        dd: 5.0
-        dd: 5.0
-      }
-      priority: 1004
-      join: ROUNDJOIN
-      cap: BUTTCAP
+    area {
+      color: 13421738
+      priority: 1027
     }
     path_text {
       primary {
@@ -16476,7 +16524,7 @@ cont {
     scale: 17
     lines {
       width: 7.0
-      color: 15658734
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -16499,6 +16547,10 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
+    area {
+      color: 13421738
+      priority: 1027
+    }
     path_text {
       primary {
         height: 10
@@ -16511,7 +16563,7 @@ cont {
     scale: 18
     lines {
       width: 9.0
-      color: 15658734
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -16534,6 +16586,10 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
+    area {
+      color: 13421738
+      priority: 1027
+    }
     path_text {
       primary {
         height: 10
@@ -16546,7 +16602,7 @@ cont {
     scale: 19
     lines {
       width: 17.0
-      color: 15658734
+      color: 13421738
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
@@ -16568,6 +16624,10 @@ cont {
       priority: 1004
       join: ROUNDJOIN
       cap: BUTTCAP
+    }
+    area {
+      color: 13421738
+      priority: 1027
     }
     path_text {
       primary {
@@ -30706,6 +30766,45 @@ cont {
   }
 }
 cont {
+  name: "historic-boundary_stone"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
   name: "historic-castle"
   element {
     scale: 16
@@ -30752,6 +30851,45 @@ cont {
       name: "castle"
       priority: 16002
     }
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "historic-citywalls"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
     caption {
       primary {
         height: 11
@@ -31063,6 +31201,123 @@ cont {
       color: 13421755
       priority: 1003
     }
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "historic-tomb"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "historic-wayside_cross"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "historic-wayside_shrine"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
     caption {
       primary {
         height: 11

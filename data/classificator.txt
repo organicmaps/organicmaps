@@ -311,12 +311,17 @@ world  +
     historic  +
         archaeological_site  -
         battlefield  -
+        boundary_stone  -
         castle  -
+        citywalls  -
         memorial  -
         monument  -
         museum  -
         ruins  -
         ship  -
+        tomb  -
+        wayside_cross  -
+        wayside_shrine  -
         {}
     landuse  +
         allotments  -

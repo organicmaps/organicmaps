@@ -3379,7 +3379,8 @@ node|z17-[tourism=information][information=guidepost]
 {
   icon-image: information-guidepost.svg;
 }
-line|z16-[barrier=fence]
+line|z16-[barrier=fence],
+line|z16-[historic=citywalls]
 {
   color: #b0b0b0;
   width: .1;

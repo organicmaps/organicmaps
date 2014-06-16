@@ -32785,6 +32785,45 @@ cont {
   }
 }
 cont {
+  name: "historic-boundary_stone"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
   name: "historic-castle"
   element {
     scale: 16
@@ -32830,6 +32869,76 @@ cont {
     symbol {
       name: "castle"
       priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "historic-citywalls"
+  element {
+    scale: 16
+    lines {
+      width: 0.1
+      color: 12303291
+      priority: 1917
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 0.1
+      color: 12303291
+      priority: 1002
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 0.1
+      color: 12303291
+      priority: 1002
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 0.1
+      color: 12303291
+      priority: 1002
+      join: ROUNDJOIN
+      cap: ROUNDCAP
     }
     caption {
       primary {
@@ -33142,6 +33251,123 @@ cont {
       color: 13421755
       priority: 1003
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "historic-tomb"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "historic-wayside_cross"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "historic-wayside_shrine"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
     caption {
       primary {
         height: 11
