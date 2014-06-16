@@ -26,87 +26,6 @@ namespace location
   {
     const float MaxPositionFault = 25.0;
     const float MaxHeadingFaultDeg = 3.0;
-
-//    class ErrorSectorAnimator : public anim::Task
-//    {
-//      typedef anim::Task base_t;
-//    public:
-//      ErrorSectorAnimator(double maxRadius, ::location::State * state)
-//        : m_maxRadius(maxRadius)
-//        , m_currentRadius(0.0)
-//        , m_pause(0.0)
-//        , m_state(state)
-//      {
-//      }
-
-//      void Update(Framework * f)
-//      {
-//        ScreenBase s = f->GetNavigator().Screen();
-//        m2::PointD pxPosition = m_state->pivot();
-//        double pxRadius = pxPosition.Length(s.GtoP(m_state->Position() + m2::PointD(m_maxRadius, 0)));
-
-//        m2::RectD r = s.PixelRect();
-//        double minSize = min(r.SizeX(), r.SizeY());
-//        double factor = pxRadius / minSize;
-
-//        double percent = 1E-2;
-//        if (factor > 1.0)
-//          percent = 5E-3;
-//        else if (factor > 0.1)
-//          percent = 9E-3;
-
-//        m_baseVelocity = percent * m_maxRadius;
-//      }
-
-//      void SetMaxRadius(double maxRadius)
-//      {
-//        m_maxRadius = maxRadius;
-//      }
-
-//      double GetCurrentRadius() const
-//      {
-//        return m_currentRadius;
-//      }
-
-//      float GetTransparency() const
-//      {
-//        return 0.3 * (1 - m_currentRadius / m_maxRadius);
-//      }
-
-//      virtual void OnStart(double ts)
-//      {
-//        m_startTime = ts;
-//      }
-
-//      virtual void OnStep(double ts)
-//      {
-//        base_t::OnStep(ts);
-
-//        double time = ts - (m_startTime + m_pause);
-//        if (time > 0.0)
-//        {
-//          double e = exp(-time) + 0.5;
-//          m_currentRadius += (max(e, 0.3) * m_baseVelocity);
-
-//          if (m_currentRadius > m_maxRadius)
-//          {
-//            m_currentRadius = 0.0;
-//            m_startTime = ts;
-//            m_pause = 0.5;
-//          }
-//        }
-
-//        m_state->invalidate();
-//      }
-
-//    private:
-//      double m_maxRadius;
-//      double m_currentRadius;
-//      double m_startTime;
-//      double m_pause;
-//      double m_baseVelocity;
-//      location::State * m_state;
-//    };
   }
 
   double const State::s_cacheRadius = 500;
@@ -127,9 +46,9 @@ namespace location
       m_compassFault(0.0),
       m_isCentered(false),
       m_isFirstPosition(false),
+      m_currentSlotID(0),
       m_locationProcessMode(ELocationDoNothing),
-      m_compassProcessMode(ECompassDoNothing),
-      m_currentSlotID(0)
+      m_compassProcessMode(ECompassDoNothing)
   {
     m_locationAreaColor = p.m_locationAreaColor;
     m_framework = p.m_framework;
@@ -195,27 +114,6 @@ namespace location
       CallCompassStatusListeners(mode);
   }
 
-  void State::setIsVisible(bool isVisible)
-  {
-    gui::Element::setIsVisible(isVisible);
-//    if (isVisible)
-//    {
-//      if (m_radiusAnimation == NULL)
-//      {
-//        m_radiusAnimation.reset(new ErrorSectorAnimator(m_errorRadius, this));
-//        m_framework->GetAnimController()->AddTask(m_radiusAnimation);
-//      }
-//    }
-//    else
-//    {
-//      if (m_radiusAnimation)
-//      {
-//        m_radiusAnimation->End();
-//        m_radiusAnimation.reset();
-//      }
-//    }
-  }
-
   void State::OnLocationUpdate(location::GpsInfo const & info)
   {
     m_isFirstPosition = false;
@@ -230,7 +128,6 @@ namespace location
     setIsVisible(true);
     m_position = center;
     m_errorRadius = rect.SizeX() / 2;
-    //SetErrorRadius(m_errorRadius);
 
     switch (m_locationProcessMode)
     {
@@ -254,6 +151,7 @@ namespace location
       break;
     }
 
+    CallPositionChangedListeners(m_position);
     invalidate();
   }
 
@@ -285,46 +183,6 @@ namespace location
     return m_boundRects;
   }
 
-//  void State::UpdateAnimation()
-//  {
-//    if (m_radiusAnimation)
-//    {
-//      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
-//      a->Update(m_framework);
-//    }
-//  }
-
-//  void State::SetErrorRadius(double errorRadius)
-//  {
-//    if (m_radiusAnimation)
-//    {
-//      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
-//      a->SetMaxRadius(errorRadius);
-//    }
-//  }
-
-  double State::GetErrorRadius() const
-  {
-//    if (m_radiusAnimation)
-//    {
-//      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
-//      return a->GetCurrentRadius();
-//    }
-
-    return m_errorRadius;
-  }
-
-  float State::GetTransparency() const
-  {
-//    if (m_radiusAnimation && !IsPositionFaultCritical())
-//    {
-//      ErrorSectorAnimator * a = static_cast<ErrorSectorAnimator *>(m_radiusAnimation.get());
-//      return a->GetTransparency();
-//    }
-
-    return m_locationAreaColor.a;
-  }
-
   bool State::IsPositionFaultCritical() const
   {
     return m_positionFault > MaxPositionFault;
@@ -334,6 +192,45 @@ namespace location
   {
     static double s_maxOffset = my::DegToRad(MaxHeadingFaultDeg);
     return m_compassFault > s_maxOffset;
+  }
+
+  void State::CallCompassStatusListeners(ECompassProcessMode mode)
+  {
+    for (TCompassStatusListeners::const_iterator it = m_compassStatusListeners.begin();
+         it != m_compassStatusListeners.end();
+         ++it)
+      it->second(mode);
+  }
+
+  int State::AddCompassStatusListener(TCompassStatusListener const & l)
+  {
+    int slotID = m_currentSlotID++;
+    m_compassStatusListeners[slotID] = l;
+    return slotID;
+  }
+
+  void State::RemoveCompassStatusListener(int slotID)
+  {
+    m_compassStatusListeners.erase(slotID);
+  }
+
+  void State::CallPositionChangedListeners(m2::PointD const & pt)
+  {
+    typedef TPositionChangedListeners::const_iterator iter_t;
+    for (iter_t it = m_callbacks.begin(); it != m_callbacks.end(); ++it)
+      it->second(pt);
+  }
+
+  int State::AddPositionChangedListener(State::TPositionChangedCallback const & func)
+  {
+    int result = m_currentSlotID++;
+    m_callbacks[result] = func;
+    return result;
+  }
+
+  void State::RemovePositionChangedListener(int slotID)
+  {
+    m_callbacks.erase(slotID);
   }
 
   void State::cachePositionArrow()
@@ -391,7 +288,6 @@ namespace location
 
     cacheScreen->beginFrame();
     cacheScreen->setDisplayList(m_locationMarkDL.get());
-    cacheScreen->applyVarAlfaStates();
 
     cacheScreen->fillSector(m2::PointD(0, 0),
                             0, 2.0 * math::pi,
@@ -399,9 +295,7 @@ namespace location
                             m_locationAreaColor,
                             depth() - 3);
 
-    cacheScreen->applyStates();
     cacheScreen->setDisplayList(m_positionMarkDL.get());
-
     cacheScreen->drawSymbol(m2::PointD(0, 0),
                             "current-position",
                             graphics::EPosCenter,
@@ -450,8 +344,6 @@ namespace location
         m_boundRect = newRect;
         setIsDirtyRect(true);
       }
-
-      //UpdateAnimation();
     }
   }
 
@@ -469,7 +361,7 @@ namespace location
         /// then position
         m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
         double const pxErrorRadius = pxPosition.Length(
-              m_framework->GetNavigator().GtoP(Position() + m2::PointD(GetErrorRadius(), 0.0)));
+              m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
 
         double const drawScale = pxErrorRadius / s_cacheRadius;
 
@@ -482,10 +374,7 @@ namespace location
              pivot());
 
         math::Matrix<double, 3, 3> const drawM = locationDrawM * m;
-
-        graphics::UniformsHolder holder;
-        holder.insertValue(graphics::ETransparency, GetTransparency());
-        r->drawDisplayList(m_locationMarkDL.get(), drawM, &holder);
+        r->drawDisplayList(m_locationMarkDL.get(), drawM);
 
         if (HasCompass())
         {
@@ -517,8 +406,7 @@ namespace location
 
   bool State::hitTest(m2::PointD const & pt) const
   {
-    double radius = m_halfArrowSize.x;
-    return (pt.SquareLength(pivot()) <= my::sq(radius));
+    return false;
   }
 
   void State::CheckCompassFollowing()
@@ -594,21 +482,6 @@ namespace location
     m_isCentered = flag;
   }
 
-  void State::CallCompassStatusListeners(ECompassProcessMode mode)
-  {
-    for (TCompassStatusListeners::const_iterator it = m_compassStatusListeners.begin();
-         it != m_compassStatusListeners.end();
-         ++it)
-      it->second(mode);
-  }
-
-  int State::AddCompassStatusListener(TCompassStatusListener const & l)
-  {
-    int slotID = m_currentSlotID++;
-    m_compassStatusListeners[slotID] = l;
-    return slotID;
-  }
-
   void State::OnStartLocation()
   {
     SetCompassProcessMode(location::ECompassDoNothing);
@@ -622,36 +495,5 @@ namespace location
     SetCompassProcessMode(location::ECompassDoNothing);
     m_isFirstPosition = false;
     TurnOff();
-  }
-
-  void State::RemoveCompassStatusListener(int slotID)
-  {
-    m_compassStatusListeners.erase(slotID);
-  }
-
-  bool State::onTapEnded(m2::PointD const & pt)
-  {
-    CallOnPositionClickListeners(pt);
-    return false;
-  }
-
-  void State::CallOnPositionClickListeners(m2::PointD const & point)
-  {
-    for (TOnPositionClickListeners::const_iterator it = m_onPositionClickListeners.begin();
-         it != m_onPositionClickListeners.end();
-         ++it)
-      it->second(Position());
-  }
-
-  int State::AddOnPositionClickListener(TOnPositionClickListener const & listner)
-  {
-    int slotID = m_currentSlotID++;
-    m_onPositionClickListeners[slotID] = listner;
-    return slotID;
-  }
-
-  void State::RemoveOnPositionClickListener(int listnerID)
-  {
-    m_onPositionClickListeners.erase(listnerID);
   }
 }

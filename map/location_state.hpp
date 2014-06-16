@@ -41,18 +41,12 @@ namespace location
   class State : public gui::Element
   {
   public:
-
     typedef function<void(int)> TCompassStatusListener;
-    typedef function<void(m2::PointD const &)> TOnPositionClickListener;
+    typedef function<void (m2::PointD const &)> TPositionChangedCallback;
 
   private:
 
     static const double s_cacheRadius;
-    //shared_ptr<anim::Task> m_radiusAnimation;
-    //void UpdateAnimation();
-    //void SetErrorRadius(double errorRadius);
-    double GetErrorRadius() const;
-    float GetTransparency() const;
 
     double m_errorRadius;   //< error radius in mercator
     m2::PointD m_position;  //< position in mercator
@@ -69,6 +63,16 @@ namespace location
 
     bool IsPositionFaultCritical() const;
     bool IsCompassFaultCritical() const;
+
+    typedef map<int, TCompassStatusListener> TCompassStatusListeners;
+    TCompassStatusListeners m_compassStatusListeners;
+
+    typedef map<int, TPositionChangedCallback> TPositionChangedListeners;
+    TPositionChangedListeners m_callbacks;
+    int m_currentSlotID;
+
+    void CallPositionChangedListeners(m2::PointD const & pt);
+    void CallCompassStatusListeners(ECompassProcessMode mode);
 
     ELocationProcessMode m_locationProcessMode;
     ECompassProcessMode m_compassProcessMode;
@@ -98,17 +102,6 @@ namespace location
     mutable vector<m2::AnyRectD> m_boundRects;
     m2::RectD m_boundRect;
 
-    typedef map<int, TCompassStatusListener> TCompassStatusListeners;
-    TCompassStatusListeners m_compassStatusListeners;
-    int m_currentSlotID;
-
-    typedef map<int, TOnPositionClickListener> TOnPositionClickListeners;
-    TOnPositionClickListeners m_onPositionClickListeners;
-
-    void CallOnPositionClickListeners(m2::PointD const & point);
-
-    void CallCompassStatusListeners(ECompassProcessMode mode);
-
     void CheckCompassFollowing();
     void FollowCompass();
 
@@ -135,7 +128,11 @@ namespace location
     ECompassProcessMode GetCompassProcessMode() const;
     void SetCompassProcessMode(ECompassProcessMode mode);
 
-    void setIsVisible(bool isVisible);
+    int  AddCompassStatusListener(TCompassStatusListener const & l);
+    void RemoveCompassStatusListener(int slotID);
+
+    int  AddPositionChangedListener(TPositionChangedCallback const & func);
+    void RemovePositionChangedListener(int slotID);
 
     void TurnOff();
 
@@ -144,12 +141,6 @@ namespace location
 
     void OnStartLocation();
     void OnStopLocation();
-
-    int AddCompassStatusListener(TCompassStatusListener const & l);
-    void RemoveCompassStatusListener(int slotID);
-
-    int AddOnPositionClickListener(TOnPositionClickListener const & listner);
-    void RemoveOnPositionClickListener(int listnerID);
 
     void SetIsCentered(bool flag);
     bool IsCentered() const;
@@ -170,7 +161,6 @@ namespace location
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     bool roughHitTest(m2::PointD const & pt) const;
     bool hitTest(m2::PointD const & pt) const;
-    bool onTapEnded(m2::PointD const & p);
     /// @}
   };
 }

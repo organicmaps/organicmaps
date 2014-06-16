@@ -72,7 +72,7 @@ public:
   double GetDepth() const { return m_layerDepth; }
 
   static void InitPoiSelectionMark(UserMarkContainer * container);
-  static PoiMarkPoint * UserMarkForPoi(m2::PointD const & ptOrg);
+  static PoiMarkPoint * UserMarkForPoi();
 
   Controller const & GetController() const { return m_controller; }
   Controller & GetController() { return m_controller; }
@@ -133,7 +133,7 @@ class SelectionContainer
 public:
   SelectionContainer(Framework & fm);
 
-  void ActivateMark(UserMark const * userMark);
+  void ActivateMark(UserMark const * userMark, bool needAnim);
   void Draw(PaintOverlayEvent const & e, UserMarkDLCache * cache) const;
 
 private:

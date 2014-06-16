@@ -437,8 +437,8 @@ public:
   bool IsCountryLoaded(m2::PointD const & pt) const;
 
   shared_ptr<location::State> const & GetLocationState() const;
-  void ActivateUserMark(UserMark const * mark);
-  UserMark const * GetUserMark(m2::PointD const & pxPoint, bool isLongPress) const;
+  void ActivateUserMark(UserMark const * mark, bool needAnim = true);
+  UserMark const * GetUserMark(m2::PointD const & pxPoint, bool isLongPress);
   PoiMarkPoint * GetAddressMark(m2::PointD const & globalPoint) const;
   BookmarkAndCategory FindBookmark(UserMark const * mark) const;
 
@@ -454,6 +454,9 @@ public:
 private:
   url_scheme::ParsedMapApi m_ParsedMapApi;
   void SetViewPortASync(m2::RectD const & rect);
+
+  void UpdateSelectedMyPosition(m2::PointD const & pt);
+  int m_locationChangedSlotID;
 
 public:
   //@}

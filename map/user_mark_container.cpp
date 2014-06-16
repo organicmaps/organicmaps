@@ -132,7 +132,6 @@ UserMarkContainer::~UserMarkContainer()
 UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, double & d) const
 {
   UserMark * mark = NULL;
-  d = numeric_limits<double>::max();
   FindMarkFunctor f(&mark, d, rect);
   for_each(m_userMarks.begin(), m_userMarks.end(), f);
   return mark;
@@ -164,10 +163,9 @@ void UserMarkContainer::InitPoiSelectionMark(UserMarkContainer * container)
   s_selectionUserMark.reset(new PoiMarkPoint(container));
 }
 
-PoiMarkPoint * UserMarkContainer::UserMarkForPoi(m2::PointD const & ptOrg)
+PoiMarkPoint * UserMarkContainer::UserMarkForPoi()
 {
   ASSERT(s_selectionUserMark != NULL, ());
-  s_selectionUserMark->SetPtOrg(ptOrg);
   return s_selectionUserMark.get();
 }
 
@@ -272,14 +270,16 @@ SelectionContainer::SelectionContainer(Framework & fm)
 {
 }
 
-void SelectionContainer::ActivateMark(UserMark const * userMark)
+void SelectionContainer::ActivateMark(UserMark const * userMark, bool needAnim)
 {
-  KillActivationAnim();
+  if (needAnim)
+    KillActivationAnim();
   if (userMark != NULL)
   {
     m_ptOrg = userMark->GetOrg();
     m_container = userMark->GetContainer();
-    StartActivationAnim();
+    if (needAnim)
+      StartActivationAnim();
   }
   else
     m_container = NULL;

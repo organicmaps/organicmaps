@@ -308,42 +308,45 @@ bool BookmarkManager::DeleteBmCategory(size_t index)
     return false;
 }
 
-void BookmarkManager::ActivateMark(UserMark const * mark)
+void BookmarkManager::ActivateMark(UserMark const * mark, bool needAnim)
 {
-  m_selection.ActivateMark(mark);
+  m_selection.ActivateMark(mark, needAnim);
 }
 
-UserMark const * BookmarkManager::FindNearestUserMark(const m2::AnyRectD & rect) const
+namespace
 {
-  double d = numeric_limits<double>::max();
-  UserMark const * mark = FindUserMarksContainer(UserMarkContainer::API_MARK)->FindMarkInRect(rect, d);
-  if (mark != NULL)
-    return mark;
-
-  mark = FindUserMarksContainer(UserMarkContainer::SEARCH_MARK)->FindMarkInRect(rect, d);
-  for (size_t i = 0; i < GetBmCategoriesCount(); ++i)
+  class BestUserMarkFinder
   {
-    BookmarkCategory * category = GetBmCategory(i);
-    if (!category->IsVisible())
-      continue;
+  public:
+    BestUserMarkFinder(m2::AnyRectD const & rect)
+      : m_rect(rect)
+      , m_d(numeric_limits<double>::max())
+      , m_mark(NULL) {}
 
-    for (size_t j = 0; j < category->GetBookmarksCount(); ++ j)
+    void operator()(UserMarkContainer const * container)
     {
-      Bookmark const * bookmark = category->GetBookmark(j);
-      m2::PointD bmOrg = bookmark->GetOrg();
-      if (rect.IsPointInside(bmOrg))
-      {
-        double currentD = rect.GetGlobalRect().Center().SquareLength(bmOrg);
-        if (currentD < d)
-        {
-          mark = bookmark;
-          d = currentD;
-        }
-      }
+      UserMark const * findedMark = container->FindMarkInRect(m_rect, m_d);
+      if (findedMark != NULL)
+        m_mark = findedMark;
     }
-  }
 
-  return mark;
+    UserMark const * GetFindedMark() const { return m_mark; }
+
+  private:
+    m2::AnyRectD const & m_rect;
+    double m_d;
+    UserMark const * m_mark;
+  };
+}
+
+UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
+{
+  BestUserMarkFinder finder(rect);
+  for_each(m_categories.begin(), m_categories.end(), bind(&BestUserMarkFinder::operator(), &finder, _1));
+  finder(FindUserMarksContainer(UserMarkContainer::API_MARK));
+  finder(FindUserMarksContainer(UserMarkContainer::SEARCH_MARK));
+
+  return finder.GetFindedMark();
 }
 
 void BookmarkManager::UserMarksSetVisible(UserMarkContainer::Type type, bool isVisible)

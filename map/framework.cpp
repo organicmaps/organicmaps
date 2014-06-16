@@ -189,7 +189,8 @@ Framework::Framework()
     m_lowestMapVersion(numeric_limits<int>::max()),
     m_benchmarkEngine(0),
     m_bmManager(*this),
-    m_balloonManager(*this)
+    m_balloonManager(*this),
+    m_locationChangedSlotID(-1)
 {
   // Checking whether we should enable benchmark.
   bool isBenchmarkingEnabled = false;
@@ -1479,6 +1480,13 @@ void Framework::SetViewPortASync(m2::RectD const & r)
   m_animator.ChangeViewport(aRect, aRect, 0.0);
 }
 
+void Framework::UpdateSelectedMyPosition(m2::PointD const & pt)
+{
+  PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
+  poiMark->SetPtOrg(pt);
+  ActivateUserMark(poiMark, false);
+}
+
 m2::RectD Framework::GetCurrentViewport() const
 {
   return m_navigator.Screen().ClipRect();
@@ -1579,15 +1587,34 @@ shared_ptr<location::State> const & Framework::GetLocationState() const
   return m_informationDisplay.locationState();
 }
 
-void Framework::ActivateUserMark(UserMark const * mark)
+void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
 {
-  m_bmManager.ActivateMark(mark);
+  if (mark != UserMarkContainer::UserMarkForPoi() && m_locationChangedSlotID != -1)
+    GetLocationState()->RemovePositionChangedListener(m_locationChangedSlotID);
+  m_bmManager.ActivateMark(mark, needAnim);
 }
 
-UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongPress) const
+UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongPress)
 {
   m2::AnyRectD rect;
   m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * GetVisualScale(), rect);
+
+  shared_ptr<location::State> const & locationState = GetLocationState();
+  if (locationState->HasPosition())
+  {
+    m2::PointD const & glPivot = locationState->Position();
+    if (rect.IsPointInside(glPivot))
+    {
+      search::AddressInfo info;
+      info.m_name = m_stringsBundle.GetString("my_position");
+      PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
+      m_locationChangedSlotID = locationState->AddPositionChangedListener(bind(&Framework::UpdateSelectedMyPosition, this, _1));
+      poiMark->SetPtOrg(glPivot);
+      poiMark->SetInfo(info);
+      return poiMark;
+    }
+  }
+
   UserMark const * mark = m_bmManager.FindNearestUserMark(rect);
 
   if (mark == NULL)
@@ -1606,7 +1633,8 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
 
     if (needMark)
     {
-      PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi(m_navigator.PtoG(pxPivot));
+      PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
+      poiMark->SetPtOrg(m_navigator.PtoG(pxPivot));
       poiMark->SetInfo(info);
       mark = poiMark;
     }
@@ -1619,7 +1647,8 @@ PoiMarkPoint * Framework::GetAddressMark(m2::PointD const & globalPoint) const
 {
   search::AddressInfo info;
   GetAddressInfoForGlobalPoint(globalPoint, info);
-  PoiMarkPoint * mark = UserMarkContainer::UserMarkForPoi(globalPoint);
+  PoiMarkPoint * mark = UserMarkContainer::UserMarkForPoi();
+  mark->SetPtOrg(globalPoint);
   mark->SetInfo(info);
   return mark;
 }
