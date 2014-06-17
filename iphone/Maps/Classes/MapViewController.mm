@@ -152,8 +152,11 @@ const long long LITE_IDL = 431183278L;
 
 - (void)onUserMarkClicked:(UserMarkCopy *)mark
 {
-  [self.containerView.placePage showUserMark:mark];
-  [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
+//  if (self.searchView.state != SearchViewStateFullscreen)
+//  {
+    [self.containerView.placePage showUserMark:mark];
+    [self.containerView.placePage setState:PlacePageStatePreview animated:YES withCallback:YES];
+//  }
 }
 
 - (void)onMyPositionClicked:(id)sender

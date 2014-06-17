@@ -35,8 +35,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) UIImageView * arrowImageView;
 @property (nonatomic) UIView * pickerView;
 
-@property (nonatomic) UIView * swipeView;
-
 @property (nonatomic) NSString * title;
 @property (nonatomic) NSString * types;
 @property (nonatomic) NSString * address;
@@ -44,8 +42,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) NSString * setName;
 
 @property (nonatomic) BOOL titleIsTemporary;
-
-- (NSString *)colorName;
 
 @end
 
@@ -83,7 +79,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self addSubview:self.tableView];
   [self addSubview:self.headerView];
   [self addSubview:self.arrowImageView];
-  [self addSubview:self.swipeView];
 
   NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
   [nc addObserver:self selector:@selector(bookmarkDeletedNotification:) name:BOOKMARK_DELETED_NOTIFICATION object:nil];
@@ -291,7 +286,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
 //    [self reloadHeader];
 //    [self alignAnimated:YES];
 //    self.tableView.contentInset = UIEdgeInsetsMake([self headerHeight], 0, 0, 0);
-    self.swipeView.frame = self.bounds;
   }
 }
 
@@ -303,6 +297,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
   CALayer * layer = [self.backgroundView.layer.sublayers firstObject];
   layer.frame = self.backgroundView.bounds;
+}
+
+- (CGFloat)viewMinY
+{
+  return self.statusBarIncluded ? (SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -20 : 0) : -20;
 }
 
 - (void)alignAnimated:(BOOL)animated
@@ -317,7 +316,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.arrowImageView.alpha = 1;
       [self updateHeight:[self headerHeight]];
-      self.minY = self.statusBarIncluded ? (SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -20 : 0) : -20;
+      self.minY = [self viewMinY];
       self.headerSeparator.alpha = 0;
     } completion:nil];
   }
@@ -335,7 +334,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.arrowImageView.alpha = 0;
       [self updateHeight:fullHeight];
-      self.minY = self.statusBarIncluded ? (SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -20 : 0) : -20;
+      self.minY = [self viewMinY];
       self.headerSeparator.alpha = 1;
     } completion:^(BOOL finished){
     }];
@@ -354,10 +353,19 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   self.editImageView.center = CGPointMake(self.titleLabel.maxX + 14, self.titleLabel.minY + 11.5);
   [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-    self.editImageView.alpha = [self isBookmark] ? (self.state == PlacePageStateOpened ? 1 : 0) : 0;
     PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
-    cell.separator.alpha = [self isBookmark] ? 1 : 0;
-    cell.selectedColorView.alpha = [self isBookmark] ? 1 : 0;
+    if ([self isBookmark])
+    {
+      self.editImageView.alpha = (self.state == PlacePageStateOpened ? 1 : 0);
+      cell.separator.alpha = 1;
+      cell.selectedColorView.alpha = 1;
+    }
+    else
+    {
+      self.editImageView.alpha = 0;
+      cell.separator.alpha = 0;
+      cell.selectedColorView.alpha = 0;
+    }
   } completion:nil];
 }
 
@@ -715,7 +723,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (NSString *)address
 {
   if (!_address)
-    _address = [self addressInfo].FormatAddress().empty() ? @"" : [NSString stringWithUTF8String:[self addressInfo].FormatAddress().c_str()];
+  {
+    std::string const & address = [self addressInfo].FormatAddress();
+    _address = address.empty() ? @"" : [NSString stringWithUTF8String:address.c_str()];
+  }
   return _address;
 }
 
@@ -833,6 +844,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)shareCellDidPressShareButton:(PlacePageShareCell *)cell
 {
+  [self.delegate placePageView:self willShareText:self.title point:[self pinPoint]];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
