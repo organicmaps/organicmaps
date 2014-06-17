@@ -91,10 +91,8 @@
 @property (nonatomic) SolidTouchViewImageView * topBackgroundView;
 @property (nonatomic) UILabel * emptyResultLabel;
 
-- (BOOL)isShowingCategories;
-
 @property (nonatomic) SearchResultsWrapper * wrapper;
-@property (nonatomic) NSArray *categoriesNames;
+@property (nonatomic) NSArray * categoriesNames;
 
 @end
 
@@ -120,11 +118,9 @@ __weak SearchView * selfPointer;
   self.searchBar.midX = self.width / 2;
 
   [self setState:SearchViewStateHidden animated:NO withCallback:NO];
-
-  selfPointer = self;
-
   [self addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
 
+  selfPointer = self;
   needToScroll = NO;
 
   [self.tableView registerClass:[SearchUniversalCell class] forCellReuseIdentifier:[SearchUniversalCell className]];
@@ -376,22 +372,30 @@ static void OnSearchResultCallback(search::Results const & results)
 {
   if ([self.wrapper count] && ![self isShowingCategories])
   {
-    Framework & f = GetFramework();
-    if (f.ShowAllSearchResults() == 0)
+    if (GetPlatform().IsPro())
     {
-      NSString * message = [NSString stringWithFormat:@"%@. %@", NSLocalizedString(@"no_search_results_found", nil), NSLocalizedString(@"download_location_country", nil)];
-      message = [message stringByReplacingOccurrencesOfString:@" (%@)" withString:@""];
-      ToastView * toastView = [[ToastView alloc] initWithMessage:message];
-      [toastView show];
+      Framework & f = GetFramework();
+      if (f.ShowAllSearchResults() == 0)
+      {
+        NSString * message = [NSString stringWithFormat:@"%@. %@", NSLocalizedString(@"no_search_results_found", nil), NSLocalizedString(@"download_location_country", nil)];
+        message = [message stringByReplacingOccurrencesOfString:@" (%@)" withString:@""];
+        ToastView * toastView = [[ToastView alloc] initWithMessage:message];
+        [toastView show];
+      }
+
+      search::SearchParams params;
+      params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
+      params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
+
+      f.StartInteractiveSearch(params);
+
+      [self setState:SearchViewStateResults animated:YES withCallback:YES];
+    }
+    else
+    {
+      [self showBuyProMessage];
     }
 
-    search::SearchParams params;
-    params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
-    params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
-
-    f.StartInteractiveSearch(params);
-
-    [self setState:SearchViewStateResults animated:YES withCallback:YES];
     return YES;
   }
   return NO;
@@ -400,6 +404,12 @@ static void OnSearchResultCallback(search::Results const & results)
 - (CGFloat)defaultSearchBarMinY
 {
   return SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 3 : 20;
+}
+
+- (void)showBuyProMessage
+{
+  UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"search_available_in_pro_version", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+  [alert show];
 }
 
 - (void)layoutSubviews
@@ -546,8 +556,7 @@ static void OnSearchResultCallback(search::Results const & results)
       }
       else
       {
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"search_available_in_pro_version", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
-        [alert show];
+        [self showBuyProMessage];
       }
     }
   }
@@ -561,14 +570,14 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-  if (buttonIndex != alertView.cancelButtonIndex)
+  if (buttonIndex == alertView.cancelButtonIndex)
   {
-    [[UIApplication sharedApplication] openProVersionFrom:@"ios_search_alert"];
-    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"YES"];
+    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"NO"];
   }
   else
   {
-    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"NO"];
+    [[UIApplication sharedApplication] openProVersionFrom:@"ios_search_alert"];
+    [[Statistics instance] logProposalReason:@"Search Screen" withAnswer:@"YES"];
   }
 }
 
