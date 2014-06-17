@@ -31,10 +31,8 @@
 #define TYPE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12.5]
 #define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:17]
 #define SUBTITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12.5]
-#define TITLE_LEFT_SHIFT 44
-#define TITLE_RIGHT_SHIFT 23
-#define MAX_TITLE_HEIGHT 200
-#define MAX_TYPE_WIDTH 150
+#define LEFT_SHIFT 44
+#define RIGHT_SHIFT 23
 #define SPACE 4
 
 - (void)setTitle:(NSString *)title selectedRange:(NSRange)selectedRange
@@ -115,39 +113,48 @@
 {
   [super layoutSubviews];
 
-  self.typeLabel.width = MAX_TYPE_WIDTH;
-  [self.typeLabel sizeToFit];
-  self.typeLabel.maxX = self.width - TITLE_RIGHT_SHIFT;
+  self.typeLabel.size = [[self class] typeSizeWithType:self.typeLabel.text];
+  self.typeLabel.maxX = self.width - RIGHT_SHIFT;
   self.typeLabel.minY = 10;
 
+  self.distanceLabel.width = 70;
   [self.distanceLabel sizeToFit];
-  self.distanceLabel.maxX = self.width - TITLE_RIGHT_SHIFT;
+  self.distanceLabel.maxX = self.width - RIGHT_SHIFT;
   self.distanceLabel.maxY = self.height - 10;
 
-  self.titleLabel.width = self.width - self.typeLabel.width - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT - SPACE;
-  self.titleLabel.minX = TITLE_LEFT_SHIFT;
-  [self.titleLabel sizeToFit];
+  self.titleLabel.size = [[self class] titleSizeWithTitle:self.titleLabel.text viewWidth:self.width typeSize:self.typeLabel.size];
+  self.titleLabel.minX = LEFT_SHIFT;
   if ([self.subtitleLabel.text length])
-    self.titleLabel.minY = 6;
+    self.titleLabel.minY = 5.5;
   else
     self.titleLabel.midY = self.height / 2 - 1.5;
 
-  self.subtitleLabel.width = self.width - self.distanceLabel.width - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT - SPACE;
-  self.subtitleLabel.origin = CGPointMake(TITLE_LEFT_SHIFT, self.titleLabel.maxY - 2);
+  self.subtitleLabel.size = CGSizeMake(self.width - self.distanceLabel.width - LEFT_SHIFT - RIGHT_SHIFT - SPACE, 16);
+  self.subtitleLabel.origin = CGPointMake(LEFT_SHIFT, self.titleLabel.maxY);
+}
+
++ (CGSize)typeSizeWithType:(NSString *)type
+{
+  return [type sizeWithDrawSize:CGSizeMake(150, 22) font:TYPE_FONT];
+}
+
++ (CGSize)titleSizeWithTitle:(NSString *)title viewWidth:(CGFloat)width typeSize:(CGSize)typeSize
+{
+  CGSize const titleDrawSize = CGSizeMake(width - typeSize.width - LEFT_SHIFT - RIGHT_SHIFT - SPACE, 300);
+  return [title sizeWithDrawSize:titleDrawSize font:TITLE_FONT];
 }
 
 + (CGFloat)cellHeightWithTitle:(NSString *)title type:(NSString *)type subtitle:(NSString *)subtitle distance:(NSString *)distance viewWidth:(CGFloat)width
 {
-  CGFloat typeWidth = [type sizeWithDrawSize:CGSizeMake(MAX_TYPE_WIDTH, 22) font:TYPE_FONT].width;
-  CGFloat titleHeight = [title sizeWithDrawSize:CGSizeMake(width - typeWidth - TITLE_LEFT_SHIFT - TITLE_RIGHT_SHIFT - SPACE, MAX_TITLE_HEIGHT) font:TITLE_FONT].height;
-  return MAX(50, titleHeight + ([subtitle length] ? 27 : 15));
+  CGSize const typeSize = [self typeSizeWithType:type];
+  return MAX(50, [self titleSizeWithTitle:title viewWidth:width typeSize:typeSize].height + ([subtitle length] ? 29 : 15));
 }
 
 - (UILabel *)typeLabel
 {
   if (!_typeLabel)
   {
-    _typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MAX_TYPE_WIDTH, 16)];
+    _typeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _typeLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     _typeLabel.font = TYPE_FONT;
     _typeLabel.backgroundColor = [UIColor clearColor];
@@ -161,7 +168,7 @@
 {
   if (!_distanceLabel)
   {
-    _distanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 70, 16)];
+    _distanceLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _distanceLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     _distanceLabel.textColor = [UIColor colorWithColorCode:@"c9c9c9"];
     _distanceLabel.backgroundColor = [UIColor clearColor];
@@ -175,7 +182,7 @@
 {
   if (!_subtitleLabel)
   {
-    _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 190, 16)];
+    _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _subtitleLabel.backgroundColor = [UIColor clearColor];
     _subtitleLabel.textColor = [UIColor whiteColor];
   }
@@ -186,7 +193,7 @@
 {
   if (!_titleLabel)
   {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, MAX_TITLE_HEIGHT)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.numberOfLines = 0;
     _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
