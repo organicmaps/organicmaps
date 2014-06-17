@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../geometry/point2d.hpp"
+
 #include "../std/string.hpp"
 
 namespace MeasurementUtils
@@ -22,6 +24,10 @@ bool FormatDistance(double m, string & res);
 
 /// @param[in] dac  Digits after comma in seconds.
 /// Use dac == 3 for our common conversions.
-string FormatLatLonAsDMS(double lat, double lon, int dac = 0);
+string FormatLatLonAsDMS(double lat, double lon, int dac = 3);
+string FormatMercatorAsDMS(m2::PointD const & mercator, int dac = 3);
+/// Simple decimal degrees formating
+string FormatLatLon(double lat, double lon, int dac = 6);
+string FormatMercator(m2::PointD const & mercator, int dac = 6);
 
 }

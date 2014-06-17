@@ -2,6 +2,8 @@
 
 #include "../platform/settings.hpp"
 
+#include "../indexer/mercator.hpp"
+
 #include "../base/string_utils.hpp"
 #include "../base/math.hpp"
 
@@ -104,6 +106,22 @@ string FormatLatLonAsDMS(double lat, double lon, int dac)
 {
   return (FormatLatLonAsDMSImpl(lat, 'N', 'S', dac) + " "  +
           FormatLatLonAsDMSImpl(lon, 'E', 'W', dac));
+}
+
+string FormatMercatorAsDMS(m2::PointD const & mercator, int dac)
+{
+  return FormatLatLonAsDMS(MercatorBounds::YToLat(mercator.y), MercatorBounds::XToLon(mercator.x), dac);
+}
+
+// @TODO take into account decimal points or commas as separators in different locales
+string FormatLatLon(double lat, double lon, int dac)
+{
+  return strings::to_string_dac(lat, dac) + ", " + strings::to_string_dac(lon, dac);
+}
+
+string FormatMercator(m2::PointD const & mercator, int dac)
+{
+  return FormatLatLon(MercatorBounds::YToLat(mercator.y), MercatorBounds::XToLon(mercator.x), dac);
 }
 
 } // namespace MeasurementUtils
