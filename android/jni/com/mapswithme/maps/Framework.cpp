@@ -713,6 +713,7 @@ extern "C"
   {
     ::Framework * fm = g_framework->NativeFramework();
     UserMark const * mark = markCopy->GetUserMark();
+    fm->ActivateUserMark(mark);
     switch (mark->GetMarkType())
     {
     case UserMark::API:
