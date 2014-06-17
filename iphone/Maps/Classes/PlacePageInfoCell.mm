@@ -4,9 +4,12 @@
 #import "LocationManager.h"
 #import "MapsAppDelegate.h"
 #import "Framework.h"
+#include "../../../platform/settings.hpp"
 #include "../../../map/measurement_utils.hpp"
 #include "../../../geometry/distance_on_sphere.hpp"
 #import "ContextViews.h"
+
+#define SETTINGS_KEY_USE_DMS "UseDMSCoordinates"
 
 @interface PlacePageInfoCell () <SelectedColorViewDelegate>
 
@@ -62,14 +65,21 @@
   return nil;
 }
 
+- (void)updateCoordinates
+{
+  bool useDMS = false;
+  (void)Settings::Get(SETTINGS_KEY_USE_DMS, useDMS);
+
+  string const coords = useDMS ? MeasurementUtils::FormatMercatorAsDMS(self.pinPoint)
+                               : MeasurementUtils::FormatMercator(self.pinPoint);
+  self.coordinatesLabel.text = [NSString stringWithUTF8String:coords.c_str()];
+}
+
 - (void)setAddress:(NSString *)address pinPoint:(m2::PointD)point
 {
   self.pinPoint = point;
   self.addressLabel.text = address;
-  NSString * latitude = [NSString stringWithFormat:@"%.7f", MercatorBounds::YToLat(self.pinPoint.y)];
-  NSString * longitude = [NSString stringWithFormat:@"%.7f", MercatorBounds::XToLon(self.pinPoint.x)];
-  self.coordinatesLabel.text = [NSString stringWithFormat:@"%@, %@", latitude, longitude];
-
+  [self updateCoordinates];
   self.distanceLabel.text = [self distance];
 }
 
@@ -104,8 +114,8 @@
   self.addressLabel.width = self.width - ADDRESS_LEFT_SHIFT - RIGHT_SHIFT;
   [self.addressLabel sizeToFit];
   self.addressLabel.origin = CGPointMake(ADDRESS_LEFT_SHIFT, addressY);
-
-  self.coordinatesLabel.frame = CGRectMake(ADDRESS_LEFT_SHIFT, self.addressLabel.maxY + 10, self.width - ADDRESS_LEFT_SHIFT - RIGHT_SHIFT, 24);
+  // coordinates label is wider than address label, to fit long DMS coordinates
+  self.coordinatesLabel.frame = CGRectMake(ADDRESS_LEFT_SHIFT, self.addressLabel.maxY + 10, self.width - ADDRESS_LEFT_SHIFT - ADDRESS_LEFT_SHIFT, 24);
 
   self.selectedColorView.center = CGPointMake(self.width - 32, 27);
 
@@ -126,6 +136,15 @@
 - (void)addressPress:(id)sender
 {
   [self.delegate infoCellDidPressAddress:self withGestureRecognizer:sender];
+}
+
+// Change displayed coordinates system from decimal to DMS and back on single tap
+- (void)coordinatesTap:(id)sender
+{
+  bool useDMS = false;
+  (void)Settings::Get(SETTINGS_KEY_USE_DMS, useDMS);
+  Settings::Set(SETTINGS_KEY_USE_DMS, !useDMS);
+  [self updateCoordinates];
 }
 
 - (void)coordinatesPress:(id)sender
@@ -193,6 +212,8 @@
     _coordinatesLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     UILongPressGestureRecognizer * press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(coordinatesPress:)];
     [_coordinatesLabel addGestureRecognizer:press];
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(coordinatesTap:)];
+    [_coordinatesLabel addGestureRecognizer:tap];
   }
   return _coordinatesLabel;
 }
