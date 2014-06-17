@@ -79,13 +79,6 @@ private:
   my::Timer m_lastMemoryWarning;
   bool m_isMemoryWarningEnabled;
 
-  /*
-  static bool s_isLogEnabled;
-  static my::LogMessageFn s_oldLogFn;
-  static list<string> s_log;
-  static size_t s_logSize;
-  static WindowHandle * s_windowHandle;
-  */
   shared_ptr<CountryStatusDisplay> m_countryStatusDisplay;
   shared_ptr<CompassArrow> m_compassArrow;
   shared_ptr<location::State> m_locationState;
