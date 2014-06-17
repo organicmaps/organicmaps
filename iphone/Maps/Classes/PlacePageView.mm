@@ -56,6 +56,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   BookmarkData * m_bookmarkData;
   size_t m_categoryIndex;
   BOOL updatingTable;
+
+  BOOL needUpdateAddressInfo;
+  search::AddressInfo m_addressInfo;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -576,6 +579,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   _address = nil;
   _setName = nil;
   _info = nil;
+  needUpdateAddressInfo = YES;
 }
 
 - (void)showUserMark:(UserMarkCopy *)mark
@@ -637,21 +641,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
       ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>([self userMark]);
       _title = apiMark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:apiMark->GetName().c_str()];
     }
-    else if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
-    {
-      SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>([self userMark]);
-      search::AddressInfo const & addressInfo = mark->GetInfo();
-      _title = addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
-    }
-    else if (m_mark)
-    {
-      search::AddressInfo addressInfo;
-      GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
-      _title = addressInfo.GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:addressInfo.GetPinName().c_str()];
-    }
     else
     {
-      _title = @"";
+      _title = [self addressInfo].GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:[self addressInfo].GetPinName().c_str()];
     }
 
     if (![_title length])
@@ -677,21 +669,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
       GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
       _types = addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
     }
-    else if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
-    {
-      SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>([self userMark]);
-      search::AddressInfo const & addressInfo = mark->GetInfo();
-      _types = addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
-    }
-    else if (m_mark)
-    {
-      search::AddressInfo addressInfo;
-      GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
-      _types = addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
-    }
     else
     {
-      _types = @"";
+      _types = [self addressInfo].GetPinType().empty() ? @"" : [NSString stringWithUTF8String:[self addressInfo].GetPinType().c_str()];
     }
   }
   return _types;
@@ -735,18 +715,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (NSString *)address
 {
   if (!_address)
-  {
-    if (m_mark)
-    {
-      search::AddressInfo addressInfo;
-      GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
-      _address = [NSString stringWithUTF8String:addressInfo.FormatAddress().c_str()];
-    }
-    else
-    {
-      _address = @"";
-    }
-  }
+    _address = [self addressInfo].FormatAddress().empty() ? @"" : [NSString stringWithUTF8String:[self addressInfo].FormatAddress().c_str()];
   return _address;
 }
 
@@ -761,6 +730,30 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     return @"placemark-red";
   }
+}
+
+- (search::AddressInfo)addressInfo
+{
+  if (needUpdateAddressInfo)
+  {
+    needUpdateAddressInfo = NO;
+    if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
+    {
+      SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>([self userMark]);
+      m_addressInfo = mark->GetInfo();
+    }
+    else if (m_mark)
+    {
+      search::AddressInfo addressInfo;
+      GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
+      m_addressInfo = addressInfo;
+    }
+    else
+    {
+      m_addressInfo = search::AddressInfo();
+    }
+  }
+  return m_addressInfo;
 }
 
 - (UserMark const *)userMark
@@ -840,7 +833,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)shareCellDidPressShareButton:(PlacePageShareCell *)cell
 {
-  [self.delegate placePageView:self willShareText:self.title point:self.pinPoint];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
