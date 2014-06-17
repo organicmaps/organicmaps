@@ -67,8 +67,9 @@
   }
   else
   {
+    BOOL updateLocation = ![m_observers containsObject:observer];
     [m_observers addObject:observer];
-    if ([self lastLocationIsValid])
+    if ([self lastLocationIsValid] && updateLocation)
     {
       // pass last location known location when new observer is attached
       // (default CLLocationManagerDelegate behaviour)
