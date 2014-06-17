@@ -169,6 +169,25 @@ bool StartsWith(string const & s1, char const * s2)
 
 string to_string_dac(double d, int dac)
 {
+  ostringstream ss;
+  if (d < 1. && d > -1.)
+  {
+    string res;
+    if (d >= 0.)
+    {
+      ss << setprecision(dac + 1) << d + 1;
+      res = ss.str();
+      res[0] = '0';
+    }
+    else
+    {
+      ss << setprecision(dac + 1) << d - 1;
+      res = ss.str();
+      res[1] = '0';
+    }
+    return res;
+  }
+
   double fD = fabs(d);
 
   // Calc digits before comma (log10).
@@ -179,7 +198,6 @@ string to_string_dac(double d, int dac)
     ++dbc;
   }
 
-  ostringstream ss;
   ss << setprecision(dac + dbc) << d;
   return ss.str();
 }

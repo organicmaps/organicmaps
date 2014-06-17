@@ -234,6 +234,15 @@ UNIT_TEST(to_string)
   // 6 digits after the comma with rounding - it's a default behavior
   TEST_EQUAL(strings::to_string(-0.66666666), "-0.666667", ());
 
+  TEST_EQUAL(strings::to_string(-1.0E2), "-100", ());
+  TEST_EQUAL(strings::to_string(1.0E-2), "0.01", ());
+
+  TEST_EQUAL(strings::to_string(123456789123456789ULL), "123456789123456789", ());
+  TEST_EQUAL(strings::to_string(-987654321987654321LL), "-987654321987654321", ());
+}
+
+UNIT_TEST(to_string_dac)
+{
   TEST_EQUAL(strings::to_string_dac(99.9999, 3), "100", ());
   TEST_EQUAL(strings::to_string_dac(-99.9999, 3), "-100", ());
   TEST_EQUAL(strings::to_string_dac(-10.66666666, 7), "-10.6666667", ());
@@ -243,11 +252,11 @@ UNIT_TEST(to_string)
   TEST_EQUAL(strings::to_string_dac(-0.333333, 4), "-0.3333", ());
   TEST_EQUAL(strings::to_string_dac(2.33, 2), "2.33", ());
 
-  TEST_EQUAL(strings::to_string(-1.0E2), "-100", ());
-  TEST_EQUAL(strings::to_string(1.0E-2), "0.01", ());
+  TEST_EQUAL(strings::to_string_dac(-0.0039, 2), "-0", ());
+  TEST_EQUAL(strings::to_string_dac(0.0039, 2), "0", ());
 
-  TEST_EQUAL(strings::to_string(123456789123456789ULL), "123456789123456789", ());
-  TEST_EQUAL(strings::to_string(-987654321987654321LL), "-987654321987654321", ());
+  TEST_EQUAL(strings::to_string_dac(0., 5), "0", ());
+  TEST_EQUAL(strings::to_string_dac(0., 0), "0", ());
 }
 
 struct FunctorTester
