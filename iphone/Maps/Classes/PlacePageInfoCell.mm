@@ -89,6 +89,7 @@
 }
 
 #define ADDRESS_LEFT_SHIFT 19
+#define COORDINATES_RIGHT_SHIFT 48
 #define RIGHT_SHIFT 55
 #define DISTANCE_LEFT_SHIFT 55
 
@@ -115,7 +116,8 @@
   [self.addressLabel sizeToFit];
   self.addressLabel.origin = CGPointMake(ADDRESS_LEFT_SHIFT, addressY);
   // coordinates label is wider than address label, to fit long DMS coordinates
-  self.coordinatesLabel.frame = CGRectMake(ADDRESS_LEFT_SHIFT, self.addressLabel.maxY + 10, self.width - ADDRESS_LEFT_SHIFT - ADDRESS_LEFT_SHIFT, 24);
+  CGFloat coordinatesShift = self.addressLabel.height ? 10 : 0;
+  self.coordinatesLabel.frame = CGRectMake(ADDRESS_LEFT_SHIFT, self.addressLabel.maxY + coordinatesShift, self.width - ADDRESS_LEFT_SHIFT - COORDINATES_RIGHT_SHIFT, 24);
 
   self.selectedColorView.center = CGPointMake(self.width - 32, 27);
 
@@ -129,8 +131,11 @@
 
 + (CGFloat)cellHeightWithAddress:(NSString *)address viewWidth:(CGFloat)viewWidth
 {
-  CGFloat addressHeight = [address sizeWithDrawSize:CGSizeMake(viewWidth - ADDRESS_LEFT_SHIFT - RIGHT_SHIFT, 200) font:ADDRESS_FONT].height;
-  return addressHeight + ([[MapsAppDelegate theApp].m_locationManager enabledOnMap] ? 110 : 66);
+  NSString * addressCopy = [address copy];
+  if ([addressCopy isEqualToString:@""])
+    addressCopy = nil;
+  CGFloat addressHeight = [addressCopy sizeWithDrawSize:CGSizeMake(viewWidth - ADDRESS_LEFT_SHIFT - RIGHT_SHIFT, 200) font:ADDRESS_FONT].height;
+  return addressHeight + ([[MapsAppDelegate theApp].m_locationManager enabledOnMap] ? 100 : 56) + (addressHeight ? 10 : 0);
 }
 
 - (void)addressPress:(id)sender
