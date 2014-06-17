@@ -4,7 +4,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:0.9.2'
+    classpath 'com.android.tools.build:gradle:0.11.+'
   }
 }
 
@@ -46,7 +46,7 @@ android {
   flavorDimensions 'store'
   productFlavors {
     pro {
-      packageName 'com.mapswithme.maps.pro'
+      applicationId 'com.mapswithme.maps.pro'
       buildConfigField 'String', 'PRO_URL', '""'      // Empty url string for the pro version
       android.sourceSets.pro.setRoot('flavors/pro')
       android.sourceSets.pro.assets.srcDirs = ['flavors/guides-assets']
@@ -54,7 +54,7 @@ android {
 
     // Pro version for Amazon doesn't include links to our travel guides
     proNoGuides {
-      packageName 'com.mapswithme.maps.pro'
+      applicationId 'com.mapswithme.maps.pro'
       buildConfigField 'String', 'PRO_URL', '""'      // Empty url string for the pro version
       android.sourceSets.proNoGuides.setRoot('flavors/pro')
     }
@@ -69,7 +69,7 @@ android {
     // Linked to the Pro version on Samsung Apps
     samsung {
       flavorDimension 'store'
-      packageName 'com.mapswithme.maps.samsung'      // Custom package name for Samsung Lite version - due to historical reasons
+      applicationId 'com.mapswithme.maps.samsung'      // Custom package name for Samsung Lite version - due to historical reasons
       buildConfigField 'String', 'PRO_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       android.sourceSets.samsung.setRoot('flavors/lite')
       android.sourceSets.samsung.assets.srcDirs = ['flavors/guides-assets']
@@ -116,7 +116,7 @@ android {
     // This is an annoying hack to get around the fact that the Gradle plugin does not support
     // having libraries with different minSdkVersions. Play Services has a min version of 9 but we support 7 still
     variant.processManifest.doFirst {
-      File manifestFile = file("${buildDir}/exploded-aar/com.google.android.gms/play-services/4.4.52/AndroidManifest.xml")
+      File manifestFile = file("${buildDir}/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/AndroidManifest.xml")
       if (manifestFile.exists()) {
         println("Replacing minSdkVersion in Google Play Services")
         String content = manifestFile.getText('UTF-8')
@@ -149,7 +149,7 @@ android {
 
   buildTypes {
     debug {
-      packageNameSuffix '.debug'   // Allows to install debug and release builds together
+      applicationIdSuffix '.debug'   // Allows to install debug and release builds together
       versionNameSuffix '-debug'
       jniDebugBuild true           // Enable jni debug build
       zipAlign true
@@ -160,7 +160,7 @@ android {
     }
 
     beta {
-      packageNameSuffix '.beta'
+      applicationIdSuffix '.beta'
       versionNameSuffix '-beta'
       signingConfig signingConfigs.mapswithme
     }
