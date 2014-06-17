@@ -23,6 +23,7 @@ class MapsWithMeForm
   , public Tizen::Ui::Controls::IListViewItemProviderF
   , public Tizen::Ui::Controls::IListViewItemEventListener
   , public Tizen::Ui::Scenes::ISceneEventListener
+  , public Tizen::Ui::Controls::IFormMenuEventListener
 {
 public:
   MapsWithMeForm();
@@ -61,7 +62,9 @@ public:
   virtual void OnAccuracyChanged(Tizen::Locations::LocationAccuracy accuracy);
 
   // IFormBackEventListener
-  virtual void OnFormBackRequested(Tizen::Ui::Controls::Form& source);
+  virtual void OnFormBackRequested(Tizen::Ui::Controls::Form & source);
+  // IFormMenuEventListener
+  virtual void OnFormMenuRequested(Tizen::Ui::Controls::Form & source);
 
   //IListViewItemProvider
   virtual Tizen::Ui::Controls::ListItemBase * CreateItem (int index, float itemWidth);

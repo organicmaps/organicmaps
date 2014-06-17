@@ -4,15 +4,18 @@
     <Version>1.0.0</Version>
     <Type>C++App</Type>
     <Requirements>
+        <Feature Name="http://tizen.org/feature/platform.core.cpu.arch.armv7">true</Feature>
+        <Feature Name="http://tizen.org/feature/platform.core.fpu.arch.vfpv3">true</Feature>
         <Feature Name="http://tizen.org/feature/platform.native.api.version">2.2</Feature>
+        <Feature Name="http://tizen.org/feature/screen.size.normal">true</Feature>
     </Requirements>
     <Apps>
         <ApiVersion>2.2</ApiVersion>
         <Privileges>
-            <Privilege>http://tizen.org/privilege/web.service</Privilege>
             <Privilege>http://tizen.org/privilege/location</Privilege>
-            <Privilege>http://tizen.org/privilege/application.launch</Privilege>
+            <Privilege>http://tizen.org/privilege/web.service</Privilege>
             <Privilege>http://tizen.org/privilege/http</Privilege>
+            <Privilege>http://tizen.org/privilege/application.launch</Privilege>
         </Privileges>
         <UiApp HwAcceleration="On" LaunchingHistoryVisible="True" Main="True" MenuIconVisible="True" Name="MapsWithMe">
             <UiScalability BaseScreenSize="Normal" CoordinateSystem="Logical" LogicalCoordinate="720"/>
@@ -21,7 +24,7 @@
                 <DisplayName Locale="eng-GB">MapsWithMe</DisplayName>
             </DisplayNames>
             <Icons>
-                <Icon Section="MainMenu">ic_launcher.png</Icon>
+                <Icon Section="MainMenu">Pro.png</Icon>
             </Icons>
             <LaunchConditions/>
         </UiApp>

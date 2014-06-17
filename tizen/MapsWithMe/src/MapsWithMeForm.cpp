@@ -95,6 +95,7 @@ result MapsWithMeForm::OnInitializing(void)
   m_locationEnabled = false;
 
   SetFormBackEventListener(this);
+  SetFormMenuEventListener(this);
 
   CreateBookMarkPanel();
   CreateSplitPanel();
@@ -530,6 +531,16 @@ void MapsWithMeForm::OnFormBackRequested(Form& source)
     AppAssert(pApp);
     pApp->Terminate();
   }
+}
+
+void MapsWithMeForm::OnFormMenuRequested(Tizen::Ui::Controls::Form & source)
+{
+  if (m_bookMArkSplitPanelEnabled)
+    return;
+  if (m_splitPanelEnabled)
+    HideSplitPanel();
+  else
+    ShowSplitPanel();
 }
 
 void MapsWithMeForm::UpdateButtons()
