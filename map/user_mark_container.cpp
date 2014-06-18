@@ -163,8 +163,8 @@ namespace
 
 void UserMarkContainer::InitPoiSelectionMark(UserMarkContainer * container)
 {
-  ASSERT(s_selectionUserMark == NULL, ());
-  s_selectionUserMark.reset(new PoiMarkPoint(container));
+  if (s_selectionUserMark == NULL)
+    s_selectionUserMark.reset(new PoiMarkPoint(container));
 }
 
 PoiMarkPoint * UserMarkContainer::UserMarkForPoi()
