@@ -1605,6 +1605,11 @@ void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
   m_bmManager.ActivateMark(mark, needAnim);
 }
 
+bool Framework::HasActiveUserMark() const
+{
+  return m_bmManager.UserMarkHasActive();
+}
+
 UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongPress)
 {
   DisconnectMyPositionUpdate();

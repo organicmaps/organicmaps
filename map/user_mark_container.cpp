@@ -305,6 +305,11 @@ void SelectionContainer::Draw(const PaintOverlayEvent & e, UserMarkDLCache * cac
   }
 }
 
+bool SelectionContainer::IsActive() const
+{
+  return m_container != NULL;
+}
+
 
 void SelectionContainer::StartActivationAnim()
 {

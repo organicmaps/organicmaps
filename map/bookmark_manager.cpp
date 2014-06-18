@@ -313,6 +313,11 @@ void BookmarkManager::ActivateMark(UserMark const * mark, bool needAnim)
   m_selection.ActivateMark(mark, needAnim);
 }
 
+bool BookmarkManager::UserMarkHasActive() const
+{
+  return m_selection.IsActive();
+}
+
 namespace
 {
   class BestUserMarkFinder

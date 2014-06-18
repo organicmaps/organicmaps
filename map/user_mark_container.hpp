@@ -139,6 +139,7 @@ public:
 
   void ActivateMark(UserMark const * userMark, bool needAnim);
   void Draw(PaintOverlayEvent const & e, UserMarkDLCache * cache) const;
+  bool IsActive() const;
 
 private:
   /// animation support

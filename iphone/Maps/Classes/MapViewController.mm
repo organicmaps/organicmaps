@@ -248,7 +248,10 @@ const long long LITE_IDL = 431183278L;
   m2::PointD pxClicked(point.x * scaleFactor, point.y * scaleFactor);
 
   Framework & f = GetFramework();
-  f.GetBalloonManager().OnShowMark(f.GetUserMark(m2::PointD(pxClicked.x, pxClicked.y), isLongClick));
+  if (f.HasActiveUserMark())
+    f.GetBalloonManager().Dismiss();
+  else
+    f.GetBalloonManager().OnShowMark(f.GetUserMark(m2::PointD(pxClicked.x, pxClicked.y), isLongClick));
 }
 
 - (void)onSingleTap:(NSValue *)point
