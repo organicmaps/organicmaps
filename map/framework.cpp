@@ -804,7 +804,7 @@ void Framework::ShowRectFixed(m2::RectD const & r)
 
 void Framework::UpdateUserViewportChanged()
 {
-  if (!m_lastSearch.m_query.empty())
+  if (IsISActive())
   {
     (void)GetCurrentPosition(m_lastSearch.m_lat, m_lastSearch.m_lon);
     m_lastSearch.m_callback = bind(&Framework::OnSearchResultsCallback, this, _1);
@@ -827,10 +827,13 @@ void Framework::OnSearchResultsCallback(search::Results const & results)
 
 void Framework::OnSearchResultsCallbackUI(search::Results const & results)
 {
-  m2::RectD dummy;
-  FillSearchResultsMarks(results, dummy);
+  if (IsISActive())
+  {
+    m2::RectD dummy;
+    FillSearchResultsMarks(results, dummy);
 
-  Invalidate();
+    Invalidate();
+  }
 }
 
 void Framework::ClearAllCaches()

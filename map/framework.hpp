@@ -269,6 +269,7 @@ public:
   size_t ShowAllSearchResults();
 
   void StartInteractiveSearch(search::SearchParams const & params) { m_lastSearch = params; }
+  bool IsISActive() const { return !m_lastSearch.m_query.empty(); }
   void CancelInteractiveSearch();
 
   /// Calculate distance and direction to POI for the given position.
