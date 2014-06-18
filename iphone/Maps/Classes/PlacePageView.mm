@@ -722,6 +722,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (NSString *)address
 {
+  return @""; // because we don't use address
+
   if (!_address)
   {
     std::string const & address = [self addressInfo].FormatAddress();
