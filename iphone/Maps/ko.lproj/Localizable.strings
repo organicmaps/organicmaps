@@ -530,14 +530,20 @@
 
 "search_show_on_map" = "지도 보기";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_ok" = "지도 데이터 저장소가 최적화되어 있습니다. 앱을 다시 시작하십시오.\n\nSD 카드의 루트에 MapsWithMe 폴더가 더 이상 필요하지 않으므로, 이를 삭제할 수 있습니다.";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_failed" = "Android 4.4의 변경으로 인해, 우리는 지도 데이터 저장소를 최적화해야 하지만, 지도 데이터를 복사할 충분한 공간이 없습니다.\n\n메모리를 확보하지 않으면, 지도는 읽기 전용 모드로 사용할 수 있습니다.";
 
+/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "우리는 내부 메모리로 북마크를 이동해야 하지만, 이에 대한 사용 가능한 공간이 없습니다. 메모리를 확보하지 않으면, 북마크를 사용할 수 없습니다.";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "지금 지도 저장소가 최적화되는 중입니다. 이는 몇 분 정도 걸릴 수 있으므로, 기다려 주십시오.";
 
-"price_free" = "무료";
+/* Used in More Apps menu */
+"free" = "무료";
 
-"price_paid" = "유료";
+/* Used in More Apps menu */
+"buy" = "구입";

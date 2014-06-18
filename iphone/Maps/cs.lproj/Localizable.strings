@@ -530,14 +530,20 @@
 
 "search_show_on_map" = "Zobrazit a mapě";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_ok" = "Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžeš ho smazat.";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_failed" = "Kvůli změnám v Androidu 4.4 musíme optimalizovat uložiště map, ale není dostatek prostoru pro jejich zkopírování.\n\nProsím, uvolni paměť, jinak budou mapy dostupné pouze v režimu pro čtení.";
 
+/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "Potřebujeme přesunout tvé záložky do vnitřní paměti zařízení, ale není pro ně volné místo. Prosím, uvolni paměť, jinak nebudou záložky dostupné.";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "Uložiště map se právě optimalizuje. Může to trvat i pár minut. Prosíme o chvilku strpení.";
 
-"price_free" = "zdarma";
+/* Used in More Apps menu */
+"free" = "Zdarma";
 
-"price_paid" = "placené";
+/* Used in More Apps menu */
+"buy" = "Koupit";

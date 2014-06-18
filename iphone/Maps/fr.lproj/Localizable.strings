@@ -530,14 +530,20 @@
 
 "search_show_on_map" = "Afficher sur la carte";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_ok" = "Le stockage des données cartographiques a été optimisé. Veuillez redémarrer l'application.\n\nLe fichier MapsWithMe qui se trouve dans le répertoire racine de la carte SD n'est plus nécessaire, vous pouvez le supprimer.";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_failed" = "En raison des changements qui se sont produits sur l'Android 4.4, nous avons besoin d'optimiser le stockage des données cartographiques, mais il n'y a pas assez d'espace pour copier les données cartographiques.\n\nVeuillez libérer de la mémoire, sinon les cartes seront disponibles en mode lecture seule.";
 
+/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "Nous devons déplacer vos marque-pages dans la mémoire interne, mais il n'existe pas d'espace disponible pour eux. Veuillez libérer de la mémoire, sinon les marque-pages ne seront pas disponibles.";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "Le stockage de votre carte est en cours d'optimisation. Veuillez patienter, cela peut prendre quelques minutes.";
 
-"price_free" = "gratuit";
+/* Used in More Apps menu */
+"free" = "Gratuit";
 
-"price_paid" = "payé";
+/* Used in More Apps menu */
+"buy" = "Acheter";

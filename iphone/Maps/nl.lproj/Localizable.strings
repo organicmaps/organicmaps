@@ -530,14 +530,20 @@
 
 "search_show_on_map" = "Op kaart bekijken";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_ok" = "Opslag van kaartgegevens is geoptimaliseerd. Herstart de app.\n\nMapsWithMe map is niet langer nodig in de root van de SD-kaart, u kunt het verwijderen.";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_failed" = "Door veranderingen in Android 4.4 moeten we de opslag van kaartgegevens optimaliseren, maar er is niet genoeg ruimte om kaartgegevens te kopiëren.\n\nMaak alstublieft geheugen vrij, anders zullen kaarten alleen in de leesmodus beschikbaar zijn.";
 
+/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "We moeten uw bladwijzers naar het interne geheugen verplaatsen, maar er is geen ruimte beschikbaar voor ze. Maak alstublieft geheugen vrij, anders zullen de bladwijzers niet beschikbaar zijn.";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "De kaartopslag wordt nu geoptimaliseerd. Een moment geduld alstublieft, dit kan een paar minuten duren.";
 
-"price_free" = "gratis";
+/* Used in More Apps menu */
+"free" = "Gratis";
 
-"price_paid" = "betalend";
+/* Used in More Apps menu */
+"buy" = "Koop";

@@ -530,14 +530,20 @@
 
 "search_show_on_map" = "Megtekintés a térképen";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_ok" = "A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA MapsWithMe mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_failed" = "Az Android 4.4 változásai miatt optimalizálnunk kell a térképadatok tárolását, azonban ehhez nincs elegendő szabad tárhely.\n\nKérjük, szabadítson fel lemezterületet, ellenkező esetben a térképei csak írásvédett módban lesznek elérhetőek.";
 
+/* Used to warn user when fixing KitKat issue */
 "bookmark_move_fail" = "A könyvjelzőit át kell helyeznünk a belső memóriába, azonban ehhez nincs elegendő szabad tárhely. Kérjük, szabadítson fel lemezterületet, ellenkező esetben a könyvjelzői nem lesznek elérhetőek.";
 
+/* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "A térképadatai optimalizálás alatt állnak. Kérjük, várjon, ez néhány percet igénybe vesz.";
 
-"price_free" = "ingyenes";
+/* Used in More Apps menu */
+"free" = "Ingyenes";
 
-"price_paid" = "fizetve";
+/* Used in More Apps menu */
+"buy" = "Megvásárlás";

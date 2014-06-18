@@ -338,10 +338,16 @@
 	<string name="placepage_coordinates">Coordonnées</string>
 	<string name="placepage_unsorted">Non classé</string>
 	<string name="search_show_on_map">Afficher sur la carte</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Le stockage des données cartographiques a été optimisé. Veuillez redémarrer l\&#39;application.\n\nLe fichier MapsWithMe qui se trouve dans le répertoire racine de la carte SD n\&#39;est plus nécessaire, vous pouvez le supprimer.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">En raison des changements qui se sont produits sur l\&#39;Android 4.4, nous avons besoin d\&#39;optimiser le stockage des données cartographiques, mais il n\&#39;y a pas assez d\&#39;espace pour copier les données cartographiques.\n\nVeuillez libérer de la mémoire, sinon les cartes seront disponibles en mode lecture seule.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">Nous devons déplacer vos marque-pages dans la mémoire interne, mais il n\&#39;existe pas d\&#39;espace disponible pour eux. Veuillez libérer de la mémoire, sinon les marque-pages ne seront pas disponibles.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Le stockage de votre carte est en cours d\&#39;optimisation. Veuillez patienter, cela peut prendre quelques minutes.</string>
-	<string name="price_free">gratuit</string>
-	<string name="price_paid">payé</string>
+	<!-- Used in More Apps menu -->
+	<string name="free">Gratuit</string>
+	<!-- Used in More Apps menu -->
+	<string name="buy">Acheter</string>
 </resources>

@@ -3133,6 +3133,8 @@
     hu = Megtekintés a térképen
 
   [kitkat_migrate_ok]
+    tags = android
+    comment = Used to warn user when fixing KitKat issue
     en = Map data storage has been optimized. Please restart the app.\n\nMapsWithMe folder in the root of SD card is not needed anymore, you can delete it.
     ru = Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.
     uk = Ми оптимiзували збереження данних. Для подальшої работи, будь ласка, перезавантажте програму.\n\nПапка MapsWithMe, яка знаходится на SD-картi, вже не потрiбна, її можна видалити.
@@ -3150,6 +3152,8 @@
     de = Der Kartendaten-Speicherplatz wurde optimiert. Bitte die App neu starten.\n\nDer Ordner MapsWithMe im Stammverzeichnis der SD-Karte wird nicht mehr benötigt. Sie können ihn löschen.
 
   [kitkat_migrate_failed]
+    tags = android
+    comment = Used to warn user when fixing KitKat issue
     en = Due to changes in Android 4.4, we need to optimize map data storage, but there is no enough space to copy map data.\n\nPlease free up the memory, otherwise maps will be available in read-only mode.
     ru = В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.
     uk = В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но не сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.
@@ -3167,6 +3171,8 @@
     de = Bedingt durch Änderungen in Android 4.4, müssen wir den Kartendaten-Speicherplatz optimieren, es steht jedoch zum Kopieren der Kartendaten nicht genügend Speicherplatz zur Verfügung.\n\nGeben Sie bitte Speicherplatz frei, ansonsten werden Karten nur im Lesemodus verfügbar sein.
 
   [bookmark_move_fail]
+    tags = android
+    comment = Used to warn user when fixing KitKat issue
     en = We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.
     ru = Для оптимизации хранения данных нам нужно переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе закладки вам будут недоступны.
     uk = Для оптимiзацiї збереження данних нам потрiбно перенести закладки до внутрiшньої пам'ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо закладки вам не будуть доступнi.
@@ -3184,6 +3190,8 @@
     de = Wir müssen Ihre Lesezeichen in den internen Speicher verschieben, aber es gibt dafür keinen verfügbaren Speicherplatz. Bitte geben Sie Speicherplatz frei, sonst werden Ihre Lesezeichen nicht verfügbar sein.
 
   [kitkat_optimization_in_progress]
+    tags = android
+    comment = Used to warn user when fixing KitKat issue
     en = Your map storage is being optimized now. Please wait, it may take a few minutes.
     ru = Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.
     uk = Наразi ми оптимiзуємо збереження данних. Це може зайняти декiлька хвилин, почекайте, будь ласка.
@@ -3200,36 +3208,40 @@
     es = Tu almacenamiento de mapas se está optimizando ahora. Por favor, espera, podría tardar unos minutos.
     de = Ihr Kartenspeicher wird jetzt optimiert. Bitte warten Sie, es kann ein paar Minuten dauern.
 
-   [price_free]
-    en = free
-    ru = бесплатно
-    uk = безкоштовно
-    es = gratis
-    pt = grátis
-    pl = darmowy
-    it = gratis
-    nl = gratis
-    de = kostenlos
-    cs = zdarma
-    fr = gratuit
+  [free]
+    tags = ios
+    comment = Used in More Apps menu
+    en = Free
+    ru = Бесплатно
+    uk = Безкоштовно
+    es = Gratis
+    pt = Grátis
+    pl = Darmowy
+    it = Gratis
+    nl = Gratis
+    de = Kostenlos
+    cs = Zdarma
+    fr = Gratuit
     ja = 無料
     ko = 무료
     zh-Hant = 免費
-    hu = ingyenes
+    hu = Ingyenes
 
-   [price_paid]
-    en = paid
-    ru = платно
-    uk = платно
-    es = de pago
-    pt = pago
-    pl = płatny
-    it = a pagamento
-    nl = betalend
-    de = kostenpflichtig
-    cs = placené
-    fr = payé
-    ja = 有料
-    ko = 유료
-    zh-Hant = 付費
-    hu = fizetve
+  [buy]
+    tags = ios
+    comment = Used in More Apps menu
+    en = Buy
+    ru = Купить
+    uk = Придбати
+    es = Comprar
+    pt = Comprar
+    pl = Kup
+    it = Acquista
+    nl = Koop
+    de = Kaufen
+    cs = Koupit
+    fr = Acheter
+    ja = 購入
+    ko = 구입
+    zh-Hant = 購買
+    hu = Megvásárlás

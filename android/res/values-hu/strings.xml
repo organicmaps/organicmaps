@@ -336,10 +336,16 @@
 	<string name="placepage_coordinates">Koordináták</string>
 	<string name="placepage_unsorted">Osztályozatlan</string>
 	<string name="search_show_on_map">Megtekintés a térképen</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">A tárolt térképadatokat optimalizáltuk. Kérjük, indítsa újra az alkalmazást.\n\nA MapsWithMe mappa az SD-kártya gyökérkönyvtárában már nem szükséges, törölhető.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">Az Android 4.4 változásai miatt optimalizálnunk kell a térképadatok tárolását, azonban ehhez nincs elegendő szabad tárhely.\n\nKérjük, szabadítson fel lemezterületet, ellenkező esetben a térképei csak írásvédett módban lesznek elérhetőek.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">A könyvjelzőit át kell helyeznünk a belső memóriába, azonban ehhez nincs elegendő szabad tárhely. Kérjük, szabadítson fel lemezterületet, ellenkező esetben a könyvjelzői nem lesznek elérhetőek.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">A térképadatai optimalizálás alatt állnak. Kérjük, várjon, ez néhány percet igénybe vesz.</string>
-	<string name="price_free">ingyenes</string>
-	<string name="price_paid">fizetve</string>
+	<!-- Used in More Apps menu -->
+	<string name="free">Ingyenes</string>
+	<!-- Used in More Apps menu -->
+	<string name="buy">Megvásárlás</string>
 </resources>

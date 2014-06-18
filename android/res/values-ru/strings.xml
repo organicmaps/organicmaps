@@ -325,10 +325,16 @@
 	<string name="placepage_coordinates">Координаты</string>
 	<string name="placepage_unsorted">Без категории</string>
 	<string name="search_show_on_map">Посмотреть на карте</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Мы оптимизировали хранение данных. Для дальнейшей работы, пожалуйста, перезагрузите приложение.\n\nПапка MapsWithMe, которая находится в корне SD-карты, уже больше не нужна, вы можете ее удалить.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">Для оптимизации хранения данных нам нужно переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе закладки вам будут недоступны.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.</string>
-	<string name="price_free">бесплатно</string>
-	<string name="price_paid">платно</string>
+	<!-- Used in More Apps menu -->
+	<string name="free">Бесплатно</string>
+	<!-- Used in More Apps menu -->
+	<string name="buy">Купить</string>
 </resources>

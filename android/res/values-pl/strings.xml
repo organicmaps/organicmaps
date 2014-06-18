@@ -336,10 +336,16 @@
 	<string name="placepage_coordinates">Współrzędne</string>
 	<string name="placepage_unsorted">Niesklasyfikowane</string>
 	<string name="search_show_on_map">Zobacz na mapie</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Przechowywanie danych mapy zostało zoptymalizowane. Prosimy zrestartować aplikację.\n\nFolder MapsWithMe w katalogu głównym karty SD nie jest już potrzebny, można go usunąć.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">Ze względu na zmiany w Android 4.4, musimy zoptymalizować przechowywanie danych mapy, ale nie ma wystarczająco dużo miejsca, aby skopiować dane mapy.\n\nProsimy zwolnić pamięć, inaczej mapy będą dostępne tylko w trybie do odczytu.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="bookmark_move_fail">Musimy przenieść Twoje zakładki do pamięci wewnętrznej, ale nie ma tam dla nich wolnego miejsca. Prosimy zwolnić pamięć, inaczej zakładki nie będą dostępne.</string>
+	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Twoje przechowywanie map jest teraz optymalizowane. Prosimy czekać, może to zająć kilka minut.</string>
-	<string name="price_free">darmowy</string>
-	<string name="price_paid">płatny</string>
+	<!-- Used in More Apps menu -->
+	<string name="free">Darmowy</string>
+	<!-- Used in More Apps menu -->
+	<string name="buy">Kup</string>
 </resources>
