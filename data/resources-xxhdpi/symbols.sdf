@@ -127,31 +127,31 @@
   <symbol minX="832" maxX="884" minY="350" maxY="402" name="firebrigade"/>
   <symbol minX="884" maxX="936" minY="350" maxY="402" name="football-borderless"/>
   <symbol minX="936" maxX="988" minY="350" maxY="400" name="basketball-borderless"/>
-  <symbol minX="0" maxX="48" minY="402" maxY="450" name="current-position"/>
-  <symbol minX="48" maxX="96" minY="402" maxY="450" name="khanda"/>
-  <symbol minX="96" maxX="142" minY="402" maxY="448" name="search-result"/>
-  <symbol minX="142" maxX="188" minY="402" maxY="448" name="api-result"/>
-  <symbol minX="188" maxX="232" minY="402" maxY="446" name="parking-permissive"/>
-  <symbol minX="232" maxX="276" minY="402" maxY="446" name="parking-private"/>
-  <symbol minX="276" maxX="316" minY="402" maxY="442" name="bank"/>
-  <symbol minX="316" maxX="356" minY="402" maxY="442" name="church"/>
-  <symbol minX="356" maxX="396" minY="402" maxY="442" name="doctor"/>
-  <symbol minX="396" maxX="436" minY="402" maxY="442" name="drinking_water"/>
-  <symbol minX="436" maxX="476" minY="402" maxY="442" name="embassy"/>
-  <symbol minX="476" maxX="516" minY="402" maxY="442" name="housenumber"/>
-  <symbol minX="516" maxX="556" minY="402" maxY="442" name="windmill"/>
-  <symbol minX="556" maxX="596" minY="402" maxY="442" name="mosque"/>
-  <symbol minX="596" maxX="636" minY="402" maxY="442" name="traffic_signal"/>
-  <symbol minX="636" maxX="676" minY="402" maxY="442" name="parking_roof-permissive"/>
-  <symbol minX="676" maxX="716" minY="402" maxY="442" name="roundabout_right"/>
-  <symbol minX="716" maxX="756" minY="402" maxY="442" name="roundabout_left"/>
-  <symbol minX="756" maxX="796" minY="402" maxY="442" name="speed_trap"/>
-  <symbol minX="796" maxX="832" minY="402" maxY="438" name="bureau_de_change"/>
-  <symbol minX="832" maxX="868" minY="402" maxY="438" name="cave_entrance"/>
-  <symbol minX="868" maxX="904" minY="402" maxY="438" name="power_wind"/>
-  <symbol minX="904" maxX="940" minY="402" maxY="438" name="power_photovoltaic"/>
-  <symbol minX="940" maxX="976" minY="402" maxY="438" name="power_hydro"/>
-  <symbol minX="976" maxX="1012" minY="402" maxY="438" name="lighthouse"/>
+  <symbol minX="0" maxX="48" minY="402" maxY="450" name="khanda"/>
+  <symbol minX="48" maxX="94" minY="402" maxY="448" name="search-result"/>
+  <symbol minX="94" maxX="140" minY="402" maxY="448" name="current-position"/>
+  <symbol minX="140" maxX="186" minY="402" maxY="448" name="api-result"/>
+  <symbol minX="186" maxX="230" minY="402" maxY="446" name="parking-permissive"/>
+  <symbol minX="230" maxX="274" minY="402" maxY="446" name="parking-private"/>
+  <symbol minX="274" maxX="314" minY="402" maxY="442" name="bank"/>
+  <symbol minX="314" maxX="354" minY="402" maxY="442" name="church"/>
+  <symbol minX="354" maxX="394" minY="402" maxY="442" name="doctor"/>
+  <symbol minX="394" maxX="434" minY="402" maxY="442" name="drinking_water"/>
+  <symbol minX="434" maxX="474" minY="402" maxY="442" name="embassy"/>
+  <symbol minX="474" maxX="514" minY="402" maxY="442" name="housenumber"/>
+  <symbol minX="514" maxX="554" minY="402" maxY="442" name="windmill"/>
+  <symbol minX="554" maxX="594" minY="402" maxY="442" name="mosque"/>
+  <symbol minX="594" maxX="634" minY="402" maxY="442" name="traffic_signal"/>
+  <symbol minX="634" maxX="674" minY="402" maxY="442" name="parking_roof-permissive"/>
+  <symbol minX="674" maxX="714" minY="402" maxY="442" name="roundabout_right"/>
+  <symbol minX="714" maxX="754" minY="402" maxY="442" name="roundabout_left"/>
+  <symbol minX="754" maxX="794" minY="402" maxY="442" name="speed_trap"/>
+  <symbol minX="794" maxX="830" minY="402" maxY="438" name="bureau_de_change"/>
+  <symbol minX="830" maxX="866" minY="402" maxY="438" name="cave_entrance"/>
+  <symbol minX="866" maxX="902" minY="402" maxY="438" name="power_wind"/>
+  <symbol minX="902" maxX="938" minY="402" maxY="438" name="power_photovoltaic"/>
+  <symbol minX="938" maxX="974" minY="402" maxY="438" name="power_hydro"/>
+  <symbol minX="974" maxX="1010" minY="402" maxY="438" name="lighthouse"/>
   <symbol minX="0" maxX="36" minY="450" maxY="486" name="power_generic"/>
   <symbol minX="36" maxX="72" minY="450" maxY="486" name="waterfall"/>
   <symbol minX="72" maxX="108" minY="450" maxY="486" name="wastewater"/>

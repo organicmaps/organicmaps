@@ -1,6 +1,6 @@
 <!DOCTYPE skin>
 <root>
- <file height="512" width="512">
+ <file width="512" height="512">
   <symbol minX="0" maxX="47" minY="0" maxY="47" name="compass-image"/>
   <symbol minX="47" maxX="93" minY="0" maxY="47" name="search-result-active"/>
   <symbol minX="93" maxX="139" minY="0" maxY="43" name="placemark-blue"/>
@@ -130,16 +130,16 @@
   <symbol minX="196" maxX="222" minY="215" maxY="241" name="search-result"/>
   <symbol minX="222" maxX="248" minY="215" maxY="241" name="api-result"/>
   <symbol minX="248" maxX="274" minY="215" maxY="241" name="khanda"/>
-  <symbol minX="274" maxX="298" minY="215" maxY="239" name="current-position"/>
-  <symbol minX="298" maxX="322" minY="215" maxY="239" name="parking-permissive"/>
-  <symbol minX="322" maxX="346" minY="215" maxY="239" name="parking-private"/>
-  <symbol minX="346" maxX="368" minY="215" maxY="237" name="bank"/>
-  <symbol minX="368" maxX="390" minY="215" maxY="237" name="church"/>
-  <symbol minX="390" maxX="412" minY="215" maxY="237" name="doctor"/>
-  <symbol minX="412" maxX="434" minY="215" maxY="237" name="drinking_water"/>
-  <symbol minX="434" maxX="456" minY="215" maxY="237" name="embassy"/>
-  <symbol minX="456" maxX="478" minY="215" maxY="237" name="housenumber"/>
-  <symbol minX="478" maxX="500" minY="215" maxY="237" name="windmill"/>
+  <symbol minX="274" maxX="299" minY="215" maxY="240" name="current-position"/>
+  <symbol minX="299" maxX="323" minY="215" maxY="239" name="parking-permissive"/>
+  <symbol minX="323" maxX="347" minY="215" maxY="239" name="parking-private"/>
+  <symbol minX="347" maxX="369" minY="215" maxY="237" name="bank"/>
+  <symbol minX="369" maxX="391" minY="215" maxY="237" name="church"/>
+  <symbol minX="391" maxX="413" minY="215" maxY="237" name="doctor"/>
+  <symbol minX="413" maxX="435" minY="215" maxY="237" name="drinking_water"/>
+  <symbol minX="435" maxX="457" minY="215" maxY="237" name="embassy"/>
+  <symbol minX="457" maxX="479" minY="215" maxY="237" name="housenumber"/>
+  <symbol minX="479" maxX="501" minY="215" maxY="237" name="windmill"/>
   <symbol minX="0" maxX="22" minY="243" maxY="265" name="mosque"/>
   <symbol minX="22" maxX="44" minY="243" maxY="265" name="traffic_signal"/>
   <symbol minX="44" maxX="66" minY="243" maxY="265" name="roundabout_right"/>
