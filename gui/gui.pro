@@ -13,7 +13,6 @@ HEADERS += \
     element.hpp \
     button.hpp \
     text_view.hpp \
-    balloon.hpp \
     image_view.hpp \
     cached_text_view.hpp \
     display_list_cache.hpp
@@ -23,7 +22,6 @@ SOURCES += \
     element.cpp \
     button.cpp \
     text_view.cpp \
-    balloon.cpp \
     image_view.cpp \
     cached_text_view.cpp \
     display_list_cache.cpp

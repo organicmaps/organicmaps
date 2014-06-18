@@ -1,61 +1,11 @@
 #include "../../qt_tstfrm/gui_test_widget.hpp"
 
-#include "../balloon.hpp"
 #include "../button.hpp"
 #include "../text_view.hpp"
 #include "../image_view.hpp"
 #include "../cached_text_view.hpp"
 
 #include "../../map/country_status_display.hpp"
-
-
-struct BalloonTest
-{
-  shared_ptr<gui::Balloon> m_balloon;
-
-  bool m_flag;
-
-  void Init(gui::Controller * c)
-  {
-    m_flag = false;
-    gui::Balloon::Params bp;
-
-    bp.m_depth = graphics::maxDepth - 20;
-    bp.m_pivot = m2::PointD(200, 200);
-    bp.m_position = graphics::EPosAbove;
-
-    bp.m_mainText = "Active";
-    bp.m_auxText = "Very very very very very very very very very very very very very very long";
-    bp.m_image = graphics::Image::Info("plus.png", graphics::EDensityMDPI);
-
-    m_balloon.reset(new gui::Balloon(bp));
-    m_balloon->setIsVisible(true);
-
-    m_balloon->setOnClickListener(bind(&BalloonTest::OnClick, this, _1));
-
-    c->AddElement(m_balloon);
-  }
-
-  void OnClick(gui::Element * e)
-  {
-    gui::Balloon * b = static_cast<gui::Balloon *>(e);
-
-    SetText(b);
-
-    m_flag = !m_flag;
-  }
-
-  void SetText(gui::Balloon * b)
-  {
-    if (m_flag)
-      b->setText("Arrow", "Very very very very very very very very very very very very very very long");
-    else
-      b->setText("Very very very very very very very very very very very very very very long", "Arrow");
-  }
-
-  void DoDraw(shared_ptr<graphics::Screen> const & p)
-  {}
-};
 
 struct ButtonTest
 {
@@ -203,7 +153,6 @@ struct CountryStatusDisplayTest
   }
 };
 
-UNIT_TEST_GUI(BalloonTest);
 //UNIT_TEST_GUI(ButtonTest);
 //UNIT_TEST_GUI(TextViewTest);
 //UNIT_TEST_GUI(ImageViewTest);

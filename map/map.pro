@@ -54,7 +54,6 @@ HEADERS += \
     dialog_settings.hpp \
     mwm_url.hpp \
     feature_styler.hpp \
-    bookmark_balloon.hpp \
     feature_info.hpp \
     area_info.hpp \
     geometry_processors.hpp \
@@ -109,7 +108,6 @@ SOURCES += \
     dialog_settings.cpp \
     mwm_url.cpp \
     feature_styler.cpp \
-    bookmark_balloon.cpp \
     feature_info.cpp \
     geometry_processors.cpp \
     bookmark_manager.cpp \
