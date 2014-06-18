@@ -961,7 +961,7 @@ struct ScoredHouse
 class ResultAccumulator
 {
   ParsedNumber m_number;
-  bool m_isOdd, m_sign;
+  bool m_isOdd, m_sign, m_useOdd;
 
   ScoredHouse m_results[4];
 
@@ -977,12 +977,23 @@ public:
   }
 
   string const & GetFullNumber() const { return m_number.GetNumber(); }
+  bool UseOdd() const { return m_useOdd; }
 
   bool SetStreet(MergedStreet const & st)
   {
     Reset();
+
+    m_useOdd = true;
     m_isOdd = m_number.IsOdd();
     return st.GetHousePivot(m_isOdd, m_sign) != 0;
+  }
+
+  void SetSide(bool sign)
+  {
+    Reset();
+
+    m_useOdd = false;
+    m_sign = sign;
   }
 
   void Reset()
@@ -995,7 +1006,9 @@ public:
 
   bool IsOurSide(HouseProjection const & p) const
   {
-    return ((m_isOdd == p.IsOdd()) && (m_sign == p.m_projectionSign));
+    if (m_sign != p.m_projectionSign)
+      return false;
+    return (!m_useOdd || m_isOdd == p.IsOdd());
   }
 
   void ProcessCandidate(HouseProjection const & p)
@@ -1198,6 +1211,7 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
   size_t numberOfStreetHouses = count;
   vector<bool> used(count, false);
   string const & houseNumber = acc.GetFullNumber();
+  int const step = acc.UseOdd() ? 2 : 1;
 
   for (size_t i = 0; i < count; ++i)
   {
@@ -1213,7 +1227,7 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
     return;
 
   queue<int> houseNumbersToCheck;
-  AddToQueue(houseChains[0].houses[0]->m_house->GetIntNumber(), 2, houseNumbersToCheck);
+  AddToQueue(houseChains[0].houses[0]->m_house->GetIntNumber(), step, houseNumbersToCheck);
   while (numberOfStreetHouses > 0)
   {
     if (!houseNumbersToCheck.empty())
@@ -1263,7 +1277,7 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
         }
       }
       if (shouldAddHouseToQueue)
-        AddToQueue(candidateHouseNumber, 2, houseNumbersToCheck);
+        AddToQueue(candidateHouseNumber, step, houseNumbersToCheck);
     }
     else
     {
@@ -1274,7 +1288,7 @@ void ProccessHouses(vector<HouseProjection const *> const & st, ResultAccumulato
           houseChains.push_back(HouseChain(st[i]));
           --numberOfStreetHouses;
           used[i] = true;
-          AddToQueue(st[i]->m_house->GetIntNumber(), 2, houseNumbersToCheck);
+          AddToQueue(st[i]->m_house->GetIntNumber(), step, houseNumbersToCheck);
           break;
         }
       }
@@ -1382,37 +1396,26 @@ void HouseDetector::GetHouseForName(string const & houseNumber, vector<HouseResu
 
   vector<ResultAccumulator> acc(3, ResultAccumulator(houseNumber));
 
+  int offsets[] = { 25, 50, 100, 200, 500 };
+
   for (size_t i = 0; i < count; ++i)
   {
     LOG(LDEBUG, (m_streets[i].GetDbgName()));
 
-    for (size_t j = 0; j < acc.size(); ++j)
-       acc[j].SetStreet(m_streets[i]);
+    acc[0].SetStreet(m_streets[i]);
+    acc[1].SetSide(true);
+    acc[2].SetSide(false);
 
-    double arrOffsets[] = { 25, 50, 100, 200, 500 };
+    // 0.88668
+    for (size_t j = 0; j < ARRAY_SIZE(offsets) && offsets[j] <= m_houseOffsetM; ++j)
+      for (size_t k = 0; k < acc.size(); ++k)
+      {
+        GetBestHouseWithNumber(m_streets[i], offsets[j], acc[k]);
+        if (acc[k].HasBestMatch())
+          goto end;
+      }
 
-    size_t resultIndex = 0;
-
-    for (size_t j = 0; j < ARRAY_SIZE(arrOffsets) && arrOffsets[j] <= m_houseOffsetM; ++j)
-    {
-      GetLSHouse(m_streets[i], arrOffsets[j], acc[resultIndex]); //0.880194
-      if (acc[resultIndex].HasBestMatch())
-        break;
-    }
-
-    resultIndex = 1;
-
-    GetClosestHouse(m_streets[i], acc[resultIndex]); //0.880716
-
-    resultIndex = 2;
-
-    for (size_t j = 0; j < ARRAY_SIZE(arrOffsets) && arrOffsets[j] <= m_houseOffsetM; ++j)
-    {
-       GetBestHouseWithNumber(m_streets[i], arrOffsets[j], acc[resultIndex]); //0.88668
-       if (acc[resultIndex].HasBestMatch())
-         break;
-    }
-
+end:
     ProduceVoting(acc, res, m_streets[i]);
 
     for (size_t j = 0; j < acc.size(); ++j)
