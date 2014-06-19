@@ -36,6 +36,12 @@ UniString Normalize(UniString const & s);
 /// For implementation @see base/normilize_unicode.cpp
 void Normalize(UniString & s);
 
+/// Counts number of start symbols in string s (that is not lower and not normalized) that maches
+/// to lower and normalized string low_s. If s doen't starts with low_s then returns 0; otherwise
+/// returns number of start symbols in s that equivalent to lowStr
+/// For implementation @see base/lower_case.cpp
+size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr);
+
 void AsciiToLower(string & s);
 void Trim(string & s);
 

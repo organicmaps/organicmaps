@@ -434,3 +434,63 @@ UNIT_TEST(IsUtf8Test)
   TEST(strings::IsASCIIString("YES"), ());
   TEST(strings::IsASCIIString("Nice places in Zhodino.kml"), ());
 }
+
+UNIT_TEST(CountNormLowerSymbols)
+{
+  char const * strs[] = {
+    "æüßs",
+    "üßü",
+    "İŉẖtestὒ",
+    "İŉẖ",
+    "İŉẖtestὒ",
+    "HelloWorld",
+    "üßü",
+    "",
+    "",
+    "Тест на не корректную русскую строку",
+    "В ответе пустая строка",
+    "Überstraße"
+  };
+
+  char const * low_strs[] = {
+    "æusss",
+    "ussu",
+    "i\u0307\u02bcnh\u0331testυ\u0313\u0300",
+    "i\u0307\u02bcnh\u0331testυ\u0313\u0300",
+    "i\u0307\u02bcnh\u0331",
+    "helloworld",
+    "usu",
+    "",
+    "empty",
+    "Тест на не корректную строку",
+    "",
+    "uberstras"
+  };
+
+  size_t const results [] = {
+    4,
+    3,
+    8,
+    0,
+    3,
+    10,
+    0,
+    0,
+    0,
+    0,
+    0,
+    9
+  };
+
+
+  size_t const test_count = ARRAY_SIZE(strs);
+
+  for (size_t i = 0; i < test_count; ++i)
+  {
+    strings::UniString source = strings::MakeUniString(strs[i]);
+    strings::UniString result = strings::MakeUniString(low_strs[i]);
+
+    size_t res = strings::CountNormLowerSymbols(source, result);
+    TEST_EQUAL(res, results[i], ());
+  }
+}

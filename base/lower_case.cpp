@@ -194,4 +194,33 @@ void MakeLowerCase(UniString & s)
   s.swap(r);
 }
 
+size_t CountNormLowerSymbols(UniString const & s, UniString const & lowStr)
+{
+  size_t const size = s.size();
+  size_t const lowSize = lowStr.size();
+  size_t lowIdx = 0, sIdx = 0;
+
+  while (lowIdx < lowSize)
+  {
+    if (sIdx == size)
+      return 0; // low_s has more length than s
+
+    UniString strCharNorm;
+    strCharNorm.push_back(s[sIdx++]);
+    MakeLowerCase(strCharNorm);
+    Normalize(strCharNorm);
+
+    for (size_t i = 0; i < strCharNorm.size(); ++i)
+    {
+      if (lowIdx >= lowSize)
+        return sIdx;
+      else
+        if (lowStr[lowIdx++] != strCharNorm[i])
+          return 0;
+    }
+  }
+
+  return sIdx;
+}
+
 } // namespace strings
