@@ -25,6 +25,7 @@ HEADERS += \
     algos.hpp \
     indexed_value.hpp \
     geometry_utils.hpp \
+    search_string_intersection.hpp \
 
 SOURCES += \
     search_engine.cpp \
