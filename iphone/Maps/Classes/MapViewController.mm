@@ -954,14 +954,14 @@ const long long LITE_IDL = 431183278L;
     }
     case ALERT_VIEW_BOOKMARKS:
     {
-      if (buttonIndex != alertView.cancelButtonIndex)
+      if (buttonIndex == alertView.cancelButtonIndex)
       {
-        [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
-        [[UIApplication sharedApplication] openProVersionFrom:@"ios_toolabar_bookmarks"];
+        [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"NO"];
       }
       else
       {
-        [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"NO"];
+        [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
+        [[UIApplication sharedApplication] openProVersionFrom:@"ios_toolabar_bookmarks"];
       }
     }
     default:

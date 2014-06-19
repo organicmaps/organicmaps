@@ -324,7 +324,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     self.titleLabel.userInteractionEnabled = YES;
     CGFloat fullHeight = [self headerHeight] + [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:self.tableView.width] + [PlacePageShareCell cellHeight];
-    if (self.isBookmark)
+    if ([self isBookmark])
     {
       fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
       fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:self.tableView.width];
@@ -554,7 +554,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)titleTap:(UITapGestureRecognizer *)sender
 {
-  if (self.isBookmark && self.state == PlacePageStateOpened)
+  if ([self isBookmark] && self.state == PlacePageStateOpened)
     [self.delegate placePageView:self willEditProperty:@"Name" inBookmarkAndCategory:GetFramework().FindBookmark([self userMark])];
 }
 
@@ -861,14 +861,14 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-  if (buttonIndex != alertView.cancelButtonIndex)
+  if (buttonIndex == alertView.cancelButtonIndex)
   {
-    [[Statistics instance] logProposalReason:@"Add Bookmark" withAnswer:@"YES"];
-    [[UIApplication sharedApplication] openProVersionFrom:@"ios_pp_bookmark"];
+    [[Statistics instance] logProposalReason:@"Add Bookmark" withAnswer:@"NO"];
   }
   else
   {
-    [[Statistics instance] logProposalReason:@"Add Bookmark" withAnswer:@"NO"];
+    [[Statistics instance] logProposalReason:@"Add Bookmark" withAnswer:@"YES"];
+    [[UIApplication sharedApplication] openProVersionFrom:@"ios_pp_bookmark"];
   }
 }
 
