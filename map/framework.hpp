@@ -250,7 +250,8 @@ private:
 
   void OnSearchResultsCallback(search::Results const & results);
   void OnSearchResultsCallbackUI(search::Results const & results);
-  void FillSearchResultsMarks(search::Results const & results, m2::RectD & rect);
+  /// @return true if any result is in viewport rect.
+  bool FillSearchResultsMarks(search::Results const & results, m2::RectD & rect);
 
 public:
   m2::RectD GetCurrentViewport() const;
