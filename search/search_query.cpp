@@ -682,7 +682,7 @@ void Query::GetSuggestion(string const & name, string & suggest) const
     if (find(m_tokens.begin(), m_tokens.end(), vName[i]) != m_tokens.end())
       tokensMatched[i] = true;
     else
-      if (vName[i].size() > m_prefix.size() &&
+      if (vName[i].size() >= m_prefix.size() &&
           StartsWith(vName[i].begin(), vName[i].end(), m_prefix.begin(), m_prefix.end()))
       {
         prefixMatched = true;
