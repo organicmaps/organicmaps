@@ -351,10 +351,11 @@ void Query::Search(Results & res, size_t resCount)
   ClearQueues();
 
   if (m_cancel) return;
-  SuggestStrings(res);
+  if (m_tokens.empty())
+    SuggestStrings(res);
 
   if (m_cancel) return;
-  SearchAddress();
+  SearchAddress(res);
 
   if (m_cancel) return;
   SearchFeatures();
@@ -677,6 +678,27 @@ ftypes::Type Query::GetLocalityIndex(feature::TypesHolder const & types) const
   return checker.GetLocalityType(types);
 }
 
+void Query::RemoveStringPrefix(string const & str, string & res) const
+{
+  search::Delimiters delims;
+  // Find start iterator of prefix in input query.
+  typedef utf8::unchecked::iterator<string::const_iterator> IterT;
+  IterT iter(str.end());
+  while (iter.base() != str.begin())
+  {
+    IterT prev = iter;
+    --prev;
+
+    if (delims(*prev))
+      break;
+    else
+      iter = prev;
+  }
+
+  // Assign result with input string without prefix.
+  res.assign(str.begin(), iter.base());
+}
+
 void Query::GetSuggestion(string const & name, string & suggest) const
 {
   // Split result's name on tokens.
@@ -703,22 +725,7 @@ void Query::GetSuggestion(string const & name, string & suggest) const
   if (!prefixMatched)
     return;
 
-  // Find start iterator of prefix in input query.
-  typedef utf8::unchecked::iterator<string::const_iterator> IterT;
-  IterT iter(m_query->end());
-  while (iter.base() != m_query->begin())
-  {
-    IterT prev = iter;
-    --prev;
-
-    if (delims(*prev))
-      break;
-    else
-      iter = prev;
-  }
-
-  // Assign suggest with input query without prefix.
-  suggest.assign(m_query->begin(), iter.base());
+  RemoveStringPrefix(*m_query, suggest);
 
   // Append unmatched result's tokens to the suggestion.
   for (size_t i = 0; i < vName.size(); ++i)
@@ -1433,7 +1440,7 @@ namespace impl
   }
 }
 
-void Query::SearchAddress()
+void Query::SearchAddress(Results & res)
 {
   // Find World.mwm and do special search there.
   MWMVectorT mwmInfo;
@@ -1457,6 +1464,9 @@ void Query::SearchAddress()
 
         Params params(*this);
         params.EraseTokens(city.m_matchedTokens);
+
+        if (params.CanSuggest())
+          SuggestStrings(res);
 
         if (!params.IsEmpty())
         {
@@ -1482,6 +1492,9 @@ void Query::SearchAddress()
 
         Params params(*this);
         params.EraseTokens(region.m_matchedTokens);
+
+        if (params.CanSuggest())
+          SuggestStrings(res);
 
         if (!params.IsEmpty())
         {
@@ -1942,26 +1955,12 @@ void Query::SuggestStrings(Results & res)
 {
   if (m_pStringsToSuggest && !m_prefix.empty())
   {
-    switch (m_tokens.size())
-    {
-    case 0:
-      // Match prefix.
-      MatchForSuggestions(m_prefix, res);
-      break;
-
-    case 1:
-      // Match token + prefix.
-      strings::UniString tokenAndPrefix = m_tokens[0];
-      tokenAndPrefix.push_back(' ');
-      tokenAndPrefix.append(m_prefix.begin(), m_prefix.end());
-
-      MatchForSuggestions(tokenAndPrefix, res);
-      break;
-    }
+    // Match prefix.
+    MatchForSuggestions(m_prefix, res);
   }
 }
 
-bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t lang, Results & res)
+bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t lang, string const & prolog, Results & res)
 {
   bool ret = false;
 
@@ -1975,7 +1974,7 @@ bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t lan
         StartsWith(s.begin(), s.end(), token.begin(), token.end()))
     {
       string const utf8Str = strings::ToUtf8(s);
-      Result r(utf8Str, utf8Str + " ");
+      Result r(utf8Str, prolog + utf8Str + " ");
       MakeResultHighlight(r);
       res.AddResult(r);
       ret = true;
@@ -1987,8 +1986,11 @@ bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t lan
 
 void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
 {
-  if (!MatchForSuggestionsImpl(token, GetLanguage(LANG_INPUT), res))
-    MatchForSuggestionsImpl(token, GetLanguage(LANG_EN), res);
+  string prolog;
+  RemoveStringPrefix(*m_query, prolog);
+
+  if (!MatchForSuggestionsImpl(token, GetLanguage(LANG_INPUT), prolog, res))
+    MatchForSuggestionsImpl(token, GetLanguage(LANG_EN), prolog, res);
 }
 
 m2::RectD const & Query::GetViewport(ViewportID vID /*= DEFAULT_V*/) const

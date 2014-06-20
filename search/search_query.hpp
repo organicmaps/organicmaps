@@ -131,6 +131,7 @@ public:
     void ProcessAddressTokens();
 
     bool IsEmpty() const { return (m_tokens.empty() && m_prefixTokens.empty()); }
+    bool CanSuggest() const { return (m_tokens.empty() && !m_prefixTokens.empty()); }
     bool IsLangExist(int8_t l) const { return (m_langs.count(l) > 0); }
 
   private:
@@ -171,10 +172,12 @@ private:
   void FlushResults(Results & res, bool allMWMs, size_t resCount);
 
   ftypes::Type GetLocalityIndex(feature::TypesHolder const & types) const;
+  void RemoveStringPrefix(string const & str, string & res) const;
   void GetSuggestion(string const & name, string & suggest) const;
   template <class T> void ProcessSuggestions(vector<T> & vec, Results & res) const;
 
-  void SearchAddress();
+
+  void SearchAddress(Results & res);
 
   /// Search for best localities by input tokens.
   /// @param[in]  pMwm  MWM file for World
@@ -194,7 +197,7 @@ private:
   //@}
 
   void SuggestStrings(Results & res);
-  bool MatchForSuggestionsImpl(strings::UniString const & token, int8_t lang, Results & res);
+  bool MatchForSuggestionsImpl(strings::UniString const & token, int8_t lang, string const & prolog, Results & res);
   void MatchForSuggestions(strings::UniString const & token, Results & res);
 
   void GetBestMatchName(FeatureType const & f, string & name) const;
