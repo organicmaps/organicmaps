@@ -3,9 +3,7 @@
     package="com.mapswithme.maps"
     android:installLocation="auto"
     android:sharedUserId="com.mapswithme"
-    android:sharedUserLabel="@string/shared_user_label"
-    android:versionCode="262"
-    android:versionName="2.6.2" >
+    android:sharedUserLabel="@string/shared_user_label" >
 
     <uses-sdk
         android:minSdkVersion="7"

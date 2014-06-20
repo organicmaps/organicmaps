@@ -3,7 +3,6 @@
 #include <jni.h>
 
 #include "../../../../../map/framework.hpp"
-#include "../../../../../map/bookmark_balloon.hpp"
 
 #include "../../../../../search/result.hpp"
 
