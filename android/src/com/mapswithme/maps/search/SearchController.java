@@ -25,7 +25,7 @@ public class SearchController implements OnClickListener
   // Data
   private String mQuery = "";
 
-  // Singlton
+  // Singleton
   // No threadsafety needed as everything goes on UI
   private static SearchController mInstance = null;
 

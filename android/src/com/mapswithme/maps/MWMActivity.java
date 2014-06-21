@@ -65,40 +65,54 @@ import com.mapswithme.util.statistics.Statistics;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 public class MWMActivity extends NvEventQueueActivity
-                         implements LocationService.Listener,
-                                    OnBalloonListener,
-                                    DrawerListener,
-                                    OnVisibilityChangedListener
+    implements LocationService.Listener,
+    OnBalloonListener,
+    DrawerListener,
+    OnVisibilityChangedListener
 {
-  private final static String TAG = "MWMActivity";
   public static final String EXTRA_TASK = "map_task";
-
+  private final static String TAG = "MWMActivity";
   private static final int PRO_VERSION_DIALOG = 110001;
   private static final String PRO_VERSION_DIALOG_MSG = "pro_version_dialog_msg";
   private static final int PROMO_DIALOG = 110002;
-
+  private final static String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  // Need it for search
+  private static final String EXTRA_SEARCH_RES_SINGLE = "search_res_index";
+  // Map tasks that we run AFTER rendering initialized
+  private final Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
   private MWMApplication mApplication = null;
   private BroadcastReceiver m_externalStorageReceiver = null;
   private StoragePathManager m_pathManager = new StoragePathManager();
   private AlertDialog m_storageDisconnectedDialog = null;
-
   private ImageButton mLocationButton;
   private SurfaceView mMapSurface;
-
-
-  // Map tasks that we run AFTER rendering initialized
-  private final Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
-
   // Info box (place page).
   private MapInfoView mInfoView;
-
   // Drawer components
   private DrawerLayout mDrawerLayout;
   private View mMainDrawer;
-
   private SearchController mSearchController;
-
   private String mProDialogMessage;
+  private boolean m_needCheckUpdate = true;
+  private boolean mRenderingInitialized = false;
+  private int m_compassStatusListenerID = -1;
+  // Initialized to invalid combination to force update on the first check
+  private boolean m_storageAvailable = false;
+  private boolean m_storageWritable = true;
+
+  public static Intent createShowMapIntent(Context context, Index index)
+  {
+    return new Intent(context, DownloadResourcesActivity.class)
+        .putExtra(DownloadResourcesActivity.EXTRA_COUNTRY_INDEX, index);
+  }
+
+  public static void startWithSearchResult(Context context, boolean single)
+  {
+    final Intent mapIntent = new Intent(context, MWMActivity.class);
+    mapIntent.putExtra(EXTRA_SEARCH_RES_SINGLE, single);
+    context.startActivity(mapIntent);
+    // Next we need to handle intent
+  }
 
   private native void deactivatePopup();
 
@@ -160,8 +174,9 @@ public class MWMActivity extends NvEventQueueActivity
       {
         LocationButtonImageSetter.setButtonViewFromState(
             hasPosition
-            ? ButtonState.HAS_LOCATION
-            : ButtonState.WAITING_LOCATION, mLocationButton);
+                ? ButtonState.HAS_LOCATION
+                : ButtonState.WAITING_LOCATION, mLocationButton
+        );
       }
       resumeLocation();
     }
@@ -225,19 +240,19 @@ public class MWMActivity extends NvEventQueueActivity
       public void run()
       {
         new AlertDialog.Builder(getActivity())
-        .setMessage(getString(R.string.unsupported_phone))
-        .setCancelable(false)
-        .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            getActivity().moveTaskToBack(true);
-            dlg.dismiss();
-          }
-        })
-        .create()
-        .show();
+            .setMessage(getString(R.string.unsupported_phone))
+            .setCancelable(false)
+            .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dlg, int which)
+              {
+                getActivity().moveTaskToBack(true);
+                dlg.dismiss();
+              }
+            })
+            .create()
+            .show();
       }
     });
   }
@@ -311,22 +326,18 @@ public class MWMActivity extends NvEventQueueActivity
     LocationButtonImageSetter.setButtonViewFromState(ButtonState.NO_LOCATION, mLocationButton);
   }
 
-  private boolean m_needCheckUpdate = true;
-
-  private boolean mRenderingInitialized = false;
-
   private void ShowAlertDlg(int tittleID)
   {
     new AlertDialog.Builder(this)
-    .setCancelable(false)
-    .setMessage(tittleID)
-    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
-    })
-    .create()
-    .show();
+        .setCancelable(false)
+        .setMessage(tittleID)
+        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
+        })
+        .create()
+        .show();
   }
 
   private void checkKitkatMigrationMove()
@@ -382,6 +393,7 @@ public class MWMActivity extends NvEventQueueActivity
         {
           runDownloadActivity();
         }
+
         @Override
         public void doCancel()
         {
@@ -400,29 +412,29 @@ public class MWMActivity extends NvEventQueueActivity
   private void showDialogImpl(final int dlgID, int resMsg, DialogInterface.OnClickListener okListener)
   {
     new AlertDialog.Builder(this)
-    .setCancelable(false)
-    .setMessage(getString(resMsg))
-    .setPositiveButton(getString(R.string.ok), okListener)
-    .setNeutralButton(getString(R.string.never), new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
-      {
-        dlg.dismiss();
-        mApplication.submitDialogResult(dlgID, MWMApplication.NEVER);
-      }
-    })
-    .setNegativeButton(getString(R.string.later), new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
-      {
-        dlg.dismiss();
-        mApplication.submitDialogResult(dlgID, MWMApplication.LATER);
-      }
-    })
-    .create()
-    .show();
+        .setCancelable(false)
+        .setMessage(getString(resMsg))
+        .setPositiveButton(getString(R.string.ok), okListener)
+        .setNeutralButton(getString(R.string.never), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+            mApplication.submitDialogResult(dlgID, MWMApplication.NEVER);
+          }
+        })
+        .setNegativeButton(getString(R.string.later), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+            mApplication.submitDialogResult(dlgID, MWMApplication.LATER);
+          }
+        })
+        .create()
+        .show();
   }
 
   private void showFacebookPage()
@@ -435,8 +447,7 @@ public class MWMActivity extends NvEventQueueActivity
 
       // Profile id is taken from http://graph.facebook.com/MapsWithMe
       startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/111923085594432")));
-    }
-    catch (final Exception e)
+    } catch (final Exception e)
     {
       // Show Facebook page in browser.
       startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/MapsWithMe")));
@@ -445,7 +456,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private boolean isChinaISO(String iso)
   {
-    final String arr[] = { "CN", "CHN", "HK", "HKG", "MO", "MAC" };
+    final String arr[] = {"CN", "CHN", "HK", "HKG", "MO", "MAC"};
     for (final String s : arr)
       if (iso.equalsIgnoreCase(s))
         return true;
@@ -486,17 +497,18 @@ public class MWMActivity extends NvEventQueueActivity
         !isChinaRegion())
     {
       showDialogImpl(MWMApplication.FACEBOOK, R.string.share_on_facebook_text,
-                     new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
-        {
-          mApplication.submitDialogResult(MWMApplication.FACEBOOK, MWMApplication.OK);
+          new DialogInterface.OnClickListener()
+          {
+            @Override
+            public void onClick(DialogInterface dlg, int which)
+            {
+              mApplication.submitDialogResult(MWMApplication.FACEBOOK, MWMApplication.OK);
 
-          dlg.dismiss();
-          showFacebookPage();
-        }
-      });
+              dlg.dismiss();
+              showFacebookPage();
+            }
+          }
+      );
     }
   }
 
@@ -519,14 +531,12 @@ public class MWMActivity extends NvEventQueueActivity
     try
     {
       startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getProVersionURL())));
-    }
-    catch (final Exception e1)
+    } catch (final Exception e1)
     {
       try
       {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getDefaultProVersionURL())));
-      }
-      catch (final Exception e2)
+      } catch (final Exception e2)
       {
         /// @todo Probably we should show some alert toast here?
         Log.w(TAG, "Can't run activity" + e2);
@@ -541,16 +551,17 @@ public class MWMActivity extends NvEventQueueActivity
         mApplication.shouldShowDialog(MWMApplication.BUYPRO))
     {
       showDialogImpl(MWMApplication.BUYPRO, R.string.pro_version_available,
-                     new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
-        {
-          mApplication.submitDialogResult(MWMApplication.BUYPRO, MWMApplication.OK);
-          dlg.dismiss();
-          runProVersionMarketActivity();
-        }
-      });
+          new DialogInterface.OnClickListener()
+          {
+            @Override
+            public void onClick(DialogInterface dlg, int which)
+            {
+              mApplication.submitDialogResult(MWMApplication.BUYPRO, MWMApplication.OK);
+              dlg.dismiss();
+              runProVersionMarketActivity();
+            }
+          }
+      );
     }
   }
 
@@ -574,6 +585,7 @@ public class MWMActivity extends NvEventQueueActivity
         {
           runDownloadActivity();
         }
+
         @Override
         public void doCancel()
         {
@@ -614,7 +626,7 @@ public class MWMActivity extends NvEventQueueActivity
     }
     setContentView(R.layout.activity_map);
     super.onCreate(savedInstanceState);
-    mApplication = (MWMApplication)getApplication();
+    mApplication = (MWMApplication) getApplication();
 
     // Do not turn off the screen while benchmarking
     if (mApplication.nativeIsBenchmarking())
@@ -622,11 +634,10 @@ public class MWMActivity extends NvEventQueueActivity
 
     nativeConnectDownloadButton();
 
-    //set up view
+    // Set up view
     mLocationButton = (ImageButton) findViewById(R.id.map_button_myposition);
     mMapSurface = (SurfaceView) findViewById(R.id.map_surfaceview);
 
-    setUpDrawer();
     yotaSetup();
 
     setUpInfoBox();
@@ -692,18 +703,18 @@ public class MWMActivity extends NvEventQueueActivity
           else
           {
             new AlertDialog.Builder(MWMActivity.this)
-            .setMessage(R.string.unknown_current_position)
-            .setCancelable(true)
-            .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
-            {
-              @Override
-              public void onClick(DialogInterface dialog, int which)
-              {
-                dialog.dismiss();
-              }
-            })
-            .create()
-            .show();
+                .setMessage(R.string.unknown_current_position)
+                .setCancelable(true)
+                .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+                {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which)
+                  {
+                    dialog.dismiss();
+                  }
+                })
+                .create()
+                .show();
           }
         }
 
@@ -806,7 +817,7 @@ public class MWMActivity extends NvEventQueueActivity
         public void onClick(View v)
         {
           final double[] latLon = Framework.getScreenRectCenter();
-          final double   zoom   = Framework.getDrawScale();
+          final double zoom = Framework.getDrawScale();
 
           final LocationState locState = mApplication.getLocationState();
 
@@ -848,8 +859,7 @@ public class MWMActivity extends NvEventQueueActivity
       }
     }
   }
-
-  private final static String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  //@}
 
   private void addTask(Intent intent)
   {
@@ -869,7 +879,6 @@ public class MWMActivity extends NvEventQueueActivity
       intent.putExtra(EXTRA_CONSUMED, true);
     }
   }
-
 
   @Override
   protected void onStop()
@@ -892,7 +901,7 @@ public class MWMActivity extends NvEventQueueActivity
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
     {
       final DisplayMetrics dm = getResources().getDisplayMetrics();
-      drawerItemsPadding = Math.max(dm.heightPixels, dm.widthPixels)/5;
+      drawerItemsPadding = Math.max(dm.heightPixels, dm.widthPixels) / 5;
     }
 
     findViewById(R.id.scroll_up).setPadding(0, drawerItemsPadding, 0, 0);
@@ -915,41 +924,39 @@ public class MWMActivity extends NvEventQueueActivity
       if (!Utils.isAmazonDevice())
       {
         new AlertDialog.Builder(this).setTitle(R.string.location_is_disabled_long_text)
-        .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            try
+            .setPositiveButton(R.string.connection_settings, new DialogInterface.OnClickListener()
             {
-              startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            }
-            catch (final Exception e1)
-            {
-              // On older Android devices location settings are merged with security
-              try
+              @Override
+              public void onClick(DialogInterface dialog, int which)
               {
-                startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
-              }
-              catch (final Exception e2)
-              {
-                Log.w(TAG, "Can't run activity" + e2);
-              }
-            }
+                try
+                {
+                  startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                } catch (final Exception e1)
+                {
+                  // On older Android devices location settings are merged with security
+                  try
+                  {
+                    startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
+                  } catch (final Exception e2)
+                  {
+                    Log.w(TAG, "Can't run activity" + e2);
+                  }
+                }
 
-            dialog.dismiss();
-          }
-        })
-        .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dialog, int which)
-          {
-            dialog.dismiss();
-          }
-        })
-        .create()
-        .show();
+                dialog.dismiss();
+              }
+            })
+            .setNegativeButton(R.string.close, new DialogInterface.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dialog, int which)
+              {
+                dialog.dismiss();
+              }
+            })
+            .create()
+            .show();
       }
     }
     else if (errorCode == LocationService.ERROR_GPS_OFF)
@@ -971,11 +978,10 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    final double angles[] = { magneticNorth, trueNorth };
+    final double angles[] = {magneticNorth, trueNorth};
     getLocationService().correctCompassAngles(getWindowManager().getDefaultDisplay(), angles);
     nativeCompassUpdated(time, angles[0], angles[1], accuracy);
   }
-  //@}
 
   public void onCompassStatusChanged(int newStatus)
   {
@@ -1000,9 +1006,6 @@ public class MWMActivity extends NvEventQueueActivity
       }
     });
   }
-
-
-  private int m_compassStatusListenerID = -1;
 
   private void startWatchingCompassStatusUpdate()
   {
@@ -1038,8 +1041,8 @@ public class MWMActivity extends NvEventQueueActivity
     startWatchingExternalStorage();
 
     UiUtils.showIf(SettingsActivity.isZoomButtonsEnabled(mApplication),
-                   findViewById(R.id.map_button_plus),
-                   findViewById(R.id.map_button_minus));
+        findViewById(R.id.map_button_plus),
+        findViewById(R.id.map_button_minus));
 
     alignControls();
 
@@ -1047,31 +1050,27 @@ public class MWMActivity extends NvEventQueueActivity
     mInfoView.onResume();
   }
 
-  // Initialized to invalid combination to force update on the first check
-  private boolean m_storageAvailable = false;
-  private boolean m_storageWriteable = true;
-
   private void updateExternalStorageState()
   {
-    boolean available, writeable;
+    boolean available, writable;
     final String state = Environment.getExternalStorageState();
     if (Environment.MEDIA_MOUNTED.equals(state))
     {
-      available = writeable = true;
+      available = writable = true;
     }
     else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
     {
       available = true;
-      writeable = false;
+      writable = false;
     }
     else
-      available = writeable = false;
+      available = writable = false;
 
-    if (m_storageAvailable != available || m_storageWriteable != writeable)
+    if (m_storageAvailable != available || m_storageWritable != writable)
     {
       m_storageAvailable = available;
-      m_storageWriteable = writeable;
-      handleExternalStorageState(available, writeable);
+      m_storageWritable = writable;
+      handleExternalStorageState(available, writable);
     }
   }
 
@@ -1107,10 +1106,10 @@ public class MWMActivity extends NvEventQueueActivity
       if (m_storageDisconnectedDialog == null)
       {
         m_storageDisconnectedDialog = new AlertDialog.Builder(this)
-        .setTitle(R.string.external_storage_is_not_available)
-        .setMessage(getString(R.string.disconnect_usb_cable))
-        .setCancelable(false)
-        .create();
+            .setTitle(R.string.external_storage_is_not_available)
+            .setMessage(getString(R.string.disconnect_usb_cable))
+            .setCancelable(false)
+            .create();
       }
       m_storageDisconnectedDialog.show();
     }
@@ -1143,7 +1142,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     if (id == PRO_VERSION_DIALOG)
     {
-      ((AlertDialog)dialog).setMessage(mProDialogMessage);
+      ((AlertDialog) dialog).setMessage(mProDialogMessage);
     }
     else
     {
@@ -1158,42 +1157,42 @@ public class MWMActivity extends NvEventQueueActivity
     if (id == PRO_VERSION_DIALOG)
     {
       return new AlertDialog.Builder(getActivity())
-      .setMessage("")
-      .setPositiveButton(getString(R.string.get_it_now), new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
-        {
-          dlg.dismiss();
-          runProVersionMarketActivity();
-        }
-      })
-      .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
-        {
-          dlg.dismiss();
-        }
-      })
-      .setOnKeyListener(new OnKeyListener()
-      {
-        @Override
-        public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event)
-        {
-          if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)
+          .setMessage("")
+          .setPositiveButton(getString(R.string.get_it_now), new DialogInterface.OnClickListener()
           {
-            if (ActivationSettings.isSearchActivated(getApplicationContext()))
-              return false;
+            @Override
+            public void onClick(DialogInterface dlg, int which)
+            {
+              dlg.dismiss();
+              runProVersionMarketActivity();
+            }
+          })
+          .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
+          {
+            @Override
+            public void onClick(DialogInterface dlg, int which)
+            {
+              dlg.dismiss();
+            }
+          })
+          .setOnKeyListener(new OnKeyListener()
+          {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event)
+            {
+              if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)
+              {
+                if (ActivationSettings.isSearchActivated(getApplicationContext()))
+                  return false;
 
-            showDialog(PROMO_DIALOG);
-            dismissDialog(PRO_VERSION_DIALOG);
-            return true;
-          }
-          return false;
-        }
-      })
-      .create();
+                showDialog(PROMO_DIALOG);
+                dismissDialog(PRO_VERSION_DIALOG);
+                return true;
+              }
+              return false;
+            }
+          })
+          .create();
     }
     else if (id == PROMO_DIALOG)
       return new PromocodeActivationDialog(this);
@@ -1207,6 +1206,7 @@ public class MWMActivity extends NvEventQueueActivity
     m_externalStorageReceiver = null;
   }
 
+  /// Map tasks invoked by intent processing.
 
   private void toggleDrawer()
   {
@@ -1234,49 +1234,6 @@ public class MWMActivity extends NvEventQueueActivity
       hideInfoView();
     else
       super.onBackPressed();
-  }
-
-  /// Map tasks invoked by intent processing.
-
-  public interface MapTask extends Serializable
-  {
-    public boolean run(MWMActivity target);
-  }
-
-  public static class OpenUrlTask implements MapTask
-  {
-    private static final long serialVersionUID = 1L;
-    private final String mUrl;
-
-    public OpenUrlTask(String url)
-    {
-      Utils.checkNotNull(url);
-      mUrl = url;
-    }
-
-    @Override
-    public boolean run(MWMActivity target)
-    {
-      return target.showMapForUrl(mUrl);
-    }
-  }
-
-  public static class ShowCountryTask implements MapTask
-  {
-    private static final long serialVersionUID = 1L;
-    private final Index mIndex;
-
-    public ShowCountryTask(Index index)
-    {
-      mIndex = index;
-    }
-
-    @Override
-    public boolean run(MWMActivity target)
-    {
-      target.getMapStorage().showCountry(mIndex);
-      return true;
-    }
   }
 
   /// Callbacks from native map objects touch event.
@@ -1407,74 +1364,72 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void _showInfoBox(boolean show, boolean animate)
   {
-//    if ((show == mIsInfoBoxVisible) && animate)
-//      return;
-//
-//    mIsInfoBoxVisible = show;
-//
-//    final long duration = 200;
-//    if (show)
-//    {
-//      if (animate)
-//      {
-//        final Animation slideIn = new TranslateAnimation(
-//            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-//            TranslateAnimation.RELATIVE_TO_SELF, 1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);   // Y
-//        slideIn.setDuration(duration);
-//
-//        mInfoView.startAnimation(slideIn);
-//        mapButtonBottom.startAnimation(slideIn);
-//
-//        UiUtils.showAndAnimate(mInfoView, slideIn);
-//        mapButtonBottom.startAnimation(slideIn);
-//      }
-//      else
-//      {
-//        UiUtils.show(mInfoView);
-//        UiUtils.show(mapButtonBottom);
-//      }
-//    }
-//    else
-//    {
-//      if (animate)
-//      {
-//        final Animation slideOutInfo = new TranslateAnimation(
-//            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-//            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 1.f);  // Y
-//        slideOutInfo.setDuration(duration);
-//
-//        final Animation slideOutButtons = new TranslateAnimation(
-//            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-//            TranslateAnimation.RELATIVE_TO_SELF, -1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);  // Y
-//        slideOutButtons.setDuration(duration);
-//
-//        mapButtonBottom.startAnimation(slideOutButtons);
-//        UiUtils.animateAndHide(mInfoView, slideOutInfo);
-//      }
-//      else
-//      {
-//        UiUtils.hide(mInfoView);
-//        UiUtils.show(mapButtonBottom);
-//      }
-//    }
-  }
-
-  public static Intent createShowMapIntent(Context context, Index index)
-  {
-    return new Intent(context, DownloadResourcesActivity.class)
-      .putExtra(DownloadResourcesActivity.EXTRA_COUNTRY_INDEX, index);
+    //    if ((show == mIsInfoBoxVisible) && animate)
+    //      return;
+    //
+    //    mIsInfoBoxVisible = show;
+    //
+    //    final long duration = 200;
+    //    if (show)
+    //    {
+    //      if (animate)
+    //      {
+    //        final Animation slideIn = new TranslateAnimation(
+    //            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+    //            TranslateAnimation.RELATIVE_TO_SELF, 1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);   // Y
+    //        slideIn.setDuration(duration);
+    //
+    //        mInfoView.startAnimation(slideIn);
+    //        mapButtonBottom.startAnimation(slideIn);
+    //
+    //        UiUtils.showAndAnimate(mInfoView, slideIn);
+    //        mapButtonBottom.startAnimation(slideIn);
+    //      }
+    //      else
+    //      {
+    //        UiUtils.show(mInfoView);
+    //        UiUtils.show(mapButtonBottom);
+    //      }
+    //    }
+    //    else
+    //    {
+    //      if (animate)
+    //      {
+    //        final Animation slideOutInfo = new TranslateAnimation(
+    //            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+    //            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 1.f);  // Y
+    //        slideOutInfo.setDuration(duration);
+    //
+    //        final Animation slideOutButtons = new TranslateAnimation(
+    //            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
+    //            TranslateAnimation.RELATIVE_TO_SELF, -1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);  // Y
+    //        slideOutButtons.setDuration(duration);
+    //
+    //        mapButtonBottom.startAnimation(slideOutButtons);
+    //        UiUtils.animateAndHide(mInfoView, slideOutInfo);
+    //      }
+    //      else
+    //      {
+    //        UiUtils.hide(mInfoView);
+    //        UiUtils.show(mapButtonBottom);
+    //      }
+    //    }
   }
 
   private native void nativeStorageConnected();
+
   private native void nativeStorageDisconnected();
 
   private native void nativeConnectDownloadButton();
+
   private native void nativeDownloadCountry();
 
   private native void nativeDestroy();
 
   private native void nativeOnLocationError(int errorCode);
+
   private native void nativeLocationUpdated(long time, double lat, double lon, float accuracy, double altitude, float speed, float bearing);
+
   private native void nativeCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
 
   private native boolean nativeIsInChina(double lat, double lon);
@@ -1500,7 +1455,7 @@ public class MWMActivity extends NvEventQueueActivity
   public void onDrawerStateChanged(int arg0) {}
 
   @Override
-  public void onHeadVisibilityChanged(boolean isVisible)
+  public void onPPPVisibilityChanged(boolean isVisible)
   {
     final View mapButtonBottom = findViewById(R.id.map_buttons_bottom_ref);
     final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mapButtonBottom.getLayoutParams();
@@ -1509,21 +1464,51 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   @Override
-  public void onBodyVisibilityChanged(boolean isVisible)
+  public void onPPVisibilityChanged(boolean isVisible)
   {
     // If body is visible -- hide my location and drawer buttons
     UiUtils.showIf(!isVisible, findViewById(R.id.map_buttons_bottom_ref));
   }
 
-  // Need it for search
-  private static final String EXTRA_SEARCH_RES_SINGLE = "search_res_index";
-
-  public static void startWithSearchResult(Context context, boolean single)
+  public interface MapTask extends Serializable
   {
-    final Intent mapIntent = new Intent(context, MWMActivity.class);
-    mapIntent.putExtra(EXTRA_SEARCH_RES_SINGLE, single);
-    context.startActivity(mapIntent);
-    // Next we need to handle intent
+    public boolean run(MWMActivity target);
+  }
+
+  public static class OpenUrlTask implements MapTask
+  {
+    private static final long serialVersionUID = 1L;
+    private final String mUrl;
+
+    public OpenUrlTask(String url)
+    {
+      Utils.checkNotNull(url);
+      mUrl = url;
+    }
+
+    @Override
+    public boolean run(MWMActivity target)
+    {
+      return target.showMapForUrl(mUrl);
+    }
+  }
+
+  public static class ShowCountryTask implements MapTask
+  {
+    private static final long serialVersionUID = 1L;
+    private final Index mIndex;
+
+    public ShowCountryTask(Index index)
+    {
+      mIndex = index;
+    }
+
+    @Override
+    public boolean run(MWMActivity target)
+    {
+      target.getMapStorage().showCountry(mIndex);
+      return true;
+    }
   }
 
 }

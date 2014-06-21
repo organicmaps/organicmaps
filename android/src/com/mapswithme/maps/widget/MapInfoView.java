@@ -47,84 +47,28 @@ import com.mapswithme.util.Utils;
 
 public class MapInfoView extends LinearLayout
 {
-  public interface OnVisibilityChangedListener
-  {
-    public void onHeadVisibilityChanged(boolean isVisible);
-
-    public void onBodyVisibilityChanged(boolean isVisible);
-  }
-
-  private OnVisibilityChangedListener mVisibilityChangedListener;
-
-  public static enum State
-  {
-    COLLAPSED,
-    HEAD,
-    FULL
-  }
-
-  private boolean mIsHeaderVisible = true;
-  private boolean mIsBodyVisible   = true;
-
-  private final ViewGroup  mHeaderGroup;
-  private final ViewGroup  mBodyGroup;
+  private final ViewGroup mHeaderGroup;
+  private final ViewGroup mBodyGroup;
   private final ScrollView mBodyContainer;
-  private final View       mView;
-
-  private State mCurrentState = State.COLLAPSED;
-
+  private final View mView;
   // Header
   private final TextView mTitle;
   private final TextView mSubtitle;
   private final CheckBox mIsBookmarked;
-
-  // Data
-  private MapObject mMapObject;
-
   // Views
   private final LayoutInflater mInflater;
-
-  // Body
-  private View     mShareView;
-  private View     mEditBtn;
-  private TextView mReturnToCallerBtn;
-
   // Gestures
   private final GestureDetectorCompat mGestureDetector;
-  private final OnGestureListener     mGestureListener = new GestureDetector.SimpleOnGestureListener()
-  {
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
-    {
-      final boolean isVertical = Math.abs(distanceY) > 2 * Math.abs(distanceX);
-      final boolean isInRange  = Math.abs(distanceY) > 1 && Math.abs(distanceY) < 100;
-
-      if (isVertical && isInRange)
-      {
-
-        if (distanceY < 0)
-          setState(State.HEAD);
-        else
-          setState(State.FULL);
-
-        return true;
-      }
-      return false;
-    };
-
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent e)
-    {
-      if (mCurrentState == State.FULL)
-        setState(State.HEAD);
-      else
-        setState(State.FULL);
-
-      return true;
-    };
-  };
-
+  private OnVisibilityChangedListener mVisibilityChangedListener;
+  private boolean mIsHeaderVisible = true;
+  private boolean mIsBodyVisible = true;
+  private State mCurrentState = State.COLLAPSED;
+  // Data
+  private MapObject mMapObject;
   private int mMaxBodyHeight = 0;
+  private LinearLayout mGeoLayout = null;
+  private View mDistanceView;
+  private TextView mDistanceText;
 
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {
@@ -145,7 +89,7 @@ public class MapInfoView extends LinearLayout
     mIsBookmarked = (CheckBox) mHeaderGroup.findViewById(R.id.info_box_is_bookmarked);
 
     // We don't want to use OnCheckedChangedListener because it gets called
-    // if someone calls setCheched() from code. We need only user interaction.
+    // if someone calls setChecked() from code. We need only user interaction.
     mIsBookmarked.setOnClickListener(new OnClickListener()
     {
       @Override
@@ -161,9 +105,8 @@ public class MapInfoView extends LinearLayout
         }
         else
         {
-          final Bookmark newbmk = bm.getBookmark(bm.addNewBookmark(
-              mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
-          setMapObject(newbmk);
+          final Bookmark newBookmark = bm.getBookmark(bm.addNewBookmark(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
+          setMapObject(newBookmark);
         }
         Framework.invalidate();
       }
@@ -173,9 +116,44 @@ public class MapInfoView extends LinearLayout
     mBodyContainer = (ScrollView) mBodyGroup.findViewById(R.id.body_container);
 
     // Gestures
+    OnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener()
+    {
+      @Override
+      public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
+      {
+        final boolean isVertical = Math.abs(distanceY) > 2 * Math.abs(distanceX);
+        final boolean isInRange = Math.abs(distanceY) > 1 && Math.abs(distanceY) < 100;
+
+        if (isVertical && isInRange)
+        {
+
+          if (distanceY < 0)
+            setState(State.HEAD);
+          else
+            setState(State.FULL);
+
+          return true;
+        }
+        return false;
+      }
+
+      @Override
+      public boolean onSingleTapConfirmed(MotionEvent e)
+      {
+        if (mCurrentState == State.FULL)
+          setState(State.HEAD);
+        else
+          setState(State.FULL);
+
+        return true;
+      }
+    };
     mGestureDetector = new GestureDetectorCompat(getContext(), mGestureListener);
     mView.setOnClickListener(new OnClickListener()
-    { @Override public void onClick(View v) { /* Friggin system does not work without this stub.*/ }});
+    {
+      @Override
+      public void onClick(View v) { /* Friggin system does not work without this stub.*/ }
+    });
   }
 
   public MapInfoView(Context context, AttributeSet attrs)
@@ -207,7 +185,9 @@ public class MapInfoView extends LinearLayout
     calculateMaxBodyHeight();
 
     if (mIsBodyVisible == show)
+    {
       return; // if state is already same as we need
+    }
 
     final long duration = 400;
 
@@ -229,7 +209,9 @@ public class MapInfoView extends LinearLayout
       mView.startAnimation(slideUp);
 
       if (mVisibilityChangedListener != null)
-        mVisibilityChangedListener.onBodyVisibilityChanged(show);
+      {
+        mVisibilityChangedListener.onPPVisibilityChanged(show);
+      }
     }
     else // slide down
     {
@@ -250,7 +232,9 @@ public class MapInfoView extends LinearLayout
           UiUtils.hide(mBodyGroup);
 
           if (mVisibilityChangedListener != null)
-            mVisibilityChangedListener.onBodyVisibilityChanged(show);
+          {
+            mVisibilityChangedListener.onPPVisibilityChanged(show);
+          }
         }
       });
 
@@ -263,7 +247,9 @@ public class MapInfoView extends LinearLayout
   private void showHeader(final boolean show)
   {
     if (mIsHeaderVisible == show)
+    {
       return;
+    }
 
     final int duration = 200;
 
@@ -283,7 +269,9 @@ public class MapInfoView extends LinearLayout
         public void onAnimationEnd(Animation animation)
         {
           if (mVisibilityChangedListener != null)
-            mVisibilityChangedListener.onHeadVisibilityChanged(show);
+          {
+            mVisibilityChangedListener.onPPPVisibilityChanged(show);
+          }
         }
       });
 
@@ -305,7 +293,7 @@ public class MapInfoView extends LinearLayout
         {
           UiUtils.hide(mHeaderGroup);
           if (mVisibilityChangedListener != null)
-            mVisibilityChangedListener.onHeadVisibilityChanged(show);
+            mVisibilityChangedListener.onPPPVisibilityChanged(show);
         }
       });
 
@@ -326,6 +314,28 @@ public class MapInfoView extends LinearLayout
   public State getState()
   {
     return mCurrentState;
+  }
+
+  public void setState(State state)
+  {
+    if (mCurrentState != state)
+    {
+      // Do some transitions
+      if (mCurrentState == State.COLLAPSED && state == State.HEAD)
+        showHeader(true);
+      else if (mCurrentState == State.HEAD && state == State.FULL)
+        showBody(true);
+      else if (mCurrentState == State.HEAD && state == State.COLLAPSED)
+        showHeader(false);
+      else if (mCurrentState == State.FULL && state == State.HEAD)
+        showBody(false);
+      else if (mCurrentState == State.FULL && state == State.COLLAPSED)
+        slideEverythingDown();
+      else
+        throw new IllegalStateException(String.format("Invalid transition %s - > %s", mCurrentState, state));
+
+      mCurrentState = state;
+    }
   }
 
   public boolean hasThatObject(MapObject mo)
@@ -353,21 +363,21 @@ public class MapInfoView extends LinearLayout
         boolean isChecked = false;
         switch (mo.getType())
         {
-          case POI:
-            setBodyForPOI(mo);
-            break;
-          case BOOKMARK:
-            isChecked = true;
-            setBodyForBookmark((Bookmark) mo);
-            break;
-          case ADDITIONAL_LAYER:
-            setBodyForAdditionalLayer((SearchResult) mo);
-            break;
-          case API_POINT:
-            setBodyForAPI(mo);
-            break;
-          default:
-            throw new IllegalArgumentException("Unknown MapObject type:" + mo.getType());
+        case POI:
+          setBodyForPOI(mo);
+          break;
+        case BOOKMARK:
+          isChecked = true;
+          setBodyForBookmark((Bookmark) mo);
+          break;
+        case ADDITIONAL_LAYER:
+          setBodyForAdditionalLayer((SearchResult) mo);
+          break;
+        case API_POINT:
+          setBodyForAPI(mo);
+          break;
+        default:
+          throw new IllegalArgumentException("Unknown MapObject type:" + mo.getType());
         }
 
         mIsBookmarked.setChecked(isChecked);
@@ -389,7 +399,7 @@ public class MapInfoView extends LinearLayout
 
   private void setUpBottomButtons()
   {
-    mShareView = mBodyGroup.findViewById(R.id.info_box_share);
+    View mShareView = mBodyGroup.findViewById(R.id.info_box_share);
     mShareView.setOnClickListener(new OnClickListener()
     {
       @Override
@@ -399,8 +409,8 @@ public class MapInfoView extends LinearLayout
       }
     });
 
-    mEditBtn = mBodyGroup.findViewById(R.id.info_box_edit);
-    mReturnToCallerBtn = (TextView) mBodyGroup.findViewById(R.id.info_box_back_to_caller);
+    View mEditBtn = mBodyGroup.findViewById(R.id.info_box_edit);
+    TextView mReturnToCallerBtn = (TextView) mBodyGroup.findViewById(R.id.info_box_back_to_caller);
     UiUtils.hide(mEditBtn);
     UiUtils.hide(mReturnToCallerBtn);
 
@@ -429,10 +439,10 @@ public class MapInfoView extends LinearLayout
           .format("%s {icon} %s", getResources().getString(R.string.more_info), r.getCallerName(getContext()));
 
       final int spanStart = txtPattern.indexOf("{icon}");
-      final int spanEnd   = spanStart + "{icon}".length();
+      final int spanEnd = spanStart + "{icon}".length();
 
       final Drawable icon = r.getIcon(getContext());
-      final int spanSize = (int) (25*getResources().getDisplayMetrics().density);
+      final int spanSize = (int) (25 * getResources().getDisplayMetrics().density);
       icon.setBounds(0, 0, spanSize, spanSize);
       final ImageSpan callerIconSpan = new ImageSpan(icon, ImageSpan.ALIGN_BOTTOM);
 
@@ -451,10 +461,6 @@ public class MapInfoView extends LinearLayout
       });
     }
   }
-
-  private LinearLayout mGeoLayout = null;
-  private View mDistanceView;
-  private TextView mDistanceText;
 
   private void setUpGeoInformation()
   {
@@ -485,7 +491,7 @@ public class MapInfoView extends LinearLayout
           final String copyText = getResources().getString(android.R.string.copy);
           final String arrCoord[] = {
               UiUtils.formatLatLon(lat, lon),
-              UiUtils.formatLatLonToDMS(lat, lon) };
+              UiUtils.formatLatLonToDMS(lat, lon)};
 
           menu.add(Menu.NONE, 0, 0, String.format("%s %s", copyText, arrCoord[0]));
           menu.add(Menu.NONE, 1, 1, String.format("%s %s", copyText, arrCoord[1]));
@@ -548,16 +554,18 @@ public class MapInfoView extends LinearLayout
     final View bmkView = mInflater.inflate(R.layout.info_box_bookmark, null);
 
     // Description of BMK
-    final WebView descritionWv = (WebView) bmkView.findViewById(R.id.info_box_bookmark_descr);
+    final WebView descriptionWv = (WebView) bmkView.findViewById(R.id.info_box_bookmark_descr);
     final String descriptionTxt = bmk.getBookmarkDescription();
 
     if (TextUtils.isEmpty(descriptionTxt))
-      UiUtils.hide(descritionWv);
+    {
+      UiUtils.hide(descriptionWv);
+    }
     else
     {
-      descritionWv.loadData(descriptionTxt, "text/html; charset=UTF-8", null);
-      descritionWv.setBackgroundColor(Color.TRANSPARENT);
-      UiUtils.show(descritionWv);
+      descriptionWv.loadData(descriptionTxt, "text/html; charset=UTF-8", null);
+      descriptionWv.setBackgroundColor(Color.TRANSPARENT);
+      UiUtils.show(descriptionWv);
     }
 
     mBodyContainer.addView(bmkView);
@@ -609,7 +617,9 @@ public class MapInfoView extends LinearLayout
   public void onResume()
   {
     if (mMapObject == null)
+    {
       return;
+    }
 
     checkBookmarkWasDeleted();
     checkApiWasCanceled();
@@ -662,29 +672,7 @@ public class MapInfoView extends LinearLayout
     }
   }
 
-  public void setState(State state)
-  {
-    if (mCurrentState != state)
-    {
-      // Do some transitions
-      if (mCurrentState == State.COLLAPSED && state == State.HEAD)
-        showHeader(true);
-      else if (mCurrentState == State.HEAD && state == State.FULL)
-        showBody(true);
-      else if (mCurrentState == State.HEAD && state == State.COLLAPSED)
-        showHeader(false);
-      else if (mCurrentState == State.FULL && state == State.HEAD)
-        showBody(false);
-      else if (mCurrentState == State.FULL && state == State.COLLAPSED)
-        slideEverytingDown();
-      else
-        throw new IllegalStateException(String.format("Ivalid transition %s - > %s", mCurrentState, state));
-
-      mCurrentState = state;
-    }
-  }
-
-  private void slideEverytingDown()
+  private void slideEverythingDown()
   {
     final TranslateAnimation slideDown = new TranslateAnimation(
         Animation.RELATIVE_TO_SELF, 0,
@@ -705,12 +693,26 @@ public class MapInfoView extends LinearLayout
         UiUtils.hide(mBodyGroup);
         if (mVisibilityChangedListener != null)
         {
-          mVisibilityChangedListener.onHeadVisibilityChanged(false);
-          mVisibilityChangedListener.onBodyVisibilityChanged(false);
+          mVisibilityChangedListener.onPPPVisibilityChanged(false);
+          mVisibilityChangedListener.onPPVisibilityChanged(false);
         }
       }
     });
 
     mView.startAnimation(slideDown);
+  }
+
+  public static enum State
+  {
+    COLLAPSED,
+    HEAD,
+    FULL
+  }
+
+  public interface OnVisibilityChangedListener
+  {
+    public void onPPPVisibilityChanged(boolean isVisible);
+
+    public void onPPVisibilityChanged(boolean isVisible);
   }
 }
