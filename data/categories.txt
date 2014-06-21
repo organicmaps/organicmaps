@@ -270,6 +270,23 @@ pl:3metro|kolej podziemna|transport
 pt:metro|transporte
 hu:3földalatti|3metro|közlekedés
 
+amenity-townhall
+en:3town hall|3tourism|3sights
+ru:3ратуша|3туризм|достопримечательность
+uk:3ратуша|3туризм|пам’ятні місця
+de:3Rathaus|3Sehenswürdigkeit
+fr:3mairie|3tourisme|3site touristique
+it:3municipio|3turistico
+es:3ayuntamiento|3turismo
+ko:1시청사|관광
+ja:1役場|1公会堂|1町役場|観光
+cs:3radnice|3pamětihodnost
+nl:3gemeentehuis|3toerisme
+zh:1市政廳|1市鎮大廳|1旅遊景點
+pl:3ratusz|turystyka|osobliwości miasta
+pt:3prefeitura|turismo|vistas
+hu:3városháza|3látnivaló
+
 tourism-attraction
 en:3attraction|3tourism|3sights
 ru:4достопримечательность|3туризм|3аттракцион
