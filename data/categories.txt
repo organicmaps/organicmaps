@@ -1240,20 +1240,20 @@ pt:3pousada|4hotel|motel
 hu:3hostel|szálloda|szállás
 
 tourism-hotel
-en:2hotel|hostel|motel
-ru:2гостиница|2отель|хостел|мотель
-uk:2готель|хостел|мотель
-de:2Hotel|Gasthaus|Wohnheim
+en:2hotel|motel
+ru:2гостиница|2отель|мотель
+uk:2готель|мотель
+de:2Hotel|Gasthaus
 fr:2hôtel
-it:2hôtel|albergo|ostello
-es:2hotel|albergue juvenil|residencia
-ko:1호텔|호스텔
+it:2hôtel|albergo
+es:2hotel|residencia
+ko:1호텔
 ja:1ホテル|宿|宿泊|旅館
-cs:2hotel|hostel|ubytovna|motel
-nl:2hotel|hostel|motel
-zh:1飯店|1汽車旅館|3motel|旅館|住宿|賓館|酒店|旅舍|招待所
-pl:3hotel|hostel|motel
-pt:3hotel|pousada|motel
+cs:2hotel|ubytovna|motel
+nl:2hotel|motel
+zh:1飯店|1汽車旅館|旅館|住宿|賓館|酒店|招待所
+pl:3hotel|motel
+pt:3hotel|motel
 hu:3szálloda|hotel|szállás
 
 shop-hairdresser
