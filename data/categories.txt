@@ -287,6 +287,22 @@ pl:4atrakcje|zwiedzanie|turystyka|osobliwości miasta
 pt:3atração|turismo|vistas
 hu:3látnivaló|3kirándulás|3látványosság
 
+tourism-artwork
+en:3artwork|3tourism|3sights
+ru:3произведение искусства|3туризм|3скульптура|достопримечательность
+uk:3твір мистецтва|визначна річ|3туризм|3скульптура|пам’ятні місця
+de:3Kunstwerk|3Sehenswürdigkeit
+fr:3œuvre|3oeuvre|3tourisme|3site touristique
+it:3opere d'arte|3turistico
+es:3obras de arte|3turismo
+ko:1작품|관광
+ja:1イラスト|1芸術作品|観光
+cs:3umělecká díla|3pamětihodnost
+nl:3kunstwerk|3toerisme
+zh:1藝術品|3旅遊景點
+pl:3rzeźba|turystyka|osobliwości miasta
+pt:3artwork|turismo|vistas
+hu:3szobor|3látnivaló
 
 tourism-viewpoint
 en:4viewpoint|tourism|sights
