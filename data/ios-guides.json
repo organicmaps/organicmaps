@@ -1,5 +1,45 @@
 {
-  "version":4,
+  "version":5,
+
+"Montenegro":{
+ "url":"itms-apps://itunes.apple.com/app/id892012843",
+    "appId":"guidewithme-montenegro://",
+    "adTitles":{
+        "en":"Go to Travel Guide",
+        "nl":"Ga naar Reisgids",
+        "uk":"Обирайте путівник",
+        "zh":"常備旅行指南",
+        "cs":"Přejděte k cestovnímu průvodci",
+        "fr":"Aller au guide de voyage",
+        "it":"Vai alla guida turistica",
+        "ja":"旅行ガイドに進む",
+        "ko":"여행 가이드로 이동",
+        "pt":"Ir para Guia de Viagem",
+        "es":"Ir a la guía de viaje",
+        "pl":"Przejdź do przewodnika turystycznego",
+        "de":"Besuchen Sie Travel Guide",
+        "ru":"Перейти к путеводителю"
+      },
+    "adMessages":{
+        "en":"Montenegro: free offline travel guide",
+        "nl":"Montenegro: gratis offline reisgids",
+        "uk":"Чорногорія: безкоштовні путівники оф-лайн.",
+        "zh":"黑山：免費離線旅行指南",
+        "cs":"Černá Hora: bezplatný off-line turistický průvodce",
+        "fr":"Monténégro: guide de voyage gratuit hors ligne",
+        "it":"Montenegro: guida turistica gratuita offline",
+        "ja":"モンテネグロ：無料オフライン旅行ガイド",
+        "ko":"몬테네그로: 무료 오프라인 여행 가이드",
+        "pt":"Montenegro: guia de viagem grátis offline",
+        "es":"Montenegro: guía de viaje offline gratis",
+        "pl":"Czarnogóra: bezpłatny przewodnik turystyczny dostępny w trybie offline",
+        "de":"Montenegro: kostenloser Offline-Reiseführer",
+        "ru":"Черногория: бесплатный оффлайновый гид"
+    },
+   "keys":[
+   "Montenegro"
+     ]
+},
 
 "Lithuania":{
  "url":"itms-apps://itunes.apple.com/app/id887290323",
