@@ -15,7 +15,7 @@
 @property (nonatomic, readonly) UITextField * textField;
 @property (nonatomic, readonly) UIButton * clearButton;
 @property (nonatomic, readonly) UIButton * cancelButton;
-@property (nonatomic, readonly) SolidTouchViewImageView * fieldBackgroundView;
+@property (nonatomic, readonly) SolidTouchImageView * fieldBackgroundView;
 
 @property (nonatomic, weak) id <SearchBarDelegate> delegate;
 

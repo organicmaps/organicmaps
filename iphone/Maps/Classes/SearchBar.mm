@@ -9,7 +9,7 @@
 @property (nonatomic) UIButton * cancelButton;
 @property (nonatomic) UIImageView * spotImageView;
 @property (nonatomic) UIActivityIndicatorView * activity;
-@property (nonatomic) SolidTouchViewImageView * fieldBackgroundView;
+@property (nonatomic) SolidTouchImageView * fieldBackgroundView;
 
 @end
 
@@ -103,12 +103,12 @@
   return _clearButton;
 }
 
-- (SolidTouchViewImageView *)fieldBackgroundView
+- (SolidTouchImageView *)fieldBackgroundView
 {
   if (!_fieldBackgroundView)
   {
     UIImage * image = [[UIImage imageNamed:@"SearchFieldBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(6, 6, 6, 6)];
-    _fieldBackgroundView = [[SolidTouchViewImageView alloc] initWithFrame:CGRectMake(0, 0, 0, image.size.height)];
+    _fieldBackgroundView = [[SolidTouchImageView alloc] initWithFrame:CGRectMake(0, 0, 0, image.size.height)];
     _fieldBackgroundView.image = image;
     _fieldBackgroundView.userInteractionEnabled = YES;
     _fieldBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;

@@ -88,7 +88,7 @@
 @interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver, UIAlertViewDelegate>
 
 @property (nonatomic) UITableView * tableView;
-@property (nonatomic) SolidTouchViewImageView * topBackgroundView;
+@property (nonatomic) SolidTouchImageView * topBackgroundView;
 @property (nonatomic) UILabel * emptyResultLabel;
 
 @property (nonatomic) SearchResultsWrapper * wrapper;
@@ -649,11 +649,11 @@ static void OnSearchResultCallback(search::Results const & results)
   return _tableView;
 }
 
-- (SolidTouchViewImageView *)topBackgroundView
+- (SolidTouchImageView *)topBackgroundView
 {
   if (!_topBackgroundView)
   {
-    _topBackgroundView = [[SolidTouchViewImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0)];
+    _topBackgroundView = [[SolidTouchImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0)];
     _topBackgroundView.image = [[UIImage imageNamed:@"SearchViewTopBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0) resizingMode:UIImageResizingModeStretch];
     _topBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _topBackgroundView.userInteractionEnabled = YES;
