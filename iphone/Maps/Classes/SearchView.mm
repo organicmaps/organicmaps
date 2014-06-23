@@ -93,6 +93,7 @@
 
 @property (nonatomic) SearchResultsWrapper * wrapper;
 @property (nonatomic) NSArray * categoriesNames;
+@property (nonatomic) BOOL isShowingCategories;
 
 @end
 
@@ -122,6 +123,7 @@ __weak SearchView * selfPointer;
 
   selfPointer = self;
   needToScroll = NO;
+  self.isShowingCategories = YES;
 
   [self.tableView registerClass:[SearchUniversalCell class] forCellReuseIdentifier:[SearchUniversalCell className]];
 
@@ -138,6 +140,9 @@ __weak SearchView * selfPointer;
 {
   if (_state == SearchViewStateResults && state == SearchViewStateHidden)
     [self clearSearchResultsMode];
+
+  if (_state == SearchViewStateResults && state == SearchViewStateFullscreen && self.isShowingCategories)
+    self.searchBar.textField.text = nil;
 
   UIViewAnimationOptions options = UIViewAnimationOptionCurveEaseInOut;
   double damping = 0.9;
@@ -308,7 +313,7 @@ static void OnSearchResultCallback(search::Results const & results)
   }
   else
   {
-    self.emptyResultLabel.hidden = [self isShowingCategories] ? YES : ([wrapper count] > 0);
+    self.emptyResultLabel.hidden = self.isShowingCategories ? YES : ([wrapper count] > 0);
     self.wrapper = wrapper;
     [self.tableView reloadData];
     [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
@@ -337,6 +342,7 @@ static void OnSearchResultCallback(search::Results const & results)
 - (void)searchBarDidPressCancelButton:(id)searchBar
 {
   self.searchBar.textField.text = nil;
+  self.isShowingCategories = YES;
   [self.searchBar setSearching:NO];
   [self.tableView reloadData];
   self.emptyResultLabel.alpha = 0;
@@ -357,7 +363,8 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (void)processTextChanging
 {
-  if ([self isShowingCategories])
+  self.isShowingCategories = !self.searchBar.textField.text.length;
+  if (self.isShowingCategories)
   {
     self.emptyResultLabel.hidden = YES;
     [self.tableView reloadData];
@@ -370,7 +377,7 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  if ([self.wrapper count] && ![self isShowingCategories])
+  if ([self.wrapper count] && !self.isShowingCategories)
   {
     if (GetPlatform().IsPro())
     {
@@ -395,7 +402,6 @@ static void OnSearchResultCallback(search::Results const & results)
     {
       [self showBuyProMessage];
     }
-
     return YES;
   }
   return NO;
@@ -424,7 +430,7 @@ static void OnSearchResultCallback(search::Results const & results)
 {
   SearchUniversalCell * cell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
 
-  if ([self isShowingCategories])
+  if (self.isShowingCategories)
   {
     // initial categories
     cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
@@ -474,8 +480,7 @@ static void OnSearchResultCallback(search::Results const & results)
         cell.distanceLabel.text = wrapper.distances[@(position)];
         cell.typeLabel.text = [NSString stringWithUTF8String:result.GetFeatureType()];
         NSString * subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
-        NSRange subtitleRange = [subtitle rangeOfString:self.searchBar.textField.text options:NSCaseInsensitiveSearch];
-        [cell setSubtitle:subtitle selectedRange:subtitleRange];
+        [cell setSubtitle:subtitle selectedRange:NSMakeRange(0, 0)];
       }
     }
     else
@@ -493,7 +498,7 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if ([self isShowingCategories])
+  if (self.isShowingCategories)
   {
     return [SearchUniversalCell cellHeightWithTitle:self.categoriesNames[indexPath.row] type:nil subtitle:nil distance:nil viewWidth:tableView.width];
   }
@@ -507,7 +512,7 @@ static void OnSearchResultCallback(search::Results const & results)
       NSString * title = [NSString stringWithUTF8String:result.GetString()];
       NSString * subtitle;
       NSString * type;
-      if (result.GetResultType() == search::Result::RESULT_FEATURE || search::Result::RESULT_LATLON)
+      if (result.GetResultType() == search::Result::RESULT_FEATURE || result.GetResultType() == search::Result::RESULT_LATLON)
       {
         subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
         type = [NSString stringWithUTF8String:result.GetFeatureType()];
@@ -530,15 +535,24 @@ static void OnSearchResultCallback(search::Results const & results)
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  if ([self isShowingCategories])
+  if (self.isShowingCategories)
   {
     [[Statistics instance] logEvent:@"Category Selection" withParameters:@{@"Category" : self.categoriesNames[indexPath.row]}];
     self.searchBar.textField.text = [NSLocalizedString(self.categoriesNames[indexPath.row], nil) stringByAppendingString:@" "];
-    [self search];
-    return;
-  }
 
-  if ([self indexPathIsForSearchResultItem:indexPath])
+    search::SearchParams params;
+    params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
+    params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
+
+    Framework & f = GetFramework();
+    f.StartInteractiveSearch(params);
+    f.UpdateUserViewportChanged();
+
+    self.isShowingCategories = YES;
+
+    [self setState:SearchViewStateResults animated:YES withCallback:YES];
+  }
+  else if ([self indexPathIsForSearchResultItem:indexPath])
   {
     NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
     search::Result const & result = [self.wrapper resultWithPosition:position];
@@ -615,12 +629,7 @@ static void OnSearchResultCallback(search::Results const & results)
 
   resultsCount = wrapperCount;
 
-  return [self isShowingCategories] ? [self.categoriesNames count] : resultsCount;
-}
-
-- (BOOL)isShowingCategories
-{
-  return ![self.searchBar.textField.text length];
+  return self.isShowingCategories ? [self.categoriesNames count] : resultsCount;
 }
 
 - (NSArray *)categoriesNames
