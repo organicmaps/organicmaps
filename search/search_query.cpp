@@ -258,6 +258,11 @@ void Query::Init()
   m_tokens.clear();
   m_prefix.clear();
 
+#ifdef HOUSE_SEARCH_TEST
+  m_house.clear();
+  m_streetID.clear();
+#endif
+
   ClearQueues();
 }
 
@@ -271,40 +276,41 @@ void Query::SetQuery(string const & query)
 {
   m_query = &query;
 
-#ifdef HOUSE_SEARCH_TEST
-  m_house.clear();
-  m_streetID.clear();
-#endif
+  /// @todo Why Init is separated with SetQuery?
+  ASSERT(m_tokens.empty(), ());
+  ASSERT(m_prefix.empty(), ());
+  ASSERT(m_house.empty(), ());
 
-  // split input query by tokens and prefix
+  // Split input query by tokens with possible last prefix.
   search::Delimiters delims;
   SplitUniString(NormalizeAndSimplifyString(query), MakeBackInsertFunctor(m_tokens), delims);
 
+  bool checkPrefix = true;
+
+  // Find most suitable token for house number.
 #ifdef HOUSE_SEARCH_TEST
-  int tokenIndex = static_cast<int>(m_tokens.size()) - 1;
-  while (tokenIndex >= 0)
+  int houseInd = static_cast<int>(m_tokens.size()) - 1;
+  while (houseInd >= 0)
   {
-    if (feature::IsHouseNumberDeepCheck(m_tokens[tokenIndex]))
+    if (feature::IsHouseNumberDeepCheck(m_tokens[houseInd]))
     {
       if (m_tokens.size() > 1)
       {
-        m_house.swap(m_tokens[tokenIndex]);
-        m_tokens[tokenIndex].swap(m_tokens.back());
+        m_house.swap(m_tokens[houseInd]);
+        m_tokens[houseInd].swap(m_tokens.back());
         m_tokens.pop_back();
       }
       break;
     }
-    --tokenIndex;
+    --houseInd;
   }
 
-  if (!m_tokens.empty() && m_house.empty() && feature::IsHouseNumberDeepCheck(m_prefix))
-  {
-    m_house.swap(m_prefix);
-    m_prefix.clear();
-  }
+  // do check for prefix if last token is not a house number
+  checkPrefix = m_house.empty() || houseInd < m_tokens.size();
 #endif
 
-  if (!m_tokens.empty() && !delims(strings::LastUniChar(query)))
+  // Assign prefix with last parsed token.
+  if (checkPrefix && !m_tokens.empty() && !delims(strings::LastUniChar(query)))
   {
     m_prefix.swap(m_tokens.back());
     m_tokens.pop_back();
@@ -612,6 +618,12 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
 
   RemoveDuplicatingLinear(indV);
 
+  SortByIndexedValue(indV, CompFactory2());
+
+  // Do not process suggestions in additional search.
+  if (!allMWMs)
+    ProcessSuggestions(indV, res);
+
   bool (Results::*addFn)(Result const &) = allMWMs ?
         &Results::AddResultCheckExisting :
         &Results::AddResult;
@@ -643,10 +655,6 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
     }
   }
 #endif
-
-  SortByIndexedValue(indV, CompFactory2());
-
-  ProcessSuggestions(indV, res);
 
   // emit feature results
   size_t count = res.GetCount();
