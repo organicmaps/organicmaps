@@ -146,7 +146,6 @@ const long long LITE_IDL = 431183278L;
 
 - (void)dismissPlacePage
 {
-  [self.containerView.placePage showUserMark:NULL];
   [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
@@ -251,10 +250,14 @@ const long long LITE_IDL = 431183278L;
   m2::PointD pxClicked(point.x * scaleFactor, point.y * scaleFactor);
 
   Framework & f = GetFramework();
-  if (f.HasActiveUserMark() && isLongClick == NO)
+  if (f.HasActiveUserMark() && !isLongClick)
     f.GetBalloonManager().Dismiss();
   else
-    f.GetBalloonManager().OnShowMark(f.GetUserMark(m2::PointD(pxClicked.x, pxClicked.y), isLongClick));
+  {
+    UserMark const * userMark = f.GetUserMark(m2::PointD(pxClicked.x, pxClicked.y), isLongClick);
+    if (userMark)
+      f.GetBalloonManager().OnShowMark(userMark);
+  }
 }
 
 - (void)onSingleTap:(NSValue *)point

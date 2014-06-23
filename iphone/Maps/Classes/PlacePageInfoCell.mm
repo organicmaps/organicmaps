@@ -79,8 +79,8 @@
 {
   self.pinPoint = point;
   self.addressLabel.text = address;
-  [self updateCoordinates];
   self.distanceLabel.text = [self distance];
+  [self updateCoordinates];
 }
 
 - (void)setColor:(UIColor *)color
@@ -89,7 +89,7 @@
 }
 
 #define ADDRESS_LEFT_SHIFT 19
-#define COORDINATES_RIGHT_SHIFT 48
+#define COORDINATES_RIGHT_SHIFT 42
 #define RIGHT_SHIFT 55
 #define DISTANCE_LEFT_SHIFT 55
 

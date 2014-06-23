@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) NSString * info;
 @property (nonatomic) NSString * setName;
 
-@property (nonatomic) BOOL titleIsTemporary;
+@property (nonatomic) NSString * temporaryTitle;
 
 @end
 
@@ -606,8 +606,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   UserMark const * innerMark = [self userMark];
   if ([self isBookmark])
     [self bookmarkActivated:static_cast<Bookmark const *>(innerMark)];
-  else if ([self isMarkOfType:UserMark::API] || [self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
+  else
     [self userMarkActivated:innerMark];
+
   GetFramework().ActivateUserMark(innerMark);
 }
 
@@ -681,6 +682,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
         _title = [self nonEmptyBmName:[self addressInfo].GetPinName()];
     }
 
+    NSString * droppedPinTitle = NSLocalizedString(@"dropped_pin", nil);
     if (![_title length])
     {
       self.titleIsTemporary = YES;
