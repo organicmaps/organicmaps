@@ -26,7 +26,8 @@ public:
     API,
     SEARCH,
     POI,
-    BOOKMARK
+    BOOKMARK,
+    MY_POSITION
   };
 
   UserMark(m2::PointD const & ptOrg, UserMarkContainer * container);
@@ -145,6 +146,16 @@ public:
 
   void SetPtOrg(m2::PointD const & ptOrg) { m_ptOrg = ptOrg; }
   void SetName(string const & name) { m_info.m_name = name; }
+};
+
+class MyPositionMarkPoint : public PoiMarkPoint
+{
+  typedef PoiMarkPoint base_t;
+public:
+  MyPositionMarkPoint(UserMarkContainer * container)
+    : base_t(container) {}
+
+  UserMark::Type GetMarkType() const { return MY_POSITION; }
 };
 
 class ICustomDrawable : public UserMark

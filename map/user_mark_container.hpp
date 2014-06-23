@@ -74,8 +74,9 @@ public:
 
   double GetDepth() const { return m_layerDepth; }
 
-  static void InitPoiSelectionMark(UserMarkContainer * container);
+  static void InitStaticMarks(UserMarkContainer * container);
   static PoiMarkPoint * UserMarkForPoi();
+  static MyPositionMarkPoint * UserMarkForMyPostion();
 
   Controller const & GetController() const { return m_controller; }
   Controller & GetController() { return m_controller; }

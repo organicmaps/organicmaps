@@ -1487,9 +1487,9 @@ void Framework::SetViewPortASync(m2::RectD const & r)
 
 void Framework::UpdateSelectedMyPosition(m2::PointD const & pt)
 {
-  PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
-  poiMark->SetPtOrg(pt);
-  ActivateUserMark(poiMark, false);
+  MyPositionMarkPoint * myPositionMark = UserMarkContainer::UserMarkForMyPostion();
+  myPositionMark->SetPtOrg(pt);
+  ActivateUserMark(myPositionMark, false);
 }
 
 void Framework::DisconnectMyPositionUpdate()
@@ -1603,7 +1603,7 @@ shared_ptr<location::State> const & Framework::GetLocationState() const
 
 void Framework::ActivateUserMark(UserMark const * mark, bool needAnim)
 {
-  if (mark != UserMarkContainer::UserMarkForPoi())
+  if (mark != UserMarkContainer::UserMarkForMyPostion())
     DisconnectMyPositionUpdate();
   m_bmManager.ActivateMark(mark, needAnim);
 }
@@ -1627,11 +1627,11 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
     {
       search::AddressInfo info;
       info.m_name = m_stringsBundle.GetString("my_position");
-      PoiMarkPoint * poiMark = UserMarkContainer::UserMarkForPoi();
+      MyPositionMarkPoint * myPostition = UserMarkContainer::UserMarkForMyPostion();
       m_locationChangedSlotID = locationState->AddPositionChangedListener(bind(&Framework::UpdateSelectedMyPosition, this, _1));
-      poiMark->SetPtOrg(glPivot);
-      poiMark->SetInfo(info);
-      return poiMark;
+      myPostition->SetPtOrg(glPivot);
+      myPostition->SetInfo(info);
+      return myPostition;
     }
   }
 

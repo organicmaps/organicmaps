@@ -159,18 +159,28 @@ void UserMarkContainer::Clear()
 namespace
 {
   static scoped_ptr<PoiMarkPoint> s_selectionUserMark;
+  static scoped_ptr<MyPositionMarkPoint> s_myPosition;
 }
 
-void UserMarkContainer::InitPoiSelectionMark(UserMarkContainer * container)
+void UserMarkContainer::InitStaticMarks(UserMarkContainer * container)
 {
   if (s_selectionUserMark == NULL)
     s_selectionUserMark.reset(new PoiMarkPoint(container));
+
+  if (s_myPosition == NULL)
+    s_myPosition.reset(new MyPositionMarkPoint(container));
 }
 
 PoiMarkPoint * UserMarkContainer::UserMarkForPoi()
 {
   ASSERT(s_selectionUserMark != NULL, ());
   return s_selectionUserMark.get();
+}
+
+MyPositionMarkPoint * UserMarkContainer::UserMarkForMyPostion()
+{
+  ASSERT(s_myPosition != NULL, ());
+  return s_myPosition.get();
 }
 
 UserMark * UserMarkContainer::CreateUserMark(m2::PointD const & ptOrg)
