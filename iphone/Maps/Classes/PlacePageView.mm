@@ -634,6 +634,27 @@ typedef NS_ENUM(NSUInteger, CellRow)
   return m_mark ? [self userMark]->GetOrg() : m2::PointD();
 }
 
+- (NSString *)nonEmptyBmName:(string const &)name
+{
+  return name.empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:name.c_str()];
+}
+
+- (NSString *)newBookmarkName
+{
+  if ([self isMarkOfType:UserMark::MY_POSITION])
+  {
+      Framework & f = GetFramework();
+      search::AddressInfo info;
+      m2::PointD pxPivot;
+      if (f.GetVisiblePOI(f.GtoP([self pinPoint]), pxPivot, info))
+        return [self nonEmptyBmName:info.GetPinName()];
+      else
+        return [self nonEmptyBmName:[self addressInfo].GetPinName()];
+  }
+  else
+    return self.title;
+}
+
 - (NSString *)title
 {
   if (!_title)
@@ -642,16 +663,16 @@ typedef NS_ENUM(NSUInteger, CellRow)
     if ([self isBookmark])
     {
       Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
-      _title = bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
+      _title = [self nonEmptyBmName:bookmark->GetName()];
     }
     else if ([self isMarkOfType:UserMark::API])
     {
       ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>([self userMark]);
-      _title = apiMark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:apiMark->GetName().c_str()];
+      _title = [self nonEmptyBmName:apiMark->GetName()];
     }
     else
     {
-      _title = [self addressInfo].GetPinName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:[self addressInfo].GetPinName().c_str()];
+        _title = [self nonEmptyBmName:[self addressInfo].GetPinName()];
     }
 
     if (![_title length])
@@ -750,7 +771,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if (needUpdateAddressInfo)
   {
     needUpdateAddressInfo = NO;
-    if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH])
+    if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH] || [self isMarkOfType:UserMark::MY_POSITION])
     {
       SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>([self userMark]);
       m_addressInfo = mark->GetInfo();
@@ -818,7 +839,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     else
     {
       size_t const categoryIndex = framework.LastEditedBMCategory();
-      BookmarkData data = BookmarkData([self.title UTF8String], framework.LastEditedBMType());
+      BookmarkData data = BookmarkData([[self newBookmarkName] UTF8String], framework.LastEditedBMType());
       size_t const bookmarkIndex = framework.AddBookmark(categoryIndex, [self pinPoint], data);
       BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
       m_mark = make_shared_ptr(category->GetBookmark(bookmarkIndex)->Copy());
