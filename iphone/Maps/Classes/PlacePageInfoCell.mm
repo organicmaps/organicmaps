@@ -69,9 +69,18 @@
 {
   bool useDMS = false;
   (void)Settings::Get(SETTINGS_KEY_USE_DMS, useDMS);
-
-  string const coords = useDMS ? MeasurementUtils::FormatMercatorAsDMS(self.pinPoint, 2)
-                               : MeasurementUtils::FormatMercator(self.pinPoint, 6);
+  m2::PointD point;
+  if (self.myPositionMode)
+  {
+    CLLocationCoordinate2D const coordinate = [MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate;
+    point = m2::PointD(MercatorBounds::LonToX(coordinate.longitude), MercatorBounds::LatToY(coordinate.latitude));
+  }
+  else
+  {
+    point = self.pinPoint;
+  }
+  string const coords = useDMS ? MeasurementUtils::FormatMercatorAsDMS(point)
+                               : MeasurementUtils::FormatMercator(point);
   self.coordinatesLabel.text = [NSString stringWithUTF8String:coords.c_str()];
 }
 
@@ -83,11 +92,6 @@
   [self updateCoordinates];
 }
 
-- (void)setColor:(UIColor *)color
-{
-  [self.selectedColorView setColor:color];
-}
-
 #define ADDRESS_LEFT_SHIFT 19
 #define COORDINATES_RIGHT_SHIFT 42
 #define RIGHT_SHIFT 55
@@ -97,8 +101,9 @@
 
 - (void)layoutSubviews
 {
+  BOOL const shouldShowLocationViews = [[MapsAppDelegate theApp].m_locationManager enabledOnMap] && !self.myPositionMode;
   CGFloat addressY;
-  if ([[MapsAppDelegate theApp].m_locationManager enabledOnMap])
+  if (shouldShowLocationViews)
   {
     self.compassView.origin = CGPointMake(19, 17);
     self.compassView.hidden = NO;
@@ -126,16 +131,19 @@
   self.separatorView.width = self.width - 2 * shift;
   self.separatorView.minX = shift;
 
+  [self.selectedColorView setColor:self.color];
+
   self.backgroundColor = [UIColor clearColor];
 }
 
-+ (CGFloat)cellHeightWithAddress:(NSString *)address viewWidth:(CGFloat)viewWidth
++ (CGFloat)cellHeightWithAddress:(NSString *)address viewWidth:(CGFloat)viewWidth inMyPositionMode:(BOOL)myPositon
 {
   NSString * addressCopy = [address copy];
   if ([addressCopy isEqualToString:@""])
     addressCopy = nil;
   CGFloat addressHeight = [addressCopy sizeWithDrawSize:CGSizeMake(viewWidth - ADDRESS_LEFT_SHIFT - RIGHT_SHIFT, 200) font:ADDRESS_FONT].height;
-  return addressHeight + ([[MapsAppDelegate theApp].m_locationManager enabledOnMap] ? 100 : 56) + (addressHeight ? 10 : 0);
+  BOOL const shouldShowLocationViews = [[MapsAppDelegate theApp].m_locationManager enabledOnMap] && !myPositon;
+  return addressHeight + (shouldShowLocationViews ? 100 : 56) + (addressHeight ? 10 : 0);
 }
 
 - (void)addressPress:(id)sender

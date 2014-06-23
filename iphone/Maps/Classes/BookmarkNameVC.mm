@@ -22,7 +22,7 @@
 
   self.textField.delegate = self;
 
-  if (!self.nameIsTemporary)
+  if (!self.temporaryName)
     self.textField.text = bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
   self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 }
@@ -43,7 +43,7 @@
 {
   [super viewDidDisappear:animated];
 
-  if (!self.nameIsTemporary || (self.nameIsTemporary && [self.textField.text length]))
+  if (!self.temporaryName || (self.temporaryName && [self.textField.text length]))
   {
     BookmarkCategory * category = GetFramework().GetBmCategory(self.bookmarkAndCategory.first);
     Bookmark * bookmark = category->GetBookmark(self.bookmarkAndCategory.second);

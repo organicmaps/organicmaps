@@ -127,6 +127,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
   if ([self isMarkOfType:UserMark::MY_POSITION])
     self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formatSpeedAndAltitude];
+  if ([self isMarkOfType:UserMark::MY_POSITION])
+    [cell updateCoordinates];
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
@@ -171,9 +173,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     PlacePageInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageInfoCell className]];
     [cell setAddress:self.address pinPoint:[self pinPoint]];
-    [cell setColor:[ColorPickerView colorForName:[self colorName]]];
+    cell.color = [ColorPickerView colorForName:[self colorName]];
     cell.selectedColorView.alpha = [self isBookmark] ? 1 : 0;
     cell.delegate = self;
+    cell.myPositionMode = [self isMarkOfType:UserMark::MY_POSITION];
     return cell;
   }
   else if (row == CellRowSet)
@@ -205,7 +208,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   CellRow row = [self cellRowForIndexPath:indexPath];
   if (row == CellRowCommon)
-    return [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:tableView.width];
+    return [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:tableView.width inMyPositionMode:[self isMarkOfType:UserMark::MY_POSITION]];
   else if (row == CellRowSet)
     return [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:tableView.width];
   else if (row == CellRowInfo)
@@ -329,7 +332,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
   else if (self.state == PlacePageStateOpened)
   {
     self.titleLabel.userInteractionEnabled = YES;
-    CGFloat fullHeight = [self headerHeight] + [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:self.tableView.width] + [PlacePageShareCell cellHeight];
+    CGFloat const infoCellHeight = [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:self.tableView.width inMyPositionMode:[self isMarkOfType:UserMark::MY_POSITION]];
+    CGFloat fullHeight = [self headerHeight] + infoCellHeight + [PlacePageShareCell cellHeight];
     if ([self isBookmark])
     {
       fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
@@ -342,8 +346,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
       [self updateHeight:fullHeight];
       self.minY = [self viewMinY];
       self.headerSeparator.alpha = 1;
-    } completion:^(BOOL finished){
-    }];
+    } completion:nil];
   }
   else if (self.state == PlacePageStateHidden)
   {
@@ -641,7 +644,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   return m_mark ? [self userMark]->GetOrg() : m2::PointD();
 }
 
-- (NSString *)nonEmptyBmName:(string const &)name
+- (NSString *)nonEmptyTitle:(string const &)name
 {
   return name.empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:name.c_str()];
 }
@@ -650,47 +653,53 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if ([self isMarkOfType:UserMark::MY_POSITION])
   {
-      Framework & f = GetFramework();
-      search::AddressInfo info;
-      m2::PointD pxPivot;
-      if (f.GetVisiblePOI(f.GtoP([self pinPoint]), pxPivot, info))
-        return [self nonEmptyBmName:info.GetPinName()];
-      else
-        return [self nonEmptyBmName:[self addressInfo].GetPinName()];
+    Framework & f = GetFramework();
+    search::AddressInfo info;
+    m2::PointD pxPivot;
+    if (f.GetVisiblePOI(f.GtoP([self pinPoint]), pxPivot, info))
+      return [self nonEmptyTitle:info.GetPinName()];
+    else
+      return [self nonEmptyTitle:[self addressInfo].GetPinName()];
   }
   else
+  {
     return self.title;
+  }
 }
 
 - (NSString *)title
 {
   if (!_title)
   {
-    self.titleIsTemporary = NO;
+    self.temporaryTitle = nil;
     if ([self isBookmark])
     {
       Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
-      _title = [self nonEmptyBmName:bookmark->GetName()];
+      _title = [self nonEmptyTitle:bookmark->GetName()];
     }
     else if ([self isMarkOfType:UserMark::API])
     {
       ApiMarkPoint const * apiMark = static_cast<ApiMarkPoint const *>([self userMark]);
-      _title = [self nonEmptyBmName:apiMark->GetName()];
+      _title = [self nonEmptyTitle:apiMark->GetName()];
     }
     else
     {
-        _title = [self nonEmptyBmName:[self addressInfo].GetPinName()];
+      _title = [self nonEmptyTitle:[self addressInfo].GetPinName()];
     }
 
     NSString * droppedPinTitle = NSLocalizedString(@"dropped_pin", nil);
     if (![_title length])
     {
-      self.titleIsTemporary = YES;
+      self.temporaryTitle = droppedPinTitle;
       _title = [[self types] capitalizedString];
     }
-    else if ([_title isEqualToString:NSLocalizedString(@"dropped_pin", nil)])
+    else if ([_title isEqualToString:droppedPinTitle])
     {
-      self.titleIsTemporary = YES;
+      self.temporaryTitle = droppedPinTitle;
+    }
+    else if ([_title isEqualToString:myPositionTitle])
+    {
+      self.temporaryTitle = myPositionTitle;
     }
   }
   return _title;
@@ -704,11 +713,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
     {
       search::AddressInfo addressInfo;
       GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
-      _types = addressInfo.GetPinType().empty() ? @"" : [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
+      _types = [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
     }
     else
     {
-      _types = [self addressInfo].GetPinType().empty() ? @"" : [NSString stringWithUTF8String:[self addressInfo].GetPinType().c_str()];
+      _types = [NSString stringWithUTF8String:[self addressInfo].GetPinType().c_str()];
     }
   }
   return _types;
@@ -739,7 +748,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
     if ([self isBookmark])
     {
       Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
-      _info = bookmark->GetDescription().empty() ? NSLocalizedString(@"description", nil) : [NSString stringWithUTF8String:bookmark->GetDescription().c_str()];
+      std::string const & description = bookmark->GetDescription();
+      _info = description.empty() ? NSLocalizedString(@"description", nil) : [NSString stringWithUTF8String:description.c_str()];
     }
     else
     {
@@ -766,7 +776,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if ([self isBookmark])
   {
     Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
-    return bookmark->GetType().empty() ? @"placemark-red" : [NSString stringWithUTF8String:bookmark->GetType().c_str()];
+    std::string const & type = bookmark->GetType();
+    return type.empty() ? @"placemark-red" : [NSString stringWithUTF8String:type.c_str()];
   }
   else
   {

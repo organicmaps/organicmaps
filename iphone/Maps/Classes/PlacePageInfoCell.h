@@ -15,11 +15,14 @@
 
 @interface PlacePageInfoCell : UITableViewCell
 
-+ (CGFloat)cellHeightWithAddress:(NSString *)address viewWidth:(CGFloat)viewWidth;
++ (CGFloat)cellHeightWithAddress:(NSString *)address viewWidth:(CGFloat)viewWidth inMyPositionMode:(BOOL)myPositon;
 
 - (void)setAddress:(NSString *)address pinPoint:(m2::PointD)point;
-- (void)setColor:(UIColor *)color;
 - (void)updateDistance;
+- (void)updateCoordinates;
+
+@property (nonatomic) UIColor * color;
+@property (nonatomic) BOOL myPositionMode;
 
 @property (nonatomic, readonly) UIImageView * separator;
 @property (nonatomic, readonly) SelectedColorView * selectedColorView;

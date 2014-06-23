@@ -12,7 +12,7 @@
 @interface BookmarkNameVC : UITableViewController
 
 @property (nonatomic) BookmarkAndCategory bookmarkAndCategory;
-@property (nonatomic) BOOL nameIsTemporary;
+@property (nonatomic) NSString * temporaryName;
 @property (nonatomic, weak) id <BookmarkNameVCDelegate> delegate;
 
 @end
