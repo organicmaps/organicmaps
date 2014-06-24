@@ -25,9 +25,9 @@
 	<!-- Add New Bookmark Set dialog title -->
 	<text id="IDS_ADD_NEW_SET">Добавить группу</text>
 	<!-- Bookmark Color dialog title -->
-	<text id="IDS_BOOKMARK_COLOR">Цвет закладки</text>
+	<text id="IDS_BOOKMARK_COLOR">Цвет метки</text>
 	<!-- Bookmarks - dialog title -->
-	<text id="IDS_BOOKMARKS">Закладки</text>
+	<text id="IDS_BOOKMARKS">Метки</text>
 	<!-- Settings button in system menu -->
 	<text id="IDS_SETTINGS">Настройки</text>
 	<!-- Show bookmarks from this category on a map or not -->

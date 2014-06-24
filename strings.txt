@@ -1426,7 +1426,7 @@
     en = Add to Bookmarks
     tags = ios,android
     comment = Place Page - Add To Bookmarks button
-    ru = Добавить в Закладки
+    ru = Сохранить метку
     de = Zu den Lesezeichen hinzufügen
     fr = Ajouter aux signets
     it = Aggiungi al Segnalibri
@@ -1451,7 +1451,7 @@
     ja = ブックマーク表示色
     ko = 색상 즐겨찾기에 추가
     nl = Bladwijzer Kleur
-    ru = Цвет закладки
+    ru = Цвет метки
     uk = Колір закладки
     zh-Hant = 書籤顏色
     pl = Kolor zakładki
@@ -1487,8 +1487,8 @@
     ja = ブックマークセット
     ko = 세트를 즐겨찾기에 추가
     nl = Bladwijzer groepen
-    ru = Группы закладок
     uk = Групи закладок
+    ru = Группы меток
     zh-Hant = 收藏夾
     pl = Zestawy zakładek
     pt = Conjuntos de favoritos
@@ -1505,7 +1505,7 @@
     ja = ブックマーク
     ko = 북마크
     nl = Bladwijzers
-    ru = Закладки
+    ru = Метки
     uk = Закладки
     zh-Hant = 書籤
     pl = Zakładki
@@ -1558,7 +1558,7 @@
     ja = マイロケーション
     ko = 내 장소
     nl = Mijn Plaatsen
-    ru = Мои Закладки
+    ru = Мои Метки
     uk = Мої Закладки
     zh-Hant = 我的地點
     pl = Moje miejsca
@@ -1647,7 +1647,7 @@
     ja = 未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nmaps.me以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
     ko = 즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 maps.me 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
     nl = Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de maps.me app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
-    ru = У вас пока нет закладок.\nВыберите любое место на карте, чтобы добавить его в закладки.\nТак же закладки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.
+    ru = У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТак же метки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.
     uk = У вас ще немає закладки.\nНатисніть на будь-яке місце на карті, щоб додати закладку.\nЗакладки з інших ресурсів також можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.
     zh-Hant = 您還沒有任何書簽。\n點擊地圖上的任何地方以添加書簽。\n其他來源的書簽也可在maps.me應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
     pl = Nie masz jeszcze żadnych zakładek.\nDotknij dowolnego miejsca na mapie, aby dodać zakładkę.\nZakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji maps.me. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
@@ -1665,7 +1665,7 @@
     ja = maps.me以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
     ko = 다른 소스에서 북마크는 maps.me 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
     nl = Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de maps.me app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
-    ru = Закладки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.
+    ru = Метки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.
     uk = Закладки з інших ресурсів можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.
     zh-Hant = 其他來源的書簽也可在maps.me應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
     pl = Zakładki z innych źródeł mogą być importowane i wyświetlane w aplikacji maps.me. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
@@ -1790,7 +1790,7 @@
     ja = ブックマーク機能はmaps.me完全版で利用可能です。ぜひお買い求めください。
     ko = maps.me의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?
     nl = Bladwijzers zijn beschikbaar in de volledige versie van maps.me. Wilt u die nu gelijk?
-    ru = Закладки доступны только в полной верии maps.me. Установите ее прямо сейчас!
+    ru = Метки доступны только в полной верии maps.me. Установите ее прямо сейчас!
     uk = Закладки доступні у повній версії maps.me. Отримати просто зараз?
     zh-Hant = 書籤是maps.me完整版本才有的功能，馬上購買?
     pl = Zakładki są dostępne tylko w pełnej wersji maps.me. Pobierz już teraz!
@@ -2238,7 +2238,7 @@
     ja = maps.meの位置情報シェア
     ko = 귀하와 공유된 maps.me 즐겨찾기
     nl = Bladwijzers van maps.me met u gedeeld
-    ru = С вами поделились закладками maps.me
+    ru = С вами поделились метками maps.me
     uk = З вами поділилися закладками maps.me
     zh-Hant = 您已分享了 maps.me 書籤
     pl = Udostępniono ci zakładkę z maps.me
@@ -2256,7 +2256,7 @@
     ja = maps.meで作成したブックマークを添付ファイル"%@.kmz"で送付します。maps.me Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nmaps.meで楽しい時間をお過ごしください！
     ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 maps.me 오프라인 지도로부터의 제 즐겨찾기가 있습니다. maps.me 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nmaps.me와 함께 즐거운 시간 되시기 바랍니다!
     nl = Hallo,\n\nHier zijn mijn bladwijzers uit de maps.me offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u maps.me Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz.\n\nVeel plezier met maps.me!
-    ru = Здравствуйте!\n\nВ прикрепленном файле "%@.kmz" мои закладки из офлайновых карт maps.me. Для того, чтобы открыть этот файл, вам потребуется приложение maps.me Pro, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!
+    ru = Здравствуйте!\n\nВ прикрепленном файле "%@.kmz" мои метки из офлайновых карт maps.me. Для того, чтобы открыть этот файл, вам потребуется приложение maps.me Pro, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!
     uk = Вітаю!\n\nОсь мої закладки з офлайн карт maps.me у доданому файлі "%@.kmz". Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz.\n\nПриємних розваг з maps.me!
     zh-Hant = 哈囉!\n\n這是我的maps.me離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝maps.me專業版的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用maps.me愉快!
     pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji maps.me wraz z załączonymi mapami offline w pliku "%@.kmz". Proszę otwórz to jeśli posiadasz zainstalowaną aplikację maps.me Pro. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://maps.me/get?kmz. \n\nBaw się dobrze z maps.me!
@@ -2274,8 +2274,8 @@
     ja = ブックマークの読み込み中
     ko = 즐겨찾기 로드
     nl = Bladwijzers aan het uploaden
-    ru = Загрузка закладок
     uk = Завантаження закладок
+    ru = Загрузка меток
     zh-Hant = 正在載入書籤…
     pl = Wczytywanie zakładek
     pt = A carregar favoritos
@@ -2292,8 +2292,8 @@
     ja = ブックマークが読み込まれました! ブックマークはマップ上、またはブックマーク管理画面に表示されます。
     ko = 즐겨찾기가 성공적으로 로드되었습니다! 지도 또는 즐겨찾기 관리자 화면에서 찾으실 수 있습니다.
     nl = Bladwijzers met succes geüpload! U vindt ze op de kaart of op het scherm van de Bladwijzer Manager.
-    ru = Закладки успешно загружены! Вы можете найти их на карте или на экране Менеджера Закладок.
     uk = Закладки успішно завантажено! Ви можете знайти їх на карті або у меню Менеджер закладок.
+    ru = Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохраненных метках.
     zh-Hant = 書籤上傳成功! 您可以在地圖上或是書籤管理畫面中找到書籤。
     pl = Zakładki wczytane pomyślnie! Możesz znaleźć je na mapie lub w menedżerze zakładek.
     pt = Favoritos carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.
@@ -2310,7 +2310,7 @@
     ja = ブックマークのアップロードに失敗しました。ファイルが破損していた、または問題があった可能性があります。
     ko = 즐겨찾기 업로드가 실패했습니다. 파일이 훼손되었거나 결함이 있을지도 모릅니다.
     nl = Bladwijzers uploaden mislukt. Het bestand is mogelijk beschadigd of defect.
-    ru = Файл с закладками не был загружен. Возможно, файл поврежден или неисправен.
+    ru = Файл с метками не был загружен. Возможно, файл поврежден или неисправен.
     uk = Не вдалося завантажити закладки. Файл може бути пошкодженим або несправним.
     zh-Hant = 書籤上傳失敗! 檔案可能有毀損或是不完全。
     pl = Przesyłanie zakładek nie powiodło się. Plik może być uszkodzony lub posiadać defekty.
@@ -3174,7 +3174,7 @@
     tags = android
     comment = Used to warn user when fixing KitKat issue
     en = We need to move your bookmarks to internal memory, but there is no available space for them. Please free up the memory, otherwise bookmarks won’t be available.
-    ru = Для оптимизации хранения данных нам нужно переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе закладки вам будут недоступны.
+    ru = Для оптимизации хранения данных нам нужно переместить метки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.
     uk = Для оптимiзацiї збереження данних нам потрiбно перенести закладки до внутрiшньої пам'ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо закладки вам не будуть доступнi.
     zh-Hant = 我們需要將您的書籤移至內存儲器中，但沒有足夠的存儲空間。請釋放一些內存，否則，書籤將不可用。
     ko = 우리는 내부 메모리로 북마크를 이동해야 하지만, 이에 대한 사용 가능한 공간이 없습니다. 메모리를 확보하지 않으면, 북마크를 사용할 수 없습니다.

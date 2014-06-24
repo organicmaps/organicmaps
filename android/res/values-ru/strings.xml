@@ -153,21 +153,21 @@
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Добавить группу</string>
 	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">Добавить в Закладки</string>
+	<string name="add_to_bookmarks">Сохранить метку</string>
 	<!-- Bookmark Color dialog title -->
-	<string name="bookmark_color">Цвет закладки</string>
+	<string name="bookmark_color">Цвет метки</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Название группы</string>
 	<!-- Bookmark Sets dialog title -->
-	<string name="bookmark_sets">Группы закладок</string>
+	<string name="bookmark_sets">Группы меток</string>
 	<!-- Bookmarks - dialog title -->
-	<string name="bookmarks">Закладки</string>
+	<string name="bookmarks">Метки</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Цвет</string>
 	<!-- Unknown Dropped Pin title, when name can't be determined -->
 	<string name="dropped_pin">Новая метка</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Мои Закладки</string>
+	<string name="my_places">Мои Метки</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Название</string>
 	<!-- Add bookmark dialog - bookmark address -->
@@ -177,9 +177,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Группа</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">У вас пока нет закладок.\nВыберите любое место на карте, чтобы добавить его в закладки.\nТак же закладки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
+	<string name="bookmarks_usage_hint">У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТак же метки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Закладки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
+	<string name="bookmarks_usage_hint_import_only">Метки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Настройки</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -193,7 +193,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Показывать на карте</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Закладки доступны только в полной верии maps.me. Установите ее прямо сейчас!</string>
+	<string name="bookmarks_in_pro_version">Метки доступны только в полной верии maps.me. Установите ее прямо сейчас!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.</string>
 	<!-- Measurement units title in settings activity -->
@@ -242,15 +242,15 @@
 	<!-- Button text -->
 	<string name="share_by_email">Послать по email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">С вами поделились закладками maps.me</string>
+	<string name="share_bookmarks_email_subject">С вами поделились метками maps.me</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле \&quot;%s.kmz\&quot; мои закладки из офлайновых карт maps.me. Для того, чтобы открыть этот файл, вам потребуется приложение maps.me Pro, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!</string>
+	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле \&quot;%s.kmz\&quot; мои метки из офлайновых карт maps.me. Для того, чтобы открыть этот файл, вам потребуется приложение maps.me Pro, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!</string>
 	<!-- message title of loading file -->
-	<string name="load_kmz_title">Загрузка закладок</string>
+	<string name="load_kmz_title">Загрузка меток</string>
 	<!-- Kmz file successful loading -->
-	<string name="load_kmz_successful">Закладки успешно загружены! Вы можете найти их на карте или на экране Менеджера Закладок.</string>
+	<string name="load_kmz_successful">Метки успешно загружены! Вы можете увидеть их на карте или в ваших сохраненных метках.</string>
 	<!-- Kml file loading failed -->
-	<string name="load_kmz_failed">Файл с закладками не был загружен. Возможно, файл поврежден или неисправен.</string>
+	<string name="load_kmz_failed">Файл с метками не был загружен. Возможно, файл поврежден или неисправен.</string>
 	<!-- resource for context menu -->
 	<string name="edit">Редактировать</string>
 	<!-- Warning message when doing search around current position -->
@@ -330,7 +330,7 @@
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="bookmark_move_fail">Для оптимизации хранения данных нам нужно переместить закладки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе закладки вам будут недоступны.</string>
+	<string name="bookmark_move_fail">Для оптимизации хранения данных нам нужно переместить метки на внутреннюю память, но там сейчас нет свободного места. Пожалуйста, освободите место, иначе метки вам будут недоступны.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Мы сейчас оптимизируем хранение данных. Это может занять несколько минут, подождите, пожалуйста.</string>
 	<!-- Used in More Apps menu -->
