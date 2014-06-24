@@ -247,19 +247,19 @@
 "add_new_set" = "Додати групу";
 
 /* Place Page - Add To Bookmarks button */
-"add_to_bookmarks" = "Додати в закладки";
+"add_to_bookmarks" = "Зберегти мiтку";
 
 /* Bookmark Color dialog title */
-"bookmark_color" = "Колір закладки";
+"bookmark_color" = "Колір мiтки";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
 "bookmark_set_name" = "Назва групи";
 
 /* Bookmark Sets dialog title */
-"bookmark_sets" = "Групи закладок";
+"bookmark_sets" = "Групи мiток";
 
 /* Bookmarks - dialog title */
-"bookmarks" = "Закладки";
+"bookmarks" = "Мітки";
 
 /* Add bookmark dialog - bookmark color */
 "color" = "Колір";
@@ -268,7 +268,7 @@
 "dropped_pin" = "Нова мітка";
 
 /* Default bookmarks set name */
-"my_places" = "Мої Закладки";
+"my_places" = "Мої Мітки";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Iм'я";
@@ -283,10 +283,10 @@
 "set" = "Група";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "У вас ще немає закладки.\nНатисніть на будь-яке місце на карті, щоб додати закладку.\nЗакладки з інших ресурсів також можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.";
+"bookmarks_usage_hint" = "У вас ще немає мiток.\nНатисніть на будь-яке місце на карті, щоб зберегти мiтку.\nМiтки з інших ресурсів також можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Закладки з інших ресурсів можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.";
+"bookmarks_usage_hint_import_only" = "Мітки з інших ресурсів можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими мітками з почти, Dropbox або інтернет посилання.";
 
 /* Settings button in system menu */
 "settings" = "Налаштування";
@@ -307,7 +307,7 @@
 "visible" = "Показувати на карті";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Закладки доступні у повній версії maps.me. Отримати просто зараз?";
+"bookmarks_in_pro_version" = "Мітки доступні у повній версії maps.me. Отримати просто зараз?";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть його для зручного використання програми.";
@@ -381,19 +381,19 @@
 "share_by_email" = "Подiлитися по електронній пошті";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "З вами поділилися закладками maps.me";
+"share_bookmarks_email_subject" = "З вами поділилися мiтками maps.me";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Вітаю!\n\nОсь мої закладки з офлайн карт maps.me у доданому файлі \"%@.kmz\". Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz.\n\nПриємних розваг з maps.me!";
+"share_bookmarks_email_body" = "Вітаю!\n\nОсь мої мiтки з офлайн карт maps.me у доданому файлі \"%@.kmz\". Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz.\n\nПриємних розваг з maps.me!";
 
 /* message title of loading file */
-"load_kmz_title" = "Завантаження закладок";
+"load_kmz_title" = "Завантаження мiток";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Закладки успішно завантажено! Ви можете знайти їх на карті або у меню Менеджер закладок.";
+"load_kmz_successful" = "Мiтки успішно завантаженi! Ви можете знайти їх на карті або у ваших збережених мітках.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Не вдалося завантажити закладки. Файл може бути пошкодженим або несправним.";
+"load_kmz_failed" = "Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.";
 
 /* resource for context menu */
 "edit" = "Редаґувати";
@@ -537,7 +537,7 @@
 "kitkat_migrate_failed" = "В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но не сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.";
 
 /* Used to warn user when fixing KitKat issue */
-"bookmark_move_fail" = "Для оптимiзацiї збереження данних нам потрiбно перенести закладки до внутрiшньої пам'ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо закладки вам не будуть доступнi.";
+"bookmark_move_fail" = "Для оптимiзацiї збереження данних нам потрiбно перенести мітки до внутрiшньої пам'ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо мітки вам не будуть доступнi.";
 
 /* Used to warn user when fixing KitKat issue */
 "kitkat_optimization_in_progress" = "Наразi ми оптимiзуємо збереження данних. Це може зайняти декiлька хвилин, почекайте, будь ласка.";

@@ -153,21 +153,21 @@
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Додати групу</string>
 	<!-- Place Page - Add To Bookmarks button -->
-	<string name="add_to_bookmarks">Додати в закладки</string>
+	<string name="add_to_bookmarks">Зберегти мiтку</string>
 	<!-- Bookmark Color dialog title -->
-	<string name="bookmark_color">Колір закладки</string>
+	<string name="bookmark_color">Колір мiтки</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
 	<string name="bookmark_set_name">Назва групи</string>
 	<!-- Bookmark Sets dialog title -->
-	<string name="bookmark_sets">Групи закладок</string>
+	<string name="bookmark_sets">Групи мiток</string>
 	<!-- Bookmarks - dialog title -->
-	<string name="bookmarks">Закладки</string>
+	<string name="bookmarks">Мітки</string>
 	<!-- Add bookmark dialog - bookmark color -->
 	<string name="color">Колір</string>
 	<!-- Unknown Dropped Pin title, when name can't be determined -->
 	<string name="dropped_pin">Нова мітка</string>
 	<!-- Default bookmarks set name -->
-	<string name="my_places">Мої Закладки</string>
+	<string name="my_places">Мої Мітки</string>
 	<!-- Add bookmark dialog - bookmark name -->
 	<string name="name">Iм\&#39;я</string>
 	<!-- Add bookmark dialog - bookmark address -->
@@ -177,9 +177,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Група</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">У вас ще немає закладки.\nНатисніть на будь-яке місце на карті, щоб додати закладку.\nЗакладки з інших ресурсів також можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.</string>
+	<string name="bookmarks_usage_hint">У вас ще немає мiток.\nНатисніть на будь-яке місце на карті, щоб зберегти мiтку.\nМiтки з інших ресурсів також можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Закладки з інших ресурсів можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.</string>
+	<string name="bookmarks_usage_hint_import_only">Мітки з інших ресурсів можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими мітками з почти, Dropbox або інтернет посилання.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Налаштування</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -193,7 +193,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Показувати на карті</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Закладки доступні у повній версії maps.me. Отримати просто зараз?</string>
+	<string name="bookmarks_in_pro_version">Мітки доступні у повній версії maps.me. Отримати просто зараз?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть його для зручного використання програми.</string>
 	<!-- Measurement units title in settings activity -->
@@ -242,15 +242,15 @@
 	<!-- Button text -->
 	<string name="share_by_email">Подiлитися по електронній пошті</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">З вами поділилися закладками maps.me</string>
+	<string name="share_bookmarks_email_subject">З вами поділилися мiтками maps.me</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Вітаю!\n\nОсь мої закладки з офлайн карт maps.me у доданому файлі \&quot;%s.kmz\&quot;. Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz.\n\nПриємних розваг з maps.me!</string>
+	<string name="share_bookmarks_email_body">Вітаю!\n\nОсь мої мiтки з офлайн карт maps.me у доданому файлі \&quot;%s.kmz\&quot;. Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz.\n\nПриємних розваг з maps.me!</string>
 	<!-- message title of loading file -->
-	<string name="load_kmz_title">Завантаження закладок</string>
+	<string name="load_kmz_title">Завантаження мiток</string>
 	<!-- Kmz file successful loading -->
-	<string name="load_kmz_successful">Закладки успішно завантажено! Ви можете знайти їх на карті або у меню Менеджер закладок.</string>
+	<string name="load_kmz_successful">Мiтки успішно завантаженi! Ви можете знайти їх на карті або у ваших збережених мітках.</string>
 	<!-- Kml file loading failed -->
-	<string name="load_kmz_failed">Не вдалося завантажити закладки. Файл може бути пошкодженим або несправним.</string>
+	<string name="load_kmz_failed">Не вдалося завантажити мітки. Файл може бути пошкодженим або несправним.</string>
 	<!-- resource for context menu -->
 	<string name="edit">Редаґувати</string>
 	<!-- Warning message when doing search around current position -->
@@ -332,7 +332,7 @@
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_failed">В связи с изменениями на Android 4.4 нам нужно оптимизировать хранение данных. Но не сейчас не хватает места ни на внутренней памяти, ни на SD-карте.\n\nПожалуйста, освободите место для переноса карт, иначе карты будут доступны только для просмотра.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
-	<string name="bookmark_move_fail">Для оптимiзацiї збереження данних нам потрiбно перенести закладки до внутрiшньої пам\&#39;ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо закладки вам не будуть доступнi.</string>
+	<string name="bookmark_move_fail">Для оптимiзацiї збереження данних нам потрiбно перенести мітки до внутрiшньої пам\&#39;ятi, але там немає вiльного мiсця. Будь ласка, звiльнiть мiсце, бо мітки вам не будуть доступнi.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_optimization_in_progress">Наразi ми оптимiзуємо збереження данних. Це може зайняти декiлька хвилин, почекайте, будь ласка.</string>
 	<!-- Used in More Apps menu -->
