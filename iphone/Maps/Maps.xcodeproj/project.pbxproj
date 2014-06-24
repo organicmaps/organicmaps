@@ -90,6 +90,8 @@
 		97C98652186C5EF000AF7E9E /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98651186C5EF000AF7E9E /* iAd.framework */; };
 		97C98654186C5F0500AF7E9E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98653186C5F0500AF7E9E /* AudioToolbox.framework */; };
 		97C98656186C734000AF7E9E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C98655186C734000AF7E9E /* AVFoundation.framework */; };
+		97CC93BB19599F4700369B42 /* SearchSuggestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CC93BA19599F4700369B42 /* SearchSuggestCell.m */; };
+		97CC93BC19599F4700369B42 /* SearchSuggestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97CC93BA19599F4700369B42 /* SearchSuggestCell.m */; };
 		97D092B1190A681F00FF645B /* PlacePageInfoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D092B0190A681F00FF645B /* PlacePageInfoCell.mm */; };
 		97D092B2190A681F00FF645B /* PlacePageInfoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D092B0190A681F00FF645B /* PlacePageInfoCell.mm */; };
 		97D092B5190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97D092B4190A6E1D00FF645B /* PlacePageEditCell.mm */; };
@@ -1408,6 +1410,8 @@
 		97C98651186C5EF000AF7E9E /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		97C98653186C5F0500AF7E9E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		97C98655186C734000AF7E9E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		97CC93B919599F4700369B42 /* SearchSuggestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSuggestCell.h; sourceTree = "<group>"; };
+		97CC93BA19599F4700369B42 /* SearchSuggestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSuggestCell.m; sourceTree = "<group>"; };
 		97D092AF190A681F00FF645B /* PlacePageInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePageInfoCell.h; sourceTree = "<group>"; };
 		97D092B0190A681F00FF645B /* PlacePageInfoCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlacePageInfoCell.mm; sourceTree = "<group>"; };
 		97D092B3190A6E1D00FF645B /* PlacePageEditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePageEditCell.h; sourceTree = "<group>"; };
@@ -2370,6 +2374,8 @@
 				97A8002618B2741C000C07A2 /* SearchCell.m */,
 				97A8001218B2140A000C07A2 /* SearchUniversalCell.h */,
 				97A8001318B2140A000C07A2 /* SearchUniversalCell.m */,
+				97CC93B919599F4700369B42 /* SearchSuggestCell.h */,
+				97CC93BA19599F4700369B42 /* SearchSuggestCell.m */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -4432,6 +4438,7 @@
 				FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */,
 				9769D6EF1912BF3000CA6158 /* ContainerView.mm in Sources */,
 				FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */,
+				97CC93BB19599F4700369B42 /* SearchSuggestCell.m in Sources */,
 				FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */,
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
@@ -4497,6 +4504,7 @@
 				97A8002818B2741C000C07A2 /* SearchCell.m in Sources */,
 				974386DE19373EA400FD5659 /* ToastView.m in Sources */,
 				FA054613155C465E001F4E37 /* SelectSetVC.mm in Sources */,
+				97CC93BC19599F4700369B42 /* SearchSuggestCell.m in Sources */,
 				FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */,
 				FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				97D092B6190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */,

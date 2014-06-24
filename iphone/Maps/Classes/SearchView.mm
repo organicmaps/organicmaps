@@ -8,6 +8,7 @@
 #import "MapViewController.h"
 #import "LocationManager.h"
 #import "ToastView.h"
+#import "SearchSuggestCell.h"
 
 #include "Framework.h"
 
@@ -29,6 +30,7 @@
 - (id)initWithResults:(search::Results const &)res;
 
 - (search::Result const &)resultWithPosition:(NSInteger)position;
+- (NSInteger)suggestsCount;
 - (NSInteger)count;
 - (BOOL)isEndMarker;
 - (BOOL)isEndedNormal;
@@ -67,6 +69,11 @@
   return m_results.GetCount();
 }
 
+- (NSInteger)suggestsCount
+{
+  return m_results.GetSuggestsCount();
+}
+
 - (search::Result const &)resultWithPosition:(NSInteger)position
 {
   return m_results.GetResult(position);
@@ -85,11 +92,21 @@
 @end
 
 
+typedef NS_ENUM(NSUInteger, CellType)
+{
+  CellTypeResult,
+  CellTypeSuggest,
+  CellTypeShowOnMap,
+  CellTypeCategory
+};
+
+
 @interface SearchView () <UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, SearchBarDelegate, LocationObserver, UIAlertViewDelegate>
 
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) SolidTouchImageView * topBackgroundView;
 @property (nonatomic) UILabel * emptyResultLabel;
+@property (nonatomic) UIImageView * suggestsTopImageView;
 
 @property (nonatomic) SearchResultsWrapper * wrapper;
 @property (nonatomic) NSArray * categoriesNames;
@@ -126,6 +143,7 @@ __weak SearchView * selfPointer;
   self.isShowingCategories = YES;
 
   [self.tableView registerClass:[SearchUniversalCell class] forCellReuseIdentifier:[SearchUniversalCell className]];
+  [self.tableView registerClass:[SearchSuggestCell class] forCellReuseIdentifier:[SearchSuggestCell className]];
 
   return self;
 }
@@ -276,7 +294,7 @@ __weak SearchView * selfPointer;
   search::SearchParams params;
   params.SetSearchMode(search::SearchParams::ALL);
   params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
-  params.m_callback = bind(&OnSearchResultCallback, _1);
+  params.m_callback = bind(&onSearchResultCallback, _1);
   params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
   params.SetForceSearch(force == YES);
 
@@ -294,7 +312,7 @@ __weak SearchView * selfPointer;
   GetFramework().Search(params);
 }
 
-static void OnSearchResultCallback(search::Results const & results)
+static void onSearchResultCallback(search::Results const & results)
 {
   SearchResultsWrapper * wrapper = [[SearchResultsWrapper alloc] initWithResults:results];
   [selfPointer performSelectorOnMainThread:@selector(frameworkDidAddSearchResult:) withObject:wrapper waitUntilDone:NO];
@@ -313,8 +331,9 @@ static void OnSearchResultCallback(search::Results const & results)
   }
   else
   {
-    self.emptyResultLabel.hidden = self.isShowingCategories ? YES : ([wrapper count] > 0);
+    self.emptyResultLabel.hidden = self.isShowingCategories ? YES : ([self rowsCount] > 0);
     self.wrapper = wrapper;
+    self.suggestsTopImageView.hidden = ![wrapper suggestsCount];
     [self.tableView reloadData];
     [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
   }
@@ -343,9 +362,7 @@ static void OnSearchResultCallback(search::Results const & results)
 {
   self.searchBar.textField.text = nil;
   self.isShowingCategories = YES;
-  [self.searchBar setSearching:NO];
-  [self.tableView reloadData];
-  self.emptyResultLabel.alpha = 0;
+  [self processTextChanging];
   [self setState:SearchViewStateHidden animated:YES withCallback:YES];
 }
 
@@ -366,6 +383,8 @@ static void OnSearchResultCallback(search::Results const & results)
   self.isShowingCategories = !self.searchBar.textField.text.length;
   if (self.isShowingCategories)
   {
+    [self.searchBar setSearching:NO];
+    self.suggestsTopImageView.hidden = YES;
     self.emptyResultLabel.hidden = YES;
     [self.tableView reloadData];
   }
@@ -428,25 +447,40 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  SearchUniversalCell * cell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
-
-  if (self.isShowingCategories)
+  UITableViewCell * cell;
+  CellType cellType = [self cellTypeForIndexPath:indexPath];
+  switch (cellType)
   {
-    // initial categories
-    cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
-    cell.distanceLabel.text = nil;
-    cell.typeLabel.text = nil;
-    [cell setTitle:NSLocalizedString(self.categoriesNames[indexPath.row], nil) selectedRanges:nil];
-    [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
-  }
-  else
-  {
-    if ([self indexPathIsForSearchResultItem:indexPath])
+    case CellTypeCategory:
     {
-      NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
-      SearchResultsWrapper * wrapper = self.wrapper;
-      search::Result const & result = [wrapper resultWithPosition:position];
+      SearchUniversalCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
 
+      [customCell setTitle:NSLocalizedString(self.categoriesNames[indexPath.row], nil) selectedRange:NSMakeRange(0, 0)];
+      [customCell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
+      customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
+      customCell.distanceLabel.text = nil;
+      customCell.typeLabel.text = nil;
+      cell = customCell;
+      break;
+    }
+    case CellTypeShowOnMap:
+    {
+      SearchUniversalCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
+
+      [customCell setTitle:NSLocalizedString(@"search_show_on_map", nil) selectedRange:NSMakeRange(0, 0)];
+      [customCell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
+      customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinsIcon"];
+      customCell.distanceLabel.text = nil;
+      customCell.typeLabel.text = nil;
+      cell = customCell;
+      break;
+    }
+    case CellTypeResult:
+    {
+      SearchUniversalCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
+
+      NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
+      search::Result const & result = [self.wrapper resultWithPosition:position];
       NSMutableArray * ranges = [[NSMutableArray alloc] init];
       for (size_t i = 0; i < result.GetHighlightRangesCount(); i++)
       {
@@ -455,42 +489,27 @@ static void OnSearchResultCallback(search::Results const & results)
         [ranges addObject:[NSValue valueWithRange:range]];
       }
       NSString * title = [NSString stringWithUTF8String:result.GetString()];
-      [cell setTitle:title selectedRanges:ranges];
-
-      if (result.GetResultType() == search::Result::RESULT_SUGGESTION)
-      {
-        // suggest item
-        cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
-        cell.distanceLabel.text = nil;
-        cell.typeLabel.text = nil;
-        [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
-      }
-      else if (result.GetResultType() == search::Result::RESULT_POI_SUGGEST)
-      {
-        // poi suggest item
-        cell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinsIcon"];
-        cell.distanceLabel.text = nil;
-        cell.typeLabel.text = nil;
-        [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
-      }
-      else
-      {
-        // final search result item
-        cell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinIcon"];
-        cell.distanceLabel.text = wrapper.distances[@(position)];
-        cell.typeLabel.text = [NSString stringWithUTF8String:result.GetFeatureType()];
-        NSString * subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
-        [cell setSubtitle:subtitle selectedRange:NSMakeRange(0, 0)];
-      }
+      [customCell setTitle:title selectedRanges:ranges];
+      NSString * subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
+      [customCell setSubtitle:subtitle selectedRange:NSMakeRange(0, 0)];
+      customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinIcon"];
+      customCell.distanceLabel.text = self.wrapper.distances[@(position)];
+      customCell.typeLabel.text = [NSString stringWithUTF8String:result.GetFeatureType()];
+      cell = customCell;
+      break;
     }
-    else
+    case CellTypeSuggest:
     {
-      // 'show on map' cell
-      cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
-      cell.distanceLabel.text = nil;
-      cell.typeLabel.text = nil;
-      [cell setTitle:NSLocalizedString(@"search_show_on_map", nil) selectedRanges:nil];
-      [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
+      SearchSuggestCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchSuggestCell className]];
+
+      NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
+      search::Result const & result = [self.wrapper resultWithPosition:position];
+
+      customCell.titleLabel.text = [NSString stringWithUTF8String:result.GetString()];
+      customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
+      customCell.position = [self suggestPositionForIndexPath:indexPath];
+      cell = customCell;
+      break;
     }
   }
   return cell;
@@ -498,13 +517,18 @@ static void OnSearchResultCallback(search::Results const & results)
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (self.isShowingCategories)
+  CellType cellType = [self cellTypeForIndexPath:indexPath];
+  switch (cellType)
   {
-    return [SearchUniversalCell cellHeightWithTitle:self.categoriesNames[indexPath.row] type:nil subtitle:nil distance:nil viewWidth:tableView.width];
-  }
-  else
-  {
-    if ([self indexPathIsForSearchResultItem:indexPath])
+    case CellTypeCategory:
+    {
+      return [SearchUniversalCell cellHeightWithTitle:self.categoriesNames[indexPath.row] type:nil subtitle:nil distance:nil viewWidth:tableView.width];
+    }
+    case CellTypeShowOnMap:
+    {
+      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"search_show_on_map", nil) type:nil subtitle:nil distance:nil viewWidth:tableView.width];
+    }
+    case CellTypeResult:
     {
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       SearchResultsWrapper * wrapper = self.wrapper;
@@ -517,12 +541,15 @@ static void OnSearchResultCallback(search::Results const & results)
         subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
         type = [NSString stringWithUTF8String:result.GetFeatureType()];
       }
-
       return [SearchUniversalCell cellHeightWithTitle:title type:type subtitle:subtitle distance:wrapper.distances[@(position)] viewWidth:tableView.width];
     }
-    else
+    case CellTypeSuggest:
     {
-      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"search_show_on_map", nil) type:nil subtitle:nil distance:nil viewWidth:tableView.width];
+      return [SearchSuggestCell cellHeightWithPosition:[self suggestPositionForIndexPath:indexPath]];
+    }
+    default:
+    {
+      return 0;
     }
   }
 }
@@ -532,59 +559,81 @@ static void OnSearchResultCallback(search::Results const & results)
   return [self rowsCount];
 }
 
+- (void)startInteractiveSearch
+{
+  search::SearchParams params;
+  params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
+  params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
+
+  Framework & f = GetFramework();
+  f.StartInteractiveSearch(params);
+  f.UpdateUserViewportChanged();
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
-  if (self.isShowingCategories)
+
+  CellType cellType = [self cellTypeForIndexPath:indexPath];
+
+  switch (cellType)
   {
-    [[Statistics instance] logEvent:@"Category Selection" withParameters:@{@"Category" : self.categoriesNames[indexPath.row]}];
-    self.searchBar.textField.text = [NSLocalizedString(self.categoriesNames[indexPath.row], nil) stringByAppendingString:@" "];
-
-    search::SearchParams params;
-    params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
-    params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
-
-    Framework & f = GetFramework();
-    f.StartInteractiveSearch(params);
-    f.UpdateUserViewportChanged();
-
-    self.isShowingCategories = YES;
-
-    [self setState:SearchViewStateResults animated:YES withCallback:YES];
-  }
-  else if ([self indexPathIsForSearchResultItem:indexPath])
-  {
-    NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
-    search::Result const & result = [self.wrapper resultWithPosition:position];
-    if (result.GetResultType() == search::Result::RESULT_SUGGESTION)
-    {
-      self.searchBar.textField.text = [NSString stringWithUTF8String:result.GetSuggestionString()];
-      [self search];
-    }
-    else if (result.GetResultType() == search::Result::RESULT_POI_SUGGEST)
-    {
-      needToScroll = YES;
-      self.searchBar.textField.text = [NSString stringWithUTF8String:result.GetSuggestionString()];
-      [self search];
-    }
-    else
+    case CellTypeCategory:
     {
       if (GetPlatform().IsPro())
       {
-        GetFramework().ShowSearchResult(result);
-        [self setState:SearchViewStateHidden animated:YES withCallback:YES];
+        [[Statistics instance] logEvent:@"Category Selection" withParameters:@{@"Category" : self.categoriesNames[indexPath.row]}];
+        self.searchBar.textField.text = [NSLocalizedString(self.categoriesNames[indexPath.row], nil) stringByAppendingString:@" "];
+        [self setState:SearchViewStateResults animated:YES withCallback:YES];
+        self.isShowingCategories = YES;
+        [self startInteractiveSearch];
       }
       else
       {
         [self showBuyProMessage];
       }
+
+      break;
     }
-  }
-  else
-  {
-    GetFramework().ShowAllSearchResults();
-    needToScroll = YES;
-    [self setState:SearchViewStateResults animated:YES withCallback:YES];
+    case CellTypeShowOnMap:
+    {
+      if (GetPlatform().IsPro())
+      {
+        [self setState:SearchViewStateResults animated:YES withCallback:YES];
+        [self startInteractiveSearch];
+      }
+      else
+      {
+        [self showBuyProMessage];
+      }
+
+      break;
+    }
+    case CellTypeResult:
+    {
+      NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
+      search::Result const & result = [self.wrapper resultWithPosition:position];
+      if (GetPlatform().IsPro())
+      {
+        [self setState:SearchViewStateHidden animated:YES withCallback:YES];
+        GetFramework().ShowSearchResult(result);
+      }
+      else
+      {
+        [self showBuyProMessage];
+      }
+
+      break;
+    }
+    case CellTypeSuggest:
+    {
+      NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
+      search::Result const & result = [self.wrapper resultWithPosition:position];
+      self.searchBar.textField.text = [NSString stringWithUTF8String:result.GetSuggestionString()];
+      [self search];
+
+      break;
+    }
   }
 }
 
@@ -607,29 +656,37 @@ static void OnSearchResultCallback(search::Results const & results)
     [self.searchBar.textField resignFirstResponder];
 }
 
-- (BOOL)indexPathIsForSearchResultItem:(NSIndexPath *)indexPath
+- (SearchSuggestCellPosition)suggestPositionForIndexPath:(NSIndexPath *)indexPath
 {
-  return YES;//indexPath.row || [self rowsCount] == 1;
+  return (indexPath.row == [self.wrapper suggestsCount] - 1) ? SearchSuggestCellPositionBottom : SearchSuggestCellPositionMiddle;
+}
+
+- (CellType)cellTypeForIndexPath:(NSIndexPath *)indexPath
+{
+  if (self.isShowingCategories)
+  {
+    return CellTypeCategory;
+  }
+  else
+  {
+    if ([self.wrapper suggestsCount])
+      return indexPath.row < [self.wrapper suggestsCount] ? CellTypeSuggest : CellTypeResult;
+    else
+      return indexPath.row == 0 ? CellTypeShowOnMap : CellTypeResult;
+  }
 }
 
 - (NSInteger)searchResultPositionForIndexPath:(NSIndexPath *)indexPath
 {
-  return indexPath.row;//([self rowsCount] == 1) ? 0 : indexPath.row - 1;
+  return [self.wrapper suggestsCount] ? indexPath.row : indexPath.row - 1;
 }
 
 - (NSInteger)rowsCount
 {
-  SearchResultsWrapper * wrapper = self.wrapper;
-  NSInteger const wrapperCount = [wrapper count];
-  NSInteger resultsCount;
-  if (wrapperCount)
-    resultsCount = (wrapperCount == 1) ? 1 : wrapperCount + 1;
+  if (self.isShowingCategories)
+    return [self.categoriesNames count];
   else
-    resultsCount = 0;
-
-  resultsCount = wrapperCount;
-
-  return self.isShowingCategories ? [self.categoriesNames count] : resultsCount;
+    return [self.wrapper suggestsCount] ? [self.wrapper count] : [self.wrapper count] + 1;
 }
 
 - (NSArray *)categoriesNames
@@ -654,8 +711,23 @@ static void OnSearchResultCallback(search::Results const & results)
     _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor colorWithColorCode:@"414451"];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_tableView addSubview:self.suggestsTopImageView];
+    self.suggestsTopImageView.maxY = 0;
   }
   return _tableView;
+}
+
+- (UIImageView *)suggestsTopImageView
+{
+  if (!_suggestsTopImageView)
+  {
+    UIImage * image = [[UIImage imageNamed:@"SearchSuggestBackgroundMiddle"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 40, 10, 40)];
+    _suggestsTopImageView = [[UIImageView alloc] initWithImage:image];
+    _suggestsTopImageView.frame = CGRectMake(0, 0, self.width, 600);
+    _suggestsTopImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _suggestsTopImageView.hidden = YES;
+  }
+  return _suggestsTopImageView;
 }
 
 - (SolidTouchImageView *)topBackgroundView

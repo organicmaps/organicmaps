@@ -2,13 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "Arrow.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Arrow@2x.png"
+      "filename" : "SearchSuggestSelectedBackgroundMiddle@2x.png"
     }
   ],
   "info" : {

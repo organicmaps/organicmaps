@@ -115,6 +115,19 @@ bool Results::AddResultCheckExisting(Result const & r)
     return false;
 }
 
+size_t Results::GetSuggestsCount() const
+{
+  size_t suggestsCount = 0;
+  for (size_t i = 0; i < GetCount(); i++)
+  {
+    if (m_vec[i].GetResultType() == search::Result::RESULT_SUGGESTION)
+      suggestsCount++;
+    else
+      break;
+  }
+  return suggestsCount;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////
 // AddressInfo implementation
 ////////////////////////////////////////////////////////////////////////////////////

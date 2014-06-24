@@ -124,6 +124,7 @@ public:
   inline IterT End() const { return m_vec.end(); }
 
   inline size_t GetCount() const { return m_vec.size(); }
+  size_t GetSuggestsCount() const;
 
   inline Result const & GetResult(size_t i) const
   {
