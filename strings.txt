@@ -1636,7 +1636,7 @@
     pt = Conjunto
     hu = Csoport
   [bookmarks_usage_hint]
-    en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in maps.me. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.
+    en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in maps.me. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.
     tags = ios,android
     comment = Text hint in Bookmarks dialog when no any bookmarks are added
     cs = Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV maps.me také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
@@ -1654,7 +1654,7 @@
     pt = Ainda não tem marcadores.\nToque em qualquer lugar no mapa para adicionar um marcador.\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação maps.me. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
     hu = Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
   [bookmarks_usage_hint_import_only]
-    en = Bookmarks from other sources can be imported and displayed in maps.me. Open KML/KMZ file with saved pins from mail, Dropbox or weblink.
+    en = Bookmarks from other sources can be imported and displayed in maps.me. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.
     tags = ios,android
     comment = Text hint in Bookmarks dialog when at least one bookmark is added
     cs = V maps.me mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
