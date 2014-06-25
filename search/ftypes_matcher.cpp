@@ -111,4 +111,19 @@ Type IsLocalityChecker::GetLocalityType(const FeatureType & f) const
   return GetLocalityType(types);
 }
 
+double GetLocationRadius(FeatureType const & ft)
+{
+  uint32_t population = ft.GetPopulation();
+
+  if (population < 10)
+  {
+    static IsLocalityChecker checker;
+    if (checker.GetLocalityType(ft) == CITY)
+      population = 10000;
+    /// @todo: process all cases of locality types
+  }
+
+  return pow((double)population, 0.277778) * 550;
+}
+
 }

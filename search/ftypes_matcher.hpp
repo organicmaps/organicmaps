@@ -49,4 +49,6 @@ public:
   Type GetLocalityType(FeatureType const & f) const;
 };
 
+/// Get city radius (meters)
+double GetLocationRadius(FeatureType const & ft);
 }

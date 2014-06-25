@@ -1278,10 +1278,11 @@ namespace impl
     vector<size_t> m_matchedTokens; ///< indexes of matched tokens for locality
 
     ftypes::Type m_type;
+    double m_radius;
 
     Locality() : m_type(ftypes::NONE) {}
     Locality(Query::TrieValueT const & val, ftypes::Type type)
-      : m_value(val), m_type(type)
+      : m_value(val), m_type(type), m_radius(0)
     {
     }
 
@@ -1305,6 +1306,7 @@ namespace impl
       using std::swap;
       swap(m_value, rhs.m_value);
       swap(m_type, rhs.m_type);
+      swap(m_radius, rhs.m_radius);
     }
 
     bool operator< (Locality const & rhs) const
@@ -1472,7 +1474,8 @@ void Query::SearchAddress(Results & res)
         {
           params.ProcessAddressTokens();
 
-          SetViewportByIndex(mwmInfo, scales::GetRectForLevel(ADDRESS_SCALE, city.m_value.m_pt), LOCALITY_V);
+          m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(city.m_value.m_pt, city.m_radius);
+          SetViewportByIndex(mwmInfo, rect, LOCALITY_V);
 
           /// @todo Hack - do not search for address in World.mwm; Do it better in future.
           bool const b = m_worldSearch;
@@ -1657,6 +1660,7 @@ namespace impl
         Locality * loc = PushLocality(Locality(v, index));
         if (loc)
         {
+          loc->m_radius = ftypes::GetLocationRadius(f);
           // m_lang name should exist if we matched feature in search index for this language.
           VERIFY(f.GetName(m_lang, loc->m_name), ());
 
