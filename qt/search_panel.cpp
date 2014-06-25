@@ -18,6 +18,7 @@
   #include <QtGui/QVBoxLayout>
   #include <QtGui/QHBoxLayout>
   #include <QtGui/QPushButton>
+  #include <QtGui/QLabel>
 #else
   #include <QtWidgets/QHeaderView>
   #include <QtWidgets/QTableWidget>
@@ -25,6 +26,7 @@
   #include <QtWidgets/QVBoxLayout>
   #include <QtWidgets/QHBoxLayout>
   #include <QtWidgets/QPushButton>
+  #include <QtWidgets/QLabel>
 #endif
 
 namespace qt
@@ -117,9 +119,24 @@ void SearchPanel::OnSearchResult(ResultsT * res)
     {
       ResultT const & e = *i;
 
+      QString s = QString::fromUtf8(e.GetString());
+      QString strHigh;
+      int pos = 0;
+      for (size_t r = 0; r < e.GetHighlightRangesCount(); ++r)
+      {
+        pair<uint16_t, uint16_t> const & range = e.GetHighlightRange(r);
+        strHigh.append(s.mid(pos, range.first - pos));
+        strHigh.append("<font color=\"green\">");
+        strHigh.append(s.mid(range.first, range.second));
+        strHigh.append("</font>");
+
+        pos = range.first + range.second;
+      }
+      strHigh.append(s.mid(pos));
+
       int const rowCount = m_pTable->rowCount();
       m_pTable->insertRow(rowCount);
-      m_pTable->setItem(rowCount, 1, create_item(QString::fromUtf8(e.GetString())));
+      m_pTable->setCellWidget(rowCount, 1, new QLabel(strHigh));
       m_pTable->setItem(rowCount, 2, create_item(QString::fromUtf8(e.GetRegionString())));
 
       if (e.GetResultType() == ResultT::RESULT_FEATURE)
