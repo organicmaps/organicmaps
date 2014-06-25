@@ -124,4 +124,47 @@ string FormatMercator(m2::PointD const & mercator, int dac)
   return FormatLatLon(MercatorBounds::YToLat(mercator.y), MercatorBounds::XToLon(mercator.x), dac);
 }
 
+string FormatAltitude(double altitudeInMeters)
+{
+  using namespace Settings;
+  Units u = Metric;
+  (void)Settings::Get("Units", u);
+
+  ostringstream sstream;
+  sstream << std::fixed << setprecision(0);
+  /// @todo Put string units resources.
+  switch (u)
+  {
+  case Yard: sstream << MetersToYards(altitudeInMeters) << "yd"; break;
+  case Foot: sstream << MetersToFeet(altitudeInMeters) << "ft"; break;
+  default: sstream << altitudeInMeters << "m"; break;
+  }
+  return sstream.str();
+}
+
+string FormatSpeed(double metersPerSecond)
+{
+  using namespace Settings;
+  Units u = Metric;
+  (void)Settings::Get("Units", u);
+
+  double perHour;
+  string res;
+
+  /// @todo Put string units resources.
+  switch (u)
+  {
+  case Yard:
+  case Foot:
+    perHour = metersPerSecond * 3600. / 1609.344;
+    res = ToStringPrecision(perHour, perHour >= 10.0 ? 0 : 1) + "mph";
+    break;
+  default:
+    perHour = metersPerSecond * 3600. / 1000.;
+    res = ToStringPrecision(perHour, perHour >= 10.0 ? 0 : 1) + "km/h";
+    break;
+  }
+  return res;
+}
+
 } // namespace MeasurementUtils

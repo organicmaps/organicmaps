@@ -64,3 +64,18 @@ UNIT_TEST(LatLonToDMS_NoRounding)
 
   TEST_EQUAL(FormatLatLonAsDMS(21.981112, -159.371112, 2), "21°58′52″N 159°22′16″W", ());
 }
+
+UNIT_TEST(FormatAltitude)
+{
+  Settings::Set("Units", Settings::Foot);
+  TEST_EQUAL(FormatAltitude(10000), "32808ft", ());
+  Settings::Set("Units", Settings::Metric);
+  TEST_EQUAL(FormatAltitude(5), "5m", ());
+}
+
+UNIT_TEST(FormatSpeed)
+{
+  Settings::Set("Units", Settings::Metric);
+  TEST_EQUAL(FormatSpeed(10), "36km/h", ());
+  TEST_EQUAL(FormatSpeed(1), "3.6km/h", ());
+}

@@ -22,6 +22,11 @@ inline double YardToMiles(double yd) { return yd * 1760; }
 /// @return should be direction arrow drawed? false if distance is to small (< 1.0)
 bool FormatDistance(double m, string & res);
 
+/// We always use meters and feet/yards for altitude
+string FormatAltitude(double altitudeInMeters);
+/// km/h or mph
+string FormatSpeed(double metersPerSecond);
+
 /// @param[in] dac  Digits after comma in seconds.
 /// Use dac == 3 for our common conversions.
 string FormatLatLonAsDMS(double lat, double lon, int dac = 3);
