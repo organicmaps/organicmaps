@@ -124,6 +124,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
   PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
   [cell updateDistance];
+
+  if ([self isMarkOfType:UserMark::MY_POSITION])
+    self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formatSpeedAndAltitude];
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
@@ -229,7 +232,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self.titleLabel sizeToFit];
   self.titleLabel.origin = CGPointMake(23, 29);
 
-  self.typeLabel.text = self.types;
+  if ([self isMarkOfType:UserMark::MY_POSITION])
+    self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formatSpeedAndAltitude];
+  else
+    self.typeLabel.text = self.types;
   self.typeLabel.width = [self typesWidth];
   [self.typeLabel sizeToFit];
   self.typeLabel.origin = CGPointMake(self.titleLabel.minX + 1, self.titleLabel.maxY + 1);
