@@ -41,9 +41,9 @@ namespace graphics
       for (unsigned i = 0; i < names.size(); ++i)
       {
         if (i == 0)
-          LOG(LINFO, ("OpenGL Extensions: ", names[i]));
+          LOG(LINFO, ("OpenGL Extensions:", names[i]));
         else
-          LOG(LINFO, ("                   ", names[i]));
+          LOG(LINFO, ("                  ", names[i]));
       }
     }
 
