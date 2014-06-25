@@ -35,6 +35,8 @@
 - (bool)getNorthRad:(double &)rad;
 
 + (NSString *)formatDistance:(double)meters;
+// Returns nil if neither speed nor altitude are available
+- (NSString *)formatSpeedAndAltitude;
 
 - (bool)lastLocationIsValid;
 - (BOOL)enabledOnMap;

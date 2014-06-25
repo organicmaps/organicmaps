@@ -221,6 +221,55 @@
   return [NSString stringWithUTF8String:s.c_str()];
 }
 
++ (char const *)getSpeedSymbol:(double)metersPerSecond
+{
+  // 0-1 m/s
+  static char const * turtle = "\xF0\x9F\x90\xA2 ";
+  // 1-2 m/s
+  static char const * pedestrian = "\xF0\x9F\x9A\xB6 ";
+  // 2-5 m/s
+  static char const * tractor = "\xF0\x9F\x9A\x9C ";
+  // 5-10 m/s
+  static char const * bicycle = "\xF0\x9F\x9A\xB2 ";
+  // 10-36 m/s
+  static char const * car = "\xF0\x9F\x9A\x97 ";
+  // 36-120 m/s
+  static char const * train = "\xF0\x9F\x9A\x85 ";
+  // 120-278 m/s
+  static char const * airplane = "\xF0\x9F\x9B\xA7 ";
+  // 278+
+  static char const * rocket = "\xF0\x9F\x9A\x80 ";
+
+  if (metersPerSecond <= 1.) return turtle;
+  else if (metersPerSecond <= 2.) return pedestrian;
+  else if (metersPerSecond <= 5.) return tractor;
+  else if (metersPerSecond <= 10.) return bicycle;
+  else if (metersPerSecond <= 36.) return car;
+  else if (metersPerSecond <= 120.) return train;
+  else if (metersPerSecond <= 278.) return airplane;
+  else return rocket;
+}
+
+- (NSString *)formatSpeedAndAltitude
+{
+  CLLocation * l = [self lastLocation];
+  if (l)
+  {
+    string result;
+    if (l.altitude)
+      result = "\xE2\x96\xB2 " /* this is simple mountain symbol */ + MeasurementUtils::FormatAltitude(l.altitude);
+    // Speed is actual only for just received location
+    if (l.speed > 0. && [l.timestamp timeIntervalSinceNow] >= -2.0)
+    {
+      if (!result.empty())
+        result += "   ";
+      result += [LocationManager getSpeedSymbol:l.speed] + MeasurementUtils::FormatSpeed(l.speed);
+    }
+    return result.empty() ? nil : [NSString stringWithUTF8String:result.c_str()];
+  }
+  return nil;
+}
+
 - (bool)lastLocationIsValid
 {
   return (([self lastLocation] != nil) && ([m_lastLocationTime timeIntervalSinceNow] > -300.0));
