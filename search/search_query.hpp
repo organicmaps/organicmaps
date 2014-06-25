@@ -200,6 +200,7 @@ private:
   void GetBestMatchName(FeatureType const & f, string & name) const;
 
   Result MakeResult(impl::PreResult2 const & r) const;
+  void MakeResultHighlight(Result & res) const;
 
   Index const * m_pIndex;
   CategoriesHolder const * m_pCategories;

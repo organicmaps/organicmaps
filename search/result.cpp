@@ -93,6 +93,17 @@ bool Result::operator== (Result const & r) const
   return false;
 }
 
+void Result::AddHighlightRange(pair<uint16_t, uint16_t> const & range)
+{
+  m_hightlightRanges.push_back(range);
+}
+
+pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
+{
+  ASSERT(idx < m_hightlightRanges.size(), ());
+  return m_hightlightRanges[idx];
+}
+
 bool Results::AddResultCheckExisting(Result const & r)
 {
   if (find(m_vec.begin(), m_vec.end(), r) == m_vec.end())

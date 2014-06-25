@@ -4,6 +4,7 @@
 #include "search_common.hpp"
 #include "indexed_value.hpp"
 #include "geometry_utils.hpp"
+#include "search_string_intersection.hpp"
 
 #include "../storage/country_info.hpp"
 
@@ -649,9 +650,10 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
     for (size_t i = 0; i < count; ++i)
     {
       House const * h = houses[i].m_house;
-      (res.*addFn)(Result(h->GetPosition(), h->GetNumber() + ", " + houses[i].m_street->GetName(),
-                          string(), string(),
-                          IsValidPosition() ? h->GetPosition().Length(m_position) : -1.0));
+      Result r(h->GetPosition(), h->GetNumber() + ", " + houses[i].m_street->GetName(),
+               string(), string(), IsValidPosition() ? h->GetPosition().Length(m_position) : -1.0);
+      MakeResultHighlight(r);
+      (res.*addFn)(r);
     }
   }
 #endif
@@ -744,7 +746,9 @@ template <class T> void Query::ProcessSuggestions(vector<T> & vec, Results & res
       GetSuggestion(r.GetName(), suggest);
       if (!suggest.empty() && added < MAX_SUGGESTS_COUNT)
       {
-        if (res.AddResultCheckExisting(Result(r.GetName(), suggest)))
+        Result rr(r.GetName(), suggest);
+        MakeResultHighlight(rr);
+        if (res.AddResultCheckExisting(rr))
         {
           ++added;
           i = vec.erase(i);
@@ -803,9 +807,79 @@ void Query::GetBestMatchName(FeatureType const & f, string & name) const
   (void)f.ForEachNameRef(bestNameFinder);
 }
 
+
+template <class IterT, class ValueT> class CombinedIter
+{
+  IterT m_i, m_end;
+  ValueT const * m_val;
+
+public:
+  CombinedIter(IterT i, IterT end, ValueT const * val)
+    : m_i(i), m_end(end), m_val(val)
+  {
+  }
+
+  ValueT const & operator*() const
+  {
+    ASSERT( m_val != 0 || m_i != m_end, ("dereferencing of empty iterator") );
+    if (m_i != m_end)
+      return *m_i;
+
+    return *m_val;
+  }
+
+  CombinedIter & operator++()
+  {
+    if (m_i != m_end)
+      ++m_i;
+    else
+      m_val = 0;
+    return *this;
+  }
+
+  bool operator==(CombinedIter const & other) const
+  {
+    return m_val == other.m_val && m_i == other.m_i;
+  }
+
+  bool operator!=(CombinedIter const & other) const
+  {
+    return m_val != other.m_val || m_i != other.m_i;
+  }
+};
+
+
+class AssignHighlightRange
+{
+  Result & m_res;
+public:
+  AssignHighlightRange(Result & res)
+    : m_res(res)
+  {
+  }
+
+  void operator() (pair<uint16_t, uint16_t> const & range)
+  {
+    m_res.AddHighlightRange(range);
+  }
+};
+
+
+
 Result Query::MakeResult(impl::PreResult2 const & r) const
 {
-  return r.GenerateFinalResult(m_pInfoGetter, m_pCategories, &m_prefferedTypes, GetLanguage(LANG_CURRENT));
+  Result res = r.GenerateFinalResult(m_pInfoGetter, m_pCategories, &m_prefferedTypes, GetLanguage(LANG_CURRENT));
+  MakeResultHighlight(res);
+  return res;
+}
+
+void Query::MakeResultHighlight(Result & res) const
+{
+  typedef buffer_vector<strings::UniString, 32>::const_iterator IterT;
+  CombinedIter<IterT, strings::UniString> beg(m_tokens.begin(), m_tokens.end(), m_prefix.empty() ? 0 : &m_prefix);
+  CombinedIter<IterT, strings::UniString> end(m_tokens.end(), m_tokens.end(), 0);
+
+  SearchStringTokensIntersectionRanges(res.GetString(), beg, end, AssignHighlightRange(res));
 }
 
 namespace impl
@@ -1901,7 +1975,9 @@ bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t lan
         StartsWith(s.begin(), s.end(), token.begin(), token.end()))
     {
       string const utf8Str = strings::ToUtf8(s);
-      res.AddResult(Result(utf8Str, utf8Str + " "));
+      Result r(utf8Str, utf8Str + " ");
+      MakeResultHighlight(r);
+      res.AddResult(r);
       ret = true;
     }
   }

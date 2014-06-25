@@ -4,6 +4,8 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
+#include "../base/buffer_vector.hpp"
+
 #include "../std/string.hpp"
 
 
@@ -67,6 +69,11 @@ public:
 
   bool operator== (Result const & r) const;
 
+  void AddHighlightRange(pair<uint16_t, uint16_t> const & range);
+  pair<uint16_t, uint16_t> const & GetHighlightRange(size_t idx) const;
+  inline size_t GetHighlightRangesCount() const { return m_hightlightRanges.size(); }
+
+
 private:
   FeatureID m_id;
   m2::PointD m_center;
@@ -74,6 +81,7 @@ private:
   uint32_t m_featureType;
   double m_distance;
   string m_suggestionStr;
+  buffer_vector<pair<uint16_t, uint16_t>, 4> m_hightlightRanges;
 };
 
 class Results
