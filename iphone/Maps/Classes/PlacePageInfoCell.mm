@@ -70,8 +70,8 @@
   bool useDMS = false;
   (void)Settings::Get(SETTINGS_KEY_USE_DMS, useDMS);
 
-  string const coords = useDMS ? MeasurementUtils::FormatMercatorAsDMS(self.pinPoint)
-                               : MeasurementUtils::FormatMercator(self.pinPoint);
+  string const coords = useDMS ? MeasurementUtils::FormatMercatorAsDMS(self.pinPoint, 2)
+                               : MeasurementUtils::FormatMercator(self.pinPoint, 6);
   self.coordinatesLabel.text = [NSString stringWithUTF8String:coords.c_str()];
 }
 
