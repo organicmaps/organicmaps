@@ -602,6 +602,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (void)showUserMark:(UserMarkCopy *)mark
 {
   [self clearCachedProperties];
+  self.temporaryTitle = nil;
 
   m_mark.reset(mark);
   m_cachedMark = m_mark;
@@ -657,9 +658,14 @@ typedef NS_ENUM(NSUInteger, CellRow)
     search::AddressInfo info;
     m2::PointD pxPivot;
     if (f.GetVisiblePOI(f.GtoP([self pinPoint]), pxPivot, info))
+    {
       return [self nonEmptyTitle:info.GetPinName()];
+    }
     else
+    {
+      self.temporaryTitle = NSLocalizedString(@"my_position", nil);
       return [self nonEmptyTitle:[self addressInfo].GetPinName()];
+    }
   }
   else
   {
@@ -671,7 +677,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if (!_title)
   {
-    self.temporaryTitle = nil;
     if ([self isBookmark])
     {
       Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
@@ -696,10 +701,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
     else if ([_title isEqualToString:droppedPinTitle])
     {
       self.temporaryTitle = droppedPinTitle;
-    }
-    else if ([_title isEqualToString:myPositionTitle])
-    {
-      self.temporaryTitle = myPositionTitle;
     }
   }
   return _title;
