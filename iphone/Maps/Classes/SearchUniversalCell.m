@@ -51,27 +51,6 @@
   self.titleLabel.attributedText = attributedTitle;
 }
 
-- (void)setSubtitle:(NSString *)subtitle selectedRange:(NSRange)selectedRange
-{
-  if (!subtitle)
-    subtitle = @"";
-  NSMutableAttributedString * attributedSubtitle = [[NSMutableAttributedString alloc] initWithString:subtitle];
-  if (selectedRange.location == NSNotFound)
-  {
-    [attributedSubtitle addAttributes:[self unselectedSubtitleAttributes] range:NSMakeRange(0, [subtitle length])];
-  }
-  else
-  {
-    NSRange unselectedRange1 = NSMakeRange(0, selectedRange.location);
-    NSRange unselectedRange2 = NSMakeRange(selectedRange.location + selectedRange.length, [subtitle length] - selectedRange.location - selectedRange.length);
-
-    [attributedSubtitle addAttributes:[self selectedSubtitleAttributes] range:selectedRange];
-    [attributedSubtitle addAttributes:[self unselectedSubtitleAttributes] range:unselectedRange1];
-    [attributedSubtitle addAttributes:[self unselectedSubtitleAttributes] range:unselectedRange2];
-  }
-  self.subtitleLabel.attributedText = attributedSubtitle;
-}
-
 - (NSDictionary *)selectedSubtitleAttributes
 {
   static NSDictionary * selectedAttributes;

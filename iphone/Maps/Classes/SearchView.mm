@@ -192,7 +192,7 @@ __weak SearchView * selfPointer;
     [self.searchBar.textField becomeFirstResponder];
     [UIView animateWithDuration:0.25 delay:0. options:UIViewAnimationOptionCurveEaseInOut animations:^{
       self.tableView.alpha = 1;
-    } completion:^(BOOL finished) {}];
+    } completion:nil];
     [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.searchBar.cancelButton.alpha = 1;
       self.topBackgroundView.minY = 0;
@@ -455,8 +455,8 @@ static void onSearchResultCallback(search::Results const & results)
     {
       SearchUniversalCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
 
-      [customCell setTitle:NSLocalizedString(self.categoriesNames[indexPath.row], nil) selectedRange:NSMakeRange(0, 0)];
-      [customCell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
+      [customCell setTitle:NSLocalizedString(self.categoriesNames[indexPath.row], nil) selectedRanges:nil];
+      customCell.subtitleLabel.text = nil;
       customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
       customCell.distanceLabel.text = nil;
       customCell.typeLabel.text = nil;
@@ -467,8 +467,8 @@ static void onSearchResultCallback(search::Results const & results)
     {
       SearchUniversalCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
 
-      [customCell setTitle:NSLocalizedString(@"search_show_on_map", nil) selectedRange:NSMakeRange(0, 0)];
-      [customCell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
+      [customCell setTitle:NSLocalizedString(@"search_show_on_map", nil) selectedRanges:nil];
+      customCell.subtitleLabel.text = nil;
       customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinsIcon"];
       customCell.distanceLabel.text = nil;
       customCell.typeLabel.text = nil;
@@ -490,8 +490,7 @@ static void onSearchResultCallback(search::Results const & results)
       }
       NSString * title = [NSString stringWithUTF8String:result.GetString()];
       [customCell setTitle:title selectedRanges:ranges];
-      NSString * subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
-      [customCell setSubtitle:subtitle selectedRange:NSMakeRange(0, 0)];
+      customCell.subtitleLabel.text = [NSString stringWithUTF8String:result.GetRegionString()];
       customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinIcon"];
       customCell.distanceLabel.text = self.wrapper.distances[@(position)];
       customCell.typeLabel.text = [NSString stringWithUTF8String:result.GetFeatureType()];
