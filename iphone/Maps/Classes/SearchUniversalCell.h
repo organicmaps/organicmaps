@@ -10,7 +10,7 @@
 @property (nonatomic, readonly) UILabel * distanceLabel;
 @property (nonatomic, readonly) UIImageView * iconImageView;
 
-- (void)setTitle:(NSString *)title selectedRange:(NSRange)selectedRange;
+- (void)setTitle:(NSString *)title selectedRanges:(NSArray *)selectedRanges;
 - (void)setSubtitle:(NSString *)subtitle selectedRange:(NSRange)selectedRange;
 
 + (CGFloat)cellHeightWithTitle:(NSString *)title type:(NSString *)type subtitle:(NSString *)subtitle distance:(NSString *)distance viewWidth:(CGFloat)width;

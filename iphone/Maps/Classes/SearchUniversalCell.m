@@ -35,23 +35,18 @@
 #define RIGHT_SHIFT 23
 #define SPACE 4
 
-- (void)setTitle:(NSString *)title selectedRange:(NSRange)selectedRange
+- (void)setTitle:(NSString *)title selectedRanges:(NSArray *)selectedRanges
 {
   if (!title)
     title = @"";
+    
   NSMutableAttributedString * attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
-  if (selectedRange.location == NSNotFound)
+  NSRange unselectedRange = NSMakeRange(0, [title length]);
+  [attributedTitle addAttributes:[self unselectedTitleAttributes] range:unselectedRange];
+  for (NSValue * rangeValue in selectedRanges)
   {
-    [attributedTitle addAttributes:[self unselectedTitleAttributes] range:NSMakeRange(0, [title length])];
-  }
-  else
-  {
-    NSRange unselectedRange1 = NSMakeRange(0, selectedRange.location);
-    NSRange unselectedRange2 = NSMakeRange(selectedRange.location + selectedRange.length, [title length] - selectedRange.location - selectedRange.length);
-
-    [attributedTitle addAttributes:[self selectedTitleAttributes] range:selectedRange];
-    [attributedTitle addAttributes:[self unselectedTitleAttributes] range:unselectedRange1];
-    [attributedTitle addAttributes:[self unselectedTitleAttributes] range:unselectedRange2];
+    NSRange range = [rangeValue rangeValue];
+    [attributedTitle addAttributes:[self selectedTitleAttributes] range:range];
   }
   self.titleLabel.attributedText = attributedTitle;
 }

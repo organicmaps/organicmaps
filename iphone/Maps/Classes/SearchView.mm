@@ -430,7 +430,7 @@ static void OnSearchResultCallback(search::Results const & results)
     cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
     cell.distanceLabel.text = nil;
     cell.typeLabel.text = nil;
-    [cell setTitle:NSLocalizedString(self.categoriesNames[indexPath.row], nil) selectedRange:NSMakeRange(0, 0)];
+    [cell setTitle:NSLocalizedString(self.categoriesNames[indexPath.row], nil) selectedRanges:nil];
     [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
   }
   else
@@ -441,9 +441,15 @@ static void OnSearchResultCallback(search::Results const & results)
       SearchResultsWrapper * wrapper = self.wrapper;
       search::Result const & result = [wrapper resultWithPosition:position];
 
+      NSMutableArray * ranges = [[NSMutableArray alloc] init];
+      for (size_t i = 0; i < result.GetHighlightRangesCount(); i++)
+      {
+        pair<uint16_t, uint16_t> const & pairRange = result.GetHighlightRange(i);
+        NSRange range = NSMakeRange(pairRange.first, pairRange.second);
+        [ranges addObject:[NSValue valueWithRange:range]];
+      }
       NSString * title = [NSString stringWithUTF8String:result.GetString()];
-      NSRange titleRange = [title rangeOfString:self.searchBar.textField.text options:NSCaseInsensitiveSearch];
-      [cell setTitle:title selectedRange:titleRange];
+      [cell setTitle:title selectedRanges:ranges];
 
       if (result.GetResultType() == search::Result::RESULT_SUGGESTION)
       {
@@ -478,7 +484,7 @@ static void OnSearchResultCallback(search::Results const & results)
       cell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
       cell.distanceLabel.text = nil;
       cell.typeLabel.text = nil;
-      [cell setTitle:NSLocalizedString(@"search_show_on_map", nil) selectedRange:NSMakeRange(0, 0)];
+      [cell setTitle:NSLocalizedString(@"search_show_on_map", nil) selectedRanges:nil];
       [cell setSubtitle:nil selectedRange:NSMakeRange(0, 0)];
     }
   }
