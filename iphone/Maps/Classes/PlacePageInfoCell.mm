@@ -30,6 +30,7 @@
 {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   self.selectionStyle = UITableViewCellSelectionStyleNone;
+  self.backgroundColor = [UIColor clearColor];
 
   [self addSubview:self.compassView];
   [self addSubview:self.distanceLabel];

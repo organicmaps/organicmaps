@@ -94,14 +94,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
   updatingTable = NO;
 
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMonitoringLocation:) name:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
-
   return self;
-}
-
-- (void)startMonitoringLocation:(NSNotification *)notification
-{
-  [[MapsAppDelegate theApp].m_locationManager start:self];
 }
 
 - (void)onLocationError:(location::TLocationError)errorCode
@@ -284,6 +277,15 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self alignAnimated:animated];
   self.tableView.contentInset = UIEdgeInsetsMake([self headerHeight], 0, 0, 0);
   [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:animated];
+  if (state == PlacePageStateOpened)
+  {
+    if ([[MapsAppDelegate theApp].m_locationManager enabledOnMap])
+      [[MapsAppDelegate theApp].m_locationManager start:self];
+  }
+  else
+  {
+    [[MapsAppDelegate theApp].m_locationManager stop:self];
+  }
 }
 
 - (void)layoutSubviews
@@ -709,18 +711,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (NSString *)types
 {
   if (!_types)
-  {
-    if ([self isBookmark])
-    {
-      search::AddressInfo addressInfo;
-      GetFramework().GetAddressInfoForGlobalPoint([self userMark]->GetOrg(), addressInfo);
-      _types = [NSString stringWithUTF8String:addressInfo.GetPinType().c_str()];
-    }
-    else
-    {
-      _types = [NSString stringWithUTF8String:[self addressInfo].GetPinType().c_str()];
-    }
-  }
+    _types = [NSString stringWithUTF8String:[self addressInfo].GetPinType().c_str()];
   return _types;
 }
 
