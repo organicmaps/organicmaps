@@ -239,6 +239,17 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
   search::Result const * res = SearchAdapter::Instance().GetResult(position, queryID);
   if (res == 0) return 0;
 
+  jintArray ranges = env->NewIntArray(res->GetHighlightRangesCount() * 2);
+  jint * narr = env->GetIntArrayElements(ranges, NULL);
+  for (int i = 0, j = 0; i < res->GetHighlightRangesCount(); ++i)
+  {
+    pair<uint16_t, uint16_t> const & range = res->GetHighlightRange(i);
+    narr[j++] = range.first;
+    narr[j++] = range.second;
+  }
+
+  env->ReleaseIntArrayElements(ranges, narr, 0);
+
   jclass klass = env->FindClass("com/mapswithme/maps/SearchActivity$SearchAdapter$SearchResult");
   ASSERT ( klass, () );
 
@@ -246,7 +257,7 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
   {
     jmethodID methodID = env->GetMethodID(
         klass, "<init>",
-        "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;D)V");
+        "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;D[I)V");
     ASSERT ( methodID, () );
 
     string distance;
@@ -267,16 +278,18 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
                           jni::ToJavaString(env, res->GetFeatureType()),
                           jni::ToJavaString(env, res->GetRegionFlag()),
                           jni::ToJavaString(env, distance.c_str()),
-                          static_cast<jdouble>(azimut));
+                          static_cast<jdouble>(azimut),
+                          static_cast<jintArray>(ranges));
   }
   else
   {
-    jmethodID methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
+    jmethodID methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;Ljava/lang/String;[I)V");
     ASSERT ( methodID, () );
 
     return env->NewObject(klass, methodID,
                           jni::ToJavaString(env, res->GetString()),
-                          jni::ToJavaString(env, res->GetSuggestionString()));
+                          jni::ToJavaString(env, res->GetSuggestionString()),
+                          static_cast<jintArray>(ranges));
   }
 }
 

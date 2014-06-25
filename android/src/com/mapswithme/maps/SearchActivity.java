@@ -9,6 +9,9 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -37,6 +40,9 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SearchActivity extends MapsWithMeBaseListActivity implements LocationService.Listener
@@ -217,20 +223,25 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       /// 0 - suggestion result
       /// 1 - feature result
       public int m_type;
+      public int[] m_highlightRanges;
+
 
       // Called from native code
       @SuppressWarnings("unused")
-      public SearchResult(String name, String suggestion)
+      public SearchResult(String name, String suggestion, int[] highlightRanges)
       {
         m_name = name;
         m_suggestion = suggestion;
         m_type = 0;
+
+        m_highlightRanges = highlightRanges;
       }
 
       // Called from native code
       @SuppressWarnings("unused")
       public SearchResult(String name, String country, String amenity,
-                          String flag, String distance, double azimut)
+                          String flag, String distance, double azimut,
+                          int[] highlightRanges)
       {
         m_name = name;
         m_country = country;
@@ -238,7 +249,10 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         m_distance = distance;
 
         m_type = 1;
+
+        m_highlightRanges = highlightRanges;
       }
+
     }
 
     private String getCategoryName(String strID)
@@ -317,7 +331,33 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         final SearchResult r = m_context.getResult(position, m_resultID);
         if (r != null)
         {
-          UiUtils.setTextAndShow(holder.m_name, r.m_name);
+          Spanned s = null;
+
+          if (r.m_highlightRanges.length > 0)
+          {
+            StringBuilder builder = new StringBuilder();
+            int pos = 0, j = 0, n = r.m_highlightRanges.length / 2;
+
+
+            for (int i = 0; i < n; ++i)
+            {
+              int start = r.m_highlightRanges[j++];
+              int len = r.m_highlightRanges[j++];
+
+              builder.append(r.m_name.substring(pos, start));
+              builder.append("<font color=\"green\">");
+              builder.append(r.m_name.substring(start, start + len));
+              builder.append("</font>");
+
+              pos = start + len;
+            }
+            builder.append(r.m_name.substring(pos));
+            s = Html.fromHtml(builder.toString());
+          }
+          else
+            s = Html.fromHtml(r.m_name);
+
+          UiUtils.setTextAndShow(holder.m_name, s);
 
           String type = null;
           String dist = null;
