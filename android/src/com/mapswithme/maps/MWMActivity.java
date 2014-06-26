@@ -17,19 +17,13 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.view.GestureDetectorCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -55,7 +49,6 @@ import com.mapswithme.maps.widget.MapInfoView;
 import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
 import com.mapswithme.maps.widget.MapInfoView.State;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.StoragePathManager;
 import com.mapswithme.util.StoragePathManager.SetStoragePathListener;
 import com.mapswithme.util.UiUtils;
@@ -67,7 +60,6 @@ import com.nvidia.devtech.NvEventQueueActivity;
 public class MWMActivity extends NvEventQueueActivity
     implements LocationService.Listener,
     OnBalloonListener,
-    DrawerListener,
     OnVisibilityChangedListener
 {
   public static final String EXTRA_TASK = "map_task";
@@ -88,9 +80,6 @@ public class MWMActivity extends NvEventQueueActivity
   private SurfaceView mMapSurface;
   // Info box (place page).
   private MapInfoView mInfoView;
-  // Drawer components
-  private DrawerLayout mDrawerLayout;
-  private View mMainDrawer;
   private SearchController mSearchController;
   private String mProDialogMessage;
   private boolean m_needCheckUpdate = true;
@@ -624,7 +613,7 @@ public class MWMActivity extends NvEventQueueActivity
       getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
       getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
     }
-    setContentView(R.layout.activity_map);
+    setContentView(R.layout.map);
     super.onCreate(savedInstanceState);
     mApplication = (MWMApplication) getApplication();
 
@@ -662,145 +651,81 @@ public class MWMActivity extends NvEventQueueActivity
     mInfoView.setOnVisibilityChangedListener(this);
   }
 
-  private void setUpDrawer()
-  {
-    final boolean isPro = mApplication.isProVersion();
-    final OnClickListener drawerItemsClickListener = new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        final int id = v.getId();
-
-        if (R.id.menuitem_settings_activity == id)
-          startActivity(new Intent(MWMActivity.this, SettingsActivity.class));
-        else if (R.id.map_container_bookmarks == id)
-        {
-          if (isPro || Yota.isYota())
-            onBookmarksClicked();
-          else
-            runProVersionMarketActivity();
-        }
-        else if (R.id.map_container_download == id)
-        {
-          onDownloadClicked();
-        }
-        else if (R.id.buy_pro == id)
-        {
-          runProVersionMarketActivity();
-        }
-        else if (R.id.map_button_share_myposition == id)
-        {
-          final Location loc = MWMApplication.get().getLocationService().getLastKnown();
-          if (loc != null)
-          {
-            final String geoUrl = Framework.getGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
-            final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
-            final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
-            // we use shortest message we can have here
-            ShareAction.getAnyShare().shareWithText(getActivity(), body, "");
-          }
-          else
-          {
-            new AlertDialog.Builder(MWMActivity.this)
-                .setMessage(R.string.unknown_current_position)
-                .setCancelable(true)
-                .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
-                {
-                  @Override
-                  public void onClick(DialogInterface dialog, int which)
-                  {
-                    dialog.dismiss();
-                  }
-                })
-                .create()
-                .show();
-          }
-        }
-
-        toggleDrawer();
-      }
-    };
-
-
-    mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-    mDrawerLayout.setDrawerListener(this);
-    mMainDrawer = findViewById(R.id.left_drawer);
-    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
-    mMapSurface.setOnTouchListener(new OnTouchListener()
-    {
-      @Override
-      public boolean onTouch(View v, MotionEvent event)
-      {
-        if (mRenderingInitialized == false)
-          return false;
-        return MWMActivity.this.onTouchEvent(event);
-      }
-    });
-
-    final SimpleOnGestureListener gestureListener = new SimpleOnGestureListener()
-    {
-      @Override
-      public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
-      {
-        if (mDrawerLayout.isDrawerOpen(mMainDrawer))
-          return false;
-
-        final float dX = e2.getX() - e1.getX();
-        if (dX < 0) // scroll is left
-        {
-          final float dY = e2.getY() - e1.getY();
-          if (Math.abs(dX) > Math.abs(dY)) // is closer to horizontal
-          {
-            mDrawerLayout.openDrawer(mMainDrawer);
-            return true;
-          }
-        }
-        return false;
-      }
-    };
-
-    final GestureDetectorCompat detector = new GestureDetectorCompat(this, gestureListener);
-    final View toggleDrawer = findViewById(R.id.map_button_toggle_drawer);
-
-    toggleDrawer.setOnTouchListener(new OnTouchListener()
-    {
-      @Override
-      public boolean onTouch(View v, MotionEvent event)
-      {
-        return detector.onTouchEvent(event);
-      }
-    });
-
-    findViewById(R.id.map_container_bookmarks).setOnClickListener(drawerItemsClickListener);
-    findViewById(R.id.map_container_download).setOnClickListener(drawerItemsClickListener);
-    toggleDrawer.setOnClickListener(drawerItemsClickListener);
-    findViewById(R.id.menuitem_settings_activity).setOnClickListener(drawerItemsClickListener);
-    findViewById(R.id.map_button_share_myposition).setOnClickListener(drawerItemsClickListener);
-    findViewById(R.id.buy_pro).setOnClickListener(drawerItemsClickListener);
-
-    if (isPro || Yota.isYota())
-    {
-      final TextView bookmarksView = (TextView) findViewById(R.id.map_button_bookmarks);
-
-      // Make post stuff because of Android strange behavior:
-      // direct call doesn't work on Sony LT devices.
-      // http://stackoverflow.com/questions/20423445/setcompounddrawableswithintrinsicboundsint-int-int-int-not-working
-      bookmarksView.post(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          bookmarksView.setCompoundDrawablesWithIntrinsicBounds(
-              R.drawable.ic_bookmarks_selector, 0, 0, 0);
-        }
-      });
-    }
-
-    if (isPro)
-      UiUtils.hide(findViewById(R.id.buy_pro));
-  }
+//        if (R.id.menuitem_settings_activity == id)
+//          startActivity(new Intent(MWMActivity.this, SettingsActivity.class));
+//        else if (R.id.map_container_bookmarks == id)
+//        {
+//          if (isPro || Yota.isYota())
+//            onBookmarksClicked();
+//          else
+//            runProVersionMarketActivity();
+//        }
+//        else if (R.id.map_container_download == id)
+//        {
+//          onDownloadClicked();
+//        }
+//        else if (R.id.buy_pro == id)
+//        {
+//          runProVersionMarketActivity();
+//        }
+//        else if (R.id.map_button_share_myposition == id)
+//        {
+//          final Location loc = MWMApplication.get().getLocationService().getLastKnown();
+//          if (loc != null)
+//          {
+//            final String geoUrl = Framework.getGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
+//            final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
+//            final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
+//            // we use shortest message we can have here
+//            ShareAction.getAnyShare().shareWithText(getActivity(), body, "");
+//          }
+//          else
+//          {
+//            new AlertDialog.Builder(MWMActivity.this)
+//                .setMessage(R.string.unknown_current_position)
+//                .setCancelable(true)
+//                .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+//                {
+//                  @Override
+//                  public void onClick(DialogInterface dialog, int which)
+//                  {
+//                    dialog.dismiss();
+//                  }
+//                })
+//                .create()
+//                .show();
+//          }
+//        }
+//    mMapSurface.setOnTouchListener(new OnTouchListener()
+//    {
+//      @Override
+//      public boolean onTouch(View v, MotionEvent event)
+//      {
+//        if (mRenderingInitialized == false)
+//          return false;
+//        return MWMActivity.this.onTouchEvent(event);
+//      }
+//    });
+//    if (isPro || Yota.isYota())
+//    {
+//      final TextView bookmarksView = (TextView) findViewById(R.id.map_button_bookmarks);
+//
+//      // Make post stuff because of Android strange behavior:
+//      // direct call doesn't work on Sony LT devices.
+//      // http://stackoverflow.com/questions/20423445/setcompounddrawableswithintrinsicboundsint-int-int-int-not-working
+//      bookmarksView.post(new Runnable()
+//      {
+//        @Override
+//        public void run()
+//        {
+//          bookmarksView.setCompoundDrawablesWithIntrinsicBounds(
+//              R.drawable.ic_bookmarks_selector, 0, 0, 0);
+//        }
+//      });
+//    }
+//
+//    if (isPro)
+//      UiUtils.hide(findViewById(R.id.buy_pro));
 
   private void yotaSetup()
   {
@@ -895,16 +820,6 @@ public class MWMActivity extends NvEventQueueActivity
     final int margin = (int) getResources().getDimension(R.dimen.zoom_margin);
     final int marginTop = (int) getResources().getDimension(R.dimen.zoom_plus_top_margin);
     lp.setMargins(margin, marginTop, margin, margin);
-
-    // Calculate padding as one quarter of height
-    int drawerItemsPadding = 0;
-    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-    {
-      final DisplayMetrics dm = getResources().getDisplayMetrics();
-      drawerItemsPadding = Math.max(dm.heightPixels, dm.widthPixels) / 5;
-    }
-
-    findViewById(R.id.scroll_up).setPadding(0, drawerItemsPadding, 0, 0);
   }
 
   /// @name From Location interface
@@ -1081,8 +996,8 @@ public class MWMActivity extends NvEventQueueActivity
       // Add local maps to the model
       nativeStorageConnected();
 
-      // enable downloader button and dismiss blocking popup
-      findViewById(R.id.map_button_download).setVisibility(View.VISIBLE);
+      // @TODO enable downloader button and dismiss blocking popup
+
       if (m_storageDisconnectedDialog != null)
         m_storageDisconnectedDialog.dismiss();
     }
@@ -1091,8 +1006,8 @@ public class MWMActivity extends NvEventQueueActivity
       // Add local maps to the model
       nativeStorageConnected();
 
-      // disable downloader button and dismiss blocking popup
-      findViewById(R.id.map_button_download).setVisibility(View.INVISIBLE);
+      // @TODO disable downloader button and dismiss blocking popup
+
       if (m_storageDisconnectedDialog != null)
         m_storageDisconnectedDialog.dismiss();
     }
@@ -1101,8 +1016,8 @@ public class MWMActivity extends NvEventQueueActivity
       // Remove local maps from the model
       nativeStorageDisconnected();
 
-      // enable downloader button and show blocking popup
-      findViewById(R.id.map_button_download).setVisibility(View.VISIBLE);
+      // @TODO enable downloader button and show blocking popup
+
       if (m_storageDisconnectedDialog == null)
       {
         m_storageDisconnectedDialog = new AlertDialog.Builder(this)
@@ -1206,14 +1121,9 @@ public class MWMActivity extends NvEventQueueActivity
     m_externalStorageReceiver = null;
   }
 
-  /// Map tasks invoked by intent processing.
-
-  private void toggleDrawer()
+  private void toggleMoreMenu()
   {
-    if (mDrawerLayout.isDrawerOpen(mMainDrawer))
-      mDrawerLayout.closeDrawer(mMainDrawer);
-    else
-      mDrawerLayout.openDrawer(mMainDrawer);
+    // @TODO show/hide More menu
   }
 
   @Override
@@ -1221,7 +1131,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     if (KeyEvent.KEYCODE_MENU == keyCode && !event.isCanceled())
     {
-      toggleDrawer();
+      toggleMoreMenu();
       return true;
     }
     return super.onKeyUp(keyCode, event);
@@ -1343,7 +1253,7 @@ public class MWMActivity extends NvEventQueueActivity
     mInfoView.setState(State.COLLAPSED);
     mInfoView.setMapObject(null);
 
-    UiUtils.show(findViewById(R.id.map_buttons_bottom_ref));
+    UiUtils.show(findViewById(R.id.map_bottom_toolbar));
   }
 
   @Override
@@ -1437,27 +1347,9 @@ public class MWMActivity extends NvEventQueueActivity
   public native boolean showMapForUrl(String url);
 
   @Override
-  public void onDrawerClosed(View arg0)
-  {
-    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-  }
-
-  @Override
-  public void onDrawerOpened(View arg0)
-  {
-    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-  }
-
-  @Override
-  public void onDrawerSlide(View arg0, float arg1) {}
-
-  @Override
-  public void onDrawerStateChanged(int arg0) {}
-
-  @Override
   public void onPPPVisibilityChanged(boolean isVisible)
   {
-    final View mapButtonBottom = findViewById(R.id.map_buttons_bottom_ref);
+    final View mapButtonBottom = findViewById(R.id.map_bottom_toolbar);
     final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mapButtonBottom.getLayoutParams();
     lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, isVisible ? 0 : RelativeLayout.TRUE);
     mapButtonBottom.setLayoutParams(lp);
@@ -1466,8 +1358,8 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onPPVisibilityChanged(boolean isVisible)
   {
-    // If body is visible -- hide my location and drawer buttons
-    UiUtils.showIf(!isVisible, findViewById(R.id.map_buttons_bottom_ref));
+    // Hide toolbar if PlacePage is visible
+    UiUtils.showIf(!isVisible, findViewById(R.id.map_bottom_toolbar));
   }
 
   public interface MapTask extends Serializable

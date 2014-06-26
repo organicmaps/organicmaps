@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map_butons_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="bottom|left"
@@ -20,18 +19,5 @@
         android:onClick="onMyPositionClicked"
         android:paddingBottom="0dp"
         android:src="@drawable/btn_map_controls_location_normal" />
-
-    <ImageButton
-        android:id="@+id/map_button_toggle_drawer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_marginBottom="@dimen/map_controls_margin"
-        android:background="@null"
-        android:contentDescription="@string/my_position"
-        android:paddingBottom="0dp"
-        android:paddingLeft="@dimen/dp_x_2"
-        android:paddingTop="@dimen/dp_x_6"
-        android:src="@drawable/btn_menu_tail_selector" />
 
 </FrameLayout>

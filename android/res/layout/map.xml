@@ -13,7 +13,7 @@
         android:background="@android:color/transparent" />
 
     <!--
-    	Default margin = @dimen/map_controls_margin - 1 (like in map_button_bottom)
+	Default margin = @dimen/map_controls_margin - 1 (like in map_bottom_toolbar)
      	Right margin = @dimen/zoom_margin + @dimen/zoom_margin_right - 1 (like in map_navigation_buttons)
     -->
     <include
@@ -33,12 +33,12 @@
         layout="@layout/map_navigation_buttons" />
 
     <include
-        android:id="@+id/map_buttons_bottom_ref"
+        android:id="@+id/map_bottom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/info_box"
         android:layout_margin="0dp"
-        layout="@layout/map_button_bottom" />
+        layout="@layout/map_bottom_toolbar" />
 
     <com.mapswithme.maps.widget.MapInfoView
         android:id="@+id/info_box"
