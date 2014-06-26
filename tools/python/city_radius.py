@@ -42,6 +42,7 @@ def load_data(path):
     print "Cities count: %d" % len(cities)
 
 def formula(popul, base = 32, mult = 0.5):
+    #return math.exp(math.log(popul, base)) * mult
     return math.pow(popul, 1 / base) * mult
 
 def avgDistance(approx, data):
@@ -50,7 +51,7 @@ def avgDistance(approx, data):
         dist += math.fabs(approx[x] - data[x])
     return dist / float(len(data))  
 
-def findBest(popul, data, minBase = 1, maxBase = 100, stepBase = 0.1, minMult = 0.01, maxMult = 1, stepMult = 0.01):
+def findBest(popul, data, minBase = 5, maxBase = 100, stepBase = 0.1, minMult = 0.01, maxMult = 1, stepMult = 0.01):
 
     # try to find best parameters
     base = minBase
@@ -146,7 +147,7 @@ if __name__ == "__main__":
                     dest='mult', default=1,
                     help='multiplier value')
     parser.add_option('-b', '--base',
-                    dest='base', default=35,
+                    dest='base', default=3.6,
                     help="base value")
     parser.add_option('-d', '--data', 
                     default=0, dest='data',
