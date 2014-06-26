@@ -329,14 +329,14 @@
 	<string name="tracks">Tracks</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Length</string>
-	<string name="share_my_location">Share my location</string>
+	<string name="share_my_location">Share My Location</string>
 	<string name="become_a_pro">Upgrade</string>
 	<string name="menu_search">Search</string>
 	<string name="pref_zoom_title">Zoom buttons</string>
 	<string name="pref_zoom_summary">Display on the screen</string>
-	<string name="more_apps_title">More apps</string>
-	<string name="more_apps_guides">Travel guides</string>
-	<string name="more_apps_ads">More apps</string>
+	<string name="more_apps_title">More Apps</string>
+	<string name="more_apps_guides">Travel Guides</string>
+	<string name="more_apps_ads">More Apps</string>
 	<string name="placepage_distance">Distance</string>
 	<string name="placepage_coordinates">Coordinates</string>
 	<string name="placepage_unsorted">Unsorted</string>

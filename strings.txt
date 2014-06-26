@@ -2923,7 +2923,7 @@
 
   [share_my_location]
     tags = tizen
-    en = Share my location
+    en = Share My Location
     ru = Поделиться местоположением
     uk = Поділитися моїм місцезнаходженням
     es = Compartir mi ubicación
@@ -3011,57 +3011,55 @@
     hu = Mutassa a kijelzőn
 
   [more_apps_title]
-    en = More apps
+    tags = ios,android
+    en = More Apps
     ru = Другие приложения
     fr = Plus d'applis
     pl = Więcej aplikacji
-    da = Flere apps
-    zh-hant = 更多應用
+    zh-Hant = 更多應用
     de = Mehr Apps
     uk = Більше програм
     pt = Mais aplicativos
     es = Más aplicaciones
     it = Altre app
-    kr = 기타 앱
-    du = Meer apps
-    cz = Více aplikací
+    ko = 기타 앱
+    nl = Meer apps
+    cs = Více aplikací
     ja = その他のアプリ
     hu = Több alkalmazás
 
   [more_apps_guides]
-    en = Travel guides
+    en = Travel Guides
     ru = Путеводители
     fr = Guides de voyage
     pl = Przewodniki podróżne
-    da = Rejseguider
-    zh-hant = 旅行指南
+    zh-Hant = 旅行指南
     de = Reiseführer
     uk = Довідники туриста
     pt = Guias de Viagem
     es = Guías de viaje
     it = Guide turistiche
-    kr = 여행 가이드
-    du = Reisgidsen
-    cz = Cestovní průvodce
+    ko = 여행 가이드
+    nl = Reisgidsen
+    cs = Cestovní průvodce
     ja = トラベルガイド
     hu = Útikönyvek
 
   [more_apps_ads]
     fr = Plus d'applis
     pl = Więcej aplikacji
-    da = Flere apps
-    zh-hant = 更多應用
+    zh-Hant = 更多應用
     de = Mehr Apps
     uk = Більше програм
     pt = Mais aplicativos
     es = Más aplicaciones
     it = Altre app
-    kr = 기타 앱
-    du = Meer apps
-    cz = Více aplikací
+    ko = 기타 앱
+    nl = Meer apps
+    cs = Více aplikací
     ja = その他のアプリ
     hu = Több alkalmazás
-    en = More apps
+    en = More Apps
     ru = Другие приложения
 
   [placepage_distance]

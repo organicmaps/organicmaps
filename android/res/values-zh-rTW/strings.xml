@@ -298,6 +298,9 @@
 	<string name="menu_search">搜尋</string>
 	<string name="pref_zoom_title">縮放按鈕</string>
 	<string name="pref_zoom_summary">在螢幕上顯示</string>
+	<string name="more_apps_title">更多應用</string>
+	<string name="more_apps_guides">旅行指南</string>
+	<string name="more_apps_ads">更多應用</string>
 	<string name="placepage_distance">距离</string>
 	<string name="placepage_coordinates">坐标</string>
 	<string name="placepage_unsorted">未分类的</string>

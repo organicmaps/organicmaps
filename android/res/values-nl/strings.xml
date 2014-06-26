@@ -305,6 +305,9 @@
 	<string name="menu_search">Zoek</string>
 	<string name="pref_zoom_title">Zoomknoppen</string>
 	<string name="pref_zoom_summary">Weergave op het scherm</string>
+	<string name="more_apps_title">Meer apps</string>
+	<string name="more_apps_guides">Reisgidsen</string>
+	<string name="more_apps_ads">Meer apps</string>
 	<string name="placepage_distance">Afstand</string>
 	<string name="placepage_coordinates">Coördinaten</string>
 	<string name="placepage_unsorted">Ongeclassificeerd</string>

@@ -302,6 +302,9 @@
 	<string name="menu_search">검색</string>
 	<string name="pref_zoom_title">확대/축소 버튼</string>
 	<string name="pref_zoom_summary">화면에 표시</string>
+	<string name="more_apps_title">기타 앱</string>
+	<string name="more_apps_guides">여행 가이드</string>
+	<string name="more_apps_ads">기타 앱</string>
 	<string name="placepage_distance">거리</string>
 	<string name="placepage_coordinates">좌표</string>
 	<string name="placepage_unsorted">분류되지 않음</string>
