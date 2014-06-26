@@ -164,6 +164,7 @@ android {
       applicationIdSuffix '.beta'
       versionNameSuffix '-beta'
       signingConfig signingConfigs.mapswithme
+      android.sourceSets.beta.setRoot('flavors/beta')
     }
   }
 
