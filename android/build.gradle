@@ -153,6 +153,7 @@ android {
       versionNameSuffix '-debug'
       jniDebugBuild true           // Enable jni debug build
       zipAlign true
+      android.sourceSets.debug.setRoot('flavors/debug')
     }
 
     release {
