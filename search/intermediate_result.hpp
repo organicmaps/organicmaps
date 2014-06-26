@@ -87,6 +87,10 @@ public:
                              set<uint32_t> const * pTypes,
                              int8_t lang) const;
 
+  Result GeneratePointResult(CategoriesHolder const * pCat,
+                             set<uint32_t> const * pTypes,
+                             int8_t lang) const;
+
   static bool LessRank(PreResult2 const & r1, PreResult2 const & r2);
   static bool LessDistance(PreResult2 const & r1, PreResult2 const & r2);
   static bool LessViewportDistance(PreResult2 const & r1, PreResult2 const & r2);

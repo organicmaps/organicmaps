@@ -238,6 +238,14 @@ Result PreResult2::GenerateFinalResult(
   }
 }
 
+Result PreResult2::GeneratePointResult(
+                            CategoriesHolder const * pCat,
+                            set<uint32_t> const * pTypes,
+                            int8_t lang) const
+{
+  return Result(GetCenter(), m_str, GetFeatureType(pCat, pTypes, lang));
+}
+
 bool PreResult2::LessRank(PreResult2 const & r1, PreResult2 const & r2)
 {
   return LessRankT(r1, r2);

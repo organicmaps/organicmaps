@@ -20,6 +20,11 @@ Result::Result(FeatureID const & id, m2::PointD const & fCenter,
   }
 }
 
+Result::Result(m2::PointD const & pt, string const & str, string const & type)
+  : m_center(pt), m_str(str), m_type(type)
+{
+}
+
 Result::Result(m2::PointD const & fCenter,
                string const & str, string const & region,
                string const & flag, double distance)

@@ -811,7 +811,7 @@ void Framework::UpdateUserViewportChanged()
     m_lastSearch.SetSearchMode(search::SearchParams::IN_VIEWPORT);
     m_lastSearch.SetForceSearch(false);
 
-    (void)GetSearchEngine()->Search(m_lastSearch, GetCurrentViewport());
+    (void)GetSearchEngine()->Search(m_lastSearch, GetCurrentViewport(), true);
   }
 }
 

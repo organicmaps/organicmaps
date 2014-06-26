@@ -41,7 +41,7 @@ public:
 
   void PrepareSearch(m2::RectD const & viewport,
                      bool hasPt, double lat, double lon);
-  bool Search(SearchParams const & params, m2::RectD const & viewport);
+  bool Search(SearchParams const & params, m2::RectD const & viewport, bool viewportPoints = false);
 
   void GetResults(Results & res);
 
@@ -67,7 +67,7 @@ private:
   static const int RESULTS_COUNT = 30;
 
   void SetViewportAsync(m2::RectD const & viewport, m2::RectD const & nearby);
-  void SearchAsync();
+  void SearchAsync(bool viewportPoints);
 
   void EmitResults(SearchParams const & params, Results & res);
 

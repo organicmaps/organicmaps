@@ -581,56 +581,39 @@ namespace impl
   };
 }
 
-void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
+template <class T> void Query::MakePreResult2(vector<T> & cont, vector<FeatureID> & streets, int ind/* = -1*/)
 {
-  vector<IndexedValue> indV;
-  vector<FeatureID> streets;
+  // make unique set of PreResult1
+  typedef set<impl::PreResult1, LessFeatureID> PreResultSetT;
+  PreResultSetT theSet;
 
-  {
-    // make unique set of PreResult1
-    typedef set<impl::PreResult1, LessFeatureID> PreResultSetT;
-    PreResultSetT theSet;
-
-    for (size_t i = 0; i < m_qCount; ++i)
+  for (size_t i = 0; i < m_qCount; ++i)
+    if (ind == -1 || i == ind)
     {
       theSet.insert(m_results[i].begin(), m_results[i].end());
       m_results[i].clear();
     }
 
-    // make PreResult2 vector
-    impl::PreResult2Maker maker(*this);
-    for (PreResultSetT::const_iterator i = theSet.begin(); i != theSet.end(); ++i)
-    {
-      impl::PreResult2 * p = maker(*i);
-      if (p == 0)
-        continue;
+  // make PreResult2 vector
+  impl::PreResult2Maker maker(*this);
+  for (PreResultSetT::const_iterator i = theSet.begin(); i != theSet.end(); ++i)
+  {
+    impl::PreResult2 * p = maker(*i);
+    if (p == 0)
+      continue;
 
-      if (p->IsStreet())
-        streets.push_back(p->GetID());
+    if (p->IsStreet())
+      streets.push_back(p->GetID());
 
-      if (IsResultExists(p, indV))
-        delete p;
-      else
-        indV.push_back(IndexedValue(p));
-    }
+    if (IsResultExists(p, cont))
+      delete p;
+    else
+      cont.push_back(IndexedValue(p));
   }
+}
 
-  if (indV.empty())
-    return;
-
-  RemoveDuplicatingLinear(indV);
-
-  SortByIndexedValue(indV, CompFactory2());
-
-  // Do not process suggestions in additional search.
-  if (!allMWMs)
-    ProcessSuggestions(indV, res);
-
-  bool (Results::*addFn)(Result const &) = allMWMs ?
-        &Results::AddResultCheckExisting :
-        &Results::AddResult;
-
-#ifdef HOUSE_SEARCH_TEST
+void Query::FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & streets)
+{
   if (!m_house.empty() && !streets.empty())
   {
     if (m_houseDetector.LoadStreets(streets) > 0)
@@ -648,6 +631,10 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
     if (!allMWMs)
       count = min(count, size_t(5));
 
+    bool (Results::*addFn)(Result const &) = allMWMs ?
+          &Results::AddResultCheckExisting :
+          &Results::AddResult;
+
     for (size_t i = 0; i < count; ++i)
     {
       House const * h = houses[i].m_house;
@@ -657,6 +644,32 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
       (res.*addFn)(r);
     }
   }
+}
+
+void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
+{
+  vector<IndexedValue> indV;
+  vector<FeatureID> streets;
+
+  MakePreResult2(indV, streets);
+
+  if (indV.empty())
+    return;
+
+  RemoveDuplicatingLinear(indV);
+
+  SortByIndexedValue(indV, CompFactory2());
+
+  // Do not process suggestions in additional search.
+  if (!allMWMs)
+    ProcessSuggestions(indV, res);
+
+  bool (Results::*addFn)(Result const &) = allMWMs ?
+        &Results::AddResultCheckExisting :
+        &Results::AddResult;
+
+#ifdef HOUSE_SEARCH_TEST
+  FlushHouses(res, allMWMs, streets);
 #endif
 
   // emit feature results
@@ -669,6 +682,38 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
 
     if ((res.*addFn)(MakeResult(*(indV[i]))))
       ++count;
+  }
+}
+
+void Query::SearchViewportPoints(Results & res)
+{
+  ClearQueues();
+
+  if (m_cancel) return;
+  SearchAddress(res);
+
+  if (m_cancel) return;
+  SearchFeatures();
+
+  vector<IndexedValue> indV;
+  vector<FeatureID> streets;
+
+  MakePreResult2(indV, streets, 1);
+
+  if (indV.empty())
+    return;
+
+  RemoveDuplicatingLinear(indV);
+
+#ifdef HOUSE_SEARCH_TEST
+  FlushHouses(res, false, streets);
+#endif
+
+  for (size_t i = 0; i < indV.size(); ++i)
+  {
+    if (m_cancel) break;
+
+    res.AddResult((*(indV[i])).GeneratePointResult(m_pCategories, &m_prefferedTypes, GetLanguage(LANG_CURRENT)));
   }
 }
 

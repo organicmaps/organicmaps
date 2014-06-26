@@ -30,6 +30,9 @@ public:
          string const & flag, string const & type,
          uint32_t featureType, double distance);
 
+  /// Used for point-like results on the map.
+  Result(m2::PointD const & pt, string const & str, string const & type);
+
   /// For RESULT_LATLON.
   Result(m2::PointD const & fCenter,
          string const & str, string const & region,

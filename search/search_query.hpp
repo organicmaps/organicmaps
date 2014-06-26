@@ -98,6 +98,8 @@ public:
   void Search(Results & res, size_t resCount);
   void SearchAllInViewport(m2::RectD const & viewport, Results & res, unsigned int resultsNeeded = 30);
   void SearchAdditional(Results & res, bool nearMe, bool inViewport, size_t resCount);
+
+  void SearchViewportPoints(Results & res);
   //@}
 
   void ClearCaches();
@@ -169,13 +171,14 @@ private:
 
   void AddResultFromTrie(TrieValueT const & val, size_t mwmID, ViewportID vID = DEFAULT_V);
 
+  template <class T> void MakePreResult2(vector<T> & cont, vector<FeatureID> & streets, int ind = -1);
+  void FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & streets);
   void FlushResults(Results & res, bool allMWMs, size_t resCount);
 
   ftypes::Type GetLocalityIndex(feature::TypesHolder const & types) const;
   void RemoveStringPrefix(string const & str, string & res) const;
   void GetSuggestion(string const & name, string & suggest) const;
   template <class T> void ProcessSuggestions(vector<T> & vec, Results & res) const;
-
 
   void SearchAddress(Results & res);
 
@@ -269,6 +272,9 @@ public:
   static const size_t m_qCount = 3;
 
 private:
+  // 0 - LessRank
+  // 1 - LessViewportDistance
+  // 2 - LessDistance
   QueueT m_results[m_qCount];
 };
 

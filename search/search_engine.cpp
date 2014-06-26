@@ -141,7 +141,7 @@ void Engine::PrepareSearch(m2::RectD const & viewport,
   GetPlatform().RunAsync(bind(&Engine::SetViewportAsync, this, viewport, nearby));
 }
 
-bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
+bool Engine::Search(SearchParams const & params, m2::RectD const & viewport, bool viewportPoints/* = false*/)
 {
   // Check for equal query.
   // There is no need to put synch here for reading m_params,
@@ -168,7 +168,7 @@ bool Engine::Search(SearchParams const & params, m2::RectD const & viewport)
   }
 
   // Run task.
-  GetPlatform().RunAsync(bind(&Engine::SearchAsync, this));
+  GetPlatform().RunAsync(bind(&Engine::SearchAsync, this, viewportPoints));
 
   return true;
 }
@@ -231,7 +231,7 @@ void Engine::EmitResults(SearchParams const & params, Results & res)
   params.m_callback(res);
 }
 
-void Engine::SearchAsync()
+void Engine::SearchAsync(bool viewportPoints)
 {
   {
     // Avoid many threads waiting in search mutex. One is enough.
@@ -326,7 +326,10 @@ void Engine::SearchAsync()
     {
       // Do search for address in all modes.
       // params.NeedSearch(SearchParams::SEARCH_ADDRESS)
-      m_pQuery->Search(res, RESULTS_COUNT);
+      if (viewportPoints)
+        m_pQuery->SearchViewportPoints(res);
+      else
+        m_pQuery->Search(res, RESULTS_COUNT);
     }
   }
   catch (Query::CancelException const &)
@@ -339,7 +342,7 @@ void Engine::SearchAsync()
     EmitResults(params, res);
 
   // Make additional search in whole mwm when not enough results (only for non-empty query).
-  if (!emptyQuery && !m_pQuery->IsCanceled() && count < RESULTS_COUNT)
+  if (!viewportPoints && !emptyQuery && !m_pQuery->IsCanceled() && count < RESULTS_COUNT)
   {
     try
     {
