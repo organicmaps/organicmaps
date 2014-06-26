@@ -531,7 +531,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
   ASSERT([self isBookmark], ());
   PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
   UIColor * color = [ColorPickerView colorForName:[ColorPickerView colorName:colorIndex]];
-  [cell setColor:color];
+  cell.color = color;
+  [cell layoutSubviews];
 
   Framework & framework = GetFramework();
   UserMark const * mark = [self userMark];
