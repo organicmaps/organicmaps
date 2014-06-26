@@ -32,7 +32,9 @@ SOURCES += \
     $$DRAPE_DIR/overlay_handle.cpp \
     $$DRAPE_DIR/index_buffer_mutator.cpp \
     $$DRAPE_DIR/batcher_helpers.cpp \
-    $$DRAPE_DIR/overlay_tree.cpp
+    $$DRAPE_DIR/overlay_tree.cpp \
+    $$DRAPE_DIR/texture_font.cpp \
+    $$DRAPE_DIR/font_loader.cpp \
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -70,4 +72,6 @@ HEADERS += \
     $$DRAPE_DIR/overlay_handle.hpp \
     $$DRAPE_DIR/index_buffer_mutator.hpp \
     $$DRAPE_DIR/batcher_helpers.hpp \
-    $$DRAPE_DIR/overlay_tree.hpp
+    $$DRAPE_DIR/overlay_tree.hpp \
+    $$DRAPE_DIR/texture_font.h \
+    $$DRAPE_DIR/font_loader.hpp \
