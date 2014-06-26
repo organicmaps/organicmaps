@@ -13,7 +13,8 @@ public:
   enum TextureFormat
   {
     RGBA8,
-    RGBA4
+    RGBA4,
+    ALPHA
   };
 
   class Key

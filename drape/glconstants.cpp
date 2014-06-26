@@ -30,6 +30,7 @@ namespace gl_const
 
 const glConst GLMaxFragmentTextures = GL_MAX_TEXTURE_IMAGE_UNITS;
 const glConst GLMaxVertexTextures   = GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS;
+const glConst GLMaxTextureSize      = GL_MAX_TEXTURE_SIZE;
 
 const glConst GLArrayBuffer         = GL_ARRAY_BUFFER;
 const glConst GLElementArrayBuffer  = GL_ELEMENT_ARRAY_BUFFER;

@@ -10,6 +10,7 @@ namespace gl_const
 /// Hardware specific params
 extern const glConst GLMaxFragmentTextures;
 extern const glConst GLMaxVertexTextures;
+extern const glConst GLMaxTextureSize;
 
 /// Buffer targets
 extern const glConst GLArrayBuffer;

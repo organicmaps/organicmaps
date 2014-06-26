@@ -70,6 +70,17 @@ public:
                                         int32_t*, glConst *,
                                         string &));
 
+  //Texture functions
+  MOCK_METHOD1(glActiveTexture, void(glConst));
+  MOCK_METHOD0(glGenTexture, uint32_t());
+  MOCK_METHOD1(glDeleteTexture, void(uint32_t));
+  MOCK_METHOD1(glBindTexture, void(uint32_t));
+  MOCK_METHOD5(glTexImage2D, void(int, int, glConst, glConst, void const *));
+  MOCK_METHOD7(glTexSubImage2D, void(int, int, int, int, glConst, glConst, void const *));
+  MOCK_METHOD2(glTexParameter, void(glConst, glConst));
+
+  MOCK_METHOD1(glGetInteger, int32_t(glConst));
+
 private:
   static GLMockFunctions * m_mock;
 };

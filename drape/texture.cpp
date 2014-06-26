@@ -115,6 +115,10 @@ void Texture::UnpackFormat(Texture::TextureFormat format, glConst & layout, glCo
     layout = requiredFormat ? gl_const::GLRGBA4 : gl_const::GLRGBA;
     pixelType = gl_const::GL4BitOnChannel;
     break;
+  case ALPHA:
+    layout = requiredFormat ? gl_const::GLAlpha8 : gl_const::GLAlpha;
+    pixelType = gl_const::GL8BitOnChannel;
+    break;
   default:
     ASSERT(false, ());
     break;

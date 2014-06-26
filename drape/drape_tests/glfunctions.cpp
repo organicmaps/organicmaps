@@ -199,4 +199,44 @@ void GLFunctions::glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
   MOCK_CALL(glGetActiveUniform(programID, uniformIndex, uniformSize, type, name));
 }
 
+void GLFunctions::glActiveTexture(glConst texBlock)
+{
+  MOCK_CALL(glActiveTexture(texBlock));
+}
+
+uint32_t GLFunctions::glGenTexture()
+{
+  return MOCK_CALL(glGenTexture());
+}
+
+void GLFunctions::glDeleteTexture(uint32_t id)
+{
+  MOCK_CALL(glDeleteTexture(id));
+}
+
+void GLFunctions::glBindTexture(uint32_t textureID)
+{
+  MOCK_CALL(glBindTexture(textureID));
+}
+
+void GLFunctions::glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data)
+{
+  MOCK_CALL(glTexImage2D(width, height, layout, pixelType, data));
+}
+
+void GLFunctions::glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType, void const * data)
+{
+  MOCK_CALL(glTexSubImage2D(x, y, width, height, layout, pixelType, data));
+}
+
+void GLFunctions::glTexParameter(glConst param, glConst value)
+{
+  MOCK_CALL(glTexParameter(param, value));
+}
+
+int32_t GLFunctions::glGetInteger(glConst pname)
+{
+  return MOCK_CALL(glGetInteger(pname));
+}
+
 void CheckGLError() {}
