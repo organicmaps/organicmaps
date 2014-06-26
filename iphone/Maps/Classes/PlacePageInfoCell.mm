@@ -80,8 +80,8 @@
   {
     point = self.pinPoint;
   }
-  string const coords = useDMS ? MeasurementUtils::FormatMercatorAsDMS(point)
-                               : MeasurementUtils::FormatMercator(point);
+  string const coords = useDMS ? MeasurementUtils::FormatMercatorAsDMS(point, 2)
+                               : MeasurementUtils::FormatMercator(point, 6);
   self.coordinatesLabel.text = [NSString stringWithUTF8String:coords.c_str()];
 }
 

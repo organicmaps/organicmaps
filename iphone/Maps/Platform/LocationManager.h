@@ -34,9 +34,9 @@
 - (bool)getLat:(double &)lat Lon:(double &)lon;
 - (bool)getNorthRad:(double &)rad;
 
-+ (NSString *)formatDistance:(double)meters;
++ (NSString *)formattedDistance:(double)meters;
 // Returns nil if neither speed nor altitude are available
-- (NSString *)formatSpeedAndAltitude;
+- (NSString *)formattedSpeedAndAltitude;
 
 - (bool)lastLocationIsValid;
 - (BOOL)enabledOnMap;

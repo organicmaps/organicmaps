@@ -354,7 +354,7 @@
           m2::PointD const center = bm->GetOrg();
           double const metres = ms::DistanceOnEarth(info.m_latitude, info.m_longitude,
               MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x));
-          cell.bmDistance.text = [LocationManager formatDistance:metres];
+          cell.bmDistance.text = [LocationManager formattedDistance:metres];
         }
       }
     }

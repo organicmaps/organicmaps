@@ -175,6 +175,7 @@ const long long LITE_IDL = 431183278L;
 
       [[MapsAppDelegate theApp] disableStandby];
       [[MapsAppDelegate theApp].m_locationManager start:self];
+      [[NSNotificationCenter defaultCenter] postNotificationName:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
 
       return;
     }

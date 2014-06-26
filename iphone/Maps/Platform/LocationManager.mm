@@ -211,7 +211,7 @@
   return false;
 }
 
-+ (NSString *)formatDistance:(double)meters
++ (NSString *)formattedDistance:(double)meters
 {
   if (meters < 0.)
     return nil;
@@ -250,7 +250,7 @@
   else return rocket;
 }
 
-- (NSString *)formatSpeedAndAltitude
+- (NSString *)formattedSpeedAndAltitude
 {
   CLLocation * l = [self lastLocation];
   if (l)

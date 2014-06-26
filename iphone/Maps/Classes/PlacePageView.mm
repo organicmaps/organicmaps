@@ -94,7 +94,14 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
   updatingTable = NO;
 
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMonitoringLocation:) name:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
+
   return self;
+}
+
+- (void)startMonitoringLocation:(NSNotification *)notification
+{
+  [[MapsAppDelegate theApp].m_locationManager start:self];
 }
 
 - (void)onLocationError:(location::TLocationError)errorCode
@@ -119,9 +126,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [cell updateDistance];
 
   if ([self isMarkOfType:UserMark::MY_POSITION])
-    self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formatSpeedAndAltitude];
-  if ([self isMarkOfType:UserMark::MY_POSITION])
-    [cell updateCoordinates];
+  {
+    self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude];
+    if (self.state == PlacePageStateOpened)
+      [cell updateCoordinates];
+  }
 }
 
 - (void)onCompassUpdate:(location::CompassInfo const &)info
@@ -229,7 +238,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   self.titleLabel.origin = CGPointMake(23, 29);
 
   if ([self isMarkOfType:UserMark::MY_POSITION])
-    self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formatSpeedAndAltitude];
+    self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude];
   else
     self.typeLabel.text = self.types;
   self.typeLabel.width = [self typesWidth];
