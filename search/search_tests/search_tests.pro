@@ -29,6 +29,7 @@ SOURCES += \
     house_detector_tests.cpp \
     algos_tests.cpp \
     string_intersection_test.cpp \
+    locality_finder_test.cpp \
 
 HEADERS += \
     match_cost_mock.hpp \

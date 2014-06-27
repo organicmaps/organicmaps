@@ -1,0 +1,92 @@
+#include "../../testing/testing.hpp"
+
+#include "../../indexer/index.hpp"
+#include "../locality_finder.hpp"
+
+namespace
+{
+
+void doTests(search::LocalityFinder & finder, vector<m2::PointD> const & input, char const * results[])
+{
+  for (size_t i = 0; i < input.size(); ++i)
+  {
+    string result;
+    finder.GetLocality(m2::PointD(MercatorBounds::LonToX(input[i].x), MercatorBounds::LatToY(input[i].y)), result);
+    TEST_EQUAL(result, results[i], ());
+  }
+}
+
+}
+
+UNIT_TEST(LocalityFinder)
+{
+  Index index;
+  m2::RectD rect;
+  if (!index.Add("World.mwm", rect))
+  {
+    LOG(LWARNING, ("MWM file not found"));
+    return;
+  }
+
+  search::LocalityFinder finder(&index);
+  finder.SetLanguage(StringUtf8Multilang::GetLangIndex("en"));
+
+  search::LocalityFinder::MWMVectorT mwm;
+  index.GetMwmInfo(mwm);
+  finder.SetViewportByIndex(mwm, MercatorBounds::FullRect(), 0);
+
+  vector<m2::PointD> input;
+  input.push_back(m2::PointD(27.5433964, 53.8993094)); // Minsk
+  input.push_back(m2::PointD(2.3521, 48.856517)); // Paris
+  input.push_back(m2::PointD(13.3908289, 52.5193859)); // Berlin
+
+  char const * results[] =
+  {
+    "Minsk",
+    "Paris",
+    "Berlin"
+  };
+
+  // Tets one viewport based on whole map
+  doTests(finder, input, results);
+
+  // Test two viewport based on quaters of worl map
+  m2::RectD rect1;
+  rect1.setMinX(rect.minX());
+  rect1.setMinY(rect.minY());
+  rect1.setMaxX(rect.Center().x);
+  rect1.setMaxY(rect.Center().y);
+
+  m2::RectD rect2;
+  rect2.setMinX(rect.Center().x);
+  rect2.setMinY(rect.Center().y);
+  rect2.setMaxY(rect.maxY());
+  rect2.setMaxX(rect.maxX());
+
+  input.clear();
+  input.push_back(m2::PointD(-87.624367, 41.875));  // Chicago
+  input.push_back(m2::PointD(-43.209384, -22.911225));  // Rio de Janeiro
+  input.push_back(m2::PointD(144.96, -37.8142)); // Melbourne (Australia)
+  input.push_back(m2::PointD(27.69341, 53.883931)); // Parkin Minsk (near MKAD)
+  input.push_back(m2::PointD(27.707875, 53.917306)); // Lipki airport (Minsk)
+  input.push_back(m2::PointD(18.834407, 42.285901)); // Budva (Montenegro)
+  input.push_back(m2::PointD(12.452854, 41.903479)); // Vaticano (Rome)
+  input.push_back(m2::PointD(8.531262, 47.3345002)); // Zurich
+
+  finder.SetViewportByIndex(mwm, rect1, 0);
+  finder.SetViewportByIndex(mwm, rect2, 1);
+
+  char const * results2[] =
+  {
+    "",
+    "Rio de Janeiro",
+    "",
+    "Minsk",
+    "Minsk",
+    "Budva",
+    "Rome",
+    "Zurich"
+  };
+
+  doTests(finder, input, results2);
+}

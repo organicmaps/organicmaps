@@ -26,6 +26,7 @@ HEADERS += \
     indexed_value.hpp \
     geometry_utils.hpp \
     search_string_intersection.hpp \
+    locality_finder.hpp \
 
 SOURCES += \
     search_engine.cpp \
@@ -40,3 +41,4 @@ SOURCES += \
     house_detector.cpp \
     ftypes_matcher.cpp \
     geometry_utils.cpp \
+    locality_finder.cpp \
