@@ -9,6 +9,7 @@
 @property (nonatomic, readonly) UILabel * subtitleLabel;
 @property (nonatomic, readonly) UILabel * distanceLabel;
 @property (nonatomic, readonly) UIImageView * iconImageView;
+@property (nonatomic) BOOL largeIconStyle;
 
 - (void)setTitle:(NSString *)title selectedRanges:(NSArray *)selectedRanges;
 

@@ -457,9 +457,11 @@ static void onSearchResultCallback(search::Results const & results)
 
       [customCell setTitle:NSLocalizedString(self.categoriesNames[indexPath.row], nil) selectedRanges:nil];
       customCell.subtitleLabel.text = nil;
-      customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
+      NSString * iconName = [NSString stringWithFormat:@"CategoryIcon%@", [self.categoriesNames[indexPath.row] capitalizedString]];
+      customCell.iconImageView.image = [UIImage imageNamed:iconName];
       customCell.distanceLabel.text = nil;
       customCell.typeLabel.text = nil;
+      customCell.largeIconStyle = YES;
       cell = customCell;
       break;
     }
@@ -472,6 +474,7 @@ static void onSearchResultCallback(search::Results const & results)
       customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinsIcon"];
       customCell.distanceLabel.text = nil;
       customCell.typeLabel.text = nil;
+      customCell.largeIconStyle = NO;
       cell = customCell;
       break;
     }
@@ -494,6 +497,7 @@ static void onSearchResultCallback(search::Results const & results)
       customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinIcon"];
       customCell.distanceLabel.text = self.wrapper.distances[@(position)];
       customCell.typeLabel.text = [NSString stringWithUTF8String:result.GetFeatureType()];
+      customCell.largeIconStyle = NO;
       cell = customCell;
       break;
     }

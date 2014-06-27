@@ -97,7 +97,7 @@
   self.distanceLabel.maxY = self.height - 10;
 
   self.titleLabel.size = [[self class] titleSizeWithTitle:self.titleLabel.text viewWidth:self.width typeSize:self.typeLabel.size];
-  self.titleLabel.minX = LEFT_SHIFT;
+  self.titleLabel.minX = self.largeIconStyle ? 47 : LEFT_SHIFT;
   if ([self.subtitleLabel.text length])
     self.titleLabel.minY = 5.5;
   else
@@ -179,7 +179,7 @@
 {
   if (!_iconImageView)
   {
-    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(17, 15.5, 18, 18)];
+    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(13.5, 12, 25, 25)];
     _iconImageView.contentMode = UIViewContentModeCenter;
   }
   return _iconImageView;
