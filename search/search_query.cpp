@@ -65,8 +65,10 @@ namespace
     ASSERT_LESS ( id, LANG_COUNT, () );
     return make_pair(g_arrLang1[id], g_arrLang2[id]);
   }
-}
 
+  // Maximum result candidates count for each viewport/criteria.
+  size_t const PRE_RESULTS_COUNT = 200;
+}
 
 Query::Query(Index const * pIndex,
              CategoriesHolder const * pCategories,
@@ -86,13 +88,10 @@ Query::Query(Index const * pIndex,
   ASSERT ( m_pIndex, () );
 
   // Results queue's initialization.
-  STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare1) );
-  STATIC_ASSERT ( m_qCount == ARRAY_SIZE(g_arrCompare2) );
+  STATIC_ASSERT ( QUEUES_COUNT == ARRAY_SIZE(g_arrCompare1) );
+  STATIC_ASSERT ( QUEUES_COUNT == ARRAY_SIZE(g_arrCompare2) );
 
-  // Maximum result candidates count for each viewport/criteria.
-  size_t const PRE_RESULTS_COUNT = 200;
-
-  for (size_t i = 0; i < m_qCount; ++i)
+  for (size_t i = 0; i < QUEUES_COUNT; ++i)
   {
     m_results[i] = QueueT(PRE_RESULTS_COUNT, QueueCompareT(g_arrCompare1[i]));
     m_results[i].reserve(PRE_RESULTS_COUNT);
@@ -252,7 +251,7 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & 
 #endif
 }
 
-void Query::Init()
+void Query::Init(bool viewportPoints)
 {
   m_cancel = false;
 
@@ -265,11 +264,22 @@ void Query::Init()
 #endif
 
   ClearQueues();
+
+  if (viewportPoints)
+  {
+    m_queuesCount = 1;
+    m_results[0] = QueueT(PRE_RESULTS_COUNT, QueueCompareT(&impl::PreResult1::LessPointsForViewport));
+  }
+  else
+  {
+    m_results[0] = QueueT(PRE_RESULTS_COUNT, QueueCompareT(g_arrCompare1[0]));
+    m_queuesCount = QUEUES_COUNT;
+  }
 }
 
 void Query::ClearQueues()
 {
-  for (size_t i = 0; i < m_qCount; ++i)
+  for (size_t i = 0; i < QUEUES_COUNT; ++i)
     m_results[i].clear();
 }
 
@@ -348,8 +358,6 @@ void Query::SearchCoordinates(string const & query, Results & res) const
 
 void Query::Search(Results & res, size_t resCount)
 {
-  ClearQueues();
-
   if (m_cancel) return;
   if (m_tokens.empty())
     SuggestStrings(res);
@@ -388,7 +396,7 @@ namespace
   };
   //@}
 
-  class IndexedValue : public search::IndexedValueBase<Query::m_qCount>
+  class IndexedValue : public search::IndexedValueBase<Query::QUEUES_COUNT>
   {
     typedef impl::PreResult2 ValueT;
 
@@ -581,18 +589,17 @@ namespace impl
   };
 }
 
-template <class T> void Query::MakePreResult2(vector<T> & cont, vector<FeatureID> & streets, int ind/* = -1*/)
+template <class T> void Query::MakePreResult2(vector<T> & cont, vector<FeatureID> & streets)
 {
   // make unique set of PreResult1
   typedef set<impl::PreResult1, LessFeatureID> PreResultSetT;
   PreResultSetT theSet;
 
-  for (size_t i = 0; i < m_qCount; ++i)
-    if (ind == -1 || i == ind)
-    {
-      theSet.insert(m_results[i].begin(), m_results[i].end());
-      m_results[i].clear();
-    }
+  for (size_t i = 0; i < m_queuesCount; ++i)
+  {
+    theSet.insert(m_results[i].begin(), m_results[i].end());
+    m_results[i].clear();
+  }
 
   // make PreResult2 vector
   impl::PreResult2Maker maker(*this);
@@ -687,8 +694,6 @@ void Query::FlushResults(Results & res, bool allMWMs, size_t resCount)
 
 void Query::SearchViewportPoints(Results & res)
 {
-  ClearQueues();
-
   if (m_cancel) return;
   SearchAddress(res);
 
@@ -698,7 +703,7 @@ void Query::SearchViewportPoints(Results & res)
   vector<IndexedValue> indV;
   vector<FeatureID> streets;
 
-  MakePreResult2(indV, streets, 1);
+  MakePreResult2(indV, streets);
 
   if (indV.empty())
     return;
@@ -817,7 +822,7 @@ void Query::AddResultFromTrie(TrieValueT const & val, size_t mwmID, ViewportID v
   impl::PreResult1 res(FeatureID(mwmID, val.m_featureId), val.m_rank, val.m_pt,
                        GetPosition(vID), GetViewport(vID), vID);
 
-  for (size_t i = 0; i < m_qCount; ++i)
+  for (size_t i = 0; i < m_queuesCount; ++i)
   {
     // here can be the duplicates because of different language match (for suggest token)
     if (m_results[i].end() == find_if(m_results[i].begin(), m_results[i].end(), EqualFeatureID(res)))

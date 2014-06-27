@@ -74,7 +74,7 @@ public:
 
   inline void SupportOldFormat(bool b) { m_supportOldFormat = b; }
 
-  void Init();
+  void Init(bool viewportPoints);
 
   void SetViewport(m2::RectD viewport[], size_t count);
 
@@ -171,7 +171,7 @@ private:
 
   void AddResultFromTrie(TrieValueT const & val, size_t mwmID, ViewportID vID = DEFAULT_V);
 
-  template <class T> void MakePreResult2(vector<T> & cont, vector<FeatureID> & streets, int ind = -1);
+  template <class T> void MakePreResult2(vector<T> & cont, vector<FeatureID> & streets);
   void FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & streets);
   void FlushResults(Results & res, bool allMWMs, size_t resCount);
 
@@ -269,13 +269,13 @@ private:
   typedef my::limited_priority_queue<impl::PreResult1, QueueCompareT> QueueT;
 
 public:
-  static const size_t m_qCount = 3;
-
+  enum { QUEUES_COUNT = 3 };
 private:
   // 0 - LessRank
   // 1 - LessViewportDistance
   // 2 - LessDistance
-  QueueT m_results[m_qCount];
+  QueueT m_results[QUEUES_COUNT];
+  size_t m_queuesCount;
 };
 
 }  // namespace search

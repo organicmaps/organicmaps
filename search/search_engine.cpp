@@ -263,7 +263,7 @@ void Engine::SearchAsync(bool viewportPoints)
   }
 
   // Initialize query.
-  m_pQuery->Init();
+  m_pQuery->Init(viewportPoints);
 
   // Set search viewports according to search params.
   if (params.IsValidPosition())

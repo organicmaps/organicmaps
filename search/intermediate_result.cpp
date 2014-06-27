@@ -127,6 +127,10 @@ bool PreResult1::LessViewportDistance(PreResult1 const & r1, PreResult1 const & 
   return LessViewportDistanceT(r1, r2);
 }
 
+bool PreResult1::LessPointsForViewport(PreResult1 const & r1, PreResult1 const & r2)
+{
+  return r1.m_id < r2.m_id;
+}
 
 void PreResult2::CalcParams(m2::RectD const & viewport, m2::PointD const & pos)
 {

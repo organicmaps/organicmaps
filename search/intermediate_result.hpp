@@ -48,6 +48,7 @@ public:
   static bool LessRank(PreResult1 const & r1, PreResult1 const & r2);
   static bool LessDistance(PreResult1 const & r1, PreResult1 const & r2);
   static bool LessViewportDistance(PreResult1 const & r1, PreResult1 const & r2);
+  static bool LessPointsForViewport(PreResult1 const & r1, PreResult1 const & r2);
 
   inline FeatureID GetID() const { return m_id; }
   inline m2::PointD GetCenter() const { return m_center; }
