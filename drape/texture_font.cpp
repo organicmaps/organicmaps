@@ -1,21 +1,15 @@
-#include "texture_font.h"
-
-TextureFont::TextureFont()
-{
-}
+#include "texture_font.hpp"
 
 bool TextureFont::FindResource(Texture::Key const & key, m2::RectF & texRect, m2::PointU & pixelSize) const
 {
   if (key.GetType() != Texture::Key::Font)
     return false;
 
-  FontKey K = static_cast<FontKey const &>(key);
-
-  map<int, FontChar>::iterator itm = m_chars.find(K.GetUnicode());
+  map<int, FontChar>::const_iterator itm = m_chars.find(static_cast<FontKey const &>(key).GetUnicode());
   if(itm == m_chars.end())
     return false;
 
-  FontChar symbol = itm->second;
+  FontChar const & symbol = itm->second;
 
   pixelSize.x = symbol.m_width;
   pixelSize.y = symbol.m_height;
@@ -30,9 +24,14 @@ bool TextureFont::FindResource(Texture::Key const & key, m2::RectF & texRect, m2
   return true;
 }
 
-FontChar TextureFont::GetSymbolByUnicode(int unicode)
+bool TextureFont::GetSymbolByUnicode(int unicode, FontChar & symbol)
 {
-  return m_chars[unicode];
+  map<int, FontChar>::const_iterator itm = m_chars.find(unicode);
+  if(itm == m_chars.end())
+    return false;
+
+  symbol = itm->second;
+  return true;
 }
 
 void TextureFont::Load(int size, void *data, int32_t blockNum)
@@ -41,7 +40,7 @@ void TextureFont::Load(int size, void *data, int32_t blockNum)
   Create(size, size, Texture::ALPHA, MakeStackRefPointer<void>(data));
 }
 
-void TextureFont::Add(FontChar symbol)
+void TextureFont::Add(FontChar const & symbol)
 {
-  m_chars.insert(pair<int, FontChar>(symbol.m_unicode, symbol));
+  m_chars.insert(make_pair(symbol.m_unicode, symbol));
 }

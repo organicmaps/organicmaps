@@ -1,12 +1,12 @@
 #pragma once
 
-#include <map>
 #include "texture.hpp"
 #include "font_loader.hpp"
+#include "../std/map.hpp"
 
 using namespace std;
 
-class FontChar;
+struct FontChar;
 class TextureFont : public Texture
 {
 public:
@@ -22,14 +22,13 @@ public:
   };
 
 public:
-  TextureFont();
   bool FindResource(Key const & key, m2::RectF & texRect, m2::PointU & pixelSize) const;
   void Load(int size, void * data, int32_t blockNum);
-  void Add(FontChar letter);
+  void Add(FontChar const & letter);
 
-  FontChar GetSymbolByUnicode(int unicode);
+  bool GetSymbolByUnicode(int unicode, FontChar & symbol);
 
 private:
-  mutable map<int, FontChar> m_chars;
+  map<int, FontChar> m_chars;
   int32_t m_blockNum;
 };
