@@ -724,8 +724,16 @@ void Query::SearchViewportPoints(Results & res)
 
 ftypes::Type Query::GetLocalityIndex(feature::TypesHolder const & types) const
 {
-  static ftypes::IsLocalityChecker checker;
-  return checker.GetLocalityType(types);
+  using namespace ftypes;
+
+  // Inner logic of SearchAddress expects COUNTRY, STATE and CITY only.
+  Type const type = IsLocalityChecker::Instance().GetType(types);
+  switch (type)
+  {
+  case TOWN: return CITY;
+  case VILLAGE: return NONE;
+  default: return type;
+  }
 }
 
 void Query::RemoveStringPrefix(string const & str, string & res) const
@@ -1703,14 +1711,16 @@ namespace impl
       FeatureType f;
       m_vector.Get(v.m_featureId, f);
 
+      using namespace ftypes;
+
       // check, if feature is locality
-      ftypes::Type const index = m_query.GetLocalityIndex(feature::TypesHolder(f));
-      if (index != ftypes::NONE)
+      Type const index = m_query.GetLocalityIndex(feature::TypesHolder(f));
+      if (index != NONE)
       {
         Locality * loc = PushLocality(Locality(v, index));
         if (loc)
         {
-          loc->m_radius = ftypes::GetLocationRadius(f);
+          loc->m_radius = GetRadiusByPopulation(GetPopulation(f));
           // m_lang name should exist if we matched feature in search index for this language.
           VERIFY(f.GetName(m_lang, loc->m_name), ());
 

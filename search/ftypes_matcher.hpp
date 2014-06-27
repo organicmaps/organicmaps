@@ -36,19 +36,26 @@ public:
   IsBuildingChecker();
 };
 
-/// Type of locality (do not change values - they have detalization order)
-/// COUNTRY < STATE < CITY
-enum Type { NONE = -1, COUNTRY = 0, STATE, CITY };
+/// Type of locality (do not change values and order - they have detalization order)
+/// COUNTRY < STATE < CITY < ...
+enum Type { NONE = -1, COUNTRY = 0, STATE, CITY, TOWN, VILLAGE, LOCALITY_COUNT };
 
 class IsLocalityChecker : public BaseChecker
 {
 public:
   IsLocalityChecker();
 
-  Type GetLocalityType(feature::TypesHolder const & types) const;
-  Type GetLocalityType(FeatureType const & f) const;
+  Type GetType(feature::TypesHolder const & types) const;
+  Type GetType(FeatureType const & f) const;
+
+  static IsLocalityChecker const & Instance();
 };
 
-/// Get city radius (meters)
-double GetLocationRadius(FeatureType const & ft);
+/// @name Get city radius and population.
+/// @param r Radius in meters.
+//@{
+uint32_t GetPopulation(FeatureType const & ft);
+double GetRadiusByPopulation(uint32_t p);
+uint32_t GetPopulationByRadius(double r);
+//@}
 }
