@@ -1,11 +1,12 @@
 #pragma once
 
 #include "../std/vector.hpp"
+#include "../std/stdint.hpp"
 
 class DFMap
 {
 public:
-  DFMap(vector<unsigned char> const & data,
+  DFMap(vector<uint8_t> const & data,
         int width, int height,
         unsigned char inValue,
         unsigned char outValue);
@@ -17,10 +18,10 @@ public:
   unsigned char * GenerateImage(int & w, int & h);
 
 private:
-  void Do(vector<unsigned char> const & data, unsigned char inValue, unsigned char outValue);
-  float findRadialDistance(vector<unsigned char> const & data,
+  void Do(vector<uint8_t> const & data, unsigned char inValue, unsigned char outValue);
+  float findRadialDistance(vector<uint8_t> const & data,
                            int pointX, int pointY,
-                           int radius, unsigned char outValue);
+                           int radius, unsigned char outValue) const;
 
   template<typename T>
   T get(vector<T> const & data, int i, int j) const

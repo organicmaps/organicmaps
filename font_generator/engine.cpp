@@ -10,6 +10,8 @@
 #include <QFile>
 #include <QTextStream>
 
+#include "../base/macros.hpp"
+
 #include "../std/cmath.hpp"
 #include "../std/vector.hpp"
 #include "../std/map.hpp"
@@ -47,7 +49,7 @@ namespace
       return m_height;
     }
 
-    ZeroPoint GetZeroPoint(int pageNumber)
+    ZeroPoint GetZeroPoint(int pageNumber) const
     {
       ZeroPoint zPoint;
       zPoint.m_x = pageNumber % GetWidth();
@@ -92,7 +94,7 @@ namespace
         MetricTemplate(16, 4, 4)
       };
 
-      for (int i = 0; i < 15; ++ i)
+      for (unsigned long i = 0; i < ARRAY_SIZE(templates); ++ i)
       {
         if (templates[i].m_pageCount == pageCount)
         {
@@ -155,13 +157,14 @@ namespace
         if (f.open(QIODevice::ReadOnly) == false)
           throw 1;
 
-        unsigned char * fontBuffer = new unsigned char[f.size()];
-        f.read((char *)fontBuffer, f.size());
-
         stbtt_fontinfo fontInfo;
-        stbtt_InitFont(&fontInfo, fontBuffer, 0);
+        {
+          vector<uint8_t> fontBuffer(f.size(), 0);
+          f.read((char *)&fontBuffer[0], fontBuffer.size());
+          stbtt_InitFont(&fontInfo, &fontBuffer[0], 0);
+        }
+
         float scale = stbtt_ScaleForPixelHeight(&fontInfo, /*GlyphScaler * */m_fontSize);
-        delete[] fontBuffer;
         for (range_iter_t range = font.value().begin(); range != font.value().end(); ++range)
         {
           for (int unicodeCode = range->first; unicodeCode <= range->second; ++unicodeCode)
@@ -230,9 +233,7 @@ namespace
       int width = EtalonTextureSize * compositor.GetWidth();
       int height = EtalonTextureSize * compositor.GetHeight();
 
-      unsigned char * resultImg = new unsigned char[width * height];
-      memset(resultImg, 0, width * height);
-
+      vector<uint8_t> resultImg(width * height, 0);
       bool firstEmpty = true;
       for (size_t k = 0; k < outRects.size(); ++k)
       {
@@ -277,12 +278,10 @@ namespace
       foreach (GlyphInfo info, infos)
         delete[] info.m_img;
 
-      m_image = QImage(resultImg, width, height, QImage::Format_Indexed8);
+      m_image = QImage(&resultImg[0], width, height, QImage::Format_Indexed8);
       m_image.setColorCount(256);
       for (int i = 0; i < 256; ++i)
         m_image.setColor(i, qRgb(i, i, i));
-
-      delete[] resultImg;
 
       m_infos.clear();
       m_infos.append(infos);
@@ -294,11 +293,11 @@ namespace
       return m_image;
     }
 
-    QList<GlyphInfo> const & GetInfos() { return m_infos; }
+    QList<GlyphInfo> const & GetInfos() const { return m_infos; }
 
   private:
-    unsigned char * processGlyph(unsigned char * glyphImage, int width, int height,
-                                 int & newW, int & newH)
+    static unsigned char * processGlyph(unsigned char * glyphImage, int width, int height,
+                                        int & newW, int & newH)
     {
       static int border = 2;
       int sWidth = width + 4 * border;
