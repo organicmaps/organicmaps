@@ -109,6 +109,17 @@ pair<uint16_t, uint16_t> const & Result::GetHighlightRange(size_t idx) const
   return m_hightlightRanges[idx];
 }
 
+void Result::AppendCity(string const & name)
+{
+  if (name.empty())
+    return;
+
+  if (m_region.empty())
+    m_region = name;
+  else
+    m_region += (", " + name);
+}
+
 bool Results::AddResultCheckExisting(Result const & r)
 {
   if (find(m_vec.begin(), m_vec.end(), r) == m_vec.end())

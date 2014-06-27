@@ -20,9 +20,14 @@
 
 
 #define HOUSE_SEARCH_TEST
+#define FIND_LOCALITY_TEST
 
 #ifdef HOUSE_SEARCH_TEST
 #include "house_detector.hpp"
+#endif
+
+#ifdef FIND_LOCALITY_TEST
+#include "locality_finder.hpp"
 #endif
 
 
@@ -223,7 +228,11 @@ private:
 #ifdef HOUSE_SEARCH_TEST
   strings::UniString m_house;
   vector<FeatureID> m_streetID;
-  search::HouseDetector m_houseDetector;
+  HouseDetector m_houseDetector;
+#endif
+
+#ifdef FIND_LOCALITY_TEST
+  LocalityFinder m_locality;
 #endif
 
   static int const MAX_SUGGESTS_COUNT = 5;

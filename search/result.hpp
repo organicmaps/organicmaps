@@ -76,6 +76,7 @@ public:
   pair<uint16_t, uint16_t> const & GetHighlightRange(size_t idx) const;
   inline size_t GetHighlightRangesCount() const { return m_hightlightRanges.size(); }
 
+  void AppendCity(string const & name);
 
 private:
   FeatureID m_id;

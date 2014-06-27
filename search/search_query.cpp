@@ -78,7 +78,12 @@ Query::Query(Index const * pIndex,
     m_pCategories(pCategories),
     m_pStringsToSuggest(pStringsToSuggest),
     m_pInfoGetter(pInfoGetter),
+#ifdef HOUSE_SEARCH_TEST
     m_houseDetector(pIndex),
+#endif
+#ifdef FIND_LOCALITY_TEST
+    m_locality(pIndex),
+#endif
     m_worldSearch(true),
     m_sortByViewport(false),
     m_position(empty_pos_value, empty_pos_value)
@@ -157,10 +162,20 @@ void Query::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD const & vie
     {
       m_viewport[idx] = viewport;
       UpdateViewportOffsets(mwmInfo, viewport, m_offsetsInViewport[idx]);
+
+#ifdef FIND_LOCALITY_TEST
+      m_locality.SetViewportByIndex(mwmInfo, viewport, idx);
+#endif
     }
   }
   else
+  {
     ClearCache(idx);
+
+#ifdef FIND_LOCALITY_TEST
+    m_locality.ClearCache(idx);
+#endif
+  }
 }
 
 void Query::SetPreferredLanguage(string const & lang)
@@ -171,6 +186,10 @@ void Query::SetPreferredLanguage(string const & lang)
   // Default initialization.
   // If you want to reset input language, call SetInputLanguage before search.
   SetInputLanguage(code);
+
+#ifdef FIND_LOCALITY_TEST
+  m_locality.SetLanguage(code);
+#endif
 }
 
 void Query::SetInputLanguage(int8_t lang)
@@ -730,9 +749,12 @@ ftypes::Type Query::GetLocalityIndex(feature::TypesHolder const & types) const
   Type const type = IsLocalityChecker::Instance().GetType(types);
   switch (type)
   {
-  case TOWN: return CITY;
-  case VILLAGE: return NONE;
-  default: return type;
+  case TOWN:
+    return CITY;
+  case VILLAGE:
+    return NONE;
+  default:
+    return type;
   }
 }
 
@@ -930,11 +952,20 @@ public:
 };
 
 
-
 Result Query::MakeResult(impl::PreResult2 const & r) const
 {
   Result res = r.GenerateFinalResult(m_pInfoGetter, m_pCategories, &m_prefferedTypes, GetLanguage(LANG_CURRENT));
   MakeResultHighlight(res);
+
+#ifdef FIND_LOCALITY_TEST
+  if (ftypes::IsLocalityChecker::Instance().GetType(r.GetTypes()) == ftypes::NONE)
+  {
+    string city;
+    m_locality.GetLocality(res.GetFeatureCenter(), city);
+    res.AppendCity(city);
+  }
+#endif
+
   return res;
 }
 
