@@ -1,6 +1,7 @@
 #include "symbols_texture.hpp"
 
-#include "utils/lodepng.h"
+//#include "utils/lodepng.h"
+#include "utils/stb_image.h"
 
 #include "../platform/platform.hpp"
 
@@ -40,12 +41,12 @@ void SymbolsTexture::Load(string const & skinPathName)
     return;
   }
 
-  vector<unsigned char> pngData;
-  unsigned w, h;
-  lodepng::decode(pngData, w, h, &rawData[0], rawData.size());
+  int w, h, bpp;
+  unsigned char * data = stbi_png_load_from_memory(&rawData[0], rawData.size(), &w, &h, &bpp, 0);
 
   ASSERT(width == w && height == h, ());
-  Create(width, height, Texture::RGBA8, MakeStackRefPointer<void>(&pngData[0]));
+  Create(width, height, Texture::RGBA8, MakeStackRefPointer<void>(data));
+  delete [] data;
 }
 
 bool SymbolsTexture::FindResource(Texture::Key const & key, m2::RectF & texRect, m2::PointU & pixelSize) const
