@@ -1,6 +1,5 @@
 #include "symbols_texture.hpp"
 
-//#include "utils/lodepng.h"
 #include "utils/stb_image.h"
 
 #include "../platform/platform.hpp"
@@ -46,7 +45,7 @@ void SymbolsTexture::Load(string const & skinPathName)
 
   ASSERT(width == w && height == h, ());
   Create(width, height, Texture::RGBA8, MakeStackRefPointer<void>(data));
-  delete [] data;
+  stbi_image_free(data);
 }
 
 bool SymbolsTexture::FindResource(Texture::Key const & key, m2::RectF & texRect, m2::PointU & pixelSize) const

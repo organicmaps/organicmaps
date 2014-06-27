@@ -1,14 +1,13 @@
 #pragma once
 
-#include "../std/map.hpp"
-#include "../base/string_utils.hpp"
 #include "texture_font.hpp"
+
 #include "../platform/platform.hpp"
 
+#include "../base/string_utils.hpp"
 #include "../base/stl_add.hpp"
 
-
-using namespace std;
+#include "../std/map.hpp"
 
 struct FontChar
 {
@@ -35,8 +34,9 @@ private:
   map<int, FontChar> m_dictionary;
 
 public:
-  void Add(FontChar & symbol);
-  int GetBlockByUnicode(int unicode);
-  bool GetSymbolByUnicode(int unicode, FontChar & symbol);
+  void Add(FontChar const & symbol);
+  int GetSymbolCoords(FontChar & symbol) const;
+  int GetBlockByUnicode(int unicode) const;
+  bool GetSymbolByUnicode(int unicode, FontChar & symbol) const;
   vector<TextureFont> Load(string const & path);
 };

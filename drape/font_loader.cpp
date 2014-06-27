@@ -24,7 +24,7 @@ using boost::gil::gray8_pixel_t;
 
 namespace
 {
-  void CreateFontChar(string & s, FontChar & symbol)
+  void CreateFontChar(string const & s, FontChar & symbol)
   {
     vector<string> tokens;
     strings::Tokenize(s, "\t", MakeBackInsertFunctor(tokens));
@@ -40,15 +40,21 @@ namespace
   }
 }
 
-void FontLoader::Add(FontChar & symbol)
+void FontLoader::Add(FontChar const & symbol)
 {
-  symbol.m_blockNum = (symbol.m_y / m_supportedSize) * m_blockCnt + symbol.m_x / m_supportedSize;
-  symbol.m_x %= m_supportedSize;
-  symbol.m_y %= m_supportedSize;
   m_dictionary.insert(make_pair(symbol.m_unicode, symbol));
 }
 
-int FontLoader::GetBlockByUnicode(int unicode)
+int FontLoader::GetSymbolCoords(FontChar & symbol) const
+{
+  int block = (symbol.m_y / m_supportedSize) * m_blockCnt + symbol.m_x / m_supportedSize;
+  symbol.m_blockNum = block;
+  symbol.m_x %= m_supportedSize;
+  symbol.m_y %= m_supportedSize;
+  return block;
+}
+
+int FontLoader::GetBlockByUnicode(int unicode) const
 {
   FontChar symbol;
   if(GetSymbolByUnicode(unicode, symbol))
@@ -57,7 +63,7 @@ int FontLoader::GetBlockByUnicode(int unicode)
   return -1;
 }
 
-bool FontLoader::GetSymbolByUnicode(int unicode, FontChar & symbol)
+bool FontLoader::GetSymbolByUnicode(int unicode, FontChar & symbol) const
 {
   map<int, FontChar>::const_iterator itm = m_dictionary.find(unicode);
   if(itm == m_dictionary.end())
@@ -87,6 +93,7 @@ vector<TextureFont> FontLoader::Load(string const & path)
 
   int w, h, bpp;
   unsigned char * data = stbi_png_load_from_memory(&buffer[0], buffer.size(), &w, &h, &bpp, 0);
+  CHECK(bpp == 1, ("WRONG_FONT_TEXTURE_FORMAT"));
 
   m_realSize = w;
   int32_t maxTextureSize = GLFunctions::glGetInteger(gl_const::GLMaxTextureSize);
@@ -109,7 +116,7 @@ vector<TextureFont> FontLoader::Load(string const & path)
       pages[i * m_blockCnt + j].Load(m_supportedSize, &buffer[0], i * m_blockCnt + j);
     }
   }
-  delete [] data;
+  stbi_image_free(data);
   buffer.clear();
 
   string s;
@@ -132,8 +139,8 @@ vector<TextureFont> FontLoader::Load(string const & path)
   {
     FontChar symbol;
     CreateFontChar(tokens[i], symbol);
+    pages[GetSymbolCoords(symbol)].Add(symbol);
     Add(symbol);
-    pages[symbol.m_blockNum].Add(symbol);
   }
 
   return pages;

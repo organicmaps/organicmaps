@@ -24,7 +24,7 @@ bool TextureFont::FindResource(Texture::Key const & key, m2::RectF & texRect, m2
   return true;
 }
 
-bool TextureFont::GetSymbolByUnicode(int unicode, FontChar & symbol)
+bool TextureFont::GetSymbolByUnicode(int unicode, FontChar & symbol) const
 {
   map<int, FontChar>::const_iterator itm = m_chars.find(unicode);
   if(itm == m_chars.end())

@@ -13,7 +13,7 @@ public:
   class FontKey : public Key
   {
   public:
-    FontKey(int32_t unicode):m_unicode(unicode) {}
+    FontKey(int32_t unicode) : m_unicode(unicode) {}
     virtual Type GetType() const { return Texture::Key::Font; }
     int32_t GetUnicode() const { return m_unicode; }
 
@@ -26,7 +26,7 @@ public:
   void Load(int size, void * data, int32_t blockNum);
   void Add(FontChar const & letter);
 
-  bool GetSymbolByUnicode(int unicode, FontChar & symbol);
+  bool GetSymbolByUnicode(int unicode, FontChar & symbol) const;
 
 private:
   map<int, FontChar> m_chars;

@@ -11,22 +11,25 @@ using ::testing::Return;
 using ::testing::InSequence;
 using ::testing::AnyNumber;
 
-void TestCoords(m2::RectF &texRect, float x1, float y1, float x2, float y2)
+namespace
 {
-  TEST_ALMOST_EQUAL(texRect.minX(), x1, ("TESTING_TEXTURE_COORDS_FAILURE"))
-  TEST_ALMOST_EQUAL(texRect.minY(), y1, ("TESTING_TEXTURE_COORDS_FAILURE"))
-  TEST_ALMOST_EQUAL(texRect.maxX(), x2, ("TESTING_TEXTURE_COORDS_FAILURE"))
-  TEST_ALMOST_EQUAL(texRect.maxY(), y2, ("TESTING_TEXTURE_COORDS_FAILURE"))
-}
+  void TestCoords(m2::RectF const & texRect, float x1, float y1, float x2, float y2)
+  {
+    TEST_ALMOST_EQUAL(texRect.minX(), x1, ("TESTING_TEXTURE_COORDS_FAILURE"))
+    TEST_ALMOST_EQUAL(texRect.minY(), y1, ("TESTING_TEXTURE_COORDS_FAILURE"))
+    TEST_ALMOST_EQUAL(texRect.maxX(), x2, ("TESTING_TEXTURE_COORDS_FAILURE"))
+    TEST_ALMOST_EQUAL(texRect.maxY(), y2, ("TESTING_TEXTURE_COORDS_FAILURE"))
+  }
 
-void PrepareOpenGL(int size)
-{
-  EXPECTGL(glGetInteger(gl_const::GLMaxTextureSize)).WillOnce(Return(size));
-  EXPECTGL(glBindTexture(_)).Times(AnyNumber());
-  EXPECTGL(glDeleteTexture(_)).Times(AnyNumber());
-  EXPECTGL(glTexParameter(_, _)).Times(AnyNumber());
-  EXPECTGL(glTexImage2D(_, _, _, _, _)).Times(AnyNumber());
-  EXPECTGL(glGenTexture()).Times(AnyNumber());
+  void PrepareOpenGL(int size)
+  {
+    EXPECTGL(glGetInteger(gl_const::GLMaxTextureSize)).WillOnce(Return(size));
+    EXPECTGL(glBindTexture(_)).Times(AnyNumber());
+    EXPECTGL(glDeleteTexture(_)).Times(AnyNumber());
+    EXPECTGL(glTexParameter(_, _)).Times(AnyNumber());
+    EXPECTGL(glTexImage2D(_, _, _, _, _)).Times(AnyNumber());
+    EXPECTGL(glGenTexture()).Times(AnyNumber());
+  }
 }
 
 UNIT_TEST(SimpleFontLoading_1024)
