@@ -77,6 +77,7 @@ Tizen::Ui::Controls::Form * FormFactory::CreateFormN(String const & formId, Scen
   {
     SearchForm * pForm = new SearchForm();
     pForm->Initialize();
+    pSceneManager->AddSceneEventListener(sceneId, *pForm);
     pNewForm = pForm;
   }
   else if (formId == FORM_BMCATEGORIES)

@@ -24,6 +24,8 @@ class MapsWithMeForm
   , public Tizen::Ui::Controls::IListViewItemEventListener
   , public Tizen::Ui::Scenes::ISceneEventListener
   , public Tizen::Ui::Controls::IFormMenuEventListener
+  , public Tizen::Ui::Controls::ISearchBarEventListener
+  , public Tizen::Ui::ITextEventListener
 {
 public:
   MapsWithMeForm();
@@ -36,10 +38,10 @@ public:
   // ITouchEventListener
   virtual void  OnTouchFocusIn (Tizen::Ui::Control const & source,
       Tizen::Graphics::Point const & currentPosition,
-      Tizen::Ui::TouchEventInfo const & touchInfo);
+      Tizen::Ui::TouchEventInfo const & touchInfo){}
   virtual void  OnTouchFocusOut (Tizen::Ui::Control const & source,
       Tizen::Graphics::Point const & currentPosition,
-      Tizen::Ui::TouchEventInfo const & touchInfo);
+      Tizen::Ui::TouchEventInfo const & touchInfo){}
   virtual void  OnTouchMoved (Tizen::Ui::Control const & source,
       Tizen::Graphics::Point const & currentPosition,
       Tizen::Ui::TouchEventInfo const & touchInfo);
@@ -76,10 +78,15 @@ public:
   virtual void OnListViewItemSwept(Tizen::Ui::Controls::ListView & listView, int index, Tizen::Ui::Controls::SweepDirection direction){}
   virtual void OnListViewItemLongPressed(Tizen::Ui::Controls::ListView & listView, int index, int elementId, bool & invokeListViewItemCallback){}
   // ISceneEventListener
-  virtual void OnSceneActivatedN(const Tizen::Ui::Scenes::SceneId& previousSceneId,
-                   const Tizen::Ui::Scenes::SceneId& currentSceneId, Tizen::Base::Collection::IList* pArgs);
-  virtual void OnSceneDeactivated(const Tizen::Ui::Scenes::SceneId& currentSceneId,
-                  const Tizen::Ui::Scenes::SceneId& nextSceneId){}
+  virtual void OnSceneActivatedN(const Tizen::Ui::Scenes::SceneId & previousSceneId,
+                   const Tizen::Ui::Scenes::SceneId & currentSceneId, Tizen::Base::Collection::IList * pArgs);
+  virtual void OnSceneDeactivated(const Tizen::Ui::Scenes::SceneId & currentSceneId,
+                  const Tizen::Ui::Scenes::SceneId & nextSceneId){}
+  // ISearchBarEventListener
+  virtual void OnSearchBarModeChanged(Tizen::Ui::Controls::SearchBar & source, Tizen::Ui::Controls::SearchBarMode mode);
+  // ITextEventListener
+  virtual void OnTextValueChangeCanceled(const Tizen::Ui::Control & source){}
+  virtual void OnTextValueChanged(const Tizen::Ui::Control & source);
 
   //IUserMarkListener
   void OnUserMark(UserMarkCopy * pCopy);
@@ -103,6 +110,12 @@ public:
   void UpdateBookMarkSplitPanelState();
   bool m_bookMArkSplitPanelEnabled;
 
+  void CreateSearchBar();
+  void ShowSearchBar();
+  void HideSearchBar();
+  bool m_searchBarEnabled;
+  Tizen::Base::String m_searchText;
+
 private:
   bool m_locationEnabled;
   std::vector<std::pair<double, double> > m_prev_pts;
@@ -114,7 +127,8 @@ private:
     ID_MENU,
     ID_STAR,
     ID_BUTTON_SCALE_PLUS,
-    ID_BUTTON_SCALE_MINUS
+    ID_BUTTON_SCALE_MINUS,
+    ID_SEARCH_CANCEL
   };
 
   enum EMainMenuItems
@@ -133,6 +147,7 @@ private:
   Tizen::Ui::Controls::SplitPanel * m_pSplitPanel;
   Tizen::Ui::Controls::Panel* m_pFirstPanel;
   Tizen::Ui::Controls::Panel* m_pSecondPanel;
+  Tizen::Ui::Controls::SearchBar * m_pSearchBar;
 
   UserMarkPanel * m_userMarkPanel;
   BookMarkSplitPanel * m_bookMarkSplitPanel;

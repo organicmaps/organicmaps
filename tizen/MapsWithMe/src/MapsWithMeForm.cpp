@@ -100,6 +100,7 @@ result MapsWithMeForm::OnInitializing(void)
   CreateBookMarkPanel();
   CreateSplitPanel();
   CreateBookMarkSplitPanel();
+  CreateSearchBar();
 
   HideSplitPanel();
   HideBookMarkPanel();
@@ -170,9 +171,11 @@ void MapsWithMeForm::OnActionPerformed(Tizen::Ui::Control const & source, int ac
     {
       ::Framework * pFramework = tizen::Framework::GetInstance();
       pFramework->PrepareSearch(false);
+      ArrayList * pList = new ArrayList;
+      pList->Add(new String(m_searchText));
       SceneManager * pSceneManager = SceneManager::GetInstance();
       pSceneManager->GoForward(ForwardSceneTransition(SCENE_SEARCH,
-          SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP));
+          SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP), pList);
       break;
     }
   }
@@ -393,18 +396,6 @@ void MapsWithMeForm::OnTouchReleased(Tizen::Ui::Control const & source,
   }
 }
 
-void MapsWithMeForm::OnTouchFocusIn(Tizen::Ui::Control const & source,
-    Point const & currentPosition,
-    Tizen::Ui::TouchEventInfo const & touchInfo)
-{
-}
-
-void MapsWithMeForm::OnTouchFocusOut(Tizen::Ui::Control const & source,
-    Point const & currentPosition,
-    Tizen::Ui::TouchEventInfo const & touchInfo)
-{
-}
-
 void MapsWithMeForm::CreateSplitPanel()
 {
   m_pSplitPanel = new SplitPanel();
@@ -510,6 +501,49 @@ void MapsWithMeForm::UpdateBookMarkSplitPanelState()
   m_bookMarkSplitPanel->UpdateState();
 }
 
+void MapsWithMeForm::OnTextValueChanged (const Tizen::Ui::Control &source)
+{
+  tizen::Framework::GetInstance()->CancelInteractiveSearch();
+  HideSearchBar();
+}
+void MapsWithMeForm::OnSearchBarModeChanged(Tizen::Ui::Controls::SearchBar & source, SearchBarMode mode)
+{
+  ::Framework * pFramework = tizen::Framework::GetInstance();
+  pFramework->PrepareSearch(false);
+  SceneManager * pSceneManager = SceneManager::GetInstance();
+
+  ArrayList * pList = new ArrayList;
+  pList->Add(new String(m_searchText));
+
+  pSceneManager->GoForward(ForwardSceneTransition(SCENE_SEARCH,
+      SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP), pList);
+}
+
+void MapsWithMeForm::CreateSearchBar()
+{
+  m_pSearchBar = static_cast<SearchBar *>(GetControl(IDC_SEARCHBAR, true));
+  m_pSearchBar->AddTouchEventListener(*this);
+  m_pSearchBar->AddSearchBarEventListener(*this);
+  m_pSearchBar->AddTextEventListener(*this);
+}
+
+void MapsWithMeForm::ShowSearchBar()
+{
+  m_searchBarEnabled = true;
+  m_pSearchBar->SetMode(SEARCH_BAR_MODE_NORMAL);
+  m_pSearchBar->SetShowState(true);
+  m_pSearchBar->SetText(m_searchText);
+  Invalidate(true);
+}
+
+void MapsWithMeForm::HideSearchBar()
+{
+  m_searchBarEnabled = false;
+  m_searchText = "";
+  m_pSearchBar->SetShowState(false);
+  Invalidate(true);
+}
+
 void MapsWithMeForm::OnFormBackRequested(Form& source)
 {
   if (m_splitPanelEnabled)
@@ -524,6 +558,10 @@ void MapsWithMeForm::OnFormBackRequested(Form& source)
   {
     HideBookMarkSplitPanel();
     ShowBookMarkPanel();
+  }
+  else if (m_searchBarEnabled)
+  {
+    HideSearchBar();
   }
   else
   {
@@ -558,6 +596,10 @@ void MapsWithMeForm::UpdateButtons()
   footerItem.SetIcon(FOOTER_ITEM_STATUS_NORMAL, GetBitmap(m_locationEnabled ? IDB_MY_POSITION_PRESSED : IDB_MY_POSITION_NORMAL));
   pFooter->SetItemAt (0, footerItem);
   UpdateBookMarkSplitPanelState();
+  if (m_searchBarEnabled)
+    ShowSearchBar();
+  else
+    HideSearchBar();
 
   Invalidate(true);
 }
@@ -666,8 +708,20 @@ void MapsWithMeForm::OnListViewItemStateChanged(ListView & listView, int index, 
 void MapsWithMeForm::OnSceneActivatedN(const Tizen::Ui::Scenes::SceneId& previousSceneId,
     const Tizen::Ui::Scenes::SceneId& currentSceneId, Tizen::Base::Collection::IList* pArgs)
 {
-  if (currentSceneId == SceneManager::GetInstance()->GetCurrentScene()->GetSceneId())
+  m_searchText = "";
+  m_searchBarEnabled = false;
+  if (pArgs != null)
   {
-    UpdateButtons();
+    // Come from Search Page
+    if (pArgs->GetCount() == 1)
+    {
+      String * pSearchText = dynamic_cast<String *>(pArgs->GetAt(0));
+      m_searchText = *pSearchText;
+      m_searchBarEnabled = true;
+    }
+    pArgs->RemoveAll(true);
+    delete pArgs;
   }
+
+  UpdateButtons();
 }

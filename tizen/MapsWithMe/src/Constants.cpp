@@ -21,6 +21,7 @@ int const backWdth = 150; //back txt width
 int const mainFontSz = 45; //big font
 int const mediumFontSz = 33; //medium font
 int const minorFontSz = 25; //small font
+int const searchBarHeight = 112; //search bar on main form
 
 int const markPanelHeight = 1.5 * lstItmHght;
 int const btnSz = 55;

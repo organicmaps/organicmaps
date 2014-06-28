@@ -21,8 +21,7 @@ using namespace Tizen::Base;
 using namespace Tizen::Ui;
 using namespace Tizen::Ui::Controls;
 using namespace Tizen::Ui::Scenes;
-using namespace Tizen::App;
-using namespace Tizen::Web::Controls;
+using namespace Tizen::Base::Collection;
 using namespace Tizen::Graphics;
 using namespace search;
 using namespace consts;
@@ -257,18 +256,18 @@ void SearchForm::UpdateList()
 
 void SearchForm::Search(String const & val)
 {
-  search::SearchParams m_params;
-  m_params.m_callback = bind(&SearchForm::OnSearchResultsReceived, this, _1);
-  m_params.m_query = FromTizenString(val);
+  search::SearchParams params;
+  params.m_callback = bind(&SearchForm::OnSearchResultsReceived, this, _1);
+  params.m_query = FromTizenString(val);
 
   Tizen::Locales::LanguageCode language;
   if (m_searchBar->GetCurrentLanguage(language) == E_SUCCESS)
-    m_params.SetInputLanguage(CodeFromISO369_2to_1(GetLanguageCode(language)));
+    params.SetInputLanguage(CodeFromISO369_2to_1(GetLanguageCode(language)));
   double lat, lon;
   GetFramework()->GetCurrentPosition(lat, lon);
-  m_params.SetPosition(lat, lon);
+  params.SetPosition(lat, lon);
 
-  GetFramework()->Search(m_params);
+  GetFramework()->Search(params);
 }
 
 String SearchForm::GetSearchString() const
@@ -286,7 +285,27 @@ void SearchForm::OnKeypadActionPerformed (Tizen::Ui::Control & source, Tizen::Ui
   if (keypadAction == KEYPAD_ACTION_SEARCH)
   {
     GetFramework()->ShowAllSearchResults();
+    ArrayList * pList = new ArrayList;
+    pList->Construct();
+    pList->Add(new String(GetSearchString()));
     SceneManager * pSceneManager = SceneManager::GetInstance();
-    pSceneManager->GoBackward(BackwardSceneTransition(SCENE_TRANSITION_ANIMATION_TYPE_RIGHT));
+    pSceneManager->GoBackward(BackwardSceneTransition(SCENE_TRANSITION_ANIMATION_TYPE_RIGHT), pList);
+  }
+}
+
+void SearchForm::OnSceneActivatedN(const Tizen::Ui::Scenes::SceneId& previousSceneId,
+    const Tizen::Ui::Scenes::SceneId& currentSceneId, Tizen::Base::Collection::IList* pArgs)
+{
+  if (pArgs != null)
+  {
+    // Come from Main page in resume mode
+    if (pArgs->GetCount() == 1)
+    {
+      String * pSearchText = dynamic_cast<String *>(pArgs->GetAt(0));
+      m_searchBar->SetText(*pSearchText);
+      Search(GetSearchString());
+    }
+    pArgs->RemoveAll(true);
+    delete pArgs;
   }
 }

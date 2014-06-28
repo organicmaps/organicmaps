@@ -19,7 +19,8 @@ extern int const lstItmHght; //list item height
 extern int const backWdth; //back txt width
 extern int const mainFontSz; //big font
 extern int const mediumFontSz; //medium font
-extern int const minorFontSz ; //small font
+extern int const minorFontSz; //small font
+extern int const searchBarHeight; //search bar on main form
 
 //bookmark panel
 extern int const markPanelHeight;
