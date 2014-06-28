@@ -59,7 +59,6 @@ HEADERS += \
     geometry_processors.hpp \
     bookmark_manager.hpp \
     ge0_parser.hpp \
-    balloon_manager.hpp \
     scales_processor.hpp \
     yopme_render_policy.hpp \
     track.hpp \
@@ -67,7 +66,8 @@ HEADERS += \
     user_mark_container.hpp \
     user_mark.hpp \
     user_mark_dl_cache.hpp \
-    anim_phase_chain.hpp
+    anim_phase_chain.hpp \
+    pin_click_manager.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -113,7 +113,6 @@ SOURCES += \
     bookmark_manager.cpp \
     ge0_parser.cpp \
     ../api/src/c/api-client.c \
-    balloon_manager.cpp \
     scales_processor.cpp \
     yopme_render_policy.cpp \
     track.cpp \
@@ -121,7 +120,8 @@ SOURCES += \
     user_mark_container.cpp \
     user_mark.cpp \
     user_mark_dl_cache.cpp \
-    anim_phase_chain.cpp
+    anim_phase_chain.cpp \
+    pin_click_manager.cpp
 
 !iphone*:!tizen*:!android* {
   HEADERS += qgl_render_context.hpp

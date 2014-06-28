@@ -1646,6 +1646,9 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
 
   UserMark const * mark = m_bmManager.FindNearestUserMark(rect);
 
+  if (m_bmManager.UserMarkHasActive() && !isLongPress)
+    return mark;
+
   if (mark == NULL)
   {
     bool needMark = false;

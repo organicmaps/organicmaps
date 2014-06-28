@@ -1,4 +1,4 @@
-#include "balloon_manager.hpp"
+#include "pin_click_manager.hpp"
 #include "framework.hpp"
 
 #include "../search/result.hpp"
@@ -41,7 +41,7 @@ void PinClickManager::OnBookmarkClick(BookmarkAndCategory const & bnc)
 
 void PinClickManager::SetBalloonVisible(bool isVisible)
 {
-  if (!isVisible)
+  if (!isVisible && m_f.HasActiveUserMark())
     OnDismiss();
 
   m_f.Invalidate();

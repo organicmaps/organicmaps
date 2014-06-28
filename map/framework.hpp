@@ -12,7 +12,7 @@
 
 #include "bookmark.hpp"
 #include "bookmark_manager.hpp"
-#include "balloon_manager.hpp"
+#include "pin_click_manager.hpp"
 
 #include "mwm_url.hpp"
 
