@@ -3,9 +3,13 @@
 #include "Framework.hpp"
 #include "SceneRegister.hpp"
 #include "AppResourceId.h"
+#include "Utils.hpp"
+#include "Constants.hpp"
+#include "UserMarkPanel.hpp"
+#include "BookMarkSplitPanel.hpp"
+#include "BookMarkUtils.hpp"
 
 #include "../../../map/framework.hpp"
-#include "../../../map/balloon_manager.hpp"
 #include "../../../gui/controller.hpp"
 #include "../../../platform/tizen_utils.hpp"
 #include "../../../platform/settings.hpp"
@@ -15,11 +19,6 @@
 #include <FBase.h>
 #include <FMedia.h>
 #include <FGraphics.h>
-#include "Utils.hpp"
-#include "Constants.hpp"
-#include "UserMarkPanel.hpp"
-#include "BookMarkSplitPanel.hpp"
-#include "BookMarkUtils.hpp"
 
 using namespace Tizen::Ui;
 using namespace Tizen::Ui::Controls;
@@ -37,7 +36,8 @@ MapsWithMeForm::MapsWithMeForm()
 :m_pLocProvider(0),
  m_userMarkPanel(0),
  m_bookMarkSplitPanel(0),
- m_pFramework(0)
+ m_pFramework(0),
+ m_touchProcessor(this)
 {
   SetMultipointTouchEnabled(true);
 }
@@ -111,6 +111,8 @@ result MapsWithMeForm::OnInitializing(void)
   PinClickManager & pinManager = m_pFramework->GetInstance()->GetBalloonManager();
   pinManager.ConnectUserMarkListener(bind(&MapsWithMeForm::OnUserMark, this, _1));
   pinManager.ConnectDismissListener(bind(&MapsWithMeForm::OnDismissListener, this));
+
+  AddTouchEventListener(m_touchProcessor);
 
   UpdateButtons();
 
@@ -197,30 +199,8 @@ int ConverToSecondsFrom1970(DateTime const & time)
 
   return difftime(mktime(&cur_t),mktime(&y1970));
 }
-
-typedef vector<pair<double, double> > TPointPairs;
-
-TPointPairs GetTouchedPoints(Rectangle const & rect)
-{
-  TPointPairs res;
-  IListT<TouchEventInfo *> * pList = TouchEventManager::GetInstance()->GetTouchInfoListN();
-  if (pList)
-  {
-    int count = pList->GetCount();
-    for (int i = 0; i < count; ++i)
-    {
-      TouchEventInfo * pTouchInfo;
-      pList->GetAt(i, pTouchInfo);
-      Point pt = pTouchInfo->GetCurrentPosition();
-      res.push_back(std::make_pair(pt.x - rect.x, pt.y - rect.y));
-    }
-
-    pList->RemoveAll();
-    delete pList;
-  }
-  return res;
 }
-}
+
 using namespace detail;
 using bookmark::BookMarkManager;
 
@@ -278,34 +258,6 @@ result MapsWithMeForm::OnDraw(void)
   return E_SUCCESS;
 }
 
-void MapsWithMeForm::OnTouchPressed(Tizen::Ui::Control const & source,
-    Point const & currentPosition,
-    Tizen::Ui::TouchEventInfo const & touchInfo)
-{
-  if (m_splitPanelEnabled)
-  {
-    HideSplitPanel();
-  }
-  else
-  {
-    m_wasLongPress = false;
-    TPointPairs pts = detail::GetTouchedPoints(GetClientAreaBounds());
-    ::Framework * pFramework = tizen::Framework::GetInstance();
-    //    pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(m2::PointD(pts[0].first, pts[0].second), false));
-
-    m_startTouchPoint = make_pair(pts[0].first, pts[0].second);
-    if (!pFramework->GetGuiController()->OnTapStarted(m2::PointD(pts[0].first, pts[0].second)))
-    {
-      if (pts.size() == 1)
-        pFramework->StartDrag(DragEvent(pts[0].first, pts[0].second));
-      else if (pts.size() > 1)
-        pFramework->StartScale(ScaleEvent(pts[0].first, pts[0].second, pts[1].first, pts[1].second));
-    }
-
-    std::swap(m_prev_pts, pts);
-  }
-}
-
 void MapsWithMeForm::OnUserMark(UserMarkCopy * pCopy)
 {
   BookMarkManager::GetInstance().ActivateBookMark(pCopy);
@@ -314,86 +266,8 @@ void MapsWithMeForm::OnUserMark(UserMarkCopy * pCopy)
 
 void MapsWithMeForm::OnDismissListener()
 {
-  LOG(LINFO, ("OnDismissListener"));
   HideBookMarkPanel();
   GetFramework()->ActivateUserMark(0);
-}
-
-void MapsWithMeForm::OnTouchLongPressed(Tizen::Ui::Control const & source,
-    Tizen::Graphics::Point const & currentPosition,
-    Tizen::Ui::TouchEventInfo const & touchInfo)
-{
-  m_wasLongPress = true;
-  TPointPairs pts = detail::GetTouchedPoints(GetClientAreaBounds());
-  if (pts.size() > 0)
-  {
-    ::Framework * pFramework = tizen::Framework::GetInstance();
-    pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(m2::PointD(pts[0].first, pts[0].second), true));
-  }
-}
-
-void MapsWithMeForm::OnTouchMoved(Tizen::Ui::Control const & source,
-    Point const & currentPosition,
-    Tizen::Ui::TouchEventInfo const & touchInfo)
-{
-  if (&source != this)
-    return;
-  TPointPairs pts = detail::GetTouchedPoints(GetClientAreaBounds());
-  ::Framework * pFramework = tizen::Framework::GetInstance();
-
-  if (!pFramework->GetGuiController()->OnTapMoved(m2::PointD(pts[0].first, pts[0].second)))
-  {
-    if (pts.size() == 1 && m_prev_pts.size() > 1)
-    {
-      pFramework->StopScale(ScaleEvent(pts[0].first, pts[0].second, pts[1].first, pts[1].second));
-      pFramework->StartDrag(DragEvent(pts[0].first, pts[0].second));
-    }
-    else if (pts.size() == 1)
-    {
-      pFramework->DoDrag(DragEvent(pts[0].first, pts[0].second));
-    }
-    else if (pts.size() > 1 && m_prev_pts.size() == 1)
-    {
-      pFramework->StopDrag(DragEvent(m_prev_pts[0].first, m_prev_pts[0].second));
-      pFramework->StartScale(ScaleEvent(pts[0].first, pts[0].second, pts[1].first, pts[1].second));
-    }
-    else if (pts.size() > 1)
-    {
-      pFramework->DoScale(ScaleEvent(pts[0].first, pts[0].second, pts[1].first, pts[1].second));
-    }
-  }
-  std::swap(m_prev_pts, pts);
-}
-
-void MapsWithMeForm::OnTouchReleased(Tizen::Ui::Control const & source,
-    Point const & currentPosition,
-    Tizen::Ui::TouchEventInfo const & touchInfo)
-{
-  if (&source != this)
-    return;
-  TPointPairs pts = detail::GetTouchedPoints(GetClientAreaBounds());
-  ::Framework * pFramework = tizen::Framework::GetInstance();
-
-
-  //using prev_pts because pts contains not all points
-  if (!m_prev_pts.empty())
-  {
-    pair<double, double> cur = make_pair(m_prev_pts[0].first, m_prev_pts[0].second);
-    double dist = sqrt(pow(cur.first - m_startTouchPoint.first, 2) + pow(cur.second - m_startTouchPoint.second, 2));
-    if (dist < 20 && !m_wasLongPress)
-    {
-      ::Framework * pFramework = tizen::Framework::GetInstance();
-      pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(m2::PointD(m_startTouchPoint.first, m_startTouchPoint.second), false));
-    }
-    if (!pFramework->GetGuiController()->OnTapEnded(m2::PointD(m_prev_pts[0].first, m_prev_pts[0].second)))
-    {
-      if (m_prev_pts.size() == 1)
-        pFramework->StopDrag(DragEvent(m_prev_pts[0].first, m_prev_pts[0].second));
-      else if (m_prev_pts.size() > 1)
-        pFramework->StopScale(ScaleEvent(m_prev_pts[0].first, m_prev_pts[0].second, m_prev_pts[1].first, m_prev_pts[1].second));
-    }
-    m_prev_pts.clear();
-  }
 }
 
 void MapsWithMeForm::CreateSplitPanel()
@@ -522,7 +396,6 @@ void MapsWithMeForm::OnSearchBarModeChanged(Tizen::Ui::Controls::SearchBar & sou
 void MapsWithMeForm::CreateSearchBar()
 {
   m_pSearchBar = static_cast<SearchBar *>(GetControl(IDC_SEARCHBAR, true));
-  m_pSearchBar->AddTouchEventListener(*this);
   m_pSearchBar->AddSearchBarEventListener(*this);
   m_pSearchBar->AddTextEventListener(*this);
 }
@@ -649,6 +522,16 @@ bool  MapsWithMeForm::DeleteItem (int index, ListItemBase * pItem, float itemWid
 int MapsWithMeForm::GetItemCount(void)
 {
   return 3;
+}
+
+void MapsWithMeForm::OnTouchPressed(Tizen::Ui::Control const & source,
+    Point const & currentPosition,
+    Tizen::Ui::TouchEventInfo const & touchInfo)
+{
+  if (m_splitPanelEnabled)
+  {
+    HideSplitPanel();
+  }
 }
 
 void MapsWithMeForm::OnListViewItemStateChanged(ListView & listView, int index, int elementId, ListItemStatus status)

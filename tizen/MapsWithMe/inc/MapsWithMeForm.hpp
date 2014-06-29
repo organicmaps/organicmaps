@@ -3,8 +3,8 @@
 #include <FUi.h>
 #include <FUiITouchEventListener.h>
 #include <FLocations.h>
-#include "../../../std/vector.hpp"
 #include "../../../map/user_mark.hpp"
+#include "TouchProcessor.hpp"
 
 namespace tizen
 {
@@ -44,16 +44,13 @@ public:
       Tizen::Ui::TouchEventInfo const & touchInfo){}
   virtual void  OnTouchMoved (Tizen::Ui::Control const & source,
       Tizen::Graphics::Point const & currentPosition,
-      Tizen::Ui::TouchEventInfo const & touchInfo);
+      Tizen::Ui::TouchEventInfo const & touchInfo){}
   virtual void  OnTouchPressed (Tizen::Ui::Control const & source,
       Tizen::Graphics::Point const & currentPosition,
       Tizen::Ui::TouchEventInfo const & touchInfo);
   virtual void  OnTouchReleased (Tizen::Ui::Control const & source,
       Tizen::Graphics::Point const & currentPosition,
-      Tizen::Ui::TouchEventInfo const & touchInfo);
-  virtual void OnTouchLongPressed(Tizen::Ui::Control const & source,
-      Tizen::Graphics::Point const & currentPosition,
-      Tizen::Ui::TouchEventInfo const & touchInfo);
+      Tizen::Ui::TouchEventInfo const & touchInfo){}
 
   // IActionEventListener
   virtual void OnActionPerformed(Tizen::Ui::Control const & source, int actionId);
@@ -118,7 +115,6 @@ public:
 
 private:
   bool m_locationEnabled;
-  std::vector<std::pair<double, double> > m_prev_pts;
 
   enum EEventIDs
   {
@@ -154,6 +150,5 @@ private:
 
   tizen::Framework * m_pFramework;
 
-  bool m_wasLongPress;
-  pair<double, double> m_startTouchPoint;
+  TouchProcessor m_touchProcessor;
 };

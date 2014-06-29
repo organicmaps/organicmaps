@@ -48,7 +48,6 @@ Tizen::Ui::Controls::Form * FormFactory::CreateFormN(String const & formId, Scen
   {
     pMWMForm = new MapsWithMeForm();
     pMWMForm->Initialize();
-    pMWMForm->AddTouchEventListener(*pMWMForm);
     pSceneManager->AddSceneEventListener(sceneId, *pMWMForm);
     pNewForm = pMWMForm;
   }
