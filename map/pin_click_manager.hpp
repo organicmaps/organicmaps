@@ -30,8 +30,6 @@ public:
   void RenderPolicyCreated(graphics::EDensity density) {}
   void LocationChanged(location::GpsInfo const & info) {}
 
-  void OnBookmarkClick(BookmarkAndCategory const & bnc);
-
   void OnShowMark(UserMark const * mark);
 
   void Hide();

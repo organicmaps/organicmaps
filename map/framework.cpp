@@ -402,8 +402,9 @@ void Framework::ShowBookmark(BookmarkAndCategory const & bnc)
     scale = scales::GetUpperComfortScale();
 
   ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, bmk->GetOrg()));
-
-  m_balloonManager.OnBookmarkClick(bnc);
+  Bookmark * mark = GetBmCategory(bnc.first)->GetBookmark(bnc.second);
+  ActivateUserMark(mark);
+  m_balloonManager.OnShowMark(mark);
 }
 
 void Framework::ShowTrack(Track const & track)

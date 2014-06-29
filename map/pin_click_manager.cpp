@@ -32,13 +32,6 @@ void PinClickManager::OnShowMark(UserMark const * mark)
   SetBalloonVisible(mark != NULL);
 }
 
-void PinClickManager::OnBookmarkClick(BookmarkAndCategory const & bnc)
-{
-  Bookmark * mark = m_f.GetBmCategory(bnc.first)->GetBookmark(bnc.second);
-  m_f.ActivateUserMark(mark);
-  SetBalloonVisible(true);
-}
-
 void PinClickManager::SetBalloonVisible(bool isVisible)
 {
   if (!isVisible && m_f.HasActiveUserMark())
