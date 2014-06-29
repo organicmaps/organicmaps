@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
+        android:id="@+id/menuitem_buy_pro"
+        android:showAsAction="ifRoom"
+        android:title="@string/become_a_pro"/>
+
+    <item
         android:id="@+id/menuitem_download_maps"
         android:showAsAction="ifRoom"
         android:title="@string/download_maps"/>

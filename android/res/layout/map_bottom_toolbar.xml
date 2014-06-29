@@ -7,17 +7,40 @@
     android:orientation="horizontal"
     android:padding="0dp" >
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
     <ImageButton
         android:id="@+id/map_button_myposition"
         style="@style/Widget.MapButtonBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left|bottom"
-        android:layout_marginBottom="@dimen/map_controls_margin"
         android:layout_marginLeft="@dimen/map_controls_margin"
         android:contentDescription="@string/my_position"
         android:onClick="onMyPositionClicked"
         android:paddingBottom="0dp"
         android:src="@drawable/btn_map_controls_location_normal" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:onClick="onSearchClicked"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bookmarks"
+        android:onClick="onBookmarksClicked"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="More"
+        android:onClick="onMoreClicked"/>
+
+    </LinearLayout>
 </FrameLayout>

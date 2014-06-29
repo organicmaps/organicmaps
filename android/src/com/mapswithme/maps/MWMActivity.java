@@ -21,6 +21,9 @@ import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,6 +52,7 @@ import com.mapswithme.maps.widget.MapInfoView;
 import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
 import com.mapswithme.maps.widget.MapInfoView.State;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.StoragePathManager;
 import com.mapswithme.util.StoragePathManager.SetStoragePathListener;
 import com.mapswithme.util.UiUtils;
@@ -77,8 +81,7 @@ public class MWMActivity extends NvEventQueueActivity
   private StoragePathManager m_pathManager = new StoragePathManager();
   private AlertDialog m_storageDisconnectedDialog = null;
   private ImageButton mLocationButton;
-  private SurfaceView mMapSurface;
-  // Info box (place page).
+    // Info box (place page).
   private MapInfoView mInfoView;
   private SearchController mSearchController;
   private String mProDialogMessage;
@@ -263,7 +266,7 @@ public class MWMActivity extends NvEventQueueActivity
     nativeScale(2.0 / 3);
   }
 
-  public void onBookmarksClicked()
+  public void onBookmarksClicked(View v)
   {
     if (!mApplication.hasBookmarks())
       showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
@@ -559,7 +562,7 @@ public class MWMActivity extends NvEventQueueActivity
     startActivity(new Intent(this, SearchActivity.class));
   }
 
-  public void onSearchClicked()
+  public void onSearchClicked(View v)
   {
     if (!(mApplication.isProVersion() || ActivationSettings.isSearchActivated(this)))
     {
@@ -590,18 +593,77 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public boolean onSearchRequested()
   {
-    onSearchClicked();
+    onSearchClicked(null);
     return false;
+  }
+
+  public void onMoreClicked(View v)
+  {
+    openOptionsMenu();
+    Log.d(TAG, "OnMoreClicked");
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu)
+  {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.main, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item)
+  {
+    switch (item.getItemId())
+    {
+    case R.id.menuitem_download_maps:
+      runDownloadActivity();
+      return true;
+    case R.id.menuitem_share_my_location:
+      shareMyLocation();
+      return true;
+    case R.id.menuitem_more_apps:
+      return true;
+    case R.id.menuitem_settings_activity:
+      startActivity(new Intent(MWMActivity.this, SettingsActivity.class));
+      return true;
+    default:
+      return super.onOptionsItemSelected(item);
+    }
+  }
+
+  private void shareMyLocation()
+  {
+    final Location loc = MWMApplication.get().getLocationService().getLastKnown();
+    if (loc != null)
+    {
+      final String geoUrl = Framework.getGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
+      final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
+      final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
+      // we use shortest message we can have here
+      ShareAction.getAnyShare().shareWithText(getActivity(), body, "");
+    }
+    else
+    {
+      new AlertDialog.Builder(MWMActivity.this)
+          .setMessage(R.string.unknown_current_position)
+          .setCancelable(true)
+          .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+          {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+              dialog.dismiss();
+            }
+          })
+          .create()
+          .show();
+    }
   }
 
   private void runDownloadActivity()
   {
     startActivity(new Intent(this, DownloadUI.class));
-  }
-
-  public void onDownloadClicked()
-  {
-    runDownloadActivity();
   }
 
   @Override
@@ -625,7 +687,6 @@ public class MWMActivity extends NvEventQueueActivity
 
     // Set up view
     mLocationButton = (ImageButton) findViewById(R.id.map_button_myposition);
-    mMapSurface = (SurfaceView) findViewById(R.id.map_surfaceview);
 
     yotaSetup();
 
@@ -1030,11 +1091,11 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  private boolean isActivityPaused()
-  {
-    // This receiver is null only when activity is paused (see onPause, onResume).
-    return (m_externalStorageReceiver == null);
-  }
+//  private boolean isActivityPaused()
+//  {
+//    // This receiver is null only when activity is paused (see onPause, onResume).
+//    return (m_externalStorageReceiver == null);
+//  }
 
   private void startWatchingExternalStorage()
   {
@@ -1119,22 +1180,6 @@ public class MWMActivity extends NvEventQueueActivity
   {
     m_pathManager.StopExtStorageWatching();
     m_externalStorageReceiver = null;
-  }
-
-  private void toggleMoreMenu()
-  {
-    // @TODO show/hide More menu
-  }
-
-  @Override
-  public boolean onKeyUp(int keyCode, KeyEvent event)
-  {
-    if (KeyEvent.KEYCODE_MENU == keyCode && !event.isCanceled())
-    {
-      toggleMoreMenu();
-      return true;
-    }
-    return super.onKeyUp(keyCode, event);
   }
 
   @Override
@@ -1272,60 +1317,6 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  private void _showInfoBox(boolean show, boolean animate)
-  {
-    //    if ((show == mIsInfoBoxVisible) && animate)
-    //      return;
-    //
-    //    mIsInfoBoxVisible = show;
-    //
-    //    final long duration = 200;
-    //    if (show)
-    //    {
-    //      if (animate)
-    //      {
-    //        final Animation slideIn = new TranslateAnimation(
-    //            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-    //            TranslateAnimation.RELATIVE_TO_SELF, 1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);   // Y
-    //        slideIn.setDuration(duration);
-    //
-    //        mInfoView.startAnimation(slideIn);
-    //        mapButtonBottom.startAnimation(slideIn);
-    //
-    //        UiUtils.showAndAnimate(mInfoView, slideIn);
-    //        mapButtonBottom.startAnimation(slideIn);
-    //      }
-    //      else
-    //      {
-    //        UiUtils.show(mInfoView);
-    //        UiUtils.show(mapButtonBottom);
-    //      }
-    //    }
-    //    else
-    //    {
-    //      if (animate)
-    //      {
-    //        final Animation slideOutInfo = new TranslateAnimation(
-    //            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-    //            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 1.f);  // Y
-    //        slideOutInfo.setDuration(duration);
-    //
-    //        final Animation slideOutButtons = new TranslateAnimation(
-    //            TranslateAnimation.RELATIVE_TO_SELF, 0.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f,    // X
-    //            TranslateAnimation.RELATIVE_TO_SELF, -1.f, TranslateAnimation.RELATIVE_TO_SELF, 0.f);  // Y
-    //        slideOutButtons.setDuration(duration);
-    //
-    //        mapButtonBottom.startAnimation(slideOutButtons);
-    //        UiUtils.animateAndHide(mInfoView, slideOutInfo);
-    //      }
-    //      else
-    //      {
-    //        UiUtils.hide(mInfoView);
-    //        UiUtils.show(mapButtonBottom);
-    //      }
-    //    }
-  }
-
   private native void nativeStorageConnected();
 
   private native void nativeStorageDisconnected();
@@ -1333,8 +1324,6 @@ public class MWMActivity extends NvEventQueueActivity
   private native void nativeConnectDownloadButton();
 
   private native void nativeDownloadCountry();
-
-  private native void nativeDestroy();
 
   private native void nativeOnLocationError(int errorCode);
 

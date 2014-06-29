@@ -777,10 +777,10 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
     // We don't want to update view too often, it is slow
     // and breaks click listeners
-    if (System.currentTimeMillis() - mLastCompasUpdate < COMPAS_DELTA)
+    if (System.currentTimeMillis() - mLastCompassUpdate < COMPASS_DELTA)
       return;
     else
-      mLastCompasUpdate = System.currentTimeMillis();
+      mLastCompassUpdate = System.currentTimeMillis();
 
     final double north[] = { magneticNorth, trueNorth };
     m_location.correctCompassAngles(getWindowManager().getDefaultDisplay(), north);
