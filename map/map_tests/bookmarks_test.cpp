@@ -218,6 +218,7 @@ namespace
   {
     m2::AnyRectD rect;
     fm.GetNavigator().GetTouchRect(fm.GtoP(pt), 20, rect);
+
     return fm.GetBookmarkManager().FindNearestUserMark(rect);
   }
 

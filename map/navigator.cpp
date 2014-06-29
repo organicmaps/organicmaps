@@ -130,6 +130,13 @@ void Navigator::GetTouchRect(m2::PointD const & pixPoint, double pixRadius, m2::
   m_Screen.GetTouchRect(ShiftPoint(pixPoint), pixRadius, glbRect);
 }
 
+void Navigator::GetTouchRect(m2::PointD const & pixPoint,
+                             double pxWidth, double pxHeight,
+                             m2::AnyRectD & glbRect) const
+{
+  m_Screen.GetTouchRect(ShiftPoint(pixPoint), pxWidth, pxHeight, glbRect);
+}
+
 bool Navigator::CanShrinkInto(ScreenBase const & screen, m2::RectD const & boundRect)
 {
   m2::RectD clipRect = screen.ClipRect();

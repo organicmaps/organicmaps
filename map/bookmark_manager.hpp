@@ -62,7 +62,14 @@ public:
 
   void ActivateMark(UserMark const * mark, bool needAnim);
   bool UserMarkHasActive() const;
+  class TouchRectHolder
+  {
+  public:
+    virtual m2::AnyRectD const & GetTouchArea(UserMarkContainer::Type type) const = 0;
+  };
+
   UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
+  UserMark const * FindNearestUserMark(TouchRectHolder & holder) const;
 
   /// Additional layer methods
   void UserMarksSetVisible(UserMarkContainer::Type type, bool isVisible);

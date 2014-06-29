@@ -66,6 +66,11 @@ Framework::FixedPosition::FixedPosition()
 }
 #endif
 
+namespace
+{
+  static const int BM_TOUCH_PIXEL_INCREASE = 20;
+}
+
 void Framework::AddMap(string const & file)
 {
   LOG(LINFO, ("Loading map:", file));
@@ -1622,6 +1627,34 @@ bool Framework::HasActiveUserMark() const
   return m_bmManager.UserMarkHasActive();
 }
 
+namespace
+{
+  class MainTouchRectHolder : public BookmarkManager::TouchRectHolder
+  {
+  public:
+    MainTouchRectHolder(m2::AnyRectD const & defaultRect, m2::AnyRectD const & bmRect)
+      : m_defRect(defaultRect)
+      , m_bmRect(bmRect)
+    {
+    }
+
+    m2::AnyRectD const & GetTouchArea(UserMarkContainer::Type type) const
+    {
+      switch (type)
+      {
+      case UserMarkContainer::BOOKMARK_MARK:
+        return m_bmRect;
+      default:
+        return m_defRect;
+      }
+    }
+
+  private:
+    m2::AnyRectD const & m_defRect;
+    m2::AnyRectD const & m_bmRect;
+  };
+}
+
 UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongPress)
 {
   DisconnectMyPositionUpdate();
@@ -1644,7 +1677,12 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
     }
   }
 
-  UserMark const * mark = m_bmManager.FindNearestUserMark(rect);
+  m2::AnyRectD bmSearchRect;
+  double pxWidth  =  TOUCH_PIXEL_RADIUS * GetVisualScale();
+  double pxHeight = (TOUCH_PIXEL_RADIUS + BM_TOUCH_PIXEL_INCREASE) * GetVisualScale();
+  m_navigator.GetTouchRect(pxPoint + m2::PointD(0, BM_TOUCH_PIXEL_INCREASE), pxWidth, pxHeight, bmSearchRect);
+  MainTouchRectHolder holder(rect, bmSearchRect);
+  UserMark const * mark = m_bmManager.FindNearestUserMark(holder);
 
   if (m_bmManager.UserMarkHasActive() && !isLongPress)
     return mark;
