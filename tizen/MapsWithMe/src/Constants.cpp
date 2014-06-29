@@ -46,4 +46,6 @@ const char * BM_COLOR_PINK = "placemark-pink";
 int const distanceWidth = 200;
 // bookmark categories
 int const deleteWidth = 200;
+
+int const double_click_timout = 200;
 }

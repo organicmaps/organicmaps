@@ -49,4 +49,7 @@ extern int const distanceWidth;
 // bookmark categories
 extern int const deleteWidth;
 
+//timer
+extern int const double_click_timout;
+
 }//consts
