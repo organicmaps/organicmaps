@@ -120,11 +120,11 @@ android {
     variant.processManifest.doFirst {
       File manifestFile = file("${buildDir}/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/AndroidManifest.xml")
       if (manifestFile.exists()) {
-        println("Replacing minSdkVersion in Google Play Services")
+//        println("Replacing minSdkVersion in Google Play Services")
         String content = manifestFile.getText('UTF-8')
         content = content.replaceAll(/minSdkVersion="9"/, 'minSdkVersion=\"7\"')
         manifestFile.write(content, 'UTF-8')
-        println(content)
+//        println(content)
       }
     }
 
