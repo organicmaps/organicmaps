@@ -697,7 +697,22 @@ static void onSearchResultCallback(search::Results const & results)
 - (NSArray *)categoriesNames
 {
   if (!_categoriesNames)
-    _categoriesNames = @[@"food", @"shop", @"hotel", @"tourism", @"entertainment", @"atm", @"bank", @"transport", @"fuel", @"parking", @"pharmacy", @"hospital", @"toilet", @"post", @"police"];
+    _categoriesNames = @[
+        @"food",
+        @"hotel",
+        @"tourism",
+        @"transport",
+        @"fuel",
+        @"shop",
+        @"entertainment",
+        @"atm",
+        @"bank",
+        @"parking",
+        @"toilet",
+        @"pharmacy",
+        @"hospital",
+        @"post",
+        @"police"];
   return _categoriesNames;
 }
 
