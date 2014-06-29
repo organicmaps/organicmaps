@@ -246,6 +246,8 @@ __weak SearchView * selfPointer;
   _state = state;
   if (withCallback)
     [self didChangeValueForKey:@"state"];
+  
+  GetFramework().Invalidate();
 }
 
 - (void)onLocationError:(location::TLocationError)errorCode

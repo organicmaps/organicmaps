@@ -1027,7 +1027,10 @@ const long long LITE_IDL = 431183278L;
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
       [self setNeedsStatusBarAppearanceUpdate];
     if (self.searchView.state == SearchViewStateFullscreen)
+    {
+      GetFramework().ActivateUserMark(NULL);
       [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:NO];
+    }
   }
 }
 
