@@ -6,6 +6,7 @@
 
 #include "../graphics/display_list.hpp"
 #include "../graphics/screen.hpp"
+#include "../graphics/depth_constants.hpp"
 
 #include "../geometry/transformations.hpp"
 
@@ -305,7 +306,7 @@ void SelectionContainer::Draw(const PaintOverlayEvent & e, UserMarkDLCache * cac
   {
     UserMarkDLCache::Key defaultKey(m_container->GetActiveTypeName(),
                                     graphics::EPosCenter,
-                                    m_container->GetDepth());
+                                    graphics::activePinDepth);
 
     DrawUserMarkByPoint(GetActiveMarkScale(),
                         m_fm.GetVisualScale(),
