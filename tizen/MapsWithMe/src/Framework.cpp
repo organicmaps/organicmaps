@@ -67,6 +67,8 @@ Framework::Framework(Tizen::Ui::Controls::Form * form)
 
 Framework::~Framework()
 {
+  ::Framework * pFramework = GetInstance();
+  pFramework->SaveState();
   //delete m_VideoTimer;  ?? ERROR on timer destructor...
 }
 
