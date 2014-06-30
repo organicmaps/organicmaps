@@ -129,6 +129,7 @@
       [subview removeFromSuperview];
   }
   [view addSubview:self];
+  [view endEditing:YES];
   [self.delegate interstitialViewWillOpen:self];
   if ([UIView respondsToSelector:@selector(animateWithDuration:delay:usingSpringWithDamping:initialSpringVelocity:options:animations:completion:)])
   {
