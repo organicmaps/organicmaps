@@ -22,6 +22,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
 };
 
 @interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, LocationObserver, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate>
+{
+  BOOL m_hasSpeed;
+}
 
 @property (nonatomic) UIView * backgroundView;
 @property (nonatomic) UIView * headerView;
@@ -127,7 +130,13 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
   if ([self isMarkOfType:UserMark::MY_POSITION])
   {
-    self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude];
+    BOOL hasSpeed = NO;
+    self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed];
+    if (hasSpeed != m_hasSpeed)
+    {
+      m_hasSpeed = hasSpeed;
+      [self reloadHeader];
+    }
     if (self.state == PlacePageStateOpened)
       [cell updateCoordinates];
   }
@@ -238,7 +247,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   self.titleLabel.origin = CGPointMake(23, 29);
 
   if ([self isMarkOfType:UserMark::MY_POSITION])
-    self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude];
+    self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:m_hasSpeed];
   else
     self.typeLabel.text = self.types;
   self.typeLabel.width = [self typesWidth];
@@ -286,7 +295,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self alignAnimated:animated];
   self.tableView.contentInset = UIEdgeInsetsMake([self headerHeight], 0, 0, 0);
   [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:animated];
-  if (state == PlacePageStateOpened)
+  if (state != PlacePageStateHidden)
   {
     if ([[MapsAppDelegate theApp].m_locationManager enabledOnMap])
       [[MapsAppDelegate theApp].m_locationManager start:self];

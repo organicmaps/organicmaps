@@ -250,8 +250,9 @@
   else return rocket;
 }
 
-- (NSString *)formattedSpeedAndAltitude
+- (NSString *)formattedSpeedAndAltitude:(BOOL &)hasSpeed
 {
+  hasSpeed = NO;
   CLLocation * l = [self lastLocation];
   if (l)
   {
@@ -261,6 +262,7 @@
     // Speed is actual only for just received location
     if (l.speed > 0. && [l.timestamp timeIntervalSinceNow] >= -2.0)
     {
+      hasSpeed = YES;
       if (!result.empty())
         result += "   ";
       result += [LocationManager getSpeedSymbol:l.speed] + MeasurementUtils::FormatSpeed(l.speed);
