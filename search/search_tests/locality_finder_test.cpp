@@ -11,7 +11,18 @@ void doTests(search::LocalityFinder & finder, vector<m2::PointD> const & input, 
   for (size_t i = 0; i < input.size(); ++i)
   {
     string result;
-    finder.GetLocality(m2::PointD(MercatorBounds::LonToX(input[i].x), MercatorBounds::LatToY(input[i].y)), result);
+    finder.GetLocalityInViewport(m2::PointD(MercatorBounds::LonToX(input[i].x), MercatorBounds::LatToY(input[i].y)), result);
+    TEST_EQUAL(result, results[i], ());
+  }
+}
+
+
+void doTests2(search::LocalityFinder & finder, vector<m2::PointD> const & input, char const * results[])
+{
+  for (size_t i = 0; i < input.size(); ++i)
+  {
+    string result;
+    finder.GetLocalityCreateCache(m2::PointD(MercatorBounds::LonToX(input[i].x), MercatorBounds::LatToY(input[i].y)), result);
     TEST_EQUAL(result, results[i], ());
   }
 }
@@ -30,10 +41,7 @@ UNIT_TEST(LocalityFinder)
 
   search::LocalityFinder finder(&index);
   finder.SetLanguage(StringUtf8Multilang::GetLangIndex("en"));
-
-  search::LocalityFinder::MWMVectorT mwm;
-  index.GetMwmInfo(mwm);
-  finder.SetViewportByIndex(mwm, MercatorBounds::FullRect(), 0);
+  finder.SetViewportByIndex(MercatorBounds::FullRect(), 0);
 
   vector<m2::PointD> input;
   input.push_back(m2::PointD(27.5433964, 53.8993094)); // Minsk
@@ -73,8 +81,8 @@ UNIT_TEST(LocalityFinder)
   input.push_back(m2::PointD(12.452854, 41.903479)); // Vaticano (Rome)
   input.push_back(m2::PointD(8.531262, 47.3345002)); // Zurich
 
-  finder.SetViewportByIndex(mwm, rect1, 0);
-  finder.SetViewportByIndex(mwm, rect2, 1);
+  finder.SetViewportByIndex(rect1, 0);
+  finder.SetViewportByIndex(rect2, 1);
 
   char const * results2[] =
   {
@@ -89,4 +97,20 @@ UNIT_TEST(LocalityFinder)
   };
 
   doTests(finder, input, results2);
+
+  finder.ClearCacheAll();
+
+  char const * results3[] =
+  {
+    "Chicago",
+    "Rio de Janeiro",
+    "Melbourne",
+    "Minsk",
+    "Minsk",
+    "Budva",
+    "Rome",
+    "Zurich"
+  };
+
+  doTests2(finder, input, results3);
 }

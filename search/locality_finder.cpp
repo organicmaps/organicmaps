@@ -9,12 +9,12 @@
 namespace search
 {
 
-double const MAX_RADIUS_M = 30000.0;
+double const MAX_RADIUS_CITY = 30000.0;
 
 class DoLoader
 {
 public:
-  DoLoader(LocalityFinder & finder, FeaturesVector const & loader, LocalityFinder::Cache & cache, m2::RectD const & rect)
+  DoLoader(LocalityFinder const & finder, FeaturesVector const & loader, LocalityFinder::Cache & cache, m2::RectD const & rect)
     : m_finder(finder), m_loader(loader), m_cache(cache), m_rect(rect)
   {
   }
@@ -61,7 +61,7 @@ public:
   }
 
 private:
-  LocalityFinder & m_finder;
+  LocalityFinder const & m_finder;
   FeaturesVector const & m_loader;
   LocalityFinder::Cache & m_cache;
   m2::RectD m_rect;
@@ -111,21 +111,22 @@ LocalityFinder::LocalityFinder(Index const * pIndex)
 {
 }
 
-void LocalityFinder::CorrectMinimalRect(m2::RectD & rect)
+void LocalityFinder::CorrectMinimalRect(m2::RectD & rect) const
 {
-  m2::RectD const rlt = MercatorBounds::RectByCenterXYAndSizeInMeters(rect.LeftTop(), MAX_RADIUS_M);
-  m2::RectD const rrb = MercatorBounds::RectByCenterXYAndSizeInMeters(rect.RightBottom(), MAX_RADIUS_M);
+  m2::RectD const rlt = MercatorBounds::RectByCenterXYAndSizeInMeters(rect.LeftTop(), MAX_RADIUS_CITY);
+  m2::RectD const rrb = MercatorBounds::RectByCenterXYAndSizeInMeters(rect.RightBottom(), MAX_RADIUS_CITY);
   rect = m2::RectD(MercatorBounds::ClampX(rlt.minX()),
                    MercatorBounds::ClampY(rrb.minY()),
                    MercatorBounds::ClampX(rrb.maxX()),
                    MercatorBounds::ClampY(rlt.maxY()));
 }
 
-void LocalityFinder::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD rect, size_t idx)
+void LocalityFinder::RecreateCache(Cache & cache, m2::RectD rect) const
 {
-  ASSERT_LESS(idx, (size_t)MAX_VIEWPORT_COUNT, ());
+  vector<MwmInfo> mwmInfo;
+  m_pIndex->GetMwmInfo(mwmInfo);
 
-  ClearCache(idx);
+  cache.Clear();
 
   CorrectMinimalRect(rect);
   covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
@@ -133,7 +134,6 @@ void LocalityFinder::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD re
   for (MwmSet::MwmId mwmId = 0; mwmId < mwmInfo.size(); ++mwmId)
   {
     typedef feature::DataHeader HeaderT;
-
     Index::MwmLock mwmLock(*m_pIndex, mwmId);
     MwmValue * pMwm = mwmLock.GetValue();
     if (pMwm && pMwm->GetHeader().GetType() == HeaderT::world)
@@ -147,9 +147,10 @@ void LocalityFinder::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD re
 
       FeaturesVector loader(pMwm->m_cont, header);
 
+      cache.m_rect = rect;
       for (size_t i = 0; i < interval.size(); ++i)
       {
-        index.ForEachInIntervalAndScale(DoLoader(*this, loader, m_cache[idx], rect),
+        index.ForEachInIntervalAndScale(DoLoader(*this, loader, cache, rect),
                                         interval[i].first, interval[i].second,
                                         scale);
       }
@@ -157,16 +158,49 @@ void LocalityFinder::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD re
   }
 }
 
-void LocalityFinder::GetLocality(const m2::PointD & pt, string & name) const
+void LocalityFinder::SetViewportByIndex(m2::RectD const & rect, size_t idx)
+{
+  ASSERT_LESS(idx, (size_t)MAX_VIEWPORT_COUNT, ());
+  RecreateCache(m_cache[idx], rect);
+}
+
+void LocalityFinder::GetLocalityInViewport(const m2::PointD & pt, string & name) const
 {
   for (size_t i = 0; i < MAX_VIEWPORT_COUNT; ++i)
-    m_cache[i].m_tree.ForEachInRect(m2::RectD(pt, pt), DoSelectLocality(name, pt));
+    m_cache[i].GetLocality(pt, name);
+}
+
+void LocalityFinder::GetLocalityCreateCache(const m2::PointD & pt, string & name) const
+{
+  // search in temporary caches and find most unused cache
+  size_t minUsageIdx = 0;
+  size_t minUsage = numeric_limits<size_t>::max();
+  for (size_t idx = 0; idx < MAX_CACHE_TMP_COUNT; ++idx)
+  {
+    Cache const & cache = m_cache_tmp[idx];
+    cache.GetLocality(pt, name);
+    if (!name.empty())
+      return;
+
+    if (cache.m_usage < minUsage)
+    {
+      minUsage = cache.m_usage;
+      minUsageIdx = idx;
+    }
+  }
+
+  Cache & cache = m_cache_tmp[minUsageIdx];
+  RecreateCache(cache, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, MAX_RADIUS_CITY));
+  cache.GetLocality(pt, name);
 }
 
 void LocalityFinder::ClearCacheAll()
 {
   for (size_t i = 0; i < MAX_VIEWPORT_COUNT; ++i)
     ClearCache(i);
+
+  for (size_t i = 0; i < MAX_CACHE_TMP_COUNT; ++i)
+    m_cache_tmp[i].Clear();
 }
 
 void LocalityFinder::ClearCache(size_t idx)
@@ -175,10 +209,22 @@ void LocalityFinder::ClearCache(size_t idx)
   m_cache[idx].Clear();
 }
 
+
+
 void LocalityFinder::Cache::Clear()
 {
+  m_usage = 0;
   m_tree.Clear();
   m_loaded.clear();
+}
+
+void LocalityFinder::Cache::GetLocality(m2::PointD const & pt, string & name) const
+{
+  if (!m_rect.IsPointInside(pt))
+    return;
+
+  ++m_usage;
+  m_tree.ForEachInRect(m2::RectD(pt, pt), DoSelectLocality(name, pt));
 }
 
 }

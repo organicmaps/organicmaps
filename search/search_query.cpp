@@ -164,7 +164,7 @@ void Query::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD const & vie
       UpdateViewportOffsets(mwmInfo, viewport, m_offsetsInViewport[idx]);
 
 #ifdef FIND_LOCALITY_TEST
-      m_locality.SetViewportByIndex(mwmInfo, viewport, idx);
+      m_locality.SetViewportByIndex(viewport, idx);
 #endif
     }
   }
@@ -664,9 +664,18 @@ void Query::FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & s
     for (size_t i = 0; i < count; ++i)
     {
       House const * h = houses[i].m_house;
+      storage::CountryInfo countryInfo;
+      m_pInfoGetter->GetRegionInfo(h->GetPosition(), countryInfo);
+
       Result r(h->GetPosition(), h->GetNumber() + ", " + houses[i].m_street->GetName(),
-               string(), string(), IsValidPosition() ? h->GetPosition().Length(m_position) : -1.0);
+               countryInfo.m_name, string(), IsValidPosition() ? h->GetPosition().Length(m_position) : -1.0);
+
       MakeResultHighlight(r);
+#ifdef FIND_LOCALITY_TEST
+      string city;
+      m_locality.GetLocalityCreateCache(r.GetFeatureCenter(), city);
+      r.AppendCity(city);
+#endif
       (res.*addFn)(r);
     }
   }
@@ -961,7 +970,7 @@ Result Query::MakeResult(impl::PreResult2 const & r) const
   if (ftypes::IsLocalityChecker::Instance().GetType(r.GetTypes()) == ftypes::NONE)
   {
     string city;
-    m_locality.GetLocality(res.GetFeatureCenter(), city);
+    m_locality.GetLocalityInViewport(res.GetFeatureCenter(), city);
     res.AppendCity(city);
   }
 #endif
