@@ -168,14 +168,21 @@ void AddressInfo::SetPinName(string const & name)
   m_name = name;
 }
 
+bool AddressInfo::IsEmptyName() const { return m_name.empty() && m_house.empty(); }
+
 string AddressInfo::GetPinName() const
 {
-  return m_name.empty() ? m_house : m_name;
+  if (IsEmptyName() && !m_types.empty())
+    return m_types[0];
+  else
+    return m_name.empty() ? m_house : m_name;
 }
 
 string AddressInfo::GetPinType() const
 {
   char const * type = GetBestType();
+  if (IsEmptyName())
+    return "";
   return (type ? type : "");
 }
 

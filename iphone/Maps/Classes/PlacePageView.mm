@@ -710,19 +710,12 @@ typedef NS_ENUM(NSUInteger, CellRow)
     }
     else
     {
-      _title = [self nonEmptyTitle:[self addressInfo].GetPinName()];
+      _title = [[self nonEmptyTitle:[self addressInfo].GetPinName()] capitalizedStringWithLocale:[NSLocale currentLocale]];
     }
 
     NSString * droppedPinTitle = NSLocalizedString(@"dropped_pin", nil);
-    if (![_title length])
-    {
+    if ([_title isEqualToString:droppedPinTitle])
       self.temporaryTitle = droppedPinTitle;
-      _title = [[self types] capitalizedString];
-    }
-    else if ([_title isEqualToString:droppedPinTitle])
-    {
-      self.temporaryTitle = droppedPinTitle;
-    }
   }
   return _title;
 }
