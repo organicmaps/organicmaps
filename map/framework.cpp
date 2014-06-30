@@ -1678,8 +1678,8 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
   }
 
   m2::AnyRectD bmSearchRect;
-  double pxWidth  =  TOUCH_PIXEL_RADIUS * GetVisualScale();
-  double pxHeight = (TOUCH_PIXEL_RADIUS + BM_TOUCH_PIXEL_INCREASE) * GetVisualScale();
+  double const pxWidth  =  TOUCH_PIXEL_RADIUS * GetVisualScale();
+  double const pxHeight = (TOUCH_PIXEL_RADIUS + BM_TOUCH_PIXEL_INCREASE) * GetVisualScale();
   m_navigator.GetTouchRect(pxPoint + m2::PointD(0, BM_TOUCH_PIXEL_INCREASE), pxWidth, pxHeight, bmSearchRect);
   MainTouchRectHolder holder(rect, bmSearchRect);
   UserMark const * mark = m_bmManager.FindNearestUserMark(holder);

@@ -208,8 +208,8 @@ void ScreenBase::GetTouchRect(m2::PointD const & pixPoint, double pixRadius,
   glbRect = m2::AnyRectD(PtoG(pixPoint), m_Angle, m2::RectD(-r, -r, r, r));
 }
 
-void ScreenBase::GetTouchRect(m2::PointD const & pixPoint, double pxWidth,
-                              double pxHeight, m2::AnyRectD & glbRect) const
+void ScreenBase::GetTouchRect(m2::PointD const & pixPoint, double const pxWidth,
+                              double const pxHeight, m2::AnyRectD & glbRect) const
 {
   double const width  = pxWidth * m_Scale;
   double const height = pxHeight * m_Scale;

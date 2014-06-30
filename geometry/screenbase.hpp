@@ -102,8 +102,8 @@ public:
   void PtoG(m2::RectD const & pr, m2::RectD & gr) const;
 
   void GetTouchRect(m2::PointD const & pixPoint, double pixRadius, m2::AnyRectD & glbRect) const;
-  void GetTouchRect(const m2::PointD & pixPoint, double pxWidth,
-                    double pxHeight, m2::AnyRectD & glbRect) const;
+  void GetTouchRect(m2::PointD const & pixPoint, double const pxWidth,
+                    double const pxHeight, m2::AnyRectD & glbRect) const;
 
   MatrixT const & GtoPMatrix() const { return m_GtoP; }
   MatrixT const & PtoGMatrix() const { return m_PtoG; }
