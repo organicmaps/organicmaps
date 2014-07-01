@@ -600,7 +600,6 @@ public class MWMActivity extends NvEventQueueActivity
   public void onMoreClicked(View v)
   {
     openOptionsMenu();
-    Log.d(TAG, "OnMoreClicked");
   }
 
   @Override
@@ -1338,10 +1337,10 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onPPPVisibilityChanged(boolean isVisible)
   {
-    final View mapButtonBottom = findViewById(R.id.map_bottom_toolbar);
-    final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mapButtonBottom.getLayoutParams();
-    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, isVisible ? 0 : RelativeLayout.TRUE);
-    mapButtonBottom.setLayoutParams(lp);
+//    final View mapButtonBottom = findViewById(R.id.map_bottom_toolbar);
+//    final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mapButtonBottom.getLayoutParams();
+//    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, isVisible ? 0 : RelativeLayout.TRUE);
+//    mapButtonBottom.setLayoutParams(lp);
   }
 
   @Override
