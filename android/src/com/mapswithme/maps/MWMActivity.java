@@ -716,82 +716,6 @@ public class MWMActivity extends NvEventQueueActivity
     mInfoView.setOnVisibilityChangedListener(this);
   }
 
-//        if (R.id.menuitem_settings_activity == id)
-//          startActivity(new Intent(MWMActivity.this, SettingsActivity.class));
-//        else if (R.id.map_container_bookmarks == id)
-//        {
-//          if (isPro || Yota.isYota())
-//            onBookmarksClicked();
-//          else
-//            runProVersionMarketActivity();
-//        }
-//        else if (R.id.map_container_download == id)
-//        {
-//          onDownloadClicked();
-//        }
-//        else if (R.id.buy_pro == id)
-//        {
-//          runProVersionMarketActivity();
-//        }
-//        else if (R.id.map_button_share_myposition == id)
-//        {
-//          final Location loc = MWMApplication.get().getLocationService().getLastKnown();
-//          if (loc != null)
-//          {
-//            final String geoUrl = Framework.getGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
-//            final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
-//            final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
-//            // we use shortest message we can have here
-//            ShareAction.getAnyShare().shareWithText(getActivity(), body, "");
-//          }
-//          else
-//          {
-//            new AlertDialog.Builder(MWMActivity.this)
-//                .setMessage(R.string.unknown_current_position)
-//                .setCancelable(true)
-//                .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
-//                {
-//                  @Override
-//                  public void onClick(DialogInterface dialog, int which)
-//                  {
-//                    dialog.dismiss();
-//                  }
-//                })
-//                .create()
-//                .show();
-//          }
-//        }
-//    mMapSurface.setOnTouchListener(new OnTouchListener()
-//    {
-//      @Override
-//      public boolean onTouch(View v, MotionEvent event)
-//      {
-//        if (mRenderingInitialized == false)
-//          return false;
-//        return MWMActivity.this.onTouchEvent(event);
-//      }
-//    });
-//    if (isPro || Yota.isYota())
-//    {
-//      final TextView bookmarksView = (TextView) findViewById(R.id.map_button_bookmarks);
-//
-//      // Make post stuff because of Android strange behavior:
-//      // direct call doesn't work on Sony LT devices.
-//      // http://stackoverflow.com/questions/20423445/setcompounddrawableswithintrinsicboundsint-int-int-int-not-working
-//      bookmarksView.post(new Runnable()
-//      {
-//        @Override
-//        public void run()
-//        {
-//          bookmarksView.setCompoundDrawablesWithIntrinsicBounds(
-//              R.drawable.ic_bookmarks_selector, 0, 0, 0);
-//        }
-//      });
-//    }
-//
-//    if (isPro)
-//      UiUtils.hide(findViewById(R.id.buy_pro));
-
   private void yotaSetup()
   {
     final View yopmeButton = findViewById(R.id.yop_it);
@@ -1095,12 +1019,6 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-//  private boolean isActivityPaused()
-//  {
-//    // This receiver is null only when activity is paused (see onPause, onResume).
-//    return (m_externalStorageReceiver == null);
-//  }
-
   private void startWatchingExternalStorage()
   {
     m_externalStorageReceiver = new BroadcastReceiver()
@@ -1342,10 +1260,6 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
-//    final View mapButtonBottom = findViewById(R.id.map_bottom_toolbar);
-//    final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mapButtonBottom.getLayoutParams();
-//    lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, isVisible ? 0 : RelativeLayout.TRUE);
-//    mapButtonBottom.setLayoutParams(lp);
   }
 
   @Override
