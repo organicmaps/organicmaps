@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/header"
+        android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/ui_20_background_grey"
@@ -53,7 +53,7 @@
     <!-- Will have dynamic height -->
 
     <LinearLayout
-        android:id="@+id/body"
+        android:id="@+id/place_page"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:background="@color/ui_20_background_grey"
@@ -65,7 +65,7 @@
             android:layout_weight="0" />
 
         <ScrollView
-            android:id="@+id/body_container"
+            android:id="@+id/place_page_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" >

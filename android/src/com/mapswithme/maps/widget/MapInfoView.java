@@ -47,11 +47,11 @@ import com.mapswithme.util.Utils;
 
 public class MapInfoView extends LinearLayout
 {
-  private final ViewGroup mHeaderGroup;
-  private final ViewGroup mBodyGroup;
-  private final ScrollView mBodyContainer;
+  private final ViewGroup mPreviewGroup;
+  private final ViewGroup mPlacePageGroup;
+  private final ScrollView mPlacePageContainer;
   private final View mView;
-  // Header
+  // Preview
   private final TextView mTitle;
   private final TextView mSubtitle;
   private final CheckBox mIsBookmarked;
@@ -60,12 +60,12 @@ public class MapInfoView extends LinearLayout
   // Gestures
   private final GestureDetectorCompat mGestureDetector;
   private OnVisibilityChangedListener mVisibilityChangedListener;
-  private boolean mIsHeaderVisible = true;
-  private boolean mIsBodyVisible = true;
-  private State mCurrentState = State.COLLAPSED;
+  private boolean mIsPreviewVisible = true;
+  private boolean mIsPlacePageVisible = true;
+  private State mCurrentState = State.HIDDEN;
   // Data
   private MapObject mMapObject;
-  private int mMaxBodyHeight = 0;
+  private int mMaxPlacePageHeight = 0;
   private LinearLayout mGeoLayout = null;
   private View mDistanceView;
   private TextView mDistanceText;
@@ -77,16 +77,16 @@ public class MapInfoView extends LinearLayout
     mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     mView = mInflater.inflate(R.layout.info_box, this, true);
 
-    mHeaderGroup = (ViewGroup) mView.findViewById(R.id.header);
-    mBodyGroup = (ViewGroup) mView.findViewById(R.id.body);
+    mPreviewGroup = (ViewGroup) mView.findViewById(R.id.preview);
+    mPlacePageGroup = (ViewGroup) mView.findViewById(R.id.place_page);
 
-    showBody(false);
-    showHeader(false);
+    showPlacePage(false);
+    showPreview(false);
 
-    // Header
-    mTitle = (TextView) mHeaderGroup.findViewById(R.id.info_title);
-    mSubtitle = (TextView) mHeaderGroup.findViewById(R.id.info_subtitle);
-    mIsBookmarked = (CheckBox) mHeaderGroup.findViewById(R.id.info_box_is_bookmarked);
+    // Preview
+    mTitle = (TextView) mPreviewGroup.findViewById(R.id.info_title);
+    mSubtitle = (TextView) mPreviewGroup.findViewById(R.id.info_subtitle);
+    mIsBookmarked = (CheckBox) mPreviewGroup.findViewById(R.id.info_box_is_bookmarked);
 
     // We don't want to use OnCheckedChangedListener because it gets called
     // if someone calls setChecked() from code. We need only user interaction.
@@ -112,8 +112,8 @@ public class MapInfoView extends LinearLayout
       }
     });
 
-    // Body
-    mBodyContainer = (ScrollView) mBodyGroup.findViewById(R.id.body_container);
+    // Place Page
+    mPlacePageContainer = (ScrollView) mPlacePageGroup.findViewById(R.id.place_page_container);
 
     // Gestures
     OnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener()
@@ -126,11 +126,10 @@ public class MapInfoView extends LinearLayout
 
         if (isVertical && isInRange)
         {
-
           if (distanceY < 0)
-            setState(State.HEAD);
+            setState(State.PREVIEW_ONLY);
           else
-            setState(State.FULL);
+            setState(State.FULL_PLACEPAGE);
 
           return true;
         }
@@ -140,10 +139,10 @@ public class MapInfoView extends LinearLayout
       @Override
       public boolean onSingleTapConfirmed(MotionEvent e)
       {
-        if (mCurrentState == State.FULL)
-          setState(State.HEAD);
+        if (mCurrentState == State.FULL_PLACEPAGE)
+          setState(State.PREVIEW_ONLY);
         else
-          setState(State.FULL);
+          setState(State.FULL_PLACEPAGE);
 
         return true;
       }
@@ -177,130 +176,120 @@ public class MapInfoView extends LinearLayout
   protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
     super.onSizeChanged(w, h, oldw, oldh);
-    calculateMaxBodyHeight();
+    calculateMaxPlacePageHeight();
   }
 
-  private void showBody(final boolean show)
+  // Place Page (full information about an object on the map)
+  private void showPlacePage(final boolean show)
   {
-    calculateMaxBodyHeight();
+    calculateMaxPlacePageHeight();
 
-    if (mIsBodyVisible == show)
-    {
+    if (mIsPlacePageVisible == show)
       return; // if state is already same as we need
-    }
 
     final long duration = 400;
 
     // Calculate translate offset
-    final int headHeight = mHeaderGroup.getHeight();
-    final int totalHeight = headHeight + mMaxBodyHeight;
-    final float offset = headHeight / (float) totalHeight;
+    final int previewHeight = mPreviewGroup.getHeight();
+    final int totalHeight = previewHeight + mMaxPlacePageHeight;
+    final float offset = previewHeight / (float) totalHeight;
 
-    if (show) // slide up
-    {
-      final TranslateAnimation slideUp = new TranslateAnimation(
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 1 - offset,
-          Animation.RELATIVE_TO_SELF, 0);
-
-      slideUp.setDuration(duration);
-      UiUtils.show(mBodyGroup);
-      mView.startAnimation(slideUp);
-
-      if (mVisibilityChangedListener != null)
-      {
-        mVisibilityChangedListener.onPPVisibilityChanged(show);
-      }
-    }
-    else // slide down
+    if (show) // slide down
     {
       final TranslateAnimation slideDown = new TranslateAnimation(
           Animation.RELATIVE_TO_SELF, 0,
           Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 1 - offset);
+          Animation.RELATIVE_TO_SELF, offset - 1,
+          Animation.RELATIVE_TO_SELF, 0);
 
       slideDown.setDuration(duration);
-      slideDown.setFillEnabled(true);
-      slideDown.setFillBefore(true);
-      slideDown.setAnimationListener(new UiUtils.SimpleAnimationListener()
+      UiUtils.show(mPlacePageGroup);
+      mView.startAnimation(slideDown);
+
+      if (mVisibilityChangedListener != null)
+        mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
+    }
+    else // slide up
+    {
+      final TranslateAnimation slideUp = new TranslateAnimation(
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, offset - 1);
+
+      slideUp.setDuration(duration);
+      slideUp.setFillEnabled(true);
+      slideUp.setFillBefore(true);
+      slideUp.setAnimationListener(new UiUtils.SimpleAnimationListener()
       {
         @Override
         public void onAnimationEnd(Animation animation)
         {
-          UiUtils.hide(mBodyGroup);
+          UiUtils.hide(mPlacePageGroup);
 
           if (mVisibilityChangedListener != null)
-          {
-            mVisibilityChangedListener.onPPVisibilityChanged(show);
-          }
+            mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
         }
       });
 
-      mView.startAnimation(slideDown);
+      mView.startAnimation(slideUp);
     }
 
-    mIsBodyVisible = show;
+    mIsPlacePageVisible = show;
   }
 
-  private void showHeader(final boolean show)
+  // Place Page Preview
+  private void showPreview(final boolean show)
   {
-    if (mIsHeaderVisible == show)
-    {
+    if (mIsPreviewVisible == show)
       return;
-    }
 
     final int duration = 200;
 
     if (show)
     {
+      final TranslateAnimation slideDown = new TranslateAnimation(
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, -1,
+          Animation.RELATIVE_TO_SELF, 0);
+      slideDown.setDuration(duration);
+
+      UiUtils.show(mPreviewGroup);
+      slideDown.setAnimationListener(new SimpleAnimationListener() {
+          @Override
+          public void onAnimationEnd(Animation animation) {
+              if (mVisibilityChangedListener != null)
+                  mVisibilityChangedListener.onPreviewVisibilityChanged(show);
+          }
+      });
+
+      mPreviewGroup.startAnimation(slideDown);
+    }
+    else
+    {
       final TranslateAnimation slideUp = new TranslateAnimation(
           Animation.RELATIVE_TO_SELF, 0,
           Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 1,
-          Animation.RELATIVE_TO_SELF, 0);
+          Animation.RELATIVE_TO_SELF, 0,
+          Animation.RELATIVE_TO_SELF, -1);
       slideUp.setDuration(duration);
 
-      UiUtils.show(mHeaderGroup);
       slideUp.setAnimationListener(new SimpleAnimationListener()
       {
         @Override
         public void onAnimationEnd(Animation animation)
         {
+          UiUtils.hide(mPreviewGroup);
           if (mVisibilityChangedListener != null)
-          {
-            mVisibilityChangedListener.onPPPVisibilityChanged(show);
-          }
+            mVisibilityChangedListener.onPreviewVisibilityChanged(show);
         }
       });
 
-      mHeaderGroup.startAnimation(slideUp);
-    }
-    else
-    {
-      final TranslateAnimation slideDown = new TranslateAnimation(
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 1);
-      slideDown.setDuration(duration);
-
-      slideDown.setAnimationListener(new SimpleAnimationListener()
-      {
-        @Override
-        public void onAnimationEnd(Animation animation)
-        {
-          UiUtils.hide(mHeaderGroup);
-          if (mVisibilityChangedListener != null)
-            mVisibilityChangedListener.onPPPVisibilityChanged(show);
-        }
-      });
-
-      mHeaderGroup.startAnimation(slideDown);
+      mPreviewGroup.startAnimation(slideUp);
     }
 
-    mIsHeaderVisible = show;
+    mIsPreviewVisible = show;
   }
 
   private void setTextAndShow(final CharSequence title, final CharSequence subtitle)
@@ -308,7 +297,7 @@ public class MapInfoView extends LinearLayout
     mTitle.setText(title);
     mSubtitle.setText(subtitle);
 
-    showHeader(true);
+    showPreview(true);
   }
 
   public State getState()
@@ -321,16 +310,16 @@ public class MapInfoView extends LinearLayout
     if (mCurrentState != state)
     {
       // Do some transitions
-      if (mCurrentState == State.COLLAPSED && state == State.HEAD)
-        showHeader(true);
-      else if (mCurrentState == State.HEAD && state == State.FULL)
-        showBody(true);
-      else if (mCurrentState == State.HEAD && state == State.COLLAPSED)
-        showHeader(false);
-      else if (mCurrentState == State.FULL && state == State.HEAD)
-        showBody(false);
-      else if (mCurrentState == State.FULL && state == State.COLLAPSED)
-        slideEverythingDown();
+      if (mCurrentState == State.HIDDEN && state == State.PREVIEW_ONLY)
+        showPreview(true);
+      else if (mCurrentState == State.PREVIEW_ONLY && state == State.FULL_PLACEPAGE)
+        showPlacePage(true);
+      else if (mCurrentState == State.PREVIEW_ONLY && state == State.HIDDEN)
+        showPreview(false);
+      else if (mCurrentState == State.FULL_PLACEPAGE && state == State.PREVIEW_ONLY)
+        showPlacePage(false);
+      else if (mCurrentState == State.FULL_PLACEPAGE && state == State.HIDDEN)
+        slideEverythingUp();
       else
         throw new IllegalStateException(String.format("Invalid transition %s - > %s", mCurrentState, state));
 
@@ -364,17 +353,17 @@ public class MapInfoView extends LinearLayout
         switch (mo.getType())
         {
         case POI:
-          setBodyForPOI(mo);
+          placePagePOI(mo);
           break;
         case BOOKMARK:
           isChecked = true;
-          setBodyForBookmark((Bookmark) mo);
+          placePageBookmark((Bookmark) mo);
           break;
         case ADDITIONAL_LAYER:
-          setBodyForAdditionalLayer((SearchResult) mo);
+          placePageAdditionalLayer((SearchResult) mo);
           break;
         case API_POINT:
-          setBodyForAPI(mo);
+          placePageAPI(mo);
           break;
         default:
           throw new IllegalArgumentException("Unknown MapObject type:" + mo.getType());
@@ -399,8 +388,7 @@ public class MapInfoView extends LinearLayout
 
   private void setUpBottomButtons()
   {
-    View mShareView = mBodyGroup.findViewById(R.id.info_box_share);
-    mShareView.setOnClickListener(new OnClickListener()
+    mPlacePageGroup.findViewById(R.id.info_box_share).setOnClickListener(new OnClickListener()
     {
       @Override
       public void onClick(View v)
@@ -409,16 +397,16 @@ public class MapInfoView extends LinearLayout
       }
     });
 
-    View mEditBtn = mBodyGroup.findViewById(R.id.info_box_edit);
-    TextView mReturnToCallerBtn = (TextView) mBodyGroup.findViewById(R.id.info_box_back_to_caller);
-    UiUtils.hide(mEditBtn);
+    final View editBtn = mPlacePageGroup.findViewById(R.id.info_box_edit);
+    TextView mReturnToCallerBtn = (TextView) mPlacePageGroup.findViewById(R.id.info_box_back_to_caller);
+    UiUtils.hide(editBtn);
     UiUtils.hide(mReturnToCallerBtn);
 
     if (mMapObject.getType() == MapObjectType.BOOKMARK)
     {
       // BOOKMARK
       final Bookmark bmk = (Bookmark) mMapObject;
-      mEditBtn.setOnClickListener(new OnClickListener()
+      editBtn.setOnClickListener(new OnClickListener()
       {
         @Override
         public void onClick(View v)
@@ -427,7 +415,7 @@ public class MapInfoView extends LinearLayout
         }
       });
 
-      UiUtils.show(mEditBtn);
+      UiUtils.show(editBtn);
     }
     else if (mMapObject.getType() == MapObjectType.API_POINT)
     {
@@ -464,7 +452,7 @@ public class MapInfoView extends LinearLayout
 
   private void setUpGeoInformation()
   {
-    mGeoLayout = (LinearLayout) mBodyContainer.findViewById(R.id.info_box_geo_ref);
+    mGeoLayout = (LinearLayout) mPlacePageContainer.findViewById(R.id.info_box_geo_ref);
     mDistanceView = mGeoLayout.findViewById(R.id.info_box_geo_container_dist);
     mDistanceText = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_distance);
 
@@ -535,22 +523,22 @@ public class MapInfoView extends LinearLayout
     }
   }
 
-  private void setBodyForPOI(MapObject poi)
+  private void placePagePOI(MapObject poi)
   {
-    mBodyContainer.removeAllViews();
+    mPlacePageContainer.removeAllViews();
     final View poiView = mInflater.inflate(R.layout.info_box_poi, null);
-    mBodyContainer.addView(poiView);
+    mPlacePageContainer.addView(poiView);
   }
 
   private void setUpAddressBox()
   {
-    final TextView addressText = (TextView) mBodyGroup.findViewById(R.id.info_box_address);
+    final TextView addressText = (TextView) mPlacePageGroup.findViewById(R.id.info_box_address);
     addressText.setText(Framework.getNameAndAddress4Point(mMapObject.getLat(), mMapObject.getLon()));
   }
 
-  private void setBodyForBookmark(final Bookmark bmk)
+  private void placePageBookmark(final Bookmark bmk)
   {
-    mBodyContainer.removeAllViews();
+    mPlacePageContainer.removeAllViews();
     final View bmkView = mInflater.inflate(R.layout.info_box_bookmark, null);
 
     // Description of BMK
@@ -568,21 +556,21 @@ public class MapInfoView extends LinearLayout
       UiUtils.show(descriptionWv);
     }
 
-    mBodyContainer.addView(bmkView);
+    mPlacePageContainer.addView(bmkView);
   }
 
-  private void setBodyForAdditionalLayer(SearchResult sr)
+  private void placePageAdditionalLayer(SearchResult sr)
   {
-    mBodyContainer.removeAllViews();
+    mPlacePageContainer.removeAllViews();
     final View addLayerView = mInflater.inflate(R.layout.info_box_additional_layer, null);
-    mBodyContainer.addView(addLayerView);
+    mPlacePageContainer.addView(addLayerView);
   }
 
-  private void setBodyForAPI(MapObject mo)
+  private void placePageAPI(MapObject mo)
   {
-    mBodyContainer.removeAllViews();
+    mPlacePageContainer.removeAllViews();
     final View apiView = mInflater.inflate(R.layout.info_box_api, null);
-    mBodyContainer.addView(apiView);
+    mPlacePageContainer.addView(apiView);
   }
 
   public void setOnVisibilityChangedListener(OnVisibilityChangedListener listener)
@@ -590,17 +578,17 @@ public class MapInfoView extends LinearLayout
     mVisibilityChangedListener = listener;
   }
 
-  private void calculateMaxBodyHeight()
+  private void calculateMaxPlacePageHeight()
   {
     final View parent = (View) getParent();
     if (parent != null)
     {
-      mMaxBodyHeight = parent.getHeight() / 2;
-      final ViewGroup.LayoutParams lp = mBodyGroup.getLayoutParams();
+      mMaxPlacePageHeight = parent.getHeight() / 2;
+      final ViewGroup.LayoutParams lp = mPlacePageGroup.getLayoutParams();
       if (lp != null)
       {
-        lp.height = mMaxBodyHeight;
-        mBodyGroup.setLayoutParams(lp);
+        lp.height = mMaxPlacePageHeight;
+        mPlacePageGroup.setLayoutParams(lp);
       }
     }
     requestLayout();
@@ -611,7 +599,7 @@ public class MapInfoView extends LinearLayout
   protected void onLayout(boolean changed, int l, int t, int r, int b)
   {
     super.onLayout(changed, l, t, r, b);
-    calculateMaxBodyHeight();
+    calculateMaxPlacePageHeight();
   }
 
   public void onResume()
@@ -631,8 +619,8 @@ public class MapInfoView extends LinearLayout
     {
       setMapObject(null);
 
-      showBody(false);
-      showHeader(false);
+      showPlacePage(false);
+      showPreview(false);
     }
   }
 
@@ -672,47 +660,47 @@ public class MapInfoView extends LinearLayout
     }
   }
 
-  private void slideEverythingDown()
+  private void slideEverythingUp()
   {
-    final TranslateAnimation slideDown = new TranslateAnimation(
+    final TranslateAnimation slideUp = new TranslateAnimation(
         Animation.RELATIVE_TO_SELF, 0,
         Animation.RELATIVE_TO_SELF, 0,
         Animation.RELATIVE_TO_SELF, 0,
-        Animation.RELATIVE_TO_SELF, 1);
-    slideDown.setDuration(400);
+        Animation.RELATIVE_TO_SELF, -1);
+    slideUp.setDuration(400);
 
-    slideDown.setAnimationListener(new SimpleAnimationListener()
+    slideUp.setAnimationListener(new SimpleAnimationListener()
     {
       @Override
       public void onAnimationEnd(Animation animation)
       {
-        mIsBodyVisible = false;
-        mIsHeaderVisible = false;
+        mIsPlacePageVisible = false;
+        mIsPreviewVisible = false;
 
-        UiUtils.hide(mHeaderGroup);
-        UiUtils.hide(mBodyGroup);
+        UiUtils.hide(mPreviewGroup);
+        UiUtils.hide(mPlacePageGroup);
         if (mVisibilityChangedListener != null)
         {
-          mVisibilityChangedListener.onPPPVisibilityChanged(false);
-          mVisibilityChangedListener.onPPVisibilityChanged(false);
+          mVisibilityChangedListener.onPreviewVisibilityChanged(false);
+          mVisibilityChangedListener.onPlacePageVisibilityChanged(false);
         }
       }
     });
 
-    mView.startAnimation(slideDown);
+    mView.startAnimation(slideUp);
   }
 
   public static enum State
   {
-    COLLAPSED,
-    HEAD,
-    FULL
+    HIDDEN,
+    PREVIEW_ONLY,
+    FULL_PLACEPAGE
   }
 
   public interface OnVisibilityChangedListener
   {
-    public void onPPPVisibilityChanged(boolean isVisible);
+    public void onPreviewVisibilityChanged(boolean isVisible);
 
-    public void onPPVisibilityChanged(boolean isVisible);
+    public void onPlacePageVisibilityChanged(boolean isVisible);
   }
 }

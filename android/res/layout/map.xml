@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="bottom" >
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom">
 
-    <android.view.SurfaceView
-        android:id="@+id/map_surfaceview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom|center_horizontal"
-        android:background="@android:color/transparent" />
+  <android.view.SurfaceView
+      android:id="@+id/map_surfaceview"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="bottom|center_horizontal"
+      android:background="@android:color/transparent"/>
 
-    <!--
-	Default margin = @dimen/map_controls_margin - 1 (like in map_bottom_toolbar)
-     	Right margin = @dimen/zoom_margin + @dimen/zoom_margin_right - 1 (like in map_navigation_buttons)
-    -->
-    <include
-        android:id="@+id/omni_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="8dp"
-        layout="@layout/search_box" />
+  <!--
+Default margin = @dimen/map_controls_margin - 1 (like in map_bottom_toolbar)
+     Right margin = @dimen/zoom_margin + @dimen/zoom_margin_right - 1 (like in map_navigation_buttons)
+  -->
+  <com.mapswithme.maps.widget.MapInfoView
+      android:id="@+id/info_box"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"/>
 
-    <include
-        android:id="@+id/navigation_buttons_container_ref"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_below="@id/omni_box"
-        layout="@layout/map_navigation_buttons" />
+  <include
+      android:id="@+id/omni_box"
+      layout="@layout/search_box"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="6dp"
+      android:layout_marginRight="8dp"
+      android:layout_marginTop="6dp"/>
 
-    <include
-        android:id="@+id/map_bottom_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/info_box"
-        android:layout_margin="0dp"
-        layout="@layout/map_bottom_toolbar" />
+  <include
+      android:id="@+id/navigation_buttons_container_ref"
+      layout="@layout/map_navigation_buttons"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_below="@id/omni_box"/>
 
-    <com.mapswithme.maps.widget.MapInfoView
-        android:id="@+id/info_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+  <include
+      android:id="@+id/map_bottom_toolbar"
+      layout="@layout/map_bottom_toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_margin="0dp"/>
 
 </RelativeLayout>

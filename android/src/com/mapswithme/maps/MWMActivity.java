@@ -18,18 +18,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mapswithme.country.DownloadUI;
@@ -1192,7 +1189,7 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onBackPressed()
   {
-    if (mInfoView.getState() != State.COLLAPSED)
+    if (mInfoView.getState() != State.HIDDEN)
       hideInfoView();
     else
       super.onBackPressed();
@@ -1219,11 +1216,11 @@ public class MWMActivity extends NvEventQueueActivity
           if (!mInfoView.hasThatObject(apiPoint))
           {
             mInfoView.setMapObject(apiPoint);
-            mInfoView.setState(State.HEAD);
+            mInfoView.setState(State.PREVIEW_ONLY);
           }
           else
           {
-            mInfoView.setState(State.FULL);
+            mInfoView.setState(State.FULL_PLACEPAGE);
           }
         }
       });
@@ -1243,11 +1240,11 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mInfoView.hasThatObject(poi))
         {
           mInfoView.setMapObject(poi);
-          mInfoView.setState(State.HEAD);
+          mInfoView.setState(State.PREVIEW_ONLY);
         }
         else
         {
-          mInfoView.setState(State.FULL);
+          mInfoView.setState(State.FULL_PLACEPAGE);
         }
       }
     });
@@ -1265,11 +1262,11 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mInfoView.hasThatObject(b))
         {
           mInfoView.setMapObject(b);
-          mInfoView.setState(State.HEAD);
+          mInfoView.setState(State.PREVIEW_ONLY);
         }
         else
         {
-          mInfoView.setState(State.FULL);
+          mInfoView.setState(State.FULL_PLACEPAGE);
         }
       }
     });
@@ -1290,11 +1287,11 @@ public class MWMActivity extends NvEventQueueActivity
         if (!mInfoView.hasThatObject(sr))
         {
           mInfoView.setMapObject(sr);
-          mInfoView.setState(State.HEAD);
+          mInfoView.setState(State.PREVIEW_ONLY);
         }
         else
         {
-          mInfoView.setState(State.FULL);
+          mInfoView.setState(State.FULL_PLACEPAGE);
         }
       }
     });
@@ -1302,7 +1299,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void hideInfoView()
   {
-    mInfoView.setState(State.COLLAPSED);
+    mInfoView.setState(State.HIDDEN);
     mInfoView.setMapObject(null);
 
     UiUtils.show(findViewById(R.id.map_bottom_toolbar));
@@ -1343,7 +1340,7 @@ public class MWMActivity extends NvEventQueueActivity
   public native boolean showMapForUrl(String url);
 
   @Override
-  public void onPPPVisibilityChanged(boolean isVisible)
+  public void onPreviewVisibilityChanged(boolean isVisible)
   {
 //    final View mapButtonBottom = findViewById(R.id.map_bottom_toolbar);
 //    final RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) mapButtonBottom.getLayoutParams();
@@ -1352,7 +1349,7 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   @Override
-  public void onPPVisibilityChanged(boolean isVisible)
+  public void onPlacePageVisibilityChanged(boolean isVisible)
   {
     // Hide toolbar if PlacePage is visible
     UiUtils.showIf(!isVisible, findViewById(R.id.map_bottom_toolbar));
