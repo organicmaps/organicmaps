@@ -562,6 +562,8 @@ const long long LITE_IDL = 431183278L;
     if (!proText)
       proText = [NSLocalizedString(@"become_a_pro", nil) uppercaseString];
 
+    CGFloat width = [proText sizeWithDrawSize:CGSizeMake(200, self.buyButton.height) font:self.buyButton.titleLabel.font].width;
+    self.buyButton.width = width + 4 * self.buyButton.height / 3;
     [self.buyButton setTitle:proText forState:UIControlStateNormal];
   }
 #endif
@@ -695,7 +697,7 @@ const long long LITE_IDL = 431183278L;
   if (!_buyButton)
   {
     UIImage * buyImage = [[UIImage imageNamed:@"ProVersionButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 14, 14, 14)];
-    _buyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 115, 44.5)];
+    _buyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 115, 33)];
     _buyButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _buyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     _buyButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
