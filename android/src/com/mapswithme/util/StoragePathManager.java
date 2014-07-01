@@ -58,7 +58,7 @@ public class StoragePathManager
       if (o == null)
         return false;
       StorageItem other = (StorageItem) o;
-      return m_size == other.m_size || m_path.equals(other.m_size);
+      return m_size == other.m_size || m_path.equals(other.m_path);
     }
 
     @Override
