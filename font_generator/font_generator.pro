@@ -9,10 +9,10 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 ROOT_DIR = ..
+include($$ROOT_DIR/common.pri)
 INCLUDEPATH *= $$ROOT_DIR/3party/boost
 TARGET = FontGenerator
 TEMPLATE = app
-
 
 SOURCES += main.cpp\
         widget.cpp \

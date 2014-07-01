@@ -5,12 +5,11 @@
 #include "BinPacker.hpp"
 #include "df_map.hpp"
 
-#include <QMap>
-#include <QList>
 #include <QFile>
 #include <QTextStream>
 
 #include "../base/macros.hpp"
+#include "../base/logging.hpp"
 
 #include "../std/cmath.hpp"
 #include "../std/vector.hpp"
@@ -19,16 +18,46 @@
 #include "../std/function.hpp"
 #include "../std/bind.hpp"
 
+#include <boost/gil/typedefs.hpp>
+#include <boost/gil/algorithm.hpp>
+
+using boost::gil::gray8c_view_t;
+using boost::gil::gray8_view_t;
+using boost::gil::gray8c_pixel_t;
+using boost::gil::gray8_pixel_t;
+using boost::gil::interleaved_view;
+using boost::gil::subimage_view;
+using boost::gil::copy_pixels;
+
 typedef function<void (void)> simple_fun_t;
 typedef function<void (int)> int_fun_t;
 
 namespace
 {
+  void DumpImage(unsigned char * image, int w, int h)
+  {
+    QFile f("/Users/ExMix/dump.txt");
+    f.open(QIODevice::WriteOnly);
+
+    QTextStream stream(&f);
+    stream.setIntegerBase(16);
+    stream.setFieldWidth(3);
+
+    for (int y = 0; y < h; ++y)
+    {
+      for (int x = 0; x < w; ++x)
+      {
+        stream << image[x + y * w];
+      }
+      stream << "\n";
+    }
+  }
+
   //static int GlyphScaler = 16;
   static int EtalonTextureSize = 1024;
   struct ZeroPoint
   {
-    int m_x, m_y;
+    int32_t  m_x, m_y;
   };
 
   class AtlasCompositor
@@ -67,12 +96,12 @@ namespace
       {
       }
 
-      int m_pageCount;
-      int m_width;
-      int m_height;
+      int32_t  m_pageCount;
+      int32_t  m_width;
+      int32_t  m_height;
     };
 
-    void InitMetrics(int pageCount)
+    void InitMetrics(int32_t  pageCount)
     {
       static MetricTemplate templates[] =
       {
@@ -105,8 +134,8 @@ namespace
     }
 
   private:
-    int m_width;
-    int m_height;
+    int32_t  m_width;
+    int32_t  m_height;
   };
 
   class MyThread : public QThread
@@ -115,14 +144,14 @@ namespace
 
     struct GlyphInfo
     {
-      int m_unicodePoint;
-      int m_glyphIndex;
-      int m_x, m_y;
-      int m_width, m_height;
+      int32_t m_unicodePoint;
+      int32_t m_glyphIndex;
+      int32_t m_x, m_y;
+      int32_t m_width, m_height;
       float m_xoff;
       float m_yoff;
       float m_advance;
-      unsigned char * m_img;
+      vector<uint8_t> m_img;
     };
 
     MyThread(QList<FontRange> const & fonts, int fontSize,
@@ -193,15 +222,13 @@ namespace
             info.m_xoff = xoff /*/ (float)GlyphScaler*/;
             info.m_yoff = yoff /*/ (float)GlyphScaler*/;
             info.m_advance = advance * (scale /*/ (float) GlyphScaler*/);
-            info.m_img = NULL;
             if (info.m_width == 0 || info.m_height == 0)
             {
-              Q_ASSERT(info.m_img == NULL);
               emptyInfos.push_back(info);
             }
             else
             {
-              info.m_img = processGlyph(image, width, height, info.m_width, info.m_height);
+              processGlyph(image, width, height, info.m_img, info.m_width, info.m_height);
               infos.push_back(info);
               stbtt_FreeBitmap(image, NULL);
             }
@@ -213,7 +240,7 @@ namespace
       rects.reserve(2 * infos.size());
       foreach(GlyphInfo info, infos)
       {
-        if (info.m_img != NULL)
+        if (!info.m_img.empty())
         {
           rects.push_back(info.m_width + 1);
           rects.push_back(info.m_height + 1);
@@ -230,10 +257,16 @@ namespace
 
       AtlasCompositor compositor(outRects.size());
 
-      int width = EtalonTextureSize * compositor.GetWidth();
-      int height = EtalonTextureSize * compositor.GetHeight();
+      m_w = EtalonTextureSize * compositor.GetWidth();
+      m_h = EtalonTextureSize * compositor.GetHeight();
 
-      vector<uint8_t> resultImg(width * height, 0);
+      m_image.resize(m_w * m_h);
+      memset(&m_image[0], 0, m_image.size() * sizeof(uint8_t));
+
+      gray8_view_t resultView = interleaved_view(m_w, m_h,
+                                                 (gray8_pixel_t *)&m_image[0],
+                                                 m_w);
+
       bool firstEmpty = true;
       for (size_t k = 0; k < outRects.size(); ++k)
       {
@@ -251,15 +284,13 @@ namespace
             int packX = info.m_x;
             int packY = info.m_y;
 
-            for (int y = 0; y < info.m_height; ++y)
-            {
-              for (int x = 0; x < info.m_width; ++x)
-              {
-                int dstX = packX + x + 1;
-                int dstY = packY + y + 1;
-                resultImg[dstX + dstY * width] = info.m_img[x + y * info.m_width];
-              }
-            }
+            gray8_view_t subResultView = subimage_view(resultView,
+                                                       packX + 1, packY + 1,
+                                                       info.m_width, info.m_height);
+            gray8c_view_t symbolView = interleaved_view(info.m_width, info.m_height,
+                                                        (gray8c_pixel_t *)&info.m_img[0],
+                                                        info.m_width);
+            copy_pixels(symbolView, subResultView);
           }
           else
           {
@@ -275,49 +306,56 @@ namespace
         }
       }
 
-      foreach (GlyphInfo info, infos)
-        delete[] info.m_img;
-
-      m_image = QImage(&resultImg[0], width, height, QImage::Format_Indexed8);
-      m_image.setColorCount(256);
-      for (int i = 0; i < 256; ++i)
-        m_image.setColor(i, qRgb(i, i, i));
-
       m_infos.clear();
       m_infos.append(infos);
       m_infos.append(emptyInfos);
     }
 
-    QImage GetImage() const
+    vector<uint8_t> const & GetImage(int & w, int & h) const
     {
+      w = m_w;
+      h = m_h;
       return m_image;
     }
 
     QList<GlyphInfo> const & GetInfos() const { return m_infos; }
 
   private:
-    static unsigned char * processGlyph(unsigned char * glyphImage, int width, int height,
-                                        int & newW, int & newH)
+    static void processGlyph(unsigned char * glyphImage, int32_t width, int32_t height,
+                             vector<uint8_t> & image, int32_t & newW, int32_t & newH)
     {
-      static int border = 2;
-      int sWidth = width + 4 * border;
-      int sHeight = height + 4 * border;
+      static uint32_t border = 2;
+      int32_t const sWidth = width + 2 * border;
+      int32_t const sHeight = height + 2 * border;
 
-      vector<unsigned char> buf(sWidth * sHeight, 0);
-      for (int y = 0; y < height; ++y)
-        for (int x = 0; x < width; ++x)
+      image.resize(sWidth * sHeight);
+      memset(&image[0], 0, image.size() * sizeof(uint8_t));
+      gray8_view_t bufView = interleaved_view(sWidth, sHeight,
+                                              (gray8_pixel_t *)&image[0],
+                                              sWidth);
+      gray8_view_t subView = subimage_view(bufView, border, border, width, height);
+      gray8c_view_t srcView = interleaved_view(width, height,
+                                               (gray8c_pixel_t *)glyphImage,
+                                               width);
+
+      for (gray8c_view_t::y_coord_t y = 0; y < subView.height(); ++y)
+      {
+        for (gray8c_view_t::x_coord_t x = 0; x < subView.width(); ++x)
         {
-          if (glyphImage[x + y * width] < 127)
-            buf[2 * border + x + (2 * border + y) * sWidth] = 0;
+          if (srcView(x, y) > 40)
+            subView(x, y) = 255;
           else
-            buf[2 * border + x + (2 * border + y) * sWidth] = 255;
+            subView(x, y) = 0;
         }
+      }
 
-      DFMap forwardMap(buf, sWidth, sHeight, 255, 0);
-      DFMap inverseMap(buf, sWidth, sHeight, 0, 255);
+      DumpImage(&image[0], sWidth, sHeight);
+
+      DFMap forwardMap(image, sWidth, sHeight, 255, 0);
+      DFMap inverseMap(image, sWidth, sHeight, 0, 255);
       forwardMap.Minus(inverseMap);
       forwardMap.Normalize();
-      return forwardMap.GenerateImage(newW, newH);
+      forwardMap.GenerateImage(image, newW, newH);
     }
 
   private:
@@ -333,7 +371,8 @@ namespace
     typedef QMap<QString, ranges_t> map_t;
     typedef map_t::const_iterator map_iter_t;
     map_t m_fonts;
-    QImage m_image;
+    vector<uint8_t> m_image;
+    int m_w, m_h;
     int m_fontSize;
     QList<GlyphInfo> m_infos;
   };
@@ -344,7 +383,7 @@ Engine::Engine()
 {
 }
 
-void Engine::SetFonts(const QList<FontRange> & fonts, int fontSize)
+void Engine::SetFonts(QList<FontRange> const & fonts, int fontSize)
 {
   if (m_workThread != NULL)
   {
@@ -380,8 +419,9 @@ void Engine::RunExport()
   if (!m_workThread->isFinished())
     m_workThread->wait();
 
+  GetImage().save(m_dirName.trimmed() + "/font.png", "png");
+
   MyThread * thread = static_cast<MyThread *>(m_workThread);
-  thread->GetImage().save(m_dirName.trimmed() + "/font.png", "png");
   QList<MyThread::GlyphInfo> const & infos = thread->GetInfos();
 
   QFile file(m_dirName.trimmed() + "/font.txt");
@@ -409,8 +449,21 @@ void Engine::WorkThreadFinished()
   if (t == NULL)
     return;
 
-  MyThread * thread = static_cast<MyThread *>(t);
-  emit UpdatePreview(thread->GetImage());
+  emit UpdatePreview(GetImage(t));
+}
+
+QImage Engine::GetImage(QThread * sender) const
+{
+  MyThread * thread = static_cast<MyThread *>(sender == NULL ? m_workThread : sender);
+  int w, h;
+  vector<uint8_t> const & imgData = thread->GetImage(w, h);
+
+  QImage image = QImage(&imgData[0], w, h, QImage::Format_Indexed8);
+  image.setColorCount(256);
+  for (int i = 0; i < 256; ++i)
+    image.setColor(i, qRgb(i, i, i));
+
+  return image;
 }
 
 void Engine::EmitStartEngine(int maxValue)

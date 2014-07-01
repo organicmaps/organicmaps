@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QString>
-#include <QList>
 #include <QAtomicInt>
 #include <QThread>
 #include <QImage>
@@ -33,6 +32,9 @@ public:
 
 private:
   Q_SLOT void WorkThreadFinished();
+
+private:
+  QImage GetImage(QThread * sender = NULL) const;
 
 private:
   void EmitStartEngine(int maxValue);

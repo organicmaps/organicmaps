@@ -67,7 +67,7 @@ void Widget::Export()
 
 void Widget::UpdatePreview(QImage img)
 {
-  ui->preview->setPixmap(QPixmap::fromImage(img));
+  ui->preview->setPixmap(QPixmap::fromImage(img.scaled(ui->preview->size(), Qt::KeepAspectRatio)));
 }
 
 void Widget::UpdateEngine(int)
