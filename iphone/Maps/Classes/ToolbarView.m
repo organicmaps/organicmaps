@@ -67,7 +67,7 @@
 
 - (UIButton *)buttonWithImageName:(NSString *)imageName
 {
-  UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+  UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
   button.contentMode = UIViewContentModeCenter;
   button.midY = self.height / 2;
   button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
@@ -80,7 +80,7 @@
 {
   if (!_locationButton)
   {
-    _locationButton = [[LocationButton alloc] initWithFrame:CGRectMake(0, 0, 60, 60)];
+    _locationButton = [[LocationButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
     _locationButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _locationButton.midY = self.height / 2;
     [_locationButton addTarget:self action:@selector(locationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
