@@ -228,6 +228,16 @@ namespace m2
     {
       m_zero = ConvertTo(ConvertFrom(m_zero) + p);
     }
+
+    Point<T> const Center() const
+    {
+      return ConvertFrom(m_rect.Center());
+    }
+
+    void SetSizesToIncludePoint(Point<T> const & p)
+    {
+      m_rect.SetSizesToIncludePoint(ConvertTo(p));
+    }
   };
 
   template <typename T>

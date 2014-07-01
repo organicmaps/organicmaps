@@ -795,7 +795,12 @@ void Framework::ShowRectExVisibleScale(m2::RectD rect, int maxScale/* = -1*/)
   ShowRectFixed(rect);
 }
 
-void Framework::ShowRectFixed(m2::RectD const & r)
+void Framework::ShowRectFixed(m2::RectD const & rect)
+{
+  ShowRectFixedAR(ToRotated(rect));
+}
+
+void Framework::ShowRectFixedAR(m2::AnyRectD const & rect)
 {
   double const halfSize = m_scales.GetTileSize() / 2.0;
   m2::RectD etalonRect(-halfSize, -halfSize, halfSize, halfSize);
@@ -803,7 +808,7 @@ void Framework::ShowRectFixed(m2::RectD const & r)
   m2::PointD const pxCenter = m_navigator.Screen().PixelRect().Center();
   etalonRect.Offset(pxCenter);
 
-  m_navigator.SetFromRects(ToRotated(r), etalonRect);
+  m_navigator.SetFromRects(rect, etalonRect);
 
   Invalidate();
 }
@@ -835,8 +840,7 @@ void Framework::OnSearchResultsCallbackUI(search::Results const & results)
 {
   if (IsISActive())
   {
-    m2::RectD dummy;
-    (void) FillSearchResultsMarks(results, dummy);
+    FillSearchResultsMarks(results);
 
     Invalidate();
   }
@@ -1234,10 +1238,30 @@ size_t Framework::ShowAllSearchResults()
     return count;
   }
 
-  m2::RectD rect;
-  if (!FillSearchResultsMarks(results, rect) && rect.IsValid())
+  FillSearchResultsMarks(results);
+
+  // Setup viewport according to results.
+  m2::AnyRectD viewport = m_navigator.Screen().GlobalRect();
+  m2::PointD const center = viewport.Center();
+
+  double minDistance = numeric_limits<double>::max();
+  size_t minInd;
+  for (size_t i = 0; i < count; ++i)
   {
-    ShowRectEx(rect);
+    double const dist = center.SquareLength(results.GetResult(i).GetFeatureCenter());
+    if (dist < minDistance)
+    {
+      minDistance = dist;
+      minInd = i;
+    }
+  }
+
+  m2::PointD const pt = results.GetResult(minInd).GetFeatureCenter();
+  if (!viewport.IsPointInside(pt))
+  {
+    viewport.SetSizesToIncludePoint(pt);
+
+    ShowRectFixedAR(viewport);
     StopLocationFollow();
   }
   else
@@ -1246,15 +1270,13 @@ size_t Framework::ShowAllSearchResults()
   return count;
 }
 
-bool Framework::FillSearchResultsMarks(search::Results const & results, m2::RectD & rect)
+void Framework::FillSearchResultsMarks(search::Results const & results)
 {
   UserMarkContainer::Type const type = UserMarkContainer::SEARCH_MARK;
   m_bmManager.UserMarksSetVisible(type, true);
   m_bmManager.UserMarksClear(type);
   m_bmManager.UserMarksSetDrawable(type, true);
 
-  m2::RectD const viewport = GetCurrentViewport();
-  bool res = false;
   size_t const count = results.GetCount();
   for (size_t i = 0; i < count; ++i)
   {
@@ -1266,18 +1288,11 @@ bool Framework::FillSearchResultsMarks(search::Results const & results, m2::Rect
       AddressInfo info;
       info.MakeFrom(r);
 
-      m2::PointD const pt = r.GetFeatureCenter();
-
-      SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, pt));
+      SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(
+            m_bmManager.UserMarksAddMark(type, r.GetFeatureCenter()));
       mark->SetInfo(info);
-
-      rect.Add(pt);
-
-      res = res || viewport.IsPointInside(pt);
     }
   }
-
-  return res;
 }
 
 void Framework::CancelInteractiveSearch()

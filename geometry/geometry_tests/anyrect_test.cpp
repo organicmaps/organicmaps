@@ -71,3 +71,16 @@ UNIT_TEST(AnyRect_TestIsIntersect)
   TEST(r0.IsIntersect(r3), ());
 }
 
+UNIT_TEST(AnyRect_SetSizesToIncludePoint)
+{
+  m2::AnyRectD rect(m2::PointD(100, 100), math::pi / 6, m2::RectD(0, 0, 50, 50));
+
+  TEST(!rect.IsPointInside(m2::PointD(0, 0)), ());
+  TEST(!rect.IsPointInside(m2::PointD(200, 200)), ());
+
+  rect.SetSizesToIncludePoint(m2::PointD(0, 0));
+  TEST(rect.IsPointInside(m2::PointD(0, 0)), ());
+
+  rect.SetSizesToIncludePoint(m2::PointD(200, 200));
+  TEST(rect.IsPointInside(m2::PointD(200, 200)), ());
+}

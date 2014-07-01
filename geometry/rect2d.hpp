@@ -176,6 +176,18 @@ namespace m2
       m_maxY = c.y + dy;
     }
 
+    void SetSizesToIncludePoint(Point<T> const & pt)
+    {
+      Point<T> const c = Center();
+      T const dx = my::Abs(pt.x - c.x);
+      T const dy = my::Abs(pt.y - c.y);
+
+      m_minX = c.x - dx;
+      m_minY = c.y - dy;
+      m_maxX = c.x + dx;
+      m_maxY = c.y + dy;
+    }
+
     void SetCenter(m2::Point<T> const & p)
     {
       Offset(p - Center());

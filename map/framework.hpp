@@ -250,8 +250,7 @@ private:
 
   void OnSearchResultsCallback(search::Results const & results);
   void OnSearchResultsCallbackUI(search::Results const & results);
-  /// @return true if any result is in viewport rect.
-  bool FillSearchResultsMarks(search::Results const & results, m2::RectD & rect);
+  void FillSearchResultsMarks(search::Results const & results);
 
 public:
   m2::RectD GetCurrentViewport() const;
@@ -363,6 +362,7 @@ private:
 
   m2::AnyRectD ToRotated(m2::RectD const & rect) const;
   void ShowRectFixed(m2::RectD const & rect);
+  void ShowRectFixedAR(m2::AnyRectD const & rect);
 
 public:
   /// Show rect for point and needed draw scale.
