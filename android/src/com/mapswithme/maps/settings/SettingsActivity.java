@@ -59,8 +59,8 @@ public class SettingsActivity extends PreferenceActivity
 
     final Activity parent = this;
 
-    Preference pref = findPreference(getString(R.string.pref_storage_activity));
-    pref.setOnPreferenceClickListener(new OnPreferenceClickListener()
+    m_storagePreference = findPreference(getString(R.string.pref_storage_activity));
+    m_storagePreference.setOnPreferenceClickListener(new OnPreferenceClickListener()
     {
       @Override
       public boolean onPreferenceClick(Preference preference)
@@ -129,7 +129,7 @@ public class SettingsActivity extends PreferenceActivity
       }
     });
 
-    pref = findPreference(getString(R.string.pref_about));
+    final Preference pref = findPreference(getString(R.string.pref_about));
     pref.setOnPreferenceClickListener(new OnPreferenceClickListener()
     {
       @Override
@@ -139,8 +139,6 @@ public class SettingsActivity extends PreferenceActivity
         return true;
       }
     });
-
-    m_storagePreference = findPreference(getString(R.string.pref_storage_activity));
 
     yotaSetup();
   }
