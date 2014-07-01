@@ -1,6 +1,6 @@
 @NOTE1: Run <omim>/tools/android/update_assets.sh once every time when assets are added/removed
 @NOTE2: To increase apk version, please edit gradle.properties
-
+@NOTE3: Run <omim>/tools/android/set_up_android.py to set up everything.
 
 To clean everything, use './gradlew clean'
 
