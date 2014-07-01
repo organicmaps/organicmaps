@@ -110,7 +110,6 @@ typedef NS_ENUM(NSUInteger, CellType)
 
 @property (nonatomic) SearchResultsWrapper * wrapper;
 @property (nonatomic) NSArray * categoriesNames;
-@property (nonatomic) BOOL isShowingCategories;
 
 @end
 
@@ -140,7 +139,6 @@ __weak SearchView * selfPointer;
 
   selfPointer = self;
   needToScroll = NO;
-  self.isShowingCategories = YES;
 
   [self.tableView registerClass:[SearchUniversalCell class] forCellReuseIdentifier:[SearchUniversalCell className]];
   [self.tableView registerClass:[SearchSuggestCell class] forCellReuseIdentifier:[SearchSuggestCell className]];
@@ -158,9 +156,6 @@ __weak SearchView * selfPointer;
 {
   if (_state == SearchViewStateResults && state == SearchViewStateHidden)
     [self clearSearchResultsMode];
-
-  if (_state == SearchViewStateResults && state == SearchViewStateFullscreen && self.isShowingCategories)
-    self.searchBar.textField.text = nil;
 
   UIViewAnimationOptions options = UIViewAnimationOptionCurveEaseInOut;
   double damping = 0.9;
@@ -333,7 +328,7 @@ static void onSearchResultCallback(search::Results const & results)
   }
   else
   {
-    self.emptyResultLabel.hidden = self.isShowingCategories ? YES : ([self rowsCount] > 0);
+    self.emptyResultLabel.hidden = [self isShowingCategories] ? YES : ([self rowsCount] > 0);
     self.wrapper = wrapper;
     self.suggestsTopImageView.hidden = ![wrapper suggestsCount];
     [self.tableView reloadData];
@@ -363,7 +358,6 @@ static void onSearchResultCallback(search::Results const & results)
 - (void)searchBarDidPressCancelButton:(id)searchBar
 {
   self.searchBar.textField.text = nil;
-  self.isShowingCategories = YES;
   [self processTextChanging];
   [self setState:SearchViewStateHidden animated:YES withCallback:YES];
 }
@@ -382,8 +376,7 @@ static void onSearchResultCallback(search::Results const & results)
 
 - (void)processTextChanging
 {
-  self.isShowingCategories = !self.searchBar.textField.text.length;
-  if (self.isShowingCategories)
+  if ([self isShowingCategories])
   {
     [self.searchBar setSearching:NO];
     self.suggestsTopImageView.hidden = YES;
@@ -396,33 +389,44 @@ static void onSearchResultCallback(search::Results const & results)
   }
 }
 
+- (void)showOnMap
+{
+  if (GetPlatform().IsPro())
+  {
+    Framework & f = GetFramework();
+    if (f.ShowAllSearchResults() == 0)
+    {
+      NSString * message = [NSString stringWithFormat:@"%@. %@", NSLocalizedString(@"no_search_results_found", nil), NSLocalizedString(@"download_location_country", nil)];
+      message = [message stringByReplacingOccurrencesOfString:@" (%@)" withString:@""];
+      ToastView * toastView = [[ToastView alloc] initWithMessage:message];
+      [toastView show];
+    }
+
+    search::SearchParams params;
+    params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
+    params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
+
+    f.StartInteractiveSearch(params);
+
+    [self setState:SearchViewStateResults animated:YES withCallback:YES];
+  }
+  else
+  {
+    [self showBuyProMessage];
+  }
+
+}
+
+- (BOOL)isShowingCategories
+{
+  return ![self.searchBar.textField.text length];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  if ([self.wrapper count] && !self.isShowingCategories)
+  if ([self.wrapper count] && ![self isShowingCategories])
   {
-    if (GetPlatform().IsPro())
-    {
-      Framework & f = GetFramework();
-      if (f.ShowAllSearchResults() == 0)
-      {
-        NSString * message = [NSString stringWithFormat:@"%@. %@", NSLocalizedString(@"no_search_results_found", nil), NSLocalizedString(@"download_location_country", nil)];
-        message = [message stringByReplacingOccurrencesOfString:@" (%@)" withString:@""];
-        ToastView * toastView = [[ToastView alloc] initWithMessage:message];
-        [toastView show];
-      }
-
-      search::SearchParams params;
-      params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
-      params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
-
-      f.StartInteractiveSearch(params);
-
-      [self setState:SearchViewStateResults animated:YES withCallback:YES];
-    }
-    else
-    {
-      [self showBuyProMessage];
-    }
+    [self showOnMap];
     return YES;
   }
   return NO;
@@ -564,17 +568,6 @@ static void onSearchResultCallback(search::Results const & results)
   return [self rowsCount];
 }
 
-- (void)startInteractiveSearch
-{
-  search::SearchParams params;
-  params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
-  params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
-
-  Framework & f = GetFramework();
-  f.StartInteractiveSearch(params);
-  f.UpdateUserViewportChanged();
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -585,33 +578,15 @@ static void onSearchResultCallback(search::Results const & results)
   {
     case CellTypeCategory:
     {
-      if (GetPlatform().IsPro())
-      {
-        [[Statistics instance] logEvent:@"Category Selection" withParameters:@{@"Category" : self.categoriesNames[indexPath.row]}];
-        self.searchBar.textField.text = [NSLocalizedString(self.categoriesNames[indexPath.row], nil) stringByAppendingString:@" "];
-        [self setState:SearchViewStateResults animated:YES withCallback:YES];
-        self.isShowingCategories = YES;
-        [self startInteractiveSearch];
-      }
-      else
-      {
-        [self showBuyProMessage];
-      }
+      [[Statistics instance] logEvent:@"Category Selection" withParameters:@{@"Category" : self.categoriesNames[indexPath.row]}];
+      self.searchBar.textField.text = [NSLocalizedString(self.categoriesNames[indexPath.row], nil) stringByAppendingString:@" "];
+      [self search];
 
       break;
     }
     case CellTypeShowOnMap:
     {
-      if (GetPlatform().IsPro())
-      {
-        [self setState:SearchViewStateResults animated:YES withCallback:YES];
-        [self startInteractiveSearch];
-      }
-      else
-      {
-        [self showBuyProMessage];
-      }
-
+      [self showOnMap];
       break;
     }
     case CellTypeResult:
@@ -668,7 +643,7 @@ static void onSearchResultCallback(search::Results const & results)
 
 - (CellType)cellTypeForIndexPath:(NSIndexPath *)indexPath
 {
-  if (self.isShowingCategories)
+  if ([self isShowingCategories])
   {
     return CellTypeCategory;
   }
@@ -688,7 +663,7 @@ static void onSearchResultCallback(search::Results const & results)
 
 - (NSInteger)rowsCount
 {
-  if (self.isShowingCategories)
+  if ([self isShowingCategories])
     return [self.categoriesNames count];
   else
     return [self.wrapper suggestsCount] ? [self.wrapper count] : [self.wrapper count] + 1;
