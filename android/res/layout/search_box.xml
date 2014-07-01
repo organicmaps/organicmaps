@@ -10,7 +10,8 @@
     android:paddingBottom="5dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:paddingTop="5dp" >
+    android:paddingTop="5dp"
+    android:visibility="gone">
 
     <FrameLayout
         android:id="@+id/container_progress_search"
