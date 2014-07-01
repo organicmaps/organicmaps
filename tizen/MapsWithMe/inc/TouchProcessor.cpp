@@ -16,11 +16,11 @@ using namespace Tizen::Base::Runtime;
 using namespace consts;
 using Tizen::Base::Collection::IListT;
 
-namespace detail
+namespace
 {
-TouchProcessor::TPointPairs GetTouchedPoints(Rectangle const & rect)
+void GetTouchedPoints(Rectangle const & rect, TouchProcessor::TPointPairs & res)
 {
-  TouchProcessor::TPointPairs res;
+  res.clear();
   IListT<TouchEventInfo *> * pList = TouchEventManager::GetInstance()->GetTouchInfoListN();
   if (pList)
   {
@@ -30,20 +30,17 @@ TouchProcessor::TPointPairs GetTouchedPoints(Rectangle const & rect)
       TouchEventInfo * pTouchInfo;
       pList->GetAt(i, pTouchInfo);
       Point pt = pTouchInfo->GetCurrentPosition();
-      res.push_back(std::make_pair(pt.x - rect.x, pt.y - rect.y));
+      res.push_back(m2::PointD(pt.x - rect.x, pt.y - rect.y));
     }
 
     pList->RemoveAll();
     delete pList;
   }
-  return res;
 }
 }
-
-using namespace detail;
 
 TouchProcessor::TouchProcessor(MapsWithMeForm * pForm)
-:m_state(st_empty),
+:m_state(ST_EMPTY),
  m_pForm(pForm)
 {
   m_timer.Construct(*this);
@@ -54,14 +51,14 @@ void TouchProcessor::StartMove(TPointPairs const & pts)
   ::Framework * pFramework = tizen::Framework::GetInstance();
   if (pts.size() == 1)
   {
-    pFramework->StartDrag(DragEvent(m_startTouchPoint.first, m_startTouchPoint.second));
-    pFramework->DoDrag(DragEvent(pts[0].first, pts[0].second));
-    m_state = st_moving;
+    pFramework->StartDrag(DragEvent(m_startTouchPoint.x, m_startTouchPoint.y));
+    pFramework->DoDrag(DragEvent(pts[0].x, pts[0].y));
+    m_state = ST_MOVING;
   }
   else if (pts.size() > 1)
   {
-    pFramework->StartScale(ScaleEvent(pts[0].first, pts[0].second, pts[1].first, pts[1].second));
-    m_state = st_rotating;
+    pFramework->StartScale(ScaleEvent(pts[0].x, pts[0].y, pts[1].x, pts[1].y));
+    m_state = ST_ROTATING;
   }
 }
 
@@ -71,40 +68,40 @@ void TouchProcessor::OnTouchPressed(Tizen::Ui::Control const & source,
 {
   m_wasLongPress = false;
   m_bWasReleased = false;
-  m_prev_pts = detail::GetTouchedPoints(m_pForm->GetClientAreaBounds());
-  m_startTouchPoint = make_pair(m_prev_pts[0].first, m_prev_pts[0].second);
+  GetTouchedPoints(m_pForm->GetClientAreaBounds(), m_prev_pts);
+  m_startTouchPoint = m_prev_pts[0];
 
-  if (m_state == st_waitTimer) // double click
+  if (m_state == ST_WAIT_TIMER) // double click
   {
-    m_state = st_empty;
+    m_state = ST_EMPTY;
     ::Framework * pFramework = tizen::Framework::GetInstance();
-    pFramework->ScaleToPoint(ScaleToPointEvent(m_prev_pts[0].first, m_prev_pts[0].second, 2.0));
+    pFramework->ScaleToPoint(ScaleToPointEvent(m_prev_pts[0].x, m_prev_pts[0].y, 2.0));
     m_timer.Cancel();
     return;
   }
   else
   {
-    m_state = st_waitTimer;
-    m_timer.Start(double_click_timout);
+    m_state = ST_WAIT_TIMER;
+    m_timer.Start(DoubleClickTimeout);
   }
 }
 
 void TouchProcessor::OnTimerExpired (Timer &timer)
 {
-  if (m_state != st_waitTimer)
+  if (m_state != ST_WAIT_TIMER)
     LOG(LERROR, ("Undefined behavior, on timer"));
 
-  m_state = st_empty;
+  m_state = ST_EMPTY;
   if (m_prev_pts.empty())
     return;
   ::Framework * pFramework = tizen::Framework::GetInstance();
-  if (pFramework->GetGuiController()->OnTapStarted(m2::PointD(m_startTouchPoint.first, m_startTouchPoint.second)))
+  if (pFramework->GetGuiController()->OnTapStarted(m_startTouchPoint))
   {
-    pFramework->GetGuiController()->OnTapEnded(m2::PointD(m_startTouchPoint.first, m_startTouchPoint.second));
+    pFramework->GetGuiController()->OnTapEnded(m_startTouchPoint);
   }
   else if (m_bWasReleased)
   {
-    pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(m2::PointD(m_startTouchPoint.first, m_startTouchPoint.second), false));
+    pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(m_startTouchPoint, false));
     m_bWasReleased = false;
   }
   else
@@ -118,11 +115,12 @@ void TouchProcessor::OnTouchLongPressed(Tizen::Ui::Control const & source,
     Tizen::Ui::TouchEventInfo const & touchInfo)
 {
   m_wasLongPress = true;
-  TPointPairs pts = detail::GetTouchedPoints(m_pForm->GetClientAreaBounds());
+  TPointPairs pts;
+  GetTouchedPoints(m_pForm->GetClientAreaBounds(), pts);
   if (pts.size() > 0)
   {
     ::Framework * pFramework = tizen::Framework::GetInstance();
-    pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(m2::PointD(pts[0].first, pts[0].second), true));
+    pFramework->GetBalloonManager().OnShowMark(pFramework->GetUserMark(pts[0], true));
   }
 }
 
@@ -130,20 +128,21 @@ void TouchProcessor::OnTouchMoved(Tizen::Ui::Control const & source,
     Point const & currentPosition,
     Tizen::Ui::TouchEventInfo const & touchInfo)
 {
-  if (m_state == st_empty)
+  if (m_state == ST_EMPTY)
   {
     LOG(LERROR, ("Undefined behavior, OnTouchMoved"));
     return;
   }
 
-  TPointPairs pts = detail::GetTouchedPoints(m_pForm->GetClientAreaBounds());
+  TPointPairs pts;
+  GetTouchedPoints(m_pForm->GetClientAreaBounds(), pts);
   if (pts.empty())
     return;
 
   ::Framework * pFramework = tizen::Framework::GetInstance();
-  if (m_state == st_waitTimer)
+  if (m_state == ST_WAIT_TIMER)
   {
-    double dist = sqrt(pow(pts[0].first - m_startTouchPoint.first, 2) + pow(pts[0].second - m_startTouchPoint.second, 2));
+    double dist = sqrt(pow(pts[0].x - m_startTouchPoint.x, 2) + pow(pts[0].y - m_startTouchPoint.y, 2));
     if (dist > 20)
     {
       m_timer.Cancel();
@@ -155,29 +154,29 @@ void TouchProcessor::OnTouchMoved(Tizen::Ui::Control const & source,
 
   if (pts.size() == 1)
   {
-    if (m_state == st_rotating)
+    if (m_state == ST_ROTATING)
     {
-      pFramework->StopScale(ScaleEvent(m_prev_pts[0].first, m_prev_pts[0].second, m_prev_pts[1].first, m_prev_pts[1].second));
-      pFramework->StartDrag(DragEvent(pts[0].first, pts[0].second));
+      pFramework->StopScale(ScaleEvent(m_prev_pts[0].x, m_prev_pts[0].y, m_prev_pts[1].x, m_prev_pts[1].y));
+      pFramework->StartDrag(DragEvent(pts[0].x, pts[0].y));
     }
-    else if (m_state == st_moving)
+    else if (m_state == ST_MOVING)
     {
-      pFramework->DoDrag(DragEvent(pts[0].first, pts[0].second));
+      pFramework->DoDrag(DragEvent(pts[0].x, pts[0].y));
     }
-    m_state = st_moving;
+    m_state = ST_MOVING;
   }
   else if (pts.size() > 1)
   {
-    if (m_state == st_rotating)
+    if (m_state == ST_ROTATING)
     {
-      pFramework->DoScale(ScaleEvent(pts[0].first, pts[0].second, pts[1].first, pts[1].second));
+      pFramework->DoScale(ScaleEvent(pts[0].x, pts[0].y, pts[1].x, pts[1].y));
     }
-    else if (m_state == st_moving)
+    else if (m_state == ST_MOVING)
     {
-      pFramework->StopDrag(DragEvent(m_prev_pts[0].first, m_prev_pts[0].second));
-      pFramework->StartScale(ScaleEvent(pts[0].first, pts[0].second, pts[1].first, pts[1].second));
+      pFramework->StopDrag(DragEvent(m_prev_pts[0].x, m_prev_pts[0].y));
+      pFramework->StartScale(ScaleEvent(pts[0].x, pts[0].y, pts[1].x, pts[1].y));
     }
-    m_state = st_rotating;
+    m_state = ST_ROTATING;
   }
   std::swap(m_prev_pts, pts);
 }
@@ -186,26 +185,26 @@ void TouchProcessor::OnTouchReleased(Tizen::Ui::Control const & source,
     Point const & currentPosition,
     Tizen::Ui::TouchEventInfo const & touchInfo)
 {
-  if (m_state == st_empty)
+  if (m_state == ST_EMPTY)
   {
     LOG(LERROR, ("Undefined behavior"));
     return;
   }
 
-  if (m_state == st_waitTimer)
+  if (m_state == ST_WAIT_TIMER)
   {
     m_bWasReleased = true;
     return;
   }
 
   ::Framework * pFramework = tizen::Framework::GetInstance();
-  if (m_state == st_moving)
+  if (m_state == ST_MOVING)
   {
-    pFramework->StopDrag(DragEvent(m_prev_pts[0].first, m_prev_pts[0].second));
+    pFramework->StopDrag(DragEvent(m_prev_pts[0].x, m_prev_pts[0].y));
   }
-  else if (m_state == st_rotating)
+  else if (m_state == ST_ROTATING)
   {
-    pFramework->StopScale(ScaleEvent(m_prev_pts[0].first, m_prev_pts[0].second, m_prev_pts[1].first, m_prev_pts[1].second));
+    pFramework->StopScale(ScaleEvent(m_prev_pts[0].x, m_prev_pts[0].y, m_prev_pts[1].x, m_prev_pts[1].y));
   }
-  m_state = st_empty;
+  m_state = ST_EMPTY;
 }

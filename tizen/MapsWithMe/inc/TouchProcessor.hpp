@@ -4,6 +4,7 @@
 
 #include "../../../std/utility.hpp"
 #include "../../../std/vector.hpp"
+#include "../../../map/user_mark.hpp"
 
 class MapsWithMeForm;
 
@@ -34,23 +35,23 @@ public:
   // ITimerEventListener
   virtual void  OnTimerExpired (Tizen::Base::Runtime::Timer & timer);
 
-  typedef vector<pair<double, double> > TPointPairs;
+  typedef vector<m2::PointD> TPointPairs;
 private:
 
   void StartMove(TPointPairs const & pts);
   enum EState
   {
-    st_waitTimer,
-    st_moving,
-    st_rotating,
-    st_empty
+    ST_WAIT_TIMER,
+    ST_MOVING,
+    ST_ROTATING,
+    ST_EMPTY
   };
 
   EState m_state;
   MapsWithMeForm * m_pForm;
   bool m_wasLongPress;
   bool m_bWasReleased;
-  pair<double, double> m_startTouchPoint;
-  vector<pair<double, double> > m_prev_pts;
+  m2::PointD m_startTouchPoint;
+  TPointPairs m_prev_pts;
   Tizen::Base::Runtime::Timer m_timer;
 };
