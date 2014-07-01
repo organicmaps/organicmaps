@@ -613,7 +613,8 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public boolean onOptionsItemSelected(MenuItem item)
   {
-    switch (item.getItemId())
+    final int menuItemId = item.getItemId();
+    switch (menuItemId)
     {
     case R.id.menuitem_download_maps:
       runDownloadActivity();
@@ -627,7 +628,14 @@ public class MWMActivity extends NvEventQueueActivity
       startActivity(new Intent(MWMActivity.this, SettingsActivity.class));
       return true;
     default:
-      return super.onOptionsItemSelected(item);
+      // This menu item id exists only in Lite versions builds
+      if (menuItemId == getResources().getIdentifier("menuitem_buy_pro", "id", getPackageName()))
+      {
+        runProVersionMarketActivity();
+        return true;
+      }
+      else
+        return super.onOptionsItemSelected(item);
     }
   }
 
