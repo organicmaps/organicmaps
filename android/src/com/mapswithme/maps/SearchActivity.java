@@ -78,18 +78,18 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
     private static final String m_categories[] = {
       "food",
-      "shop",
       "hotel",
       "tourism",
+      "transport",
+      "fuel",
+      "shop",
       "entertainment",
       "atm",
       "bank",
-      "transport",
-      "fuel",
       "parking",
+      "toilet",
       "pharmacy",
       "hospital",
-      "toilet",
       "post",
       "police"
     };
