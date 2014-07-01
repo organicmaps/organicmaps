@@ -585,14 +585,14 @@ public class MapInfoView extends LinearLayout
     {
       mMaxPlacePageHeight = parent.getHeight() / 2;
       final ViewGroup.LayoutParams lp = mPlacePageGroup.getLayoutParams();
-      if (lp != null)
+      if (lp != null && lp.height != mMaxPlacePageHeight)
       {
         lp.height = mMaxPlacePageHeight;
         mPlacePageGroup.setLayoutParams(lp);
+        requestLayout();
+        invalidate();
       }
     }
-    requestLayout();
-    invalidate();
   }
 
   @Override
