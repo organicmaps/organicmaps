@@ -773,6 +773,7 @@ const long long LITE_IDL = 431183278L;
 - (void)clearApiMode:(id)sender
 {
   [self setApiMode:NO animated:YES];
+  [self cleanUserMarks];
 }
 
 - (void)backToApiApp:(id)sender
@@ -1063,12 +1064,6 @@ const long long LITE_IDL = 431183278L;
 
     [self.view insertSubview:self.searchView belowSubview:self.containerView];
     self.containerView.placePage.statusBarIncluded = YES;
-
-    Framework & framework = GetFramework();
-    framework.GetBalloonManager().RemovePin();
-    framework.GetBalloonManager().Dismiss();
-    framework.GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
-    framework.Invalidate();
   }
 
   [self dismissPopover];
@@ -1080,6 +1075,15 @@ const long long LITE_IDL = 431183278L;
 
   if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)])
     [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)cleanUserMarks
+{
+  Framework & framework = GetFramework();
+  framework.GetBalloonManager().RemovePin();
+  framework.GetBalloonManager().Dismiss();
+  framework.GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
+  framework.Invalidate();
 }
 
 - (void)setupMeasurementSystem

@@ -1487,6 +1487,11 @@ bool Framework::ShowMapForURL(string const & url)
         m_balloonManager.OnShowMark(mark);
       }
     }
+    else
+    {
+      m_balloonManager.RemovePin();
+      m_balloonManager.Dismiss();
+    }
 
     return true;
   }
