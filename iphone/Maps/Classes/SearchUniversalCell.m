@@ -159,6 +159,7 @@
     _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _subtitleLabel.backgroundColor = [UIColor clearColor];
     _subtitleLabel.textColor = [UIColor whiteColor];
+    _subtitleLabel.font = SUBTITLE_FONT;
   }
   return _subtitleLabel;
 }
