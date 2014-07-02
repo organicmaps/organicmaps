@@ -413,7 +413,7 @@ namespace
     if (pt.x != pxRect.maxX())
     {
       // start scaling point is 1 / factor way between pt and right border
-      startPt.x = pt.x + ((pxRect.maxX() - pt.x) / factor);
+      startPt.x = pt.x + (pxRect.maxX() - pt.x) / factor;
       endPt.x = pxRect.maxX();
     }
     else
@@ -425,7 +425,7 @@ namespace
 
     if (pt.y != pxRect.maxY())
     {
-      startPt.y = pt.y + ((pxRect.maxY() - pt.y) / factor);
+      startPt.y = pt.y + (pxRect.maxY() - pt.y) / factor;
       endPt.y = pxRect.maxY();
     }
     else
@@ -538,8 +538,6 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                           bool skipMinScaleAndBordersCheck,
                           bool doRotateScreen)
 {
-  LOG(LDEBUG, ("Start = ", oldPt2));
-  LOG(LDEBUG, ("End = ", newPt2));
   math::Matrix<double, 3, 3> newM = m_Screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1, oldPt2, newPt1, newPt2);
 
   double oldAngle = m_Screen.GetAngle();
