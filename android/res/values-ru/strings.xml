@@ -337,5 +337,6 @@
 	<string name="free">Бесплатно</string>
 	<!-- Used in More Apps menu -->
 	<string name="buy">Купить</string>
+	<!-- 1st search button-like result -->
 	<string name="search_on_map">Искать на карте</string>
 </resources>

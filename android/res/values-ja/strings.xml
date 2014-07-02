@@ -325,5 +325,6 @@
 	<string name="free">無料</string>
 	<!-- Used in More Apps menu -->
 	<string name="buy">購入</string>
+	<!-- 1st search button-like result -->
 	<string name="search_on_map">地図を検索</string>
 </resources>

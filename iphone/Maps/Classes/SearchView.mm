@@ -475,7 +475,7 @@ static void onSearchResultCallback(search::Results const & results)
     {
       SearchUniversalCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
 
-      [customCell setTitle:NSLocalizedString(@"search_show_on_map", nil) selectedRanges:nil];
+      [customCell setTitle:NSLocalizedString(@"search_on_map", nil) selectedRanges:nil];
       customCell.subtitleLabel.text = nil;
       customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinsIcon"];
       customCell.distanceLabel.text = nil;
@@ -535,7 +535,7 @@ static void onSearchResultCallback(search::Results const & results)
     }
     case CellTypeShowOnMap:
     {
-      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"search_show_on_map", nil) type:nil subtitle:nil distance:nil viewWidth:tableView.width];
+      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"search_on_map", nil) type:nil subtitle:nil distance:nil viewWidth:tableView.width];
     }
     case CellTypeResult:
     {

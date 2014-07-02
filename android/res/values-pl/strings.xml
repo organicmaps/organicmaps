@@ -348,5 +348,6 @@
 	<string name="free">Darmowy</string>
 	<!-- Used in More Apps menu -->
 	<string name="buy">Kup</string>
+	<!-- 1st search button-like result -->
 	<string name="search_on_map">Szukaj na mapie</string>
 </resources>

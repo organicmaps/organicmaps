@@ -353,5 +353,6 @@
 	<string name="free">Free</string>
 	<!-- Used in More Apps menu -->
 	<string name="buy">Buy</string>
+	<!-- 1st search button-like result -->
 	<string name="search_on_map">Search on map</string>
 </resources>

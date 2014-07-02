@@ -3245,18 +3245,20 @@
     hu = Megvásárlás
 
   [search_on_map]
-    ru = Искать на карте
+    tags = ios
+    comment = 1st search button-like result
     en = Search on map
-    nl = Op kaart zoeken
-    zh-Hant = 在地圖上搜尋
-    de = Auf der Landkarte suchen
-    fr = Recherche sur la carte
-    it = Cerca sulla mappa
+    ru = Искать на карте
+    uk = Шукати на карті
+    es = Buscar en mapa
     pt = Pesquisar no mapa
     pl = Szukaj na mapie
-    ja = 地図を検索
-    es = Buscar en mapa
+    it = Cerca sulla mappa
+    nl = Op kaart zoeken
+    de = Auf der Landkarte suchen
     cs = Hledat na mapě
-    uk = Шукати на карті
-    hu = Keresés a térképen
+    fr = Recherche sur la carte
+    ja = 地図を検索
     ko = 지도에서 검색
+    zh-Hant = 在地圖上搜尋
+    hu = Keresés a térképen

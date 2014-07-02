@@ -335,5 +335,6 @@
 	<string name="free">Zdarma</string>
 	<!-- Used in More Apps menu -->
 	<string name="buy">Koupit</string>
+	<!-- 1st search button-like result -->
 	<string name="search_on_map">Hledat na mapě</string>
 </resources>

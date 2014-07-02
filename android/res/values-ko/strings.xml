@@ -321,5 +321,6 @@
 	<string name="free">무료</string>
 	<!-- Used in More Apps menu -->
 	<string name="buy">구입</string>
+	<!-- 1st search button-like result -->
 	<string name="search_on_map">지도에서 검색</string>
 </resources>

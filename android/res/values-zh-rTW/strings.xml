@@ -317,5 +317,6 @@
 	<string name="free">免費</string>
 	<!-- Used in More Apps menu -->
 	<string name="buy">購買</string>
+	<!-- 1st search button-like result -->
 	<string name="search_on_map">在地圖上搜尋</string>
 </resources>
