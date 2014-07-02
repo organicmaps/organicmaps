@@ -34,25 +34,6 @@ typedef function<void (int)> int_fun_t;
 
 namespace
 {
-  void DumpImage(unsigned char * image, int w, int h)
-  {
-    QFile f("/Users/ExMix/dump.txt");
-    f.open(QIODevice::WriteOnly);
-
-    QTextStream stream(&f);
-    stream.setIntegerBase(16);
-    stream.setFieldWidth(3);
-
-    for (int y = 0; y < h; ++y)
-    {
-      for (int x = 0; x < w; ++x)
-      {
-        stream << image[x + y * w];
-      }
-      stream << "\n";
-    }
-  }
-
   //static int GlyphScaler = 16;
   static int EtalonTextureSize = 1024;
   struct ZeroPoint
@@ -348,8 +329,6 @@ namespace
             subView(x, y) = 0;
         }
       }
-
-      DumpImage(&image[0], sWidth, sHeight);
 
       DFMap forwardMap(image, sWidth, sHeight, 255, 0);
       DFMap inverseMap(image, sWidth, sHeight, 0, 255);

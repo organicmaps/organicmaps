@@ -121,9 +121,9 @@ namespace
         m_rHeight += m_startY;
         m_startY = 0;
       }
-      else if (m_startY + m_rHeight >= m_view.width())
+      else if (m_startY + m_rHeight >= m_view.height())
       {
-        m_rHeight = (m_view.width() - 1) - m_startY;
+        m_rHeight = (m_view.height() - 1) - m_startY;
       }
 
       m_currentX = m_startX;
