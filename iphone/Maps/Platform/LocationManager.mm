@@ -236,7 +236,7 @@
   // 36-120 m/s
   static char const * train = "\xF0\x9F\x9A\x85 ";
   // 120-278 m/s
-  static char const * airplane = "\xF0\x9F\x9B\xA7 ";
+  static char const * airplane = "\xE2\x9C\x88\xEF\xB8\x8F ";
   // 278+
   static char const * rocket = "\xF0\x9F\x9A\x80 ";
 
