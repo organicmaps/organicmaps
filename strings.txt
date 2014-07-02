@@ -3243,3 +3243,20 @@
     ko = 구입
     zh-Hant = 購買
     hu = Megvásárlás
+
+  [search_on_map]
+    ru = Искать на карте
+    en = Search on map
+    nl = Op kaart zoeken
+    zh-Hant = 在地圖上搜尋
+    de = Auf der Landkarte suchen
+    fr = Recherche sur la carte
+    it = Cerca sulla mappa
+    pt = Pesquisar no mapa
+    pl = Szukaj na mapie
+    ja = 地図を検索
+    es = Buscar en mapa
+    cs = Hledat na mapě
+    uk = Шукати на карті
+    hu = Keresés a térképen
+    ko = 지도에서 검색

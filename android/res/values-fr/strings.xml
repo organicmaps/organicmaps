@@ -350,4 +350,5 @@
 	<string name="free">Gratuit</string>
 	<!-- Used in More Apps menu -->
 	<string name="buy">Acheter</string>
+	<string name="search_on_map">Recherche sur la carte</string>
 </resources>

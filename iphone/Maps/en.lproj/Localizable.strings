@@ -547,3 +547,5 @@
 
 /* Used in More Apps menu */
 "buy" = "Buy";
+
+"search_on_map" = "Search on map";

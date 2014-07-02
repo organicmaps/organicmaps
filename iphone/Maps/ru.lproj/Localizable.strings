@@ -547,3 +547,5 @@
 
 /* Used in More Apps menu */
 "buy" = "Купить";
+
+"search_on_map" = "Искать на карте";

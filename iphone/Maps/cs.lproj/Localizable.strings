@@ -547,3 +547,5 @@
 
 /* Used in More Apps menu */
 "buy" = "Koupit";
+
+"search_on_map" = "Hledat na mapě";

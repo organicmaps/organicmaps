@@ -547,3 +547,5 @@
 
 /* Used in More Apps menu */
 "buy" = "구입";
+
+"search_on_map" = "지도에서 검색";

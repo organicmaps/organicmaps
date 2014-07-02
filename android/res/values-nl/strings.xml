@@ -324,4 +324,5 @@
 	<string name="free">Gratis</string>
 	<!-- Used in More Apps menu -->
 	<string name="buy">Koop</string>
+	<string name="search_on_map">Op kaart zoeken</string>
 </resources>

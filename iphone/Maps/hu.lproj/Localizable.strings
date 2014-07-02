@@ -547,3 +547,5 @@
 
 /* Used in More Apps menu */
 "buy" = "Megvásárlás";
+
+"search_on_map" = "Keresés a térképen";

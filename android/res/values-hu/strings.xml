@@ -348,4 +348,5 @@
 	<string name="free">Ingyenes</string>
 	<!-- Used in More Apps menu -->
 	<string name="buy">Megvásárlás</string>
+	<string name="search_on_map">Keresés a térképen</string>
 </resources>
