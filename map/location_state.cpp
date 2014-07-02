@@ -22,11 +22,11 @@
 
 namespace location
 {
-  namespace
-  {
-    const float MaxPositionFault = 25.0;
-    const float MaxHeadingFaultDeg = 3.0;
-  }
+//  namespace
+//  {
+//    const float MaxPositionFault = 25.0;
+//    const float MaxHeadingFaultDeg = 3.0;
+//  }
 
   double const State::s_cacheRadius = 500;
 
@@ -185,13 +185,15 @@ namespace location
 
   bool State::IsPositionFaultCritical() const
   {
-    return m_positionFault > MaxPositionFault;
+    //return m_positionFault > MaxPositionFault;
+    return false;
   }
 
   bool State::IsCompassFaultCritical() const
   {
-    static double s_maxOffset = my::DegToRad(MaxHeadingFaultDeg);
-    return m_compassFault > s_maxOffset;
+    //static double s_maxOffset = my::DegToRad(MaxHeadingFaultDeg);
+    //return m_compassFault > s_maxOffset;
+    return false;
   }
 
   void State::CallCompassStatusListeners(ECompassProcessMode mode)
