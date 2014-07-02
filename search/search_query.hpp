@@ -84,8 +84,9 @@ public:
   void SetViewport(m2::RectD viewport[], size_t count);
 
   static const int empty_pos_value = -1000;
-  inline void SetPosition(m2::PointD const & pos) { m_position = pos; }
-  inline void NullPosition() { m_position = m2::PointD(empty_pos_value, empty_pos_value); }
+  void SetPosition(m2::PointD const & pos);
+  void NullPosition();
+  inline string const & GetPositionRegion() const { return m_region; }
 
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
   inline void SetSortByViewport(bool b) { m_sortByViewport = b; }
@@ -220,6 +221,7 @@ private:
 
   volatile bool m_cancel;
 
+  string m_region;
   string const * m_query;
   buffer_vector<strings::UniString, 32> m_tokens;
   strings::UniString m_prefix;

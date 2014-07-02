@@ -61,6 +61,8 @@ public:
 /// Read and fill needed info for ranking and getting final results.
 class PreResult2
 {
+  friend class PreResult2Maker;
+
   void CalcParams(m2::RectD const & viewport, m2::PointD const & pos);
 
 public:
@@ -163,7 +165,7 @@ private:
 
   double m_distance, m_distanceFromViewportCenter;
   ResultType m_resultType;
-  uint8_t m_rank;
+  uint16_t m_rank;
   uint8_t m_viewportDistance;
   feature::EGeomType m_geomType;
 };

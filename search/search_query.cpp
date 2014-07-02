@@ -178,6 +178,24 @@ void Query::SetViewportByIndex(MWMVectorT const & mwmInfo, m2::RectD const & vie
   }
 }
 
+void Query::SetPosition(m2::PointD const & pos)
+{
+  if (!m2::AlmostEqual(pos, m_position))
+  {
+    storage::CountryInfo ci;
+    m_pInfoGetter->GetRegionInfo(pos, ci);
+    m_region.swap(ci.m_name);
+  }
+
+  m_position = pos;
+}
+
+void Query::NullPosition()
+{
+  m_position = m2::PointD(empty_pos_value, empty_pos_value);
+  m_region.clear();
+}
+
 void Query::SetPreferredLanguage(string const & lang)
 {
   int8_t const code = StringUtf8Multilang::GetLangIndex(lang);
@@ -537,9 +555,38 @@ namespace impl
       LoadFeature(res.GetID(), feature, name, country);
 
       Query::ViewportID const viewportID = static_cast<Query::ViewportID>(res.GetViewportID());
-      return new impl::PreResult2(feature, &res,
-                                  m_query.GetViewport(viewportID), m_query.GetPosition(viewportID),
-                                  name, country);
+      impl::PreResult2 * res2 = new impl::PreResult2(feature, &res,
+                                                     m_query.GetViewport(viewportID), m_query.GetPosition(viewportID),
+                                                     name, country);
+
+      /// @todo: add exluding of states (without USA states), continents
+      using namespace ftypes;
+      Type const tp = IsLocalityChecker::Instance().GetType(res2->m_types);
+      switch (tp)
+      {
+      case COUNTRY:
+        res2->m_rank /= 1.5;
+        break;
+      case CITY:
+      case TOWN:
+        if (m_query.GetViewport(Query::CURRENT_V).IsPointInside(res2->GetCenter()))
+          res2->m_rank *= 2;
+        else
+        {
+          storage::CountryInfo ci;
+          res2->m_region.GetRegion(m_query.m_pInfoGetter, ci);
+          if (ci.m_name == m_query.GetPositionRegion())
+            res2->m_rank *= 1.7;
+        }
+        break;
+      case VILLAGE:
+        res2->m_rank /= 1.5;
+        break;
+      default:
+        break;
+      }
+
+      return res2;
     }
 
     impl::PreResult2 * operator() (FeatureID const & id)
@@ -664,11 +711,11 @@ void Query::FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & s
     for (size_t i = 0; i < count; ++i)
     {
       House const * h = houses[i].m_house;
-      storage::CountryInfo countryInfo;
-      m_pInfoGetter->GetRegionInfo(h->GetPosition(), countryInfo);
+      storage::CountryInfo ci;
+      m_pInfoGetter->GetRegionInfo(h->GetPosition(), ci);
 
       Result r(h->GetPosition(), h->GetNumber() + ", " + houses[i].m_street->GetName(),
-               countryInfo.m_name, string(), IsValidPosition() ? h->GetPosition().Length(m_position) : -1.0);
+               ci.m_name, string(), IsValidPosition() ? h->GetPosition().Length(m_position) : -1.0);
 
       MakeResultHighlight(r);
 #ifdef FIND_LOCALITY_TEST
