@@ -16,6 +16,7 @@
 #include "../base/std_serialization.hpp"
 #include "../base/logging.hpp"
 
+#include "../std/function.hpp"
 #include "../std/bind.hpp"
 
 namespace
@@ -402,40 +403,113 @@ void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, doubl
   m_InAction = true;
 }
 
+namespace
+{
+  void CalcScalePoints(m2::PointD const & pt, double factor, m2::RectD const & pxRect,
+                       m2::PointD & startPt, m2::PointD & endPt)
+  {
+    // pt is in x0, x0 + width
+
+    if (pt.x != pxRect.maxX())
+    {
+      // start scaling point is 1 / factor way between pt and right border
+      startPt.x = pt.x + ((pxRect.maxX() - pt.x) / factor);
+      endPt.x = pxRect.maxX();
+    }
+    else
+    {
+      // start scaling point is 1 - 1/factor way between left border and pt
+      startPt.x = pt.x + (pxRect.minX() - pt.x) / factor;
+      endPt.x = pxRect.minX();
+    }
+
+    if (pt.y != pxRect.maxY())
+    {
+      startPt.y = pt.y + ((pxRect.maxY() - pt.y) / factor);
+      endPt.y = pxRect.maxY();
+    }
+    else
+    {
+      startPt.y = pt.y + (pxRect.minY() - pt.y) / factor;
+      endPt.y = pxRect.minY();
+    }
+  }
+}
+
 void Navigator::ScaleToPoint(m2::PointD const & pt, double factor, double /*timeInSec*/)
 {
-  m2::PointD startPt;
-  m2::PointD endPt;
-
-  m2::RectD const & pxRect = m_Screen.PixelRect();
-
-  // pt is in x0, x0 + width
-
-  if (pt.x != pxRect.maxX())
-  {
-    // start scaling point is 1 / factor way between pt and right border
-    startPt.x = pt.x + ((pxRect.maxX() - pt.x) / factor);
-    endPt.x = pxRect.maxX();
-  }
-  else
-  {
-    // start scaling point is 1 - 1/factor way between left border and pt
-    startPt.x = pt.x + (pxRect.minX() - pt.x) / factor;
-    endPt.x = pxRect.minX();
-  }
-
-  if (pt.y != pxRect.maxY())
-  {
-    startPt.y = pt.y + ((pxRect.maxY() - pt.y) / factor);
-    endPt.y = pxRect.maxY();
-  }
-  else
-  {
-    startPt.y = pt.y + (pxRect.minY() - pt.y) / factor;
-    endPt.y = pxRect.minY();
-  }
-
+  m2::PointD startPt, endPt;
+  CalcScalePoints(pt, factor, m_Screen.PixelRect(), startPt, endPt);
   ScaleImpl(pt, endPt, pt, startPt, factor > 1, false);
+}
+
+namespace
+{
+  class ZoomAnim : public anim::Task
+  {
+  public:
+    typedef function<void (m2::PointD const &, m2::PointD const &,
+                           m2::PointD const &, m2::PointD const &)> scale_impl_fn;
+    ZoomAnim(m2::PointD const & startPt, m2::PointD const & endPt,
+             m2::PointD const & target, scale_impl_fn const & fn, double deltaTime)
+      : m_targetPt(target)
+      , m_startPt(startPt)
+      , m_endPt(endPt)
+      , m_prevPt(startPt)
+      , m_fn(fn)
+      , m_startTime(0.0)
+      , m_deltaTime(deltaTime)
+    {
+    }
+
+    virtual bool IsVisual() const { return true; }
+
+    void OnStart(double ts)
+    {
+      m_startTime = ts;
+    }
+
+    void OnStep(double ts)
+    {
+      double elapsed = ts - m_startTime;
+      if (my::AlmostEqual(elapsed, 0.0))
+        return;
+      
+      double t = elapsed / m_deltaTime;
+      if (t > 1.0 || my::AlmostEqual(t, 1.0))
+      {
+        m_fn(m_targetPt, m_endPt, m_targetPt, m_prevPt);
+        End();
+        return;
+      }
+
+      m2::PointD delta = (m_endPt - m_startPt) * t;
+      m2::PointD current = m_startPt + delta;
+      m_fn(m_targetPt, current, m_targetPt, m_prevPt);
+      m_prevPt = current;
+    }
+
+  private:
+    m2::PointD m_targetPt;
+    m2::PointD m_startPt;
+    m2::PointD m_endPt;
+    m2::PointD m_prevPt;
+
+    scale_impl_fn m_fn;
+    double m_startTime;
+    double m_deltaTime;
+  };
+}
+
+shared_ptr<anim::Task> Navigator::ScaleToPointAnim(m2::PointD const & pt, double factor, double timeInSec)
+{
+  m2::PointD startPt, endPt;
+  CalcScalePoints(pt, factor, m_Screen.PixelRect(), startPt, endPt);
+  ZoomAnim * anim = new ZoomAnim(startPt, endPt, pt,
+                                 bind(&Navigator::ScaleImpl, this, _1, _2, _3, _4, factor > 1, false),
+                                 timeInSec);
+
+  return make_shared_ptr(anim);
 }
 
 bool Navigator::CheckMinScale(ScreenBase const & screen) const
@@ -464,6 +538,8 @@ bool Navigator::ScaleImpl(m2::PointD const & newPt1, m2::PointD const & newPt2,
                           bool skipMinScaleAndBordersCheck,
                           bool doRotateScreen)
 {
+  LOG(LDEBUG, ("Start = ", oldPt2));
+  LOG(LDEBUG, ("End = ", newPt2));
   math::Matrix<double, 3, 3> newM = m_Screen.GtoPMatrix() * ScreenBase::CalcTransform(oldPt1, oldPt2, newPt1, newPt2);
 
   double oldAngle = m_Screen.GetAngle();
@@ -565,6 +641,11 @@ bool Navigator::IsRotatingDuringScale() const
 void Navigator::Scale(double scale)
 {
   ScaleToPoint(m_Screen.PixelRect().Center(), scale, 0);
+}
+
+shared_ptr<anim::Task> Navigator::ScaleAnim(double scale)
+{
+  return ScaleToPointAnim(m_Screen.PixelRect().Center(), scale, 0.5);
 }
 
 void Navigator::Rotate(double angle)

@@ -1005,7 +1005,7 @@ void Framework::ScaleToPoint(ScaleToPointEvent const & e)
   m2::PointD const pt = (locationState->GetLocationProcessMode() == location::ELocationDoNothing) ?
         m_navigator.ShiftPoint(e.Pt()) : GetPixelCenter();
 
-  m_navigator.ScaleToPoint(pt, e.ScaleFactor(), ElapsedSeconds());
+  m_animController->AddTask(m_navigator.ScaleToPointAnim(pt, e.ScaleFactor(), 0.5));
 
   Invalidate();
   UpdateUserViewportChanged();
@@ -1018,7 +1018,7 @@ void Framework::ScaleDefault(bool enlarge)
 
 void Framework::Scale(double scale)
 {
-  m_navigator.Scale(scale);
+  m_animController->AddTask(m_navigator.ScaleAnim(scale));
 
   Invalidate();
   UpdateUserViewportChanged();

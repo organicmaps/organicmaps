@@ -1,6 +1,8 @@
 #pragma once
 #include "scales_processor.hpp"
 
+#include "../anim/task.hpp"
+
 #include "../geometry/screenbase.hpp"
 
 #include "../base/matrix.hpp"
@@ -8,7 +10,7 @@
 
 #include "../std/function.hpp"
 #include "../std/scoped_ptr.hpp"
-
+#include "../std/shared_ptr.hpp"
 
 /// Calculates screen parameters in navigation (dragging, scaling, etc.).
 class Navigator
@@ -54,8 +56,10 @@ public:
   bool IsRotatingDuringScale() const;
 
   void ScaleToPoint(m2::PointD const & pt, double factor, double timeInSec);
+  shared_ptr<anim::Task> ScaleToPointAnim(m2::PointD const & pt, double factor, double timeInSec);
 
   void Scale(double scale);
+  shared_ptr<anim::Task> ScaleAnim(double scale);
   void Rotate(double angle);
   void SetAngle(double angle);
   void SetOrg(m2::PointD const & org);
