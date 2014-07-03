@@ -21,7 +21,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   CellRowShare,
 };
 
-@interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, LocationObserver, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate>
+@interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate>
 {
   BOOL m_hasSpeed;
 }
@@ -128,7 +128,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
   [cell updateDistance];
 
-  if ([self isMarkOfType:UserMark::MY_POSITION])
+  if ([self isMyPosition])
   {
     BOOL hasSpeed = NO;
     self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:hasSpeed];
@@ -187,7 +187,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     cell.color = [ColorPickerView colorForName:[self colorName]];
     cell.selectedColorView.alpha = [self isBookmark] ? 1 : 0;
     cell.delegate = self;
-    cell.myPositionMode = [self isMarkOfType:UserMark::MY_POSITION];
+    cell.myPositionMode = [self isMyPosition];
     return cell;
   }
   else if (row == CellRowSet)
@@ -219,7 +219,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   CellRow row = [self cellRowForIndexPath:indexPath];
   if (row == CellRowCommon)
-    return [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:tableView.width inMyPositionMode:[self isMarkOfType:UserMark::MY_POSITION]];
+    return [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:tableView.width inMyPositionMode:[self isMyPosition]];
   else if (row == CellRowSet)
     return [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:tableView.width];
   else if (row == CellRowInfo)
@@ -246,7 +246,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self.titleLabel sizeToFit];
   self.titleLabel.origin = CGPointMake(23, 29);
 
-  if ([self isMarkOfType:UserMark::MY_POSITION])
+  if ([self isMyPosition])
     self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:m_hasSpeed];
   else
     self.typeLabel.text = self.types;
@@ -352,7 +352,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   else if (self.state == PlacePageStateOpened)
   {
     self.titleLabel.userInteractionEnabled = YES;
-    CGFloat const infoCellHeight = [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:self.tableView.width inMyPositionMode:[self isMarkOfType:UserMark::MY_POSITION]];
+    CGFloat const infoCellHeight = [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:self.tableView.width inMyPositionMode:[self isMyPosition]];
     CGFloat fullHeight = [self headerHeight] + infoCellHeight + [PlacePageShareCell cellHeight];
     if ([self isBookmark])
     {
@@ -656,6 +656,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
   return m_mark ? [self userMark]->GetMarkType() == type : NO;
 }
 
+- (BOOL)isMyPosition
+{
+  return [self isMarkOfType:UserMark::MY_POSITION];
+}
+
 - (BOOL)isBookmark
 {
   return [self isMarkOfType:UserMark::BOOKMARK];
@@ -673,7 +678,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (NSString *)newBookmarkName
 {
-  if ([self isMarkOfType:UserMark::MY_POSITION])
+  if ([self isMyPosition])
   {
     Framework & f = GetFramework();
     search::AddressInfo info;
@@ -794,7 +799,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if (needUpdateAddressInfo)
   {
     needUpdateAddressInfo = NO;
-    if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH] || [self isMarkOfType:UserMark::MY_POSITION])
+    if ([self isMarkOfType:UserMark::POI] || [self isMarkOfType:UserMark::SEARCH] || [self isMyPosition])
     {
       SearchMarkPoint const * mark = static_cast<SearchMarkPoint const *>([self userMark]);
       m_addressInfo = mark->GetInfo();

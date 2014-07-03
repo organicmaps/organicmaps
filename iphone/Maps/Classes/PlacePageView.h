@@ -3,6 +3,7 @@
 #include "../../map/bookmark.hpp"
 #include "../../geometry/point2d.hpp"
 #import "UIKitCategories.h"
+#import "LocationManager.h"
 
 typedef NS_ENUM(NSUInteger, PlacePageState) {
   PlacePageStateHidden,
@@ -20,7 +21,8 @@ typedef NS_ENUM(NSUInteger, PlacePageState) {
 
 @end
 
-@interface PlacePageView : SolidTouchView
+
+@interface PlacePageView : SolidTouchView <LocationObserver>
 
 - (void)showUserMark:(UserMarkCopy *)mark;
 
@@ -30,8 +32,8 @@ typedef NS_ENUM(NSUInteger, PlacePageState) {
 @property (nonatomic, weak) id <PlacePageViewDelegate> delegate;
 
 - (m2::PointD)pinPoint;
+- (BOOL)isMyPosition;
 @property (nonatomic, readonly) NSString * temporaryTitle;
-
 @property (nonatomic) BOOL statusBarIncluded;
 
 @end

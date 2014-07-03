@@ -230,6 +230,13 @@ const long long LITE_IDL = 431183278L;
   [[MapsAppDelegate theApp] enableStandby];
   [[MapsAppDelegate theApp].m_locationManager stop:self];
 
+  PlacePageView * placePage = self.containerView.placePage;
+  [[MapsAppDelegate theApp].m_locationManager stop:placePage];
+  if ([placePage isMyPosition])
+    [placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
+  else
+    [placePage setState:placePage.state animated:YES withCallback:YES];
+
   self.toolbarView.locationButton.selected = NO;
   [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
 }
@@ -405,8 +412,8 @@ const long long LITE_IDL = 431183278L;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	[self updatePointsFromEvent:event];
-	[self stopCurrentAction];
+  [self updatePointsFromEvent:event];
+  [self stopCurrentAction];
 
   UITouch * theTouch = (UITouch *)[touches anyObject];
   NSUInteger const tapCount = theTouch.tapCount;
