@@ -1,9 +1,9 @@
 #pragma once
 
 #include "texture.hpp"
-#include "texture_structure_desc.hpp"
 
 #include "../std/string.hpp"
+#include "../std/map.hpp"
 
 class SymbolsTexture : public Texture
 {
@@ -12,16 +12,29 @@ public:
   {
   public:
     SymbolKey(string const & symbolName);
-    virtual Type GetType() const;
+    virtual ResourceType GetType() const;
     string const & GetSymbolName() const;
 
   private:
     string m_symbolName;
   };
 
+  class SymbolInfo : public ResourceInfo
+  {
+  public:
+    SymbolInfo(m2::RectF const & texRect);
+    virtual ResourceType GetType() const;
+  };
+
   void Load(string const & skinPathName);
-  bool FindResource(Key const & key, m2::RectF & texRect, m2::PointU & pixelSize) const;
+  ResourceInfo const * FindResource(Key const & key) const;
 
 private:
-  TextureStructureDesc m_desc;
+  void Fail();
+
+private:
+  typedef map<string, SymbolInfo> tex_definition_t;
+  tex_definition_t m_definition;
+
+  class DefinitionLoader;
 };

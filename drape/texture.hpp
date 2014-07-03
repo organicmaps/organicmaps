@@ -6,6 +6,7 @@
 #include "../geometry/rect2d.hpp"
 
 #include "../std/stdint.hpp"
+#include "../std/function.hpp"
 
 class Texture
 {
@@ -17,17 +18,29 @@ public:
     ALPHA
   };
 
+  enum ResourceType
+  {
+    Symbol,
+    Glyph,
+    UniformValue
+  };
+
   class Key
   {
   public:
-    enum Type
-    {
-      Symbol,
-      Font,
-      UniformValue
-    };
+    virtual ResourceType GetType() const = 0;
+  };
 
-    virtual Type GetType() const = 0;
+  class ResourceInfo
+  {
+  public:
+    ResourceInfo(m2::RectF const & texRect);
+
+    virtual ResourceType GetType() const = 0;
+    m2::RectF const & GetTexRect() const;
+
+  private:
+    m2::RectF m_texRect;
   };
 
   Texture();
@@ -41,7 +54,7 @@ public:
   void UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, TextureFormat format,
                   RefPointer<void> data);
 
-  virtual bool FindResource(Key const & key, m2::RectF & texRect, m2::PointU & pixelSize) const = 0;
+  virtual ResourceInfo const * FindResource(Key const & key) const = 0;
 
   uint32_t GetWidth() const;
   uint32_t GetHeight() const;

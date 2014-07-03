@@ -18,18 +18,20 @@ PoiSymbolShape::PoiSymbolShape(m2::PointD const & mercatorPt, PoiSymbolViewParam
 
 void PoiSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
 {
-  TextureSetHolder::TextureRegion region;
+  TextureSetHolder::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
 
   GLState state(gpu::TEXTURING_PROGRAM, GLState::OverlayLayer);
-  state.SetTextureSet(region.m_textureSet);
+  state.SetTextureSet(region.GetTextureNode().m_textureSet);
 
   state.SetBlending(Blending(true));
 
-  m2::PointF halfSize(region.m_pixelSize.x / 2.0, region.m_pixelSize.y / 2.0);
-  m2::RectF const & texRect = region.m_stRect;
+  m2::PointU pixelSize;
+  region.GetPixelSize(pixelSize);
+  m2::PointF halfSize(pixelSize.x / 2.0, pixelSize.y / 2.0);
+  m2::RectF const & texRect = region.GetTexRect();
   float depth = m_params.m_depth;
-  float texture = (float)region.m_textureOffset;
+  float texture = (float)region.GetTextureNode().m_textureOffset;
 
   float stream[]     =
   //   x       y       z      normal.x    normal.y        s              t          textureIndex
@@ -65,7 +67,7 @@ void PoiSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHold
   OverlayHandle * handle = new OverlayHandle(m_params.m_id,
                                              OverlayHandle::Center,
                                              m_pt,
-                                             region.m_pixelSize,
+                                             pixelSize,
                                              m_params.m_depth);
 
   provider.InitStream(0, info, MakeStackRefPointer<void>(stream));

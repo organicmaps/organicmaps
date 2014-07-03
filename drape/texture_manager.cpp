@@ -35,15 +35,23 @@ public:
     m_textures.push_back(MasterPointer<Texture>(texture));
   }
 
-  int32_t FindResource(Texture::Key const & key, m2::RectF & texRect, m2::PointU & pixelSize) const
+  Texture::ResourceInfo const * FindResource(Texture::Key const & key,
+                                             TextureManager::TextureNode & node) const
   {
     for (size_t i = 0; i < m_textures.size(); ++i)
     {
-      if (m_textures[i]->FindResource(key, texRect, pixelSize))
-        return i;
+      RefPointer<Texture> texture = m_textures[i].GetRefPointer();
+      Texture::ResourceInfo const * info =  texture->FindResource(key);
+      if (info != NULL)
+      {
+        node.m_width = texture->GetWidth();
+        node.m_height = texture->GetHeight();
+        node.m_textureOffset = i;
+        return info;
+      }
     }
 
-    return -1;
+    return NULL;
   }
 
   void BindTextureSet() const
@@ -81,12 +89,20 @@ void TextureManager::Release()
   m_textures.Destroy();
 }
 
-void TextureManager::GetSymbolRegion(string const & symbolName, TextureRegion & symbol) const
+void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region) const
 {
   SymbolsTexture::SymbolKey key(symbolName);
-  symbol.m_textureSet = 0;
-  symbol.m_textureOffset = m_textures->FindResource(key, symbol.m_stRect, symbol.m_pixelSize);
-  ASSERT(symbol.m_textureOffset != -1, ());
+  TextureNode node;
+  node.m_textureSet = 0;
+  Texture::ResourceInfo const * info = m_textures->FindResource(key, node);
+  ASSERT(node.m_textureOffset != -1, ());
+  region.SetResourceInfo(info);
+  region.SetTextureNode(node);
+}
+
+void TextureManager::GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const
+{
+  // todo;
 }
 
 void TextureManager::BindTextureSet(uint32_t textureSet) const

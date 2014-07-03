@@ -1,17 +1,99 @@
 #include "symbols_texture.hpp"
 
-#include "utils/stb_image.h"
 
 #include "../platform/platform.hpp"
+
+#include "../coding/reader.hpp"
+#include "../coding/parse_xml.hpp"
+#include "../coding/stb_image.h"
+
+#include "../base/string_utils.hpp"
+
+class SymbolsTexture::DefinitionLoader
+{
+public:
+  DefinitionLoader(SymbolsTexture::tex_definition_t & definition)
+    : m_def(definition)
+    , m_width(0)
+    , m_height(0)
+  {
+  }
+
+  bool Push(string const & /*element*/) { return true;}
+
+  void Pop(string const & element)
+  {
+    if (element == "symbol")
+    {
+      ASSERT(!m_name.empty(), ());
+      ASSERT(m_rect.IsValid(), ());
+      m_def.insert(make_pair(m_name, SymbolsTexture::SymbolInfo(m_rect)));
+
+      m_name = "";
+      m_rect.MakeEmpty();
+    }
+  }
+
+  void AddAttr(string const & attribute, string const & value)
+  {
+    if (attribute == "name")
+      m_name = value;
+    else
+    {
+      int v;
+      if (!strings::to_int(value, v))
+        return;
+
+      if (attribute == "minX")
+      {
+        ASSERT(m_width != 0, ());
+        m_rect.setMinX(v / (float)m_width);
+      }
+      else if (attribute == "minY")
+      {
+        ASSERT(m_height != 0, ());
+        m_rect.setMinY(v / (float)m_height);
+      }
+      else if (attribute == "maxX")
+      {
+        ASSERT(m_width != 0, ());
+        m_rect.setMaxX(v / (float)m_width);
+      }
+      else if (attribute == "maxY")
+      {
+        ASSERT(m_height != 0, ());
+        m_rect.setMaxY(v / (float)m_height);
+      }
+      else if (attribute == "height")
+        m_height = v;
+      else if (attribute == "width")
+        m_width = v;
+    }
+  }
+
+  void CharData(string const &) {}
+
+  uint32_t GetWidth() const { return m_width; }
+  uint32_t GetHeight() const { return m_height; }
+
+private:
+  SymbolsTexture::tex_definition_t & m_def;
+  uint32_t m_width;
+  uint32_t m_height;
+
+  string m_name;
+  m2::RectF m_rect;
+
+};
 
 SymbolsTexture::SymbolKey::SymbolKey(string const & symbolName)
   : m_symbolName(symbolName)
 {
 }
 
-Texture::Key::Type SymbolsTexture::SymbolKey::GetType() const
+Texture::ResourceType SymbolsTexture::SymbolKey::GetType() const
 {
-  return Texture::Key::Symbol;
+  return Texture::Symbol;
 }
 
 string const & SymbolsTexture::SymbolKey::GetSymbolName() const
@@ -19,48 +101,79 @@ string const & SymbolsTexture::SymbolKey::GetSymbolName() const
   return m_symbolName;
 }
 
+SymbolsTexture::SymbolInfo::SymbolInfo(const m2::RectF & texRect)
+  : ResourceInfo(texRect)
+{
+}
+
+Texture::ResourceType SymbolsTexture::SymbolInfo::GetType() const
+{
+  return Symbol;
+}
+
 void SymbolsTexture::Load(string const & skinPathName)
 {
-  uint32_t width, height;
   vector<unsigned char> rawData;
+  uint32_t width, height;
 
   try
   {
-    m_desc.Load(skinPathName + ".sdf", width, height);
-    ReaderPtr<ModelReader> reader = GetPlatform().GetReader(skinPathName + ".png");
-    uint64_t size = reader.Size();
-    rawData.resize(size);
-    reader.Read(0, &rawData[0], size);
+    DefinitionLoader loader(m_definition);
+
+    {
+      ReaderPtr<Reader> reader = GetPlatform().GetReader(skinPathName + ".sdf");
+      ReaderSource<ReaderPtr<Reader> > source(reader);
+      if (!ParseXML(source, loader))
+      {
+        LOG(LERROR, ("Error parsing skin"));
+        Fail();
+        return;
+      }
+
+      width = loader.GetWidth();
+      height = loader.GetHeight();
+    }
+
+    {
+      ReaderPtr<Reader> reader = GetPlatform().GetReader(skinPathName + ".png");
+      uint64_t size = reader.Size();
+      rawData.resize(size);
+      reader.Read(0, &rawData[0], size);
+    }
   }
   catch (RootException & e)
   {
     LOG(LERROR, (e.what()));
-    int32_t alfaTexture = 0;
-    Create(1, 1, Texture::RGBA8, MakeStackRefPointer(&alfaTexture));
+    Fail();
     return;
   }
 
   int w, h, bpp;
   unsigned char * data = stbi_png_load_from_memory(&rawData[0], rawData.size(), &w, &h, &bpp, 0);
 
-  ASSERT(width == w && height == h, ());
-  Create(width, height, Texture::RGBA8, MakeStackRefPointer<void>(data));
+  if (width == w && height == h)
+    Create(width, height, Texture::RGBA8, MakeStackRefPointer<void>(data));
+  else
+    Fail();
+
   stbi_image_free(data);
 }
 
-bool SymbolsTexture::FindResource(Texture::Key const & key, m2::RectF & texRect, m2::PointU & pixelSize) const
+Texture::ResourceInfo const * SymbolsTexture::FindResource(Texture::Key const & key) const
 {
-  if (key.GetType() != Texture::Key::Symbol)
-    return false;
+  if (key.GetType() != Texture::Symbol)
+    return NULL;
 
   string const & symbolName = static_cast<SymbolKey const &>(key).GetSymbolName();
 
-  m2::RectU r;
-  if (!m_desc.GetResource(symbolName, r))
-    return false;
+  tex_definition_t::const_iterator it = m_definition.find(symbolName);
+  ASSERT(it != m_definition.end(), ());
+  return &(it->second);
+}
 
-  pixelSize.x = r.SizeX();
-  pixelSize.y = r.SizeY();
-  texRect = m2::RectF(GetS(r.minX()), GetT(r.minY()), GetS(r.maxX()), GetT(r.maxY()));
-  return true;
+void SymbolsTexture::Fail()
+{
+  m_definition.clear();
+  int32_t alfaTexture = 0;
+  Create(1, 1, Texture::RGBA8, MakeStackRefPointer(&alfaTexture));
 }

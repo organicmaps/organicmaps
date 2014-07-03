@@ -7,6 +7,16 @@
 
 #define ASSERT_ID ASSERT(GetID() != -1, ())
 
+Texture::ResourceInfo::ResourceInfo(m2::RectF const & texRect)
+  : m_texRect(texRect) {}
+
+m2::RectF const & Texture::ResourceInfo::GetTexRect() const
+{
+  return m_texRect;
+}
+
+//////////////////////////////////////////////////////////////////
+
 Texture::Texture()
   : m_textureID(-1)
   , m_width(0)
