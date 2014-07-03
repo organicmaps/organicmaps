@@ -1,6 +1,5 @@
 
 #import "SearchView.h"
-#import "SearchUniversalCell.h"
 #import "UIKitCategories.h"
 #import "MapsAppDelegate.h"
 #import "LocationManager.h"
@@ -9,6 +8,9 @@
 #import "LocationManager.h"
 #import "ToastView.h"
 #import "SearchSuggestCell.h"
+#import "SearchResultCell.h"
+#import "SearchShowOnMapCell.h"
+#import "SearchCategoryCell.h"
 
 #include "Framework.h"
 
@@ -106,7 +108,6 @@ typedef NS_ENUM(NSUInteger, CellType)
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) SolidTouchImageView * topBackgroundView;
 @property (nonatomic) UILabel * emptyResultLabel;
-@property (nonatomic) UIImageView * suggestsTopImageView;
 
 @property (nonatomic) SearchResultsWrapper * wrapper;
 @property (nonatomic) NSArray * categoriesNames;
@@ -140,8 +141,10 @@ __weak SearchView * selfPointer;
   selfPointer = self;
   needToScroll = NO;
 
-  [self.tableView registerClass:[SearchUniversalCell class] forCellReuseIdentifier:[SearchUniversalCell className]];
+  [self.tableView registerClass:[SearchCategoryCell class] forCellReuseIdentifier:[SearchCategoryCell className]];
+  [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:[SearchResultCell className]];
   [self.tableView registerClass:[SearchSuggestCell class] forCellReuseIdentifier:[SearchSuggestCell className]];
+  [self.tableView registerClass:[SearchShowOnMapCell class] forCellReuseIdentifier:[SearchShowOnMapCell className]];
 
   return self;
 }
@@ -330,7 +333,6 @@ static void onSearchResultCallback(search::Results const & results)
   {
     self.emptyResultLabel.hidden = [self isShowingCategories] ? YES : ([self rowsCount] > 0);
     self.wrapper = wrapper;
-    self.suggestsTopImageView.hidden = ![wrapper suggestsCount];
     [self.tableView reloadData];
     [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
   }
@@ -379,7 +381,6 @@ static void onSearchResultCallback(search::Results const & results)
   if ([self isShowingCategories])
   {
     [self.searchBar setSearching:NO];
-    self.suggestsTopImageView.hidden = YES;
     self.emptyResultLabel.hidden = YES;
     [self.tableView reloadData];
   }
@@ -459,34 +460,25 @@ static void onSearchResultCallback(search::Results const & results)
   {
     case CellTypeCategory:
     {
-      SearchUniversalCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
+      SearchCategoryCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchCategoryCell className]];
 
-      [customCell setTitle:NSLocalizedString(self.categoriesNames[indexPath.row], nil) selectedRanges:nil];
-      customCell.subtitleLabel.text = nil;
+      customCell.titleLabel.text = NSLocalizedString(self.categoriesNames[indexPath.row], nil);
       NSString * iconName = [NSString stringWithFormat:@"CategoryIcon%@", [self.categoriesNames[indexPath.row] capitalizedString]];
       customCell.iconImageView.image = [UIImage imageNamed:iconName];
-      customCell.distanceLabel.text = nil;
-      customCell.typeLabel.text = nil;
-      customCell.largeIconStyle = YES;
       cell = customCell;
       break;
     }
     case CellTypeShowOnMap:
     {
-      SearchUniversalCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
+      SearchShowOnMapCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchShowOnMapCell className]];
 
-      [customCell setTitle:NSLocalizedString(@"search_on_map", nil) selectedRanges:nil];
-      customCell.subtitleLabel.text = nil;
-      customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinsIcon"];
-      customCell.distanceLabel.text = nil;
-      customCell.typeLabel.text = nil;
-      customCell.largeIconStyle = NO;
+      customCell.titleLabel.text = NSLocalizedString(@"search_on_map", nil);
       cell = customCell;
       break;
     }
     case CellTypeResult:
     {
-      SearchUniversalCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchUniversalCell className]];
+      SearchResultCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchResultCell className]];
 
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       search::Result const & result = [self.wrapper resultWithPosition:position];
@@ -503,7 +495,6 @@ static void onSearchResultCallback(search::Results const & results)
       customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellPinIcon"];
       customCell.distanceLabel.text = self.wrapper.distances[@(position)];
       customCell.typeLabel.text = [NSString stringWithUTF8String:result.GetFeatureType()];
-      customCell.largeIconStyle = NO;
       cell = customCell;
       break;
     }
@@ -516,7 +507,6 @@ static void onSearchResultCallback(search::Results const & results)
 
       customCell.titleLabel.text = [NSString stringWithUTF8String:result.GetString()];
       customCell.iconImageView.image = [UIImage imageNamed:@"SearchCellSpotIcon"];
-      customCell.position = [self suggestPositionForIndexPath:indexPath];
       cell = customCell;
       break;
     }
@@ -531,11 +521,11 @@ static void onSearchResultCallback(search::Results const & results)
   {
     case CellTypeCategory:
     {
-      return [SearchUniversalCell cellHeightWithTitle:self.categoriesNames[indexPath.row] type:nil subtitle:nil distance:nil viewWidth:tableView.width];
+      return [SearchCategoryCell cellHeight];
     }
     case CellTypeShowOnMap:
     {
-      return [SearchUniversalCell cellHeightWithTitle:NSLocalizedString(@"search_on_map", nil) type:nil subtitle:nil distance:nil viewWidth:tableView.width];
+      return [SearchShowOnMapCell cellHeight];
     }
     case CellTypeResult:
     {
@@ -550,11 +540,11 @@ static void onSearchResultCallback(search::Results const & results)
         subtitle = [NSString stringWithUTF8String:result.GetRegionString()];
         type = [NSString stringWithUTF8String:result.GetFeatureType()];
       }
-      return [SearchUniversalCell cellHeightWithTitle:title type:type subtitle:subtitle distance:wrapper.distances[@(position)] viewWidth:tableView.width];
+      return [SearchResultCell cellHeightWithTitle:title type:type subtitle:subtitle distance:wrapper.distances[@(position)] viewWidth:tableView.width];
     }
     case CellTypeSuggest:
     {
-      return [SearchSuggestCell cellHeightWithPosition:[self suggestPositionForIndexPath:indexPath]];
+      return [SearchSuggestCell cellHeight];
     }
     default:
     {
@@ -636,11 +626,6 @@ static void onSearchResultCallback(search::Results const & results)
     [self.searchBar.textField resignFirstResponder];
 }
 
-- (SearchSuggestCellPosition)suggestPositionForIndexPath:(NSIndexPath *)indexPath
-{
-  return (indexPath.row == [self.wrapper suggestsCount] - 1) ? SearchSuggestCellPositionBottom : SearchSuggestCellPositionMiddle;
-}
-
 - (CellType)cellTypeForIndexPath:(NSIndexPath *)indexPath
 {
   if ([self isShowingCategories])
@@ -706,23 +691,8 @@ static void onSearchResultCallback(search::Results const & results)
     _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor colorWithColorCode:@"414451"];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [_tableView addSubview:self.suggestsTopImageView];
-    self.suggestsTopImageView.maxY = 0;
   }
   return _tableView;
-}
-
-- (UIImageView *)suggestsTopImageView
-{
-  if (!_suggestsTopImageView)
-  {
-    UIImage * image = [[UIImage imageNamed:@"SearchSuggestBackgroundMiddle"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 40, 10, 40)];
-    _suggestsTopImageView = [[UIImageView alloc] initWithImage:image];
-    _suggestsTopImageView.frame = CGRectMake(0, 0, self.width, 600);
-    _suggestsTopImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _suggestsTopImageView.hidden = YES;
-  }
-  return _suggestsTopImageView;
 }
 
 - (SolidTouchImageView *)topBackgroundView

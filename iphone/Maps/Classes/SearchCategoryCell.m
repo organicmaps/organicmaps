@@ -1,15 +1,15 @@
 
-#import "SearchSuggestCell.h"
+#import "SearchCategoryCell.h"
 #import "UIKitCategories.h"
 
-@interface SearchSuggestCell ()
+@interface SearchCategoryCell ()
 
 @property (nonatomic) UILabel * titleLabel;
 @property (nonatomic) UIImageView * iconImageView;
 
 @end
 
-@implementation SearchSuggestCell
+@implementation SearchCategoryCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -18,9 +18,9 @@
   [self.contentView addSubview:self.titleLabel];
   [self.contentView addSubview:self.iconImageView];
 
-  UIView * backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-  backgroundView.backgroundColor = [UIColor colorWithColorCode:@"1f9f7e"];
-  self.backgroundView = backgroundView;
+  UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
+  selectedBackgroundView.backgroundColor = [UIColor colorWithColorCode:@"15d081"];
+  self.selectedBackgroundView = selectedBackgroundView;
 
   return self;
 }
@@ -30,10 +30,11 @@
   [super layoutSubviews];
 
   self.titleLabel.width = self.width - self.titleLabel.minX - 20;
-  
-  CGFloat const offset = 12.5;
-  self.separatorView.width = self.width - 2 * offset;
-  self.separatorView.minX = offset;
+
+  CGFloat const offsetL = 40;
+  CGFloat const offsetR = 12.5;
+  self.separatorView.width = self.width - offsetL - offsetR;
+  self.separatorView.minX = offsetL;
 }
 
 + (CGFloat)cellHeight
@@ -45,11 +46,11 @@
 {
   if (!_titleLabel)
   {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, 8.5, 0, 24)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, 8, 0, 24)];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textColor = [UIColor whiteColor];
-    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
+    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5];
   }
   return _titleLabel;
 }
@@ -58,11 +59,10 @@
 {
   if (!_iconImageView)
   {
-    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(17, 13, 18, 18)];
+    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 13, 18, 18)];
     _iconImageView.contentMode = UIViewContentModeCenter;
   }
   return _iconImageView;
 }
-
 
 @end

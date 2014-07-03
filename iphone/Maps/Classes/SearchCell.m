@@ -2,12 +2,6 @@
 #import "SearchCell.h"
 #import "UIKitCategories.h"
 
-@interface SearchCell ()
-
-@property (nonatomic) UIImageView * separatorView;
-
-@end
-
 @implementation SearchCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -18,8 +12,8 @@
   self.selectionStyle = UITableViewCellSelectionStyleDefault;
   [self addSubview:self.separatorView];
 
-  UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
-  selectedBackgroundView.backgroundColor = [UIColor colorWithColorCode:@"15d081"];
+  UIImageView * selectedBackgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
+  selectedBackgroundView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.2];
   self.selectedBackgroundView = selectedBackgroundView;
 
   return self;
@@ -28,10 +22,8 @@
 - (void)layoutSubviews
 {
   self.separatorView.maxY = self.height;
-  CGFloat const shift = 15;
-  self.separatorView.width = self.width - 2 * shift;
-  self.separatorView.minX = shift;
   self.selectedBackgroundView.frame = self.bounds;
+  self.backgroundView.frame = self.bounds;
 }
 
 - (UIImageView *)separatorView

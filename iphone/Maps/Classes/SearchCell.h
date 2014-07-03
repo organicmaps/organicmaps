@@ -3,4 +3,6 @@
 
 @interface SearchCell : UITableViewCell
 
+@property (nonatomic) UIImageView * separatorView;
+
 @end

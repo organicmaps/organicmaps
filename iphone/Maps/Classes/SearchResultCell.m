@@ -1,18 +1,17 @@
 
-#import "SearchUniversalCell.h"
+#import "SearchResultCell.h"
 #import "UIKitCategories.h"
 
-@interface SearchUniversalCell ()
+@interface SearchResultCell ()
 
 @property (nonatomic) UILabel * titleLabel;
 @property (nonatomic) UILabel * typeLabel;
 @property (nonatomic) UILabel * subtitleLabel;
 @property (nonatomic) UILabel * distanceLabel;
-@property (nonatomic) UIImageView * iconImageView;
 
 @end
 
-@implementation SearchUniversalCell
+@implementation SearchResultCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -21,8 +20,11 @@
   [self.contentView addSubview:self.titleLabel];
   [self.contentView addSubview:self.typeLabel];
   [self.contentView addSubview:self.subtitleLabel];
-  [self.contentView addSubview:self.iconImageView];
   [self.contentView addSubview:self.distanceLabel];
+
+  UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
+  selectedBackgroundView.backgroundColor = [UIColor colorWithColorCode:@"15d081"];
+  self.selectedBackgroundView = selectedBackgroundView;
 
   return self;
 }
@@ -31,8 +33,8 @@
 #define TYPE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12.5]
 #define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:17]
 #define SUBTITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:12.5]
-#define LEFT_SHIFT 44
-#define RIGHT_SHIFT 23
+#define LEFT_SHIFT 20
+#define RIGHT_SHIFT 20
 #define SPACE 4
 
 - (void)setTitle:(NSString *)title selectedRanges:(NSArray *)selectedRanges
@@ -41,30 +43,11 @@
     title = @"";
     
   NSMutableAttributedString * attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
-  NSRange unselectedRange = NSMakeRange(0, [title length]);
-  [attributedTitle addAttributes:[self unselectedTitleAttributes] range:unselectedRange];
-  for (NSValue * rangeValue in selectedRanges)
-  {
-    NSRange range = [rangeValue rangeValue];
-    [attributedTitle addAttributes:[self selectedTitleAttributes] range:range];
-  }
+  [attributedTitle addAttributes:[self unselectedTitleAttributes] range:NSMakeRange(0, [title length])];
+  for (NSValue * range in selectedRanges)
+    [attributedTitle addAttributes:[self selectedTitleAttributes] range:[range rangeValue]];
+
   self.titleLabel.attributedText = attributedTitle;
-}
-
-- (NSDictionary *)selectedSubtitleAttributes
-{
-  static NSDictionary * selectedAttributes;
-  if (!selectedAttributes)
-    selectedAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithColorCode:@"16b68a"], NSFontAttributeName : SUBTITLE_FONT};
-  return selectedAttributes;
-}
-
-- (NSDictionary *)unselectedSubtitleAttributes
-{
-  static NSDictionary * unselectedAttributes;
-  if (!unselectedAttributes)
-    unselectedAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : SUBTITLE_FONT};
-  return unselectedAttributes;
 }
 
 - (NSDictionary *)selectedTitleAttributes
@@ -89,22 +72,24 @@
 
   self.typeLabel.size = [[self class] typeSizeWithType:self.typeLabel.text];
   self.typeLabel.maxX = self.width - RIGHT_SHIFT;
-  self.typeLabel.minY = 10;
+  self.typeLabel.minY = 9;
 
   self.distanceLabel.width = 70;
   [self.distanceLabel sizeToFit];
   self.distanceLabel.maxX = self.width - RIGHT_SHIFT;
-  self.distanceLabel.maxY = self.height - 10;
+  self.distanceLabel.maxY = self.height - 8.5;
 
   self.titleLabel.size = [[self class] titleSizeWithTitle:self.titleLabel.text viewWidth:self.width typeSize:self.typeLabel.size];
-  self.titleLabel.minX = self.largeIconStyle ? 47 : LEFT_SHIFT;
-  if ([self.subtitleLabel.text length])
-    self.titleLabel.minY = 5.5;
-  else
-    self.titleLabel.midY = self.height / 2 - 1.5;
+  self.titleLabel.minX = LEFT_SHIFT;
+  self.titleLabel.minY = self.typeLabel.minY - 4;
 
   self.subtitleLabel.size = CGSizeMake(self.width - self.distanceLabel.width - LEFT_SHIFT - RIGHT_SHIFT - SPACE, 16);
-  self.subtitleLabel.origin = CGPointMake(LEFT_SHIFT, self.titleLabel.maxY);
+  self.subtitleLabel.minX = LEFT_SHIFT;
+  self.subtitleLabel.maxY = self.distanceLabel.maxY;
+
+  CGFloat const offset = 12.5;
+  self.separatorView.width = self.width - 2 * offset;
+  self.separatorView.minX = offset;
 }
 
 + (CGSize)typeSizeWithType:(NSString *)type
@@ -174,16 +159,6 @@
     _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
   }
   return _titleLabel;
-}
-
-- (UIImageView *)iconImageView
-{
-  if (!_iconImageView)
-  {
-    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(13.5, 12, 25, 25)];
-    _iconImageView.contentMode = UIViewContentModeCenter;
-  }
-  return _iconImageView;
 }
 
 @end
