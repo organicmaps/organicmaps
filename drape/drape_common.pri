@@ -24,8 +24,6 @@ SOURCES += \
     $$DRAPE_DIR/oglcontextfactory.cpp \
     $$DRAPE_DIR/buffer_base.cpp \
     $$DRAPE_DIR/cpu_buffer.cpp \
-    $$DRAPE_DIR/utils/lodepng.cpp \
-    $$DRAPE_DIR/texture_structure_desc.cpp \
     $$DRAPE_DIR/symbols_texture.cpp \
     $$DRAPE_DIR/texture_manager.cpp \
     $$DRAPE_DIR/render_bucket.cpp \
@@ -33,9 +31,9 @@ SOURCES += \
     $$DRAPE_DIR/index_buffer_mutator.cpp \
     $$DRAPE_DIR/batcher_helpers.cpp \
     $$DRAPE_DIR/overlay_tree.cpp \
-    $$DRAPE_DIR/texture_font.cpp \
+    $$DRAPE_DIR/font_texture.cpp \
     $$DRAPE_DIR/font_loader.cpp \
-    $$DRAPE_DIR/utils/stb_image.c \
+    $$DRAPE_DIR/texture_set_holder.cpp \
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -63,8 +61,6 @@ HEADERS += \
     $$DRAPE_DIR/oglcontextfactory.hpp \
     $$DRAPE_DIR/buffer_base.hpp \
     $$DRAPE_DIR/cpu_buffer.hpp \
-    $$DRAPE_DIR/utils/lodepng.h \
-    $$DRAPE_DIR/texture_structure_desc.hpp \
     $$DRAPE_DIR/symbols_texture.hpp \
     $$DRAPE_DIR/texture_manager.hpp \
     $$DRAPE_DIR/texture_set_controller.hpp \
@@ -74,6 +70,5 @@ HEADERS += \
     $$DRAPE_DIR/index_buffer_mutator.hpp \
     $$DRAPE_DIR/batcher_helpers.hpp \
     $$DRAPE_DIR/overlay_tree.hpp \
-    $$DRAPE_DIR/texture_font.hpp \
+    $$DRAPE_DIR/font_texture.hpp \
     $$DRAPE_DIR/font_loader.hpp \
-    $$DRAPE_DIR/utils/stb_image.h \
