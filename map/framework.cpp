@@ -1711,9 +1711,6 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
   MainTouchRectHolder holder(rect, bmSearchRect);
   UserMark const * mark = m_bmManager.FindNearestUserMark(holder);
 
-  if (m_bmManager.UserMarkHasActive() && !isLongPress)
-    return mark;
-
   if (mark == NULL)
   {
     bool needMark = false;
