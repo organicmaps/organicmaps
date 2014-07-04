@@ -195,7 +195,8 @@ Framework::Framework()
     m_benchmarkEngine(0),
     m_bmManager(*this),
     m_balloonManager(*this),
-    m_locationChangedSlotID(-1)
+    m_locationChangedSlotID(-1),
+    m_fixedSearchResults(0)
 {
   // Checking whether we should enable benchmark.
   bool isBenchmarkingEnabled = false;
@@ -1171,6 +1172,7 @@ void Framework::ShowSearchResult(search::Result const & res)
   m_bmManager.UserMarksSetDrawable(type, false);
 
   m_lastSearch.Clear();
+  m_fixedSearchResults = 0;
 
   search::AddressInfo info;
   info.MakeFrom(res);
@@ -1238,7 +1240,9 @@ size_t Framework::ShowAllSearchResults()
     return count;
   }
 
+  m_fixedSearchResults = 0;
   FillSearchResultsMarks(results);
+  m_fixedSearchResults = count;
 
   // Setup viewport according to results.
   m2::AnyRectD viewport = m_navigator.Screen().GlobalRect();
@@ -1274,8 +1278,8 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
 {
   UserMarkContainer::Type const type = UserMarkContainer::SEARCH_MARK;
   m_bmManager.UserMarksSetVisible(type, true);
-  m_bmManager.UserMarksClear(type);
   m_bmManager.UserMarksSetDrawable(type, true);
+  m_bmManager.UserMarksClear(type, m_fixedSearchResults);
 
   size_t const count = results.GetCount();
   for (size_t i = 0; i < count; ++i)
@@ -1288,8 +1292,8 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
       AddressInfo info;
       info.MakeFrom(r);
 
-      SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(
-            m_bmManager.UserMarksAddMark(type, r.GetFeatureCenter()));
+      m2::PointD const pt = r.GetFeatureCenter();
+      SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, pt));
       mark->SetInfo(info);
     }
   }
@@ -1299,6 +1303,8 @@ void Framework::CancelInteractiveSearch()
 {
   m_lastSearch.Clear();
   m_bmManager.UserMarksClear(UserMarkContainer::SEARCH_MARK);
+
+  m_fixedSearchResults = 0;
 
   Invalidate();
 }

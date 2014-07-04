@@ -70,7 +70,7 @@ public:
   void ActivateMark(UserMark const * mark);
   void DiactivateMark();
 
-  void Clear();
+  void Clear(size_t skipCount = 0);
 
   double GetDepth() const { return m_layerDepth; }
 

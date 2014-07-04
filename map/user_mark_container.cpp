@@ -152,9 +152,13 @@ void UserMarkContainer::Draw(PaintOverlayEvent const & e, UserMarkDLCache * cach
   }
 }
 
-void UserMarkContainer::Clear()
+void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
 {
-  DeleteRange(m_userMarks, DeleteFunctor());
+  for (size_t i = skipCount; i < m_userMarks.size(); ++i)
+    delete m_userMarks[i];
+
+  if (skipCount < m_userMarks.size())
+    m_userMarks.erase(m_userMarks.begin() + skipCount, m_userMarks.end());
 }
 
 namespace

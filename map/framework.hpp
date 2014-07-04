@@ -116,7 +116,6 @@ protected:
   scoped_ptr<anim::Controller> m_animController;
   InformationDisplay m_informationDisplay;
 
-
   /// How many pixels around touch point are used to get bookmark or POI
   static const int TOUCH_PIXEL_RADIUS = 20;
 
@@ -247,6 +246,7 @@ public:
 private:
   search::Engine * GetSearchEngine() const;
   search::SearchParams m_lastSearch;
+  uint8_t m_fixedSearchResults;
 
   void OnSearchResultsCallback(search::Results const & results);
   void OnSearchResultsCallbackUI(search::Results const & results);

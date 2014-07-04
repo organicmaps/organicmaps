@@ -404,9 +404,9 @@ UserMark * BookmarkManager::UserMarksAddMark(UserMarkContainer::Type type, const
   return FindUserMarksContainer(type)->GetController().CreateUserMark(ptOrg);
 }
 
-void BookmarkManager::UserMarksClear(UserMarkContainer::Type type)
+void BookmarkManager::UserMarksClear(UserMarkContainer::Type type, size_t skipCount/* = 0*/)
 {
-  FindUserMarksContainer(type)->Clear();
+  FindUserMarksContainer(type)->Clear(skipCount);
 }
 
 UserMarkContainer::Controller & BookmarkManager::UserMarksGetController(UserMarkContainer::Type type)

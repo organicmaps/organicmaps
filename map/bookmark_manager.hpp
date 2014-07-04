@@ -77,7 +77,7 @@ public:
   void UserMarksSetDrawable(UserMarkContainer::Type type, bool isDrawable);
   void UserMarksIsDrawable(UserMarkContainer::Type type);
   UserMark * UserMarksAddMark(UserMarkContainer::Type type, m2::PointD const & ptOrg);
-  void UserMarksClear(UserMarkContainer::Type type);
+  void UserMarksClear(UserMarkContainer::Type type, size_t skipCount = 0);
   UserMarkContainer::Controller & UserMarksGetController(UserMarkContainer::Type type);
 
   void SetScreen(graphics::Screen * screen);
