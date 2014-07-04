@@ -643,7 +643,7 @@ void Navigator::Scale(double scale)
 
 shared_ptr<anim::Task> Navigator::ScaleAnim(double scale)
 {
-  return ScaleToPointAnim(m_Screen.PixelRect().Center(), scale, 0.5);
+  return ScaleToPointAnim(m_Screen.PixelRect().Center(), scale, 0.3);
 }
 
 void Navigator::Rotate(double angle)

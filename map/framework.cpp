@@ -1006,7 +1006,7 @@ void Framework::ScaleToPoint(ScaleToPointEvent const & e)
   m2::PointD const pt = (locationState->GetLocationProcessMode() == location::ELocationDoNothing) ?
         m_navigator.ShiftPoint(e.Pt()) : GetPixelCenter();
 
-  m_animController->AddTask(m_navigator.ScaleToPointAnim(pt, e.ScaleFactor(), 0.5));
+  m_animController->AddTask(m_navigator.ScaleToPointAnim(pt, e.ScaleFactor(), 0.25));
 
   Invalidate();
   UpdateUserViewportChanged();
