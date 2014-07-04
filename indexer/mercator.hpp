@@ -95,11 +95,15 @@ struct MercatorBounds
 
   static double GetCellID2PointAbsEpsilon() { return 1.0E-4; }
 
+  inline static m2::PointD FromLatLon(double lat, double lon)
+  {
+    return m2::PointD(LonToX(lon), LatToY(lat));
+  }
+
   /// Converts lat lon rect to mercator one
   inline static m2::RectD FromLatLonRect(m2::RectD const & latLonRect)
   {
-    return m2::RectD(LonToX(latLonRect.minX()), LatToY(latLonRect.minY()),
-                     LonToX(latLonRect.maxX()), LatToY(latLonRect.maxY()));
-
+    return m2::RectD(FromLatLon(latLonRect.minY(), latLonRect.minX()),
+                     FromLatLon(latLonRect.maxY(), latLonRect.maxX()));
   }
 };

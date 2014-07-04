@@ -256,7 +256,7 @@ namespace
           double lat;
           if (strings::to_double(*iter, lat) && MercatorBounds::ValidLat(lat))
           {
-            pt = m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+            pt = MercatorBounds::FromLatLon(lat, lon);
             return true;
           }
           else

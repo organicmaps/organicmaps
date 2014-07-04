@@ -523,14 +523,12 @@ namespace android
 
   storage::TIndex Framework::GetCountryIndex(double lat, double lon) const
   {
-    return m_work.GetCountryIndex(m2::PointD(MercatorBounds::LonToX(lon),
-                                             MercatorBounds::LatToY(lat)));
+    return m_work.GetCountryIndex(MercatorBounds::FromLatLon(lat, lon));
   }
 
   string Framework::GetCountryCode(double lat, double lon) const
   {
-    return m_work.GetCountryCode(m2::PointD(MercatorBounds::LonToX(lon),
-                                            MercatorBounds::LatToY(lat)));
+    return m_work.GetCountryCode(MercatorBounds::FromLatLon(lat, lon));
   }
 
   string Framework::GetCountryNameIfAbsent(m2::PointD const & pt) const
@@ -767,8 +765,7 @@ extern "C"
   {
     search::AddressInfo info;
 
-    g_framework->NativeFramework()->GetAddressInfoForGlobalPoint(
-        m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)), info);
+    g_framework->NativeFramework()->GetAddressInfoForGlobalPoint(MercatorBounds::FromLatLon(lat, lon), info);
 
     return jni::ToJavaString(env, info.FormatNameAndAddress());
   }

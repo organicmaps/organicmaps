@@ -96,12 +96,8 @@ QString MwmRpcService::RenderBox(
   m_framework.SetQueryMaxScaleMode(maxScaleMode);
 
   QVariantList box(bbox.value<QVariantList>());
-  m2::AnyRectD requestBox(m2::RectD(
-                            MercatorBounds::LonToX(box[0].toDouble()),
-                            MercatorBounds::LatToY(box[1].toDouble()),
-                            MercatorBounds::LonToX(box[2].toDouble()),
-                            MercatorBounds::LatToY(box[3].toDouble())
-                         ));
+  m2::AnyRectD requestBox(m2::RectD(MercatorBounds::FromLatLon(box[1].toDouble(), box[0].toDouble()),
+                                    MercatorBounds::FromLatLon(box[3].toDouble(), box[2].toDouble())));
   m_framework.GetNavigator().SetFromRect(requestBox);
 
   shared_ptr<PaintEvent> pe(new PaintEvent(m_framework.GetRenderPolicy()->GetDrawer().get()));

@@ -90,8 +90,7 @@ extern "C"
   Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
       JNIEnv * env, jobject thiz, jstring name, double lat, double lon)
   {
-    const m2::PointD glbPoint(MercatorBounds::LonToX(lon),
-                              MercatorBounds::LatToY(lat));
+    const m2::PointD glbPoint(MercatorBounds::FromLatLon(lat, lon));
 
     ::Framework * f = frm();
     BookmarkData bmk(jni::ToNativeString(env, name), f->LastEditedBMType());

@@ -101,7 +101,7 @@ namespace
 {
   m2::PointD GetViewportXY(double lat, double lon)
   {
-    return m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+    return MercatorBounds::FromLatLon(lat, lon);
   }
   m2::RectD GetViewportRect(double lat, double lon, double radius = 20000)
   {

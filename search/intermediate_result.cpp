@@ -177,7 +177,7 @@ PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos, doubl
     m_rank(255),
     m_geomType(feature::GEOM_UNDEFINED)
 {
-  m2::PointD const fCenter(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+  m2::PointD const fCenter(MercatorBounds::FromLatLon(lat, lon));
   m_region.SetParams(string(), fCenter);
   CalcParams(viewport, pos);
 }

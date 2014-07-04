@@ -48,15 +48,15 @@ namespace yopme
                           bool hasPoi,      double poiLat, double poiLon,
                           bool hasLocation, double myLat,  double myLon)
   {
-    m2::PointD viewPortCenter(MercatorBounds::LonToX(vpLon), MercatorBounds::LatToY(vpLat));
+    m2::PointD const viewPortCenter(MercatorBounds::FromLatLon(vpLat, vpLon));
 
     if (!m_framework.IsCountryLoaded(viewPortCenter) && (zoom > scales::GetUpperWorldScale()))
       return false;
 
     m_framework.ShowRect(vpLat, vpLon, zoom);
-    m2::PointD poi           (MercatorBounds::LonToX(poiLon), MercatorBounds::LatToY(poiLat));
-    m2::PointD myLocaiton    (MercatorBounds::LonToX(myLon), MercatorBounds::LatToY(myLat));
-    ShowRect(hasPoi, poi, hasLocation, myLocaiton);
+    m2::PointD const poi(MercatorBounds::FromLatLon(poiLat, poiLon));
+    m2::PointD const myLocation(MercatorBounds::FromLatLon(myLat, myLon));
+    ShowRect(hasPoi, poi, hasLocation, myLocation);
 
     return true;
   }
@@ -126,11 +126,8 @@ namespace yopme
   bool Framework::AreLocationsFarEnough(double lat1, double lon1, double lat2, double lon2) const
   {
     double const sqPixLength =
-        m_framework.GtoP(m2::PointD(MercatorBounds::LonToX(lon1),
-                                    MercatorBounds::LatToY(lat1)))
-        .SquareLength(
-        m_framework.GtoP(m2::PointD(MercatorBounds::LonToX(lon2),
-                                    MercatorBounds::LatToY(lat2))));
+        m_framework.GtoP(MercatorBounds::FromLatLon(lat1, lon1)))
+        .SquareLength(m_framework.GtoP(MercatorBounds::FromLatLon(lat2, lon2))));
 
     // Pixel radius of location mark is 10 pixels.
     return (sqPixLength > 100 && ms::DistanceOnEarth(lat1, lon1, lat2, lon2) > 5.0);

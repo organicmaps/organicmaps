@@ -45,8 +45,7 @@ namespace osm
       try
       {
         OsmNode node = m_data.NodeById(nodeId);
-        m_currentRegion.AddPoint(m2::PointD(MercatorBounds::LonToX(node.m_lon),
-                                            MercatorBounds::LatToY(node.m_lat)));
+        m_currentRegion.AddPoint(MercatorBounds::FromLatLon(node.m_lat, node.m_lon));
       }
       catch (OsmRawData::OsmInvalidIdException const & e)
       {

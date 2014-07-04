@@ -74,7 +74,7 @@
   if (self.myPositionMode)
   {
     CLLocationCoordinate2D const coordinate = [MapsAppDelegate theApp].m_locationManager.lastLocation.coordinate;
-    point = m2::PointD(MercatorBounds::LonToX(coordinate.longitude), MercatorBounds::LatToY(coordinate.latitude));
+    point = MercatorBounds::FromLatLon(coordinate.latitude, coordinate.longitude);
   }
   else
   {

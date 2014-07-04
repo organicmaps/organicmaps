@@ -770,7 +770,7 @@ void Framework::CheckMinMaxVisibleScale(m2::RectD & rect, int maxScale/* = -1*/)
 
 void Framework::ShowRect(double lat, double lon, double zoom)
 {
-  m2::PointD center(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat));
+  m2::PointD center(MercatorBounds::FromLatLon(lat, lon));
   ShowRectEx(m_scales.GetRectForDrawScale(zoom, center));
 }
 
@@ -1331,9 +1331,7 @@ bool Framework::GetDistanceAndAzimut(m2::PointD const & point,
     // We calculate azimut even when distance is very short (d ~ 0),
     // because return value has 2 states (near me or far from me).
 
-    azimut = ang::AngleTo(m2::PointD(MercatorBounds::LonToX(lon),
-                                     MercatorBounds::LatToY(lat)),
-                          point) + north;
+    azimut = ang::AngleTo(MercatorBounds::FromLatLon(lat, lon), point) + north;
 
     double const pi2 = 2.0*math::pi;
     if (azimut < 0.0)
@@ -1451,7 +1449,7 @@ bool Framework::ShowMapForURL(string const & url)
     ParseGeoURL(url, info);
     if (info.IsValid())
     {
-      point = m2::PointD(MercatorBounds::LonToX(info.m_lon), MercatorBounds::LatToY(info.m_lat));
+      point = MercatorBounds::FromLatLon(info.m_lat, info.m_lon);
       rect = m_scales.GetRectForDrawScale(info.m_zoom, point);
       result = NEED_CLICK;
     }
@@ -1464,7 +1462,7 @@ bool Framework::ShowMapForURL(string const & url)
 
     if (parser.Parse(url, pt, zoom))
     {
-      point = m2::PointD(MercatorBounds::LonToX(pt.m_lon), MercatorBounds::LatToY(pt.m_lat));
+      point = MercatorBounds::FromLatLon(pt.m_lat, pt.m_lon);
       rect = m_scales.GetRectForDrawScale(zoom, point);
       name = pt.m_name;
       result = NEED_CLICK;

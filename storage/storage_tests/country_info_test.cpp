@@ -29,17 +29,13 @@ UNIT_TEST(CountryInfo_GetByPoint_Smoke)
 
   // Minsk
   CountryInfo info;
-  getter->GetRegionInfo(m2::PointD(MercatorBounds::LonToX(27.5618818),
-                                   MercatorBounds::LatToY(53.9022651)),
-                        info);
+  getter->GetRegionInfo(MercatorBounds::FromLatLon(53.9022651, 27.5618818), info);
 
   TEST_EQUAL(info.m_name, "Belarus", ());
   TEST_EQUAL(info.m_flag, "by", ());
 
 
-  getter->GetRegionInfo(m2::PointD(MercatorBounds::LonToX(-38.0098101),
-                                   MercatorBounds::LatToY(-6.4146288)),
-                        info);
+  getter->GetRegionInfo(MercatorBounds::FromLatLon(-6.4146288, -38.0098101), info);
 
   TEST_EQUAL(info.m_name, "Brazil", ());
   TEST_EQUAL(info.m_flag, "br", ());

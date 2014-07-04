@@ -11,7 +11,7 @@ void doTests(search::LocalityFinder & finder, vector<m2::PointD> const & input, 
   for (size_t i = 0; i < input.size(); ++i)
   {
     string result;
-    finder.GetLocalityInViewport(m2::PointD(MercatorBounds::LonToX(input[i].x), MercatorBounds::LatToY(input[i].y)), result);
+    finder.GetLocalityInViewport(MercatorBounds::FromLatLon(input[i].y, input[i].x), result);
     TEST_EQUAL(result, results[i], ());
   }
 }
@@ -22,7 +22,7 @@ void doTests2(search::LocalityFinder & finder, vector<m2::PointD> const & input,
   for (size_t i = 0; i < input.size(); ++i)
   {
     string result;
-    finder.GetLocalityCreateCache(m2::PointD(MercatorBounds::LonToX(input[i].x), MercatorBounds::LatToY(input[i].y)), result);
+    finder.GetLocalityCreateCache(MercatorBounds::FromLatLon(input[i].y, input[i].x), result);
     TEST_EQUAL(result, results[i], ());
   }
 }

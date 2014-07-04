@@ -381,8 +381,7 @@ namespace
   void CheckPlace(Framework const & fm, double lat, double lon, POIInfo const & poi)
   {
     search::AddressInfo info;
-    fm.GetAddressInfoForGlobalPoint(
-          m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)), info);
+    fm.GetAddressInfoForGlobalPoint(MercatorBounds::FromLatLon(lat, lon), info);
 
     TEST_EQUAL(info.m_name, poi.m_name, ());
     TEST_EQUAL(info.m_street, poi.m_street, ());
