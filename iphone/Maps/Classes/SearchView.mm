@@ -397,8 +397,26 @@ static void onSearchResultCallback(search::Results const & results)
     Framework & f = GetFramework();
     if (f.ShowAllSearchResults() == 0)
     {
-      NSString * message = [NSString stringWithFormat:@"%@. %@", NSLocalizedString(@"no_search_results_found", nil), NSLocalizedString(@"download_location_country", nil)];
-      message = [message stringByReplacingOccurrencesOfString:@" (%@)" withString:@""];
+      NSString * secondSentence = @"";
+      // Country in the viewport should be downloaded
+      if (!f.IsCountryLoaded(f.GetViewportCenter()))
+      {
+        secondSentence = [NSString stringWithFormat:NSLocalizedString(@"download_viewport_country_to_search", nil),
+                          [NSString stringWithUTF8String:f.GetCountryName(f.GetViewportCenter()).c_str()]];
+      }
+      else
+      {
+        // Country in the current location should be downloaded
+        CLLocation * lastLocation = [[MapsAppDelegate theApp].m_locationManager lastLocation];
+        if (lastLocation && !f.IsCountryLoaded(MercatorBounds::FromLatLon(lastLocation.coordinate.latitude,
+                                                                          lastLocation.coordinate.longitude)))
+        {
+          secondSentence = [NSString stringWithFormat:NSLocalizedString(@"download_location_country", nil),
+                            [NSString stringWithUTF8String:f.GetCountryName(f.GetViewportCenter()).c_str()]];
+        }
+      }
+
+      NSString * message = [NSString stringWithFormat:@"%@. %@", NSLocalizedString(@"no_search_results_found", nil), secondSentence];
       ToastView * toastView = [[ToastView alloc] initWithMessage:message];
       [toastView show];
     }
