@@ -4,7 +4,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:0.9.2'
+    classpath 'com.android.tools.build:gradle:0.12.1'
   }
 }
 
@@ -97,5 +97,10 @@ android {
   aaptOptions {
     noCompress 'txt', 'bin', 'skn', 'html', 'png', 'json', 'mwm', 'ttf'
     ignoreAssetsPattern "!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
+  }
+
+  lintOptions {
+    checkReleaseBuilds false
+    abortOnError false
   }
 }
