@@ -252,9 +252,9 @@
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">La tua posizione non è stata ancora stabilita</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
-	<string name="download_location_country">Scarica il paese (%s) della tua posizione attuale</string>
+	<string name="download_location_country">Scarica il paese della tua posizione attuale (%s)</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
-	<string name="download_viewport_country_to_search">Scarica il paese (%s) che stai cercando</string>
+	<string name="download_viewport_country_to_search">Scarica il paese che stai cercando (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Siamo spiacenti, ma le impostazioni di archiviazione delle mappe sono disabilitate.</string>
 	<!-- Alert message that downloading is in progress. -->

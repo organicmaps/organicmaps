@@ -402,10 +402,10 @@
 "unknown_current_position" = "Ваше местоположение еще не определено";
 
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
-"download_location_country" = "Скачайте страну (%@) вашего текущего местоположения";
+"download_location_country" = "Скачайте страну вашего текущего местоположения (%@)";
 
 /* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "Скачайте страну (%@), на которой вы ищете";
+"download_viewport_country_to_search" = "Скачайте страну, на которой вы ищете (%@)";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Извините, настройки места хранения карт сейчас недоступны.";

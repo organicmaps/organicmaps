@@ -241,9 +241,9 @@
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Je plaats werd nog niet vastgesteld</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
-	<string name="download_location_country">Download land (%s) waar je nu bent</string>
+	<string name="download_location_country">Download land waar je nu bent (%s)</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
-	<string name="download_viewport_country_to_search">Download land (%s) waar je op wilt zoeken</string>
+	<string name="download_viewport_country_to_search">Download land waar je op wilt zoeken (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Sorry, instellingen voor kaartopslag uitgeschakeld.</string>
 	<!-- Alert message that downloading is in progress. -->

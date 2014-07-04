@@ -252,9 +252,9 @@
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Tvá poloha zatím nebyla určena</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
-	<string name="download_location_country">Stahování země (%s) tvé aktuální polohy</string>
+	<string name="download_location_country">Stahování země tvé aktuální polohy (%s)</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
-	<string name="download_viewport_country_to_search">Stahování země (%s), v níž hledáš</string>
+	<string name="download_viewport_country_to_search">Stahování země, v níž hledáš (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Promiň, nastavení uložení map je dočasně nedostupné.</string>
 	<!-- Alert message that downloading is in progress. -->

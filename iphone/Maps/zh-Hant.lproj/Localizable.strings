@@ -402,10 +402,10 @@
 "unknown_current_position" = "您的位置尚未定未完成";
 
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
-"download_location_country" = "下載您目前所在位置的國家 (%@) 地圖";
+"download_location_country" = "下載您目前所在位置的國家 地圖 (%@)";
 
 /* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "下載您正在搜尋的國家 (%@) 地圖";
+"download_viewport_country_to_search" = "下載您正在搜尋的國家 地圖 (%@)";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "很抱歉, 地圖儲存設定目前是停用的狀態!";

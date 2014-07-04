@@ -252,9 +252,9 @@
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">您的位置尚未定未完成</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
-	<string name="download_location_country">下載您目前所在位置的國家 (%s) 地圖</string>
+	<string name="download_location_country">下載您目前所在位置的國家 地圖 (%s)</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
-	<string name="download_viewport_country_to_search">下載您正在搜尋的國家 (%s) 地圖</string>
+	<string name="download_viewport_country_to_search">下載您正在搜尋的國家 地圖 (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">很抱歉, 地圖儲存設定目前是停用的狀態!</string>
 	<!-- Alert message that downloading is in progress. -->

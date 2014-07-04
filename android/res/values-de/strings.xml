@@ -246,9 +246,9 @@
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Ihr Standort wurde bisher noch nicht bestimmt</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
-	<string name="download_location_country">Land (%s) Ihres derzeitigen Standorts herunterladen</string>
+	<string name="download_location_country">Land Ihres derzeitigen Standorts herunterladen (%s)</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
-	<string name="download_viewport_country_to_search">Land (%s) herunterladen, von dem aus Sie suchen</string>
+	<string name="download_viewport_country_to_search">Land herunterladen, von dem aus Sie suchen (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Es tut uns leid, die Einstellungen der Kartenspeicherung sind deaktiviert.</string>
 	<!-- Alert message that downloading is in progress. -->

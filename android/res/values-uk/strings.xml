@@ -256,9 +256,9 @@
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Ваше місце розташування не визначено</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
-	<string name="download_location_country">Завантажити країну (%s) вашого поточного місця розташування</string>
+	<string name="download_location_country">Завантажити країну вашого поточного місця розташування (%s)</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
-	<string name="download_viewport_country_to_search">Завантажити країну (%s), в якій ви шукаєте</string>
+	<string name="download_viewport_country_to_search">Завантажити країну, в якій ви шукаєте (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Вибачте, налаштування папки з картами зараз недоступні.</string>
 	<!-- Alert message that downloading is in progress. -->

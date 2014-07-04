@@ -402,10 +402,10 @@
 "unknown_current_position" = "A sua localização ainda não foi determinada";
 
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
-"download_location_country" = "Descarregue o país (%@) da sua localização atual";
+"download_location_country" = "Descarregue o país da sua localização atual (%@)";
 
 /* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "Descarregue o país (%@) em que está a fazer a procura";
+"download_viewport_country_to_search" = "Descarregue o país em que está a fazer a procura (%@)";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Lamentamos, as definições do Map Storage estão atualmente desativadas.";

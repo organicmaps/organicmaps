@@ -402,10 +402,10 @@
 "unknown_current_position" = "Ваше місце розташування не визначено";
 
 /* Warning message when location country isn't downloaded during search (see also download_location_map_proposal). */
-"download_location_country" = "Завантажити країну (%@) вашого поточного місця розташування";
+"download_location_country" = "Завантажити країну вашого поточного місця розташування (%@)";
 
 /* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "Завантажити країну (%@), в якій ви шукаєте";
+"download_viewport_country_to_search" = "Завантажити країну, в якій ви шукаєте (%@)";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
 "cant_change_this_setting" = "Вибачте, налаштування папки з картами зараз недоступні.";

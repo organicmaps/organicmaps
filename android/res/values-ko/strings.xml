@@ -244,9 +244,9 @@
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">귀하의 위치를 아직 알아내지 못 했습니다</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
-	<string name="download_location_country">귀하께서 현재 계신 국가인 (%s)을(를) 다운로드</string>
+	<string name="download_location_country">귀하께서 현재 계신 국가인 을(를) 다운로드 (%s)</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
-	<string name="download_viewport_country_to_search">귀하께서 검색 중인 국가인 (%s)을(를) 다운로드</string>
+	<string name="download_viewport_country_to_search">귀하께서 검색 중인 국가인 을(를) 다운로드 (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">죄송합니다, 지도 스토리지 설정이 비활성화되어 있습니다.</string>
 	<!-- Alert message that downloading is in progress. -->

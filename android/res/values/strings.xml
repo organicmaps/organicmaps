@@ -260,9 +260,9 @@
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">Your location hasn\&#39;t been determined yet</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
-	<string name="download_location_country">Download the country (%s) of your current location</string>
+	<string name="download_location_country">Download the country of your current location (%s)</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
-	<string name="download_viewport_country_to_search">Download the country (%s) you are searching on</string>
+	<string name="download_viewport_country_to_search">Download the country you are searching on (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">Sorry, Map Storage settings are currently disabled.</string>
 	<!-- Alert message that downloading is in progress. -->

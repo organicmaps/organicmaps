@@ -248,9 +248,9 @@
 	<!-- Warning message when doing search around current position -->
 	<string name="unknown_current_position">現在の座標が未確定です</string>
 	<!-- Warning message when location country isn't downloaded during search (see also download_location_map_proposal). -->
-	<string name="download_location_country">現在の地域(%s)をダウンロード</string>
+	<string name="download_location_country">現在の地域をダウンロード(%s)</string>
 	<!-- Warning message when viewport country isn't downloaded during search -->
-	<string name="download_viewport_country_to_search">現在マップで検索している国(%s)をダウンロード</string>
+	<string name="download_viewport_country_to_search">現在マップで検索している国をダウンロード(%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
 	<string name="cant_change_this_setting">恐れ入ります、マップストレージ設定が無効になっています。</string>
 	<!-- Alert message that downloading is in progress. -->
