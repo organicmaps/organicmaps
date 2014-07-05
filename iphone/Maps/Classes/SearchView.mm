@@ -157,7 +157,8 @@ __weak SearchView * selfPointer;
 
 - (void)setState:(SearchViewState)state animated:(BOOL)animated withCallback:(BOOL)withCallback
 {
-  if (_state == SearchViewStateResults && state == SearchViewStateHidden)
+  // Clear search results on the map when clear in the search bar on the map is pressed or when we reopen search dialog
+  if ((_state == SearchViewStateResults && state == SearchViewStateHidden) || state == SearchViewStateFullscreen)
     [self clearSearchResultsMode];
 
   UIViewAnimationOptions options = UIViewAnimationOptionCurveEaseInOut;
