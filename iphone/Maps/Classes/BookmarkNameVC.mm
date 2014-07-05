@@ -21,6 +21,7 @@
   Bookmark const * bookmark = category->GetBookmark(self.bookmarkAndCategory.second);
 
   self.textField.delegate = self;
+  self.textField.returnKeyType = UIReturnKeyDone;
 
   if (!self.temporaryName)
     self.textField.text = bookmark->GetName().empty() ? NSLocalizedString(@"dropped_pin", nil) : [NSString stringWithUTF8String:bookmark->GetName().c_str()];
