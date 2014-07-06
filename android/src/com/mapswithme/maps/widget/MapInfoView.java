@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
-import android.view.GestureDetector.OnGestureListener;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,6 +46,10 @@ import com.mapswithme.util.Utils;
 
 public class MapInfoView extends LinearLayout
 {
+  private static final int SHORT_ANIM_DURATION = 200;
+  private static final int LONG_ANIM_DURATION = 400;
+  private static final float SPAN_SIZE = 25;
+
   private final ViewGroup mPreviewGroup;
   private final ViewGroup mPlacePageGroup;
   private final ScrollView mPlacePageContainer;
@@ -55,20 +58,20 @@ public class MapInfoView extends LinearLayout
   private final TextView mTitle;
   private final TextView mSubtitle;
   private final CheckBox mIsBookmarked;
-  // Views
   private final LayoutInflater mInflater;
   // Gestures
   private final GestureDetectorCompat mGestureDetector;
+  // Place page
+  private LinearLayout mGeoLayout;
+  private View mDistanceView;
+  private TextView mDistanceText;
+  // Data
+  private MapObject mMapObject;
   private OnVisibilityChangedListener mVisibilityChangedListener;
   private boolean mIsPreviewVisible = true;
   private boolean mIsPlacePageVisible = true;
   private State mCurrentState = State.HIDDEN;
-  // Data
-  private MapObject mMapObject;
   private int mMaxPlacePageHeight = 0;
-  private LinearLayout mGeoLayout = null;
-  private View mDistanceView;
-  private TextView mDistanceText;
 
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {
@@ -78,6 +81,7 @@ public class MapInfoView extends LinearLayout
     mView = mInflater.inflate(R.layout.info_box, this, true);
 
     mPreviewGroup = (ViewGroup) mView.findViewById(R.id.preview);
+    mPreviewGroup.bringToFront();
     mPlacePageGroup = (ViewGroup) mView.findViewById(R.id.place_page);
 
     showPlacePage(false);
@@ -89,7 +93,7 @@ public class MapInfoView extends LinearLayout
     mIsBookmarked = (CheckBox) mPreviewGroup.findViewById(R.id.info_box_is_bookmarked);
 
     // We don't want to use OnCheckedChangedListener because it gets called
-    // if someone calls setChecked() from code. We need only user interaction.
+    // if someone calls setCheched() from code. We need only user interaction.
     mIsBookmarked.setOnClickListener(new OnClickListener()
     {
       @Override
@@ -105,8 +109,9 @@ public class MapInfoView extends LinearLayout
         }
         else
         {
-          final Bookmark newBookmark = bm.getBookmark(bm.addNewBookmark(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
-          setMapObject(newBookmark);
+          final Bookmark newbmk = bm.getBookmark(bm.addNewBookmark(
+              mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
+          setMapObject(newbmk);
         }
         Framework.invalidate();
       }
@@ -116,13 +121,17 @@ public class MapInfoView extends LinearLayout
     mPlacePageContainer = (ScrollView) mPlacePageGroup.findViewById(R.id.place_page_container);
 
     // Gestures
-    OnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener()
+    mGestureDetector = new GestureDetectorCompat(getContext(), new GestureDetector.SimpleOnGestureListener()
     {
+      private static final int Y_MIN = 1;
+      private static final int Y_MAX = 100;
+      private static final int X_TO_Y_SCROLL_RATIO = 2;
+
       @Override
       public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
       {
-        final boolean isVertical = Math.abs(distanceY) > 2 * Math.abs(distanceX);
-        final boolean isInRange = Math.abs(distanceY) > 1 && Math.abs(distanceY) < 100;
+        final boolean isVertical = Math.abs(distanceY) > X_TO_Y_SCROLL_RATIO * Math.abs(distanceX);
+        final boolean isInRange = Math.abs(distanceY) > Y_MIN && Math.abs(distanceY) < Y_MAX;
 
         if (isVertical && isInRange)
         {
@@ -146,8 +155,8 @@ public class MapInfoView extends LinearLayout
 
         return true;
       }
-    };
-    mGestureDetector = new GestureDetectorCompat(getContext(), mGestureListener);
+    });
+
     mView.setOnClickListener(new OnClickListener()
     {
       @Override
@@ -179,7 +188,6 @@ public class MapInfoView extends LinearLayout
     calculateMaxPlacePageHeight();
   }
 
-  // Place Page (full information about an object on the map)
   private void showPlacePage(final boolean show)
   {
     calculateMaxPlacePageHeight();
@@ -187,40 +195,23 @@ public class MapInfoView extends LinearLayout
     if (mIsPlacePageVisible == show)
       return; // if state is already same as we need
 
-    final long duration = 400;
-
-    // Calculate translate offset
-    final int previewHeight = mPreviewGroup.getHeight();
-    final int totalHeight = previewHeight + mMaxPlacePageHeight;
-    final float offset = previewHeight / (float) totalHeight;
-
-    if (show) // slide down
+    TranslateAnimation slide;
+    if (show) // slide up
     {
-      final TranslateAnimation slideDown = new TranslateAnimation(
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, offset - 1,
-          Animation.RELATIVE_TO_SELF, 0);
-
-      slideDown.setDuration(duration);
+      slide = generateSlideAnimation(0, 0, -1, 0);
+      slide.setDuration(SHORT_ANIM_DURATION);
       UiUtils.show(mPlacePageGroup);
-      mView.startAnimation(slideDown);
-
       if (mVisibilityChangedListener != null)
         mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
     }
-    else // slide up
+    else // slide down
     {
-      final TranslateAnimation slideUp = new TranslateAnimation(
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, offset - 1);
+      slide = generateSlideAnimation(0, 0, 0, -1);
 
-      slideUp.setDuration(duration);
-      slideUp.setFillEnabled(true);
-      slideUp.setFillBefore(true);
-      slideUp.setAnimationListener(new UiUtils.SimpleAnimationListener()
+      slide.setDuration(SHORT_ANIM_DURATION);
+      slide.setFillEnabled(true);
+      slide.setFillBefore(true);
+      slide.setAnimationListener(new UiUtils.SimpleAnimationListener()
       {
         @Override
         public void onAnimationEnd(Animation animation)
@@ -231,51 +222,39 @@ public class MapInfoView extends LinearLayout
             mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
         }
       });
-
-      mView.startAnimation(slideUp);
     }
+    mPlacePageGroup.startAnimation(slide);
 
     mIsPlacePageVisible = show;
   }
 
-  // Place Page Preview
   private void showPreview(final boolean show)
   {
     if (mIsPreviewVisible == show)
       return;
 
-    final int duration = 200;
-
+    TranslateAnimation slide;
     if (show)
     {
-      final TranslateAnimation slideDown = new TranslateAnimation(
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, -1,
-          Animation.RELATIVE_TO_SELF, 0);
-      slideDown.setDuration(duration);
-
+      slide = generateSlideAnimation(0, 0, -1, 0);
+      slide.setDuration(SHORT_ANIM_DURATION);
       UiUtils.show(mPreviewGroup);
-      slideDown.setAnimationListener(new SimpleAnimationListener() {
-          @Override
-          public void onAnimationEnd(Animation animation) {
-              if (mVisibilityChangedListener != null)
-                  mVisibilityChangedListener.onPreviewVisibilityChanged(show);
-          }
+      slide.setAnimationListener(new SimpleAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animation animation)
+        {
+          if (mVisibilityChangedListener != null)
+            mVisibilityChangedListener.onPreviewVisibilityChanged(show);
+        }
       });
-
-      mPreviewGroup.startAnimation(slideDown);
     }
     else
     {
-      final TranslateAnimation slideUp = new TranslateAnimation(
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, 0,
-          Animation.RELATIVE_TO_SELF, -1);
-      slideUp.setDuration(duration);
+      slide = generateSlideAnimation(0, 0, 0, -1);
+      slide.setDuration(SHORT_ANIM_DURATION);
 
-      slideUp.setAnimationListener(new SimpleAnimationListener()
+      slide.setAnimationListener(new SimpleAnimationListener()
       {
         @Override
         public void onAnimationEnd(Animation animation)
@@ -285,11 +264,35 @@ public class MapInfoView extends LinearLayout
             mVisibilityChangedListener.onPreviewVisibilityChanged(show);
         }
       });
-
-      mPreviewGroup.startAnimation(slideUp);
     }
-
+    mPreviewGroup.startAnimation(slide);
     mIsPreviewVisible = show;
+  }
+
+  private void slideEverytingOut()
+  {
+    final TranslateAnimation slideDown = generateSlideAnimation(0, 0, 0, -1);
+    slideDown.setDuration(LONG_ANIM_DURATION);
+
+    slideDown.setAnimationListener(new SimpleAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animation animation)
+      {
+        mIsPlacePageVisible = false;
+        mIsPreviewVisible = false;
+
+        UiUtils.hide(mPreviewGroup);
+        UiUtils.hide(mPlacePageGroup);
+        if (mVisibilityChangedListener != null)
+        {
+          mVisibilityChangedListener.onPreviewVisibilityChanged(false);
+          mVisibilityChangedListener.onPlacePageVisibilityChanged(false);
+        }
+      }
+    });
+
+    mView.startAnimation(slideDown);
   }
 
   private void setTextAndShow(final CharSequence title, final CharSequence subtitle)
@@ -319,7 +322,7 @@ public class MapInfoView extends LinearLayout
       else if (mCurrentState == State.FULL_PLACEPAGE && state == State.PREVIEW_ONLY)
         showPlacePage(false);
       else if (mCurrentState == State.FULL_PLACEPAGE && state == State.HIDDEN)
-        slideEverythingUp();
+        slideEverytingOut();
       else
         throw new IllegalStateException(String.format("Invalid transition %s - > %s", mCurrentState, state));
 
@@ -341,29 +344,28 @@ public class MapInfoView extends LinearLayout
   {
     if (!hasThatObject(mo))
     {
+      mMapObject = mo;
       if (mo != null)
       {
         mo.setDefaultIfEmpty(getResources());
 
         setTextAndShow(mo.getName(), mo.getPoiTypeName());
 
-        mMapObject = mo;
-
         boolean isChecked = false;
         switch (mo.getType())
         {
         case POI:
-          placePagePOI(mo);
+          fillPlacePagePoi(mo);
           break;
         case BOOKMARK:
           isChecked = true;
-          placePageBookmark((Bookmark) mo);
+          fillPlacePageBookmark((Bookmark) mo);
           break;
         case ADDITIONAL_LAYER:
-          placePageAdditionalLayer((SearchResult) mo);
+          fillPlacePageLayer((SearchResult) mo);
           break;
         case API_POINT:
-          placePageAPI(mo);
+          fillPlacePageApi(mo);
           break;
         default:
           throw new IllegalArgumentException("Unknown MapObject type:" + mo.getType());
@@ -374,10 +376,6 @@ public class MapInfoView extends LinearLayout
         setUpAddressBox();
         setUpGeoInformation();
         setUpBottomButtons();
-      }
-      else
-      {
-        mMapObject = mo;
       }
     }
 
@@ -398,9 +396,9 @@ public class MapInfoView extends LinearLayout
     });
 
     final View editBtn = mPlacePageGroup.findViewById(R.id.info_box_edit);
-    TextView mReturnToCallerBtn = (TextView) mPlacePageGroup.findViewById(R.id.info_box_back_to_caller);
+    final TextView returnToCallerTv = (TextView) mPlacePageGroup.findViewById(R.id.info_box_back_to_caller);
     UiUtils.hide(editBtn);
-    UiUtils.hide(mReturnToCallerBtn);
+    UiUtils.hide(returnToCallerTv);
 
     if (mMapObject.getType() == MapObjectType.BOOKMARK)
     {
@@ -430,16 +428,16 @@ public class MapInfoView extends LinearLayout
       final int spanEnd = spanStart + "{icon}".length();
 
       final Drawable icon = r.getIcon(getContext());
-      final int spanSize = (int) (25 * getResources().getDisplayMetrics().density);
+      final int spanSize = (int) (SPAN_SIZE * getResources().getDisplayMetrics().density);
       icon.setBounds(0, 0, spanSize, spanSize);
       final ImageSpan callerIconSpan = new ImageSpan(icon, ImageSpan.ALIGN_BOTTOM);
 
       final SpannableString ss = new SpannableString(txtPattern);
       ss.setSpan(callerIconSpan, spanStart, spanEnd, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
-      UiUtils.show(mReturnToCallerBtn);
-      mReturnToCallerBtn.setText(ss, BufferType.SPANNABLE);
-      mReturnToCallerBtn.setOnClickListener(new OnClickListener()
+      UiUtils.show(returnToCallerTv);
+      returnToCallerTv.setText(ss, BufferType.SPANNABLE);
+      returnToCallerTv.setOnClickListener(new OnClickListener()
       {
         @Override
         public void onClick(View v)
@@ -523,50 +521,48 @@ public class MapInfoView extends LinearLayout
     }
   }
 
-  private void placePagePOI(MapObject poi)
-  {
-    mPlacePageContainer.removeAllViews();
-    final View poiView = mInflater.inflate(R.layout.info_box_poi, null);
-    mPlacePageContainer.addView(poiView);
-  }
-
   private void setUpAddressBox()
   {
     final TextView addressText = (TextView) mPlacePageGroup.findViewById(R.id.info_box_address);
     addressText.setText(Framework.getNameAndAddress4Point(mMapObject.getLat(), mMapObject.getLon()));
   }
 
-  private void placePageBookmark(final Bookmark bmk)
+  private void fillPlacePagePoi(MapObject poi)
+  {
+    mPlacePageContainer.removeAllViews();
+    final View poiView = mInflater.inflate(R.layout.info_box_poi, null);
+    mPlacePageContainer.addView(poiView);
+  }
+
+  private void fillPlacePageBookmark(final Bookmark bmk)
   {
     mPlacePageContainer.removeAllViews();
     final View bmkView = mInflater.inflate(R.layout.info_box_bookmark, null);
 
     // Description of BMK
-    final WebView descriptionWv = (WebView) bmkView.findViewById(R.id.info_box_bookmark_descr);
+    final WebView descritionWv = (WebView) bmkView.findViewById(R.id.info_box_bookmark_descr);
     final String descriptionTxt = bmk.getBookmarkDescription();
 
     if (TextUtils.isEmpty(descriptionTxt))
-    {
-      UiUtils.hide(descriptionWv);
-    }
+      UiUtils.hide(descritionWv);
     else
     {
-      descriptionWv.loadData(descriptionTxt, "text/html; charset=UTF-8", null);
-      descriptionWv.setBackgroundColor(Color.TRANSPARENT);
-      UiUtils.show(descriptionWv);
+      descritionWv.loadData(descriptionTxt, "text/html; charset=UTF-8", null);
+      descritionWv.setBackgroundColor(Color.TRANSPARENT);
+      UiUtils.show(descritionWv);
     }
 
     mPlacePageContainer.addView(bmkView);
   }
 
-  private void placePageAdditionalLayer(SearchResult sr)
+  private void fillPlacePageLayer(SearchResult sr)
   {
     mPlacePageContainer.removeAllViews();
     final View addLayerView = mInflater.inflate(R.layout.info_box_additional_layer, null);
     mPlacePageContainer.addView(addLayerView);
   }
 
-  private void placePageAPI(MapObject mo)
+  private void fillPlacePageApi(MapObject mo)
   {
     mPlacePageContainer.removeAllViews();
     final View apiView = mInflater.inflate(R.layout.info_box_api, null);
@@ -605,9 +601,7 @@ public class MapInfoView extends LinearLayout
   public void onResume()
   {
     if (mMapObject == null)
-    {
       return;
-    }
 
     checkBookmarkWasDeleted();
     checkApiWasCanceled();
@@ -660,34 +654,13 @@ public class MapInfoView extends LinearLayout
     }
   }
 
-  private void slideEverythingUp()
+  private TranslateAnimation generateSlideAnimation(float fromX, float toX, float fromY, float toY)
   {
-    final TranslateAnimation slideUp = new TranslateAnimation(
-        Animation.RELATIVE_TO_SELF, 0,
-        Animation.RELATIVE_TO_SELF, 0,
-        Animation.RELATIVE_TO_SELF, 0,
-        Animation.RELATIVE_TO_SELF, -1);
-    slideUp.setDuration(400);
-
-    slideUp.setAnimationListener(new SimpleAnimationListener()
-    {
-      @Override
-      public void onAnimationEnd(Animation animation)
-      {
-        mIsPlacePageVisible = false;
-        mIsPreviewVisible = false;
-
-        UiUtils.hide(mPreviewGroup);
-        UiUtils.hide(mPlacePageGroup);
-        if (mVisibilityChangedListener != null)
-        {
-          mVisibilityChangedListener.onPreviewVisibilityChanged(false);
-          mVisibilityChangedListener.onPlacePageVisibilityChanged(false);
-        }
-      }
-    });
-
-    mView.startAnimation(slideUp);
+    return new TranslateAnimation(
+        Animation.RELATIVE_TO_SELF, fromX,
+        Animation.RELATIVE_TO_SELF, toX,
+        Animation.RELATIVE_TO_SELF, fromY,
+        Animation.RELATIVE_TO_SELF, toY);
   }
 
   public static enum State

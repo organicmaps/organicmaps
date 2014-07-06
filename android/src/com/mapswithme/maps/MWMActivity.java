@@ -1,9 +1,5 @@
 package com.mapswithme.maps;
 
-import java.io.Serializable;
-import java.util.Locale;
-import java.util.Stack;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -57,6 +53,10 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
 import com.nvidia.devtech.NvEventQueueActivity;
+
+import java.io.Serializable;
+import java.util.Locale;
+import java.util.Stack;
 
 public class MWMActivity extends NvEventQueueActivity
     implements LocationService.Listener,
