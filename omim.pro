@@ -22,6 +22,7 @@ SUBDIRS = 3party \
           stats \
           indexer \
           platform \
+          routing routing/routing_tests \
           geometry/geometry_tests \
           platform/platform_tests \
           anim \
@@ -52,6 +53,7 @@ SUBDIRS = 3party \
             platform \
             anim \
             indexer \
+            routing \
             storage \
             graphics \
             gui \
