@@ -16,7 +16,7 @@ VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBuff
 VertexArrayBuffer::~VertexArrayBuffer()
 {
   m_indexBuffer.Destroy();
-  (void)GetRangeDeletor(m_buffers, MasterPointerDeleter())();
+  DeleteRange(m_buffers, MasterPointerDeleter());
 
   if (m_VAO != 0)
   {

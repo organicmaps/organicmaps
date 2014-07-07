@@ -143,13 +143,10 @@ UNIT_TEST(BatchLists_Test)
     EXPECTGL(glEnableVertexAttribute(1));
     EXPECTGL(glVertexAttributePointer(1, 3, gl_const::GLFloatType, false, 0, 0));
 
-    // bind index buffer
-    EXPECTGL(glBindBuffer(IndexBufferID, gl_const::GLElementArrayBuffer));
-
     // delete bucket
-    EXPECTGL(glDeleteBuffer(IndexBufferID));
-    EXPECTGL(glDeleteBuffer(DataBufferID));
-    EXPECTGL(glDeleteVertexArray(3));
+    EXPECTGL(glDeleteBuffer(_));
+    EXPECTGL(glDeleteBuffer(_));
+    EXPECTGL(glDeleteVertexArray(VaoID));
     EXPECTGL(glUseProgram(0));
     EXPECTGL(glDeleteProgram(ProgramID));
   }

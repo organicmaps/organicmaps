@@ -16,7 +16,6 @@ GPUBuffer::GPUBuffer(Target t, uint8_t elementSize, uint16_t capacity)
   , m_t(t)
 {
   m_bufferID = GLFunctions::glGenBuffer();
-  Bind();
   Resize(capacity);
 }
 
