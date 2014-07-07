@@ -60,6 +60,8 @@
 using namespace storage;
 
 
+static void RestoreSesame(routing::RoutingEngine &);
+
 #ifdef FIXED_LOCATION
 Framework::FixedPosition::FixedPosition()
 {
@@ -262,6 +264,9 @@ Framework::Framework()
   //Init guides manager
   m_storage.GetGuideManager().RestoreFromFile();
 #endif
+
+  // Restore temporary states from persistent Settings storage
+  RestoreSesame(m_routingEngine);
 }
 
 Framework::~Framework()
@@ -1198,6 +1203,17 @@ void Framework::OnRouteCalculated(routing::Route const & route)
     routeColor = graphics::Color::Blue();
   track.SetColor(routeColor);
   cat->AddTrack(track);
+}
+
+static void RestoreSesame(routing::RoutingEngine & re)
+{
+  bool enable = false;
+  if (Settings::Get(ROUTER_HELICOPTER, enable) && enable)
+    re.AddRouter(ROUTER_HELICOPTER);
+  if (Settings::Get(ROUTER_OSRM, enable) && enable)
+    re.AddRouter(ROUTER_OSRM);
+  if (Settings::Get(ROUTER_MAPSME, enable) && enable)
+    re.AddRouter(ROUTER_MAPSME);
 }
 
 /// Activates hidden features via search queries
