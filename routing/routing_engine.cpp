@@ -3,7 +3,7 @@
 #include "helicopter_router.hpp"
 
 #include "../base/stl_add.hpp"
-
+#include "../base/logging.hpp"
 
 namespace routing
 {
@@ -38,6 +38,11 @@ void RoutingEngine::RemoveRouter(string const & name)
   }
 }
 
+bool RoutingEngine::IsRoutingEnabled() const
+{
+  return !m_routers.empty();
+}
+
 void RoutingEngine::SetStartingPoint(m2::PointD const & pt)
 {
   if (m_pointStates[0] == INVALID || !my::AlmostEqual(m_points[0], pt))
@@ -59,17 +64,21 @@ void RoutingEngine::SetFinalPoint(m2::PointD const & pt)
 void RoutingEngine::Calculate(string const & name, IRouter::ReadyCallback const & callback)
 {
   IRouter * p = FindRouter(name);
-  ASSERT(p, ());
+  if (!p)
+  {
+    LOG(LWARNING, ("Can't calculate route - router engine", name, "is not initialized."));
+    return;
+  }
 
   if (m_pointStates[0] == INVALID || m_pointStates[1] == INVALID)
   {
-    // points are not initialized
+    LOG(LINFO, ("Routing calculation cancelled - start and/or end points are not initialized."));
     return;
   }
 
   if (m_pointStates[0] != MODIFIED || m_pointStates[1] != MODIFIED)
   {
-    // nothing changed
+    LOG(LINFO, ("Routing calculation cancelled - start and end points are the same."));
     return;
   }
 

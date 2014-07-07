@@ -18,6 +18,7 @@ public:
 
   void AddRouter(string const & name);
   void RemoveRouter(string const & name);
+  bool IsRoutingEnabled() const;
 
   void SetStartingPoint(m2::PointD const & pt);
   void SetFinalPoint(m2::PointD const & pt);
