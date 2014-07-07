@@ -244,7 +244,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   self.titleLabel.text = self.title;
   self.titleLabel.width = [self titleWidth];
   [self.titleLabel sizeToFit];
-  self.titleLabel.origin = CGPointMake(23, 29);
+  self.titleLabel.origin = CGPointMake(20, 29);
 
   if ([self isMyPosition])
     self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:m_hasSpeed];
@@ -252,9 +252,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
     self.typeLabel.text = self.types;
   self.typeLabel.width = [self typesWidth];
   [self.typeLabel sizeToFit];
-  self.typeLabel.origin = CGPointMake(self.titleLabel.minX + 1, self.titleLabel.maxY + 1);
+  self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY + 1);
 
-  self.bookmarkButton.center = CGPointMake(self.headerView.width - 32, 42);
+  self.bookmarkButton.center = CGPointMake(self.headerView.width - 30, 42);
 }
 
 - (CGFloat)titleWidth
@@ -981,7 +981,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     self.bookmarkButton.center = CGPointMake(_headerView.width - 32, 42);
 
     UIImage * separatorImage = [[UIImage imageNamed:@"PlacePageSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
-    CGFloat const offset = 15;
+    CGFloat const offset = 12.5;
     UIImageView * separator = [[UIImageView alloc] initWithFrame:CGRectMake(offset, _headerView.height - separatorImage.size.height, _headerView.width - 2 * offset, separatorImage.size.height)];
     separator.image = separatorImage;
     separator.maxY = _headerView.height;

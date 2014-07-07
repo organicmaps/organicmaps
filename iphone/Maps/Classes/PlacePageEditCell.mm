@@ -24,7 +24,7 @@
   [self addSubview:editImageView];
 
   UIImage * separatorImage = [[UIImage imageNamed:@"PlacePageSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
-  CGFloat const offset = 15;
+  CGFloat const offset = 12.5;
   UIImageView * separator = [[UIImageView alloc] initWithFrame:CGRectMake(offset, self.height - separatorImage.size.height, self.width - 2 * offset, separatorImage.size.height)];
   separator.image = separatorImage;
   separator.maxY = self.height;
@@ -34,7 +34,7 @@
   return self;
 }
 
-#define LEFT_SHIFT 19
+#define LEFT_SHIFT 20
 #define RIGHT_SHIFT 47
 #define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5]
 

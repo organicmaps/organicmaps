@@ -125,10 +125,10 @@
   CGFloat coordinatesShift = self.addressLabel.height ? 10 : 0;
   self.coordinatesLabel.frame = CGRectMake(ADDRESS_LEFT_SHIFT, self.addressLabel.maxY + coordinatesShift, self.width - ADDRESS_LEFT_SHIFT - COORDINATES_RIGHT_SHIFT, 24);
 
-  self.selectedColorView.center = CGPointMake(self.width - 32, 27);
+  self.selectedColorView.center = CGPointMake(self.width - 30, 27);
 
   self.separatorView.maxY = self.height;
-  CGFloat const shift = 15;
+  CGFloat const shift = 12.5;
   self.separatorView.width = self.width - 2 * shift;
   self.separatorView.minX = shift;
 
