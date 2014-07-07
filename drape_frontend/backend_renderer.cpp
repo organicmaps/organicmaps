@@ -56,21 +56,26 @@ void BackendRenderer::AcceptMessage(RefPointer<Message> message)
   {
   case Message::UpdateReadManager:
     {
-      UpdateReadManagerMessage * msg = static_cast<UpdateReadManagerMessage *>(message.GetRaw());
+      UpdateReadManagerMessage * msg = df::CastMessage<UpdateReadManagerMessage>(message);
       ScreenBase const & screen = msg->GetScreen();
       set<TileKey> const & tiles = msg->GetTiles();
       m_readManager->UpdateCoverage(screen, tiles);
     }
+  case Message::InvalidateReadManagerRect:
+    {
+      InvalidateReadManagerRectMessage * msg = df::CastMessage<InvalidateReadManagerRectMessage>(message);
+      m_readManager->Invalidate(msg->GetTilesForInvalidate());
+    }
     break;
   case Message::TileReadStarted:
-    m_batchersPool->ReserveBatcher(static_cast<BaseTileMessage *>(message.GetRaw())->GetKey());
+    m_batchersPool->ReserveBatcher(df::CastMessage<BaseTileMessage>(message)->GetKey());
     break;
   case Message::TileReadEnded:
-    m_batchersPool->ReleaseBatcher(static_cast<BaseTileMessage *>(message.GetRaw())->GetKey());
+    m_batchersPool->ReleaseBatcher(df::CastMessage<BaseTileMessage>(message)->GetKey());
     break;
   case Message::MapShapeReaded:
     {
-      MapShapeReadedMessage * msg = static_cast<MapShapeReadedMessage *>(message.GetRaw());
+      MapShapeReadedMessage * msg = df::CastMessage<MapShapeReadedMessage>(message);
       RefPointer<Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
       MasterPointer<MapShape> shape(msg->GetShape());
       shape->Draw(batcher, m_textures);

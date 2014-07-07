@@ -28,6 +28,7 @@ public:
   ReadManager(EngineContext & context, model::FeaturesFetcher & model);
 
   void UpdateCoverage(ScreenBase const & screen, set<TileKey> const & tiles);
+  void Invalidate(set<TileKey> const & keyStorage);
   void Stop();
 
   static size_t ReadCount();
@@ -57,10 +58,11 @@ private:
     }
   };
 
-  set<tileinfo_ptr, LessByTileKey> m_tileInfos;
+  typedef set<tileinfo_ptr, LessByTileKey> tile_set_t;
+  tile_set_t m_tileInfos;
 
-  void CancelTileInfo(tileinfo_ptr tileToCancel);
-  void ClearTileInfo(tileinfo_ptr & tileToClear);
+  void CancelTileInfo(tileinfo_ptr const & tileToCancel);
+  void ClearTileInfo(tileinfo_ptr const & tileToClear);
 };
 
 } // namespace df

@@ -29,11 +29,6 @@ struct LessCoverageCell
   }
 };
 
-TileKey TileInfoPtrToTileKey(shared_ptr<TileInfo> const & p)
-{
-  return p->GetTileKey();
-}
-
 } // namespace
 
 ReadManager::ReadManager(EngineContext & context, model::FeaturesFetcher & model)
@@ -75,15 +70,23 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, set<TileKey> const &
                    back_inserter(inputRects), LessCoverageCell());
 
     for_each(outdatedTiles.begin(), outdatedTiles.end(), bind(&ReadManager::ClearTileInfo, this, _1));
-
-    buffer_vector<TileKey, 16> outdatedTileKeys;
-    transform(outdatedTiles.begin(), outdatedTiles.end(),
-              back_inserter(outdatedTileKeys), &TileInfoPtrToTileKey);
-
     for_each(m_tileInfos.begin(), m_tileInfos.end(), bind(&ReadManager::PushTaskFront, this, _1));
     for_each(inputRects.begin(),  inputRects.end(),  bind(&ReadManager::PushTaskBackForTileKey, this, _1));
   }
   m_currentViewport = screen;
+}
+
+void ReadManager::Invalidate(set<TileKey> const & keyStorage)
+{
+  tile_set_t::iterator it = m_tileInfos.begin();
+  for (; it != m_tileInfos.end(); ++it)
+  {
+    if (keyStorage.find((*it)->GetTileKey()) != keyStorage.end())
+    {
+      CancelTileInfo(*it);
+      PushTaskFront(*it);
+    }
+  }
 }
 
 void ReadManager::Stop()
@@ -119,12 +122,12 @@ void ReadManager::PushTaskFront(tileinfo_ptr const & tileToReread)
   m_pool->PushFront(new ReadMWMTask(tileToReread, m_memIndex, m_model, m_context));
 }
 
-void ReadManager::CancelTileInfo(tileinfo_ptr tileToCancel)
+void ReadManager::CancelTileInfo(tileinfo_ptr const & tileToCancel)
 {
   tileToCancel->Cancel(m_memIndex);
 }
 
-void ReadManager::ClearTileInfo(tileinfo_ptr & tileToClear)
+void ReadManager::ClearTileInfo(tileinfo_ptr const & tileToClear)
 {
   CancelTileInfo(tileToClear);
   m_tileInfos.erase(tileToClear);

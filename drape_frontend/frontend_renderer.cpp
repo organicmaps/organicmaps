@@ -99,7 +99,7 @@ void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
   {
   case Message::FlushTile:
     {
-      FlushRenderBucketMessage * msg = static_cast<FlushRenderBucketMessage *>(message.GetRaw());
+      FlushRenderBucketMessage * msg = df::CastMessage<FlushRenderBucketMessage>(message);
       const GLState & state = msg->GetState();
       const TileKey & key = msg->GetKey();
       MasterPointer<RenderBucket> bucket(msg->AcceptBuffer());
@@ -114,7 +114,7 @@ void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
 
   case Message::Resize:
     {
-      ResizeMessage * rszMsg = static_cast<ResizeMessage *>(message.GetRaw());
+      ResizeMessage * rszMsg = df::CastMessage<ResizeMessage>(message);
       m_viewport = rszMsg->GetViewport();
       m_view.OnSize(0, 0, m_viewport.GetWidth(), m_viewport.GetHeight());
       RefreshProjection();
@@ -128,7 +128,7 @@ void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
 
   case Message::UpdateModelView:
     {
-      UpdateModelViewMessage * coverMessage = static_cast<UpdateModelViewMessage *>(message.GetRaw());
+      UpdateModelViewMessage * coverMessage = df::CastMessage<UpdateModelViewMessage>(message);
       m_view = coverMessage->GetScreen();
       RefreshModelView();
       ResolveTileKeys();
@@ -136,6 +136,18 @@ void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
       break;
+    }
+
+  case Message::InvalidateRect:
+    {
+      InvalidateRectMessage * m = df::CastMessage<InvalidateRectMessage>(message);
+
+      set<TileKey> * keyStorage = new set<TileKey>();
+      ResolveTileKeys(*keyStorage, m->GetRect());
+      InvalidateRenderGroups(*keyStorage);
+
+      Message * msgToBackend = new InvalidateReadManagerRectMessage(MovePointer(keyStorage));
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, MovePointer(msgToBackend));
     }
 
   default:
@@ -224,10 +236,16 @@ void FrontendRenderer::RefreshModelView()
 
 void FrontendRenderer::ResolveTileKeys()
 {
-  set<TileKey> & tiles = GetTileKeyStorage();
-  tiles.clear();
+  ResolveTileKeys(GetTileKeyStorage(), df::GetTileScaleBase(m_view));
+}
 
-  int const tileScale = df::GetTileScaleBase(m_view);
+void FrontendRenderer::ResolveTileKeys(set<TileKey> & keyStorage, m2::RectD const & rect)
+{
+  ResolveTileKeys(keyStorage, df::GetTileScaleBase(rect));
+}
+
+void FrontendRenderer::ResolveTileKeys(set<TileKey> & keyStorage, int tileScale)
+{
   // equal for x and y
   double const range = MercatorBounds::maxX - MercatorBounds::minX;
   double const rectSize = range / (1 << tileScale);
@@ -239,10 +257,21 @@ void FrontendRenderer::ResolveTileKeys()
   int const minTileY = static_cast<int>(floor(clipRect.minY() / rectSize));
   int const maxTileY = static_cast<int>(ceil(clipRect.maxY() / rectSize));
 
+  keyStorage.clear();
   for (int tileY = minTileY; tileY < maxTileY; ++tileY)
   {
     for (int tileX = minTileX; tileX < maxTileX; ++tileX)
-      tiles.insert(TileKey(tileX, tileY, tileScale));
+      keyStorage.insert(TileKey(tileX, tileY, tileScale));
+  }
+}
+
+void FrontendRenderer::InvalidateRenderGroups(set<TileKey> & keyStorage)
+{
+  for (size_t i = 0; i < m_renderGroups.size(); ++i)
+  {
+    RenderGroup * group = m_renderGroups[i];
+    if (keyStorage.find(group->GetTileKey()) != keyStorage.end())
+      group->DeleteLater();
   }
 }
 

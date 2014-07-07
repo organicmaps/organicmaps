@@ -66,7 +66,11 @@ private:
   void RefreshModelView();
 
   void ResolveTileKeys();
+  void ResolveTileKeys(set<TileKey> & keyStorage, m2::RectD const & rect);
+  void ResolveTileKeys(set<TileKey> & keyStorage, int tileScale);
   set<TileKey> & GetTileKeyStorage();
+
+  void InvalidateRenderGroups(set<TileKey> & keyStorage);
 
 private:
   void StartThread();
