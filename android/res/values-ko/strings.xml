@@ -323,4 +323,12 @@
 	<string name="buy">구입</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">지도에서 검색</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">경로를 찾을 수 없음</string>
+	<!-- route title -->
+	<string name="route">경로</string>
+	<!-- button in the interface -->
+	<string name="choose_starting_point">출발지 선택…</string>
+	<!-- button in the interface -->
+	<string name="choose_destination">목적지 선택</string>
 </resources>

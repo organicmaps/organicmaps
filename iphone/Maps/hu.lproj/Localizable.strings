@@ -550,3 +550,15 @@
 
 /* 1st search button-like result */
 "search_on_map" = "Keresés a térképen";
+
+/* toast with an error */
+"no_route_found" = "Nem található útvonal";
+
+/* route title */
+"route" = "Útvonal";
+
+/* button in the interface */
+"choose_starting_point" = "Válasszon kiindulási pontot…";
+
+/* button in the interface */
+"choose_destination" = "Válasszon úti célt…";

@@ -327,4 +327,12 @@
 	<string name="buy">購入</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">地図を検索</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">一致する経路がありません</string>
+	<!-- route title -->
+	<string name="route">経路</string>
+	<!-- button in the interface -->
+	<string name="choose_starting_point">出発地を入力…</string>
+	<!-- button in the interface -->
+	<string name="choose_destination">目的地を入力…</string>
 </resources>

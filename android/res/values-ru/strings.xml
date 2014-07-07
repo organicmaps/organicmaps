@@ -339,4 +339,12 @@
 	<string name="buy">Купить</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">Искать на карте</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">Маршрут не найден</string>
+	<!-- route title -->
+	<string name="route">Маршрут</string>
+	<!-- button in the interface -->
+	<string name="choose_starting_point">Откуда…</string>
+	<!-- button in the interface -->
+	<string name="choose_destination">Куда…</string>
 </resources>

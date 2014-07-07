@@ -550,3 +550,15 @@
 
 /* 1st search button-like result */
 "search_on_map" = "在地圖上搜尋";
+
+/* toast with an error */
+"no_route_found" = "找不到路線";
+
+/* route title */
+"route" = "路線";
+
+/* button in the interface */
+"choose_starting_point" = "選擇起點…";
+
+/* button in the interface */
+"choose_destination" = "選擇目的地…";

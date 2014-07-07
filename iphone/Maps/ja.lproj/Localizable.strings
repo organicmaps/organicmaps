@@ -550,3 +550,15 @@
 
 /* 1st search button-like result */
 "search_on_map" = "地図を検索";
+
+/* toast with an error */
+"no_route_found" = "一致する経路がありません";
+
+/* route title */
+"route" = "経路";
+
+/* button in the interface */
+"choose_starting_point" = "出発地を入力…";
+
+/* button in the interface */
+"choose_destination" = "目的地を入力…";

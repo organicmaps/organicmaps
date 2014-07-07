@@ -550,3 +550,15 @@
 
 /* 1st search button-like result */
 "search_on_map" = "Search on map";
+
+/* toast with an error */
+"no_route_found" = "No route found";
+
+/* route title */
+"route" = "Route";
+
+/* button in the interface */
+"choose_starting_point" = "Choose starting point…";
+
+/* button in the interface */
+"choose_destination" = "Choose destination…";

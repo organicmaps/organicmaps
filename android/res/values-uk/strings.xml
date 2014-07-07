@@ -341,4 +341,12 @@
 	<string name="buy">Придбати</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">Шукати на карті</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">Маршрути не знайдено</string>
+	<!-- route title -->
+	<string name="route">Маршрут</string>
+	<!-- button in the interface -->
+	<string name="choose_starting_point">Виберіть початкову точку…</string>
+	<!-- button in the interface -->
+	<string name="choose_destination">Виберіть місце призначення…</string>
 </resources>

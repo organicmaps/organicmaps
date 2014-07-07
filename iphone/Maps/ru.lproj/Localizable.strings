@@ -550,3 +550,15 @@
 
 /* 1st search button-like result */
 "search_on_map" = "Искать на карте";
+
+/* toast with an error */
+"no_route_found" = "Маршрут не найден";
+
+/* route title */
+"route" = "Маршрут";
+
+/* button in the interface */
+"choose_starting_point" = "Откуда…";
+
+/* button in the interface */
+"choose_destination" = "Куда…";

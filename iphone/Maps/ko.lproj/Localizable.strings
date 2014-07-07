@@ -550,3 +550,15 @@
 
 /* 1st search button-like result */
 "search_on_map" = "지도에서 검색";
+
+/* toast with an error */
+"no_route_found" = "경로를 찾을 수 없음";
+
+/* route title */
+"route" = "경로";
+
+/* button in the interface */
+"choose_starting_point" = "출발지 선택…";
+
+/* button in the interface */
+"choose_destination" = "목적지 선택";

@@ -337,4 +337,12 @@
 	<string name="buy">Acquista</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">Cerca sulla mappa</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">Nessun percorso trovato</string>
+	<!-- route title -->
+	<string name="route">Linea</string>
+	<!-- button in the interface -->
+	<string name="choose_starting_point">Scegli il punto di partenza…</string>
+	<!-- button in the interface -->
+	<string name="choose_destination">Scegli la destinazione…</string>
 </resources>

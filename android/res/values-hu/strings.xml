@@ -350,4 +350,12 @@
 	<string name="buy">Megvásárlás</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">Keresés a térképen</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">Nem található útvonal</string>
+	<!-- route title -->
+	<string name="route">Útvonal</string>
+	<!-- button in the interface -->
+	<string name="choose_starting_point">Válasszon kiindulási pontot…</string>
+	<!-- button in the interface -->
+	<string name="choose_destination">Válasszon úti célt…</string>
 </resources>

@@ -319,4 +319,12 @@
 	<string name="buy">購買</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">在地圖上搜尋</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">找不到路線</string>
+	<!-- route title -->
+	<string name="route">路線</string>
+	<!-- button in the interface -->
+	<string name="choose_starting_point">選擇起點…</string>
+	<!-- button in the interface -->
+	<string name="choose_destination">選擇目的地…</string>
 </resources>

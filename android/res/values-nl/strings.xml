@@ -326,4 +326,12 @@
 	<string name="buy">Koop</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">Op kaart zoeken</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">Geen route gevonden</string>
+	<!-- route title -->
+	<string name="route">Route</string>
+	<!-- button in the interface -->
+	<string name="choose_starting_point">Vertrekpunt kiezen…</string>
+	<!-- button in the interface -->
+	<string name="choose_destination">Bestemming kiezen…</string>
 </resources>

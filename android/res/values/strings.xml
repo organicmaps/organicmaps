@@ -355,4 +355,12 @@
 	<string name="buy">Buy</string>
 	<!-- 1st search button-like result -->
 	<string name="search_on_map">Search on map</string>
+	<!-- toast with an error -->
+	<string name="no_route_found">No route found</string>
+	<!-- route title -->
+	<string name="route">Route</string>
+	<!-- button in the interface -->
+	<string name="choose_starting_point">Choose starting point…</string>
+	<!-- button in the interface -->
+	<string name="choose_destination">Choose destination…</string>
 </resources>

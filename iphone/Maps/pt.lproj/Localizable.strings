@@ -550,3 +550,15 @@
 
 /* 1st search button-like result */
 "search_on_map" = "Pesquisar no mapa";
+
+/* toast with an error */
+"no_route_found" = "Não foi encontrado nenhum trajecto";
+
+/* route title */
+"route" = "Trajeto";
+
+/* button in the interface */
+"choose_starting_point" = "Selecione o ponto de partida…";
+
+/* button in the interface */
+"choose_destination" = "Selecione o destino…";
