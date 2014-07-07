@@ -327,6 +327,8 @@
 	<string name="no_route_found">경로를 찾을 수 없음</string>
 	<!-- route title -->
 	<string name="route">경로</string>
+	<!-- category title -->
+	<string name="routes">경로</string>
 	<!-- button in the interface -->
 	<string name="choose_starting_point">출발지 선택…</string>
 	<!-- button in the interface -->

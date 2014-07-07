@@ -3350,6 +3350,49 @@
     zh-Hant = 路線
     zh-Hans = 路线
 
+  [routes]
+    tags = ios,android
+    comment = category title
+    en = Routes
+    ar = المسارات
+    bg = Маршрути
+    ca = Rutes
+    cs = Trasy
+    da = Ruter
+    de = Routen
+    el = Διαδρομές
+    es = Rutas
+    et = Marsruudid
+    fi = Reitit
+    fr = Itinéraires
+    hr = Rute
+    hu = Útvonalak
+    in = Rute
+    it = Percorsi
+    iw = מסלולים
+    ja = ルート
+    ko = 경로
+    lt = Maršrutai
+    lv = Maršruti
+    ms = Laluan
+    nb = Ruter
+    nl = Routes
+    pl = Marszruty
+    pt = Trajetos
+    ro = Trasee
+    ru = Маршруты
+    sk = Trasy
+    sl = Poti
+    sr = Путање
+    sv = Rutter
+    th = เส้นทาง
+    tl = Mga Ruta
+    tr = Güzergahlar
+    uk = Маршрути
+    vi = Tuyến đường
+    zh-Hans = 路线
+    zh-Hant = 路線
+
   [choose_starting_point]
     tags = ios,android
     comment = button in the interface

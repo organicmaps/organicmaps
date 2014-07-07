@@ -557,6 +557,9 @@
 /* route title */
 "route" = "Маршрут";
 
+/* category title */
+"routes" = "Маршруты";
+
 /* button in the interface */
 "choose_starting_point" = "Откуда…";
 

@@ -359,6 +359,8 @@
 	<string name="no_route_found">No route found</string>
 	<!-- route title -->
 	<string name="route">Route</string>
+	<!-- category title -->
+	<string name="routes">Routes</string>
 	<!-- button in the interface -->
 	<string name="choose_starting_point">Choose starting point…</string>
 	<!-- button in the interface -->

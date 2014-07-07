@@ -557,6 +557,9 @@
 /* route title */
 "route" = "路線";
 
+/* category title */
+"routes" = "路線";
+
 /* button in the interface */
 "choose_starting_point" = "選擇起點…";
 

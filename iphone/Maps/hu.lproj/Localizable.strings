@@ -557,6 +557,9 @@
 /* route title */
 "route" = "Útvonal";
 
+/* category title */
+"routes" = "Útvonalak";
+
 /* button in the interface */
 "choose_starting_point" = "Válasszon kiindulási pontot…";
 

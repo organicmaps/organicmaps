@@ -345,6 +345,8 @@
 	<string name="no_route_found">Маршрути не знайдено</string>
 	<!-- route title -->
 	<string name="route">Маршрут</string>
+	<!-- category title -->
+	<string name="routes">Маршрути</string>
 	<!-- button in the interface -->
 	<string name="choose_starting_point">Виберіть початкову точку…</string>
 	<!-- button in the interface -->

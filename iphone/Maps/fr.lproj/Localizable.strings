@@ -557,6 +557,9 @@
 /* route title */
 "route" = "Itinéraire";
 
+/* category title */
+"routes" = "Itinéraires";
+
 /* button in the interface */
 "choose_starting_point" = "Choisissez un point de départ…";
 

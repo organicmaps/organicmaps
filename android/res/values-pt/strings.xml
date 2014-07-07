@@ -352,6 +352,8 @@
 	<string name="no_route_found">Não foi encontrado nenhum trajecto</string>
 	<!-- route title -->
 	<string name="route">Trajeto</string>
+	<!-- category title -->
+	<string name="routes">Trajetos</string>
 	<!-- button in the interface -->
 	<string name="choose_starting_point">Selecione o ponto de partida…</string>
 	<!-- button in the interface -->

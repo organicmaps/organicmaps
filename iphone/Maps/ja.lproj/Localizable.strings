@@ -557,6 +557,9 @@
 /* route title */
 "route" = "経路";
 
+/* category title */
+"routes" = "ルート";
+
 /* button in the interface */
 "choose_starting_point" = "出発地を入力…";
 

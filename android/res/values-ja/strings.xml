@@ -331,6 +331,8 @@
 	<string name="no_route_found">一致する経路がありません</string>
 	<!-- route title -->
 	<string name="route">経路</string>
+	<!-- category title -->
+	<string name="routes">ルート</string>
 	<!-- button in the interface -->
 	<string name="choose_starting_point">出発地を入力…</string>
 	<!-- button in the interface -->

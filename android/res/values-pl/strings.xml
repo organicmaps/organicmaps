@@ -354,6 +354,8 @@
 	<string name="no_route_found">Nie znaleziono trasy</string>
 	<!-- route title -->
 	<string name="route">Trasa</string>
+	<!-- category title -->
+	<string name="routes">Marszruty</string>
 	<!-- button in the interface -->
 	<string name="choose_starting_point">Wybierz punkt początkowy…</string>
 	<!-- button in the interface -->

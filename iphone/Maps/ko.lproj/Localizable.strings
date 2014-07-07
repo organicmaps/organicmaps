@@ -557,6 +557,9 @@
 /* route title */
 "route" = "경로";
 
+/* category title */
+"routes" = "경로";
+
 /* button in the interface */
 "choose_starting_point" = "출발지 선택…";
 

@@ -330,6 +330,8 @@
 	<string name="no_route_found">Geen route gevonden</string>
 	<!-- route title -->
 	<string name="route">Route</string>
+	<!-- category title -->
+	<string name="routes">Routes</string>
 	<!-- button in the interface -->
 	<string name="choose_starting_point">Vertrekpunt kiezen…</string>
 	<!-- button in the interface -->

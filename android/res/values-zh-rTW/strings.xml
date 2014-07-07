@@ -323,6 +323,8 @@
 	<string name="no_route_found">找不到路線</string>
 	<!-- route title -->
 	<string name="route">路線</string>
+	<!-- category title -->
+	<string name="routes">路線</string>
 	<!-- button in the interface -->
 	<string name="choose_starting_point">選擇起點…</string>
 	<!-- button in the interface -->

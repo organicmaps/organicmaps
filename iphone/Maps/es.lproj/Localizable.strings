@@ -557,6 +557,9 @@
 /* route title */
 "route" = "Ruta";
 
+/* category title */
+"routes" = "Rutas";
+
 /* button in the interface */
 "choose_starting_point" = "Elegir punto de partida…";
 

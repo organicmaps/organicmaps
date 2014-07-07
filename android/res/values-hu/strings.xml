@@ -354,6 +354,8 @@
 	<string name="no_route_found">Nem található útvonal</string>
 	<!-- route title -->
 	<string name="route">Útvonal</string>
+	<!-- category title -->
+	<string name="routes">Útvonalak</string>
 	<!-- button in the interface -->
 	<string name="choose_starting_point">Válasszon kiindulási pontot…</string>
 	<!-- button in the interface -->

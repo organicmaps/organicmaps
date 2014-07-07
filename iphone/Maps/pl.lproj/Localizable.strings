@@ -557,6 +557,9 @@
 /* route title */
 "route" = "Trasa";
 
+/* category title */
+"routes" = "Marszruty";
+
 /* button in the interface */
 "choose_starting_point" = "Wybierz punkt początkowy…";
 

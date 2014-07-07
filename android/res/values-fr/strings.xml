@@ -356,6 +356,8 @@
 	<string name="no_route_found">Aucun itinéraire trouvé</string>
 	<!-- route title -->
 	<string name="route">Itinéraire</string>
+	<!-- category title -->
+	<string name="routes">Itinéraires</string>
 	<!-- button in the interface -->
 	<string name="choose_starting_point">Choisissez un point de départ…</string>
 	<!-- button in the interface -->

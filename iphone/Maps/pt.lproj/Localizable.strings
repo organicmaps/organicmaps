@@ -557,6 +557,9 @@
 /* route title */
 "route" = "Trajeto";
 
+/* category title */
+"routes" = "Trajetos";
+
 /* button in the interface */
 "choose_starting_point" = "Selecione o ponto de partida…";
 
