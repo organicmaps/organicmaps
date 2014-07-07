@@ -305,7 +305,7 @@ namespace
     static void processGlyph(unsigned char * glyphImage, int32_t width, int32_t height,
                              vector<uint8_t> & image, int32_t & newW, int32_t & newH)
     {
-      static uint32_t border = 4;
+      uint32_t const border = 4;
       int32_t const sWidth = width + 2 * border;
       int32_t const sHeight = height + 2 * border;
 
@@ -402,11 +402,12 @@ void Engine::RunExport()
   if (!m_workThread->isFinished())
     m_workThread->wait();
 
-  QString inPathName(m_dirName.trimmed() + "/font_temp.png");
+  QString dirName(m_dirName.trimmed());
+  QString inPathName(dirName + "/font_temp.png");
   m_tempPngFile = inPathName;
-  QString outPathName(m_dirName.trimmed() + "/font.png");
+  QString outPathName(dirName + "/font.png");
 
-  GetImage().save(m_dirName.trimmed() + "/font_temp.png", "png");
+  GetImage().save(dirName + "/font_temp.png", "png");
 
   QString params = QString("/opt/local/bin/convert %1 %2 %3")
                                               .arg(inPathName)
