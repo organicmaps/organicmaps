@@ -4,6 +4,8 @@
 #include <QAtomicInt>
 #include <QThread>
 #include <QImage>
+#include <QProcess>
+#include <QFile>
 
 struct FontRange
 {
@@ -28,6 +30,11 @@ public:
   Q_SIGNAL void UpdateProgress(int currentValue);
   Q_SIGNAL void EndEngine();
 
+  Q_SIGNAL void ConvertStarted();
+  Q_SIGNAL void ConvertEnded();
+
+  Q_SLOT void processChanged(QProcess::ProcessState state);
+
   void RunExport();
 
 private:
@@ -45,4 +52,7 @@ private:
   QString m_dirName;
   QAtomicInt m_dataGenerated;
   QThread * m_workThread;
+
+  QString m_tempPngFile;
+  QProcess m_process;
 };

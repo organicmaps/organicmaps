@@ -7,6 +7,8 @@
 
 #include <QFile>
 #include <QTextStream>
+#include <QProcess>
+#include <QMessageBox>
 
 #include "../base/macros.hpp"
 #include "../base/logging.hpp"
@@ -305,7 +307,7 @@ namespace
     static void processGlyph(unsigned char * glyphImage, int32_t width, int32_t height,
                              vector<uint8_t> & image, int32_t & newW, int32_t & newH)
     {
-      static uint32_t border = 2;
+      static uint32_t border = 4;
       int32_t const sWidth = width + 2 * border;
       int32_t const sHeight = height + 2 * border;
 
@@ -319,22 +321,26 @@ namespace
                                                (gray8c_pixel_t *)glyphImage,
                                                width);
 
-      for (gray8c_view_t::y_coord_t y = 0; y < subView.height(); ++y)
-      {
-        for (gray8c_view_t::x_coord_t x = 0; x < subView.width(); ++x)
-        {
-          if (srcView(x, y) > 40)
-            subView(x, y) = 255;
-          else
-            subView(x, y) = 0;
-        }
-      }
+      newW = sWidth;
+      newH = sHeight;
+      copy_pixels(srcView, subView);
 
-      DFMap forwardMap(image, sWidth, sHeight, 255, 0);
-      DFMap inverseMap(image, sWidth, sHeight, 0, 255);
-      forwardMap.Minus(inverseMap);
-      forwardMap.Normalize();
-      forwardMap.GenerateImage(image, newW, newH);
+//      for (gray8c_view_t::y_coord_t y = 0; y < subView.height(); ++y)
+//      {
+//        for (gray8c_view_t::x_coord_t x = 0; x < subView.width(); ++x)
+//        {
+//          if (srcView(x, y) > 40)
+//            subView(x, y) = 255;
+//          else
+//            subView(x, y) = 0;
+//        }
+//      }
+
+//      DFMap forwardMap(image, sWidth, sHeight, 255, 0);
+//      DFMap inverseMap(image, sWidth, sHeight, 0, 255);
+//      forwardMap.Minus(inverseMap);
+//      forwardMap.Normalize();
+//      forwardMap.GenerateImage(image, newW, newH);
     }
 
   private:
@@ -398,7 +404,18 @@ void Engine::RunExport()
   if (!m_workThread->isFinished())
     m_workThread->wait();
 
-  GetImage().save(m_dirName.trimmed() + "/font.png", "png");
+  QString inPathName(m_dirName.trimmed() + "/font_temp.png");
+  m_tempPngFile = inPathName;
+  QString outPathName(m_dirName.trimmed() + "/font.png");
+
+  GetImage().save(m_dirName.trimmed() + "/font_temp.png", "png");
+
+  QString params = QString("/opt/local/bin/convert %1 %2 %3")
+                                              .arg(inPathName)
+                                              .arg("-filter Jinc -resize 400% -threshold 30%  \( +clone -negate -morphology Distance Euclidean -level 50%,-50% \) -morphology Distance Euclidean -compose Plus -composite -level 45%,55% -resize 25%")
+                                              .arg(outPathName);
+  QObject::connect(&m_process, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(processChanged(QProcess::ProcessState)));
+  m_process.start(params);
 
   MyThread * thread = static_cast<MyThread *>(m_workThread);
   QList<MyThread::GlyphInfo> const & infos = thread->GetInfos();
@@ -458,4 +475,17 @@ void Engine::EmitUpdateProgress(int currentValue)
 void Engine::EmitEndEngine()
 {
   emit EndEngine();
+}
+
+void Engine::processChanged(QProcess::ProcessState state)
+{
+  if(state == QProcess::Starting)
+  {
+    emit ConvertStarted();
+  }
+  else if(state == QProcess::NotRunning)
+  {
+    emit ConvertEnded();
+    QFile::remove(m_tempPngFile);
+  }
 }
