@@ -1,6 +1,7 @@
 #include "routing_engine.hpp"
 #include "route.hpp"
 #include "helicopter_router.hpp"
+#include "osrm_router.hpp"
 
 #include "../base/stl_add.hpp"
 #include "../base/logging.hpp"
@@ -20,8 +21,13 @@ RoutingEngine::~RoutingEngine()
 
 void RoutingEngine::AddRouter(string const & name)
 {
-  if (!FindRouter(name) && name == "helicopter")
-    m_routers.push_back(new HelicopterRouter);
+  if (!FindRouter(name))
+  {
+    if (name == "helicopter")
+      m_routers.push_back(new HelicopterRouter);
+    else if (name == "osrm")
+      m_routers.push_back(new OsrmRouter);
+  }
 }
 
 void RoutingEngine::RemoveRouter(string const & name)
@@ -63,6 +69,13 @@ void RoutingEngine::SetFinalPoint(m2::PointD const & pt)
 
 void RoutingEngine::Calculate(string const & name, IRouter::ReadyCallback const & callback)
 {
+  if (name == "all")
+  {
+    for (size_t i = 0; i < m_routers.size(); ++i)
+      Calculate(m_routers[i]->GetName(), callback);
+    return;
+  }
+
   IRouter * p = FindRouter(name);
   if (!p)
   {
