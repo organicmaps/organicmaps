@@ -10,6 +10,7 @@
 #include "../../../platform/preferred_languages.hpp"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
+#import "Framework.h"
 
 typedef NS_ENUM(NSUInteger, Section)
 {
@@ -37,6 +38,12 @@ typedef NS_ENUM(NSUInteger, Section)
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    GetFramework().Invalidate(true);
 }
 
 #pragma mark - Table view data source
