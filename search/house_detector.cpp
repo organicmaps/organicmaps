@@ -1081,11 +1081,11 @@ void ProcessNearbyHouses(vector<HouseProjection const *> const & v, ResultAccumu
   }
 }
 
-void GetClosestHouse(MergedStreet const & st, ResultAccumulator & acc)
-{
-  for (MergedStreet::Index i = st.Begin(); !st.IsEnd(i); st.Inc(i))
-    acc.ProcessCandidate(st.Get(i));
-}
+//void GetClosestHouse(MergedStreet const & st, ResultAccumulator & acc)
+//{
+//  for (MergedStreet::Index i = st.Begin(); !st.IsEnd(i); st.Inc(i))
+//    acc.ProcessCandidate(st.Get(i));
+//}
 
 // If it's odd or even part of the street pass 2, else pass 1.
 void AddToQueue(int houseNumber, int step, queue<int> & q)
@@ -1328,29 +1328,29 @@ void LongestSubsequence(vector<HouseProjection const *> const & v,
   LongestSubsequence(v, back_inserter(res), CompareHouseNumber());
 }
 
-void GetLSHouse(MergedStreet const & st, double offsetMeters, ResultAccumulator & acc)
-{
-  acc.ResetNearby();
+//void GetLSHouse(MergedStreet const & st, double offsetMeters, ResultAccumulator & acc)
+//{
+//  acc.ResetNearby();
 
-  vector<HouseProjection const *> v;
-  for (MergedStreet::Index i = st.Begin(); !st.IsEnd(i); st.Inc(i))
-  {
-    search::HouseProjection const & p = st.Get(i);
-    if (p.m_distance <= offsetMeters && acc.IsOurSide(p))
-      v.push_back(&p);
-  }
+//  vector<HouseProjection const *> v;
+//  for (MergedStreet::Index i = st.Begin(); !st.IsEnd(i); st.Inc(i))
+//  {
+//    search::HouseProjection const & p = st.Get(i);
+//    if (p.m_distance <= offsetMeters && acc.IsOurSide(p))
+//      v.push_back(&p);
+//  }
 
-  vector<HouseProjection const *> res;
-  LongestSubsequence(v, res);
+//  vector<HouseProjection const *> res;
+//  LongestSubsequence(v, res);
 
-  //LOG(LDEBUG, ("=== Offset", offsetMeters, "==="));
-  //LogSequence(res);
+//  //LOG(LDEBUG, ("=== Offset", offsetMeters, "==="));
+//  //LogSequence(res);
 
-  for (size_t i = 0; i < res.size(); ++i)
-    acc.MatchCandidate(*(res[i]), true);
+//  for (size_t i = 0; i < res.size(); ++i)
+//    acc.MatchCandidate(*(res[i]), true);
 
-  ProcessNearbyHouses(v, acc);
-}
+//  ProcessNearbyHouses(v, acc);
+//}
 
 struct GreaterSecond
 {

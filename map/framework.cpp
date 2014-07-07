@@ -195,8 +195,8 @@ Framework::Framework()
     m_benchmarkEngine(0),
     m_bmManager(*this),
     m_balloonManager(*this),
-    m_locationChangedSlotID(-1),
-    m_fixedSearchResults(0)
+    m_fixedSearchResults(0),
+    m_locationChangedSlotID(-1)
 {
   // Checking whether we should enable benchmark.
   bool isBenchmarkingEnabled = false;
