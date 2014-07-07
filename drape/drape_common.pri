@@ -32,7 +32,6 @@ SOURCES += \
     $$DRAPE_DIR/batcher_helpers.cpp \
     $$DRAPE_DIR/overlay_tree.cpp \
     $$DRAPE_DIR/font_texture.cpp \
-    $$DRAPE_DIR/font_loader.cpp \
     $$DRAPE_DIR/texture_set_holder.cpp \
 
 HEADERS += \
@@ -71,4 +70,3 @@ HEADERS += \
     $$DRAPE_DIR/batcher_helpers.hpp \
     $$DRAPE_DIR/overlay_tree.hpp \
     $$DRAPE_DIR/font_texture.hpp \
-    $$DRAPE_DIR/font_loader.hpp \

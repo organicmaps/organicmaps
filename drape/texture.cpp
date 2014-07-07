@@ -113,6 +113,11 @@ void Texture::Bind() const
   GLFunctions::glBindTexture(GetID());
 }
 
+uint32_t Texture::GetMaxTextureSize()
+{
+  return GLFunctions::glGetInteger(gl_const::GLMaxTextureSize);
+}
+
 void Texture::UnpackFormat(Texture::TextureFormat format, glConst & layout, glConst & pixelType)
 {
   bool requiredFormat = GLExtensionsList::Instance().IsSupported(GLExtensionsList::RequiredInternalFormat);

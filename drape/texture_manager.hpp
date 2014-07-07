@@ -12,14 +12,14 @@ public:
   void Init(string const & resourcePrefix);
   void Release();
   virtual void GetSymbolRegion(string const & symbolName, SymbolRegion & region) const;
-  virtual void GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const;
+  virtual bool GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const;
 
   void BindTextureSet(uint32_t textureSet) const;
   uint32_t GetTextureCount(uint32_t textureSet) const;
 
 private:
   class TextureSet;
-  MasterPointer<TextureSet> m_textures;
+  vector<MasterPointer<TextureSet> > m_textures;
   uint32_t m_maxTextureBlocks;
 };
 

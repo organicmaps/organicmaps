@@ -1,5 +1,6 @@
 #include "texture_manager.hpp"
 #include "symbols_texture.hpp"
+#include "font_texture.hpp"
 
 #include "glfunctions.hpp"
 
@@ -73,20 +74,36 @@ private:
   uint32_t m_maxSize;
 };
 
-void TextureManager::Init(string const & resourcePostfix)
+void TextureManager::Init(string const & resourcePrefix)
 {
   // in shader we handle only 8 textures
   m_maxTextureBlocks = min(8, GLFunctions::glGetInteger(gl_const::GLMaxFragmentTextures));
   SymbolsTexture * symbols = new SymbolsTexture();
-  symbols->Load(my::JoinFoldersToPath(string("resources-") + resourcePostfix, "symbols"));
+  symbols->Load(my::JoinFoldersToPath(string("resources-") + resourcePrefix, "symbols"));
 
-  m_textures.Reset(new TextureSet(m_maxTextureBlocks));
-  m_textures->AddTexture(MovePointer<Texture>(symbols));
+  TextureSet * defaultSet = new TextureSet(m_maxTextureBlocks);
+  defaultSet->AddTexture(MovePointer<Texture>(symbols));
+
+  m_textures.push_back(MasterPointer<TextureSet>(defaultSet));
+
+  vector<TransferPointer<Texture> > tempTextures;
+  LoadFont(string("resources"), tempTextures);
+  for (size_t i = 0; i < tempTextures.size(); ++i)
+  {
+    RefPointer<TextureSet> set = m_textures.back().GetRefPointer();
+    if (set->IsFull())
+    {
+      m_textures.push_back(MasterPointer<TextureSet>(new TextureSet(m_maxTextureBlocks)));
+      set = m_textures.back().GetRefPointer();
+    }
+
+    set->AddTexture(tempTextures[i]);
+  }
 }
 
 void TextureManager::Release()
 {
-  m_textures.Destroy();
+  DeleteRange(m_textures, MasterPointerDeleter());
 }
 
 void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & region) const
@@ -94,27 +111,41 @@ void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & r
   SymbolsTexture::SymbolKey key(symbolName);
   TextureNode node;
   node.m_textureSet = 0;
-  Texture::ResourceInfo const * info = m_textures->FindResource(key, node);
+  Texture::ResourceInfo const * info = m_textures[0]->FindResource(key, node);
   ASSERT(node.m_textureOffset != -1, ());
   region.SetResourceInfo(info);
   region.SetTextureNode(node);
 }
 
-void TextureManager::GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const
+bool TextureManager::GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const
 {
-  // todo;
+  FontTexture::GlyphKey key(charCode);
+  for (size_t i = 0; i < m_textures.size(); ++i)
+  {
+    TextureNode node;
+    Texture::ResourceInfo const * info = m_textures[i]->FindResource(key, node);
+    if (info != NULL)
+    {
+      node.m_textureSet = i;
+      region.SetTextureNode(node);
+      region.SetResourceInfo(info);
+      return true;
+    }
+  }
+
+  return false;
 }
 
 void TextureManager::BindTextureSet(uint32_t textureSet) const
 {
-  ASSERT_LESS(textureSet, 1, ()); // TODO replace 1 to m_textureSets.size()
-  m_textures->BindTextureSet();
+  ASSERT_LESS(textureSet, m_textures.size(), ());
+  m_textures[textureSet]->BindTextureSet();
 }
 
 uint32_t TextureManager::GetTextureCount(uint32_t textureSet) const
 {
-  ASSERT_LESS(textureSet, 1, ()); // TODO replace 1 to m_textureSets.size()
-  return m_textures->GetSize();
+  ASSERT_LESS(textureSet, m_textures.size(), ());
+  return m_textures[textureSet]->GetSize();
 }
 
 

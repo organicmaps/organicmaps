@@ -28,6 +28,7 @@ public:
   class Key
   {
   public:
+    virtual ~Key() {}
     virtual ResourceType GetType() const = 0;
   };
 
@@ -35,6 +36,7 @@ public:
   {
   public:
     ResourceInfo(m2::RectF const & texRect);
+    virtual ~ResourceInfo() {}
 
     virtual ResourceType GetType() const = 0;
     m2::RectF const & GetTexRect() const;
@@ -62,6 +64,8 @@ public:
   float GetT(uint32_t y) const;
 
   void Bind() const;
+
+  static uint32_t GetMaxTextureSize();
 
 private:
   void UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType);
