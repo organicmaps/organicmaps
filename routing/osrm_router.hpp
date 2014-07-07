@@ -17,9 +17,6 @@ class OsrmRouter : public IRouter
   /// Http callback from the server
   void OnRouteReceived(downloader::HttpRequest & request);
 
-protected:
-  virtual string RoutingUrl() const = 0;
-
 public:
   virtual string GetName() const;
   virtual void SetFinalPoint(m2::PointD const & finalPt);
