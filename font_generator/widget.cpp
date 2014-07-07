@@ -66,9 +66,7 @@ void Widget::LoadUnicodeBlocks()
 void Widget::ResolveExportPath()
 {
   QString dir = QFileDialog::getExistingDirectory(this, "ExportPath");
-  ui->exportpath->setText(dir);
-  m_engine.SetExportPath(dir);
-  UpdateButton();
+  ResolveExportPath(dir);
 }
 
 void Widget::ResolveExportPath(const QString & filePath)

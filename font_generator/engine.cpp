@@ -7,8 +7,6 @@
 
 #include <QFile>
 #include <QTextStream>
-#include <QProcess>
-#include <QMessageBox>
 
 #include "../base/macros.hpp"
 #include "../base/logging.hpp"

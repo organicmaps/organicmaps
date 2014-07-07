@@ -5,7 +5,6 @@
 #include <QThread>
 #include <QImage>
 #include <QProcess>
-#include <QFile>
 
 struct FontRange
 {
