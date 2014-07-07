@@ -13,8 +13,11 @@ include($$ROOT_DIR/common.pri)
 SOURCES += \
   ../../testing/testingmain.cpp \
   routing_smoke.cpp \
+  road_graph_builder.cpp \
+  road_graph_builder_test.cpp \
 
-HEADERS +=
+HEADERS += \
+  road_graph_builder.hpp \
 
 
 
