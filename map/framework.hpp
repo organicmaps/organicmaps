@@ -20,6 +20,8 @@
 
 #include "../search/search_engine.hpp"
 
+#include "../routing/routing_engine.hpp"
+
 #include "../storage/storage.hpp"
 
 #include "../platform/location.hpp"
@@ -90,6 +92,9 @@ protected:
   StringsBundle m_stringsBundle;
 
   mutable scoped_ptr<search::Engine> m_pSearchEngine;
+
+  routing::RoutingEngine m_routingEngine;
+
   model::FeaturesFetcher m_model;
   ScalesProcessor m_scales;
   Navigator m_navigator;

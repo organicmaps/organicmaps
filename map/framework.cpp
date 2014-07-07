@@ -1134,8 +1134,59 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
   GetSearchEngine()->PrepareSearch(GetCurrentViewport(), hasPt, lat, lon);
 }
 
+/// Activates hidden features via search queries
+static bool SesameOpen(search::SearchParams const & params, routing::RoutingEngine & r)
+{
+  // Quick check
+  string const & q = params.m_query;
+  if (!q.empty() && q[0] != '?')
+    return false;
+
+  char const * searchResult = 0;
+  if (params.m_query == "?routing on")
+  {
+    r.AddRouter("all");
+    // Enable all other engines here
+    Settings::Set("helicopter", true);
+    searchResult = "All routing engines activated";
+  }
+  else if (params.m_query == "?routing off")
+  {
+    r.RemoveRouter("all");
+    // Disable all other engines here
+    Settings::Set("helicopter", false);
+    searchResult = "All routing engines disabled";
+  }
+  else if (params.m_query == "?heli on")
+  {
+    r.AddRouter("helicopter");
+    Settings::Set("helicopter", true);
+    searchResult = "Helicopter routing activated";
+  }
+  else if (params.m_query == "?heli off")
+  {
+    r.RemoveRouter("helicopter");
+    Settings::Set("helicopter", false);
+    searchResult = "Helicopter routing disabled";
+  }
+
+  if (searchResult)
+  {
+    search::Results results;
+    results.AddResult(search::Result(searchResult, ""));
+    params.m_callback(results);
+    return true;
+  }
+
+  return false;
+}
+
 bool Framework::Search(search::SearchParams const & params)
 {
+  // Activate hidden features
+  if (SesameOpen(params, m_routingEngine))
+    return true;
+
 #ifdef FIXED_LOCATION
   search::SearchParams rParams(params);
   if (params.IsValidPosition())
