@@ -27,7 +27,7 @@ namespace
     EXPECTGL(glGenTexture()).Times(AnyNumber());
   }
 
-  FontTexture::GlyphInfo const * FindSymbol(int uni, vector<MasterPointer<Texture> > & textures,
+  FontTexture::GlyphInfo const * FindSymbol(int uni, vector<MasterPointer<Texture> > const & textures,
                                             int & w, int & h)
   {
     FontTexture::GlyphKey key(uni);
@@ -64,9 +64,9 @@ namespace
     float dstXoff, dstYoff, dstAdvance;
     dstInfo.GetMetrics(dstXoff, dstYoff, dstAdvance);
 
-    TEST(my::AlmostEqual(srcXoff, dstXoff), ());
-    TEST(my::AlmostEqual(srcYoff, dstYoff), ());
-    TEST(my::AlmostEqual(srcAdvance, dstAdvance), ());
+    TEST_ALMOST_EQUAL(srcXoff, dstXoff, ());
+    TEST_ALMOST_EQUAL(srcYoff, dstYoff, ());
+    TEST_ALMOST_EQUAL(srcAdvance, dstAdvance, ());
   }
 
   class Tester
@@ -85,24 +85,22 @@ namespace
     void TestThis(string const & resPath)
     {
       vector<MasterPointer<Texture> > textures;
+      vector<TransferPointer<Texture> > tempTextures;
+      LoadFont(resPath, tempTextures);
+      textures.reserve(tempTextures.size());
+      for (size_t i = 0; i < tempTextures.size(); ++i)
+        textures.push_back(MasterPointer<Texture>(tempTextures[i]));
+
+      for (size_t i = 0; i < m_infos.size(); ++i)
       {
-        vector<TransferPointer<Texture> > tempTextures;
-        LoadFont(resPath, tempTextures);
-        textures.reserve(tempTextures.size());
-        for (size_t i = 0; i < tempTextures.size(); ++i)
-          textures.push_back(MasterPointer<Texture>(tempTextures[i]));
+        int id = m_infos[i].first;
 
-        for (size_t i = 0; i < m_infos.size(); ++i)
-        {
-          int id = m_infos[i].first;
-
-          int w, h;
-          FontTexture::GlyphInfo const * info = FindSymbol(id, textures, w, h);
-          TestSymbol(info, m_infos[i].second, w, h);
-        }
-
-        DeleteRange(textures, MasterPointerDeleter());
+        int w, h;
+        FontTexture::GlyphInfo const * info = FindSymbol(id, textures, w, h);
+        TestSymbol(info, m_infos[i].second, w, h);
       }
+
+      DeleteRange(textures, MasterPointerDeleter());
     }
 
   private:

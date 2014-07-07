@@ -1,11 +1,10 @@
 #include "symbols_texture.hpp"
-
+#include "utils/stb_image.h"
 
 #include "../platform/platform.hpp"
 
 #include "../coding/reader.hpp"
 #include "../coding/parse_xml.hpp"
-#include "../coding/stb_image.h"
 
 #include "../base/string_utils.hpp"
 

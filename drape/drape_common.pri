@@ -33,6 +33,7 @@ SOURCES += \
     $$DRAPE_DIR/overlay_tree.cpp \
     $$DRAPE_DIR/font_texture.cpp \
     $$DRAPE_DIR/texture_set_holder.cpp \
+    $$DRAPE_DIR/utils/stb_image.c \
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -70,3 +71,4 @@ HEADERS += \
     $$DRAPE_DIR/batcher_helpers.hpp \
     $$DRAPE_DIR/overlay_tree.hpp \
     $$DRAPE_DIR/font_texture.hpp \
+    $$DRAPE_DIR/utils/stb_image.h \

@@ -35,7 +35,6 @@ SOURCES += \
     uri.cpp \
     zip_creator.cpp \
     file_name_utils.cpp \
-    stb_image.c \
 
 HEADERS += \
     internal/xmlparser.h \
@@ -96,4 +95,3 @@ HEADERS += \
     zip_creator.hpp \
     file_name_utils.hpp \
     constants.hpp \
-    stb_image.h \

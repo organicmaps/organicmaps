@@ -1,9 +1,9 @@
 #include "font_texture.hpp"
 #include "pointers.hpp"
+#include "utils/stb_image.h"
 
 #include "../platform/platform.hpp"
 #include "../coding/reader.hpp"
-#include "../coding/stb_image.h"
 
 #include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
@@ -51,7 +51,7 @@ void FontTexture::GlyphInfo::GetMetrics(float & xOffset, float & yOffset, float 
 Texture::ResourceInfo const * FontTexture::FindResource(Texture::Key const & key) const
 {
   if (key.GetType() != Texture::Glyph)
-    return false;
+    return NULL;
 
   int unicodePoint = static_cast<GlyphKey const &>(key).GetUnicodePoint();
   glyph_map_t::const_iterator it = m_glyphs.find(unicodePoint);
@@ -93,7 +93,7 @@ namespace
             CutTextureBySize(srcView, notProcessed[i], baseSize, outRects);
 
           baseSize >>= 1;
-          notProcessed = outRects;
+          swap(notProcessed, outRects);
         }
       }
     }
