@@ -1,8 +1,12 @@
 #include "../../testing/testing.hpp"
-#include "../font_loader.hpp"
+#include "../font_texture.hpp"
 
 #include "glmock_functions.hpp"
+#include "../../base/stl_add.hpp"
 #include "../../platform/platform.hpp"
+
+#include "../../geometry/rect2d.hpp"
+#include "../../geometry/point2d.hpp"
 
 #include <gmock/gmock.h>
 
@@ -13,14 +17,6 @@ using ::testing::AnyNumber;
 
 namespace
 {
-  void TestCoords(m2::RectF const & texRect, float x1, float y1, float x2, float y2)
-  {
-    TEST_ALMOST_EQUAL(texRect.minX(), x1, ("TESTING_TEXTURE_COORDS_FAILURE"))
-    TEST_ALMOST_EQUAL(texRect.minY(), y1, ("TESTING_TEXTURE_COORDS_FAILURE"))
-    TEST_ALMOST_EQUAL(texRect.maxX(), x2, ("TESTING_TEXTURE_COORDS_FAILURE"))
-    TEST_ALMOST_EQUAL(texRect.maxY(), y2, ("TESTING_TEXTURE_COORDS_FAILURE"))
-  }
-
   void PrepareOpenGL(int size)
   {
     EXPECTGL(glGetInteger(gl_const::GLMaxTextureSize)).WillOnce(Return(size));
@@ -30,103 +26,154 @@ namespace
     EXPECTGL(glTexImage2D(_, _, _, _, _)).Times(AnyNumber());
     EXPECTGL(glGenTexture()).Times(AnyNumber());
   }
+
+  FontTexture::GlyphInfo const * FindSymbol(int uni, vector<MasterPointer<Texture> > & textures,
+                                            int & w, int & h)
+  {
+    FontTexture::GlyphKey key(uni);
+    for (size_t i = 0; i < textures.size(); ++i)
+    {
+      RefPointer<Texture> texture = textures[i].GetRefPointer();
+      Texture::ResourceInfo const * info = texture->FindResource(key);
+      if (info != NULL)
+      {
+        w = texture->GetWidth();
+        h = texture->GetHeight();
+        return static_cast<FontTexture::GlyphInfo const *>(info);
+      }
+    }
+
+    ASSERT(false, ());
+    return NULL;
+  }
+
+  void TestSymbol(FontTexture::GlyphInfo const * srcInfo, FontTexture::GlyphInfo dstInfo, int texW, int texH)
+  {
+    m2::RectF srcTexRect = srcInfo->GetTexRect();
+    m2::RectU srcRect(srcTexRect.minX() * texW, srcTexRect.minY() * texH,
+                      srcTexRect.maxX() * texW, srcTexRect.maxY() * texH);
+
+    m2::RectF dstTexRect = dstInfo.GetTexRect();
+    m2::RectU dstRect(dstTexRect.minX() * texW, dstTexRect.minY() * texH,
+                      dstTexRect.maxX() * texW, dstTexRect.maxY() * texH);
+
+    TEST_EQUAL(dstRect, srcRect, ());
+
+    float srcXoff, srcYoff, srcAdvance;
+    srcInfo->GetMetrics(srcXoff, srcYoff, srcAdvance);
+    float dstXoff, dstYoff, dstAdvance;
+    dstInfo.GetMetrics(dstXoff, dstYoff, dstAdvance);
+
+    TEST(my::AlmostEqual(srcXoff, dstXoff), ());
+    TEST(my::AlmostEqual(srcYoff, dstYoff), ());
+    TEST(my::AlmostEqual(srcAdvance, dstAdvance), ());
+  }
+
+  class Tester
+  {
+  public:
+    Tester(int textureSize)
+    {
+      PrepareOpenGL(textureSize);
+    }
+
+    void AddInfo(int id, FontTexture::GlyphInfo const & info)
+    {
+      m_infos.push_back(make_pair(id, info));
+    }
+
+    void TestThis(string const & resPath)
+    {
+      vector<MasterPointer<Texture> > textures;
+      {
+        vector<TransferPointer<Texture> > tempTextures;
+        LoadFont(resPath, tempTextures);
+        textures.reserve(tempTextures.size());
+        for (size_t i = 0; i < tempTextures.size(); ++i)
+          textures.push_back(MasterPointer<Texture>(tempTextures[i]));
+
+        for (size_t i = 0; i < m_infos.size(); ++i)
+        {
+          int id = m_infos[i].first;
+
+          int w, h;
+          FontTexture::GlyphInfo const * info = FindSymbol(id, textures, w, h);
+          TestSymbol(info, m_infos[i].second, w, h);
+        }
+
+        DeleteRange(textures, MasterPointerDeleter());
+      }
+    }
+
+  private:
+    vector<pair<int, FontTexture::GlyphInfo> > m_infos;
+  };
+}
+typedef FontTexture::GlyphInfo glyph_t;
+
+UNIT_TEST(CutTextureTest_1024)
+{
+  Tester t(1024);
+  int w = 1024;
+  int h = 1024;
+  t.AddInfo(1, glyph_t(m2::RectF(0.0   / w, 0.0   / h,
+                                 20.0  / w, 20.0  / h), 0.0, 0.0, 0.1));
+  t.AddInfo(2, glyph_t(m2::RectF(20.0  / w, 20.0  / h,
+                                 45.0  / w, 45.0  / h), 2.0, 4.3, 0.2));
+  t.AddInfo(3, glyph_t(m2::RectF(512.0 / w, 256.0 / h,
+                                 768.0 / w, 512.0 / h), 0.1, 0.2, 1.2));
+  t.AddInfo(4, glyph_t(m2::RectF(768.0 / w, 512.0 / h,
+                                 868.0 / w, 612.0 / h), 0.8, 1.0, 1.3));
+
+  t.TestThis("font_test");
 }
 
-UNIT_TEST(SimpleFontLoading_1024)
+UNIT_TEST(CutTextureTest_512)
 {
-  FontLoader converter;
+  Tester t(512);
+  int w = 512;
+  int h = 512;
+  t.AddInfo(1, glyph_t(m2::RectF(0.0   / w, 0.0   / h,
+                                 20.0  / w, 20.0  / h), 0.0, 0.0, 0.1));
+  t.AddInfo(2, glyph_t(m2::RectF(20.0  / w, 20.0  / h,
+                                 45.0  / w, 45.0  / h), 2.0, 4.3, 0.2));
+  t.AddInfo(3, glyph_t(m2::RectF(0.0   / w, 256.0 / h,
+                                 256.0 / w, 512.0 / h), 0.1, 0.2, 1.2));
+  t.AddInfo(4, glyph_t(m2::RectF(256.0 / w, 0.0   / h,
+                                 356.0 / w, 100.0 / h), 0.8, 1.0, 1.3));
 
-  PrepareOpenGL(1024);
-
-  vector<TextureFont> tf = converter.Load("test1");
-  TEST_EQUAL(converter.GetBlockByUnicode(1), 5, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(2), 10, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(3), 15, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(4), 7, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(5), 13, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(6), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(7), 12, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(8), 14, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(9), 7, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(10), 9, ("TESTING_BLOCK_RESIZING_FAILURE"));
-
-  FontChar symbol;
-  TEST(tf[5].GetSymbolByUnicode(1, symbol), ("UNICODE_SYMBOL_NOT_FOUND"));
-  TEST_EQUAL(symbol.m_x, 0, ("TESTING_SYMBOL_COORDS_FAILURE"));
-  TEST_EQUAL(symbol.m_y, 0, ("TESTING_SYMBOL_COORDS_FAILURE"));
-  TEST(tf[9].GetSymbolByUnicode(10, symbol), ("UNICODE_SYMBOL_NOT_FOUND"));
-  TEST_EQUAL(symbol.m_x, 910, ("TESTING_SYMBOL_COORDS_FAILURE"));
-  TEST_EQUAL(symbol.m_y, 886, ("TESTING_SYMBOL_COORDS_FAILURE"));
-
-  m2::RectF texRect;
-  m2::PointU pixelSize;
-  TEST(tf[5].FindResource(TextureFont::FontKey(1), texRect, pixelSize),
-                          ("UNICODE_SYMBOL_NOT_FOUND"));
-  TestCoords(texRect, 0.0f, 0.0f, 8.0f/1024.0f, 8.0f/1024.0f);
+  t.TestThis("font_test");
 }
 
-UNIT_TEST(SimpleFontLoading_2048)
+UNIT_TEST(RectangleCut_1024)
 {
-  FontLoader converter;
+  Tester t(1024);
+  int w1 = 512;
+  int h1 = 512;
+  int w2 = 256;
+  int h2 = 256;
+  t.AddInfo(1, glyph_t(m2::RectF(0.0   / w1, 0.0   / h1,
+                                 20.0  / w1, 20.0  / h1), 0.0, 0.0, 0.1));
+  t.AddInfo(2, glyph_t(m2::RectF(0.0   / w1, 412.0 / h1,
+                                 100.0 / w1, 512.0 / h1), 2.0, 4.3, 0.2));
+  t.AddInfo(3, glyph_t(m2::RectF(0.0   / w2, 0.0   / h2,
+                                 50.0  / w2, 50.0  / h2), 0.1, 0.2, 1.2));
 
-  PrepareOpenGL(2048);
-
-  vector<TextureFont> tf = converter.Load("test1");
-  TEST_EQUAL(converter.GetBlockByUnicode(1), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(2), 3, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(3), 3, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(4), 1, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(5), 2, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(6), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(7), 2, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(8), 3, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(9), 1, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(10), 2, ("TESTING_BLOCK_RESIZING_FAILURE"));
-
-  FontChar symbol;
-  TEST(tf[0].GetSymbolByUnicode(1, symbol), ("UNICODE_SYMBOL_NOT_FOUND"));
-  TEST_EQUAL(symbol.m_x, 1024, ("TESTING_SYMBOL_COORDS_FAILURE"));
-  TEST_EQUAL(symbol.m_y, 1024, ("TESTING_SYMBOL_COORDS_FAILURE"));
-  TEST(tf[2].GetSymbolByUnicode(10, symbol), ("UNICODE_SYMBOL_NOT_FOUND"));
-  TEST_EQUAL(symbol.m_x, 1934, ("TESTING_SYMBOL_COORDS_FAILURE"));
-  TEST_EQUAL(symbol.m_y, 886, ("TESTING_SYMBOL_COORDS_FAILURE"));
-
-  m2::RectF texRect;
-  m2::PointU pixelSize;
-  TEST(tf[2].FindResource(TextureFont::FontKey(7), texRect, pixelSize),
-                          ("UNICODE_SYMBOL_NOT_FOUND"));
-  TestCoords(texRect, 234.0f/2048.0f, 1024.0f/2048.0f, 242.0f/2048.0f, 1035.0f/2048.0f);
+  t.TestThis("font_test2");
 }
 
-UNIT_TEST(SimpleFontLoading_4096)
+
+UNIT_TEST(RectangleCut_256)
 {
-  FontLoader converter;
+  Tester t(256);
+  int w = 256;
+  int h = 256;
+  t.AddInfo(1, glyph_t(m2::RectF(0.0   / w, 0.0   / h,
+                                 20.0  / w, 20.0  / h), 0.0, 0.0, 0.1));
+  t.AddInfo(2, glyph_t(m2::RectF(0.0   / w, 156.0 / h,
+                                 100.0 / w, 256.0 / h), 2.0, 4.3, 0.2));
+  t.AddInfo(3, glyph_t(m2::RectF(0.0   / w, 0.0   / h,
+                                 50.0  / w, 50.0  / h), 0.1, 0.2, 1.2));
 
-  PrepareOpenGL(4096);
-
-  vector<TextureFont> tf = converter.Load("test1");
-  TEST_EQUAL(converter.GetBlockByUnicode(1), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(2), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(3), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(4), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(5), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(6), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(7), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(8), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(9), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-  TEST_EQUAL(converter.GetBlockByUnicode(10), 0, ("TESTING_BLOCK_RESIZING_FAILURE"));
-
-  FontChar symbol;
-  TEST(tf[0].GetSymbolByUnicode(1, symbol), ("UNICODE_SYMBOL_NOT_FOUND"));
-  TEST_EQUAL(symbol.m_x, 1024, ("TESTING_SYMBOL_COORDS_FAILURE"));
-  TEST_EQUAL(symbol.m_y, 1024, ("TESTING_SYMBOL_COORDS_FAILURE"));
-  TEST(tf[0].GetSymbolByUnicode(10, symbol), ("UNICODE_SYMBOL_NOT_FOUND"));
-  TEST_EQUAL(symbol.m_x, 1934, ("TESTING_SYMBOL_COORDS_FAILURE"));
-  TEST_EQUAL(symbol.m_y, 2934, ("TESTING_SYMBOL_COORDS_FAILURE"));
-
-  m2::RectF texRect;
-  m2::PointU pixelSize;
-  TEST(tf[0].FindResource(TextureFont::FontKey(3), texRect, pixelSize),
-                          ("UNICODE_SYMBOL_NOT_FOUND"));
-  TestCoords(texRect, 3072.0f/4096.0f, 3072.0f/4096.0f, 3080.0f/4096.0f, 3087.0f/4096.0f);
+  t.TestThis("font_test2");
 }
