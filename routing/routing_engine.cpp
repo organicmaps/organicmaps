@@ -1,5 +1,6 @@
 #include "routing_engine.hpp"
 #include "route.hpp"
+#include "helicopter_router.hpp"
 
 #include "../base/stl_add.hpp"
 
@@ -19,7 +20,8 @@ RoutingEngine::~RoutingEngine()
 
 void RoutingEngine::AddRouter(string const & name)
 {
-  /// @todo
+  if (!FindRouter(name) && name == "helicopter")
+    m_routers.push_back(new HelicopterRouter);
 }
 
 void RoutingEngine::RemoveRouter(string const & name)
