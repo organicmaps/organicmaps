@@ -3,7 +3,8 @@
 namespace routing
 {
 
-Route::Route(vector<m2::PointD> const & points) : m_poly(points)
+Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
+  : m_router(router), m_poly(points), m_name(name)
 {
 }
 
