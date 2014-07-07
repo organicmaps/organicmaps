@@ -131,6 +131,7 @@
 								<option id="gnu.cpp.link.option.userobjs.1909778618" name="Other objects" superClass="gnu.cpp.link.option.userobjs" valueType="userObjs">
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/debug/libmap.a"/>
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/debug/libsearch.a"/>
+									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/debug/librouting.a"/>
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/debug/libgui.a"/>
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/debug/libgraphics.a"/>
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/debug/libstorage.a"/>
@@ -446,6 +447,7 @@
 								</option>
 								<option id="gnu.cpp.link.option.userobjs.1805860960" name="Other objects" superClass="gnu.cpp.link.option.userobjs" valueType="userObjs">
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/debug/libmap.a"/>
+									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/debug/librouting.a"/>
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/debug/libsearch.a"/>
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/debug/libgui.a"/>
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/debug/libgraphics.a"/>
@@ -614,6 +616,7 @@
 								</option>
 								<option id="gnu.cpp.link.option.userobjs.16359990" name="Other objects" superClass="gnu.cpp.link.option.userobjs" valueType="userObjs">
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/release/libmap.a"/>
+									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/release/librouting.a"/>
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/release/libsearch.a"/>
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/release/libgui.a"/>
 									<listOptionValue builtIn="false" value="${omim_lib_incude}/out/release/libgraphics.a"/>

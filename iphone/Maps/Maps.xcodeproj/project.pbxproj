@@ -238,6 +238,8 @@
 		FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
 		FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F8937132D5DB00048E3FE /* libtomcrypt.a */; };
 		FA99CB73147089B100689A9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
+		FAA0F163196AC14100E01C3F /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA0F162196AC14100E01C3F /* librouting.a */; };
+		FAA0F164196AC15E00E01C3F /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA0F162196AC14100E01C3F /* librouting.a */; };
 		FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C2A1144F135F005337F6 /* LocationManager.mm */; };
 		FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA614B7155F16950031C345 /* AddSetVC.mm */; };
 		FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA614B7155F16950031C345 /* AddSetVC.mm */; };
@@ -1561,6 +1563,7 @@
 		FA8F8937132D5DB00048E3FE /* libtomcrypt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libtomcrypt.a; sourceTree = SOURCE_ROOT; };
 		FA971562150920C600916690 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FA99CB72147089B100689A9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FAA0F162196AC14100E01C3F /* librouting.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librouting.a; path = librouting.a; sourceTree = "<group>"; };
 		FAA4B13E13EC1C8C00BCAB63 /* DiskFreeSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiskFreeSpace.h; sourceTree = "<group>"; };
 		FAA5C2A0144F135F005337F6 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationManager.h; path = Platform/LocationManager.h; sourceTree = "<group>"; };
 		FAA5C2A1144F135F005337F6 /* LocationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LocationManager.mm; path = Platform/LocationManager.mm; sourceTree = "<group>"; };
@@ -2100,6 +2103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA0F163196AC14100E01C3F /* librouting.a in Frameworks */,
 				97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */,
 				97719D491843B6F700BDD815 /* Security.framework in Frameworks */,
 				97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */,
@@ -2144,6 +2148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA0F164196AC15E00E01C3F /* librouting.a in Frameworks */,
 				97EDDCE518A299C000AEFB7A /* Twitter.framework in Frameworks */,
 				972CDCC61887F1B7006641CA /* CFNetwork.framework in Frameworks */,
 				97C98656186C734000AF7E9E /* AVFoundation.framework in Frameworks */,
@@ -2286,6 +2291,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAA0F162196AC14100E01C3F /* librouting.a */,
 				974386D81934CBAC00FD5659 /* FacebookSDK.framework */,
 				97EDDCE418A299C000AEFB7A /* Twitter.framework */,
 				972CDCC51887F1B7006641CA /* CFNetwork.framework */,
@@ -4592,6 +4598,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4705,6 +4712,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4772,6 +4780,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4843,6 +4852,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4909,6 +4919,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4976,6 +4987,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5047,6 +5059,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5118,6 +5131,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5188,6 +5202,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5258,6 +5273,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5327,6 +5343,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5354,6 +5371,7 @@
 					"${SRCROOT}",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5385,6 +5403,7 @@
 					"${SRCROOT}",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5416,6 +5435,7 @@
 					"${SRCROOT}",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5447,6 +5467,7 @@
 					"${SRCROOT}",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5478,6 +5499,7 @@
 					"${SRCROOT}",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5509,6 +5531,7 @@
 					"${SRCROOT}",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5540,6 +5563,7 @@
 					"${SRCROOT}",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5571,6 +5595,7 @@
 					"${SRCROOT}",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5602,6 +5627,7 @@
 					"${SRCROOT}",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5633,6 +5659,7 @@
 					"${SRCROOT}",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5664,6 +5691,7 @@
 					"${SRCROOT}",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
 					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
+					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
