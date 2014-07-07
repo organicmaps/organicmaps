@@ -39,6 +39,7 @@ void InitLocalizedStrings()
   f.AddString("dropped_pin", [NSLocalizedString(@"dropped_pin", nil) UTF8String]);
   f.AddString("my_places", [NSLocalizedString(@"my_places", nil) UTF8String]);
   f.AddString("my_position", [NSLocalizedString(@"my_position", nil) UTF8String]);
+  f.AddString("routes", [NSLocalizedString(@"routes", nil) UTF8String]);
 }
 
 @interface MapsAppDelegate()

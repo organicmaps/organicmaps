@@ -484,4 +484,13 @@ public:
   //@}
 
   BookmarkManager & GetBookmarkManager() { return m_bmManager; }
+
+public:
+  /// @name Routing
+  //@{
+  bool IsRoutingEnabled() const;
+  void SetRouteStart(m2::PointD const & mercatorStart);
+  void SetRouteEnd(m2::PointD const & mercatorEnd);
+  void OnRouteCalculated(routing::Route const & route);
+  //@}
 };

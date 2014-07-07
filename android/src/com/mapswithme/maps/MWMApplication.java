@@ -142,6 +142,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
     nativeAddLocalization("dropped_pin", getString(R.string.dropped_pin));
     nativeAddLocalization("my_places", getString(R.string.my_places));
     nativeAddLocalization("my_position", getString(R.string.my_position));
+    nativeAddLocalization("routes", getString(R.string.routes));
+
 
     // init BookmarkManager (automatically loads bookmarks)
     if (hasBookmarks())

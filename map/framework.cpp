@@ -10,6 +10,8 @@
 
 #include "../defines.hpp"
 
+#include "../routing/route.hpp"
+
 #include "../search/search_engine.hpp"
 #include "../search/result.hpp"
 
@@ -217,6 +219,7 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("dropped_pin", "Dropped Pin");
   m_stringsBundle.SetDefaultString("my_places", "My Places");
   m_stringsBundle.SetDefaultString("my_position", "My Position");
+  m_stringsBundle.SetDefaultString("routes", "Routes");
 
   m_animController.reset(new anim::Controller());
 
@@ -1135,6 +1138,68 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
 }
 
 ///////////////////////////// ROUTING /////////////////////////////////////////////////
+
+namespace
+{
+char const * ROUTER_ALL = "all";
+char const * ROUTER_HELICOPTER = "helicopter";
+char const * ROUTER_OSRM = "osrm";
+char const * ROUTER_MAPSME = "routeme";
+}
+
+void Framework::SetRouteStart(m2::PointD const & mercatorStart)
+{
+  m_routingEngine.SetStartingPoint(mercatorStart);
+  m_routingEngine.Calculate(ROUTER_ALL, bind(&Framework::OnRouteCalculated, this, _1));
+}
+
+void Framework::SetRouteEnd(m2::PointD const & mercatorEnd)
+{
+  m_routingEngine.SetFinalPoint(mercatorEnd);
+  m_routingEngine.Calculate(ROUTER_ALL, bind(&Framework::OnRouteCalculated, this, _1));
+}
+
+bool Framework::IsRoutingEnabled() const
+{
+  return m_routingEngine.IsRoutingEnabled();
+}
+
+void Framework::OnRouteCalculated(routing::Route const & route)
+{
+  if (!route.IsValid())
+  {
+    LOG(LWARNING, ("Route calculation has failed.", route.GetName()));
+    return;
+  }
+
+  // Get/create temporary category for route track
+  BookmarkManager & bm = GetBookmarkManager();
+  string const categoryName = m_stringsBundle.GetString("routes");
+  BookmarkCategory * cat = 0;
+  for (size_t i = 0; i < bm.GetBmCategoriesCount(); ++i)
+  {
+    if (bm.GetBmCategory(i)->GetName() == categoryName)
+    {
+      cat = bm.GetBmCategory(i);
+      break;
+    }
+  }
+  if (!cat)
+    cat = bm.GetBmCategory(bm.CreateBmCategory(categoryName));
+
+  Track track(route.GetPoly());
+  track.SetName(route.GetName());
+  string const & source = route.GetRouterId();
+
+  graphics::Color routeColor = graphics::Color::Black();
+  if (source == ROUTER_HELICOPTER)
+    routeColor = graphics::Color::Red();
+  else if (source == ROUTER_OSRM)
+    routeColor = graphics::Color::Blue();
+  track.SetColor(routeColor);
+  cat->AddTrack(track);
+}
+
 /// Activates hidden features via search queries
 static bool SesameOpen(search::SearchParams const & params, routing::RoutingEngine & r)
 {
@@ -1146,30 +1211,62 @@ static bool SesameOpen(search::SearchParams const & params, routing::RoutingEngi
   char const * searchResult = 0;
   if (params.m_query == "?routing on")
   {
-    r.AddRouter("all");
+    r.AddRouter(ROUTER_HELICOPTER);
+    r.AddRouter(ROUTER_OSRM);
+//    r.AddRouter(ROUTER_MAPSME);
     // Enable all other engines here
-    Settings::Set("helicopter", true);
+    Settings::Set(ROUTER_HELICOPTER, true);
+    Settings::Set(ROUTER_OSRM, true);
+//    Settings::Set(ROUTER_MAPSME, true);
     searchResult = "All routing engines activated";
   }
   else if (params.m_query == "?routing off")
   {
-    r.RemoveRouter("all");
+    r.RemoveRouter(ROUTER_HELICOPTER);
+    r.RemoveRouter(ROUTER_OSRM);
+//    r.RemoveRouter(ROUTER_MAPSME);
     // Disable all other engines here
-    Settings::Set("helicopter", false);
+    Settings::Set(ROUTER_HELICOPTER, false);
+    Settings::Set(ROUTER_OSRM, false);
+//    Settings::Set(ROUTER_MAPSME, false);
     searchResult = "All routing engines disabled";
   }
   else if (params.m_query == "?heli on")
   {
-    r.AddRouter("helicopter");
-    Settings::Set("helicopter", true);
+    r.AddRouter(ROUTER_HELICOPTER);
+    Settings::Set(ROUTER_HELICOPTER, true);
     searchResult = "Helicopter routing activated";
   }
   else if (params.m_query == "?heli off")
   {
-    r.RemoveRouter("helicopter");
-    Settings::Set("helicopter", false);
+    r.RemoveRouter(ROUTER_HELICOPTER);
+    Settings::Set(ROUTER_HELICOPTER, false);
     searchResult = "Helicopter routing disabled";
   }
+  else if (params.m_query == "?online on" || params.m_query == "?osrm on")
+  {
+    r.AddRouter(ROUTER_OSRM);
+    Settings::Set(ROUTER_OSRM, true);
+    searchResult = "OSRM routing activated";
+  }
+  else if (params.m_query == "?online off" || params.m_query == "?osrm off")
+  {
+    r.RemoveRouter(ROUTER_OSRM);
+    Settings::Set(ROUTER_OSRM, false);
+    searchResult = "OSRM routing disabled";
+  }
+//  else if (params.m_query == "?routeme on")
+//  {
+//    r.AddRouter(ROUTER_MAPSME);
+//    Settings::Set(ROUTER_MAPSME, true);
+//    searchResult = "maps.me routing activated";
+//  }
+//  else if (params.m_query == "?routeme off")
+//  {
+//    r.RemoveRouter(ROUTER_MAPSME);
+//    Settings::Set(ROUTER_MAPSME, false);
+//    searchResult = "maps.me routing disabled";
+//  }
 
   if (searchResult)
   {
