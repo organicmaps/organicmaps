@@ -18,6 +18,7 @@ public:
 private:
   Q_SLOT void LoadUnicodeBlocks();
   Q_SLOT void ResolveExportPath();
+  Q_SLOT void ResolveExportPath(const QString &filePath);
   Q_SLOT void Export();
   Q_SLOT void UpdatePreview(QImage);
   Q_SLOT void UpdateEngine(int);
@@ -25,6 +26,9 @@ private:
   Q_SLOT void StartEngine(int maxValue);
   Q_SLOT void UpdateProgress(int value);
   Q_SLOT void EndEngine();
+
+  Q_SLOT void ConvertStart();
+  Q_SLOT void ConvertEnd();
 
 private:
   void UpdateButton();

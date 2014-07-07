@@ -24,6 +24,9 @@ Widget::Widget(QWidget *parent) :
   connect(&m_engine, SIGNAL(UpdateProgress(int)), this, SLOT(UpdateProgress(int)), Qt::QueuedConnection);
   connect(&m_engine, SIGNAL(EndEngine()), this, SLOT(EndEngine()), Qt::QueuedConnection);
 
+  connect(&m_engine, SIGNAL(ConvertStarted()), this, SLOT(ConvertStart()));
+  connect(&m_engine, SIGNAL(ConvertEnded()), this, SLOT(ConvertEnd()));
+
   ui->progressBar->reset();
 
   QSettings s("settings.ini", QSettings::IniFormat, this);
@@ -31,6 +34,12 @@ Widget::Widget(QWidget *parent) :
   if (!v.isEmpty())
     if (LoadUnicodeBlocksImpl(v) == false)
       s.setValue("unicode_file", "");
+
+  QString exportPath = s.value("export_path", "").toString();
+  if (!exportPath.isEmpty())
+  {
+    ResolveExportPath(exportPath);
+  }
 
   QPixmap p(350, 350);
   p.fill(Qt::black);
@@ -43,6 +52,8 @@ Widget::~Widget()
   QSettings s("settings.ini", QSettings::IniFormat, this);
   if (!ui->unicodesblocks->text().isEmpty())
     s.setValue("unicode_file", ui->unicodesblocks->text());
+  if (!ui->exportpath->text().isEmpty())
+    s.setValue("export_path", ui->exportpath->text());
   delete ui;
 }
 
@@ -57,6 +68,13 @@ void Widget::ResolveExportPath()
   QString dir = QFileDialog::getExistingDirectory(this, "ExportPath");
   ui->exportpath->setText(dir);
   m_engine.SetExportPath(dir);
+  UpdateButton();
+}
+
+void Widget::ResolveExportPath(const QString & filePath)
+{
+  ui->exportpath->setText(filePath);
+  m_engine.SetExportPath(filePath);
   UpdateButton();
 }
 
@@ -90,6 +108,28 @@ void Widget::UpdateProgress(int value)
 void Widget::EndEngine()
 {
   ui->progressBar->reset();
+}
+
+void Widget::ConvertStart()
+{
+  ui->progressBar->setMinimum(0);
+  ui->progressBar->setMaximum(0);
+  ui->progressBar->setValue(0);
+
+  ui->runExport->setEnabled(false);
+  ui->selectExportPath->setEnabled(false);
+  ui->selectunicodeblocks->setEnabled(false);
+}
+
+void Widget::ConvertEnd()
+{
+  ui->progressBar->setMinimum(0);
+  ui->progressBar->setMaximum(100);
+  ui->progressBar->setValue(0);
+
+  ui->runExport->setEnabled(true);
+  ui->selectExportPath->setEnabled(true);
+  ui->selectunicodeblocks->setEnabled(true);
 }
 
 void Widget::UpdateButton()
