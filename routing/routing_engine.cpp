@@ -87,4 +87,4 @@ IRouter * RoutingEngine::FindRouter(string const & name)
   return 0;
 }
 
-} // routing
+} // namespace routing

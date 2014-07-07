@@ -1134,6 +1134,7 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
   GetSearchEngine()->PrepareSearch(GetCurrentViewport(), hasPt, lat, lon);
 }
 
+///////////////////////////// ROUTING /////////////////////////////////////////////////
 /// Activates hidden features via search queries
 static bool SesameOpen(search::SearchParams const & params, routing::RoutingEngine & r)
 {
@@ -1180,6 +1181,8 @@ static bool SesameOpen(search::SearchParams const & params, routing::RoutingEngi
 
   return false;
 }
+
+////////////////////////////////////////////////////////////////////////////////////
 
 bool Framework::Search(search::SearchParams const & params)
 {
