@@ -61,14 +61,12 @@ void OsrmRouter::OnRouteReceived(downloader::HttpRequest & request)
           json_t const * jcoords = json_array_get(jgeometry, i);
           if (jcoords)
           {
-            json_t const * jlat = json_array_get(jcoords, 0);
-            json_t const * jlon = json_array_get(jcoords, 1);
-            if (jlat && jlon)
-            {
-              double const lat = json_number_value(jlat);
-              double const lon = json_number_value(jlon);
-              route.push_back(m2::PointD(MercatorBounds::LonToX(lon), MercatorBounds::LatToY(lat)));
-            }
+            string const coords = json_string_value(jcoords);
+            string const strLon(coords, 0, coords.find(','));
+            string const strLat(coords, coords.find(',') + 1);
+            double lat, lon;
+            if (strings::to_double(strLat, lat) && strings::to_double(strLon, lon))
+              route.push_back(MercatorBounds::FromLatLon(lat, lon));
           }
         }
         json_t const * jsummary = json_object_get(json.get(), "route_summary");
