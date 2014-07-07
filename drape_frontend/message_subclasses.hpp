@@ -98,6 +98,21 @@ private:
   ScreenBase m_screen;
 };
 
+class InvalidateRectMessage : public Message
+{
+public:
+  InvalidateRectMessage(m2::RectD const & rect)
+    : m_rect(rect)
+  {
+    SetType(InvalidateRect);
+  }
+
+  m2::RectD const & GetRect() const { return m_rect; }
+
+private:
+  m2::RectD m_rect;
+};
+
 class UpdateReadManagerMessage : public UpdateModelViewMessage
 {
 public:
@@ -113,5 +128,31 @@ public:
 private:
   shared_ptr<set<TileKey> > m_tiles;
 };
+
+class InvalidateReadManagerRectMessage : public Message
+{
+public:
+  InvalidateReadManagerRectMessage(TransferPointer<set<TileKey> > tiles)
+    : m_tiles(tiles)
+  {
+    SetType(InvalidateReadManagerRect);
+  }
+
+  ~InvalidateReadManagerRectMessage()
+  {
+    m_tiles.Destroy();
+  }
+
+  set<TileKey> const & GetTilesForInvalidate() const { return *m_tiles.GetRaw(); }
+
+private:
+  MasterPointer<set<TileKey> > m_tiles;
+};
+
+template <typename T>
+T * CastMessage(RefPointer<Message> msg)
+{
+  return static_cast<T *>(msg.GetRaw());
+}
 
 } // namespace df

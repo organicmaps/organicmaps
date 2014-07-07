@@ -17,6 +17,8 @@ public:
     MapShapeReaded,
     UpdateModelView,
     UpdateReadManager,
+    InvalidateRect,
+    InvalidateReadManagerRect,
     Resize,
     Rotate
   };
