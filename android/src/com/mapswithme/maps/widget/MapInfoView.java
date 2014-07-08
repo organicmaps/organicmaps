@@ -1,10 +1,15 @@
 package com.mapswithme.maps.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.os.Build;
 import android.support.v4.view.GestureDetectorCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -12,6 +17,7 @@ import android.text.TextUtils;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,9 +27,14 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
@@ -33,8 +44,10 @@ import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
+import com.mapswithme.maps.bookmarks.IconsAdapter;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
@@ -43,12 +56,17 @@ import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.UiUtils.SimpleAnimationListener;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.statistics.Statistics;
 
-public class MapInfoView extends LinearLayout
+import java.util.List;
+
+
+public class MapInfoView extends LinearLayout implements View.OnClickListener
 {
   private static final int SHORT_ANIM_DURATION = 200;
   private static final int LONG_ANIM_DURATION = 400;
   private static final float SPAN_SIZE = 25;
+  private static final int COLOR_CHOOSER_COLUMN_NUM = 4;
 
   private final ViewGroup mPreviewGroup;
   private final ViewGroup mPlacePageGroup;
@@ -58,13 +76,15 @@ public class MapInfoView extends LinearLayout
   private final TextView mTitle;
   private final TextView mSubtitle;
   private final CheckBox mIsBookmarked;
+  private final ImageButton mEditBtn;
   private final LayoutInflater mInflater;
   // Gestures
-  private final GestureDetectorCompat mGestureDetector;
+  private GestureDetectorCompat mGestureDetector;
   // Place page
-  private LinearLayout mGeoLayout;
+  private RelativeLayout mGeoLayout;
   private View mDistanceView;
   private TextView mDistanceText;
+  private ImageView mColorImage;
   // Data
   private MapObject mMapObject;
   private OnVisibilityChangedListener mVisibilityChangedListener;
@@ -72,6 +92,8 @@ public class MapInfoView extends LinearLayout
   private boolean mIsPlacePageVisible = true;
   private State mCurrentState = State.HIDDEN;
   private int mMaxPlacePageHeight = 0;
+  private BookmarkManager mBookmarkManager;
+  private List<Icon> mIcons;
 
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {
@@ -91,35 +113,33 @@ public class MapInfoView extends LinearLayout
     mTitle = (TextView) mPreviewGroup.findViewById(R.id.info_title);
     mSubtitle = (TextView) mPreviewGroup.findViewById(R.id.info_subtitle);
     mIsBookmarked = (CheckBox) mPreviewGroup.findViewById(R.id.info_box_is_bookmarked);
-
     // We don't want to use OnCheckedChangedListener because it gets called
-    // if someone calls setCheched() from code. We need only user interaction.
-    mIsBookmarked.setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        final BookmarkManager bm = BookmarkManager.getBookmarkManager();
-
-        if (mMapObject.getType() == MapObjectType.BOOKMARK)
-        {
-          final MapObject p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
-          bm.deleteBookmark((Bookmark) mMapObject);
-          setMapObject(p);
-        }
-        else
-        {
-          final Bookmark newbmk = bm.getBookmark(bm.addNewBookmark(
-              mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
-          setMapObject(newbmk);
-        }
-        Framework.invalidate();
-      }
-    });
+    // if someone calls setChecked() from code. We need only user interaction.
+    mIsBookmarked.setOnClickListener(this);
+    mEditBtn = (ImageButton) mPreviewGroup.findViewById(R.id.btn_edit_title);
 
     // Place Page
     mPlacePageContainer = (ScrollView) mPlacePageGroup.findViewById(R.id.place_page_container);
 
+    mBookmarkManager = BookmarkManager.getBookmarkManager();
+    mIcons = mBookmarkManager.getIcons();
+
+    initGestureDetector();
+    mView.setOnClickListener(this);
+  }
+
+  public MapInfoView(Context context, AttributeSet attrs)
+  {
+    this(context, attrs, 0);
+  }
+
+  public MapInfoView(Context context)
+  {
+    this(context, null, 0);
+  }
+
+  private void initGestureDetector()
+  {
     // Gestures
     mGestureDetector = new GestureDetectorCompat(getContext(), new GestureDetector.SimpleOnGestureListener()
     {
@@ -156,22 +176,6 @@ public class MapInfoView extends LinearLayout
         return true;
       }
     });
-
-    mView.setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v) { /* Friggin system does not work without this stub.*/ }
-    });
-  }
-
-  public MapInfoView(Context context, AttributeSet attrs)
-  {
-    this(context, attrs, 0);
-  }
-
-  public MapInfoView(Context context)
-  {
-    this(context, null, 0);
   }
 
   @Override
@@ -237,7 +241,6 @@ public class MapInfoView extends LinearLayout
     if (show)
     {
       slide = generateSlideAnimation(0, 0, -1, 0);
-      slide.setDuration(SHORT_ANIM_DURATION);
       UiUtils.show(mPreviewGroup);
       slide.setAnimationListener(new SimpleAnimationListener()
       {
@@ -252,8 +255,6 @@ public class MapInfoView extends LinearLayout
     else
     {
       slide = generateSlideAnimation(0, 0, 0, -1);
-      slide.setDuration(SHORT_ANIM_DURATION);
-
       slide.setAnimationListener(new SimpleAnimationListener()
       {
         @Override
@@ -265,11 +266,12 @@ public class MapInfoView extends LinearLayout
         }
       });
     }
+    slide.setDuration(SHORT_ANIM_DURATION);
     mPreviewGroup.startAnimation(slide);
     mIsPreviewVisible = show;
   }
 
-  private void slideEverytingOut()
+  private void hideEverything()
   {
     final TranslateAnimation slideDown = generateSlideAnimation(0, 0, 0, -1);
     slideDown.setDuration(LONG_ANIM_DURATION);
@@ -295,14 +297,6 @@ public class MapInfoView extends LinearLayout
     mView.startAnimation(slideDown);
   }
 
-  private void setTextAndShow(final CharSequence title, final CharSequence subtitle)
-  {
-    mTitle.setText(title);
-    mSubtitle.setText(subtitle);
-
-    showPreview(true);
-  }
-
   public State getState()
   {
     return mCurrentState;
@@ -322,7 +316,7 @@ public class MapInfoView extends LinearLayout
       else if (mCurrentState == State.FULL_PLACEPAGE && state == State.PREVIEW_ONLY)
         showPlacePage(false);
       else if (mCurrentState == State.FULL_PLACEPAGE && state == State.HIDDEN)
-        slideEverytingOut();
+        hideEverything();
       else
         throw new IllegalStateException(String.format("Invalid transition %s - > %s", mCurrentState, state));
 
@@ -330,7 +324,7 @@ public class MapInfoView extends LinearLayout
     }
   }
 
-  public boolean hasThatObject(MapObject mo)
+  public boolean hasMapObject(MapObject mo)
   {
     if (mo == null && mMapObject == null)
       return true;
@@ -342,27 +336,25 @@ public class MapInfoView extends LinearLayout
 
   public void setMapObject(MapObject mo)
   {
-    if (!hasThatObject(mo))
+    if (!hasMapObject(mo))
     {
       mMapObject = mo;
-      if (mo != null)
+      if (mMapObject != null)
       {
-        mo.setDefaultIfEmpty(getResources());
-
-        setTextAndShow(mo.getName(), mo.getPoiTypeName());
+        mMapObject.setDefaultIfEmpty(getResources());
 
         boolean isChecked = false;
-        switch (mo.getType())
+        switch (mMapObject.getType())
         {
         case POI:
-          fillPlacePagePoi(mo);
+          fillPlacePagePoi(mMapObject);
           break;
         case BOOKMARK:
           isChecked = true;
-          fillPlacePageBookmark((Bookmark) mo);
+          fillPlacePageBookmark((Bookmark) mMapObject);
           break;
         case ADDITIONAL_LAYER:
-          fillPlacePageLayer((SearchResult) mo);
+          fillPlacePageLayer((SearchResult) mMapObject);
           break;
         case API_POINT:
           fillPlacePageApi(mo);
@@ -373,6 +365,7 @@ public class MapInfoView extends LinearLayout
 
         mIsBookmarked.setChecked(isChecked);
 
+        setUpPreview();
         setUpAddressBox();
         setUpGeoInformation();
         setUpBottomButtons();
@@ -384,38 +377,32 @@ public class MapInfoView extends LinearLayout
     requestLayout();
   }
 
-  private void setUpBottomButtons()
+  private void setUpPreview()
   {
-    mPlacePageGroup.findViewById(R.id.info_box_share).setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);
-      }
-    });
-
-    final View editBtn = mPlacePageGroup.findViewById(R.id.info_box_edit);
-    final TextView returnToCallerTv = (TextView) mPlacePageGroup.findViewById(R.id.info_box_back_to_caller);
-    UiUtils.hide(editBtn);
-    UiUtils.hide(returnToCallerTv);
+    mTitle.setText(mMapObject.getName());
+    mSubtitle.setText(mMapObject.getPoiTypeName());
 
     if (mMapObject.getType() == MapObjectType.BOOKMARK)
     {
-      // BOOKMARK
-      final Bookmark bmk = (Bookmark) mMapObject;
-      editBtn.setOnClickListener(new OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          BookmarkActivity.startWithBookmark(getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
-        }
-      });
-
-      UiUtils.show(editBtn);
+      mEditBtn.setOnClickListener(this);
+      UiUtils.show(mEditBtn);
     }
-    else if (mMapObject.getType() == MapObjectType.API_POINT)
+    else
+    {
+      UiUtils.hide(mEditBtn);
+    }
+
+    showPreview(true);
+  }
+
+  private void setUpBottomButtons()
+  {
+    mPlacePageGroup.findViewById(R.id.info_box_share).setOnClickListener(this);
+
+    final TextView returnToCallerTv = (TextView) mPlacePageGroup.findViewById(R.id.info_box_back_to_caller);
+    UiUtils.hide(returnToCallerTv);
+
+    if (mMapObject.getType() == MapObjectType.API_POINT)
     {
       // API
       final ParsedMmwRequest r = ParsedMmwRequest.getCurrentRequest();
@@ -437,20 +424,13 @@ public class MapInfoView extends LinearLayout
 
       UiUtils.show(returnToCallerTv);
       returnToCallerTv.setText(ss, BufferType.SPANNABLE);
-      returnToCallerTv.setOnClickListener(new OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          ParsedMmwRequest.getCurrentRequest().sendResponseAndFinish((Activity) getContext(), true);
-        }
-      });
+      returnToCallerTv.setOnClickListener(this);
     }
   }
 
   private void setUpGeoInformation()
   {
-    mGeoLayout = (LinearLayout) mPlacePageContainer.findViewById(R.id.info_box_geo_ref);
+    mGeoLayout = (RelativeLayout) mPlacePageContainer.findViewById(R.id.info_box_geo_ref);
     mDistanceView = mGeoLayout.findViewById(R.id.info_box_geo_container_dist);
     mDistanceText = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_distance);
 
@@ -458,16 +438,16 @@ public class MapInfoView extends LinearLayout
     updateDistance(lastKnown);
 
     final TextView coord = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_location);
-
     final double lat = mMapObject.getLat();
     final double lon = mMapObject.getLon();
     coord.setText(UiUtils.formatLatLon(lat, lon));
 
     // Context menu for the coordinates copying.
-    if (Utils.apiEqualOrGreaterThan(11))
+    if (Utils.apiEqualOrGreaterThan(Build.VERSION_CODES.HONEYCOMB))
     {
       coord.setOnLongClickListener(new OnLongClickListener()
       {
+        @SuppressLint("NewApi")
         @Override
         public boolean onLongClick(View v)
         {
@@ -538,6 +518,7 @@ public class MapInfoView extends LinearLayout
   {
     mPlacePageContainer.removeAllViews();
     final View bmkView = mInflater.inflate(R.layout.info_box_bookmark, null);
+    bmkView.setOnClickListener(this);
 
     // Description of BMK
     final WebView descritionWv = (WebView) bmkView.findViewById(R.id.info_box_bookmark_descr);
@@ -551,6 +532,11 @@ public class MapInfoView extends LinearLayout
       descritionWv.setBackgroundColor(Color.TRANSPARENT);
       UiUtils.show(descritionWv);
     }
+
+    mColorImage = (ImageView) bmkView.findViewById(R.id.color_image);
+    mColorImage.setOnClickListener(this);
+    mColorImage.setVisibility(View.VISIBLE);
+    updateColorChooser(bmk.getIcon());
 
     mPlacePageContainer.addView(bmkView);
   }
@@ -624,16 +610,13 @@ public class MapInfoView extends LinearLayout
     if (mMapObject.getType() == MapObjectType.BOOKMARK)
     {
       final Bookmark bmk = (Bookmark) mMapObject;
-      final BookmarkManager bm = BookmarkManager.getBookmarkManager();
-
-      // Was bookmark deleted?
       boolean deleted = false;
 
-      if (bm.getCategoriesCount() <= bmk.getCategoryId())
+      if (mBookmarkManager.getCategoriesCount() <= bmk.getCategoryId())
         deleted = true;
-      else if (bm.getCategoryById(bmk.getCategoryId()).getBookmarksCount() <= bmk.getBookmarkId())
+      else if (mBookmarkManager.getCategoryById(bmk.getCategoryId()).getBookmarksCount() <= bmk.getBookmarkId())
         deleted = true;
-      else if (bm.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId()).getLat() != bmk.getLat())
+      else if (mBookmarkManager.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId()).getLat() != bmk.getLat())
         deleted = true;
       // We can do check above, because lat/lon cannot be changed from edit screen.
 
@@ -647,11 +630,65 @@ public class MapInfoView extends LinearLayout
       else
       {
         // Update data for current bookmark
-        final Bookmark updatedBmk = bm.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
+        final Bookmark updatedBmk = mBookmarkManager.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
         setMapObject(null);
         setMapObject(updatedBmk);
       }
     }
+  }
+
+  private void showColorChooser()
+  {
+    final IconsAdapter adapter = new IconsAdapter(getContext(), mIcons);
+    final Icon icon = ((Bookmark) mMapObject).getIcon();
+    adapter.chooseItem(mIcons.indexOf(icon));
+
+    final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    final int padSide = (int) getResources().getDimension(R.dimen.dp_x_8);
+    final int padTopB = (int) getResources().getDimension(R.dimen.dp_x_6);
+
+    final GridView gView = new GridView(getContext());
+    gView.setAdapter(adapter);
+    gView.setNumColumns(COLOR_CHOOSER_COLUMN_NUM);
+    gView.setGravity(Gravity.CENTER);
+    gView.setPadding(padSide, padTopB, padSide, padTopB);
+    gView.setLayoutParams(params);
+    gView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+
+    final Dialog dialog = new AlertDialog.Builder(getContext())
+        .setTitle(R.string.bookmark_color)
+        .setView(gView)
+        .create();
+
+    gView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+    {
+      @Override
+      public void onItemClick(AdapterView<?> arg0, View who, int pos, long id)
+      {
+        Icon icon = mIcons.get(pos);
+        Bookmark bmk = (Bookmark) mMapObject;
+        bmk.setParams(bmk.getName(), icon, bmk.getBookmarkDescription());
+        bmk = mBookmarkManager.getBookmark(bmk.getCategoryId(), bmk.getBookmarkId());
+        setMapObject(bmk);
+        dialog.dismiss();
+      }
+    });
+
+    dialog.show();
+  }
+
+  private void updateColorChooser(Icon icon)
+  {
+    final Icon oldIcon = ((Bookmark) mMapObject).getIcon();
+    final String from = oldIcon.getName();
+    final String to = icon.getName();
+    if (!TextUtils.equals(from, to))
+    {
+      Statistics.INSTANCE.trackColorChanged(getContext(), from, to);
+
+    }
+    mColorImage.setImageDrawable(UiUtils
+        .drawCircleForPin(to, (int) getResources().getDimension(R.dimen.dp_x_6), getResources()));
   }
 
   private TranslateAnimation generateSlideAnimation(float fromX, float toX, float fromY, float toY)
@@ -661,6 +698,45 @@ public class MapInfoView extends LinearLayout
         Animation.RELATIVE_TO_SELF, toX,
         Animation.RELATIVE_TO_SELF, fromY,
         Animation.RELATIVE_TO_SELF, toY);
+  }
+
+  @Override
+  public void onClick(View v)
+  {
+    switch (v.getId())
+    {
+    case R.id.color_image:
+      showColorChooser();
+      break;
+    case R.id.info_box_is_bookmarked:
+      if (mMapObject.getType() == MapObjectType.BOOKMARK)
+      {
+        final MapObject p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
+        mBookmarkManager.deleteBookmark((Bookmark) mMapObject);
+        setMapObject(p);
+      }
+      else
+      {
+        final Bookmark newBmk = mBookmarkManager.getBookmark(mBookmarkManager.addNewBookmark(
+            mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
+        setMapObject(newBmk);
+      }
+      Framework.invalidate();
+      break;
+    case R.id.info_box:
+      /* Friggin system does not work without this stub.*/
+      break;
+    case R.id.info_box_share:
+      ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);
+      break;
+    case R.id.info_box_back_to_caller:
+      ParsedMmwRequest.getCurrentRequest().sendResponseAndFinish((Activity) getContext(), true);
+    case R.id.btn_edit_title:
+      Bookmark bmk = (Bookmark) mMapObject;
+      BookmarkActivity.startWithBookmark(getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
+    default:
+      break;
+    }
   }
 
   public static enum State

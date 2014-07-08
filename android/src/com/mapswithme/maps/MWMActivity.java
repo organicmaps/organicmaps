@@ -1131,7 +1131,7 @@ public class MWMActivity extends NvEventQueueActivity
           final String poiType = ParsedMmwRequest.getCurrentRequest().getCallerName(mApplication).toString();
           final ApiPoint apiPoint = new ApiPoint(name, id, poiType, lat, lon);
 
-          if (!mInfoView.hasThatObject(apiPoint))
+          if (!mInfoView.hasMapObject(apiPoint))
           {
             mInfoView.setMapObject(apiPoint);
             mInfoView.setState(State.PREVIEW_ONLY);
@@ -1155,7 +1155,7 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
-        if (!mInfoView.hasThatObject(poi))
+        if (!mInfoView.hasMapObject(poi))
         {
           mInfoView.setMapObject(poi);
           mInfoView.setState(State.PREVIEW_ONLY);
@@ -1177,7 +1177,7 @@ public class MWMActivity extends NvEventQueueActivity
       public void run()
       {
         final Bookmark b = BookmarkManager.getBookmarkManager().getBookmark(category, bookmarkIndex);
-        if (!mInfoView.hasThatObject(b))
+        if (!mInfoView.hasMapObject(b))
         {
           mInfoView.setMapObject(b);
           mInfoView.setState(State.PREVIEW_ONLY);
@@ -1202,7 +1202,7 @@ public class MWMActivity extends NvEventQueueActivity
       public void run()
       {
         final MapObject sr = new MapObject.SearchResult(index);
-        if (!mInfoView.hasThatObject(sr))
+        if (!mInfoView.hasMapObject(sr))
         {
           mInfoView.setMapObject(sr);
           mInfoView.setState(State.PREVIEW_ONLY);
@@ -1226,7 +1226,7 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onDismiss()
   {
-    if (!mInfoView.hasThatObject(null))
+    if (!mInfoView.hasMapObject(null))
     {
       runOnUiThread(new Runnable()
       {

@@ -38,4 +38,6 @@
 
     <dimen name="map_controls_margin">7dp</dimen>
 
+    <dimen name="bottom_panel_height">56dp</dimen>
+
 </resources>

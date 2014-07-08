@@ -1,42 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/info_box_share"
-        style="@style/Holo.TextAppearance.Medium.Light"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/ui_20_green_selector"
-        android:fontFamily="@string/robotoLight"
-        android:gravity="center"
-        android:text="@string/share"
-        android:textColor="@android:color/white" />
+  <TextView
+      android:id="@+id/info_box_share"
+      style="@style/Holo.TextAppearance.Medium.Light"
+      android:layout_width="0dp"
+      android:layout_height="55dp"
+      android:layout_weight="1"
+      android:background="@drawable/bg_stroke_white_selector"
+      android:fontFamily="@string/robotoLight"
+      android:gravity="center"
+      android:text="@string/share"
+      android:textColor="@android:color/white"/>
 
-    <TextView
-        android:id="@+id/info_box_edit"
-        style="@style/Holo.TextAppearance.Medium.Light"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/ui_20_green_stroke_selector"
-        android:fontFamily="@string/robotoRegular"
-        android:gravity="center"
-        android:text="@string/edit"
-        android:textColor="@color/ui_20_green" />
-
-    <TextView
-        android:id="@+id/info_box_back_to_caller"
-        style="@style/Holo.TextAppearance.Medium.Light"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@drawable/ui_20_green_stroke_selector"
-        android:fontFamily="@string/robotoRegular"
-        android:gravity="center"
-        android:text="@string/more_info"
-        android:textColor="@color/ui_20_green" />
+  <TextView
+      android:id="@+id/info_box_back_to_caller"
+      style="@style/Holo.TextAppearance.Medium.Light"
+      android:layout_width="0dp"
+      android:layout_height="55dp"
+      android:layout_marginLeft="@dimen/margin_medium"
+      android:layout_weight="1"
+      android:background="@drawable/bg_stroke_white_selector"
+      android:fontFamily="@string/robotoRegular"
+      android:gravity="center"
+      android:text="@string/more_info"
+      android:textColor="@android:color/white"/>
 
 </LinearLayout>

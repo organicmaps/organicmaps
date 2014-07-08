@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="background_placepage">#ECECEC</color>
-    <color name="base_green">#4CD950</color>
-    <color name="text_primary">#333333</color>
-    <color name="text_seconadary">#999999</color>
-    <color name="drawer_green">#4CD964</color>
-    <color name="drawer_text_active">#FFF</color>
-    <color name="drawer_text_inacative">#FFF</color>
-    <color name="drawer_text_disabled">#999999</color>
+  <color name="background_placepage">#ECECEC</color>
+  <color name="base_green">#4CD950</color>
+  <color name="text_primary">#333333</color>
+  <color name="text_seconadary">#999999</color>
+  <color name="drawer_green">#4CD964</color>
+  <color name="drawer_text_active">#FFF</color>
+  <color name="drawer_text_inacative">#FFF</color>
+  <color name="drawer_text_disabled">#999999</color>
 
-    <drawable name="semitransparent_white">#30FFFFFF</drawable>
+  <drawable name="semitransparent_white">#30FFFFFF</drawable>
 
-    <color name="semitransparent_white">#30FFFFFF</color>
+  <color name="semitransparent_white">#30FFFFFF</color>
 
-    <drawable name="semitransparent_black">#30000000</drawable>
+  <drawable name="semitransparent_black">#30000000</drawable>
 
-    <color name="semitransparent_black">#60000000</color>
+  <color name="semitransparent_black">#60000000</color>
 
-    <drawable name="white">#FFF</drawable>
+  <drawable name="white">#FFF</drawable>
 
-    <color name="ui_20_gray">#EFEFF4</color>
+  <color name="ui_20_gray">#EFEFF4</color>
 
-    <color name="ui_20_text_dark">#333333</color>
-    <drawable name="ui_20_text_dark">#333333</drawable>
+  <color name="ui_20_text_dark">#333333</color>
+  <drawable name="ui_20_text_dark">#333333</drawable>
 
-    <color name="ui_20_text_green">#53d769</color>
+  <color name="ui_20_text_green">#53d769</color>
 
-    <color name="ui_20_background_grey">#efeff4</color>
+  <color name="ui_20_background_grey">#efeff4</color>
 
-    <color name="ui_20_green">#3dca6a</color>
-    <drawable name="ui_20_green">#3dca6a</drawable>
+  <color name="ui_20_green">#3dca6a</color>
+  <drawable name="ui_20_green">#3dca6a</drawable>
 
-    <color name="ui_20_green_darker">#5aae74</color>
-    <drawable name="ui_20_green_darker">#5aae74</drawable>
+  <color name="ui_20_green_darker">#5aae74</color>
+  <drawable name="ui_20_green_darker">#5aae74</drawable>
 
-    <color name="ui_20_green_darker_tr">#505aae74</color>
-    <drawable name="ui_20_green_darker_tr">#505aae74</drawable>
-    
-    <color name="ui_20_search_dark_gray">#666666</color>
-    <color name="ui_20_search_light_gray">#979797</color>
+  <color name="ui_20_green_darker_tr">#505aae74</color>
+  <drawable name="ui_20_green_darker_tr">#505aae74</drawable>
 
-    <color name="red">#F00</color>
-    <color name="green">#0F0</color>
-    <color name="blue">#00F</color>
+  <color name="ui_20_search_dark_gray">#666666</color>
+  <color name="ui_20_search_light_gray">#979797</color>
+
+  <color name="red">#F00</color>
+  <color name="green">#0F0</color>
+  <color name="blue">#00F</color>
+
+
+  <color name="pp_bg_start">#15c783</color>
+  <color name="pp_bg_preview_end">#15ca82</color>
+  <color name="pp_bg_end">#15d080</color>
+
+  <color name="bg_menu">#e6414451</color>
 
 </resources>

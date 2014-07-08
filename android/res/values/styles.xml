@@ -15,7 +15,7 @@
     </style>
 
     <style name="Widget.MapButtonBottom" parent="android:Widget.Holo.ImageButton">
-        <item name="android:background">@drawable/btn_map_control_bg_selector</item>
+        <item name="android:background">@color/bg_menu</item>
     </style>
 
     <style name="tagGreenText" parent="@style/Holo.TextAppearance.Medium.Light">
@@ -101,7 +101,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginRight">@dimen/dp_x_2</item>
         <item name="android:layout_marginLeft">@dimen/dp_x_2</item>
-        <item name="android:background">@color/drawer_text_disabled</item>
+        <item name="android:background">@color/semitransparent_white</item>
     </style>
 
     <style name="Widget.MapButtonDrawer">

@@ -1,66 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
     android:id="@+id/info_box_geo"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/white_rounded_background"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/info_box_geo_container_dist"
-        android:layout_width="match_parent"
+  <LinearLayout
+      android:id="@+id/info_box_geo_container_dist"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="top"
+      android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/info_box_geo_distance"
+        style="@style/Holo.TextAppearance.Medium.Light"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="top"
-        android:orientation="horizontal" >
+        android:layout_weight="1"
+        android:fontFamily="@string/robotoRegular"
+        android:textColor="@android:color/white"/>
+  </LinearLayout>
 
-        <TextView
-            style="@style/Holo.TextAppearance.Medium.Light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:fontFamily="@string/robotoLight"
-            android:gravity="left"
-            android:text="@string/placepage_distance"
-            android:textColor="@color/ui_20_text_dark" />
+  <TextView
+      android:id="@+id/info_box_geo_location"
+      style="@style/Holo.TextAppearance.Medium.Light"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/info_box_geo_container_dist"
+      android:fontFamily="@string/robotoRegular"
+      android:textColor="@android:color/white"/>
 
-        <TextView
-            android:id="@+id/info_box_geo_distance"
-            style="@style/Holo.TextAppearance.Medium.Light"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@string/robotoRegular"
-            android:gravity="right"
-            android:textColor="@color/ui_20_text_green" />
-    </LinearLayout>
+  <ImageButton
+      android:id="@+id/color_image"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentTop="true"
+      android:background="@android:color/transparent"
+      android:layout_below="@id/info_box_geo_container_dist"/>
 
-    <LinearLayout
-        android:id="@+id/info_box_geo_container_coord"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:orientation="horizontal" >
-
-        <TextView
-            style="@style/Holo.TextAppearance.Medium.Light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:fontFamily="@string/robotoLight"
-            android:gravity="left"
-            android:text="@string/placepage_coordinates"
-            android:textColor="@color/ui_20_text_dark" />
-
-        <TextView
-            android:id="@+id/info_box_geo_location"
-            style="@style/Holo.TextAppearance.Medium.Light"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@string/robotoRegular"
-            android:gravity="right"
-            android:textColor="@color/ui_20_text_green" />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

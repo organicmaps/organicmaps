@@ -1,30 +1,18 @@
 package com.mapswithme.maps.bookmarks;
 
-import java.util.List;
-
 import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
@@ -39,8 +27,6 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class BookmarkActivity extends MapsWithMeBaseActivity
 {
-  private static final int BOOKMARK_COLOR_DIALOG = 11002;
-
   public static final String BOOKMARK_POSITION = "bookmark_position";
   public static final String PIN = "pin";
   public static final String PIN_ICON_ID = "pin";
@@ -54,13 +40,10 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
   private View     mClearName;
   private EditText mDescr;
   private TextView mSet;
-  private ImageView mPinImage;
 
   private int mCurrentCategoryId = -1;
 
   private Icon mIcon = null;
-  private List<Icon> mIcons;
-
 
   public static void startWithBookmark(Context context, int category, int bookmark)
   {
@@ -119,24 +102,8 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
     }
   }
 
-  private void updateColorChooser(Icon icon)
-  {
-    if (mIcon != null)
-    {
-      final String from = mIcon.getName();
-      final String to   = icon.getName();
-      if (!TextUtils.equals(from, to))
-        Statistics.INSTANCE.trackColorChanged(this, from, to);
-    }
-
-    mIcon = icon;
-    mPinImage.setImageDrawable(UiUtils
-        .drawCircleForPin(mIcon.getName(), (int) getResources().getDimension(R.dimen.dp_x_6), getResources()));
-  }
-
   private void refreshValuesInViews()
   {
-    updateColorChooser(mPin.getIcon());
     Utils.setStringAndCursorToEnd(mName, mPin.getName());
 
     mSet.setText(mPin.getCategoryName(this));
@@ -147,9 +114,7 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
 
   private void setUpViews()
   {
-    mIcons = mManager.getIcons();
     mSet = (TextView) findViewById(R.id.pin_set_chooser);
-    mPinImage = (ImageView)findViewById(R.id.color_image);
 
     mName = (EditText) findViewById(R.id.pin_name);
     mClearName = findViewById(R.id.bookmark_name_clear);
@@ -162,16 +127,6 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
       }
     });
     mDescr = (EditText)findViewById(R.id.pin_description);
-
-    mPinImage.setOnClickListener(new OnClickListener()
-    {
-      @SuppressWarnings("deprecation")
-      @Override
-      public void onClick(View v)
-      {
-        showDialog(BOOKMARK_COLOR_DIALOG);
-      }
-    });
 
     mSet.setOnClickListener(new OnClickListener()
     {
@@ -229,52 +184,6 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
     assignPinParams();
 
     super.onPause();
-  }
-
-  @Override
-  @Deprecated
-  protected Dialog onCreateDialog(int id)
-  {
-    if (id == BOOKMARK_COLOR_DIALOG)
-      return createColorChooser();
-    else
-      return super.onCreateDialog(id);
-  }
-
-  private Dialog createColorChooser()
-  {
-    final IconsAdapter adapter = new IconsAdapter(this, mIcons);
-    adapter.chooseItem(mIcons.indexOf(mPin.getIcon()));
-
-    final LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-    final int padSide = (int) getResources().getDimension(R.dimen.dp_x_8);
-    final int padTopB = (int) getResources().getDimension(R.dimen.dp_x_6);
-
-    final GridView gView = new GridView(this);
-    gView.setAdapter(adapter);
-    gView.setNumColumns(4);
-    gView.setGravity(Gravity.CENTER);
-    gView.setPadding(padSide, padTopB, padSide, padTopB);
-    gView.setLayoutParams(params);
-    gView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-
-    final Dialog d = new AlertDialog.Builder(this)
-      .setTitle(R.string.bookmark_color)
-      .setView(gView)
-      .create();
-
-    gView.setOnItemClickListener(new OnItemClickListener()
-    {
-      @Override
-      public void onItemClick(AdapterView<?> arg0, View who, int pos, long id)
-      {
-        updateColorChooser(mIcons.get(pos));
-        adapter.chooseItem(pos);
-        adapter.notifyDataSetChanged();
-        d.dismiss();
-      }});
-
-    return d;
   }
 
   @Override

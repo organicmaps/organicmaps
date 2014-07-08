@@ -1,75 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
     android:id="@+id/info_box_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@null" >
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/preview"
+  <LinearLayout
+      android:id="@+id/preview"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bg_page_preview"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:padding="10dp"
+      android:visibility="gone">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+      <TextView
+          android:id="@+id/info_title"
+          style="@style/Holo.TextAppearance.Large.Light"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="@string/robotoLight"
+          android:textColor="@android:color/white"/>
+
+      <TextView
+          android:id="@+id/info_subtitle"
+          style="@style/Holo.TextAppearance.Medium.Light"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/info_title"
+          android:fontFamily="@string/robotoRegular"
+          android:paddingLeft="5dp"
+          android:paddingRight="5dp"
+          android:textColor="@android:color/white"/>
+
+      <ImageButton
+          android:id="@+id/btn_edit_title"
+          android:layout_width="wrap_content"
+          android:background="@android:color/transparent"
+          android:layout_height="wrap_content"
+          android:layout_toRightOf="@id/info_title"
+          android:src="@drawable/placepageeditbutton"/>
+    </RelativeLayout>
+
+    <CheckBox
+        android:id="@+id/info_box_is_bookmarked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:button="@drawable/placepagebookmarkbutton"
+        android:padding="8dp"/>
+  </LinearLayout>
+
+  <!-- Will have dynamic height -->
+
+  <LinearLayout
+      android:id="@+id/place_page"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/preview"
+      android:background="@drawable/bg_place_page"
+      android:orientation="vertical"
+      android:visibility="gone">
+
+    <View
+        style="@style/drawerSeparator"
+        android:layout_weight="0"/>
+
+    <ScrollView
+        android:id="@+id/place_page_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/ui_20_background_grey"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:visibility="gone" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/info_title"
-                style="@style/Holo.TextAppearance.Large.Light"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@string/robotoLight" />
-
-            <TextView
-                android:id="@+id/info_subtitle"
-                style="@style/Holo.TextAppearance.Medium.Light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/ui_20_green"
-                android:fontFamily="@string/robotoRegular"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-
-        <CheckBox
-            android:id="@+id/info_box_is_bookmarked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:button="@drawable/info_box_add_to_bookmarks_btn_selector"
-            android:padding="8dp" />
-    </LinearLayout>
-
-    <!-- Will have dynamic height -->
-
-    <LinearLayout
-        android:id="@+id/place_page"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:background="@color/ui_20_background_grey"
-        android:orientation="vertical"
-        android:layout_below="@id/preview"
-        android:visibility="gone" >
-
-        <View
-            style="@style/drawerSeparator"
-            android:layout_weight="0" />
-
-        <ScrollView
-            android:id="@+id/place_page_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" >
-        </ScrollView>
-    </LinearLayout>
+        android:layout_weight="1">
+    </ScrollView>
+  </LinearLayout>
 
 </RelativeLayout>
