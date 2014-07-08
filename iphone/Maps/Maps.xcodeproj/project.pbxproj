@@ -22,6 +22,8 @@
 		5797B6D716C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
 		5797B6D816C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
 		972CDCC61887F1B7006641CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
+		97354B65196AF97200352536 /* PlacePageRoutingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97354B64196AF97200352536 /* PlacePageRoutingCell.m */; };
+		97354B66196AF97200352536 /* PlacePageRoutingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97354B64196AF97200352536 /* PlacePageRoutingCell.m */; };
 		97387546184E475000170BC4 /* MessageComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97387545184E475000170BC4 /* MessageComposeViewController.m */; };
 		97387547184E475000170BC4 /* MessageComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97387545184E475000170BC4 /* MessageComposeViewController.m */; };
 		974386D91934CBAC00FD5659 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 974386D81934CBAC00FD5659 /* FacebookSDK.framework */; };
@@ -1353,6 +1355,8 @@
 		77DDA9A116D504F900804BDB /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Pro.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		972CDCC51887F1B7006641CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		97354B63196AF97200352536 /* PlacePageRoutingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePageRoutingCell.h; sourceTree = "<group>"; };
+		97354B64196AF97200352536 /* PlacePageRoutingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacePageRoutingCell.m; sourceTree = "<group>"; };
 		97387544184E475000170BC4 /* MessageComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageComposeViewController.h; sourceTree = "<group>"; };
 		97387545184E475000170BC4 /* MessageComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageComposeViewController.m; sourceTree = "<group>"; };
 		974386D81934CBAC00FD5659 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -2453,6 +2457,8 @@
 				97D092B4190A6E1D00FF645B /* PlacePageEditCell.mm */,
 				97AA281F190AD21100AE1AAB /* PlacePageShareCell.h */,
 				97AA2820190AD21100AE1AAB /* PlacePageShareCell.m */,
+				97354B63196AF97200352536 /* PlacePageRoutingCell.h */,
+				97354B64196AF97200352536 /* PlacePageRoutingCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -4432,6 +4438,7 @@
 				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
 				97D092B5190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */,
 				978F9253183BD530000D6C7C /* NavigationController.mm in Sources */,
+				97354B65196AF97200352536 /* PlacePageRoutingCell.m in Sources */,
 				974386DD19373EA400FD5659 /* ToastView.m in Sources */,
 				97C9851E186AE3C500AF7E9E /* Reachability.m in Sources */,
 				EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */,
@@ -4500,6 +4507,7 @@
 				97DEA09718D75BB000C5F963 /* ContextViews.mm in Sources */,
 				978F9254183BD530000D6C7C /* NavigationController.mm in Sources */,
 				97A0EEFD192F3B43009B2779 /* BottomMenuCell.m in Sources */,
+				97354B66196AF97200352536 /* PlacePageRoutingCell.m in Sources */,
 				97C9851F186AE3C500AF7E9E /* Reachability.m in Sources */,
 				97ABBA4618C8DF620079333C /* PlacePageView.mm in Sources */,
 				9789DB5B188D94F9007C6FAE /* InterstitialView.mm in Sources */,

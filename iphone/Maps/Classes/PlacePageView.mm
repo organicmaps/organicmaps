@@ -8,6 +8,7 @@
 #import "PlacePageInfoCell.h"
 #import "PlacePageEditCell.h"
 #import "PlacePageShareCell.h"
+#import "PlacePageRoutingCell.h"
 #include "../../search/result.hpp"
 #import "ColorPickerView.h"
 #import "Statistics.h"
@@ -19,9 +20,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   CellRowSet,
   CellRowInfo,
   CellRowShare,
+  CellRowRouting,
 };
 
-@interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate>
+@interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate, PlacePageRoutingCellDelegate>
 {
   BOOL m_hasSpeed;
 }
@@ -91,6 +93,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self.tableView registerClass:[PlacePageInfoCell class] forCellReuseIdentifier:[PlacePageInfoCell className]];
   [self.tableView registerClass:[PlacePageEditCell class] forCellReuseIdentifier:[PlacePageEditCell className]];
   [self.tableView registerClass:[PlacePageShareCell class] forCellReuseIdentifier:[PlacePageShareCell className]];
+  [self.tableView registerClass:[PlacePageRoutingCell class] forCellReuseIdentifier:[PlacePageRoutingCell className]];
 
   CGFloat const defaultHeight = 93;
   [self updateHeight:defaultHeight];
@@ -156,14 +159,16 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (CellRow)cellRowForIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.row == ROW_COMMON)
+  if (indexPath.row == 0)
     return CellRowCommon;
-  else if (indexPath.row == ROW_SET)
+  else if (indexPath.row == 1)
     return [self isBookmark] ? CellRowSet : CellRowShare;
-  else if (indexPath.row == ROW_INFO)
-    return CellRowInfo;
+  else if (indexPath.row == 2)
+    return [self isBookmark] ? CellRowInfo : CellRowRouting;
   else if (indexPath.row == 3)
     return CellRowShare;
+  else if (indexPath.row == 4)
+    return CellRowRouting;
   return 0;
 }
 
@@ -174,7 +179,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (NSInteger)rowsCount
 {
-  return [self isBookmark] ? 4 : 2;
+  Framework & f = GetFramework();
+  if ([self isBookmark])
+    return f.IsRoutingEnabled() ? 5 : 4;
+  else
+    return f.IsRoutingEnabled() ? 3 : 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -212,6 +221,12 @@ typedef NS_ENUM(NSUInteger, CellRow)
       cell.apiAppTitle = nil;
     return cell;
   }
+  else if (row == CellRowRouting)
+  {
+    PlacePageRoutingCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageRoutingCell className]];
+    cell.delegate = self;
+    return cell;
+  }
   return nil;
 }
 
@@ -226,6 +241,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
     return [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:tableView.width];
   else if (row == CellRowShare)
     return [PlacePageShareCell cellHeight];
+  else if (row == CellRowRouting)
+    return [PlacePageRoutingCell cellHeight];
   return 0;
 }
 
@@ -353,7 +370,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     self.titleLabel.userInteractionEnabled = YES;
     CGFloat const infoCellHeight = [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:self.tableView.width inMyPositionMode:[self isMyPosition]];
-    CGFloat fullHeight = [self headerHeight] + infoCellHeight + [PlacePageShareCell cellHeight];
+    CGFloat fullHeight = [self headerHeight] + infoCellHeight + [PlacePageShareCell cellHeight] + (GetFramework().IsRoutingEnabled() ? [PlacePageRoutingCell cellHeight] : 0);
     if ([self isBookmark])
     {
       fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
@@ -511,13 +528,23 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
 }
 
+- (void)routeCellDidSetEndPoint:(PlacePageRoutingCell *)cell
+{
+  GetFramework().SetRouteEnd([self pinPoint]);
+}
+
+- (void)routeCellDidSetStartPoint:(PlacePageRoutingCell *)cell
+{
+  GetFramework().SetRouteStart([self pinPoint]);
+}
+
 - (void)infoCellDidPressColorSelector:(PlacePageInfoCell *)cell
 {
   UIWindow * appWindow = [[UIApplication sharedApplication].windows firstObject];
   UIWindow * window = [[appWindow subviews] firstObject];
 
   self.pickerView = [[UIView alloc] initWithFrame:window.bounds];
-  ColorPickerView * colorPicker = [[ColorPickerView alloc] initWithWidth:(IPAD ? 340 : 300) andSelectButton:[ColorPickerView getColorIndex:self.colorName]];
+  ColorPickerView * colorPicker = [[ColorPickerView alloc] initWithWidth:(IPAD ? 340 : 300) andSelectButton:[ColorPickerView getColorIndex:[self colorName]]];
   colorPicker.delegate = self;
   colorPicker.minX = (self.pickerView.width - colorPicker.width) / 2;
   colorPicker.minY = (self.pickerView.height - colorPicker.height) / 2;
