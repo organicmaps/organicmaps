@@ -16,11 +16,9 @@ import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -61,7 +59,7 @@ import java.util.Stack;
 public class MWMActivity extends NvEventQueueActivity
     implements LocationService.Listener,
     OnBalloonListener,
-    OnVisibilityChangedListener
+    OnVisibilityChangedListener, OnClickListener
 {
   public static final String EXTRA_TASK = "map_task";
   private final static String TAG = "MWMActivity";
@@ -78,7 +76,7 @@ public class MWMActivity extends NvEventQueueActivity
   private StoragePathManager m_pathManager = new StoragePathManager();
   private AlertDialog m_storageDisconnectedDialog = null;
   private ImageButton mLocationButton;
-    // Info box (place page).
+  // Info box (place page).
   private MapInfoView mInfoView;
   private SearchController mSearchController;
   private String mProDialogMessage;
@@ -88,6 +86,8 @@ public class MWMActivity extends NvEventQueueActivity
   // Initialized to invalid combination to force update on the first check
   private boolean m_storageAvailable = false;
   private boolean m_storageWritable = true;
+  private ViewGroup mVerticalToolbar;
+  private ViewGroup mToolbar;
 
   public static Intent createShowMapIntent(Context context, Index index)
   {
@@ -596,44 +596,8 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onMoreClicked(View v)
   {
-    openOptionsMenu();
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu)
-  {
-    MenuInflater inflater = getMenuInflater();
-    inflater.inflate(R.menu.main, menu);
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item)
-  {
-    final int menuItemId = item.getItemId();
-    switch (menuItemId)
-    {
-    case R.id.menuitem_download_maps:
-      runDownloadActivity();
-      return true;
-    case R.id.menuitem_share_my_location:
-      shareMyLocation();
-      return true;
-    case R.id.menuitem_more_apps:
-      return true;
-    case R.id.menuitem_settings_activity:
-      startActivity(new Intent(MWMActivity.this, SettingsActivity.class));
-      return true;
-    default:
-      // This menu item id exists only in Lite versions builds
-      if (menuItemId == getResources().getIdentifier("menuitem_buy_pro", "id", getPackageName()))
-      {
-        runProVersionMarketActivity();
-        return true;
-      }
-      else
-        return super.onOptionsItemSelected(item);
-    }
+    UiUtils.show(mVerticalToolbar);
+    UiUtils.hide(mToolbar);
   }
 
   private void shareMyLocation()
@@ -708,6 +672,21 @@ public class MWMActivity extends NvEventQueueActivity
 
     mSearchController = SearchController.get();
     mSearchController.onCreate(this);
+
+    setUpToolbars();
+  }
+
+  private void setUpToolbars()
+  {
+    mToolbar = (ViewGroup) findViewById(R.id.map_bottom_toolbar);
+    mVerticalToolbar = (ViewGroup) findViewById(R.id.map_bottom_vertical_toolbar);
+    mVerticalToolbar.findViewById(R.id.btn_buy_pro).setOnClickListener(this);
+    mVerticalToolbar.findViewById(R.id.btn_download_maps).setOnClickListener(this);
+    mVerticalToolbar.findViewById(R.id.btn_more_apps).setOnClickListener(this);
+    mVerticalToolbar.findViewById(R.id.btn_share).setOnClickListener(this);
+    mVerticalToolbar.findViewById(R.id.btn_settings).setOnClickListener(this);
+
+    UiUtils.hide(mVerticalToolbar);
   }
 
   private void setUpInfoBox()
@@ -1260,13 +1239,48 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
+    UiUtils.hide(mVerticalToolbar);
   }
 
   @Override
   public void onPlacePageVisibilityChanged(boolean isVisible)
   {
-    // Hide toolbar if PlacePage is visible
-    UiUtils.showIf(!isVisible, findViewById(R.id.map_bottom_toolbar));
+    UiUtils.showIf(!isVisible, mToolbar);
+    UiUtils.hide(mVerticalToolbar);
+  }
+
+  @Override
+  public void onClick(View v)
+  {
+    switch (v.getId())
+    {
+    case R.id.btn_buy_pro:
+      UiUtils.hide(mVerticalToolbar);
+      UiUtils.show(mToolbar);
+      runProVersionMarketActivity();
+      break;
+    case R.id.btn_share:
+      UiUtils.hide(mVerticalToolbar);
+      UiUtils.show(mToolbar);
+      shareMyLocation();
+      break;
+    case R.id.btn_settings:
+      UiUtils.hide(mVerticalToolbar);
+      UiUtils.show(mToolbar);
+      startActivity(new Intent(MWMActivity.this, SettingsActivity.class));
+      break;
+    case R.id.btn_download_maps:
+      UiUtils.hide(mVerticalToolbar);
+      UiUtils.show(mToolbar);
+      runDownloadActivity();
+      break;
+    case R.id.btn_more_apps:
+      UiUtils.hide(mVerticalToolbar);
+      UiUtils.show(mToolbar);
+      break;
+    default:
+      break;
+    }
   }
 
   public interface MapTask extends Serializable

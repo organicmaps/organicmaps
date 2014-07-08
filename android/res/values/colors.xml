@@ -51,5 +51,7 @@
   <color name="pp_bg_end">#15d080</color>
 
   <color name="bg_menu">#e6414451</color>
+  <color name="bg_bottom_toolbar">#444651</color>
+  <color name="bg_bottom_toolbar_pressed">#15d081</color>
 
 </resources>

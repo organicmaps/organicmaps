@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/ic_bookmarks_pressed" android:state_pressed="true"/>
-    <item android:drawable="@drawable/ic_bookmarks_normal"/>
+    <item android:drawable="@drawable/ic_place_page_bookmark_button_selected" android:state_checked="true"/>
+    <item android:drawable="@drawable/ic_place_page_bookmark_button"/>
 
 </selector>

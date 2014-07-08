@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="bottom">
@@ -38,12 +37,18 @@ Default margin = @dimen/map_controls_margin - 1 (like in map_bottom_toolbar)
       android:layout_height="match_parent"
       android:layout_below="@id/omni_box"/>
 
-  <include
-      android:id="@+id/map_bottom_toolbar"
-      layout="@layout/map_bottom_toolbar"
+  <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_margin="0dp"/>
+      android:layout_alignParentBottom="true">
 
+    <include
+        android:id="@+id/map_bottom_toolbar"
+        layout="@layout/map_bottom_toolbar"/>
+
+    <include
+        android:id="@+id/map_bottom_vertical_toolbar"
+        layout="@layout/map_bottom_vertical_toolbar"/>
+
+  </FrameLayout>
 </RelativeLayout>

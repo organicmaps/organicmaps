@@ -45,7 +45,7 @@
           android:layout_height="wrap_content"
           android:layout_toRightOf="@id/info_title"
           android:background="@android:color/transparent"
-          android:src="@drawable/placepageeditbutton"/>
+          android:src="@drawable/ic_menu_buy_pro"/>
 
       <Button
           android:id="@+id/btn_route_from"
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:button="@drawable/placepagebookmarkbutton"
+        android:button="@drawable/ic_bookmarks_selector"
         android:padding="8dp"/>
   </LinearLayout>
 

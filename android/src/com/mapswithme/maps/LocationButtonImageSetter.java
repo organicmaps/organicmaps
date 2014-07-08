@@ -20,10 +20,10 @@ public class LocationButtonImageSetter
   private final static Map<ButtonState, Integer> STATE_TO_RES = new HashMap<ButtonState, Integer>();
   static
   {
-    STATE_TO_RES.put(ButtonState.NO_LOCATION, R.drawable.ic_my_position_normal);
+    STATE_TO_RES.put(ButtonState.NO_LOCATION, R.drawable.ic_my_position);
     STATE_TO_RES.put(ButtonState.HAS_LOCATION, R.drawable.ic_my_position_pressed);
     STATE_TO_RES.put(ButtonState.FOLLOW_MODE, R.drawable.ic_my_position_auto_follow);
-    STATE_TO_RES.put(ButtonState.WAITING_LOCATION, R.drawable.btn_location_rotation);
+    STATE_TO_RES.put(ButtonState.WAITING_LOCATION, R.drawable.ic_my_position_search);
   }
 
   public static void setButtonViewFromState(ButtonState state, ImageButton button)

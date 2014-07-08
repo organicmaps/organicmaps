@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_menu"
+    android:orientation="vertical">
+
+  <ImageButton
+      android:id="@+id/btn_buy_pro"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/bottom_panel_height"
+      android:visibility="gone"/>
+
+  <View
+      style="@style/drawerSeparator"/>
+
+  <ImageButton
+      android:id="@+id/btn_download_maps"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/bottom_panel_height"
+      android:background="@drawable/bg_toolbar_button_selector"
+      android:src="@drawable/ic_menu_about"/>
+
+  <View
+      style="@style/drawerSeparator"/>
+
+  <ImageButton
+      android:id="@+id/btn_share"
+      style="@style/Widget.MapButtonBottom"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/bottom_panel_height"
+      android:background="@drawable/bg_toolbar_button_selector"
+      android:src="@drawable/ic_menu_send_my_location"/>
+
+  <View
+      style="@style/drawerSeparator"/>
+
+  <ImageButton
+      android:id="@+id/btn_more_apps"
+      style="@style/Widget.MapButtonBottom"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/bottom_panel_height"
+      android:background="@drawable/bg_toolbar_button_selector"
+      android:src="@drawable/ic_menu_more_apps"/>
+
+
+  <View
+      style="@style/drawerSeparator"/>
+
+  <ImageButton
+      android:id="@+id/btn_settings"
+      style="@style/Widget.MapButtonBottom"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/bottom_panel_height"
+      android:background="@drawable/bg_toolbar_button_selector"
+      android:src="@drawable/ic_menu_settings"/>
+
+</LinearLayout>
