@@ -864,7 +864,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   BookmarkAndCategory const & bookmarkAndCategory = framework.FindBookmark(mark);
   BookmarkCategory * category = framework.GetBmCategory(bookmarkAndCategory.first);
   m_mark = [self cachedMark];
-  framework.ActivateUserMark(mark);
+  framework.ActivateUserMark([self userMark]);
   if (category)
   {
     category->DeleteBookmark(bookmarkAndCategory.second);

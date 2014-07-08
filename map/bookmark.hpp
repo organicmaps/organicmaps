@@ -188,9 +188,14 @@ protected:
   virtual string GetTypeName() const { return "search-result"; }
   virtual string GetActiveTypeName() const { return "search-result-active"; }
   virtual UserMark * AllocateUserMark(m2::PointD const & ptOrg);
+
+private:
+  void ReleaseAnimations();
   
 private:
   bool m_blockAnimation;
+  typedef pair<UserMark *, shared_ptr<anim::Task> > anim_node_t;
+  vector<anim_node_t> m_anims;
 };
 
 /// <category index, bookmark index>

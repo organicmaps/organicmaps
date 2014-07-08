@@ -126,6 +126,23 @@ void BookmarkCategory::DeleteBookmark(size_t index)
 {
   base_t::Controller & c = base_t::GetController();
   ASSERT_LESS(index, c.GetUserMarkCount(), ());
+  UserMark const * markForDelete = c.GetUserMark(index);
+
+  int animIndex = -1;
+  for (size_t i = 0; i < m_anims.size(); ++i)
+  {
+    anim_node_t const & anim = m_anims[i];
+    if (anim.first == markForDelete)
+    {
+      anim.second->Cancel();
+      animIndex = i;
+      break;
+    }
+  }
+
+  if (animIndex != -1)
+    m_anims.erase(m_anims.begin() + animIndex);
+
   c.DeleteUserMark(index);
 }
 
@@ -802,11 +819,32 @@ string BookmarkCategory::GenerateUniqueFileName(const string & path, string name
   return (path + name + suffix + kmlExt);
 }
 
+void BookmarkCategory::ReleaseAnimations()
+{
+  vector<anim_node_t> tempAnims;
+  for (size_t i = 0; i < m_anims.size(); ++i)
+  {
+    anim_node_t const & anim = m_anims[i];
+    if (!anim.second->IsEnded() &&
+        !anim.second->IsCancelled())
+    {
+      tempAnims.push_back(m_anims[i]);
+    }
+  }
+
+  swap(m_anims, tempAnims);
+}
+
 UserMark * BookmarkCategory::AllocateUserMark(m2::PointD const & ptOrg)
 {
   Bookmark * b = new Bookmark(ptOrg, this);
   if (!m_blockAnimation)
-    m_framework.GetAnimController()->AddTask(b->CreateAnimTask(m_framework));
+  {
+    shared_ptr<anim::Task> animTask = b->CreateAnimTask(m_framework);
+    animTask->AddCallback(anim::Task::EEnded, bind(&BookmarkCategory::ReleaseAnimations, this));
+    m_anims.push_back(make_pair((UserMark *)b, animTask));
+    m_framework.GetAnimController()->AddTask(animTask);
+  }
   return b;
 }
 
