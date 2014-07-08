@@ -531,11 +531,13 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (void)routeCellDidSetEndPoint:(PlacePageRoutingCell *)cell
 {
   GetFramework().SetRouteEnd([self pinPoint]);
+  [self setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
 - (void)routeCellDidSetStartPoint:(PlacePageRoutingCell *)cell
 {
   GetFramework().SetRouteStart([self pinPoint]);
+  [self setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
 - (void)infoCellDidPressColorSelector:(PlacePageInfoCell *)cell
