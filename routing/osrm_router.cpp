@@ -33,14 +33,15 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
 {
   // Construct OSRM url request to get the route
   string url = OSRM_CAR_ROUTING_URL;
-  url += "loc=" + strings::to_string(startingPt.x) + "," + strings::to_string(startingPt.y)
-      + "&loc=" + strings::to_string(m_finalPt.x)   + "," + strings::to_string(m_finalPt.y);
+  using strings::to_string;
+  url += "loc=" + to_string(MercatorBounds::YToLat(startingPt.y)) + "," + to_string(MercatorBounds::XToLon(startingPt.x))
+      + "&loc=" + to_string(MercatorBounds::YToLat(m_finalPt.y))   + "," + to_string(MercatorBounds::XToLon(m_finalPt.x));
 
   // Request will be deleted in the callback
-  downloader::HttpRequest::Get(url, bind(&OsrmRouter::OnRouteReceived, this, _1));
+  downloader::HttpRequest::Get(url, bind(&OsrmRouter::OnRouteReceived, this, _1, callback));
 }
 
-void OsrmRouter::OnRouteReceived(downloader::HttpRequest & request)
+void OsrmRouter::OnRouteReceived(downloader::HttpRequest & request, ReadyCallback callback)
 {
   if (request.Status() == downloader::HttpRequest::ECompleted)
   {
@@ -62,8 +63,8 @@ void OsrmRouter::OnRouteReceived(downloader::HttpRequest & request)
           if (jcoords)
           {
             string const coords = json_string_value(jcoords);
-            string const strLon(coords, 0, coords.find(','));
-            string const strLat(coords, coords.find(',') + 1);
+            string const strLat(coords, 0, coords.find(','));
+            string const strLon(coords, coords.find(',') + 1);
             double lat, lon;
             if (strings::to_double(strLat, lat) && strings::to_double(strLon, lon))
               route.push_back(MercatorBounds::FromLatLon(lat, lon));
@@ -84,7 +85,7 @@ void OsrmRouter::OnRouteReceived(downloader::HttpRequest & request)
       {
         LOG(LINFO, ("Received route with", route.size(), "points"));
         Route result(GetName(), route, routeName + " " + my::FormatCurrentTime());
-        m_callback(result);
+        callback(result);
       }
     }
     catch (my::Json::Exception const & ex)

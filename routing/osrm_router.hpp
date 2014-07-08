@@ -12,10 +12,9 @@ namespace routing
 class OsrmRouter : public IRouter
 {
   m2::PointD m_finalPt;
-  ReadyCallback m_callback;
 
   /// Http callback from the server
-  void OnRouteReceived(downloader::HttpRequest & request);
+  void OnRouteReceived(downloader::HttpRequest & request, ReadyCallback callback);
 
 public:
   virtual string GetName() const;
