@@ -1021,4 +1021,22 @@ extern "C"
   {
     g_framework->NativeFramework()->LoadBookmarks();
   }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_Framework_nativeIsRoutingEnabled(JNIEnv * env, jclass thiz)
+  {
+    return g_framework->NativeFramework()->IsRoutingEnabled();
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetRouteStart(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
+  {
+    g_framework->NativeFramework()->SetRouteStart(MercatorBounds::FromLatLon(lat, lon));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetRouteEnd(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
+  {
+    g_framework->NativeFramework()->SetRouteEnd(MercatorBounds::FromLatLon(lat, lon));
+  }
 }

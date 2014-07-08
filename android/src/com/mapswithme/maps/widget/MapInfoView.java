@@ -28,6 +28,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -78,6 +79,8 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private final CheckBox mIsBookmarked;
   private final ImageButton mEditBtn;
   private final LayoutInflater mInflater;
+  private final Button mRouteStartBtn;
+  private final Button mRouteEndBtn;
   // Gestures
   private GestureDetectorCompat mGestureDetector;
   // Place page
@@ -117,6 +120,10 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     // if someone calls setChecked() from code. We need only user interaction.
     mIsBookmarked.setOnClickListener(this);
     mEditBtn = (ImageButton) mPreviewGroup.findViewById(R.id.btn_edit_title);
+    mRouteStartBtn = (Button) mPreviewGroup.findViewById(R.id.btn_route_from);
+    mRouteStartBtn.setOnClickListener(this);
+    mRouteEndBtn = (Button) mPreviewGroup.findViewById(R.id.btn_route_to);
+    mRouteEndBtn.setOnClickListener(this);
 
     // Place Page
     mPlacePageContainer = (ScrollView) mPlacePageGroup.findViewById(R.id.place_page_container);
@@ -369,6 +376,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
         setUpAddressBox();
         setUpGeoInformation();
         setUpBottomButtons();
+        setUpRoutingButtons();
       }
     }
 
@@ -484,6 +492,14 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
         }
       });
     }
+  }
+
+  private void setUpRoutingButtons()
+  {
+    if (Framework.nativeIsRoutingEnabled())
+      UiUtils.show(mRouteStartBtn, mRouteEndBtn);
+    else
+      UiUtils.hide(mRouteStartBtn, mRouteEndBtn);
   }
 
   public void updateDistance(Location l)
@@ -683,10 +699,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     final String from = oldIcon.getName();
     final String to = icon.getName();
     if (!TextUtils.equals(from, to))
-    {
       Statistics.INSTANCE.trackColorChanged(getContext(), from, to);
-
-    }
     mColorImage.setImageDrawable(UiUtils
         .drawCircleForPin(to, (int) getResources().getDimension(R.dimen.dp_x_6), getResources()));
   }
@@ -734,6 +747,12 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     case R.id.btn_edit_title:
       Bookmark bmk = (Bookmark) mMapObject;
       BookmarkActivity.startWithBookmark(getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
+    case R.id.btn_route_from:
+      Framework.nativeSetRouteStart(mMapObject.getLat(), mMapObject.getLon());
+      break;
+    case R.id.btn_route_to:
+      Framework.nativeSetRouteEnd(mMapObject.getLat(), mMapObject.getLon());
+      break;
     default:
       break;
     }

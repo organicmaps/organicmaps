@@ -177,4 +177,8 @@ public class Framework
   private native static String   nativeGetWritableDir();
   private native static void     nativeSetWritableDir(String newPath);
   private native static void     nativeLoadbookmarks();
+  // routing
+  public native static boolean  nativeIsRoutingEnabled();
+  public native static void     nativeSetRouteStart(double lat, double lon);
+  public native static void     nativeSetRouteEnd(double lat, double lon);
 }
