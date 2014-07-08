@@ -69,21 +69,19 @@ void TestingEngine::Draw()
   context->present();
 }
 
-void TestingEngine::OnSizeChanged(int x0, int y0, int w, int h)
+void TestingEngine::Resize(int w, int h)
 {
-  m_viewport.SetViewport(x0, y0, w, h);
+  m_viewport.SetViewport(0, 0, w, h);
   ModelViewInit();
   ProjectionInit();
   Draw();
 }
 
-void TestingEngine::SetAngle(float radians)
-{
-  ModelViewInit();
-  ProjectionInit();
+void TestingEngine::DragStarted(m2::PointF const & p) {}
+void TestingEngine::Drag(m2::PointF const & p) {}
+void TestingEngine::DragEnded(m2::PointF const & p) {}
+void TestingEngine::Scale(m2::PointF const & p, double factor) {}
 
-  Draw();
-}
 
 void TestingEngine::DrawImpl()
 {

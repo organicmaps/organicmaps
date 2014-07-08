@@ -21,8 +21,11 @@ public:
   ~TestingEngine();
 
   void Draw();
-  void OnSizeChanged(int x0, int y0, int w, int h);
-  void SetAngle(float radians);
+  void Resize(int w, int h);
+  void DragStarted(m2::PointF const & p);
+  void Drag(m2::PointF const & p);
+  void DragEnded(m2::PointF const & p);
+  void Scale(m2::PointF const & p, double factor);
 
 private:
   void DrawImpl();
