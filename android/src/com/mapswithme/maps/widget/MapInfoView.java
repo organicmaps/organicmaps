@@ -207,11 +207,13 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       return; // if state is already same as we need
 
     TranslateAnimation slide;
+    View arrow = mPreviewGroup.findViewById(R.id.iv_arrow);
     if (show) // slide up
     {
       slide = generateSlideAnimation(0, 0, -1, 0);
       slide.setDuration(SHORT_ANIM_DURATION);
       UiUtils.show(mPlacePageGroup);
+      UiUtils.invisible(arrow);
       if (mVisibilityChangedListener != null)
         mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
     }
@@ -222,6 +224,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       slide.setDuration(SHORT_ANIM_DURATION);
       slide.setFillEnabled(true);
       slide.setFillBefore(true);
+      UiUtils.show(arrow);
       slide.setAnimationListener(new UiUtils.SimpleAnimationListener()
       {
         @Override
@@ -379,10 +382,6 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
         setUpRoutingButtons();
       }
     }
-
-    // Sometimes we have to force update view
-    invalidate();
-    requestLayout();
   }
 
   private void setUpPreview()
@@ -583,7 +582,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     {
       mMaxPlacePageHeight = parent.getHeight() / 2;
       final ViewGroup.LayoutParams lp = mPlacePageGroup.getLayoutParams();
-      if (lp != null && lp.height != mMaxPlacePageHeight)
+      if (lp != null && lp.height > mMaxPlacePageHeight)
       {
         lp.height = mMaxPlacePageHeight;
         mPlacePageGroup.setLayoutParams(lp);
@@ -737,7 +736,9 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       Framework.invalidate();
       break;
     case R.id.info_box:
-      /* Friggin system does not work without this stub.*/
+      // TODO
+      // without listening this event some bug may appear.
+      // check that and remove after investigation
       break;
     case R.id.info_box_share:
       ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);

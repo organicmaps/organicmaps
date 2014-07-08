@@ -5,76 +5,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <LinearLayout
+  <RelativeLayout
       android:id="@+id/preview"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@drawable/bg_page_preview"
-      android:gravity="center_vertical"
-      android:orientation="horizontal"
       android:padding="10dp"
       android:visibility="gone">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/ll_preview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:orientation="horizontal">
 
-      <TextView
-          android:id="@+id/info_title"
-          style="@style/Holo.TextAppearance.Large.Light"
+      <RelativeLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:fontFamily="@string/robotoLight"
-          android:textColor="@android:color/white"/>
+          android:layout_weight="1">
 
-      <TextView
-          android:id="@+id/info_subtitle"
-          style="@style/Holo.TextAppearance.Medium.Light"
+        <TextView
+            android:id="@+id/info_title"
+            style="@style/Holo.TextAppearance.Large.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@string/robotoLight"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:id="@+id/info_subtitle"
+            style="@style/Holo.TextAppearance.Medium.Light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/info_title"
+            android:fontFamily="@string/robotoRegular"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@android:color/white"/>
+
+        <ImageButton
+            android:id="@+id/btn_edit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/info_title"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_place_page_edit_button"/>
+
+        <Button
+            android:id="@+id/btn_route_from"
+            style="@style/Holo.TextAppearance.Medium.Light"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/info_subtitle"
+            android:text="@string/choose_starting_point"/>
+
+        <Button
+            android:id="@+id/btn_route_to"
+            style="@style/Holo.TextAppearance.Medium.Light"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/btn_route_from"
+            android:layout_below="@id/btn_route_from"
+            android:text="@string/choose_destination"/>
+      </RelativeLayout>
+
+      <CheckBox
+          android:id="@+id/info_box_is_bookmarked"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_below="@id/info_title"
-          android:fontFamily="@string/robotoRegular"
-          android:paddingLeft="5dp"
-          android:paddingRight="5dp"
-          android:textColor="@android:color/white"/>
+          android:layout_weight="0"
+          android:button="@drawable/ic_bookmarks_selector"
+          android:padding="8dp"/>
+    </LinearLayout>
 
-      <ImageButton
-          android:id="@+id/btn_edit_title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_toRightOf="@id/info_title"
-          android:background="@android:color/transparent"
-          android:src="@drawable/ic_menu_buy_pro"/>
-
-      <Button
-          android:id="@+id/btn_route_from"
-          style="@style/Holo.TextAppearance.Medium.Light"
-          android:layout_width="200dp"
-          android:layout_height="wrap_content"
-          android:layout_below="@id/info_subtitle"
-          android:text="@string/choose_starting_point"/>
-
-      <Button
-          android:id="@+id/btn_route_to"
-          style="@style/Holo.TextAppearance.Medium.Light"
-          android:layout_width="200dp"
-          android:layout_height="wrap_content"
-          android:layout_alignLeft="@id/btn_route_from"
-          android:layout_below="@id/btn_route_from"
-          android:text="@string/choose_destination"/>
-    </RelativeLayout>
-
-    <CheckBox
-        android:id="@+id/info_box_is_bookmarked"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:button="@drawable/ic_bookmarks_selector"
-        android:padding="8dp"/>
-  </LinearLayout>
+        android:layout_below="@id/ll_preview"
+        android:src="@drawable/ic_arrow"/>
 
-  <!-- Will have dynamic height -->
+  </RelativeLayout>
 
   <LinearLayout
       android:id="@+id/place_page"

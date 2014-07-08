@@ -6,54 +6,63 @@
     android:background="@color/bg_menu"
     android:orientation="vertical">
 
-  <ImageButton
+  <View
       android:id="@+id/btn_buy_pro"
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_panel_height"
       android:visibility="gone"/>
 
-  <View
-      style="@style/drawerSeparator"/>
-
-  <ImageButton
+  <TextView
       android:id="@+id/btn_download_maps"
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_panel_height"
       android:background="@drawable/bg_toolbar_button_selector"
-      android:src="@drawable/ic_menu_about"/>
+      android:drawableLeft="@drawable/ic_menu_download"
+      android:gravity="center_vertical"
+      android:paddingLeft="10dp"
+      android:text="@string/download_maps"
+      android:textColor="@android:color/white"/>
 
   <View
       style="@style/drawerSeparator"/>
 
-  <ImageButton
+  <TextView
       android:id="@+id/btn_share"
-      style="@style/Widget.MapButtonBottom"
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_panel_height"
       android:background="@drawable/bg_toolbar_button_selector"
-      android:src="@drawable/ic_menu_send_my_location"/>
+      android:drawableLeft="@drawable/ic_menu_send_my_location"
+      android:gravity="center_vertical"
+      android:paddingLeft="10dp"
+      android:text="@string/share"
+      android:textColor="@android:color/white"/>
 
   <View
       style="@style/drawerSeparator"/>
 
-  <ImageButton
+  <TextView
       android:id="@+id/btn_more_apps"
-      style="@style/Widget.MapButtonBottom"
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_panel_height"
       android:background="@drawable/bg_toolbar_button_selector"
-      android:src="@drawable/ic_menu_more_apps"/>
-
+      android:drawableLeft="@drawable/ic_menu_more_apps"
+      android:gravity="center_vertical"
+      android:paddingLeft="10dp"
+      android:text="@string/more_apps_title"
+      android:textColor="@android:color/white"/>
 
   <View
       style="@style/drawerSeparator"/>
 
-  <ImageButton
+  <TextView
       android:id="@+id/btn_settings"
-      style="@style/Widget.MapButtonBottom"
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_panel_height"
       android:background="@drawable/bg_toolbar_button_selector"
-      android:src="@drawable/ic_menu_settings"/>
+      android:drawableLeft="@drawable/ic_menu_settings"
+      android:gravity="center_vertical"
+      android:paddingLeft="10dp"
+      android:text="@string/settings"
+      android:textColor="@android:color/white"/>
 
 </LinearLayout>
