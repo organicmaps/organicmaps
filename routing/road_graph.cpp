@@ -9,7 +9,7 @@ namespace routing
 string DebugPrint(RoadPos const & r)
 {
   ostringstream ss;
-  ss << "{" << r.GetFeatureId() << ", " << r.m_pointId << ", " << r.IsForward() << "}";
+  ss << "{" << r.GetFeatureId() << ", " << r.IsForward() << ", " << r.m_pointId << "}";
   return ss.str();
 }
 

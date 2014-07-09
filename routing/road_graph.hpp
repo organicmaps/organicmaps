@@ -32,6 +32,15 @@ public:
     return (m_featureId == r.m_featureId && m_pointId == r.m_pointId);
   }
 
+  bool operator < (RoadPos const & r) const
+  {
+    if (m_featureId != r.m_featureId)
+      return m_featureId < r.m_featureId;
+    if (m_pointId != r.m_pointId)
+      return m_pointId < r.m_pointId;
+    return false;
+  }
+
 private:
   friend string DebugPrint(RoadPos const & r);
 

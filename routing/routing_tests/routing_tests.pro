@@ -15,6 +15,7 @@ SOURCES += \
   routing_smoke.cpp \
   road_graph_builder.cpp \
   road_graph_builder_test.cpp \
+  dijkstra_router_test.cpp \
 
 HEADERS += \
   road_graph_builder.hpp \
