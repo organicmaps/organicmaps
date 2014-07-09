@@ -6,12 +6,15 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = routing platform indexer geometry coding base
+DEPENDENCIES = routing search platform indexer geometry coding base protobuf
+
+macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
 
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
   ../../testing/testingmain.cpp \
+  features_road_graph_test.cpp \
   routing_smoke.cpp \
   road_graph_builder.cpp \
   road_graph_builder_test.cpp \

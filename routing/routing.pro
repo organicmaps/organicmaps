@@ -17,6 +17,7 @@ SOURCES += \
     osrm_router.cpp \
     road_graph_router.cpp \
     dijkstra_router.cpp \
+    features_road_graph.cpp \
 
 HEADERS += \
     route.hpp \
@@ -27,3 +28,4 @@ HEADERS += \
     osrm_router.hpp \
     road_graph_router.hpp \
     dijkstra_router.hpp \
+    features_road_graph.hpp \

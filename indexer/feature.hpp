@@ -190,6 +190,18 @@ public:
     }
   }
 
+  inline size_t GetPointsCount() const
+  {
+    ASSERT(m_bPointsParsed, ());
+    return m_Points.size();
+  }
+  inline m2::PointD const & GetPoint(size_t i) const
+  {
+    ASSERT_LESS(i, m_Points.size(), ());
+    ASSERT(m_bPointsParsed, ());
+    return m_Points[i];
+  }
+
   template <typename FunctorT>
   void ForEachPoint(FunctorT f, int scale) const
   {
