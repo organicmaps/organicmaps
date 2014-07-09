@@ -104,4 +104,135 @@ void RoadGraphMockSource::ReconstructPath(RoadPosVectorT const & positions, Poin
 
 }
 
+void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)
+{
+  {
+    RoadInfo ri;
+    ri.m_bothSides = true;
+    ri.m_speedMS = 40;
+    ri.m_points.push_back(m2::PointD(0, 0));
+    ri.m_points.push_back(m2::PointD(5, 0));
+    ri.m_points.push_back(m2::PointD(10, 0));
+    ri.m_points.push_back(m2::PointD(15, 0));
+    ri.m_points.push_back(m2::PointD(20, 0));
+    src.AddRoad(ri);
+  }
+
+  {
+    RoadInfo ri;
+    ri.m_bothSides = true;
+    ri.m_speedMS = 40;
+    ri.m_points.push_back(m2::PointD(10, -10));
+    ri.m_points.push_back(m2::PointD(10, -5));
+    ri.m_points.push_back(m2::PointD(10, 0));
+    ri.m_points.push_back(m2::PointD(10, 5));
+    ri.m_points.push_back(m2::PointD(10, 10));
+    src.AddRoad(ri);
+  }
+
+  {
+    RoadInfo ri;
+    ri.m_bothSides = true;
+    ri.m_speedMS = 40;
+    ri.m_points.push_back(m2::PointD(15, -5));
+    ri.m_points.push_back(m2::PointD(15, 0));
+    src.AddRoad(ri);
+  }
+
+  {
+    RoadInfo ri;
+    ri.m_bothSides = true;
+    ri.m_speedMS = 40;
+    ri.m_points.push_back(m2::PointD(20, 0));
+    ri.m_points.push_back(m2::PointD(25, 5));
+    ri.m_points.push_back(m2::PointD(15, 5));
+    ri.m_points.push_back(m2::PointD(20, 0));
+    src.AddRoad(ri);
+  }
+}
+
+void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
+{
+  RoadInfo ri0;
+  ri0.m_bothSides = true;
+  ri0.m_speedMS = 40;
+  ri0.m_points.push_back(m2::PointD(0, 0));
+  ri0.m_points.push_back(m2::PointD(10, 0));
+  ri0.m_points.push_back(m2::PointD(25, 0));
+  ri0.m_points.push_back(m2::PointD(35, 0));
+  ri0.m_points.push_back(m2::PointD(70, 0));
+  ri0.m_points.push_back(m2::PointD(80, 0));
+
+  RoadInfo ri1;
+  ri1.m_bothSides = false;
+  ri1.m_speedMS = 20;
+  ri1.m_points.push_back(m2::PointD(0, 0));
+  ri1.m_points.push_back(m2::PointD(5, 10));
+  ri1.m_points.push_back(m2::PointD(5, 40));
+
+  RoadInfo ri2;
+  ri2.m_bothSides = false;
+  ri2.m_speedMS = 20;
+  ri2.m_points.push_back(m2::PointD(12, 25));
+  ri2.m_points.push_back(m2::PointD(10, 10));
+  ri2.m_points.push_back(m2::PointD(10, 0));
+
+  RoadInfo ri3;
+  ri3.m_bothSides = true;
+  ri3.m_speedMS = 30;
+  ri3.m_points.push_back(m2::PointD(5, 10));
+  ri3.m_points.push_back(m2::PointD(10, 10));
+  ri3.m_points.push_back(m2::PointD(70, 10));
+  ri3.m_points.push_back(m2::PointD(80, 10));
+
+  RoadInfo ri4;
+  ri4.m_bothSides = true;
+  ri4.m_speedMS = 20;
+  ri4.m_points.push_back(m2::PointD(25, 0));
+  ri4.m_points.push_back(m2::PointD(27, 25));
+
+  RoadInfo ri5;
+  ri5.m_bothSides = true;
+  ri5.m_speedMS = 30;
+  ri5.m_points.push_back(m2::PointD(35, 0));
+  ri5.m_points.push_back(m2::PointD(37, 30));
+  ri5.m_points.push_back(m2::PointD(70, 30));
+  ri5.m_points.push_back(m2::PointD(80, 30));
+
+  RoadInfo ri6;
+  ri6.m_bothSides = true;
+  ri6.m_speedMS = 20;
+  ri6.m_points.push_back(m2::PointD(70, 0));
+  ri6.m_points.push_back(m2::PointD(70, 10));
+  ri6.m_points.push_back(m2::PointD(70, 30));
+
+  RoadInfo ri7;
+  ri7.m_bothSides = true;
+  ri7.m_speedMS = 20;
+  ri7.m_points.push_back(m2::PointD(39, 55));
+  ri7.m_points.push_back(m2::PointD(80, 55));
+
+  RoadInfo ri8;
+  ri8.m_bothSides = false;
+  ri8.m_speedMS = 30;
+  ri8.m_points.push_back(m2::PointD(5, 40));
+  ri8.m_points.push_back(m2::PointD(18, 55));
+  ri8.m_points.push_back(m2::PointD(39, 55));
+  ri8.m_points.push_back(m2::PointD(37, 30));
+  ri8.m_points.push_back(m2::PointD(27, 25));
+  ri8.m_points.push_back(m2::PointD(12, 25));
+  ri8.m_points.push_back(m2::PointD(5, 40));
+
+  graph.AddRoad(ri0);
+  graph.AddRoad(ri1);
+  graph.AddRoad(ri2);
+  graph.AddRoad(ri3);
+  graph.AddRoad(ri4);
+  graph.AddRoad(ri5);
+  graph.AddRoad(ri6);
+  graph.AddRoad(ri7);
+  graph.AddRoad(ri8);
+}
+
+
 } // namespace routing_test

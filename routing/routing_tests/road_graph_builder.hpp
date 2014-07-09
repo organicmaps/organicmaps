@@ -51,4 +51,7 @@ public:
   virtual void ReconstructPath(RoadPosVectorT const & positions, PointsVectorT & poly);
 };
 
+void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & graphMock);
+void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graphMock);
+
 } // namespace routing_test
