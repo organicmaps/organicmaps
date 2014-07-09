@@ -87,7 +87,7 @@ void TextureManager::Init(string const & resourcePrefix)
   m_textures.push_back(MasterPointer<TextureSet>(defaultSet));
 
   vector<TransferPointer<Texture> > tempTextures;
-  LoadFont(string("resources"), tempTextures);
+  LoadFont(string("resources/font"), tempTextures);
   for (size_t i = 0; i < tempTextures.size(); ++i)
   {
     RefPointer<TextureSet> set = m_textures.back().GetRefPointer();
