@@ -287,7 +287,8 @@ public:
                             double lat, double lon, double north,
                             string & distance, double & azimut);
 
- //@{
+  /// @name Get any country info by point.
+  //@{
   storage::TIndex GetCountryIndex(m2::PointD const & pt) const;
 
   string GetCountryName(m2::PointD const & pt) const;
