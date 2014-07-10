@@ -389,3 +389,15 @@ double FeatureType::GetDistance(m2::PointD const & pt, int scale) const
 
   return calc.m_dist;
 }
+
+void FeatureType::SwapGeometry(FeatureType & r)
+{
+  ASSERT_EQUAL(m_bPointsParsed, r.m_bPointsParsed, ());
+  ASSERT_EQUAL(m_bTrianglesParsed, r.m_bTrianglesParsed, ());
+
+  if (m_bPointsParsed)
+    m_Points.swap(r.m_Points);
+
+  if (m_bTrianglesParsed)
+    m_Triangles.swap(r.m_Triangles);
+}

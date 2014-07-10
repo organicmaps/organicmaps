@@ -10,6 +10,8 @@
 namespace routing
 {
 
+class Route;
+
 /// Defines position on a feature with direction.
 class RoadPos
 {
@@ -69,12 +71,12 @@ public:
   typedef vector<RoadPos> RoadPosVectorT;
   typedef vector<m2::PointD> PointsVectorT;
 
-  /// Find all line feature sections, that follow the to pos section.
+  virtual ~IRoadGraph() {}
+
+  /// Find all feature sections (turns), that route to the "pos" section.
   virtual void GetPossibleTurns(RoadPos const & pos, TurnsVectorT & turns) = 0;
-  /// Calculate distance in meters between two RoadPos that placed on the same feature
-  virtual double GetFeatureDistance(RoadPos const & p1, RoadPos const & p2) = 0;
-  /// Construct full path by road positions
-  virtual void ReconstructPath(RoadPosVectorT const & positions, PointsVectorT & poly) = 0;
+  /// Construct route by road positions (doesn't include first and last section).
+  virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route) = 0;
 };
 
 } // namespace routing

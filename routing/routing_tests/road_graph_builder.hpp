@@ -47,8 +47,7 @@ public:
   void AddRoad(RoadInfo & rd);
 
   virtual void GetPossibleTurns(routing::RoadPos const & pos, TurnsVectorT & turns);
-  virtual double GetFeatureDistance(routing::RoadPos const & p1, routing::RoadPos const & p2);
-  virtual void ReconstructPath(RoadPosVectorT const & positions, PointsVectorT & poly);
+  virtual void ReconstructPath(RoadPosVectorT const & positions, routing::Route & route);
 };
 
 void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & graphMock);

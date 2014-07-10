@@ -288,6 +288,8 @@ public:
   geom_stat_t GetTrianglesSize(int scale) const;
   //@}
 
+  void SwapGeometry(FeatureType & r);
+
 private:
   void ParseAll(int scale) const;
 

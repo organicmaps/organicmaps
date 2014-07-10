@@ -94,14 +94,8 @@ void RoadGraphMockSource::GetPossibleTurns(RoadPos const & pos, TurnsVectorT & t
   }
 }
 
-double RoadGraphMockSource::GetFeatureDistance(RoadPos const & p1, RoadPos const & p2)
+void RoadGraphMockSource::ReconstructPath(RoadPosVectorT const &, routing::Route &)
 {
-  return 0.0;
-}
-
-void RoadGraphMockSource::ReconstructPath(RoadPosVectorT const & positions, PointsVectorT & poly)
-{
-
 }
 
 void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)

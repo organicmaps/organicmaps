@@ -8,4 +8,9 @@ Route::Route(string const & router, vector<m2::PointD> const & points, string co
 {
 }
 
+string DebugPrint(Route const & r)
+{
+  return DebugPrint(r.m_poly);
+}
+
 } // namespace routing

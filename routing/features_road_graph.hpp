@@ -2,8 +2,8 @@
 
 #include "road_graph.hpp"
 
-
 class Index;
+class FeatureType;
 
 namespace feature
 {
@@ -19,8 +19,7 @@ public:
   FeatureRoadGraph(Index * pIndex, size_t mwmID);
 
   virtual void GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns);
-  virtual double GetFeatureDistance(RoadPos const & p1, RoadPos const & p2);
-  virtual void ReconstructPath(RoadPosVectorT const & positions, PointsVectorT & poly);
+  virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route);
 
   static uint32_t GetStreetReadScale();
 
@@ -29,6 +28,8 @@ private:
 
   bool IsStreet(feature::TypesHolder const & types) const;
   bool IsOneway(feature::TypesHolder const & types) const;
+
+  void LoadFeature(uint32_t id, FeatureType & ft);
 
 private:
   uint32_t m_onewayType;

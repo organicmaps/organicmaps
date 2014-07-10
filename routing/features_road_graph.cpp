@@ -1,4 +1,5 @@
 #include "features_road_graph.hpp"
+#include "route.hpp"
 
 #include "../indexer/index.hpp"
 #include "../indexer/classificator.hpp"
@@ -99,14 +100,18 @@ double CalcDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
                              MercatorBounds::YToLat(p2.y), MercatorBounds::XToLon(p2.x));
 }
 
-void FeatureRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns)
+void FeatureRoadGraph::LoadFeature(uint32_t id, FeatureType & ft)
 {
   Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmID);
+  loader.GetFeature(id, ft);
+  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+}
 
+void FeatureRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns)
+{
   uint32_t const ftId = pos.GetFeatureId();
   FeatureType ft;
-  loader.GetFeature(ftId, ft);
-  ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+  LoadFeature(ftId, ft);
 
   int const count = static_cast<int>(ft.GetPointsCount());
   bool const isForward = pos.IsForward();
@@ -126,11 +131,11 @@ void FeatureRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn
   double time = 0.0;
   for (int i = startID; i >= 0 && i < count; i += inc)
   {
-    if (i != startID)
-    {
-      distance += CalcDistanceMeters(ft.GetPoint(i), ft.GetPoint(i - inc));
-      time += distance / DEFAULT_SPEED_MS;
-    }
+    ASSERT_GREATER(i - inc, -1, ());
+    ASSERT_LESS(i - inc, count, ());
+
+    distance += CalcDistanceMeters(ft.GetPoint(i), ft.GetPoint(i - inc));
+    time += distance / DEFAULT_SPEED_MS;
 
     m2::PointD const & pt = ft.GetPoint(i);
 
@@ -201,15 +206,75 @@ void FeatureRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn
   }
 }
 
-double FeatureRoadGraph::GetFeatureDistance(RoadPos const & p1, RoadPos const & p2)
+void FeatureRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route & route)
 {
-  /// @todo Implement distance calculation
-  return 0.0;
-}
+  size_t count = positions.size();
+  if (count < 2)
+    return;
 
-void FeatureRoadGraph::ReconstructPath(RoadPosVectorT const & positions, PointsVectorT & poly)
-{
-  /// @todo Implement path reconstruction
+  FeatureType ft1;
+  vector<m2::PointD> poly;
+
+  // Initialize starting point.
+  RoadPos pos1 = positions[0];
+  LoadFeature(pos1.GetFeatureId(), ft1);
+
+  size_t i = 0;
+  while (i < count-1)
+  {
+    RoadPos const & pos2 = positions[i+1];
+
+    FeatureType ft2;
+
+    // Find next connection point
+    m2::PointD lastPt;
+    bool const diffIDs = pos1.GetFeatureId() != pos2.GetFeatureId();
+    if (diffIDs)
+    {
+      LoadFeature(pos2.GetFeatureId(), ft2);
+      lastPt = ft2.GetPoint(pos2.GetPointId() + (pos2.IsForward() ? 0 : 1));
+    }
+    else
+      lastPt = ft1.GetPoint(pos2.GetPointId() + (pos1.IsForward() ? 0 : 1));
+
+    // Accumulate points from start point id to pt.
+    int const inc = pos1.IsForward() ? 1 : -1;
+    int ptID = pos1.GetPointId() + (pos1.IsForward() ? 1 : 0);
+    m2::PointD pt;
+    bool notEnd, notEqualPoints;
+    do
+    {
+      pt = ft1.GetPoint(ptID);
+      poly.push_back(pt);
+
+      LOG(LDEBUG, (pt, pos1.GetFeatureId(), ptID));
+
+      ptID += inc;
+
+      notEqualPoints = !m2::AlmostEqual(pt, lastPt);
+      notEnd = (ptID >= 0 && ptID < ft1.GetPointsCount());
+    } while (notEnd && notEqualPoints);
+
+    // If we reached the end of feature, start with the begining
+    // (end - for backward direction) of the next feauture, until reach pos2.
+    if (!notEnd && notEqualPoints)
+    {
+      pos1 = RoadPos(pos2.GetFeatureId(), pos2.IsForward(),
+                     pos2.IsForward() ? 0 : ft2.GetPointsCount() - 2);
+
+    }
+    else
+    {
+      pos1 = pos2;
+      ++i;
+    }
+
+    // Assign current processing feature.
+    if (diffIDs)
+      ft1.SwapGeometry(ft2);
+  }
+
+  route = Route("", poly, "");
 }
 
 bool FeatureRoadGraph::IsStreet(feature::TypesHolder const & types) const

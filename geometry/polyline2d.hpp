@@ -3,6 +3,8 @@
 #include "point2d.hpp"
 #include "rect2d.hpp"
 
+#include "../base/internal/message.hpp"
+
 #include "../std/vector.hpp"
 
 
@@ -51,6 +53,11 @@ public:
   typedef typename vector<Point<T> >::const_iterator IterT;
   IterT Begin() const { return m_points.begin(); }
   IterT End() const { return m_points.end(); }
+
+  friend string DebugPrint(PolylineT<T> const & p)
+  {
+    return ::DebugPrint(p.m_points);
+  }
 };
 
 typedef PolylineT<double> PolylineD;
