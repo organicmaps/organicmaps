@@ -5,7 +5,7 @@
 #include "feature_builder.hpp"
 #include "ways_merger.hpp"
 
-#include "../search/ftypes_matcher.hpp"
+#include "../indexer/ftypes_matcher.hpp"
 
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/classificator.hpp"
@@ -351,7 +351,7 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
   scoped_ptr<FileWriter> m_addrWriter;
   bool NeedWriteAddress(FeatureParams const & params) const
   {
-    static ftypes::IsBuildingChecker checker;
+    static ftypes::IsBuildingChecker const checker;
     return m_addrWriter && checker(params.m_Types);
   }
 

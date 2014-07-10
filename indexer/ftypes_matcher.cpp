@@ -115,7 +115,7 @@ Type IsLocalityChecker::GetType(const FeatureType & f) const
 
 IsLocalityChecker const & IsLocalityChecker::Instance()
 {
-  static IsLocalityChecker inst;
+  static IsLocalityChecker const inst;
   return inst;
 }
 

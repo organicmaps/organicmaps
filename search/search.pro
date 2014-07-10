@@ -21,7 +21,6 @@ HEADERS += \
     keyword_lang_matcher.hpp \
     params.hpp \
     house_detector.hpp \
-    ftypes_matcher.hpp \
     algos.hpp \
     indexed_value.hpp \
     geometry_utils.hpp \
@@ -39,6 +38,5 @@ SOURCES += \
     keyword_lang_matcher.cpp \
     params.cpp \
     house_detector.cpp \
-    ftypes_matcher.cpp \
     geometry_utils.cpp \
     locality_finder.cpp \

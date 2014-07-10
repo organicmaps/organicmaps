@@ -1,8 +1,8 @@
 #include "house_detector.hpp"
 #include "search_common.hpp"
 #include "algos.hpp"
-#include "ftypes_matcher.hpp"
 
+#include "../indexer/ftypes_matcher.hpp"
 #include "../indexer/feature_impl.hpp"
 #include "../indexer/classificator.hpp"
 
@@ -806,7 +806,7 @@ HouseProjection const * MergedStreet::GetHousePivot(bool isOdd, bool & sign) con
 template <class ProjectionCalcT>
 void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalcT & calc)
 {
-  static ftypes::IsBuildingChecker checker;
+  static ftypes::IsBuildingChecker const checker;
 
   string const houseNumber = f.GetHouseNumber();
 

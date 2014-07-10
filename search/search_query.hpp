@@ -1,8 +1,8 @@
 #pragma once
 #include "intermediate_result.hpp"
 #include "keyword_lang_matcher.hpp"
-#include "ftypes_matcher.hpp"
 
+#include "../indexer/ftypes_matcher.hpp"
 #include "../indexer/search_trie.hpp"
 #include "../indexer/index.hpp"   // for Index::MwmLock
 

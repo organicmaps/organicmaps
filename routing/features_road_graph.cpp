@@ -3,6 +3,7 @@
 #include "../indexer/index.hpp"
 #include "../indexer/classificator.hpp"
 #include "../indexer/feature_data.hpp"
+#include "../indexer/ftypes_matcher.hpp"
 
 #include "../geometry/distance_on_sphere.hpp"
 
@@ -213,7 +214,8 @@ void FeatureRoadGraph::ReconstructPath(RoadPosVectorT const & positions, PointsV
 
 bool FeatureRoadGraph::IsStreet(feature::TypesHolder const & types) const
 {
-  return m_checker(types);
+  static ftypes::IsStreetChecker const checker;
+  return checker(types);
 }
 
 bool FeatureRoadGraph::IsOneway(feature::TypesHolder const & types) const
@@ -221,4 +223,4 @@ bool FeatureRoadGraph::IsOneway(feature::TypesHolder const & types) const
   return types.Has(m_onewayType);
 }
 
-}
+} // namespace routing

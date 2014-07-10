@@ -5,13 +5,12 @@
 #include "../../indexer/classificator_loader.hpp"
 #include "../../indexer/index.hpp"
 #include "../../indexer/feature.hpp"
-
-#include "../../search/ftypes_matcher.hpp"
+#include "../../indexer/ftypes_matcher.hpp"
 
 #include "../features_road_graph.hpp"
 
-using namespace routing;
 
+using namespace routing;
 
 namespace
 {
@@ -32,12 +31,13 @@ class Name2IdMapping
 {
   map<string, uint32_t> m_name2Id;
   map<uint32_t, string> m_id2Name;
-  ftypes::IsStreetChecker m_checker;
 
 public:
   void operator()(FeatureType const & ft)
   {
-    if (!m_checker(ft)) return;
+    static ftypes::IsStreetChecker const checker;
+    if (!checker(ft))
+      return;
 
     string name;
     bool hasName = ft.GetName(0, name);

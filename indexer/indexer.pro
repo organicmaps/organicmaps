@@ -43,6 +43,7 @@ SOURCES += \
     feature_algo.cpp \
     mwm_version.cpp \
     feature_impl.cpp \
+    ftypes_matcher.cpp \
 
 HEADERS += \
     feature.hpp \
@@ -92,6 +93,7 @@ HEADERS += \
     mwm_version.hpp \
     drules_include.hpp \
     feature_decl.hpp \
+    ftypes_matcher.hpp \
 
 OTHER_FILES += drules_struct.proto
 

@@ -1,8 +1,6 @@
 #pragma once
+
 #include "road_graph.hpp"
-
-#include "../search/ftypes_matcher.hpp"
-
 
 
 class Index;
@@ -33,11 +31,10 @@ private:
   bool IsOneway(feature::TypesHolder const & types) const;
 
 private:
-  ftypes::IsStreetChecker m_checker;
   uint32_t m_onewayType;
 
   Index * m_pIndex;
   size_t m_mwmID;
 };
 
-}
+} // namespace routing

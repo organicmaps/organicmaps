@@ -1,6 +1,6 @@
 #include "locality_finder.hpp"
-#include "ftypes_matcher.hpp"
 
+#include "../indexer/ftypes_matcher.hpp"
 #include "../indexer/features_vector.hpp"
 
 #include "../geometry/distance_on_sphere.hpp"

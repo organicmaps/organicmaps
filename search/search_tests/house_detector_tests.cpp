@@ -1,7 +1,6 @@
 #include "../../testing/testing.hpp"
 
 #include "../house_detector.hpp"
-#include "../ftypes_matcher.hpp"
 
 #include "../../base/logging.hpp"
 
@@ -9,6 +8,7 @@
 
 #include "../../geometry/distance_on_sphere.hpp"
 
+#include "../../indexer/ftypes_matcher.hpp"
 #include "../../indexer/scales.hpp"
 #include "../../indexer/index.hpp"
 #include "../../indexer/classificator_loader.hpp"
@@ -68,7 +68,7 @@ class CollectStreetIDs
 public:
   void operator() (FeatureType const & f)
   {
-    static ftypes::IsStreetChecker checker;
+    static ftypes::IsStreetChecker const checker;
 
     if (f.GetFeatureType() == feature::GEOM_LINE)
     {

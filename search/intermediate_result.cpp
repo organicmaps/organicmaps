@@ -1,11 +1,11 @@
 #include "intermediate_result.hpp"
-#include "ftypes_matcher.hpp"
 #include "geometry_utils.hpp"
 
 #include "../map/measurement_utils.hpp"
 
 #include "../storage/country_info.hpp"
 
+#include "../indexer/ftypes_matcher.hpp"
 #include "../indexer/classificator.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/scales.hpp"
@@ -313,7 +313,7 @@ bool PreResult2::IsEqualCommon(PreResult2 const & r) const
 
 bool PreResult2::IsStreet() const
 {
-  static ftypes::IsStreetChecker checker;
+  static ftypes::IsStreetChecker const checker;
   return (m_geomType == feature::GEOM_LINE && checker(m_types));
 }
 
