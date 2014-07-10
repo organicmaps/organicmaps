@@ -11,10 +11,12 @@
       android:layout_gravity="bottom|center_horizontal"
       android:background="@android:color/transparent"/>
 
-  <!--
-Default margin = @dimen/map_controls_margin - 1 (like in map_bottom_toolbar)
-     Right margin = @dimen/zoom_margin + @dimen/zoom_margin_right - 1 (like in map_navigation_buttons)
-  -->
+  <include
+      android:id="@+id/search_box"
+      layout="@layout/search_box"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
   <com.mapswithme.maps.widget.MapInfoView
       android:id="@+id/info_box"
       android:layout_width="match_parent"
@@ -22,20 +24,11 @@ Default margin = @dimen/map_controls_margin - 1 (like in map_bottom_toolbar)
       android:layout_alignParentTop="true"/>
 
   <include
-      android:id="@+id/omni_box"
-      layout="@layout/search_box"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="6dp"
-      android:layout_marginRight="8dp"
-      android:layout_marginTop="6dp"/>
-
-  <include
       android:id="@+id/navigation_buttons_container_ref"
       layout="@layout/map_navigation_buttons"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:layout_below="@id/omni_box"/>
+      android:layout_below="@id/search_box"/>
 
   <FrameLayout
       android:layout_width="match_parent"

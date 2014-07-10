@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:minHeight="?android:attr/listPreferredItemHeight"
-    android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="8dp" >
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_vertical"
+              android:minHeight="?android:attr/listPreferredItemHeight"
+              android:orientation="vertical"
+              android:paddingBottom="8dp"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              android:paddingTop="8dp">
 
-    <TextView
-        android:id="@+id/search_item_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@string/robotoLight"
-        android:textAppearance="@style/Holo.TextAppearance.Medium.Light" />
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_menu_about"/>
 
-    <TextView
-        android:id="@+id/search_item_place_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@string/robotoRegular"
-        android:textAppearance="@style/Holo.TextAppearance.Small.Light"
-        android:textColor="@color/ui_20_search_dark_gray" />
+  <TextView
+      android:id="@+id/tv_search_item_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@string/robotoLight"
+      android:textAppearance="@style/Holo.TextAppearance.Medium.Light"
+      android:textColor="@color/text_search_item"/>
+
+  <TextView
+      android:id="@+id/tv_search_item_subtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@string/robotoRegular"
+      android:textAppearance="@style/Holo.TextAppearance.Small.Light"
+      android:textColor="@color/text_search_item"/>
 
 </LinearLayout>
