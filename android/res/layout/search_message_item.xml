@@ -2,10 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="@dimen/search_item_height"
+              android:background="@drawable/bg_toolbar_button_selector"
               android:gravity="center_vertical"
-              android:orientation="vertical">
+              android:orientation="horizontal"
+              android:paddingLeft="@dimen/margin_medium"
+              android:paddingRight="@dimen/margin_medium">
 
   <ImageView
+      android:id="@+id/iv_search_image"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:src="@drawable/ic_menu_about"/>
@@ -16,14 +20,6 @@
       android:layout_height="wrap_content"
       android:fontFamily="@string/robotoLight"
       android:textAppearance="@style/Holo.TextAppearance.Medium.Light"
-      android:textColor="@color/text_search_item"/>
-
-  <TextView
-      android:id="@+id/tv_search_item_subtitle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:fontFamily="@string/robotoRegular"
-      android:textAppearance="@style/Holo.TextAppearance.Small.Light"
       android:textColor="@color/text_search_item"/>
 
 </LinearLayout>

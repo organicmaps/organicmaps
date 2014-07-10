@@ -18,9 +18,9 @@
 
   <LinearLayout
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
+      android:layout_height="match_parent"
       android:layout_marginLeft="@dimen/margin_small"
+      android:layout_weight="1"
       android:gravity="left|center_vertical"
       android:orientation="vertical">
 
@@ -44,8 +44,9 @@
 
   <LinearLayout
       android:layout_width="wrap_content"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:layout_weight="0"
+      android:gravity="right"
       android:orientation="vertical">
 
     <TextView
@@ -54,7 +55,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@string/robotoRegular"
         android:textAppearance="@style/Holo.TextAppearance.Medium.Light"
-        android:textColor="@color/text_search_item"
+        android:textColor="@color/text_search_item_greyed"
         android:textSize="12sp"/>
 
     <TextView

@@ -32,6 +32,20 @@
       style="@style/drawerSeparatorMediumPadded"/>
 
   <TextView
+      android:id="@+id/btn_settings"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/bottom_panel_height"
+      android:background="@drawable/bg_toolbar_button_selector"
+      android:drawableLeft="@drawable/ic_menu_settings"
+      android:gravity="center_vertical"
+      android:paddingLeft="10dp"
+      android:text="@string/settings"
+      android:textColor="@android:color/white"/>
+
+  <View
+      style="@style/drawerSeparatorMediumPadded"/>
+
+  <TextView
       android:id="@+id/btn_share"
       android:layout_width="match_parent"
       android:layout_height="@dimen/bottom_panel_height"
@@ -54,20 +68,6 @@
       android:gravity="center_vertical"
       android:paddingLeft="10dp"
       android:text="@string/more_apps_title"
-      android:textColor="@android:color/white"/>
-
-  <View
-      style="@style/drawerSeparatorMediumPadded"/>
-
-  <TextView
-      android:id="@+id/btn_settings"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/bottom_panel_height"
-      android:background="@drawable/bg_toolbar_button_selector"
-      android:drawableLeft="@drawable/ic_menu_settings"
-      android:gravity="center_vertical"
-      android:paddingLeft="10dp"
-      android:text="@string/settings"
       android:textColor="@android:color/white"/>
 
 
