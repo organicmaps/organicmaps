@@ -1,11 +1,5 @@
 package com.mapswithme.util;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -24,6 +18,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mapswithme.maps.MWMApplication;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 
 final public class Utils
 {
@@ -99,7 +99,7 @@ final public class Utils
     return value.getDimension(metrics);
   }
 
-  public static void setStringAndCursorToEnd(EditText edit, String s)
+  public static void setTextAndCursorToEnd(EditText edit, String s)
   {
     edit.setText(s);
     edit.setSelection(s.length());

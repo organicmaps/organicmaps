@@ -229,7 +229,7 @@ public final class UiUtils
     return tv;
   }
 
-  public static void setTextEx(TextView tv, CharSequence text)
+  public static void setTextAndHideIfEmpty(TextView tv, CharSequence text)
   {
     checkNotNull(tv);
 

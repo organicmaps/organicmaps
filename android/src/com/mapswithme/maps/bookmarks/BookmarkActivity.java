@@ -104,7 +104,7 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
 
   private void refreshValuesInViews()
   {
-    Utils.setStringAndCursorToEnd(mName, mPin.getName());
+    Utils.setTextAndCursorToEnd(mName, mPin.getName());
 
     mSet.setText(mPin.getCategoryName(this));
     mDescr.setText(mPin.getBookmarkDescription());

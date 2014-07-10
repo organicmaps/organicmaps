@@ -26,7 +26,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -43,7 +42,6 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class SearchActivity extends MapsWithMeBaseListActivity implements LocationService.Listener, OnClickListener
 {
-  public static final String EXTRA_SCOPE = "search_scope";
   public static final String EXTRA_QUERY = "search_query";
   /// @name These constants should be equal with
   /// Java_com_mapswithme_maps_SearchActivity_nativeRunSearch routine.
@@ -74,7 +72,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private View mClearQueryBtn;
   private View mVoiceInput;
   private View mSearchIcon;
-  private RadioGroup mSearchScopeGroup;
   /// Current position.
   private double mLat;
   private double mLon;
@@ -86,7 +83,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   public static void startForSearch(Context context, String query, int scope)
   {
     final Intent i = new Intent(context, SearchActivity.class);
-    i.putExtra(EXTRA_SCOPE, scope).putExtra(EXTRA_QUERY, query);
+    i.putExtra(EXTRA_QUERY, query);
     context.startActivity(i);
   }
 
@@ -116,7 +113,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         "post",
         "police"
     };
-    private static final int[] mIcons = {
+    private static final int mIcons[] = {
         R.drawable.ic_food,
         R.drawable.ic_hotel,
         R.drawable.ic_tourism,
@@ -153,7 +150,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       mPackageName = mContext.getApplicationContext().getPackageName();
     }
 
-    private boolean isShowCategories()
+    private boolean doShowCategories()
     {
       return mContext.doShowCategories();
     }
@@ -190,13 +187,13 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     @Override
     public boolean isEnabled(int position)
     {
-      return (isShowCategories() || mCount > 0);
+      return (doShowCategories() || mCount > 0);
     }
 
     @Override
     public int getItemViewType(int position)
     {
-      if (isShowCategories())
+      if (doShowCategories())
         return CATEGORY_TYPE;
       else
         return (mCount == 0 ? MESSAGE_TYPE : RESULT_TYPE);
@@ -211,7 +208,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     @Override
     public int getCount()
     {
-      if (isShowCategories())
+      if (doShowCategories())
         return mCategories.length;
       else if (mCount < 0)
         return 0;
@@ -260,17 +257,17 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         switch (getItemViewType(position))
         {
         case CATEGORY_TYPE:
-          convertView = mInflater.inflate(R.layout.search_category_item, null);
+          convertView = mInflater.inflate(R.layout.search_category_item, parent, false);
           holder.initFromView(convertView, CATEGORY_TYPE);
           break;
 
         case RESULT_TYPE:
-          convertView = mInflater.inflate(R.layout.search_item, null);
+          convertView = mInflater.inflate(R.layout.search_item, parent, false);
           holder.initFromView(convertView, RESULT_TYPE);
           break;
 
         case MESSAGE_TYPE:
-          convertView = mInflater.inflate(R.layout.search_message_item, null);
+          convertView = mInflater.inflate(R.layout.search_message_item, parent, false);
           holder.initFromView(convertView, MESSAGE_TYPE);
           break;
         }
@@ -280,16 +277,16 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       else
         holder = (ViewHolder) convertView.getTag();
 
-      if (isShowCategories())
+      if (doShowCategories())
       {
         UiUtils.setTextAndShow(holder.mName, getCategoryName(mCategories[position]));
         holder.mImageLeft.setImageResource(mIcons[position]);
       }
       else if (mCount == 0)
       {
-        // Show warning message.
-        UiUtils.setTextAndShow(holder.mName, mContext.getString(R.string.no_search_results_found));
-        UiUtils.setTextEx(holder.mCountryAndType, getWarningForEmptyResults());
+        // TODO show dialog on click on that item
+        UiUtils.setTextAndShow(holder.mName, mContext.getString(R.string.search_on_map));
+        UiUtils.setTextAndHideIfEmpty(holder.mCountryAndType, getWarningForEmptyResults());
       }
       else if (position == 0)
       {
@@ -342,8 +339,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
             dist = r.mDistance;
           }
 
-          UiUtils.setTextEx(holder.mCountryAndType, type);
-          UiUtils.setTextEx(holder.mDistance, dist);
+          UiUtils.setTextAndHideIfEmpty(holder.mCountryAndType, type);
+          UiUtils.setTextAndHideIfEmpty(holder.mDistance, dist);
         }
       }
 
@@ -374,7 +371,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     /// @return Suggestion string with space in the end (for full match purpose).
     public String onItemClick(int position)
     {
-      if (isShowCategories())
+      if (doShowCategories())
       {
         final String category = getCategoryName(mCategories[position]);
         Statistics.INSTANCE.trackSearchCategoryClicked(mContext, category);
@@ -535,8 +532,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     if (intent != null && intent.hasExtra(EXTRA_QUERY))
     {
       mSearchEt.setText(intent.getStringExtra(EXTRA_QUERY));
-      if (intent.hasExtra(EXTRA_SCOPE))
-        setSearchGroupSelectionByMode(intent.getIntExtra(EXTRA_SCOPE, 0));
       runSearch();
     }
 
@@ -564,18 +559,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         return false;
       }
     });
-  }
-
-  private void setSearchGroupSelectionByMode(int savedSearchMode)
-  {
-    /*
-    switch (savedSearchMode)
-    {
-      case ALL:         mSearchScopeGroup.check(R.id.search_scope_everywhere); break;
-      case IN_VIEWPORT: mSearchScopeGroup.check(R.id.search_scope_on_screen);  break;
-      default:          mSearchScopeGroup.check(R.id.search_scope_near);       break;
-    }
-    */
   }
 
   @Override
@@ -626,8 +609,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       }
     });
 
-    setUpSearchModes();
-
     mVoiceInput.setOnClickListener(this);
 
     getListView().setOnScrollListener(new OnScrollListener()
@@ -653,37 +634,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     findViewById(R.id.btn_cancel_search).setOnClickListener(this);
   }
 
-  private void setUpSearchModes()
-  {
-    /*
-    // Initialize search modes group
-    mSearchScopeGroup = (RadioGroup)findViewById(R.id.search_scope);
-    // Default mode is AROUND_POSITION
-    mSearchMode = MWMApplication.getInstance().nativeGetInt(SEARCH_MODE_SETTING, AROUND_POSITION);
-    setSearchGroupSelectionByMode(mSearchMode);
-    mSearchScopeGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
-    {
-      @Override
-      public void onCheckedChanged(RadioGroup group, int checkedId)
-      {
-        int mode;
-
-        if (R.id.search_scope_everywhere == checkedId)
-          mode = ALL;
-        else if (R.id.search_scope_near == checkedId)
-          mode = AROUND_POSITION;
-        else if (R.id.search_scope_on_screen == checkedId)
-          mode = IN_VIEWPORT;
-        else
-          throw new IllegalArgumentException("Unknown Id: " + checkedId);
-
-        getMwmApplication().nativeSetInt(SEARCH_MODE_SETTING, mode);
-        runSearch(mode);
-      }
-    });
-    */
-  }
-
   @Override
   protected void onResume()
   {
@@ -696,7 +646,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     mLocation.startUpdate(this);
 
     // do the search immediately after resume
-    Utils.setStringAndCursorToEnd(mSearchEt, getLastQuery());
+    Utils.setTextAndCursorToEnd(mSearchEt, getLastQuery());
     mSearchEt.requestFocus();
   }
 
@@ -742,8 +692,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
       // Put query string for "View on map" or feature name for search result.
       SearchController.getInstance().setQuery(position == 0 ?
-          mSearchEt.getText().toString() :
-          vh.mName.getText().toString().trim());
+          mSearchEt.getText().toString() : "");
 
       MWMActivity.startWithSearchResult(this, position != 0);
     }
@@ -855,7 +804,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private void runSearch(String s)
   {
-    Utils.setStringAndCursorToEnd(mSearchEt, s);
+    Utils.setTextAndCursorToEnd(mSearchEt, s);
   }
 
   private int runSearch()
@@ -910,6 +859,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     case R.id.btn_cancel_search:
       SearchController.getInstance().setQuery("");
       SearchController.getInstance().cancel();
+      clearLastQuery();
       finish();
       break;
     case R.id.search_image_clear:

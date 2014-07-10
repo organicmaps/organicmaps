@@ -53,6 +53,7 @@ public class SearchController implements OnClickListener
 
     mSearchQueryTV.setOnClickListener(this);
     mClearView.setOnClickListener(this);
+    UiUtils.hide(mSearchBox.findViewById(R.id.btn_cancel_search));
   }
 
   public void onResume()
@@ -73,8 +74,6 @@ public class SearchController implements OnClickListener
     }
     else
       UiUtils.hide(mSearchBox);
-
-    UiUtils.showIf(!TextUtils.isEmpty(mSearchQueryTV.getText()), mClearView);
   }
 
   @Override
@@ -91,9 +90,7 @@ public class SearchController implements OnClickListener
       // Clear API points first, then clear additional layer
       // (Framework::Invalidate is called inside).
       cancelApiCall();
-
-      Framework.cleanSearchLayerOnMap();
-
+      cancel();
       mSearchQueryTV.setText(null);
       UiUtils.hide(mSearchBox);
     }
