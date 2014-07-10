@@ -43,7 +43,6 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class SearchActivity extends MapsWithMeBaseListActivity implements LocationService.Listener, OnClickListener
 {
-  public static final String SEARCH_RESULT = "search_result";
   public static final String EXTRA_SCOPE = "search_scope";
   public static final String EXTRA_QUERY = "search_query";
   /// @name These constants should be equal with
@@ -62,7 +61,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private static final int ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD;
   private int mSearchMode = ALL;
   //@}
-  private static final String SEARCH_MODE_SETTING = "SearchMode";
   private static final int SEARCH_LAUNCHED = 0;
   private static final int QUERY_EMPTY = 1;
   private static final int SEARCH_SKIPPED = 2;
@@ -102,21 +100,21 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private static class SearchAdapter extends BaseAdapter
   {
     private static final String mCategories[] = {
-      "food",
-      "hotel",
-      "tourism",
-      "transport",
-      "fuel",
-      "shop",
-      "entertainment",
-      "atm",
-      "bank",
-      "parking",
-      "toilet",
-      "pharmacy",
-      "hospital",
-      "post",
-      "police"
+        "food",
+        "hotel",
+        "tourism",
+        "transport",
+        "fuel",
+        "shop",
+        "entertainment",
+        "atm",
+        "bank",
+        "parking",
+        "toilet",
+        "pharmacy",
+        "hospital",
+        "post",
+        "police"
     };
     private static final int[] mIcons = {
         R.drawable.ic_food,
@@ -429,7 +427,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       {
         mName = (TextView) v.findViewById(R.id.tv_search_item_title);
 
-        switch (type) {
+        switch (type)
+        {
         case CATEGORY_TYPE:
           mImageLeft = (ImageView) v.findViewById(R.id.iv_search_category);
           break;

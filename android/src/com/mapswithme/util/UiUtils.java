@@ -1,11 +1,5 @@
 package com.mapswithme.util;
 
-import static com.mapswithme.util.Utils.checkNotNull;
-
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -23,6 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import static com.mapswithme.util.Utils.checkNotNull;
 
 public final class UiUtils
 {
@@ -90,8 +90,7 @@ public final class UiUtils
         try
         {
           hide(target);
-        }
-        catch (final Exception e)
+        } catch (final Exception e)
         {
           // ignore
         }
@@ -120,8 +119,7 @@ public final class UiUtils
       final String[] parts = type.split("-");
       final String colorString = parts[parts.length - 1];
       color = colorByName(colorString, Color.BLACK);
-    }
-    catch (final Exception e)
+    } catch (final Exception e)
     {
       e.printStackTrace();
       // We do nothing in this case
@@ -156,6 +154,7 @@ public final class UiUtils
   }
 
   private static final Map<String, Integer> COLOR_MAP = new HashMap<String, Integer>();
+
   static
   {
     COLOR_MAP.put("blue", Color.parseColor("#33ccff"));
@@ -240,5 +239,5 @@ public final class UiUtils
 
   // utility class
   private UiUtils()
-  {};
+  {}
 }
