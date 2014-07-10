@@ -22,6 +22,5 @@ SOURCES += \
 
 HEADERS += \
   road_graph_builder.hpp \
-
-
+  features_road_graph_test.hpp \
 
