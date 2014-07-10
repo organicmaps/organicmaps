@@ -20,7 +20,7 @@ public:
   void SetRound();
   bool IsRound() const { return m_isRound; }
 
-  void ZeroParams() { m_Params.MakeZero(); }
+  void ZeroParams() { m_params.MakeZero(); }
 
   void AppendFeature(MergedFeatureBuilder1 const & fb, bool fromBegin, bool toBack);
 
@@ -31,12 +31,12 @@ public:
   inline m2::PointD FirstPoint() const { return GetGeometry().front(); }
   inline m2::PointD LastPoint() const { return GetGeometry().back(); }
 
-  inline bool PopAnyType(uint32_t & type) { return m_Params.PopAnyType(type); }
+  inline bool PopAnyType(uint32_t & type) { return m_params.PopAnyType(type); }
 
   template <class ToDo> void ForEachChangeTypes(ToDo toDo)
   {
-    for_each(m_Params.m_Types.begin(), m_Params.m_Types.end(), toDo);
-    m_Params.FinishAddingTypes();
+    for_each(m_params.m_Types.begin(), m_params.m_Types.end(), toDo);
+    m_params.FinishAddingTypes();
   }
 
   template <class ToDo> void ForEachMiddlePoints(ToDo toDo) const

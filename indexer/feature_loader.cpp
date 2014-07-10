@@ -27,7 +27,7 @@ void LoaderCurrent::ParseTypes()
 
   size_t const count = m_pF->GetTypesCount();
   for (size_t i = 0; i < count; ++i)
-    m_pF->m_Types[i] = c.GetTypeForIndex(ReadVarUint<uint32_t>(source));
+    m_pF->m_types[i] = c.GetTypeForIndex(ReadVarUint<uint32_t>(source));
 
   m_CommonOffset = CalcOffset(source);
 }
@@ -37,12 +37,12 @@ void LoaderCurrent::ParseCommon()
   ArrayByteSource source(DataPtr() + m_CommonOffset);
 
   uint8_t const h = Header();
-  m_pF->m_Params.Read(source, h);
+  m_pF->m_params.Read(source, h);
 
   if (m_pF->GetFeatureType() == GEOM_POINT)
   {
-    m_pF->m_Center = serial::LoadPoint(source, GetDefCodingParams());
-    m_pF->m_LimitRect.Add(m_pF->m_Center);
+    m_pF->m_center = serial::LoadPoint(source, GetDefCodingParams());
+    m_pF->m_limitRect.Add(m_pF->m_center);
   }
 
   m_Header2Offset = CalcOffset(source);
@@ -135,13 +135,13 @@ void LoaderCurrent::ParseHeader2()
 
       char const * start = src.PtrC();
 
-      src = ArrayByteSource(serial::LoadInnerPath(start, ptsCount, cp, m_pF->m_Points));
+      src = ArrayByteSource(serial::LoadInnerPath(start, ptsCount, cp, m_pF->m_points));
 
-      m_pF->m_InnerStats.m_Points = src.PtrC() - start;
+      m_pF->m_innerStats.m_points = src.PtrC() - start;
     }
     else
     {
-      m_pF->m_Points.push_back(serial::LoadPoint(src, cp));
+      m_pF->m_points.push_back(serial::LoadPoint(src, cp));
 
       ReadOffsets(src, ptsMask, m_ptsOffsets);
     }
@@ -157,20 +157,20 @@ void LoaderCurrent::ParseHeader2()
       FeatureType::points_t points;
       src = ArrayByteSource(serial::LoadInnerTriangles(start, trgCount, cp, points));
 
-      m_pF->m_InnerStats.m_Strips = src.PtrC() - start;
+      m_pF->m_innerStats.m_strips = src.PtrC() - start;
 
       for (uint8_t i = 2; i < trgCount; ++i)
       {
-        m_pF->m_Triangles.push_back(points[i-2]);
-        m_pF->m_Triangles.push_back(points[i-1]);
-        m_pF->m_Triangles.push_back(points[i]);
+        m_pF->m_triangles.push_back(points[i-2]);
+        m_pF->m_triangles.push_back(points[i-1]);
+        m_pF->m_triangles.push_back(points[i]);
       }
     }
     else
       ReadOffsets(src, trgMask, m_trgOffsets);
   }
 
-  m_pF->m_InnerStats.m_Size = src.PtrC() - DataPtr();
+  m_pF->m_innerStats.m_size = src.PtrC() - DataPtr();
 }
 
 uint32_t LoaderCurrent::ParseGeometry(int scale)
@@ -178,7 +178,7 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
   uint32_t sz = 0;
   if ((Header() & HEADER_GEOTYPE_MASK) == HEADER_GEOM_LINE)
   {
-    size_t const count = m_pF->m_Points.size();
+    size_t const count = m_pF->m_points.size();
     if (count < 2)
     {
       ASSERT_EQUAL ( count, 1, () );
@@ -191,8 +191,8 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
         src.Skip(m_ptsOffsets[ind]);
 
         serial::CodingParams cp = GetCodingParams(ind);
-        cp.SetBasePoint(m_pF->m_Points[0]);
-        serial::LoadOuterPath(src, cp, m_pF->m_Points);
+        cp.SetBasePoint(m_pF->m_points[0]);
+        serial::LoadOuterPath(src, cp, m_pF->m_points);
 
         sz = static_cast<uint32_t>(src.Pos() - m_ptsOffsets[ind]);
       }
@@ -207,19 +207,19 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
       int const scaleIndex = GetScaleIndex(scale);
       ASSERT_LESS ( scaleIndex, m_Info.GetScalesCount(), () );
 
-      points.push_back(m_pF->m_Points.front());
+      points.push_back(m_pF->m_points.front());
       for (int i = 1; i < count-1; ++i)
       {
         // check for point visibility in needed scaleIndex
         if (((m_ptsSimpMask >> (2*(i-1))) & 0x3) <= scaleIndex)
-          points.push_back(m_pF->m_Points[i]);
+          points.push_back(m_pF->m_points[i]);
       }
-      points.push_back(m_pF->m_Points.back());
+      points.push_back(m_pF->m_points.back());
 
-      m_pF->m_Points.swap(points);
+      m_pF->m_points.swap(points);
     }
 
-    CalcRect(m_pF->m_Points, m_pF->m_LimitRect);
+    CalcRect(m_pF->m_points, m_pF->m_limitRect);
   }
 
   return sz;
@@ -230,20 +230,20 @@ uint32_t LoaderCurrent::ParseTriangles(int scale)
   uint32_t sz = 0;
   if ((Header() & HEADER_GEOTYPE_MASK) == HEADER_GEOM_AREA)
   {
-    if (m_pF->m_Triangles.empty())
+    if (m_pF->m_triangles.empty())
     {
       uint32_t const ind = GetScaleIndex(scale, m_trgOffsets);
       if (ind != -1)
       {
         ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetTrianglesReader(ind));
         src.Skip(m_trgOffsets[ind]);
-        serial::LoadOuterTriangles(src, GetCodingParams(ind), m_pF->m_Triangles);
+        serial::LoadOuterTriangles(src, GetCodingParams(ind), m_pF->m_triangles);
 
         sz = static_cast<uint32_t>(src.Pos() - m_trgOffsets[ind]);
       }
     }
 
-    CalcRect(m_pF->m_Triangles, m_pF->m_LimitRect);
+    CalcRect(m_pF->m_triangles, m_pF->m_limitRect);
   }
 
   return sz;

@@ -29,8 +29,8 @@ public:
   void AddPoint(m2::PointD const & p);
 
   /// Set that feature is linear type.
-  void SetLinear() { m_Params.SetGeomType(feature::GEOM_LINE); }
-  void SetArea() { m_Params.SetGeomType(feature::GEOM_AREA); }
+  void SetLinear() { m_params.SetGeomType(feature::GEOM_LINE); }
+  void SetArea() { m_params.SetGeomType(feature::GEOM_AREA); }
 
   /// Set that feature is area and get ownership of holes.
   void SetAreaAddHoles(list<vector<m2::PointD> > const & holes);
@@ -38,12 +38,12 @@ public:
   void AddPolygon(vector<m2::PointD> & poly);
   //@}
 
-  inline feature::EGeomType GetGeomType() const { return m_Params.GetGeomType(); }
+  inline feature::EGeomType GetGeomType() const { return m_params.GetGeomType(); }
 
-  inline void AddType(uint32_t type) { m_Params.AddType(type); }
-  inline bool HasType(uint32_t t) const { return m_Params.IsTypeExist(t); }
-  inline bool PopExactType(uint32_t type) { return m_Params.PopExactType(type); }
-  inline void SetType(uint32_t type) { m_Params.SetType(type); }
+  inline void AddType(uint32_t type) { m_params.AddType(type); }
+  inline bool HasType(uint32_t t) const { return m_params.IsTypeExist(t); }
+  inline bool PopExactType(uint32_t type) { return m_params.PopExactType(type); }
+  inline void SetType(uint32_t type) { m_params.SetType(type); }
 
   /// Check classificator types for their compatibility with feature geometry type.
   /// Need to call when using any classificator types manipulating.
@@ -56,9 +56,9 @@ public:
 
   template <class FnT> bool RemoveTypesIf(FnT fn)
   {
-    m_Params.m_Types.erase(remove_if(m_Params.m_Types.begin(), m_Params.m_Types.end(), fn),
-                           m_Params.m_Types.end());
-    return m_Params.m_Types.empty();
+    m_params.m_Types.erase(remove_if(m_params.m_Types.begin(), m_params.m_Types.end(), fn),
+                           m_params.m_Types.end());
+    return m_params.m_Types.empty();
   }
 
   typedef vector<char> buffer_t;
@@ -73,7 +73,7 @@ public:
 
   /// @name Selectors.
   //@{
-  inline m2::RectD GetLimitRect() const { return m_LimitRect; }
+  inline m2::RectD GetLimitRect() const { return m_limitRect; }
 
   bool FormatFullAddress(string & res) const;
 
@@ -84,7 +84,7 @@ public:
   m2::PointD GetGeometryCenter() const;
 
   inline size_t GetPointsCount() const { return GetGeometry().size(); }
-  inline size_t GetPolygonsCount() const { return m_Polygons.size(); }
+  inline size_t GetPolygonsCount() const { return m_polygons.size(); }
   //@}
 
   /// @name Iterate through polygons points.
@@ -104,11 +104,11 @@ public:
   template <class ToDo>
   void ForEachGeometryPointEx(ToDo & toDo) const
   {
-    if (m_Params.GetGeomType() == feature::GEOM_POINT)
-      toDo(m_Center);
+    if (m_params.GetGeomType() == feature::GEOM_POINT)
+      toDo(m_center);
     else
     {
-      for (list<points_t>::const_iterator i = m_Polygons.begin(); i != m_Polygons.end(); ++i)
+      for (list<points_t>::const_iterator i = m_polygons.begin(); i != m_polygons.end(); ++i)
       {
         for (points_t::const_iterator j = i->begin(); j != i->end(); ++j)
           if (!toDo(*j))
@@ -130,7 +130,7 @@ public:
 
   /// @note This function overrides all previous assigned types.
   /// Set all the parameters, except geometry type (it's set by other functions).
-  inline void SetParams(FeatureParams const & params) { m_Params.SetParams(params); }
+  inline void SetParams(FeatureParams const & params) { m_params.SetParams(params); }
 
   /// For OSM debugging, store original OSM id
   void AddOsmId(string const & type, uint64_t osmId);
@@ -152,7 +152,7 @@ public:
   inline string GetName(int8_t lang = StringUtf8Multilang::DEFAULT_CODE) const
   {
     string s;
-    m_Params.name.GetString(lang, s);
+    m_params.name.GetString(lang, s);
     return s;
   }
 
@@ -167,22 +167,22 @@ protected:
   /// Used for feature debugging
   vector<osm::OsmId> m_osmIds;
 
-  FeatureParams m_Params;
+  FeatureParams m_params;
 
-  m2::RectD m_LimitRect;
+  m2::RectD m_limitRect;
 
   /// Can be one of the following:
   /// - point in point-feature
   /// - origin point of text [future] in line-feature
   /// - origin point of text or symbol in area-feature
-  m2::PointD m_Center;    // Check  HEADER_HAS_POINT
+  m2::PointD m_center;    // Check  HEADER_HAS_POINT
 
   typedef vector<m2::PointD> points_t;
 
-  inline points_t const & GetGeometry() const { return m_Polygons.front(); }
+  inline points_t const & GetGeometry() const { return m_polygons.front(); }
 
   /// List of geometry polygons.
-  list<points_t> m_Polygons; // Check HEADER_IS_AREA
+  list<points_t> m_polygons; // Check HEADER_IS_AREA
 
   int64_t m_coastCell;
 };
@@ -216,12 +216,12 @@ public:
     buffers_holder_t() : m_ptsMask(0), m_trgMask(0), m_ptsSimpMask(0) {}
   };
 
-  bool IsLine() const { return (m_Params.GetTypeMask() == feature::HEADER_GEOM_LINE); }
-  bool IsArea() const { return (m_Params.GetTypeMask() == feature::HEADER_GEOM_AREA); }
+  bool IsLine() const { return (m_params.GetTypeMask() == feature::HEADER_GEOM_LINE); }
+  bool IsArea() const { return (m_params.GetTypeMask() == feature::HEADER_GEOM_AREA); }
   bool IsDrawableInRange(int lowS, int highS) const;
 
   points_t const & GetOuterPoly() const { return GetGeometry(); }
-  list<points_t> const & GetPolygons() const { return m_Polygons; }
+  list<points_t> const & GetPolygons() const { return m_polygons; }
 
   /// @name Overwrite from base_type.
   //@{

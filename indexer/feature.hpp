@@ -52,7 +52,7 @@ public:
       return 0;
 
     ParseCommon();
-    return m_Params.layer;
+    return m_params.layer;
   }
 
   inline bool HasName() const
@@ -86,21 +86,21 @@ public:
       return false;
 
     ParseCommon();
-    m_Params.name.ForEachRef(functor);
+    m_params.name.ForEachRef(functor);
     return true;
   }
 
   inline m2::RectD GetLimitRect() const
   {
-    ASSERT ( m_LimitRect.IsValid(), () );
-    return m_LimitRect;
+    ASSERT ( m_limitRect.IsValid(), () );
+    return m_limitRect;
   }
 
   inline m2::PointD GetCenter() const
   {
     ASSERT_EQUAL ( GetFeatureType(), feature::GEOM_POINT, () );
     ParseCommon();
-    return m_Center;
+    return m_center;
   }
 
   template <typename FunctorT>
@@ -110,32 +110,32 @@ public:
 
     uint32_t const count = GetTypesCount();
     for (size_t i = 0; i < count; ++i)
-      f(m_Types[i]);
+      f(m_types[i]);
   }
 
 protected:
   /// @name Need for FeatureBuilder.
   //@{
   friend class FeatureBuilder1;
-  inline void SetHeader(uint8_t h) { m_Header = h; }
+  inline void SetHeader(uint8_t h) { m_header = h; }
   //@}
 
   string DebugString() const;
 
-  inline uint8_t Header() const { return m_Header; }
+  inline uint8_t Header() const { return m_header; }
 
 protected:
   feature::LoaderBase * m_pLoader;
 
-  uint8_t m_Header;
+  uint8_t m_header;
 
-  mutable uint32_t m_Types[m_maxTypesCount];
+  mutable uint32_t m_types[m_maxTypesCount];
 
-  mutable FeatureParamsBase m_Params;
+  mutable FeatureParamsBase m_params;
 
-  mutable m2::PointD m_Center;
+  mutable m2::PointD m_center;
 
-  mutable m2::RectD m_LimitRect;
+  mutable m2::RectD m_limitRect;
 
   mutable bool m_bTypesParsed, m_bCommonParsed;
 
@@ -177,29 +177,29 @@ public:
   {
     ParseGeometry(scale);
 
-    if (m_Points.empty())
+    if (m_points.empty())
     {
       // it's a point feature
       if (GetFeatureType() == feature::GEOM_POINT)
-        f(CoordPointT(m_Center.x, m_Center.y));
+        f(CoordPointT(m_center.x, m_center.y));
     }
     else
     {
-      for (size_t i = 0; i < m_Points.size(); ++i)
-        f(CoordPointT(m_Points[i].x, m_Points[i].y));
+      for (size_t i = 0; i < m_points.size(); ++i)
+        f(CoordPointT(m_points[i].x, m_points[i].y));
     }
   }
 
   inline size_t GetPointsCount() const
   {
     ASSERT(m_bPointsParsed, ());
-    return m_Points.size();
+    return m_points.size();
   }
   inline m2::PointD const & GetPoint(size_t i) const
   {
-    ASSERT_LESS(i, m_Points.size(), ());
+    ASSERT_LESS(i, m_points.size(), ());
     ASSERT(m_bPointsParsed, ());
-    return m_Points[i];
+    return m_points[i];
   }
 
   template <typename FunctorT>
@@ -213,9 +213,9 @@ public:
   {
     ParseTriangles(scale);
 
-    for (size_t i = 0; i < m_Triangles.size();)
+    for (size_t i = 0; i < m_triangles.size();)
     {
-      f(m_Triangles[i], m_Triangles[i+1], m_Triangles[i+2]);
+      f(m_triangles[i], m_triangles[i+1], m_triangles[i+2]);
       i += 3;
     }
   }
@@ -223,7 +223,7 @@ public:
   template <typename FunctorT>
   void ForEachTriangleExRef(FunctorT & f, int scale) const
   {
-    f.StartPrimitive(m_Triangles.size());
+    f.StartPrimitive(m_triangles.size());
     ForEachTriangleRef(f, scale);
     f.EndPrimitive();
   }
@@ -262,15 +262,15 @@ public:
 
   struct inner_geom_stat_t
   {
-    uint32_t m_Points, m_Strips, m_Size;
+    uint32_t m_points, m_strips, m_size;
 
     void MakeZero()
     {
-      m_Points = m_Strips = m_Size = 0;
+      m_points = m_strips = m_size = 0;
     }
   };
 
-  inner_geom_stat_t GetInnerStatistic() const { return m_InnerStats; }
+  inner_geom_stat_t GetInnerStatistic() const { return m_innerStats; }
 
   struct geom_stat_t
   {
@@ -298,11 +298,11 @@ private:
   static const size_t static_buffer = 32;
 
   typedef buffer_vector<m2::PointD, static_buffer> points_t;
-  mutable points_t m_Points, m_Triangles;
+  mutable points_t m_points, m_triangles;
 
   mutable bool m_bHeader2Parsed, m_bPointsParsed, m_bTrianglesParsed;
 
-  mutable inner_geom_stat_t m_InnerStats;
+  mutable inner_geom_stat_t m_innerStats;
 
   friend class feature::LoaderCurrent;
   friend class old_101::feature::LoaderImpl;

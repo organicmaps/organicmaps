@@ -21,9 +21,9 @@ void FeatureBase::Deserialize(feature::LoaderBase * pLoader, BufferT buffer)
   m_pLoader = pLoader;
   m_pLoader->Init(buffer);
 
-  m_LimitRect = m2::RectD::GetEmptyRect();
+  m_limitRect = m2::RectD::GetEmptyRect();
   m_bTypesParsed = m_bCommonParsed = false;
-  m_Header = m_pLoader->GetHeader();
+  m_header = m_pLoader->GetHeader();
 }
 
 void FeatureBase::ParseTypes() const
@@ -63,12 +63,12 @@ string FeatureBase::DebugString() const
   string res("FEATURE: ");
 
   for (size_t i = 0; i < GetTypesCount(); ++i)
-    res += "Type:" + DebugPrint(m_Types[i]) + " ";
+    res += "Type:" + DebugPrint(m_types[i]) + " ";
 
-  res += m_Params.DebugString();
+  res += m_params.DebugString();
 
   if (GetFeatureType() == GEOM_POINT)
-    res += "Center:" + DebugPrint(m_Center) + " ";
+    res += "Center:" + DebugPrint(m_center) + " ";
 
   return res;
 }
@@ -86,7 +86,7 @@ void FeatureType::Deserialize(feature::LoaderBase * pLoader, BufferT buffer)
 
   m_bHeader2Parsed = m_bPointsParsed = m_bTrianglesParsed = false;
 
-  m_InnerStats.MakeZero();
+  m_innerStats.MakeZero();
 }
 
 void FeatureType::ParseHeader2() const
@@ -143,10 +143,10 @@ string FeatureType::DebugString(int scale) const
   string s = base_type::DebugString();
 
   s += "Points:";
-  Points2String(s, m_Points);
+  Points2String(s, m_points);
 
   s += "Triangles:";
-  Points2String(s, m_Triangles);
+  Points2String(s, m_triangles);
 
   return s;
 }
@@ -157,8 +157,8 @@ bool FeatureType::IsEmptyGeometry(int scale) const
 
   switch (GetFeatureType())
   {
-  case GEOM_AREA: return m_Triangles.empty();
-  case GEOM_LINE: return m_Points.empty();
+  case GEOM_AREA: return m_triangles.empty();
+  case GEOM_LINE: return m_points.empty();
   default: return false;
   }
 }
@@ -167,15 +167,15 @@ m2::RectD FeatureType::GetLimitRect(int scale) const
 {
   ParseAll(scale);
 
-  if (m_Triangles.empty() && m_Points.empty() && (GetFeatureType() != GEOM_POINT))
+  if (m_triangles.empty() && m_points.empty() && (GetFeatureType() != GEOM_POINT))
   {
     // This function is called during indexing, when we need
     // to check visibility according to feature sizes.
     // So, if no geometry for this scale, assume that rect has zero dimensions.
-    m_LimitRect = m2::RectD(0, 0, 0, 0);
+    m_limitRect = m2::RectD(0, 0, 0, 0);
   }
 
-  return m_LimitRect;
+  return m_limitRect;
 }
 
 void FeatureType::ParseAll(int scale) const
@@ -187,19 +187,19 @@ void FeatureType::ParseAll(int scale) const
 FeatureType::geom_stat_t FeatureType::GetGeometrySize(int scale) const
 {
   uint32_t sz = ParseGeometry(scale);
-  if (sz == 0 && !m_Points.empty())
-    sz = m_InnerStats.m_Points;
+  if (sz == 0 && !m_points.empty())
+    sz = m_innerStats.m_points;
 
-  return geom_stat_t(sz, m_Points.size());
+  return geom_stat_t(sz, m_points.size());
 }
 
 FeatureType::geom_stat_t FeatureType::GetTrianglesSize(int scale) const
 {
   uint32_t sz = ParseTriangles(scale);
-  if (sz == 0 && !m_Triangles.empty())
-    sz = m_InnerStats.m_Strips;
+  if (sz == 0 && !m_triangles.empty())
+    sz = m_innerStats.m_strips;
 
-  return geom_stat_t(sz, m_Triangles.size());
+  return geom_stat_t(sz, m_triangles.size());
 }
 
 struct BestMatchedLangNames
@@ -282,7 +282,7 @@ void FeatureType::GetReadableName(string & name) const
 string FeatureType::GetHouseNumber() const
 {
   ParseCommon();
-  return m_Params.house.Get();
+  return m_params.house.Get();
 }
 
 bool FeatureType::GetName(int8_t lang, string & name) const
@@ -291,13 +291,13 @@ bool FeatureType::GetName(int8_t lang, string & name) const
     return false;
 
   ParseCommon();
-  return m_Params.name.GetString(lang, name);
+  return m_params.name.GetString(lang, name);
 }
 
 uint8_t FeatureType::GetRank() const
 {
   ParseCommon();
-  return m_Params.rank;
+  return m_params.rank;
 }
 
 uint32_t FeatureType::GetPopulation() const
@@ -309,7 +309,7 @@ uint32_t FeatureType::GetPopulation() const
 string FeatureType::GetRoadNumber() const
 {
   ParseCommon();
-  return m_Params.ref;
+  return m_params.ref;
 }
 
 namespace
@@ -396,8 +396,8 @@ void FeatureType::SwapGeometry(FeatureType & r)
   ASSERT_EQUAL(m_bTrianglesParsed, r.m_bTrianglesParsed, ());
 
   if (m_bPointsParsed)
-    m_Points.swap(r.m_Points);
+    m_points.swap(r.m_points);
 
   if (m_bTrianglesParsed)
-    m_Triangles.swap(r.m_Triangles);
+    m_triangles.swap(r.m_triangles);
 }

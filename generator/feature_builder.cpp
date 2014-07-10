@@ -23,7 +23,7 @@ using namespace feature;
 FeatureBuilder1::FeatureBuilder1()
 : m_coastCell(-1)
 {
-  m_Polygons.push_back(points_t());
+  m_polygons.push_back(points_t());
 }
 
 bool FeatureBuilder1::IsGeometryClosed() const
@@ -46,21 +46,21 @@ m2::PointD FeatureBuilder1::GetGeometryCenter() const
 
 void FeatureBuilder1::SetCenter(m2::PointD const & p)
 {
-  m_Center = p;
-  m_Params.SetGeomType(GEOM_POINT);
-  m_LimitRect.Add(p);
+  m_center = p;
+  m_params.SetGeomType(GEOM_POINT);
+  m_limitRect.Add(p);
 }
 
 void FeatureBuilder1::AddPoint(m2::PointD const & p)
 {
-  m_Polygons.front().push_back(p);
-  m_LimitRect.Add(p);
+  m_polygons.front().push_back(p);
+  m_limitRect.Add(p);
 }
 
 void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
 {
-  m_Params.SetGeomType(GEOM_AREA);
-  m_Polygons.resize(1);
+  m_params.SetGeomType(GEOM_AREA);
+  m_polygons.resize(1);
 
   if (holes.empty()) return;
 
@@ -78,7 +78,7 @@ void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)
         break;
 
     if (j == count)
-      m_Polygons.push_back(*i);
+      m_polygons.push_back(*i);
   }
 }
 
@@ -89,26 +89,26 @@ void FeatureBuilder1::AddPolygon(vector<m2::PointD> & poly)
   if (poly.front() != poly.back())
     poly.push_back(poly.front());
 
-  CalcRect(poly, m_LimitRect);
+  CalcRect(poly, m_limitRect);
 
-  if (!m_Polygons.back().empty())
-    m_Polygons.push_back(points_t());
+  if (!m_polygons.back().empty())
+    m_polygons.push_back(points_t());
 
-  m_Polygons.back().swap(poly);
+  m_polygons.back().swap(poly);
 }
 
 bool FeatureBuilder1::RemoveInvalidTypes()
 {
-  if (!m_Params.FinishAddingTypes())
+  if (!m_params.FinishAddingTypes())
     return false;
 
-  return feature::RemoveNoDrawableTypes(m_Params.m_Types,
-                                        static_cast<FeatureGeoType>(m_Params.GetGeomType()));
+  return feature::RemoveNoDrawableTypes(m_params.m_Types,
+                                        static_cast<FeatureGeoType>(m_params.GetGeomType()));
 }
 
 bool FeatureBuilder1::FormatFullAddress(string & res) const
 {
-  return m_Params.FormatFullAddress(m_LimitRect.Center(), res);
+  return m_params.FormatFullAddress(m_limitRect.Center(), res);
 }
 
 FeatureBase FeatureBuilder1::GetFeatureBase() const
@@ -116,11 +116,11 @@ FeatureBase FeatureBuilder1::GetFeatureBase() const
   CHECK ( CheckValid(), (*this) );
 
   FeatureBase f;
-  f.SetHeader(m_Params.GetHeader());
+  f.SetHeader(m_params.GetHeader());
 
-  f.m_Params = m_Params;
-  memcpy(f.m_Types, &m_Params.m_Types[0], sizeof(uint32_t) * m_Params.m_Types.size());
-  f.m_LimitRect = m_LimitRect;
+  f.m_params = m_params;
+  memcpy(f.m_types, &m_params.m_Types[0], sizeof(uint32_t) * m_params.m_Types.size());
+  f.m_limitRect = m_limitRect;
 
   f.m_bTypesParsed = f.m_bCommonParsed = true;
 
@@ -163,27 +163,27 @@ namespace
 
 bool FeatureBuilder1::PreSerialize()
 {
-  if (!m_Params.IsValid())
+  if (!m_params.IsValid())
     return false;
 
   /// @todo Do not use flats info. Maybe in future.
-  m_Params.flats.clear();
+  m_params.flats.clear();
 
-  switch (m_Params.GetGeomType())
+  switch (m_params.GetGeomType())
   {
   case GEOM_POINT:
     // Store house number like HEADER_GEOM_POINT_EX.
-    if (!m_Params.house.IsEmpty())
+    if (!m_params.house.IsEmpty())
     {
-      m_Params.SetGeomTypePointEx();
-      m_Params.rank = 0;
+      m_params.SetGeomTypePointEx();
+      m_params.rank = 0;
     }
 
     // Store ref's in name field (used in "highway-motorway_junction").
-    if (m_Params.name.IsEmpty() && !m_Params.ref.empty())
-      m_Params.name.AddString(StringUtf8Multilang::DEFAULT_CODE, m_Params.ref);
+    if (m_params.name.IsEmpty() && !m_params.ref.empty())
+      m_params.name.AddString(StringUtf8Multilang::DEFAULT_CODE, m_params.ref);
 
-    m_Params.ref.clear();
+    m_params.ref.clear();
     break;
 
   case GEOM_LINE:
@@ -191,17 +191,17 @@ bool FeatureBuilder1::PreSerialize()
     static feature::TypeSetChecker checkHighway("highway");
 
     // We need refs for road's numbers.
-    if (!checkHighway.IsEqualV(m_Params.m_Types))
-      m_Params.ref.clear();
+    if (!checkHighway.IsEqualV(m_params.m_Types))
+      m_params.ref.clear();
 
-    m_Params.rank = 0;
-    m_Params.house.Clear();
+    m_params.rank = 0;
+    m_params.house.Clear();
     break;
   }
 
   case GEOM_AREA:
-    m_Params.rank = 0;
-    m_Params.ref.clear();
+    m_params.rank = 0;
+    m_params.ref.clear();
     break;
 
   default:
@@ -220,7 +220,7 @@ bool FeatureBuilder1::PreSerialize()
 void FeatureBuilder1::RemoveUselessNames()
 {
   int64_t dummy;
-  if (!m_Params.name.IsEmpty() && !GetCoastCell(dummy))
+  if (!m_params.name.IsEmpty() && !GetCoastCell(dummy))
   {
     using namespace feature;
 
@@ -232,7 +232,7 @@ void FeatureBuilder1::RemoveUselessNames()
     {
       pair<int, int> const range = GetDrawableScaleRangeForRules(types, RULE_ANY_TEXT);
       if (range.first == -1)
-        m_Params.name.Clear();
+        m_params.name.Clear();
     }
   }
 }
@@ -240,38 +240,38 @@ void FeatureBuilder1::RemoveUselessNames()
 void FeatureBuilder1::RemoveNameIfInvisible(int minS, int maxS)
 {
   int64_t dummy;
-  if (!m_Params.name.IsEmpty() && !GetCoastCell(dummy))
+  if (!m_params.name.IsEmpty() && !GetCoastCell(dummy))
   {
     pair<int, int> const range = GetDrawableScaleRangeForRules(GetFeatureBase(), RULE_ANY_TEXT);
     if (range.first > maxS || range.second < minS)
-      m_Params.name.Clear();
+      m_params.name.Clear();
   }
 }
 
 bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
 {
-  if (!(m_Params == fb.m_Params)) return false;
+  if (!(m_params == fb.m_params)) return false;
 
   if (m_coastCell != fb.m_coastCell) return false;
 
-  if (m_Params.GetGeomType() == GEOM_POINT &&
-      !is_equal(m_Center, fb.m_Center))
+  if (m_params.GetGeomType() == GEOM_POINT &&
+      !is_equal(m_center, fb.m_center))
   {
     return false;
   }
 
-  if (!is_equal(m_LimitRect, fb.m_LimitRect))
+  if (!is_equal(m_limitRect, fb.m_limitRect))
   {
     //LOG(LERROR, ("Different rects: ", m_LimitRect, fb.m_LimitRect));
     return false;
   }
 
-  if (m_Polygons.size() != fb.m_Polygons.size())
+  if (m_polygons.size() != fb.m_polygons.size())
     return false;
 
-  list<points_t>::const_iterator i = m_Polygons.begin();
-  list<points_t>::const_iterator j = fb.m_Polygons.begin();
-  for (; i != m_Polygons.end(); ++i, ++j)
+  list<points_t>::const_iterator i = m_polygons.begin();
+  list<points_t>::const_iterator j = fb.m_polygons.begin();
+  for (; i != m_polygons.end(); ++i, ++j)
     if (!is_equal(*i, *j))
     {
       //LOG(LERROR, ("Different points: ", *i, *j));
@@ -283,9 +283,9 @@ bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
 
 bool FeatureBuilder1::CheckValid() const
 {
-  CHECK(m_Params.CheckValid(), (*this));
+  CHECK(m_params.CheckValid(), (*this));
 
-  EGeomType const type = m_Params.GetGeomType();
+  EGeomType const type = m_params.GetGeomType();
 
   points_t const & poly = GetGeometry();
 
@@ -294,7 +294,7 @@ bool FeatureBuilder1::CheckValid() const
 
   if (type == GEOM_AREA)
   {
-    for (list<points_t>::const_iterator i = m_Polygons.begin(); i != m_Polygons.end(); ++i)
+    for (list<points_t>::const_iterator i = m_polygons.begin(); i != m_polygons.end(); ++i)
       CHECK(i->size() >= 3, (*this));
   }
 
@@ -305,10 +305,10 @@ void FeatureBuilder1::SerializeBase(buffer_t & data, serial::CodingParams const 
 {
   PushBackByteSink<buffer_t> sink(data);
 
-  m_Params.Write(sink);
+  m_params.Write(sink);
 
-  if (m_Params.GetGeomType() == GEOM_POINT)
-    serial::SavePoint(sink, m_Center, params);
+  if (m_params.GetGeomType() == GEOM_POINT)
+    serial::SavePoint(sink, m_center, params);
 }
 
 void FeatureBuilder1::Serialize(buffer_t & data) const
@@ -323,11 +323,11 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
   PushBackByteSink<buffer_t> sink(data);
 
-  if (m_Params.GetGeomType() != GEOM_POINT)
+  if (m_params.GetGeomType() != GEOM_POINT)
   {
-    WriteVarUint(sink, static_cast<uint32_t>(m_Polygons.size()));
+    WriteVarUint(sink, static_cast<uint32_t>(m_polygons.size()));
 
-    for (list<points_t>::const_iterator i = m_Polygons.begin(); i != m_Polygons.end(); ++i)
+    for (list<points_t>::const_iterator i = m_polygons.begin(); i != m_polygons.end(); ++i)
       serial::SaveOuterPath(*i, cp, sink);
   }
 
@@ -347,27 +347,27 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
   serial::CodingParams cp;
 
   ArrayByteSource source(&data[0]);
-  m_Params.Read(source);
+  m_params.Read(source);
 
-  m_LimitRect.MakeEmpty();
+  m_limitRect.MakeEmpty();
 
-  EGeomType const type = m_Params.GetGeomType();
+  EGeomType const type = m_params.GetGeomType();
   if (type == GEOM_POINT)
   {
-    m_Center = serial::LoadPoint(source, cp);
-    m_LimitRect.Add(m_Center);
+    m_center = serial::LoadPoint(source, cp);
+    m_limitRect.Add(m_center);
     return;
   }
 
-  m_Polygons.clear();
+  m_polygons.clear();
   uint32_t const count = ReadVarUint<uint32_t>(source);
   ASSERT_GREATER ( count, 0, (*this) );
 
   for (uint32_t i = 0; i < count; ++i)
   {
-    m_Polygons.push_back(points_t());
-    serial::LoadOuterPath(source, cp, m_Polygons.back());
-    CalcRect(m_Polygons.back(), m_LimitRect);
+    m_polygons.push_back(points_t());
+    serial::LoadOuterPath(source, cp, m_polygons.back());
+    CalcRect(m_polygons.back(), m_limitRect);
   }
 
   m_coastCell = ReadVarInt<int64_t>(source);
@@ -400,8 +400,8 @@ void FeatureBuilder1::SetCoastCell(int64_t iCell, string const & strCell)
 {
   m_coastCell = iCell;
 
-  ASSERT ( m_Params.name.IsEmpty(), () );
-  m_Params.name.AddString(0, strCell);
+  ASSERT ( m_params.name.IsEmpty(), () );
+  m_params.name.AddString(0, strCell);
 }
 
 string DebugPrint(FeatureBuilder1 const & f)
@@ -410,13 +410,13 @@ string DebugPrint(FeatureBuilder1 const & f)
 
   switch (f.GetGeomType())
   {
-  case GEOM_POINT: out << DebugPrint(f.m_Center); break;
+  case GEOM_POINT: out << DebugPrint(f.m_center); break;
   case GEOM_LINE: out << "line with " << f.GetPointsCount() << " points"; break;
   case GEOM_AREA: out << "area with " << f.GetPointsCount() << " points"; break;
   default: out << "ERROR: unknown geometry type"; break;
   }
 
-  return (out.str() + " " + DebugPrint(f.m_LimitRect) + " " + DebugPrint(f.m_Params));
+  return (out.str() + " " + DebugPrint(f.m_limitRect) + " " + DebugPrint(f.m_params));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -440,7 +440,7 @@ bool FeatureBuilder2::IsDrawableInRange(int lowS, int highS) const
 bool FeatureBuilder2::PreSerialize(buffers_holder_t const & data)
 {
   // make flags actual before header serialization
-  EGeomType const geoType = m_Params.GetGeomType();
+  EGeomType const geoType = m_params.GetGeomType();
   if (geoType == GEOM_LINE)
   {
     if (data.m_ptsMask == 0 && data.m_innerPts.empty())
@@ -510,7 +510,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
 
   BitSink< PushBackByteSink<buffer_t> > bitSink(sink);
 
-  uint8_t const h = m_Params.GetTypeMask();
+  uint8_t const h = m_params.GetTypeMask();
 
   if (h == HEADER_GEOM_LINE)
   {

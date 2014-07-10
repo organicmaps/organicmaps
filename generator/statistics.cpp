@@ -82,9 +82,9 @@ namespace stats
 
       FeatureType::inner_geom_stat_t const innerStats = f.GetInnerStatistic();
 
-      m_info.m_inner[0].Add(innerStats.m_Points);
-      m_info.m_inner[1].Add(innerStats.m_Strips);
-      m_info.m_inner[2].Add(innerStats.m_Size);
+      m_info.m_inner[0].Add(innerStats.m_points);
+      m_info.m_inner[1].Add(innerStats.m_strips);
+      m_info.m_inner[2].Add(innerStats.m_size);
 
       // get geometry size for the best geometry
       FeatureType::geom_stat_t const geom = f.GetGeometrySize(FeatureType::BEST_GEOMETRY);
@@ -93,7 +93,7 @@ namespace stats
       m_info.AddToSet(geom.m_count, geom.m_size, m_info.m_byPointsCount);
       m_info.AddToSet(trg.m_count / 3, trg.m_size, m_info.m_byTrgCount);
 
-      uint32_t const allSize = innerStats.m_Size + geom.m_size + trg.m_size;
+      uint32_t const allSize = innerStats.m_size + geom.m_size + trg.m_size;
 
       m_info.AddToSet(f.GetFeatureType(), allSize, m_info.m_byGeomType);
 

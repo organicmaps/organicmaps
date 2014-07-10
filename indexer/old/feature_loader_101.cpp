@@ -149,7 +149,7 @@ void LoaderImpl::ParseTypes()
 
   size_t const count = m_pF->GetTypesCount();
   for (size_t i = 0; i < count; ++i)
-    m_pF->m_Types[i] = typeC.Convert(ReadVarUint<uint32_t>(source));
+    m_pF->m_types[i] = typeC.Convert(ReadVarUint<uint32_t>(source));
 
   m_CommonOffset = CalcOffset(source);
 }
@@ -161,14 +161,14 @@ void LoaderImpl::ParseCommon()
   uint8_t const h = Header();
 
   if (h & HEADER_HAS_LAYER)
-    m_pF->m_Params.layer = ReadVarInt<int32_t>(source);
+    m_pF->m_params.layer = ReadVarInt<int32_t>(source);
 
   if (h & HEADER_HAS_NAME)
   {
     string name;
     name.resize(ReadVarUint<uint32_t>(source) + 1);
     source.Read(&name[0], name.size());
-    m_pF->m_Params.name.AddString(StringUtf8Multilang::DEFAULT_CODE, name);
+    m_pF->m_params.name.AddString(StringUtf8Multilang::DEFAULT_CODE, name);
   }
 
   if (h & HEADER_HAS_POINT)
@@ -176,8 +176,8 @@ void LoaderImpl::ParseCommon()
     CoordPointT const center = Int64ToPoint(
           ReadVarInt<int64_t>(source) + GetDefCodingParams().GetBasePointInt64(), POINT_COORD_BITS);
 
-    m_pF->m_Center = m2::PointD(center.first, center.second);
-    m_pF->m_LimitRect.Add(m_pF->m_Center);
+    m_pF->m_center = m2::PointD(center.first, center.second);
+    m_pF->m_limitRect.Add(m_pF->m_center);
   }
 
   m_Header2Offset = CalcOffset(source);
@@ -310,9 +310,9 @@ void LoaderImpl::ParseHeader2()
       char const * start = src.PtrC();
 
       src = ArrayByteSource(serial::LoadInnerPath(
-                              start, ptsCount, GetDefCodingParams(), m_pF->m_Points));
+                              start, ptsCount, GetDefCodingParams(), m_pF->m_points));
 
-      m_pF->m_InnerStats.m_Points = src.PtrC() - start;
+      m_pF->m_innerStats.m_points = src.PtrC() - start;
     }
     else
       ReadOffsets(src, ptsMask, m_ptsOffsets);
@@ -330,20 +330,20 @@ void LoaderImpl::ParseHeader2()
       src = ArrayByteSource(serial::LoadInnerTriangles(
                               start, trgCount, GetDefCodingParams(), points));
 
-      m_pF->m_InnerStats.m_Strips = src.PtrC() - start;
+      m_pF->m_innerStats.m_strips = src.PtrC() - start;
 
       for (uint8_t i = 2; i < trgCount; ++i)
       {
-        m_pF->m_Triangles.push_back(points[i-2]);
-        m_pF->m_Triangles.push_back(points[i-1]);
-        m_pF->m_Triangles.push_back(points[i]);
+        m_pF->m_triangles.push_back(points[i-2]);
+        m_pF->m_triangles.push_back(points[i-1]);
+        m_pF->m_triangles.push_back(points[i]);
       }
     }
     else
       ReadOffsets(src, trgMask, m_trgOffsets);
   }
 
-  m_pF->m_InnerStats.m_Size = src.PtrC() - DataPtr();
+  m_pF->m_innerStats.m_size = src.PtrC() - DataPtr();
 }
 
 uint32_t LoaderImpl::ParseGeometry(int scale)
@@ -351,7 +351,7 @@ uint32_t LoaderImpl::ParseGeometry(int scale)
   uint32_t sz = 0;
   if (Header() & HEADER_IS_LINE)
   {
-    if (m_pF->m_Points.empty())
+    if (m_pF->m_points.empty())
     {
       // outer geometry
       int const ind = GetScaleIndex(scale, m_ptsOffsets);
@@ -359,7 +359,7 @@ uint32_t LoaderImpl::ParseGeometry(int scale)
       {
         ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetGeometryReader(ind));
         src.Skip(m_ptsOffsets[ind]);
-        serial::LoadOuterPath(src, GetDefCodingParams(), m_pF->m_Points);
+        serial::LoadOuterPath(src, GetDefCodingParams(), m_pF->m_points);
 
         sz = static_cast<uint32_t>(src.Pos() - m_ptsOffsets[ind]);
       }
@@ -368,26 +368,26 @@ uint32_t LoaderImpl::ParseGeometry(int scale)
     {
       // filter inner geometry
 
-      size_t const count = m_pF->m_Points.size();
+      size_t const count = m_pF->m_points.size();
       FeatureType::points_t points;
       points.reserve(count);
 
       int const scaleIndex = GetScaleIndex(scale);
       ASSERT_LESS ( scaleIndex, m_Info.GetScalesCount(), () );
 
-      points.push_back(m_pF->m_Points.front());
+      points.push_back(m_pF->m_points.front());
       for (size_t i = 1; i < count-1; ++i)
       {
         // check for point visibility in needed scaleIndex
         if (((m_ptsSimpMask >> (2*(i-1))) & 0x3) <= scaleIndex)
-          points.push_back(m_pF->m_Points[i]);
+          points.push_back(m_pF->m_points[i]);
       }
-      points.push_back(m_pF->m_Points.back());
+      points.push_back(m_pF->m_points.back());
 
-      m_pF->m_Points.swap(points);
+      m_pF->m_points.swap(points);
     }
 
-    ::feature::CalcRect(m_pF->m_Points, m_pF->m_LimitRect);
+    ::feature::CalcRect(m_pF->m_points, m_pF->m_limitRect);
   }
 
   return sz;
@@ -398,20 +398,20 @@ uint32_t LoaderImpl::ParseTriangles(int scale)
   uint32_t sz = 0;
   if (Header() & HEADER_IS_AREA)
   {
-    if (m_pF->m_Triangles.empty())
+    if (m_pF->m_triangles.empty())
     {
       uint32_t const ind = GetScaleIndex(scale, m_trgOffsets);
       if (ind != -1)
       {
         ReaderSource<FilesContainerR::ReaderT> src(m_Info.GetTrianglesReader(ind));
         src.Skip(m_trgOffsets[ind]);
-        serial::LoadOuterTriangles(src, GetDefCodingParams(), m_pF->m_Triangles);
+        serial::LoadOuterTriangles(src, GetDefCodingParams(), m_pF->m_triangles);
 
         sz = static_cast<uint32_t>(src.Pos() - m_trgOffsets[ind]);
       }
     }
 
-    ::feature::CalcRect(m_pF->m_Triangles, m_pF->m_LimitRect);
+    ::feature::CalcRect(m_pF->m_triangles, m_pF->m_limitRect);
   }
 
   return sz;

@@ -9,7 +9,7 @@
 MergedFeatureBuilder1::MergedFeatureBuilder1(FeatureBuilder1 const & fb)
   : FeatureBuilder1(fb), m_isRound(false)
 {
-  m_Params.FinishAddingTypes();
+  m_params.FinishAddingTypes();
 }
 
 void MergedFeatureBuilder1::SetRound()
@@ -24,7 +24,7 @@ void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool
   // Also merge Osm IDs for debugging
   m_osmIds.insert(m_osmIds.end(), fb.m_osmIds.begin(), fb.m_osmIds.end());
 
-  points_t & thisG = m_Polygons.front();
+  points_t & thisG = m_polygons.front();
   points_t const & fbG = fb.GetGeometry();
 
   if (fb.m_isRound)
@@ -50,12 +50,12 @@ void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool
     if (toBack)
     {
       thisG.insert(thisG.end(), fbG.begin() + 1, fbG.end());
-      CalcRect(fbG.begin() + 1, fbG.end(), m_LimitRect);
+      CalcRect(fbG.begin() + 1, fbG.end(), m_limitRect);
     }
     else
     {
       thisG.insert(thisG.begin(), fbG.begin(), fbG.end() - 1);
-      CalcRect(fbG.begin(), fbG.end() - 1, m_LimitRect);
+      CalcRect(fbG.begin(), fbG.end() - 1, m_limitRect);
     }
   }
   else
@@ -63,12 +63,12 @@ void MergedFeatureBuilder1::AppendFeature(MergedFeatureBuilder1 const & fb, bool
     if (toBack)
     {
       thisG.insert(thisG.end(), fbG.rbegin() + 1, fbG.rend());
-      CalcRect(fbG.rbegin() + 1, fbG.rend(), m_LimitRect);
+      CalcRect(fbG.rbegin() + 1, fbG.rend(), m_limitRect);
     }
     else
     {
       thisG.insert(thisG.begin(), fbG.rbegin(), fbG.rend() - 1);
-      CalcRect(fbG.rbegin(), fbG.rend() - 1, m_LimitRect);
+      CalcRect(fbG.rbegin(), fbG.rend() - 1, m_limitRect);
     }
   }
 }
