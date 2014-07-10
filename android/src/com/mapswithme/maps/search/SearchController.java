@@ -3,6 +3,7 @@ package com.mapswithme.maps.search;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
@@ -21,20 +22,20 @@ public class SearchController implements OnClickListener
   private View mClearView;
   private View mSearchProgress;
   private View mVoiceInput;
+  private ViewGroup mSearchBox;
 
   // Data
   private String mQuery = "";
 
-  // Singleton
   // No threadsafety needed as everything goes on UI
-  private static SearchController mInstance = null;
+  private static SearchController sInstance = null;
 
-  public static SearchController get()
+  public static SearchController getInstance()
   {
-    if (mInstance == null)
-      mInstance = new SearchController();
+    if (sInstance == null)
+      sInstance = new SearchController();
 
-    return mInstance;
+    return sInstance;
   }
 
   private SearchController()
@@ -44,10 +45,11 @@ public class SearchController implements OnClickListener
   {
     mMapActivity = mwmActivity;
 
-    mSearchQueryTV = (TextView) mMapActivity.findViewById(R.id.search_text_query);
-    mClearView = mMapActivity.findViewById(R.id.search_image_clear);
-    mSearchProgress = mMapActivity.findViewById(R.id.search_progress);
-    mVoiceInput = mMapActivity.findViewById(R.id.search_voice_input);
+    mSearchBox = (ViewGroup) mMapActivity.findViewById(R.id.search_box);
+    mSearchQueryTV = (TextView) mSearchBox.findViewById(R.id.search_text_query);
+    mClearView = mSearchBox.findViewById(R.id.search_image_clear);
+    mSearchProgress = mSearchBox.findViewById(R.id.search_progress);
+    mVoiceInput = mSearchBox.findViewById(R.id.search_voice_input);
 
     mSearchQueryTV.setOnClickListener(this);
     mClearView.setOnClickListener(this);
@@ -55,14 +57,22 @@ public class SearchController implements OnClickListener
 
   public void onResume()
   {
-    if (ParsedMmwRequest.hasRequest())
-      mSearchQueryTV.setText(ParsedMmwRequest.getCurrentRequest().getTitle());
-    else
-      mSearchQueryTV.setText(getQuery());
-
     mSearchQueryTV.setFocusable(false);
     UiUtils.hide(mSearchProgress);
     UiUtils.hide(mVoiceInput);
+
+    if (ParsedMmwRequest.hasRequest())
+    {
+      UiUtils.show(mSearchBox);
+      mSearchQueryTV.setText(ParsedMmwRequest.getCurrentRequest().getTitle());
+    }
+    else if (!TextUtils.isEmpty(mQuery))
+    {
+      UiUtils.show(mSearchBox);
+      mSearchQueryTV.setText(mQuery);
+    }
+    else
+      UiUtils.hide(mSearchBox);
 
     UiUtils.showIf(!TextUtils.isEmpty(mSearchQueryTV.getText()), mClearView);
   }
@@ -80,12 +90,12 @@ public class SearchController implements OnClickListener
     {
       // Clear API points first, then clear additional layer
       // (Framework::Invalidate is called inside).
-      //cancelApiCall(); // temporary comment for see search result and api points on map
+      cancelApiCall();
 
       Framework.cleanSearchLayerOnMap();
 
       mSearchQueryTV.setText(null);
-      UiUtils.hide(mClearView);
+      UiUtils.hide(mSearchBox);
     }
     else
       throw new IllegalArgumentException("Unknown id");

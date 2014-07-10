@@ -565,25 +565,22 @@ public class MWMActivity extends NvEventQueueActivity
     {
       showProVersionBanner(getString(R.string.search_available_in_pro_version));
     }
-    else
+    else if (!getMapStorage().updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
     {
-      if (!getMapStorage().updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
+      @Override
+      public void doUpdate()
       {
-        @Override
-        public void doUpdate()
-        {
-          runDownloadActivity();
-        }
+        runDownloadActivity();
+      }
 
-        @Override
-        public void doCancel()
-        {
-          runSearchActivity();
-        }
-      }))
+      @Override
+      public void doCancel()
       {
         runSearchActivity();
       }
+    }))
+    {
+      runSearchActivity();
     }
   }
 
@@ -670,7 +667,7 @@ public class MWMActivity extends NvEventQueueActivity
     // Initialize location service
     getLocationService();
 
-    mSearchController = SearchController.get();
+    mSearchController = SearchController.getInstance();
     mSearchController.onCreate(this);
 
     setUpToolbars();

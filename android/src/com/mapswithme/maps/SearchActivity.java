@@ -10,7 +10,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
-import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,10 +23,10 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -41,17 +40,50 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
-public class SearchActivity extends MapsWithMeBaseListActivity implements LocationService.Listener
+public class SearchActivity extends MapsWithMeBaseListActivity implements LocationService.Listener, OnClickListener
 {
-  private static String TAG = "SearchActivity";
   public static final String SEARCH_RESULT = "search_result";
-
   public static final String EXTRA_SCOPE = "search_scope";
   public static final String EXTRA_QUERY = "search_query";
+  /// @name These constants should be equal with
+  /// Java_com_mapswithme_maps_SearchActivity_nativeRunSearch routine.
+  //@{
+  private static final int NOT_FIRST_QUERY = 1;
+  private static final int HAS_POSITION = 2;
+  /// Make 5-step increment to leave space for middle queries.
+  /// This constant should be equal with native SearchAdapter::QUERY_STEP;
+  private final static int QUERY_STEP = 5;
+  /// @name These constants should be equal with search_params.hpp
+  //@{
+  private static final int AROUND_POSITION = 1;
+  private static final int IN_VIEWPORT = 2;
+  private static final int SEARCH_WORLD = 4;
+  private static final int ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD;
+  private int mSearchMode = ALL;
+  //@}
+  private static final String SEARCH_MODE_SETTING = "SearchMode";
+  private static final int SEARCH_LAUNCHED = 0;
+  private static final int QUERY_EMPTY = 1;
+  private static final int SEARCH_SKIPPED = 2;
+  // Handle voice recognition here
+  private final static int RC_VOICE_RECOGNITION = 0xCA11;
+  private static String TAG = "SearchActivity";
+  private LocationService mLocation;
+  // Search views
+  private EditText mSearchEt;
+  private ProgressBar mSearchProgress;
+  private View mClearQueryBtn;
+  private View mVoiceInput;
+  private View mSearchIcon;
+  private RadioGroup mSearchScopeGroup;
+  /// Current position.
+  private double mLat;
+  private double mLon;
+  private double mNorth = -1.0;
+  //@}
+  private int mFlags = 0;
+  private int mQueryID = 0;
 
   public static void startForSearch(Context context, String query, int scope)
   {
@@ -69,14 +101,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private static class SearchAdapter extends BaseAdapter
   {
-    private final SearchActivity m_context;
-    private final LayoutInflater m_inflater;
-
-
-    private final Resources m_resource;
-    private final String m_packageName;
-
-    private static final String m_categories[] = {
+    private static final String mCategories[] = {
       "food",
       "hotel",
       "tourism",
@@ -93,52 +118,71 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       "post",
       "police"
     };
-
-    private int m_count = -1;
-    private int m_resultID = 0;
-
-    public SearchAdapter(SearchActivity context)
-    {
-      m_context = context;
-      m_inflater = (LayoutInflater) m_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-      m_resource = m_context.getResources();
-      m_packageName = m_context.getApplicationContext().getPackageName();
-    }
+    private static final int[] mIcons = {
+        R.drawable.ic_food,
+        R.drawable.ic_hotel,
+        R.drawable.ic_tourism,
+        R.drawable.ic_transport,
+        R.drawable.ic_fuel,
+        R.drawable.ic_shop,
+        R.drawable.ic_entertainment,
+        R.drawable.ic_atm,
+        R.drawable.ic_bank,
+        R.drawable.ic_parking,
+        R.drawable.ic_toilet,
+        R.drawable.ic_pharmacy,
+        R.drawable.ic_hospital,
+        R.drawable.ic_post,
+        R.drawable.ic_police
+    };
 
     private static final int CATEGORY_TYPE = 0;
     private static final int RESULT_TYPE = 1;
     private static final int MESSAGE_TYPE = 2;
+    private final SearchActivity mContext;
+    private final LayoutInflater mInflater;
+    private final Resources mResources;
+    private final String mPackageName;
+    private int mCount = -1;
+    private int mResultID = 0;
 
+    public SearchAdapter(SearchActivity context)
+    {
+      mContext = context;
+      mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+      mResources = mContext.getResources();
+      mPackageName = mContext.getApplicationContext().getPackageName();
+    }
 
     private boolean isShowCategories()
     {
-      return m_context.isShowCategories();
+      return mContext.doShowCategories();
     }
 
     private String getWarningForEmptyResults()
     {
       // First try to show warning if no country downloaded for viewport.
-      if (m_context.m_searchMode != AROUND_POSITION)
+      if (mContext.mSearchMode != AROUND_POSITION)
       {
-        final String name = m_context.getViewportCountryNameIfAbsent();
+        final String name = mContext.getViewportCountryNameIfAbsent();
         if (name != null)
-          return String.format(m_context.getString(R.string.download_viewport_country_to_search), name);
+          return String.format(mContext.getString(R.string.download_viewport_country_to_search), name);
       }
 
       // If now position detected or no country downloaded for position.
-      if (m_context.m_searchMode != IN_VIEWPORT)
+      if (mContext.mSearchMode != IN_VIEWPORT)
       {
-        final Location loc = m_context.m_location.getLastKnown();
+        final Location loc = mContext.mLocation.getLastKnown();
         if (loc == null)
         {
-          return m_context.getString(R.string.unknown_current_position);
+          return mContext.getString(R.string.unknown_current_position);
         }
         else
         {
-          final String name = m_context.getCountryNameIfAbsent(loc.getLatitude(), loc.getLongitude());
+          final String name = mContext.getCountryNameIfAbsent(loc.getLatitude(), loc.getLongitude());
           if (name != null)
-            return String.format(m_context.getString(R.string.download_location_country), name);
+            return String.format(mContext.getString(R.string.download_location_country), name);
         }
       }
 
@@ -148,7 +192,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     @Override
     public boolean isEnabled(int position)
     {
-      return (isShowCategories() || m_count > 0);
+      return (isShowCategories() || mCount > 0);
     }
 
     @Override
@@ -157,7 +201,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       if (isShowCategories())
         return CATEGORY_TYPE;
       else
-        return (m_count == 0 ? MESSAGE_TYPE : RESULT_TYPE);
+        return (mCount == 0 ? MESSAGE_TYPE : RESULT_TYPE);
     }
 
     @Override
@@ -170,14 +214,14 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     public int getCount()
     {
       if (isShowCategories())
-        return m_categories.length;
-      else if (m_count < 0)
+        return mCategories.length;
+      else if (mCount < 0)
         return 0;
       else
       {
         // Additional item is "Show all result" button or
         // "No results" string message for empty results.
-        return (m_count + 1);
+        return (mCount + 1);
       }
     }
 
@@ -193,78 +237,16 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       return position;
     }
 
-    private static class ViewHolder
-    {
-      public TextView m_name = null;
-      public TextView m_countryAndType = null;
-      public TextView m_distance = null;
-
-      void initFromView(View v, int type)
-      {
-        m_name = (TextView) v.findViewById(R.id.search_item_name);
-
-        if (type != CATEGORY_TYPE)
-          m_countryAndType = (TextView) v.findViewById(R.id.search_item_place_type);
-
-        if (type == RESULT_TYPE)
-          m_distance = (TextView) v.findViewById(R.id.search_item_distance);
-      }
-    }
-
-    /// Created from native code.
-    public static class SearchResult
-    {
-      public String m_name;
-      public String m_suggestion;
-      public String m_country;
-      public String m_amenity;
-      public String m_distance;
-
-      /// 0 - suggestion result
-      /// 1 - feature result
-      public int m_type;
-      public int[] m_highlightRanges;
-
-
-      // Called from native code
-      @SuppressWarnings("unused")
-      public SearchResult(String name, String suggestion, int[] highlightRanges)
-      {
-        m_name = name;
-        m_suggestion = suggestion;
-        m_type = 0;
-
-        m_highlightRanges = highlightRanges;
-      }
-
-      // Called from native code
-      @SuppressWarnings("unused")
-      public SearchResult(String name, String country, String amenity,
-                          String flag, String distance, double azimut,
-                          int[] highlightRanges)
-      {
-        m_name = name;
-        m_country = country;
-        m_amenity = amenity;
-        m_distance = distance;
-
-        m_type = 1;
-
-        m_highlightRanges = highlightRanges;
-      }
-
-    }
-
     private String getCategoryName(String strID)
     {
-      final int id = m_resource.getIdentifier(strID, "string", m_packageName);
+      final int id = mResources.getIdentifier(strID, "string", mPackageName);
       if (id > 0)
       {
-        return m_context.getString(id);
+        return mContext.getString(id);
       }
       else
       {
-        Log.e(TAG, "Failed to get resource id from: " + strID);
+        Log.e(TAG, "Failed to getInstance resource id from: " + strID);
         return null;
       }
     }
@@ -272,8 +254,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-      ViewHolder holder = null;
-
+      ViewHolder holder;
       if (convertView == null)
       {
         holder = new ViewHolder();
@@ -281,17 +262,17 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         switch (getItemViewType(position))
         {
         case CATEGORY_TYPE:
-          convertView = m_inflater.inflate(R.layout.search_category_item, null);
+          convertView = mInflater.inflate(R.layout.search_category_item, null);
           holder.initFromView(convertView, CATEGORY_TYPE);
           break;
 
         case RESULT_TYPE:
-          convertView = m_inflater.inflate(R.layout.search_item, null);
+          convertView = mInflater.inflate(R.layout.search_item, null);
           holder.initFromView(convertView, RESULT_TYPE);
           break;
 
         case MESSAGE_TYPE:
-          convertView = m_inflater.inflate(R.layout.search_message_item, null);
+          convertView = mInflater.inflate(R.layout.search_message_item, null);
           holder.initFromView(convertView, MESSAGE_TYPE);
           break;
         }
@@ -299,76 +280,72 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         convertView.setTag(holder);
       }
       else
-      {
         holder = (ViewHolder) convertView.getTag();
-      }
 
       if (isShowCategories())
       {
-        // Show categories list.
-        UiUtils.setTextAndShow(holder.m_name, getCategoryName(m_categories[position]));
+        UiUtils.setTextAndShow(holder.mName, getCategoryName(mCategories[position]));
+        holder.mImageLeft.setImageResource(mIcons[position]);
       }
-      else if (m_count == 0)
+      else if (mCount == 0)
       {
         // Show warning message.
-        UiUtils.setTextAndShow(holder.m_name, m_context.getString(R.string.no_search_results_found));
-        UiUtils.setTextEx(holder.m_countryAndType, getWarningForEmptyResults());
+        UiUtils.setTextAndShow(holder.mName, mContext.getString(R.string.no_search_results_found));
+        UiUtils.setTextEx(holder.mCountryAndType, getWarningForEmptyResults());
       }
       else if (position == 0)
       {
         // title item with "Show all" text
-        UiUtils.setTextAndShow(holder.m_name, m_context.getString(R.string.search_show_on_map));
-        UiUtils.clearTextAndHide(holder.m_countryAndType);
-        UiUtils.clearTextAndHide(holder.m_distance);
+        UiUtils.setTextAndShow(holder.mName, mContext.getString(R.string.search_on_map));
+        UiUtils.clearTextAndHide(holder.mCountryAndType);
+        UiUtils.clearTextAndHide(holder.mDistance);
       }
       else
       {
         // 0 index is for multiple result
-        // so real result are from 1
+        // so real results are from 1
         --position;
-
-        // Show search results.
-        final SearchResult r = m_context.getResult(position, m_resultID);
+        final SearchResult r = mContext.getResult(position, mResultID);
         if (r != null)
         {
           Spanned s = null;
 
-          if (r.m_highlightRanges.length > 0)
+          if (r.mHighlightRanges.length > 0)
           {
             StringBuilder builder = new StringBuilder();
-            int pos = 0, j = 0, n = r.m_highlightRanges.length / 2;
+            int pos = 0, j = 0, n = r.mHighlightRanges.length / 2;
 
 
             for (int i = 0; i < n; ++i)
             {
-              int start = r.m_highlightRanges[j++];
-              int len = r.m_highlightRanges[j++];
+              int start = r.mHighlightRanges[j++];
+              int len = r.mHighlightRanges[j++];
 
-              builder.append(r.m_name.substring(pos, start));
+              builder.append(r.mName.substring(pos, start));
               builder.append("<font color=\"green\">");
-              builder.append(r.m_name.substring(start, start + len));
+              builder.append(r.mName.substring(start, start + len));
               builder.append("</font>");
 
               pos = start + len;
             }
-            builder.append(r.m_name.substring(pos));
+            builder.append(r.mName.substring(pos));
             s = Html.fromHtml(builder.toString());
           }
           else
-            s = Html.fromHtml(r.m_name);
+            s = Html.fromHtml(r.mName);
 
-          UiUtils.setTextAndShow(holder.m_name, s);
+          UiUtils.setTextAndShow(holder.mName, s);
 
           String type = null;
           String dist = null;
-          if (r.m_type == 1)
+          if (r.mType == 1)
           {
-            type = StringUtils.joinSkipEmpty(", ",  Utils.asObjectArray(r.m_country, r.m_amenity));
-            dist = r.m_distance;
+            type = StringUtils.joinSkipEmpty(", ", Utils.asObjectArray(r.mCountry, r.mAmenity));
+            dist = r.mDistance;
           }
 
-          UiUtils.setTextEx(holder.m_countryAndType, type);
-          UiUtils.setTextEx(holder.m_distance, dist);
+          UiUtils.setTextEx(holder.mCountryAndType, type);
+          UiUtils.setTextEx(holder.mDistance, dist);
         }
       }
 
@@ -378,8 +355,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     /// Update list data.
     public void updateData(int count, int resultID)
     {
-      m_count = count;
-      m_resultID = resultID;
+      mCount = count;
+      mResultID = resultID;
 
       notifyDataSetChanged();
     }
@@ -391,24 +368,24 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
     public void updateCategories()
     {
-      m_count = -1;
+      mCount = -1;
       updateData();
     }
 
-    /// Show tapped country or get suggestion or get category to search.
+    /// Show tapped country or getInstance suggestion or getInstance category to search.
     /// @return Suggestion string with space in the end (for full match purpose).
     public String onItemClick(int position)
     {
       if (isShowCategories())
       {
-        final String category = getCategoryName(m_categories[position]);
-        Statistics.INSTANCE.trackSearchCategoryClicked(m_context, category);
+        final String category = getCategoryName(mCategories[position]);
+        Statistics.INSTANCE.trackSearchCategoryClicked(mContext, category);
 
         return category + ' ';
       }
       else
       {
-        if (m_count > 0)
+        if (mCount > 0)
         {
           // Show all items was clicked
           if (position == 0)
@@ -419,10 +396,10 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
           // Specific result was clicked
           final int resIndex = position - 1;
-          final SearchResult r = m_context.getResult(resIndex, m_resultID);
+          final SearchResult r = mContext.getResult(resIndex, mResultID);
           if (r != null)
           {
-            if (r.m_type == 1)
+            if (r.mType == 1)
             {
               // show country and close activity
               SearchActivity.nativeShowItem(resIndex);
@@ -431,7 +408,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
             else
             {
               // advise suggestion
-              return r.m_suggestion;
+              return r.mSuggestion;
             }
           }
         }
@@ -440,27 +417,97 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       // close activity in case of any error
       return null;
     }
+
+    private static class ViewHolder
+    {
+      public TextView mName;
+      public TextView mCountryAndType;
+      public TextView mDistance;
+      public ImageView mImageLeft;
+
+      void initFromView(View v, int type)
+      {
+        mName = (TextView) v.findViewById(R.id.tv_search_item_title);
+
+        switch (type) {
+        case CATEGORY_TYPE:
+          mImageLeft = (ImageView) v.findViewById(R.id.iv_search_category);
+          break;
+        case RESULT_TYPE:
+          mDistance = (TextView) v.findViewById(R.id.tv_search_distance);
+          mCountryAndType = (TextView) v.findViewById(R.id.tv_search_item_subtitle);
+          break;
+        case MESSAGE_TYPE:
+          mCountryAndType = (TextView) v.findViewById(R.id.tv_search_item_subtitle);
+          break;
+        }
+      }
+    }
+
+    /// Created from native code.
+    public static class SearchResult
+    {
+      public String mName;
+      public String mSuggestion;
+      public String mCountry;
+      public String mAmenity;
+      public String mDistance;
+
+      /// 0 - suggestion result
+      /// 1 - feature result
+      public int mType;
+      public int[] mHighlightRanges;
+
+
+      // Called from native code
+      @SuppressWarnings("unused")
+      public SearchResult(String name, String suggestion, int[] highlightRanges)
+      {
+        mName = name;
+        mSuggestion = suggestion;
+        mType = 0;
+
+        mHighlightRanges = highlightRanges;
+      }
+
+      // Called from native code
+      @SuppressWarnings("unused")
+      public SearchResult(String name, String country, String amenity,
+                          String flag, String distance, double azimut,
+                          int[] highlightRanges)
+      {
+        mName = name;
+        mCountry = country;
+        mAmenity = amenity;
+        mDistance = distance;
+
+        mType = 1;
+
+        mHighlightRanges = highlightRanges;
+      }
+
+    }
   }
+
+  private static native SearchAdapter.SearchResult
+  nativeGetResult(int position, int queryID, double lat, double lon, boolean mode, double north);
+
+  private static native void nativeShowItem(int position);
+
+  private static native void nativeShowAllSearchResults();
 
   private String getSearchString()
   {
-    return mSearchBox.getText().toString();
+    return mSearchEt.getText().toString();
   }
 
-  private boolean isShowCategories()
+  private boolean doShowCategories()
   {
     return getSearchString().length() == 0;
   }
 
-  private LocationService m_location;
-  // Search views
-  private EditText mSearchBox;
-  private ProgressBar mSearchProgress;
-  private View mClearQueryBtn;
-  private View mVoiceInput;
-  private View mSearchIcon;
-
-  private RadioGroup mSearchScopeGroup;
+  //private final static long COMPAS_DELTA = 300;
+  //private long mLastCompasUpdate;
 
   @SuppressLint("NewApi")
   @Override
@@ -475,7 +522,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         actionBar.hide();
     }
 
-    m_location = ((MWMApplication) getApplication()).getLocationService();
+    mLocation = ((MWMApplication) getApplication()).getLocationService();
 
     setContentView(R.layout.search_list_view);
     setUpView();
@@ -488,19 +535,19 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     final Intent intent = getIntent();
     if (intent != null && intent.hasExtra(EXTRA_QUERY))
     {
-      mSearchBox.setText(intent.getStringExtra(EXTRA_QUERY));
+      mSearchEt.setText(intent.getStringExtra(EXTRA_QUERY));
       if (intent.hasExtra(EXTRA_SCOPE))
         setSearchGroupSelectionByMode(intent.getIntExtra(EXTRA_SCOPE, 0));
       runSearch();
     }
 
     // Listen for keyboard buttons
-    mSearchBox.setOnEditorActionListener(new OnEditorActionListener()
+    mSearchEt.setOnEditorActionListener(new OnEditorActionListener()
     {
       @Override
       public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
       {
-        if (isShowCategories())
+        if (doShowCategories())
           return false;
 
         final boolean isEnterDown = (event != null) &&
@@ -509,9 +556,9 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
         if (isEnterDown || isActionDone)
         {
-          if (getSA().getCount() > 1)
+          if (getSearchAdapter().getCount() > 1)
           {
-            getListView().performItemClick(getSA().getView(0, null, null), 0, 0);
+            getListView().performItemClick(getSearchAdapter().getView(0, null, null), 0, 0);
             return true;
           }
         }
@@ -545,18 +592,11 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     mSearchIcon = findViewById(R.id.search_icon);
     mSearchProgress = (ProgressBar) findViewById(R.id.search_progress);
     mClearQueryBtn = findViewById(R.id.search_image_clear);
-    mClearQueryBtn.setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        mSearchBox.getText().clear();
-      }
-    });
+    mClearQueryBtn.setOnClickListener(this);
 
     // Initialize search edit box processor.
-    mSearchBox = (EditText) findViewById(R.id.search_text_query);
-    mSearchBox.addTextChangedListener(new TextWatcher()
+    mSearchEt = (EditText) findViewById(R.id.search_text_query);
+    mSearchEt.addTextChangedListener(new TextWatcher()
     {
       @Override
       public void afterTextChanged(Editable s)
@@ -589,15 +629,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
     setUpSearchModes();
 
-    mVoiceInput.setOnClickListener(new OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        final Intent vrIntent = InputUtils.createIntentForVoiceRecognition(getResources().getString(R.string.search_map));
-        startActivityForResult(vrIntent, RC_VOICE_RECOGNITION);
-      }
-    });
+    mVoiceInput.setOnClickListener(this);
 
     getListView().setOnScrollListener(new OnScrollListener()
     {
@@ -605,19 +637,21 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       public void onScrollStateChanged(AbsListView view, int scrollState)
       {
         // Hide keyboard when user starts scroll
-        InputUtils.hideKeyboard(mSearchBox);
+        InputUtils.hideKeyboard(mSearchEt);
 
         // Hacky way to remove focus from only edittext at activity
-        mSearchBox.setFocusableInTouchMode(false);
-        mSearchBox.setFocusable(false);
-        mSearchBox.setFocusableInTouchMode(true);
-        mSearchBox.setFocusable(true);
+        mSearchEt.setFocusableInTouchMode(false);
+        mSearchEt.setFocusable(false);
+        mSearchEt.setFocusableInTouchMode(true);
+        mSearchEt.setFocusable(true);
       }
 
       @Override
       public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
       {}
     });
+
+    findViewById(R.id.btn_cancel_search).setOnClickListener(this);
   }
 
   private void setUpSearchModes()
@@ -626,8 +660,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     // Initialize search modes group
     mSearchScopeGroup = (RadioGroup)findViewById(R.id.search_scope);
     // Default mode is AROUND_POSITION
-    m_searchMode = MWMApplication.get().nativeGetInt(SEARCH_MODE_SETTING, AROUND_POSITION);
-    setSearchGroupSelectionByMode(m_searchMode);
+    mSearchMode = MWMApplication.getInstance().nativeGetInt(SEARCH_MODE_SETTING, AROUND_POSITION);
+    setSearchGroupSelectionByMode(mSearchMode);
     mSearchScopeGroup.setOnCheckedChangeListener(new OnCheckedChangeListener()
     {
       @Override
@@ -657,25 +691,25 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     super.onResume();
 
     // Reset current mode flag - start first search.
-    m_flags = 0;
-    m_north = -1.0;
+    mFlags = 0;
+    mNorth = -1.0;
 
-    m_location.startUpdate(this);
+    mLocation.startUpdate(this);
 
     // do the search immediately after resume
-    Utils.setStringAndCursorToEnd(mSearchBox, getLastQuery());
-    mSearchBox.requestFocus();
+    Utils.setStringAndCursorToEnd(mSearchEt, getLastQuery());
+    mSearchEt.requestFocus();
   }
 
   @Override
   protected void onPause()
   {
-    m_location.stopUpdate(this);
+    mLocation.stopUpdate(this);
 
     super.onPause();
   }
 
-  private SearchAdapter getSA()
+  private SearchAdapter getSearchAdapter()
   {
     return (SearchAdapter) getListView().getAdapter();
   }
@@ -684,7 +718,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   protected void onListItemClick(ListView l, View v, int position, long id)
   {
     super.onListItemClick(l, v, position, id);
-    final String suggestion = getSA().onItemClick(position);
+    final String suggestion = getSearchAdapter().onItemClick(position);
     if (suggestion == null)
     {
       presentResult(v, position);
@@ -699,7 +733,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private void presentResult(View v, int position)
   {
     // If user searched for something, then clear API layer
-    SearchController.get().cancelApiCall();
+    SearchController.getInstance().cancelApiCall();
 
     if (MWMApplication.get().isProVersion())
     {
@@ -708,9 +742,9 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       final SearchAdapter.ViewHolder vh = (SearchAdapter.ViewHolder) v.getTag();
 
       // Put query string for "View on map" or feature name for search result.
-      SearchController.get().setQuery(position == 0 ?
-            mSearchBox.getText().toString() :
-            vh.m_name.getText().toString().trim());
+      SearchController.getInstance().setQuery(position == 0 ?
+          mSearchEt.getText().toString() :
+          vh.mName.getText().toString().trim());
 
       MWMActivity.startWithSearchResult(this, position != 0);
     }
@@ -725,54 +759,46 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   public void onBackPressed()
   {
     super.onBackPressed();
-    SearchController.get().cancel();
+    SearchController.getInstance().cancel();
   }
-
-  /// Current position.
-  private double m_lat;
-  private double m_lon;
-  private double m_north = -1.0;
-
-  /// @name These constants should be equal with
-  /// Java_com_mapswithme_maps_SearchActivity_nativeRunSearch routine.
-  //@{
-  private static final int NOT_FIRST_QUERY = 1;
-  private static final int HAS_POSITION = 2;
-  //@}
-  private int m_flags = 0;
 
   private void updateDistance()
   {
-    getSA().updateData();
+    getSearchAdapter().updateData();
   }
 
   private void showCategories()
   {
     clearLastQuery();
     setSearchInProgress(false);
-    getSA().updateCategories();
+    getSearchAdapter().updateCategories();
   }
+
+  /*
+  private void runSearch(int mode)
+  {
+    mSearchMode = mode;
+    runSearch();
+  }
+  */
 
   @Override
   public void onLocationUpdated(final Location l)
   {
-    m_flags |= HAS_POSITION;
+    mFlags |= HAS_POSITION;
 
-    m_lat = l.getLatitude();
-    m_lon = l.getLongitude();
+    mLat = l.getLatitude();
+    mLon = l.getLongitude();
 
     if (runSearch() == SEARCH_SKIPPED)
       updateDistance();
   }
 
-  //private final static long COMPAS_DELTA = 300;
-  //private long mLastCompasUpdate;
-
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
     /*
-    if (isShowCategories())
+    if (doShowCategories())
       return;
 
     // We don't want to update view too often, it is slow
@@ -783,13 +809,13 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       mLastCompassUpdate = System.currentTimeMillis();
 
     final double north[] = { magneticNorth, trueNorth };
-    m_location.correctCompassAngles(getWindowManager().getDefaultDisplay(), north);
+    mLocation.correctCompassAngles(getWindowManager().getDefaultDisplay(), north);
     final double ret = (north[1] >= 0.0 ? north[1] : north[0]);
 
     // if difference is more than 1 degree
-    if (m_north == -1 || Math.abs(m_north - ret) > 0.02)
+    if (mNorth == -1 || Math.abs(mNorth - ret) > 0.02)
     {
-      m_north = ret;
+      mNorth = ret;
       updateDistance();
     }
     */
@@ -800,14 +826,9 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   {
   }
 
-  private int m_queryID = 0;
-  /// Make 5-step increment to leave space for middle queries.
-  /// This constant should be equal with native SearchAdapter::QUERY_STEP;
-  private final static int QUERY_STEP = 5;
-
   private boolean isCurrentResult(int id)
   {
-    return (id >= m_queryID && id < m_queryID + QUERY_STEP);
+    return (id >= mQueryID && id < mQueryID + QUERY_STEP);
   }
 
   public void updateData(final int count, final int resultID)
@@ -821,10 +842,10 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         if (isCurrentResult(resultID))
           setSearchInProgress(false);
 
-        if (!isShowCategories())
+        if (!doShowCategories())
         {
           // update list view with results if we are not in categories mode
-          getSA().updateData(count, resultID);
+          getSearchAdapter().updateData(count, resultID);
 
           // scroll list view to the top
           setSelection(0);
@@ -835,30 +856,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
   private void runSearch(String s)
   {
-    Utils.setStringAndCursorToEnd(mSearchBox, s);
+    Utils.setStringAndCursorToEnd(mSearchEt, s);
   }
-
-  /// @name These constants should be equal with search_params.hpp
-  //@{
-  private static final int AROUND_POSITION = 1;
-  private static final int IN_VIEWPORT = 2;
-  private static final int SEARCH_WORLD = 4;
-  private static final int ALL = AROUND_POSITION | IN_VIEWPORT | SEARCH_WORLD;
-  //@}
-  private static final String SEARCH_MODE_SETTING = "SearchMode";
-  private int m_searchMode = ALL;
-
-  /*
-  private void runSearch(int mode)
-  {
-    m_searchMode = mode;
-    runSearch();
-  }
-  */
-
-  private static final int SEARCH_LAUNCHED = 0;
-  private static final int QUERY_EMPTY = 1;
-  private static final int SEARCH_SKIPPED = 2;
 
   private int runSearch()
   {
@@ -866,21 +865,21 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     if (s.length() == 0)
     {
       // do force search next time from categories list
-      m_flags &= (~NOT_FIRST_QUERY);
+      mFlags &= (~NOT_FIRST_QUERY);
       return QUERY_EMPTY;
     }
 
 
     final String lang = Language.getKeyboardInput(this);
 
-    final int id = m_queryID + QUERY_STEP;
-    if (nativeRunSearch(s, lang, m_lat, m_lon, m_flags, m_searchMode, id))
+    final int id = mQueryID + QUERY_STEP;
+    if (nativeRunSearch(s, lang, mLat, mLon, mFlags, mSearchMode, id))
     {
       // store current query
-      m_queryID = id;
+      mQueryID = id;
 
       // mark that it's not the first query already - don't do force search
-      m_flags |= NOT_FIRST_QUERY;
+      mFlags |= NOT_FIRST_QUERY;
 
       setSearchInProgress(true);
 
@@ -904,33 +903,46 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     }
   }
 
+  @Override
+  public void onClick(View v)
+  {
+    switch (v.getId())
+    {
+    case R.id.btn_cancel_search:
+      SearchController.getInstance().setQuery("");
+      SearchController.getInstance().cancel();
+      finish();
+      break;
+    case R.id.search_image_clear:
+      mSearchEt.getText().clear();
+      break;
+    case R.id.search_voice_input:
+      final Intent vrIntent = InputUtils.createIntentForVoiceRecognition(getResources().getString(R.string.search_map));
+      startActivityForResult(vrIntent, RC_VOICE_RECOGNITION);
+      break;
+    }
+  }
+
   public SearchAdapter.SearchResult getResult(int position, int queryID)
   {
-    return nativeGetResult(position, queryID, m_lat, m_lon, (m_flags & HAS_POSITION) != 0, m_north);
+    return nativeGetResult(position, queryID, mLat, mLon, (mFlags & HAS_POSITION) != 0, mNorth);
   }
 
   private native void nativeConnect();
-  private native void nativeDisconnect();
 
-  private static native SearchAdapter.SearchResult
-  nativeGetResult(int position, int queryID, double lat, double lon, boolean mode, double north);
+  private native void nativeDisconnect();
 
   private native boolean nativeRunSearch(String s, String lang,
                                          double lat, double lon, int flags,
                                          int searchMode, int queryID);
 
-  private static native void nativeShowItem(int position);
-  private static native void nativeShowAllSearchResults();
-
   private native String getCountryNameIfAbsent(double lat, double lon);
+
   private native String getViewportCountryNameIfAbsent();
 
   private native String getLastQuery();
+
   private native void clearLastQuery();
-
-
-  // Handle voice recognition here
-  private final static int RC_VOICE_RECOGNITION = 0xCA11;
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -941,7 +953,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     {
       final String result = InputUtils.getMostConfidentResult(data);
       if (result != null)
-        mSearchBox.setText(result);
+        mSearchEt.setText(result);
     }
   }
 }
