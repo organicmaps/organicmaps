@@ -47,10 +47,10 @@
         android:fontFamily="@string/robotoRegular"
         android:imeOptions="actionDone"
         android:inputType="text"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
+        android:paddingBottom="@dimen/dp_x_1"
+        android:paddingLeft="@dimen/dp_x_2"
+        android:paddingRight="@dimen/dp_x_2"
+        android:paddingTop="@dimen/dp_x_2"
         android:singleLine="true"
         android:textColor="@android:color/white"/>
 

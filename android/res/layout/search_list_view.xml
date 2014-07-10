@@ -17,8 +17,8 @@
       android:layout_height="match_parent"
       android:animationCache="false"
       android:background="@color/bg_bottom_toolbar"
-      android:divider="@drawable/horizontal_two_px_separator"
-      android:dividerHeight="1dp"
+      android:divider="@drawable/separator_medium_padded"
+      android:dividerHeight="1px"
       android:scrollbarStyle="outsideOverlay"
       android:scrollingCache="false"/>
 

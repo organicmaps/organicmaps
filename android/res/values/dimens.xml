@@ -37,4 +37,5 @@
   <dimen name="zoom_margin_right">4dp</dimen>
   <dimen name="map_controls_margin">7dp</dimen>
   <dimen name="bottom_panel_height">46dp</dimen>
+  <dimen name="search_item_height">@dimen/dp_x_14</dimen>
 </resources>

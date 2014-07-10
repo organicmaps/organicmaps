@@ -24,7 +24,7 @@
       android:textColor="@android:color/white"/>
 
   <View
-      style="@style/drawerSeparator"/>
+      style="@style/drawerSeparatorMediumPadded"/>
 
   <TextView
       android:id="@+id/btn_share"
@@ -38,7 +38,7 @@
       android:textColor="@android:color/white"/>
 
   <View
-      style="@style/drawerSeparator"/>
+      style="@style/drawerSeparatorMediumPadded"/>
 
   <TextView
       android:id="@+id/btn_more_apps"
@@ -52,7 +52,7 @@
       android:textColor="@android:color/white"/>
 
   <View
-      style="@style/drawerSeparator"/>
+      style="@style/drawerSeparatorMediumPadded"/>
 
   <TextView
       android:id="@+id/btn_settings"
