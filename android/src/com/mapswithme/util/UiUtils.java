@@ -234,7 +234,7 @@ public final class UiUtils
     checkNotNull(tv);
 
     tv.setText(text);
-    tv.setVisibility(TextUtils.isEmpty(text) ? View.GONE : View.VISIBLE);
+    showIf(!TextUtils.isEmpty(text), tv);
   }
 
   // utility class

@@ -34,7 +34,6 @@ import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.search.SearchController;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.Language;
-import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
@@ -250,50 +249,52 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     public View getView(int position, View convertView, ViewGroup parent)
     {
       ViewHolder holder;
+      final int viewType = getItemViewType(position);
       if (convertView == null)
       {
-        holder = new ViewHolder();
-
-        switch (getItemViewType(position))
+        switch (viewType)
         {
         case CATEGORY_TYPE:
           convertView = mInflater.inflate(R.layout.search_category_item, parent, false);
-          holder.initFromView(convertView, CATEGORY_TYPE);
           break;
-
         case RESULT_TYPE:
           convertView = mInflater.inflate(R.layout.search_item, parent, false);
-          holder.initFromView(convertView, RESULT_TYPE);
           break;
-
         case MESSAGE_TYPE:
           convertView = mInflater.inflate(R.layout.search_message_item, parent, false);
-          holder.initFromView(convertView, MESSAGE_TYPE);
           break;
         }
+        holder = new ViewHolder(convertView, viewType);
 
         convertView.setTag(holder);
       }
       else
         holder = (ViewHolder) convertView.getTag();
 
-      if (doShowCategories())
+      switch (viewType)
       {
-        UiUtils.setTextAndShow(holder.mName, getCategoryName(mCategories[position]));
-        holder.mImageLeft.setImageResource(mIcons[position]);
+      case CATEGORY_TYPE:
+        bindCategoryView(holder, position);
+        break;
+      case RESULT_TYPE:
+        bindResultView(holder, position);
+        break;
+      case MESSAGE_TYPE:
+        bindMessageView(holder, position);
+        break;
       }
-      else if (mCount == 0)
+
+      return convertView;
+    }
+
+    private void bindResultView(ViewHolder holder, int position)
+    {
+      if (position == 0)
       {
-        // TODO show dialog on click on that item
         UiUtils.setTextAndShow(holder.mName, mContext.getString(R.string.search_on_map));
-        UiUtils.setTextAndHideIfEmpty(holder.mCountryAndType, getWarningForEmptyResults());
-      }
-      else if (position == 0)
-      {
-        // title item with "Show all" text
-        UiUtils.setTextAndShow(holder.mName, mContext.getString(R.string.search_on_map));
-        UiUtils.clearTextAndHide(holder.mCountryAndType);
+        UiUtils.clearTextAndHide(holder.mCountry);
         UiUtils.clearTextAndHide(holder.mDistance);
+        UiUtils.clearTextAndHide(holder.mItemType);
       }
       else
       {
@@ -303,48 +304,68 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         final SearchResult r = mContext.getResult(position, mResultID);
         if (r != null)
         {
-          Spanned s = null;
-
-          if (r.mHighlightRanges.length > 0)
+          String country = null;
+          String dist = null;
+          Spanned s;
+          if (r.mType == SearchResult.TYPE_FEATURE)
           {
-            StringBuilder builder = new StringBuilder();
-            int pos = 0, j = 0, n = r.mHighlightRanges.length / 2;
-
-
-            for (int i = 0; i < n; ++i)
+            if (r.mHighlightRanges.length > 0)
             {
-              int start = r.mHighlightRanges[j++];
-              int len = r.mHighlightRanges[j++];
+              StringBuilder builder = new StringBuilder();
+              int pos = 0, j = 0, n = r.mHighlightRanges.length / 2;
 
-              builder.append(r.mName.substring(pos, start));
-              builder.append("<font color=\"green\">");
-              builder.append(r.mName.substring(start, start + len));
-              builder.append("</font>");
+              for (int i = 0; i < n; ++i)
+              {
+                int start = r.mHighlightRanges[j++];
+                int len = r.mHighlightRanges[j++];
 
-              pos = start + len;
+                builder.append(r.mName.substring(pos, start));
+                builder.append("<font color=\"green\">");
+                builder.append(r.mName.substring(start, start + len));
+                builder.append("</font>");
+
+                pos = start + len;
+              }
+              builder.append(r.mName.substring(pos));
+              s = Html.fromHtml(builder.toString());
             }
-            builder.append(r.mName.substring(pos));
-            s = Html.fromHtml(builder.toString());
+            else
+              s = Html.fromHtml(r.mName);
+
+            country = r.mCountry;
+            dist = r.mDistance;
+            holder.mImageLeft.setImageResource(R.drawable.ic_about);
+            holder.mView.setBackgroundResource(R.drawable.bg_toolbar_button_selector);
+            holder.mView.setPadding((int) mContext.getResources().getDimension(R.dimen.margin_medium), 0,
+                (int) mContext.getResources().getDimension(R.dimen.margin_medium), 0);
           }
           else
+          {
             s = Html.fromHtml(r.mName);
 
-          UiUtils.setTextAndShow(holder.mName, s);
-
-          String type = null;
-          String dist = null;
-          if (r.mType == 1)
-          {
-            type = StringUtils.joinSkipEmpty(", ", Utils.asObjectArray(r.mCountry, r.mAmenity));
-            dist = r.mDistance;
+            holder.mView.setBackgroundResource(R.drawable.bg_search_item_green_selector);
+            holder.mImageLeft.setImageResource(R.drawable.ic_search);
+            holder.mView.setPadding((int) mContext.getResources().getDimension(R.dimen.margin_medium), 0,
+                (int) mContext.getResources().getDimension(R.dimen.margin_medium), 0);
           }
 
-          UiUtils.setTextAndHideIfEmpty(holder.mCountryAndType, type);
+          UiUtils.setTextAndShow(holder.mName, s);
+          UiUtils.setTextAndHideIfEmpty(holder.mCountry, country);
+          UiUtils.setTextAndHideIfEmpty(holder.mItemType, r.mAmenity);
           UiUtils.setTextAndHideIfEmpty(holder.mDistance, dist);
         }
       }
+    }
 
-      return convertView;
+    private void bindCategoryView(ViewHolder holder, int position)
+    {
+      UiUtils.setTextAndShow(holder.mName, getCategoryName(mCategories[position]));
+      holder.mImageLeft.setImageResource(mIcons[position]);
+    }
+
+    private void bindMessageView(ViewHolder holder, int position)
+    {
+      UiUtils.setTextAndShow(holder.mName, mContext.getString(R.string.search_on_map));
     }
 
     /// Update list data.
@@ -394,7 +415,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
           final SearchResult r = mContext.getResult(resIndex, mResultID);
           if (r != null)
           {
-            if (r.mType == 1)
+            if (r.mType == SearchResult.TYPE_FEATURE)
             {
               // show country and close activity
               SearchActivity.nativeShowItem(resIndex);
@@ -415,13 +436,16 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
     private static class ViewHolder
     {
+      public View mView;
       public TextView mName;
-      public TextView mCountryAndType;
+      public TextView mCountry;
       public TextView mDistance;
+      public TextView mItemType;
       public ImageView mImageLeft;
 
-      void initFromView(View v, int type)
+      public ViewHolder(View v, int type)
       {
+        mView = v;
         mName = (TextView) v.findViewById(R.id.tv_search_item_title);
 
         switch (type)
@@ -430,11 +454,14 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
           mImageLeft = (ImageView) v.findViewById(R.id.iv_search_category);
           break;
         case RESULT_TYPE:
+          mImageLeft = (ImageView) v.findViewById(R.id.iv_search_image);
           mDistance = (TextView) v.findViewById(R.id.tv_search_distance);
-          mCountryAndType = (TextView) v.findViewById(R.id.tv_search_item_subtitle);
+          mCountry = (TextView) v.findViewById(R.id.tv_search_item_subtitle);
+          mItemType = (TextView) v.findViewById(R.id.tv_search_item_type);
           break;
         case MESSAGE_TYPE:
-          mCountryAndType = (TextView) v.findViewById(R.id.tv_search_item_subtitle);
+          mImageLeft = (ImageView) v.findViewById(R.id.iv_search_image);
+          mCountry = (TextView) v.findViewById(R.id.tv_search_item_subtitle);
           break;
         }
       }
@@ -451,6 +478,9 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
       /// 0 - suggestion result
       /// 1 - feature result
+      public static final int TYPE_SUGGESTION = 0;
+      public static final int TYPE_FEATURE = 1;
+
       public int mType;
       public int[] mHighlightRanges;
 
@@ -461,7 +491,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       {
         mName = name;
         mSuggestion = suggestion;
-        mType = 0;
+        mType = TYPE_SUGGESTION;
 
         mHighlightRanges = highlightRanges;
       }
@@ -477,7 +507,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         mAmenity = amenity;
         mDistance = distance;
 
-        mType = 1;
+        mType = TYPE_FEATURE;
 
         mHighlightRanges = highlightRanges;
       }
@@ -779,6 +809,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     return (id >= mQueryID && id < mQueryID + QUERY_STEP);
   }
 
+  // Called from native code
+  @SuppressWarnings("unused")
   public void updateData(final int count, final int resultID)
   {
     runOnUiThread(new Runnable()
