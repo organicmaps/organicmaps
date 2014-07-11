@@ -71,32 +71,16 @@
 
             <include layout="@layout/green_separator" />
 
-            <LinearLayout
+
+            <TextView
+                android:id="@+id/pin_set_chooser"
+                style="@style/pinEditableParam"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp_x_4"
-                android:gravity="bottom"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:id="@+id/pin_set_chooser"
-                    style="@style/pinEditableParam"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="0dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/spinner_background_holo_light"
-                    android:focusable="false" />
-
-                <ImageView
-                    android:id="@+id/color_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:background="@drawable/spinner_background_holo_light"
-                    android:paddingLeft="@dimen/dp_x_4"
-                    android:src="@drawable/ic_location" />
-            </LinearLayout>
+                android:layout_weight="1"
+                android:background="@drawable/spinner_background_holo_light"
+                android:focusable="false" />
 
             <!-- DESCR -->
 
