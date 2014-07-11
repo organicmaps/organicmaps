@@ -377,17 +377,23 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
   CHECK ( CheckValid(), (*this) );
 }
 
-void FeatureBuilder1::AddOsmId(string const & type, uint64_t osmId)
+void FeatureBuilder1::AddOsmId(osm::Id id)
 {
-  m_osmIds.push_back(osm::OsmId(type, osmId));
+  m_osmIds.push_back(id);
 }
 
 string FeatureBuilder1::GetOsmIdsString() const
 {
-  ostringstream out;
-  for (size_t i = 0; i < m_osmIds.size(); ++i)
-    out << m_osmIds[i].Type() << " id=" << m_osmIds[i].Id() << " ";
-  return out.str();
+  size_t const size = m_osmIds.size();
+  if (size)
+  {
+    ostringstream out;
+    for (size_t i = 0; i < size; ++i)
+      out << m_osmIds[i].Type() << " id=" << m_osmIds[i].OsmId() << " ";
+    return out.str();
+  }
+  else
+    return "(NOT AN OSM FEATURE)";
 }
 
 int FeatureBuilder1::GetMinFeatureDrawScale() const
@@ -418,7 +424,10 @@ string DebugPrint(FeatureBuilder1 const & f)
   default: out << "ERROR: unknown geometry type"; break;
   }
 
-  return (out.str() + " " + DebugPrint(f.m_limitRect) + " " + DebugPrint(f.m_params));
+  return (out.str() + " " +
+          DebugPrint(f.m_limitRect) + " " +
+          DebugPrint(f.m_params) + " " +
+          DebugPrint(f.m_osmIds));
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

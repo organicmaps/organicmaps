@@ -321,7 +321,7 @@ protected:
       f.SetParams(m_params);
 
       for (size_t i = 0; i < ids.size(); ++i)
-        f.AddOsmId("way", ids[i]);
+        f.AddOsmId(osm::Id::Way(ids[i]));
 
       for (size_t i = 0; i < pts.size(); ++i)
         f.AddPoint(pts[i]);
@@ -331,7 +331,7 @@ protected:
         f.SetAreaAddHoles(m_holes);
         if (f.PreSerialize())
         {
-          f.AddOsmId("relation", m_relID);
+          f.AddOsmId(osm::Id::Relation(m_relID));
           m_pMain->m_emitter(f);
         }
       }
@@ -366,9 +366,10 @@ protected:
       return;
 
     feature_t ft;
-
+    osm::Id osmId;
     if (p->name == "node")
     {
+      osmId = osm::Id::Node(id);
       if (!feature::RemoveNoDrawableTypes(fValue.m_Types, FEATURE_TYPE_POINT))
         return;
 
@@ -380,6 +381,7 @@ protected:
     }
     else if (p->name == "way")
     {
+      osmId = osm::Id::Way(id);
       // It's useless here to skip any types by drawing criteria.
       // Area features can combine all drawing types (point, linear, unique area).
 
@@ -424,6 +426,7 @@ protected:
               if (NeedWriteAddress(params) && f.FormatFullAddress(addr))
                 m_addrWriter->Write(addr.c_str(), addr.size());
 
+              f.AddOsmId(osmId);
               base_type::m_emitter(f);
             }
           }
@@ -443,6 +446,7 @@ protected:
     }
     else if (p->name == "relation")
     {
+      osmId = osm::Id::Relation(id);
       {
         // 1. Check, if this is our processable relation. Here we process only polygon relations.
         size_t i = 0;
@@ -497,7 +501,7 @@ protected:
         m_addrWriter->Write(addr.c_str(), addr.size());
 
       // add osm id for debugging
-      ft.AddOsmId(p->name, id);
+      ft.AddOsmId(osmId);
       base_type::m_emitter(ft);
     }
   }

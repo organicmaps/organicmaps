@@ -5,6 +5,7 @@
 #include "../indexer/feature.hpp"
 
 #include "../coding/file_reader.hpp"
+#include "../coding/read_write_utils.hpp"
 
 #include "../std/bind.hpp"
 
@@ -133,7 +134,7 @@ public:
   inline void SetParams(FeatureParams const & params) { m_params.SetParams(params); }
 
   /// For OSM debugging, store original OSM id
-  void AddOsmId(string const & type, uint64_t osmId);
+  void AddOsmId(osm::Id id);
   string GetOsmIdsString() const;
 
   int GetMinFeatureDrawScale() const;
@@ -164,8 +165,8 @@ public:
   //@}
 
 protected:
-  /// Used for feature debugging
-  vector<osm::OsmId> m_osmIds;
+  /// Used for features debugging
+  vector<osm::Id> m_osmIds;
 
   FeatureParams m_params;
 

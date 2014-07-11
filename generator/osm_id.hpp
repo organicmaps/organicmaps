@@ -3,18 +3,29 @@
 #include "../std/stdint.hpp"
 #include "../std/string.hpp"
 
+
 namespace osm
 {
 
-class OsmId
+class Id
 {
-  uint64_t m_id;
+  uint64_t m_encodedId;
+
+  static const uint64_t INVALID = 0ULL;
 
 public:
-  /// @param[in] type "node" "way" or "relation"
-  OsmId(string const & type, uint64_t osmId);
-  uint64_t Id() const;
+  explicit Id(uint64_t encodedId = INVALID);
+  static Id Node(uint64_t osmId);
+  static Id Way(uint64_t osmId);
+  static Id Relation(uint64_t osmId);
+  uint64_t OsmId() const;
+  /// For debug output
   string Type() const;
+
+  bool operator<(Id const & other) const { return m_encodedId < other.m_encodedId; }
+  bool operator==(Id const & other) const { return m_encodedId == other.m_encodedId; }
 };
+
+string DebugPrint(osm::Id const & id);
 
 } // namespace osm

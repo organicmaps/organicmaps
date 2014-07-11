@@ -2,42 +2,59 @@
 
 #include "../base/assert.hpp"
 
+#include "../std/sstream.hpp"
+
+
 namespace osm
 {
 
 // Use 3 higher bits to encode type
-static const uint64_t NODE = 0x2000000000000000ULL;
-static const uint64_t WAY = 0x4000000000000000ULL;
-static const uint64_t RELATION = 0x8000000000000000ULL;
+static const uint64_t NODE = 0x4000000000000000ULL;
+static const uint64_t WAY = 0x8000000000000000ULL;
+static const uint64_t RELATION = 0xC000000000000000ULL;
 static const uint64_t RESET = ~(NODE | WAY | RELATION);
 
-OsmId::OsmId(string const & type, uint64_t osmId)
-  : m_id(osmId)
+Id::Id(uint64_t encodedId) : m_encodedId(encodedId)
 {
-  if (type == "node")
-    m_id |= NODE;
-  else if (type == "way")
-    m_id |= WAY;
-  else
-  {
-    m_id |= RELATION;
-    ASSERT_EQUAL(type, "relation", ("Invalid osm type:", type));
-  }
 }
 
-uint64_t OsmId::Id() const
+Id Id::Node(uint64_t id)
 {
-  return m_id & RESET;
+  return Id( id | NODE );
 }
 
-string OsmId::Type() const
+Id Id::Way(uint64_t id)
 {
-  if (m_id & NODE)
+  return Id( id | WAY );
+}
+
+Id Id::Relation(uint64_t id)
+{
+  return Id( id | RELATION );
+}
+
+uint64_t Id::OsmId() const
+{
+  return m_encodedId & RESET;
+}
+
+string Id::Type() const
+{
+  if ((m_encodedId & RELATION) == RELATION)
+    return "relation";
+  else if ((m_encodedId & NODE) == NODE)
     return "node";
-  else if (m_id & WAY)
+  else if ((m_encodedId & WAY) == WAY)
     return "way";
   else
-    return "relation";
+    return "ERROR: Not initialized Osm ID";
+}
+
+string DebugPrint(osm::Id const & id)
+{
+  ostringstream stream;
+  stream << id.Type() << " " << id.OsmId();
+  return stream.str();
 }
 
 }  // namespace osm
