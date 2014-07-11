@@ -292,7 +292,7 @@ void TestingEngine::Draw()
   GLFunctions::glClear();
   GLFunctions::glDisable(gl_const::GLDepthTest);
 
-  scene_t::iterator it = m_scene.begin();
+  TScene::iterator it = m_scene.begin();
   for(; it != m_scene.end(); ++it)
   {
     GLState const & state = it->first;
@@ -302,7 +302,9 @@ void TestingEngine::Draw()
     ApplyState(state, prg, MakeStackRefPointer<TextureSetController>(&binder));
     ApplyUniforms(m_generalUniforms, prg);
 
-    it->second->Render();
+    vector<MasterPointer<RenderBucket> > & buckets = it->second;
+    for (size_t i = 0; i < buckets.size(); ++i)
+      buckets[i]->Render();
   }
 
   context->present();
@@ -390,12 +392,14 @@ void TestingEngine::OnFlushData(GLState const & state, TransferPointer<RenderBuc
 {
   MasterPointer<RenderBucket> bucket(vao);
   bucket->GetBuffer()->Build(m_programManager->GetProgram(state.GetProgramIndex()));
-  m_scene.insert(make_pair(state, bucket));
+  m_scene[state].push_back(bucket);
 }
 
 void TestingEngine::ClearScene()
 {
-  (void)GetRangeDeletor(m_scene, MasterPointerDeleter())();
+  TScene::iterator it = m_scene.begin();
+  for(; it != m_scene.end(); ++it)
+    DeleteRange(it->second, MasterPointerDeleter());
 }
 
 } // namespace df

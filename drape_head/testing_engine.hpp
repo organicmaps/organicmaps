@@ -49,8 +49,8 @@ private:
   MasterPointer<TextureManager> m_textures;
   df::Viewport m_viewport;
 
-  typedef map<GLState, MasterPointer<RenderBucket> > scene_t;
-  scene_t m_scene;
+  typedef map<GLState, vector<MasterPointer<RenderBucket> > > TScene;
+  TScene m_scene;
 
   UniformValuesStorage m_generalUniforms;
 };
