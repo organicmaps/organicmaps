@@ -7,7 +7,6 @@ import android.opengl.EGLSurface;
 import android.opengl.EGLConfig;
 
 import android.view.SurfaceHolder;
-import android.util.Log;
 
 import com.mapswithme.util.log.Logger;
 
@@ -24,10 +23,10 @@ public class Egl14Wrapper extends BaseEglWrapper
   private EGLSurface mSurface = EGL14.EGL_NO_SURFACE;
   private EGLConfig  mConfig  = null;
 
-  private EGLConfig[] m_configs = new EGLConfig[40];
+  private EGLConfig[] mConfigs = new EGLConfig[40];
 
-  private int m_choosenConfigIndex = 0;
-  private int m_actualConfigsNumber[] = new int[] {0};
+  private int mChoosenConfigIndex = 0;
+  private int mActualConfigsNumber[] = new int[] {0};
 
   private class EGLConfigComparator extends ConfigComparatorBase
                                     implements Comparator<EGLConfig>
@@ -55,6 +54,12 @@ public class Egl14Wrapper extends BaseEglWrapper
   }
 
   @Override
+  public boolean IsInitialized()
+  {
+    return mContext != EGL14.EGL_NO_CONTEXT;
+  }
+
+  @Override
   public boolean InitEGL()
   {
     mDisplay = EGL14.eglGetDisplay(EGL14.EGL_DEFAULT_DISPLAY);
@@ -77,47 +82,46 @@ public class Egl14Wrapper extends BaseEglWrapper
       return false;
     }
 
-    if (!EGL14.eglChooseConfig(mDisplay, GetConfigAttributes14(), 0, m_configs, 0, m_configs.length, m_actualConfigsNumber, 0))
+    if (!EGL14.eglChooseConfig(mDisplay, GetConfigAttributes14(), 0, mConfigs, 0, mConfigs.length, mActualConfigsNumber, 0))
     {
       LogEgl("eglChooseConfig failed with error ");
       return false;
     }
 
-    if (m_actualConfigsNumber[0] == 0)
+    if (mActualConfigsNumber[0] == 0)
     {
       LogIt("eglChooseConfig returned zero configs");
       return false;
     }
 
-    Arrays.sort(m_configs, 0, m_actualConfigsNumber[0], new EGLConfigComparator());
-    m_choosenConfigIndex = 0;
+    Arrays.sort(mConfigs, 0, mActualConfigsNumber[0], new EGLConfigComparator());
+    mChoosenConfigIndex = 0;
 
     while (true)
     {
-      mConfig = m_configs[m_choosenConfigIndex];
+      mConfig = mConfigs[mChoosenConfigIndex];
 
       // Debug print
       LogIt("Matched egl configs:");
-      for (int i = 0; i < m_actualConfigsNumber[0]; ++i)
-        LogIt((i == m_choosenConfigIndex ? "*" : " ") + i + ": " + eglConfigToString(m_configs[i]));
+      for (int i = 0; i < mActualConfigsNumber[0]; ++i)
+        LogIt((i == mChoosenConfigIndex ? "*" : " ") + i + ": " + eglConfigToString(mConfigs[i]));
 
       mContext = EGL14.eglCreateContext(mDisplay, mConfig, EGL14.EGL_NO_CONTEXT, GetContextAttributes14(), 0);
       if (mContext == EGL14.EGL_NO_CONTEXT)
       {
         LogEgl("eglCreateContext failed with error ");
-        m_choosenConfigIndex++;
+        mChoosenConfigIndex++;
       }
       else
         break;
 
-      if (m_choosenConfigIndex == m_configs.length)
+      if (mChoosenConfigIndex == mConfigs.length)
       {
         LogIt("No more configs left to choose");
         return false;
       }
     }
 
-    SetIsInitialized(true);
     return true;
   }
 
@@ -143,7 +147,6 @@ public class Egl14Wrapper extends BaseEglWrapper
     mContext = EGL14.EGL_NO_CONTEXT;
     mConfig = null;
 
-    SetIsInitialized(false);
     return true;
   }
 
@@ -176,13 +179,13 @@ public class Egl14Wrapper extends BaseEglWrapper
       return false;
     }
 
-    int choosenSurfaceConfigIndex = m_choosenConfigIndex;
+    int choosenSurfaceConfigIndex = mChoosenConfigIndex;
 
     while (true)
     {
       /// trying to create window surface with one of the EGL configs, recreating the m_eglConfig if necessary
 
-      mSurface = EGL14.eglCreateWindowSurface(mDisplay, m_configs[choosenSurfaceConfigIndex], holder, GetSurfaceAttributes14(), 0);
+      mSurface = EGL14.eglCreateWindowSurface(mDisplay, mConfigs[choosenSurfaceConfigIndex], holder, GetSurfaceAttributes14(), 0);
 
       final boolean surfaceCreated = (mSurface != EGL14.EGL_NO_SURFACE);
       final boolean surfaceValidated = surfaceCreated ? ValidateSurfaceSize() : false;
@@ -192,24 +195,24 @@ public class Egl14Wrapper extends BaseEglWrapper
 
       if (!surfaceCreated || !surfaceValidated)
       {
-        LogIt("eglCreateWindowSurface failed for config : " + eglConfigToString(m_configs[choosenSurfaceConfigIndex]));
+        LogIt("eglCreateWindowSurface failed for config : " + eglConfigToString(mConfigs[choosenSurfaceConfigIndex]));
         choosenSurfaceConfigIndex += 1;
-        if (choosenSurfaceConfigIndex == m_actualConfigsNumber[0])
+        if (choosenSurfaceConfigIndex == mActualConfigsNumber[0])
         {
           mSurface = EGL14.EGL_NO_SURFACE;
           LogIt("no eglConfigs left");
           break;
         }
         else
-          LogIt("trying : " + eglConfigToString(m_configs[choosenSurfaceConfigIndex]));
+          LogIt("trying : " + eglConfigToString(mConfigs[choosenSurfaceConfigIndex]));
       }
       else
         break;
     }
 
-    if ((choosenSurfaceConfigIndex != m_choosenConfigIndex) && (mSurface != EGL14.EGL_NO_SURFACE))
+    if ((choosenSurfaceConfigIndex != mChoosenConfigIndex) && (mSurface != EGL14.EGL_NO_SURFACE))
     {
-      LogIt("window surface is created for eglConfig : " + eglConfigToString(m_configs[choosenSurfaceConfigIndex]));
+      LogIt("window surface is created for eglConfig : " + eglConfigToString(mConfigs[choosenSurfaceConfigIndex]));
 
       // unbinding context
       if (mDisplay != null)
@@ -220,15 +223,15 @@ public class Egl14Wrapper extends BaseEglWrapper
         EGL14.eglDestroyContext(mDisplay, mContext);
 
       // recreating context with same eglConfig as eglWindowSurface has
-      mContext = EGL14.eglCreateContext(mDisplay, m_configs[choosenSurfaceConfigIndex], EGL14.EGL_NO_CONTEXT, GetContextAttributes14(), 0);
+      mContext = EGL14.eglCreateContext(mDisplay, mConfigs[choosenSurfaceConfigIndex], EGL14.EGL_NO_CONTEXT, GetContextAttributes14(), 0);
       if (mContext == EGL14.EGL_NO_CONTEXT)
       {
         LogEgl("context recreation failed with error ");
         return false;
       }
 
-      m_choosenConfigIndex = choosenSurfaceConfigIndex;
-      mConfig = m_configs[m_choosenConfigIndex];
+      mChoosenConfigIndex = choosenSurfaceConfigIndex;
+      mConfig = mConfigs[mChoosenConfigIndex];
     }
 
     return true;

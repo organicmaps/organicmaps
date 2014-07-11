@@ -9,30 +9,18 @@ abstract public class BaseEglWrapper extends EglWrapper
   private static final int EGL_OPENGL_ES2_BIT = 0x0004;
   private static final int EGL_CONTEXT_CLIENT_VERSION = 0x3098;
 
-  /** The number of bits requested for the red component */
+  // The number of bits requested for the red component
   private static int redSize = 5;
-  /** The number of bits requested for the green component */
+  // The number of bits requested for the green component
   private static int greenSize = 6;
-  /** The number of bits requested for the blue component */
+  // The number of bits requested for the blue component
   private static int blueSize = 5;
-  /** The number of bits requested for the alpha component */
+  // The number of bits requested for the alpha component
   private static int alphaSize = 0;
-  /** The number of bits requested for the stencil component */
+  // The number of bits requested for the stencil component
   private static int stencilSize = 0;
-  /** The number of bits requested for the depth component */
+  // The number of bits requested for the depth component
   private static int depthSize = 16;
-
-  private boolean mIsInitialized = false;
-
-  public boolean IsInitialized()
-  {
-    return mIsInitialized;
-  }
-
-  protected void SetIsInitialized(boolean isInitialized)
-  {
-    mIsInitialized = isInitialized;
-  }
 
   protected int[] GetConfigAttributes10()
   {
@@ -103,12 +91,12 @@ abstract public class BaseEglWrapper extends EglWrapper
     public int CompareConfigs(int rCav, int lCav)
     {
       if (lCav != rCav)
-        return GetCoveatValue(lCav) - GetCoveatValue(rCav);
+        return GetCaveatValue(lCav) - GetCaveatValue(rCav);
 
       return 0;
     }
 
-    int GetCoveatValue(int cav)
+    int GetCaveatValue(int cav)
     {
       if (cav == EglSlowConfig)
         return 1;

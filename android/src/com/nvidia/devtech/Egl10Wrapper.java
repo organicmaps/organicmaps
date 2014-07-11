@@ -4,7 +4,6 @@ import android.os.Build;
 import android.view.SurfaceHolder;
 
 import javax.microedition.khronos.egl.EGL10;
-import javax.microedition.khronos.egl.EGL11;
 import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
@@ -27,10 +26,10 @@ public class Egl10Wrapper extends BaseEglWrapper
   private EGLSurface mSurface = EGL10.EGL_NO_SURFACE;
   private EGLConfig  mConfig  = null;
 
-  private EGLConfig[] m_configs = new EGLConfig[40];
+  private EGLConfig[] mConfigs = new EGLConfig[40];
 
-  private int m_choosenConfigIndex = 0;
-  private int m_actualConfigsNumber[] = new int[] {0};
+  private int mChoosenConfigIndex = 0;
+  private int mActualConfigsNumber[] = new int[] {0};
 
   private Logger mLog = null;
 
@@ -88,48 +87,53 @@ public class Egl10Wrapper extends BaseEglWrapper
       return false;
     }
 
-    if (!mEgl.eglChooseConfig(mDisplay, GetConfigAttributes10(), m_configs, m_configs.length, m_actualConfigsNumber))
+    if (!mEgl.eglChooseConfig(mDisplay, GetConfigAttributes10(), mConfigs, mConfigs.length, mActualConfigsNumber))
     {
       LogEgl("eglChooseConfig failed with error ");
       return false;
     }
 
-    if (m_actualConfigsNumber[0] == 0)
+    if (mActualConfigsNumber[0] == 0)
     {
       LogIt("eglChooseConfig returned zero configs");
       return false;
     }
 
-    Arrays.sort(m_configs, 0, m_actualConfigsNumber[0], new EGLConfigComparator());
-    m_choosenConfigIndex = 0;
+    Arrays.sort(mConfigs, 0, mActualConfigsNumber[0], new EGLConfigComparator());
+    mChoosenConfigIndex = 0;
 
     while (true)
     {
-      mConfig = m_configs[m_choosenConfigIndex];
+      mConfig = mConfigs[mChoosenConfigIndex];
 
       // Debug print
       LogIt("Matched egl configs:");
-      for (int i = 0; i < m_actualConfigsNumber[0]; ++i)
-        LogIt((i == m_choosenConfigIndex ? "*" : " ") + i + ": " + eglConfigToString(m_configs[i]));
+      for (int i = 0; i < mActualConfigsNumber[0]; ++i)
+        LogIt((i == mChoosenConfigIndex ? "*" : " ") + i + ": " + eglConfigToString(mConfigs[i]));
 
       mContext = mEgl.eglCreateContext(mDisplay, mConfig, EGL10.EGL_NO_CONTEXT, GetContextAttributes10());
       if (mContext == EGL10.EGL_NO_CONTEXT)
       {
         LogEgl("eglCreateContext failed with error ");
-        m_choosenConfigIndex++;
+        mChoosenConfigIndex++;
       }
       else
         break;
 
-      if (m_choosenConfigIndex == m_configs.length)
+      if (mChoosenConfigIndex == mConfigs.length)
       {
         LogIt("No more configs left to choose");
         return false;
       }
     }
 
-    SetIsInitialized(true);
     return true;
+  }
+
+  @Override
+  public boolean IsInitialized()
+  {
+    return mContext != EGL10.EGL_NO_CONTEXT;
   }
 
   @Override
@@ -155,7 +159,6 @@ public class Egl10Wrapper extends BaseEglWrapper
     mContext = EGL10.EGL_NO_CONTEXT;
     mConfig = null;
 
-    SetIsInitialized(false);
     return true;
   }
 
@@ -188,13 +191,13 @@ public class Egl10Wrapper extends BaseEglWrapper
       return false;
     }
 
-    int choosenSurfaceConfigIndex = m_choosenConfigIndex;
+    int choosenSurfaceConfigIndex = mChoosenConfigIndex;
 
     while (true)
     {
       /// trying to create window surface with one of the EGL configs, recreating the m_eglConfig if necessary
 
-      mSurface = mEgl.eglCreateWindowSurface(mDisplay, m_configs[choosenSurfaceConfigIndex], holder, GetSurfaceAttributes10());
+      mSurface = mEgl.eglCreateWindowSurface(mDisplay, mConfigs[choosenSurfaceConfigIndex], holder, GetSurfaceAttributes10());
 
       final boolean surfaceCreated = (mSurface != EGL10.EGL_NO_SURFACE);
       final boolean surfaceValidated = surfaceCreated ? ValidateSurfaceSize() : false;
@@ -204,24 +207,24 @@ public class Egl10Wrapper extends BaseEglWrapper
 
       if (!surfaceCreated || !surfaceValidated)
       {
-        LogIt("eglCreateWindowSurface failed for config : " + eglConfigToString(m_configs[choosenSurfaceConfigIndex]));
+        LogIt("eglCreateWindowSurface failed for config : " + eglConfigToString(mConfigs[choosenSurfaceConfigIndex]));
         choosenSurfaceConfigIndex += 1;
-        if (choosenSurfaceConfigIndex == m_actualConfigsNumber[0])
+        if (choosenSurfaceConfigIndex == mActualConfigsNumber[0])
         {
           mSurface = EGL10.EGL_NO_SURFACE;
           LogIt("no eglConfigs left");
           break;
         }
         else
-          LogIt("trying : " + eglConfigToString(m_configs[choosenSurfaceConfigIndex]));
+          LogIt("trying : " + eglConfigToString(mConfigs[choosenSurfaceConfigIndex]));
       }
       else
         break;
     }
 
-    if ((choosenSurfaceConfigIndex != m_choosenConfigIndex) && (mSurface != null))
+    if ((choosenSurfaceConfigIndex != mChoosenConfigIndex) && (mSurface != null))
     {
-      LogIt("window surface is created for eglConfig : " + eglConfigToString(m_configs[choosenSurfaceConfigIndex]));
+      LogIt("window surface is created for eglConfig : " + eglConfigToString(mConfigs[choosenSurfaceConfigIndex]));
 
       // unbinding context
       if (mDisplay != null)
@@ -232,15 +235,15 @@ public class Egl10Wrapper extends BaseEglWrapper
         mEgl.eglDestroyContext(mDisplay, mContext);
 
       // recreating context with same eglConfig as eglWindowSurface has
-      mContext = mEgl.eglCreateContext(mDisplay, m_configs[choosenSurfaceConfigIndex], EGL10.EGL_NO_CONTEXT, GetContextAttributes10());
+      mContext = mEgl.eglCreateContext(mDisplay, mConfigs[choosenSurfaceConfigIndex], EGL10.EGL_NO_CONTEXT, GetContextAttributes10());
       if (mContext == EGL10.EGL_NO_CONTEXT)
       {
         LogEgl("context recreation failed with error ");
         return false;
       }
 
-      m_choosenConfigIndex = choosenSurfaceConfigIndex;
-      mConfig = m_configs[m_choosenConfigIndex];
+      mChoosenConfigIndex = choosenSurfaceConfigIndex;
+      mConfig = mConfigs[mChoosenConfigIndex];
     }
 
     return true;
