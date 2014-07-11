@@ -51,7 +51,7 @@ public:
 
   /// @param[in] id MWM file name without extension as a key.
   bool GetGuideInfo(string const & id, GuideInfo & appInfo) const;
-  void GetGuidesId(set<string> & s);
+  void GetGuidesIds(set<string> & s);
 
   /// @param[in] appID Guide app package id.
   //@{

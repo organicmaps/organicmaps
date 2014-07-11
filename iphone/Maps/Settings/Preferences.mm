@@ -43,7 +43,7 @@
 
     /*This code counts conversion Guides->MWM. We rely on setting with name "Units", and by the time this code will be executed, Framework->GuidesManager should be initialised*/
     set<string> s;
-    GetFramework().GetGuidesManager().GetGuidesId(s);
+    GetFramework().GetGuidesManager().GetGuidesIds(s);
     NSMutableDictionary * guidesUrls = [[NSMutableDictionary alloc] init];
     for (set<string>::iterator it = s.begin(); it != s.end();++it)
     {
