@@ -15,6 +15,7 @@
 #include <FWeb.h>
 #include <FAppApp.h>
 #include <FApp.h>
+#include <FNetNetConnectionManager.h>
 
 using namespace Tizen::Base;
 using namespace Tizen::Base::Collection;
@@ -22,6 +23,7 @@ using namespace Tizen::Ui;
 using namespace Tizen::Ui::Controls;
 using namespace Tizen::Ui::Scenes;
 using namespace Tizen::App;
+using namespace Tizen::Net;
 using namespace Tizen::Web::Controls;
 using namespace Tizen::Graphics;
 using namespace storage;
@@ -245,12 +247,27 @@ void DownloadCountryForm::OnListViewItemStateChanged(ListView & listView, int in
     if (status == ENotDownloaded || status == EDownloadFailed)
     {
       storage::LocalAndRemoteSizeT size = Storage().CountrySizeInBytes(country);
+      int const sz_in_MB = int((size.second - size.first) >> 20);
       String msg = GetString(IDS_DOWNLOAD);
       msg.Append(" ");
-      msg.Append(int((size.second - size.first) >> 20));
+      msg.Append(sz_in_MB);
       msg.Append(GetString(IDS_MB));
 
-      if (MessageBoxAsk(name, msg))
+      NetConnectionManager connectionManager;
+      connectionManager.Construct();
+      ManagedNetConnection * pManagedNetConnection = connectionManager.GetManagedNetConnectionN();
+      const NetConnectionInfo * pInfo = pManagedNetConnection->GetNetConnectionInfo();
+
+      bool bDownload = true;
+      if (pInfo == 0 || pInfo->GetBearerType() == NET_BEARER_NONE)
+      {
+        bDownload = false;
+        MessageBoxOk(GetString(IDS_NO_INTERNET_CONNECTION_DETECTED), GetString(IDS_USE_WIFI_RECOMMENDATION_TEXT));
+      }
+      if (bDownload && pInfo->GetBearerType() != NET_BEARER_WIFI && (sz_in_MB > 10))
+        bDownload = MessageBoxAsk(name, FormatString1(IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD, name));
+
+      if (bDownload && MessageBoxAsk(name, msg))
         Storage().DownloadCountry(country);
     }
     else if (status == EDownloading || status == EInQueue)

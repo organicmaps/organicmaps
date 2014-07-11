@@ -19,6 +19,12 @@
 	<text id="IDS_MB">МБ</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Мили</text>
+	<!-- Settings/Downloader - No internet connection dialog title -->
+	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">Отсутствует подключение к интернету</text>
+	<!-- Settings/Downloader - 3G download warning dialog title -->
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Нет WiFi соединения. Вы хотите скачать %s через сотового оператора (GPRS, EDGE или 3G)?</text>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Мы рекомендуем загружать большие страны через WiFi</text>
 	<text id="IDS_DOWNLOAD">Загрузить</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">Не удалось загрузить %s</text>

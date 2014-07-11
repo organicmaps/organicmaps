@@ -469,6 +469,7 @@
     pt = A minha posição
     hu = Saját helyzet
   [no_internet_connection_detected]
+    tags = tizen
     en = No Internet connection detected
     comment = Settings/Downloader - No internet connection dialog title
     cs = Nenalezeno připojení k Internetu
@@ -486,6 +487,7 @@
     pt = Não foi detetada uma ligação à Internet
     hu = Nem találtam internet kapcsolatot
   [no_wifi_ask_cellular_download]
+    tags = tizen
     en = No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?
     comment = Settings/Downloader - 3G download warning dialog title
     cs = Nenalezeno připojení k WiFi. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %@?
@@ -711,6 +713,7 @@
     pt = Sim
     hu = Igen
   [use_wifi_recommendation_text]
+    tags = tizen
     en = We recommend using WiFi to download large maps
     comment = Settings/Downloader - No internet connection dialog message
     cs = Doporučujeme použít WiFi pro stahování větších map

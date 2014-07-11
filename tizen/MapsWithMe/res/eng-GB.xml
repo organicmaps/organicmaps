@@ -19,6 +19,12 @@
 	<text id="IDS_MB">MB</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Miles</text>
+	<!-- Settings/Downloader - No internet connection dialog title -->
+	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">No Internet connection detected</text>
+	<!-- Settings/Downloader - 3G download warning dialog title -->
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %s?</text>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">We recommend using WiFi to download large maps</text>
 	<text id="IDS_DOWNLOAD">Download</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">%s download has failed</text>

@@ -74,7 +74,9 @@ extern const wchar_t* IDS_MEASUREMENT_UNITS_SUMMARY;
 extern const wchar_t* IDS_MESSAGE;
 extern const wchar_t* IDS_MILES;
 extern const wchar_t* IDS_MY_POSITION_SHARE_SMS;
+extern const wchar_t* IDS_NO_INTERNET_CONNECTION_DETECTED;
 extern const wchar_t* IDS_NO_SEARCH_RESULTS_FOUND;
+extern const wchar_t* IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD;
 extern const wchar_t* IDS_PARKING;
 extern const wchar_t* IDS_PHARMACY;
 extern const wchar_t* IDS_POLICE;
@@ -89,6 +91,7 @@ extern const wchar_t* IDS_TOILET;
 extern const wchar_t* IDS_TOURISM;
 extern const wchar_t* IDS_TRANSPORT;
 extern const wchar_t* IDS_UNKNOWN_CURRENT_POSITION;
+extern const wchar_t* IDS_USE_WIFI_RECOMMENDATION_TEXT;
 extern const wchar_t* IDS_VISIBLE;
 extern const wchar_t* IDS_VERSION;
 // main form

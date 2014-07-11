@@ -18,7 +18,7 @@
         </itemSet>
     </Header>
     <ScrollPanel id="IDC_SCROLLPANEL" parent="IDF_CATEGORY_FORM">
-        <property autoResizingEnabled="true" backgroundColor="" backgroundColorOpacity="0" clientAreaHeight="0" clientAreaWidth="0" pageScrollEnabled="false" scrollBarVisible="true" scrollDirection="SCROLL_PANEL_SCROLL_DIRECTION_VERTICAL" scrollInputMode="SCROLL_INPUT_MODE_ALLOW_ANY_DIRECTION"/>
+        <property autoResizingEnabled="true" backgroundColor="" backgroundColorOpacity="0" clientAreaHeight="0" clientAreaWidth="0" pageScrollEnabled="true" scrollBarVisible="true" scrollDirection="SCROLL_PANEL_SCROLL_DIRECTION_VERTICAL" scrollInputMode="SCROLL_INPUT_MODE_ALLOW_ANY_DIRECTION"/>
         <panelLayout height="902.0" mode="Portrait" width="720.0"/>
         <panelLayout height="100.0" mode="Landscape" width="582.0"/>
         <layout bottomRelation="IDF_CATEGORY_FORM" bottomRelationType="RECT_EDGE_RELATION_BOTTOM_TO_BOTTOM" centerHorizontal="false" centerVertical="false" height="1124.0" horizontalFitPolicy="FIT_POLICY_FIXED" leftRelation="IDF_CATEGORY_FORM" leftRelationType="RECT_EDGE_RELATION_LEFT_TO_LEFT" marginBottom="0.0" marginLeft="0.0" marginRight="0.0" marginTop="0.0" mode="Portrait" rightRelation="IDF_CATEGORY_FORM" rightRelationType="RECT_EDGE_RELATION_RIGHT_TO_RIGHT" topRelation="IDF_CATEGORY_FORM" topRelationType="RECT_EDGE_RELATION_TOP_TO_TOP" type="LAYOUT_RELATIVE" verticalFitPolicy="FIT_POLICY_FIXED" width="720.0" x="0.0" y="0.0"/>

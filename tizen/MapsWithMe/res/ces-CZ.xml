@@ -17,6 +17,12 @@
 	<text id="IDS_KILOMETRES">Kilometry</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Míle</text>
+	<!-- Settings/Downloader - No internet connection dialog title -->
+	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">Nenalezeno připojení k Internetu</text>
+	<!-- Settings/Downloader - 3G download warning dialog title -->
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Nenalezeno připojení k WiFi. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %s?</text>
+	<!-- Settings/Downloader - No internet connection dialog message -->
+	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Doporučujeme použít WiFi pro stahování větších map</text>
 	<text id="IDS_DOWNLOAD">Stáhnout</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">Stahování selhalo: %s</text>
