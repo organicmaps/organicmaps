@@ -77,6 +77,7 @@ public:
                    FeatureID const & id);
 
   void operator ()(CoordPointT const & point);
+  bool HasGeometry() const;
   void ProcessRule(Stylist::rule_wrapper_t const & rule);
 
 private:

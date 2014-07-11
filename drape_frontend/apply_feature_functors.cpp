@@ -181,7 +181,20 @@ ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey, Fea
 
 void ApplyLineFeature::operator ()(CoordPointT const & point)
 {
-  m_path.push_back(m2::PointF(point.first, point.second));
+  m2::PointF inputPt(point.first, point.second);
+
+  /// TODO remove this check when fix generator.
+  /// Now we have line objects with zero length segments
+  if (m_path.empty())
+    m_path.push_back(inputPt);
+  else
+    if (!(inputPt - m_path.back()).IsAlmostZero())
+      m_path.push_back(inputPt);
+}
+
+bool ApplyLineFeature::HasGeometry() const
+{
+  return m_path.size() > 1;
 }
 
 void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)

@@ -62,7 +62,8 @@ void RuleDrawer::operator()(FeatureType const & f)
     ApplyLineFeature apply(m_context, m_tileKey, f.GetID());
     f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
 
-    s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
+    if (apply.HasGeometry())
+      s.ForEachRule(bind(&ApplyLineFeature::ProcessRule, &apply, _1));
     //apply.Finish();
   }
   else
