@@ -60,13 +60,14 @@ void BackendRenderer::AcceptMessage(RefPointer<Message> message)
       ScreenBase const & screen = msg->GetScreen();
       set<TileKey> const & tiles = msg->GetTiles();
       m_readManager->UpdateCoverage(screen, tiles);
+      break;
     }
   case Message::InvalidateReadManagerRect:
     {
       InvalidateReadManagerRectMessage * msg = df::CastMessage<InvalidateReadManagerRectMessage>(message);
       m_readManager->Invalidate(msg->GetTilesForInvalidate());
+      break;
     }
-    break;
   case Message::TileReadStarted:
     m_batchersPool->ReserveBatcher(df::CastMessage<BaseTileMessage>(message)->GetKey());
     break;

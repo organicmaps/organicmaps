@@ -148,6 +148,7 @@ void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
 
       Message * msgToBackend = new InvalidateReadManagerRectMessage(MovePointer(keyStorage));
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, MovePointer(msgToBackend));
+      break;
     }
 
   default:
