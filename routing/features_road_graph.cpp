@@ -18,10 +18,9 @@ double const READ_CROSS_RADIUS = 10.0;
 double const DEFAULT_SPEED_MS = 15.0;
 
 
-FeatureRoadGraph::FeatureRoadGraph(Index * pIndex, size_t mwmID)
+FeatureRoadGraph::FeatureRoadGraph(Index const * pIndex, size_t mwmID)
   : m_pIndex(pIndex), m_mwmID(mwmID)
 {
-  m_onewayType = classif().GetTypeByPath(vector<string>(1, "oneway"));
 }
 
 uint32_t FeatureRoadGraph::GetStreetReadScale()
@@ -279,13 +278,13 @@ void FeatureRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route &
 
 bool FeatureRoadGraph::IsStreet(feature::TypesHolder const & types) const
 {
-  static ftypes::IsStreetChecker const checker;
-  return checker(types);
+  return (types.GetGeoType() == feature::GEOM_LINE &&
+          ftypes::IsStreetChecker::Instance()(types));
 }
 
 bool FeatureRoadGraph::IsOneway(feature::TypesHolder const & types) const
 {
-  return types.Has(m_onewayType);
+  return ftypes::IsStreetChecker::Instance().IsOneway(types);
 }
 
 } // namespace routing

@@ -57,6 +57,24 @@ IsStreetChecker::IsStreetChecker()
 
   for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 2)));
+
+  m_onewayType = c.GetTypeByPath(vector<string>(1, "oneway"));
+}
+
+IsStreetChecker const & IsStreetChecker::Instance()
+{
+  static const IsStreetChecker inst;
+  return inst;
+}
+
+bool IsStreetChecker::IsOneway(FeatureType const & ft) const
+{
+  return IsOneway(feature::TypesHolder(ft));
+}
+
+bool IsStreetChecker::IsOneway(feature::TypesHolder const & types) const
+{
+  return types.Has(m_onewayType);
 }
 
 IsBuildingChecker::IsBuildingChecker()

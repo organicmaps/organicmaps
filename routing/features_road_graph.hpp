@@ -16,7 +16,7 @@ namespace routing
 class FeatureRoadGraph : public IRoadGraph
 {
 public:
-  FeatureRoadGraph(Index * pIndex, size_t mwmID);
+  FeatureRoadGraph(Index const * pIndex, size_t mwmID);
 
   virtual void GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns);
   virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route);
@@ -32,9 +32,7 @@ private:
   void LoadFeature(uint32_t id, FeatureType & ft);
 
 private:
-  uint32_t m_onewayType;
-
-  Index * m_pIndex;
+  Index const * m_pIndex;
   size_t m_mwmID;
 };
 

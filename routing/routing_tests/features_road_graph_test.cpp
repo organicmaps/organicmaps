@@ -35,8 +35,7 @@ bool TestResult(IRoadGraph::TurnsVectorT const & vec, RoadPos const & pos, doubl
 
 void Name2IdMapping::operator()(FeatureType const & ft)
 {
-  static ftypes::IsStreetChecker const checker;
-  if (!checker(ft))
+  if (!ftypes::IsStreetChecker::Instance()(ft))
     return;
 
   string name;

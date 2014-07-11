@@ -313,8 +313,8 @@ bool PreResult2::IsEqualCommon(PreResult2 const & r) const
 
 bool PreResult2::IsStreet() const
 {
-  static ftypes::IsStreetChecker const checker;
-  return (m_geomType == feature::GEOM_LINE && checker(m_types));
+  return (m_geomType == feature::GEOM_LINE &&
+          ftypes::IsStreetChecker::Instance()(m_types));
 }
 
 string PreResult2::DebugPrint() const
