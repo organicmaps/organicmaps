@@ -97,7 +97,7 @@ private:
 
   Viewport m_viewport;
   ScreenBase m_view;
-  shared_ptr<set<TileKey> > m_tiles;
+  set<TileKey> m_tiles;
 
   OverlayTree m_overlayTree;
 };

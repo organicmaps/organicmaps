@@ -116,37 +116,32 @@ private:
 class UpdateReadManagerMessage : public UpdateModelViewMessage
 {
 public:
-  UpdateReadManagerMessage(ScreenBase const & screen, shared_ptr<set<TileKey> > const & tiles)
+  UpdateReadManagerMessage(ScreenBase const & screen, set<TileKey> const & tiles)
     : UpdateModelViewMessage(screen)
     , m_tiles(tiles)
   {
     SetType(UpdateReadManager);
   }
 
-  set<TileKey> const & GetTiles() const { return *m_tiles; }
+  set<TileKey> const & GetTiles() const { return m_tiles; }
 
 private:
-  shared_ptr<set<TileKey> > m_tiles;
+  set<TileKey> m_tiles;
 };
 
 class InvalidateReadManagerRectMessage : public Message
 {
 public:
-  InvalidateReadManagerRectMessage(TransferPointer<set<TileKey> > tiles)
+  InvalidateReadManagerRectMessage(set<TileKey> const & tiles)
     : m_tiles(tiles)
   {
     SetType(InvalidateReadManagerRect);
   }
 
-  ~InvalidateReadManagerRectMessage()
-  {
-    m_tiles.Destroy();
-  }
-
-  set<TileKey> const & GetTilesForInvalidate() const { return *m_tiles.GetRaw(); }
+  set<TileKey> const & GetTilesForInvalidate() const { return m_tiles; }
 
 private:
-  MasterPointer<set<TileKey> > m_tiles;
+  set<TileKey> m_tiles;
 };
 
 template <typename T>

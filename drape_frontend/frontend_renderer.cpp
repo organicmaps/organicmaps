@@ -120,7 +120,6 @@ void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
       RefreshProjection();
       RefreshModelView();
       ResolveTileKeys();
-      ASSERT(m_tiles != NULL, ());
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
       break;
@@ -132,7 +131,6 @@ void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
       m_view = coverMessage->GetScreen();
       RefreshModelView();
       ResolveTileKeys();
-      ASSERT(m_tiles != NULL, ());
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                 MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
       break;
@@ -142,11 +140,11 @@ void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
     {
       InvalidateRectMessage * m = df::CastMessage<InvalidateRectMessage>(message);
 
-      set<TileKey> * keyStorage = new set<TileKey>();
-      ResolveTileKeys(*keyStorage, m->GetRect());
-      InvalidateRenderGroups(*keyStorage);
+      set<TileKey> keyStorage;
+      ResolveTileKeys(keyStorage, m->GetRect());
+      InvalidateRenderGroups(keyStorage);
 
-      Message * msgToBackend = new InvalidateReadManagerRectMessage(MovePointer(keyStorage));
+      Message * msgToBackend = new InvalidateReadManagerRectMessage(keyStorage);
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, MovePointer(msgToBackend));
       break;
     }
@@ -278,10 +276,7 @@ void FrontendRenderer::InvalidateRenderGroups(set<TileKey> & keyStorage)
 
 set<TileKey> & FrontendRenderer::GetTileKeyStorage()
 {
-  if (m_tiles == NULL)
-    m_tiles.reset(new set<TileKey>());
-
-  return *m_tiles;
+  return m_tiles;
 }
 
 void FrontendRenderer::StartThread()
