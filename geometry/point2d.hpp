@@ -25,11 +25,6 @@ namespace m2
 
     static Point<T> Zero() { return Point<T>(0, 0); }
 
-    static double   LengthFromZero(Point<T> const & p)
-    {
-      return p.Length(Point<T>(0,0));
-    }
-
     bool EqualDxDy(Point<T> const & p, T eps) const
     {
       return ((fabs(x - p.x) < eps) && (fabs(y - p.y) < eps));
@@ -43,13 +38,6 @@ namespace m2
     double Length(Point<T> const & p) const
     {
       return sqrt(SquareLength(p));
-    }
-
-    Point<T> Normalize() const
-    {
-      ASSERT(!IsAlmostZero(), ());
-      double module = LengthFromZero(*this);
-      return Point<T>(x/module, y/module);
     }
 
     bool IsAlmostZero() const
@@ -135,6 +123,21 @@ namespace m2
     {
       return m2::Point<T>(x / scale, y / scale);
     }
+
+    /// @name VectorOperationsOnPoint
+    // @{
+    double Length() const
+    {
+      return sqrt(x*x + y*y);
+    }
+
+    Point<T> Normalize() const
+    {
+      ASSERT(!IsAlmostZero(), ());
+      double const module = this->Length();
+      return Point<T>(x / module, y / module);
+    }
+    // @}
 
     m2::Point<T> const & operator *= (math::Matrix<T, 3, 3> const & m)
     {
