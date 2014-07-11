@@ -10,234 +10,333 @@
 #include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
+#include "../std/vector.hpp"
+
+using m2::PointF;
 
 namespace df
 {
 
+namespace
+{
+  static uint32_t const ListStride = 24;
+}
+
+/// Split angle v1-v2-v3 by bisector.
+void Bisector(float R, PointF const & v1, PointF const & v2, PointF const & v3,
+              PointF & leftBisector, PointF & rightBisector, PointF & dx)
+{
+  PointF const dif21 = v2 - v1;
+  PointF const dif32 = v3 - v2;
+
+  float const l1 = dif21.Length();
+  float const l2 = dif32.Length();
+  float const l3 = (v1 - v3).Length();
+
+  /// normal1 is normal from segment v2 - v1
+  /// normal2 is normal from segmeny v3 - v2
+  PointF normal1(-dif21.y / l1, dif21.x / l1);
+  PointF const normal2(-dif32.y / l2, dif32.x / l2);
+
+  leftBisector = normal1 + normal2;
+
+  /// find cos(2a), where angle a is a half of v1-v2-v3 angle
+  float const cos2A = (l1 * l1 + l2 * l2 - l3 * l3) / (2.0f * l1 * l2);
+  float const sinA = sqrt((1.0f - cos2A) / 2.0f);
+  float const radius = R / sinA;
+
+  leftBisector = (leftBisector * radius) / leftBisector.Length();
+  rightBisector = -leftBisector;
+
+  normal1 = normal1 * R;
+  dx = leftBisector - normal1;
+
+  float const sign = (m2::DotProduct(dif21, leftBisector) > 0.0f) ? 1.0f : -1.0f;
+  dx.x = 2.0f * sign * (dx.Length() / l1);
+
+  leftBisector += v2;
+  rightBisector += v2;
+}
+
+template <typename T>
+void QuadStripToList(vector<T> & dst, vector<T> & src, int32_t index)
+{
+  static const int32_t dstStride = 6;
+  static const int32_t srcStride = 4;
+  const int32_t baseDstIndex = index * dstStride;
+  const int32_t baseSrcIndex = index * srcStride;
+
+  dst[baseDstIndex] = src[baseSrcIndex];
+  dst[baseDstIndex + 1] = src[baseSrcIndex + 1];
+  dst[baseDstIndex + 2] = src[baseSrcIndex + 2];
+  dst[baseDstIndex + 3] = src[baseSrcIndex + 1];
+  dst[baseDstIndex + 4] = src[baseSrcIndex + 3];
+  dst[baseDstIndex + 5] = src[baseSrcIndex + 2];
+}
+
+void SetColor(vector<float> &dst, float const * ar, int index)
+{
+  uint32_t const colorArraySize = 4;
+  uint32_t const baseListIndex = ListStride * index;
+  for(int i = 0; i < ListStride ; ++i)
+    dst[baseListIndex + i] = ar[i%4];
+
+  for (uint32_t i = 0; i < 6; ++i)
+    memcpy(&dst[baseListIndex + colorArraySize * i], ar, colorArraySize * sizeof(float));
+}
+
+struct Vertex
+{
+  Vertex() {}
+  Vertex(m2::PointF const & pos, m2::PointF const & dir)
+    : m_position(pos), m_direction(dir) {}
+
+  Vertex(float posX, float posY, float dirX = 0.0f, float dirY = 0.0f)
+    : m_position(posX, posY), m_direction(dirX, dirY) {}
+
+  m2::PointF m_position;
+  m2::PointF m_direction;
+};
+
+struct Offset
+{
+  Offset() : m_topOffset(0.0f), m_pointSide(0.0f), m_depth(0.0f) {}
+  Offset(float topOffset, float pointSide, float depth)
+    : m_topOffset(topOffset), m_pointSide(pointSide), m_depth(depth) {}
+
+  float m_topOffset;
+  float m_pointSide;
+  float m_depth;
+};
+
+struct WidthType
+{
+  WidthType() {}
+  WidthType(float halfWidth, float cap, float join, float insetsWidth)
+    : m_halfWidth(halfWidth), m_capType(cap), m_joinType(join), m_insetsWidth(insetsWidth) {}
+
+  float m_halfWidth;
+  float m_capType;
+  float m_joinType;
+  float m_insetsWidth;
+};
+
+struct SphereCenters
+{
+  SphereCenters() {}
+  SphereCenters(m2::PointF const & center1, m2::PointF const & center2)
+    : m_center1(center1), m_center2(center2) {}
+
+  m2::PointF m_center1;
+  m2::PointF m_center2;
+};
+
 LineShape::LineShape(vector<m2::PointF> const & points,
                      LineViewParams const & params)
-  : m_points(points)
-  , m_params(params)
+  : m_params(params),
+   m_points( params.m_cap == ButtCap ? points.size() : points.size() + 2)
 {
-  ASSERT_GREATER(m_points.size(), 1, ());
+  ASSERT_GREATER(points.size(), 1, ());
+
+  int const size = m_points.size();
+  if (m_params.m_cap != ButtCap)
+  {
+    m_points[0] = points[0] + (points[0] - points[1]).Normalize();;
+    m_points[size - 1] = points[size - 3] + (points[size - 3] - points[size - 4]).Normalize();
+    memcpy(&m_points[1], &points[0], (size - 2) * sizeof(PointF));
+  }
+  else
+    m_points = points;
 }
 
 void LineShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const
 {
-  //join, cap, segment params
-  // vertex type:
-  // [x] - {-1 : cap, 0 : segment, +1 : join}
-  // [y] - cap: { 0 : round, 1 : butt, -1 : square}
-  // [z] - join : {0: none, round : 1, bevel : 2}
-  // [w] - unused
-  float const T_CAP = -1.f;
-  float const T_SEGMENT = 0.f;
-  float const T_JOIN = +1.f;
+  int size = m_points.size();
+  float const r = 1.0f;
 
-  float const MIN_JOIN_ANGLE = 15*math::pi/180;
-  float const MAX_JOIN_ANGLE = 179*math::pi/180;
+  int const numVert = (size - 1) * 4;
+  vector<Vertex> vertex(numVert);
+  vector<Offset> dxVals(numVert);
+  vector<SphereCenters> centers(numVert);
+  vector<WidthType> widthType(numVert);
 
-  typedef m2::PointF vec2;
+  PointF leftBisector, rightBisector, dx;
 
-  size_t const count = m_points.size();
+  PointF v2 = m_points[0];
+  PointF v3 = m_points[1];
+  PointF v1 = v2 * 2 - v3;
 
-  // prepare data
-  vector<Point3D> renderPoints;
-  renderPoints.reserve(count);
-  vector<Point3D> renderDirections;
-  renderDirections.reserve(count);
-  vector<Point3D> renderVertexTypes;
-  renderVertexTypes.reserve(count);
-  //
+  Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
 
-  float const hw = GetWidth() / 2.0f;
-  float const realWidth = GetWidth();
+  float const joinType = m_params.m_join == RoundJoin ? 1 : 0;
+  float const halfWidth = m_params.m_width / 2.0f;
+  float const insetHalfWidth= 1.0f * halfWidth;
 
-  // We understand 'butt' cap as 'flat'
-  bool const doAddCap = m_params.m_cap != ButtCap;
-  vec2       direction  = m_points[1] - m_points[0];
-  m2::PointF firstPoint = m_points[0];
-  // Add start cap quad
-  if (doAddCap)
+  vertex[0] = Vertex(v2, leftBisector);
+  vertex[1] = Vertex(v2, rightBisector);
+  dxVals[0] = Offset(0.0f, -1.0f, m_params.m_depth);
+  dxVals[1] = Offset(0.0f, -1.0f, m_params.m_depth);
+  centers[0] = centers[1] = SphereCenters(v2, v3);
+
+  widthType[0] = widthType[2] = WidthType(halfWidth, 0, joinType, insetHalfWidth);
+  widthType[1] = widthType[3] = WidthType(-halfWidth, 0, joinType, insetHalfWidth);
+
+  //points in the middle
+  for(int i = 1 ; i < size - 1 ; ++i)
   {
-    renderPoints.push_back(Point3D::From2D(firstPoint, m_params.m_depth)); // A
-    renderDirections.push_back(Point3D::From2D(direction, hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
+    v1 = v2;
+    v2 = v3;
+    v3 = m_points[i + 1];
+    Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
+    float aspect = (v1-v2).Length() / (v2-v3).Length();
 
-    renderPoints.push_back(Point3D::From2D(firstPoint, m_params.m_depth)); // B
-    renderDirections.push_back(Point3D::From2D(direction, -hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
-  }
-  //
+    vertex[(i-1) * 4 + 2] = Vertex(v2, leftBisector);
+    vertex[(i-1) * 4 + 3] = Vertex(v2, rightBisector);
+    dxVals[(i-1) * 4 + 2] = Offset(dx.x, 1.0f, m_params.m_depth);
+    dxVals[(i-1) * 4 + 3] = Offset(-dx.x, 1.0f, m_params.m_depth);
+    centers[(i-1) * 4 + 2] = centers[(i-1) * 4 + 3] = SphereCenters(v1, v2);
 
-  m2::PointF start = m_points[0];
-  for (size_t i = 1; i < count; ++i)
-  {
-    m2::PointF end = m_points[i];
-    vec2 segment   = end - start;
+    vertex[i * 4 + 0] = Vertex(v2, leftBisector);
+    vertex[i * 4 + 1] = Vertex(v2, rightBisector);
+    dxVals[i * 4 + 0] = Offset(-dx.x * aspect, -1.0f, m_params.m_depth);
+    dxVals[i * 4 + 1] = Offset(dx.x * aspect, -1.0f, m_params.m_depth);
+    centers[i * 4] = centers[i * 4 + 1] = SphereCenters(v2, v3);
 
-    if (i < count - 1)
-    {
-      vec2 longer = m_points[i+1] - start;
-      float const dp = m2::DotProduct(segment, longer);
-      bool  const isCodirected = my::AlmostEqual(dp, static_cast<float>(
-                                                    m2::PointF::LengthFromZero(segment)
-                                                  * m2::PointF::LengthFromZero(longer)));
-
-      // We must not skip and unite with zero-length vectors.
-      // For instance, if we have points [A,B,A]
-      // we could have 'segment' = AB, and 'longer' = AA
-      // if we unite it, we will lose AB segment.
-      // We could use isAlmostZero, but dotProduct is faster.
-      bool const isOrtho = my::AlmostEqual(dp, .0f);
-      if (isCodirected && !isOrtho)
-        continue;
-    }
-
-    Point3D const start3d = Point3D::From2D(start, m_params.m_depth);
-    Point3D const end3d   = Point3D::From2D(end, m_params.m_depth);
-
-    Point3D const directionPos = Point3D::From2D(segment, hw);
-    Point3D const directionNeg = Point3D::From2D(segment, -hw);
-
-    renderPoints.push_back(start3d);
-    renderDirections.push_back(directionPos);
-    renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, realWidth));
-
-    renderPoints.push_back(start3d);
-    renderDirections.push_back(directionNeg);
-    renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, realWidth));
-
-    renderPoints.push_back(end3d);
-    renderDirections.push_back(directionPos);
-    renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, realWidth));
-
-    renderPoints.push_back(end3d);
-    renderDirections.push_back(directionNeg);
-    renderVertexTypes.push_back(Point3D(T_SEGMENT, 0, realWidth));
-
-    // This is a join!
-    bool const needJoinSegments = (end != m_points[count - 1]);
-    if (needJoinSegments && (m_params.m_join != BevelJoin))
-    {
-      vec2 vIn  = m_points[i]   - m_points[i-1];
-      vec2 vOut = m_points[i+1] - m_points[i];
-      float const cross = vIn.x*vOut.y - vIn.y*vOut.x;
-      float const dot   = vIn.x*vOut.x + vIn.y*vOut.y;
-      float const joinAngle = atan2(cross, dot);
-      bool  const clockWise = cross < 0;
-      float const directionFix = ( clockWise ? +1 : -1 );
-
-      float const absAngle = my::Abs(joinAngle);
-      if (absAngle > MIN_JOIN_ANGLE && absAngle < MAX_JOIN_ANGLE)
-      {
-        float const joinHeight = (m_params.m_join == MiterJoin)
-                                 ? my::Abs(hw / cos(joinAngle/2))
-                                 : 2*hw; // ensure we have enough space for sector
-
-        // Add join triangles
-        Point3D pivot = Point3D::From2D(m_points[i], m_params.m_depth);
-
-        // T123
-        vec2 nIn(-vIn.y, vIn.x);
-        vec2 nInFixed = nIn.Normalize() * directionFix;
-
-        renderPoints.push_back(pivot);//1
-        renderDirections.push_back(Point3D::From2D(nInFixed, hw));
-        renderVertexTypes.push_back(Point3D(T_JOIN, m_params.m_join, realWidth));
-
-        renderPoints.push_back(pivot);//2
-        renderDirections.push_back(Point3D(0,0,0)); // zero-shift point
-        renderVertexTypes.push_back(Point3D(T_JOIN, m_params.m_join, realWidth));
-
-        // T234
-        vec2 nOut(-vOut.y, vOut.x);
-        vec2 nOutFixed = nOut.Normalize() * directionFix;
-
-        vec2 joinBackBisec = (nInFixed + nOutFixed).Normalize();
-
-        renderPoints.push_back(pivot); //3
-        renderDirections.push_back(Point3D::From2D(joinBackBisec, joinHeight));
-        renderVertexTypes.push_back(Point3D(T_JOIN, m_params.m_join, realWidth));
-
-        renderPoints.push_back(pivot); //4
-        renderDirections.push_back(Point3D::From2D(nOutFixed, hw));
-        renderVertexTypes.push_back(Point3D(T_JOIN, m_params.m_join, realWidth));
-
-        if (!clockWise)
-        {
-          // We use triangle strip, so we need to create zero-sqare triangle
-          // for correct rasterization.
-          renderPoints.push_back(pivot); //4 second time
-          renderDirections.push_back(Point3D::From2D(nOutFixed, hw));
-          renderVertexTypes.push_back(Point3D(T_JOIN, m_params.m_join, realWidth));
-        }
-      }
-    }
-    //
-
-    start = end;
+    widthType[(i * 4) + 0] = widthType[(i * 4) + 2] = WidthType(halfWidth, 0, joinType, insetHalfWidth);
+    widthType[(i * 4) + 1] = widthType[(i * 4) + 3] = WidthType(-halfWidth, 0, joinType, insetHalfWidth);
   }
 
-  //Add final cap
-  if (doAddCap)
+  //last points
+  v1 = v2;
+  v2 = v3;
+  v3 = v2 * 2 - v1;
+
+  Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
+  float const aspect = (v1-v2).Length() / (v2-v3).Length();
+
+  vertex[(size - 2) * 4 + 2] = Vertex(v2, leftBisector);
+  vertex[(size - 2) * 4 + 3] = Vertex(v2, rightBisector);
+  dxVals[(size - 2) * 4 + 2] = Offset(-dx.x * aspect, 1.0f, m_params.m_depth);
+  dxVals[(size - 2) * 4 + 3] = Offset(dx.x * aspect, 1.0f, m_params.m_depth);
+  widthType[(size - 2) * 4] = widthType[(size - 2) * 4 + 2] = WidthType(halfWidth, 0, joinType, insetHalfWidth);
+  widthType[(size - 2) * 4 + 1] = widthType[(size - 2) * 4 + 3] = WidthType(-halfWidth, 0, joinType, insetHalfWidth);
+  centers[(size - 2) * 4 + 2] = centers[(size - 2) * 4 + 3] = SphereCenters(v1, v2);
+
+  if (m_params.m_cap != ButtCap)
   {
-    vec2 lastSegment     = m_points[count-1] - m_points[count-2];
-    m2::PointF lastPoint = m_points[count-1];
-    direction = -lastSegment;
+    float const type = m_params.m_cap == RoundCap ? -1 : 1;
+    uint32_t const baseIdx = 4 * (size - 2);
+    widthType[0] = WidthType(halfWidth, type, -1, insetHalfWidth);
+    widthType[1] = WidthType(-halfWidth, type, -1, insetHalfWidth);
+    widthType[2] = WidthType(halfWidth, type, -1, insetHalfWidth);
+    widthType[3] = WidthType(-halfWidth, type, -1, insetHalfWidth);
 
-    renderPoints.push_back(Point3D::From2D(lastPoint, m_params.m_depth)); // A
-    renderDirections.push_back(Point3D::From2D(direction, -hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
+    widthType[baseIdx] = WidthType(halfWidth, type, 1, insetHalfWidth);
+    widthType[baseIdx + 1] = WidthType(-halfWidth, type, 1, insetHalfWidth);
+    widthType[baseIdx + 2] = WidthType(halfWidth, type, 1, insetHalfWidth);
+    widthType[baseIdx + 3] = WidthType(-halfWidth, type, 1, insetHalfWidth);
 
-    renderPoints.push_back(Point3D::From2D(lastPoint, m_params.m_depth)); // B
-    renderDirections.push_back(Point3D::From2D(direction, hw));
-    renderVertexTypes.push_back(Point3D(T_CAP, m_params.m_cap, realWidth));
+    vertex[0].m_position = vertex[2].m_position;
+    vertex[1].m_position = vertex[3].m_position;
+    vertex[baseIdx + 2].m_position = vertex[baseIdx].m_position;
+    vertex[baseIdx + 3].m_position = vertex[baseIdx + 1].m_position;
   }
-  //
+
+  float clr1[4];
+  Convert(m_params.m_color, clr1[0], clr1[1], clr1[2], clr1[3]);
+  /// TODO this color now not using. We need merge line styles to draw line outline and line by ont pass
+  float const clr2[4] = {0.5f, 0.5f, 0.5f, 1.0f};
+
+  /// TODO add additional functionality in batcher for better perfomance
+  int32_t const listVertexCount = (numVert >> 1) * 3;
+  vector<Vertex> vertex2(listVertexCount);
+  vector<Offset> dxVals2(listVertexCount);
+  vector<SphereCenters> centers2(listVertexCount);
+  vector<WidthType> widthType2(listVertexCount);
+  vector<float> baseColor(numVert * 6);
+  vector<float> outlineColor(numVert * 6);
+  for(int i = 0; i < size-1 ; i++)
+  {
+    QuadStripToList(vertex2, vertex, i);
+    QuadStripToList(dxVals2, dxVals, i);
+    QuadStripToList(centers2, centers, i);
+    QuadStripToList(widthType2, widthType, i);
+    SetColor(baseColor, clr1, i);
+    SetColor(outlineColor, clr2, i);
+  }
 
   GLState state(gpu::SOLID_LINE_PROGRAM, GLState::GeometryLayer);
-  state.SetColor(GetColor());
-
-  AttributeProvider provider(3, renderPoints.size());
+  AttributeProvider provider(6, 6*(size-1));
 
   {
-    BindingInfo positionInfo(1);
-    BindingDecl & decl = positionInfo.GetBindingDecl(0);
-    decl.m_attributeName = "a_position";
+    BindingInfo pos_dir(1);
+    BindingDecl & decl = pos_dir.GetBindingDecl(0);
+    decl.m_attributeName = "position";
+    decl.m_componentCount = 4;
+    decl.m_componentType = gl_const::GLFloatType;
+    decl.m_offset = 0;
+    decl.m_stride = 0;
+    provider.InitStream(0, pos_dir, MakeStackRefPointer((void*)&vertex2[0]));
+  }
+  {
+    BindingInfo deltas(1);
+    BindingDecl & decl = deltas.GetBindingDecl(0);
+    decl.m_attributeName = "deltas";
     decl.m_componentCount = 3;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(0, positionInfo, MakeStackRefPointer((void*)&renderPoints[0]));
+    provider.InitStream(1, deltas, MakeStackRefPointer((void*)&dxVals2[0]));
   }
-
   {
-    BindingInfo directionInfo(1);
-    BindingDecl & decl = directionInfo.GetBindingDecl(0);
-    decl.m_attributeName = "a_direction";
-    decl.m_componentCount = 3;
+    BindingInfo width_type(1);
+    BindingDecl & decl = width_type.GetBindingDecl(0);
+    decl.m_attributeName = "width_type";
+    decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(1, directionInfo, MakeStackRefPointer((void*)&renderDirections[0]));
+    provider.InitStream(2, width_type, MakeStackRefPointer((void*)&widthType2[0]));
   }
-
   {
-    BindingInfo vertexTypeInfo(1);
-    BindingDecl & decl = vertexTypeInfo.GetBindingDecl(0);
-    decl.m_attributeName = "a_vertType";
-    decl.m_componentCount = 3;
+    BindingInfo centres(1);
+    BindingDecl & decl = centres.GetBindingDecl(0);
+    decl.m_attributeName = "centres";
+    decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(2, vertexTypeInfo, MakeStackRefPointer((void*)&renderVertexTypes[0]));
+    provider.InitStream(3, centres, MakeStackRefPointer((void*)&centers2[0]));
   }
 
-  batcher->InsertTriangleStrip(state, MakeStackRefPointer(&provider));
+  {
+    BindingInfo clr1(1);
+    BindingDecl & decl = clr1.GetBindingDecl(0);
+    decl.m_attributeName = "color1";
+    decl.m_componentCount = 4;
+    decl.m_componentType = gl_const::GLFloatType;
+    decl.m_offset = 0;
+    decl.m_stride = 0;
+
+    provider.InitStream(4, clr1, MakeStackRefPointer((void*)&baseColor[0]));
+  }
+
+  {
+    BindingInfo clr2(1);
+    BindingDecl & decl = clr2.GetBindingDecl(0);
+    decl.m_attributeName = "color2";
+    decl.m_componentCount = 4;
+    decl.m_componentType = gl_const::GLFloatType;
+    decl.m_offset = 0;
+    decl.m_stride = 0;
+
+    provider.InitStream(5, clr2, MakeStackRefPointer((void*)&outlineColor[0]));
+  }
+
+  batcher->InsertTriangleList(state, MakeStackRefPointer(&provider));
 }
 
 } // namespace df
