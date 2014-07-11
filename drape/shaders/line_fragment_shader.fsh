@@ -1,47 +1,101 @@
-uniform lowp vec4 u_color;
+varying highp float v_dx;
+varying highp vec4 v_radius;
+varying highp vec4 v_centres;
+varying highp vec2 v_type;
 
-varying highp vec4  v_vertType;
-varying highp vec4  v_distanceInfo;
+varying highp vec4 baseColor;
+varying highp vec4 outlineColor;
 
-highp float cap(lowp float type, highp float dx, highp float dy)
+void sphere_join(vec2 xy)
 {
-  if (type == 0.0)
-  {
-    highp float hw = v_vertType.z/2.0;
-    return -(dx*dx + dy*dy) + hw*hw;
-  }
+  float r = v_radius.y;
+  float gip2 = xy.x*xy.x + xy.y*xy.y;
+  if(gip2 > r * r)
+    discard;
   else
-    return 1.0;
+  {
+    gl_FragColor = baseColor;
+    if (gip2 > v_radius.w * v_radius.w)
+    {
+      gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * (v_radius.y - sqrt(gip2)) / (v_radius.y - v_radius.w));
+      if (v_type.x > 0.6)
+        gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * (v_radius.z - abs(v_dx * v_radius.z)) / r * 2.0);
+    }
+    else
+    {
+      gl_FragColor = baseColor;
+      if (v_type.x > 0.6)
+      {
+        if (abs(v_dx*v_radius.z) / 2.0 >= v_radius.z / 2.0 - r + v_radius.w)
+          gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * (v_radius.z - abs(v_dx * v_radius.z)) / (r-v_radius.w));
+        else
+          gl_FragColor = baseColor;
+      }
+    }
+  }
 }
 
-highp float join(lowp float type, highp float dx, highp float dy)
+void sphere_cap(float x, float y)
 {
-  if (type > 0.0)
-  {
-    highp float hw = v_vertType.z/2.0;
-    return -(dx*dx + dy*dy) +  hw*hw;
-  }
-  else
-    return 1.0;
+  float sq = x*x + y*y;
+  if (sq >= v_radius.y * v_radius.y)
+    discard;
+
+  if (sq > v_radius.w * v_radius.w)
+    gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * (v_radius.y - sqrt(sq)) / (v_radius.y - v_radius.w));
 }
 
 void main(void)
 {
-  lowp  float vertType  = v_vertType.x;
-  highp vec2  d     = v_distanceInfo.zw - v_distanceInfo.xy;
-
-  if (vertType > 0.0)
+  float r = v_radius.y;
+  float dist = abs(v_radius.x);
+  gl_FragColor = baseColor;
+  if (v_type.x > 0.5)
   {
-    lowp float joinType = v_vertType.y;
-    if ( join(joinType, d.x, d.y) < 0.0 )
-      discard;
-  }
-  else if (vertType < 0.0)
-  {
-    lowp float capType = v_vertType.y;
-    if ( cap(capType, d.x, d.y) < 0.0 )
-      discard;
-  }
+    float coord = (v_dx + 1.0) * v_radius.y / 2.0;
+    if (v_type.y > 0.5)
+    {
+      if (coord > v_radius.w)
+        gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * (1.0 - (coord - v_radius.w) / (v_radius.y - v_radius.w)));
 
-  gl_FragColor = u_color;
+      if (dist > v_radius.w)
+      {
+        float alpha = min((1.0 - (coord - v_radius.w) / (v_radius.y - v_radius.w)), (v_radius.y - dist) / (v_radius.y - v_radius.w));
+        gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * alpha);
+      }
+
+    }
+    else
+    {
+      if (coord < v_radius.y - v_radius.w)
+        gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * coord / (v_radius.y - v_radius.w));
+
+      if (dist > v_radius.w)
+      {
+        float alpha = min(coord / (v_radius.y - v_radius.w), (v_radius.y - dist) / (v_radius.y - v_radius.w));
+        gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * alpha);
+      }
+    }
+  }
+  else if (v_type.x < -0.5)
+  {
+    if (v_type.y > 0.5)
+      sphere_cap(dist, (v_dx + 1.0) * v_radius.y / 2.0);
+    else
+      sphere_cap(dist, v_radius.y - (v_dx + 1.0) * v_radius.y / 2.0);
+  }
+  else
+  {
+    gl_FragColor = baseColor;
+    if (dist > v_radius.w)
+      gl_FragColor = vec4(outlineColor.rgb, outlineColor.a * (v_radius.y - dist) / (v_radius.y - v_radius.w));
+
+    if (v_type.y>0.1)
+    {
+      if (v_dx >= 1.0)
+        sphere_join(vec2(dist, (v_dx - 1.0) * v_radius.z / 2.0));
+      else if (v_dx <= -1.0)
+        sphere_join(vec2(dist, (v_dx + 1.0) * v_radius.z / 2.0));
+    }
+  }
 }
