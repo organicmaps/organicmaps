@@ -376,7 +376,6 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
         mIsBookmarked.setChecked(isChecked);
 
         setUpPreview();
-        setUpAddressBox();
         setUpGeoInformation();
         setUpBottomButtons();
         setUpRoutingButtons();
@@ -514,12 +513,6 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
         mDistanceText.setText(distanceText);
       }
     }
-  }
-
-  private void setUpAddressBox()
-  {
-    final TextView addressText = (TextView) mPlacePageGroup.findViewById(R.id.info_box_address);
-    addressText.setText(Framework.getNameAndAddress4Point(mMapObject.getLat(), mMapObject.getLon()));
   }
 
   private void fillPlacePagePoi(MapObject poi)

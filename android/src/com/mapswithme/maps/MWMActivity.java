@@ -690,6 +690,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     mInfoView = (MapInfoView) findViewById(R.id.info_box);
     mInfoView.setOnVisibilityChangedListener(this);
+    mInfoView.bringToFront();
   }
 
   private void yotaSetup()
