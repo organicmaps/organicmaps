@@ -419,7 +419,7 @@ void Engine::RunExport()
   MyThread * thread = static_cast<MyThread *>(m_workThread);
   QList<MyThread::GlyphInfo> const & infos = thread->GetInfos();
 
-  QFile file(m_dirName.trimmed() + "/font.txt");
+  QFile file(m_dirName.trimmed() + "/font.fdf");
   if (!file.open(QIODevice::WriteOnly))
     throw -1;
 
