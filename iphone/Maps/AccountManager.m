@@ -1,11 +1,27 @@
 
 #import "AccountManager.h"
+#import <FacebookSDK/FacebookSDK.h>
+
+@implementation PostMessage
+
+@end
+
 
 @implementation AccountManager
 
++ (instancetype)sharedManager
+{
+  static AccountManager * manager;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    manager = [[self alloc] init];
+  });
+  return manager;
+}
+
 #pragma mark - Posting
 
-- (void)postMessage:(PostMessage *)message toAccountType:(AccountType)type completion:(void (^)(BOOL success))block;
+- (void)postMessage:(PostMessage *)message toAccountType:(AccountType)type completion:(CompletionBlock)block;
 {
   switch (type)
   {
@@ -21,7 +37,8 @@
   }
 }
 
-- (void)postMessage:(PostMessage *)message toFacebookAndCheckPermissionsWithCompletion:(void (^)(BOOL))block
+
+- (void)postMessage:(PostMessage *)message toFacebookAndCheckPermissionsWithCompletion:(CompletionBlock)block
 {
   if ([self hasPublishPermissionsForFacebook])
   {
@@ -40,35 +57,40 @@
       }
       else
       {
+        NSLog(@"Unable to get publish permissions for Facebook");
         block(NO);
       }
     }];
   }
 }
 
-- (void)postMessage:(PostMessage *)message toFacebookWithCompletion:(void (^)(BOOL))block
+- (void)postMessage:(PostMessage *)message toFacebookWithCompletion:(CompletionBlock)block
 {
   FBLinkShareParams * parameters = [[FBLinkShareParams alloc] init];
-  parameters.name = message.name;
+  parameters.name = message.title;
   parameters.link = [NSURL URLWithString:message.link];
 
   if ([FBDialogs canPresentShareDialogWithParams:parameters])
   {
     [FBDialogs presentShareDialogWithParams:parameters clientState:nil handler:^(FBAppCall * call, NSDictionary * results, NSError * error) {
+      if (error)
+        NSLog(@"Unable to post message on the wall of Facebook (%@)", error);
       block(!error);
     }];
   }
   else
   {
     NSMutableDictionary * parameters = [[NSMutableDictionary alloc] init];
-    if (message.name)
-      parameters[@"name"] = message.name;
+    if (message.title)
+      parameters[@"name"] = message.title;
     if (message.link)
       parameters[@"link"] = message.link;
     if (message.info)
       parameters[@"description"] = message.info;
 
     [FBWebDialogs presentFeedDialogModallyWithSession:nil parameters:parameters handler:^(FBWebDialogResult result, NSURL * resultURL, NSError * error) {
+      if (error || result == FBWebDialogResultDialogCompleted)
+        NSLog(@"Unable to post message on the wall of Facebook (%@)", error);
       block(!error && result != FBWebDialogResultDialogNotCompleted);
     }];
   }
@@ -81,16 +103,71 @@
 
 #pragma mark - Logining
 
-- (void)loginToAccountType:(AccountType)type completion:(void (^)(BOOL))block
++ (void)sendUserInfo:(NSDictionary *)userInfo ofAccount:(AccountType)type toZOGServerWithCompletion:(CompletionBlock)block
+{
+  //TODO: implement
+  block(YES);
+}
+
++ (void)getFacebookUserInfoAndId:(CompletionBlock)block
+{
+  [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection * connection, NSDictionary<FBGraphUser> * user, NSError * error) {
+    if (error)
+    {
+      NSLog(@"Unable to get user info and id of Facebook (%@)", error);
+      block(NO);
+    }
+    else
+    {
+      NSMutableDictionary * userInfo = [[NSMutableDictionary alloc] init];
+      if (user.objectID)
+        userInfo[@"Id"] = user.objectID;
+      if (user.first_name)
+        userInfo[@"FirstName"] = user.first_name;
+      if (user.middle_name)
+        userInfo[@"MiddleName"] = user.middle_name;
+      if (user.last_name)
+        userInfo[@"LastName"] = user.last_name;
+      if (user.link)
+        userInfo[@"FacebookLink"] = user.link;
+      if (user.username)
+        userInfo[@"FacebookUserName"] = user.username;
+      if (user.birthday)
+        userInfo[@"Birthday"] = user.birthday;
+      if ([user objectForKey:@"email"])
+        userInfo[@"Email"] = [user objectForKey:@"email"];
+
+      [self sendUserInfo:userInfo ofAccount:AccountTypeFacebook toZOGServerWithCompletion:^(BOOL success) {
+        block(success);
+      }];
+    }
+  }];
+}
+
+- (void)loginToAccountType:(AccountType)type completion:(CompletionBlock)block
 {
   switch (type)
   {
     case AccountTypeFacebook:
     {
-      if ([FBSession activeSession].state != FBSessionStateOpen && [FBSession activeSession].state != FBSessionStateOpenTokenExtended)
+      if ([FBSession activeSession].state == FBSessionStateOpen || [FBSession activeSession].state == FBSessionStateOpenTokenExtended)
+      {
+        block(YES);
+      }
+      else
+      {
         [FBSession openActiveSessionWithReadPermissions:@[@"public_profile"] allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-          block(!error && state == FBSessionStateOpen);
+          if (!error && state == FBSessionStateOpen)
+          {
+            [[self class] getFacebookUserInfoAndId:block];
+          }
+          else
+          {
+            NSLog(@"Unable to open Facebook session (%@)", error);
+            block(NO);
+          }
         }];
+      }
       break;
     }
     case AccountTypeGooglePlus:
@@ -103,6 +180,10 @@
 + (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
   [[FBSession activeSession] setStateChangeHandler:^(FBSession * session, FBSessionState state, NSError * error) {
+    if (!error && state == FBSessionStateOpen)
+      [self getFacebookUserInfoAndId:^(BOOL success){}];
+    else
+      NSLog(@"Unable to open Facebook session (%@)", error);
 //    [self sessionStateChanged:session state:state error:error];
   }];
 
@@ -120,7 +201,7 @@
 
 // FACEBOOK ERROR HANDLING LOGIC. KEEP FOR TESTING
 
-//// This method will handle ALL the session state changes in the app
+// This method will handle ALL the session state changes in the app
 //+ (void)sessionStateChanged:(FBSession *)session state:(FBSessionState)state error:(NSError *)error
 //{
 //  // If the session was opened successfully
