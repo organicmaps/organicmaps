@@ -40,6 +40,9 @@ public:
   static void glBufferData(glConst target, uint32_t size, void const * data, glConst usage);
   static void glBufferSubData(glConst target, uint32_t size, void const * data, uint32_t offset);
 
+  static void * glMapBuffer(glConst target);
+  static void glUnmapBuffer(glConst target);
+
   /// Shaders support
   static uint32_t glCreateShader(glConst type);
   static void glShaderSource(uint32_t shaderID, string const & src);

@@ -20,7 +20,13 @@ void IndexBufferMutator::AppendIndexes(uint16_t const * indexes, uint16_t count)
   m_activeSize = dstActiveSize;
 }
 
-void IndexBufferMutator::Submit(RefPointer<VertexArrayBuffer> vao)
+uint16_t const * IndexBufferMutator::GetIndexes() const
 {
-  vao->UpdateIndexBuffer(&m_buffer[0], m_activeSize);
+  return &m_buffer[0];
 }
+
+uint16_t IndexBufferMutator::GetIndexCount() const
+{
+  return m_activeSize;
+}
+

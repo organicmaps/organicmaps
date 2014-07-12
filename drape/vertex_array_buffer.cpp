@@ -145,6 +145,11 @@ uint16_t VertexArrayBuffer::GetStartIndexValue() const
   return m_staticBuffers.begin()->second->GetCurrentSize();
 }
 
+uint16_t VertexArrayBuffer::GetDynamicBufferOffset(BindingInfo const & bindingInfo)
+{
+  return GetOrCreateDynamicBuffer(bindingInfo)->GetCurrentSize();
+}
+
 bool VertexArrayBuffer::IsFilled() const
 {
   return GetAvailableIndexCount() < 3 || GetAvailableVertexCount() < 3;
@@ -156,9 +161,27 @@ void VertexArrayBuffer::UploadIndexes(uint16_t const * data, uint16_t count)
   m_indexBuffer->UploadData(data, count);
 }
 
-void VertexArrayBuffer::UpdateIndexBuffer(uint16_t const * data, uint16_t count)
+void VertexArrayBuffer::ApplyMutation(RefPointer<IndexBufferMutator> indexMutator,
+                                      RefPointer<AttributeBufferMutator> attrMutator)
 {
-  m_indexBuffer->UpdateData(data, count);
+  m_indexBuffer->UpdateData(indexMutator->GetIndexes(), indexMutator->GetIndexCount());
+
+  typedef AttributeBufferMutator::mutate_data_t mutate_data_t;
+  typedef AttributeBufferMutator::mutate_nodes_t mutate_nodes_t;
+  mutate_data_t const & data = attrMutator->GetMutateData();
+  for (mutate_data_t::const_iterator it = data.begin(); it != data.end(); ++it)
+  {
+    RefPointer<DataBuffer> buffer = GetDynamicBuffer(it->first);
+    ASSERT(!buffer.IsNull(), ());
+    GPUBufferMapper mapper(buffer);
+    mutate_nodes_t const & nodes = it->second;
+
+    for (size_t i = 0; i < nodes.size(); ++i)
+    {
+      MutateNode const & node = nodes[i];
+      mapper.UpdateData(node.m_data.GetRaw(), node.m_region.m_offset, node.m_region.m_count);
+    }
+  }
 }
 
 void VertexArrayBuffer::Bind()

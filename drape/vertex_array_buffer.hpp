@@ -1,5 +1,7 @@
 #pragma once
 
+#include "index_buffer_mutator.hpp"
+#include "attribute_buffer_mutator.hpp"
 #include "pointers.hpp"
 #include "index_buffer.hpp"
 #include "data_buffer.hpp"
@@ -26,10 +28,14 @@ public:
   uint16_t GetAvailableVertexCount() const;
   uint16_t GetAvailableIndexCount() const;
   uint16_t GetStartIndexValue() const;
+  uint16_t GetDynamicBufferOffset(BindingInfo const & bindingInfo);
   bool IsFilled() const;
 
   void UploadData(BindingInfo const & bindingInfo, void const * data, uint16_t count);
   void UploadIndexes(uint16_t const * data, uint16_t count);
+
+  void ApplyMutation(RefPointer<IndexBufferMutator> indexMutator,
+                     RefPointer<AttributeBufferMutator> attrMutator);
 
 private:
   RefPointer<DataBuffer> GetOrCreateStaticBuffer(BindingInfo const & bindingInfo);

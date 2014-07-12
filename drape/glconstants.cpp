@@ -25,6 +25,14 @@
   #define GL_LUMINANCE8_ALPHA4_OES 0x8043
 #endif
 
+#if defined(GL_WRITE_ONLY)
+  #define WRITE_ONLY_DEF GL_WRITE_ONLY
+#elif defined(GL_WRITE_ONLY_OES)
+  #define WRITE_ONLY_DEF GL_WRITE_ONLY_OES
+#else
+  #define WRITE_ONLY_DEF 0x88B9
+#endif
+
 namespace gl_const
 {
 
@@ -34,6 +42,8 @@ const glConst GLMaxTextureSize      = GL_MAX_TEXTURE_SIZE;
 
 const glConst GLArrayBuffer         = GL_ARRAY_BUFFER;
 const glConst GLElementArrayBuffer  = GL_ELEMENT_ARRAY_BUFFER;
+
+const glConst GLWriteOnly           = WRITE_ONLY_DEF;
 
 const glConst GLStaticDraw          = GL_STATIC_DRAW;
 const glConst GLStreamDraw          = GL_STREAM_DRAW;

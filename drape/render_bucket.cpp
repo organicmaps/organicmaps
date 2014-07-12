@@ -1,6 +1,7 @@
 #include "render_bucket.hpp"
 
 #include "overlay_handle.hpp"
+#include "attribute_buffer_mutator.hpp"
 #include "vertex_array_buffer.hpp"
 #include "overlay_tree.hpp"
 
@@ -37,10 +38,16 @@ void RenderBucket::CollectOverlayHandles(RefPointer<OverlayTree> tree)
 namespace
 {
 
-void AccumulateIndexes(MasterPointer<OverlayHandle> handle, RefPointer<IndexBufferMutator> mutator)
+void AccumulateMutations(MasterPointer<OverlayHandle> const & handle,
+                         RefPointer<IndexBufferMutator> indexMutator,
+                         RefPointer<AttributeBufferMutator> attributeMutator)
 {
   if (handle->IsVisible())
-    handle->GetElementIndexes(mutator);
+  {
+    handle->GetElementIndexes(indexMutator);
+    if (handle->HasDynamicAttributes())
+      handle->GetAttributeMutation(attributeMutator);
+  }
 }
 
 } // namespace
@@ -50,10 +57,13 @@ void RenderBucket::Render()
   if (!m_overlay.empty())
   {
     // in simple case when overlay is symbol each element will be contains 6 indexes
-    IndexBufferMutator mutator(6 * m_overlay.size());
-    for_each(m_overlay.begin(), m_overlay.end(), bind(&AccumulateIndexes, _1,
-                                                      MakeStackRefPointer(&mutator)));
-    mutator.Submit(m_buffer.GetRefPointer());
+    AttributeBufferMutator attributeMutator;
+    IndexBufferMutator indexMutator(6 * m_overlay.size());
+    for_each(m_overlay.begin(), m_overlay.end(), bind(&AccumulateMutations, _1,
+                                                      MakeStackRefPointer(&indexMutator),
+                                                      MakeStackRefPointer(&attributeMutator)));
+    m_buffer->ApplyMutation(MakeStackRefPointer(&indexMutator),
+                            MakeStackRefPointer(&attributeMutator));
   }
   m_buffer->Render();
 }

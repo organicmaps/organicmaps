@@ -9,7 +9,8 @@ public:
   {
     VertexArrayObject,
     TextureNPOT,
-    RequiredInternalFormat
+    RequiredInternalFormat,
+    MapBuffer
   };
 
   static GLExtensionsList & Instance();

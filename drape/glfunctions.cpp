@@ -27,11 +27,13 @@ namespace
   void (*glDeleteVertexArrayFn)(GLsizei n, GLuint const * ids)                                            = NULL;
 
   /// VBO
-  void (*glGenBuffersFn)(GLsizei n, GLuint * buffers)                                                      = NULL;
+  void (*glGenBuffersFn)(GLsizei n, GLuint * buffers)                                                     = NULL;
   void (*glBindBufferFn)(GLenum target, GLuint buffer)                                                    = NULL;
-  void (*glDeleteBuffersFn)(GLsizei n, GLuint const * buffers)                                             = NULL;
+  void (*glDeleteBuffersFn)(GLsizei n, GLuint const * buffers)                                            = NULL;
   void (*glBufferDataFn)(GLenum target, GLsizeiptr size, GLvoid const * data, GLenum usage)               = NULL;
   void (*glBufferSubDataFn)(GLenum target, GLintptr offset, GLsizeiptr size, GLvoid const * data)         = NULL;
+  void * (*glMapBufferFn)(GLenum target, GLenum access)                                                   = NULL;
+  GLboolean (*glUnmapBufferFn)(GLenum target)                                                             = NULL;
 
   /// Shaders
   GLuint (*glCreateShaderFn)(GLenum type)                                                                 = NULL;
@@ -119,6 +121,8 @@ void GLFunctions::Init()
   glDeleteBuffersFn = &::glDeleteBuffers;
   glBufferDataFn = &::glBufferData;
   glBufferSubDataFn = &::glBufferSubData;
+  glMapBufferFn = &::glMapBuffer;
+  glUnmapBufferFn = &::glUnmapBuffer;
 
   /// Shaders
   glCreateShaderFn = &::glCreateShader;
@@ -300,6 +304,22 @@ void GLFunctions::glBufferSubData(glConst target, uint32_t size, void const * da
 {
   ASSERT(glBufferSubDataFn != NULL, ());
   GLCHECK(glBufferSubDataFn(target, offset, size, data));
+}
+
+void * GLFunctions::glMapBuffer(glConst target)
+{
+  ASSERT(glMapBufferFn != NULL, ());
+  void * result = glMapBufferFn(target, gl_const::GLWriteOnly);
+  GLCHECKCALL();
+  return result;
+}
+
+void GLFunctions::glUnmapBuffer(glConst target)
+{
+  ASSERT(glUnmapBufferFn != NULL, ());
+  GLboolean result = glUnmapBufferFn(target);
+  ASSERT(result == GL_TRUE, ());
+  GLCHECKCALL();
 }
 
 uint32_t GLFunctions::glCreateShader(glConst type)

@@ -10,7 +10,11 @@ public:
   IndexBufferMutator(uint16_t baseSize);
 
   void AppendIndexes(uint16_t const * indexes, uint16_t count);
-  void Submit(RefPointer<VertexArrayBuffer> vao);
+
+private:
+  friend class VertexArrayBuffer;
+  uint16_t const * GetIndexes() const;
+  uint16_t GetIndexCount() const;
 
 private:
   vector<uint16_t> m_buffer;

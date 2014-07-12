@@ -16,6 +16,9 @@ extern const glConst GLMaxTextureSize;
 extern const glConst GLArrayBuffer;
 extern const glConst GLElementArrayBuffer;
 
+/// VBO Access
+extern const glConst GLWriteOnly;
+
 /// BufferUsage
 extern const glConst GLStaticDraw;
 extern const glConst GLStreamDraw;

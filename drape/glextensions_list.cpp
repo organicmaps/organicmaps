@@ -61,10 +61,12 @@ GLExtensionsList::GLExtensionsList()
   m_impl->CheckExtension(VertexArrayObject, "GL_OES_vertex_array_object");
   m_impl->CheckExtension(TextureNPOT, "GL_OES_texture_npot");
   m_impl->CheckExtension(RequiredInternalFormat, "GL_OES_required_internalformat");
+  m_impl->CheckExtension(MapBuffer, "GL_OES_mapbuffer");
 #else
   m_impl->CheckExtension(VertexArrayObject, "GL_APPLE_vertex_array_object");
   m_impl->CheckExtension(TextureNPOT, "GL_ARB_texture_non_power_of_two");
   m_impl->CheckExtension(RequiredInternalFormat, "GL_OES_required_internalformat");
+  m_impl->CheckExtension(MapBuffer, "GL_OES_mapbuffer");
 #endif
 }
 
