@@ -95,7 +95,7 @@ public class BookmarkListActivity extends MapsWithMeBaseListActivity
 
   private void adaptUiForOsVersion()
   {
-    final Button shareButton = (Button) findViewById(R.id.btn_share);
+    final Button shareButton = (Button) findViewById(R.id.btn_share_bookmarks);
     if (Utils.apiLowerThan(11))
     {
       shareButton.setOnClickListener(new OnClickListener()

@@ -912,7 +912,7 @@ extern "C"
   Java_com_mapswithme_maps_Framework_getGuideIds(JNIEnv * env, jclass clazz)
   {
     std::set<string> guides;
-    g_framework->NativeFramework()->GetGuidesManager().GetGuidesId(guides);
+    g_framework->NativeFramework()->GetGuidesManager().GetGuidesIds(guides);
 
     jclass klass = env->FindClass("java/lang/String");
     ASSERT ( klass, () );
