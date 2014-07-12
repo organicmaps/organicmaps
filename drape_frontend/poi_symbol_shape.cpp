@@ -64,11 +64,11 @@ void PoiSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHold
   texDecl.m_offset = (3 + 2) * sizeof(float);
   texDecl.m_stride = 8 * sizeof(float);
 
-  OverlayHandle * handle = new OverlayHandle(m_params.m_id,
-                                             OverlayHandle::Center,
-                                             m_pt,
-                                             pixelSize,
-                                             m_params.m_depth);
+  OverlayHandle * handle = new SquareHandle(m_params.m_id,
+                                           OverlayHandle::Center,
+                                           m_pt,
+                                           pixelSize,
+                                           m_params.m_depth);
 
   provider.InitStream(0, info, MakeStackRefPointer<void>(stream));
   batcher->InsertTriangleStrip(state, MakeStackRefPointer(&provider), MovePointer(handle));

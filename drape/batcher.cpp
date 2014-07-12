@@ -37,6 +37,11 @@ public:
 
   void FlushData(BindingInfo const & info, void const * data, uint16_t count)
   {
+    if (!m_overlay.IsNull() && info.IsDynamic())
+    {
+      uint16_t offset = m_buffer->GetDynamicBufferOffset(info);
+      m_overlay->AddDynamicAttribute(info, offset, count);
+    }
     m_buffer->UploadData(info, data, count);
   }
 
