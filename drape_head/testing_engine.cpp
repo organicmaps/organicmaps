@@ -4,13 +4,17 @@
 #include "../platform/platform.hpp"
 
 #include "../drape/vertex_array_buffer.hpp"
+#include "../drape/shader_def.hpp"
 
 #include "../drape_frontend/visual_params.hpp"
 #include "../drape_frontend/line_shape.hpp"
 #include "../drape_frontend/area_shape.hpp"
 #include "../drape_frontend/circle_shape.hpp"
 
+#include "../geometry/transformations.hpp"
+
 #include "../base/stl_add.hpp"
+#include "../base/timer.hpp"
 
 #include "../std/bind.hpp"
 #include "../std/function.hpp"
@@ -149,6 +153,97 @@ private:
   TCreatorsMap m_creators;
 };
 
+class SquareHandle : public OverlayHandle
+{
+public:
+  static const uint8_t NormalAttributeID = 1;
+  SquareHandle(vector<m2::PointF> const & formingVector)
+    : OverlayHandle(FeatureID(), OverlayHandle::Center, 0.0f)
+    , m_vectors(formingVector)
+  {
+    SetIsVisible(true);
+  }
+
+  virtual m2::RectD GetPixelRect(ScreenBase const & screen) const { return m2::RectD(); }
+
+  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
+  {
+    static my::Timer timer;
+    double angle = timer.ElapsedSeconds();
+
+    math::Matrix<double, 3, 3> m = math::Rotate(math::Identity<double, 3>(), angle);
+
+    vector<m2::PointF> data(4);
+    for (size_t i = 0; i < m_vectors.size(); ++i)
+    {
+      data[i] = m_vectors[i] * m;
+    }
+
+    offset_node_t const & node = GetOffsetNode(NormalAttributeID);
+    MutateNode mutateNode;
+    mutateNode.m_region = node.second;
+    mutateNode.m_data = MakeStackRefPointer<void>(&data[0]);
+    mutator->AddMutation(node.first, mutateNode);
+  }
+
+private:
+  vector<m2::PointF> m_vectors;
+};
+
+class SquareShape : public MapShape
+{
+public:
+  SquareShape(m2::PointF const & center, float radius)
+    : m_center(center)
+    , m_radius(radius)
+  {
+  }
+
+  virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
+  {
+    vector<m2::PointF> vertexes(4, m_center);
+
+    vector<m2::PointF> formingVectors(4);
+    formingVectors[0] = m2::PointF(-m_radius,  m_radius);
+    formingVectors[1] = m2::PointF(-m_radius, -m_radius);
+    formingVectors[2] = m2::PointF( m_radius,  m_radius);
+    formingVectors[3] = m2::PointF( m_radius, -m_radius);
+
+    AttributeProvider provider(2, 4);
+    {
+      BindingInfo info(1);
+      BindingDecl & decl = info.GetBindingDecl(0);
+      decl.m_attributeName = "a_position";
+      decl.m_componentCount = 2;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(0, info, MakeStackRefPointer<void>(&vertexes[0]));
+    }
+    {
+      BindingInfo info(1, SquareHandle::NormalAttributeID);
+      BindingDecl & decl = info.GetBindingDecl(0);
+      decl.m_attributeName = "a_normal";
+      decl.m_componentCount = 2;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(1, info, MakeStackRefPointer<void>(&formingVectors[0]));
+    }
+
+    GLState state(gpu::TEST_DYN_ATTR_PROGRAM, GLState::GeometryLayer);
+    state.SetColor(Color(150, 130, 120, 255));
+
+    OverlayHandle * handle = new SquareHandle(formingVectors);
+
+    batcher->InsertTriangleStrip(state, MakeStackRefPointer<AttributeProvider>(&provider), MovePointer(handle));
+  }
+
+private:
+  m2::PointF m_center;
+  float m_radius;
+};
+
 TestingEngine::TestingEngine(RefPointer<OGLContextFactory> oglcontextfactory,
                              double vs, df::Viewport const & viewport)
   : m_contextFactory(oglcontextfactory)
@@ -165,10 +260,13 @@ TestingEngine::TestingEngine(RefPointer<OGLContextFactory> oglcontextfactory,
 
   ModelViewInit();
   ProjectionInit();
+
+  m_timerId = startTimer(1000 / 30);
 }
 
 TestingEngine::~TestingEngine()
 {
+  killTimer(m_timerId);
   ClearScene();
   m_batcher.Destroy();
   m_textures->Release();
@@ -201,7 +299,7 @@ void TestingEngine::Draw()
     ApplyState(state, prg, MakeStackRefPointer<TextureSetController>(&binder));
     ApplyUniforms(m_generalUniforms, prg);
 
-    it->second->GetBuffer()->Render();
+    it->second->Render();
   }
 
   context->present();
@@ -220,6 +318,11 @@ void TestingEngine::Drag(m2::PointF const & p) {}
 void TestingEngine::DragEnded(m2::PointF const & p) {}
 void TestingEngine::Scale(m2::PointF const & p, double factor) {}
 
+void TestingEngine::timerEvent(QTimerEvent * e)
+{
+  if (e->timerId() == m_timerId)
+    Draw();
+}
 
 void TestingEngine::DrawImpl()
 {

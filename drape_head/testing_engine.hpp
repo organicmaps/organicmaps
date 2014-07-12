@@ -11,10 +11,13 @@
 
 #include "../std/map.hpp"
 
+#include <QObject>
+#include <QEvent>
+
 namespace df
 {
 
-class TestingEngine
+class TestingEngine : public QObject
 {
 public:
   TestingEngine(RefPointer<OGLContextFactory> oglcontextfactory, double vs, df::Viewport const & viewport);
@@ -26,6 +29,11 @@ public:
   void Drag(m2::PointF const & p);
   void DragEnded(m2::PointF const & p);
   void Scale(m2::PointF const & p, double factor);
+
+protected:
+  void timerEvent(QTimerEvent * e);
+
+  int m_timerId;
 
 private:
   void DrawImpl();
