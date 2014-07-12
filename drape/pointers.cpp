@@ -36,6 +36,6 @@ void PointerTracker::Destroy(void * p)
   ASSERT(m_alivePointers.erase(p) == 1, ());
 }
 
-#ifdef DEBUG
-PointerTracker g_tracker;
+#if defined(CHECK_POINTERS)
+  PointerTracker g_tracker;
 #endif

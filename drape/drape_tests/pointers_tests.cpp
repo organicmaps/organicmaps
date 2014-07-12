@@ -157,7 +157,7 @@ UNIT_TEST(RefPointer_Positive)
   TEST_EQUAL(p.IsNull(), true, ());
 }
 
-#ifdef DEBUG
+#if defined(CHECK_POINTERS)
   UNIT_TEST(MasterPointerDestroy_Negative)
   {
     MockAssertExpector * asserter = InitAsserter();
@@ -251,7 +251,7 @@ UNIT_TEST(TransferPointerConvertion2_Positive)
   accum.m_p.Destroy();
 }
 
-#ifdef DEBUG
+#if defined(CHECK_POINTERS)
 
 namespace
 {

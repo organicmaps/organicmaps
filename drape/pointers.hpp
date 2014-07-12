@@ -39,7 +39,13 @@ private:
   threads::Mutex m_mutex;
 };
 
-#ifdef DEBUG
+#define FAST_DEBUG
+
+#if defined(DEBUG) && !defined(FAST_DEBUG)
+  #define CHECK_POINTERS
+#endif
+
+#if defined(CHECK_POINTERS)
   extern PointerTracker g_tracker;
 
   #define REF_POINTER(p, c) g_tracker.Ref(p, c)
@@ -51,6 +57,7 @@ private:
   #define DECLARE_CHECK_SET void SetCheckOnDestroy(bool doCheck) { m_checkOnDestroy = doCheck; }
   #define SET_CHECK_FLAG(x) SetCheckOnDestroy(x)
   #define GET_CHECK_FLAG(x) (x).IsCheckOnDestroy()
+  #define ASSERT_CHECK_FLAG(x) ASSERT(GET_CHECK_FLAG(x), ())
 #else
   #define REF_POINTER(p, c)
   #define DEREF_POINTER(p)
@@ -61,6 +68,7 @@ private:
   #define DECLARE_CHECK_SET
   #define SET_CHECK_FLAG(x)
   #define GET_CHECK_FLAG(x) false
+  #define ASSERT_CHECK_FLAG(x)
 #endif
 
 template <typename T>
@@ -141,13 +149,13 @@ public:
   TransferPointer(TransferPointer<T> const & other)
     : base_t(other)
   {
-    ASSERT(GET_CHECK_FLAG(other), ());
+    ASSERT_CHECK_FLAG(other);
     other.SetToNull();
   }
 
   TransferPointer<T> & operator=(TransferPointer<T> const & other)
   {
-    ASSERT(GET_CHECK_FLAG(other), ());;
+    ASSERT_CHECK_FLAG(other);
     base_t::operator =(other);
     other.SetToNull();
     return *this;
