@@ -1,16 +1,153 @@
 #include "testing_engine.hpp"
 
+#include "../coding/file_reader.hpp"
+#include "../platform/platform.hpp"
+
 #include "../drape/vertex_array_buffer.hpp"
 
 #include "../drape_frontend/visual_params.hpp"
 #include "../drape_frontend/line_shape.hpp"
+#include "../drape_frontend/area_shape.hpp"
+#include "../drape_frontend/circle_shape.hpp"
 
 #include "../base/stl_add.hpp"
 
 #include "../std/bind.hpp"
+#include "../std/function.hpp"
+#include "../std/vector.hpp"
+
+#include "../../3party/jansson/myjansson.hpp"
 
 namespace df
 {
+
+class MapShapeFactory
+{
+  typedef function<MapShape * (json_t *)> create_fn;
+  typedef map<string, create_fn> creators_map_t;
+
+public:
+  MapShapeFactory()
+  {
+    m_creators["line"] = bind(&MapShapeFactory::CreateLine, this, _1);
+    m_creators["area"] = bind(&MapShapeFactory::CreateArea, this, _1);
+    m_creators["dyn_square"] = bind(&MapShapeFactory::CreateDynSquare, this, _1);
+    m_creators["circle"] = bind(&MapShapeFactory::CreateCircle, this, _1);
+  }
+
+  void CreateShapes(vector<MapShape *> & shapes, json_t * object)
+  {
+    void * iter = json_object_iter(object);
+    while(iter)
+    {
+      json_t * entry = json_object_iter_value(iter);
+      if (entry)
+      {
+        string type(json_object_iter_key(iter));
+        if (type != "_comment_")
+        {
+          creators_map_t::const_iterator it = m_creators.find(type);
+          ASSERT(it != m_creators.end(), ());
+          shapes.push_back(it->second(entry));
+        }
+        iter = json_object_iter_next(object, iter);
+      }
+    }
+  }
+
+private:
+  Color ParseColor(json_t * object)
+  {
+    size_t channelCount = json_array_size(object);
+    ASSERT(channelCount == 4, ());
+    int r = json_integer_value(json_array_get(object, 0));
+    int g = json_integer_value(json_array_get(object, 1));
+    int b = json_integer_value(json_array_get(object, 2));
+    int a = json_integer_value(json_array_get(object, 3));
+    return Color(r, g, b, a);
+  }
+
+  float ParseCoord(json_t * object)
+  {
+    if (json_is_real(object))
+      return json_real_value(object);
+    else if (json_is_integer(object))
+      return json_integer_value(object);
+
+    ASSERT(false, ());
+    return 0.0f;
+  }
+
+  void ParseGeometry(json_t * object, vector<m2::PointF> & points)
+  {
+    size_t count = json_array_size(object);
+    ASSERT((count & 1) == 0, ());
+    points.reserve(count >> 1);
+    for (size_t i = 0; i < count; i += 2)
+    {
+      double x = ParseCoord(json_array_get(object, i));
+      double y = ParseCoord(json_array_get(object, i + 1));
+      points.push_back(m2::PointF(x, y));
+    }
+  }
+
+  df::LineJoin ParseJoin(json_t * object)
+  {
+    return (df::LineJoin)json_integer_value(object);
+  }
+
+  df::LineCap ParseCap(json_t * object)
+  {
+    return (df::LineCap)json_integer_value(object);
+  }
+
+  MapShape * CreateLine(json_t * object)
+  {
+    LineViewParams params;
+    params.m_depth = json_real_value(json_object_get(object, "depth"));
+    params.m_color = ParseColor(json_object_get(object, "color"));
+    params.m_width = json_real_value(json_object_get(object, "width"));
+    params.m_join = ParseJoin(json_object_get(object, "join"));
+    params.m_cap = ParseCap(json_object_get(object, "cap"));
+
+    vector<m2::PointF> points;
+    ParseGeometry(json_object_get(object, "geometry"), points);
+    return new LineShape(points, params);
+  }
+
+  MapShape * CreateArea(json_t * object)
+  {
+    AreaViewParams params;
+    params.m_depth = json_real_value(json_object_get(object, "depth"));
+    params.m_color = ParseColor(json_object_get(object, "color"));
+    vector<m2::PointF> points;
+    ParseGeometry(json_object_get(object, "geometry"), points);
+
+    return new AreaShape(points, params);
+  }
+
+  MapShape * CreateDynSquare(json_t * object)
+  {
+    /// TODO
+    ASSERT(false, ());
+    return NULL;
+  }
+
+  MapShape * CreateCircle(json_t * object)
+  {
+    CircleViewParams params(FeatureID(-1, 0));
+    params.m_depth = json_real_value(json_object_get(object, "depth"));
+    params.m_color = ParseColor(json_object_get(object, "color"));
+    params.m_radius = json_real_value(json_object_get(object, "radius"));
+    vector<m2::PointF> point;
+    ParseGeometry(json_object_get(object, "geometry"), point);
+
+    return new CircleShape(point[0], params);
+  }
+
+private:
+  creators_map_t m_creators;
+};
 
 TestingEngine::TestingEngine(RefPointer<OGLContextFactory> oglcontextfactory,
                              double vs, df::Viewport const & viewport)
@@ -52,6 +189,7 @@ void TestingEngine::Draw()
   m_viewport.Apply();
   GLFunctions::glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
   GLFunctions::glClear();
+  GLFunctions::glDisable(gl_const::GLDepthTest);
 
   scene_t::iterator it = m_scene.begin();
   for(; it != m_scene.end(); ++it)
@@ -85,87 +223,26 @@ void TestingEngine::Scale(m2::PointF const & p, double factor) {}
 
 void TestingEngine::DrawImpl()
 {
-  // Insert shape batchering here
-  float left = m_viewport.GetX0();
-  float right = left + m_viewport.GetWidth();
-  float bottom = m_viewport.GetY0();
-  float top = bottom + m_viewport.GetHeight();
+  ReaderPtr<ModelReader> reader = GetPlatform().GetReader("test_scene.json");
+  string jsonString;
+  reader.ReadAsString(jsonString);
 
-  float const resolution = 32;
-  float const stepX = right/resolution;
-  float const stepY = top/resolution;
-  m2::PointF grid[32][32]; // to simpify testing
-  for (size_t i = 1; i <= resolution; ++i)
-    for (size_t j = 1; j <= resolution; ++j)
-      grid[i-1][j-1] = m2::PointF(stepX*i, stepY*j);
+  vector<MapShape *> shapes;
+  try
+  {
+    my::Json json(jsonString.c_str());
+    MapShapeFactory factory;
+    factory.CreateShapes(shapes, json.get());
+  }
+  catch (RootException & e)
+  {
+    LOG(LCRITICAL, (e.Msg()));
+  }
 
-  // grid:
-  // [31,31] ... [31,31]
-  //  ...         ...
-  // [0,0]   ... [0,31]
+  for (size_t i = 0; i < shapes.size(); ++i)
+    shapes[i]->Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
-  //1
-  vector<m2::PointF> linePoints1;
-
-  linePoints1.push_back(grid[1][1]);
-  linePoints1.push_back(grid[4][6]);
-  linePoints1.push_back(grid[8][1]);
-  linePoints1.push_back(grid[16][10]);
-  linePoints1.push_back(grid[24][1]);
-  linePoints1.push_back(grid[29][4]);
-
-  LineViewParams params1;
-  params1.m_depth = 0.0f;
-  params1.m_cap   = RoundCap;
-  params1.m_join  = RoundJoin;
-  params1.m_color = Color(255, 255, 50, 255);
-  params1.m_width = 80.f;
-  df::LineShape * line1 = new df::LineShape(linePoints1, params1);
-  line1->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureSetHolder>(NULL));
-  delete line1;
-  //
-
-  //2
-  vector<m2::PointF> linePoints2;
-
-  linePoints2.push_back(grid[2][28]);
-  linePoints2.push_back(grid[6][28]);
-  linePoints2.push_back(grid[6][22]);
-  linePoints2.push_back(grid[2][22]);
-  linePoints2.push_back(grid[2][16]);
-  linePoints2.push_back(grid[6][16]);
-
-  LineViewParams params2;
-  params1.m_depth = 0.0f;
-  params2.m_cap   = SquareCap;
-  params2.m_join  = RoundJoin;
-  params2.m_color = Color(0, 255, 255, 255);
-  params2.m_width = 50.f;
-  df::LineShape * line2 = new df::LineShape(linePoints2, params2);
-  line2->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureSetHolder>(NULL));
-  delete line2;
-  //
-
-  //3
-  vector<m2::PointF> linePoints3;
-
-  linePoints3.push_back(grid[1][9]);
-  linePoints3.push_back(grid[4][10]);
-  linePoints3.push_back(grid[8][9]);
-  linePoints3.push_back(grid[16][12]);
-  linePoints3.push_back(grid[24][9]);
-  linePoints3.push_back(grid[29][12]);
-
-  LineViewParams params3;
-  params1.m_depth = 0.0f;
-  params3.m_cap   = ButtCap;
-  params3.m_join  = MiterJoin;
-  params3.m_color = Color(255, 0, 255, 255);
-  params3.m_width = 60.f;
-  df::LineShape * line3 = new df::LineShape(linePoints3, params3);
-  line3->Draw(m_batcher.GetRefPointer(), MakeStackRefPointer<TextureSetHolder>(NULL));
-  delete line3;
-  //
+  DeleteRange(shapes, DeleteFunctor());
 }
 
 void TestingEngine::ModelViewInit()

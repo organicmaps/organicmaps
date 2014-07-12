@@ -1,8 +1,10 @@
 # Head project for drape develop and debuging
 ROOT_DIR = ..
-DEPENDENCIES = drape_frontend map drape indexer platform geometry coding base expat protobuf zlib
+DEPENDENCIES = drape_frontend map drape indexer platform geometry coding base expat protobuf jansson zlib
 
 include($$ROOT_DIR/common.pri)
+
+INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
 
 TARGET = DrapeHead
 TEMPLATE = app
