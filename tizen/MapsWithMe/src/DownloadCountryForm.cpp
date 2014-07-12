@@ -256,7 +256,7 @@ void DownloadCountryForm::OnListViewItemStateChanged(ListView & listView, int in
       NetConnectionManager connectionManager;
       connectionManager.Construct();
       ManagedNetConnection * pManagedNetConnection = connectionManager.GetManagedNetConnectionN();
-      const NetConnectionInfo * pInfo = pManagedNetConnection->GetNetConnectionInfo();
+      NetConnectionInfo const * pInfo = pManagedNetConnection->GetNetConnectionInfo();
 
       bool bDownload = true;
       if (pInfo == 0 || pInfo->GetBearerType() == NET_BEARER_NONE)
