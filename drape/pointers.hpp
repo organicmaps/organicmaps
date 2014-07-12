@@ -39,9 +39,9 @@ private:
   threads::Mutex m_mutex;
 };
 
-#define FAST_DEBUG
+#define DISABLE_DEBUG_PRT_TRACKING
 
-#if defined(DEBUG) && !defined(FAST_DEBUG)
+#if defined(DEBUG) && !defined(DISABLE_DEBUG_PRT_TRACKING)
   #define CHECK_POINTERS
 #endif
 

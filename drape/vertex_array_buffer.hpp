@@ -12,7 +12,7 @@
 
 class VertexArrayBuffer
 {
-  typedef map<BindingInfo, MasterPointer<DataBuffer> > buffers_map_t;
+  typedef map<BindingInfo, MasterPointer<DataBuffer> > TBuffersMap;
 public:
   VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize);
   ~VertexArrayBuffer();
@@ -42,17 +42,17 @@ private:
   RefPointer<DataBuffer> GetOrCreateDynamicBuffer(BindingInfo const & bindingInfo);
   RefPointer<DataBuffer> GetDynamicBuffer(BindingInfo const & bindingInfo) const;
 
-  RefPointer<DataBuffer> GetOrCreateBuffer(BindingInfo const & bindingInfo, buffers_map_t & buffers);
-  RefPointer<DataBuffer> GetBuffer(BindingInfo const & bindingInfo, buffers_map_t const & buffers) const;
-  void Bind();
-  void BindStaticBuffers();
-  void BindDynamicBuffers();
-  void BindBuffers(buffers_map_t const & buffers);
+  RefPointer<DataBuffer> GetOrCreateBuffer(BindingInfo const & bindingInfo, bool isDynamic);
+  RefPointer<DataBuffer> GetBuffer(BindingInfo const & bindingInfo, bool isDynamic) const;
+  void Bind() const;
+  void BindStaticBuffers() const;
+  void BindDynamicBuffers() const;
+  void BindBuffers(TBuffersMap const & buffers) const;
 
 private:
   int m_VAO;
-  buffers_map_t m_staticBuffers;
-  buffers_map_t m_dynamicBuffers;
+  TBuffersMap m_staticBuffers;
+  TBuffersMap m_dynamicBuffers;
 
   MasterPointer<IndexBuffer> m_indexBuffer;
   uint32_t m_dataBufferSize;

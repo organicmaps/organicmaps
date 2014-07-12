@@ -75,9 +75,9 @@ void CircleShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder>
   normalDecl.m_stride = 5 * sizeof(float);
 
   OverlayHandle * overlay = new SquareHandle(m_params.m_id,
-                                            OverlayHandle::Center, m_pt,
-                                            m2::PointD(m_params.m_radius, m_params.m_radius),
-                                            m_params.m_depth);
+                                             OverlayHandle::Center, m_pt,
+                                             m2::PointD(m_params.m_radius, m_params.m_radius),
+                                             m_params.m_depth);
 
   provider.InitStream(0, info, MakeStackRefPointer<void>(&stream[0]));
   batcher->InsertTriangleFan(state, MakeStackRefPointer(&provider), MovePointer(overlay));

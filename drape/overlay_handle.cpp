@@ -7,7 +7,7 @@ struct OverlayHandle::OffsetNodeFinder
 public:
   OffsetNodeFinder(uint8_t bufferID) : m_bufferID(bufferID) {}
 
-  bool operator()(OverlayHandle::offset_node_t const & node)
+  bool operator()(OverlayHandle::TOffsetNode const & node) const
   {
     return node.first.GetID() == m_bufferID;
   }
@@ -80,9 +80,9 @@ double const & OverlayHandle::GetPriority() const
   return m_priority;
 }
 
-OverlayHandle::offset_node_t const & OverlayHandle::GetOffsetNode(uint8_t bufferID) const
+OverlayHandle::TOffsetNode const & OverlayHandle::GetOffsetNode(uint8_t bufferID) const
 {
-  set<offset_node_t>::const_iterator it = find_if(m_offsets.begin(), m_offsets.end(), OffsetNodeFinder(bufferID));
+  set<TOffsetNode>::const_iterator it = find_if(m_offsets.begin(), m_offsets.end(), OffsetNodeFinder(bufferID));
   ASSERT(it != m_offsets.end(), ());
   return *it;
 }
@@ -100,7 +100,7 @@ SquareHandle::SquareHandle(FeatureID const & id, OverlayHandle::Anchor anchor,
 
 m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen) const
 {
-  m2::PointD pxPivot = screen.GtoP(m_gbPivot);
+  m2::PointD const pxPivot = screen.GtoP(m_gbPivot);
   m2::RectD  result(pxPivot - m_pxHalfSize, pxPivot + m_pxHalfSize);
   m2::PointD offset(0.0, 0.0);
 

@@ -75,34 +75,46 @@ void VertexArrayBuffer::UploadData(BindingInfo const & bindingInfo, void const *
 
 RefPointer<DataBuffer> VertexArrayBuffer::GetOrCreateDynamicBuffer(BindingInfo const & bindingInfo)
 {
-  return GetOrCreateBuffer(bindingInfo, m_dynamicBuffers);
+  return GetOrCreateBuffer(bindingInfo, true);
 }
 
 RefPointer<DataBuffer> VertexArrayBuffer::GetDynamicBuffer(BindingInfo const & bindingInfo) const
 {
-  return GetBuffer(bindingInfo, m_dynamicBuffers);
+  return GetBuffer(bindingInfo, true);
 }
 
 RefPointer<DataBuffer> VertexArrayBuffer::GetOrCreateStaticBuffer(BindingInfo const & bindingInfo)
 {
-  return GetOrCreateBuffer(bindingInfo, m_staticBuffers);
+  return GetOrCreateBuffer(bindingInfo, false);
 }
 
-RefPointer<DataBuffer> VertexArrayBuffer::GetBuffer(BindingInfo const & bindingInfo, const buffers_map_t & buffers) const
+RefPointer<DataBuffer> VertexArrayBuffer::GetBuffer(BindingInfo const & bindingInfo, bool isDynamic) const
 {
-  buffers_map_t::const_iterator it = buffers.find(bindingInfo);
-  if (it == buffers.end())
+  TBuffersMap const * buffers = NULL;
+  if (isDynamic)
+    buffers = &m_dynamicBuffers;
+  else
+    buffers = &m_staticBuffers;
+
+  TBuffersMap::const_iterator it = buffers->find(bindingInfo);
+  if (it == buffers->end())
     return RefPointer<DataBuffer>();
 
   return it->second.GetRefPointer();
 }
 
-RefPointer<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & bindingInfo, buffers_map_t & buffers)
+RefPointer<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & bindingInfo, bool isDynamic)
 {
-  buffers_map_t::iterator it = buffers.find(bindingInfo);
-  if (it == buffers.end())
+  TBuffersMap * buffers = NULL;
+  if (isDynamic)
+    buffers = &m_dynamicBuffers;
+  else
+    buffers = &m_staticBuffers;
+
+  TBuffersMap::iterator it = buffers->find(bindingInfo);
+  if (it == buffers->end())
   {
-    MasterPointer<DataBuffer> & buffer = buffers[bindingInfo];
+    MasterPointer<DataBuffer> & buffer = (*buffers)[bindingInfo];
     buffer.Reset(new DataBuffer(bindingInfo.GetElementSize(), m_dataBufferSize));
     return buffer.GetRefPointer();
   }
@@ -121,7 +133,7 @@ uint16_t VertexArrayBuffer::GetAvailableVertexCount() const
     return m_dataBufferSize;
 
 #ifdef DEBUG
-  buffers_map_t::const_iterator it = m_staticBuffers.begin();
+  TBuffersMap::const_iterator it = m_staticBuffers.begin();
   uint16_t prev = it->second->GetAvailableSize();
   for (; it != m_staticBuffers.end(); ++it)
     ASSERT(prev == it->second->GetAvailableSize(), ());
@@ -136,7 +148,7 @@ uint16_t VertexArrayBuffer::GetStartIndexValue() const
     return 0;
 
 #ifdef DEBUG
-  buffers_map_t::const_iterator it = m_staticBuffers.begin();
+  TBuffersMap::const_iterator it = m_staticBuffers.begin();
   uint16_t prev = it->second->GetCurrentSize();
   for (; it != m_staticBuffers.end(); ++it)
     ASSERT(prev == it->second->GetCurrentSize(), ());
@@ -166,15 +178,15 @@ void VertexArrayBuffer::ApplyMutation(RefPointer<IndexBufferMutator> indexMutato
 {
   m_indexBuffer->UpdateData(indexMutator->GetIndexes(), indexMutator->GetIndexCount());
 
-  typedef AttributeBufferMutator::mutate_data_t mutate_data_t;
-  typedef AttributeBufferMutator::mutate_nodes_t mutate_nodes_t;
-  mutate_data_t const & data = attrMutator->GetMutateData();
-  for (mutate_data_t::const_iterator it = data.begin(); it != data.end(); ++it)
+  typedef AttributeBufferMutator::TMutateData TMutateData;
+  typedef AttributeBufferMutator::TMutateNodes TMutateNodes;
+  TMutateData const & data = attrMutator->GetMutateData();
+  for (TMutateData::const_iterator it = data.begin(); it != data.end(); ++it)
   {
     RefPointer<DataBuffer> buffer = GetDynamicBuffer(it->first);
     ASSERT(!buffer.IsNull(), ());
     GPUBufferMapper mapper(buffer);
-    mutate_nodes_t const & nodes = it->second;
+    TMutateNodes const & nodes = it->second;
 
     for (size_t i = 0; i < nodes.size(); ++i)
     {
@@ -184,25 +196,25 @@ void VertexArrayBuffer::ApplyMutation(RefPointer<IndexBufferMutator> indexMutato
   }
 }
 
-void VertexArrayBuffer::Bind()
+void VertexArrayBuffer::Bind() const
 {
   ASSERT(m_VAO != 0, ("You need to call Build method before bind it and render"));
   GLFunctions::glBindVertexArray(m_VAO);
 }
 
-void VertexArrayBuffer::BindStaticBuffers()
+void VertexArrayBuffer::BindStaticBuffers() const
 {
   BindBuffers(m_staticBuffers);
 }
 
-void VertexArrayBuffer::BindDynamicBuffers()
+void VertexArrayBuffer::BindDynamicBuffers() const
 {
   BindBuffers(m_dynamicBuffers);
 }
 
-void VertexArrayBuffer::BindBuffers(buffers_map_t const & buffers)
+void VertexArrayBuffer::BindBuffers(TBuffersMap const & buffers) const
 {
-  buffers_map_t::const_iterator it = buffers.begin();
+  TBuffersMap::const_iterator it = buffers.begin();
   for (; it != buffers.end(); ++it)
   {
     BindingInfo const & binding = it->first;

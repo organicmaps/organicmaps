@@ -54,8 +54,8 @@ protected:
   Anchor const m_anchor;
   double const m_priority;
 
-  typedef pair<BindingInfo, MutateRegion> offset_node_t;
-  offset_node_t const & GetOffsetNode(uint8_t bufferID) const;
+  typedef pair<BindingInfo, MutateRegion> TOffsetNode;
+  TOffsetNode const & GetOffsetNode(uint8_t bufferID) const;
 
 private:
   bool m_isVisible;
@@ -63,7 +63,7 @@ private:
   vector<uint16_t> m_indexes;
   struct LessOffsetNode
   {
-    bool operator()(offset_node_t const & node1, offset_node_t const & node2) const
+    bool operator()(TOffsetNode const & node1, TOffsetNode const & node2) const
     {
       return node1.first.GetID() < node2.first.GetID();
     }
@@ -71,7 +71,7 @@ private:
 
   struct OffsetNodeFinder;
 
-  set<offset_node_t, LessOffsetNode> m_offsets;
+  set<TOffsetNode, LessOffsetNode> m_offsets;
 };
 
 class SquareHandle : public OverlayHandle

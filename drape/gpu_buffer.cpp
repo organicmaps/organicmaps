@@ -8,7 +8,7 @@ namespace
 {
   bool IsMapBufferSupported()
   {
-    static bool isSupported = GLExtensionsList::Instance().IsSupported(GLExtensionsList::MapBuffer);
+    static bool const isSupported = GLExtensionsList::Instance().IsSupported(GLExtensionsList::MapBuffer);
     return isSupported;
   }
 }
@@ -69,9 +69,9 @@ void * GPUBuffer::Map()
 
 void GPUBuffer::UpdateData(void * gpuPtr, void const * data, uint16_t elementOffset, uint16_t elementCount)
 {
-  uint16_t elementSize = GetElementSize();
-  uint32_t byteOffset = elementOffset * (uint32_t)elementSize;
-  uint32_t byteCount = elementCount * (uint32_t)elementSize;
+  uint16_t const elementSize = GetElementSize();
+  uint32_t const byteOffset = elementOffset * (uint32_t)elementSize;
+  uint32_t const byteCount = elementCount * (uint32_t)elementSize;
   ASSERT(m_isMapped == true, ());
   if (IsMapBufferSupported())
   {

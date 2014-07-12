@@ -23,15 +23,15 @@ struct MutateNode
 
 class AttributeBufferMutator
 {
-  typedef vector<MutateNode> mutate_nodes_t;
-  typedef map<BindingInfo, mutate_nodes_t> mutate_data_t;
+  typedef vector<MutateNode> TMutateNodes;
+  typedef map<BindingInfo, TMutateNodes> TMutateData;
 public:
   void AddMutation(BindingInfo const & info, MutateNode const & node);
 
 private:
   friend class VertexArrayBuffer;
-  mutate_data_t const & GetMutateData() const { return m_data; }
+  TMutateData const & GetMutateData() const { return m_data; }
 
 private:
-  mutate_data_t m_data;
+  TMutateData m_data;
 };
