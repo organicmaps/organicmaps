@@ -19,6 +19,7 @@ namespace
 {
   void PrepareOpenGL(int size)
   {
+    EXPECTGL(glHasExtension(_)).Times(AnyNumber());
     EXPECTGL(glGetInteger(gl_const::GLMaxTextureSize)).WillOnce(Return(size));
     EXPECTGL(glBindTexture(_)).Times(AnyNumber());
     EXPECTGL(glDeleteTexture(_)).Times(AnyNumber());

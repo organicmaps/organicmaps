@@ -134,6 +134,7 @@ UNIT_TEST(BatchLists_Test)
     EXPECTGL(glHasExtension(_)).WillOnce(Return(true));
     EXPECTGL(glHasExtension(_)).WillOnce(Return(true));
     EXPECTGL(glHasExtension(_)).WillOnce(Return(true));
+    EXPECTGL(glHasExtension(_)).WillOnce(Return(true));
     EXPECTGL(glGenVertexArray()).WillOnce(Return(VaoID));
     EXPECTGL(glBindVertexArray(VaoID));
 
