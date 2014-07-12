@@ -10,6 +10,7 @@
 
 class VertexArrayBuffer
 {
+  typedef map<BindingInfo, MasterPointer<DataBuffer> > buffers_map_t;
 public:
   VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize);
   ~VertexArrayBuffer();
@@ -31,18 +32,21 @@ public:
   void UploadIndexes(uint16_t const * data, uint16_t count);
 
 private:
-  friend class IndexBufferMutator;
-  void UpdateIndexBuffer(uint16_t const * data, uint16_t count);
+  RefPointer<DataBuffer> GetOrCreateStaticBuffer(BindingInfo const & bindingInfo);
+  RefPointer<DataBuffer> GetOrCreateDynamicBuffer(BindingInfo const & bindingInfo);
+  RefPointer<DataBuffer> GetDynamicBuffer(BindingInfo const & bindingInfo) const;
 
-private:
-  RefPointer<DataBuffer> GetBuffer(BindingInfo const & bindingInfo);
+  RefPointer<DataBuffer> GetOrCreateBuffer(BindingInfo const & bindingInfo, buffers_map_t & buffers);
+  RefPointer<DataBuffer> GetBuffer(BindingInfo const & bindingInfo, buffers_map_t const & buffers) const;
   void Bind();
-  void BindBuffers();
+  void BindStaticBuffers();
+  void BindDynamicBuffers();
+  void BindBuffers(buffers_map_t const & buffers);
 
 private:
   int m_VAO;
-  typedef map<BindingInfo, MasterPointer<DataBuffer> > buffers_map_t;
-  buffers_map_t m_buffers;
+  buffers_map_t m_staticBuffers;
+  buffers_map_t m_dynamicBuffers;
 
   MasterPointer<IndexBuffer> m_indexBuffer;
   uint32_t m_dataBufferSize;

@@ -16,7 +16,8 @@ VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBuff
 VertexArrayBuffer::~VertexArrayBuffer()
 {
   m_indexBuffer.Destroy();
-  DeleteRange(m_buffers, MasterPointerDeleter());
+  DeleteRange(m_staticBuffers, MasterPointerDeleter());
+  DeleteRange(m_dynamicBuffers, MasterPointerDeleter());
 
   if (m_VAO != 0)
   {
@@ -30,7 +31,7 @@ VertexArrayBuffer::~VertexArrayBuffer()
 
 void VertexArrayBuffer::Render()
 {
-  if (!m_buffers.empty())
+  if (!(m_staticBuffers.empty() && m_dynamicBuffers.empty()))
   {
     ASSERT(!m_program.IsNull(), ("Somebody not call Build. It's very bad. Very very bad"));
     /// if OES_vertex_array_object is supported than all bindings already saved in VAO
@@ -38,8 +39,9 @@ void VertexArrayBuffer::Render()
     if (GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
       Bind();
     else
-      BindBuffers();
+      BindStaticBuffers();
 
+    BindDynamicBuffers();
     m_indexBuffer->Bind();
     GLFunctions::glDrawElements(m_indexBuffer->GetCurrentSize());
   }
@@ -53,26 +55,54 @@ void VertexArrayBuffer::Build(RefPointer<GpuProgram> program)
   if (!GLExtensionsList::Instance().IsSupported(GLExtensionsList::VertexArrayObject))
     return;
 
-  if (m_buffers.empty())
+  if (m_staticBuffers.empty())
     return;
 
   m_VAO = GLFunctions::glGenVertexArray();
   Bind();
-  BindBuffers();
+  BindStaticBuffers();
 }
 
 void VertexArrayBuffer::UploadData(BindingInfo const & bindingInfo, void const * data, uint16_t count)
 {
-  RefPointer<DataBuffer> buffer = GetBuffer(bindingInfo);
+  RefPointer<DataBuffer> buffer;
+  if (!bindingInfo.IsDynamic())
+    buffer = GetOrCreateStaticBuffer(bindingInfo);
+  else
+    buffer = GetOrCreateDynamicBuffer(bindingInfo);
   buffer->UploadData(data, count);
 }
 
-RefPointer<DataBuffer> VertexArrayBuffer::GetBuffer(BindingInfo const & bindingInfo)
+RefPointer<DataBuffer> VertexArrayBuffer::GetOrCreateDynamicBuffer(BindingInfo const & bindingInfo)
 {
-  buffers_map_t::iterator it = m_buffers.find(bindingInfo);
-  if (it == m_buffers.end())
+  return GetOrCreateBuffer(bindingInfo, m_dynamicBuffers);
+}
+
+RefPointer<DataBuffer> VertexArrayBuffer::GetDynamicBuffer(BindingInfo const & bindingInfo) const
+{
+  return GetBuffer(bindingInfo, m_dynamicBuffers);
+}
+
+RefPointer<DataBuffer> VertexArrayBuffer::GetOrCreateStaticBuffer(BindingInfo const & bindingInfo)
+{
+  return GetOrCreateBuffer(bindingInfo, m_staticBuffers);
+}
+
+RefPointer<DataBuffer> VertexArrayBuffer::GetBuffer(BindingInfo const & bindingInfo, const buffers_map_t & buffers) const
+{
+  buffers_map_t::const_iterator it = buffers.find(bindingInfo);
+  if (it == buffers.end())
+    return RefPointer<DataBuffer>();
+
+  return it->second.GetRefPointer();
+}
+
+RefPointer<DataBuffer> VertexArrayBuffer::GetOrCreateBuffer(BindingInfo const & bindingInfo, buffers_map_t & buffers)
+{
+  buffers_map_t::iterator it = buffers.find(bindingInfo);
+  if (it == buffers.end())
   {
-    MasterPointer<DataBuffer> & buffer = m_buffers[bindingInfo];
+    MasterPointer<DataBuffer> & buffer = buffers[bindingInfo];
     buffer.Reset(new DataBuffer(bindingInfo.GetElementSize(), m_dataBufferSize));
     return buffer.GetRefPointer();
   }
@@ -87,32 +117,32 @@ uint16_t VertexArrayBuffer::GetAvailableIndexCount() const
 
 uint16_t VertexArrayBuffer::GetAvailableVertexCount() const
 {
-  if (m_buffers.empty())
+  if (m_staticBuffers.empty())
     return m_dataBufferSize;
 
 #ifdef DEBUG
-  buffers_map_t::const_iterator it = m_buffers.begin();
+  buffers_map_t::const_iterator it = m_staticBuffers.begin();
   uint16_t prev = it->second->GetAvailableSize();
-  for (; it != m_buffers.end(); ++it)
+  for (; it != m_staticBuffers.end(); ++it)
     ASSERT(prev == it->second->GetAvailableSize(), ());
 #endif
 
-  return m_buffers.begin()->second->GetAvailableSize();
+  return m_staticBuffers.begin()->second->GetAvailableSize();
 }
 
 uint16_t VertexArrayBuffer::GetStartIndexValue() const
 {
-  if (m_buffers.empty())
+  if (m_staticBuffers.empty())
     return 0;
 
 #ifdef DEBUG
-  buffers_map_t::const_iterator it = m_buffers.begin();
+  buffers_map_t::const_iterator it = m_staticBuffers.begin();
   uint16_t prev = it->second->GetCurrentSize();
-  for (; it != m_buffers.end(); ++it)
+  for (; it != m_staticBuffers.end(); ++it)
     ASSERT(prev == it->second->GetCurrentSize(), ());
 #endif
 
-  return m_buffers.begin()->second->GetCurrentSize();
+  return m_staticBuffers.begin()->second->GetCurrentSize();
 }
 
 bool VertexArrayBuffer::IsFilled() const
@@ -137,10 +167,20 @@ void VertexArrayBuffer::Bind()
   GLFunctions::glBindVertexArray(m_VAO);
 }
 
-void VertexArrayBuffer::BindBuffers()
+void VertexArrayBuffer::BindStaticBuffers()
 {
-  buffers_map_t::iterator it = m_buffers.begin();
-  for (; it != m_buffers.end(); ++it)
+  BindBuffers(m_staticBuffers);
+}
+
+void VertexArrayBuffer::BindDynamicBuffers()
+{
+  BindBuffers(m_dynamicBuffers);
+}
+
+void VertexArrayBuffer::BindBuffers(buffers_map_t const & buffers)
+{
+  buffers_map_t::const_iterator it = buffers.begin();
+  for (; it != buffers.end(); ++it)
   {
     BindingInfo const & binding = it->first;
     RefPointer<DataBuffer> buffer = it->second.GetRefPointer();

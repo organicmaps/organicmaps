@@ -37,8 +37,9 @@ SOURCES += \
     compile_shaders_test.cpp \
     batcher_tests.cpp \
     pointers_tests.cpp \
-    font_texture_tests.cpp
+    font_texture_tests.cpp \
+    bingind_info_tests.cpp \
 
 HEADERS += \
     glmock_functions.hpp \
-    enum_shaders.hpp
+    enum_shaders.hpp \

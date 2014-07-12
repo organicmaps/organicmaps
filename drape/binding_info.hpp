@@ -21,17 +21,19 @@ class BindingInfo
 {
 public:
   BindingInfo();
-  BindingInfo(uint16_t count);
+  BindingInfo(uint8_t count, uint8_t id = 0);
   ~BindingInfo();
 
-  uint16_t GetCount() const;
+  uint8_t GetCount() const;
+  uint8_t GetID() const;
   BindingDecl const & GetBindingDecl(uint16_t index) const;
   BindingDecl & GetBindingDecl(uint16_t index);
   uint16_t GetElementSize() const;
+  bool IsDynamic() const;
 
   bool operator< (BindingInfo const & other) const;
 
 protected:
   shared_array<BindingDecl> m_bindings;
-  uint16_t m_size;
+  uint16_t m_info;
 };

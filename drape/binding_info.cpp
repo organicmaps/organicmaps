@@ -48,40 +48,45 @@ bool BindingDecl::operator<(BindingDecl const & other) const
 }
 
 BindingInfo::BindingInfo()
+  : m_info(0)
 {
-  m_size = 0;
 }
 
-BindingInfo::BindingInfo(uint16_t count)
+BindingInfo::BindingInfo(uint8_t count, uint8_t id)
+  : m_info(((uint16_t)count << 8) | id)
 {
   m_bindings.reset(new BindingDecl[count]);
-  m_size = count;
 }
 
 BindingInfo::~BindingInfo()
 {
 }
 
-uint16_t BindingInfo::GetCount() const
+uint8_t BindingInfo::GetCount() const
 {
-  return m_size;
+  return (m_info & 0xFF00) >> 8;
+}
+
+uint8_t BindingInfo::GetID() const
+{
+  return m_info & 0xFF;
 }
 
 BindingDecl const & BindingInfo::GetBindingDecl(uint16_t index) const
 {
-  ASSERT_LESS(index, m_size, ());
+  ASSERT_LESS(index, GetCount(), ());
   return m_bindings[index];
 }
 
 BindingDecl & BindingInfo::GetBindingDecl(uint16_t index)
 {
-  ASSERT_LESS(index, m_size, ());
+  ASSERT_LESS(index, GetCount(), ());
   return m_bindings[index];
 }
 
 uint16_t BindingInfo::GetElementSize() const
 {
-  if (m_size == 0)
+  if (GetCount() == 0)
     return 0;
 
   uint8_t stride = m_bindings[0].m_stride;
@@ -89,18 +94,23 @@ uint16_t BindingInfo::GetElementSize() const
     return stride;
 
   int calcStride = 0;
-  for (uint16_t i = 0; i < m_size; ++i)
+  for (uint16_t i = 0; i < GetCount(); ++i)
     calcStride += (m_bindings[i].m_componentCount * sizeOfType(m_bindings[i].m_componentType));
 
   return calcStride;
 }
 
+bool BindingInfo::IsDynamic() const
+{
+  return GetID() > 0;
+}
+
 bool BindingInfo::operator<(BindingInfo const & other) const
 {
-  if (m_size != other.m_size)
-    return m_size < other.m_size;
+  if (m_info != other.m_info)
+    return m_info < other.m_info;
 
-  for (uint16_t i = 0; i < m_size; ++i)
+  for (uint16_t i = 0; i < GetCount(); ++i)
   {
     BindingDecl & thisDecl = m_bindings[i];
     BindingDecl & otherDecl = other.m_bindings[i];
