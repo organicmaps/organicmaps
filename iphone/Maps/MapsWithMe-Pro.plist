@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AarkiClientSecurityKey</key>
+	<string>2mWtcnLWDuXgdKEhYLmatwh3cby3</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -69,13 +71,61 @@
 				<string>mapswithmepro</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.mapswithme.full</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.mapswithme.full</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.mapswithme.full.debug</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.mapswithme.full.debug</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.mapswithme.full.simulator</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.mapswithme.full.simulator</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.mapswithme.full.beta</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.mapswithme.full.beta</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>${CURRENT_PROJECT_VERSION}</string>
+	<key>FacebookAppID</key>
+	<string>185237551520383</string>
+	<key>FacebookDisplayName</key>
+	<string>MapsWithMe, offline maps</string>
 	<key>FlurryKey</key>
 	<string>***REMOVED***</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MobileAppTrackerAdvertiserId</key>
+	<string>14130</string>
+	<key>MobileAppTrackerConversionKey</key>
+	<string>***REMOVED***</string>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>NSMainNibFile~ipad</key>
@@ -142,15 +192,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>FacebookDisplayName</key>
-	<string>MapsWithMe, offline maps</string>
-	<key>FacebookAppID</key>
-	<string>185237551520383</string>
-	<key>AarkiClientSecurityKey</key>
-	<string>2mWtcnLWDuXgdKEhYLmatwh3cby3</string>
-	<key>MobileAppTrackerConversionKey</key>
-	<string>***REMOVED***</string>
-	<key>MobileAppTrackerAdvertiserId</key>
-	<string>14130</string>
 </dict>
 </plist>
