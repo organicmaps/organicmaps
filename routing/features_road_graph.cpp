@@ -108,7 +108,7 @@ void FeatureRoadGraph::LoadFeature(uint32_t id, FeatureType & ft)
   ASSERT_GREATER(ft.GetPointsCount(), 1, (id));
 }
 
-void FeatureRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns)
+void FeatureRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns, bool noOptimize /*= true*/)
 {
   uint32_t const ftId = pos.GetFeatureId();
   FeatureType ft;
@@ -149,7 +149,7 @@ void FeatureRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn
                             READ_ROAD_SCALE);
 
     // Skip if there are no turns on point
-    if (crossLoader.GetCount() > 0)
+    if (crossLoader.GetCount() > 0 || noOptimize)
     {
       // Push turn points for this feature.
       if (isForward)

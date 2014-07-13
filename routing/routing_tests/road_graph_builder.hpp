@@ -46,7 +46,7 @@ class RoadGraphMockSource : public routing::IRoadGraph
 public:
   void AddRoad(RoadInfo & rd);
 
-  virtual void GetPossibleTurns(routing::RoadPos const & pos, TurnsVectorT & turns);
+  virtual void GetPossibleTurns(routing::RoadPos const & pos, TurnsVectorT & turns, bool noOptimize = true);
   virtual void ReconstructPath(RoadPosVectorT const & positions, routing::Route & route);
 };
 

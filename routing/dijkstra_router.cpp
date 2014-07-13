@@ -26,6 +26,9 @@ void DijkstraRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<Roa
 {
   route.clear();
   set<RoadPos> startSet(startPos.begin(), startPos.end());
+  set<uint32_t> startFeatureSet;
+  for (vector<RoadPos>::const_iterator it = startPos.begin(); it != startPos.end(); ++it)
+    startFeatureSet.insert(it->GetFeatureId());
   while (!m_queue.empty())
   {
     double const cost = m_queue.top().m_cost;
@@ -53,7 +56,9 @@ void DijkstraRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<Roa
     }
 #endif
 
-    if (startSet.find(pEntry->GetPos()) != startSet.end())
+    bool const bStartFeature = startFeatureSet.find(pEntry->GetPos().GetFeatureId()) != startFeatureSet.end();
+
+    if (bStartFeature && startSet.find(pEntry->GetPos()) != startSet.end())
     {
       LOG(LDEBUG, ("Found result!"));
       // Reached one of the starting points!
@@ -64,7 +69,7 @@ void DijkstraRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<Roa
     }
 
     IRoadGraph::TurnsVectorT turns;
-    m_pRoadGraph->GetPossibleTurns(pEntry->GetPos(), turns);
+    m_pRoadGraph->GetPossibleTurns(pEntry->GetPos(), turns, bStartFeature);
     LOG(LDEBUG, ("Getting all turns", turns));
     for (IRoadGraph::TurnsVectorT::const_iterator iTurn = turns.begin(); iTurn != turns.end(); ++iTurn)
     {
