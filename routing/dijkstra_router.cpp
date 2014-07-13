@@ -62,6 +62,7 @@ void DijkstraRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<Roa
         route.push_back(pEntry->GetPos());
         pEntry = pEntry->GetParentEntry();
       }
+      LOG(LDEBUG, (route));
       return;
     }
 
