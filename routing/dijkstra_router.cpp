@@ -28,9 +28,9 @@ void DijkstraRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<Roa
   set<RoadPos> startSet(startPos.begin(), startPos.end());
   while (!m_queue.empty())
   {
-    double cost = m_queue.top().m_cost;
-    ShortestPath const * pEntry = m_queue.top().m_pEntry;
-    ShortestPath const * pParentEntry = m_queue.top().m_pParentEntry;
+    double const cost = m_queue.top().m_cost;
+    ShortestPath const * const pEntry = m_queue.top().m_pEntry;
+    ShortestPath const * const pParentEntry = m_queue.top().m_pParentEntry;
     m_queue.pop();
 
     LOG(LDEBUG, ("Visiting", pEntry->GetPos(), "with cost", cost));
@@ -57,11 +57,8 @@ void DijkstraRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<Roa
     {
       LOG(LDEBUG, ("Found result!"));
       // Reached one of the starting points!
-      while (pEntry != ShortestPath::FINAL_POS)
-      {
-        route.push_back(pEntry->GetPos());
-        pEntry = pEntry->GetParentEntry();
-      }
+      for (ShortestPath const * pE = pEntry; pE != ShortestPath::FINAL_POS; pE = pE->GetParentEntry())
+        route.push_back(pE->GetPos());
       LOG(LDEBUG, (route));
       return;
     }
