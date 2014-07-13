@@ -18,12 +18,12 @@ double const READ_CROSS_RADIUS = 10.0;
 double const DEFAULT_SPEED_MS = 15.0;
 
 
-FeatureRoadGraph::FeatureRoadGraph(Index const * pIndex, size_t mwmID)
+FeaturesRoadGraph::FeaturesRoadGraph(Index const * pIndex, size_t mwmID)
   : m_pIndex(pIndex), m_mwmID(mwmID)
 {
 }
 
-uint32_t FeatureRoadGraph::GetStreetReadScale()
+uint32_t FeaturesRoadGraph::GetStreetReadScale()
 {
   return READ_ROAD_SCALE;
 }
@@ -31,13 +31,13 @@ uint32_t FeatureRoadGraph::GetStreetReadScale()
 class CrossFeaturesLoader
 {
   uint32_t m_featureID;
-  FeatureRoadGraph & m_graph;
+  FeaturesRoadGraph & m_graph;
   m2::PointD m_point;
   IRoadGraph::TurnsVectorT & m_turns;
   size_t m_count;
 
 public:
-  CrossFeaturesLoader(uint32_t fID, FeatureRoadGraph & graph,
+  CrossFeaturesLoader(uint32_t fID, FeaturesRoadGraph & graph,
                       m2::PointD const & pt, IRoadGraph::TurnsVectorT & turns)
     : m_featureID(fID), m_graph(graph), m_point(pt), m_turns(turns), m_count(0)
   {
@@ -98,7 +98,7 @@ double CalcDistanceMeters(m2::PointD const & p1, m2::PointD const & p2)
                              MercatorBounds::YToLat(p2.y), MercatorBounds::XToLon(p2.x));
 }
 
-void FeatureRoadGraph::LoadFeature(uint32_t id, FeatureType & ft)
+void FeaturesRoadGraph::LoadFeature(uint32_t id, FeatureType & ft)
 {
   Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmID);
   loader.GetFeature(id, ft);
@@ -108,7 +108,7 @@ void FeatureRoadGraph::LoadFeature(uint32_t id, FeatureType & ft)
   ASSERT_GREATER(ft.GetPointsCount(), 1, (id));
 }
 
-void FeatureRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns, bool noOptimize /*= true*/)
+void FeaturesRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns, bool noOptimize /*= true*/)
 {
   uint32_t const ftId = pos.GetFeatureId();
   FeatureType ft;
@@ -208,7 +208,7 @@ void FeatureRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn
   }
 }
 
-void FeatureRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route & route)
+void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route & route)
 {
   size_t count = positions.size();
   if (count < 2)
@@ -261,13 +261,13 @@ void FeatureRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route &
   route.SetGeometry(poly.rbegin(), poly.rend());
 }
 
-bool FeatureRoadGraph::IsStreet(feature::TypesHolder const & types) const
+bool FeaturesRoadGraph::IsStreet(feature::TypesHolder const & types) const
 {
   return (types.GetGeoType() == feature::GEOM_LINE &&
           ftypes::IsStreetChecker::Instance()(types));
 }
 
-bool FeatureRoadGraph::IsOneway(feature::TypesHolder const & types) const
+bool FeaturesRoadGraph::IsOneway(feature::TypesHolder const & types) const
 {
   return ftypes::IsStreetChecker::Instance().IsOneway(types);
 }

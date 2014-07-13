@@ -13,10 +13,10 @@ namespace feature
 namespace routing
 {
 
-class FeatureRoadGraph : public IRoadGraph
+class FeaturesRoadGraph : public IRoadGraph
 {
 public:
-  FeatureRoadGraph(Index const * pIndex, size_t mwmID);
+  FeaturesRoadGraph(Index const * pIndex, size_t mwmID);
 
   virtual void GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns, bool noOptimize = true);
   virtual void ReconstructPath(RoadPosVectorT const & positions, Route & route);

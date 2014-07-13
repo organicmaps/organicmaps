@@ -71,7 +71,7 @@ size_t RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
   Point2RoadPos getter(pt);
   m_pIndex->ForEachInRect(getter,
                           MercatorBounds::RectByCenterXYAndSizeInMeters(pt, 100.0),
-                          FeatureRoadGraph::GetStreetReadScale());
+                          FeaturesRoadGraph::GetStreetReadScale());
 
   getter.GetResults(pos);
   return getter.GetMwmID();
@@ -79,7 +79,7 @@ size_t RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
 
 bool RoadGraphRouter::IsMyMWM(size_t mwmID) const
 {
-  return (m_pRoadGraph && dynamic_cast<FeatureRoadGraph const *>(m_pRoadGraph.get())->GetMwmID() == mwmID);
+  return (m_pRoadGraph && dynamic_cast<FeaturesRoadGraph const *>(m_pRoadGraph.get())->GetMwmID() == mwmID);
 }
 
 void RoadGraphRouter::SetFinalPoint(m2::PointD const & finalPt)
@@ -90,7 +90,7 @@ void RoadGraphRouter::SetFinalPoint(m2::PointD const & finalPt)
   if (!finalPos.empty())
   {
     if (!IsMyMWM(mwmID))
-      m_pRoadGraph.reset(new FeatureRoadGraph(m_pIndex, mwmID));
+      m_pRoadGraph.reset(new FeaturesRoadGraph(m_pIndex, mwmID));
 
     SetFinalRoadPos(finalPos);
   }
