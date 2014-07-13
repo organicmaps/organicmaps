@@ -23,6 +23,8 @@ public:
 
   static uint32_t GetStreetReadScale();
 
+  inline size_t GetMwmID() const { return m_mwmID; }
+
 private:
   friend class CrossFeaturesLoader;
 

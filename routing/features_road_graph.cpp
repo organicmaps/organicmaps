@@ -50,8 +50,8 @@ public:
 
   void operator()(FeatureType const & ft)
   {
-    FeatureID fID = ft.GetID();
-    if (m_featureID == fID.m_offset)
+    FeatureID const fID = ft.GetID();
+    if (m_featureID == fID.m_offset || fID.m_mwm != m_graph.GetMwmID())
       return;
 
     feature::TypesHolder types(ft);
@@ -89,7 +89,6 @@ public:
         m_turns.push_back(t);
       }
     }
-
   }
 };
 
@@ -104,6 +103,9 @@ void FeatureRoadGraph::LoadFeature(uint32_t id, FeatureType & ft)
   Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmID);
   loader.GetFeature(id, ft);
   ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
+  ASSERT_EQUAL(ft.GetFeatureType(), feature::GEOM_LINE, (id));
+  ASSERT_GREATER(ft.GetPointsCount(), 1, (id));
 }
 
 void FeatureRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn> & turns)
