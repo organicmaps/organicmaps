@@ -1,5 +1,19 @@
 package com.nvidia.devtech;
 
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceHolder.Callback;
+import android.view.SurfaceView;
+import android.view.View;
+
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.base.MapsWithMeBaseActivity;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.StubLogger;
+
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -10,20 +24,7 @@ import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 import javax.microedition.khronos.egl.EGLSurface;
 
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceHolder.Callback;
-import android.view.SurfaceView;
-
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.MapsWithMeBaseActivity;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.StubLogger;
-
-public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
+public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity implements View.OnTouchListener
 {
   private static final String TAG = "NvEventQueueActivity";
 
@@ -104,6 +105,7 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
     super.onCreate(savedInstanceState);
 
     final SurfaceView surfaceView = (SurfaceView) findViewById(R.id.map_surfaceview);
+    surfaceView.setOnTouchListener(this);
 
     final SurfaceHolder holder = surfaceView.getHolder();
     holder.setType(SurfaceHolder.SURFACE_TYPE_GPU);
@@ -207,7 +209,7 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity
 
 
   @Override
-  public boolean onTouchEvent(MotionEvent event)
+  public boolean onTouch(View v, MotionEvent event)
   {
     final int count = event.getPointerCount();
 
