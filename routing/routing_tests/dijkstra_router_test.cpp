@@ -87,6 +87,7 @@ UNIT_TEST(Dijkstra_Router_City_Simple)
   TestDijkstraRouterMWM(finalPos, startPos, expected2, 4);
 }
 
+
 UNIT_TEST(Dijkstra_Router_City_ReallyFunnyLoop)
 {
   // Uncomment to see debug log.
@@ -95,22 +96,20 @@ UNIT_TEST(Dijkstra_Router_City_ReallyFunnyLoop)
   RoadPos finalPos[] = { RoadPos(1, true, 0) };
   RoadPos startPos[] = { RoadPos(1, true, 1) };
   RoadPos expected1[] = { RoadPos(1, true, 1),
+                          RoadPos(8, true, 0),
                           RoadPos(8, true, 1),
-                          RoadPos(8, true, 2),
-                          RoadPos(5, false, 0),
+                          RoadPos(8, true, 3), // algorithm skips 8,2 segment
+                          RoadPos(4, false, 0),
                           RoadPos(0, false, 1),
                           RoadPos(0, false, 0),
                           RoadPos(1, true, 0) };
   TestDijkstraRouterMock(finalPos, startPos, expected1);
 
   RoadPos expected2[] = { RoadPos(1, true, 1),
-                          RoadPos(8, true, 1),
-                          RoadPos(8, true, 2),
-                          RoadPos(8, true, 3),
                           RoadPos(8, true, 4),
-                          RoadPos(2, true, 0),
                           RoadPos(2, true, 1),
                           RoadPos(0, false, 0),
                           RoadPos(1, true, 0) };
   TestDijkstraRouterMWM(finalPos, startPos, expected2, 9);
+
 }
