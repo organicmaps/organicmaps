@@ -217,13 +217,12 @@ void FeatureRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route &
   vector<m2::PointD> poly;
 
   // Initialize starting point.
-  RoadPos pos1 = positions[0];
-  LoadFeature(pos1.GetFeatureId(), ft1);
+  LoadFeature(positions.back().GetFeatureId(), ft1);
 
-  size_t i = 0;
-  while (i < count-1)
+  for (size_t i = count-1; i > 0; --i)
   {
-    RoadPos const & pos2 = positions[i+1];
+    RoadPos const & pos1 = positions[i];
+    RoadPos const & pos2 = positions[i-1];
 
     FeatureType ft2;
 
@@ -233,16 +232,15 @@ void FeatureRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route &
     if (diffIDs)
     {
       LoadFeature(pos2.GetFeatureId(), ft2);
-      lastPt = ft2.GetPoint(pos2.GetPointId() + (pos2.IsForward() ? 0 : 1));
+      lastPt = ft2.GetPoint(pos2.GetPointId() + (pos2.IsForward() ? 1 : 0));
     }
     else
-      lastPt = ft1.GetPoint(pos2.GetPointId() + (pos1.IsForward() ? 0 : 1));
+      lastPt = ft1.GetPoint(pos2.GetPointId() + (pos1.IsForward() ? 1 : 0));
 
     // Accumulate points from start point id to pt.
-    int const inc = pos1.IsForward() ? 1 : -1;
-    int ptID = pos1.GetPointId() + (pos1.IsForward() ? 1 : 0);
+    int const inc = pos1.IsForward() ? -1 : 1;
+    int ptID = pos1.GetPointId() + (pos1.IsForward() ? 0 : 1);
     m2::PointD pt;
-    bool notEnd, notEqualPoints;
     do
     {
       pt = ft1.GetPoint(ptID);
@@ -252,30 +250,14 @@ void FeatureRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route &
 
       ptID += inc;
 
-      notEqualPoints = !m2::AlmostEqual(pt, lastPt);
-      notEnd = (ptID >= 0 && ptID < ft1.GetPointsCount());
-    } while (notEnd && notEqualPoints);
-
-    // If we reached the end of feature, start with the begining
-    // (end - for backward direction) of the next feauture, until reach pos2.
-    if (!notEnd && notEqualPoints)
-    {
-      pos1 = RoadPos(pos2.GetFeatureId(), pos2.IsForward(),
-                     pos2.IsForward() ? 0 : ft2.GetPointsCount() - 2);
-
-    }
-    else
-    {
-      pos1 = pos2;
-      ++i;
-    }
+    } while (!m2::AlmostEqual(pt, lastPt));
 
     // Assign current processing feature.
     if (diffIDs)
       ft1.SwapGeometry(ft2);
   }
 
-  route = Route("", poly, "");
+  route.SetGeometry(poly.rbegin(), poly.rend());
 }
 
 bool FeatureRoadGraph::IsStreet(feature::TypesHolder const & types) const

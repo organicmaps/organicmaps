@@ -40,6 +40,9 @@ public:
   void Name2FeatureID(vector<routing::RoadPos> & vec);
 
   void GetPossibleTurns(routing::RoadPos const & pos, routing::IRoadGraph::TurnsVectorT & vec);
+
+  template <size_t N>
+  void ReconstructPath(routing::RoadPos (&arr)[N], vector<m2::PointD> & vec);
 };
 
 }
