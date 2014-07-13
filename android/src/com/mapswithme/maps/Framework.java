@@ -19,7 +19,7 @@ public class Framework
     public void onPoiActivated(String name, String type, String address, double lat, double lon);
     public void onBookmarkActivated(int category, int bookmarkIndex);
     public void onMyPositionActivated(double lat, double lon);
-    public void onAdditionalLayerActivated(long index);
+    public void onAdditionalLayerActivated(String name, String type, double lat, double lon);
     public void onDismiss();
   }
   

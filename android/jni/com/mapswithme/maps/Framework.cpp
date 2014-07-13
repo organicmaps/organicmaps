@@ -669,15 +669,20 @@ extern "C"
   }
 
   // Additional layer
-  void CallOnAdditionalLayerActivatedListener(shared_ptr<jobject> obj, size_t index)
+  void CallOnAdditionalLayerActivatedListener(shared_ptr<jobject> obj, m2::PointD const & globalPoint, search::AddressInfo const & addrInfo)
   {
     JNIEnv * jniEnv = jni::GetEnv();
-    const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
-                                                    *obj.get(),
-                                                    "onAdditionalLayerActivated",
-                                                    "(J)V");
 
-    jniEnv->CallVoidMethod(*obj.get(), methodID, static_cast<jlong>(index));
+    const jstring j_name = jni::ToJavaString(jniEnv, addrInfo.GetPinName());
+    const jstring j_type = jni::ToJavaString(jniEnv, addrInfo.GetPinType());
+    const jstring j_address = jni::ToJavaString(jniEnv, addrInfo.FormatAddress());
+    const double lon = MercatorBounds::XToLon(globalPoint.x);
+    const double lat = MercatorBounds::YToLat(globalPoint.y);
+
+    const char * signature = "(Ljava/lang/String;Ljava/lang/String;DD)V";
+    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(),
+                                                      "onAdditionalLayerActivated", signature);
+    jniEnv->CallVoidMethod(*obj.get(), methodId, j_name, j_type, j_address, lat, lon);
   }
 
   // POI
@@ -735,17 +740,10 @@ extern "C"
       break;
     case UserMark::SEARCH:
       {
-        UserMarkContainer::Controller & c = fm->GetBookmarkManager().UserMarksGetController(UserMarkContainer::SEARCH_MARK);
-        for (size_t i = 0; i < c.GetUserMarkCount(); ++i)
-        {
-          if (c.GetUserMark(i) == mark)
-          {
-            CallOnAdditionalLayerActivatedListener(obj, i);
-            break;
-          }
-        }
+        SearchMarkPoint const * searchMark = CastMark<SearchMarkPoint>(mark);
+        CallOnAdditionalLayerActivatedListener(obj, searchMark->GetOrg(), searchMark->GetInfo());
+        break;
       }
-      break;
     }
   }
 

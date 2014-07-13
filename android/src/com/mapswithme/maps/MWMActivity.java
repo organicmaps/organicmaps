@@ -744,13 +744,15 @@ public class MWMActivity extends NvEventQueueActivity
       {
         final boolean singleResult = intent.getBooleanExtra(EXTRA_SEARCH_RES_SINGLE, false);
         if (singleResult)
-          onAdditionalLayerActivated(0);
+        {
+          MapObject.SearchResult result = new MapObject.SearchResult(0);
+          onAdditionalLayerActivated(result.getName(), result.getPoiTypeName(), result.getLat(), result.getLon());
+        }
         else
           onDismiss();
       }
     }
   }
-  //@}
 
   private void addTask(Intent intent)
   {
@@ -1168,17 +1170,19 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   @Override
-  public void onMyPositionActivated(final double lat, final double lon) {}
+  public void onMyPositionActivated(final double lat, final double lon)
+  {
+  }
 
   @Override
-  public void onAdditionalLayerActivated(final long index)
+  public void onAdditionalLayerActivated(final String name, final String type, final double lat, final double lon)
   {
     runOnUiThread(new Runnable()
     {
       @Override
       public void run()
       {
-        final MapObject sr = new MapObject.SearchResult(index);
+        final MapObject sr = new MapObject.SearchResult(name, type, lat, lon);
         if (!mInfoView.hasMapObject(sr))
         {
           mInfoView.setMapObject(sr);

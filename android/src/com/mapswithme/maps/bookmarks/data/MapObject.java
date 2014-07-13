@@ -1,11 +1,11 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import java.io.Serializable;
-
 import android.content.res.Resources;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+
+import java.io.Serializable;
 
 public abstract class MapObject
 {
@@ -124,6 +124,11 @@ public abstract class MapObject
     {
       super("", 0, 0, "");
       Framework.injectData(this, index);
+    }
+
+    public SearchResult(String name, String type, double lat, double lon)
+    {
+      super(name, lat, lon, type);
     }
 
     @Override
