@@ -73,7 +73,7 @@ class DownloadAdapter extends BaseAdapter
   private class CountryItem
   {
     public final String mName;
-    public final Index  mCountryIdx;
+    public final Index mCountryIdx;
     public final String mFlag;
 
     private Future<Integer> mStatusFuture;
@@ -95,8 +95,7 @@ class DownloadAdapter extends BaseAdapter
       try
       {
         return mStatusFuture.get();
-      }
-      catch (final Exception e)
+      } catch (final Exception e)
       {
         throw new RuntimeException(e);
       }
@@ -118,7 +117,8 @@ class DownloadAdapter extends BaseAdapter
             return MapStorage.COUNTRY;
           else
             return storage.countryStatus(idx);
-        }});
+        }
+      });
     }
 
     public int getTextColor()
@@ -140,12 +140,12 @@ class DownloadAdapter extends BaseAdapter
     {
       switch (getStatus())
       {
-        case MapStorage.NOT_DOWNLOADED:
-        case MapStorage.DOWNLOADING:
-        case MapStorage.DOWNLOAD_FAILED:
-          return LIGHT;
-        default:
-          return REGULAR;
+      case MapStorage.NOT_DOWNLOADED:
+      case MapStorage.DOWNLOADING:
+      case MapStorage.DOWNLOAD_FAILED:
+        return LIGHT;
+      default:
+        return REGULAR;
       }
     }
 
@@ -154,15 +154,19 @@ class DownloadAdapter extends BaseAdapter
     {
       switch (getStatus())
       {
-      case MapStorage.GROUP:          return TYPE_GROUP;
-      case MapStorage.COUNTRY:        return TYPE_COUNTRY_GROUP;
-      case MapStorage.NOT_DOWNLOADED: return TYPE_COUNTRY_NOT_DOWNLOADED;
+      case MapStorage.GROUP:
+        return TYPE_GROUP;
+      case MapStorage.COUNTRY:
+        return TYPE_COUNTRY_GROUP;
+      case MapStorage.NOT_DOWNLOADED:
+        return TYPE_COUNTRY_NOT_DOWNLOADED;
 
       case MapStorage.ON_DISK:
       case MapStorage.ON_DISK_OUT_OF_DATE:
         return TYPE_COUNTRY_READY;
 
-      default : return TYPE_COUNTRY_IN_PROCESS;
+      default:
+        return TYPE_COUNTRY_IN_PROCESS;
       }
     }
   }
@@ -205,22 +209,22 @@ class DownloadAdapter extends BaseAdapter
       fillList();
     }
     else
-        onCountryMenuClicked(position, getItem(position), view);
+      onCountryMenuClicked(position, getItem(position), view);
   }
 
   private void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
   {
     final Dialog dlg = new AlertDialog.Builder(mContext)
-      .setMessage(String.format(mContext.getString(R.string.free_space_for_country), spaceNeeded, countryName))
-      .setNegativeButton(mContext.getString(R.string.close), new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
+        .setMessage(String.format(mContext.getString(R.string.free_space_for_country), spaceNeeded, countryName))
+        .setNegativeButton(mContext.getString(R.string.close), new DialogInterface.OnClickListener()
         {
-          dlg.dismiss();
-        }
-      })
-      .create();
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+          }
+        })
+        .create();
     dlg.setCanceledOnTouchOutside(true);
     dlg.show();
   }
@@ -246,18 +250,18 @@ class DownloadAdapter extends BaseAdapter
   {
     // Confirm canceling
     final Dialog dlg = new AlertDialog.Builder(mContext)
-      .setTitle(name)
-      .setMessage(R.string.are_you_sure)
-      .setPositiveButton(R.string.cancel_download, new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
+        .setTitle(name)
+        .setMessage(R.string.are_you_sure)
+        .setPositiveButton(R.string.cancel_download, new DialogInterface.OnClickListener()
         {
-          mStorage.deleteCountry(idx);
-          dlg.dismiss();
-        }
-      })
-      .create();
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            mStorage.deleteCountry(idx);
+            dlg.dismiss();
+          }
+        })
+        .create();
     dlg.setCanceledOnTouchOutside(true);
     dlg.show();
   }
@@ -278,20 +282,20 @@ class DownloadAdapter extends BaseAdapter
   {
     // Confirm deleting
     new AlertDialog.Builder(mContext)
-      .setTitle(name)
-      .setMessage(R.string.are_you_sure)
-      .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener()
-      {
-        @Override
-        public void onClick(DialogInterface dlg, int which)
+        .setTitle(name)
+        .setMessage(R.string.are_you_sure)
+        .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener()
         {
-          mStorage.deleteCountry(idx);
-          Statistics.INSTANCE.trackCountryDeleted(mContext);
-          dlg.dismiss();
-        }
-      })
-      .create()
-      .show();
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            mStorage.deleteCountry(idx);
+            Statistics.INSTANCE.trackCountryDeleted(mContext);
+            dlg.dismiss();
+          }
+        })
+        .create()
+        .show();
   }
 
   private void updateStatuses()
@@ -372,15 +376,15 @@ class DownloadAdapter extends BaseAdapter
 
   private static class ViewHolder
   {
-    public TextView      mName        = null;
-    public ImageView     mFlag        = null;
-    public ProgressBar   mProgress    = null;
+    public TextView mName = null;
+    public ImageView mFlag = null;
+    public ProgressBar mProgress = null;
 
     void initFromView(View v)
     {
-      mName        = (TextView) v.findViewById(R.id.title);
-      mFlag        = (ImageView) v.findViewById(R.id.country_flag);
-      mProgress    = (ProgressBar) v.findViewById(R.id.download_progress);
+      mName = (TextView) v.findViewById(R.id.title);
+      mFlag = (ImageView) v.findViewById(R.id.country_flag);
+      mProgress = (ProgressBar) v.findViewById(R.id.download_progress);
     }
   }
 
@@ -406,8 +410,7 @@ class DownloadAdapter extends BaseAdapter
       }
       else
         v.setVisibility(View.INVISIBLE);
-    }
-    catch (final Exception e)
+    } catch (final Exception e)
     {
       v.setVisibility(View.INVISIBLE);
     }
@@ -474,7 +477,6 @@ class DownloadAdapter extends BaseAdapter
 
     return convertView;
   }
-
 
 
   private void setUpProgress(DownloadAdapter.ViewHolder holder, int type, int position)
@@ -546,7 +548,7 @@ class DownloadAdapter extends BaseAdapter
       {
         final DownloadAdapter.ViewHolder holder = (DownloadAdapter.ViewHolder) v.getTag();
         if (holder != null)
-          holder.mProgress.setProgress((int) (current*100/total));
+          holder.mProgress.setProgress((int) (current * 100 / total));
       }
     }
   }
@@ -559,12 +561,12 @@ class DownloadAdapter extends BaseAdapter
 
   private void onCountryMenuClicked(int position, final CountryItem countryItem, final View anchor)
   {
-    final int MENU_DELETE   = 0;
-    final int MENU_UPDATE   = 1;
+    final int MENU_DELETE = 0;
+    final int MENU_UPDATE = 1;
     final int MENU_DOWNLOAD = 2;
-    final int MENU_CANCEL   = 3;
-    final int MENU_SHOW     = 4;
-    final int MENU_GUIDE    = 5;
+    final int MENU_CANCEL = 3;
+    final int MENU_SHOW = 4;
+    final int MENU_GUIDE = 5;
 
     final int status = countryItem.getStatus();
     final Index countryIndex = countryItem.mCountryIdx;
@@ -617,18 +619,18 @@ class DownloadAdapter extends BaseAdapter
         {
           final String titleUpdate = formatStringWithSize(R.string.update_mb_or_kb, countryIndex);
           menu.add(0, MENU_UPDATE, MENU_UPDATE, titleUpdate)
-            .setOnMenuItemClickListener(menuItemClickListener);
+              .setOnMenuItemClickListener(menuItemClickListener);
         }
 
         if (status == MapStorage.DOWNLOADING || status == MapStorage.IN_QUEUE)
           menu.add(0, MENU_CANCEL, MENU_CANCEL, mContext.getString(R.string.cancel_download))
-            .setOnMenuItemClickListener(menuItemClickListener);
+              .setOnMenuItemClickListener(menuItemClickListener);
 
         if (mHasGoogleStore)
         {
           final GuideInfo info = Framework.getGuideInfoForIndexWithApiCheck(countryItem.mCountryIdx);
-            if (info != null)
-              menu.add(0, MENU_GUIDE, MENU_GUIDE, info.mTitle)
+          if (info != null)
+            menu.add(0, MENU_GUIDE, MENU_GUIDE, info.mTitle)
                 .setOnMenuItemClickListener(menuItemClickListener);
         }
 
@@ -636,7 +638,7 @@ class DownloadAdapter extends BaseAdapter
         {
           final String titleDownload = formatStringWithSize(R.string.download_mb_or_kb, countryIndex);
           menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, titleDownload)
-            .setOnMenuItemClickListener(menuItemClickListener);
+              .setOnMenuItemClickListener(menuItemClickListener);
         }
       }
     });
@@ -652,5 +654,6 @@ class DownloadAdapter extends BaseAdapter
     else
       return (size + 1023) / 1024 + " " + mContext.getString(R.string.kb);
   }
+
   private final static long MB = 1024 * 1024;
 }
