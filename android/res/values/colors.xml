@@ -53,8 +53,8 @@
   <color name="bg_bottom_toolbar_pressed">#15d081</color>
   <color name="text_search_item">@android:color/white</color>
   <color name="text_search_item_greyed">@android:color/darker_gray</color>
-  <color name="bg_search_green">#15d080</color>
-  <color name="bg_search_green_pressed">#99ff99</color>
+  <color name="bg_search_green">#1F9F7E</color>
+  <color name="bg_search_green_pressed">#68BEA8</color>
   <color name="bg_top_panels">#15D180</color>
 
 </resources>

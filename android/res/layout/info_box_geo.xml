@@ -37,6 +37,7 @@
       android:layout_height="match_parent"
       android:layout_alignParentRight="true"
       android:layout_alignParentTop="true"
+      android:layout_marginRight="@dimen/margin_small"
       android:background="@android:color/transparent"
       android:layout_below="@id/info_box_geo_container_dist"/>
 

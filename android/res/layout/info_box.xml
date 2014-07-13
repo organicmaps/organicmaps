@@ -17,6 +17,7 @@
         android:id="@+id/ll_preview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_small"
         android:orientation="horizontal">
 
       <RelativeLayout
@@ -104,6 +105,8 @@
         android:id="@+id/place_page_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_small"
         android:layout_weight="1">
     </ScrollView>
   </LinearLayout>

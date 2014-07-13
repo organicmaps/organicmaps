@@ -695,7 +695,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     if (!TextUtils.equals(from, to))
       Statistics.INSTANCE.trackColorChanged(getContext(), from, to);
     mColorImage.setImageDrawable(UiUtils
-        .drawCircleForPin(to, (int) getResources().getDimension(R.dimen.dp_x_3), getResources()));
+        .drawCircleForPin(to, (int) getResources().getDimension(R.dimen.color_chooser_radius), getResources()));
   }
 
   private TranslateAnimation generateSlideAnimation(float fromX, float toX, float fromY, float toY)

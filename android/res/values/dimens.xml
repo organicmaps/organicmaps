@@ -31,6 +31,7 @@
   <dimen name="sp_x_4">20sp</dimen>
   <dimen name="sp_x_5">25sp</dimen>
 
+  <dimen name="color_chooser_radius">24dp</dimen>
   <dimen name="dialog_max_height">320dp</dimen>
   <dimen name="zoom_plus_top_margin">0dp</dimen>
   <dimen name="zoom_margin">5dp</dimen>
