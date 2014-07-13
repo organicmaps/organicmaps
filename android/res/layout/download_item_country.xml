@@ -1,63 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:minHeight="?android:attr/listPreferredItemHeight" >
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:minHeight="?android:attr/listPreferredItemHeight">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center" >
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="center">
 
-        <FrameLayout
-            android:id="@+id/flagContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true" >
-
-            <ImageView
-                android:id="@+id/country_flag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="@dimen/dp_x_3"
-                android:paddingRight="@dimen/dp_x_3"
-                android:scaleType="center" />
-
-            <!-- Invisible by default -->
-
-            <ImageView
-                android:id="@+id/guide_available"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|left"
-                android:paddingLeft="@dimen/dp_x_1"
-                android:paddingTop="@dimen/dp_x_1"
-                android:src="@drawable/ic_guide_mark"
-                android:visibility="invisible" />
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/flagContainer"
-            android:maxLines="2"
-            android:paddingRight="@dimen/dp_x_3"
-            android:textAppearance="@style/Holo.TextAppearance.Large.Light" />
-    </RelativeLayout>
-
-    <ProgressBar
-        android:id="@+id/download_progress"
-        style="@style/Holo.ProgressBar.Horizontal.Light"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/country_flag"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="-7dp"
-        android:max="100"
-        android:padding="0dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:paddingLeft="@dimen/dp_x_3"
+        android:paddingRight="@dimen/dp_x_3"
+        android:scaleType="center"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/country_flag"
+        android:maxLines="2"
+        android:paddingRight="@dimen/dp_x_3"
+        android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
+  </RelativeLayout>
+
+  <ProgressBar
+      android:id="@+id/download_progress"
+      style="@style/Holo.ProgressBar.Horizontal.Light"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:layout_marginBottom="-7dp"
+      android:max="100"
+      android:padding="0dp"/>
 
 </FrameLayout>

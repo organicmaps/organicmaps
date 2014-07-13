@@ -1,10 +1,5 @@
 package com.mapswithme.country;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -38,6 +33,11 @@ import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /// ListView adapter
 class DownloadAdapter extends BaseAdapter
@@ -374,14 +374,12 @@ class DownloadAdapter extends BaseAdapter
   {
     public TextView      mName        = null;
     public ImageView     mFlag        = null;
-    public ImageView     mGuide       = null;
     public ProgressBar   mProgress    = null;
 
     void initFromView(View v)
     {
       mName        = (TextView) v.findViewById(R.id.title);
       mFlag        = (ImageView) v.findViewById(R.id.country_flag);
-      mGuide       = (ImageView) v.findViewById(R.id.guide_available);
       mProgress    = (ProgressBar) v.findViewById(R.id.download_progress);
     }
   }
@@ -457,7 +455,6 @@ class DownloadAdapter extends BaseAdapter
       // this part if only for downloadable items
       if (type != TYPE_COUNTRY_GROUP)
       {
-        populateForGuide(position, holder);
         setUpProgress(holder, type, position);
       }
     }
@@ -507,19 +504,6 @@ class DownloadAdapter extends BaseAdapter
       drawable = mContext.getResources().getDrawable(R.drawable.ic_downloaded_country); // downloaded has Tick icon
 
     holder.mName.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-  }
-
-  private void populateForGuide(int position, DownloadAdapter.ViewHolder holder)
-  {
-    if (mHasGoogleStore)
-    {
-      final CountryItem item = getItem(position);
-      final GuideInfo gi = Framework.getGuideInfoForIndexWithApiCheck(item.mCountryIdx);
-      if (gi != null)
-        UiUtils.show(holder.mGuide);
-      else
-        UiUtils.hide(holder.mGuide);
-    }
   }
 
   /// Get list item position by index(g, c, r).
