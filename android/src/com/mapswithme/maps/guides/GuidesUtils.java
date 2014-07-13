@@ -1,11 +1,12 @@
 package com.mapswithme.maps.guides;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+
+import com.mapswithme.util.Constants;
 
 public class GuidesUtils
 {
@@ -27,20 +28,20 @@ public class GuidesUtils
   public static Intent getGoogleStoreIntentForPackage(String packageName)
   {
     final Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.setData(Uri.parse("market://details?id=" + packageName));
+    intent.setData(Uri.parse(Constants.PLAY_MARKET_APP_PREFIX + packageName));
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | Intent.FLAG_ACTIVITY_NO_HISTORY);
     return intent;
   }
 
-  public static void openOrDownloadGuide(GuideInfo info, Activity activity)
+  public static void openOrDownloadGuide(GuideInfo info, Context context)
   {
     final String packName = info.mAppId;
-    if (GuidesUtils.isGuideInstalled(packName, activity))
+    if (GuidesUtils.isGuideInstalled(packName, context))
     {
-      final Intent i = activity.getPackageManager().getLaunchIntentForPackage(packName);
-      activity.startActivity(i);
+      final Intent i = context.getPackageManager().getLaunchIntentForPackage(packName);
+      context.startActivity(i);
     }
     else
-      activity.startActivity(GuidesUtils.getGoogleStoreIntentForPackage(info.mAppId));
+      context.startActivity(GuidesUtils.getGoogleStoreIntentForPackage(info.mAppId));
   }
 }

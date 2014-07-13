@@ -126,6 +126,7 @@ public class Framework
   }
   private static native void nativeShowTrackRect(int category, int track);
 
+  // guides
   public native static GuideInfo getGuideInfoForIndex(Index idx);
 
   public static GuideInfo getGuideInfoForIndexWithApiCheck(Index idx)
@@ -138,6 +139,18 @@ public class Framework
 
   public native static void        setWasAdvertised(String appId);
   public native static boolean     wasAdvertised(String appId);
+
+  public static GuideInfo getGuideInfoForIdWithApiCheck(String id)
+  {
+    if (Utils.apiLowerThan(11))
+      return null;
+    else
+      return getGuideById(id);
+  }
+  public native static String[]    getGuideIds();
+  public native static GuideInfo   getGuideById(String id);
+
+  //
 
   public native static int getDrawScale();
   public native static double[] getScreenRectCenter();

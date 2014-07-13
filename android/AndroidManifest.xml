@@ -170,10 +170,10 @@
         </activity>
 
         <activity
-            android:name="com.mapswithme.maps.MapObjectActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="behind" >
-        </activity>
+            android:name="com.mapswithme.maps.MoreAppsActivity"
+            android:configChanges="orientation|screenLayout|screenSize"
+            android:label="@string/more_apps_title"
+            android:screenOrientation="behind" />
 
         <receiver
             android:name="com.mapswithme.maps.background.ConnectivityChangedReceiver"

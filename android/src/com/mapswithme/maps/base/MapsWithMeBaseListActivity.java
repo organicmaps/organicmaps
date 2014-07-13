@@ -59,7 +59,8 @@ public class MapsWithMeBaseListActivity extends ListActivity
     if (item.getItemId() == android.R.id.home)
     {
       final InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-      im.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+      if (getCurrentFocus() != null)
+        im.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
       onBackPressed();
       return true;
     }

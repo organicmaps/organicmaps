@@ -1265,7 +1265,7 @@ public class MWMActivity extends NvEventQueueActivity
     case R.id.btn_settings:
       UiUtils.hide(mVerticalToolbar);
       UiUtils.show(mToolbar);
-      startActivity(new Intent(MWMActivity.this, SettingsActivity.class));
+      startActivity(new Intent(this, SettingsActivity.class));
       break;
     case R.id.btn_download_maps:
       UiUtils.hide(mVerticalToolbar);
@@ -1275,6 +1275,7 @@ public class MWMActivity extends NvEventQueueActivity
     case R.id.btn_more_apps:
       UiUtils.hide(mVerticalToolbar);
       UiUtils.show(mToolbar);
+      startActivity(new Intent(this, MoreAppsActivity.class));
       break;
     default:
       break;
