@@ -135,8 +135,9 @@ void FeatureRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTurn
     ASSERT_GREATER(i - inc, -1, ());
     ASSERT_LESS(i - inc, count, ());
 
-    distance += CalcDistanceMeters(ft.GetPoint(i), ft.GetPoint(i - inc));
-    time += distance / DEFAULT_SPEED_MS;
+    double const segmentDistance = CalcDistanceMeters(ft.GetPoint(i), ft.GetPoint(i - inc));
+    distance += segmentDistance;
+    time += segmentDistance / DEFAULT_SPEED_MS;
 
     m2::PointD const & pt = ft.GetPoint(i);
 
