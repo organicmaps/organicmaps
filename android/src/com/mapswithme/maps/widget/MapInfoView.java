@@ -81,13 +81,14 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private final LayoutInflater mInflater;
   private final Button mRouteStartBtn;
   private final Button mRouteEndBtn;
-  // Gestures
-  private GestureDetectorCompat mGestureDetector;
+  private final View mArrow;
   // Place page
   private RelativeLayout mGeoLayout;
   private View mDistanceView;
   private TextView mDistanceText;
   private ImageView mColorImage;
+  // Gestures
+  private GestureDetectorCompat mGestureDetector;
   // Data
   private MapObject mMapObject;
   private OnVisibilityChangedListener mVisibilityChangedListener;
@@ -109,13 +110,11 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     mPreviewGroup.bringToFront();
     mPlacePageGroup = (ViewGroup) mView.findViewById(R.id.place_page);
 
-    showPlacePage(false);
-    showPreview(false);
-
     // Preview
     mTitle = (TextView) mPreviewGroup.findViewById(R.id.info_title);
     mSubtitle = (TextView) mPreviewGroup.findViewById(R.id.info_subtitle);
     mIsBookmarked = (CheckBox) mPreviewGroup.findViewById(R.id.info_box_is_bookmarked);
+    mArrow = mPreviewGroup.findViewById(R.id.iv_arrow);
     // We don't want to use OnCheckedChangedListener because it gets called
     // if someone calls setChecked() from code. We need only user interaction.
     mIsBookmarked.setOnClickListener(this);
@@ -130,6 +129,9 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
     mBookmarkManager = BookmarkManager.getBookmarkManager();
     mIcons = mBookmarkManager.getIcons();
+
+    showPlacePage(false);
+    showPreview(false);
 
     initGestureDetector();
     mView.setOnClickListener(this);
@@ -207,13 +209,12 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       return; // if state is already same as we need
 
     TranslateAnimation slide;
-    View arrow = mPreviewGroup.findViewById(R.id.iv_arrow);
     if (show) // slide up
     {
       slide = generateSlideAnimation(0, 0, -1, 0);
       slide.setDuration(SHORT_ANIM_DURATION);
       UiUtils.show(mPlacePageGroup);
-      UiUtils.invisible(arrow);
+      UiUtils.invisible(mArrow);
       if (mVisibilityChangedListener != null)
         mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
     }
@@ -224,7 +225,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       slide.setDuration(SHORT_ANIM_DURATION);
       slide.setFillEnabled(true);
       slide.setFillBefore(true);
-      UiUtils.show(arrow);
+      UiUtils.show(mArrow);
       slide.setAnimationListener(new UiUtils.SimpleAnimationListener()
       {
         @Override
@@ -279,6 +280,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     slide.setDuration(SHORT_ANIM_DURATION);
     mPreviewGroup.startAnimation(slide);
     mIsPreviewVisible = show;
+    UiUtils.show(mArrow);
   }
 
   private void hideEverything()
