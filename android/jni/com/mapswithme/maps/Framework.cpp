@@ -609,7 +609,6 @@ namespace android
   void Framework::DeactivatePopup()
   {
     GetPinClickManager().RemovePin();
-    GetPinClickManager().Hide();
   }
 
   string Framework::GetOutdatedCountriesString()

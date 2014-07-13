@@ -1211,6 +1211,7 @@ public class MWMActivity extends NvEventQueueActivity
         public void run()
         {
           hideInfoView();
+          deactivatePopup();
         }
       });
     }
