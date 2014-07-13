@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-  <item
-      android:left="@dimen/margin_small"
-      android:right="@dimen/margin_small">
-    <shape>
-      <solid android:color="@color/bg_search_green_pressed"/>
-    </shape>
-  </item>
-</layer-list>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+  <solid android:color="@color/bg_search_green_pressed"/>
+</shape>

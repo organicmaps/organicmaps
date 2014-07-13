@@ -9,7 +9,7 @@
       android:id="@+id/preview"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@drawable/bg_page_preview"
+      android:background="@color/bg_top_panels"
       android:padding="10dp"
       android:visibility="gone">
 
@@ -92,7 +92,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/preview"
-      android:background="@drawable/bg_place_page"
+      android:background="@color/bg_top_panels"
       android:orientation="vertical"
       android:visibility="gone">
 
