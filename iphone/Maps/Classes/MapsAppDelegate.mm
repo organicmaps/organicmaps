@@ -44,7 +44,9 @@ void InitLocalizedStrings()
 }
 
 @interface MapsAppDelegate()
+
 @property (nonatomic) NSString * lastGuidesUrl;
+
 @end
 
 @implementation MapsAppDelegate
@@ -229,7 +231,7 @@ void InitLocalizedStrings()
   --m_standbyCounter;
   if (m_standbyCounter <= 0)
   {
-   [UIApplication sharedApplication].idleTimerDisabled = NO;
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
     m_standbyCounter = 0;
   }
 }
@@ -321,7 +323,7 @@ void InitLocalizedStrings()
                                                   message:
                         (successful ? NSLocalizedString(@"load_kmz_successful", nil) : NSLocalizedString(@"load_kmz_failed", nil))
                                                  delegate:nil
-                                      cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
+                                        cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil];
   m_loadingAlertView.delegate = self;
   [m_loadingAlertView show];
   [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(dismissAlert) userInfo:nil repeats:NO];
@@ -367,7 +369,7 @@ void InitLocalizedStrings()
   TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:emptySel];
 
   GetFramework().Storage().Subscribe(bind(changeImpl, self, changeSel, _1),
-                                   bind(progressImpl, self, emptySel, _1, _2));
+                                     bind(progressImpl, self, emptySel, _1, _2));
 }
 
 - (void)OnCountryChange:(storage::TIndex const &)index
