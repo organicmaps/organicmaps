@@ -23,8 +23,8 @@ namespace df
 
 class MapShapeFactory
 {
-  typedef function<MapShape * (json_t *)> create_fn;
-  typedef map<string, create_fn> creators_map_t;
+  typedef function<MapShape * (json_t *)> TCreateFn;
+  typedef map<string, TCreateFn> TCreatorsMap;
 
 public:
   MapShapeFactory()
@@ -43,10 +43,10 @@ public:
       json_t * entry = json_object_iter_value(iter);
       if (entry)
       {
-        string type(json_object_iter_key(iter));
+        string const type(json_object_iter_key(iter));
         if (type != "_comment_")
         {
-          creators_map_t::const_iterator it = m_creators.find(type);
+          TCreatorsMap::const_iterator it = m_creators.find(type);
           ASSERT(it != m_creators.end(), ());
           shapes.push_back(it->second(entry));
         }
@@ -58,12 +58,12 @@ public:
 private:
   Color ParseColor(json_t * object)
   {
-    size_t channelCount = json_array_size(object);
+    size_t const channelCount = json_array_size(object);
     ASSERT(channelCount == 4, ());
-    int r = json_integer_value(json_array_get(object, 0));
-    int g = json_integer_value(json_array_get(object, 1));
-    int b = json_integer_value(json_array_get(object, 2));
-    int a = json_integer_value(json_array_get(object, 3));
+    int const r = json_integer_value(json_array_get(object, 0));
+    int const g = json_integer_value(json_array_get(object, 1));
+    int const b = json_integer_value(json_array_get(object, 2));
+    int const a = json_integer_value(json_array_get(object, 3));
     return Color(r, g, b, a);
   }
 
@@ -80,13 +80,13 @@ private:
 
   void ParseGeometry(json_t * object, vector<m2::PointF> & points)
   {
-    size_t count = json_array_size(object);
+    size_t const count = json_array_size(object);
     ASSERT((count & 1) == 0, ());
     points.reserve(count >> 1);
     for (size_t i = 0; i < count; i += 2)
     {
-      double x = ParseCoord(json_array_get(object, i));
-      double y = ParseCoord(json_array_get(object, i + 1));
+      double const x = ParseCoord(json_array_get(object, i));
+      double const y = ParseCoord(json_array_get(object, i + 1));
       points.push_back(m2::PointF(x, y));
     }
   }
@@ -146,7 +146,7 @@ private:
   }
 
 private:
-  creators_map_t m_creators;
+  TCreatorsMap m_creators;
 };
 
 TestingEngine::TestingEngine(RefPointer<OGLContextFactory> oglcontextfactory,
