@@ -18,6 +18,7 @@ SOURCES += \
     road_graph_router.cpp \
     dijkstra_router.cpp \
     features_road_graph.cpp \
+    vehicle_model.cpp \
 
 HEADERS += \
     route.hpp \
@@ -29,3 +30,4 @@ HEADERS += \
     road_graph_router.hpp \
     dijkstra_router.hpp \
     features_road_graph.hpp \
+    vehicle_model.hpp \

@@ -19,6 +19,7 @@ SOURCES += \
   road_graph_builder.cpp \
   road_graph_builder_test.cpp \
   dijkstra_router_test.cpp \
+  vehicle_model_test.cpp \
 
 HEADERS += \
   road_graph_builder.hpp \
