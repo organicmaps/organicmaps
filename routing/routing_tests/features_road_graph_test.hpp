@@ -24,7 +24,7 @@ public:
 
 class FeatureRoadGraphTester
 {
-  scoped_ptr<routing::FeatureRoadGraph> m_graph;
+  routing::FeatureRoadGraph * m_graph;
   Name2IdMapping m_mapping;
   Index m_index;
 
@@ -33,7 +33,7 @@ class FeatureRoadGraphTester
 public:
   FeatureRoadGraphTester(string const & name);
 
-  routing::FeatureRoadGraph * GetGraph() { return m_graph.get(); }
+  routing::FeatureRoadGraph * GetGraph() { return m_graph; }
 
   void FeatureID2Name(routing::IRoadGraph::TurnsVectorT & vec);
   void FeatureID2Name(vector<routing::RoadPos> & vec);

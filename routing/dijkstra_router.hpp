@@ -3,17 +3,23 @@
 #include "road_graph_router.hpp"
 
 #include "../geometry/point2d.hpp"
+
 #include "../std/queue.hpp"
 #include "../std/set.hpp"
 #include "../std/vector.hpp"
+
 
 namespace routing
 {
 
 class DijkstraRouter : public RoadGraphRouter
 {
+  typedef RoadGraphRouter BaseT;
+
 public:
-  virtual string GetName() const { return "dijkstra"; }
+  DijkstraRouter(Index const * pIndex = 0) : BaseT(pIndex) {}
+
+  virtual string GetName() const { return "routeme"; }
   virtual void SetFinalRoadPos(vector<RoadPos> const & finalPos);
   virtual void CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPos> & route);
 

@@ -4,25 +4,34 @@
 #include "road_graph.hpp"
 
 #include "../geometry/point2d.hpp"
+
 #include "../std/vector.hpp"
+#include "../std/scoped_ptr.hpp"
+
+
+class Index;
 
 namespace routing
 {
 
-class IRoadGraph;
-
 class RoadGraphRouter : public IRouter
 {
 public:
+  RoadGraphRouter(Index const * pIndex) : m_pIndex(pIndex) {}
+
   virtual void SetFinalPoint(m2::PointD const & finalPt);
   virtual void CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback);
 
   virtual void SetFinalRoadPos(vector<RoadPos> const & finalPos) = 0;
   virtual void CalculateRoute(vector<RoadPos> const & startPos, vector<RoadPos> & route) = 0;
-  virtual void SetRoadGraph(IRoadGraph * pRoadGraph) { m_pRoadGraph = pRoadGraph; }
+  virtual void SetRoadGraph(IRoadGraph * pRoadGraph) { m_pRoadGraph.reset(pRoadGraph); }
 
 protected:
-  IRoadGraph * m_pRoadGraph;
+  size_t GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);
+  bool IsMyMWM(size_t mwmID) const;
+
+  scoped_ptr<IRoadGraph> m_pRoadGraph;
+  Index const * m_pIndex;
 };
 
 } // namespace routing

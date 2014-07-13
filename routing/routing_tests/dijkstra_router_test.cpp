@@ -21,11 +21,11 @@ void TestDijkstraRouterMock(RoadPos (&finalPos)[finalPosSize],
                             RoadPos (&startPos)[startPosSize],
                             RoadPos (&expected)[expectedSize])
 {
-  RoadGraphMockSource graph;
-  InitRoadGraphMockSourceWithTest2(graph);
+  RoadGraphMockSource * graph = new RoadGraphMockSource();
+  InitRoadGraphMockSourceWithTest2(*graph);
 
   DijkstraRouter router;
-  router.SetRoadGraph(&graph);
+  router.SetRoadGraph(graph);
   router.SetFinalRoadPos(vector<RoadPos>(&finalPos[0], &finalPos[0] + ARRAY_SIZE(finalPos)));
   vector<RoadPos> result;
   router.CalculateRoute(vector<RoadPos>(&startPos[0], &startPos[0] + ARRAY_SIZE(startPos)), result);

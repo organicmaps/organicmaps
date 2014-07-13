@@ -39,8 +39,7 @@ void Name2IdMapping::operator()(FeatureType const & ft)
     return;
 
   string name;
-  bool hasName = ft.GetName(0, name);
-  ASSERT(hasName, ());
+  VERIFY(ft.GetName(0, name), ());
 
   m_name2Id[name] = ft.GetID().m_offset;
   m_id2Name[ft.GetID().m_offset] = name;
@@ -70,7 +69,7 @@ FeatureRoadGraphTester::FeatureRoadGraphTester(string const & name)
     return;
   }
 
-  m_graph.reset(new FeatureRoadGraph(&m_index, 0));
+  m_graph = new FeatureRoadGraph(&m_index, 0);
 
   m_index.ForEachInRect(m_mapping, MercatorBounds::FullRect(), m_graph->GetStreetReadScale());
 }
