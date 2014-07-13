@@ -143,6 +143,8 @@ namespace qt
     m2::PointD m_taskPoint;
     bool m_wasLongClick, m_isCleanSingleClick;
 
+    int m_routingMode;
+
     PinClickManager & GetBalloonManager() { return m_framework->GetBalloonManager(); }
   };
 }

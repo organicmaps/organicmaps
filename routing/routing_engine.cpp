@@ -1,10 +1,13 @@
 #include "routing_engine.hpp"
 #include "route.hpp"
+
 #include "helicopter_router.hpp"
 #include "osrm_router.hpp"
+#include "dijkstra_router.hpp"
 
 #include "../base/stl_add.hpp"
 #include "../base/logging.hpp"
+
 
 namespace routing
 {
@@ -24,10 +27,16 @@ void RoutingEngine::AddRouter(string const & name)
   if (!FindRouter(name))
   {
     if (name == "helicopter")
-      m_routers.push_back(new HelicopterRouter);
+      m_routers.push_back(new HelicopterRouter());
     else if (name == "osrm")
-      m_routers.push_back(new OsrmRouter);
+      m_routers.push_back(new OsrmRouter());
   }
+}
+
+void RoutingEngine::AddRouter(string const & name, IRouter * pRouter)
+{
+  if (!FindRouter(name))
+    m_routers.push_back(pRouter);
 }
 
 void RoutingEngine::RemoveRouter(string const & name)

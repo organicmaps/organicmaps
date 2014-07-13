@@ -94,6 +94,9 @@ protected:
   mutable scoped_ptr<search::Engine> m_pSearchEngine;
 
   routing::RoutingEngine m_routingEngine;
+  routing::IRouter * CreateRouter();
+  void RestoreSesame();
+  bool SesameOpen(search::SearchParams const & params);
 
   model::FeaturesFetcher m_model;
   ScalesProcessor m_scales;
@@ -492,6 +495,7 @@ public:
   bool IsRoutingEnabled() const;
   void SetRouteStart(m2::PointD const & mercatorStart);
   void SetRouteEnd(m2::PointD const & mercatorEnd);
+  void DeleteRoutes();
   void OnRouteCalculated(routing::Route const & route);
   //@}
 };
