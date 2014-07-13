@@ -22,6 +22,8 @@ public:
   bool operator() (feature::TypesHolder const & types) const;
   bool operator() (FeatureType const & ft) const;
   bool operator() (vector<uint32_t> const & types) const;
+
+  static uint32_t PrepareFeatureTypeToMatch(uint32_t featureType);
 };
 
 class IsStreetChecker : public BaseChecker

@@ -8,6 +8,12 @@
 namespace ftypes
 {
 
+uint32_t BaseChecker::PrepareFeatureTypeToMatch(uint32_t featureType)
+{
+  ftype::TruncValue(featureType, 2);
+  return featureType;
+}
+
 bool BaseChecker::IsMatched(uint32_t t) const
 {
   ftype::TruncValue(t, 2);
