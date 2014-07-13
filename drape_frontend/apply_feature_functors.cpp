@@ -181,7 +181,7 @@ ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey, Fea
 
 void ApplyLineFeature::operator ()(CoordPointT const & point)
 {
-  m2::PointF inputPt(point.first, point.second);
+  m2::PointF const inputPt(point.first, point.second);
 
   /// TODO remove this check when fix generator.
   /// Now we have line objects with zero length segments
