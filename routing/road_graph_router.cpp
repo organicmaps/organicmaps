@@ -110,7 +110,7 @@ void RoadGraphRouter::CalculateRoute(m2::PointD const & startPt, ReadyCallback c
   vector<RoadPos> routePos;
   CalculateRoute(startPos, routePos);
 
-  Route route;
+  Route route(GetName());
   m_pRoadGraph->ReconstructPath(routePos, route);
   callback(route);
 }

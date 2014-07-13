@@ -12,8 +12,28 @@ namespace routing
 class Route
 {
 public:
-  Route() {}
-  Route(string const & router, vector<m2::PointD> const & points, string const & name = "");
+  explicit Route(string const & router, string const & name = string())
+    : m_router(router), m_name(name)
+  {
+  }
+
+  template <class IterT>
+  Route(string const & router, IterT beg, IterT end,
+        string const & name = string())
+    : m_router(router), m_poly(beg, end), m_name(name)
+  {
+  }
+
+  Route(string const & router, vector<m2::PointD> const & points,
+        string const & name = string())
+    : m_router(router), m_poly(points), m_name(name)
+  {
+  }
+
+  template <class IterT> void SetGeometry(IterT beg, IterT end)
+  {
+    m2::PolylineD(beg, end).Swap(m_poly);
+  }
 
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly; }

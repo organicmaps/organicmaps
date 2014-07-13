@@ -55,7 +55,7 @@ void TestDijkstraRouterMWM(RoadPos (&finalPos)[finalPosSize],
   router.CalculateRoute(startV, result);
   LOG(LDEBUG, (result));
 
-  Route route;
+  Route route(router.GetName());
   tester.GetGraph()->ReconstructPath(result, route);
   LOG(LDEBUG, (route));
   TEST_EQUAL(route.GetPoly().GetSize(), pointsCount, ());

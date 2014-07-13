@@ -22,6 +22,10 @@ public:
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
+  template <class IterT> PolylineT(IterT beg, IterT end) : m_points(beg, end)
+  {
+    ASSERT_GREATER(m_points.size(), 1, ());
+  }
 
   double GetLength() const
   {
