@@ -21,15 +21,15 @@ public class Egl14Wrapper extends BaseEglWrapper
   private EGLDisplay mDisplay = EGL14.EGL_NO_DISPLAY;
   private EGLContext mContext = EGL14.EGL_NO_CONTEXT;
   private EGLSurface mSurface = EGL14.EGL_NO_SURFACE;
-  private EGLConfig  mConfig  = null;
+  private EGLConfig mConfig = null;
 
   private EGLConfig[] mConfigs = new EGLConfig[40];
 
   private int mChoosenConfigIndex = 0;
-  private int mActualConfigsNumber[] = new int[] {0};
+  private int mActualConfigsNumber[] = new int[]{0};
 
   private class EGLConfigComparator extends ConfigComparatorBase
-                                    implements Comparator<EGLConfig>
+      implements Comparator<EGLConfig>
   {
     EGLConfigComparator()
     {
@@ -39,14 +39,16 @@ public class Egl14Wrapper extends BaseEglWrapper
     @Override
     public int compare(EGLConfig l, EGLConfig r)
     {
-      final int [] value = new int[2];
+      final int[] value = new int[2];
 
       EGL14.eglGetConfigAttrib(mDisplay, l, EGL14.EGL_CONFIG_CAVEAT, value, 0);
       EGL14.eglGetConfigAttrib(mDisplay, r, EGL14.EGL_CONFIG_CAVEAT, value, 1);
 
       return CompareConfigs(value[1], value[0]);
     }
-  };
+  }
+
+  ;
 
   public Egl14Wrapper(Logger logger)
   {
@@ -183,8 +185,7 @@ public class Egl14Wrapper extends BaseEglWrapper
 
     while (true)
     {
-      /// trying to create window surface with one of the EGL configs, recreating the m_eglConfig if necessary
-
+      /// trying to create window surface with one of the EGL configs, recreating the mEglConfig if necessary
       mSurface = EGL14.eglCreateWindowSurface(mDisplay, mConfigs[choosenSurfaceConfigIndex], holder, GetSurfaceAttributes14(), 0);
 
       final boolean surfaceCreated = (mSurface != EGL14.EGL_NO_SURFACE);
@@ -243,9 +244,8 @@ public class Egl14Wrapper extends BaseEglWrapper
     if (mDisplay != EGL14.EGL_NO_DISPLAY && mSurface != EGL14.EGL_NO_SURFACE)
       EGL14.eglMakeCurrent(mDisplay, EGL14.EGL_NO_SURFACE, EGL14.EGL_NO_SURFACE, mContext);
     if (mSurface != EGL14.EGL_NO_SURFACE)
-    {
       EGL14.eglDestroySurface(mDisplay, mSurface);
-    }
+
     mSurface = EGL14.EGL_NO_SURFACE;
 
     return true;
@@ -316,7 +316,7 @@ public class Egl14Wrapper extends BaseEglWrapper
   {
     final int sizes[] = new int[1];
     EGL14.eglQuerySurface(mDisplay, mSurface, EGL14.EGL_WIDTH, sizes, 0);
-    return  sizes[0];
+    return sizes[0];
   }
 
   @Override
@@ -348,7 +348,7 @@ public class Egl14Wrapper extends BaseEglWrapper
     EGL14.eglGetConfigAttrib(mDisplay, config, EGL14.EGL_DEPTH_SIZE, value, 5);
     EGL14.eglGetConfigAttrib(mDisplay, config, EGL14.EGL_CONFIG_CAVEAT, value, 6);
     final String caveat = (value[6] == EGL14.EGL_NONE) ? "EGL_NONE" :
-                          (value[6] == EGL14.EGL_SLOW_CONFIG) ? "EGL_SLOW_CONFIG" : "EGL_NON_CONFORMANT_CONFIG";
+        (value[6] == EGL14.EGL_SLOW_CONFIG) ? "EGL_SLOW_CONFIG" : "EGL_NON_CONFORMANT_CONFIG";
     EGL14.eglGetConfigAttrib(mDisplay, config, EGL14.EGL_BUFFER_SIZE, value, 7);
     EGL14.eglGetConfigAttrib(mDisplay, config, EGL14.EGL_LEVEL, value, 8);
     EGL14.eglGetConfigAttrib(mDisplay, config, EGL14.EGL_SAMPLE_BUFFERS, value, 9);
@@ -356,7 +356,7 @@ public class Egl14Wrapper extends BaseEglWrapper
 
     return "R" + value[0] + "G" + value[1] + "B" + value[2] + "A" + value[3] +
         " Stencil:" + value[4] + " Depth:" + value[5] + " Caveat:" + caveat +
-        " BufferSize:" + value[7]  + " Level:" + value[8] + " SampleBuffers:" + value[9] +
+        " BufferSize:" + value[7] + " Level:" + value[8] + " SampleBuffers:" + value[9] +
         " Samples:" + value[10];
   }
 }

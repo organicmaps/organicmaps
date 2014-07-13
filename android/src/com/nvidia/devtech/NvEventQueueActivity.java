@@ -86,7 +86,7 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity implem
   protected native boolean onDestroyNative();
 
   public native boolean multiTouchEvent(int action, boolean hasFirst,
-      boolean hasSecond, int x0, int y0, int x1, int y1, MotionEvent event);
+                                        boolean hasSecond, int x0, int y0, int x1, int y1, MotionEvent event);
 
   @SuppressWarnings("deprecation")
   @Override
@@ -212,18 +212,18 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity implem
     {
       m_lastPointerId = event.getPointerId(0);
 
-      final int x0 = (int)event.getX();
-      final int y0 = (int)event.getY();
+      final int x0 = (int) event.getX();
+      final int y0 = (int) event.getY();
 
       return multiTouchEvent(event.getAction(), true, false, x0, y0, 0, 0, event);
     }
     default:
     {
-      final int x0 = (int)event.getX(0);
-      final int y0 = (int)event.getY(0);
+      final int x0 = (int) event.getX(0);
+      final int y0 = (int) event.getY(0);
 
-      final int x1 = (int)event.getX(1);
-      final int y1 = (int)event.getY(1);
+      final int x1 = (int) event.getX(1);
+      final int y1 = (int) event.getY(1);
 
       if (event.getPointerId(0) == m_lastPointerId)
         return multiTouchEvent(event.getAction(), true, true,
