@@ -116,7 +116,36 @@
   info.m_speed = location.speed;
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+{
+  // Stop passing driving course if last time stamp for GPS location is later than 20 seconds.
+  if (m_lastLocationTime == nil || ([m_lastLocationTime timeIntervalSinceNow] < -20.0))
+    m_isCourse = NO;
+
+  if (!m_isCourse)
+  {
+    location::CompassInfo newInfo;
+    newInfo.m_magneticHeading = my::DegToRad(newHeading.magneticHeading);
+    newInfo.m_trueHeading = my::DegToRad(newHeading.trueHeading);
+    newInfo.m_accuracy = my::DegToRad(newHeading.headingAccuracy);
+    newInfo.m_timestamp = [newHeading.timestamp timeIntervalSince1970];
+
+    [self notifyCompassUpdate:newInfo];
+  }
+}
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+  [self processLocation:newLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+  CLLocation * newLocation = [locations lastObject];
+  [self processLocation:newLocation];
+}
+
+- (void)processLocation:(CLLocation *)newLocation
 {
   // According to documentation, lat and lon are valid only if horz acc is non-negative.
   // So we filter out such events completely.
@@ -146,24 +175,6 @@
   }
   else
     m_isCourse = NO;
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
-{
-  // Stop passing driving course if last time stamp for GPS location is later than 20 seconds.
-  if (m_lastLocationTime == nil || ([m_lastLocationTime timeIntervalSinceNow] < -20.0))
-    m_isCourse = NO;
-
-  if (!m_isCourse)
-  {
-    location::CompassInfo newInfo;
-    newInfo.m_magneticHeading = my::DegToRad(newHeading.magneticHeading);
-    newInfo.m_trueHeading = my::DegToRad(newHeading.trueHeading);
-    newInfo.m_accuracy = my::DegToRad(newHeading.headingAccuracy);
-    newInfo.m_timestamp = [newHeading.timestamp timeIntervalSince1970];
-
-    [self notifyCompassUpdate:newInfo];
-  }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

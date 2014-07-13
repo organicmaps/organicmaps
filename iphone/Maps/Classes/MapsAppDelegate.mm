@@ -8,6 +8,7 @@
 #import <MobileAppTracker/MobileAppTracker.h>
 #import "UIKitCategories.h"
 #import "AppInfo.h"
+#import "LocalNotificationManager.h"
 
 #include <sys/xattr.h>
 
@@ -59,6 +60,67 @@ void InitLocalizedStrings()
 + (MapsAppDelegate *)theApp
 {
   return (MapsAppDelegate *)[UIApplication sharedApplication].delegate;
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+  [[Statistics instance] startSession];
+  [AppInfo sharedInfo]; // we call it to init -firstLaunchDate
+  if ([AppInfo sharedInfo].advertisingId)
+    [[Statistics instance] logEvent:@"Device Info" withParameters:@{@"IFA" : [AppInfo sharedInfo].advertisingId, @"Country" : [AppInfo sharedInfo].countryCode}];
+
+  InitLocalizedStrings();
+
+  [self.m_mapViewController onEnterForeground];
+
+  [Preferences setup:self.m_mapViewController];
+  _m_locationManager = [[LocationManager alloc] init];
+
+  m_navController = [[NavigationController alloc] initWithRootViewController:self.m_mapViewController];
+  m_navController.navigationBarHidden = YES;
+  m_window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  m_window.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+  m_window.clearsContextBeforeDrawing = NO;
+  m_window.multipleTouchEnabled = YES;
+  [m_window setRootViewController:m_navController];
+  [m_window makeKeyAndVisible];
+
+  if (GetPlatform().HasBookmarks())
+  {
+    int val = 0;
+    if (Settings::Get("NumberOfBookmarksPerSession", val))
+      [[Statistics instance] logEvent:@"Bookmarks Per Session" withParameters:@{@"Number of bookmarks" : [NSNumber numberWithInt:val]}];
+    Settings::Set("NumberOfBookmarksPerSession", 0);
+  }
+
+  [self subscribeToStorage];
+
+  [self customizeAppearance];
+
+  NSString * advertiserId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerAdvertiserId"];
+  NSString * conversionKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerConversionKey"];
+  [MobileAppTracker startTrackerWithMATAdvertiserId:advertiserId MATConversionKey:conversionKey];
+  if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY])
+    [MobileAppTracker setExistingUser:YES];
+  [MobileAppTracker trackSession];
+
+  if ([AppInfo sharedInfo].advertisingId)
+    [MobileAppTracker setAppleAdvertisingIdentifier:[AppInfo sharedInfo].advertisingId];
+
+  if ([application respondsToSelector:@selector(setMinimumBackgroundFetchInterval:)])
+    [application setMinimumBackgroundFetchInterval:(6 * 60 * 60)];
+
+  if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey])
+    [[LocalNotificationManager sharedManager] processDownloadMapNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey]];
+  else
+    [[LocalNotificationManager sharedManager] showDownloadMapAlertIfNeeded];
+
+  return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+  [[LocalNotificationManager sharedManager] showDownloadMapNotificationIfNeeded:completionHandler];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -210,56 +272,6 @@ void InitLocalizedStrings()
   if ([UINavigationBar instancesRespondToSelector:@selector(setShadowImage:)])
     [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
   [[UINavigationBar appearance] setTitleTextAttributes:attributes];
-}
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  NSLog(@"application didFinishLaunchingWithOptions");
-
-  [[Statistics instance] startSession];
-  [AppInfo sharedInfo]; // we call it to init -firstLaunchDate
-  if ([AppInfo sharedInfo].advertisingId)
-    [[Statistics instance] logEvent:@"Device Info" withParameters:@{@"IFA" : [AppInfo sharedInfo].advertisingId, @"Country" : [AppInfo sharedInfo].countryCode}];
-
-  InitLocalizedStrings();
-
-  [self.m_mapViewController onEnterForeground];
-
-  [Preferences setup:self.m_mapViewController];
-  _m_locationManager = [[LocationManager alloc] init];
-
-  m_navController = [[NavigationController alloc] initWithRootViewController:self.m_mapViewController];
-  m_navController.navigationBarHidden = YES;
-  m_window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  m_window.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  m_window.clearsContextBeforeDrawing = NO;
-  m_window.multipleTouchEnabled = YES;
-  [m_window setRootViewController:m_navController];
-  [m_window makeKeyAndVisible];
-
-  if (GetPlatform().HasBookmarks())
-  {
-    int val = 0;
-    if (Settings::Get("NumberOfBookmarksPerSession", val))
-      [[Statistics instance] logEvent:@"Bookmarks Per Session" withParameters:@{@"Number of bookmarks" : [NSNumber numberWithInt:val]}];
-    Settings::Set("NumberOfBookmarksPerSession", 0);
-  }
-
-  [self subscribeToStorage];
-
-  [self customizeAppearance];
-
-  NSString * advertiserId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerAdvertiserId"];
-  NSString * conversionKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerConversionKey"];
-  [MobileAppTracker startTrackerWithMATAdvertiserId:advertiserId MATConversionKey:conversionKey];
-  if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY])
-    [MobileAppTracker setExistingUser:YES];
-  [MobileAppTracker trackSession];
-
-  if ([AppInfo sharedInfo].advertisingId)
-    [MobileAppTracker setAppleAdvertisingIdentifier:[AppInfo sharedInfo].advertisingId];
-
-  return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
