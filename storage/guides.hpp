@@ -16,13 +16,15 @@ namespace guides
 class GuideInfo
 {
   my::JsonHandle m_obj;
+  string m_name;
 
   string GetString(char const * key) const;
   string GetAdForLang(string const & lang, char const * key) const;
 
 public:
-  GuideInfo(json_struct_t * obj = 0) : m_obj(obj) {}
+  GuideInfo(json_struct_t * obj = 0, char const * name = 0);
 
+  string GetName() const;
   string GetURL() const;
   string GetAppID() const;
   string GetAdTitle(string const & lang) const;
@@ -50,7 +52,8 @@ public:
   static string GetDataFileFullPath();
 
   /// @param[in] id MWM file name without extension as a key.
-  bool GetGuideInfo(string const & id, GuideInfo & appInfo) const;
+  bool GetGuideInfo(string const & countryFile, GuideInfo & appInfo) const;
+  bool GetGuideInfoByAppId(string const & id, GuideInfo & appInfo) const;
   void GetGuidesIds(set<string> & s);
 
   /// @param[in] appID Guide app package id.

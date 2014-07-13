@@ -33,6 +33,16 @@ string GetStringImpl(json_t * j)
   return (s ? s : "");
 }
 
+GuideInfo::GuideInfo(json_struct_t * obj, const char * name)
+  : m_obj(obj), m_name(name ? name : "")
+{
+}
+
+string GuideInfo::GetName() const
+{
+  return m_name;
+}
+
 string GuideInfo::GetString(char const * key) const
 {
   return GetStringImpl(json_object_get(m_obj.get(), key));
@@ -155,9 +165,9 @@ void GuidesManager::UpdateGuidesData()
   }
 }
 
-bool GuidesManager::GetGuideInfo(string const & id, GuideInfo & appInfo) const
+bool GuidesManager::GetGuideInfo(string const & countryFile, GuideInfo & appInfo) const
 {
-  MapT::const_iterator const it = m_file2Info.find(id);
+  MapT::const_iterator const it = m_file2Info.find(countryFile);
   if (it != m_file2Info.end())
   {
     appInfo = it->second;
@@ -166,9 +176,20 @@ bool GuidesManager::GetGuideInfo(string const & id, GuideInfo & appInfo) const
   return false;
 }
 
+bool GuidesManager::GetGuideInfoByAppId(string const & id, GuideInfo & appInfo) const
+{
+  for (MapT::const_iterator it = m_file2Info.begin(); it != m_file2Info.end(); ++it)
+    if (it->second.GetAppID() == id)
+    {
+      appInfo = it->second;
+      return true;
+    }
+  return false;
+}
+
 void GuidesManager::GetGuidesIds(set<string> & s)
 {
-  for (MapT::iterator it = m_file2Info.begin(); it != m_file2Info.end();++it)
+  for (MapT::iterator it = m_file2Info.begin(); it != m_file2Info.end(); ++it)
     s.insert(it->second.GetAppID());
 }
 
@@ -252,7 +273,7 @@ int GuidesManager::ParseGuidesData(string const & jsonData, MapT & guidesInfo)
           version = json_integer_value(entry);
         else
         {
-          GuideInfo info(entry);
+          GuideInfo info(entry, json_object_iter_key(iter));
           if (info.IsValid())
           {
             json_t * keys = json_object_get(entry, "keys");
@@ -260,7 +281,7 @@ int GuidesManager::ParseGuidesData(string const & jsonData, MapT & guidesInfo)
             {
               char const * key = json_string_value(json_array_get(keys, i));
               if (key)
-                temp[key] = info;
+                temp.insert(MapT::value_type(key, info));
             }
           }
         }

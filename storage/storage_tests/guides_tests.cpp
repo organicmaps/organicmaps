@@ -37,6 +37,7 @@ UNIT_TEST(Guides_SmokeTest)
   TEST(manager.GetGuideInfo("Guernsey", info), ());
   TEST(info.IsValid(), ());
 
+  TEST_EQUAL(info.GetName(), "UK", ());
   TEST_EQUAL(info.GetAdTitle("en"), "UK title", ());
   TEST_EQUAL(info.GetAdMessage("en"), "UK message", ());
   TEST_EQUAL(info.GetAdTitle("ru"), "ВБ заголовок", ());

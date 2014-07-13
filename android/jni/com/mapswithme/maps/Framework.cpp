@@ -867,7 +867,7 @@ extern "C"
     {
       m_giClass = m_env->FindClass("com/mapswithme/maps/guides/GuideInfo");
       m_methodID = m_env->GetMethodID(m_giClass,
-                "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+                "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
       m_lang = languages::CurrentLanguage();
     }
 
@@ -879,7 +879,8 @@ extern "C"
                             jni::ToJavaString(m_env, info.GetAppID()),
                             jni::ToJavaString(m_env, info.GetURL()),
                             jni::ToJavaString(m_env, info.GetAdTitle(m_lang)),
-                            jni::ToJavaString(m_env, info.GetAdMessage(m_lang)));
+                            jni::ToJavaString(m_env, info.GetAdMessage(m_lang)),
+                            jni::ToJavaString(m_env, info.GetName()));
     }
   };
 
@@ -905,6 +906,38 @@ extern "C"
   Java_com_mapswithme_maps_Framework_wasAdvertised(JNIEnv * env, jclass clazz, jstring appId)
   {
     return g_framework->NativeFramework()->GetGuidesManager().WasAdvertised(jni::ToNativeString(env, appId));
+  }
+
+  JNIEXPORT jobjectArray JNICALL
+  Java_com_mapswithme_maps_Framework_getGuideIds(JNIEnv * env, jclass clazz)
+  {
+    std::set<string> guides;
+    g_framework->NativeFramework()->GetGuidesManager().GetGuidesId(guides);
+
+    jclass klass = env->FindClass("java/lang/String");
+    ASSERT ( klass, () );
+
+    jobjectArray arr = env->NewObjectArray(guides.size(), klass, 0);
+
+    set<string>::iterator it;
+    int i = 0;
+    for (it = guides.begin(); it != guides.end(); ++it)
+    {
+        string guideId = *it;
+        env->SetObjectArrayElement(arr, i++, jni::ToJavaString(env, guideId));
+    }
+
+    return arr;
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_getGuideById(JNIEnv * env, jclass clazz, jstring guideId)
+  {
+    guides::GuideInfo info;
+    if (g_framework->NativeFramework()->GetGuidesManager().GetGuideInfoByAppId(jni::ToNativeString(env, guideId), info))
+      return GuideNative2Java(env).GetGuide(info);
+
+    return NULL;
   }
 
   JNIEXPORT jint JNICALL
