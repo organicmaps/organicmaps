@@ -30,9 +30,11 @@ public:
 
   void operator() (FeatureType const & ft)
   {
-    double const speed = m_vehicleModel->GetSpeed(ft);
+    if (ft.GetFeatureType() != feature::GEOM_LINE)
+      return;
 
-    if (ft.GetFeatureType() != feature::GEOM_LINE || speed <= 0.0)
+    double const speed = m_vehicleModel->GetSpeed(ft);
+    if (speed <= 0.0)
       return;
 
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);

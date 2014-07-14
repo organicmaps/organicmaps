@@ -56,7 +56,11 @@ public:
       return;
 
     feature::TypesHolder types(ft);
-    if (!m_graph.IsStreet(types))
+    if (types.GetGeoType() != feature::GEOM_LINE)
+      return;
+
+    double const speed = m_graph.GetSpeed(ft);
+    if (speed <= 0.0)
       return;
 
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
@@ -265,12 +269,6 @@ void FeaturesRoadGraph::ReconstructPath(RoadPosVectorT const & positions, Route 
   }
 
   route.SetGeometry(poly.rbegin(), poly.rend());
-}
-
-bool FeaturesRoadGraph::IsStreet(feature::TypesHolder const & types) const
-{
-  return (types.GetGeoType() == feature::GEOM_LINE &&
-          ftypes::IsStreetChecker::Instance()(types));
 }
 
 bool FeaturesRoadGraph::IsOneWay(FeatureType const & ft) const

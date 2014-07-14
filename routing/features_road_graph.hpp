@@ -31,7 +31,6 @@ public:
 private:
   friend class CrossFeaturesLoader;
 
-  bool IsStreet(feature::TypesHolder const & types) const;
   bool IsOneWay(FeatureType const & ft) const;
   double GetSpeed(FeatureType const & ft) const;
   void LoadFeature(uint32_t id, FeatureType & ft);
