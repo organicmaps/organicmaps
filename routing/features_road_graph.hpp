@@ -1,6 +1,7 @@
 #pragma once
 
 #include "road_graph.hpp"
+#include "../std/scoped_ptr.hpp"
 
 class Index;
 class FeatureType;
@@ -12,6 +13,8 @@ namespace feature
 
 namespace routing
 {
+
+class IVehicleModel;
 
 class FeaturesRoadGraph : public IRoadGraph
 {
@@ -29,13 +32,14 @@ private:
   friend class CrossFeaturesLoader;
 
   bool IsStreet(feature::TypesHolder const & types) const;
-  bool IsOneway(feature::TypesHolder const & types) const;
-
+  bool IsOneWay(FeatureType const & ft) const;
+  double GetSpeed(FeatureType const & ft) const;
   void LoadFeature(uint32_t id, FeatureType & ft);
 
 private:
   Index const * m_pIndex;
   size_t m_mwmID;
+  scoped_ptr<IVehicleModel> m_vehicleModel;
 };
 
 } // namespace routing

@@ -1,5 +1,6 @@
 #include "features_road_graph.hpp"
 #include "route.hpp"
+#include "vehicle_model.hpp"
 
 #include "../indexer/index.hpp"
 #include "../indexer/classificator.hpp"
@@ -19,7 +20,7 @@ double const DEFAULT_SPEED_MS = 15.0;
 
 
 FeaturesRoadGraph::FeaturesRoadGraph(Index const * pIndex, size_t mwmID)
-  : m_pIndex(pIndex), m_mwmID(mwmID)
+  : m_pIndex(pIndex), m_mwmID(mwmID), m_vehicleModel(new CarModel())
 {
 }
 
@@ -60,7 +61,7 @@ public:
 
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
-    bool const isOneWay = m_graph.IsOneway(types);
+    bool const isOneWay = m_graph.IsOneWay(ft);
     size_t const count = ft.GetPointsCount();
 
     PossibleTurn t;
@@ -114,9 +115,14 @@ void FeaturesRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTur
   FeatureType ft;
   LoadFeature(ftId, ft);
 
+  double const speed = GetSpeed(ft);
+
+  if (speed <= 0.0)
+    return;
+
   int const count = static_cast<int>(ft.GetPointsCount());
   bool const isForward = pos.IsForward();
-  bool const isOneWay = IsOneway(ft);
+  bool const isOneWay = IsOneWay(ft);
   int const inc = isForward ? -1 : 1;
 
   int startID = pos.GetPointId();
@@ -137,7 +143,7 @@ void FeaturesRoadGraph::GetPossibleTurns(RoadPos const & pos, vector<PossibleTur
 
     double const segmentDistance = CalcDistanceMeters(ft.GetPoint(i), ft.GetPoint(i - inc));
     distance += segmentDistance;
-    time += segmentDistance / DEFAULT_SPEED_MS;
+    time += segmentDistance / speed;
 
     m2::PointD const & pt = ft.GetPoint(i);
 
@@ -267,9 +273,15 @@ bool FeaturesRoadGraph::IsStreet(feature::TypesHolder const & types) const
           ftypes::IsStreetChecker::Instance()(types));
 }
 
-bool FeaturesRoadGraph::IsOneway(feature::TypesHolder const & types) const
+bool FeaturesRoadGraph::IsOneWay(FeatureType const & ft) const
 {
-  return ftypes::IsStreetChecker::Instance().IsOneway(types);
+  return m_vehicleModel->IsOneWay(ft);
 }
+
+double FeaturesRoadGraph::GetSpeed(FeatureType const & ft) const
+{
+  return m_vehicleModel->GetSpeed(ft);
+}
+
 
 } // namespace routing

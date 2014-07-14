@@ -1,6 +1,7 @@
 #include "road_graph_router.hpp"
 #include "features_road_graph.hpp"
 #include "route.hpp"
+#include "vehicle_model.hpp"
 
 #include "../indexer/feature.hpp"
 #include "../indexer/ftypes_matcher.hpp"
@@ -19,17 +20,19 @@ class Point2RoadPos
   size_t m_segIdx;
   bool m_isOneway;
   FeatureID m_fID;
+  IVehicleModel const * m_vehicleModel;
 
 public:
-  Point2RoadPos(m2::PointD const & pt)
-    : m_point(pt), m_minDist(numeric_limits<double>::max())
+  Point2RoadPos(m2::PointD const & pt, IVehicleModel const * vehicleModel)
+    : m_point(pt), m_minDist(numeric_limits<double>::max()), m_vehicleModel(vehicleModel)
   {
   }
 
   void operator() (FeatureType const & ft)
   {
-    if (ft.GetFeatureType() != feature::GEOM_LINE ||
-        !ftypes::IsStreetChecker::Instance()(ft))
+    double const speed = m_vehicleModel->GetSpeed(ft);
+
+    if (ft.GetFeatureType() != feature::GEOM_LINE || speed <= 0.0)
       return;
 
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
@@ -45,7 +48,7 @@ public:
         m_minDist = d;
         m_segIdx = i;
         m_fID = ft.GetID();
-        m_isOneway = ftypes::IsStreetChecker::Instance().IsOneway(ft);
+        m_isOneway = m_vehicleModel->IsOneWay(ft);
       }
     }
   }
@@ -66,9 +69,19 @@ public:
   }
 };
 
+RoadGraphRouter::~RoadGraphRouter()
+{
+}
+
+RoadGraphRouter::RoadGraphRouter(Index const * pIndex) :
+   m_vehicleModel(new CarModel()), m_pIndex(pIndex)
+{
+
+}
+
 size_t RoadGraphRouter::GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos)
 {
-  Point2RoadPos getter(pt);
+  Point2RoadPos getter(pt, m_vehicleModel.get());
   m_pIndex->ForEachInRect(getter,
                           MercatorBounds::RectByCenterXYAndSizeInMeters(pt, 100.0),
                           FeaturesRoadGraph::GetStreetReadScale());

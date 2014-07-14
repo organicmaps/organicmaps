@@ -14,10 +14,13 @@ class Index;
 namespace routing
 {
 
+class IVehicleModel;
+
 class RoadGraphRouter : public IRouter
 {
 public:
-  RoadGraphRouter(Index const * pIndex) : m_pIndex(pIndex) {}
+  RoadGraphRouter(Index const * pIndex);
+  ~RoadGraphRouter();
 
   virtual void SetFinalPoint(m2::PointD const & finalPt);
   virtual void CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback);
@@ -31,6 +34,7 @@ protected:
   bool IsMyMWM(size_t mwmID) const;
 
   scoped_ptr<IRoadGraph> m_pRoadGraph;
+  scoped_ptr<IVehicleModel> m_vehicleModel;
   Index const * m_pIndex;
 };
 
