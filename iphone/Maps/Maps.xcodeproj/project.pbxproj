@@ -125,8 +125,6 @@
 		97DD585D18A8EB130079837E /* libFlurry_4.3.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_4.3.2.a */; };
 		97DDC05B19728C4900B3A4FD /* libGooglePlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DDC00019728C4900B3A4FD /* libGooglePlus.a */; };
 		97DDC05C19728C4900B3A4FD /* libGooglePlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DDC00019728C4900B3A4FD /* libGooglePlus.a */; };
-		97DDC05D19728C4A00B3A4FD /* libGooglePlusUniversal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DDC00119728C4900B3A4FD /* libGooglePlusUniversal.a */; };
-		97DDC05E19728C4A00B3A4FD /* libGooglePlusUniversal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DDC00119728C4900B3A4FD /* libGooglePlusUniversal.a */; };
 		97DDC05F19728C4A00B3A4FD /* GTLBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 97DDC00519728C4900B3A4FD /* GTLBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		97DDC06019728C4A00B3A4FD /* GTLBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 97DDC00519728C4900B3A4FD /* GTLBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		97DDC06119728C4A00B3A4FD /* GTLBatchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 97DDC00719728C4900B3A4FD /* GTLBatchQuery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1543,7 +1541,6 @@
 		97DDBFFE19728C4900B3A4FD /* GPPSignInButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPSignInButton.h; sourceTree = "<group>"; };
 		97DDBFFF19728C4900B3A4FD /* GPPURLHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPURLHandler.h; sourceTree = "<group>"; };
 		97DDC00019728C4900B3A4FD /* libGooglePlus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGooglePlus.a; sourceTree = "<group>"; };
-		97DDC00119728C4900B3A4FD /* libGooglePlusUniversal.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGooglePlusUniversal.a; sourceTree = "<group>"; };
 		97DDC00419728C4900B3A4FD /* GTLBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLBase64.h; sourceTree = "<group>"; };
 		97DDC00519728C4900B3A4FD /* GTLBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLBase64.m; sourceTree = "<group>"; };
 		97DDC00619728C4900B3A4FD /* GTLBatchQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLBatchQuery.h; sourceTree = "<group>"; };
@@ -2290,7 +2287,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97DDC05D19728C4A00B3A4FD /* libGooglePlusUniversal.a in Frameworks */,
 				FAA0F163196AC14100E01C3F /* librouting.a in Frameworks */,
 				97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */,
 				97719D491843B6F700BDD815 /* Security.framework in Frameworks */,
@@ -2340,7 +2336,6 @@
 				FAA0F164196AC15E00E01C3F /* librouting.a in Frameworks */,
 				97EDDCE518A299C000AEFB7A /* Twitter.framework in Frameworks */,
 				972CDCC61887F1B7006641CA /* CFNetwork.framework in Frameworks */,
-				97DDC05E19728C4A00B3A4FD /* libGooglePlusUniversal.a in Frameworks */,
 				97C98656186C734000AF7E9E /* AVFoundation.framework in Frameworks */,
 				97C98654186C5F0500AF7E9E /* AudioToolbox.framework in Frameworks */,
 				97C98652186C5EF000AF7E9E /* iAd.framework in Frameworks */,
@@ -2670,7 +2665,6 @@
 				97DDBFFE19728C4900B3A4FD /* GPPSignInButton.h */,
 				97DDBFFF19728C4900B3A4FD /* GPPURLHandler.h */,
 				97DDC00019728C4900B3A4FD /* libGooglePlus.a */,
-				97DDC00119728C4900B3A4FD /* libGooglePlusUniversal.a */,
 				97DDC00219728C4900B3A4FD /* OpenSource */,
 			);
 			path = GooglePlusSDK;
