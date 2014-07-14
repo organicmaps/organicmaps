@@ -2391,9 +2391,15 @@
 			isa = PBXGroup;
 			children = (
 				97B4E9271851DAB300BEC5D7 /* Custom Views */,
+				CB252D6816FF82C8001E41E9 /* Statistics */,
+				FA36B8011540388B004560CC /* Bookmarks */,
+				FA34BEC71338D6DB00FFB2A7 /* Common */,
+				97354B6B196EDCE200352536 /* Login & Sharing */,
 				9789DB53188D5DFF007C6FAE /* In App Messaging */,
-				9770A04618AD19D300126E5C /* More Apps */,
+				97DDC0B81973EEBA00B3A4FD /* Downloader */,
 				FA4135DF120A25B90062D5B4 /* Settings */,
+				FA6E1F1B124E6B2800F59149 /* Platform */,
+				9770A04618AD19D300126E5C /* More Apps */,
 				978F9251183BD530000D6C7C /* NavigationController.h */,
 				978F9252183BD530000D6C7C /* NavigationController.mm */,
 				97D40C0C184E389000A1D572 /* MailComposeViewController.h */,
@@ -2429,11 +2435,6 @@
 		29B97314FDCFA39411CA2CEA /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				CB252D6816FF82C8001E41E9 /* Statistics */,
-				FA36B8011540388B004560CC /* Bookmarks */,
-				FA34BEC71338D6DB00FFB2A7 /* Common */,
-				97354B6B196EDCE200352536 /* Login & Sharing */,
-				FA6E1F1B124E6B2800F59149 /* Platform */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				974726401832306C006B7CB7 /* Categories */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -2515,6 +2516,7 @@
 				97354B6D196EDD3A00352536 /* AccountManager.m */,
 			);
 			name = "Login & Sharing";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		974726401832306C006B7CB7 /* Categories */ = {
@@ -2780,6 +2782,15 @@
 			path = GTLPlus;
 			sourceTree = "<group>";
 		};
+		97DDC0B81973EEBA00B3A4FD /* Downloader */ = {
+			isa = PBXGroup;
+			children = (
+				FA4135E1120A263C0062D5B4 /* CountriesViewController.h */,
+				FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */,
+			);
+			name = Downloader;
+			sourceTree = "<group>";
+		};
 		CB252D6816FF82C8001E41E9 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -2796,7 +2807,8 @@
 				97DD585318A8EAFA0079837E /* Aarki.h */,
 				97DD585418A8EAFA0079837E /* AarkiContact.h */,
 			);
-			path = Statistics;
+			name = Statistics;
+			path = ../Statistics;
 			sourceTree = "<group>";
 		};
 		FA065FC61286143F00FEA989 /* External Resources */ = {
@@ -2893,7 +2905,6 @@
 				FAAEA7D3161D8D3100CCD661 /* BookmarksRootVC.mm */,
 			);
 			name = Bookmarks;
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		FA36B8171540466A004560CC /* Images */ = {
@@ -2911,8 +2922,6 @@
 			isa = PBXGroup;
 			children = (
 				978F924D183BB5D6000D6C7C /* Cells */,
-				FA4135E1120A263C0062D5B4 /* CountriesViewController.h */,
-				FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */,
 				FA4135E6120A263C0062D5B4 /* SettingsManager.h */,
 				FA4135E7120A263C0062D5B4 /* SettingsManager.mm */,
 				978F923F183B660F000D6C7C /* SettingsViewController.h */,
@@ -2931,6 +2940,7 @@
 				FAA5C2A1144F135F005337F6 /* LocationManager.mm */,
 			);
 			name = Platform;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		FA8F930C150184280057B215 /* Suggestion Icons */ = {
