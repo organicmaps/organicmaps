@@ -85,7 +85,7 @@ void DijkstraRouter::CalculateRoute(vector<RoadPos> const & startPos, vector<Roa
     }
   }
 
-  LOG(LDEBUG, ("No debug found!"));
+  LOG(LDEBUG, ("No route found!"));
   // Route not found.
 }
 
