@@ -33,9 +33,9 @@ void RoutingEngine::AddRouter(string const & name)
   }
 }
 
-void RoutingEngine::AddRouter(string const & name, IRouter * pRouter)
+void RoutingEngine::AddRouter(IRouter * pRouter)
 {
-  if (!FindRouter(name))
+  if (!FindRouter(pRouter->GetName()))
     m_routers.push_back(pRouter);
 }
 

@@ -17,7 +17,7 @@ public:
   ~RoutingEngine();
 
   void AddRouter(string const & name);
-  void AddRouter(string const & name, IRouter * pRouter);
+  void AddRouter(IRouter * pRouter);
   void RemoveRouter(string const & name);
   bool IsRoutingEnabled() const;
 

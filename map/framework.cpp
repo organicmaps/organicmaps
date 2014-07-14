@@ -1222,10 +1222,10 @@ void Framework::RestoreSesame()
   bool enable = false;
   if (Settings::Get(ROUTER_HELICOPTER, enable) && enable)
     m_routingEngine.AddRouter(ROUTER_HELICOPTER);
-//  if (Settings::Get(ROUTER_OSRM, enable) && enable)
-//    m_routingEngine.AddRouter(ROUTER_OSRM);
+  if (Settings::Get(ROUTER_OSRM, enable) && enable)
+    m_routingEngine.AddRouter(ROUTER_OSRM);
   if (Settings::Get(ROUTER_MAPSME, enable) && enable)
-    m_routingEngine.AddRouter(ROUTER_MAPSME, CreateRouter());
+    m_routingEngine.AddRouter(CreateRouter());
 }
 
 /// Activates hidden features via search queries
@@ -1241,7 +1241,7 @@ bool Framework::SesameOpen(search::SearchParams const & params)
   {
     m_routingEngine.AddRouter(ROUTER_HELICOPTER);
     m_routingEngine.AddRouter(ROUTER_OSRM);
-    m_routingEngine.AddRouter(ROUTER_MAPSME, CreateRouter());
+    m_routingEngine.AddRouter(CreateRouter());
 
     // Enable all other engines here
     Settings::Set(ROUTER_HELICOPTER, true);
@@ -1287,7 +1287,7 @@ bool Framework::SesameOpen(search::SearchParams const & params)
   }
   else if (params.m_query == "?routeme on")
   {
-    m_routingEngine.AddRouter(ROUTER_MAPSME, CreateRouter());
+    m_routingEngine.AddRouter(CreateRouter());
     Settings::Set(ROUTER_MAPSME, true);
     searchResult = "maps.me routing activated";
   }
