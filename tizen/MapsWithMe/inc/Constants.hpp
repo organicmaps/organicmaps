@@ -52,4 +52,5 @@ extern int const deleteWidth;
 //timer
 extern int const DoubleClickTimeout;
 
+extern const char * SETTINGS_MAP_LICENSE;
 }//consts

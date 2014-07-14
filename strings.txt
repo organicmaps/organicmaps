@@ -3483,3 +3483,30 @@
     vi = Chọn điểm đến…
     zh-Hans = 选择目的地…
     zh-Hant = 選擇目的地…
+  [maps_licence_info]
+    tags = tizen
+    comment = Show on first lunch.
+    en = This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.
+    ru = Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взяты из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.
+    fr = Cette application utilise des données géographiques (dont des cartes, des listes d'entreprises, des points d'intérêt, des frontières de pays et de régions, etc.) tirées du projet OpenStreetMap. Nous ne garantissons en aucune manière la cohérence, l'exactitude, la complétude ou l'applicabilité des données d'OpenStreetMap.
+    ja = このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。
+    zh-Hans = 这个应用程序使用了源自OpenStreetMap项目的地理数据（包括地图、商业清单、景点、国家和地区边界等）。我们对OpenStreetMap任何数据的一致性、准确性、完整性或适用性不做担保。
+    zh-Hant = 此應用程序使用從OpenStreetMap專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證OpenStreetMap數據的一致性、準確性、完整性、或適用性。
+  [agree]
+    tags = tizen
+    comment = Show on first lunch.
+    en = I agree
+    ru = Я согласен
+    fr = Je suis d'accord
+    ja = 同意する
+    zh-Hans = 我同意
+    zh-Hant = 我同意
+  [disagree]
+    tags = tizen
+    comment = Show on first lunch.
+    en = I disagree
+    ru = Я не согласен
+    fr = Je ne suis pas d'accord
+    ja = 同意しない
+    zh-Hans = 我不同意
+    zh-Hant = 我不同意

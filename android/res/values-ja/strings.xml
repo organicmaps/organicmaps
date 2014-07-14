@@ -337,4 +337,10 @@
 	<string name="choose_starting_point">出発地を入力…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">目的地を入力…</string>
+	<!-- Show on first lunch. -->
+	<string name="maps_licence_info">このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。</string>
+	<!-- Show on first lunch. -->
+	<string name="agree">同意する</string>
+	<!-- Show on first lunch. -->
+	<string name="disagree">同意しない</string>
 </resources>

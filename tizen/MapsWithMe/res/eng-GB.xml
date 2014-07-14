@@ -97,4 +97,10 @@
 	<text id="IDS_BECOME_A_PRO">Upgrade</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Zoom buttons</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Display on the screen</text>
+	<!-- Show on first lunch. -->
+	<text id="IDS_MAPS_LICENCE_INFO">This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.</text>
+	<!-- Show on first lunch. -->
+	<text id="IDS_AGREE">I agree</text>
+	<!-- Show on first lunch. -->
+	<text id="IDS_DISAGREE">I disagree</text>
 </string_table>

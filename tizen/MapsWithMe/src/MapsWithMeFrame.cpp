@@ -1,6 +1,11 @@
 #include "MapsWithMeFrame.h"
 #include "SceneRegister.hpp"
+#include "Constants.hpp"
+
 #include <FUi.h>
+
+#include "../../../base/logging.hpp"
+#include "../../../platform/settings.hpp"
 
 using namespace Tizen::App;
 using namespace Tizen::Ui;
@@ -23,11 +28,21 @@ result MapsWithMeFrame::OnInitializing(void)
   // Go to the first scene.
   SceneManager* pSceneManager = SceneManager::GetInstance();
   AppAssert(pSceneManager);
-  r = pSceneManager->GoForward(ForwardSceneTransition(SCENE_MAP));
-  TryReturn(!IsFailed(r), r, "%s", GetErrorMessage(r));
-
 
   SetPropagatedKeyEventListener(this);
+
+  bool bMapsLicenceAgreement = false;
+  if (!Settings::Get(consts::SETTINGS_MAP_LICENSE, bMapsLicenceAgreement) || !bMapsLicenceAgreement)
+  {
+    r = pSceneManager->GoForward(ForwardSceneTransition(SCENE_LICENSE));
+  }
+  else
+  {
+    r = pSceneManager->GoForward(ForwardSceneTransition(SCENE_MAP));
+  }
+
+  TryReturn(!IsFailed(r), r, "%s", GetErrorMessage(r));
+
   return r;
 }
 
@@ -41,14 +56,14 @@ result MapsWithMeFrame::OnTerminating(void)
 
 bool MapsWithMeFrame::OnKeyReleased(Tizen::Ui::Control& source, const Tizen::Ui::KeyEventInfo& keyEventInfo)
 {
-//  KeyCode keyCode = keyEventInfo.GetKeyCode();
-//
-//  if (keyCode == KEY_BACK)
-//  {
-//    UiApp* pApp = UiApp::GetInstance();
-//    AppAssert(pApp);
-//    pApp->Terminate();
-//  }
+  //  KeyCode keyCode = keyEventInfo.GetKeyCode();
+  //
+  //  if (keyCode == KEY_BACK)
+  //  {
+  //    UiApp* pApp = UiApp::GetInstance();
+  //    AppAssert(pApp);
+  //    pApp->Terminate();
+  //  }
 
   return false;
 }

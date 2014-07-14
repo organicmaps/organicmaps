@@ -565,3 +565,12 @@
 
 /* button in the interface */
 "choose_destination" = "Selecione o destino…";
+
+/* Show on first lunch. */
+"maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
+
+/* Show on first lunch. */
+"agree" = "I agree";
+
+/* Show on first lunch. */
+"disagree" = "I disagree";

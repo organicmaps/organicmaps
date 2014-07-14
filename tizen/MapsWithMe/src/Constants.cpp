@@ -48,4 +48,6 @@ int const distanceWidth = 200;
 int const deleteWidth = 200;
 
 int const DoubleClickTimeout = 200;
+
+const char * SETTINGS_MAP_LICENSE = "map_license_agreement";
 }

@@ -565,3 +565,12 @@
 
 /* button in the interface */
 "choose_destination" = "目的地を入力…";
+
+/* Show on first lunch. */
+"maps_licence_info" = "このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。";
+
+/* Show on first lunch. */
+"agree" = "同意する";
+
+/* Show on first lunch. */
+"disagree" = "同意しない";
