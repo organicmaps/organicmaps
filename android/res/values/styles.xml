@@ -53,7 +53,7 @@
   </style>
 
   <style name="labelGreen" parent="android:Widget.TextView">
-    <item name="android:textColor">@color/base_green</item>
+    <item name="android:textColor">@color/text_label_bookmars_green</item>
     <item name="android:textSize">@dimen/sp_x_3</item>
     <item name="android:textStyle">bold</item>
   </style>
@@ -128,5 +128,4 @@
     <item name="android:gravity">left|center_vertical</item>
     <item name="android:fontFamily">@string/robotoLight</item>
   </style>
-
 </resources>

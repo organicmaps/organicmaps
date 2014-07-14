@@ -56,5 +56,5 @@
   <color name="bg_search_green">#1F9F7E</color>
   <color name="bg_search_green_pressed">#68BEA8</color>
   <color name="bg_top_panels">#15D180</color>
-
+  <color name="text_label_bookmars_green">#1BBB78</color>
 </resources>

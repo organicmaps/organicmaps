@@ -8,6 +8,7 @@
   <dimen name="icon_size">24dp</dimen>
   <dimen name="circle_size">16dp</dimen>
 
+  <dimen name="margin_micro">2dp</dimen>
   <dimen name="margin_tiny">4dp</dimen>
   <dimen name="margin_small">8dp</dimen>
   <dimen name="margin_medium">16dp</dimen>
@@ -40,4 +41,6 @@
   <dimen name="bottom_panel_height">46dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
   <dimen name="search_box_height">56dp</dimen>
+
+  <item name="alpha_edit_button" format="float" type="dimen">0.75</item>
 </resources>

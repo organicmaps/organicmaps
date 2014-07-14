@@ -67,6 +67,7 @@
                 style="@style/labelGreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_large"
                 android:text="@string/set" />
 
             <include layout="@layout/green_separator" />
@@ -88,6 +89,7 @@
                 style="@style/labelGreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:text="@string/description" />
 
             <include layout="@layout/green_separator" />
