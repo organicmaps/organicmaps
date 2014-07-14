@@ -49,7 +49,7 @@
   <color name="pp_bg_preview_end">#15ca82</color>
   <color name="pp_bg_end">#15d080</color>
   <color name="bg_menu">#e6414451</color>
-  <color name="bg_bottom_toolbar">#444651</color>
+  <color name="bg_bottom_toolbar">#414651</color>
   <color name="bg_bottom_toolbar_pressed">#15d081</color>
   <color name="text_search_item">@android:color/white</color>
   <color name="text_search_item_greyed">@android:color/darker_gray</color>

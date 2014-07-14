@@ -3,6 +3,6 @@
 
     <corners android:radius="8dp" />
 
-    <solid android:color="@color/ui_20_green_darker" />
+    <solid android:color="@color/bg_search_green" />
 
 </shape>
