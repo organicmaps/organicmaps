@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -1087,7 +1088,10 @@ public class MWMActivity extends NvEventQueueActivity
   public void onBackPressed()
   {
     if (mInfoView.getState() != State.HIDDEN)
+    {
       hideInfoView();
+      deactivatePopup();
+    }
     else
       super.onBackPressed();
   }
@@ -1285,6 +1289,14 @@ public class MWMActivity extends NvEventQueueActivity
     default:
       break;
     }
+  }
+
+  @Override
+  public boolean onTouch(View view, MotionEvent event)
+  {
+    UiUtils.hide(mVerticalToolbar);
+    UiUtils.show(mToolbar);
+    return super.onTouch(view, event);
   }
 
   public interface MapTask extends Serializable
