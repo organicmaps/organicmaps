@@ -38,7 +38,6 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.TextView.BufferType;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMApplication;
@@ -432,7 +431,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       ss.setSpan(callerIconSpan, spanStart, spanEnd, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
       UiUtils.show(returnToCallerTv);
-      returnToCallerTv.setText(ss, BufferType.SPANNABLE);
+      returnToCallerTv.setText(ss, TextView.BufferType.SPANNABLE);
       returnToCallerTv.setOnClickListener(this);
     }
   }
