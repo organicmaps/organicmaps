@@ -3,9 +3,10 @@
     android:id="@+id/LinearLayout1"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/search_item_height"
+    android:layout_height="wrap_content"
     android:background="@drawable/bg_toolbar_button_selector"
     android:gravity="center_vertical"
+    android:minHeight="@dimen/search_item_height"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/margin_medium"
     android:paddingRight="@dimen/margin_medium">
@@ -18,7 +19,7 @@
 
   <LinearLayout
       android:layout_width="0dp"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:layout_weight="1"
       android:gravity="left|center_vertical"
       android:orientation="vertical">
