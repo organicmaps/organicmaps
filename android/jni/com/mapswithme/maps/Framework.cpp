@@ -711,6 +711,15 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodId, bmkAndCat.first, bmkAndCat.second);
   }
 
+  // My position
+  void CallOnMyPositionActivatedListener(shared_ptr<jobject> obj, double lat, double lon)
+  {
+    JNIEnv * jniEnv = jni::GetEnv();
+    jmethodID const methodId = jni::GetJavaMethodID(jniEnv, *obj.get(),
+                                                    "onMyPositionActivated", "(DD)V");
+    jniEnv->CallVoidMethod(*obj.get(), methodId, lat, lon);
+  }
+
   void CallOnUserMarkActivated(shared_ptr<jobject> obj, UserMarkCopy * markCopy)
   {
     ::Framework * fm = g_framework->NativeFramework();
@@ -743,6 +752,12 @@ extern "C"
         SearchMarkPoint const * searchMark = CastMark<SearchMarkPoint>(mark);
         CallOnAdditionalLayerActivatedListener(obj, searchMark->GetOrg(), searchMark->GetInfo());
         break;
+      }
+    case UserMark::MY_POSITION:
+      {
+        double lat, lon;
+        mark->GetLatLon(lat, lon);
+        CallOnMyPositionActivatedListener(obj, lat, lon);
       }
     }
   }

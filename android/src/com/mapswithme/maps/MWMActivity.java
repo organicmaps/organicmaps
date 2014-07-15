@@ -1178,6 +1178,24 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onMyPositionActivated(final double lat, final double lon)
   {
+    final MapObject mypos = new MapObject.MyPosition(getString(R.string.my_position), lat, lon);
+
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        if (!mInfoView.hasMapObject(mypos))
+        {
+          mInfoView.setMapObject(mypos);
+          mInfoView.setState(State.PREVIEW_ONLY);
+        }
+        else
+        {
+          mInfoView.setState(State.FULL_PLACEPAGE);
+        }
+      }
+    });
   }
 
   @Override

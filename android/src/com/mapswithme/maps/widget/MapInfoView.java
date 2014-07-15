@@ -369,6 +369,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
           fillPlacePageLayer((SearchResult) mMapObject);
           break;
         case API_POINT:
+        case MY_POSITION:
           fillPlacePageApi(mo);
           break;
         default:
@@ -716,6 +717,10 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       showColorChooser();
       break;
     case R.id.info_box_is_bookmarked:
+      if (mMapObject == null)
+      {
+        return;
+      }
       if (mMapObject.getType() == MapObjectType.BOOKMARK)
       {
         MapObject p;

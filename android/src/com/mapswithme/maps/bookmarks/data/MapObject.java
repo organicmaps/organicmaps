@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks.data;
 
 import android.content.res.Resources;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
@@ -159,4 +160,30 @@ public abstract class MapObject
       return mId;
     }
   }
+
+  public static class MyPosition extends MapObject
+  {
+
+
+    public MyPosition(String name, double lat, double lon)
+    {
+      super(name, lat, lon, "");
+    }
+
+    @Override
+    public MapObjectType getType()
+    {
+      return MapObjectType.MY_POSITION;
+    }
+
+    @Override
+    public void setDefaultIfEmpty(Resources res)
+    {
+      if (TextUtils.isEmpty(mName))
+      {
+        mName = res.getString(R.string.my_position);
+      }
+    }
+  }
+
 }
