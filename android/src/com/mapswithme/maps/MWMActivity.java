@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Point;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,11 +30,13 @@ import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.LocationButtonImageSetter.ButtonState;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
+import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
+import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.promo.PromocodeActivationDialog;
@@ -1296,6 +1299,18 @@ public class MWMActivity extends NvEventQueueActivity
     UiUtils.hide(mVerticalToolbar);
     UiUtils.show(mToolbar);
     return super.onTouch(view, event);
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data)
+  {
+    if (requestCode == BookmarkActivity.REQUEST_CODE_EDIT_BOOKMARK && resultCode == RESULT_OK)
+    {
+      final Point bmk = ((ParcelablePoint) data.getParcelableExtra(BookmarkActivity.PIN)).getPoint();
+      onBookmarkActivated(bmk.x, bmk.y);
+    }
+
+    super.onActivityResult(requestCode, resultCode, data);
   }
 
   public interface MapTask extends Serializable

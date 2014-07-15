@@ -2,7 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
@@ -33,11 +33,12 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
   public static final String PIN_SET = "pin_set";
   public static final int REQUEST_CODE_SET = 0x1;
   public static final String BOOKMARK_NAME = "bookmark_name";
+  public static final int REQUEST_CODE_EDIT_BOOKMARK = 0x2;
 
   private BookmarkManager mManager;
   private Bookmark mPin;
   private EditText mName;
-  private View     mClearName;
+  private View mClearName;
   private EditText mDescr;
   private TextView mSet;
 
@@ -45,10 +46,10 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
 
   private Icon mIcon = null;
 
-  public static void startWithBookmark(Context context, int category, int bookmark)
+  public static void startWithBookmark(Activity context, int category, int bookmark)
   {
-    context.startActivity(new Intent(context, BookmarkActivity.class)
-    .putExtra(BookmarkActivity.PIN, new ParcelablePoint(category, bookmark)));
+    context.startActivityForResult(new Intent(context, BookmarkActivity.class)
+        .putExtra(BookmarkActivity.PIN, new ParcelablePoint(category, bookmark)), REQUEST_CODE_EDIT_BOOKMARK);
   }
 
   @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -61,7 +62,7 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
 
     // Note that Point result from the intent is actually a pair of
     // (category index, bookmark index in category).
-    final Point cab = ((ParcelablePoint)getIntent().getParcelableExtra(PIN)).getPoint();
+    final Point cab = ((ParcelablePoint) getIntent().getParcelableExtra(PIN)).getPoint();
 
     mManager = BookmarkManager.getBookmarkManager(getApplicationContext());
     mPin = mManager.getBookmark(cab.x, cab.y);
@@ -126,7 +127,7 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
         mName.getText().clear();
       }
     });
-    mDescr = (EditText)findViewById(R.id.pin_description);
+    mDescr = (EditText) findViewById(R.id.pin_description);
 
     mSet.setOnClickListener(new OnClickListener()
     {
@@ -134,8 +135,8 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
       public void onClick(View v)
       {
         startActivityForResult(new Intent(BookmarkActivity.this, ChooseBookmarkCategoryActivity.class)
-          .putExtra(PIN_SET, mCurrentCategoryId)
-          .putExtra(PIN, new ParcelablePoint(mPin.getCategoryId(), mPin.getBookmarkId())), REQUEST_CODE_SET);
+            .putExtra(PIN_SET, mCurrentCategoryId)
+            .putExtra(PIN, new ParcelablePoint(mPin.getCategoryId(), mPin.getBookmarkId())), REQUEST_CODE_SET);
       }
     });
 
@@ -192,7 +193,7 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
     if (requestCode == REQUEST_CODE_SET && resultCode == RESULT_OK)
     {
 
-      final Point pin = ((ParcelablePoint)data.getParcelableExtra(PIN)).getPoint();
+      final Point pin = ((ParcelablePoint) data.getParcelableExtra(PIN)).getPoint();
       mPin = mManager.getBookmark(pin.x, pin.y);
       refreshValuesInViews();
 
@@ -226,5 +227,13 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
       UiUtils.invisible(mClearName);
     else
       UiUtils.show(mClearName);
+  }
+
+  @Override
+  public void onBackPressed()
+  {
+    setResult(RESULT_OK, new Intent().putExtra(BookmarkActivity.PIN, new ParcelablePoint(mPin.getCategoryId(), mPin.getBookmarkId())));
+
+    super.onBackPressed();
   }
 }

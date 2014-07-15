@@ -756,7 +756,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       break;
     case R.id.btn_edit_title:
       Bookmark bmk = (Bookmark) mMapObject;
-      BookmarkActivity.startWithBookmark(getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
+      BookmarkActivity.startWithBookmark((Activity) getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
       break;
     case R.id.btn_route_from:
       Framework.nativeSetRouteStart(mMapObject.getLat(), mMapObject.getLon());
