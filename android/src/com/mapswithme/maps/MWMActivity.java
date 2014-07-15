@@ -1298,6 +1298,12 @@ public class MWMActivity extends NvEventQueueActivity
   {
     UiUtils.hide(mVerticalToolbar);
     UiUtils.show(mToolbar);
+    if (mInfoView.getState() == State.FULL_PLACEPAGE)
+    {
+      deactivatePopup();
+      hideInfoView();
+      return true;
+    }
     return super.onTouch(view, event);
   }
 
