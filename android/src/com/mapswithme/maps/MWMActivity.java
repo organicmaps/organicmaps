@@ -777,7 +777,6 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   protected void onStop()
   {
-    deactivatePopup();
     super.onStop();
     mRenderingInitialized = false;
   }

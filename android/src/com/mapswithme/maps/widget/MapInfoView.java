@@ -98,6 +98,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private int mMaxPlacePageHeight = 0;
   private BookmarkManager mBookmarkManager;
   private List<Icon> mIcons;
+  private MapObject mBookmarkedMapObject;
 
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {
@@ -718,12 +719,24 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     case R.id.info_box_is_bookmarked:
       if (mMapObject.getType() == MapObjectType.BOOKMARK)
       {
-        final MapObject p = new Poi(mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon(), null);
+        MapObject p;
+        if (mBookmarkedMapObject != null &&
+            mBookmarkedMapObject.getLat() == mMapObject.getLat() &&
+            mBookmarkedMapObject.getLon() == mMapObject.getLon()) // use cached POI of bookmark, if it corresponds to current object
+        {
+          p = mBookmarkedMapObject;
+        }
+        else
+        {
+          p = Framework.nativeGetMapObjectForPoint(mMapObject.getLat(), mMapObject.getLon());
+        }
+
         mBookmarkManager.deleteBookmark((Bookmark) mMapObject);
         setMapObject(p);
       }
       else
       {
+        mBookmarkedMapObject = mMapObject;
         final Bookmark newBmk = mBookmarkManager.getBookmark(mBookmarkManager.addNewBookmark(
             mMapObject.getName(), mMapObject.getLat(), mMapObject.getLon()));
         setMapObject(newBmk);

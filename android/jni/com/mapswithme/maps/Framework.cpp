@@ -1069,4 +1069,21 @@ extern "C"
   {
     g_framework->NativeFramework()->SetRouteEnd(MercatorBounds::FromLatLon(lat, lon));
   }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetMapObjectForPoint(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
+  {
+    search::AddressInfo info;
+
+    g_framework->NativeFramework()->GetAddressInfoForGlobalPoint(MercatorBounds::FromLatLon(lat, lon), info);
+
+    jclass objClazz = env->FindClass("com/mapswithme/maps/bookmarks/data/MapObject$Poi");
+    jmethodID methodID = env->GetMethodID(objClazz,
+              "<init>", "(Ljava/lang/String;DDLjava/lang/String;)V");
+
+    const jstring j_name = jni::ToJavaString(env, info.GetPinName());
+    const jstring j_type = jni::ToJavaString(env, info.GetPinType());
+
+    return env->NewObject(objClazz, methodID, j_name, lat, lon, j_type);
+  }
 }

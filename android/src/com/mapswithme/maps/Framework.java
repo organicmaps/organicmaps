@@ -2,6 +2,7 @@ package com.mapswithme.maps;
 
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
+import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.guides.GuideInfo;
@@ -165,6 +166,7 @@ public class Framework
 
   private native static String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
   private native static String nativeGetNameAndAddress4Point(double lat, double lon);
+  public native static MapObject nativeGetMapObjectForPoint(double lat, double lon);
 
   private native static void nativeConnectBalloonListeners(OnBalloonListener listener);
   private native static void nativeClearBalloonListeners();
