@@ -87,8 +87,6 @@ public class SearchController implements OnClickListener
     }
     else if (R.id.search_image_clear == id)
     {
-      // Clear API points first, then clear additional layer
-      // (Framework::Invalidate is called inside).
       cancelApiCall();
       cancel();
       mSearchQueryTV.setText(null);
@@ -103,8 +101,8 @@ public class SearchController implements OnClickListener
     if (ParsedMmwRequest.hasRequest())
     {
       ParsedMmwRequest.setCurrentRequest(null);
-      Framework.clearApiPoints();
     }
+    Framework.nativeClearApiPoints();
   }
 
   public void setQuery(String query)

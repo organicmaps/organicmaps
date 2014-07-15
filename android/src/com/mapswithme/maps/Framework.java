@@ -86,11 +86,6 @@ public class Framework
     nativeClearBalloonListeners();
   }
 
-  public static void clearApiPoints()
-  {
-    //nativeClearApiPoints();
-  }
-
   public static DistanceAndAzimut getDistanceAndAzimut(double merX, double merY, double cLat, double cLon, double north)
   {
     return nativeGetDistanceAndAzimut(merX, merY, cLat, cLon, north);
@@ -175,7 +170,7 @@ public class Framework
   private native static boolean nativeIsDataVersionChanged();
   private native static void nativeUpdateSavedDataVersion();
 
-  private native static void nativeClearApiPoints();
+  public native static void nativeClearApiPoints();
 
 
   // this class is just bridge between Java and C++ worlds, we must not create it
