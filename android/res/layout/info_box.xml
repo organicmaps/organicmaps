@@ -10,7 +10,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@color/bg_top_panels"
-      android:padding="10dp"
+      android:padding="@dimen/margin_small"
       android:visibility="gone">
 
     <LinearLayout
@@ -32,7 +32,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_micro"
             android:fontFamily="@string/robotoLight"
+            android:paddingRight="@dimen/margin_large"
             android:textColor="@android:color/white"/>
+
+        <ImageButton
+            android:id="@+id/btn_edit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/info_title"
+            android:layout_marginLeft="-32dp"
+            android:alpha="@dimen/alpha_edit_button"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_place_page_edit_button"/>
 
         <TextView
             android:id="@+id/info_subtitle"
@@ -44,15 +55,6 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:textColor="@android:color/white"/>
-
-        <ImageButton
-            android:id="@+id/btn_edit_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/info_title"
-            android:alpha="@dimen/alpha_edit_button"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_place_page_edit_button"/>
 
         <Button
             android:id="@+id/btn_route_from"
