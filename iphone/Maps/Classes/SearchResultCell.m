@@ -39,15 +39,25 @@
 
 - (void)setTitle:(NSString *)title selectedRanges:(NSArray *)selectedRanges
 {
-  if (!title)
-    title = @"";
+  if ([self.titleLabel respondsToSelector:@selector(setAttributedText:)])
+  {
+    // iOS 6 and higher
     
-  NSMutableAttributedString * attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
-  [attributedTitle addAttributes:[self unselectedTitleAttributes] range:NSMakeRange(0, [title length])];
-  for (NSValue * range in selectedRanges)
-    [attributedTitle addAttributes:[self selectedTitleAttributes] range:[range rangeValue]];
+    if (!title)
+      title = @"";
 
-  self.titleLabel.attributedText = attributedTitle;
+    NSMutableAttributedString * attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
+    [attributedTitle addAttributes:[self unselectedTitleAttributes] range:NSMakeRange(0, [title length])];
+    for (NSValue * range in selectedRanges)
+      [attributedTitle addAttributes:[self selectedTitleAttributes] range:[range rangeValue]];
+
+    self.titleLabel.attributedText = attributedTitle;
+  }
+  else
+  {
+    // iOS 5
+    self.titleLabel.text = title;
+  }
 }
 
 - (NSDictionary *)selectedTitleAttributes
@@ -157,6 +167,11 @@
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.numberOfLines = 0;
     _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    if (![_titleLabel respondsToSelector:@selector(setAttributedText:)])
+    {
+      _titleLabel.font = TITLE_FONT;
+      _titleLabel.textColor = [UIColor whiteColor];
+    }
   }
   return _titleLabel;
 }

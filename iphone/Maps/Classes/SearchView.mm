@@ -141,10 +141,14 @@ __weak SearchView * selfPointer;
   selfPointer = self;
   needToScroll = NO;
 
-  [self.tableView registerClass:[SearchCategoryCell class] forCellReuseIdentifier:[SearchCategoryCell className]];
-  [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:[SearchResultCell className]];
-  [self.tableView registerClass:[SearchSuggestCell class] forCellReuseIdentifier:[SearchSuggestCell className]];
-  [self.tableView registerClass:[SearchShowOnMapCell class] forCellReuseIdentifier:[SearchShowOnMapCell className]];
+  if ([self.tableView respondsToSelector:@selector(registerClass:forCellReuseIdentifier:)])
+  {
+    // only for iOS 6 and higher
+    [self.tableView registerClass:[SearchCategoryCell class] forCellReuseIdentifier:[SearchCategoryCell className]];
+    [self.tableView registerClass:[SearchResultCell class] forCellReuseIdentifier:[SearchResultCell className]];
+    [self.tableView registerClass:[SearchSuggestCell class] forCellReuseIdentifier:[SearchSuggestCell className]];
+    [self.tableView registerClass:[SearchShowOnMapCell class] forCellReuseIdentifier:[SearchShowOnMapCell className]];
+  }
 
   return self;
 }
@@ -480,6 +484,8 @@ static void onSearchResultCallback(search::Results const & results)
     case CellTypeCategory:
     {
       SearchCategoryCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchCategoryCell className]];
+      if (!customCell) // only for iOS 5
+        customCell = [[SearchCategoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchCategoryCell className]];
 
       customCell.titleLabel.text = NSLocalizedString(self.categoriesNames[indexPath.row], nil);
       NSString * iconName = [NSString stringWithFormat:@"CategoryIcon%@", [self.categoriesNames[indexPath.row] capitalizedString]];
@@ -490,6 +496,8 @@ static void onSearchResultCallback(search::Results const & results)
     case CellTypeShowOnMap:
     {
       SearchShowOnMapCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchShowOnMapCell className]];
+      if (!customCell) // only for iOS 5
+        customCell = [[SearchShowOnMapCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchShowOnMapCell className]];
 
       customCell.titleLabel.text = NSLocalizedString(@"search_on_map", nil);
       cell = customCell;
@@ -498,6 +506,8 @@ static void onSearchResultCallback(search::Results const & results)
     case CellTypeResult:
     {
       SearchResultCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchResultCell className]];
+      if (!customCell) // only for iOS 5
+        customCell = [[SearchResultCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchResultCell className]];
 
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       search::Result const & result = [self.wrapper resultWithPosition:position];
@@ -520,6 +530,8 @@ static void onSearchResultCallback(search::Results const & results)
     case CellTypeSuggest:
     {
       SearchSuggestCell * customCell = [tableView dequeueReusableCellWithIdentifier:[SearchSuggestCell className]];
+      if (!customCell) // only for iOS 5
+        customCell = [[SearchSuggestCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[SearchSuggestCell className]];
 
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       search::Result const & result = [self.wrapper resultWithPosition:position];
@@ -719,7 +731,10 @@ static void onSearchResultCallback(search::Results const & results)
   if (!_topBackgroundView)
   {
     _topBackgroundView = [[SolidTouchImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0)];
-    _topBackgroundView.image = [[UIImage imageNamed:@"SearchViewTopBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0) resizingMode:UIImageResizingModeStretch];
+    if ([UIImage instancesRespondToSelector:@selector(resizableImageWithCapInsets:resizingMode:)]) // iOS 6 and higher
+      _topBackgroundView.image = [[UIImage imageNamed:@"SearchViewTopBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0) resizingMode:UIImageResizingModeStretch];
+    else // iOS 5 
+      _topBackgroundView.image = [[UIImage imageNamed:@"SearchViewTopBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 10, 0)];
     _topBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _topBackgroundView.userInteractionEnabled = YES;
   }

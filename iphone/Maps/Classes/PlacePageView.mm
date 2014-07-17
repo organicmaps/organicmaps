@@ -90,10 +90,14 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [nc addObserver:self selector:@selector(bookmarkCategoryDeletedNotification:) name:BOOKMARK_CATEGORY_DELETED_NOTIFICATION object:nil];
   [nc addObserver:self selector:@selector(metricsChangedNotification:) name:METRICS_CHANGED_NOTIFICATION object:nil];
 
-  [self.tableView registerClass:[PlacePageInfoCell class] forCellReuseIdentifier:[PlacePageInfoCell className]];
-  [self.tableView registerClass:[PlacePageEditCell class] forCellReuseIdentifier:[PlacePageEditCell className]];
-  [self.tableView registerClass:[PlacePageShareCell class] forCellReuseIdentifier:[PlacePageShareCell className]];
-  [self.tableView registerClass:[PlacePageRoutingCell class] forCellReuseIdentifier:[PlacePageRoutingCell className]];
+  if ([self.tableView respondsToSelector:@selector(registerClass:forCellReuseIdentifier:)])
+  {
+    // only for iOS 6 and higher
+    [self.tableView registerClass:[PlacePageInfoCell class] forCellReuseIdentifier:[PlacePageInfoCell className]];
+    [self.tableView registerClass:[PlacePageEditCell class] forCellReuseIdentifier:[PlacePageEditCell className]];
+    [self.tableView registerClass:[PlacePageShareCell class] forCellReuseIdentifier:[PlacePageShareCell className]];
+    [self.tableView registerClass:[PlacePageRoutingCell class] forCellReuseIdentifier:[PlacePageRoutingCell className]];
+  }
 
   CGFloat const defaultHeight = 93;
   [self updateHeight:defaultHeight];
@@ -192,6 +196,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if (row == CellRowCommon)
   {
     PlacePageInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageInfoCell className]];
+    if (!cell) // only for iOS 5
+      cell = [[PlacePageInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[PlacePageInfoCell className]];
+
     [cell setAddress:self.address pinPoint:[self pinPoint]];
     cell.color = [ColorPickerView colorForName:[self colorName]];
     cell.selectedColorView.alpha = [self isBookmark] ? 1 : 0;
@@ -202,18 +209,27 @@ typedef NS_ENUM(NSUInteger, CellRow)
   else if (row == CellRowSet)
   {
     PlacePageEditCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageEditCell className]];
+    if (!cell) // only for iOS 5
+      cell = [[PlacePageEditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[PlacePageEditCell className]];
+
     cell.titleLabel.text = self.setName;
     return cell;
   }
   else if (row == CellRowInfo)
   {
     PlacePageEditCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageEditCell className]];
+    if (!cell) // only for iOS 5
+      cell = [[PlacePageEditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[PlacePageEditCell className]];
+
     cell.titleLabel.text = self.info;
     return cell;
   }
   else if (row == CellRowShare)
   {
     PlacePageShareCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageShareCell className]];
+    if (!cell) // only for iOS 5
+      cell = [[PlacePageShareCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[PlacePageShareCell className]];
+
     cell.delegate = self;
     if ([self isMarkOfType:UserMark::API])
       cell.apiAppTitle = [NSString stringWithUTF8String:GetFramework().GetApiDataHolder().GetAppTitle().c_str()];
@@ -224,6 +240,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   else if (row == CellRowRouting)
   {
     PlacePageRoutingCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageRoutingCell className]];
+    if (!cell) // only for iOS 5
+      cell = [[PlacePageRoutingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[PlacePageRoutingCell className]];
+
     cell.delegate = self;
     return cell;
   }
@@ -744,7 +763,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
     }
     else
     {
-      _title = [[self nonEmptyTitle:[self addressInfo].GetPinName()] capitalizedStringWithLocale:[NSLocale currentLocale]];
+      if ([NSString instancesRespondToSelector:@selector(capitalizedStringWithLocale:)]) // iOS 6 and higher
+        _title = [[self nonEmptyTitle:[self addressInfo].GetPinName()] capitalizedStringWithLocale:[NSLocale currentLocale]];
+      else // iOS 5 
+        _title = [[self nonEmptyTitle:[self addressInfo].GetPinName()] capitalizedString];
     }
 
     NSString * droppedPinTitle = NSLocalizedString(@"dropped_pin", nil);
@@ -1004,6 +1026,17 @@ typedef NS_ENUM(NSUInteger, CellRow)
     _headerView.backgroundColor = [UIColor applicationColor];
     _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    if (SYSTEM_VERSION_IS_LESS_THAN(@"6"))
+    {
+      UIView * touchView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _headerView.width - 64, _headerView.height)];
+      [_headerView addSubview:touchView];
+      [touchView addGestureRecognizer:tap];
+    }
+    else
+    {
+      [_headerView addGestureRecognizer:tap];
+    }
     [_headerView addSubview:self.titleLabel];
     [_headerView addSubview:self.typeLabel];
     [_headerView addSubview:self.bookmarkButton];
@@ -1020,8 +1053,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
     [_headerView addSubview:self.editImageView];
 
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    [_headerView addGestureRecognizer:tap];
   }
   return _headerView;
 }

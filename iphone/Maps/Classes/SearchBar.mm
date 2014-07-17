@@ -41,11 +41,6 @@
   if ([self.textField respondsToSelector:@selector(setTintColor:)])
     self.textField.tintColor = [UIColor whiteColor];
 
-  UIImageView * shadowImageView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"SearchBarShadow"] resizableImageWithCapInsets:UIEdgeInsetsZero]];
-  shadowImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-  shadowImageView.minY = self.height;
-  [self addSubview:shadowImageView];
-
   return self;
 }
 
