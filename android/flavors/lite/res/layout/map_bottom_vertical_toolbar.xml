@@ -12,7 +12,9 @@
       android:background="@drawable/bg_toolbar_button_selector"
       android:drawableLeft="@drawable/ic_menu_buy_pro"
       android:gravity="center_vertical"
-      android:paddingLeft="10dp"/>
+      android:paddingLeft="10dp"
+      android:text="@string/become_a_pro"
+      android:textColor="@android:color/white"/>
 
   <View
       style="@style/drawerSeparatorMediumPadded"/>
