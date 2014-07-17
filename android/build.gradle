@@ -8,7 +8,7 @@ buildscript {
   }
 }
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 dependencies {
   compile propAndroidSupportLibrary, propGooglePlayServices
@@ -27,6 +27,7 @@ android {
   // All properties are read from gradle.properties file
   compileSdkVersion propTargetSdkVersion.toInteger()
   buildToolsVersion propBuildToolsVersion
+
 
   defaultConfig {
     // Default package name is taken from the manifest and should be com.mapswithme.maps
@@ -113,20 +114,7 @@ android {
   }
 
   applicationVariants.all { variant ->
-    // This is an annoying hack to get around the fact that the Gradle plugin does not support
-    // having libraries with different minSdkVersions. Play Services has a min version of 9 but we support 7 still
-    variant.processManifest.doFirst {
-      File manifestFile = file("${buildDir}/intermediates/exploded-aar/com.google.android.gms/play-services/4.4.52/AndroidManifest.xml")
-      if (manifestFile.exists()) {
-//        println("Replacing minSdkVersion in Google Play Services")
-        String content = manifestFile.getText('UTF-8')
-        content = content.replaceAll(/minSdkVersion="9"/, 'minSdkVersion=\"7\"')
-        manifestFile.write(content, 'UTF-8')
-//        println(content)
-      }
-    }
-
-    // Also add version at the end of each built apk
+    // version at the end of each built apk
     def file = variant.outputFile
     variant.outputFile = new File(file.parent, file.name.replace(".apk", "-" + defaultConfig.versionName + "-" + getDate() + ".apk"))
   }
