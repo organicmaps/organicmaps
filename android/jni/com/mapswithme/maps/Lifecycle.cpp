@@ -284,6 +284,15 @@ int32_t NVEventAppMain(int32_t argc, char** argv)
           NVDEBUG("%s event: no specific app action", NVEventGetEventStr(ev->m_type));
           break;
 
+        case NV_EVENT_MWM:
+        {
+          typedef function<void ()> FnT;
+          FnT * pFn = reinterpret_cast<FnT *>(ev->m_data.m_mwm.m_pFn);
+          (*pFn)();
+          delete pFn;
+          break;
+        }
+
         default:
           NVDEBUG("UNKNOWN event");
           break;

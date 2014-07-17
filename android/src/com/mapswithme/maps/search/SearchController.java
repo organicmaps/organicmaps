@@ -107,7 +107,7 @@ public class SearchController implements OnClickListener
 
   public void setQuery(String query)
   {
-    mQuery = query == null ? "" : query;
+    mQuery = (query == null) ? "" : query;
   }
 
   public String getQuery()

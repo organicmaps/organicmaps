@@ -716,10 +716,18 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       finish();
 
       // Put query string for "View on map" or feature name for search result.
-      SearchController.getInstance().setQuery(position == 0 ?
-          mSearchEt.getText().toString() : "");
+      final boolean allResults = (position == 0);
+      final String query = getSearchString();
 
-      MWMActivity.startWithSearchResult(this, position != 0);
+      SearchController.getInstance().setQuery(allResults ? query : "");
+
+      if (allResults)
+      {
+        final String lang = Language.getKeyboardInput(this);
+        runInteractiveSearch(query, lang);
+      }
+
+      MWMActivity.startWithSearchResult(this, !allResults);
     }
     else
     {
@@ -919,6 +927,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private native String getLastQuery();
 
   private native void clearLastQuery();
+
+  private native void runInteractiveSearch(String query, String lang);
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data)

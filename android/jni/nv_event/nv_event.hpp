@@ -4,7 +4,7 @@
 // Email:           tegradev@nvidia.com
 // Web:             http://developer.nvidia.com/category/zone/mobile-development
 //
-// Copyright 2009-2011 NVIDIA® Corporation 
+// Copyright 2009-2011 NVIDIAÂ® Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -103,6 +103,7 @@ typedef enum NVEventType
   NV_EVENT_QUIT,
   /** App-specific events */
   NV_EVENT_USER,
+  NV_EVENT_MWM,
   /* a dummy enum value used to compute num_events */
   NV_EVENT_NUM_EVENT_DUMMY_DONTUSEME,
   /* total number of events */
@@ -330,6 +331,11 @@ typedef struct NVEventUser
   int32_t m_u3;
 } NVEventUser;
 
+typedef struct NVEventMWM
+{
+  void * m_pFn;
+} NVEventMWM;
+
 /** All-encompassing event structure 
 */
 typedef struct NVEvent 
@@ -353,6 +359,7 @@ typedef struct NVEvent
     NVEventSurfaceSize m_size;
     /** Data for user/app events */
     NVEventUser m_user;
+    NVEventMWM m_mwm;
   } m_data;
 } NVEvent;
 
@@ -536,5 +543,7 @@ function is, by definition platform-specific.
 NVEventPlatformAppHandle NVEventGetPlatformAppHandle();
 
 void InitNVEvent(JavaVM * jvm);
+
+void postMWMEvent(void * pFn);
 
 #endif

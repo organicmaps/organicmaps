@@ -217,12 +217,6 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   }
 }
 
-void Platform::RunOnGuiThread(TFunctor const & fn)
-{
-  /// @todo
-  fn();
-}
-
 namespace
 {
   class SelfDeleteRoutine : public threads::IRoutine

@@ -321,4 +321,15 @@ Java_com_mapswithme_maps_SearchActivity_clearLastQuery(JNIEnv * env, jobject thi
   g_framework->ClearLastSearchQuery();
 }
 
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_SearchActivity_runInteractiveSearch(JNIEnv * env, jobject thiz,
+                              jstring query, jstring lang)
+{
+  search::SearchParams params;
+  params.m_query = jni::ToNativeString(env, query);
+  params.SetInputLanguage(jni::ToNativeString(env, lang));
+
+  g_framework->NativeFramework()->StartInteractiveSearch(params);
+}
+
 }

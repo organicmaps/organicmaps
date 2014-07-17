@@ -340,10 +340,11 @@ const char* NVEventGetEventStr(NVEventType eventType)
     case NV_EVENT_QUIT:             return "NV_EVENT_QUIT";
     case NV_EVENT_USER:             return "NV_EVENT_USER";
     case NV_EVENT_LONG_CLICK:       return "NV_EVENT_LONG_CLICK";
+    case NV_EVENT_MWM:              return "NV_EVENT_MWM";
   }
 
   // update this if you end up having to edit something.
-  CT_ASSERT(NEED_TO_ADD_STRING_HERE, NV_EVENT_NUM_EVENTS == 18);
+  CT_ASSERT(NEED_TO_ADD_STRING_HERE, NV_EVENT_NUM_EVENTS == 19);
   return "unknown event type!";
 }
 
@@ -802,6 +803,15 @@ static jboolean postUserEvent(JNIEnv* env, jobject thiz,
       NVEventInsert(&ev);
       return true;
     }
+}
+
+void postMWMEvent(void * pFn)
+{
+  NVEvent ev;
+  ev.m_type = NV_EVENT_MWM;
+  ev.m_data.m_mwm.m_pFn = pFn;
+
+  NVEventInsertBlocking(&ev);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

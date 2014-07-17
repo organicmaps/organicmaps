@@ -4,6 +4,7 @@
 
 #include "../../../../../platform/platform.hpp"
 
+
 namespace android
 {
   class Platform : public ::Platform
@@ -22,6 +23,8 @@ namespace android
     void SetStoragePath(string const & path);
 
     bool HasAvailableSpaceForWriting(uint64_t size) const;
+
+    void RunOnGuiThreadImpl(TFunctor const & fn);
 
     static Platform & Instance();
   };

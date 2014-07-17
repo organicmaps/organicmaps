@@ -2,6 +2,8 @@
 
 #include "../core/jni_helper.hpp"
 
+#include "../../../nv_event/nv_event.hpp"
+
 #include "../../../../../platform/settings.hpp"
 
 #include "../../../../../base/logging.hpp"
@@ -51,6 +53,11 @@ string Platform::UniqueClientId() const
   }
 
   return res;
+}
+
+void Platform::RunOnGuiThread(TFunctor const & fn)
+{
+  static_cast<android::Platform *>(this)->RunOnGuiThreadImpl(fn);
 }
 
 namespace android
@@ -127,6 +134,11 @@ namespace android
   {
     static Platform platform;
     return platform;
+  }
+
+  void Platform::RunOnGuiThreadImpl(TFunctor const & fn)
+  {
+    postMWMEvent(new TFunctor(fn));
   }
 }
 

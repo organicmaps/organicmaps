@@ -440,6 +440,7 @@ namespace android
     m_work.ShowAllSearchResults();
   }
 
+  /*
   void Framework::CleanSearchLayerOnMap()
   {
     ::Framework * f = NativeFramework();
@@ -450,6 +451,7 @@ namespace android
     f->GetBalloonManager().Dismiss();
     f->Invalidate();
   }
+  */
 
   bool Framework::Search(search::SearchParams const & params)
   {
@@ -1005,7 +1007,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_cleanSearchLayerOnMap(JNIEnv * env, jclass clazz)
   {
-    g_framework->CleanSearchLayerOnMap();
+    g_framework->NativeFramework()->CancelInteractiveSearch();
   }
 
   JNIEXPORT void JNICALL
