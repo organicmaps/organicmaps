@@ -1121,10 +1121,6 @@ public class MWMActivity extends NvEventQueueActivity
             mInfoView.setMapObject(apiPoint);
             mInfoView.setState(State.PREVIEW_ONLY);
           }
-          else
-          {
-            mInfoView.setState(State.FULL_PLACEPAGE);
-          }
         }
       });
     }
@@ -1145,10 +1141,6 @@ public class MWMActivity extends NvEventQueueActivity
           mInfoView.setMapObject(poi);
           mInfoView.setState(State.PREVIEW_ONLY);
         }
-        else
-        {
-          mInfoView.setState(State.FULL_PLACEPAGE);
-        }
       }
     });
   }
@@ -1166,10 +1158,6 @@ public class MWMActivity extends NvEventQueueActivity
         {
           mInfoView.setMapObject(b);
           mInfoView.setState(State.PREVIEW_ONLY);
-        }
-        else
-        {
-          mInfoView.setState(State.FULL_PLACEPAGE);
         }
       }
     });
@@ -1190,10 +1178,6 @@ public class MWMActivity extends NvEventQueueActivity
           mInfoView.setMapObject(mypos);
           mInfoView.setState(State.PREVIEW_ONLY);
         }
-        else
-        {
-          mInfoView.setState(State.FULL_PLACEPAGE);
-        }
       }
     });
   }
@@ -1211,10 +1195,6 @@ public class MWMActivity extends NvEventQueueActivity
         {
           mInfoView.setMapObject(sr);
           mInfoView.setState(State.PREVIEW_ONLY);
-        }
-        else
-        {
-          mInfoView.setState(State.FULL_PLACEPAGE);
         }
       }
     });
