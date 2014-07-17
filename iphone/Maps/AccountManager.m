@@ -1,23 +1,11 @@
 
 #import "AccountManager.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import "GPPSignIn.h"
-#import "GTLPlusConstants.h"
-#import "GPPURLHandler.h"
-#import "GPPShare.h"
 
 @implementation PostMessage
 
 @end
 
-
-@interface AccountManager () <GPPSignInDelegate, GPPShareDelegate>
-
-@property (nonatomic, copy) CompletionBlock googlePlusLoginCompletion;
-@property (nonatomic, copy) CompletionBlock googlePlusShareCompletion;
-@property (nonatomic) PostMessage * googlePlusMessage;
-
-@end
 
 @implementation AccountManager
 
@@ -44,33 +32,11 @@
     }
     case AccountTypeGooglePlus:
     {
-      if ([[GPPSignIn sharedInstance] hasAuthInKeychain])
-      {
-        self.googlePlusMessage = nil;
-        self.googlePlusShareCompletion = block;
-
-        [GPPShare sharedInstance].delegate = self;
-        id <GPPShareBuilder> shareBuilder = [[GPPShare sharedInstance] shareDialog];
-        [shareBuilder setPrefillText:message.info];
-        [shareBuilder open];
-      }
-      else
-      {
-        self.googlePlusMessage = message;
-        [[self googlePlusSignIn] trySilentAuthentication];
-      }
       break;
     }
   }
 }
 
-- (void)finishedSharing:(BOOL)shared
-{
-  if (self.googlePlusShareCompletion)
-    self.googlePlusShareCompletion(shared);
-
-  self.googlePlusShareCompletion = nil;
-}
 
 - (void)postMessage:(PostMessage *)message toFacebookAndCheckPermissionsWithCompletion:(CompletionBlock)block
 {
@@ -206,50 +172,9 @@
     }
     case AccountTypeGooglePlus:
     {
-      self.googlePlusLoginCompletion = block;
-      [[self googlePlusSignIn] authenticate];
       break;
     }
   }
-}
-
-- (GPPSignIn *)googlePlusSignIn
-{
-  GPPSignIn * signIn = [GPPSignIn sharedInstance];
-  signIn.clientID = [self googlePlusClientId];
-  signIn.scopes = @[kGTLAuthScopePlusLogin];
-  signIn.shouldFetchGoogleUserEmail = YES;
-  signIn.shouldFetchGoogleUserID = YES;
-  signIn.delegate = self;
-  return signIn;
-}
-
-- (void)finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error
-{
-  if (self.googlePlusMessage)
-    [self postMessage:self.googlePlusMessage toAccountType:AccountTypeGooglePlus completion:self.googlePlusShareCompletion];
-  else if (self.googlePlusLoginCompletion)
-    self.googlePlusLoginCompletion(!error);
-
-  self.googlePlusLoginCompletion = nil;
-}
-
-- (NSString *)googlePlusClientId
-{
-  NSString * bundleId = [[NSBundle mainBundle] bundleIdentifier];
-  if ([bundleId isEqualToString:@"com.mapswithme.full"])
-    return @"516376788119-olu39qq0md9h8nd0p8ku35i5oiid78i7.apps.googleusercontent.com";
-  else if ([bundleId isEqualToString:@"com.mapswithme.travelguide"])
-    return @"516376788119-a0kr4j3767gagjf3dn0pmhqkmg6vnpp5.apps.googleusercontent.com";
-  else if ([bundleId isEqualToString:@"com.mapswithme.full.debug"])
-    return @"516376788119-taf0agjba07a75dpumrlr31qoa9iu8ag.apps.googleusercontent.com";
-  else if ([bundleId isEqualToString:@"com.mapswithme.full.simulator"])
-    return @"516376788119-k6fr1m85v6osun317i22qaelb3gevcn8.apps.googleusercontent.com";
-  else if ([bundleId isEqualToString:@"com.mapswithme.full.beta"])
-    return @"516376788119-hj5sm0s62uul62jgh5f2iqem0e04i3lo.apps.googleusercontent.com";
-  else if ([bundleId isEqualToString:@"com.mapswithme.travelguide.beta"])
-    return @"516376788119-4bo5vnkl653u2gtlv7sc161ig1om3mu7.apps.googleusercontent.com";
-  return nil;
 }
 
 + (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
@@ -263,9 +188,6 @@
   }];
 
   if ([FBAppCall handleOpenURL:url sourceApplication:sourceApplication])
-    return YES;
-
-  if ([GPPURLHandler handleURL:url sourceApplication:sourceApplication annotation:annotation])
     return YES;
 
   return NO;
