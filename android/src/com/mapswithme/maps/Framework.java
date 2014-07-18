@@ -44,11 +44,6 @@ public class Framework
     return nativeGetBookmarksExt();
   }
   
-  static public String[] GetMovableFilesExt()
-  {
-    return nativeGetMovablefilesExt();
-  }
-  
   static public void SetWritableDir(String newPath)
   {
     nativeSetWritableDir(newPath);
@@ -180,7 +175,7 @@ public class Framework
   public native static void cleanSearchLayerOnMap();
   public native static void invalidate();
   
-  private native static String[] nativeGetMovablefilesExt();
+  public native static String[] nativeGetMovableFilesExt();
   private native static String   nativeGetBookmarksExt();
   private native static String   nativeGetBookmarkDir();
   private native static String   nativeGetSettingsDir();

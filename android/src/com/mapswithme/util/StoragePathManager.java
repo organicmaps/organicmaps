@@ -1,19 +1,5 @@
 package com.mapswithme.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -36,6 +22,20 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class StoragePathManager
 {
@@ -549,7 +549,7 @@ public class StoragePathManager
     assert (newDir.isDirectory());
     assert (oldDir.isDirectory());
 
-    final String[] extensions = Framework.GetMovableFilesExt();
+    final String[] extensions = Framework.nativeGetMovableFilesExt();
 
     File[] internalFiles = oldDir.listFiles(new FileFilter()
     {
