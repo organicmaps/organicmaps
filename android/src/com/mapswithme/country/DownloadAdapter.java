@@ -598,53 +598,56 @@ class DownloadAdapter extends BaseAdapter
       }
     };
 
-    anchor.setOnCreateContextMenuListener(new OnCreateContextMenuListener()
+    if (anchor.getParent() != null) // if view is out of list parent is null and context menu cannot bo shown
     {
-      @Override
-      public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
+      anchor.setOnCreateContextMenuListener(new OnCreateContextMenuListener()
       {
-        menu.setHeaderTitle(countryItem.mName);
-
-        if (status == MapStorage.ON_DISK || status == MapStorage.ON_DISK_OUT_OF_DATE)
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
         {
-          final String titleDelete = mContext.getString(R.string.delete) + " "
-              + getSizeString(mStorage.countryLocalSizeInBytes(countryIndex));
-          menu.add(0, MENU_DELETE, MENU_DELETE, titleDelete).setOnMenuItemClickListener(menuItemClickListener);
+          menu.setHeaderTitle(countryItem.mName);
 
-          final String titleShow = mContext.getString(R.string.zoom_to_country);
-          menu.add(0, MENU_SHOW, MENU_SHOW, titleShow).setOnMenuItemClickListener(menuItemClickListener);
-        }
+          if (status == MapStorage.ON_DISK || status == MapStorage.ON_DISK_OUT_OF_DATE)
+          {
+            final String titleDelete = mContext.getString(R.string.delete) + " "
+                + getSizeString(mStorage.countryLocalSizeInBytes(countryIndex));
+            menu.add(0, MENU_DELETE, MENU_DELETE, titleDelete).setOnMenuItemClickListener(menuItemClickListener);
 
-        if (status == MapStorage.ON_DISK_OUT_OF_DATE)
-        {
-          final String titleUpdate = formatStringWithSize(R.string.update_mb_or_kb, countryIndex);
-          menu.add(0, MENU_UPDATE, MENU_UPDATE, titleUpdate)
-              .setOnMenuItemClickListener(menuItemClickListener);
-        }
+            final String titleShow = mContext.getString(R.string.zoom_to_country);
+            menu.add(0, MENU_SHOW, MENU_SHOW, titleShow).setOnMenuItemClickListener(menuItemClickListener);
+          }
 
-        if (status == MapStorage.DOWNLOADING || status == MapStorage.IN_QUEUE)
-          menu.add(0, MENU_CANCEL, MENU_CANCEL, mContext.getString(R.string.cancel_download))
-              .setOnMenuItemClickListener(menuItemClickListener);
-
-        if (mHasGoogleStore)
-        {
-          final GuideInfo info = Framework.getGuideInfoForIndexWithApiCheck(countryItem.mCountryIdx);
-          if (info != null)
-            menu.add(0, MENU_GUIDE, MENU_GUIDE, info.mTitle)
+          if (status == MapStorage.ON_DISK_OUT_OF_DATE)
+          {
+            final String titleUpdate = formatStringWithSize(R.string.update_mb_or_kb, countryIndex);
+            menu.add(0, MENU_UPDATE, MENU_UPDATE, titleUpdate)
                 .setOnMenuItemClickListener(menuItemClickListener);
-        }
+          }
 
-        if (status == MapStorage.NOT_DOWNLOADED || status == MapStorage.DOWNLOAD_FAILED)
-        {
-          final String titleDownload = formatStringWithSize(R.string.download_mb_or_kb, countryIndex);
-          menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, titleDownload)
-              .setOnMenuItemClickListener(menuItemClickListener);
-        }
-      }
-    });
+          if (status == MapStorage.DOWNLOADING || status == MapStorage.IN_QUEUE)
+            menu.add(0, MENU_CANCEL, MENU_CANCEL, mContext.getString(R.string.cancel_download))
+                .setOnMenuItemClickListener(menuItemClickListener);
 
-    anchor.showContextMenu();
-    anchor.setOnCreateContextMenuListener(null);
+          if (mHasGoogleStore)
+          {
+            final GuideInfo info = Framework.getGuideInfoForIndexWithApiCheck(countryItem.mCountryIdx);
+            if (info != null)
+              menu.add(0, MENU_GUIDE, MENU_GUIDE, info.mTitle)
+                  .setOnMenuItemClickListener(menuItemClickListener);
+          }
+
+          if (status == MapStorage.NOT_DOWNLOADED || status == MapStorage.DOWNLOAD_FAILED)
+          {
+            final String titleDownload = formatStringWithSize(R.string.download_mb_or_kb, countryIndex);
+            menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, titleDownload)
+                .setOnMenuItemClickListener(menuItemClickListener);
+          }
+        }
+      });
+
+      anchor.showContextMenu();
+      anchor.setOnCreateContextMenuListener(null);
+    }
   }
 
   private String getSizeString(long size)
