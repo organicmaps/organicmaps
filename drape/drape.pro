@@ -30,4 +30,4 @@ OTHER_FILES += \
     shaders/solid_color_fragment_shader.fsh \
     shaders/normalize_vertex_shader.vsh \
     shaders/font_fragment_shader.fsh \
-    shaders/font_vertex_shader.vsh
+    shaders/font_vertex_shader.vsh \

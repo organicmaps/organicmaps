@@ -34,7 +34,7 @@ SOURCES += \
     poi_symbol_shape.cpp \
     circle_shape.cpp \
     render_group.cpp \
-    text_shape.cpp
+    text_shape.cpp \
 
 HEADERS += \
     engine_context.hpp \
@@ -64,4 +64,4 @@ HEADERS += \
     poi_symbol_shape.hpp \
     circle_shape.hpp \
     render_group.hpp \
-    text_shape.hpp
+    text_shape.hpp \
