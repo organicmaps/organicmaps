@@ -351,4 +351,6 @@
 	<string name="choose_starting_point">Start auswählen…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">Ziel auswählen…</string>
+	<!-- text of notification -->
+	<string name="download_map_notification">Laden Sie die Karte des Ortes herunter, in dem Sie sich befinden</string>
 </resources>

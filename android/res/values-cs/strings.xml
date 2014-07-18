@@ -347,4 +347,6 @@
 	<string name="choose_starting_point">Zvolte začátek…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">Zvolte cíl…</string>
+	<!-- text of notification -->
+	<string name="download_map_notification">Stáhněte si mapu místa, kde právě jste</string>
 </resources>

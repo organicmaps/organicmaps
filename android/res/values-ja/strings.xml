@@ -343,4 +343,6 @@
 	<string name="agree">同意する</string>
 	<!-- Show on first lunch. -->
 	<string name="disagree">同意しない</string>
+	<!-- text of notification -->
+	<string name="download_map_notification">あなたがいる場所のマップをダウンロードしよう</string>
 </resources>

@@ -350,9 +350,11 @@
 	<!-- button in the interface -->
 	<string name="choose_destination">Куда…</string>
 	<!-- Show on first lunch. -->
-	<string name="maps_licence_info">Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взяты из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.</string>
+	<string name="maps_licence_info">Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.</string>
 	<!-- Show on first lunch. -->
 	<string name="agree">Я согласен</string>
 	<!-- Show on first lunch. -->
 	<string name="disagree">Я не согласен</string>
+	<!-- text of notification -->
+	<string name="download_map_notification">Скачайте карту места, где вы находитесь</string>
 </resources>

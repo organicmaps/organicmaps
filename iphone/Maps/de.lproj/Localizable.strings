@@ -574,3 +574,6 @@
 
 /* Show on first lunch. */
 "disagree" = "I disagree";
+
+/* text of notification */
+"download_map_notification" = "Laden Sie die Karte des Ortes herunter, in dem Sie sich befinden";

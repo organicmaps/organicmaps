@@ -574,3 +574,6 @@
 
 /* Show on first lunch. */
 "disagree" = "我不同意";
+
+/* text of notification */
+"download_map_notification" = "下載您所在地方的地圖";

@@ -347,4 +347,6 @@
 	<string name="choose_starting_point">Scegli il punto di partenza…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">Scegli la destinazione…</string>
+	<!-- text of notification -->
+	<string name="download_map_notification">Scarica la mappa del luogo in cui ti trovi</string>
 </resources>

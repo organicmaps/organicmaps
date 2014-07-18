@@ -358,4 +358,6 @@
 	<string name="choose_starting_point">Selecione o ponto de partida…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">Selecione o destino…</string>
+	<!-- text of notification -->
+	<string name="download_map_notification">Descarregue o mapa do local onde estiver</string>
 </resources>

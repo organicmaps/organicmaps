@@ -360,4 +360,6 @@
 	<string name="choose_starting_point">Válasszon kiindulási pontot…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">Válasszon úti célt…</string>
+	<!-- text of notification -->
+	<string name="download_map_notification">Töltsd le annak a helynek a térképét, ahol most vagy</string>
 </resources>

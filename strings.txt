@@ -3510,3 +3510,25 @@
     ja = 同意しない
     zh-Hans = 我不同意
     zh-Hant = 我不同意
+
+  [download_map_notification]
+    tags = ios
+    comment = text of notification
+    en = Download the map of the place where you are
+    ar = تنزيل خريطة المكان الذي توجد فيه
+    cs = Stáhněte si mapu místa, kde právě jste
+    de = Laden Sie die Karte des Ortes herunter, in dem Sie sich befinden
+    es = Descarga el mapa del lugar en que te encuentras
+    fr = Téléchargez la carte de l'endroit où vous êtes
+    hu = Töltsd le annak a helynek a térképét, ahol most vagy
+    it = Scarica la mappa del luogo in cui ti trovi
+    ja = あなたがいる場所のマップをダウンロードしよう
+    ko = 당신이 있는 장소의지도를 다운로드 하십시오
+    nl = Download de kaart van de plaats waar u bent
+    pl = Pobierz mapę miejsca, w którym się zajdujesz
+    pt = Descarregue o mapa do local onde estiver
+    ru = Скачайте карту места, где вы находитесь
+    th = ดาวน์โหลดแผนที่เกี่ยวกับสถานที่ที่คุณอยู่
+    uk = Завантажуйте карту тієї місцевості, де ви знаходитесь
+    zh-Hans = 下载您所在地方的地图
+    zh-Hant = 下載您所在地方的地圖

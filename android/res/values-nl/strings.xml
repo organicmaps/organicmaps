@@ -336,4 +336,6 @@
 	<string name="choose_starting_point">Vertrekpunt kiezen…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">Bestemming kiezen…</string>
+	<!-- text of notification -->
+	<string name="download_map_notification">Download de kaart van de plaats waar u bent</string>
 </resources>

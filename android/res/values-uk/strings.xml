@@ -351,4 +351,6 @@
 	<string name="choose_starting_point">Виберіть початкову точку…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">Виберіть місце призначення…</string>
+	<!-- text of notification -->
+	<string name="download_map_notification">Завантажуйте карту тієї місцевості, де ви знаходитесь</string>
 </resources>

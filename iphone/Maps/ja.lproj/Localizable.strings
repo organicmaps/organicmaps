@@ -574,3 +574,6 @@
 
 /* Show on first lunch. */
 "disagree" = "同意しない";
+
+/* text of notification */
+"download_map_notification" = "あなたがいる場所のマップをダウンロードしよう";

@@ -335,4 +335,6 @@
 	<string name="agree">我同意</string>
 	<!-- Show on first lunch. -->
 	<string name="disagree">我不同意</string>
+	<!-- text of notification -->
+	<string name="download_map_notification">下載您所在地方的地圖</string>
 </resources>
