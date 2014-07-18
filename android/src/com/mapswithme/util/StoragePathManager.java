@@ -317,8 +317,7 @@ public class StoragePathManager
         {
           // On kitkat and Greater we ignore private folder on primary storage
           // like "PrimaryStorage/Android/data/com.mapswithme.maps.pro/file/"
-          // because
-          // we can write to root of PrimaryStorage/
+          // because we can write to the root of PrimaryStorage/
           if (f != null && !f.equals(primaryStorageDir))
             pathes.add(f.getPath());
         }
@@ -355,9 +354,7 @@ public class StoragePathManager
       m_adapter.updateList(m_items, m_currentItemIndex, GetMWMDirSize());
   }
 
-  // / @name Assume that MapsWithMe folder doesn't have inner folders and
-  // symbolic links.
-  // @{
+  /// @name Assume that MapsWithMe folder doesn't have inner folders and symbolic links.
   public long GetMWMDirSize()
   {
     String writableDir = Framework.GetWritableDir();
@@ -375,8 +372,6 @@ public class StoragePathManager
 
     return size;
   }
-
-  // @}
 
   public boolean MoveBookmarks()
   {

@@ -1037,10 +1037,10 @@ extern "C"
   {
     jclass stringClass = jni::GetStringClass(env);
 
-    string exts[] = { DATA_FILE_EXTENSION, FONT_FILE_EXTENSION};
+    char const * exts[] = { DATA_FILE_EXTENSION, FONT_FILE_EXTENSION };
     jobjectArray resultArray = env->NewObjectArray(ARRAY_SIZE(exts), stringClass, NULL);
 
-    for (int i = 0; i < ARRAY_SIZE(exts); ++i)
+    for (size_t i = 0; i < ARRAY_SIZE(exts); ++i)
       env->SetObjectArrayElement(resultArray, i, jni::ToJavaString(env, exts[i]));
 
     return resultArray;
