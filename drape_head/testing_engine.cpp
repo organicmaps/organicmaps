@@ -291,7 +291,6 @@ void TestingEngine::Draw()
   m_viewport.Apply();
   GLFunctions::glClearColor(0.1f, 0.5f, 0.1f, 1.0f);
   GLFunctions::glClear();
-  //GLFunctions::glDisable(gl_const::GLDepthTest);
 
   TScene::iterator it = m_scene.begin();
   for(; it != m_scene.end(); ++it)
@@ -332,26 +331,26 @@ void TestingEngine::timerEvent(QTimerEvent * e)
 
 void TestingEngine::DrawImpl()
 {
-//  ReaderPtr<ModelReader> reader = GetPlatform().GetReader("test_scene.json");
-//  string jsonString;
-//  reader.ReadAsString(jsonString);
+  ReaderPtr<ModelReader> reader = GetPlatform().GetReader("test_scene.json");
+  string jsonString;
+  reader.ReadAsString(jsonString);
 
-//  vector<MapShape *> shapes;
-//  try
-//  {
-//    my::Json json(jsonString.c_str());
-//    MapShapeFactory factory;
-//    factory.CreateShapes(shapes, json.get());
-//  }
-//  catch (RootException & e)
-//  {
-//    LOG(LCRITICAL, (e.Msg()));
-//  }
+  vector<MapShape *> shapes;
+  try
+  {
+    my::Json json(jsonString.c_str());
+    MapShapeFactory factory;
+    factory.CreateShapes(shapes, json.get());
+  }
+  catch (RootException & e)
+  {
+    LOG(LCRITICAL, (e.Msg()));
+  }
 
-//  for (size_t i = 0; i < shapes.size(); ++i)
-//    shapes[i]->Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  for (size_t i = 0; i < shapes.size(); ++i)
+    shapes[i]->Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
-//  DeleteRange(shapes, DeleteFunctor());
+  DeleteRange(shapes, DeleteFunctor());
 
   FontDecl fd;
   fd.m_color = Color(0, 255, 0, 255);
@@ -368,7 +367,7 @@ void TestingEngine::DrawImpl()
   params.m_featureID = FeatureID(23, 567);
   params.m_depth = 10.0f;
   params.m_anchor = dp::LeftBottom;
-  params.m_primaryText = "håß∂ƒ©˙∆˚˚¬……πøˆ¨¥†´∑n";
+  params.m_primaryText = "h";
   params.m_primaryTextFont = fd;
   params.m_secondaryTextFont = auxFd;
   params.m_secondaryText = "this is јџќ®†њѓѕѕў‘‘≠≈µи≠ђи~~™≤";

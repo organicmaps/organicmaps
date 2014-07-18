@@ -24,18 +24,18 @@ vec4 colorize(vec4 baseColor)
   vec4 outline = v_outline_color;
   float alpha = 1.0 - baseColor.a;
 
-  if(alpha > OUTLINE_MAX_VALUE1)
+  if (alpha > OUTLINE_MAX_VALUE1)
     return vec4(outline.rgb,0);
-  if(alpha > OUTLINE_MAX_VALUE0)
+  if (alpha > OUTLINE_MAX_VALUE0)
   {
     float oFactor=smoothstep(OUTLINE_MAX_VALUE1, OUTLINE_MAX_VALUE0, alpha );
     return mix(vec4(outline.rgb,0), outline, oFactor);
   }
-  if(alpha > OUTLINE_MIN_VALUE1)
+  if (alpha > OUTLINE_MIN_VALUE1)
   {
     return outline;
   }
-  if(alpha > OUTLINE_MIN_VALUE0)
+  if (alpha > OUTLINE_MIN_VALUE0)
   {
     float oFactor=smoothstep(OUTLINE_MIN_VALUE0, OUTLINE_MIN_VALUE1, alpha );
     return mix(v_color, outline, oFactor);
@@ -48,7 +48,7 @@ vec4 without_outline(vec4 baseColor)
   vec4 outline = v_outline_color;
   float alpha = 1.0 - baseColor.a;
 
-  if(alpha > OUTLINE_MIN_VALUE0)
+  if (alpha > OUTLINE_MIN_VALUE0)
   {
     float oFactor=smoothstep(OUTLINE_MIN_VALUE0, OUTLINE_MIN_VALUE1, alpha );
     return mix(v_color, vec4(1,1,1,0), oFactor);
@@ -59,7 +59,7 @@ vec4 without_outline(vec4 baseColor)
 void main (void)
 {
   float alpha;
-  int textureIndex = int(v_texcoord.z/2.0);
+  int textureIndex = int(v_texcoord.z / 2.0);
   if (textureIndex == Index0)
     alpha = texture2D(u_textures[Index0], v_texcoord.xy).a;
   else if (textureIndex == Index1)
@@ -77,7 +77,7 @@ void main (void)
   else if (textureIndex == Index7)
     alpha = texture2D(u_textures[Index7], v_texcoord.xy).a;
 
-  float needOutline = (v_texcoord.z/2.0 - floor(v_texcoord.z/2.0)) * 2.0;
+  float needOutline = (v_texcoord.z / 2.0 - floor(v_texcoord.z / 2.0)) * 2.0;
   if (needOutline > 0.5)
     gl_FragColor = colorize(vec4(v_color.rgb, v_color.a*alpha));
   else

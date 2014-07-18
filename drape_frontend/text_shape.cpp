@@ -22,6 +22,8 @@ namespace df
 namespace
 {
   static uint32_t const ListStride = 24;
+  static int const maxTextureSetCount = 64;
+  static float const realFontSize = 20.0f;
 }
 
 void SetColor(vector<float> &dst, float const * ar, int index)
@@ -156,20 +158,17 @@ void TextShape::addGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
     textures->GetGlyphRegion(text[i], region);
     float xOffset, yOffset, advance;
     region.GetMetrics(xOffset, yOffset, advance);
-
-    float const aspect = fontSize / 20.0f;
+    float const aspect = fontSize / realFontSize;
     advance *= aspect;
-    int const currentSetNumber = region.GetTextureNode().m_textureSet;
-    if(currentSetNumber != setNum)
+    if (region.GetTextureNode().m_textureSet != setNum)
     {
       stride += advance;
       continue;
     }
 
     textureSet = region.GetTextureNode().m_textureSet;
-    m2::RectF rect;
-    rect = region.GetTexRect();
-    float textureNum = (float)region.GetTextureNode().m_textureOffset;
+    m2::RectF const rect = region.GetTexRect();
+    float const textureNum = (float)region.GetTextureNode().m_textureOffset;
     m2::PointU pixelSize;
     region.GetPixelSize(pixelSize);
     m2::PointF const halfSize(pixelSize.x / 2.0, pixelSize.y / 2.0);
@@ -183,15 +182,17 @@ void TextShape::addGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
     PointF const leftTop(stride - xOffset + anchorDelta.x, -yOffset + h + anchorDelta.y);
     PointF const rightTop(stride + w - xOffset + anchorDelta.x, -yOffset + h + anchorDelta.y);
 
-    vertex[j * 4] = Vertex(m_basePoint, leftTop);
-    vertex[j * 4 + 1] = Vertex(m_basePoint, leftBottom);
-    vertex[j * 4 + 2] = Vertex(m_basePoint, rightTop);
-    vertex[j * 4 + 3] = Vertex(m_basePoint, rightBottom);
+    int index = j * 4;
+    vertex[index++] = Vertex(m_basePoint, leftTop);
+    vertex[index++] = Vertex(m_basePoint, leftBottom);
+    vertex[index++] = Vertex(m_basePoint, rightTop);
+    vertex[index++] = Vertex(m_basePoint, rightBottom);
 
-    texture[j * 4] = Texture(rect.minX(), rect.minY(), textureNum * 2.0 + needOutline, m_params.m_depth);
-    texture[j * 4 + 1] = Texture(rect.minX(), rect.maxY(), textureNum * 2.0 + needOutline, m_params.m_depth);
-    texture[j * 4 + 2] = Texture(rect.maxX(), rect.minY(), textureNum * 2.0 + needOutline, m_params.m_depth);
-    texture[j * 4 + 3] = Texture(rect.maxX(), rect.maxY(), textureNum * 2.0 + needOutline, m_params.m_depth);
+    index = j * 4;
+    texture[index++] = Texture(rect.minX(), rect.minY(), textureNum * 2.0 + needOutline, m_params.m_depth);
+    texture[index++] = Texture(rect.minX(), rect.maxY(), textureNum * 2.0 + needOutline, m_params.m_depth);
+    texture[index++] = Texture(rect.maxX(), rect.minY(), textureNum * 2.0 + needOutline, m_params.m_depth);
+    texture[index++] = Texture(rect.maxX(), rect.maxY(), textureNum * 2.0 + needOutline, m_params.m_depth);
 
     j++;
     stride += advance;
@@ -260,7 +261,7 @@ void TextShape::addGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
     provider.InitStream(3, outline_color, MakeStackRefPointer((void*)&color2[0]));
   }
 
-  float bbY = m_params.m_primaryTextFont.m_size + m_params.m_secondaryTextFont.m_size;
+  float const bbY = m_params.m_primaryTextFont.m_size + m_params.m_secondaryTextFont.m_size;
   OverlayHandle * handle = new SquareHandle(m_params.m_featureID,
                                            m_params.m_anchor,
                                            m_basePoint,
@@ -274,8 +275,7 @@ void TextShape::addGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
 
 void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
 {
-  int const maxTextureSetCount = 64;
-  strings::UniString text = strings::MakeUniString(m_params.m_primaryText);
+  strings::UniString const text = strings::MakeUniString(m_params.m_primaryText);
   int const size = text.size();
   float const fontSize = m_params.m_primaryTextFont.m_size;
   float textLength = 0.0f;
@@ -288,14 +288,12 @@ void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> t
     ++sizes[region.GetTextureNode().m_textureSet];
     float xOffset, yOffset, advance;
     region.GetMetrics(xOffset, yOffset, advance);
-    float aspect = fontSize / 20.0f;
-    advance *= aspect;
-    textLength += advance;
+    textLength += advance * fontSize / realFontSize;
   }
 
   if (m_params.m_secondaryText.empty())
   {
-    PointF anchorDelta = getShift(m_params.m_anchor, textLength, fontSize);
+    PointF const anchorDelta = getShift(m_params.m_anchor, textLength, fontSize);
     for(int i = 0; i < maxTextureSetCount ; ++i)
     {
       if (sizes[i])
@@ -304,7 +302,7 @@ void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> t
     return;
   }
 
-  strings::UniString auxText = strings::MakeUniString(m_params.m_secondaryText);
+  strings::UniString const auxText = strings::MakeUniString(m_params.m_secondaryText);
   int const auxSize = auxText.size();
   float const auxFontSize = m_params.m_secondaryTextFont.m_size;
   float auxTextLength = 0.0f;
@@ -317,27 +315,25 @@ void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> t
     ++auxSizes[region.GetTextureNode().m_textureSet];
     float xOffset, yOffset, advance;
     region.GetMetrics(xOffset, yOffset, advance);
-    float aspect = auxFontSize / 20.0f;
-    advance *= aspect;
-    auxTextLength += advance;
+    auxTextLength += advance * auxFontSize / realFontSize;
   }
 
   float length = textLength > auxTextLength ? textLength : auxTextLength;
-  PointF anchorDelta = getShift(m_params.m_anchor, length, fontSize + auxFontSize);
+  PointF const anchorDelta = getShift(m_params.m_anchor, length, fontSize + auxFontSize);
   float dx = textLength > auxTextLength ? 0.0f : (auxTextLength - textLength) / 2.0f;
-  PointF textDelta(dx, auxFontSize);
+  PointF const textDelta = PointF(dx, auxFontSize) + anchorDelta;
   dx = textLength > auxTextLength ? (textLength - auxTextLength) / 2.0f : 0.0f;
-  PointF auxTextDelta(dx, 0.0f);
+  PointF const auxTextDelta = PointF(dx, 0.0f) + anchorDelta;
 
   for (int i = 0; i < maxTextureSetCount ; ++i)
   {
     if (sizes[i])
-      addGeometryWithTheSameTextureSet(i, sizes[i], false, length, anchorDelta + textDelta, batcher, textures);
+      addGeometryWithTheSameTextureSet(i, sizes[i], false, length, textDelta, batcher, textures);
   }
   for(int i = 0; i < maxTextureSetCount ; ++i)
   {
     if (auxSizes[i])
-      addGeometryWithTheSameTextureSet(i, auxSizes[i], true, length, anchorDelta + auxTextDelta, batcher, textures);
+      addGeometryWithTheSameTextureSet(i, auxSizes[i], true, length, auxTextDelta, batcher, textures);
   }
 }
 
