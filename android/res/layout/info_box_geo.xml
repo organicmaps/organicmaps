@@ -12,12 +12,18 @@
       android:gravity="top"
       android:orientation="horizontal">
 
+    <com.mapswithme.maps.widget.ArrowView
+        android:id="@+id/av_direction"
+        android:layout_width="@dimen/margin_large"
+        android:layout_height="@dimen/margin_large"/>
+
     <TextView
         android:id="@+id/info_box_geo_distance"
         style="@style/Holo.TextAppearance.Medium.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/margin_small"
         android:fontFamily="@string/robotoRegular"
         android:textColor="@android:color/white"/>
   </LinearLayout>
@@ -37,8 +43,8 @@
       android:layout_height="match_parent"
       android:layout_alignParentRight="true"
       android:layout_alignParentTop="true"
+      android:layout_below="@id/info_box_geo_container_dist"
       android:layout_marginRight="@dimen/margin_small"
-      android:background="@android:color/transparent"
-      android:layout_below="@id/info_box_geo_container_dist"/>
+      android:background="@android:color/transparent"/>
 
 </RelativeLayout>

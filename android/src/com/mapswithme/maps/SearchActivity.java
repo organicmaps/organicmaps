@@ -789,7 +789,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     if (mNorth == -1 || Math.abs(mNorth - ret) > 0.02)
     {
       mNorth = ret;
-      updateDistance();
+      updateDistanceAndAzimut();
     }
     */
   }

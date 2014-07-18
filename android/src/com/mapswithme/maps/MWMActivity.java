@@ -858,7 +858,7 @@ public class MWMActivity extends NvEventQueueActivity
       LocationButtonImageSetter.setButtonViewFromState(ButtonState.HAS_LOCATION, mLocationButton);
 
     nativeLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy(), l.getAltitude(), l.getSpeed(), l.getBearing());
-    mInfoView.updateDistance(l);
+    mInfoView.updateDistanceAndAzimut(l);
   }
 
   @Override

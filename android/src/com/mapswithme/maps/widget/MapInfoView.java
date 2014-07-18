@@ -47,6 +47,7 @@ import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.IconsAdapter;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
@@ -84,6 +85,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   // Place page
   private RelativeLayout mGeoLayout;
   private View mDistanceView;
+  private ArrowView mAvDirection;
   private TextView mDistanceText;
   private ImageView mColorImage;
   // Gestures
@@ -442,9 +444,11 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     mGeoLayout = (RelativeLayout) mPlacePageContainer.findViewById(R.id.info_box_geo_ref);
     mDistanceView = mGeoLayout.findViewById(R.id.info_box_geo_container_dist);
     mDistanceText = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_distance);
+    mAvDirection = (ArrowView) mGeoLayout.findViewById(R.id.av_direction);
+    mAvDirection.setDrawCircle(true);
 
     final Location lastKnown = MWMApplication.get().getLocationService().getLastKnown();
-    updateDistance(lastKnown);
+    updateDistanceAndAzimut(lastKnown);
 
     final TextView coord = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_location);
     final double lat = mMapObject.getLat();
@@ -503,7 +507,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       UiUtils.hide(mRouteStartBtn, mRouteEndBtn);
   }
 
-  public void updateDistance(Location l)
+  public void updateDistanceAndAzimut(Location l)
   {
     if (mGeoLayout != null && mMapObject != null)
     {
@@ -511,9 +515,10 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
       if (l != null)
       {
-        final CharSequence distanceText = Framework.getDistanceAndAzimutFromLatLon(mMapObject.getLat(),
-            mMapObject.getLon(), l.getLatitude(), l.getLongitude(), 0.0).getDistance();
-        mDistanceText.setText(distanceText);
+        final DistanceAndAzimut distanceAndAzimut = Framework.getDistanceAndAzimutFromLatLon(mMapObject.getLat(),
+            mMapObject.getLon(), l.getLatitude(), l.getLongitude(), 0.0);
+        mDistanceText.setText(distanceAndAzimut.getDistance());
+        mAvDirection.setAzimut(distanceAndAzimut.getAthimuth());
       }
     }
   }
