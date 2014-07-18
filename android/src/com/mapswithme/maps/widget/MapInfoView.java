@@ -717,6 +717,12 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       showColorChooser();
       break;
     case R.id.info_box_is_bookmarked:
+      if (!MWMApplication.get().hasBookmarks())
+      {
+        mIsBookmarked.setChecked(false);
+        UiUtils.showBuyProDialog((Activity) getContext(), R.string.bookmarks_in_pro_version);
+        return;
+      }
       if (mMapObject == null)
       {
         return;

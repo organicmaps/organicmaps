@@ -1,6 +1,10 @@
 package com.mapswithme.util;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.R;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -235,6 +242,46 @@ public final class UiUtils
 
     tv.setText(text);
     showIf(!TextUtils.isEmpty(text), tv);
+  }
+
+  public static void showBuyProDialog(final Activity activity, int resId)
+  {
+    new AlertDialog.Builder(activity)
+        .setMessage(activity.getString(resId))
+        .setCancelable(false)
+        .setPositiveButton(activity.getString(R.string.get_it_now), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+            try
+            {
+              activity.startActivity(new Intent(Intent.ACTION_VIEW,
+                  Uri.parse(MWMApplication.get().getProVersionURL())));
+            } catch (final Exception e1)
+            {
+              try
+              {
+                activity.startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(MWMApplication.get().getDefaultProVersionURL())));
+              } catch (final Exception e2)
+              {
+                e2.printStackTrace();
+              }
+            }
+          }
+        }).
+        setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+          }
+        })
+        .create()
+        .show();
   }
 
   // utility class
