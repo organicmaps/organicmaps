@@ -109,8 +109,7 @@ namespace jni
 
   jclass GetStringClass(JNIEnv * env)
   {
-    static jclass stringClass = env->FindClass(GetStringClassName());
-    return stringClass;
+    return env->FindClass(GetStringClassName());
   }
 
   char const * GetStringClassName()
