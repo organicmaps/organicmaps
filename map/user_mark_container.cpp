@@ -131,13 +131,21 @@ UserMarkContainer::~UserMarkContainer()
   Clear();
 }
 
+template <class ToDo>
+void UserMarkContainer::ForEachInRect(m2::RectD const & rect, ToDo toDo) const
+{
+  for (size_t i = 0; i < m_userMarks.size(); ++i)
+    if (rect.IsPointInside(m_userMarks[i]->GetOrg()))
+      toDo(m_userMarks[i]);
+}
+
 UserMark const * UserMarkContainer::FindMarkInRect(m2::AnyRectD const & rect, double & d) const
 {
   UserMark * mark = NULL;
   if (IsVisible())
   {
     FindMarkFunctor f(&mark, d, rect);
-    for_each(m_userMarks.begin(), m_userMarks.end(), f);
+    ForEachInRect(rect.GetGlobalRect(), f);
   }
   return mark;
 }
@@ -147,8 +155,8 @@ void UserMarkContainer::Draw(PaintOverlayEvent const & e, UserMarkDLCache * cach
   if (IsVisible() && IsDrawable())
   {
     UserMarkDLCache::Key defaultKey(GetTypeName(), graphics::EPosCenter, m_layerDepth);
-    for_each(m_userMarks.begin(), m_userMarks.end(), bind(&DrawUserMark, 1.0, m_framework.GetVisualScale(),
-                                                          e, cache, defaultKey, _1));
+    ForEachInRect(e.GetClipRect(), bind(&DrawUserMark, 1.0, m_framework.GetVisualScale(),
+                                        e, cache, defaultKey, _1));
   }
 }
 

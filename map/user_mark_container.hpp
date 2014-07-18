@@ -96,6 +96,8 @@ private:
   void DeleteUserMark(size_t index);
   void DeleteUserMark(UserMark const * mark);
 
+  template <class ToDo> void ForEachInRect(m2::RectD const & rect, ToDo toDo) const;
+
 protected:
   Framework & m_framework;
 

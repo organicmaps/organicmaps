@@ -71,6 +71,7 @@ public:
 
   ScreenBase const & GetModelView() const { return m_modelView; }
   Drawer * GetDrawer() const { return m_drawer; }
+  m2::RectD const & GetClipRect() const { return m_modelView.ClipRect(); }
 
 private:
   Drawer * m_drawer;
