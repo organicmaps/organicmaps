@@ -547,7 +547,7 @@ class DownloadAdapter extends BaseAdapter
       if (v != null)
       {
         final DownloadAdapter.ViewHolder holder = (DownloadAdapter.ViewHolder) v.getTag();
-        if (holder != null)
+        if (holder != null && holder.mProgress != null)
           holder.mProgress.setProgress((int) (current * 100 / total));
       }
     }

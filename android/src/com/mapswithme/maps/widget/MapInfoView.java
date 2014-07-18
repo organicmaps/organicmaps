@@ -330,7 +330,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       else if (mCurrentState == State.FULL_PLACEPAGE && state == State.HIDDEN)
         hideEverything();
       else
-        throw new IllegalStateException(String.format("Invalid transition %s - > %s", mCurrentState, state));
+        return;
 
       mCurrentState = state;
     }
