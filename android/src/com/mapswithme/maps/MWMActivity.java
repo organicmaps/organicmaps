@@ -867,6 +867,9 @@ public class MWMActivity extends NvEventQueueActivity
     final double angles[] = {magneticNorth, trueNorth};
     getLocationService().correctCompassAngles(getWindowManager().getDefaultDisplay(), angles);
     nativeCompassUpdated(time, angles[0], angles[1], accuracy);
+    final double north = (angles[1] >= 0.0 ? angles[1] : angles[0]);
+
+    mInfoView.updateAzimuth(north);
   }
 
   public void onCompassStatusChanged(int newStatus)

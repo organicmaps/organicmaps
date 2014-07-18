@@ -515,13 +515,27 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
       if (l != null)
       {
-        final DistanceAndAzimut distanceAndAzimut = Framework.getDistanceAndAzimutFromLatLon(mMapObject.getLat(),
+        final DistanceAndAzimut distanceAndAzimuth = Framework.getDistanceAndAzimutFromLatLon(mMapObject.getLat(),
             mMapObject.getLon(), l.getLatitude(), l.getLongitude(), 0.0);
-        mDistanceText.setText(distanceAndAzimut.getDistance());
-        mAvDirection.setAzimut(distanceAndAzimut.getAthimuth());
+        mDistanceText.setText(distanceAndAzimuth.getDistance());
       }
     }
   }
+
+  public void updateAzimuth(double northAzimuth)
+  {
+    if (mGeoLayout != null && mMapObject != null)
+    {
+      Location l = MWMApplication.get().getLocationService().getLastKnown();
+      final DistanceAndAzimut distanceAndAzimuth = Framework.getDistanceAndAzimutFromLatLon(mMapObject.getLat(),
+          mMapObject.getLon(), l.getLatitude(), l.getLongitude(), northAzimuth);
+      if (distanceAndAzimuth.getAthimuth() > 0)
+      {
+        mAvDirection.setAzimut(distanceAndAzimuth.getAthimuth());
+      }
+    }
+  }
+
 
   private void fillPlacePagePoi(MapObject poi)
   {
