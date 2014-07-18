@@ -28,4 +28,6 @@ OTHER_FILES += \
     shaders/line_vertex_shader.vsh \
     shaders/line_fragment_shader.fsh \
     shaders/solid_color_fragment_shader.fsh \
-    shaders/normalize_vertex_shader.vsh
+    shaders/normalize_vertex_shader.vsh \
+    shaders/font_fragment_shader.fsh \
+    shaders/font_vertex_shader.vsh

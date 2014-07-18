@@ -74,3 +74,4 @@ HEADERS += \
     $$DRAPE_DIR/font_texture.hpp \
     $$DRAPE_DIR/utils/stb_image.h \
     $$DRAPE_DIR/attribute_buffer_mutator.hpp \
+    $$DRAPE_DIR/drape_global.hpp \
