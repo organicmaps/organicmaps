@@ -8,6 +8,7 @@
 
 #include "../drape_frontend/visual_params.hpp"
 #include "../drape_frontend/line_shape.hpp"
+#include "../drape_frontend/text_shape.hpp"
 #include "../drape_frontend/area_shape.hpp"
 #include "../drape_frontend/circle_shape.hpp"
 
@@ -30,7 +31,7 @@ class SquareHandle : public OverlayHandle
 public:
   static const uint8_t NormalAttributeID = 1;
   SquareHandle(vector<m2::PointF> const & formingVector)
-    : OverlayHandle(FeatureID(), OverlayHandle::Center, 0.0f)
+    : OverlayHandle(FeatureID(), dp::Center, 0.0f)
     , m_vectors(formingVector)
   {
     SetIsVisible(true);
@@ -184,14 +185,14 @@ private:
     }
   }
 
-  df::LineJoin ParseJoin(json_t * object)
+  dp::LineJoin ParseJoin(json_t * object)
   {
-    return (df::LineJoin)json_integer_value(object);
+    return (dp::LineJoin)json_integer_value(object);
   }
 
-  df::LineCap ParseCap(json_t * object)
+  dp::LineCap ParseCap(json_t * object)
   {
-    return (df::LineCap)json_integer_value(object);
+    return (dp::LineCap)json_integer_value(object);
   }
 
   MapShape * CreateLine(json_t * object)
@@ -288,9 +289,9 @@ void TestingEngine::Draw()
   context->setDefaultFramebuffer();
 
   m_viewport.Apply();
-  GLFunctions::glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
+  GLFunctions::glClearColor(0.1f, 0.5f, 0.1f, 1.0f);
   GLFunctions::glClear();
-  GLFunctions::glDisable(gl_const::GLDepthTest);
+  //GLFunctions::glDisable(gl_const::GLDepthTest);
 
   TScene::iterator it = m_scene.begin();
   for(; it != m_scene.end(); ++it)
@@ -331,26 +332,55 @@ void TestingEngine::timerEvent(QTimerEvent * e)
 
 void TestingEngine::DrawImpl()
 {
-  ReaderPtr<ModelReader> reader = GetPlatform().GetReader("test_scene.json");
-  string jsonString;
-  reader.ReadAsString(jsonString);
+//  ReaderPtr<ModelReader> reader = GetPlatform().GetReader("test_scene.json");
+//  string jsonString;
+//  reader.ReadAsString(jsonString);
 
-  vector<MapShape *> shapes;
-  try
-  {
-    my::Json json(jsonString.c_str());
-    MapShapeFactory factory;
-    factory.CreateShapes(shapes, json.get());
-  }
-  catch (RootException & e)
-  {
-    LOG(LCRITICAL, (e.Msg()));
-  }
+//  vector<MapShape *> shapes;
+//  try
+//  {
+//    my::Json json(jsonString.c_str());
+//    MapShapeFactory factory;
+//    factory.CreateShapes(shapes, json.get());
+//  }
+//  catch (RootException & e)
+//  {
+//    LOG(LCRITICAL, (e.Msg()));
+//  }
 
-  for (size_t i = 0; i < shapes.size(); ++i)
-    shapes[i]->Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+//  for (size_t i = 0; i < shapes.size(); ++i)
+//    shapes[i]->Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
-  DeleteRange(shapes, DeleteFunctor());
+//  DeleteRange(shapes, DeleteFunctor());
+
+  FontDecl fd;
+  fd.m_color = Color(0, 255, 0, 255);
+  fd.m_needOutline = true;
+  fd.m_outlineColor = Color(255, 0, 0, 255);
+  fd.m_size = 80.0f;
+  FontDecl auxFd;
+  auxFd.m_color = Color(255, 0, 0, 255);
+  auxFd.m_needOutline = true;
+  auxFd.m_outlineColor = Color(0, 255, 0, 255);
+  auxFd.m_size = 40.0f;
+
+  TextViewParams params;
+  params.m_featureID = FeatureID(23, 567);
+  params.m_depth = 10.0f;
+  params.m_anchor = dp::LeftBottom;
+  params.m_primaryText = "håß∂ƒ©˙∆˚˚¬……πøˆ¨¥†´∑n";
+  params.m_primaryTextFont = fd;
+  params.m_secondaryTextFont = auxFd;
+  params.m_secondaryText = "this is јџќ®†њѓѕѕў‘‘≠≈µи≠ђи~~™≤";
+  TextShape sh1(m2::PointF(250.0f, 250.0f), params);
+  sh1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+
+  params.m_featureID = FeatureID(23, 78);
+  params.m_depth = -10.0f;
+  params.m_anchor = dp::RightTop;
+  params.m_primaryTextFont.m_needOutline = false;
+  TextShape sh2(m2::PointF(250.0f, 250.0f), params);
+  sh2.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 }
 
 void TestingEngine::ModelViewInit()
