@@ -78,9 +78,6 @@ void SetColor(vector<float> &dst, float const * ar, int index)
 {
   uint32_t const colorArraySize = 4;
   uint32_t const baseListIndex = ListStride * index;
-  for(int i = 0; i < ListStride ; ++i)
-    dst[baseListIndex + i] = ar[i%4];
-
   for (uint32_t i = 0; i < 6; ++i)
     memcpy(&dst[baseListIndex + colorArraySize * i], ar, colorArraySize * sizeof(float));
 }
@@ -133,13 +130,13 @@ struct SphereCenters
 
 LineShape::LineShape(vector<m2::PointF> const & points,
                      LineViewParams const & params)
-  : m_params(params),
-   m_points( params.m_cap == ButtCap ? points.size() : points.size() + 2)
+  : m_params(params)
+  , m_points(params.m_cap == dp::ButtCap ? points.size() : points.size() + 2)
 {
   ASSERT_GREATER(points.size(), 1, ());
 
   int const size = m_points.size();
-  if (m_params.m_cap != ButtCap)
+  if (m_params.m_cap != dp::ButtCap)
   {
     m_points[0] = points[0] + (points[0] - points[1]).Normalize();;
     m_points[size - 1] = points[size - 3] + (points[size - 3] - points[size - 4]).Normalize();
@@ -168,7 +165,7 @@ void LineShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /
 
   Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
 
-  float const joinType = m_params.m_join == RoundJoin ? 1 : 0;
+  float const joinType = m_params.m_join == dp::RoundJoin ? 1 : 0;
   float const halfWidth = m_params.m_width / 2.0f;
   float const insetHalfWidth= 1.0f * halfWidth;
 
@@ -222,9 +219,9 @@ void LineShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /
   widthType[(size - 2) * 4 + 1] = widthType[(size - 2) * 4 + 3] = WidthType(-halfWidth, 0, joinType, insetHalfWidth);
   centers[(size - 2) * 4 + 2] = centers[(size - 2) * 4 + 3] = SphereCenters(v1, v2);
 
-  if (m_params.m_cap != ButtCap)
+  if (m_params.m_cap != dp::ButtCap)
   {
-    float const type = m_params.m_cap == RoundCap ? -1 : 1;
+    float const type = m_params.m_cap == dp::RoundCap ? -1 : 1;
     uint32_t const baseIdx = 4 * (size - 2);
     widthType[0] = WidthType(halfWidth, type, -1, insetHalfWidth);
     widthType[1] = WidthType(-halfWidth, type, -1, insetHalfWidth);

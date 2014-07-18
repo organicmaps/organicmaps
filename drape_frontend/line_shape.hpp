@@ -22,8 +22,8 @@ public:
   Color const & GetColor() const { return m_params.m_color; }
 
 private:
-  vector<m2::PointF> m_points;
   LineViewParams m_params;
+  vector<m2::PointF> m_points;
 };
 
 } // namespace df

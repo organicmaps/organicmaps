@@ -34,11 +34,11 @@ void Extract(::LineDefProto const * lineRule,
 
   switch(lineRule->cap())
   {
-  case ::ROUNDCAP : params.m_cap = df::RoundCap;
+  case ::ROUNDCAP : params.m_cap = dp::RoundCap;
     break;
-  case ::BUTTCAP  : params.m_cap = df::ButtCap;
+  case ::BUTTCAP  : params.m_cap = dp::ButtCap;
     break;
-  case ::SQUARECAP: params.m_cap = df::SquareCap;
+  case ::SQUARECAP: params.m_cap = dp::SquareCap;
     break;
   default:
     ASSERT(false, ());
@@ -46,11 +46,11 @@ void Extract(::LineDefProto const * lineRule,
 
   switch (lineRule->join())
   {
-  case ::NOJOIN    : params.m_join = df::MiterJoin;
+  case ::NOJOIN    : params.m_join = dp::MiterJoin;
     break;
-  case ::ROUNDJOIN : params.m_join = df::RoundJoin;
+  case ::ROUNDJOIN : params.m_join = dp::RoundJoin;
     break;
-  case ::BEVELJOIN : params.m_join = df::BevelJoin;
+  case ::BEVELJOIN : params.m_join = dp::BevelJoin;
     break;
   default:
     ASSERT(false, ());

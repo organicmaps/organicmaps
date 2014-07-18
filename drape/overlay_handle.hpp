@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_global.hpp"
 #include "binding_info.hpp"
 #include "index_buffer_mutator.hpp"
 #include "attribute_buffer_mutator.hpp"
@@ -14,21 +15,8 @@
 class OverlayHandle
 {
 public:
-  enum Anchor
-  {
-    Center      = 0,
-    Left        = 0x1,
-    Right       = Left << 1,
-    Top         = Right << 1,
-    Bottom      = Top << 1,
-    LeftTop     = Left | Top,
-    RightTop    = Right | Top,
-    LeftBottom  = Left | Bottom,
-    RightBottom = Right | Bottom
-  };
-
   OverlayHandle(FeatureID const & id,
-                Anchor anchor,
+                dp::Anchor anchor,
                 double priority);
 
   virtual ~OverlayHandle() {}
@@ -51,7 +39,7 @@ public:
 
 protected:
   FeatureID const m_id;
-  Anchor const m_anchor;
+  dp::Anchor const m_anchor;
   double const m_priority;
 
   typedef pair<BindingInfo, MutateRegion> TOffsetNode;
@@ -79,7 +67,7 @@ class SquareHandle : public OverlayHandle
   typedef OverlayHandle base_t;
 public:
   SquareHandle(FeatureID const & id,
-               Anchor anchor,
+               dp::Anchor anchor,
                m2::PointD const & gbPivot,
                m2::PointD const & pxSize,
                double priority);

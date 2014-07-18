@@ -65,7 +65,7 @@ void PoiSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHold
   texDecl.m_stride = 8 * sizeof(float);
 
   OverlayHandle * handle = new SquareHandle(m_params.m_id,
-                                           OverlayHandle::Center,
+                                           dp::Center,
                                            m_pt,
                                            pixelSize,
                                            m_params.m_depth);

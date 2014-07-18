@@ -17,7 +17,7 @@ private:
 };
 
 OverlayHandle::OverlayHandle(FeatureID const & id,
-                             OverlayHandle::Anchor anchor,
+                             dp::Anchor anchor,
                              double priority)
   : m_id(id)
   , m_anchor(anchor)
@@ -89,7 +89,7 @@ OverlayHandle::TOffsetNode const & OverlayHandle::GetOffsetNode(uint8_t bufferID
 
 ////////////////////////////////////////////////////////////////////////////////
 
-SquareHandle::SquareHandle(FeatureID const & id, OverlayHandle::Anchor anchor,
+SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor,
                            m2::PointD const & gbPivot, m2::PointD const & pxSize,
                            double priority)
   : base_t(id, anchor, priority)
@@ -104,14 +104,14 @@ m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen) const
   m2::RectD  result(pxPivot - m_pxHalfSize, pxPivot + m_pxHalfSize);
   m2::PointD offset(0.0, 0.0);
 
-  if (m_anchor & Left)
+  if (m_anchor & dp::Left)
     offset.x = m_pxHalfSize.x;
-  else if (m_anchor & Right)
+  else if (m_anchor & dp::Right)
     offset.x = -m_pxHalfSize.x;
 
-  if (m_anchor & Top)
+  if (m_anchor & dp::Top)
     offset.y = m_pxHalfSize.y;
-  else if (m_anchor & Bottom)
+  else if (m_anchor & dp::Bottom)
     offset.y = -m_pxHalfSize.y;
 
   result.Offset(offset);

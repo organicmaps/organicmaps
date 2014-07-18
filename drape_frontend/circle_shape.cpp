@@ -75,7 +75,7 @@ void CircleShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder>
   normalDecl.m_stride = 5 * sizeof(float);
 
   OverlayHandle * overlay = new SquareHandle(m_params.m_id,
-                                             OverlayHandle::Center, m_pt,
+                                             dp::Center, m_pt,
                                              m2::PointD(m_params.m_radius, m_params.m_radius),
                                              m_params.m_depth);
 
