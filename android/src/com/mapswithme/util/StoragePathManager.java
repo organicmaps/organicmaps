@@ -357,16 +357,18 @@ public class StoragePathManager
   /// @name Assume that MapsWithMe folder doesn't have inner folders and symbolic links.
   public long GetMWMDirSize()
   {
-    String writableDir = Framework.GetWritableDir();
+    final File dir = new File(Framework.GetWritableDir());
+    assert(dir.exists());
+    assert(dir.isDirectory());
 
-    final File dir = new File(writableDir);
-    assert (dir.exists());
-    assert (dir.isDirectory());
+    final File[] files = dir.listFiles();
+    if (files == null)
+      return 0;
 
     long size = 0;
-    for (final File f : dir.listFiles())
+    for (final File f : files)
     {
-      assert (f.isFile());
+      assert(f.isFile());
       size += f.length();
     }
 
