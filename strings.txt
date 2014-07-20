@@ -2925,7 +2925,7 @@
     hu = Hossz
 
   [share_my_location]
-    tags = tizen
+    tags = ios,android,tizen
     en = Share My Location
     ru = Поделиться местоположением
     uk = Поділитися моїм місцезнаходженням

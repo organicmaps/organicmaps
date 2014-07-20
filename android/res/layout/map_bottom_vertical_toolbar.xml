@@ -48,7 +48,7 @@
       android:drawableLeft="@drawable/ic_menu_send_my_location"
       android:gravity="center_vertical"
       android:paddingLeft="10dp"
-      android:text="@string/share"
+      android:text="@string/share_my_location"
       android:textColor="@android:color/white"/>
 
   <View
