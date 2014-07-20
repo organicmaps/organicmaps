@@ -116,7 +116,7 @@ string FormatMercatorAsDMS(m2::PointD const & mercator, int dac)
 // @TODO take into account decimal points or commas as separators in different locales
 string FormatLatLon(double lat, double lon, int dac)
 {
-  return strings::to_string_dac(lat, dac) + ", " + strings::to_string_dac(lon, dac);
+  return strings::to_string_dac(lat, dac) + " " + strings::to_string_dac(lon, dac);
 }
 
 string FormatMercator(m2::PointD const & mercator, int dac)
