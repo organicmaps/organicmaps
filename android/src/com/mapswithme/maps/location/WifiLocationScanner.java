@@ -1,14 +1,4 @@
 package com.mapswithme.maps.location;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -19,35 +9,43 @@ import android.location.Location;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.SystemClock;
 
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.util.statistics.Statistics;
 
-public class WifiLocation extends BroadcastReceiver
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+
+public class WifiLocationScanner extends BroadcastReceiver
 {
   private Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
 
-  private static final String MWM_GEOLOCATION_SERVER = "http://geolocation.server/";
   /// Limit received WiFi accuracy with 20 meters.
   private static final double MIN_PASSED_ACCURACY_M = 20;
 
   public interface Listener
   {
     public void onWifiLocationUpdated(Location l);
+
     public Location getLastGPSLocation();
   }
 
   private Listener mObserver = null;
 
   private WifiManager mWifi = null;
-
-  public WifiLocation()
-  {
-    //mLogger = new FileLogger("WiFiLocation", MWMApplication.get().getDataStoragePath());
-  }
 
   /// @return true if was started successfully.
   public boolean startScan(Context context, Listener l)
@@ -84,12 +82,12 @@ public class WifiLocation extends BroadcastReceiver
   }
 
   @SuppressLint("NewApi")
-  private static void appendID(StringBuilder json)
+  private static void appendId(StringBuilder json)
   {
     json.append(",\"id\":{\"currentTime\":");
     json.append(String.valueOf(System.currentTimeMillis()));
 
-    if (Utils.apiEqualOrGreaterThan(17))
+    if (Utils.apiEqualOrGreaterThan(Build.VERSION_CODES.JELLY_BEAN_MR1))
     {
       json.append(",\"elapsedRealtimeNanos\":");
       json.append(String.valueOf(SystemClock.elapsedRealtimeNanos()));
@@ -103,7 +101,7 @@ public class WifiLocation extends BroadcastReceiver
   {
     l.setTime(jID.getLong("currentTime"));
 
-    if (Utils.apiEqualOrGreaterThan(17))
+    if (Utils.apiEqualOrGreaterThan(Build.VERSION_CODES.JELLY_BEAN_MR1))
       l.setElapsedRealtimeNanos(jID.getLong("elapsedRealtimeNanos"));
   }
 
@@ -116,7 +114,7 @@ public class WifiLocation extends BroadcastReceiver
 
     // Prepare JSON request with BSSIDs
     final StringBuilder json = new StringBuilder("{\"version\":\"2.0\"");
-    appendID(json);
+    appendId(json);
 
     final boolean statsEnabled = Statistics.INSTANCE.isStatisticsEnabled(context);
 
@@ -193,7 +191,6 @@ public class WifiLocation extends BroadcastReceiver
 
     final String jsonString = json.toString();
 
-    // From Honeycomb, networking calls should be always executed at non-UI thread.
     new AsyncTask<String, Void, Boolean>()
     {
       // Result for Listener
@@ -217,12 +214,11 @@ public class WifiLocation extends BroadcastReceiver
 
         try
         {
-          final URL url = new URL(MWM_GEOLOCATION_SERVER);
+          final URL url = new URL(Constants.GEOLOCATION_SERVER_MAPSME);
           conn = (HttpURLConnection) url.openConnection();
           conn.setUseCaches(false);
 
           // Write JSON query
-          //mLogger.d("JSON request = ", jsonString);
           mLogger.d("Post JSON request with length = ", jsonString.length());
           conn.setDoOutput(true);
 
@@ -239,8 +235,6 @@ public class WifiLocation extends BroadcastReceiver
           while ((line = rd.readLine()) != null)
             response += line;
 
-          //mLogger.d("JSON response = ", response);
-
           final JSONObject jRoot = new JSONObject(response);
           final JSONObject jLocation = jRoot.getJSONObject("location");
           final double lat = jLocation.getDouble("latitude");
@@ -254,16 +248,13 @@ public class WifiLocation extends BroadcastReceiver
           setLocationCurrentTime(jRoot.getJSONObject("id"), mLocation);
 
           return true;
-        }
-        catch (IOException e)
+        } catch (IOException e)
         {
           mLogger.d("Unable to get location from server: ", e);
-        }
-        catch (JSONException e)
+        } catch (JSONException e)
         {
           mLogger.d("Unable to parse JSON responce: ", e);
-        }
-        finally
+        } finally
         {
           if (conn != null)
             conn.disconnect();

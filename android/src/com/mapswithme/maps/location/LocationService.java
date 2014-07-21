@@ -1,10 +1,5 @@
 package com.mapswithme.maps.location;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.GeomagneticField;
@@ -16,6 +11,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.Display;
@@ -33,18 +29,24 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 
 public class LocationService implements
-                             LocationListener, SensorEventListener, WifiLocation.Listener,
-                             GooglePlayServicesClient.ConnectionCallbacks,
-                             GooglePlayServicesClient.OnConnectionFailedListener,
-                             com.google.android.gms.location.LocationListener
+    LocationListener, SensorEventListener, WifiLocationScanner.Listener,
+    GooglePlayServicesClient.ConnectionCallbacks,
+    GooglePlayServicesClient.OnConnectionFailedListener,
+    com.google.android.gms.location.LocationListener
 {
+  private static final String TAG = LocationService.class.getName();
   private final Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
 
-  private static final double DEFAULT_SPEED_MpS = 5;
+  private static final double DEFAULT_SPEED_MPS = 5;
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
-  private static final float MIN_SPEED_CALC_DIRECTION_MpS = 1;
+  private static final float MIN_SPEED_CALC_DIRECTION_MPS = 1;
   private static final long LOCATION_EXPIRATION_TIME_MILLIS = 5 * 60 * 1000;
   private static final String GS_LOCATION_PROVIDER = "fused";
 
@@ -57,9 +59,11 @@ public class LocationService implements
   public interface Listener
   {
     public void onLocationUpdated(final Location l);
+
     public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
+
     public void onLocationError(int errorCode);
-  };
+  }
 
   private final HashSet<Listener> mObservers = new HashSet<Listener>(10);
 
@@ -70,7 +74,7 @@ public class LocationService implements
   /// Current heading if we are moving (-1.0 otherwise)
   private double mDrivingHeading = -1.0;
 
-  private WifiLocation mWifiScanner = null;
+  private WifiLocationScanner mWifiScanner = null;
 
   private final SensorManager mSensorManager;
   private Sensor mAccelerometer = null;
@@ -133,7 +137,7 @@ public class LocationService implements
   private static boolean isNotExpired(Location l, long t)
   {
     long timeDiff;
-    if (Utils.apiEqualOrGreaterThan(17))
+    if (Utils.apiEqualOrGreaterThan(Build.VERSION_CODES.JELLY_BEAN_MR1))
       timeDiff = (SystemClock.elapsedRealtimeNanos() - l.getElapsedRealtimeNanos()) / 1000000;
     else
       timeDiff = System.currentTimeMillis() - t;
@@ -150,13 +154,13 @@ public class LocationService implements
 
   private void startWifiLocationUpdate()
   {
-    final boolean isWifiEnabled = ((WifiManager)mApplication.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled();
+    final boolean isWifiEnabled = ((WifiManager) mApplication.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled();
     if (isWifiEnabled &&
         Statistics.INSTANCE.isStatisticsEnabled(mApplication) &&
         ConnectionState.isConnected(mApplication))
     {
       if (mWifiScanner == null)
-        mWifiScanner = new WifiLocation();
+        mWifiScanner = new WifiLocationScanner();
 
       mLogger.d("Invoke WiFi scanner.");
       mWifiScanner.startScan(mApplication, this);
@@ -198,7 +202,7 @@ public class LocationService implements
   private void calcDirection(Location l)
   {
     // Try to calculate direction if we are moving
-    if (l.getSpeed() >= MIN_SPEED_CALC_DIRECTION_MpS && l.hasBearing())
+    if (l.getSpeed() >= MIN_SPEED_CALC_DIRECTION_MPS && l.hasBearing())
       mDrivingHeading = bearingToHeading(l.getBearing());
     else
       mDrivingHeading = -1.0;
@@ -236,8 +240,8 @@ public class LocationService implements
         if (mMagneticField == null ||
             (mLastLocation == null || l.distanceTo(mLastLocation) > DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M))
         {
-          mMagneticField = new GeomagneticField( (float)l.getLatitude(), (float)l.getLongitude(),
-                                                 (float)l.getAltitude(), l.getTime());
+          mMagneticField = new GeomagneticField((float) l.getLatitude(), (float) l.getLongitude(),
+              (float) l.getAltitude(), l.getTime());
         }
       }
 
@@ -246,23 +250,24 @@ public class LocationService implements
   }
 
   private native float[] nativeUpdateCompassSensor(int ind, float[] arr);
+
   private float[] updateCompassSensor(int ind, float[] arr)
   {
-    /*
-    Log.d(TAG, "Sensor before, Java: " +
-        String.valueOf(arr[0]) + ", " +
-        String.valueOf(arr[1]) + ", " +
-        String.valueOf(arr[2]));
-     */
+
+//    Log.d(TAG, "Sensor before, Java: " +
+//        String.valueOf(arr[0]) + ", " +
+//        String.valueOf(arr[1]) + ", " +
+//        String.valueOf(arr[2]));
+
 
     final float[] ret = nativeUpdateCompassSensor(ind, arr);
 
-    /*
-    Log.d(TAG, "Sensor after, Java: " +
-        String.valueOf(ret[0]) + ", " +
-        String.valueOf(ret[1]) + ", " +
-        String.valueOf(ret[2]));
-     */
+
+//    Log.d(TAG, "Sensor after, Java: " +
+//        String.valueOf(ret[0]) + ", " +
+//        String.valueOf(ret[1]) + ", " +
+//        String.valueOf(ret[2]));
+
 
     return ret;
   }
@@ -366,7 +371,7 @@ public class LocationService implements
   {
     angle += correction;
 
-    final double twoPI = 2.0*Math.PI;
+    final double twoPI = 2.0 * Math.PI;
     angle = angle % twoPI;
 
     // normalize angle into [0, 2PI]
@@ -433,6 +438,7 @@ public class LocationService implements
     }
 
     protected abstract void setUp();
+
     protected abstract void startUpdates(Listener l);
 
     protected void stopUpdates()
@@ -457,7 +463,7 @@ public class LocationService implements
       if (mLastLocation == null)
         return true;
 
-      final double s = Math.max(DEFAULT_SPEED_MpS, (l.getSpeed() + mLastLocation.getSpeed()) / 2.0);
+      final double s = Math.max(DEFAULT_SPEED_MPS, (l.getSpeed() + mLastLocation.getSpeed()) / 2.0);
       return (l.getAccuracy() < (mLastLocation.getAccuracy() + s * getLocationTimeDiffS(l)));
     }
 
@@ -471,7 +477,7 @@ public class LocationService implements
     @SuppressLint("NewApi")
     private double getLocationTimeDiffS(Location l)
     {
-      if (Utils.apiEqualOrGreaterThan(17))
+      if (Utils.apiEqualOrGreaterThan(Build.VERSION_CODES.JELLY_BEAN_MR1))
         return (l.getElapsedRealtimeNanos() - mLastLocation.getElapsedRealtimeNanos()) * 1.0E-9;
       else
       {
