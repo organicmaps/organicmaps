@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mapswithme.yopme"
-    android:versionCode="1"
-    android:versionName="1.0" >
-
-    <uses-sdk
-        android:minSdkVersion="17"
-        android:targetSdkVersion="19" />
+    package="com.mapswithme.yopme">
 
     <uses-permission
         android:name="com.yotadevices.framework.permission.ACCESS_BACKSCREEN" />

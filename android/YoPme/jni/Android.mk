@@ -108,6 +108,11 @@ LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libstorage.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := routing
+LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/librouting.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := search
 LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libsearch.a
 include $(PREBUILT_STATIC_LIBRARY)
@@ -129,7 +134,7 @@ endif
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := yopme
-LOCAL_STATIC_LIBRARIES := map gui search storage indexer graphics platform anim geometry coding base expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf
+LOCAL_STATIC_LIBRARIES := map gui search routing storage indexer graphics platform anim geometry coding base expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf
 LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-psabi
 
 TARGET_PLATFORM := android-15

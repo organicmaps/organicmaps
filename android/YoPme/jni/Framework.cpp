@@ -126,8 +126,8 @@ namespace yopme
   bool Framework::AreLocationsFarEnough(double lat1, double lon1, double lat2, double lon2) const
   {
     double const sqPixLength =
-        m_framework.GtoP(MercatorBounds::FromLatLon(lat1, lon1)))
-        .SquareLength(m_framework.GtoP(MercatorBounds::FromLatLon(lat2, lon2))));
+        m_framework.GtoP(MercatorBounds::FromLatLon(lat1, lon1))
+        .SquareLength(m_framework.GtoP(MercatorBounds::FromLatLon(lat2, lon2)));
 
     // Pixel radius of location mark is 10 pixels.
     return (sqPixLength > 100 && ms::DistanceOnEarth(lat1, lon1, lat2, lon2) > 5.0);
