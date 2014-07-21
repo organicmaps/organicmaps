@@ -16,17 +16,29 @@
     m_locationManager = [[CLLocationManager alloc] init];
     m_locationManager.delegate = self;
     m_locationManager.purpose = NSLocalizedString(@"location_services_are_needed_desc", @"Location purpose text description");
-    m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [UIDevice currentDevice].batteryMonitoringEnabled = YES;
+    [self refreshAccuracy];
     m_locationManager.headingFilter = 3.0;
     //    m_locationManager.distanceFilter = 3.0;
     m_isStarted = NO;
     m_observers = [[NSMutableSet alloc] init];
-
     m_lastLocationTime = nil;
     m_isCourse = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(batteryStateChangedNotification:) name:UIDeviceBatteryStateDidChangeNotification object:nil];
   }
   return self;
+}
+
+- (void)batteryStateChangedNotification:(NSNotification *)notification
+{
+  [self refreshAccuracy];
+}
+
+- (void)refreshAccuracy
+{
+  UIDeviceBatteryState state = [UIDevice currentDevice].batteryState;
+  m_locationManager.desiredAccuracy = (state == UIDeviceBatteryStateCharging) ? kCLLocationAccuracyBestForNavigation : kCLLocationAccuracyBest;
 }
 
 - (void)dealloc
