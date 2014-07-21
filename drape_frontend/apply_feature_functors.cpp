@@ -5,11 +5,13 @@
 
 #include "area_shape.hpp"
 #include "line_shape.hpp"
+#include "text_shape.hpp"
 #include "poi_symbol_shape.hpp"
 #include "circle_shape.hpp"
 
 #include "../indexer/drawing_rules.hpp"
 #include "../indexer/drules_include.hpp"
+#include "../std/algorithm.hpp"
 
 #include "../drape/color.hpp"
 
@@ -57,6 +59,40 @@ void Extract(::LineDefProto const * lineRule,
   }
 }
 
+void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, df::FontDecl &params)
+{
+  params.m_color = ToDrapeColor(capRule->color());
+  params.m_size = max(8.0, capRule->height() * df::VisualParams::Instance().GetVisualScale());
+
+  params.m_needOutline = false;
+  if (capRule->has_stroke_color())
+  {
+    params.m_needOutline = true;
+    params.m_outlineColor = Color(255, 255, 255, 255);
+  }
+}
+
+dp::Anchor GetAnchor(CaptionDefProto const * capRule)
+{
+  if (capRule->has_offset_y())
+  {
+    if (capRule->offset_y() > 0)
+      return dp::Top;
+    else
+      return dp::Bottom;
+  }
+  if (capRule->has_offset_x())
+  {
+    if (capRule->offset_x() > 0)
+      return dp::Right;
+    else
+      return dp::Left;
+
+  }
+
+  return dp::Center;
+}
+
 } // namespace
 
 BaseApplyFeature::BaseApplyFeature(EngineContext & context, TileKey tileKey, FeatureID const & id)
@@ -95,6 +131,40 @@ void ApplyPointFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
     return;
   drule::BaseRule const * pRule = rule.first;
   float depth = rule.second;
+
+  CaptionDefProto const * capRule = pRule->GetCaption(0);
+  if (capRule)
+  {
+    FontDecl decl;
+    CaptionDefProtoToFontDecl(capRule, decl);
+
+    TextViewParams params;
+    params.m_anchor = GetAnchor(capRule);
+    params.m_depth = depth;
+    params.m_featureID = m_id;
+    params.m_primaryOffset = m2::PointF(0,0);
+    params.m_primaryText = m_primaryText;
+    params.m_primaryTextFont = decl;
+    float scaleFactor = df::VisualParams::Instance().GetVisualScale();
+    if (capRule->has_offset_x())
+      params.m_primaryOffset.x = capRule->offset_x() * scaleFactor;
+
+    if (capRule->has_offset_y())
+      params.m_primaryOffset.y = capRule->offset_y() * scaleFactor;
+
+    CaptionDefProto const * auxCapRule = pRule->GetCaption(1);
+    if (auxCapRule)
+    {
+      FontDecl auxDecl;
+      CaptionDefProtoToFontDecl(auxCapRule, auxDecl);
+
+      params.m_secondaryOffset = m2::PointF(0,0);
+      params.m_secondaryText = m_secondaryText;
+      params.m_secondaryTextFont = auxDecl;
+    }
+
+    m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new TextShape(m_centerPoint, params)));
+  }
 
   SymbolRuleProto const * symRule =  pRule->GetSymbol();
   if (symRule)

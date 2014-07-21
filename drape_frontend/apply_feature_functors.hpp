@@ -23,10 +23,15 @@ public:
                    TileKey tileKey,
                    FeatureID const & id);
 
+  void SetPrimaryText(string const & src) { m_primaryText = src; }
+  void SetSecondaryText(string const & src) { m_secondaryText = src; }
+
 protected:
   EngineContext & m_context;
   TileKey m_tileKey;
   FeatureID m_id;
+  string m_primaryText;
+  string m_secondaryText;
 };
 
 class ApplyPointFeature : public BaseApplyFeature

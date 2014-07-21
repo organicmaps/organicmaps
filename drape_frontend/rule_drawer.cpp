@@ -70,6 +70,8 @@ void RuleDrawer::operator()(FeatureType const & f)
   {
     ASSERT(s.PointStyleExists(), ());
     ApplyPointFeature apply(m_context, m_tileKey, f.GetID());
+    apply.SetPrimaryText(s.GetCaptionDescription().GetMainText());
+    apply.SetSecondaryText(s.GetCaptionDescription().GetAuxText());
     f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
     s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
     apply.Finish();
