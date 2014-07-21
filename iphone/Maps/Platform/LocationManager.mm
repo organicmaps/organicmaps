@@ -17,7 +17,7 @@
     m_locationManager.delegate = self;
     m_locationManager.purpose = NSLocalizedString(@"location_services_are_needed_desc", @"Location purpose text description");
     m_locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    //    m_locationManager.headingFilter = 3.0;
+    m_locationManager.headingFilter = 3.0;
     //    m_locationManager.distanceFilter = 3.0;
     m_isStarted = NO;
     m_observers = [[NSMutableSet alloc] init];
