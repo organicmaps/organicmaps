@@ -94,7 +94,7 @@ namespace math
     T m_factor;
 
   public:
-    LowPassVector() : m_factor(0.5)
+    LowPassVector() : m_factor(0.15)
     {
       m_val.assign(T());
     }

@@ -1,5 +1,7 @@
 package com.mapswithme.maps;
 
+import android.os.Build;
+
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -122,7 +124,7 @@ public class Framework
 
   public static GuideInfo getGuideInfoForIndexWithApiCheck(Index idx)
   {
-    if (Utils.apiLowerThan(11))
+    if (Utils.apiLowerThan(Build.VERSION_CODES.HONEYCOMB))
       return null;
     else
       return getGuideInfoForIndex(idx);
@@ -133,7 +135,7 @@ public class Framework
 
   public static GuideInfo getGuideInfoForIdWithApiCheck(String id)
   {
-    if (Utils.apiLowerThan(11))
+    if (Utils.apiLowerThan(Build.VERSION_CODES.HONEYCOMB))
       return null;
     else
       return getGuideById(id);

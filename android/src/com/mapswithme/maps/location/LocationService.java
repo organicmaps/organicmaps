@@ -87,6 +87,9 @@ public class LocationService implements
   // Main location provider.
   private LocationProvider mLocationProvider;
 
+  private double mLastNorth;
+  private static final double NOISE_THRESHOLD = 3;
+
   private void createLocationProvider()
   {
     if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplication) == ConnectionResult.SUCCESS)
@@ -253,21 +256,7 @@ public class LocationService implements
 
   private float[] updateCompassSensor(int ind, float[] arr)
   {
-
-//    Log.d(TAG, "Sensor before, Java: " +
-//        String.valueOf(arr[0]) + ", " +
-//        String.valueOf(arr[1]) + ", " +
-//        String.valueOf(arr[2]));
-
-
     final float[] ret = nativeUpdateCompassSensor(ind, arr);
-
-
-//    Log.d(TAG, "Sensor after, Java: " +
-//        String.valueOf(ret[0]) + ", " +
-//        String.valueOf(ret[1]) + ", " +
-//        String.valueOf(ret[2]));
-
 
     return ret;
   }
@@ -285,7 +274,18 @@ public class LocationService implements
     if (mDrivingHeading >= 0.0)
       notifyCompassUpdated(time, mDrivingHeading, mDrivingHeading, 0.0);
     else
-      notifyCompassUpdated(time, north, trueNorth, offset);
+    {
+      if (Math.abs(Math.toDegrees(north - mLastNorth)) < NOISE_THRESHOLD)
+      {
+        // ignore noise results. makes compass updates smoother.
+      }
+      else
+      {
+        notifyCompassUpdated(time, north, trueNorth, offset);
+        mLastNorth = north;
+      }
+
+    }
   }
 
   @Override
