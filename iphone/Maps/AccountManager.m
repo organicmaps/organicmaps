@@ -132,10 +132,10 @@
         userInfo[@"FacebookLink"] = user.link;
       if (user.username)
         userInfo[@"FacebookUserName"] = user.username;
-      if (user.birthday)
-        userInfo[@"Birthday"] = user.birthday;
-      if ([user objectForKey:@"email"])
-        userInfo[@"Email"] = [user objectForKey:@"email"];
+      if (user[@"birthday"])
+        userInfo[@"Birthday"] = user[@"birthday"];
+      if (user[@"email"])
+        userInfo[@"Email"] = user[@"email"];
 
       [self sendUserInfo:userInfo ofAccount:AccountTypeFacebook toZOGServerWithCompletion:^(BOOL success) {
         block(success);
