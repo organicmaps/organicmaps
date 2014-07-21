@@ -5,8 +5,6 @@
 
 #include "../geometry/point2d.hpp"
 
-#include "../std/vector.hpp"
-
 namespace df
 {
 class TextShape : public MapShape
@@ -17,7 +15,7 @@ public:
   virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const;
 
 private:
-  void addGeometryWithTheSameTextureSet(int setNum, int letterCount, bool auxText, float maxTextLength, m2::PointF const & anchorDelta,
+  void AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bool auxText, float maxTextLength, m2::PointF const & anchorDelta,
                                 RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const;
 
 private:

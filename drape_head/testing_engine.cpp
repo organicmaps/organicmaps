@@ -289,7 +289,7 @@ void TestingEngine::Draw()
   context->setDefaultFramebuffer();
 
   m_viewport.Apply();
-  GLFunctions::glClearColor(0.1f, 0.5f, 0.1f, 1.0f);
+  GLFunctions::glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
   GLFunctions::glClear();
 
   TScene::iterator it = m_scene.begin();
@@ -353,24 +353,25 @@ void TestingEngine::DrawImpl()
   DeleteRange(shapes, DeleteFunctor());
 
   FontDecl fd;
-  fd.m_color = Color(0, 255, 0, 255);
+  fd.m_color = Color(0, 80, 240, 255);
   fd.m_needOutline = true;
-  fd.m_outlineColor = Color(255, 0, 0, 255);
-  fd.m_size = 80.0f;
+  fd.m_outlineColor = Color(255, 255, 255, 255);
+  fd.m_size = 40.0f;
   FontDecl auxFd;
-  auxFd.m_color = Color(255, 0, 0, 255);
-  auxFd.m_needOutline = true;
+  auxFd.m_color = Color(0, 80, 240, 255);
+  auxFd.m_needOutline = false;
   auxFd.m_outlineColor = Color(0, 255, 0, 255);
-  auxFd.m_size = 40.0f;
+  auxFd.m_size = 8.0f;
 
   TextViewParams params;
   params.m_featureID = FeatureID(23, 567);
   params.m_depth = 10.0f;
   params.m_anchor = dp::LeftBottom;
-  params.m_primaryText = "h";
+  params.m_primaryOffset = m2::PointF(0,0);
+  params.m_primaryText = "\u3832\u3830\u3829\u95B0\u95B3\uADAF\uADAA\u2793\u2794";
   params.m_primaryTextFont = fd;
   params.m_secondaryTextFont = auxFd;
-  params.m_secondaryText = "this is јџќ®†њѓѕѕў‘‘≠≈µи≠ђи~~™≤";
+  params.m_secondaryText = "\u3832\u3830\u3829\u95B0\u95B3\uADAF\uADAA\u2793\u2794";
   TextShape sh1(m2::PointF(250.0f, 250.0f), params);
   sh1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 

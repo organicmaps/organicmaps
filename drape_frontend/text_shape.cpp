@@ -24,58 +24,75 @@ namespace
   static uint32_t const ListStride = 24;
   static int const maxTextureSetCount = 64;
   static float const realFontSize = 20.0f;
+
+  void SetColor(vector<float> &dst, float const * ar, int index)
+  {
+    uint32_t const colorArraySize = 4;
+    uint32_t const baseListIndex = ListStride * index;
+    for (uint32_t i = 0; i < 6; ++i)
+      memcpy(&dst[baseListIndex + colorArraySize * i], ar, colorArraySize * sizeof(float));
+  }
+
+  template <typename T>
+  void QuadStripToList(vector<T> & dst, vector<T> & src, int32_t index)
+  {
+    static const int32_t dstStride = 6;
+    static const int32_t srcStride = 4;
+    const int32_t baseDstIndex = index * dstStride;
+    const int32_t baseSrcIndex = index * srcStride;
+
+    dst[baseDstIndex] = src[baseSrcIndex];
+    dst[baseDstIndex + 1] = src[baseSrcIndex + 1];
+    dst[baseDstIndex + 2] = src[baseSrcIndex + 2];
+    dst[baseDstIndex + 3] = src[baseSrcIndex + 1];
+    dst[baseDstIndex + 4] = src[baseSrcIndex + 3];
+    dst[baseDstIndex + 5] = src[baseSrcIndex + 2];
+  }
+
+  PointF GetShift(dp::Anchor anchor, float width, float height)
+  {
+    switch(anchor)
+    {
+    case dp::Center:      return PointF(-width / 2.0f, -height / 2.0f);
+    case dp::Left:        return PointF(0.0f, -height / 2.0f);
+    case dp::Right:       return PointF(-width, -height / 2.0f);
+    case dp::Top:         return PointF(-width / 2.0f, -height);
+    case dp::Bottom:      return PointF(-width / 2.0f, 0);
+    case dp::LeftTop:     return PointF(0.0f, -height);
+    case dp::RightTop:    return PointF(-width, -height);
+    case dp::LeftBottom:  return PointF(0.0f, 0.0f);
+    case dp::RightBottom: return PointF(-width, 0.0f);
+    default:              return PointF(0.0f, 0.0f);
+    }
+  }
+
+  struct Vertex
+  {
+    Vertex() {}
+    Vertex(m2::PointF const & pos, m2::PointF const & dir)
+      : m_position(pos), m_direction(dir) {}
+
+    Vertex(float posX, float posY, float dirX = 0.0f, float dirY = 0.0f)
+      : m_position(posX, posY), m_direction(dirX, dirY) {}
+
+    m2::PointF m_position;
+    m2::PointF m_direction;
+  };
+
+  struct TexCoord
+  {
+    TexCoord() {}
+    TexCoord(m2::PointF const & tex, float index = 0.0f, float depth = 0.0f)
+      : m_texCoord(tex), m_index(index), m_depth(depth) {}
+
+    TexCoord(float texX, float texY, float index = 0.0f, float depth = 0.0f)
+      : m_texCoord(texX, texY), m_index(index), m_depth(depth) {}
+
+    m2::PointF m_texCoord;
+    float m_index;
+    float m_depth;
+  };
 }
-
-void SetColor(vector<float> &dst, float const * ar, int index)
-{
-  uint32_t const colorArraySize = 4;
-  uint32_t const baseListIndex = ListStride * index;
-  for (uint32_t i = 0; i < 6; ++i)
-    memcpy(&dst[baseListIndex + colorArraySize * i], ar, colorArraySize * sizeof(float));
-}
-
-template <typename T>
-void QuadStripToList(vector<T> & dst, vector<T> & src, int32_t index)
-{
-  static const int32_t dstStride = 6;
-  static const int32_t srcStride = 4;
-  const int32_t baseDstIndex = index * dstStride;
-  const int32_t baseSrcIndex = index * srcStride;
-
-  dst[baseDstIndex] = src[baseSrcIndex];
-  dst[baseDstIndex + 1] = src[baseSrcIndex + 1];
-  dst[baseDstIndex + 2] = src[baseSrcIndex + 2];
-  dst[baseDstIndex + 3] = src[baseSrcIndex + 1];
-  dst[baseDstIndex + 4] = src[baseSrcIndex + 3];
-  dst[baseDstIndex + 5] = src[baseSrcIndex + 2];
-}
-
-struct Vertex
-{
-  Vertex() {}
-  Vertex(m2::PointF const & pos, m2::PointF const & dir)
-    : m_position(pos), m_direction(dir) {}
-
-  Vertex(float posX, float posY, float dirX = 0.0f, float dirY = 0.0f)
-    : m_position(posX, posY), m_direction(dirX, dirY) {}
-
-  m2::PointF m_position;
-  m2::PointF m_direction;
-};
-
-struct Texture
-{
-  Texture() {}
-  Texture(m2::PointF const & tex, float depth = 0.0f, float index = 0.0f)
-    : m_texCoord(tex), m_depth(depth), m_index(index) {}
-
-  Texture(float texX, float texY, float depth = 0.0f, float index = 0.0f)
-    : m_texCoord(texX, texY), m_depth(depth), m_index(index) {}
-
-  m2::PointF m_texCoord;
-  float m_depth;
-  float m_index;
-};
 
 TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params)
     : m_basePoint(basePoint),
@@ -83,44 +100,7 @@ TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params
 {
 }
 
-PointF getShift(dp::Anchor anchor, float width, float height)
-{
-  switch(anchor)
-  {
-    case dp::Center:
-      return PointF(-width / 2.0f, -height / 2.0f);
-    break;
-    case dp::Left:
-      return PointF(0.0f, -height / 2.0f);
-    break;
-    case dp::Right:
-      return PointF(-width, -height / 2.0f);
-    break;
-    case dp::Top:
-      return PointF(-width / 2.0f, -height);
-    break;
-    case dp::Bottom:
-      return PointF(-width / 2.0f, 0);
-    break;
-    case dp::LeftTop:
-      return PointF(0.0f, -height);
-    break;
-    case dp::RightTop:
-      return PointF(-width, -height);
-    break;
-    case dp::LeftBottom:
-      return PointF(0.0f, 0.0f);
-    break;
-    case dp::RightBottom:
-      return PointF(-width, 0.0f);
-    break;
-    default:
-      return PointF(0.0f, 0.0f);
-    break;
-  }
-}
-
-void TextShape::addGeometryWithTheSameTextureSet(int setNum, int letterCount, bool auxText,
+void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bool auxText,
                           float maxTextLength, PointF const & anchorDelta,
                           RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
 {
@@ -147,7 +127,7 @@ void TextShape::addGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
 
   int const numVert = letterCount * 4;
   vector<Vertex> vertex(numVert);
-  vector<Texture> texture(numVert);
+  vector<TexCoord> texture(numVert);
 
   float stride = 0.0f;
   int textureSet;
@@ -168,12 +148,11 @@ void TextShape::addGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
 
     textureSet = region.GetTextureNode().m_textureSet;
     m2::RectF const rect = region.GetTexRect();
-    float const textureNum = (float)region.GetTextureNode().m_textureOffset;
+    float const textureNum = (region.GetTextureNode().m_textureOffset << 1) + needOutline;
     m2::PointU pixelSize;
     region.GetPixelSize(pixelSize);
-    m2::PointF const halfSize(pixelSize.x / 2.0, pixelSize.y / 2.0);
-    float const h = fontSize;
-    float const w = fontSize * (halfSize.x / halfSize.y);
+    float const h = pixelSize.y * aspect;
+    float const w = pixelSize.x * aspect;
     yOffset *= aspect;
     xOffset *= aspect;
 
@@ -189,17 +168,17 @@ void TextShape::addGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
     vertex[index++] = Vertex(m_basePoint, rightBottom);
 
     index = j * 4;
-    texture[index++] = Texture(rect.minX(), rect.minY(), textureNum * 2.0 + needOutline, m_params.m_depth);
-    texture[index++] = Texture(rect.minX(), rect.maxY(), textureNum * 2.0 + needOutline, m_params.m_depth);
-    texture[index++] = Texture(rect.maxX(), rect.minY(), textureNum * 2.0 + needOutline, m_params.m_depth);
-    texture[index++] = Texture(rect.maxX(), rect.maxY(), textureNum * 2.0 + needOutline, m_params.m_depth);
+    texture[index++] = TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth);
+    texture[index++] = TexCoord(rect.minX(), rect.minY(), textureNum, m_params.m_depth);
+    texture[index++] = TexCoord(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth);
+    texture[index++] = TexCoord(rect.maxX(), rect.minY(), textureNum, m_params.m_depth);
 
     j++;
     stride += advance;
   }
 
   vector<Vertex> vertex2(numVert * 3 / 2);
-  vector<Texture> texture2(numVert * 3 / 2);
+  vector<TexCoord> texture2(numVert * 3 / 2);
   vector<float> color(numVert * 6);
   vector<float> color2(numVert * 6);
 
@@ -268,8 +247,6 @@ void TextShape::addGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
                                            m2::PointD(maxTextLength, bbY),
                                            m_params.m_depth);
 
-  handle->SetIsVisible(true);
-
   batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
 }
 
@@ -293,11 +270,11 @@ void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> t
 
   if (m_params.m_secondaryText.empty())
   {
-    PointF const anchorDelta = getShift(m_params.m_anchor, textLength, fontSize);
+    PointF const anchorDelta = GetShift(m_params.m_anchor, textLength, fontSize) + m_params.m_primaryOffset;
     for(int i = 0; i < maxTextureSetCount ; ++i)
     {
       if (sizes[i])
-        addGeometryWithTheSameTextureSet(i, sizes[i], false, textLength, anchorDelta, batcher, textures);
+        AddGeometryWithTheSameTextureSet(i, sizes[i], false, textLength, anchorDelta, batcher, textures);
     }
     return;
   }
@@ -318,22 +295,19 @@ void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> t
     auxTextLength += advance * auxFontSize / realFontSize;
   }
 
-  float length = textLength > auxTextLength ? textLength : auxTextLength;
-  PointF const anchorDelta = getShift(m_params.m_anchor, length, fontSize + auxFontSize);
+  float const length = max(textLength, auxTextLength);
+  PointF const anchorDelta = GetShift(m_params.m_anchor, length, fontSize + auxFontSize);
   float dx = textLength > auxTextLength ? 0.0f : (auxTextLength - textLength) / 2.0f;
-  PointF const textDelta = PointF(dx, auxFontSize) + anchorDelta;
+  PointF const textDelta = PointF(dx, auxFontSize) + anchorDelta + m_params.m_primaryOffset;
   dx = textLength > auxTextLength ? (textLength - auxTextLength) / 2.0f : 0.0f;
-  PointF const auxTextDelta = PointF(dx, 0.0f) + anchorDelta;
+  PointF const auxTextDelta = PointF(dx, 0.0f) + anchorDelta + m_params.m_primaryOffset;
 
   for (int i = 0; i < maxTextureSetCount ; ++i)
   {
     if (sizes[i])
-      addGeometryWithTheSameTextureSet(i, sizes[i], false, length, textDelta, batcher, textures);
-  }
-  for(int i = 0; i < maxTextureSetCount ; ++i)
-  {
+      AddGeometryWithTheSameTextureSet(i, sizes[i], false, length, textDelta, batcher, textures);
     if (auxSizes[i])
-      addGeometryWithTheSameTextureSet(i, auxSizes[i], true, length, auxTextDelta, batcher, textures);
+      AddGeometryWithTheSameTextureSet(i, auxSizes[i], true, length, auxTextDelta, batcher, textures);
   }
 }
 

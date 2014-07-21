@@ -14,10 +14,10 @@ const int Index5  = 5;
 const int Index6  = 6;
 const int Index7  = 7;
 
-const float OUTLINE_MIN_VALUE0 = 0.52;
-const float OUTLINE_MIN_VALUE1 = 0.58;
-const float OUTLINE_MAX_VALUE0 = 0.64;
-const float OUTLINE_MAX_VALUE1 = 0.68;
+const float OUTLINE_MIN_VALUE0 = 0.49;
+const float OUTLINE_MIN_VALUE1 = 0.53;
+const float OUTLINE_MAX_VALUE0 = 0.58;
+const float OUTLINE_MAX_VALUE1 = 0.6;
 
 vec4 colorize(vec4 baseColor)
 {
@@ -77,7 +77,7 @@ void main (void)
   else if (textureIndex == Index7)
     alpha = texture2D(u_textures[Index7], v_texcoord.xy).a;
 
-  float needOutline = (v_texcoord.z / 2.0 - floor(v_texcoord.z / 2.0)) * 2.0;
+  float needOutline = (fract(v_texcoord.z / 2.0)) * 2.0;
   if (needOutline > 0.5)
     gl_FragColor = colorize(vec4(v_color.rgb, v_color.a*alpha));
   else
