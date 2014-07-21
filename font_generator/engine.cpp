@@ -21,6 +21,8 @@
 #include <boost/gil/typedefs.hpp>
 #include <boost/gil/algorithm.hpp>
 
+#include "image.h"
+
 using boost::gil::gray8c_view_t;
 using boost::gil::gray8_view_t;
 using boost::gil::gray8c_pixel_t;
@@ -101,7 +103,27 @@ namespace
         MetricTemplate(13, 4, 4),
         MetricTemplate(14, 4, 4),
         MetricTemplate(15, 4, 4),
-        MetricTemplate(16, 4, 4)
+        MetricTemplate(16, 4, 4),
+        MetricTemplate(17, 5, 4),
+        MetricTemplate(18, 5, 4),
+        MetricTemplate(19, 5, 4),
+        MetricTemplate(20, 5, 4),
+        MetricTemplate(21, 5, 5),
+        MetricTemplate(22, 5, 5),
+        MetricTemplate(23, 5, 5),
+        MetricTemplate(24, 5, 5),
+        MetricTemplate(25, 5, 5),
+        MetricTemplate(26, 6, 5),
+        MetricTemplate(27, 6, 5),
+        MetricTemplate(28, 6, 5),
+        MetricTemplate(29, 6, 5),
+        MetricTemplate(30, 6, 5),
+        MetricTemplate(31, 6, 6),
+        MetricTemplate(32, 6, 6),
+        MetricTemplate(33, 6, 6),
+        MetricTemplate(34, 6, 6),
+        MetricTemplate(35, 6, 6),
+        MetricTemplate(36, 6, 6)
       };
 
       for (unsigned long i = 0; i < ARRAY_SIZE(templates); ++ i)
@@ -174,7 +196,8 @@ namespace
           stbtt_InitFont(&fontInfo, &fontBuffer[0], 0);
         }
 
-        float scale = stbtt_ScaleForPixelHeight(&fontInfo, /*GlyphScaler * */m_fontSize);
+        float sc = 4.0f;
+        float scale = stbtt_ScaleForPixelHeight(&fontInfo, /*GlyphScaler * */m_fontSize)*sc;
         for (range_iter_t range = font.value().begin(); range != font.value().end(); ++range)
         {
           for (int unicodeCode = range->first; unicodeCode <= range->second; ++unicodeCode)
@@ -198,8 +221,8 @@ namespace
             GlyphInfo info;
             info.m_unicodePoint = unicodeCode;
             info.m_glyphIndex = glyphCode;
-            info.m_width = width;
-            info.m_height = height;
+            info.m_width = width/sc;
+            info.m_height = height/sc;
             info.m_xoff = xoff /*/ (float)GlyphScaler*/;
             info.m_yoff = yoff /*/ (float)GlyphScaler*/;
             info.m_advance = advance * (scale /*/ (float) GlyphScaler*/);
@@ -209,7 +232,7 @@ namespace
             }
             else
             {
-              processGlyph(image, width, height, info.m_img, info.m_width, info.m_height);
+              processGlyph(image, width, height, info.m_img, info.m_width, info.m_height, sc);
               infos.push_back(info);
               stbtt_FreeBitmap(image, NULL);
             }
@@ -303,25 +326,34 @@ namespace
 
   private:
     static void processGlyph(unsigned char * glyphImage, int32_t width, int32_t height,
-                             vector<uint8_t> & image, int32_t & newW, int32_t & newH)
+                             vector<uint8_t> & im, int32_t & newW, int32_t & newH, float sc)
     {
+      sc = 2.0f;
+      image img(height, width, glyphImage);
       uint32_t const border = 4;
-      int32_t const sWidth = width + 2 * border;
-      int32_t const sHeight = height + 2 * border;
+      image imgWithBorder(img.add_border(border * sc));
+      int32_t const sWidth = imgWithBorder.width/sc;
+      int32_t const sHeight = imgWithBorder.height/sc;
 
-      image.resize(sWidth * sHeight);
-      memset(&image[0], 0, image.size() * sizeof(uint8_t));
-      gray8_view_t bufView = interleaved_view(sWidth, sHeight,
-                                              (gray8_pixel_t *)&image[0],
-                                              sWidth);
-      gray8_view_t subView = subimage_view(bufView, border, border, width, height);
-      gray8c_view_t srcView = interleaved_view(width, height,
-                                               (gray8c_pixel_t *)glyphImage,
-                                               width);
-
+      im.resize(sWidth * sHeight);
+      memset(&im[0], 0, im.size() * sizeof(uint8_t));
       newW = sWidth;
       newH = sHeight;
-      copy_pixels(srcView, subView);
+
+      image res(imgWithBorder.generate_SDF(1.0f/sc));
+      res.to_uint8_t_vec(im);
+      //img.generate_SDF(1.0f/4.0f).to_uint8_t_vec(im);
+//      gray8_view_t bufView = interleaved_view(sWidth, sHeight,
+//                                              (gray8_pixel_t *)&image[0],
+//                                              sWidth);
+//      gray8_view_t subView = subimage_view(bufView, border, border, width, height);
+//      gray8c_view_t srcView = interleaved_view(width, height,
+//                                               (gray8c_pixel_t *)glyphImage,
+//                                               width);
+
+//      newW = sWidth;
+//      newH = sHeight;
+//      copy_pixels(srcView, subView);
 
 //      for (gray8c_view_t::y_coord_t y = 0; y < subView.height(); ++y)
 //      {
@@ -409,12 +441,12 @@ void Engine::RunExport()
 
   GetImage().save(dirName + "/font_temp.png", "png");
 
-  QString params = QString("/opt/local/bin/convert %1 %2 %3")
-                                              .arg(inPathName)
-                                              .arg("-filter Jinc -resize 400% -threshold 30%  \( +clone -negate -morphology Distance Euclidean -level 50%,-50% \) -morphology Distance Euclidean -compose Plus -composite -level 45%,55% -resize 25%")
-                                              .arg(outPathName);
-  QObject::connect(&m_process, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(processChanged(QProcess::ProcessState)));
-  m_process.start(params);
+//  QString params = QString("/opt/local/bin/convert %1 %2 %3")
+//                                              .arg(inPathName)
+//                                              .arg("-filter Jinc -resize 400% -threshold 30%  \( +clone -negate -morphology Distance Euclidean -level 50%,-50% \) -morphology Distance Euclidean -compose Plus -composite -level 45%,55% -resize 25%")
+//                                              .arg(outPathName);
+//  QObject::connect(&m_process, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(processChanged(QProcess::ProcessState)));
+//  m_process.start(params);
 
   MyThread * thread = static_cast<MyThread *>(m_workThread);
   QList<MyThread::GlyphInfo> const & infos = thread->GetInfos();

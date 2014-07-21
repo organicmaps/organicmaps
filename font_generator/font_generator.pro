@@ -19,13 +19,15 @@ SOURCES += main.cpp\
     engine.cpp \
     qlistmodel.cpp \
     BinPacker.cpp \
-    df_map.cpp
+    df_map.cpp \
+    image.cpp
 
 HEADERS  += widget.hpp \
     engine.hpp \
     qlistmodel.hpp \
     stb_tt.hpp \
     BinPacker.hpp \
-    df_map.hpp
+    df_map.hpp \
+    image.h
 
 FORMS    += widget.ui
