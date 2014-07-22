@@ -74,6 +74,11 @@ private:
   uint32_t m_maxSize;
 };
 
+int TextureManager::GetMaxTextureSet() const
+{
+  return m_textures.size();
+}
+
 void TextureManager::Init(string const & resourcePrefix)
 {
   // in shader we handle only 8 textures

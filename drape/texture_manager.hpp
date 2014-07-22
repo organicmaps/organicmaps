@@ -13,6 +13,7 @@ public:
   void Release();
   virtual void GetSymbolRegion(string const & symbolName, SymbolRegion & region) const;
   virtual bool GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const;
+  virtual int GetMaxTextureSet() const;
 
   void BindTextureSet(uint32_t textureSet) const;
   uint32_t GetTextureCount(uint32_t textureSet) const;

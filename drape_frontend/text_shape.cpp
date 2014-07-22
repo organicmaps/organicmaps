@@ -22,7 +22,6 @@ namespace df
 namespace
 {
   static uint32_t const ListStride = 24;
-  static int const maxTextureSetCount = 64;
   static float const realFontSize = 20.0f;
 
   void SetColor(vector<float> &dst, float const * ar, int index)
@@ -156,10 +155,10 @@ void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
     yOffset *= aspect;
     xOffset *= aspect;
 
-    PointF const leftBottom(stride - xOffset + anchorDelta.x, -yOffset + anchorDelta.y);
-    PointF const rightBottom(stride + w - xOffset + anchorDelta.x, -yOffset + anchorDelta.y);
-    PointF const leftTop(stride - xOffset + anchorDelta.x, -yOffset + h + anchorDelta.y);
-    PointF const rightTop(stride + w - xOffset + anchorDelta.x, -yOffset + h + anchorDelta.y);
+    PointF const leftBottom(stride - xOffset + anchorDelta.x, yOffset + anchorDelta.y);
+    PointF const rightBottom(stride + w - xOffset + anchorDelta.x, yOffset + anchorDelta.y);
+    PointF const leftTop(stride - xOffset + anchorDelta.x, yOffset + h + anchorDelta.y);
+    PointF const rightTop(stride + w - xOffset + anchorDelta.x, yOffset + h + anchorDelta.y);
 
     int index = j * 4;
     vertex[index++] = Vertex(m_basePoint, leftTop);
@@ -247,6 +246,8 @@ void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
                                            m2::PointD(maxTextLength, bbY),
                                            m_params.m_depth);
 
+  //handle->SetIsVisible(true);
+
   batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
 }
 
@@ -256,7 +257,8 @@ void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> t
   int const size = text.size();
   float const fontSize = m_params.m_primaryTextFont.m_size;
   float textLength = 0.0f;
-  int sizes[maxTextureSetCount] = {0};
+  int const maxTextureSetCount = textures->GetMaxTextureSet();
+  buffer_vector<int, 16> sizes(maxTextureSetCount);
 
   for (int i = 0 ; i < size ; i++)
   {
@@ -283,7 +285,7 @@ void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> t
   int const auxSize = auxText.size();
   float const auxFontSize = m_params.m_secondaryTextFont.m_size;
   float auxTextLength = 0.0f;
-  int auxSizes[maxTextureSetCount] = {0};
+  buffer_vector<int, 16> auxSizes(maxTextureSetCount);
 
   for (int i = 0 ; i < auxSize ; i++)
   {
