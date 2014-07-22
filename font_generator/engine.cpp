@@ -221,11 +221,11 @@ namespace
             GlyphInfo info;
             info.m_unicodePoint = unicodeCode;
             info.m_glyphIndex = glyphCode;
-            info.m_width = width/sc;
-            info.m_height = height/sc;
-            info.m_xoff = xoff /*/ (float)GlyphScaler*/;
-            info.m_yoff = yoff /*/ (float)GlyphScaler*/;
-            info.m_advance = advance * (scale /*/ (float) GlyphScaler*/);
+            info.m_width = width/sc*2.0f + 2*4;
+            info.m_height = height/sc*2.0f + 2*4;
+            info.m_xoff = xoff/sc*2.0f + 4/*/ (float)GlyphScaler*/;
+            info.m_yoff = yoff/sc*2.0f - 4/*/ (float)GlyphScaler*/;
+            info.m_advance = advance * (scale /*/ (float) GlyphScaler*/)/sc*2.0f;
             if (info.m_width == 0 || info.m_height == 0)
             {
               emptyInfos.push_back(info);
@@ -328,7 +328,7 @@ namespace
     static void processGlyph(unsigned char * glyphImage, int32_t width, int32_t height,
                              vector<uint8_t> & im, int32_t & newW, int32_t & newH, float sc)
     {
-      sc = 2.0f;
+      sc /= 2.0f;
       image img(height, width, glyphImage);
       uint32_t const border = 4;
       image imgWithBorder(img.add_border(border * sc));
@@ -435,11 +435,11 @@ void Engine::RunExport()
     m_workThread->wait();
 
   QString dirName(m_dirName.trimmed());
-  QString inPathName(dirName + "/font_temp.png");
+  QString inPathName(dirName + "/font.png");
   m_tempPngFile = inPathName;
   QString outPathName(dirName + "/font.png");
 
-  GetImage().save(dirName + "/font_temp.png", "png");
+  GetImage().save(dirName + "/font.png", "png");
 
 //  QString params = QString("/opt/local/bin/convert %1 %2 %3")
 //                                              .arg(inPathName)

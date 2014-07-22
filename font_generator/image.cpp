@@ -31,8 +31,8 @@ void mexFunction(image & img, image & out)
   image gx(img.height, img.width);
   image gy(img.height, img.width);
 
-  short * xdist = (short*)malloc(mrows*ncols*sizeof(short));
-  short * ydist = (short*)malloc(mrows*ncols*sizeof(short));
+  short * xdist = (short*)malloc(img.width*img.height*sizeof(short));
+  short * ydist = (short*)malloc(img.width*img.height*sizeof(short));
   img.computegradient(gx, gy);
   img.edtaa3(gx, gy, img.width, img.height, xdist, ydist, out);
   // Pixels with grayscale>0.5 will have a negative distance.
