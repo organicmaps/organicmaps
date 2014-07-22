@@ -158,7 +158,6 @@ void ApplyPointFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       FontDecl auxDecl;
       CaptionDefProtoToFontDecl(auxCapRule, auxDecl);
 
-      params.m_secondaryOffset = m2::PointF(0,0);
       params.m_secondaryText = m_secondaryText;
       params.m_secondaryTextFont = auxDecl;
     }
