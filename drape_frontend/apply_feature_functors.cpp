@@ -161,7 +161,7 @@ void ApplyPointFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       params.m_secondaryText = m_secondaryText;
       params.m_secondaryTextFont = auxDecl;
     }
-    if(!params.m_primaryText.empty())
+    if(!params.m_primaryText.empty() && !params.m_secondaryText.empty())
       m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new TextShape(m_centerPoint, params)));
   }
 
