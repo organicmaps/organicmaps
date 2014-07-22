@@ -12,6 +12,7 @@ import android.content.res.Configuration;
 import android.graphics.Point;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
@@ -683,9 +684,17 @@ public class MWMActivity extends NvEventQueueActivity
     mVerticalToolbar = (ViewGroup) findViewById(R.id.map_bottom_vertical_toolbar);
     mVerticalToolbar.findViewById(R.id.btn_buy_pro).setOnClickListener(this);
     mVerticalToolbar.findViewById(R.id.btn_download_maps).setOnClickListener(this);
-    mVerticalToolbar.findViewById(R.id.btn_more_apps).setOnClickListener(this);
     mVerticalToolbar.findViewById(R.id.btn_share).setOnClickListener(this);
     mVerticalToolbar.findViewById(R.id.btn_settings).setOnClickListener(this);
+    View moreApps = mVerticalToolbar.findViewById(R.id.btn_more_apps);
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+    {
+      UiUtils.hide(moreApps);
+    }
+    else
+    {
+      moreApps.setOnClickListener(this);
+    }
 
     UiUtils.hide(mVerticalToolbar);
   }
