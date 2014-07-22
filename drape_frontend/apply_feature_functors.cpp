@@ -162,8 +162,8 @@ void ApplyPointFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       params.m_secondaryText = m_secondaryText;
       params.m_secondaryTextFont = auxDecl;
     }
-
-    m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new TextShape(m_centerPoint, params)));
+    if(!params.m_primaryText.empty())
+      m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new TextShape(m_centerPoint, params)));
   }
 
   SymbolRuleProto const * symRule =  pRule->GetSymbol();
@@ -256,10 +256,17 @@ void ApplyLineFeature::operator ()(CoordPointT const & point)
   /// TODO remove this check when fix generator.
   /// Now we have line objects with zero length segments
   if (m_path.empty())
+  {
     m_path.push_back(inputPt);
+  }
   else
+  {
     if (!(inputPt - m_path.back()).IsAlmostZero())
       m_path.push_back(inputPt);
+    else
+      LOG(LDEBUG, ("Found seqment with zero lenth (the ended points are same)"));
+  }
+
 }
 
 bool ApplyLineFeature::HasGeometry() const
