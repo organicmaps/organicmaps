@@ -1,8 +1,7 @@
 #import <UIKit/UIKit.h>
-#import "MailComposeViewController.h"
 #import "LocationManager.h"
 
-@interface BookmarksVC : UITableViewController <LocationObserver, UITextFieldDelegate, MFMailComposeViewControllerDelegate>
+@interface BookmarksVC : UITableViewController <LocationObserver, UITextFieldDelegate>
 {
   LocationManager * m_locationManager;
   size_t m_categoryIndex;

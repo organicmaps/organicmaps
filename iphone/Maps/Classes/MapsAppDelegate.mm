@@ -262,18 +262,21 @@ void InitLocalizedStrings()
   NSMutableDictionary * attributes = [[NSMutableDictionary alloc] init];
   attributes[UITextAttributeTextColor] = [UIColor whiteColor];
   attributes[UITextAttributeTextShadowColor] = [UIColor clearColor];
-  [[UINavigationBar appearance] setTintColor:[UIColor colorWithColorCode:@"15c584"]];
+  [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setTintColor:[UIColor colorWithColorCode:@"15c584"]];
+
   if (!SYSTEM_VERSION_IS_LESS_THAN(@"7"))
   {
-    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
 
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground7"] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground7"] forBarMetrics:UIBarMetricsDefault];
+
     attributes[UITextAttributeFont] = [UIFont fontWithName:@"HelveticaNeue" size:17.5];
   }
+
   if ([UINavigationBar instancesRespondToSelector:@selector(setShadowImage:)])
-    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
-  [[UINavigationBar appearance] setTitleTextAttributes:attributes];
+    [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setShadowImage:[[UIImage alloc] init]];
+
+  [[UINavigationBar appearanceWhenContainedIn:[NavigationController class], nil] setTitleTextAttributes:attributes];
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification

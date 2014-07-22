@@ -1,7 +1,7 @@
 #import "ShareActionSheet.h"
 #import "Framework.h"
-#import "MessageComposeViewController.h"
-#import "MailComposeViewController.h"
+#import <MessageUI/MFMessageComposeViewController.h>
+#import <MessageUI/MFMailComposeViewController.h>
 #import "Statistics.h"
 
 #include "../../search/result.hpp"
@@ -45,9 +45,9 @@
 {
   UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"share", nil) delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 
-  if ([MessageComposeViewController canSendText])
+  if ([MFMessageComposeViewController canSendText])
     [as addButtonWithTitle:NSLocalizedString(@"message", nil)];
-  if ([MailComposeViewController canSendMail] || [self canUseGmailApp])
+  if ([MFMailComposeViewController canSendMail] || [self canUseGmailApp])
     [as addButtonWithTitle:NSLocalizedString(@"email", nil)];
   [as addButtonWithTitle:NSLocalizedString(@"copy_link", nil)];
   [as addButtonWithTitle:NSLocalizedString(@"cancel", nil)];
@@ -96,9 +96,9 @@
     subject = NSLocalizedString(@"bookmark_share_email_subject", nil);
   }
 
-  if ([MailComposeViewController canSendMail])
+  if ([MFMailComposeViewController canSendMail])
   {
-    MailComposeViewController * mailVC = [[MailComposeViewController alloc] init];
+    MFMailComposeViewController * mailVC = [[MFMailComposeViewController alloc] init];
     [mailVC setMessageBody:body isHTML:NO];
     [mailVC setSubject:subject];
     mailVC.mailComposeDelegate = self;
@@ -116,7 +116,7 @@
 - (void)sendMessageWithUrl:(NSString *)shortUrl
 {
   NSString * httpGe0Url = [shortUrl stringByReplacingCharactersInRange:NSMakeRange(0, 6) withString:@"http://ge0.me/"];
-  MessageComposeViewController * messageVC = [[MessageComposeViewController alloc] init];
+  MFMessageComposeViewController * messageVC = [[MFMessageComposeViewController alloc] init];
   if (self.info.myPosition)
     [messageVC setBody:[NSString stringWithFormat:NSLocalizedString(@"my_position_share_sms", nil), shortUrl, httpGe0Url]];
   else
