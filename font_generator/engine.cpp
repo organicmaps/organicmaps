@@ -36,7 +36,9 @@ typedef function<void (int)> int_fun_t;
 
 namespace
 {
-  //static int GlyphScaler = 16;
+  uint32_t const border = 4;
+  float const secondScale = 2.0f;
+
   static int EtalonTextureSize = 1024;
   struct ZeroPoint
   {
@@ -221,11 +223,11 @@ namespace
             GlyphInfo info;
             info.m_unicodePoint = unicodeCode;
             info.m_glyphIndex = glyphCode;
-            info.m_width = width/sc*2.0f + 2*4;
-            info.m_height = height/sc*2.0f + 2*4;
-            info.m_xoff = xoff/sc*2.0f + 4/*/ (float)GlyphScaler*/;
-            info.m_yoff = yoff/sc*2.0f - 4/*/ (float)GlyphScaler*/;
-            info.m_advance = advance * (scale /*/ (float) GlyphScaler*/)/sc*2.0f;
+            info.m_width = width / sc * secondScale + 2 * border;
+            info.m_height = height / sc * secondScale + 2 * border;
+            info.m_xoff = xoff / sc * secondScale + border;
+            info.m_yoff = yoff / sc * secondScale - border;
+            info.m_advance = advance * scale / sc * secondScale;
             if (info.m_width == 0 || info.m_height == 0)
             {
               emptyInfos.push_back(info);
@@ -328,12 +330,11 @@ namespace
     static void processGlyph(unsigned char * glyphImage, int32_t width, int32_t height,
                              vector<uint8_t> & im, int32_t & newW, int32_t & newH, float sc)
     {
-      sc /= 2.0f;
+      sc /= secondScale;
       image img(height, width, glyphImage);
-      uint32_t const border = 4;
       image imgWithBorder(img.add_border(border * sc));
-      int32_t const sWidth = imgWithBorder.width/sc;
-      int32_t const sHeight = imgWithBorder.height/sc;
+      int32_t const sWidth = imgWithBorder.width / sc;
+      int32_t const sHeight = imgWithBorder.height / sc;
 
       im.resize(sWidth * sHeight);
       memset(&im[0], 0, im.size() * sizeof(uint8_t));
@@ -342,35 +343,6 @@ namespace
 
       image res(imgWithBorder.generate_SDF(1.0f/sc));
       res.to_uint8_t_vec(im);
-      //img.generate_SDF(1.0f/4.0f).to_uint8_t_vec(im);
-//      gray8_view_t bufView = interleaved_view(sWidth, sHeight,
-//                                              (gray8_pixel_t *)&image[0],
-//                                              sWidth);
-//      gray8_view_t subView = subimage_view(bufView, border, border, width, height);
-//      gray8c_view_t srcView = interleaved_view(width, height,
-//                                               (gray8c_pixel_t *)glyphImage,
-//                                               width);
-
-//      newW = sWidth;
-//      newH = sHeight;
-//      copy_pixels(srcView, subView);
-
-//      for (gray8c_view_t::y_coord_t y = 0; y < subView.height(); ++y)
-//      {
-//        for (gray8c_view_t::x_coord_t x = 0; x < subView.width(); ++x)
-//        {
-//          if (srcView(x, y) > 40)
-//            subView(x, y) = 255;
-//          else
-//            subView(x, y) = 0;
-//        }
-//      }
-
-//      DFMap forwardMap(image, sWidth, sHeight, 255, 0);
-//      DFMap inverseMap(image, sWidth, sHeight, 0, 255);
-//      forwardMap.Minus(inverseMap);
-//      forwardMap.Normalize();
-//      forwardMap.GenerateImage(image, newW, newH);
     }
 
   private:
@@ -439,14 +411,7 @@ void Engine::RunExport()
   m_tempPngFile = inPathName;
   QString outPathName(dirName + "/font.png");
 
-  GetImage().save(dirName + "/font.png", "png");
-
-//  QString params = QString("/opt/local/bin/convert %1 %2 %3")
-//                                              .arg(inPathName)
-//                                              .arg("-filter Jinc -resize 400% -threshold 30%  \( +clone -negate -morphology Distance Euclidean -level 50%,-50% \) -morphology Distance Euclidean -compose Plus -composite -level 45%,55% -resize 25%")
-//                                              .arg(outPathName);
-//  QObject::connect(&m_process, SIGNAL(stateChanged(QProcess::ProcessState)), this, SLOT(processChanged(QProcess::ProcessState)));
-//  m_process.start(params);
+  GetImage().save(outPathName, "png");
 
   MyThread * thread = static_cast<MyThread *>(m_workThread);
   QList<MyThread::GlyphInfo> const & infos = thread->GetInfos();

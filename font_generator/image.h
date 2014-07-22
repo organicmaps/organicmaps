@@ -34,8 +34,6 @@ THE SOFTWARE.
 #include <vector>
 #include <cmath>
 
-using namespace std;
-
 namespace
 {
 struct TGAHeader
@@ -67,10 +65,10 @@ public:
   image(int H, int W, float *arr);
   image(int H, int W, unsigned char *arr);
   image(){}
-  image(const image &copy);
-  image(string path);
+  image(image const & copy);
+  image(std::string path);
   ~image();
-  void write_as_tga(string path);
+  void write_as_tga(std::string path);
   void computegradient(image &grad_x, image  &grad_y);
   void scale();
   void invert();
@@ -78,7 +76,7 @@ public:
   void edtaa3(image &gx, image &gy, int w, int h, short *distx, short *disty, image &dist);
   void minus(image &im);
   void distquant();
-  void to_uint8_t_vec(vector<uint8_t> &dst);
+  void to_uint8_t_vec(std::vector<uint8_t> &dst);
   image bilinear(float scale);
   image generate_SDF(float sc);
   image add_border(int size);
