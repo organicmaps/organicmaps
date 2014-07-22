@@ -75,7 +75,7 @@ public class MWMActivity extends NvEventQueueActivity
   // Need it for search
   private static final String EXTRA_SEARCH_RES_SINGLE = "search_res_index";
   // Map tasks that we run AFTER rendering initialized
-  private final Stack<MapTask> mTasks = new Stack<MWMActivity.MapTask>();
+  private final Stack<MapTask> mTasks = new Stack<MapTask>();
   private MWMApplication mApplication = null;
   private BroadcastReceiver m_externalStorageReceiver = null;
   private StoragePathManager m_pathManager = new StoragePathManager();
@@ -1105,6 +1105,11 @@ public class MWMActivity extends NvEventQueueActivity
     {
       hideInfoView();
       deactivatePopup();
+    }
+    else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
+    {
+      UiUtils.show(mToolbar);
+      UiUtils.hide(mVerticalToolbar);
     }
     else
       super.onBackPressed();
