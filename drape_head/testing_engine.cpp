@@ -353,7 +353,7 @@ void TestingEngine::DrawImpl()
   DeleteRange(shapes, DeleteFunctor());
 
   FontDecl fd;
-  fd.m_color = Color(0, 80, 240, 255);
+  fd.m_color = Color(200, 80, 240, 255);
   fd.m_needOutline = true;
   fd.m_outlineColor = Color(255, 255, 255, 255);
   fd.m_size = 40.0f;
@@ -361,18 +361,18 @@ void TestingEngine::DrawImpl()
   auxFd.m_color = Color(0, 80, 240, 255);
   auxFd.m_needOutline = false;
   auxFd.m_outlineColor = Color(0, 255, 0, 255);
-  auxFd.m_size = 8.0f;
+  auxFd.m_size = 20.0f;
 
   TextViewParams params;
   params.m_featureID = FeatureID(23, 567);
   params.m_depth = 10.0f;
   params.m_anchor = dp::LeftBottom;
   params.m_primaryOffset = m2::PointF(0,0);
-  params.m_primaryText = "\u3832\u3830\u3829\u95B0\u95B3\uADAF\uADAA\u2793\u2794";
+  params.m_primaryText = ":P";//\u3832\u3830\u3829\u95B0\u95B3\uADAF\uADAA\u2793\u2794";
   params.m_primaryTextFont = fd;
   params.m_secondaryTextFont = auxFd;
-  params.m_secondaryText = "\u3832\u3830\u3829\u95B0\u95B3\uADAF\uADAA\u2793\u2794";
-  TextShape sh1(m2::PointF(250.0f, 250.0f), params);
+  params.m_secondaryText = "Странные вещи происходят здесь, the strajjjjjnge things ...";
+  TextShape sh1(m2::PointF(200.0f, 298.0f), params);
   sh1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
   params.m_featureID = FeatureID(23, 78);
@@ -380,7 +380,7 @@ void TestingEngine::DrawImpl()
   params.m_anchor = dp::RightTop;
   params.m_primaryTextFont.m_needOutline = false;
   TextShape sh2(m2::PointF(250.0f, 250.0f), params);
-  sh2.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  //sh2.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 }
 
 void TestingEngine::ModelViewInit()
