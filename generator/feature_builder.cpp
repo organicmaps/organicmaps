@@ -329,9 +329,10 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
 
     for (list<points_t>::const_iterator i = m_polygons.begin(); i != m_polygons.end(); ++i)
       serial::SaveOuterPath(*i, cp, sink);
+
+    WriteVarInt(sink, m_coastCell);
   }
 
-  WriteVarInt(sink, m_coastCell);
 
   // check for correct serialization
 #ifdef DEBUG
@@ -356,21 +357,22 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
   {
     m_center = serial::LoadPoint(source, cp);
     m_limitRect.Add(m_center);
-    return;
   }
-
-  m_polygons.clear();
-  uint32_t const count = ReadVarUint<uint32_t>(source);
-  ASSERT_GREATER ( count, 0, (*this) );
-
-  for (uint32_t i = 0; i < count; ++i)
+  else
   {
-    m_polygons.push_back(points_t());
-    serial::LoadOuterPath(source, cp, m_polygons.back());
-    CalcRect(m_polygons.back(), m_limitRect);
-  }
+    m_polygons.clear();
+    uint32_t const count = ReadVarUint<uint32_t>(source);
+    ASSERT_GREATER ( count, 0, (*this) );
 
-  m_coastCell = ReadVarInt<int64_t>(source);
+    for (uint32_t i = 0; i < count; ++i)
+    {
+      m_polygons.push_back(points_t());
+      serial::LoadOuterPath(source, cp, m_polygons.back());
+      CalcRect(m_polygons.back(), m_limitRect);
+    }
+
+    m_coastCell = ReadVarInt<int64_t>(source);
+  }
 
   CHECK ( CheckValid(), (*this) );
 }

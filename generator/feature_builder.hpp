@@ -184,6 +184,7 @@ protected:
   /// List of geometry polygons.
   list<points_t> m_polygons; // Check HEADER_IS_AREA
 
+  /// Not used in GEOM_POINTs
   int64_t m_coastCell;
 };
 
