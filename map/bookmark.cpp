@@ -535,6 +535,14 @@ namespace
               ParseLineCoordinates(value, "\n\r\t", " ");
           }
         }
+        else if (ppTag == "gx:MultiTrack")
+        {
+          if (prevTag == "gx:Track")
+          {
+            if (currTag == "gx:coord")
+              ParseLineCoordinates(value, "\n\r\t", " ");
+          }
+        }
       }
     }
   };
