@@ -1,20 +1,6 @@
 {
     "AppFeatureBanner": {
-        "*": {
-            "Variants": {
 
-            }
-        },
-        "AU": {     
-            "Variants": {
-                "MoPub": {
-                    "Chance": 10,
-                    "UnitId": "78b52bc1fc0e4931bb05f34fd3df7ea9",
-                    "Languages": ["*"],  
-                    "TimeLimit": [432000, 1000000000],
-                },
-            },
-        },     
     },
     "AppFeatureInterstitial": {
         "*": {         
@@ -33,29 +19,13 @@
                     "Languages": ["ru", "en"],  
                     "Online": true,
                     "LaunchCount": [5, 1000000000],
-                },                
-            },
-        },  
-        "AU": {
-            "Period": 10800,  
-            "Variants": {
-                "MoPub": {
-                    "Chance": 10,
-                    "Languages": ["*"],  
-                    "TimeLimit": [432000, 1000000000],                    
                 },
-                "MWMPro4_2_OnlyIphone": {
+                "MWMProUI3": {
                     "Chance": 10,
                     "Languages": ["ru", "en"], 
-                    "Idiom": "Phone", 
-                    "Online": true,                    
+                    "Online": true,
+                    "LaunchCount": [5, 1000000000],
                 },
-                "MWMPro4_OnlyIpad": {
-                    "Chance": 10,
-                    "Idiom": "Pad",
-                    "Languages": ["ru", "en"],  
-                    "Online": true,                    
-                },  
             },
         },
     },
