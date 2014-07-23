@@ -687,7 +687,7 @@ public class MWMActivity extends NvEventQueueActivity
     mVerticalToolbar.findViewById(R.id.btn_share).setOnClickListener(this);
     mVerticalToolbar.findViewById(R.id.btn_settings).setOnClickListener(this);
     View moreApps = mVerticalToolbar.findViewById(R.id.btn_more_apps);
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB || Framework.getGuideIds().length == 0)
     {
       UiUtils.hide(moreApps);
     }
