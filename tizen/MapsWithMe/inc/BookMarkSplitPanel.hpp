@@ -1,6 +1,7 @@
 #pragma once
 
 #include <FUi.h>
+#include <FUixSensor.h>
 
 class UserMark;
 class MapsWithMeForm;
@@ -11,6 +12,7 @@ class BookMarkSplitPanel: public Tizen::Ui::Controls::SplitPanel
 , public Tizen::Ui::Controls::IListViewItemProviderF
 , public Tizen::Ui::Controls::IListViewItemEventListener
 , public Tizen::Ui::ITextEventListener
+, public Tizen::Uix::Sensor::ISensorEventListener
 {
 public:
   BookMarkSplitPanel();
@@ -62,6 +64,9 @@ public:
   virtual void  OnTextValueChangeCanceled (Tizen::Ui::Control const & source);
   virtual void  OnTextValueChanged (Tizen::Ui::Control const & source);
 
+  // ISensorEventListener
+  virtual void OnDataReceived (Tizen::Uix::Sensor::SensorType sensorType, Tizen::Uix::Sensor::SensorData & sensorData, result r);
+
   Tizen::Base::String GetHeaderText() const;
   Tizen::Base::String GetDistanceText() const;
   Tizen::Base::String GetCountryText() const;
@@ -72,6 +77,8 @@ public:
   void UpdateState();
   UserMark const * GetCurMark() const;
   bool IsBookMark() const;
+
+  void UpdateCompass();
 private:
 
   enum EButtons
@@ -105,4 +112,6 @@ private:
 
   Tizen::Ui::Controls::ListView * m_pList;
   MapsWithMeForm * m_pMainForm;
+  Tizen::Uix::Sensor::SensorManager m_sensorManager;
+  double m_NorthAzimut;
 };

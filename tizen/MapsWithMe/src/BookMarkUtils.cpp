@@ -83,6 +83,19 @@ Tizen::Base::String GetDistance(UserMark const * pUserMark)
   return dist.c_str();
 }
 
+double GetAzimut(UserMark const * pUserMark, double north)
+{
+  if (!pUserMark)
+    return 0;
+  double lat, lon;
+  GetFramework()->GetCurrentPosition(lat, lon);
+  string dist;
+  double azimut;
+  m2::PointD pt = pUserMark->GetOrg();
+  GetFramework()->GetDistanceAndAzimut(pt, lat, lon, north, dist, azimut);
+  return azimut;
+}
+
 bool IsBookMark(UserMark const * pUserMark)
 {
   if (!pUserMark)

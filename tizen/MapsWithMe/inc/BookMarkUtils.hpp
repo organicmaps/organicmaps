@@ -27,6 +27,7 @@ Tizen::Base::String GetMarkName(UserMark const * pUserMark);
 Tizen::Base::String GetMarkType(UserMark const * pUserMark);
 Tizen::Base::String GetMarkCountry(UserMark const * pUserMark);
 Tizen::Base::String GetDistance(UserMark const * pUserMark);
+double GetAzimut(UserMark const * pUserMark, double north);
 
 const wchar_t * GetColorBM(EColor color);
 const wchar_t * GetColorPPBM(EColor color);

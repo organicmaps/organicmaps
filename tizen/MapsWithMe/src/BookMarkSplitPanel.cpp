@@ -12,6 +12,7 @@
 #include "../../../platform/tizen_utils.hpp"
 #include "../../../base/logging.hpp"
 #include "../../../std/sstream.hpp"
+#include <FUixSensor.h>
 
 using namespace Tizen::Base;
 using namespace Tizen::Ui::Controls;
@@ -19,6 +20,7 @@ using namespace Tizen::Ui::Scenes;
 using namespace Tizen::Graphics;
 using namespace consts;
 using namespace bookmark;
+using namespace Tizen::Uix::Sensor;
 using Tizen::Base::Collection::ArrayList;
 
 BookMarkSplitPanel::BookMarkSplitPanel()
@@ -94,6 +96,11 @@ bool BookMarkSplitPanel::Construct(const Tizen::Graphics::FloatRectangle& rect)
   SetDividerPosition(rect.height / 2);
   SetPane(m_pFirstPanel, SPLIT_PANEL_PANE_ORDER_FIRST);
   SetPane(m_pSecondPanel, SPLIT_PANEL_PANE_ORDER_SECOND);
+
+  m_sensorManager.Construct();
+  if (m_sensorManager.IsAvailable(SENSOR_TYPE_MAGNETIC))
+    m_sensorManager.AddSensorListener(*this, SENSOR_TYPE_MAGNETIC, 50, true);
+  m_NorthAzimut = 0;
 
   return true;
 }
@@ -176,8 +183,6 @@ Tizen::Ui::Controls::ListItemBase * BookMarkSplitPanel::CreateSettingsItem (floa
   pItem->Construct(FloatDimension(itemWidth, settingsItemHeight), LIST_ANNEX_STYLE_NORMAL);
 
   FloatRectangle imgRect(btwWdth, topHght, imgWdth, imgHght);
-  pItem->AddElement(imgRect, COMPAS_BACKGROUND_IMG, *GetBitmap(IDB_PLACE_PAGE_COMPASS), null, null);
-  pItem->AddElement(imgRect, COMPAS_IMG, *GetBitmap(IDB_PLACE_PAGE_COMPASS_BACKGROUND), null, null);
   if (IsBookMark())
   {
     FloatRectangle colorImgRect(imgRect);
@@ -240,6 +245,7 @@ void BookMarkSplitPanel::UpdateState()
   int const listSz = IsBookMark() ? allItemsHeight : headerSettingsHeight;
   m_pList->SetSize(m_pList->GetWidth(), listSz);
   m_pList->UpdateList();
+  UpdateCompass();
   m_pButton->SetPosition(btwWdth, listSz + btwWdth);
   m_pDummyMessageEdit->SetFocus();
   m_pMessageEdit->SetShowState(IsBookMark());
@@ -353,4 +359,39 @@ void BookMarkSplitPanel::OnTextValueChanged (Tizen::Ui::Control const & source)
 {
   GetBMMnger().SetBookMarkMessage(m_pMessageEdit->GetText());
   UpdateState();
+}
+
+
+void BookMarkSplitPanel::UpdateCompass()
+{
+  Tizen::Graphics::Canvas * pCanvas =  m_pList->GetCanvasN();
+  if (pCanvas)
+  {
+    pCanvas->FillRectangle(consts::green, Rectangle(2,headerItemHeight + 2, 100,100));
+    Bitmap const * pBTM_Back = GetBitmap(IDB_PLACE_PAGE_COMPASS_BACKGROUND);
+    int imgBackHeighDiv2 = pBTM_Back->GetHeight()/2;
+    Bitmap const * pBTM = GetBitmap(IDB_PLACE_PAGE_COMPASS);
+    int imgHeighDiv2 = pBTM->GetHeight()/2;
+    int centerX = btwWdth + imgHeighDiv2;
+    int centerY = headerItemHeight + btwWdth + imgHeighDiv2;
+
+
+
+    pCanvas->DrawBitmap(Point(centerX - imgBackHeighDiv2, centerY - imgBackHeighDiv2), *pBTM_Back);
+    double dAzimut = GetAzimut(GetCurMark(), m_NorthAzimut);
+    pCanvas->DrawBitmap(Point(centerX, centerY), *pBTM, Point(imgHeighDiv2, imgHeighDiv2), (dAzimut/(2*M_PI))*360);
+    delete pCanvas;
+  }
+}
+void BookMarkSplitPanel::OnDataReceived(SensorType sensorType, SensorData & sensorData, result r)
+{
+  MagneticSensorData & data = static_cast< MagneticSensorData& >(sensorData);
+  m_NorthAzimut = atan2(data.y, data.x) - math::pi;
+  double const pi2 = 2.0*math::pi;
+  if (m_NorthAzimut < 0.0)
+    m_NorthAzimut += pi2;
+  else if (m_NorthAzimut > pi2)
+    m_NorthAzimut -= pi2;
+
+  UpdateCompass();
 }
