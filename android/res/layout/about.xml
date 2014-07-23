@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
 
-    <WebView
+    <view
+        class="com.mapswithme.maps.settings.SettingsActivity$MyWebView"
         android:id="@+id/webview_about"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dialog_max_height"

@@ -18,6 +18,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -311,4 +312,32 @@ public class SettingsActivity extends PreferenceActivity
 
   private native boolean isDownloadingActive();
 
+
+
+  // needed for soft keyboard to appear in alertdialog.
+  // check https://code.google.com/p/android/issues/detail?id=7189 for details
+  public static class MyWebView extends WebView
+  {
+
+    public MyWebView(Context context)
+    {
+      super(context);
+    }
+
+    public MyWebView(Context context, AttributeSet attrs)
+    {
+      super(context, attrs);
+    }
+
+    public MyWebView(Context context, AttributeSet attrs, int defStyle)
+    {
+      super(context, attrs, defStyle);
+    }
+
+    @Override
+    public boolean onCheckIsTextEditor()
+    {
+      return true;
+    }
+  }
 }
