@@ -1,6 +1,5 @@
 package com.mapswithme.maps.settings;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.MailTo;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -30,24 +30,24 @@ import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.StoragePathManager;
 import com.mapswithme.util.UiUtils;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
 
 public class SettingsActivity extends PreferenceActivity
 {
-  private final static String ZOOM_BUTTON_ENABLED = "ZoomButtonsEnabled";
-  private Preference m_storagePreference = null;
-  private StoragePathManager m_pathManager = new StoragePathManager();
+  public final static String ZOOM_BUTTON_ENABLED = "ZoomButtonsEnabled";
+  private static final String ABOUT_ASSET_URL = "file:///android_asset/about.html";
 
-  @SuppressLint("NewApi")
+  private Preference mStoragePreference = null;
+  private StoragePathManager mPathManager = new StoragePathManager();
+
   @SuppressWarnings("deprecation")
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
 
-    if (Utils.apiEqualOrGreaterThan(11))
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
     {
       // http://stackoverflow.com/questions/6867076/getactionbar-returns-null
       final ActionBar bar = getActionBar();
@@ -59,8 +59,8 @@ public class SettingsActivity extends PreferenceActivity
 
     final Activity parent = this;
 
-    m_storagePreference = findPreference(getString(R.string.pref_storage_activity));
-    m_storagePreference.setOnPreferenceClickListener(new OnPreferenceClickListener()
+    mStoragePreference = findPreference(getString(R.string.pref_storage_activity));
+    mStoragePreference.setOnPreferenceClickListener(new OnPreferenceClickListener()
     {
       @Override
       public boolean onPreferenceClick(Preference preference)
@@ -68,18 +68,18 @@ public class SettingsActivity extends PreferenceActivity
         if (isDownloadingActive())
         {
           new AlertDialog.Builder(parent)
-          .setTitle(parent.getString(R.string.downloading_is_active))
-          .setMessage(parent.getString(R.string.cant_change_this_setting))
-          .setPositiveButton(parent.getString(R.string.ok), new DialogInterface.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dlg, int which)
-            {
-              dlg.dismiss();
-            }
-          })
-          .create()
-          .show();
+              .setTitle(parent.getString(R.string.downloading_is_active))
+              .setMessage(parent.getString(R.string.cant_change_this_setting))
+              .setPositiveButton(parent.getString(R.string.ok), new DialogInterface.OnClickListener()
+              {
+                @Override
+                public void onClick(DialogInterface dlg, int which)
+                {
+                  dlg.dismiss();
+                }
+              })
+              .create()
+              .show();
 
           return false;
         }
@@ -118,13 +118,13 @@ public class SettingsActivity extends PreferenceActivity
     });
 
     final CheckBoxPreference enableZoomButtons = (CheckBoxPreference) findPreference(getString(R.string.pref_zoom_btns_enabled));
-    enableZoomButtons.setChecked(isZoomButtonsEnabled(MWMApplication.get()));
+    enableZoomButtons.setChecked(MWMApplication.get().nativeGetBoolean(ZOOM_BUTTON_ENABLED, true));
     enableZoomButtons.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
     {
       @Override
       public boolean onPreferenceChange(Preference preference, Object newValue)
       {
-        setZoomButtonEnabled(MWMApplication.get(), (Boolean)newValue);
+        MWMApplication.get().nativeSetBoolean(ZOOM_BUTTON_ENABLED, (Boolean) newValue);
         return true;
       }
     });
@@ -148,11 +148,11 @@ public class SettingsActivity extends PreferenceActivity
   {
     PreferenceScreen screen = getPreferenceScreen();
     if (Yota.isYota())
-      screen.removePreference(m_storagePreference);
-    else if (m_pathManager.HasMoreThanOnceStorage())
-      screen.addPreference(m_storagePreference);
+      screen.removePreference(mStoragePreference);
+    else if (mPathManager.HasMoreThanOnceStorage())
+      screen.addPreference(mStoragePreference);
     else
-      screen.removePreference(m_storagePreference);
+      screen.removePreference(mStoragePreference);
   }
 
   @SuppressWarnings("deprecation")
@@ -203,7 +203,7 @@ public class SettingsActivity extends PreferenceActivity
         storagePathSetup();
       }
     };
-    m_pathManager.StartExtStorageWatching(this, receiver);
+    mPathManager.StartExtStorageWatching(this, receiver);
     storagePathSetup();
   }
 
@@ -211,7 +211,7 @@ public class SettingsActivity extends PreferenceActivity
   protected void onPause()
   {
     super.onPause();
-    m_pathManager.StopExtStorageWatching();
+    mPathManager.StopExtStorageWatching();
   }
 
   @Override
@@ -228,20 +228,8 @@ public class SettingsActivity extends PreferenceActivity
       return super.onOptionsItemSelected(item);
   }
 
-  public static boolean isZoomButtonsEnabled(MWMApplication app)
+  public void onAboutDialogClicked(Activity parent)
   {
-    return app.nativeGetBoolean(ZOOM_BUTTON_ENABLED, true);
-  }
-
-  public static void setZoomButtonEnabled(MWMApplication app, boolean isEnabled)
-  {
-    app.nativeSetBoolean(ZOOM_BUTTON_ENABLED, isEnabled);
-  }
-
-  public static void onAboutDialogClicked(Activity parent)
-  {
-    final String url = "file:///android_asset/about.html";
-
     final LayoutInflater inflater = LayoutInflater.from(parent);
     final View alertDialogView = inflater.inflate(R.layout.about, null);
     final WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
@@ -267,10 +255,10 @@ public class SettingsActivity extends PreferenceActivity
           MailTo parser = MailTo.parse(url);
           Context ctx = v.getContext();
           Intent mailIntent = CreateEmailIntent(ctx,
-                                                parser.getTo(),
-                                                parser.getSubject(),
-                                                parser.getBody(),
-                                                parser.getCc());
+              parser.getTo(),
+              parser.getSubject(),
+              parser.getBody(),
+              parser.getCc());
           ctx.startActivity(mailIntent);
           v.reload();
           return true;
@@ -286,7 +274,7 @@ public class SettingsActivity extends PreferenceActivity
                                        String cc)
       {
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { address });
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{address});
         intent.putExtra(Intent.EXTRA_TEXT, body);
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_CC, cc);
@@ -299,28 +287,28 @@ public class SettingsActivity extends PreferenceActivity
     try
     {
       versionStr = parent.getPackageManager().getPackageInfo(parent.getPackageName(), 0).versionName;
-    }
-    catch (final NameNotFoundException e)
+    } catch (final NameNotFoundException e)
     {
       e.printStackTrace();
     }
 
     new AlertDialog.Builder(parent)
-    .setView(alertDialogView)
-    .setTitle(String.format(parent.getString(R.string.version), versionStr))
-    .setPositiveButton(R.string.close, new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dialog, int which)
-      {
-        dialog.dismiss();
-      }
-    })
-    .create()
-    .show();
+        .setView(alertDialogView)
+        .setTitle(String.format(parent.getString(R.string.version), versionStr))
+        .setPositiveButton(R.string.close, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            dialog.dismiss();
+          }
+        })
+        .create()
+        .show();
 
-    myWebView.loadUrl(url);
+    myWebView.loadUrl(ABOUT_ASSET_URL);
   }
 
   private native boolean isDownloadingActive();
+
 }

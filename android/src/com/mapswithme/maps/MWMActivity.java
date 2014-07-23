@@ -938,7 +938,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     startWatchingExternalStorage();
 
-    UiUtils.showIf(SettingsActivity.isZoomButtonsEnabled(mApplication),
+    UiUtils.showIf(mApplication.nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true),
         findViewById(R.id.map_button_plus),
         findViewById(R.id.map_button_minus));
 
