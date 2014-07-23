@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.MailTo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -255,21 +256,23 @@ public class SettingsActivity extends PreferenceActivity
         {
           MailTo parser = MailTo.parse(url);
           Context ctx = v.getContext();
-          Intent mailIntent = CreateEmailIntent(ctx,
-              parser.getTo(),
+          Intent mailIntent = CreateEmailIntent(parser.getTo(),
               parser.getSubject(),
               parser.getBody(),
               parser.getCc());
           ctx.startActivity(mailIntent);
           v.reload();
-          return true;
         }
         else
-          return false;
+        {
+          Intent intent = new Intent(Intent.ACTION_VIEW);
+          intent.setData(Uri.parse(url));
+          SettingsActivity.this.startActivity(intent);
+        }
+        return true;
       }
 
-      private Intent CreateEmailIntent(Context context,
-                                       String address,
+      private Intent CreateEmailIntent(String address,
                                        String subject,
                                        String body,
                                        String cc)
@@ -311,7 +314,6 @@ public class SettingsActivity extends PreferenceActivity
   }
 
   private native boolean isDownloadingActive();
-
 
 
   // needed for soft keyboard to appear in alertdialog.
