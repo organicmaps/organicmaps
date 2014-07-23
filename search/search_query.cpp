@@ -575,7 +575,7 @@ namespace impl
         {
           storage::CountryInfo ci;
           res2->m_region.GetRegion(m_query.m_pInfoGetter, ci);
-          if (ci.m_name == m_query.GetPositionRegion())
+          if (ci.IsNotEmpty() && ci.m_name == m_query.GetPositionRegion())
             res2->m_rank *= 1.7;
         }
         break;
