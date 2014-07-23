@@ -1,7 +1,13 @@
 #include "../../testing/testing.hpp"
-#include "../../indexer/feature_covering.hpp"
+
 #include "../search_string_intersection.hpp"
+
+#include "../../indexer/feature_covering.hpp"
+
 #include "../../base/logging.hpp"
+
+#include "../../std/cstdarg.hpp"
+
 
 namespace
 {

@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = routing platform indexer geometry coding base protobuf
+DEPENDENCIES = routing indexer platform geometry coding base protobuf
 
 macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
 

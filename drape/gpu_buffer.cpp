@@ -4,6 +4,9 @@
 
 #include "../base/assert.hpp"
 
+#include "../std/cstring.hpp"
+
+
 namespace
 {
   bool IsMapBufferSupported()
