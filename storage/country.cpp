@@ -67,13 +67,6 @@ void Country::AddFile(CountryFile const & file)
   m_files.push_back(file);
 }
 
-int64_t Country::Price() const
-{
-  int64_t price = 0;
-  for (FilesContainerT::const_iterator it = m_files.begin(); it != m_files.end(); ++it)
-    price += it->m_price;
-  return price;
-}
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -93,12 +86,9 @@ void LoadGroupImpl(int depth, json_t * group, ToDo & toDo)
     // if file is empty, it's the same as the name
     if (!file)
       file = name;
-    // price is valid only if size is not 0
-    json_int_t size = json_integer_value(json_object_get(j, "s"));
-    json_t * jPrice = json_object_get(j, "p");
-    json_int_t price = jPrice ? json_integer_value(jPrice) : INVALID_PRICE;
+    json_int_t const size = json_integer_value(json_object_get(j, "s"));
 
-    toDo(name, file, flag ? flag : "", size, price, depth);
+    toDo(name, file, flag ? flag : "", size, depth);
 
     json_t * children = json_object_get(j, "g");
     if (children)
@@ -138,11 +128,11 @@ namespace
     DoStoreCountries(CountriesContainerT & cont) : m_cont(cont) {}
 
     void operator() (string const & name, string const & file, string const & flag,
-                     uint32_t size, int64_t price, int depth)
+                     uint32_t size, int depth)
     {
       Country country(name, flag);
       if (size)
-        country.AddFile(CountryFile(file, size, price));
+        country.AddFile(CountryFile(file, size));
       m_cont.AddAtDepth(depth, country);
     }
   };
@@ -156,7 +146,7 @@ namespace
     DoStoreFile2Info(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
 
     void operator() (string name, string file, string const & flag,
-                     uint32_t size, int64_t, int)
+                     uint32_t size, int)
     {
       if (!flag.empty())
         m_lastFlag = flag;
@@ -197,7 +187,7 @@ namespace
     DoStoreCode2File(multimap<string, string> & code2file) : m_code2file(code2file) {}
 
     void operator() (string const &, string const & file, string const & flag,
-                     uint32_t, int64_t, int)
+                     uint32_t, int)
     {
       m_code2file.insert(make_pair(flag, file));
     }
@@ -250,9 +240,6 @@ void SaveImpl(T const & v, json_t * jParent)
     if (countriesCount > 0)
     {
       CountryFile const & file = v[i].Value().GetFile();
-      int64_t const price = file.m_price;
-      CHECK_GREATER_OR_EQUAL(price, 0, ("Invalid price"));
-      json_object_set_new(jCountry.get(), "p", json_integer(price));
       string const strFile = file.m_fileName;
       if (strFile != strName)
         json_object_set_new(jCountry.get(), "f", json_string(strFile.c_str()));

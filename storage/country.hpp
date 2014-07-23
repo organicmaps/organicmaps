@@ -17,14 +17,12 @@ namespace update { class SizeUpdater; }
 
 namespace storage
 {
-  static int64_t const INVALID_PRICE = -1;
-
   /// Information about each file for a country
   struct CountryFile
   {
-    CountryFile() : m_remoteSize(0), m_price(INVALID_PRICE) {}
-    CountryFile(string const & fName, uint32_t remoteSize, int64_t price = -1)
-      : m_fileName(fName), m_remoteSize(remoteSize), m_price(price) {}
+    CountryFile() : m_remoteSize(0) {}
+    CountryFile(string const & fName, uint32_t remoteSize)
+      : m_fileName(fName), m_remoteSize(remoteSize) {}
 
     string GetFileWithExt() const { return m_fileName + DATA_FILE_EXTENSION; }
     string const & GetFileWithoutExt() const { return m_fileName; }
@@ -33,7 +31,6 @@ namespace storage
 
     string m_fileName;    /// Same as id of country\region.
     uint32_t m_remoteSize;
-    int64_t m_price;
   };
 
   typedef buffer_vector<CountryFile, 1> FilesContainerT;
@@ -79,7 +76,6 @@ namespace storage
 
     string const & Name() const { return m_name; }
     string const & Flag() const { return m_flag; }
-    int64_t Price() const;
 
     /// @return bounds for downloaded parts of the country or empty rect
     //m2::RectD Bounds() const;
