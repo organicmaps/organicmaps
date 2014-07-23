@@ -172,13 +172,17 @@ namespace ftype
 
         // get house number
         if (k == "addr:housenumber")
-            m_params.AddHouseNumber(v);
-        if (k == "addr:housename")
+        {
+          // Treat "numbers" like names if it's not an actual number.
+          if (!m_params.AddHouseNumber(v))
             m_params.AddHouseName(v);
+        }
+        if (k == "addr:housename")
+          m_params.AddHouseName(v);
         if (k == "addr:street")
-            m_params.AddStreetAddress(v);
+          m_params.AddStreetAddress(v);
         if (k == "addr:flats")
-            m_params.flats = v;
+          m_params.flats = v;
 
         // get population rank
         if (k == "population")
