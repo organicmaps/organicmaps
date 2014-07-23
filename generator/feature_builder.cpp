@@ -278,6 +278,9 @@ bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
       return false;
     }
 
+  if (m_osmIds != fb.m_osmIds)
+    return false;
+
   return true;
 }
 
@@ -333,6 +336,8 @@ void FeatureBuilder1::Serialize(buffer_t & data) const
     WriteVarInt(sink, m_coastCell);
   }
 
+  // save OSM IDs to link meta information with sorted features later
+  rw::WriteVectorOfPOD(sink, m_osmIds);
 
   // check for correct serialization
 #ifdef DEBUG
@@ -373,6 +378,8 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
 
     m_coastCell = ReadVarInt<int64_t>(source);
   }
+
+  rw::ReadVectorOfPOD(source, m_osmIds);
 
   CHECK ( CheckValid(), (*this) );
 }
