@@ -307,7 +307,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
     }
   }
 
-  private final static long TIME_DELTA = 60 * 1000;
+  // We check how old is modified date of our MapsWithMe folder
+  private final static long TIME_DELTA = 5 * 1000;
 
   private boolean isNewUser()
   {
