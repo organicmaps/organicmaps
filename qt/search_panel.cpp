@@ -183,16 +183,16 @@ void SearchPanel::OnSearchPanelItemClicked(int row, int)
 {
   ASSERT_EQUAL(m_results.size(), static_cast<size_t>(m_pTable->rowCount()), ());
 
-  if (m_results[row].GetResultType() != ResultT::RESULT_SUGGESTION)
-  {
-    // center viewport on clicked item
-    m_pDrawWidget->ShowSearchResult(m_results[row]);
-  }
-  else
+  if (m_results[row].IsSuggest())
   {
     // insert suggestion into the search bar
     string const suggestion = m_results[row].GetSuggestionString();
     m_pEditor->setText(QString::fromUtf8(suggestion.c_str()));
+  }
+  else
+  {
+    // center viewport on clicked item
+    m_pDrawWidget->ShowSearchResult(m_results[row]);
   }
 }
 

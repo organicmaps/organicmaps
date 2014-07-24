@@ -42,6 +42,8 @@ class IsBuildingChecker : public BaseChecker
 {
 public:
   IsBuildingChecker();
+
+  uint32_t GetMainType() const { return m_types[0]; }
 };
 
 /// Type of locality (do not change values and order - they have detalization order)

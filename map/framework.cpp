@@ -1430,26 +1430,36 @@ size_t Framework::ShowAllSearchResults()
   m2::PointD const center = viewport.Center();
 
   double minDistance = numeric_limits<double>::max();
-  size_t minInd;
+  int minInd = -1;
   for (size_t i = 0; i < count; ++i)
   {
-    double const dist = center.SquareLength(results.GetResult(i).GetFeatureCenter());
-    if (dist < minDistance)
+    Result const & r = results.GetResult(i);
+    if (r.HasPoint())
     {
-      minDistance = dist;
-      minInd = i;
+      double const dist = center.SquareLength(r.GetFeatureCenter());
+      if (dist < minDistance)
+      {
+        minDistance = dist;
+        minInd = static_cast<int>(i);
+      }
     }
   }
 
-  m2::PointD const pt = results.GetResult(minInd).GetFeatureCenter();
-  if (!viewport.IsPointInside(pt))
+  if (minInd != -1)
   {
-    viewport.SetSizesToIncludePoint(pt);
+    m2::PointD const pt = results.GetResult(minInd).GetFeatureCenter();
+    if (!viewport.IsPointInside(pt))
+    {
+      viewport.SetSizesToIncludePoint(pt);
 
-    ShowRectFixedAR(viewport);
-    StopLocationFollow();
+      ShowRectFixedAR(viewport);
+      StopLocationFollow();
+    }
+    else
+      minInd = -1;
   }
-  else
+
+  if (minInd == -1)
     Invalidate();
 
   return count;
@@ -1468,7 +1478,7 @@ void Framework::FillSearchResultsMarks(search::Results const & results)
     using namespace search;
 
     Result const & r = results.GetResult(i);
-    if (!r.IsSuggest())
+    if (r.HasPoint())
     {
       AddressInfo info;
       info.MakeFrom(r);

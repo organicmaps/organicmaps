@@ -66,6 +66,12 @@ namespace feature
     TypesHolder(EGeomType geoType = GEOM_UNDEFINED) : m_size(0), m_geoType(geoType) {}
     TypesHolder(FeatureBase const & f);
 
+    void Assign(uint32_t type)
+    {
+      m_types[0] = type;
+      m_size = 1;
+    }
+
     /// Accumulation function.
     inline void operator() (uint32_t t) { m_types[m_size++] = t; }
 

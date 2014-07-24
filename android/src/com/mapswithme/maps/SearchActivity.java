@@ -496,8 +496,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       // Called from native code
       @SuppressWarnings("unused")
       public SearchResult(String name, String country, String amenity,
-                          String flag, String distance, double azimut,
-                          int[] highlightRanges)
+                          String distance, int[] highlightRanges)
       {
         mName = name;
         mCountry = country;

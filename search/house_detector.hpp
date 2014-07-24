@@ -3,6 +3,7 @@
 
 #include "../indexer/feature_decl.hpp"
 #include "../indexer/index.hpp"
+#include "../indexer/ftypes_matcher.hpp"
 
 #include "../geometry/point2d.hpp"
 
@@ -237,6 +238,8 @@ class HouseDetector
   int m_streetNum;
   double m_houseOffsetM;
 
+  ftypes::IsBuildingChecker m_buildingChecker;
+
   typedef pair<Street *, bool> StreetPtr;
   StreetPtr FindConnection(Street const * st, bool beg) const;
   void MergeStreets(Street * st);
@@ -251,6 +254,8 @@ class HouseDetector
 
 public:
   HouseDetector(Index const * pIndex);
+
+  uint32_t GetBuildingType() const;
 
   int LoadStreets(vector<FeatureID> const & ids);
   /// @return number of different joined streets.

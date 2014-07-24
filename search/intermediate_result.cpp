@@ -171,15 +171,19 @@ PreResult2::PreResult2(FeatureType const & f, PreResult1 const * p,
   CalcParams(viewport, pos);
 }
 
-PreResult2::PreResult2(m2::RectD const & viewport, m2::PointD const & pos, double lat, double lon)
+PreResult2::PreResult2(double lat, double lon)
   : m_str("(" + MeasurementUtils::FormatLatLon(lat, lon) + ")"),
-    m_resultType(RESULT_LATLON),
-    m_rank(255),
-    m_geomType(feature::GEOM_UNDEFINED)
+    m_resultType(RESULT_LATLON)
 {
-  m2::PointD const fCenter(MercatorBounds::FromLatLon(lat, lon));
-  m_region.SetParams(string(), fCenter);
-  CalcParams(viewport, pos);
+  m_region.SetParams(string(), MercatorBounds::FromLatLon(lat, lon));
+}
+
+PreResult2::PreResult2(m2::PointD const & pt, string const & str, uint32_t type)
+  : m_str(str), m_resultType(RESULT_BUILDING)
+{
+  m_region.SetParams(string(), pt);
+
+  m_types.Assign(type);
 }
 
 namespace
@@ -218,7 +222,7 @@ Result PreResult2::GenerateFinalResult(
 
   uint32_t const type = GetBestType();
 
-  static SkipRegionInfo checker;
+  static SkipRegionInfo const checker;
   if (!checker.IsContinent(type))
   {
     m_region.GetRegion(pInfo, info);
@@ -230,15 +234,18 @@ Result PreResult2::GenerateFinalResult(
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_id, GetCenter(), m_str, info.m_name, info.m_flag, GetFeatureType(pCat, pTypes, lang)
+    return Result(m_id, GetCenter(), m_str, info.m_name, GetFeatureType(pCat, pTypes, lang)
               #ifdef DEBUG
                   + ' ' + strings::to_string(static_cast<int>(m_rank))
               #endif
-                  , type, m_distance);
+                  , type);
+
+  case RESULT_BUILDING:
+    return Result(GetCenter(), m_str, info.m_name, GetFeatureType(pCat, pTypes, lang));
 
   default:
     ASSERT_EQUAL(m_resultType, RESULT_LATLON, ());
-    return Result(GetCenter(), m_str, info.m_name, info.m_flag, m_distance);
+    return Result(GetCenter(), m_str, info.m_name, string());
   }
 }
 

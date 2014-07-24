@@ -2,7 +2,6 @@
 #include "search_common.hpp"
 #include "algos.hpp"
 
-#include "../indexer/ftypes_matcher.hpp"
 #include "../indexer/feature_impl.hpp"
 #include "../indexer/classificator.hpp"
 
@@ -803,15 +802,18 @@ HouseProjection const * MergedStreet::GetHousePivot(bool isOdd, bool & sign) con
   return 0;
 }
 
+uint32_t HouseDetector::GetBuildingType() const
+{
+  return m_buildingChecker.GetMainType();
+}
+
 template <class ProjectionCalcT>
 void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalcT & calc)
 {
-  static ftypes::IsBuildingChecker const checker;
-
   string const houseNumber = f.GetHouseNumber();
 
   /// @todo After new data generation we can skip IsHouseNumber check here.
-  if (checker(f) && feature::IsHouseNumber(houseNumber))
+  if (m_buildingChecker(f) && feature::IsHouseNumber(houseNumber))
   {
     HouseMapT::iterator const it = m_id2house.find(f.GetID());
     bool const isNew = it == m_id2house.end();

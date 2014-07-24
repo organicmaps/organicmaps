@@ -251,34 +251,27 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
   env->ReleaseIntArrayElements(ranges, narr, 0);
 
   jclass klass = env->FindClass("com/mapswithme/maps/SearchActivity$SearchAdapter$SearchResult");
-  ASSERT ( klass, () );
+  ASSERT(klass, ());
 
-  if (res->GetResultType() != search::Result::RESULT_SUGGESTION)
+  if (!res->IsSuggest())
   {
     jmethodID methodID = env->GetMethodID(
         klass, "<init>",
-        "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;D[I)V");
+        "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[I)V");
     ASSERT ( methodID, () );
 
     string distance;
-    double azimut = -1.0;
     if (hasPosition)
     {
-      if (!g_framework->NativeFramework()->GetDistanceAndAzimut(
-          res->GetFeatureCenter(), lat, lon, north, distance, azimut))
-      {
-        // do not show the arrow for far away features
-        azimut = -1.0;
-      }
+      double dummy;
+      (void) g_framework->NativeFramework()->GetDistanceAndAzimut(res->GetFeatureCenter(), lat, lon, north, distance, dummy);
     }
 
     return env->NewObject(klass, methodID,
                           jni::ToJavaString(env, res->GetString()),
                           jni::ToJavaString(env, res->GetRegionString()),
                           jni::ToJavaString(env, res->GetFeatureType()),
-                          jni::ToJavaString(env, res->GetRegionFlag()),
                           jni::ToJavaString(env, distance.c_str()),
-                          static_cast<jdouble>(azimut),
                           static_cast<jintArray>(ranges));
   }
   else

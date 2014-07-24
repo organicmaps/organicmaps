@@ -69,17 +69,20 @@ public:
   enum ResultType
   {
     RESULT_LATLON,
-    RESULT_FEATURE
+    RESULT_FEATURE,
+    RESULT_BUILDING
   };
 
-  // For RESULT_FEATURE.
+  /// For RESULT_FEATURE.
   PreResult2(FeatureType const & f, PreResult1 const * p,
              m2::RectD const & viewport, m2::PointD const & pos,
              string const & displayName, string const & fileName);
 
-  // For RESULT_LATLON.
-  PreResult2(m2::RectD const & viewport, m2::PointD const & pos,
-             double lat, double lon);
+  /// For RESULT_LATLON.
+  PreResult2(double lat, double lon);
+
+  /// For RESULT_BUILDING.
+  PreResult2(m2::PointD const & pt, string const & str, uint32_t type);
 
   /// @param[in]  pInfo   Need to get region for result.
   /// @param[in]  pCat    Categories need to display readable type string.

@@ -5,19 +5,15 @@
 namespace search
 {
 
-Result::Result(FeatureID const & id, m2::PointD const & fCenter,
+Result::Result(FeatureID const & id, m2::PointD const & pt,
                string const & str, string const & region,
-               string const & flag, string const & type,
-               uint32_t featureType, double distance)
-  : m_id(id), m_center(fCenter), m_str(str), m_region(region),
-    m_flag(flag), m_type(type), m_featureType(featureType), m_distance(distance)
+               string const & type, uint32_t featureType)
+  : m_id(id), m_center(pt), m_str(str), m_region(region),
+    m_type(type), m_featureType(featureType)
 {
   // Features with empty names can be found after suggestion.
   if (m_str.empty())
-  {
-    //m_str = "-";
     m_str = type;
-  }
 }
 
 Result::Result(m2::PointD const & pt, string const & str, string const & type)
@@ -25,11 +21,9 @@ Result::Result(m2::PointD const & pt, string const & str, string const & type)
 {
 }
 
-Result::Result(m2::PointD const & fCenter,
-               string const & str, string const & region,
-               string const & flag, double distance)
-  : m_center(fCenter), m_str(str), m_region(region),
-    m_flag(flag), m_featureType(0), m_distance(distance)
+Result::Result(m2::PointD const & pt, string const & str,
+               string const & region, string const & type)
+  : m_center(pt), m_str(str), m_region(region), m_type(type)
 {
 }
 
@@ -38,19 +32,31 @@ Result::Result(string const & str, string const & suggest)
 {
 }
 
+Result::Result(Result const & res, string const & suggest)
+  : m_center(res.m_center), m_str(res.m_str), m_region(res.m_region),
+    m_featureType(res.m_featureType), m_suggestionStr(suggest),
+    m_hightlightRanges(res.m_hightlightRanges)
+{
+}
+
 Result::ResultType Result::GetResultType() const
 {
+  bool const idValid = m_id.IsValid();
+
   if (!m_suggestionStr.empty())
-    return RESULT_SUGGESTION;
-  if (m_id.IsValid())
-    return RESULT_FEATURE;
-  else
-    return RESULT_LATLON;
+    return (idValid ? RESULT_SUGGEST_FROM_FEATURE : RESULT_SUGGEST_PURE);
+
+  return (idValid ? RESULT_FEATURE : RESULT_LATLON);
 }
 
 bool Result::IsSuggest() const
 {
   return !m_suggestionStr.empty();
+}
+
+bool Result::HasPoint() const
+{
+  return (GetResultType() != RESULT_SUGGEST_PURE);
 }
 
 FeatureID Result::GetFeatureID() const
@@ -59,15 +65,9 @@ FeatureID Result::GetFeatureID() const
   return m_id;
 }
 
-double Result::GetDistance() const
-{
-  ASSERT(!IsSuggest(), ());
-  return m_distance;
-}
-
 m2::PointD Result::GetFeatureCenter() const
 {
-  ASSERT(!IsSuggest(), ());
+  ASSERT(HasPoint(), ());
   return m_center;
 }
 
@@ -82,8 +82,11 @@ bool Result::operator== (Result const & r) const
   ResultType const type = GetResultType();
   if (type == r.GetResultType())
   {
-    if (type == RESULT_SUGGESTION)
-      return m_suggestionStr == r.m_suggestionStr;
+    if (IsSuggest())
+    {
+      ASSERT(r.IsSuggest(), ());
+      return (m_suggestionStr == r.m_suggestionStr);
+    }
     else
     {
       // This function is used to filter duplicate results in cases:
@@ -133,15 +136,18 @@ bool Results::AddResultCheckExisting(Result const & r)
 
 size_t Results::GetSuggestsCount() const
 {
-  size_t suggestsCount = 0;
+  size_t res = 0;
   for (size_t i = 0; i < GetCount(); i++)
   {
-    if (m_vec[i].GetResultType() == search::Result::RESULT_SUGGESTION)
-      suggestsCount++;
+    if (m_vec[i].IsSuggest())
+      ++res;
     else
+    {
+      // Suggests always go first, so we can exit here.
       break;
+    }
   }
-  return suggestsCount;
+  return res;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -150,25 +156,22 @@ size_t Results::GetSuggestsCount() const
 
 void AddressInfo::MakeFrom(Result const & res)
 {
-  ASSERT_NOT_EQUAL(res.GetResultType(), Result::RESULT_SUGGESTION, ());
+  ASSERT_NOT_EQUAL(res.GetResultType(), Result::RESULT_SUGGEST_PURE, ());
 
-  // push the feature type (may be empty for coordinates result)
-  string const type = res.GetFeatureType();
+  string const & type = res.GetFeatureType();
   if (!type.empty())
     m_types.push_back(type);
 
   // assign name if it's not equal with type
-  string name = res.GetString();
+  string const & name = res.GetString();
   if (name != type)
-      m_name.swap(name);
+    m_name = name;
 }
 
-void AddressInfo::SetPinName(string const & name)
+bool AddressInfo::IsEmptyName() const
 {
-  m_name = name;
+  return m_name.empty() && m_house.empty();
 }
-
-bool AddressInfo::IsEmptyName() const { return m_name.empty() && m_house.empty(); }
 
 string AddressInfo::GetPinName() const
 {

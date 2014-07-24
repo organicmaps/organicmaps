@@ -389,7 +389,7 @@ void Query::SearchCoordinates(string const & query, Results & res) const
   if (MatchLatLonDegree(query, lat, lon))
   {
     //double const precision = 5.0 * max(0.0001, min(latPrec, lonPrec));  // Min 55 meters
-    res.AddResult(MakeResult(impl::PreResult2(GetViewport(), m_position, lat, lon)));
+    res.AddResult(MakeResult(impl::PreResult2(lat, lon)));
   }
 }
 
@@ -711,19 +711,9 @@ void Query::FlushHouses(Results & res, bool allMWMs, vector<FeatureID> const & s
     for (size_t i = 0; i < count; ++i)
     {
       House const * h = houses[i].m_house;
-      storage::CountryInfo ci;
-      m_pInfoGetter->GetRegionInfo(h->GetPosition(), ci);
-
-      Result r(h->GetPosition(), h->GetNumber() + ", " + houses[i].m_street->GetName(),
-               ci.m_name, string(), IsValidPosition() ? h->GetPosition().Length(m_position) : -1.0);
-
-      MakeResultHighlight(r);
-#ifdef FIND_LOCALITY_TEST
-      string city;
-      m_locality.GetLocalityCreateCache(r.GetFeatureCenter(), city);
-      r.AppendCity(city);
-#endif
-      (res.*addFn)(r);
+      (res.*addFn)(MakeResult(impl::PreResult2(h->GetPosition(),
+                                               h->GetNumber() + ", " + houses[i].m_street->GetName(),
+                                               m_houseDetector.GetBuildingType())));
     }
   }
 }
@@ -889,14 +879,12 @@ template <class T> void Query::ProcessSuggestions(vector<T> & vec, Results & res
       GetSuggestion(r.GetName(), suggest);
       if (!suggest.empty() && added < MAX_SUGGESTS_COUNT)
       {
-        Result rr(r.GetName(), suggest);
-        MakeResultHighlight(rr);
+        Result rr(MakeResult(r), suggest);
         if (res.AddResultCheckExisting(rr))
-        {
           ++added;
-          i = vec.erase(i);
-          continue;
-        }
+
+        i = vec.erase(i);
+        continue;
       }
     }
     ++i;

@@ -274,8 +274,8 @@ __weak SearchView * selfPointer;
 - (void)recalculateDistances
 {
   LocationManager * locationManager = [MapsAppDelegate theApp].m_locationManager;
+
   double north = -1.0;
-  double azimut = -1.0;
   [locationManager getNorthRad:north];
   double lat, lon;
   if ([locationManager getLat:lat Lon:lon])
@@ -284,9 +284,10 @@ __weak SearchView * selfPointer;
     for (NSInteger position = 0; position < [wrapper count]; position++)
     {
       search::Result const & result = [wrapper resultWithPosition:position];
-      string distance;
-      if (result.GetResultType() != search::Result::RESULT_SUGGESTION)
+      if (result.HasPoint())
       {
+        string distance;
+        double azimut = -1.0;
         GetFramework().GetDistanceAndAzimut(result.GetFeatureCenter(), lat, lon, north, distance, azimut);
         wrapper.distances[@(position)] = [NSString stringWithUTF8String:distance.c_str()];
       }
