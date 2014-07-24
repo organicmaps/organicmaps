@@ -948,6 +948,8 @@ public class MWMActivity extends NvEventQueueActivity
 
     mSearchController.onResume();
     mInfoView.onResume();
+
+    getMwmApplication().onMwmResume(this);
   }
 
   private void updateExternalStorageState()

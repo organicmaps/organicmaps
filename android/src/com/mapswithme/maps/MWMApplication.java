@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
+import android.provider.Settings.Secure;
 
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.background.Notifier;
@@ -22,6 +23,12 @@ import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.log.StubLogger;
 import com.mobileapptracker.MobileAppTracker;
 
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+
+import java.io.IOException;
 
 public class MWMApplication extends android.app.Application implements MapStorage.Listener
 {
@@ -282,12 +289,24 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public void onMwmStart(Activity activity)
   {
     FbUtil.activate(activity);
-    trackInstallUpdate(activity);
+    initMAT(activity);
   }
 
-  private void trackInstallUpdate(Activity activity)
+  private MobileAppTracker mMobileAppTracker = null;
+
+  public void onMwmResume(Activity activity)
   {
-    //{@ TRACKERS
+    if (mMobileAppTracker != null)
+    {
+      // Get source of open for app re-engagement
+      mMobileAppTracker.setReferralSources(activity);
+      // MAT will not function unless the measureSession call is included
+      mMobileAppTracker.measureSession();
+    }
+  }
+
+  private void initMAT(Activity activity)
+  {
     final boolean DEBUG = false;
     final Logger logger = DEBUG ? SimpleLogger.get("MAT") : StubLogger.get();
 
@@ -307,25 +326,48 @@ public class MWMApplication extends android.app.Application implements MapStorag
     final boolean doTrack = !"FALSE".equalsIgnoreCase(advId);
     if (doTrack)
     {
-      final MobileAppTracker mat = new MobileAppTracker(activity, advId, convKey);
+      MobileAppTracker.init(activity, advId, convKey);
+      mMobileAppTracker = MobileAppTracker.getInstance();
 
-      if (DEBUG)
+      if (!isNewUser)
       {
-        mat.setDebugMode(true);
-        mat.setAllowDuplicates(true);
+        mMobileAppTracker.setExistingUser(true);
+        logger.d("Existing user");
       }
 
-      if (isNewUser)
+      // Collect Google Play Advertising ID
+      new Thread(new Runnable()
       {
-        mat.trackInstall();
-        logger.d("MAT", "TRACK INSTALL");
-      }
-      else
-      {
-        mat.trackUpdate();
-        logger.d("MAT", "TRACK UPDATE");
-      }
+        @Override public void run()
+        {
+          // See sample code at http://developer.android.com/google/play-services/id.html
+          try
+          {
+            Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(getApplicationContext());
+            mMobileAppTracker.setGoogleAdvertisingId(adInfo.getId(), adInfo.isLimitAdTrackingEnabled());
+            logger.d("Got Google User ID");
+          }
+          catch (IOException e)
+          {
+            // Unrecoverable error connecting to Google Play services (e.g.,
+            // the old version of the service doesn't support getting AdvertisingId).
+            logger.d("IOException");
+          }
+          catch (GooglePlayServicesNotAvailableException e)
+          {
+            // Google Play services is not available entirely.
+            // Use ANDROID_ID instead
+            // AlexZ: we can't use Android ID from 1st of August, 2014, according to Google policies
+            // mMobileAppTracker.setAndroidId(Secure.getString(getContentResolver(), Secure.ANDROID_ID));
+            logger.d("GooglePlayServicesNotAvailableException");
+          }
+          catch (GooglePlayServicesRepairableException e)
+          {
+            // Encountered a recoverable error connecting to Google Play services.
+            logger.d("GooglePlayServicesRepairableException");
+          }
+        }
+      }).start();
     }
-    //{@ trackers
   }
 }
