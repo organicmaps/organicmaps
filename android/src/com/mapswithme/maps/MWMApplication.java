@@ -318,7 +318,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
     final long DELTA = 60*1000;
     final File mwmDir = new File(getDataStoragePath());
-    final boolean isNewUser = !mwmDir.exists() || (System.currentTimeMillis() - mwmDir.lastModified() >= DELTA);
+    final boolean isNewUser = !mwmDir.exists() || (System.currentTimeMillis() - mwmDir.lastModified() < DELTA);
 
     final String advId = getString(R.string.advertiser_id);
     final String convKey = getString(R.string.conversion_key);
