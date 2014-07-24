@@ -470,8 +470,8 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
           final String copyText = getResources().getString(android.R.string.copy);
           final String arrCoord[] = {
-              UiUtils.formatLatLon(lat, lon),
-              UiUtils.formatLatLonToDMS(lat, lon)};
+              UiUtils.formatLatLon(lat, lon, false),
+              UiUtils.formatLatLon(lat, lon, true)};
 
           menu.add(Menu.NONE, 0, 0, String.format("%s %s", copyText, arrCoord[0]));
           menu.add(Menu.NONE, 1, 1, String.format("%s %s", copyText, arrCoord[1]));
@@ -527,10 +527,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   {
     final double lat = mMapObject.getLat();
     final double lon = mMapObject.getLon();
-    if (mIsLatLonDms)
-      mTvCoords.setText(UiUtils.formatLatLon(lat, lon));
-    else
-      mTvCoords.setText(UiUtils.formatLatLonToDMS(lat, lon));
+    mTvCoords.setText(UiUtils.formatLatLon(lat, lon, mIsLatLonDms));
   }
 
   public void updateAzimuth(double northAzimuth)

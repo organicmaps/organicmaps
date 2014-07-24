@@ -34,14 +34,9 @@ import static com.mapswithme.util.Utils.checkNotNull;
 public final class UiUtils
 {
 
-  public static String formatLatLon(double lat, double lon)
+  public static String formatLatLon(double lat, double lon, boolean useDMSFormat)
   {
-    return String.format(Locale.US, "%f, %f", lat, lon);
-  }
-
-  public static String formatLatLonToDMS(double lat, double lon)
-  {
-    return Framework.latLon2DMS(lat, lon);
+    return Framework.formatLatLon(lat, lon, useDMSFormat);
   }
 
   public static Drawable setCompoundDrawableBounds(Drawable d, int dimenId, Resources res)

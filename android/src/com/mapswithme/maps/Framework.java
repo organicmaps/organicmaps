@@ -93,9 +93,9 @@ public class Framework
     return nativeGetDistanceAndAzimutFromLatLon(lat, lon, cLat, cLon, north);
   }
 
-  public static String latLon2DMS(double lat, double lon)
+  public static String formatLatLon(double lat, double lon, boolean useDMSFormat)
   {
-    return nativeLatLon2DMS(lat, lon);
+    return nativeFormatLatLon(lat, lon, useDMSFormat);
   }
 
   public static String getOutdatedCountriesString()
@@ -154,7 +154,7 @@ public class Framework
   private native static DistanceAndAzimut nativeGetDistanceAndAzimut(double merX, double merY, double cLat, double cLon, double north);
   private native static DistanceAndAzimut nativeGetDistanceAndAzimutFromLatLon(double lat, double lon, double cLat, double cLon, double north);
 
-  private native static String nativeLatLon2DMS(double lat, double lon);
+  private native static String nativeFormatLatLon(double lat, double lon, boolean useDMSFormat);
 
   private native static String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
   private native static String nativeGetNameAndAddress4Point(double lat, double lon);

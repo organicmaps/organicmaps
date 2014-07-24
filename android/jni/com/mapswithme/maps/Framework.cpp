@@ -843,9 +843,12 @@ extern "C"
   }
 
   JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_Framework_nativeLatLon2DMS(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
+  Java_com_mapswithme_maps_Framework_nativeFormatLatLon(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jboolean useDMSFormat)
   {
-    return jni::ToJavaString(env,  MeasurementUtils::FormatLatLonAsDMS(lat, lon, 3));
+    if (useDMSFormat)
+      return jni::ToJavaString(env,  MeasurementUtils::FormatLatLonAsDMS(lat, lon, 2));
+    else
+      return jni::ToJavaString(env,  MeasurementUtils::FormatLatLon(lat, lon, 6));
   }
 
   JNIEXPORT jobject JNICALL
