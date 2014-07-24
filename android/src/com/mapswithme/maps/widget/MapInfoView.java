@@ -100,11 +100,16 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private BookmarkManager mBookmarkManager;
   private List<Icon> mIcons;
   private MapObject mBookmarkedMapObject;
+
   private boolean mIsLatLonDms;
+  private static final String PREF_USE_DMS = "use_dms";
 
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs);
+
+    mIsLatLonDms = context.getSharedPreferences(context.getString(R.string.pref_file_name),
+        Context.MODE_PRIVATE).getBoolean(PREF_USE_DMS, false);
 
     mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     mView = mInflater.inflate(R.layout.info_box, this, true);
@@ -805,6 +810,8 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       break;
     case R.id.info_box_geo_location:
       mIsLatLonDms = !mIsLatLonDms;
+      getContext().getSharedPreferences(getContext().getString(R.string.pref_file_name),
+          Context.MODE_PRIVATE).edit().putBoolean(PREF_USE_DMS, mIsLatLonDms).commit();
       updateCoords();
       break;
     default:
