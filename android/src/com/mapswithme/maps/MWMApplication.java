@@ -293,6 +293,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
   }
 
   private MobileAppTracker mMobileAppTracker = null;
+  private final Logger mLogger = //StubLogger.get();
+                                 SimpleLogger.get("MAT");
 
   public void onMwmResume(Activity activity)
   {
@@ -305,20 +307,21 @@ public class MWMApplication extends android.app.Application implements MapStorag
     }
   }
 
+  private final static long TIME_DELTA = 60 * 1000;
+
+  private boolean isNewUser()
+  {
+    final File mwmDir = new File(getDataStoragePath());
+    return !mwmDir.exists() || (System.currentTimeMillis() - mwmDir.lastModified() < TIME_DELTA);
+  }
+
   private void initMAT(Activity activity)
   {
-    final boolean DEBUG = false;
-    final Logger logger = DEBUG ? SimpleLogger.get("MAT") : StubLogger.get();
-
     if (!Utils.hasAnyGoogleStoreInstalled(activity))
     {
-      logger.d("SKIPPING TRACKERS, DOES NOT HAVE GP");
+      mLogger.d("SKIPPING MAT INIT, DOES NOT HAVE GP");
       return;
     }
-
-    final long DELTA = 60*1000;
-    final File mwmDir = new File(getDataStoragePath());
-    final boolean isNewUser = !mwmDir.exists() || (System.currentTimeMillis() - mwmDir.lastModified() < DELTA);
 
     final String advId = getString(R.string.advertiser_id);
     final String convKey = getString(R.string.conversion_key);
@@ -329,10 +332,10 @@ public class MWMApplication extends android.app.Application implements MapStorag
       MobileAppTracker.init(activity, advId, convKey);
       mMobileAppTracker = MobileAppTracker.getInstance();
 
-      if (!isNewUser)
+      if (!isNewUser())
       {
         mMobileAppTracker.setExistingUser(true);
-        logger.d("Existing user");
+        mLogger.d("Existing user");
       }
 
       // Collect Google Play Advertising ID
@@ -345,13 +348,13 @@ public class MWMApplication extends android.app.Application implements MapStorag
           {
             Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(getApplicationContext());
             mMobileAppTracker.setGoogleAdvertisingId(adInfo.getId(), adInfo.isLimitAdTrackingEnabled());
-            logger.d("Got Google User ID");
+            mLogger.d("Got Google User ID");
           }
           catch (IOException e)
           {
             // Unrecoverable error connecting to Google Play services (e.g.,
             // the old version of the service doesn't support getting AdvertisingId).
-            logger.d("IOException");
+            mLogger.d("IOException");
           }
           catch (GooglePlayServicesNotAvailableException e)
           {
@@ -359,12 +362,12 @@ public class MWMApplication extends android.app.Application implements MapStorag
             // Use ANDROID_ID instead
             // AlexZ: we can't use Android ID from 1st of August, 2014, according to Google policies
             // mMobileAppTracker.setAndroidId(Secure.getString(getContentResolver(), Secure.ANDROID_ID));
-            logger.d("GooglePlayServicesNotAvailableException");
+            mLogger.d("GooglePlayServicesNotAvailableException");
           }
           catch (GooglePlayServicesRepairableException e)
           {
             // Encountered a recoverable error connecting to Google Play services.
-            logger.d("GooglePlayServicesRepairableException");
+            mLogger.d("GooglePlayServicesRepairableException");
           }
         }
       }).start();
