@@ -18,7 +18,7 @@
 
 #import "FBSDKMacros.h"
 
-#if defined (DEBUG)
+#if defined(DEBUG) && !defined(SAFE_TO_USE_FBTESTSESSION)
 #define SAFE_TO_USE_FBTESTSESSION
 #endif
 

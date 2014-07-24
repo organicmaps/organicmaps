@@ -35,6 +35,7 @@
 @protocol FBGraphPlace<FBGraphObject>
 
 /*!
+ @abstract use objectID instead
  @deprecated use objectID instead
  */
 @property (retain, nonatomic) NSString *id __attribute__ ((deprecated("use objectID instead")));

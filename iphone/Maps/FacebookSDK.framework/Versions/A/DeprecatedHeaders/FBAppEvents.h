@@ -54,8 +54,8 @@ FBSDK_EXTERN NSString *const FBAppEventsLoggingResultNotification;
 
 // General purpose
 
-/*! Log this event when an app is being activated, typically in the AppDelegate's applicationDidBecomeActive. */
-FBSDK_EXTERN NSString *const FBAppEventNameActivatedApp;
+/*! Deprecated: use [FBAppEvents activateApp] instead. */
+FBSDK_EXTERN NSString *const FBAppEventNameActivatedApp __attribute__ ((deprecated("use [FBAppEvents activateApp] instead")));
 
 /*! Log this event when a user has completed registration with the app. */
 FBSDK_EXTERN NSString *const FBAppEventNameCompletedRegistration;
@@ -86,8 +86,8 @@ FBSDK_EXTERN NSString *const FBAppEventNameInitiatedCheckout;
 /*! Log this event when the user has entered their payment info. */
 FBSDK_EXTERN NSString *const FBAppEventNameAddedPaymentInfo;
 
-/*! Log this event when the user has completed a purchase.  The `[FBAppEvents logPurchase]` method is a shortcut for logging this event. */
-FBSDK_EXTERN NSString *const FBAppEventNamePurchased;
+/*! Deprecated: use [FBAppEvents logPurchase:currency:] or [FBAppEvents logPurchase:currency:parameters:] instead */
+FBSDK_EXTERN NSString *const FBAppEventNamePurchased __attribute__ ((deprecated("use [FBAppEvents logPurchase:currency:] or [FBAppEvents logPurchase:currency:parameters:] instead")));
 
 // Gaming related
 
@@ -151,7 +151,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
 
 
 /*!
-
+ 
  @class FBAppEvents
 
  @abstract
@@ -207,7 +207,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
  */
 
 /*!
-
+ 
  @method
 
  @abstract
@@ -220,7 +220,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
 + (void)logEvent:(NSString *)eventName;
 
 /*!
-
+ 
  @method
 
  @abstract
@@ -237,7 +237,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
 
 
 /*!
-
+ 
  @method
 
  @abstract
@@ -256,7 +256,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
       parameters:(NSDictionary *)parameters;
 
 /*!
-
+ 
  @method
 
  @abstract
@@ -281,7 +281,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
 
 
 /*!
-
+ 
  @method
 
  @abstract
@@ -315,7 +315,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
  */
 
 /*!
-
+ 
  @method
 
  @abstract
@@ -335,7 +335,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
            currency:(NSString *)currency;
 
 /*!
-
+ 
  @method
 
  @abstract
@@ -362,7 +362,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
          parameters:(NSDictionary *)parameters;
 
 /*!
-
+ 
  @method
 
  @abstract
@@ -400,16 +400,27 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
 
 /*!
  @method
-
+ 
  @abstract This method has been replaced by [FBSettings setLimitEventUsage] */
 + (void)setLimitEventUsage:(BOOL)limitEventUsage __attribute__ ((deprecated("use [FBSettings setLimitEventAndDataUsage] instead")));
 
 /*!
-
+ 
  @method
 
  @abstract
- Notifies the events system that the app has launched & logs an activatedApp event.  Should typically be placed in the app delegates' `applicationDidBecomeActive:` method.
+ Notifies the events system that the app has launched and, when appropriate, logs an "activated app" event.  Should typically be placed in the
+ app delegates' `applicationDidBecomeActive:` method.
+
+ This method also takes care of logging the event indicating the first time this app has been launched, which, among other things, is used to
+ track user acquisition and app install ads conversions.
+
+ @discussion
+ `activateApp` will not log an event on every app launch, since launches happen every time the app is backgrounded and then foregrounded.
+ "activated app" events will be logged when the app has not been active for more than 60 seconds.  This method also causes a "deactivated app"
+ event to be logged when sessions are "completed", and these events are logged with the session length, with an indication of how much
+ time has elapsed between sessions, and with the number of background/foreground interruptions that session had.  This data
+ is all visible in your app's App Events Insights.
  */
 + (void)activateApp;
 
@@ -418,7 +429,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
  */
 
 /*!
-
+ 
  @method
 
  @abstract
@@ -427,7 +438,7 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
 + (FBAppEventsFlushBehavior)flushBehavior;
 
 /*!
-
+ 
  @method
 
  @abstract
@@ -437,9 +448,41 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
  */
 + (void)setFlushBehavior:(FBAppEventsFlushBehavior)flushBehavior;
 
+/*!
+ @method
+
+ @abstract
+ Set the 'override' App ID for App Event logging.
+
+ @discussion
+ In some cases, apps want to use one Facebook App ID for login and social presence and another
+ for App Event logging.  (An example is if multiple apps from the same company share an app ID for login, but
+ want distinct logging.)  By default, this value is `nil`, and defers to the `FacebookLoggingOverrideAppID`
+ plist value.  If that's not set, the default App ID set via [FBSettings setDefaultAppID]
+ or in the `FacebookAppID` plist entry.
+
+ This should be set before any other calls are made to `FBAppEvents`.  Thus, you should set it in your application
+ delegate's `application:didFinishLaunchingWithOptions:` delegate.
+
+ @param appID The Facebook App ID to be used for App Event logging.
+ */
++ (void)setLoggingOverrideAppID:(NSString *)appID;
 
 /*!
+ @method
 
+ @abstract
+ Get the 'override' App ID for App Event logging.
+
+ @discussion
+ @see `setLoggingOverrideAppID:`
+
+ */
++ (NSString *)loggingOverrideAppID;
+
+
+/*!
+ 
  @method
 
  @abstract

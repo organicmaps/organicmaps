@@ -39,7 +39,10 @@
  non-nil. */
 @property (nonatomic, copy) NSString *caption;
 
-/*! @deprecated use linkDescription instead */
+/*!
+ @abstract use linkDescription instead
+ @deprecated use linkDescription instead
+*/
 @property (nonatomic, copy, getter = linkDescription, setter = setLinkDescription:) NSString *description __attribute__ ((deprecated("use linkDescription instead")));
 
 /*! @abstract The description associated with the link. Is only used if the

@@ -107,6 +107,122 @@ typedef void (^FBRequestHandler)(FBRequestConnection *connection,
                                  NSError *error);
 
 /*!
+ @protocol
+
+ @abstract
+ The `FBRequestConnectionDelegate` protocol defines the methods used to receive network
+ activity progress information from a <FBRequestConnection>.
+ */
+@protocol FBRequestConnectionDelegate <NSObject>
+
+@optional
+
+/*!
+ @method
+
+ @abstract
+ Tells the delegate the request connection will begin loading
+
+ @discussion
+ If the <FBRequestConnection> is created using one of the convenience factory methods prefixed with
+ start, the object returned from the convenience method has already begun loading and this method
+ will not be called when the delegate is set.
+
+ @param connection    The request connection that is starting a network request
+ @param isCached      YES if the request can be fulfilled using cached data, otherwise NO indicating
+                      the result will require a network request.
+ */
+- (void)requestConnectionWillBeginLoading:(FBRequestConnection *)connection
+                                fromCache:(BOOL)isCached;
+
+/*!
+ @method
+
+ @abstract
+ Tells the delegate the request connection finished loading
+
+ @discussion
+ If the request connection completes without a network error occuring then this method is called.
+ Invocation of this method does not indicate success of every <FBRequest> made, only that the
+ request connection has no further activity. Use the error argument passed to the FBRequestHandler
+ block to determine success or failure of each <FBRequest>.
+
+ This method is invoked after the completion handler for each <FBRequest>.
+
+ @param connection    The request connection that successfully completed a network request
+ @param isCached      YES if the request was fulfilled using cached data, otherwise NO indicating
+                      a network request was completed.
+ */
+- (void)requestConnectionDidFinishLoading:(FBRequestConnection *)connection
+                                fromCache:(BOOL)isCached;
+
+/*!
+ @method
+
+ @abstract
+ Tells the delegate the request connection failed with an error
+
+ @discussion
+ If the request connection fails with a network error then this method is called. The `error`
+ argument specifies why the network connection failed. The `NSError` object passed to the
+ FBRequestHandler block may contain additional information.
+
+ This method is invoked after the completion handler for each <FBRequest> and only if a network
+ request was made. If the request was fulfilled using cached data, this method is not called.
+
+ @param connection    The request connection that successfully completed a network request
+ @param error         The `NSError` representing the network error that occurred, if any. May be nil
+                      in some circumstances. Consult the `NSError` for the <FBRequest> for reliable
+                      failure information.
+ */
+- (void)requestConnection:(FBRequestConnection *)connection
+         didFailWithError:(NSError *)error;
+
+/*!
+ @method
+
+ @abstract
+ Tells the delegate the request connection is going to retry some network operations
+
+ @discussion
+ If some <FBRequests> fail, <FBRequestConnection> may create a new instance to retry the failed
+ requests. This method is called before the new instance is started. You must set the delegate
+ property on `retryConnection` to continue to receive progress information. If a delegate is
+ set on `retryConnection` then -requestConnectionWillBeginLoading: will be invoked.
+
+ This method is invoked after the completion handler for each <FBRequest> and only if a network
+ request was made. If the request was fulfilled using cached data, this method is not called.
+
+ @param connection      The request connection that successfully completed a network request
+ @param retryConnection The new request connection that will retry the failed <FBRequest>s
+ */
+- (void)     requestConnection:(FBRequestConnection *)connection
+willRetryWithRequestConnection:(FBRequestConnection *)retryConnection;
+
+/*!
+ @method
+
+ @abstract
+ Tells the delegate how much data has been sent and is planned to send to the remote host
+
+ @discussion
+ The byte count arguments refer to the aggregated <FBRequest> objects, not a particular <FBRequest>.
+
+ Like `NSURLConnection`, the values may change in unexpected ways if data needs to be resent.
+
+ @param connection                The request connection transmitting data to a remote host
+ @param bytesWritten              The number of bytes sent in the last transmission
+ @param totalBytesWritten         The total number of bytes sent to the remote host
+ @param totalBytesExpectedToWrite The total number of bytes expected to send to the remote host
+ */
+- (void)requestConnection:(FBRequestConnection *)connection
+          didSendBodyData:(NSInteger)bytesWritten
+        totalBytesWritten:(NSInteger)totalBytesWritten
+totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
+
+@end
+
+/*!
  @class FBRequestConnection
 
  @abstract
@@ -196,6 +312,8 @@ typedef void (^FBRequestHandler)(FBRequestConnection *connection,
  one the requests were originally started on.
  */
 @property (nonatomic, assign) FBRequestConnectionErrorBehavior errorBehavior;
+
+@property (nonatomic, assign) id<FBRequestConnectionDelegate> delegate;
 
 /*!
  @methodgroup Adding requests

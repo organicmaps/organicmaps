@@ -29,3 +29,4 @@
 @property (readwrite, copy) NSDate *expirationDate;
 
 @end
+

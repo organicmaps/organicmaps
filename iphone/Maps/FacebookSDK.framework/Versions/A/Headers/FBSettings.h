@@ -50,16 +50,6 @@ FBSDK_EXTERN NSString *const FBLoggingBehaviorCacheErrors;
 /*! Log errors likely to be preventable by the developer. This is in the default set of enabled logging behaviors. */
 FBSDK_EXTERN NSString *const FBLoggingBehaviorDeveloperErrors;
 
-@class FBGraphObject;
-
-/*!
- @typedef
-
- @abstract Block type used to get install data that is returned by server when publishInstall is called
- @discussion
- */
-typedef void (^FBInstallResponseDataHandler)(FBGraphObject *response, NSError *error);
-
 /*!
  @typedef
 
@@ -70,8 +60,6 @@ typedef void (^FBInstallResponseDataHandler)(FBGraphObject *response, NSError *e
 typedef enum : NSUInteger {
     FBBetaFeaturesNone                  = 0,
 #if defined(DEBUG) || defined(FB_BUILD_ONLY)
-    FBBetaFeaturesShareDialog           = 1 << 0,
-    FBBetaFeaturesOpenGraphShareDialog  = 1 << 1,
     FBBetaFeaturesLikeButton            = 1 << 2,
 #endif
 } FBBetaFeatures;
@@ -122,52 +110,21 @@ typedef NS_ENUM(NSUInteger, FBRestrictedTreatment) {
  */
 + (void)setLoggingBehavior:(NSSet *)loggingBehavior;
 
-/*! @abstract deprecated method */
-+ (BOOL)shouldAutoPublishInstall __attribute__ ((deprecated));
-
-/*! @abstract deprecated method */
-+ (void)setShouldAutoPublishInstall:(BOOL)autoPublishInstall __attribute__ ((deprecated));
-
 /*!
  @method
 
- @abstract This method has been replaced by [FBAppEvents activateApp] */
-+ (void)publishInstall:(NSString *)appID __attribute__ ((deprecated("use [FBAppEvents activateApp] instead")));
-
-/*!
- @method
-
- @abstract Manually publish an attributed install to the Facebook graph, and return the server response back in
- the supplied handler.  Calling this method will implicitly turn off auto-publish.  This method acquires the
- current attribution id from the facebook application, queries the graph API to determine if the application
- has install attribution enabled, publishes the id, and records success to avoid reporting more than once.
-
- @param appID   A specific appID to publish an install for.  If nil, uses [FBSession defaultAppID].
- @param handler A block to call with the server's response.
+ @abstract
+ This method is deprecated -- App Events favors using bundle identifiers to this.
  */
-+ (void)publishInstall:(NSString *)appID
-           withHandler:(FBInstallResponseDataHandler)handler __attribute__ ((deprecated));
-
++ (NSString *)appVersion __attribute__ ((deprecated("App Events favors use of bundle identifiers for version identification.")));
 
 /*!
  @method
 
  @abstract
- Gets the application version to the provided string.  `FBAppEvents`, for instance, attaches the app version to
- events that it logs, which are then available in App Insights.
+ This method is deprecated -- App Events favors using bundle identifiers to this.
  */
-+ (NSString *)appVersion;
-
-/*!
- @method
-
- @abstract
- Sets the application version to the provided string.  `FBAppEvents`, for instance, attaches the app version to
- events that it logs, which are then available in App Insights.
-
- @param appVersion  The version identifier of the iOS app.
- */
-+ (void)setAppVersion:(NSString *)appVersion;
++ (void)setAppVersion:(NSString *)appVersion __attribute__ ((deprecated("App Events favors use of bundle identifiers for version identification.")));
 
 /*!
  @method

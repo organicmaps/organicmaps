@@ -97,17 +97,18 @@ typedef NS_ENUM(NSUInteger, FBTooltipColorStyle) {
 /*!
  @abstract
  Show tooltip at the top or at the bottom of given view.
- Tooltip will be added to anchorView.superview
+ Tooltip will be added to anchorView.window.rootViewController.view
 
- @param anchorView sibling view to show at, must be already added to it's superview, in order to decide
- where tooltip will be shown. (If there's not enough space at the top of the anchorView in superView's bounds -
+ @param anchorView view to show at, must be already added to window view hierarchy, in order to decide
+ where tooltip will be shown. (If there's not enough space at the top of the anchorView in window bounds -
  tooltip will be shown at the bottom of it)
 
  @discussion
  Use this method to present the tooltip with automatic positioning or
  use -presentInView:withArrowPosition:direction: for manual positioning
+ If anchorView is nil or has no window - this method does nothing.
  */
-- (void)presentFromView:(UIView *) anchorView;
+- (void)presentFromView:(UIView *)anchorView;
 
 /*!
  @abstract

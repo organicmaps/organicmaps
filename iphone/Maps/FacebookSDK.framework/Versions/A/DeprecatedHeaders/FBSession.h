@@ -64,7 +64,7 @@ typedef enum {
 
     /*! Open session state indicating user has logged in or a cached token is available */
     FBSessionStateOpen                      = 1 | FB_SESSIONSTATEOPENBIT,
-    /*! Open session state indicating token has been extended */
+    /*! Open session state indicating token has been extended, or the user has granted additional permissions */
     FBSessionStateOpenTokenExtended         = 2 | FB_SESSIONSTATEOPENBIT,
 
     /*! Closed session state indicating that a login attempt failed */

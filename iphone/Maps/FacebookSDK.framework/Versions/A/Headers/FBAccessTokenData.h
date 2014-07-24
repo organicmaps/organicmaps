@@ -91,6 +91,52 @@
 /*!
  @method
 
+ @abstract Creates an FBAccessTokenData from existing information or returns nil if required data is missing.
+
+ @param accessToken The token string. If nil or empty, this method will return nil.
+ @param permissions The permissions set. A value of nil indicates basic permissions.
+ @param expirationDate The expiration date. A value of nil defaults to `[NSDate distantFuture]`.
+ @param loginType The login source of the token.
+ @param refreshDate The date that token was last refreshed. A value of nil defaults to `[NSDate date]`.
+ @param permissionsRefreshDate The date the permissions were last refreshed. A value of nil defaults to `[NSDate distantPast]`.
+ @param appID The ID string of the calling app. A value of nil defaults to `[FBSettings defaultAppID]`.
+ */
++ (FBAccessTokenData *)createTokenFromString:(NSString *)accessToken
+                                 permissions:(NSArray *)permissions
+                              expirationDate:(NSDate *)expirationDate
+                                   loginType:(FBSessionLoginType)loginType
+                                 refreshDate:(NSDate *)refreshDate
+                      permissionsRefreshDate:(NSDate *)permissionsRefreshDate
+                                       appID:(NSString *)appID;
+
+/*!
+ @method
+
+ @abstract Designated factory method.
+ Creates an FBAccessTokenData from existing information or returns nil if required data is missing.
+
+ @param accessToken The token string. If nil or empty, this method will return nil.
+ @param permissions The permissions set. A value of nil indicates basic permissions.
+ @param declinedPermissions The declined permissions set. A value of nil indicates empty array.
+ @param expirationDate The expiration date. A value of nil defaults to `[NSDate distantFuture]`.
+ @param loginType The login source of the token.
+ @param refreshDate The date that token was last refreshed. A value of nil defaults to `[NSDate date]`.
+ @param permissionsRefreshDate The date the permissions were last refreshed. A value of nil defaults to `[NSDate distantPast]`.
+ @param appID The ID string of the calling app. A value of nil defaults to `[FBSettings defaultAppID]`.
+ */
++ (FBAccessTokenData *)createTokenFromString:(NSString *)accessToken
+                                 permissions:(NSArray *)permissions
+                         declinedPermissions:(NSArray *)declinedPermissions
+                              expirationDate:(NSDate *)expirationDate
+                                   loginType:(FBSessionLoginType)loginType
+                                 refreshDate:(NSDate *)refreshDate
+                      permissionsRefreshDate:(NSDate *)permissionsRefreshDate
+                                       appID:(NSString *)appID
+                                      userID:(NSString *)userID;
+
+/*!
+ @method
+
  @abstract Returns a dictionary representation of this instance.
 
  @discussion This is provided for backwards compatibility with previous
@@ -113,9 +159,25 @@
 @property (readonly, nonatomic, copy) NSString *accessToken;
 
 /*!
+ @abstract returns the app ID NSString.
+ */
+@property (readonly, nonatomic, copy) NSString *appID;
+
+/*!
+ @abstract returns the user ID NSString that is associated with the token,if available.
+ @discussion This may not be populated for login behaviours such as the iOS system account.
+ */
+@property (readonly, nonatomic, copy) NSString *userID;
+
+/*!
  @abstract returns the permissions associated with the access token.
  */
 @property (readonly, nonatomic, copy) NSArray *permissions;
+
+/*!
+ @abstract returns the declined permissions associated with the access token.
+ */
+@property (readonly, nonatomic, copy) NSArray *declinedPermissions;
 
 /*!
  @abstract returns the expiration date of the access token.

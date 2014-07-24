@@ -33,6 +33,7 @@
 @protocol FBOpenGraphObject<FBGraphObject>
 
 /*!
+ @abstract use objectID instead
  @deprecated use objectID instead
  */
 @property (retain, nonatomic) NSString *id __attribute__ ((deprecated("use objectID instead")));
@@ -71,6 +72,7 @@
 @property (retain, nonatomic) id                    url;
 
 /*!
+ @abstract use objectID instead
  @deprecated use objectDescription instead
  */
 @property (retain, nonatomic) id                    description __attribute__ ((deprecated("use objectDescription instead")));

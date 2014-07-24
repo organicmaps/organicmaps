@@ -272,16 +272,16 @@ typedef NSUInteger FBRequestState __attribute__((deprecated));
 
 /*!
  @method
-
+ 
  @abstract
  Overrides the default version for a single request
-
+ 
  @discussion
  The SDK automatically prepends a version part, such as "v2.0" to API paths in order to simplify API versioning
- for applications. Sometimes it is preferable to explicitly set the version for a request, which can be
+ for applications. Sometimes it is preferable to explicitly set the version for a request, which can be 
  accomplished in one of two ways. The first is to call this method and set an override version part. The second
  is approach is to include the version part in the api path, for example @"v2.0/me/friends"
-
+ 
  @param version   This is a string in the form @"v2.0" which will be used for the version part of an API path
  */
 - (void)overrideVersionPartWith:(NSString *)version;
