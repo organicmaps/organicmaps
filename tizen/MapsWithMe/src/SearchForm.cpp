@@ -284,7 +284,16 @@ void SearchForm::OnKeypadActionPerformed (Tizen::Ui::Control & source, Tizen::Ui
 {
   if (keypadAction == KEYPAD_ACTION_SEARCH)
   {
-    GetFramework()->ShowAllSearchResults();
+    search::SearchParams params;
+    params.m_query = FromTizenString(GetSearchString());
+    Tizen::Locales::LanguageCode language;
+    if (m_searchBar->GetCurrentLanguage(language) == E_SUCCESS)
+      params.SetInputLanguage(CodeFromISO369_2to_1(GetLanguageCode(language)));
+    double lat, lon;
+    GetFramework()->GetCurrentPosition(lat, lon);
+    params.SetPosition(lat, lon);
+
+    GetFramework()->StartInteractiveSearch(params);
     ArrayList * pList = new ArrayList;
     pList->Construct();
     pList->Add(new String(GetSearchString()));
