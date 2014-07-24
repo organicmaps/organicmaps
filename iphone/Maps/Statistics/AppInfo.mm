@@ -163,7 +163,14 @@ NSString * const AppFeatureMoreAppsBanner = @"AppFeatureMoreAppsBanner";
 
 - (NSUUID *)advertisingId
 {
-  return NSClassFromString(@"ASIdentifierManager") ? [ASIdentifierManager sharedManager].advertisingIdentifier : nil;
+  if (NSClassFromString(@"ASIdentifierManager"))
+  {
+    ASIdentifierManager * m = [ASIdentifierManager sharedManager];
+    if (m.isAdvertisingTrackingEnabled)
+      return m.advertisingIdentifier;
+  }
+
+  return nil;
 }
 
 - (NSString *)countryCode
