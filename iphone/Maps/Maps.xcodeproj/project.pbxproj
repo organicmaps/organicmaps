@@ -4624,7 +4624,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4738,7 +4737,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4806,7 +4804,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4878,7 +4875,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4945,7 +4941,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5013,7 +5008,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5085,7 +5079,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5157,7 +5150,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5228,7 +5220,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5299,7 +5290,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5369,7 +5359,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5385,7 +5374,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
-					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5395,9 +5383,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5417,7 +5402,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
-					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5427,9 +5411,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5449,7 +5430,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
-					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5459,9 +5439,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5481,7 +5458,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
-					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5491,9 +5467,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5513,7 +5486,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
-					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5523,9 +5495,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5545,7 +5514,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
-					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5555,9 +5523,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5577,7 +5542,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
-					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5587,9 +5551,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5609,7 +5570,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
-					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5619,9 +5579,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5641,7 +5598,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
-					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5651,9 +5607,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5673,7 +5626,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
-					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5683,9 +5635,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5705,7 +5654,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
-					"${SRCROOT}/MoPubSDK/AdNetworkSupport/Millennial/SDK/SpeechKit",
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5715,9 +5663,6 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/GoogleAdMob/SDK",
-					"$(SRCROOT)/MoPubSDK/AdNetworkSupport/Millennial/SDK",
-					"/Users/Alex/Developer/omim/omim-debug/out/debug",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
