@@ -430,10 +430,15 @@ void Engine::ClearViewportsCache()
 
 void Engine::ClearAllCaches()
 {
-  threads::MutexGuard guard(m_searchMutex);
+  //threads::MutexGuard guard(m_searchMutex);
 
-  m_pQuery->ClearCaches();
-  m_pData->m_infoGetter.ClearCaches();
+  // Trying to lock mutex, because this function calls on memory warning notification.
+  // So that allows to prevent lock of UI while search query wouldn't be processed.
+  if (m_searchMutex.TryLock())
+  {
+    m_pQuery->ClearCaches();
+    m_pData->m_infoGetter.ClearCaches();
+  }
 }
 
 }  // namespace search
