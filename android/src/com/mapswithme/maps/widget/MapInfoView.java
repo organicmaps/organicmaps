@@ -84,6 +84,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private final View mArrow;
   // Place page
   private RelativeLayout mGeoLayout;
+  private TextView mTvCoords;
   private View mDistanceView;
   private ArrowView mAvDirection;
   private TextView mDistanceText;
@@ -96,10 +97,10 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private boolean mIsPreviewVisible = true;
   private boolean mIsPlacePageVisible = true;
   private State mCurrentState = State.HIDDEN;
-  private int mMaxPlacePageHeight = 0;
   private BookmarkManager mBookmarkManager;
   private List<Icon> mIcons;
   private MapObject mBookmarkedMapObject;
+  private boolean mIsLatLonDms;
 
   public MapInfoView(Context context, AttributeSet attrs, int defStyleAttr)
   {
@@ -446,19 +447,17 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     mDistanceText = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_distance);
     mAvDirection = (ArrowView) mGeoLayout.findViewById(R.id.av_direction);
     mAvDirection.setDrawCircle(true);
+    mTvCoords = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_location);
+    mTvCoords.setOnClickListener(this);
 
     final Location lastKnown = MWMApplication.get().getLocationService().getLastKnown();
     updateDistanceAndAzimut(lastKnown);
 
-    final TextView coord = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_location);
-    final double lat = mMapObject.getLat();
-    final double lon = mMapObject.getLon();
-    coord.setText(UiUtils.formatLatLon(lat, lon));
-
+    updateCoords();
     // Context menu for the coordinates copying.
     if (Utils.apiEqualOrGreaterThan(Build.VERSION_CODES.HONEYCOMB))
     {
-      coord.setOnLongClickListener(new OnLongClickListener()
+      mTvCoords.setOnLongClickListener(new OnLongClickListener()
       {
         @SuppressLint("NewApi")
         @Override
@@ -466,6 +465,8 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
         {
           final PopupMenu popup = new PopupMenu(getContext(), v);
           final Menu menu = popup.getMenu();
+          final double lat = mMapObject.getLat();
+          final double lon = mMapObject.getLon();
 
           final String copyText = getResources().getString(android.R.string.copy);
           final String arrCoord[] = {
@@ -520,6 +521,16 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
         mDistanceText.setText(distanceAndAzimuth.getDistance());
       }
     }
+  }
+
+  private void updateCoords()
+  {
+    final double lat = mMapObject.getLat();
+    final double lon = mMapObject.getLon();
+    if (mIsLatLonDms)
+      mTvCoords.setText(UiUtils.formatLatLon(lat, lon));
+    else
+      mTvCoords.setText(UiUtils.formatLatLonToDMS(lat, lon));
   }
 
   public void updateAzimuth(double northAzimuth)
@@ -597,11 +608,11 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     final View parent = (View) getParent();
     if (parent != null)
     {
-      mMaxPlacePageHeight = parent.getHeight() / 2;
+      int maxPlacePageHeight = parent.getHeight() / 2;
       final ViewGroup.LayoutParams lp = mPlacePageGroup.getLayoutParams();
-      if (lp != null && lp.height > mMaxPlacePageHeight)
+      if (lp != null && lp.height > maxPlacePageHeight)
       {
-        lp.height = mMaxPlacePageHeight;
+        lp.height = maxPlacePageHeight;
         mPlacePageGroup.setLayoutParams(lp);
         requestLayout();
         invalidate();
@@ -794,6 +805,10 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       break;
     case R.id.btn_route_to:
       Framework.nativeSetRouteEnd(mMapObject.getLat(), mMapObject.getLon());
+      break;
+    case R.id.info_box_geo_location:
+      mIsLatLonDms = !mIsLatLonDms;
+      updateCoords();
       break;
     default:
       break;
