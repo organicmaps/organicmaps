@@ -867,7 +867,8 @@ public class MWMActivity extends NvEventQueueActivity
       LocationButtonImageSetter.setButtonViewFromState(ButtonState.HAS_LOCATION, mLocationButton);
 
     nativeLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy(), l.getAltitude(), l.getSpeed(), l.getBearing());
-    mInfoView.updateDistanceAndAzimut(l);
+    if (mInfoView.getState() != State.HIDDEN)
+      mInfoView.updateDistanceAndAzimut(l);
   }
 
   @Override
@@ -878,7 +879,8 @@ public class MWMActivity extends NvEventQueueActivity
     nativeCompassUpdated(time, angles[0], angles[1], accuracy);
     final double north = (angles[1] >= 0.0 ? angles[1] : angles[0]);
 
-    mInfoView.updateAzimuth(north);
+    if (mInfoView.getState() != State.HIDDEN)
+      mInfoView.updateAzimuth(north);
   }
 
   public void onCompassStatusChanged(int newStatus)
