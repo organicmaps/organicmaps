@@ -64,6 +64,32 @@ void InitLocalizedStrings()
   return (MapsAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
++ (BOOL)isFirstAppLaunch
+{
+  // TODO: check if possible when user reinstall the app
+  return [[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY];
+}
+
+- (void)initMAT
+{
+  NSString * advertiserId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerAdvertiserId"];
+  NSString * conversionKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerConversionKey"];
+
+  // Account Configuration info - must be set
+  [MobileAppTracker initializeWithMATAdvertiserId:advertiserId MATConversionKey:conversionKey];
+
+  // Used to pass us the IFA, enables highly accurate 1-to-1 attribution.
+  // Required for many advertising networks.
+  NSUUID * ifa = [AppInfo sharedInfo].advertisingId;
+  [MobileAppTracker setAppleAdvertisingIdentifier:ifa advertisingTrackingEnabled:(ifa != nil)];
+
+  // Only if you have pre-existing users before MAT SDK implementation, identify these users
+  // using this code snippet.
+  // Otherwise, pre-existing users will be counted as new installs the first time they run your app.
+  if (![MapsAppDelegate isFirstAppLaunch])
+    [MobileAppTracker setExistingUser:YES];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [[Statistics instance] startSession];
@@ -99,15 +125,7 @@ void InitLocalizedStrings()
 
   [self customizeAppearance];
 
-  NSString * advertiserId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerAdvertiserId"];
-  NSString * conversionKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"MobileAppTrackerConversionKey"];
-  [MobileAppTracker startTrackerWithMATAdvertiserId:advertiserId MATConversionKey:conversionKey];
-  if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY])
-    [MobileAppTracker setExistingUser:YES];
-  [MobileAppTracker trackSession];
-
-  if ([AppInfo sharedInfo].advertisingId)
-    [MobileAppTracker setAppleAdvertisingIdentifier:[AppInfo sharedInfo].advertisingId];
+  [self initMAT];
 
   if ([application respondsToSelector:@selector(setMinimumBackgroundFetchInterval:)])
     [application setMinimumBackgroundFetchInterval:(6 * 60 * 60)];
@@ -200,11 +218,14 @@ void InitLocalizedStrings()
   [FBSettings setDefaultAppID:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"]];
   [FBAppEvents activateApp];
 
-  if ([[NSUserDefaults standardUserDefaults] boolForKey:FIRST_LAUNCH_KEY])
+  if ([MapsAppDelegate isFirstAppLaunch])
   {
     NSString * appId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"AarkiClientSecurityKey"];
     [AarkiContact registerApp:appId];
   }
+
+  // MAT will not function without the measureSession call included
+  [MobileAppTracker measureSession];
 }
 
 - (SettingsManager *)settingsManager
@@ -294,6 +315,9 @@ void InitLocalizedStrings()
 // We don't support HandleOpenUrl as it's deprecated from iOS 4.2
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+  // AlexZ: do we really need this? Need to ask them with a letter
+  [MobileAppTracker applicationDidOpenURL:[url absoluteString] sourceApplication:sourceApplication];
+
   NSString * scheme = url.scheme;
 
   m_scheme = scheme;

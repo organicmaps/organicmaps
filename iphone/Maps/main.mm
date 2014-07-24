@@ -39,6 +39,8 @@ int main(int argc, char * argv[])
     NSThread * thread = [[NSThread alloc] initWithTarget:dummy selector:@selector(dummyThread:) object:nil];
     [thread start];
 
+    // We use this work-around to avoid multiple calls for Settings::IsFirstLaunch() later with invalid results,
+    // as it returns true only once, on the very first call
     [[NSUserDefaults standardUserDefaults] setBool:(Settings::IsFirstLaunch()) forKey:FIRST_LAUNCH_KEY];
     [[NSUserDefaults standardUserDefaults] synchronize];
 

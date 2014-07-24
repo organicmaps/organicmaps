@@ -2,7 +2,7 @@
 //  MATEventItem.h
 //  MobileAppTracker
 //
-//  Created by John Bender on 1/10/14.
+//  Created by John Bender on 3/10/14.
 //  Copyright (c) 2014 HasOffers. All rights reserved.
 //
 
