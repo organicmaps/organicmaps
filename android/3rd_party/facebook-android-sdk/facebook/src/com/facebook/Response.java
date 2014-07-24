@@ -42,6 +42,7 @@ public class Response {
     private final GraphObjectList<GraphObject> graphObjectList;
     private final boolean isFromCache;
     private final FacebookRequestError error;
+    private final String rawResponse;
     private final Request request;
 
     /**
@@ -61,31 +62,26 @@ public class Response {
     private static final String RESPONSE_CACHE_TAG = "ResponseCache";
     private static FileLruCache responseCache;
 
-    Response(Request request, HttpURLConnection connection, GraphObject graphObject, boolean isFromCache) {
-        this.request = request;
-        this.connection = connection;
-        this.graphObject = graphObject;
-        this.graphObjectList = null;
-        this.isFromCache = isFromCache;
-        this.error = null;
+    Response(Request request, HttpURLConnection connection, String rawResponse, GraphObject graphObject, boolean isFromCache) {
+        this(request, connection, rawResponse, graphObject, null, isFromCache, null);
     }
 
-    Response(Request request, HttpURLConnection connection, GraphObjectList<GraphObject> graphObjects,
+    Response(Request request, HttpURLConnection connection, String rawResponse, GraphObjectList<GraphObject> graphObjects,
             boolean isFromCache) {
-        this.request = request;
-        this.connection = connection;
-        this.graphObject = null;
-        this.graphObjectList = graphObjects;
-        this.isFromCache = isFromCache;
-        this.error = null;
+        this(request, connection, rawResponse, null, graphObjects, isFromCache, null);
     }
 
     Response(Request request, HttpURLConnection connection, FacebookRequestError error) {
+        this(request, connection, null, null, null, false, error);
+    }
+
+    Response(Request request, HttpURLConnection connection, String rawResponse, GraphObject graphObject, GraphObjectList<GraphObject> graphObjects, boolean isFromCache, FacebookRequestError error) {
         this.request = request;
         this.connection = connection;
-        this.graphObject = null;
-        this.graphObjectList = null;
-        this.isFromCache = false;
+        this.rawResponse = rawResponse;
+        this.graphObject = graphObject;
+        this.graphObjectList = graphObjects;
+        this.isFromCache = isFromCache;
         this.error = error;
     }
 
@@ -164,6 +160,15 @@ public class Response {
      */
     public Request getRequest() {
         return request;
+    }
+
+    /**
+     * Returns the server response as a String that this response is for.
+     *
+     * @return A String representation of the actual response from the server
+     */
+    public String getRawResponse() {
+        return rawResponse;
     }
 
     /**
@@ -425,18 +430,18 @@ public class Response {
 
             if (body instanceof JSONObject) {
                 GraphObject graphObject = GraphObject.Factory.create((JSONObject) body);
-                return new Response(request, connection, graphObject, isFromCache);
+                return new Response(request, connection, body.toString(), graphObject, isFromCache);
             } else if (body instanceof JSONArray) {
                 GraphObjectList<GraphObject> graphObjectList = GraphObject.Factory.createList(
                         (JSONArray) body, GraphObject.class);
-                return new Response(request, connection, graphObjectList, isFromCache);
+                return new Response(request, connection, body.toString(), graphObjectList, isFromCache);
             }
             // We didn't get a body we understand how to handle, so pretend we got nothing.
             object = JSONObject.NULL;
         }
 
         if (object == JSONObject.NULL) {
-            return new Response(request, connection, (GraphObject)null, isFromCache);
+            return new Response(request, connection, object.toString(), (GraphObject)null, isFromCache);
         } else {
             throw new FacebookException("Got unexpected object type in response, class: "
                     + object.getClass().getSimpleName());

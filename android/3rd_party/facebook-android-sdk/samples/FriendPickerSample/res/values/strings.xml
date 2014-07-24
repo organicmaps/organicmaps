@@ -20,4 +20,7 @@
     <string name="app_id">370546396320150</string>
     <string name="exception">Exception: %1$s</string>
     <string name="ok_button">OK</string>
+    <string name="need_perms_alert_text">In order to pick your friends you need to accept all the permissions on the following page.</string>
+    <string name="need_perms_alert_button_ok">OK</string>
+    <string name="need_perms_alert_button_quit">Quit</string>
 </resources>

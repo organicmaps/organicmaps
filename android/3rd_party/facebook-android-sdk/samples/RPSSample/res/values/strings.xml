@@ -31,6 +31,7 @@
     <string name="result_lost">lost</string>
     <string name="result_tied">tied</string>
     <string name="share_on_facebook">Share on Facebook</string>
+    <string name="send_with_messenger">Send with Messenger</string>
     <string name="see_friends">See Friends</string>
     <string name="check_settings">Check Facebook Settings</string>
     <string name="friends_using_rps">Friends Rockin\' RPS</string>

@@ -19,11 +19,11 @@
     <string name="app_name">Scrumptious</string>
     <string name="app_id">233936543368280</string>
     <string name="get_started">To get started, login using Facebook</string>
-    <string name="skip_login">Skip Login</string>
-    <string name="action_eating">What are you eating?</string>
-    <string name="action_location">Where are you?</string>
-    <string name="action_people">With whom?</string>
-    <string name="action_photo">Got a picture?</string>
+    <string name="skip_login">continue as a guest</string>
+    <string name="action_eating">Pick Meal</string>
+    <string name="action_location">Pick Location</string>
+    <string name="action_people">Pick Friends</string>
+    <string name="action_photo">Pick Photo</string>
     <string name="action_eating_default">Select a meal</string>
     <string name="action_location_default">Select a place</string>
     <string name="action_people_default">Select friends</string>
@@ -31,7 +31,8 @@
     <string name="action_photo_ready">Ready</string>
     <string name="action_photo_camera">Take Photo</string>
     <string name="action_photo_gallery">Choose Existing</string>
-    <string name="announce">Announce</string>
+    <string name="announce">Share</string>
+    <string name="message">Send with Messenger</string>
     <string name="login">Login</string>
     <string name="settings">Settings</string>
     <string name="select_meal">Select a meal</string>

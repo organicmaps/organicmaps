@@ -17,14 +17,24 @@
 package com.facebook.internal;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
+import android.os.StatFs;
 import android.provider.Settings.Secure;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import com.facebook.*;
@@ -36,6 +46,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URLConnection;
 import java.security.MessageDigest;
@@ -55,9 +67,15 @@ public final class Utility {
     private static final String URL_SCHEME = "https";
     private static final String SUPPORTS_ATTRIBUTION = "supports_attribution";
     private static final String SUPPORTS_IMPLICIT_SDK_LOGGING = "supports_implicit_sdk_logging";
+    private static final String NUX_CONTENT = "gdpv4_nux_content";
+    private static final String NUX_ENABLED = "gdpv4_nux_enabled";
+    private static final String EXTRA_APP_EVENTS_INFO_FORMAT_VERSION = "a1";
+
     private static final String [] APP_SETTING_FIELDS = new String[] {
             SUPPORTS_ATTRIBUTION,
-            SUPPORTS_IMPLICIT_SDK_LOGGING
+            SUPPORTS_IMPLICIT_SDK_LOGGING,
+            NUX_CONTENT,
+            NUX_ENABLED
     };
     private static final String APPLICATION_FIELDS = "fields";
 
@@ -67,13 +85,26 @@ public final class Utility {
     private static Map<String, FetchedAppSettings> fetchedAppSettings =
             new ConcurrentHashMap<String, FetchedAppSettings>();
 
-    public static class FetchedAppSettings {
+    private static int sNumCPUCores = 0;
+    private static long sTotalExternalStorageBytes = -1;
+    private static long sAvailableExternalStorageBytes = -1;
+    private static String sCarrierName = null;
+
+
+  public static class FetchedAppSettings {
         private boolean supportsAttribution;
         private boolean supportsImplicitLogging;
+        private String nuxContent;
+        private boolean nuxEnabled;
 
-        private FetchedAppSettings(boolean supportsAttribution, boolean supportsImplicitLogging) {
+        private FetchedAppSettings(boolean supportsAttribution,
+                                   boolean supportsImplicitLogging,
+                                   String nuxContent,
+                                   boolean nuxEnabled) {
             this.supportsAttribution = supportsAttribution;
             this.supportsImplicitLogging = supportsImplicitLogging;
+            this.nuxContent = nuxContent;
+            this.nuxEnabled = nuxEnabled;
         }
 
         public boolean supportsAttribution() {
@@ -82,6 +113,14 @@ public final class Utility {
 
         public boolean supportsImplicitLogging() {
             return supportsImplicitLogging;
+        }
+
+        public String getNuxContent() {
+            return nuxContent;
+        }
+
+        public boolean getNuxEnabled() {
+            return nuxEnabled;
         }
     }
 
@@ -126,19 +165,30 @@ public final class Utility {
         return hashWithAlgorithm(HASH_ALGORITHM_MD5, key);
     }
 
-    private static String sha1hash(String key) {
+    static String sha1hash(String key) {
         return hashWithAlgorithm(HASH_ALGORITHM_SHA1, key);
     }
 
+    static String sha1hash(byte[] bytes) {
+        return hashWithAlgorithm(HASH_ALGORITHM_SHA1, bytes);
+    }
+
     private static String hashWithAlgorithm(String algorithm, String key) {
-        MessageDigest hash = null;
+        return hashWithAlgorithm(algorithm, key.getBytes());
+    }
+
+    private static String hashWithAlgorithm(String algorithm, byte[] bytes) {
+        MessageDigest hash;
         try {
             hash = MessageDigest.getInstance(algorithm);
         } catch (NoSuchAlgorithmException e) {
             return null;
         }
+        return hashBytes(hash, bytes);
+    }
 
-        hash.update(key.getBytes());
+    private static String hashBytes(MessageDigest hash, byte[] bytes) {
+        hash.update(bytes);
         byte[] digest = hash.digest();
         StringBuilder builder = new StringBuilder();
         for (int b : digest) {
@@ -193,17 +243,9 @@ public final class Utility {
     public static String getMetadataApplicationId(Context context) {
         Validate.notNull(context, "context");
 
-        try {
-            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(
-                    context.getPackageName(), PackageManager.GET_META_DATA);
-            if (ai.metaData != null) {
-                return ai.metaData.getString(Session.APPLICATION_ID_PROPERTY);
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            // if we can't find it in the manifest, just return null
-        }
+        Settings.loadDefaultsFromMetadata(context);
 
-        return null;
+        return Settings.getApplicationId();
     }
 
     static Map<String, Object> convertJSONObjectToHashMap(JSONObject jsonObject) {
@@ -359,7 +401,10 @@ public final class Utility {
         GraphObject supportResponse = request.executeAndWait().getGraphObject();
         FetchedAppSettings result = new FetchedAppSettings(
                 safeGetBooleanFromResponse(supportResponse, SUPPORTS_ATTRIBUTION),
-                safeGetBooleanFromResponse(supportResponse, SUPPORTS_IMPLICIT_SDK_LOGGING));
+                safeGetBooleanFromResponse(supportResponse, SUPPORTS_IMPLICIT_SDK_LOGGING),
+                safeGetStringFromResponse(supportResponse, NUX_CONTENT),
+                safeGetBooleanFromResponse(supportResponse, NUX_ENABLED)
+                );
 
         fetchedAppSettings.put(applicationId, result);
 
@@ -375,6 +420,17 @@ public final class Utility {
             result = false;
         }
         return (Boolean) result;
+    }
+
+    private static String safeGetStringFromResponse(GraphObject response, String propertyName) {
+        Object result = "";
+        if (response != null) {
+            result = response.getProperty(propertyName);
+        }
+        if (!(result instanceof String)) {
+            result = "";
+        }
+        return (String) result;
     }
 
     public static void clearCaches(Context context) {
@@ -419,14 +475,92 @@ public final class Utility {
     }
 
     public static void setAppEventAttributionParameters(GraphObject params,
-            String attributionId, String hashedDeviceAndAppId, boolean limitEventUsage) {
+            AttributionIdentifiers attributionIdentifiers, String hashedDeviceAndAppId, boolean limitEventUsage) {
         // Send attributionID if it exists, otherwise send a hashed device+appid specific value as the advertiser_id.
-        if (attributionId != null) {
-            params.setProperty("attribution", attributionId);
+        if (attributionIdentifiers != null && attributionIdentifiers.getAttributionId() != null) {
+            params.setProperty("attribution", attributionIdentifiers.getAttributionId());
+        }
+
+        if (attributionIdentifiers != null && attributionIdentifiers.getAndroidAdvertiserId() != null) {
+            params.setProperty("advertiser_id", attributionIdentifiers.getAndroidAdvertiserId());
+            params.setProperty("advertiser_tracking_enabled", !attributionIdentifiers.isTrackingLimited());
         } else if (hashedDeviceAndAppId != null) {
             params.setProperty("advertiser_id", hashedDeviceAndAppId);
         }
 
         params.setProperty("application_tracking_enabled", !limitEventUsage);
     }
+
+    public static void setAppEventExtendedDeviceInfoParameters(GraphObject params, Context appContext) {
+      JSONArray extraInfoArray = new JSONArray();
+      extraInfoArray.put(EXTRA_APP_EVENTS_INFO_FORMAT_VERSION);
+
+      // Application Manifest info:
+      String pkgName = appContext.getPackageName();
+      int versionCode = -1;
+      String versionName = "";
+
+      try {
+        PackageInfo pi = appContext.getPackageManager().getPackageInfo(pkgName, 0);
+        versionCode = pi.versionCode;
+        versionName = pi.versionName;
+      } catch (PackageManager.NameNotFoundException e) {
+        // Swallow
+      }
+
+      // Application Manifest info:
+      extraInfoArray.put(pkgName);
+      extraInfoArray.put(versionCode);
+      extraInfoArray.put(versionName);
+
+      params.setProperty("extinfo", extraInfoArray.toString());
+    }
+
+  private static <T> void silentJSONObjectPut(JSONObject object, String key, T data) {
+      try {
+        object.put(key, data);
+      } catch (JSONException e) {
+        // Swallow
+      }
+    }
+
+    public static Method getMethodQuietly(Class<?> clazz, String methodName, Class<?>... parameterTypes) {
+        try {
+            return clazz.getMethod(methodName, parameterTypes);
+        } catch (NoSuchMethodException ex) {
+            return null;
+        }
+    }
+
+    public static Method getMethodQuietly(String className, String methodName, Class<?>... parameterTypes) {
+        try {
+            Class<?> clazz = Class.forName(className);
+            return getMethodQuietly(clazz, methodName, parameterTypes);
+        } catch (ClassNotFoundException ex) {
+            return null;
+        }
+    }
+
+    public static Object invokeMethodQuietly(Object receiver, Method method, Object... args) {
+        try {
+            return method.invoke(receiver, args);
+        } catch (IllegalAccessException ex) {
+            return null;
+        } catch (InvocationTargetException ex) {
+            return null;
+        }
+    }
+
+  /**
+   * Returns the name of the current activity if the context is an activity, otherwise return "unknown"
+   */
+  public static String getActivityName(Context context) {
+    if (context == null) {
+      return "null";
+    } else if (context == context.getApplicationContext()) {
+      return "unknown";
+    } else {
+      return context.getClass().getSimpleName();
+    }
+  }
 }

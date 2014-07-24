@@ -13,6 +13,8 @@ public class AnalyticsEvents {
     public static final String EVENT_PLACE_PICKER_USAGE             = "fb_place_picker_usage";
     public static final String EVENT_LOGIN_VIEW_USAGE               = "fb_login_view_usage";
     public static final String EVENT_USER_SETTINGS_USAGE            = "fb_user_settings_vc_usage";
+    public static final String EVENT_NATIVE_DIALOG_START            = "fb_native_dialog_start";
+    public static final String EVENT_NATIVE_DIALOG_COMPLETE         = "fb_native_dialog_complete";
 
     public static final String PARAMETER_WEB_LOGIN_E2E                  = "fb_web_login_e2e";
     public static final String PARAMETER_WEB_LOGIN_SWITCHBACK_TIME      = "fb_web_login_switchback_time";
@@ -28,4 +30,10 @@ public class AnalyticsEvents {
     public static final String PARAMETER_DIALOG_OUTCOME_VALUE_CANCELLED = "Cancelled";
     public static final String PARAMETER_DIALOG_OUTCOME_VALUE_FAILED    = "Failed";
 
+    public static final String EVENT_NATIVE_DIALOG_TYPE_SHARE           = "fb_dialogs_present_share";
+    public static final String EVENT_NATIVE_DIALOG_TYPE_MESSAGE         = "fb_dialogs_present_message";
+    public static final String EVENT_NATIVE_DIALOG_TYPE_OG_SHARE        = "fb_dialogs_present_share_og";
+    public static final String EVENT_NATIVE_DIALOG_TYPE_OG_MESSAGE      = "fb_dialogs_present_message_og";
+    public static final String EVENT_NATIVE_DIALOG_TYPE_PHOTO_SHARE     = "fb_dialogs_present_share_photo";
+    public static final String EVENT_NATIVE_DIALOG_TYPE_PHOTO_MESSAGE   = "fb_dialogs_present_message_photo";
 }

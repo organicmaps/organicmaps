@@ -54,9 +54,7 @@ public class FullListView extends ListView {
                     MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
             height += childView.getMeasuredHeight();
         }
-        Rect bgPadding = new Rect();
-        getBackground().getPadding(bgPadding);
-        height += (count - 1) * getDividerHeight() + bgPadding.top + bgPadding.bottom;
+        height += getDividerHeight() * (count-1);
         setMeasuredDimension(width, height);
     }
 }

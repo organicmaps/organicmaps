@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="Theme.Scrumptious" parent="android:Theme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

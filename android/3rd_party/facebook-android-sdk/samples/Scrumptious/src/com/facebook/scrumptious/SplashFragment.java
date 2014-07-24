@@ -22,10 +22,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class SplashFragment extends Fragment {
 
-    private Button skipLoginButton;
+    private TextView skipLoginButton;
     private SkipLoginCallback skipLoginCallback;
 
     public interface SkipLoginCallback {
@@ -37,7 +38,7 @@ public class SplashFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.splash, container, false);
 
-        skipLoginButton = (Button) view.findViewById(R.id.skip_login_button);
+        skipLoginButton = (TextView) view.findViewById(R.id.skip_login_button);
         skipLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,3 +55,4 @@ public class SplashFragment extends Fragment {
         skipLoginCallback = callback;
     }
 }
+

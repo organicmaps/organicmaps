@@ -20,7 +20,7 @@
             android:singleLine="true"
             android:layout_gravity="center"
             android:gravity="center_vertical"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textColor="@android:color/black"
             android:textColorHint="@color/com_facebook_picker_search_bar_text"
             android:background="@color/com_facebook_picker_search_bar_background"

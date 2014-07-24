@@ -17,52 +17,23 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#303040" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#FB5820" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal" >
-            <ImageView
-                android:id="@+id/splash_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:src="@drawable/icon" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="#AFDEFE"
-                android:textSize="28sp"
-                android:typeface="serif"
-                android:textStyle="italic"
-                android:text="@string/app_name" />
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/profile_name"
-            android:layout_width="174dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:lines="2"
-            android:textSize="17sp"
-            android:text="@string/get_started"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"/>
+    	<ImageView 
+    		android:layout_width="match_parent"
+    		android:layout_height="0dp"
+    		android:layout_weight="1"
+    		android:layout_gravity="center"
+    		android:padding="50dp"
+    		android:src="@drawable/logo"/>
 
         <com.facebook.widget.LoginButton
             android:id="@+id/login_button"
@@ -72,18 +43,16 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp" />
 
-        <Button
+        <TextView
             android:id="@+id/skip_login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/skip_login"
-            android:background="@drawable/com_facebook_loginbutton_silver"
-            android:textSize="@dimen/com_facebook_loginview_text_size"
-            android:textColor="@color/com_facebook_blue"
+            android:textSize="12sp"
+            android:textColor="#EAFEA7"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp" />
 
     </LinearLayout>

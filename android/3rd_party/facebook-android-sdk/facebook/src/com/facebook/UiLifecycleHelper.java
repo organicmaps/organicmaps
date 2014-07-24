@@ -66,10 +66,15 @@ public class UiLifecycleHelper {
         if (activity == null) {
             throw new IllegalArgumentException(ACTIVITY_NULL_MESSAGE);
         }
+
         this.activity = activity;
         this.callback = callback;
         this.receiver = new ActiveSessionBroadcastReceiver();
         this.broadcastManager = LocalBroadcastManager.getInstance(activity);
+        // initialize SDK
+        Settings.sdkInitialize(activity);
+        // Make sure we've loaded default settings if we haven't already.
+        Settings.loadDefaultsFromMetadataIfNeeded(activity);
     }
 
     /**

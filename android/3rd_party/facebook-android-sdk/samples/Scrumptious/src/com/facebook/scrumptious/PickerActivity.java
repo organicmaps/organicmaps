@@ -72,6 +72,7 @@ public class PickerActivity extends FragmentActivity {
         if (FRIEND_PICKER.equals(intentUri)) {
             if (savedInstanceState == null) {
                 friendPickerFragment = new FriendPickerFragment(args);
+                friendPickerFragment.setFriendPickerType(FriendPickerFragment.FriendPickerType.TAGGABLE_FRIENDS);
             } else {
                 friendPickerFragment = (FriendPickerFragment) manager.findFragmentById(R.id.picker_fragment);;
             }

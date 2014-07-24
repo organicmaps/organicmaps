@@ -91,7 +91,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * </li>
  * <li>
  * There is a limit to the number of unique parameter names in the provided parameters that can
- * be used per event, on the order of 10.  This is not just for an individual call, but for all
+ * be used per event, on the order of 25.  This is not just for an individual call, but for all
  * invocations for that eventName.
  * </li>
  * <li>
@@ -269,6 +269,7 @@ public class AppEventsLogger {
      * @param context   Used to access the applicationId and the attributionId for non-authenticated users.
      */
     public static void activateApp(Context context) {
+        Settings.sdkInitialize(context);
         activateApp(context, Utility.getMetadataApplicationId(context));
     }
 
@@ -288,7 +289,7 @@ public class AppEventsLogger {
 
         // activateApp supercedes publishInstall in the public API, so we need to explicitly invoke it, since the server
         // can't reliably infer install state for all conditions of an app activate.
-        Settings.publishInstallAsync(context, applicationId);
+        Settings.publishInstallAsync(context, applicationId, null);
 
         AppEventsLogger logger = new AppEventsLogger(context, applicationId, null);
         logger.logEvent(AppEventsConstants.EVENT_NAME_ACTIVATED_APP);
@@ -565,9 +566,13 @@ public class AppEventsLogger {
             session = Session.getActiveSession();
         }
 
-        if (session != null) {
+        // If we have a session and the appId passed is null or matches the session's app ID:
+        if (session != null &&
+            (applicationId == null || applicationId.equals(session.getApplicationId()))
+          ) {
             accessTokenAppId = new AccessTokenAppIdPair(session);
         } else {
+            // If no app ID passed, get it from the manifest:
             if (applicationId == null) {
                 applicationId = Utility.getMetadataApplicationId(context);
             }
@@ -630,7 +635,7 @@ public class AppEventsLogger {
 
     private void logEvent(String eventName, Double valueToSum, Bundle parameters, boolean isImplicitlyLogged) {
 
-        AppEvent event = new AppEvent(eventName, valueToSum, parameters, isImplicitlyLogged);
+        AppEvent event = new AppEvent(this.context, eventName, valueToSum, parameters, isImplicitlyLogged);
         logEvent(context, event, accessTokenAppId);
     }
 
@@ -704,9 +709,10 @@ public class AppEventsLogger {
             SessionEventsState state = stateMap.get(accessTokenAppId);
             if (state == null) {
                 // Retrieve attributionId, but we will only send it if attribution is supported for the app.
-                String attributionId = Settings.getAttributionId(context.getContentResolver());
+                AttributionIdentifiers attributionIdentifiers =
+                    AttributionIdentifiers.getAttributionIdentifiers(context);
 
-                state = new SessionEventsState(attributionId, context.getPackageName(), hashedDeviceAndAppId);
+                state = new SessionEventsState(attributionIdentifiers, context.getPackageName(), hashedDeviceAndAppId);
                 stateMap.put(accessTokenAppId, state);
             }
             return state;
@@ -929,7 +935,7 @@ public class AppEventsLogger {
         private List<AppEvent> accumulatedEvents = new ArrayList<AppEvent>();
         private List<AppEvent> inFlightEvents = new ArrayList<AppEvent>();
         private int numSkippedEventsDueToFullBuffer;
-        private String attributionId;
+        private AttributionIdentifiers attributionIdentifiers;
         private String packageName;
         private String hashedDeviceAndAppId;
 
@@ -939,8 +945,8 @@ public class AppEventsLogger {
 
         private final int MAX_ACCUMULATED_LOG_EVENTS = 1000;
 
-        public SessionEventsState(String attributionId, String packageName, String hashedDeviceAndAppId) {
-            this.attributionId = attributionId;
+        public SessionEventsState(AttributionIdentifiers identifiers, String packageName, String hashedDeviceAndAppId) {
+            this.attributionIdentifiers = identifiers;
             this.packageName = packageName;
             this.hashedDeviceAndAppId = hashedDeviceAndAppId;
         }
@@ -1020,8 +1026,17 @@ public class AppEventsLogger {
             }
 
             if (includeAttribution) {
-                Utility.setAppEventAttributionParameters(publishParams, attributionId,
+                Utility.setAppEventAttributionParameters(publishParams, attributionIdentifiers,
                         hashedDeviceAndAppId, limitEventUsage);
+            }
+
+            // The code to get all the Extended info is safe but just in case we can wrap the whole
+            // call in its own try/catch block since some of the things it does might cause
+            // unexpected exceptions on rooted/funky devices:
+            try {
+              Utility.setAppEventExtendedDeviceInfoParameters(publishParams, applicationContext);
+            } catch (Exception e) {
+              // Swallow
             }
 
             publishParams.setProperty("application_package_name", packageName);
@@ -1061,7 +1076,13 @@ public class AppEventsLogger {
         private static final HashSet<String> validatedIdentifiers = new HashSet<String>();
         private String name;
 
-        public AppEvent(String eventName, Double valueToSum, Bundle parameters, boolean isImplicitlyLogged) {
+        public AppEvent(
+            Context context,
+            String eventName,
+            Double valueToSum,
+            Bundle parameters,
+            boolean isImplicitlyLogged
+        ) {
 
             validateIdentifier(eventName);
 
@@ -1071,9 +1092,9 @@ public class AppEventsLogger {
             jsonObject = new JSONObject();
 
             try {
-
                 jsonObject.put("_eventName", eventName);
                 jsonObject.put("_logTime", System.currentTimeMillis() / 1000);
+                jsonObject.put("_ui", Utility.getActivityName(context));
 
                 if (valueToSum != null) {
                     jsonObject.put("_valueToSum", valueToSum.doubleValue());

@@ -20,4 +20,4 @@
                   android:label="@string/app_name" />
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
     </application>
-</manifest>
+</manifest> 

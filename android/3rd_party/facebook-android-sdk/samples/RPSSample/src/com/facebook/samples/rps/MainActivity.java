@@ -43,6 +43,7 @@ public class MainActivity extends FragmentActivity {
     private MenuItem settings;
     private MenuItem friends;
     private MenuItem share;
+    private MenuItem message;
     private boolean isResumed = false;
     private UiLifecycleHelper uiHelper;
     private Session.StatusCallback callback = new Session.StatusCallback() {
@@ -133,6 +134,7 @@ public class MainActivity extends FragmentActivity {
         if (fragments[RPS].isVisible()) {
             if (menu.size() == 0) {
                 share = menu.add(R.string.share_on_facebook);
+                message = menu.add(R.string.send_with_messenger);
                 friends = menu.add(R.string.see_friends);
                 settings = menu.add(R.string.check_settings);
             }
@@ -157,6 +159,10 @@ public class MainActivity extends FragmentActivity {
         } else if (item.equals(share)) {
             RpsFragment fragment = (RpsFragment) fragments[RPS];
             fragment.shareUsingNativeDialog();
+            return true;
+        } else if (item.equals(message)) {
+            RpsFragment fragment = (RpsFragment) fragments[RPS];
+            fragment.shareUsingMessengerDialog();
             return true;
         }
         return false;

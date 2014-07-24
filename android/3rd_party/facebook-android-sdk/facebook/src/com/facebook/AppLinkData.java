@@ -24,10 +24,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import com.facebook.internal.NativeProtocol;
-import com.facebook.internal.PlatformServiceClient;
-import com.facebook.internal.Utility;
-import com.facebook.internal.Validate;
+import com.facebook.internal.*;
+import com.facebook.model.GraphObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,12 +46,30 @@ public class AppLinkData {
      */
     public static final String ARGUMENTS_REFERER_DATA_KEY = "referer_data";
 
+    /**
+     * Key that should be used to pull out the native class that would have been used if the applink was deferred.
+     */
+    public static final String ARGUMENTS_NATIVE_CLASS_KEY = "com.facebook.platform.APPLINK_NATIVE_CLASS";
+
+    /**
+     * Key that should be used to pull out the native url that would have been used if the applink was deferred.
+     */
+    public static final String ARGUMENTS_NATIVE_URL = "com.facebook.platform.APPLINK_NATIVE_URL";
+
     static final String BUNDLE_APPLINK_ARGS_KEY = "com.facebook.platform.APPLINK_ARGS";
     private static final String BUNDLE_AL_APPLINK_DATA_KEY = "al_applink_data";
     private static final String APPLINK_BRIDGE_ARGS_KEY = "bridge_args";
     private static final String APPLINK_METHOD_ARGS_KEY = "method_args";
     private static final String APPLINK_VERSION_KEY = "version";
     private static final String BRIDGE_ARGS_METHOD_KEY = "method";
+    private static final String DEFERRED_APP_LINK_EVENT = "DEFERRED_APP_LINK";
+    private static final String DEFERRED_APP_LINK_PATH = "%s/activities";
+
+    private static final String DEFERRED_APP_LINK_ARGS_FIELD = "applink_args";
+    private static final String DEFERRED_APP_LINK_CLASS_FIELD = "applink_class";
+    private static final String DEFERRED_APP_LINK_CLICK_TIME_FIELD = "click_time";
+    private static final String DEFERRED_APP_LINK_URL_FIELD = "applink_url";
+
     private static final String METHOD_ARGS_TARGET_URL_KEY = "target_url";
     private static final String METHOD_ARGS_REF_KEY = "ref";
     private static final String REFERER_DATA_REF_KEY = "fb_ref";
@@ -96,17 +112,47 @@ public class AppLinkData {
 
         Validate.notNull(applicationId, "applicationId");
 
-        DeferredAppLinkDataClient client = new DeferredAppLinkDataClient(context, applicationId);
-        DeferredAppLinkDataClient.CompletedListener callback = new DeferredAppLinkDataClient.CompletedListener() {
+        final Context applicationContext = context.getApplicationContext();
+        final String applicationIdCopy = applicationId;
+        Settings.getExecutor().execute(new Runnable() {
             @Override
-            public void completed(Bundle result) {
-                AppLinkData appLinkData = null;
-                if (result != null) {
-                    final String appLinkArgsJsonString = result.getString(BUNDLE_APPLINK_ARGS_KEY);
-                    final long tapTimeUtc = result.getLong(ARGUMENTS_TAPTIME_KEY, -1);
+            public void run() {
+                fetchDeferredAppLinkFromServer(applicationContext, applicationIdCopy, completionHandler);
+            }
+        });
+    }
 
-                    // Now create the app link
+    private static void fetchDeferredAppLinkFromServer(
+            Context context,
+            String applicationId,
+            final CompletionHandler completionHandler) {
+
+        GraphObject deferredApplinkParams = GraphObject.Factory.create();
+        deferredApplinkParams.setProperty("event", DEFERRED_APP_LINK_EVENT);
+        Utility.setAppEventAttributionParameters(deferredApplinkParams,
+                AttributionIdentifiers.getAttributionIdentifiers(context),
+                Utility.getHashedDeviceAndAppID(context, applicationId),
+                Settings.getLimitEventAndDataUsage(context));
+        deferredApplinkParams.setProperty("application_package_name", context.getPackageName());
+
+        String deferredApplinkUrlPath = String.format(DEFERRED_APP_LINK_PATH, applicationId);
+        AppLinkData appLinkData = null;
+
+        try {
+            Request deferredApplinkRequest = Request.newPostRequest(
+                    null, deferredApplinkUrlPath, deferredApplinkParams, null);
+            Response deferredApplinkResponse = deferredApplinkRequest.executeAndWait();
+            GraphObject wireResponse = deferredApplinkResponse.getGraphObject();
+            JSONObject jsonResponse = wireResponse != null ? wireResponse.getInnerJSONObject() : null;
+            if (jsonResponse != null) {
+                final String appLinkArgsJsonString = jsonResponse.optString(DEFERRED_APP_LINK_ARGS_FIELD);
+                final long tapTimeUtc = jsonResponse.optLong(DEFERRED_APP_LINK_CLICK_TIME_FIELD, -1);
+                final String appLinkClassName = jsonResponse.optString(DEFERRED_APP_LINK_CLASS_FIELD);
+                final String appLinkUrl = jsonResponse.optString(DEFERRED_APP_LINK_URL_FIELD);
+
+                if (appLinkArgsJsonString != null && appLinkArgsJsonString != "") {
                     appLinkData = createFromJson(appLinkArgsJsonString);
+
                     if (tapTimeUtc != -1) {
                         try {
                             if (appLinkData.arguments != null) {
@@ -119,23 +165,39 @@ public class AppLinkData {
                             Log.d(TAG, "Unable to put tap time in AppLinkData.arguments");
                         }
                     }
-                }
-                completionHandler.onDeferredAppLinkDataFetched(appLinkData);
-            }
-        };
-        client.setCompletedListener(callback);
 
-        if (!client.start()) {
-            // there is not a sufficient version of fb4a present to return a deferred app link, so kick off
-            // a call to the completion handler.
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    completionHandler.onDeferredAppLinkDataFetched(null);
+                    if (appLinkClassName != null) {
+                        try {
+                            if (appLinkData.arguments != null) {
+                                appLinkData.arguments.put(ARGUMENTS_NATIVE_CLASS_KEY, appLinkClassName);
+                            }
+                            if (appLinkData.argumentBundle != null) {
+                                appLinkData.argumentBundle.putString(ARGUMENTS_NATIVE_CLASS_KEY, appLinkClassName);
+                            }
+                        } catch (JSONException e) {
+                            Log.d(TAG, "Unable to put tap time in AppLinkData.arguments");
+                        }
+                    }
+
+                    if (appLinkUrl != null) {
+                        try {
+                            if (appLinkData.arguments != null) {
+                                appLinkData.arguments.put(ARGUMENTS_NATIVE_URL, appLinkUrl);
+                            }
+                            if (appLinkData.argumentBundle != null) {
+                                appLinkData.argumentBundle.putString(ARGUMENTS_NATIVE_URL, appLinkUrl);
+                            }
+                        } catch (JSONException e) {
+                            Log.d(TAG, "Unable to put tap time in AppLinkData.arguments");
+                        }
+                    }
                 }
-            });
+            }
+        } catch (Exception e) {
+            Utility.logd(TAG, "Unable to fetch deferred applink from server");
         }
+
+        completionHandler.onDeferredAppLinkDataFetched(appLinkData);
     }
 
     /**
@@ -343,19 +405,5 @@ public class AppLinkData {
          * @param appLinkData The app link data that was fetched. Null if none was found.
          */
         void onDeferredAppLinkDataFetched(AppLinkData appLinkData);
-    }
-
-    final static class DeferredAppLinkDataClient extends PlatformServiceClient {
-
-        DeferredAppLinkDataClient(Context context, String applicationId) {
-            super(context, NativeProtocol.MESSAGE_GET_INSTALL_DATA_REQUEST, NativeProtocol.MESSAGE_GET_INSTALL_DATA_REPLY,
-                    NativeProtocol.PROTOCOL_VERSION_20130618, applicationId);
-        }
-
-        @Override
-        protected void populateRequestBundle(Bundle data) {
-            String packageName = getContext().getPackageName();
-            data.putString(NativeProtocol.EXTRA_GET_INSTALL_DATA_PACKAGE, packageName);
-        }
     }
 }

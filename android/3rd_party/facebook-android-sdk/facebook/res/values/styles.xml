@@ -35,6 +35,8 @@
     <dimen name="com_facebook_profilepictureview_preset_size_small">50dp</dimen>
     <dimen name="com_facebook_profilepictureview_preset_size_normal">100dp</dimen>
     <dimen name="com_facebook_profilepictureview_preset_size_large">180dp</dimen>
+    
+    <dimen name="com_facebook_tooltip_horizontal_padding">10dp</dimen>
 
     <style name="com_facebook_loginview_default_style" parent="@android:style/Widget.Button">
         <item name="android:layout_width">wrap_content</item>
@@ -55,5 +57,14 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#4B5164</item>
         <item name="android:gravity">center</item>
+    </style>
+    
+    <style name="tooltip_bubble_text">
+	    <item name="android:textColor">@android:color/white</item>
+	    <item name="android:gravity">left</item>
+	    <item name="android:textSize">12sp</item>
+	    <item name="android:shadowDy">-1</item>
+	    <item name="android:shadowRadius">0.25</item>
+	    <item name="android:shadowColor">#40000000</item>
     </style>
 </resources>

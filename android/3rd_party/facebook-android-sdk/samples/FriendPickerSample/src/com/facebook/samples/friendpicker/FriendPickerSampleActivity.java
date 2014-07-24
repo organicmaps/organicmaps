@@ -16,6 +16,8 @@
 
 package com.facebook.samples.friendpicker;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -23,7 +25,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.facebook.AppEventsLogger;
+import com.facebook.Session.NewPermissionsRequest;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
@@ -31,8 +35,15 @@ import com.facebook.Session;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class FriendPickerSampleActivity extends FragmentActivity {
+    private static final List<String> PERMISSIONS = new ArrayList<String>() {
+        {
+            add("user_friends");
+            add("public_profile");
+        }
+    };
     private static final int PICK_FRIENDS_ACTIVITY = 1;
     private Button pickFriendsButton;
     private TextView resultsTextView;
@@ -94,19 +105,70 @@ public class FriendPickerSampleActivity extends FragmentActivity {
     private boolean ensureOpenSession() {
         if (Session.getActiveSession() == null ||
                 !Session.getActiveSession().isOpened()) {
-            Session.openActiveSession(this, true, new Session.StatusCallback() {
-                @Override
-                public void call(Session session, SessionState state, Exception exception) {
-                    onSessionStateChanged(session, state, exception);
-                }
-            });
+            Session.openActiveSession(
+                    this, 
+                    true, 
+                    PERMISSIONS,
+                    new Session.StatusCallback() {
+                        @Override
+                        public void call(Session session, SessionState state, Exception exception) {
+                            onSessionStateChanged(session, state, exception);
+                        }
+                    });
             return false;
         }
         return true;
     }
+    
+    private boolean sessionHasNecessaryPerms(Session session) {
+        if (session != null && session.getPermissions() != null) {
+            for (String requestedPerm : PERMISSIONS) {
+                if (!session.getPermissions().contains(requestedPerm)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    private List<String> getMissingPermissions(Session session) {
+        List<String> missingPerms = new ArrayList<String>(PERMISSIONS);
+        if (session != null && session.getPermissions() != null) {
+            for (String requestedPerm : PERMISSIONS) {
+                if (session.getPermissions().contains(requestedPerm)) {
+                    missingPerms.remove(requestedPerm);
+                }
+            }
+        }
+        return missingPerms;
+    }
 
-    private void onSessionStateChanged(Session session, SessionState state, Exception exception) {
-        if (pickFriendsWhenSessionOpened && state.isOpened()) {
+    private void onSessionStateChanged(final Session session, SessionState state, Exception exception) {
+        if (state.isOpened() && !sessionHasNecessaryPerms(session)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.need_perms_alert_text);
+            builder.setPositiveButton(
+                    R.string.need_perms_alert_button_ok, 
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            session.requestNewReadPermissions(
+                                    new NewPermissionsRequest(
+                                            FriendPickerSampleActivity.this, 
+                                            getMissingPermissions(session)));
+                        }
+                    });
+            builder.setNegativeButton(
+                    R.string.need_perms_alert_button_quit,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+            builder.show();
+        } else if (pickFriendsWhenSessionOpened && state.isOpened()) {
             pickFriendsWhenSessionOpened = false;
 
             startPickFriendsActivity();

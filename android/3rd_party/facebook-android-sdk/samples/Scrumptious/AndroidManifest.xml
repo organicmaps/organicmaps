@@ -11,10 +11,11 @@
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
     <application android:label="@string/app_name"
-                 android:icon="@drawable/icon"
+                 android:icon="@drawable/add_food"
                  android:name=".ScrumptiousApplication">
         <activity android:name="MainActivity"
                   android:label="@string/app_name"
+                  android:theme="@style/Theme.Scrumptious"
                   android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -30,4 +31,4 @@
         <provider android:authorities="com.facebook.app.NativeAppCallContentProvider233936543368280"
                   android:name="com.facebook.NativeAppCallContentProvider" />
     </application>
-</manifest>
+</manifest> 

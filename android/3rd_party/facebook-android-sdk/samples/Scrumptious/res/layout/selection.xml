@@ -14,58 +14,88 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:facebook="http://schemas.android.com/apk/res-auto"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#FFF">
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	
+	<RelativeLayout 
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:background="@color/scrumptious_main_orange">
+		
+		<ImageView
+			android:id="@+id/image_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="16dp"
+			android:layout_centerInParent="true"
+			android:scaleType="fitCenter"
+			android:src="@drawable/title_bar_logo"/>
+		
+        <com.facebook.widget.ProfilePictureView
+            android:id="@+id/selection_profile_pic"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal" >
-            <com.facebook.widget.ProfilePictureView
-                android:id="@+id/selection_profile_pic"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center_horizontal"
-                facebook:preset_size="small" />
-            <TextView
-                android:id="@+id/selection_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center"
-                android:textColor="#333"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <com.facebook.scrumptious.FullListView
-            android:id="@+id/selection_list"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/button_border"/>
-
-        <Button
-            android:id="@+id/announce_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:background="@drawable/button_border"
-            android:layout_marginBottom="20dp"
-            android:text="@string/announce"
-            android:gravity="center" />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="right|center_vertical"
+            android:layout_margin="10dp"
+            facebook:preset_size="small" />
+        
+	</RelativeLayout>
+	<ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        android:background="#FFF">
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:orientation="vertical">
+	
+	        <com.facebook.scrumptious.FullListView
+	            android:id="@+id/selection_list"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_margin="20dp"
+	            android:dividerHeight="@dimen/item_list_padding"
+	            android:divider="#00000000"/>
+	
+	        <ImageView 
+	            android:id="@+id/selected_image"
+	            android:layout_width="match_parent"
+	            android:layout_height="0dp"
+	            android:layout_weight="1"
+	            android:layout_marginLeft="50dp"
+	            android:layout_marginRight="50dp"/>
+	        
+	        <TextView
+	            android:id="@+id/announce_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:layout_marginTop="10dp"
+	            android:layout_marginBottom="30dp"
+	            android:text="@string/announce"
+	            android:textColor="@drawable/button_text_color"
+	            android:gravity="center" />
+	
+	        <TextView
+	            android:id="@+id/message_text"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:layout_marginTop="10dp"
+	            android:layout_marginBottom="30dp"
+	            android:text="@string/message"
+	            android:textColor="@drawable/button_text_color"
+	            android:gravity="center"
+	            android:visibility="gone" />
+	    </LinearLayout>
+    </ScrollView>
+</LinearLayout>
 
-    </LinearLayout>
-</ScrollView>
+

@@ -22,5 +22,13 @@
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
                   android:label="@string/app_name" />
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
+        <provider android:authorities="com.facebook.app.NativeAppCallContentProvider355198514515820"
+                  android:name="com.facebook.NativeAppCallContentProvider"
+                  android:exported="true"/>
+        <receiver android:name="com.facebook.samples.hellofacebook.HelloFacebookBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.facebook.platform.AppCallResultBroadcast" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

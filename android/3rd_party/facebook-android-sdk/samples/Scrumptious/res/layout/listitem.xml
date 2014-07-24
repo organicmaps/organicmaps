@@ -23,9 +23,8 @@
 
     <ImageView
             android:id="@+id/icon"
-            android:src="@drawable/action_eating"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
     <LinearLayout
             android:orientation="vertical"
             android:layout_gravity="center_vertical"
@@ -35,16 +34,16 @@
         <TextView
                 android:id="@+id/text1"
                 android:text="test"
-                android:textColor="#333"
+                android:textColor="#FB5820"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         <TextView
                 android:id="@+id/text2"
                 android:text="test2"
-                android:textColor="#6699CC"
+                android:textColor="#E4C897"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

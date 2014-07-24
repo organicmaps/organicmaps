@@ -1,7 +1,8 @@
 apply plugin: 'android-library'
 
 dependencies {
-    compile 'com.android.support:support-v4:19.1.+'
+    compile 'com.android.support:support-v4:20.0.+'
+    compile files('../libs/bolts.jar')
 }
 
 android {
@@ -13,15 +14,15 @@ android {
         targetSdkVersion propTargetSdkVersion.toInteger()
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
             java.srcDirs = ['src']
             res.srcDirs = ['res']
         }
-    }
-
-    lintOptions {
-        abortOnError false
     }
 }

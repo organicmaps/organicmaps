@@ -201,7 +201,11 @@ class GraphObjectPagingLoader<T extends GraphObject> extends Loader<SimpleGraphO
             nextRequest = response.getRequestForPagedResults(Response.PagingDirection.NEXT);
 
             cursorToModify.addGraphObjects(data, fromCache);
-            cursorToModify.setMoreObjectsAvailable(true);
+            if (nextRequest != null) {
+                cursorToModify.setMoreObjectsAvailable(true);
+            } else {
+                cursorToModify.setMoreObjectsAvailable(false);
+            }
         }
 
         if (!haveData) {
