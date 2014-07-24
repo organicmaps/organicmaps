@@ -518,7 +518,7 @@ class DownloadAdapter extends BaseAdapter
       if (position >= 0 && position < mItems.length)
         return position;
       else
-        Log.e(DownloadUI.TAG, "Incorrect item position for: " + idx.toString());
+        Log.e(DownloadActivity.TAG, "Incorrect item position for: " + idx.toString());
     }
     return -1;
   }

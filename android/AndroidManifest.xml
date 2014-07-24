@@ -108,7 +108,7 @@
         </activity>
 
         <activity
-            android:name="com.mapswithme.country.DownloadUI"
+            android:name="com.mapswithme.country.DownloadActivity"
             android:configChanges="orientation|screenLayout|screenSize"
             android:label="@string/download_maps"
             android:screenOrientation="behind" >

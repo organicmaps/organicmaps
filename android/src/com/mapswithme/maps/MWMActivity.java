@@ -26,7 +26,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.mapswithme.country.DownloadUI;
+import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.LocationButtonImageSetter.ButtonState;
 import com.mapswithme.maps.MapStorage.Index;
@@ -661,7 +661,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void runDownloadActivity()
   {
-    startActivity(new Intent(this, DownloadUI.class));
+    startActivity(new Intent(this, DownloadActivity.class));
   }
 
   @Override

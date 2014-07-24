@@ -15,9 +15,9 @@ import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.util.ConnectionState;
 
 
-public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage.Listener
+public class DownloadActivity extends MapsWithMeBaseListActivity implements MapStorage.Listener
 {
-  static String TAG = "DownloadUI";
+  static String TAG = DownloadActivity.class.getName();
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -29,7 +29,7 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
     setListAdapter(new DownloadAdapter(this));
   }
 
-  private DownloadAdapter getDA()
+  private DownloadAdapter getDownloadAdapter()
   {
     return (DownloadAdapter) getListView().getAdapter();
   }
@@ -38,20 +38,20 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
   protected void onResume()
   {
     super.onResume();
-    getDA().onResume(this);
+    getDownloadAdapter().onResume(this);
   }
 
   @Override
   protected void onPause()
   {
     super.onPause();
-    getDA().onPause();
+    getDownloadAdapter().onPause();
   }
 
   @Override
   public void onBackPressed()
   {
-    if (getDA().onBackPressed())
+    if (getDownloadAdapter().onBackPressed())
     {
       // scroll list view to the top
       setSelection(0);
@@ -67,13 +67,13 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
   @Override
   public void onCountryStatusChanged(final Index idx)
   {
-    if (getDA().onCountryStatusChanged(idx) == MapStorage.DOWNLOAD_FAILED)
+    if (getDownloadAdapter().onCountryStatusChanged(idx) == MapStorage.DOWNLOAD_FAILED)
     {
       // Show wireless settings page if no connection found.
       if (ConnectionState.getState(this) == ConnectionState.NOT_CONNECTED)
       {
-        final DownloadUI activity = this;
-        final String country = getDA().mStorage.countryName(idx);
+        final DownloadActivity activity = this;
+        final String country = getDownloadAdapter().mStorage.countryName(idx);
 
         runOnUiThread(new Runnable()
         {
@@ -81,35 +81,34 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
           public void run()
           {
             new AlertDialog.Builder(activity)
-            .setCancelable(false)
-            .setMessage(String.format(getString(R.string.download_country_failed), country))
-            .setPositiveButton(getString(R.string.connection_settings), new DialogInterface.OnClickListener()
-            {
-              @Override
-              public void onClick(DialogInterface dlg, int which)
-              {
-                try
+                .setCancelable(false)
+                .setMessage(String.format(getString(R.string.download_country_failed), country))
+                .setPositiveButton(getString(R.string.connection_settings), new DialogInterface.OnClickListener()
                 {
-                  startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
-                }
-                catch (final Exception ex)
-                {
-                  Log.e(TAG, "Can't run activity:" + ex);
-                }
+                  @Override
+                  public void onClick(DialogInterface dlg, int which)
+                  {
+                    try
+                    {
+                      startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                    } catch (final Exception ex)
+                    {
+                      Log.e(TAG, "Can't run activity:" + ex);
+                    }
 
-                dlg.dismiss();
-              }
-            })
-            .setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener()
-            {
-              @Override
-              public void onClick(DialogInterface dlg, int which)
-              {
-                dlg.dismiss();
-              }
-            })
-            .create()
-            .show();
+                    dlg.dismiss();
+                  }
+                })
+                .setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener()
+                {
+                  @Override
+                  public void onClick(DialogInterface dlg, int which)
+                  {
+                    dlg.dismiss();
+                  }
+                })
+                .create()
+                .show();
           }
         });
       }
@@ -119,6 +118,6 @@ public class DownloadUI extends MapsWithMeBaseListActivity implements MapStorage
   @Override
   public void onCountryProgress(Index idx, long current, long total)
   {
-    getDA().onCountryProgress(getListView(), idx, current, total);
+    getDownloadAdapter().onCountryProgress(getListView(), idx, current, total);
   }
 }
