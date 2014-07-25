@@ -65,4 +65,14 @@ struct TextViewParams : CommonViewParams
   dp::Anchor m_anchor;
 };
 
+struct PathTextViewParams : CommonViewParams
+{
+  FeatureID m_featureID;
+  FontDecl m_TextFont;
+  string m_Text;
+  float m_OffsetStart;
+  float m_OffsetEnd;
+};
+
+
 } // namespace df
