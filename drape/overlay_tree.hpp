@@ -10,7 +10,7 @@
 class OverlayTree
 {
 public:
-  void StartOverlayPlacing(ScreenBase const & screen);
+  void StartOverlayPlacing(ScreenBase const & screen, bool canOverlap = false);
   void Add(RefPointer<OverlayHandle> handle);
   void EndOverlayPlacing();
 
@@ -30,6 +30,7 @@ private:
   ScreenBase m_modelView;
   typedef KDTree::KDTree<4, Node> tree_t;
   tree_t m_tree;
+  bool m_canOverlap;
 
 private:
   typedef buffer_vector<Node const *, 8> find_result_t;

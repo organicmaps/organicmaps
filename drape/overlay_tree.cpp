@@ -2,15 +2,17 @@
 
 #include "../std/bind.hpp"
 
-void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
+void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, bool canOverlap)
 {
   m_modelView = screen;
+  m_canOverlap = canOverlap;
   ASSERT(m_tree.empty(), ());
 }
 
 void OverlayTree::Add(RefPointer<OverlayHandle> handle)
 {
-  handle->SetIsVisible(false);
+  handle->SetIsVisible(m_canOverlap);
+  handle->Update(m_modelView);
   m2::RectD pixelRect = handle->GetPixelRect(m_modelView);
   
   find_result_t elements;
