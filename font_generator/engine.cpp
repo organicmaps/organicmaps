@@ -223,9 +223,7 @@ namespace
             GlyphInfo info;
             info.m_unicodePoint = unicodeCode;
             info.m_glyphIndex = glyphCode;
-            info.m_width = width / sc * secondScale + 2 * border;
-            info.m_height = height / sc * secondScale + 2 * border;
-            info.m_xoff = xoff / sc * secondScale + border;
+            info.m_xoff = xoff / sc * secondScale;
             info.m_yoff = yoff / sc * secondScale - border;
             info.m_advance = advance * scale / sc * secondScale;
             if (info.m_width == 0 || info.m_height == 0)
