@@ -51,6 +51,7 @@ private:
 
   typedef map<GLState, vector<MasterPointer<RenderBucket> > > TScene;
   TScene m_scene;
+  ScreenBase m_modelView;
 
   UniformValuesStorage m_generalUniforms;
 };

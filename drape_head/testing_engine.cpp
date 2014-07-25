@@ -5,10 +5,12 @@
 
 #include "../drape/vertex_array_buffer.hpp"
 #include "../drape/shader_def.hpp"
+#include "../drape/overlay_tree.hpp"
 
 #include "../drape_frontend/visual_params.hpp"
 #include "../drape_frontend/line_shape.hpp"
 #include "../drape_frontend/text_shape.hpp"
+#include "../drape_frontend/path_text_shape.hpp"
 #include "../drape_frontend/area_shape.hpp"
 #include "../drape_frontend/circle_shape.hpp"
 
@@ -303,8 +305,13 @@ void TestingEngine::Draw()
     ApplyUniforms(m_generalUniforms, prg);
 
     vector<MasterPointer<RenderBucket> > & buckets = it->second;
+    OverlayTree tree;
+    tree.StartOverlayPlacing(m_modelView, true);
+    for (size_t i = 0; i < buckets.size(); ++i)
+      buckets[i]->CollectOverlayHandles(MakeStackRefPointer(&tree));
     for (size_t i = 0; i < buckets.size(); ++i)
       buckets[i]->Render();
+    tree.EndOverlayPlacing();
   }
 
   context->present();
@@ -312,6 +319,7 @@ void TestingEngine::Draw()
 
 void TestingEngine::Resize(int w, int h)
 {
+  m_modelView.OnSize(0, 0, w, h);
   m_viewport.SetViewport(0, 0, w, h);
   ModelViewInit();
   ProjectionInit();
@@ -356,7 +364,7 @@ void TestingEngine::DrawImpl()
   fd.m_color = Color(200, 80, 240, 255);
   fd.m_needOutline = true;
   fd.m_outlineColor = Color(255, 255, 255, 255);
-  fd.m_size = 40.0f;
+  fd.m_size = 20.0f;
   FontDecl auxFd;
   auxFd.m_color = Color(0, 80, 240, 255);
   auxFd.m_needOutline = false;
@@ -368,7 +376,7 @@ void TestingEngine::DrawImpl()
   params.m_depth = 10.0f;
   params.m_anchor = dp::LeftBottom;
   params.m_primaryOffset = m2::PointF(0,0);
-  params.m_primaryText = ":P";//\u3832\u3830\u3829\u95B0\u95B3\uADAF\uADAA\u2793\u2794";
+  params.m_primaryText = "åΩ≈ç √2+√3=? ßƒ©˙œ∑†®˙√å˜∂ß©ƒå˚≥÷ˆ¨©∫©√∫˜";
   params.m_primaryTextFont = fd;
   params.m_secondaryTextFont = auxFd;
   params.m_secondaryText = "Странные вещи происходят здесь, the strajjjjjnge things ...";
@@ -378,22 +386,54 @@ void TestingEngine::DrawImpl()
   params.m_featureID = FeatureID(23, 78);
   params.m_depth = -10.0f;
   params.m_anchor = dp::RightTop;
-  params.m_primaryTextFont.m_needOutline = false;
+  //params.m_primaryTextFont.m_needOutline = false;
   TextShape sh2(m2::PointF(250.0f, 250.0f), params);
   //sh2.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+
+  vector<m2::PointF> path;
+
+  path.push_back(m2::PointF(200, 650));
+  path.push_back(m2::PointF(200, 450));
+  for(int i = 16; i >= 0 ; --i)
+  {
+    float r = 200.0f;
+    float x = r * cos((float)i/32.0f*2.0f*M_PI) + 800;
+    float y = r * sin((float)i/32.0f*2.0f*M_PI) + 450;
+    path.push_back(m2::PointF(x, y));
+  }
+  path.push_back(m2::PointF(1600, 450));
+
+  PathTextViewParams params3;
+  params3.m_featureID = FeatureID(23, 78);
+  params3.m_depth = -10.0f;
+  params3.m_OffsetEnd = 1000.0f;
+  params3.m_OffsetStart = 200.0f;
+  params3.m_Text = "åΩ≈ç √2+√3=? ßƒ©˙œ∑†®˙√å˜∂ß©ƒå˚≥÷ˆ¨©∫©√∫˜";
+  params3.m_TextFont = params.m_primaryTextFont;
+  PathTextShape sh3(path, params3);
+  sh3.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 }
 
 void TestingEngine::ModelViewInit()
 {
-  float modelView[4 * 4] =
-  {
-    1.0, 0.0, 0.0, 0.0,
-    0.0, 1.0, 0.0, 0.0,
-    0.0, 0.0, 1.0, 0.0,
-    0.0, 0.0, 0.0, 1.0
-  };
+  math::Matrix<double, 3, 3> m = math::Shift(
+                                        math::Rotate(
+                                            math::Scale(math::Identity<double, 3>(), 1.0, 1.0),
+                                                        0.0),
+                                             0.0, 0.0);
 
-  m_generalUniforms.SetMatrix4x4Value("modelView", modelView);
+  m_modelView.SetGtoPMatrix(m);
+
+  math::Matrix<float, 4, 4> mv;
+
+  /// preparing ModelView matrix
+
+  mv(0, 0) = m(0, 0); mv(0, 1) = m(1, 0); mv(0, 2) = 0; mv(0, 3) = m(2, 0);
+  mv(1, 0) = m(0, 1); mv(1, 1) = m(1, 1); mv(1, 2) = 0; mv(1, 3) = m(2, 1);
+  mv(2, 0) = 0;       mv(2, 1) = 0;       mv(2, 2) = 1; mv(2, 3) = 0;
+  mv(3, 0) = m(0, 2); mv(3, 1) = m(1, 2); mv(3, 2) = 0; mv(3, 3) = m(2, 2);
+
+  m_generalUniforms.SetMatrix4x4Value("modelView", mv.m_data);
 }
 
 void TestingEngine::ProjectionInit()
@@ -409,8 +449,8 @@ void TestingEngine::ProjectionInit()
   memset(m, 0, sizeof(m));
   m[0]  = 2.0f / (right - left);
   m[3]  = - (right + left) / (right - left);
-  m[5]  = 2.0f / (top - bottom);
-  m[7]  = - (top + bottom) / (top - bottom);
+  m[5]  = 2.0f / (bottom - top);
+  m[7]  = - (bottom + top) / (bottom - top);
   m[10] = -2.0f / (far - near);
   m[11] = - (far + near) / (far - near);
   m[15] = 1.0;
