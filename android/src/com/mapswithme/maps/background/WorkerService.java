@@ -12,7 +12,7 @@ import com.mapswithme.util.log.StubLogger;
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
- * <p>
+ * <p/>
  */
 public class WorkerService extends IntentService
 {
@@ -78,16 +78,16 @@ public class WorkerService extends IntentService
   private void handleActionCheckUpdate()
   {
     mLogger.d("Trying to update");
-    if (!Framework.isDataVersionChanged()) return;
+    if (!Framework.nativeIsDataVersionChanged()) return;
 
-    final String countriesToUpdate = Framework.getOutdatedCountriesString();
+    final String countriesToUpdate = Framework.nativeGetOutdatedCountriesString();
     if (!TextUtils.isEmpty(countriesToUpdate))
     {
       mLogger.d("Update available! " + countriesToUpdate);
       mNotifier.placeUpdateAvailable(countriesToUpdate);
     }
     // We are done with current version
-    Framework.updateSavedDataVersion();
+    Framework.nativeUpdateSavedDataVersion();
     mLogger.d("Version updated");
   }
 

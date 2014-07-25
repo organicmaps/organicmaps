@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.util.Log;
@@ -41,13 +42,13 @@ public class StoragePathManager
 {
   public static class StorageItem
   {
-    public final String m_path;
-    public final long   m_size;
+    public final String mPath;
+    public final long mSize;
 
     StorageItem(String path, long size)
     {
-      m_path = path;
-      m_size = size;
+      mPath = path;
+      mSize = size;
     }
 
     @Override
@@ -58,13 +59,13 @@ public class StoragePathManager
       if (o == null)
         return false;
       StorageItem other = (StorageItem) o;
-      return m_size == other.m_size || m_path.equals(other.m_path);
+      return mSize == other.mSize || mPath.equals(other.mPath);
     }
 
     @Override
     public int hashCode()
     {
-      return Long.valueOf(m_size).hashCode();
+      return Long.valueOf(mSize).hashCode();
     }
   }
 
@@ -78,33 +79,33 @@ public class StoragePathManager
   abstract public static class StoragePathAdapter extends BaseAdapter
   {
     abstract public void onItemClick(int position);
-  };
+  }
 
   // / ListView adapter
   private class StoragePathAdapterImpl extends StoragePathAdapter
   {
     // / @name Different row types.
     // @{
-    private static final int     TYPE_HEADER   = 0;
-    private static final int     TYPE_ITEM     = 1;
-    private static final int     HEADERS_COUNT = 1;
-    private static final int     TYPES_COUNT   = 2;
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
+    private static final int HEADERS_COUNT = 1;
+    private static final int TYPES_COUNT = 2;
     // @}
 
-    private final LayoutInflater m_inflater;
-    private final Activity       m_context;
-    private final int            m_listItemHeight;
+    private final LayoutInflater mInflater;
+    private final Activity mContext;
+    private final int mListItemHeight;
 
-    private List<StorageItem>    m_items       = null;
-    private int                  m_current     = -1;
-    private long                 m_sizeNeeded;
+    private List<StorageItem> mItems = null;
+    private int mCurrent = -1;
+    private long mSizeNeeded;
 
     public StoragePathAdapterImpl(Activity context)
     {
-      m_context = context;
-      m_inflater = m_context.getLayoutInflater();
+      mContext = context;
+      mInflater = mContext.getLayoutInflater();
 
-      m_listItemHeight = (int) Utils.getAttributeDimension(context, android.R.attr.listPreferredItemHeight);
+      mListItemHeight = (int) Utils.getAttributeDimension(context, android.R.attr.listPreferredItemHeight);
     }
 
     @Override
@@ -122,13 +123,13 @@ public class StoragePathManager
     @Override
     public int getCount()
     {
-      return (m_items != null ? m_items.size() + HEADERS_COUNT : HEADERS_COUNT);
+      return (mItems != null ? mItems.size() + HEADERS_COUNT : HEADERS_COUNT);
     }
 
     @Override
     public StorageItem getItem(int position)
     {
-      return (position == 0 ? null : m_items.get(getIndexFromPos(position)));
+      return (position == 0 ? null : mItems.get(getIndexFromPos(position)));
     }
 
     @Override
@@ -147,36 +148,36 @@ public class StoragePathManager
 
       switch (getItemViewType(position))
       {
-        case TYPE_HEADER:
+      case TYPE_HEADER:
+      {
+        if (convertView == null)
         {
-          if (convertView == null)
-          {
-            convertView = m_inflater.inflate(android.R.layout.simple_list_item_1, null);
-            convertView.setMinimumHeight(m_listItemHeight);
-          }
-
-          final TextView v = (TextView) convertView;
-          v.setText(m_context.getString(R.string.maps) + ": " + getSizeString(m_sizeNeeded));
-          break;
+          convertView = mInflater.inflate(android.R.layout.simple_list_item_1, null);
+          convertView.setMinimumHeight(mListItemHeight);
         }
 
-        case TYPE_ITEM:
+        final TextView v = (TextView) convertView;
+        v.setText(mContext.getString(R.string.maps) + ": " + getSizeString(mSizeNeeded));
+        break;
+      }
+
+      case TYPE_ITEM:
+      {
+        final int index = getIndexFromPos(position);
+        final StorageItem item = mItems.get(index);
+
+        if (convertView == null)
         {
-          final int index = getIndexFromPos(position);
-          final StorageItem item = m_items.get(index);
-
-          if (convertView == null)
-          {
-            convertView = m_inflater.inflate(android.R.layout.simple_list_item_single_choice, null);
-            convertView.setMinimumHeight(m_listItemHeight);
-          }
-
-          final CheckedTextView v = (CheckedTextView) convertView;
-          v.setText(item.m_path + ": " + getSizeString(item.m_size));
-          v.setChecked(index == m_current);
-          v.setEnabled((index == m_current) || isAvailable(index));
-          break;
+          convertView = mInflater.inflate(android.R.layout.simple_list_item_single_choice, null);
+          convertView.setMinimumHeight(mListItemHeight);
         }
+
+        final CheckedTextView v = (CheckedTextView) convertView;
+        v.setText(item.mPath + ": " + getSizeString(item.mSize));
+        v.setChecked(index == mCurrent);
+        v.setEnabled((index == mCurrent) || isAvailable(index));
+        break;
+      }
       }
 
       return convertView;
@@ -192,9 +193,9 @@ public class StoragePathManager
 
     public void updateList(ArrayList<StorageItem> items, int currentItemIndex, long dirSize)
     {
-      m_sizeNeeded = dirSize;
-      m_items = items;
-      m_current = currentItemIndex;
+      mSizeNeeded = dirSize;
+      mItems = items;
+      mCurrent = currentItemIndex;
 
       notifyDataSetChanged();
     }
@@ -202,7 +203,7 @@ public class StoragePathManager
     @SuppressLint("DefaultLocale")
     private String getSizeString(long size)
     {
-      final String arrS[] = { "Kb", "Mb", "Gb" };
+      final String arrS[] = {"Kb", "Mb", "Gb"};
 
       long current = 1024;
       int i = 0;
@@ -221,40 +222,40 @@ public class StoragePathManager
 
     private boolean isAvailable(int index)
     {
-      assert (index >= 0 && index < m_items.size());
-      return ((m_current != index) && (m_items.get(index).m_size >= m_sizeNeeded));
+      assert (index >= 0 && index < mItems.size());
+      return ((mCurrent != index) && (mItems.get(index).mSize >= mSizeNeeded));
     }
 
     private int getIndexFromPos(int position)
     {
       final int index = position - HEADERS_COUNT;
-      assert (index >= 0 && index < m_items.size());
+      assert (index >= 0 && index < mItems.size());
       return index;
     }
   }
 
-  private static String          TAG                = "StoragePathManager";
-  private static String          MWM_DIR_POSTFIX    = "/MapsWithMe/";
+  private static String TAG = "StoragePathManager";
+  private static String MWM_DIR_POSTFIX = "/MapsWithMe/";
 
-  private BroadcastReceiver      m_externalListener;
-  private BroadcastReceiver      m_internalListener;
-  private Activity               m_context          = null;
-  private ArrayList<StorageItem> m_items            = null;
-  private StoragePathAdapterImpl m_adapter          = null;
-  private int                    m_currentItemIndex = -1;
+  private BroadcastReceiver mExternalListener;
+  private BroadcastReceiver mInternalListener;
+  private Activity mContext = null;
+  private ArrayList<StorageItem> mItems = null;
+  private StoragePathAdapterImpl mAdapter = null;
+  private int mCurrentItemIndex = -1;
 
   public void StartExtStorageWatching(Activity context, BroadcastReceiver listener)
   {
-    m_context = context;
-    m_externalListener = listener;
+    mContext = context;
+    mExternalListener = listener;
 
-    m_internalListener = new BroadcastReceiver()
+    mInternalListener = new BroadcastReceiver()
     {
       @Override
       public void onReceive(Context context, Intent intent)
       {
-        if (m_externalListener != null)
-          m_externalListener.onReceive(context, intent);
+        if (mExternalListener != null)
+          mExternalListener.onReceive(context, intent);
 
         UpdateExternalStorages();
       }
@@ -272,47 +273,47 @@ public class StoragePathManager
     filter.addAction(Intent.ACTION_MEDIA_NOFS);
     filter.addDataScheme("file");
 
-    m_context.registerReceiver(m_internalListener, filter);
+    mContext.registerReceiver(mInternalListener, filter);
     UpdateExternalStorages();
   }
 
   public StoragePathAdapter GetAdapter()
   {
-    if (m_adapter == null)
+    if (mAdapter == null)
     {
-      m_adapter = new StoragePathAdapterImpl(m_context);
+      mAdapter = new StoragePathAdapterImpl(mContext);
       UpdateExternalStorages();
     }
 
-    return m_adapter;
+    return mAdapter;
   }
 
   public void StopExtStorageWatching()
   {
-    if (m_internalListener != null)
+    if (mInternalListener != null)
     {
-      m_context.unregisterReceiver(m_internalListener);
-      m_internalListener = null;
-      m_externalListener = null;
-      m_adapter = null;
+      mContext.unregisterReceiver(mInternalListener);
+      mInternalListener = null;
+      mExternalListener = null;
+      mAdapter = null;
     }
   }
 
   public boolean HasMoreThanOnceStorage()
   {
-    return m_items.size() > 1;
+    return mItems.size() > 1;
   }
 
   public void UpdateExternalStorages()
   {
     ArrayList<String> pathes = new ArrayList<String>();
 
-    if (Utils.apiEqualOrGreaterThan(android.os.Build.VERSION_CODES.KITKAT))
+    if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
     {
-      File[] files = m_context.getExternalFilesDirs(null);
+      File[] files = mContext.getExternalFilesDirs(null);
       if (files != null)
       {
-        File primaryStorageDir = m_context.getExternalFilesDir(null);
+        File primaryStorageDir = mContext.getExternalFilesDir(null);
         for (File f : files)
         {
           // On kitkat and Greater we ignore private folder on primary storage
@@ -324,10 +325,7 @@ public class StoragePathManager
       }
     }
 
-    ParseMountFile("/etc/vold.conf", VOLD_MODE, pathes);
-    ParseMountFile("/etc/vold.fstab", VOLD_MODE, pathes);
-    ParseMountFile("/system/etc/vold.fstab", VOLD_MODE, pathes);
-    ParseMountFile("/proc/mounts", MOUNTS_MODE, pathes);
+    parseMountFiles(pathes);
 
     ArrayList<StorageItem> items = new ArrayList<StorageItem>();
     for (String path : pathes)
@@ -342,24 +340,32 @@ public class StoragePathManager
     if (currentItem != null)
       itemsSet.remove(currentItem);
 
-    m_items = new ArrayList<StorageItem>(itemsSet);
+    mItems = new ArrayList<StorageItem>(itemsSet);
     if (currentItem != null)
     {
-      m_items.add(0, currentItem);
-      m_currentItemIndex = m_items.indexOf(currentItem);
+      mItems.add(0, currentItem);
+      mCurrentItemIndex = mItems.indexOf(currentItem);
     }
     else
-      m_currentItemIndex = -1;
-    if (m_adapter != null)
-      m_adapter.updateList(m_items, m_currentItemIndex, GetMWMDirSize());
+      mCurrentItemIndex = -1;
+    if (mAdapter != null)
+      mAdapter.updateList(mItems, mCurrentItemIndex, GetMWMDirSize());
+  }
+
+  private void parseMountFiles(ArrayList<String> pathes)
+  {
+    ParseMountFile("/etc/vold.conf", VOLD_MODE, pathes);
+    ParseMountFile("/etc/vold.fstab", VOLD_MODE, pathes);
+    ParseMountFile("/system/etc/vold.fstab", VOLD_MODE, pathes);
+    ParseMountFile("/proc/mounts", MOUNTS_MODE, pathes);
   }
 
   /// @name Assume that MapsWithMe folder doesn't have inner folders and symbolic links.
   public long GetMWMDirSize()
   {
-    final File dir = new File(Framework.GetWritableDir());
-    assert(dir.exists());
-    assert(dir.isDirectory());
+    final File dir = new File(Framework.nativeGetWritableDir());
+    assert (dir.exists());
+    assert (dir.isDirectory());
 
     final File[] files = dir.listFiles();
     if (files == null)
@@ -368,7 +374,7 @@ public class StoragePathManager
     long size = 0;
     for (final File f : files)
     {
-      assert(f.isFile());
+      assert (f.isFile());
       size += f.length();
     }
 
@@ -378,13 +384,8 @@ public class StoragePathManager
   public boolean MoveBookmarks()
   {
     ArrayList<String> pathes = new ArrayList<String>();
-    if (Utils.apiEqualOrGreaterThan(android.os.Build.VERSION_CODES.KITKAT))
-    {
-      ParseMountFile("/etc/vold.conf", VOLD_MODE, pathes);
-      ParseMountFile("/etc/vold.fstab", VOLD_MODE, pathes);
-      ParseMountFile("/system/etc/vold.fstab", VOLD_MODE, pathes);
-      ParseMountFile("/proc/mounts", MOUNTS_MODE, pathes);
-    }
+    if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
+      parseMountFiles(pathes);
 
     ArrayList<String> approvedPathes = new ArrayList<String>();
     for (String path : pathes)
@@ -394,10 +395,10 @@ public class StoragePathManager
       if (f.exists() || f.canRead() || f.isDirectory())
         approvedPathes.add(mwmPath);
     }
-    final String settingsDir = Framework.GetSettingsDir();
-    final String writableDir = Framework.GetWritableDir();
-    final String bookmarkDir = Framework.GetBookmarksDir();
-    final String bookmarkFileExt = Framework.GetBookmarkFileExt();
+    final String settingsDir = Framework.nativeGetSettingsDir();
+    final String writableDir = Framework.nativeGetWritableDir();
+    final String bookmarkDir = Framework.nativeGetBookmarkDir();
+    final String bookmarkFileExt = Framework.nativeGetBookmarksExt();
 
     LinkedHashSet<File> bookmarks = new LinkedHashSet<File>();
     if (!settingsDir.equals(writableDir))
@@ -425,14 +426,13 @@ public class StoragePathManager
       {
         copyFile(f, new File(name));
         f.delete();
-      }
-      catch (IOException e)
+      } catch (IOException e)
       {
         return false;
       }
     }
 
-    Framework.ReloadBookmarks();
+    Framework.nativeLoadbookmarks();
 
     return true;
   }
@@ -454,8 +454,8 @@ public class StoragePathManager
 
   private void onStorageItemClick(int index)
   {
-    final StorageItem oldItem = (m_currentItemIndex != -1) ? m_items.get(m_currentItemIndex) : null;
-    final StorageItem item = m_items.get(index);
+    final StorageItem oldItem = (mCurrentItemIndex != -1) ? mItems.get(mCurrentItemIndex) : null;
+    final StorageItem item = mItems.get(index);
     final String path = GetItemFullPath(item);
 
     final File f = new File(path);
@@ -465,13 +465,13 @@ public class StoragePathManager
       return;
     }
 
-    new AlertDialog.Builder(m_context).setCancelable(false).setTitle(R.string.move_maps)
+    new AlertDialog.Builder(mContext).setCancelable(false).setTitle(R.string.move_maps)
         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            SetStoragePathImpl(m_context, new StoragePathManager.SetStoragePathListener()
+            SetStoragePathImpl(mContext, new StoragePathManager.SetStoragePathListener()
             {
               @Override
               public void MoveFilesFinished(String newPath)
@@ -489,22 +489,22 @@ public class StoragePathManager
             dlg.dismiss();
           }
         }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-          }
-        }).create().show();
+    {
+      @Override
+      public void onClick(DialogInterface dlg, int which)
+      {
+        dlg.dismiss();
+      }
+    }).create().show();
   }
 
   public void CheckWritableDir(Context context, SetStoragePathListener listener)
   {
-    if (Utils.apiLowerThan(android.os.Build.VERSION_CODES.KITKAT))
+    if (Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT)
       return;
 
-    final String settingsDir = Framework.GetSettingsDir();
-    final String writableDir = Framework.GetWritableDir();
+    final String settingsDir = Framework.nativeGetSettingsDir();
+    final String writableDir = Framework.nativeGetWritableDir();
 
     if (settingsDir.equals(writableDir))
       return;
@@ -513,9 +513,9 @@ public class StoragePathManager
       return;
 
     final long size = GetMWMDirSize();
-    for (StorageItem item : m_items)
+    for (StorageItem item : mItems)
     {
-      if (item.m_size > size)
+      if (item.mSize > size)
       {
         SetStoragePathImpl(context, listener, item, new StorageItem(GetWritableDirRoot(), 0),
             R.string.kitkat_optimization_in_progress);
@@ -527,7 +527,7 @@ public class StoragePathManager
   }
 
   private void SetStoragePathImpl(Context context, SetStoragePathListener listener, StorageItem newStorage,
-      StorageItem oldStorage, int messageId)
+                                  StorageItem oldStorage, int messageId)
   {
     MoveFilesTask task = new MoveFilesTask(context, listener, newStorage, oldStorage, messageId);
     task.execute("");
@@ -567,15 +567,14 @@ public class StoragePathManager
     {
       for (File moveFile : internalFiles)
         copyFile(moveFile, new File(fullNewPath + moveFile.getName()));
-    }
-    catch (IOException e)
+    } catch (IOException e)
     {
       for (File moveFile : internalFiles)
         new File(fullNewPath + moveFile.getName()).delete();
       return false;
     }
 
-    Framework.SetWritableDir(fullNewPath);
+    Framework.nativeSetWritableDir(fullNewPath);
 
     for (File moveFile : internalFiles)
       moveFile.delete();
@@ -592,8 +591,7 @@ public class StoragePathManager
       inputChannel = new FileInputStream(source).getChannel();
       outputChannel = new FileOutputStream(dest).getChannel();
       outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
-    }
-    finally
+    } finally
     {
       inputChannel.close();
       outputChannel.close();
@@ -602,35 +600,35 @@ public class StoragePathManager
 
   private class MoveFilesTask extends AsyncTask<String, Void, Boolean>
   {
-    private final ProgressDialog         m_dlg;
-    private final StorageItem            m_newStorage;
-    private final StorageItem            m_oldStorage;
-    private final SetStoragePathListener m_listener;
+    private final ProgressDialog mDlg;
+    private final StorageItem mNewStorage;
+    private final StorageItem mOldStorage;
+    private final SetStoragePathListener mListener;
 
     public MoveFilesTask(Context context, SetStoragePathListener listener, StorageItem newStorage,
-        StorageItem oldStorage, int messageID)
+                         StorageItem oldStorage, int messageID)
     {
-      m_newStorage = newStorage;
-      m_oldStorage = oldStorage;
-      m_listener = listener;
+      mNewStorage = newStorage;
+      mOldStorage = oldStorage;
+      mListener = listener;
 
-      m_dlg = new ProgressDialog(context);
-      m_dlg.setMessage(context.getString(messageID));
-      m_dlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-      m_dlg.setIndeterminate(true);
-      m_dlg.setCancelable(false);
+      mDlg = new ProgressDialog(context);
+      mDlg.setMessage(context.getString(messageID));
+      mDlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+      mDlg.setIndeterminate(true);
+      mDlg.setCancelable(false);
     }
 
     @Override
     protected void onPreExecute()
     {
-      m_dlg.show();
+      mDlg.show();
     }
 
     @Override
     protected Boolean doInBackground(String... params)
     {
-      return DoMoveMaps(m_newStorage, m_oldStorage);
+      return DoMoveMaps(mNewStorage, mOldStorage);
     }
 
     @Override
@@ -640,15 +638,14 @@ public class StoragePathManager
       // http://stackoverflow.com/questions/2745061/java-lang-illegalargumentexception-view-not-attached-to-window-manager
       try
       {
-        m_dlg.dismiss();
-      }
-      catch (final Exception e)
+        mDlg.dismiss();
+      } catch (final Exception e)
       {}
 
       if (result)
-        m_listener.MoveFilesFinished(m_newStorage.m_path);
+        mListener.MoveFilesFinished(mNewStorage.mPath);
       else
-        m_listener.MoveFilesFailed();
+        mListener.MoveFilesFailed();
 
       UpdateExternalStorages();
     }
@@ -673,8 +670,7 @@ public class StoragePathManager
           return item;
         }
       }
-    }
-    catch (final IllegalArgumentException ex)
+    } catch (final IllegalArgumentException ex)
     {
       // Suppress exceptions for unavailable storages.
       Log.i(TAG, "StatFs error for storage: " + path);
@@ -683,13 +679,13 @@ public class StoragePathManager
     return null;
   }
 
-  private static int VOLD_MODE   = 1;
+  private static int VOLD_MODE = 1;
   private static int MOUNTS_MODE = 2;
 
   // http://stackoverflow.com/questions/8151779/find-sd-card-volume-label-on-android
   // http://stackoverflow.com/questions/5694933/find-an-external-sd-card-location
   // http://stackoverflow.com/questions/14212969/file-canwrite-returns-false-on-some-devices-although-write-external-storage-pe
-  static private void ParseMountFile(String file, int mode, ArrayList<String> pathes)
+  private static void ParseMountFile(String file, int mode, ArrayList<String> pathes)
   {
     Log.i(TAG, "Parsing " + file);
 
@@ -729,40 +725,36 @@ public class StoragePathManager
             assert (mode == MOUNTS_MODE);
             Log.i(TAG, "Label = " + arr[start + 0] + "; Path = " + arr[start + 1]);
 
-            final String prefixes[] = { "tmpfs", "/dev/block/vold", "/dev/fuse", "/mnt/media_rw" };
+            final String prefixes[] = {"tmpfs", "/dev/block/vold", "/dev/fuse", "/mnt/media_rw"};
             for (final String s : prefixes)
               if (arr[start + 0].startsWith(s))
                 pathes.add(arr[start + 1]);
           }
         }
       }
-    }
-    catch (final IOException e)
+    } catch (final IOException e)
     {
       Log.w(TAG, "Can't read file: " + file);
-    }
-    finally
+    } finally
     {
       Utils.closeStream(reader);
     }
   }
 
   @SuppressWarnings("deprecation")
-  @SuppressLint("NewApi")
   static private long GetFreeBytesAtPath(String path)
   {
     long size = 0;
     try
     {
-      if (Utils.apiLowerThan(android.os.Build.VERSION_CODES.GINGERBREAD))
+      if (Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.GINGERBREAD)
       {
         final StatFs stat = new StatFs(path);
         size = stat.getAvailableBlocks() * (long) stat.getBlockSize();
       }
       else
         size = new File(path).getFreeSpace();
-    }
-    catch (RuntimeException e)
+    } catch (RuntimeException e)
     {
       Log.d(TAG, e.getMessage());
       Log.d(TAG, e.getStackTrace().toString());
@@ -789,12 +781,12 @@ public class StoragePathManager
 
   static private String GetItemFullPath(StorageItem item)
   {
-    return item.m_path + MWM_DIR_POSTFIX;
+    return item.mPath + MWM_DIR_POSTFIX;
   }
 
   static private String GetWritableDirRoot()
   {
-    String writableDir = Framework.GetWritableDir();
+    String writableDir = Framework.nativeGetWritableDir();
     int index = writableDir.lastIndexOf(MWM_DIR_POSTFIX);
     if (index != -1)
       writableDir = writableDir.substring(0, index);

@@ -635,7 +635,7 @@ public class MWMActivity extends NvEventQueueActivity
     final Location loc = MWMApplication.get().getLocationService().getLastKnown();
     if (loc != null)
     {
-      final String geoUrl = Framework.getGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
+      final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
       final String httpUrl = Framework.getHttpGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
       final String body = getString(R.string.my_position_share_sms, geoUrl, httpUrl);
       // we use shortest message we can have here
@@ -690,7 +690,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     setUpInfoBox();
 
-    Framework.connectBalloonListeners(this);
+    Framework.nativeConnectBalloonListeners(this);
 
     final Intent intent = getIntent();
     // We need check for tasks both in onCreate and onNewIntent
@@ -774,7 +774,7 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onDestroy()
   {
-    Framework.clearBalloonListeners();
+    Framework.nativeClearBalloonListeners();
 
     super.onDestroy();
   }

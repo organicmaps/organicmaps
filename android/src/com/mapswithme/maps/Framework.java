@@ -6,118 +6,41 @@ import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
-import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.guides.GuideInfo;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
 
 /**
- *  This class wraps android::Framework.cpp class
- *  via static methods
+ * This class wraps android::Framework.cpp class
+ * via static methods
  */
 public class Framework
 {
   public interface OnBalloonListener
   {
     public void onApiPointActivated(double lat, double lon, String name, String id);
+
     public void onPoiActivated(String name, String type, String address, double lat, double lon);
+
     public void onBookmarkActivated(int category, int bookmarkIndex);
+
     public void onMyPositionActivated(double lat, double lon);
+
     public void onAdditionalLayerActivated(String name, String type, double lat, double lon);
+
     public void onDismiss();
   }
-  
-  static public String GetSettingsDir()
-  {
-    return nativeGetSettingsDir();
-  }
-  
-  static public String GetBookmarksDir()
-  {
-    return nativeGetBookmarkDir();
-  }
-  
-  static public String GetWritableDir()
-  {
-    return nativeGetWritableDir();
-  }
-  
-  static public String GetBookmarkFileExt()
-  {
-    return nativeGetBookmarksExt();
-  }
-  
-  static public void SetWritableDir(String newPath)
-  {
-    nativeSetWritableDir(newPath);
-  }
-  
-  static public void ReloadBookmarks()
-  {
-    nativeLoadbookmarks();
-  }
 
-  // Interface
-
-  public static String getGe0Url(double lat, double lon, double zoomLevel, String name)
-  {
-    return nativeGetGe0Url(lat, lon, zoomLevel, name);
-  }
+  // this class is just bridge between Java and C++ worlds, we must not create it
+  private Framework()
+  {}
 
   public static String getHttpGe0Url(double lat, double lon, double zoomLevel, String name)
   {
-    return getGe0Url(lat, lon, zoomLevel, name).replaceFirst("ge0://", "http://ge0.me/");
+    return nativeGetGe0Url(lat, lon, zoomLevel, name).replaceFirst(Constants.GE0_PREFIX, Constants.HTTP_GE0_PREFIX);
   }
 
-  public static String getNameAndAddress4Point(double lat, double lon)
-  {
-    return nativeGetNameAndAddress4Point(lat, lon);
-  }
-
-  public static void connectBalloonListeners(OnBalloonListener listener)
-  {
-    nativeConnectBalloonListeners(listener);
-  }
-
-  public static void clearBalloonListeners()
-  {
-    nativeClearBalloonListeners();
-  }
-
-  public static DistanceAndAzimut getDistanceAndAzimut(double merX, double merY, double cLat, double cLon, double north)
-  {
-    return nativeGetDistanceAndAzimut(merX, merY, cLat, cLon, north);
-  }
-
-  public static DistanceAndAzimut getDistanceAndAzimutFromLatLon(double lat, double lon, double cLat, double cLon, double north)
-  {
-    return nativeGetDistanceAndAzimutFromLatLon(lat, lon, cLat, cLon, north);
-  }
-
-  public static String formatLatLon(double lat, double lon, boolean useDMSFormat)
-  {
-    return nativeFormatLatLon(lat, lon, useDMSFormat);
-  }
-
-  public static String getOutdatedCountriesString()
-  {
-    return nativeGetOutdatedCountriesString();
-  }
-
-  public static boolean isDataVersionChanged()
-  {
-    return nativeIsDataVersionChanged();
-  }
-
-  public static void updateSavedDataVersion()
-  {
-    nativeUpdateSavedDataVersion();
-  }
-
-  public static void showTrackRect(Track track)
-  {
-    nativeShowTrackRect(track.getCategoryId(), track.getTrackId());
-  }
-  private static native void nativeShowTrackRect(int category, int track);
+  public static native void nativeShowTrackRect(int category, int track);
 
   // guides
   public native static GuideInfo getGuideInfoForIndex(Index idx);
@@ -130,9 +53,6 @@ public class Framework
       return getGuideInfoForIndex(idx);
   }
 
-  public native static void        setWasAdvertised(String appId);
-  public native static boolean     wasAdvertised(String appId);
-
   public static GuideInfo getGuideInfoForIdWithApiCheck(String id)
   {
     if (Utils.apiLowerThan(Build.VERSION_CODES.HONEYCOMB))
@@ -140,53 +60,68 @@ public class Framework
     else
       return getGuideById(id);
   }
-  public native static String[]    getGuideIds();
-  public native static GuideInfo   getGuideById(String id);
 
-  //
+  public native static void setWasAdvertised(String appId);
+
+  public native static boolean wasAdvertised(String appId);
+
+  public native static String[] getGuideIds();
+
+  public native static GuideInfo getGuideById(String id);
 
   public native static int getDrawScale();
+
   public native static double[] getScreenRectCenter();
 
-  /*
-   *  "Implementation" - native methods
-   */
-  private native static DistanceAndAzimut nativeGetDistanceAndAzimut(double merX, double merY, double cLat, double cLon, double north);
-  private native static DistanceAndAzimut nativeGetDistanceAndAzimutFromLatLon(double lat, double lon, double cLat, double cLon, double north);
+  public native static DistanceAndAzimut nativeGetDistanceAndAzimut(double merX, double merY, double cLat, double cLon, double north);
 
-  private native static String nativeFormatLatLon(double lat, double lon, boolean useDMSFormat);
+  public native static DistanceAndAzimut nativeGetDistanceAndAzimutFromLatLon(double lat, double lon, double cLat, double cLon, double north);
 
-  private native static String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
-  private native static String nativeGetNameAndAddress4Point(double lat, double lon);
+  public native static String nativeFormatLatLon(double lat, double lon, boolean useDMSFormat);
+
+  public native static String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
+
+  public native static String nativeGetNameAndAddress4Point(double lat, double lon);
+
   public native static MapObject nativeGetMapObjectForPoint(double lat, double lon);
   public native static void nativeActivateUserMark(double lat, double lon);
 
-  private native static void nativeConnectBalloonListeners(OnBalloonListener listener);
-  private native static void nativeClearBalloonListeners();
+  public native static void nativeConnectBalloonListeners(OnBalloonListener listener);
 
-  private native static String nativeGetOutdatedCountriesString();
-  private native static boolean nativeIsDataVersionChanged();
-  private native static void nativeUpdateSavedDataVersion();
+  public native static void nativeClearBalloonListeners();
+
+  public native static String nativeGetOutdatedCountriesString();
+
+  public native static boolean nativeIsDataVersionChanged();
+
+  public native static void nativeUpdateSavedDataVersion();
 
   public native static void nativeClearApiPoints();
 
-
-  // this class is just bridge between Java and C++ worlds, we must not create it
-  private Framework() {}
-
   public native static void injectData(SearchResult searchResult, long index);
+
   public native static void cleanSearchLayerOnMap();
+
   public native static void invalidate();
-  
+
   public native static String[] nativeGetMovableFilesExt();
-  private native static String   nativeGetBookmarksExt();
-  private native static String   nativeGetBookmarkDir();
-  private native static String   nativeGetSettingsDir();
-  private native static String   nativeGetWritableDir();
-  private native static void     nativeSetWritableDir(String newPath);
-  private native static void     nativeLoadbookmarks();
+
+  public native static String nativeGetBookmarksExt();
+
+  public native static String nativeGetBookmarkDir();
+
+  public native static String nativeGetSettingsDir();
+
+  public native static String nativeGetWritableDir();
+
+  public native static void nativeSetWritableDir(String newPath);
+
+  public native static void nativeLoadbookmarks();
+
   // routing
-  public native static boolean  nativeIsRoutingEnabled();
-  public native static void     nativeSetRouteStart(double lat, double lon);
-  public native static void     nativeSetRouteEnd(double lat, double lon);
+  public native static boolean nativeIsRoutingEnabled();
+
+  public native static void nativeSetRouteStart(double lat, double lon);
+
+  public native static void nativeSetRouteEnd(double lat, double lon);
 }

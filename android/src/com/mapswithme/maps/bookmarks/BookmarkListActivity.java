@@ -1,8 +1,8 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -67,20 +67,20 @@ public class BookmarkListActivity extends MapsWithMeBaseListActivity
       {
         switch (mPinAdapter.getItemViewType(position))
         {
-          case BookmarkListAdapter.TYPE_SECTION:
-            return;
-          case BookmarkListAdapter.TYPE_BMK:
-          {
-            final Bookmark bmk = (Bookmark) mPinAdapter.getItem(position);
-            mManager.showBookmarkOnMap(setIndex, bmk.getBookmarkId());
-            break;
-          }
-          case BookmarkListAdapter.TYPE_TRACK:
-          {
-            final Track track = (Track) mPinAdapter.getItem(position);
-            Framework.showTrackRect(track);
-            break;
-          }
+        case BookmarkListAdapter.TYPE_SECTION:
+          return;
+        case BookmarkListAdapter.TYPE_BMK:
+        {
+          final Bookmark bmk = (Bookmark) mPinAdapter.getItem(position);
+          mManager.showBookmarkOnMap(setIndex, bmk.getBookmarkId());
+          break;
+        }
+        case BookmarkListAdapter.TYPE_TRACK:
+        {
+          final Track track = (Track) mPinAdapter.getItem(position);
+          Framework.nativeShowTrackRect(track.getCategoryId(), track.getTrackId());
+          break;
+        }
         }
 
         final Intent i = new Intent(BookmarkListActivity.this, MWMActivity.class);
@@ -189,6 +189,7 @@ public class BookmarkListActivity extends MapsWithMeBaseListActivity
       super.onCreateContextMenu(menu, v, menuInfo);
     }
   }
+
   private final static int MENU_DELETE_TRACK = 0x42;
 
   @Override
@@ -223,7 +224,7 @@ public class BookmarkListActivity extends MapsWithMeBaseListActivity
   private void startPinActivity(int cat, int bmk)
   {
     startActivity(new Intent(this, BookmarkActivity.class)
-    .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk)));
+        .putExtra(BookmarkActivity.PIN, new ParcelablePoint(cat, bmk)));
   }
 
   @Override
@@ -276,8 +277,7 @@ public class BookmarkListActivity extends MapsWithMeBaseListActivity
     try
     {
       startActivity(Intent.createChooser(intent, getString(R.string.share_by_email)));
-    }
-    catch (final Exception ex)
+    } catch (final Exception ex)
     {
       Log.i(TAG, "Can't run E-Mail activity" + ex);
     }
@@ -286,17 +286,16 @@ public class BookmarkListActivity extends MapsWithMeBaseListActivity
   // Menu routines
   private static final int ID_SEND_BY_EMAIL = 0x01;
 
-  @SuppressLint({ "InlinedApi", "NewApi" })
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
   {
-    final MenuItem menuItem =  menu.add(Menu.NONE,
-                         ID_SEND_BY_EMAIL,
-                         ID_SEND_BY_EMAIL,
-                         R.string.share_by_email);
+    final MenuItem menuItem = menu.add(Menu.NONE,
+        ID_SEND_BY_EMAIL,
+        ID_SEND_BY_EMAIL,
+        R.string.share_by_email);
 
     menuItem.setIcon(R.drawable.share);
-    if (Utils.apiEqualOrGreaterThan(11))
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
       menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
     return true;

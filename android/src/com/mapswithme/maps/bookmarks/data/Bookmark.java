@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Constants;
 
 public class Bookmark extends MapObject
 {
@@ -12,6 +13,7 @@ public class Bookmark extends MapObject
   private int mBookmark;
   private double mMerX;
   private double mMerY;
+
   /* package */ Bookmark(int categoryId, int bookmarkId, String name)
   {
     super(name, 0, 0, "");
@@ -24,12 +26,15 @@ public class Bookmark extends MapObject
   }
 
   private native ParcelablePointD getXY(int c, long b);
+
   private native String getIcon(int c, long b);
 
   private native double getScale(int category, long bookmark);
+
   private native String encode2Ge0Url(int category, long bookmark, boolean addName);
 
   private native void setBookmarkParams(int c, long b, String name, String type, String descr);
+
   private native int changeCategory(int oldCat, int newCat, long bmk);
 
   private native String getBookmarkDescription(int categoryId, long bookmark);
@@ -46,15 +51,15 @@ public class Bookmark extends MapObject
     mMerX = ll.x;
     mMerY = ll.y;
 
-    final double yRad = ll.y*Math.PI/180.0;
-    final double lat = (180.0/Math.PI)*(2.0 * Math.atan(Math.exp(yRad)) - Math.PI/2.0);
+    final double yRad = ll.y * Math.PI / 180.0;
+    final double lat = (180.0 / Math.PI) * (2.0 * Math.atan(Math.exp(yRad)) - Math.PI / 2.0);
     mLat = lat;
     mLon = ll.x;
   }
 
   public DistanceAndAzimut getDistanceAndAzimut(double cLat, double cLon, double north)
   {
-    return Framework.getDistanceAndAzimut(mMerX, mMerY, cLat, cLon, north);
+    return Framework.nativeGetDistanceAndAzimut(mMerX, mMerY, cLat, cLon, north);
   }
 
   @Override
@@ -136,9 +141,7 @@ public class Bookmark extends MapObject
 
   public String getHttpGe0Url(boolean addName)
   {
-    String url = getGe0Url(addName);
-    url = url.replaceFirst("ge0://", "http://ge0.me/");
-    return url;
+    return getGe0Url(addName).replaceFirst(Constants.GE0_PREFIX, Constants.HTTP_GE0_PREFIX);
   }
 
   @Override

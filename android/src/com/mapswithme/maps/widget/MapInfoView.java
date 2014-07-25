@@ -475,8 +475,8 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
           final String copyText = getResources().getString(android.R.string.copy);
           final String arrCoord[] = {
-              UiUtils.formatLatLon(lat, lon, false),
-              UiUtils.formatLatLon(lat, lon, true)};
+              Framework.nativeFormatLatLon(lat, lon, false),
+              Framework.nativeFormatLatLon(lat, lon, true)};
 
           menu.add(Menu.NONE, 0, 0, String.format("%s %s", copyText, arrCoord[0]));
           menu.add(Menu.NONE, 1, 1, String.format("%s %s", copyText, arrCoord[1]));
@@ -521,7 +521,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
       if (l != null)
       {
-        final DistanceAndAzimut distanceAndAzimuth = Framework.getDistanceAndAzimutFromLatLon(mMapObject.getLat(),
+        final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(mMapObject.getLat(),
             mMapObject.getLon(), l.getLatitude(), l.getLongitude(), 0.0);
         mDistanceText.setText(distanceAndAzimuth.getDistance());
       }
@@ -532,7 +532,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   {
     final double lat = mMapObject.getLat();
     final double lon = mMapObject.getLon();
-    mTvCoords.setText(UiUtils.formatLatLon(lat, lon, mIsLatLonDms));
+    mTvCoords.setText(Framework.nativeFormatLatLon(lat, lon, mIsLatLonDms));
   }
 
   public void updateAzimuth(double northAzimuth)
@@ -542,9 +542,9 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       final Location l = MWMApplication.get().getLocationService().getLastKnown();
       if (l != null)
       {
-        final DistanceAndAzimut da = Framework.getDistanceAndAzimutFromLatLon(
-                mMapObject.getLat(), mMapObject.getLon(),
-                l.getLatitude(), l.getLongitude(), northAzimuth);
+        final DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimutFromLatLon(
+            mMapObject.getLat(), mMapObject.getLon(),
+            l.getLatitude(), l.getLongitude(), northAzimuth);
 
         if (da.getAthimuth() >= 0)
           mAvDirection.setAzimut(da.getAthimuth());

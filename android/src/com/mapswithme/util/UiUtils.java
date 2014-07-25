@@ -1,6 +1,5 @@
 package com.mapswithme.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,23 +20,16 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import static com.mapswithme.util.Utils.checkNotNull;
 
 public final class UiUtils
 {
-
-  public static String formatLatLon(double lat, double lon, boolean useDMSFormat)
-  {
-    return Framework.formatLatLon(lat, lon, useDMSFormat);
-  }
 
   public static Drawable setCompoundDrawableBounds(Drawable d, int dimenId, Resources res)
   {
@@ -146,8 +138,7 @@ public final class UiUtils
     return new BitmapDrawable(res, bmp);
   }
 
-  @SuppressLint("DefaultLocale")
-  public static final int colorByName(String name, int defColor)
+  public static int colorByName(String name, int defColor)
   {
     if (COLOR_MAP.containsKey(name.trim().toLowerCase()))
       return COLOR_MAP.get(name);

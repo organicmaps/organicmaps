@@ -1,8 +1,4 @@
-
 package com.mapswithme.util;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -19,6 +15,9 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class ShareAction
 {
@@ -94,7 +93,7 @@ public abstract class ShareAction
     {
       final String name = context.getResources().getString(getNameResId());
       final MenuItem menuItem = menu.add(Menu.NONE, getId(), getId(), name);
-      if (Utils.apiEqualOrGreaterThan(11) && showAsAction)
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && showAsAction)
         menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
       return menuItem;
     }
@@ -110,21 +109,19 @@ public abstract class ShareAction
   {
     final Intent intent = getIntent();
     intent.putExtra(Intent.EXTRA_TEXT, body)
-          .putExtra(Intent.EXTRA_SUBJECT, subject);
+        .putExtra(Intent.EXTRA_SUBJECT, subject);
 
     activity.startActivity(intent);
   }
 
   /**
-   *
    * BASE share method
-   *
    */
   public void shareMapObject(Activity activity, MapObject mapObject)
   {
-    final String ge0Url  = Framework.getGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getName());
+    final String ge0Url = Framework.nativeGetGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getName());
     final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), mapObject.getName());
-    final String address = Framework.getNameAndAddress4Point(mapObject.getLat(), mapObject.getLon());
+    final String address = Framework.nativeGetNameAndAddress4Point(mapObject.getLat(), mapObject.getLon());
 
     final int bodyId = mapObject.getType() == MapObjectType.MY_POSITION ? R.string.my_position_share_email : R.string.bookmark_share_email;
     final int subjectId = mapObject.getType() == MapObjectType.MY_POSITION ? R.string.my_position_share_email_subject : R.string.bookmark_share_email_subject;
@@ -138,9 +135,7 @@ public abstract class ShareAction
   }
 
   /**
-   *
    * SMS
-   *
    */
   public static class SmsShareAction extends ShareAction
   {
@@ -153,7 +148,7 @@ public abstract class ShareAction
     public void shareWithText(Activity activity, String body, String subject)
     {
       Intent smsIntent = null;
-      if (Utils.apiEqualOrGreaterThan(Build.VERSION_CODES.KITKAT))
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
       {
         final String defaultSms = Telephony.Sms.getDefaultSmsPackage(activity);
         smsIntent = new Intent(Intent.ACTION_SEND);
@@ -173,7 +168,7 @@ public abstract class ShareAction
     @Override
     public void shareMapObject(Activity activity, MapObject mapObject)
     {
-      final String ge0Url  = Framework.getGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
+      final String ge0Url = Framework.nativeGetGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
       final String httpUrl = Framework.getHttpGe0Url(mapObject.getLat(), mapObject.getLon(), mapObject.getScale(), "");
 
       final int bodyId = mapObject.getType() == MapObjectType.MY_POSITION ? R.string.my_position_share_sms : R.string.bookmark_share_sms;
@@ -187,9 +182,7 @@ public abstract class ShareAction
   }
 
   /**
-   *
    * EMAIL
-   *
    */
   public static class EmailShareAction extends ShareAction
   {
@@ -200,9 +193,7 @@ public abstract class ShareAction
   }
 
   /**
-   *
    * ANYTHING
-   *
    */
   public static class AnyShareAction extends ShareAction
   {
@@ -216,7 +207,7 @@ public abstract class ShareAction
     {
       final Intent intent = getIntent();
       intent.putExtra(Intent.EXTRA_TEXT, body)
-            .putExtra(Intent.EXTRA_SUBJECT, subject);
+          .putExtra(Intent.EXTRA_SUBJECT, subject);
       final String header = activity.getString(R.string.share);
       activity.startActivity(Intent.createChooser(intent, header));
     }
