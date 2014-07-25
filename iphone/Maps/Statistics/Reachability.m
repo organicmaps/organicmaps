@@ -1,7 +1,7 @@
 
 #import "Reachability.h"
 
-NSString *const kReachabilityChangedNotification = @"kReachabilityChangedNotification";
+NSString *const NetworkReachabilityChangedNotification = @"NetworkReachabilityChangedNotification";
 
 @interface Reachability ()
 
@@ -328,7 +328,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
   // this makes sure the change notification happens on the MAIN THREAD
   dispatch_async(dispatch_get_main_queue(), ^{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kReachabilityChangedNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName:NetworkReachabilityChangedNotification
                                                         object:self];
   });
 }
