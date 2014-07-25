@@ -376,7 +376,7 @@ void TestingEngine::DrawImpl()
   params.m_depth = 10.0f;
   params.m_anchor = dp::LeftBottom;
   params.m_primaryOffset = m2::PointF(0,0);
-  params.m_primaryText = "åΩ≈ç √2+√3=? ßƒ©˙œ∑†®˙√å˜∂ß©ƒå˚≥÷ˆ¨©∫©√∫˜";
+  params.m_primaryText = "hjksdfhjajsdf";
   params.m_primaryTextFont = fd;
   params.m_secondaryTextFont = auxFd;
   params.m_secondaryText = "Странные вещи происходят здесь, the strajjjjjnge things ...";
@@ -388,7 +388,7 @@ void TestingEngine::DrawImpl()
   params.m_anchor = dp::RightTop;
   //params.m_primaryTextFont.m_needOutline = false;
   TextShape sh2(m2::PointF(250.0f, 250.0f), params);
-  //sh2.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  sh2.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
   vector<m2::PointF> path;
 
@@ -406,9 +406,9 @@ void TestingEngine::DrawImpl()
   PathTextViewParams params3;
   params3.m_featureID = FeatureID(23, 78);
   params3.m_depth = -10.0f;
-  params3.m_OffsetEnd = 1000.0f;
-  params3.m_OffsetStart = 200.0f;
-  params3.m_Text = "åΩ≈ç √2+√3=? ßƒ©˙œ∑†®˙√å˜∂ß©ƒå˚≥÷ˆ¨©∫©√∫˜";
+  params3.m_OffsetEnd = 4000.0f;
+  params3.m_OffsetStart = 100.0f;
+  params3.m_Text = "√2+√3=?-----------------+";
   params3.m_TextFont = params.m_primaryTextFont;
   PathTextShape sh3(path, params3);
   sh3.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
