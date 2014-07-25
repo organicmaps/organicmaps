@@ -325,6 +325,13 @@ static void onSearchResultCallback(search::Results const & results)
 
 - (void)frameworkDidAddSearchResult:(SearchResultsWrapper *)wrapper
 {
+  // special buben for situation when textfield is empty and we should show categories (cause 'self.wrapper' == nil)
+  // but callbacks from previous non-empty search are coming and modifying 'self.wrapper'
+  // so, we see previous search results with empty textfield
+  if (![self.searchBar.textField.text length])
+    return;
+  // -----------------------------------------
+
   if ([wrapper isEndMarker])
   {
     if ([wrapper isEndedNormal])
