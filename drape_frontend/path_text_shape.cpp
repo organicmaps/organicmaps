@@ -23,26 +23,6 @@ using m2::PointF;
 namespace
 {
   static float const realFontSize = 20.0f;
-  float angelFromDir(float x, float y)
-  {
-    float const gip = sqrtf(x*x + y*y);
-    float const cosa = x / gip;
-    if(y > 0)
-      return acosf(cosa) * 180.0f / M_PI;
-    else
-      return 360.0f - acosf(cosa) * 180.0f / M_PI;
-  }
-
-  struct ColorF
-  {
-    ColorF() {}
-    ColorF(float r, float g, float b, float a):m_r(r), m_g(g), m_b(b), m_a(a){}
-
-    float m_r;
-    float m_g;
-    float m_b;
-    float m_a;
-  };
 
   struct TexCoord
   {
@@ -61,7 +41,7 @@ namespace
   struct Position
   {
     Position() {}
-    Position(float x, float y):m_x(x), m_y(y){}
+    Position(float x, float y) : m_x(x), m_y(y){}
 
     float m_x;
     float m_y;
@@ -78,8 +58,8 @@ namespace
   };
 }
 
-PathTextShape::PathTextShape(vector<PointF> const & path, PathTextViewParams const & params):
-  m_params(params)
+PathTextShape::PathTextShape(vector<PointF> const & path, PathTextViewParams const & params)
+  : m_params(params)
 {
   m_path.FromArray(path);
 }
@@ -91,15 +71,11 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
 
   // Fill buffers
   int const cnt = text.size();
-  vector<Buffer> buffers;
+  vector<Buffer> buffers(1);
   float const needOutline = m_params.m_TextFont.m_needOutline;
 
-  Spline::iterator itr;
-  itr.Attach(m_path);
-  itr.Step(0.0f);
-
   int textureSet;
-  for (int i = 0 ; i < cnt ; i++)
+  for (int i = 0; i < cnt; i++)
   {
     TextureSetHolder::GlyphRegion region;
     textures->GetGlyphRegion(text[i], region);
@@ -112,16 +88,15 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
     float const aspect = fontSize / realFontSize;
 
     textureSet = region.GetTextureNode().m_textureSet;
-    while (buffers.size() <=  textureSet)
-    {
-      buffers.push_back(Buffer());
-    }
+    if (buffers.size() < textureSet)
+      buffers.resize(textureSet + 1);
+
     Buffer & curBuffer = buffers[textureSet];
 
     curBuffer.m_info.push_back(
                 LetterInfo(xOffset, yOffset, advance + curBuffer.m_offset, halfWidth, halfHeight));
 
-    for(int i = 0; i < buffers.size(); ++i)
+    for (int i = 0; i < buffers.size(); ++i)
       buffers[i].m_offset += advance;
 
     curBuffer.m_offset = 0;
@@ -132,15 +107,11 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
     halfWidth *= aspect;
     halfHeight *= aspect;
 
-    itr.Step(advance);
-
-    m2::RectF const rect = region.GetTexRect();
+    m2::RectF const & rect = region.GetTexRect();
     float const textureNum = (region.GetTextureNode().m_textureOffset << 1) + needOutline;
 
-    Color clr = m_params.m_TextFont.m_color;
-    ColorF const base(clr.m_red / 255.0f, clr.m_green / 255.0f, clr.m_blue / 255.0f, clr.m_alfa / 255.0f);
-    clr = m_params.m_TextFont.m_outlineColor;
-    ColorF const outline(clr.m_red / 255.0f, clr.m_green / 255.0f, clr.m_blue / 255.0f, clr.m_alfa / 255.0f);
+    ColorF const base(m_params.m_TextFont.m_color);
+    ColorF const outline(m_params.m_TextFont.m_outlineColor);
 
     curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.minY(), textureNum, m_params.m_depth));
     curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth));
@@ -150,34 +121,15 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
     curBuffer.m_uvs.push_back(TexCoord(rect.maxX(), rect.minY(), textureNum, m_params.m_depth));
     curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth));
 
-    curBuffer.m_baseColor.push_back(base);
-    curBuffer.m_baseColor.push_back(base);
-    curBuffer.m_baseColor.push_back(base);
-
-    curBuffer.m_baseColor.push_back(base);
-    curBuffer.m_baseColor.push_back(base);
-    curBuffer.m_baseColor.push_back(base);
-
-    curBuffer.m_outlineColor.push_back(outline);
-    curBuffer.m_outlineColor.push_back(outline);
-    curBuffer.m_outlineColor.push_back(outline);
-
-    curBuffer.m_outlineColor.push_back(outline);
-    curBuffer.m_outlineColor.push_back(outline);
-    curBuffer.m_outlineColor.push_back(outline);
-
-    curBuffer.m_pos.push_back(Position(0, 0));
-    curBuffer.m_pos.push_back(Position(0, 0));
-    curBuffer.m_pos.push_back(Position(0, 0));
-
-    curBuffer.m_pos.push_back(Position(0, 0));
-    curBuffer.m_pos.push_back(Position(0, 0));
-    curBuffer.m_pos.push_back(Position(0, 0));
+    int const newSize = curBuffer.m_baseColor.size() + 6;
+    curBuffer.m_baseColor.resize(newSize, base);
+    curBuffer.m_outlineColor.resize(newSize, outline);
+    curBuffer.m_pos.resize(newSize, Position(0, 0));
   }
 
-  for(int i = 0; i < buffers.size(); ++i)
+  for (int i = 0; i < buffers.size(); ++i)
   {
-    if(buffers[i].m_pos.empty())
+    if (buffers[i].m_pos.empty())
       continue;
 
     GLState state(gpu::PATH_FONT_PROGRAM, GLState::OverlayLayer);
@@ -234,7 +186,7 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
 
 void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
 {
-  float entireLength = m_params.m_OffsetStart * scaleFactor;
+  float entireLength = m_params.m_OffsetStart * m_scaleFactor;
 
   float const fontSize = m_params.m_TextFont.m_size;
   int const cnt = m_infos.size();
@@ -242,9 +194,9 @@ void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mut
 
   Spline::iterator itr;
   itr.Attach(m_path);
-  itr.Step(m_params.m_OffsetStart * scaleFactor);
+  itr.Step(m_params.m_OffsetStart * m_scaleFactor);
 
-  for (int i = 0 ; i < cnt ; i++)
+  for (int i = 0; i < cnt; i++)
   {
     float xOffset = m_infos[i].m_xOffset;
     float yOffset = m_infos[i].m_yOffset;
@@ -258,22 +210,23 @@ void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mut
     halfWidth *= aspect;
     halfHeight *= aspect;
 
-    PointF const pos = itr.pos;
-    PointF const oldDir = itr.dir;
+    PointF const pos = itr.m_pos;
+    PointF const oldDir = itr.m_dir;
 
-    advance *= scaleFactor;
+    advance *= m_scaleFactor;
+    ASSERT_NOT_EQUAL(advance, 0.0, ());
     entireLength += advance;
-    if(entireLength >= m_params.m_OffsetEnd * scaleFactor)
+    if(entireLength >= m_params.m_OffsetEnd * m_scaleFactor)
       return;
-    int const index1 = itr.index;
+    int const index1 = itr.m_index;
     itr.Step(advance);
-    int const index2 = itr.index;
+    int const index2 = itr.m_index;
     PointF dir;
     if (index1 != index2 && index2)
     {
-      PointF const newDir = itr.dir;
-      PointF const newPos = m_path.position[index2];
-      float const smoothFactor = (newPos - itr.pos).Length() / advance;
+      PointF const newDir = itr.m_dir;
+      PointF const newPos = m_path.m_position[index2];
+      float const smoothFactor = (newPos - itr.m_pos).Length() / advance;
       dir = oldDir * (1.0f - smoothFactor) + newDir * smoothFactor;
     }
     else
@@ -281,35 +234,35 @@ void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mut
       dir = oldDir;
     }
 
-    float const angle = angelFromDir(dir.x, dir.y) * M_PI / 180.0f;
+    float const angle = atan2(dir.y, dir.x);
     float const cosa = cosf(angle);
     float const sina = sinf(angle);
 
     yOffset += halfHeight;
-    xOffset -= halfWidth;
-    float const x1old = halfWidth - xOffset;
+    xOffset += halfWidth;
+    float const x1old = halfWidth + xOffset;
     float const y1old = -halfHeight + yOffset;
 
-    float const x2old = -halfWidth - xOffset;
+    float const x2old = -halfWidth + xOffset;
     float const y2old = -halfHeight + yOffset;
 
-    float const x3old = -halfWidth - xOffset;
+    float const x3old = -halfWidth + xOffset;
     float const y3old = halfHeight + yOffset;
 
-    float const x4old = halfWidth - xOffset;
+    float const x4old = halfWidth + xOffset;
     float const y4old = halfHeight + yOffset;
 
-    float x1 = (x1old * cosa - y1old * sina) * scaleFactor + pos.x;
-    float y1 = (x1old * sina + y1old * cosa) * scaleFactor + pos.y;
+    float x1 = (x1old * cosa - y1old * sina) * m_scaleFactor + pos.x;
+    float y1 = (x1old * sina + y1old * cosa) * m_scaleFactor + pos.y;
 
-    float x2 = (x2old * cosa - y2old * sina) * scaleFactor + pos.x;
-    float y2 = (x2old * sina + y2old * cosa) * scaleFactor + pos.y;
+    float x2 = (x2old * cosa - y2old * sina) * m_scaleFactor + pos.x;
+    float y2 = (x2old * sina + y2old * cosa) * m_scaleFactor + pos.y;
 
-    float x3 = (x3old * cosa - y3old * sina) * scaleFactor + pos.x;
-    float y3 = (x3old * sina + y3old * cosa) * scaleFactor + pos.y;
+    float x3 = (x3old * cosa - y3old * sina) * m_scaleFactor + pos.x;
+    float y3 = (x3old * sina + y3old * cosa) * m_scaleFactor + pos.y;
 
-    float x4 = (x4old * cosa - y4old * sina) * scaleFactor + pos.x;
-    float y4 = (x4old * sina + y4old * cosa) * scaleFactor + pos.y;
+    float x4 = (x4old * cosa - y4old * sina) * m_scaleFactor + pos.x;
+    float y4 = (x4old * sina + y4old * cosa) * m_scaleFactor + pos.y;
 
     int index = i * 6;
     positions[index++] = Position(x2, y2);
@@ -326,6 +279,56 @@ void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mut
   mutateNode.m_region = node.second;
   mutateNode.m_data = MakeStackRefPointer<void>(&positions[0]);
   mutator->AddMutation(node.first, mutateNode);
+}
+
+void Spline::FromArray(vector<PointF> const & path)
+{
+  m_position = vector<PointF>(path.begin(), path.end() - 1);
+  int cnt = m_position.size();
+  m_direction = vector<PointF>(cnt);
+  m_length = vector<float>(cnt);
+
+  for(int i = 0; i < cnt; ++i)
+  {
+    m_direction[i] = path[i+1] - path[i];
+    m_length[i] = m_direction[i].Length();
+    m_direction[i] = m_direction[i].Normalize();
+    m_lengthAll += m_length[i];
+  }
+}
+
+Spline const & Spline::operator = (Spline const & spl)
+{
+  if(&spl != this)
+  {
+    m_lengthAll = spl.m_lengthAll;
+    m_position = spl.m_position;
+    m_direction = spl.m_direction;
+    m_length = spl.m_length;
+  }
+  return *this;
+}
+
+void Spline::iterator::Attach(Spline const & S)
+{
+  m_spl = &S;
+  m_index = 0;
+  m_dist = 0;
+  m_dir = m_spl->m_direction[m_index];
+  m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
+}
+
+void Spline::iterator::Step(float speed)
+{
+  m_dist += speed;
+  while(m_dist > m_spl->m_length[m_index])
+  {
+    m_dist -= m_spl->m_length[m_index];
+    m_index++;
+    m_index %= m_spl->m_position.size();
+  }
+  m_dir = m_spl->m_direction[m_index];
+  m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
 }
 
 }
