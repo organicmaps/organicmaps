@@ -100,7 +100,7 @@ bool BookMarkSplitPanel::Construct(const Tizen::Graphics::FloatRectangle& rect)
   m_sensorManager.Construct();
   if (m_sensorManager.IsAvailable(SENSOR_TYPE_MAGNETIC))
     m_sensorManager.AddSensorListener(*this, SENSOR_TYPE_MAGNETIC, 50, true);
-  m_NorthAzimut = 0;
+  m_northAzimuth = 0;
 
   return true;
 }
@@ -367,31 +367,28 @@ void BookMarkSplitPanel::UpdateCompass()
   Tizen::Graphics::Canvas * pCanvas =  m_pList->GetCanvasN();
   if (pCanvas)
   {
-    pCanvas->FillRectangle(consts::green, Rectangle(2,headerItemHeight + 2, 100,100));
+    pCanvas->FillRectangle(consts::green, Rectangle(2, headerItemHeight + 2, 100, 100));
     Bitmap const * pBTM_Back = GetBitmap(IDB_PLACE_PAGE_COMPASS_BACKGROUND);
-    int imgBackHeighDiv2 = pBTM_Back->GetHeight()/2;
+    int const imgBackHeighDiv2 = pBTM_Back->GetHeight() / 2;
     Bitmap const * pBTM = GetBitmap(IDB_PLACE_PAGE_COMPASS);
-    int imgHeighDiv2 = pBTM->GetHeight()/2;
-    int centerX = btwWdth + imgHeighDiv2;
-    int centerY = headerItemHeight + btwWdth + imgHeighDiv2;
-
-
-
-    pCanvas->DrawBitmap(Point(centerX - imgBackHeighDiv2, centerY - imgBackHeighDiv2), *pBTM_Back);
-    double dAzimut = GetAzimut(GetCurMark(), m_NorthAzimut);
-    pCanvas->DrawBitmap(Point(centerX, centerY), *pBTM, Point(imgHeighDiv2, imgHeighDiv2), (dAzimut/(2*M_PI))*360);
+    int const imgHeighDiv2 = pBTM->GetHeight() / 2;
+    int const centerX = btwWdth + imgHeighDiv2;
+    int const centerY = headerItemHeight + btwWdth + imgHeighDiv2;
+    pCanvas->DrawBitmap(Point(centerX - imgBackHeighDiv2, centerY - imgBackHeighDiv2), * pBTM_Back);
+    double const dAzimut = GetAzimuth(GetCurMark(), m_northAzimuth);
+    pCanvas->DrawBitmap(Point(centerX, centerY), *pBTM, Point(imgHeighDiv2, imgHeighDiv2), (dAzimut / (2 * math::pi)) * 360);
     delete pCanvas;
   }
 }
 void BookMarkSplitPanel::OnDataReceived(SensorType sensorType, SensorData & sensorData, result r)
 {
   MagneticSensorData & data = static_cast< MagneticSensorData& >(sensorData);
-  m_NorthAzimut = atan2(data.y, data.x) - math::pi;
-  double const pi2 = 2.0*math::pi;
-  if (m_NorthAzimut < 0.0)
-    m_NorthAzimut += pi2;
-  else if (m_NorthAzimut > pi2)
-    m_NorthAzimut -= pi2;
+  m_northAzimuth = atan2(data.y, data.x) - math::pi;
+  double const pi2 = 2.0 * math::pi;
+  if (m_northAzimuth < 0.0)
+    m_northAzimuth += pi2;
+  else if (m_northAzimuth > pi2)
+    m_northAzimuth -= pi2;
 
   UpdateCompass();
 }

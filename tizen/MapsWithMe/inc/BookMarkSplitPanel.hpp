@@ -113,5 +113,5 @@ private:
   Tizen::Ui::Controls::ListView * m_pList;
   MapsWithMeForm * m_pMainForm;
   Tizen::Uix::Sensor::SensorManager m_sensorManager;
-  double m_NorthAzimut;
+  double m_northAzimuth;
 };
