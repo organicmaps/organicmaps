@@ -54,7 +54,7 @@ GpuProgram::GpuProgram(RefPointer<Shader> vertexShader, RefPointer<Shader> fragm
   GLFunctions::glAttachShader(m_programID, fragmentShader->GetID());
 
   string errorLog;
-  VERIFY(GLFunctions::glLinkProgram(m_programID, errorLog), ());
+  VERIFY(GLFunctions::glLinkProgram(m_programID, errorLog), (errorLog));
 
   GLFunctions::glDetachShader(m_programID, vertexShader->GetID());
   GLFunctions::glDetachShader(m_programID, fragmentShader->GetID());
