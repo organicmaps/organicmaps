@@ -4,7 +4,7 @@
       android:left="@dimen/margin_medium"
       android:right="@dimen/margin_medium">
     <shape>
-      <solid android:color="@color/semitransparent_white"/>
+      <solid android:color="@color/bg_menu"/>
     </shape>
   </item>
 </layer-list>
