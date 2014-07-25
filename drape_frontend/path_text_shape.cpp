@@ -11,6 +11,9 @@
 #include "../base/stl_add.hpp"
 #include "../base/string_utils.hpp"
 #include "../base/timer.hpp"
+#include "../base/matrix.hpp"
+
+#include "../geometry/transformations.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/vector.hpp"
@@ -42,6 +45,7 @@ namespace
   {
     Position() {}
     Position(float x, float y) : m_x(x), m_y(y){}
+    Position(PointF const & p) : m_x(p.x), m_y(p.y){}
 
     float m_x;
     float m_y;
@@ -234,44 +238,33 @@ void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mut
       dir = oldDir;
     }
 
-    float const angle = atan2(dir.y, dir.x);
-    float const cosa = cosf(angle);
-    float const sina = sinf(angle);
+    float gip = sqrtf(dir.y*dir.y + dir.x*dir.x);
+    ASSERT_NOT_EQUAL(gip, 0.0, ("division by zero"));
+    float const cosa = dir.x / gip;
+    float const sina = dir.y / gip;
 
     yOffset += halfHeight;
     xOffset += halfWidth;
-    float const x1old = halfWidth + xOffset;
-    float const y1old = -halfHeight + yOffset;
+    PointF const p1old(halfWidth + xOffset, -halfHeight + yOffset);
+    PointF const p2old(-halfWidth + xOffset, -halfHeight + yOffset);
+    PointF const p3old(-halfWidth + xOffset, halfHeight + yOffset);
+    PointF const p4old(halfWidth + xOffset, halfHeight + yOffset);
 
-    float const x2old = -halfWidth + xOffset;
-    float const y2old = -halfHeight + yOffset;
+    math::Matrix<double, 3, 3> m = math::Rotate(math::Identity<double, 3>(), cosa, sina);
 
-    float const x3old = -halfWidth + xOffset;
-    float const y3old = halfHeight + yOffset;
-
-    float const x4old = halfWidth + xOffset;
-    float const y4old = halfHeight + yOffset;
-
-    float x1 = (x1old * cosa - y1old * sina) * m_scaleFactor + pos.x;
-    float y1 = (x1old * sina + y1old * cosa) * m_scaleFactor + pos.y;
-
-    float x2 = (x2old * cosa - y2old * sina) * m_scaleFactor + pos.x;
-    float y2 = (x2old * sina + y2old * cosa) * m_scaleFactor + pos.y;
-
-    float x3 = (x3old * cosa - y3old * sina) * m_scaleFactor + pos.x;
-    float y3 = (x3old * sina + y3old * cosa) * m_scaleFactor + pos.y;
-
-    float x4 = (x4old * cosa - y4old * sina) * m_scaleFactor + pos.x;
-    float y4 = (x4old * sina + y4old * cosa) * m_scaleFactor + pos.y;
+    PointF p1 = (p1old * m_scaleFactor) * m + pos;
+    PointF p2 = (p2old * m_scaleFactor) * m + pos;
+    PointF p3 = (p3old * m_scaleFactor) * m + pos;
+    PointF p4 = (p4old * m_scaleFactor) * m + pos;
 
     int index = i * 6;
-    positions[index++] = Position(x2, y2);
-    positions[index++] = Position(x3, y3);
-    positions[index++] = Position(x1, y1);
+    positions[index++] = Position(p2);
+    positions[index++] = Position(p3);
+    positions[index++] = Position(p1);
 
-    positions[index++] = Position(x4, y4);
-    positions[index++] = Position(x1, y1);
-    positions[index++] = Position(x3, y3);
+    positions[index++] = Position(p4);
+    positions[index++] = Position(p1);
+    positions[index++] = Position(p3);
   }
 
   TOffsetNode const & node = GetOffsetNode(DirectionAttributeID);
