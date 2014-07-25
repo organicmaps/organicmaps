@@ -225,6 +225,10 @@ void Query::ClearCaches()
 {
   for (size_t i = 0; i < COUNT_V; ++i)
     ClearCache(i);
+
+  m_houseDetector.ClearCaches();
+
+  m_locality.ClearCacheAll();
 }
 
 void Query::ClearCache(size_t ind)
