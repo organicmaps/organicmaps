@@ -33,9 +33,9 @@ Result::Result(string const & str, string const & suggest)
 }
 
 Result::Result(Result const & res, string const & suggest)
-  : m_center(res.m_center), m_str(res.m_str), m_region(res.m_region),
-    m_featureType(res.m_featureType), m_suggestionStr(suggest),
-    m_hightlightRanges(res.m_hightlightRanges)
+  : m_id(res.m_id), m_center(res.m_center), m_str(res.m_str),
+    m_region(res.m_region), m_type(res.m_type), m_featureType(res.m_featureType),
+    m_suggestionStr(suggest), m_hightlightRanges(res.m_hightlightRanges)
 {
 }
 
