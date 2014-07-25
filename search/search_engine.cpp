@@ -438,6 +438,8 @@ void Engine::ClearAllCaches()
   {
     m_pQuery->ClearCaches();
     m_pData->m_infoGetter.ClearCaches();
+
+    m_searchMutex.Unlock();
   }
 }
 
