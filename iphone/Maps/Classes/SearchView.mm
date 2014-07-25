@@ -260,9 +260,10 @@ __weak SearchView * selfPointer;
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  if ([self.searchBar.textField.text length] && self.state == SearchViewStateFullscreen)
+  if (self.state == SearchViewStateFullscreen && ![self isShowingCategories])
   {
-    search::SearchParams params = [self searchParametersWithForce:NO];
+    search::SearchParams params;
+    [self updateSearchParametersWithForce:NO outParams:params andQuery:self.searchBar.textField.text];
     params.SetPosition(info.m_latitude, info.m_longitude);
     GetFramework().Search(params);
 
@@ -295,27 +296,25 @@ __weak SearchView * selfPointer;
   }
 }
 
-- (search::SearchParams)searchParametersWithForce:(BOOL)force
+- (void)updateSearchParametersWithForce:(BOOL)force outParams:(search::SearchParams &)sp andQuery:(NSString *)newQuery
 {
-  search::SearchParams params;
-  params.SetSearchMode(search::SearchParams::ALL);
-  params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
-  params.m_callback = bind(&onSearchResultCallback, _1);
-  params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
-  params.SetForceSearch(force == YES);
-
-  return params;
+  sp.SetSearchMode(search::SearchParams::ALL);
+  sp.m_query = [[newQuery precomposedStringWithCompatibilityMapping] UTF8String];
+  sp.m_callback = bind(&onSearchResultCallback, _1);
+  sp.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
+  sp.SetForceSearch(force == YES);
 }
 
-- (void)search
+- (void)search:(NSString *)newTextQuery
 {
   self.emptyResultLabel.hidden = YES;
   [self.searchBar setSearching:YES];
-  search::SearchParams params = [self searchParametersWithForce:YES];
+  search::SearchParams sp;
+  [self updateSearchParametersWithForce:YES outParams:sp andQuery:newTextQuery];
   double lat, lon;
   if ([[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
-    params.SetPosition(lat, lon);
-  GetFramework().Search(params);
+    sp.SetPosition(lat, lon);
+  GetFramework().Search(sp);
 }
 
 static void onSearchResultCallback(search::Results const & results)
@@ -360,19 +359,32 @@ static void onSearchResultCallback(search::Results const & results)
     [self.searchBar.textField becomeFirstResponder];
 
   self.searchBar.textField.text = nil;
-  [self processTextChanging];
+  [self textFieldTextChanged:nil];
 }
 
 - (void)searchBarDidPressCancelButton:(id)searchBar
 {
   self.searchBar.textField.text = nil;
-  [self processTextChanging];
+  [self textFieldTextChanged:nil];
   [self setState:SearchViewStateHidden animated:YES withCallback:YES];
 }
 
 - (void)textFieldTextChanged:(id)sender
 {
-  [self processTextChanging];
+  NSString * newText = self.searchBar.textField.text;
+
+  if ([newText length])
+  {
+    [self search:newText];
+  }
+  else
+  {
+    // nil wrapper means "Display Categories" mode
+    self.wrapper = nil;
+    [self.searchBar setSearching:NO];
+    self.emptyResultLabel.hidden = YES;
+    [self.tableView reloadData];
+  }
 }
 
 - (void)textFieldBegin:(id)sender
@@ -380,20 +392,6 @@ static void onSearchResultCallback(search::Results const & results)
   if (self.state == SearchViewStateResults)
     [self clearSearchResultsMode];
   [self setState:SearchViewStateFullscreen animated:YES withCallback:YES];
-}
-
-- (void)processTextChanging
-{
-  if ([self isShowingCategories])
-  {
-    [self.searchBar setSearching:NO];
-    self.emptyResultLabel.hidden = YES;
-    [self.tableView reloadData];
-  }
-  else
-  {
-    [self search];
-  }
 }
 
 - (void)showOnMap
@@ -444,12 +442,13 @@ static void onSearchResultCallback(search::Results const & results)
 
 - (BOOL)isShowingCategories
 {
-  return ![self.searchBar.textField.text length];
+  // We are on the categories screen if wrapper is nil
+  return self.wrapper == nil;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-  if ([self.wrapper count] && ![self isShowingCategories])
+  if (![self isShowingCategories])
   {
     [self showOnMap];
     return YES;
@@ -601,8 +600,9 @@ static void onSearchResultCallback(search::Results const & results)
     case CellTypeCategory:
     {
       [[Statistics instance] logEvent:@"Category Selection" withParameters:@{@"Category" : self.categoriesNames[indexPath.row]}];
-      self.searchBar.textField.text = [NSLocalizedString(self.categoriesNames[indexPath.row], nil) stringByAppendingString:@" "];
-      [self search];
+      NSString * newQuery = [NSLocalizedString(self.categoriesNames[indexPath.row], nil) stringByAppendingString:@" "];
+      self.searchBar.textField.text = newQuery;
+      [self search:newQuery];
 
       break;
     }
@@ -631,8 +631,9 @@ static void onSearchResultCallback(search::Results const & results)
     {
       NSInteger const position = [self searchResultPositionForIndexPath:indexPath];
       search::Result const & result = [self.wrapper resultWithPosition:position];
-      self.searchBar.textField.text = [NSString stringWithUTF8String:result.GetSuggestionString()];
-      [self search];
+      NSString * newQuery = [NSString stringWithUTF8String:result.GetSuggestionString()];
+      self.searchBar.textField.text = newQuery;
+      [self search:newQuery];
 
       break;
     }
