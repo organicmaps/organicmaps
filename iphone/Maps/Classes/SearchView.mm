@@ -666,8 +666,9 @@ static void onSearchResultCallback(search::Results const & results)
   }
   else
   {
-    if ([self.wrapper suggestsCount])
-      return indexPath.row < [self.wrapper suggestsCount] ? CellTypeSuggest : CellTypeResult;
+    size_t const numSuggests = [self.wrapper suggestsCount];
+    if (numSuggests)
+      return indexPath.row < numSuggests ? CellTypeSuggest : CellTypeResult;
     else
       return indexPath.row == 0 ? CellTypeShowOnMap : CellTypeResult;
   }
