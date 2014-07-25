@@ -394,7 +394,7 @@ void TestingEngine::DrawImpl()
 
   path.push_back(m2::PointF(200, 650));
   path.push_back(m2::PointF(200, 450));
-  for(int i = 16; i >= 0 ; --i)
+  for(int i = 16; i >= -12 ; --i)
   {
     float r = 200.0f;
     float x = r * cos((float)i/32.0f*2.0f*M_PI) + 800;
@@ -408,7 +408,7 @@ void TestingEngine::DrawImpl()
   params3.m_depth = -10.0f;
   params3.m_OffsetEnd = 4000.0f;
   params3.m_OffsetStart = 100.0f;
-  params3.m_Text = "√2+√3=?-----------------+";
+  params3.m_Text = "√2+√3=?-----------------+gahdjgahjkfgasdfhjagdfhgadshfasghdfkadshfgakdhsjfgsahjkdfg";
   params3.m_TextFont = params.m_primaryTextFont;
   PathTextShape sh3(path, params3);
   sh3.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
