@@ -35,6 +35,7 @@ SOURCES += \
     circle_shape.cpp \
     render_group.cpp \
     text_shape.cpp \
+    path_text_shape.cpp \
 
 HEADERS += \
     engine_context.hpp \
@@ -65,3 +66,4 @@ HEADERS += \
     circle_shape.hpp \
     render_group.hpp \
     text_shape.hpp \
+    path_text_shape.hpp \

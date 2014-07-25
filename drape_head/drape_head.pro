@@ -33,7 +33,7 @@ HEADERS += \
     qtoglcontext.hpp \
     qtoglcontextfactory.hpp \
     drape_surface.hpp \
-    testing_engine.hpp
+    testing_engine.hpp \
 
 SOURCES += \
     mainwindow.cpp \
@@ -41,4 +41,4 @@ SOURCES += \
     qtoglcontext.cpp \
     qtoglcontextfactory.cpp \
     drape_surface.cpp \
-    testing_engine.cpp
+    testing_engine.cpp \

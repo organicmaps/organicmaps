@@ -4,3 +4,4 @@ TEXTURING_PROGRAM texturing_vertex_shader.vsh texturing_fragment_shader.fsh
 SOLID_LINE_PROGRAM line_vertex_shader.vsh line_fragment_shader.fsh
 TEST_DYN_ATTR_PROGRAM normalize_vertex_shader.vsh solid_color_fragment_shader.fsh
 FONT_PROGRAM font_vertex_shader.vsh font_fragment_shader.fsh
+PATH_FONT_PROGRAM path_font_vertex_shader.vsh path_font_fragment_shader.fsh

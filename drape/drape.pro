@@ -31,3 +31,5 @@ OTHER_FILES += \
     shaders/normalize_vertex_shader.vsh \
     shaders/font_fragment_shader.fsh \
     shaders/font_vertex_shader.vsh \
+    shaders/path_font_fragment_shader.fsh \
+    shaders/path_font_vertex_shader.vsh \
