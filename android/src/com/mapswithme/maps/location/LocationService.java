@@ -26,7 +26,7 @@ import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.StubLogger;
+import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class LocationService implements
     com.google.android.gms.location.LocationListener
 {
   private static final String TAG = LocationService.class.getName();
-  private final Logger mLogger = StubLogger.get();//SimpleLogger.get(this.toString());
+  private final Logger mLogger = SimpleLogger.get(TAG);
 
   private static final double DEFAULT_SPEED_MPS = 5;
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;

@@ -28,7 +28,7 @@ public class GuidesUtils
   public static Intent getGoogleStoreIntentForPackage(String packageName)
   {
     final Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.setData(Uri.parse(Constants.PLAY_MARKET_APP_PREFIX + packageName));
+    intent.setData(Uri.parse(Constants.Url.PLAY_MARKET_APP_PREFIX + packageName));
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET | Intent.FLAG_ACTIVITY_NO_HISTORY);
     return intent;
   }

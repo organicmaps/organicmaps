@@ -48,6 +48,7 @@ import com.mapswithme.maps.widget.MapInfoView;
 import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
 import com.mapswithme.maps.widget.MapInfoView.State;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.StoragePathManager;
 import com.mapswithme.util.StoragePathManager.SetStoragePathListener;
@@ -82,20 +83,20 @@ public class MWMActivity extends NvEventQueueActivity
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<MapTask>();
   private MWMApplication mApplication = null;
-  private BroadcastReceiver m_externalStorageReceiver = null;
-  private StoragePathManager m_pathManager = new StoragePathManager();
-  private AlertDialog m_storageDisconnectedDialog = null;
+  private BroadcastReceiver mExternalStorageReceiver = null;
+  private StoragePathManager mPathManager = new StoragePathManager();
+  private AlertDialog mStorageDisconnectedDialog = null;
   private ImageButton mLocationButton;
   // Info box (place page).
   private MapInfoView mInfoView;
   private SearchController mSearchController;
   private String mProDialogMessage;
-  private boolean m_needCheckUpdate = true;
+  private boolean mNeedCheckUpdate = true;
   private boolean mRenderingInitialized = false;
-  private int m_compassStatusListenerID = -1;
+  private int mCompassStatusListenerID = -1;
   // Initialized to invalid combination to force update on the first check
-  private boolean m_storageAvailable = false;
-  private boolean m_storageWritable = true;
+  private boolean mStorageAvailable = false;
+  private boolean mStorageWritable = true;
   private ViewGroup mVerticalToolbar;
   private ViewGroup mToolbar;
 
@@ -371,7 +372,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     if (!kmlMoved)
     {
-      if (m_pathManager.MoveBookmarks())
+      if (mPathManager.MoveBookmarks())
         mApplication.nativeSetBoolean(KmlMovedFlag, true);
       else
       {
@@ -397,16 +398,16 @@ public class MWMActivity extends NvEventQueueActivity
           ShowAlertDlg(R.string.kitkat_migrate_failed);
         }
       };
-      m_pathManager.CheckWritableDir(this, listener);
+      mPathManager.CheckWritableDir(this, listener);
     }
   }
 
   private void checkUpdateMaps()
   {
     // do it only once
-    if (m_needCheckUpdate)
+    if (mNeedCheckUpdate)
     {
-      m_needCheckUpdate = false;
+      mNeedCheckUpdate = false;
 
       getMapStorage().updateMaps(R.string.advise_update_maps, this, new MapStorage.UpdateFunctor()
       {
@@ -465,14 +466,12 @@ public class MWMActivity extends NvEventQueueActivity
     {
       // Trying to find package with installed Facebook application.
       // Exception is thrown if we don't have one.
-      getPackageManager().getPackageInfo("com.facebook.katana", 0);
+      getPackageManager().getPackageInfo(Constants.FB_PACKAGE, 0);
 
-      // Profile id is taken from http://graph.facebook.com/MapsWithMe
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/111923085594432")));
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.FB_MAPSME_COMMUNITY_NATIVE)));
     } catch (final Exception e)
     {
-      // Show Facebook page in browser.
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/MapsWithMe")));
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.FB_MAPSME_COMMUNITY_HTTP)));
     }
   }
 
@@ -548,24 +547,6 @@ public class MWMActivity extends NvEventQueueActivity
     });
   }
 
-  private void runProVersionMarketActivity()
-  {
-    try
-    {
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getProVersionURL())));
-    } catch (final Exception e1)
-    {
-      try
-      {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mApplication.getDefaultProVersionURL())));
-      } catch (final Exception e2)
-      {
-        /// @todo Probably we should show some alert toast here?
-        Log.w(TAG, "Can't run activity" + e2);
-      }
-    }
-  }
-
   private void checkBuyProDialog()
   {
     if (!mApplication.isProVersion() &&
@@ -580,7 +561,7 @@ public class MWMActivity extends NvEventQueueActivity
             {
               mApplication.submitDialogResult(MWMApplication.BUYPRO, MWMApplication.OK);
               dlg.dismiss();
-              runProVersionMarketActivity();
+              UiUtils.runProMarketActivity(MWMActivity.this);
             }
           }
       );
@@ -944,12 +925,12 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void startWatchingCompassStatusUpdate()
   {
-    m_compassStatusListenerID = mApplication.getLocationState().addCompassStatusListener(this);
+    mCompassStatusListenerID = mApplication.getLocationState().addCompassStatusListener(this);
   }
 
   private void stopWatchingCompassStatusUpdate()
   {
-    mApplication.getLocationState().removeCompassStatusListener(m_compassStatusListenerID);
+    mApplication.getLocationState().removeCompassStatusListener(mCompassStatusListenerID);
   }
 
   @Override
@@ -1003,10 +984,10 @@ public class MWMActivity extends NvEventQueueActivity
     else
       available = writable = false;
 
-    if (m_storageAvailable != available || m_storageWritable != writable)
+    if (mStorageAvailable != available || mStorageWritable != writable)
     {
-      m_storageAvailable = available;
-      m_storageWritable = writable;
+      mStorageAvailable = available;
+      mStorageWritable = writable;
       handleExternalStorageState(available, writable);
     }
   }
@@ -1020,8 +1001,8 @@ public class MWMActivity extends NvEventQueueActivity
 
       // @TODO enable downloader button and dismiss blocking popup
 
-      if (m_storageDisconnectedDialog != null)
-        m_storageDisconnectedDialog.dismiss();
+      if (mStorageDisconnectedDialog != null)
+        mStorageDisconnectedDialog.dismiss();
     }
     else if (available)
     {
@@ -1030,8 +1011,8 @@ public class MWMActivity extends NvEventQueueActivity
 
       // @TODO disable downloader button and dismiss blocking popup
 
-      if (m_storageDisconnectedDialog != null)
-        m_storageDisconnectedDialog.dismiss();
+      if (mStorageDisconnectedDialog != null)
+        mStorageDisconnectedDialog.dismiss();
     }
     else
     {
@@ -1040,21 +1021,21 @@ public class MWMActivity extends NvEventQueueActivity
 
       // @TODO enable downloader button and show blocking popup
 
-      if (m_storageDisconnectedDialog == null)
+      if (mStorageDisconnectedDialog == null)
       {
-        m_storageDisconnectedDialog = new AlertDialog.Builder(this)
+        mStorageDisconnectedDialog = new AlertDialog.Builder(this)
             .setTitle(R.string.external_storage_is_not_available)
             .setMessage(getString(R.string.disconnect_usb_cable))
             .setCancelable(false)
             .create();
       }
-      m_storageDisconnectedDialog.show();
+      mStorageDisconnectedDialog.show();
     }
   }
 
   private void startWatchingExternalStorage()
   {
-    m_externalStorageReceiver = new BroadcastReceiver()
+    mExternalStorageReceiver = new BroadcastReceiver()
     {
       @Override
       public void onReceive(Context context, Intent intent)
@@ -1063,12 +1044,11 @@ public class MWMActivity extends NvEventQueueActivity
       }
     };
 
-    m_pathManager.StartExtStorageWatching(this, m_externalStorageReceiver);
+    mPathManager.StartExtStorageWatching(this, mExternalStorageReceiver);
     updateExternalStorageState();
   }
 
   @Override
-  @Deprecated
   protected void onPrepareDialog(int id, Dialog dialog, Bundle args)
   {
     if (id == PRO_VERSION_DIALOG)
@@ -1082,7 +1062,6 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   @Override
-  @Deprecated
   protected Dialog onCreateDialog(int id)
   {
     if (id == PRO_VERSION_DIALOG)
@@ -1095,7 +1074,7 @@ public class MWMActivity extends NvEventQueueActivity
             public void onClick(DialogInterface dlg, int which)
             {
               dlg.dismiss();
-              runProVersionMarketActivity();
+              UiUtils.runProMarketActivity(MWMActivity.this);
             }
           })
           .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
@@ -1133,8 +1112,8 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void stopWatchingExternalStorage()
   {
-    m_pathManager.StopExtStorageWatching();
-    m_externalStorageReceiver = null;
+    mPathManager.StopExtStorageWatching();
+    mExternalStorageReceiver = null;
   }
 
   @Override
@@ -1320,7 +1299,7 @@ public class MWMActivity extends NvEventQueueActivity
     case R.id.btn_buy_pro:
       UiUtils.hide(mVerticalToolbar);
       UiUtils.show(mToolbar);
-      runProVersionMarketActivity();
+      UiUtils.runProMarketActivity(MWMActivity.this);
       break;
     case R.id.btn_share:
       UiUtils.hide(mVerticalToolbar);

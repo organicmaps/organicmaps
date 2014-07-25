@@ -214,7 +214,7 @@ public class WifiLocationScanner extends BroadcastReceiver
 
         try
         {
-          final URL url = new URL(Constants.GEOLOCATION_SERVER_MAPSME);
+          final URL url = new URL(Constants.Url.GEOLOCATION_SERVER_MAPSME);
           conn = (HttpURLConnection) url.openConnection();
           conn.setUseCaches(false);
 

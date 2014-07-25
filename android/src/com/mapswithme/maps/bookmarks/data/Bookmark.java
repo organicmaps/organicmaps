@@ -141,7 +141,7 @@ public class Bookmark extends MapObject
 
   public String getHttpGe0Url(boolean addName)
   {
-    return getGe0Url(addName).replaceFirst(Constants.GE0_PREFIX, Constants.HTTP_GE0_PREFIX);
+    return getGe0Url(addName).replaceFirst(Constants.Url.GE0_PREFIX, Constants.Url.HTTP_GE0_PREFIX);
   }
 
   @Override
