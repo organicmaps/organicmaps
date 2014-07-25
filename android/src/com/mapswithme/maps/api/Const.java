@@ -1,4 +1,3 @@
-
 package com.mapswithme.maps.api;
 
 public class Const
@@ -6,7 +5,7 @@ public class Const
 
   /* Request extras */
   static final String AUTHORITY = "com.mapswithme.maps.api";
-  public static final String EXTRA_URL = AUTHORITY +  ".url";
+  public static final String EXTRA_URL = AUTHORITY + ".url";
   public static final String EXTRA_TITLE = AUTHORITY + ".title";
   public static final String EXTRA_API_VERSION = AUTHORITY + ".version";
   public static final String EXTRA_CALLER_APP_INFO = AUTHORITY + ".caller_app_info";

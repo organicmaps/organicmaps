@@ -9,21 +9,20 @@ import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.statistics.Statistics;
 
 
-
 public class FbUtil
 {
 
   public static Logger mLogger = SimpleLogger.get("MWM_FB");
 
   public final static String[] SUPPORTED_PACKAGES = {
-    "com.mapswithme.maps",
-    "com.mapswithme.maps.pro",
+      "com.mapswithme.maps",
+      "com.mapswithme.maps.pro",
   };
 
   public static void activate(Context context)
   {
-     if (!Statistics.INSTANCE.isStatisticsEnabled(context))
-       return;
+    if (!Statistics.INSTANCE.isStatisticsEnabled(context))
+      return;
 
     final String thisPackageName = context.getPackageName();
 
@@ -48,5 +47,5 @@ public class FbUtil
     AppEventsLogger.activateApp(context, context.getString(R.string.fb_app_id));
   }
 
-  private FbUtil() {};
+  private FbUtil() {}
 }

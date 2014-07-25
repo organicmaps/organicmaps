@@ -1,13 +1,13 @@
 package com.mapswithme.maps.promo.request;
 
+import com.mapswithme.util.Utils;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import com.mapswithme.util.Utils;
 
 public abstract class PromoActivationRequest
 {
@@ -22,7 +22,7 @@ public abstract class PromoActivationRequest
   public abstract boolean parseResponse(InputStream is);
 
   /**
-   *  Creates {@link URL} for specific server using passed promocode.
+   * Creates {@link URL} for specific server using passed promocode.
    *
    * @param promoCode promocode to activate
    * @return {@link URL} using promocode
@@ -55,7 +55,7 @@ public abstract class PromoActivationRequest
     InputStream in = null;
     try
     {
-      urlConnection= (HttpURLConnection) url.openConnection();
+      urlConnection = (HttpURLConnection) url.openConnection();
       in = new BufferedInputStream(urlConnection.getInputStream());
 
       boolean success = parseResponse(in);
@@ -64,13 +64,11 @@ public abstract class PromoActivationRequest
       else
         mRequestListener.onFailure();
 
-    }
-    catch (IOException e)
+    } catch (IOException e)
     {
       e.printStackTrace();
       mRequestListener.onError(e);
-    }
-    finally
+    } finally
     {
       Utils.closeStream(in);
       urlConnection.disconnect();
@@ -81,7 +79,9 @@ public abstract class PromoActivationRequest
   public interface RequestListener
   {
     public void onSuccess();
+
     public void onFailure();
+
     public void onError(Exception ex);
   }
 }

@@ -12,11 +12,11 @@ public class FlurryEngine extends StatisticsEngine
 {
 
   private boolean mDebug = false;
-  private final String  mKey;
+  private final String mKey;
 
   public FlurryEngine(boolean isDebug, String key)
   {
-    mKey   = key;
+    mKey = key;
     mDebug = isDebug;
   }
 

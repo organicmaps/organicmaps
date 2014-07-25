@@ -16,8 +16,8 @@ import com.mapswithme.maps.guides.GuidesUtils;
 public class Notifier
 {
   private final static int ID_UPDATE_AVAIL = 0x1;
-  private final static int ID_GUIDE_AVAIL  = 0x2;
-  private final static int ID_DOWNLOAD_STATUS  = 0x3;
+  private final static int ID_GUIDE_AVAIL = 0x2;
+  private final static int ID_DOWNLOAD_STATUS = 0x3;
 
   private final NotificationManager mNotificationManager;
   private final Context mContext;
@@ -81,8 +81,8 @@ public class Notifier
   public NotificationCompat.Builder getBuilder()
   {
     return new NotificationCompat.Builder(mContext)
-      .setAutoCancel(true)
-      .setSmallIcon(R.drawable.ic_notification);
+        .setAutoCancel(true)
+        .setSmallIcon(R.drawable.ic_notification);
   }
 
   public void placeGuideAvailable(String packageName, String title, String content)
@@ -91,10 +91,10 @@ public class Notifier
         .getActivity(mContext, 0, GuidesUtils.getGoogleStoreIntentForPackage(packageName), 0);
 
     final Notification guideNoti = getBuilder()
-      .setContentIntent(pi)
-      .setContentTitle(title)
-      .setContentText(content)
-      .build();
+        .setContentIntent(pi)
+        .setContentTitle(title)
+        .setContentText(content)
+        .build();
 
     mNotificationManager.notify(ID_GUIDE_AVAIL, guideNoti);
   }

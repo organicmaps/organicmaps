@@ -50,7 +50,7 @@ public class MapsWithMeBaseListActivity extends ListActivity
 
   public MWMApplication getMwmApplication()
   {
-    return (MWMApplication)getApplication();
+    return (MWMApplication) getApplication();
   }
 
   @Override

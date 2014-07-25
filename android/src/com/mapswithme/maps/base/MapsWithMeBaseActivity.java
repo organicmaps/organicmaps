@@ -35,7 +35,7 @@ public class MapsWithMeBaseActivity extends FragmentActivity
   }
 
   @SuppressLint("NewApi")
-@Override
+  @Override
   protected void onCreate(Bundle arg0)
   {
     super.onCreate(arg0);
@@ -51,7 +51,7 @@ public class MapsWithMeBaseActivity extends FragmentActivity
 
   public MWMApplication getMwmApplication()
   {
-    return (MWMApplication)getApplication();
+    return (MWMApplication) getApplication();
   }
 
   @Override

@@ -35,19 +35,26 @@ public class ParsedMmwRequest
   private double mZoomLevel;
 
 
-  public double  getLat()          { return mLat; }
-  public double  getLon()          { return mLon; }
-  public String  getName()         { return mName;}
+  public double getLat() { return mLat; }
+
+  public double getLon() { return mLon; }
+
+  public String getName() { return mName;}
+
   public boolean isPickPointMode() { return mPickPoint; }
+
   public boolean hasCustomButtonName() { return !TextUtils.isEmpty(mCustomButtonName); }
-  public String  getCustomButtonName() { return mCustomButtonName; }
+
+  public String getCustomButtonName() { return mCustomButtonName; }
 
   private String mName;
   private String mId;
 
-  public static ParsedMmwRequest getCurrentRequest()                         { return sCurrentRequest; }
-  public static boolean          hasRequest()                                { return sCurrentRequest != null; }
-  public static void             setCurrentRequest(ParsedMmwRequest request) { sCurrentRequest = request; }
+  public static ParsedMmwRequest getCurrentRequest() { return sCurrentRequest; }
+
+  public static boolean hasRequest() { return sCurrentRequest != null; }
+
+  public static void setCurrentRequest(ParsedMmwRequest request) { sCurrentRequest = request; }
 
   public static ParsedMmwRequest extractFromIntent(Intent data, Context context)
   {
@@ -68,15 +75,26 @@ public class ParsedMmwRequest
   }
 
   // Response data
-  public ApplicationInfo getCallerInfo() { return mCallerInfo; }
-  public boolean         hasTitle()      { return mTitle != null; }
-  public String          getTitle()      { return mTitle; }
+  public ApplicationInfo getCallerInfo()
+  {
+    return mCallerInfo;
+  }
+
+  public boolean hasTitle() { return mTitle != null; }
+
+  public String getTitle() { return mTitle; }
 
   // Request data
-  public boolean hasPoint()                     { return mHasPoint; }
-  public void    setHasPoint(boolean hasPoint)  { mHasPoint = hasPoint; }
-  public boolean hasPendingIntent()             { return mPendingIntent != null; }
-  public boolean doReturnOnBalloonClick()       { return mReturnOnBalloonClick; }
+  public boolean hasPoint()
+  {
+    return mHasPoint;
+  }
+
+  public void setHasPoint(boolean hasPoint) { mHasPoint = hasPoint; }
+
+  public boolean hasPendingIntent() { return mPendingIntent != null; }
+
+  public boolean doReturnOnBalloonClick() { return mReturnOnBalloonClick; }
 
   public void setPointData(double lat, double lon, String name, String id)
   {
@@ -106,17 +124,16 @@ public class ParsedMmwRequest
       if (success)
       {
         i.putExtra(Const.EXTRA_MWM_RESPONSE_POINT_LAT, mLat)
-         .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_LON, mLon)
-         .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_NAME, mName)
-         .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_ID, mId)
-         .putExtra(Const.EXTRA_MWM_RESPONSE_ZOOM, mZoomLevel);
+            .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_LON, mLon)
+            .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_NAME, mName)
+            .putExtra(Const.EXTRA_MWM_RESPONSE_POINT_ID, mId)
+            .putExtra(Const.EXTRA_MWM_RESPONSE_ZOOM, mZoomLevel);
       }
       try
       {
         mPendingIntent.send(context, success ? Activity.RESULT_OK : Activity.RESULT_CANCELED, i);
         return true;
-      }
-      catch (final Exception e)
+      } catch (final Exception e)
       {
         e.printStackTrace();
       }
@@ -138,7 +155,8 @@ public class ParsedMmwRequest
   }
 
   /**
-   *  Do not use constructor externally. Use {@link ParsedMmwRequest#extractFromIntent(Intent, Context)} instead.
+   * Do not use constructor externally. Use {@link ParsedMmwRequest#extractFromIntent(Intent, Context)} instead.
    */
-  private ParsedMmwRequest() {}
+  private ParsedMmwRequest()
+  {}
 }

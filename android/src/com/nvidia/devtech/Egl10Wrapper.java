@@ -3,33 +3,33 @@ package com.nvidia.devtech;
 import android.os.Build;
 import android.view.SurfaceHolder;
 
-import javax.microedition.khronos.egl.EGL10;
-import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLContext;
-import javax.microedition.khronos.egl.EGLSurface;
-
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
+import javax.microedition.khronos.egl.EGL10;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.egl.EGLContext;
+import javax.microedition.khronos.egl.EGLDisplay;
+import javax.microedition.khronos.egl.EGLSurface;
+
 public class Egl10Wrapper extends BaseEglWrapper
 {
   private static final String TAG = "Egl10Wrapper";
 
-  final private EGL10 mEgl = (EGL10)EGLContext.getEGL();
+  final private EGL10 mEgl = (EGL10) EGLContext.getEGL();
 
   private EGLDisplay mDisplay = EGL10.EGL_NO_DISPLAY;
   private EGLContext mContext = EGL10.EGL_NO_CONTEXT;
   private EGLSurface mSurface = EGL10.EGL_NO_SURFACE;
-  private EGLConfig  mConfig  = null;
+  private EGLConfig mConfig = null;
 
   private EGLConfig[] mConfigs = new EGLConfig[40];
 
   private int mChoosenConfigIndex = 0;
-  private int mActualConfigsNumber[] = new int[] {0};
+  private int mActualConfigsNumber[] = new int[]{0};
 
   private Logger mLog = null;
 
@@ -39,7 +39,7 @@ public class Egl10Wrapper extends BaseEglWrapper
   }
 
   private class EGLConfigComparator extends ConfigComparatorBase
-                                    implements Comparator<EGLConfig>
+      implements Comparator<EGLConfig>
   {
     EGLConfigComparator()
     {
@@ -49,7 +49,7 @@ public class Egl10Wrapper extends BaseEglWrapper
     @Override
     public int compare(EGLConfig l, EGLConfig r)
     {
-      final int [] value = new int[1];
+      final int[] value = new int[1];
 
       /// splitting by EGL_CONFIG_CAVEAT,
       /// firstly selecting EGL_NONE, then EGL_SLOW_CONFIG
@@ -62,7 +62,9 @@ public class Egl10Wrapper extends BaseEglWrapper
 
       return CompareConfigs(rcav, lcav);
     }
-  };
+  }
+
+  ;
 
   @Override
   public boolean InitEGL()
@@ -289,7 +291,7 @@ public class Egl10Wrapper extends BaseEglWrapper
   {
     final int sizes[] = new int[1];
     mEgl.eglQuerySurface(mDisplay, mSurface, EGL10.EGL_WIDTH, sizes);
-    return  sizes[0];
+    return sizes[0];
   }
 
   @Override
@@ -364,7 +366,7 @@ public class Egl10Wrapper extends BaseEglWrapper
     final int depth = value[0];
     mEgl.eglGetConfigAttrib(mDisplay, config, EGL10.EGL_CONFIG_CAVEAT, value);
     final String caveat = (value[0] == EGL10.EGL_NONE) ? "EGL_NONE" :
-                          (value[0] == EGL10.EGL_SLOW_CONFIG) ? "EGL_SLOW_CONFIG" : "EGL_NON_CONFORMANT_CONFIG";
+        (value[0] == EGL10.EGL_SLOW_CONFIG) ? "EGL_SLOW_CONFIG" : "EGL_NON_CONFORMANT_CONFIG";
     mEgl.eglGetConfigAttrib(mDisplay, config, EGL10.EGL_BUFFER_SIZE, value);
     final int buffer = value[0];
     mEgl.eglGetConfigAttrib(mDisplay, config, EGL10.EGL_LEVEL, value);

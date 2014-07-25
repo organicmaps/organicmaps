@@ -1,11 +1,10 @@
 package com.nvidia.devtech;
 
 import android.opengl.EGL14;
-import android.opengl.EGLDisplay;
-import android.opengl.EGLContext;
-import android.opengl.EGLSurface;
 import android.opengl.EGLConfig;
-
+import android.opengl.EGLContext;
+import android.opengl.EGLDisplay;
+import android.opengl.EGLSurface;
 import android.view.SurfaceHolder;
 
 import com.mapswithme.util.log.Logger;

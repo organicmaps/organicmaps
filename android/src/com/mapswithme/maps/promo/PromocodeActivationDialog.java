@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class PromocodeActivationDialog extends Dialog
-                                       implements OnClickListener, PromoActivationRequest.RequestListener
+    implements OnClickListener, PromoActivationRequest.RequestListener
 {
   private EditText mPromoText;
   private TextView mErrorText;
@@ -54,7 +54,7 @@ public class PromocodeActivationDialog extends Dialog
       @Override
       public URL createUrl(String promoCode) throws MalformedURLException
       {
-        final String strUrl =  "https://mwm.cbapps.de/" + promoCode;
+        final String strUrl = "https://mwm.cbapps.de/" + promoCode;
         return new URL(strUrl);
       }
     };
@@ -152,7 +152,7 @@ public class PromocodeActivationDialog extends Dialog
 
     final String promoCode = mPromoText.getText().toString().trim();
 
-    new Thread() 
+    new Thread()
     {
       @Override
       public void run()
@@ -160,8 +160,7 @@ public class PromocodeActivationDialog extends Dialog
         try
         {
           mComputerBildRequest.doRequst(promoCode);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
           onError(e);
         }

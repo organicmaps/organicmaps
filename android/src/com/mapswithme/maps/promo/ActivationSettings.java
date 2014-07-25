@@ -1,4 +1,3 @@
-
 package com.mapswithme.maps.promo;
 
 import android.content.Context;

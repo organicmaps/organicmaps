@@ -22,10 +22,13 @@ public class Track
     mColor = color;
   }
 
-  public String getName()         { return mName; }
-  public String getLengthString() { return mLengthString;}
-  public int    getColor()        { return mColor; }
+  public String getName() { return mName; }
 
-  public int getTrackId()    { return mTrackId; }
+  public String getLengthString() { return mLengthString;}
+
+  public int getColor() { return mColor; }
+
+  public int getTrackId() { return mTrackId; }
+
   public int getCategoryId() { return mCategoryId; }
 }

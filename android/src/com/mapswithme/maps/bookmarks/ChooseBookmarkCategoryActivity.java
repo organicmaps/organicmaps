@@ -128,9 +128,9 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
       mRootView = getLayoutInflater().inflate(R.layout.choose_category_footer, null);
       getListView().addFooterView(mRootView);
 
-      mNewName = (EditText)mRootView.findViewById(R.id.chs_footer_field);
+      mNewName = (EditText) mRootView.findViewById(R.id.chs_footer_field);
 
-      mAddButton = (Button)mRootView.findViewById(R.id.chs_footer_button);
+      mAddButton = (Button) mRootView.findViewById(R.id.chs_footer_button);
       mAddButton.setOnClickListener(this);
 
       mRootView.findViewById(R.id.chs_footer_create_button).setOnClickListener(new OnClickListener()
@@ -143,7 +143,7 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
         }
       });
 
-      mCancel = (ImageButton)mRootView.findViewById(R.id.chs_footer_cancel_button);
+      mCancel = (ImageButton) mRootView.findViewById(R.id.chs_footer_cancel_button);
       mCancel.setOnClickListener(this);
 
       mNewLayout = mRootView.findViewById(R.id.chs_footer_new_layout);
@@ -155,7 +155,7 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
         {
           if (actionId == EditorInfo.IME_ACTION_DONE ||
               (event.getAction() == KeyEvent.ACTION_DOWN &&
-               event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+                  event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
           {
             createCategory();
             return true;
@@ -170,7 +170,7 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
       final int index = mManager.createCategory(getBookmarkFromIntent(), name);
 
       getIntent().putExtra(BookmarkActivity.PIN_SET, index)
-      .putExtra(BookmarkActivity.PIN, new ParcelablePoint(index, 0));
+          .putExtra(BookmarkActivity.PIN, new ParcelablePoint(index, 0));
 
       switchToAddButton();
 

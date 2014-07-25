@@ -26,6 +26,6 @@ public class Icon
   @Override
   public boolean equals(Object o)
   {
-    return mType.equals(((Icon)o).getType());
+    return mType.equals(((Icon) o).getType());
   }
 }

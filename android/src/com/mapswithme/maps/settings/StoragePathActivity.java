@@ -13,7 +13,7 @@ public class StoragePathActivity extends MapsWithMeBaseListActivity
 
   private StoragePathManager.StoragePathAdapter getAdapter()
   {
-    return (StoragePathManager.StoragePathAdapter)getListView().getAdapter();
+    return (StoragePathManager.StoragePathAdapter) getListView().getAdapter();
   }
 
   @Override

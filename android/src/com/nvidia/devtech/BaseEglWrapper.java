@@ -1,7 +1,8 @@
 package com.nvidia.devtech;
 
-import javax.microedition.khronos.egl.EGL10;
 import android.opengl.EGL14;
+
+import javax.microedition.khronos.egl.EGL10;
 
 abstract public class BaseEglWrapper extends EglWrapper
 {
@@ -24,50 +25,50 @@ abstract public class BaseEglWrapper extends EglWrapper
 
   protected int[] GetConfigAttributes10()
   {
-    final int[] configAttributes = new int[] {EGL10.EGL_RED_SIZE, redSize,
-                                              EGL10.EGL_GREEN_SIZE, greenSize,
-                                              EGL10.EGL_BLUE_SIZE, blueSize,
-                                              EGL10.EGL_ALPHA_SIZE, alphaSize,
-                                              EGL10.EGL_STENCIL_SIZE, stencilSize,
-                                              EGL10.EGL_DEPTH_SIZE, depthSize,
-                                              EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-                                              EGL10.EGL_NONE };
+    final int[] configAttributes = new int[]{EGL10.EGL_RED_SIZE, redSize,
+        EGL10.EGL_GREEN_SIZE, greenSize,
+        EGL10.EGL_BLUE_SIZE, blueSize,
+        EGL10.EGL_ALPHA_SIZE, alphaSize,
+        EGL10.EGL_STENCIL_SIZE, stencilSize,
+        EGL10.EGL_DEPTH_SIZE, depthSize,
+        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
+        EGL10.EGL_NONE};
 
     return configAttributes;
   }
 
   protected int[] GetSurfaceAttributes10()
   {
-    return new int[] { EGL10.EGL_NONE };
+    return new int[]{EGL10.EGL_NONE};
   }
 
   protected int[] GetContextAttributes10()
   {
-    return new int[] { EGL_CONTEXT_CLIENT_VERSION, 2, EGL10.EGL_NONE };
+    return new int[]{EGL_CONTEXT_CLIENT_VERSION, 2, EGL10.EGL_NONE};
   }
 
   protected int[] GetConfigAttributes14()
   {
-    final int[] configAttributes = new int[] {EGL14.EGL_RED_SIZE, redSize,
-                                              EGL14.EGL_GREEN_SIZE, greenSize,
-                                              EGL14.EGL_BLUE_SIZE, blueSize,
-                                              EGL14.EGL_ALPHA_SIZE, alphaSize,
-                                              EGL14.EGL_STENCIL_SIZE, stencilSize,
-                                              EGL14.EGL_DEPTH_SIZE, depthSize,
-                                              EGL14.EGL_RENDERABLE_TYPE, EGL14.EGL_OPENGL_ES2_BIT,
-                                              EGL14.EGL_NONE };
+    final int[] configAttributes = new int[]{EGL14.EGL_RED_SIZE, redSize,
+        EGL14.EGL_GREEN_SIZE, greenSize,
+        EGL14.EGL_BLUE_SIZE, blueSize,
+        EGL14.EGL_ALPHA_SIZE, alphaSize,
+        EGL14.EGL_STENCIL_SIZE, stencilSize,
+        EGL14.EGL_DEPTH_SIZE, depthSize,
+        EGL14.EGL_RENDERABLE_TYPE, EGL14.EGL_OPENGL_ES2_BIT,
+        EGL14.EGL_NONE};
 
     return configAttributes;
   }
 
   protected int[] GetSurfaceAttributes14()
   {
-    return new int[] { EGL14.EGL_NONE };
+    return new int[]{EGL14.EGL_NONE};
   }
 
   protected int[] GetContextAttributes14()
   {
-    return new int[] { EGL14.EGL_CONTEXT_CLIENT_VERSION, 2, EGL14.EGL_NONE };
+    return new int[]{EGL14.EGL_CONTEXT_CLIENT_VERSION, 2, EGL14.EGL_NONE};
   }
 
   protected boolean ValidateSurfaceSize()

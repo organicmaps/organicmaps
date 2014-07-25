@@ -1,7 +1,5 @@
 package com.mapswithme.maps.bookmarks;
 
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
@@ -13,6 +11,8 @@ import android.widget.ImageView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.util.UiUtils;
+
+import java.util.List;
 
 /// SingleChoise list view don't add radio button to custom view.
 public class IconsAdapter extends ArrayAdapter<Icon>
@@ -33,7 +33,7 @@ public class IconsAdapter extends ArrayAdapter<Icon>
       LayoutInflater inflater = LayoutInflater.from(getContext());
       convertView = inflater.inflate(R.layout.color_row, parent, false);
       convertView.setTag(new SpinnerViewHolder((ImageView) convertView.findViewById(R.id.row_color_image),
-                                               (ImageView) convertView.findViewById(R.id.selected_mark)));
+          (ImageView) convertView.findViewById(R.id.selected_mark)));
     }
     SpinnerViewHolder holder = (SpinnerViewHolder) convertView.getTag();
     if (position == mCheckedPosition)

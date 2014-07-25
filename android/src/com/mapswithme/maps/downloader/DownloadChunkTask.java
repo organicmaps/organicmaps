@@ -1,5 +1,12 @@
 package com.mapswithme.maps.downloader;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import com.mapswithme.util.StringUtils;
+import com.mapswithme.util.Utils;
+
 import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,13 +17,6 @@ import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-
-import android.annotation.SuppressLint;
-import android.os.AsyncTask;
-import android.util.Log;
-
-import com.mapswithme.util.StringUtils;
-import com.mapswithme.util.Utils;
 
 class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
 {
@@ -101,9 +101,9 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   void start()
   {
     if (Utils.apiEqualOrGreaterThan(11))
-      executeOnExecutor(s_exec, (Void[])null);
+      executeOnExecutor(s_exec, (Void[]) null);
     else
-      execute((Void[])null);
+      execute((Void[]) null);
   }
 
   static long parseContentRange(String contentRangeValue)
@@ -116,8 +116,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
         try
         {
           return Long.parseLong(contentRangeValue.substring(slashIndex + 1));
-        }
-        catch (final NumberFormatException ex)
+        } catch (final NumberFormatException ex)
         {
           // Return -1 at the end of function
         }
@@ -157,7 +156,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
           urlConnection.setRequestProperty("Range", StringUtils.formatUsingUsLocale("bytes=%d-", m_beg));
       }
 
-      final Map<?,?> requestParams = urlConnection.getRequestProperties();
+      final Map<?, ?> requestParams = urlConnection.getRequestProperties();
 
       if (m_postBody != null)
       {
@@ -185,8 +184,8 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
         // we've set error code so client should be notified about the error
         m_httpErrorCode = FILE_SIZE_CHECK_FAILED;
         Log.w(TAG, "Error for " + urlConnection.getURL() +
-              ": Server replied with code " + err +
-              ", aborting download. " + Utils.mapPrettyPrint(requestParams));
+            ": Server replied with code " + err +
+            ", aborting download. " + Utils.mapPrettyPrint(requestParams));
         return false;
       }
 
@@ -203,7 +202,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
           // we've set error code so client should be notified about the error
           m_httpErrorCode = FILE_SIZE_CHECK_FAILED;
           Log.w(TAG, "Error for " + urlConnection.getURL() +
-                ": Invalid file size received (" + contentLength + ") while expecting " + m_expectedFileSize +
+              ": Invalid file size received (" + contentLength + ") while expecting " + m_expectedFileSize +
               ". Aborting download.");
           return false;
         }
@@ -211,24 +210,21 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       }
 
       return downloadFromStream(new BufferedInputStream(urlConnection.getInputStream(), 65536));
-    }
-    catch (final MalformedURLException ex)
+    } catch (final MalformedURLException ex)
     {
       Log.d(TAG, "Invalid url: " + m_url);
 
       // Notify the client about error
       m_httpErrorCode = INVALID_URL;
       return false;
-    }
-    catch (final IOException ex)
+    } catch (final IOException ex)
     {
       Log.d(TAG, "IOException in doInBackground for URL: " + m_url, ex);
 
       // Notify the client about error
       m_httpErrorCode = IO_ERROR;
       return false;
-    }
-    finally
+    } finally
     {
       //Log.i(TAG, "End downloading chunk " + getChunkID());
 
@@ -246,7 +242,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   /// try to introduce dynamic buffer size to read in one query.
   private boolean downloadFromStream(InputStream stream)
   {
-    final int arrSize[] = { 64, 32, 1 };
+    final int arrSize[] = {64, 32, 1};
     int ret = -1;
 
     for (int i = 0; i < arrSize.length; ++i)
@@ -256,8 +252,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
         // download chunk from stream
         ret = downloadFromStreamImpl(stream, arrSize[i] * 1024);
         break;
-      }
-      catch (final IOException ex)
+      } catch (final IOException ex)
       {
         Log.d(TAG, "IOException in downloadFromStream for chunk size: " + arrSize[i], ex);
       }

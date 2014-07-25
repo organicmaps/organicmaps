@@ -1,11 +1,11 @@
 package com.mapswithme.util;
 
-import java.util.Locale;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
+
+import java.util.Locale;
 
 public class Language
 {

@@ -14,16 +14,6 @@ import com.mapswithme.maps.base.MapsWithMeBaseActivity;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
-import javax.microedition.khronos.egl.EGL10;
-import javax.microedition.khronos.egl.EGL11;
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLContext;
-import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.egl.EGLSurface;
-
 public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity implements View.OnTouchListener
 {
   private static final String TAG = "NvEventQueueActivity";

@@ -452,6 +452,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     mDistanceText = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_distance);
     mAvDirection = (ArrowView) mGeoLayout.findViewById(R.id.av_direction);
     mAvDirection.setDrawCircle(true);
+    mAvDirection.setVisibility(View.GONE); // should be hidden until first compas update
     mTvCoords = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_location);
     mTvCoords.setOnClickListener(this);
 
@@ -547,7 +548,10 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
             l.getLatitude(), l.getLongitude(), northAzimuth);
 
         if (da.getAthimuth() >= 0)
+        {
+          mAvDirection.setVisibility(View.VISIBLE);
           mAvDirection.setAzimut(da.getAthimuth());
+        }
       }
     }
   }

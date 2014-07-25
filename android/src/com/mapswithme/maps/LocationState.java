@@ -14,30 +14,38 @@ public class LocationState
   public static final int COMPASS_FOLLOW = 1;
 
   public native int getCompassProcessMode();
+
   public native void setCompassProcessMode(int mode);
 
   public native int getLocationProcessMode();
+
   public native void setLocationProcessMode(int mode);
 
   public native void startCompassFollowing();
+
   public native void stopCompassFollowing();
 
   public native void stopCompassFollowingAndRotateMap();
 
   public native int addCompassStatusListener(Object l);
+
   public native void removeCompassStatusListener(int slotID);
 
   public native void onStartLocation();
+
   public native void onStopLocation();
 
   public native boolean hasPosition();
+
   public native boolean hasCompass();
 
   public native boolean isFirstPosition();
+
   public native boolean isCentered();
 
   public native void animateToPositionAndEnqueueLocationProcessMode(int mode);
 
   public native void turnOff();
+
   public native boolean isVisible();
 }

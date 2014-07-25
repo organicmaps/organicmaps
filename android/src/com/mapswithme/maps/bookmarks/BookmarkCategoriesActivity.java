@@ -38,7 +38,7 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
         if (getAdapter().isActiveItem(position))
         {
           startActivity(new Intent(BookmarkCategoriesActivity.this, BookmarkListActivity.class)
-          .putExtra(BookmarkActivity.PIN_SET, position));
+              .putExtra(BookmarkActivity.PIN_SET, position));
         }
       }
     });
@@ -50,7 +50,7 @@ public class BookmarkCategoriesActivity extends AbstractBookmarkCategoryActivity
   public void onCreateContextMenu(ContextMenu menu, View v,
                                   ContextMenuInfo menuInfo)
   {
-    mSelectedPosition = ((AdapterView.AdapterContextMenuInfo)menuInfo).position;
+    mSelectedPosition = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
     if (getAdapter().isActiveItem(mSelectedPosition))
     {
       getMenuInflater().inflate(R.menu.bookmark_categories_context_menu, menu);

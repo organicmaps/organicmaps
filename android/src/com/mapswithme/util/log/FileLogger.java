@@ -1,9 +1,9 @@
 package com.mapswithme.util.log;
 
+import android.util.Log;
+
 import java.io.FileWriter;
 import java.io.IOException;
-
-import android.util.Log;
 
 public class FileLogger extends Logger
 {
@@ -16,8 +16,7 @@ public class FileLogger extends Logger
     {
       m_file.write(tag + ": " + str + m_separator);
       m_file.flush();
-    }
-    catch (IOException ex)
+    } catch (IOException ex)
     {
       Log.e(tag, ex.toString());
     }
@@ -36,8 +35,7 @@ public class FileLogger extends Logger
           {
             m_file = new FileWriter(path + "android-logging.txt");
             m_separator = System.getProperty("line.separator");
-          }
-          catch (IOException ex)
+          } catch (IOException ex)
           {
             Log.e(tag, ex.toString());
           }

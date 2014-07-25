@@ -13,14 +13,16 @@ public abstract class Logger
     this.tag = tag;
   }
 
-  static protected String join(Object ... args)
+  static protected String join(Object... args)
   {
     return (args != null ? TextUtils.join(", ", args) : "");
   }
 
   public abstract void d(String message);
+
   public abstract void e(String message);
 
-  public abstract void d(String message, Object ... args);
-  public abstract void e(String message, Object ... args);
+  public abstract void d(String message, Object... args);
+
+  public abstract void e(String message, Object... args);
 }

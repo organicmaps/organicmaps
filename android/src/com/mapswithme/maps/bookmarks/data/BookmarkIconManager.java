@@ -5,9 +5,9 @@ import java.util.HashMap;
 public class BookmarkIconManager
 {
   private static String[] ICONS = {
-             "placemark-red", "placemark-blue", "placemark-purple", "placemark-yellow",
-             "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
-         };
+      "placemark-red", "placemark-blue", "placemark-purple", "placemark-yellow",
+      "placemark-pink", "placemark-brown", "placemark-green", "placemark-orange"
+  };
 
 
   static Icon getIcon(String type)

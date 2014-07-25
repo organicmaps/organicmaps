@@ -1,14 +1,13 @@
 package com.mapswithme.maps.bookmarks.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
-import android.graphics.Point;
 import android.util.Pair;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookmarkManager
 {
@@ -46,6 +45,7 @@ public class BookmarkManager
   {
     nativeDeleteTrack(track.getCategoryId(), track.getTrackId());
   }
+
   private native void nativeDeleteTrack(int cat, int trk);
 
   public int addBookmarkToLastEditedCategory(String name, double lat, double lon)

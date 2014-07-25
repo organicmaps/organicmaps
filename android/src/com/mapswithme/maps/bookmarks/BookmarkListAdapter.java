@@ -1,10 +1,5 @@
 package com.mapswithme.maps.bookmarks;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -24,9 +19,14 @@ import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.UiUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class BookmarkListAdapter extends BaseAdapter
-                                 implements LocationService.Listener
+    implements LocationService.Listener
 {
   private final Activity mContext;
   private final BookmarkCategory mCategory;
@@ -58,8 +58,9 @@ public class BookmarkListAdapter extends BaseAdapter
   {
     return 3; // bookmark + track + section
   }
-  final static int TYPE_TRACK   = 0;
-  final static int TYPE_BMK     = 1;
+
+  final static int TYPE_TRACK = 0;
+  final static int TYPE_BMK = 1;
   final static int TYPE_SECTION = 2;
 
   @Override
@@ -92,7 +93,7 @@ public class BookmarkListAdapter extends BaseAdapter
       if (convertView == null)
       {
         sectionView = LayoutInflater.from(mContext).inflate(R.layout.list_separator_base, null);
-        sectionName = (TextView)sectionView.findViewById(R.id.text);
+        sectionName = (TextView) sectionView.findViewById(R.id.text);
         sectionView.setTag(sectionName);
       }
       else
@@ -115,9 +116,9 @@ public class BookmarkListAdapter extends BaseAdapter
 
     final PinHolder holder = (PinHolder) convertView.getTag();
     if (type == TYPE_BMK)
-      holder.set((Bookmark)getItem(position));
+      holder.set((Bookmark) getItem(position));
     else
-      holder.set((Track)getItem(position));
+      holder.set((Track) getItem(position));
 
     return convertView;
   }
@@ -127,7 +128,7 @@ public class BookmarkListAdapter extends BaseAdapter
   {
     return mCategory.getSize()
         + (isSectionEmpty(SECTION_TRACKS) ? 0 : 1)
-        + (isSectionEmpty(SECTION_BMKS)   ? 0 : 1);
+        + (isSectionEmpty(SECTION_BMKS) ? 0 : 1);
   }
 
   @Override

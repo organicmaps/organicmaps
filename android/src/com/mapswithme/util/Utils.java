@@ -25,11 +25,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-final public class Utils
+public class Utils
 {
   private static final String TAG = "Utils";
 
-  public static String firstNotEmpty(String ... args)
+  public static String firstNotEmpty(String... args)
   {
     for (int i = 0; i < args.length; i++)
       if (!TextUtils.isEmpty(args[i]))
@@ -45,8 +45,7 @@ final public class Utils
       try
       {
         stream.close();
-      }
-      catch (final IOException e)
+      } catch (final IOException e)
       {
         Log.e(TAG, "Can't close stream", e);
       }
@@ -93,7 +92,7 @@ final public class Utils
   {
     final android.util.TypedValue value = new android.util.TypedValue();
     final boolean b = activity.getTheme().resolveAttribute(attr, value, true);
-    assert(b);
+    assert (b);
     final android.util.DisplayMetrics metrics = new android.util.DisplayMetrics();
     activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
     return value.getDimension(metrics);
@@ -150,13 +149,13 @@ final public class Utils
     {
       // This is different classes in different packages
       final android.content.ClipboardManager clipboard =
-           (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+          (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
       final ClipData clip = ClipData.newPlainText("maps.me: " + text, text);
       clipboard.setPrimaryClip(clip);
     }
   }
 
-  public static <K,V> String mapPrettyPrint(Map<K, V> map)
+  public static <K, V> String mapPrettyPrint(Map<K, V> map)
   {
     if (map == null)
       return "[null]";
@@ -167,9 +166,9 @@ final public class Utils
     String joined = "";
     for (final K key : map.keySet())
     {
-      final String keyVal =  key + "=" + map.get(key);
+      final String keyVal = key + "=" + map.get(key);
       if (joined.length() > 0)
-        joined = TextUtils.join(",", new Object[] { joined, keyVal });
+        joined = TextUtils.join(",", new Object[]{joined, keyVal});
       else
         joined = keyVal;
     }
@@ -188,11 +187,10 @@ final public class Utils
     return mItem;
   }
 
-  public static Object[] asObjectArray(Object ... args)
+  public static Object[] asObjectArray(Object... args)
   {
     return args;
   }
 
-  // utility class
   private Utils() {}
 }

@@ -1,22 +1,22 @@
 package com.mapswithme.util;
 
-import java.util.Locale;
-
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.CharacterStyle;
 
+import java.util.Locale;
+
 public class StringUtils
 {
   /**
-   *  Set span for the FIRST occurrence of EACH token.
+   * Set span for the FIRST occurrence of EACH token.
    *
    * @param input
    * @param spanStyle
    * @param tokens
    * @return
    */
-  public static CharSequence setSpansForTokens(String input, CharacterStyle spanStyle, String ... tokens)
+  public static CharSequence setSpansForTokens(String input, CharacterStyle spanStyle, String... tokens)
   {
     final SpannableStringBuilder spanStrBuilder = new SpannableStringBuilder(input);
 
@@ -36,7 +36,7 @@ public class StringUtils
     return spanStrBuilder;
   }
 
-  public static String formatUsingUsLocale(String pattern, Object ... args)
+  public static String formatUsingUsLocale(String pattern, Object... args)
   {
     return String.format(Locale.US, pattern, args);
   }

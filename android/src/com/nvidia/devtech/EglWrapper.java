@@ -1,9 +1,8 @@
 package com.nvidia.devtech;
 
-import android.view.SurfaceHolder;
-
 import android.opengl.EGL14;
 import android.opengl.EGLDisplay;
+import android.view.SurfaceHolder;
 
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -11,15 +10,25 @@ import com.mapswithme.util.log.Logger;
 abstract public class EglWrapper
 {
   public abstract boolean InitEGL();
+
   public abstract boolean TerminateEGL();
+
   public abstract boolean CreateSurfaceEGL(SurfaceHolder holder);
+
   public abstract boolean DestroySurfaceEGL();
+
   public abstract boolean SwapBuffersEGL();
+
   public abstract int GetSurfaceWidth();
+
   public abstract int GetSurfaceHeight();
+
   public abstract boolean IsInitialized();
+
   public abstract boolean Bind();
+
   public abstract boolean Unbind();
+
   public abstract int GetErrorEGL();
 
   enum EglVersion
@@ -35,9 +44,9 @@ abstract public class EglWrapper
     switch (version)
     {
     case Egl:
-        return new Egl10Wrapper(logger);
+      return new Egl10Wrapper(logger);
     case Egl14:
-        return new Egl14Wrapper(logger);
+      return new Egl14Wrapper(logger);
     }
 
     return null;

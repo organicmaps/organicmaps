@@ -31,7 +31,7 @@ public enum Statistics
   private final boolean DEBUG = false;
   private final Logger mLogger = DEBUG ? SimpleLogger.get("MwmStatistics") : StubLogger.get();
   // Statistics counters
-  private int mBookmarksCreated= 0;
+  private int mBookmarksCreated = 0;
   private int mSharedTimes = 0;
 
 
@@ -64,9 +64,9 @@ public enum Statistics
   public void trackBackscreenCall(Context context, String from)
   {
     final Event event = getEventBuilder().reset()
-                         .setName("Yota back screen call")
-                         .addParam("from", from)
-                         .getEvent();
+        .setName("Yota back screen call")
+        .addParam("from", from)
+        .getEvent();
 
     trackIfEnabled(context, event);
   }
@@ -89,9 +89,9 @@ public enum Statistics
   public void trackSearchCategoryClicked(Context context, String category)
   {
     final Event event = getEventBuilder().reset()
-                          .setName("Search category clicked")
-                          .addParam("category", category)
-                          .getEvent();
+        .setName("Search category clicked")
+        .addParam("category", category)
+        .getEvent();
 
     trackIfEnabled(context, event);
   }
@@ -114,10 +114,10 @@ public enum Statistics
   public void trackSearchContextChanged(Context context, String from, String to)
   {
     final Event event = getEventBuilder().reset()
-                          .setName("Search context changed")
-                          .addParam("from", from)
-                          .addParam("to", to)
-                          .getEvent();
+        .setName("Search context changed")
+        .addParam("from", from)
+        .addParam("to", to)
+        .getEvent();
 
     trackIfEnabled(context, event);
   }
@@ -125,10 +125,10 @@ public enum Statistics
   public void trackColorChanged(Context context, String from, String to)
   {
     final Event event = getEventBuilder().reset()
-                          .setName("Color changed")
-                          .addParam("from", from)
-                          .addParam("to", to)
-                          .getEvent();
+        .setName("Color changed")
+        .addParam("from", from)
+        .addParam("to", to)
+        .getEvent();
 
     trackIfEnabled(context, event);
   }
@@ -136,9 +136,9 @@ public enum Statistics
   public void trackBookmarkCreated(Context context)
   {
     final Event event = getEventBuilder().reset()
-                          .setName("Bookmark created")
-                          .addParam("Count", String.valueOf(++mBookmarksCreated))
-                          .getEvent();
+        .setName("Bookmark created")
+        .addParam("Count", String.valueOf(++mBookmarksCreated))
+        .getEvent();
 
     trackIfEnabled(context, event);
   }
@@ -146,10 +146,10 @@ public enum Statistics
   public void trackPlaceShared(Context context, String channel)
   {
     final Event event = getEventBuilder().reset()
-                          .setName("Place Shared")
-                          .addParam("Channel", channel)
-                          .addParam("Count", String.valueOf(++mSharedTimes))
-                          .getEvent();
+        .setName("Place Shared")
+        .addParam("Channel", channel)
+        .addParam("Count", String.valueOf(++mSharedTimes))
+        .getEvent();
 
     trackIfEnabled(context, event);
   }
@@ -170,12 +170,12 @@ public enum Statistics
     {
       ensureConfigured(MWMApplication.get());
       //@formatter:off
-     final Event event = getEventBuilder().reset()
-                      .setName("API called")
-                      .addParam("Caller ID", request.getCallerInfo().packageName)
-                      .getEvent();
-     //@formatter:on
-     trackIfEnabled(MWMApplication.get(), event);
+      final Event event = getEventBuilder().reset()
+          .setName("API called")
+          .addParam("Caller ID", request.getCallerInfo().packageName)
+          .getEvent();
+      //@formatter:on
+      trackIfEnabled(MWMApplication.get(), event);
     }
   }
 
@@ -241,8 +241,8 @@ public enum Statistics
       }
 
       eventBuilder.addParam("Categories count", String.valueOf(categoriesCount))
-                  .addParam("Foreground time", String.valueOf(MWMApplication.get().getForegroundTime()))
-                  .setName("One time PRO stat");
+          .addParam("Foreground time", String.valueOf(MWMApplication.get().getForegroundTime()))
+          .setName("One time PRO stat");
 
       trackIfEnabled(activity, eventBuilder.getEvent());
     }
@@ -272,10 +272,10 @@ public enum Statistics
     // We track if user turned on/off
     // statistics to understand data better.
     getEventBuilder().reset()
-      .setName("Statistics status changed")
-      .addParam("Enabled", String.valueOf(isEnabled))
-      .getEvent()
-      .post();
+        .setName("Statistics status changed")
+        .addParam("Enabled", String.valueOf(isEnabled))
+        .getEvent()
+        .post();
   }
 
   private boolean isActiveUser(Context context, double foregroundTime)

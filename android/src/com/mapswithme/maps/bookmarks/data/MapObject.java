@@ -88,10 +88,14 @@ public abstract class MapObject
     return true;
   }
 
-  public double getScale() { return 0; };
-  public String getName()  { return mName; }
-  public double getLat()   { return mLat; }
-  public double getLon()   { return mLon; }
+  public double getScale() { return 0; }
+
+  public String getName() { return mName; }
+
+  public double getLat() { return mLat; }
+
+  public double getLon() { return mLon; }
+
   public String getPoiTypeName() { return mTypeName; }
 
   public abstract MapObjectType getType();

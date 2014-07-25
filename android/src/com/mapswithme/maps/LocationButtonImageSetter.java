@@ -18,6 +18,7 @@ public class LocationButtonImageSetter
   }
 
   private final static Map<ButtonState, Integer> STATE_TO_RES = new HashMap<ButtonState, Integer>();
+
   static
   {
     STATE_TO_RES.put(ButtonState.NO_LOCATION, R.drawable.ic_my_position);
@@ -34,7 +35,7 @@ public class LocationButtonImageSetter
     button.setImageDrawable(draw);
 
     if (draw instanceof AnimationDrawable)
-      ((AnimationDrawable)draw).start();
+      ((AnimationDrawable) draw).start();
   }
 
 }

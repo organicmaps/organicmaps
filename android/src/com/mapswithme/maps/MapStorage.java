@@ -1,10 +1,10 @@
 package com.mapswithme.maps;
 
-import java.io.Serializable;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+
+import java.io.Serializable;
 
 public class MapStorage
 {
@@ -23,8 +23,11 @@ public class MapStorage
   public interface Listener
   {
     public void onCountryStatusChanged(Index idx);
+
     public void onCountryProgress(Index idx, long current, long total);
-  };
+  }
+
+  ;
 
   public static class Index implements Serializable
   {
@@ -68,7 +71,7 @@ public class MapStorage
         ret.setCountry(position);
       else
       {
-        assert(ret.getRegion() == -1);
+        assert (ret.getRegion() == -1);
         ret.setRegion(position);
       }
 
@@ -134,13 +137,19 @@ public class MapStorage
   }
 
   public native int countriesCount(Index idx);
+
   public native int countryStatus(Index idx);
+
   public native long countryLocalSizeInBytes(Index idx);
+
   public native long countryRemoteSizeInBytes(Index idx);
+
   public native String countryName(Index idx);
+
   public native String countryFlag(Index idx);
 
   public native void downloadCountry(Index idx);
+
   public native void deleteCountry(Index idx);
 
   public native Index findIndexByFile(String name);
@@ -148,6 +157,7 @@ public class MapStorage
   public native void showCountry(Index idx);
 
   public native int subscribe(Listener l);
+
   public native void unsubscribe(int slotId);
 
   private native String[] nativeGetMapsWithoutSearch();
@@ -169,6 +179,7 @@ public class MapStorage
   public interface UpdateFunctor
   {
     public void doUpdate();
+
     public void doCancel();
   }
 
@@ -211,31 +222,31 @@ public class MapStorage
     }
 
     new AlertDialog.Builder(context)
-    .setMessage(msg)
-    .setPositiveButton(context.getString(R.string.download), new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
-      {
-        dlg.dismiss();
+        .setMessage(msg)
+        .setPositiveButton(context.getString(R.string.download), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
 
-        runDownloadCountries(indexes);
+            runDownloadCountries(indexes);
 
-        fn.doUpdate();
-      }
-    })
-    .setNegativeButton(context.getString(R.string.later), new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
-      {
-        dlg.dismiss();
+            fn.doUpdate();
+          }
+        })
+        .setNegativeButton(context.getString(R.string.later), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
 
-        fn.doCancel();
-      }
-    })
-    .create()
-    .show();
+            fn.doCancel();
+          }
+        })
+        .create()
+        .show();
 
     return true;
   }

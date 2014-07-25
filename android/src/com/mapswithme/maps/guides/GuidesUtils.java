@@ -18,8 +18,7 @@ public class GuidesUtils
       // throws if has no package
       pm.getPackageInfo(appId, PackageManager.GET_META_DATA);
       return true;
-    }
-    catch (final NameNotFoundException e)
+    } catch (final NameNotFoundException e)
     {
       return false;
     }

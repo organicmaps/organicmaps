@@ -52,7 +52,7 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     {
       final View hintView = LayoutInflater.from(getContext()).inflate(R.layout.bookmark_hint, null);
       if (super.getCount() > 0)
-        ((TextView)hintView.findViewById(R.id.bookmarks_usage_hint)).setText(R.string.bookmarks_usage_hint_import_only);
+        ((TextView) hintView.findViewById(R.id.bookmarks_usage_hint)).setText(R.string.bookmarks_usage_hint_import_only);
       return hintView;
     }
 
@@ -60,7 +60,7 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     {
       convertView = LayoutInflater.from(getContext()).inflate(R.layout.bmk_category_item, null);
       final PinSetHolder holder = new PinSetHolder((TextView) convertView.findViewById(R.id.psi_name),
-                                                   (CheckBox) convertView.findViewById(R.id.pin_set_visible));
+          (CheckBox) convertView.findViewById(R.id.pin_set_visible));
       convertView.setTag(holder);
       holder.visibilityCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
       {
@@ -68,9 +68,9 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
         {
           BookmarkCategoriesAdapter.this
-                                   .getBookmarkManager()
-                                   .getCategoryById(holder.categoryId)
-                                   .setVisibility(isChecked);
+              .getBookmarkManager()
+              .getCategoryById(holder.categoryId)
+              .setVisibility(isChecked);
         }
       });
     }
@@ -80,7 +80,7 @@ public class BookmarkCategoriesAdapter extends AbstractBookmarkCategoryAdapter
     // category ID
     psh.categoryId = position;
     // name
-    psh.name.setText(set.getName() + " ("+String.valueOf(set.getSize())+")");
+    psh.name.setText(set.getName() + " (" + String.valueOf(set.getSize()) + ")");
     // visibility
     psh.visibilityCheckBox.setChecked(set.isVisible());
 

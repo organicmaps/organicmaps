@@ -1,15 +1,16 @@
 package com.mapswithme.maps;
 
-import java.io.File;
-
 import android.app.Activity;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
-import android.provider.Settings.Secure;
 
+import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -20,14 +21,9 @@ import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
-import com.mapswithme.util.log.StubLogger;
 import com.mobileapptracker.MobileAppTracker;
 
-import com.google.android.gms.ads.identifier.AdvertisingIdClient;
-import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-
+import java.io.File;
 import java.io.IOException;
 
 public class MWMApplication extends android.app.Application implements MapStorage.Listener
@@ -135,7 +131,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
     // init native framework
     nativeInit(getApkPath(), extStoragePath, extTmpPath,
-               getOBBGooglePath(), m_isPro, m_isYota);
+        getOBBGooglePath(), m_isPro, m_isYota);
 
     getMapStorage().subscribe(this);
 
@@ -186,8 +182,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     try
     {
       return getPackageManager().getApplicationInfo(getPackageName(), 0).sourceDir;
-    }
-    catch (final NameNotFoundException e)
+    } catch (final NameNotFoundException e)
     {
       Log.e(TAG, "Can't get apk path from PackageManager");
       return "";
@@ -229,6 +224,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   {
     return m_isPro;
   }
+
   public boolean hasBookmarks()
   {
     return m_isPro || m_isYota;
@@ -265,11 +261,13 @@ public class MWMApplication extends android.app.Application implements MapStorag
   /// @{
   static public final int FACEBOOK = 0;
   static public final int BUYPRO = 1;
+
   public native boolean shouldShowDialog(int dlg);
 
   static public final int OK = 0;
   static public final int LATER = 1;
   static public final int NEVER = 2;
+
   public native void submitDialogResult(int dlg, int res);
   /// @}
 
@@ -277,13 +275,19 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   /// Dealing with Settings
   public native boolean nativeGetBoolean(String name, boolean defaultValue);
+
   public native void nativeSetBoolean(String name, boolean value);
+
   public native int nativeGetInt(String name, int defaultValue);
+
   public native void nativeSetInt(String name, int value);
+
   public native long nativeGetLong(String name, long defaultValue);
+
   public native void nativeSetLong(String name, long value);
 
   public native double nativeGetDouble(String name, double defaultValue);
+
   public native void nativeSetDouble(String name, double value);
 
   public void onMwmStart(Activity activity)
@@ -294,7 +298,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   private MobileAppTracker mMobileAppTracker = null;
   private final Logger mLogger = //StubLogger.get();
-                                 SimpleLogger.get("MAT");
+      SimpleLogger.get("MAT");
 
   public void onMwmResume(Activity activity)
   {
@@ -342,7 +346,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
       // Collect Google Play Advertising ID
       new Thread(new Runnable()
       {
-        @Override public void run()
+        @Override
+        public void run()
         {
           // See sample code at http://developer.android.com/google/play-services/id.html
           try
@@ -350,22 +355,19 @@ public class MWMApplication extends android.app.Application implements MapStorag
             Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(getApplicationContext());
             mMobileAppTracker.setGoogleAdvertisingId(adInfo.getId(), adInfo.isLimitAdTrackingEnabled());
             mLogger.d("Got Google User ID");
-          }
-          catch (IOException e)
+          } catch (IOException e)
           {
             // Unrecoverable error connecting to Google Play services (e.g.,
             // the old version of the service doesn't support getting AdvertisingId).
             mLogger.d("IOException");
-          }
-          catch (GooglePlayServicesNotAvailableException e)
+          } catch (GooglePlayServicesNotAvailableException e)
           {
             // Google Play services is not available entirely.
             // Use ANDROID_ID instead
             // AlexZ: we can't use Android ID from 1st of August, 2014, according to Google policies
             // mMobileAppTracker.setAndroidId(Secure.getString(getContentResolver(), Secure.ANDROID_ID));
             mLogger.d("GooglePlayServicesNotAvailableException");
-          }
-          catch (GooglePlayServicesRepairableException e)
+          } catch (GooglePlayServicesRepairableException e)
           {
             // Encountered a recoverable error connecting to Google Play services.
             mLogger.d("GooglePlayServicesRepairableException");
