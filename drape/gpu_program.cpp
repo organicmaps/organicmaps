@@ -2,6 +2,7 @@
 #include "glfunctions.hpp"
 
 #include "../base/assert.hpp"
+#include "../../base/logging.hpp"
 
 #ifdef DEBUG
   #include "../std/map.hpp"
@@ -54,7 +55,8 @@ GpuProgram::GpuProgram(RefPointer<Shader> vertexShader, RefPointer<Shader> fragm
   GLFunctions::glAttachShader(m_programID, fragmentShader->GetID());
 
   string errorLog;
-  VERIFY(GLFunctions::glLinkProgram(m_programID, errorLog), (errorLog));
+  if (!GLFunctions::glLinkProgram(m_programID, errorLog))
+    LOG(LINFO, ("Program ", m_programID, " link error = ", errorLog));
 
   GLFunctions::glDetachShader(m_programID, vertexShader->GetID());
   GLFunctions::glDetachShader(m_programID, fragmentShader->GetID());
