@@ -155,10 +155,10 @@ void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
     yOffset *= aspect;
     xOffset *= aspect;
 
-    PointF const leftBottom(stride - xOffset + anchorDelta.x, yOffset + anchorDelta.y);
-    PointF const rightBottom(stride + w - xOffset + anchorDelta.x, yOffset + anchorDelta.y);
-    PointF const leftTop(stride - xOffset + anchorDelta.x, yOffset + h + anchorDelta.y);
-    PointF const rightTop(stride + w - xOffset + anchorDelta.x, yOffset + h + anchorDelta.y);
+    PointF const leftBottom(stride + xOffset + anchorDelta.x, yOffset + anchorDelta.y);
+    PointF const rightBottom(stride + w + xOffset + anchorDelta.x, yOffset + anchorDelta.y);
+    PointF const leftTop(stride + xOffset + anchorDelta.x, yOffset + h + anchorDelta.y);
+    PointF const rightTop(stride + w + xOffset + anchorDelta.x, yOffset + h + anchorDelta.y);
 
     int index = j * 4;
     vertex[index++] = Vertex(m_basePoint, leftTop);
