@@ -16,6 +16,20 @@ struct Color
   bool operator == (Color const & other) const;
 };
 
+struct ColorF
+{
+  ColorF() {}
+  ColorF(Color const & clr)
+          : m_r(clr.m_red / 255.0f), m_g(clr.m_green / 255.0f),
+            m_b(clr.m_blue / 255.0f), m_a(clr.m_alfa / 255.0f) {}
+  ColorF(float r, float g, float b, float a) : m_r (r), m_g (g), m_b (b), m_a (a) {}
+
+  float m_r;
+  float m_g;
+  float m_b;
+  float m_a;
+};
+
 inline uint8_t ExtractRed(uint32_t argb);
 inline uint8_t ExtractGreen(uint32_t argb);
 inline uint8_t ExtractBlue(uint32_t argb);
