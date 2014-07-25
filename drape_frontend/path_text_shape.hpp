@@ -3,6 +3,8 @@
 #include "map_shape.hpp"
 #include "shape_view_params.hpp"
 
+#include "../drape/overlay_handle.hpp"
+
 #include "../std/vector.hpp"
 
 #include "../geometry/point2d.hpp"
@@ -12,6 +14,21 @@ namespace df
 
 using m2::PointF;
 
+struct LetterInfo
+{
+  LetterInfo(float xOff, float yOff, float adv, float hw, float hh):
+    m_xOffset(xOff), m_yOffset(yOff), m_advance(adv),
+    m_halfWidth(hw), m_halfHeight(hh){}
+
+  LetterInfo(){}
+
+  float m_xOffset;
+  float m_yOffset;
+  float m_advance;
+  float m_halfWidth;
+  float m_halfHeight;
+};
+
 class Spline
 {
 public:
@@ -19,7 +36,6 @@ public:
   vector<PointF> position;
   vector<PointF> direction;
   vector<float> length;
-  int amount_ind;
 
 public:
   Spline(){}
@@ -38,6 +54,18 @@ public:
       direction[i] = direction[i].Normalize();
       length_all += length[i];
     }
+  }
+
+  Spline const & operator = (Spline const & spl)
+  {
+    if(&spl != this)
+    {
+      length_all = spl.length_all;
+      position = spl.position;
+      direction = spl.direction;
+      length = spl.length;
+    }
+    return *this;
   }
 
   class iterator
@@ -65,7 +93,7 @@ public:
       {
         dist -= spl->length[index];
         index++;
-        index %= spl->amount_ind;
+        index %= spl->position.size();
       }
       dir = spl->direction[index];
       pos = spl->position[index] + dir * dist;
@@ -76,15 +104,41 @@ public:
 class PathTextShape : public MapShape
 {
 public:
-  PathTextShape(vector<PointF> const & path, TextViewParams const & params);
+  PathTextShape(vector<PointF> const & path, PathTextViewParams const & params);
   virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const;
 
-  void Load(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const;
-  void update(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const;
+private:
+  PathTextViewParams m_params;
+  Spline m_path;
+};
+
+class PathTextHandle : public OverlayHandle
+{
+public:
+  static const uint8_t DirectionAttributeID = 1;
+  PathTextHandle(Spline const & spl, PathTextViewParams const & params, vector<LetterInfo> const & info)
+    : OverlayHandle(FeatureID(), dp::Center, 0.0f),
+      m_params(params),
+      m_path(spl),
+      m_infos(info)
+  {
+    SetIsVisible(true);
+    scaleFactor = 1.0f;
+  }
+
+  virtual void Update(ScreenBase const & screen)
+  {
+    scaleFactor = screen.GetScale();
+  }
+  virtual m2::RectD GetPixelRect(ScreenBase const & screen) const { return m2::RectD(); }
+
+  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const;
 
 private:
-  TextViewParams m_params;
+  PathTextViewParams m_params;
   Spline m_path;
+  vector<LetterInfo> m_infos;
+  float scaleFactor;
 };
 
 } // namespace df

@@ -10,6 +10,7 @@
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
 #include "../base/string_utils.hpp"
+#include "../base/timer.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/vector.hpp"
@@ -24,40 +25,74 @@ namespace
   static float const realFontSize = 20.0f;
   float angelFromDir(float x, float y)
   {
-    float gip = sqrtf(x*x + y*y);
-    float cosa = x / gip;
+    float const gip = sqrtf(x*x + y*y);
+    float const cosa = x / gip;
     if(y > 0)
       return acosf(cosa) * 180.0f / M_PI;
     else
       return 360.0f - acosf(cosa) * 180.0f / M_PI;
   }
+
+  struct ColorF
+  {
+    ColorF() {}
+    ColorF(float r, float g, float b, float a):m_r(r), m_g(g), m_b(b), m_a(a){}
+
+    float m_r;
+    float m_g;
+    float m_b;
+    float m_a;
+  };
+
+  struct TexCoord
+  {
+    TexCoord() {}
+    TexCoord(m2::PointF const & tex, float index = 0.0f, float depth = 0.0f)
+      : m_texCoord(tex), m_index(index), m_depth(depth) {}
+
+    TexCoord(float texX, float texY, float index = 0.0f, float depth = 0.0f)
+      : m_texCoord(texX, texY), m_index(index), m_depth(depth) {}
+
+    m2::PointF m_texCoord;
+    float m_index;
+    float m_depth;
+  };
+
+  struct Position
+  {
+    Position() {}
+    Position(float x, float y):m_x(x), m_y(y){}
+
+    float m_x;
+    float m_y;
+  };
+
+  struct Buffer
+  {
+    vector<Position>    m_pos;
+    vector<TexCoord>    m_uvs;
+    vector<ColorF>      m_baseColor;
+    vector<ColorF>      m_outlineColor;
+    vector<LetterInfo>  m_info;
+    float               m_offset;
+  };
 }
 
-PathTextShape::PathTextShape(vector<PointF> const & path, TextViewParams const & params):
+PathTextShape::PathTextShape(vector<PointF> const & path, PathTextViewParams const & params):
   m_params(params)
 {
   m_path.FromArray(path);
 }
 
-void PathTextShape::Load(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
+void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
 {
-  float scale = 1.0f;
-
-  strings::UniString const text = strings::MakeUniString(m_params.m_primaryText);
-  float const fontSize = m_params.m_primaryTextFont.m_size;
+  strings::UniString const text = strings::MakeUniString(m_params.m_Text);
+  float const fontSize = m_params.m_TextFont.m_size;
 
   // Fill buffers
-  int cnt = text.size();
-  float *uvs=new float[cnt*12];
-  float *dirs=new float[cnt*12];
-  float *colors=new float[cnt*24];
-  for(int i=0;i<cnt*24;i++)
-  {
-    colors[i++]=0.0f;
-    colors[i++]=0.0f;
-    colors[i++]=0.0f;
-    colors[i]=1.0f;
-  }
+  int const cnt = text.size();
+  vector<Buffer> buffers;
+  float const needOutline = m_params.m_TextFont.m_needOutline;
 
   Spline::iterator itr;
   itr.Attach(m_path);
@@ -69,161 +104,228 @@ void PathTextShape::Load(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
     TextureSetHolder::GlyphRegion region;
     textures->GetGlyphRegion(text[i], region);
     float xOffset, yOffset, advance;
+    m2::PointU pixelSize;
     region.GetMetrics(xOffset, yOffset, advance);
+    region.GetPixelSize(pixelSize);
+    float halfWidth = pixelSize.x / 2.0f;
+    float halfHeight = pixelSize.y / 2.0f;
     float const aspect = fontSize / realFontSize;
-    advance *= aspect;
 
     textureSet = region.GetTextureNode().m_textureSet;
-    m2::RectF const rect = region.GetTexRect();
-    m2::PointU pixelSize;
-    region.GetPixelSize(pixelSize);
-//    float const h = pixelSize.y * aspect;
-//    float const w = pixelSize.x * aspect;
+    while (buffers.size() <=  textureSet)
+    {
+      buffers.push_back(Buffer());
+    }
+    Buffer & curBuffer = buffers[textureSet];
+
+    curBuffer.m_info.push_back(
+                LetterInfo(xOffset, yOffset, advance + curBuffer.m_offset, halfWidth, halfHeight));
+
+    for(int i = 0; i < buffers.size(); ++i)
+      buffers[i].m_offset += advance;
+
+    curBuffer.m_offset = 0;
+
+    advance *= aspect;
     yOffset *= aspect;
     xOffset *= aspect;
+    halfWidth *= aspect;
+    halfHeight *= aspect;
 
-    float uv_x = rect.minX();
-    float uv_y = rect.minY();
-    float h = rect.maxX() - rect.minX();
-    float w = rect.maxY() - rect.minY();
-    uvs[12*i+0]=uv_x;
-    uvs[12*i+1]=uv_y;
-    uvs[12*i+2]=uv_x;
-    uvs[12*i+3]=(uv_y+h);
-    uvs[12*i+4]=uv_x+w;
-    uvs[12*i+5]=uv_y;
+    itr.Step(advance);
 
-    uvs[12*i+6]=uv_x+w;
-    uvs[12*i+7]=(uv_y+h);
-    uvs[12*i+8]=uv_x+w;
-    uvs[12*i+9]=uv_y;
-    uvs[12*i+10]=uv_x;
-    uvs[12*i+11]=(uv_y+h);
+    m2::RectF const rect = region.GetTexRect();
+    float const textureNum = (region.GetTextureNode().m_textureOffset << 1) + needOutline;
 
-    PointF pos = itr.pos;
-    PointF old_dir = itr.dir;
+    Color clr = m_params.m_TextFont.m_color;
+    ColorF const base(clr.m_red / 255.0f, clr.m_green / 255.0f, clr.m_blue / 255.0f, clr.m_alfa / 255.0f);
+    clr = m_params.m_TextFont.m_outlineColor;
+    ColorF const outline(clr.m_red / 255.0f, clr.m_green / 255.0f, clr.m_blue / 255.0f, clr.m_alfa / 255.0f);
 
-    int index1 = itr.index;
-    itr.Step(advance / scale);
-    int index2 = itr.index;
-    PointF dir;
-    if(index1 != index2)
+    curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.minY(), textureNum, m_params.m_depth));
+    curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth));
+    curBuffer.m_uvs.push_back(TexCoord(rect.maxX(), rect.minY(), textureNum, m_params.m_depth));
+
+    curBuffer.m_uvs.push_back(TexCoord(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth));
+    curBuffer.m_uvs.push_back(TexCoord(rect.maxX(), rect.minY(), textureNum, m_params.m_depth));
+    curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth));
+
+    curBuffer.m_baseColor.push_back(base);
+    curBuffer.m_baseColor.push_back(base);
+    curBuffer.m_baseColor.push_back(base);
+
+    curBuffer.m_baseColor.push_back(base);
+    curBuffer.m_baseColor.push_back(base);
+    curBuffer.m_baseColor.push_back(base);
+
+    curBuffer.m_outlineColor.push_back(outline);
+    curBuffer.m_outlineColor.push_back(outline);
+    curBuffer.m_outlineColor.push_back(outline);
+
+    curBuffer.m_outlineColor.push_back(outline);
+    curBuffer.m_outlineColor.push_back(outline);
+    curBuffer.m_outlineColor.push_back(outline);
+
+    curBuffer.m_pos.push_back(Position(0, 0));
+    curBuffer.m_pos.push_back(Position(0, 0));
+    curBuffer.m_pos.push_back(Position(0, 0));
+
+    curBuffer.m_pos.push_back(Position(0, 0));
+    curBuffer.m_pos.push_back(Position(0, 0));
+    curBuffer.m_pos.push_back(Position(0, 0));
+  }
+
+  for(int i = 0; i < buffers.size(); ++i)
+  {
+    if(buffers[i].m_pos.empty())
+      continue;
+
+    GLState state(gpu::PATH_FONT_PROGRAM, GLState::OverlayLayer);
+    state.SetTextureSet(i);
+    state.SetBlending(Blending(true));
+
+    AttributeProvider provider(4, buffers[i].m_pos.size());
     {
-      PointF new_dir = itr.dir;
-      PointF new_pos = m_path.position[index2];
-      float smooth_factor = (new_pos - itr.pos).Length()/(advance / scale);
-      dir = old_dir * (1.0f - smooth_factor) + new_dir * smooth_factor;
+      BindingInfo position(1, PathTextHandle::DirectionAttributeID);
+      BindingDecl & decl = position.GetBindingDecl(0);
+      decl.m_attributeName = "a_position";
+      decl.m_componentCount = 2;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(0, position, MakeStackRefPointer(&buffers[i].m_pos[0]));
+    }
+    {
+      BindingInfo texcoord(1);
+      BindingDecl & decl = texcoord.GetBindingDecl(0);
+      decl.m_attributeName = "a_texcoord";
+      decl.m_componentCount = 4;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(1, texcoord, MakeStackRefPointer(&buffers[i].m_uvs[0]));
+    }
+    {
+      BindingInfo base_color(1);
+      BindingDecl & decl = base_color.GetBindingDecl(0);
+      decl.m_attributeName = "a_color";
+      decl.m_componentCount = 4;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(2, base_color, MakeStackRefPointer(&buffers[i].m_baseColor[0]));
+    }
+    {
+      BindingInfo outline_color(1);
+      BindingDecl & decl = outline_color.GetBindingDecl(0);
+      decl.m_attributeName = "a_outline_color";
+      decl.m_componentCount = 4;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(3, outline_color, MakeStackRefPointer(&buffers[i].m_outlineColor[0]));
+    }
+
+    OverlayHandle * handle = new PathTextHandle(m_path, m_params, buffers[i].m_info);
+
+    batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
+  }
+}
+
+void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
+{
+  float entireLength = m_params.m_OffsetStart * scaleFactor;
+
+  float const fontSize = m_params.m_TextFont.m_size;
+  int const cnt = m_infos.size();
+  vector<Position> positions(m_infos.size() * 6);
+
+  Spline::iterator itr;
+  itr.Attach(m_path);
+  itr.Step(m_params.m_OffsetStart * scaleFactor);
+
+  for (int i = 0 ; i < cnt ; i++)
+  {
+    float xOffset = m_infos[i].m_xOffset;
+    float yOffset = m_infos[i].m_yOffset;
+    float advance = m_infos[i].m_advance;
+    float halfWidth = m_infos[i].m_halfWidth;
+    float halfHeight = m_infos[i].m_halfHeight;
+    float const aspect = fontSize / realFontSize;
+    advance *= aspect;
+    yOffset *= aspect;
+    xOffset *= aspect;
+    halfWidth *= aspect;
+    halfHeight *= aspect;
+
+    PointF const pos = itr.pos;
+    PointF const oldDir = itr.dir;
+
+    advance *= scaleFactor;
+    entireLength += advance;
+    if(entireLength >= m_params.m_OffsetEnd * scaleFactor)
+      return;
+    int const index1 = itr.index;
+    itr.Step(advance);
+    int const index2 = itr.index;
+    PointF dir;
+    if (index1 != index2 && index2)
+    {
+      PointF const newDir = itr.dir;
+      PointF const newPos = m_path.position[index2];
+      float const smoothFactor = (newPos - itr.pos).Length() / advance;
+      dir = oldDir * (1.0f - smoothFactor) + newDir * smoothFactor;
     }
     else
     {
-      dir = old_dir;
+      dir = oldDir;
     }
 
-    float angle = angelFromDir(dir.x, dir.y) * M_PI / 180.0f;
+    float const angle = angelFromDir(dir.x, dir.y) * M_PI / 180.0f;
+    float const cosa = cosf(angle);
+    float const sina = sinf(angle);
 
-    float cosa = cosf(angle);
-    float sina = sinf(angle);
-    float half_width = pixelSize.x * aspect / 2.0f;
-    float half_height = pixelSize.y * aspect / 2.0f;
+    yOffset += halfHeight;
+    xOffset -= halfWidth;
+    float const x1old = halfWidth - xOffset;
+    float const y1old = -halfHeight + yOffset;
 
-    float x1 = half_width * cosa - half_height * sina;
-    float y1 = half_width * sina + half_height * cosa;
+    float const x2old = -halfWidth - xOffset;
+    float const y2old = -halfHeight + yOffset;
 
-    float x2 = -half_width * cosa - half_height * sina;
-    float y2 = -half_width * sina + half_height * cosa;
+    float const x3old = -halfWidth - xOffset;
+    float const y3old = halfHeight + yOffset;
 
-    float x3 = -x1;
-    float y3 = -y1;
+    float const x4old = halfWidth - xOffset;
+    float const y4old = halfHeight + yOffset;
 
-    float x4 = -x2;
-    float y4 = -y2;
+    float x1 = (x1old * cosa - y1old * sina) * scaleFactor + pos.x;
+    float y1 = (x1old * sina + y1old * cosa) * scaleFactor + pos.y;
 
-    x1 /= scale;
-    x2 /= scale;
-    x3 /= scale;
-    x4 /= scale;
+    float x2 = (x2old * cosa - y2old * sina) * scaleFactor + pos.x;
+    float y2 = (x2old * sina + y2old * cosa) * scaleFactor + pos.y;
 
-    y1 /= scale;
-    y2 /= scale;
-    y3 /= scale;
-    y4 /= scale;
+    float x3 = (x3old * cosa - y3old * sina) * scaleFactor + pos.x;
+    float y3 = (x3old * sina + y3old * cosa) * scaleFactor + pos.y;
 
-    x1 += pos.x;
-    x2 += pos.x;
-    x3 += pos.x;
-    x4 += pos.x;
+    float x4 = (x4old * cosa - y4old * sina) * scaleFactor + pos.x;
+    float y4 = (x4old * sina + y4old * cosa) * scaleFactor + pos.y;
 
-    y1 += pos.y;
-    y2 += pos.y;
-    y3 += pos.y;
-    y4 += pos.y;
+    int index = i * 6;
+    positions[index++] = Position(x2, y2);
+    positions[index++] = Position(x3, y3);
+    positions[index++] = Position(x1, y1);
 
-    dirs[12*i+0] = x2;
-    dirs[12*i+1] = y2;
-    dirs[12*i+2] = x3;
-    dirs[12*i+3] = y3;
-    dirs[12*i+4] = x1;
-    dirs[12*i+5] = y1;
-
-    dirs[12*i+6] = x4;
-    dirs[12*i+7] = y4;
-    dirs[12*i+8] = x1;
-    dirs[12*i+9] = y1;
-    dirs[12*i+10] = x3;
-    dirs[12*i+11] = y3;
+    positions[index++] = Position(x4, y4);
+    positions[index++] = Position(x1, y1);
+    positions[index++] = Position(x3, y3);
   }
 
-  GLState state(gpu::PATH_FONT_PROGRAM, GLState::OverlayLayer);
-  state.SetTextureSet(textureSet);
-  state.SetBlending(Blending(true));
-
-  AttributeProvider provider(3, 6*cnt);
-  {
-    BindingInfo position(1);
-    BindingDecl & decl = position.GetBindingDecl(0);
-    decl.m_attributeName = "a_position";
-    decl.m_componentCount = 2;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(0, position, MakeStackRefPointer(dirs));
-  }
-  {
-    BindingInfo texcoord(1);
-    BindingDecl & decl = texcoord.GetBindingDecl(0);
-    decl.m_attributeName = "a_texcoord";
-    decl.m_componentCount = 2;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(1, texcoord, MakeStackRefPointer(uvs));
-  }
-  {
-    BindingInfo base_color(1);
-    BindingDecl & decl = base_color.GetBindingDecl(0);
-    decl.m_attributeName = "a_color";
-    decl.m_componentCount = 4;
-    decl.m_componentType = gl_const::GLFloatType;
-    decl.m_offset = 0;
-    decl.m_stride = 0;
-    provider.InitStream(2, base_color, MakeStackRefPointer(colors));
-  }
-
-  batcher->InsertTriangleList(state, MakeStackRefPointer(&provider));
-
-  delete [] uvs;
-  delete [] dirs;
-  delete [] colors;
-}
-
-void PathTextShape::update(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
-{
-
-}
-
-void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
-{
-  Load(batcher, textures);
+  TOffsetNode const & node = GetOffsetNode(DirectionAttributeID);
+  MutateNode mutateNode;
+  mutateNode.m_region = node.second;
+  mutateNode.m_data = MakeStackRefPointer<void>(&positions[0]);
+  mutator->AddMutation(node.first, mutateNode);
 }
 
 }
