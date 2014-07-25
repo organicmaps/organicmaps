@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -138,7 +139,8 @@ public final class UiUtils
     return new BitmapDrawable(res, bmp);
   }
 
-  public static int colorByName(String name, int defColor)
+  @SuppressLint("DefaultLocale")
+  public static final int colorByName(String name, int defColor)
   {
     if (COLOR_MAP.containsKey(name.trim().toLowerCase()))
       return COLOR_MAP.get(name);
@@ -230,10 +232,10 @@ public final class UiUtils
     showIf(!TextUtils.isEmpty(text), tv);
   }
 
-  public static void showBuyProDialog(final Activity activity, int resId)
+  public static void showBuyProDialog(final Activity activity, String message)
   {
     new AlertDialog.Builder(activity)
-        .setMessage(activity.getString(resId))
+        .setMessage(message)
         .setCancelable(false)
         .setPositiveButton(activity.getString(R.string.get_it_now), new DialogInterface.OnClickListener()
         {
@@ -241,21 +243,7 @@ public final class UiUtils
           public void onClick(DialogInterface dlg, int which)
           {
             dlg.dismiss();
-            try
-            {
-              activity.startActivity(new Intent(Intent.ACTION_VIEW,
-                  Uri.parse(MWMApplication.get().getProVersionURL())));
-            } catch (final Exception e1)
-            {
-              try
-              {
-                activity.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(MWMApplication.get().getDefaultProVersionURL())));
-              } catch (final Exception e2)
-              {
-                e2.printStackTrace();
-              }
-            }
+            runProMarketActivity(activity);
           }
         }).
         setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener()
@@ -268,6 +256,23 @@ public final class UiUtils
         })
         .create()
         .show();
+  }
+
+  public static void runProMarketActivity(Activity activity)
+  {
+    try
+    {
+      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(MWMApplication.get().getProVersionURL())));
+    } catch (final Exception e1)
+    {
+      try
+      {
+        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(MWMApplication.get().getDefaultProVersionURL())));
+      } catch (final Exception e2)
+      {
+        e2.printStackTrace();
+      }
+    }
   }
 
   // utility class

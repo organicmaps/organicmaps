@@ -70,17 +70,13 @@ public class BookmarkListActivity extends MapsWithMeBaseListActivity
         case BookmarkListAdapter.TYPE_SECTION:
           return;
         case BookmarkListAdapter.TYPE_BMK:
-        {
           final Bookmark bmk = (Bookmark) mPinAdapter.getItem(position);
           mManager.showBookmarkOnMap(setIndex, bmk.getBookmarkId());
           break;
-        }
         case BookmarkListAdapter.TYPE_TRACK:
-        {
           final Track track = (Track) mPinAdapter.getItem(position);
           Framework.nativeShowTrackRect(track.getCategoryId(), track.getTrackId());
           break;
-        }
         }
 
         final Intent i = new Intent(BookmarkListActivity.this, MWMActivity.class);

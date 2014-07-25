@@ -149,7 +149,6 @@ public class StoragePathManager
       switch (getItemViewType(position))
       {
       case TYPE_HEADER:
-      {
         if (convertView == null)
         {
           convertView = mInflater.inflate(android.R.layout.simple_list_item_1, null);
@@ -159,10 +158,8 @@ public class StoragePathManager
         final TextView v = (TextView) convertView;
         v.setText(mContext.getString(R.string.maps) + ": " + getSizeString(mSizeNeeded));
         break;
-      }
 
       case TYPE_ITEM:
-      {
         final int index = getIndexFromPos(position);
         final StorageItem item = mItems.get(index);
 
@@ -172,12 +169,11 @@ public class StoragePathManager
           convertView.setMinimumHeight(mListItemHeight);
         }
 
-        final CheckedTextView v = (CheckedTextView) convertView;
-        v.setText(item.mPath + ": " + getSizeString(item.mSize));
-        v.setChecked(index == mCurrent);
-        v.setEnabled((index == mCurrent) || isAvailable(index));
+        final CheckedTextView ctv = (CheckedTextView) convertView;
+        ctv.setText(item.mPath + ": " + getSizeString(item.mSize));
+        ctv.setChecked(index == mCurrent);
+        ctv.setEnabled((index == mCurrent) || isAvailable(index));
         break;
-      }
       }
 
       return convertView;

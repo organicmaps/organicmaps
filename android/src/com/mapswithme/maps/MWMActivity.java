@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
@@ -17,7 +16,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,7 +38,6 @@ import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
-import com.mapswithme.maps.promo.PromocodeActivationDialog;
 import com.mapswithme.maps.search.SearchController;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.UnitLocale;
@@ -69,9 +66,6 @@ public class MWMActivity extends NvEventQueueActivity
 {
   public static final String EXTRA_TASK = "map_task";
   private final static String TAG = "MWMActivity";
-  private static final int PRO_VERSION_DIALOG = 110001;
-  private static final String PRO_VERSION_DIALOG_MSG = "pro_version_dialog_msg";
-  private static final int PROMO_DIALOG = 110002;
   private final static String EXTRA_CONSUMED = "mwm.extra.intent.processed";
   private final static String EXTRA_SCREENSHOTS_TASK = "screenshots_task";
   private final static String SCREENSHOTS_TASK_LOCATE = "locate_task";
@@ -90,7 +84,6 @@ public class MWMActivity extends NvEventQueueActivity
   // Info box (place page).
   private MapInfoView mInfoView;
   private SearchController mSearchController;
-  private String mProDialogMessage;
   private boolean mNeedCheckUpdate = true;
   private boolean mRenderingInitialized = false;
   private int mCompassStatusListenerID = -1;
@@ -464,8 +457,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     try
     {
-      // Trying to find package with installed Facebook application.
-      // Exception is thrown if we don't have one.
+      // Exception is thrown if we don't have installed Facebook application.
       getPackageManager().getPackageInfo(Constants.FB_PACKAGE, 0);
 
       startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.FB_MAPSME_COMMUNITY_NATIVE)));
@@ -535,14 +527,12 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void showProVersionBanner(final String message)
   {
-    mProDialogMessage = message;
     runOnUiThread(new Runnable()
     {
-      @SuppressWarnings("deprecation")
       @Override
       public void run()
       {
-        showDialog(PRO_VERSION_DIALOG);
+        UiUtils.showBuyProDialog(MWMActivity.this, message);
       }
     });
   }
@@ -1046,68 +1036,6 @@ public class MWMActivity extends NvEventQueueActivity
 
     mPathManager.StartExtStorageWatching(this, mExternalStorageReceiver);
     updateExternalStorageState();
-  }
-
-  @Override
-  protected void onPrepareDialog(int id, Dialog dialog, Bundle args)
-  {
-    if (id == PRO_VERSION_DIALOG)
-    {
-      ((AlertDialog) dialog).setMessage(mProDialogMessage);
-    }
-    else
-    {
-      super.onPrepareDialog(id, dialog, args);
-    }
-  }
-
-  @Override
-  protected Dialog onCreateDialog(int id)
-  {
-    if (id == PRO_VERSION_DIALOG)
-    {
-      return new AlertDialog.Builder(getActivity())
-          .setMessage("")
-          .setPositiveButton(getString(R.string.get_it_now), new DialogInterface.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dlg, int which)
-            {
-              dlg.dismiss();
-              UiUtils.runProMarketActivity(MWMActivity.this);
-            }
-          })
-          .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
-          {
-            @Override
-            public void onClick(DialogInterface dlg, int which)
-            {
-              dlg.dismiss();
-            }
-          })
-          .setOnKeyListener(new OnKeyListener()
-          {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event)
-            {
-              if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)
-              {
-                if (ActivationSettings.isSearchActivated(getApplicationContext()))
-                  return false;
-
-                showDialog(PROMO_DIALOG);
-                dismissDialog(PRO_VERSION_DIALOG);
-                return true;
-              }
-              return false;
-            }
-          })
-          .create();
-    }
-    else if (id == PROMO_DIALOG)
-      return new PromocodeActivationDialog(this);
-    else
-      return super.onCreateDialog(id);
   }
 
   private void stopWatchingExternalStorage()
