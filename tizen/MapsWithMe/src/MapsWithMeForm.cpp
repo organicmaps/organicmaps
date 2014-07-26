@@ -85,6 +85,8 @@ result MapsWithMeForm::OnInitializing(void)
   pFooter->AddItem(footerItem3);
   pFooter->AddActionEventListener(*this);
 
+  pFooter->SetItemColor(FOOTER_ITEM_STATUS_NORMAL, mainMenuGray);
+
   m_pButtonScalePlus = static_cast<Button *>(GetControl(IDC_ZOOM_IN, true));
   m_pButtonScalePlus->SetActionId(ID_BUTTON_SCALE_PLUS);
   m_pButtonScalePlus->AddActionEventListener(*this);
