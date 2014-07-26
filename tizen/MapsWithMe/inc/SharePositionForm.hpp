@@ -25,8 +25,11 @@ public:
   {
     ID_CANCEL,
     ID_SEND_MESSAGE,
+    ID_SEND_EMAIL,
     ID_COPY_TO_CLIPBOARD
   };
 
-  Tizen::Base::String m_message;
+  bool m_sharePosition;
+  Tizen::Base::String m_messageSMS;
+  Tizen::Base::String m_messageEmail;
 };

@@ -436,43 +436,75 @@ size_t BookMarkManager::GetCategorySize(int index)
   return pFW->GetBmCategory(index)->GetBookmarksCount();
 }
 
+namespace detail
+{
+Tizen::Base::String FormatSMSString(Tizen::Base::String message, Tizen::Base::String const & url)
+{
+  message.Replace("%1$s", url);
+  String s2 = "http://ge0.me/";
+  String s3;
+  url.SubString(6, s3);
+  s2.Append(s3);
+  message.Replace("%2$s", s2);
+  return message;
+}
+
+Tizen::Base::String FormatEmailString(Tizen::Base::String message, Tizen::Base::String const & description, Tizen::Base::String const & url)
+{
+  message.Replace("%1$s", description);
+  message.Replace("%2$s", url);
+  String s2 = "http://ge0.me/";
+  String s3;
+  url.SubString(6, s3);
+  s2.Append(s3);
+  message.Replace("%3$s", s2);
+  return message;
+}
+
+}
+
 Tizen::Base::String BookMarkManager::GetSMSTextMyPosition(double lat, double lon)
 {
   Framework * pFW = GetFramework();
-
   String s = pFW->CodeGe0url(lat, lon, pFW->GetDrawScale(), "").c_str();
-
   String r = GetString(IDS_MY_POSITION_SHARE_SMS);
-  r.Replace("%1$s", s);
-  String s2 = "http://ge0.me/";
-  String s3;
-  s.SubString(6, s3);
-  s2.Append(s3);
-  r.Replace("%2$s", s2);
-  return r;
+  return detail::FormatSMSString(r, s);
 }
 
 Tizen::Base::String BookMarkManager::GetSMSTextMark(UserMark const * pMark)
 {
   if (!pMark)
     return "";
-
-  double lat;
-  double lon;
-
+  double lat,lon;
   pMark->GetLatLon(lat, lon);
   Framework * pFW = GetFramework();
-  String s = pFW->CodeGe0url(lat, lon, pFW->GetDrawScale(), "").c_str();
+  String const s = pFW->CodeGe0url(lat, lon, pFW->GetDrawScale(), "").c_str();
+  String const r = GetString(IDS_BOOKMARK_SHARE_SMS);
+  return detail::FormatSMSString(r, s);
+}
 
+Tizen::Base::String BookMarkManager::GetEmailTextMyPosition(double lat, double lon)
+{
+  search::AddressInfo info;
+  double y = MercatorBounds::LatToY(lat);
+  double x = MercatorBounds::LonToX(lon);
+  Framework * pFW = GetFramework();
+  pFW->GetAddressInfoForGlobalPoint(m2::PointD(x, y), info);
+  String const & description = info.FormatNameAndAddress().c_str();
+  String const s = pFW->CodeGe0url(lat, lon, pFW->GetDrawScale(), "").c_str();
+  String const r = GetString(IDS_MY_POSITION_SHARE_EMAIL);
+  return detail::FormatEmailString(r, description, s);
+}
 
-  String r = GetString(IDS_BOOKMARK_SHARE_SMS);
-  r.Replace("%1$s", s);
-  String s2 = "http://ge0.me/";
-  String s3;
-  s.SubString(6, s3);
-  s2.Append(s3);
-  r.Replace("%2$s", s2);
-  return r;
+Tizen::Base::String BookMarkManager::GetEmailTextMark(UserMark const * pMark)
+{
+  Framework * pFW = GetFramework();
+  String const & description = GetMarkName(pMark);
+  double lat,lon;
+  pMark->GetLatLon(lat, lon);
+  String const s = pFW->CodeGe0url(lat, lon, pFW->GetDrawScale(), "").c_str();
+  String const r = GetString(IDS_MY_POSITION_SHARE_EMAIL);
+  return detail::FormatEmailString(r, description, s);
 }
 
 }//bookmark

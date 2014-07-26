@@ -569,10 +569,13 @@ void MapsWithMeForm::OnListViewItemStateChanged(ListView & listView, int index, 
       double lat, lon;
       if (GetFramework()->GetCurrentPosition(lat, lon))
       {
-        String textVal = bookmark::GetBMMnger().GetSMSTextMyPosition(lat, lon);
+        String textValSMS = bookmark::GetBMMnger().GetSMSTextMyPosition(lat, lon);
+        String textValEmail = bookmark::GetBMMnger().GetEmailTextMyPosition(lat, lon);
         ArrayList * pList = new ArrayList;
         pList->Construct();
-        pList->Add(new String(textVal));
+        pList->Add(new String(textValSMS));
+        pList->Add(new String(textValEmail));
+        pList->Add(new Boolean(true)); // my position not mark
         SceneManager * pSceneManager = SceneManager::GetInstance();
         pSceneManager->GoForward(ForwardSceneTransition(SCENE_SHARE_POSITION,
             SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP), pList);

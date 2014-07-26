@@ -129,10 +129,13 @@ void BookMarkSplitPanel::OnActionPerformed(Tizen::Ui::Control const & source, in
   {
     case ID_SHARE_BUTTON:
     {
-      String textVal = GetBMMnger().GetSMSTextMark(GetBMMnger().GetCurMark());
+      String textValSMS = GetBMMnger().GetSMSTextMark(GetBMMnger().GetCurMark());
+      String textValEmail = GetBMMnger().GetEmailTextMark(GetBMMnger().GetCurMark());
       ArrayList * pList = new ArrayList;
       pList->Construct();
-      pList->Add(new String(textVal));
+      pList->Add(new String(textValSMS));
+      pList->Add(new String(textValEmail));
+      pList->Add(new Boolean(false)); //not my position but mark
       SceneManager * pSceneManager = SceneManager::GetInstance();
       pSceneManager->GoForward(ForwardSceneTransition(SCENE_SHARE_POSITION,
           SCENE_TRANSITION_ANIMATION_TYPE_LEFT, SCENE_HISTORY_OPTION_ADD_HISTORY, SCENE_DESTROY_OPTION_KEEP), pList);

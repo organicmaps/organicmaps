@@ -75,6 +75,8 @@ public:
 
   Tizen::Base::String GetSMSTextMyPosition(double lat, double lon);
   Tizen::Base::String GetSMSTextMark(UserMark const * pMark);
+  Tizen::Base::String GetEmailTextMyPosition(double lat, double lon);
+  Tizen::Base::String GetEmailTextMark(UserMark const * pMark);
 
 private:
   shared_ptr<UserMarkCopy> m_pCurBookMarkCopy;

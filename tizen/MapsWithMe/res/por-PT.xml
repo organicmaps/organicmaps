@@ -81,10 +81,20 @@
 	<text id="IDS_BOOKMARK_SHARE_SMS">Veja o meu marcador no mapa do maps.me. Abra a hiperligação: %1$s ou %2$s</text>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<text id="IDS_MY_POSITION_SHARE_SMS">Veja onde estou agora. Abra a hiperligação: %1$s ou %2$s</text>
+	<!-- Subject for emailed bookmark -->
+	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Veja o meu marcador no mapa do maps.me.</text>
+	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
+	<text id="IDS_BOOKMARK_SHARE_EMAIL">Olá,\n\nFixei:%1$s na maps.me, mapas offline mundiais. Clique nesta ligação %2$s ou nesta %3$s para ver o local no mapa.\n\nObrigado.</text>
+	<!-- Subject for emailed position -->
+	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Veja a minha localização atual em maps.me map</text>
+	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
+	<text id="IDS_MY_POSITION_SHARE_EMAIL">Olá,\n\n Estou aqui agora: %1$s. Clique nesta ligação %2$s ou nesta %3$s para ver o local no mapa.\n\nObrigado.</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<text id="IDS_SHARE">Partilhar</text>
 	<!-- iOS share by Message button text (including SMS) -->
 	<text id="IDS_MESSAGE">Mensagem</text>
+	<!-- Share by email button text -->
+	<text id="IDS_EMAIL">E-Mail</text>
 	<!-- Copy Link -->
 	<text id="IDS_COPY_LINK">Copiar hiperligação</text>
 	<!-- Used for bookmark editing -->

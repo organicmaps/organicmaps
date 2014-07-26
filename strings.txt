@@ -2494,7 +2494,7 @@
     hu = Nézd meg a maps.me helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
   [bookmark_share_email_subject]
     en = Hey, check out my pin at maps.me map!
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Subject for emailed bookmark
     ru = Смотри мою метку на карте maps.me
     uk = Поглянь на мою позначку на карті maps.me
@@ -2511,6 +2511,7 @@
     hu = Nézze meg a maps.me jelzőmet
   [bookmark_share_email]
     en = Hi,\n\nI pinned: %1$@ at maps.me, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
+    tags = tizen
     comment = Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me
     ru = Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте maps.me.\n\nСпасибо.
     uk = Привіт,\n\nЯ позначив: %1$@ на maps.me, офлайн картах світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті. \n\nДякую.
@@ -2527,7 +2528,7 @@
     hu = Üdvözlöm, \n\nleszúrtam egy maps.me jelzőt: %1$@. Kattintson erre a hivatkozásra %2$@ vagy erre %3$@ hogy lássa a helyet a térképen.\n\nKöszönöm.
   [my_position_share_email_subject]
     en = Hey, check out my current location at maps.me map!
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Subject for emailed position
     ru = Посмотри на карте maps.me, где я сейчас нахожусь
     uk = Поглянь на моє поточне місцезнаходження на карті maps.me
@@ -2544,7 +2545,7 @@
     hu = Nézze meg a helyzetemet a maps.me térképen!
  [my_position_share_email]
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME
     ru = Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте maps.me, открой эту ссылку %2$@ или эту %3$@ \n\nСпасибо.
     uk = Привіт,\n\nЯ зараз тут: %1$@.  Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на карті. \n\nДякую.
@@ -2615,7 +2616,7 @@
     hu = Üzenet
   [email]
     en = E-Mail
-    tags = ios,android
+    tags = ios,android,tizen
     comment = Share by email button text
     cs = E-Mail
     de = E-Mail
@@ -2627,6 +2628,7 @@
     zh-Hant = 電子郵件
     uk = Електронна пошта
     ko = 이메일
+    ru = E-Mail
     pl = E-mail
     pt = E-Mail
     hu = Email

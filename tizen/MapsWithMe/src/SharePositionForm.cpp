@@ -36,6 +36,10 @@ result SharePositionForm::OnInitializing(void)
   pMessageButton->SetActionId(ID_SEND_MESSAGE);
   pMessageButton->AddActionEventListener(*this);
 
+  Button * pEmailButton = static_cast<Button *>(GetControl(IDC_EMAIL, true));
+  pEmailButton->SetActionId(ID_SEND_EMAIL);
+  pEmailButton->AddActionEventListener(*this);
+
   Button * pCopyButton = static_cast<Button *>(GetControl(IDC_COPY_MARK, true));
   pCopyButton->SetActionId(ID_COPY_TO_CLIPBOARD);
   pCopyButton->AddActionEventListener(*this);
@@ -44,6 +48,7 @@ result SharePositionForm::OnInitializing(void)
   pCancelButton->SetActionId(ID_CANCEL);
   pCancelButton->AddActionEventListener(*this);
 
+  m_sharePosition = true;
   SetFormBackEventListener(this);
   return E_SUCCESS;
 }
@@ -62,7 +67,7 @@ void SharePositionForm::OnActionPerformed(Tizen::Ui::Control const & source, int
     {
       Clipboard* pClipboard = Clipboard::GetInstance();
       ClipboardItem item;
-      item.Construct(Tizen::Ui::CLIPBOARD_DATA_TYPE_TEXT, m_message);
+      item.Construct(Tizen::Ui::CLIPBOARD_DATA_TYPE_TEXT, m_messageEmail);
       pClipboard->CopyItem(item);
 
       SceneManager* pSceneManager = SceneManager::GetInstance();
@@ -77,7 +82,7 @@ void SharePositionForm::OnActionPerformed(Tizen::Ui::Control const & source, int
       String typeKey = L"http://tizen.org/appcontrol/data/messagetype";
       String typeVal = L"sms";
       String textKey = L"http://tizen.org/appcontrol/data/text";
-      String textVal = m_message;
+      String textVal = m_messageSMS;
       String toKey = L"http://tizen.org/appcontrol/data/to";
       String toVal = L"";
       extraData.Add(&typeKey, &typeVal);
@@ -95,6 +100,35 @@ void SharePositionForm::OnActionPerformed(Tizen::Ui::Control const & source, int
       pSceneManager->GoBackward(BackwardSceneTransition(SCENE_TRANSITION_ANIMATION_TYPE_RIGHT));
       break;
     }
+
+    case ID_SEND_EMAIL:
+    {
+      HashMap extraData;
+      extraData.Construct();
+      String subjectKey = L"http://tizen.org/appcontrol/data/subject";
+      String subjectVal = m_sharePosition ? GetString(IDS_MY_POSITION_SHARE_EMAIL_SUBJECT) : GetString(IDS_BOOKMARK_SHARE_EMAIL_SUBJECT);
+      String textKey = L"http://tizen.org/appcontrol/data/text";
+      String textVal = m_messageEmail;
+      String toKey = L"http://tizen.org/appcontrol/data/to";
+      String toVal = L"";
+      String ccKey = L"http://tizen.org/appcontrol/data/cc";
+      String ccVal = L"";
+      String bccKey = L"://tizen.org/appcontrol/data/bcc";
+      String bccVal = L"";
+      extraData.Add(&subjectKey, &subjectVal);
+      extraData.Add(&textKey, &textVal);
+      extraData.Add(&toKey, &toVal);
+      extraData.Add(&ccKey, &ccVal);
+      extraData.Add(&bccKey, &bccVal);
+      AppControl* pAc = AppManager::FindAppControlN(L"tizen.email",
+          L"http://tizen.org/appcontrol/operation/compose");
+      if (pAc)
+      {
+        pAc->Start(null, null, &extraData, null);
+        delete pAc;
+      }
+      break;
+    }
   }
   Invalidate(true);
 }
@@ -108,14 +142,16 @@ void SharePositionForm::OnFormBackRequested(Tizen::Ui::Controls::Form & source)
 void SharePositionForm::OnSceneActivatedN(Tizen::Ui::Scenes::SceneId const & previousSceneId,
     Tizen::Ui::Scenes::SceneId const & currentSceneId, Tizen::Base::Collection::IList* pArgs)
 {
-  m_message = "";
   if (pArgs != null)
   {
-    if (pArgs->GetCount() == 1)
+    if (pArgs->GetCount() == 3)
     {
-      String * pMessage = dynamic_cast<String *>(pArgs->GetAt(0));
-      m_message = *pMessage;
+      String * pMessageSMS = dynamic_cast<String *>(pArgs->GetAt(0));
+      m_messageSMS = *pMessageSMS;
+      String * pMessageEmail = dynamic_cast<String *>(pArgs->GetAt(1));
+      m_messageEmail = *pMessageEmail;
+      Boolean * pSharePosition = dynamic_cast<Boolean *>(pArgs->GetAt(2));
+      m_sharePosition = pSharePosition->value;
     }
   }
-
 }
