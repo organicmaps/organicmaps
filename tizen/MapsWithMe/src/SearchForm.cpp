@@ -182,7 +182,7 @@ ListItemBase * SearchForm::CreateItem (int index, float itemWidth)
     else
     {
       Result const & res = m_curResults.GetResult(index);
-      if (res.GetResultType() == Result::RESULT_SUGGESTION)
+      if (res.GetResultType() == Result::RESULT_SUGGEST_PURE)
         return CreateSuggestionItem(res.GetString(), itemWidth);
       else
         return CreateFeatureItem(res, itemWidth);
@@ -203,7 +203,7 @@ void SearchForm::OnListViewItemStateChanged(Tizen::Ui::Controls::ListView & list
     if (m_curResults.GetCount() > 0)
     {
       Result res = m_curResults.GetResult(index);
-      if (res.GetResultType() == Result::RESULT_SUGGESTION)
+      if (res.GetResultType() == Result::RESULT_SUGGEST_PURE)
       {
         m_searchBar->SetText(res.GetString());
         Search(GetSearchString());
