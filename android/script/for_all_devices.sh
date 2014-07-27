@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 START=$(date +%s)
 # get all ids, but not the first line 
