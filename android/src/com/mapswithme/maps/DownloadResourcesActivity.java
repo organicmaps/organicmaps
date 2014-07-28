@@ -1,13 +1,5 @@
 package com.mapswithme.maps;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
@@ -32,8 +24,17 @@ import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.base.MapsWithMeBaseActivity;
 import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.ConnectionState;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressLint("StringFormatMatches")
 public class DownloadResourcesActivity extends MapsWithMeBaseActivity
@@ -432,7 +433,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         String path = null;
         File tmpFile = null;
         final String scheme = data.getScheme();
-        if (scheme != null && !scheme.equalsIgnoreCase("file"))
+        if (scheme != null && !scheme.equalsIgnoreCase(Constants.Url.DATA_SCHEME_FILE))
         {
           // scheme is "content" or "http" - need to download file first
           InputStream input = null;

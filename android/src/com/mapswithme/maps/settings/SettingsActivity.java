@@ -30,7 +30,6 @@ import android.webkit.WebViewClient;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.util.StoragePathManager;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
@@ -151,7 +150,7 @@ public class SettingsActivity extends PreferenceActivity
     PreferenceScreen screen = getPreferenceScreen();
     if (Yota.isYota())
       screen.removePreference(mStoragePreference);
-    else if (mPathManager.HasMoreThanOnceStorage())
+    else if (mPathManager.hasMoreThanOneStorage())
       screen.addPreference(mStoragePreference);
     else
       screen.removePreference(mStoragePreference);
@@ -205,7 +204,7 @@ public class SettingsActivity extends PreferenceActivity
         storagePathSetup();
       }
     };
-    mPathManager.StartExtStorageWatching(this, receiver);
+    mPathManager.startExternalStorageWatching(this, receiver, null);
     storagePathSetup();
   }
 
@@ -213,7 +212,7 @@ public class SettingsActivity extends PreferenceActivity
   protected void onPause()
   {
     super.onPause();
-    mPathManager.StopExtStorageWatching();
+    mPathManager.stopExternalStorageWatching();
   }
 
   @Override

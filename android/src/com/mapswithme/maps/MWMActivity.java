@@ -40,6 +40,8 @@ import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.search.SearchController;
 import com.mapswithme.maps.settings.SettingsActivity;
+import com.mapswithme.maps.settings.StoragePathManager;
+import com.mapswithme.maps.settings.StoragePathManager.SetStoragePathListener;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.widget.MapInfoView;
 import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
@@ -47,8 +49,6 @@ import com.mapswithme.maps.widget.MapInfoView.State;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.ShareAction;
-import com.mapswithme.util.StoragePathManager;
-import com.mapswithme.util.StoragePathManager.SetStoragePathListener;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
@@ -365,7 +365,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     if (!kmlMoved)
     {
-      if (mPathManager.MoveBookmarks())
+      if (mPathManager.moveBookmarks())
         mApplication.nativeSetBoolean(KmlMovedFlag, true);
       else
       {
@@ -379,19 +379,19 @@ public class MWMActivity extends NvEventQueueActivity
       SetStoragePathListener listener = new SetStoragePathListener()
       {
         @Override
-        public void MoveFilesFinished(String newPath)
+        public void moveFilesFinished(String newPath)
         {
           mApplication.nativeSetBoolean(KitKatMigrationCompleted, true);
           ShowAlertDlg(R.string.kitkat_migrate_ok);
         }
 
         @Override
-        public void MoveFilesFailed()
+        public void moveFilesFailed()
         {
           ShowAlertDlg(R.string.kitkat_migrate_failed);
         }
       };
-      mPathManager.CheckWritableDir(this, listener);
+      mPathManager.checkWritableDir(this, listener);
     }
   }
 
@@ -960,19 +960,12 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void updateExternalStorageState()
   {
-    boolean available, writable;
+    boolean available = false, writable = false;
     final String state = Environment.getExternalStorageState();
     if (Environment.MEDIA_MOUNTED.equals(state))
-    {
       available = writable = true;
-    }
     else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
-    {
       available = true;
-      writable = false;
-    }
-    else
-      available = writable = false;
 
     if (mStorageAvailable != available || mStorageWritable != writable)
     {
@@ -1034,13 +1027,13 @@ public class MWMActivity extends NvEventQueueActivity
       }
     };
 
-    mPathManager.StartExtStorageWatching(this, mExternalStorageReceiver);
+    registerReceiver(mExternalStorageReceiver, StoragePathManager.getMediaChangesIntentFilter());
     updateExternalStorageState();
   }
 
   private void stopWatchingExternalStorage()
   {
-    mPathManager.StopExtStorageWatching();
+    mPathManager.stopExternalStorageWatching();
     mExternalStorageReceiver = null;
   }
 

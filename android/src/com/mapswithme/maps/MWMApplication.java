@@ -17,6 +17,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
@@ -191,7 +192,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   public String getDataStoragePath()
   {
-    return Environment.getExternalStorageDirectory().getAbsolutePath() + "/MapsWithMe/";
+    return Environment.getExternalStorageDirectory().getAbsolutePath() + Constants.MWM_DIR_POSTFIX;
   }
 
   public String getTempPath()

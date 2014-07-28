@@ -2,12 +2,8 @@ package com.mapswithme.util;
 
 public class Constants
 {
-  private Constants() {}
-
   public static class Url
   {
-    private Url() {}
-
     public static final String GE0_PREFIX = "ge0://";
     public static final String HTTP_GE0_PREFIX = "http://ge0.me/";
 
@@ -18,8 +14,13 @@ public class Constants
     // Profile id is taken from http://graph.facebook.com/MapsWithMe
     public static final String FB_MAPSME_COMMUNITY_NATIVE = "fb://profile/111923085594432";
 
+    public static final String DATA_SCHEME_FILE = "file";
+
+    private Url() {}
   }
 
   public static final String FB_PACKAGE = "com.facebook.katana";
+  public static final String MWM_DIR_POSTFIX = "/MapsWithMe/";
 
+  private Constants() {}
 }
