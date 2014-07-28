@@ -21,6 +21,7 @@ public:
 
 protected:
   uint16_t GetCounter() { return m_counter++; }
+  void ResetCounter() { m_counter = 0; }
   uint16_t const m_startIndex;
 
 private:
@@ -58,6 +59,34 @@ public:
   }
 };
 
+class ListOfStriptGenerator : public IndexGenerator
+{
+public:
+  ListOfStriptGenerator(uint16_t startIndex, uint16_t vertexStride, uint16_t indexPerStrip)
+    : IndexGenerator(startIndex)
+    , m_vertexStride(vertexStride)
+    , m_indexPerStrip(indexPerStrip)
+    , m_base(0) {}
+
+  uint16_t operator()()
+  {
+    uint16_t counter = GetCounter();
+    uint16_t result = m_startIndex + m_base + counter - 2 * (counter / 3);
+    if (counter + 1 == m_indexPerStrip)
+    {
+      m_base += m_vertexStride;
+      ResetCounter();
+    }
+
+    return result;
+  }
+
+private:
+  uint16_t m_vertexStride;
+  uint16_t m_indexPerStrip;
+  uint16_t m_base;
+};
+
 } // namespace
 
 TriangleBatch::TriangleBatch(BatchCallbacks const & callbacks)
@@ -74,6 +103,11 @@ void TriangleBatch::SetIsCanDevideStreams(bool canDevide)
 bool TriangleBatch::IsCanDevideStreams() const
 {
   return m_canDevideStreams;
+}
+
+void TriangleBatch::SetVertexStride(uint8_t vertexStride)
+{
+  m_vertexStride = vertexStride;
 }
 
 void TriangleBatch::FlushData(RefPointer<AttributeProvider> streams, uint16_t vertexVount) const
@@ -116,6 +150,11 @@ void TriangleBatch::ChangeBuffer(bool checkFilled) const
 {
   ASSERT(m_callbacks.m_changeBuffer != NULL, ());
   m_callbacks.m_changeBuffer(checkFilled);
+}
+
+uint8_t TriangleBatch::GetVertexStride() const
+{
+  return m_vertexStride;
 }
 
 TriangleListBatch::TriangleListBatch(BatchCallbacks const & callbacks) : base_t(callbacks) {}
@@ -182,7 +221,7 @@ uint16_t FanStripHelper::BatchIndexes(uint16_t vertexCount)
 
   uint16_t startIndex = 0;
   uint16_t * pIndexStorage = GetIndexStorage(batchIndexCount, startIndex);
-  generate(pIndexStorage, pIndexStorage + batchIndexCount, StripIndexGenerator(startIndex));
+  GenerateIndexes(pIndexStorage, batchIndexCount, startIndex);
   SubmitIndex();
 
   return batchVertexCount;
@@ -201,12 +240,12 @@ void FanStripHelper::CalcBatchPortion(uint16_t vertexCount, uint16_t avVertex, u
     uint32_t indexCountForAvailableVertexCount = VtoICount(avVertex);
     if (indexCountForAvailableVertexCount <= avIndex)
     {
-      batchVertexCount = avVertex;
+      batchVertexCount = AlignVCount(avVertex);
       batchIndexCount = indexCountForAvailableVertexCount;
     }
     else
     {
-      batchIndexCount = avIndex - avIndex % 3;
+      batchIndexCount = AlignICount(avIndex);
       batchVertexCount = ItoVCount(batchIndexCount);
     }
     m_isFullUploaded = false;
@@ -226,6 +265,21 @@ uint16_t FanStripHelper::VtoICount(uint16_t vCount) const
 uint16_t FanStripHelper::ItoVCount(uint16_t iCount) const
 {
   return iCount / 3 + 2;
+}
+
+uint16_t FanStripHelper::AlignVCount(uint16_t vCount) const
+{
+  return vCount;
+}
+
+uint16_t FanStripHelper::AlignICount(uint16_t iCount) const
+{
+  return iCount - iCount % 3;
+}
+
+void FanStripHelper::GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const
+{
+  generate(indexStorage, indexStorage + count, StripIndexGenerator(startIndex));
 }
 
 TriangleStripBatch::TriangleStripBatch(BatchCallbacks const & callbacks)
@@ -346,4 +400,52 @@ void TriangleFanBatch::BatchData(RefPointer<AttributeProvider> streams)
 
     ChangeBuffer(true);
   }
+}
+
+
+TriangleListOfStripBatch::TriangleListOfStripBatch(BatchCallbacks const & callbacks)
+ : base_t(callbacks)
+{
+}
+
+void TriangleListOfStripBatch::BatchData(RefPointer<AttributeProvider> streams)
+{
+  while (streams->IsDataExists())
+  {
+    uint16_t batchVertexCount = BatchIndexes(streams->GetVertexCount());
+    FlushData(streams, batchVertexCount);
+    streams->Advance(batchVertexCount);
+
+    ChangeBuffer(true);
+  }
+}
+
+uint16_t TriangleListOfStripBatch::VtoICount(uint16_t vCount) const
+{
+  uint8_t vertexStride = GetVertexStride();
+  ASSERT_GREATER_OR_EQUAL(vertexStride, 4, ());
+  ASSERT_EQUAL(vCount % vertexStride, 0, ());
+
+  uint16_t striptCount = vCount / vertexStride;
+  return striptCount * base_t::VtoICount(vertexStride);
+}
+
+uint16_t TriangleListOfStripBatch::ItoVCount(uint16_t iCount) const
+{
+  uint8_t vertexStride = GetVertexStride();
+  ASSERT_GREATER_OR_EQUAL(vertexStride, 4, ());
+  ASSERT_EQUAL(iCount % 3, 0, ());
+
+  return iCount * vertexStride / 3 * (vertexStride - 2);
+}
+
+uint16_t TriangleListOfStripBatch::AlignVCount(uint16_t vCount) const
+{
+  return vCount - vCount % GetVertexStride();
+}
+
+void TriangleListOfStripBatch::GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const
+{
+  uint8_t vertexStride = GetVertexStride();
+  generate(indexStorage, indexStorage + count, ListOfStriptGenerator(startIndex, vertexStride, VtoICount(vertexStride)));
 }

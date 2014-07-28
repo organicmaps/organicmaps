@@ -7,14 +7,6 @@
 
 #include "../std/bind.hpp"
 
-namespace
-{
-
-uint32_t const AllocateIndexCount = 9000;
-uint32_t const AllocateVertexCount = 10000;
-
-} // namespace
-
 class Batcher::CallbacksWrapper
 {
 public:
@@ -87,7 +79,9 @@ private:
 
 ////////////////////////////////////////////////////////////////
 
-Batcher::Batcher()
+Batcher::Batcher(uint32_t indexBufferSize, uint32_t vertexBufferSize)
+  : m_indexBufferSize(indexBufferSize)
+  , m_vertexBufferSize(vertexBufferSize)
 {
 }
 
@@ -131,6 +125,17 @@ void Batcher::InsertTriangleFan(GLState const & state, RefPointer<AttributeProvi
   InsertTriangles<TriangleFanBatch>(state, params, handle);
 }
 
+void Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params, uint8_t vertexStride)
+{
+  InsertListOfStrip(state, params, MovePointer<OverlayHandle>(NULL), vertexStride);
+}
+
+void Batcher::InsertListOfStrip(GLState const & state, RefPointer<AttributeProvider> params,
+                       TransferPointer<OverlayHandle> handle, uint8_t vertexStride)
+{
+  InsertTriangles<TriangleListOfStripBatch>(state, params, handle, vertexStride);
+}
+
 void Batcher::StartSession(flush_fn const & flusher)
 {
   m_flushInterface = flusher;
@@ -160,7 +165,7 @@ RefPointer<RenderBucket> Batcher::GetBucket(GLState const & state)
   if (it != m_buckets.end())
     return it->second.GetRefPointer();
 
-  MasterPointer<VertexArrayBuffer> vao(new VertexArrayBuffer(AllocateIndexCount, AllocateVertexCount));
+  MasterPointer<VertexArrayBuffer> vao(new VertexArrayBuffer(m_indexBufferSize, m_vertexBufferSize));
   MasterPointer<RenderBucket> buffer(new RenderBucket(vao.Move()));
   m_buckets.insert(make_pair(state, buffer));
   return buffer.GetRefPointer();
@@ -185,7 +190,8 @@ void Batcher::Flush()
 template <typename TBatcher>
 void Batcher::InsertTriangles(GLState const & state,
                               RefPointer<AttributeProvider> params,
-                              TransferPointer<OverlayHandle> transferHandle)
+                              TransferPointer<OverlayHandle> transferHandle,
+                              uint8_t vertexStride)
 {
   RefPointer<RenderBucket> bucket = GetBucket(state);
   RefPointer<VertexArrayBuffer> vao = bucket->GetBuffer();
@@ -206,6 +212,7 @@ void Batcher::InsertTriangles(GLState const & state,
 
     TBatcher batch(callbacks);
     batch.SetIsCanDevideStreams(handle.IsNull());
+    batch.SetVertexStride(vertexStride);
     batch.BatchData(params);
   }
 

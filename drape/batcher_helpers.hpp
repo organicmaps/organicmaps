@@ -32,6 +32,7 @@ public:
   virtual void BatchData(RefPointer<AttributeProvider> streams) = 0;
   void SetIsCanDevideStreams(bool canDevide);
   bool IsCanDevideStreams() const;
+  void SetVertexStride(uint8_t vertexStride);
 
 protected:
   void FlushData(RefPointer<AttributeProvider> streams, uint16_t vertexVount) const;
@@ -41,10 +42,13 @@ protected:
   uint16_t GetAvailableVertexCount() const;
   uint16_t GetAvailableIndexCount() const;
   void ChangeBuffer(bool checkFilled) const;
+  uint8_t GetVertexStride() const;
+
 
 private:
   BatchCallbacks m_callbacks;
   bool m_canDevideStreams;
+  uint8_t m_vertexStride;
 };
 
 class TriangleListBatch : public TriangleBatch
@@ -70,9 +74,11 @@ protected:
                         uint16_t & batchVertexCount, uint16_t & batchIndexCount);
   bool IsFullUploaded() const;
 
-private:
-  uint16_t VtoICount(uint16_t vCount) const;
-  uint16_t ItoVCount(uint16_t iCount) const;
+  virtual uint16_t VtoICount(uint16_t vCount) const;
+  virtual uint16_t ItoVCount(uint16_t iCount) const;
+  virtual uint16_t AlignVCount(uint16_t vCount) const;
+  virtual uint16_t AlignICount(uint16_t vCount) const;
+  virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const;
 
 private:
   bool m_isFullUploaded;
@@ -96,4 +102,20 @@ public:
   TriangleFanBatch(BatchCallbacks const & callbacks);
 
   virtual void BatchData(RefPointer<AttributeProvider> streams);
+};
+
+class TriangleListOfStripBatch : public FanStripHelper
+{
+  typedef FanStripHelper base_t;
+
+public:
+  TriangleListOfStripBatch(BatchCallbacks const & callbacks);
+
+  virtual void BatchData(RefPointer<AttributeProvider> streams);
+
+protected:
+  virtual uint16_t VtoICount(uint16_t vCount) const;
+  virtual uint16_t ItoVCount(uint16_t iCount) const;
+  virtual uint16_t AlignVCount(uint16_t vCount) const;
+  virtual void GenerateIndexes(uint16_t * indexStorage, uint16_t count, uint16_t startIndex) const;
 };
