@@ -41,16 +41,6 @@ namespace
     float m_depth;
   };
 
-  struct Position
-  {
-    Position() {}
-    Position(float x, float y) : m_x(x), m_y(y){}
-    Position(PointF const & p) : m_x(p.x), m_y(p.y){}
-
-    float m_x;
-    float m_y;
-  };
-
   struct Buffer
   {
     vector<Position>    m_pos;
@@ -59,6 +49,15 @@ namespace
     vector<ColorF>      m_outlineColor;
     vector<LetterInfo>  m_info;
     float               m_offset;
+    float               m_maxSize;
+
+    void addSizes(float x, float y)
+    {
+      if (x > m_maxSize)
+        m_maxSize = x;
+      if (y > m_maxSize)
+        m_maxSize = y;
+    }
   };
 }
 
@@ -77,6 +76,7 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
   int const cnt = text.size();
   vector<Buffer> buffers(1);
   float const needOutline = m_params.m_TextFont.m_needOutline;
+  float maxSize = 0.0f;
 
   int textureSet;
   for (int i = 0; i < cnt; i++)
@@ -97,6 +97,14 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
 
     Buffer & curBuffer = buffers[textureSet];
 
+    yOffset *= aspect;
+    xOffset *= aspect;
+    halfWidth *= aspect;
+    halfHeight *= aspect;
+    advance *= aspect;
+
+    curBuffer.addSizes(halfWidth, halfHeight);
+
     curBuffer.m_info.push_back(
                 LetterInfo(xOffset, yOffset, advance + curBuffer.m_offset, halfWidth, halfHeight));
 
@@ -105,11 +113,6 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
 
     curBuffer.m_offset = 0;
 
-    advance *= aspect;
-    yOffset *= aspect;
-    xOffset *= aspect;
-    halfWidth *= aspect;
-    halfHeight *= aspect;
 
     m2::RectF const & rect = region.GetTexRect();
     float const textureNum = (region.GetTextureNode().m_textureOffset << 1) + needOutline;
@@ -182,37 +185,61 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
       provider.InitStream(3, outline_color, MakeStackRefPointer(&buffers[i].m_outlineColor[0]));
     }
 
-    OverlayHandle * handle = new PathTextHandle(m_path, m_params, buffers[i].m_info);
+    OverlayHandle * handle = new PathTextHandle(m_path, m_params, buffers[i].m_info, buffers[i].m_maxSize);
 
     batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
   }
 }
 
-void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
+m2::RectD PathTextHandle::GetPixelRect(ScreenBase const & screen) const
 {
-  float entireLength = (m_params.m_OffsetStart) * m_scaleFactor;
-
-  float const fontSize = m_params.m_TextFont.m_size;
   int const cnt = m_infos.size();
-  vector<Position> positions(m_infos.size() * 6);
+
+  Position const & v1 = m_positions[1];
+  Position const & v2 = m_positions[2];
+  PointF centr((v1.m_x + v2.m_x) / 2.0f, (v1.m_y + v2.m_y) / 2.0f);
+  centr = screen.GtoP(centr);
+  float minx, maxx, miny, maxy;
+  minx = maxx = centr.x;
+  miny = maxy = centr.y;
+
+  for (int i = 1; i < cnt; i++)
+  {
+    Position const & v1 = m_positions[i * 6 + 1];
+    Position const & v2 = m_positions[i * 6 + 2];
+    PointF centr((v1.m_x + v2.m_x) / 2.0f, (v1.m_y + v2.m_y) / 2.0f);
+    centr = screen.GtoP(centr);
+    if(centr.x > maxx)
+      maxx = centr.x;
+    if(centr.x < minx)
+      minx = centr.x;
+    if(centr.y > maxy)
+      maxy = centr.y;
+    if(centr.y < miny)
+      miny = centr.y;
+  }
+
+  return m2::RectD(minx - m_maxSize, miny - m_maxSize, maxx + m_maxSize, maxy + m_maxSize);
+}
+
+void PathTextHandle::Update(ScreenBase const & screen)
+{
+  m_scaleFactor = screen.GetScale();
+
+  float entireLength = m_params.m_OffsetStart * m_scaleFactor;
+  int const cnt = m_infos.size();
 
   Spline::iterator itr;
   itr.Attach(m_path);
-  itr.Step((m_params.m_OffsetStart) * m_scaleFactor);
+  itr.Step(m_params.m_OffsetStart * m_scaleFactor);
 
   for (int i = 0; i < cnt; i++)
   {
     float xOffset = m_infos[i].m_xOffset;
     float yOffset = m_infos[i].m_yOffset;
     float advance = m_infos[i].m_advance;
-    float halfWidth = m_infos[i].m_halfWidth;
-    float halfHeight = m_infos[i].m_halfHeight;
-    float const aspect = fontSize / realFontSize;
-    advance *= aspect;
-    yOffset *= aspect;
-    xOffset *= aspect;
-    halfWidth *= aspect;
-    halfHeight *= aspect;
+    float const halfWidth = m_infos[i].m_halfWidth;
+    float const halfHeight = m_infos[i].m_halfHeight;
 
     PointF const pos = itr.m_pos;
     PointF const oldDir = itr.m_dir;
@@ -263,19 +290,22 @@ void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mut
     PointF p4 = (p4old * m_scaleFactor) * m + pos;
 
     int index = i * 6;
-    positions[index++] = Position(p2);
-    positions[index++] = Position(p3);
-    positions[index++] = Position(p1);
+    m_positions[index++] = Position(p2);
+    m_positions[index++] = Position(p3);
+    m_positions[index++] = Position(p1);
 
-    positions[index++] = Position(p4);
-    positions[index++] = Position(p1);
-    positions[index++] = Position(p3);
+    m_positions[index++] = Position(p4);
+    m_positions[index++] = Position(p1);
+    m_positions[index++] = Position(p3);
   }
+}
 
+void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
+{
   TOffsetNode const & node = GetOffsetNode(DirectionAttributeID);
   MutateNode mutateNode;
   mutateNode.m_region = node.second;
-  mutateNode.m_data = MakeStackRefPointer<void>(&positions[0]);
+  mutateNode.m_data = MakeStackRefPointer<void>(&m_positions[0]);
   mutator->AddMutation(node.first, mutateNode);
 }
 
