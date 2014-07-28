@@ -52,13 +52,13 @@ namespace
   {
     switch(anchor)
     {
-    case dp::Center:      return PointF(-width / 2.0f, -height / 2.0f);
-    case dp::Left:        return PointF(0.0f, -height / 2.0f);
-    case dp::Right:       return PointF(-width, -height / 2.0f);
-    case dp::Top:         return PointF(-width / 2.0f, -height);
+    case dp::Center:      return PointF(-width / 2.0f, height / 2.0f);
+    case dp::Left:        return PointF(0.0f, height / 2.0f);
+    case dp::Right:       return PointF(-width, height / 2.0f);
+    case dp::Top:         return PointF(-width / 2.0f, height);
     case dp::Bottom:      return PointF(-width / 2.0f, 0);
-    case dp::LeftTop:     return PointF(0.0f, -height);
-    case dp::RightTop:    return PointF(-width, -height);
+    case dp::LeftTop:     return PointF(0.0f, height);
+    case dp::RightTop:    return PointF(-width, height);
     case dp::LeftBottom:  return PointF(0.0f, 0.0f);
     case dp::RightBottom: return PointF(-width, 0.0f);
     default:              return PointF(0.0f, 0.0f);
@@ -300,7 +300,7 @@ void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> t
   float const length = max(textLength, auxTextLength);
   PointF const anchorDelta = GetShift(m_params.m_anchor, length, fontSize + auxFontSize);
   float dx = textLength > auxTextLength ? 0.0f : (auxTextLength - textLength) / 2.0f;
-  PointF const textDelta = PointF(dx, auxFontSize) + anchorDelta + m_params.m_primaryOffset;
+  PointF const textDelta = PointF(dx, -auxFontSize) + anchorDelta + m_params.m_primaryOffset;
   dx = textLength > auxTextLength ? (textLength - auxTextLength) / 2.0f : 0.0f;
   PointF const auxTextDelta = PointF(dx, 0.0f) + anchorDelta + m_params.m_primaryOffset;
 
