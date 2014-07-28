@@ -190,7 +190,7 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
 
 void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
 {
-  float entireLength = m_params.m_OffsetStart * m_scaleFactor;
+  float entireLength = (m_params.m_OffsetStart) * m_scaleFactor;
 
   float const fontSize = m_params.m_TextFont.m_size;
   int const cnt = m_infos.size();
@@ -198,7 +198,7 @@ void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mut
 
   Spline::iterator itr;
   itr.Attach(m_path);
-  itr.Step(m_params.m_OffsetStart * m_scaleFactor);
+  itr.Step((m_params.m_OffsetStart) * m_scaleFactor);
 
   for (int i = 0; i < cnt; i++)
   {
@@ -225,19 +225,23 @@ void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mut
     int const index1 = itr.m_index;
     itr.Step(advance);
     int const index2 = itr.m_index;
-    PointF dir;
-    if (index1 != index2 && index2)
+    PointF dir(0.0f, 0.0f);
+    if (index2 > index1)
     {
-      PointF const newDir = itr.m_dir;
-      PointF const newPos = m_path.m_position[index2];
-      float const smoothFactor = (newPos - itr.m_pos).Length() / advance;
-      dir = oldDir * (1.0f - smoothFactor) + newDir * smoothFactor;
+      float koef = (pos - m_path.m_position[index1+1]).Length() / advance;
+      dir += m_path.m_direction[index1] * koef;
+      for (int i = index1 + 1; i < index2; ++i)
+      {
+        koef = (m_path.m_position[i] - m_path.m_position[i+1]).Length() / advance;
+        dir += m_path.m_direction[i] * koef;
+      }
+      koef = (itr.m_pos - m_path.m_position[index2]).Length() / advance;
+      dir += m_path.m_direction[index2] * koef;
     }
     else
     {
       dir = oldDir;
     }
-
     float gip = sqrtf(dir.y*dir.y + dir.x*dir.x);
     ASSERT_NOT_EQUAL(gip, 0.0, ("division by zero"));
     float const cosa = dir.x / gip;
@@ -249,6 +253,7 @@ void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mut
     PointF const p2old(-halfWidth + xOffset, -halfHeight + yOffset);
     PointF const p3old(-halfWidth + xOffset, halfHeight + yOffset);
     PointF const p4old(halfWidth + xOffset, halfHeight + yOffset);
+
 
     math::Matrix<double, 3, 3> m = math::Rotate(math::Identity<double, 3>(), cosa, sina);
 
