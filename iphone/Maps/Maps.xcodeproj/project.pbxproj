@@ -50,6 +50,8 @@
 		97719D491843B6F700BDD815 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D471843B6F200BDD815 /* Security.framework */; };
 		97719D4B1843B86700BDD815 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97719D4A1843B86700BDD815 /* Main_iPad.storyboard */; };
 		97719D4C1843B86700BDD815 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97719D4A1843B86700BDD815 /* Main_iPad.storyboard */; };
+		9773DB8F198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9773DB8E198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m */; };
+		9773DB90198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9773DB8E198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m */; };
 		9778E99D191A5B6600AD850A /* BookmarkDescriptionVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9778E99C191A5B6600AD850A /* BookmarkDescriptionVC.mm */; };
 		9778E99E191A5B6600AD850A /* BookmarkDescriptionVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9778E99C191A5B6600AD850A /* BookmarkDescriptionVC.mm */; };
 		9778E9A1191A663700AD850A /* BookmarkNameVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9778E9A0191A663700AD850A /* BookmarkNameVC.mm */; };
@@ -1388,6 +1390,8 @@
 		97719D441843B6DC00BDD815 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		97719D471843B6F200BDD815 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		97719D4A1843B86700BDD815 /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
+		9773DB8D198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacePageBookmarkDescriptionCell.h; sourceTree = "<group>"; };
+		9773DB8E198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacePageBookmarkDescriptionCell.m; sourceTree = "<group>"; };
 		9778E99B191A5B6600AD850A /* BookmarkDescriptionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkDescriptionVC.h; sourceTree = "<group>"; };
 		9778E99C191A5B6600AD850A /* BookmarkDescriptionVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BookmarkDescriptionVC.mm; sourceTree = "<group>"; };
 		9778E99F191A663700AD850A /* BookmarkNameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkNameVC.h; sourceTree = "<group>"; };
@@ -2492,6 +2496,8 @@
 				97AA2820190AD21100AE1AAB /* PlacePageShareCell.m */,
 				97354B63196AF97200352536 /* PlacePageRoutingCell.h */,
 				97354B64196AF97200352536 /* PlacePageRoutingCell.m */,
+				9773DB8D198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.h */,
+				9773DB8E198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -4539,6 +4545,7 @@
 				978F9244183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
 				97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */,
+				9773DB8F198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m in Sources */,
 				97ABBA4518C8DF620079333C /* PlacePageView.mm in Sources */,
 				97F61794183E7445009919E2 /* LinkCell.m in Sources */,
 				97D092B1190A681F00FF645B /* PlacePageInfoCell.mm in Sources */,
@@ -4612,6 +4619,7 @@
 				978F9245183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
 				97508424199522D300A7457D /* SettingsAndMoreVC.mm in Sources */,
+				9773DB90198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m in Sources */,
 				97F61795183E7445009919E2 /* LinkCell.m in Sources */,
 				EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
 				9778E9A6191A86D800AD850A /* SelectedColorView.m in Sources */,

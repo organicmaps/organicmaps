@@ -9,6 +9,7 @@
 #import "PlacePageEditCell.h"
 #import "PlacePageShareCell.h"
 #import "PlacePageRoutingCell.h"
+#import "PlacePageBookmarkDescriptionCell.h"
 #include "../../search/result.hpp"
 #import "ColorPickerView.h"
 #import "Statistics.h"
@@ -18,13 +19,13 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   CellRowCommon,
   CellRowSet,
-  CellRowInfo,
+  CellRowBookmarkDescription,
   CellRowShare,
   CellRowRouting,
   CellInvalid     // Sections changed but rows are not
 };
 
-@interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate, PlacePageRoutingCellDelegate>
+@interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate, PlacePageRoutingCellDelegate, UIWebViewDelegate>
 
 @property (nonatomic) UIImageView * backgroundView;
 @property (nonatomic) UIView * headerView;
@@ -37,11 +38,12 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) UIImageView * editImageView;
 @property (nonatomic) UIImageView * arrowImageView;
 @property (nonatomic) UIView * pickerView;
+@property (nonatomic) UIWebView * bookmarkDescriptionView;
 
 @property (nonatomic) NSString * title;
 @property (nonatomic) NSString * types;
 @property (nonatomic) NSString * address;
-@property (nonatomic) NSString * info;
+@property (nonatomic) NSString * bookmarkDescription;
 @property (nonatomic) NSString * setName;
 
 @property (nonatomic) NSString * temporaryTitle;
@@ -55,6 +57,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
   BookmarkData * m_bookmarkData;
   size_t m_categoryIndex;
   BOOL updatingTable;
+  BOOL needToUpdateWebView;
+  BOOL webViewIsLoaded;
 
   BOOL needUpdateAddressInfo;
   search::AddressInfo m_addressInfo;
@@ -100,8 +104,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
   CGFloat const defaultHeight = 93;
   [self updateHeight:defaultHeight];
-
-  updatingTable = NO;
 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMonitoringLocation:) name:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
 
@@ -167,7 +169,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   else if (indexPath.row == 1)
     return [self isBookmark] ? CellRowSet : CellRowShare;
   else if (indexPath.row == 2)
-    return [self isBookmark] ? CellRowInfo : CellRowRouting;
+    return [self isBookmark] ? CellRowBookmarkDescription : CellRowRouting;
   else if (indexPath.row == 3)
     return CellRowShare;
   else if (indexPath.row == 4)
@@ -216,13 +218,25 @@ typedef NS_ENUM(NSUInteger, CellRow)
     cell.titleLabel.text = self.setName;
     return cell;
   }
-  else if (row == CellRowInfo)
+  else if (row == CellRowBookmarkDescription)
   {
-    PlacePageEditCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageEditCell className]];
+    PlacePageBookmarkDescriptionCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageBookmarkDescriptionCell className]];
     if (!cell) // only for iOS 5
-      cell = [[PlacePageEditCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[PlacePageEditCell className]];
-
-    cell.titleLabel.text = self.info;
+      cell = [[PlacePageBookmarkDescriptionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[PlacePageBookmarkDescriptionCell className]];
+    if ([self descriptionIsHTML])
+    {
+      cell.webView.hidden = NO;
+      cell.titleLabel.hidden = YES;
+      cell.webView = self.bookmarkDescriptionView;
+      if (!webViewIsLoaded)
+        [self.bookmarkDescriptionView loadHTMLString:self.bookmarkDescription baseURL:nil];
+    }
+    else
+    {
+      cell.titleLabel.hidden = NO;
+      cell.webView.hidden = YES;
+      cell.titleLabel.text = self.bookmarkDescription;
+    }
     return cell;
   }
   else if (row == CellRowShare)
@@ -257,8 +271,20 @@ typedef NS_ENUM(NSUInteger, CellRow)
     return [PlacePageInfoCell cellHeightWithViewWidth:tableView.width inMyPositionMode:[self isMyPosition]];
   else if (row == CellRowSet)
     return [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:tableView.width];
-  else if (row == CellRowInfo)
-    return [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:tableView.width];
+  else if (row == CellRowBookmarkDescription)
+  {
+    if ([self descriptionIsHTML])
+    {
+      if (self.bookmarkDescriptionView.isLoading)
+        return 0;
+      else
+        return [PlacePageBookmarkDescriptionCell cellHeightWithWebViewHeight:self.bookmarkDescriptionView.height];
+    }
+    else
+    {
+      return [PlacePageEditCell cellHeightWithTextValue:self.bookmarkDescription viewWidth:tableView.width];
+    }
+  }
   else if (row == CellRowShare)
     return [PlacePageShareCell cellHeight];
   else if (row == CellRowRouting)
@@ -272,12 +298,27 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   if (row == CellRowSet)
     [self.delegate placePageView:self willEditProperty:@"Set" inBookmarkAndCategory:GetFramework().FindBookmark([self userMark])];
-  else if (row == CellRowInfo)
+  else if (row == CellRowBookmarkDescription)
     [self.delegate placePageView:self willEditProperty:@"Description" inBookmarkAndCategory:GetFramework().FindBookmark([self userMark])];
 }
 
 #define TITLE_LABEL_LEFT_OFFSET 20
 #define TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET 80
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+  webViewIsLoaded = YES;
+  if (updatingTable)
+    needToUpdateWebView = YES;
+  else
+    [self updateWebView];
+}
+
+- (void)updateWebView
+{
+  [self.bookmarkDescriptionView sizeToFit];
+  [self layoutSubviews];
+}
 
 - (void)reloadHeader
 {
@@ -430,21 +471,19 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     self.tableView.alpha = 1;
     self.titleLabel.userInteractionEnabled = YES;
-    CGFloat const infoCellHeight = [PlacePageInfoCell cellHeightWithViewWidth:self.tableView.width inMyPositionMode:[self isMyPosition]];
-    CGFloat fullHeight = headerHeight + infoCellHeight + [PlacePageShareCell cellHeight] + (GetFramework().IsRoutingEnabled() ? [PlacePageRoutingCell cellHeight] : 0);
-    if ([self isBookmark])
-    {
-      fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
-      fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:self.tableView.width];
-    }
-    fullHeight = MIN(fullHeight + 20, [self maxHeight]);
     self.headerSeparator.maxY = headerHeight;
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.arrowImageView.alpha = 0;
-      [self updateHeight:fullHeight];
+      [self updateHeight:[self fullHeight]];
       self.minY = [self viewMinY];
       self.headerSeparator.alpha = 1;
-    } completion:nil];
+    } completion:^(BOOL finished) {
+      if (needToUpdateWebView)
+      {
+        needToUpdateWebView = NO;
+        [self updateWebView];
+      }
+    }];
   }
   else if (self.state == PlacePageStateHidden)
   {
@@ -455,6 +494,23 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
 
   [self updateBookmarkViewsAlpha:animated];
+}
+
+- (CGFloat)fullHeight
+{
+  CGFloat const infoCellHeight = [PlacePageInfoCell cellHeightWithViewWidth:self.tableView.width inMyPositionMode:[self isMyPosition]];
+  CGFloat fullHeight = [self headerHeight] + infoCellHeight + [PlacePageShareCell cellHeight] + (GetFramework().IsRoutingEnabled() ? [PlacePageRoutingCell cellHeight] : 0);
+  if ([self isBookmark])
+  {
+    fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
+    if ([self descriptionIsHTML])
+      fullHeight += [PlacePageBookmarkDescriptionCell cellHeightWithWebViewHeight:self.bookmarkDescriptionView.height];
+    else
+      fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.bookmarkDescription viewWidth:self.tableView.width];
+  }
+  fullHeight = MIN(fullHeight + 20, [self maxHeight]);
+
+  return fullHeight;
 }
 
 - (void)updateBookmarkViewsAlpha:(BOOL)animated
@@ -481,15 +537,12 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if ([self isBookmark])
   {
-    CGFloat newHeight = self.backgroundView.height + [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:self.tableView.width] + [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
-    newHeight = MIN(newHeight, [self maxHeight]);
     CGFloat const headerHeight = [self headerHeight];
-    self.tableView.frame = CGRectMake(0, headerHeight, self.superview.width, newHeight - headerHeight - BOTTOM_SHADOW_OFFSET);
+    CGFloat const fullHeight = [self fullHeight];
+    self.tableView.frame = CGRectMake(0, headerHeight, self.superview.width, fullHeight - headerHeight - BOTTOM_SHADOW_OFFSET);
   }
 
-//  [self performAfterDelay:0 block:^{
-    [self resizeTableAnimated:animated];
-//  }];
+  [self resizeTableAnimated:animated];
 }
 
 - (void)resizeTableAnimated:(BOOL)animated
@@ -524,9 +577,27 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
 }
 
+- (BOOL)descriptionIsHTML
+{
+  NSString * description = self.bookmarkDescription;
+  NSInteger const length = [description length];
+
+  NSInteger openedCount = 0;
+  NSInteger closedCount = 0;
+  for (NSInteger i = 0; i < length; i++)
+  {
+    unichar const symbol = [description characterAtIndex:i];
+    if (symbol == '<')
+      openedCount++;
+    else if (symbol == '>')
+      closedCount++;
+  }
+  return openedCount == closedCount && openedCount != 0;
+}
+
 - (CGFloat)maxHeight
 {
-  return IPAD ? 600 : (self.superview.width > self.superview.height ? 270 : 470);
+  return IPAD ? 600 : (self.superview.width > self.superview.height ? 270 : 460);
 }
 
 - (void)didMoveToSuperview
@@ -709,8 +780,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   _types = nil;
   _address = nil;
   _setName = nil;
-  _info = nil;
+  _bookmarkDescription = nil;
   needUpdateAddressInfo = YES;
+  needToUpdateWebView = NO;
+  webViewIsLoaded = NO;
 }
 
 - (void)showUserMark:(UserMarkCopy *)mark
@@ -859,22 +932,22 @@ typedef NS_ENUM(NSUInteger, CellRow)
   return _setName;
 }
 
-- (NSString *)info
+- (NSString *)bookmarkDescription
 {
-  if (!_info)
+  if (!_bookmarkDescription)
   {
     if ([self isBookmark])
     {
       Bookmark const * bookmark = static_cast<Bookmark const *>([self userMark]);
       std::string const & description = bookmark->GetDescription();
-      _info = description.empty() ? NSLocalizedString(@"description", nil) : [NSString stringWithUTF8String:description.c_str()];
+      _bookmarkDescription = description.empty() ? NSLocalizedString(@"description", nil) : [NSString stringWithUTF8String:description.c_str()];
     }
     else
     {
-      _info = @"";
+      _bookmarkDescription = @"";
     }
   }
-  return _info;
+  return _bookmarkDescription;
 }
 
 - (NSString *)address
@@ -1164,6 +1237,16 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [_arrowImageView addGestureRecognizer:tap];
   }
   return _arrowImageView;
+}
+
+- (UIWebView *)bookmarkDescriptionView
+{
+  if (!_bookmarkDescriptionView)
+  {
+    _bookmarkDescriptionView = [[UIWebView alloc] initWithFrame:CGRectZero];
+    _bookmarkDescriptionView.delegate = self;
+  }
+  return _bookmarkDescriptionView;
 }
 
 - (void)dealloc
