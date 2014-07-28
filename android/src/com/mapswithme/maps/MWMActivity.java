@@ -72,6 +72,11 @@ public class MWMActivity extends NvEventQueueActivity
   private static final String PRO_VERSION_DIALOG_MSG = "pro_version_dialog_msg";
   private static final int PROMO_DIALOG = 110002;
   private final static String EXTRA_CONSUMED = "mwm.extra.intent.processed";
+  private final static String EXTRA_SCREENSHOTS_TASK = "screenshots_task";
+  private final static String SCREENSHOTS_TASK_LOCATE = "locate_task";
+  private final static String SCREENSHOTS_TASK_PPP = "show_place_page";
+  private final static String EXTRA_LAT = "lat";
+  private final static String EXTRA_LON = "lon";
   // Need it for search
   private static final String EXTRA_SEARCH_RES_SINGLE = "search_res_index";
   // Map tasks that we run AFTER rendering initialized
@@ -192,6 +197,28 @@ public class MWMActivity extends NvEventQueueActivity
     });
   }
 
+  private void checkUserMarkActivation()
+  {
+    final Intent intent = getIntent();
+    if (intent != null && intent.hasExtra(EXTRA_SCREENSHOTS_TASK))
+    {
+      final String value = intent.getStringExtra(EXTRA_SCREENSHOTS_TASK);
+      if (value.equals(SCREENSHOTS_TASK_PPP))
+      {
+        final double lat = Double.parseDouble(intent.getStringExtra(EXTRA_LAT));
+        final double lon = Double.parseDouble(intent.getStringExtra(EXTRA_LON));
+        mToolbar.getHandler().postDelayed(new Runnable()
+        {
+          @Override
+          public void run()
+          {
+            Framework.nativeActivateUserMark(lat, lon);
+          }
+        }, 1000);
+      }
+    }
+  }
+
   @Override
   public void OnRenderingInitialized()
   {
@@ -208,6 +235,7 @@ public class MWMActivity extends NvEventQueueActivity
         checkKitkatMigrationMove();
         checkFacebookDialog();
         checkBuyProDialog();
+        checkUserMarkActivation();
       }
     });
 
@@ -676,6 +704,13 @@ public class MWMActivity extends NvEventQueueActivity
     mSearchController.onCreate(this);
 
     setUpToolbars();
+
+    if (intent != null && intent.hasExtra(EXTRA_SCREENSHOTS_TASK))
+    {
+      String value = intent.getStringExtra(EXTRA_SCREENSHOTS_TASK);
+      if (value.equals(SCREENSHOTS_TASK_LOCATE))
+        onMyPositionClicked(null);
+    }
   }
 
   private void setUpToolbars()

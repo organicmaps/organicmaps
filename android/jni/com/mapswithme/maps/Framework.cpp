@@ -1106,4 +1106,13 @@ extern "C"
 
     return env->NewObject(objClazz, methodID, j_name, lat, lon, j_type);
   }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeActivateUserMark(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
+  {
+    ::Framework * fr = g_framework->NativeFramework();
+    m2::PointD pxPoint = fr->GtoP(MercatorBounds::FromLatLon(lat, lon));
+    UserMark const * mark = fr->GetUserMark(pxPoint, true);
+    fr->GetBalloonManager().OnShowMark(mark);
+  }
 }
