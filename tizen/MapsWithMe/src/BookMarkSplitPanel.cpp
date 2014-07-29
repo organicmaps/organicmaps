@@ -11,6 +11,7 @@
 #include "../../../platform/settings.hpp"
 #include "../../../platform/tizen_utils.hpp"
 #include "../../../base/logging.hpp"
+#include "../../../base/math.hpp"
 #include "../../../std/sstream.hpp"
 #include <FUixSensor.h>
 
@@ -361,13 +362,25 @@ void BookMarkSplitPanel::OnTextValueChanged (Tizen::Ui::Control const & source)
   UpdateState();
 }
 
+namespace
+{
+void AngleIn2Pi(double & angle)
+{
+  double const pi2 = 2.0 * math::pi;
+  if (angle <= 0.0)
+    angle += pi2;
+  else if (angle > pi2)
+    angle -= pi2;
+}
+}
+
 
 void BookMarkSplitPanel::UpdateCompass()
 {
   Tizen::Graphics::Canvas * pCanvas =  m_pList->GetCanvasN();
   if (pCanvas)
   {
-    pCanvas->FillRectangle(consts::green, Rectangle(2, headerItemHeight + 2, 100, 100));
+    pCanvas->FillRectangle(consts::green, Rectangle(2, headerItemHeight + 2, 500, 500));
     Bitmap const * pBTM_Back = GetBitmap(IDB_PLACE_PAGE_COMPASS_BACKGROUND);
     int const imgBackHeighDiv2 = pBTM_Back->GetHeight() / 2;
     Bitmap const * pBTM = GetBitmap(IDB_PLACE_PAGE_COMPASS);
@@ -376,19 +389,17 @@ void BookMarkSplitPanel::UpdateCompass()
     int const centerY = headerItemHeight + btwWdth + imgHeighDiv2;
     pCanvas->DrawBitmap(Point(centerX - imgBackHeighDiv2, centerY - imgBackHeighDiv2), * pBTM_Back);
     double const dAzimut = GetAzimuth(GetCurMark(), m_northAzimuth);
-    pCanvas->DrawBitmap(Point(centerX, centerY), *pBTM, Point(imgHeighDiv2, imgHeighDiv2), (dAzimut / (2 * math::pi)) * 360);
+    double dRotateAngle = dAzimut - (math::pi / 2);
+    AngleIn2Pi(dRotateAngle);
+    pCanvas->DrawBitmap(Point(centerX, centerY), *pBTM, Point(imgHeighDiv2, imgHeighDiv2), my::RadToDeg(dRotateAngle));
     delete pCanvas;
   }
 }
 void BookMarkSplitPanel::OnDataReceived(SensorType sensorType, SensorData & sensorData, result r)
 {
   MagneticSensorData & data = static_cast< MagneticSensorData& >(sensorData);
-  m_northAzimuth = atan2(data.y, data.x) - math::pi;
-  double const pi2 = 2.0 * math::pi;
-  if (m_northAzimuth < 0.0)
-    m_northAzimuth += pi2;
-  else if (m_northAzimuth > pi2)
-    m_northAzimuth -= pi2;
+  m_northAzimuth = atan2(data.y, data.x) - (math::pi / 2);
+  AngleIn2Pi(m_northAzimuth);
 
   UpdateCompass();
 }
