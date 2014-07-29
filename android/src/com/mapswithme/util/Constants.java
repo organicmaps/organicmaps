@@ -24,8 +24,8 @@ public class Constants
 
   public static final String FB_PACKAGE = "com.facebook.katana";
   public static final String MWM_DIR_POSTFIX = "/MapsWithMe/";
-  public static final String YOTAPHONE = "yotaphone";
-  public static final String CACHE = "cache";
+  public static final String DEVICE_YOTAPHONE = "yotaphone";
+  public static final String CACHE_DIR = "cache";
 
   private Constants() {}
 }

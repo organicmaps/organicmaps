@@ -852,6 +852,18 @@ extern "C"
   }
 
   JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeFormatAltitude(JNIEnv * env, jclass clazz, jdouble alt)
+  {
+    return jni::ToJavaString(env,  MeasurementUtils::FormatAltitude(alt));
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeFormatSpeed(JNIEnv * env, jclass clazz, jdouble speed)
+  {
+    return jni::ToJavaString(env,  MeasurementUtils::FormatSpeed(speed));
+  }
+
+  JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetOutdatedCountriesString(JNIEnv * env, jclass clazz)
   {
     return jni::ToJavaString(env, g_framework->GetOutdatedCountriesString());

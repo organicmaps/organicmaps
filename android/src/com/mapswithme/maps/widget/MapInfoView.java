@@ -518,6 +518,17 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   {
     if (mGeoLayout != null && mMapObject != null)
     {
+      if (mMapObject.getType() == MapObjectType.MY_POSITION)
+      {
+        final StringBuilder builder = new StringBuilder();
+        if (l.hasAltitude())
+          builder.append(Framework.nativeFormatAltitude(l.getAltitude()));
+        if (l.hasSpeed())
+          builder.append("   ").
+              append(Framework.nativeFormatSpeed(l.getSpeed()));
+        mSubtitle.setText(builder.toString());
+      }
+
       mDistanceView.setVisibility(l != null ? View.VISIBLE : View.GONE);
 
       if (l != null)

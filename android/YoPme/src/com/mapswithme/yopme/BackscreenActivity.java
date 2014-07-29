@@ -108,7 +108,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     new File(extStoragePath).mkdirs();
     new File(extTmpPath).mkdirs();
 
-    nativeInitPlatform(getApkPath(), extStoragePath, extTmpPath, "", true, Build.DEVICE.equals(Constants.YOTA));
+    nativeInitPlatform(getApkPath(), extStoragePath, extTmpPath, "", true, Build.DEVICE.equals(Constants.DEVICE_YOTAPHONE));
 
     /// !!! Create MapRenderer ONLY AFTER platform init !!!
     //final Resources res = getResources();
@@ -487,7 +487,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   public String getTempPath()
   {
     // Can't use getExternalCacheDir() here because of API level = 7.
-    return getExtAppDirectoryPath(Constants.CACHE);
+    return getExtAppDirectoryPath(Constants.CACHE_DIR);
   }
 
   public String getExtAppDirectoryPath(String folder)

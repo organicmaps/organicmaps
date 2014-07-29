@@ -195,6 +195,8 @@ public class LocationService implements
   @Override
   public void onLocationChanged(Location l)
   {
+    mLogger.d("Location changed: ", l);
+
     // Completely ignore locations without lat and lon
     if (l.getAccuracy() <= 0.0)
       return;
@@ -289,13 +291,22 @@ public class LocationService implements
   }
 
   @Override
-  public void onProviderDisabled(String provider) { }
+  public void onProviderDisabled(String provider)
+  {
+    mLogger.d("Disabled location provider: ", provider);
+  }
 
   @Override
-  public void onProviderEnabled(String provider) { }
+  public void onProviderEnabled(String provider)
+  {
+    mLogger.d("Enabled location provider: ", provider);
+  }
 
   @Override
-  public void onStatusChanged(String provider, int status, Bundle extras) { }
+  public void onStatusChanged(String provider, int status, Bundle extras)
+  {
+    mLogger.d("Status changed for location provider: ", provider, status);
+  }
 
   @Override
   public void onWifiLocationUpdated(Location l)
@@ -390,6 +401,7 @@ public class LocationService implements
         mIsGPSOff = false;
 
         final List<String> providers = getFilteredProviders();
+        mLogger.d("Enabled providers count = ", providers.size());
 
         startWifiLocationUpdate();
 
@@ -400,7 +412,10 @@ public class LocationService implements
           mIsActive = true;
 
           for (final String provider : providers)
+          {
+            mLogger.d("Connected to provider = ", provider);
             mLocationManager.requestLocationUpdates(provider, LOCATION_UPDATE_INTERVAL, 0, LocationService.this);
+          }
 
           registerSensorListeners();
 
@@ -561,11 +576,20 @@ public class LocationService implements
   }
 
   @Override
-  public void onConnectionFailed(ConnectionResult connectionResult) { }
+  public void onConnectionFailed(ConnectionResult connectionResult)
+  {
+    mLogger.d("onConnectionFailed " + connectionResult);
+  }
 
   @Override
-  public void onConnected(Bundle arg0) { }
+  public void onConnected(Bundle arg0)
+  {
+    mLogger.d("onConnected " + arg0);
+  }
 
   @Override
-  public void onDisconnected() { }
+  public void onDisconnected()
+  {
+    mLogger.d("onDisconnected");
+  }
 }

@@ -3,7 +3,6 @@ package com.mapswithme.util;
 import android.location.Location;
 import android.os.Build;
 import android.os.SystemClock;
-import android.view.Display;
 import android.view.Surface;
 
 public class LocationUtils
@@ -12,14 +11,13 @@ public class LocationUtils
 
   private static final long LOCATION_EXPIRATION_TIME_MILLIS = 5 * 60 * 1000; // 5 minutes
 
-  @SuppressWarnings("deprecation")
   /**
    * Correct compass angles due to display orientation.
    */
-  public static void correctCompassAngles(Display display, double angles[])
+  public static void correctCompassAngles(int displayOrientation, double angles[])
   {
     double correction = 0;
-    switch (display.getOrientation())
+    switch (displayOrientation)
     {
     case Surface.ROTATION_90:
       correction = Math.PI / 2.0;

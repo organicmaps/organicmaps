@@ -21,7 +21,7 @@ import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.SimpleLogger;
+import com.mapswithme.util.log.StubLogger;
 import com.mobileapptracker.MobileAppTracker;
 
 import java.io.File;
@@ -31,7 +31,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 {
   private final static String TAG = "MWMApplication";
   private static final CharSequence PRO_PACKAGE_POSTFIX = ".pro";
-  private static final String FOREGROUND_TIME = "AllForegroundTime";
+  private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
 
   private static MWMApplication mSelf;
 
@@ -50,8 +50,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private final static long TIME_DELTA = 5 * 1000;
 
   private MobileAppTracker mMobileAppTracker = null;
-  private final Logger mLogger = //StubLogger.get();
-      SimpleLogger.get("MAT");
+  private final Logger mLogger = StubLogger.get();
+//      SimpleLogger.get("MAT");
 
   public MWMApplication()
   {
@@ -113,7 +113,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     super.onCreate();
 
     mIsPro = getPackageName().contains(PRO_PACKAGE_POSTFIX);
-    mIsYota = Build.DEVICE.equals(Constants.YOTAPHONE);
+    mIsYota = Build.DEVICE.equals(Constants.DEVICE_YOTAPHONE);
 
     // http://stackoverflow.com/questions/1440957/httpurlconnection-getresponsecode-returns-1-on-second-invocation
     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1)
@@ -201,7 +201,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public String getTempPath()
   {
     // Can't use getExternalCacheDir() here because of API level = 7.
-    return getExtAppDirectoryPath(Constants.CACHE);
+    return getExtAppDirectoryPath(Constants.CACHE_DIR);
   }
 
   public String getExtAppDirectoryPath(String folder)
@@ -221,7 +221,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   public double getForegroundTime()
   {
-    return nativeGetDouble(FOREGROUND_TIME, 0);
+    return nativeGetDouble(FOREGROUND_TIME_SETTING, 0);
   }
 
   public boolean isProVersion()

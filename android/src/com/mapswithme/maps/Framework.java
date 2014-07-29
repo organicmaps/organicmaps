@@ -79,6 +79,10 @@ public class Framework
 
   public native static String nativeFormatLatLon(double lat, double lon, boolean useDMSFormat);
 
+  public native static String nativeFormatAltitude(double alt);
+
+  public native static String nativeFormatSpeed(double speed);
+
   public native static String nativeGetGe0Url(double lat, double lon, double zoomLevel, String name);
 
   public native static String nativeGetNameAndAddress4Point(double lat, double lon);
