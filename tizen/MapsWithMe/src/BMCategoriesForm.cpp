@@ -73,7 +73,7 @@ ListItemBase * BMCategoriesForm::CreateItem (int index, float itemWidth)
 {
   CustomItem * pItem = new CustomItem();
 
-  BookMarkManager & mngr = GetBMMnger();
+  BookMarkManager & mngr = GetBMManager();
   pItem->Construct(FloatDimension(itemWidth, lstItmHght), LIST_ANNEX_STYLE_NORMAL);
 
   int addWdth = 0;
@@ -108,7 +108,7 @@ ListItemBase * BMCategoriesForm::CreateItem (int index, float itemWidth)
 
 void BMCategoriesForm::OnListViewItemStateChanged(Tizen::Ui::Controls::ListView & listView, int index, int elementId, Tizen::Ui::Controls::ListItemStatus status)
 {
-  BookMarkManager & mngr = GetBMMnger();
+  BookMarkManager & mngr = GetBMManager();
   if (elementId == ID_EYE)
   {
     bool bVisible = mngr.IsCategoryVisible(index);
@@ -163,5 +163,5 @@ bool BMCategoriesForm::DeleteItem (int index, Tizen::Ui::Controls::ListItemBase 
 
 int BMCategoriesForm::GetItemCount(void)
 {
-  return GetBMMnger().GetCategoriesCount();
+  return GetBMManager().GetCategoriesCount();
 }

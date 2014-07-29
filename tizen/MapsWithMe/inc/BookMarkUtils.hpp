@@ -83,5 +83,5 @@ private:
   shared_ptr<UserMarkCopy> m_pCurBookMarkCopy;
 };
 
-BookMarkManager & GetBMMnger();
+BookMarkManager & GetBMManager();
 }

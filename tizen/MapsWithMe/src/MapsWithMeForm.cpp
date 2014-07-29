@@ -571,8 +571,8 @@ void MapsWithMeForm::OnListViewItemStateChanged(ListView & listView, int index, 
       double lat, lon;
       if (GetFramework()->GetCurrentPosition(lat, lon))
       {
-        String textValSMS = bookmark::GetBMMnger().GetSMSTextMyPosition(lat, lon);
-        String textValEmail = bookmark::GetBMMnger().GetEmailTextMyPosition(lat, lon);
+        String textValSMS = bookmark::GetBMManager().GetSMSTextMyPosition(lat, lon);
+        String textValEmail = bookmark::GetBMManager().GetEmailTextMyPosition(lat, lon);
         ArrayList * pList = new ArrayList;
         pList->Construct();
         pList->Add(new String(textValSMS));

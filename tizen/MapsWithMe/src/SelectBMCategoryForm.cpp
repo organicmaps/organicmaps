@@ -52,13 +52,13 @@ void SelectBMCategoryForm::OnFormBackRequested(Tizen::Ui::Controls::Form & sourc
 
 ListItemBase * SelectBMCategoryForm::CreateItem(int index, float itemWidth)
 {
-  String itemText = GetBMMnger().GetCategoryName(index);
+  String itemText = GetBMManager().GetCategoryName(index);
   CustomItem * pItem = new CustomItem();
 
   pItem->Construct(FloatDimension(itemWidth, lstItmHght), LIST_ANNEX_STYLE_NORMAL);
   FloatRectangle imgRect(btwWdth, topHght, imgWdth, imgHght);
   pItem->AddElement(FloatRectangle(btwWdth, topHght, itemWidth - 2 * btwWdth - imgWdth, imgHght), 1, itemText, mainFontSz, black, black, black);
-  if(index == GetBMMnger().GetCurrentCategory())
+  if(index == GetBMManager().GetCurrentCategory())
     pItem->AddElement(FloatRectangle(itemWidth - btwWdth - imgWdth, topHght, imgWdth, imgHght), 0, *GetBitmap(IDB_V));
 
   return pItem;
@@ -66,7 +66,7 @@ ListItemBase * SelectBMCategoryForm::CreateItem(int index, float itemWidth)
 
 void SelectBMCategoryForm::OnListViewItemStateChanged(Tizen::Ui::Controls::ListView & listView, int index, int elementId, Tizen::Ui::Controls::ListItemStatus status)
 {
-  GetBMMnger().SetNewCurBookMarkCategory(index);
+  GetBMManager().SetNewCurBookMarkCategory(index);
   SceneManager * pSceneManager = SceneManager::GetInstance();
   pSceneManager->GoBackward(BackwardSceneTransition(SCENE_TRANSITION_ANIMATION_TYPE_RIGHT));
 }
@@ -79,7 +79,7 @@ bool SelectBMCategoryForm::DeleteItem(int index, Tizen::Ui::Controls::ListItemBa
 
 int SelectBMCategoryForm::GetItemCount(void)
 {
-  return GetBMMnger().GetCategoriesCount();
+  return GetBMManager().GetCategoriesCount();
 }
 
 void SelectBMCategoryForm::OnTextValueChangeCanceled(Tizen::Ui::Control const & source)
@@ -92,9 +92,9 @@ void SelectBMCategoryForm::OnTextValueChangeCanceled(Tizen::Ui::Control const & 
 void SelectBMCategoryForm::OnTextValueChanged(Tizen::Ui::Control const & source)
 {
   EditField * pEditField = static_cast<EditField *>(GetControl(IDC_EDITFIELD, true));
-  int iNewCat = GetBMMnger().AddCategory(pEditField->GetText());
+  int iNewCat = GetBMManager().AddCategory(pEditField->GetText());
   if (iNewCat >= 0)
-    GetBMMnger().SetNewCurBookMarkCategory(iNewCat);
+    GetBMManager().SetNewCurBookMarkCategory(iNewCat);
   pEditField->SetText("");
   ListView * pList = static_cast<ListView *>(GetControl(IDC_LISTVIEW, true));
   pList->UpdateList();

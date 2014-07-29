@@ -53,7 +53,7 @@ result CategoryForm::OnInitializing(void)
 
 void CategoryForm::OnActionPerformed(Tizen::Ui::Control const & source, int actionId)
 {
-  BookMarkManager & mngr = GetBMMnger();
+  BookMarkManager & mngr = GetBMManager();
   switch(actionId)
   {
     case ID_EDIT:
@@ -86,7 +86,7 @@ void CategoryForm::OnFormBackRequested(Tizen::Ui::Controls::Form & source)
 
 ListItemBase * CategoryForm::CreateItem (int index, float itemWidth)
 {
-  Bookmark const * pBMark = GetBMMnger().GetBookMark(m_curCategory, index);
+  Bookmark const * pBMark = GetBMManager().GetBookMark(m_curCategory, index);
   String itemText = pBMark->GetName().c_str();
   CustomItem * pItem = new CustomItem();
 
@@ -125,7 +125,7 @@ ListItemBase * CategoryForm::CreateItem (int index, float itemWidth)
 
 void CategoryForm::OnListViewItemStateChanged(Tizen::Ui::Controls::ListView & listView, int index, int elementId, Tizen::Ui::Controls::ListItemStatus status)
 {
-  BookMarkManager & mngr = GetBMMnger();
+  BookMarkManager & mngr = GetBMManager();
   if (elementId == ID_DELETE)
   {
     if (m_itemToDelete == index)
@@ -151,7 +151,7 @@ void CategoryForm::OnListViewItemStateChanged(Tizen::Ui::Controls::ListView & li
 
 void CategoryForm::UpdateState()
 {
-  BookMarkManager & mngr = GetBMMnger();
+  BookMarkManager & mngr = GetBMManager();
   ListView * pList = static_cast<ListView *>(GetControl(IDC_LISTVIEW, true));
   pList->SetSize(pList->GetWidth(), GetItemCount() * lstItmHght);
   pList->UpdateList();
@@ -177,7 +177,7 @@ void CategoryForm::UpdateState()
 void CategoryForm::OnTextValueChanged (Tizen::Ui::Control const & source)
 {
   EditField * pEditName = static_cast<EditField *>(GetControl(IDC_EDITFIELD_NAME, true));
-  GetBMMnger().SetCategoryName(m_curCategory, pEditName->GetText());
+  GetBMManager().SetCategoryName(m_curCategory, pEditName->GetText());
   UpdateState();
 }
 

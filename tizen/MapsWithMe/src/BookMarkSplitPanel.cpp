@@ -137,8 +137,8 @@ void BookMarkSplitPanel::OnActionPerformed(Tizen::Ui::Control const & source, in
   {
     case ID_SHARE_BUTTON:
     {
-      String textValSMS = GetBMMnger().GetSMSTextMark(GetBMMnger().GetCurMark());
-      String textValEmail = GetBMMnger().GetEmailTextMark(GetBMMnger().GetCurMark());
+      String textValSMS = GetBMManager().GetSMSTextMark(GetBMManager().GetCurMark());
+      String textValEmail = GetBMManager().GetEmailTextMark(GetBMManager().GetCurMark());
       ArrayList * pList = new ArrayList;
       pList->Construct();
       pList->Add(new String(textValSMS));
@@ -178,7 +178,7 @@ Tizen::Ui::Controls::ListItemBase * BookMarkSplitPanel::CreateHeaderItem (float 
 }
 Tizen::Ui::Controls::ListItemBase * BookMarkSplitPanel::CreateSettingsItem (float itemWidth)
 {
-  BookMarkManager & mngr = GetBMMnger();
+  BookMarkManager & mngr = GetBMManager();
   CustomItem * pItem = new CustomItem();
 
   pItem->Construct(FloatDimension(itemWidth, settingsItemHeight), LIST_ANNEX_STYLE_NORMAL);
@@ -250,7 +250,7 @@ void BookMarkSplitPanel::UpdateState()
   m_pButton->SetPosition(btwWdth, listSz + btwWdth);
   m_pDummyMessageEdit->SetFocus();
   m_pMessageEdit->SetShowState(IsBookMark());
-  BookMarkManager & mngr = GetBMMnger();
+  BookMarkManager & mngr = GetBMManager();
   if (!mngr.GetBookMarkMessage().IsEmpty())
     m_pMessageEdit->SetText(mngr.GetBookMarkMessage());
   else
@@ -274,7 +274,7 @@ void BookMarkSplitPanel::OnListViewItemStateChanged(Tizen::Ui::Controls::ListVie
 {
   if (index == HEADER_ITEM && elementId == STAR_BUTTON)
   {
-    BookMarkManager & mngr = GetBMMnger();
+    BookMarkManager & mngr = GetBMManager();
     if (IsBookMark())
     {
       mngr.RemoveCurBookMark();
@@ -333,12 +333,12 @@ Tizen::Base::String BookMarkSplitPanel::GetLocationText() const
 
 Tizen::Base::String BookMarkSplitPanel::GetGroupText() const
 {
-  return GetBMMnger().GetCurrentCategoryName();
+  return GetBMManager().GetCurrentCategoryName();
 }
 
 Tizen::Base::String BookMarkSplitPanel::GetMessageText() const
 {
-  return GetBMMnger().GetBookMarkMessage();
+  return GetBMManager().GetBookMarkMessage();
 }
 
 bool BookMarkSplitPanel::IsBookMark() const
@@ -348,7 +348,7 @@ bool BookMarkSplitPanel::IsBookMark() const
 
 UserMark const * BookMarkSplitPanel::GetCurMark() const
 {
-  return GetBMMnger().GetCurMark();
+  return GetBMManager().GetCurMark();
 }
 
 void BookMarkSplitPanel::OnTextValueChangeCanceled (Tizen::Ui::Control const & source)
@@ -358,7 +358,7 @@ void BookMarkSplitPanel::OnTextValueChangeCanceled (Tizen::Ui::Control const & s
 
 void BookMarkSplitPanel::OnTextValueChanged (Tizen::Ui::Control const & source)
 {
-  GetBMMnger().SetBookMarkMessage(m_pMessageEdit->GetText());
+  GetBMManager().SetBookMarkMessage(m_pMessageEdit->GetText());
   UpdateState();
 }
 

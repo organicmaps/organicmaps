@@ -190,7 +190,7 @@ const wchar_t * GetColorPPBM(EColor color)
   return IDB_COLOR_PP_RED;
 }
 
-BookMarkManager & GetBMMnger()
+BookMarkManager & GetBMManager()
 {
   return BookMarkManager::GetInstance();
 }
