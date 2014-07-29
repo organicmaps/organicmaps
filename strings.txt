@@ -1372,7 +1372,7 @@
     pt = Não precisa mais do maps.me Lite, podendo portanto desinstalá-la.
     hu = Már nincs szüksége a maps.me lite alkalmazásra, nyugodtan letörölheti.
   [download_country_success]
-    en = %@ downloaded successfuly
+    en = %@ downloaded successfully
     tags = android
     comment = Show popup notification on top of the map when country was downloaded.
     cs = Úspěšně staženo: %@
@@ -1668,7 +1668,7 @@
     ja = maps.me以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
     ko = 다른 소스에서 북마크는 maps.me 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
     nl = Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de maps.me app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
-    ru = Метки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.
+    ru = Метки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.
     uk = Мітки з інших ресурсів можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими мітками з почти, Dropbox або інтернет посилання.
     zh-Hant = 其他來源的書簽也可在maps.me應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
     pl = Zakładki z innych źródeł mogą być importowane i wyświetlane w aplikacji maps.me. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
@@ -3496,7 +3496,7 @@
     zh-Hant = 此應用程序使用從OpenStreetMap專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證OpenStreetMap數據的一致性、準確性、完整性、或適用性。
   [agree]
     tags = tizen
-    comment = Show on first lunch.
+    comment = Show on first launch.
     en = I agree
     ru = Я согласен
     fr = Je suis d'accord
@@ -3505,7 +3505,7 @@
     zh-Hant = 我同意
   [disagree]
     tags = tizen
-    comment = Show on first lunch.
+    comment = Show on first launch
     en = I disagree
     ru = Я не согласен
     fr = Je ne suis pas d'accord
