@@ -12,7 +12,7 @@ public class Yota
 {
   public static boolean isYota()
   {
-    return Build.DEVICE.contains("yotaphone");
+    return Build.DEVICE.contains(Constants.YOTAPHONE);
   }
 
   private final static String YOPME_AUTHORITY = "com.mapswithme.yopme";

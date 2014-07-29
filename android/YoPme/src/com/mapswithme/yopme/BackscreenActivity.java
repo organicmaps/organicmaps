@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.location.LocationRequester;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.yopme.map.MapData;
@@ -107,7 +108,7 @@ public class BackscreenActivity extends BSActivity implements LocationListener
     new File(extStoragePath).mkdirs();
     new File(extTmpPath).mkdirs();
 
-    nativeInitPlatform(getApkPath(), extStoragePath, extTmpPath, "", true, Build.DEVICE.equals("yotaphone"));
+    nativeInitPlatform(getApkPath(), extStoragePath, extTmpPath, "", true, Build.DEVICE.equals(Constants.YOTA));
 
     /// !!! Create MapRenderer ONLY AFTER platform init !!!
     //final Resources res = getResources();
@@ -486,19 +487,19 @@ public class BackscreenActivity extends BSActivity implements LocationListener
   public String getTempPath()
   {
     // Can't use getExternalCacheDir() here because of API level = 7.
-    return getExtAppDirectoryPath("cache");
+    return getExtAppDirectoryPath(Constants.CACHE);
   }
 
   public String getExtAppDirectoryPath(String folder)
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format("/Android/data/%s/%s/", getPackageName(), folder));
+    return storagePath.concat(String.format(Constants.STORAGE_PATH, getPackageName(), folder));
   }
 
   private String getOBBGooglePath()
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format("/Android/obb/%s/", getPackageName()));
+    return storagePath.concat(String.format(Constants.OBB_PATH, getPackageName()));
   }
 
   private PoiPoint getLocation()

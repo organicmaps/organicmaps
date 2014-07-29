@@ -2,6 +2,9 @@ package com.mapswithme.util;
 
 public class Constants
 {
+  public static final String STORAGE_PATH = "/Android/data/%s/%s/";
+  public static final String OBB_PATH = "/Android/obb/%s/";
+
   public static class Url
   {
     public static final String GE0_PREFIX = "ge0://";
@@ -21,6 +24,8 @@ public class Constants
 
   public static final String FB_PACKAGE = "com.facebook.katana";
   public static final String MWM_DIR_POSTFIX = "/MapsWithMe/";
+  public static final String YOTAPHONE = "yotaphone";
+  public static final String CACHE = "cache";
 
   private Constants() {}
 }

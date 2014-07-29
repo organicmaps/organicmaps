@@ -30,20 +30,28 @@ import java.io.IOException;
 public class MWMApplication extends android.app.Application implements MapStorage.Listener
 {
   private final static String TAG = "MWMApplication";
+  private static final CharSequence PRO_PACKAGE_POSTFIX = ".pro";
+  private static final String FOREGROUND_TIME = "AllForegroundTime";
 
   private static MWMApplication mSelf;
 
-  private LocationService m_location = null;
-  private LocationState m_locationState = null;
-  private MapStorage m_storage = null;
+  private LocationService mLocation = null;
+  private LocationState mLocationState = null;
+  private MapStorage mStorage = null;
 
-  private boolean m_isPro = false;
-  private boolean m_isYota = false;
+  private boolean mIsPro = false;
+  private boolean mIsYota = false;
 
   // Set default string to Google Play page.
-  private final static String m_defaultProURL = "http://play.google.com/store/apps/details?id=com.mapswithme.maps.pro";
-  private String m_proVersionURL = m_defaultProURL;
+  private final static String DEFAULT_PRO_URL = "http://play.google.com/store/apps/details?id=com.mapswithme.maps.pro";
+  private String mProVersionURL = DEFAULT_PRO_URL;
 
+  // We check how old is modified date of our MapsWithMe folder
+  private final static long TIME_DELTA = 5 * 1000;
+
+  private MobileAppTracker mMobileAppTracker = null;
+  private final Logger mLogger = //StubLogger.get();
+      SimpleLogger.get("MAT");
 
   public MWMApplication()
   {
@@ -51,11 +59,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
     mSelf = this;
   }
 
-  /**
-   * Just for convenience.
-   *
-   * @return global MWMApp
-   */
   public static MWMApplication get()
   {
     return mSelf;
@@ -63,7 +66,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   private void showDownloadToast(int resID, Index idx)
   {
-    final String msg = String.format(getString(resID), m_storage.countryName(idx));
+    final String msg = String.format(getString(resID), mStorage.countryName(idx));
     Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
   }
 
@@ -71,7 +74,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public void onCountryStatusChanged(Index idx)
   {
     final Notifier notifier = new Notifier(this);
-    switch (m_storage.countryStatus(idx))
+    switch (mStorage.countryStatus(idx))
     {
     case MapStorage.ON_DISK:
       notifier.placeDownloadCompleted(idx, getMapStorage().countryName(idx));
@@ -109,18 +112,18 @@ public class MWMApplication extends android.app.Application implements MapStorag
   {
     super.onCreate();
 
-    m_isPro = getPackageName().contains(".pro");
-    m_isYota = Build.DEVICE.equals("yotaphone");
+    mIsPro = getPackageName().contains(PRO_PACKAGE_POSTFIX);
+    mIsYota = Build.DEVICE.equals(Constants.YOTAPHONE);
 
     // http://stackoverflow.com/questions/1440957/httpurlconnection-getresponsecode-returns-1-on-second-invocation
     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1)
       System.setProperty("http.keepAlive", "false");
 
     // get url for PRO version
-    if (!m_isPro)
+    if (!mIsPro)
     {
-      m_proVersionURL = BuildConfig.PRO_URL;
-      Log.i(TAG, "Pro version url: " + m_proVersionURL);
+      mProVersionURL = BuildConfig.PRO_URL;
+      Log.i(TAG, "Pro version url: " + mProVersionURL);
     }
 
     final String extStoragePath = getDataStoragePath();
@@ -132,7 +135,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
     // init native framework
     nativeInit(getApkPath(), extStoragePath, extTmpPath,
-        getOBBGooglePath(), m_isPro, m_isYota);
+        getOBBGooglePath(), mIsPro, mIsYota);
 
     getMapStorage().subscribe(this);
 
@@ -156,26 +159,26 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   public LocationService getLocationService()
   {
-    if (m_location == null)
-      m_location = new LocationService(this);
+    if (mLocation == null)
+      mLocation = new LocationService(this);
 
-    return m_location;
+    return mLocation;
   }
 
   public LocationState getLocationState()
   {
-    if (m_locationState == null)
-      m_locationState = new LocationState();
+    if (mLocationState == null)
+      mLocationState = new LocationState();
 
-    return m_locationState;
+    return mLocationState;
   }
 
   public MapStorage getMapStorage()
   {
-    if (m_storage == null)
-      m_storage = new MapStorage();
+    if (mStorage == null)
+      mStorage = new MapStorage();
 
-    return m_storage;
+    return mStorage;
   }
 
   public String getApkPath()
@@ -198,19 +201,19 @@ public class MWMApplication extends android.app.Application implements MapStorag
   public String getTempPath()
   {
     // Can't use getExternalCacheDir() here because of API level = 7.
-    return getExtAppDirectoryPath("cache");
+    return getExtAppDirectoryPath(Constants.CACHE);
   }
 
   public String getExtAppDirectoryPath(String folder)
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format("/Android/data/%s/%s/", getPackageName(), folder));
+    return storagePath.concat(String.format(Constants.STORAGE_PATH, getPackageName(), folder));
   }
 
   private String getOBBGooglePath()
   {
     final String storagePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-    return storagePath.concat(String.format("/Android/obb/%s/", getPackageName()));
+    return storagePath.concat(String.format(Constants.OBB_PATH, getPackageName()));
   }
 
   /// Check if we have free space on storage (writable path).
@@ -218,32 +221,32 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   public double getForegroundTime()
   {
-    return nativeGetDouble("AllForegroundTime", 0);
+    return nativeGetDouble(FOREGROUND_TIME, 0);
   }
 
   public boolean isProVersion()
   {
-    return m_isPro;
+    return mIsPro;
   }
 
   public boolean hasBookmarks()
   {
-    return m_isPro || m_isYota;
+    return mIsPro || mIsYota;
   }
 
   public boolean isYota()
   {
-    return m_isYota;
+    return mIsYota;
   }
 
   public String getProVersionURL()
   {
-    return m_proVersionURL;
+    return mProVersionURL;
   }
 
   public String getDefaultProVersionURL()
   {
-    return m_defaultProURL;
+    return DEFAULT_PRO_URL;
   }
 
   static
@@ -297,10 +300,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
     initMAT(activity);
   }
 
-  private MobileAppTracker mMobileAppTracker = null;
-  private final Logger mLogger = //StubLogger.get();
-      SimpleLogger.get("MAT");
-
   public void onMwmResume(Activity activity)
   {
     if (mMobileAppTracker != null)
@@ -311,9 +310,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
       mMobileAppTracker.measureSession();
     }
   }
-
-  // We check how old is modified date of our MapsWithMe folder
-  private final static long TIME_DELTA = 5 * 1000;
 
   private boolean isNewUser()
   {
@@ -360,18 +356,18 @@ public class MWMApplication extends android.app.Application implements MapStorag
           {
             // Unrecoverable error connecting to Google Play services (e.g.,
             // the old version of the service doesn't support getting AdvertisingId).
-            mLogger.d("IOException");
+            e.printStackTrace();
           } catch (GooglePlayServicesNotAvailableException e)
           {
             // Google Play services is not available entirely.
             // Use ANDROID_ID instead
             // AlexZ: we can't use Android ID from 1st of August, 2014, according to Google policies
             // mMobileAppTracker.setAndroidId(Secure.getString(getContentResolver(), Secure.ANDROID_ID));
-            mLogger.d("GooglePlayServicesNotAvailableException");
+            e.printStackTrace();
           } catch (GooglePlayServicesRepairableException e)
           {
             // Encountered a recoverable error connecting to Google Play services.
-            mLogger.d("GooglePlayServicesRepairableException");
+            e.printStackTrace();
           }
         }
       }).start();
