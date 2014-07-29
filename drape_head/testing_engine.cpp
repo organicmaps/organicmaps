@@ -397,8 +397,8 @@ void TestingEngine::DrawImpl()
   for(int i = 16; i >= 0 ; --i)
   {
     float r = 200.0f;
-    float x = r * cos((float)i/32.0f*2.0f*M_PI) + 800;
-    float y = r * sin((float)i/32.0f*2.0f*M_PI) + 450;
+    float x = r * cos((float)i / 32.0f * 2.0f * M_PI) + 800.0f;
+    float y = r * sin((float)i / 32.0f * 2.0f * M_PI) + 450.0f;
     path.push_back(m2::PointF(x, y));
   }
   path.push_back(m2::PointF(1600, 450));
@@ -406,9 +406,9 @@ void TestingEngine::DrawImpl()
   PathTextViewParams params3;
   params3.m_featureID = FeatureID(23, 78);
   params3.m_depth = -10.0f;
-  params3.m_OffsetEnd = 4000.0f;
+  params3.m_OffsetEnd = 600.0f;
   params3.m_OffsetStart = 100.0f;
-  params3.m_Text = "√2+√3=?----------------+";
+  params3.m_Text = "√2+√3=?-fghjkfghjf---_________----+";
   params3.m_TextFont = params.m_primaryTextFont;
   PathTextShape sh3(path, params3);
   sh3.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
