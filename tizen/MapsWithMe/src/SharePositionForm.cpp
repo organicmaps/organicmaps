@@ -146,8 +146,8 @@ void SharePositionForm::OnSceneActivatedN(Tizen::Ui::Scenes::SceneId const & pre
   {
     if (pArgs->GetCount() == 3)
     {
-      m_messageSMS = *dynamic_cast<String *>(pArgs->GetAt(0));
-      m_messageEmail = *dynamic_cast<String *>(pArgs->GetAt(1));
+      m_messageSMS = *reinterpret_cast<String *>(pArgs->GetAt(0));
+      m_messageEmail = *reinterpret_cast<String *>(pArgs->GetAt(1));
       Boolean * pSharePosition = dynamic_cast<Boolean *>(pArgs->GetAt(2));
       m_sharePosition = pSharePosition->value;
     }
