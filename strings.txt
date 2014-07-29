@@ -20,6 +20,7 @@
     pl = Nawigacja staje się prostsza kiedy masz pełną wersję aplikację maps.me wraz z wyszukiwaniem offline. Pobierz już teraz!
     pt = Navegue mais facilmente com a versão completa do maps.me com a funcionalidade de procura offline. Obtenha-a agora mesmo!
     hu = További lehetőségek a maps.me teljes verziójában. Töltse le most!
+    th = ระบบนำทางที่ง่ายขึ้นด้วย maps.me ที่โดดเด่นด้วยการค้นหาแบบออฟไลน์แบบเวอร์ชันเต็ม รับมันทันทีตอนนี้!
   [about]
     tags = tizen
     en = About
@@ -38,6 +39,7 @@
     pl = O programie
     pt = Sobre
     hu = A programról
+    th = เกี่ยวกับ
   [back]
     en = Back
     comment = Button text (should be short)
@@ -55,6 +57,7 @@
     pl = Wróć
     pt = Voltar
     hu = Vissza
+    th = กลับ
   [cancel]
     tags = tizen
     en = Cancel
@@ -73,6 +76,7 @@
     pl = Anuluj
     pt = Cancelar
     hu = Mégse
+    th = ยกเลิก
   [cancel_download]
     tags = tizen
     en = Cancel Download
@@ -91,6 +95,7 @@
     pl = Anuluj pobieranie
     pt = Cancelar Descarga
     hu = Letöltés megszakítása
+    th = ยกเลิกการดาวน์โหลด
   [delete]
     tags = tizen
     en = Delete
@@ -109,6 +114,7 @@
     pl = Usuń
     pt = Eliminar
     hu = Törlés
+    th = ลบ
   [delete_old_maps]
     en = Delete old maps and proceed
     comment = Button in iOS Downloader, displayed only when upgrading from v1 to v2
@@ -126,6 +132,7 @@
     pl = Usuń stare mapy i kontynuuj
     pt = Eliminar mapas antigos e continuar
     hu = Régi térképek törlése és folytatás
+    th = ลบแผนที่เก่าและดำเนินการต่อไป
   [do_not_ask_me_again]
     en = Do not ask me again
     comment = Button to dismiss dialog forever
@@ -143,6 +150,7 @@
     pl = Nie pytaj ponownie
     pt = Não volte a perguntar-me
     hu = Ne kérdezze többször
+    th = อย่าถามฉันอีก
   [do_nothing]
     en = Continue
     comment = Button "do not interrupt download" if user touched actively downloading country
@@ -160,6 +168,7 @@
     pl = Kontynuuj
     pt = Continuar
     hu = Folytatás
+    th = ดำเนินการต่อ
   [download_maps]
     tags = tizen
     en = Download Maps
@@ -177,6 +186,7 @@
     zh-Hant = 下載地圖
     pt = Descarregar mapas
     hu = Térképek letöltése
+    th = ดาวน์โหลดแผนที่
   [download_x_kb]
     en = Download %qu kB
     comment = Settings/Downloader - Download confirmation button
@@ -193,6 +203,7 @@
     pl = Pobierz %qu kB
     pt = Descarregar %qu kB
     hu = %qu kB letöltése
+    th = ดาวน์โหลด %qu กิโลไบต์
   [download_x_mb]
     en = Download %qu MB
     comment = Settings/Downloader - Download confirmation button
@@ -209,6 +220,7 @@
     pl = Pobierz %qu MB
     pt = Descarregar %qu MB
     hu = %qu MB letöltése
+    th = ดาวน์โหลด %qu เมกกะไบต์
   [download_has_failed]
     en = Download has failed, touch again for one more try
     comment = Settings/Downloader - info for country when download fails
@@ -226,6 +238,7 @@
     pl = Pobieranie nie powiodło się. Naciśnij, aby spróbować ponownie.
     pt = A descarga falhou, toque novamente para tentar uma vez mais.
     hu = Letöltés sikertelen. Kérjük próbálja újra!
+    th = การดาวน์โหลดล้มเหลว แตะอีกครั้งเพื่อลองใหม่
   [downloaded_x_y_touch_to_delete]
     en = Downloaded (%1$qu %2$@), touch to delete
     comment = Settings/Downloader - info for downloaded country
@@ -243,6 +256,7 @@
     pl = Pobrano (%1$qu %2$@). Naciśnij, aby usunąć.
     pt = Descarregado (%1$qu %2$@), toque para eliminar.
     hu = Letöltve (%1$qu %2$@), érintse meg a törléshez
+    th = ดาวน์โหลดแล้ว (%1$qu %2$@), แตะเพื่อลบ
   [downloading_x_touch_to_cancel]
     en = Downloading %qu%%, touch to cancel
     comment = Settings/Downloader - country info current download progress
@@ -260,6 +274,7 @@
     pl = Pobieranie %qu%%. Naciśnij, aby anulować.
     pt = A descarregar %qu%%, toque para cancelar.
     hu = %qu%% töltése, leállításhoz érintse meg.
+    th = กำลังดาวน์โหลด %qu%%, แตะเพื่อยกเลิก
   [downloading]
     en = Downloading…
     comment = Settings/Downloader - info for country which started downloading
@@ -277,6 +292,7 @@
     pl = Pobieranie…
     pt = A descarregar…
     hu = Letöltés…
+    th = กำลังดาวน์โหลด…
   [get_it_now]
     en = Get it now
     cs = Získat nyní
@@ -293,6 +309,7 @@
     pl = Pobierz teraz
     pt = Obtenha agora
     hu = Telepítés most
+    th = รับมันตอนนี้
   [share_on_facebook_text]
     en = Are you enjoying maps.me? Help your friends and family learn about the app, share it with them on Facebook!
     comment = Text to show occasionaly with a proposal to Like our program on Facebook
@@ -308,6 +325,7 @@
     pl = Podoba ci się korzystanie z maps.me? Pomóż swoim przyjaciołom i rodzinie w dowiedzeniu się czegoś więcej o aplikacji, udostępnij na Facebooku!
     pt = Está a gostar do maps.me? Ajude os seus amigos e família a conhecer a app, partilhe-a com eles no Facebook!
     hu = Tetszik a maps.me? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!
+    th = คุณสนุกกับ maps.me หรือไม่? ช่วยเหลือเพื่อน ๆ และครอบครัวของคุณศึกษาเกี่ยวกับแอป แชร์มันบน Facebook!
   [leave_review_text]
     en = If you like maps.me, please support us by writing a review. If you face any issues, please let us know by filling in a special form.
     comment = Leave Review dialog title
@@ -336,6 +354,7 @@
     pl = KB
     pt = kB
     hu = kB
+    th = กิโลไบต์
   [kilometres]
     tags = tizen
     en = Kilometres
@@ -354,6 +373,7 @@
     pl = Kilometry
     pt = Quilómetros
     hu = Kilométer
+    th = กิโลเมตร
   [leave_a_review]
     en = Leave a Review
     comment = Leave Review dialog - Review button
@@ -371,6 +391,7 @@
     pl = Napisz recenzję
     pt = Deixe uma revisão
     hu = Ajánlás írása
+    th = ให้คำวิจารณ์
   [location_services_are_needed_desc]
     en = Location Services are needed to display your current position on the map.
     comment = Location purpose text description
@@ -388,6 +409,7 @@
     pl = Usługi lokalizacji są potrzebne do wyświetlania twojej aktualnej pozycji na mapie.
     pt = São necessários os serviços de localização para apresentar a sua posição atual no mapa.
     hu = Helyzetmeghatározó szolgáltatás szükséges az aktuális pozíció térképen történő megjelenítéséhez.
+    th = บริการตำแหน่งที่ตั้งจำเป็นต้องแสดงตำแหน่งที่ตั้งปัจจุบันของคุณบนแผนที่
   [maps]
     en = Maps
     comment = View and button titles for accessibility
@@ -405,6 +427,7 @@
     pl = Mapy
     pt = Mapas
     hu = Térképek
+    th = แผนที่
   [marked_for_downloading]
     en = Marked for downloading, touch to cancel
     comment = Settings/Downloader - info for country in the download queue
@@ -422,6 +445,7 @@
     pl = Oznaczono jako do pobrania. Naciśnij, aby anulować
     pt = Marcado para descarga, toque para cancelar
     hu = Letöltésre kijelölve, elvetéshez érintse meg
+    th = ทำเครื่องหมายสำหรับการดาวน์โหลดแล้ว แตะเพื่อยกเลิก
   [mb]
     tags = tizen
     en = MB
@@ -433,6 +457,7 @@
     pl = MB
     pt = MB
     hu = MB
+    th = เมกกะไบต์
   [miles]
     tags = tizen
     en = Miles
@@ -451,6 +476,7 @@
     pl = Mile
     pt = Milhas
     hu = Mérföld
+    th = ไมล์
   [my_position]
     en = My Position
     comment = View and button titles for accessibility
@@ -468,6 +494,7 @@
     pl = Moja pozycja
     pt = A minha posição
     hu = Saját helyzet
+    th = ตำแหน่งของฉัน
   [no_internet_connection_detected]
     tags = tizen
     en = No Internet connection detected
@@ -486,6 +513,7 @@
     pl = Nie wykryto połączenia z Internetem
     pt = Não foi detetada uma ligação à Internet
     hu = Nem találtam internet kapcsolatot
+    th = ไม่สามารถตรวจพบการเชื่อมต่ออินเทอร์เน็ต
   [no_wifi_ask_cellular_download]
     tags = tizen
     en = No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?
@@ -504,6 +532,7 @@
     pl = Nie wykryto połączenia z siecią WiFi. Czy chciałbyś skorzystać z trybu sieci danych (GPRS, EDGE lub 3G), aby pobrać %@?
     pt = Não detetada uma ligação WiFi. Pretende utilizar os dados por pacotes (GPRS, EDGE or 3G) para descarregar %@?
     hu = Nem találtam WiFi kapcsolatot. Használjunk mobil kapcsolatot (GPRS, EDGE vagy 3G) %@ letöltéséhez?
+    th = ไม่สามารถตรวจพบการเชื่อมต่อ WiFi คุณต้องการใช้ข้อมูลโทรศัพท์มือถือ (GPRS, EDGE หรือ 3G) เพื่อดาวน์โหลด %@?
   [ok]
     en = OK
     fr = OK
@@ -511,6 +540,7 @@
     pl = OK
     pt = OK
     hu = OK
+    th = ตกลง
   [enable_location_services]
     en = Please enable Location Services
     comment = not used? Search View - Location is disabled by user warning text
@@ -528,6 +558,7 @@
     pl = Proszę włączyć usługi lokalizacji
     pt = Por favor active os Serviços de Localização
     hu = Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást
+    th = โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง
   [free_disk_space_for_country_x]
     en = Please free some space on your device first in order to download %@
     comment = Settings/Downloader - No free space dialog message
@@ -544,6 +575,7 @@
     zh-Hant = 如要下載%@ ，請先釋放一些空間!
     pt = Por favor liberte primeiro algum espaço no seu dispositivo para descarregar %@
     hu = Kérjük szabadítson fel helyet az eszközön, hogy le tudja tölteni %@-t
+    th = โปรดเพิ่มพื้นที่บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %@
   [remind_me_later]
     en = Remind me later
     tags = ios,android
@@ -562,6 +594,7 @@
     pl = Przypomnij mi później
     pt = Lembrar-me mais tarde
     hu = Emlékeztessen később
+    th = เตือนฉันในภายหลัง
   [later]
     en = Later
     comment = Update maps later/Buy pro version later button text
@@ -578,6 +611,7 @@
     pl = Później
     pt = Mais tarde
     hu = Később
+    th = ภายหลัง
   [never]
     en = Never
     comment = Don't show some dialog any more
@@ -593,6 +627,7 @@
     pl = Nigdy
     pt = Nunca
     hu = Soha
+    th = ไม่ต้องเตือนอีก
   [report_an_issue]
     en = Report an issue
     comment = Leave Review dialog - Complain button (goes to support site)
@@ -610,6 +645,7 @@
     pl = Zgłoś błąd
     pt = Reelatar um problema
     hu = Hiba jelentése
+    th = รายงานปัญหา
   [search]
     en = Search
     comment = View and button titles for accessibility
@@ -627,6 +663,7 @@
     pl = Szukaj
     pt = Procura
     hu = Keresés
+    th = ค้นหา
   [search_available_in_pro_version]
     en = Search is only available in the full version of maps.me. Get it right now!
     comment = Search button pressed dialog title in the free version
@@ -644,6 +681,7 @@
     pl = Szukanie jest dostępne tylko w pełnej wersji maps.me. Pobierz już teraz!
     pt = A procura apenas está disponível na versão completa do maps.me. Obtenha-a agora mesmo!
     hu = Keresés csak a maps.me teljes verziójában érhető el. Vásárolja meg most!
+    th = สามารถใช้การค้นหา maps.me ในเวอร์ชันเต็มได้ รับมันตอนนี้!
   [search_map]
     en = Search Map
     comment = Search box placeholder text
@@ -661,6 +699,7 @@
     pl = Szukaj mapy
     pt = Procurar mapa
     hu = Keresés a térképen
+    th = ค้นหาแผนที่
   [not_enough_disk_space]
     en = There is not enough free disk space
     comment = Settings/Downloader - No free space dialog title
@@ -678,6 +717,7 @@
     pl = Nie ma wystarczającej ilości wolnego miejsca
     pt = Não há espaço livre suficiente em disco
     hu = Nincs elég szabad hely a lemezen
+    th = มีพื้นที่ว่างในดิสก์ไม่เพียงพอ
   [touch_to_download]
     en = Touch to download
     comment = Settings/Downloader - info for not downloaded country
@@ -695,6 +735,7 @@
     pl = Naciśnij, aby pobrać.
     pt = Toque para descarregar
     hu = Érintse meg letöltéshez
+    th = แตะเพื่อดาวน์โหลด
   [use_cellular_data]
     en = Yes
     comment = Settings/Downloader - 3G download warning dialog confirm button
@@ -712,6 +753,7 @@
     pl = Tak
     pt = Sim
     hu = Igen
+    th = ใช่
   [use_wifi_recommendation_text]
     tags = tizen
     en = We recommend using WiFi to download large maps
@@ -730,6 +772,7 @@
     pl = Zalecamy korzystanie z WiFi przy pobieraniu dużych map
     pt = Recomendamos a utilização de WiFi para descarregar grandes mapas
     hu = WiFi használatát javasoljuk nagy térképek letöltéséhez
+    th = เราขอแนะนำให้ใช้ WiFi เพื่อดาวน์โหลดแผนที่ขนาดใหญ่
   [new_map_data_format_upgrade_dialog]
     en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
     comment = NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2
@@ -760,6 +803,7 @@
     pl = Który system miar bardziej ci odpowiada?
     pt = Que sistema de medidas prefere?
     hu = Milyen mértékegységet használjunk?
+    th = ระบบการวัดใดที่คุณต้องการใช้?
   [location_is_disabled_long_text]
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
     comment = Location services are disabled by user alert - message
@@ -777,6 +821,7 @@
     pl = Usługi lokalizacji są aktualnie wyłączone dla tego urządzenia lub aplikacji. Proszę włączyć je w ustawieniach.
     pt = Atualmente tem todos os Serviços de Localização para este dispositivo ou aplicação desativados. Por favor ative-os nas Definições.
     hu = Ezen az eszközön jelenleg minden helyzetmeghatározó szolgáltatás ki van kapcsolva. Kérjük kapcsolja be ezeket a Beállítások között.
+    th = ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า
   [device_doesnot_support_location_services]
     en = Your device doesn't support Location Services
     comment = Location Services are not available on the device alert - message
@@ -794,6 +839,7 @@
     pl = Twoje urządzenie nie wspiera usług lokalizacji
     pt = O seu dispositivo não suporta os Serviços de Localização
     hu = Az eszköz nem támogatja a helyzetmeghatározó szolgáltatásokat
+    th = อุปกรณ์ของคุณไม่รองรับการบริการตำแหน่งที่ตั้ง
   [zoom_to_country]
     en = Zoom to the country
     comment = View and button titles for accessibility
@@ -811,6 +857,7 @@
     pl = Przybliż na kraj
     pt = Zoom no país
     hu = Nagyítson az országra
+    th = ซูมเข้าไปยังประเทศ
   [country_status_added_to_queue]
     en = ^is added to the downloading queue.
     comment = Message to display at the center of the screen when the country is added to the downloading queue
@@ -828,6 +875,7 @@
     pl = ^dodano do kolejki pobierania.
     pt = ^é adicionado à fila de descargas.
     hu = ^-t hozzáadtuk a letöltési sorhoz.
+    th = มีการเพิ่ม^ ไปยังลำดับการดาวน์โหลดแล้ว
   [country_status_downloading]
     en = Downloading^^%
     comment = Message to display at the center of the screen when the country is downloading
@@ -845,6 +893,7 @@
     pl = Pobieranie^^%
     pt = A descarregar^^%
     hu = ^^% letöltése folyamatban
+    th = กำลังดาวน์โหลด ^^%
   [country_status_download]
     en = Download^
     comment = Button text for the button at the center of the screen when the country is not downloaded
@@ -861,6 +910,7 @@
     pl = Pobierz^
     pt = Descarga^
     hu = Letöltés^
+    th = ดาวน์โหลด ^
   [country_status_download_failed]
     en = Downloading^has failed
     comment = Message to display at the center of the screen when the country download has failed
@@ -878,6 +928,7 @@
     pl = Pobieranie^nie powiodło się
     pt = A descarga^falhou
     hu = ^ letöltése sikertelen
+    th = การดาวน์โหลด ^ล้มเหลว
   [try_again]
     en = Try Again
     comment = Button text for the button under the country_status_download_failed message
@@ -895,6 +946,7 @@
     pl = Spróbuj ponownie
     pt = Tente de novo
     hu = Újrapróbálkozás
+    th = ลองอีกครั้ง
   [app_name]
     en = maps.me
     zh-Hant = maps.me 專業版
@@ -914,6 +966,7 @@
     pl = O aplikacji maps.me
     pt = Sobre o maps.me
     hu = A maps.me programról
+    th = เกี่ยวกับ maps.me
   [downloading_touch_to_cancel]
     en = Downloading %d%%, touch to cancel
     cs = Stahování %d%%, klepni pro zrušení
@@ -930,6 +983,7 @@
     pl = Pobieranie %d%%. Naciśnij, aby anulować.
     pt = A descarregar %d%%, toque para cancelar
     hu = %d%% letöltése, elvetéshez érintse meg
+    th = กำลังดาวน์โหลด %d%%, แตะเพื่อยกเลิก
   [downloaded_touch_to_delete]
     en = Downloaded (%@), touch to delete
     cs = Staženo (%@), klepni pro smazání
@@ -946,6 +1000,7 @@
     pl = Pobrano (%@). Naciśnij, aby usunąć.
     pt = Descarregado (%@), toque para eliminar
     hu = Letölve (%@), érintse meg törléshez
+    th = ดาวน์โหลดแล้ว (%@), แตะเพื่อลบ
   [connection_settings]
     en = Connection Settings
     cs = Nastavení připojení
@@ -962,6 +1017,7 @@
     pl = Ustawienia połączenia
     pt = Definições de Ligação
     hu = Kapcsolat beállítások
+    th = การตั้งค่าการเชื่อมต่อ
   [download_mb_or_kb]
     en = Download %@
     cs = Stáhnout %@
@@ -977,6 +1033,7 @@
     pl = Pobierz %@
     pt = Descarga %@
     hu = Letöltés %@
+    th = ดาวน์โหลด %@
   [close]
     en = Close
     cs = Zavřít
@@ -993,6 +1050,7 @@
     pl = Zamknij
     pt = Fechar
     hu = Bezár
+    th = ปิด
   [unsupported_phone]
     en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
     cs = Je vyžadována hardwarová akcelerace OpenGL. Bohužel, tvé zařízení není podporováno.
@@ -1009,6 +1067,7 @@
     pl = OpenGL wymaga odpowiedniego urządzenia. Niestety twoje urządzenie nie wspiera tej technologii.
     pt = É necessário um OpenGL acelerado por hardware. Infelizmente o seu dispositivo não é suportado.
     hu = Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.
+    th = จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ
   [download]
     tags = tizen
     en = Download
@@ -1025,6 +1084,7 @@
     pl = Pobierz
     pt = Descarga
     hu = Letöltés
+    th = ดาวน์โหลด
   [external_storage_is_not_available]
     en = SD card/USB storage with downloaded maps is not available
     cs = SD karta/USB uložiště s uloženými mapami není k dispozici
@@ -1041,6 +1101,7 @@
     pl = Karta SD/Pamięć USB z pobranymi mapami nie jest dostępna
     pt = Não está disponível um cartão SD/armazenamento USB com os mapas descarregados
     hu = Nem található téképeket tartalmazó SD kártya / USB tároló
+    th = ไม่สามารถใช้การ์ด SD /พื้นที่จัดเก็บ USB ที่มีดาวน์โหลดแผนที่ได้
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use maps.me
     cs = Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s maps.me
@@ -1057,6 +1118,7 @@
     pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci by korzystać z maps.me
     pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar maps.me
     hu = Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a maps.me használatához
+    th = โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ maps.me
   [not_enough_free_space_on_sdcard]
     en = Please free some space on SD card/USB storage first in order to use the app
     cs = Prosím, uvolni nejprve nějaký prostor na SD kartě/USB uložišti
@@ -1073,6 +1135,7 @@
     pl = Proszę zwolnić trochę pamięci na karcie SD/pamięci USB, aby korzystać z aplikacji
     pt = Por favor liberte primeiro algum espaço no cartão SD/armazenamento USB para utilizar a app
     hu = Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!
+    th = โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป
   [not_enough_memory]
     en = Not enough memory to launch app
     cs = Nedostatek paměti ke spuštění aplikace
@@ -1089,6 +1152,7 @@
     pl = Za mało pamięci by uruchomić aplikację
     pt = Não há memória suficiente para executar a app
     hu = Nincs elegendő memória az alkalmazás futtatásához
+    th = มีหน่วยความจำไม่เพียงพอสำหรับการเปิดแอป
   [free_space_for_country]
     en = Please free %1$@ on your device first in order to download %2$@
     cs = Prosím, uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@
@@ -1105,6 +1169,7 @@
     pl = Proszę zwolnić %1$@ na swoim urządzeniu zanim rozpoczniesz pobieranie $2$@
     pt = Por favor liberte primeiro %1$@ no seu dispositivo para descarregar %2$@
     hu = Kérjük szabadítson fel %1$@-t az eszközön $2$@ letöltéséhez!
+    th = โปรดเพิ่ม %1$@ บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %2$@
   [download_resources]
     en = Before you start let us download general world map into your device.\nIt needs %.1f%@ of data.
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1122,6 +1187,7 @@
     pl = Zanim rozpoczniesz pozwól nam na pobranie ogólnej mapy świata na swoje urządzenie.\n Wymaga to %.1f%@ danych.
     pt = Antes de começar permita-nos que descarreguemos um mapa mundial geral para o seu dispositivo.\nÉ necessário %.1f%@ de dados.
     hu = Első használat előtt letöltjük a világtérképet.\n %.1f%@ tárolóhely szükséges.
+    th = ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ \nจำเป็นต้องใช้ %.1f%@ ของข้อมูล
   [getting_position]
     en = Getting current position
     cs = Získávání aktuální polohy
@@ -1138,6 +1204,7 @@
     pl = Otrzymywanie informacji o aktualnej pozycji
     pt = A obter a posição atual
     hu = Aktuális pozíció meghatározása…
+    th = กำลังรับตำแหน่งปัจจุบัน
   [download_resources_continue]
     en = Go to Map
     cs = Přejít na mapu
@@ -1154,6 +1221,7 @@
     pl = Idź do mapy
     pt = Ir para o mapa
     hu = Térképhez ugrás
+    th = ไปยังแผนที่
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
     cs = Stahování %@. Nyní můžeš\npřejít na mapu.
@@ -1170,6 +1238,7 @@
     pl = Pobieranie %@. Możesz teraz\notworzyć mapę.
     pt = A descarregar %@. Pode agora\ncontinuar para o mapa.
     hu = %@ letöltése. Mos továbbléphet \n a térképhez.
+    th = กำลังดาวน์โหลด %@ ตอนนี้คุณสามารถ\nดำเนินการต่อไปยังแผนที่
   [download_country_ask]
     en = Download %@?
     cs = Stáhnout %@?
@@ -1186,6 +1255,7 @@
     pl = Pobrać %@?
     pt = Descarregar %@?
     hu = Letöltsem %@-t?
+    th = ดาวน์โหลด %@?
   [update_country_ask]
     en = Update %@?
     cs = Aktualizovat %@?
@@ -1202,6 +1272,7 @@
     pl = Zaktualizować %@?
     pt = Atualizar %@?
     hu = Frissítsem %@-t?
+    th = อัปเดต %@?
   [download_location_map_proposal]
     en = You can download the map\nof your current location.
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1219,6 +1290,7 @@
     pl = Możesz pobrać mapę terenu\nwokół twojej aktualnej pozycji.
     pt = Pode descarregar o mapa\nda sua posição atual.
     hu = Letöltheti az aktuális \npozícióhoz tartozó térképet.
+    th  = คุณสามารถดาวน์โหลดแผนที่\nของตำแหน่งที่ตั้งปัจจุบันของคุณ
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
     comment = REMOVE THIS_STRING AFTER REFACTORING
@@ -1236,8 +1308,9 @@
     pl = Możesz zaktualizować mapę terenu\nwokół twojej aktualnej pozycji.
     pt = Pode atualizar o mapa\nda sua posição atual.
     hu = Frissítheti az aktuális pozícióhoz \ntartozó térképet.
+    th = คุณสามารถอัปเดตแผนที่\nของตำแหน่งที่ตั้งปัจจุบันของคุณ
   [download_location_map_up_to_date]
-    en = The map at your current\nlocation (%@) is up-to-date
+    en = The map of your current\nlocation (%@) is up-to-date
     comment = REMOVE THIS STRING AFTER REFACTORING
     cs = Mapa tvé aktuální\npolohy (%@) je aktuální.
     de = Die Karte von ihrem aktuellen\nOrt (%@) ist aktuell
@@ -1253,6 +1326,7 @@
     pl = Mapa wokół twojej aktualnej\npozycji (%@) jest aktualna
     pt = O mapa da sua localização\natual (%@) está atualizado
     hu = A jelenlegi pozícióhoz tartozó \n térkép (%@) naprakész.
+    th = แผนที่ของ\nสถานที่ตั้งปัจจุบันของคุณ (%@) เป็นปัจจุบันแล้ว
   [pause]
     en = Pause
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1269,6 +1343,7 @@
     pl = Pauza
     pt = Pausa
     hu = Szünet
+    th = หยุดชั่วคราว
   [continue_download]
     en = Continue
     comment = REMOVE THIS STRING AFTER REFACTORING
@@ -1286,6 +1361,7 @@
     pl = Kontynuuj
     pt = Continuar
     hu = Folytatás
+    th = ดำเนินการต่อ
   [downloaded_touch_to_update]
     en = Downloaded (%@), touch to update or delete
     cs = Staženo (%@), klepni pro smazání/aktualizaci
@@ -1302,6 +1378,7 @@
     pl = Pobrano (%@). Naciśnij, aby zaktualizować lub usunąć.
     pt = Descarregado (%@), toque para atualizar ou eliminar
     hu = Letölve (%@) , érintse meg frissítéshez vagy törléshez
+    th = ดาวน์โหลด (%@) แล้ว, แตะเพื่ออัปเดตหรือลบ
   [update_mb_or_kb]
     en = Update %@
     cs = Aktualizace %@
@@ -1317,6 +1394,7 @@
     pl = Aktualizacja %@
     pt = Atualizar %@
     hu = %@ frissítése
+    th = ัปเดต %@
   [search_update_maps]
     en = You need updated maps for search function:
     tags = android
@@ -1335,6 +1413,7 @@
     pl = Musisz posiadać zaktualizowane mapy, aby korzystać z funkcji szukania
     pt = Precisa de mapas atualizados para a função de procura:
     hu = Frissített térképekre lesz szüksége a kereséshez:
+    th = คุณจำเป็นต้องใช้แผนที่ที่มีการอัปเดตเพื่อค้นหาฟังก์ชัน:
   [advise_update_maps]
     en = Update available for these maps:
     tags = android
@@ -1353,6 +1432,7 @@
     pl = Aktualizacja dostępna dla tych map:
     pt = Atualização disponível para estes mapas:
     hu = Az aktuális térképhez elérhető frissítések:
+    th = สามารถใช้การอัปเดตสำหรับแผนที่เหล่านี้:
   [suggest_uninstall_lite]
     en = You don't need maps.me Lite any more, so you can uninstall it.
     tags = android
@@ -1371,6 +1451,7 @@
     pl = Nie potrzebujesz już więcej maps.me Lite, więc możesz je usunąć.
     pt = Não precisa mais do maps.me Lite, podendo portanto desinstalá-la.
     hu = Már nincs szüksége a maps.me lite alkalmazásra, nyugodtan letörölheti.
+    th = คุณไม่จำเป็นต้องใช้ maps.me ไลท์ (Lite) อีกต่อไปแล้ว ดังนั้นคุณสามารถถอนการติดตั้ง
   [download_country_success]
     en = %@ downloaded successfully
     tags = android
@@ -1389,6 +1470,7 @@
     pl = %@ pobrano pomyślnie
     pt = %@ descarregado com sucesso
     hu = %@ letöltése sikeres
+    th = %@ ได้รับการดาวน์โหลดสำเร็จแล้ว
   [download_country_failed]
     en = %@ download has failed
     tags = android,tizen
@@ -1407,6 +1489,7 @@
     pl = %@ pobieranie nie powiodło się
     pt = %@ descarga falhou
     hu = %@ letöltése sikertelen
+    th = การดาวน์โหลด %@ ล้มเหลว
   [add_new_set]
     en = Add new Set
     tags = ios,tizen
@@ -1425,6 +1508,7 @@
     pl = Dodaj nowy zestaw
     pt = Adicionar novo conjunto
     hu = Új csoport létrehozása
+    th = เพิ่มชุดใหม่
   [add_to_bookmarks]
     en = Add to Bookmarks
     tags = ios,android
@@ -1442,6 +1526,7 @@
     pl = Dodaj do zakładek
     uk = Зберегти мiтку
     hu = Könyvjelzőkhöz hozzáadás
+    th = เพิ่มไปยังบุ๊กมาร์ก
   [bookmark_color]
     en = Bookmark Color
     tags = ios,tizen
@@ -1460,6 +1545,7 @@
     pl = Kolor zakładki
     pt = Cor de favoritos
     hu = Könyvjelző színe
+    th = สีของบุ๊กมาร์ก
   [bookmark_set_name]
     en = Bookmark Set Name
     tags = ios
@@ -1478,6 +1564,7 @@
     pl = Nazwa zestawu zakładek
     pt = Nome do conjunto dos favoritos
     hu = Könyvjelzőcsoport neve
+    th = ชื่อของชุดบุ๊กมาร์ก
   [bookmark_sets]
     en = Bookmark Sets
     tags = ios
@@ -1496,6 +1583,7 @@
     pl = Zestawy zakładek
     pt = Conjuntos de favoritos
     hu = Könyvjelzőcsoportok
+    th = ชุดของบุ๊กมาร์ก
   [bookmarks]
     en = Bookmarks
     tags = ios,tizen
@@ -1514,6 +1602,7 @@
     pl = Zakładki
     pt = Favoritos
     hu = Könyvjelzők
+    th = บุ๊กมาร์ก
   [color]
     en = Color
     tags = ios
@@ -1531,6 +1620,7 @@
     pl = Kolor
     pt = Cor
     hu = Szín
+    th = สี
   [dropped_pin]
     en = Dropped Pin
     tags = ios
@@ -1549,6 +1639,7 @@
     pl = Znacznik
     pt = Marcador posicionado
     hu = Beszúrt jelző
+    th = ปักหมุด
   [my_places]
     en = My Places
     tags = ios
@@ -1567,6 +1658,7 @@
     pl = Moje miejsca
     pt = Os meus locais
     hu = Saját helyeim
+    th = สถานที่ของฉัน
   [name]
     en = Name
     tags = ios
@@ -1584,6 +1676,7 @@
     pl = Nazwa
     pt = Nome
     hu = Név
+    th = ชื่อ
   [address]
     en = Address
     tags = ios
@@ -1602,6 +1695,7 @@
     pl = Adres
     pt = Endereço
     hu = Cím
+    th = ที่อยู่
   [remove_pin]
     en = Remove Pin
     tags = ios
@@ -1620,6 +1714,7 @@
     pl = Usuń znacznik
     pt = Retirar o marcador
     hu = Jelző törlése
+    th = ลบหมุด
   [set]
     en = Set
     tags = ios
@@ -1638,6 +1733,7 @@
     pl = Zestaw
     pt = Conjunto
     hu = Csoport
+    th = ชุด
   [bookmarks_usage_hint]
     en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in maps.me. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.
     tags = ios,android
@@ -1656,6 +1752,7 @@
     pl = Nie masz jeszcze żadnych zakładek.\nDotknij dowolnego miejsca na mapie, aby dodać zakładkę.\nZakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji maps.me. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
     pt = Ainda não tem marcadores.\nToque em qualquer lugar no mapa para adicionar um marcador.\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação maps.me. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
     hu = Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
+    th = คุณยังไม่มีบุ๊กมาร์ก\nแตะที่ใด ๆ บนแผนที่เพื่อเพิ่มบุ๊กมาร์ก\nสามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน maps.me เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์
   [bookmarks_usage_hint_import_only]
     en = Bookmarks from other sources can be imported and displayed in maps.me. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.
     tags = ios,android
@@ -1674,6 +1771,7 @@
     pl = Zakładki z innych źródeł mogą być importowane i wyświetlane w aplikacji maps.me. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
     pt = Os marcadores de outras fontes podem ser importados e exibidos na aplicação maps.me. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
     hu = Más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
+    th = สามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน maps.me เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์
   [settings]
     en = Settings
     tags = android,tizen
@@ -1692,6 +1790,7 @@
     pl = Ustawienia
     pt = Definições
     hu = Beállítások
+    th = การตั้งค่า
   [maps_storage]
     en = Maps storage
     tags = android
@@ -1710,6 +1809,7 @@
     pl = Pamięć map
     pt = Armazenamento dos mapas
     hu = Térképek tárolása
+    th = พื้นที่จัดเก็บแผนที่
   [maps_storage_summary]
     en = Select the place where maps should be downloaded to
     tags = android
@@ -1728,6 +1828,7 @@
     pl = Wybierz lokalizację, w której mają być zapisywane pobierane mapy
     pt = Selecione o local para onde os mapas devem ser descarregados
     hu = Válassza ki, hogy hova töltsük le a térképeket
+    th = เลือกสถานที่ที่ต้องการดาวน์โหลดใช้แผนที่
   [move_maps]
     en = Move maps?
     tags = android
@@ -1746,6 +1847,7 @@
     pl = Przenieść mapy?
     pt = Mover mapas?
     hu = Áthelyezzük a térképeket?
+    th = ลบแผนที่?
   [wait_several_minutes]
     en = This can take several minutes.\nPlease wait…
     tags = android
@@ -1764,6 +1866,7 @@
     pl = TO może zająć kilka minut.\nProszę czekać…
     pt = Isto pode demorar alguns minutos.\nPor favor aguarde…
     hu = Ez több percig is eltarthat.\nKérjük várjon…
+    th = นี่อาจจะใช้เวลาสองสามนาที\nโปรดรอ…
   [visible]
     en = Visible
     tags = ios,tizen
@@ -1781,6 +1884,7 @@
     pl = Widoczne
     pt = Visível
     hu = látható
+    th = มองเห็นได้
   [bookmarks_in_pro_version]
     en = Bookmarks are only available in the full version of maps.me. Get it right now!
     tags = ios
@@ -1799,6 +1903,7 @@
     pl = Zakładki są dostępne tylko w pełnej wersji maps.me. Pobierz już teraz!
     pt = Os favoritos apenas estão disponíveis na versão completa de maps.me. Obtenha-a agora mesmo!
     hu = Könyvjelzők csak a maps.me teljes verziójában érhetőek el. Vásárolja meg most!
+    th = สามารถใช้บุ๊กมาร์กของ maps.me ในเวอร์ชันเต็มได้ รับมันตอนนี้!
   [gps_is_disabled_long_text]
     en = GPS is disabled. Please enable it in Settings.
     tags = android
@@ -1817,6 +1922,7 @@
     pl = GPS jest wyłączony. Proszę włączyć go w ustawieniach.
     pt = O GPS está desativado. Por favor ative-o nas Definições.
     hu = GPS kikapcsolva. Kérjük kapcsolja be a Beállítások között.
+    th = มีการปิดใช้งาน GPS โปรดเปิดใช้งานในการตั้งค่า
   [measurement_units]
     tags = ios,android,tizen
     en = Measurement Units
@@ -1835,6 +1941,7 @@
     pl = Jednostki miary
     pt = Unidades de medida
     hu = Mértékegységek
+    th = หน่วยการวัด
   [measurement_units_summary]
     tags = ios,android,tizen
     en = Choose between miles and kilometres
@@ -1853,6 +1960,7 @@
     pl = Wybierz pomiędzy milami, a kilometrami
     pt = Escolha entre milhas e quilómetros
     hu = Válasszon kilométer és mérföld között
+    th = เลือกระหว่างไมล์และกิโลเมตร
   [search_mode_all]
     en = Everywhere
     tags = ios,android
@@ -1871,6 +1979,7 @@
     pl = Wszędzie
     pt = Em toda a parte
     hu = Mindenütt
+    th = ทุกที่
   [search_mode_nearme]
     en = Near Me
     tags = ios,android
@@ -1889,6 +1998,7 @@
     pl = W pobliżu mnie
     pt = Perto de mim
     hu = A közelben
+    th = ใกล้ฉัน
   [search_mode_viewport]
     en = On the Screen
     tags = ios,android
@@ -1907,6 +2017,7 @@
     pl = Na ekranie
     pt = No ecrã
     hu = A képernyőn
+    th = บนหน้าจอ
   [food]
     en = food
     tags = ios,android,tizen
@@ -1925,6 +2036,7 @@
     pl = jedzenie
     pt = alimentação
     hu = élelmiszer
+    th = อาหาร
   [transport]
     en = transport
     tags = ios,android,tizen
@@ -1943,6 +2055,7 @@
     pl = transport
     pt = transporte
     hu = közlekedés
+    th = การขนส่ง
   [fuel]
     en = gas
     tags = ios,android,tizen
@@ -1961,6 +2074,7 @@
     pl = stacja benzynowa
     pt = combustível
     hu = benzinkút
+    th = ก๊าซ
   [parking]
     en = parking
     tags = ios,android,tizen
@@ -1979,6 +2093,7 @@
     pl = parking
     pt = estacionamento
     hu = parkoló
+    th = ที่จอดรถ
   [shop]
     en = shop
     tags = ios,android,tizen
@@ -1997,6 +2112,7 @@
     pl = sklep
     pt = compras
     hu = bolt
+    th = ร้านค้า
   [hotel]
     en = hotel
     tags = ios,android,tizen
@@ -2014,6 +2130,7 @@
     pl = hotel
     pt = hotel
     hu = szálloda
+    th = โรงแรม
   [tourism]
     en = sights
     tags = ios,android,tizen
@@ -2032,6 +2149,7 @@
     pl = osobliwości miasta
     pt = vistas
     hu = látnivaló
+    th = สถานที่ท่องเที่ยว
   [entertainment]
     en = entertainment
     tags = ios,android,tizen
@@ -2050,6 +2168,7 @@
     pl = rozrywka
     pt = entretenimento
     hu = szórakozás
+    th = แหล่งบันเทิง
   [atm]
     en = atm
     tags = ios,android,tizen
@@ -2067,6 +2186,7 @@
     pl = bankomat
     pt = multibanco
     hu = pénzautomata
+    th = เอทีเอ็ม
   [bank]
     en = bank
     tags = ios,android,tizen
@@ -2085,6 +2205,7 @@
     pl = bank
     pt = banco
     hu = bank
+    th = ธนาคาร
   [pharmacy]
     en = pharmacy
     tags = ios,android,tizen
@@ -2103,6 +2224,7 @@
     pl = apteka
     pt = farmácia
     hu = gyógyszertár
+    th = ร้านขายยา
   [hospital]
     en = hospital
     tags = ios,android,tizen
@@ -2121,6 +2243,7 @@
     pl = szpital
     pt = hospital
     hu = kórház
+    th = โรงแรม
   [toilet]
     en = toilet
     tags = ios,android,tizen
@@ -2139,6 +2262,7 @@
     pl = toaleta
     pt = WC
     hu = mosdó
+    th = ห้องน้ำ
   [post]
     en = post
     tags = ios,android,tizen
@@ -2157,6 +2281,7 @@
     pl = poczta
     pt = correios
     hu = posta
+    th = ไปรษณีย์
   [police]
     en = police
     tags = ios,android,tizen
@@ -2175,6 +2300,7 @@
     pl = policja
     pt = polícia
     hu = rendőrség
+    th = ตำรวจ
   [no_search_results_found]
     en = No results found
     tags = ios,android,tizen
@@ -2193,6 +2319,7 @@
     pl = Nie znaleziono
     pt = Não foram encontrados resultados
     hu = Nincs keresési találat
+    th = ไม่พบผลลัพธ์
   [description]
     en = Notes
     tags = ios,android
@@ -2211,6 +2338,7 @@
     pl = Notatki
     pt = Notas
     hu = Jegyzetek
+    th = บันทึก
   [share_by_email]
     en = Share by email
     tags = ios,android
@@ -2229,6 +2357,7 @@
     pl = Udostępnij przez email
     pt = Partilhar por e-mail
     hu = Megosztás email-en
+    th = แชร์จากอีเมล
   [share_bookmarks_email_subject]
     en = Shared maps.me bookmarks
     tags = ios,android
@@ -2247,6 +2376,7 @@
     pl = Udostępniono ci zakładkę z maps.me
     pt = Os favoritos do maps.me foram partilhados consigo
     hu = Egy maps.me könyvjelzőt osztottak meg Önnel
+    th = แชร์บุ๊กมาร์กของ maps.me แล้ว
   [share_bookmarks_email_body]
     en = Greetings,\n\nAttached are my bookmarks from maps.me offline maps. Please open it if you have maps.me Pro installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz.\n\nEnjoy traveling with maps.me!
     tags = ios,android
@@ -2265,6 +2395,7 @@
     pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji maps.me wraz z załączonymi mapami offline w pliku "%@.kmz". Proszę otwórz to jeśli posiadasz zainstalowaną aplikację maps.me Pro. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://maps.me/get?kmz. \n\nBaw się dobrze z maps.me!
     pt = Olá,\n\nAqui estão os meus favoritos dos mapas offline do maps.me, anexados no ficheiro "%@.kmz". Por favor abra-os se já tiver instalado o maps.me Pro. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://maps.me/get?kmz.\n\nDisfrute do maps.me!
     hu = Üdvözlöm!\n\nA mellékelt "%@.kmz" fájl tartalmazza a maps.me könyvjelzőimet. Kérem nyissa meg, ha a maps.me már telepítve van. Ha még nincs, akkor innen töltheti le: http://maps.me/get?kmz. \n\nSok sikert a program használatához!
+    th = สวัสดี n\nสิ่งที่แนบ "%@.kmz" คือบุ๊กมาร์กของฉันจากแผนที่ maps.me แบบออฟไลฟ์ โปรดเปิดมันหากคุณได้ติดตั้ง maps.me Pro หากยังไม่ได้ดาวน์โหลดแอปสำหรับอุปกรณ์ iOS และ Android ของคุณ โปรดทำตามลิงก์นี้: http://maps.me/get?kmz.\n\n  สนุกไปกับการเดินทางไปกับ maps.me!
   [load_kmz_title]
     en = Loading Bookmarks
     tags = ios,android
@@ -2283,6 +2414,7 @@
     pl = Wczytywanie zakładek
     pt = A carregar favoritos
     hu = Könyvjelzők letöltése
+    th = กำลังโหลดบุ๊กมาร์ก
   [load_kmz_successful]
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
     tags = ios,android
@@ -2301,6 +2433,7 @@
     pl = Zakładki wczytane pomyślnie! Możesz znaleźć je na mapie lub w menedżerze zakładek.
     pt = Favoritos carregados com sucesso! Pode encontrá-los no mapa ou no ecrã de gestão dos favoritos.
     hu = Könyvjelzők letöltése sikeres! Megtalálja őket a térképen vagy a Könyvjelzők kezelése menüben.
+    th = โหลดบุ๊กมาร์กสำเร็จแล้ว! คุณสามารถหาพวกมันได้บนแผนที่หรือบนหน้าจอโปรแกรมจัดการบุ๊กมาร์ก
   [load_kmz_failed]
     en = Bookmarks upload failed. The file may be corrupted or defective.
     tags = ios,android
@@ -2319,6 +2452,7 @@
     pl = Przesyłanie zakładek nie powiodło się. Plik może być uszkodzony lub posiadać defekty.
     pt = Falha no envio dos favoritos. O ficheiro pode estar corrompido ou com defeito.
     hu = Könyvjelzők feltöltése sikertelen. A fájl sérült lehet.
+    th = การอัปโหลดล้มเหลว ไฟล์อาจเสียหายหรือมีข้อบกพร่อง
   [edit]
     en = Edit
     tags = android,tizen
@@ -2332,6 +2466,7 @@
     pl = Edytuj
     pt = Editar
     hu = Szerkeszt
+    th = แก้ไข
   [unknown_current_position]
     en = Your location hasn't been determined yet
     tags = ios,android,tizen
@@ -2350,6 +2485,7 @@
     pl = Twoja lokalizacja nie została jeszcze określona
     pt = A sua localização ainda não foi determinada
     hu = Még nem határoztuk meg az aktuális helyzetét
+    th = ตำแหน่งที่ตั้งของคุณยังไม่ได้รับการกำหนด
   [download_location_country]
     en = Download the country of your current location (%@)
     tags = ios,android
@@ -2368,6 +2504,7 @@
     pl = Pobierz mapę kraju, w którym aktualnie przebywasz (%@)
     pt = Descarregue o país da sua localização atual (%@)
     hu = Töltse le az aktuális helyzet országát (%@)
+    th = ดาวน์โหลด (%@) ประเทศของตำแหน่งที่ตั้งปัจจุบันของคุณ
   [download_viewport_country_to_search]
     en = Download the country you are searching on (%@)
     tags = ios,android
@@ -2386,6 +2523,7 @@
     pl = Pobierz mapę kraju, którego aktualnie poszukujesz (%@)
     pt = Descarregue o país em que está a fazer a procura (%@)
     hu = Töltse le a keresés országát (%@)
+    th = ดาวน์โหลดประเทศ (%@) ที่คุณกำลังค้นหา
   [cant_change_this_setting]
     en = Sorry, Map Storage settings are currently disabled.
     tags = android
@@ -2404,6 +2542,7 @@
     pl = Przepraszamy, ustawienia pamięci mapy są aktualnie wyłączone.
     pt = Lamentamos, as definições do Map Storage estão atualmente desativadas.
     hu = Sajnáljuk, a térképek tárolása jelenleg ki van kapcsolva.
+    th = ขออภัย ไม่มีการเปิดใช้งานการตั้งค่าพื้นที่จัดเก็บแผนที่ในปัจจุบัน
   [downloading_is_active]
     en = Country download is in progress now.
     tags = android
@@ -2422,6 +2561,7 @@
     pl = Pobieranie mapy kraju jest w toku.
     pt = A descarga do país está atualmente em progresso.
     hu = Országletöltés folyamatban.
+    th = กำลังดำเนินการดาวน์โหลดประเทศในตอนนี้
   [appStore_message]
     en = Hope you enjoy using maps.me! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
     tags = ios
@@ -2440,6 +2580,7 @@
     pl = Mamy nadzieję, że podoba ci się aplikacja maps.me! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie ci mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!
     pt = Esperamos que esteja a disfrutar da utilização do maps.me! Se assim for, por favor classifique ou dê a sua opinião sobre a app na App Store. Vai demorar menos de um minuto mas pode mesmo ajudar-nos. Obrigado pelo seu apoio!
     hu = Reméljük élvezi a maps.me használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!
+    th = หวังว่าคุณจะสนุกกับการใช้ maps.me! หากเป็นเช่นนั้น โปรดให้คะแนนหรือวิจารณ์แอปได้ที่แอปสโตร์ (App Store) มันจะใช้เวลาไม่เกินหนึ่งนาทีแต่สามารถช่วยเหลือเราได้ ขอบคุณสำหรับการสนับสนุนของคุณ!
   [no_thanks]
     en = No, thanks
     tags = ios,android
@@ -2458,6 +2599,7 @@
     pl = Nie, dziękuję
     pt = Não, obrigado
     hu = Köszönöm, nem
+    th = ไม่ ขอบคุณ
   [bookmark_share_sms]
     en = Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get
     tags = ios,android,tizen
@@ -2475,6 +2617,7 @@
     pl = Mój znacznik w maps.me %1$@ i %2$@
     pt = Veja o meu marcador no mapa do maps.me. Abra a hiperligação: %1$@ ou %2$@
     hu = Nézd meg a maps.me jelzőt! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
+    th = เฮ้ ตรวจสอบหมุดของฉันที่ maps.me! %1$@ หรือ %2$@
   [my_position_share_sms]
     en = Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
     tags = ios,android,tizen
@@ -2492,6 +2635,7 @@
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
     pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@
     hu = Nézd meg a maps.me helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
+    th = เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ MAPS.ME! %1$@ หรือ %2$@ or %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get
   [bookmark_share_email_subject]
     en = Hey, check out my pin at maps.me map!
     tags = ios,android,tizen
@@ -2509,6 +2653,7 @@
     pl = Obejrzyj mój znacznik na mapie w maps.me
     pt = Veja o meu marcador no mapa do maps.me.
     hu = Nézze meg a maps.me jelzőmet
+    th = เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ maps.me!
   [bookmark_share_email]
     en = Hi,\n\nI pinned: %1$@ at maps.me, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     tags = tizen
@@ -2526,6 +2671,7 @@
     pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji maps.me, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
     pt = Olá,\n\nFixei:%1$@ na maps.me, mapas offline mundiais. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
     hu = Üdvözlöm, \n\nleszúrtam egy maps.me jelzőt: %1$@. Kattintson erre a hivatkozásra %2$@ vagy erre %3$@ hogy lássa a helyet a térképen.\n\nKöszönöm.
+    th = หวัดดี \n\nฉันปักหมุด: %1$@ ที่ maps.me, โลกแผนที่ออฟไลน์ คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่ \n\nขอบคุณ
   [my_position_share_email_subject]
     en = Hey, check out my current location at maps.me map!
     tags = ios,android,tizen
@@ -2560,6 +2706,7 @@
     pl = Cześć,\n\nJestem teraz tutaj: %1$@. Naciśnij na ten link %2$@ lub ten %3$@, aby zobaczyć to miejsce na mapie.\n\nDziękuję.
     pt = Olá,\n\n Estou aqui agora: %1$@. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
     hu = Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.
+    th = หวัดดี \n\nฉันอยู่ที่นี่ตอนนี้: %1$@. คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่ \n\nขอบคุณ
   [share_by_message]
     en = Share by message
     tags = ios,android
@@ -2578,6 +2725,7 @@
     pl = Udostępnij przez wiadomość
     pt = Partilhar por mensagem
     hu = Megosztás üzenetben
+    th = แชร์จากข้อความ
   [share]
     en = Share
     tags = ios,android,tizen
@@ -2596,6 +2744,7 @@
     pl = Udostępnij
     pt = Partilhar
     hu = Megosztás
+    th = แชร์
   [message]
     en = Message
     tags = ios,android,tizen
@@ -2614,6 +2763,7 @@
     pl = Wiadomość
     pt = Mensagem
     hu = Üzenet
+    th = ข้อความ
   [email]
     en = E-Mail
     tags = ios,android,tizen
@@ -2632,6 +2782,7 @@
     pl = E-mail
     pt = E-Mail
     hu = Email
+    th = อีเมล
   [promocode_activation]
     en = Promo Code Activation
     tags = android
@@ -2640,6 +2791,7 @@
     fr = Activation de code de promotion
     pl = Aktywacja kodu promocyjnego
     pt = Ativação do Código de Promoção
+    th = เปิดการใช้งานรหัสโปรโม (Promo)
   [enter_promocode_hint]
     en = Enter Promo Code
     tags = android
@@ -2649,6 +2801,7 @@
     pl = Wprowadź kod promocyjny
     pt = Introduza o Código de Promoção
     hu = Akciós kód aktiváláshoz
+    th = ใส่รหัสโปรโม (Promo)
   [promocode_success]
     en = Promo code is activated!
     tags = android
@@ -2658,6 +2811,7 @@
     pl = Kod promocyjny został aktywowany!
     pt = O código de promoção está ativado!
     hu = Promóciós kód aktiválva!
+    th = เปิดการใช้งานรหัสโปรโม (Promo) แล้ว!
   [promocode_error]
     en = Connection error. Please try again later.
     tags = android
@@ -2667,6 +2821,7 @@
     pl = Błąd połączenia. Proszę spróbować ponownie później.
     pt = Erro de ligação. Por favor tente de novo mais tarde.
     hu = Kapcsolati hiba. Kérjük próbálja újra később.
+    th = มีข้อผิดพลาดในการเชื่อมต่อ โปรดลองอีกครั้งในภายหลัง
   [promocode_failure]
     en = Invalid promo code. Please try again.
     tags = android
@@ -2676,6 +2831,7 @@
     pl = Błędny kod promocyjny. Spróbuj ponownie.
     pt = Código de promoção inválido. Por favor tente de novo.
     hu = Érvénytelen kód. Kérjük próbálja újra.
+    th = รหัสโปรโปไม่ถูกต้อง โปรดลองอีกครั้ง
   [copy_link]
     en = Copy Link
     tags = ios,tizen
@@ -2694,6 +2850,7 @@
     pl = Kopiuj link
     pt = Copiar hiperligação
     hu = Hivatkozás másolása
+    th = คัดลอกลิงก์
   [more_info]
     en = Show More Info
     tags = ios,android
@@ -2712,6 +2869,7 @@
     uk = Докладніше
     pt = Mostrar informação adicional
     hu = Mutasson több adatot
+    th = แสดงข้อมูลเพิ่มเติม
   [copied_to_clipboard]
     en = Copied to Clipboard: %1$@
     tags =ios,android
@@ -2730,6 +2888,7 @@
     pl = Skopiowano do schowka: %1$@
     uk = Скопіювати в буфер обміну: %1$@
     hu = A vágólapra másolva: %1$@
+    th = คัดลอกไปยังคลิปบอร์ด: %1$@
   [allow_statistics]
     en = Send Statistics
     tags = ios,android
@@ -2748,6 +2907,7 @@
     it = Invia statistiche
     ko = 통계 보내기
     hu = Statisztika küldése
+    th = ส่งสถิติ
   [allow_statistics_hint]
     en = Allow us to collect usage statistics to improve the app
     tags = ios,android
@@ -2766,6 +2926,7 @@
     it = Consentici di raccogliere le statistiche di utilizzo al fine di migliorare l'app
     ko = 앱을 개선하기 위해 사용 통계를 수집하도록 허용
     hu = Használati adatok gyűjtésének jóváhagyása a program továbbfejlesztéséhez.
+    th = อนุญาตให้เราเก็บการใช้สถิติเพื่อปรับปรุงแอป
   [info]
     en = Info
     tags = ios
@@ -2784,6 +2945,7 @@
     uk = Досьє
     pt = Info
     hu = Info
+    th = ข้อมูล
   [done]
     en = Done
     tags = android,tizen
@@ -2802,7 +2964,7 @@
     it = Fine
     ko = 완료
     hu = Kész
-
+    th = เสร็จแล้ว
   [yopme_pref_summary]
     tags = android
     comment = Summary for preferences in MWM
@@ -2818,7 +2980,7 @@
     cs = Zvolit nastavení Zadní obrazovky
     fr = Choisissez les réglages de l'écran arrière
     hu = Válassza ki a hátoldali képernyő-beállításokat
-
+    th = เลือกการตั้งค่าหน้าจอส่วนหลัง
   [yopme_pref_title]
     tags = android
     comment = Title for yopme preferences in MWM
@@ -2834,7 +2996,7 @@
     cs = Nastavení Zadní obrazovky
     fr = Paramètres de l'écran arrière
     hu = Hátoldali képernyő-beállítások
-
+    th = การตั้งค่าหน้าจอส่วนหลัง
   [show_on_backscreen]
     tags = android
     comment = Hint for upper-right icon p2b
@@ -2850,7 +3012,7 @@
     pt = Mostrar no Ecrã Posterior
     uk = Показати на задньому екрані
     hu = Mutassa a vissza képernyőn
-
+    th = แสดงหน้าจอส่วนหลัง
   [version]
     tags = android,tizen
     comment = Prints version number in About dialog
@@ -2869,7 +3031,7 @@
     ko = 버전: %@
     zh-Hant = 版本： %@
     hu = Verzió: %@
-
+    th = เวอร์ชัน: %@
   [are_you_sure]
     tags = android,tizen
     comment = Confirmation in downloading countries dialog
@@ -2888,7 +3050,7 @@
     pt = Tem a certeza de que pretende continuar?
     ru = Вы уверены, что хотите продолжить?
     hu = Valóban folytatni akarja?
-
+    th = คุณแน่ใจหรือไม่ว่าคุณต้องการดำเนินการต่อ?
   [tracks]
     tags = ios,android
     comment = Title for tracks category in bookmarks manager
@@ -2907,6 +3069,7 @@
     ko = 트랙
     zh-Hant = 軌道
     hu = Csoportok
+    th = การติดตาม
   [length]
     tags = ios,android
     comment = Length of track in cell that describes route
@@ -2925,7 +3088,7 @@
     ko = 길이
     zh-Hant = 長度
     hu = Hossz
-
+    th = ระยะเวลา
   [share_my_location]
     tags = ios,android,tizen
     en = Share My Location
@@ -2943,7 +3106,7 @@
     ko = 내 위치 공유
     zh-Hant = 分享我的位置
     hu = Helyzetem megosztása
-
+    th = แชร์ตำแหน่งที่ตั้งของฉัน
   [become_a_pro]
     tags = tizen
     en = Upgrade
@@ -2961,7 +3124,7 @@
     ko = 업그레이드
     zh-Hant = 升級
     hu = Frissítés most
-
+    th = อัปเกรด
   [menu_search]
     en = Search
     ru = Поиск
@@ -2978,7 +3141,7 @@
     ko = 검색
     zh-Hant = 搜尋
     hu = Keresés
-
+    th = ค้นหา
   [pref_zoom_title]
     tags = tizen
     en = Zoom buttons
@@ -2996,7 +3159,7 @@
     ko = 확대/축소 버튼
     zh-Hant = 縮放按鈕
     hu = Nagyítás/kicsinyítés gombok
-
+    th = ปุ่มซูม
   [pref_zoom_summary]
     tags = tizen
     en = Display on the screen
@@ -3014,6 +3177,7 @@
     ko = 화면에 표시
     zh-Hant = 在螢幕上顯示
     hu = Mutassa a kijelzőn
+    th = แสดงบนหน้าจอ
 
   [more_apps_title]
     tags = ios,android
@@ -3032,6 +3196,7 @@
     cs = Více aplikací
     ja = その他のアプリ
     hu = Több alkalmazás
+    th = แอปเพิ่มเติม
 
   [more_apps_guides]
     en = Travel Guides
@@ -3049,6 +3214,7 @@
     cs = Cestovní průvodce
     ja = トラベルガイド
     hu = Útikönyvek
+    th = คู่มือการเดินทาง
 
   [more_apps_ads]
     fr = Plus d'applis
@@ -3066,6 +3232,7 @@
     hu = Több alkalmazás
     en = More Apps
     ru = Другие приложения
+    th = แอปเพิ่มเติม
 
   [placepage_distance]
     en = Distance
@@ -3083,6 +3250,7 @@
     es = Distancia
     ru = Расстояние
     hu = Távolság
+    th = ระยะห่าง
 
   [placepage_coordinates]
     en = Coordinates
@@ -3100,6 +3268,7 @@
     es = Coordenadas
     ru = Координаты
     hu = Koordináták
+    th = พิกัด
 
   [placepage_unsorted]
     en = Unsorted
@@ -3117,6 +3286,7 @@
     es = Sin clasificar
     ru = Без категории
     hu = Osztályozatlan
+    th = ไม่เรียงลำดับ
 
   [search_show_on_map]
     en = View on map
@@ -3134,6 +3304,7 @@
     es = Ver en el mapa
     ru = Посмотреть на карте
     hu = Megtekintés a térképen
+    th = ดูบนแผนที่
 
   [kitkat_migrate_ok]
     tags = android
@@ -3153,6 +3324,7 @@
     pl = Przechowywanie danych mapy zostało zoptymalizowane. Prosimy zrestartować aplikację.\n\nFolder MapsWithMe w katalogu głównym karty SD nie jest już potrzebny, można go usunąć.
     es = Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta MapsWithMe en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.
     de = Der Kartendaten-Speicherplatz wurde optimiert. Bitte die App neu starten.\n\nDer Ordner MapsWithMe im Stammverzeichnis der SD-Karte wird nicht mehr benötigt. Sie können ihn löschen.
+    th = มีการปรับประสิทธิภาพพื้นที่จัดเก็บข้อมูลของแผนที่ โปรดรีสตาร์ทแอป \n\n โฟลเดอร์ maps.me ในรากของการ์ด SD ไม่จำเป็นอีกต่อไป คุณสามารถลบได้
 
   [kitkat_migrate_failed]
     tags = android
@@ -3172,6 +3344,7 @@
     pl = Ze względu na zmiany w Android 4.4, musimy zoptymalizować przechowywanie danych mapy, ale nie ma wystarczająco dużo miejsca, aby skopiować dane mapy.\n\nProsimy zwolnić pamięć, inaczej mapy będą dostępne tylko w trybie do odczytu.
     es = Debido a cambios en Android 4.4, tenemos que optimizar el almacenamiento de datos de mapas, pero no hay espacio suficiente para copiar los datos de los mapas.\n\nPor favor, libera la memoria, en caso contrario los mapas solo estarán disponibles en modo de solo lectura.
     de = Bedingt durch Änderungen in Android 4.4, müssen wir den Kartendaten-Speicherplatz optimieren, es steht jedoch zum Kopieren der Kartendaten nicht genügend Speicherplatz zur Verfügung.\n\nGeben Sie bitte Speicherplatz frei, ansonsten werden Karten nur im Lesemodus verfügbar sein.
+   th = เนื่องจากการเปลี่ยนแปลงในแอนดรอยด์ 4.4 เราจำเป็นต้องทำการปรับประสิทธิภาพพื้นที่จัดเก็บข้อมูลของแผนที่ แต่มีพื้นที่ไม่เพียงพอสำหรับการคัดลอกข้อมูลแผนที่ \n\nโปรดเพิ่มหน่วยความจำ มิฉะนั้นแล้วจะสามารถใช้แผนที่ได้ในโหมด อ่านอย่างเดียว
 
   [bookmark_move_fail]
     tags = android
@@ -3191,6 +3364,7 @@
     pl = Musimy przenieść Twoje zakładki do pamięci wewnętrznej, ale nie ma tam dla nich wolnego miejsca. Prosimy zwolnić pamięć, inaczej zakładki nie będą dostępne.
     es = Tenemos que mover tus marcadores a la memoria interna, pero no hay espacio disponible para ellos. Por favor, libera memoria, en caso contrario, los marcadores no estarán disponibles.
     de = Wir müssen Ihre Lesezeichen in den internen Speicher verschieben, aber es gibt dafür keinen verfügbaren Speicherplatz. Bitte geben Sie Speicherplatz frei, sonst werden Ihre Lesezeichen nicht verfügbar sein.
+    th = เราจำเป็นต้องลบบุ๊กมาร์กของคุณไปยังหน่วยความจำภายใน แต่ไม่มีพื้นที่ที่สามารถใช้ได้ โปรดเพิ่มหน่วยความจำ มิฉะนั้นจะไม่สามารถใช้บุ๊กมาร์กได้
 
   [kitkat_optimization_in_progress]
     tags = android
@@ -3210,6 +3384,7 @@
     pl = Twoje przechowywanie map jest teraz optymalizowane. Prosimy czekać, może to zająć kilka minut.
     es = Tu almacenamiento de mapas se está optimizando ahora. Por favor, espera, podría tardar unos minutos.
     de = Ihr Kartenspeicher wird jetzt optimiert. Bitte warten Sie, es kann ein paar Minuten dauern.
+    th = พื้นที่จัดเก็บแผนที่ของคุณกำลังได้รับการปรับประสิทธิภาพในตอนนี้ โปรดรอ โดยอาจใช้เวลาสองสามนาที
 
   [free]
     tags = ios
@@ -3229,6 +3404,7 @@
     ko = 무료
     zh-Hant = 免費
     hu = Ingyenes
+    th = ฟรี
 
   [buy]
     tags = ios
@@ -3248,6 +3424,7 @@
     ko = 구입
     zh-Hant = 購買
     hu = Megvásárlás
+    th = ซื้อ
 
   [search_on_map]
     tags = ios
@@ -3267,6 +3444,7 @@
     ko = 지도에서 검색
     zh-Hant = 在地圖上搜尋
     hu = Keresés a térképen
+    th = ค้นหาแผนที่
 
   [no_route_found]
     tags = ios,android
