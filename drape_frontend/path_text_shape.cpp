@@ -22,6 +22,7 @@ namespace df
 {
 
 using m2::PointF;
+using m2::Spline;
 
 namespace
 {
@@ -76,7 +77,6 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
   int const cnt = text.size();
   vector<Buffer> buffers(1);
   float const needOutline = m_params.m_TextFont.m_needOutline;
-  float maxSize = 0.0f;
 
   int textureSet;
   for (int i = 0; i < cnt; i++)
@@ -235,59 +235,31 @@ void PathTextHandle::Update(ScreenBase const & screen)
 
   for (int i = 0; i < cnt; i++)
   {
-    float xOffset = m_infos[i].m_xOffset;
-    float yOffset = m_infos[i].m_yOffset;
-    float advance = m_infos[i].m_advance;
+    float const advance = m_infos[i].m_advance * m_scaleFactor;
     float const halfWidth = m_infos[i].m_halfWidth;
     float const halfHeight = m_infos[i].m_halfHeight;
+    /// TODO Can be optimized later (filling stage)
+    float const xOffset = m_infos[i].m_xOffset + halfWidth;
+    float const yOffset = m_infos[i].m_yOffset + halfHeight;
 
-    PointF const pos = itr.m_pos;
-    PointF const oldDir = itr.m_dir;
-
-    advance *= m_scaleFactor;
     ASSERT_NOT_EQUAL(advance, 0.0, ());
     entireLength += advance;
-    if(entireLength >= m_params.m_OffsetEnd * m_scaleFactor)
+    if(entireLength >= m_params.m_OffsetEnd * m_scaleFactor || itr.beginAgain())
       return;
-    int const index1 = itr.m_index;
+
+    PointF const pos = itr.m_pos;
     itr.Step(advance);
-    int const index2 = itr.m_index;
-    PointF dir(0.0f, 0.0f);
-    if (index2 > index1)
-    {
-      float koef = (pos - m_path.m_position[index1+1]).Length() / advance;
-      dir += m_path.m_direction[index1] * koef;
-      for (int i = index1 + 1; i < index2; ++i)
-      {
-        koef = (m_path.m_position[i] - m_path.m_position[i+1]).Length() / advance;
-        dir += m_path.m_direction[i] * koef;
-      }
-      koef = (itr.m_pos - m_path.m_position[index2]).Length() / advance;
-      dir += m_path.m_direction[index2] * koef;
-    }
-    else
-    {
-      dir = oldDir;
-    }
-    float gip = sqrtf(dir.y*dir.y + dir.x*dir.x);
-    ASSERT_NOT_EQUAL(gip, 0.0, ("division by zero"));
-    float const cosa = dir.x / gip;
-    float const sina = dir.y / gip;
+    PointF dir = itr.m_avrDir.Normalize();
+    PointF norm(-dir.y, dir.x);
+    dir *= halfWidth * m_scaleFactor;
+    norm *= halfHeight * m_scaleFactor;
 
-    yOffset += halfHeight;
-    xOffset += halfWidth;
-    PointF const p1old(halfWidth + xOffset, -halfHeight + yOffset);
-    PointF const p2old(-halfWidth + xOffset, -halfHeight + yOffset);
-    PointF const p3old(-halfWidth + xOffset, halfHeight + yOffset);
-    PointF const p4old(halfWidth + xOffset, halfHeight + yOffset);
+    PointF const pivot = dir * xOffset / halfWidth + norm * yOffset / halfHeight + pos;
 
-
-    math::Matrix<double, 3, 3> m = math::Rotate(math::Identity<double, 3>(), cosa, sina);
-
-    PointF p1 = (p1old * m_scaleFactor) * m + pos;
-    PointF p2 = (p2old * m_scaleFactor) * m + pos;
-    PointF p3 = (p3old * m_scaleFactor) * m + pos;
-    PointF p4 = (p4old * m_scaleFactor) * m + pos;
+    PointF const p1 = pivot + dir - norm;
+    PointF const p2 = pivot - dir - norm;
+    PointF const p3 = pivot - dir + norm;
+    PointF const p4 = pivot + dir + norm;
 
     int index = i * 6;
     m_positions[index++] = Position(p2);
@@ -307,56 +279,6 @@ void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mut
   mutateNode.m_region = node.second;
   mutateNode.m_data = MakeStackRefPointer<void>(&m_positions[0]);
   mutator->AddMutation(node.first, mutateNode);
-}
-
-void Spline::FromArray(vector<PointF> const & path)
-{
-  m_position = vector<PointF>(path.begin(), path.end() - 1);
-  int cnt = m_position.size();
-  m_direction = vector<PointF>(cnt);
-  m_length = vector<float>(cnt);
-
-  for(int i = 0; i < cnt; ++i)
-  {
-    m_direction[i] = path[i+1] - path[i];
-    m_length[i] = m_direction[i].Length();
-    m_direction[i] = m_direction[i].Normalize();
-    m_lengthAll += m_length[i];
-  }
-}
-
-Spline const & Spline::operator = (Spline const & spl)
-{
-  if(&spl != this)
-  {
-    m_lengthAll = spl.m_lengthAll;
-    m_position = spl.m_position;
-    m_direction = spl.m_direction;
-    m_length = spl.m_length;
-  }
-  return *this;
-}
-
-void Spline::iterator::Attach(Spline const & S)
-{
-  m_spl = &S;
-  m_index = 0;
-  m_dist = 0;
-  m_dir = m_spl->m_direction[m_index];
-  m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
-}
-
-void Spline::iterator::Step(float speed)
-{
-  m_dist += speed;
-  while(m_dist > m_spl->m_length[m_index])
-  {
-    m_dist -= m_spl->m_length[m_index];
-    m_index++;
-    m_index %= m_spl->m_position.size();
-  }
-  m_dir = m_spl->m_direction[m_index];
-  m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
 }
 
 }

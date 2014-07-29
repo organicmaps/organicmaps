@@ -8,6 +8,7 @@
 #include "../std/vector.hpp"
 
 #include "../geometry/point2d.hpp"
+#include "../geometry/spline.hpp"
 
 namespace df
 {
@@ -42,36 +43,6 @@ struct Position
 };
 }
 
-class Spline
-{
-public:
-  Spline(){}
-  void FromArray(vector<PointF> const & path);
-  Spline const & operator = (Spline const & spl);
-
-public:
-  float m_lengthAll;
-  vector<PointF> m_position;
-  vector<PointF> m_direction;
-  vector<float> m_length;
-
-  class iterator
-  {
-  public:
-    int m_index;
-    PointF m_pos;
-    PointF m_dir;
-    iterator()
-      : m_spl(NULL), m_index(0), m_dist(0),
-        m_pos(PointF()), m_dir(PointF()) {}
-    void Attach(Spline const & S);
-    void Step(float speed);
-  private:
-    Spline const * m_spl;
-    float m_dist;
-  };
-};
-
 class PathTextShape : public MapShape
 {
 public:
@@ -80,14 +51,14 @@ public:
 
 private:
   PathTextViewParams m_params;
-  Spline m_path;
+  m2::Spline m_path;
 };
 
 class PathTextHandle : public OverlayHandle
 {
 public:
   static const uint8_t DirectionAttributeID = 1;
-  PathTextHandle(Spline const & spl, PathTextViewParams const & params, vector<LetterInfo> const & info, float maxSize)
+  PathTextHandle(m2::Spline const & spl, PathTextViewParams const & params, vector<LetterInfo> const & info, float maxSize)
     : OverlayHandle(FeatureID(), dp::Center, 0.0f),
       m_params(params), m_path(spl), m_infos(info),
       m_scaleFactor(1.0f), m_positions(info.size() * 6),
@@ -102,7 +73,7 @@ public:
 
 private:
   PathTextViewParams m_params;
-  Spline m_path;
+  m2::Spline m_path;
   vector<LetterInfo> m_infos;
   float m_scaleFactor;
   mutable vector<Position> m_positions;
