@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
 
 @SuppressLint("StringFormatMatches")
 public class DownloadResourcesActivity extends MapsWithMeBaseActivity
-                                       implements LocationService.Listener, MapStorage.Listener
+                                       implements LocationService.LocationListener, MapStorage.Listener
 {
   private static final String TAG = "DownloadResourcesActivity";
 
@@ -384,7 +384,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     {
       setAction(DOWNLOAD);
 
-      if (ConnectionState.getState(this) == ConnectionState.CONNECTED_BY_WIFI)
+      if (ConnectionState.isWifiConnected(this))
         onDownloadClicked(mButton);
     }
   }
@@ -601,11 +601,19 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
+    //
+  }
+
+  @Override
+  public void onDrivingHeadingUpdated(long time, double heading)
+  {
+    //
   }
 
   @Override
   public void onLocationError(int errorCode)
   {
+    //
   }
 
   private class GeoIntentProcessor implements IntentProcessor

@@ -39,7 +39,7 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
 
 
-public class SearchActivity extends MapsWithMeBaseListActivity implements LocationService.Listener, OnClickListener
+public class SearchActivity extends MapsWithMeBaseListActivity implements LocationService.LocationListener, OnClickListener
 {
   public static final String EXTRA_QUERY = "search_query";
   /// @name These constants should be equal with
@@ -754,14 +754,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     getSearchAdapter().updateCategories();
   }
 
-  /*
-  private void runSearch(int mode)
-  {
-    mSearchMode = mode;
-    runSearch();
-  }
-  */
-
   @Override
   public void onLocationUpdated(final Location l)
   {
@@ -777,33 +769,19 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    /*
-    if (doShowCategories())
-      return;
+    //
+  }
 
-    // We don't want to update view too often, it is slow
-    // and breaks click listeners
-    if (System.currentTimeMillis() - mLastCompassUpdate < COMPASS_DELTA)
-      return;
-    else
-      mLastCompassUpdate = System.currentTimeMillis();
-
-    final double north[] = { magneticNorth, trueNorth };
-    mLocation.correctCompassAngles(getWindowManager().getDefaultDisplay(), north);
-    final double ret = (north[1] >= 0.0 ? north[1] : north[0]);
-
-    // if difference is more than 1 degree
-    if (mNorth == -1 || Math.abs(mNorth - ret) > 0.02)
-    {
-      mNorth = ret;
-      updateDistanceAndAzimut();
-    }
-    */
+  @Override
+  public void onDrivingHeadingUpdated(long time, double heading)
+  {
+    //
   }
 
   @Override
   public void onLocationError(int errorCode)
   {
+    //
   }
 
   private boolean isCurrentResult(int id)

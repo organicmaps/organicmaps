@@ -70,7 +70,7 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
     if (getDownloadAdapter().onCountryStatusChanged(idx) == MapStorage.DOWNLOAD_FAILED)
     {
       // Show wireless settings page if no connection found.
-      if (ConnectionState.getState(this) == ConnectionState.NOT_CONNECTED)
+      if (!ConnectionState.isConnected(this))
       {
         final DownloadActivity activity = this;
         final String country = getDownloadAdapter().mStorage.countryName(idx);

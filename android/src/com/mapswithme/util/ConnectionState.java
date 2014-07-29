@@ -10,28 +10,28 @@ public class ConnectionState
   public static final int CONNECTED_BY_3G = 1;
   public static final int CONNECTED_BY_WIFI = 2;
   public static final int CONNECTED_BY_WIFI_AND_3G = CONNECTED_BY_3G & CONNECTED_BY_WIFI;
+  private static final String TYPE_WIFI = "WIFI";
+  private static final String TYPE_MOBILE = "MOBILE";
 
-  public static int getState(Context c)
+  private static int getState(Context c)
   {
-    boolean haveConnectedWifi = false;
-    boolean haveConnectedMobile = false;
+    boolean isWifiConnected = false;
+    boolean isMobileConnected = false;
 
     ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo[] netInfo = cm.getAllNetworkInfo();
     for (NetworkInfo ni : netInfo)
     {
-      if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-        if (ni.isConnected())
-          haveConnectedWifi = true;
-      if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-        if (ni.isConnected())
-          haveConnectedMobile = true;
+      if (ni.getTypeName().equalsIgnoreCase(TYPE_WIFI) && ni.isConnected())
+          isWifiConnected = true;
+      if (ni.getTypeName().equalsIgnoreCase(TYPE_MOBILE) && ni.isConnected())
+          isMobileConnected = true;
     }
-    if (haveConnectedWifi && haveConnectedMobile)
+    if (isWifiConnected && isMobileConnected)
       return CONNECTED_BY_WIFI_AND_3G;
-    else if (haveConnectedMobile)
+    else if (isMobileConnected)
       return CONNECTED_BY_3G;
-    else if (haveConnectedWifi)
+    else if (isWifiConnected)
       return CONNECTED_BY_WIFI;
 
     return NOT_CONNECTED;
@@ -49,6 +49,6 @@ public class ConnectionState
 
   public static boolean isConnected(Context c)
   {
-    return !(getState(c) == NOT_CONNECTED);
+    return getState(c) != NOT_CONNECTED;
   }
 }

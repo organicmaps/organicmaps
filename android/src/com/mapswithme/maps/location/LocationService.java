@@ -1,6 +1,5 @@
 package com.mapswithme.maps.location;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
@@ -8,14 +7,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.view.Display;
-import android.view.Surface;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -24,7 +18,7 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationRequest;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
-import com.mapswithme.util.Utils;
+import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.statistics.Statistics;
@@ -36,7 +30,7 @@ import java.util.List;
 
 
 public class LocationService implements
-    LocationListener, SensorEventListener, WifiLocationScanner.Listener,
+    android.location.LocationListener, SensorEventListener, WifiLocationScanner.Listener,
     GooglePlayServicesClient.ConnectionCallbacks,
     GooglePlayServicesClient.OnConnectionFailedListener,
     com.google.android.gms.location.LocationListener
@@ -47,7 +41,6 @@ public class LocationService implements
   private static final double DEFAULT_SPEED_MPS = 5;
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
   private static final float MIN_SPEED_CALC_DIRECTION_MPS = 1;
-  private static final long LOCATION_EXPIRATION_TIME_MILLIS = 5 * 60 * 1000;
   private static final String GS_LOCATION_PROVIDER = "fused";
 
   /// These constants should correspond to values defined in platform/location.hpp
@@ -56,53 +49,42 @@ public class LocationService implements
   public static final int ERROR_DENIED = 2;
   public static final int ERROR_GPS_OFF = 3;
 
-  public interface Listener
+  public interface LocationListener
   {
     public void onLocationUpdated(final Location l);
 
     public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
 
+    public void onDrivingHeadingUpdated(long time, double heading);
+
     public void onLocationError(int errorCode);
   }
 
-  private final HashSet<Listener> mObservers = new HashSet<Listener>(10);
+  private final HashSet<LocationListener> mListeners = new HashSet<LocationListener>();
 
-  /// Last accepted location
   private Location mLastLocation = null;
-  /// System timestamp for the last location
   private long mLastLocationTime;
   /// Current heading if we are moving (-1.0 otherwise)
   private double mDrivingHeading = -1.0;
+  private boolean mIsGPSOff;
 
   private WifiLocationScanner mWifiScanner = null;
-
   private final SensorManager mSensorManager;
   private Sensor mAccelerometer = null;
   private Sensor mMagnetometer = null;
-  /// To calculate true north for compass
   private GeomagneticField mMagneticField = null;
+  private LocationProvider mLocationProvider;
 
   private MWMApplication mApplication = null;
-
-  // Main location provider.
-  private LocationProvider mLocationProvider;
 
   private double mLastNorth;
   private static final double NOISE_THRESHOLD = 3;
 
-  private void createLocationProvider()
-  {
-    if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplication) == ConnectionResult.SUCCESS)
-    {
-      mLocationProvider = new GoogleFusedLocationProvider();
-      mLogger.d("Using Google Provider");
-    }
-    else
-    {
-      mLocationProvider = new AndroidNativeLocationProvider();
-      mLogger.d("Using native location provider");
-    }
-  }
+  private float[] mGravity = null;
+  private float[] mGeomagnetic = null;
+  private final float[] mR = new float[9];
+  private final float[] mI = new float[9];
+  private final float[] mOrientation = new float[3];
 
   public LocationService(MWMApplication application)
   {
@@ -112,7 +94,6 @@ public class LocationService implements
     mLocationProvider.setUp();
 
     mSensorManager = (SensorManager) mApplication.getSystemService(Context.SENSOR_SERVICE);
-
     if (mSensorManager != null)
     {
       mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -120,52 +101,58 @@ public class LocationService implements
     }
   }
 
+  private void createLocationProvider()
+  {
+    if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplication) == ConnectionResult.SUCCESS)
+      mLocationProvider = new GoogleFusedLocationProvider();
+    else
+      mLocationProvider = new AndroidNativeLocationProvider();
+  }
+
   public Location getLastKnown() { return mLastLocation; }
 
   private void notifyLocationUpdated(final Location l)
   {
-    final Iterator<Listener> it = mObservers.iterator();
+    final Iterator<LocationListener> it = mListeners.iterator();
     while (it.hasNext())
       it.next().onLocationUpdated(l);
   }
 
   private void notifyCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    final Iterator<Listener> it = mObservers.iterator();
+    final Iterator<LocationListener> it = mListeners.iterator();
     while (it.hasNext())
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
-  @SuppressLint("NewApi")
-  private static boolean isNotExpired(Location l, long t)
+  private void notifyDrivingHeadingUpdated(long time, double heading)
   {
-    long timeDiff;
-    if (Utils.apiEqualOrGreaterThan(Build.VERSION_CODES.JELLY_BEAN_MR1))
-      timeDiff = (SystemClock.elapsedRealtimeNanos() - l.getElapsedRealtimeNanos()) / 1000000;
-    else
-      timeDiff = System.currentTimeMillis() - t;
-    return (timeDiff <= LOCATION_EXPIRATION_TIME_MILLIS);
+    final Iterator<LocationListener> it = mListeners.iterator();
+    while (it.hasNext())
+      it.next().onDrivingHeadingUpdated(time, heading);
   }
 
-  public void startUpdate(Listener observer)
+  public void startUpdate(LocationListener listener)
   {
-    mLogger.d("Start update for listener: ", observer);
-    mObservers.add(observer);
+    mListeners.add(listener);
+    mLocationProvider.startUpdates(listener);
+  }
 
-    mLocationProvider.startUpdates(observer);
+  public void stopUpdate(LocationListener listener)
+  {
+    mListeners.remove(listener);
+    if (mListeners.size() == 0)
+      mLocationProvider.stopUpdates();
   }
 
   private void startWifiLocationUpdate()
   {
-    final boolean isWifiEnabled = ((WifiManager) mApplication.getSystemService(Context.WIFI_SERVICE)).isWifiEnabled();
-    if (isWifiEnabled &&
-        Statistics.INSTANCE.isStatisticsEnabled(mApplication) &&
-        ConnectionState.isConnected(mApplication))
+    if (Statistics.INSTANCE.isStatisticsEnabled(mApplication) &&
+        ConnectionState.isWifiConnected(mApplication))
     {
       if (mWifiScanner == null)
         mWifiScanner = new WifiLocationScanner();
 
-      mLogger.d("Invoke WiFi scanner.");
       mWifiScanner.startScan(mApplication, this);
     }
   }
@@ -181,7 +168,6 @@ public class LocationService implements
   {
     if (mSensorManager != null)
     {
-      // How often compass is updated (may be SensorManager.SENSOR_DELAY_UI)
       final int COMPASS_REFRESH_MKS = SensorManager.SENSOR_DELAY_NORMAL;
 
       if (mAccelerometer != null)
@@ -191,52 +177,32 @@ public class LocationService implements
     }
   }
 
-  public void stopUpdate(Listener observer)
+  private void updateDrivingHeading(Location l)
   {
-    mLogger.d("Stop update for listener: ", observer);
-
-    mObservers.remove(observer);
-
-    // Stop only if no more observers are subscribed
-    if (mObservers.size() == 0)
-      mLocationProvider.stopUpdates();
-  }
-
-  private void calcDirection(Location l)
-  {
-    // Try to calculate direction if we are moving
     if (l.getSpeed() >= MIN_SPEED_CALC_DIRECTION_MPS && l.hasBearing())
-      mDrivingHeading = bearingToHeading(l.getBearing());
+      mDrivingHeading = LocationUtils.bearingToHeading(l.getBearing());
     else
       mDrivingHeading = -1.0;
   }
 
   private void emitLocation(Location l)
   {
-    mLogger.d("Location accepted: ", l);
-
     mLastLocation = l;
     mLastLocationTime = System.currentTimeMillis();
-
     notifyLocationUpdated(l);
   }
 
   @Override
   public void onLocationChanged(Location l)
   {
-    mLogger.d("Location changed: ", l);
-
     // Completely ignore locations without lat and lon
     if (l.getAccuracy() <= 0.0)
       return;
 
-    if (mLocationProvider.isLocationBetter(l))
+    if (mLocationProvider.isLocationBetterThanCurrent(l))
     {
-      mLogger.d("Location accepted: " + l);
+      updateDrivingHeading(l);
 
-      calcDirection(l);
-
-      // Used for more precise compass updates
       if (mSensorManager != null)
       {
         // Recreate magneticField if location has changed significantly
@@ -252,27 +218,10 @@ public class LocationService implements
     }
   }
 
-  private native float[] nativeUpdateCompassSensor(int ind, float[] arr);
-
-  private float[] updateCompassSensor(int ind, float[] arr)
-  {
-    final float[] ret = nativeUpdateCompassSensor(ind, arr);
-
-    return ret;
-  }
-
-  private float[] mGravity = null;
-  private float[] mGeomagnetic = null;
-  private final float mR[] = new float[9];
-  private final float mI[] = new float[9];
-  private final float[] mOrientation = new float[3];
-
-  private boolean mIsGPSOff;
-
   private void emitCompassResults(long time, double north, double trueNorth, double offset)
   {
     if (mDrivingHeading >= 0.0)
-      notifyCompassUpdated(time, mDrivingHeading, mDrivingHeading, 0.0);
+      notifyDrivingHeadingUpdated(time, mDrivingHeading);
     else
     {
       if (Math.abs(Math.toDegrees(north - mLastNorth)) < NOISE_THRESHOLD)
@@ -291,16 +240,15 @@ public class LocationService implements
   @Override
   public void onSensorChanged(SensorEvent event)
   {
-    // Get the magnetic north (orientation contains azimut, pitch and roll).
     boolean hasOrientation = false;
 
     switch (event.sensor.getType())
     {
     case Sensor.TYPE_ACCELEROMETER:
-      mGravity = updateCompassSensor(0, event.values);
+      mGravity = nativeUpdateCompassSensor(0, event.values);
       break;
     case Sensor.TYPE_MAGNETIC_FIELD:
-      mGeomagnetic = updateCompassSensor(1, event.values);
+      mGeomagnetic = nativeUpdateCompassSensor(1, event.values);
       break;
     }
 
@@ -315,7 +263,7 @@ public class LocationService implements
 
     if (hasOrientation)
     {
-      final double magneticHeading = correctAngle(mOrientation[0], 0.0);
+      final double magneticHeading = LocationUtils.correctAngle(mOrientation[0], 0.0);
 
       if (mMagneticField == null)
       {
@@ -325,67 +273,15 @@ public class LocationService implements
       else
       {
         // positive 'offset' means the magnetic field is rotated east that much from true north
-        final double offset = mMagneticField.getDeclination() * Math.PI / 180.0;
-        final double trueHeading = correctAngle(magneticHeading, offset);
+        final double offset = Math.toRadians(mMagneticField.getDeclination());
+        final double trueHeading = LocationUtils.correctAngle(magneticHeading, offset);
 
         emitCompassResults(event.timestamp, magneticHeading, trueHeading, offset);
       }
     }
   }
 
-  /// @name Angle correct functions.
-  //@{
-  @SuppressWarnings("deprecation")
-  public void correctCompassAngles(Display display, double angles[])
-  {
-    // Do not do any corrections if heading is from GPS service.
-    if (mDrivingHeading >= 0.0)
-      return;
-
-    // Correct compass angles due to orientation.
-    double correction = 0;
-    switch (display.getOrientation())
-    {
-    case Surface.ROTATION_90:
-      correction = Math.PI / 2.0;
-      break;
-    case Surface.ROTATION_180:
-      correction = Math.PI;
-      break;
-    case Surface.ROTATION_270:
-      correction = (3.0 * Math.PI / 2.0);
-      break;
-    }
-
-    for (int i = 0; i < angles.length; ++i)
-    {
-      if (angles[i] >= 0.0)
-      {
-        // negative values (like -1.0) should remain negative (indicates that no direction available)
-        angles[i] = correctAngle(angles[i], correction);
-      }
-    }
-  }
-
-  static private double correctAngle(double angle, double correction)
-  {
-    angle += correction;
-
-    final double twoPI = 2.0 * Math.PI;
-    angle = angle % twoPI;
-
-    // normalize angle into [0, 2PI]
-    if (angle < 0.0)
-      angle += twoPI;
-
-    return angle;
-  }
-
-  static private double bearingToHeading(double bearing)
-  {
-    return correctAngle(0.0, bearing * Math.PI / 180.0);
-  }
-  //@}
+  private native float[] nativeUpdateCompassSensor(int ind, float[] arr);
 
   @Override
   public void onAccuracyChanged(Sensor sensor, int accuracy)
@@ -393,22 +289,13 @@ public class LocationService implements
   }
 
   @Override
-  public void onProviderDisabled(String provider)
-  {
-    mLogger.d("Disabled location provider: ", provider);
-  }
+  public void onProviderDisabled(String provider) { }
 
   @Override
-  public void onProviderEnabled(String provider)
-  {
-    mLogger.d("Enabled location provider: ", provider);
-  }
+  public void onProviderEnabled(String provider) { }
 
   @Override
-  public void onStatusChanged(String provider, int status, Bundle extras)
-  {
-    mLogger.d("Status changed for location provider: ", provider, status);
-  }
+  public void onStatusChanged(String provider, int status, Bundle extras) { }
 
   @Override
   public void onWifiLocationUpdated(Location l)
@@ -423,30 +310,22 @@ public class LocationService implements
     return mLocationProvider.getLastGPSLocation();
   }
 
-
-  // Location providers: Android native or Google Play Services
   private abstract class LocationProvider
   {
-    protected LocationService mHost;
-    protected boolean mIsActive;
+    protected static final long LOCATION_UPDATE_INTERVAL = 500;
 
-    protected LocationProvider()
-    {
-      mIsActive = false;
-      // I don't like Something.this syntax
-      mHost = LocationService.this;
-    }
+    protected boolean mIsActive;
 
     protected abstract void setUp();
 
-    protected abstract void startUpdates(Listener l);
+    protected abstract void startUpdates(LocationListener l);
 
     protected void stopUpdates()
     {
       stopWifiLocationUpdate();
 
       if (mSensorManager != null)
-        mSensorManager.unregisterListener(mHost);
+        mSensorManager.unregisterListener(LocationService.this);
 
       // Reset current parameters to force initialize in the next startUpdate
       mMagneticField = null;
@@ -456,7 +335,7 @@ public class LocationService implements
 
     protected abstract Location getLastGPSLocation();
 
-    protected boolean isLocationBetter(Location l)
+    protected boolean isLocationBetterThanCurrent(Location l)
     {
       if (l == null)
         return false;
@@ -464,7 +343,7 @@ public class LocationService implements
         return true;
 
       final double s = Math.max(DEFAULT_SPEED_MPS, (l.getSpeed() + mLastLocation.getSpeed()) / 2.0);
-      return (l.getAccuracy() < (mLastLocation.getAccuracy() + s * getLocationTimeDiffS(l)));
+      return (l.getAccuracy() < (mLastLocation.getAccuracy() + s * getDiffWithLastLocation(l)));
     }
 
     private boolean isSameLocationProvider(String p1, String p2)
@@ -474,10 +353,13 @@ public class LocationService implements
       return p1.equals(p2);
     }
 
-    @SuppressLint("NewApi")
-    private double getLocationTimeDiffS(Location l)
+    /**
+     * @param l new location
+     * @return diff with mLastLocation in seconds
+     */
+    private double getDiffWithLastLocation(Location l)
     {
-      if (Utils.apiEqualOrGreaterThan(Build.VERSION_CODES.JELLY_BEAN_MR1))
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
         return (l.getElapsedRealtimeNanos() - mLastLocation.getElapsedRealtimeNanos()) * 1.0E-9;
       else
       {
@@ -498,18 +380,16 @@ public class LocationService implements
 
   private class AndroidNativeLocationProvider extends LocationProvider
   {
-    // Meat
     private volatile LocationManager mLocationManager;
 
     @Override
-    protected void startUpdates(Listener listener)
+    protected void startUpdates(LocationListener listener)
     {
       if (!mIsActive)
       {
         mIsGPSOff = false;
 
         final List<String> providers = getFilteredProviders();
-        mLogger.d("Enabled providers count = ", providers.size());
 
         startWifiLocationUpdate();
 
@@ -520,34 +400,18 @@ public class LocationService implements
           mIsActive = true;
 
           for (final String provider : providers)
-          {
-            mLogger.d("Connected to provider = ", provider);
-
-            // Half of a second is more than enough, I think ...
-            mLocationManager.requestLocationUpdates(provider, 500, 0, mHost);
-          }
+            mLocationManager.requestLocationUpdates(provider, LOCATION_UPDATE_INTERVAL, 0, LocationService.this);
 
           registerSensorListeners();
 
           // Choose best location from available
-          final Location l = getBestLastLocation(providers);
-          mLogger.d("Last location: ", l);
-
-          if (isLocationBetter(l))
-          {
-            // get last better location
+          final Location l = findBestLocation(providers);
+          if (isLocationBetterThanCurrent(l))
             emitLocation(l);
-          }
-          else if (mLastLocation != null && isNotExpired(mLastLocation, mLastLocationTime))
-          {
-            // notify UI about last valid location
-            notifyLocationUpdated(mLastLocation);
-          }
+          else if (mLastLocation != null && !LocationUtils.isExpired(mLastLocation, mLastLocationTime))
+            notifyLocationUpdated(mLastLocation); // notify UI about last valid location
           else
-          {
-            // forget about old location
-            mLastLocation = null;
-          }
+            mLastLocation = null; // forget about old location
         }
 
         if (mIsGPSOff)
@@ -558,7 +422,7 @@ public class LocationService implements
     @Override
     protected void stopUpdates()
     {
-      mLocationManager.removeUpdates(mHost);
+      mLocationManager.removeUpdates(LocationService.this);
       super.stopUpdates();
     }
 
@@ -568,14 +432,13 @@ public class LocationService implements
       mLocationManager = (LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
     }
 
-    // Trash
-    private Location getBestLastLocation(List<String> providers)
+    private Location findBestLocation(List<String> providers)
     {
       Location res = null;
       for (final String pr : providers)
       {
         final Location l = mLocationManager.getLastKnownLocation(pr);
-        if (l != null && isNotExpired(l, l.getTime()))
+        if (l != null && !LocationUtils.isExpired(l, l.getTime()))
         {
           if (res == null || res.getAccuracy() > l.getAccuracy())
             res = l;
@@ -601,15 +464,10 @@ public class LocationService implements
           continue;
         }
 
-        if (Utils.apiLowerThan(11) &&
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB &&
             LocationManager.NETWORK_PROVIDER.equals(prov) &&
             !ConnectionState.isConnected(mApplication))
-        {
-          // Do not use WiFi location provider.
-          // It returns very old last saved locations with the current time stamp.
-          mLogger.d("Disabled network location as a device isn't online.");
           continue;
-        }
 
         acceptedProviders.add(prov);
       }
@@ -632,26 +490,22 @@ public class LocationService implements
     @Override
     protected void setUp()
     {
-      mLocationClient = new LocationClient(mApplication, mHost, mHost);
+      mLocationClient = new LocationClient(mApplication, LocationService.this, LocationService.this);
       mLocationClient.connect();
 
       mLocationRequest = LocationRequest.create();
       mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-      mLocationRequest.setInterval(500);
-      mLocationRequest.setFastestInterval(250);
-
-      mLogger.d("SetUp for GP provider.");
+      mLocationRequest.setInterval(LOCATION_UPDATE_INTERVAL);
+      mLocationRequest.setFastestInterval(LOCATION_UPDATE_INTERVAL / 2);
     }
 
     @Override
-    protected void startUpdates(Listener listener)
+    protected void startUpdates(LocationListener listener)
     {
       if (!mLocationClient.isConnected())
       {
-        mLogger.e("LocationClient is disconnected");
         // Connection is asynchronous process
         // We need to be connected before call LocationClient.requestLocationUpdates()
-
         if (!mLocationClient.isConnecting())
           mLocationClient.connect();
 
@@ -660,12 +514,9 @@ public class LocationService implements
 
       if (!mIsActive)
       {
-        mLocationClient.requestLocationUpdates(mLocationRequest, mHost);
+        mLocationClient.requestLocationUpdates(mLocationRequest, LocationService.this);
 
-        // Sensors
         registerSensorListeners();
-
-        // WiFi
         startWifiLocationUpdate();
 
         final Location l = mLocationClient.getLastLocation();
@@ -680,13 +531,13 @@ public class LocationService implements
     protected void stopUpdates()
     {
       if (mLocationClient.isConnected())
-        mLocationClient.removeLocationUpdates(mHost);
+        mLocationClient.removeLocationUpdates(LocationService.this);
 
       super.stopUpdates();
     }
 
     @Override
-    protected boolean isLocationBetter(Location l)
+    protected boolean isLocationBetterThanCurrent(Location l)
     {
       if (l == null)
         return false;
@@ -699,38 +550,22 @@ public class LocationService implements
       if (GS_LOCATION_PROVIDER.equalsIgnoreCase(mLastLocation.getProvider()))
         return false;
 
-      return super.isLocationBetter(l);
+      return super.isLocationBetterThanCurrent(l);
     }
 
     @Override
     protected Location getLastGPSLocation()
     {
-      // there is no possibility to return precise provider
-      // using LocationClient. Everything is 'fused'
       return mLocationClient.getLastLocation();
     }
-
-    // End of inner class GoogleFusedLP
-  }
-
-
-  // Google Play callbacks
-
-  @Override
-  public void onConnectionFailed(ConnectionResult arg0)
-  {
-    mLogger.d("onConnectionFailed " + arg0);
   }
 
   @Override
-  public void onConnected(Bundle arg0)
-  {
-    mLogger.d("onConnected " + arg0);
-  }
+  public void onConnectionFailed(ConnectionResult connectionResult) { }
 
   @Override
-  public void onDisconnected()
-  {
-    mLogger.d("onDisconnected");
-  }
+  public void onConnected(Bundle arg0) { }
+
+  @Override
+  public void onDisconnected() { }
 }

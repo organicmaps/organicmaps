@@ -452,7 +452,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     mDistanceText = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_distance);
     mAvDirection = (ArrowView) mGeoLayout.findViewById(R.id.av_direction);
     mAvDirection.setDrawCircle(true);
-    mAvDirection.setVisibility(View.GONE); // should be hidden until first compas update
+    mAvDirection.setVisibility(View.GONE); // should be hidden until first compass update
     mTvCoords = (TextView) mGeoLayout.findViewById(R.id.info_box_geo_location);
     mTvCoords.setOnClickListener(this);
 
@@ -559,14 +559,14 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private void fillPlacePagePoi(MapObject poi)
   {
     mPlacePageContainer.removeAllViews();
-    final View poiView = mInflater.inflate(R.layout.info_box_poi, null);
+    final View poiView = mInflater.inflate(R.layout.info_box_poi, this, false);
     mPlacePageContainer.addView(poiView);
   }
 
   private void fillPlacePageBookmark(final Bookmark bmk)
   {
     mPlacePageContainer.removeAllViews();
-    final View bmkView = mInflater.inflate(R.layout.info_box_bookmark, null);
+    final View bmkView = mInflater.inflate(R.layout.info_box_bookmark, this, false);
     bmkView.setOnClickListener(this);
 
     // Description of BMK
@@ -593,14 +593,14 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private void fillPlacePageLayer(SearchResult sr)
   {
     mPlacePageContainer.removeAllViews();
-    final View addLayerView = mInflater.inflate(R.layout.info_box_additional_layer, null);
+    final View addLayerView = mInflater.inflate(R.layout.info_box_additional_layer, this, false);
     mPlacePageContainer.addView(addLayerView);
   }
 
   private void fillPlacePageApi(MapObject mo)
   {
     mPlacePageContainer.removeAllViews();
-    final View apiView = mInflater.inflate(R.layout.info_box_api, null);
+    final View apiView = mInflater.inflate(R.layout.info_box_api, this, false);
     mPlacePageContainer.addView(apiView);
   }
 

@@ -26,7 +26,7 @@ import java.util.Map;
 
 
 public class BookmarkListAdapter extends BaseAdapter
-    implements LocationService.Listener
+    implements LocationService.LocationListener
 {
   private final Activity mContext;
   private final BookmarkCategory mCategory;
@@ -160,8 +160,15 @@ public class BookmarkListAdapter extends BaseAdapter
   }
 
   @Override
+  public void onDrivingHeadingUpdated(long time, double heading)
+  {
+    //
+  }
+
+  @Override
   public void onLocationError(int errorCode)
   {
+    //
   }
 
   private class PinHolder

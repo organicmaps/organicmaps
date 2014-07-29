@@ -48,6 +48,7 @@ import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
 import com.mapswithme.maps.widget.MapInfoView.State;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -60,7 +61,7 @@ import java.util.Locale;
 import java.util.Stack;
 
 public class MWMActivity extends NvEventQueueActivity
-    implements LocationService.Listener,
+    implements LocationService.LocationListener,
     OnBalloonListener,
     OnVisibilityChangedListener, OnClickListener
 {
@@ -505,7 +506,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void checkFacebookDialog()
   {
-    if ((ConnectionState.getState(this) != ConnectionState.NOT_CONNECTED) &&
+    if (ConnectionState.isConnected(this) &&
         mApplication.shouldShowDialog(MWMApplication.FACEBOOK) &&
         !isChinaRegion())
     {
@@ -540,7 +541,7 @@ public class MWMActivity extends NvEventQueueActivity
   private void checkBuyProDialog()
   {
     if (!mApplication.isProVersion() &&
-        (ConnectionState.getState(this) != ConnectionState.NOT_CONNECTED) &&
+        (ConnectionState.isConnected(this)) &&
         mApplication.shouldShowDialog(MWMApplication.BUYPRO))
     {
       showDialogImpl(MWMApplication.BUYPRO, R.string.pro_version_available,
@@ -881,12 +882,19 @@ public class MWMActivity extends NvEventQueueActivity
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
     final double angles[] = {magneticNorth, trueNorth};
-    getLocationService().correctCompassAngles(getWindowManager().getDefaultDisplay(), angles);
+    LocationUtils.correctCompassAngles(getWindowManager().getDefaultDisplay(), angles);
     nativeCompassUpdated(time, angles[0], angles[1], accuracy);
     final double north = (angles[1] >= 0.0 ? angles[1] : angles[0]);
 
     if (mInfoView.getState() != State.HIDDEN)
       mInfoView.updateAzimuth(north);
+  }
+
+  @Override
+  public void onDrivingHeadingUpdated(long time, double heading)
+  {
+    if (mInfoView.getState() != State.HIDDEN)
+      mInfoView.updateAzimuth(heading);
   }
 
   public void onCompassStatusChanged(int newStatus)
