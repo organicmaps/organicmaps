@@ -62,10 +62,7 @@ public:
     : OverlayHandle(FeatureID(), dp::Center, 0.0f),
       m_params(params), m_path(spl), m_infos(info),
       m_scaleFactor(1.0f), m_positions(info.size() * 6),
-      m_maxSize(maxSize)
-  {
-    SetIsVisible(true);
-  }
+      m_maxSize(maxSize) {}
 
   virtual void Update(ScreenBase const & screen);
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const;

@@ -231,7 +231,7 @@ void PathTextHandle::Update(ScreenBase const & screen)
 
   Spline::iterator itr;
   itr.Attach(m_path);
-  itr.Step(m_params.m_OffsetStart * m_scaleFactor);
+  itr.Step(entireLength);
 
   for (int i = 0; i < cnt; i++)
   {
@@ -251,10 +251,12 @@ void PathTextHandle::Update(ScreenBase const & screen)
     itr.Step(advance);
     PointF dir = itr.m_avrDir.Normalize();
     PointF norm(-dir.y, dir.x);
+    PointF norm2 = norm;
     dir *= halfWidth * m_scaleFactor;
     norm *= halfHeight * m_scaleFactor;
 
-    PointF const pivot = dir * xOffset / halfWidth + norm * yOffset / halfHeight + pos;
+    float const fontSize = m_params.m_TextFont.m_size * m_scaleFactor / 2.0f;
+    PointF const pivot = dir * xOffset / halfWidth + norm * yOffset / halfHeight + pos + norm2 * fontSize;
 
     PointF const p1 = pivot + dir - norm;
     PointF const p2 = pivot - dir - norm;
