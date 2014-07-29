@@ -105,11 +105,10 @@ UNIT_TEST(Positions)
   path.push_back(PointF(40, 40));
   path.push_back(PointF(80, 0));
 
-  Spline spl;
   Spline spl0;
   Spline spl4;
-  spl.FromArray(path);
-  spl0 = spl4 = spl;
+  spl0.FromArray(path);
+  spl4 = spl0;
   float const sqrt2 = sqrtf(2.0f);
   Spline::iterator itr;
   itr.Attach(spl0);
