@@ -5,7 +5,7 @@ namespace m2
 
 void Spline::FromArray(vector<PointF> const & path)
 {
-  m_position = vector<PointF>(path.begin(), path.end() - 1);
+  m_position.assign(path.begin(), path.end() - 1);
   int cnt = m_position.size();
   m_direction = vector<PointF>(cnt);
   m_length = vector<float>(cnt);

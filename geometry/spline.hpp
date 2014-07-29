@@ -20,7 +20,7 @@ public:
       : m_spl(NULL), m_index(0), m_dist(0), m_pos(PointF()),
       m_dir(PointF()), m_avrDir(PointF()), m_checker(false) {}
     void Attach(Spline const & S);
-    void Step(float speed);   // Speed MUST BE > 0.0f !!!
+    void Step(float speed);
     bool beginAgain();
   private:
     bool m_checker;
@@ -33,6 +33,7 @@ public:
   Spline(){}
   void FromArray(vector<PointF> const & path);
   Spline const & operator = (Spline const & spl);
+  float getLength() { return m_lengthAll; }
 
 private:
   float m_lengthAll;
