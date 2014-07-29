@@ -1,9 +1,8 @@
-
 uniform sampler2D u_textures[8];
 
-varying vec3 v_texcoord;
-varying vec4 v_color;
-varying vec4 v_outline_color;
+varying lowp vec3 v_texcoord;
+varying lowp vec4 v_color;
+varying lowp vec4 v_outline_color;
 
 const int Index0  = 0;
 const int Index1  = 1;
@@ -14,21 +13,21 @@ const int Index5  = 5;
 const int Index6  = 6;
 const int Index7  = 7;
 
-const float OUTLINE_MIN_VALUE0 = 0.49;
-const float OUTLINE_MIN_VALUE1 = 0.53;
-const float OUTLINE_MAX_VALUE0 = 0.58;
-const float OUTLINE_MAX_VALUE1 = 0.6;
+const lowp float OUTLINE_MIN_VALUE0 = 0.49;
+const lowp float OUTLINE_MIN_VALUE1 = 0.53;
+const lowp float OUTLINE_MAX_VALUE0 = 0.58;
+const lowp float OUTLINE_MAX_VALUE1 = 0.6;
 
-vec4 colorize(vec4 baseColor)
+lowp vec4 colorize(lowp vec4 baseColor)
 {
-  vec4 outline = v_outline_color;
-  float alpha = 1.0 - baseColor.a;
+  lowp vec4 outline = v_outline_color;
+  lowp float alpha = 1.0 - baseColor.a;
 
   if (alpha > OUTLINE_MAX_VALUE1)
-    return vec4(outline.rgb,0);
+    return vec4(outline.rgb, 0);
   if (alpha > OUTLINE_MAX_VALUE0)
   {
-    float oFactor=smoothstep(OUTLINE_MAX_VALUE1, OUTLINE_MAX_VALUE0, alpha );
+    lowp float oFactor = smoothstep(OUTLINE_MAX_VALUE1, OUTLINE_MAX_VALUE0, alpha );
     return mix(vec4(outline.rgb,0), outline, oFactor);
   }
   if (alpha > OUTLINE_MIN_VALUE1)
@@ -37,28 +36,28 @@ vec4 colorize(vec4 baseColor)
   }
   if (alpha > OUTLINE_MIN_VALUE0)
   {
-    float oFactor=smoothstep(OUTLINE_MIN_VALUE0, OUTLINE_MIN_VALUE1, alpha );
+    lowp float oFactor = smoothstep(OUTLINE_MIN_VALUE0, OUTLINE_MIN_VALUE1, alpha );
     return mix(v_color, outline, oFactor);
   }
   return v_color;
 }
 
-vec4 without_outline(vec4 baseColor)
+lowp vec4 without_outline(lowp vec4 baseColor)
 {
-  vec4 outline = v_outline_color;
-  float alpha = 1.0 - baseColor.a;
+  lowp vec4 outline = v_outline_color;
+  lowp float alpha = 1.0 - baseColor.a;
 
   if (alpha > OUTLINE_MIN_VALUE0)
   {
-    float oFactor=smoothstep(OUTLINE_MIN_VALUE0, OUTLINE_MIN_VALUE1, alpha );
-    return mix(v_color, vec4(1,1,1,0), oFactor);
+    lowp float oFactor = smoothstep(OUTLINE_MIN_VALUE0, OUTLINE_MIN_VALUE1, alpha );
+    return mix(v_color, vec4(1, 1, 1, 0), oFactor);
   }
   return v_color;
 }
 
 void main (void)
 {
-  float alpha;
+  lowp float alpha;
   int textureIndex = int(v_texcoord.z / 2.0);
   if (textureIndex == Index0)
     alpha = texture2D(u_textures[Index0], v_texcoord.xy).a;
@@ -77,7 +76,7 @@ void main (void)
   else if (textureIndex == Index7)
     alpha = texture2D(u_textures[Index7], v_texcoord.xy).a;
 
-  float needOutline = (fract(v_texcoord.z / 2.0)) * 2.0;
+  lowp float needOutline = (fract(v_texcoord.z / 2.0)) * 2.0;
   if (needOutline > 0.5)
     gl_FragColor = colorize(vec4(v_color.rgb, v_color.a*alpha));
   else
