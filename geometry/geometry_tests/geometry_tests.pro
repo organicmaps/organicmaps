@@ -41,3 +41,4 @@ SOURCES += \
   anyrect_test.cpp \
   region2d_binary_op_test.cpp \
   vector_test.cpp \
+  spline_test.cpp \

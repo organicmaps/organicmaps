@@ -15,6 +15,7 @@ SOURCES += \
   robust_orientation.cpp \
   region2d/binary_operators.cpp \
   angles.cpp \
+  spline.cpp \
 
 HEADERS += \
   rect2d.hpp \
@@ -40,3 +41,4 @@ HEADERS += \
   region2d/boost_concept.hpp \
   avg_vector.hpp \
   polyline2d.hpp \
+  spline.hpp \
