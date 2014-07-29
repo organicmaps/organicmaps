@@ -427,8 +427,7 @@ namespace feature
       }
       */
 
-      int const scalesStart = m_header.GetScalesCount() - 1;
-      for (int i = scalesStart; i >= 0; --i)
+      for (int i = m_header.GetScalesCount()-1; i >= 0; --i)
       {
         int const level = m_header.GetScale(i);
         if (fb.IsDrawableInRange(i > 0 ? m_header.GetScale(i-1) + 1 : 0, level))
@@ -437,14 +436,9 @@ namespace feature
           bool const isCoast = fb.GetCoastCell(dummy);
           m2::RectD const rect = fb.GetLimitRect();
 
-          // Simplify and serialize geometry.
+          // simplify and serialize geometry
           points_t points;
-
-          // Do not change linear geometry for the upper scale.
-          if (isLine && i == scalesStart)
-            points = holder.GetSourcePoints();
-          else
-            SimplifyPoints(holder.GetSourcePoints(), points, level, isCoast, rect);
+          SimplifyPoints(holder.GetSourcePoints(), points, level, isCoast, rect);
 
           if (isLine)
             holder.AddPoints(points, i);
