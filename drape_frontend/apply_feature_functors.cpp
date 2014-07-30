@@ -7,6 +7,7 @@
 #include "line_shape.hpp"
 #include "text_shape.hpp"
 #include "poi_symbol_shape.hpp"
+#include "path_symbol_shape.hpp"
 #include "circle_shape.hpp"
 
 #include "../indexer/drawing_rules.hpp"
@@ -243,8 +244,8 @@ void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
 
 // ============================================= //
 
-ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey, FeatureID const & id)
-  : base_t(context, tileKey, id)
+ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey, FeatureID const & id, double nextModelViewScale)
+  : base_t(context, tileKey, id), m_nextModelViewScale(nextModelViewScale)
 {
 }
 
@@ -280,11 +281,24 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
 
   if (pRule != NULL)
   {
-    LineViewParams params;
-    Extract(pRule, params);
-    params.m_depth = depth;
+    if (pRule->has_pathsym())
+    {
+      PathSymProto const & symRule = pRule->pathsym();
+      PathSymbolViewParams params;
+      params.m_depth = depth;
+      params.m_symbolName = symRule.name();
+      params.m_Offset = symRule.offset() * df::VisualParams::Instance().GetVisualScale();
+      params.m_OffsetStart = symRule.step() * df::VisualParams::Instance().GetVisualScale();
 
-    m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new LineShape(m_path, params)));
+      m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new PathSymbolShape(m_path, params, m_nextModelViewScale)));
+    }
+    else
+    {
+      LineViewParams params;
+      Extract(pRule, params);
+      params.m_depth = depth;
+      m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new LineShape(m_path, params)));
+    }
   }
 }
 

@@ -79,7 +79,8 @@ class ApplyLineFeature : public BaseApplyFeature
 public:
   ApplyLineFeature(EngineContext & context,
                    TileKey tileKey,
-                   FeatureID const & id);
+                   FeatureID const & id,
+                   double nextModelViewScale);
 
   void operator ()(CoordPointT const & point);
   bool HasGeometry() const;
@@ -87,6 +88,7 @@ public:
 
 private:
   vector<m2::PointF> m_path;
+  double m_nextModelViewScale;
 };
 
 } // namespace df
