@@ -36,6 +36,7 @@ SOURCES += \
     render_group.cpp \
     text_shape.cpp \
     path_text_shape.cpp \
+    path_symbol_shape.cpp \
 
 HEADERS += \
     engine_context.hpp \
@@ -67,3 +68,4 @@ HEADERS += \
     render_group.hpp \
     text_shape.hpp \
     path_text_shape.hpp \
+    path_symbol_shape.hpp \
