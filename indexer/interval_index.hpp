@@ -88,9 +88,12 @@ private:
   void ForEachLeaf(F const & f, uint64_t const beg, uint64_t const end,
                    uint32_t const offset, uint32_t const size) const
   {
-    buffer_vector<uint8_t, 1024> data(size);
+    buffer_vector<uint8_t, 1024> data;
+    data.resize_no_init(size);
+
     m_Reader.Read(offset, &data[0], size);
     ArrayByteSource src(&data[0]);
+
     void const * pEnd = &data[0] + size;
     uint32_t value = 0;
     while (src.Ptr() < pEnd)
@@ -126,9 +129,12 @@ private:
     uint32_t const end0 = static_cast<uint32_t>(end >> skipBits);
     ASSERT_LESS(end0, (1U << m_Header.m_BitsPerLevel), (beg, end, skipBits));
 
-    buffer_vector<uint8_t, 576> data(size);
+    buffer_vector<uint8_t, 576> data;
+    data.resize_no_init(size);
+
     m_Reader.Read(offset, &data[0], size);
     ArrayByteSource src(&data[0]);
+
     uint32_t const offsetAndFlag = ReadVarUint<uint32_t>(src);
     uint32_t childOffset = offsetAndFlag >> 1;
     if (offsetAndFlag & 1)

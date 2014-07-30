@@ -73,6 +73,24 @@ public:
       m_dynamic.reserve(n);
   }
 
+  void resize_no_init(size_t n)
+  {
+    if (m_size == USE_DYNAMIC)
+      m_dynamic.resize(n);
+    else
+    {
+      if (n <= N)
+        m_size = n;
+      else
+      {
+        m_dynamic.reserve(n);
+        SwitchToDynamic();
+        m_dynamic.resize(n);
+        ASSERT_EQUAL(m_dynamic.size(), n, ());
+      }
+    }
+  }
+
   void resize(size_t n, T c = T())
   {
     if (m_size == USE_DYNAMIC)
