@@ -33,36 +33,55 @@ void PoiSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHold
   float depth = m_params.m_depth;
   float texture = (float)region.GetTextureNode().m_textureOffset;
 
-  float stream[]     =
-  //   x       y       z      normal.x    normal.y        s              t          textureIndex
-  { m_pt.x, m_pt.y, depth, -halfSize.x,  halfSize.y, texRect.minX(), texRect.maxY(), texture,
-    m_pt.x, m_pt.y, depth, -halfSize.x, -halfSize.y, texRect.minX(), texRect.minY(), texture,
-    m_pt.x, m_pt.y, depth,  halfSize.x,  halfSize.y, texRect.maxX(), texRect.maxY(), texture,
-    m_pt.x, m_pt.y, depth,  halfSize.x, -halfSize.y, texRect.maxX(), texRect.minY(), texture};
+  float positions[] =
+  { m_pt.x, m_pt.y,
+    m_pt.x, m_pt.y,
+    m_pt.x, m_pt.y,
+    m_pt.x, m_pt.y};
 
-  AttributeProvider provider(1, 4);
-  BindingInfo info(3);
+  float normals[] =
+  { -halfSize.x,  halfSize.y,
+    -halfSize.x, -halfSize.y,
+    halfSize.x,  halfSize.y,
+    halfSize.x, -halfSize.y};
 
-  BindingDecl & posDecl = info.GetBindingDecl(0);
-  posDecl.m_attributeName = "a_position";
-  posDecl.m_componentCount = 3;
-  posDecl.m_componentType = gl_const::GLFloatType;
-  posDecl.m_offset = 0;
-  posDecl.m_stride = 8 * sizeof(float);
+  float uvs[] =
+  { texRect.minX(), texRect.maxY(), texture, depth,
+    texRect.minX(), texRect.minY(), texture, depth,
+    texRect.maxX(), texRect.maxY(), texture, depth,
+    texRect.maxX(), texRect.minY(), texture, depth};
 
-  BindingDecl & normalDecl = info.GetBindingDecl(1);
-  normalDecl.m_attributeName = "a_normal";
-  normalDecl.m_componentCount = 2;
-  normalDecl.m_componentType = gl_const::GLFloatType;
-  normalDecl.m_offset = 3 * sizeof(float);
-  normalDecl.m_stride = 8 * sizeof(float);
-
-  BindingDecl & texDecl = info.GetBindingDecl(2);
-  texDecl.m_attributeName = "a_texCoords";
-  texDecl.m_componentCount = 2;
-  texDecl.m_componentType = gl_const::GLFloatType;
-  texDecl.m_offset = (3 + 2) * sizeof(float);
-  texDecl.m_stride = 8 * sizeof(float);
+  AttributeProvider provider(3, 4);
+  {
+    BindingInfo position(1, 1);
+    BindingDecl & decl = position.GetBindingDecl(0);
+    decl.m_attributeName = "a_position";
+    decl.m_componentCount = 2;
+    decl.m_componentType = gl_const::GLFloatType;
+    decl.m_offset = 0;
+    decl.m_stride = 0;
+    provider.InitStream(0, position, MakeStackRefPointer<void>(positions));
+  }
+  {
+    BindingInfo normal(1);
+    BindingDecl & decl = normal.GetBindingDecl(0);
+    decl.m_attributeName = "a_normal";
+    decl.m_componentCount = 2;
+    decl.m_componentType = gl_const::GLFloatType;
+    decl.m_offset = 0;
+    decl.m_stride = 0;
+    provider.InitStream(1, normal, MakeStackRefPointer<void>(normals));
+  }
+  {
+    BindingInfo texcoord(1);
+    BindingDecl & decl = texcoord.GetBindingDecl(0);
+    decl.m_attributeName = "a_texCoords";
+    decl.m_componentCount = 4;
+    decl.m_componentType = gl_const::GLFloatType;
+    decl.m_offset = 0;
+    decl.m_stride = 0;
+    provider.InitStream(2, texcoord, MakeStackRefPointer<void>(uvs));
+  }
 
   OverlayHandle * handle = new SquareHandle(m_params.m_id,
                                            dp::Center,
@@ -70,7 +89,6 @@ void PoiSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHold
                                            pixelSize,
                                            m_params.m_depth);
 
-  provider.InitStream(0, info, MakeStackRefPointer<void>(stream));
   batcher->InsertTriangleStrip(state, MakeStackRefPointer(&provider), MovePointer(handle));
 }
 
