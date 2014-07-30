@@ -990,7 +990,7 @@
     pl = Pobieranie^^%
     pt = A descarregar^^%
     hu = ^^% letöltése folyamatban
-    th = กำลังดาวน์โหลด ^^%
+    th = กำลังดาวน์โหลด^^%
     zh-Hans = 下载^^%中
 
   [country_status_download]
@@ -1009,7 +1009,7 @@
     pl = Pobierz^
     pt = Descarga^
     hu = Letöltés^
-    th = ดาวน์โหลด ^
+    th = ดาวน์โหลด^
     zh-Hans = 下载^
 
   [country_status_download_failed]
@@ -2922,7 +2922,7 @@
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
     pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@
     hu = Nézd meg a maps.me helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
-    th = เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ MAPS.ME! %1$@ หรือ %2$@ or %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get
+    th = เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ maps.me! %1$@ หรือ %2$@ or %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get
     zh-Hans = 嘿,在 maps.me 上查看我目前的位置 吧!%1$@ 或%2$@ 未安装离线地图?在此 下载: http://maps.me/get
 
   [bookmark_share_email_subject]
