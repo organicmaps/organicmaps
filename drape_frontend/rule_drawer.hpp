@@ -33,6 +33,7 @@ private:
   EngineContext & m_context;
   m2::RectD m_globalRect;
   ScreenBase m_geometryConvertor;
+  double m_nextModelViewScale;
   set<string> m_coastlines;
 };
 
