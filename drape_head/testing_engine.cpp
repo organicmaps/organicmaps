@@ -11,6 +11,7 @@
 #include "../drape_frontend/line_shape.hpp"
 #include "../drape_frontend/text_shape.hpp"
 #include "../drape_frontend/path_text_shape.hpp"
+#include "../drape_frontend/path_symbol_shape.hpp"
 #include "../drape_frontend/area_shape.hpp"
 #include "../drape_frontend/circle_shape.hpp"
 
@@ -412,6 +413,15 @@ void TestingEngine::DrawImpl()
   params3.m_TextFont = params.m_primaryTextFont;
   PathTextShape sh3(path, params3);
   sh3.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+
+  PathSymbolViewParams params4;
+  params4.m_featureID = FeatureID(23, 78);
+  params4.m_depth = 30.0f;
+  params4.m_Offset = 40.0f;
+  params4.m_OffsetStart = 0.0f;
+  params4.m_symbolName = "arrow";
+  PathSymbolShape sh4(path, params4, 10);
+  sh4.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 }
 
 void TestingEngine::ModelViewInit()
