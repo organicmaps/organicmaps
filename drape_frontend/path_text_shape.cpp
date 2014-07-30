@@ -46,8 +46,8 @@ namespace
   {
     vector<Position>    m_pos;
     vector<TexCoord>    m_uvs;
-    vector<ColorF>      m_baseColor;
-    vector<ColorF>      m_outlineColor;
+    vector<dp::ColorF>      m_baseColor;
+    vector<dp::ColorF>      m_outlineColor;
     vector<LetterInfo>  m_info;
     float               m_offset;
     float               m_maxSize;
@@ -68,7 +68,7 @@ PathTextShape::PathTextShape(vector<PointF> const & path, PathTextViewParams con
   m_path.FromArray(path);
 }
 
-void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
+void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
   strings::UniString const text = strings::MakeUniString(m_params.m_Text);
   float const fontSize = m_params.m_TextFont.m_size;
@@ -81,7 +81,7 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
   int textureSet;
   for (int i = 0; i < cnt; i++)
   {
-    TextureSetHolder::GlyphRegion region;
+    dp::TextureSetHolder::GlyphRegion region;
     textures->GetGlyphRegion(text[i], region);
     float xOffset, yOffset, advance;
     m2::PointU pixelSize;
@@ -117,8 +117,8 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
     m2::RectF const & rect = region.GetTexRect();
     float const textureNum = (region.GetTextureNode().m_textureOffset << 1) + needOutline;
 
-    ColorF const base(m_params.m_TextFont.m_color);
-    ColorF const outline(m_params.m_TextFont.m_outlineColor);
+    dp::ColorF const base(m_params.m_TextFont.m_color);
+    dp::ColorF const outline(m_params.m_TextFont.m_outlineColor);
 
     curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.minY(), textureNum, m_params.m_depth));
     curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth));
@@ -139,55 +139,55 @@ void PathTextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolde
     if (buffers[i].m_pos.empty())
       continue;
 
-    GLState state(gpu::PATH_FONT_PROGRAM, GLState::OverlayLayer);
+    dp::GLState state(gpu::PATH_FONT_PROGRAM, dp::GLState::OverlayLayer);
     state.SetTextureSet(i);
-    state.SetBlending(Blending(true));
+    state.SetBlending(dp::Blending(true));
 
-    AttributeProvider provider(4, buffers[i].m_pos.size());
+    dp::AttributeProvider provider(4, buffers[i].m_pos.size());
     {
-      BindingInfo position(1, PathTextHandle::DirectionAttributeID);
-      BindingDecl & decl = position.GetBindingDecl(0);
+      dp::BindingInfo position(1, PathTextHandle::DirectionAttributeID);
+      dp::BindingDecl & decl = position.GetBindingDecl(0);
       decl.m_attributeName = "a_position";
       decl.m_componentCount = 2;
       decl.m_componentType = gl_const::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
-      provider.InitStream(0, position, MakeStackRefPointer(&buffers[i].m_pos[0]));
+      provider.InitStream(0, position, dp::MakeStackRefPointer(&buffers[i].m_pos[0]));
     }
     {
-      BindingInfo texcoord(1);
-      BindingDecl & decl = texcoord.GetBindingDecl(0);
+      dp::BindingInfo texcoord(1);
+      dp::BindingDecl & decl = texcoord.GetBindingDecl(0);
       decl.m_attributeName = "a_texcoord";
       decl.m_componentCount = 4;
       decl.m_componentType = gl_const::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
-      provider.InitStream(1, texcoord, MakeStackRefPointer(&buffers[i].m_uvs[0]));
+      provider.InitStream(1, texcoord, dp::MakeStackRefPointer(&buffers[i].m_uvs[0]));
     }
     {
-      BindingInfo base_color(1);
-      BindingDecl & decl = base_color.GetBindingDecl(0);
+      dp::BindingInfo base_color(1);
+      dp::BindingDecl & decl = base_color.GetBindingDecl(0);
       decl.m_attributeName = "a_color";
       decl.m_componentCount = 4;
       decl.m_componentType = gl_const::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
-      provider.InitStream(2, base_color, MakeStackRefPointer(&buffers[i].m_baseColor[0]));
+      provider.InitStream(2, base_color, dp::MakeStackRefPointer(&buffers[i].m_baseColor[0]));
     }
     {
-      BindingInfo outline_color(1);
-      BindingDecl & decl = outline_color.GetBindingDecl(0);
+      dp::BindingInfo outline_color(1);
+      dp::BindingDecl & decl = outline_color.GetBindingDecl(0);
       decl.m_attributeName = "a_outline_color";
       decl.m_componentCount = 4;
       decl.m_componentType = gl_const::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
-      provider.InitStream(3, outline_color, MakeStackRefPointer(&buffers[i].m_outlineColor[0]));
+      provider.InitStream(3, outline_color, dp::MakeStackRefPointer(&buffers[i].m_outlineColor[0]));
     }
 
-    OverlayHandle * handle = new PathTextHandle(m_path, m_params, buffers[i].m_info, buffers[i].m_maxSize);
+    dp::OverlayHandle * handle = new PathTextHandle(m_path, m_params, buffers[i].m_info, buffers[i].m_maxSize);
 
-    batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
+    batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle));
   }
 }
 
@@ -274,12 +274,12 @@ void PathTextHandle::Update(ScreenBase const & screen)
   }
 }
 
-void PathTextHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
+void PathTextHandle::GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const
 {
   TOffsetNode const & node = GetOffsetNode(DirectionAttributeID);
-  MutateNode mutateNode;
+  dp::MutateNode mutateNode;
   mutateNode.m_region = node.second;
-  mutateNode.m_data = MakeStackRefPointer<void>(&m_positions[0]);
+  mutateNode.m_data = dp::MakeStackRefPointer<void>(&m_positions[0]);
   mutator->AddMutation(node.first, mutateNode);
 }
 

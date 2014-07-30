@@ -5,6 +5,9 @@
 #include "texture_set_controller.hpp"
 #include "color.hpp"
 
+namespace dp
+{
+
 struct Blending
 {
   Blending(bool isEnabled = false);
@@ -61,3 +64,5 @@ private:
 
 void ApplyUniforms(UniformValuesStorage const & uniforms, RefPointer<GpuProgram> program);
 void ApplyState(GLState state, RefPointer<GpuProgram> program, RefPointer<TextureSetController> textures);
+
+} // namespace dp

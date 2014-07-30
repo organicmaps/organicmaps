@@ -15,11 +15,11 @@ namespace
 
 void FlushGeometry(BatchersPool::send_message_fn const & sendMessage,
                    TileKey const & key,
-                   GLState const & state,
-                   TransferPointer<RenderBucket> buffer)
+                   dp::GLState const & state,
+                   dp::TransferPointer<dp::RenderBucket> buffer)
 {
   GLFunctions::glFlush();
-  sendMessage(MovePointer<Message>(new FlushRenderBucketMessage(key, state, buffer)));
+  sendMessage(dp::MovePointer<Message>(new FlushRenderBucketMessage(key, state, buffer)));
 }
 
 } // namespace
@@ -28,7 +28,7 @@ BatchersPool::BatchersPool(int initBatcherCount, send_message_fn const & sendMes
   : m_sendMessageFn(sendMessageFn)
 {
   for (int i = 0; i < initBatcherCount; ++i)
-    m_batchers.push(MasterPointer<Batcher>(new Batcher()));
+    m_batchers.push(dp::MasterPointer<dp::Batcher>(new dp::Batcher()));
 }
 
 BatchersPool::~BatchersPool()
@@ -56,9 +56,9 @@ void BatchersPool::ReserveBatcher(TileKey const & key)
     return;
   }
 
-  MasterPointer<Batcher> reserved;
+  dp::MasterPointer<dp::Batcher> reserved;
   if (m_batchers.empty())
-    reserved.Reset(new Batcher());
+    reserved.Reset(new dp::Batcher());
   else
   {
     reserved = m_batchers.top();
@@ -69,7 +69,7 @@ void BatchersPool::ReserveBatcher(TileKey const & key)
   VERIFY(m_reservedBatchers.insert(make_pair(key, make_pair(reserved, 1))).second, ());
 }
 
-RefPointer<Batcher> BatchersPool::GetTileBatcher(TileKey const & key)
+dp::RefPointer<dp::Batcher> BatchersPool::GetTileBatcher(TileKey const & key)
 {
   reserved_batchers_t::iterator it = m_reservedBatchers.find(key);
 
@@ -85,7 +85,7 @@ void BatchersPool::ReleaseBatcher(TileKey const & key)
   ASSERT_GREATER(it->second.second, 0, ());
   if ((--it->second.second)== 0)
   {
-    MasterPointer<Batcher> batcher = it->second.first;
+    dp::MasterPointer<dp::Batcher> batcher = it->second.first;
     batcher->EndSession();
     m_reservedBatchers.erase(it);
     m_batchers.push(batcher);

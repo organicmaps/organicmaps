@@ -2,6 +2,9 @@
 
 #include "../base/assert.hpp"
 
+namespace dp
+{
+
 namespace
 {
 
@@ -120,3 +123,5 @@ bool BindingInfo::operator<(BindingInfo const & other) const
 
   return false;
 }
+
+} // namespace dp

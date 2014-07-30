@@ -8,6 +8,9 @@
 #include "../std/stdint.hpp"
 #include "../std/function.hpp"
 
+namespace dp
+{
+
 class Texture
 {
 public:
@@ -76,3 +79,5 @@ private:
   uint32_t m_width;
   uint32_t m_height;
 };
+
+} // namespace dp

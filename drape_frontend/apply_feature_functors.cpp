@@ -24,9 +24,9 @@ namespace df
 namespace
 {
 
-Color ToDrapeColor(uint32_t src)
+dp::Color ToDrapeColor(uint32_t src)
 {
-  return Extract(src, 255 - (src >> 24));
+  return dp::Extract(src, 255 - (src >> 24));
 }
 
 void Extract(::LineDefProto const * lineRule,
@@ -69,7 +69,7 @@ void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, df::FontDecl &pa
   if (capRule->has_stroke_color())
   {
     params.m_needOutline = true;
-    params.m_outlineColor = Color(255, 255, 255, 255);
+    params.m_outlineColor = dp::Color(255, 255, 255, 255);
   }
 }
 
@@ -163,7 +163,7 @@ void ApplyPointFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       params.m_secondaryTextFont = auxDecl;
     }
     if(!params.m_primaryText.empty() || !params.m_secondaryText.empty())
-      m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new TextShape(m_centerPoint, params)));
+      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new TextShape(m_centerPoint, params)));
   }
 
   SymbolRuleProto const * symRule =  pRule->GetSymbol();
@@ -195,7 +195,7 @@ void ApplyPointFeature::Finish()
     params.m_radius = m_circleRule->radius();
 
     CircleShape * shape = new CircleShape(m_centerPoint, params);
-    m_context.InsertShape(m_tileKey, MovePointer<MapShape>(shape));
+    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(shape));
   }
   else if (m_symbolRule)
   {
@@ -204,7 +204,7 @@ void ApplyPointFeature::Finish()
     params.m_symbolName = m_symbolRule->name();
 
     PoiSymbolShape * shape = new PoiSymbolShape(m_centerPoint, params);
-    m_context.InsertShape(m_tileKey, MovePointer<MapShape>(shape));
+    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(shape));
   }
 }
 
@@ -236,7 +236,7 @@ void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
     params.m_color = ToDrapeColor(areaRule->color());
 
     AreaShape * shape = new AreaShape(m_triangles, params);
-    m_context.InsertShape(m_tileKey, MovePointer<MapShape>(shape));
+    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(shape));
   }
   else
     base_t::ProcessRule(rule);
@@ -291,14 +291,14 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       params.m_step = symRule.offset() * mainScale;
       params.m_offset = symRule.step() * mainScale;
 
-      m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new PathSymbolShape(m_path, params, m_nextModelViewScale)));
+      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathSymbolShape(m_path, params, m_nextModelViewScale)));
     }
     else
     {
-      LineViewParams params;
-      Extract(pRule, params);
-      params.m_depth = depth;
-      m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new LineShape(m_path, params)));
+    LineViewParams params;
+    Extract(pRule, params);
+    params.m_depth = depth;
+      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_path, params)));
     }
   }
 }

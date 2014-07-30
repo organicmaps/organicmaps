@@ -6,7 +6,12 @@
 
 #ifdef DEBUG
   #include "../std/map.hpp"
+#endif
 
+namespace dp
+{
+
+#ifdef DEBUG
   class UniformValidator
   {
   private:
@@ -92,3 +97,5 @@ int8_t GpuProgram::GetUniformLocation(string const & uniformName) const
 {
   return GLFunctions::glGetUniformLocation(m_programID, uniformName);
 }
+
+} // namespace dp

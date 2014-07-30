@@ -4,6 +4,8 @@
 
 #include <gmock/gmock.h>
 
+using namespace dp;
+
 UNIT_TEST(InitStreamsTest)
 {
   int const VERTEX_COUNT = 10;

@@ -9,7 +9,7 @@
 #include "../std/vector.hpp"
 #include "../std/set.hpp"
 
-class OverlayTree;
+namespace dp { class OverlayTree; }
 
 namespace df
 {
@@ -17,16 +17,16 @@ namespace df
 class RenderGroup
 {
 public:
-  RenderGroup(GLState const & state, TileKey const & tileKey);
+  RenderGroup(dp::GLState const & state, TileKey const & tileKey);
   ~RenderGroup();
 
-  void CollectOverlay(RefPointer<OverlayTree> tree);
+  void CollectOverlay(dp::RefPointer<dp::OverlayTree> tree);
   void Render();
 
   void PrepareForAdd(size_t countForAdd);
-  void AddBucket(TransferPointer<RenderBucket> bucket);
+  void AddBucket(dp::TransferPointer<dp::RenderBucket> bucket);
 
-  GLState const & GetState() const { return m_state; }
+  dp::GLState const & GetState() const { return m_state; }
   TileKey const & GetTileKey() const { return m_tileKey; }
 
   bool IsEmpty() const { return m_renderBuckets.empty(); }
@@ -36,9 +36,9 @@ public:
   bool IsLess(RenderGroup const & other) const;
 
 private:
-  GLState m_state;
+  dp::GLState m_state;
   TileKey m_tileKey;
-  vector<MasterPointer<RenderBucket> > m_renderBuckets;
+  vector<dp::MasterPointer<dp::RenderBucket> > m_renderBuckets;
 
   mutable bool m_pendingOnDelete;
 };

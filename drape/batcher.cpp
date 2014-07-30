@@ -7,6 +7,9 @@
 
 #include "../std/bind.hpp"
 
+namespace dp
+{
+
 class Batcher::CallbacksWrapper
 {
 public:
@@ -219,3 +222,5 @@ void Batcher::InsertTriangles(GLState const & state,
   if (!handle.IsNull())
     bucket->AddOverlayHandle(handle.Move());
 }
+
+} // namespace dp

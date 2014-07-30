@@ -12,6 +12,7 @@ using namespace emul;
 using ::testing::_;
 using ::testing::Return;
 using ::testing::InSequence;
+using namespace dp;
 
 UNIT_TEST(CreateDestroyDataBufferTest)
 {

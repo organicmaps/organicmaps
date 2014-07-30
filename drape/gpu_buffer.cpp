@@ -6,6 +6,8 @@
 
 #include "../std/cstring.hpp"
 
+namespace dp
+{
 
 namespace
 {
@@ -156,3 +158,5 @@ void GPUBufferMapper::UpdateData(void const * data, uint16_t elementOffset, uint
   uint32_t GPUBufferMapper::m_mappedDataBuffer;
   uint32_t GPUBufferMapper::m_mappedIndexBuffer;
 #endif
+
+} // namespace dp

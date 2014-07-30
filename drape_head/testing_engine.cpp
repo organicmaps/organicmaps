@@ -29,7 +29,7 @@
 namespace df
 {
 
-class SquareHandle : public OverlayHandle
+class SquareHandle : public dp::OverlayHandle
 {
 public:
   static const uint8_t NormalAttributeID = 1;
@@ -42,7 +42,7 @@ public:
 
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const { return m2::RectD(); }
 
-  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
+  virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const
   {
     static const my::Timer timer;
     double const angle = timer.ElapsedSeconds();
@@ -54,9 +54,9 @@ public:
       data[i] = m_vectors[i] * m;
 
     TOffsetNode const & node = GetOffsetNode(NormalAttributeID);
-    MutateNode mutateNode;
+    dp::MutateNode mutateNode;
     mutateNode.m_region = node.second;
-    mutateNode.m_data = MakeStackRefPointer<void>(&data[0]);
+    mutateNode.m_data = dp::MakeStackRefPointer<void>(&data[0]);
     mutator->AddMutation(node.first, mutateNode);
   }
 
@@ -73,7 +73,7 @@ public:
   {
   }
 
-  virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
+  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
   {
     vector<m2::PointF> vertexes(4, m_center);
 
@@ -83,34 +83,34 @@ public:
     formingVectors[2] = m2::PointF( m_radius,  m_radius);
     formingVectors[3] = m2::PointF( m_radius, -m_radius);
 
-    AttributeProvider provider(2, 4);
+    dp::AttributeProvider provider(2, 4);
     {
-      BindingInfo info(1);
-      BindingDecl & decl = info.GetBindingDecl(0);
+      dp::BindingInfo info(1);
+      dp::BindingDecl & decl = info.GetBindingDecl(0);
       decl.m_attributeName = "a_position";
       decl.m_componentCount = 2;
       decl.m_componentType = gl_const::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
-      provider.InitStream(0, info, MakeStackRefPointer<void>(&vertexes[0]));
+      provider.InitStream(0, info, dp::MakeStackRefPointer<void>(&vertexes[0]));
     }
     {
-      BindingInfo info(1, SquareHandle::NormalAttributeID);
-      BindingDecl & decl = info.GetBindingDecl(0);
+      dp::BindingInfo info(1, SquareHandle::NormalAttributeID);
+      dp::BindingDecl & decl = info.GetBindingDecl(0);
       decl.m_attributeName = "a_normal";
       decl.m_componentCount = 2;
       decl.m_componentType = gl_const::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
-      provider.InitStream(1, info, MakeStackRefPointer<void>(&formingVectors[0]));
+      provider.InitStream(1, info, dp::MakeStackRefPointer<void>(&formingVectors[0]));
     }
 
-    GLState state(gpu::TEST_DYN_ATTR_PROGRAM, GLState::GeometryLayer);
-    state.SetColor(Color(150, 130, 120, 255));
+    dp::GLState state(gpu::TEST_DYN_ATTR_PROGRAM, dp::GLState::GeometryLayer);
+    state.SetColor(dp::Color(150, 130, 120, 255));
 
-    OverlayHandle * handle = new SquareHandle(formingVectors);
+    dp::OverlayHandle * handle = new SquareHandle(formingVectors);
 
-    batcher->InsertTriangleStrip(state, MakeStackRefPointer<AttributeProvider>(&provider), MovePointer(handle));
+    batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer<dp::AttributeProvider>(&provider), dp::MovePointer(handle));
   }
 
 private:
@@ -153,15 +153,14 @@ public:
   }
 
 private:
-  Color ParseColor(json_t * object)
+  dp::Color ParseColor(json_t * object)
   {
-    size_t const channelCount = json_array_size(object);
-    ASSERT(channelCount == 4, ());
+    ASSERT(json_array_size(object) == 4, ());
     int const r = json_integer_value(json_array_get(object, 0));
     int const g = json_integer_value(json_array_get(object, 1));
     int const b = json_integer_value(json_array_get(object, 2));
     int const a = json_integer_value(json_array_get(object, 3));
-    return Color(r, g, b, a);
+    return dp::Color(r, g, b, a);
   }
 
   float ParseCoord(json_t * object)
@@ -247,7 +246,7 @@ private:
   TCreatorsMap m_creators;
 };
 
-TestingEngine::TestingEngine(RefPointer<OGLContextFactory> oglcontextfactory,
+TestingEngine::TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
                              double vs, df::Viewport const & viewport)
   : m_contextFactory(oglcontextfactory)
   , m_viewport(viewport)
@@ -256,10 +255,10 @@ TestingEngine::TestingEngine(RefPointer<OGLContextFactory> oglcontextfactory,
   df::VisualParams::Init(vs, df::CalculateTileSize(viewport.GetWidth(), viewport.GetHeight()));
   m_contextFactory->getDrawContext()->makeCurrent();
 
-  m_textures.Reset(new TextureManager());
+  m_textures.Reset(new dp::TextureManager());
   m_textures->Init(df::VisualParams::Instance().GetResourcePostfix());
-  m_batcher.Reset(new Batcher());
-  m_programManager.Reset(new GpuProgramManager());
+  m_batcher.Reset(new dp::Batcher());
+  m_programManager.Reset(new dp::GpuProgramManager());
 
   ModelViewInit();
   ProjectionInit();
@@ -288,7 +287,7 @@ void TestingEngine::Draw()
     isInitialized = true;
   }
 
-  OGLContext * context = m_contextFactory->getDrawContext();
+  dp::OGLContext * context = m_contextFactory->getDrawContext();
   context->setDefaultFramebuffer();
 
   m_viewport.Apply();
@@ -298,15 +297,15 @@ void TestingEngine::Draw()
   TScene::iterator it = m_scene.begin();
   for(; it != m_scene.end(); ++it)
   {
-    GLState const & state = it->first;
-    RefPointer<GpuProgram> prg = m_programManager->GetProgram(state.GetProgramIndex());
+    dp::GLState const & state = it->first;
+    dp::RefPointer<dp::GpuProgram> prg = m_programManager->GetProgram(state.GetProgramIndex());
     prg->Bind();
-    TextureSetBinder binder(m_textures.GetRefPointer());
-    ApplyState(state, prg, MakeStackRefPointer<TextureSetController>(&binder));
+    dp::TextureSetBinder binder(m_textures.GetRefPointer());
+    ApplyState(state, prg, dp::MakeStackRefPointer<dp::TextureSetController>(&binder));
     ApplyUniforms(m_generalUniforms, prg);
 
-    vector<MasterPointer<RenderBucket> > & buckets = it->second;
-    OverlayTree tree;
+    vector<dp::MasterPointer<dp::RenderBucket> > & buckets = it->second;
+    dp::OverlayTree tree;
     tree.StartOverlayPlacing(m_modelView, true);
     for (size_t i = 0; i < buckets.size(); ++i)
       buckets[i]->CollectOverlayHandles(MakeStackRefPointer(&tree));
@@ -362,14 +361,14 @@ void TestingEngine::DrawImpl()
   DeleteRange(shapes, DeleteFunctor());
 
   FontDecl fd;
-  fd.m_color = Color(200, 80, 240, 255);
+  fd.m_color = dp::Color(200, 80, 240, 255);
   fd.m_needOutline = true;
-  fd.m_outlineColor = Color(255, 255, 255, 255);
+  fd.m_outlineColor = dp::Color(255, 255, 255, 255);
   fd.m_size = 60.0f;
   FontDecl auxFd;
-  auxFd.m_color = Color(0, 80, 240, 255);
+  auxFd.m_color = dp::Color(0, 80, 240, 255);
   auxFd.m_needOutline = false;
-  auxFd.m_outlineColor = Color(0, 255, 0, 255);
+  auxFd.m_outlineColor = dp::Color(0, 255, 0, 255);
   auxFd.m_size = 20.0f;
 
   TextViewParams params;
@@ -417,8 +416,8 @@ void TestingEngine::DrawImpl()
   PathSymbolViewParams params4;
   params4.m_featureID = FeatureID(23, 78);
   params4.m_depth = 30.0f;
-  params4.m_Offset = 40.0f;
-  params4.m_OffsetStart = 0.0f;
+  params4.m_step = 40.0f;
+  params4.m_offset = 0.0f;
   params4.m_symbolName = "arrow";
   PathSymbolShape sh4(path, params4, 10);
   sh4.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
@@ -468,9 +467,9 @@ void TestingEngine::ProjectionInit()
   m_generalUniforms.SetMatrix4x4Value("projection", m);
 }
 
-void TestingEngine::OnFlushData(GLState const & state, TransferPointer<RenderBucket> vao)
+void TestingEngine::OnFlushData(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> vao)
 {
-  MasterPointer<RenderBucket> bucket(vao);
+  dp::MasterPointer<dp::RenderBucket> bucket(vao);
   bucket->GetBuffer()->Build(m_programManager->GetProgram(state.GetProgramIndex()));
   m_scene[state].push_back(bucket);
 }
@@ -479,7 +478,7 @@ void TestingEngine::ClearScene()
 {
   TScene::iterator it = m_scene.begin();
   for(; it != m_scene.end(); ++it)
-    DeleteRange(it->second, MasterPointerDeleter());
+    DeleteRange(it->second, dp::MasterPointerDeleter());
 }
 
 } // namespace df

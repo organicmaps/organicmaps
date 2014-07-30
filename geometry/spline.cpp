@@ -31,6 +31,12 @@ Spline const & Spline::operator = (Spline const & spl)
   return *this;
 }
 
+Spline::iterator::iterator()
+  : m_checker(false)
+  , m_spl(NULL)
+  , m_index(0)
+  , m_dist(0) {}
+
 void Spline::iterator::Attach(Spline const & S)
 {
   m_spl = &S;

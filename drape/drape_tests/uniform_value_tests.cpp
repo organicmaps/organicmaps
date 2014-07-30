@@ -17,6 +17,7 @@ using ::testing::AnyOf;
 using ::testing::IgnoreResult;
 using ::testing::Invoke;
 using ::testing::InSequence;
+using namespace dp;
 
 namespace
 {

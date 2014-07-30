@@ -7,6 +7,9 @@
 
 #include "../std/kdtree.hpp"
 
+namespace dp
+{
+
 class OverlayTree
 {
 public:
@@ -59,3 +62,5 @@ private:
     find_result_t & m_intersections;
   };
 };
+
+} // namespace dp

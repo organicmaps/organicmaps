@@ -3,6 +3,9 @@
 #include "../std/string.hpp"
 #include "../std/stdint.hpp"
 
+namespace dp
+{
+
 class Shader
 {
 public:
@@ -22,3 +25,5 @@ private:
   Type m_type;
   uint32_t m_glID;
 };
+
+} // namespace dp

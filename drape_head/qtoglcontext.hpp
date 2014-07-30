@@ -5,7 +5,7 @@
 #include <QtGui/QWindow>
 #include <QtGui/QOpenGLContext>
 
-class QtOGLContext: public OGLContext
+class QtOGLContext: public dp::OGLContext
 {
 public:
   QtOGLContext(QWindow * surface, QtOGLContext * contextToShareWith);

@@ -18,9 +18,9 @@
 namespace df
 {
 
-BackendRenderer::BackendRenderer(RefPointer<ThreadsCommutator> commutator,
-                                 RefPointer<OGLContextFactory> oglcontextfactory,
-                                 RefPointer<TextureSetHolder> textureHolder)
+BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
+                                 dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
+                                 dp::RefPointer<dp::TextureSetHolder> textureHolder)
   : m_engineContext(commutator)
   , m_commutator(commutator)
   , m_contextFactory(oglcontextfactory)
@@ -50,7 +50,7 @@ BackendRenderer::~BackendRenderer()
 /////////////////////////////////////////
 //           MessageAcceptor           //
 /////////////////////////////////////////
-void BackendRenderer::AcceptMessage(RefPointer<Message> message)
+void BackendRenderer::AcceptMessage(dp::RefPointer<Message> message)
 {
   switch (message->GetType())
   {
@@ -77,8 +77,8 @@ void BackendRenderer::AcceptMessage(RefPointer<Message> message)
   case Message::MapShapeReaded:
     {
       MapShapeReadedMessage * msg = df::CastMessage<MapShapeReadedMessage>(message);
-      RefPointer<Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
-      MasterPointer<MapShape> shape(msg->GetShape());
+      dp::RefPointer<dp::Batcher> batcher = m_batchersPool->GetTileBatcher(msg->GetKey());
+      dp::MasterPointer<MapShape> shape(msg->GetShape());
       shape->Draw(batcher, m_textures);
 
       shape.Destroy();
@@ -125,7 +125,7 @@ void BackendRenderer::ReleaseResources()
   m_batchersPool.Destroy();
 
   m_textures->Release();
-  m_textures = RefPointer<TextureSetHolder>();
+  m_textures = dp::RefPointer<dp::TextureSetHolder>();
 }
 
 void BackendRenderer::Do()
@@ -138,7 +138,7 @@ void BackendRenderer::InitGLDependentResource()
   m_textures->Init(VisualParams::Instance().GetResourcePostfix());
 }
 
-void BackendRenderer::PostToRenderThreads(TransferPointer<Message> message)
+void BackendRenderer::PostToRenderThreads(dp::TransferPointer<Message> message)
 {
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, message);
 }

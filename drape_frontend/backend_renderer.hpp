@@ -10,8 +10,13 @@
 
 #include "../base/thread.hpp"
 
+namespace dp
+{
+
 class OGLContextFactory;
 class TextureSetHolder;
+
+}
 
 namespace df
 {
@@ -25,23 +30,23 @@ class BackendRenderer : public MessageAcceptor,
                         public threads::IRoutine
 {
 public:
-  BackendRenderer(RefPointer<ThreadsCommutator> commutator,
-                  RefPointer<OGLContextFactory> oglcontextfactory,
-                  RefPointer<TextureSetHolder> textureHolder);
+  BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
+                  dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
+                  dp::RefPointer<dp::TextureSetHolder> textureHolder);
 
   ~BackendRenderer();
 
 private:
   model::FeaturesFetcher m_model;
   EngineContext m_engineContext;
-  MasterPointer<BatchersPool> m_batchersPool;
-  MasterPointer<ReadManager>  m_readManager;
+  dp::MasterPointer<BatchersPool> m_batchersPool;
+  dp::MasterPointer<ReadManager>  m_readManager;
 
   /////////////////////////////////////////
   //           MessageAcceptor           //
   /////////////////////////////////////////
 private:
-  void AcceptMessage(RefPointer<Message> message);
+  void AcceptMessage(dp::RefPointer<Message> message);
 
     /////////////////////////////////////////
     //             ThreadPart              //
@@ -54,13 +59,13 @@ private:
   virtual void Do();
 
   void InitGLDependentResource();
-  void PostToRenderThreads(TransferPointer<Message> message);
+  void PostToRenderThreads(dp::TransferPointer<Message> message);
 
 private:
   threads::Thread m_selfThread;
-  RefPointer<ThreadsCommutator> m_commutator;
-  RefPointer<OGLContextFactory> m_contextFactory;
-  RefPointer<TextureSetHolder> m_textures;
+  dp::RefPointer<ThreadsCommutator> m_commutator;
+  dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
+  dp::RefPointer<dp::TextureSetHolder> m_textures;
 };
 
 } // namespace df

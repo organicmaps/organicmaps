@@ -6,6 +6,9 @@
 #include "../std/string.hpp"
 #include "../std/function.hpp"
 
+namespace dp
+{
+
 class UniformValuesStorage
 {
 public:
@@ -33,3 +36,5 @@ private:
   typedef vector<UniformValue> uniforms_t;
   uniforms_t m_uniforms;
 };
+
+} // namespace dp

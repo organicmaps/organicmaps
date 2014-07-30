@@ -2,6 +2,9 @@
 
 #include "font_texture.hpp"
 
+namespace dp
+{
+
 TextureSetHolder::TextureNode::TextureNode()
   : m_width(-1)
   , m_height(-1)
@@ -67,3 +70,5 @@ void TextureSetHolder::GlyphRegion::GetMetrics(float & xOffset, float & yOffset,
   FontTexture::GlyphInfo const * info = static_cast<FontTexture::GlyphInfo const *>(m_info);
   info->GetMetrics(xOffset, yOffset, advance);
 }
+
+} // namespace dp

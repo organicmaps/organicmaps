@@ -7,6 +7,9 @@
 
 #define ASSERT_ID ASSERT(GetID() != -1, ())
 
+namespace dp
+{
+
 Texture::ResourceInfo::ResourceInfo(m2::RectF const & texRect)
   : m_texRect(texRect) {}
 
@@ -144,3 +147,5 @@ int32_t Texture::GetID() const
 {
   return m_textureID;
 }
+
+} // namespace dp

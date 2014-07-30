@@ -10,14 +10,14 @@ namespace df
 namespace
 {
 
-RenderBucket * NonConstGetter(MasterPointer<RenderBucket> & p)
+dp::RenderBucket * NonConstGetter(dp::MasterPointer<dp::RenderBucket> & p)
 {
   return p.GetRaw();
 }
 
 } /// namespace
 
-RenderGroup::RenderGroup(GLState const & state, df::TileKey const & tileKey)
+RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
   : m_state(state)
   , m_tileKey(tileKey)
   , m_pendingOnDelete(false)
@@ -26,12 +26,12 @@ RenderGroup::RenderGroup(GLState const & state, df::TileKey const & tileKey)
 
 RenderGroup::~RenderGroup()
 {
-  (void)GetRangeDeletor(m_renderBuckets, MasterPointerDeleter())();
+  DeleteRange(m_renderBuckets, dp::MasterPointerDeleter());
 }
 
-void RenderGroup::CollectOverlay(RefPointer<OverlayTree> tree)
+void RenderGroup::CollectOverlay(dp::RefPointer<dp::OverlayTree> tree)
 {
-  for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&RenderBucket::CollectOverlayHandles,
+  for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::CollectOverlayHandles,
                                                                 bind(&NonConstGetter, _1),
                                                                 tree));
 }
@@ -39,7 +39,7 @@ void RenderGroup::CollectOverlay(RefPointer<OverlayTree> tree)
 void RenderGroup::Render()
 {
   ASSERT(m_pendingOnDelete == false, ());
-  for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&RenderBucket::Render,
+  for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::Render,
                                                                 bind(&NonConstGetter, _1)));
 }
 
@@ -48,9 +48,9 @@ void RenderGroup::PrepareForAdd(size_t countForAdd)
   m_renderBuckets.reserve(m_renderBuckets.size() + countForAdd);
 }
 
-void RenderGroup::AddBucket(TransferPointer<RenderBucket> bucket)
+void RenderGroup::AddBucket(dp::TransferPointer<dp::RenderBucket> bucket)
 {
-  m_renderBuckets.push_back(MasterPointer<RenderBucket>(bucket));
+  m_renderBuckets.push_back(dp::MasterPointer<dp::RenderBucket>(bucket));
 }
 
 bool RenderGroup::IsLess(RenderGroup const & other) const
@@ -73,8 +73,8 @@ void RenderBucketComparator::ResetInternalState()
 
 bool RenderBucketComparator::operator()(RenderGroup const * l, RenderGroup const * r)
 {
-  GLState const & lState = l->GetState();
-  GLState const & rState = r->GetState();
+  dp::GLState const & lState = l->GetState();
+  dp::GLState const & rState = r->GetState();
 
   TileKey const & lKey = l->GetTileKey();
   TileKey const & rKey = r->GetTileKey();

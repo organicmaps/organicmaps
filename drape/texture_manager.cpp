@@ -12,6 +12,9 @@
 
 #include "../std/vector.hpp"
 
+namespace dp
+{
+
 class TextureManager::TextureSet
 {
 public:
@@ -168,3 +171,5 @@ uint32_t TextureSetBinder::GetTextureCount(uint32_t textureSet) const
 {
   return m_manager->GetTextureCount(textureSet);
 }
+
+} // namespace dp

@@ -317,8 +317,7 @@ void * GLFunctions::glMapBuffer(glConst target)
 void GLFunctions::glUnmapBuffer(glConst target)
 {
   ASSERT(glUnmapBufferFn != NULL, ());
-  GLboolean result = glUnmapBufferFn(target);
-  ASSERT(result == GL_TRUE, ());
+  VERIFY(glUnmapBufferFn(target) == GL_TRUE, ());
   GLCHECKCALL();
 }
 

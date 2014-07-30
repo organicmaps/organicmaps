@@ -7,8 +7,8 @@ namespace df
 
 void MessageAcceptor::ProcessSingleMessage(unsigned maxTimeWait)
 {
-  TransferPointer<Message> transferMessage = m_messageQueue.PopMessage(maxTimeWait);
-  MasterPointer<Message> message(transferMessage);
+  dp::TransferPointer<Message> transferMessage = m_messageQueue.PopMessage(maxTimeWait);
+  dp::MasterPointer<Message> message(transferMessage);
   if (message.IsNull())
     return;
 
@@ -16,7 +16,7 @@ void MessageAcceptor::ProcessSingleMessage(unsigned maxTimeWait)
   message.Destroy();
 }
 
-void MessageAcceptor::PostMessage(TransferPointer<Message> message)
+void MessageAcceptor::PostMessage(dp::TransferPointer<Message> message)
 {
   m_messageQueue.PushMessage(message);
 }

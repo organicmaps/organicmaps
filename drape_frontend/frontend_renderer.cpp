@@ -39,14 +39,14 @@ void OrthoMatrix(float * m, float left, float right, float bottom, float top, fl
 
 } // namespace
 
-FrontendRenderer::FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
-                                   RefPointer<OGLContextFactory> oglcontextfactory,
-                                   TransferPointer<TextureSetController> textureController,
+FrontendRenderer::FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
+                                   dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
+                                   dp::TransferPointer<dp::TextureSetController> textureController,
                                    Viewport viewport)
   : m_commutator(commutator)
   , m_contextFactory(oglcontextfactory)
   , m_textureController(textureController)
-  , m_gpuProgramManager(new GpuProgramManager())
+  , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_viewport(viewport)
 {
 #ifdef DRAW_INFO
@@ -93,17 +93,17 @@ void FrontendRenderer::AfterDrawFrame()
 }
 #endif
 
-void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
+void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
 {
   switch (message->GetType())
   {
   case Message::FlushTile:
     {
       FlushRenderBucketMessage * msg = df::CastMessage<FlushRenderBucketMessage>(message);
-      const GLState & state = msg->GetState();
-      const TileKey & key = msg->GetKey();
-      MasterPointer<RenderBucket> bucket(msg->AcceptBuffer());
-      RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+      dp::GLState const & state = msg->GetState();
+      TileKey const & key = msg->GetKey();
+      dp::MasterPointer<dp::RenderBucket> bucket(msg->AcceptBuffer());
+      dp::RefPointer<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
       program->Bind();
       bucket->GetBuffer()->Build(program);
       RenderGroup * group = new RenderGroup(state, key);
@@ -121,7 +121,7 @@ void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
       RefreshModelView();
       ResolveTileKeys();
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
+                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
       break;
     }
 
@@ -132,7 +132,7 @@ void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
       RefreshModelView();
       ResolveTileKeys();
       m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
+                                dp::MovePointer<Message>(new UpdateReadManagerMessage(m_view, m_tiles)));
       break;
     }
 
@@ -145,7 +145,7 @@ void FrontendRenderer::AcceptMessage(RefPointer<Message> message)
       InvalidateRenderGroups(keyStorage);
 
       Message * msgToBackend = new InvalidateReadManagerRectMessage(keyStorage);
-      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, MovePointer(msgToBackend));
+      m_commutator->PostMessage(ThreadsCommutator::ResourceUploadThread, dp::MovePointer(msgToBackend));
       break;
     }
 
@@ -177,8 +177,8 @@ void FrontendRenderer::RenderScene()
       continue;
     }
 
-    if (m_renderGroups[i]->GetState().GetDepthLayer() == GLState::OverlayLayer)
-      m_renderGroups[i]->CollectOverlay(MakeStackRefPointer(&m_overlayTree));
+    if (m_renderGroups[i]->GetState().GetDepthLayer() == dp::GLState::OverlayLayer)
+      m_renderGroups[i]->CollectOverlay(dp::MakeStackRefPointer(&m_overlayTree));
   }
   m_overlayTree.EndOverlayPlacing();
   m_renderGroups.resize(m_renderGroups.size() - eraseCount);
@@ -196,8 +196,8 @@ void FrontendRenderer::RenderScene()
   for (size_t i = 0; i < m_renderGroups.size(); ++i)
   {
     RenderGroup * group = m_renderGroups[i];
-    GLState const & state = group->GetState();
-    RefPointer<GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
+    dp::GLState const & state = group->GetState();
+    dp::RefPointer<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
     program->Bind();
     ApplyUniforms(m_generalUniforms, program);
     ApplyState(state, program, m_textureController.GetRefPointer());
@@ -293,7 +293,7 @@ void FrontendRenderer::StopThread()
 
 void FrontendRenderer::ThreadMain()
 {
-  OGLContext * context = m_contextFactory->getDrawContext();
+  dp::OGLContext * context = m_contextFactory->getDrawContext();
   context->makeCurrent();
 
   my::Timer timer;

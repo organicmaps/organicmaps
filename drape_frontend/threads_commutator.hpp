@@ -19,7 +19,7 @@ public:
   };
 
   void RegisterThread(ThreadName name, MessageAcceptor *acceptor);
-  void PostMessage(ThreadName name, TransferPointer<Message> message);
+  void PostMessage(ThreadName name, dp::TransferPointer<Message> message);
 
 private:
   typedef map<ThreadName, MessageAcceptor *> acceptors_map_t;

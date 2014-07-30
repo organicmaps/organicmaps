@@ -2,6 +2,9 @@
 
 #include "gpu_buffer.hpp"
 
+namespace dp
+{
+
 class IndexBuffer : public GPUBuffer
 {
 public:
@@ -12,3 +15,5 @@ public:
   /// resize buffer to new size, and discard old data
   void UpdateData(uint16_t const * data, uint16_t size);
 };
+
+} // namespace dp

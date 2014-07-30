@@ -5,6 +5,9 @@
 #include "../base/stl_add.hpp"
 #include "../base/assert.hpp"
 
+namespace dp
+{
+
 VertexArrayBuffer::VertexArrayBuffer(uint32_t indexBufferSize, uint32_t dataBufferSize)
   : m_VAO(0)
   , m_dataBufferSize(dataBufferSize)
@@ -236,3 +239,5 @@ void VertexArrayBuffer::BindBuffers(TBuffersMap const & buffers) const
     }
   }
 }
+
+} // namespace dp

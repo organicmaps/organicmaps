@@ -2,6 +2,9 @@
 
 #include "../std/bind.hpp"
 
+namespace dp
+{
+
 void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, bool canOverlap)
 {
   m_modelView = screen;
@@ -104,3 +107,5 @@ void OverlayTree::FindIntersectedFunctor::operator()(OverlayTree::Node const & n
   if (isIntersect)
     m_intersections.push_back(&node);
 }
+
+} // namespace dp

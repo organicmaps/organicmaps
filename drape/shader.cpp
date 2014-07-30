@@ -3,6 +3,9 @@
 
 #include "../base/assert.hpp"
 
+namespace dp
+{
+
 namespace
 {
 
@@ -37,3 +40,5 @@ int Shader::GetID() const
 {
   return m_glID;
 }
+
+} // namespace dp

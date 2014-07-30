@@ -24,6 +24,7 @@ using testing::InSequence;
 using testing::Invoke;
 using testing::IgnoreResult;
 using testing::AnyOf;
+using namespace dp;
 
 namespace
 {

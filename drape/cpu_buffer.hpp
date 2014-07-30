@@ -5,6 +5,9 @@
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 
+namespace dp
+{
+
 class CPUBuffer : public BufferBase
 {
   typedef BufferBase base_t;
@@ -28,3 +31,5 @@ private:
   unsigned char * m_memoryCursor;
   shared_ptr<vector<unsigned char> > m_memory;
 };
+
+} //namespace dp

@@ -6,6 +6,9 @@
 #include "../std/stdint.hpp"
 #include "../std/map.hpp"
 
+namespace dp
+{
+
 struct MutateRegion
 {
   MutateRegion() : m_offset(0), m_count(0) {}
@@ -35,3 +38,5 @@ private:
 private:
   TMutateData m_data;
 };
+
+} // namespace dp

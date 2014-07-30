@@ -1,5 +1,8 @@
 #include "color.hpp"
 
+namespace dp
+{
+
 namespace
 {
 
@@ -86,3 +89,30 @@ void Convert(Color const & c, float & r, float & g, float & b, float & a)
   b = c.m_blue / (float)MaxChannelValue;
   a = c.m_alfa / (float)MaxChannelValue;
 }
+
+ColorF::ColorF(Color const & clr)
+{
+  Convert(clr, m_r, m_g, m_b, m_a);
+}
+
+bool ColorF::operator< (ColorF const & other) const
+{
+  if (other.m_r != m_r)
+    return m_r < other.m_r;
+  if (other.m_g != m_g)
+    return m_g < other.m_g;
+  if (other.m_b != m_b)
+    return m_b < other.m_b;
+
+  return m_a < other.m_a;
+}
+
+bool ColorF::operator== (ColorF const & other) const
+{
+  return m_r == other.m_r &&
+         m_g == other.m_g &&
+         m_b == other.m_b &&
+         m_a == other.m_a;
+}
+
+} // namespace dp

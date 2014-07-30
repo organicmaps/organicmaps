@@ -7,6 +7,9 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
+namespace dp
+{
+
 class TextureSetHolder
 {
 public:
@@ -60,3 +63,5 @@ public:
   virtual bool GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const = 0;
   virtual int GetMaxTextureSet() const = 0;
 };
+
+} // namespace dp

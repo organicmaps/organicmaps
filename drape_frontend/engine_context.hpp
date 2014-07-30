@@ -16,19 +16,19 @@ struct TileKey;
 class EngineContext
 {
 public:
-  EngineContext(RefPointer<ThreadsCommutator> commutator);
+  EngineContext(dp::RefPointer<ThreadsCommutator> commutator);
 
   void BeginReadTile(TileKey const & key);
   /// If you call this method, you may forget about shape.
   /// It will be proccessed and delete later
-  void InsertShape(TileKey const & key, TransferPointer<MapShape> shape);
+  void InsertShape(TileKey const & key, dp::TransferPointer<MapShape> shape);
   void EndReadTile(TileKey const & key);
 
 private:
   void PostMessage(Message * message);
 
 private:
-  RefPointer<ThreadsCommutator> m_commutator;
+  dp::RefPointer<ThreadsCommutator> m_commutator;
 };
 
 } // namespace df

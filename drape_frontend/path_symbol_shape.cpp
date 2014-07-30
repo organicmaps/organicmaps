@@ -16,7 +16,7 @@ using m2::Spline;
 using glsl_types::vec2;
 using glsl_types::vec4;
 
-class PathSymbolHandle : public OverlayHandle
+class PathSymbolHandle : public dp::OverlayHandle
 {
 public:
   static const uint8_t PositionAttributeID = 1;
@@ -62,16 +62,18 @@ public:
       itr.Step(m_params.m_step * m_scaleFactor);
     }
   }
+
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const
   {
     return m2::RectD(0, 0, 0, 0);
   }
-  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
+
+  virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const
   {
     TOffsetNode const & node = GetOffsetNode(PositionAttributeID);
-    MutateNode mutateNode;
+    dp::MutateNode mutateNode;
     mutateNode.m_region = node.second;
-    mutateNode.m_data = MakeStackRefPointer<void>(&m_positions[0]);
+    mutateNode.m_data = dp::MakeStackRefPointer<void>(&m_positions[0]);
     mutator->AddMutation(node.first, mutateNode);
   }
 
@@ -91,7 +93,7 @@ PathSymbolShape::PathSymbolShape(vector<PointF> const & path, PathSymbolViewPara
   m_path.FromArray(path);
 }
 
-void PathSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
+void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
   int maxCount = (m_path.GetLength() * m_maxScale - m_params.m_offset) / m_params.m_step + 1;
   if (maxCount <= 0)
@@ -101,12 +103,12 @@ void PathSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHol
   vector<vec2> positions(vertCnt, vec2(0.0f, 0.0f));
   vector<vec4> uvs(vertCnt);
   vec4 * tc = &uvs[0];
-  TextureSetHolder::SymbolRegion region;
+  dp::TextureSetHolder::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
 
-  GLState state(gpu::TEXTURING_PROGRAM, GLState::OverlayLayer);
+  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
   state.SetTextureSet(region.GetTextureNode().m_textureSet);
-  state.SetBlending(Blending(true));
+  state.SetBlending(dp::Blending(true));
 
   m2::RectF const & rect = region.GetTexRect();
   float textureNum = (float)region.GetTextureNode().m_textureOffset;
@@ -129,40 +131,40 @@ void PathSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHol
     tc++;
   }
 
-  AttributeProvider provider(3, vertCnt);
+  dp::AttributeProvider provider(3, vertCnt);
   {
-    BindingInfo position(1, PathSymbolHandle::PositionAttributeID);
-    BindingDecl & decl = position.GetBindingDecl(0);
+    dp::BindingInfo position(1, PathSymbolHandle::PositionAttributeID);
+    dp::BindingDecl & decl = position.GetBindingDecl(0);
     decl.m_attributeName = "a_position";
     decl.m_componentCount = 2;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(0, position, MakeStackRefPointer(&positions[0]));
+    provider.InitStream(0, position, dp::MakeStackRefPointer(&positions[0]));
   }
   {
-    BindingInfo normal(1);
-    BindingDecl & decl = normal.GetBindingDecl(0);
+    dp::BindingInfo normal(1);
+    dp::BindingDecl & decl = normal.GetBindingDecl(0);
     decl.m_attributeName = "a_normal";
     decl.m_componentCount = 2;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(1, normal, MakeStackRefPointer(&positions[0]));
+    provider.InitStream(1, normal, dp::MakeStackRefPointer(&positions[0]));
   }
   {
-    BindingInfo texcoord(1);
-    BindingDecl & decl = texcoord.GetBindingDecl(0);
+    dp::BindingInfo texcoord(1);
+    dp::BindingDecl & decl = texcoord.GetBindingDecl(0);
     decl.m_attributeName = "a_texCoords";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(2, texcoord, MakeStackRefPointer(&uvs[0]));
+    provider.InitStream(2, texcoord, dp::MakeStackRefPointer(&uvs[0]));
   }
 
-  OverlayHandle * handle = new PathSymbolHandle(m_path, m_params, maxCount, pixelSize.x / 2.0f, pixelSize.y / 2.0f);
-  batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
+  dp::OverlayHandle * handle = new PathSymbolHandle(m_path, m_params, maxCount, pixelSize.x / 2.0f, pixelSize.y / 2.0f);
+  batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle));
 }
 
 }

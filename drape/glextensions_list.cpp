@@ -5,6 +5,9 @@
 
 #include "../std/string.hpp"
 
+namespace dp
+{
+
 #ifdef DEBUG
   #include "../std/map.hpp"
 
@@ -85,3 +88,5 @@ bool GLExtensionsList::IsSupported(ExtensionName const & extName) const
 {
   return m_impl->IsSupported(extName);
 }
+
+} // namespace dp

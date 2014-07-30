@@ -20,7 +20,7 @@ namespace df
 class TestingEngine : public QObject
 {
 public:
-  TestingEngine(RefPointer<OGLContextFactory> oglcontextfactory, double vs, df::Viewport const & viewport);
+  TestingEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory, double vs, df::Viewport const & viewport);
   ~TestingEngine();
 
   void Draw();
@@ -39,21 +39,21 @@ private:
   void DrawImpl();
   void ModelViewInit();
   void ProjectionInit();
-  void OnFlushData(GLState const & state, TransferPointer<RenderBucket> vao);
+  void OnFlushData(dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> vao);
   void ClearScene();
 
 private:
-  RefPointer<OGLContextFactory> m_contextFactory;
-  MasterPointer<Batcher> m_batcher;
-  MasterPointer<GpuProgramManager> m_programManager;
-  MasterPointer<TextureManager> m_textures;
+  dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
+  dp::MasterPointer<dp::Batcher> m_batcher;
+  dp::MasterPointer<dp::GpuProgramManager> m_programManager;
+  dp::MasterPointer<dp::TextureManager> m_textures;
   df::Viewport m_viewport;
 
-  typedef map<GLState, vector<MasterPointer<RenderBucket> > > TScene;
+  typedef map<dp::GLState, vector<dp::MasterPointer<dp::RenderBucket> > > TScene;
   TScene m_scene;
   ScreenBase m_modelView;
 
-  UniformValuesStorage m_generalUniforms;
+  dp::UniformValuesStorage m_generalUniforms;
 };
 
 } // namespace df

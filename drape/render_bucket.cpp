@@ -8,6 +8,9 @@
 #include "../base/stl_add.hpp"
 #include "../std/bind.hpp"
 
+namespace dp
+{
+
 RenderBucket::RenderBucket(TransferPointer<VertexArrayBuffer> buffer)
   : m_buffer(buffer)
 {
@@ -67,3 +70,5 @@ void RenderBucket::Render()
   }
   m_buffer->Render();
 }
+
+} // namespace dp

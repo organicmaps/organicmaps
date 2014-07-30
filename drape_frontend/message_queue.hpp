@@ -17,8 +17,8 @@ public:
   ~MessageQueue();
 
   /// if queue is empty than return NULL
-  TransferPointer<Message> PopMessage(unsigned maxTimeWait);
-  void PushMessage(TransferPointer<Message> message);
+  dp::TransferPointer<Message> PopMessage(unsigned maxTimeWait);
+  void PushMessage(dp::TransferPointer<Message> message);
   void CancelWait();
   void ClearQuery();
 
@@ -27,7 +27,7 @@ private:
 
 private:
   threads::Condition m_condition;
-  list<MasterPointer<Message> > m_messages;
+  list<dp::MasterPointer<Message> > m_messages;
 };
 
 } // namespace df

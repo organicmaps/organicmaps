@@ -1,5 +1,7 @@
 #include "oglcontextfactory.hpp"
 
+namespace dp
+{
 
 ThreadSafeFactory::ThreadSafeFactory(OGLContextFactory * factory)
   : m_factory(factory)
@@ -22,3 +24,5 @@ OGLContext *ThreadSafeFactory::getResourcesUploadContext()
   threads::MutexGuard lock(m_mutex);
   return m_factory->getResourcesUploadContext();
 }
+
+} // namespace dp

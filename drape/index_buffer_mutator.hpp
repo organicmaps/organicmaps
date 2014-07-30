@@ -2,6 +2,9 @@
 
 #include "pointers.hpp"
 
+namespace dp
+{
+
 class VertexArrayBuffer;
 
 class IndexBufferMutator
@@ -20,3 +23,5 @@ private:
   vector<uint16_t> m_buffer;
   uint16_t m_activeSize;
 };
+
+} // namespace dp

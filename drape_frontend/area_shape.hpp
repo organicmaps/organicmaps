@@ -18,7 +18,7 @@ class AreaShape : public MapShape
 public:
   AreaShape(vector<m2::PointF> const & triangleList, AreaViewParams const & params);
 
-  virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const;
+  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> /*textures*/) const;
 
 private:
   vector<Point3D> m_vertexes;

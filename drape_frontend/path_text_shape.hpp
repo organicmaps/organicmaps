@@ -47,14 +47,14 @@ class PathTextShape : public MapShape
 {
 public:
   PathTextShape(vector<PointF> const & path, PathTextViewParams const & params);
-  virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const;
+  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
 
 private:
   PathTextViewParams m_params;
   m2::Spline m_path;
 };
 
-class PathTextHandle : public OverlayHandle
+class PathTextHandle : public dp::OverlayHandle
 {
 public:
   static const uint8_t DirectionAttributeID = 1;
@@ -66,7 +66,7 @@ public:
 
   virtual void Update(ScreenBase const & screen);
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const;
-  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const;
+  virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const;
 
 private:
   PathTextViewParams m_params;

@@ -2,6 +2,8 @@
 
 #include "../../drape/binding_info.hpp"
 
+using namespace dp;
+
 UNIT_TEST(BindingInfoIDTest)
 {
   {

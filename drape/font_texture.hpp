@@ -7,6 +7,9 @@
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
 
+namespace dp
+{
+
 class FontTexture : public Texture
 {
 public:
@@ -47,3 +50,5 @@ private:
 };
 
 void LoadFont(string const & resourcePrefix, vector<TransferPointer<Texture> > & textures);
+
+}

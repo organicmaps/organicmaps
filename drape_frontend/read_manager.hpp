@@ -46,7 +46,7 @@ private:
 
   model::FeaturesFetcher & m_model;
 
-  MasterPointer<threads::ThreadPool> m_pool;
+  dp::MasterPointer<threads::ThreadPool> m_pool;
 
   ScreenBase m_currentViewport;
 

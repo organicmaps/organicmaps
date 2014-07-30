@@ -2,6 +2,9 @@
 
 #include "../std/stdint.hpp"
 
+namespace dp
+{
+
 class BufferBase
 {
 public:
@@ -22,3 +25,5 @@ private:
   uint16_t m_capacity;
   uint16_t m_size;
 };
+
+} // namespace dp

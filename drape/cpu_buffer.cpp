@@ -6,6 +6,9 @@
 
 #include "../std/cstring.hpp"
 
+namespace dp
+{
+
 CPUBuffer::CPUBuffer(uint8_t elementSize, uint16_t capacity)
   : base_t(elementSize, capacity)
 {
@@ -61,3 +64,5 @@ unsigned char * CPUBuffer::GetCursor() const
 {
   return m_memoryCursor;
 }
+
+} // namespace dp

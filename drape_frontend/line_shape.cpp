@@ -146,7 +146,7 @@ LineShape::LineShape(vector<m2::PointF> const & points,
     m_points = points;
 }
 
-void LineShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const
+void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> /*textures*/) const
 {
   int size = m_points.size();
   float const r = 1.0f;
@@ -262,78 +262,78 @@ void LineShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /
     SetColor(outlineColor, clr2, i);
   }
 
-  GLState state(gpu::SOLID_LINE_PROGRAM, GLState::GeometryLayer);
-  AttributeProvider provider(6, 6*(size-1));
+  dp::GLState state(gpu::SOLID_LINE_PROGRAM, dp::GLState::GeometryLayer);
+  dp::AttributeProvider provider(6, 6*(size-1));
 
   {
-    BindingInfo pos_dir(1);
-    BindingDecl & decl = pos_dir.GetBindingDecl(0);
+    dp::BindingInfo pos_dir(1);
+    dp::BindingDecl & decl = pos_dir.GetBindingDecl(0);
     decl.m_attributeName = "position";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(0, pos_dir, MakeStackRefPointer((void*)&vertex2[0]));
+    provider.InitStream(0, pos_dir, dp::MakeStackRefPointer((void*)&vertex2[0]));
   }
   {
-    BindingInfo deltas(1);
-    BindingDecl & decl = deltas.GetBindingDecl(0);
+    dp::BindingInfo deltas(1);
+    dp::BindingDecl & decl = deltas.GetBindingDecl(0);
     decl.m_attributeName = "deltas";
     decl.m_componentCount = 3;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(1, deltas, MakeStackRefPointer((void*)&dxVals2[0]));
+    provider.InitStream(1, deltas, dp::MakeStackRefPointer((void*)&dxVals2[0]));
   }
   {
-    BindingInfo width_type(1);
-    BindingDecl & decl = width_type.GetBindingDecl(0);
+    dp::BindingInfo width_type(1);
+    dp::BindingDecl & decl = width_type.GetBindingDecl(0);
     decl.m_attributeName = "width_type";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(2, width_type, MakeStackRefPointer((void*)&widthType2[0]));
+    provider.InitStream(2, width_type, dp::MakeStackRefPointer((void*)&widthType2[0]));
   }
   {
-    BindingInfo centres(1);
-    BindingDecl & decl = centres.GetBindingDecl(0);
+    dp::BindingInfo centres(1);
+    dp::BindingDecl & decl = centres.GetBindingDecl(0);
     decl.m_attributeName = "centres";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(3, centres, MakeStackRefPointer((void*)&centers2[0]));
+    provider.InitStream(3, centres, dp::MakeStackRefPointer((void*)&centers2[0]));
   }
 
   {
-    BindingInfo clr1(1);
-    BindingDecl & decl = clr1.GetBindingDecl(0);
+    dp::BindingInfo clr1(1);
+    dp::BindingDecl & decl = clr1.GetBindingDecl(0);
     decl.m_attributeName = "color1";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(4, clr1, MakeStackRefPointer((void*)&baseColor[0]));
+    provider.InitStream(4, clr1, dp::MakeStackRefPointer((void*)&baseColor[0]));
   }
 
   {
-    BindingInfo clr2(1);
-    BindingDecl & decl = clr2.GetBindingDecl(0);
+    dp::BindingInfo clr2(1);
+    dp::BindingDecl & decl = clr2.GetBindingDecl(0);
     decl.m_attributeName = "color2";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(5, clr2, MakeStackRefPointer((void*)&outlineColor[0]));
+    provider.InitStream(5, clr2, dp::MakeStackRefPointer((void*)&outlineColor[0]));
   }
 
-  batcher->InsertTriangleList(state, MakeStackRefPointer(&provider));
+  batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider));
 }
 
 } // namespace df

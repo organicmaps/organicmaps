@@ -7,6 +7,9 @@
 #include "../std/map.hpp"
 #include "../std/noncopyable.hpp"
 
+namespace dp
+{
+
 class GpuProgramManager : public noncopyable
 {
 public:
@@ -23,3 +26,5 @@ private:
   program_map_t m_programs;
   shader_map_t m_shaders;
 };
+
+} // namespace dp

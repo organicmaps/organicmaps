@@ -8,6 +8,9 @@
 
 #include "../base/string_utils.hpp"
 
+namespace dp
+{
+
 class SymbolsTexture::DefinitionLoader
 {
 public:
@@ -176,3 +179,5 @@ void SymbolsTexture::Fail()
   int32_t alfaTexture = 0;
   Create(1, 1, Texture::RGBA8, MakeStackRefPointer(&alfaTexture));
 }
+
+} // namespace dp

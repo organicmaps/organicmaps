@@ -2,6 +2,9 @@
 
 #include "../base/macros.hpp"
 
+namespace dp
+{
+
 struct OverlayHandle::OffsetNodeFinder
 {
 public:
@@ -117,3 +120,5 @@ m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen) const
   result.Offset(offset);
   return result;
 }
+
+} // namespace dp

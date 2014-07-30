@@ -3,6 +3,9 @@
 #include "../base/assert.hpp"
 #include "../std/cstring.hpp"
 
+namespace dp
+{
+
 namespace
 {
 
@@ -287,3 +290,5 @@ void UniformValue::Allocate(size_t byteCount)
 {
   m_values.reset(new uint8_t[byteCount]);
 }
+
+} // namespace dp

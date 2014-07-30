@@ -4,6 +4,9 @@
 
 #include "../base/mutex.hpp"
 
+namespace dp
+{
+
 class OGLContextFactory
 {
 public:
@@ -24,3 +27,5 @@ private:
   OGLContextFactory * m_factory;
   threads::Mutex m_mutex;
 };
+
+} // namespace dp

@@ -10,6 +10,9 @@
 
 #include "../std/map.hpp"
 
+namespace dp
+{
+
 class VertexArrayBuffer
 {
   typedef map<BindingInfo, MasterPointer<DataBuffer> > TBuffersMap;
@@ -59,3 +62,5 @@ private:
 
   RefPointer<GpuProgram> m_program;
 };
+
+} // namespace dp

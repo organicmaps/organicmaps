@@ -14,7 +14,7 @@ QtOGLContextFactory::~QtOGLContextFactory()
   delete m_uploadContext;
 }
 
-OGLContext * QtOGLContextFactory::getDrawContext()
+dp::OGLContext * QtOGLContextFactory::getDrawContext()
 {
   if (m_drawContext == NULL)
     m_drawContext = new QtOGLContext(m_surface, m_uploadContext);
@@ -22,7 +22,7 @@ OGLContext * QtOGLContextFactory::getDrawContext()
   return m_drawContext;
 }
 
-OGLContext * QtOGLContextFactory::getResourcesUploadContext()
+dp::OGLContext * QtOGLContextFactory::getResourcesUploadContext()
 {
   if (m_uploadContext == NULL)
     m_uploadContext = new QtOGLContext(m_surface, m_drawContext);

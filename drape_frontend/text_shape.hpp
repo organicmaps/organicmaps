@@ -12,11 +12,13 @@ class TextShape : public MapShape
 public:
   TextShape(m2::PointF const & basePoint, TextViewParams const & params);
 
-  virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const;
+  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
 
 private:
-  void AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bool auxText, float maxTextLength, m2::PointF const & anchorDelta,
-                                RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const;
+  void AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bool auxText,
+                                        float maxTextLength, m2::PointF const & anchorDelta,
+                                        dp::RefPointer<dp::Batcher> batcher,
+                                        dp::RefPointer<dp::TextureSetHolder> textures) const;
 
 private:
   m2::PointF m_basePoint;

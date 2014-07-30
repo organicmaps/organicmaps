@@ -37,8 +37,8 @@ void DrapeSurface::exposeEvent(QExposeEvent *e)
   {
     if (m_contextFactory.IsNull())
     {
-      ThreadSafeFactory * factory = new ThreadSafeFactory(new QtOGLContextFactory(this));
-      m_contextFactory = MasterPointer<OGLContextFactory>(factory);
+      dp::ThreadSafeFactory * factory = new dp::ThreadSafeFactory(new QtOGLContextFactory(this));
+      m_contextFactory = dp::MasterPointer<dp::OGLContextFactory>(factory);
       CreateEngine();
     }
   }
@@ -95,11 +95,11 @@ void DrapeSurface::wheelEvent(QWheelEvent * e)
 
 void DrapeSurface::CreateEngine()
 {
-  RefPointer<OGLContextFactory> f(m_contextFactory.GetRefPointer());
+  dp::RefPointer<dp::OGLContextFactory> f(m_contextFactory.GetRefPointer());
 
   float pixelRatio = devicePixelRatio();
 
-  m_drapeEngine = MasterPointer<df::DrapeEngine>(
+  m_drapeEngine = dp::MasterPointer<df::DrapeEngine>(
                     new df::DrapeEngine(f , pixelRatio, df::Viewport(pixelRatio, 0, 0, width(), height())));
 }
 

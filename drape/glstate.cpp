@@ -7,6 +7,9 @@
 #define COLOR_BIT     0x1
 #define TEXTURE_BIT   0x2
 
+namespace dp
+{
+
 Blending::Blending(bool isEnabled)
   : m_isEnabled(isEnabled)
   , m_blendFunction(gl_const::GLAddBlend)
@@ -129,7 +132,7 @@ void ApplyState(GLState state, RefPointer<GpuProgram> program,
   {
     int8_t location = program->GetUniformLocation("u_color");
     float c[4];
-    ::Convert(state.GetColor(), c[0], c[1], c[2], c[3]);
+    Convert(state.GetColor(), c[0], c[1], c[2], c[3]);
     GLFunctions::glUniformValuef(location, c[0], c[1], c[2], c[3]);
   }
 
@@ -147,4 +150,6 @@ void ApplyState(GLState state, RefPointer<GpuProgram> program,
   }
 
   state.GetBlending().Apply();
+}
+
 }

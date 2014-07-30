@@ -42,6 +42,6 @@ private:
   bool m_dragState;
 
 private:
-  MasterPointer<OGLContextFactory> m_contextFactory;
-  MasterPointer<df::DrapeEngine>   m_drapeEngine;
+  dp::MasterPointer<dp::OGLContextFactory> m_contextFactory;
+  dp::MasterPointer<df::DrapeEngine>   m_drapeEngine;
 };

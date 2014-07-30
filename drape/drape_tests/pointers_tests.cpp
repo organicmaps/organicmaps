@@ -15,6 +15,7 @@ using ::testing::MatchResultListener;
 using ::testing::Matcher;
 
 using my::SrcPoint;
+using namespace dp;
 
 namespace
 {
@@ -48,6 +49,7 @@ void MyOnAssertFailed(SrcPoint const & src, string const & msg)
   g_asserter->Assert(src, msg);
 }
 
+#if defined(CHECK_POINTERS)
 MockAssertExpector * InitAsserter()
 {
   if (g_asserter != NULL)
@@ -66,6 +68,7 @@ void DestroyAsserter()
   delete g_asserter;
   g_asserter = NULL;
 }
+#endif
 
 SrcPoint ConstructSrcPoint(char const * fileName, char const * function)
 {

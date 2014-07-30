@@ -11,6 +11,8 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
+namespace dp
+{
 
 class OverlayHandle
 {
@@ -78,3 +80,5 @@ private:
   m2::PointD m_gbPivot;
   m2::PointD m_pxHalfSize;
 };
+
+} // namespace dp

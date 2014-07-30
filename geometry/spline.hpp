@@ -16,9 +16,7 @@ public:
     PointF m_pos;
     PointF m_dir;
     PointF m_avrDir;
-    iterator()
-      : m_pos(), m_dir(), m_avrDir(),
-      m_checker(false), m_spl(NULL), m_index(0), m_dist(0) {}
+    iterator();
     void Attach(Spline const & S);
     void Step(float speed);
     bool BeginAgain();

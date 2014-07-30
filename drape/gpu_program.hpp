@@ -8,7 +8,12 @@
 
 #ifdef DEBUG
   #include "../std/scoped_ptr.hpp"
+#endif
 
+namespace dp
+{
+
+#ifdef DEBUG
   class UniformValidator;
   typedef int32_t UniformSize;
   typedef pair<glConst, UniformSize> UniformTypeAndSize;
@@ -37,3 +42,5 @@ public:
   bool HasUniform(string const & name, glConst type, UniformSize size);
 #endif
 };
+
+} // namespace dp

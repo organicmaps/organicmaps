@@ -49,7 +49,7 @@ public:
 class FlushRenderBucketMessage : public BaseTileMessage
 {
 public:
-  FlushRenderBucketMessage(TileKey const & key, GLState const & state, TransferPointer<RenderBucket> buffer)
+  FlushRenderBucketMessage(TileKey const & key, dp::GLState const & state, dp::TransferPointer<dp::RenderBucket> buffer)
     : BaseTileMessage(key, Message::FlushTile)
     , m_state(state)
     , m_buffer(buffer)
@@ -61,12 +61,12 @@ public:
     m_buffer.Destroy();
   }
 
-  GLState const & GetState() const { return m_state; }
-  MasterPointer<RenderBucket> AcceptBuffer() { return MasterPointer<RenderBucket>(m_buffer); }
+  dp::GLState const & GetState() const { return m_state; }
+  dp::MasterPointer<dp::RenderBucket> AcceptBuffer() { return dp::MasterPointer<dp::RenderBucket>(m_buffer); }
 
 private:
-  GLState m_state;
-  TransferPointer<RenderBucket> m_buffer;
+  dp::GLState m_state;
+  dp::TransferPointer<dp::RenderBucket> m_buffer;
 };
 
 class ResizeMessage : public Message
@@ -145,7 +145,7 @@ private:
 };
 
 template <typename T>
-T * CastMessage(RefPointer<Message> msg)
+T * CastMessage(dp::RefPointer<Message> msg)
 {
   return static_cast<T *>(msg.GetRaw());
 }

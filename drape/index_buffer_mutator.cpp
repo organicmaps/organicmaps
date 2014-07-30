@@ -4,6 +4,9 @@
 #include "../std/cstring.hpp"    // for memcpy
 #include "../std/algorithm.hpp" // for max
 
+namespace dp
+{
+
 IndexBufferMutator::IndexBufferMutator(uint16_t baseSize)
   : m_activeSize(0)
 {
@@ -30,3 +33,4 @@ uint16_t IndexBufferMutator::GetIndexCount() const
   return m_activeSize;
 }
 
+} // namespace dp

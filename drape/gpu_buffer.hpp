@@ -3,6 +3,9 @@
 #include "pointers.hpp"
 #include "buffer_base.hpp"
 
+namespace dp
+{
+
 class GPUBuffer : public BufferBase
 {
   typedef BufferBase base_t;
@@ -55,3 +58,5 @@ private:
   RefPointer<GPUBuffer> m_buffer;
   void * m_gpuPtr;
 };
+
+} // namespace dp

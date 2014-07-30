@@ -5,6 +5,9 @@
 #include "../std/string.hpp"
 #include "../std/map.hpp"
 
+namespace dp
+{
+
 class SymbolsTexture : public Texture
 {
 public:
@@ -38,3 +41,5 @@ private:
 
   class DefinitionLoader;
 };
+
+} // namespace dp

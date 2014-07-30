@@ -5,8 +5,11 @@
 
 #include "../drape/pointers.hpp"
 
-class Batcher;
-class TextureSetHolder;
+namespace dp
+{
+  class Batcher;
+  class TextureSetHolder;
+}
 
 namespace df
 {
@@ -35,13 +38,13 @@ class MapShape
 {
 public:
   virtual ~MapShape(){}
-  virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const = 0;
+  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const = 0;
 };
 
 class MapShapeReadedMessage : public Message
 {
 public:
-  MapShapeReadedMessage(TileKey const & key, TransferPointer<MapShape> shape)
+  MapShapeReadedMessage(TileKey const & key, dp::TransferPointer<MapShape> shape)
     : m_key(key), m_shape(shape)
   {
     SetType(MapShapeReaded);
@@ -54,11 +57,11 @@ public:
 
   TileKey const & GetKey() const { return m_key; }
   /// return non const reference for correct construct MasterPointer
-  TransferPointer<MapShape> & GetShape() { return m_shape; }
+  dp::TransferPointer<MapShape> & GetShape() { return m_shape; }
 
 private:
   TileKey m_key;
-  TransferPointer<MapShape> m_shape;
+  dp::TransferPointer<MapShape> m_shape;
 };
 
 } // namespace df

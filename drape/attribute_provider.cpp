@@ -12,6 +12,9 @@
   #define INIT_STREAM(x) UNUSED_VALUE((x))
 #endif
 
+namespace dp
+{
+
 AttributeProvider::AttributeProvider(uint8_t streamCount, uint16_t vertexCount)
   : m_vertexCount(vertexCount)
 {
@@ -93,3 +96,5 @@ void AttributeProvider::InitCheckStream(uint8_t streamIndex)
   m_checkInfo[streamIndex] = true;
 }
 #endif
+
+}

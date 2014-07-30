@@ -10,7 +10,7 @@
 namespace df
 {
 
-DrapeEngine::DrapeEngine(RefPointer<OGLContextFactory> contextfactory, double vs, Viewport const & viewport)
+DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory, double vs, Viewport const & viewport)
   : m_viewport(viewport)
   , m_navigator(m_scales)
 {
@@ -19,20 +19,20 @@ DrapeEngine::DrapeEngine(RefPointer<OGLContextFactory> contextfactory, double vs
   m_navigator.LoadState();
   m_navigator.OnSize(0, 0, m_viewport.GetWidth(), m_viewport.GetHeight());
 
-  m_textures.Reset(new TextureManager());
-  RefPointer<TextureSetHolder>     textureHolder = m_textures.GetRefPointer();
-  TextureSetBinder * binder = new TextureSetBinder(m_textures.GetRefPointer());
+  m_textures.Reset(new dp::TextureManager());
+  dp::RefPointer<dp::TextureSetHolder> textureHolder = m_textures.GetRefPointer();
+  dp::TextureSetBinder * binder = new dp::TextureSetBinder(m_textures.GetRefPointer());
 
-  m_threadCommutator = MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
-  RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
+  m_threadCommutator = dp::MasterPointer<ThreadsCommutator>(new ThreadsCommutator());
+  dp::RefPointer<ThreadsCommutator> commutatorRef = m_threadCommutator.GetRefPointer();
 
-  m_frontend = MasterPointer<FrontendRenderer>(new FrontendRenderer(commutatorRef,
-                                                                    contextfactory,
-                                                                    MovePointer<TextureSetController>(binder),
-                                                                    m_viewport));
-  m_backend =  MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef,
-                                                                  contextfactory,
-                                                                  textureHolder));
+  m_frontend = dp::MasterPointer<FrontendRenderer>(new FrontendRenderer(commutatorRef,
+                                                                        contextfactory,
+                                                                        dp::MovePointer<dp::TextureSetController>(binder),
+                                                                        m_viewport));
+  m_backend =  dp::MasterPointer<BackendRenderer>(new BackendRenderer(commutatorRef,
+                                                                      contextfactory,
+                                                                      textureHolder));
 
   UpdateCoverage();
 }
@@ -54,7 +54,7 @@ void DrapeEngine::Resize(int w, int h)
   m_viewport.SetViewport(0, 0, w, h);
   m_navigator.OnSize(0, 0, w, h);
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  MovePointer<Message>(new ResizeMessage(m_viewport)));
+                                  dp::MovePointer<Message>(new ResizeMessage(m_viewport)));
 }
 
 void DrapeEngine::DragStarted(m2::PointF const & p)
@@ -84,7 +84,7 @@ void DrapeEngine::Scale(m2::PointF const & p, double factor)
 void DrapeEngine::UpdateCoverage()
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  MovePointer<Message>(new UpdateModelViewMessage(m_navigator.Screen())));
+                                  dp::MovePointer<Message>(new UpdateModelViewMessage(m_navigator.Screen())));
 }
 
 } // namespace df

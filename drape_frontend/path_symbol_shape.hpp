@@ -16,7 +16,7 @@ class PathSymbolShape : public MapShape
 {
 public:
   PathSymbolShape(vector<m2::PointF> const & path, PathSymbolViewParams const & params, float maxScale);
-  virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const;
+  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
 
 private:
   PathSymbolViewParams m_params;

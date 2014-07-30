@@ -2,6 +2,9 @@
 
 #include "../std/noncopyable.hpp"
 
+namespace dp
+{
+
 class GLExtensionsList : private noncopyable
 {
 public:
@@ -24,3 +27,5 @@ private:
   class Impl;
   Impl * m_impl;
 };
+
+} // namespace dp

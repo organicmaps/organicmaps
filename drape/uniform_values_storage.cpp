@@ -5,6 +5,9 @@
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
 
+namespace dp
+{
+
 void UniformValuesStorage::SetIntValue(string const & name, int32_t v)
 {
   UniformValue * uniform = findByName(name);
@@ -126,3 +129,5 @@ UniformValue * UniformValuesStorage::findByName(string const & name)
 
   return &(*it);
 }
+
+} // namespace dp

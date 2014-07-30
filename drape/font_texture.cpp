@@ -30,6 +30,9 @@ typedef gray8c_view_t const_view_t;
 typedef gray8_pixel_t pixel_t;
 typedef gray8c_pixel_t const_pixel_t;
 
+namespace dp
+{
+
 FontTexture::GlyphInfo::GlyphInfo(m2::RectF const & texRect, float xOffset,
                                   float yOffset, float advance)
   : ResourceInfo(texRect)
@@ -251,3 +254,5 @@ void LoadFont(string const & resourcePrefix, vector<TransferPointer<Texture> > &
   grid.ParseMetrics(metrics);
   grid.GetTextures(textures);
 }
+
+} // namespace dp

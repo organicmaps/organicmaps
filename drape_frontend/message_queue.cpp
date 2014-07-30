@@ -12,7 +12,7 @@ MessageQueue::~MessageQueue()
   ClearQuery();
 }
 
-TransferPointer<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
+dp::TransferPointer<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
 {
   threads::ConditionGuard guard(m_condition);
 
@@ -21,19 +21,19 @@ TransferPointer<Message> MessageQueue::PopMessage(unsigned maxTimeWait)
   /// even waitNonEmpty == true m_messages can be empty after WaitMessage call
   /// if application preparing to close and CancelWait been called
   if (m_messages.empty())
-    return MovePointer<Message>(NULL);
+    return dp::MovePointer<Message>(NULL);
 
-  MasterPointer<Message> msg = m_messages.front();
+  dp::MasterPointer<Message> msg = m_messages.front();
   m_messages.pop_front();
   return msg.Move();
 }
 
-void MessageQueue::PushMessage(TransferPointer<Message> message)
+void MessageQueue::PushMessage(dp::TransferPointer<Message> message)
 {
   threads::ConditionGuard guard(m_condition);
 
   bool wasEmpty = m_messages.empty();
-  m_messages.push_back(MasterPointer<Message>(message));
+  m_messages.push_back(dp::MasterPointer<Message>(message));
 
   if (wasEmpty)
     guard.Signal();
@@ -52,7 +52,7 @@ void MessageQueue::CancelWait()
 
 void MessageQueue::ClearQuery()
 {
-  (void)GetRangeDeletor(m_messages, MasterPointerDeleter())();
+  DeleteRange(m_messages, dp::MasterPointerDeleter());
 }
 
 } // namespace df

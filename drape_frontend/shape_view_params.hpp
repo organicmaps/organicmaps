@@ -29,18 +29,18 @@ struct CircleViewParams : CommonViewParams
   CircleViewParams(FeatureID const & id) : m_id(id) {}
 
   FeatureID m_id;
-  Color m_color;
+  dp::Color m_color;
   float m_radius;
 };
 
 struct AreaViewParams : CommonViewParams
 {
-  Color m_color;
+  dp::Color m_color;
 };
 
 struct LineViewParams : CommonViewParams
 {
-  Color m_color;
+  dp::Color m_color;
   float m_width;
   dp::LineCap m_cap;
   dp::LineJoin m_join;
@@ -48,8 +48,8 @@ struct LineViewParams : CommonViewParams
 
 struct FontDecl
 {
-  Color m_color;
-  Color m_outlineColor;
+  dp::Color m_color;
+  dp::Color m_outlineColor;
   float m_size;
   bool m_needOutline;
 };

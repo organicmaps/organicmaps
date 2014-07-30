@@ -5,6 +5,9 @@
 #include "../std/string.hpp"
 #include "../std/shared_array.hpp"
 
+namespace dp
+{
+
 struct BindingDecl
 {
   string    m_attributeName;
@@ -37,3 +40,5 @@ protected:
   shared_array<BindingDecl> m_bindings;
   uint16_t m_info;
 };
+
+} // namespace dp

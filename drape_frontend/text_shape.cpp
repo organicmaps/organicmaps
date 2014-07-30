@@ -100,12 +100,13 @@ TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params
 }
 
 void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bool auxText,
-                          float maxTextLength, PointF const & anchorDelta,
-                          RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
+                                                 float maxTextLength, PointF const & anchorDelta,
+                                                 dp::RefPointer<dp::Batcher> batcher,
+                                                 dp::RefPointer<dp::TextureSetHolder> textures) const
 {
   strings::UniString text;
   float fontSize;
-  Color base, outline;
+  dp::Color base, outline;
   float needOutline;
   if(auxText)
   {
@@ -131,7 +132,7 @@ void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
   float stride = 0.0f;
   int textureSet;
 
-  TextureSetHolder::GlyphRegion region;
+  dp::TextureSetHolder::GlyphRegion region;
   for(int i = 0, j = 0 ; i < text.size() ; i++)
   {
     textures->GetGlyphRegion(text[i], region);
@@ -182,8 +183,8 @@ void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
   vector<float> color2(numVert * 6);
 
   float clr1[4], clr2[4];
-  Convert(base, clr1[0], clr1[1], clr1[2], clr1[3]);
-  Convert(outline, clr2[0], clr2[1], clr2[2], clr2[3]);
+  dp::Convert(base, clr1[0], clr1[1], clr1[2], clr1[3]);
+  dp::Convert(outline, clr2[0], clr2[1], clr2[2], clr2[3]);
 
   for(int i = 0; i < letterCount ; i++)
   {
@@ -193,65 +194,63 @@ void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
     SetColor(color2, clr2, i);
   }
 
-  GLState state(gpu::FONT_PROGRAM, GLState::OverlayLayer);
+  dp::GLState state(gpu::FONT_PROGRAM, dp::GLState::OverlayLayer);
   state.SetTextureSet(textureSet);
-  state.SetBlending(Blending(true));
+  state.SetBlending(dp::Blending(true));
 
-  AttributeProvider provider(4, 6*letterCount);
+  dp::AttributeProvider provider(4, 6 * letterCount);
   {
-    BindingInfo position(1);
-    BindingDecl & decl = position.GetBindingDecl(0);
+    dp::BindingInfo position(1);
+    dp::BindingDecl & decl = position.GetBindingDecl(0);
     decl.m_attributeName = "a_position";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(0, position, MakeStackRefPointer((void*)&vertex2[0]));
+    provider.InitStream(0, position, dp::MakeStackRefPointer((void*)&vertex2[0]));
   }
   {
-    BindingInfo texcoord(1);
-    BindingDecl & decl = texcoord.GetBindingDecl(0);
+    dp::BindingInfo texcoord(1);
+    dp::BindingDecl & decl = texcoord.GetBindingDecl(0);
     decl.m_attributeName = "a_texcoord";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(1, texcoord, MakeStackRefPointer((void*)&texture2[0]));
+    provider.InitStream(1, texcoord, dp::MakeStackRefPointer((void*)&texture2[0]));
   }
   {
-    BindingInfo base_color(1);
-    BindingDecl & decl = base_color.GetBindingDecl(0);
+    dp::BindingInfo base_color(1);
+    dp::BindingDecl & decl = base_color.GetBindingDecl(0);
     decl.m_attributeName = "a_color";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(2, base_color, MakeStackRefPointer((void*)&color[0]));
+    provider.InitStream(2, base_color, dp::MakeStackRefPointer((void*)&color[0]));
   }
   {
-    BindingInfo outline_color(1);
-    BindingDecl & decl = outline_color.GetBindingDecl(0);
+    dp::BindingInfo outline_color(1);
+    dp::BindingDecl & decl = outline_color.GetBindingDecl(0);
     decl.m_attributeName = "a_outline_color";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(3, outline_color, MakeStackRefPointer((void*)&color2[0]));
+    provider.InitStream(3, outline_color, dp::MakeStackRefPointer((void*)&color2[0]));
   }
 
   float const bbY = m_params.m_primaryTextFont.m_size + m_params.m_secondaryTextFont.m_size;
-  OverlayHandle * handle = new SquareHandle(m_params.m_featureID,
-                                           m_params.m_anchor,
-                                           m_basePoint,
-                                           m2::PointD(maxTextLength, bbY),
-                                           m_params.m_depth);
+  dp::OverlayHandle * handle = new dp::SquareHandle(m_params.m_featureID,
+                                                    m_params.m_anchor,
+                                                    m_basePoint,
+                                                    m2::PointD(maxTextLength, bbY),
+                                                    m_params.m_depth);
 
-  //handle->SetIsVisible(true);
-
-  batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
+  batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle));
 }
 
-void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
+void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
   strings::UniString const text = strings::MakeUniString(m_params.m_primaryText);
   int const size = text.size();
@@ -262,7 +261,7 @@ void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> t
 
   for (int i = 0 ; i < size ; i++)
   {
-    TextureSetHolder::GlyphRegion region;
+    dp::TextureSetHolder::GlyphRegion region;
     textures->GetGlyphRegion(text[i], region);
     ++sizes[region.GetTextureNode().m_textureSet];
     float xOffset, yOffset, advance;
@@ -289,7 +288,7 @@ void TextShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> t
 
   for (int i = 0 ; i < auxSize ; i++)
   {
-    TextureSetHolder::GlyphRegion region;
+    dp::TextureSetHolder::GlyphRegion region;
     textures->GetGlyphRegion(auxText[i], region);
     ++auxSizes[region.GetTextureNode().m_textureSet];
     float xOffset, yOffset, advance;

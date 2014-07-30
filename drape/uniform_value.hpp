@@ -7,6 +7,9 @@
 #include "../std/shared_array.hpp"
 #include "../std/cstring.hpp"
 
+namespace dp
+{
+
 class UniformValue
 {
 public:
@@ -87,3 +90,5 @@ private:
 
   shared_array<uint8_t> m_values;
 };
+
+} // namespace dp

@@ -9,7 +9,7 @@
 
 #include "../map/navigator.hpp"
 
-class OGLContextFactory;
+namespace dp { class OGLContextFactory; }
 
 namespace df
 {
@@ -18,7 +18,7 @@ class Viewport;
 class DrapeEngine
 {
 public:
-  DrapeEngine(RefPointer<OGLContextFactory> oglcontextfactory, double vs, Viewport const & viewport);
+  DrapeEngine(dp::RefPointer<dp::OGLContextFactory> oglcontextfactory, double vs, Viewport const & viewport);
   ~DrapeEngine();
 
   void Resize(int w, int h);
@@ -31,11 +31,11 @@ private:
   void UpdateCoverage();
 
 private:
-  MasterPointer<FrontendRenderer> m_frontend;
-  MasterPointer<BackendRenderer>  m_backend;
+  dp::MasterPointer<FrontendRenderer> m_frontend;
+  dp::MasterPointer<BackendRenderer>  m_backend;
 
-  MasterPointer<TextureManager> m_textures;
-  MasterPointer<ThreadsCommutator> m_threadCommutator;
+  dp::MasterPointer<dp::TextureManager> m_textures;
+  dp::MasterPointer<ThreadsCommutator> m_threadCommutator;
 
   ScalesProcessor m_scales;
   Viewport m_viewport;

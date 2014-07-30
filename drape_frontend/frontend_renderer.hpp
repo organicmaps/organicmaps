@@ -28,7 +28,7 @@
 
 #include "../std/map.hpp"
 
-class RenderBucket;
+namespace dp { class RenderBucket; }
 
 namespace df
 {
@@ -37,9 +37,9 @@ class FrontendRenderer : public MessageAcceptor,
                          public threads::IRoutine
 {
 public:
-  FrontendRenderer(RefPointer<ThreadsCommutator> commutator,
-                   RefPointer<OGLContextFactory> oglcontextfactory,
-                   TransferPointer<TextureSetController> textureController,
+  FrontendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
+                   dp::RefPointer<dp::OGLContextFactory> oglcontextfactory,
+                   dp::TransferPointer<dp::TextureSetController> textureController,
                    Viewport viewport);
 
   ~FrontendRenderer();
@@ -58,7 +58,7 @@ public:
 #endif
 
 protected:
-  virtual void AcceptMessage(RefPointer<Message> message);
+  virtual void AcceptMessage(dp::RefPointer<Message> message);
 
 private:
   void RenderScene();
@@ -84,22 +84,22 @@ private:
   void DeleteRenderData();
 
 private:
-  RefPointer<ThreadsCommutator> m_commutator;
-  RefPointer<OGLContextFactory> m_contextFactory;
-  MasterPointer<TextureSetController> m_textureController;
-  MasterPointer<GpuProgramManager> m_gpuProgramManager;
+  dp::RefPointer<ThreadsCommutator> m_commutator;
+  dp::RefPointer<dp::OGLContextFactory> m_contextFactory;
+  dp::MasterPointer<dp::TextureSetController> m_textureController;
+  dp::MasterPointer<dp::GpuProgramManager> m_gpuProgramManager;
   threads::Thread m_selfThread;
 
 private:
   vector<RenderGroup *> m_renderGroups;
 
-  UniformValuesStorage m_generalUniforms;
+  dp::UniformValuesStorage m_generalUniforms;
 
   Viewport m_viewport;
   ScreenBase m_view;
   set<TileKey> m_tiles;
 
-  OverlayTree m_overlayTree;
+  dp::OverlayTree m_overlayTree;
 };
 
 } // namespace df

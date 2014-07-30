@@ -8,7 +8,7 @@
 #include "../std/stack.hpp"
 #include "../std/function.hpp"
 
-class Batcher;
+namespace dp { class Batcher; }
 
 namespace df
 {
@@ -18,17 +18,17 @@ class Message;
 class BatchersPool
 {
 public:
-  typedef function<void (TransferPointer<Message>)> send_message_fn;
+  typedef function<void (dp::TransferPointer<Message>)> send_message_fn;
 
   BatchersPool(int initBatcherCount, send_message_fn const & sendMessageFn);
   ~BatchersPool();
 
   void ReserveBatcher(TileKey const & key);
-  RefPointer<Batcher> GetTileBatcher(TileKey const & key);
+  dp::RefPointer<dp::Batcher> GetTileBatcher(TileKey const & key);
   void ReleaseBatcher(TileKey const & key);
 
 private:
-  typedef MasterPointer<Batcher> batcher_ptr;
+  typedef dp::MasterPointer<dp::Batcher> batcher_ptr;
   typedef stack<batcher_ptr> batchers_pool_t;
   typedef pair<batcher_ptr, int> counted_batcher_t;
   typedef map<TileKey, counted_batcher_t> reserved_batchers_t;

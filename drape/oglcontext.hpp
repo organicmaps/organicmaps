@@ -1,5 +1,8 @@
 #pragma once
 
+namespace dp
+{
+
 class OGLContext
 {
 public:
@@ -8,3 +11,5 @@ public:
   virtual void makeCurrent() = 0;
   virtual void setDefaultFramebuffer() = 0;
 };
+
+} // namespace dp

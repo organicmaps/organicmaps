@@ -1,6 +1,9 @@
 #include "buffer_base.hpp"
 #include "../base/assert.hpp"
 
+namespace dp
+{
+
 BufferBase::BufferBase(uint8_t elementSize, uint16_t capacity)
   : m_elementSize(elementSize)
   , m_capacity(capacity)
@@ -45,3 +48,5 @@ void BufferBase::UploadData(uint16_t elementCount)
   ASSERT(m_size + elementCount <= m_capacity, ());
   m_size += elementCount;
 }
+
+} // namespace dp

@@ -14,6 +14,7 @@ using ::testing::_;
 using ::testing::Return;
 using ::testing::InSequence;
 using ::testing::AnyNumber;
+using namespace dp;
 
 namespace
 {

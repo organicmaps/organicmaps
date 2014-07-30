@@ -16,10 +16,10 @@ public:
   LineShape(vector<m2::PointF> const & points,
             LineViewParams const & params);
 
-  virtual void Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> /*textures*/) const;
+  virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> /*textures*/) const;
 
   float         GetWidth() const { return m_params.m_width; }
-  Color const & GetColor() const { return m_params.m_color; }
+  dp::Color const & GetColor() const { return m_params.m_color; }
 
 private:
   LineViewParams m_params;

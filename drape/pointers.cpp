@@ -1,5 +1,8 @@
 #include "pointers.hpp"
 
+namespace dp
+{
+
 PointerTracker::~PointerTracker()
 {
   ASSERT(m_countMap.empty(), ());
@@ -39,3 +42,5 @@ void PointerTracker::Destroy(void * p)
 #if defined(CHECK_POINTERS)
   PointerTracker g_tracker;
 #endif
+
+} // namespace dp

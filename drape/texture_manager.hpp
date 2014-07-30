@@ -6,6 +6,9 @@
 #include "texture_set_holder.hpp"
 #include "texture_set_controller.hpp"
 
+namespace dp
+{
+
 class TextureManager : public TextureSetHolder
 {
 public:
@@ -34,3 +37,5 @@ public:
 private:
   RefPointer<TextureManager> m_manager;
 };
+
+} // namespace dp

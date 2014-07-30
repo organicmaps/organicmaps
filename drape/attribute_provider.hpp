@@ -5,6 +5,9 @@
 
 #include "../std/vector.hpp"
 
+namespace dp
+{
+
 class AttributeProvider
 {
 public:
@@ -39,3 +42,5 @@ private:
   vector<bool> m_checkInfo;
 #endif
 };
+
+} // namespace dp

@@ -9,6 +9,10 @@
 #include "../std/map.hpp"
 #include "../std/function.hpp"
 
+
+namespace dp
+{
+
 class RenderBucket;
 class AttributeProvider;
 class OverlayHandle;
@@ -65,3 +69,5 @@ private:
   uint32_t m_indexBufferSize;
   uint32_t m_vertexBufferSize;
 };
+
+} // namespace dp

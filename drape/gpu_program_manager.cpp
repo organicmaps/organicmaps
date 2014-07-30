@@ -4,6 +4,9 @@
 #include "../base/stl_add.hpp"
 #include "../base/assert.hpp"
 
+namespace dp
+{
+
 namespace
 {
 
@@ -67,3 +70,5 @@ RefPointer<Shader> GpuProgramManager::GetShader(int index, string const & source
   else
     return it->second.GetRefPointer();
 }
+
+} // namespace dp

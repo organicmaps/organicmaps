@@ -5,6 +5,9 @@
 
 #include "../std/map.hpp"
 
+namespace dp
+{
+
 class PointerTracker
 {
 public:
@@ -282,3 +285,5 @@ private:
     value.Destroy();
   }
 };
+
+} // namespace dp

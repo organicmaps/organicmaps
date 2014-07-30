@@ -6,6 +6,9 @@
 
 #include "../std/algorithm.hpp"
 
+namespace dp
+{
+
 namespace
 {
 
@@ -449,3 +452,5 @@ void TriangleListOfStripBatch::GenerateIndexes(uint16_t * indexStorage, uint16_t
   uint8_t const vertexStride = GetVertexStride();
   generate(indexStorage, indexStorage + count, ListOfStriptGenerator(startIndex, vertexStride, VtoICount(vertexStride)));
 }
+
+} // namespace dp

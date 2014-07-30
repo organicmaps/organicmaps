@@ -2,6 +2,10 @@
 
 #include "pointers.hpp"
 
+
+namespace dp
+{
+
 class OverlayHandle;
 class OverlayTree;
 class VertexArrayBuffer;
@@ -23,3 +27,5 @@ private:
   vector<MasterPointer<OverlayHandle> > m_overlay;
   MasterPointer<VertexArrayBuffer> m_buffer;
 };
+
+} // namespace dp
