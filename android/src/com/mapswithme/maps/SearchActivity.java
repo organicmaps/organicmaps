@@ -160,7 +160,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       // First try to show warning if no country downloaded for viewport.
       if (mContext.mSearchMode != AROUND_POSITION)
       {
-        final String name = mContext.getViewportCountryNameIfAbsent();
+        final String name = Framework.nativeGetViewportCountryNameIfAbsent();
         if (name != null)
           return String.format(mContext.getString(R.string.download_viewport_country_to_search), name);
       }
@@ -175,7 +175,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         }
         else
         {
-          final String name = mContext.getCountryNameIfAbsent(loc.getLatitude(), loc.getLongitude());
+          final String name = Framework.nativeGetCountryNameIfAbsent(loc.getLatitude(), loc.getLongitude());
           if (name != null)
             return String.format(mContext.getString(R.string.download_location_country), name);
         }
@@ -890,10 +890,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   private native boolean nativeRunSearch(String s, String lang,
                                          double lat, double lon, int flags,
                                          int searchMode, int queryID);
-
-  private native String getCountryNameIfAbsent(double lat, double lon);
-
-  private native String getViewportCountryNameIfAbsent();
 
   private native String getLastQuery();
 

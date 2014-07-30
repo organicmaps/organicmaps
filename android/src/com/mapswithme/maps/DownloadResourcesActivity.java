@@ -38,12 +38,11 @@ import java.util.regex.Pattern;
 
 @SuppressLint("StringFormatMatches")
 public class DownloadResourcesActivity extends MapsWithMeBaseActivity
-                                       implements LocationService.LocationListener, MapStorage.Listener
+    implements LocationService.LocationListener, MapStorage.Listener
 {
-  private static final String TAG = "DownloadResourcesActivity";
+  private static final String TAG = DownloadResourcesActivity.class.getName();
 
   // Error codes, should match the same codes in JNI
-
   private static final int ERR_DOWNLOAD_SUCCESS = 0;
   private static final int ERR_NOT_ENOUGH_MEMORY = -1;
   private static final int ERR_NOT_ENOUGH_FREE_SPACE = -2;
@@ -65,6 +64,16 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
 
   private MapTask mMapTaskToForward;
 
+  private static final int DOWNLOAD = 0;
+  private static final int PAUSE = 1;
+  private static final int RESUME = 2;
+  private static final int TRY_AGAIN = 3;
+  private static final int PROCEED_TO_MAP = 4;
+  private static final int BTN_COUNT = 5;
+
+  private View.OnClickListener mBtnListeners[] = null;
+  private String mBtnNames[] = null;
+
   private final IntentProcessor[] mIntentProcessors = {
       new GeoIntentProcessor(),
       new HttpGe0IntentProcessor(),
@@ -74,18 +83,20 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       new OpenCountryTaskProcessor(),
   };
 
+  public static String EXTRA_COUNTRY_INDEX = ".extra.index";
+
   private void setDownloadMessage(int bytesToDownload)
   {
     Log.d(TAG, "prepareFilesDownload, bytesToDownload:" + bytesToDownload);
 
     if (bytesToDownload < 1024 * 1024)
       mMsgView.setText(String.format(getString(R.string.download_resources),
-                                     (float)bytesToDownload / 1024,
-                                     getString(R.string.kb)));
+          (float) bytesToDownload / 1024,
+          getString(R.string.kb)));
     else
       mMsgView.setText(String.format(getString(R.string.download_resources,
-                                               (float)bytesToDownload / 1024 / 1024,
-                                               getString(R.string.mb))));
+          (float) bytesToDownload / 1024 / 1024,
+          getString(R.string.mb))));
 
   }
 
@@ -119,66 +130,56 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     return true;
   }
 
-  private static final int DOWNLOAD = 0;
-  private static final int PAUSE = 1;
-  private static final int RESUME = 2;
-  private static final int TRY_AGAIN = 3;
-  private static final int PROCEED_TO_MAP = 4;
-  private static final int BTN_COUNT = 5;
-
-  private View.OnClickListener m_btnListeners[] = null;
-  private String m_btnNames[] = null;
-
   private void initDownloading()
   {
     // Get GUI elements and subscribe to map storage (for country downloading).
     mMapStorage = mApplication.getMapStorage();
     mSlotId = mMapStorage.subscribe(this);
 
-    mMsgView = (TextView)findViewById(R.id.download_resources_message);
-    mProgress = (ProgressBar)findViewById(R.id.download_resources_progress);
-    mButton = (Button)findViewById(R.id.download_resources_button);
-    mDownloadCountryCheckBox = (CheckBox)findViewById(R.id.download_country_checkbox);
-    mLocationMsgView = (TextView)findViewById(R.id.download_resources_location_message);
+    mMsgView = (TextView) findViewById(R.id.download_resources_message);
+    mProgress = (ProgressBar) findViewById(R.id.download_resources_progress);
+    mButton = (Button) findViewById(R.id.download_resources_button);
+    mDownloadCountryCheckBox = (CheckBox) findViewById(R.id.download_country_checkbox);
+    mLocationMsgView = (TextView) findViewById(R.id.download_resources_location_message);
 
     // Initialize button states.
-    m_btnListeners = new View.OnClickListener[BTN_COUNT];
-    m_btnNames = new String[BTN_COUNT];
+    mBtnListeners = new View.OnClickListener[BTN_COUNT];
+    mBtnNames = new String[BTN_COUNT];
 
-    m_btnListeners[DOWNLOAD] = new View.OnClickListener()
+    mBtnListeners[DOWNLOAD] = new View.OnClickListener()
     {
       @Override
       public void onClick(View v) { onDownloadClicked(v); }
     };
-    m_btnNames[DOWNLOAD] = getString(R.string.download);
+    mBtnNames[DOWNLOAD] = getString(R.string.download);
 
-    m_btnListeners[PAUSE] = new View.OnClickListener()
+    mBtnListeners[PAUSE] = new View.OnClickListener()
     {
       @Override
       public void onClick(View v) { onPauseClicked(v); }
     };
-    m_btnNames[PAUSE] = getString(R.string.pause);
+    mBtnNames[PAUSE] = getString(R.string.pause);
 
-    m_btnListeners[RESUME] = new View.OnClickListener()
+    mBtnListeners[RESUME] = new View.OnClickListener()
     {
       @Override
       public void onClick(View v) { onResumeClicked(v); }
     };
-    m_btnNames[RESUME] = getString(R.string.continue_download);
+    mBtnNames[RESUME] = getString(R.string.continue_download);
 
-    m_btnListeners[TRY_AGAIN] = new View.OnClickListener()
+    mBtnListeners[TRY_AGAIN] = new View.OnClickListener()
     {
       @Override
       public void onClick(View v) { onTryAgainClicked(v); }
     };
-    m_btnNames[TRY_AGAIN] = getString(R.string.try_again);
+    mBtnNames[TRY_AGAIN] = getString(R.string.try_again);
 
-    m_btnListeners[PROCEED_TO_MAP] = new View.OnClickListener()
+    mBtnListeners[PROCEED_TO_MAP] = new View.OnClickListener()
     {
       @Override
       public void onClick(View v) { onProceedToMapClicked(v); }
     };
-    m_btnNames[PROCEED_TO_MAP] = getString(R.string.download_resources_continue);
+    mBtnNames[PROCEED_TO_MAP] = getString(R.string.download_resources_continue);
 
     // Start listening the location.
     mLocationService = mApplication.getLocationService();
@@ -187,8 +188,8 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
 
   private void setAction(int action)
   {
-    mButton.setOnClickListener(m_btnListeners[action]);
-    mButton.setText(m_btnNames[action]);
+    mButton.setOnClickListener(mBtnListeners[action]);
+    mButton.setText(mBtnNames[action]);
   }
 
   private void doDownload()
@@ -235,8 +236,12 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     int id;
     switch (res)
     {
-    case ERR_NOT_ENOUGH_FREE_SPACE: id = R.string.not_enough_free_space_on_sdcard; break;
-    case ERR_STORAGE_DISCONNECTED: id = R.string.disconnect_usb_cable; break;
+    case ERR_NOT_ENOUGH_FREE_SPACE:
+      id = R.string.not_enough_free_space_on_sdcard;
+      break;
+    case ERR_STORAGE_DISCONNECTED:
+      id = R.string.disconnect_usb_cable;
+      break;
 
     case ERR_DOWNLOAD_ERROR:
       if (ConnectionState.isConnected(this))
@@ -245,7 +250,8 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         id = R.string.no_internet_connection_detected;
       break;
 
-    default: id = R.string.not_enough_memory;
+    default:
+      id = R.string.not_enough_memory;
     }
 
     return getString(id);
@@ -281,9 +287,9 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
         mDownloadCountryCheckBox.setVisibility(View.GONE);
         mLocationMsgView.setVisibility(View.GONE);
         mMsgView.setText(String.format(getString(R.string.downloading_country_can_proceed),
-                                       mMapStorage.countryName(mCountryIndex)));
+            mMapStorage.countryName(mCountryIndex)));
 
-        mProgress.setMax((int)mMapStorage.countryRemoteSizeInBytes(mCountryIndex));
+        mProgress.setMax((int) mMapStorage.countryRemoteSizeInBytes(mCountryIndex));
         mProgress.setProgress(0);
 
         mMapStorage.downloadCountry(mCountryIndex);
@@ -317,7 +323,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     // Important check - activity can be destroyed
     // but notifications from downloading thread are coming.
     if (mProgress != null)
-      mProgress.setProgress((int)current);
+      mProgress.setProgress((int) current);
   }
 
   private Intent getPackageIntent(String s)
@@ -331,7 +337,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     {
       if (!isPro)
       {
-        final Intent intent = getPackageIntent("com.mapswithme.maps.pro");
+        final Intent intent = getPackageIntent(Constants.Package.MWM_PRO_PACKAGE);
         if (intent != null)
         {
           Log.i(TAG, "Trying to launch pro version");
@@ -343,15 +349,14 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       }
       else
       {
-        if (!mApplication.isYota() &&
-            (getPackageIntent("com.mapswithme.maps") != null ||
-             getPackageIntent("com.mapswithme.maps.samsung") != null))
+        if (!MWMApplication.get().isYota() &&
+            (getPackageIntent(Constants.Package.MWM_LITE_PACKAGE) != null ||
+                getPackageIntent(Constants.Package.MWM_SAMSUNG_PACKAGE) != null))
         {
           Toast.makeText(this, R.string.suggest_uninstall_lite, Toast.LENGTH_LONG).show();
         }
       }
-    }
-    catch (final ActivityNotFoundException ex)
+    } catch (final ActivityNotFoundException ex)
     {
       Log.d(TAG, "Intent not found", ex);
     }
@@ -367,7 +372,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
 
     super.onCreate(savedInstanceState);
 
-    mApplication = (MWMApplication)getApplication();
+    mApplication = (MWMApplication) getApplication();
 
     final boolean isPro = mApplication.isProVersion();
     if (checkLiteProPackages(isPro))
@@ -412,7 +417,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     if (i == -1)
       return null;
 
-    mime = mime.substring(i+1);
+    mime = mime.substring(i + 1);
     if (mime.equalsIgnoreCase("kmz"))
       return ".kmz";
     else if (mime.equalsIgnoreCase("kml+xml"))
@@ -458,12 +463,10 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
 
               path = filePath;
             }
-          }
-          catch (final Exception ex)
+          } catch (final Exception ex)
           {
             Log.w(TAG, "Attachment not found or io error: " + ex);
-          }
-          finally
+          } finally
           {
             try
             {
@@ -471,8 +474,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
                 input.close();
               if (output != null)
                 output.close();
-            }
-            catch (final IOException ex)
+            } catch (final IOException ex)
             {
               Log.w(TAG, "Close stream error: " + ex);
             }
@@ -570,7 +572,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
           mLocationMsgView.setText(String.format(getString(R.string.download_location_map_up_to_date), name));
         else
         {
-          final CheckBox checkBox = (CheckBox)findViewById(R.id.download_country_checkbox);
+          final CheckBox checkBox = (CheckBox) findViewById(R.id.download_country_checkbox);
           checkBox.setVisibility(View.VISIBLE);
 
           String msgViewText;
@@ -763,7 +765,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     }
   }
 
-  public static String EXTRA_COUNTRY_INDEX = ".extra.index";
   private class OpenCountryTaskProcessor implements IntentProcessor
   {
     @Override
@@ -782,8 +783,12 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   }
 
   private native int getBytesToDownload();
+
   private native int startNextFileDownload(Object observer);
+
   private native Index findIndexByPos(double lat, double lon);
+
   private native void cancelCurrentFile();
+
   private native boolean loadKMZFile(String path);
 }

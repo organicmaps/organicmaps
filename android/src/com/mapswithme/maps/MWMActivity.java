@@ -459,7 +459,7 @@ public class MWMActivity extends NvEventQueueActivity
     try
     {
       // Exception is thrown if we don't have installed Facebook application.
-      getPackageManager().getPackageInfo(Constants.FB_PACKAGE, 0);
+      getPackageManager().getPackageInfo(Constants.Package.FB_PACKAGE, 0);
 
       startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.FB_MAPSME_COMMUNITY_NATIVE)));
     } catch (final Exception e)

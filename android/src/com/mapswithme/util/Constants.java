@@ -22,7 +22,17 @@ public class Constants
     private Url() {}
   }
 
-  public static final String FB_PACKAGE = "com.facebook.katana";
+  public static class Package
+  {
+    public static final String FB_PACKAGE = "com.facebook.katana";
+    public static final String MWM_PRO_PACKAGE = "com.mapswithme.maps.pro";
+    public static final String MWM_LITE_PACKAGE = "com.mapswithme.maps";
+    public static final String MWM_SAMSUNG_PACKAGE = "com.mapswithme.maps.samsung";
+
+    private Package() {}
+  }
+
+
   public static final String MWM_DIR_POSTFIX = "/MapsWithMe/";
   public static final String DEVICE_YOTAPHONE = "yotaphone";
   public static final String CACHE_DIR = "cache";

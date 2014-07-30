@@ -88,6 +88,7 @@ public class Framework
   public native static String nativeGetNameAndAddress4Point(double lat, double lon);
 
   public native static MapObject nativeGetMapObjectForPoint(double lat, double lon);
+
   public native static void nativeActivateUserMark(double lat, double lon);
 
   public native static void nativeConnectBalloonListeners(OnBalloonListener listener);
@@ -128,4 +129,12 @@ public class Framework
   public native static void nativeSetRouteStart(double lat, double lon);
 
   public native static void nativeSetRouteEnd(double lat, double lon);
+
+  //
+
+  public static native String nativeGetCountryNameIfAbsent(double lat, double lon);
+
+  public static native Index nativeGetIndex(double lat, double lon);
+
+  public static native String nativeGetViewportCountryNameIfAbsent();
 }
