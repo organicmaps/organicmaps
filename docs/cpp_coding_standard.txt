@@ -1,3 +1,5 @@
+We write code without warnings!
+
 In general, Google's coding standard http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml is used and we strongly encourage to read it.
 
 Below are our specific exceptions to the Google's coding standard:
@@ -8,7 +10,7 @@ Below are our specific exceptions to the Google's coding standard:
 - We don't include system, std and boost headers directly, use #include "../std/<wrapper.hpp>"
 - We ARE using C++ exceptions
 - We don't support C++11 yet
-- We don't use boost libraries which requires linking
+- We don't use boost libraries which require linking
 
 
 Naming and formatting
@@ -26,6 +28,8 @@ Naming and formatting
 
 // *********** Formatting Example ***********
 #include "../std/math.hpp"
+
+typedef double TMyTypeStartsWithCapitalTLetter;
 
 class ComplexClass
 {
@@ -179,3 +183,4 @@ Tips and Hints
 -- Calculate array size with ARRAY_SIZE(arrayVariable)
 -- Declare your own exceptions with DECLARE_EXCEPTION(name, baseException), where baseException is usually RootException
 -- Throw exceptions with MYTHROW(exceptionName, (message))
+-- A lot of useful string conversion utils are in base/string_utils.hpp
