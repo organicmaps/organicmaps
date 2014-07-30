@@ -593,11 +593,8 @@
 
   [ok]
     en = OK
-    fr = OK
-    zh-Hant = 好的
-    pl = OK
-    pt = OK
-    hu = OK
+    ko = 승인
+    zh-Hant = 好
     th = ตกลง
     zh-Hans = 好
 
