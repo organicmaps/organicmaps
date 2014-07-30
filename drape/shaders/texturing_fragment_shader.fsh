@@ -1,5 +1,5 @@
 uniform sampler2D u_textures[8];
-varying highp vec2 v_texCoords;
+varying lowp vec2 v_texCoords;
 varying highp float v_textureIndex;
 
 const int Index0  = 0;
@@ -13,7 +13,7 @@ const int Index7  = 7;
 
 void main(void)
 {
-  highp vec4 color;
+  lowp vec4 color;
   int textureIndex = int(v_textureIndex);
   if (textureIndex == Index0)
     color = texture2D(u_textures[Index0], v_texCoords);
