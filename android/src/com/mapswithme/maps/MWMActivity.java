@@ -73,6 +73,7 @@ public class MWMActivity extends NvEventQueueActivity
   private final static String SCREENSHOTS_TASK_PPP = "show_place_page";
   private final static String EXTRA_LAT = "lat";
   private final static String EXTRA_LON = "lon";
+  private final static String EXTRA_COUNTRY_INDEX = "country_index";
   // Need it for search
   private static final String EXTRA_SEARCH_RES_SINGLE = "search_res_index";
   // Map tasks that we run AFTER rendering initialized
@@ -94,10 +95,11 @@ public class MWMActivity extends NvEventQueueActivity
   private ViewGroup mVerticalToolbar;
   private ViewGroup mToolbar;
 
-  public static Intent createShowMapIntent(Context context, Index index)
+  public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
     return new Intent(context, DownloadResourcesActivity.class)
-        .putExtra(DownloadResourcesActivity.EXTRA_COUNTRY_INDEX, index);
+        .putExtra(DownloadResourcesActivity.EXTRA_COUNTRY_INDEX, index)
+        .putExtra(DownloadResourcesActivity.EXTRA_AUTODOWNLOAD_CONTRY, doAutoDownload);
   }
 
   public static void startWithSearchResult(Context context, boolean single)
@@ -1049,7 +1051,11 @@ public class MWMActivity extends NvEventQueueActivity
   private void stopWatchingExternalStorage()
   {
     mPathManager.stopExternalStorageWatching();
-    mExternalStorageReceiver = null;
+    if (mExternalStorageReceiver != null)
+    {
+      unregisterReceiver(mExternalStorageReceiver);
+      mExternalStorageReceiver = null;
+    }
   }
 
   @Override
@@ -1314,16 +1320,27 @@ public class MWMActivity extends NvEventQueueActivity
   {
     private static final long serialVersionUID = 1L;
     private final Index mIndex;
+    private final boolean mDoAutoDownload;
 
-    public ShowCountryTask(Index index)
+    public ShowCountryTask(Index index, boolean doAutoDownload)
     {
       mIndex = index;
+      mDoAutoDownload = doAutoDownload;
     }
 
     @Override
     public boolean run(MWMActivity target)
     {
-      target.getMapStorage().showCountry(mIndex);
+      final MapStorage storage = target.getMapStorage();
+      if (mDoAutoDownload)
+      {
+        storage.downloadCountry(mIndex);
+        // set zoom level so that download process is visible
+        Framework.nativeShowCountry(mIndex, true);
+      }
+      else
+        Framework.nativeShowCountry(mIndex, false);
+
       return true;
     }
   }

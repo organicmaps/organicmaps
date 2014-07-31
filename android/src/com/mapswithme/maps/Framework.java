@@ -132,9 +132,11 @@ public class Framework
 
   //
 
-  public static native String nativeGetCountryNameIfAbsent(double lat, double lon);
+  public native static String nativeGetCountryNameIfAbsent(double lat, double lon);
 
-  public static native Index nativeGetIndex(double lat, double lon);
+  public native static Index nativeGetCountryIndex(double lat, double lon);
 
-  public static native String nativeGetViewportCountryNameIfAbsent();
+  public native static String nativeGetViewportCountryNameIfAbsent();
+
+  public native static void nativeShowCountry(Index idx, boolean zoomToDownloadButton);
 }

@@ -83,7 +83,8 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       new OpenCountryTaskProcessor(),
   };
 
-  public static String EXTRA_COUNTRY_INDEX = ".extra.index";
+  public static final String EXTRA_COUNTRY_INDEX = ".extra.index";
+  public static final String EXTRA_AUTODOWNLOAD_CONTRY = ".extra.autodownload";
 
   private void setDownloadMessage(int bytesToDownload)
   {
@@ -560,7 +561,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       final double lon = l.getLongitude();
       Log.i(TAG, "Searching for country name at location lat=" + lat + ", lon=" + lon);
 
-      mCountryIndex = findIndexByPos(lat, lon);
+      mCountryIndex = Framework.nativeGetCountryIndex(lat, lon);
       if (mCountryIndex != null)
       {
         mLocationMsgView.setVisibility(View.VISIBLE);
@@ -777,7 +778,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     public boolean processIntent(Intent intent)
     {
       final Index index = (Index) intent.getSerializableExtra(EXTRA_COUNTRY_INDEX);
-      mMapTaskToForward = new MWMActivity.ShowCountryTask(index);
+      mMapTaskToForward = new MWMActivity.ShowCountryTask(index, intent.getBooleanExtra(EXTRA_AUTODOWNLOAD_CONTRY, false));
       return true;
     }
   }
@@ -785,8 +786,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   private native int getBytesToDownload();
 
   private native int startNextFileDownload(Object observer);
-
-  private native Index findIndexByPos(double lat, double lon);
 
   private native void cancelCurrentFile();
 

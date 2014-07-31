@@ -176,11 +176,19 @@ namespace android
     return m_work.GetCountryStatusDisplay();
   }
 
-  void Framework::ShowCountry(storage::TIndex const & idx)
+  void Framework::ShowCountry(storage::TIndex const & idx, bool zoomToDownloadButton)
   {
     m_doLoadState = false;
 
-    m_work.ShowCountry(idx);
+    if (zoomToDownloadButton)
+    {
+        m2::RectD const rect = m_work.GetCountryBounds(idx);
+        double const lon = MercatorBounds::XToLon(rect.Center().x);
+        double const lat = MercatorBounds::YToLat(rect.Center().y);
+        m_work.ShowRect(lat, lon, 10);
+    }
+    else
+      m_work.ShowCountry(idx);
   }
 
   storage::TStatus Framework::GetCountryStatus(storage::TIndex const & idx) const
@@ -1126,5 +1134,40 @@ extern "C"
     m2::PointD pxPoint = fr->GtoP(MercatorBounds::FromLatLon(lat, lon));
     UserMark const * mark = fr->GetUserMark(pxPoint, true);
     fr->GetBalloonManager().OnShowMark(mark);
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetCountryNameIfAbsent(JNIEnv * env, jobject thiz,
+      jdouble lat, jdouble lon)
+  {
+    string const name = g_framework->GetCountryNameIfAbsent(MercatorBounds::FromLatLon(lat, lon));
+
+    return (name.empty() ? 0 : jni::ToJavaString(env, name));
+  }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetViewportCountryNameIfAbsent(JNIEnv * env, jobject thiz)
+  {
+    string const name = g_framework->GetCountryNameIfAbsent(g_framework->GetViewportCenter());
+    return (name.empty() ? 0 : jni::ToJavaString(env, name));
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetCountryIndex(JNIEnv * env, jobject thiz,
+      jdouble lat, jdouble lon)
+  {
+    storage::TIndex const idx = g_framework->GetCountryIndex(lat, lon);
+
+    // Return 0 if no any country.
+    if (idx.IsValid())
+      return storage::ToJava(idx);
+    else
+      return 0;
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jobject thiz, jobject idx, jboolean zoomToDownloadButton)
+  {
+    g_framework->ShowCountry(storage::ToNative(idx), (bool) zoomToDownloadButton);
   }
 }

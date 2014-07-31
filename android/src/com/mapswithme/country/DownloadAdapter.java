@@ -555,7 +555,7 @@ class DownloadAdapter extends BaseAdapter
 
   private void showCountry(final Index countryIndex)
   {
-    mStorage.showCountry(countryIndex);
+    Framework.nativeShowCountry(countryIndex, false);
     mContext.finish();
   }
 

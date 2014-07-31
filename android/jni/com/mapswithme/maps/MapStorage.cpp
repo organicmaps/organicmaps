@@ -110,12 +110,6 @@ extern "C"
       return 0;
   }
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MapStorage_showCountry(JNIEnv * env, jobject thiz, jobject idx)
-  {
-    g_framework->ShowCountry(IndexBinding(idx).toNative());
-  }
-
   void ReportChangeCountryStatus(shared_ptr<jobject> const & obj, storage::TIndex const & idx)
   {
     JNIEnv * env = jni::GetEnv();

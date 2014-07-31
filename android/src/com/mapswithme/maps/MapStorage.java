@@ -154,8 +154,6 @@ public class MapStorage
 
   public native Index findIndexByFile(String name);
 
-  public native void showCountry(Index idx);
-
   public native int subscribe(Listener l);
 
   public native void unsubscribe(int slotId);

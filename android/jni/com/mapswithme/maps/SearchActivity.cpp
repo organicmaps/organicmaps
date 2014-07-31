@@ -287,22 +287,6 @@ Java_com_mapswithme_maps_SearchActivity_nativeGetResult(
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_SearchActivity_getCountryNameIfAbsent(JNIEnv * env, jobject thiz,
-    jdouble lat, jdouble lon)
-{
-  string const name = g_framework->GetCountryNameIfAbsent(MercatorBounds::FromLatLon(lat, lon));
-
-  return (name.empty() ? 0 : jni::ToJavaString(env, name));
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_SearchActivity_getViewportCountryNameIfAbsent(JNIEnv * env, jobject thiz)
-{
-  string const name = g_framework->GetCountryNameIfAbsent(g_framework->GetViewportCenter());
-  return (name.empty() ? 0 : jni::ToJavaString(env, name));
-}
-
-JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_SearchActivity_getLastQuery(JNIEnv * env, jobject thiz)
 {
   return jni::ToJavaString(env, g_framework->GetLastSearchQuery());

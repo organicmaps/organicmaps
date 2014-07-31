@@ -65,7 +65,7 @@ namespace android
     storage::Storage & Storage();
     CountryStatusDisplay * GetCountryStatusDisplay();
 
-    void ShowCountry(storage::TIndex const & idx);
+    void ShowCountry(storage::TIndex const & idx, bool zoomToDownloadButton);
     storage::TStatus GetCountryStatus(storage::TIndex const & idx) const;
     void DeleteCountry(storage::TIndex const & idx);
 

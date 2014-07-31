@@ -250,19 +250,6 @@ extern "C"
     return ERR_FILE_IN_PROGRESS;
   }
 
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_DownloadResourcesActivity_findIndexByPos(JNIEnv * env, jobject thiz,
-      jdouble lat, jdouble lon)
-  {
-    storage::TIndex const idx = g_framework->GetCountryIndex(lat, lon);
-
-    // Important thing. Return 0 if no any country.
-    if (idx.IsValid())
-      return storage::ToJava(idx);
-    else
-      return 0;
-  }
-
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_DownloadResourcesActivity_loadKMZFile(
       JNIEnv * env, jobject thiz, jstring path)
