@@ -23,6 +23,7 @@
     hu = További lehetőségek a maps.me teljes verziójában. Töltse le most!
     th = ระบบนำทางที่ง่ายขึ้นด้วย maps.me ที่โดดเด่นด้วยการค้นหาแบบออฟไลน์แบบเวอร์ชันเต็ม รับมันทันทีตอนนี้!
     zh-Hans = 使用带离线搜索功能的完整版maps.me实现更简便的导航。现在就获取它吧！
+    ar = يمكنك التصفح بشكل أسهل مع الإصدار الكامل من maps.me الذي يتميز بامكانية البحث بدون الاتصال مع الانترنت. احصل عليه الآن!
 
   [about]
     tags = tizen
@@ -44,6 +45,7 @@
     hu = A programról
     th = เกี่ยวกับ
     zh-Hans = 关于
+    ar = نبذة عنا
 
   [back]
     en = Back
@@ -64,6 +66,7 @@
     hu = Vissza
     th = กลับ
     zh-Hans = 返回
+    ar = رجوع
 
   [cancel]
     tags = tizen
@@ -85,6 +88,7 @@
     hu = Mégse
     th = ยกเลิก
     zh-Hans = 取消
+    ar = إلغاء
 
   [cancel_download]
     tags = tizen
@@ -106,6 +110,7 @@
     hu = Letöltés megszakítása
     th = ยกเลิกการดาวน์โหลด
     zh-Hans = 取消下载
+    ar = إلغاء التنزيل
 
   [delete]
     tags = tizen
@@ -127,6 +132,7 @@
     hu = Törlés
     th = ลบ
     zh-Hans = 删除
+    ar = حذف
 
   [delete_old_maps]
     en = Delete old maps and proceed
@@ -147,6 +153,7 @@
     hu = Régi térképek törlése és folytatás
     th = ลบแผนที่เก่าและดำเนินการต่อไป
     zh-Hans = 删除旧地图，然后继续
+    ar = حذف الخرائط القديمة و المتابعة
 
   [do_not_ask_me_again]
     en = Do not ask me again
@@ -167,6 +174,7 @@
     hu = Ne kérdezze többször
     th = อย่าถามฉันอีก
     zh-Hans = 不要再问我
+    ar = لا تسئلني مرة أخرى
 
   [do_nothing]
     en = Continue
@@ -187,6 +195,7 @@
     hu = Folytatás
     th = ดำเนินการต่อ
     zh-Hans = 继续
+    ar = استمرار
 
   [download_maps]
     tags = tizen
@@ -207,6 +216,7 @@
     hu = Térképek letöltése
     th = ดาวน์โหลดแผนที่
     zh-Hans = 下载地图
+    ar = تنزيل الخرائط
 
   [download_x_kb]
     en = Download %qu kB
@@ -226,6 +236,7 @@
     hu = %qu kB letöltése
     th = ดาวน์โหลด %qu กิโลไบต์
     zh-Hans = 下载 %qu kB
+    ar = التنزيل %qu كيلو بايت
 
   [download_x_mb]
     en = Download %qu MB
@@ -245,6 +256,7 @@
     hu = %qu MB letöltése
     th = ดาวน์โหลด %qu เมกกะไบต์
     zh-Hans = 下载 %qu MB
+    ar = التنزيل %qu ميجا بايت
 
   [download_has_failed]
     en = Download has failed, touch again for one more try
@@ -265,6 +277,7 @@
     hu = Letöltés sikertelen. Kérjük próbálja újra!
     th = การดาวน์โหลดล้มเหลว แตะอีกครั้งเพื่อลองใหม่
     zh-Hans = 下载失败，重新轻触再试一次
+    ar = فشلت عملية التنزيل، انقر مرة أخرى لإعداة المحاولة
 
   [downloaded_x_y_touch_to_delete]
     en = Downloaded (%1$qu %2$@), touch to delete
@@ -285,6 +298,7 @@
     hu = Letöltve (%1$qu %2$@), érintse meg a törléshez
     th = ดาวน์โหลดแล้ว (%1$qu %2$@), แตะเพื่อลบ
     zh-Hans = 下载了(%1$qu %2$@)，轻触删除
+    ar =
 
   [downloading_x_touch_to_cancel]
     en = Downloading %qu%%, touch to cancel
@@ -305,6 +319,7 @@
     hu = %qu%% töltése, leállításhoz érintse meg.
     th = กำลังดาวน์โหลด %qu%%, แตะเพื่อยกเลิก
     zh-Hans = 下载%qu%%，轻触取消
+    ar = جاري التنزيل %qu%%   ، انقر للإلغاء
 
   [downloading]
     en = Downloading…
@@ -325,6 +340,7 @@
     hu = Letöltés…
     th = กำลังดาวน์โหลด…
     zh-Hans = 下载…
+    ar = جاري التنزيل…
 
   [get_it_now]
     en = Get it now
@@ -344,6 +360,7 @@
     hu = Telepítés most
     th = รับมันตอนนี้
     zh-Hans = 现在就获取它
+    ar = احصل عليه الآن
 
   [share_on_facebook_text]
     en = Are you enjoying maps.me? Help your friends and family learn about the app, share it with them on Facebook!
@@ -362,6 +379,7 @@
     hu = Tetszik a maps.me? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!
     th = คุณสนุกกับ maps.me หรือไม่? ช่วยเหลือเพื่อน ๆ และครอบครัวของคุณศึกษาเกี่ยวกับแอป แชร์มันบน Facebook!
     zh-Hans = 您喜欢用maps.me吗? 把这个应用介绍给您的朋友和家人吧，在Facebook上和他们分享吧！
+    ar = هل تستمتع باستخدام تطبيق maps.me ؟ ساعد أصدقائك و أسرتك في تعلم كيفية استخدامه، قم بمشاركته معهم على فيسبوك!
 
   [leave_review_text]
     en = If you like maps.me, please support us by writing a review. If you face any issues, please let us know by filling in a special form.
@@ -393,6 +411,7 @@
     pt = kB
     hu = kB
     th = กิโลไบต์
+    ar = ك.ب.
 
   [kilometres]
     tags = tizen
@@ -414,6 +433,7 @@
     hu = Kilométer
     th = กิโลเมตร
     zh-Hans = 千米
+    ar = كيلومتر
 
   [leave_a_review]
     en = Leave a Review
@@ -434,6 +454,7 @@
     hu = Ajánlás írása
     th = ให้คำวิจารณ์
     zh-Hans = 发表评论
+    ar = اترك تعليق
 
   [location_services_are_needed_desc]
     en = Location Services are needed to display your current position on the map.
@@ -454,6 +475,7 @@
     hu = Helyzetmeghatározó szolgáltatás szükséges az aktuális pozíció térképen történő megjelenítéséhez.
     th = บริการตำแหน่งที่ตั้งจำเป็นต้องแสดงตำแหน่งที่ตั้งปัจจุบันของคุณบนแผนที่
     zh-Hans = 需要使用位置服务来显示 您当前 在地图上的位置
+    ar = أنت بحاجة لخدمة تحديد المواقع من أجل عرض موقعك الحالي على الخريطة
 
   [maps]
     en = Maps
@@ -474,6 +496,7 @@
     hu = Térképek
     th = แผนที่
     zh-Hans = 地图
+    ar = خرائط
 
   [marked_for_downloading]
     en = Marked for downloading, touch to cancel
@@ -494,6 +517,7 @@
     hu = Letöltésre kijelölve, elvetéshez érintse meg
     th = ทำเครื่องหมายสำหรับการดาวน์โหลดแล้ว แตะเพื่อยกเลิก
     zh-Hans = 标记为下载,轻触取消
+    ar = تم تحديد العنصر لتنزيله، انقر للإلغاء
 
   [mb]
     tags = tizen
@@ -507,6 +531,7 @@
     pt = MB
     hu = MB
     th = เมกกะไบต์
+    ar = م.ب.
 
   [miles]
     tags = tizen
@@ -528,6 +553,7 @@
     hu = Mérföld
     th = ไมล์
     zh-Hans = 英里
+    ar = ميل
 
   [my_position]
     en = My Position
@@ -548,6 +574,7 @@
     hu = Saját helyzet
     th = ตำแหน่งของฉัน
     zh-Hans = 我的位置
+    ar = موقعي
 
   [no_internet_connection_detected]
     tags = tizen
@@ -569,6 +596,7 @@
     hu = Nem találtam internet kapcsolatot
     th = ไม่สามารถตรวจพบการเชื่อมต่ออินเทอร์เน็ต
     zh-Hans = 未检测到互联网连接
+    ar = لم يتم اكتشاف أي اتصال مع الانترنت
 
   [no_wifi_ask_cellular_download]
     tags = tizen
@@ -590,6 +618,7 @@
     hu = Nem találtam WiFi kapcsolatot. Használjunk mobil kapcsolatot (GPRS, EDGE vagy 3G) %@ letöltéséhez?
     th = ไม่สามารถตรวจพบการเชื่อมต่อ WiFi คุณต้องการใช้ข้อมูลโทรศัพท์มือถือ (GPRS, EDGE หรือ 3G) เพื่อดาวน์โหลด %@?
     zh-Hans = 未检测到 WiFi 连接。您想使用蜂窝数据 (GPRS, EDGE 或 3G)下载%@吗?
+    ar = لم يتم العثور على أي اتصال واي فاي. هل ترغب باستخدام حزمة البيانات الخليوية (GPRS ، EDGE أو 3G) من أجل تنزيل %@؟
 
   [ok]
     en = OK
@@ -597,6 +626,7 @@
     zh-Hant = 好
     th = ตกลง
     zh-Hans = 好
+    ar = موافق
 
   [enable_location_services]
     en = Please enable Location Services
@@ -617,6 +647,7 @@
     hu = Kérjük kapcsolja be a helyzetmeghatározó szolgáltatást
     th = โปรดเปิดการใช้งานการบริการตำแหน่งที่ตั้ง
     zh-Hans = 请启用位置服务
+    ar = الرجاء تفعيل خدمة تحديد المواقع
 
   [free_disk_space_for_country_x]
     en = Please free some space on your device first in order to download %@
@@ -636,6 +667,7 @@
     hu = Kérjük szabadítson fel helyet az eszközön, hogy le tudja tölteni %@-t
     th = โปรดเพิ่มพื้นที่บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %@
     zh-Hans = 请在设备上先释放一些空间以便下载%@
+    ar = الرجاء إخلاء بعض المساحة في ذاكرة جهازك أولا لكي تتمكن من تنزيل %@
 
   [remind_me_later]
     en = Remind me later
@@ -657,6 +689,7 @@
     hu = Emlékeztessen később
     th = เตือนฉันในภายหลัง
     zh-Hans = 稍后提醒我
+    ar = ذكرني لاحقاً
 
   [later]
     en = Later
@@ -676,6 +709,7 @@
     hu = Később
     th = ภายหลัง
     zh-Hans = 稍后
+    ar = لاحقا
 
   [never]
     en = Never
@@ -694,6 +728,7 @@
     hu = Soha
     th = ไม่ต้องเตือนอีก
     zh-Hans = 从来不
+    ar = أبدا
 
   [report_an_issue]
     en = Report an issue
@@ -714,6 +749,7 @@
     hu = Hiba jelentése
     th = รายงานปัญหา
     zh-Hans = 报告问题
+    ar = الإبلاغ عن مشكلة
 
   [search]
     en = Search
@@ -734,6 +770,7 @@
     hu = Keresés
     th = ค้นหา
     zh-Hans = 搜索
+    ar = البحث
 
   [search_available_in_pro_version]
     en = Search is only available in the full version of maps.me. Get it right now!
@@ -754,6 +791,7 @@
     hu = Keresés csak a maps.me teljes verziójában érhető el. Vásárolja meg most!
     th = สามารถใช้การค้นหา maps.me ในเวอร์ชันเต็มได้ รับมันตอนนี้!
     zh-Hans = 搜索只在完整版 maps.me 中提供。现在就 获取它!
+    ar = البحث متوافر فقط في الإصدار الكامل من maps.me. احصل عليه الآن!
 
   [search_map]
     en = Search Map
@@ -774,6 +812,7 @@
     hu = Keresés a térképen
     th = ค้นหาแผนที่
     zh-Hans = 搜索地图
+    ar = ابحث في الخريطة
 
   [not_enough_disk_space]
     en = There is not enough free disk space
@@ -794,6 +833,7 @@
     hu = Nincs elég szabad hely a lemezen
     th = มีพื้นที่ว่างในดิสก์ไม่เพียงพอ
     zh-Hans = 没有足够的可用磁盘空间
+    ar = لا يوجد مساحة كافية على القرص
 
   [touch_to_download]
     en = Touch to download
@@ -814,6 +854,7 @@
     hu = Érintse meg letöltéshez
     th = แตะเพื่อดาวน์โหลด
     zh-Hans = 轻触下载
+    ar = انقر للتنزيل
 
   [use_cellular_data]
     en = Yes
@@ -834,6 +875,7 @@
     hu = Igen
     th = ใช่
     zh-Hans = 是
+    ar = نعم
 
   [use_wifi_recommendation_text]
     tags = tizen
@@ -855,6 +897,7 @@
     hu = WiFi használatát javasoljuk nagy térképek letöltéséhez
     th = เราขอแนะนำให้ใช้ WiFi เพื่อดาวน์โหลดแผนที่ขนาดใหญ่
     zh-Hans = 我们推荐使用 WiFi 来下载大的地图
+    ar = نحن نوصي باستخدام واي فاي لتنزيل الخرائط الكبيرة
 
   [new_map_data_format_upgrade_dialog]
     en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
@@ -889,6 +932,7 @@
     hu = Milyen mértékegységet használjunk?
     th = ระบบการวัดใดที่คุณต้องการใช้?
     zh-Hans = 您喜欢哪种测量系统?
+    ar = ما هو نظام القياس المفضل لديك؟
 
   [location_is_disabled_long_text]
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
@@ -909,6 +953,7 @@
     hu = Ezen az eszközön jelenleg minden helyzetmeghatározó szolgáltatás ki van kapcsolva. Kérjük kapcsolja be ezeket a Beállítások között.
     th = ในปัจจุบันนี้มีการปิดการใช้งานการบริการตำแหน่งที่ตั้งสำหรับอุปกรณ์หรือแอปพลิเคชันนี้ โปรดเปิดใช้งานในการตั้งค่า
     zh-Hans = 您目前有此设备的所有位置服务或应用已禁 用。请在设置中启用它们。
+    ar =  التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
 
   [device_doesnot_support_location_services]
     en = Your device doesn't support Location Services
@@ -929,6 +974,7 @@
     hu = Az eszköz nem támogatja a helyzetmeghatározó szolgáltatásokat
     th = อุปกรณ์ของคุณไม่รองรับการบริการตำแหน่งที่ตั้ง
     zh-Hans = 您的设备不支持位置服务。
+    ar = جهازك لا يدعم خدمات تحديد المواقع.
 
   [zoom_to_country]
     en = Zoom to the country
@@ -949,6 +995,7 @@
     hu = Nagyítson az országra
     th = ซูมเข้าไปยังประเทศ
     zh-Hans = 放大至该国
+    ar = تكبير الى الدولة
 
   [country_status_added_to_queue]
     en = ^is added to the downloading queue.
@@ -969,6 +1016,7 @@
     hu = ^-t hozzáadtuk a letöltési sorhoz.
     th = มีการเพิ่ม^ ไปยังลำดับการดาวน์โหลดแล้ว
     zh-Hans = ^添加至下载序列
+    ar = ^قد تم إضافته الى صف الانتظار لعملية التنزيل
 
   [country_status_downloading]
     en = Downloading^^%
@@ -989,6 +1037,7 @@
     hu = ^^% letöltése folyamatban
     th = กำลังดาวน์โหลด^^%
     zh-Hans = 下载^^%中
+    ar = جاري التنزيل ^^%
 
   [country_status_download]
     en = Download^
@@ -1008,6 +1057,7 @@
     hu = Letöltés^
     th = ดาวน์โหลด^
     zh-Hans = 下载^
+    ar = تنزيل^
 
   [country_status_download_failed]
     en = Downloading^has failed
@@ -1028,6 +1078,7 @@
     hu = ^ letöltése sikertelen
     th = การดาวน์โหลด ^ล้มเหลว
     zh-Hans = 下载^失败了
+    ar = فشلت عملية تنزيل^
 
   [try_again]
     en = Try Again
@@ -1048,6 +1099,7 @@
     hu = Újrapróbálkozás
     th = ลองอีกครั้ง
     zh-Hans = 重试
+    ar = محاولة مرة أخرى
 
   [app_name]
     en = maps.me
@@ -1070,6 +1122,7 @@
     hu = A maps.me programról
     th = เกี่ยวกับ maps.me
     zh-Hans = 关于 maps.me
+    ar = حول maps.me
 
   [downloading_touch_to_cancel]
     en = Downloading %d%%, touch to cancel
@@ -1089,6 +1142,7 @@
     hu = %d%% letöltése, elvetéshez érintse meg
     th = กำลังดาวน์โหลด %d%%, แตะเพื่อยกเลิก
     zh-Hans = 正在下载 %d%%，触摸以取消
+    ar = جاري تنزيل %d%%  ، انقر للإلغاء
 
   [downloaded_touch_to_delete]
     en = Downloaded (%@), touch to delete
@@ -1108,6 +1162,7 @@
     hu = Letölve (%@), érintse meg törléshez
     th = ดาวน์โหลดแล้ว (%@), แตะเพื่อลบ
     zh-Hans = 下载了(%@),轻触删除
+    ar = تم تنزيل  (%@)، انقر للحذف
 
   [connection_settings]
     en = Connection Settings
@@ -1127,6 +1182,7 @@
     hu = Kapcsolat beállítások
     th = การตั้งค่าการเชื่อมต่อ
     zh-Hans = 连接设置
+    ar = اعدادات الاتصال
 
   [download_mb_or_kb]
     en = Download %@
@@ -1145,6 +1201,7 @@
     hu = Letöltés %@
     th = ดาวน์โหลด %@
     zh-Hans = 下载%@
+    ar = تنزيل %@
 
   [close]
     en = Close
@@ -1164,6 +1221,7 @@
     hu = Bezár
     th = ปิด
     zh-Hans = 关闭
+    ar = اغلاق
 
   [unsupported_phone]
     en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
@@ -1183,6 +1241,7 @@
     hu = Hardware-s gyorsítású OpenGL szükséges. Sajnos az Ön eszköze nem támogatott.
     th = จำเป็นต้องใช้ฮาร์ดแวร์ที่เพิ่มความเร็ว OpenGL โชคไม่ดีที่อุปกรณ์ของคุณไม่รองรับ
     zh-Hans = 硬件加速的 OpenGL 是必需的。遗憾的是您 的设备不支持。
+    ar = أنت بحاجة الى OpenGL بأجهزة تسريع . لسوء الحظ جهازك لا يدعم هذه الخاصية.
 
   [download]
     tags = tizen
@@ -1202,6 +1261,7 @@
     hu = Letöltés
     th = ดาวน์โหลด
     zh-Hans = 下载
+    ar = تنزيل
 
   [external_storage_is_not_available]
     en = SD card/USB storage with downloaded maps is not available
@@ -1221,6 +1281,7 @@
     hu = Nem található téképeket tartalmazó SD kártya / USB tároló
     th = ไม่สามารถใช้การ์ด SD /พื้นที่จัดเก็บ USB ที่มีดาวน์โหลดแผนที่ได้
     zh-Hans = 缺少包含已下载地图的 SD 卡/ USB 储存设备
+    ar = خاصية التخزين بواسطة البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل غير متاحة مع الخرائط التي تم تنزيلها.
 
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use maps.me
@@ -1240,6 +1301,7 @@
     hu = Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a maps.me használatához
     th = โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ maps.me
     zh-Hans = 请断开 USB 线或插入存储卡以使用 maps.me
+    ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام maps.me.
 
   [not_enough_free_space_on_sdcard]
     en = Please free some space on SD card/USB storage first in order to use the app
@@ -1259,6 +1321,7 @@
     hu = Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!
     th = โปรดเพิ่มพื้นที่บางส่วนบนการ์ด SD /พื้นที่จัดเก็บ USB ก่อนเพื่อใช้แอป
     zh-Hans = 请在 SD 卡/ USB 储存设备上释放一些空间以 使用此应用
+    ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
 
   [not_enough_memory]
     en = Not enough memory to launch app
@@ -1278,6 +1341,7 @@
     hu = Nincs elegendő memória az alkalmazás futtatásához
     th = มีหน่วยความจำไม่เพียงพอสำหรับการเปิดแอป
     zh-Hans = 没有足够的内存来启动应用程序
+    ar = لا يوجد ذاكرة كافية لتشغيل التطبيق.
 
   [free_space_for_country]
     en = Please free %1$@ on your device first in order to download %2$@
@@ -1297,6 +1361,7 @@
     hu = Kérjük szabadítson fel %1$@-t az eszközön $2$@ letöltéséhez!
     th = โปรดเพิ่ม %1$@ บนอุปกรณ์ของคุณก่อนเพื่อดาวน์โหลด %2$@
     zh-Hans = 请在您的设备上释放%1$@ 以便于下载%2$@
+    ar = الرجاء إخلاء %1$@ على جهازك أولا من أجل تنزيل %2$@
 
   [download_resources]
     en = Before you start let us download general world map into your device.\nIt needs %.1f%@ of data.
@@ -1317,6 +1382,7 @@
     hu = Első használat előtt letöltjük a világtérképet.\n %.1f%@ tárolóhely szükséges.
     th = ก่อนที่คุณจะเริ่มต้น โปรดให้เราดาวน์โหลดแผนที่โลกลงในอุปกรณ์ของคุณ \nจำเป็นต้องใช้ %.1f%@ ของข้อมูล
     zh-Hans = 在您开始前请让我们下载通用世界地 图至您的设备中。\n 它需要%.1f%@的 数据。
+    ar = قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %.1f%@ من البيانات.
 
   [getting_position]
     en = Getting current position
@@ -1336,6 +1402,7 @@
     hu = Aktuális pozíció meghatározása…
     th = กำลังรับตำแหน่งปัจจุบัน
     zh-Hans = 获取当前位置
+    ar = الحصول على الموقع الحالي
 
   [download_resources_continue]
     en = Go to Map
@@ -1355,6 +1422,7 @@
     hu = Térképhez ugrás
     th = ไปยังแผนที่
     zh-Hans = 前往地图
+    ar = الذهاب الى الخريطة
 
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
@@ -1374,6 +1442,7 @@
     hu = %@ letöltése. Mos továbbléphet \n a térképhez.
     th = กำลังดาวน์โหลด %@ ตอนนี้คุณสามารถ\nดำเนินการต่อไปยังแผนที่
     zh-Hans = 下载 %@。您现在可\n 前往地图。
+    ar = تنزيل %@. يمكنك الآن\n المتابعة الى الخريطة.
 
   [download_country_ask]
     en = Download %@?
@@ -1393,6 +1462,7 @@
     hu = Letöltsem %@-t?
     th = ดาวน์โหลด %@?
     zh-Hans = 下载 %@?
+    ar = هل تريد تنزيل   %@؟
 
   [update_country_ask]
     en = Update %@?
@@ -1412,6 +1482,7 @@
     hu = Frissítsem %@-t?
     th = อัปเดต %@?
     zh-Hans = 更新 %@?
+    ar = هل تريد تحديث %@ ؟
 
   [download_location_map_proposal]
     en = You can download the map\nof your current location.
@@ -1432,6 +1503,7 @@
     hu = Letöltheti az aktuális \npozícióhoz tartozó térképet.
     th  = คุณสามารถดาวน์โหลดแผนที่\nของตำแหน่งที่ตั้งปัจจุบันของคุณ
     zh-Hans = 您可下载您目前位置的地图。
+    ar = يمكنك تنزيل خريطة \n موقعك الحالية.
 
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
@@ -1452,6 +1524,7 @@
     hu = Frissítheti az aktuális pozícióhoz \ntartozó térképet.
     th = คุณสามารถอัปเดตแผนที่\nของตำแหน่งที่ตั้งปัจจุบันของคุณ
     zh-Hans = 您可更新您目前位置的地图。
+    ar = يمكنك تحديث خريطة \n موقعك الحالي.
 
   [download_location_map_up_to_date]
     en = The map of your current\nlocation (%@) is up-to-date
@@ -1472,6 +1545,7 @@
     hu = A jelenlegi pozícióhoz tartozó \n térkép (%@) naprakész.
     th = แผนที่ของ\nสถานที่ตั้งปัจจุบันของคุณ (%@) เป็นปัจจุบันแล้ว
     zh-Hans = 您目前\n 位置(%@) 的地图是最新的。
+    ar = خريطة موقعك \n الحالي (%@) مُحَدَثَة
 
   [pause]
     en = Pause
@@ -1491,6 +1565,7 @@
     hu = Szünet
     th = หยุดชั่วคราว
     zh-Hans = 暂停
+    ar = توقف مؤقت
 
   [continue_download]
     en = Continue
@@ -1511,6 +1586,7 @@
     hu = Folytatás
     th = ดำเนินการต่อ
     zh-Hans = 继续
+    ar = استمرار
 
   [downloaded_touch_to_update]
     en = Downloaded (%@), touch to update or delete
@@ -1530,6 +1606,7 @@
     hu = Letölve (%@) , érintse meg frissítéshez vagy törléshez
     th = ดาวน์โหลด (%@) แล้ว, แตะเพื่ออัปเดตหรือลบ
     zh-Hans = 下载 (%@),轻触更新或删除
+    ar = تم تنزيل (%@) ، انقر للتحديث أو الحذف
 
   [update_mb_or_kb]
     en = Update %@
@@ -1548,6 +1625,7 @@
     hu = %@ frissítése
     th = ัปเดต %@
     zh-Hans = 下载%@
+    ar = تحديث %@
 
   [search_update_maps]
     en = You need updated maps for search function:
@@ -1569,6 +1647,7 @@
     hu = Frissített térképekre lesz szüksége a kereséshez:
     th = คุณจำเป็นต้องใช้แผนที่ที่มีการอัปเดตเพื่อค้นหาฟังก์ชัน:
     zh-Hans = 您需要为搜索功能获取已更新的地图。
+    ar = أنت بحاجة الى تحديث الخرائط من أجل وظيفة البحث:
 
   [advise_update_maps]
     en = Update available for these maps:
@@ -1590,6 +1669,7 @@
     hu = Az aktuális térképhez elérhető frissítések:
     th = สามารถใช้การอัปเดตสำหรับแผนที่เหล่านี้:
     zh-Hans = 这些地图有更新版本:
+    ar = هناك تحديثات متوافرة للخرائط التالية:
 
   [suggest_uninstall_lite]
     en = You don't need maps.me Lite any more, so you can uninstall it.
@@ -1611,6 +1691,7 @@
     hu = Már nincs szüksége a maps.me lite alkalmazásra, nyugodtan letörölheti.
     th = คุณไม่จำเป็นต้องใช้ maps.me ไลท์ (Lite) อีกต่อไปแล้ว ดังนั้นคุณสามารถถอนการติดตั้ง
     zh-Hans = 您不再需要maps.me Lite ，所以，您可以卸载它。
+    ar = أنت لست بحاجة الى  maps.me Lite بعد الآن، لذلك يمكنك إلغاء تثبيته.
 
   [download_country_success]
     en = %@ downloaded successfully
@@ -1632,6 +1713,7 @@
     hu = %@ letöltése sikeres
     th = %@ ได้รับการดาวน์โหลดสำเร็จแล้ว
     zh-Hans = %@已成功下载
+    ar = تم تنزيل  %@  بنجاح.
 
   [download_country_failed]
     en = %@ download has failed
@@ -1653,6 +1735,7 @@
     hu = %@ letöltése sikertelen
     th = การดาวน์โหลด %@ ล้มเหลว
     zh-Hans = %@下载失败
+    ar = فشلت عملية تنزيل %@
 
   [add_new_set]
     en = Add new Set
@@ -1674,6 +1757,7 @@
     hu = Új csoport létrehozása
     th = เพิ่มชุดใหม่
     zh-Hans = 添加新的集合
+    ar = إضافة مجموعة جديدة
 
   [add_to_bookmarks]
     en = Add to Bookmarks
@@ -1694,6 +1778,7 @@
     hu = Könyvjelzőkhöz hozzáadás
     th = เพิ่มไปยังบุ๊กมาร์ก
     zh-Hans = 添加至书签
+    ar = إضافة الى الإشارات المرجعية
 
   [bookmark_color]
     en = Bookmark Color
@@ -1715,6 +1800,7 @@
     hu = Könyvjelző színe
     th = สีของบุ๊กมาร์ก
     zh-Hans = 书签颜色
+    ar = لون الإشارة المرجعية
 
   [bookmark_set_name]
     en = Bookmark Set Name
@@ -1736,6 +1822,7 @@
     hu = Könyvjelzőcsoport neve
     th = ชื่อของชุดบุ๊กมาร์ก
     zh-Hans = 书签集名称
+    ar = اسم مجموعة الإشارات المرجعية
 
   [bookmark_sets]
     en = Bookmark Sets
@@ -1757,6 +1844,7 @@
     hu = Könyvjelzőcsoportok
     th = ชุดของบุ๊กมาร์ก
     zh-Hans = 书签集
+    ar = مجموعات الإشارات المرجعية
 
   [bookmarks]
     en = Bookmarks
@@ -1778,6 +1866,7 @@
     hu = Könyvjelzők
     th = บุ๊กมาร์ก
     zh-Hans = 书签
+    ar = الإشارات المرجعية
 
   [color]
     en = Color
@@ -1798,6 +1887,7 @@
     hu = Szín
     th = สี
     zh-Hans = 色彩
+    ar = اللون
 
   [dropped_pin]
     en = Dropped Pin
@@ -1819,6 +1909,7 @@
     hu = Beszúrt jelző
     th = ปักหมุด
     zh-Hans = 已放置图钉
+    ar = الدبوس المُثَبَت
 
   [my_places]
     en = My Places
@@ -1840,6 +1931,7 @@
     hu = Saját helyeim
     th = สถานที่ของฉัน
     zh-Hans = 我的位置
+    ar = أماكني
 
   [name]
     en = Name
@@ -1860,6 +1952,7 @@
     hu = Név
     th = ชื่อ
     zh-Hans = 名字
+    ar = الاسم
 
   [address]
     en = Address
@@ -1881,6 +1974,7 @@
     hu = Cím
     th = ที่อยู่
     zh-Hans = 地址
+    ar = العنوان
 
   [remove_pin]
     en = Remove Pin
@@ -1902,6 +1996,7 @@
     hu = Jelző törlése
     th = ลบหมุด
     zh-Hans = 移除图钉
+    ar = إزالة الدبوس
 
   [set]
     en = Set
@@ -1923,6 +2018,7 @@
     hu = Csoport
     th = ชุด
     zh-Hans = 集合
+    ar = المجموعة
 
   [bookmarks_usage_hint]
     en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in maps.me. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.
@@ -1944,6 +2040,7 @@
     hu = Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
     th = คุณยังไม่มีบุ๊กมาร์ก\nแตะที่ใด ๆ บนแผนที่เพื่อเพิ่มบุ๊กมาร์ก\nสามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน maps.me เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์
     zh-Hans = 您还没有书签。\n在地图任何位置轻触以添 加一个书签。\n其他来源的书签也可载入并 显示在 maps.me 中。从邮件、 Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文 件。
+    ar = ليس لديك أي إشارات مرجعية بعد. \n   انقر على أي مكان على الخريطة لإضافة إشارة مرجعية. \n   يمكنك أيضا استيراد الإشارات المرجعية من المصادر الأخرى وعرضها في maps.me. افتح ملف KML/KMZ الذي يحتوي على الدبابيس المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
 
   [bookmarks_usage_hint_import_only]
     en = Bookmarks from other sources can be imported and displayed in maps.me. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.
@@ -1965,6 +2062,7 @@
     hu = Más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
     th = สามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน maps.me เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์
     zh-Hans = 其他来源的书签也可载入并显示在 maps.me中。从邮件、Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文件。
+    ar = يمكن استيراد الإشارات المرجعية من المصادر الأخرى و عرضها على maps.me. افتح ملف KML/KMZ الذي يحتوي على الإشارات المرجعية المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
 
   [settings]
     en = Settings
@@ -1986,6 +2084,7 @@
     hu = Beállítások
     th = การตั้งค่า
     zh-Hans = 设置
+    ar = الإعدادات
 
   [maps_storage]
     en = Maps storage
@@ -2007,6 +2106,7 @@
     hu = Térképek tárolása
     th = พื้นที่จัดเก็บแผนที่
     zh-Hans = 地图存储
+    ar = تخزين الخرائط
 
   [maps_storage_summary]
     en = Select the place where maps should be downloaded to
@@ -2028,6 +2128,7 @@
     hu = Válassza ki, hogy hova töltsük le a térképeket
     th = เลือกสถานที่ที่ต้องการดาวน์โหลดใช้แผนที่
     zh-Hans = 选取地图应该下载的位置
+    ar = اختر المكان الذي ينبغي تنزيل الخرائط  فيه.
 
   [move_maps]
     en = Move maps?
@@ -2049,6 +2150,7 @@
     hu = Áthelyezzük a térképeket?
     th = ลบแผนที่?
     zh-Hans = 移动地图?
+    ar = هل تريد نقل الخرائط؟
 
   [wait_several_minutes]
     en = This can take several minutes.\nPlease wait…
@@ -2070,6 +2172,7 @@
     hu = Ez több percig is eltarthat.\nKérjük várjon…
     th = นี่อาจจะใช้เวลาสองสามนาที\nโปรดรอ…
     zh-Hans = 这可能需要几分钟的时间。\n请稍候…
+    ar = يمكن أن تستغرق هذه العملية عدة دقائق.\nالرجاء الانتظار…
 
   [visible]
     en = Visible
@@ -2090,6 +2193,7 @@
     hu = látható
     th = มองเห็นได้
     zh-Hans = 可见
+    ar = مرئي
 
   [bookmarks_in_pro_version]
     en = Bookmarks are only available in the full version of maps.me. Get it right now!
@@ -2111,6 +2215,7 @@
     hu = Könyvjelzők csak a maps.me teljes verziójában érhetőek el. Vásárolja meg most!
     th = สามารถใช้บุ๊กมาร์กของ maps.me ในเวอร์ชันเต็มได้ รับมันตอนนี้!
     zh-Hans = 书签只在完整版 maps.me 中提供。现在就 获取它!
+    ar = الإشارات المرجعية متاحة فقط في الإصدار الكامل من maps.me. احصل عليه الآن!
 
   [gps_is_disabled_long_text]
     en = GPS is disabled. Please enable it in Settings.
@@ -2132,6 +2237,7 @@
     hu = GPS kikapcsolva. Kérjük kapcsolja be a Beállítások között.
     th = มีการปิดใช้งาน GPS โปรดเปิดใช้งานในการตั้งค่า
     zh-Hans = GPS 已禁用。请在设置中启用它。
+    ar = تم تعطيل خاصية نظام تحديد المواقع العالمي. الرجاء تفعيله في الاعدادات.
 
   [measurement_units]
     tags = ios,android,tizen
@@ -2153,6 +2259,7 @@
     hu = Mértékegységek
     th = หน่วยการวัด
     zh-Hans = 测量单位
+    ar = وحدات القياس.
 
   [measurement_units_summary]
     tags = ios,android,tizen
@@ -2174,6 +2281,7 @@
     hu = Válasszon kilométer és mérföld között
     th = เลือกระหว่างไมล์และกิโลเมตร
     zh-Hans = 选择英里或公里
+    ar = اختر من بين الأميال و الكيلو مترات.
 
   [search_mode_all]
     en = Everywhere
@@ -2195,6 +2303,7 @@
     hu = Mindenütt
     th = ทุกที่
     zh-Hans = 到处
+    ar = كل مكان
 
   [search_mode_nearme]
     en = Near Me
@@ -2216,6 +2325,7 @@
     hu = A közelben
     th = ใกล้ฉัน
     zh-Hans = 靠近我的
+    ar = بجواري
 
   [search_mode_viewport]
     en = On the Screen
@@ -2237,6 +2347,7 @@
     hu = A képernyőn
     th = บนหน้าจอ
     zh-Hans = 在屏幕上
+    ar = على الشاشة
 
   [food]
     en = food
@@ -2258,6 +2369,7 @@
     hu = élelmiszer
     th = อาหาร
     zh-Hans = 食物
+    ar = الطعام
 
   [transport]
     en = transport
@@ -2279,6 +2391,7 @@
     hu = közlekedés
     th = การขนส่ง
     zh-Hans = 交通
+    ar = النقل
 
   [fuel]
     en = gas
@@ -2300,6 +2413,7 @@
     hu = benzinkút
     th = ก๊าซ
     zh-Hans = 汽油
+    ar = الغاز
 
   [parking]
     en = parking
@@ -2321,6 +2435,7 @@
     hu = parkoló
     th = ที่จอดรถ
     zh-Hans = 停车
+    ar = الاصطفاف
 
   [shop]
     en = shop
@@ -2342,6 +2457,7 @@
     hu = bolt
     th = ร้านค้า
     zh-Hans = 商店
+    ar = المتجر
 
   [hotel]
     en = hotel
@@ -2362,6 +2478,7 @@
     hu = szálloda
     th = โรงแรม
     zh-Hans = 旅店
+    ar = الفندق
 
   [tourism]
     en = sights
@@ -2383,6 +2500,7 @@
     hu = látnivaló
     th = สถานที่ท่องเที่ยว
     zh-Hans = 景点
+    ar = المناظر
 
   [entertainment]
     en = entertainment
@@ -2404,6 +2522,7 @@
     hu = szórakozás
     th = แหล่งบันเทิง
     zh-Hans = 娱乐
+    ar = التسلية
 
   [atm]
     en = atm
@@ -2424,6 +2543,7 @@
     hu = pénzautomata
     th = เอทีเอ็ม
     zh-Hans = 自动取款机
+    ar = ماكينات الصراف الآلي
 
   [bank]
     en = bank
@@ -2445,6 +2565,7 @@
     hu = bank
     th = ธนาคาร
     zh-Hans = 银行
+    ar = البنك
 
   [pharmacy]
     en = pharmacy
@@ -2466,6 +2587,7 @@
     hu = gyógyszertár
     th = ร้านขายยา
     zh-Hans = 药店
+    ar = الصيدلية
 
   [hospital]
     en = hospital
@@ -2487,6 +2609,7 @@
     hu = kórház
     th = โรงแรม
     zh-Hans = 医院
+    ar = المستشفى
 
   [toilet]
     en = toilet
@@ -2508,6 +2631,7 @@
     hu = mosdó
     th = ห้องน้ำ
     zh-Hans = 厕所
+    ar = الحمام
 
   [post]
     en = post
@@ -2529,6 +2653,7 @@
     hu = posta
     th = ไปรษณีย์
     zh-Hans = 邮政
+    ar = البريد
 
   [police]
     en = police
@@ -2550,6 +2675,7 @@
     hu = rendőrség
     th = ตำรวจ
     zh-Hans = 警察
+    ar = الشرطة
 
   [no_search_results_found]
     en = No results found
@@ -2571,6 +2697,7 @@
     hu = Nincs keresési találat
     th = ไม่พบผลลัพธ์
     zh-Hans = 没有找到结果
+    ar = لم يتم العثور على أي نتائج
 
   [description]
     en = Notes
@@ -2592,6 +2719,7 @@
     hu = Jegyzetek
     th = บันทึก
     zh-Hans = 注释
+    ar = ملاحظات
 
   [share_by_email]
     en = Share by email
@@ -2613,6 +2741,7 @@
     hu = Megosztás email-en
     th = แชร์จากอีเมล
     zh-Hans = 邮件分享
+    ar = مشاركة بواسطة البريد الالكتروني
 
   [share_bookmarks_email_subject]
     en = Shared maps.me bookmarks
@@ -2634,6 +2763,7 @@
     hu = Egy maps.me könyvjelzőt osztottak meg Önnel
     th = แชร์บุ๊กมาร์กของ maps.me แล้ว
     zh-Hans = maps.me 书签已与您共享
+    ar = تم مشاركة اشارات maps.me المرجعية معك
 
   [share_bookmarks_email_body]
     en = Greetings,\n\nAttached are my bookmarks from maps.me offline maps. Please open it if you have maps.me Pro installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz.\n\nEnjoy traveling with maps.me!
@@ -2655,6 +2785,7 @@
     hu = Üdvözlöm!\n\nA mellékelt "%@.kmz" fájl tartalmazza a maps.me könyvjelzőimet. Kérem nyissa meg, ha a maps.me már telepítve van. Ha még nincs, akkor innen töltheti le: http://maps.me/get?kmz. \n\nSok sikert a program használatához!
     th = สวัสดี n\nสิ่งที่แนบ "%@.kmz" คือบุ๊กมาร์กของฉันจากแผนที่ maps.me แบบออฟไลฟ์ โปรดเปิดมันหากคุณได้ติดตั้ง maps.me Pro หากยังไม่ได้ดาวน์โหลดแอปสำหรับอุปกรณ์ iOS และ Android ของคุณ โปรดทำตามลิงก์นี้: http://maps.me/get?kmz.\n\n  สนุกไปกับการเดินทางไปกับ maps.me!
     zh-Hans = 欢迎,\n\n附件是 maps.me 离线地图中我 的书签。如果您已安装 maps.me 专业版, 请打开它。若没有,请为您的 iOS 或安卓设 备下载此应用。下载链接: http://maps.me/get?kmz.\n\n享 受 和 maps.me 的旅行吧!
+    ar =  مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط maps.me المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق maps.me Pro مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي:  http://maps.me/get?kmz\n\n استمتع بالسفر مع maps.me!
 
   [load_kmz_title]
     en = Loading Bookmarks
@@ -2676,6 +2807,7 @@
     hu = Könyvjelzők letöltése
     th = กำลังโหลดบุ๊กมาร์ก
     zh-Hans = 加载书签
+    ar = تحميل الإشارات المرجعية
 
   [load_kmz_successful]
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
@@ -2697,6 +2829,7 @@
     hu = Könyvjelzők letöltése sikeres! Megtalálja őket a térképen vagy a Könyvjelzők kezelése menüben.
     th = โหลดบุ๊กมาร์กสำเร็จแล้ว! คุณสามารถหาพวกมันได้บนแผนที่หรือบนหน้าจอโปรแกรมจัดการบุ๊กมาร์ก
     zh-Hans = 书签加载成功!您可以在地图或书签管理窗 口中找到它们。
+    ar = تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.
 
   [load_kmz_failed]
     en = Bookmarks upload failed. The file may be corrupted or defective.
@@ -2718,6 +2851,7 @@
     hu = Könyvjelzők feltöltése sikertelen. A fájl sérült lehet.
     th = การอัปโหลดล้มเหลว ไฟล์อาจเสียหายหรือมีข้อบกพร่อง
     zh-Hans = 书签上传失败。该文件可能已损坏或有缺陷。
+    ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف .
 
   [edit]
     en = Edit
@@ -2734,6 +2868,7 @@
     hu = Szerkeszt
     th = แก้ไข
     zh-Hans = 编辑
+    ar = تعديل
 
   [unknown_current_position]
     en = Your location hasn't been determined yet
@@ -2755,6 +2890,7 @@
     hu = Még nem határoztuk meg az aktuális helyzetét
     th = ตำแหน่งที่ตั้งของคุณยังไม่ได้รับการกำหนด
     zh-Hans = 您的位置尚未确定
+    ar = لم يتم التعرف على موقعك بعد.
 
   [download_location_country]
     en = Download the country of your current location (%@)
@@ -2776,6 +2912,7 @@
     hu = Töltse le az aktuális helyzet országát (%@)
     th = ดาวน์โหลด (%@) ประเทศของตำแหน่งที่ตั้งปัจจุบันของคุณ
     zh-Hans = 下载您所在位置的国家 (%@)
+    ar = تنزيل دولة (%@) موقعك الحالي
 
   [download_viewport_country_to_search]
     en = Download the country you are searching on (%@)
@@ -2797,6 +2934,7 @@
     hu = Töltse le a keresés országát (%@)
     th = ดาวน์โหลดประเทศ (%@) ที่คุณกำลังค้นหา
     zh-Hans = 下载您所搜索的国家 (%@)
+    ar = تنزيل الدولة (%@) التي تبحث فيها
 
   [cant_change_this_setting]
     en = Sorry, Map Storage settings are currently disabled.
@@ -2818,6 +2956,7 @@
     hu = Sajnáljuk, a térképek tárolása jelenleg ki van kapcsolva.
     th = ขออภัย ไม่มีการเปิดใช้งานการตั้งค่าพื้นที่จัดเก็บแผนที่ในปัจจุบัน
     zh-Hans = 抱歉,地图存储设置目前被禁用
+    ar = نأسف، اعدادات تخزين الخرائط معطلة حالياً.
 
   [downloading_is_active]
     en = Country download is in progress now.
@@ -2839,6 +2978,7 @@
     hu = Országletöltés folyamatban.
     th = กำลังดำเนินการดาวน์โหลดประเทศในตอนนี้
     zh-Hans = 国家下载进行中。
+    ar = جاري الآن تنزيل الدولة
 
   [appStore_message]
     en = Hope you enjoy using maps.me! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
@@ -2860,6 +3000,7 @@
     hu = Reméljük élvezi a maps.me használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!
     th = หวังว่าคุณจะสนุกกับการใช้ maps.me! หากเป็นเช่นนั้น โปรดให้คะแนนหรือวิจารณ์แอปได้ที่แอปสโตร์ (App Store) มันจะใช้เวลาไม่เกินหนึ่งนาทีแต่สามารถช่วยเหลือเราได้ ขอบคุณสำหรับการสนับสนุนของคุณ!
     zh-Hans = 希望您喜欢使用 maps.me! 若确实喜欢, 请在应用商店对此应用进行打分和点评。这 花不了一分钟但却可以实在地帮助我们。感 谢您的支持!
+    ar = نأمل أن تكون قد استمتعت باستخدام maps.me! إذا كان الأمر كذلك، الرجاء تقييم التطبيق في App Store. يستغرق ذلك أقل من دقيقة لكنه يفيدنا بالفعل. شكرا لك على دعمك!
 
   [no_thanks]
     en = No, thanks
@@ -2881,6 +3022,7 @@
     hu = Köszönöm, nem
     th = ไม่ ขอบคุณ
     zh-Hans = 不,谢谢
+    ar = لا، شكرا
 
   [bookmark_share_sms]
     en = Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get
@@ -2901,6 +3043,7 @@
     hu = Nézd meg a maps.me jelzőt! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
     th = เฮ้ ตรวจสอบหมุดของฉันที่ maps.me! %1$@ หรือ %2$@
     zh-Hans = 嘿,在 maps.me 上查看我标注的图钉吧! %1$@ 或%2$@ 未安装离线地图?在此下 载: http://maps.me/get
+    ar = هاي، تفقد الدبوس الخاص بي على maps.me!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
 
   [my_position_share_sms]
     en = Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
@@ -2921,6 +3064,7 @@
     hu = Nézd meg a maps.me helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
     th = เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ maps.me! %1$@ หรือ %2$@ or %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get
     zh-Hans = 嘿,在 maps.me 上查看我目前的位置 吧!%1$@ 或%2$@ 未安装离线地图?在此 下载: http://maps.me/get
+    ar = هاي، تفقد الموقع الخاص بي على maps.me!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
 
   [bookmark_share_email_subject]
     en = Hey, check out my pin at maps.me map!
@@ -2941,6 +3085,7 @@
     hu = Nézze meg a maps.me jelzőmet
     th = เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ maps.me!
     zh-Hans = 嘿,在 maps.me 上查看我标注的图钉吧!
+    ar = هاي، تفقد الدبوس الخاص بي على خريطة maps.me!
 
   [bookmark_share_email]
     en = Hi,\n\nI pinned: %1$@ at maps.me, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
@@ -2961,6 +3106,7 @@
     hu = Üdvözlöm, \n\nleszúrtam egy maps.me jelzőt: %1$@. Kattintson erre a hivatkozásra %2$@ vagy erre %3$@ hogy lássa a helyet a térképen.\n\nKöszönöm.
     th = หวัดดี \n\nฉันปักหมุด: %1$@ ที่ maps.me, โลกแผนที่ออฟไลน์ คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่ \n\nขอบคุณ
     zh-Hans = 嗨,\n\n我在 maps.me 世界离线地图上标 注了%1$@。点击此链接%2$@或此链 接 %3$@来查看在地图上的位置。\n\n谢 谢。
+    ar = مرحبا، \n\n قمت بوضع دبوس : %1$@ على maps.me، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة. \n\n شكرا لك.
 
   [my_position_share_email_subject]
     en = Hey, check out my current location at maps.me map!
@@ -2980,6 +3126,7 @@
     pt = Veja a minha localização atual em maps.me map
     hu = Nézze meg a helyzetemet a maps.me térképen!
     zh-Hans = 嗨，到maps.me查看我的当前位置！
+    ar =
 
  [my_position_share_email]
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
@@ -3000,6 +3147,7 @@
     hu = Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.
     th = หวัดดี \n\nฉันอยู่ที่นี่ตอนนี้: %1$@. คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่ \n\nขอบคุณ
     zh-Hans = 嗨,\n\n 我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的 位置。\n\n 谢谢。
+    ar = مرحبا، \n\n أنا هنا الآن: %1$@  . انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة. \n\n شكرا لك.
 
   [share_by_message]
     en = Share by message
@@ -3021,6 +3169,7 @@
     hu = Megosztás üzenetben
     th = แชร์จากข้อความ
     zh-Hans = 通过消息分享
+    ar = مشاركة بواسطة رسالة
 
   [share]
     en = Share
@@ -3042,6 +3191,7 @@
     hu = Megosztás
     th = แชร์
     zh-Hans = 分享
+    ar = مشاركة
 
   [message]
     en = Message
@@ -3063,6 +3213,7 @@
     hu = Üzenet
     th = ข้อความ
     zh-Hans = 消息
+    ar = رسالة
 
   [email]
     en = E-Mail
@@ -3084,6 +3235,7 @@
     hu = Email
     th = อีเมล
     zh-Hans = 邮件
+    ar = البريد الالكتروني
 
   [promocode_activation]
     en = Promo Code Activation
@@ -3095,6 +3247,7 @@
     pt = Ativação do Código de Promoção
     th = เปิดการใช้งานรหัสโปรโม (Promo)
     zh-Hans = 促销码激活
+    ar = تفعيل رمز الترويج
 
   [enter_promocode_hint]
     en = Enter Promo Code
@@ -3107,6 +3260,7 @@
     hu = Akciós kód aktiváláshoz
     th = ใส่รหัสโปรโม (Promo)
     zh-Hans = 输入促销码
+    ar = أدخل رمز الترويج
 
   [promocode_success]
     en = Promo code is activated!
@@ -3119,6 +3273,7 @@
     hu = Promóciós kód aktiválva!
     th = เปิดการใช้งานรหัสโปรโม (Promo) แล้ว!
     zh-Hans = 促销码已激活!
+    ar = تم تفعيل رمز الترويج!
 
   [promocode_error]
     en = Connection error. Please try again later.
@@ -3131,6 +3286,7 @@
     hu = Kapcsolati hiba. Kérjük próbálja újra később.
     th = มีข้อผิดพลาดในการเชื่อมต่อ โปรดลองอีกครั้งในภายหลัง
     zh-Hans = 连接错误。请稍后再试。
+    ar = خطأ في الاتصال. الرجاء المحاولة لاحقا.
 
   [promocode_failure]
     en = Invalid promo code. Please try again.
@@ -3143,6 +3299,7 @@
     hu = Érvénytelen kód. Kérjük próbálja újra.
     th = รหัสโปรโปไม่ถูกต้อง โปรดลองอีกครั้ง
     zh-Hans = 无效的促销代码。请再试一次。
+    ar = رمز الترويج غير صحيح. الرجاء إعادة المحاولة.
 
   [copy_link]
     en = Copy Link
@@ -3164,6 +3321,7 @@
     hu = Hivatkozás másolása
     th = คัดลอกลิงก์
     zh-Hans = 复制链接
+    ar = نسخ الرابط
 
   [more_info]
     en = Show More Info
@@ -3185,6 +3343,7 @@
     hu = Mutasson több adatot
     th = แสดงข้อมูลเพิ่มเติม
     zh-Hans = 显示更多资讯
+    ar = إظهار مزيد من المعلومات
 
   [copied_to_clipboard]
     en = Copied to Clipboard: %1$@
@@ -3206,6 +3365,7 @@
     hu = A vágólapra másolva: %1$@
     th = คัดลอกไปยังคลิปบอร์ด: %1$@
     zh-Hans = 复制到剪贴板:%1$@
+    ar = تم النسخ الى الحافظة: %1$@
 
   [allow_statistics]
     en = Send Statistics
@@ -3227,6 +3387,7 @@
     hu = Statisztika küldése
     th = ส่งสถิติ
     zh-Hans = 发送数据
+    ar = ارسال الاحصائيات
 
   [allow_statistics_hint]
     en = Allow us to collect usage statistics to improve the app
@@ -3248,6 +3409,7 @@
     hu = Használati adatok gyűjtésének jóváhagyása a program továbbfejlesztéséhez.
     th = อนุญาตให้เราเก็บการใช้สถิติเพื่อปรับปรุงแอป
     zh-Hans = 允许我们收集使用统计数据来提高应用程序
+    ar = اسمح لنا بجمع احصائيات الاستخدام من أجل تحسين التطبيق
 
   [info]
     en = Info
@@ -3269,6 +3431,7 @@
     hu = Info
     th = ข้อมูล
     zh-Hans = 信息
+    ar = المعلومات
 
   [done]
     en = Done
@@ -3290,6 +3453,7 @@
     hu = Kész
     th = เสร็จแล้ว
     zh-Hans = 完成
+    ar = تم
 
   [yopme_pref_summary]
     tags = android
@@ -3308,6 +3472,7 @@
     hu = Válassza ki a hátoldali képernyő-beállításokat
     th = เลือกการตั้งค่าหน้าจอส่วนหลัง
     zh-Hans = 选择背屏设置
+    ar = اختر اعدادات الشاشة الخلفية
 
   [yopme_pref_title]
     tags = android
@@ -3326,6 +3491,7 @@
     hu = Hátoldali képernyő-beállítások
     th = การตั้งค่าหน้าจอส่วนหลัง
     zh-Hans = 背屏设置
+    ar = اعدادات الشاشة الخلفية
 
   [show_on_backscreen]
     tags = android
@@ -3344,6 +3510,7 @@
     hu = Mutassa a vissza képernyőn
     th = แสดงหน้าจอส่วนหลัง
     zh-Hans = 显示在背屏上
+    ar = إظهار في الشاشة الخلفية
 
   [version]
     tags = android,tizen
@@ -3365,6 +3532,7 @@
     hu = Verzió: %@
     th = เวอร์ชัน: %@
     zh-Hans = 版本:%@
+    ar = الاصدار: %@
 
   [are_you_sure]
     tags = android,tizen
@@ -3386,6 +3554,7 @@
     hu = Valóban folytatni akarja?
     th = คุณแน่ใจหรือไม่ว่าคุณต้องการดำเนินการต่อ?
     zh-Hans = 您确定要继续吗?
+    ar = هل أنت واثق أنك تريد الاستمرار؟
 
   [tracks]
     tags = ios,android
@@ -3407,6 +3576,7 @@
     hu = Csoportok
     th = การติดตาม
     zh-Hans = 轨迹
+    ar = المسارات
 
   [length]
     tags = ios,android
@@ -3428,6 +3598,7 @@
     hu = Hossz
     th = ระยะเวลา
     zh-Hans = 长度
+    ar = الطول
 
   [share_my_location]
     tags = ios,android,tizen
@@ -3448,6 +3619,7 @@
     hu = Helyzetem megosztása
     th = แชร์ตำแหน่งที่ตั้งของฉัน
     zh-Hans = 共享我的位置
+    ar = مشاركة موقعي
 
   [become_a_pro]
     tags = tizen
@@ -3468,6 +3640,7 @@
     hu = Frissítés most
     th = อัปเกรด
     zh-Hans = 升级
+    ar = ترقية
 
   [menu_search]
     en = Search
@@ -3487,6 +3660,7 @@
     hu = Keresés
     th = ค้นหา
     zh-Hans = 搜索
+    ar = بحث
 
   [pref_zoom_title]
     tags = tizen
@@ -3507,6 +3681,7 @@
     hu = Nagyítás/kicsinyítés gombok
     th = ปุ่มซูม
     zh-Hans = 缩放按钮
+    ar = أزرار التكبير
 
   [pref_zoom_summary]
     tags = tizen
@@ -3527,6 +3702,7 @@
     hu = Mutassa a kijelzőn
     th = แสดงบนหน้าจอ
     zh-Hans = 在屏幕上显示
+    ar = عرض على الشاشة
 
   [more_apps_title]
     tags = ios,android
@@ -3547,6 +3723,7 @@
     hu = Több alkalmazás
     th = แอปเพิ่มเติม
     zh-Hans = 更多应用
+    ar = المزيد من التطبيقات
 
   [more_apps_guides]
     en = Travel Guides
@@ -3566,6 +3743,7 @@
     hu = Útikönyvek
     th = คู่มือการเดินทาง
     zh-Hans = 旅游指南
+    ar = دليل السفر الارشادي
 
   [more_apps_ads]
     fr = Plus d'applis
@@ -3585,6 +3763,7 @@
     ru = Другие приложения
     th = แอปเพิ่มเติม
     zh-Hans = 更多应用
+    ar = المزيد من التطبيقات
 
   [placepage_distance]
     en = Distance
@@ -3604,6 +3783,7 @@
     hu = Távolság
     th = ระยะห่าง
     zh-Hans = 距离
+    ar = المسافة
 
   [placepage_coordinates]
     en = Coordinates
@@ -3623,6 +3803,7 @@
     hu = Koordináták
     th = พิกัด
     zh-Hans = 坐标
+    ar = الإحداثيات
 
   [placepage_unsorted]
     en = Unsorted
@@ -3642,6 +3823,7 @@
     hu = Osztályozatlan
     th = ไม่เรียงลำดับ
     zh-Hans = 未分类
+    ar = لم يتم فرزها
 
   [search_show_on_map]
     en = View on map
@@ -3661,6 +3843,7 @@
     hu = Megtekintés a térképen
     th = ดูบนแผนที่
     zh-Hans = 在地图上查看
+    ar = مشاهدة على الخريطة
 
   [kitkat_migrate_ok]
     tags = android
@@ -3682,6 +3865,7 @@
     de = Der Kartendaten-Speicherplatz wurde optimiert. Bitte die App neu starten.\n\nDer Ordner MapsWithMe im Stammverzeichnis der SD-Karte wird nicht mehr benötigt. Sie können ihn löschen.
     th = มีการปรับประสิทธิภาพพื้นที่จัดเก็บข้อมูลของแผนที่ โปรดรีสตาร์ทแอป \n\n โฟลเดอร์ maps.me ในรากของการ์ด SD ไม่จำเป็นอีกต่อไป คุณสามารถลบได้
     zh-Hans = 地图数据存储已优化。请重启应用。\n\n SD 卡根目录中的 maps.me 文件夹已不再需要, 您可以删除它了。
+    ar = تم تحسين وسيلة تخزين بيانات الخريطة. الرجاء اعادة تشغيل التطبيق .\n\nلا حاجة بعد الآن لمجلد maps.me في البطاقة الرقمية الآمنة، يمكنك حذفه.
 
   [kitkat_migrate_failed]
     tags = android
@@ -3703,6 +3887,7 @@
     de = Bedingt durch Änderungen in Android 4.4, müssen wir den Kartendaten-Speicherplatz optimieren, es steht jedoch zum Kopieren der Kartendaten nicht genügend Speicherplatz zur Verfügung.\n\nGeben Sie bitte Speicherplatz frei, ansonsten werden Karten nur im Lesemodus verfügbar sein.
    th = เนื่องจากการเปลี่ยนแปลงในแอนดรอยด์ 4.4 เราจำเป็นต้องทำการปรับประสิทธิภาพพื้นที่จัดเก็บข้อมูลของแผนที่ แต่มีพื้นที่ไม่เพียงพอสำหรับการคัดลอกข้อมูลแผนที่ \n\nโปรดเพิ่มหน่วยความจำ มิฉะนั้นแล้วจะสามารถใช้แผนที่ได้ในโหมด อ่านอย่างเดียว
     zh-Hans = 由于安卓 4.4 的更改,我们需要优化地图的数 据存储,但现在没有足够的空间用于拷贝地 图数据。\n\n请释放存储空间,否则地图将 在只读模式中提供。
+    ar = بسبب التغييرات في نظام أندرويد4.4 ، نحن بحاجة لتحسين وسيلة تخزين بيانات الخريطة، لكن لا يوجد حيز كافٍ لنسخ بيانات الخريطة.\n\nالرجاء إخلاء الذاكرة، وإلا ستتوافر الخرائط في وضع القراءة فقط.
 
   [bookmark_move_fail]
     tags = android
@@ -3724,6 +3909,7 @@
     de = Wir müssen Ihre Lesezeichen in den internen Speicher verschieben, aber es gibt dafür keinen verfügbaren Speicherplatz. Bitte geben Sie Speicherplatz frei, sonst werden Ihre Lesezeichen nicht verfügbar sein.
     th = เราจำเป็นต้องลบบุ๊กมาร์กของคุณไปยังหน่วยความจำภายใน แต่ไม่มีพื้นที่ที่สามารถใช้ได้ โปรดเพิ่มหน่วยความจำ มิฉะนั้นจะไม่สามารถใช้บุ๊กมาร์กได้
     zh-Hans = 我们需要移动您的书签到内部存储器,但没 有可用的空间。请释放存储,否则书签将不 可用。
+    ar = نحن بحاجة لنقل الإشارات المرجعية الخاصة بك الى الذاكرة الداخلية، لكن لا يوجد حيز كافٍ لها. الرجاء إخلاء الذاكرة، وإلا لن تكون  الإشارات المرجعية متاحة.
 
   [kitkat_optimization_in_progress]
     tags = android
@@ -3745,6 +3931,7 @@
     de = Ihr Kartenspeicher wird jetzt optimiert. Bitte warten Sie, es kann ein paar Minuten dauern.
     th = พื้นที่จัดเก็บแผนที่ของคุณกำลังได้รับการปรับประสิทธิภาพในตอนนี้ โปรดรอ โดยอาจใช้เวลาสองสามนาที
     zh-Hans = 您的地图存储正在被优化。请稍后,它可能 需要几分钟的时间。
+    ar = لقد تم الآن تحسين وسيلة تخزين الخرائط. الرجاء الانتظار، سيستغرق الأمر دقائق قليلة.
 
   [free]
     tags = ios
@@ -3766,6 +3953,7 @@
     hu = Ingyenes
     th = ฟรี
     zh-Hans = 免费
+    ar = مجاني
 
   [buy]
     tags = ios
@@ -3787,6 +3975,7 @@
     hu = Megvásárlás
     th = ซื้อ
     zh-Hans = 购买
+    ar = شراء
 
   [search_on_map]
     tags = ios
@@ -3808,6 +3997,7 @@
     hu = Keresés a térképen
     th = ค้นหาแผนที่
     zh-Hans = 在地图上搜索
+    ar = البحث في الخريطة
 
   [no_route_found]
     tags = ios,android
