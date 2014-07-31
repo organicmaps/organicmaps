@@ -127,7 +127,6 @@ void PathSymbolHandle::Update(ScreenBase const & screen)
   itr.Attach(m_path);
   itr.Step((m_params.m_offset + m_symbolHalfWidth) * m_scaleFactor);
 
-  m_positions.resize(m_maxCount * 6, vec2(0.0f, 0.0f));
   for (int i = 0; i < m_maxCount * 6; ++i)
     m_positions[i] = vec2(0.0f, 0.0f);
 
