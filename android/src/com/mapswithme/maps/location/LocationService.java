@@ -31,8 +31,6 @@ import java.util.List;
 
 public class LocationService implements
     android.location.LocationListener, SensorEventListener, WifiLocationScanner.Listener,
-    GooglePlayServicesClient.ConnectionCallbacks,
-    GooglePlayServicesClient.OnConnectionFailedListener,
     com.google.android.gms.location.LocationListener
 {
   private static final String TAG = LocationService.class.getName();
@@ -420,7 +418,7 @@ public class LocationService implements
           registerSensorListeners();
 
           // Choose best location from available
-          final Location l = findBestLocation(providers);
+          final Location l = findBestNotExpiredLocation(providers);
           if (isLocationBetterThanCurrent(l))
             emitLocation(l);
           else if (mLastLocation != null && !LocationUtils.isExpired(mLastLocation, mLastLocationTime, LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
@@ -447,7 +445,7 @@ public class LocationService implements
       mLocationManager = (LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
     }
 
-    private Location findBestLocation(List<String> providers)
+    private Location findBestNotExpiredLocation(List<String> providers)
     {
       Location res = null;
       for (final String pr : providers)
@@ -498,7 +496,7 @@ public class LocationService implements
 
   }
 
-  private class GoogleFusedLocationProvider extends LocationProvider
+  private class GoogleFusedLocationProvider extends LocationProvider implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener
   {
     private LocationClient mLocationClient;
     private LocationRequest mLocationRequest;
@@ -506,8 +504,7 @@ public class LocationService implements
     @Override
     protected void setUp()
     {
-      mLocationClient = new LocationClient(mApplication, LocationService.this, LocationService.this);
-      mLocationClient.connect();
+      mLocationClient = new LocationClient(mApplication, this, this);
 
       mLocationRequest = LocationRequest.create();
       mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -518,35 +515,19 @@ public class LocationService implements
     @Override
     protected void startUpdates(LocationListener listener)
     {
-      if (!mLocationClient.isConnected())
+      if (mLocationClient != null && !mLocationClient.isConnected())
       {
         // Connection is asynchronous process
         // We need to be connected before call LocationClient.requestLocationUpdates()
         if (!mLocationClient.isConnecting())
           mLocationClient.connect();
-
-        return;
-      }
-
-      if (!mIsActive)
-      {
-        mLocationClient.requestLocationUpdates(mLocationRequest, LocationService.this);
-
-        registerSensorListeners();
-        startWifiLocationUpdate();
-
-        final Location l = mLocationClient.getLastLocation();
-        if (l != null)
-          emitLocation(l);
-
-        mIsActive = true;
       }
     }
 
     @Override
     protected void stopUpdates()
     {
-      if (mLocationClient.isConnected())
+      if (mLocationClient != null && mLocationClient.isConnected())
         mLocationClient.removeLocationUpdates(LocationService.this);
 
       super.stopUpdates();
@@ -574,23 +555,37 @@ public class LocationService implements
     {
       return mLocationClient.getLastLocation();
     }
-  }
 
-  @Override
-  public void onConnectionFailed(ConnectionResult connectionResult)
-  {
-    mLogger.d("onConnectionFailed " + connectionResult);
-  }
+    private void refreshUpdates()
+    {
+      mLocationClient.requestLocationUpdates(mLocationRequest, LocationService.this);
 
-  @Override
-  public void onConnected(Bundle arg0)
-  {
-    mLogger.d("onConnected " + arg0);
-  }
+      registerSensorListeners();
+      startWifiLocationUpdate();
 
-  @Override
-  public void onDisconnected()
-  {
-    mLogger.d("onDisconnected");
+      final Location l = mLocationClient.getLastLocation();
+      if (l != null)
+        emitLocation(l);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult)
+    {
+      mLogger.d("onConnectionFailed " + connectionResult);
+    }
+
+    @Override
+    public void onConnected(Bundle arg0)
+    {
+      mLogger.d("onConnected " + arg0);
+      refreshUpdates();
+    }
+
+    @Override
+    public void onDisconnected()
+    {
+      mLogger.d("onDisconnected");
+      mLocationClient = null;
+    }
   }
 }
