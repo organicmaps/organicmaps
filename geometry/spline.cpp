@@ -61,7 +61,7 @@ void Spline::iterator::Step(float speed)
   m_avrDir += m_pos;
 }
 
-bool Spline::iterator::beginAgain()
+bool Spline::iterator::BeginAgain()
 {
   return m_checker;
 }

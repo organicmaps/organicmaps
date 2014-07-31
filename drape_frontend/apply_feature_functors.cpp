@@ -287,8 +287,8 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       PathSymbolViewParams params;
       params.m_depth = depth;
       params.m_symbolName = symRule.name();
-      params.m_Offset = symRule.offset() * df::VisualParams::Instance().GetVisualScale();
-      params.m_OffsetStart = symRule.step() * df::VisualParams::Instance().GetVisualScale();
+      params.m_step = symRule.offset() * df::VisualParams::Instance().GetVisualScale();
+      params.m_offset = symRule.step() * df::VisualParams::Instance().GetVisualScale();
 
       m_context.InsertShape(m_tileKey, MovePointer<MapShape>(new PathSymbolShape(m_path, params, m_nextModelViewScale)));
     }

@@ -17,11 +17,11 @@ public:
     PointF m_dir;
     PointF m_avrDir;
     iterator()
-      : m_pos(PointF()), m_dir(PointF()), m_avrDir(PointF()),
+      : m_pos(), m_dir(), m_avrDir(),
       m_checker(false), m_spl(NULL), m_index(0), m_dist(0) {}
     void Attach(Spline const & S);
     void Step(float speed);
-    bool beginAgain();
+    bool BeginAgain();
   private:
     bool m_checker;
     Spline const * m_spl;
@@ -30,10 +30,10 @@ public:
   };
 
 public:
-  Spline() : m_lengthAll(0.1f) {}
+  Spline() : m_lengthAll(0.0f) {}
   void FromArray(vector<PointF> const & path);
   Spline const & operator = (Spline const & spl);
-  float getLength() const { return m_lengthAll; }
+  float GetLength() const { return m_lengthAll; }
 
 private:
   float m_lengthAll;

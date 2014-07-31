@@ -244,7 +244,7 @@ void PathTextHandle::Update(ScreenBase const & screen)
 
     ASSERT_NOT_EQUAL(advance, 0.0, ());
     entireLength += advance;
-    if(entireLength >= m_params.m_OffsetEnd * m_scaleFactor || itr.beginAgain())
+    if(entireLength >= m_params.m_OffsetEnd * m_scaleFactor || itr.BeginAgain())
       return;
 
     PointF const pos = itr.m_pos;

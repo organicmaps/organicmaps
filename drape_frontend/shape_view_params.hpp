@@ -78,8 +78,8 @@ struct PathSymbolViewParams : CommonViewParams
 {
   FeatureID m_featureID;
   string m_symbolName;
-  float m_OffsetStart;
-  float m_Offset;
+  float m_offset;
+  float m_step;
 };
 
 

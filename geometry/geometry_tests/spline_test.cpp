@@ -163,13 +163,13 @@ UNIT_TEST(BeginAgain)
   PointF dir1(sqrt2 / 2.0f, sqrt2 / 2.0f);
   PointF dir2(sqrt2 / 2.0f, -sqrt2 / 2.0f);
   itr.Attach(spl);
-  TEST_EQUAL(itr.beginAgain(), false, ());
+  TEST_EQUAL(itr.BeginAgain(), false, ());
   itr.Step(90.0f);
-  TEST_EQUAL(itr.beginAgain(), false, ());
+  TEST_EQUAL(itr.BeginAgain(), false, ());
   itr.Step(90.0f);
-  TEST_EQUAL(itr.beginAgain(), true, ());
+  TEST_EQUAL(itr.BeginAgain(), true, ());
   itr.Step(190.0f);
-  TEST_EQUAL(itr.beginAgain(), true, ());
+  TEST_EQUAL(itr.BeginAgain(), true, ());
 
   path.clear();
 
@@ -181,12 +181,12 @@ UNIT_TEST(BeginAgain)
   Spline spl2;
   spl2.FromArray(path);
   itr.Attach(spl2);
-  TEST_EQUAL(itr.beginAgain(), false, ());
+  TEST_EQUAL(itr.BeginAgain(), false, ());
   itr.Step(90.0f);
-  TEST_EQUAL(itr.beginAgain(), false, ());
+  TEST_EQUAL(itr.BeginAgain(), false, ());
   itr.Step(90.0f);
-  TEST_EQUAL(itr.beginAgain(), true, ());
+  TEST_EQUAL(itr.BeginAgain(), true, ());
   itr.Step(190.0f);
-  TEST_EQUAL(itr.beginAgain(), true, ());
+  TEST_EQUAL(itr.BeginAgain(), true, ());
 }
 
