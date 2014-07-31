@@ -1,7 +1,7 @@
 package com.mapswithme.maps.downloader;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 
 import com.mapswithme.util.StringUtils;
@@ -24,13 +24,13 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
 
   private static final int TIMEOUT_IN_SECONDS = 60;
 
-  private final long m_httpCallbackID;
-  private final String m_url;
-  private final long m_beg;
-  private final long m_end;
-  private final long m_expectedFileSize;
-  private byte[] m_postBody;
-  private final String m_userAgent;
+  private final long mHttpCallbackID;
+  private final String mUrl;
+  private final long mBeg;
+  private final long mEnd;
+  private final long mExpectedFileSize;
+  private byte[] mPostBody;
+  private final String mUserAgent;
 
   private final int NOT_SET = -1;
   private final int IO_ERROR = -2;
@@ -38,10 +38,10 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   private final int WRITE_ERROR = -4;
   private final int FILE_SIZE_CHECK_FAILED = -5;
 
-  private int m_httpErrorCode = NOT_SET;
-  private long m_downloadedBytes = 0;
+  private int mHttpErrorCode = NOT_SET;
+  private long mDownloadedBytes = 0;
 
-  private static Executor s_exec = Executors.newFixedThreadPool(4);
+  private static Executor sExecutors = Executors.newFixedThreadPool(4);
 
   native boolean onWrite(long httpCallbackID, long beg, byte[] data, long size);
 
@@ -50,13 +50,13 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   public DownloadChunkTask(long httpCallbackID, String url, long beg, long end,
                            long expectedFileSize, byte[] postBody, String userAgent)
   {
-    m_httpCallbackID = httpCallbackID;
-    m_url = url;
-    m_beg = beg;
-    m_end = end;
-    m_expectedFileSize = expectedFileSize;
-    m_postBody = postBody;
-    m_userAgent = userAgent;
+    mHttpCallbackID = httpCallbackID;
+    mUrl = url;
+    mBeg = beg;
+    mEnd = end;
+    mExpectedFileSize = expectedFileSize;
+    mPostBody = postBody;
+    mUserAgent = userAgent;
   }
 
   @Override
@@ -64,7 +64,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
   {
   }
 
-  private long getChunkID() { return m_beg; }
+  private long getChunkID() { return mBeg; }
 
   @Override
   protected void onPostExecute(Boolean success)
@@ -77,7 +77,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     // start activity when no connection is present.
 
     if (!isCancelled())
-      onFinish(m_httpCallbackID, success ? 200 : m_httpErrorCode, m_beg, m_end);
+      onFinish(mHttpCallbackID, success ? 200 : mHttpErrorCode, mBeg, mEnd);
   }
 
   @Override
@@ -86,22 +86,21 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     if (!isCancelled())
     {
       // Use progress event to save downloaded bytes.
-      if (onWrite(m_httpCallbackID, m_beg + m_downloadedBytes, data[0], data[0].length))
-        m_downloadedBytes += data[0].length;
+      if (onWrite(mHttpCallbackID, mBeg + mDownloadedBytes, data[0], data[0].length))
+        mDownloadedBytes += data[0].length;
       else
       {
         // Cancel downloading and notify about error.
         cancel(false);
-        onFinish(m_httpCallbackID, WRITE_ERROR, m_beg, m_end);
+        onFinish(mHttpCallbackID, WRITE_ERROR, mBeg, mEnd);
       }
     }
   }
 
-  @SuppressLint("NewApi")
   void start()
   {
-    if (Utils.apiEqualOrGreaterThan(11))
-      executeOnExecutor(s_exec, (Void[]) null);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+      executeOnExecutor(sExecutors, (Void[]) null);
     else
       execute((Void[]) null);
   }
@@ -134,7 +133,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
 
     try
     {
-      final URL url = new URL(m_url);
+      final URL url = new URL(mUrl);
       urlConnection = (HttpURLConnection) url.openConnection();
 
       if (isCancelled())
@@ -145,28 +144,28 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       urlConnection.setReadTimeout(TIMEOUT_IN_SECONDS * 1000);
 
       // Set user agent with unique client id
-      urlConnection.setRequestProperty("User-Agent", m_userAgent);
+      urlConnection.setRequestProperty("User-Agent", mUserAgent);
 
       // use Range header only if we don't download whole file from start
-      if (!(m_beg == 0 && m_end < 0))
+      if (!(mBeg == 0 && mEnd < 0))
       {
-        if (m_end > 0)
-          urlConnection.setRequestProperty("Range", StringUtils.formatUsingUsLocale("bytes=%d-%d", m_beg, m_end));
+        if (mEnd > 0)
+          urlConnection.setRequestProperty("Range", StringUtils.formatUsingUsLocale("bytes=%d-%d", mBeg, mEnd));
         else
-          urlConnection.setRequestProperty("Range", StringUtils.formatUsingUsLocale("bytes=%d-", m_beg));
+          urlConnection.setRequestProperty("Range", StringUtils.formatUsingUsLocale("bytes=%d-", mBeg));
       }
 
       final Map<?, ?> requestParams = urlConnection.getRequestProperties();
 
-      if (m_postBody != null)
+      if (mPostBody != null)
       {
         urlConnection.setDoOutput(true);
-        urlConnection.setFixedLengthStreamingMode(m_postBody.length);
+        urlConnection.setFixedLengthStreamingMode(mPostBody.length);
 
         final DataOutputStream os = new DataOutputStream(urlConnection.getOutputStream());
-        os.write(m_postBody);
+        os.write(mPostBody);
         os.flush();
-        m_postBody = null;
+        mPostBody = null;
         Utils.closeStream(os);
       }
 
@@ -178,11 +177,11 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       // to avoid situation when downloading is always failed by "unknown" reason
       // When we didn't ask for chunks, code should be 200
       // When we asked for a chunk, code should be 206
-      final boolean isChunk = !(m_beg == 0 && m_end < 0);
+      final boolean isChunk = !(mBeg == 0 && mEnd < 0);
       if ((isChunk && err != HttpURLConnection.HTTP_PARTIAL) || (!isChunk && err != HttpURLConnection.HTTP_OK))
       {
         // we've set error code so client should be notified about the error
-        m_httpErrorCode = FILE_SIZE_CHECK_FAILED;
+        mHttpErrorCode = FILE_SIZE_CHECK_FAILED;
         Log.w(TAG, "Error for " + urlConnection.getURL() +
             ": Server replied with code " + err +
             ", aborting download. " + Utils.mapPrettyPrint(requestParams));
@@ -190,19 +189,19 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       }
 
       // Check for content size - are we downloading requested file or some router's garbage?
-      if (m_expectedFileSize > 0)
+      if (mExpectedFileSize > 0)
       {
         long contentLength = parseContentRange(urlConnection.getHeaderField("Content-Range"));
         if (contentLength < 0)
           contentLength = urlConnection.getContentLength();
 
         // Check even if contentLength is invalid (-1), in this case it's not our server!
-        if (contentLength != m_expectedFileSize)
+        if (contentLength != mExpectedFileSize)
         {
           // we've set error code so client should be notified about the error
-          m_httpErrorCode = FILE_SIZE_CHECK_FAILED;
+          mHttpErrorCode = FILE_SIZE_CHECK_FAILED;
           Log.w(TAG, "Error for " + urlConnection.getURL() +
-              ": Invalid file size received (" + contentLength + ") while expecting " + m_expectedFileSize +
+              ": Invalid file size received (" + contentLength + ") while expecting " + mExpectedFileSize +
               ". Aborting download.");
           return false;
         }
@@ -212,17 +211,17 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       return downloadFromStream(new BufferedInputStream(urlConnection.getInputStream(), 65536));
     } catch (final MalformedURLException ex)
     {
-      Log.d(TAG, "Invalid url: " + m_url);
+      Log.d(TAG, "Invalid url: " + mUrl);
 
       // Notify the client about error
-      m_httpErrorCode = INVALID_URL;
+      mHttpErrorCode = INVALID_URL;
       return false;
     } catch (final IOException ex)
     {
-      Log.d(TAG, "IOException in doInBackground for URL: " + m_url, ex);
+      Log.d(TAG, "IOException in doInBackground for URL: " + mUrl, ex);
 
       // Notify the client about error
-      m_httpErrorCode = IO_ERROR;
+      mHttpErrorCode = IO_ERROR;
       return false;
     } finally
     {
@@ -232,7 +231,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
         urlConnection.disconnect();
       else
       {
-        m_httpErrorCode = IO_ERROR;
+        mHttpErrorCode = IO_ERROR;
         return false;
       }
     }
@@ -261,7 +260,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
     if (ret < 0)
     {
       // notify the client about error
-      m_httpErrorCode = IO_ERROR;
+      mHttpErrorCode = IO_ERROR;
     }
 
     Utils.closeStream(stream);
