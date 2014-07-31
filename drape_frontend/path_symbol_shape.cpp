@@ -1,32 +1,44 @@
 #include "path_symbol_shape.hpp"
+#include "visual_params.hpp"
 
+#include "../drape/overlay_handle.hpp"
 #include "../drape/shader_def.hpp"
 #include "../drape/attribute_provider.hpp"
 #include "../drape/glstate.hpp"
 #include "../drape/batcher.hpp"
 #include "../drape/texture_set_holder.hpp"
-#include "visual_params.hpp"
 
 namespace df
 {
 
 using m2::PointF;
 using m2::Spline;
+using glsl_types::vec2;
+using glsl_types::vec4;
 
-struct TexCoord
+class PathSymbolHandle : public OverlayHandle
 {
-  TexCoord() {}
-  TexCoord(m2::PointF const & tex, float index = 0.0f, float depth = 0.0f)
-    : m_texCoord(tex), m_index(index), m_depth(depth) {}
+public:
+  static const uint8_t PositionAttributeID = 1;
+  PathSymbolHandle(m2::Spline const & spl, PathSymbolViewParams const & params, int maxCount, float hw, float hh)
+    : OverlayHandle(FeatureID(), dp::Center, 0.0f),
+      m_params(params), m_path(spl), m_scaleFactor(1.0f),
+      m_positions(maxCount * 6), m_maxCount(maxCount),
+      m_symbolHalfWidth(hw), m_symbolHalfHeight(hh) {}
 
-  TexCoord(float texX, float texY, float index = 0.0f, float depth = 0.0f)
-    : m_texCoord(texX, texY), m_index(index), m_depth(depth) {}
+  virtual void Update(ScreenBase const & screen);
+  virtual m2::RectD GetPixelRect(ScreenBase const & screen) const;
+  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const;
 
-  m2::PointF m_texCoord;
-  float m_index;
-  float m_depth;
+private:
+  PathSymbolViewParams m_params;
+  m2::Spline m_path;
+  float m_scaleFactor;
+  mutable vector<vec2> m_positions;
+  int const m_maxCount;
+  float m_symbolHalfWidth;
+  float m_symbolHalfHeight;
 };
-
 
 PathSymbolShape::PathSymbolShape(vector<PointF> const & path, PathSymbolViewParams const & params, float maxScale)
   : m_params(params), m_maxScale(1.0f / maxScale)
@@ -36,13 +48,14 @@ PathSymbolShape::PathSymbolShape(vector<PointF> const & path, PathSymbolViewPara
 
 void PathSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHolder> textures) const
 {
-  int maxCount = (m_path.getLength() * m_maxScale - m_params.m_OffsetStart) / m_params.m_Offset + 1;
-  maxCount = max(0, maxCount);
-  if (!maxCount)
+  int maxCount = (m_path.GetLength() * m_maxScale - m_params.m_offset) / m_params.m_step + 1;
+  if (maxCount <= 0)
     return;
-  vector<Position> positions(maxCount * 6);
-  vector<TexCoord> uvs(maxCount * 6);
-  vector<Position> normals(maxCount * 6, Position(0.0f, 0.0f));
+
+  int const vertCnt = maxCount * 6;
+  vector<vec2> positions(vertCnt, vec2(0.0f, 0.0f));
+  vector<vec4> uvs(vertCnt);
+  vec4 * tc = &uvs[0];
   TextureSetHolder::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
 
@@ -57,23 +70,15 @@ void PathSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHol
 
   for(int i = 0; i < maxCount; ++i)
   {
-    int index = i * 6;
-    positions[index] = Position(0.0f, 0.0f);
-    uvs[index++] = TexCoord(rect.minX(), rect.minY(), textureNum, m_params.m_depth);
-    positions[index] = Position(0.0f, 0.0f);
-    uvs[index++] = TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth);
-    positions[index] = Position(0.0f, 0.0f);
-    uvs[index++] = TexCoord(rect.maxX(), rect.minY(), textureNum, m_params.m_depth);
-
-    positions[index] = Position(0.0f, 0.0f);
-    uvs[index++] = TexCoord(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth);
-    positions[index] = Position(0.0f, 0.0f);
-    uvs[index++] = TexCoord(rect.maxX(), rect.minY(), textureNum, m_params.m_depth);
-    positions[index] = Position(0.0f, 0.0f);
-    uvs[index++] = TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth);
+    *tc = vec4(rect.minX(), rect.minY(), textureNum, m_params.m_depth); tc++;
+    *tc = vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth); tc++;
+    *tc = vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth); tc++;
+    *tc = vec4(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth); tc++;
+    *tc = vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth); tc++;
+    *tc = vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth); tc++;
   }
 
-  AttributeProvider provider(3, maxCount * 6);
+  AttributeProvider provider(3, vertCnt);
   {
     BindingInfo position(1, PathSymbolHandle::PositionAttributeID);
     BindingDecl & decl = position.GetBindingDecl(0);
@@ -92,7 +97,7 @@ void PathSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHol
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(1, normal, MakeStackRefPointer(&normals[0]));
+    provider.InitStream(1, normal, MakeStackRefPointer(&positions[0]));
   }
   {
     BindingInfo texcoord(1);
@@ -105,14 +110,13 @@ void PathSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHol
     provider.InitStream(2, texcoord, MakeStackRefPointer(&uvs[0]));
   }
 
-  pixelSize *= 1.0f / df::VisualParams::Instance().GetVisualScale();
   OverlayHandle * handle = new PathSymbolHandle(m_path, m_params, maxCount, pixelSize.x / 2.0f, pixelSize.y / 2.0f);
   batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
 }
 
 m2::RectD PathSymbolHandle::GetPixelRect(ScreenBase const & screen) const
 {
-  return m2::RectD();
+  return m2::RectD(0, 0, 0, 0);
 }
 
 void PathSymbolHandle::Update(ScreenBase const & screen)
@@ -121,34 +125,35 @@ void PathSymbolHandle::Update(ScreenBase const & screen)
 
   Spline::iterator itr;
   itr.Attach(m_path);
-  itr.Step((m_params.m_OffsetStart + m_symbolHalfWidth) * m_scaleFactor);
+  itr.Step((m_params.m_offset + m_symbolHalfWidth) * m_scaleFactor);
 
+  m_positions.resize(m_maxCount * 6, vec2(0.0f, 0.0f));
   for (int i = 0; i < m_maxCount * 6; ++i)
-    m_positions[i] = Position(0.0f, 0.0f);
+    m_positions[i] = vec2(0.0f, 0.0f);
+
+  vec2 * it = &m_positions[0];
 
   for (int i = 0; i < m_maxCount; ++i)
   {
-    if (itr.beginAgain())
+    if (itr.BeginAgain())
       break;
     PointF const pos = itr.m_pos;
     PointF const dir = itr.m_dir * m_symbolHalfWidth  * m_scaleFactor;
-    PointF const norm(-dir.y * m_symbolHalfHeight / m_symbolHalfWidth, dir.x * m_symbolHalfHeight / m_symbolHalfWidth);
+    PointF const norm(-itr.m_dir.y * m_symbolHalfHeight * m_scaleFactor, itr.m_dir.x * m_symbolHalfHeight * m_scaleFactor);
 
     PointF const p1 = pos + dir - norm;
     PointF const p2 = pos - dir - norm;
     PointF const p3 = pos - dir + norm;
     PointF const p4 = pos + dir + norm;
 
-    int index = i * 6;
-    m_positions[index++] = Position(p2);
-    m_positions[index++] = Position(p3);
-    m_positions[index++] = Position(p1);
+    *it = p2; it++;
+    *it = p3; it++;
+    *it = p1; it++;
+    *it = p4; it++;
+    *it = p1; it++;
+    *it = p3; it++;
 
-    m_positions[index++] = Position(p4);
-    m_positions[index++] = Position(p1);
-    m_positions[index++] = Position(p3);
-
-    itr.Step(m_params.m_Offset * m_scaleFactor);
+    itr.Step(m_params.m_step * m_scaleFactor);
   }
 }
 
