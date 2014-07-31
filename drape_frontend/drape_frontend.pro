@@ -37,6 +37,7 @@ SOURCES += \
     text_shape.cpp \
     path_text_shape.cpp \
     path_symbol_shape.cpp \
+    common_structures.cpp \
 
 HEADERS += \
     engine_context.hpp \
@@ -69,3 +70,4 @@ HEADERS += \
     text_shape.hpp \
     path_text_shape.hpp \
     path_symbol_shape.hpp \
+    common_structures.hpp \
