@@ -78,11 +78,11 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<text id="IDS_MY_POSITION_SHARE_SMS">Sieh, wo ich gerade bin. Klicke auf den Link %1$s oder %2$s</text>
 	<!-- Subject for emailed bookmark -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Schau dir meine Nadel auf der maps.me-Karte an</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Schau dir meine Nadel auf der MAPS.ME-Karte an</text>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL">Hi,\n\nIch habe gepinnt: %1$s auf maps.me, Offline-Weltkarten. Klicke auf diesen Link %2$s oder diesen %3$s, um den Ort auf der Karte zu sehen.\n\nVielen Dank.</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL">Hi,\n\nIch habe gepinnt: %1$s auf MAPS.ME, Offline-Weltkarten. Klicke auf diesen Link %2$s oder diesen %3$s, um den Ort auf der Karte zu sehen.\n\nVielen Dank.</text>
 	<!-- Subject for emailed position -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Sieh dir meinen aktuellen Standort auf der Karte maps.me an</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Sieh dir meinen aktuellen Standort auf der Karte MAPS.ME an</text>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<text id="IDS_MY_POSITION_SHARE_EMAIL">Hi,\n\nich bin gerade hier: %1$s . Klicke auf diesen Link %2$s oder diesen %3$s, um meinen Standort auf der Karte zu sehen.\n\nVielen Dank.</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->

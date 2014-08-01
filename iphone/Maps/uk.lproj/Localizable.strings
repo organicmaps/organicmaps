@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Більше можливостей у повній версії maps.me з офлайн пошуком. Встановити її зараз?";
+"pro_version_available" = "Більше можливостей у повній версії MAPS.ME з офлайн пошуком. Встановити її зараз?";
 
 /* About button text (should be short) */
 "about" = "Про програму";
@@ -61,10 +61,7 @@
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
 "share_on_facebook_text" = "Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.";
 
-/* Leave Review dialog title */
-"leave_review_text" = "Якщо вам подобається maps.me, будь ласка, підтримайте нас, написавши відгук. Якщо у вас виникли проблеми при використанні програми, будь ласка, повідомте нам, заповнивши спеціальну форму, щоб ми могли зв'язатися з вами.";
-
-/* Settings/Downloader - size string */
+/* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "КБ";
 
 /* Choose measurement on first launch alert - choose metric system button */
@@ -82,7 +79,7 @@
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "Поставлено в чергу на завантаження, натисніть для скасування";
 
-/* Settings/Downloader - size string */
+/* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "МБ";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -121,7 +118,7 @@
 "search" = "Пошук";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Пошук доступний тільки в Pro версії maps.me. Встановіть її прямо зараз!";
+"search_available_in_pro_version" = "Пошук доступний тільки в Pro версії MAPS.ME. Встановіть її прямо зараз!";
 
 /* Search box placeholder text */
 "search_map" = "Пошук на картi";
@@ -154,7 +151,7 @@
 "zoom_to_country" = "Показати країну на карті";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^добавлено в чергу завантаження.";
+"country_status_added_to_queue" = "^добавлено в чергу завантаження";
 
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Завантажується^^%";
@@ -168,7 +165,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Спробуйте ще раз";
 
-"app_name" = "maps.me";
+"app_name" = "MAPS.ME";
 
 "about_menu_title" = "Про програму";
 
@@ -197,13 +194,13 @@
 "free_space_for_country" = "Для завантаження %2$@ треба %1$@ вільного місця";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій. \nВона потребує %.1f%@ даних.";
+"download_resources" = "Перш ніж розпочати дозвольте нам завантажити карту світу на ваш пристрій.\nВона потребує %.1f%@ даних.";
 
 "getting_position" = "Oтримуємо розташування";
 
 "download_resources_continue" = "Перейти на карту";
 
-"downloading_country_can_proceed" = "Поки завантажується %@ \nви можете користуватися програмою.";
+"downloading_country_can_proceed" = "Поки завантажується %@\nви можете користуватися програмою.";
 
 "download_country_ask" = "Завантажити %@?";
 
@@ -235,7 +232,7 @@
 "advise_update_maps" = "Доступні оновлення для наступних карт:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "maps.me Lite більше не потрібна. Рекомендуємо її видалити.";
+"suggest_uninstall_lite" = "MAPS.ME Lite більше не потрібна. Рекомендуємо її видалити.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ успішно завантажена";
@@ -283,10 +280,10 @@
 "set" = "Група";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "У вас ще немає мiток.\nНатисніть на будь-яке місце на карті, щоб зберегти мiтку.\nМiтки з інших ресурсів також можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.";
+"bookmarks_usage_hint" = "У вас ще немає мiток.\nНатисніть на будь-яке місце на карті, щоб зберегти мiтку.\nМiтки з інших ресурсів також можна імпортувати для застосунка MAPS.ME. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Мітки з інших ресурсів можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими мітками з почти, Dropbox або інтернет посилання.";
+"bookmarks_usage_hint_import_only" = "Мітки з інших ресурсів можна імпортувати для застосунка MAPS.ME. Відкрийте файл KML/KMZ із збереженими мітками з почти, Dropbox або інтернет посилання.";
 
 /* Settings button in system menu */
 "settings" = "Налаштування";
@@ -307,7 +304,7 @@
 "visible" = "Показувати на карті";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Мітки доступні у повній версії maps.me. Отримати просто зараз?";
+"bookmarks_in_pro_version" = "Мітки доступні у повній версії MAPS.ME. Отримати просто зараз?";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS вимкнено в налаштуваннях пристрою. Будь ласка, увімкніть його для зручного використання програми.";
@@ -381,10 +378,10 @@
 "share_by_email" = "Подiлитися по електронній пошті";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "З вами поділилися мiтками maps.me";
+"share_bookmarks_email_subject" = "З вами поділилися мiтками MAPS.ME";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Вітаю!\n\nОсь мої мiтки з офлайн карт maps.me у доданому файлі \"%@.kmz\". Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz.\n\nПриємних розваг з maps.me!";
+"share_bookmarks_email_body" = "Вітаю!\n\nОсь мої мiтки з офлайн карт MAPS.ME у доданому файлі \"%@.kmz\". Ви можете відкрти його, якщо у вас встановлена MAPS.ME Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz\n\nПриємних розваг з MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Завантаження мiток";
@@ -414,7 +411,7 @@
 "downloading_is_active" = "Зараз відбувається завантаження країни.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Сподіваємося, що вам сподобалося користуватися maps.me! Якщо так, будь ласка, надайте оцінку програмі або залиште свій відгук на app store. Витративши менше хвилини, ви дійсно нам допоможете. Дякуємо за вашу підтримку!";
+"appStore_message" = "Сподіваємося, що вам сподобалося користуватися MAPS.ME! Якщо так, будь ласка, надайте оцінку програмі або залиште свій відгук на app store. Витративши менше хвилини, ви дійсно нам допоможете. Дякуємо за вашу підтримку!";
 
 /* No, thanks */
 "no_thanks" = "Ні, дякую";
@@ -426,16 +423,16 @@
 "my_position_share_sms" = "Глянь де я зараз. Іди %1$@ або %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Поглянь на мою позначку на карті maps.me";
+"bookmark_share_email_subject" = "Поглянь на мою позначку на карті MAPS.ME";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Привіт,\n\nЯ позначив: %1$@ на maps.me, офлайн картах світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті. \n\nДякую.";
+"bookmark_share_email" = "Привіт,\n\nЯ позначив: %1$@ на MAPS.ME, офлайн картах світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті.\n\nДякую.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Поглянь на моє поточне місцезнаходження на карті maps.me";
+"my_position_share_email_subject" = "Поглянь на моє поточне місцезнаходження на карті MAPS.ME";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "Привіт,\n\nЯ зараз тут: %1$@.  Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на карті. \n\nДякую.";
+"my_position_share_email" = "Привіт,\n\nЯ зараз тут: %1$@.  Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на карті.\n\nДякую.";
 
 /* Android share by Message/SMS button text (including SMS) */
 "share_by_message" = "Подiлитися за допомогою повідомлення";
@@ -569,10 +566,10 @@
 /* Show on first lunch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
-/* Show on first lunch. */
+/* Show on first launch. */
 "agree" = "I agree";
 
-/* Show on first lunch. */
+/* Show on first launch */
 "disagree" = "I disagree";
 
 /* text of notification */

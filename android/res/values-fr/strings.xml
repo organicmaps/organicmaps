@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Naviguez plus facilement avec la recherche hors ligne de la version complète de maps.me. À installer !</string>
+	<string name="pro_version_available">Naviguez plus facilement avec la recherche hors ligne de la version complète de MAPS.ME. À installer !</string>
 	<!-- About button text (should be short) -->
 	<string name="about">À propos</string>
 	<!-- Button text (should be short) -->
@@ -37,10 +37,8 @@
 	<string name="downloading">Téléchargement en cours…</string>
 	<string name="get_it_now">Installer</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">maps.me vous plait ? Faites le connaître à vos amis et vos proches : partagez-le sur Facebook !</string>
-	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Si maps.me vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontez un problème, veuillez nous le signaler via le formulaire disponible.</string>
-	<!-- Settings/Downloader - size string -->
+	<string name="share_on_facebook_text">MAPS.ME vous plait ? Faites le connaître à vos amis et vos proches : partagez-le sur Facebook !</string>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">ko</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">kilomètres</string>
@@ -52,7 +50,7 @@
 	<string name="maps">Cartes</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">À télécharger, touchez pour annuler</string>
-	<!-- Settings/Downloader - size string -->
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">Mo</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Miles</string>
@@ -62,7 +60,6 @@
 	<string name="no_internet_connection_detected">Pas de connexion internet</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">Pas de connexion WiFi. Désirez-vous télécharger par le réseau de téléphone mobile (GPRS, EDGE ou 3G) ?</string>
-	<string name="ok">OK</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Veuillez activer le service de localisation</string>
 	<!-- Settings/Downloader - No free space dialog message -->
@@ -109,7 +106,7 @@
 	<string name="country_status_download_failed">Échec du téléchargement^</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Réessayer</string>
-	<string name="about_menu_title">À propos de maps.me</string>
+	<string name="about_menu_title">À propos de MAPS.ME</string>
 	<string name="downloading_touch_to_cancel">Téléchargement de %d%%, touchez pour annuler</string>
 	<string name="downloaded_touch_to_delete">Téléchargé (%s), touchez pour effacer</string>
 	<string name="connection_settings">Paramètres de connexion</string>
@@ -118,7 +115,7 @@
 	<string name="unsupported_phone">Hélas, l\&#39;accélération OpenGL matérielle est nécessaire mais votre appareil n\&#39;en dispose pas.</string>
 	<string name="download">Télécharger</string>
 	<string name="external_storage_is_not_available">Les cartes téléchargées sur carte SD ou support USB sont indisponibles</string>
-	<string name="disconnect_usb_cable">Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser maps.me</string>
+	<string name="disconnect_usb_cable">Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser MAPS.ME</string>
 	<string name="not_enough_free_space_on_sdcard">Veuillez libérer un peu d\&#39;espace sur la carte SD ou le support USB pour utiliser l\&#39;application</string>
 	<string name="not_enough_memory">Mémoire insuffisante pour lancer l\&#39;application</string>
 	<string name="free_space_for_country">Veuillez libérer %1$s avant de télécharger %2$s</string>
@@ -146,7 +143,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Mise à jour disponible pour ces cartes :</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Vous n\&#39;avez plus besoin de maps.me Lite et pouvez le supprimer.</string>
+	<string name="suggest_uninstall_lite">Vous n\&#39;avez plus besoin de MAPS.ME Lite et pouvez le supprimer.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s : téléchargement réussi</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -178,9 +175,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Groupe</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Vous n\&#39;avez encore aucun favori.\nTapotez n\&#39;importe où sur la carte pour ajouter un favori.\nLes signets provenant d\&#39;autres sources peuvent également être importés et affichés dans maps.me. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.</string>
+	<string name="bookmarks_usage_hint">Vous n\&#39;avez encore aucun favori.\nTapotez n\&#39;importe où sur la carte pour ajouter un favori.\nLes signets provenant d\&#39;autres sources peuvent également être importés et affichés dans MAPS.ME. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Les signets provenant d\&#39;autres sources peuvent être importés et affichés dans maps.me. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.</string>
+	<string name="bookmarks_usage_hint_import_only">Les signets provenant d\&#39;autres sources peuvent être importés et affichés dans MAPS.ME. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Réglages</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -194,7 +191,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Visible</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Les signets sont seulement dans la version complète de maps.me. L\&#39;installer maintenant ?</string>
+	<string name="bookmarks_in_pro_version">Les signets sont seulement dans la version complète de MAPS.ME. L\&#39;installer maintenant ?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS désactivé. Veuillez l\&#39;activer dans les réglages.</string>
 	<!-- Measurement units title in settings activity -->
@@ -243,9 +240,9 @@
 	<!-- Button text -->
 	<string name="share_by_email">Partager par courrier</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Signets maps.me partagés avec vous</string>
+	<string name="share_bookmarks_email_subject">Signets MAPS.ME partagés avec vous</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne maps.me dans le fichier \&quot;%s.kmz:\&quot; ci-joint. Veuillez l\&#39;ouvrir si vous avez déjà installé maps.me Pro. Sinon, téléchargez d\&#39;abord l\&#39;application pour appareil iOS ou Android depuis le lien http://maps.me/get?kmz.\n\nAmusez-vous bien avec maps.me !</string>
+	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne MAPS.ME dans le fichier \&quot;%s.kmz:\&quot; ci-joint. Veuillez l\&#39;ouvrir si vous avez déjà installé MAPS.ME Pro. Sinon, téléchargez d\&#39;abord l\&#39;application pour appareil iOS ou Android depuis le lien http://maps.me/get?kmz\n\nAmusez-vous bien avec MAPS.ME !</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Chargement des signets</string>
 	<!-- Kmz file successful loading -->
@@ -265,19 +262,19 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Téléchargement du pays actuellement en cours.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Nous espérons que vous appréciez maps.me ! Si oui, merci de l\&#39;évaluer sur l\&#39;App Store. Cela prend un instant mais peut vraiment nous aider. Merci pour votre soutien !</string>
+	<string name="appStore_message">Nous espérons que vous appréciez MAPS.ME ! Si oui, merci de l\&#39;évaluer sur l\&#39;App Store. Cela prend un instant mais peut vraiment nous aider. Merci pour votre soutien !</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Non, merci</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="bookmark_share_sms">Regarde cette epingle sur la carte ! Ouvre %1$s ou %2$s. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="my_position_share_sms">Regarde ma position sur maps.me ! Ouvre %1$s ou %2$s. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get</string>
+	<string name="my_position_share_sms">Regarde ma position sur MAPS.ME ! Ouvre %1$s ou %2$s. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Regarde mon épingle sur la carte maps.me</string>
+	<string name="bookmark_share_email_subject">Regarde mon épingle sur la carte MAPS.ME</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Salut,\n\nJ\&#39;ai épinglé %1$s sur maps.me, les cartes du monde hors ligne. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</string>
+	<string name="bookmark_share_email">Salut,\n\nJ\&#39;ai épinglé %1$s sur MAPS.ME, les cartes du monde hors ligne. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Regarde ma localisation actuelle sur la carte maps.me</string>
+	<string name="my_position_share_email_subject">Regarde ma localisation actuelle sur la carte MAPS.ME</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Salut,\n\nJe me trouve actuellement ici : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -364,9 +361,9 @@
 	<string name="choose_destination">Choisissez une destination…</string>
 	<!-- Show on first lunch. -->
 	<string name="maps_licence_info">Cette application utilise des données géographiques (dont des cartes, des listes d\&#39;entreprises, des points d\&#39;intérêt, des frontières de pays et de régions, etc.) tirées du projet OpenStreetMap. Nous ne garantissons en aucune manière la cohérence, l\&#39;exactitude, la complétude ou l\&#39;applicabilité des données d\&#39;OpenStreetMap.</string>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch. -->
 	<string name="agree">Je suis d\&#39;accord</string>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch -->
 	<string name="disagree">Je ne suis pas d\&#39;accord</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Téléchargez la carte de l\&#39;endroit où vous êtes</string>

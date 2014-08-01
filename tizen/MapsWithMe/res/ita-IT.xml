@@ -15,8 +15,6 @@
 	<text id="IDS_DOWNLOAD_MAPS">Scarica le mappe</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">Chilometri</text>
-	<!-- Settings/Downloader - size string -->
-	<text id="IDS_MB">MB</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Miglia</text>
 	<!-- Settings/Downloader - No internet connection dialog title -->
@@ -82,11 +80,11 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<text id="IDS_MY_POSITION_SHARE_SMS">Vedi dove sono ora. Apri %1$s o %2$s</text>
 	<!-- Subject for emailed bookmark -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Dai uno sguardo al mio pin sulla mappa di maps.me</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Dai uno sguardo al mio pin sulla mappa di MAPS.ME</text>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL">Ciao,\n\nHo segnato %1$s su maps.me, le mappe del mondo offline. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL">Ciao,\n\nHo segnato %1$s su MAPS.ME, le mappe del mondo offline. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</text>
 	<!-- Subject for emailed position -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Guarda dove mi trovo attualmente sulla mappa maps.me</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Guarda dove mi trovo attualmente sulla mappa MAPS.ME</text>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<text id="IDS_MY_POSITION_SHARE_EMAIL">Ciao,\n\nSono qui adesso: %1$s. Clicca su questo link %2$s oppure su questo %3$s per vedere il posto sulla mappa.\n\nGrazie.</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->

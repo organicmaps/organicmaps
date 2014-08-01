@@ -15,8 +15,6 @@
 	<text id="IDS_DOWNLOAD_MAPS">Pobierz mapy</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">Kilometry</text>
-	<!-- Settings/Downloader - size string -->
-	<text id="IDS_MB">MB</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Mile</text>
 	<!-- Settings/Downloader - No internet connection dialog title -->
@@ -78,15 +76,15 @@
 	<!-- Warning message when doing search around current position -->
 	<text id="IDS_UNKNOWN_CURRENT_POSITION">Twoja lokalizacja nie została jeszcze określona</text>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<text id="IDS_BOOKMARK_SHARE_SMS">Mój znacznik w maps.me %1$s i %2$s</text>
+	<text id="IDS_BOOKMARK_SHARE_SMS">Mój znacznik w MAPS.ME %1$s i %2$s</text>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<text id="IDS_MY_POSITION_SHARE_SMS">Zobacz gdzie jestem. Link %1$s lub %2$s</text>
 	<!-- Subject for emailed bookmark -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Obejrzyj mój znacznik na mapie w maps.me</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Obejrzyj mój znacznik na mapie w MAPS.ME</text>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL">Cześć,\n\nDodałem znacznik w: %1$s w aplikacji maps.me, mapach offline całego świata. Naciśnij ten link %2$s lub ten %3$s by zobaczyć to miejsce na mapie.\n\nDziękuję.</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL">Cześć,\n\nDodałem znacznik w: %1$s w aplikacji MAPS.ME, mapach offline całego świata. Naciśnij ten link %2$s lub ten %3$s by zobaczyć to miejsce na mapie.\n\nDziękuję.</text>
 	<!-- Subject for emailed position -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Zobacz moją aktualną lokalizację na mapie przy użyciu maps.me</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Zobacz moją aktualną lokalizację na mapie przy użyciu MAPS.ME</text>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<text id="IDS_MY_POSITION_SHARE_EMAIL">Cześć,\n\nJestem teraz tutaj: %1$s. Naciśnij na ten link %2$s lub ten %3$s, aby zobaczyć to miejsce na mapie.\n\nDziękuję.</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->

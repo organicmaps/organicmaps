@@ -15,7 +15,7 @@
 	<text id="IDS_DOWNLOAD_MAPS">Завантажити карти</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">Кілометри</text>
-	<!-- Settings/Downloader - size string -->
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<text id="IDS_MB">МБ</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Милі</text>
@@ -82,13 +82,13 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<text id="IDS_MY_POSITION_SHARE_SMS">Глянь де я зараз. Іди %1$s або %2$s</text>
 	<!-- Subject for emailed bookmark -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Поглянь на мою позначку на карті maps.me</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Поглянь на мою позначку на карті MAPS.ME</text>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL">Привіт,\n\nЯ позначив: %1$s на maps.me, офлайн картах світу. Натисни на це посилання %2$s або на це посилання %3$s, щоб побачити місце на карті. \n\nДякую.</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL">Привіт,\n\nЯ позначив: %1$s на MAPS.ME, офлайн картах світу. Натисни на це посилання %2$s або на це посилання %3$s, щоб побачити місце на карті.\n\nДякую.</text>
 	<!-- Subject for emailed position -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Поглянь на моє поточне місцезнаходження на карті maps.me</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Поглянь на моє поточне місцезнаходження на карті MAPS.ME</text>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL">Привіт,\n\nЯ зараз тут: %1$s.  Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на карті. \n\nДякую.</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL">Привіт,\n\nЯ зараз тут: %1$s.  Натисни на це посилання %2$s або на це посилання %3$s щоб побачити місце на карті.\n\nДякую.</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<text id="IDS_SHARE">Подiлитись</text>
 	<!-- iOS share by Message button text (including SMS) -->

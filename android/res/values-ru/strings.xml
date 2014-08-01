@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Больше возможностей в полной версии maps.me с офлайн поиском. Установить ее сейчас?</string>
+	<string name="pro_version_available">Больше возможностей в полной версии MAPS.ME с офлайн поиском. Установить ее сейчас?</string>
 	<!-- About button text (should be short) -->
 	<string name="about">О программе</string>
 	<!-- Button text (should be short) -->
@@ -37,10 +37,8 @@
 	<string name="downloading">Загружается…</string>
 	<string name="get_it_now">Установить</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">Нравится maps.me? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!</string>
-	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Если вам нравится maps.me, пожалуйста, поддержите нас, написав отзыв. Если у вас возникли проблемы при использовании программы, пожалуйста, сообщите нам, заполнив специальную форму, чтобы мы могли связаться с вами.</string>
-	<!-- Settings/Downloader - size string -->
+	<string name="share_on_facebook_text">Нравится MAPS.ME? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!</string>
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">КБ</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Километры</string>
@@ -52,7 +50,7 @@
 	<string name="maps">Карта</string>
 	<!-- Settings/Downloader - info for country in the download queue -->
 	<string name="marked_for_downloading">Поставлено в очередь на загрузку, нажмите для отмены</string>
-	<!-- Settings/Downloader - size string -->
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="mb">МБ</string>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<string name="miles">Мили</string>
@@ -77,7 +75,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Поиск</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Поиск доступен только в полной версии maps.me. Установите ее прямо сейчас!</string>
+	<string name="search_available_in_pro_version">Поиск доступен только в полной версии MAPS.ME. Установите ее прямо сейчас!</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Поиск на карте</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -99,7 +97,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Показать страну на карте</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^добавлено в очередь загрузки.</string>
+	<string name="country_status_added_to_queue">^добавлено в очередь загрузки</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">Загружается^^%</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
@@ -122,10 +120,10 @@
 	<string name="not_enough_memory">Недостаточно памяти для запуска программы</string>
 	<string name="free_space_for_country">Для загрузки %2$s нужно %1$s свободного места</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство. \nЭто потребует %1$.1f%2$s данных.</string>
+	<string name="download_resources">Перед началом работы разрешите нам загрузить общую карту мира на ваше устройство.\nЭто потребует %1$.1f%2$s данных.</string>
 	<string name="getting_position">Получаем местоположение</string>
 	<string name="download_resources_continue">Перейти на карту</string>
-	<string name="downloading_country_can_proceed">Пока загружается %s \nвы можете пользоваться приложением.</string>
+	<string name="downloading_country_can_proceed">Пока загружается %s\nвы можете пользоваться приложением.</string>
 	<string name="download_country_ask">Загрузить %s?</string>
 	<string name="update_country_ask">Обновить %s?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -145,7 +143,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Доступно обновление для следующих карт:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">maps.me Lite больше не нужна. Рекомендуем ее удалить.</string>
+	<string name="suggest_uninstall_lite">MAPS.ME Lite больше не нужна. Рекомендуем ее удалить.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s успешно загружена</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -177,9 +175,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Группа</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТак же метки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
+	<string name="bookmarks_usage_hint">У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТак же метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Метки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.</string>
+	<string name="bookmarks_usage_hint_import_only">Метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Настройки</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -193,7 +191,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Показывать на карте</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Метки доступны только в полной верии maps.me. Установите ее прямо сейчас!</string>
+	<string name="bookmarks_in_pro_version">Метки доступны только в полной верии MAPS.ME. Установите ее прямо сейчас!</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS-позиционирование выключено. Пожалуйста, включите его в настройках для удобного использования программы.</string>
 	<!-- Measurement units title in settings activity -->
@@ -242,9 +240,9 @@
 	<!-- Button text -->
 	<string name="share_by_email">Послать по email</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">С вами поделились метками maps.me</string>
+	<string name="share_bookmarks_email_subject">С вами поделились метками MAPS.ME</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле \&quot;%s.kmz\&quot; мои метки из офлайновых карт maps.me. Для того, чтобы открыть этот файл, вам потребуется приложение maps.me Pro, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!</string>
+	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле \&quot;%s.kmz\&quot; мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME Pro, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Загрузка меток</string>
 	<!-- Kmz file successful loading -->
@@ -264,7 +262,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Идет процесс загрузки карт.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Надеемся, вам нравится пользоваться maps.me! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!</string>
+	<string name="appStore_message">Надеемся, вам нравится пользоваться MAPS.ME! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Нет, спасибо</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -272,13 +270,13 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Смотри где я сейчас. Жми %1$s или %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Смотри мою метку на карте maps.me</string>
+	<string name="bookmark_share_email_subject">Смотри мою метку на карте MAPS.ME</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Привет!\n\nОткрой эту ссылку %2$s либо эту %3$s, для того, чтобы увидеть мою метку %1$s на карте maps.me.\n\nСпасибо.</string>
+	<string name="bookmark_share_email">Привет!\n\nОткрой эту ссылку %2$s либо эту %3$s, для того, чтобы увидеть мою метку %1$s на карте MAPS.ME.\n\nСпасибо.</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Посмотри на карте maps.me, где я сейчас нахожусь</string>
+	<string name="my_position_share_email_subject">Посмотри на карте MAPS.ME, где я сейчас нахожусь</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">Привет!\n\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте maps.me, открой эту ссылку %2$s или эту %3$s \n\nСпасибо.</string>
+	<string name="my_position_share_email">Привет!\n\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте MAPS.ME, открой эту ссылку %2$s или эту %3$s\n\nСпасибо.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Отправить сообщением</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -353,9 +351,9 @@
 	<string name="choose_destination">Куда…</string>
 	<!-- Show on first lunch. -->
 	<string name="maps_licence_info">Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.</string>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch. -->
 	<string name="agree">Я согласен</string>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch -->
 	<string name="disagree">Я не согласен</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Скачайте карту места, где вы находитесь</string>

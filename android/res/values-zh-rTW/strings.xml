@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">完整版的maps.me特色在於更完善的離線搜尋，立即購買!</string>
+	<string name="pro_version_available">完整版的MAPS.ME特色在於更完善的離線搜尋，立即購買!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">關於</string>
 	<!-- Button text (should be short) -->
@@ -37,9 +37,7 @@
 	<string name="downloading">下載中…</string>
 	<string name="get_it_now">馬上取得</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">喜歡maps.me嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！</string>
-	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">如果您喜歡maps.me，請支持我們並幫我們寫寫評論。如果您遇到任何問題，請填寫表單讓我們知道。</string>
+	<string name="share_on_facebook_text">喜歡MAPS.ME嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">公里</string>
 	<!-- Leave Review dialog - Review button -->
@@ -58,7 +56,7 @@
 	<string name="no_internet_connection_detected">無網路連線</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
 	<string name="no_wifi_ask_cellular_download">未發現WiFi訊號!您想使用其他的網路連線方式(GPRS, EDGE 或 3G)來下載嗎 %s？</string>
-	<string name="ok">好的</string>
+	<string name="ok">好</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">請啟動位置服務</string>
 	<!-- Settings/Downloader - No free space dialog message -->
@@ -74,7 +72,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">搜尋</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">搜尋功能僅適用於maps.me專業完整版。馬上購買！</string>
+	<string name="search_available_in_pro_version">搜尋功能僅適用於MAPS.ME專業完整版。馬上購買！</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">搜尋地圖</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -105,8 +103,8 @@
 	<string name="country_status_download_failed">下載^失敗</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再試一次</string>
-	<string name="app_name">maps.me 專業版</string>
-	<string name="about_menu_title">關於 maps.me</string>
+	<string name="app_name">MAPS.ME 專業版</string>
+	<string name="about_menu_title">關於 MAPS.ME</string>
 	<string name="downloading_touch_to_cancel">正在下載 %d%%, 輕觸以取消</string>
 	<string name="downloaded_touch_to_delete">已下載的 (%s), 輕觸以刪除</string>
 	<string name="connection_settings">連線設定</string>
@@ -115,7 +113,7 @@
 	<string name="unsupported_phone">需要OpenGL硬體加速功能的支援。但很不幸的，您的裝置並不支援此功能!</string>
 	<string name="download">下載</string>
 	<string name="external_storage_is_not_available">SD 卡/USB 無法有效儲存下載的地圖</string>
-	<string name="disconnect_usb_cable">請拔除USB線或插入SD卡以使用maps.me</string>
+	<string name="disconnect_usb_cable">請拔除USB線或插入SD卡以使用MAPS.ME</string>
 	<string name="not_enough_free_space_on_sdcard">如要繼續使用，請先釋放一些SD卡/ USB儲存空間</string>
 	<string name="not_enough_memory">沒有足夠的記憶體以啟用程式</string>
 	<string name="free_space_for_country">請先釋放 %1$s 系統空間以下載 %2$s</string>
@@ -131,7 +129,7 @@
 	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
 	<string name="download_location_update_map_proposal">您可以更新目前所在位置的地圖。</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_location_map_up_to_date">您目前所在位置 (%s) \n的地圖已是最新圖資 !</string>
+	<string name="download_location_map_up_to_date">您目前所在位置 (%s)\n的地圖已是最新圖資 !</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="pause">暫停</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
@@ -143,7 +141,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">以下為可用的更新地圖：</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">你再也不需要 maps.me Lite了,所以您可以移除它!</string>
+	<string name="suggest_uninstall_lite">你再也不需要 MAPS.ME Lite了,所以您可以移除它!</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s 已成功下載</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -175,9 +173,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">收藏夾</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">您還沒有任何書簽。\n點擊地圖上的任何地方以添加書簽。\n其他來源的書簽也可在maps.me應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。</string>
+	<string name="bookmarks_usage_hint">您還沒有任何書簽。\n點擊地圖上的任何地方以添加書簽。\n其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">其他來源的書簽也可在maps.me應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。</string>
+	<string name="bookmarks_usage_hint_import_only">其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">設定</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -191,7 +189,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">看得到的</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">書籤是maps.me完整版本才有的功能，馬上購買?</string>
+	<string name="bookmarks_in_pro_version">書籤是MAPS.ME完整版本才有的功能，馬上購買?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS 目前是關閉的，請在系統中設定為開啟使用</string>
 	<!-- Measurement units title in settings activity -->
@@ -238,9 +236,9 @@
 	<!-- Button text -->
 	<string name="share_by_email">以 email 分享</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">您已分享了 maps.me 書籤</string>
+	<string name="share_bookmarks_email_subject">您已分享了 MAPS.ME 書籤</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">哈囉!\n\n這是我的maps.me離線地圖中所夾帶的 \&quot;%s.kmz\&quot; 書籤檔案。若您已安裝maps.me專業版的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用maps.me愉快!</string>
+	<string name="share_bookmarks_email_body">哈囉!\n\n這是我的MAPS.ME離線地圖中所夾帶的 \&quot;%s.kmz\&quot; 書籤檔案。若您已安裝MAPS.ME專業版的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MAPS.ME愉快!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">正在載入書籤…</string>
 	<!-- Kmz file successful loading -->
@@ -260,7 +258,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">國家地圖正在進行下載</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">祝您使用 maps.me愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!</string>
+	<string name="appStore_message">祝您使用 MAPS.ME愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">不, 謝了!</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -331,9 +329,9 @@
 	<string name="choose_destination">選擇目的地…</string>
 	<!-- Show on first lunch. -->
 	<string name="maps_licence_info">此應用程序使用從OpenStreetMap專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證OpenStreetMap數據的一致性、準確性、完整性、或適用性。</string>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch. -->
 	<string name="agree">我同意</string>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch -->
 	<string name="disagree">我不同意</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">下載您所在地方的地圖</string>

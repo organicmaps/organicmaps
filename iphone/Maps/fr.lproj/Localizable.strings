@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Naviguez plus facilement avec la recherche hors ligne de la version complète de maps.me. À installer !";
+"pro_version_available" = "Naviguez plus facilement avec la recherche hors ligne de la version complète de MAPS.ME. À installer !";
 
 /* About button text (should be short) */
 "about" = "À propos";
@@ -59,12 +59,9 @@
 "get_it_now" = "Installer";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "maps.me vous plait ? Faites le connaître à vos amis et vos proches : partagez-le sur Facebook !";
+"share_on_facebook_text" = "MAPS.ME vous plait ? Faites le connaître à vos amis et vos proches : partagez-le sur Facebook !";
 
-/* Leave Review dialog title */
-"leave_review_text" = "Si maps.me vous plait, merci de nous soutenir en donnant votre avis. Si vous rencontez un problème, veuillez nous le signaler via le formulaire disponible.";
-
-/* Settings/Downloader - size string */
+/* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "ko";
 
 /* Choose measurement on first launch alert - choose metric system button */
@@ -82,7 +79,7 @@
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "À télécharger, touchez pour annuler";
 
-/* Settings/Downloader - size string */
+/* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "Mo";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -168,9 +165,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Réessayer";
 
-"app_name" = "maps.me";
+"app_name" = "MAPS.ME";
 
-"about_menu_title" = "À propos de maps.me";
+"about_menu_title" = "À propos de MAPS.ME";
 
 "downloading_touch_to_cancel" = "Téléchargement de %d%%, touchez pour annuler";
 
@@ -188,7 +185,7 @@
 
 "external_storage_is_not_available" = "Les cartes téléchargées sur carte SD ou support USB sont indisponibles";
 
-"disconnect_usb_cable" = "Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser maps.me";
+"disconnect_usb_cable" = "Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser MAPS.ME";
 
 "not_enough_free_space_on_sdcard" = "Veuillez libérer un peu d'espace sur la carte SD ou le support USB pour utiliser l'application";
 
@@ -235,7 +232,7 @@
 "advise_update_maps" = "Mise à jour disponible pour ces cartes :";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Vous n'avez plus besoin de maps.me Lite et pouvez le supprimer.";
+"suggest_uninstall_lite" = "Vous n'avez plus besoin de MAPS.ME Lite et pouvez le supprimer.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ : téléchargement réussi";
@@ -283,10 +280,10 @@
 "set" = "Groupe";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Vous n'avez encore aucun favori.\nTapotez n'importe où sur la carte pour ajouter un favori.\nLes signets provenant d'autres sources peuvent également être importés et affichés dans maps.me. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.";
+"bookmarks_usage_hint" = "Vous n'avez encore aucun favori.\nTapotez n'importe où sur la carte pour ajouter un favori.\nLes signets provenant d'autres sources peuvent également être importés et affichés dans MAPS.ME. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Les signets provenant d'autres sources peuvent être importés et affichés dans maps.me. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.";
+"bookmarks_usage_hint_import_only" = "Les signets provenant d'autres sources peuvent être importés et affichés dans MAPS.ME. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.";
 
 /* Settings button in system menu */
 "settings" = "Réglages";
@@ -307,7 +304,7 @@
 "visible" = "Visible";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Les signets sont seulement dans la version complète de maps.me. L'installer maintenant ?";
+"bookmarks_in_pro_version" = "Les signets sont seulement dans la version complète de MAPS.ME. L'installer maintenant ?";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS désactivé. Veuillez l'activer dans les réglages.";
@@ -381,10 +378,10 @@
 "share_by_email" = "Partager par courrier";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Signets maps.me partagés avec vous";
+"share_bookmarks_email_subject" = "Signets MAPS.ME partagés avec vous";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne maps.me dans le fichier \"%@.kmz:\" ci-joint. Veuillez l'ouvrir si vous avez déjà installé maps.me Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://maps.me/get?kmz.\n\nAmusez-vous bien avec maps.me !";
+"share_bookmarks_email_body" = "Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne MAPS.ME dans le fichier \"%@.kmz:\" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MAPS.ME Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://maps.me/get?kmz\n\nAmusez-vous bien avec MAPS.ME !";
 
 /* message title of loading file */
 "load_kmz_title" = "Chargement des signets";
@@ -414,7 +411,7 @@
 "downloading_is_active" = "Téléchargement du pays actuellement en cours.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Nous espérons que vous appréciez maps.me ! Si oui, merci de l'évaluer sur l'App Store. Cela prend un instant mais peut vraiment nous aider. Merci pour votre soutien !";
+"appStore_message" = "Nous espérons que vous appréciez MAPS.ME ! Si oui, merci de l'évaluer sur l'App Store. Cela prend un instant mais peut vraiment nous aider. Merci pour votre soutien !";
 
 /* No, thanks */
 "no_thanks" = "Non, merci";
@@ -423,16 +420,16 @@
 "bookmark_share_sms" = "Regarde cette epingle sur la carte ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Regarde ma position sur maps.me ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get";
+"my_position_share_sms" = "Regarde ma position sur MAPS.ME ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Regarde mon épingle sur la carte maps.me";
+"bookmark_share_email_subject" = "Regarde mon épingle sur la carte MAPS.ME";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Salut,\n\nJ'ai épinglé %1$@ sur maps.me, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.";
+"bookmark_share_email" = "Salut,\n\nJ'ai épinglé %1$@ sur MAPS.ME, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Regarde ma localisation actuelle sur la carte maps.me";
+"my_position_share_email_subject" = "Regarde ma localisation actuelle sur la carte MAPS.ME";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Salut,\n\nJe me trouve actuellement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.";
@@ -569,10 +566,10 @@
 /* Show on first lunch. */
 "maps_licence_info" = "Cette application utilise des données géographiques (dont des cartes, des listes d'entreprises, des points d'intérêt, des frontières de pays et de régions, etc.) tirées du projet OpenStreetMap. Nous ne garantissons en aucune manière la cohérence, l'exactitude, la complétude ou l'applicabilité des données d'OpenStreetMap.";
 
-/* Show on first lunch. */
+/* Show on first launch. */
 "agree" = "Je suis d'accord";
 
-/* Show on first lunch. */
+/* Show on first launch */
 "disagree" = "Je ne suis pas d'accord";
 
 /* text of notification */

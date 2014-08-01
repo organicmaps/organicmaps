@@ -15,7 +15,7 @@
 	<text id="IDS_DOWNLOAD_MAPS">Télécharger des cartes</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">kilomètres</text>
-	<!-- Settings/Downloader - size string -->
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<text id="IDS_MB">Mo</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Miles</text>
@@ -80,13 +80,13 @@
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<text id="IDS_BOOKMARK_SHARE_SMS">Regarde cette epingle sur la carte ! Ouvre %1$s ou %2$s. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get</text>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<text id="IDS_MY_POSITION_SHARE_SMS">Regarde ma position sur maps.me ! Ouvre %1$s ou %2$s. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get</text>
+	<text id="IDS_MY_POSITION_SHARE_SMS">Regarde ma position sur MAPS.ME ! Ouvre %1$s ou %2$s. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get</text>
 	<!-- Subject for emailed bookmark -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Regarde mon épingle sur la carte maps.me</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Regarde mon épingle sur la carte MAPS.ME</text>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL">Salut,\n\nJ\&#39;ai épinglé %1$s sur maps.me, les cartes du monde hors ligne. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL">Salut,\n\nJ\&#39;ai épinglé %1$s sur MAPS.ME, les cartes du monde hors ligne. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</text>
 	<!-- Subject for emailed position -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Regarde ma localisation actuelle sur la carte maps.me</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Regarde ma localisation actuelle sur la carte MAPS.ME</text>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<text id="IDS_MY_POSITION_SHARE_EMAIL">Salut,\n\nJe me trouve actuellement ici : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -109,8 +109,8 @@
 	<text id="IDS_PREF_ZOOM_SUMMARY">Afficher sur l\&#39;écran</text>
 	<!-- Show on first lunch. -->
 	<text id="IDS_MAPS_LICENCE_INFO">Cette application utilise des données géographiques (dont des cartes, des listes d\&#39;entreprises, des points d\&#39;intérêt, des frontières de pays et de régions, etc.) tirées du projet OpenStreetMap. Nous ne garantissons en aucune manière la cohérence, l\&#39;exactitude, la complétude ou l\&#39;applicabilité des données d\&#39;OpenStreetMap.</text>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch. -->
 	<text id="IDS_AGREE">Je suis d\&#39;accord</text>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch -->
 	<text id="IDS_DISAGREE">Je ne suis pas d\&#39;accord</text>
 </string_table>

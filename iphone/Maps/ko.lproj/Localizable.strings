@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "오프라인 검색 기능의 maps.me의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!";
+"pro_version_available" = "오프라인 검색 기능의 MAPS.ME의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!";
 
 /* About button text (should be short) */
 "about" = "소개";
@@ -59,12 +59,9 @@
 "get_it_now" = "지금 가져오기";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Are you enjoying maps.me? Help your friends and family learn about the app, share it with them on Facebook!";
+"share_on_facebook_text" = "Are you enjoying MAPS.ME? Help your friends and family learn about the app, share it with them on Facebook!";
 
-/* Leave Review dialog title */
-"leave_review_text" = "maps.me를 좋아하시면 평을 작성하여 주시기 바랍니다. 안건의 발생의 경우 특정 양식서를 작성하여 주시기 바랍니다.";
-
-/* Settings/Downloader - size string */
+/* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
 /* Choose measurement on first launch alert - choose metric system button */
@@ -82,7 +79,7 @@
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "다운로드로 표시하였습니다. 두드려 취소하십시요.";
 
-/* Settings/Downloader - size string */
+/* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -97,7 +94,7 @@
 /* Settings/Downloader - 3G download warning dialog title */
 "no_wifi_ask_cellular_download" = "WiFi 연결이 감지되지 않았습니다. %@를 다운로드하기 위해 휴대 자료(GPRS, EDGE 혹은 3G)를 사용하시겠습니까?";
 
-"ok" = "OK";
+"ok" = "승인";
 
 /* not used? Search View - Location is disabled by user warning text */
 "enable_location_services" = "위치 서비스를 작동시켜 주십시요.";
@@ -121,7 +118,7 @@
 "search" = "검색하기";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "검색은 maps.me의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?";
+"search_available_in_pro_version" = "검색은 MAPS.ME의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?";
 
 /* Search box placeholder text */
 "search_map" = "지도 검색하기";
@@ -154,7 +151,7 @@
 "zoom_to_country" = "국가로 확대하여 주세요";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^는 다운로드 대기열에추가됩니다.";
+"country_status_added_to_queue" = "^는 다운로드 대기열에추가됩니다";
 
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "다운로드 중^^%";
@@ -168,7 +165,7 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "다시 시도";
 
-"app_name" = "maps.me";
+"app_name" = "MAPS.ME";
 
 "about_menu_title" = "소개";
 
@@ -188,7 +185,7 @@
 
 "external_storage_is_not_available" = "다운로드된지도와 SD 카드 / USB 저장 장치를 사용할 수 없습니다";
 
-"disconnect_usb_cable" = "maps.me를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오";
+"disconnect_usb_cable" = "MAPS.ME를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오";
 
 "not_enough_free_space_on_sdcard" = "응용 프로그램을 사용하기 위해서는 첫째 SD 카드 / USB 저장 장치에 여유 공간을 확보하십시오";
 
@@ -197,7 +194,7 @@
 "free_space_for_country" = "%2$@를 다운로드하기 위해서는 먼저 장치에서 무료로 %1$@를주세요";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다. \n%.1f%@ 데이터가 필요합니다.";
+"download_resources" = "시작하시기 전에 일반 세계 지도를 귀하의 장치로 다운로드하겠습니다.\n%.1f%@ 데이터가 필요합니다.";
 
 "getting_position" = "현재 위치 얻기";
 
@@ -235,7 +232,7 @@
 "advise_update_maps" = "이지도에 사용할 수있는 업데이트 :";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "당신은 더 이상 maps.me 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.";
+"suggest_uninstall_lite" = "당신은 더 이상 MAPS.ME 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@이 성공적으로 다운로드";
@@ -283,10 +280,10 @@
 "set" = "집합";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 maps.me 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.";
+"bookmarks_usage_hint" = "즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 MAPS.ME 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "다른 소스에서 북마크는 maps.me 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.";
+"bookmarks_usage_hint_import_only" = "다른 소스에서 북마크는 MAPS.ME 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.";
 
 /* Settings button in system menu */
 "settings" = "설정";
@@ -307,7 +304,7 @@
 "visible" = "눈에 보이는";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "maps.me의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?";
+"bookmarks_in_pro_version" = "MAPS.ME의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS가 사용 중지되었습니다. 설정에서 이를 작동시켜 주시기 바랍니다.";
@@ -381,10 +378,10 @@
 "share_by_email" = "이메일로 공유";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "귀하와 공유된 maps.me 즐겨찾기";
+"share_bookmarks_email_subject" = "귀하와 공유된 MAPS.ME 즐겨찾기";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "안녕하세요.\n\n첨부된 \"%@.kmz\" 파일에 maps.me 오프라인 지도로부터의 제 즐겨찾기가 있습니다. maps.me 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nmaps.me와 함께 즐거운 시간 되시기 바랍니다!";
+"share_bookmarks_email_body" = "안녕하세요.\n\n첨부된 \"%@.kmz\" 파일에 MAPS.ME 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MAPS.ME 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nMAPS.ME와 함께 즐거운 시간 되시기 바랍니다!";
 
 /* message title of loading file */
 "load_kmz_title" = "즐겨찾기 로드";
@@ -414,7 +411,7 @@
 "downloading_is_active" = "국가 다운로드가 지금 진행 중입니다.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "maps.me로 즐거운 시간을 보내시기 바랍니다! maps.me가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!";
+"appStore_message" = "MAPS.ME로 즐거운 시간을 보내시기 바랍니다! MAPS.ME가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!";
 
 /* No, thanks */
 "no_thanks" = "평가하지 않겠습니다";
@@ -426,13 +423,13 @@
 "my_position_share_sms" = "현재 위치를 알아 보십시오. %1$@ 또는 %2$@ 열기";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "maps.me 지도에서 내 핀 보기";
+"bookmark_share_email_subject" = "MAPS.ME 지도에서 내 핀 보기";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 maps.me에서 %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
+"bookmark_share_email" = "안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MAPS.ME에서 %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "maps.me 지도에서 제 현재 위치를 살펴 보시기 바랍니다";
+"my_position_share_email_subject" = "MAPS.ME 지도에서 제 현재 위치를 살펴 보시기 바랍니다";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.";
@@ -569,10 +566,10 @@
 /* Show on first lunch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
-/* Show on first lunch. */
+/* Show on first launch. */
 "agree" = "I agree";
 
-/* Show on first lunch. */
+/* Show on first launch */
 "disagree" = "I disagree";
 
 /* text of notification */

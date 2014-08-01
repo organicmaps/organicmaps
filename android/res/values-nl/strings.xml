@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Navigeer makkelijker met maps.me Pro met offline zoeken. Instelleer het nu!</string>
+	<string name="pro_version_available">Navigeer makkelijker met MAPS.ME Pro met offline zoeken. Instelleer het nu!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">Over</string>
 	<!-- Button text (should be short) -->
@@ -34,9 +34,7 @@
 	<string name="get_it_now">Installeren</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
 	<string name="share_on_facebook_text">Deel dit programma met uw vrienden op Facebook, als ons programma u bevalt.</string>
-	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Ondersteun maps.me door een review te schrijven. Vul een speciaal formulier in als u problemen ondervindt</string>
-	<!-- Settings/Downloader - size string -->
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">KB</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilometers</string>
@@ -69,7 +67,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Zoeken</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">Zoeken is alleen beschikbaar in de Pro versie van maps.me. Wilt u hem nu installeren?</string>
+	<string name="search_available_in_pro_version">Zoeken is alleen beschikbaar in de Pro versie van MAPS.ME. Wilt u hem nu installeren?</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Zoek Kaart</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -98,14 +96,14 @@
 	<string name="country_status_download_failed">Downloaden^is niet gelukt</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Probeer opnieuw</string>
-	<string name="about_menu_title">Over maps.me</string>
+	<string name="about_menu_title">Over MAPS.ME</string>
 	<string name="downloading_touch_to_cancel">%d%% aan het downloaden, klik om te annuleren</string>
 	<string name="downloaded_touch_to_delete">Downloaded (%s), klik om te verwijderen</string>
 	<string name="connection_settings">Verbindingsinstellingen</string>
 	<string name="close">Sluiten</string>
 	<string name="unsupported_phone">Een hardware geaccellereerde OpenGL is nodig. Jammer genoeg wordt uw apparaat niet ondersteund.</string>
 	<string name="external_storage_is_not_available">SD kaart/USB opslag met gedownloade kaarten is niet beschikbaar</string>
-	<string name="disconnect_usb_cable">Verwijder de USB kabel of plaats een geheugen kaart om maps.me te gebruiken</string>
+	<string name="disconnect_usb_cable">Verwijder de USB kabel of plaats een geheugen kaart om MAPS.ME te gebruiken</string>
 	<string name="not_enough_free_space_on_sdcard">Maak eerst ruimte vrij op de SD kaart/USB opslag om de app te gebruiken</string>
 	<string name="not_enough_memory">Not genoeg geheugen om app te starten</string>
 	<string name="free_space_for_country">Maak %1$s aan ruimte vrij op uw apparaat om %2$s te downloaden</string>
@@ -132,7 +130,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Update beschikbaar voor deze kaarten:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">U heeft maps.me Lite niet meer nodig, dus u kunt de app deïnstalleren</string>
+	<string name="suggest_uninstall_lite">U heeft MAPS.ME Lite niet meer nodig, dus u kunt de app deïnstalleren</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s is succesvol gedownload</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -164,9 +162,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Groep</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de maps.me app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.</string>
+	<string name="bookmarks_usage_hint">Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de maps.me app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.</string>
+	<string name="bookmarks_usage_hint_import_only">Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Instellingen</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -180,7 +178,7 @@
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Zichtbaar</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Bladwijzers zijn beschikbaar in de volledige versie van maps.me. Wilt u die nu gelijk?</string>
+	<string name="bookmarks_in_pro_version">Bladwijzers zijn beschikbaar in de volledige versie van MAPS.ME. Wilt u die nu gelijk?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS is uitgeschakeld. Schakel ze in bij Instellingen.</string>
 	<!-- Measurement units title in settings activity -->
@@ -229,9 +227,9 @@
 	<!-- Button text -->
 	<string name="share_by_email">Delen via e-mail</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Bladwijzers van maps.me met u gedeeld</string>
+	<string name="share_bookmarks_email_subject">Bladwijzers van MAPS.ME met u gedeeld</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Hallo,\n\nHier zijn mijn bladwijzers uit de maps.me offline kaarten, in het bijgevoegde \&quot;%s.kmz\&quot;-bestand. Open het bestand als u maps.me Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz.\n\nVeel plezier met maps.me!</string>
+	<string name="share_bookmarks_email_body">Hallo,\n\nHier zijn mijn bladwijzers uit de MAPS.ME offline kaarten, in het bijgevoegde \&quot;%s.kmz\&quot;-bestand. Open het bestand als u MAPS.ME Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz\n\nVeel plezier met MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Bladwijzers aan het uploaden</string>
 	<!-- Kmz file successful loading -->
@@ -249,7 +247,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Het downloaden van het land is nu aan de gang.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Ik hoop dat u veel plezier hebt met maps.me! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!</string>
+	<string name="appStore_message">Ik hoop dat u veel plezier hebt met MAPS.ME! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Nee, bedankt</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -257,11 +255,11 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Kijk waar ik nu ben. Open %1$s of %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Kijk naar mijn pin op maps.me kaart</string>
+	<string name="bookmark_share_email_subject">Kijk naar mijn pin op MAPS.ME kaart</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Hoi,\n\nIk heb: %1$s geprikt bij maps.me, offline wereldkaarten. Klik op deze %2$s of deze %3$s om de plaats op de kaart te zien.\n\nBedankt.</string>
+	<string name="bookmark_share_email">Hoi,\n\nIk heb: %1$s geprikt bij MAPS.ME, offline wereldkaarten. Klik op deze %2$s of deze %3$s om de plaats op de kaart te zien.\n\nBedankt.</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Kijk naar mijn huidige locatie op maps.me kaart</string>
+	<string name="my_position_share_email_subject">Kijk naar mijn huidige locatie op MAPS.ME kaart</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Hoi,\n\nMomenteel ben ik hier: %1$s. Klik op deze %2$s of deze %3$s om de plaats op de kaart te zien.\n\nBedankt.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->

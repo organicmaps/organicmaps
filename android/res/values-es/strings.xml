@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Mas facil navegar con la version completa maps.me con el buscador fuera de la Internet. Bajalo ya!</string>
+	<string name="pro_version_available">Mas facil navegar con la version completa MAPS.ME con el buscador fuera de la Internet. Bajalo ya!</string>
 	<!-- About button text (should be short) -->
 	<string name="about">Acerca de</string>
 	<!-- Button text (should be short) -->
@@ -36,8 +36,6 @@
 	<!-- Settings/Downloader - info for country which started downloading -->
 	<string name="downloading">Descargando…</string>
 	<string name="get_it_now">Instalar</string>
-	<!-- Leave Review dialog title -->
-	<string name="leave_review_text">Si te gusta maps.me, por favor apóyanos a nosotros en escribir una reseña. Si tienes cualquier problema, por favor completa un formulario especial, para que podamos contactar contigo.</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<string name="kilometres">Kilómetros</string>
 	<!-- Leave Review dialog - Review button -->
@@ -100,7 +98,7 @@
 	<string name="country_status_download_failed">Error durante la descarga^</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Intentarla otra vez</string>
-	<string name="about_menu_title">Sobre maps.me</string>
+	<string name="about_menu_title">Sobre MAPS.ME</string>
 	<string name="downloading_touch_to_cancel">Descargando %d%%, presionar para cancelar</string>
 	<string name="downloaded_touch_to_delete">Descargado (%s), presionar para eliminar</string>
 	<string name="connection_settings">Ajustes de conexión</string>
@@ -109,12 +107,12 @@
 	<string name="unsupported_phone">Un acelerador de hardware OpenGL se requiere. Desafortunadamente, su dispositivo móvil no es compatible.</string>
 	<string name="download">Descargar</string>
 	<string name="external_storage_is_not_available">La memoria SD/almacenamiento USB con los mapas descargados no está disponible</string>
-	<string name="disconnect_usb_cable">Por favor desconectar el cable USB o insertar la memoria SD para usar maps.me</string>
+	<string name="disconnect_usb_cable">Por favor desconectar el cable USB o insertar la memoria SD para usar MAPS.ME</string>
 	<string name="not_enough_free_space_on_sdcard">Por favor liberar espacio en la memoria SD/almacenamiento USB para usar la aplicación</string>
 	<string name="not_enough_memory">No hay suficiente memoria para iniciar la aplicación</string>
 	<string name="free_space_for_country">Por favor liberar %1$s primero para descargar %2$s</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
-	<string name="download_resources">Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general. \nSe requieren %1$.1f%2$s de datos.</string>
+	<string name="download_resources">Antes de comenzar, permite que descarguemos en tu dispositivo un mapamundi general.\nSe requieren %1$.1f%2$s de datos.</string>
 	<string name="getting_position">Buscando su ubicación actual</string>
 	<string name="download_resources_continue">Ir al mapa</string>
 	<string name="downloading_country_can_proceed">Descargando %s. Puede ahora\nproceder al mapa</string>
@@ -137,7 +135,7 @@
 	<!-- Show popup notification on app start when we have out-of-date maps -->
 	<string name="advise_update_maps">Hay actualizaciones disponibles para estos mapas:</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
-	<string name="suggest_uninstall_lite">Ahora no necesita maps.me Lite, la puede desinstalar.</string>
+	<string name="suggest_uninstall_lite">Ahora no necesita MAPS.ME Lite, la puede desinstalar.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
 	<string name="download_country_success">%s se descargó exitosamente</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
@@ -167,9 +165,9 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Grupo</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación maps.me. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.</string>
+	<string name="bookmarks_usage_hint">Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
-	<string name="bookmarks_usage_hint_import_only">Se pueden importar y mostrar marcadores de otras fuentes en la aplicación maps.me. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.</string>
+	<string name="bookmarks_usage_hint_import_only">Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.</string>
 	<!-- Settings button in system menu -->
 	<string name="settings">Ajustes</string>
 	<!-- Header of settings activity where user defines storage path -->
@@ -181,7 +179,7 @@
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Esto podría tardar varios minutos.\nPor favor, espera…</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">La opción de marcadores está disponible en la versión completa de maps.me. ¿La quieres ya?</string>
+	<string name="bookmarks_in_pro_version">La opción de marcadores está disponible en la versión completa de MAPS.ME. ¿La quieres ya?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">El GPS está inhabilitado. Por favor, activelo en los ajustes.</string>
 	<!-- Measurement units title in settings activity -->
@@ -230,9 +228,9 @@
 	<!-- Button text -->
 	<string name="share_by_email">Enviar por e-mail</string>
 	<!-- Email Subject when sharing bookmarks category -->
-	<string name="share_bookmarks_email_subject">Marcapáginas de maps.me compartidos contigo</string>
+	<string name="share_bookmarks_email_subject">Marcapáginas de MAPS.ME compartidos contigo</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">¡Hola!\n\nEn el archivo adjunto \&quot;%s.kmz\&quot;, están mis marcadores de los mapas offline maps.me. Por favor, ábrelo con maps.me Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz.\n\n¡Que disfrutes de maps.me!</string>
+	<string name="share_bookmarks_email_body">¡Hola!\n\nEn el archivo adjunto \&quot;%s.kmz\&quot;, están mis marcadores de los mapas offline MAPS.ME. Por favor, ábrelo con MAPS.ME Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz\n\n¡Que disfrutes de MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Cargando favoritos</string>
 	<!-- Kmz file successful loading -->
@@ -250,7 +248,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Se está descargando un país.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">¡Ojalá disfrute mucho con maps.me! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!</string>
+	<string name="appStore_message">¡Ojalá disfrute mucho con MAPS.ME! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">No, gracias</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -258,13 +256,13 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Mira dónde estoy. Abre %1$s o %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Mira mi alfiler en el mapa de maps.me</string>
+	<string name="bookmark_share_email_subject">Mira mi alfiler en el mapa de MAPS.ME</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">¡Hola!\n\nMarqué con un alfiler: %1$s en maps.me, mapas del mundo sin conexión. Haz clic en este enlace %2$s o este %3$s para ver el sitio en el mapa.\n\nGracias.</string>
+	<string name="bookmark_share_email">¡Hola!\n\nMarqué con un alfiler: %1$s en MAPS.ME, mapas del mundo sin conexión. Haz clic en este enlace %2$s o este %3$s para ver el sitio en el mapa.\n\nGracias.</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Mira mi ubicación actual en el mapa en maps.me</string>
+	<string name="my_position_share_email_subject">Mira mi ubicación actual en el mapa en MAPS.ME</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">Hola:\n\nAhora estoy aquí: %1$s. Haz clic en este enlace %2$s o esta %3$s para verlo en el mapa. \n\nGracias.</string>
+	<string name="my_position_share_email">Hola:\n\nAhora estoy aquí: %1$s. Haz clic en este enlace %2$s o esta %3$s para verlo en el mapa.\n\nGracias.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Compartir por mensaje</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->

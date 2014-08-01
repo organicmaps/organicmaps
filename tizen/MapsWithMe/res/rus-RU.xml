@@ -15,7 +15,7 @@
 	<text id="IDS_DOWNLOAD_MAPS">Загрузить карты</text>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
 	<text id="IDS_KILOMETRES">Километры</text>
-	<!-- Settings/Downloader - size string -->
+	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<text id="IDS_MB">МБ</text>
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Мили</text>
@@ -82,13 +82,13 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<text id="IDS_MY_POSITION_SHARE_SMS">Смотри где я сейчас. Жми %1$s или %2$s</text>
 	<!-- Subject for emailed bookmark -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Смотри мою метку на карте maps.me</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Смотри мою метку на карте MAPS.ME</text>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL">Привет!\n\nОткрой эту ссылку %2$s либо эту %3$s, для того, чтобы увидеть мою метку %1$s на карте maps.me.\n\nСпасибо.</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL">Привет!\n\nОткрой эту ссылку %2$s либо эту %3$s, для того, чтобы увидеть мою метку %1$s на карте MAPS.ME.\n\nСпасибо.</text>
 	<!-- Subject for emailed position -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Посмотри на карте maps.me, где я сейчас нахожусь</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Посмотри на карте MAPS.ME, где я сейчас нахожусь</text>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL">Привет!\n\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте maps.me, открой эту ссылку %2$s или эту %3$s \n\nСпасибо.</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL">Привет!\n\nЯ сейчас здесь: %1$s. Чтобы увидеть это место на карте MAPS.ME, открой эту ссылку %2$s или эту %3$s\n\nСпасибо.</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
 	<text id="IDS_SHARE">Поделиться</text>
 	<!-- iOS share by Message button text (including SMS) -->
@@ -109,8 +109,8 @@
 	<text id="IDS_PREF_ZOOM_SUMMARY">Показать на карте</text>
 	<!-- Show on first lunch. -->
 	<text id="IDS_MAPS_LICENCE_INFO">Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.</text>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch. -->
 	<text id="IDS_AGREE">Я согласен</text>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch -->
 	<text id="IDS_DISAGREE">Я не согласен</text>
 </string_table>

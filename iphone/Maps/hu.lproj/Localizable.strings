@@ -10,7 +10,7 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "További lehetőségek a maps.me teljes verziójában. Töltse le most!";
+"pro_version_available" = "További lehetőségek a MAPS.ME teljes verziójában. Töltse le most!";
 
 /* About button text (should be short) */
 "about" = "A programról";
@@ -59,12 +59,9 @@
 "get_it_now" = "Telepítés most";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "Tetszik a maps.me? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!";
+"share_on_facebook_text" = "Tetszik a MAPS.ME? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!";
 
-/* Leave Review dialog title */
-"leave_review_text" = "Ha tetszik Önnek a maps.me, kérjük támogasson minket ajánlás írásával. Ha probléma adódik, kérjük tájékoztasson minket a formanyomtatványon keresztül.";
-
-/* Settings/Downloader - size string */
+/* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "kB";
 
 /* Choose measurement on first launch alert - choose metric system button */
@@ -82,7 +79,7 @@
 /* Settings/Downloader - info for country in the download queue */
 "marked_for_downloading" = "Letöltésre kijelölve, elvetéshez érintse meg";
 
-/* Settings/Downloader - size string */
+/* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "MB";
 
 /* Choose measurement on first launch alert - choose imperial system button */
@@ -121,7 +118,7 @@
 "search" = "Keresés";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "Keresés csak a maps.me teljes verziójában érhető el. Vásárolja meg most!";
+"search_available_in_pro_version" = "Keresés csak a MAPS.ME teljes verziójában érhető el. Vásárolja meg most!";
 
 /* Search box placeholder text */
 "search_map" = "Keresés a térképen";
@@ -154,7 +151,7 @@
 "zoom_to_country" = "Nagyítson az országra";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^-t hozzáadtuk a letöltési sorhoz.";
+"country_status_added_to_queue" = "^-t hozzáadtuk a letöltési sorhoz";
 
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "^^% letöltése folyamatban";
@@ -168,9 +165,9 @@
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Újrapróbálkozás";
 
-"app_name" = "maps.me";
+"app_name" = "MAPS.ME";
 
-"about_menu_title" = "A maps.me programról";
+"about_menu_title" = "A MAPS.ME programról";
 
 "downloading_touch_to_cancel" = "%d%% letöltése, elvetéshez érintse meg";
 
@@ -188,7 +185,7 @@
 
 "external_storage_is_not_available" = "Nem található téképeket tartalmazó SD kártya / USB tároló";
 
-"disconnect_usb_cable" = "Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a maps.me használatához";
+"disconnect_usb_cable" = "Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a MAPS.ME használatához";
 
 "not_enough_free_space_on_sdcard" = "Kérjük szabadítson fel helyet az SD kártyán / USB tárolón az alkalmazás használatához!";
 
@@ -197,26 +194,26 @@
 "free_space_for_country" = "Kérjük szabadítson fel %1$@-t az eszközön $2$@ letöltéséhez!";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Első használat előtt letöltjük a világtérképet.\n %.1f%@ tárolóhely szükséges.";
+"download_resources" = "Első használat előtt letöltjük a világtérképet.\n%.1f%@ tárolóhely szükséges.";
 
 "getting_position" = "Aktuális pozíció meghatározása…";
 
 "download_resources_continue" = "Térképhez ugrás";
 
-"downloading_country_can_proceed" = "%@ letöltése. Mos továbbléphet \n a térképhez.";
+"downloading_country_can_proceed" = "%@ letöltése. Mos továbbléphet\na térképhez.";
 
 "download_country_ask" = "Letöltsem %@-t?";
 
 "update_country_ask" = "Frissítsem %@-t?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_proposal" = "Letöltheti az aktuális \npozícióhoz tartozó térképet.";
+"download_location_map_proposal" = "Letöltheti az aktuális\npozícióhoz tartozó térképet.";
 
 /* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Frissítheti az aktuális pozícióhoz \ntartozó térképet.";
+"download_location_update_map_proposal" = "Frissítheti az aktuális pozícióhoz\ntartozó térképet.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "A jelenlegi pozícióhoz tartozó \n térkép (%@) naprakész.";
+"download_location_map_up_to_date" = "A jelenlegi pozícióhoz tartozó\ntérkép (%@) naprakész.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Szünet";
@@ -235,7 +232,7 @@
 "advise_update_maps" = "Az aktuális térképhez elérhető frissítések:";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Már nincs szüksége a maps.me lite alkalmazásra, nyugodtan letörölheti.";
+"suggest_uninstall_lite" = "Már nincs szüksége a MAPS.ME lite alkalmazásra, nyugodtan letörölheti.";
 
 /* Show popup notification on top of the map when country was downloaded. */
 "download_country_success" = "%@ letöltése sikeres";
@@ -283,10 +280,10 @@
 "set" = "Csoport";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.";
+"bookmarks_usage_hint" = "Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.";
+"bookmarks_usage_hint_import_only" = "Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.";
 
 /* Settings button in system menu */
 "settings" = "Beállítások";
@@ -307,7 +304,7 @@
 "visible" = "látható";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Könyvjelzők csak a maps.me teljes verziójában érhetőek el. Vásárolja meg most!";
+"bookmarks_in_pro_version" = "Könyvjelzők csak a MAPS.ME teljes verziójában érhetőek el. Vásárolja meg most!";
 
 /* Toast which is displayed when GPS has been deactivated */
 "gps_is_disabled_long_text" = "GPS kikapcsolva. Kérjük kapcsolja be a Beállítások között.";
@@ -381,10 +378,10 @@
 "share_by_email" = "Megosztás email-en";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Egy maps.me könyvjelzőt osztottak meg Önnel";
+"share_bookmarks_email_subject" = "Egy MAPS.ME könyvjelzőt osztottak meg Önnel";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Üdvözlöm!\n\nA mellékelt \"%@.kmz\" fájl tartalmazza a maps.me könyvjelzőimet. Kérem nyissa meg, ha a maps.me már telepítve van. Ha még nincs, akkor innen töltheti le: http://maps.me/get?kmz. \n\nSok sikert a program használatához!";
+"share_bookmarks_email_body" = "Üdvözlöm!\n\nA mellékelt \"%@.kmz\" fájl tartalmazza a MAPS.ME könyvjelzőimet. Kérem nyissa meg, ha a MAPS.ME már telepítve van. Ha még nincs, akkor innen töltheti le: http://maps.me/get?kmz\n\nSok sikert a program használatához!";
 
 /* message title of loading file */
 "load_kmz_title" = "Könyvjelzők letöltése";
@@ -414,25 +411,25 @@
 "downloading_is_active" = "Országletöltés folyamatban.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Reméljük élvezi a maps.me használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!";
+"appStore_message" = "Reméljük élvezi a MAPS.ME használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!";
 
 /* No, thanks */
 "no_thanks" = "Köszönöm, nem";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Nézd meg a maps.me jelzőt! %1$@ vagy %2$@ A program letöltése: http://maps.me/get";
+"bookmark_share_sms" = "Nézd meg a MAPS.ME jelzőt! %1$@ vagy %2$@ A program letöltése: http://maps.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Nézd meg a maps.me helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get";
+"my_position_share_sms" = "Nézd meg a MAPS.ME helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Nézze meg a maps.me jelzőmet";
+"bookmark_share_email_subject" = "Nézze meg a MAPS.ME jelzőmet";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Üdvözlöm, \n\nleszúrtam egy maps.me jelzőt: %1$@. Kattintson erre a hivatkozásra %2$@ vagy erre %3$@ hogy lássa a helyet a térképen.\n\nKöszönöm.";
+"bookmark_share_email" = "Üdvözlöm,\n\nleszúrtam egy MAPS.ME jelzőt: %1$@. Kattintson erre a hivatkozásra %2$@ vagy erre %3$@ hogy lássa a helyet a térképen.\n\nKöszönöm.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Nézze meg a helyzetemet a maps.me térképen!";
+"my_position_share_email_subject" = "Nézze meg a helyzetemet a MAPS.ME térképen!";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Üdvözlöm!\n\nJelenleg itt vagyok: %1$@ Kattintson erre a hivatkozásra %2$@ vagy erre %3$@, hogy lássa a helyet a térképen.\n\nKöszönöm.";
@@ -569,10 +566,10 @@
 /* Show on first lunch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
-/* Show on first lunch. */
+/* Show on first launch. */
 "agree" = "I agree";
 
-/* Show on first lunch. */
+/* Show on first launch */
 "disagree" = "I disagree";
 
 /* text of notification */
