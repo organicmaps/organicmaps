@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "menu-buy-pro.png"
+      "filename" : "MenuBuyPro.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "menu-buy-pro@2x.png"
+      "filename" : "MenuBuyPro@2x.png"
     }
   ],
   "info" : {

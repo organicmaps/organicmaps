@@ -15,8 +15,6 @@
 {
   self = [super initWithFrame:frame];
 
-  self.backgroundColor = [[UIColor colorWithColorCode:@"414451"] colorWithAlphaComponent:0.9];
-
   [self.locationButton addTarget:self action:@selector(locationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   [self addSubview:self.locationButton];
 

@@ -605,11 +605,10 @@ const long long LITE_IDL = 431183278L;
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  BOOL topViewsAreHidden = self.containerView.placePage.state == PlacePageStateHidden && self.searchView.state == SearchViewStateHidden;
   if (self.apiMode)
     return UIStatusBarStyleLightContent;
   else
-    return topViewsAreHidden ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent;
+    return self.searchView.state != SearchViewStateHidden ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 - (id)initWithCoder:(NSCoder *)coder

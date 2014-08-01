@@ -28,7 +28,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   BOOL m_hasSpeed;
 }
 
-@property (nonatomic) UIView * backgroundView;
+@property (nonatomic) UIImageView * backgroundView;
 @property (nonatomic) UIView * headerView;
 @property (nonatomic) UIView * headerSeparator;
 @property (nonatomic) UITableView * tableView;
@@ -275,12 +275,14 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self.delegate placePageView:self willEditProperty:@"Description" inBookmarkAndCategory:GetFramework().FindBookmark([self userMark])];
 }
 
+#define TITLE_LABEL_LANDSCAPE_LEFT_OFFSET 20
+#define TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET 80
+
 - (void)reloadHeader
 {
   self.titleLabel.text = self.title;
   self.titleLabel.width = [self titleWidth];
   [self.titleLabel sizeToFit];
-  self.titleLabel.origin = CGPointMake(20, 29);
 
   if ([self isMyPosition])
     self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:m_hasSpeed];
@@ -288,26 +290,48 @@ typedef NS_ENUM(NSUInteger, CellRow)
     self.typeLabel.text = self.types;
   self.typeLabel.width = [self typesWidth];
   [self.typeLabel sizeToFit];
-  self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY + 1);
 
-  self.bookmarkButton.center = CGPointMake(self.headerView.width - 30, 42);
+  if ([self iPhoneInLandscape] && !IPAD)
+  {
+    self.titleLabel.origin = CGPointMake(12.5, 24);
+    self.typeLabel.textAlignment = NSTextAlignmentRight;
+    self.typeLabel.maxY = self.titleLabel.maxY;
+    self.typeLabel.maxX = self.width - TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET;
+    self.bookmarkButton.center = CGPointMake(self.headerView.width - 24, 36);
+  }
+  else
+  {
+    self.titleLabel.origin = CGPointMake(15, 27);
+    self.typeLabel.textAlignment = NSTextAlignmentLeft;
+    self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY + 2);
+    self.bookmarkButton.center = CGPointMake(self.headerView.width - 25, 39);
+  }
 }
 
 - (CGFloat)titleWidth
 {
-  return self.width - 90;
+  return [self iPhoneInLandscape] ? self.width - 200 : self.width - 90;
 }
 
 - (CGFloat)typesWidth
 {
-  return self.width - 90;
+  CGFloat const landscapeWidth = self.width - TITLE_LABEL_LANDSCAPE_LEFT_OFFSET - [self titleWidth] - TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET - 8;
+  return [self iPhoneInLandscape] ? landscapeWidth : self.width - 90;
 }
 
 - (CGFloat)headerHeight
 {
-  CGFloat titleHeight = [self.title sizeWithDrawSize:CGSizeMake([self titleWidth], 100) font:self.titleLabel.font].height;
-  CGFloat typesHeight = [self.types sizeWithDrawSize:CGSizeMake([self typesWidth], 30) font:self.typeLabel.font].height;
-  return MAX(74, titleHeight + typesHeight + 50);
+  CGFloat titleHeight = [self.title sizeWithDrawSize:CGSizeMake([self titleWidth], 200) font:self.titleLabel.font].height;
+  CGFloat typesHeight = [self.types sizeWithDrawSize:CGSizeMake([self typesWidth], 200) font:self.typeLabel.font].height;
+  if ([self iPhoneInLandscape] && !IPAD)
+    return MAX(70, MAX(titleHeight, typesHeight) + 52);
+  else
+    return MAX(82, titleHeight + typesHeight + 57);
+}
+
+- (BOOL)iPhoneInLandscape
+{
+  return self.superview.width > self.superview.height && !IPAD;
 }
 
 - (void)setState:(PlacePageState)state animated:(BOOL)animated withCallback:(BOOL)withCallback
@@ -326,11 +350,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   _state = state;
   [self updateBookmarkStateAnimated:NO];
   [self updateBookmarkViewsAlpha:animated];
-  [self.tableView reloadData];
+//  [self.tableView reloadData];
   [self reloadHeader];
   [self alignAnimated:animated];
-  self.tableView.contentInset = UIEdgeInsetsMake([self headerHeight], 0, 0, 0);
-  [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:animated];
+  [self.tableView setContentOffset:CGPointZero animated:animated];
   if (state != PlacePageStateHidden)
   {
     if ([[MapsAppDelegate theApp].m_locationManager enabledOnMap])
@@ -347,10 +370,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if (!updatingTable)
   {
     [self setState:self.state animated:YES withCallback:YES];
-    self.tableView.frame = CGRectMake(0, 0, self.superview.width, self.backgroundView.height);
+    self.tableView.frame = CGRectMake(0, [self headerHeight], self.superview.width, self.backgroundView.height);
 //    [self reloadHeader];
 //    [self alignAnimated:YES];
-//    self.tableView.contentInset = UIEdgeInsetsMake([self headerHeight], 0, 0, 0);
   }
 }
 
@@ -359,9 +381,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
   self.height = height;
   self.backgroundView.height = height;
   self.headerView.height = [self headerHeight];
-
-  CALayer * layer = [self.backgroundView.layer.sublayers firstObject];
-  layer.frame = self.backgroundView.bounds;
 }
 
 - (CGFloat)viewMinY
@@ -439,7 +458,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if ([self isBookmark])
   {
     CGFloat newHeight = self.backgroundView.height + [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:self.tableView.width] + [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
-    self.tableView.frame = CGRectMake(0, 0, self.superview.width, newHeight);
+    self.tableView.frame = CGRectMake(0, [self headerHeight], self.superview.width, newHeight);
   }
 
 //  [self performAfterDelay:0 block:^{
@@ -779,7 +798,13 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (NSString *)types
 {
   if (!_types)
-    _types = [NSString stringWithUTF8String:[self addressInfo].GetPinType().c_str()];
+  {
+    NSString * types = [NSString stringWithUTF8String:[self addressInfo].GetPinType().c_str()];
+    if ([NSString instancesRespondToSelector:@selector(capitalizedStringWithLocale:)]) // iOS 6 and higher
+      _types = [types capitalizedStringWithLocale:[NSLocale currentLocale]];
+    else // iOS 5
+      _types = [types capitalizedString];
+  }
   return _types;
 }
 
@@ -952,7 +977,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
   UIScrollView * sv = scrollView;
-  if ((sv.contentOffset.y + sv.height > sv.contentSize.height + 40) && !sv.dragging && sv.decelerating)
+  if (sv.contentOffset.y > 30 && !sv.dragging && sv.decelerating)
   {
     if (self.state == PlacePageStateOpened)
       [self setState:PlacePageStateHidden animated:YES withCallback:YES];
@@ -978,8 +1003,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     _titleLabel = [[CopyLabel alloc] initWithFrame:CGRectZero];
     _titleLabel.backgroundColor = [UIColor clearColor];
-    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5];
-    _titleLabel.textColor = [UIColor whiteColor];
+    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+    _titleLabel.textColor = [UIColor blackColor];
     _titleLabel.numberOfLines = 0;
     _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titleTap:)];
@@ -996,9 +1021,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     _typeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _typeLabel.backgroundColor = [UIColor clearColor];
-    _typeLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
+    _typeLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
     _typeLabel.textAlignment = NSTextAlignmentLeft;
-    _typeLabel.textColor = [UIColor whiteColor];
+    _typeLabel.textColor = [UIColor blackColor];
     _typeLabel.numberOfLines = 0;
     _typeLabel.lineBreakMode = NSLineBreakByWordWrapping;
   }
@@ -1022,8 +1047,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if (!_headerView)
   {
-    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, [self headerHeight])];
-    _headerView.backgroundColor = [UIColor applicationColor];
+    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0)];
+    _headerView.backgroundColor = [UIColor clearColor];
     _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
@@ -1083,21 +1108,13 @@ typedef NS_ENUM(NSUInteger, CellRow)
   return _tableView;
 }
 
-- (UIView *)backgroundView
+- (UIImageView *)backgroundView
 {
   if (!_backgroundView)
   {
-    _backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+    _backgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
+    _backgroundView.image = [[UIImage imageNamed:@"PlacePageBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 20, 0)];
     _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
-    CAGradientLayer * gradient = [CAGradientLayer layer];
-    gradient.colors = @[(id)[[UIColor colorWithColorCode:@"15d180"] CGColor], (id)[[UIColor colorWithColorCode:@"16b68a"] CGColor]];
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(0, 1);
-    gradient.locations = @[@0, @1];
-    gradient.frame = _backgroundView.bounds;
-
-    [_backgroundView.layer addSublayer:gradient];
   }
   return _backgroundView;
 }
