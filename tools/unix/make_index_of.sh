@@ -42,12 +42,13 @@ if [ $# -ge 3 ]; then
                     "$MY_PATH/../../../omim-$3/out/$3/generator_tool" \
                     "stub-for-cycle" )
 else
-  IT_PATHS_ARRAY=(  "$MY_PATH/../../../omim-build-release/out/release/generator_tool" \
+  IT_PATHS_ARRAY=(  "$MY_PATH/../../../build-omim/out/release/generator_tool"
+                    "$MY_PATH/../../../omim-build-release/out/release/generator_tool" \
                     "$MY_PATH/../../../omim-release/out/release/generator_tool"
                     "$MY_PATH/../../../omim-build-debug/out/debug/generator_tool" \
                     "$MY_PATH/../../../omim-debug/out/debug/generator_tool" )
 fi
-for i in {0..3}; do
+for i in {0..4}; do
   if [ -x ${IT_PATHS_ARRAY[i]} ]; then
     GENERATOR_TOOL=${IT_PATHS_ARRAY[i]}
     echo TOOL: $GENERATOR_TOOL
