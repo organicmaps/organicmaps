@@ -2591,7 +2591,7 @@
     hu = látnivaló
     th = สถานที่ท่องเที่ยว
     zh-Hans = 景点
-    ar = المناظر
+    ar = سياحة
     da = seværdigheder
 
   [entertainment]
@@ -2636,7 +2636,7 @@
     hu = pénzautomata
     th = เอทีเอ็ม
     zh-Hans = 自动取款机
-    ar = ماكينات الصراف الآلي
+    ar = ماكينة الصراف الآلي
     da = hæveautomat
 
   [bank]
@@ -2703,7 +2703,7 @@
     pl = szpital
     pt = hospital
     hu = kórház
-    th = โรงแรม
+    th = คลินิก
     zh-Hans = 医院
     ar = المستشفى
     da = hospital
