@@ -2,30 +2,30 @@
 <root>
  <file width="512" height="256">
   <symbol minX="0" maxX="35" minY="0" maxY="35" name="search-result-active"/>
-  <symbol minX="35" maxX="51" minY="0" maxY="33" name="placemark-orange"/>
-  <symbol minX="51" maxX="67" minY="0" maxY="33" name="placemark-purple"/>
-  <symbol minX="67" maxX="83" minY="0" maxY="33" name="placemark-red"/>
-  <symbol minX="83" maxX="99" minY="0" maxY="33" name="placemark-pink"/>
-  <symbol minX="99" maxX="115" minY="0" maxY="33" name="placemark-yellow"/>
-  <symbol minX="115" maxX="148" minY="0" maxY="33" name="compass-image"/>
-  <symbol minX="148" maxX="164" minY="0" maxY="33" name="placemark-blue"/>
-  <symbol minX="164" maxX="180" minY="0" maxY="33" name="placemark-green"/>
-  <symbol minX="180" maxX="196" minY="0" maxY="33" name="placemark-brown"/>
-  <symbol minX="196" maxX="220" minY="0" maxY="29" name="current-position-compas"/>
-  <symbol minX="220" maxX="240" minY="0" maxY="20" name="tramway"/>
-  <symbol minX="240" maxX="260" minY="0" maxY="20" name="university"/>
-  <symbol minX="260" maxX="280" minY="0" maxY="20" name="hunting_closed_high"/>
-  <symbol minX="280" maxX="300" minY="0" maxY="20" name="postoffice"/>
-  <symbol minX="300" maxX="320" minY="0" maxY="20" name="information-guidepost"/>
-  <symbol minX="320" maxX="340" minY="0" maxY="20" name="postbox"/>
-  <symbol minX="340" maxX="360" minY="0" maxY="20" name="information-office"/>
-  <symbol minX="360" maxX="380" minY="0" maxY="20" name="police"/>
-  <symbol minX="380" maxX="400" minY="0" maxY="20" name="playground"/>
-  <symbol minX="400" maxX="420" minY="0" maxY="20" name="pharmacy"/>
-  <symbol minX="420" maxX="440" minY="0" maxY="20" name="petrolstation"/>
-  <symbol minX="440" maxX="460" minY="0" maxY="20" name="peak"/>
-  <symbol minX="460" maxX="480" minY="0" maxY="20" name="peak-mini"/>
-  <symbol minX="480" maxX="500" minY="0" maxY="20" name="information"/>
+  <symbol minX="35" maxX="68" minY="0" maxY="33" name="compass-image"/>
+  <symbol minX="68" maxX="85" minY="0" maxY="31" name="placemark-orange"/>
+  <symbol minX="85" maxX="102" minY="0" maxY="31" name="placemark-purple"/>
+  <symbol minX="102" maxX="119" minY="0" maxY="31" name="placemark-red"/>
+  <symbol minX="119" maxX="136" minY="0" maxY="31" name="placemark-pink"/>
+  <symbol minX="136" maxX="153" minY="0" maxY="31" name="placemark-yellow"/>
+  <symbol minX="153" maxX="170" minY="0" maxY="31" name="placemark-blue"/>
+  <symbol minX="170" maxX="187" minY="0" maxY="31" name="placemark-green"/>
+  <symbol minX="187" maxX="204" minY="0" maxY="31" name="placemark-brown"/>
+  <symbol minX="204" maxX="228" minY="0" maxY="29" name="current-position-compas"/>
+  <symbol minX="228" maxX="248" minY="0" maxY="20" name="tramway"/>
+  <symbol minX="248" maxX="268" minY="0" maxY="20" name="university"/>
+  <symbol minX="268" maxX="288" minY="0" maxY="20" name="hunting_closed_high"/>
+  <symbol minX="288" maxX="308" minY="0" maxY="20" name="postoffice"/>
+  <symbol minX="308" maxX="328" minY="0" maxY="20" name="information-guidepost"/>
+  <symbol minX="328" maxX="348" minY="0" maxY="20" name="postbox"/>
+  <symbol minX="348" maxX="368" minY="0" maxY="20" name="information-office"/>
+  <symbol minX="368" maxX="388" minY="0" maxY="20" name="police"/>
+  <symbol minX="388" maxX="408" minY="0" maxY="20" name="playground"/>
+  <symbol minX="408" maxX="428" minY="0" maxY="20" name="pharmacy"/>
+  <symbol minX="428" maxX="448" minY="0" maxY="20" name="petrolstation"/>
+  <symbol minX="448" maxX="468" minY="0" maxY="20" name="peak"/>
+  <symbol minX="468" maxX="488" minY="0" maxY="20" name="peak-mini"/>
+  <symbol minX="488" maxX="508" minY="0" maxY="20" name="information"/>
   <symbol minX="0" maxX="20" minY="35" maxY="55" name="kindergarten"/>
   <symbol minX="20" maxX="40" minY="35" maxY="55" name="kindergarten2"/>
   <symbol minX="40" maxX="60" minY="35" maxY="55" name="parking_roof"/>
