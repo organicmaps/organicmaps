@@ -316,9 +316,9 @@ public class LocationService implements
   }
 
   @Override
-  public Location getLastGPSLocation()
+  public Location getLastGpsLocation()
   {
-    return mLocationProvider.getLastGPSLocation();
+    return mLocationProvider.getLastGpsLocation();
   }
 
   private abstract class LocationProvider
@@ -344,7 +344,7 @@ public class LocationService implements
       mIsActive = false;
     }
 
-    protected abstract Location getLastGPSLocation();
+    protected abstract Location getLastGpsLocation();
 
     protected boolean isLocationBetterThanCurrent(Location l)
     {
@@ -423,7 +423,7 @@ public class LocationService implements
           final Location l = findBestLocation(providers);
           if (isLocationBetterThanCurrent(l))
             emitLocation(l);
-          else if (mLastLocation != null && !LocationUtils.isExpired(mLastLocation, mLastLocationTime))
+          else if (mLastLocation != null && !LocationUtils.isExpired(mLastLocation, mLastLocationTime, LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
             notifyLocationUpdated(mLastLocation); // notify UI about last valid location
           else
             mLastLocation = null; // forget about old location
@@ -453,7 +453,7 @@ public class LocationService implements
       for (final String pr : providers)
       {
         final Location l = mLocationManager.getLastKnownLocation(pr);
-        if (l != null && !LocationUtils.isExpired(l, l.getTime()))
+        if (l != null && !LocationUtils.isExpired(l, l.getTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
         {
           if (res == null || res.getAccuracy() > l.getAccuracy())
             res = l;
@@ -491,10 +491,11 @@ public class LocationService implements
     }
 
     @Override
-    protected Location getLastGPSLocation()
+    protected Location getLastGpsLocation()
     {
       return mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
     }
+
   }
 
   private class GoogleFusedLocationProvider extends LocationProvider
@@ -569,7 +570,7 @@ public class LocationService implements
     }
 
     @Override
-    protected Location getLastGPSLocation()
+    protected Location getLastGpsLocation()
     {
       return mLocationClient.getLastLocation();
     }

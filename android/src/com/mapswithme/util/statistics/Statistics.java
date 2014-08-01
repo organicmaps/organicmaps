@@ -179,6 +179,39 @@ public enum Statistics
     }
   }
 
+  public void trackWifiConnected(boolean hasValidLocation)
+  {
+    ensureConfigured(MWMApplication.get());
+    final Event event = getEventBuilder().reset().
+        setName("Wifi connected").
+        addParam("Had valid location", String.valueOf(hasValidLocation)).
+        getEvent();
+    trackIfEnabled(MWMApplication.get(), event);
+  }
+
+  public void trackWifiConnectedAfterDelay(boolean isLocationExpired, long delayMillis)
+  {
+    ensureConfigured(MWMApplication.get());
+    final Event event = getEventBuilder().reset().
+        setName("Wifi connected").
+        addParam("Had valid location", String.valueOf(isLocationExpired)).
+        addParam("Delay in milliseconds", String.valueOf(delayMillis)).
+        getEvent();
+    trackIfEnabled(MWMApplication.get(), event);
+  }
+
+  public void trackDownloadCountryNotificationShown()
+  {
+    ensureConfigured(MWMApplication.get());
+    getEventBuilder().getSimpleNamedEvent("Download country notification shown").post();
+  }
+
+  public void trackDownloadCountryNotificationClicked()
+  {
+    ensureConfigured(MWMApplication.get());
+    getEventBuilder().getSimpleNamedEvent("Download country notification clicked").post();
+  }
+
   public void startActivity(Activity activity)
   {
     ensureConfigured(activity);

@@ -9,7 +9,8 @@ public class LocationUtils
 {
   private LocationUtils() {}
 
-  private static final long LOCATION_EXPIRATION_TIME_MILLIS = 5 * 60 * 1000; // 5 minutes
+  public static final long LOCATION_EXPIRATION_TIME_MILLIS_SHORT = 60 * 1000; // 1 minute
+  public static final long LOCATION_EXPIRATION_TIME_MILLIS_LONG = 6 * 60 * 60 * 1000; // 6 hours
 
   /**
    * Correct compass angles due to display orientation.
@@ -59,13 +60,13 @@ public class LocationUtils
     return correctAngle(0.0, Math.toRadians(bearing));
   }
 
-  public static boolean isExpired(Location l, long t)
+  public static boolean isExpired(Location l, long millis, long expirationMillis)
   {
     long timeDiff;
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
       timeDiff = (SystemClock.elapsedRealtimeNanos() - l.getElapsedRealtimeNanos()) / 1000000;
     else
-      timeDiff = System.currentTimeMillis() - t;
-    return (timeDiff > LOCATION_EXPIRATION_TIME_MILLIS);
+      timeDiff = System.currentTimeMillis() - millis;
+    return (timeDiff > expirationMillis);
   }
 }

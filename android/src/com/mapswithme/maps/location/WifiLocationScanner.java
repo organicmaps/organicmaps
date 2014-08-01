@@ -40,7 +40,7 @@ public class WifiLocationScanner extends BroadcastReceiver
   {
     public void onWifiLocationUpdated(Location l);
 
-    public Location getLastGPSLocation();
+    public Location getLastGpsLocation();
   }
 
   private Listener mObserver = null;
@@ -153,7 +153,7 @@ public class WifiLocationScanner extends BroadcastReceiver
 
     if (statsEnabled)
     {
-      final Location l = mObserver.getLastGPSLocation();
+      final Location l = mObserver.getLastGpsLocation();
       if (l != null)
       {
         if (wifiHeaderAdded)

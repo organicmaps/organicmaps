@@ -11,22 +11,17 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
-    if (!ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction()))
-      throw new IllegalStateException("This class must listen only to CONNECTIVITY_ACTION");
-
-    @SuppressWarnings("deprecation")
-    final NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
+    final NetworkInfo networkInfo = intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
     if (networkInfo != null)
-    {
       if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI)
         onWiFiConnectionChanged(networkInfo.isConnected(), context);
-    }
   }
 
   public void onWiFiConnectionChanged(boolean isConnected, Context context)
   {
     if (isConnected)
     {
+      WorkerService.startActionDownload(context);
       WorkerService.startActionCheckUpdate(context);
       WorkerService.startActionPushStat(context);
     }

@@ -3,11 +3,20 @@ package com.mapswithme.maps.background;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationManager;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.R;
+import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
+import com.mapswithme.util.statistics.Statistics;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
@@ -18,8 +27,10 @@ public class WorkerService extends IntentService
 {
   private static final String ACTION_PUSH_STATISTICS = "com.mapswithme.maps.action.stat";
   private static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
+  private static final String ACTION_DOWNLOAD_COUNTRY = "com.mapswithme.maps.action.download_country";
 
-  private Logger mLogger = StubLogger.get();//SimpleLogger.get("MWMWorkerService");
+  private Logger mLogger = StubLogger.get();
+  // = SimpleLogger.get("MWMWorkerService");
   private Notifier mNotifier;
 
 
@@ -49,6 +60,19 @@ public class WorkerService extends IntentService
     context.startService(intent);
   }
 
+  /**
+   * Starts this service to perform check update action with the given parameters. If the
+   * service is already performing a task this action will be queued.
+   *
+   * @see IntentService
+   */
+  public static void startActionDownload(Context context)
+  {
+    final Intent intent = new Intent(context, WorkerService.class);
+    intent.setAction(WorkerService.ACTION_DOWNLOAD_COUNTRY);
+    context.startService(intent);
+  }
+
   public WorkerService()
   {
     super("WorkerService");
@@ -68,10 +92,18 @@ public class WorkerService extends IntentService
     {
       final String action = intent.getAction();
 
-      if (ACTION_CHECK_UPDATE.equals(action))
+      switch (action)
+      {
+      case ACTION_CHECK_UPDATE:
         handleActionCheckUpdate();
-      else if (ACTION_PUSH_STATISTICS.equals(action))
+        break;
+      case ACTION_PUSH_STATISTICS:
         handleActionPushStat();
+        break;
+      case ACTION_DOWNLOAD_COUNTRY:
+        handleActionCheckLocation();
+        break;
+      }
     }
   }
 
@@ -94,5 +126,75 @@ public class WorkerService extends IntentService
   private void handleActionPushStat()
   {
     // TODO: add server call here
+  }
+
+  private void handleActionCheckLocation()
+  {
+    final long delayMillis = 60000; // 60 seconds
+    boolean isLocationValid = processLocation();
+    Statistics.INSTANCE.trackWifiConnected(isLocationValid);
+    if (!isLocationValid)
+    {
+      final Timer timer = new Timer();
+      timer.schedule(new TimerTask()
+      {
+        @Override
+        public void run()
+        {
+          Statistics.INSTANCE.trackWifiConnectedAfterDelay(processLocation(), delayMillis);
+        }
+      }, delayMillis);
+    }
+  }
+
+  /**
+   * Adds notification if current location isnt expired.
+   *
+   * @return whether notification was added
+   */
+  private boolean processLocation()
+  {
+    final LocationManager manager = (LocationManager) getApplication().getSystemService(Context.LOCATION_SERVICE);
+    final Location l = manager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+    if (!LocationUtils.isExpired(l, l.getTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG))
+    {
+      placeDownloadNotification(l);
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * Adds notification with download country suggest.
+   *
+   * @param l
+   */
+  private void placeDownloadNotification(Location l)
+  {
+    final Notifier notifier = new Notifier(this);
+    final String country = Framework.nativeGetCountryNameIfAbsent(l.getLatitude(), l.getLongitude());
+    if (!TextUtils.isEmpty(country))
+    {
+      final SharedPreferences prefs = getApplicationContext().
+          getSharedPreferences(getApplicationContext().getString(R.string.pref_file_name), Context.MODE_PRIVATE);
+      final String lastNotification = prefs.getString(country, "");
+      boolean shouldPlaceNotification = false; // should place notification only if it wasnt displayed for 180 days at least
+      if (lastNotification.equals(""))
+        shouldPlaceNotification = true;
+      else
+      {
+        final long timeStamp = Long.valueOf(lastNotification);
+        final long outdatedMillis = 180L * 24 * 60 * 60 * 1000; // half of year
+        if (System.currentTimeMillis() - timeStamp > outdatedMillis)
+          shouldPlaceNotification = true;
+      }
+      if (shouldPlaceNotification)
+      {
+        notifier.placeDownloadSuggest(country, String.format(getApplicationContext().getString(R.string.download_location_country), country),
+            Framework.nativeGetCountryIndex(l.getLatitude(), l.getLongitude()));
+        prefs.edit().putString(country, String.valueOf(System.currentTimeMillis())).commit();
+      }
+    }
   }
 }

@@ -778,7 +778,10 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     public boolean processIntent(Intent intent)
     {
       final Index index = (Index) intent.getSerializableExtra(EXTRA_COUNTRY_INDEX);
-      mMapTaskToForward = new MWMActivity.ShowCountryTask(index, intent.getBooleanExtra(EXTRA_AUTODOWNLOAD_CONTRY, false));
+      final boolean autoDownload = intent.getBooleanExtra(EXTRA_AUTODOWNLOAD_CONTRY, false);
+      if (autoDownload)
+        Statistics.INSTANCE.trackDownloadCountryNotificationClicked();
+      mMapTaskToForward = new MWMActivity.ShowCountryTask(index, autoDownload);
       return true;
     }
   }
