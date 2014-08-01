@@ -324,9 +324,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   CGFloat titleHeight = [self.title sizeWithDrawSize:CGSizeMake([self titleWidth], 200) font:self.titleLabel.font].height;
   CGFloat typesHeight = [self.types sizeWithDrawSize:CGSizeMake([self typesWidth], 200) font:self.typeLabel.font].height;
   if ([self iPhoneInLandscape] && !IPAD)
-    return MAX(70, MAX(titleHeight, typesHeight) + 52);
+    return MAX(titleHeight, typesHeight) + 52;
   else
-    return MAX(82, titleHeight + typesHeight + 57);
+    return titleHeight + typesHeight + 57;
 }
 
 - (BOOL)iPhoneInLandscape
@@ -350,7 +350,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   _state = state;
   [self updateBookmarkStateAnimated:NO];
   [self updateBookmarkViewsAlpha:animated];
-//  [self.tableView reloadData];
+  [self.tableView reloadData];
   [self reloadHeader];
   [self alignAnimated:animated];
   [self.tableView setContentOffset:CGPointZero animated:animated];
@@ -365,12 +365,15 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
 }
 
+#define BOTTOM_SHADOW_OFFSET 20
+
 - (void)layoutSubviews
 {
   if (!updatingTable)
   {
     [self setState:self.state animated:YES withCallback:YES];
-    self.tableView.frame = CGRectMake(0, [self headerHeight], self.superview.width, self.backgroundView.height);
+    CGFloat const headerHeight = [self headerHeight];
+    self.tableView.frame = CGRectMake(0, headerHeight, self.superview.width, self.backgroundView.height - headerHeight - BOTTOM_SHADOW_OFFSET);
 //    [self reloadHeader];
 //    [self alignAnimated:YES];
   }
@@ -414,7 +417,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
       fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
       fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:self.tableView.width];
     }
-    fullHeight = MIN(fullHeight, [self maxHeight]);
+    fullHeight = MIN(fullHeight + 20, [self maxHeight]);
     self.headerSeparator.maxY = [self headerHeight];
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.arrowImageView.alpha = 0;
@@ -458,7 +461,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if ([self isBookmark])
   {
     CGFloat newHeight = self.backgroundView.height + [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:self.tableView.width] + [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
-    self.tableView.frame = CGRectMake(0, [self headerHeight], self.superview.width, newHeight);
+    CGFloat const headerHeight = [self headerHeight];
+    self.tableView.frame = CGRectMake(0, headerHeight, self.superview.width, newHeight - headerHeight - BOTTOM_SHADOW_OFFSET);
   }
 
 //  [self performAfterDelay:0 block:^{

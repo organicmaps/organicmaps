@@ -190,7 +190,7 @@
     _distanceLabel.backgroundColor = [UIColor clearColor];
     _distanceLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5];
     _distanceLabel.textAlignment = NSTextAlignmentLeft;
-    _distanceLabel.textColor = [UIColor whiteColor];
+    _distanceLabel.textColor = [UIColor blackColor];
     _distanceLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
   }
   return _distanceLabel;
@@ -206,7 +206,7 @@
     _addressLabel.numberOfLines = 0;
     _addressLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _addressLabel.textAlignment = NSTextAlignmentLeft;
-    _addressLabel.textColor = [UIColor whiteColor];
+    _addressLabel.textColor = [UIColor blackColor];
     _addressLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     UILongPressGestureRecognizer * press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(addressPress:)];
     [_addressLabel addGestureRecognizer:press];
@@ -222,7 +222,7 @@
     _coordinatesLabel.backgroundColor = [UIColor clearColor];
     _coordinatesLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5];
     _coordinatesLabel.textAlignment = NSTextAlignmentLeft;
-    _coordinatesLabel.textColor = [UIColor whiteColor];
+    _coordinatesLabel.textColor = [UIColor blackColor];
     _coordinatesLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     UILongPressGestureRecognizer * press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(coordinatesPress:)];
     [_coordinatesLabel addGestureRecognizer:press];

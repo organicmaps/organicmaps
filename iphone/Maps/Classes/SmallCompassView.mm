@@ -12,13 +12,10 @@
 
 - (id)init
 {
-  UIImage * image = [UIImage imageNamed:@"CompassBackground"];
+  UIImage * image = [UIImage imageNamed:@"CompassArrow"];
   self = [super initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
 
-  UIImageView * background = [[UIImageView alloc] initWithImage:image];
-  [self addSubview:background];
-
-  self.arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CompassArrow"]];
+  self.arrow = [[UIImageView alloc] initWithImage:image];
   self.arrow.center = CGPointMake(self.width / 2, self.height / 2);
   [self addSubview:self.arrow];
 

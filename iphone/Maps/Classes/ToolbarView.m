@@ -6,6 +6,7 @@
 @property (nonatomic) UIButton * searchButton;
 @property (nonatomic) UIButton * bookmarkButton;
 @property (nonatomic) UIButton * menuButton;
+@property (nonatomic) UIImageView * backgroundImageView;
 
 @end
 
@@ -14,6 +15,8 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
+
+  [self addSubview:self.backgroundImageView];
 
   [self.locationButton addTarget:self action:@selector(locationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   [self addSubview:self.locationButton];
@@ -63,9 +66,15 @@
   self.menuButton.midX = self.bookmarkButton.midX + self.width * xBetweenPercent;
 }
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+  UIView * view = [super hitTest:point withEvent:event];
+  return view == self ? nil : view;
+}
+
 - (UIButton *)buttonWithImageName:(NSString *)imageName
 {
-  UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+  UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 79, 44)];
   button.contentMode = UIViewContentModeCenter;
   button.midY = self.height / 2;
   button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
@@ -78,12 +87,23 @@
 {
   if (!_locationButton)
   {
-    _locationButton = [[LocationButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
+    _locationButton = [[LocationButton alloc] initWithFrame:CGRectMake(0, 0, 79, 44)];
     _locationButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _locationButton.midY = self.height / 2;
     [_locationButton addTarget:self action:@selector(locationButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
   return _locationButton;
+}
+
+- (UIImageView *)backgroundImageView
+{
+  if (!_backgroundImageView)
+  {
+    _backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ToolbarGradient"]];
+    _backgroundImageView.frame = self.bounds;
+    _backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+  }
+  return _backgroundImageView;
 }
 
 @end

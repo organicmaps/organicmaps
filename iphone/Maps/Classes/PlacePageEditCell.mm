@@ -64,7 +64,7 @@
     _titleLabel.textAlignment = NSTextAlignmentLeft;
     _titleLabel.numberOfLines = 0;
     _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _titleLabel.textColor = [UIColor whiteColor];
+    _titleLabel.textColor = [UIColor blackColor];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
   }
   return _titleLabel;
