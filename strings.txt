@@ -3246,9 +3246,6 @@
     pt = Veja a minha localização atual em maps.me map
     hu = Nézze meg a helyzetemet a maps.me térképen!
     zh-Hans = 嗨，到maps.me查看我的当前位置！
-<<<<<<< HEAD
-    ar =
-=======
     ar = يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!
     da = Hey, tjek min nuværende lokation ud på MAPS.ME kortet!
 
