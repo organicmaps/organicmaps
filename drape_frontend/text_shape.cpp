@@ -1,4 +1,6 @@
 #include "text_shape.hpp"
+#include "common_structures.hpp"
+
 
 #include "../drape/shader_def.hpp"
 #include "../drape/attribute_provider.hpp"
@@ -18,6 +20,11 @@ using m2::PointF;
 
 namespace df
 {
+
+using m2::PointF;
+using glsl_types::vec2;
+using glsl_types::vec3;
+using glsl_types::vec4;
 
 namespace
 {
@@ -65,31 +72,25 @@ namespace
     }
   }
 
-  struct Vertex
+  class TextHandle : public dp::OverlayHandle
   {
-    Vertex() {}
-    Vertex(m2::PointF const & pos, m2::PointF const & dir)
-      : m_position(pos), m_direction(dir) {}
+    typedef OverlayHandle base_t;
+  public:
+    TextHandle(FeatureID const & id, m2::PointD const & pivot, m2::PointD const & pxSize,
+               m2::PointD const & offset, double priority)
+  : base_t(id, dp::LeftBottom, priority), m_pivot(pivot)
+  , m_offset(offset), m_size(pxSize) {}
 
-    Vertex(float posX, float posY, float dirX = 0.0f, float dirY = 0.0f)
-      : m_position(posX, posY), m_direction(dirX, dirY) {}
+    m2::RectD GetPixelRect(ScreenBase const & screen) const
+    {
+      m2::PointD const pivot = screen.GtoP(m_pivot) + m_offset;
+      return m2::RectD(pivot, pivot + m_size);
+    }
 
-    m2::PointF m_position;
-    m2::PointF m_direction;
-  };
-
-  struct TexCoord
-  {
-    TexCoord() {}
-    TexCoord(m2::PointF const & tex, float index = 0.0f, float depth = 0.0f)
-      : m_texCoord(tex), m_index(index), m_depth(depth) {}
-
-    TexCoord(float texX, float texY, float index = 0.0f, float depth = 0.0f)
-      : m_texCoord(texX, texY), m_index(index), m_depth(depth) {}
-
-    m2::PointF m_texCoord;
-    float m_index;
-    float m_depth;
+  private:
+    m2::PointD m_pivot;
+    m2::PointD m_offset;
+    m2::PointD m_size;
   };
 }
 
@@ -99,35 +100,42 @@ TextShape::TextShape(m2::PointF const & basePoint, TextViewParams const & params
 {
 }
 
-void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bool auxText,
-                                                 float maxTextLength, PointF const & anchorDelta,
-                                                 dp::RefPointer<dp::Batcher> batcher,
-                                                 dp::RefPointer<dp::TextureSetHolder> textures) const
+void TextShape::DrawTextLine(TextLine const & textLine, dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  strings::UniString text;
-  float fontSize;
-  dp::Color base, outline;
-  float needOutline;
-  if(auxText)
+  int const size = textLine.m_text.size();
+  int const maxTextureSetCount = textures->GetMaxTextureSet();
+  buffer_vector<int, 16> sizes(maxTextureSetCount);
+
+  for (int i = 0; i < size; i++)
   {
-    text = strings::MakeUniString(m_params.m_secondaryText);
-    fontSize = m_params.m_secondaryTextFont.m_size;
-    base = m_params.m_secondaryTextFont.m_color;
-    outline = m_params.m_secondaryTextFont.m_outlineColor;
-    needOutline = m_params.m_secondaryTextFont.m_needOutline;
-  }
-  else
-  {
-    text = strings::MakeUniString(m_params.m_primaryText);
-    fontSize = m_params.m_primaryTextFont.m_size;
-    base = m_params.m_primaryTextFont.m_color;
-    outline = m_params.m_primaryTextFont.m_outlineColor;
-    needOutline = m_params.m_primaryTextFont.m_needOutline;
+    dp::TextureSetHolder::GlyphRegion region;
+    if (!textures->GetGlyphRegion(textLine.m_text[i], region))
+      continue;
+    ++sizes[region.GetTextureNode().m_textureSet];
   }
 
+  for (int i = 0; i < maxTextureSetCount; ++i)
+  {
+    if (sizes[i])
+      DrawUnicalTextLine(textLine, i, sizes[i], batcher, textures);
+  }
+}
+
+void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int letterCount,
+                                   dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
+{
+  strings::UniString text = textLine.m_text;
+  float fontSize = textLine.m_font.m_size;
+  dp::Color base = textLine.m_font.m_color;
+  dp::Color outline = textLine.m_font.m_outlineColor;
+  float needOutline = textLine.m_font.m_needOutline;
+  PointF anchorDelta = textLine.m_offset;
+
   int const numVert = letterCount * 4;
-  vector<Vertex> vertex(numVert);
-  vector<TexCoord> texture(numVert);
+  vector<vec4> vertex(numVert);
+  vec4 * vertexPt = &vertex[0];
+  vector<vec4> texture(numVert);
+  vec4 * texturePt = &texture[0];
 
   float stride = 0.0f;
   int textureSet;
@@ -135,7 +143,8 @@ void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
   dp::TextureSetHolder::GlyphRegion region;
   for(int i = 0, j = 0 ; i < text.size() ; i++)
   {
-    textures->GetGlyphRegion(text[i], region);
+    if (!textures->GetGlyphRegion(text[i], region))
+      continue;
     float xOffset, yOffset, advance;
     region.GetMetrics(xOffset, yOffset, advance);
     float const aspect = fontSize / realFontSize;
@@ -161,24 +170,30 @@ void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
     PointF const leftTop(stride + xOffset + anchorDelta.x, yOffset + h + anchorDelta.y);
     PointF const rightTop(stride + w + xOffset + anchorDelta.x, yOffset + h + anchorDelta.y);
 
-    int index = j * 4;
-    vertex[index++] = Vertex(m_basePoint, leftTop);
-    vertex[index++] = Vertex(m_basePoint, leftBottom);
-    vertex[index++] = Vertex(m_basePoint, rightTop);
-    vertex[index++] = Vertex(m_basePoint, rightBottom);
+    *vertexPt = vec4(m_basePoint, leftTop);
+    vertexPt++;
+    *vertexPt = vec4(m_basePoint, leftBottom);
+    vertexPt++;
+    *vertexPt = vec4(m_basePoint, rightTop);
+    vertexPt++;
+    *vertexPt = vec4(m_basePoint, rightBottom);
+    vertexPt++;
 
-    index = j * 4;
-    texture[index++] = TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth);
-    texture[index++] = TexCoord(rect.minX(), rect.minY(), textureNum, m_params.m_depth);
-    texture[index++] = TexCoord(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth);
-    texture[index++] = TexCoord(rect.maxX(), rect.minY(), textureNum, m_params.m_depth);
+    *texturePt = vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth);
+    texturePt++;
+    *texturePt = vec4(rect.minX(), rect.minY(), textureNum, m_params.m_depth);
+    texturePt++;
+    *texturePt = vec4(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth);
+    texturePt++;
+    *texturePt = vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth);
+    texturePt++;
 
     j++;
     stride += advance;
   }
 
-  vector<Vertex> vertex2(numVert * 3 / 2);
-  vector<TexCoord> texture2(numVert * 3 / 2);
+  vector<vec4> vertex2(numVert * 3 / 2);
+  vector<vec4> texture2(numVert * 3 / 2);
   vector<float> color(numVert * 6);
   vector<float> color2(numVert * 6);
 
@@ -240,14 +255,10 @@ void TextShape::AddGeometryWithTheSameTextureSet(int setNum, int letterCount, bo
     provider.InitStream(3, outline_color, dp::MakeStackRefPointer((void*)&color2[0]));
   }
 
-  float const bbY = m_params.m_primaryTextFont.m_size + m_params.m_secondaryTextFont.m_size;
-  dp::OverlayHandle * handle = new dp::SquareHandle(m_params.m_featureID,
-                                                    m_params.m_anchor,
-                                                    m_basePoint,
-                                                    m2::PointD(maxTextLength, bbY),
-                                                    m_params.m_depth);
-
-  batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle));
+  PointF const dim = PointF(textLine.m_length, 1.3f * textLine.m_font.m_size);
+  dp::OverlayHandle * handle = new TextHandle(m_params.m_featureID, m_basePoint, dim, anchorDelta, m_params.m_depth);
+  //handle->SetIsVisible(true);
+  batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
 }
 
 void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
@@ -256,14 +267,16 @@ void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   int const size = text.size();
   float const fontSize = m_params.m_primaryTextFont.m_size;
   float textLength = 0.0f;
-  int const maxTextureSetCount = textures->GetMaxTextureSet();
-  buffer_vector<int, 16> sizes(maxTextureSetCount);
+  vector<TextLine> lines(4);
 
   for (int i = 0 ; i < size ; i++)
   {
     dp::TextureSetHolder::GlyphRegion region;
-    textures->GetGlyphRegion(text[i], region);
-    ++sizes[region.GetTextureNode().m_textureSet];
+    if (!textures->GetGlyphRegion(text[i], region))
+    {
+      LOG(LDEBUG, ("Symbol not found ", text[i]));
+      continue;
+    }
     float xOffset, yOffset, advance;
     region.GetMetrics(xOffset, yOffset, advance);
     textLength += advance * fontSize / realFontSize;
@@ -272,11 +285,8 @@ void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   if (m_params.m_secondaryText.empty())
   {
     PointF const anchorDelta = GetShift(m_params.m_anchor, textLength, fontSize) + m_params.m_primaryOffset;
-    for(int i = 0; i < maxTextureSetCount ; ++i)
-    {
-      if (sizes[i])
-        AddGeometryWithTheSameTextureSet(i, sizes[i], false, textLength, anchorDelta, batcher, textures);
-    }
+    lines[0] = TextLine(anchorDelta, text, textLength, m_params.m_primaryTextFont);
+    DrawTextLine(lines[0], batcher, textures);
     return;
   }
 
@@ -284,32 +294,32 @@ void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   int const auxSize = auxText.size();
   float const auxFontSize = m_params.m_secondaryTextFont.m_size;
   float auxTextLength = 0.0f;
-  buffer_vector<int, 16> auxSizes(maxTextureSetCount);
 
   for (int i = 0 ; i < auxSize ; i++)
   {
     dp::TextureSetHolder::GlyphRegion region;
-    textures->GetGlyphRegion(auxText[i], region);
-    ++auxSizes[region.GetTextureNode().m_textureSet];
+    if (!textures->GetGlyphRegion(auxText[i], region))
+    {
+      LOG(LDEBUG, ("Symbol not found(aux) ", auxText[i]));
+      continue;
+    }
     float xOffset, yOffset, advance;
     region.GetMetrics(xOffset, yOffset, advance);
     auxTextLength += advance * auxFontSize / realFontSize;
   }
 
   float const length = max(textLength, auxTextLength);
-  PointF const anchorDelta = GetShift(m_params.m_anchor, length, fontSize + auxFontSize);
+  PointF const anchorDelta = GetShift(m_params.m_anchor, length, 1.3f * fontSize + 1.3f * auxFontSize);
   float dx = textLength > auxTextLength ? 0.0f : (auxTextLength - textLength) / 2.0f;
-  PointF const textDelta = PointF(dx, -auxFontSize) + anchorDelta + m_params.m_primaryOffset;
+  PointF const textDelta = PointF(dx, -1.3f * auxFontSize - 0.3f * fontSize) + anchorDelta + m_params.m_primaryOffset;
   dx = textLength > auxTextLength ? (textLength - auxTextLength) / 2.0f : 0.0f;
   PointF const auxTextDelta = PointF(dx, 0.0f) + anchorDelta + m_params.m_primaryOffset;
 
-  for (int i = 0; i < maxTextureSetCount ; ++i)
-  {
-    if (sizes[i])
-      AddGeometryWithTheSameTextureSet(i, sizes[i], false, length, textDelta, batcher, textures);
-    if (auxSizes[i])
-      AddGeometryWithTheSameTextureSet(i, auxSizes[i], true, length, auxTextDelta, batcher, textures);
-  }
+  lines[0] = TextLine(textDelta, text, textLength, m_params.m_primaryTextFont);
+  lines[1] = TextLine(auxTextDelta, auxText, auxTextLength, m_params.m_secondaryTextFont);
+
+  DrawTextLine(lines[0], batcher, textures);
+  DrawTextLine(lines[1], batcher, textures);
 }
 
 } //end of df namespace
