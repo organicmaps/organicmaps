@@ -26,9 +26,54 @@ public:
       m_positions(maxCount * 6), m_maxCount(maxCount),
       m_symbolHalfWidth(hw), m_symbolHalfHeight(hh) {}
 
-  virtual void Update(ScreenBase const & screen);
-  virtual m2::RectD GetPixelRect(ScreenBase const & screen) const;
-  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const;
+  virtual void Update(ScreenBase const & screen)
+  {
+    m_scaleFactor = screen.GetScale();
+
+    Spline::iterator itr;
+    itr.Attach(m_path);
+    itr.Step((m_params.m_offset + m_symbolHalfWidth) * m_scaleFactor);
+
+    for (int i = 0; i < m_maxCount * 6; ++i)
+      m_positions[i] = vec2(0.0f, 0.0f);
+
+    vec2 * it = &m_positions[0];
+
+    for (int i = 0; i < m_maxCount; ++i)
+    {
+      if (itr.BeginAgain())
+        break;
+      PointF const pos = itr.m_pos;
+      PointF const dir = itr.m_dir * m_symbolHalfWidth  * m_scaleFactor;
+      PointF const norm(-itr.m_dir.y * m_symbolHalfHeight * m_scaleFactor, itr.m_dir.x * m_symbolHalfHeight * m_scaleFactor);
+
+      PointF const p1 = pos + dir - norm;
+      PointF const p2 = pos - dir - norm;
+      PointF const p3 = pos - dir + norm;
+      PointF const p4 = pos + dir + norm;
+
+      *it = p2; it++;
+      *it = p3; it++;
+      *it = p1; it++;
+      *it = p4; it++;
+      *it = p1; it++;
+      *it = p3; it++;
+
+      itr.Step(m_params.m_step * m_scaleFactor);
+    }
+  }
+  virtual m2::RectD GetPixelRect(ScreenBase const & screen) const
+  {
+    return m2::RectD(0, 0, 0, 0);
+  }
+  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
+  {
+    TOffsetNode const & node = GetOffsetNode(PositionAttributeID);
+    MutateNode mutateNode;
+    mutateNode.m_region = node.second;
+    mutateNode.m_data = MakeStackRefPointer<void>(&m_positions[0]);
+    mutator->AddMutation(node.first, mutateNode);
+  }
 
 private:
   PathSymbolViewParams m_params;
@@ -70,12 +115,18 @@ void PathSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHol
 
   for(int i = 0; i < maxCount; ++i)
   {
-    *tc = vec4(rect.minX(), rect.minY(), textureNum, m_params.m_depth); tc++;
-    *tc = vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth); tc++;
-    *tc = vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth); tc++;
-    *tc = vec4(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth); tc++;
-    *tc = vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth); tc++;
-    *tc = vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth); tc++;
+    *tc = vec4(rect.minX(), rect.minY(), textureNum, m_params.m_depth);
+    tc++;
+    *tc = vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth);
+    tc++;
+    *tc = vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth);
+    tc++;
+    *tc = vec4(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth);
+    tc++;
+    *tc = vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth);
+    tc++;
+    *tc = vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth);
+    tc++;
   }
 
   AttributeProvider provider(3, vertCnt);
@@ -112,57 +163,6 @@ void PathSymbolShape::Draw(RefPointer<Batcher> batcher, RefPointer<TextureSetHol
 
   OverlayHandle * handle = new PathSymbolHandle(m_path, m_params, maxCount, pixelSize.x / 2.0f, pixelSize.y / 2.0f);
   batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
-}
-
-m2::RectD PathSymbolHandle::GetPixelRect(ScreenBase const & screen) const
-{
-  return m2::RectD(0, 0, 0, 0);
-}
-
-void PathSymbolHandle::Update(ScreenBase const & screen)
-{
-  m_scaleFactor = screen.GetScale();
-
-  Spline::iterator itr;
-  itr.Attach(m_path);
-  itr.Step((m_params.m_offset + m_symbolHalfWidth) * m_scaleFactor);
-
-  for (int i = 0; i < m_maxCount * 6; ++i)
-    m_positions[i] = vec2(0.0f, 0.0f);
-
-  vec2 * it = &m_positions[0];
-
-  for (int i = 0; i < m_maxCount; ++i)
-  {
-    if (itr.BeginAgain())
-      break;
-    PointF const pos = itr.m_pos;
-    PointF const dir = itr.m_dir * m_symbolHalfWidth  * m_scaleFactor;
-    PointF const norm(-itr.m_dir.y * m_symbolHalfHeight * m_scaleFactor, itr.m_dir.x * m_symbolHalfHeight * m_scaleFactor);
-
-    PointF const p1 = pos + dir - norm;
-    PointF const p2 = pos - dir - norm;
-    PointF const p3 = pos - dir + norm;
-    PointF const p4 = pos + dir + norm;
-
-    *it = p2; it++;
-    *it = p3; it++;
-    *it = p1; it++;
-    *it = p4; it++;
-    *it = p1; it++;
-    *it = p3; it++;
-
-    itr.Step(m_params.m_step * m_scaleFactor);
-  }
-}
-
-void PathSymbolHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
-{
-  TOffsetNode const & node = GetOffsetNode(PositionAttributeID);
-  MutateNode mutateNode;
-  mutateNode.m_region = node.second;
-  mutateNode.m_data = MakeStackRefPointer<void>(&m_positions[0]);
-  mutator->AddMutation(node.first, mutateNode);
 }
 
 }
