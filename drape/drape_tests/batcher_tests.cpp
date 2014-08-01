@@ -49,7 +49,7 @@ struct MemoryComparer
   {
   }
 
-  void cmp(glConst /*type*/, uint32_t size, void const * data, uint32_t /*offset*/)
+  void cmp(glConst /*type*/, uint32_t size, void const * data, uint32_t /*offset*/) const
   {
     TEST_EQUAL(size, m_size, ());
     TEST_EQUAL(memcmp(m_mem, data, size), 0, ());
@@ -60,9 +60,9 @@ class BatcherExpectations
 {
 public:
   BatcherExpectations()
+    : m_indexBufferID(1)
+    , m_dataBufferID(2)
   {
-    m_indexBufferID = 1;
-    m_dataBufferID = 2;
   }
 
   typedef function<void (Batcher *, GLState const &, RefPointer<AttributeProvider>)> TBatcherCallFn;
@@ -71,8 +71,8 @@ public:
                uint16_t indexCount, TBatcherCallFn const & fn)
   {
     int const vertexSize = vertexCount * vertexComponentCount;
-    MemoryComparer dataCmp(vertexes, vertexSize * sizeof(float));
-    MemoryComparer indexCmp(indexes, indexCount * sizeof(uint16_t));
+    MemoryComparer const dataCmp(vertexes, vertexSize * sizeof(float));
+    MemoryComparer const indexCmp(indexes, indexCount * sizeof(uint16_t));
 
     ExpectBufferCreation(vertexSize, indexCount, indexCmp, dataCmp);
 
@@ -102,7 +102,7 @@ public:
   }
 
   void ExpectBufferCreation(uint16_t vertxeCount, uint16_t indexCount,
-                            MemoryComparer & indexCmp, MemoryComparer & vertexCmp)
+                            MemoryComparer const & indexCmp, MemoryComparer const & vertexCmp)
   {
     InSequence seq;
 

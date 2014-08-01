@@ -10,18 +10,18 @@ class BindingInfo;
 class BatchCallbacks
 {
 public:
-  typedef function<void (BindingInfo const &, void const *, uint16_t)> flush_vertex_fn;
-  typedef function<uint16_t * (uint16_t, uint16_t &)> get_index_storage_fn;
-  typedef function<void ()> submit_index_fn;
-  typedef function<uint16_t ()> get_available_fn;
-  typedef function<void (bool)> change_buffer_fn;
+  typedef function<void (BindingInfo const &, void const *, uint16_t)> TFlushVertexFn;
+  typedef function<uint16_t * (uint16_t, uint16_t &)> TGetIndexStorageFn;
+  typedef function<void ()> TSubmitIndexFn;
+  typedef function<uint16_t ()> TGetAvailableFn;
+  typedef function<void (bool)> ChangeBufferFn;
 
-  flush_vertex_fn      m_flushVertex;
-  get_index_storage_fn m_getIndexStorage;
-  submit_index_fn      m_submitIndex;
-  get_available_fn     m_getAvailableVertex;
-  get_available_fn     m_getAvailableIndex;
-  change_buffer_fn     m_changeBuffer;
+  TFlushVertexFn      m_flushVertex;
+  TGetIndexStorageFn m_getIndexStorage;
+  TSubmitIndexFn      m_submitIndex;
+  TGetAvailableFn     m_getAvailableVertex;
+  TGetAvailableFn     m_getAvailableIndex;
+  ChangeBufferFn     m_changeBuffer;
 };
 
 class TriangleBatch
@@ -53,7 +53,7 @@ private:
 
 class TriangleListBatch : public TriangleBatch
 {
-  typedef TriangleBatch base_t;
+  typedef TriangleBatch TBase;
 
 public:
   TriangleListBatch(BatchCallbacks const & callbacks);
@@ -63,7 +63,7 @@ public:
 
 class FanStripHelper : public TriangleBatch
 {
-  typedef TriangleBatch base_t;
+  typedef TriangleBatch TBase;
 
 public:
   FanStripHelper(BatchCallbacks const & callbacks);
@@ -86,7 +86,7 @@ private:
 
 class TriangleStripBatch : public FanStripHelper
 {
-  typedef FanStripHelper base_t;
+  typedef FanStripHelper TBase;
 
 public:
   TriangleStripBatch(BatchCallbacks const & callbacks);
@@ -96,7 +96,7 @@ public:
 
 class TriangleFanBatch : public FanStripHelper
 {
-  typedef FanStripHelper base_t;
+  typedef FanStripHelper TBase;
 
 public:
   TriangleFanBatch(BatchCallbacks const & callbacks);
@@ -106,7 +106,7 @@ public:
 
 class TriangleListOfStripBatch : public FanStripHelper
 {
-  typedef FanStripHelper base_t;
+  typedef FanStripHelper TBase;
 
 public:
   TriangleListOfStripBatch(BatchCallbacks const & callbacks);
