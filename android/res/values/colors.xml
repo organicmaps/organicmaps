@@ -45,19 +45,26 @@
   <color name="green">#0F0</color>
   <color name="blue">#00F</color>
 
-  <color name="pp_bg_start">#15c783</color>
-  <color name="pp_bg_preview_end">#15ca82</color>
-  <color name="pp_bg_end">#15d080</color>
   <color name="bg_menu">#e6414451</color>
   <color name="bg_bottom_toolbar">#414651</color>
   <color name="bg_bottom_toolbar_pressed">#15d081</color>
+
+  <!-- search -->
+  <color name="bg_searchbox">#15c783</color>
   <color name="text_search_item">@android:color/white</color>
   <color name="text_search_item_greyed">@android:color/darker_gray</color>
   <color name="bg_search_green">#1F9F7E</color>
   <color name="bg_search_green_pressed">#68BEA8</color>
-  <color name="bg_top_panels">#15D180</color>
-  <color name="text_label_bookmars_green">#1BBB78</color>
+
+  <!-- place page -->
+  <color name="text_info_box">@android:color/black</color>
+  <color name="text_info_box_share">#179E4D</color>
+  <color name="bg_top_panels">#f2ffffff</color>
   <color name="bg_azimut_arrow">#1D414651</color>
   <color name="fg_azimut_arrow">@android:color/white</color>
+
+  <!-- bookmarks -->
+  <color name="text_label_bookmarks_green">#1BBB78</color>
+  <color name="ab_bookmarks">#15D180</color>
 
 </resources>

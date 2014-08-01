@@ -1217,7 +1217,6 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onPlacePageVisibilityChanged(boolean isVisible)
   {
-    UiUtils.showIf(!isVisible, mToolbar);
     UiUtils.hide(mVerticalToolbar);
   }
 

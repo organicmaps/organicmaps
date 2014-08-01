@@ -42,6 +42,7 @@
   <dimen name="search_item_height">56dp</dimen>
   <dimen name="search_box_height">56dp</dimen>
   <dimen name="pp_button_height">55dp</dimen>
+  <dimen name="bottom_button_width">90dp</dimen>
 
   <item name="alpha_edit_button" format="float" type="dimen">0.75</item>
 </resources>

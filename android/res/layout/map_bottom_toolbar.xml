@@ -2,39 +2,64 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/bottom_panel_height">
+    android:layout_height="@dimen/bottom_panel_height"
+    android:background="@drawable/toolbar_gradient">
 
-  <ImageButton
-      android:id="@+id/map_button_myposition"
-      style="@style/Widget.MapButtonBottom"
+  <FrameLayout
       android:layout_width="0dp"
-      android:layout_height="@dimen/bottom_panel_height"
-      android:layout_weight="1"
-      android:onClick="onMyPositionClicked"
-      android:src="@drawable/ic_my_position"/>
+      android:layout_height="match_parent"
+      android:layout_weight="1">
 
-  <ImageButton
-      style="@style/Widget.MapButtonBottom"
-      android:layout_width="0dp"
-      android:layout_height="@dimen/bottom_panel_height"
-      android:layout_weight="1"
-      android:onClick="onSearchClicked"
-      android:src="@drawable/ic_search"/>
+    <ImageButton
+        android:id="@+id/map_button_myposition"
+        style="@style/Widget.MapButtonBottom"
+        android:layout_width="@dimen/bottom_button_width"
+        android:layout_height="@dimen/bottom_panel_height"
+        android:onClick="onMyPositionClicked"
+        android:src="@drawable/ic_my_position"/>
 
-  <ImageButton
-      style="@style/Widget.MapButtonBottom"
-      android:layout_width="0dp"
-      android:layout_height="@dimen/bottom_panel_height"
-      android:layout_weight="1"
-      android:onClick="onBookmarksClicked"
-      android:src="@drawable/ic_bookmarks"/>
+  </FrameLayout>
 
-  <ImageButton
-      style="@style/Widget.MapButtonBottom"
+  <FrameLayout
       android:layout_width="0dp"
-      android:layout_height="@dimen/bottom_panel_height"
-      android:layout_weight="1"
-      android:onClick="onMoreClicked"
-      android:src="@drawable/ic_menu"/>
+      android:layout_height="match_parent"
+      android:layout_weight="1">
+
+    <ImageButton
+        style="@style/Widget.MapButtonBottom"
+        android:layout_width="@dimen/bottom_button_width"
+        android:layout_height="@dimen/bottom_panel_height"
+        android:onClick="onSearchClicked"
+        android:src="@drawable/ic_search"/>
+
+  </FrameLayout>
+
+  <FrameLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1">
+
+    <ImageButton
+        style="@style/Widget.MapButtonBottom"
+        android:layout_width="@dimen/bottom_button_width"
+        android:layout_height="@dimen/bottom_panel_height"
+        android:onClick="onBookmarksClicked"
+        android:src="@drawable/ic_bookmark"/>
+
+  </FrameLayout>
+
+  <FrameLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1">
+
+    <ImageButton
+        style="@style/Widget.MapButtonBottom"
+        android:layout_width="@dimen/bottom_button_width"
+        android:layout_height="@dimen/bottom_panel_height"
+        android:onClick="onMoreClicked"
+        android:src="@drawable/ic_settings"/>
+
+  </FrameLayout>
 
 </LinearLayout>

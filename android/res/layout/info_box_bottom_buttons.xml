@@ -12,11 +12,11 @@
       android:layout_width="0dp"
       android:layout_height="match_parent"
       android:layout_weight="1"
-      android:background="@drawable/bg_stroke_white_selector"
+      android:background="@drawable/bg_bottom_btn_selector"
       android:fontFamily="@string/robotoLight"
       android:gravity="center"
       android:text="@string/share"
-      android:textColor="@android:color/white"/>
+      android:textColor="@color/text_info_box"/>
 
   <TextView
       android:id="@+id/info_box_back_to_caller"
@@ -25,9 +25,9 @@
       android:layout_height="match_parent"
       android:layout_marginLeft="@dimen/margin_medium"
       android:layout_weight="1"
-      android:background="@drawable/bg_stroke_white_selector"
+      android:background="@drawable/bg_bottom_btn_selector"
       android:fontFamily="@string/robotoRegular"
       android:gravity="center"
-      android:textColor="@android:color/white"/>
+      android:textColor="@color/text_info_box"/>
 
 </LinearLayout>

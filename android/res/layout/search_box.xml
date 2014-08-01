@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/pp_bg_start"
+    android:background="@color/bg_searchbox"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="@dimen/margin_small">

@@ -2,8 +2,6 @@ package com.mapswithme.maps.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -22,18 +20,11 @@ public class ArrowView extends ImageView
   private float mWidth;
   private float mHeight;
 
-  private final static float RAD_MULT = .33f;
-  private final static float SQ2 = (float) Math.sqrt(2);
-
-  private Paint mArrowPaint;
-  private Path mArrowPath;
-  private Paint mCirclePaint;
-
   private final static int ALLOW_ANIMATION = 0x1;
   private final static int DO_ANIMATION = 0x2;
   private final static int DRAW_ARROW = 0x4;
   private final static int DRAW_CIRCLE = 0x8;
-  private int m_flags = 0;
+  private int mFlags = 0;
 
   // Animation params
   private float mCurrentAngle;
@@ -41,15 +32,15 @@ public class ArrowView extends ImageView
 
   private boolean testFlag(int flag)
   {
-    return (m_flags & flag) != 0;
+    return (mFlags & flag) != 0;
   }
 
   private void setFlag(int flag, boolean value)
   {
     if (value)
-      m_flags |= flag;
+      mFlags |= flag;
     else
-      m_flags &= (~flag);
+      mFlags &= (~flag);
   }
 
   private Runnable mAnimateTask = new Runnable()
@@ -66,16 +57,7 @@ public class ArrowView extends ImageView
   {
     super(context, attrs);
 
-    mArrowPaint = new Paint();
-    mArrowPaint.setStyle(Paint.Style.FILL);
-    mArrowPaint.setColor(getResources().getColor(R.color.fg_azimut_arrow));
-    mArrowPaint.setAntiAlias(true);
-
-    mArrowPath = new Path();
-
-    mCirclePaint = new Paint();
-    mCirclePaint.setColor(getResources().getColor(R.color.bg_azimut_arrow));
-    mCirclePaint.setAntiAlias(true);
+    setImageResource(R.drawable.ic_direction);
   }
 
   public void setDrawCircle(boolean draw)
@@ -88,18 +70,9 @@ public class ArrowView extends ImageView
     setFlag(ALLOW_ANIMATION, allow);
   }
 
-  public void setCircleColor(int color)
-  {
-    mCirclePaint.setColor(color);
-  }
-
   public void setAzimut(double azimut)
   {
-    setVisibility(VISIBLE);
-    setImageDrawable(null);
-
-    setFlag(DRAW_ARROW, true);
-    mAngle = (float) (azimut / Math.PI * 180.0);
+    mAngle = (float) Math.toDegrees(azimut - Math.PI / 2); // subtract PI / 2 case initial image is vertically oriented
 
     if (testFlag(ALLOW_ANIMATION) && testFlag(DO_ANIMATION))
       animateRotation();
@@ -120,8 +93,6 @@ public class ArrowView extends ImageView
 
   public void clear()
   {
-    setVisibility(INVISIBLE);
-    setImageDrawable(null);
     setFlag(DRAW_ARROW, false);
   }
 
@@ -158,45 +129,17 @@ public class ArrowView extends ImageView
 
     mWidth = w - getPaddingLeft() - getPaddingRight();
     mHeight = h - getPaddingBottom() - getPaddingTop();
-
-    final float rad = Math.min(w, h) * RAD_MULT;
-    final float c0 = Math.min(h, w) / 2;
-
-    mArrowPath.reset();
-    mArrowPath.moveTo(c0 + rad, c0);
-    mArrowPath.lineTo(c0 - rad / SQ2, c0 + rad / SQ2);
-    mArrowPath.lineTo(c0 - rad * SQ2 / 4, c0);
-    mArrowPath.lineTo(c0 - rad / SQ2, c0 - rad / SQ2);
-    mArrowPath.lineTo(c0 + rad, c0);
-    mArrowPath.close();
   }
 
   @Override
   protected void onDraw(Canvas canvas)
   {
+    canvas.save();
+    final float side = Math.min(mWidth, mHeight);
+    canvas.translate((mWidth - side) / 2, (mHeight - side) / 2);
+    canvas.rotate(-mCurrentAngle, mWidth / 2, mHeight / 2);
     super.onDraw(canvas);
-    if (mWidth <= 0 || mHeight <= 0)
-      return;
-
-    if (testFlag(DRAW_ARROW))
-    {
-      canvas.save();
-
-      final float w = mWidth;
-      final float h = mHeight;
-      final float sSide = Math.min(w, h);
-      canvas.translate((w - sSide) / 2, (h - sSide) / 2);
-      canvas.rotate(-mCurrentAngle, sSide / 2, sSide / 2);
-
-      if (testFlag(DRAW_CIRCLE))
-      {
-        final float rad = Math.min(w, h) / 2;
-        canvas.drawCircle(rad, rad, rad, mCirclePaint);
-      }
-
-      canvas.drawPath(mArrowPath, mArrowPaint);
-      canvas.restore();
-    }
+    canvas.restore();
   }
 }
 
