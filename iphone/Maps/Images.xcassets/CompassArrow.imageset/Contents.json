@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "CompassArrow.png"
+      "filename" : "Direction.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "CompassArrow@2x.png"
+      "filename" : "Direction@2x.png"
     }
   ],
   "info" : {
