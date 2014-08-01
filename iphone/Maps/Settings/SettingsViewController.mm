@@ -134,10 +134,7 @@ typedef NS_ENUM(NSUInteger, Section)
 
 Settings::Units unitsForIndex(NSInteger index)
 {
-  if (index == 0)
-    return Settings::Metric;
-  else
-    return Settings::Foot;
+  return index == 0 ? Settings::Metric : Settings::Foot;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -146,7 +143,7 @@ Settings::Units unitsForIndex(NSInteger index)
   {
     Settings::Units units = unitsForIndex(indexPath.row);
     Settings::Set("Units", units);
-    [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationNone];
+    [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
     [[MapsAppDelegate theApp].m_mapViewController setupMeasurementSystem];
   }
   else if (indexPath.section == SectionAbout)
