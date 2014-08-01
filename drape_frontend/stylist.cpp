@@ -351,6 +351,11 @@ bool InitStylist(FeatureType const & f,
   KeyFunctor keyFunctor(f, mainGeomType, zoomLevel, keys.size(), descr.IsNameExists());
   for_each(keys.begin(), keys.end(), bind(&KeyFunctor::ProcessKey, &keyFunctor, _1));
 
+  if (keyFunctor.m_pointStyleFinded)
+    s.RaisePointStyleFlag();
+  if (keyFunctor.m_lineStyleFinded)
+    s.RaiseLineStyleFlag();
+
   s.m_rules.swap(keyFunctor.m_rules);
   descr.FormatCaptions(f, mainGeomType, keyFunctor.m_auxCaptionFinded);
   return true;

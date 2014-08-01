@@ -11,9 +11,12 @@
 class CircleRuleProto;
 class SymbolRuleProto;
 
+class CaptionDefProto;
+
 namespace df
 {
 
+struct TextViewParams;
 class EngineContext;
 
 class BaseApplyFeature
@@ -25,6 +28,12 @@ public:
 
   void SetPrimaryText(string const & src) { m_primaryText = src; }
   void SetSecondaryText(string const & src) { m_secondaryText = src; }
+
+protected:
+  void ExtractCaptionParams(CaptionDefProto const * primaryProto,
+                            CaptionDefProto const * secondaryProto,
+                            double depth,
+                            TextViewParams & params) const;
 
 protected:
   EngineContext & m_context;

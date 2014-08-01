@@ -73,6 +73,19 @@ void CaptionDefProtoToFontDecl(CaptionDefProto const * capRule, df::FontDecl &pa
   }
 }
 
+m2::PointF GetCaptionOffset(CaptionDefProto const * capRule)
+{
+  m2::PointF offset;
+  float visualScale = df::VisualParams::Instance().GetVisualScale();
+  if (capRule->has_offset_x())
+    offset.x = capRule->offset_x() * visualScale;
+
+  if (capRule->has_offset_y())
+    offset.y = capRule->offset_y() * visualScale;
+
+  return offset;
+}
+
 dp::Anchor GetAnchor(CaptionDefProto const * capRule)
 {
   if (capRule->has_offset_y())
@@ -101,6 +114,31 @@ BaseApplyFeature::BaseApplyFeature(EngineContext & context, TileKey tileKey, Fea
   , m_tileKey(tileKey)
   , m_id(id)
 {
+}
+
+void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto,
+                                            CaptionDefProto const * secondaryProto,
+                                            double depth,
+                                            TextViewParams & params) const
+{
+  FontDecl decl;
+  CaptionDefProtoToFontDecl(primaryProto, decl);
+
+  params.m_anchor = GetAnchor(primaryProto);
+  params.m_depth = depth;
+  params.m_featureID = m_id;
+  params.m_primaryOffset = GetCaptionOffset(primaryProto);
+  params.m_primaryText = m_primaryText;
+  params.m_primaryTextFont = decl;
+
+  if (secondaryProto)
+  {
+    FontDecl auxDecl;
+    CaptionDefProtoToFontDecl(secondaryProto, auxDecl);
+
+    params.m_secondaryText = m_secondaryText;
+    params.m_secondaryTextFont = auxDecl;
+  }
 }
 
 // ============================================= //
@@ -133,35 +171,12 @@ void ApplyPointFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
   drule::BaseRule const * pRule = rule.first;
   float depth = rule.second;
 
+  bool isNode = (pRule->GetType() & drule::node) != 0;
   CaptionDefProto const * capRule = pRule->GetCaption(0);
-  if (capRule)
+  if (capRule && isNode)
   {
-    FontDecl decl;
-    CaptionDefProtoToFontDecl(capRule, decl);
-
     TextViewParams params;
-    params.m_anchor = GetAnchor(capRule);
-    params.m_depth = depth;
-    params.m_featureID = m_id;
-    params.m_primaryOffset = m2::PointF(0,0);
-    params.m_primaryText = m_primaryText;
-    params.m_primaryTextFont = decl;
-    float scaleFactor = df::VisualParams::Instance().GetVisualScale();
-    if (capRule->has_offset_x())
-      params.m_primaryOffset.x = capRule->offset_x() * scaleFactor;
-
-    if (capRule->has_offset_y())
-      params.m_primaryOffset.y = capRule->offset_y() * scaleFactor;
-
-    CaptionDefProto const * auxCapRule = pRule->GetCaption(1);
-    if (auxCapRule)
-    {
-      FontDecl auxDecl;
-      CaptionDefProtoToFontDecl(auxCapRule, auxDecl);
-
-      params.m_secondaryText = m_secondaryText;
-      params.m_secondaryTextFont = auxDecl;
-    }
+    ExtractCaptionParams(capRule, pRule->GetCaption(1), depth, params);
     if(!params.m_primaryText.empty() || !params.m_secondaryText.empty())
       m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new TextShape(m_centerPoint, params)));
   }
@@ -228,7 +243,6 @@ void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
   double const depth = rule.second;
 
   AreaRuleProto const * areaRule = pRule->GetArea();
-
   if (areaRule)
   {
     AreaViewParams params;
