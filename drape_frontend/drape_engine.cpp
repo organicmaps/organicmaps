@@ -16,8 +16,9 @@ DrapeEngine::DrapeEngine(dp::RefPointer<dp::OGLContextFactory> contextfactory, d
 {
   GLFunctions::Init();
   VisualParams::Init(vs, df::CalculateTileSize(m_viewport.GetWidth(), m_viewport.GetHeight()));
+  m_navigator.OnSize(m_viewport.GetX0(), m_viewport.GetY0(),
+                     m_viewport.GetWidth(), m_viewport.GetHeight());
   m_navigator.LoadState();
-  m_navigator.OnSize(0, 0, m_viewport.GetWidth(), m_viewport.GetHeight());
 
   m_textures.Reset(new dp::TextureManager());
   dp::RefPointer<dp::TextureSetHolder> textureHolder = m_textures.GetRefPointer();
@@ -52,7 +53,8 @@ void DrapeEngine::Resize(int w, int h)
     return;
 
   m_viewport.SetViewport(0, 0, w, h);
-  m_navigator.OnSize(0, 0, w, h);
+  m_navigator.OnSize(m_viewport.GetX0(), m_viewport.GetY0(),
+                     m_viewport.GetWidth(), m_viewport.GetHeight());
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   dp::MovePointer<Message>(new ResizeMessage(m_viewport)));
 }

@@ -19,30 +19,49 @@ void Viewport::SetViewport(uint32_t x0, uint32_t y0, uint32_t w, uint32_t h)
   m_size = m2::PointU(w, h);
 }
 
+uint32_t Viewport::GetLogicX0() const
+{
+  return m_zero.x;
+}
+
+uint32_t Viewport::GetLogicY0() const
+{
+  return m_zero.y;
+}
+
+uint32_t Viewport::GetLogicWidth() const
+{
+  return m_size.x;
+}
+
+uint32_t Viewport::GetLogicHeight() const
+{
+  return m_size.y;
+}
+
 uint32_t Viewport::GetX0() const
 {
-  return m_zero.x * m_pixelRatio;
+  return GetLogicX0() * m_pixelRatio;
 }
 
 uint32_t Viewport::GetY0() const
 {
-  return m_zero.y * m_pixelRatio;
+  return GetLogicY0() * m_pixelRatio;
 }
 
 uint32_t Viewport::GetWidth() const
 {
-  return m_size.x * m_pixelRatio;
+  return GetLogicWidth() * m_pixelRatio;
 }
 
 uint32_t Viewport::GetHeight() const
 {
-  return m_size.y * m_pixelRatio;
+  return GetLogicHeight() * m_pixelRatio;
 }
 
 void Viewport::Apply() const
 {
-  GLFunctions::glViewport(m_zero.x * m_pixelRatio, m_zero.y * m_pixelRatio,
-                          m_size.x * m_pixelRatio, m_size.y * m_pixelRatio);
+  GLFunctions::glViewport(GetX0(), GetY0(), GetWidth(), GetHeight());
 }
 
 } // namespace df

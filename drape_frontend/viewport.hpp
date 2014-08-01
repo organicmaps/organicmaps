@@ -18,12 +18,16 @@ public:
 
   ///@{ Device-independent pixels
   void SetViewport(uint32_t x0, uint32_t y0, uint32_t w, uint32_t h);
+  uint32_t GetLogicX0() const;
+  uint32_t GetLogicY0() const;
+  uint32_t GetLogicWidth() const;
+  uint32_t GetLogicHeight() const;
+  ///@}
+
   uint32_t GetX0() const;
   uint32_t GetY0() const;
   uint32_t GetWidth() const;
   uint32_t GetHeight() const;
-  ///@}
-
   // Apply viewport to graphics pipeline
   // with convert start poin and size to physical pixels
   void Apply() const;

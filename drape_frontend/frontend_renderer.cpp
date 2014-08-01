@@ -116,7 +116,8 @@ void FrontendRenderer::AcceptMessage(dp::RefPointer<Message> message)
     {
       ResizeMessage * rszMsg = df::CastMessage<ResizeMessage>(message);
       m_viewport = rszMsg->GetViewport();
-      m_view.OnSize(0, 0, m_viewport.GetWidth(), m_viewport.GetHeight());
+      m_view.OnSize(m_viewport.GetX0(), m_viewport.GetY0(),
+                    m_viewport.GetWidth(), m_viewport.GetHeight());
       RefreshProjection();
       RefreshModelView();
       ResolveTileKeys();
