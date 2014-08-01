@@ -21,22 +21,22 @@ void Viewport::SetViewport(uint32_t x0, uint32_t y0, uint32_t w, uint32_t h)
 
 uint32_t Viewport::GetX0() const
 {
-  return m_zero.x;
+  return m_zero.x * m_pixelRatio;
 }
 
 uint32_t Viewport::GetY0() const
 {
-  return m_zero.y;
+  return m_zero.y * m_pixelRatio;
 }
 
 uint32_t Viewport::GetWidth() const
 {
-  return m_size.x;
+  return m_size.x * m_pixelRatio;
 }
 
 uint32_t Viewport::GetHeight() const
 {
-  return m_size.y;
+  return m_size.y * m_pixelRatio;
 }
 
 void Viewport::Apply() const
