@@ -53,6 +53,7 @@ def write_local_properties(sdkDir, ndkDir):
 
     # copy files to folders
     subfolders = ['YoPme',
+                  'YoPme2',
                   '3rd_party/external_styles',
                   '3rd_party/facebook-android-sdk/facebook']
 
