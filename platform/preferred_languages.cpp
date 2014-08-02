@@ -45,14 +45,6 @@ static const MSLocale gLocales[] = {{0x1,"ar"},{0x2,"bg"},{0x3,"ca"},{0x4,"zh-Ha
 namespace languages
 {
 
-struct ChineseSimplifiedFilter
-{
-  bool operator() (string const & t) const
-  {
-    return ("zh-Hans" == t) || ("zh-rCN" == t);
-  }
-};
-
 class LangFilter
 {
   set<string> & m_known;
@@ -81,9 +73,6 @@ public:
 
 void FilterLanguages(vector<string> & langs)
 {
-  // we do not support simplified chinese by the momenty, so remove it from collection
-  langs.erase(remove_if(langs.begin(), langs.end(), ChineseSimplifiedFilter()), langs.end());
-
   // normalize languages: en-US -> en, ru_RU -> ru etc.
   for_each(langs.begin(), langs.end(), NormalizeFilter());
   {
