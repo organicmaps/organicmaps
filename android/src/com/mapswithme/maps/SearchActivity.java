@@ -721,10 +721,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       SearchController.getInstance().setQuery(allResults ? query : "");
 
       if (allResults)
-      {
-        final String lang = Language.getKeyboardInput(this);
-        runInteractiveSearch(query, lang);
-      }
+        runInteractiveSearch(query, Language.getKeyboardInput(this));
 
       MWMActivity.startWithSearchResult(this, !allResults);
     }
@@ -829,11 +826,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       return QUERY_EMPTY;
     }
 
-
-    final String lang = Language.getKeyboardInput(this);
-
     final int id = mQueryID + QUERY_STEP;
-    if (nativeRunSearch(s, lang, mLat, mLon, mFlags, mSearchMode, id))
+    if (nativeRunSearch(s, Language.getKeyboardInput(this), mLat, mLon, mFlags, mSearchMode, id))
     {
       // store current query
       mQueryID = id;
