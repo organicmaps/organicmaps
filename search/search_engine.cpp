@@ -43,7 +43,7 @@ namespace
 
 class InitSuggestions
 {
-  // Key - is a string with language.
+  // Key - is a string with suggestion's _locale_ code, not a language from multilang_utf8_string.cpp
   typedef map<pair<strings::UniString, int8_t>, uint8_t> SuggestMapT;
   SuggestMapT m_suggests;
 
@@ -54,7 +54,7 @@ public:
     {
       strings::UniString const uniName = NormalizeAndSimplifyString(name.m_name);
 
-      uint8_t & score = m_suggests[make_pair(uniName, name.m_lang)];
+      uint8_t & score = m_suggests[make_pair(uniName, name.m_locale)];
       if (score == 0 || score > name.m_prefixLengthToSuggest)
         score = name.m_prefixLengthToSuggest;
     }
@@ -288,8 +288,8 @@ void Engine::SearchAsync(bool viewportPoints)
   m_pQuery->SetSearchInWorld(params.NeedSearch(SearchParams::SEARCH_WORLD));
   m_pQuery->SetSortByViewport(params.IsSortByViewport());
 
-  if (params.IsLanguageValid())
-    m_pQuery->SetInputLanguage(params.m_inputLanguageCode);
+  // Language validity is checked inside
+  m_pQuery->SetInputLanguage(params.m_inputLanguage);
 
   m_pQuery->SetQuery(params.m_query);
   bool const emptyQuery = m_pQuery->IsEmptyQuery();
@@ -399,12 +399,12 @@ string Engine::GetCountryName(string const & id)
   return GetCountryNameT(id);
 }
 
-bool Engine::GetNameByType(uint32_t type, int8_t lang, string & name) const
+bool Engine::GetNameByType(uint32_t type, int8_t locale, string & name) const
 {
   uint8_t level = ftype::GetLevel(type);
   while (level >= 2)
   {
-    if (m_pData->m_categories.GetNameByType(type, lang, name))
+    if (m_pData->m_categories.GetNameByType(type, locale, name))
       return true;
     ftype::TruncValue(type, --level);
   }
@@ -414,11 +414,6 @@ bool Engine::GetNameByType(uint32_t type, int8_t lang, string & name) const
 m2::RectD Engine::GetCountryBounds(string const & file) const
 {
   return m_pData->m_infoGetter.CalcLimitRect(file);
-}
-
-int8_t Engine::GetCurrentLanguage() const
-{
-  return m_pQuery->GetPrefferedLanguage();
 }
 
 void Engine::ClearViewportsCache()

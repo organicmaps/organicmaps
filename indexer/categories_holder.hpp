@@ -20,7 +20,9 @@ public:
     struct Name
     {
       string m_name;
-      int8_t m_lang;
+      /// This language/locale code is completely different from our built-in langs in multilang_utf8_string.cpp
+      /// and is only used for mapping user's input language to our values in categories.txt file
+      int8_t m_locale;
       uint8_t m_prefixLengthToSuggest;
     };
 
@@ -76,23 +78,22 @@ public:
     }
   }
 
-  /// Search name for type with preffered language.
+  /// Search name for type with preffered locale language.
   /// If no name for this language, return first (en) name.
   /// @return false if no categories for type.
-  bool GetNameByType(uint32_t type, int8_t lang, string & name) const;
+  bool GetNameByType(uint32_t type, int8_t locale, string & name) const;
 
-  inline bool IsTypeExist(uint32_t type) const
-  {
-    // pass any language
-    string dummy;
-    return GetNameByType(type, 0, dummy);
-  }
+  bool IsTypeExist(uint32_t type) const;
 
   inline void Swap(CategoriesHolder & r)
   {
     m_type2cat.swap(r.m_type2cat);
     m_name2type.swap(r.m_name2type);
   }
+
+  /// Converts any language locale from UI to internal integer code
+  static int8_t MapLocaleToInteger(string const & locale);
+  static int8_t const UNSUPPORTED_LOCALE_CODE = -1;
 
 private:
   void AddCategory(Category & cat, vector<uint32_t> & types);

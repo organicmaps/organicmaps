@@ -216,7 +216,7 @@ Result PreResult2::GenerateFinalResult(
                         storage::CountryInfoGetter const * pInfo,
                         CategoriesHolder const * pCat,
                         set<uint32_t> const * pTypes,
-                        int8_t lang) const
+                        int8_t locale) const
 {
   storage::CountryInfo info;
 
@@ -234,14 +234,14 @@ Result PreResult2::GenerateFinalResult(
   switch (m_resultType)
   {
   case RESULT_FEATURE:
-    return Result(m_id, GetCenter(), m_str, info.m_name, GetFeatureType(pCat, pTypes, lang)
+    return Result(m_id, GetCenter(), m_str, info.m_name, ReadableFeatureType(pCat, pTypes, locale)
               #ifdef DEBUG
                   + ' ' + strings::to_string(static_cast<int>(m_rank))
               #endif
                   , type);
 
   case RESULT_BUILDING:
-    return Result(GetCenter(), m_str, info.m_name, GetFeatureType(pCat, pTypes, lang));
+    return Result(GetCenter(), m_str, info.m_name, ReadableFeatureType(pCat, pTypes, locale));
 
   default:
     ASSERT_EQUAL(m_resultType, RESULT_LATLON, ());
@@ -252,9 +252,9 @@ Result PreResult2::GenerateFinalResult(
 Result PreResult2::GeneratePointResult(
                             CategoriesHolder const * pCat,
                             set<uint32_t> const * pTypes,
-                            int8_t lang) const
+                            int8_t locale) const
 {
-  return Result(GetCenter(), m_str, GetFeatureType(pCat, pTypes, lang));
+  return Result(GetCenter(), m_str, ReadableFeatureType(pCat, pTypes, locale));
 }
 
 bool PreResult2::LessRank(PreResult2 const & r1, PreResult2 const & r2)
@@ -361,19 +361,20 @@ uint32_t PreResult2::GetBestType(set<uint32_t> const * pPrefferedTypes) const
   return t;
 }
 
-string PreResult2::GetFeatureType(CategoriesHolder const * pCat,
+string PreResult2::ReadableFeatureType(CategoriesHolder const * pCat,
                                   set<uint32_t> const * pTypes,
-                                  int8_t lang) const
+                                  int8_t locale) const
 {
   ASSERT_EQUAL(m_resultType, RESULT_FEATURE, ());
 
+  // @TODO print all types, not just one
   uint32_t const type = GetBestType(pTypes);
   ASSERT_NOT_EQUAL(type, 0, ());
 
   if (pCat)
   {
     string name;
-    if (pCat->GetNameByType(type, lang, name))
+    if (pCat->GetNameByType(type, locale, name))
       return name;
   }
 

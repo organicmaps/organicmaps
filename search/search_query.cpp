@@ -74,7 +74,8 @@ Query::Query(Index const * pIndex,
              CategoriesHolder const * pCategories,
              StringsToSuggestVectorT const * pStringsToSuggest,
              storage::CountryInfoGetter const * pInfoGetter)
-  : m_pIndex(pIndex),
+  : m_inputLocaleCode(CategoriesHolder::UNSUPPORTED_LOCALE_CODE),
+    m_pIndex(pIndex),
     m_pCategories(pCategories),
     m_pStringsToSuggest(pStringsToSuggest),
     m_pInfoGetter(pInfoGetter),
@@ -203,22 +204,27 @@ void Query::SetPreferredLanguage(string const & lang)
 
   // Default initialization.
   // If you want to reset input language, call SetInputLanguage before search.
-  SetInputLanguage(code);
+  SetInputLanguage(lang);
 
 #ifdef FIND_LOCALITY_TEST
   m_locality.SetLanguage(code);
 #endif
 }
 
-void Query::SetInputLanguage(int8_t lang)
+void Query::SetInputLanguage(string const & lang)
 {
-  LOG(LDEBUG, ("New input language = ", lang));
-  SetLanguage(LANG_INPUT, lang);
-}
+  if (!lang.empty())
+  {
+    LOG(LDEBUG, ("New input language = ", lang));
 
-int8_t Query::GetPrefferedLanguage() const
-{
-  return GetLanguage(LANG_CURRENT);
+    // For "data" language we need only 2-letter code
+    size_t const delimPos = lang.find_first_of("-_");
+    int8_t const code = StringUtf8Multilang::GetLangIndex(
+          delimPos == string::npos ? lang : lang.substr(0, delimPos));
+    SetLanguage(LANG_INPUT, code);
+
+    m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(lang);
+  }
 }
 
 void Query::ClearCaches()
@@ -2103,7 +2109,7 @@ void Query::SuggestStrings(Results & res)
   }
 }
 
-bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t lang, string const & prolog, Results & res)
+bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale, string const & prolog, Results & res)
 {
   bool ret = false;
 
@@ -2113,7 +2119,7 @@ bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t lan
     strings::UniString const & s = it->m_name;
     if ((it->m_prefixLength <= token.size()) &&
         (token != s) &&          // do not push suggestion if it already equals to token
-        (it->m_lang == lang) &&  // push suggestions only for needed language
+        (it->m_locale == locale) &&  // push suggestions only for needed language
         StartsWith(s.begin(), s.end(), token.begin(), token.end()))
     {
       string const utf8Str = strings::ToUtf8(s);
@@ -2132,8 +2138,12 @@ void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
   string prolog;
   RemoveStringPrefix(*m_query, prolog);
 
-  if (!MatchForSuggestionsImpl(token, GetLanguage(LANG_INPUT), prolog, res))
-    MatchForSuggestionsImpl(token, GetLanguage(LANG_EN), prolog, res);
+  static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
+  if (!MatchForSuggestionsImpl(token, m_inputLocaleCode, prolog, res)
+      && m_inputLocaleCode != enLocaleCode)
+  {
+    MatchForSuggestionsImpl(token, enLocaleCode, prolog, res);
+  }
 }
 
 m2::RectD const & Query::GetViewport(ViewportID vID /*= DEFAULT_V*/) const

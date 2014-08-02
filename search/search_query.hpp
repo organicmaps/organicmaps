@@ -60,10 +60,10 @@ public:
   {
     strings::UniString m_name;
     uint8_t m_prefixLength;
-    int8_t m_lang;
+    int8_t m_locale;
 
-    SuggestT(strings::UniString const & name, uint8_t len, int8_t lang)
-      : m_name(name), m_prefixLength(len), m_lang(lang)
+    SuggestT(strings::UniString const & name, uint8_t len, int8_t locale)
+      : m_name(name), m_prefixLength(len), m_locale(locale)
     {
     }
   };
@@ -91,9 +91,11 @@ public:
   inline void SetSearchInWorld(bool b) { m_worldSearch = b; }
   inline void SetSortByViewport(bool b) { m_sortByViewport = b; }
 
+  /// Suggestions language code, not the same as we use in mwm data
+  int8_t m_inputLocaleCode;
+
   void SetPreferredLanguage(string const & lang);
-  void SetInputLanguage(int8_t lang);
-  int8_t GetPrefferedLanguage() const;
+  void SetInputLanguage(string const & lang);
 
   void SetQuery(string const & query);
   inline bool IsEmptyQuery() const { return (m_prefix.empty() && m_tokens.empty()); }
@@ -206,7 +208,7 @@ private:
   //@}
 
   void SuggestStrings(Results & res);
-  bool MatchForSuggestionsImpl(strings::UniString const & token, int8_t lang, string const & prolog, Results & res);
+  bool MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale, string const & prolog, Results & res);
   void MatchForSuggestions(strings::UniString const & token, Results & res);
 
   void GetBestMatchName(FeatureType const & f, string & name) const;

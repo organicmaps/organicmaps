@@ -170,10 +170,10 @@ class FeatureInserter
     m_valueSaver.Save(sink, v);
   }
 
-  /// There are 3 different ways of search index skipping: \n
-  /// - skip features in any case (m_skipFeatures) \n
-  /// - skip features with empty names (m_enFeature) \n
-  /// - skip specified types for features with empty names (m_enTypes) \n
+  /// There are 3 different ways of search index skipping:
+  /// - skip features in any case (m_skipFeatures)
+  /// - skip features with empty names (m_enFeature)
+  /// - skip specified types for features with empty names (m_enTypes)
   class SkipIndexing
   {
     /// Array index (0, 1) means type level for checking (1, 2).

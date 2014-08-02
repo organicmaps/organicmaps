@@ -95,7 +95,7 @@ public:
 
   Result GeneratePointResult(CategoriesHolder const * pCat,
                              set<uint32_t> const * pTypes,
-                             int8_t lang) const;
+                             int8_t locale) const;
 
   static bool LessRank(PreResult2 const & r1, PreResult2 const & r2);
   static bool LessDistance(PreResult2 const & r1, PreResult2 const & r2);
@@ -138,9 +138,9 @@ private:
 
   bool IsEqualCommon(PreResult2 const & r) const;
 
-  string GetFeatureType(CategoriesHolder const * pCat,
+  string ReadableFeatureType(CategoriesHolder const * pCat,
                         set<uint32_t> const * pTypes,
-                        int8_t lang) const;
+                        int8_t locale) const;
 
   FeatureID m_id;
   feature::TypesHolder m_types;

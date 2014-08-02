@@ -42,8 +42,7 @@ namespace search
     bool IsValidPosition() const { return m_validPos; }
 
     /// @param[in] language can be "fr", "en-US", "ru_RU" etc.
-    void SetInputLanguage(string const & language);
-    bool IsLanguageValid() const;
+    void SetInputLanguage(string const & language) { m_inputLanguage = language; }
 
     bool IsEqualCommon(SearchParams const & rhs) const;
 
@@ -53,9 +52,7 @@ namespace search
     SearchCallbackT m_callback;
 
     string m_query;
-    /// Can be -1 (@see StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE),
-    /// in the case when input language is unknown.
-    int8_t m_inputLanguageCode;
+    string m_inputLanguage;
 
     double m_lat, m_lon;
 

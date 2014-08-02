@@ -4,6 +4,7 @@
 
 #include "../indexer/classificator.hpp"
 #include "../indexer/feature_visibility.hpp"
+#include "../indexer/categories_holder.hpp"
 
 #include "../platform/preferred_languages.hpp"
 
@@ -319,7 +320,7 @@ namespace
         return true;
     }
 
-    static void GetReadableTypes(search::Engine const * eng, int8_t lang,
+    static void GetReadableTypes(search::Engine const * eng, int8_t locale,
                                  feature::TypesHolder & types,
                                  search::AddressInfo & info)
     {
@@ -330,7 +331,7 @@ namespace
       for (size_t i = 0; i < count; ++i)
       {
         string s;
-        if (eng->GetNameByType(types[i], lang, s))
+        if (eng->GetNameByType(types[i], locale, s))
           info.m_types.push_back(s);
       }
 
@@ -356,9 +357,9 @@ namespace
       }
     }
 
-    void FillAddress(search::Engine const * eng, search::AddressInfo & info)
+    void FillAddress(search::Engine const * eng, search::AddressInfo & info, string const & lang)
     {
-      int8_t const lang = eng->GetCurrentLanguage();
+      int8_t const locale = CategoriesHolder::MapLocaleToInteger(lang);
 
       SortResults();
 
@@ -381,7 +382,7 @@ namespace
           {
             info.m_name = m_cont[i].m_name;
 
-            GetReadableTypes(eng, lang, m_cont[i].m_types, info);
+            GetReadableTypes(eng, locale, m_cont[i].m_types, info);
           }
         }
 
@@ -484,9 +485,10 @@ void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::Addr
   DoGetAddressInfo getAddress(pt, scale, GetChecker(), addressR);
 
   m_model.ForEachFeature(rect, getAddress, scale);
-  getAddress.FillAddress(GetSearchEngine(), info);
+  // @TODO Pass language as a parameter from UI
+  getAddress.FillAddress(GetSearchEngine(), info, languages::CurrentLanguage());
 
-  /// @todo Temporarily commented - it's slow and not used in UI
+  // @todo Temporarily commented - it's slow and not used in UI
   //GetLocality(pt, info);
 }
 
@@ -507,7 +509,8 @@ void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, se
   // FeatureType::WORST_GEOMETRY - no need to check on visibility
   DoGetAddressInfo getAddress(pt, FeatureType::WORST_GEOMETRY, GetChecker(), addressR);
   getAddress(ft);
-  getAddress.FillAddress(GetSearchEngine(), info);
+  // @TODO Pass language as a parameter from UI
+  getAddress.FillAddress(GetSearchEngine(), info, languages::CurrentLanguage());
 
   /// @todo Temporarily commented - it's slow and not used in UI
   //GetLocality(pt, info);

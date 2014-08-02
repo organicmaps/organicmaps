@@ -5,7 +5,6 @@
 
 #include "../coding/reader.hpp"
 #include "../coding/reader_streambuf.hpp"
-#include "../coding/multilang_utf8_string.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
@@ -22,6 +21,8 @@ enum State
 
 }  // unnamed namespace
 
+
+int8_t const CategoriesHolder::UNSUPPORTED_LOCALE_CODE;
 
 CategoriesHolder::CategoriesHolder(Reader * reader)
 {
@@ -127,17 +128,13 @@ void CategoriesHolder::LoadFromStream(istream & s)
           continue;
         }
 
-        int8_t const langCode = StringUtf8Multilang::GetLangIndex(*iter);
-        if (langCode == StringUtf8Multilang::UNSUPPORTED_LANGUAGE_CODE)
-        {
-          LOG(LWARNING, ("Invalid language code:", *iter, "at line:", lineNumber));
-          continue;
-        }
+        int8_t const langCode = MapLocaleToInteger(*iter);
+        CHECK_NOT_EQUAL(langCode, UNSUPPORTED_LOCALE_CODE, ("Invalid language code:", *iter, "at line:", lineNumber));
 
         while (++iter)
         {
           Category::Name name;
-          name.m_lang = langCode;
+          name.m_locale = langCode;
           name.m_name = *iter;
 
           if (name.m_name.empty())
@@ -165,7 +162,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
   AddCategory(cat, types);
 }
 
-bool CategoriesHolder::GetNameByType(uint32_t type, int8_t lang, string & name) const
+bool CategoriesHolder::GetNameByType(uint32_t type, int8_t locale, string & name) const
 {
   pair<IteratorT, IteratorT> const range = m_type2cat.equal_range(type);
 
@@ -173,7 +170,7 @@ bool CategoriesHolder::GetNameByType(uint32_t type, int8_t lang, string & name) 
   {
     Category const & cat = *i->second;
     for (size_t j = 0; j < cat.m_synonyms.size(); ++j)
-      if (cat.m_synonyms[j].m_lang == lang)
+      if (cat.m_synonyms[j].m_locale == locale)
       {
         name = cat.m_synonyms[j].m_name;
         return true;
@@ -187,4 +184,64 @@ bool CategoriesHolder::GetNameByType(uint32_t type, int8_t lang, string & name) 
   }
 
   return false;
+}
+
+bool CategoriesHolder::IsTypeExist(uint32_t type) const
+{
+  pair<IteratorT, IteratorT> const range = m_type2cat.equal_range(type);
+  return range.first != range.second;
+}
+
+namespace
+{
+struct Mapping
+{
+  char const * m_name;
+  int8_t m_code;
+};
+} // namespace
+
+int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
+{
+  static const Mapping mapping[] = {
+    {"en", 1 },
+    {"ru", 2 },
+    {"uk", 3 },
+    {"de", 4 },
+    {"fr", 5 },
+    {"it", 6 },
+    {"es", 7 },
+    {"ko", 8 },
+    {"ja", 9 },
+    {"cs", 10 },
+    {"nl", 11 },
+    {"zh-Hant", 12 },
+    {"pl", 13 },
+    {"pt", 14 },
+    {"hu", 15 },
+    {"th", 16 },
+    {"zh-Hans", 17 },
+    {"ar", 18 },
+    {"da", 19 },
+  };
+  for (size_t i = 0; i < ARRAY_SIZE(mapping); ++i)
+    if (locale.find(mapping[i].m_name) == 0)
+      return mapping[i].m_code;
+
+  // Special cases for different Chinese variations
+  if (locale.find("zh") == 0)
+  {
+    string lower = locale;
+    strings::AsciiToLower(lower);
+
+    if (lower.find("hant") != string::npos
+        || lower.find("tw") != string::npos
+        || lower.find("hk") != string::npos
+        || lower.find("mo") != string::npos)
+      return 12; // Traditional Chinese
+
+    return 17; // Simplified Chinese by default for all other cases
+  }
+
+  return UNSUPPORTED_LOCALE_CODE;
 }
