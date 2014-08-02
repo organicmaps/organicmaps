@@ -5,25 +5,25 @@
     comment = DO NOT TRANSLATE! Used only on Android for special purposes.
 
   [pro_version_available]
-    en = Navigate easier with the full version of maps.me featuring offline search. Get it right now!
+    en = Navigate easier with the full version of MAPS.ME featuring offline search. Get it right now!
     comment = Dialog text when paid version become available on the market. Showed only once.
-    cs = Získej více možností s plnou verzí maps.me, zahrnující offline vyhledávání. Nainstaluj si ji nyní!
-    de = Mehr Möglichkeiten in der vollen Version maps.me mit Offline-Suche. Jetzt herunterladen!
-    es = Mas facil navegar con la version completa maps.me con el buscador fuera de la Internet. Bajalo ya!
-    fr = Naviguez plus facilement avec la recherche hors ligne de la version complète de maps.me. À installer !
-    it = Naviga più facilmente con la versione completa di maps.me con la ricerca offline. Scaricala subito!
-    ja = maps.me完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。
-    ko = 오프라인 검색 기능의 maps.me의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!
-    nl = Navigeer makkelijker met maps.me Pro met offline zoeken. Instelleer het nu!
-    ru = Больше возможностей в полной версии maps.me с офлайн поиском. Установить ее сейчас?
-    uk = Більше можливостей у повній версії maps.me з офлайн пошуком. Встановити її зараз?
-    zh-Hant = 完整版的maps.me特色在於更完善的離線搜尋，立即購買!
-    pl = Nawigacja staje się prostsza kiedy masz pełną wersję aplikację maps.me wraz z wyszukiwaniem offline. Pobierz już teraz!
-    pt = Navegue mais facilmente com a versão completa do maps.me com a funcionalidade de procura offline. Obtenha-a agora mesmo!
-    hu = További lehetőségek a maps.me teljes verziójában. Töltse le most!
-    th = ระบบนำทางที่ง่ายขึ้นด้วย maps.me ที่โดดเด่นด้วยการค้นหาแบบออฟไลน์แบบเวอร์ชันเต็ม รับมันทันทีตอนนี้!
-    zh-Hans = 使用带离线搜索功能的完整版maps.me实现更简便的导航。现在就获取它吧！
-    ar = يمكنك التصفح بشكل أسهل مع الإصدار الكامل من maps.me الذي يتميز بامكانية البحث بدون الاتصال مع الانترنت. احصل عليه الآن!
+    cs = Získej více možností s plnou verzí MAPS.ME, zahrnující offline vyhledávání. Nainstaluj si ji nyní!
+    de = Mehr Möglichkeiten in der vollen Version MAPS.ME mit Offline-Suche. Jetzt herunterladen!
+    es = Mas facil navegar con la version completa MAPS.ME con el buscador fuera de la Internet. Bajalo ya!
+    fr = Naviguez plus facilement avec la recherche hors ligne de la version complète de MAPS.ME. À installer !
+    it = Naviga più facilmente con la versione completa di MAPS.ME con la ricerca offline. Scaricala subito!
+    ja = MAPS.ME完全版ならさらに便利なオフライン検索が利用可能です。ぜひお買い求めください。
+    ko = 오프라인 검색 기능의 MAPS.ME의 풀버젼으로 보다 쉽게 검색하세요. 지금 구매하세요!
+    nl = Navigeer makkelijker met MAPS.ME Pro met offline zoeken. Instelleer het nu!
+    ru = Больше возможностей в полной версии MAPS.ME с офлайн поиском. Установить ее сейчас?
+    uk = Більше можливостей у повній версії MAPS.ME з офлайн пошуком. Встановити її зараз?
+    zh-Hant = 完整版的MAPS.ME特色在於更完善的離線搜尋，立即購買!
+    pl = Nawigacja staje się prostsza kiedy masz pełną wersję aplikację MAPS.ME wraz z wyszukiwaniem offline. Pobierz już teraz!
+    pt = Navegue mais facilmente com a versão completa do MAPS.ME com a funcionalidade de procura offline. Obtenha-a agora mesmo!
+    hu = További lehetőségek a MAPS.ME teljes verziójában. Töltse le most!
+    th = ระบบนำทางที่ง่ายขึ้นด้วย MAPS.ME ที่โดดเด่นด้วยการค้นหาแบบออฟไลน์แบบเวอร์ชันเต็ม รับมันทันทีตอนนี้!
+    zh-Hans = 使用带离线搜索功能的完整版MAPS.ME实现更简便的导航。现在就获取它吧！
+    ar = يمكنك التصفح بشكل أسهل مع الإصدار الكامل من MAPS.ME الذي يتميز بامكانية البحث بدون الاتصال مع الانترنت. احصل عليه الآن!
     da = Naviger lettere med den fulde version af MAPS.ME med bl.a. offline søgning. Få det nu!
 
   [about]
@@ -380,23 +380,23 @@
     da = Få det nu
 
   [share_on_facebook_text]
-    en = Are you enjoying maps.me? Help your friends and family learn about the app, share it with them on Facebook!
+    en = Are you enjoying MAPS.ME? Help your friends and family learn about the app, share it with them on Facebook!
     comment = Text to show occasionaly with a proposal to Like our program on Facebook
-    cs = Líbí se ti maps.me? Pomoz svým přátelům a rodině dozvědět se o této aplikaci. Sdílej ji s nimi prostřednictvím Facebooku!
+    cs = Líbí se ti MAPS.ME? Pomoz svým přátelům a rodině dozvědět se o této aplikaci. Sdílej ji s nimi prostřednictvím Facebooku!
     de = Wenn ihnen unser Programm gefällt, teilen sie es bitte auf Facebook mit ihren Freunden.
-    fr = maps.me vous plait ? Faites le connaître à vos amis et vos proches : partagez-le sur Facebook !
+    fr = MAPS.ME vous plait ? Faites le connaître à vos amis et vos proches : partagez-le sur Facebook !
     ja = アプリの使い勝手はいかがでしょうか？ ぜひFacebookで友人にシェアしてください
     nl = Deel dit programma met uw vrienden op Facebook, als ons programma u bevalt.
-    it = Ti stai divertendo maps.me? Aiuta i tuoi amici e la famiglia a conoscere l'app, condividila con loro su Facebook!
-    ru = Нравится maps.me? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!
+    it = Ti stai divertendo MAPS.ME? Aiuta i tuoi amici e la famiglia a conoscere l'app, condividila con loro su Facebook!
+    ru = Нравится MAPS.ME? Помогите вашим друзьям и родным узнать о приложении, поделитесь с ними на Фейсбуке!
     uk = Якщо вам подобається наша програма, будь ласка порекомендуйте її своїм друзям на Facebook.
-    zh-Hant = 喜歡maps.me嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！
-    pl = Podoba ci się korzystanie z maps.me? Pomóż swoim przyjaciołom i rodzinie w dowiedzeniu się czegoś więcej o aplikacji, udostępnij na Facebooku!
-    pt = Está a gostar do maps.me? Ajude os seus amigos e família a conhecer a app, partilhe-a com eles no Facebook!
-    hu = Tetszik a maps.me? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!
-    th = คุณสนุกกับ maps.me หรือไม่? ช่วยเหลือเพื่อน ๆ และครอบครัวของคุณศึกษาเกี่ยวกับแอป แชร์มันบน Facebook!
-    zh-Hans = 您喜欢用maps.me吗? 把这个应用介绍给您的朋友和家人吧，在Facebook上和他们分享吧！
-    ar = هل تستمتع باستخدام تطبيق maps.me ؟ ساعد أصدقائك و أسرتك في تعلم كيفية استخدامه، قم بمشاركته معهم على فيسبوك!
+    zh-Hant = 喜歡MAPS.ME嗎？幫助您的朋友和家人了解應用程式，透過Facebook分享給他們吧！
+    pl = Podoba ci się korzystanie z MAPS.ME? Pomóż swoim przyjaciołom i rodzinie w dowiedzeniu się czegoś więcej o aplikacji, udostępnij na Facebooku!
+    pt = Está a gostar do MAPS.ME? Ajude os seus amigos e família a conhecer a app, partilhe-a com eles no Facebook!
+    hu = Tetszik a MAPS.ME? Ajánlja barátainak és családtagjainak, ossza meg velük Facebook-on!
+    th = คุณสนุกกับ MAPS.ME หรือไม่? ช่วยเหลือเพื่อน ๆ และครอบครัวของคุณศึกษาเกี่ยวกับแอป แชร์มันบน Facebook!
+    zh-Hans = 您喜欢用MAPS.ME吗? 把这个应用介绍给您的朋友和家人吧，在Facebook上和他们分享吧！
+    ar = هل تستمتع باستخدام تطبيق MAPS.ME ؟ ساعد أصدقائك و أسرتك في تعلم كيفية استخدامه، قم بمشاركته معهم على فيسبوك!
     da = Nyder du MAPS.ME? Hjælp dine venner og familie ved at fortælle dem om denne app, del den med dem på Facebook!
 
   [kb]
@@ -784,25 +784,25 @@
     da = Søg
 
   [search_available_in_pro_version]
-    en = Search is only available in the full version of maps.me. Get it right now!
+    en = Search is only available in the full version of MAPS.ME. Get it right now!
     comment = Search button pressed dialog title in the free version
-    cs = Vyhledávání je dostupné jen v placené verzi maps.me. Stáhni si ji nyní!
+    cs = Vyhledávání je dostupné jen v placené verzi MAPS.ME. Stáhni si ji nyní!
     de = Die Suche ist nur in der Pro Version vorhanden. Möchten Sie sie jetzt installieren?
     es = Buscar está accesible solo en la versión MapWithMe Pro. ¿Instalar ahora mismo?
     fr = La recherche n'est disponible que dans la version complète. Voulez-vous l'installer maintenant ?
-    it = La ricerca è disponibile solo nella versione completa di maps.me. Scaricala subito!
-    ja = 検索機能はmaps.me完全版で利用可能です。ぜひお買い求めください。
-    ko = 검색은 maps.me의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?
-    nl = Zoeken is alleen beschikbaar in de Pro versie van maps.me. Wilt u hem nu installeren?
-    ru = Поиск доступен только в полной версии maps.me. Установите ее прямо сейчас!
-    uk = Пошук доступний тільки в Pro версії maps.me. Встановіть її прямо зараз!
-    zh-Hant = 搜尋功能僅適用於maps.me專業完整版。馬上購買！
-    pl = Szukanie jest dostępne tylko w pełnej wersji maps.me. Pobierz już teraz!
-    pt = A procura apenas está disponível na versão completa do maps.me. Obtenha-a agora mesmo!
-    hu = Keresés csak a maps.me teljes verziójában érhető el. Vásárolja meg most!
-    th = สามารถใช้การค้นหา maps.me ในเวอร์ชันเต็มได้ รับมันตอนนี้!
-    zh-Hans = 搜索只在完整版 maps.me 中提供。现在就 获取它!
-    ar = البحث متوافر فقط في الإصدار الكامل من maps.me. احصل عليه الآن!
+    it = La ricerca è disponibile solo nella versione completa di MAPS.ME. Scaricala subito!
+    ja = 検索機能はMAPS.ME完全版で利用可能です。ぜひお買い求めください。
+    ko = 검색은 MAPS.ME의 프로 버젼에만 제공됩니다. 지금 받으시겠습니까?
+    nl = Zoeken is alleen beschikbaar in de Pro versie van MAPS.ME. Wilt u hem nu installeren?
+    ru = Поиск доступен только в полной версии MAPS.ME. Установите ее прямо сейчас!
+    uk = Пошук доступний тільки в Pro версії MAPS.ME. Встановіть її прямо зараз!
+    zh-Hant = 搜尋功能僅適用於MAPS.ME專業完整版。馬上購買！
+    pl = Szukanie jest dostępne tylko w pełnej wersji MAPS.ME. Pobierz już teraz!
+    pt = A procura apenas está disponível na versão completa do MAPS.ME. Obtenha-a agora mesmo!
+    hu = Keresés csak a MAPS.ME teljes verziójában érhető el. Vásárolja meg most!
+    th = สามารถใช้การค้นหา MAPS.ME ในเวอร์ชันเต็มได้ รับมันตอนนี้!
+    zh-Hans = 搜索只在完整版 MAPS.ME 中提供。现在就 获取它!
+    ar = البحث متوافر فقط في الإصدار الكامل من MAPS.ME. احصل عليه الآن!
     da = Søgefunktionen er kun tilgængelig i den fulde version af MAPS.ME. Få den nu!
 
   [search_map]
@@ -1128,27 +1128,27 @@
     da = Prøv igen
 
   [app_name]
-    en = maps.me
-    zh-Hant = maps.me 專業版
+    en = MAPS.ME
+    zh-Hant = MAPS.ME 專業版
   [about_menu_title]
-    en = About maps.me
-    cs = O aplikaci maps.me
-    de = Über maps.me
-    es = Sobre maps.me
-    fr = À propos de maps.me
-    it = Informazioni su maps.me
-    ja = maps.meについて
+    en = About MAPS.ME
+    cs = O aplikaci MAPS.ME
+    de = Über MAPS.ME
+    es = Sobre MAPS.ME
+    fr = À propos de MAPS.ME
+    it = Informazioni su MAPS.ME
+    ja = MAPS.MEについて
     ko = 소개
-    nl = Over maps.me
+    nl = Over MAPS.ME
     ru = О программе
     uk = Про програму
-    zh-Hant = 關於 maps.me
-    pl = O aplikacji maps.me
-    pt = Sobre o maps.me
-    hu = A maps.me programról
-    th = เกี่ยวกับ maps.me
-    zh-Hans = 关于 maps.me
-    ar = حول maps.me
+    zh-Hant = 關於 MAPS.ME
+    pl = O aplikacji MAPS.ME
+    pt = Sobre o MAPS.ME
+    hu = A MAPS.ME programról
+    th = เกี่ยวกับ MAPS.ME
+    zh-Hans = 关于 MAPS.ME
+    ar = حول MAPS.ME
     da = Om MAPS.ME
 
   [downloading_touch_to_cancel]
@@ -1319,24 +1319,24 @@
     da = SD-kort/USB lagring med de downloadede kort er ikke tilgængeligt
 
   [disconnect_usb_cable]
-    en = Please disconnect USB cable or insert memory card to use maps.me
-    cs = Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s maps.me
-    de = Bitte USB Kabel entfernen oder Speicherkarte einsetzen um maps.me zu verwenden
-    es = Por favor desconectar el cable USB o insertar la memoria SD para usar maps.me
-    fr = Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser maps.me
+    en = Please disconnect USB cable or insert memory card to use MAPS.ME
+    cs = Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s MAPS.ME
+    de = Bitte USB Kabel entfernen oder Speicherkarte einsetzen um MAPS.ME zu verwenden
+    es = Por favor desconectar el cable USB o insertar la memoria SD para usar MAPS.ME
+    fr = Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser MAPS.ME
     it = Coortesemente scollega il cavo USB oppure inserisci la scheda di memoria per l'usco dell'app
-    ja = maps.meを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください
-    ko = maps.me를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
-    nl = Verwijder de USB kabel of plaats een geheugen kaart om maps.me te gebruiken
+    ja = MAPS.MEを利用するにはUSBケーブルを抜くかメモリーカードを挿入してください
+    ko = MAPS.ME를 사용하려면 USB 케이블이나 삽입 메모리 카드를 분리하십시오
+    nl = Verwijder de USB kabel of plaats een geheugen kaart om MAPS.ME te gebruiken
     ru = Отключите USB кабель или вставьте SD-карту
     uk = Вимкніть USB кабель або вставте SD-карту
-    zh-Hant = 請拔除USB線或插入SD卡以使用maps.me
-    pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci by korzystać z maps.me
-    pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar maps.me
-    hu = Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a maps.me használatához
-    th = โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ maps.me
-    zh-Hans = 请断开 USB 线或插入存储卡以使用 maps.me
-    ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام maps.me.
+    zh-Hant = 請拔除USB線或插入SD卡以使用MAPS.ME
+    pl = Proszę odłączyć kabel USB albo włożyć kartę pamięci by korzystać z MAPS.ME
+    pt = Por favor desligue o cabo USB ou introduza um cartão de memória para utilizar MAPS.ME
+    hu = Kérjük bontsa az USB kapcsolatot vagy helyezzen be memóriakártyát a MAPS.ME használatához
+    th = โปรดยกเลิกการเชื่อมต่อสาย USB หรือใส่การ์ดหน่วยความจำเพื่อใช้ MAPS.ME
+    zh-Hans = 请断开 USB 线或插入存储卡以使用 MAPS.ME
+    ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام MAPS.ME.
     da = Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge MAPS.ME
 
   [not_enough_free_space_on_sdcard]
@@ -1726,26 +1726,26 @@
     da = Der er opdateringer klar til følgende kort:
 
   [suggest_uninstall_lite]
-    en = You don't need maps.me Lite any more, so you can uninstall it.
+    en = You don't need MAPS.ME Lite any more, so you can uninstall it.
     tags = android
     comment = Show popup notification in Pro version that Lite can be deleted
-    cs = Aplikaci maps.me Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.
-    de = Sie benötigen maps.me Lite nicht mehr, sie können es deinstallieren.
-    es = Ahora no necesita maps.me Lite, la puede desinstalar.
-    fr = Vous n'avez plus besoin de maps.me Lite et pouvez le supprimer.
-    it = Non hai più bisogno di maps.me Lite, quindi puoi disinstallarlo.
-    ja = maps.me Liteは削除してもかまいません
-    ko = 당신은 더 이상 maps.me 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.
-    nl = U heeft maps.me Lite niet meer nodig, dus u kunt de app deïnstalleren
-    ru = maps.me Lite больше не нужна. Рекомендуем ее удалить.
-    uk = maps.me Lite більше не потрібна. Рекомендуємо її видалити.
-    zh-Hant = 你再也不需要 maps.me Lite了,所以您可以移除它!
-    pl = Nie potrzebujesz już więcej maps.me Lite, więc możesz je usunąć.
-    pt = Não precisa mais do maps.me Lite, podendo portanto desinstalá-la.
-    hu = Már nincs szüksége a maps.me lite alkalmazásra, nyugodtan letörölheti.
-    th = คุณไม่จำเป็นต้องใช้ maps.me ไลท์ (Lite) อีกต่อไปแล้ว ดังนั้นคุณสามารถถอนการติดตั้ง
-    zh-Hans = 您不再需要maps.me Lite ，所以，您可以卸载它。
-    ar = أنت لست بحاجة الى  maps.me Lite بعد الآن، لذلك يمكنك إلغاء تثبيته.
+    cs = Aplikaci MAPS.ME Lite už nyní nepotřebuješ, takže si ji můžeš klidně odinstalovat.
+    de = Sie benötigen MAPS.ME Lite nicht mehr, sie können es deinstallieren.
+    es = Ahora no necesita MAPS.ME Lite, la puede desinstalar.
+    fr = Vous n'avez plus besoin de MAPS.ME Lite et pouvez le supprimer.
+    it = Non hai più bisogno di MAPS.ME Lite, quindi puoi disinstallarlo.
+    ja = MAPS.ME Liteは削除してもかまいません
+    ko = 당신은 더 이상 MAPS.ME 라이트는 필요 없어, 당신은 그것을 제거할 수 있습니다.
+    nl = U heeft MAPS.ME Lite niet meer nodig, dus u kunt de app deïnstalleren
+    ru = MAPS.ME Lite больше не нужна. Рекомендуем ее удалить.
+    uk = MAPS.ME Lite більше не потрібна. Рекомендуємо її видалити.
+    zh-Hant = 你再也不需要 MAPS.ME Lite了,所以您可以移除它!
+    pl = Nie potrzebujesz już więcej MAPS.ME Lite, więc możesz je usunąć.
+    pt = Não precisa mais do MAPS.ME Lite, podendo portanto desinstalá-la.
+    hu = Már nincs szüksége a MAPS.ME lite alkalmazásra, nyugodtan letörölheti.
+    th = คุณไม่จำเป็นต้องใช้ MAPS.ME ไลท์ (Lite) อีกต่อไปแล้ว ดังนั้นคุณสามารถถอนการติดตั้ง
+    zh-Hans = 您不再需要MAPS.ME Lite ，所以，您可以卸载它。
+    ar = أنت لست بحاجة الى  MAPS.ME Lite بعد الآن، لذلك يمكنك إلغاء تثبيته.
     da = Du har ikke brug for MAPS.ME Lite længere, så du kan godt afinstallere den.
 
   [download_country_success]
@@ -2091,49 +2091,49 @@
     da = Sæt
 
   [bookmarks_usage_hint]
-    en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in maps.me. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.
+    en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.
     tags = ios,android
     comment = Text hint in Bookmarks dialog when no any bookmarks are added
-    cs = Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV maps.me také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
-    de = Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der maps.me-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
-    es = Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación maps.me. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
-    fr = Vous n'avez encore aucun favori.\nTapotez n'importe où sur la carte pour ajouter un favori.\nLes signets provenant d'autres sources peuvent également être importés et affichés dans maps.me. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.
-    it = Non hai ancora nessun segnalibro.\nTocca qualsiasi luogo sulla cartina per aggiungere un segnalibro.\nPossono essere anche importati Preferiti da altre fonti e visualizzate nell'app maps.me. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.
-    ja = 未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nmaps.me以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
-    ko = 즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 maps.me 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
-    nl = Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de maps.me app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
-    ru = У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТак же метки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.
-    uk = У вас ще немає мiток.\nНатисніть на будь-яке місце на карті, щоб зберегти мiтку.\nМiтки з інших ресурсів також можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.
-    zh-Hant = 您還沒有任何書簽。\n點擊地圖上的任何地方以添加書簽。\n其他來源的書簽也可在maps.me應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
-    pl = Nie masz jeszcze żadnych zakładek.\nDotknij dowolnego miejsca na mapie, aby dodać zakładkę.\nZakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji maps.me. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
-    pt = Ainda não tem marcadores.\nToque em qualquer lugar no mapa para adicionar um marcador.\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação maps.me. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
-    hu = Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
-    th = คุณยังไม่มีบุ๊กมาร์ก\nแตะที่ใด ๆ บนแผนที่เพื่อเพิ่มบุ๊กมาร์ก\nสามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน maps.me เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์
-    zh-Hans = 您还没有书签。\n在地图任何位置轻触以添 加一个书签。\n其他来源的书签也可载入并 显示在 maps.me 中。从邮件、 Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文 件。
-    ar = ليس لديك أي إشارات مرجعية بعد.\nانقر على أي مكان على الخريطة لإضافة إشارة مرجعية.\nيمكنك أيضا استيراد الإشارات المرجعية من المصادر الأخرى وعرضها في maps.me. افتح ملف KML/KMZ الذي يحتوي على الدبابيس المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
+    cs = Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
+    de = Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
+    es = Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
+    fr = Vous n'avez encore aucun favori.\nTapotez n'importe où sur la carte pour ajouter un favori.\nLes signets provenant d'autres sources peuvent également être importés et affichés dans MAPS.ME. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.
+    it = Non hai ancora nessun segnalibro.\nTocca qualsiasi luogo sulla cartina per aggiungere un segnalibro.\nPossono essere anche importati Preferiti da altre fonti e visualizzate nell'app MAPS.ME. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.
+    ja = 未だブックマークがありません。\nマップ上をタップすればブックマークを追加できます。\nMAPS.ME以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
+    ko = 즐겨찾기가 없습니다.\n즐겨찾기를 추가하도록 지도에 어떤 장소를 누릅니다.\n다른 소스에서 북마크는 MAPS.ME 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
+    nl = Je hebt nog geen bladwijzers.\nTik op een plek op de kaart om een bladwijzer toe te voegen.\nBladwijzers uit andere bronnen kunnen ook worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
+    ru = У вас пока нет меток.\nВыберите любое место на карте, чтобы добавить его.\nТак же метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб ссылке.
+    uk = У вас ще немає мiток.\nНатисніть на будь-яке місце на карті, щоб зберегти мiтку.\nМiтки з інших ресурсів також можна імпортувати для застосунка MAPS.ME. Відкрийте файл KML/KMZ із збереженими пінами з почти, Dropbox або інтернет посилання.
+    zh-Hant = 您還沒有任何書簽。\n點擊地圖上的任何地方以添加書簽。\n其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
+    pl = Nie masz jeszcze żadnych zakładek.\nDotknij dowolnego miejsca na mapie, aby dodać zakładkę.\nZakładki z innych źródeł mogą również być importowane i wyświetlane w aplikacji MAPS.ME. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
+    pt = Ainda não tem marcadores.\nToque em qualquer lugar no mapa para adicionar um marcador.\nOs marcadores de outras fontes também podem ser importados e exibidos na aplicação MAPS.ME. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
+    hu = Nincsenek megjelölt helyeid.\nHely megjelöléséhez koppints a térkép bármelyik pontjára.\nSzintén más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
+    th = คุณยังไม่มีบุ๊กมาร์ก\nแตะที่ใด ๆ บนแผนที่เพื่อเพิ่มบุ๊กมาร์ก\nสามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน MAPS.ME เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์
+    zh-Hans = 您还没有书签。\n在地图任何位置轻触以添 加一个书签。\n其他来源的书签也可载入并 显示在 MAPS.ME 中。从邮件、 Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文 件。
+    ar = ليس لديك أي إشارات مرجعية بعد.\nانقر على أي مكان على الخريطة لإضافة إشارة مرجعية.\nيمكنك أيضا استيراد الإشارات المرجعية من المصادر الأخرى وعرضها في MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الدبابيس المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
     da = Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i MAPS.ME.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.
 
   [bookmarks_usage_hint_import_only]
-    en = Bookmarks from other sources can be imported and displayed in maps.me. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.
+    en = Bookmarks from other sources can be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.
     tags = ios,android
     comment = Text hint in Bookmarks dialog when at least one bookmark is added
-    cs = V maps.me mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
-    de = Lesezeichen von anderen Quellen können importiert und in der maps.me-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
-    es = Se pueden importar y mostrar marcadores de otras fuentes en la aplicación maps.me. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
-    fr = Les signets provenant d'autres sources peuvent être importés et affichés dans maps.me. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.
-    it = Possono essere anche importati Preferiti da altre fonti e visualizzate nell'app maps.me. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.
-    ja = maps.me以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
-    ko = 다른 소스에서 북마크는 maps.me 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
-    nl = Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de maps.me app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
-    ru = Метки можно импортировать из maps.me либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.
-    uk = Мітки з інших ресурсів можна імпортувати для застосунка maps.me. Відкрийте файл KML/KMZ із збереженими мітками з почти, Dropbox або інтернет посилання.
-    zh-Hant = 其他來源的書簽也可在maps.me應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
-    pl = Zakładki z innych źródeł mogą być importowane i wyświetlane w aplikacji maps.me. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
-    pt = Os marcadores de outras fontes podem ser importados e exibidos na aplicação maps.me. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
-    hu = Más forrásokból származó könyvjelzőket is beolvashat a maps.me programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
-    th = สามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน maps.me เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์
-    zh-Hans = 其他来源的书签也可载入并显示在 maps.me中。从邮件、Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文件。
-    ar = يمكن استيراد الإشارات المرجعية من المصادر الأخرى و عرضها على maps.me. افتح ملف KML/KMZ الذي يحتوي على الإشارات المرجعية المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
+    cs = V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
+    de = Lesezeichen von anderen Quellen können importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
+    es = Se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
+    fr = Les signets provenant d'autres sources peuvent être importés et affichés dans MAPS.ME. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.
+    it = Possono essere anche importati Preferiti da altre fonti e visualizzate nell'app MAPS.ME. Apri il file KML/KMZ con i pin salvati da una casella di posta, Dropbox o un link web.
+    ja = MAPS.ME以外のアプリで作成したブックマークの表示も可能です。KML/KMZ形式のピン情報をメールやDropbox、URLから取得してください。
+    ko = 다른 소스에서 북마크는 MAPS.ME 앱에서 가져와서 표시할 수 있습니다. 메일, 드롭박스 또는 웹링크에서 저장한 핀으로 KML/KMZ 파일을 열 수 있습니다.
+    nl = Bladwijzers uit andere bronnen kunnen worden geïmporteerd en weergegeven in de MAPS.ME app. Open KML/KMZ bestand met opgeslagen speldjes uit mail, Dropbox of weblink.
+    ru = Метки можно импортировать из MAPS.ME либо других приложений и сайтов. Для этого откройте KML/KMZ файл из Dropbox, почты или по веб-ссылке.
+    uk = Мітки з інших ресурсів можна імпортувати для застосунка MAPS.ME. Відкрийте файл KML/KMZ із збереженими мітками з почти, Dropbox або інтернет посилання.
+    zh-Hant = 其他來源的書簽也可在MAPS.ME應用中導入並顯示。使用郵件、Dropbox 或網站連結所保存的密碼可打開KML/KMZ文件。
+    pl = Zakładki z innych źródeł mogą być importowane i wyświetlane w aplikacji MAPS.ME. Otwieraj pliki KML/KMZ z zapisanymi szpilkami poczty, Dropboxa lub linków internetowych.
+    pt = Os marcadores de outras fontes podem ser importados e exibidos na aplicação MAPS.ME. Abrir ficheiro KML/KMZ com pinos guardados a partir do mail, Dropbox ou ligação web.
+    hu = Más forrásokból származó könyvjelzőket is beolvashat a MAPS.ME programba. Nyisson meg  KML/KMZ fájlt egy levélből, Dropbox-ból vagy internetről.
+    th = สามารถนำเข้าบุ๊กมาร์กจากแหล่งอื่น ๆ และแสดงบน MAPS.ME เปิดไฟล์ KML/KMZ ด้วยหมุดที่บันทึกไว้จากอีเมล ดรอปบ็อกซ์ หรือเว็บลิงก์
+    zh-Hans = 其他来源的书签也可载入并显示在 MAPS.ME中。从邮件、Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文件。
+    ar = يمكن استيراد الإشارات المرجعية من المصادر الأخرى و عرضها على MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الإشارات المرجعية المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
     da = Du har ingen bogmærker endnu. Tryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i MAPS.ME. Åbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.
 
   [settings]
@@ -2274,26 +2274,26 @@
     da = Synligt
 
   [bookmarks_in_pro_version]
-    en = Bookmarks are only available in the full version of maps.me. Get it right now!
+    en = Bookmarks are only available in the full version of MAPS.ME. Get it right now!
     tags = ios
     comment = Proposal to download Pro version with Bookmarks
-    cs = Záložky jsou dostupné jen v plné verzi maps.me. Chceš ji nyní stáhnout?
-    de = Lesezeichen stehen in der Vollversion von maps.me zur Verfügung. Jetzt sofort besorgen?
-    es = La opción de marcadores está disponible en la versión completa de maps.me. ¿La quieres ya?
-    fr = Les signets sont seulement dans la version complète de maps.me. L'installer maintenant ?
-    it = I segnalibri sono disponibili solo nella versione completa di maps.me. Scaricalo subito!
-    ja = ブックマーク機能はmaps.me完全版で利用可能です。ぜひお買い求めください。
-    ko = maps.me의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?
-    nl = Bladwijzers zijn beschikbaar in de volledige versie van maps.me. Wilt u die nu gelijk?
-    ru = Метки доступны только в полной верии maps.me. Установите ее прямо сейчас!
-    uk = Мітки доступні у повній версії maps.me. Отримати просто зараз?
-    zh-Hant = 書籤是maps.me完整版本才有的功能，馬上購買?
-    pl = Zakładki są dostępne tylko w pełnej wersji maps.me. Pobierz już teraz!
-    pt = Os favoritos apenas estão disponíveis na versão completa de maps.me. Obtenha-a agora mesmo!
-    hu = Könyvjelzők csak a maps.me teljes verziójában érhetőek el. Vásárolja meg most!
-    th = สามารถใช้บุ๊กมาร์กของ maps.me ในเวอร์ชันเต็มได้ รับมันตอนนี้!
-    zh-Hans = 书签只在完整版 maps.me 中提供。现在就 获取它!
-    ar = الإشارات المرجعية متاحة فقط في الإصدار الكامل من maps.me. احصل عليه الآن!
+    cs = Záložky jsou dostupné jen v plné verzi MAPS.ME. Chceš ji nyní stáhnout?
+    de = Lesezeichen stehen in der Vollversion von MAPS.ME zur Verfügung. Jetzt sofort besorgen?
+    es = La opción de marcadores está disponible en la versión completa de MAPS.ME. ¿La quieres ya?
+    fr = Les signets sont seulement dans la version complète de MAPS.ME. L'installer maintenant ?
+    it = I segnalibri sono disponibili solo nella versione completa di MAPS.ME. Scaricalo subito!
+    ja = ブックマーク機能はMAPS.ME完全版で利用可能です。ぜひお買い求めください。
+    ko = MAPS.ME의 정식 버전에서는 즐겨찾기를 이용하실 수 있습니다. 지금 바로 구입하시겠습니까?
+    nl = Bladwijzers zijn beschikbaar in de volledige versie van MAPS.ME. Wilt u die nu gelijk?
+    ru = Метки доступны только в полной верии MAPS.ME. Установите ее прямо сейчас!
+    uk = Мітки доступні у повній версії MAPS.ME. Отримати просто зараз?
+    zh-Hant = 書籤是MAPS.ME完整版本才有的功能，馬上購買?
+    pl = Zakładki są dostępne tylko w pełnej wersji MAPS.ME. Pobierz już teraz!
+    pt = Os favoritos apenas estão disponíveis na versão completa de MAPS.ME. Obtenha-a agora mesmo!
+    hu = Könyvjelzők csak a MAPS.ME teljes verziójában érhetőek el. Vásárolja meg most!
+    th = สามารถใช้บุ๊กมาร์กของ MAPS.ME ในเวอร์ชันเต็มได้ รับมันตอนนี้!
+    zh-Hans = 书签只在完整版 MAPS.ME 中提供。现在就 获取它!
+    ar = الإشارات المرجعية متاحة فقط في الإصدار الكامل من MAPS.ME. احصل عليه الآن!
     da = Bogmærker er kun tilgængelige i den fulde version af MAPS.ME. Få det nu!
 
   [gps_is_disabled_long_text]
@@ -2847,49 +2847,49 @@
     da = Del via e-mail
 
   [share_bookmarks_email_subject]
-    en = Shared maps.me bookmarks
+    en = Shared MAPS.ME bookmarks
     tags = ios,android
     comment = Email Subject when sharing bookmarks category
-    cs = Sdílené záložky maps.me
-    de = maps.me Lesezeichen mit Ihnen geteilt
-    es = Marcapáginas de maps.me compartidos contigo
-    fr = Signets maps.me partagés avec vous
-    it = Il segnalibri maps.me è stato condiviso con te
-    ja = maps.meの位置情報シェア
-    ko = 귀하와 공유된 maps.me 즐겨찾기
-    nl = Bladwijzers van maps.me met u gedeeld
-    ru = С вами поделились метками maps.me
-    uk = З вами поділилися мiтками maps.me
-    zh-Hant = 您已分享了 maps.me 書籤
-    pl = Udostępniono ci zakładkę z maps.me
-    pt = Os favoritos do maps.me foram partilhados consigo
-    hu = Egy maps.me könyvjelzőt osztottak meg Önnel
-    th = แชร์บุ๊กมาร์กของ maps.me แล้ว
-    zh-Hans = maps.me 书签已与您共享
-    ar = تم مشاركة اشارات maps.me المرجعية معك
+    cs = Sdílené záložky MAPS.ME
+    de = MAPS.ME Lesezeichen mit Ihnen geteilt
+    es = Marcapáginas de MAPS.ME compartidos contigo
+    fr = Signets MAPS.ME partagés avec vous
+    it = Il segnalibri MAPS.ME è stato condiviso con te
+    ja = MAPS.MEの位置情報シェア
+    ko = 귀하와 공유된 MAPS.ME 즐겨찾기
+    nl = Bladwijzers van MAPS.ME met u gedeeld
+    ru = С вами поделились метками MAPS.ME
+    uk = З вами поділилися мiтками MAPS.ME
+    zh-Hant = 您已分享了 MAPS.ME 書籤
+    pl = Udostępniono ci zakładkę z MAPS.ME
+    pt = Os favoritos do MAPS.ME foram partilhados consigo
+    hu = Egy MAPS.ME könyvjelzőt osztottak meg Önnel
+    th = แชร์บุ๊กมาร์กของ MAPS.ME แล้ว
+    zh-Hans = MAPS.ME 书签已与您共享
+    ar = تم مشاركة اشارات MAPS.ME المرجعية معك
     da = MAPS.ME bogmærker er blevet delt med dig
 
   [share_bookmarks_email_body]
-    en = Greetings,\n\nAttached are my bookmarks from maps.me offline maps. Please open it if you have maps.me Pro installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz\n\nEnjoy traveling with maps.me!
+    en = Greetings,\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open it if you have MAPS.ME Pro installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!
     tags = ios,android
     comment = Email text when sharing bookmarks category
-    cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace maps.me v přiloženém souboru "%@.kmz". Pokud máš již aplikaci maps.me Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz\n\nSkvěle se bav s maps.me!
-    de = Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von maps.me. Falls Sie maps.me Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit maps.me!
-    es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline maps.me. Por favor, ábrelo con maps.me Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz\n\n¡Que disfrutes de maps.me!
-    fr = Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne maps.me dans le fichier "%@.kmz:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé maps.me Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://maps.me/get?kmz\n\nAmusez-vous bien avec maps.me !
-    it = Ciao,\n\nQuesti sono i miei "preferiti" fra le mappe offline di maps.me, che si trovano nel file allegato "%@.kmz". Il file può essere aperto se l'app maps.me Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://maps.me/get?kmz\n\nBuon divertimento con maps.me!
-    ja = maps.meで作成したブックマークを添付ファイル"%@.kmz"で送付します。maps.me Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nmaps.meで楽しい時間をお過ごしください！
-    ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 maps.me 오프라인 지도로부터의 제 즐겨찾기가 있습니다. maps.me 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nmaps.me와 함께 즐거운 시간 되시기 바랍니다!
-    nl = Hallo,\n\nHier zijn mijn bladwijzers uit de maps.me offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u maps.me Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz\n\nVeel plezier met maps.me!
-    ru = Здравствуйте!\n\nВ прикрепленном файле "%@.kmz" мои метки из офлайновых карт maps.me. Для того, чтобы открыть этот файл, вам потребуется приложение maps.me Pro, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!
-    uk = Вітаю!\n\nОсь мої мiтки з офлайн карт maps.me у доданому файлі "%@.kmz". Ви можете відкрти його, якщо у вас встановлена maps.me Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz\n\nПриємних розваг з maps.me!
-    zh-Hant = 哈囉!\n\n這是我的maps.me離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝maps.me專業版的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用maps.me愉快!
-    pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji maps.me wraz z załączonymi mapami offline w pliku "%@.kmz". Proszę otwórz to jeśli posiadasz zainstalowaną aplikację maps.me Pro. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://maps.me/get?kmz\n\nBaw się dobrze z maps.me!
-    pt = Olá,\n\nAqui estão os meus favoritos dos mapas offline do maps.me, anexados no ficheiro "%@.kmz". Por favor abra-os se já tiver instalado o maps.me Pro. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://maps.me/get?kmz\n\nDisfrute do maps.me!
-    hu = Üdvözlöm!\n\nA mellékelt "%@.kmz" fájl tartalmazza a maps.me könyvjelzőimet. Kérem nyissa meg, ha a maps.me már telepítve van. Ha még nincs, akkor innen töltheti le: http://maps.me/get?kmz\n\nSok sikert a program használatához!
-    th = สวัสดี n\nสิ่งที่แนบ "%@.kmz" คือบุ๊กมาร์กของฉันจากแผนที่ maps.me แบบออฟไลฟ์ โปรดเปิดมันหากคุณได้ติดตั้ง maps.me Pro หากยังไม่ได้ดาวน์โหลดแอปสำหรับอุปกรณ์ iOS และ Android ของคุณ โปรดทำตามลิงก์นี้: http://maps.me/get?kmz\n\nสนุกไปกับการเดินทางไปกับ maps.me!
-    zh-Hans = 欢迎,\n\n附件是 maps.me 离线地图中我 的书签。如果您已安装 maps.me 专业版, 请打开它。若没有,请为您的 iOS 或安卓设 备下载此应用。下载链接: http://maps.me/get?kmz\n\n享 受 和 maps.me 的旅行吧!
-    ar =  مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط maps.me المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق maps.me Pro مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي:  http://maps.me/get?kmz\n\nاستمتع بالسفر مع maps.me!
+    cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace MAPS.ME v přiloženém souboru "%@.kmz". Pokud máš již aplikaci MAPS.ME Pro nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz\n\nSkvěle se bav s MAPS.ME!
+    de = Hallo,\n\nIn der angefügten „%@.kmz“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MAPS.ME. Falls Sie MAPS.ME Pro bereits installiert haben, müssen Sie diese nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nIch wünsche viel Vergnügen mit MAPS.ME!
+    es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline MAPS.ME. Por favor, ábrelo con MAPS.ME Pro si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz\n\n¡Que disfrutes de MAPS.ME!
+    fr = Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne MAPS.ME dans le fichier "%@.kmz:" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MAPS.ME Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://maps.me/get?kmz\n\nAmusez-vous bien avec MAPS.ME !
+    it = Ciao,\n\nQuesti sono i miei "preferiti" fra le mappe offline di MAPS.ME, che si trovano nel file allegato "%@.kmz". Il file può essere aperto se l'app MAPS.ME Pro è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://maps.me/get?kmz\n\nBuon divertimento con MAPS.ME!
+    ja = MAPS.MEで作成したブックマークを添付ファイル"%@.kmz"で送付します。MAPS.ME Proがインストールされている端末でファイルを開いてみてください。インストールはこちらから http://maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nMAPS.MEで楽しい時間をお過ごしください！
+    ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 MAPS.ME 오프라인 지도로부터의 제 즐겨찾기가 있습니다. MAPS.ME 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nMAPS.ME와 함께 즐거운 시간 되시기 바랍니다!
+    nl = Hallo,\n\nHier zijn mijn bladwijzers uit de MAPS.ME offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u MAPS.ME Pro al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz\n\nVeel plezier met MAPS.ME!
+    ru = Здравствуйте!\n\nВ прикрепленном файле "%@.kmz" мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME Pro, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!
+    uk = Вітаю!\n\nОсь мої мiтки з офлайн карт MAPS.ME у доданому файлі "%@.kmz". Ви можете відкрти його, якщо у вас встановлена MAPS.ME Pro. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz\n\nПриємних розваг з MAPS.ME!
+    zh-Hant = 哈囉!\n\n這是我的MAPS.ME離線地圖中所夾帶的 "%@.kmz" 書籤檔案。若您已安裝MAPS.ME專業版的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載iOS或Android平台的應用程式。\n\n祝您使用MAPS.ME愉快!
+    pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji MAPS.ME wraz z załączonymi mapami offline w pliku "%@.kmz". Proszę otwórz to jeśli posiadasz zainstalowaną aplikację MAPS.ME Pro. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym linkiem: http://maps.me/get?kmz\n\nBaw się dobrze z MAPS.ME!
+    pt = Olá,\n\nAqui estão os meus favoritos dos mapas offline do MAPS.ME, anexados no ficheiro "%@.kmz". Por favor abra-os se já tiver instalado o MAPS.ME Pro. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://maps.me/get?kmz\n\nDisfrute do MAPS.ME!
+    hu = Üdvözlöm!\n\nA mellékelt "%@.kmz" fájl tartalmazza a MAPS.ME könyvjelzőimet. Kérem nyissa meg, ha a MAPS.ME már telepítve van. Ha még nincs, akkor innen töltheti le: http://maps.me/get?kmz\n\nSok sikert a program használatához!
+    th = สวัสดี n\nสิ่งที่แนบ "%@.kmz" คือบุ๊กมาร์กของฉันจากแผนที่ MAPS.ME แบบออฟไลฟ์ โปรดเปิดมันหากคุณได้ติดตั้ง MAPS.ME Pro หากยังไม่ได้ดาวน์โหลดแอปสำหรับอุปกรณ์ iOS และ Android ของคุณ โปรดทำตามลิงก์นี้: http://maps.me/get?kmz\n\nสนุกไปกับการเดินทางไปกับ MAPS.ME!
+    zh-Hans = 欢迎,\n\n附件是 MAPS.ME 离线地图中我 的书签。如果您已安装 MAPS.ME 专业版, 请打开它。若没有,请为您的 iOS 或安卓设 备下载此应用。下载链接: http://maps.me/get?kmz\n\n享 受 和 MAPS.ME 的旅行吧!
+    ar =  مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME Pro مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي:  http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!
     da = Hej, vedhæftet er mine bogmærker fra MAPS.ME offline kort. Åbn venligst vedhæftet hvis du har MAPS.ME Pro installeret. Hvis ikke, så download app'en til din iOS eller Android enhed fra dette link: http://maps.me/get?kmz.\n\ Nyd at rejse med MAPS.ME!
 
   [load_kmz_title]
@@ -3095,26 +3095,26 @@
     da = Download af kort over land er i gang nu.
 
   [appStore_message]
-    en = Hope you enjoy using maps.me! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
+    en = Hope you enjoy using MAPS.ME! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
     tags = ios
     comment = Message that will be shown in alert view, when we ask user to leave review on App Store
-    cs = Doufáme, že se Ti používání maps.me líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere Ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme Ti za Tvou podporu!
-    de = Wir hoffen, dass Ihnen die Verwendung von maps.me Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!
-    es = ¡Ojalá disfrute mucho con maps.me! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!
-    fr = Nous espérons que vous appréciez maps.me ! Si oui, merci de l'évaluer sur l'App Store. Cela prend un instant mais peut vraiment nous aider. Merci pour votre soutien !
-    it = Confidiamo nel fatto che sia piacevole utilizzare maps.me! In caso positivo, ti preghiamo di valutare o recensire l'app all'interno dell'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!
-    ja = maps.meの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！
-    ko = maps.me로 즐거운 시간을 보내시기 바랍니다! maps.me가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!
-    nl = Ik hoop dat u veel plezier hebt met maps.me! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!
-    ru = Надеемся, вам нравится пользоваться maps.me! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!
-    uk = Сподіваємося, що вам сподобалося користуватися maps.me! Якщо так, будь ласка, надайте оцінку програмі або залиште свій відгук на app store. Витративши менше хвилини, ви дійсно нам допоможете. Дякуємо за вашу підтримку!
-    zh-Hant = 祝您使用 maps.me愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!
-    pl = Mamy nadzieję, że podoba ci się aplikacja maps.me! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie ci mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!
-    pt = Esperamos que esteja a disfrutar da utilização do maps.me! Se assim for, por favor classifique ou dê a sua opinião sobre a app na App Store. Vai demorar menos de um minuto mas pode mesmo ajudar-nos. Obrigado pelo seu apoio!
-    hu = Reméljük élvezi a maps.me használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!
-    th = หวังว่าคุณจะสนุกกับการใช้ maps.me! หากเป็นเช่นนั้น โปรดให้คะแนนหรือวิจารณ์แอปได้ที่แอปสโตร์ (App Store) มันจะใช้เวลาไม่เกินหนึ่งนาทีแต่สามารถช่วยเหลือเราได้ ขอบคุณสำหรับการสนับสนุนของคุณ!
-    zh-Hans = 希望您喜欢使用 maps.me! 若确实喜欢, 请在应用商店对此应用进行打分和点评。这 花不了一分钟但却可以实在地帮助我们。感 谢您的支持!
-    ar = نأمل أن تكون قد استمتعت باستخدام maps.me! إذا كان الأمر كذلك، الرجاء تقييم التطبيق في App Store. يستغرق ذلك أقل من دقيقة لكنه يفيدنا بالفعل. شكرا لك على دعمك!
+    cs = Doufáme, že se Ti používání MAPS.ME líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere Ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme Ti za Tvou podporu!
+    de = Wir hoffen, dass Ihnen die Verwendung von MAPS.ME Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!
+    es = ¡Ojalá disfrute mucho con MAPS.ME! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!
+    fr = Nous espérons que vous appréciez MAPS.ME ! Si oui, merci de l'évaluer sur l'App Store. Cela prend un instant mais peut vraiment nous aider. Merci pour votre soutien !
+    it = Confidiamo nel fatto che sia piacevole utilizzare MAPS.ME! In caso positivo, ti preghiamo di valutare o recensire l'app all'interno dell'app store. Ti porterà via meno di un minuto e la cosa ci aiuterebbe tantissimo. Grazie per il tuo sostegno!
+    ja = MAPS.MEの使い心地はいかがでしょうか。もしよろしければ、App Storeでレビューや評価をお知らせください。皆様からいただく一言が開発の励みになります。ご支援をよろしくお願いいたします！
+    ko = MAPS.ME로 즐거운 시간을 보내시기 바랍니다! MAPS.ME가 마음에 드신다면 앱스토어에서 평가를 남겨 주시기 바랍니다. 평가하는 데는 1분이 채 걸리지 않지만 저희에게 큰 도움이 됩니다. 성원해 주셔서 감사합니다!
+    nl = Ik hoop dat u veel plezier hebt met MAPS.ME! Zo ja, geef de app dan een cijfer in de App Store of schrijf een recensie. Dit duurt minder dan een minuut, maar kan ons echt helpen. Bedankt voor uw steun!
+    ru = Надеемся, вам нравится пользоваться MAPS.ME! Если так, то оставьте, пожалуйста, отзыв в магазине приложений. Это занимает меньше минуты, но может нам реально помочь. Спасибо вам за поддержку!
+    uk = Сподіваємося, що вам сподобалося користуватися MAPS.ME! Якщо так, будь ласка, надайте оцінку програмі або залиште свій відгук на app store. Витративши менше хвилини, ви дійсно нам допоможете. Дякуємо за вашу підтримку!
+    zh-Hant = 祝您使用 MAPS.ME愉快! 方便的話，請到App Store幫我們評分或寫寫評論。在這短短的時間當中卻能夠真正的協助我們改善，再次感謝您的支持!
+    pl = Mamy nadzieję, że podoba ci się aplikacja MAPS.ME! Jeśli tak to proszę oceń ją lub napisz recenzję w AppStore. To zajmie ci mniej niż minutę, a bardzo nam pomoże. Dziękujemy za wsparcie!
+    pt = Esperamos que esteja a disfrutar da utilização do MAPS.ME! Se assim for, por favor classifique ou dê a sua opinião sobre a app na App Store. Vai demorar menos de um minuto mas pode mesmo ajudar-nos. Obrigado pelo seu apoio!
+    hu = Reméljük élvezi a MAPS.ME használatát. Ha igen, kérjük írjon ajánlást az App Store-ban! Kevesebb mint egy perc, és valóban segít nekünk. Köszönjük!
+    th = หวังว่าคุณจะสนุกกับการใช้ MAPS.ME! หากเป็นเช่นนั้น โปรดให้คะแนนหรือวิจารณ์แอปได้ที่แอปสโตร์ (App Store) มันจะใช้เวลาไม่เกินหนึ่งนาทีแต่สามารถช่วยเหลือเราได้ ขอบคุณสำหรับการสนับสนุนของคุณ!
+    zh-Hans = 希望您喜欢使用 MAPS.ME! 若确实喜欢, 请在应用商店对此应用进行打分和点评。这 花不了一分钟但却可以实在地帮助我们。感 谢您的支持!
+    ar = نأمل أن تكون قد استمتعت باستخدام MAPS.ME! إذا كان الأمر كذلك، الرجاء تقييم التطبيق في App Store. يستغرق ذلك أقل من دقيقة لكنه يفيدنا بالفعل. شكرا لك على دعمك!
     da = Vi håber du er glad for at bruge MAPS.ME! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!
 
   [no_thanks]
@@ -3141,7 +3141,7 @@
     da = Nej, tak
 
   [bookmark_share_sms]
-    en = Hey, check out my pin at maps.me! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get
+    en = Hey, check out my pin at MAPS.ME! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get
     tags = ios,android,tizen
     comment = Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
     ru = Моя метка на карте. Жми %1$@ или %2$@
@@ -3154,16 +3154,16 @@
     fr = Regarde cette epingle sur la carte ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get
     uk = Моя мітка на карті. Іди %1$@ або %2$@
     es = Ve mi alfiler en mapa. Abre %1$@ o %2$@
-    pl = Mój znacznik w maps.me %1$@ i %2$@
-    pt = Veja o meu marcador no mapa do maps.me. Abra a hiperligação: %1$@ ou %2$@
-    hu = Nézd meg a maps.me jelzőt! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
-    th = เฮ้ ตรวจสอบหมุดของฉันที่ maps.me! %1$@ หรือ %2$@
-    zh-Hans = 嘿,在 maps.me 上查看我标注的图钉吧! %1$@ 或%2$@ 未安装离线地图?在此下 载: http://maps.me/get
-    ar = هاي، تفقد الدبوس الخاص بي على maps.me!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
+    pl = Mój znacznik w MAPS.ME %1$@ i %2$@
+    pt = Veja o meu marcador no mapa do MAPS.ME. Abra a hiperligação: %1$@ ou %2$@
+    hu = Nézd meg a MAPS.ME jelzőt! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
+    th = เฮ้ ตรวจสอบหมุดของฉันที่ MAPS.ME! %1$@ หรือ %2$@
+    zh-Hans = 嘿,在 MAPS.ME 上查看我标注的图钉吧! %1$@ 或%2$@ 未安装离线地图?在此下 载: http://maps.me/get
+    ar = هاي، تفقد الدبوس الخاص بي على MAPS.ME!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
     da = Hey, tjek min knappenål på MAPS.ME ud! %1$@ or %2$@ Har du ikke offline kort? Download her: http://maps.me /get
 
   [my_position_share_sms]
-    en = Hey, check out my current location at maps.me! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
+    en = Hey, check out my current location at MAPS.ME! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
     tags = ios,android,tizen
     comment = Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140
     ru = Смотри где я сейчас. Жми %1$@ или %2$@
@@ -3173,79 +3173,79 @@
     de = Sieh, wo ich gerade bin. Klicke auf den Link %1$@ oder %2$@
     nl = Kijk waar ik nu ben. Open %1$@ of %2$@
     cs = Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@
-    fr = Regarde ma position sur maps.me ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get
+    fr = Regarde ma position sur MAPS.ME ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get
     uk = Глянь де я зараз. Іди %1$@ або %2$@
     es = Mira dónde estoy. Abre %1$@ o %2$@
     pl = Zobacz gdzie jestem. Link %1$@ lub %2$@
     pt = Veja onde estou agora. Abra a hiperligação: %1$@ ou %2$@
-    hu = Nézd meg a maps.me helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
-    th = เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ maps.me! %1$@ หรือ %2$@ or %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get
-    zh-Hans = 嘿,在 maps.me 上查看我目前的位置 吧!%1$@ 或%2$@ 未安装离线地图?在此 下载: http://maps.me/get
-    ar = هاي، تفقد الموقع الخاص بي على maps.me!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
+    hu = Nézd meg a MAPS.ME helyzetemet! %1$@ vagy %2$@ A program letöltése: http://maps.me/get
+    th = เฮ้อ ตรวจสอบตำแหน่งที่ตั้งปัจจุบันของฉันที่ MAPS.ME! %1$@ หรือ %2$@ or %2$@ ไม่มีการติดตั้งแผนที่แบบออฟไลน์? ดาวน์โหลดที่นี่: http://maps.me/get
+    zh-Hans = 嘿,在 MAPS.ME 上查看我目前的位置 吧!%1$@ 或%2$@ 未安装离线地图?在此 下载: http://maps.me/get
+    ar = هاي، تفقد الموقع الخاص بي على MAPS.ME!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
     da = Hey, tjek min nuværende lokation ud på MAPS.ME! %1$@ or %2$@. Har du ikke offline kort? Download her: http://maps.me/get
 
   [bookmark_share_email_subject]
-    en = Hey, check out my pin at maps.me map!
+    en = Hey, check out my pin at MAPS.ME map!
     tags = ios,android,tizen
     comment = Subject for emailed bookmark
-    ru = Смотри мою метку на карте maps.me
-    uk = Поглянь на мою позначку на карті maps.me
-    ko = maps.me 지도에서 내 핀 보기
-    ja = maps.meでピン情報を確認
-    it = Dai uno sguardo al mio pin sulla mappa di maps.me
-    es = Mira mi alfiler en el mapa de maps.me
-    nl = Kijk naar mijn pin op maps.me kaart
-    fr = Regarde mon épingle sur la carte maps.me
-    cs = Koukni na moji značku na mapě maps.me
-    de = Schau dir meine Nadel auf der maps.me-Karte an
-    pl = Obejrzyj mój znacznik na mapie w maps.me
-    pt = Veja o meu marcador no mapa do maps.me.
-    hu = Nézze meg a maps.me jelzőmet
-    th = เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ maps.me!
-    zh-Hans = 嘿,在 maps.me 上查看我标注的图钉吧!
-    ar = هاي، تفقد الدبوس الخاص بي على خريطة maps.me!
+    ru = Смотри мою метку на карте MAPS.ME
+    uk = Поглянь на мою позначку на карті MAPS.ME
+    ko = MAPS.ME 지도에서 내 핀 보기
+    ja = MAPS.MEでピン情報を確認
+    it = Dai uno sguardo al mio pin sulla mappa di MAPS.ME
+    es = Mira mi alfiler en el mapa de MAPS.ME
+    nl = Kijk naar mijn pin op MAPS.ME kaart
+    fr = Regarde mon épingle sur la carte MAPS.ME
+    cs = Koukni na moji značku na mapě MAPS.ME
+    de = Schau dir meine Nadel auf der MAPS.ME-Karte an
+    pl = Obejrzyj mój znacznik na mapie w MAPS.ME
+    pt = Veja o meu marcador no mapa do MAPS.ME.
+    hu = Nézze meg a MAPS.ME jelzőmet
+    th = เฮ้ ตรวจสอบหมุดของฉันที่ แผนที่ MAPS.ME!
+    zh-Hans = 嘿,在 MAPS.ME 上查看我标注的图钉吧!
+    ar = هاي، تفقد الدبوس الخاص بي على خريطة MAPS.ME!
     da = Hey, tjek min knappenål på MAPS.ME kortet ud!
 
   [bookmark_share_email]
-    en = Hi,\n\nI pinned: %1$@ at maps.me, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
+    en = Hi,\n\nI pinned: %1$@ at MAPS.ME, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     tags = tizen
     comment = Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me
-    ru = Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте maps.me.\n\nСпасибо.
-    uk = Привіт,\n\nЯ позначив: %1$@ на maps.me, офлайн картах світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті.\n\nДякую.
-    ko = 안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 maps.me에서 %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
-    ja = オフラインマップ maps.me でこの位置にピンを作成しました: %1$@\n\nリンク %2$@ または %3$@ をクリックするとマップ上で確認できます。
-    it = Ciao,\n\nHo segnato %1$@ su maps.me, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
-    es = ¡Hola!\n\nMarqué con un alfiler: %1$@ en maps.me, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.
-    nl = Hoi,\n\nIk heb: %1$@ geprikt bij maps.me, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
-    fr = Salut,\n\nJ'ai épinglé %1$@ sur maps.me, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
-    cs = Ahoj,\n\nOznačil/a jsem: %1$@ v maps.me, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
-    de = Hi,\n\nIch habe gepinnt: %1$@ auf maps.me, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
-    pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji maps.me, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
-    pt = Olá,\n\nFixei:%1$@ na maps.me, mapas offline mundiais. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
-    hu = Üdvözlöm,\n\nleszúrtam egy maps.me jelzőt: %1$@. Kattintson erre a hivatkozásra %2$@ vagy erre %3$@ hogy lássa a helyet a térképen.\n\nKöszönöm.
-    th = หวัดดี\n\nฉันปักหมุด: %1$@ ที่ maps.me, โลกแผนที่ออฟไลน์ คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ
-    zh-Hans = 嗨,\n\n我在 maps.me 世界离线地图上标 注了%1$@。点击此链接%2$@或此链 接 %3$@来查看在地图上的位置。\n\n谢 谢。
-    ar = مرحبا،\n\nقمت بوضع دبوس : %1$@ على maps.me، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.
+    ru = Привет!\n\nОткрой эту ссылку %2$@ либо эту %3$@, для того, чтобы увидеть мою метку %1$@ на карте MAPS.ME.\n\nСпасибо.
+    uk = Привіт,\n\nЯ позначив: %1$@ на MAPS.ME, офлайн картах світу. Натисни на це посилання %2$@ або на це посилання %3$@, щоб побачити місце на карті.\n\nДякую.
+    ko = 안녕하세요.\n\n다음 위치에 표시를 하였습니다: 오프라인 세계 지도인 MAPS.ME에서 %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
+    ja = オフラインマップ MAPS.ME でこの位置にピンを作成しました: %1$@\n\nリンク %2$@ または %3$@ をクリックするとマップ上で確認できます。
+    it = Ciao,\n\nHo segnato %1$@ su MAPS.ME, le mappe del mondo offline. Clicca su questo link %2$@ oppure su questo %3$@ per vedere il posto sulla mappa.\n\nGrazie.
+    es = ¡Hola!\n\nMarqué con un alfiler: %1$@ en MAPS.ME, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.
+    nl = Hoi,\n\nIk heb: %1$@ geprikt bij MAPS.ME, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
+    fr = Salut,\n\nJ'ai épinglé %1$@ sur MAPS.ME, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
+    cs = Ahoj,\n\nOznačil/a jsem: %1$@ v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
+    de = Hi,\n\nIch habe gepinnt: %1$@ auf MAPS.ME, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
+    pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji MAPS.ME, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
+    pt = Olá,\n\nFixei:%1$@ na MAPS.ME, mapas offline mundiais. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
+    hu = Üdvözlöm,\n\nleszúrtam egy MAPS.ME jelzőt: %1$@. Kattintson erre a hivatkozásra %2$@ vagy erre %3$@ hogy lássa a helyet a térképen.\n\nKöszönöm.
+    th = หวัดดี\n\nฉันปักหมุด: %1$@ ที่ MAPS.ME, โลกแผนที่ออฟไลน์ คลิกลิงก์นี้ %2$@ หรือลิงก์นี้ %3$@ เพื่อดูสถานที่บนแผนที่\n\nขอบคุณ
+    zh-Hans = 嗨,\n\n我在 MAPS.ME 世界离线地图上标 注了%1$@。点击此链接%2$@或此链 接 %3$@来查看在地图上的位置。\n\n谢 谢。
+    ar = مرحبا،\n\nقمت بوضع دبوس : %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.
     da = Hey,\n\nI har lagt en knappenål: %1$@ på MAPS.ME, offline kort over hele Verden. Tryk pådettelink: %2$@ellerdette%3$@foratseknappenåletpåkortet.\n\nTak.
 
   [my_position_share_email_subject]
-    en = Hey, check out my current location at maps.me map!
+    en = Hey, check out my current location at MAPS.ME map!
     tags = ios,android,tizen
     comment = Subject for emailed position
-    ru = Посмотри на карте maps.me, где я сейчас нахожусь
-    uk = Поглянь на моє поточне місцезнаходження на карті maps.me
-    ko = maps.me 지도에서 제 현재 위치를 살펴 보시기 바랍니다
-    ja = maps.meで現在地を確認
-    it = Guarda dove mi trovo attualmente sulla mappa maps.me
-    es = Mira mi ubicación actual en el mapa en maps.me
-    nl = Kijk naar mijn huidige locatie op maps.me kaart
-    fr = Regarde ma localisation actuelle sur la carte maps.me
-    cs = Podívejte se na mou aktuální polohu na mapě na maps.me
-    de = Sieh dir meinen aktuellen Standort auf der Karte maps.me an
-    pl = Zobacz moją aktualną lokalizację na mapie przy użyciu maps.me
-    pt = Veja a minha localização atual em maps.me map
-    hu = Nézze meg a helyzetemet a maps.me térképen!
-    zh-Hans = 嗨，到maps.me查看我的当前位置！
+    ru = Посмотри на карте MAPS.ME, где я сейчас нахожусь
+    uk = Поглянь на моє поточне місцезнаходження на карті MAPS.ME
+    ko = MAPS.ME 지도에서 제 현재 위치를 살펴 보시기 바랍니다
+    ja = MAPS.MEで現在地を確認
+    it = Guarda dove mi trovo attualmente sulla mappa MAPS.ME
+    es = Mira mi ubicación actual en el mapa en MAPS.ME
+    nl = Kijk naar mijn huidige locatie op MAPS.ME kaart
+    fr = Regarde ma localisation actuelle sur la carte MAPS.ME
+    cs = Podívejte se na mou aktuální polohu na mapě na MAPS.ME
+    de = Sieh dir meinen aktuellen Standort auf der Karte MAPS.ME an
+    pl = Zobacz moją aktualną lokalizację na mapie przy użyciu MAPS.ME
+    pt = Veja a minha localização atual em MAPS.ME map
+    hu = Nézze meg a helyzetemet a MAPS.ME térképen!
+    zh-Hans = 嗨，到MAPS.ME查看我的当前位置！
     ar = يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!
     da = Hey, tjek min nuværende lokation ud på MAPS.ME kortet!
 
@@ -3253,7 +3253,7 @@
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
     tags = ios,android,tizen
     comment = Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME
-    ru = Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте maps.me, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.
+    ru = Привет!\n\nЯ сейчас здесь: %1$@. Чтобы увидеть это место на карте MAPS.ME, открой эту ссылку %2$@ или эту %3$@\n\nСпасибо.
     uk = Привіт,\n\nЯ зараз тут: %1$@.  Натисни на це посилання %2$@ або на це посилання %3$@ щоб побачити місце на карті.\n\nДякую.
     ko = 안녕하세요.\n\n지금 다음 위치에 있습니다: %1$@ . %2$@ 또는 %3$@ 링크를 클릭하여 지도상에서 해당 장소를 살펴보시기 바랍니다.\n\n감사합니다.
     ja = 私は今ここにいます: %1$@\n\nリンクをクリックすると詳細がマップに表示されます。\n\n%2$@\n\n%3$@
@@ -4020,9 +4020,9 @@
     pl = Przechowywanie danych mapy zostało zoptymalizowane. Prosimy zrestartować aplikację.\n\nFolder MapsWithMe w katalogu głównym karty SD nie jest już potrzebny, można go usunąć.
     es = Se ha optimizado el almacenamiento de datos de mapas. Por favor, reinicia la aplicación.\n\nLa carpeta MapsWithMe en el directorio raíz de la tarjeta SD ya no es necesaria, puedes borrarla.
     de = Der Kartendaten-Speicherplatz wurde optimiert. Bitte die App neu starten.\n\nDer Ordner MapsWithMe im Stammverzeichnis der SD-Karte wird nicht mehr benötigt. Sie können ihn löschen.
-    th = มีการปรับประสิทธิภาพพื้นที่จัดเก็บข้อมูลของแผนที่ โปรดรีสตาร์ทแอป\n\nโฟลเดอร์ maps.me ในรากของการ์ด SD ไม่จำเป็นอีกต่อไป คุณสามารถลบได้
-    zh-Hans = 地图数据存储已优化。请重启应用。\n\nSD 卡根目录中的 maps.me 文件夹已不再需要, 您可以删除它了。
-    ar = تم تحسين وسيلة تخزين بيانات الخريطة. الرجاء اعادة تشغيل التطبيق .\n\nلا حاجة بعد الآن لمجلد maps.me في البطاقة الرقمية الآمنة، يمكنك حذفه.
+    th = มีการปรับประสิทธิภาพพื้นที่จัดเก็บข้อมูลของแผนที่ โปรดรีสตาร์ทแอป\n\nโฟลเดอร์ MAPS.ME ในรากของการ์ด SD ไม่จำเป็นอีกต่อไป คุณสามารถลบได้
+    zh-Hans = 地图数据存储已优化。请重启应用。\n\nSD 卡根目录中的 MAPS.ME 文件夹已不再需要, 您可以删除它了。
+    ar = تم تحسين وسيلة تخزين بيانات الخريطة. الرجاء اعادة تشغيل التطبيق .\n\nلا حاجة بعد الآن لمجلد MAPS.ME في البطاقة الرقمية الآمنة، يمكنك حذفه.
     da = Kort data lagring er blevet optimeret. Genstart venligst applikationen.\n\nMAPS.ME mappen i SD-kortet er ikke nødvendig mere. Du kan derfor slette den.
 
   [kitkat_migrate_failed]
