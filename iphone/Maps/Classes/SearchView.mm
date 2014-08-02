@@ -27,6 +27,15 @@
 #include "../../geometry/distance_on_sphere.hpp"
 
 
+static NSString * GetKeyboardInputLanguage()
+{
+  UITextInputMode * mode = [UITextInputMode currentInputMode];
+  if (mode)
+    return mode.primaryLanguage;
+  // Use system language as a fall-back
+  return [[NSLocale preferredLanguages] firstObject];
+}
+
 @interface SearchResultsWrapper : NSObject
 
 - (id)initWithResults:(search::Results const &)res;
@@ -301,7 +310,7 @@ __weak SearchView * selfPointer;
   sp.SetSearchMode(search::SearchParams::ALL);
   sp.m_query = [[newQuery precomposedStringWithCompatibilityMapping] UTF8String];
   sp.m_callback = bind(&onSearchResultCallback, _1);
-  sp.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
+  sp.SetInputLanguage([GetKeyboardInputLanguage() UTF8String]);
   sp.SetForceSearch(force == YES);
 }
 
@@ -434,7 +443,7 @@ static void onSearchResultCallback(search::Results const & results)
 
     search::SearchParams params;
     params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
-    params.SetInputLanguage([[UITextInputMode currentInputMode].primaryLanguage UTF8String]);
+    params.SetInputLanguage([GetKeyboardInputLanguage() UTF8String]);
 
     f.StartInteractiveSearch(params);
 
