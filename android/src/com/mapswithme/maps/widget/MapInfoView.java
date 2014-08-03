@@ -527,9 +527,12 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
           builder.append("   ").
               append(Framework.nativeFormatSpeed(l.getSpeed()));
         mSubtitle.setText(builder.toString());
-      }
 
-      mDistanceView.setVisibility(l != null ? View.VISIBLE : View.GONE);
+        mDistanceView.setVisibility(View.GONE);
+      }
+      else
+        mDistanceView.setVisibility(l != null ? View.VISIBLE : View.GONE);
+
 
       if (l != null)
       {
