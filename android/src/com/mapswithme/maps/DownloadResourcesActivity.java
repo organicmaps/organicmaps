@@ -343,7 +343,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       }
       else
       {
-        if (!MWMApplication.get().isYota() &&
+        if (!mApplication.isYota() &&
             (getPackageIntent("com.mapswithme.maps") != null ||
              getPackageIntent("com.mapswithme.maps.samsung") != null))
         {
@@ -368,7 +368,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     super.onCreate(savedInstanceState);
 
     mApplication = (MWMApplication)getApplication();
-    mApplication.onMwmStart(this);
 
     final boolean isPro = mApplication.isProVersion();
     if (checkLiteProPackages(isPro))
