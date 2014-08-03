@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../std/vector.hpp"
+#include "../std/shared_ptr.hpp"
 
 #include "point2d.hpp"
 
@@ -29,6 +30,7 @@ public:
 
 public:
   Spline() : m_lengthAll(0.0f) {}
+  Spline(vector<PointF> const & path) { FromArray(path); }
   void FromArray(vector<PointF> const & path);
   Spline const & operator = (Spline const & spl);
   float GetLength() const { return m_lengthAll; }
@@ -38,6 +40,20 @@ private:
   vector<PointF> m_position;
   vector<PointF> m_direction;
   vector<float> m_length;
+};
+
+class SharedSpline
+{
+public:
+  SharedSpline(vector<PointF> const & path);
+  SharedSpline(SharedSpline const & other);
+
+  SharedSpline const & operator= (SharedSpline const & spl);
+  float GetLength() const;
+  Spline::iterator CreateIterator();
+
+private:
+  shared_ptr<Spline> m_spline;
 };
 
 }

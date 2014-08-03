@@ -72,5 +72,33 @@ bool Spline::iterator::BeginAgain()
   return m_checker;
 }
 
+SharedSpline::SharedSpline(vector<PointF> const & path)
+{
+  m_spline.reset(new Spline(path));
+}
+
+SharedSpline::SharedSpline(SharedSpline const & other)
+{
+  m_spline = other.m_spline;
+}
+
+SharedSpline const & SharedSpline::operator= (SharedSpline const & spl)
+{
+  m_spline = spl.m_spline;
+  return *this;
+}
+
+float SharedSpline::GetLength() const
+{
+  return m_spline->GetLength();
+}
+
+Spline::iterator SharedSpline::CreateIterator()
+{
+  Spline::iterator result;
+  result.Attach(*m_spline.get());
+  return result;
+}
+
 }
 

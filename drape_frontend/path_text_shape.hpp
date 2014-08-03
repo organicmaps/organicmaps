@@ -50,27 +50,24 @@ public:
   virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
 
 private:
+  m2::SharedSpline m_spline;
   PathTextViewParams m_params;
-  m2::Spline m_path;
 };
 
 class PathTextHandle : public dp::OverlayHandle
 {
 public:
   static const uint8_t DirectionAttributeID = 1;
-  PathTextHandle(m2::Spline const & spl, PathTextViewParams const & params, vector<LetterInfo> const & info, float maxSize)
-    : OverlayHandle(FeatureID(), dp::Center, 0.0f),
-      m_params(params), m_path(spl), m_infos(info),
-      m_scaleFactor(1.0f), m_positions(info.size() * 6),
-      m_maxSize(maxSize) {}
+  PathTextHandle(m2::SharedSpline const & spl, PathTextViewParams const & params,
+                 vector<LetterInfo> const & info, float maxSize);
 
   virtual void Update(ScreenBase const & screen);
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const;
   virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const;
 
 private:
+  m2::SharedSpline m_path;
   PathTextViewParams m_params;
-  m2::Spline m_path;
   vector<LetterInfo> m_infos;
   float m_scaleFactor;
   mutable vector<Position> m_positions;

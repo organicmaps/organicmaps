@@ -63,9 +63,9 @@ namespace
 }
 
 PathTextShape::PathTextShape(vector<PointF> const & path, PathTextViewParams const & params)
-  : m_params(params)
+  : m_spline(path)
+  , m_params(params)
 {
-  m_path.FromArray(path);
 }
 
 void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
@@ -185,7 +185,7 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
       provider.InitStream(3, outline_color, dp::MakeStackRefPointer(&buffers[i].m_outlineColor[0]));
     }
 
-    dp::OverlayHandle * handle = new PathTextHandle(m_path, m_params, buffers[i].m_info, buffers[i].m_maxSize);
+    dp::OverlayHandle * handle = new PathTextHandle(m_spline, m_params, buffers[i].m_info, buffers[i].m_maxSize);
 
     batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle));
   }
@@ -222,6 +222,19 @@ m2::RectD PathTextHandle::GetPixelRect(ScreenBase const & screen) const
   return m2::RectD(minx - m_maxSize, miny - m_maxSize, maxx + m_maxSize, maxy + m_maxSize);
 }
 
+PathTextHandle::PathTextHandle(m2::SharedSpline const & spl, PathTextViewParams const & params,
+                               vector<LetterInfo> const & info, float maxSize)
+  : OverlayHandle(FeatureID()
+  , dp::Center, 0.0f)
+  , m_path(spl)
+  , m_params(params)
+  , m_infos(info)
+  , m_scaleFactor(1.0f)
+  , m_positions(info.size() * 6)
+  , m_maxSize(maxSize)
+{
+}
+
 void PathTextHandle::Update(ScreenBase const & screen)
 {
   m_scaleFactor = screen.GetScale();
@@ -229,8 +242,7 @@ void PathTextHandle::Update(ScreenBase const & screen)
   float entireLength = m_params.m_offsetStart * m_scaleFactor;
   int const cnt = m_infos.size();
 
-  Spline::iterator itr;
-  itr.Attach(m_path);
+  Spline::iterator itr = m_path.CreateIterator();
   itr.Step(entireLength);
 
   for (int i = 0; i < cnt; i++)
