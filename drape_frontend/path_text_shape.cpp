@@ -70,13 +70,13 @@ PathTextShape::PathTextShape(vector<PointF> const & path, PathTextViewParams con
 
 void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  strings::UniString const text = strings::MakeUniString(m_params.m_Text);
-  float const fontSize = m_params.m_TextFont.m_size;
+  strings::UniString const text = strings::MakeUniString(m_params.m_text);
+  float const fontSize = m_params.m_textFont.m_size;
 
   // Fill buffers
   int const cnt = text.size();
   vector<Buffer> buffers(1);
-  float const needOutline = m_params.m_TextFont.m_needOutline;
+  float const needOutline = m_params.m_textFont.m_needOutline;
 
   int textureSet;
   for (int i = 0; i < cnt; i++)
@@ -117,8 +117,8 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
     m2::RectF const & rect = region.GetTexRect();
     float const textureNum = (region.GetTextureNode().m_textureOffset << 1) + needOutline;
 
-    dp::ColorF const base(m_params.m_TextFont.m_color);
-    dp::ColorF const outline(m_params.m_TextFont.m_outlineColor);
+    dp::ColorF const base(m_params.m_textFont.m_color);
+    dp::ColorF const outline(m_params.m_textFont.m_outlineColor);
 
     curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.minY(), textureNum, m_params.m_depth));
     curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth));
@@ -226,7 +226,7 @@ void PathTextHandle::Update(ScreenBase const & screen)
 {
   m_scaleFactor = screen.GetScale();
 
-  float entireLength = m_params.m_OffsetStart * m_scaleFactor;
+  float entireLength = m_params.m_offsetStart * m_scaleFactor;
   int const cnt = m_infos.size();
 
   Spline::iterator itr;
@@ -244,7 +244,7 @@ void PathTextHandle::Update(ScreenBase const & screen)
 
     ASSERT_NOT_EQUAL(advance, 0.0, ());
     entireLength += advance;
-    if(entireLength >= m_params.m_OffsetEnd * m_scaleFactor || itr.BeginAgain())
+    if(entireLength >= m_params.m_offsetEnd * m_scaleFactor || itr.BeginAgain())
       return;
 
     PointF const pos = itr.m_pos;
@@ -255,7 +255,7 @@ void PathTextHandle::Update(ScreenBase const & screen)
     dir *= halfWidth * m_scaleFactor;
     norm *= halfHeight * m_scaleFactor;
 
-    float const fontSize = m_params.m_TextFont.m_size * m_scaleFactor / 2.0f;
+    float const fontSize = m_params.m_textFont.m_size * m_scaleFactor / 2.0f;
     PointF const pivot = dir * xOffset / halfWidth + norm * yOffset / halfHeight + pos + norm2 * fontSize;
 
     PointF const p1 = pivot + dir - norm;
