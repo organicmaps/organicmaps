@@ -892,8 +892,11 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   @Override
-  public void onDrivingHeadingUpdated(long time, double heading)
+  public void onDrivingHeadingUpdated(long time, double heading, double accuracy)
   {
+    LocationUtils.correctCompassAngles(getWindowManager().getDefaultDisplay().getOrientation(), new double[]{heading});
+    nativeCompassUpdated(time, heading, heading, accuracy);
+
     if (mInfoView.getState() != State.HIDDEN)
       mInfoView.updateAzimuth(heading);
   }

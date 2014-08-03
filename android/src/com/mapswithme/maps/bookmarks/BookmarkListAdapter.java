@@ -160,7 +160,7 @@ public class BookmarkListAdapter extends BaseAdapter
   }
 
   @Override
-  public void onDrivingHeadingUpdated(long time, double heading)
+  public void onDrivingHeadingUpdated(long time, double heading, double accuracy)
   {
     //
   }

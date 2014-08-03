@@ -55,7 +55,7 @@ public class LocationService implements
 
     public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
 
-    public void onDrivingHeadingUpdated(long time, double heading);
+    public void onDrivingHeadingUpdated(long time, double heading, double accuracy);
 
     public void onLocationError(int errorCode);
   }
@@ -125,11 +125,11 @@ public class LocationService implements
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
-  private void notifyDrivingHeadingUpdated(long time, double heading)
+  private void notifyDrivingHeadingUpdated(long time, double heading, double accuracy)
   {
     final Iterator<LocationListener> it = mListeners.iterator();
     while (it.hasNext())
-      it.next().onDrivingHeadingUpdated(time, heading);
+      it.next().onDrivingHeadingUpdated(time, heading, accuracy);
   }
 
   public void startUpdate(LocationListener listener)
@@ -223,7 +223,7 @@ public class LocationService implements
   private void emitCompassResults(long time, double north, double trueNorth, double offset)
   {
     if (mDrivingHeading >= 0.0)
-      notifyDrivingHeadingUpdated(time, mDrivingHeading);
+      notifyDrivingHeadingUpdated(time, mDrivingHeading, offset);
     else
     {
       if (Math.abs(Math.toDegrees(north - mLastNorth)) < NOISE_THRESHOLD)

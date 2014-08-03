@@ -605,7 +605,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   }
 
   @Override
-  public void onDrivingHeadingUpdated(long time, double heading)
+  public void onDrivingHeadingUpdated(long time, double heading, double accuracy)
   {
     //
   }
