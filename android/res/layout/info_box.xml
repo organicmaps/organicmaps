@@ -9,16 +9,16 @@
       android:id="@+id/preview"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@color/bg_top_panels"
-      android:padding="@dimen/margin_small"
       android:visibility="gone">
 
     <LinearLayout
         android:id="@+id/ll_preview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:orientation="horizontal">
+        android:background="@color/bg_top_panels"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_small"
+        android:paddingLeft="@dimen/margin_medium">
 
       <RelativeLayout
           android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_preview"
-        android:background="@android:color/transparent"
+        android:background="@drawable/bg_arrow_gradient"
         android:src="@drawable/ic_arrow"/>
 
   </RelativeLayout>

@@ -222,7 +222,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       slide = generateSlideAnimation(0, 0, -1, 0);
       slide.setDuration(SHORT_ANIM_DURATION);
       UiUtils.show(mPlacePageGroup);
-      UiUtils.invisible(mArrow);
+      UiUtils.hide(mArrow);
       if (mVisibilityChangedListener != null)
         mVisibilityChangedListener.onPlacePageVisibilityChanged(show);
     }
