@@ -28,6 +28,7 @@ struct CaptionDescription
   string const & GetMainText() const;
   string const & GetAuxText() const;
   string const & GetRoadNumber() const;
+  string GetPathNumber() const;
   double GetPopulationRank() const;
   bool IsNameExists() const;
 

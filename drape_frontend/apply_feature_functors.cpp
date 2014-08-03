@@ -9,6 +9,7 @@
 #include "poi_symbol_shape.hpp"
 #include "path_symbol_shape.hpp"
 #include "circle_shape.hpp"
+#include "path_text_shape.hpp"
 
 #include "../indexer/drawing_rules.hpp"
 #include "../indexer/drules_include.hpp"
@@ -109,10 +110,12 @@ dp::Anchor GetAnchor(CaptionDefProto const * capRule)
 
 } // namespace
 
-BaseApplyFeature::BaseApplyFeature(EngineContext & context, TileKey tileKey, FeatureID const & id)
+BaseApplyFeature::BaseApplyFeature(EngineContext & context, TileKey tileKey,
+                                   FeatureID const & id, CaptionDescription const & caption)
   : m_context(context)
   , m_tileKey(tileKey)
   , m_id(id)
+  , m_captions(caption)
 {
 }
 
@@ -128,7 +131,7 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   params.m_depth = depth;
   params.m_featureID = m_id;
   params.m_primaryOffset = GetCaptionOffset(primaryProto);
-  params.m_primaryText = m_primaryText;
+  params.m_primaryText = m_captions.GetMainText();
   params.m_primaryTextFont = decl;
 
   if (secondaryProto)
@@ -136,15 +139,16 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
     FontDecl auxDecl;
     CaptionDefProtoToFontDecl(secondaryProto, auxDecl);
 
-    params.m_secondaryText = m_secondaryText;
+    params.m_secondaryText = m_captions.GetAuxText();
     params.m_secondaryTextFont = auxDecl;
   }
 }
 
 // ============================================= //
 
-ApplyPointFeature::ApplyPointFeature(EngineContext & context, TileKey tileKey, FeatureID const & id)
-  : base_t(context, tileKey, id)
+ApplyPointFeature::ApplyPointFeature(EngineContext & context, TileKey tileKey,
+                                     FeatureID const & id, CaptionDescription const & captions)
+  : TBase(context, tileKey, id, captions)
   , m_hasPoint(false)
   , m_symbolDepth(graphics::minDepth)
   , m_circleDepth(graphics::minDepth)
@@ -225,8 +229,9 @@ void ApplyPointFeature::Finish()
 
 // ============================================= //
 
-ApplyAreaFeature::ApplyAreaFeature(EngineContext & context, TileKey tileKey, FeatureID const & id)
-  : base_t(context, tileKey, id)
+ApplyAreaFeature::ApplyAreaFeature(EngineContext & context, TileKey tileKey,
+                                   FeatureID const & id, CaptionDescription const & captions)
+  : TBase(context, tileKey, id, captions)
 {
 }
 
@@ -253,13 +258,16 @@ void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
     m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(shape));
   }
   else
-    base_t::ProcessRule(rule);
+    TBase::ProcessRule(rule);
 }
 
 // ============================================= //
 
-ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey, FeatureID const & id, double nextModelViewScale)
-  : base_t(context, tileKey, id), m_nextModelViewScale(nextModelViewScale)
+ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey,
+                                   FeatureID const & id, CaptionDescription const & captions,
+                                   double nextModelViewScale)
+  : TBase(context, tileKey, id, captions)
+  , m_nextModelViewScale(nextModelViewScale)
 {
 }
 
@@ -290,14 +298,42 @@ bool ApplyLineFeature::HasGeometry() const
 
 void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
 {
-  LineDefProto const * pRule = rule.first->GetLine();
+  drule::BaseRule const * pRule = rule.first;
   float depth = rule.second;
 
-  if (pRule != NULL)
+  //bool isWay = (pRule->GetType() & drule::way) != 0;
+  CaptionDefProto const * pCaptionRule = pRule->GetCaption(0);
+  LineDefProto const * pLineRule = pRule->GetLine();
+  if (pCaptionRule == NULL && pLineRule == NULL)
+    return;
+
+
+  // TODO Если расскоментить этот код то возникает ASSERT
+  // в обновлении позиций глифов. Править будет Рома.
+
+//  ASSERT(pCaptionRule == NULL || pLineRule == NULL, ());
+//  if (pCaptionRule != NULL && pCaptionRule->height() > 2 &&
+//      !m_primaryText.empty() && isWay)
+//  {
+//    FontDecl fontDecl;
+//    CaptionDefProtoToFontDecl(pCaptionRule, fontDecl);
+
+//    PathTextViewParams params;
+//    params.m_depth = depth;
+//    params.m_featureID = m_id;
+//    params.m_offsetStart = 0;
+//    params.m_offsetEnd = 300;
+//    params.m_text = m_primaryText;
+//    params.m_textFont = fontDecl;
+
+//    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathTextShape(m_path, params)));
+//  }
+
+  if (pLineRule != NULL)
   {
-    if (pRule->has_pathsym())
+    if (pLineRule->has_pathsym())
     {
-      PathSymProto const & symRule = pRule->pathsym();
+      PathSymProto const & symRule = pLineRule->pathsym();
       PathSymbolViewParams params;
       params.m_depth = depth;
       params.m_symbolName = symRule.name();
@@ -309,9 +345,9 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
     }
     else
     {
-    LineViewParams params;
-    Extract(pRule, params);
-    params.m_depth = depth;
+      LineViewParams params;
+      Extract(pLineRule, params);
+      params.m_depth = depth;
       m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_path, params)));
     }
   }

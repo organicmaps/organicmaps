@@ -53,7 +53,7 @@ void RuleDrawer::operator()(FeatureType const & f)
 
   if (s.AreaStyleExists())
   {
-    ApplyAreaFeature apply(m_context, m_tileKey, f.GetID());
+    ApplyAreaFeature apply(m_context, m_tileKey, f.GetID(), s.GetCaptionDescription());
     f.ForEachTriangleRef(apply, m_tileKey.m_zoomLevel);
 
     if (s.PointStyleExists())
@@ -64,7 +64,7 @@ void RuleDrawer::operator()(FeatureType const & f)
   }
   else if (s.LineStyleExists())
   {
-    ApplyLineFeature apply(m_context, m_tileKey, f.GetID(), m_nextModelViewScale);
+    ApplyLineFeature apply(m_context, m_tileKey, f.GetID(), s.GetCaptionDescription(), m_nextModelViewScale);
     f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
 
     if (apply.HasGeometry())
@@ -74,10 +74,9 @@ void RuleDrawer::operator()(FeatureType const & f)
   else
   {
     ASSERT(s.PointStyleExists(), ());
-    ApplyPointFeature apply(m_context, m_tileKey, f.GetID());
-    apply.SetPrimaryText(s.GetCaptionDescription().GetMainText());
-    apply.SetSecondaryText(s.GetCaptionDescription().GetAuxText());
+    ApplyPointFeature apply(m_context, m_tileKey, f.GetID(), s.GetCaptionDescription());
     f.ForEachPointRef(apply, m_tileKey.m_zoomLevel);
+
     s.ForEachRule(bind(&ApplyPointFeature::ProcessRule, &apply, _1));
     apply.Finish();
   }

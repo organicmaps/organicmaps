@@ -24,10 +24,8 @@ class BaseApplyFeature
 public:
   BaseApplyFeature(EngineContext & context,
                    TileKey tileKey,
-                   FeatureID const & id);
-
-  void SetPrimaryText(string const & src) { m_primaryText = src; }
-  void SetSecondaryText(string const & src) { m_secondaryText = src; }
+                   FeatureID const & id,
+                   CaptionDescription const & captions);
 
 protected:
   void ExtractCaptionParams(CaptionDefProto const * primaryProto,
@@ -39,17 +37,17 @@ protected:
   EngineContext & m_context;
   TileKey m_tileKey;
   FeatureID m_id;
-  string m_primaryText;
-  string m_secondaryText;
+  CaptionDescription const & m_captions;
 };
 
 class ApplyPointFeature : public BaseApplyFeature
 {
-  typedef BaseApplyFeature base_t;
+  typedef BaseApplyFeature TBase;
 public:
   ApplyPointFeature(EngineContext & context,
                     TileKey tileKey,
-                    FeatureID const & id);
+                    FeatureID const & id,
+                    CaptionDescription const & captions);
 
   void operator()(CoordPointT const & point);
   void operator()(m2::PointD const & point);
@@ -67,13 +65,14 @@ private:
 
 class ApplyAreaFeature : public ApplyPointFeature
 {
-  typedef ApplyPointFeature base_t;
+  typedef ApplyPointFeature TBase;
 public:
   ApplyAreaFeature(EngineContext & context,
                    TileKey tileKey,
-                   FeatureID const & id);
+                   FeatureID const & id,
+                   CaptionDescription const & captions);
 
-  using base_t::operator ();
+  using TBase::operator ();
 
   void operator()(m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3);
   void ProcessRule(Stylist::rule_wrapper_t const & rule);
@@ -84,11 +83,12 @@ private:
 
 class ApplyLineFeature : public BaseApplyFeature
 {
-  typedef BaseApplyFeature base_t;
+  typedef BaseApplyFeature TBase;
 public:
   ApplyLineFeature(EngineContext & context,
                    TileKey tileKey,
                    FeatureID const & id,
+                   CaptionDescription const & captions,
                    double nextModelViewScale);
 
   void operator ()(CoordPointT const & point);
