@@ -30,6 +30,7 @@ namespace
 {
   static uint32_t const ListStride = 24;
   static float const realFontSize = 20.0f;
+  static float const fontOffset = 1.3f;
 
   void SetColor(vector<float> &dst, float const * ar, int index)
   {
@@ -74,12 +75,11 @@ namespace
 
   class TextHandle : public dp::OverlayHandle
   {
-    typedef OverlayHandle base_t;
   public:
     TextHandle(FeatureID const & id, m2::PointD const & pivot, m2::PointD const & pxSize,
                m2::PointD const & offset, double priority)
-  : base_t(id, dp::LeftBottom, priority), m_pivot(pivot)
-  , m_offset(offset), m_size(pxSize) {}
+              : OverlayHandle(id, dp::LeftBottom, priority), m_pivot(pivot)
+              , m_offset(offset), m_size(pxSize) {}
 
     m2::RectD GetPixelRect(ScreenBase const & screen) const
     {
@@ -255,9 +255,8 @@ void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int le
     provider.InitStream(3, outline_color, dp::MakeStackRefPointer((void*)&color2[0]));
   }
 
-  PointF const dim = PointF(textLine.m_length, 1.3f * textLine.m_font.m_size);
+  PointF const dim = PointF(textLine.m_length, fontOffset * textLine.m_font.m_size);
   dp::OverlayHandle * handle = new TextHandle(m_params.m_featureID, m_basePoint, dim, anchorDelta, m_params.m_depth);
-  //handle->SetIsVisible(true);
   batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
 }
 
@@ -309,9 +308,9 @@ void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   }
 
   float const length = max(textLength, auxTextLength);
-  PointF const anchorDelta = GetShift(m_params.m_anchor, length, 1.3f * fontSize + 1.3f * auxFontSize);
+  PointF const anchorDelta = GetShift(m_params.m_anchor, length, fontOffset * fontSize + fontOffset * auxFontSize);
   float dx = textLength > auxTextLength ? 0.0f : (auxTextLength - textLength) / 2.0f;
-  PointF const textDelta = PointF(dx, -1.3f * auxFontSize - 0.3f * fontSize) + anchorDelta + m_params.m_primaryOffset;
+  PointF const textDelta = PointF(dx, -fontOffset * auxFontSize + (1.0f - fontOffset) * fontSize) + anchorDelta + m_params.m_primaryOffset;
   dx = textLength > auxTextLength ? (textLength - auxTextLength) / 2.0f : 0.0f;
   PointF const auxTextDelta = PointF(dx, 0.0f) + anchorDelta + m_params.m_primaryOffset;
 
