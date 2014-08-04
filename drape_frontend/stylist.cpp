@@ -218,7 +218,7 @@ string const & CaptionDescription::GetRoadNumber() const
   return m_roadNumber;
 }
 
-string CaptionDescription::GetPathNumber() const
+string CaptionDescription::GetPathName() const
 {
   // Always concat names for linear features because we process only one draw rule now.
   if (m_mainText.empty())

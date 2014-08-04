@@ -79,12 +79,14 @@ SharedSpline::SharedSpline(vector<PointF> const & path)
 
 SharedSpline::SharedSpline(SharedSpline const & other)
 {
-  m_spline = other.m_spline;
+  if (this != &other)
+    m_spline = other.m_spline;
 }
 
 SharedSpline const & SharedSpline::operator= (SharedSpline const & spl)
 {
-  m_spline = spl.m_spline;
+  if (this != &spl)
+    m_spline = spl.m_spline;
   return *this;
 }
 
