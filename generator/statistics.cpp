@@ -28,6 +28,7 @@ namespace stats
     tags.push_back(HEADER_FILE_TAG);
     tags.push_back(DATA_FILE_TAG);
 
+    cout << "Geometry zoom levels: ";
     for (size_t i = 0; i < header.GetScalesCount(); ++i)
     {
       cout << header.GetScale(i) << " ";
