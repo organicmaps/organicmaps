@@ -301,33 +301,29 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
   drule::BaseRule const * pRule = rule.first;
   float depth = rule.second;
 
-  //bool isWay = (pRule->GetType() & drule::way) != 0;
+  bool isWay = (pRule->GetType() & drule::way) != 0;
   CaptionDefProto const * pCaptionRule = pRule->GetCaption(0);
   LineDefProto const * pLineRule = pRule->GetLine();
   if (pCaptionRule == NULL && pLineRule == NULL)
     return;
 
+  ASSERT(pCaptionRule == NULL || pLineRule == NULL, ());
+  if (pCaptionRule != NULL && pCaptionRule->height() > 2 &&
+      !m_captions.GetPathName().empty() && isWay)
+  {
+    FontDecl fontDecl;
+    CaptionDefProtoToFontDecl(pCaptionRule, fontDecl);
 
-  // TODO Если расскоментить этот код то возникает ASSERT
-  // в обновлении позиций глифов. Править будет Рома.
+    PathTextViewParams params;
+    params.m_depth = depth;
+    params.m_featureID = m_id;
+    params.m_offsetStart = 0;
+    params.m_offsetEnd = 300;
+    params.m_text = m_captions.GetPathName();
+    params.m_textFont = fontDecl;
 
-//  ASSERT(pCaptionRule == NULL || pLineRule == NULL, ());
-//  if (pCaptionRule != NULL && pCaptionRule->height() > 2 &&
-//      !m_primaryText.empty() && isWay)
-//  {
-//    FontDecl fontDecl;
-//    CaptionDefProtoToFontDecl(pCaptionRule, fontDecl);
-
-//    PathTextViewParams params;
-//    params.m_depth = depth;
-//    params.m_featureID = m_id;
-//    params.m_offsetStart = 0;
-//    params.m_offsetEnd = 300;
-//    params.m_text = m_primaryText;
-//    params.m_textFont = fontDecl;
-
-//    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathTextShape(m_path, params)));
-//  }
+    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathTextShape(m_path, params)));
+  }
 
   if (pLineRule != NULL)
   {
