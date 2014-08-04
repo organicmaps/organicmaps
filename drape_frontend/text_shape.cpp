@@ -1,5 +1,6 @@
 #include "text_shape.hpp"
 #include "common_structures.hpp"
+#include "fribidi.hpp"
 
 
 #include "../drape/shader_def.hpp"
@@ -262,7 +263,7 @@ void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int le
 
 void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  strings::UniString const text = strings::MakeUniString(m_params.m_primaryText);
+  strings::UniString const text = fribidi::log2vis(strings::MakeUniString(m_params.m_primaryText));
   int const size = text.size();
   float const fontSize = m_params.m_primaryTextFont.m_size;
   float textLength = 0.0f;
@@ -289,7 +290,7 @@ void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     return;
   }
 
-  strings::UniString const auxText = strings::MakeUniString(m_params.m_secondaryText);
+  strings::UniString const auxText = fribidi::log2vis(strings::MakeUniString(m_params.m_secondaryText));
   int const auxSize = auxText.size();
   float const auxFontSize = m_params.m_secondaryTextFont.m_size;
   float auxTextLength = 0.0f;
