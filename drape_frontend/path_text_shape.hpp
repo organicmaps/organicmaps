@@ -2,6 +2,7 @@
 
 #include "map_shape.hpp"
 #include "shape_view_params.hpp"
+#include "common_structures.hpp"
 
 #include "../drape/overlay_handle.hpp"
 
@@ -30,19 +31,6 @@ struct LetterInfo
   float m_halfHeight;
 };
 
-namespace
-{
-struct Position
-{
-  Position() {}
-  Position(float x, float y) : m_x(x), m_y(y){}
-  Position(PointF const & p) : m_x(p.x), m_y(p.y){}
-
-  float m_x;
-  float m_y;
-};
-}
-
 class PathTextShape : public MapShape
 {
 public:
@@ -70,7 +58,7 @@ private:
   PathTextViewParams m_params;
   vector<LetterInfo> m_infos;
   float m_scaleFactor;
-  mutable vector<Position> m_positions;
+  mutable vector<glsl_types::vec2> m_positions;
   float m_maxSize;
 };
 

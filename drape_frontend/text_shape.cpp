@@ -214,7 +214,7 @@ void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int le
   state.SetTextureSet(textureSet);
   state.SetBlending(dp::Blending(true));
 
-  dp::AttributeProvider provider(4, 6 * letterCount);
+  dp::AttributeProvider provider(4, 4 * letterCount);
   {
     dp::BindingInfo position(1);
     dp::BindingDecl & decl = position.GetBindingDecl(0);
@@ -223,7 +223,7 @@ void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int le
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(0, position, dp::MakeStackRefPointer((void*)&vertex2[0]));
+    provider.InitStream(0, position, dp::MakeStackRefPointer((void*)&vertex[0]));
   }
   {
     dp::BindingInfo texcoord(1);
@@ -233,7 +233,7 @@ void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int le
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(1, texcoord, dp::MakeStackRefPointer((void*)&texture2[0]));
+    provider.InitStream(1, texcoord, dp::MakeStackRefPointer((void*)&texture[0]));
   }
   {
     dp::BindingInfo base_color(1);
@@ -258,7 +258,8 @@ void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int le
 
   PointF const dim = PointF(textLine.m_length, fontOffset * textLine.m_font.m_size);
   dp::OverlayHandle * handle = new TextHandle(m_params.m_featureID, m_basePoint, dim, anchorDelta, m_params.m_depth);
-  batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
+  //batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
+  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), MovePointer(handle), 4);
 }
 
 void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const

@@ -55,12 +55,10 @@ public:
       PointF const p3 = pos - dir + norm;
       PointF const p4 = pos + dir + norm;
 
-      *it = p2; it++;
       *it = p3; it++;
-      *it = p1; it++;
+      *it = p2; it++;
       *it = p4; it++;
       *it = p1; it++;
-      *it = p3; it++;
 
       itr.Step(m_params.m_step * m_scaleFactor);
     }
@@ -99,7 +97,7 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
   if (maxCount <= 0)
     return;
 
-  int const vertCnt = maxCount * 6;
+  int const vertCnt = maxCount * 4;
   vector<vec2> positions(vertCnt, vec2(0.0f, 0.0f));
   vector<vec4> uvs(vertCnt);
   vec4 * tc = &uvs[0];
@@ -113,17 +111,13 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
 
   for(int i = 0; i < maxCount; ++i)
   {
-    *tc = vec4(rect.minX(), rect.minY(), textureNum, m_params.m_depth);
-    tc++;
     *tc = vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth);
     tc++;
-    *tc = vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth);
+    *tc = vec4(rect.minX(), rect.minY(), textureNum, m_params.m_depth);
     tc++;
     *tc = vec4(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth);
     tc++;
     *tc = vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth);
-    tc++;
-    *tc = vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth);
     tc++;
   }
 
@@ -164,7 +158,7 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
   }
 
   dp::OverlayHandle * handle = new PathSymbolHandle(m_path, m_params, maxCount, pixelSize.x / 2.0f, pixelSize.y / 2.0f);
-  batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle));
+  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
 }
 
 }

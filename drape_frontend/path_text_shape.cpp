@@ -23,31 +23,19 @@ namespace df
 
 using m2::PointF;
 using m2::Spline;
+using glsl_types::vec2;
+using glsl_types::vec4;
 
 namespace
 {
   static float const realFontSize = 20.0f;
 
-  struct TexCoord
-  {
-    TexCoord() {}
-    TexCoord(m2::PointF const & tex, float index = 0.0f, float depth = 0.0f)
-      : m_texCoord(tex), m_index(index), m_depth(depth) {}
-
-    TexCoord(float texX, float texY, float index = 0.0f, float depth = 0.0f)
-      : m_texCoord(texX, texY), m_index(index), m_depth(depth) {}
-
-    m2::PointF m_texCoord;
-    float m_index;
-    float m_depth;
-  };
-
   struct Buffer
   {
-    vector<Position>    m_pos;
-    vector<TexCoord>    m_uvs;
-    vector<dp::ColorF>      m_baseColor;
-    vector<dp::ColorF>      m_outlineColor;
+    vector<vec2>        m_pos;
+    vector<vec4>        m_uvs;
+    vector<vec4>        m_baseColor;
+    vector<vec4>        m_outlineColor;
     vector<LetterInfo>  m_info;
     float               m_offset;
     float               m_maxSize;
@@ -64,9 +52,7 @@ namespace
 
 PathTextShape::PathTextShape(vector<PointF> const & path, PathTextViewParams const & params)
   : m_spline(path)
-  , m_params(params)
-{
-}
+  , m_params(params) {}
 
 void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
@@ -275,14 +261,11 @@ void PathTextHandle::Update(ScreenBase const & screen)
     PointF const p3 = pivot - dir - norm;
     PointF const p4 = pivot + dir - norm;
 
-    int index = i * 6;
-    m_positions[index++] = Position(p2);
-    m_positions[index++] = Position(p3);
-    m_positions[index++] = Position(p1);
-
-    m_positions[index++] = Position(p4);
-    m_positions[index++] = Position(p1);
-    m_positions[index++] = Position(p3);
+    int index = i * 4;
+    m_positions[index++] = p3;
+    m_positions[index++] = p2;
+    m_positions[index++] = p4;
+    m_positions[index++] = p1;
   }
 }
 

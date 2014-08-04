@@ -263,7 +263,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   }
 
   dp::GLState state(gpu::SOLID_LINE_PROGRAM, dp::GLState::GeometryLayer);
-  dp::AttributeProvider provider(6, 6*(size-1));
+  dp::AttributeProvider provider(6, 4 * (size - 1));
 
   {
     dp::BindingInfo pos_dir(1);
@@ -273,7 +273,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(0, pos_dir, dp::MakeStackRefPointer((void*)&vertex2[0]));
+    provider.InitStream(0, pos_dir, dp::MakeStackRefPointer((void*)&vertex[0]));
   }
   {
     dp::BindingInfo deltas(1);
@@ -284,7 +284,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(1, deltas, dp::MakeStackRefPointer((void*)&dxVals2[0]));
+    provider.InitStream(1, deltas, dp::MakeStackRefPointer((void*)&dxVals[0]));
   }
   {
     dp::BindingInfo width_type(1);
@@ -295,7 +295,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(2, width_type, dp::MakeStackRefPointer((void*)&widthType2[0]));
+    provider.InitStream(2, width_type, dp::MakeStackRefPointer((void*)&widthType[0]));
   }
   {
     dp::BindingInfo centres(1);
@@ -306,7 +306,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(3, centres, dp::MakeStackRefPointer((void*)&centers2[0]));
+    provider.InitStream(3, centres, dp::MakeStackRefPointer((void*)&centers[0]));
   }
 
   {
@@ -333,7 +333,8 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     provider.InitStream(5, clr2, dp::MakeStackRefPointer((void*)&outlineColor[0]));
   }
 
-  batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider));
+  //batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider));
+  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
 }
 
 } // namespace df
