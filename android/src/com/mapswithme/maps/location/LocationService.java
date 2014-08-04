@@ -528,7 +528,10 @@ public class LocationService implements
     protected void stopUpdates()
     {
       if (mLocationClient != null && mLocationClient.isConnected())
+      {
         mLocationClient.removeLocationUpdates(LocationService.this);
+        mLocationClient.disconnect();
+      }
 
       super.stopUpdates();
     }
