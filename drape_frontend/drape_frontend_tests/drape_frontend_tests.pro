@@ -4,10 +4,11 @@ CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
 
-DEPENDENCIES = drape_frontend base
+DEPENDENCIES = drape_frontend base fribidi
 ROOT_DIR = ../..
 include($$ROOT_DIR/common.pri)
 
 SOURCES += \
   ../../testing/testingmain.cpp \
-    memory_feature_index_tests.cpp
+    memory_feature_index_tests.cpp \
+    fribidi_tests.cpp \
