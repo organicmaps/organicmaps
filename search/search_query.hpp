@@ -92,7 +92,7 @@ public:
   inline void SetSortByViewport(bool b) { m_sortByViewport = b; }
 
   /// Suggestions language code, not the same as we use in mwm data
-  int8_t m_inputLocaleCode;
+  int8_t m_inputLocaleCode, m_currentLocaleCode;
 
   void SetPreferredLanguage(string const & lang);
   void SetInputLanguage(string const & lang);

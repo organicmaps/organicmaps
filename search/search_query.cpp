@@ -74,8 +74,7 @@ Query::Query(Index const * pIndex,
              CategoriesHolder const * pCategories,
              StringsToSuggestVectorT const * pStringsToSuggest,
              storage::CountryInfoGetter const * pInfoGetter)
-  : m_inputLocaleCode(CategoriesHolder::UNSUPPORTED_LOCALE_CODE),
-    m_pIndex(pIndex),
+  : m_pIndex(pIndex),
     m_pCategories(pCategories),
     m_pStringsToSuggest(pStringsToSuggest),
     m_pInfoGetter(pInfoGetter),
@@ -199,8 +198,14 @@ void Query::NullPosition()
 
 void Query::SetPreferredLanguage(string const & lang)
 {
+  // We have normalized language string here.
+  ASSERT(lang.find_first_of("-_") == string::npos, (lang));
+  LOG(LDEBUG, ("Preffered (system) language = ", lang));
+
   int8_t const code = StringUtf8Multilang::GetLangIndex(lang);
   SetLanguage(LANG_CURRENT, code);
+
+  m_currentLocaleCode = CategoriesHolder::MapLocaleToInteger(lang);
 
   // Default initialization.
   // If you want to reset input language, call SetInputLanguage before search.
@@ -217,7 +222,7 @@ void Query::SetInputLanguage(string const & lang)
   {
     LOG(LDEBUG, ("New input language = ", lang));
 
-    // For "data" language we need only 2-letter code
+    // For "data" language we need normalized code.
     size_t const delimPos = lang.find_first_of("-_");
     int8_t const code = StringUtf8Multilang::GetLangIndex(
           delimPos == string::npos ? lang : lang.substr(0, delimPos));
@@ -793,7 +798,7 @@ void Query::SearchViewportPoints(Results & res)
   {
     if (m_cancel) break;
 
-    res.AddResult((*(indV[i])).GeneratePointResult(m_pCategories, &m_prefferedTypes, GetLanguage(LANG_CURRENT)));
+    res.AddResult((*(indV[i])).GeneratePointResult(m_pCategories, &m_prefferedTypes, m_currentLocaleCode));
   }
 }
 
@@ -1008,7 +1013,7 @@ public:
 
 Result Query::MakeResult(impl::PreResult2 const & r) const
 {
-  Result res = r.GenerateFinalResult(m_pInfoGetter, m_pCategories, &m_prefferedTypes, GetLanguage(LANG_CURRENT));
+  Result res = r.GenerateFinalResult(m_pInfoGetter, m_pCategories, &m_prefferedTypes, m_currentLocaleCode);
   MakeResultHighlight(res);
 
 #ifdef FIND_LOCALITY_TEST
