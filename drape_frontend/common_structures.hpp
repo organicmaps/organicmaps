@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../geometry/point2d.hpp"
+#include "../../drape/color.hpp"
 
 namespace glsl_types
 {
@@ -79,6 +80,9 @@ struct vec4
 
   vec4(float X, float Y = 0.0f, float Z = 0.0f, float W = 0.0f)
     : x(X), y(Y), z(Z), w(W) {}
+
+  vec4(dp::ColorF const & clr)
+    : x(clr.m_r), y(clr.m_g), z(clr.m_b), w(clr.m_a) {}
 
   float x;
   float y;
