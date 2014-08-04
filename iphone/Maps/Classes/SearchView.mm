@@ -739,7 +739,7 @@ static void onSearchResultCallback(search::Results const & results)
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.backgroundColor = [UIColor colorWithColorCode:@"414451"];
+    _tableView.backgroundColor = [UIColor colorWithColorCode:@"1D1F29"];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   }
   return _tableView;

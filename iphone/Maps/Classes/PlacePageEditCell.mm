@@ -15,7 +15,7 @@
   [self.contentView addSubview:self.titleLabel];
 
   UIView * selectedBackgroundView = [[UIView alloc] initWithFrame:self.bounds];
-  selectedBackgroundView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.2];
+  selectedBackgroundView.backgroundColor = [UIColor colorWithColorCode:@"F0F0F0"];
   self.selectedBackgroundView = selectedBackgroundView;
 
   UIImageView * editImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PlacePageEditButton"]];

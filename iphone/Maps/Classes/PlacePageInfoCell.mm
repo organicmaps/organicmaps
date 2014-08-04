@@ -14,13 +14,12 @@
 @interface PlacePageInfoCell () <SelectedColorViewDelegate>
 
 @property (nonatomic) UILabel * distanceLabel;
-@property (nonatomic) CopyLabel * addressLabel;
-@property (nonatomic) CopyLabel * coordinatesLabel;
+@property (nonatomic) CopyView * coordinatesView;
+@property (nonatomic) UILabel * latitudeLabel;
+@property (nonatomic) UILabel * longitudeLabel;
 @property (nonatomic) SmallCompassView * compassView;
 @property (nonatomic) UIImageView * separatorView;
 @property (nonatomic) SelectedColorView * selectedColorView;
-
-@property (nonatomic) m2::PointD pinPoint;
 
 @end
 
@@ -34,8 +33,9 @@
 
   [self addSubview:self.compassView];
   [self addSubview:self.distanceLabel];
-  [self addSubview:self.addressLabel];
-  [self addSubview:self.coordinatesLabel];
+  [self addSubview:self.coordinatesView];
+  [self.coordinatesView addSubview:self.latitudeLabel];
+  [self.coordinatesView addSubview:self.longitudeLabel];
   [self addSubview:self.selectedColorView];
   [self addSubview:self.separatorView];
 
@@ -80,71 +80,84 @@
   {
     point = self.pinPoint;
   }
-  string const coords = useDMS ? MeasurementUtils::FormatMercatorAsDMS(point, 2)
-                               : MeasurementUtils::FormatMercator(point, 6);
-  self.coordinatesLabel.text = [NSString stringWithUTF8String:coords.c_str()];
+  
+  int const dmcDac = 2;
+  int const dac = 6;
+  string const coords = useDMS ? MeasurementUtils::FormatMercatorAsDMS(point, dmcDac)
+                               : MeasurementUtils::FormatMercator(point, dac);
+  self.coordinatesView.textToCopy = [NSString stringWithUTF8String:coords.c_str()];
+
+  string lat;
+  string lon;
+  if (useDMS)
+    MeasurementUtils::FormatMercatorAsDMS(point, lat, lon, dmcDac);
+  else
+    MeasurementUtils::FormatMercator(point, lat, lon, dac);
+
+  self.longitudeLabel.text = [NSString stringWithUTF8String:lon.c_str()];
+
+  self.latitudeLabel.text = [NSString stringWithUTF8String:lat.c_str()];
 }
 
-- (void)setAddress:(NSString *)address pinPoint:(m2::PointD)point
+- (void)setPinPoint:(m2::PointD)pinPoint
 {
-  self.pinPoint = point;
-  self.addressLabel.text = address;
+  _pinPoint = pinPoint;
   self.distanceLabel.text = [self distance];
   [self updateCoordinates];
 }
 
-#define ADDRESS_LEFT_SHIFT 19
-#define COORDINATES_RIGHT_SHIFT 42
 #define RIGHT_SHIFT 55
-#define DISTANCE_LEFT_SHIFT 55
-
-#define ADDRESS_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5]
+#define LEFT_SHIFT 20
 
 - (void)layoutSubviews
 {
+  [self.latitudeLabel sizeToFit];
+  [self.longitudeLabel sizeToFit];
   BOOL const shouldShowLocationViews = [[MapsAppDelegate theApp].m_locationManager enabledOnMap] && !self.myPositionMode;
-  CGFloat addressY;
   if (shouldShowLocationViews)
   {
-    self.compassView.origin = CGPointMake(19, 17);
+    self.compassView.origin = CGPointMake(15, 12.5);
     self.compassView.hidden = NO;
-    self.distanceLabel.frame = CGRectMake(DISTANCE_LEFT_SHIFT, 18, self.width - DISTANCE_LEFT_SHIFT - RIGHT_SHIFT, 24);
+
+    CGFloat const width = 134;
+    self.distanceLabel.text = @"12345";
+    self.distanceLabel.frame = CGRectMake(self.compassView.maxX + 15, 13, width, 20);
     self.distanceLabel.hidden = NO;
-    addressY = 55;
+
+    self.coordinatesView.frame = CGRectMake(self.distanceLabel.minX, self.distanceLabel.maxY + 6, width, 44);
+
+    self.latitudeLabel.origin = CGPointMake(0, 0);
+    self.longitudeLabel.origin = CGPointMake(0, self.latitudeLabel.maxY);
   }
   else
   {
     self.compassView.hidden = YES;
     self.distanceLabel.hidden = YES;
-    addressY = 15;
+
+    self.coordinatesView.frame = CGRectMake(LEFT_SHIFT, 5, 250, 44);
+
+    self.latitudeLabel.minX = 0;
+    self.latitudeLabel.midY = self.latitudeLabel.superview.height / 2;
+
+    self.longitudeLabel.minX = self.latitudeLabel.maxX + 8;
+    self.longitudeLabel.midY = self.longitudeLabel.superview.height / 2;
   }
-  self.addressLabel.width = self.width - ADDRESS_LEFT_SHIFT - RIGHT_SHIFT;
-  [self.addressLabel sizeToFit];
-  self.addressLabel.origin = CGPointMake(ADDRESS_LEFT_SHIFT, addressY);
-  // coordinates label is wider than address label, to fit long DMS coordinates
-  CGFloat coordinatesShift = self.addressLabel.height ? 10 : 0;
-  self.coordinatesLabel.frame = CGRectMake(ADDRESS_LEFT_SHIFT, self.addressLabel.maxY + coordinatesShift, self.width - ADDRESS_LEFT_SHIFT - COORDINATES_RIGHT_SHIFT, 24);
 
   self.selectedColorView.center = CGPointMake(self.width - 30, 27);
+  [self.selectedColorView setColor:self.color];
 
   self.separatorView.maxY = self.height;
   CGFloat const shift = 12.5;
   self.separatorView.width = self.width - 2 * shift;
   self.separatorView.minX = shift;
 
-  [self.selectedColorView setColor:self.color];
-
   self.backgroundColor = [UIColor clearColor];
 }
 
-+ (CGFloat)cellHeightWithAddress:(NSString *)address viewWidth:(CGFloat)viewWidth inMyPositionMode:(BOOL)myPositon
++ (CGFloat)cellHeightWithViewWidth:(CGFloat)viewWidth inMyPositionMode:(BOOL)myPositon
 {
-  NSString * addressCopy = [address copy];
-  if ([addressCopy isEqualToString:@""])
-    addressCopy = nil;
-  CGFloat addressHeight = [addressCopy sizeWithDrawSize:CGSizeMake(viewWidth - ADDRESS_LEFT_SHIFT - RIGHT_SHIFT, 200) font:ADDRESS_FONT].height;
   BOOL const shouldShowLocationViews = [[MapsAppDelegate theApp].m_locationManager enabledOnMap] && !myPositon;
-  return addressHeight + (shouldShowLocationViews ? 100 : 56) + (addressHeight ? 10 : 0);
+  return shouldShowLocationViews ? 95 : 55;
 }
 
 - (void)addressPress:(id)sender
@@ -196,40 +209,45 @@
   return _distanceLabel;
 }
 
-- (CopyLabel *)addressLabel
+- (CopyView *)coordinatesView
 {
-  if (!_addressLabel)
+  if (!_coordinatesView)
   {
-    _addressLabel = [[CopyLabel alloc] initWithFrame:CGRectZero];
-    _addressLabel.backgroundColor = [UIColor clearColor];
-    _addressLabel.font = ADDRESS_FONT;
-    _addressLabel.numberOfLines = 0;
-    _addressLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _addressLabel.textAlignment = NSTextAlignmentLeft;
-    _addressLabel.textColor = [UIColor blackColor];
-    _addressLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-    UILongPressGestureRecognizer * press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(addressPress:)];
-    [_addressLabel addGestureRecognizer:press];
+    _coordinatesView = [[CopyView alloc] initWithFrame:CGRectZero];
+    _coordinatesView.backgroundColor = [UIColor clearColor];
+    _coordinatesView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+    UILongPressGestureRecognizer * press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(coordinatesPress:)];
+    [_coordinatesView addGestureRecognizer:press];
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(coordinatesTap:)];
+    [_coordinatesView addGestureRecognizer:tap];
   }
-  return _addressLabel;
+  return _coordinatesView;
 }
 
-- (CopyLabel *)coordinatesLabel
+- (UILabel *)latitudeLabel
 {
-  if (!_coordinatesLabel)
+  if (!_latitudeLabel)
   {
-    _coordinatesLabel = [[CopyLabel alloc] initWithFrame:CGRectZero];
-    _coordinatesLabel.backgroundColor = [UIColor clearColor];
-    _coordinatesLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5];
-    _coordinatesLabel.textAlignment = NSTextAlignmentLeft;
-    _coordinatesLabel.textColor = [UIColor blackColor];
-    _coordinatesLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-    UILongPressGestureRecognizer * press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(coordinatesPress:)];
-    [_coordinatesLabel addGestureRecognizer:press];
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(coordinatesTap:)];
-    [_coordinatesLabel addGestureRecognizer:tap];
+    _latitudeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _latitudeLabel.backgroundColor = [UIColor clearColor];
+    _latitudeLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+    _latitudeLabel.textAlignment = NSTextAlignmentLeft;
+    _latitudeLabel.textColor = [UIColor blackColor];
   }
-  return _coordinatesLabel;
+  return _latitudeLabel;
+}
+
+- (UILabel *)longitudeLabel
+{
+  if (!_longitudeLabel)
+  {
+    _longitudeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    _longitudeLabel.backgroundColor = [UIColor clearColor];
+    _longitudeLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+    _longitudeLabel.textAlignment = NSTextAlignmentLeft;
+    _longitudeLabel.textColor = [UIColor blackColor];
+  }
+  return _longitudeLabel;
 }
 
 - (SelectedColorView *)selectedColorView

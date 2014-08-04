@@ -199,7 +199,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     if (!cell) // only for iOS 5
       cell = [[PlacePageInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[PlacePageInfoCell className]];
 
-    [cell setAddress:self.address pinPoint:[self pinPoint]];
+    cell.pinPoint = [self pinPoint];
     cell.color = [ColorPickerView colorForName:[self colorName]];
     cell.selectedColorView.alpha = [self isBookmark] ? 1 : 0;
     cell.delegate = self;
@@ -253,7 +253,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   CellRow row = [self cellRowForIndexPath:indexPath];
   if (row == CellRowCommon)
-    return [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:tableView.width inMyPositionMode:[self isMyPosition]];
+    return [PlacePageInfoCell cellHeightWithViewWidth:tableView.width inMyPositionMode:[self isMyPosition]];
   else if (row == CellRowSet)
     return [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:tableView.width];
   else if (row == CellRowInfo)
@@ -275,7 +275,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self.delegate placePageView:self willEditProperty:@"Description" inBookmarkAndCategory:GetFramework().FindBookmark([self userMark])];
 }
 
-#define TITLE_LABEL_LANDSCAPE_LEFT_OFFSET 20
+#define TITLE_LABEL_LEFT_OFFSET 20
 #define TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET 80
 
 - (void)reloadHeader
@@ -291,20 +291,22 @@ typedef NS_ENUM(NSUInteger, CellRow)
   self.typeLabel.width = [self typesWidth];
   [self.typeLabel sizeToFit];
 
+  self.bookmarkButton.midX = self.headerView.width - 29.5;
+  self.titleLabel.minX = TITLE_LABEL_LEFT_OFFSET;
   if ([self iPhoneInLandscape] && !IPAD)
   {
-    self.titleLabel.origin = CGPointMake(12.5, 24);
+    self.titleLabel.minY = 25;
     self.typeLabel.textAlignment = NSTextAlignmentRight;
     self.typeLabel.maxY = self.titleLabel.maxY;
     self.typeLabel.maxX = self.width - TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET;
-    self.bookmarkButton.center = CGPointMake(self.headerView.width - 24, 36);
+    self.bookmarkButton.midY = 37;
   }
   else
   {
-    self.titleLabel.origin = CGPointMake(15, 27);
+    self.titleLabel.minY = 24;
     self.typeLabel.textAlignment = NSTextAlignmentLeft;
     self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY + 2);
-    self.bookmarkButton.center = CGPointMake(self.headerView.width - 25, 39);
+    self.bookmarkButton.midY = 39;
   }
 }
 
@@ -315,7 +317,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (CGFloat)typesWidth
 {
-  CGFloat const landscapeWidth = self.width - TITLE_LABEL_LANDSCAPE_LEFT_OFFSET - [self titleWidth] - TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET - 8;
+  CGFloat const landscapeWidth = self.width - TITLE_LABEL_LEFT_OFFSET - [self titleWidth] - TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET - 8;
   return [self iPhoneInLandscape] ? landscapeWidth : self.width - 90;
 }
 
@@ -324,9 +326,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   CGFloat titleHeight = [self.title sizeWithDrawSize:CGSizeMake([self titleWidth], 200) font:self.titleLabel.font].height;
   CGFloat typesHeight = [self.types sizeWithDrawSize:CGSizeMake([self typesWidth], 200) font:self.typeLabel.font].height;
   if ([self iPhoneInLandscape] && !IPAD)
-    return MAX(titleHeight, typesHeight) + 52;
+    return MAX(titleHeight, typesHeight) + 34;
   else
-    return titleHeight + typesHeight + 57;
+    return titleHeight + typesHeight + 39;
 }
 
 - (BOOL)iPhoneInLandscape
@@ -365,7 +367,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
 }
 
-#define BOTTOM_SHADOW_OFFSET 20
+#define BOTTOM_SHADOW_OFFSET 18
 
 - (void)layoutSubviews
 {
@@ -398,19 +400,21 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
   if (self.state == PlacePageStatePreview)
   {
+    self.tableView.alpha = 0;
     self.titleLabel.userInteractionEnabled = NO;
-    self.arrowImageView.center = CGPointMake(self.width / 2, [self headerHeight] - 10);
+    self.arrowImageView.center = CGPointMake(self.width / 2, [self headerHeight] + BOTTOM_SHADOW_OFFSET - 10);
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.arrowImageView.alpha = 1;
-      [self updateHeight:[self headerHeight]];
+      [self updateHeight:([self headerHeight] + BOTTOM_SHADOW_OFFSET)];
       self.minY = [self viewMinY];
       self.headerSeparator.alpha = 0;
     } completion:nil];
   }
   else if (self.state == PlacePageStateOpened)
   {
+    self.tableView.alpha = 1;
     self.titleLabel.userInteractionEnabled = YES;
-    CGFloat const infoCellHeight = [PlacePageInfoCell cellHeightWithAddress:self.address viewWidth:self.tableView.width inMyPositionMode:[self isMyPosition]];
+    CGFloat const infoCellHeight = [PlacePageInfoCell cellHeightWithViewWidth:self.tableView.width inMyPositionMode:[self isMyPosition]];
     CGFloat fullHeight = [self headerHeight] + infoCellHeight + [PlacePageShareCell cellHeight] + (GetFramework().IsRoutingEnabled() ? [PlacePageRoutingCell cellHeight] : 0);
     if ([self isBookmark])
     {
@@ -430,6 +434,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.maxY = 0;
+      self.tableView.alpha = 0;
     } completion:nil];
   }
 
@@ -461,6 +466,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if ([self isBookmark])
   {
     CGFloat newHeight = self.backgroundView.height + [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:self.tableView.width] + [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
+    newHeight = MIN(newHeight, [self maxHeight]);
     CGFloat const headerHeight = [self headerHeight];
     self.tableView.frame = CGRectMake(0, headerHeight, self.superview.width, newHeight - headerHeight - BOTTOM_SHADOW_OFFSET);
   }
@@ -1127,8 +1133,12 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if (!_arrowImageView)
   {
-    _arrowImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-    _arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PlacePageArrow"]];
+    _arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+    _arrowImageView.image = [UIImage imageNamed:@"PlacePageArrow"];
+    _arrowImageView.contentMode = UIViewContentModeCenter;
+    _arrowImageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    [_arrowImageView addGestureRecognizer:tap];
   }
   return _arrowImageView;
 }

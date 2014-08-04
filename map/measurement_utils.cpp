@@ -108,6 +108,12 @@ string FormatLatLonAsDMS(double lat, double lon, int dac)
           FormatLatLonAsDMSImpl(lon, 'E', 'W', dac));
 }
 
+void FormatMercatorAsDMS(m2::PointD const & mercator, string & lat, string & lon, int dac)
+{
+  lat = FormatLatLonAsDMSImpl(MercatorBounds::YToLat(mercator.y), 'N', 'S', dac);
+  lon = FormatLatLonAsDMSImpl(MercatorBounds::XToLon(mercator.x), 'E', 'W', dac);
+}
+
 string FormatMercatorAsDMS(m2::PointD const & mercator, int dac)
 {
   return FormatLatLonAsDMS(MercatorBounds::YToLat(mercator.y), MercatorBounds::XToLon(mercator.x), dac);
@@ -122,6 +128,12 @@ string FormatLatLon(double lat, double lon, int dac)
 string FormatMercator(m2::PointD const & mercator, int dac)
 {
   return FormatLatLon(MercatorBounds::YToLat(mercator.y), MercatorBounds::XToLon(mercator.x), dac);
+}
+
+void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int dac)
+{
+  lat = FormatLatLon(MercatorBounds::YToLat(mercator.y), dac);
+  lon = FormatLatLon(MercatorBounds::XToLon(mercator.x), dac);
 }
 
 string FormatAltitude(double altitudeInMeters)
