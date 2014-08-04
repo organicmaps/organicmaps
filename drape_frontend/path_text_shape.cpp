@@ -252,15 +252,15 @@ void PathTextHandle::Update(ScreenBase const & screen)
     float const halfHeight = m_infos[i].m_halfHeight;
     /// TODO Can be optimized later (filling stage)
     float const xOffset = m_infos[i].m_xOffset + halfWidth;
-    float const yOffset = m_infos[i].m_yOffset + halfHeight;
+    float const yOffset = -m_infos[i].m_yOffset - halfHeight;
 
     ASSERT_NOT_EQUAL(advance, 0.0, ());
     entireLength += advance;
+    PointF const pos = itr.m_pos;
+    itr.Step(advance);
     if(entireLength >= m_params.m_offsetEnd * m_scaleFactor || itr.BeginAgain())
       return;
 
-    PointF const pos = itr.m_pos;
-    itr.Step(advance);
     PointF dir = itr.m_avrDir.Normalize();
     PointF norm(-dir.y, dir.x);
     PointF norm2 = norm;
@@ -268,12 +268,12 @@ void PathTextHandle::Update(ScreenBase const & screen)
     norm *= halfHeight * m_scaleFactor;
 
     float const fontSize = m_params.m_textFont.m_size * m_scaleFactor / 2.0f;
-    PointF const pivot = dir * xOffset / halfWidth + norm * yOffset / halfHeight + pos + norm2 * fontSize;
+    PointF const pivot = dir * xOffset / halfWidth + norm * yOffset / halfHeight + pos - norm2 * fontSize;
 
-    PointF const p1 = pivot + dir - norm;
-    PointF const p2 = pivot - dir - norm;
-    PointF const p3 = pivot - dir + norm;
-    PointF const p4 = pivot + dir + norm;
+    PointF const p1 = pivot + dir + norm;
+    PointF const p2 = pivot - dir + norm;
+    PointF const p3 = pivot - dir - norm;
+    PointF const p4 = pivot + dir - norm;
 
     int index = i * 6;
     m_positions[index++] = Position(p2);
