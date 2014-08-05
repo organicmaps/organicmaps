@@ -439,7 +439,7 @@ uint16_t TriangleListOfStripBatch::ItoVCount(uint16_t iCount) const
   ASSERT_GREATER_OR_EQUAL(vertexStride, 4, ());
   ASSERT_EQUAL(iCount % 3, 0, ());
 
-  return iCount * vertexStride / 3 * (vertexStride - 2);
+  return vertexStride * iCount / TBase::VtoICount(vertexStride);
 }
 
 uint16_t TriangleListOfStripBatch::AlignVCount(uint16_t vCount) const
