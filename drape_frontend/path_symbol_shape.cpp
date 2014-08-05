@@ -88,10 +88,7 @@ private:
 };
 
 PathSymbolShape::PathSymbolShape(vector<PointF> const & path, PathSymbolViewParams const & params, float maxScale)
-  : m_params(params), m_maxScale(1.0f / maxScale)
-{
-  m_path.FromArray(path);
-}
+  : m_params(params), m_path(path), m_maxScale(1.0f / maxScale) {}
 
 void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {

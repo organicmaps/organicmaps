@@ -21,8 +21,7 @@ UNIT_TEST(SmoothedDirections)
   path.push_back(PointF(40, 40));
   path.push_back(PointF(80, 0));
 
-  Spline spl;
-  spl.FromArray(path);
+  Spline spl(path);
   float const sqrt2 = sqrtf(2.0f);
   Spline::iterator itr;
   PointF dir1(sqrt2 / 2.0f, sqrt2 / 2.0f);
@@ -44,8 +43,7 @@ UNIT_TEST(SmoothedDirections)
   path.push_back(PointF(120, 0));
 
   PointF dir12(1.0f, 0.0f);
-  Spline spl2;
-  spl2.FromArray(path);
+  Spline spl2(path);
   itr.Attach(spl2);
   TestPointFDir(itr.m_avrDir, dir1);
   itr.Step(sqrt2 * 80.0f + 40.0f);
@@ -64,8 +62,7 @@ UNIT_TEST(UsualDirections)
   path.push_back(PointF(40, 40));
   path.push_back(PointF(80, 0));
 
-  Spline spl;
-  spl.FromArray(path);
+  Spline spl(path);
   float const sqrt2 = sqrtf(2.0f);
   Spline::iterator itr;
   PointF dir1(sqrt2 / 2.0f, sqrt2 / 2.0f);
@@ -85,8 +82,7 @@ UNIT_TEST(UsualDirections)
   path.push_back(PointF(120, 0));
 
   PointF dir12(1.0f, 0.0f);
-  Spline spl2;
-  spl2.FromArray(path);
+  Spline spl2(path);
   itr.Attach(spl2);
   TestPointFDir(itr.m_dir, dir1);
   itr.Step(sqrt2 * 80.0f + 35.0f);
@@ -105,9 +101,8 @@ UNIT_TEST(Positions)
   path.push_back(PointF(40, 40));
   path.push_back(PointF(80, 0));
 
-  Spline spl0;
+  Spline spl0(path);
   Spline spl4;
-  spl0.FromArray(path);
   spl4 = spl0;
   float const sqrt2 = sqrtf(2.0f);
   Spline::iterator itr;
@@ -131,8 +126,7 @@ UNIT_TEST(Positions)
   path.push_back(PointF(80, 40));
   path.push_back(PointF(120, 0));
 
-  Spline spl2;
-  spl2.FromArray(path);
+  Spline spl2(path);
   Spline spl3 = spl2;
   itr.Attach(spl3);
   TestPointFDir(itr.m_pos, PointF(0, 0));
@@ -156,8 +150,7 @@ UNIT_TEST(BeginAgain)
   path.push_back(PointF(40, 40));
   path.push_back(PointF(80, 0));
 
-  Spline spl;
-  spl.FromArray(path);
+  Spline spl(path);
   float const sqrt2 = sqrtf(2.0f);
   Spline::iterator itr;
   PointF dir1(sqrt2 / 2.0f, sqrt2 / 2.0f);
@@ -178,8 +171,7 @@ UNIT_TEST(BeginAgain)
   path.push_back(PointF(80, 40));
   path.push_back(PointF(120, 0));
 
-  Spline spl2;
-  spl2.FromArray(path);
+  Spline spl2(path);
   itr.Attach(spl2);
   TEST_EQUAL(itr.BeginAgain(), false, ());
   itr.Step(90.0f);
