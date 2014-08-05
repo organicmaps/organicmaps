@@ -106,18 +106,15 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
     dp::ColorF const base(m_params.m_textFont.m_color);
     dp::ColorF const outline(m_params.m_textFont.m_outlineColor);
 
-    curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.minY(), textureNum, m_params.m_depth));
-    curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth));
-    curBuffer.m_uvs.push_back(TexCoord(rect.maxX(), rect.minY(), textureNum, m_params.m_depth));
+    curBuffer.m_uvs.push_back(vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth));
+    curBuffer.m_uvs.push_back(vec4(rect.minX(), rect.minY(), textureNum, m_params.m_depth));
+    curBuffer.m_uvs.push_back(vec4(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth));
+    curBuffer.m_uvs.push_back(vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth));
 
-    curBuffer.m_uvs.push_back(TexCoord(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth));
-    curBuffer.m_uvs.push_back(TexCoord(rect.maxX(), rect.minY(), textureNum, m_params.m_depth));
-    curBuffer.m_uvs.push_back(TexCoord(rect.minX(), rect.maxY(), textureNum, m_params.m_depth));
-
-    int const newSize = curBuffer.m_baseColor.size() + 6;
+    int const newSize = curBuffer.m_baseColor.size() + 4;
     curBuffer.m_baseColor.resize(newSize, base);
     curBuffer.m_outlineColor.resize(newSize, outline);
-    curBuffer.m_pos.resize(newSize, Position(0, 0));
+    curBuffer.m_pos.resize(newSize, vec2(0.0f, 0.0f));
   }
 
   for (int i = 0; i < buffers.size(); ++i)
@@ -173,7 +170,7 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
 
     dp::OverlayHandle * handle = new PathTextHandle(m_spline, m_params, buffers[i].m_info, buffers[i].m_maxSize);
 
-    batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle));
+    batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
   }
 }
 
@@ -181,9 +178,9 @@ m2::RectD PathTextHandle::GetPixelRect(ScreenBase const & screen) const
 {
   int const cnt = m_infos.size();
 
-  Position const & v1 = m_positions[1];
-  Position const & v2 = m_positions[2];
-  PointF centr((v1.m_x + v2.m_x) / 2.0f, (v1.m_y + v2.m_y) / 2.0f);
+  vec2 const & v1 = m_positions[1];
+  vec2 const & v2 = m_positions[2];
+  PointF centr((v1.x + v2.x) / 2.0f, (v1.y + v2.y) / 2.0f);
   centr = screen.GtoP(centr);
   float minx, maxx, miny, maxy;
   minx = maxx = centr.x;
@@ -191,9 +188,9 @@ m2::RectD PathTextHandle::GetPixelRect(ScreenBase const & screen) const
 
   for (int i = 1; i < cnt; i++)
   {
-    Position const & v1 = m_positions[i * 6 + 1];
-    Position const & v2 = m_positions[i * 6 + 2];
-    PointF centr((v1.m_x + v2.m_x) / 2.0f, (v1.m_y + v2.m_y) / 2.0f);
+    vec2 const & v1 = m_positions[i * 4 + 1];
+    vec2 const & v2 = m_positions[i * 4 + 2];
+    PointF centr((v1.x + v2.x) / 2.0f, (v1.y + v2.y) / 2.0f);
     centr = screen.GtoP(centr);
     if(centr.x > maxx)
       maxx = centr.x;
