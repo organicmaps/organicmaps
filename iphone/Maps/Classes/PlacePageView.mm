@@ -24,9 +24,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
 };
 
 @interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate, PlacePageRoutingCellDelegate>
-{
-  BOOL m_hasSpeed;
-}
 
 @property (nonatomic) UIImageView * backgroundView;
 @property (nonatomic) UIView * headerView;
@@ -60,6 +57,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
   BOOL needUpdateAddressInfo;
   search::AddressInfo m_addressInfo;
+  BOOL m_hasSpeed;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -809,11 +807,18 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if (!_types)
   {
-    NSString * types = [NSString stringWithUTF8String:[self addressInfo].GetPinType().c_str()];
-    if ([NSString instancesRespondToSelector:@selector(capitalizedStringWithLocale:)]) // iOS 6 and higher
-      _types = [types capitalizedStringWithLocale:[NSLocale currentLocale]];
-    else // iOS 5
-      _types = [types capitalizedString];
+    if ([self isMyPosition])
+    {
+      _types = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:m_hasSpeed];
+    }
+    else
+    {
+      NSString * types = [NSString stringWithUTF8String:[self addressInfo].GetPinType().c_str()];
+      if ([NSString instancesRespondToSelector:@selector(capitalizedStringWithLocale:)]) // iOS 6 and higher
+        _types = [types capitalizedStringWithLocale:[NSLocale currentLocale]];
+      else // iOS 5
+        _types = [types capitalizedString];
+    }
   }
   return _types;
 }

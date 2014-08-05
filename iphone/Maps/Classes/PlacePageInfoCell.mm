@@ -94,9 +94,8 @@
   else
     MeasurementUtils::FormatMercator(point, lat, lon, dac);
 
-  self.longitudeLabel.text = [NSString stringWithUTF8String:lon.c_str()];
-
   self.latitudeLabel.text = [NSString stringWithUTF8String:lat.c_str()];
+  self.longitudeLabel.text = [NSString stringWithUTF8String:lon.c_str()];
 }
 
 - (void)setPinPoint:(m2::PointD)pinPoint
