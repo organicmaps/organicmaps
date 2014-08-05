@@ -3,14 +3,11 @@
 namespace m2
 {
 
-void Spline::FromArray(vector<PointF> const & path)
+Spline::Spline(vector<PointF> const & path)
 {
-  if (path.empty())
-    return;
+  ASSERT(path.size() > 1, ("Wrong path size!"));
   m_position.assign(path.begin(), path.end());
   int cnt = m_position.size() - 1;
-  if (cnt == 0)
-    return;
   m_direction = vector<PointF>(cnt);
   m_length = vector<float>(cnt);
 
