@@ -79,7 +79,7 @@ pt:2bar|2pub|cerveja|beber|alimentação
 hu:2bár|2kocsma|sör|ital|élelmiszer
 th:2บาร์|ผับ|เบียร์|เครื่องดื่ม|อาหาร
 zh-Hans:1酒吧์|酒馆์|啤酒|饮料|食物
-ar:الحانة|خمارة์|بيرة ์|شراب|لطعام
+ar:الحانة|خمارة์|بيرة ์|شراب|الطعام
 da:2bar|øl|pub|drink|mad
 
 amenity-cafe
@@ -100,7 +100,7 @@ pt:3café|3restaurante|alimentação
 hu:3kávézó|3étterem|3élelmiszer
 th:3 คาเฟ่|ร้านอาหาร่|อาหาร
 zh-Hans:1咖啡馆่|餐厅|食物
-ar:مقهى|مطعم่|طعام|لطعام
+ar:مقهى|مطعم่|طعام|الطعام
 da:3café|restaurant|mad
 
 amenity-fast_food
@@ -121,7 +121,7 @@ pt:4comida de plástico|comida para levar|3café|3alimentação
 hu:4gyorsétterem|3étterem|3kávézó|3élelmiszer
 th:1อาหารจานด่วน|ร้านอาหาร|คาเฟ่|นำกลับ|อาหาร
 zh-Hans:1快餐|餐厅|外卖|食物
-ar:وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام|لطعام
+ar:وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام|الطعام
 da:4fastfood|restaurant|café|takeaway|mad
 
 amenity-restaurant
@@ -142,7 +142,7 @@ pt:3restaurante|3café|3alimentação
 hu:3étterem|3kávézó|3élelmiszer
 th:3ร้านอาหาร|อาหาร
 zh-Hans:1餐厅|咖啡馆|食物
-ar:1مطعم|مقهى|طعام|لطعام
+ar:1مطعم|مقهى|طعام|الطعام
 da:3restaurant|café|mad
 
 amenity-fuel
@@ -163,7 +163,7 @@ pt:3combustível|gás
 hu:3benzinkút|benzin
 th:3ปั๊มน้ำมัน|เชื้อเพลิง|ก๊าซ
 zh-Hans:1加油站|燃料|汽油
-ar:1محطة وقود|وقود|غاز|لغاز
+ar:1محطة وقود|وقود|غاز|الغاز
 da:3tankstation|benzin
 
 
