@@ -50,15 +50,10 @@ public:
       PointF const dir = itr.m_dir * m_symbolHalfWidth  * m_scaleFactor;
       PointF const norm(-itr.m_dir.y * m_symbolHalfHeight * m_scaleFactor, itr.m_dir.x * m_symbolHalfHeight * m_scaleFactor);
 
-      PointF const p1 = pos + dir - norm;
-      PointF const p2 = pos - dir - norm;
-      PointF const p3 = pos - dir + norm;
-      PointF const p4 = pos + dir + norm;
-
-      *it = p3; it++;
-      *it = p2; it++;
-      *it = p4; it++;
-      *it = p1; it++;
+      *it = pos - dir + norm; it++;
+      *it = pos - dir - norm; it++;
+      *it = pos + dir + norm; it++;
+      *it = pos + dir - norm; it++;
 
       itr.Step(m_params.m_step * m_scaleFactor);
     }

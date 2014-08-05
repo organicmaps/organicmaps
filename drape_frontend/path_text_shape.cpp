@@ -253,16 +253,11 @@ void PathTextHandle::Update(ScreenBase const & screen)
     float const fontSize = m_params.m_textFont.m_size * m_scaleFactor / 2.0f;
     PointF const pivot = dir * xOffset / halfWidth + norm * yOffset / halfHeight + pos - norm2 * fontSize;
 
-    PointF const p1 = pivot + dir + norm;
-    PointF const p2 = pivot - dir + norm;
-    PointF const p3 = pivot - dir - norm;
-    PointF const p4 = pivot + dir - norm;
-
     int index = i * 4;
-    m_positions[index++] = p3;
-    m_positions[index++] = p2;
-    m_positions[index++] = p4;
-    m_positions[index++] = p1;
+    m_positions[index++] = pivot - dir - norm;
+    m_positions[index++] = pivot - dir + norm;
+    m_positions[index++] = pivot + dir - norm;
+    m_positions[index++] = pivot + dir + norm;
   }
 }
 
