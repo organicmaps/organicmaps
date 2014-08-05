@@ -194,6 +194,12 @@ void GLFunctions::glClear()
   GLCHECK(glClearFn(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 }
 
+void GLFunctions::glClearDepth()
+{
+  ASSERT(glClearFn != NULL, ());
+  GLCHECK(glClearFn(GL_DEPTH_BUFFER_BIT));
+}
+
 void GLFunctions::glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
 {
   ASSERT(glViewportFn != NULL, ());

@@ -11,6 +11,7 @@ public:
   static bool glHasExtension(string const & name);
   static void glClearColor(float r, float g, float b, float a);
   static void glClear();
+  static void glClearDepth();
   static void glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
   static void glFlush();
 
