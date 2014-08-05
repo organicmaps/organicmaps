@@ -156,7 +156,7 @@ public class WorkerService extends IntentService
   {
     final LocationManager manager = (LocationManager) getApplication().getSystemService(Context.LOCATION_SERVICE);
     final Location l = manager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-    if (!LocationUtils.isExpired(l, l.getTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG))
+    if (l != null && !LocationUtils.isExpired(l, l.getTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG))
     {
       placeDownloadNotification(l);
       return true;
