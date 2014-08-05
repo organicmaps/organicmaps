@@ -3,7 +3,7 @@
 namespace m2
 {
 
-Spline::Spline(vector<PointF> const & path)
+Spline::Spline(vector<PointF> const & path) : m_lengthAll(0.0f)
 {
   ASSERT(path.size() > 1, ("Wrong path size!"));
   m_position.assign(path.begin(), path.end());
@@ -28,8 +28,8 @@ void Spline::AddPoint(PointF const & pt)
   {
     PointF dir = pt - m_position.back();
     m_position.push_back(pt);
-    m_direction.push_back(dir.Normalize());
     m_length.push_back(dir.Length());
+    m_direction.push_back(dir.Normalize());
     m_lengthAll += m_length.back();
   }
 }
