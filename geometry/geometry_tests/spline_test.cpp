@@ -182,3 +182,26 @@ UNIT_TEST(BeginAgain)
   TEST_EQUAL(itr.BeginAgain(), true, ());
 }
 
+UNIT_TEST(Length)
+{
+  vector<PointF> path;
+  PointF const p1(27.5536633f, 64.2492523f);
+  PointF const p2(27.5547638f, 64.2474289f);
+  PointF const p3(27.5549412f, 64.2471237f);
+  PointF const p4(27.5559044f, 64.2456436f);
+  PointF const p5(27.556284f, 64.2451782f);
+  path.push_back(p1);
+  path.push_back(p2);
+  path.push_back(p3);
+  path.push_back(p4);
+  path.push_back(p5);
+  Spline spl(path);
+  float len1 = spl.GetLength();
+  float l1 = p1.Length(p2);
+  float l2 = p2.Length(p3);
+  float l3 = p3.Length(p4);
+  float l4 = p4.Length(p5);
+  float len2 = l1 + l2 + l3 + l4;
+  TEST_ALMOST_EQUAL(len1, len2, ());
+}
+
