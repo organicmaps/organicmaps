@@ -32,15 +32,6 @@ namespace
   static float const realFontSize = 20.0f;
   static float const fontOffset = 1.3f;
 
-  void SetColor(vector<float> &dst, float const * ar, int index)
-  {
-    uint32_t const colorArraySize = 4;
-    uint32_t const ListStride = 16;
-    uint32_t const baseListIndex = ListStride * index;
-    for (uint32_t i = 0; i < 4; ++i)
-      memcpy(&dst[baseListIndex + colorArraySize * i], ar, colorArraySize * sizeof(float));
-  }
-
   PointF GetShift(dp::Anchor anchor, float width, float height)
   {
     switch(anchor)
@@ -111,8 +102,6 @@ void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int le
 {
   strings::UniString text = textLine.m_text;
   float fontSize = textLine.m_font.m_size;
-  dp::Color base = textLine.m_font.m_color;
-  dp::Color outline = textLine.m_font.m_outlineColor;
   float needOutline = textLine.m_font.m_needOutline;
   PointF anchorDelta = textLine.m_offset;
 
@@ -177,18 +166,8 @@ void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int le
     stride += advance;
   }
 
-  vector<float> color(numVert * 4);
-  vector<float> color2(numVert * 4);
-
-  float clr1[4], clr2[4];
-  dp::Convert(base, clr1[0], clr1[1], clr1[2], clr1[3]);
-  dp::Convert(outline, clr2[0], clr2[1], clr2[2], clr2[3]);
-
-  for(int i = 0; i < letterCount ; i++)
-  {
-    SetColor(color, clr1, i);
-    SetColor(color2, clr2, i);
-  }
+  vector<vec4> color(numVert, vec4(textLine.m_font.m_color));
+  vector<vec4> color2(numVert, vec4(textLine.m_font.m_outlineColor));
 
   dp::GLState state(gpu::FONT_PROGRAM, dp::GLState::OverlayLayer);
   state.SetTextureSet(textureSet);

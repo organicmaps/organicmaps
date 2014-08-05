@@ -1,4 +1,5 @@
 #include "line_shape.hpp"
+#include "common_structures.hpp"
 
 #include "../drape/shader_def.hpp"
 #include "../drape/attribute_provider.hpp"
@@ -16,6 +17,10 @@ using m2::PointF;
 
 namespace df
 {
+
+using glsl_types::vec2;
+using glsl_types::vec3;
+using glsl_types::vec4;
 
 /// Split angle v1-v2-v3 by bisector.
 void Bisector(float R, PointF const & v1, PointF const & v2, PointF const & v3,
@@ -53,61 +58,6 @@ void Bisector(float R, PointF const & v1, PointF const & v2, PointF const & v3,
   rightBisector += v2;
 }
 
-void SetColor(vector<float> &dst, float const * ar, int index)
-{
-  uint32_t const colorArraySize = 4;
-  uint32_t const ListStride = 16;
-  uint32_t const baseListIndex = ListStride * index;
-  for (uint32_t i = 0; i < 4; ++i)
-    memcpy(&dst[baseListIndex + colorArraySize * i], ar, colorArraySize * sizeof(float));
-}
-
-struct Vertex
-{
-  Vertex() {}
-  Vertex(m2::PointF const & pos, m2::PointF const & dir)
-    : m_position(pos), m_direction(dir) {}
-
-  Vertex(float posX, float posY, float dirX = 0.0f, float dirY = 0.0f)
-    : m_position(posX, posY), m_direction(dirX, dirY) {}
-
-  m2::PointF m_position;
-  m2::PointF m_direction;
-};
-
-struct Offset
-{
-  Offset() : m_topOffset(0.0f), m_pointSide(0.0f), m_depth(0.0f) {}
-  Offset(float topOffset, float pointSide, float depth)
-    : m_topOffset(topOffset), m_pointSide(pointSide), m_depth(depth) {}
-
-  float m_topOffset;
-  float m_pointSide;
-  float m_depth;
-};
-
-struct WidthType
-{
-  WidthType() {}
-  WidthType(float halfWidth, float cap, float join, float insetsWidth)
-    : m_halfWidth(halfWidth), m_capType(cap), m_joinType(join), m_insetsWidth(insetsWidth) {}
-
-  float m_halfWidth;
-  float m_capType;
-  float m_joinType;
-  float m_insetsWidth;
-};
-
-struct SphereCenters
-{
-  SphereCenters() {}
-  SphereCenters(m2::PointF const & center1, m2::PointF const & center2)
-    : m_center1(center1), m_center2(center2) {}
-
-  m2::PointF m_center1;
-  m2::PointF m_center2;
-};
-
 LineShape::LineShape(vector<m2::PointF> const & points,
                      LineViewParams const & params)
   : m_params(params)
@@ -132,10 +82,10 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   float const r = 1.0f;
 
   int const numVert = (size - 1) * 4;
-  vector<Vertex> vertex(numVert);
-  vector<Offset> dxVals(numVert);
-  vector<SphereCenters> centers(numVert);
-  vector<WidthType> widthType(numVert);
+  vector<vec4> vertex(numVert);
+  vector<vec3> dxVals(numVert);
+  vector<vec4> centers(numVert);
+  vector<vec4> widthType(numVert);
 
   PointF leftBisector, rightBisector, dx;
 
@@ -149,14 +99,14 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   float const halfWidth = m_params.m_width / 2.0f;
   float const insetHalfWidth= 1.0f * halfWidth;
 
-  vertex[0] = Vertex(v2, leftBisector);
-  vertex[1] = Vertex(v2, rightBisector);
-  dxVals[0] = Offset(0.0f, -1.0f, m_params.m_depth);
-  dxVals[1] = Offset(0.0f, -1.0f, m_params.m_depth);
-  centers[0] = centers[1] = SphereCenters(v2, v3);
+  vertex[0] = vec4(v2, leftBisector);
+  vertex[1] = vec4(v2, rightBisector);
+  dxVals[0] = vec3(0.0f, -1.0f, m_params.m_depth);
+  dxVals[1] = vec3(0.0f, -1.0f, m_params.m_depth);
+  centers[0] = centers[1] = vec4(v2, v3);
 
-  widthType[0] = widthType[2] = WidthType(halfWidth, 0, joinType, insetHalfWidth);
-  widthType[1] = widthType[3] = WidthType(-halfWidth, 0, joinType, insetHalfWidth);
+  widthType[0] = widthType[2] = vec4(halfWidth, 0, joinType, insetHalfWidth);
+  widthType[1] = widthType[3] = vec4(-halfWidth, 0, joinType, insetHalfWidth);
 
   //points in the middle
   for(int i = 1 ; i < size - 1 ; ++i)
@@ -167,20 +117,20 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
     float aspect = (v1-v2).Length() / (v2-v3).Length();
 
-    vertex[(i-1) * 4 + 2] = Vertex(v2, leftBisector);
-    vertex[(i-1) * 4 + 3] = Vertex(v2, rightBisector);
-    dxVals[(i-1) * 4 + 2] = Offset(dx.x, 1.0f, m_params.m_depth);
-    dxVals[(i-1) * 4 + 3] = Offset(-dx.x, 1.0f, m_params.m_depth);
-    centers[(i-1) * 4 + 2] = centers[(i-1) * 4 + 3] = SphereCenters(v1, v2);
+    vertex[(i-1) * 4 + 2] = vec4(v2, leftBisector);
+    vertex[(i-1) * 4 + 3] = vec4(v2, rightBisector);
+    dxVals[(i-1) * 4 + 2] = vec3(dx.x, 1.0f, m_params.m_depth);
+    dxVals[(i-1) * 4 + 3] = vec3(-dx.x, 1.0f, m_params.m_depth);
+    centers[(i-1) * 4 + 2] = centers[(i-1) * 4 + 3] = vec4(v1, v2);
 
-    vertex[i * 4 + 0] = Vertex(v2, leftBisector);
-    vertex[i * 4 + 1] = Vertex(v2, rightBisector);
-    dxVals[i * 4 + 0] = Offset(-dx.x * aspect, -1.0f, m_params.m_depth);
-    dxVals[i * 4 + 1] = Offset(dx.x * aspect, -1.0f, m_params.m_depth);
-    centers[i * 4] = centers[i * 4 + 1] = SphereCenters(v2, v3);
+    vertex[i * 4 + 0] = vec4(v2, leftBisector);
+    vertex[i * 4 + 1] = vec4(v2, rightBisector);
+    dxVals[i * 4 + 0] = vec3(-dx.x * aspect, -1.0f, m_params.m_depth);
+    dxVals[i * 4 + 1] = vec3(dx.x * aspect, -1.0f, m_params.m_depth);
+    centers[i * 4] = centers[i * 4 + 1] = vec4(v2, v3);
 
-    widthType[(i * 4) + 0] = widthType[(i * 4) + 2] = WidthType(halfWidth, 0, joinType, insetHalfWidth);
-    widthType[(i * 4) + 1] = widthType[(i * 4) + 3] = WidthType(-halfWidth, 0, joinType, insetHalfWidth);
+    widthType[(i * 4) + 0] = widthType[(i * 4) + 2] = vec4(halfWidth, 0, joinType, insetHalfWidth);
+    widthType[(i * 4) + 1] = widthType[(i * 4) + 3] = vec4(-halfWidth, 0, joinType, insetHalfWidth);
   }
 
   //last points
@@ -191,46 +141,41 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
   float const aspect = (v1-v2).Length() / (v2-v3).Length();
 
-  vertex[(size - 2) * 4 + 2] = Vertex(v2, leftBisector);
-  vertex[(size - 2) * 4 + 3] = Vertex(v2, rightBisector);
-  dxVals[(size - 2) * 4 + 2] = Offset(-dx.x * aspect, 1.0f, m_params.m_depth);
-  dxVals[(size - 2) * 4 + 3] = Offset(dx.x * aspect, 1.0f, m_params.m_depth);
-  widthType[(size - 2) * 4] = widthType[(size - 2) * 4 + 2] = WidthType(halfWidth, 0, joinType, insetHalfWidth);
-  widthType[(size - 2) * 4 + 1] = widthType[(size - 2) * 4 + 3] = WidthType(-halfWidth, 0, joinType, insetHalfWidth);
-  centers[(size - 2) * 4 + 2] = centers[(size - 2) * 4 + 3] = SphereCenters(v1, v2);
+  vertex[(size - 2) * 4 + 2] = vec4(v2, leftBisector);
+  vertex[(size - 2) * 4 + 3] = vec4(v2, rightBisector);
+  dxVals[(size - 2) * 4 + 2] = vec3(-dx.x * aspect, 1.0f, m_params.m_depth);
+  dxVals[(size - 2) * 4 + 3] = vec3(dx.x * aspect, 1.0f, m_params.m_depth);
+  widthType[(size - 2) * 4] = widthType[(size - 2) * 4 + 2] = vec4(halfWidth, 0, joinType, insetHalfWidth);
+  widthType[(size - 2) * 4 + 1] = widthType[(size - 2) * 4 + 3] = vec4(-halfWidth, 0, joinType, insetHalfWidth);
+  centers[(size - 2) * 4 + 2] = centers[(size - 2) * 4 + 3] = vec4(v1, v2);
 
   if (m_params.m_cap != dp::ButtCap)
   {
     float const type = m_params.m_cap == dp::RoundCap ? -1 : 1;
     uint32_t const baseIdx = 4 * (size - 2);
-    widthType[0] = WidthType(halfWidth, type, -1, insetHalfWidth);
-    widthType[1] = WidthType(-halfWidth, type, -1, insetHalfWidth);
-    widthType[2] = WidthType(halfWidth, type, -1, insetHalfWidth);
-    widthType[3] = WidthType(-halfWidth, type, -1, insetHalfWidth);
+    widthType[0] = vec4(halfWidth, type, -1, insetHalfWidth);
+    widthType[1] = vec4(-halfWidth, type, -1, insetHalfWidth);
+    widthType[2] = vec4(halfWidth, type, -1, insetHalfWidth);
+    widthType[3] = vec4(-halfWidth, type, -1, insetHalfWidth);
 
-    widthType[baseIdx] = WidthType(halfWidth, type, 1, insetHalfWidth);
-    widthType[baseIdx + 1] = WidthType(-halfWidth, type, 1, insetHalfWidth);
-    widthType[baseIdx + 2] = WidthType(halfWidth, type, 1, insetHalfWidth);
-    widthType[baseIdx + 3] = WidthType(-halfWidth, type, 1, insetHalfWidth);
+    widthType[baseIdx] = vec4(halfWidth, type, 1, insetHalfWidth);
+    widthType[baseIdx + 1] = vec4(-halfWidth, type, 1, insetHalfWidth);
+    widthType[baseIdx + 2] = vec4(halfWidth, type, 1, insetHalfWidth);
+    widthType[baseIdx + 3] = vec4(-halfWidth, type, 1, insetHalfWidth);
 
-    vertex[0].m_position = vertex[2].m_position;
-    vertex[1].m_position = vertex[3].m_position;
-    vertex[baseIdx + 2].m_position = vertex[baseIdx].m_position;
-    vertex[baseIdx + 3].m_position = vertex[baseIdx + 1].m_position;
+    vertex[0].x = vertex[2].x;
+    vertex[0].y = vertex[2].y;
+    vertex[1].x = vertex[3].x;
+    vertex[1].y = vertex[3].y;
+    vertex[baseIdx + 2].x = vertex[baseIdx].x;
+    vertex[baseIdx + 2].y = vertex[baseIdx].y;
+    vertex[baseIdx + 3].x = vertex[baseIdx + 1].x;
+    vertex[baseIdx + 3].y = vertex[baseIdx + 1].y;
   }
 
-  float clr1[4];
-  Convert(m_params.m_color, clr1[0], clr1[1], clr1[2], clr1[3]);
-  /// TODO this color now not using. We need merge line styles to draw line outline and line by ont pass
-  float const clr2[4] = {0.5f, 0.5f, 0.5f, 1.0f};
-
-  vector<float> baseColor(numVert * 4);
-  vector<float> outlineColor(numVert * 4);
-  for(int i = 0; i < size-1 ; i++)
-  {
-    SetColor(baseColor, clr1, i);
-    SetColor(outlineColor, clr2, i);
-  }
+  vector<vec4> baseColor(numVert, vec4(m_params.m_color));
+  vector<vec4> outlineColor(numVert, vec4(0.5f, 0.5f, 0.5f, 1.0f)); /// TODO this color now not using.
+  ///We need merge line styles to draw line outline and line by ont pass
 
   dp::GLState state(gpu::SOLID_LINE_PROGRAM, dp::GLState::GeometryLayer);
   dp::AttributeProvider provider(6, 4 * (size - 1));
