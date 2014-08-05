@@ -28,7 +28,9 @@ class GLState
 public:
   enum DepthLayer
   {
+    /// Do not change order
     GeometryLayer,
+    DynamicGeometry,
     OverlayLayer
   };
 

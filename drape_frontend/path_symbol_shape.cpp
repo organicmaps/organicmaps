@@ -24,7 +24,10 @@ public:
     : OverlayHandle(FeatureID(), dp::Center, 0.0f),
       m_params(params), m_path(spl), m_scaleFactor(1.0f),
       m_positions(maxCount * 6), m_maxCount(maxCount),
-      m_symbolHalfWidth(hw), m_symbolHalfHeight(hh) {}
+      m_symbolHalfWidth(hw), m_symbolHalfHeight(hh)
+  {
+    SetIsVisible(true);
+  }
 
   virtual void Update(ScreenBase const & screen)
   {
@@ -103,10 +106,6 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
   dp::TextureSetHolder::SymbolRegion region;
   textures->GetSymbolRegion(m_params.m_symbolName, region);
 
-  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetTextureSet(region.GetTextureNode().m_textureSet);
-  state.SetBlending(dp::Blending(true));
-
   m2::RectF const & rect = region.GetTexRect();
   float textureNum = (float)region.GetTextureNode().m_textureOffset;
   m2::PointU pixelSize;
@@ -127,6 +126,10 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
     *tc = vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth);
     tc++;
   }
+
+  dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::DynamicGeometry);
+  state.SetTextureSet(region.GetTextureNode().m_textureSet);
+  state.SetBlending(dp::Blending(true));
 
   dp::AttributeProvider provider(3, vertCnt);
   {
