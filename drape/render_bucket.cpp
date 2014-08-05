@@ -32,6 +32,13 @@ void RenderBucket::AddOverlayHandle(TransferPointer<OverlayHandle> handle)
   m_overlay.push_back(MasterPointer<OverlayHandle>(handle));
 }
 
+void RenderBucket::Update(ScreenBase const & modelView)
+{
+  for_each(m_overlay.begin(), m_overlay.end(), bind(&OverlayHandle::Update,
+                                                    bind(&dp::NonConstGetter<OverlayHandle>, _1),
+                                                    modelView));
+}
+
 void RenderBucket::CollectOverlayHandles(RefPointer<OverlayTree> tree)
 {
   for_each(m_overlay.begin(), m_overlay.end(), bind(&OverlayTree::Add, tree.GetRaw(),

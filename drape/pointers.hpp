@@ -264,6 +264,12 @@ TransferPointer<T> MovePointer(T * p)
   return MasterPointer<T>(p).Move();
 }
 
+template <typename T>
+T * NonConstGetter(dp::MasterPointer<T> & p)
+{
+  return p.GetRaw();
+}
+
 struct MasterPointerDeleter
 {
   template <typename Y, typename T>

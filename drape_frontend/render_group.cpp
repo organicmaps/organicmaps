@@ -1,21 +1,12 @@
 #include "render_group.hpp"
 
 #include "../base/stl_add.hpp"
+#include "../geometry/screenbase.hpp"
 
 #include "../std/bind.hpp"
 
 namespace df
 {
-
-namespace
-{
-
-dp::RenderBucket * NonConstGetter(dp::MasterPointer<dp::RenderBucket> & p)
-{
-  return p.GetRaw();
-}
-
-} /// namespace
 
 RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
   : m_state(state)
@@ -29,10 +20,17 @@ RenderGroup::~RenderGroup()
   DeleteRange(m_renderBuckets, dp::MasterPointerDeleter());
 }
 
+void RenderGroup::Update(ScreenBase const & modelView)
+{
+  for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::Update,
+                                                                bind(&dp::NonConstGetter<dp::RenderBucket>, _1),
+                                                                modelView));
+}
+
 void RenderGroup::CollectOverlay(dp::RefPointer<dp::OverlayTree> tree)
 {
   for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::CollectOverlayHandles,
-                                                                bind(&NonConstGetter, _1),
+                                                                bind(&dp::NonConstGetter<dp::RenderBucket>, _1),
                                                                 tree));
 }
 
@@ -40,7 +38,7 @@ void RenderGroup::Render()
 {
   ASSERT(m_pendingOnDelete == false, ());
   for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::Render,
-                                                                bind(&NonConstGetter, _1)));
+                                                                bind(&dp::NonConstGetter<dp::RenderBucket>, _1)));
 }
 
 void RenderGroup::PrepareForAdd(size_t countForAdd)

@@ -9,6 +9,7 @@
 #include "../std/vector.hpp"
 #include "../std/set.hpp"
 
+class ScreenBase;
 namespace dp { class OverlayTree; }
 
 namespace df
@@ -20,6 +21,7 @@ public:
   RenderGroup(dp::GLState const & state, TileKey const & tileKey);
   ~RenderGroup();
 
+  void Update(ScreenBase const & modelView);
   void CollectOverlay(dp::RefPointer<dp::OverlayTree> tree);
   void Render();
 

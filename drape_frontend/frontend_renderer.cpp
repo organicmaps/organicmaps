@@ -168,18 +168,28 @@ void FrontendRenderer::RenderScene()
   size_t eraseCount = 0;
   for (size_t i = 0; i < m_renderGroups.size(); ++i)
   {
-    if (m_renderGroups[i]->IsEmpty())
+    RenderGroup * group = m_renderGroups[i];
+    if (group->IsEmpty())
       continue;
 
-    if (m_renderGroups[i]->IsPendingOnDelete())
+    if (group->IsPendingOnDelete())
     {
-      delete m_renderGroups[i];
+      delete group;
       ++eraseCount;
       continue;
     }
 
-    if (m_renderGroups[i]->GetState().GetDepthLayer() == dp::GLState::OverlayLayer)
-      m_renderGroups[i]->CollectOverlay(dp::MakeStackRefPointer(&m_overlayTree));
+    switch (group->GetState().GetDepthLayer())
+    {
+    case dp::GLState::OverlayLayer:
+      group->CollectOverlay(dp::MakeStackRefPointer(&m_overlayTree));
+      break;
+    case dp::GLState::DynamicGeometry:
+      group->Update(m_view);
+      break;
+    default:
+      break;
+    }
   }
   m_overlayTree.EndOverlayPlacing();
   m_renderGroups.resize(m_renderGroups.size() - eraseCount);
@@ -194,10 +204,17 @@ void FrontendRenderer::RenderScene()
 
   GLFunctions::glClear();
 
+  dp::GLState::DepthLayer prevLayer = dp::GLState::GeometryLayer;
   for (size_t i = 0; i < m_renderGroups.size(); ++i)
   {
     RenderGroup * group = m_renderGroups[i];
     dp::GLState const & state = group->GetState();
+    dp::GLState::DepthLayer layer = state.GetDepthLayer();
+    if (prevLayer != layer && layer == dp::GLState::OverlayLayer)
+      GLFunctions::glClearDepth();
+
+    ASSERT_LESS_OR_EQUAL(prevLayer, layer, ());
+
     dp::RefPointer<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
     program->Bind();
     ApplyUniforms(m_generalUniforms, program);

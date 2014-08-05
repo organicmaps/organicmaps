@@ -2,6 +2,7 @@
 
 #include "pointers.hpp"
 
+class ScreenBase;
 
 namespace dp
 {
@@ -20,6 +21,7 @@ public:
 
   void AddOverlayHandle(TransferPointer<OverlayHandle> handle);
 
+  void Update(ScreenBase const & modelView);
   void CollectOverlayHandles(RefPointer<OverlayTree> tree);
   void Render();
 
