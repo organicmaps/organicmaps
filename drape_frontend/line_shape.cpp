@@ -17,11 +17,6 @@ using m2::PointF;
 namespace df
 {
 
-namespace
-{
-  static uint32_t const ListStride = 24;
-}
-
 /// Split angle v1-v2-v3 by bisector.
 void Bisector(float R, PointF const & v1, PointF const & v2, PointF const & v3,
               PointF & leftBisector, PointF & rightBisector, PointF & dx)
@@ -58,27 +53,12 @@ void Bisector(float R, PointF const & v1, PointF const & v2, PointF const & v3,
   rightBisector += v2;
 }
 
-template <typename T>
-void QuadStripToList(vector<T> & dst, vector<T> & src, int32_t index)
-{
-  static const int32_t dstStride = 6;
-  static const int32_t srcStride = 4;
-  const int32_t baseDstIndex = index * dstStride;
-  const int32_t baseSrcIndex = index * srcStride;
-
-  dst[baseDstIndex] = src[baseSrcIndex];
-  dst[baseDstIndex + 1] = src[baseSrcIndex + 1];
-  dst[baseDstIndex + 2] = src[baseSrcIndex + 2];
-  dst[baseDstIndex + 3] = src[baseSrcIndex + 1];
-  dst[baseDstIndex + 4] = src[baseSrcIndex + 3];
-  dst[baseDstIndex + 5] = src[baseSrcIndex + 2];
-}
-
 void SetColor(vector<float> &dst, float const * ar, int index)
 {
   uint32_t const colorArraySize = 4;
+  uint32_t const ListStride = 16;
   uint32_t const baseListIndex = ListStride * index;
-  for (uint32_t i = 0; i < 6; ++i)
+  for (uint32_t i = 0; i < 4; ++i)
     memcpy(&dst[baseListIndex + colorArraySize * i], ar, colorArraySize * sizeof(float));
 }
 
@@ -244,20 +224,10 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   /// TODO this color now not using. We need merge line styles to draw line outline and line by ont pass
   float const clr2[4] = {0.5f, 0.5f, 0.5f, 1.0f};
 
-  /// TODO add additional functionality in batcher for better perfomance
-  int32_t const listVertexCount = (numVert >> 1) * 3;
-  vector<Vertex> vertex2(listVertexCount);
-  vector<Offset> dxVals2(listVertexCount);
-  vector<SphereCenters> centers2(listVertexCount);
-  vector<WidthType> widthType2(listVertexCount);
-  vector<float> baseColor(numVert * 6);
-  vector<float> outlineColor(numVert * 6);
+  vector<float> baseColor(numVert * 4);
+  vector<float> outlineColor(numVert * 4);
   for(int i = 0; i < size-1 ; i++)
   {
-    QuadStripToList(vertex2, vertex, i);
-    QuadStripToList(dxVals2, dxVals, i);
-    QuadStripToList(centers2, centers, i);
-    QuadStripToList(widthType2, widthType, i);
     SetColor(baseColor, clr1, i);
     SetColor(outlineColor, clr2, i);
   }
@@ -333,7 +303,6 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     provider.InitStream(5, clr2, dp::MakeStackRefPointer((void*)&outlineColor[0]));
   }
 
-  //batcher->InsertTriangleList(state, dp::MakeStackRefPointer(&provider));
   batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);
 }
 

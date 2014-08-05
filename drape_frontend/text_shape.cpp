@@ -29,32 +29,16 @@ using glsl_types::vec4;
 
 namespace
 {
-  static uint32_t const ListStride = 24;
   static float const realFontSize = 20.0f;
   static float const fontOffset = 1.3f;
 
   void SetColor(vector<float> &dst, float const * ar, int index)
   {
     uint32_t const colorArraySize = 4;
+    uint32_t const ListStride = 16;
     uint32_t const baseListIndex = ListStride * index;
-    for (uint32_t i = 0; i < 6; ++i)
+    for (uint32_t i = 0; i < 4; ++i)
       memcpy(&dst[baseListIndex + colorArraySize * i], ar, colorArraySize * sizeof(float));
-  }
-
-  template <typename T>
-  void QuadStripToList(vector<T> & dst, vector<T> & src, int32_t index)
-  {
-    static const int32_t dstStride = 6;
-    static const int32_t srcStride = 4;
-    const int32_t baseDstIndex = index * dstStride;
-    const int32_t baseSrcIndex = index * srcStride;
-
-    dst[baseDstIndex] = src[baseSrcIndex];
-    dst[baseDstIndex + 1] = src[baseSrcIndex + 1];
-    dst[baseDstIndex + 2] = src[baseSrcIndex + 2];
-    dst[baseDstIndex + 3] = src[baseSrcIndex + 1];
-    dst[baseDstIndex + 4] = src[baseSrcIndex + 3];
-    dst[baseDstIndex + 5] = src[baseSrcIndex + 2];
   }
 
   PointF GetShift(dp::Anchor anchor, float width, float height)
@@ -193,10 +177,8 @@ void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int le
     stride += advance;
   }
 
-  vector<vec4> vertex2(numVert * 3 / 2);
-  vector<vec4> texture2(numVert * 3 / 2);
-  vector<float> color(numVert * 6);
-  vector<float> color2(numVert * 6);
+  vector<float> color(numVert * 4);
+  vector<float> color2(numVert * 4);
 
   float clr1[4], clr2[4];
   dp::Convert(base, clr1[0], clr1[1], clr1[2], clr1[3]);
@@ -204,8 +186,6 @@ void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int le
 
   for(int i = 0; i < letterCount ; i++)
   {
-    QuadStripToList(vertex2, vertex, i);
-    QuadStripToList(texture2, texture, i);
     SetColor(color, clr1, i);
     SetColor(color2, clr2, i);
   }
@@ -258,7 +238,6 @@ void TextShape::DrawUnicalTextLine(TextLine const & textLine, int setNum, int le
 
   PointF const dim = PointF(textLine.m_length, fontOffset * textLine.m_font.m_size);
   dp::OverlayHandle * handle = new TextHandle(m_params.m_featureID, m_basePoint, dim, anchorDelta, m_params.m_depth);
-  //batcher->InsertTriangleList(state, MakeStackRefPointer(&provider), MovePointer(handle));
   batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), MovePointer(handle), 4);
 }
 
