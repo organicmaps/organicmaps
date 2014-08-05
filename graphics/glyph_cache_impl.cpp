@@ -518,9 +518,9 @@ namespace graphics
 
     FTC_ScalerRec fontScaler =
     {
-      reinterpret_cast<FTC_FaceID>(charIDX.first),
-      key.m_fontSize,
-      key.m_fontSize,
+      static_cast<FTC_FaceID>(charIDX.first),
+      static_cast<FT_UInt>(key.m_fontSize),
+      static_cast<FT_UInt>(key.m_fontSize),
       1,
       0,
       0
@@ -555,10 +555,12 @@ namespace graphics
 
     GlyphMetrics m =
     {
-      glyph->advance.x >> 16,
-      glyph->advance.y >> 16,
-      cbox.xMin, cbox.yMin,
-      cbox.xMax - cbox.xMin, cbox.yMax - cbox.yMin
+      static_cast<int>(glyph->advance.x >> 16),
+      static_cast<int>(glyph->advance.y >> 16),
+      static_cast<int>(cbox.xMin),
+      static_cast<int>(cbox.yMin),
+      static_cast<int>(cbox.xMax - cbox.xMin),
+      static_cast<int>(cbox.yMax - cbox.yMin)
     };
 
     return m;
@@ -570,9 +572,9 @@ namespace graphics
 
     FTC_ScalerRec fontScaler =
     {
-      reinterpret_cast<FTC_FaceID>(charIDX.first),
-      key.m_fontSize,
-      key.m_fontSize,
+      static_cast<FTC_FaceID>(charIDX.first),
+      static_cast<FT_UInt>(key.m_fontSize),
+      static_cast<FT_UInt>(key.m_fontSize),
       1,
       0,
       0

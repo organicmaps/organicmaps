@@ -11,6 +11,7 @@
 #include "../std/iterator.hpp"
 #include "../std/bind.hpp"
 #include "../std/numeric.hpp"
+#include "../std/utility.hpp"
 
 namespace graphics
 {
@@ -71,16 +72,16 @@ namespace graphics
 
   pair<uint8_t, uint32_t> PipelinesManager::unpackID(uint32_t id) const
   {
-    uint8_t pipelineID = (id & 0xFF000000) >> 24;
-    uint32_t h = (id & 0x00FFFFFF);
-    return make_pair<uint8_t, uint32_t>(pipelineID, h);
+    uint8_t const pipelineID = (id & 0xFF000000) >> 24;
+    uint32_t const h = (id & 0x00FFFFFF);
+    return make_pair(pipelineID, h);
   }
 
   uint32_t PipelinesManager::packID(uint8_t pipelineID, uint32_t handle) const
   {
-    uint32_t pipelineIDMask = (uint32_t)pipelineID << 24;
-    uint32_t h = (handle & 0x00FFFFFF);
-    return (uint32_t)(pipelineIDMask | h);
+    uint32_t const pipelineIDMask = (uint32_t)pipelineID << 24;
+    uint32_t const h = (handle & 0x00FFFFFF);
+    return static_cast<uint32_t>(pipelineIDMask | h);
   }
 
   Resource const * PipelinesManager::fromID(uint32_t id)

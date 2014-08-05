@@ -173,7 +173,7 @@ namespace gui
   {
     m_GlyphCache = 0;
     m_Density = graphics::EDensityLDPI;
-    m_InvalidateFn.clear();
+    m_InvalidateFn = TInvalidateFn();
     m_CacheScreen = 0;
 
     PurgeElements();

@@ -86,7 +86,7 @@ namespace update
 
     // remove some files from list
     char const * filesToRemove[] = {
-            "minsk-pass"DATA_FILE_EXTENSION,
+            "minsk-pass" DATA_FILE_EXTENSION,
             WORLD_FILE_NAME DATA_FILE_EXTENSION,
             WORLD_COASTS_FILE_NAME DATA_FILE_EXTENSION
     };

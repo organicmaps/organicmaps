@@ -10,7 +10,7 @@
 namespace df
 {
 
-PoiSymbolShape::PoiSymbolShape(m2::PointD const & mercatorPt, PoiSymbolViewParams const & params)
+PoiSymbolShape::PoiSymbolShape(m2::PointF const & mercatorPt, PoiSymbolViewParams const & params)
   : m_pt(mercatorPt)
   , m_params(params)
 {
@@ -31,7 +31,7 @@ void PoiSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp
   m2::PointF const halfSize(pixelSize.x / 2.0, pixelSize.y / 2.0);
   m2::RectF const & texRect = region.GetTexRect();
   float const depth = m_params.m_depth;
-  float const texture = (float)region.GetTextureNode().m_textureOffset;
+  float const texture = static_cast<float>(region.GetTextureNode().m_textureOffset);
 
   float positions[] = {
     m_pt.x, m_pt.y,

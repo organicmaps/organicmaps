@@ -95,9 +95,11 @@ void FilesContainerW::Open(FileWriter::Op op)
 
   case FileWriter::OP_WRITE_EXISTING:
     {
-      // read an existing service info
-      FileReader reader(m_name);
-      ReadInfo(reader);
+      {
+        // read an existing service info
+        FileReader reader(m_name);
+        ReadInfo(reader);
+      }
 
       // Important: in append mode we should sort info-vector by offsets
       sort(m_info.begin(), m_info.end(), LessOffset());

@@ -448,10 +448,10 @@ namespace
   class ZoomAnim : public anim::Task
   {
   public:
-    typedef function<void (m2::PointD const &, m2::PointD const &,
-                           m2::PointD const &, m2::PointD const &)> scale_impl_fn;
+    typedef function<bool (m2::PointD const &, m2::PointD const &,
+                           m2::PointD const &, m2::PointD const &)> TScaleImplFn;
     ZoomAnim(m2::PointD const & startPt, m2::PointD const & endPt,
-             m2::PointD const & target, scale_impl_fn const & fn, double deltaTime)
+             m2::PointD const & target, TScaleImplFn const & fn, double deltaTime)
       : m_targetPt(target)
       , m_startPt(startPt)
       , m_endPt(endPt)
@@ -495,7 +495,7 @@ namespace
     m2::PointD m_endPt;
     m2::PointD m_prevPt;
 
-    scale_impl_fn m_fn;
+    TScaleImplFn m_fn;
     double m_startTime;
     double m_deltaTime;
   };

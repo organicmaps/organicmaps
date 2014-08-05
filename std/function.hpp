@@ -5,8 +5,17 @@
 #undef new
 #endif
 
-#include <boost/function.hpp>
-using boost::function;
+#if __cplusplus > 199711L
+
+  #include <functional>
+  using std::function;
+
+#else
+
+  #include <boost/function.hpp>
+  using boost::function;
+
+#endif
 
 #ifdef DEBUG_NEW
 #define new DEBUG_NEW

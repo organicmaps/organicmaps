@@ -12,9 +12,16 @@ AreaShape::AreaShape(vector<m2::PointF> const & triangleList, AreaViewParams con
   : m_params(params)
 {
   m_vertexes.reserve(triangleList.size());
+
+#if __cplusplus > 199711L
+  void (vector<Point3D>::* fn)(Point3D &&) =
+#else
+  void (vector<Point3D>::* fn)(Point3D const &) =
+#endif
+      &vector<Point3D>::push_back;
+
   for_each(triangleList.begin(), triangleList.end(),
-           bind(&vector<Point3D>::push_back, &m_vertexes,
-                bind(&Point3D::From2D, _1, params.m_depth)));
+           bind(fn, &m_vertexes, bind(&Point3D::From2D, _1, params.m_depth)));
 }
 
 void AreaShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> /*textures*/) const

@@ -36,6 +36,7 @@ void PointerDeleter(TransferPointer<T> p)
 }
 
 #ifdef DEBUG
+#ifdef CHECK_POINTERS
 class MockAssertExpector
 {
 public:
@@ -49,7 +50,6 @@ void MyOnAssertFailed(SrcPoint const & src, string const & msg)
   g_asserter->Assert(src, msg);
 }
 
-#if defined(CHECK_POINTERS)
 MockAssertExpector * InitAsserter()
 {
   if (g_asserter != NULL)

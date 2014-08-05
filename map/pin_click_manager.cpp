@@ -53,8 +53,8 @@ void PinClickManager::Dismiss()
 
 void PinClickManager::ClearListeners()
 {
-  m_userMarkListener.clear();
-  m_dismissListener.clear();
+  m_userMarkListener = TUserMarkListener();
+  m_dismissListener = TDismissListener();
 }
 
 void PinClickManager::OnActivateUserMark(UserMarkCopy * mark)

@@ -28,7 +28,10 @@
     #define OMIM_OS_NAME "mac"
     #define OMIM_OS_DESKTOP
   #endif
-  #define OMIM_HAS_DEBUG_STL 1
+
+  #if __cplusplus <= 199711L
+    #define OMIM_HAS_DEBUG_STL 1
+  #endif
 
 #elif defined(_WIN32)
   #define OMIM_OS_WINDOWS

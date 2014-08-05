@@ -2040,7 +2040,7 @@ void FillCategories(Query::Params const & params, TrieIterator const * pTrieRoot
       break;
     }
   }
-  ASSERT_NOT_EQUAL(pCategoriesRoot, 0, ());
+  ASSERT(pCategoriesRoot != 0, ());
 
   GetFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
                     TrieRootPrefix(*pCategoriesRoot, categoriesEdge),

@@ -294,7 +294,10 @@ namespace graphics
 
     /// 3. merging them into the infoLayer starting from most
     /// important one to optimize the space usage.
-    for_each(v.begin(), v.end(), bind(&Overlay::processOverlayElement, this, _1, cref(m)));
+    // @TODO Avoid std::bind overload compile error in the better way
+    void (Overlay::*fn)(shared_ptr<OverlayElement> const &,
+                        math::Matrix<double, 3, 3> const &) = &Overlay::processOverlayElement;
+    for_each(v.begin(), v.end(), bind(fn, this, _1, cref(m)));
   }
 
   void Overlay::merge(Overlay const & infoLayer)
@@ -309,7 +312,9 @@ namespace graphics
 
     /// 3. merging them into the infoLayer starting from most
     /// important one to optimize the space usage.
-    for_each(v.begin(), v.end(), bind(&Overlay::processOverlayElement, this, _1));
+    // @TODO Avoid std::bind overload compile error in the better way
+    void (Overlay::*fn)(shared_ptr<OverlayElement> const &) = &Overlay::processOverlayElement;
+    for_each(v.begin(), v.end(), bind(fn, this, _1));
   }
 
   void Overlay::clip(m2::RectI const & r)

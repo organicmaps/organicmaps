@@ -8,14 +8,22 @@
 #ifdef _MSC_VER
   #define HASH_MAP_H <hash_map>
 #else
-  #define HASH_MAP_H <tr1/unordered_map>
+  #if __cplusplus > 199711L
+    #define HASH_MAP_H <unordered_map>
+  #else
+    #define HASH_MAP_H <tr1/unordered_map>
+  #endif
 #endif
 
 /* the namespace of hash_map/hash_set */
 #ifdef _MSC_VER
   #define HASH_NAMESPACE stdext
 #else
-  #define HASH_NAMESPACE std::tr1
+  #if __cplusplus > 199711L
+    #define HASH_NAMESPACE std
+  #else
+    #define HASH_NAMESPACE std::tr1
+  #endif
 #endif
 
 /* the name of <hash_set> */
@@ -25,7 +33,11 @@
 #ifdef _MSC_VER
   #define HASH_SET_H <hash_set>
 #else
-  #define HASH_SET_H <tr1/unordered_set>
+  #if __cplusplus > 199711L
+    #define HASH_SET_H <unordered_set>
+  #else
+    #define HASH_SET_H <tr1/unordered_set>
+  #endif
 #endif
 
 /* Define to 1 if you have the <dlfcn.h> header file. */

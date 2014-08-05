@@ -13,7 +13,14 @@ VERSION = $${VERSION_MAJOR}.$${VERSION_MINOR}
 INCLUDEPATH *= $$ROOT_DIR/3party/boost
 
 # hack for Qt5 qmake to make it faster
-CONFIG-=depend_includepath
+CONFIG -= depend_includepath
+
+#CONFIG *= c++11
+
+CONFIG(c++11) {
+  QMAKE_CFLAGS *= -Wno-deprecated-register
+  QMAKE_CXXFLAGS *= -Wno-deprecated-register
+}
 
 # Automatically enable release config for production
 CONFIG(production) {

@@ -88,7 +88,10 @@ namespace tesselator
 
   void TrianglesInfo::ListInfo::Add(uintptr_t const * arr)
   {
-    int arr32[] = { arr[0], arr[1], arr[2] };
+    ASSERT_EQUAL(arr[0], static_cast<int>(arr[0]), ());
+    ASSERT_EQUAL(arr[1], static_cast<int>(arr[1]), ());
+    ASSERT_EQUAL(arr[2], static_cast<int>(arr[2]), ());
+    int const arr32[] = { static_cast<int>(arr[0]), static_cast<int>(arr[1]), static_cast<int>(arr[2]) };
     m_triangles.push_back(Triangle(arr32));
 
     size_t const trg = m_triangles.size()-1;

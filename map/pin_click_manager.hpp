@@ -41,8 +41,10 @@ private:
   /// @name Platform dependent listeners to show special activities.
   //@{
   // You must delete UserMarkCopy obtained by this callback
-  function<void (UserMarkCopy *)> m_userMarkListener;
-  function<void (void)>           m_dismissListener;
+  typedef function<void (UserMarkCopy *)> TUserMarkListener;
+  TUserMarkListener m_userMarkListener;
+  typedef function<void (void)> TDismissListener;
+  TDismissListener m_dismissListener;
 
 public:
   template <class T> void ConnectUserMarkListener(T const & t)   { m_userMarkListener = t; }

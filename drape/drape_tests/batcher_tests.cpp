@@ -155,7 +155,11 @@ UNIT_TEST(BatchLists_Test)
     indexes[i] = i;
 
   BatcherExpectations expectations;
-  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, VERTEX_COUNT, bind(&Batcher::InsertTriangleList, _1, _2, _3));
+  // @TODO Avoid std::bind overload compile error in the better way
+  void (Batcher::*fn)(GLState const &,
+                      RefPointer<AttributeProvider>) = &Batcher::InsertTriangleList;
+  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, VERTEX_COUNT,
+                       bind(fn, _1, _2, _3));
 }
 
 UNIT_TEST(BatchListOfStript_4stride)
@@ -171,7 +175,9 @@ UNIT_TEST(BatchListOfStript_4stride)
     { 0, 1, 2, 1, 2, 3, 4, 5, 6, 5, 6, 7, 8, 9, 10, 9, 10, 11};
 
   BatcherExpectations expectations;
-  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, INDEX_COUNT, bind(&Batcher::InsertListOfStrip, _1, _2, _3, 4));
+  // @TODO Avoid std::bind overload compile error in the better way
+  void (Batcher::*fn)(GLState const &, RefPointer<AttributeProvider>, uint8_t) = &Batcher::InsertListOfStrip;
+  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, INDEX_COUNT, bind(fn, _1, _2, _3, 4));
 }
 
 UNIT_TEST(BatchListOfStript_5stride)
@@ -195,7 +201,9 @@ UNIT_TEST(BatchListOfStript_5stride)
       12, 13, 14 };
 
   BatcherExpectations expectations;
-  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, INDEX_COUNT, bind(&Batcher::InsertListOfStrip, _1, _2, _3, 5));
+  // @TODO Avoid std::bind overload compile error in the better way
+  void (Batcher::*fn)(GLState const &, RefPointer<AttributeProvider>, uint8_t) = &Batcher::InsertListOfStrip;
+  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, INDEX_COUNT, bind(fn, _1, _2, _3, 5));
 }
 
 UNIT_TEST(BatchListOfStript_6stride)
@@ -222,7 +230,9 @@ UNIT_TEST(BatchListOfStript_6stride)
       15, 16, 17};
 
   BatcherExpectations expectations;
-  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, INDEX_COUNT, bind(&Batcher::InsertListOfStrip, _1, _2, _3, 6));
+  // @TODO Avoid std::bind overload compile error in the better way
+  void (Batcher::*fn)(GLState const &, RefPointer<AttributeProvider>, uint8_t) = &Batcher::InsertListOfStrip;
+  expectations.RunTest(data, indexes, VERTEX_COUNT, 3, INDEX_COUNT, bind(fn, _1, _2, _3, 6));
 }
 
 UNIT_TEST(BatchListOfStript_partial)

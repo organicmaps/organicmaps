@@ -123,7 +123,7 @@ BaseRule const * RulesHolder::Find(Key const & k) const
 
 void RulesHolder::ClearCaches()
 {
-  ForEachRule(bind(&BaseRule::MakeEmptyID, _4));
+  ForEachRule(bind(static_cast<void (BaseRule::*)()>(&BaseRule::MakeEmptyID), _4));
 }
 
 void RulesHolder::ResizeCaches(size_t s)
