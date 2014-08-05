@@ -74,7 +74,6 @@
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowAnimationStyle">@android:style/Animation</item>
-    <item name="android:divider">@drawable/separator_medium_padded</item>
   </style>
 
   <!-- Dialog Holo.Light theme for Activity -->
@@ -97,12 +96,15 @@
     <item name="listPreferredItemPaddingRight">16dip</item>
   </style>
 
-  <style name="drawerSeparator">
+  <style name="drawerSeparatorNoPadding">
     <item name="android:layout_height">1px</item>
     <item name="android:layout_width">match_parent</item>
+    <item name="android:background">@android:color/black</item>
+  </style>
+
+  <style name="drawerSeparator" parent="drawerSeparatorNoPadding">
     <item name="android:layout_marginRight">@dimen/dp_x_2</item>
     <item name="android:layout_marginLeft">@dimen/dp_x_2</item>
-    <item name="android:background">@android:color/black</item>
   </style>
 
   <style name="drawerSeparatorMediumPadded" parent="drawerSeparator">

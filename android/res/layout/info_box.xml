@@ -17,8 +17,10 @@
         android:layout_height="wrap_content"
         android:background="@color/bg_top_panels"
         android:orientation="horizontal"
-        android:padding="@dimen/margin_small"
-        android:paddingLeft="@dimen/margin_medium">
+        android:paddingBottom="@dimen/margin_small"
+        android:paddingLeft="@dimen/margin_medium"
+        android:paddingRight="@dimen/margin_small"
+        android:paddingTop="@dimen/margin_small">
 
       <RelativeLayout
           android:layout_width="wrap_content"
@@ -53,7 +55,8 @@
             android:layout_below="@id/info_title"
             android:fontFamily="@string/robotoLight"
             android:paddingRight="5dp"
-            android:textColor="@color/text_info_box"/>
+            android:textColor="@color/text_info_box"
+            android:textSize="16sp"/>
 
         <Button
             android:id="@+id/btn_route_from"
@@ -77,9 +80,10 @@
           android:id="@+id/info_box_is_bookmarked"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_marginRight="-8dp"
           android:layout_weight="0"
           android:button="@drawable/ic_bookmarks_selector"
-          android:padding="8dp"/>
+          android:padding="@dimen/margin_small"/>
     </LinearLayout>
 
     <ImageView
@@ -99,6 +103,8 @@
       android:layout_below="@id/preview"
       android:background="@color/bg_top_panels"
       android:orientation="vertical"
+      android:paddingLeft="@dimen/margin_small"
+      android:paddingRight="@dimen/margin_small"
       android:visibility="gone">
 
     <View

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="@dimen/pp_button_height"
+              android:layout_marginBottom="@dimen/margin_small"
               android:layout_marginTop="@dimen/margin_small"
               android:gravity="top"
               android:orientation="horizontal">

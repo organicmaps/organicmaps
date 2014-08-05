@@ -3,37 +3,44 @@
     android:id="@+id/info_box_geo"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/margin_small"
+    android:paddingTop="@dimen/margin_small">
 
-  <LinearLayout
-      android:id="@+id/info_box_geo_container_dist"
+  <com.mapswithme.maps.widget.ArrowView
+      android:id="@+id/av_direction"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:gravity="top"
-      android:orientation="horizontal">
-
-    <com.mapswithme.maps.widget.ArrowView
-        android:id="@+id/av_direction"
-        android:layout_width="@dimen/margin_large"
-        android:layout_height="@dimen/margin_large"
-        android:layout_marginRight="@dimen/margin_small"/>
-
-    <TextView
-        android:id="@+id/info_box_geo_distance"
-        style="@style/Holo.TextAppearance.Medium.Light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:fontFamily="@string/robotoRegular"
-        android:textColor="@color/text_info_box"/>
-  </LinearLayout>
+      android:layout_marginRight="@dimen/margin_small"/>
 
   <TextView
-      android:id="@+id/info_box_geo_location"
+      android:id="@+id/info_box_geo_distance"
       style="@style/Holo.TextAppearance.Medium.Light"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@id/info_box_geo_container_dist"
+      android:layout_gravity="center_vertical"
+      android:layout_toRightOf="@id/av_direction"
+      android:fontFamily="@string/robotoRegular"
+      android:textColor="@color/text_info_box"/>
+
+  <TextView
+      android:id="@+id/info_box_lat"
+      style="@style/Holo.TextAppearance.Medium.Light"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/info_box_geo_distance"
+      android:layout_toRightOf="@id/av_direction"
+      android:fontFamily="@string/robotoRegular"
+      android:textColor="@color/text_info_box"/>
+
+  <TextView
+      android:id="@+id/info_box_lon"
+      style="@style/Holo.TextAppearance.Medium.Light"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/info_box_lat"
+      android:layout_marginTop="-4dp"
+      android:layout_toRightOf="@id/av_direction"
       android:fontFamily="@string/robotoRegular"
       android:textColor="@color/text_info_box"/>
 
@@ -43,8 +50,6 @@
       android:layout_height="match_parent"
       android:layout_alignParentRight="true"
       android:layout_alignParentTop="true"
-      android:layout_below="@id/info_box_geo_container_dist"
-      android:layout_marginRight="@dimen/margin_small"
       android:background="@android:color/transparent"/>
 
 </RelativeLayout>

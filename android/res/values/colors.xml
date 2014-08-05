@@ -45,9 +45,10 @@
   <color name="green">#0F0</color>
   <color name="blue">#00F</color>
 
-  <color name="bg_menu">#e6414451</color>
-  <color name="bg_bottom_toolbar">#414651</color>
+  <color name="bg_menu">#e61D1F29</color>
+  <color name="bg_bottom_toolbar">#1D1F29</color>
   <color name="bg_bottom_toolbar_pressed">#15d081</color>
+  <color name="divider_standart">#4A4B53</color>
 
   <!-- search -->
   <color name="bg_searchbox">#15c783</color>
@@ -55,11 +56,13 @@
   <color name="text_search_item_greyed">@android:color/darker_gray</color>
   <color name="bg_search_green">#1F9F7E</color>
   <color name="bg_search_green_pressed">#68BEA8</color>
+  <color name="divider_search">#4A4B53</color>
 
   <!-- place page -->
   <color name="text_info_box">@android:color/black</color>
+  <color name="text_info_box_subtitle">#4C4C4C</color>
   <color name="text_info_box_share">#179E4D</color>
-  <color name="bg_top_panels">#f2ffffff</color>
+  <color name="bg_top_panels">#ffffffff</color>
   <color name="bg_azimut_arrow">#1D414651</color>
   <color name="fg_azimut_arrow">@android:color/white</color>
 

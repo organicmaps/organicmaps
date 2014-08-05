@@ -47,7 +47,7 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:background="@null"
-        android:fontFamily="@string/robotoRegular"
+        android:fontFamily="@string/robotoLight"
         android:imeOptions="actionDone|flagNoExtractUi"
         android:inputType="text"
         android:padding="@dimen/margin_tiny"
