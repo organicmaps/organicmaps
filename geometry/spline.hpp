@@ -32,6 +32,7 @@ public:
   Spline() : m_lengthAll(0.0f) {}
   Spline(vector<PointF> const & path) { FromArray(path); }
   void FromArray(vector<PointF> const & path);
+  void AddPoint(PointF const & pt);
   Spline const & operator = (Spline const & spl);
   float GetLength() const { return m_lengthAll; }
 

@@ -5,8 +5,12 @@ namespace m2
 
 void Spline::FromArray(vector<PointF> const & path)
 {
-  m_position.assign(path.begin(), path.end() - 1);
-  int cnt = m_position.size();
+  if (path.empty())
+    return;
+  m_position.assign(path.begin(), path.end());
+  int cnt = m_position.size() - 1;
+  if (cnt == 0)
+    return;
   m_direction = vector<PointF>(cnt);
   m_length = vector<float>(cnt);
 
@@ -16,6 +20,20 @@ void Spline::FromArray(vector<PointF> const & path)
     m_length[i] = m_direction[i].Length();
     m_direction[i] = m_direction[i].Normalize();
     m_lengthAll += m_length[i];
+  }
+}
+
+void Spline::AddPoint(PointF const & pt)
+{
+  if(m_position.empty())
+    m_position.push_back(pt);
+  else
+  {
+    PointF dir = pt - m_position.back();
+    m_position.push_back(pt);
+    m_direction.push_back(dir.Normalize());
+    m_length.push_back(dir.Length());
+    m_lengthAll += m_length.back();
   }
 }
 
@@ -55,7 +73,7 @@ void Spline::iterator::Step(float speed)
   {
     m_dist -= m_spl->m_length[m_index];
     m_index++;
-    if(m_index >= m_spl->m_position.size())
+    if(m_index >= m_spl->m_direction.size())
     {
       m_index = 0;
       m_checker = true;
