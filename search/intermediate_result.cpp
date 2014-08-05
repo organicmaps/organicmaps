@@ -365,8 +365,6 @@ string PreResult2::ReadableFeatureType(CategoriesHolder const * pCat,
                                   set<uint32_t> const * pTypes,
                                   int8_t locale) const
 {
-  ASSERT_EQUAL(m_resultType, RESULT_FEATURE, ());
-
   // @TODO print all types, not just one
   uint32_t const type = GetBestType(pTypes);
   ASSERT_NOT_EQUAL(type, 0, ());
