@@ -303,7 +303,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     self.titleLabel.minY = 24;
     self.typeLabel.textAlignment = NSTextAlignmentLeft;
-    self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY + 2);
+    self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY + 1);
     self.bookmarkButton.midY = 39;
   }
 }
@@ -326,7 +326,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if ([self iPhoneInLandscape] && !IPAD)
     return MAX(titleHeight, typesHeight) + 34;
   else
-    return titleHeight + typesHeight + 39;
+    return titleHeight + typesHeight + 30;
 }
 
 - (BOOL)iPhoneInLandscape
@@ -400,7 +400,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     self.tableView.alpha = 0;
     self.titleLabel.userInteractionEnabled = NO;
-    self.arrowImageView.center = CGPointMake(self.width / 2, [self headerHeight] + BOTTOM_SHADOW_OFFSET - 10);
+    self.arrowImageView.center = CGPointMake(self.width / 2, [self headerHeight] + BOTTOM_SHADOW_OFFSET - 13);
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.arrowImageView.alpha = 1;
       [self updateHeight:([self headerHeight] + BOTTOM_SHADOW_OFFSET)];
@@ -1128,7 +1128,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if (!_backgroundView)
   {
     _backgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
-    _backgroundView.image = [[UIImage imageNamed:@"PlacePageBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 20, 0)];
+    _backgroundView.image = [[UIImage imageNamed:@"PlacePageBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 18, 0)];
     _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   }
   return _backgroundView;

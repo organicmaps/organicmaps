@@ -132,8 +132,8 @@ string FormatMercator(m2::PointD const & mercator, int dac)
 
 void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int dac)
 {
-  lat = FormatLatLon(MercatorBounds::YToLat(mercator.y), dac);
-  lon = FormatLatLon(MercatorBounds::XToLon(mercator.x), dac);
+  lat = strings::to_string_dac(MercatorBounds::YToLat(mercator.y), dac);
+  lon = strings::to_string_dac(MercatorBounds::XToLon(mercator.x), dac);
 }
 
 string FormatAltitude(double altitudeInMeters)

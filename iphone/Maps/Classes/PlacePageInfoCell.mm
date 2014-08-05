@@ -119,7 +119,6 @@
     self.compassView.hidden = NO;
 
     CGFloat const width = 134;
-    self.distanceLabel.text = @"12345";
     self.distanceLabel.frame = CGRectMake(self.compassView.maxX + 15, 13, width, 20);
     self.distanceLabel.hidden = NO;
 
@@ -171,6 +170,7 @@
   (void)Settings::Get(SETTINGS_KEY_USE_DMS, useDMS);
   Settings::Set(SETTINGS_KEY_USE_DMS, !useDMS);
   [self updateCoordinates];
+  [self layoutSubviews];
 }
 
 - (void)coordinatesPress:(id)sender

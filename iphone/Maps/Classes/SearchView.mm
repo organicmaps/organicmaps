@@ -135,7 +135,7 @@ __weak SearchView * selfPointer;
 
   [self addSubview:self.tableView];
   [self addSubview:self.topBackgroundView];
-  self.topBackgroundView.height = SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 44 : 64;
+  self.topBackgroundView.height = [self defaultTopBackgroundHeight];
   [self addSubview:self.searchBar];
   [self.tableView addSubview:self.emptyResultLabel];
 
@@ -208,6 +208,7 @@ __weak SearchView * selfPointer;
     [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.searchBar.cancelButton.alpha = 1;
       self.topBackgroundView.minY = 0;
+      self.topBackgroundView.height = [self defaultTopBackgroundHeight];
       self.searchBar.minY = searchBarOffset;
       self.searchBar.alpha = 1;
       self.searchBar.fieldBackgroundView.frame = fieldBackgroundFrame;
@@ -226,9 +227,18 @@ __weak SearchView * selfPointer;
     [self.searchBar.textField resignFirstResponder];
     [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.searchBar.cancelButton.alpha = 0;
-      self.searchBar.minY = searchBarOffset;
       self.searchBar.alpha = 1;
       self.topBackgroundView.minY = 0;
+      if ([self iPhoneInLandscape])
+      {
+        self.searchBar.minY = searchBarOffset - 3;
+        self.topBackgroundView.height = [self defaultTopBackgroundHeight] - 10;
+      }
+      else
+      {
+        self.searchBar.minY = searchBarOffset;
+        self.topBackgroundView.height = [self defaultTopBackgroundHeight];
+      }
       self.tableView.alpha = 0;
       self.searchBar.fieldBackgroundView.frame = shiftedFieldBackgroundFrame;
       self.searchBar.textField.frame = shiftedTextFieldFrame;
@@ -453,7 +463,6 @@ static void onSearchResultCallback(search::Results const & results)
   {
     [self showBuyProMessage];
   }
-
 }
 
 - (BOOL)isShowingCategories
@@ -475,6 +484,16 @@ static void onSearchResultCallback(search::Results const & results)
 - (CGFloat)defaultSearchBarMinY
 {
   return SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 3 : 20;
+}
+
+- (CGFloat)defaultTopBackgroundHeight
+{
+  return SYSTEM_VERSION_IS_LESS_THAN(@"7") ? 44 : 64;
+}
+
+- (BOOL)iPhoneInLandscape
+{
+  return self.width > self.height && !IPAD;
 }
 
 - (void)showBuyProMessage
