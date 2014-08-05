@@ -402,12 +402,19 @@ string Engine::GetCountryName(string const & id)
 bool Engine::GetNameByType(uint32_t type, int8_t locale, string & name) const
 {
   uint8_t level = ftype::GetLevel(type);
-  while (level >= 2)
+  ASSERT_GREATER(level, 0, ());
+
+  while (true)
   {
     if (m_pData->m_categories.GetNameByType(type, locale, name))
       return true;
-    ftype::TruncValue(type, --level);
+
+    if (--level == 0)
+      break;
+
+    ftype::TruncValue(type, level);
   }
+
   return false;
 }
 
