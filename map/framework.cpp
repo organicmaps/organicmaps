@@ -1347,22 +1347,13 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
 
 void Framework::ShowSearchResult(search::Result const & res)
 {
-  UserMarkContainer::Type type = UserMarkContainer::SEARCH_MARK;
+  UserMarkContainer::Type const type = UserMarkContainer::SEARCH_MARK;
   m_bmManager.UserMarksSetVisible(type, true);
   m_bmManager.UserMarksClear(type);
   m_bmManager.UserMarksSetDrawable(type, false);
 
   m_lastSearch.Clear();
   m_fixedSearchResults = 0;
-
-  search::AddressInfo info;
-  info.MakeFrom(res);
-
-  m2::PointD const ptOrg = res.GetFeatureCenter();
-  SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, ptOrg));
-  mark->SetInfo(info);
-
-  m_balloonManager.OnShowMark(mark);
 
   int scale;
   m2::PointD center;
@@ -1396,6 +1387,14 @@ void Framework::ShowSearchResult(search::Result const & res)
 
   ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, center));
   StopLocationFollow();
+
+  search::AddressInfo info;
+  info.MakeFrom(res);
+
+  SearchMarkPoint * mark = static_cast<SearchMarkPoint *>(m_bmManager.UserMarksAddMark(type, center));
+  mark->SetInfo(info);
+
+  m_balloonManager.OnShowMark(mark);
 }
 
 size_t Framework::ShowAllSearchResults()
