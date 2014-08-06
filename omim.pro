@@ -22,6 +22,7 @@ SUBDIRS = 3party \
           stats \
           indexer \
           platform \
+          3party/osrm/osrm-tests \   # it depends on base library, should be after it
           routing routing/routing_tests \
           geometry/geometry_tests \
           platform/platform_tests \

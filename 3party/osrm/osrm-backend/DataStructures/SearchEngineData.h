@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef SEARCH_ENGINE_DATA_H
 #define SEARCH_ENGINE_DATA_H
 
-#include <boost/thread/tss.hpp>
+#include <boost/scoped_ptr.hpp>
 
 #include "../typedefs.h"
 #include "BinaryHeap.h"
@@ -42,7 +42,7 @@ struct HeapData
 struct SearchEngineData
 {
     typedef BinaryHeap<NodeID, NodeID, int, HeapData, UnorderedMapStorage<NodeID, int>> QueryHeap;
-    typedef boost::thread_specific_ptr<QueryHeap> SearchEngineHeapPtr;
+    typedef boost::scoped_ptr<QueryHeap> SearchEngineHeapPtr;
 
     static SearchEngineHeapPtr forwardHeap;
     static SearchEngineHeapPtr backwardHeap;

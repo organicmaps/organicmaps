@@ -2,7 +2,7 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS = freetype fribidi zlib bzip2 jansson tomcrypt protobuf
+SUBDIRS = freetype fribidi zlib bzip2 jansson tomcrypt protobuf osrm
 
 # use expat from the system on linux
 !linux*: SUBDIRS *= expat
