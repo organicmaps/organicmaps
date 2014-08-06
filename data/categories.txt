@@ -655,7 +655,7 @@ hu:4múzeum|látnivaló|túrizmus|látványosság
 th:4พิพิธภัณฑ์|แหล่งท่องเที่ยว|การท่องเที่ยว|สถานที่ท่องเที่ยว
 zh-Hans:博物馆|景点
 ar:متحف|أماكن الجذب|سياحة|مناظر
-da:museum|attraktioner|turisme|seværdigheder
+da:4museum|attraktioner|turisme|seværdigheder
 
 waterway-waterfall|natural-waterfall
 en:2waterfall|sights
@@ -888,48 +888,6 @@ th:3โรงภาพยนตร์|แหล่งบันเทิง
 zh-Hans:1电影院|娱乐
 ar:سينيما|التسلية
 da:3biograf
-
-amenity-theatre
-en:3theatre|theater|entertainment
-ru:3театр|развлечения
-uk:3театр|розваги
-de:3Theater|Unterhaltung
-fr:3théâtre|divertissement
-it:3teatro|divertimento
-es:3teatro|entretenimiento
-ko:1연극|엔터테인먼트
-ja:1劇場|エンターテイメント|シアター
-cs:3divadlo|zábava
-nl:3theater|uitgaan
-zh-Hant:1劇場|戲院|劇院|娛樂
-pl:3teatr|rozrywka
-pt:3teatro|entretenimento
-hu:3színház|szórakozás
-th:3โรงละคร|แหล่งบันเทิง
-zh-Hans:1剧院|娱乐
-ar:مسرح|التسلية
-da:3teater
-
-amenity-nightclub
-en:3nightclub|3disco|dance|entertainment
-ru:3ночной клуб|3дискотека|развлечения
-uk:3нічний клуб|3дискотека|розваги
-de:3Nachtclub|Nachtklub|Unterhaltung
-fr:3discothèque|3boîte de nuit|divertissement
-it:3night club|divertimento
-es:3discoteca|nightclub|entretenimiento
-ko:1나이트 클럽|엔터테인먼트
-ja:1ナイトクラブ|クラブ|ダンス|エンターテイメント
-cs:4noční klub|3disco|3klub|zábava
-nl:3nightclub|3disco|dansen|uitgaan
-zh-Hant:1夜店|2俱樂部|酒|喝酒|跳舞|舞|2夜生活|娛樂
-pl:3dyskoteka|klub nocny|rozrywka
-pt:3discoteca|3dançar|entretenimento
-hu:3éjszakai mulató|3diszkó|tánc|szórakozás
-th:3ไนต์คลับ|การเต้นรำ|แหล่งบันเทิง
-zh-Hans:3夜总会|娱乐
-ar:نادي ليلي|رقص|التسلية
-da:3natklub|dans|danseklub
 
 amenity-theatre
 en:3theatre|theater|entertainment
@@ -2387,8 +2345,7 @@ hu:3gépkocsi szervíz|4javítóműhely|kocsi
 th:3ร้านซ่อมรถยนต์|สถานีบริการ
 zh-Hans:3汽车修理店|服务站|
 ar:محل صيانة السيارات|محطة خدمات
-da:3garage|3bilværksted|service station|3benzinstation|tankstation
-
+da:3garage|3bilværksted|service station
 
 
 tourism-camp_site
