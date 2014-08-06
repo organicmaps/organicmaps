@@ -2249,7 +2249,7 @@
     th = นี่อาจจะใช้เวลาสองสามนาที\nโปรดรอ…
     zh-Hans = 这可能需要几分钟的时间。\n请稍候…
     ar = يمكن أن تستغرق هذه العملية عدة دقائق.\nالرجاء الانتظار…
-    da = Dette kan tage flere minutter.\nVent venligst...
+    da = Dette kan tage flere minutter.\nVent venligst…
 
   [visible]
     en = Visible
@@ -3160,7 +3160,7 @@
     th = เฮ้ ตรวจสอบหมุดของฉันที่ MAPS.ME! %1$@ หรือ %2$@
     zh-Hans = 嘿,在 MAPS.ME 上查看我标注的图钉吧! %1$@ 或%2$@ 未安装离线地图?在此下 载: http://maps.me/get
     ar = هاي، تفقد الدبوس الخاص بي على MAPS.ME!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
-    da = Hey, tjek min knappenål på MAPS.ME ud! %1$@ or %2$@ Har du ikke offline kort? Download her: http://maps.me /get
+    da = Hey, tjek min knappenål på MAPS.ME ud! %1$@ or %2$@ Har du ikke offline kort? Download her: http://maps.me/get
 
   [my_position_share_sms]
     en = Hey, check out my current location at MAPS.ME! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
@@ -4383,7 +4383,7 @@
 
   [maps_licence_info]
     tags = tizen
-    comment = Show on first lunch.
+    comment = Show on first launch.
     en = This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.
     ru = Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.
     fr = Cette application utilise des données géographiques (dont des cartes, des listes d'entreprises, des points d'intérêt, des frontières de pays et de régions, etc.) tirées du projet OpenStreetMap. Nous ne garantissons en aucune manière la cohérence, l'exactitude, la complétude ou l'applicabilité des données d'OpenStreetMap.
@@ -4400,6 +4400,7 @@
     ja = 同意する
     zh-Hans = 我同意
     zh-Hant = 我同意
+
   [disagree]
     tags = tizen
     comment = Show on first launch
@@ -4431,3 +4432,4 @@
     uk = Завантажуйте карту тієї місцевості, де ви знаходитесь
     zh-Hans = 下载您所在地方的地图
     zh-Hant = 下載您所在地方的地圖
+    da = Download kortet over det sted, hvor du befinder dig
