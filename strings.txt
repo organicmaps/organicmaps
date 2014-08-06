@@ -4625,3 +4625,27 @@
     zh-Hant = 下載您所在地方的地圖
     da = Download kortet over det sted, hvor du befinder dig
     tr = Bulunduğun yerin haritasını indir
+
+  [pro_version_is_free_today]
+    tags = ios
+    comment = text of notification
+    en = MAPS.ME Pro is free today! Download now and tell your friends.
+    ar = تطبيق MAPS.ME Pro مجاني اليوم! قم بتنزيله الآن وأخبر أصدقائك.
+    cs = MAPS.ME Pro dnes zdarma! Stáhněte nyní a řekněte svým kamarádům.
+    de = MAPS.ME Pro heute gratis! Jetzt runterladen & Freunde informieren
+    es = ¡MAPS.ME Pro gratis hoy! Descárgalo ahora y dilo a tus amigos.
+    fr = MAPS.ME Pro gratuit auj. ! Téléch. maint. et parlez-en à vos amis
+    hu = A MAPS.ME Pro ma ingyenes! Töltsd le most és meséld el barátaidnak.
+    it = MAPS.ME Pro è oggi gratis! Scaricala ora e dillo ai tuoi amici!
+    ja = MAPS.ME Proが本日無料！今すぐダウンロードして友達に教えてあげましょう。
+    ko = MAPS.ME Pro 오늘 무료! 지금 다운로드하고 친구들에게 알리세요.
+    nl = MAPS.ME Pro is nu gratis! Download nu en vertel het je vrienden.
+    pl = MAPS.ME Pro jest dziś za darmo! Pobierz teraz i powiedz znajomym.
+    pt = MAPS.ME Pro é hoje grátis! Descarregue e conte aos seus amigos.
+    ru = MAPS.ME Pro сегодня бесплатно! Скачай сейчас и расскажи друзьям.
+    th = MAPS.ME Pro วันนี้ฟรี! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ
+    uk = MAPS.ME Pro сьогодні безкоштовно! Завантажуй та розкажи друзям.
+    zh-Hans = MAPS.ME Pro今日免费！立刻下载并告诉您的好友。
+    zh-Hant = MAPS.ME Pro今日免費！馬上下載并告訴您的朋友。
+    da = MAPS.ME Pro er gratis i dag!
+    tr = MAPS.ME Pro bugün ücretsiz! İndir ve arkadaşlarına haber ver.
