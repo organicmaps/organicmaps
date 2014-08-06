@@ -1,16 +1,18 @@
 #include "uri.hpp"
 #include "url_encode.hpp"
-#include "../base/logging.hpp"
-#include "../std/algorithm.hpp"
 
-using namespace url_scheme;
+#include "../base/assert.hpp"
+
+
+namespace url_scheme
+{
 
 void Uri::Init()
 {
   if (!Parse())
   {
-    m_scheme.clear();
-    m_path.clear();
+    ASSERT(m_scheme.empty() && m_path.empty() && !IsValid(), ());
+    m_queryStart = m_url.size();
   }
 }
 
@@ -23,17 +25,24 @@ bool Uri::Parse()
   m_scheme.assign(m_url, 0, pathStart);
 
   // skip slashes
-  while (++pathStart < m_url.size() && m_url[pathStart] == '/') {};
+  while (++pathStart < m_url.size() && m_url[pathStart] == '/') {}
 
-  // get path
+  // Find query starting point for (key, value) parsing.
   m_queryStart = m_url.find('?', pathStart);
-  m_path.assign(m_url, pathStart, m_queryStart - pathStart);
-
-  // url without query
+  size_t pathLength;
   if (m_queryStart == string::npos)
+  {
     m_queryStart = m_url.size();
+    pathLength = m_queryStart - pathStart;
+  }
   else
+  {
+    pathLength = m_queryStart - pathStart;
     ++m_queryStart;
+  }
+
+  // Get path (url without query).
+  m_path.assign(m_url, pathStart, pathLength);
 
   return true;
 }
@@ -41,29 +50,32 @@ bool Uri::Parse()
 void Uri::ForEachKeyValue(CallbackT const & callback) const
 {
   // parse query for keys and values
-  for (size_t start = m_queryStart; start < m_url.size(); )
+  size_t const count = m_url.size();
+  for (size_t start = m_queryStart; start < count; )
   {
-    // TODO: Unoptimal search here, since it goes until the end of the string.
-    size_t const end = min(m_url.size(), m_url.find('&', start));
+    size_t end = m_url.find('&', start);
+    if (end == string::npos)
+      end = count;
 
     // Skip empty keys.
-    if (end - start > 0)
+    if (end != start)
     {
       size_t const eq = m_url.find('=', start);
 
       string key, value;
-      if (eq < end)
+      if (eq != string::npos && eq < end)
       {
         key = UrlDecode(m_url.substr(start, eq - start));
         value = UrlDecode(m_url.substr(eq + 1, end - eq - 1));
       }
       else
-      {
         key = UrlDecode(m_url.substr(start, end - start));
-      }
+
       callback(key, value);
     }
 
     start = end + 1;
   }
+}
+
 }

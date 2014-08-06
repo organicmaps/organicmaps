@@ -24,7 +24,7 @@ public:
 
   ~TestUri()
   {
-    Uri uri(&m_uri[0], m_uri.size());
+    Uri uri(m_uri);
     TEST_EQUAL(uri.GetScheme(), m_scheme, ());
     TEST_EQUAL(uri.GetPath(), m_path, ());
     TEST(!m_scheme.empty() || !uri.IsValid(), ("Scheme is empty if and only if uri is invalid!"));
@@ -35,7 +35,7 @@ private:
 
   void AddTestValue(string const & key, string const & value)
   {
-    TEST(!m_keyValuePairs.empty(), ("Check that key/value pair is expected"));
+    TEST(!m_keyValuePairs.empty(), ("Failed for uri = ", m_uri, "Passed KV = ", key, value));
     TEST_EQUAL(m_keyValuePairs.front().first,  key, ());
     TEST_EQUAL(m_keyValuePairs.front().second, value, ());
     m_keyValuePairs.pop();
