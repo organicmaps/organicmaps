@@ -1,0 +1,3 @@
+The javascript based web client is a seperate project available at
+
+https://github.com/DennisSchiefer/Project-OSRM-Web
