@@ -68,7 +68,6 @@ namespace qt
     m_frameFn();
   }
 
-  void DummyUserMark(UserMarkCopy * ){}
   void DummyDismiss() {}
 
   DrawWidget::DrawWidget(QWidget * pParent)
@@ -85,7 +84,7 @@ namespace qt
   {
     // Initialize with some stubs for test.
     PinClickManager & manager = GetBalloonManager();
-    manager.ConnectUserMarkListener(&DummyUserMark);
+    manager.ConnectUserMarkListener(bind(&DrawWidget::OnActivateMark, this, _1));
     manager.ConnectDismissListener(&DummyDismiss);
   }
 
@@ -340,6 +339,12 @@ namespace qt
     GetBalloonManager().OnShowMark(m_framework->GetUserMark(pt, m_wasLongClick));
   }
 
+  void DrawWidget::OnActivateMark(UserMarkCopy * pCopy)
+  {
+    UserMark const * pMark = pCopy->GetUserMark();
+    m_framework->ActivateUserMark(pMark);
+  }
+
   m2::PointD DrawWidget::GetDevicePoint(QMouseEvent * e) const
   {
     return m2::PointD(L2D(e->x()), L2D(e->y()));
@@ -505,7 +510,11 @@ namespace qt
       return;
 
     if (!m_wasLongClick && m_isCleanSingleClick)
+    {
+      m_framework->GetBalloonManager().RemovePin();
+
       StartPressTask(pt, SHORT_TOUCH_MS);
+    }
     else
       m_wasLongClick = false;
 
