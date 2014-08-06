@@ -229,7 +229,7 @@ void PathTextHandle::Update(ScreenBase const & screen)
     DrawReverse(screen);
     break;
   case 0:
-    std::fill(m_positions.begin(), m_positions.end(), vec2(0.0f, 0.0f));
+    ClearPositions();
     break;
   case 1:
     DrawForward(screen);
@@ -277,6 +277,7 @@ void PathTextHandle::DrawReverse(ScreenBase const & screen)
     ASSERT_NOT_EQUAL(advance, 0.0, ());
     PointF const pos = itr.m_pos;
     itr.Step(advance);
+    ASSERT(!itr.BeginAgain(), ());
 
     PointF dir = itr.m_avrDir.Normalize();
     PointF norm(-dir.y, dir.x);
@@ -314,6 +315,7 @@ void PathTextHandle::DrawForward(ScreenBase const & screen)
     ASSERT_NOT_EQUAL(advance, 0.0, ());
     PointF const pos = itr.m_pos;
     itr.Step(advance);
+    ASSERT(!itr.BeginAgain(), ());
 
     PointF dir = itr.m_avrDir.Normalize();
     PointF norm(-dir.y, dir.x);
