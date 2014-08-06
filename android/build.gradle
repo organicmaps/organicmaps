@@ -218,7 +218,7 @@ task copyNativeLibsDebug(type:Copy, dependsOn: ndkBuildDebug, description: 'Copy
 }
 
 tasks.withType(Compile) { compileTask ->
-  if (compileTask.name.contains('Release')) {
+  if (compileTask.name.contains('Release') || compileTask.name.contains('Beta')) {
     compileTask.dependsOn copyNativeLibsRelease
   } else {
     compileTask.dependsOn copyNativeLibsDebug
