@@ -279,54 +279,69 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (void)reloadHeader
 {
   self.titleLabel.text = self.title;
-  self.titleLabel.width = [self titleWidth];
-  [self.titleLabel sizeToFit];
 
   if ([self isMyPosition])
     self.typeLabel.text = [[MapsAppDelegate theApp].m_locationManager formattedSpeedAndAltitude:m_hasSpeed];
   else
     self.typeLabel.text = self.types;
-  self.typeLabel.width = [self typesWidth];
-  [self.typeLabel sizeToFit];
 
   self.bookmarkButton.midX = self.headerView.width - 29.5;
   self.titleLabel.minX = TITLE_LABEL_LEFT_OFFSET;
-  if ([self iPhoneInLandscape] && !IPAD)
+  CGSize titleSize;
+  CGSize typesSize;
+  if ([self iPhoneInLandscape])
   {
+    [self iphoneLandscapeTitleSize:&titleSize typesSize:&typesSize];
+    self.titleLabel.size = titleSize;
     self.titleLabel.minY = 25;
     self.typeLabel.textAlignment = NSTextAlignmentRight;
-    self.typeLabel.maxY = self.titleLabel.maxY;
+    self.typeLabel.size = typesSize;
+    self.typeLabel.minY = self.titleLabel.minY + 4;
     self.typeLabel.maxX = self.width - TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET;
     self.bookmarkButton.midY = 37;
   }
   else
   {
+    [self portraitTitleSize:&titleSize typesSize:&typesSize];
+    self.titleLabel.size = titleSize;
     self.titleLabel.minY = 24;
     self.typeLabel.textAlignment = NSTextAlignmentLeft;
+    self.typeLabel.size = typesSize;
     self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY + 1);
     self.bookmarkButton.midY = 39;
   }
 }
 
-- (CGFloat)titleWidth
-{
-  return [self iPhoneInLandscape] ? self.width - 200 : self.width - 90;
-}
-
-- (CGFloat)typesWidth
-{
-  CGFloat const landscapeWidth = self.width - TITLE_LABEL_LEFT_OFFSET - [self titleWidth] - TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET - 8;
-  return [self iPhoneInLandscape] ? landscapeWidth : self.width - 90;
-}
-
 - (CGFloat)headerHeight
 {
-  CGFloat titleHeight = [self.title sizeWithDrawSize:CGSizeMake([self titleWidth], 200) font:self.titleLabel.font].height;
-  CGFloat typesHeight = [self.types sizeWithDrawSize:CGSizeMake([self typesWidth], 200) font:self.typeLabel.font].height;
-  if ([self iPhoneInLandscape] && !IPAD)
-    return MAX(titleHeight, typesHeight) + 34;
+  CGSize titleSize;
+  CGSize typesSize;
+  if ([self iPhoneInLandscape])
+  {
+    [self iphoneLandscapeTitleSize:&titleSize typesSize:&typesSize];
+    return MAX(titleSize.height, typesSize.height) + 34;
+  }
   else
-    return titleHeight + typesHeight + 30;
+  {
+    [self portraitTitleSize:&titleSize typesSize:&typesSize];
+    return titleSize.height + typesSize.height + 30;
+  }
+}
+
+- (void)portraitTitleSize:(CGSize *)titleSize typesSize:(CGSize *)typesSize
+{
+  CGFloat const maxHeight = 200;
+  CGFloat const width = self.headerView.width - 90;
+  *titleSize = [self.title sizeWithDrawSize:CGSizeMake(width, maxHeight) font:self.titleLabel.font];
+  *typesSize = [self.types sizeWithDrawSize:CGSizeMake(width, maxHeight) font:self.typeLabel.font];
+}
+
+- (void)iphoneLandscapeTitleSize:(CGSize *)titleSize typesSize:(CGSize *)typesSize
+{
+  CGFloat const maxHeight = 100;
+  CGFloat const width = self.headerView.width - TITLE_LABEL_LEFT_OFFSET - TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET;
+  *typesSize = [self.types sizeWithDrawSize:CGSizeMake(width, maxHeight) font:self.typeLabel.font];
+  *titleSize = [self.title sizeWithDrawSize:CGSizeMake(width - typesSize->width - 8, maxHeight) font:self.titleLabel.font];
 }
 
 - (BOOL)iPhoneInLandscape
@@ -395,15 +410,15 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   UIViewAnimationOptions options = UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction;
   double damping = 0.95;
-
+  CGFloat const headerHeight = [self headerHeight];
   if (self.state == PlacePageStatePreview)
   {
     self.tableView.alpha = 0;
     self.titleLabel.userInteractionEnabled = NO;
-    self.arrowImageView.center = CGPointMake(self.width / 2, [self headerHeight] + BOTTOM_SHADOW_OFFSET - 13);
+    self.arrowImageView.center = CGPointMake(self.width / 2, headerHeight + BOTTOM_SHADOW_OFFSET - 13);
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.arrowImageView.alpha = 1;
-      [self updateHeight:([self headerHeight] + BOTTOM_SHADOW_OFFSET)];
+      [self updateHeight:(headerHeight + BOTTOM_SHADOW_OFFSET)];
       self.minY = [self viewMinY];
       self.headerSeparator.alpha = 0;
     } completion:nil];
@@ -413,14 +428,14 @@ typedef NS_ENUM(NSUInteger, CellRow)
     self.tableView.alpha = 1;
     self.titleLabel.userInteractionEnabled = YES;
     CGFloat const infoCellHeight = [PlacePageInfoCell cellHeightWithViewWidth:self.tableView.width inMyPositionMode:[self isMyPosition]];
-    CGFloat fullHeight = [self headerHeight] + infoCellHeight + [PlacePageShareCell cellHeight] + (GetFramework().IsRoutingEnabled() ? [PlacePageRoutingCell cellHeight] : 0);
+    CGFloat fullHeight = headerHeight + infoCellHeight + [PlacePageShareCell cellHeight] + (GetFramework().IsRoutingEnabled() ? [PlacePageRoutingCell cellHeight] : 0);
     if ([self isBookmark])
     {
       fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
       fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.info viewWidth:self.tableView.width];
     }
     fullHeight = MIN(fullHeight + 20, [self maxHeight]);
-    self.headerSeparator.maxY = [self headerHeight];
+    self.headerSeparator.maxY = headerHeight;
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
       self.arrowImageView.alpha = 0;
       [self updateHeight:fullHeight];
