@@ -29,7 +29,7 @@ using glsl_types::vec4;
 
 namespace
 {
-  static float const realFontSize = 20.0f;
+  static float const realFontSize = 28.0f;
   static float const fontOffset = 1.3f;
 
   PointF GetShift(dp::Anchor anchor, float width, float height)

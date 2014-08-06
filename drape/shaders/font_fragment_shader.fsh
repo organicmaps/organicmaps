@@ -13,10 +13,12 @@ const int Index5  = 5;
 const int Index6  = 6;
 const int Index7  = 7;
 
-const lowp float OUTLINE_MIN_VALUE0 = 0.49;
-const lowp float OUTLINE_MIN_VALUE1 = 0.53;
-const lowp float OUTLINE_MAX_VALUE0 = 0.58;
-const lowp float OUTLINE_MAX_VALUE1 = 0.6;
+const lowp float OUTLINE_MIN_VALUE0 = 0.41;
+const lowp float OUTLINE_MIN_VALUE1 = 0.565;
+const lowp float OUTLINE_MAX_VALUE0 = 0.57;
+const lowp float OUTLINE_MAX_VALUE1 = 0.95;
+const lowp float GLYPH_MIN_VALUE = 0.45;
+const lowp float GLYPH_MAX_VALUE = 0.6;
 
 lowp vec4 colorize(lowp vec4 baseColor)
 {
@@ -47,9 +49,9 @@ lowp vec4 without_outline(lowp vec4 baseColor)
   lowp vec4 outline = v_outline_color;
   lowp float alpha = 1.0 - baseColor.a;
 
-  if (alpha > OUTLINE_MIN_VALUE0)
+  if (alpha > GLYPH_MIN_VALUE)
   {
-    lowp float oFactor = smoothstep(OUTLINE_MIN_VALUE0, OUTLINE_MIN_VALUE1, alpha );
+    lowp float oFactor = smoothstep(GLYPH_MIN_VALUE, GLYPH_MAX_VALUE, alpha );
     return mix(v_color, vec4(1, 1, 1, 0), oFactor);
   }
   return v_color;
