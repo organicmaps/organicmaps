@@ -190,7 +190,7 @@ size_t const HN_COUNT_FOR_ODD_TEST = 16;
 /// but 15 - is enough for production code.
 int const HOUSE_READING_SCALE = FeatureType::BEST_GEOMETRY;
 //double const HN_MIN_READ_OFFSET_M = 50.0;
-int const HN_HEARBY_INDEX_RANGE = 5;
+//int const HN_NEARBY_INDEX_RANGE = 5;
 double const HN_MAX_CONNECTION_DIST_M = 300.0;
 
 
@@ -1066,7 +1066,7 @@ public:
   bool HasBestMatch() const { return (m_results[0].house != 0); }
   House const * GetNearbyCandidate() const { return (HasBestMatch() ? 0 : m_results[3].house); }
 };
-
+/*
 void ProcessNearbyHouses(vector<HouseProjection const *> const & v, ResultAccumulator & acc)
 {
   House const * p = acc.GetNearbyCandidate();
@@ -1075,14 +1075,14 @@ void ProcessNearbyHouses(vector<HouseProjection const *> const & v, ResultAccumu
     // Get additional search interval.
     int const pivot = distance(v.begin(), find_if(v.begin(), v.end(), HouseProjection::EqualHouse(p)));
     ASSERT(pivot >= 0 && pivot < v.size(), ());
-    int const start = max(pivot - HN_HEARBY_INDEX_RANGE, 0);
-    int const end = min(pivot + HN_HEARBY_INDEX_RANGE + 1, int(v.size()));
+    int const start = max(pivot - HN_NEARBY_INDEX_RANGE, 0);
+    int const end = min(pivot + HN_NEARBY_INDEX_RANGE + 1, int(v.size()));
 
     for (int i = start; i < end; ++i)
       acc.MatchCandidate(*v[i], false);
   }
 }
-
+*/
 //void GetClosestHouse(MergedStreet const & st, ResultAccumulator & acc)
 //{
 //  for (MergedStreet::Index i = st.Begin(); !st.IsEnd(i); st.Inc(i))
@@ -1323,13 +1323,13 @@ struct CompareHouseNumber
     return (h1->m_house->GetIntNumber() >= h2->m_house->GetIntNumber());
   }
 };
-
+/*
 void LongestSubsequence(vector<HouseProjection const *> const & v,
                         vector<HouseProjection const *> & res)
 {
   LongestSubsequence(v, back_inserter(res), CompareHouseNumber());
 }
-
+*/
 //void GetLSHouse(MergedStreet const & st, double offsetMeters, ResultAccumulator & acc)
 //{
 //  acc.ResetNearby();
