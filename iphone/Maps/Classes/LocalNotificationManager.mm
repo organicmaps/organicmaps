@@ -6,8 +6,11 @@
 #import "LocationManager.h"
 #import "MapViewController.h"
 #import "Statistics.h"
+#import "UIKitCategories.h"
 
 #define DOWNLOAD_MAP_ACTION_NAME @"DownloadMapAction"
+#define PROMO_ACTION_NAME @"PromoAction"
+
 #define FLAGS_KEY @"DownloadMapNotificationFlags"
 #define SHOW_INTERVAL (6 * 30 * 24 * 60 * 60) // six months
 
@@ -19,7 +22,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 
 @property (nonatomic) CLLocationManager * locationManager;
 @property (nonatomic) TIndex countryIndex;
-@property (nonatomic, copy) CompletionHandler completionHandler;
+@property (nonatomic, copy) CompletionHandler downloadMapCompletionHandler;
 @property (nonatomic) NSTimer * timer;
 
 @end
@@ -55,25 +58,24 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
         [self markNotificationShowingForIndex:index];
 
         UILocalNotification * notification = [[UILocalNotification alloc] init];
-        notification.fireDate = [NSDate date];
         notification.alertAction = NSLocalizedString(@"download", nil);
         notification.alertBody = NSLocalizedString(@"download_map_notification", nil);
         notification.soundName = UILocalNotificationDefaultSoundName;
         notification.userInfo = @{@"Action" : DOWNLOAD_MAP_ACTION_NAME, @"Group" : @(index.m_group), @"Country" : @(index.m_country), @"Region" : @(index.m_region)};
 
         UIApplication * application = [UIApplication sharedApplication];
-        [application scheduleLocalNotification:notification];
+        [application presentLocalNotificationNow:notification];
         [[Statistics instance] logEvent:@"'Download Map' Notification Scheduled"];
         // we don't need badges now
 //        [application setApplicationIconBadgeNumber:[application applicationIconBadgeNumber] + 1];
 
-        self.completionHandler(UIBackgroundFetchResultNewData);
+        self.downloadMapCompletionHandler(UIBackgroundFetchResultNewData);
         return;
       }
     }
   }
   [[Statistics instance] logEvent:@"'Download Map' Notification Didn't Schedule" withParameters:@{@"WiFi" : @(onWiFi)}];
-  self.completionHandler(UIBackgroundFetchResultFailed);
+  self.downloadMapCompletionHandler(UIBackgroundFetchResultFailed);
 }
 
 - (void)markNotificationShowingForIndex:(TIndex)index
@@ -97,7 +99,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 
 - (void)showDownloadMapNotificationIfNeeded:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  self.completionHandler = completionHandler;
+  self.downloadMapCompletionHandler = completionHandler;
   self.timer = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(timerSelector:) userInfo:nil repeats:NO];
   if ([CLLocationManager locationServicesEnabled])
     [self.locationManager startUpdatingLocation];
@@ -108,7 +110,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 - (void)timerSelector:(id)sender
 {
   // we have not got time to get location
-  self.completionHandler(UIBackgroundFetchResultFailed);
+  self.downloadMapCompletionHandler(UIBackgroundFetchResultFailed);
 }
 
 - (void)downloadCountryWithIndex:(TIndex)index
@@ -122,7 +124,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   f.ShowRect(lat, lon, 10);
 }
 
-- (void)processDownloadMapNotification:(UILocalNotification *)notification
+- (void)processNotification:(UILocalNotification *)notification
 {
   NSDictionary * ui = [notification userInfo];
   if ([ui[@"Action"] isEqualToString:DOWNLOAD_MAP_ACTION_NAME])
@@ -132,6 +134,45 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 
     TIndex const index = TIndex([ui[@"Group"] intValue], [ui[@"Country"] intValue], [ui[@"Region"] intValue]);
     [self downloadCountryWithIndex:index];
+  }
+  else if ([ui[@"Action"] isEqualToString:PROMO_ACTION_NAME])
+  {
+    [[Statistics instance] logEvent:@"'Promo' Notification Clicked"];
+    [[UIApplication sharedApplication] openProVersionFrom:@"ios_promo_notif"];
+  }
+}
+
+- (void)schedulePromoNotification
+{
+  if (GetPlatform().IsPro())
+    return;
+
+  UIApplication * application = [UIApplication sharedApplication];
+
+  if ([application canOpenURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_LOCAL_URL]])
+    return;
+
+  for (UILocalNotification * notification in application.scheduledLocalNotifications)
+  {
+    if ([notification.userInfo[@"Action"] isEqualToString:PROMO_ACTION_NAME])
+      return;
+  }
+
+  NSDateComponents * components = [[NSDateComponents alloc] init];
+  [components setYear:2014];
+  [components setMonth:8];
+  [components setDay:15];
+  [components setHour:12];
+  NSDate * date = [[NSCalendar currentCalendar] dateFromComponents:components];
+  if ([date timeIntervalSinceNow] > 0) {
+    UILocalNotification * notification = [[UILocalNotification alloc] init];
+    notification.fireDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    notification.alertBody = NSLocalizedString(@"pro_version_is_free_today", nil);
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    notification.userInfo = @{@"Action" : PROMO_ACTION_NAME};
+
+    [application scheduleLocalNotification:notification];
+    [[Statistics instance] logEvent:@"'Promo' Notification Scheduled"];
   }
 }
 

@@ -7,6 +7,8 @@
 
 - (void)showDownloadMapNotificationIfNeeded:(void (^)(UIBackgroundFetchResult))completionHandler;
 - (void)showDownloadMapAlertIfNeeded;
-- (void)processDownloadMapNotification:(UILocalNotification *)notification;
+- (void)processNotification:(UILocalNotification *)notification;
+
+- (void)schedulePromoNotification;
 
 @end

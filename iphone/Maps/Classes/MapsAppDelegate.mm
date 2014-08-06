@@ -130,17 +130,25 @@ void InitLocalizedStrings()
   if ([application respondsToSelector:@selector(setMinimumBackgroundFetchInterval:)])
     [application setMinimumBackgroundFetchInterval:(6 * 60 * 60)];
 
+  LocalNotificationManager * notificationManager = [LocalNotificationManager sharedManager];
+#ifdef OMIM_LITE
+  [notificationManager schedulePromoNotification];
+#endif
   if (launchOptions[UIApplicationLaunchOptionsLocalNotificationKey])
-    [[LocalNotificationManager sharedManager] processDownloadMapNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey]];
+    [notificationManager processNotification:launchOptions[UIApplicationLaunchOptionsLocalNotificationKey]];
   else
-    [[LocalNotificationManager sharedManager] showDownloadMapAlertIfNeeded];
+    [notificationManager showDownloadMapAlertIfNeeded];
 
   return [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey] != nil;
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-  [[LocalNotificationManager sharedManager] showDownloadMapNotificationIfNeeded:completionHandler];
+  LocalNotificationManager * notificationManager = [LocalNotificationManager sharedManager];
+#ifdef OMIM_LITE
+    [notificationManager schedulePromoNotification];
+#endif
+  [notificationManager showDownloadMapNotificationIfNeeded:completionHandler];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
