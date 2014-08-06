@@ -37,7 +37,6 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.ApiPoint;
 import com.mapswithme.maps.bookmarks.data.ParcelablePoint;
 import com.mapswithme.maps.location.LocationService;
-import com.mapswithme.maps.promo.ActivationSettings;
 import com.mapswithme.maps.search.SearchController;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
@@ -568,7 +567,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onSearchClicked(View v)
   {
-    if (!(mApplication.isProVersion() || ActivationSettings.isSearchActivated(this)))
+    if (!mApplication.isProVersion())
     {
       showProVersionBanner(getString(R.string.search_available_in_pro_version));
     }
