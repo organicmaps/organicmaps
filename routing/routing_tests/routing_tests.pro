@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = routing indexer platform geometry coding base protobuf tomcrypt
+DEPENDENCIES = routing indexer platform geometry coding base osrm protobuf tomcrypt
 
 macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
 
@@ -21,6 +21,7 @@ SOURCES += \
   road_graph_builder.cpp \
   road_graph_builder_test.cpp \
   dijkstra_router_test.cpp \
+  osrm_router_test.cpp \
   vehicle_model_test.cpp \
 
 HEADERS += \

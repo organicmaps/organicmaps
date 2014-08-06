@@ -6,7 +6,7 @@ TEMPLATE = app
 DEFINES += QJSONRPC_BUILD
 
 DEPENDENCIES = map gui routing search storage indexer graphics platform anim geometry coding base \
-               bzip2 freetype expat fribidi tomcrypt jansson protobuf qjsonrpc gflags zlib
+               osrm bzip2 freetype expat fribidi tomcrypt jansson protobuf qjsonrpc gflags zlib
 
 ROOT_DIR = ..
 include($$ROOT_DIR/common.pri)

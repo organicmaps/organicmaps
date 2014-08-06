@@ -1,7 +1,7 @@
 # Main application in qt.
 ROOT_DIR = ..
 DEPENDENCIES = map gui routing search storage indexer graphics platform anim geometry coding base \
-               bzip2 freetype expat fribidi tomcrypt jansson protobuf zlib
+               bzip2 freetype expat fribidi tomcrypt jansson protobuf zlib osrm
 
 
 include($$ROOT_DIR/common.pri)

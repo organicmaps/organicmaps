@@ -7,13 +7,15 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH += $$ROOT_DIR/3party/jansson/src
+INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
+               $$ROOT_DIR/3party/osrm/osrm-backend/Include
 
 SOURCES += \
     route.cpp \
     routing_engine.cpp \
     road_graph.cpp \
     helicopter_router.cpp \
+    osrm_router.cpp \
     osrm_online_router.cpp \
     road_graph_router.cpp \
     dijkstra_router.cpp \
@@ -26,7 +28,9 @@ HEADERS += \
     router.hpp \
     road_graph.hpp \
     helicopter_router.hpp \
+    osrm_router.hpp \
     osrm_online_router.hpp \
+    osrm_data_facade.hpp \
     road_graph_router.hpp \
     dijkstra_router.hpp \
     features_road_graph.hpp \
