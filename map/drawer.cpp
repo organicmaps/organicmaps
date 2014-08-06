@@ -26,10 +26,8 @@ Drawer::Params::Params()
 }
 
 Drawer::Drawer(Params const & params)
-  : m_visualScale(params.m_visualScale)
+  : m_visualScale(params.m_visualScale), m_pScreen(new graphics::Screen(params))
 {
-  m_pScreen.reset(new graphics::Screen(params));
-
   for (unsigned i = 0; i < m_pScreen->pipelinesCount(); ++i)
     m_pScreen->addClearPageFn(i, bind(&Drawer::ClearResourceCache, ThreadSlot(), i), 0);
 }

@@ -374,7 +374,7 @@ void BuildSearchIndex(FilesContainerR const & cont, CategoriesHolder const & cat
 
     serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
 
-    scoped_ptr<SynonymsHolder> synonyms;
+    unique_ptr<SynonymsHolder> synonyms;
     if (header.GetType() == feature::DataHeader::world)
       synonyms.reset(new SynonymsHolder(GetPlatform().WritablePathForFile(SYNONYMS_FILE)));
 

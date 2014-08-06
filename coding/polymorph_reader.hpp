@@ -1,6 +1,6 @@
 #pragma once
 #include "../coding/reader.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 class PolymorphReader
 {
@@ -37,5 +37,5 @@ public:
   }
 
 private:
-  scoped_ptr<Reader const> m_pReader;
+  unique_ptr<Reader const> m_pReader;
 };

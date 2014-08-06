@@ -2,7 +2,7 @@
 
 #include "../platform/location_service.hpp"
 
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 #include <Qt>
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
@@ -29,7 +29,7 @@ namespace qt
 
     QDockWidget * m_Docks[1];
 
-    scoped_ptr<location::LocationService> m_locationService;
+    unique_ptr<location::LocationService> const m_locationService;
 
     Q_OBJECT
 

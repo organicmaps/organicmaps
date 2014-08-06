@@ -9,7 +9,6 @@
 #include "../base/scheduled_task.hpp"
 
 #include "../std/function.hpp"
-#include "../std/scoped_ptr.hpp"
 #include "../std/shared_ptr.hpp"
 
 /// Calculates screen parameters in navigation (dragging, scaling, etc.).

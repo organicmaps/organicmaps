@@ -14,7 +14,6 @@
 #include "../base/buffer_vector.hpp"
 #include "../base/macros.hpp"
 
-#include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
 
 

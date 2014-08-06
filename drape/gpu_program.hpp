@@ -7,7 +7,7 @@
 #include "../std/string.hpp"
 
 #ifdef DEBUG
-  #include "../std/scoped_ptr.hpp"
+  #include "../std/unique_ptr.hpp"
 #endif
 
 namespace dp
@@ -37,7 +37,7 @@ private:
 
 #ifdef DEBUG
 private:
-  scoped_ptr<UniformValidator> m_validator;
+  unique_ptr<UniformValidator> m_validator;
 public:
   bool HasUniform(string const & name, glConst type, UniformSize size);
 #endif

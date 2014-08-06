@@ -348,7 +348,7 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
 
   uint32_t m_coastType;
 
-  scoped_ptr<FileWriter> m_addrWriter;
+  unique_ptr<FileWriter> m_addrWriter;
   bool NeedWriteAddress(FeatureParams const & params) const
   {
     static ftypes::IsBuildingChecker const checker;

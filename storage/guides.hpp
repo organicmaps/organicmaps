@@ -5,7 +5,7 @@
 #include "../std/string.hpp"
 #include "../std/map.hpp"
 #include "../std/set.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 #include "../std/noncopyable.hpp"
 
 #include "../3party/jansson/jansson_handle.hpp"
@@ -73,7 +73,7 @@ private:
   /// Loaded Guides json version
   int m_version;
 
-  scoped_ptr<downloader::HttpRequest> m_httpRequest;
+  unique_ptr<downloader::HttpRequest> m_httpRequest;
 //@}
 };
 

@@ -2,7 +2,7 @@
 #include "dd_vector.hpp"
 #include "polymorph_reader.hpp"
 #include "../std/function.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 #include "../std/string.hpp"
 #include "../base/base.hpp"
 #include "../base/exception.hpp"
@@ -36,7 +36,7 @@ private:
   uint32_t m_bitsInChunkSize;
   static uint32_t const HEADER_SIZE = 4;
 
-  scoped_ptr<Reader const> m_pReader;
+  unique_ptr<Reader const> const m_pReader;
   DecompressorType m_decompressor;
 
   DDVector<uint32_t, PolymorphReader> m_blobInfo;

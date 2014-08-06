@@ -5,7 +5,7 @@
 #include "../graphics/image.hpp"
 #include "../graphics/display_list.hpp"
 
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 namespace graphics
 {
@@ -22,7 +22,7 @@ namespace gui
 
     graphics::Image::Info m_image;
     m2::RectU m_margin;
-    scoped_ptr<graphics::DisplayList> m_displayList;
+    unique_ptr<graphics::DisplayList> m_displayList;
 
   public:
 

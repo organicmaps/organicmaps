@@ -5,7 +5,7 @@
 
 #include "../std/function.hpp"
 #include "../std/string.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 namespace graphics
 {
@@ -32,7 +32,7 @@ namespace gui
     unsigned m_minWidth;
     unsigned m_minHeight;
 
-    scoped_ptr<TextView> m_textView;
+    unique_ptr<TextView> m_textView;
     map<EState, shared_ptr<graphics::DisplayList> > m_dls;
 
     void cacheButtonBody(EState state);

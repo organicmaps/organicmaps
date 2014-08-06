@@ -3,7 +3,7 @@
 #include "display_list_cache.hpp"
 
 #include "../std/shared_ptr.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 #include "../std/function.hpp"
 #include "../std/list.hpp"
 
@@ -71,7 +71,7 @@ namespace gui
     graphics::GlyphCache * m_GlyphCache;
 
     /// Cache for display lists for fast rendering on GUI thread
-    scoped_ptr<DisplayListCache> m_DisplayListCache;
+    unique_ptr<DisplayListCache> m_DisplayListCache;
 
     /// Localized strings for GUI.
     StringsBundle const * m_bundle;

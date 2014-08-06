@@ -34,7 +34,7 @@ class Drawer
   double m_visualScale;
   int m_level;
 
-  scoped_ptr<graphics::Screen> m_pScreen;
+  unique_ptr<graphics::Screen> const m_pScreen;
 
   static void ClearResourceCache(size_t threadSlot, uint8_t pipelineID);
 

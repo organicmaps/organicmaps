@@ -13,7 +13,7 @@
 
 #include "../base/logging.hpp"
 
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 
 #ifdef OMIM_OS_IPHONE
@@ -144,7 +144,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
   ThreadsContainerT m_threads;
 
   string m_filePath;
-  scoped_ptr<FileWriter> m_writer;
+  unique_ptr<FileWriter> m_writer;
 
   size_t m_goodChunksCount;
   bool m_doCleanProgressFiles;
@@ -328,7 +328,7 @@ public:
     }
 
     // Create file and reserve needed size.
-    scoped_ptr<FileWriter> writer(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, openMode));
+    unique_ptr<FileWriter> writer(new FileWriter(filePath + DOWNLOADING_FILE_EXTENSION, openMode));
     // Reserving disk space is very slow on a device.
     //writer->Reserve(fileSize);
 

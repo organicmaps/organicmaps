@@ -211,9 +211,9 @@ UNIT_TEST(TrieBuilder_Build)
         trie::reader::FixedSizeValueReader<4>::ValueType,
         trie::reader::FixedSizeValueReader<1>::ValueType
         > IteratorType;
-    scoped_ptr<IteratorType> root(trie::reader::ReadTrie(memReader,
-                                                         trie::reader::FixedSizeValueReader<4>(),
-                                                         trie::reader::FixedSizeValueReader<1>()));
+    unique_ptr<IteratorType> const root(trie::reader::ReadTrie(memReader,
+                                                               trie::reader::FixedSizeValueReader<4>(),
+                                                               trie::reader::FixedSizeValueReader<1>()));
     vector<KeyValuePair> res;
     KeyValuePairBackInserter f;
     trie::ForEachRef(*root, f, vector<trie::TrieChar>());

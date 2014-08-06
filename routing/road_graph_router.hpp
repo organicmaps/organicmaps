@@ -6,7 +6,7 @@
 #include "../geometry/point2d.hpp"
 
 #include "../std/vector.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 
 class Index;
@@ -33,8 +33,8 @@ protected:
   size_t GetRoadPos(m2::PointD const & pt, vector<RoadPos> & pos);
   bool IsMyMWM(size_t mwmID) const;
 
-  scoped_ptr<IRoadGraph> m_pRoadGraph;
-  scoped_ptr<IVehicleModel> m_vehicleModel;
+  unique_ptr<IRoadGraph> m_pRoadGraph;
+  unique_ptr<IVehicleModel> const m_vehicleModel;
   Index const * m_pIndex;
 };
 

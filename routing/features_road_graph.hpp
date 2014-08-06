@@ -1,7 +1,7 @@
 #pragma once
 
 #include "road_graph.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 class Index;
 class FeatureType;
@@ -38,7 +38,7 @@ private:
 private:
   Index const * m_pIndex;
   size_t m_mwmID;
-  scoped_ptr<IVehicleModel> m_vehicleModel;
+  unique_ptr<IVehicleModel> const m_vehicleModel;
 };
 
 } // namespace routing

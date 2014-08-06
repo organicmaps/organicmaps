@@ -25,7 +25,7 @@ namespace
 
 UNIT_TEST(CountryInfo_GetByPoint_Smoke)
 {
-  scoped_ptr<CountryInfoT> getter(GetCountryInfo());
+  unique_ptr<CountryInfoT> const getter(GetCountryInfo());
 
   // Minsk
   CountryInfo info;
@@ -68,7 +68,7 @@ UNIT_TEST(CountryInfo_ValidName_Smoke)
 
 UNIT_TEST(CountryInfo_SomeRects)
 {
-  scoped_ptr<CountryInfoT> getter(GetCountryInfo());
+  unique_ptr<CountryInfoT> const getter(GetCountryInfo());
 
   m2::RectD rects[3];
   getter->CalcUSALimitRect(rects);

@@ -46,10 +46,9 @@
 namespace qt
 {
 
-MainWindow::MainWindow()
+MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this))
 {
   m_pDrawWidget = new DrawWidget(this);
-  m_locationService.reset(CreateDesktopLocationService(*this));
 
   CreateNavigationBar();
   CreateSearchBarAndPanel();

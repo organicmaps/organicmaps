@@ -47,7 +47,7 @@ namespace android
 
     math::LowPassVector<float, 3> m_sensors[2];
 
-    scoped_ptr<ScheduledTask> m_scheduledTask;
+    unique_ptr<ScheduledTask> m_scheduledTask;
     bool m_wasLongClick;
 
     void StartTouchTask(double x, double y, unsigned ms);

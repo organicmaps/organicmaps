@@ -8,7 +8,7 @@
 #include "../std/cstdlib.hpp"
 #include "../std/functional.hpp"
 #include "../std/queue.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 #include "../std/string.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
@@ -134,7 +134,7 @@ private:
   string const m_TmpFileName;
   uint32_t const m_BufferCapacity;
   OutputSinkT & m_OutputSink;
-  scoped_ptr<FileWriter> m_pTmpWriter;
+  unique_ptr<FileWriter> m_pTmpWriter;
   vector<T> m_Buffer;
   uint32_t m_ItemCount;
   LessT m_Less;

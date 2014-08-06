@@ -13,7 +13,6 @@
 #include "../base/string_utils.hpp"
 
 #include "../std/map.hpp"
-#include "../std/scoped_ptr.hpp"
 #include "../std/string.hpp"
 #include "../std/unordered_set.hpp"
 #include "../std/vector.hpp"

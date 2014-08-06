@@ -9,7 +9,7 @@
 #include "../base/mutex.hpp"
 
 #include "../std/algorithm.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 #include "../std/unordered_set.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
@@ -40,7 +40,7 @@ TrieIterator * MoveTrieIteratorToString(TrieIterator const & trieRoot,
   symbolsMatched = 0;
   bFullEdgeMatched = false;
 
-  scoped_ptr<search::TrieIterator> pIter(trieRoot.Clone());
+  unique_ptr<search::TrieIterator> pIter(trieRoot.Clone());
 
   size_t const szQuery = queryS.size();
   while (symbolsMatched < szQuery)
@@ -105,7 +105,7 @@ void FullMatchInTrie(TrieIterator const & trieRoot,
 
   size_t symbolsMatched = 0;
   bool bFullEdgeMatched;
-  scoped_ptr<search::TrieIterator> pIter(
+  unique_ptr<search::TrieIterator> const pIter(
         MoveTrieIteratorToString(trieRoot, s, symbolsMatched, bFullEdgeMatched));
 
   if (!pIter || !bFullEdgeMatched || symbolsMatched != s.size())
@@ -156,7 +156,7 @@ void PrefixMatchInTrie(TrieIterator const & trieRoot,
   {
     // Next 2 lines don't throw any exceptions while moving
     // ownership from container to smart pointer.
-    scoped_ptr<search::TrieIterator> pIter(trieQueue.back());
+    unique_ptr<search::TrieIterator> const pIter(trieQueue.back());
     trieQueue.pop_back();
 
     for (size_t i = 0; i < pIter->m_value.size(); ++i)
@@ -189,24 +189,13 @@ template <class FilterT> class OffsetIntersecter
   typedef unordered_set<ValueT, HashFn, EqualFn> SetType;
 
   FilterT const & m_filter;
-  scoped_ptr<SetType> m_prevSet;
-  scoped_ptr<SetType> m_set;
-
-  void InitSet(scoped_ptr<SetType> & ptr)
-  {
-    ptr.reset(new SetType());
-
-    // this is not std compatible, but important for google::dense_hash_set
-    //ValueT zero;
-    //zero.m_featureId = 0;
-    //ptr->set_empty_key(zero);
-  }
+  unique_ptr<SetType> m_prevSet;
+  unique_ptr<SetType> m_set;
 
 public:
   explicit OffsetIntersecter(FilterT const & filter)
-    : m_filter(filter)
+    : m_filter(filter), m_set(new SetType)
   {
-    InitSet(m_set);
   }
 
   void operator() (ValueT const & v)
@@ -223,7 +212,7 @@ public:
   void NextStep()
   {
     if (!m_prevSet)
-      InitSet(m_prevSet);
+      m_prevSet.reset(new SetType);
 
     m_prevSet.swap(m_set);
     m_set->clear();

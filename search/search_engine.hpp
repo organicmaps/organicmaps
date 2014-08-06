@@ -9,7 +9,7 @@
 
 #include "../base/mutex.hpp"
 
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 #include "../std/string.hpp"
 #include "../std/function.hpp"
 
@@ -78,8 +78,8 @@ private:
   SearchParams m_params;
   m2::RectD m_viewport;
 
-  scoped_ptr<search::Query> m_pQuery;
-  scoped_ptr<EngineData> m_pData;
+  unique_ptr<search::Query> m_pQuery;
+  unique_ptr<EngineData> const m_pData;
 };
 
 }  // namespace search

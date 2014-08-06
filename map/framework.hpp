@@ -38,7 +38,7 @@
 
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 #include "../std/target_os.hpp"
 
 #include "move_screen_task.hpp"
@@ -91,7 +91,7 @@ protected:
 
   StringsBundle m_stringsBundle;
 
-  mutable scoped_ptr<search::Engine> m_pSearchEngine;
+  mutable unique_ptr<search::Engine> m_pSearchEngine;
 
   routing::RoutingEngine m_routingEngine;
   routing::IRouter * CreateRouter();
@@ -105,7 +105,7 @@ protected:
 
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
 
-  scoped_ptr<RenderPolicy> m_renderPolicy;
+  unique_ptr<RenderPolicy> m_renderPolicy;
 
   double m_StartForegroundTime;
 
@@ -120,8 +120,8 @@ protected:
   void StopLocationFollow();
 
   storage::Storage m_storage;
-  scoped_ptr<gui::Controller> m_guiController;
-  scoped_ptr<anim::Controller> m_animController;
+  unique_ptr<gui::Controller> m_guiController;
+  unique_ptr<anim::Controller> m_animController;
   InformationDisplay m_informationDisplay;
 
   /// How many pixels around touch point are used to get bookmark or POI

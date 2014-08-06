@@ -100,7 +100,7 @@ void SearchPanel::ClearResults()
 
 void SearchPanel::OnSearchResult(ResultsT * res)
 {
-  scoped_ptr<ResultsT> guard(res);
+  unique_ptr<ResultsT> const guard(res);
 
   if (res->IsEndMarker())
   {

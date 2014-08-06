@@ -8,7 +8,7 @@
 #include "../std/iterator_facade.hpp"
 #include "../std/queue.hpp"
 #include "../std/functional.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 
 class StringsFile
@@ -89,8 +89,8 @@ public:
   IteratorT End() { return IteratorT(*this, true); }
 
 private:
-  scoped_ptr<FileWriter> m_writer;
-  scoped_ptr<FileReader> m_reader;
+  unique_ptr<FileWriter> m_writer;
+  unique_ptr<FileReader> m_reader;
 
   void Flush();
   bool PushNextValue(size_t i);

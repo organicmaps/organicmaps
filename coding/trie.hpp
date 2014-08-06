@@ -5,7 +5,7 @@
 #include "../base/buffer_vector.hpp"
 //#include "../base/object_tracker.hpp"
 
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 
 namespace trie
@@ -80,7 +80,7 @@ void ForEachRef(Iterator<ValueT, EdgeValueT> const & iter, F & f, StringT const 
   {
     StringT s1(s);
     s1.insert(s1.end(), iter.m_edge[i].m_str.begin(), iter.m_edge[i].m_str.end());
-    scoped_ptr<Iterator<ValueT, EdgeValueT> > pIter1(iter.GoToEdge(i));
+    unique_ptr<Iterator<ValueT, EdgeValueT> > const pIter1(iter.GoToEdge(i));
     ForEachRef(*pIter1, f, s1);
   }
 }

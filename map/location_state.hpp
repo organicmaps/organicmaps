@@ -8,7 +8,7 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../std/shared_ptr.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 #include "../std/map.hpp"
 
 
@@ -86,9 +86,9 @@ namespace location
     /// Compass Rendering Parameters
     /// @{
 
-    scoped_ptr<graphics::DisplayList> m_positionArrow;
-    scoped_ptr<graphics::DisplayList> m_locationMarkDL;
-    scoped_ptr<graphics::DisplayList> m_positionMarkDL;
+    unique_ptr<graphics::DisplayList> m_positionArrow;
+    unique_ptr<graphics::DisplayList> m_locationMarkDL;
+    unique_ptr<graphics::DisplayList> m_positionMarkDL;
 
     /// @}
     ///

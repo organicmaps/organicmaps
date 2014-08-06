@@ -1,7 +1,7 @@
 #pragma once
 #include "writer.hpp"
 #include "../base/base.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 namespace my { class FileData; }
 
@@ -46,6 +46,6 @@ public:
 
 private:
   typedef my::FileData fdata_t;
-  scoped_ptr<fdata_t> m_pFileData;
+  unique_ptr<fdata_t> m_pFileData;
   bool m_bTruncOnClose;
 };

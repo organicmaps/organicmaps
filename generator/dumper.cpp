@@ -204,7 +204,7 @@ namespace feature
 
     serial::CodingParams cp(search::GetCPForTrie(header.GetDefCodingParams()));
 
-    scoped_ptr<search::TrieIterator> pTrieRoot(
+    unique_ptr<search::TrieIterator> const pTrieRoot(
           ::trie::reader::ReadTrie(container.GetReader(SEARCH_INDEX_FILE_TAG),
                                    search::trie::ValueReader(cp),
                                    search::trie::EdgeValueReader()));

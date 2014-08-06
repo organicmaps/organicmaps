@@ -9,7 +9,7 @@
 
 #include "../platform/video_timer.hpp"
 
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 #include <QtCore/QTimer>
 #include <QtOpenGL/qgl.h>
@@ -45,8 +45,8 @@ namespace qt
     bool m_isInitialized;
     bool m_isTimerStarted;
 
-    scoped_ptr<Framework> m_framework;
-    scoped_ptr<VideoTimer> m_videoTimer;
+    unique_ptr<Framework> m_framework;
+    unique_ptr<VideoTimer> m_videoTimer;
 
     bool m_isDrag;
     bool m_isRotate;
@@ -140,7 +140,7 @@ namespace qt
 
     QScaleSlider * m_pScale;
 
-    scoped_ptr<ScheduledTask> m_scheduledTask;
+    unique_ptr<ScheduledTask> m_scheduledTask;
     m2::PointD m_taskPoint;
     bool m_wasLongClick, m_isCleanSingleClick;
 

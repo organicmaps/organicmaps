@@ -193,6 +193,8 @@ Framework::Framework()
     m_queryMaxScaleMode(false),
     m_width(0),
     m_height(0),
+    m_guiController(new gui::Controller),
+    m_animController(new anim::Controller),
     m_informationDisplay(this),
     m_lowestMapVersion(numeric_limits<int>::max()),
     m_benchmarkEngine(0),
@@ -222,10 +224,6 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("my_position", "My Position");
   m_stringsBundle.SetDefaultString("routes", "Routes");
 
-  m_animController.reset(new anim::Controller());
-
-  // Init GUI controller.
-  m_guiController.reset(new gui::Controller());
   m_guiController->SetStringsBundle(&m_stringsBundle);
 
   // Init information display.

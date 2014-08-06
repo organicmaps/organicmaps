@@ -6,7 +6,6 @@
 #include "../base/logging.hpp"
 #include "../base/stats.hpp"
 
-#include "../std/scoped_ptr.hpp"
 #include "../std/vector.hpp"
 #include "../std/cstring.hpp"
 

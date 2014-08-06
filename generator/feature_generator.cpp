@@ -260,11 +260,11 @@ class MainFeaturesEmitter
 {
   typedef WorldMapGenerator<FeaturesCollector> WorldGenerator;
   typedef CountryMapGenerator<Polygonizer<FeaturesCollector> > CountriesGenerator;
-  scoped_ptr<CountriesGenerator> m_countries;
-  scoped_ptr<WorldGenerator> m_world;
+  unique_ptr<CountriesGenerator> m_countries;
+  unique_ptr<WorldGenerator> m_world;
 
-  scoped_ptr<CoastlineFeaturesGenerator> m_coasts;
-  scoped_ptr<FeaturesCollector> m_coastsHolder;
+  unique_ptr<CoastlineFeaturesGenerator> m_coasts;
+  unique_ptr<FeaturesCollector> m_coastsHolder;
 
   string m_srcCoastsFile;
 
@@ -335,9 +335,7 @@ public:
     }
 
     if (info.m_createWorld)
-    {
       m_world.reset(new WorldGenerator(info));
-    }
   }
 
   void operator() (FeatureBuilder1 fb)

@@ -6,7 +6,7 @@
 #include "assert.hpp"
 
 #include "../std/bind.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 struct BasePoolElemFactory
 {
@@ -288,7 +288,7 @@ class ResourcePoolImpl : public ResourcePool<typename TPoolTraits::elem_t>
 {
 private:
 
-  scoped_ptr<TPoolTraits> m_traits;
+  unique_ptr<TPoolTraits> const m_traits;
 
 public:
 

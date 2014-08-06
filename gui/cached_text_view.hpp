@@ -26,8 +26,8 @@ namespace gui
     vector<shared_ptr<graphics::DisplayList> > m_dls;
     vector<shared_ptr<graphics::DisplayList> > m_maskedDls;
 
-    scoped_ptr<graphics::GlyphLayout> m_layout;
-    scoped_ptr<graphics::GlyphLayout> m_maskedLayout;
+    unique_ptr<graphics::GlyphLayout> m_layout;
+    unique_ptr<graphics::GlyphLayout> m_maskedLayout;
 
     mutable vector<m2::AnyRectD> m_boundRects;
 

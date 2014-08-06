@@ -190,7 +190,7 @@ UNIT_TEST(Bookmarks_ExportKML)
   CheckBookmarks(cat);
   TEST_EQUAL(cat.IsVisible(), true, ());
 
-  scoped_ptr<BookmarkCategory> cat2(BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME, framework));
+  unique_ptr<BookmarkCategory> cat2(BookmarkCategory::CreateFromKMLFile(BOOKMARKS_FILE_NAME, framework));
   CheckBookmarks(*cat2);
 
   cat2->SaveToKMLFile();
@@ -621,7 +621,7 @@ UNIT_TEST(Bookmarks_SpecialXMLNames)
   TEST_EQUAL(cat1.GetBookmarksCount(), 1, ());
   TEST(cat1.SaveToKMLFile(), ());
 
-  scoped_ptr<BookmarkCategory> cat2(BookmarkCategory::CreateFromKMLFile(cat1.GetFileName(), framework));
+  unique_ptr<BookmarkCategory> const cat2(BookmarkCategory::CreateFromKMLFile(cat1.GetFileName(), framework));
   TEST(cat2.get(), ());
   TEST_EQUAL(cat2->GetBookmarksCount(), 1, ());
 

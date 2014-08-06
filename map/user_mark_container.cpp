@@ -16,7 +16,7 @@
 #include "../base/macros.hpp"
 #include "../base/stl_add.hpp"
 
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 #include "../std/algorithm.hpp"
 
 ////////////////////////////////////////////////////////////////////////
@@ -171,8 +171,8 @@ void UserMarkContainer::Clear(size_t skipCount/* = 0*/)
 
 namespace
 {
-  static scoped_ptr<PoiMarkPoint> s_selectionUserMark;
-  static scoped_ptr<MyPositionMarkPoint> s_myPosition;
+  static unique_ptr<PoiMarkPoint> s_selectionUserMark;
+  static unique_ptr<MyPositionMarkPoint> s_myPosition;
 }
 
 void UserMarkContainer::InitStaticMarks(UserMarkContainer * container)

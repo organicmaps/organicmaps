@@ -538,7 +538,7 @@ namespace impl
   {
     Query & m_query;
 
-    scoped_ptr<Index::FeaturesLoaderGuard> m_pFV;
+    unique_ptr<Index::FeaturesLoaderGuard> m_pFV;
 
     // For the best performance, incoming id's should be sorted by id.first (mwm file id).
     void LoadFeature(FeatureID const & id, FeatureType & f, string & name, string & country)
@@ -1885,7 +1885,7 @@ void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region 
   serial::CodingParams cp(GetCPForTrie(pMwm->GetHeader().GetDefCodingParams()));
 
   ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-  scoped_ptr<TrieIterator> pTrieRoot(::trie::reader::ReadTrie(
+  unique_ptr<TrieIterator> const pTrieRoot(::trie::reader::ReadTrie(
                                      SubReaderWrapper<Reader>(searchReader.GetPtr()),
                                      trie::ValueReader(cp),
                                      trie::EdgeValueReader()));
@@ -1899,7 +1899,7 @@ void Query::SearchLocality(MwmValue * pMwm, impl::Locality & res1, impl::Region 
     int8_t const lang = static_cast<int8_t>(edge[0]);
     if (edge[0] < search::CATEGORIES_LANG && params.IsLangExist(lang))
     {
-      scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
+      unique_ptr<TrieIterator> const pLangRoot(pTrieRoot->GoToEdge(i));
 
       // gel all localities from mwm
       impl::DoFindLocality doFind(*this, pMwm, lang);
@@ -2023,7 +2023,7 @@ namespace
 void FillCategories(Query::Params const & params, TrieIterator const * pTrieRoot,
                     TrieValuesHolder<FeaturesFilter> & categoriesHolder)
 {
-  scoped_ptr<TrieIterator> pCategoriesRoot;
+  unique_ptr<TrieIterator> pCategoriesRoot;
   typedef TrieIterator::Edge::EdgeStrT EdgeT;
   EdgeT categoriesEdge;
 
@@ -2066,7 +2066,7 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
       serial::CodingParams cp(GetCPForTrie(header.GetDefCodingParams()));
 
       ModelReaderPtr searchReader = pMwm->m_cont.GetReader(SEARCH_INDEX_FILE_TAG);
-      scoped_ptr<TrieIterator> pTrieRoot(::trie::reader::ReadTrie(
+      unique_ptr<TrieIterator> const pTrieRoot(::trie::reader::ReadTrie(
                                          SubReaderWrapper<Reader>(searchReader.GetPtr()),
                                          trie::ValueReader(cp),
                                          trie::EdgeValueReader()));
@@ -2088,7 +2088,7 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
 
         if (edge[0] < search::CATEGORIES_LANG && params.IsLangExist(lang))
         {
-          scoped_ptr<TrieIterator> pLangRoot(pTrieRoot->GoToEdge(i));
+          unique_ptr<TrieIterator> const pLangRoot(pTrieRoot->GoToEdge(i));
 
           MatchFeaturesInTrie(params.m_tokens, params.m_prefixTokens,
                               TrieRootPrefix(*pLangRoot, edge),

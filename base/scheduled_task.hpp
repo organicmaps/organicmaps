@@ -4,7 +4,7 @@
 #include "condition.hpp"
 
 #include "../std/function.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 
 /// Class, which performs any function when the specified
@@ -25,7 +25,7 @@ class ScheduledTask
     virtual void Cancel();
   };
 
-  scoped_ptr<Routine> m_routine;
+  unique_ptr<Routine> const m_routine;
   threads::Thread m_thread;
   threads::Condition m_cond;
 

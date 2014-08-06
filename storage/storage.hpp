@@ -12,7 +12,7 @@
 #include "../std/string.hpp"
 #include "../std/set.hpp"
 #include "../std/function.hpp"
-#include "../std/scoped_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
 namespace storage
 {
@@ -32,7 +32,7 @@ namespace storage
   class Storage
   {
     /// We support only one simultaneous request at the moment
-    scoped_ptr<downloader::HttpRequest> m_request;
+    unique_ptr<downloader::HttpRequest> m_request;
 
     /// stores timestamp for update checks
     int64_t m_currentVersion;
