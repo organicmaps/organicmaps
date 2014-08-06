@@ -554,7 +554,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   {
     final double lat = mMapObject.getLat();
     final double lon = mMapObject.getLon();
-    final String[] latLon = Framework.nativeFormatLatLon(lat, lon, mIsLatLonDms).split(" ");
+    final String[] latLon = Framework.nativeFormatLatLonToArr(lat, lon, mIsLatLonDms);
     if (latLon.length == 2)
     {
       mTvLat.setText(latLon[0]);

@@ -30,10 +30,12 @@ string FormatSpeed(double metersPerSecond);
 /// @param[in] dac  Digits after comma in seconds.
 /// Use dac == 3 for our common conversions.
 string FormatLatLonAsDMS(double lat, double lon, int dac = 3);
+void FormatLatLonAsDMS(double lat, double lon, string & latText, string & lonText, int dac = 3);
 string FormatMercatorAsDMS(m2::PointD const & mercator, int dac = 3);
 void FormatMercatorAsDMS(m2::PointD const & mercator, string & lat, string & lon, int dac = 3);
 /// Simple decimal degrees formating
 string FormatLatLon(double lat, double lon, int dac = 6);
+void FormatLatLon(double lat, double lon, string & latText, string & lonText, int dac = 6);
 string FormatMercator(m2::PointD const & mercator, int dac = 6);
 void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int dac = 6);
 

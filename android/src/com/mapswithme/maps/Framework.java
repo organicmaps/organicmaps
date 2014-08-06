@@ -79,6 +79,8 @@ public class Framework
 
   public native static String nativeFormatLatLon(double lat, double lon, boolean useDMSFormat);
 
+  public native static String[] nativeFormatLatLonToArr(double lat, double lon, boolean useDMSFormat);
+
   public native static String nativeFormatAltitude(double alt);
 
   public native static String nativeFormatSpeed(double speed);

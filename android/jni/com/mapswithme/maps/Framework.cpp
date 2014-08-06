@@ -859,6 +859,24 @@ extern "C"
       return jni::ToJavaString(env,  MeasurementUtils::FormatLatLon(lat, lon, 6));
   }
 
+  JNIEXPORT jobjectArray JNICALL
+  Java_com_mapswithme_maps_Framework_nativeFormatLatLonToArr(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jboolean useDMSFormat)
+  {
+    string slat, slon;
+    if (useDMSFormat)
+      MeasurementUtils::FormatLatLonAsDMS(lat, lon, slat, slon, 2);
+    else
+      MeasurementUtils::FormatLatLon(lat, lon, slat, slon, 6);
+
+    jclass klass = env->FindClass("java/lang/String");
+    jobjectArray arr = env->NewObjectArray(2, klass, 0);
+
+    env->SetObjectArrayElement(arr, 0, jni::ToJavaString(env, slat));
+    env->SetObjectArrayElement(arr, 1, jni::ToJavaString(env, slon));
+
+    return arr;
+  }
+
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeFormatAltitude(JNIEnv * env, jclass clazz, jdouble alt)
   {
