@@ -160,13 +160,13 @@ void InformationDisplay::setDisplayRect(m2::RectI const & rect)
 {
   m_displayRect = rect;
 
-  m2::PointD pt(m2::PointD(m_displayRect.maxX() - RULLER_X_OFFSET * m_visualScale,
-                           m_displayRect.maxY() - RULLER_Y_OFFSET * m_visualScale));
+  m2::PointD const pt(m2::PointD(m_displayRect.maxX() - RULLER_X_OFFSET * m_visualScale,
+                                 m_displayRect.maxY() - RULLER_Y_OFFSET * m_visualScale));
 
   m_ruler->setPivot(pt);
 
-  m2::PointD debugLabelPivot(m_displayRect.minX() + 10,
-                             m_displayRect.minY() + 30 + 5 * m_visualScale);
+  m2::PointD const debugLabelPivot(m_displayRect.minX() + 10,
+                                   m_displayRect.minY() + 50 + 5 * m_visualScale);
 
   m_debugLabel->setPivot(debugLabelPivot);
 }
