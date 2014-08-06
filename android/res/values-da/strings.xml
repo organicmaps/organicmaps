@@ -184,7 +184,7 @@
 	<!-- Question dialog for transferring maps from one storage to another -->
 	<string name="move_maps">Flyt kort?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
-	<string name="wait_several_minutes">Dette kan tage flere minutter.\nVent venligst...</string>
+	<string name="wait_several_minutes">Dette kan tage flere minutter.\nVent venligst…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Synligt</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
@@ -263,7 +263,7 @@
 	<!-- No, thanks -->
 	<string name="no_thanks">Nej, tak</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
-	<string name="bookmark_share_sms">Hey, tjek min knappenål på MAPS.ME ud! %1$s or %2$s Har du ikke offline kort? Download her: http://maps.me /get</string>
+	<string name="bookmark_share_sms">Hey, tjek min knappenål på MAPS.ME ud! %1$s or %2$s Har du ikke offline kort? Download her: http://maps.me/get</string>
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Hey, tjek min nuværende lokation ud på MAPS.ME! %1$s or %2$s. Har du ikke offline kort? Download her: http://maps.me/get</string>
 	<!-- Subject for emailed bookmark -->
@@ -356,4 +356,8 @@
 	<string name="choose_starting_point">Vælg dit startpunkt…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">Vælg din destination…</string>
+	<!-- text of notification -->
+	<string name="download_map_notification">Download kortet over det sted, hvor du befinder dig</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">MAPS.ME Pro er gratis i dag!</string>
 </resources>

@@ -351,4 +351,6 @@
 	<string name="choose_destination">Виберіть місце призначення…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Завантажуйте карту тієї місцевості, де ви знаходитесь</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">MAPS.ME Pro сьогодні безкоштовно! Завантажуй та розкажи друзям.</string>
 </resources>

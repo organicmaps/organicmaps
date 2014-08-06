@@ -563,7 +563,7 @@
 /* button in the interface */
 "choose_destination" = "Choisissez une destination…";
 
-/* Show on first lunch. */
+/* Show on first launch. */
 "maps_licence_info" = "Cette application utilise des données géographiques (dont des cartes, des listes d'entreprises, des points d'intérêt, des frontières de pays et de régions, etc.) tirées du projet OpenStreetMap. Nous ne garantissons en aucune manière la cohérence, l'exactitude, la complétude ou l'applicabilité des données d'OpenStreetMap.";
 
 /* Show on first launch. */
@@ -574,3 +574,6 @@
 
 /* text of notification */
 "download_map_notification" = "Téléchargez la carte de l'endroit où vous êtes";
+
+/* text of notification */
+"pro_version_is_free_today" = "MAPS.ME Pro gratuit auj. ! Téléch. maint. et parlez-en à vos amis";

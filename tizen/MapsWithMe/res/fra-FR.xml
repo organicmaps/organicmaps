@@ -107,7 +107,7 @@
 	<text id="IDS_BECOME_A_PRO">Mettre à niveau</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Boutons zoom</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Afficher sur l\&#39;écran</text>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch. -->
 	<text id="IDS_MAPS_LICENCE_INFO">Cette application utilise des données géographiques (dont des cartes, des listes d\&#39;entreprises, des points d\&#39;intérêt, des frontières de pays et de régions, etc.) tirées du projet OpenStreetMap. Nous ne garantissons en aucune manière la cohérence, l\&#39;exactitude, la complétude ou l\&#39;applicabilité des données d\&#39;OpenStreetMap.</text>
 	<!-- Show on first launch. -->
 	<text id="IDS_AGREE">Je suis d\&#39;accord</text>

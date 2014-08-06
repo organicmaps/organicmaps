@@ -327,7 +327,7 @@
 	<string name="choose_starting_point">選擇起點…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">選擇目的地…</string>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch. -->
 	<string name="maps_licence_info">此應用程序使用從OpenStreetMap專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證OpenStreetMap數據的一致性、準確性、完整性、或適用性。</string>
 	<!-- Show on first launch. -->
 	<string name="agree">我同意</string>
@@ -335,4 +335,6 @@
 	<string name="disagree">我不同意</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">下載您所在地方的地圖</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">MAPS.ME Pro今日免費！馬上下載并告訴您的朋友。</string>
 </resources>

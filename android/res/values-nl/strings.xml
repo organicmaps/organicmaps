@@ -336,4 +336,6 @@
 	<string name="choose_destination">Bestemming kiezen…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Download de kaart van de plaats waar u bent</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">MAPS.ME Pro is nu gratis! Download nu en vertel het je vrienden.</string>
 </resources>

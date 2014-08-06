@@ -563,7 +563,7 @@
 /* button in the interface */
 "choose_destination" = "Куда…";
 
-/* Show on first lunch. */
+/* Show on first launch. */
 "maps_licence_info" = "Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.";
 
 /* Show on first launch. */
@@ -574,3 +574,6 @@
 
 /* text of notification */
 "download_map_notification" = "Скачайте карту места, где вы находитесь";
+
+/* text of notification */
+"pro_version_is_free_today" = "MAPS.ME Pro сегодня бесплатно! Скачай сейчас и расскажи друзьям.";

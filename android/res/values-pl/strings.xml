@@ -357,4 +357,6 @@
 	<string name="choose_destination">Wybierz miejsce docelowe…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Pobierz mapę miejsca, w którym się zajdujesz</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">MAPS.ME Pro jest dziś za darmo! Pobierz teraz i powiedz znajomym.</string>
 </resources>

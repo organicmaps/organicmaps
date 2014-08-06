@@ -563,7 +563,7 @@
 /* button in the interface */
 "choose_destination" = "目的地を入力…";
 
-/* Show on first lunch. */
+/* Show on first launch. */
 "maps_licence_info" = "このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。";
 
 /* Show on first launch. */
@@ -574,3 +574,6 @@
 
 /* text of notification */
 "download_map_notification" = "あなたがいる場所のマップをダウンロードしよう";
+
+/* text of notification */
+"pro_version_is_free_today" = "MAPS.ME Proが本日無料！今すぐダウンロードして友達に教えてあげましょう。";

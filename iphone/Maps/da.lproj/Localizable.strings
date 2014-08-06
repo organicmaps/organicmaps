@@ -298,7 +298,7 @@
 "move_maps" = "Flyt kort?";
 
 /* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Dette kan tage flere minutter.\nVent venligst...";
+"wait_several_minutes" = "Dette kan tage flere minutter.\nVent venligst…";
 
 /* Show bookmarks from this category on a map or not */
 "visible" = "Synligt";
@@ -417,7 +417,7 @@
 "no_thanks" = "Nej, tak";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Hey, tjek min knappenål på MAPS.ME ud! %1$@ or %2$@ Har du ikke offline kort? Download her: http://maps.me /get";
+"bookmark_share_sms" = "Hey, tjek min knappenål på MAPS.ME ud! %1$@ or %2$@ Har du ikke offline kort? Download her: http://maps.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
 "my_position_share_sms" = "Hey, tjek min nuværende lokation ud på MAPS.ME! %1$@ or %2$@. Har du ikke offline kort? Download her: http://maps.me/get";
@@ -563,7 +563,7 @@
 /* button in the interface */
 "choose_destination" = "Vælg din destination…";
 
-/* Show on first lunch. */
+/* Show on first launch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
 /* Show on first launch. */
@@ -573,4 +573,7 @@
 "disagree" = "I disagree";
 
 /* text of notification */
-"download_map_notification" = "Download the map of the place where you are";
+"download_map_notification" = "Download kortet over det sted, hvor du befinder dig";
+
+/* text of notification */
+"pro_version_is_free_today" = "MAPS.ME Pro er gratis i dag!";

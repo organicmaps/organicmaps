@@ -359,7 +359,7 @@
 	<string name="choose_starting_point">Choisissez un point de départ…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">Choisissez une destination…</string>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch. -->
 	<string name="maps_licence_info">Cette application utilise des données géographiques (dont des cartes, des listes d\&#39;entreprises, des points d\&#39;intérêt, des frontières de pays et de régions, etc.) tirées du projet OpenStreetMap. Nous ne garantissons en aucune manière la cohérence, l\&#39;exactitude, la complétude ou l\&#39;applicabilité des données d\&#39;OpenStreetMap.</string>
 	<!-- Show on first launch. -->
 	<string name="agree">Je suis d\&#39;accord</string>
@@ -367,4 +367,6 @@
 	<string name="disagree">Je ne suis pas d\&#39;accord</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Téléchargez la carte de l\&#39;endroit où vous êtes</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">MAPS.ME Pro gratuit auj. ! Téléch. maint. et parlez-en à vos amis</string>
 </resources>

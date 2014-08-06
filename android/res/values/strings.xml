@@ -363,7 +363,7 @@
 	<string name="choose_starting_point">Choose starting point…</string>
 	<!-- button in the interface -->
 	<string name="choose_destination">Choose destination…</string>
-	<!-- Show on first lunch. -->
+	<!-- Show on first launch. -->
 	<string name="maps_licence_info">This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.</string>
 	<!-- Show on first launch. -->
 	<string name="agree">I agree</string>
@@ -371,4 +371,6 @@
 	<string name="disagree">I disagree</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">Download the map of the place where you are</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">MAPS.ME Pro is free today! Download now and tell your friends.</string>
 </resources>

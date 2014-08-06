@@ -563,7 +563,7 @@
 /* button in the interface */
 "choose_destination" = "Válasszon úti célt…";
 
-/* Show on first lunch. */
+/* Show on first launch. */
 "maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
 
 /* Show on first launch. */
@@ -574,3 +574,6 @@
 
 /* text of notification */
 "download_map_notification" = "Töltsd le annak a helynek a térképét, ahol most vagy";
+
+/* text of notification */
+"pro_version_is_free_today" = "A MAPS.ME Pro ma ingyenes! Töltsd le most és meséld el barátaidnak.";

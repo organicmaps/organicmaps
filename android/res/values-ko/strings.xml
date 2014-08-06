@@ -334,4 +334,6 @@
 	<string name="choose_destination">목적지 선택</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">당신이 있는 장소의지도를 다운로드 하십시오</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">MAPS.ME Pro 오늘 무료! 지금 다운로드하고 친구들에게 알리세요.</string>
 </resources>

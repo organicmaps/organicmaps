@@ -360,4 +360,6 @@
 	<string name="choose_destination">اختيار الوجهة…</string>
 	<!-- text of notification -->
 	<string name="download_map_notification">تنزيل خريطة المكان الذي توجد فيه</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today">تطبيق MAPS.ME Pro مجاني اليوم! قم بتنزيله الآن وأخبر أصدقائك.</string>
 </resources>

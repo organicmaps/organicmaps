@@ -563,7 +563,7 @@
 /* button in the interface */
 "choose_destination" = "選擇目的地…";
 
-/* Show on first lunch. */
+/* Show on first launch. */
 "maps_licence_info" = "此應用程序使用從OpenStreetMap專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證OpenStreetMap數據的一致性、準確性、完整性、或適用性。";
 
 /* Show on first launch. */
@@ -574,3 +574,6 @@
 
 /* text of notification */
 "download_map_notification" = "下載您所在地方的地圖";
+
+/* text of notification */
+"pro_version_is_free_today" = "MAPS.ME Pro今日免費！馬上下載并告訴您的朋友。";
