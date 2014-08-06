@@ -559,8 +559,6 @@ const long long LITE_IDL = 431183278L;
   if ([info featureAvailable:AppFeatureProButtonOnMap])
   {
     [self.view insertSubview:self.buyButton belowSubview:self.toolbarView];
-    self.buyButton.midX = self.view.width / 2;
-    self.buyButton.maxY = self.toolbarView.minY - 14;
 
     NSDictionary * texts = [info featureValue:AppFeatureProButtonOnMap forKey:@"Texts"];
     NSString * proText = texts[[[NSLocale preferredLanguages] firstObject]];
@@ -571,6 +569,8 @@ const long long LITE_IDL = 431183278L;
 
     CGFloat width = [proText sizeWithDrawSize:CGSizeMake(200, self.buyButton.height) font:self.buyButton.titleLabel.font].width;
     self.buyButton.width = width + 4 * self.buyButton.height / 3;
+    self.buyButton.midX = self.view.width / 2;
+    self.buyButton.maxY = self.toolbarView.minY - 14;
     [self.buyButton setTitle:proText forState:UIControlStateNormal];
   }
 #endif
