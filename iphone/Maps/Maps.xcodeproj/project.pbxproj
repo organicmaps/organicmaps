@@ -1584,6 +1584,7 @@
 		FAAFD698139D9C6B000AE70C /* libsearch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsearch.a; sourceTree = SOURCE_ROOT; };
 		FAB09895148E2F1500892860 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FAB0FC6019251E85003B396F /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FAB9D5D91992B981003F6A52 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FAEA8B291437CA80002A6737 /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjansson.a; sourceTree = SOURCE_ROOT; };
 		FAF29846146EEF4A00FF0057 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprotobuf.a; sourceTree = SOURCE_ROOT; };
 		FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = 00_roboto_regular.ttf; path = ../../data/00_roboto_regular.ttf; sourceTree = "<group>"; };
@@ -3275,6 +3276,7 @@
 				da,
 				th,
 				ar,
+				tr,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Maps */;
 			projectDirPath = "";
@@ -4610,6 +4612,7 @@
 				FA7B439B198BEEB700FA887E /* da */,
 				FA7B439C198BEEBC00FA887E /* th */,
 				FA7B439D198BEEC400FA887E /* ar */,
+				FAB9D5D91992B981003F6A52 /* tr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
