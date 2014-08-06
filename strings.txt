@@ -25,6 +25,7 @@
     zh-Hans = 使用带离线搜索功能的完整版MAPS.ME实现更简便的导航。现在就获取它吧！
     ar = يمكنك التصفح بشكل أسهل مع الإصدار الكامل من MAPS.ME الذي يتميز بامكانية البحث بدون الاتصال مع الانترنت. احصل عليه الآن!
     da = Naviger lettere med den fulde version af MAPS.ME med bl.a. offline søgning. Få det nu!
+    tr = Çevrimdışı arama özelliğine sahip MAPS.ME’nin tam sürümüyle daha kolay gezinin. Hemen şimdi alın!
 
   [about]
     tags = tizen
@@ -48,6 +49,7 @@
     zh-Hans = 关于
     ar = نبذة عنا
     da = Om app
+    tr = Hakkında
 
   [back]
     en = Back
@@ -70,6 +72,7 @@
     zh-Hans = 返回
     ar = رجوع
     da = Tilbage
+    tr = Geri
 
   [cancel]
     tags = tizen
@@ -93,6 +96,7 @@
     zh-Hans = 取消
     ar = إلغاء
     da = Afbryd
+    tr = İptal
 
   [cancel_download]
     tags = tizen
@@ -116,6 +120,7 @@
     zh-Hans = 取消下载
     ar = إلغاء التنزيل
     da = Annuller download
+    tr = İndirme İşlemini İptal Et
 
   [delete]
     tags = tizen
@@ -139,6 +144,7 @@
     zh-Hans = 删除
     ar = حذف
     da = Slet
+    tr = Sil
 
   [delete_old_maps]
     en = Delete old maps and proceed
@@ -161,6 +167,7 @@
     zh-Hans = 删除旧地图，然后继续
     ar = حذف الخرائط القديمة و المتابعة
     da = Slet gamle kort og gå videre
+    tr = Eski haritaları sil ve ilerle
 
   [do_not_ask_me_again]
     en = Do not ask me again
@@ -183,6 +190,7 @@
     zh-Hans = 不要再问我
     ar = لا تسئلني مرة أخرى
     da = Spørg mig ikke igen
+    tr = Bunu tekrar sorma
 
   [do_nothing]
     en = Continue
@@ -205,6 +213,7 @@
     zh-Hans = 继续
     ar = استمرار
     da = Fortsæt
+    tr = Devam
 
   [download_maps]
     tags = tizen
@@ -227,6 +236,7 @@
     zh-Hans = 下载地图
     ar = تنزيل الخرائط
     da = Download kort
+    tr = Haritaları İndir
 
   [download_x_kb]
     en = Download %qu kB
@@ -248,6 +258,7 @@
     zh-Hans = 下载 %qu kB
     ar = التنزيل %qu كيلو بايت
     da = Download %qu kB
+    tr = %qu kB indir
 
   [download_x_mb]
     en = Download %qu MB
@@ -269,6 +280,7 @@
     zh-Hans = 下载 %qu MB
     ar = التنزيل %qu ميجا بايت
     da = Download %qu MB
+    tr = %qu MB indir
 
   [download_has_failed]
     en = Download has failed, touch again for one more try
@@ -291,6 +303,7 @@
     zh-Hans = 下载失败，重新轻触再试一次
     ar = فشلت عملية التنزيل، انقر مرة أخرى لإعداة المحاولة
     da = Der skete en fejl ved download, tryk for at prøve igen.
+    tr = İndirme işlemi başarısız oldu, bir kez daha denemek için tekrar dokunun
 
   [downloaded_x_y_touch_to_delete]
     en = Downloaded (%1$qu %2$@), touch to delete
@@ -313,6 +326,7 @@
     zh-Hans = 下载了(%1$qu %2$@)，轻触删除
     ar = تم تنزيل (%1$qu %2$@)، المس لحذفها
     da = Downloaded (%1$qu %2$@), tryk for at slette
+    tr =  (%1$qu %2$@) indirildi, silmek için dokunun
 
   [downloading_x_touch_to_cancel]
     en = Downloading %qu%%, touch to cancel
@@ -335,6 +349,7 @@
     zh-Hans = 下载%qu%%，轻触取消
     ar = جاري التنزيل %qu%%، انقر للإلغاء
     da = Downloader %qu%%, tryk for at afbryde
+    tr = %qu%% indiriliyor, iptal etmek için dokunun
 
   [downloading]
     en = Downloading…
@@ -357,6 +372,7 @@
     zh-Hans = 下载…
     ar = جاري التنزيل…
     da = Downloader…
+    tr = İndiriliyor…
 
   [get_it_now]
     en = Get it now
@@ -378,6 +394,7 @@
     zh-Hans = 现在就获取它
     ar = احصل عليه الآن
     da = Få det nu
+    tr = Hemen al
 
   [share_on_facebook_text]
     en = Are you enjoying MAPS.ME? Help your friends and family learn about the app, share it with them on Facebook!
@@ -398,6 +415,7 @@
     zh-Hans = 您喜欢用MAPS.ME吗? 把这个应用介绍给您的朋友和家人吧，在Facebook上和他们分享吧！
     ar = هل تستمتع باستخدام تطبيق MAPS.ME ؟ ساعد أصدقائك و أسرتك في تعلم كيفية استخدامه، قم بمشاركته معهم على فيسبوك!
     da = Nyder du MAPS.ME? Hjælp dine venner og familie ved at fortælle dem om denne app, del den med dem på Facebook!
+    tr = MAPS.ME hoşunuza gitti mi? Arkadaşlarınızın ve ailenizin uygulama hakkında bilgi sahibi olmalarına yardımcı olun, bunu onlarla Facebook’ta paylaşın!
 
   [kb]
     en = kB
@@ -409,6 +427,7 @@
     pl = KB
     th = กิโลไบต์
     ar = ك.ب.
+    tr = kB
 
   [kilometres]
     tags = tizen
@@ -432,6 +451,7 @@
     zh-Hans = 千米
     ar = كيلومتر
     da = Kilometre
+    tr = Kilometre
 
   [leave_a_review]
     en = Leave a Review
@@ -454,6 +474,7 @@
     zh-Hans = 发表评论
     ar = اترك تعليق
     da = Lav en bedømmelse
+    tr = Bir Yorum Bırak
 
   [location_services_are_needed_desc]
     en = Location Services are needed to display your current position on the map.
@@ -476,6 +497,7 @@
     zh-Hans = 需要使用位置服务来显示 您当前 在地图上的位置
     ar = أنت بحاجة لخدمة تحديد المواقع من أجل عرض موقعك الحالي على الخريطة
     da = Lokationstjenester er nødt til at være sat til for at vise din nuværende position på kortet
+    tr = Haritadaki geçerli konumunuzun gösterilebilmesi için Yer Hizmetleri gereklidir
 
   [maps]
     en = Maps
@@ -498,6 +520,7 @@
     zh-Hans = 地图
     ar = خرائط
     da = Kort
+    tr = Haritalar
 
   [marked_for_downloading]
     en = Marked for downloading, touch to cancel
@@ -520,6 +543,7 @@
     zh-Hans = 标记为下载,轻触取消
     ar = تم تحديد العنصر لتنزيله، انقر للإلغاء
     da = Markeret til download, tryk for at afbryde
+    tr = İndirmek üzere işaretlendi, iptal etmek için dokunun
 
   [mb]
     tags = tizen
@@ -531,6 +555,7 @@
     th = เมกกะไบต์
     ar = م.ب.
     da = MB
+    tr = MB
 
   [miles]
     tags = tizen
@@ -554,6 +579,7 @@
     zh-Hans = 英里
     ar = ميل
     da = Mil
+    tr = Mil
 
   [my_position]
     en = My Position
@@ -576,6 +602,7 @@
     zh-Hans = 我的位置
     ar = موقعي
     da = Min position
+    tr = Konumum
 
   [no_internet_connection_detected]
     tags = tizen
@@ -599,6 +626,7 @@
     zh-Hans = 未检测到互联网连接
     ar = لم يتم اكتشاف أي اتصال مع الانترنت
     da = Ingen internetforbindelse registreret
+    tr = İnternet bağlantısı bulunamadı
 
   [no_wifi_ask_cellular_download]
     tags = tizen
@@ -622,6 +650,7 @@
     zh-Hans = 未检测到 WiFi 连接。您想使用蜂窝数据 (GPRS, EDGE 或 3G)下载%@吗?
     ar = لم يتم العثور على أي اتصال واي فاي. هل ترغب باستخدام حزمة البيانات الخليوية (GPRS ، EDGE أو 3G) من أجل تنزيل %@؟
     da = Ingen WiFi forbindelse registreret. Vil du bruge mobildata (GPRS, EDGE eller 3G) til download %@?
+    tr = WiFi bağlantısı bulunamadı. %@ indirmek için hücresel veri (GPRS, EDGE veya 3G) kullanmak ister misiniz?
 
   [ok]
     en = OK
@@ -631,6 +660,7 @@
     zh-Hans = 好
     ar = موافق
     da = Ok
+    tr = Tamam
 
   [enable_location_services]
     en = Please enable Location Services
@@ -653,6 +683,7 @@
     zh-Hans = 请启用位置服务
     ar = الرجاء تفعيل خدمة تحديد المواقع
     da = Aktiver venligst lokationstjenester
+    tr = Lütfen Yer Hizmetlerini etkinleştirin
 
   [free_disk_space_for_country_x]
     en = Please free some space on your device first in order to download %@
@@ -674,6 +705,7 @@
     zh-Hans = 请在设备上先释放一些空间以便下载%@
     ar = الرجاء إخلاء بعض المساحة في ذاكرة جهازك أولا لكي تتمكن من تنزيل %@
     da = Frigør venligst noget plads på din telefon først for at downloade %@
+    tr = %@ indirmek için lütfen ilk önce cihazınızda biraz alan boşaltın
 
   [remind_me_later]
     en = Remind me later
@@ -697,6 +729,7 @@
     zh-Hans = 稍后提醒我
     ar = ذكرني لاحقاً
     da = Påmind mig senere
+    tr = Daha sonra hatırlat
 
   [later]
     en = Later
@@ -718,6 +751,7 @@
     zh-Hans = 稍后
     ar = لاحقا
     da = Senere
+    tr = Daha sonra
 
   [never]
     en = Never
@@ -738,6 +772,7 @@
     zh-Hans = 从来不
     ar = أبدا
     da = Aldrig
+    tr = Asla
 
   [report_an_issue]
     en = Report an issue
@@ -760,6 +795,7 @@
     zh-Hans = 报告问题
     ar = الإبلاغ عن مشكلة
     da = Rapporter et problem
+    tr = Bir sorunu bildir
 
   [search]
     en = Search
@@ -782,6 +818,7 @@
     zh-Hans = 搜索
     ar = البحث
     da = Søg
+    tr = Ara
 
   [search_available_in_pro_version]
     en = Search is only available in the full version of MAPS.ME. Get it right now!
@@ -804,6 +841,7 @@
     zh-Hans = 搜索只在完整版 MAPS.ME 中提供。现在就 获取它!
     ar = البحث متوافر فقط في الإصدار الكامل من MAPS.ME. احصل عليه الآن!
     da = Søgefunktionen er kun tilgængelig i den fulde version af MAPS.ME. Få den nu!
+    tr = Arama özelliği sadece MAPS.ME tam sürümünde kullanılabilir. Hemen şimdi al!
 
   [search_map]
     en = Search Map
@@ -826,6 +864,7 @@
     zh-Hans = 搜索地图
     ar = ابحث في الخريطة
     da = Søg kort
+    tr = Haritada Ara
 
   [not_enough_disk_space]
     en = There is not enough free disk space
@@ -848,6 +887,7 @@
     zh-Hans = 没有足够的可用磁盘空间
     ar = لا يوجد مساحة كافية على القرص
     da = Der er ikke nok ledig plads på telefonen
+    tr = Yeterli boş disk alanı yok
 
   [touch_to_download]
     en = Touch to download
@@ -870,6 +910,7 @@
     zh-Hans = 轻触下载
     ar = انقر للتنزيل
     da = Tryk for at downloade
+    tr = İndirmek için dokunun
 
   [use_cellular_data]
     en = Yes
@@ -892,6 +933,7 @@
     zh-Hans = 是
     ar = نعم
     da = Ja
+    tr = Evet
 
   [use_wifi_recommendation_text]
     tags = tizen
@@ -915,6 +957,7 @@
     zh-Hans = 我们推荐使用 WiFi 来下载大的地图
     ar = نحن نوصي باستخدام واي فاي لتنزيل الخرائط الكبيرة
     da = Vi anbefaler, at du bruger WiFi for at downloade store kort
+    tr = Büyük haritaları indirmek için WiFi kullanmanızı öneriyoruz
 
   [new_map_data_format_upgrade_dialog]
     en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
@@ -951,6 +994,7 @@
     zh-Hans = 您喜欢哪种测量系统?
     ar = ما هو نظام القياس المفضل لديك؟
     da = Hvilken måleenhed foretrækker du?
+    tr = Hangi ölçü sistemini tercih edersiniz?
 
   [location_is_disabled_long_text]
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
@@ -973,6 +1017,7 @@
     zh-Hans = 您目前有此设备的所有位置服务或应用已禁 用。请在设置中启用它们。
     ar =  التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
     da = Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.
+    tr = Şu anda bu cihaz için tüm Yer Hizmetleri veya uygulama devre dışı bırakılmış. Lütfen Ayarlar bölümünden etkinleştirin.
 
   [device_doesnot_support_location_services]
     en = Your device doesn't support Location Services
@@ -995,6 +1040,7 @@
     zh-Hans = 您的设备不支持位置服务。
     ar = جهازك لا يدعم خدمات تحديد المواقع.
     da = Din enhed understøtter ikke lokationstjenester
+    tr = Cihazınız Yer Hizmetlerini desteklemiyor
 
   [zoom_to_country]
     en = Zoom to the country
@@ -1017,6 +1063,7 @@
     zh-Hans = 放大至该国
     ar = تكبير الى الدولة
     da = Zoom til landet
+    tr = Ülkeyi yakınlaştır
 
   [country_status_added_to_queue]
     en = ^is added to the downloading queue.
@@ -1039,6 +1086,7 @@
     zh-Hans = ^添加至下载序列
     ar = ^قد تم إضافته الى صف الانتظار لعملية التنزيل
     da = ^er tilføjet til download-køen
+    tr = ^indirme kuyruğuna eklendi
 
   [country_status_downloading]
     en = Downloading^^%
@@ -1061,6 +1109,7 @@
     zh-Hans = 下载^^%中
     ar = جاري التنزيل ^^%
     da = Downloader^^%
+    tr = ^^%indiriliyor
 
   [country_status_download]
     en = Download^
@@ -1082,6 +1131,7 @@
     zh-Hans = 下载^
     ar = تنزيل^
     da = Download^
+    tr = ^indir
 
   [country_status_download_failed]
     en = Downloading^has failed
@@ -1104,6 +1154,7 @@
     zh-Hans = 下载^失败了
     ar = فشلت عملية تنزيل^
     da = Download^mislykket
+    tr = ^indirme işlemi başarısız oldu
 
   [try_again]
     en = Try Again
@@ -1126,10 +1177,12 @@
     zh-Hans = 重试
     ar = محاولة مرة أخرى
     da = Prøv igen
+    tr = Tekrar Deneyin
 
   [app_name]
     en = MAPS.ME
     zh-Hant = MAPS.ME 專業版
+
   [about_menu_title]
     en = About MAPS.ME
     cs = O aplikaci MAPS.ME
@@ -1150,6 +1203,7 @@
     zh-Hans = 关于 MAPS.ME
     ar = حول MAPS.ME
     da = Om MAPS.ME
+    tr = MAPS.ME Hakkında
 
   [downloading_touch_to_cancel]
     en = Downloading %d%%, touch to cancel
@@ -1171,6 +1225,7 @@
     zh-Hans = 正在下载 %d%%，触摸以取消
     ar = جاري تنزيل %d%% ، انقر للإلغاء
     da = Downloader %d%%, tryk for at afbryde
+    tr = %d%% indiriliyor, iptal etmek için dokunun
 
   [downloaded_touch_to_delete]
     en = Downloaded (%@), touch to delete
@@ -1192,6 +1247,7 @@
     zh-Hans = 下载了(%@),轻触删除
     ar = تم تنزيل (%@)، انقر للحذف
     da = Downloaded (%@), tryk for at slette
+    tr = (%@) indirildi, silmek için dokunun
 
   [connection_settings]
     en = Connection Settings
@@ -1213,6 +1269,7 @@
     zh-Hans = 连接设置
     ar = اعدادات الاتصال
     da = Forbindelsesindstillinger
+    tr = Bağlantı Ayarları
 
   [download_mb_or_kb]
     en = Download %@
@@ -1233,6 +1290,7 @@
     zh-Hans = 下载%@
     ar = تنزيل %@
     da = Download %@
+    tr = %@ indir
 
   [close]
     en = Close
@@ -1254,6 +1312,7 @@
     zh-Hans = 关闭
     ar = اغلاق
     da = Luk
+    tr = Kapat
 
   [unsupported_phone]
     en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
@@ -1275,6 +1334,7 @@
     zh-Hans = 硬件加速的 OpenGL 是必需的。遗憾的是您 的设备不支持。
     ar = أنت بحاجة الى OpenGL بأجهزة تسريع . لسوء الحظ جهازك لا يدعم هذه الخاصية.
     da = En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.
+    tr = Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.
 
   [download]
     tags = tizen
@@ -1296,6 +1356,7 @@
     zh-Hans = 下载
     ar = تنزيل
     da = Download
+    tr = İndir
 
   [external_storage_is_not_available]
     en = SD card/USB storage with downloaded maps is not available
@@ -1317,6 +1378,7 @@
     zh-Hans = 缺少包含已下载地图的 SD 卡/ USB 储存设备
     ar = خاصية التخزين بواسطة البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل غير متاحة مع الخرائط التي تم تنزيلها.
     da = SD-kort/USB lagring med de downloadede kort er ikke tilgængeligt
+    tr = İndirilen haritalarla SD kart/USB depolama aygıtı kullanılamıyor
 
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use MAPS.ME
@@ -1338,6 +1400,7 @@
     zh-Hans = 请断开 USB 线或插入存储卡以使用 MAPS.ME
     ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام MAPS.ME.
     da = Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge MAPS.ME
+    tr = MAPS.ME’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın
 
   [not_enough_free_space_on_sdcard]
     en = Please free some space on SD card/USB storage first in order to use the app
@@ -1359,6 +1422,7 @@
     zh-Hans = 请在 SD 卡/ USB 储存设备上释放一些空间以 使用此应用
     ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
     da = Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app
+    tr = Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın
 
   [not_enough_memory]
     en = Not enough memory to launch app
@@ -1380,6 +1444,7 @@
     zh-Hans = 没有足够的内存来启动应用程序
     ar = لا يوجد ذاكرة كافية لتشغيل التطبيق.
     da = Ikke nok hukommelse til at åbne app
+    tr = Uygulamayı başlatmak için yeterli hafıza yok
 
   [free_space_for_country]
     en = Please free %1$@ on your device first in order to download %2$@
@@ -1401,6 +1466,7 @@
     zh-Hans = 请在您的设备上释放%1$@ 以便于下载%2$@
     ar = الرجاء إخلاء %1$@ على جهازك أولا من أجل تنزيل %2$@
     da = Frigør venligst %1$@ på din enhed først for at downloade %2$@
+    tr = %2$@ indirebilmeniz için lütfen ilk önce cihazınızda %1$@ alan boşaltın
 
   [download_resources]
     en = Before you start let us download general world map into your device.\nIt needs %.1f%@ of data.
@@ -1423,6 +1489,7 @@
     zh-Hans = 在您开始前请让我们下载通用世界地 图至您的设备中。\n它需要%.1f%@的 数据。
     ar = قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %.1f%@ من البيانات.
     da = Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %.1f%@ af data.
+    tr = Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %.1f%@’si gerekli.
 
   [getting_position]
     en = Getting current position
@@ -1444,6 +1511,7 @@
     zh-Hans = 获取当前位置
     ar = الحصول على الموقع الحالي
     da = Henter nuværende lokation
+    tr = Geçerli konum alınıyor
 
   [download_resources_continue]
     en = Go to Map
@@ -1465,6 +1533,7 @@
     zh-Hans = 前往地图
     ar = الذهاب الى الخريطة
     da = Gå til kort
+    tr = Haritaya Git
 
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
@@ -1486,6 +1555,7 @@
     zh-Hans = 下载 %@。您现在可\n前往地图。
     ar = تنزيل %@. يمكنك الآن\nالمتابعة الى الخريطة.
     da = Downloader %@. Du kan nu\nfortsætte til kortet.
+    tr = %@ indiriliyor. Şimdi haritaya\ngidebilirsiniz.
 
   [download_country_ask]
     en = Download %@?
@@ -1507,6 +1577,7 @@
     zh-Hans = 下载 %@?
     ar = هل تريد تنزيل %@؟
     da = Download %@?
+    tr = %@ indir?
 
   [update_country_ask]
     en = Update %@?
@@ -1528,6 +1599,7 @@
     zh-Hans = 更新 %@?
     ar = هل تريد تحديث %@ ؟
     da = Opdater %@?
+    tr = %@ güncelle?
 
   [download_location_map_proposal]
     en = You can download the map\nof your current location.
@@ -1550,6 +1622,7 @@
     zh-Hans = 您可下载您目前位置的地图。
     ar = يمكنك تنزيل خريطة\nموقعك الحالية.
     da = Du kan downloade kort\nassocieret til din nuværende lokation.
+    tr = Geçerli konumunuzun haritasını\nindirebilirsiniz.
 
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
@@ -1572,6 +1645,7 @@
     zh-Hans = 您可更新您目前位置的地图。
     ar = يمكنك تحديث خريطة\nموقعك الحالي.
     da = Du kan opdatere kortet associeret\ntil din nuværende lokation.
+    tr = Geçerli konumunuzun haritasını\ngüncelleyebilirsiniz.
 
   [download_location_map_up_to_date]
     en = The map of your current\nlocation (%@) is up-to-date
@@ -1594,6 +1668,7 @@
     zh-Hans = 您目前\n位置(%@) 的地图是最新的。
     ar = خريطة موقعك\nالحالي (%@) مُحَدَثَة
     da = Kortet associeret til din nuværende\nlokation (%@) er up to date
+    tr = Geçerli\nkonumunuzun haritası (%@) güncel
 
   [pause]
     en = Pause
@@ -1615,6 +1690,7 @@
     zh-Hans = 暂停
     ar = توقف مؤقت
     da = Pause
+    tr = Duraklat
 
   [continue_download]
     en = Continue
@@ -1637,6 +1713,7 @@
     zh-Hans = 继续
     ar = استمرار
     da = Fortsæt
+    tr = Devam
 
   [downloaded_touch_to_update]
     en = Downloaded (%@), touch to update or delete
@@ -1658,6 +1735,7 @@
     zh-Hans = 下载 (%@),轻触更新或删除
     ar = تم تنزيل (%@) ، انقر للتحديث أو الحذف
     da = Downloadet (%@), tryk for at opdatere eller slet
+    tr =  (%@) indirildi, güncellemek veya silmek için dokunun
 
   [update_mb_or_kb]
     en = Update %@
@@ -1678,6 +1756,7 @@
     zh-Hans = 下载%@
     ar = تحديث %@
     da = Opdater %@
+    tr = %@ güncelle
 
   [search_update_maps]
     en = You need updated maps for search function:
@@ -1701,6 +1780,7 @@
     zh-Hans = 您需要为搜索功能获取已更新的地图。
     ar = أنت بحاجة الى تحديث الخرائط من أجل وظيفة البحث:
     da = Du har brug for opdaterede kort for at benytte søgefunktionen:
+    tr = Arama işlevi için güncellenmiş haritalara ihtiyacınız var:
 
   [advise_update_maps]
     en = Update available for these maps:
@@ -1724,6 +1804,7 @@
     zh-Hans = 这些地图有更新版本:
     ar = هناك تحديثات متوافرة للخرائط التالية:
     da = Der er opdateringer klar til følgende kort:
+    tr = Bu haritalar için güncelleme kullanılabilir:
 
   [suggest_uninstall_lite]
     en = You don't need MAPS.ME Lite any more, so you can uninstall it.
@@ -1747,6 +1828,7 @@
     zh-Hans = 您不再需要MAPS.ME Lite ，所以，您可以卸载它。
     ar = أنت لست بحاجة الى  MAPS.ME Lite بعد الآن، لذلك يمكنك إلغاء تثبيته.
     da = Du har ikke brug for MAPS.ME Lite længere, så du kan godt afinstallere den.
+    tr = MAPS.ME Lite’e artık ihtiyacınız yok; bu nedenle uygulamayı kaldırabilirsiniz.
 
   [download_country_success]
     en = %@ downloaded successfully
@@ -1770,6 +1852,7 @@
     zh-Hans = %@已成功下载
     ar = تم تنزيل  %@  بنجاح.
     da = %@ download succesfuldt
+    tr = %@ başarılı bir şekilde indirildi
 
   [download_country_failed]
     en = %@ download has failed
@@ -1793,6 +1876,7 @@
     zh-Hans = %@下载失败
     ar = فشلت عملية تنزيل %@
     da = %@ download mislykkedes
+    tr = %@ indirme işlemi başarısız oldu
 
   [add_new_set]
     en = Add new Set
@@ -1816,6 +1900,7 @@
     zh-Hans = 添加新的集合
     ar = إضافة مجموعة جديدة
     da = Tilføj nyt sæt
+    tr = Yeni Ayar ekle
 
   [add_to_bookmarks]
     en = Add to Bookmarks
@@ -1838,6 +1923,7 @@
     zh-Hans = 添加至书签
     ar = إضافة الى الإشارات المرجعية
     da = Tilføj til Bogmærker
+    tr = Yer İmlerine Ekle
 
   [bookmark_color]
     en = Bookmark Color
@@ -1861,6 +1947,7 @@
     zh-Hans = 书签颜色
     ar = لون الإشارة المرجعية
     da = Bogmærke Farve
+    tr = Yer İmi Rengi
 
   [bookmark_set_name]
     en = Bookmark Set Name
@@ -1884,6 +1971,7 @@
     zh-Hans = 书签集名称
     ar = اسم مجموعة الإشارات المرجعية
     da = Indstil bogmærkenavn
+    tr = Yer İmi Adını Ayarla
 
   [bookmark_sets]
     en = Bookmark Sets
@@ -1907,6 +1995,7 @@
     zh-Hans = 书签集
     ar = مجموعات الإشارات المرجعية
     da = Bogmærk sæt
+    tr = Yer İmi Ayarları
 
   [bookmarks]
     en = Bookmarks
@@ -1930,6 +2019,7 @@
     zh-Hans = 书签
     ar = الإشارات المرجعية
     da = Bogmærker
+    tr = Yer İmleri
 
   [color]
     en = Color
@@ -1952,6 +2042,7 @@
     zh-Hans = 色彩
     ar = اللون
     da = Farve
+    tr = Renk
 
   [dropped_pin]
     en = Dropped Pin
@@ -1975,6 +2066,7 @@
     zh-Hans = 已放置图钉
     ar = الدبوس المُثَبَت
     da = Placeret knappenål
+    tr = Bırakılan Pin
 
   [my_places]
     en = My Places
@@ -1998,6 +2090,7 @@
     zh-Hans = 我的位置
     ar = أماكني
     da = Mine Steder
+    tr = Yerlerim
 
   [name]
     en = Name
@@ -2020,6 +2113,7 @@
     zh-Hans = 名字
     ar = الاسم
     da = Navn
+    tr = Adı
 
   [address]
     en = Address
@@ -2043,6 +2137,7 @@
     zh-Hans = 地址
     ar = العنوان
     da = Adresse
+    tr = Adres
 
   [remove_pin]
     en = Remove Pin
@@ -2066,6 +2161,7 @@
     zh-Hans = 移除图钉
     ar = إزالة الدبوس
     da = Fjern knappenål
+    tr = Pini Kaldır
 
   [set]
     en = Set
@@ -2089,6 +2185,7 @@
     zh-Hans = 集合
     ar = المجموعة
     da = Sæt
+    tr = Ayarla
 
   [bookmarks_usage_hint]
     en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.
@@ -2112,6 +2209,7 @@
     zh-Hans = 您还没有书签。\n在地图任何位置轻触以添 加一个书签。\n其他来源的书签也可载入并 显示在 MAPS.ME 中。从邮件、 Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文 件。
     ar = ليس لديك أي إشارات مرجعية بعد.\nانقر على أي مكان على الخريطة لإضافة إشارة مرجعية.\nيمكنك أيضا استيراد الإشارات المرجعية من المصادر الأخرى وعرضها في MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الدبابيس المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
     da = Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i MAPS.ME.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.
+    tr = Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp MAPS.ME’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.
 
   [bookmarks_usage_hint_import_only]
     en = Bookmarks from other sources can be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.
@@ -2135,6 +2233,7 @@
     zh-Hans = 其他来源的书签也可载入并显示在 MAPS.ME中。从邮件、Dropbox 或 weblink 中打开存储有图钉的 KML/KMZ 文件。
     ar = يمكن استيراد الإشارات المرجعية من المصادر الأخرى و عرضها على MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الإشارات المرجعية المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
     da = Du har ingen bogmærker endnu. Tryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i MAPS.ME. Åbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.
+    tr = Başka kaynaklardan yer imleri alınıp MAPS.ME’de gösterilebilir. KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen yer imleriyle aç.
 
   [settings]
     en = Settings
@@ -2158,6 +2257,7 @@
     zh-Hans = 设置
     ar = الإعدادات
     da = Indstillinger
+    tr = Ayarlar
 
   [maps_storage]
     en = Maps storage
@@ -2181,6 +2281,7 @@
     zh-Hans = 地图存储
     ar = تخزين الخرائط
     da = Kort lager
+    tr = Haritaları depolama
 
   [maps_storage_summary]
     en = Select the place where maps should be downloaded to
@@ -2204,6 +2305,7 @@
     zh-Hans = 选取地图应该下载的位置
     ar = اختر المكان الذي ينبغي تنزيل الخرائط  فيه.
     da = Vælg destination hvor dine kort skal downloades til
+    tr = Haritaların indirileceği yeri seçin
 
   [move_maps]
     en = Move maps?
@@ -2227,6 +2329,7 @@
     zh-Hans = 移动地图?
     ar = هل تريد نقل الخرائط؟
     da = Flyt kort?
+    tr = Haritaları taşı?
 
   [wait_several_minutes]
     en = This can take several minutes.\nPlease wait…
@@ -2250,6 +2353,7 @@
     zh-Hans = 这可能需要几分钟的时间。\n请稍候…
     ar = يمكن أن تستغرق هذه العملية عدة دقائق.\nالرجاء الانتظار…
     da = Dette kan tage flere minutter.\nVent venligst…
+    tr = Bu işlem birkaç dakika sürebilir.\nLütfen bekleyin…
 
   [visible]
     en = Visible
@@ -2272,6 +2376,7 @@
     zh-Hans = 可见
     ar = مرئي
     da = Synligt
+    tr = Görünür
 
   [bookmarks_in_pro_version]
     en = Bookmarks are only available in the full version of MAPS.ME. Get it right now!
@@ -2295,6 +2400,7 @@
     zh-Hans = 书签只在完整版 MAPS.ME 中提供。现在就 获取它!
     ar = الإشارات المرجعية متاحة فقط في الإصدار الكامل من MAPS.ME. احصل عليه الآن!
     da = Bogmærker er kun tilgængelige i den fulde version af MAPS.ME. Få det nu!
+    tr = Yer imleri sadece MAPS.ME tam sürümünde kullanılabilir. Hemen şimdi al!
 
   [gps_is_disabled_long_text]
     en = GPS is disabled. Please enable it in Settings.
@@ -2318,6 +2424,7 @@
     zh-Hans = GPS 已禁用。请在设置中启用它。
     ar = تم تعطيل خاصية نظام تحديد المواقع العالمي. الرجاء تفعيله في الاعدادات.
     da = GPS er deaktiveret. Aktiver venligst i Indstillinger.
+    tr = GPS devre dışı bırakıldı. Lütfen Ayarlar bölümünden etkinleştirin.
 
   [measurement_units]
     tags = ios,android,tizen
@@ -2341,6 +2448,7 @@
     zh-Hans = 测量单位
     ar = وحدات القياس.
     da = Måleenhed
+    tr = Ölçü Birimleri
 
   [measurement_units_summary]
     tags = ios,android,tizen
@@ -2364,6 +2472,7 @@
     zh-Hans = 选择英里或公里
     ar = اختر من بين الأميال و الكيلو مترات.
     da = Vælg mellem mil eller kilometer
+    tr = Mil veya kilometre seçimini yap
 
   [search_mode_all]
     en = Everywhere
@@ -2387,6 +2496,7 @@
     zh-Hans = 到处
     ar = كل مكان
     da = Overalt
+    tr = Her Yerde
 
   [search_mode_nearme]
     en = Near Me
@@ -2410,6 +2520,7 @@
     zh-Hans = 靠近我的
     ar = بجواري
     da = Tæt på mig
+    tr = Yakınlarımda
 
   [search_mode_viewport]
     en = On the Screen
@@ -2433,6 +2544,7 @@
     zh-Hans = 在屏幕上
     ar = على الشاشة
     da = På skærmen
+    tr = Ekranda
 
   [food]
     en = food
@@ -2456,6 +2568,7 @@
     zh-Hans = 食物
     ar = الطعام
     da = mad
+    tr = yemek
 
   [transport]
     en = transport
@@ -2479,6 +2592,7 @@
     zh-Hans = 交通
     ar = النقل
     da = transport
+    tr = ulaşım
 
   [fuel]
     en = gas
@@ -2502,6 +2616,7 @@
     zh-Hans = 汽油
     ar = الغاز
     da = benzin
+    tr = benzin
 
   [parking]
     en = parking
@@ -2525,6 +2640,7 @@
     zh-Hans = 停车
     ar = الاصطفاف
     da = parkering
+    tr = otopark
 
   [shop]
     en = shop
@@ -2548,6 +2664,7 @@
     zh-Hans = 商店
     ar = المتجر
     da = butik
+    tr = mağaza
 
   [hotel]
     en = hotel
@@ -2570,6 +2687,7 @@
     zh-Hans = 旅店
     ar = الفندق
     da = hotel
+    tr = otel
 
   [tourism]
     en = sights
@@ -2593,6 +2711,7 @@
     zh-Hans = 景点
     ar = سياحة
     da = seværdigheder
+    tr = görülecek yerler
 
   [entertainment]
     en = entertainment
@@ -2616,6 +2735,7 @@
     zh-Hans = 娱乐
     ar = التسلية
     da = underholdning
+    tr = eğlence
 
   [atm]
     en = atm
@@ -2638,6 +2758,7 @@
     zh-Hans = 自动取款机
     ar = ماكينة الصراف الآلي
     da = hæveautomat
+    tr = bankamatik
 
   [bank]
     en = bank
@@ -2661,6 +2782,7 @@
     zh-Hans = 银行
     ar = البنك
     da = bank
+    tr = banka
 
   [pharmacy]
     en = pharmacy
@@ -2684,6 +2806,7 @@
     zh-Hans = 药店
     ar = الصيدلية
     da = apotek
+    tr = eczane
 
   [hospital]
     en = hospital
@@ -2707,6 +2830,7 @@
     zh-Hans = 医院
     ar = المستشفى
     da = hospital
+    tr = hastane
 
   [toilet]
     en = toilet
@@ -2730,6 +2854,7 @@
     zh-Hans = 厕所
     ar = الحمام
     da = toilet
+    tr = tuvalet
 
   [post]
     en = post
@@ -2753,6 +2878,7 @@
     zh-Hans = 邮政
     ar = البريد
     da = post
+    tr = posta
 
   [police]
     en = police
@@ -2776,6 +2902,7 @@
     zh-Hans = 警察
     ar = الشرطة
     da = politi
+    tr = polis
 
   [no_search_results_found]
     en = No results found
@@ -2799,6 +2926,7 @@
     zh-Hans = 没有找到结果
     ar = لم يتم العثور على أي نتائج
     da = Ingen resultater
+    tr = Sonuç bulunamadı
 
   [description]
     en = Notes
@@ -2822,6 +2950,7 @@
     zh-Hans = 注释
     ar = ملاحظات
     da = Noter
+    tr = Notlar
 
   [share_by_email]
     en = Share by email
@@ -2845,6 +2974,7 @@
     zh-Hans = 邮件分享
     ar = مشاركة بواسطة البريد الالكتروني
     da = Del via e-mail
+    tr = E-postayla paylaş
 
   [share_bookmarks_email_subject]
     en = Shared MAPS.ME bookmarks
@@ -2868,6 +2998,7 @@
     zh-Hans = MAPS.ME 书签已与您共享
     ar = تم مشاركة اشارات MAPS.ME المرجعية معك
     da = MAPS.ME bogmærker er blevet delt med dig
+    tr = Paylaşılan MAPS.ME yer imleri
 
   [share_bookmarks_email_body]
     en = Greetings,\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open it if you have MAPS.ME Pro installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!
@@ -2891,6 +3022,7 @@
     zh-Hans = 欢迎,\n\n附件是 MAPS.ME 离线地图中我 的书签。如果您已安装 MAPS.ME 专业版, 请打开它。若没有,请为您的 iOS 或安卓设 备下载此应用。下载链接: http://maps.me/get?kmz\n\n享 受 和 MAPS.ME 的旅行吧!
     ar =  مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME Pro مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي:  http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!
     da = Hej, vedhæftet er mine bogmærker fra MAPS.ME offline kort. Åbn venligst vedhæftet hvis du har MAPS.ME Pro installeret. Hvis ikke, så download app'en til din iOS eller Android enhed fra dette link: http://maps.me/get?kmz.\n\ Nyd at rejse med MAPS.ME!
+    tr = Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME PRO sende yüklü ise aç. Değilse  iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!
 
   [load_kmz_title]
     en = Loading Bookmarks
@@ -2914,6 +3046,7 @@
     zh-Hans = 加载书签
     ar = تحميل الإشارات المرجعية
     da = Indlæser Bogmærker
+    tr = Yer İmleri Yükleniyor
 
   [load_kmz_successful]
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
@@ -2937,6 +3070,7 @@
     zh-Hans = 书签加载成功!您可以在地图或书签管理窗 口中找到它们。
     ar = تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.
     da = Bogmærkerne er indlæst! Du kan nu finde dem på kortet eller i Bogmærke Manager sektionen.
+    tr = Yer İmleri başarılı bir şekilde yüklendi! Bunları Haritada veya Yer İmleri Yöneticisi ekranında bulabilirsiniz.
 
   [load_kmz_failed]
     en = Bookmarks upload failed. The file may be corrupted or defective.
@@ -2960,6 +3094,7 @@
     zh-Hans = 书签上传失败。该文件可能已损坏或有缺陷。
     ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف .
     da = Bogmærkerne kunne ikke indlæses. Fil kan være skadet eller defekte.
+    tr = Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk veya hatalı olabilir.
 
   [edit]
     en = Edit
@@ -2978,6 +3113,7 @@
     zh-Hans = 编辑
     ar = تعديل
     da = Rediger
+    tr = Düzenle
 
   [unknown_current_position]
     en = Your location hasn't been determined yet
@@ -3001,6 +3137,7 @@
     zh-Hans = 您的位置尚未确定
     ar = لم يتم التعرف على موقعك بعد.
     da = Din lokation er ikke blevet bestemt endnu
+    tr = Yeriniz henüz belirlenmedi
 
   [download_location_country]
     en = Download the country of your current location (%@)
@@ -3024,6 +3161,7 @@
     zh-Hans = 下载您所在位置的国家 (%@)
     ar = تنزيل دولة (%@) موقعك الحالي
     da = Download landet bestemt ud fra din nuværende lokation (%@)
+    tr = Geçerli konumuzun (%@) ülkesini indirin
 
   [download_viewport_country_to_search]
     en = Download the country you are searching on (%@)
@@ -3047,6 +3185,7 @@
     zh-Hans = 下载您所搜索的国家 (%@)
     ar = تنزيل الدولة (%@) التي تبحث فيها
     da = Download landet som du har søgt på (%@)
+    tr = Aradığınız (%@) ülkesini indirin
 
   [cant_change_this_setting]
     en = Sorry, Map Storage settings are currently disabled.
@@ -3070,6 +3209,7 @@
     zh-Hans = 抱歉,地图存储设置目前被禁用
     ar = نأسف، اعدادات تخزين الخرائط معطلة حالياً.
     da = Beklager, Kort Lagring er ikke slået til i indstillinger.
+    tr = Üzgünüz, Harita Depolama ayarları şu anda devre dışı.
 
   [downloading_is_active]
     en = Country download is in progress now.
@@ -3093,6 +3233,7 @@
     zh-Hans = 国家下载进行中。
     ar = جاري الآن تنزيل الدولة
     da = Download af kort over land er i gang nu.
+    tr = Ülke indirme işlemi şu anda sürüyor.
 
   [appStore_message]
     en = Hope you enjoy using MAPS.ME! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
@@ -3116,6 +3257,7 @@
     zh-Hans = 希望您喜欢使用 MAPS.ME! 若确实喜欢, 请在应用商店对此应用进行打分和点评。这 花不了一分钟但却可以实在地帮助我们。感 谢您的支持!
     ar = نأمل أن تكون قد استمتعت باستخدام MAPS.ME! إذا كان الأمر كذلك، الرجاء تقييم التطبيق في App Store. يستغرق ذلك أقل من دقيقة لكنه يفيدنا بالفعل. شكرا لك على دعمك!
     da = Vi håber du er glad for at bruge MAPS.ME! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!
+    tr = MAPS.ME kullanmaktan keyif aldığınızı umuyoruz! Öyleyse, lütfen App Store’da uygulamaya puan verin veya uygulama hakkında yorum yapın. Bir dakikadan daha kısa sürer ama bize gerçekten yardımcı olabilir. Desteğiniz için teşekkürler!
 
   [no_thanks]
     en = No, thanks
@@ -3139,6 +3281,7 @@
     zh-Hans = 不,谢谢
     ar = لا، شكرا
     da = Nej, tak
+    tr = Hayır, teşekkürler
 
   [bookmark_share_sms]
     en = Hey, check out my pin at MAPS.ME! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get
@@ -3161,6 +3304,7 @@
     zh-Hans = 嘿,在 MAPS.ME 上查看我标注的图钉吧! %1$@ 或%2$@ 未安装离线地图?在此下 载: http://maps.me/get
     ar = هاي، تفقد الدبوس الخاص بي على MAPS.ME!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
     da = Hey, tjek min knappenål på MAPS.ME ud! %1$@ or %2$@ Har du ikke offline kort? Download her: http://maps.me/get
+    tr = Hey, MAPS.ME’de pinimi incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: http://maps.me/get
 
   [my_position_share_sms]
     en = Hey, check out my current location at MAPS.ME! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
@@ -3183,6 +3327,7 @@
     zh-Hans = 嘿,在 MAPS.ME 上查看我目前的位置 吧!%1$@ 或%2$@ 未安装离线地图?在此 下载: http://maps.me/get
     ar = هاي، تفقد الموقع الخاص بي على MAPS.ME!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
     da = Hey, tjek min nuværende lokation ud på MAPS.ME! %1$@ or %2$@. Har du ikke offline kort? Download her: http://maps.me/get
+    tr = Hey, MAPS.ME’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: http://maps.me/get
 
   [bookmark_share_email_subject]
     en = Hey, check out my pin at MAPS.ME map!
@@ -3205,6 +3350,7 @@
     zh-Hans = 嘿,在 MAPS.ME 上查看我标注的图钉吧!
     ar = هاي، تفقد الدبوس الخاص بي على خريطة MAPS.ME!
     da = Hey, tjek min knappenål på MAPS.ME kortet ud!
+    tr = Hey, MAPS.ME haritasında pinimi incele!
 
   [bookmark_share_email]
     en = Hi,\n\nI pinned: %1$@ at MAPS.ME, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
@@ -3227,6 +3373,7 @@
     zh-Hans = 嗨,\n\n我在 MAPS.ME 世界离线地图上标 注了%1$@。点击此链接%2$@或此链 接 %3$@来查看在地图上的位置。\n\n谢 谢。
     ar = مرحبا،\n\nقمت بوضع دبوس : %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.
     da = Hey,\n\nI har lagt en knappenål: %1$@ på MAPS.ME, offline kort over hele Verden. Tryk pådettelink: %2$@ellerdette%3$@foratseknappenåletpåkortet.\n\nTak.
+    tr = Merhaba,\n\nDünyanın çevrimdışı haritaları MAPS.ME’d: %1$@ pinledim. Yeri haritadan görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.
 
   [my_position_share_email_subject]
     en = Hey, check out my current location at MAPS.ME map!
@@ -3248,6 +3395,7 @@
     zh-Hans = 嗨，到MAPS.ME查看我的当前位置！
     ar = يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!
     da = Hey, tjek min nuværende lokation ud på MAPS.ME kortet!
+    tr = Hey, MAPS.ME’de geçerli konumumu incele!
 
  [my_position_share_email]
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
@@ -3270,6 +3418,7 @@
     zh-Hans = 嗨,\n\n我现在在这:%1$@。点击此链 接%2$@或此链接 %3$@来查看在地图上的 位置。\n\n谢谢。
     ar = مرحبا،\n\nأنا هنا الآن: %1$@  . انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكرا لك.
     da = Hey, her er jeg nu: %1$@. Tryk på dette link %2$@ eller dette %3$@ for at se stedet på kortet. Tak.
+    tr = Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.
 
   [share_by_message]
     en = Share by message
@@ -3293,6 +3442,7 @@
     zh-Hans = 通过消息分享
     ar = مشاركة بواسطة رسالة
     da = Del via besked
+    tr = Mesajla paylaş
 
   [share]
     en = Share
@@ -3316,6 +3466,7 @@
     zh-Hans = 分享
     ar = مشاركة
     da = Del
+    tr = Paylaş
 
   [message]
     en = Message
@@ -3339,6 +3490,7 @@
     zh-Hans = 消息
     ar = رسالة
     da = Besked
+    tr = Mesaj
 
   [email]
     en = E-Mail
@@ -3362,6 +3514,7 @@
     zh-Hans = 邮件
     ar = البريد الالكتروني
     da = E-Mail
+    tr = E-Posta
 
   [promocode_activation]
     en = Promo Code Activation
@@ -3375,6 +3528,7 @@
     zh-Hans = 促销码激活
     ar = تفعيل رمز الترويج
     da = Værdikode aktivering
+    tr = Promosyon Kodu Etkinleştirme
 
   [enter_promocode_hint]
     en = Enter Promo Code
@@ -3389,6 +3543,7 @@
     zh-Hans = 输入促销码
     ar = أدخل رمز الترويج
     da = Indtast værdikode
+    tr = Promosyon Kodunu Gir
 
   [promocode_success]
     en = Promo code is activated!
@@ -3403,6 +3558,7 @@
     zh-Hans = 促销码已激活!
     ar = تم تفعيل رمز الترويج!
     da = Værdikoden er aktiveret!
+    tr = Promosyon kodu etkinleştirildi!
 
   [promocode_error]
     en = Connection error. Please try again later.
@@ -3417,6 +3573,7 @@
     zh-Hans = 连接错误。请稍后再试。
     ar = خطأ في الاتصال. الرجاء المحاولة لاحقا.
     da = Forbindelses fejl. Prøv venligst igen senere.
+    tr = Bağlantı hatası. Lütfen daha sonra tekrar deneyin.
 
   [promocode_failure]
     en = Invalid promo code. Please try again.
@@ -3431,6 +3588,7 @@
     zh-Hans = 无效的促销代码。请再试一次。
     ar = رمز الترويج غير صحيح. الرجاء إعادة المحاولة.
     da = Forkert værdikode. Prøv venligst igen.
+    tr = Geçersiz promosyon kodu. Lütfen tekrar deneyin.
 
   [copy_link]
     en = Copy Link
@@ -3454,6 +3612,7 @@
     zh-Hans = 复制链接
     ar = نسخ الرابط
     da = Kopier link
+    tr = Bağlantıyı Kopyala
 
   [more_info]
     en = Show More Info
@@ -3477,6 +3636,7 @@
     zh-Hans = 显示更多资讯
     ar = إظهار مزيد من المعلومات
     da = Vis mere info
+    tr = Daha Fazla Bilgi Göster
 
   [copied_to_clipboard]
     en = Copied to Clipboard: %1$@
@@ -3500,6 +3660,7 @@
     zh-Hans = 复制到剪贴板:%1$@
     ar = تم النسخ الى الحافظة: %1$@
     da = Kopieret til udklipsholderen: %1$@
+    tr = Panoya Kopyalandı: %1$@
 
   [allow_statistics]
     en = Send Statistics
@@ -3523,6 +3684,7 @@
     zh-Hans = 发送数据
     ar = ارسال الاحصائيات
     da = Send statistikker
+    tr = İstatistikleri Gönder
 
   [allow_statistics_hint]
     en = Allow us to collect usage statistics to improve the app
@@ -3546,6 +3708,7 @@
     zh-Hans = 允许我们收集使用统计数据来提高应用程序
     ar = اسمح لنا بجمع احصائيات الاستخدام من أجل تحسين التطبيق
     da = Tillad os at indhendte brugsstatistikker for at forbedre vores app
+    tr = Uygulamayı geliştirebilmemiz için kullanım istatistikleri toplamamıza izin ver
 
   [info]
     en = Info
@@ -3569,6 +3732,7 @@
     zh-Hans = 信息
     ar = المعلومات
     da = Info
+    tr = Bilgi
 
   [done]
     en = Done
@@ -3592,6 +3756,7 @@
     zh-Hans = 完成
     ar = تم
     da = Færdig
+    tr = Bitti
 
   [yopme_pref_summary]
     tags = android
@@ -3612,6 +3777,7 @@
     zh-Hans = 选择背屏设置
     ar = اختر اعدادات الشاشة الخلفية
     da = Vælg bagskærmsindstillinger
+    tr = Arka Ekran ayarlarını seç
 
   [yopme_pref_title]
     tags = android
@@ -3632,6 +3798,7 @@
     zh-Hans = 背屏设置
     ar = اعدادات الشاشة الخلفية
     da = Bagskærmsindstillinger
+    tr = Arka Ekran Ayarları
 
   [show_on_backscreen]
     tags = android
@@ -3652,6 +3819,7 @@
     zh-Hans = 显示在背屏上
     ar = إظهار في الشاشة الخلفية
     da = Vis på bagskærm
+    tr = Arka ekranda göster
 
   [version]
     tags = android,tizen
@@ -3675,6 +3843,7 @@
     zh-Hans = 版本:%@
     ar = الاصدار: %@
     da = Version: %@
+    tr = Sürüm: %@
 
   [are_you_sure]
     tags = android,tizen
@@ -3698,6 +3867,7 @@
     zh-Hans = 您确定要继续吗?
     ar = هل أنت واثق أنك تريد الاستمرار؟
     da = Er du sikker på, at du vil fortsætte?
+    tr = Devam etmek istediğinizden emin misiniz?
 
   [tracks]
     tags = ios,android
@@ -3721,6 +3891,7 @@
     zh-Hans = 轨迹
     ar = المسارات
     da = Ruter
+    tr = Parçalar
 
   [length]
     tags = ios,android
@@ -3744,6 +3915,7 @@
     zh-Hans = 长度
     ar = الطول
     da = Længde
+    tr = Uzunluk
 
   [share_my_location]
     tags = ios,android,tizen
@@ -3766,6 +3938,7 @@
     zh-Hans = 共享我的位置
     ar = مشاركة موقعي
     da = Del min lokation
+    tr = Yerimi paylaş
 
   [become_a_pro]
     tags = tizen
@@ -3788,6 +3961,7 @@
     zh-Hans = 升级
     ar = ترقية
     da = Opgrader
+    tr = Yükselt
 
   [menu_search]
     en = Search
@@ -3809,6 +3983,7 @@
     zh-Hans = 搜索
     ar = بحث
     da = Søg
+    tr = Ara
 
   [pref_zoom_title]
     tags = tizen
@@ -3831,6 +4006,7 @@
     zh-Hans = 缩放按钮
     ar = أزرار التكبير
     da = Zoom knapper
+    tr = Yakınlaştırma butonları
 
   [pref_zoom_summary]
     tags = tizen
@@ -3853,6 +4029,7 @@
     zh-Hans = 在屏幕上显示
     ar = عرض على الشاشة
     da = Vis på skærmen
+    tr = Ekranda göster
 
   [more_apps_title]
     tags = ios,android
@@ -3875,6 +4052,7 @@
     zh-Hans = 更多应用
     ar = المزيد من التطبيقات
     da = Flere apps
+    tr = Daha fazla uygulama
 
   [more_apps_guides]
     en = Travel Guides
@@ -3896,6 +4074,7 @@
     zh-Hans = 旅游指南
     ar = دليل السفر الارشادي
     da = Rejseguider
+    tr = Seyahat rehberleri
 
   [more_apps_ads]
     fr = Plus d'applis
@@ -3917,6 +4096,7 @@
     zh-Hans = 更多应用
     ar = المزيد من التطبيقات
     da = Flere apps
+    tr = Daha fazla uygulama
 
   [placepage_distance]
     en = Distance
@@ -3938,6 +4118,7 @@
     zh-Hans = 距离
     ar = المسافة
     da = Afstand
+    tr = Mesafe
 
   [placepage_coordinates]
     en = Coordinates
@@ -3959,6 +4140,7 @@
     zh-Hans = 坐标
     ar = الإحداثيات
     da = Koordinater
+    tr = Koordinatlar
 
   [placepage_unsorted]
     en = Unsorted
@@ -3980,6 +4162,7 @@
     zh-Hans = 未分类
     ar = لم يتم فرزها
     da = Usorteret
+    tr = Sıralanmamış
 
   [search_show_on_map]
     en = View on map
@@ -4001,6 +4184,7 @@
     zh-Hans = 在地图上查看
     ar = مشاهدة على الخريطة
     da = Vis på kortet
+    tr = Haritada görüntüle
 
   [kitkat_migrate_ok]
     tags = android
@@ -4024,6 +4208,7 @@
     zh-Hans = 地图数据存储已优化。请重启应用。\n\nSD 卡根目录中的 MAPS.ME 文件夹已不再需要, 您可以删除它了。
     ar = تم تحسين وسيلة تخزين بيانات الخريطة. الرجاء اعادة تشغيل التطبيق .\n\nلا حاجة بعد الآن لمجلد MAPS.ME في البطاقة الرقمية الآمنة، يمكنك حذفه.
     da = Kort data lagring er blevet optimeret. Genstart venligst applikationen.\n\nMAPS.ME mappen i SD-kortet er ikke nødvendig mere. Du kan derfor slette den.
+    tr = Harita veri depolama optimize edildi. Lütfen uygulamayı yeniden başlatın.\n\nSD kart kaynağındaki MAPS.ME klasörüne artık ihtiyaç yok; silebilirsiniz.
 
   [kitkat_migrate_failed]
     tags = android
@@ -4047,6 +4232,7 @@
     zh-Hans = 由于安卓 4.4 的更改,我们需要优化地图的数 据存储,但现在没有足够的空间用于拷贝地 图数据。\n\n请释放存储空间,否则地图将 在只读模式中提供。
     ar = بسبب التغييرات في نظام أندرويد4.4 ، نحن بحاجة لتحسين وسيلة تخزين بيانات الخريطة، لكن لا يوجد حيز كافٍ لنسخ بيانات الخريطة.\n\nالرجاء إخلاء الذاكرة، وإلا ستتوافر الخرائط في وضع القراءة فقط.
     da = På grund af ændringer i Android 4.4 er vi nødsaget til at optimere kort data lagringen, men der er ikke nok plads til at kopiere kort dataen.\n\nFrigør venligst noget plads på din enhed, ellers vil kortene være skrivebeskyttede.
+    tr = Android 4.4’de yapılan değişikliklerden dolayı harita veri depolamasını optimize etmemiz gerekiyor ancak harita verilerini kopyalayacak yeterli alan yok.\n\nLütfen hafızayı boşaltın, aksi takdirde haritalar salt okunur modda kullanılabilir olacaktır.
 
   [bookmark_move_fail]
     tags = android
@@ -4070,6 +4256,7 @@
     zh-Hans = 我们需要移动您的书签到内部存储器,但没 有可用的空间。请释放存储,否则书签将不 可用。
     ar = نحن بحاجة لنقل الإشارات المرجعية الخاصة بك الى الذاكرة الداخلية، لكن لا يوجد حيز كافٍ لها. الرجاء إخلاء الذاكرة، وإلا لن تكون  الإشارات المرجعية متاحة.
     da = Vi er nødsaget til at flytte dine bogmærker til intern hukommelse, men der er ikke nok plads til dem der. Frigør venligst noget plads, ellers vil dine bogmærker ikke være tilgængelige.
+    tr = Yer imlerinizi dâhili hafızaya taşımamız gerekiyor ancak bunlar için kullanılabilir alan yok. Lütfen hafızayı boşaltın, aksi takdirde yer imleri kullanılamaz olacaktır.
 
   [kitkat_optimization_in_progress]
     tags = android
@@ -4093,6 +4280,7 @@
     zh-Hans = 您的地图存储正在被优化。请稍后,它可能 需要几分钟的时间。
     ar = لقد تم الآن تحسين وسيلة تخزين الخرائط. الرجاء الانتظار، سيستغرق الأمر دقائق قليلة.
     da = Din kort lagring bliver optimeret nu. Vent venligst, det kan taget nogle minutter.
+    tr = Harita depolama şu anda optimize ediliyor. Lütfen bekleyin; bu işlem birkaç dakika sürebilir.
 
   [free]
     tags = ios
@@ -4116,6 +4304,7 @@
     zh-Hans = 免费
     ar = مجاني
     da = Gratis
+    tr = Ücretsiz
 
   [buy]
     tags = ios
@@ -4139,6 +4328,7 @@
     zh-Hans = 购买
     ar = شراء
     da = Køb
+    tr = Satın Al
 
   [search_on_map]
     tags = ios
@@ -4162,6 +4352,7 @@
     zh-Hans = 在地图上搜索
     ar = البحث في الخريطة
     da = Søg på kort
+    tr = Haritada Ara
 
   [no_route_found]
     tags = ios,android
@@ -4433,3 +4624,4 @@
     zh-Hans = 下载您所在地方的地图
     zh-Hant = 下載您所在地方的地圖
     da = Download kortet over det sted, hvor du befinder dig
+    tr = Bulunduğun yerin haritasını indir
