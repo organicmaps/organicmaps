@@ -4,6 +4,8 @@
 
 UNIT_TEST(Jansson_Smoke)
 {
+  char * savedLocale = setlocale(LC_NUMERIC, "C");
+
 //  char const * str = "{\"location\":{\"latitude\":47.383333,\"longitude\":8.533333,"
 //      "\"accuracy\":18000.0},\"access_token\":\"2:6aOjM2IAoPMaweWN:txhu5LpkRkLVb3u3\"}";
 
@@ -37,4 +39,6 @@ UNIT_TEST(Jansson_Smoke)
     wasException = true;
   }
   TEST(wasException, ());
+
+  setlocale(LC_NUMERIC, savedLocale);
 }
