@@ -1,4 +1,4 @@
-#include "osrm_router.hpp"
+#include "osrm_online_router.hpp"
 #include "route.hpp"
 
 #include "../indexer/mercator.hpp"
@@ -19,17 +19,17 @@ namespace routing
 
 char const * OSRM_CAR_ROUTING_URL = "http://router.project-osrm.org/viaroute?output=json&compression=false&";
 
-string OsrmRouter::GetName() const
+string OsrmOnlineRouter::GetName() const
 {
-  return "osrm";
+  return "osrm-online";
 }
 
-void OsrmRouter::SetFinalPoint(m2::PointD const & finalPt)
+void OsrmOnlineRouter::SetFinalPoint(m2::PointD const & finalPt)
 {
   m_finalPt = finalPt;
 }
 
-void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback)
+void OsrmOnlineRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback)
 {
   // Construct OSRM url request to get the route
   string url = OSRM_CAR_ROUTING_URL;
@@ -38,10 +38,10 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
       + "&loc=" + to_string(MercatorBounds::YToLat(m_finalPt.y))   + "," + to_string(MercatorBounds::XToLon(m_finalPt.x));
 
   // Request will be deleted in the callback
-  downloader::HttpRequest::Get(url, bind(&OsrmRouter::OnRouteReceived, this, _1, callback));
+  downloader::HttpRequest::Get(url, bind(&OsrmOnlineRouter::OnRouteReceived, this, _1, callback));
 }
 
-void OsrmRouter::OnRouteReceived(downloader::HttpRequest & request, ReadyCallback callback)
+void OsrmOnlineRouter::OnRouteReceived(downloader::HttpRequest & request, ReadyCallback callback)
 {
   if (request.Status() == downloader::HttpRequest::ECompleted)
   {

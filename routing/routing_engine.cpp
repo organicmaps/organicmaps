@@ -2,7 +2,7 @@
 #include "route.hpp"
 
 #include "helicopter_router.hpp"
-#include "osrm_router.hpp"
+#include "osrm_online_router.hpp"
 #include "dijkstra_router.hpp"
 
 #include "../base/stl_add.hpp"
@@ -28,8 +28,8 @@ void RoutingEngine::AddRouter(string const & name)
   {
     if (name == "helicopter")
       m_routers.push_back(new HelicopterRouter());
-    else if (name == "osrm")
-      m_routers.push_back(new OsrmRouter());
+    else if (name == "osrm-online")
+      m_routers.push_back(new OsrmOnlineRouter());
   }
 }
 

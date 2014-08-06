@@ -14,7 +14,7 @@ SOURCES += \
     routing_engine.cpp \
     road_graph.cpp \
     helicopter_router.cpp \
-    osrm_router.cpp \
+    osrm_online_router.cpp \
     road_graph_router.cpp \
     dijkstra_router.cpp \
     features_road_graph.cpp \
@@ -26,7 +26,7 @@ HEADERS += \
     router.hpp \
     road_graph.hpp \
     helicopter_router.hpp \
-    osrm_router.hpp \
+    osrm_online_router.hpp \
     road_graph_router.hpp \
     dijkstra_router.hpp \
     features_road_graph.hpp \

@@ -9,7 +9,7 @@ namespace downloader { class HttpRequest; }
 namespace routing
 {
 
-class OsrmRouter : public IRouter
+class OsrmOnlineRouter : public IRouter
 {
   m2::PointD m_finalPt;
 
