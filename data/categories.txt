@@ -62,7 +62,7 @@ th:1แลกเปลี่ยนเงินตรา|หลักสูตร
 zh-Hans:1货币兑换|兑换|钱
 ar:صرف العملات|الصرف|الأموال
 da:3veksel|3penge
-tr:3döviz bürosu|2para
+tr:3döviz bürosu|3para
 
 amenity-bar|amenity-pub
 en:2bar|2pub|beer|drink|food
@@ -106,7 +106,7 @@ th:3 คาเฟ่|ร้านอาหาร่|อาหาร
 zh-Hans:1咖啡馆่|餐厅|食物
 ar:مقهى|مطعم่|طعام|الطعام
 da:3café|restaurant|mad
-tr:3kafeterya่|r3estoran|3yemek
+tr:3kafeterya่|restoran|3yemek
 
 amenity-fast_food
 en:4fast food|3restaurant|3cafe|takeaway|3food
@@ -238,7 +238,7 @@ hu:3bevásárlóközpont|bolt
 th:3ซูเปอร์มาร์เก็ต|ร้านค้า
 zh-Hans:超市|商店
 ar:سوبر ماركت|متجر|المتجر
-da:supermarked|butik
+da:3supermarked|butik
 tr:3süpermarket|mağaza
 
 amenity-marketplace
@@ -372,7 +372,7 @@ th:ป้ายรถเมล์|รถเมล์|ขนส่ง|การ�
 zh-Hans:1公交车站|公交车|运输|交通
 ar:محطة الحافلة์|حافلة|نقل|النقل
 da:3busstoppested|bus|transport
-tr:3otobüs durağı|otobüs|ulaşım
+tr:otobüs durağı|3otobüs|ulaşım
 
 railway-tram_stop
 en:tram stop|3tram|stop|4transport
@@ -416,7 +416,7 @@ th:สถานีขนส่ง|ขนส่ง|สถานี|การข�
 zh-Hans:1公车站|公交车|运输|交通
 ar:محطة الباص|حافلة|نقل|النقل
 da:2busstation|2bus|station|4transport
-tr:2otobüs durağı|4otobüs|2ulaşım
+tr:3otobüs durağı|3otobüs|2ulaşım
 
 railway-station|railway-halt
 en:3train station|4railway|railroad|3train|4station|4transport
@@ -460,7 +460,7 @@ th:3รถไฟ|สถานีรถไฟใต้ดิน|ท่อ|เม�
 zh-Hans:地铁|地铁|地铁|地铁|交通
 ar:محطة|القطار الكهربائي النفقي|قطار الأنفاق|المترو|تحت الأرض|النقل
 da:3undergrundsbane|3metro|3undergrund|3transport
-tr:2metro|2yer altı metrosu|yer altı|ulaşım
+tr:2metro|3yer altı metrosu|ulaşım
 
 amenity-ferry_terminal
 en:3ferry|terminal|transport

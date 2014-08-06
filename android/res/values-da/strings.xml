@@ -359,5 +359,5 @@
 	<!-- text of notification -->
 	<string name="download_map_notification">Download kortet over det sted, hvor du befinder dig</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">MAPS.ME Pro er gratis i dag!</string>
+	<string name="pro_version_is_free_today">MAPS.ME Pro er gratis i dag! Hent nu og fortæl dine venner.</string>
 </resources>

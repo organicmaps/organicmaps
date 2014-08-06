@@ -326,7 +326,7 @@
     zh-Hans = 下载了(%1$qu %2$@)，轻触删除
     ar = تم تنزيل (%1$qu %2$@)، المس لحذفها
     da = Downloaded (%1$qu %2$@), tryk for at slette
-    tr =  (%1$qu %2$@) indirildi, silmek için dokunun
+    tr = (%1$qu %2$@) indirildi, silmek için dokunun
 
   [downloading_x_touch_to_cancel]
     en = Downloading %qu%%, touch to cancel
@@ -1735,7 +1735,7 @@
     zh-Hans = 下载 (%@),轻触更新或删除
     ar = تم تنزيل (%@) ، انقر للتحديث أو الحذف
     da = Downloadet (%@), tryk for at opdatere eller slet
-    tr =  (%@) indirildi, güncellemek veya silmek için dokunun
+    tr = (%@) indirildi, güncellemek veya silmek için dokunun
 
   [update_mb_or_kb]
     en = Update %@
@@ -4647,5 +4647,5 @@
     uk = MAPS.ME Pro сьогодні безкоштовно! Завантажуй та розкажи друзям.
     zh-Hans = MAPS.ME Pro今日免费！立刻下载并告诉您的好友。
     zh-Hant = MAPS.ME Pro今日免費！馬上下載并告訴您的朋友。
-    da = MAPS.ME Pro er gratis i dag!
+    da = MAPS.ME Pro er gratis i dag! Hent nu og fortæl dine venner.
     tr = MAPS.ME Pro bugün ücretsiz! İndir ve arkadaşlarına haber ver.
