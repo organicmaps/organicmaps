@@ -223,6 +223,7 @@ int8_t CategoriesHolder::MapLocaleToInteger(string const & locale)
     {"zh-Hans", 17 },
     {"ar", 18 },
     {"da", 19 },
+    {"tr", 20 },
   };
   for (size_t i = 0; i < ARRAY_SIZE(mapping); ++i)
     if (locale.find(mapping[i].m_name) == 0)
