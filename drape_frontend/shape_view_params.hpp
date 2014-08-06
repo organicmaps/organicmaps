@@ -82,5 +82,4 @@ struct PathSymbolViewParams : CommonViewParams
   float m_step;
 };
 
-
 } // namespace df

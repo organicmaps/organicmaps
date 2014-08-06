@@ -88,15 +88,18 @@ public:
                    TileKey tileKey,
                    FeatureID const & id,
                    CaptionDescription const & captions,
-                   double nextModelViewScale);
+                   double currentScaleGtoP,
+                   double nextScaleGtoP);
 
   void operator ()(CoordPointT const & point);
   bool HasGeometry() const;
   void ProcessRule(Stylist::rule_wrapper_t const & rule);
+  void Finish();
 
 private:
   m2::SharedSpline m_spline;
-  double m_nextModelViewScale;
+  double m_currentScaleGtoP;
+  double m_nextScaleGtoP;
 };
 
 } // namespace df

@@ -265,9 +265,11 @@ void ApplyAreaFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
 
 ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey,
                                    FeatureID const & id, CaptionDescription const & captions,
-                                   double nextModelViewScale)
+                                   double currentScaleGtoP,
+                                   double nextScaleGtoP)
   : TBase(context, tileKey, id, captions)
-  , m_nextModelViewScale(nextModelViewScale)
+  , m_currentScaleGtoP(currentScaleGtoP)
+  , m_nextScaleGtoP(nextScaleGtoP)
 {
 }
 
@@ -328,7 +330,7 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       params.m_step = symRule.offset() * mainScale;
       params.m_offset = symRule.step() * mainScale;
 
-      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathSymbolShape(m_spline, params, m_nextModelViewScale)));
+      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathSymbolShape(m_spline, params, m_nextScaleGtoP)));
     }
     else
     {
@@ -336,6 +338,45 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       Extract(pLineRule, params);
       params.m_depth = depth;
       m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_spline->GetPath(), params)));
+    }
+  }
+}
+
+void ApplyLineFeature::Finish()
+{
+  string const & roadNumber = m_captions.GetRoadNumber();
+  if (roadNumber.empty())
+    return;
+
+  double pathPixelLength = m_spline->GetLength() * m_currentScaleGtoP;
+  int const textHeight = static_cast<int>(11 * df::VisualParams::Instance().GetVisualScale());
+
+  // I don't know why we draw by this, but it's work before and will work now
+  if (pathPixelLength > (roadNumber.size() + 2) * textHeight)
+  {
+    // TODO in future we need to choose emptySpace according GtoP scale.
+    double const emptySpace = 1000.0;
+    int const count = static_cast<int>((pathPixelLength / emptySpace) + 2);
+    double const splineStep = pathPixelLength / count;
+
+    FontDecl font;
+    font.m_color = dp::Color(150, 75, 0, 255);
+    font.m_needOutline = true;
+    font.m_outlineColor = dp::Color(255, 255, 255, 255);
+    font.m_size = textHeight;
+
+    TextViewParams viewParams;
+    viewParams.m_depth = 0;
+    viewParams.m_anchor = dp::Center;
+    viewParams.m_featureID = FeatureID();
+    viewParams.m_primaryText = roadNumber;
+    viewParams.m_primaryTextFont = font;
+
+    m2::Spline::iterator it = m_spline.CreateIterator();
+    while (!it.BeginAgain())
+    {
+      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new TextShape(it.m_pos, viewParams)));
+      it.Step(splineStep);
     }
   }
 }

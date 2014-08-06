@@ -82,16 +82,18 @@ private:
   float m_symbolHalfHeight;
 };
 
-PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params, float maxScale)
+PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline,
+                                 PathSymbolViewParams const & params,
+                                 float nextScaleGtoP)
   : m_params(params)
   , m_spline(spline)
-  , m_maxScale(1.0f / maxScale)
+  , m_nextScaleGtoP(nextScaleGtoP)
 {
 }
 
 void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  int maxCount = (m_spline->GetLength() * m_maxScale - m_params.m_offset) / m_params.m_step + 1;
+  int maxCount = (m_spline->GetLength() * m_nextScaleGtoP - m_params.m_offset) / m_params.m_step + 1;
   if (maxCount <= 0)
     return;
 
