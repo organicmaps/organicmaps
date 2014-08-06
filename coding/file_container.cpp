@@ -22,6 +22,13 @@ template <class TSink> void Write(TSink & sink, FilesContainerBase::Info const &
   WriteVarUint(sink, i.m_size);
 }
 
+string DebugPrint(FilesContainerBase::Info const & info)
+{
+  ostringstream ss;
+  ss << "{ " << info.m_tag << ", " << info.m_offset << ", " << info.m_size << " }";
+  return ss.str();
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // FilesContainerBase
 /////////////////////////////////////////////////////////////////////////////
@@ -95,16 +102,22 @@ void FilesContainerW::Open(FileWriter::Op op)
 
   case FileWriter::OP_WRITE_EXISTING:
     {
-      {
-        // read an existing service info
-        FileReader reader(m_name);
-        ReadInfo(reader);
-      }
-
-      // Important: in append mode we should sort info-vector by offsets
-      sort(m_info.begin(), m_info.end(), LessOffset());
-      break;
+      // read an existing service info
+      FileReader reader(m_name);
+      ReadInfo(reader);
     }
+
+    // Important: in append mode we should sort info-vector by offsets
+    sort(m_info.begin(), m_info.end(), LessOffset());
+
+    // Check that all offsets are unique
+#ifdef DEBUG
+    for (size_t i = 1; i < m_info.size(); ++i)
+      ASSERT(m_info[i-1].m_offset < m_info[i].m_offset ||
+             m_info[i-1].m_size == 0 ||
+             m_info[i].m_size == 0, ());
+#endif
+    break;
 
   default:
     ASSERT ( false, ("Unsupported options") );
