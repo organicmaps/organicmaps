@@ -275,29 +275,20 @@ void ApplyLineFeature::operator ()(CoordPointT const & point)
 {
   m2::PointF const inputPt(point.first, point.second);
 
-  /// TODO remove this check when fix generator.
-  /// Now we have line objects with zero length segments
-  if (m_path.empty())
-  {
-    m_path.push_back(inputPt);
-  }
-  else
-  {
-    if (!(inputPt - m_path.back()).IsAlmostZero())
-      m_path.push_back(inputPt);
-    else
-      LOG(LDEBUG, ("Found seqment with zero lenth (the ended points are same)"));
-  }
+  if (m_spline.IsNull())
+    m_spline.Reset(new m2::Spline());
 
+  m_spline->AddPoint(inputPt);
 }
 
 bool ApplyLineFeature::HasGeometry() const
 {
-  return m_path.size() > 1;
+  return m_spline->IsValid();
 }
 
 void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
 {
+  ASSERT(HasGeometry(), ());
   drule::BaseRule const * pRule = rule.first;
   float depth = rule.second;
 
@@ -322,7 +313,7 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
     params.m_text = m_captions.GetPathName();
     params.m_textFont = fontDecl;
 
-    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathTextShape(m_path, params)));
+    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathTextShape(m_spline, params)));
   }
 
   if (pLineRule != NULL)
@@ -337,14 +328,14 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       params.m_step = symRule.offset() * mainScale;
       params.m_offset = symRule.step() * mainScale;
 
-      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathSymbolShape(m_path, params, m_nextModelViewScale)));
+      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathSymbolShape(m_spline, params, m_nextModelViewScale)));
     }
     else
     {
       LineViewParams params;
       Extract(pLineRule, params);
       params.m_depth = depth;
-      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_path, params)));
+      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_spline->GetPath(), params)));
     }
   }
 }

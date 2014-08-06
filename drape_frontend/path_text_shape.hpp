@@ -34,7 +34,7 @@ struct LetterInfo
 class PathTextShape : public MapShape
 {
 public:
-  PathTextShape(vector<PointF> const & path, PathTextViewParams const & params);
+  PathTextShape(m2::SharedSpline const & spline, PathTextViewParams const & params);
   virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
 
 private:

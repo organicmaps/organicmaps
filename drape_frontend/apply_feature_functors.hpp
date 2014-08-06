@@ -6,11 +6,10 @@
 #include "../indexer/point_to_int64.hpp"
 
 #include "../geometry/point2d.hpp"
-
+#include "../geometry/spline.hpp"
 
 class CircleRuleProto;
 class SymbolRuleProto;
-
 class CaptionDefProto;
 
 namespace df
@@ -96,7 +95,7 @@ public:
   void ProcessRule(Stylist::rule_wrapper_t const & rule);
 
 private:
-  vector<m2::PointF> m_path;
+  m2::SharedSpline m_spline;
   double m_nextModelViewScale;
 };
 

@@ -15,12 +15,12 @@ namespace df
 class PathSymbolShape : public MapShape
 {
 public:
-  PathSymbolShape(vector<m2::PointF> const & path, PathSymbolViewParams const & params, float maxScale);
+  PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params, float maxScale);
   virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
 
 private:
   PathSymbolViewParams m_params;
-  m2::Spline m_path;
+  m2::SharedSpline m_spline;
   float m_maxScale;
 };
 

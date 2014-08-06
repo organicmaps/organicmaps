@@ -20,9 +20,9 @@ class PathSymbolHandle : public dp::OverlayHandle
 {
 public:
   static const uint8_t PositionAttributeID = 1;
-  PathSymbolHandle(m2::Spline const & spl, PathSymbolViewParams const & params, int maxCount, float hw, float hh)
+  PathSymbolHandle(m2::SharedSpline const & spl, PathSymbolViewParams const & params, int maxCount, float hw, float hh)
     : OverlayHandle(FeatureID(), dp::Center, 0.0f),
-      m_params(params), m_path(spl), m_scaleFactor(1.0f),
+      m_params(params), m_spline(spl), m_scaleFactor(1.0f),
       m_positions(maxCount * 6), m_maxCount(maxCount),
       m_symbolHalfWidth(hw), m_symbolHalfHeight(hh)
   {
@@ -33,8 +33,7 @@ public:
   {
     m_scaleFactor = screen.GetScale();
 
-    Spline::iterator itr;
-    itr.Attach(m_path);
+    Spline::iterator itr = m_spline.CreateIterator();
     itr.Step((m_params.m_offset + m_symbolHalfWidth) * m_scaleFactor);
 
     for (int i = 0; i < m_maxCount * 6; ++i)
@@ -75,7 +74,7 @@ public:
 
 private:
   PathSymbolViewParams m_params;
-  m2::Spline m_path;
+  m2::SharedSpline m_spline;
   float m_scaleFactor;
   mutable vector<vec2> m_positions;
   int const m_maxCount;
@@ -83,12 +82,16 @@ private:
   float m_symbolHalfHeight;
 };
 
-PathSymbolShape::PathSymbolShape(vector<PointF> const & path, PathSymbolViewParams const & params, float maxScale)
-  : m_params(params), m_path(path), m_maxScale(1.0f / maxScale) {}
+PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline, PathSymbolViewParams const & params, float maxScale)
+  : m_params(params)
+  , m_spline(spline)
+  , m_maxScale(1.0f / maxScale)
+{
+}
 
 void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  int maxCount = (m_path.GetLength() * m_maxScale - m_params.m_offset) / m_params.m_step + 1;
+  int maxCount = (m_spline->GetLength() * m_maxScale - m_params.m_offset) / m_params.m_step + 1;
   if (maxCount <= 0)
     return;
 
@@ -152,7 +155,7 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
     provider.InitStream(2, texcoord, dp::MakeStackRefPointer(&uvs[0]));
   }
 
-  dp::OverlayHandle * handle = new PathSymbolHandle(m_path, m_params, maxCount, pixelSize.x / 2.0f, pixelSize.y / 2.0f);
+  dp::OverlayHandle * handle = new PathSymbolHandle(m_spline, m_params, maxCount, pixelSize.x / 2.0f, pixelSize.y / 2.0f);
   batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
 }
 

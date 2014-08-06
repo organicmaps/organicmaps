@@ -18,7 +18,7 @@ public:
     PointF m_dir;
     PointF m_avrDir;
     iterator();
-    void Attach(Spline const & S);
+    void Attach(Spline const & spl);
     void Step(float speed);
     bool BeginAgain();
   private:
@@ -29,14 +29,19 @@ public:
   };
 
 public:
-  Spline() : m_lengthAll(0.0f) {}
+  Spline() {}
   Spline(vector<PointF> const & path);
-  void AddPoint(PointF const & pt);
   Spline const & operator = (Spline const & spl);
-  float GetLength() const { return m_lengthAll; }
+
+  void AddPoint(PointF const & pt);
+  vector<PointF> const & GetPath() const { return m_position; }
+
+  bool IsEmpty() const;
+  bool IsValid() const;
+
+  float GetLength() const;
 
 private:
-  float m_lengthAll;
   vector<PointF> m_position;
   vector<PointF> m_direction;
   vector<float> m_length;
@@ -45,12 +50,19 @@ private:
 class SharedSpline
 {
 public:
+  SharedSpline() {}
   SharedSpline(vector<PointF> const & path);
   SharedSpline(SharedSpline const & other);
-
   SharedSpline const & operator= (SharedSpline const & spl);
-  float GetLength() const;
+
+  bool IsNull() const;
+  void Reset(Spline * spline);
+  void Reset(vector<PointF> const & path);
+
   Spline::iterator CreateIterator();
+
+  Spline * operator->();
+  Spline const * operator->() const;
 
 private:
   shared_ptr<Spline> m_spline;

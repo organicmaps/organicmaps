@@ -1,9 +1,13 @@
 #include "spline.hpp"
 
+#include "../base/logging.hpp"
+
+#include "../std/numeric.hpp"
+
 namespace m2
 {
 
-Spline::Spline(vector<PointF> const & path) : m_lengthAll(0.0f)
+Spline::Spline(vector<PointF> const & path)
 {
   ASSERT(path.size() > 1, ("Wrong path size!"));
   m_position.assign(path.begin(), path.end());
@@ -16,13 +20,20 @@ Spline::Spline(vector<PointF> const & path) : m_lengthAll(0.0f)
     m_direction[i] = path[i+1] - path[i];
     m_length[i] = m_direction[i].Length();
     m_direction[i] = m_direction[i].Normalize();
-    m_lengthAll += m_length[i];
   }
 }
 
 void Spline::AddPoint(PointF const & pt)
 {
-  if(m_position.empty())
+  /// TODO remove this check when fix generator.
+  /// Now we have line objects with zero length segments
+  if (!IsEmpty() && (pt - m_position.back()).IsAlmostZero())
+  {
+    LOG(LDEBUG, ("Found seqment with zero lenth (the ended points are same)"));
+    return;
+  }
+
+  if(IsEmpty())
     m_position.push_back(pt);
   else
   {
@@ -30,20 +41,33 @@ void Spline::AddPoint(PointF const & pt)
     m_position.push_back(pt);
     m_length.push_back(dir.Length());
     m_direction.push_back(dir.Normalize());
-    m_lengthAll += m_length.back();
   }
+}
+
+bool Spline::IsEmpty() const
+{
+  return m_position.empty();
+}
+
+bool Spline::IsValid() const
+{
+  return m_position.size() > 1;
 }
 
 Spline const & Spline::operator = (Spline const & spl)
 {
   if(&spl != this)
   {
-    m_lengthAll = spl.m_lengthAll;
     m_position = spl.m_position;
     m_direction = spl.m_direction;
     m_length = spl.m_length;
   }
   return *this;
+}
+
+float Spline::GetLength() const
+{
+  return accumulate(m_length.begin(), m_length.end(), 0.0f);
 }
 
 Spline::iterator::iterator()
@@ -52,9 +76,9 @@ Spline::iterator::iterator()
   , m_index(0)
   , m_dist(0) {}
 
-void Spline::iterator::Attach(Spline const & S)
+void Spline::iterator::Attach(Spline const & spl)
 {
-  m_spl = &S;
+  m_spl = &spl;
   m_index = 0;
   m_dist = 0;
   m_checker = false;
@@ -105,9 +129,19 @@ SharedSpline const & SharedSpline::operator= (SharedSpline const & spl)
   return *this;
 }
 
-float SharedSpline::GetLength() const
+bool SharedSpline::IsNull() const
 {
-  return m_spline->GetLength();
+  return m_spline == NULL;
+}
+
+void SharedSpline::Reset(Spline * spline)
+{
+  m_spline.reset(spline);
+}
+
+void SharedSpline::Reset(vector<PointF> const & path)
+{
+  m_spline.reset(new Spline(path));
 }
 
 Spline::iterator SharedSpline::CreateIterator()
@@ -115,6 +149,18 @@ Spline::iterator SharedSpline::CreateIterator()
   Spline::iterator result;
   result.Attach(*m_spline.get());
   return result;
+}
+
+Spline * SharedSpline::operator->()
+{
+  ASSERT(!IsNull(), ());
+  return m_spline.get();
+}
+
+Spline const * SharedSpline::operator->() const
+{
+  ASSERT(!IsNull(), ());
+  return m_spline.get();
 }
 
 }

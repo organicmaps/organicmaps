@@ -50,9 +50,11 @@ namespace
   };
 }
 
-PathTextShape::PathTextShape(vector<PointF> const & path, PathTextViewParams const & params)
-  : m_spline(path)
-  , m_params(params) {}
+PathTextShape::PathTextShape(m2::SharedSpline const & spline, PathTextViewParams const & params)
+  : m_spline(spline)
+  , m_params(params)
+{
+}
 
 void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
