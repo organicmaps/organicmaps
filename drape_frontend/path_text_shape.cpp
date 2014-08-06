@@ -63,6 +63,7 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
   int const cnt = text.size();
   vector<Buffer> buffers(1);
   float const needOutline = m_params.m_textFont.m_needOutline;
+  float length = 0.0f;
 
   int textureSet;
   for (int i = 0; i < cnt; i++)
@@ -88,6 +89,7 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
     halfWidth *= aspect;
     halfHeight *= aspect;
     advance *= aspect;
+    length += advance;
 
     curBuffer.addSizes(halfWidth, halfHeight);
 
@@ -168,7 +170,7 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
       provider.InitStream(3, outline_color, dp::MakeStackRefPointer(&buffers[i].m_outlineColor[0]));
     }
 
-    dp::OverlayHandle * handle = new PathTextHandle(m_spline, m_params, buffers[i].m_info, buffers[i].m_maxSize);
+    dp::OverlayHandle * handle = new PathTextHandle(m_spline, m_params, buffers[i].m_info, buffers[i].m_maxSize, length);
 
     batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
   }
@@ -206,27 +208,99 @@ m2::RectD PathTextHandle::GetPixelRect(ScreenBase const & screen) const
 }
 
 PathTextHandle::PathTextHandle(m2::SharedSpline const & spl, PathTextViewParams const & params,
-                               vector<LetterInfo> const & info, float maxSize)
+                               vector<LetterInfo> const & info, float maxSize, float textLength)
   : OverlayHandle(FeatureID()
   , dp::Center, 0.0f)
   , m_path(spl)
   , m_params(params)
   , m_infos(info)
   , m_scaleFactor(1.0f)
-  , m_positions(info.size() * 6)
+  , m_positions(info.size() * 4)
   , m_maxSize(maxSize)
+  , m_textLength(textLength)
 {
 }
 
 void PathTextHandle::Update(ScreenBase const & screen)
 {
+  switch(ChooseDirection(screen))
+  {
+  case -1:
+    DrawReverse(screen);
+    break;
+  case 0:
+    std::fill(m_positions.begin(), m_positions.end(), vec2(0.0f, 0.0f));
+    break;
+  case 1:
+    DrawForward(screen);
+    break;
+  }
+}
+
+int PathTextHandle::ChooseDirection(ScreenBase const & screen)
+{
   m_scaleFactor = screen.GetScale();
-
-  float entireLength = m_params.m_offsetStart * m_scaleFactor;
-  int const cnt = m_infos.size();
-
   Spline::iterator itr = m_path.CreateIterator();
-  itr.Step(entireLength);
+  itr.Step(m_params.m_offsetStart * m_scaleFactor);
+  PointF const p1 = screen.GtoP(itr.m_pos);
+  itr.Step(m_textLength * m_scaleFactor);
+  PointF const p2 = screen.GtoP(itr.m_pos);
+  if (itr.BeginAgain())
+    return 0;
+
+  if ((p2 - p1).x >= 0 )
+    return 1;
+  else
+    return -1;
+}
+
+void PathTextHandle::ClearPositions()
+{
+  std::fill(m_positions.begin(), m_positions.end(), vec2(0.0f, 0.0f));
+}
+
+void PathTextHandle::DrawReverse(ScreenBase const & screen)
+{
+  m_scaleFactor = screen.GetScale();
+  int const cnt = m_infos.size();
+  Spline::iterator itr = m_path.CreateIterator();
+  itr.Step(m_params.m_offsetStart * m_scaleFactor);
+
+  for (int i = cnt - 1; i >= 0; i--)
+  {
+    float const advance = m_infos[i].m_advance * m_scaleFactor;
+    float const halfWidth = m_infos[i].m_halfWidth;
+    float const halfHeight = m_infos[i].m_halfHeight;
+    float const xOffset = m_infos[i].m_xOffset + halfWidth;
+    float const yOffset = m_infos[i].m_yOffset + halfHeight;
+
+    ASSERT_NOT_EQUAL(advance, 0.0, ());
+    PointF const pos = itr.m_pos;
+    itr.Step(advance);
+
+    PointF dir = itr.m_avrDir.Normalize();
+    PointF norm(-dir.y, dir.x);
+    PointF norm2 = norm;
+    dir *= halfWidth * m_scaleFactor;
+    norm *= halfHeight * m_scaleFactor;
+
+    float const fontSize = m_params.m_textFont.m_size * m_scaleFactor / 2.0f;
+    PointF const pivot = dir * xOffset / halfWidth + norm * yOffset / halfHeight + pos + norm2 * fontSize;
+
+    int index = i * 4;
+    m_positions[index++] = pivot + dir + norm;
+    m_positions[index++] = pivot + dir - norm;
+    m_positions[index++] = pivot - dir + norm;
+    m_positions[index++] = pivot - dir - norm;
+  }
+}
+
+void PathTextHandle::DrawForward(ScreenBase const & screen)
+{
+  m_scaleFactor = screen.GetScale();
+  int const cnt = m_infos.size();
+  Spline::iterator itr = m_path.CreateIterator();
+  itr.Step(m_params.m_offsetStart * m_scaleFactor);
 
   for (int i = 0; i < cnt; i++)
   {
@@ -238,11 +312,8 @@ void PathTextHandle::Update(ScreenBase const & screen)
     float const yOffset = -m_infos[i].m_yOffset - halfHeight;
 
     ASSERT_NOT_EQUAL(advance, 0.0, ());
-    entireLength += advance;
     PointF const pos = itr.m_pos;
     itr.Step(advance);
-    if(entireLength >= m_params.m_offsetEnd * m_scaleFactor || itr.BeginAgain())
-      return;
 
     PointF dir = itr.m_avrDir.Normalize();
     PointF norm(-dir.y, dir.x);
@@ -260,6 +331,7 @@ void PathTextHandle::Update(ScreenBase const & screen)
     m_positions[index++] = pivot + dir + norm;
   }
 }
+
 
 void PathTextHandle::GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const
 {

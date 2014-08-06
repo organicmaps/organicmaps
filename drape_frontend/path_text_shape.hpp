@@ -47,9 +47,13 @@ class PathTextHandle : public dp::OverlayHandle
 public:
   static const uint8_t DirectionAttributeID = 1;
   PathTextHandle(m2::SharedSpline const & spl, PathTextViewParams const & params,
-                 vector<LetterInfo> const & info, float maxSize);
+                 vector<LetterInfo> const & info, float maxSize, float textLength);
 
   virtual void Update(ScreenBase const & screen);
+  void DrawReverse(ScreenBase const & screen);
+  void DrawForward(ScreenBase const & screen);
+  void ClearPositions();
+  int ChooseDirection(ScreenBase const & screen);
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const;
   virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const;
 
@@ -60,6 +64,7 @@ private:
   float m_scaleFactor;
   mutable vector<glsl_types::vec2> m_positions;
   float m_maxSize;
+  float m_textLength;
 };
 
 } // namespace df
