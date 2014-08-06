@@ -15,7 +15,7 @@ INCLUDEPATH *= $$ROOT_DIR/3party/boost
 # hack for Qt5 qmake to make it faster
 CONFIG -= depend_includepath
 
-#CONFIG *= c++11
+CONFIG *= c++11
 
 CONFIG(c++11) {
   QMAKE_CFLAGS *= -Wno-deprecated-register

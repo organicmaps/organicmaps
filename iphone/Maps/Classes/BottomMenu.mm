@@ -178,7 +178,7 @@
   NSString * libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
   NSString * path = [libraryPath stringByAppendingPathComponent:@"bottom_menu_images/"];
   if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil])
-    [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:NO error:nil];
+    [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil];
   return path;
 }
 
