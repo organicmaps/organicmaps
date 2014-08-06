@@ -661,26 +661,26 @@ da:3tempel|moske|kirke|synagoge|kultsted|sightseeing|seværdigheder
 tr:3ibadet yerleri|4tapınak|görülecek yerler
 
 tourism-museum
-en:4museum|attraction|tourism|sights
-ru:4музей|достопримечательность|туризм
-uk:4музей|пам'ятка|туризм|пам’ятні місця
-de:4Museum|Sehenswürdigkeit
-fr:4musée|tourisme|site touristique
-it:4museo|turistico
-es:4museo|turismo
+en:2museum|attraction|tourism|sights
+ru:2музей|достопримечательность|туризм
+uk:2музей|пам'ятка|туризм|пам’ятні місця
+de:2Museum|Sehenswürdigkeit
+fr:2musée|tourisme|site touristique
+it:2museo|turistico
+es:2museo|turismo
 ko:1박물관|관광
 ja:1博物館|美術館
-cs:4muzeum|pamětihodnosti
-nl:4museum|attractie|toerisme
+cs:2muzeum|pamětihodnosti
+nl:2museum|attractie|toerisme
 zh-Hant:1博物館|旅遊|觀光|景點|遊覽|歷史|旅遊景點
-pl:4muzeum|turystyka|zwiedzanie|osobliwości miasta
-pt:4museu|turismo|vistas
-hu:4múzeum|látnivaló|túrizmus|látványosság
-th:4พิพิธภัณฑ์|แหล่งท่องเที่ยว|การท่องเที่ยว|สถานที่ท่องเที่ยว
+pl:2muzeum|turystyka|zwiedzanie|osobliwości miasta
+pt:2museu|turismo|vistas
+hu:2múzeum|látnivaló|túrizmus|látványosság
+th:2พิพิธภัณฑ์|แหล่งท่องเที่ยว|การท่องเที่ยว|สถานที่ท่องเที่ยว
 zh-Hans:博物馆|景点
 ar:متحف|أماكن الجذب|سياحة|مناظر
-da:4museum|attraktioner|turisme|seværdigheder
-tr:4müze|cazibe merkezleri|turizm|görülecek yerler
+da:2museum|attraktioner|turisme|seværdigheder
+tr:2müze|cazibe merkezleri|turizm|görülecek yerler
 
 waterway-waterfall|natural-waterfall
 en:2waterfall|sights
