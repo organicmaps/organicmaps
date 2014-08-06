@@ -21,6 +21,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   CellRowInfo,
   CellRowShare,
   CellRowRouting,
+  CellInvalid     // Sections changed but rows are not
 };
 
 @interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate, PlacePageRoutingCellDelegate>
@@ -171,7 +172,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     return CellRowShare;
   else if (indexPath.row == 4)
     return CellRowRouting;
-  return 0;
+  return CellInvalid;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

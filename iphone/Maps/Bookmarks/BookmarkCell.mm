@@ -10,7 +10,7 @@
   {
     _bmName = [[UILabel alloc] init];
     _bmDistance = [[UILabel alloc] init];
-    _bmDistance.textAlignment = UITextAlignmentRight;
+    _bmDistance.textAlignment = NSTextAlignmentRight;
 
     // There is a hack below to get standart fonts and colors.
     self.textLabel.text = @"tmpText";

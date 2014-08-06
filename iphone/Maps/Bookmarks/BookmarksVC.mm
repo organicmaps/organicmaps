@@ -120,7 +120,7 @@
         f.returnKeyType = UIReturnKeyDone;
         f.clearButtonMode = UITextFieldViewModeWhileEditing;
         f.autocorrectionType = UITextAutocorrectionTypeNo;
-        f.textAlignment = UITextAlignmentRight;
+        f.textAlignment = NSTextAlignmentRight;
         f.textColor = cell.detailTextLabel.textColor;
         f.font = [cell.detailTextLabel.font fontWithSize:[cell.detailTextLabel.font pointSize]];
         f.tag = TEXTFIELD_TAG;
@@ -205,7 +205,7 @@
     if (!cell)
     {
       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BookmarksExportCell"];
-      cell.textLabel.textAlignment = UITextAlignmentCenter;
+      cell.textLabel.textAlignment = NSTextAlignmentCenter;
       cell.textLabel.text = NSLocalizedString(@"share_by_email", nil);
     }
   }

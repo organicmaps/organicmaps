@@ -214,7 +214,7 @@ using namespace::storage;
 {
   if ([[AppInfo sharedInfo] featureAvailable:AppFeatureMoreAppsBanner])
   {
-    self.bannerView.currentContentSizeIdentifier = UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? ADBannerContentSizeIdentifierPortrait : ADBannerContentSizeIdentifierLandscape;
+    self.bannerView.currentContentSizeIdentifier = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? ADBannerContentSizeIdentifierPortrait : ADBannerContentSizeIdentifierLandscape;
     [self updateData];
     [self.tableView reloadData];
   }
@@ -237,7 +237,7 @@ using namespace::storage;
   if (!_bannerView)
   {
     _bannerView = [[ADBannerView alloc] initWithFrame:CGRectZero];
-    _bannerView.currentContentSizeIdentifier = UIDeviceOrientationIsPortrait(self.interfaceOrientation) ? ADBannerContentSizeIdentifierPortrait : ADBannerContentSizeIdentifierLandscape;
+    _bannerView.currentContentSizeIdentifier = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? ADBannerContentSizeIdentifierPortrait : ADBannerContentSizeIdentifierLandscape;
     _bannerView.delegate = self;
   }
   return _bannerView;

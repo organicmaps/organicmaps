@@ -51,8 +51,8 @@
     bool const showDetailedHint = !GetFramework().GetBmCategoriesCount();
     label.text = showDetailedHint ? NSLocalizedString(@"bookmarks_usage_hint", nil)
                                   : NSLocalizedString(@"bookmarks_usage_hint_import_only", nil);
-    label.textAlignment = UITextAlignmentCenter;
-    label.lineBreakMode = UILineBreakModeWordWrap;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.lineBreakMode = NSLineBreakByWordWrapping;
     label.numberOfLines = 0;
     [m_hint addSubview:label];
   }
