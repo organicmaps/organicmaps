@@ -4,28 +4,36 @@
 
 #include "../std/string.hpp"
 
+
 inline string UrlEncode(string const & rawUrl)
 {
-  string result(rawUrl);
-  for (size_t i = 0; i < result.size(); ++i)
+  size_t const count = rawUrl.size();
+  string result;
+  result.reserve(count);
+
+  for (size_t i = 0; i < count; ++i)
   {
-    char const c = result[i];
-    if (c < '-' || c == '/' || (c > '9' && c < 'A') || (c > 'Z' && c < '_')
-        || c == '`' || (c > 'z' && c < '~') || c > '~')
+    char const c = rawUrl[i];
+    if (c < '-' || c == '/' || (c > '9' && c < 'A') || (c > 'Z' && c < '_') ||
+        c == '`' || (c > 'z' && c < '~') || c > '~')
     {
-      string hexStr("%");
-      hexStr += NumToHex(c);
-      result.replace(i, 1, hexStr);
-      i += 2;
+      result += '%';
+      result += NumToHex(c);
     }
+    else
+      result += rawUrl[i];
   }
+
   return result;
 }
 
 inline string UrlDecode(string const & encodedUrl)
 {
+  size_t const count = encodedUrl.size();
   string result;
-  for (size_t i = 0; i < encodedUrl.size(); ++i)
+  result.reserve(count);
+
+  for (size_t i = 0; i < count; ++i)
   {
     if (encodedUrl[i] == '%')
     {
@@ -35,5 +43,6 @@ inline string UrlDecode(string const & encodedUrl)
     else
       result += encodedUrl[i];
   }
+
   return result;
 }

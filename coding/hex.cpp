@@ -1,8 +1,10 @@
-#include "../base/SRC_FIRST.hpp"
 #include "hex.hpp"
 
+#include "../base/assert.hpp"
 
-namespace impl {
+
+namespace impl
+{
   static const char kToHexTable[] = "0123456789ABCDEF";
 
   void ToHexRaw(void const * src, size_t size, void * dst)
@@ -18,8 +20,6 @@ namespace impl {
       ++ptr;
     }
   }
-
-//  static const char kFromHexTable[] = "0123456789ABCDEF";
 
   uint8_t HexDigitToRaw(uint8_t const digit)
   {

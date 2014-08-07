@@ -1,13 +1,14 @@
 #pragma once
 
 #include "../base/base.hpp"
-#include "../base/assert.hpp"
 
 #include "../std/string.hpp"
 
 #include <boost/type_traits/is_integral.hpp>
 
-namespace impl {
+
+namespace impl
+{
   void ToHexRaw(void const * src, size_t size, void * dst);
   void FromHexRaw(void const * src, size_t size, void * dst);
 }
@@ -71,14 +72,16 @@ inline string NumToHex<char>(char c)
 }
 /// @}
 
-inline string FromHex(void const * ptr, size_t size) {
+inline string FromHex(void const * ptr, size_t size)
+{
   string result;
   result.resize(size / 2);
   ::impl::FromHexRaw(ptr, size, &result[0]);
   return result;
 }
 
-inline string FromHex(string const & src) {
+inline string FromHex(string const & src)
+{
   return FromHex(src.c_str(), src.size());
 }
 
