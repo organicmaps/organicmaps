@@ -15,6 +15,7 @@
         style="@style/Widget.MapButtonBottom"
         android:layout_width="@dimen/bottom_button_width"
         android:layout_height="@dimen/bottom_panel_height"
+        android:layout_gravity="center"
         android:onClick="onMyPositionClicked"
         android:src="@drawable/ic_my_position"/>
 
@@ -29,6 +30,7 @@
         style="@style/Widget.MapButtonBottom"
         android:layout_width="@dimen/bottom_button_width"
         android:layout_height="@dimen/bottom_panel_height"
+        android:layout_gravity="center"
         android:onClick="onSearchClicked"
         android:src="@drawable/ic_search"/>
 
@@ -43,6 +45,7 @@
         style="@style/Widget.MapButtonBottom"
         android:layout_width="@dimen/bottom_button_width"
         android:layout_height="@dimen/bottom_panel_height"
+        android:layout_gravity="center"
         android:onClick="onBookmarksClicked"
         android:src="@drawable/ic_bookmark"/>
 
@@ -57,6 +60,7 @@
         style="@style/Widget.MapButtonBottom"
         android:layout_width="@dimen/bottom_button_width"
         android:layout_height="@dimen/bottom_panel_height"
+        android:layout_gravity="center"
         android:onClick="onMoreClicked"
         android:src="@drawable/ic_settings"/>
 

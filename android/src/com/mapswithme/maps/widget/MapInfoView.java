@@ -574,10 +574,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
             l.getLatitude(), l.getLongitude(), northAzimuth);
 
         if (da.getAthimuth() >= 0)
-        {
-          mAvDirection.setVisibility(View.VISIBLE);
           mAvDirection.setAzimut(da.getAthimuth());
-        }
       }
     }
   }
