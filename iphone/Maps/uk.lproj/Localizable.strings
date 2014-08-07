@@ -577,3 +577,12 @@
 
 /* text of notification */
 "pro_version_is_free_today" = "MAPS.ME Pro сьогодні безкоштовно! Завантажуй та розкажи друзям.";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "Ми переносимо завантажені карти з MAPS.ME Lite в MAPS.ME. Це може зайняти декілька хвилин.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Ваші карти успішно перенесено в MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "При переносі карт виникла помилка. Будь ласка, видаліть MAPS.ME Lite і завантажте карти знову.";

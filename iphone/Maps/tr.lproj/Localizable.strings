@@ -577,3 +577,12 @@
 
 /* text of notification */
 "pro_version_is_free_today" = "MAPS.ME Pro bugün ücretsiz! İndir ve arkadaşlarına haber ver.";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "MAPS.ME Lite'den indirmiş olduğunuz haritaları MAPS.ME'ye aktarıyoruz. Bu bir kaç dakika sürebilir.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "İndirmiş olduğunuz haritalar başarılı bir şekilde MAPS.ME'ye aktarıldı.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Haritanızın aktarımı başarısız oldu. Lütfen MAPS.ME Lite'yi silin ve haritaları tekrar indirin.";

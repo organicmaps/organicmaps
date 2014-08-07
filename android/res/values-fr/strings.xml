@@ -369,4 +369,10 @@
 	<string name="download_map_notification">Téléchargez la carte de l\&#39;endroit où vous êtes</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today">MAPS.ME Pro gratuit auj. ! Téléch. maint. et parlez-en à vos amis</string>
+	<!-- Dialog for transferring maps from lite to pro. -->
+	<string name="move_lite_maps_to_pro">Nous transférons vos cartes téléchargées de MAPS.ME Lite vers MAPS.ME. Cela peut prendre quelques minutes.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Vos cartes téléchargées ont été transférées avec succès sur MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Vos cartes n\&#39;ont pas pu être transférées. Veuillez supprimer MAPS.ME Lite et téléchargez de nouveau les cartes.</string>
 </resources>

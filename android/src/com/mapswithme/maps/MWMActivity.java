@@ -423,13 +423,13 @@ public class MWMActivity extends NvEventQueueActivity
             public void moveFilesFinished(String newPath)
             {
               mApplication.nativeSetBoolean(ARE_LITE_MAPS_MOVED, true);
-              ShowAlertDlg(R.string.kitkat_migrate_ok);
+              ShowAlertDlg(R.string.move_lite_maps_to_pro_ok);
             }
 
             @Override
             public void moveFilesFailed()
             {
-              ShowAlertDlg(R.string.kitkat_migrate_failed);
+              ShowAlertDlg(R.string.move_lite_maps_to_pro_failed);
             }
           }
       );

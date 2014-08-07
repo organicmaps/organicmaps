@@ -577,3 +577,12 @@
 
 /* text of notification */
 "pro_version_is_free_today" = "MAPS.ME Pro é hoje grátis! Descarregue e conte aos seus amigos.";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "Estamos a transferir os seus mapas descarregados da MAPS.ME Lite para a MAPS.ME. Isto pode demorar alguns minutos.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Os seus mapas descarregados estão transferidos com sucesso para a MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Falhou a transferência dos seus mapas. Por favor, elimine a MAPS.ME Lite e descarregue os mapas novamente.";

@@ -349,4 +349,10 @@
 	<string name="download_map_notification">Stáhněte si mapu místa, kde právě jste</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today">MAPS.ME Pro dnes zdarma! Stáhněte nyní a řekněte svým kamarádům.</string>
+	<!-- Dialog for transferring maps from lite to pro. -->
+	<string name="move_lite_maps_to_pro">Právě přenášíme Vaše stažené mapy z MAPS.ME Lite na MAPS.ME. Může to několik minut trvat.</string>
+	<!-- Message to display when maps moved. -->
+	<string name="move_lite_maps_to_pro_ok">Vaše stažené mapy jsou úspěšně přeneseny na MAPS.ME.</string>
+	<!-- Message to display when maps move failed. -->
+	<string name="move_lite_maps_to_pro_failed">Vaše mapy se nepodařilo přenést. Vymažte prosím MAPS.ME Lite a stáhněte si mapy znovu.</string>
 </resources>

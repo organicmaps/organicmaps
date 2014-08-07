@@ -577,3 +577,12 @@
 
 /* text of notification */
 "pro_version_is_free_today" = "MAPS.ME Pro is nu gratis! Download nu en vertel het je vrienden.";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "We verplaatsen uw gedownloade kaarten van MAPS.ME Lite naar MAPS.ME. Dit kan enkele minuten duren.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Uw gedownloade kaarten werden met succes verplaatst naar MAPS.ME.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Verplaatsing van uw kaarten mislukt. Gelieve MAPS.ME Lite te verwijderen en de kaarten opnieuw te downloaden.";

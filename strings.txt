@@ -4649,3 +4649,77 @@
     zh-Hant = MAPS.ME Pro今日免費！馬上下載并告訴您的朋友。
     da = MAPS.ME Pro er gratis i dag! Hent nu og fortæl dine venner.
     tr = MAPS.ME Pro bugün ücretsiz! İndir ve arkadaşlarına haber ver.
+
+  [move_lite_maps_to_pro]
+    tags = android
+    comment = Dialog for transferring maps from lite to pro.
+    en = We are transferring your downloaded maps from MAPS.ME Lite to MAPS.ME. It may take a few minutes. 
+    cs = Právě přenášíme Vaše stažené mapy z MAPS.ME Lite na MAPS.ME. Může to několik minut trvat. 
+    de = Wir übertragen Ihre heruntergeladenen Karten von MAPS.ME Lite zu MAPS.ME. Der Vorgang kann einige Minuten in Anspruch nehmen. 
+    es = Estamos transfiriendo tus mapas descargados de MAPS.ME Lite a MAPS.ME, lo cual puede llevar unos minutos.
+    fr = Nous transférons vos cartes téléchargées de MAPS.ME Lite vers MAPS.ME. Cela peut prendre quelques minutes. 
+    it = Stiamo trasferendo le tue mappe scaricate da MAPS.ME Lite a MAPS.ME. Potrebbe richiedere alcuni minuti.
+    ja = ダウンロード済みの地図をMAPS.ME LiteからMAPS.MEに転送します。完了までに数分かかるかもしれません。
+    ko = 우리는 MAPS.ME. Lite에서 MAPS.ME로 다운로드된 지도를 전송하고 있습니다. 이는 몇 분 정도 걸릴 수 있습니다.
+    nl = We verplaatsen uw gedownloade kaarten van MAPS.ME Lite naar MAPS.ME. Dit kan enkele minuten duren.
+    ru = Мы переносим загруженные карты из MAPS.ME Lite в MAPS.ME. Это может занять несколько минут.
+    uk = Ми переносимо завантажені карти з MAPS.ME Lite в MAPS.ME. Це може зайняти декілька хвилин.
+    zh-Hant = 我們正在將您從MAPS.ME Lite下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。
+    pl = Przenosimy twoje pobrane mapy z MAPS.ME Lite do MAPS.ME. Może to zająć kilka minut. 
+    pt = Estamos a transferir os seus mapas descarregados da MAPS.ME Lite para a MAPS.ME. Isto pode demorar alguns minutos.
+    hu = Letöltött térképeidet áthelyezzük a MAPS.ME Lite-ból a MAPS.ME-be. Ez eltarthat pár percig.
+    th = เรากำลังโอนแผนที่ที่ดาวน์โหลดของคุณจาก MAPS.ME Lite ไปยัง MAPS.ME อาจใช้เวลาสองสามวินาที
+    zh-Hans = 我们正在将您从MAPS.ME Lite 下载的地图传输至 MAPS.ME。这可能需要几分钟的时间。
+    ar = نحن ننقل خرائط التنزيلات الخاصة بك من MAPS.ME Lite إلى MAPS.ME. يمكن أن يستغرق بضع دقائق 
+    da = Vi overfører dine downloadede kort fra MAPS.ME Lite til MAPS.ME. Det kan tage et par minutter.
+    tr = MAPS.ME Lite'den indirmiş olduğunuz haritaları MAPS.ME'ye aktarıyoruz. Bu bir kaç dakika sürebilir.
+
+  [move_lite_maps_to_pro_ok]
+    tags = android
+    comment = Message to display when maps moved.
+    en = Your downloaded maps are successfully transferred to MAPS.ME.
+    cs = Vaše stažené mapy jsou úspěšně přeneseny na MAPS.ME.
+    de = Ihre heruntergeladenen Karten wurden erfolgreich zu MAPS.ME übertragen.
+    es = Tus mapas descargados se han transferido correctamente a MAPS.ME.
+    fr = Vos cartes téléchargées ont été transférées avec succès sur MAPS.ME.
+    it = Le mappe che hai scaricato sono state trasferite con successo a MAPS.ME.
+    ja = ダウンロード済みの地図は無事MAPS.MEに転送されました
+    ko = 다운로드된 지도가 성공적으로 MAPS.ME에 전송됨
+    nl = Uw gedownloade kaarten werden met succes verplaatst naar MAPS.ME.
+    ru = Ваши карты успешно перенесены в MAPS.ME.
+    uk = Ваші карти успішно перенесено в MAPS.ME.
+    zh-Hant = 您下載的地圖已成功傳輸至MAPS.ME。
+    pl = Pomyślnie przeniesiono twoje pobrane mapy do MAPS.ME.
+    pt = Os seus mapas descarregados estão transferidos com sucesso para a MAPS.ME.
+    hu = Letöltött térképeidet sikeresen áthelyeztük a MAPS.ME-be.
+    th = แผนที่ที่ดาวน์โหลดของคุณโอนไปยัง MAPS.ME สำเร็จ
+    zh-Hans = 您下载的地图已成功传输至MAPS.ME。
+    ar = تم بنجاح نقل خرائطك التي تم تنزيلها إلى MAPS.ME.
+    da = Dine downloadede kort er blevet succesfuldt overført til MAPS.ME.
+    tr = İndirmiş olduğunuz haritalar başarılı bir şekilde MAPS.ME'ye aktarıldı.
+
+  [move_lite_maps_to_pro_failed]
+    tags = android
+    comment = Message to display when maps move failed.
+    en = Your maps failed to transfer. Please delete MAPS.ME Lite and download the maps again.
+    cs = Vaše mapy se nepodařilo přenést. Vymažte prosím MAPS.ME Lite a stáhněte si mapy znovu.
+    de = Ihre Karten konnten nicht übertragen werden. Bitte löschen Sie MAPS.ME Lite und laden Sie die Karten erneut herunter.
+    es = No se han podido transferir tus mapas. Por favor, elimina MAPS.ME Lite y descarga los mapas de nuevo.
+    fr = Vos cartes n'ont pas pu être transférées. Veuillez supprimer MAPS.ME Lite et téléchargez de nouveau les cartes.
+    it = Non è stato possibile trasferire le tue mappe. Cancella MAPS.ME Lite e scarica le mappe di nuovo.
+    ja = 地図の転送に失敗しました。MAPS.ME Liteを削除してから地図を再度ダウンロードしてください。
+    ko = 지도를 전송하지 못했습니다. MAPS.ME Lite를 삭제하고 다시지도를 다운로드하십시오.
+    nl = Verplaatsing van uw kaarten mislukt. Gelieve MAPS.ME Lite te verwijderen en de kaarten opnieuw te downloaden.
+    ru = При переносе карт возникла ошибка. Пожалуйста, удалите MAPS.ME Lite и загрузите карты заново.
+    uk = При переносі карт виникла помилка. Будь ласка, видаліть MAPS.ME Lite і завантажте карти знову.
+    zh-Hant = 您的地圖傳輸失敗。請刪除MAPS.ME Lite，然後再次下載地圖。
+    pl = Nie udało się przenieść twoich map. Proszę skasować MAPS.ME Lite i pobrać mapy ponownie.
+    pt = Falhou a transferência dos seus mapas. Por favor, elimine a MAPS.ME Lite e descarregue os mapas novamente.
+    hu = Térképeid áthelyezése nem sikerült. Kérjük, töröld a MAPS.ME Lite-t és töltsd le a térképet megint.
+    th = ล้มเหลวในการโอนแผนที่ของคุณ โปรดลบ MAPS.ME Lite และดาวน์โหลดแผนที่อีกครั้ง
+    zh-Hans = 您的地图传输失败。请删除MAPS.ME Lite，然后再次下载地图。
+    ar = فشل نقل خرائطك يُرجى حذف MAPS.ME Lite وتنزيل الخرائط مرة أخرى.
+    da = Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.
+    tr = Haritanızın aktarımı başarısız oldu. Lütfen MAPS.ME Lite'yi silin ve haritaları tekrar indirin.
+
+

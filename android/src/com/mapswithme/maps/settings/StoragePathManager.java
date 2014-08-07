@@ -375,7 +375,7 @@ public class StoragePathManager
           && !item.mPath.equals(currentStorage.mPath))
       {
         setStoragePath(context, listener, item, currentStorage,
-            R.string.kitkat_optimization_in_progress);
+            R.string.move_lite_maps_to_pro);
         return;
       }
     }

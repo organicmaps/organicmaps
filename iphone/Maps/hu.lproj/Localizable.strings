@@ -577,3 +577,12 @@
 
 /* text of notification */
 "pro_version_is_free_today" = "A MAPS.ME Pro ma ingyenes! Töltsd le most és meséld el barátaidnak.";
+
+/* Dialog for transferring maps from lite to pro. */
+"move_lite_maps_to_pro" = "Letöltött térképeidet áthelyezzük a MAPS.ME Lite-ból a MAPS.ME-be. Ez eltarthat pár percig.";
+
+/* Message to display when maps moved. */
+"move_lite_maps_to_pro_ok" = "Letöltött térképeidet sikeresen áthelyeztük a MAPS.ME-be.";
+
+/* Message to display when maps move failed. */
+"move_lite_maps_to_pro_failed" = "Térképeid áthelyezése nem sikerült. Kérjük, töröld a MAPS.ME Lite-t és töltsd le a térképet megint.";
