@@ -151,16 +151,16 @@
 "zoom_to_country" = "Zobrazit na mapě";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^přidáno do fronty stahování";
+"country_status_added_to_queue" = "^\npřidáno do fronty stahování";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Stahování^^%";
+"country_status_downloading" = "Stahování\n^\n^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Stáhnout^";
+"country_status_download" = "Stáhnout\n^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Stahování^selhalo";
+"country_status_download_failed" = "Stahování\n^\nselhalo";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Zkusit znovu";

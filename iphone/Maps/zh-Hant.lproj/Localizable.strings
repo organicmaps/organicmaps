@@ -151,16 +151,16 @@
 "zoom_to_country" = "放大到全國檢視";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^已加入到下載佇列中";
+"country_status_added_to_queue" = "^\n已加入到下載佇列中";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "下載中^^%";
+"country_status_downloading" = "下載中\n^\n^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "下載^";
+"country_status_download" = "下載\n^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "下載^失敗";
+"country_status_download_failed" = "下載\n^\n失敗";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再試一次";

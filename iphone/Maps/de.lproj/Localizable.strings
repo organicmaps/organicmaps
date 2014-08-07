@@ -151,16 +151,16 @@
 "zoom_to_country" = "Das Land auf der Karte anzeigen";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^wird zur Download-Warteschleife hinzugefügt";
+"country_status_added_to_queue" = "^\nwird zur Download-Warteschleife hinzugefügt";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Wird heruntergeladen^^%";
+"country_status_downloading" = "Wird heruntergeladen\n^\n^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Herunterladen^";
+"country_status_download" = "Herunterladen\n^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Download^fehlgeschlagen";
+"country_status_download_failed" = "Download\n^\nfehlgeschlagen";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Nochmals versuchen";

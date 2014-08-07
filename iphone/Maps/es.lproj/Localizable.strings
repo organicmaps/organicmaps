@@ -151,16 +151,16 @@
 "zoom_to_country" = "Ampliar la vista del país";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^añadido a la cola de descarga";
+"country_status_added_to_queue" = "^\nañadido a la cola de descarga";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Descargando^^%";
+"country_status_downloading" = "Descargando\n^\n^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Descargar^";
+"country_status_download" = "Descargar\n^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Error durante la descarga^";
+"country_status_download_failed" = "Error durante la descarga\n^";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Intentarla otra vez";

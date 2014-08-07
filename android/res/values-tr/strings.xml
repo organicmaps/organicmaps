@@ -96,13 +96,13 @@
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Ülkeyi yakınlaştır</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^indirme kuyruğuna eklendi</string>
+	<string name="country_status_added_to_queue">^\nindirme kuyruğuna eklendi</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">^^%indiriliyor</string>
+	<string name="country_status_downloading">^\n^%\nindiriliyor</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">^indir</string>
+	<string name="country_status_download">^\nindir</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">^indirme işlemi başarısız oldu</string>
+	<string name="country_status_download_failed">^\nindirme işlemi başarısız oldu</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Tekrar Deneyin</string>
 	<string name="about_menu_title">MAPS.ME Hakkında</string>

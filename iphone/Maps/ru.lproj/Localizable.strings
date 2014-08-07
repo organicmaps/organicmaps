@@ -151,16 +151,16 @@
 "zoom_to_country" = "Показать страну на карте";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^добавлено в очередь загрузки";
+"country_status_added_to_queue" = "^\nдобавлено в очередь загрузки";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Загружается^^%";
+"country_status_downloading" = "Загружается\n^\n^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Загрузить^";
+"country_status_download" = "Загрузить\n^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Ошибка загрузки^";
+"country_status_download_failed" = "Ошибка загрузки\n^";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Попробуйте еще раз";

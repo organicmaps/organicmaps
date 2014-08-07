@@ -91,13 +91,13 @@
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Zoom no país</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^é adicionado à fila de descargas</string>
+	<string name="country_status_added_to_queue">^\né adicionado à fila de descargas</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">A descarregar^^%</string>
+	<string name="country_status_downloading">A descarregar\n^\n^%</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Descarga^</string>
+	<string name="country_status_download">Descarga\n^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">A descarga^falhou</string>
+	<string name="country_status_download_failed">A descarga\n^\nfalhou</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Tente de novo</string>
 	<string name="about_menu_title">Sobre o MAPS.ME</string>

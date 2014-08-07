@@ -93,13 +93,13 @@
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Zobrazit na mapě</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^přidáno do fronty stahování</string>
+	<string name="country_status_added_to_queue">^\npřidáno do fronty stahování</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Stahování^^%</string>
+	<string name="country_status_downloading">Stahování\n^\n^%</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Stáhnout^</string>
+	<string name="country_status_download">Stáhnout\n^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Stahování^selhalo</string>
+	<string name="country_status_download_failed">Stahování\n^\nselhalo</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Zkusit znovu</string>
 	<string name="about_menu_title">O aplikaci MAPS.ME</string>

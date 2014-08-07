@@ -93,13 +93,13 @@
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Nagyítson az országra</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^-t hozzáadtuk a letöltési sorhoz</string>
+	<string name="country_status_added_to_queue">^\n-t hozzáadtuk a letöltési sorhoz</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">^^% letöltése folyamatban</string>
+	<string name="country_status_downloading">^\n^%\nletöltése folyamatban</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Letöltés^</string>
+	<string name="country_status_download">Letöltés\n^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">^ letöltése sikertelen</string>
+	<string name="country_status_download_failed">^\nletöltése sikertelen</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Újrapróbálkozás</string>
 	<string name="about_menu_title">A MAPS.ME programról</string>

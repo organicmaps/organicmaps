@@ -151,16 +151,16 @@
 "zoom_to_country" = "Nagyítson az országra";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^-t hozzáadtuk a letöltési sorhoz";
+"country_status_added_to_queue" = "^\n-t hozzáadtuk a letöltési sorhoz";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "^^% letöltése folyamatban";
+"country_status_downloading" = "^\n^%\nletöltése folyamatban";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Letöltés^";
+"country_status_download" = "Letöltés\n^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "^ letöltése sikertelen";
+"country_status_download_failed" = "^\nletöltése sikertelen";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Újrapróbálkozás";

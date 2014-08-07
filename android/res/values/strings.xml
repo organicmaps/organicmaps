@@ -100,13 +100,13 @@
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Zoom to the country</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^is added to the downloading queue.</string>
+	<string name="country_status_added_to_queue">^\nis added to the downloading queue.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Downloading^^%</string>
+	<string name="country_status_downloading">Downloading\n^\n^%</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Download^</string>
+	<string name="country_status_download">Download\n^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Downloading^has failed</string>
+	<string name="country_status_download_failed">Downloading\n^\nhas failed</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Try Again</string>
 	<string name="app_name">MAPS.ME</string>

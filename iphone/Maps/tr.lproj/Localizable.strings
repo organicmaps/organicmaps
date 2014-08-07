@@ -151,16 +151,16 @@
 "zoom_to_country" = "Ülkeyi yakınlaştır";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^indirme kuyruğuna eklendi";
+"country_status_added_to_queue" = "^\nindirme kuyruğuna eklendi";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "^^%indiriliyor";
+"country_status_downloading" = "^\n^%\nindiriliyor";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "^indir";
+"country_status_download" = "^\nindir";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "^indirme işlemi başarısız oldu";
+"country_status_download_failed" = "^\nindirme işlemi başarısız oldu";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "Tekrar Deneyin";

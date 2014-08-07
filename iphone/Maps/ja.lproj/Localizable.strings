@@ -151,16 +151,16 @@
 "zoom_to_country" = "特定の地域へズーム";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^をダウンロードキューに追加しました";
+"country_status_added_to_queue" = "^\nをダウンロードキューに追加しました";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "^^%をダウンロード中";
+"country_status_downloading" = "^\n^%\nをダウンロード中";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "^をダウンロード";
+"country_status_download" = "^\nをダウンロード";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "^のダウンロードに失敗しました";
+"country_status_download_failed" = "^\nのダウンロードに失敗しました";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "再実行";

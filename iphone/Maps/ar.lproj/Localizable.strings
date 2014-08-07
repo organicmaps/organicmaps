@@ -151,16 +151,16 @@
 "zoom_to_country" = "تكبير الى الدولة";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^قد تم إضافته الى صف الانتظار لعملية التنزيل";
+"country_status_added_to_queue" = "^\nقد تم إضافته الى صف الانتظار لعملية التنزيل";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "جاري التنزيل ^^%";
+"country_status_downloading" = "جاري التنزيل\n^\n^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "تنزيل^";
+"country_status_download" = "تنزيل\n^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "فشلت عملية تنزيل^";
+"country_status_download_failed" = "فشلت عملية تنزيل\n^";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "محاولة مرة أخرى";

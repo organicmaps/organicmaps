@@ -94,13 +94,13 @@
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">放大到全國檢視</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^已加入到下載佇列中</string>
+	<string name="country_status_added_to_queue">^\n已加入到下載佇列中</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">下載中^^%</string>
+	<string name="country_status_downloading">下載中\n^\n^%</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">下載^</string>
+	<string name="country_status_download">下載\n^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">下載^失敗</string>
+	<string name="country_status_download_failed">下載\n^\n失敗</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">再試一次</string>
 	<string name="app_name">MAPS.ME 專業版</string>

@@ -88,13 +88,13 @@
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">국가로 확대하여 주세요</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^는 다운로드 대기열에추가됩니다</string>
+	<string name="country_status_added_to_queue">^\n는 다운로드 대기열에추가됩니다</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">다운로드 중^^%</string>
+	<string name="country_status_downloading">다운로드 중\n^\n^%</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">다운로드^</string>
+	<string name="country_status_download">다운로드\n^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">다운로드에 실패하였습니다^</string>
+	<string name="country_status_download_failed">다운로드에 실패하였습니다\n^</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">다시 시도</string>
 	<string name="about_menu_title">소개</string>

@@ -151,16 +151,16 @@
 "zoom_to_country" = "放大至该国";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^添加至下载序列";
+"country_status_added_to_queue" = "^\n添加至下载序列";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "下载^^%中";
+"country_status_downloading" = "下载 ^\n^%\n中";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "下载^";
+"country_status_download" = "下载\n^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "下载^失败了";
+"country_status_download_failed" = "下载\n^\n失败了";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "重试";

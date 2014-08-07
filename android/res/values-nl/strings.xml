@@ -89,11 +89,11 @@
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Zoom in richting het land</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^is toegevoegd aan de download wachtrij</string>
+	<string name="country_status_added_to_queue">^\nis toegevoegd aan de download wachtrij</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">aan het downloaden^^%</string>
+	<string name="country_status_downloading">aan het downloaden\n^\n^%</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Downloaden^is niet gelukt</string>
+	<string name="country_status_download_failed">Downloaden\n^\nis niet gelukt</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Probeer opnieuw</string>
 	<string name="about_menu_title">Over MAPS.ME</string>

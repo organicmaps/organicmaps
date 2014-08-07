@@ -97,13 +97,13 @@
 	<!-- View and button titles for accessibility -->
 	<string name="zoom_to_country">Показати країну на карті</string>
 	<!-- Message to display at the center of the screen when the country is added to the downloading queue -->
-	<string name="country_status_added_to_queue">^добавлено в чергу завантаження</string>
+	<string name="country_status_added_to_queue">^\nдобавлено в чергу завантаження</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
-	<string name="country_status_downloading">Завантажується^^%</string>
+	<string name="country_status_downloading">Завантажується\n^\n^%</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Завантажити^</string>
+	<string name="country_status_download">Завантажити\n^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
-	<string name="country_status_download_failed">Помилка завантаження^</string>
+	<string name="country_status_download_failed">Помилка завантаження\n^</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
 	<string name="try_again">Спробуйте ще раз</string>
 	<string name="about_menu_title">Про програму</string>

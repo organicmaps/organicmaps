@@ -210,10 +210,10 @@ Framework::Framework()
   m_ParsedMapApi.SetController(&m_bmManager.UserMarksGetController(UserMarkContainer::API_MARK));
 
   // Init strings bundle.
-  m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^is added to the downloading queue");
-  m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading^^%");
-  m_stringsBundle.SetDefaultString("country_status_download", "Download^");
-  m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading^has failed");
+  m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^\nis added to the downloading queue");
+  m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading\n^\n^%");
+  m_stringsBundle.SetDefaultString("country_status_download", "Download\n^");
+  m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading\n^\nhas failed");
   m_stringsBundle.SetDefaultString("try_again", "Try Again");
   m_stringsBundle.SetDefaultString("not_enough_free_space_on_sdcard", "Not enough space for downloading");
 

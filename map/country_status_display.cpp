@@ -76,16 +76,14 @@ void CountryStatusDisplay::cache()
     {
     case storage::EInQueue:
     {
-      string const s = dn + "\n";
-      SetStatusMessage<string, int>("country_status_added_to_queue", &s);
+      SetStatusMessage<string, int>("country_status_added_to_queue", &dn);
       break;
     }
 
     case storage::EDownloading:
     {
       int const percent = m_countryProgress.first * 100 / m_countryProgress.second;
-      string const s = "\n" + dn + "\n";
-      SetStatusMessage<string, int>("country_status_downloading", &s, &percent);
+      SetStatusMessage<string, int>("country_status_downloading", &dn, &percent);
       break;
     }
 
@@ -96,7 +94,7 @@ void CountryStatusDisplay::cache()
       {
         m_downloadButton->setIsVisible(true);
         string const msg = m_controller->GetStringsBundle()->GetString("country_status_download");
-        m_downloadButton->setText(strings::Format(msg, "\n" + dn));
+        m_downloadButton->setText(strings::Format(msg, dn));
       }
       break;
 
@@ -104,9 +102,7 @@ void CountryStatusDisplay::cache()
     {
       m_downloadButton->setIsVisible(true);
       m_downloadButton->setText(m_controller->GetStringsBundle()->GetString("try_again"));
-
-      string const s = "\n" + dn + "\n";
-      SetStatusMessage<string, int>("country_status_download_failed", &s);
+      SetStatusMessage<string, int>("country_status_download_failed", &dn);
 
       setPivot(pivot());
       break;

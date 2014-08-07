@@ -151,16 +151,16 @@
 "zoom_to_country" = "ซูมเข้าไปยังประเทศ";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "มีการเพิ่ม^ ไปยังลำดับการดาวน์โหลดแล้ว";
+"country_status_added_to_queue" = "มีการเพิ่ม ^\nไปยังลำดับการดาวน์โหลดแล้ว";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "กำลังดาวน์โหลด^^%";
+"country_status_downloading" = "กำลังดาวน์โหลด\n^\n^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "ดาวน์โหลด^";
+"country_status_download" = "ดาวน์โหลด\n^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "การดาวน์โหลด ^ล้มเหลว";
+"country_status_download_failed" = "การดาวน์โหลด\n^\nล้มเหลว";
 
 /* Button text for the button under the country_status_download_failed message */
 "try_again" = "ลองอีกครั้ง";
