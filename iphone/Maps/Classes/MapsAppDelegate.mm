@@ -318,6 +318,10 @@ void InitLocalizedStrings()
     view.tag = NOTIFICATION_ALERT_VIEW_TAG;
     [view show];
   }
+  else
+  {
+    [[LocalNotificationManager sharedManager] processNotification:notification];
+  }
 }
 
 // We don't support HandleOpenUrl as it's deprecated from iOS 4.2

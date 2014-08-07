@@ -138,7 +138,9 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   else if ([ui[@"Action"] isEqualToString:PROMO_ACTION_NAME])
   {
     [[Statistics instance] logEvent:@"'Promo' Notification Clicked"];
-    [[UIApplication sharedApplication] openProVersionFrom:@"ios_promo_notif"];
+    [self performAfterDelay:0.3 block:^{
+      [[UIApplication sharedApplication] openProVersionFrom:@"ios_promo_notif"];
+    }];
   }
 }
 
@@ -164,7 +166,8 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   [components setDay:15];
   [components setHour:12];
   NSDate * date = [[NSCalendar currentCalendar] dateFromComponents:components];
-  if ([date timeIntervalSinceNow] > 0) {
+  if ([date timeIntervalSinceNow] > 0)
+  {
     UILocalNotification * notification = [[UILocalNotification alloc] init];
     notification.fireDate = [[NSCalendar currentCalendar] dateFromComponents:components];
     notification.alertBody = NSLocalizedString(@"pro_version_is_free_today", nil);
