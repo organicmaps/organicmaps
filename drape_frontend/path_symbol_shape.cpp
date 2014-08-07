@@ -16,6 +16,8 @@ using m2::Spline;
 using glsl_types::vec2;
 using glsl_types::vec4;
 
+int const VertexPerQuad = 4;
+
 class PathSymbolHandle : public dp::OverlayHandle
 {
 public:
@@ -23,7 +25,7 @@ public:
   PathSymbolHandle(m2::SharedSpline const & spl, PathSymbolViewParams const & params, int maxCount, float hw, float hh)
     : OverlayHandle(FeatureID(), dp::Center, 0.0f),
       m_params(params), m_spline(spl), m_scaleFactor(1.0f),
-      m_positions(maxCount * 6), m_maxCount(maxCount),
+      m_positions(maxCount * VertexPerQuad), m_maxCount(maxCount),
       m_symbolHalfWidth(hw), m_symbolHalfHeight(hh)
   {
     SetIsVisible(true);
@@ -36,9 +38,7 @@ public:
     Spline::iterator itr = m_spline.CreateIterator();
     itr.Step((m_params.m_offset + m_symbolHalfWidth) * m_scaleFactor);
 
-    for (int i = 0; i < m_maxCount * 6; ++i)
-      m_positions[i] = vec2(0.0f, 0.0f);
-
+    fill(m_positions.begin(), m_positions.end(), vec2(0.0f, 0.0f));
     vec2 * it = &m_positions[0];
 
     for (int i = 0; i < m_maxCount; ++i)
@@ -97,7 +97,7 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
   if (maxCount <= 0)
     return;
 
-  int const vertCnt = maxCount * 4;
+  int const vertCnt = maxCount * VertexPerQuad;
   vector<vec2> positions(vertCnt, vec2(0.0f, 0.0f));
   vector<vec4> uvs(vertCnt);
   vec4 * tc = &uvs[0];
@@ -158,7 +158,7 @@ void PathSymbolShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<d
   }
 
   dp::OverlayHandle * handle = new PathSymbolHandle(m_spline, m_params, maxCount, pixelSize.x / 2.0f, pixelSize.y / 2.0f);
-  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
+  batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), VertexPerQuad);
 }
 
 }
