@@ -22,6 +22,7 @@ namespace graphics
       unsigned m_maxSymInRow;
       unsigned m_maxPixelWidth;
       bool m_doSplit;
+      bool m_doForceSplit;
       bool m_useAllParts;
       m2::PointD m_offset;
       string m_delimiters;

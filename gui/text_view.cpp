@@ -48,6 +48,7 @@ namespace gui
     params.m_glyphCache = m_controller->GetGlyphCache();
     params.m_logText = strings::MakeUniString(m_text);
     params.m_doSplit = true;
+    params.m_doForceSplit = true;
     params.m_delimiters = "\n";
     params.m_useAllParts = true;
     params.m_maxPixelWidth = m_maxWidth;

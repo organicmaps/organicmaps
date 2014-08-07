@@ -84,7 +84,7 @@ namespace graphics
     if (!visText().empty())
     {
       buffer_vector<strings::UniString, 3> res;
-      if (p.m_doSplit && !isBidi())
+      if (p.m_doForceSplit || (p.m_doSplit && !isBidi()))
       {
         res.clear();
         if (!p.m_delimiters.empty())
@@ -173,6 +173,7 @@ namespace graphics
       m_maxSymInRow(20),
       m_maxPixelWidth(numeric_limits<unsigned>::max()),
       m_doSplit(false),
+      m_doForceSplit(false),
       m_useAllParts(true),
       m_offset(0, 0)
   {}
