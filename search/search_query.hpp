@@ -208,7 +208,7 @@ private:
   //@}
 
   void SuggestStrings(Results & res);
-  bool MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale, string const & prolog, Results & res);
+  void MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale, string const & prolog, Results & res);
   void MatchForSuggestions(strings::UniString const & token, Results & res);
 
   void GetBestMatchName(FeatureType const & f, string & name) const;

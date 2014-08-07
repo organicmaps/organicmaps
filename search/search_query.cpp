@@ -2114,10 +2114,8 @@ void Query::SuggestStrings(Results & res)
   }
 }
 
-bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale, string const & prolog, Results & res)
+void Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale, string const & prolog, Results & res)
 {
-  bool ret = false;
-
   StringsToSuggestVectorT::const_iterator it = m_pStringsToSuggest->begin();
   for (; it != m_pStringsToSuggest->end(); ++it)
   {
@@ -2130,12 +2128,9 @@ bool Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t loc
       string const utf8Str = strings::ToUtf8(s);
       Result r(utf8Str, prolog + utf8Str + " ");
       MakeResultHighlight(r);
-      res.AddResult(r);
-      ret = true;
+      res.AddResultCheckExisting(r);
     }
   }
-
-  return ret;
 }
 
 void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
@@ -2144,11 +2139,17 @@ void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
   RemoveStringPrefix(*m_query, prolog);
 
   static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
-  if (!MatchForSuggestionsImpl(token, m_inputLocaleCode, prolog, res)
-      && m_inputLocaleCode != enLocaleCode)
-  {
+
+  size_t const oldCount = res.GetCount();
+
+  // Advise suggests in input and current language.
+  MatchForSuggestionsImpl(token, m_inputLocaleCode, prolog, res);
+  if (m_inputLocaleCode != m_currentLocaleCode)
+    MatchForSuggestionsImpl(token, m_currentLocaleCode, prolog, res);
+
+  // Advise suggests in English if empty.
+  if (oldCount == res.GetCount() && enLocaleCode != m_inputLocaleCode && enLocaleCode != m_currentLocaleCode)
     MatchForSuggestionsImpl(token, enLocaleCode, prolog, res);
-  }
 }
 
 m2::RectD const & Query::GetViewport(ViewportID vID /*= DEFAULT_V*/) const
