@@ -192,5 +192,20 @@ public class Utils
     return args;
   }
 
+  public static boolean isAppInstalled(String packageUri)
+  {
+    PackageManager pm = MWMApplication.get().getPackageManager();
+    boolean installed;
+    try
+    {
+      pm.getPackageInfo(packageUri, PackageManager.GET_ACTIVITIES);
+      installed = true;
+    } catch (PackageManager.NameNotFoundException e)
+    {
+      installed = false;
+    }
+    return installed;
+  }
+
   private Utils() {}
 }

@@ -94,6 +94,10 @@ public class MWMActivity extends NvEventQueueActivity
   private ViewGroup mVerticalToolbar;
   private ViewGroup mToolbar;
 
+  private static final String IS_KML_MOVED = "KmlBeenMoved";
+  private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
+  private static final String ARE_LITE_MAPS_MOVED = "MapsMovedFromLite";
+
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
     return new Intent(context, DownloadResourcesActivity.class)
@@ -229,6 +233,7 @@ public class MWMActivity extends NvEventQueueActivity
         checkMeasurementSystem();
         checkUpdateMaps();
         checkKitkatMigrationMove();
+        checkLiteMapsInPro();
         checkFacebookDialog();
         checkBuyProDialog();
         checkUserMarkActivation();
@@ -360,40 +365,74 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void checkKitkatMigrationMove()
   {
-    final String KmlMovedFlag = "KmlBeenMoved";
-    final String KitKatMigrationCompleted = "KitKatMigrationCompleted";
-    final boolean kmlMoved = MWMApplication.get().nativeGetBoolean(KmlMovedFlag, false);
-    final boolean mapsCpy = MWMApplication.get().nativeGetBoolean(KitKatMigrationCompleted, false);
+    final boolean kmlMoved = MWMApplication.get().nativeGetBoolean(IS_KML_MOVED, false);
+    final boolean mapsCpy = MWMApplication.get().nativeGetBoolean(IS_KITKAT_MIGRATION_COMPLETED, false);
 
     if (!kmlMoved)
-    {
       if (mPathManager.moveBookmarks())
-        mApplication.nativeSetBoolean(KmlMovedFlag, true);
+        mApplication.nativeSetBoolean(IS_KML_MOVED, true);
       else
       {
         ShowAlertDlg(R.string.bookmark_move_fail);
         return;
       }
-    }
 
     if (!mapsCpy)
-    {
-      SetStoragePathListener listener = new SetStoragePathListener()
-      {
-        @Override
-        public void moveFilesFinished(String newPath)
-        {
-          mApplication.nativeSetBoolean(KitKatMigrationCompleted, true);
-          ShowAlertDlg(R.string.kitkat_migrate_ok);
-        }
+      mPathManager.checkWritableDir(this,
+          new SetStoragePathListener()
+          {
+            @Override
+            public void moveFilesFinished(String newPath)
+            {
+              mApplication.nativeSetBoolean(IS_KITKAT_MIGRATION_COMPLETED, true);
+              ShowAlertDlg(R.string.kitkat_migrate_ok);
+            }
 
-        @Override
-        public void moveFilesFailed()
-        {
-          ShowAlertDlg(R.string.kitkat_migrate_failed);
-        }
-      };
-      mPathManager.checkWritableDir(this, listener);
+            @Override
+            public void moveFilesFailed()
+            {
+              ShowAlertDlg(R.string.kitkat_migrate_failed);
+            }
+          }
+      );
+  }
+
+  /**
+   * Checks if PRO version is running on KITKAT or greater sdk.
+   * If so - checks whether LITE version is installed and contains maps on sd card and then copies them to own directory on sdcard.
+   */
+  private void checkLiteMapsInPro()
+  {
+    final boolean areLiteMapsMoved = MWMApplication.get().nativeGetBoolean(ARE_LITE_MAPS_MOVED, false);
+
+    if (!areLiteMapsMoved &&
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
+        mApplication.isProVersion() &&
+        (Utils.isAppInstalled(Constants.Package.MWM_LITE_PACKAGE) || Utils.isAppInstalled(Constants.Package.MWM_SAMSUNG_PACKAGE)))
+    {
+      if (!mPathManager.containsLiteMapsOnSdcard())
+      {
+        MWMApplication.get().nativeSetBoolean(ARE_LITE_MAPS_MOVED, true);
+        return;
+      }
+
+      mPathManager.moveMapsLiteToPro(this,
+          new SetStoragePathListener()
+          {
+            @Override
+            public void moveFilesFinished(String newPath)
+            {
+              mApplication.nativeSetBoolean(ARE_LITE_MAPS_MOVED, true);
+              ShowAlertDlg(R.string.kitkat_migrate_ok);
+            }
+
+            @Override
+            public void moveFilesFailed()
+            {
+              ShowAlertDlg(R.string.kitkat_migrate_failed);
+            }
+          }
+      );
     }
   }
 

@@ -15,6 +15,7 @@ import android.os.StatFs;
 import android.util.Log;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
@@ -45,6 +46,9 @@ public class StoragePathManager
 
   private static String TAG = StoragePathManager.class.getName();
 
+  private static final String LITE_SDCARD_PREFIX = "Android/data/com.mapswithme.maps/files";
+  private static final String SAMSUNG_LITE_SDCARD_PREFIX = "Android/data/com.mapswithme.maps.samsung/files";
+  private static final String PRO_SDCARD_PREFIX = "Android/data/com.mapswithme.maps.pro/files";
   private static final int VOLD_MODE = 1;
   private static final int MOUNTS_MODE = 2;
 
@@ -57,6 +61,7 @@ public class StoragePathManager
 
   /**
    * Observes status of connected media and retrieves list of available external storages.
+   *
    * @param activity context
    * @param receiver receiver to get broadcasts of media events. can be null
    * @param listener listener to get notifications about maps transfers. can be null
@@ -120,22 +125,20 @@ public class StoragePathManager
 
     if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT)
     {
-      File[] files = mActivity.getExternalFilesDirs(null);
+      File[] files = MWMApplication.get().getExternalFilesDirs(null);
       if (files != null)
       {
-        File primaryStorageDir = mActivity.getExternalFilesDir(null);
+        File primaryStorageDir = MWMApplication.get().getExternalFilesDir(null);
         for (File f : files)
         {
-          // On kitkat and Greater we ignore private folder on primary storage
-          // like "PrimaryStorage/Android/data/com.mapswithme.maps.pro/file/"
-          // because we can write to the root of PrimaryStorage/
+          // add only secondary dirs
           if (f != null && !f.equals(primaryStorageDir))
             paths.add(f.getPath());
         }
       }
     }
-
-    parseMountFiles(paths);
+    else
+      parseMountFiles(paths);
 
     Map<Long, String> pathsSizesMap = new HashMap<Long, String>();
     for (String path : paths)
@@ -315,6 +318,14 @@ public class StoragePathManager
     }).create().show();
   }
 
+  /**
+   * Checks whether current directory is actually writable on Kitkat devices. On earlier versions of android ( < 4.4 ) the root of external
+   * storages was writable, but on Kitkat it isn't, so we should move our maps to other directory.
+   * http://www.doubleencore.com/2014/03/android-external-storage/ check that link for explanations
+   *
+   * @param context
+   * @param listener
+   */
   public void checkWritableDir(Context context, SetStoragePathListener listener)
   {
     if (Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT)
@@ -330,6 +341,7 @@ public class StoragePathManager
       return;
 
     final long size = getMwmDirSize();
+    updateExternalStorages();
     for (StoragePathAdapter.StorageItem item : mItems)
     {
       if (item.mSize > size)
@@ -341,6 +353,40 @@ public class StoragePathManager
     }
 
     listener.moveFilesFailed();
+  }
+
+  public void moveMapsLiteToPro(Context context, SetStoragePathListener listener)
+  {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+      return;
+
+    final long size = getMwmDirSize();
+    StoragePathAdapter.StorageItem currentStorage = new StoragePathAdapter.StorageItem(getWritableDirRoot(), 0);
+
+    // there is no need to copy maps from primary external storage(on internal device flash memory) -
+    // maps are stored there in root folder and pro version can simply use them
+    if (Environment.getExternalStorageDirectory().getAbsolutePath().equals(currentStorage.mPath))
+      return;
+
+    updateExternalStorages();
+    for (StoragePathAdapter.StorageItem item : mItems)
+    {
+      if (item.mSize > size && item.mPath.contains(PRO_SDCARD_PREFIX)
+          && !item.mPath.equals(currentStorage.mPath))
+      {
+        setStoragePath(context, listener, item, currentStorage,
+            R.string.kitkat_optimization_in_progress);
+        return;
+      }
+    }
+
+    listener.moveFilesFailed();
+  }
+
+  public boolean containsLiteMapsOnSdcard()
+  {
+    final String storagePath = getWritableDirRoot();
+    return storagePath.contains(LITE_SDCARD_PREFIX) || storagePath.contains(SAMSUNG_LITE_SDCARD_PREFIX);
   }
 
   private void setStoragePath(Context context, SetStoragePathListener listener, StoragePathAdapter.StorageItem newStorage,
@@ -472,7 +518,7 @@ public class StoragePathManager
 
   private static void addStoragePathWithSize(String path, Map<Long, String> sizesPaths)
   {
-    Log.d(TAG, "trying to add path " + path);
+    Log.i(TAG, "trying to add path " + path);
     try
     {
       final File f = new File(path + "/");
@@ -482,9 +528,11 @@ public class StoragePathManager
 
         if (size > 0)
         {
-          Log.d(TAG, "add path " + path + ", size = " + size);
-          sizesPaths.put(size, path);
-          return;
+          if (!sizesPaths.containsKey(size))
+          {
+            Log.i(TAG, "add path " + path + ", size = " + size);
+            sizesPaths.put(size, path);
+          }
         }
       }
     } catch (final IllegalArgumentException ex)
