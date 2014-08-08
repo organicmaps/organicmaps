@@ -207,5 +207,11 @@ public class Utils
     return installed;
   }
 
+  public static boolean isIntentAvailable(Intent intent)
+  {
+    PackageManager mgr = MWMApplication.get().getPackageManager();
+    return mgr.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0;
+  }
+
   private Utils() {}
 }

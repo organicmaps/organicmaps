@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.LocationUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.util.statistics.Statistics;
@@ -25,9 +29,14 @@ import java.util.TimerTask;
  */
 public class WorkerService extends IntentService
 {
-  private static final String ACTION_PUSH_STATISTICS = "com.mapswithme.maps.action.stat";
-  private static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
-  private static final String ACTION_DOWNLOAD_COUNTRY = "com.mapswithme.maps.action.download_country";
+  public static final String ACTION_PUSH_STATISTICS = "com.mapswithme.maps.action.stat";
+  public static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
+  public static final String ACTION_DOWNLOAD_COUNTRY = "com.mapswithme.maps.action.download_country";
+  public static final String ACTION_PROMO_NOTIFICATION_SHOW = "com.mapswithme.maps.action.notification.show";
+  public static final String ACTION_PROMO_NOTIFICATION_CLICK = "com.mapswithme.maps.action.notification.click";
+
+  private static final String PROMO_SHOW_EVENT_NAME = "PromoShowAndroid";
+  private static final String PROMO_CLICK_EVENT_NAME = "PromoClickAndroid";
 
   private Logger mLogger = StubLogger.get();
   // = SimpleLogger.get("MWMWorkerService");
@@ -102,6 +111,12 @@ public class WorkerService extends IntentService
         break;
       case ACTION_DOWNLOAD_COUNTRY:
         handleActionCheckLocation();
+        break;
+      case ACTION_PROMO_NOTIFICATION_SHOW:
+        showPromoNotification();
+        break;
+      case ACTION_PROMO_NOTIFICATION_CLICK:
+        promoNotificationClicked();
         break;
       }
     }
@@ -196,5 +211,24 @@ public class WorkerService extends IntentService
         prefs.edit().putString(country, String.valueOf(System.currentTimeMillis())).commit();
       }
     }
+  }
+
+  private void showPromoNotification()
+  {
+    new Notifier(getApplicationContext()).placePromoNotification();
+    Statistics.INSTANCE.trackSimpleNamedEvent(PROMO_SHOW_EVENT_NAME);
+  }
+
+  private void promoNotificationClicked()
+  {
+    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MWMApplication.get().getProVersionURL())).
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    if (!Utils.isIntentAvailable(intent))
+    {
+      intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MWMApplication.get().getDefaultProVersionURL())).
+          addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+    startActivity(intent);
+    Statistics.INSTANCE.trackSimpleNamedEvent(PROMO_CLICK_EVENT_NAME);
   }
 }

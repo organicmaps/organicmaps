@@ -1,18 +1,23 @@
 package com.mapswithme.maps.background;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.maps.MWMActivity;
+import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.Calendar;
 
 public class Notifier
 {
@@ -20,6 +25,7 @@ public class Notifier
   private final static int ID_GUIDE_AVAIL = 0x2;
   private final static int ID_DOWNLOAD_STATUS = 0x3;
   private final static int ID_DOWNLOAD_NEW_COUNTRY = 0x4;
+  private final static int ID_MWM_PRO_PROMOACTION = 0x5;
 
   private final NotificationManager mNotificationManager;
   private final Context mContext;
@@ -113,8 +119,50 @@ public class Notifier
         .setContentIntent(pi)
         .build();
 
-    mNotificationManager.notify(ID_DOWNLOAD_STATUS, notification);
+    mNotificationManager.notify(ID_DOWNLOAD_NEW_COUNTRY, notification);
 
     Statistics.INSTANCE.trackDownloadCountryNotificationShown();
+  }
+
+  public void schedulePromoNotification()
+  {
+    final Intent intent = new Intent(MWMApplication.get(), WorkerService.class).
+        setAction(WorkerService.ACTION_PROMO_NOTIFICATION_SHOW);
+    final PendingIntent pendingIntent = PendingIntent.getService(MWMApplication.get(), 0, intent, 0);
+
+    final int promoDate = 17;
+    final int promoHour = 12;
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(Calendar.MONTH, Calendar.AUGUST);
+    calendar.set(Calendar.DAY_OF_MONTH, promoDate);
+    calendar.set(Calendar.HOUR_OF_DAY, promoHour);
+    calendar.set(Calendar.MINUTE, 0);
+    calendar.set(Calendar.SECOND, 0);
+
+    if (System.currentTimeMillis() < calendar.getTimeInMillis())
+    {
+      AlarmManager alarm = (AlarmManager) MWMApplication.get().getSystemService(Context.ALARM_SERVICE);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+      else
+        alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+  }
+
+  public void placePromoNotification()
+  {
+    final Intent intent = new Intent(MWMApplication.get(), WorkerService.class).
+        setAction(WorkerService.ACTION_PROMO_NOTIFICATION_CLICK);
+    final PendingIntent pendingIntent = PendingIntent.getService(MWMApplication.get(), 0, intent, 0);
+
+    // TODO add correct string from resources after translations
+    final Notification notification = getBuilder()
+        .setContentTitle("promo action")
+        .setContentText("download mwmpro for 1 dollar!")
+        .setTicker("promo action" + ": " + "download mwmpro for 1 dollar")
+        .setContentIntent(pendingIntent)
+        .build();
+
+    mNotificationManager.notify(ID_MWM_PRO_PROMOACTION, notification);
   }
 }

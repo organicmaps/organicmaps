@@ -155,6 +155,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
     // init BookmarkManager (automatically loads bookmarks)
     if (hasBookmarks())
       BookmarkManager.getBookmarkManager(getApplicationContext());
+
+    new Notifier(this).schedulePromoNotification();
   }
 
   public LocationService getLocationService()

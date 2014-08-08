@@ -212,6 +212,12 @@ public enum Statistics
     getEventBuilder().getSimpleNamedEvent("Download country notification clicked").post();
   }
 
+  public void trackSimpleNamedEvent(String eventName)
+  {
+    ensureConfigured(MWMApplication.get());
+    getEventBuilder().getSimpleNamedEvent(eventName).post();
+  }
+
   public void startActivity(Activity activity)
   {
     ensureConfigured(activity);
