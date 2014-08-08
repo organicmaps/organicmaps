@@ -1224,7 +1224,7 @@ namespace
   public:
     void DoDraw(shared_ptr<graphics::Screen> p)
     {
-      p->setOverlay(make_shared_ptr(new graphics::Overlay()));
+      p->setOverlay(make_shared<graphics::Overlay>());
       p->overlay()->setCouldOverlap(false);
 
       p->drawSymbol(m2::PointD(200, 200), "current-position", graphics::EPosUnder, graphics::maxDepth);

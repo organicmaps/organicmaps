@@ -47,8 +47,8 @@ namespace qt
     RenderContext::RenderContext(RenderContext * renderContext)
     {
       QGLFormat const format = renderContext->context()->format();
-      m_parent = make_shared_ptr(new QWidget());
-      m_context = shared_ptr<QGLContext>(new QGLContext(format, m_parent.get()));
+      m_parent = make_shared<QWidget>();
+      m_context = make_shared<QGLContext>(format, m_parent.get());
       bool sharedContextCreated = m_context->create(renderContext->context().get());
       bool isSharing = m_context->isSharing();
       ASSERT(sharedContextCreated && isSharing, ("cannot create shared opengl context"));

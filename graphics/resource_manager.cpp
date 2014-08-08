@@ -280,7 +280,7 @@ namespace
         MYTHROW(RootException, ("Invalid skin file"));
 
       string const textureFileName = m_skinBuffer.substr(i, j-i);
-      m_staticTextures[textureFileName] = make_shared_ptr(new TStaticTexture(textureFileName, density));
+      m_staticTextures[textureFileName] = make_shared<TStaticTexture>(textureFileName, density);
     }
     catch (RootException const & ex)
     {
@@ -434,11 +434,11 @@ namespace
     switch (m_params.m_texRtFormat)
     {
     case Data8Bpp:
-      return make_shared_ptr(new gl::Texture<RGBA8Traits, false>(w, h));
+      return make_shared<gl::Texture<RGBA8Traits, false>>(w, h);
     case Data4Bpp:
-      return make_shared_ptr(new gl::Texture<RGBA4Traits, false>(w, h));
+      return make_shared<gl::Texture<RGBA4Traits, false>>(w, h);
     case Data565Bpp:
-      return make_shared_ptr(new gl::Texture<RGB565Traits, false>(w, h));
+      return make_shared<gl::Texture<RGB565Traits, false>>(w, h);
     default:
       MYTHROW(ResourceManagerException, ("unknown render target format"));
     };

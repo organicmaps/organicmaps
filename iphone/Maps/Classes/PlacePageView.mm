@@ -932,7 +932,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (shared_ptr<UserMarkCopy>)cachedMark
 {
-  return m_cachedMark ? m_cachedMark : make_shared_ptr(GetFramework().GetAddressMark([self pinPoint])->Copy());
+  return m_cachedMark ? m_cachedMark : shared_ptr<UserMarkCopy>(GetFramework().GetAddressMark([self pinPoint])->Copy());
 }
 
 - (void)deleteBookmark
@@ -969,7 +969,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
         m_categoryIndex = framework.LastEditedBMCategory();
 
       size_t const bookmarkIndex = framework.GetBookmarkManager().AddBookmark(m_categoryIndex, [self pinPoint], *m_bookmarkData);
-      m_mark = make_shared_ptr(category->GetBookmark(bookmarkIndex)->Copy());
+      m_mark.reset(category->GetBookmark(bookmarkIndex)->Copy());
     }
     else
     {
@@ -977,7 +977,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
       BookmarkData data = BookmarkData([[self newBookmarkName] UTF8String], framework.LastEditedBMType());
       size_t const bookmarkIndex = framework.AddBookmark(categoryIndex, [self pinPoint], data);
       BookmarkCategory const * category = framework.GetBmCategory(categoryIndex);
-      m_mark = make_shared_ptr(category->GetBookmark(bookmarkIndex)->Copy());
+      m_mark.reset(category->GetBookmark(bookmarkIndex)->Copy());
     }
     framework.ActivateUserMark([self userMark]);
     framework.Invalidate();

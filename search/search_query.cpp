@@ -2214,7 +2214,7 @@ void Query::SearchAllInViewport(m2::RectD const & viewport, Results & res, unsig
 
       impl::PreResult2 * p = maker(FeatureID(i, offsets[i][j]));
       if (p && !IsResultExists(p, indV))
-        indV.push_back(make_shared_ptr(p));
+        indV.push_back(shared_ptr<impl::PreResult2>(p));
       else
         delete p;
     }

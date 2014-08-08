@@ -54,7 +54,7 @@ void RenderPolicy::InitCacheScreen()
   cp.m_resourceManager = m_resourceManager;
   cp.m_renderContext = m_primaryRC;
 
-  m_cacheScreen = make_shared_ptr(CreateScreenWithParams(cp));
+  m_cacheScreen.reset(CreateScreenWithParams(cp));
 }
 
 graphics::Screen * RenderPolicy::CreateScreenWithParams(graphics::Screen::Params const & params) const
@@ -266,7 +266,7 @@ Drawer * RenderPolicy::CreateDrawer(bool isDefaultFB,
 {
   Drawer::Params dp;
 
-  dp.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(isDefaultFB));
+  dp.m_frameBuffer = make_shared<graphics::gl::FrameBuffer>(isDefaultFB);
   dp.m_resourceManager = m_resourceManager;
   dp.m_threadSlot = m_resourceManager->guiThreadSlot();
   dp.m_visualScale = VisualScale();

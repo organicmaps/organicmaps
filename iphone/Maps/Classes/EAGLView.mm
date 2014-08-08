@@ -127,15 +127,16 @@
   screen->resetDepthBuffer();
   renderBuffer.reset();
   
-  /// detaching of old render target will occur inside beginFrame
+  /// detaching of old render target will occur inside beginFrame
   screen->beginFrame();
   screen->endFrame();
 
 	/// allocate the new one
-	renderBuffer = make_shared_ptr(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
+  renderBuffer.reset();
+  renderBuffer.reset(new iphone::RenderBuffer(renderContext, (CAEAGLLayer*)self.layer));
   
   screen->setRenderTarget(renderBuffer);
-  screen->setDepthBuffer(make_shared_ptr(new graphics::gl::RenderBuffer(width, height, true)));
+  screen->setDepthBuffer(make_shared<graphics::gl::RenderBuffer>(width, height, true));
 
   GetFramework().OnSize(width, height);
   

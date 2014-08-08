@@ -143,7 +143,7 @@ namespace graphics
                                            size_t count,
                                            shared_ptr<BaseTexture> const & texture)
     {
-      processCommand(make_shared_ptr(new UploadData(resources, count, texture)));
+      processCommand(make_shared<UploadData>(resources, count, texture));
     }
 
     GeometryRenderer::DrawGeometry::DrawGeometry()
@@ -366,12 +366,12 @@ namespace graphics
 
     void GeometryRenderer::applyStates()
     {
-      processCommand(make_shared_ptr(new ApplyStates()));
+      processCommand(make_shared<ApplyStates>());
     }
 
     void GeometryRenderer::applyVarAlfaStates()
     {
-      processCommand(make_shared_ptr(new ApplyStates(ApplyStates::AlfaVaringProgram)));
+      processCommand(make_shared<ApplyStates>(ApplyStates::AlfaVaringProgram));
     }
 
     void GeometryRenderer::ApplyBlitStates::perform()
@@ -393,7 +393,7 @@ namespace graphics
 
     void GeometryRenderer::applyBlitStates()
     {
-      processCommand(make_shared_ptr(new ApplyBlitStates()));
+      processCommand(make_shared<ApplyBlitStates>());
     }
 
     void GeometryRenderer::ApplySharpStates::perform()
@@ -435,7 +435,7 @@ namespace graphics
 
     void GeometryRenderer::applySharpStates()
     {
-      processCommand(make_shared_ptr(new ApplySharpStates()));
+      processCommand(make_shared<ApplySharpStates>());
     }
   }
 }

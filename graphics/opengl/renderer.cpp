@@ -72,14 +72,14 @@ namespace graphics
         m_frameBuffer->setRenderTarget(m_renderTarget);
         m_frameBuffer->setDepthBuffer(m_depthBuffer);
 
-        processCommand(make_shared_ptr(new ChangeFrameBuffer(m_frameBuffer)));
+        processCommand(make_shared<ChangeFrameBuffer>(m_frameBuffer));
 
         if (m_renderTarget != 0)
           m_renderTarget->coordMatrix(coordM);
       }
 
-      processCommand(make_shared_ptr(new ChangeMatrix(EProjection, coordM)));
-      processCommand(make_shared_ptr(new ChangeMatrix(EModelView, math::Identity<float, 4>())));
+      processCommand(make_shared<ChangeMatrix>(EProjection, coordM));
+      processCommand(make_shared<ChangeMatrix>(EModelView, math::Identity<float, 4>()));
     }
 
     bool Renderer::isRendering() const
@@ -122,12 +122,12 @@ namespace graphics
       }
 
       if (glDiscardFramebufferFn)
-        processCommand(make_shared_ptr(new DiscardFramebuffer(doDiscardColor, doDiscardDepth)));
+        processCommand(make_shared<DiscardFramebuffer>(doDiscardColor, doDiscardDepth));
     }
 
     void Renderer::copyFramebufferToImage(shared_ptr<BaseTexture> target)
     {
-      processCommand(make_shared_ptr(new CopyFramebufferToImage(target)));
+      processCommand(make_shared<CopyFramebufferToImage>(target));
     }
 
     void Renderer::endFrame()

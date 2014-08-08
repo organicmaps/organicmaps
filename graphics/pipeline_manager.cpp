@@ -27,9 +27,9 @@ namespace graphics
     vector<shared_ptr<ResourceCache> > v;
 
     for (unsigned i = 0; i < count; ++i)
-      v.push_back(make_shared_ptr(new ResourceCache(resourceManager(),
-                                                    textureType,
-                                                    pipelinesCount() + i)));
+      v.push_back(make_shared<ResourceCache>(resourceManager(),
+                                             textureType,
+                                             pipelinesCount() + i));
 
     return reservePipelines(v, storageType, decl);
   }

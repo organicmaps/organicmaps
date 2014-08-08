@@ -123,7 +123,7 @@ namespace graphics
       return;
 
     if (m_displayList)
-      m_displayList->uploadResources(make_shared_ptr(new UploadData(resources, count, texture)));
+      m_displayList->uploadResources(make_shared<UploadData>(resources, count, texture));
     else
       base_t::uploadResources(resources, count, texture);
   }
@@ -199,7 +199,7 @@ namespace graphics
   void DisplayListRenderer::applyBlitStates()
   {
     if (m_displayList)
-      m_displayList->applyBlitStates(make_shared_ptr(new ApplyBlitStates()));
+      m_displayList->applyBlitStates(make_shared<ApplyBlitStates>());
     else
       base_t::applyBlitStates();
   }
@@ -207,7 +207,7 @@ namespace graphics
   void DisplayListRenderer::applyStates()
   {
     if (m_displayList)
-      m_displayList->applyStates(make_shared_ptr(new ApplyStates()));
+      m_displayList->applyStates(make_shared<ApplyStates>());
     else
       base_t::applyStates();
   }
@@ -215,7 +215,7 @@ namespace graphics
   void DisplayListRenderer::applyVarAlfaStates()
   {
     if (m_displayList)
-      m_displayList->applyStates(make_shared_ptr(new ApplyStates(ApplyStates::AlfaVaringProgram)));
+      m_displayList->applyStates(make_shared<ApplyStates>(ApplyStates::AlfaVaringProgram));
     else
       base_t::applyVarAlfaStates();
   }
@@ -223,7 +223,7 @@ namespace graphics
   void DisplayListRenderer::applySharpStates()
   {
     if (m_displayList)
-      m_displayList->applySharpStates(make_shared_ptr(new ApplySharpStates()));
+      m_displayList->applySharpStates(make_shared<ApplySharpStates>());
     else
       base_t::applySharpStates();
   }

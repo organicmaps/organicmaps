@@ -188,7 +188,7 @@ void YopmeRP::InsertOverlayCross(m2::PointD pivot, Overlay * overlay)
   params.m_depth = ApiPinDepth;
   params.m_pivot = pivot;
   params.m_position = graphics::EPosCenter;
-  overlay->processOverlayElement(make_shared_ptr(new CrossElement(params)));
+  overlay->processOverlayElement(make_shared<CrossElement>(params));
 }
 
 void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
@@ -264,8 +264,8 @@ void YopmeRP::OnSize(int w, int h)
 {
   RenderPolicy::OnSize(w, h);
   m_offscreenDrawer->onSize(w, h);
-  m_offscreenDrawer->screen()->setDepthBuffer(make_shared_ptr(new gl::RenderBuffer(w, h, true)));
-  m_offscreenDrawer->screen()->setRenderTarget(make_shared_ptr(new gl::RenderBuffer(w, h, false)));
+  m_offscreenDrawer->screen()->setDepthBuffer(make_shared<gl::RenderBuffer>(w, h, true));
+  m_offscreenDrawer->screen()->setRenderTarget(make_shared<gl::RenderBuffer>(w, h, false));
 }
 
 void YopmeRP::SetDrawingApiPin(bool isNeed, m2::PointD const & point)

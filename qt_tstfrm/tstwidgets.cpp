@@ -24,7 +24,7 @@ namespace tst
       /// TODO: Show "Please Update Drivers" dialog and close the program.
     }
 
-    m_primaryContext = make_shared_ptr(new qt::gl::RenderContext(this));
+    m_primaryContext.reset(new qt::gl::RenderContext(this));
 
     graphics::ResourceManager::Params rmp;
     rmp.m_texFormat = graphics::Data8Bpp;
@@ -125,14 +125,14 @@ namespace tst
 
     Drawer::Params params;
 
-    m_primaryFrameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer(true));
+    m_primaryFrameBuffer.reset(new graphics::gl::FrameBuffer(true));
 
     params.m_frameBuffer = m_primaryFrameBuffer;
     params.m_resourceManager = m_resourceManager;
     params.m_threadSlot = m_resourceManager->guiThreadSlot();
     params.m_renderContext = m_primaryContext;
 
-    m_primaryScreen = make_shared_ptr(new graphics::Screen(params));
+    m_primaryScreen.reset(new graphics::Screen(params));
   }
 
   void GLDrawWidget::resizeGL(int w, int h)

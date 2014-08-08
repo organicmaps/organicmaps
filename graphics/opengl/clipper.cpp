@@ -43,7 +43,7 @@ namespace graphics
     {
       m_isClippingEnabled = flag;
 
-      processCommand(make_shared_ptr(new EnableClipRect(flag)));
+      processCommand(make_shared<EnableClipRect>(flag));
     }
 
     bool Clipper::clipRectEnabled() const
@@ -68,7 +68,7 @@ namespace graphics
 
       ASSERT ( m_clipRect.IsValid(), (m_clipRect) );
 
-      processCommand(make_shared_ptr(new SetClipRect(m_clipRect)));
+      processCommand(make_shared<SetClipRect>(m_clipRect));
     }
 
     m2::RectI const & Clipper::clipRect() const

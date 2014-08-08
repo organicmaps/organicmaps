@@ -81,7 +81,7 @@ TileRenderer::TileRenderer(
     Drawer::Params params;
 
     params.m_resourceManager = m_resourceManager;
-    params.m_frameBuffer = make_shared_ptr(new graphics::gl::FrameBuffer());
+    params.m_frameBuffer = make_shared<graphics::gl::FrameBuffer>();
 
     params.m_threadSlot = m_resourceManager->renderThreadSlot(i);
     params.m_visualScale = visualScale;
@@ -92,9 +92,9 @@ TileRenderer::TileRenderer(
     m_threadData[i].m_drawerParams = params;
     m_threadData[i].m_drawer = 0;
     m_threadData[i].m_threadSlot = params.m_threadSlot;
-    m_threadData[i].m_colorBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(tileSz.first, tileSz.second, false,
-                                                                                   m_resourceManager->params().m_rgba4RenderBuffer));
-    m_threadData[i].m_depthBuffer = make_shared_ptr(new graphics::gl::RenderBuffer(tileSz.first, tileSz.second, true));
+    m_threadData[i].m_colorBuffer = make_shared<graphics::gl::RenderBuffer>(tileSz.first, tileSz.second, false,
+                                                                            m_resourceManager->params().m_rgba4RenderBuffer);
+    m_threadData[i].m_depthBuffer = make_shared<graphics::gl::RenderBuffer>(tileSz.first, tileSz.second, true);
   }
 
   m_queue.AddInitCommand(bind(&TileRenderer::InitializeThreadGL, this, _1));
@@ -174,7 +174,7 @@ void TileRenderer::DrawTile(core::CommandsQueue::Environment const & env,
 
   frameScreen.OnSize(renderRect);
 
-  shared_ptr<PaintEvent> paintEvent = make_shared_ptr(new PaintEvent(drawer, &env));
+  shared_ptr<PaintEvent> paintEvent(new PaintEvent(drawer, &env));
 
   graphics::TTexturePool * texturePool = m_resourceManager->texturePool(graphics::ERenderTargetTexture);
 

@@ -93,7 +93,7 @@ namespace graphics
   int PacketsQueue::insertFence(Packet::EType type)
   {
     int id = m_fenceManager.insertFence();
-    processPacket(Packet(make_shared_ptr(new SignalFence(id, &m_fenceManager)), type));
+    processPacket(Packet(make_shared<SignalFence>(id, &m_fenceManager), type));
     return id;
   }
 

@@ -64,6 +64,6 @@ shared_ptr<anim::Task> CreateDefaultPinAnim(Framework & f, double & scale)
   AnimPhaseChain * anim = new AnimPhaseChain(f, scale);
   InitDefaultPinAnim(anim);
 
-  return make_shared_ptr<anim::Task>(anim);
+  return shared_ptr<anim::Task>(anim);
 }
 

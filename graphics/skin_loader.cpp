@@ -48,7 +48,7 @@ namespace graphics
 
   void SkinLoader::popPage()
   {
-    m_caches.push_back(make_shared_ptr(new ResourceCache(m_resourceManager, m_fileName, m_caches.size())));
+    m_caches.push_back(make_shared<ResourceCache>(m_resourceManager, m_fileName, m_caches.size()));
 
     TResourceList::iterator prevIt = m_resourceList.end();
 

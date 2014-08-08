@@ -134,7 +134,7 @@ namespace android
     rpParams.m_videoTimer = m_videoTimer;
     rpParams.m_useDefaultFB = true;
     rpParams.m_rmParams = rmParams;
-    rpParams.m_primaryRC = make_shared_ptr(new android::RenderContext());
+    rpParams.m_primaryRC = make_shared<android::RenderContext>();
 
     char const * suffix = 0;
     SetBestDensity(densityDpi, rpParams);

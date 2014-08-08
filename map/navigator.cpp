@@ -509,7 +509,7 @@ shared_ptr<anim::Task> Navigator::ScaleToPointAnim(m2::PointD const & pt, double
                                  bind(&Navigator::ScaleImpl, this, _1, _2, _3, _4, factor > 1, false),
                                  timeInSec);
 
-  return make_shared_ptr(anim);
+  return shared_ptr<anim::Task>(anim);
 }
 
 bool Navigator::CheckMinScale(ScreenBase const & screen) const

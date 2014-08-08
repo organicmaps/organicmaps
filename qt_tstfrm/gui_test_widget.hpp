@@ -66,7 +66,7 @@ public:
     cp.m_resourceManager = base_t::m_resourceManager;
     cp.m_renderContext = base_t::m_primaryContext;
 
-    m_cacheScreen = make_shared_ptr(new graphics::Screen(cp));
+    m_cacheScreen.reset(new graphics::Screen(cp));
 
     rp.m_CacheScreen = m_cacheScreen.get();
     rp.m_GlyphCache = base_t::m_resourceManager->glyphCache(0);

@@ -123,7 +123,7 @@ namespace graphics
     template <typename Fn>
     void processFn(Fn fn, bool performOnCancel = false)
     {
-      processPacket(Packet(make_shared_ptr(new FunctorCommand<Fn>(fn)), Packet::ECommand));
+      processPacket(Packet(make_shared<FunctorCommand<Fn>>(fn), Packet::ECommand));
     }
 
     template <typename Fn>

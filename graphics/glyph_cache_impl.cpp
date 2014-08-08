@@ -625,7 +625,7 @@ namespace graphics
 
     FTC_Node_Unref(node, m_manager);
 
-    return make_shared_ptr(bitmap);
+    return shared_ptr<GlyphBitmap>(bitmap);
   }
 
   FT_Error GlyphCacheImpl::RequestFace(FTC_FaceID faceID, FT_Library library, FT_Pointer /*requestData*/, FT_Face * face)
