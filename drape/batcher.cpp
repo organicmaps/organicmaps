@@ -150,6 +150,10 @@ void Batcher::EndSession()
   m_flushInterface = flush_fn();
 }
 
+void Batcher::Reset()
+{
+}
+
 void Batcher::ChangeBuffer(RefPointer<CallbacksWrapper> wrapper, bool checkFilledBuffer)
 {
   if (wrapper->IsVAOFilled() || checkFilledBuffer == false)

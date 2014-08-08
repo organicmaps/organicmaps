@@ -9,7 +9,6 @@
 #include "../std/map.hpp"
 #include "../std/function.hpp"
 
-
 namespace dp
 {
 
@@ -43,6 +42,7 @@ public:
   typedef function<void (GLState const &, TransferPointer<RenderBucket> )> flush_fn;
   void StartSession(flush_fn const & flusher);
   void EndSession();
+  void Reset();
 
 private:
 
@@ -68,6 +68,12 @@ private:
 
   uint32_t m_indexBufferSize;
   uint32_t m_vertexBufferSize;
+};
+
+class BatcherFactory
+{
+public:
+  Batcher * GetNew() const { return new Batcher(); }
 };
 
 } // namespace dp
