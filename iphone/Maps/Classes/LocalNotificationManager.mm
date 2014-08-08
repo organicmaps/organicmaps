@@ -163,7 +163,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   NSDateComponents * components = [[NSDateComponents alloc] init];
   [components setYear:2014];
   [components setMonth:8];
-  [components setDay:15];
+  [components setDay:17];
   [components setHour:12];
   NSDate * date = [[NSCalendar currentCalendar] dateFromComponents:components];
   if ([date timeIntervalSinceNow] > 0)
