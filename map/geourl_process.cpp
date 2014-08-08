@@ -3,116 +3,171 @@
 #include "../indexer/scales.hpp"
 #include "../indexer/mercator.hpp"
 
+#include "../coding/uri.hpp"
+
 #include "../base/string_utils.hpp"
+#include "../base/regexp.hpp"
+#include "../base/logging.hpp"
+
+#include "../std/bind.hpp"
 
 
 namespace url_scheme
 {
+  const double INVALID_COORD = -1000.0;
+
   bool Info::IsValid() const
   {
-    return (MercatorBounds::ValidLat(m_lat) && MercatorBounds::ValidLon(m_lon));
+    return (m_lat != INVALID_COORD && m_lon != INVALID_COORD);
   }
 
   void Info::Reset()
   {
-    m_lat = m_lon = -1000.0;
+    m_lat = m_lon = INVALID_COORD;
     m_zoom = scales::GetUpperScale();
   }
 
-  class DoGeoParse
+  void Info::SetZoom(double x)
   {
-    Info & m_info;
+    if (x >= 0.0 && x <= scales::GetUpperScale())
+      m_zoom = x;
+  }
 
-    enum TMode { START, LAT, LON, ZOOM, TOKEN };
-    TMode m_mode;
-
-    bool CheckKeyword(string const & token)
+  bool Info::SetLat(double x)
+  {
+    if (MercatorBounds::ValidLat(x))
     {
-      if (token == "lat" || token == "point" || token == "q")
-        m_mode = LAT;
-      else if (token == "lon")
-        m_mode = LON;
-      else if (token == "zoom" || token == "z")
-        m_mode = ZOOM;
-      else
-        return false;
-
+      m_lat = x;
       return true;
     }
+    return false;
+  }
 
-    void CorrectZoomBounds(double & x)
+  bool Info::SetLon(double x)
+  {
+    if (MercatorBounds::ValidLon(x))
     {
-      if (x < 0.0)
-        x = 0.0;
-      int const upperScale = scales::GetUpperScale();
-      if (x > upperScale)
-        x = upperScale;
+      m_lon = x;
+      return true;
     }
+    return false;
+  }
+
+
+  /// Priority for accepting coordinates if we have many choices.
+  /// -1 - not initialized
+  /// 0 - coordinates in path;
+  /// x - priority for query type (greater is better)
+  int GetCoordinatesPriority(string const & token)
+  {
+    if (token.empty())
+      return 0;
+    else if (token == "q")
+      return 1;
+    else if (token == "point")
+      return 2;
+    else if (token == "ll")
+      return 3;
+    else if (token == "lat" || token == "lon")
+      return 4;
+
+    return -1;
+  }
+
+  class LatLonParser
+  {
+    regexp::RegExpT m_regexp;
+    Info & m_info;
+    int m_pLat, m_pLon;
+
+    class AssignCoordinates
+    {
+      LatLonParser & m_parser;
+      int m_p;
+    public:
+      AssignCoordinates(LatLonParser & parser, int p)
+        : m_parser(parser), m_p(p)
+      {
+      }
+
+      void operator() (string const & token) const
+      {
+        double lat, lon;
+
+        string::size_type n = token.find(',');
+        ASSERT(n != string::npos, ());
+        VERIFY(strings::to_double(token.substr(0, n), lat), ());
+
+        n = token.find_first_not_of(", ", n);
+        ASSERT(n != string::npos, ());
+        VERIFY(strings::to_double(token.substr(n, token.size() - n), lon), ());
+
+        if (m_parser.m_info.SetLat(lat) && m_parser.m_info.SetLon(lon))
+          m_parser.m_pLat = m_parser.m_pLon = m_p;
+      }
+    };
 
   public:
-    DoGeoParse(Info & info) : m_info(info), m_mode(START)
+    LatLonParser(Info & info) : m_info(info), m_pLat(-1), m_pLon(-1)
     {
+      regexp::Create("-?\\d+\\.?\\d*, *-?\\d+\\.?\\d*", m_regexp);
     }
 
-    bool operator()(string const & token)
+    bool IsValid() const
     {
-      // Check correct scheme and initialize mode.
-      if (m_mode == START)
+      return (m_pLat == m_pLon && m_pLat != -1);
+    }
+
+    void operator()(string const & key, string const & value)
+    {
+      if (key == "z" || key == "zoom")
       {
-        if (token != "geo")
-          return false;
-        else
+        double x;
+        if (strings::to_double(value, x))
+          m_info.SetZoom(x);
+        return;
+      }
+
+      int const p = GetCoordinatesPriority(key);
+      if (p == -1 || p < m_pLat || p < m_pLon)
+        return;
+
+      if (p != 4)
+      {
+        regexp::ForEachMatched(value, m_regexp, AssignCoordinates(*this, p));
+      }
+      else
+      {
+        double x;
+        if (strings::to_double(value, x))
         {
-          m_mode = LAT;
-          return true;
+          if (key == "lat")
+          {
+            if (m_info.SetLat(x))
+              m_pLat = p;
+          }
+          else
+          {
+            ASSERT_EQUAL(key, "lon", ());
+            if (m_info.SetLon(x))
+              m_pLon = p;
+          }
         }
       }
-
-      // Check for any keyword.
-      if (CheckKeyword(token))
-        return true;
-      else if (m_mode == TOKEN)
-        return false;
-
-      // Expect double value.
-      double x;
-      if (!strings::to_double(token, x))
-        return false;
-
-      // Assign value to the expected field.
-      switch (m_mode)
-      {
-      case LAT:
-        m_info.m_lat = x;
-        m_mode = LON;
-        break;
-
-      case LON:
-        m_info.m_lon = x;
-        m_mode = TOKEN;
-        break;
-
-      case ZOOM:
-        CorrectZoomBounds(x);
-        m_info.m_zoom = x;
-        m_mode = TOKEN;
-        break;
-
-      default:
-        ASSERT(false, ());
-        return false;
-      }
-
-      return true;
     }
   };
 
   void ParseGeoURL(string const & s, Info & info)
   {
-    DoGeoParse parser(info);
-    strings::SimpleTokenizer iter(s, ":/?&=, \t");
+    url_scheme::Uri uri(s);
+    if (!uri.IsValid())
+      return;
 
-    while (iter && parser(*iter))
-      ++iter;
+    LatLonParser parser(info);
+    parser(string(), uri.GetPath());
+    uri.ForEachKeyValue(bind<void>(ref(parser), _1, _2));
+
+    if (!parser.IsValid())
+      info.Reset();
   }
 }

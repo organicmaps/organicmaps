@@ -18,6 +18,10 @@ namespace url_scheme
     {
       Reset();
     }
+
+    void SetZoom(double x);
+    bool SetLat(double x);
+    bool SetLon(double x);
   };
 
   void ParseGeoURL(string const & s, Info & info);

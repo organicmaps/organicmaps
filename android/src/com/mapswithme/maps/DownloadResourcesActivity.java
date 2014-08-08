@@ -79,7 +79,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       new HttpGe0IntentProcessor(),
       new Ge0IntentProcessor(),
       new MapsWithMeIntentProcessor(),
-      new GooggleMapsIntentProcessor(),
+      new GoogleMapsIntentProcessor(),
       new OpenCountryTaskProcessor(),
   };
 
@@ -603,19 +603,16 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    //
   }
 
   @Override
   public void onDrivingHeadingUpdated(long time, double heading, double accuracy)
   {
-    //
   }
 
   @Override
   public void onLocationError(int errorCode)
   {
-    //
   }
 
   private class GeoIntentProcessor implements IntentProcessor
@@ -623,7 +620,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     @Override
     public boolean isIntentSupported(Intent intent)
     {
-      return ("geo".equals(intent.getScheme()) && intent.getData() != null);
+      return (intent.getData() != null && "geo".equals(intent.getScheme()));
     }
 
     @Override
@@ -642,14 +639,14 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     @Override
     public boolean isIntentSupported(Intent intent)
     {
-      return ("ge0".equals(intent.getScheme()) && intent.getData() != null);
+      return (intent.getData() != null && "ge0".equals(intent.getScheme()));
     }
 
     @Override
     public boolean processIntent(Intent intent)
     {
       final String url = intent.getData().toString();
-      Log.i(TAG, "Query = " + url);
+      Log.i(TAG, "URL = " + url);
 
       mMapTaskToForward = new OpenUrlTask(url);
       return true;
@@ -675,16 +672,11 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     public boolean processIntent(Intent intent)
     {
       final Uri data = intent.getData();
-      if (data != null)
-      {
-        Log.i(TAG, "Query = " + data.toString());
+      Log.i(TAG, "URL = " + data.toString());
 
-        final String ge0Url = "ge0:/" + data.getPath();
-        mMapTaskToForward = new OpenUrlTask(ge0Url);
-        return true;
-      }
-
-      return false;
+      final String ge0Url = "ge0:/" + data.getPath();
+      mMapTaskToForward = new OpenUrlTask(ge0Url);
+      return true;
     }
   }
 
@@ -720,7 +712,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     }
   }
 
-  private class GooggleMapsIntentProcessor implements IntentProcessor
+  private class GoogleMapsIntentProcessor implements IntentProcessor
   {
     @Override
     public boolean isIntentSupported(Intent intent)
@@ -729,40 +721,14 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
       return (data != null && "maps.google.com".equals(data.getHost()));
     }
 
-    private String extractCoordinates(String query, Pattern pattern)
-    {
-      String ll = null;
-      if (query != null)
-      {
-        final Matcher m = pattern.matcher(query);
-        if (m.find())
-          ll = m.group();
-      }
-      return ll;
-    }
-
     @Override
     public boolean processIntent(Intent intent)
     {
-      final Uri data = intent.getData();
-      if (data != null)
-      {
-        Log.i(TAG, "Query = " + data.toString());
+      final String url = intent.getData().toString();
+      Log.i(TAG, "URL = " + url);
 
-        final Pattern pattern = Pattern.compile("(-?\\d+\\.?,?)+");
-
-        String ll = extractCoordinates(data.getQueryParameter("ll"), pattern);
-        if (ll == null)
-          ll = extractCoordinates(data.getQueryParameter("q"), pattern);
-        if (ll != null)
-        {
-          Log.d(TAG, "URL coordinates: " + ll);
-          mMapTaskToForward = new OpenUrlTask("geo://" + ll);
-          return true;
-        }
-      }
-
-      return false;
+      mMapTaskToForward = new OpenUrlTask(url);
+      return true;
     }
   }
 

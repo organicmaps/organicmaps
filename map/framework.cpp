@@ -1633,18 +1633,7 @@ bool Framework::ShowMapForURL(string const & url)
   using namespace url_scheme;
   using namespace strings;
 
-  if (StartsWith(url, "geo"))
-  {
-    Info info;
-    ParseGeoURL(url, info);
-    if (info.IsValid())
-    {
-      point = MercatorBounds::FromLatLon(info.m_lat, info.m_lon);
-      rect = m_scales.GetRectForDrawScale(info.m_zoom, point);
-      result = NEED_CLICK;
-    }
-  }
-  else if (StartsWith(url, "ge0"))
+  if (StartsWith(url, "ge0"))
   {
     Ge0Parser parser;
     double zoom;
@@ -1671,6 +1660,17 @@ bool Framework::ShowMapForURL(string const & url)
         result = NEED_CLICK;
       else
         result = NO_NEED_CLICK;
+    }
+  }
+  else  // Actually, we can parse any geo url scheme with correct coordinates.
+  {
+    Info info;
+    ParseGeoURL(url, info);
+    if (info.IsValid())
+    {
+      point = MercatorBounds::FromLatLon(info.m_lat, info.m_lon);
+      rect = m_scales.GetRectForDrawScale(info.m_zoom, point);
+      result = NEED_CLICK;
     }
   }
 

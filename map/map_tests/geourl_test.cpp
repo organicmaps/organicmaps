@@ -27,6 +27,12 @@ UNIT_TEST(ProcessURL_Smoke)
   info.Reset();
   ParseGeoURL("mapswithme:123.33,32.22/showmethemagic", info);
   TEST(!info.IsValid(), ());
+
+  info.Reset();
+  ParseGeoURL("mapswithme:32.22, 123.33/showmethemagic", info);
+  TEST(info.IsValid(), ());
+  TEST_ALMOST_EQUAL(info.m_lat, 32.22, ());
+  TEST_ALMOST_EQUAL(info.m_lon, 123.33, ());
 }
 
 UNIT_TEST(ProcessURL_Instagram)
@@ -37,4 +43,21 @@ UNIT_TEST(ProcessURL_Instagram)
   TEST_ALMOST_EQUAL(info.m_lat, 54.683486138, ());
   TEST_ALMOST_EQUAL(info.m_lon, 25.289361259, ());
   TEST_ALMOST_EQUAL(info.m_zoom, 14.0, ());
+}
+
+UNIT_TEST(ProcessURL_GoogleMaps)
+{
+  Info info;
+  ParseGeoURL("https://maps.google.com/maps?z=16&q=Mezza9%401.3067198,103.83282", info);
+  TEST(info.IsValid(), ());
+  TEST_ALMOST_EQUAL(info.m_lat, 1.3067198, ());
+  TEST_ALMOST_EQUAL(info.m_lon, 103.83282, ());
+  TEST_ALMOST_EQUAL(info.m_zoom, 16.0, ());
+
+  info.Reset();
+  ParseGeoURL("https://maps.google.com/maps?z=16&q=House+of+Seafood+%40+180%401.356706,103.87591", info);
+  TEST(info.IsValid(), ());
+  TEST_ALMOST_EQUAL(info.m_lat, 1.356706, ());
+  TEST_ALMOST_EQUAL(info.m_lon, 103.87591, ());
+  TEST_ALMOST_EQUAL(info.m_zoom, 16.0, ());
 }
