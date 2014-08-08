@@ -16,6 +16,23 @@ ReadMWMTask::ReadMWMTask(weak_ptr<TileInfo> const & tileInfo,
 {
 }
 
+ReadMWMTask::ReadMWMTask(MemoryFeatureIndex & memIndex, model::FeaturesFetcher & model,
+                         EngineContext & context)
+  : m_memIndex(memIndex)
+  , m_model(model)
+  , m_context(context)
+{
+}
+
+void ReadMWMTask::init(weak_ptr<TileInfo> const & tileInfo)
+{
+  m_tileInfo = tileInfo;
+}
+
+void ReadMWMTask::Reset()
+{
+}
+
 void ReadMWMTask::Do()
 {
   shared_ptr<TileInfo> tileInfo = m_tileInfo.lock();
