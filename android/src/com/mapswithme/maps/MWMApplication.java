@@ -73,16 +73,15 @@ public class MWMApplication extends android.app.Application implements MapStorag
   @Override
   public void onCountryStatusChanged(Index idx)
   {
-    final Notifier notifier = new Notifier(this);
     switch (mStorage.countryStatus(idx))
     {
     case MapStorage.ON_DISK:
-      notifier.placeDownloadCompleted(idx, getMapStorage().countryName(idx));
+      Notifier.placeDownloadCompleted(idx, getMapStorage().countryName(idx));
       tryNotifyGuideAvailable(idx);
       break;
 
     case MapStorage.DOWNLOAD_FAILED:
-      notifier.placeDownloadFailed(idx, getMapStorage().countryName(idx));
+      Notifier.placeDownloadFailed(idx, getMapStorage().countryName(idx));
       break;
     }
   }
@@ -95,8 +94,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
       if (info != null && !GuidesUtils.isGuideInstalled(info.mAppId, this)
           && !Framework.wasAdvertised(info.mAppId))
       {
-        final Notifier notifier = new Notifier(this);
-        notifier.placeGuideAvailable(info.mAppId, info.mTitle, info.mMessage);
+        Notifier.placeGuideAvailable(info.mAppId, info.mTitle, info.mMessage);
         Framework.setWasAdvertised(info.mAppId);
       }
     }
@@ -156,7 +154,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     if (hasBookmarks())
       BookmarkManager.getBookmarkManager(getApplicationContext());
 
-    new Notifier(this).schedulePromoNotification();
+    Notifier.schedulePromoNotification();
   }
 
   public LocationService getLocationService()

@@ -27,54 +27,59 @@ public class Notifier
   private final static int ID_DOWNLOAD_NEW_COUNTRY = 0x4;
   private final static int ID_MWM_PRO_PROMOACTION = 0x5;
 
-  private final NotificationManager mNotificationManager;
-  private final Context mContext;
+  private Notifier() { }
 
-  public Notifier(Context context)
+  public static NotificationCompat.Builder getBuilder()
   {
-    mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-    mContext = context;
+    return new NotificationCompat.Builder(MWMApplication.get())
+        .setAutoCancel(true)
+        .setSmallIcon(R.drawable.ic_notification);
   }
 
-  public void placeUpdateAvailable(String forWhat)
+  private static NotificationManager getNotificationManager()
   {
-    final String title = mContext.getString(R.string.advise_update_maps);
+    return (NotificationManager) MWMApplication.get().getSystemService(Context.NOTIFICATION_SERVICE);
+  }
+
+  public static void placeUpdateAvailable(String forWhat)
+  {
+    final String title = MWMApplication.get().getString(R.string.advise_update_maps);
 
     // Intent to start DownloadUI
-    final Intent i = new Intent(mContext, DownloadActivity.class);
-    final PendingIntent pi = PendingIntent.getActivity(mContext, 0, i, Intent.FLAG_ACTIVITY_NEW_TASK);
+    final Intent i = new Intent(MWMApplication.get(), DownloadActivity.class);
+    final PendingIntent pi = PendingIntent.getActivity(MWMApplication.get(), 0, i, Intent.FLAG_ACTIVITY_NEW_TASK);
 
-    final Notification notification = getBuilder()
+    final Notification notification = Notifier.getBuilder()
         .setContentTitle(title)
         .setContentText(forWhat)
         .setTicker(title + forWhat)
         .setContentIntent(pi)
         .build();
 
-    mNotificationManager.cancel(ID_UPDATE_AVAIL);
-    mNotificationManager.notify(ID_UPDATE_AVAIL, notification);
+    getNotificationManager().cancel(ID_UPDATE_AVAIL);
+    getNotificationManager().notify(ID_UPDATE_AVAIL, notification);
   }
 
-  public void placeDownloadCompleted(Index idx, String name)
+  public static void placeDownloadCompleted(Index idx, String name)
   {
-    final String title = mContext.getString(R.string.app_name);
-    final String content = mContext.getString(R.string.download_country_success, name);
+    final String title = MWMApplication.get().getString(R.string.app_name);
+    final String content = MWMApplication.get().getString(R.string.download_country_success, name);
 
-    placeDownloadNoti(title, content, idx);
+    Notifier.placeDownloadNotification(title, content, idx);
   }
 
-  public void placeDownloadFailed(Index idx, String name)
+  public static void placeDownloadFailed(Index idx, String name)
   {
-    final String title = mContext.getString(R.string.app_name);
-    final String content = mContext.getString(R.string.download_country_failed, name);
+    final String title = MWMApplication.get().getString(R.string.app_name);
+    final String content = MWMApplication.get().getString(R.string.download_country_failed, name);
 
-    placeDownloadNoti(title, content, idx);
+    placeDownloadNotification(title, content, idx);
   }
 
-  private void placeDownloadNoti(String title, String content, Index idx)
+  private static void placeDownloadNotification(String title, String content, Index idx)
   {
     final PendingIntent pi = PendingIntent
-        .getActivity(mContext, 0, MWMActivity.createShowMapIntent(mContext, idx, false), Intent.FLAG_ACTIVITY_NEW_TASK);
+        .getActivity(MWMApplication.get(), 0, MWMActivity.createShowMapIntent(MWMApplication.get(), idx, false), Intent.FLAG_ACTIVITY_NEW_TASK);
 
     final Notification notification = getBuilder()
         .setContentTitle(title)
@@ -83,34 +88,27 @@ public class Notifier
         .setContentIntent(pi)
         .build();
 
-    mNotificationManager.notify(ID_DOWNLOAD_STATUS, notification);
+    getNotificationManager().notify(ID_DOWNLOAD_STATUS, notification);
   }
 
-  public NotificationCompat.Builder getBuilder()
-  {
-    return new NotificationCompat.Builder(mContext)
-        .setAutoCancel(true)
-        .setSmallIcon(R.drawable.ic_notification);
-  }
-
-  public void placeGuideAvailable(String packageName, String title, String content)
+  public static void placeGuideAvailable(String packageName, String title, String content)
   {
     final PendingIntent pi = PendingIntent
-        .getActivity(mContext, 0, GuidesUtils.getGoogleStoreIntentForPackage(packageName), 0);
+        .getActivity(MWMApplication.get(), 0, GuidesUtils.getGoogleStoreIntentForPackage(packageName), 0);
 
-    final Notification guideNoti = getBuilder()
+    final Notification guideNotification = getBuilder()
         .setContentIntent(pi)
         .setContentTitle(title)
         .setContentText(content)
         .build();
 
-    mNotificationManager.notify(ID_GUIDE_AVAIL, guideNoti);
+    getNotificationManager().notify(ID_GUIDE_AVAIL, guideNotification);
   }
 
-  public void placeDownloadSuggest(String title, String content, Index countryIndex)
+  public static void placeDownloadSuggest(String title, String content, Index countryIndex)
   {
     final PendingIntent pi = PendingIntent
-        .getActivity(mContext, 0, MWMActivity.createShowMapIntent(mContext, countryIndex, true), Intent.FLAG_ACTIVITY_NEW_TASK);
+        .getActivity(MWMApplication.get(), 0, MWMActivity.createShowMapIntent(MWMApplication.get(), countryIndex, true), Intent.FLAG_ACTIVITY_NEW_TASK);
 
     final Notification notification = getBuilder()
         .setContentTitle(title)
@@ -119,20 +117,18 @@ public class Notifier
         .setContentIntent(pi)
         .build();
 
-    mNotificationManager.notify(ID_DOWNLOAD_NEW_COUNTRY, notification);
+    getNotificationManager().notify(ID_DOWNLOAD_NEW_COUNTRY, notification);
 
     Statistics.INSTANCE.trackDownloadCountryNotificationShown();
   }
 
-  public void schedulePromoNotification()
+  public static void schedulePromoNotification()
   {
-    final Intent intent = new Intent(MWMApplication.get(), WorkerService.class).
-        setAction(WorkerService.ACTION_PROMO_NOTIFICATION_SHOW);
-    final PendingIntent pendingIntent = PendingIntent.getService(MWMApplication.get(), 0, intent, 0);
-
+    final int promoYear = 2014;
     final int promoDate = 17;
     final int promoHour = 12;
-    Calendar calendar = Calendar.getInstance();
+    final Calendar calendar = Calendar.getInstance();
+    calendar.set(Calendar.YEAR, promoYear);
     calendar.set(Calendar.MONTH, Calendar.AUGUST);
     calendar.set(Calendar.DAY_OF_MONTH, promoDate);
     calendar.set(Calendar.HOUR_OF_DAY, promoHour);
@@ -141,7 +137,11 @@ public class Notifier
 
     if (System.currentTimeMillis() < calendar.getTimeInMillis())
     {
-      AlarmManager alarm = (AlarmManager) MWMApplication.get().getSystemService(Context.ALARM_SERVICE);
+      final Intent intent = new Intent(MWMApplication.get(), WorkerService.class).
+          setAction(WorkerService.ACTION_PROMO_NOTIFICATION_SHOW);
+      final PendingIntent pendingIntent = PendingIntent.getService(MWMApplication.get(), 0, intent, 0);
+
+      final AlarmManager alarm = (AlarmManager) MWMApplication.get().getSystemService(Context.ALARM_SERVICE);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
         alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
       else
@@ -149,7 +149,7 @@ public class Notifier
     }
   }
 
-  public void placePromoNotification()
+  public static void placePromoNotification()
   {
     final Intent intent = new Intent(MWMApplication.get(), WorkerService.class).
         setAction(WorkerService.ACTION_PROMO_NOTIFICATION_CLICK);
@@ -163,6 +163,6 @@ public class Notifier
         .setContentIntent(pendingIntent)
         .build();
 
-    mNotificationManager.notify(ID_MWM_PRO_PROMOACTION, notification);
+    getNotificationManager().notify(ID_MWM_PRO_PROMOACTION, notification);
   }
 }

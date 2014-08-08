@@ -8,7 +8,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMApplication;
@@ -40,7 +39,6 @@ public class WorkerService extends IntentService
 
   private Logger mLogger = StubLogger.get();
   // = SimpleLogger.get("MWMWorkerService");
-  private Notifier mNotifier;
 
 
   /**
@@ -88,13 +86,6 @@ public class WorkerService extends IntentService
   }
 
   @Override
-  public void onCreate()
-  {
-    super.onCreate();
-    mNotifier = new Notifier(this);
-  }
-
-  @Override
   protected void onHandleIntent(Intent intent)
   {
     if (intent != null)
@@ -131,7 +122,7 @@ public class WorkerService extends IntentService
     if (!TextUtils.isEmpty(countriesToUpdate))
     {
       mLogger.d("Update available! " + countriesToUpdate);
-      mNotifier.placeUpdateAvailable(countriesToUpdate);
+      Notifier.placeUpdateAvailable(countriesToUpdate);
     }
     // We are done with current version
     Framework.nativeUpdateSavedDataVersion();
@@ -187,7 +178,6 @@ public class WorkerService extends IntentService
    */
   private void placeDownloadNotification(Location l)
   {
-    final Notifier notifier = new Notifier(this);
     final String country = Framework.nativeGetCountryNameIfAbsent(l.getLatitude(), l.getLongitude());
     if (!TextUtils.isEmpty(country))
     {
@@ -206,7 +196,7 @@ public class WorkerService extends IntentService
       }
       if (shouldPlaceNotification)
       {
-        notifier.placeDownloadSuggest(country, String.format(getApplicationContext().getString(R.string.download_location_country), country),
+        Notifier.placeDownloadSuggest(country, String.format(getApplicationContext().getString(R.string.download_location_country), country),
             Framework.nativeGetCountryIndex(l.getLatitude(), l.getLongitude()));
         prefs.edit().putString(country, String.valueOf(System.currentTimeMillis())).commit();
       }
@@ -215,7 +205,7 @@ public class WorkerService extends IntentService
 
   private void showPromoNotification()
   {
-    new Notifier(getApplicationContext()).placePromoNotification();
+    Notifier.placePromoNotification();
     Statistics.INSTANCE.trackSimpleNamedEvent(PROMO_SHOW_EVENT_NAME);
   }
 
