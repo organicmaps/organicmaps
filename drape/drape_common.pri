@@ -75,3 +75,4 @@ HEADERS += \
     $$DRAPE_DIR/utils/stb_image.h \
     $$DRAPE_DIR/attribute_buffer_mutator.hpp \
     $$DRAPE_DIR/drape_global.hpp \
+    $$DRAPE_DIR/object_pool.hpp \
