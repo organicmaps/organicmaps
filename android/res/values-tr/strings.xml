@@ -368,4 +368,42 @@
 	<string name="move_lite_maps_to_pro_ok">İndirmiş olduğunuz haritalar başarılı bir şekilde MAPS.ME\&#39;ye aktarıldı.</string>
 	<!-- Message to display when maps move failed. -->
 	<string name="move_lite_maps_to_pro_failed">Haritanızın aktarımı başarısız oldu. Lütfen MAPS.ME Lite\&#39;yi silin ve haritaları tekrar indirin.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_ios">MAPS.ME bugün ücretsiz! Haberi Facebook\&#39;ta paylaş.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_android">MAPS.ME Google Play\&#39;de %80 indirimli.</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_ios">MAPS.ME çevrimdışı haritaları iTunes\&#39;dan ücretsiz aldım. Şimdi Google Play\&#39;de de %80 indirimli. Kaçırma!</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_android">MAPS.ME çevrimdışı haritaları Google Play\&#39;den %80 indirimli aldım. iTunes\&#39;ta da ücretsiz. Kaçırma!</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Ayarlar &amp; Fazlası</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">MAPS.ME Topluluğu</string>
+	<!-- Text in menu -->
+	<string name="like_on_facebook">Facebook\&#39;da beğen</string>
+	<!-- Text in menu -->
+	<string name="follow_on_twitter">Twitter\&#39;da takip et</string>
+	<!-- Text in menu -->
+	<string name="contact_us">İletişim</string>
+	<!-- Text in menu -->
+	<string name="subscribe_to_news">Haberlerimize abone ol</string>
+	<!-- Text in menu -->
+	<string name="rate_the_app">Uygulamayı değerlendir</string>
+	<!-- Text in menu -->
+	<string name="help">Yardım</string>
+	<!-- Text in menu -->
+	<string name="copyright">Telif hakkı</string>
+	<!-- Text in menu -->
+	<string name="report_a_bug">Hata bildir</string>
+	<!-- Email subject -->
+	<string name="subscribe_me_subject">Lütfen MAPS.ME haber bültenine beni abone yap</string>
+	<!-- Email body -->
+	<string name="subscribe_me_body">En son haberlerden güncellemelerden ve tanıtımlardan ilk önce haberdar olmak istiyorum. Aboneliğimi herhangi bir zaman iptal edebilirim.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, MAPS.ME harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin MAPS.ME\&#39;yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@maps.me adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nMAPS.ME\&#39;yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza MAPS.ME\&#39;den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap\&#39;dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttp://openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler MAPS.ME\&#39;de bir sonraki sürüm yayınlandığında görülebilir olacaktır.</string>
+	<!-- Alert text -->
+	<string name="email_error_body">E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın ya da bize %s adresinden ulaşmak için başka bir yöntem deneyin</string>
+	<!-- Alert title -->
+	<string name="email_error_title">Posta gönderme hatası</string>
 </resources>

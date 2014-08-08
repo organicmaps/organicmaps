@@ -342,4 +342,42 @@
 	<string name="move_lite_maps_to_pro_ok">다운로드된 지도가 성공적으로 MAPS.ME에 전송됨</string>
 	<!-- Message to display when maps move failed. -->
 	<string name="move_lite_maps_to_pro_failed">지도를 전송하지 못했습니다. MAPS.ME Lite를 삭제하고 다시지도를 다운로드하십시오.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_ios">MAPS.ME는 오늘 무료입니다! Facebook에서 뉴스를 공유할 수 있습니다.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_android">MAPS.ME는 구글 플레이에서 80% 할인된 가격으로 구입할 수 있습니다.</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_ios">방금 아이튠스에서 MAPS.ME 오프라인 지도를 무료로 받았습니다. 구글 플레이에서도 80% 할인된 가격으로 구입할 수 있습니다. 놓치지 마세요!</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_android">방금 구글 플레이에서 MAPS.ME 오프라인 지도를 80% 할인된 가격으로 구입했습니다. 아이튠스에서는 무료입니다. 놓치지 마세요!</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">설정 및 기타</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">MAPS.ME 커뮤니티</string>
+	<!-- Text in menu -->
+	<string name="like_on_facebook">Facebook에서 좋아요</string>
+	<!-- Text in menu -->
+	<string name="follow_on_twitter">Twitter에서 팔로우</string>
+	<!-- Text in menu -->
+	<string name="contact_us">연락처</string>
+	<!-- Text in menu -->
+	<string name="subscribe_to_news">우리 뉴스 구독</string>
+	<!-- Text in menu -->
+	<string name="rate_the_app">앱 평가</string>
+	<!-- Text in menu -->
+	<string name="help">도움말</string>
+	<!-- Text in menu -->
+	<string name="copyright">저작권</string>
+	<!-- Text in menu -->
+	<string name="report_a_bug">오류 신고</string>
+	<!-- Email subject -->
+	<string name="subscribe_me_subject">MAPS.ME 뉴스 레터로 나를 구독해 주십시오.</string>
+	<!-- Email body -->
+	<string name="subscribe_me_body">나는 최신 뉴스 업데이트 및 프로모션에 대해 알게될 첫번째 사람이 되고 싶습니다. 나는 언제나 구독을 취소할 수 있습니다.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME는 가장 빠른 전 세계 모든 국가 및 도시의 오프라인 지도를 제공하고 있습니다. 자신있게 여행하세요. 계신 곳이 어디이든 MAPS.ME는 지도상에서 위치하고 계신 곳이 어디 있지 알려 주고 가장 가까운 식당, 호텔 및 주유소 등을 찾아 줍니다. 인터넷 접속이 필요없는 서비스입니다.\n\nMAPS.ME는 항상 새로운 기능들에 대해 연구하고 있습니다. MAPS.ME가 더 훌륭한 서비스를 제공할 수 있도록 많은 의견 주시면 감사하겠습니다. 앱을 사용하시다 불편한 점이 있으시면, 주저 마시고 support@maps.me으로 문의해 주세요. MAPS.ME는 어떤 요청에도 기꺼이 응답할 것입니다.\n\nMAPS.ME가 좋은 앱이라고 생각하시나요? MAPS.ME을 후원할 수 있는 간단하면서도 비용이 전혀 들지 않는 몇 가지 방법을 소개합니다.\n\n- 앱 마켓에 리뷰를 올려주세요.\n- MAPS.ME의 페이스북 페이지 http://www.facebook.com/mapswithme 에 “좋아요”를 남겨 주세요.\n- 가족, 친구 및 동료들에게 MAPS.ME를 자랑해 주세요.\n\nMAPS.ME와 함께 해 주셔서 감사합니다. 여러분의 후원에 정말 감사드립니다!\n\nP.S. MAPS.ME는 OpenStreetMap으로부터 맵 데이터를 수집하고 있습니다. OpenStreetMap은 위키피디아처럼 유저들이 맵을 만들고 편집할 수 있는 맵핑 프로젝트입니다.\n\n혹 맵에서 누락된 곳이나 잘못된 점을 발견하실 경우, http://openstreetmap.org에서 직접 맵을 수정하실 수 있습니다. 수정한 부분은 다음 버전으로 출시되는 MAPS.ME 앱에 반영될 것입니다.</string>
+	<!-- Alert text -->
+	<string name="email_error_body">이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %s로 연락할 다른 방법을 사용하십시오.</string>
+	<!-- Alert title -->
+	<string name="email_error_title">메일 전송 중 오류</string>
 </resources>

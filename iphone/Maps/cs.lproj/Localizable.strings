@@ -586,3 +586,60 @@
 
 /* Message to display when maps move failed. */
 "move_lite_maps_to_pro_failed" = "Vaše mapy se nepodařilo přenést. Vymažte prosím MAPS.ME Lite a stáhněte si mapy znovu.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_ios" = "MAPS.ME je dnes zdarma! Sdílejte tu zprávu na Facebooku.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_android" = "MAPS.ME jsou dostupné na Google Play se slevou 80 %.";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_ios" = "Právě jsem na iTunes získal(a) zdarma offline mapy MAPS.ME. Jsou také dostupné na Google Play se slevou 80 %. Nezmeškejte to!";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_android" = "Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80 %. Jsou také dostupné zdarma na iTunes. Nezmeškejte to!";
+
+/* Text in menu */
+"settings_and_more" = "Nastavení a více";
+
+/* Text in menu */
+"maps_me_community" = "Komunita MAPS.ME";
+
+/* Text in menu */
+"like_on_facebook" = "Označit pomocí To se mi líbí na Facebooku";
+
+/* Text in menu */
+"follow_on_twitter" = "Následovat na Twitteru";
+
+/* Text in menu */
+"contact_us" = "Kontaktovat nás";
+
+/* Text in menu */
+"subscribe_to_news" = "Přihlásit se k našim novinkám";
+
+/* Text in menu */
+"rate_the_app" = "Ohodnotit aplikaci";
+
+/* Text in menu */
+"help" = "Nápověda";
+
+/* Text in menu */
+"copyright" = "Autorská práva";
+
+/* Text in menu */
+"report_a_bug" = "Nahlásit chybu";
+
+/* Email subject */
+"subscribe_me_subject" = "Přihlaste mě prosím k odběru zpravodaje MAPS.ME";
+
+/* Email body */
+"subscribe_me_body" = "Chci se vždy jako první dozvídat o nejnovějších zprávách aktualizacích a akčních nabídkách. Svoje přihlášení k odběru mohu kdykoli zrušit.";
+
+/* About text */
+"about_text" = "MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestujte s naprostou důvěrou: kdekoliv jste, MAPS.ME vám pomůže se najít na mapě, najít nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli váš názor, jak můžeme vylepšit MAPS.ME. Pokud máte s touto aplikací jakékoliv problémy, pak nás neváhejte kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se vám MAPS.ME a chtěli byste nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napište recenzi ve svém obchodě s aplikacemi\n- označte naši stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekněte o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jste s námi. Velmi oceňujeme vaši podporu!\n\nP.S. Mapová data získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíte, že na mapě něco chybí nebo je špatně, pak můžete mapy opravit přímo na http://openstreetmap.org, a vaše změny se objeví v příští verzi MAPS.ME.";
+
+/* Alert text */
+"email_error_body" = "Emailový klient nebyl nastaven. Nakonfigurujte ho prosím nebo použijte jiný způsob k tomu, abyste nás kontaktovali na %@";
+
+/* Alert title */
+"email_error_title" = "Chyba při odesílání emailu";

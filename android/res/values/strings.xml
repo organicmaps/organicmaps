@@ -379,4 +379,42 @@
 	<string name="move_lite_maps_to_pro_ok">Your downloaded maps are successfully transferred to MAPS.ME.</string>
 	<!-- Message to display when maps move failed. -->
 	<string name="move_lite_maps_to_pro_failed">Your maps failed to transfer. Please delete MAPS.ME Lite and download the maps again.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_ios">MAPS.ME Pro is free today! Share the news on Facebook.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_android">MAPS.ME is available with 80% discount at Google Play.</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_ios">I’ve just got MAPS.ME offline maps for free on iTunes. It’s also available with 80% discount on Google Play. Don’t miss!</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_android">I’ve just got MAPS.ME offline maps with 80% discount on Google Play. It’s also available for free on iTunes. Don’t miss!</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Settings &amp; More</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">MAPS.ME Community</string>
+	<!-- Text in menu -->
+	<string name="like_on_facebook">Like on Facebook</string>
+	<!-- Text in menu -->
+	<string name="follow_on_twitter">Follow on Twitter</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Contact us</string>
+	<!-- Text in menu -->
+	<string name="subscribe_to_news">Subscribe to our news</string>
+	<!-- Text in menu -->
+	<string name="rate_the_app">Rate the app</string>
+	<!-- Text in menu -->
+	<string name="help">Help</string>
+	<!-- Text in menu -->
+	<string name="copyright">Copyright</string>
+	<!-- Text in menu -->
+	<string name="report_a_bug">Report a bug</string>
+	<!-- Email subject -->
+	<string name="subscribe_me_subject">Please subscribe me to the MAPS.ME newsletter</string>
+	<!-- Email body -->
+	<string name="subscribe_me_body">I want to be the first to learn about latest news updates and promotions. I can cancel my subscription at any time.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME offers the fastest offline maps of all the cities, all countries of the world. Travel with full confidence: wherever you are, MAPS.ME helps to locate yourself on the map, find the nearest restaurant, hotel, bank, gas station etc. It doesn’t require internet connection.\n\nWe are always working on new features and would love to hear from you on how you think we could improve MAPS.ME. If you have any problems with the app, don\&#39;t hesitate to contact us at support@maps.me. We respond to every request!\n\nDo you like MAPS.ME and want to support us? There are some simple and absolutely free ways:\n\n- post a review at your App Market\n- like our Facebook page http://www.facebook.com/mapswithme\n- or just tell about MAPS.ME to your mom, friends and colleagues :)\n\nThank you for being with us. We appreciate your support very much!\n\nP.S. We take map data from OpenStreetMap, a mapping project similar to Wikipedia, which allows users to create and edit maps. If you see something is missing or wrong on the map, you can correct the maps directly at http://openstreetmap.org, and your changes will appear in MAPS.ME app with the next version release.</string>
+	<!-- Alert text -->
+	<string name="email_error_body">The email client has not been set up. Please configure it or use any other way to contact us at %s</string>
+	<!-- Alert title -->
+	<string name="email_error_title">Mail sending error</string>
 </resources>

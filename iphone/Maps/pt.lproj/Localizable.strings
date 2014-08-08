@@ -586,3 +586,60 @@
 
 /* Message to display when maps move failed. */
 "move_lite_maps_to_pro_failed" = "Falhou a transferência dos seus mapas. Por favor, elimine a MAPS.ME Lite e descarregue os mapas novamente.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_ios" = "A MAPS.ME é hoje grátis! Partilhe a notícia no Facebook.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_android" = "A MAPS.ME está disponível com 80% de desconto na Google Play.";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_ios" = "Acabei de receber gratuitamente os mapas offline da MAPS.ME através do iTunes. Também estão disponíveis com 80% de desconto na Google Play. Não perca!";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_android" = "Acabei de receber os mapas offline da MAPS.ME com 80% de desconto na Google Play. Também estão disponíveis gratuitamente através do iTunes. Não perca!";
+
+/* Text in menu */
+"settings_and_more" = "Definições e Mais";
+
+/* Text in menu */
+"maps_me_community" = "Comunidade MAPS.ME";
+
+/* Text in menu */
+"like_on_facebook" = "Gostar no Facebook";
+
+/* Text in menu */
+"follow_on_twitter" = "Seguir no Twitter";
+
+/* Text in menu */
+"contact_us" = "Contacte-nos";
+
+/* Text in menu */
+"subscribe_to_news" = "Subscreva as nossas notícias";
+
+/* Text in menu */
+"rate_the_app" = "Classificar a aplicação";
+
+/* Text in menu */
+"help" = "Ajuda";
+
+/* Text in menu */
+"copyright" = "Direitos de Autor";
+
+/* Text in menu */
+"report_a_bug" = "Reportar um problema";
+
+/* Email subject */
+"subscribe_me_subject" = "Por favor inscrevam-me na newsletter da MAPS.ME";
+
+/* Email body */
+"subscribe_me_body" = "Quero ser o(a) primeiro(a) a saber sobre as últimas notícias atualizações e promoções. Posso cancelar a minha subscrição a qualquer altura.";
+
+/* About text */
+"about_text" = "A MAPS.ME oferece os mapas offline mais rápidos de todas as cidades, de todos os países do mundo. Viaje com plena confiança: onde estiver, a MAPS.ME ajuda a localizar-se no mapa, a encontrar o restaurante, hotel, banco, posto de gasolina mais próximos, etc. Não requer ligação à Internet.\n\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como poderíamos melhorar a MAPS.ME. Se tiver algum problema com a app, não hesite em contactar-nos em support@maps.me. Respondemos a cada pedido!\n\nGosta da MAPS.ME e quer apoiar-nos? Há algumas maneiras simples e absolutamente gratuitas:\n\n- publique um comentário no seu App Market\n- faça \"gosto\" na nossa página do Facebook http://www.facebook.com/mapswithme\n- ou fale da MAPS.ME à sua mãe, amigos e colegas :)\n\nObrigado por estar connosco. Agradecemos imenso o seu apoio!\n\nP. S. Tiramos os dados do OpenStreetMap, um projeto de mapeamento semelhante à Wikipedia, que permite aos utilizadores criarem e editarem mapas. Se vir que algo está em falta ou errado no mapa, pode corrigir diretamente os mapas em http://openstreetmap.org e as suas alterações irão aparecer na app MAPS.ME com o lançamento da próxima versão.";
+
+/* Alert text */
+"email_error_body" = "O cliente de email não está configurado. Por favor, configure-o ou utilize qualquer outro modo para nos contactar através de %@";
+
+/* Alert title */
+"email_error_title" = "Erro de envio de email";

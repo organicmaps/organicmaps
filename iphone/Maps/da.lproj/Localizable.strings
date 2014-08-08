@@ -586,3 +586,60 @@
 
 /* Message to display when maps move failed. */
 "move_lite_maps_to_pro_failed" = "Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_ios" = "MAPS.ME er gratis i dag! Del nyheden på Facebook.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_android" = "MAPS.ME er tilgængeligt med 80% rabat på Google Play.";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_ios" = "Jeg har netop fået MAPS.ME offline kort gratis på iTunes. Det er også tilgængeligt med 80% rabat på Google Play. Gå ikke glip af det!";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_android" = "Jeg har netop fået MAPS.ME offline kort med 80% rabat på Google Play. Det er også tilgængeligt gratis på iTunes. Gå ikke glip af det!";
+
+/* Text in menu */
+"settings_and_more" = "Indstillinger & Mere";
+
+/* Text in menu */
+"maps_me_community" = "MAPS.ME Samfund";
+
+/* Text in menu */
+"like_on_facebook" = "Synes godt om på Facebook";
+
+/* Text in menu */
+"follow_on_twitter" = "Følg på Twitter";
+
+/* Text in menu */
+"contact_us" = "Kontakt os";
+
+/* Text in menu */
+"subscribe_to_news" = "Abonnér på vores nyheder";
+
+/* Text in menu */
+"rate_the_app" = "Bedøm appen";
+
+/* Text in menu */
+"help" = "Hjælp";
+
+/* Text in menu */
+"copyright" = "Copyright";
+
+/* Text in menu */
+"report_a_bug" = "Rapportér fejl";
+
+/* Email subject */
+"subscribe_me_subject" = "Tilmeld mig MAPS.ME-nyhedsbrev";
+
+/* Email body */
+"subscribe_me_body" = "Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.";
+
+/* About text */
+"about_text" = "MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på http://openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.";
+
+/* Alert text */
+"email_error_body" = "E-mailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %@";
+
+/* Alert title */
+"email_error_title" = "Mailforsendelsesfejl";

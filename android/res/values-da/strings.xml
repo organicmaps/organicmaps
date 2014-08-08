@@ -366,4 +366,42 @@
 	<string name="move_lite_maps_to_pro_ok">Dine downloadede kort er blevet succesfuldt overført til MAPS.ME.</string>
 	<!-- Message to display when maps move failed. -->
 	<string name="move_lite_maps_to_pro_failed">Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_ios">MAPS.ME er gratis i dag! Del nyheden på Facebook.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_android">MAPS.ME er tilgængeligt med 80% rabat på Google Play.</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_ios">Jeg har netop fået MAPS.ME offline kort gratis på iTunes. Det er også tilgængeligt med 80% rabat på Google Play. Gå ikke glip af det!</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_android">Jeg har netop fået MAPS.ME offline kort med 80% rabat på Google Play. Det er også tilgængeligt gratis på iTunes. Gå ikke glip af det!</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Indstillinger &amp; Mere</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">MAPS.ME Samfund</string>
+	<!-- Text in menu -->
+	<string name="like_on_facebook">Synes godt om på Facebook</string>
+	<!-- Text in menu -->
+	<string name="follow_on_twitter">Følg på Twitter</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Kontakt os</string>
+	<!-- Text in menu -->
+	<string name="subscribe_to_news">Abonnér på vores nyheder</string>
+	<!-- Text in menu -->
+	<string name="rate_the_app">Bedøm appen</string>
+	<!-- Text in menu -->
+	<string name="help">Hjælp</string>
+	<!-- Text in menu -->
+	<string name="copyright">Copyright</string>
+	<!-- Text in menu -->
+	<string name="report_a_bug">Rapportér fejl</string>
+	<!-- Email subject -->
+	<string name="subscribe_me_subject">Tilmeld mig MAPS.ME-nyhedsbrev</string>
+	<!-- Email body -->
+	<string name="subscribe_me_body">Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på http://openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.</string>
+	<!-- Alert text -->
+	<string name="email_error_body">E-mailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %s</string>
+	<!-- Alert title -->
+	<string name="email_error_title">Mailforsendelsesfejl</string>
 </resources>

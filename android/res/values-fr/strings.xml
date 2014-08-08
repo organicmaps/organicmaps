@@ -375,4 +375,42 @@
 	<string name="move_lite_maps_to_pro_ok">Vos cartes téléchargées ont été transférées avec succès sur MAPS.ME.</string>
 	<!-- Message to display when maps move failed. -->
 	<string name="move_lite_maps_to_pro_failed">Vos cartes n\&#39;ont pas pu être transférées. Veuillez supprimer MAPS.ME Lite et téléchargez de nouveau les cartes.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_ios">MAPS.ME est gratuit aujourd\&#39;hui ! Partagez la nouvelle sur Facebook.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_android">MAPS.ME est disponible avec 80 % de réduction sur Google Play.</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_ios">Je viens de me procurer les cartes hors-ligne MAPS.ME gratuitement sur iTunes. L\&#39;appli est également disponible avec 80 % de remise sur Google Play. Ne passez pas à côté !</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_android">Je viens de me procurer les cartes hors-ligne MAPS.ME avec 80 % de remise sur Google Play. L\&#39;appli est également disponible gratuitement sur iTunes. Ne passez pas à côté !</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Paramètres &amp; plus</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">Communauté MAPS.ME</string>
+	<!-- Text in menu -->
+	<string name="like_on_facebook">Aimer sur Facebook</string>
+	<!-- Text in menu -->
+	<string name="follow_on_twitter">Suivre sur Twitter</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Contactez-nous</string>
+	<!-- Text in menu -->
+	<string name="subscribe_to_news">Abonnez-vous à nos actus</string>
+	<!-- Text in menu -->
+	<string name="rate_the_app">Noter l\&#39;appli</string>
+	<!-- Text in menu -->
+	<string name="help">Aide</string>
+	<!-- Text in menu -->
+	<string name="copyright">Copyright</string>
+	<!-- Text in menu -->
+	<string name="report_a_bug">Signaler un bug</string>
+	<!-- Email subject -->
+	<string name="subscribe_me_subject">Veuillez m\&#39;inscrire à la newsletter de MAPS.ME</string>
+	<!-- Email body -->
+	<string name="subscribe_me_body">Je veux être informé(e) en priorité des dernières nouvelles des mises à jour et des promotions. Je pourrai annuler mon abonnement quand je le souhaiterai.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME offre la possibilité de consulter hors-ligne le plus rapidement possible les cartes de toutes les villes, de tous les pays du monde. Voyagez en toute confiance : où que vous soyez, MAPS.ME permet de vous situer sur la carte, de trouver le restaurant le plus proche, un hôtel, une banque, une station d\&#39;essence, etc. Cela ne nécessite aucune connexion Internet.\n\nNous travaillons toujours sur de nouvelles fonctionnalités et nous aimerions avoir votre avis sur la manière d\&#39;améliorer MAPS.ME. Si vous avez des problèmes avec l\&#39;application, n\&#39;hésitez pas à nous contacter à l\&#39;adresse suivante : support@maps.me. Nous répondons à toutes les demandes !\n\nAimez-vous MAPS.ME et souhaitez-vous nous soutenir ? Il existe des moyens simples et tout à fait gratuits:\n\n- Publier un avis sur votre App Market\n- Aimez notre page Facebook www.facebook.com/mapswithme\n- Ou parlez tout simplement de MAPS.ME à votre mère, à vos amis et à vos collègues :)\n\nNous vous remercions de votre fidélité. Nous apprécions énormément votre soutien !\n\nP.S. Nous prenons les données cartographiques de OpenStreetMap, un projet de cartographie similaire à Wikipédia, qui permet aux utilisateurs de créer et de modifier des cartes. Si vous voyez une omission ou une erreur sur la carte, vous pouvez la corriger directement à l\&#39;adresse suivante : http://openstreetmap.org, et vos modifications apparaîtront lors de la sortie de la prochaine version de l\&#39;application MAPS.ME.</string>
+	<!-- Alert text -->
+	<string name="email_error_body">Le client de messagerie n\&#39;a pas été configuré. Veuillez s\&#39;il vous plaît le configurer ou employer tout autre moyen pour nous contacter à l’adresse %s.</string>
+	<!-- Alert title -->
+	<string name="email_error_title">Mail d’erreur d\&#39;envoi</string>
 </resources>

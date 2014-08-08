@@ -4722,4 +4722,459 @@
     da = Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.
     tr = Haritanızın aktarımı başarısız oldu. Lütfen MAPS.ME Lite'yi silin ve haritaları tekrar indirin.
 
+  [maps_me_is_free_today_ios]
+    tags = ios
+    comment = Message to display on 17th-18th august
+    en = MAPS.ME Pro is free today! Share the news on Facebook.
+    cs = MAPS.ME je dnes zdarma! Sdílejte tu zprávu na Facebooku.
+    de = MAPS.ME Pro ist heute gratis! Neuigkeiten auf Facebook teilen.
+    es = ¡MAPS.ME es gratis hoy! Comparte la noticia en Facebook.
+    fr = MAPS.ME est gratuit aujourd'hui ! Partagez la nouvelle sur Facebook.
+    it = MAPS.ME è gratis quest'oggi! Condividi la notizia su Facebook.
+    ja = MAPS.ME が本日無料！Facebookでニュースをシェアしよう。
+    ko = MAPS.ME는 오늘 무료입니다! Facebook에서 뉴스를 공유할 수 있습니다.
+    nl = MAPS.ME is vandaag gratis! Deel het nieuws op Facebook.
+    ru = MAPS.ME сегодня бесплатно! Поделись новостью на Facebook.
+    uk = MAPS.ME сьогодні безкоштовний! Розповсюдити новину на Facebook.
+    zh-Hant = MAPS.ME今日免費！在Facebook上分享此新聞。
+    pl = Aplikacja MAPS.ME jest dziś bezpłatna! Podziel się tą wiadomością na Facebooku.
+    pt = A MAPS.ME é hoje grátis! Partilhe a notícia no Facebook.
+    hu = A MAPS.ME ma ingyenes! Oszd meg a hírt facebookon.
+    th = MAPS.ME วันนี้ฟรี! แบ่งปันข่าวนี้บน Facebook
+    zh-Hans = MAPS.ME今日免费！在Facebook上分享该消息。
+    ar = تطبيق MAPS.ME مجاني اليوم! يمكنك مشاركة الأخبار على الفيسبوك.
+    da = MAPS.ME er gratis i dag! Del nyheden på Facebook.
+    tr = MAPS.ME bugün ücretsiz! Haberi Facebook'ta paylaş.
 
+  [maps_me_is_free_today_android]
+    tags = android
+    comment = Message to display on 17th-18th august
+    en = MAPS.ME is available with 80% discount at Google Play.
+    cs = MAPS.ME jsou dostupné na Google Play se slevou 80 %.
+    de = MAPS.ME gibt es mit 80 % Rabatt auf Google Play.
+    es = MAPS.ME disponible con un descuento del 80 % en Google Play
+    fr = MAPS.ME est disponible avec 80 % de réduction sur Google Play.
+    it = MAPS.ME è disponibile con uno sconto dell'80% su Google Play
+    ja = Google Playから8割引の価格でMAPS.MEをお買い求めいただけます。
+    ko = MAPS.ME는 구글 플레이에서 80% 할인된 가격으로 구입할 수 있습니다.
+    nl = MAPS.ME is met 80% korting te koop op Google Play.
+    ru = Сегодня в Google Play скидка на MAPS.ME 80%
+    uk = Сьогодні в Google Play знижка на MAPS.ME 80%
+    zh-Hant = MAPS.ME在Google Play上可享受80％折扣。
+    pl = MAPS.ME jest dostępne z 80% zniżką na Google Play.
+    pt = A MAPS.ME está disponível com 80% de desconto na Google Play.
+    hu = A MAPS.ME 80 százalékos kedvezménnyel érhető el a Google Playen.
+    th = สามารถใช้ MAPS.ME ลด 80% ได้ที่ Google Play
+    zh-Hans = MAPS.ME在Google Play上可享受80％折扣。
+    ar = MAPS.ME متوفر الآن مع خصم 80٪ على منصة جوجل بلاي.
+    da = MAPS.ME er tilgængeligt med 80% rabat på Google Play.
+    tr = MAPS.ME Google Play'de %80 indirimli.
+
+  [maps_me_is_free_today_facebook_post_ios]
+    tags = ios
+    comment = Message for facebook post on 17th-18th august
+    en = I’ve just got MAPS.ME offline maps for free on iTunes. It’s also available with 80% discount on Google Play. Don’t miss!
+    cs = Právě jsem na iTunes získal(a) zdarma offline mapy MAPS.ME. Jsou také dostupné na Google Play se slevou 80 %. Nezmeškejte to!
+    de = Ich habe gerade die Offline-Karten MAPS.ME bei iTunes kostenlos bekommen. Es gibt sie auch mit 80 % Rabatt auf Google Play. Nicht verpassen!
+    es = Acabo de conseguir MAPS.ME, mapas sin conexión, gratis en iTunes. Está disponible también en Google Play con un 80 % de descuento. ¡No te lo pierdas!
+    fr = Je viens de me procurer les cartes hors-ligne MAPS.ME gratuitement sur iTunes. L'appli est également disponible avec 80 % de remise sur Google Play. Ne passez pas à côté !
+    it = Ho appena scaricato gratuitamente le mappe offline di MAPS.ME da iTunes. L'app è disponibile anche su Google Play con uno sconto dell'80%. Non perdertela!
+    ja = たった今iTunesからMAPS.MEのオフラインマップを無料で手に入れました。Google Playからは8割引の価格でお買い求めできます。お見逃しなく！
+    ko = 방금 아이튠스에서 MAPS.ME 오프라인 지도를 무료로 받았습니다. 구글 플레이에서도 80% 할인된 가격으로 구입할 수 있습니다. 놓치지 마세요!
+    nl = Ik heb MAPS.ME offline kaarten net gratis gekregen op iTunes. Het is ook met 80% korting te koop op Google Play. Mis het niet!
+    ru  = Я только что бесплатно скачал(а) MAPS.ME с iTunes. А в Google Play скидка на приложение 80%. Не пропустите!
+    uk = Я щойно безкоштовно скачав(ла)[maps_me_is_free_today_facebook_post_android] MAPS.ME с iTunes. А в Google Play знижка на програму 80%. Не пропустіть!
+    zh-Hant = 我剛剛免費在iTunes上獲取了MAPS.ME離線地圖。在Google Play亦可享受80％折扣。千萬不要錯過！
+    pl = Właśnie pobrałem MAPS.ME - mapy dostępne w trybie offline za darmo na iTunes. MAPS.ME jest również dostępne z 80% zniżką na Google Play. Nie przegap tego!
+    pt = Acabei de receber gratuitamente os mapas offline da MAPS.ME através do iTunes. Também estão disponíveis com 80% de desconto na Google Play. Não perca!
+    hu = Az iTuneson ingyenesek a MAPS.ME offline térképei. A Google Playen is elérhetőek 80 százalék kedvezménnyel. Ne hagyd ki!
+    th = ฉันเพิ่งได้รับแผนที่ MAPS.ME แบบออฟไลน์ฟรีบน iTune ยังสามารถใช้ MAPS.ME ลด 80% บน Google Play อย่าพลาด!
+    zh-Hans = 我刚刚免费在iTunes上获取了MAPS.ME离线地图。在Google Play也可享受80％折扣。千万不要错过！
+    ar = لقد تحصلت للتو على MAPS.ME خرائط مجانية لا تحتاج للأنترنت على اي تيونز. متوفرة أيضا مع خصم 80٪ على منصة جوجل بلاي. لا نضيع الفرصة!
+    da = Jeg har netop fået MAPS.ME offline kort gratis på iTunes. Det er også tilgængeligt med 80% rabat på Google Play. Gå ikke glip af det!
+    tr = MAPS.ME çevrimdışı haritaları iTunes'dan ücretsiz aldım. Şimdi Google Play'de de %80 indirimli. Kaçırma!
+
+  [maps_me_is_free_today_facebook_post_android]
+    tags = android
+    comment = Message for facebook post on 17th-18th august
+    en = I’ve just got MAPS.ME offline maps with 80% discount on Google Play. It’s also available for free on iTunes. Don’t miss!
+    cs = Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80 %. Jsou také dostupné zdarma na iTunes. Nezmeškejte to!
+    de = Ich habe gerade die Offline-Karten MAPS.ME mit 80 % Rabatt auf Google Play bekommen. Es gibt sie auch kostenlos bei iTunes. Nicht verpassen!
+    es = Acabo de comprar MAPS.ME, mapas sin conexión, en Google Play con un descuento del 80 %. También está disponible gratis en iTunes. ¡No te lo pierdas!
+    fr = Je viens de me procurer les cartes hors-ligne MAPS.ME avec 80 % de remise sur Google Play. L'appli est également disponible gratuitement sur iTunes. Ne passez pas à côté !
+    it = Ho appena scaricato le mappe offline di MAPS.ME da Google Play con uno sconto dell'80%. L'app è disponibile gratuitamente su iTunes. Non perdertela!
+    ja = たった今Google PlayからMAPS.MEのオフラインマップを8割引の価格で手に入れました。iTunesからは無料で手に入れられます。お見逃しなく！
+    ko = 방금 구글 플레이에서 MAPS.ME 오프라인 지도를 80% 할인된 가격으로 구입했습니다. 아이튠스에서는 무료입니다. 놓치지 마세요!
+    nl = Ik heb MAPS.ME offline kaarten net met 80% korting gekocht op Google Play. Het is ook gratis verkrijgbaar op iTunes. Mis het niet!
+    ru  = Я только что скачал(а) MAPS.ME с Google Play со скидкой 80%. А в iTunes приложение можно установить совершенно бесплатно. Не пропустите!
+    uk = Я щойно скачав(ла) MAPS.ME з Google Play зі знижкою 80%. А в iTunes програму можна встановити цілком безкоштовно. Не пропустіть!
+    zh-Hant = 我剛剛以80％的折扣在Google Play上獲取了MAPS.ME離線地圖。在iTunes上亦可免費獲取。千萬不要錯過！
+    pl = Właśnie pobrałem MAPS.ME - mapy dostępne w trybie offline z 80% zniżką na Google Play. MAPS.ME jest również dostępne za darmo na iTunes. Nie przegap tego!
+    pt = Acabei de receber os mapas offline da MAPS.ME com 80% de desconto na Google Play. Também estão disponíveis gratuitamente através do iTunes. Não perca!
+    hu = A Google Playen 80 százalék kedvezménnyel beszerezhetőek a MAPS.ME offline térképei. Ingyenesen az iTuneson is elérhetőek. Ne hagyd ki!
+    th = ฉันเพิ่งได้รับแผนที่ MAPS.ME แบบออฟไลน์ ลด 80% บน Google Play ยังสามารถใช้ได้ฟรีบน iTunes อย่าพลาด!
+    zh-Hans = 我刚刚以80％的折扣在Google Play上获取了MAPS.ME离线地图。在iTunes上也可免费获取。千万不要错过！
+    ar = لقد تحصلت للتو على MAPS.ME خرائط مجانية على جوجل بلاي. متوفرة أيضا مجانا على اي تيونز. لا نضيع الفرصة!
+    da = Jeg har netop fået MAPS.ME offline kort med 80% rabat på Google Play. Det er også tilgængeligt gratis på iTunes. Gå ikke glip af det!
+    tr = MAPS.ME çevrimdışı haritaları Google Play'den %80 indirimli aldım. iTunes'ta da ücretsiz. Kaçırma!
+
+  [settings_and_more]
+    tags = ios, android
+    comment = Text in menu
+    en = Settings & More
+    cs = Nastavení a více
+    de = Einstellungen & mehr
+    es = Ajustes y más
+    fr = Paramètres & plus
+    it = Impostazioni e Altro
+    ja = 設定&その他
+    ko = 설정 및 기타
+    nl = Instellingen & meer
+    ru = Настройки и другое
+    uk = Налаштування
+    zh-Hant = 設定及更多
+    pl = Ustawienia i inne
+    pt = Definições e Mais
+    hu = Beállítások és egyéb
+    th = การตั้งค่า & อื่น ๆ
+    zh-Hans = 设置及更多
+    ar = الإعدادات والمزيد
+    da = Indstillinger & Mere
+    tr = Ayarlar & Fazlası
+
+  [maps_me_community]
+    tags = ios, android
+    comment = Text in menu
+    en = MAPS.ME Community
+    cs = Komunita MAPS.ME
+    de = MAPS.ME-Community
+    es = Comunidad de MAPS.ME
+    fr = Communauté MAPS.ME
+    it = Comunità MAPS.ME
+    ja = MAPS.MEコミュニティ
+    ko = MAPS.ME 커뮤니티
+    nl = Gemeenschap van MAPS.ME
+    ru = Сообщество MAPS.ME
+    uk = Спільнота MAPS.ME
+    zh-Hant = MAPS.ME社區
+    pl = Społeczność MAPS.ME
+    pt = Comunidade MAPS.ME
+    hu = MAPS.ME közösség
+    th = ชุมชน MAPS.ME
+    zh-Hans = MAPS.ME社区
+    ar = مجتمع MAPS.ME
+    da = MAPS.ME Samfund
+    tr = MAPS.ME Topluluğu
+
+  [like_on_facebook]
+    tags = ios, android
+    comment = Text in menu
+    en = Like on Facebook
+    cs = Označit pomocí To se mi líbí na Facebooku
+    de = „Gefällt mir“ auf Facebook
+    es = Pulsa "Me gusta" en Facebook
+    fr = Aimer sur Facebook
+    it = Dai Mi Piace su Facebook
+    ja = Facebookでいいねをクリック
+    ko = Facebook에서 좋아요
+    nl = Ons leuk vinden op Facebook
+    ru = MAPS.ME в Facebook
+    uk = MAPS.ME у Facebook
+    zh-Hant = 在Facebook 上點贊
+    pl = Polub nas na Facebooku
+    pt = Gostar no Facebook
+    hu = Lájkolj minket Facebookon
+    th = ถูกใจบน Facebook
+    zh-Hans = 在Facebook 上点赞
+    ar = أعجبني على الفيسبوك
+    da = Synes godt om på Facebook
+    tr = Facebook'da beğen
+
+  [follow_on_twitter]
+    tags = ios, android
+    comment = Text in menu
+    en = Follow on Twitter
+    cs = Následovat na Twitteru
+    de = Bei Twitter folgen
+    es = Síguenos en Twitter
+    fr = Suivre sur Twitter
+    it = Seguici su Twitter
+    ja = Twitterでフォロー
+    ko = Twitter에서 팔로우
+    nl = Ons volgen op Twitter
+    ru = MAPS.ME в Twitter
+    uk = MAPS.ME у Twitter
+    zh-Hant = 在Twitter 上關注
+    pl = Sledź nas na Twitterze
+    pt = Seguir no Twitter
+    hu = Kövess minket Twitteren
+    th = ติดตามบน Twitter
+    zh-Hans = 在Twitter 上关注
+    ar = تابعونا على تويتر
+    da = Følg på Twitter
+    tr = Twitter'da takip et
+
+  [contact_us]
+    tags = ios, android
+    comment = Text in menu
+    en = Contact us
+    cs = Kontaktovat nás
+    de = Kontaktieren Sie uns
+    es = Contacta con nosotros
+    fr = Contactez-nous
+    it = Contattaci
+    ja = お問い合わせ
+    ko = 연락처
+    nl = Contact met ons opnemen
+    ru = Контакты
+    uk = Контакти
+    zh-Hant = 聯絡我們
+    pl = Skontaktuj się z nami
+    pt = Contacte-nos
+    hu = Kapcsolat
+    th = ติดต่อเรา
+    zh-Hans = 联系我们
+    ar = أتصل بنا
+    da = Kontakt os
+    tr = İletişim
+
+  [subscribe_to_news]
+    tags = ios, android
+    comment = Text in menu
+    en = Subscribe to our news
+    cs = Přihlásit se k našim novinkám
+    de = Abonnieren Sie unsere News
+    es = Suscríbete a nuestras noticias
+    fr = Abonnez-vous à nos actus
+    it = Iscriviti alle nostre notizie
+    ja = 当社のニュースに登録
+    ko = 우리 뉴스 구독
+    nl = Aanmelden voor onze nieuwtjes
+    ru = Подписаться на новости
+    uk = Email-бюлетень
+    zh-Hant = 訂閱我們的新聞
+    pl = Subskrybuj nasze wiadomości
+    pt = Subscreva as nossas notícias
+    hu = Iratkozz fel hírlevelünkre
+    th = สมัครรับข่าวของเรา
+    zh-Hans = 订阅我们的新闻
+    ar = أشترك في نشرتنا الإخبارية
+    da = Abonnér på vores nyheder
+    tr = Haberlerimize abone ol
+
+  [rate_the_app]
+    tags = ios, android
+    comment = Text in menu
+    en = Rate the app
+    cs = Ohodnotit aplikaci
+    de = Bewerten Sie die App
+    es = Valora la aplicación
+    fr = Noter l'appli
+    it = Vota l'app
+    ja = アプリを評価
+    ko = 앱 평가
+    nl = App beoordelen
+    ru = Оценить приложение
+    uk = Оцінити застосунок
+    zh-Hant = 為該應用打分
+    pl = Oceń aplikację
+    pt = Classificar a aplicação
+    hu = Értékeld az alkalmazást
+    th = ให้คะแนนแอป
+    zh-Hans = 为该应用打分
+    ar = تقييم التطبيق
+    da = Bedøm appen
+    tr = Uygulamayı değerlendir
+
+  [help]
+    tags = ios, android
+    comment = Text in menu
+    en = Help
+    cs = Nápověda
+    de = Hilfe
+    es = Ayuda
+    fr = Aide
+    it = Aiuto
+    ja = ヘルプ
+    ko = 도움말
+    nl = Hulp
+    ru = Помощь
+    uk = Допомога
+    zh-Hant = 幫助
+    pl = Pomoc
+    pt = Ajuda
+    hu = Segítség
+    th = ความช่วยเหลือ
+    zh-Hans = 帮助
+    ar = مساعدة
+    da = Hjælp
+    tr = Yardım
+
+  [copyright]
+    tags = ios, android
+    comment = Text in menu
+    en = Copyright
+    cs = Autorská práva
+    de = Copyright
+    es = Copyright
+    fr = Copyright
+    it = Copyright
+    ja = 著作権
+    ko = 저작권
+    nl = Auteursrechten
+    ru = Копирайт
+    uk = Копірайт
+    zh-Hant = 版權
+    pl = Prawo autorskie
+    pt = Direitos de Autor
+    hu = Szerzői jog
+    th = ลิขสิทธิ์
+    zh-Hans = 版权
+    ar = حقوق الطبع والنشر
+    da = Copyright
+    tr = Telif hakkı
+
+  [report_a_bug]
+    tags = ios, android
+    comment = Text in menu
+    en = Report a bug
+    cs = Nahlásit chybu
+    de = Fehler melden
+    es = Hay un error
+    fr = Signaler un bug
+    it = Riporta un bug
+    ja = バグを報告
+    ko = 오류 신고
+    nl = Meld een fout
+    ru = Сообщить о проблеме
+    uk = Сповістити про помилку
+    zh-Hant = 報告漏洞
+    pl = Zgłoś błąd
+    pt = Reportar um problema
+    hu = Hibabejelentés
+    th = แจ้งข้อผิดพลาด
+    zh-Hans = 报告漏洞
+    ar = الإبلاغ عن خطأ
+    da = Rapportér fejl
+    tr = Hata bildir
+
+  [subscribe_me_subject]
+    tags = ios, android
+    comment = Email subject
+    en = Please subscribe me to the MAPS.ME newsletter
+    cs = Přihlaste mě prosím k odběru zpravodaje MAPS.ME
+    de = Ich möchte gerne den MAPS.ME-Newsletter abonnieren
+    es = Por favor quiero suscribirme al boletín de MAPS.ME
+    fr = Veuillez m'inscrire à la newsletter de MAPS.ME
+    it = Iscrivimi alla newsletter di MAPS.ME
+    ja = MAPS.MEニュースレターを購読します
+    ko = MAPS.ME 뉴스 레터로 나를 구독해 주십시오.
+    nl = Ik meld mij aan voor de nieuwsbrief MAPS.ME
+    ru = Подпишите меня на email-рассылку MAPS.ME
+    uk = Підпишіть мене на email-розсилку MAPS.ME
+    zh-Hant = 請幫我訂閱 MAPS.ME 新聞郵件、
+    pl = Chcę subskrybować biuletyn MAPS.ME
+    pt = Por favor inscrevam-me na newsletter da MAPS.ME
+    hu = Fel szeretnék iratkozni a MAPS.ME hírlevelére
+    th = โปรดลงชื่อฉันเพื่อรับจดหมายข่าว MAPS.ME
+    zh-Hans = 请帮我订阅MAPS.ME简报
+    ar = يرجى اشتراكي في النشرة البريدية لدى MAPS.ME
+    da = Tilmeld mig MAPS.ME-nyhedsbrev
+    tr = Lütfen MAPS.ME haber bültenine beni abone yap
+
+  [subscribe_me_body]
+    tags = ios, android
+    comment = Email body
+    en = I want to be the first to learn about latest news updates and promotions. I can cancel my subscription at any time.
+    cs = Chci se vždy jako první dozvídat o nejnovějších zprávách aktualizacích a akčních nabídkách. Svoje přihlášení k odběru mohu kdykoli zrušit.
+    de = Gerne möchte ich zu den Ersten gehören die aktuelle Neuigkeiten erfahren und über neueste Updates und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.
+    es = Quiero ser el primero en conocer las últimas noticias actualizaciones y promociones. Puedo cancelar mi suscripción en cualquier momento.
+    fr = Je veux être informé(e) en priorité des dernières nouvelles des mises à jour et des promotions. Je pourrai annuler mon abonnement quand je le souhaiterai.
+    it = Voglio essere tra i primi a sapere delle ultime novità aggiornamenti e promozioni. Potrò annullare l'iscrizione in ogni momento.
+    ja = 最新ニュース、アップデートとプロモーションにすいてまず知りたいです。いつでも購読をキャンセル出来ます。
+    ko = 나는 최신 뉴스 업데이트 및 프로모션에 대해 알게될 첫번째 사람이 되고 싶습니다. 나는 언제나 구독을 취소할 수 있습니다.
+    nl = Ik wil graag als eerste horen over het laatste nieuws updates en acties. Ik kan mijn abonnement te allen tijde annuleren.
+    ru = Я хочу первым узнавать обо всех новостях обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.
+    uk = Я хочу першим дізнаватися про всі новини оновлення програм і акції. Я можу відписатися від розсилки в будь-який момент.
+    zh-Hant = 我想搶先了解最新新聞、更新和促銷活動。我可以隨時取消我的訂閱。
+    pl = Chcę w pierwszej kolejności otrzymywać powiadomienia o nowościach aktualizacjach i promocjach. Mogę w każdej chwili anulować swoją subskrypcję.
+    pt = Quero ser o(a) primeiro(a) a saber sobre as últimas notícias atualizações e promoções. Posso cancelar a minha subscrição a qualquer altura.
+    hu = Elsőként szeretnék értesülni a legújabb hírekről frissítésekről és promóciókról. A feliratkozásom bármikor törölhetem.
+    th = ฉันอยากเป็นคนแรกที่รู้เกี่ยวกับข่าว อัปเดตและโปรโมชั่นล่าสุด ฉันสามารถยกเลิกการเป็นสมาชิกของฉันได้ตลอดเวลา
+    zh-Hans = 我想率先了解最新新闻、更新及促销活动。订阅可随时取消。
+    ar = أريد أن أكون أول من يعرف آخر الأخبار والتحديثات والترقيات. يمكنني إلغاء اشتراكي في أي وقت.
+    da = Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.
+    tr = En son haberlerden güncellemelerden ve tanıtımlardan ilk önce haberdar olmak istiyorum. Aboneliğimi herhangi bir zaman iptal edebilirim.
+
+ [about_text]
+    tags = ios, android
+    comment = About text
+    en = MAPS.ME offers the fastest offline maps of all the cities, all countries of the world. Travel with full confidence: wherever you are, MAPS.ME helps to locate yourself on the map, find the nearest restaurant, hotel, bank, gas station etc. It doesn’t require internet connection.\n\nWe are always working on new features and would love to hear from you on how you think we could improve MAPS.ME. If you have any problems with the app, don't hesitate to contact us at support@maps.me. We respond to every request!\n\nDo you like MAPS.ME and want to support us? There are some simple and absolutely free ways:\n\n- post a review at your App Market\n- like our Facebook page http://www.facebook.com/mapswithme\n- or just tell about MAPS.ME to your mom, friends and colleagues :)\n\nThank you for being with us. We appreciate your support very much!\n\nP.S. We take map data from OpenStreetMap, a mapping project similar to Wikipedia, which allows users to create and edit maps. If you see something is missing or wrong on the map, you can correct the maps directly at http://openstreetmap.org, and your changes will appear in MAPS.ME app with the next version release.
+    cs = MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestujte s naprostou důvěrou: kdekoliv jste, MAPS.ME vám pomůže se najít na mapě, najít nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli váš názor, jak můžeme vylepšit MAPS.ME. Pokud máte s touto aplikací jakékoliv problémy, pak nás neváhejte kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se vám MAPS.ME a chtěli byste nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napište recenzi ve svém obchodě s aplikacemi\n- označte naši stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekněte o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jste s námi. Velmi oceňujeme vaši podporu!\n\nP.S. Mapová data získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíte, že na mapě něco chybí nebo je špatně, pak můžete mapy opravit přímo na http://openstreetmap.org, a vaše změny se objeví v příští verzi MAPS.ME.
+    de = MAPS.ME bietet die schnellsten Offline-Karten aller Städte in allen Ländern der Welt. Reisen Sie mit Vertrauen: wo immer Sie sind, MAPS.ME hilft Ihnen, sich selbst auf der Karte zu finden. Finden Sie das nächste Restaurant, ein Hotel, eine Bank, eine Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Markt\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nP. S. Wir nehmen die Kartendaten von OpenStreetMap, einem Mapping-Projekt ähnlich Wikipedia, bei welchem Benutzer Karten erstellen und bearbeiten können. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten MAPS.ME App Version.
+    es = MAPS.ME ofrece los mapas sin conexión más rápidos de todas las ciudades y todos los países del mundo. Viaja con plena confianza: estés donde estés, MAPS.ME te ayuda a ubicarte en el mapa, encontrar el restaurante, hotel, banco o gasolinera más próximo, etc. No requiere conexión a Internet.\n\nTrabajamos continuamente en el desarrollo de nuevas funcionalidades y nos encantaría conocer tu opinión sobre cómo podríamos mejorar MAPS.ME. Si tienes cualquier problema con la aplicación, no dudes en contactar con nosotros en support@maps.me. ¡Respondemos a todas las solicitudes!\n\n¿Te gusta MAPS.ME y quieres apoyarnos? Estas son algunas formas simples y totalmente gratis:\n\n- Publica una opinión en tu App Market\n- Dale a me gusta a nuestra página de Facebook http://www.facebook.com/mapswithme\n- O simplemente habla sobre MAPS.ME a tu madre, amigos y colegas :)\n\nGracias por estar a nuestro lado. ¡Agradecemos mucho tu apoyo!\n\nPD: obtenemos datos de los mapas de OpenStreetMap, un proyecto de mapeo similar a Wikipedia, que permite a los usuarios crear y editar mapas. Si crees que falta algo o hay cualquier error en el mapa, puedes corregir los mapas directamente en http://openstreetmap.org y los cambios aparecerán en la aplicación MAPS.ME en el próximo lanzamiento de la versión.
+    fr = MAPS.ME offre la possibilité de consulter hors-ligne le plus rapidement possible les cartes de toutes les villes, de tous les pays du monde. Voyagez en toute confiance : où que vous soyez, MAPS.ME permet de vous situer sur la carte, de trouver le restaurant le plus proche, un hôtel, une banque, une station d'essence, etc. Cela ne nécessite aucune connexion Internet.\n\nNous travaillons toujours sur de nouvelles fonctionnalités et nous aimerions avoir votre avis sur la manière d'améliorer MAPS.ME. Si vous avez des problèmes avec l'application, n'hésitez pas à nous contacter à l'adresse suivante : support@maps.me. Nous répondons à toutes les demandes !\n\nAimez-vous MAPS.ME et souhaitez-vous nous soutenir ? Il existe des moyens simples et tout à fait gratuits:\n\n- Publier un avis sur votre App Market\n- Aimez notre page Facebook www.facebook.com/mapswithme\n- Ou parlez tout simplement de MAPS.ME à votre mère, à vos amis et à vos collègues :)\n\nNous vous remercions de votre fidélité. Nous apprécions énormément votre soutien !\n\nP.S. Nous prenons les données cartographiques de OpenStreetMap, un projet de cartographie similaire à Wikipédia, qui permet aux utilisateurs de créer et de modifier des cartes. Si vous voyez une omission ou une erreur sur la carte, vous pouvez la corriger directement à l'adresse suivante : http://openstreetmap.org, et vos modifications apparaîtront lors de la sortie de la prochaine version de l'application MAPS.ME.
+    it = MAPS.ME offre le più veloci mappe offline di tutte le città, di tutti i paesi del mondo. Viaggia con piena fiducia: ovunque ti trovi, MAPS.ME ti aiuta a localizzarti sulla mappa, trovare ristoranti, hotel, banche, distributori di benzina ecc.., e non richiede la connessione a internet.\n\nLavoriamo sempre su nuove funzionalità e ci piacerebbe sapere da te in cosa potremmo migliorare MAPS.ME. Se avessi problemi con l'app, non esitare a contattarci a support@maps.me. Rispondiamo ad ogni richiesta!\n\nTi piace MAPS.ME e vuoi sostenerci? Ci sono alcuni modi semplici e assolutamente gratuiti:\n\n- Invia una recensione al tuo App Market\n- Metti mi piace sulla nostra pagina di Facebook http://www.facebook.com/mapswithme\n- O semplicemente fai pubblicità a MAPS.ME con la tua mamma, i tuoi amici e colleghi :)\n\nGrazie per essere stato con noi. Apprezziamo molto il tuo supporto!\n\nP.S. Prendiamo i dati delle mappe da OpenStreetMap, un progetto di mappatura simile a Wikipedia, che permette agli utenti di creare e modificare le mappe. Se vedi che manca qualcosa o se c'è qualcosa di sbagliato sulla mappa, puoi correggere le mappe direttamente su http://openstreetmap.org, e le modifiche appariranno nella prossima versione dell'app MAPS.ME.
+    ja = MAPS.MEは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもMAPS.MEの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、MAPS.MEの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport@maps.meまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nMAPS.MEが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/mapswithme\n- MAPS.MEのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、http://openstreetmap.orgでユーザーが直接修正ができます。このような変更はMAPS.MEのその後のバージョンリリースの際に反映されます。
+    ko = MAPS.ME는 가장 빠른 전 세계 모든 국가 및 도시의 오프라인 지도를 제공하고 있습니다. 자신있게 여행하세요. 계신 곳이 어디이든 MAPS.ME는 지도상에서 위치하고 계신 곳이 어디 있지 알려 주고 가장 가까운 식당, 호텔 및 주유소 등을 찾아 줍니다. 인터넷 접속이 필요없는 서비스입니다.\n\nMAPS.ME는 항상 새로운 기능들에 대해 연구하고 있습니다. MAPS.ME가 더 훌륭한 서비스를 제공할 수 있도록 많은 의견 주시면 감사하겠습니다. 앱을 사용하시다 불편한 점이 있으시면, 주저 마시고 support@maps.me으로 문의해 주세요. MAPS.ME는 어떤 요청에도 기꺼이 응답할 것입니다.\n\nMAPS.ME가 좋은 앱이라고 생각하시나요? MAPS.ME을 후원할 수 있는 간단하면서도 비용이 전혀 들지 않는 몇 가지 방법을 소개합니다.\n\n- 앱 마켓에 리뷰를 올려주세요.\n- MAPS.ME의 페이스북 페이지 http://www.facebook.com/mapswithme 에 “좋아요”를 남겨 주세요.\n- 가족, 친구 및 동료들에게 MAPS.ME를 자랑해 주세요.\n\nMAPS.ME와 함께 해 주셔서 감사합니다. 여러분의 후원에 정말 감사드립니다!\n\nP.S. MAPS.ME는 OpenStreetMap으로부터 맵 데이터를 수집하고 있습니다. OpenStreetMap은 위키피디아처럼 유저들이 맵을 만들고 편집할 수 있는 맵핑 프로젝트입니다.\n\n혹 맵에서 누락된 곳이나 잘못된 점을 발견하실 경우, http://openstreetmap.org에서 직접 맵을 수정하실 수 있습니다. 수정한 부분은 다음 버전으로 출시되는 MAPS.ME 앱에 반영될 것입니다.
+    nl = MAPS.ME biedt de snelste offline kaarten van alle steden en alle landen ter wereld. Reis vol vertrouwen: waar je ook bent,\n\nMAPS.ME zal je helpen om jezelf op de kaart terug te vinden en het dichstbijzijnde restaurant, hotel, bank, benzinestation etc. te vinden. Er is geen internetverbinding voor nodig.  \n\nWe werken voortdurend aan nieuwe functies en we zouden graag van je willen horen hoe we MAPS.ME volgens jou zouden kunnen verbeteren. Als je eventueel problemen hebt met de app, aarzel dan niet om contact met ons op te nemen op support@maps.me. We reageren op elke aanvraag!  \n\nVindt je MAPS.ME leuk en wil je ons steunen? Dat kan op een aantal simpele en absoluut gratis manieren: - plaats een beoordeling op je App Market - like onze Facebook-pagina http://www.facebook.com/mapswithme - of vertel gewoon je ma, vrienden en collega’s over MAPS.ME :)   Dank je dat je ons steunt. Wij waarderen dit heel erg!  \n\nP.S. We halen onze kaartgegevens van OpenStreetMap, een kaartproject dat lijkt op Wikipedia, waarbij gebruikers kaarten kunnen maken en aanpassen. Als je ziet dat er iets ontbreekt of een fout ontdekt in een kaart, dan kun je de kaart direct verbeteren op http://openstreetmap.org, en dan zullen je verbeteringen bij het uitbrengen van de volgende versie in MAPS.ME verschijnen.
+    ru = MAPS.ME предлагает карты всех городов, всех стран мира, которые работают без подключения к интернету. Путешествуйте с уверенностью: где бы вы ни находились, MAPS.ME помогут решить любую вашу проблему - помогут определить ваше местоположение, найти ресторан, отель, заправку, банк, туалет и т.д. \n\nМы постоянно работаем над добавлением новых функций, поэтому если у вас есть идеи или предложения по улучшению MAPS.ME, пишите нам. Если у вас возникла проблема с приложением, сообщите нам, пожалуйста, о ней. Наш емэйл support@maps.me. Мы отвечаем на все письма! Если вам нравится приложение и вы хотите поддержать нас, есть несколько простых и абсолютно бесплатных способов:\n\n- оставьте отзыв в вашем магазине приложений\n- подпишитесь на наши новости на Facebook странице http://www.facebook.com/mapswithme\n- или просто расскажите о MAPS.ME своей маме, друзьям и коллегам :)\n\nСпасибо за вашу поддержку!\n\nP.S. В приложении мы используем картографические данные проекта OpenStreetMap, который работает по принципу Википедии, давая возможность пользователям со всего мира создавать и редактировать карты. Если вы заметили, что на карте что-то не соответствует действительности либо отсутствует, вы можете откорректировать это прямо на сайте http://openstreetmap.org, и эти исправления появятся во время следующего обновления MAPS.ME.
+    uk = MAPS.ME пропонує карти всіх міст, всіх країн світу, які працюють без підключення до інтернету. Подорожуйте з впевненістю: де б ви не були, MAPS.ME допоможуть вирішити будь-яку вашу проблему - допоможуть визначити ваше місцезнаходження, знайти ресторан, готель, заправку, банк, туалет і т.д.\n\nМи постійно працюємо над додаванням нових функцій, тому, якщо у вас є ідеї або пропозиції з покращення MAPS.ME, пишіть нам. Якщо у вам виникла проблема з програмою, сповістіть нас, будь ласка, про неї. Наш емейл support@maps.me. Ми відповідаємо на всі листи!\n\nЯкщо вам подобається програма і ви хочете підтримати нас, є декілька простих і абсолютно безкоштовних способів:\n\n- залиште відгук у вашому магазині програм\n- підпишіться на наші новини на сторінці у Facebook http://www.facebook.com/mapswithme\n- або просто розкажіть про MAPS.ME своїй мамі, друзям і колегам :)\n\nДякуємо за вашу підтримку!\n\nP.S. У програмі ми використовуємо картографічні дані проекту OpenStreetMap, який працює за принципом Вікіпедії, надаючи можливість користувачам зі всього світу створювати і редагувати карти. Якщо ви помітили, що на карті щось не відповідає дійсності або відсутнє, ви можете виправити це прямо на сайті http://openstreetmap.org, і ці виправлення з'являться під час наступного оновлення MAPS.ME.
+    zh-Hant = MAPS.ME提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪， MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為添加新功能而努力，并希望能夠聽到您對我們應如何改進MAPS.ME的想法。若您在使用本應用時遇到任何問題，請隨時聯繫我們：support@maps.me。我們會回覆每一條請求！\n\n您喜歡MAPS.ME并希望支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的App Market上發表評論\n- 在我們的Facebook頁面http://www.facebook.com/mapswithme上贊我們\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\n附言：我們從OpenStreetMap獲取地圖信息，這是一個類似于Wikipedia的地圖繪製項目，能夠讓用戶創建并編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在http://openstreetmap.org上進行糾正。在下一個版本發佈時，您做出的更改便會出現在MAPS.ME應用中。
+    pl = MAPS.ME oferuje najszybsze mapy offline wszystkich miast we wszystkich krajach świata. Podróżuj bez obaw: gdziekolwiek jesteś, MAPS.ME pomoże Ci odszukać się na mapie, znaleźć najbliższą restaurację, hotel, bank, stację benzynową itp. Aplikacja nie wymaga połączenia z Internetem.\n\nNieustannie pracujemy nad nowymi funkcjami i chcielibyśmy dowiedzieć się, jak Twoim zdaniem moglibyśmy poprawić MAPS.ME. Jeśli masz jakieś problemy z aplikacją, skontaktuj się z nami, pisząc na adres support@maps.me. Odpowiemy na każde zapytanie!\n\nLubisz aplikację MAPS.ME i chcesz udzielić nam wsparcia? Istnieje kilka prostych i absolutnie darmowych sposobów, jak to zrobić:\n\n- napisz recenzję w swoim sklepie z aplikacjami\n- polub naszą stronę na Facebooku: http://www.facebook.com/mapswithme\n- albo po prostu opowiedz o MAPS.ME swojej mamie, znajomym i kolegom :)\n\nDziękujemy, że jesteś z nami. Jesteśmy bardzo wdzięczni za Twoje wsparcie!\n\nP.S. Dane mapy pochodzą z OpenStreetMap, projektu kartograficznego podobnego do Wikipedii, który umożliwia użytkownikom tworzenie i edytowanie map. Jeśli zauważysz, że na mapie czegoś brakuje albo jest błąd, możesz nanieść poprawki bezpośrednio na stronie http://openstreetmap.org, a Twoje zmiany pojawią się w aplikacji MAPS.ME po wydaniu kolejnej wersji.
+    pt = A MAPS.ME oferece os mapas offline mais rápidos de todas as cidades, de todos os países do mundo. Viaje com plena confiança: onde estiver, a MAPS.ME ajuda a localizar-se no mapa, a encontrar o restaurante, hotel, banco, posto de gasolina mais próximos, etc. Não requer ligação à Internet.\n\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como poderíamos melhorar a MAPS.ME. Se tiver algum problema com a app, não hesite em contactar-nos em support@maps.me. Respondemos a cada pedido!\n\nGosta da MAPS.ME e quer apoiar-nos? Há algumas maneiras simples e absolutamente gratuitas:\n\n- publique um comentário no seu App Market\n- faça "gosto" na nossa página do Facebook http://www.facebook.com/mapswithme\n- ou fale da MAPS.ME à sua mãe, amigos e colegas :)\n\nObrigado por estar connosco. Agradecemos imenso o seu apoio!\n\nP. S. Tiramos os dados do OpenStreetMap, um projeto de mapeamento semelhante à Wikipedia, que permite aos utilizadores criarem e editarem mapas. Se vir que algo está em falta ou errado no mapa, pode corrigir diretamente os mapas em http://openstreetmap.org e as suas alterações irão aparecer na app MAPS.ME com o lançamento da próxima versão.
+    hu = A MAPS.ME kínálja a leggyorsabb offline térképeket, a világ összes városáról és országáról. Utazz magabiztosan: bárhol is vagy, a MAPS.ME segít, hogy megtaláld magad a térképen, valamint segít a legközelebbi étterem, hotel, bank, benzinkút stb. felkutatásában is. Nem igényel internet kapcsolatot.\n\nMindig dolgozunk új fejlesztéseken és örömmel vennénk a te véleményedet is arról, hogyan tudnánk tovább fejleszteni a MAPS.ME-t. Bármely probléma esetén írj nekünk a support@maps.me e-mail címre. Minden levélre válaszolunk!\n\nSzereted a MAPS.ME-t és szeretnél támogatni minket? Van erre pár egyszerű és teljesen ingyenes lehetőséged:\n\n- írj rólunk értékelést az App Market-en\n- kedveld a Facebook oldalunkat: http://www.facebook.com/mapswithme\n- vagy csak mesélj a MAPS.ME-ről anyukádnak, barátaidnak és munkatársaidnak :)\n\nKöszönjük, hogy velünk vagy. Nagyra értékeljük támogatásodat!\n\nU.i: Adatainkat az OpenStreetMap-ről vesszük, ami egy, a Wikipedia-hoz hasonló térképes projekt, ami megengedi felhasználóinak a térképek létrehozását és szerkesztését. Ha bármi hiányzik vagy rossz a térképpel, közvetlenül te is kijavíthatod a http://openstreetmap.org-on és változtatásaid a MAPS.ME következő verziójában már meg fognak jelenni.
+    th = MAPS.ME ขอเสนอแผนที่ออฟไลน์ของทุกเมือง ทุกประเทศในโลกที่รวดเร็วที่สุด เดินทางด้วยความมั่นใจ: ไม่ว่าคุณจะอยู่ที่ไหน MAPS.ME จะช่วยระบุตำแหน่งที่ตั้งของตัวคุณบนแผนที่ ค้นหาร้านอาหาร โรงแรม ธนาคาร ปั๊มน้ำมัน และอื่น ๆ ที่ใกล้ที่สุด โดยไม่จำเป็นต้องใช้การเชื่อมต่ออินเทอร์เน็ต\n\nเราทำงานเพื่อพัฒนาฟีเจอร์ใหม่ ๆ อยู่เสมอและยินดีรับฟังว่าคุณมีความคิดเห็นว่าเราจะพัฒนา MAPS.ME ได้อย่างไร หากคุณมีปัญหาใด ๆ กับแอป อย่าลังเลที่จะติดต่อเราที่ support@maps.me โดยเราจะตอบรับทุกคำขอ!\n\nคุณชอบ MAPS.ME และต้องการสนับสนุนเราหรือไม่? มีวิธีง่าย ๆ และฟรีอยู่บ้าง:\n\n- โพสต์คำวิจารณ์ของคุณที่ ตลาดแอป (App Market)\n- ถูกใจเพจ Facebook ของเรา http://www.facebook.com/mapswithme\n- หรือเพียงแค่บอกแม่ เพื่อน ๆ และเพื่อนร่วมงานของคุณเกี่ยวกับ MAPS.ME :)\n\nขอบคุณที่ใช้บริการของเรา เราซาบซึ้งในการสนับสนุนของคุณมาก!\n\nป.ล. เรานำข้อมูลแผนที่มาจาก OpenStreetMap ซึ่งเป็นโครงการจัดทำแผนที่ที่เหมือนกับ Wikipedia ที่ช่วยให้ผู้ใช้สามารถสร้างและแก้ไขแผนที่ได้ หากคุณเห็นว่ามีสิ่งใดที่ขาดหายหรือไม่ถูกต้องบนแผนที่ คุณสามารถแก้ไขแผนที่ได้โดยตรงที่ http://openstreetmap.org และการเปลี่ยนแปลงของคุณจะปรากฏในแอป MAPS.ME ในการปล่อยเวอร์ชันถัดไป
+    zh-Hans = MAPS.ME提供全球所有国家和所有城市的最快速的离线地图。充满自信地出行：无论您在哪，MAPS.ME都能够帮助您在地图上找到您自己的位置，找到最近的餐馆、酒店、银行、加油站，等等。无需网络连接。\n\n我们始终在为添加新功能而努力，并希望能够听到您对我们应如何改进MAPS.ME的想法。若您在使用本应用时遇到任何问题，请随时联系我们：support@maps.me。我们会回复每一条请求！\n\n您喜欢MAPS.ME并希望支持我们吗？以下为一些简单且完全免费的方法：\n\n- 在您的App Market发表评论\n- 在我们的Facebook页面http://www.facebook.com/mapswithme赞我们\n- 或者向您的母亲、朋友，以及同事介绍MAPS.ME :)\n\n感谢您与我们在一起。非常感谢您的支持。\n\n附言：我们从OpenStreetMap获取地图信息，这是一个类似于Wikipedia的地图绘制项目，能够让用户创建并编辑地图。若您看到地图上缺少了什么或者有什么错误，可以直接在http://openstreetmap.org上进行纠正。在下一个版本发布时，您做出的更改便会出现在MAPS.ME应用中。
+    ar = توفر لكم MAPS.ME أحدث الخرائط دون الاتصال بالإنترنت لكافة دول وكافة مدن العالم. سافر وتمتع بالثقة التامة: إينما كنت، تساعدك MAPS.ME على تحديد مكانك على الخريطة، والعثور على أقرب مطعم أو فندق أو بنك أو محطة غاز الخ لا يتطلب الاتصال بالإنترنت.\n\nنحن نعمل دوماً على إدخال مزايا جديدة على التطبيق ونود أن نسمع منك رأيك عن الكيفية التي يمكن بها تحسين تطبيق MAPS.ME في رأيك. إذا واجهتك أي مشاكل مع التطبيق، لا تتردد في الاتصال بنا على support@maps.me. نحن نرد على كافة الطلبات.\n\nهل أعجبك تطبيق MAPS.ME وترغب في دعمنا؟ هناك بعض الطرق السهلة والمجانية بالكامل لعمل ذلك.\n\n- انشر رأيك على متجر التطبيقات الخاص بك\n- اعجب بصفحتنا على موقع Facebook http://www.facebook.com/mapswithme\n- أو أخبر والدتك وأصدقائك وزملائك عن تطبيق MAPS.ME :)\n\nشكراً لك على وجودك معنا. نحن نقدر جداً دعمك لنا!\n\nيُرجى ملاحظة نحن نستقي بيانات الخرائط من OpenStreetMap، مشروع خرائط يشبه موسوعة Wikipedia ويتيح هذا المشروع للمستخدمين إنشاء وتحرير الخرائط. إذا كنت ترى أن هناك خطأ ما أو شيء غير موجود على الخريطة، يمكنك تصحيح الخرائط مباشرة على http://openstreetmap.org، وسوف تظهر تغييراتك على تطبيق MAPS.ME في الإصدار القادم للتطبيق.
+    da = MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på http://openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.
+    tr = MAPS.ME dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, MAPS.ME harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin MAPS.ME'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@maps.me adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nMAPS.ME'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza MAPS.ME'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttp://openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler MAPS.ME'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.
+
+
+  [email_error_body]
+    tags = ios
+    comment = Alert text
+    en = The email client has not been set up. Please configure it or use any other way to contact us at %@
+    cs = Emailový klient nebyl nastaven. Nakonfigurujte ho prosím nebo použijte jiný způsob k tomu, abyste nás kontaktovali na %@
+    de = Der E-Mail-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.
+    es = No se ha configurado el cliente de correo electrónico. Por favor, configúralo o utiliza alguna otra forma de ponerte en contacto con nosotros en %@
+    fr = Le client de messagerie n'a pas été configuré. Veuillez s'il vous plaît le configurer ou employer tout autre moyen pour nous contacter à l’adresse %@.
+    it = Il client email non è stato configurato. Si prega di configurarlo o di usare qualsiasi altro metodo per contattarci all'indirizzo %@
+    ja = このメールクライアントはセットアップされていません。設定するか、他の方法で%@にご連絡ください。
+    ko = 이메일 클라이언트가 설정되지 않았습니다. 이를 구성하거나 %@로 연락할 다른 방법을 사용하십시오.
+    nl = De e-mailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %@
+    ru = Почтовый клиент не настроен. Настройте его или используйте другие способы для связи. Наш адрес - %@.
+    uk = Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв'язку. Наша адреса – %@.
+    zh-Hant = 電子郵件用戶端尚未建立。請設定或使用任何其他方式與我們聯絡%@
+    pl = Email klienta nie został założony. Proszę skonfigurować adres email, bądź skorzystać z innych opcji, aby się z nami skontaktować na %@
+    pt = O cliente de email não está configurado. Por favor, configure-o ou utilize qualquer outro modo para nos contactar através de %@
+    hu = Az e-mail kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %@ e-mail címen keresztül.
+    th = อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %@
+    zh-Hans = 电子邮件客户端尚未建立。请配置或使用任何其他方式与我们联系%@
+    ar = لم يتم تعيين البريد الإلكتروني للعميل. يرجى تكوينه أو استخدام أي وسيلة أخرى للاتصال بنا على %@
+    da = E-mailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %@
+    tr = E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın ya da bize %@ adresinden ulaşmak için başka bir yöntem deneyin
+
+  [email_error_title]
+    tags = ios
+    comment = Alert title
+    en = Mail sending error
+    cs = Chyba při odesílání emailu
+    de = Fehler beim E-Mail-Versand
+    es = Error de envío de correo
+    fr = Mail d’erreur d'envoi
+    it = Errore invio email
+    ja = メール送信エラー
+    ko = 메일 전송 중 오류
+    nl = E-mail verzendfout
+    ru = Ошибка при отправлении письма
+    uk = Помилка при відправленні листа
+    zh-Hant = 電子郵件發送錯誤
+    pl = Błąd wysyłania wiadomości
+    pt = Erro de envio de email
+    hu = Hiba az e-mail küldése során
+    th = จดหมายที่ส่งเกิดความผิดพลาด
+    zh-Hans = 电子邮件发送错误
+    ar = هناك خطأ في إرسال البريد الإلكتروني
+    da = Mailforsendelsesfejl
+    tr = Posta gönderme hatası

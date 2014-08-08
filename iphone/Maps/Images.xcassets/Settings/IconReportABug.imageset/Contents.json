@@ -2,12 +2,13 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "ReportABug.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "LinkCellButton@2x.png"
+      "filename" : "ReportABug@2x.png"
     }
   ],
   "info" : {

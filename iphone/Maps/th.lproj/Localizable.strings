@@ -586,3 +586,60 @@
 
 /* Message to display when maps move failed. */
 "move_lite_maps_to_pro_failed" = "ล้มเหลวในการโอนแผนที่ของคุณ โปรดลบ MAPS.ME Lite และดาวน์โหลดแผนที่อีกครั้ง";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_ios" = "MAPS.ME วันนี้ฟรี! แบ่งปันข่าวนี้บน Facebook";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_android" = "สามารถใช้ MAPS.ME ลด 80% ได้ที่ Google Play";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_ios" = "ฉันเพิ่งได้รับแผนที่ MAPS.ME แบบออฟไลน์ฟรีบน iTune ยังสามารถใช้ MAPS.ME ลด 80% บน Google Play อย่าพลาด!";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_android" = "ฉันเพิ่งได้รับแผนที่ MAPS.ME แบบออฟไลน์ ลด 80% บน Google Play ยังสามารถใช้ได้ฟรีบน iTunes อย่าพลาด!";
+
+/* Text in menu */
+"settings_and_more" = "การตั้งค่า & อื่น ๆ";
+
+/* Text in menu */
+"maps_me_community" = "ชุมชน MAPS.ME";
+
+/* Text in menu */
+"like_on_facebook" = "ถูกใจบน Facebook";
+
+/* Text in menu */
+"follow_on_twitter" = "ติดตามบน Twitter";
+
+/* Text in menu */
+"contact_us" = "ติดต่อเรา";
+
+/* Text in menu */
+"subscribe_to_news" = "สมัครรับข่าวของเรา";
+
+/* Text in menu */
+"rate_the_app" = "ให้คะแนนแอป";
+
+/* Text in menu */
+"help" = "ความช่วยเหลือ";
+
+/* Text in menu */
+"copyright" = "ลิขสิทธิ์";
+
+/* Text in menu */
+"report_a_bug" = "แจ้งข้อผิดพลาด";
+
+/* Email subject */
+"subscribe_me_subject" = "โปรดลงชื่อฉันเพื่อรับจดหมายข่าว MAPS.ME";
+
+/* Email body */
+"subscribe_me_body" = "ฉันอยากเป็นคนแรกที่รู้เกี่ยวกับข่าว อัปเดตและโปรโมชั่นล่าสุด ฉันสามารถยกเลิกการเป็นสมาชิกของฉันได้ตลอดเวลา";
+
+/* About text */
+"about_text" = "MAPS.ME ขอเสนอแผนที่ออฟไลน์ของทุกเมือง ทุกประเทศในโลกที่รวดเร็วที่สุด เดินทางด้วยความมั่นใจ: ไม่ว่าคุณจะอยู่ที่ไหน MAPS.ME จะช่วยระบุตำแหน่งที่ตั้งของตัวคุณบนแผนที่ ค้นหาร้านอาหาร โรงแรม ธนาคาร ปั๊มน้ำมัน และอื่น ๆ ที่ใกล้ที่สุด โดยไม่จำเป็นต้องใช้การเชื่อมต่ออินเทอร์เน็ต\n\nเราทำงานเพื่อพัฒนาฟีเจอร์ใหม่ ๆ อยู่เสมอและยินดีรับฟังว่าคุณมีความคิดเห็นว่าเราจะพัฒนา MAPS.ME ได้อย่างไร หากคุณมีปัญหาใด ๆ กับแอป อย่าลังเลที่จะติดต่อเราที่ support@maps.me โดยเราจะตอบรับทุกคำขอ!\n\nคุณชอบ MAPS.ME และต้องการสนับสนุนเราหรือไม่? มีวิธีง่าย ๆ และฟรีอยู่บ้าง:\n\n- โพสต์คำวิจารณ์ของคุณที่ ตลาดแอป (App Market)\n- ถูกใจเพจ Facebook ของเรา http://www.facebook.com/mapswithme\n- หรือเพียงแค่บอกแม่ เพื่อน ๆ และเพื่อนร่วมงานของคุณเกี่ยวกับ MAPS.ME :)\n\nขอบคุณที่ใช้บริการของเรา เราซาบซึ้งในการสนับสนุนของคุณมาก!\n\nป.ล. เรานำข้อมูลแผนที่มาจาก OpenStreetMap ซึ่งเป็นโครงการจัดทำแผนที่ที่เหมือนกับ Wikipedia ที่ช่วยให้ผู้ใช้สามารถสร้างและแก้ไขแผนที่ได้ หากคุณเห็นว่ามีสิ่งใดที่ขาดหายหรือไม่ถูกต้องบนแผนที่ คุณสามารถแก้ไขแผนที่ได้โดยตรงที่ http://openstreetmap.org และการเปลี่ยนแปลงของคุณจะปรากฏในแอป MAPS.ME ในการปล่อยเวอร์ชันถัดไป";
+
+/* Alert text */
+"email_error_body" = "อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %@";
+
+/* Alert title */
+"email_error_title" = "จดหมายที่ส่งเกิดความผิดพลาด";

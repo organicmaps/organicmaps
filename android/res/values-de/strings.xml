@@ -359,4 +359,42 @@
 	<string name="move_lite_maps_to_pro_ok">Ihre heruntergeladenen Karten wurden erfolgreich zu MAPS.ME übertragen.</string>
 	<!-- Message to display when maps move failed. -->
 	<string name="move_lite_maps_to_pro_failed">Ihre Karten konnten nicht übertragen werden. Bitte löschen Sie MAPS.ME Lite und laden Sie die Karten erneut herunter.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_ios">MAPS.ME Pro ist heute gratis! Neuigkeiten auf Facebook teilen.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_android">MAPS.ME gibt es mit 80 % Rabatt auf Google Play.</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_ios">Ich habe gerade die Offline-Karten MAPS.ME bei iTunes kostenlos bekommen. Es gibt sie auch mit 80 % Rabatt auf Google Play. Nicht verpassen!</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_android">Ich habe gerade die Offline-Karten MAPS.ME mit 80 % Rabatt auf Google Play bekommen. Es gibt sie auch kostenlos bei iTunes. Nicht verpassen!</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Einstellungen &amp; mehr</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">MAPS.ME-Community</string>
+	<!-- Text in menu -->
+	<string name="like_on_facebook">„Gefällt mir“ auf Facebook</string>
+	<!-- Text in menu -->
+	<string name="follow_on_twitter">Bei Twitter folgen</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Kontaktieren Sie uns</string>
+	<!-- Text in menu -->
+	<string name="subscribe_to_news">Abonnieren Sie unsere News</string>
+	<!-- Text in menu -->
+	<string name="rate_the_app">Bewerten Sie die App</string>
+	<!-- Text in menu -->
+	<string name="help">Hilfe</string>
+	<!-- Text in menu -->
+	<string name="copyright">Copyright</string>
+	<!-- Text in menu -->
+	<string name="report_a_bug">Fehler melden</string>
+	<!-- Email subject -->
+	<string name="subscribe_me_subject">Ich möchte gerne den MAPS.ME-Newsletter abonnieren</string>
+	<!-- Email body -->
+	<string name="subscribe_me_body">Gerne möchte ich zu den Ersten gehören die aktuelle Neuigkeiten erfahren und über neueste Updates und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME bietet die schnellsten Offline-Karten aller Städte in allen Ländern der Welt. Reisen Sie mit Vertrauen: wo immer Sie sind, MAPS.ME hilft Ihnen, sich selbst auf der Karte zu finden. Finden Sie das nächste Restaurant, ein Hotel, eine Bank, eine Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Markt\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nP. S. Wir nehmen die Kartendaten von OpenStreetMap, einem Mapping-Projekt ähnlich Wikipedia, bei welchem Benutzer Karten erstellen und bearbeiten können. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten MAPS.ME App Version.</string>
+	<!-- Alert text -->
+	<string name="email_error_body">Der E-Mail-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %s zu erreichen.</string>
+	<!-- Alert title -->
+	<string name="email_error_title">Fehler beim E-Mail-Versand</string>
 </resources>

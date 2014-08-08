@@ -586,3 +586,60 @@
 
 /* Message to display when maps move failed. */
 "move_lite_maps_to_pro_failed" = "فشل نقل خرائطك يُرجى حذف MAPS.ME Lite وتنزيل الخرائط مرة أخرى.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_ios" = "تطبيق MAPS.ME مجاني اليوم! يمكنك مشاركة الأخبار على الفيسبوك.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_android" = "MAPS.ME متوفر الآن مع خصم 80٪ على منصة جوجل بلاي.";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_ios" = "لقد تحصلت للتو على MAPS.ME خرائط مجانية لا تحتاج للأنترنت على اي تيونز. متوفرة أيضا مع خصم 80٪ على منصة جوجل بلاي. لا نضيع الفرصة!";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_android" = "لقد تحصلت للتو على MAPS.ME خرائط مجانية على جوجل بلاي. متوفرة أيضا مجانا على اي تيونز. لا نضيع الفرصة!";
+
+/* Text in menu */
+"settings_and_more" = "الإعدادات والمزيد";
+
+/* Text in menu */
+"maps_me_community" = "مجتمع MAPS.ME";
+
+/* Text in menu */
+"like_on_facebook" = "أعجبني على الفيسبوك";
+
+/* Text in menu */
+"follow_on_twitter" = "تابعونا على تويتر";
+
+/* Text in menu */
+"contact_us" = "أتصل بنا";
+
+/* Text in menu */
+"subscribe_to_news" = "أشترك في نشرتنا الإخبارية";
+
+/* Text in menu */
+"rate_the_app" = "تقييم التطبيق";
+
+/* Text in menu */
+"help" = "مساعدة";
+
+/* Text in menu */
+"copyright" = "حقوق الطبع والنشر";
+
+/* Text in menu */
+"report_a_bug" = "الإبلاغ عن خطأ";
+
+/* Email subject */
+"subscribe_me_subject" = "يرجى اشتراكي في النشرة البريدية لدى MAPS.ME";
+
+/* Email body */
+"subscribe_me_body" = "أريد أن أكون أول من يعرف آخر الأخبار والتحديثات والترقيات. يمكنني إلغاء اشتراكي في أي وقت.";
+
+/* About text */
+"about_text" = "توفر لكم MAPS.ME أحدث الخرائط دون الاتصال بالإنترنت لكافة دول وكافة مدن العالم. سافر وتمتع بالثقة التامة: إينما كنت، تساعدك MAPS.ME على تحديد مكانك على الخريطة، والعثور على أقرب مطعم أو فندق أو بنك أو محطة غاز الخ لا يتطلب الاتصال بالإنترنت.\n\nنحن نعمل دوماً على إدخال مزايا جديدة على التطبيق ونود أن نسمع منك رأيك عن الكيفية التي يمكن بها تحسين تطبيق MAPS.ME في رأيك. إذا واجهتك أي مشاكل مع التطبيق، لا تتردد في الاتصال بنا على support@maps.me. نحن نرد على كافة الطلبات.\n\nهل أعجبك تطبيق MAPS.ME وترغب في دعمنا؟ هناك بعض الطرق السهلة والمجانية بالكامل لعمل ذلك.\n\n- انشر رأيك على متجر التطبيقات الخاص بك\n- اعجب بصفحتنا على موقع Facebook http://www.facebook.com/mapswithme\n- أو أخبر والدتك وأصدقائك وزملائك عن تطبيق MAPS.ME :)\n\nشكراً لك على وجودك معنا. نحن نقدر جداً دعمك لنا!\n\nيُرجى ملاحظة نحن نستقي بيانات الخرائط من OpenStreetMap، مشروع خرائط يشبه موسوعة Wikipedia ويتيح هذا المشروع للمستخدمين إنشاء وتحرير الخرائط. إذا كنت ترى أن هناك خطأ ما أو شيء غير موجود على الخريطة، يمكنك تصحيح الخرائط مباشرة على http://openstreetmap.org، وسوف تظهر تغييراتك على تطبيق MAPS.ME في الإصدار القادم للتطبيق.";
+
+/* Alert text */
+"email_error_body" = "لم يتم تعيين البريد الإلكتروني للعميل. يرجى تكوينه أو استخدام أي وسيلة أخرى للاتصال بنا على %@";
+
+/* Alert title */
+"email_error_title" = "هناك خطأ في إرسال البريد الإلكتروني";

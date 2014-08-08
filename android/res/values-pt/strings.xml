@@ -361,4 +361,42 @@
 	<string name="move_lite_maps_to_pro_ok">Os seus mapas descarregados estão transferidos com sucesso para a MAPS.ME.</string>
 	<!-- Message to display when maps move failed. -->
 	<string name="move_lite_maps_to_pro_failed">Falhou a transferência dos seus mapas. Por favor, elimine a MAPS.ME Lite e descarregue os mapas novamente.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_ios">A MAPS.ME é hoje grátis! Partilhe a notícia no Facebook.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_android">A MAPS.ME está disponível com 80% de desconto na Google Play.</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_ios">Acabei de receber gratuitamente os mapas offline da MAPS.ME através do iTunes. Também estão disponíveis com 80% de desconto na Google Play. Não perca!</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_android">Acabei de receber os mapas offline da MAPS.ME com 80% de desconto na Google Play. Também estão disponíveis gratuitamente através do iTunes. Não perca!</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Definições e Mais</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">Comunidade MAPS.ME</string>
+	<!-- Text in menu -->
+	<string name="like_on_facebook">Gostar no Facebook</string>
+	<!-- Text in menu -->
+	<string name="follow_on_twitter">Seguir no Twitter</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Contacte-nos</string>
+	<!-- Text in menu -->
+	<string name="subscribe_to_news">Subscreva as nossas notícias</string>
+	<!-- Text in menu -->
+	<string name="rate_the_app">Classificar a aplicação</string>
+	<!-- Text in menu -->
+	<string name="help">Ajuda</string>
+	<!-- Text in menu -->
+	<string name="copyright">Direitos de Autor</string>
+	<!-- Text in menu -->
+	<string name="report_a_bug">Reportar um problema</string>
+	<!-- Email subject -->
+	<string name="subscribe_me_subject">Por favor inscrevam-me na newsletter da MAPS.ME</string>
+	<!-- Email body -->
+	<string name="subscribe_me_body">Quero ser o(a) primeiro(a) a saber sobre as últimas notícias atualizações e promoções. Posso cancelar a minha subscrição a qualquer altura.</string>
+	<!-- About text -->
+	<string name="about_text">A MAPS.ME oferece os mapas offline mais rápidos de todas as cidades, de todos os países do mundo. Viaje com plena confiança: onde estiver, a MAPS.ME ajuda a localizar-se no mapa, a encontrar o restaurante, hotel, banco, posto de gasolina mais próximos, etc. Não requer ligação à Internet.\n\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como poderíamos melhorar a MAPS.ME. Se tiver algum problema com a app, não hesite em contactar-nos em support@maps.me. Respondemos a cada pedido!\n\nGosta da MAPS.ME e quer apoiar-nos? Há algumas maneiras simples e absolutamente gratuitas:\n\n- publique um comentário no seu App Market\n- faça \&quot;gosto\&quot; na nossa página do Facebook http://www.facebook.com/mapswithme\n- ou fale da MAPS.ME à sua mãe, amigos e colegas :)\n\nObrigado por estar connosco. Agradecemos imenso o seu apoio!\n\nP. S. Tiramos os dados do OpenStreetMap, um projeto de mapeamento semelhante à Wikipedia, que permite aos utilizadores criarem e editarem mapas. Se vir que algo está em falta ou errado no mapa, pode corrigir diretamente os mapas em http://openstreetmap.org e as suas alterações irão aparecer na app MAPS.ME com o lançamento da próxima versão.</string>
+	<!-- Alert text -->
+	<string name="email_error_body">O cliente de email não está configurado. Por favor, configure-o ou utilize qualquer outro modo para nos contactar através de %s</string>
+	<!-- Alert title -->
+	<string name="email_error_title">Erro de envio de email</string>
 </resources>

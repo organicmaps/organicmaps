@@ -586,3 +586,60 @@
 
 /* Message to display when maps move failed. */
 "move_lite_maps_to_pro_failed" = "При переносі карт виникла помилка. Будь ласка, видаліть MAPS.ME Lite і завантажте карти знову.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_ios" = "MAPS.ME сьогодні безкоштовний! Розповсюдити новину на Facebook.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_android" = "Сьогодні в Google Play знижка на MAPS.ME 80%";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_ios" = "Я щойно безкоштовно скачав(ла)[maps_me_is_free_today_facebook_post_android] MAPS.ME с iTunes. А в Google Play знижка на програму 80%. Не пропустіть!";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_android" = "Я щойно скачав(ла) MAPS.ME з Google Play зі знижкою 80%. А в iTunes програму можна встановити цілком безкоштовно. Не пропустіть!";
+
+/* Text in menu */
+"settings_and_more" = "Налаштування";
+
+/* Text in menu */
+"maps_me_community" = "Спільнота MAPS.ME";
+
+/* Text in menu */
+"like_on_facebook" = "MAPS.ME у Facebook";
+
+/* Text in menu */
+"follow_on_twitter" = "MAPS.ME у Twitter";
+
+/* Text in menu */
+"contact_us" = "Контакти";
+
+/* Text in menu */
+"subscribe_to_news" = "Email-бюлетень";
+
+/* Text in menu */
+"rate_the_app" = "Оцінити застосунок";
+
+/* Text in menu */
+"help" = "Допомога";
+
+/* Text in menu */
+"copyright" = "Копірайт";
+
+/* Text in menu */
+"report_a_bug" = "Сповістити про помилку";
+
+/* Email subject */
+"subscribe_me_subject" = "Підпишіть мене на email-розсилку MAPS.ME";
+
+/* Email body */
+"subscribe_me_body" = "Я хочу першим дізнаватися про всі новини оновлення програм і акції. Я можу відписатися від розсилки в будь-який момент.";
+
+/* About text */
+"about_text" = "MAPS.ME пропонує карти всіх міст, всіх країн світу, які працюють без підключення до інтернету. Подорожуйте з впевненістю: де б ви не були, MAPS.ME допоможуть вирішити будь-яку вашу проблему - допоможуть визначити ваше місцезнаходження, знайти ресторан, готель, заправку, банк, туалет і т.д.\n\nМи постійно працюємо над додаванням нових функцій, тому, якщо у вас є ідеї або пропозиції з покращення MAPS.ME, пишіть нам. Якщо у вам виникла проблема з програмою, сповістіть нас, будь ласка, про неї. Наш емейл support@maps.me. Ми відповідаємо на всі листи!\n\nЯкщо вам подобається програма і ви хочете підтримати нас, є декілька простих і абсолютно безкоштовних способів:\n\n- залиште відгук у вашому магазині програм\n- підпишіться на наші новини на сторінці у Facebook http://www.facebook.com/mapswithme\n- або просто розкажіть про MAPS.ME своїй мамі, друзям і колегам :)\n\nДякуємо за вашу підтримку!\n\nP.S. У програмі ми використовуємо картографічні дані проекту OpenStreetMap, який працює за принципом Вікіпедії, надаючи можливість користувачам зі всього світу створювати і редагувати карти. Якщо ви помітили, що на карті щось не відповідає дійсності або відсутнє, ви можете виправити це прямо на сайті http://openstreetmap.org, і ці виправлення з'являться під час наступного оновлення MAPS.ME.";
+
+/* Alert text */
+"email_error_body" = "Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв'язку. Наша адреса – %@.";
+
+/* Alert title */
+"email_error_title" = "Помилка при відправленні листа";

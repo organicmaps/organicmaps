@@ -586,3 +586,60 @@
 
 /* Message to display when maps move failed. */
 "move_lite_maps_to_pro_failed" = "Verplaatsing van uw kaarten mislukt. Gelieve MAPS.ME Lite te verwijderen en de kaarten opnieuw te downloaden.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_ios" = "MAPS.ME is vandaag gratis! Deel het nieuws op Facebook.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_android" = "MAPS.ME is met 80% korting te koop op Google Play.";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_ios" = "Ik heb MAPS.ME offline kaarten net gratis gekregen op iTunes. Het is ook met 80% korting te koop op Google Play. Mis het niet!";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_android" = "Ik heb MAPS.ME offline kaarten net met 80% korting gekocht op Google Play. Het is ook gratis verkrijgbaar op iTunes. Mis het niet!";
+
+/* Text in menu */
+"settings_and_more" = "Instellingen & meer";
+
+/* Text in menu */
+"maps_me_community" = "Gemeenschap van MAPS.ME";
+
+/* Text in menu */
+"like_on_facebook" = "Ons leuk vinden op Facebook";
+
+/* Text in menu */
+"follow_on_twitter" = "Ons volgen op Twitter";
+
+/* Text in menu */
+"contact_us" = "Contact met ons opnemen";
+
+/* Text in menu */
+"subscribe_to_news" = "Aanmelden voor onze nieuwtjes";
+
+/* Text in menu */
+"rate_the_app" = "App beoordelen";
+
+/* Text in menu */
+"help" = "Hulp";
+
+/* Text in menu */
+"copyright" = "Auteursrechten";
+
+/* Text in menu */
+"report_a_bug" = "Meld een fout";
+
+/* Email subject */
+"subscribe_me_subject" = "Ik meld mij aan voor de nieuwsbrief MAPS.ME";
+
+/* Email body */
+"subscribe_me_body" = "Ik wil graag als eerste horen over het laatste nieuws updates en acties. Ik kan mijn abonnement te allen tijde annuleren.";
+
+/* About text */
+"about_text" = "MAPS.ME biedt de snelste offline kaarten van alle steden en alle landen ter wereld. Reis vol vertrouwen: waar je ook bent,\n\nMAPS.ME zal je helpen om jezelf op de kaart terug te vinden en het dichstbijzijnde restaurant, hotel, bank, benzinestation etc. te vinden. Er is geen internetverbinding voor nodig.  \n\nWe werken voortdurend aan nieuwe functies en we zouden graag van je willen horen hoe we MAPS.ME volgens jou zouden kunnen verbeteren. Als je eventueel problemen hebt met de app, aarzel dan niet om contact met ons op te nemen op support@maps.me. We reageren op elke aanvraag!  \n\nVindt je MAPS.ME leuk en wil je ons steunen? Dat kan op een aantal simpele en absoluut gratis manieren: - plaats een beoordeling op je App Market - like onze Facebook-pagina http://www.facebook.com/mapswithme - of vertel gewoon je ma, vrienden en collega’s over MAPS.ME :)   Dank je dat je ons steunt. Wij waarderen dit heel erg!  \n\nP.S. We halen onze kaartgegevens van OpenStreetMap, een kaartproject dat lijkt op Wikipedia, waarbij gebruikers kaarten kunnen maken en aanpassen. Als je ziet dat er iets ontbreekt of een fout ontdekt in een kaart, dan kun je de kaart direct verbeteren op http://openstreetmap.org, en dan zullen je verbeteringen bij het uitbrengen van de volgende versie in MAPS.ME verschijnen.";
+
+/* Alert text */
+"email_error_body" = "De e-mailcliënt is niet ingesteld. Gelieve de cliënt te configureren of op een andere manier contact met ons op te nemen op %@";
+
+/* Alert title */
+"email_error_title" = "E-mail verzendfout";

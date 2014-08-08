@@ -355,4 +355,42 @@
 	<string name="move_lite_maps_to_pro_ok">Vaše stažené mapy jsou úspěšně přeneseny na MAPS.ME.</string>
 	<!-- Message to display when maps move failed. -->
 	<string name="move_lite_maps_to_pro_failed">Vaše mapy se nepodařilo přenést. Vymažte prosím MAPS.ME Lite a stáhněte si mapy znovu.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_ios">MAPS.ME je dnes zdarma! Sdílejte tu zprávu na Facebooku.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_android">MAPS.ME jsou dostupné na Google Play se slevou 80 %.</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_ios">Právě jsem na iTunes získal(a) zdarma offline mapy MAPS.ME. Jsou také dostupné na Google Play se slevou 80 %. Nezmeškejte to!</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_android">Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80 %. Jsou také dostupné zdarma na iTunes. Nezmeškejte to!</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Nastavení a více</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">Komunita MAPS.ME</string>
+	<!-- Text in menu -->
+	<string name="like_on_facebook">Označit pomocí To se mi líbí na Facebooku</string>
+	<!-- Text in menu -->
+	<string name="follow_on_twitter">Následovat na Twitteru</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Kontaktovat nás</string>
+	<!-- Text in menu -->
+	<string name="subscribe_to_news">Přihlásit se k našim novinkám</string>
+	<!-- Text in menu -->
+	<string name="rate_the_app">Ohodnotit aplikaci</string>
+	<!-- Text in menu -->
+	<string name="help">Nápověda</string>
+	<!-- Text in menu -->
+	<string name="copyright">Autorská práva</string>
+	<!-- Text in menu -->
+	<string name="report_a_bug">Nahlásit chybu</string>
+	<!-- Email subject -->
+	<string name="subscribe_me_subject">Přihlaste mě prosím k odběru zpravodaje MAPS.ME</string>
+	<!-- Email body -->
+	<string name="subscribe_me_body">Chci se vždy jako první dozvídat o nejnovějších zprávách aktualizacích a akčních nabídkách. Svoje přihlášení k odběru mohu kdykoli zrušit.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestujte s naprostou důvěrou: kdekoliv jste, MAPS.ME vám pomůže se najít na mapě, najít nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli váš názor, jak můžeme vylepšit MAPS.ME. Pokud máte s touto aplikací jakékoliv problémy, pak nás neváhejte kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se vám MAPS.ME a chtěli byste nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napište recenzi ve svém obchodě s aplikacemi\n- označte naši stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekněte o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jste s námi. Velmi oceňujeme vaši podporu!\n\nP.S. Mapová data získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíte, že na mapě něco chybí nebo je špatně, pak můžete mapy opravit přímo na http://openstreetmap.org, a vaše změny se objeví v příští verzi MAPS.ME.</string>
+	<!-- Alert text -->
+	<string name="email_error_body">Emailový klient nebyl nastaven. Nakonfigurujte ho prosím nebo použijte jiný způsob k tomu, abyste nás kontaktovali na %s</string>
+	<!-- Alert title -->
+	<string name="email_error_title">Chyba při odesílání emailu</string>
 </resources>

@@ -586,3 +586,60 @@
 
 /* Message to display when maps move failed. */
 "move_lite_maps_to_pro_failed" = "Vos cartes n'ont pas pu être transférées. Veuillez supprimer MAPS.ME Lite et téléchargez de nouveau les cartes.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_ios" = "MAPS.ME est gratuit aujourd'hui ! Partagez la nouvelle sur Facebook.";
+
+/* Message to display on 17th-18th august */
+"maps_me_is_free_today_android" = "MAPS.ME est disponible avec 80 % de réduction sur Google Play.";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_ios" = "Je viens de me procurer les cartes hors-ligne MAPS.ME gratuitement sur iTunes. L'appli est également disponible avec 80 % de remise sur Google Play. Ne passez pas à côté !";
+
+/* Message for facebook post on 17th-18th august */
+"maps_me_is_free_today_facebook_post_android" = "Je viens de me procurer les cartes hors-ligne MAPS.ME avec 80 % de remise sur Google Play. L'appli est également disponible gratuitement sur iTunes. Ne passez pas à côté !";
+
+/* Text in menu */
+"settings_and_more" = "Paramètres & plus";
+
+/* Text in menu */
+"maps_me_community" = "Communauté MAPS.ME";
+
+/* Text in menu */
+"like_on_facebook" = "Aimer sur Facebook";
+
+/* Text in menu */
+"follow_on_twitter" = "Suivre sur Twitter";
+
+/* Text in menu */
+"contact_us" = "Contactez-nous";
+
+/* Text in menu */
+"subscribe_to_news" = "Abonnez-vous à nos actus";
+
+/* Text in menu */
+"rate_the_app" = "Noter l'appli";
+
+/* Text in menu */
+"help" = "Aide";
+
+/* Text in menu */
+"copyright" = "Copyright";
+
+/* Text in menu */
+"report_a_bug" = "Signaler un bug";
+
+/* Email subject */
+"subscribe_me_subject" = "Veuillez m'inscrire à la newsletter de MAPS.ME";
+
+/* Email body */
+"subscribe_me_body" = "Je veux être informé(e) en priorité des dernières nouvelles des mises à jour et des promotions. Je pourrai annuler mon abonnement quand je le souhaiterai.";
+
+/* About text */
+"about_text" = "MAPS.ME offre la possibilité de consulter hors-ligne le plus rapidement possible les cartes de toutes les villes, de tous les pays du monde. Voyagez en toute confiance : où que vous soyez, MAPS.ME permet de vous situer sur la carte, de trouver le restaurant le plus proche, un hôtel, une banque, une station d'essence, etc. Cela ne nécessite aucune connexion Internet.\n\nNous travaillons toujours sur de nouvelles fonctionnalités et nous aimerions avoir votre avis sur la manière d'améliorer MAPS.ME. Si vous avez des problèmes avec l'application, n'hésitez pas à nous contacter à l'adresse suivante : support@maps.me. Nous répondons à toutes les demandes !\n\nAimez-vous MAPS.ME et souhaitez-vous nous soutenir ? Il existe des moyens simples et tout à fait gratuits:\n\n- Publier un avis sur votre App Market\n- Aimez notre page Facebook www.facebook.com/mapswithme\n- Ou parlez tout simplement de MAPS.ME à votre mère, à vos amis et à vos collègues :)\n\nNous vous remercions de votre fidélité. Nous apprécions énormément votre soutien !\n\nP.S. Nous prenons les données cartographiques de OpenStreetMap, un projet de cartographie similaire à Wikipédia, qui permet aux utilisateurs de créer et de modifier des cartes. Si vous voyez une omission ou une erreur sur la carte, vous pouvez la corriger directement à l'adresse suivante : http://openstreetmap.org, et vos modifications apparaîtront lors de la sortie de la prochaine version de l'application MAPS.ME.";
+
+/* Alert text */
+"email_error_body" = "Le client de messagerie n'a pas été configuré. Veuillez s'il vous plaît le configurer ou employer tout autre moyen pour nous contacter à l’adresse %@.";
+
+/* Alert title */
+"email_error_title" = "Mail d’erreur d'envoi";

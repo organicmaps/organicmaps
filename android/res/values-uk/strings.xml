@@ -359,4 +359,42 @@
 	<string name="move_lite_maps_to_pro_ok">Ваші карти успішно перенесено в MAPS.ME.</string>
 	<!-- Message to display when maps move failed. -->
 	<string name="move_lite_maps_to_pro_failed">При переносі карт виникла помилка. Будь ласка, видаліть MAPS.ME Lite і завантажте карти знову.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_ios">MAPS.ME сьогодні безкоштовний! Розповсюдити новину на Facebook.</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_android">Сьогодні в Google Play знижка на MAPS.ME 80%</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_ios">Я щойно безкоштовно скачав(ла)[maps_me_is_free_today_facebook_post_android] MAPS.ME с iTunes. А в Google Play знижка на програму 80%. Не пропустіть!</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_android">Я щойно скачав(ла) MAPS.ME з Google Play зі знижкою 80%. А в iTunes програму можна встановити цілком безкоштовно. Не пропустіть!</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">Налаштування</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">Спільнота MAPS.ME</string>
+	<!-- Text in menu -->
+	<string name="like_on_facebook">MAPS.ME у Facebook</string>
+	<!-- Text in menu -->
+	<string name="follow_on_twitter">MAPS.ME у Twitter</string>
+	<!-- Text in menu -->
+	<string name="contact_us">Контакти</string>
+	<!-- Text in menu -->
+	<string name="subscribe_to_news">Email-бюлетень</string>
+	<!-- Text in menu -->
+	<string name="rate_the_app">Оцінити застосунок</string>
+	<!-- Text in menu -->
+	<string name="help">Допомога</string>
+	<!-- Text in menu -->
+	<string name="copyright">Копірайт</string>
+	<!-- Text in menu -->
+	<string name="report_a_bug">Сповістити про помилку</string>
+	<!-- Email subject -->
+	<string name="subscribe_me_subject">Підпишіть мене на email-розсилку MAPS.ME</string>
+	<!-- Email body -->
+	<string name="subscribe_me_body">Я хочу першим дізнаватися про всі новини оновлення програм і акції. Я можу відписатися від розсилки в будь-який момент.</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.ME пропонує карти всіх міст, всіх країн світу, які працюють без підключення до інтернету. Подорожуйте з впевненістю: де б ви не були, MAPS.ME допоможуть вирішити будь-яку вашу проблему - допоможуть визначити ваше місцезнаходження, знайти ресторан, готель, заправку, банк, туалет і т.д.\n\nМи постійно працюємо над додаванням нових функцій, тому, якщо у вас є ідеї або пропозиції з покращення MAPS.ME, пишіть нам. Якщо у вам виникла проблема з програмою, сповістіть нас, будь ласка, про неї. Наш емейл support@maps.me. Ми відповідаємо на всі листи!\n\nЯкщо вам подобається програма і ви хочете підтримати нас, є декілька простих і абсолютно безкоштовних способів:\n\n- залиште відгук у вашому магазині програм\n- підпишіться на наші новини на сторінці у Facebook http://www.facebook.com/mapswithme\n- або просто розкажіть про MAPS.ME своїй мамі, друзям і колегам :)\n\nДякуємо за вашу підтримку!\n\nP.S. У програмі ми використовуємо картографічні дані проекту OpenStreetMap, який працює за принципом Вікіпедії, надаючи можливість користувачам зі всього світу створювати і редагувати карти. Якщо ви помітили, що на карті щось не відповідає дійсності або відсутнє, ви можете виправити це прямо на сайті http://openstreetmap.org, і ці виправлення з\&#39;являться під час наступного оновлення MAPS.ME.</string>
+	<!-- Alert text -->
+	<string name="email_error_body">Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв\&#39;язку. Наша адреса – %s.</string>
+	<!-- Alert title -->
+	<string name="email_error_title">Помилка при відправленні листа</string>
 </resources>

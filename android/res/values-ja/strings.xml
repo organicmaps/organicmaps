@@ -351,4 +351,42 @@
 	<string name="move_lite_maps_to_pro_ok">ダウンロード済みの地図は無事MAPS.MEに転送されました</string>
 	<!-- Message to display when maps move failed. -->
 	<string name="move_lite_maps_to_pro_failed">地図の転送に失敗しました。MAPS.ME Liteを削除してから地図を再度ダウンロードしてください。</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_ios">MAPS.ME が本日無料！Facebookでニュースをシェアしよう。</string>
+	<!-- Message to display on 17th-18th august -->
+	<string name="maps_me_is_free_today_android">Google Playから8割引の価格でMAPS.MEをお買い求めいただけます。</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_ios">たった今iTunesからMAPS.MEのオフラインマップを無料で手に入れました。Google Playからは8割引の価格でお買い求めできます。お見逃しなく！</string>
+	<!-- Message for facebook post on 17th-18th august -->
+	<string name="maps_me_is_free_today_facebook_post_android">たった今Google PlayからMAPS.MEのオフラインマップを8割引の価格で手に入れました。iTunesからは無料で手に入れられます。お見逃しなく！</string>
+	<!-- Text in menu -->
+	<string name="settings_and_more">設定&amp;その他</string>
+	<!-- Text in menu -->
+	<string name="maps_me_community">MAPS.MEコミュニティ</string>
+	<!-- Text in menu -->
+	<string name="like_on_facebook">Facebookでいいねをクリック</string>
+	<!-- Text in menu -->
+	<string name="follow_on_twitter">Twitterでフォロー</string>
+	<!-- Text in menu -->
+	<string name="contact_us">お問い合わせ</string>
+	<!-- Text in menu -->
+	<string name="subscribe_to_news">当社のニュースに登録</string>
+	<!-- Text in menu -->
+	<string name="rate_the_app">アプリを評価</string>
+	<!-- Text in menu -->
+	<string name="help">ヘルプ</string>
+	<!-- Text in menu -->
+	<string name="copyright">著作権</string>
+	<!-- Text in menu -->
+	<string name="report_a_bug">バグを報告</string>
+	<!-- Email subject -->
+	<string name="subscribe_me_subject">MAPS.MEニュースレターを購読します</string>
+	<!-- Email body -->
+	<string name="subscribe_me_body">最新ニュース、アップデートとプロモーションにすいてまず知りたいです。いつでも購読をキャンセル出来ます。</string>
+	<!-- About text -->
+	<string name="about_text">MAPS.MEは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもMAPS.MEの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、MAPS.MEの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport@maps.meまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nMAPS.MEが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/mapswithme\n- MAPS.MEのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、http://openstreetmap.orgでユーザーが直接修正ができます。このような変更はMAPS.MEのその後のバージョンリリースの際に反映されます。</string>
+	<!-- Alert text -->
+	<string name="email_error_body">このメールクライアントはセットアップされていません。設定するか、他の方法で%sにご連絡ください。</string>
+	<!-- Alert title -->
+	<string name="email_error_title">メール送信エラー</string>
 </resources>
