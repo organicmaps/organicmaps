@@ -3,12 +3,12 @@
 #include "tile_info.hpp"
 
 #include "../drape/pointers.hpp"
+#include "../drape/object_pool.hpp"
+#include "../drape/batcher.hpp"
 
 #include "../std/map.hpp"
 #include "../std/stack.hpp"
 #include "../std/function.hpp"
-
-namespace dp { class Batcher; }
 
 namespace df
 {
@@ -18,9 +18,9 @@ class Message;
 class BatchersPool
 {
 public:
-  typedef function<void (dp::TransferPointer<Message>)> send_message_fn;
+  typedef function<void (dp::TransferPointer<Message>)> TSendMessageFn;
 
-  BatchersPool(int initBatcherCount, send_message_fn const & sendMessageFn);
+  BatchersPool(int initBatcherCount, TSendMessageFn const & sendMessageFn);
   ~BatchersPool();
 
   void ReserveBatcher(TileKey const & key);
@@ -28,15 +28,14 @@ public:
   void ReleaseBatcher(TileKey const & key);
 
 private:
-  typedef dp::MasterPointer<dp::Batcher> batcher_ptr;
-  typedef stack<batcher_ptr> batchers_pool_t;
-  typedef pair<batcher_ptr, int> counted_batcher_t;
-  typedef map<TileKey, counted_batcher_t> reserved_batchers_t;
+  typedef pair<dp::Batcher *, int> TBatcherPair;
+  typedef map<TileKey, TBatcherPair> TBatcherMap;
+  typedef TBatcherMap::iterator TIterator;
+  TSendMessageFn m_sendMessageFn;
 
-  batchers_pool_t m_batchers;
-  reserved_batchers_t m_reservedBatchers;
-
-  send_message_fn m_sendMessageFn;
+  dp::BatcherFactory m_factory;
+  ObjectPool<dp::Batcher, dp::BatcherFactory> m_pool;
+  TBatcherMap m_batchs;
 };
 
 } // namespace df

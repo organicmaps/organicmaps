@@ -4,16 +4,19 @@
 #include "../drape/batcher.hpp"
 
 #include "../base/assert.hpp"
+#include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
 
 namespace df
 {
 
+using dp::Batcher;
+
 namespace
 {
 
-void FlushGeometry(BatchersPool::send_message_fn const & sendMessage,
+void FlushGeometry(BatchersPool::TSendMessageFn const & sendMessage,
                    TileKey const & key,
                    dp::GLState const & state,
                    dp::TransferPointer<dp::RenderBucket> buffer)
@@ -24,71 +27,45 @@ void FlushGeometry(BatchersPool::send_message_fn const & sendMessage,
 
 } // namespace
 
-BatchersPool::BatchersPool(int initBatcherCount, send_message_fn const & sendMessageFn)
+BatchersPool::BatchersPool(int initBatcherCount, TSendMessageFn const & sendMessageFn)
   : m_sendMessageFn(sendMessageFn)
-{
-  for (int i = 0; i < initBatcherCount; ++i)
-    m_batchers.push(dp::MasterPointer<dp::Batcher>(new dp::Batcher()));
-}
+  , m_factory()
+  , m_pool(initBatcherCount, m_factory)
+{}
 
-BatchersPool::~BatchersPool()
-{
-  for (reserved_batchers_t::iterator it = m_reservedBatchers.begin();
-       it != m_reservedBatchers.end(); ++it)
-  {
-    it->second.first.Destroy();
-  }
-  m_reservedBatchers.clear();
-
-  while (!m_batchers.empty())
-  {
-    m_batchers.top().Destroy();
-    m_batchers.pop();
-  }
-}
+BatchersPool::~BatchersPool() {}
 
 void BatchersPool::ReserveBatcher(TileKey const & key)
 {
-  reserved_batchers_t::iterator it = m_reservedBatchers.find(key);
-  if (it != m_reservedBatchers.end())
+  TIterator it = m_batchs.find(key);
+  if (it != m_batchs.end())
   {
     it->second.second++;
     return;
   }
-
-  dp::MasterPointer<dp::Batcher> reserved;
-  if (m_batchers.empty())
-    reserved.Reset(new dp::Batcher());
-  else
-  {
-    reserved = m_batchers.top();
-    m_batchers.pop();
-  }
-
-  reserved->StartSession(bind(&FlushGeometry, m_sendMessageFn, key, _1, _2));
-  VERIFY(m_reservedBatchers.insert(make_pair(key, make_pair(reserved, 1))).second, ());
+  Batcher * B = m_pool.Get();
+  m_batchs.insert(make_pair(key, make_pair(B, 1)));
+  B->StartSession(bind(&FlushGeometry, m_sendMessageFn, key, _1, _2));
 }
 
 dp::RefPointer<dp::Batcher> BatchersPool::GetTileBatcher(TileKey const & key)
 {
-  reserved_batchers_t::iterator it = m_reservedBatchers.find(key);
-
-  ASSERT(it != m_reservedBatchers.end(), ());
-  return it->second.first.GetRefPointer();
+  TIterator it = m_batchs.find(key);
+  ASSERT(it != m_batchs.end(), ());
+  return dp::MakeStackRefPointer(it->second.first);
 }
 
 void BatchersPool::ReleaseBatcher(TileKey const & key)
 {
-  reserved_batchers_t::iterator it = m_reservedBatchers.find(key);
-
-  ASSERT(it != m_reservedBatchers.end(), ());
+  TIterator it = m_batchs.find(key);
+  ASSERT(it != m_batchs.end(), ());
   ASSERT_GREATER(it->second.second, 0, ());
   if ((--it->second.second)== 0)
   {
-    dp::MasterPointer<dp::Batcher> batcher = it->second.first;
-    batcher->EndSession();
-    m_reservedBatchers.erase(it);
-    m_batchers.push(batcher);
+    Batcher * B = it->second.first;
+    B->EndSession();
+    m_pool.Return(B);
+    m_batchs.erase(it);
   }
 }
 
