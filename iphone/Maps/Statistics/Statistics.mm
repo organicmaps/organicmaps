@@ -91,6 +91,10 @@
 
 - (BOOL)enabled
 {
+#ifdef DEBUG
+  return NO;
+#endif
+
   bool statisticsEnabled = true;
   Settings::Get("StatisticsEnabled", statisticsEnabled);
 
