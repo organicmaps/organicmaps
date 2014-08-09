@@ -1,5 +1,6 @@
-NDK_TOOLCHAIN_VERSION := 4.6
+NDK_TOOLCHAIN_VERSION := clang
 APP_PLATFORM := android-5
+APP_STL := c++_static
 
 ifeq (x$(NDK_ABI_TO_BUILD), x)
   APP_ABI := armeabi armeabi-v7a-hard x86
@@ -7,7 +8,6 @@ else
   APP_ABI := $(NDK_ABI_TO_BUILD)
 endif
 
-APP_STL := gnustl_static
 LOCAL_PATH := $(call my-dir)
 APP_CFLAGS += -I$(LOCAL_PATH)/../../3party/boost \
               -I$(LOCAL_PATH)/../../3party/protobuf/src

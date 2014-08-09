@@ -129,11 +129,11 @@ endif
 
 include $(CLEAR_VARS)
 
-#LOCAL_CPP_FEATURES += exceptions rtti
+LOCAL_CPP_FEATURES += exceptions rtti
 
 LOCAL_MODULE := mapswithme
 LOCAL_STATIC_LIBRARIES := stats_client map gui routing search storage indexer graphics platform anim geometry coding base expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf
-LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-psabi
+LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-psabi -Wno-extern-c-compat
 
 ifneq ($(NDK_DEBUG),1)
   ifeq ($(PRODUCTION),1)
