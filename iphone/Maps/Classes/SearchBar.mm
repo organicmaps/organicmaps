@@ -84,7 +84,7 @@
     _cancelButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_cancelButton setTitleColor:[UIColor colorWithWhite:1 alpha:0.5] forState:UIControlStateHighlighted];
-    [_cancelButton setTitle:@"cancel" forState:UIControlStateNormal];
+    [_cancelButton setTitle:NSLocalizedString(@"cancel", nil) forState:UIControlStateNormal];
     [_cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
   return _cancelButton;
