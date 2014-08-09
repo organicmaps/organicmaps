@@ -9,6 +9,7 @@
 #import "UIKitCategories.h"
 #import "AppInfo.h"
 #import "LocalNotificationManager.h"
+#import "AccountManager.h"
 
 #include <sys/xattr.h>
 
@@ -234,6 +235,10 @@ void InitLocalizedStrings()
 
   // MAT will not function without the measureSession call included
   [MobileAppTracker measureSession];
+
+#ifdef OMIM_FULL
+  [[AccountManager sharedManager] applicationDidBecomeActive:application];
+#endif
 }
 
 - (SettingsManager *)settingsManager
@@ -329,6 +334,10 @@ void InitLocalizedStrings()
 {
   // AlexZ: do we really need this? Need to ask them with a letter
   [MobileAppTracker applicationDidOpenURL:[url absoluteString] sourceApplication:sourceApplication];
+
+#ifdef OMIM_FULL
+  [[AccountManager sharedManager] application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
+#endif
 
   NSString * scheme = url.scheme;
 

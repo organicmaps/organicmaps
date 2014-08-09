@@ -16,6 +16,7 @@
 #import "SelectSetVC.h"
 #import "BookmarkDescriptionVC.h"
 #import "BookmarkNameVC.h"
+#import "AccountManager.h"
 
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
@@ -35,6 +36,7 @@
 #define ALERT_VIEW_APPSTORE 2
 #define ALERT_VIEW_BOOKMARKS 4
 #define ITUNES_URL @"itms-apps://itunes.apple.com/app/id%lld"
+#define ALERT_VIEW_PROMO 777
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
 
@@ -574,6 +576,39 @@ const long long LITE_IDL = 431183278L;
     [self.buyButton setTitle:proText forState:UIControlStateNormal];
   }
 #endif
+
+  [self showPromoAlertIfNeeded];
+
+  [self performAfterDelay:0.3 block:^{
+    SettingsAndMoreVC * vc = [[SettingsAndMoreVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+  }];
+}
+
+- (BOOL)dateIsInPromoTime:(NSDate *)date
+{
+  NSCalendar * calendar = [NSCalendar currentCalendar];
+  NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour;
+  NSDateComponents * comp = [calendar components:unit fromDate:date];
+  return (comp.year == 2014) && (comp.month == 8) && ((comp.day == 17 && comp.hour >= 2) || (comp.day == 18 && comp.hour <= 22));
+}
+
+- (void)showPromoAlertIfNeeded
+{
+  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+  NSString * alertKey = @"PromoAlertShowed";
+  if ([userDefaults boolForKey:alertKey])
+    return;
+
+  if ([self dateIsInPromoTime:[NSDate date]] && [self dateIsInPromoTime:[AppInfo sharedInfo].firstLaunchDate])
+  {
+    [userDefaults setBool:YES forKey:alertKey];
+    [userDefaults synchronize];
+
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Facebook" message:NSLocalizedString(@"maps_me_is_free_today_ios", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"no_thanks", nil) otherButtonTitles:NSLocalizedString(@"share", nil), nil];
+    alertView.tag = ALERT_VIEW_PROMO;
+    [alertView show];
+  }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -974,6 +1009,19 @@ const long long LITE_IDL = 431183278L;
       {
         [[Statistics instance] logProposalReason:@"Bookmark Screen" withAnswer:@"YES"];
         [[UIApplication sharedApplication] openProVersionFrom:@"ios_toolabar_bookmarks"];
+      }
+    }
+    case ALERT_VIEW_PROMO:
+    {
+      if (buttonIndex == alertView.cancelButtonIndex)
+      {
+        [[Statistics instance] logEvent:@"17th august promo" withParameters:@{@"Shared" : @"NO"}];
+      }
+      else
+      {
+        [[AccountManager sharedManager] shareToFacebookWithCompletion:^(BOOL success) {
+          [[Statistics instance] logEvent:@"17th august promo" withParameters:@{@"Shared" : (success ? @"YES" : @"NO")}];
+        }];
       }
     }
     default:

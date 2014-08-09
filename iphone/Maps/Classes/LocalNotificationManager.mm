@@ -166,10 +166,11 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
   [components setDay:17];
   [components setHour:12];
   NSDate * date = [[NSCalendar currentCalendar] dateFromComponents:components];
+
   if ([date timeIntervalSinceNow] > 0)
   {
     UILocalNotification * notification = [[UILocalNotification alloc] init];
-    notification.fireDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    notification.fireDate = date;
     notification.alertBody = NSLocalizedString(@"pro_version_is_free_today", nil);
     notification.soundName = UILocalNotificationDefaultSoundName;
     notification.userInfo = @{@"Action" : PROMO_ACTION_NAME};
