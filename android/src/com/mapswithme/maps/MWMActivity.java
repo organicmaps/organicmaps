@@ -23,6 +23,9 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.LocationButtonImageSetter.ButtonState;
@@ -46,6 +49,7 @@ import com.mapswithme.maps.widget.MapInfoView.OnVisibilityChangedListener;
 import com.mapswithme.maps.widget.MapInfoView.State;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.LocationUtils;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
@@ -95,6 +99,25 @@ public class MWMActivity extends NvEventQueueActivity
 
   private static final String IS_KML_MOVED = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
+  private static final String IS_FIRST_RUN = "FirstRun";
+
+  // facebook
+  private static final String PENDING_PUBLISH_KEY = "mShouldReauthorize";
+  private boolean mShouldReauthorize;
+  private UiLifecycleHelper mFbUiHelper;
+  private Session.StatusCallback mFbStatusCallback = new Session.StatusCallback()
+  {
+    @Override
+    public void call(Session session, SessionState state, Exception exception)
+    {
+      if (state.isOpened())
+      {
+        if (mShouldReauthorize &&
+            state.equals(SessionState.OPENED_TOKEN_UPDATED))
+          showPromoDialog();
+      }
+    }
+  };
 
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
@@ -703,6 +726,9 @@ public class MWMActivity extends NvEventQueueActivity
       if (value.equals(SCREENSHOTS_TASK_LOCATE))
         onMyPositionClicked(null);
     }
+
+    mFbUiHelper = new UiLifecycleHelper(this, mFbStatusCallback);
+    mFbUiHelper.onCreate(savedInstanceState);
   }
 
   private void setUpToolbars()
@@ -769,6 +795,8 @@ public class MWMActivity extends NvEventQueueActivity
     Framework.nativeClearBalloonListeners();
 
     super.onDestroy();
+
+    mFbUiHelper.onDestroy();
   }
 
   @Override
@@ -965,6 +993,8 @@ public class MWMActivity extends NvEventQueueActivity
     stopWatchingCompassStatusUpdate();
 
     super.onPause();
+
+    mFbUiHelper.onPause();
   }
 
   @Override
@@ -988,6 +1018,47 @@ public class MWMActivity extends NvEventQueueActivity
     mInfoView.onResume();
 
     getMwmApplication().onMwmResume(this);
+
+    mFbUiHelper.onResume();
+    if (MWMApplication.get().isProVersion() && MWMApplication.get().nativeGetBoolean(IS_FIRST_RUN, true))
+    {
+      MWMApplication.get().nativeSetBoolean(IS_FIRST_RUN, false);
+
+      if (FbUtil.isPromoTimeNow())
+        showPromoDialog();
+    }
+  }
+
+  private void showPromoDialog()
+  {
+    new AlertDialog.Builder(MWMActivity.this)
+        .setMessage(getString(R.string.maps_me_is_free_today_android))
+        .setCancelable(true)
+        .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            if (Session.getActiveSession() != null && Session.getActiveSession().isOpened())
+              mShouldReauthorize = FbUtil.makeFbPromoPost(MWMActivity.this);
+            else
+            {
+              mShouldReauthorize = true;
+              Session.openActiveSession(getActivity(), true, mFbStatusCallback);
+            }
+            dialog.dismiss();
+          }
+        })
+        .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
+    {
+      @Override
+      public void onClick(DialogInterface dlg, int which)
+      {
+        dlg.dismiss();
+      }
+    })
+        .create()
+        .show();
   }
 
   private void updateExternalStorageState()
@@ -1304,8 +1375,14 @@ public class MWMActivity extends NvEventQueueActivity
       final Point bmk = ((ParcelablePoint) data.getParcelableExtra(BookmarkActivity.PIN)).getPoint();
       onBookmarkActivated(bmk.x, bmk.y);
     }
+    else
+    {
+      mFbUiHelper.onActivityResult(requestCode, resultCode, data);
+      Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+    }
 
     super.onActivityResult(requestCode, resultCode, data);
+
   }
 
   public interface MapTask extends Serializable
@@ -1360,4 +1437,18 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
+  @Override
+  protected void onSaveInstanceState(Bundle outState)
+  {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(PENDING_PUBLISH_KEY, mShouldReauthorize);
+    mFbUiHelper.onSaveInstanceState(outState);
+  }
+
+  @Override
+  protected void onRestoreInstanceState(Bundle savedInstanceState)
+  {
+    super.onRestoreInstanceState(savedInstanceState);
+    mShouldReauthorize = savedInstanceState.getBoolean(PENDING_PUBLISH_KEY, false);
+  }
 }
