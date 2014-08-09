@@ -83,14 +83,12 @@ namespace core
 
       Chain();
 
-      template <typename fun_tt>
-      Chain(fun_tt fn)
+      Chain(function_t const & fn)
       {
         m_fns.push_back(fn);
       }
 
-      template <typename fun_tt>
-      Chain & addCommand(fun_tt fn)
+      Chain & addCommand(function_t const & fn)
       {
         m_fns.push_back(fn);
         return *this;

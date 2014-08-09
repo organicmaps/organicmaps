@@ -104,6 +104,7 @@ bool nvValidTimeExtension()
 		return false;
 	else
 		return true;*/
+  return false;
 }
 
 long nvGetSystemTime()

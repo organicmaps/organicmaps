@@ -9,7 +9,7 @@ namespace graphics
 #ifndef OMIM_OS_IPHONE
     namespace
     {
-      void emptyFlushFn() {}
+      void OPENGL_CALLING_CONVENTION emptyFlushFn() {}
     }
 #endif
 
