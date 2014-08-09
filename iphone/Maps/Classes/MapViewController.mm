@@ -3,7 +3,6 @@
 #import "EAGLView.h"
 #import "BookmarksRootVC.h"
 #import "UIKitCategories.h"
-#import "SettingsViewController.h"
 #import "UIViewController+Navigation.h"
 #import "ShareActionSheet.h"
 #import "AppInfo.h"
@@ -17,6 +16,7 @@
 #import "BookmarkDescriptionVC.h"
 #import "BookmarkNameVC.h"
 #import "AccountManager.h"
+#import "SettingsAndMoreVC.h"
 
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
@@ -35,13 +35,9 @@
 #define ALERT_VIEW_FACEBOOK 1
 #define ALERT_VIEW_APPSTORE 2
 #define ALERT_VIEW_BOOKMARKS 4
-#define ITUNES_URL @"itms-apps://itunes.apple.com/app/id%lld"
 #define ALERT_VIEW_PROMO 777
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
-
-const long long PRO_IDL = 510623322L;
-const long long LITE_IDL = 431183278L;
 
 @interface MapViewController () <PlacePageViewDelegate, ToolbarViewDelegate, BottomMenuDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate>
 
@@ -984,20 +980,44 @@ const long long LITE_IDL = 431183278L;
   {
     case ALERT_VIEW_APPSTORE:
     {
-      NSString * url = nil;
-      if (GetPlatform().IsPro())
-        url = [NSString stringWithFormat:ITUNES_URL, PRO_IDL];
-      else
-        url = [NSString stringWithFormat:ITUNES_URL, LITE_IDL];
-      [self manageAlert:buttonIndex andUrl:[NSURL URLWithString:url] andDlgSetting:dlg_settings::AppStore];
+      if (buttonIndex == 0)
+      {
+        dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::Never);
+      }
+      else if (buttonIndex == 1)
+      {
+        dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::OK);
+        if (GetPlatform().IsPro())
+          [[UIApplication sharedApplication] rateProVersionFrom:@"ios_popup"];
+        else
+          [[UIApplication sharedApplication] rateLiteVersionFrom:@"ios_popup"];
+      }
+      else if (buttonIndex == 2)
+      {
+        dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::Later);
+      }
+
       return;
     }
     case ALERT_VIEW_FACEBOOK:
     {
-      NSString * url = [NSString stringWithFormat:FACEBOOK_SCHEME];
-      if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]])
-        url = [NSString stringWithFormat:FACEBOOK_URL];
-      [self manageAlert:buttonIndex andUrl:[NSURL URLWithString:url] andDlgSetting:dlg_settings::FacebookDlg];
+      if (buttonIndex == 0)
+      {
+        dlg_settings::SaveResult(dlg_settings::FacebookDlg, dlg_settings::Never);
+      }
+      else if (buttonIndex == 1)
+      {
+        dlg_settings::SaveResult(dlg_settings::FacebookDlg, dlg_settings::OK);
+
+        NSString * url = [NSString stringWithFormat:FACEBOOK_SCHEME];
+        if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]])
+          url = [NSString stringWithFormat:FACEBOOK_URL];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+      }
+      else if (buttonIndex == 2)
+      {
+        dlg_settings::SaveResult(dlg_settings::FacebookDlg, dlg_settings::Later);
+      }
       return;
     }
     case ALERT_VIEW_BOOKMARKS:
@@ -1189,31 +1209,6 @@ NSInteger compareAddress(id l, id r, void * context)
                                              otherButtonTitles:NSLocalizedString(@"ok", nil), NSLocalizedString(@"remind_me_later", nil),  nil];
   alertView.tag = ALERT_VIEW_FACEBOOK;
   [alertView show];
-}
-
-- (void)manageAlert:(NSInteger)buttonIndex andUrl:(NSURL *)url andDlgSetting:(dlg_settings::DialogT)set
-{
-  switch (buttonIndex)
-  {
-    case 0:
-    {
-      dlg_settings::SaveResult(set, dlg_settings::Never);
-      break;
-    }
-    case 1:
-    {
-      dlg_settings::SaveResult(set, dlg_settings::OK);
-      [[UIApplication sharedApplication] openURL:url];
-      break;
-    }
-    case 2:
-    {
-      dlg_settings::SaveResult(set, dlg_settings::Later);
-      break;
-    }
-    default:
-      break;
-  }
 }
 
 - (void)destroyPopover

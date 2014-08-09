@@ -17,7 +17,6 @@ typedef NS_ENUM(NSUInteger, Section)
   SectionMetrics,
   SectionZoomButtons,
   SectionStatistics,
-  SectionAbout,
   SectionCount
 };
 
@@ -98,12 +97,6 @@ typedef NS_ENUM(NSUInteger, Section)
     customCell.titleLabel.text = NSLocalizedString(@"pref_zoom_title", nil);
     customCell.delegate = self;
   }
-  else if (indexPath.section == SectionAbout)
-  {
-    cell = [tableView dequeueReusableCellWithIdentifier:[LinkCell className]];
-    LinkCell * customCell = (LinkCell *)cell;
-    customCell.titleLabel.text = NSLocalizedString(@"about_menu_title", nil);
-  }
 
   return cell;
 }
@@ -145,17 +138,6 @@ Settings::Units unitsForIndex(NSInteger index)
     Settings::Set("Units", units);
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:SectionMetrics] withRowAnimation:UITableViewRowAnimationFade];
     [[MapsAppDelegate theApp].m_mapViewController setupMeasurementSystem];
-  }
-  else if (indexPath.section == SectionAbout)
-  {
-    ReaderPtr<Reader> r = GetPlatform().GetReader("about.html");
-    string s;
-    r.ReadAsString(s);
-    NSString * str = [NSString stringWithFormat:@"Version: %@ \n", [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
-    NSString * text = [NSString stringWithFormat:@"%@%@", str, [NSString stringWithUTF8String:s.c_str()]];
-    WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:NSLocalizedString(@"about", nil)];
-    aboutViewController.openInSafari = YES;
-    [self.navigationController pushViewController:aboutViewController animated:YES];
   }
 }
 

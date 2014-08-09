@@ -188,6 +188,18 @@
   }
 }
 
+- (void)rateProVersionFrom:(NSString *)launchPlaceName
+{
+  NSString * urlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id510623322?mt=8&at=1l3v7ya&ct=%@", launchPlaceName];
+  [self openURL:[NSURL URLWithString:urlString]];
+}
+
+- (void)rateLiteVersionFrom:(NSString *)launchPlaceName
+{
+  NSString * urlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id431183278?mt=8&at=10lGar&ct=%@", launchPlaceName];
+  [self openURL:[NSURL URLWithString:urlString]];
+}
+
 - (void)openGuideWithName:(NSString *)guideName itunesURL:(NSString *)itunesURL
 {
   NSString * guide = [[guideName stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString];

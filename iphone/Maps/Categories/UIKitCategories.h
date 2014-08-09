@@ -49,6 +49,8 @@
 @interface UIApplication (URLs)
 
 - (void)openProVersionFrom:(NSString *)launchPlaceName;
+- (void)rateLiteVersionFrom:(NSString *)launchPlaceName;
+- (void)rateProVersionFrom:(NSString *)launchPlaceName;
 - (void)openGuideWithName:(NSString *)guideName itunesURL:(NSString *)itunesURL;
 
 @end

@@ -38,6 +38,10 @@
 		9747278518338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */; };
 		974D041D1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */; };
 		974D041E1977DE430081D0A7 /* LocalNotificationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */; };
+		9750841F199501F100A7457D /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9750841E199501F100A7457D /* ImageDownloader.m */; };
+		97508420199501F100A7457D /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9750841E199501F100A7457D /* ImageDownloader.m */; };
+		97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97508422199522D300A7457D /* SettingsAndMoreVC.mm */; };
+		97508424199522D300A7457D /* SettingsAndMoreVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97508422199522D300A7457D /* SettingsAndMoreVC.mm */; };
 		9769D6EF1912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
 		9769D6F01912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
 		97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
@@ -56,6 +60,10 @@
 		9789DB57188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9789DB55188D5E2A007C6FAE /* InAppMessagesManager.mm */; };
 		9789DB5A188D94F9007C6FAE /* InterstitialView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9789DB59188D94F9007C6FAE /* InterstitialView.mm */; };
 		9789DB5B188D94F9007C6FAE /* InterstitialView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9789DB59188D94F9007C6FAE /* InterstitialView.mm */; };
+		978D4A251996B0EC00D72CA7 /* CommunityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A241996B0EC00D72CA7 /* CommunityVC.m */; };
+		978D4A261996B0EC00D72CA7 /* CommunityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A241996B0EC00D72CA7 /* CommunityVC.m */; };
+		978D4A291996C17300D72CA7 /* RichTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A281996C17300D72CA7 /* RichTextVC.m */; };
+		978D4A2A1996C17300D72CA7 /* RichTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A281996C17300D72CA7 /* RichTextVC.m */; };
 		978F9240183B660F000D6C7C /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9239183B660F000D6C7C /* SettingsViewController.mm */; };
 		978F9241183B660F000D6C7C /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9239183B660F000D6C7C /* SettingsViewController.mm */; };
 		978F9242183B660F000D6C7C /* SelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 978F923A183B660F000D6C7C /* SelectableCell.m */; };
@@ -1370,6 +1378,10 @@
 		9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+Navigation.m"; path = "Classes/UIViewController+Navigation.m"; sourceTree = "<group>"; };
 		974D041B1977DE430081D0A7 /* LocalNotificationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocalNotificationManager.mm; sourceTree = "<group>"; };
 		974D041C1977DE430081D0A7 /* LocalNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalNotificationManager.h; sourceTree = "<group>"; };
+		9750841D199501F100A7457D /* ImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDownloader.h; sourceTree = "<group>"; };
+		9750841E199501F100A7457D /* ImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDownloader.m; sourceTree = "<group>"; };
+		97508421199522D300A7457D /* SettingsAndMoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsAndMoreVC.h; sourceTree = "<group>"; };
+		97508422199522D300A7457D /* SettingsAndMoreVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingsAndMoreVC.mm; sourceTree = "<group>"; };
 		9769D6ED1912BF3000CA6158 /* ContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerView.h; sourceTree = "<group>"; };
 		9769D6EE1912BF3000CA6158 /* ContainerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContainerView.mm; sourceTree = "<group>"; };
 		97719D441843B6DC00BDD815 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1385,6 +1397,10 @@
 		9789DB55188D5E2A007C6FAE /* InAppMessagesManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InAppMessagesManager.mm; sourceTree = "<group>"; };
 		9789DB58188D94F9007C6FAE /* InterstitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialView.h; sourceTree = "<group>"; };
 		9789DB59188D94F9007C6FAE /* InterstitialView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InterstitialView.mm; sourceTree = "<group>"; };
+		978D4A231996B0EC00D72CA7 /* CommunityVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityVC.h; sourceTree = "<group>"; };
+		978D4A241996B0EC00D72CA7 /* CommunityVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityVC.m; sourceTree = "<group>"; };
+		978D4A271996C17300D72CA7 /* RichTextVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RichTextVC.h; sourceTree = "<group>"; };
+		978D4A281996C17300D72CA7 /* RichTextVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RichTextVC.m; sourceTree = "<group>"; };
 		978F9239183B660F000D6C7C /* SettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SettingsViewController.mm; path = Settings/SettingsViewController.mm; sourceTree = "<group>"; };
 		978F923A183B660F000D6C7C /* SelectableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectableCell.m; path = Settings/SelectableCell.m; sourceTree = "<group>"; };
 		978F923B183B660F000D6C7C /* SwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwitchCell.m; path = Settings/SwitchCell.m; sourceTree = "<group>"; };
@@ -2390,6 +2406,8 @@
 				97A0EEF7192F3B43009B2779 /* BottomMenu.mm */,
 				97A0EEF8192F3B43009B2779 /* BottomMenuCell.h */,
 				97A0EEF9192F3B43009B2779 /* BottomMenuCell.m */,
+				9750841D199501F100A7457D /* ImageDownloader.h */,
+				9750841E199501F100A7457D /* ImageDownloader.m */,
 			);
 			name = "Bottom Menu";
 			sourceTree = "<group>";
@@ -2565,6 +2583,8 @@
 			children = (
 				FAFCB63413366E78001A5C59 /* WebViewController.h */,
 				FAFCB63513366E78001A5C59 /* WebViewController.mm */,
+				978D4A271996C17300D72CA7 /* RichTextVC.h */,
+				978D4A281996C17300D72CA7 /* RichTextVC.m */,
 				FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */,
 				FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */,
 				FAA4B13E13EC1C8C00BCAB63 /* DiskFreeSpace.h */,
@@ -2613,6 +2633,10 @@
 				FA4135E7120A263C0062D5B4 /* SettingsManager.mm */,
 				978F923F183B660F000D6C7C /* SettingsViewController.h */,
 				978F9239183B660F000D6C7C /* SettingsViewController.mm */,
+				97508421199522D300A7457D /* SettingsAndMoreVC.h */,
+				97508422199522D300A7457D /* SettingsAndMoreVC.mm */,
+				978D4A231996B0EC00D72CA7 /* CommunityVC.h */,
+				978D4A241996B0EC00D72CA7 /* CommunityVC.m */,
 				FA29FDA8141E77F8004ADF66 /* Preferences.h */,
 				FA29FDA9141E77F8004ADF66 /* Preferences.mm */,
 			);
@@ -4453,8 +4477,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				978D4A251996B0EC00D72CA7 /* CommunityVC.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
 				97A0EEFA192F3B43009B2779 /* BottomMenu.mm in Sources */,
+				978D4A291996C17300D72CA7 /* RichTextVC.m in Sources */,
 				9747278418338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */,
 				97908B30196591F7003DD7C6 /* SearchShowOnMapCell.m in Sources */,
 				1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */,
@@ -4465,6 +4491,7 @@
 				FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */,
 				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
 				97D092B5190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */,
+				9750841F199501F100A7457D /* ImageDownloader.m in Sources */,
 				978F9253183BD530000D6C7C /* NavigationController.mm in Sources */,
 				97354B65196AF97200352536 /* PlacePageRoutingCell.m in Sources */,
 				974386DD19373EA400FD5659 /* ToastView.m in Sources */,
@@ -4507,6 +4534,7 @@
 				CB252D6F16FF82C9001E41E9 /* Statistics.mm in Sources */,
 				978F9244183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
+				97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */,
 				97ABBA4518C8DF620079333C /* PlacePageView.mm in Sources */,
 				97F61794183E7445009919E2 /* LinkCell.m in Sources */,
 				97D092B1190A681F00FF645B /* PlacePageInfoCell.mm in Sources */,
@@ -4522,8 +4550,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				978D4A261996B0EC00D72CA7 /* CommunityVC.m in Sources */,
 				FAFB08E9151215EE0041901D /* main.mm in Sources */,
 				9747278518338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */,
+				978D4A2A1996C17300D72CA7 /* RichTextVC.m in Sources */,
 				FAFB08EA151215EE0041901D /* MapsAppDelegate.mm in Sources */,
 				97908B31196591FB003DD7C6 /* SearchShowOnMapCell.m in Sources */,
 				FAFB08EB151215EE0041901D /* EAGLView.mm in Sources */,
@@ -4534,6 +4564,7 @@
 				FAFB08EF151215EE0041901D /* RenderBuffer.mm in Sources */,
 				97DEA09718D75BB000C5F963 /* ContextViews.mm in Sources */,
 				978F9254183BD530000D6C7C /* NavigationController.mm in Sources */,
+				97508420199501F100A7457D /* ImageDownloader.m in Sources */,
 				97A0EEFD192F3B43009B2779 /* BottomMenuCell.m in Sources */,
 				97354B66196AF97200352536 /* PlacePageRoutingCell.m in Sources */,
 				97C9851F186AE3C500AF7E9E /* Reachability.m in Sources */,
@@ -4576,6 +4607,7 @@
 				9778E99E191A5B6600AD850A /* BookmarkDescriptionVC.mm in Sources */,
 				978F9245183B660F000D6C7C /* SwitchCell.m in Sources */,
 				EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */,
+				97508424199522D300A7457D /* SettingsAndMoreVC.mm in Sources */,
 				97F61795183E7445009919E2 /* LinkCell.m in Sources */,
 				EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
 				9778E9A6191A86D800AD850A /* SelectedColorView.m in Sources */,
