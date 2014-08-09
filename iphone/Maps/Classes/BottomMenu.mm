@@ -4,83 +4,182 @@
 #import "UIKitCategories.h"
 #include "../../../platform/platform.hpp"
 #import "AppInfo.h"
+#import "ImageDownloader.h"
 
-@interface BottomMenu () <UITableViewDataSource, UITableViewDelegate>
+@interface BottomMenu () <UITableViewDataSource, UITableViewDelegate, ImageDownloaderDelegate>
 
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) SolidTouchView * fadeView;
-
 @property (nonatomic) NSArray * items;
+@property (nonatomic) NSMutableDictionary * imageDownloaders;
 
 @end
 
 @implementation BottomMenu
 
-- (instancetype)initWithFrame:(CGRect)frame items:(NSArray *)items
+- (instancetype)initWithFrame:(CGRect)frame
 {
   self = [super initWithFrame:frame];
-
-  self.items = items;
 
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   [self addSubview:self.fadeView];
 
-  CGFloat menuHeight = [items count] * [BottomMenuCell cellHeight];
-  if (!GetPlatform().IsPro())
-    menuHeight += [BottomMenuCell cellHeight];
-
-  self.tableView.frame = CGRectMake(0, 0, self.width, menuHeight);
   [self addSubview:self.tableView];
+
+  _menuHidden = YES;
+
+  self.imageDownloaders = [[NSMutableDictionary alloc] init];
+
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appInfoSynced:) name:AppInfoSyncedNotification object:nil];
 
   return self;
 }
 
+- (NSArray *)generateItems
+{
+  NSMutableArray * items = [[NSMutableArray alloc] init];
+
+  if (!GetPlatform().IsPro())
+    [items addObject:@{@"Id" : @"MWMPro", @"Title" : NSLocalizedString(@"become_a_pro", nil), @"Icon" : [UIImage imageNamed:@"MWMProIcon"], @"Color" : @"15c783"}];
+
+   NSArray * firstGroup = @[@{@"Id" : @"Maps", @"Title" : NSLocalizedString(@"download_maps", nil), @"Icon" : [UIImage imageNamed:@"IconMap"]},
+                            @{@"Id" : @"Settings", @"Title" : NSLocalizedString(@"settings", nil), @"Icon" : [UIImage imageNamed:@"IconSettings"]},
+                            @{@"Id" : @"Share", @"Title" : NSLocalizedString(@"share_my_location", nil), @"Icon" : [UIImage imageNamed:@"IconShare"]}];
+
+  [items addObjectsFromArray:firstGroup];
+
+  NSArray * serverItems = [[AppInfo sharedInfo] featureValue:AppFeatureBottomMenuItems forKey:@"Items"];
+  if ([serverItems count])
+    [items addObjectsFromArray:serverItems];
+
+  [items addObject:@{@"Id" : @"MoreApps",  @"Title" : NSLocalizedString(@"more_apps_title", nil), @"Icon" : [UIImage imageNamed:@"IconMoreApps"]}];
+
+  return items;
+}
+
+- (void)appInfoSynced:(NSNotification *)notification
+{
+  [self reload];
+}
+
 - (void)didMoveToSuperview
 {
-  [self setMenuHidden:YES animated:NO];
+  [self reload];
+}
+
+- (void)reload
+{
+  self.items = [self generateItems];
+  [self.tableView reloadData];
+  [self align];
+}
+
+- (void)align
+{
+  CGFloat menuHeight = [self.items count] * [BottomMenuCell cellHeight];
+  if (self.superview.width > self.superview.height)
+    menuHeight = MIN(menuHeight, 228);
+
+  self.tableView.frame = CGRectMake(self.tableView.minX, self.tableView.minY, self.width, menuHeight);
+
+  [self setMenuHidden:self.menuHidden animated:NO];
+}
+
+- (void)layoutSubviews
+{
+  [self align];
 }
 
 #pragma mark - TableView
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (GetPlatform().IsPro())
-    return [self.items count];
-  else
-    return (section == 0) ? 1 : [self.items count];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-  return GetPlatform().IsPro() ? 1 : 2;
+  return [self.items count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (GetPlatform().IsPro() || (!GetPlatform().IsPro() && indexPath.section == 1))
+  NSDictionary * item = self.items[indexPath.row];
+
+  BottomMenuCell * cell = (BottomMenuCell *)[tableView dequeueReusableCellWithIdentifier:[BottomMenuCell className]];
+  if (!cell)
+    cell = [[BottomMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[BottomMenuCell className]];
+
+  if (item[@"Icon"])
   {
-    BottomMenuCell * cell = (BottomMenuCell *)[tableView dequeueReusableCellWithIdentifier:[BottomMenuCell className]];
-    if (!cell)
-      cell = [[BottomMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[BottomMenuCell className]];
-
-    cell.iconImageView.image = self.items[indexPath.row][@"Icon"];
-    cell.titleLabel.text = self.items[indexPath.row][@"Title"];
-    cell.titleLabel.textColor = [UIColor whiteColor];
-
-    return cell;
+    cell.iconImageView.image = item[@"Icon"];
   }
-  else
+  else if (item[@"IconURLs"])
   {
-    BottomMenuCell * cell = (BottomMenuCell *)[tableView dequeueReusableCellWithIdentifier:[BottomMenuCell className]];
-    if (!cell)
-      cell = [[BottomMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[BottomMenuCell className]];
+    NSString * itemId = item[@"Id"];
+    NSString * imageName = itemId;
+    NSString * imagePath = [[self imagesPath] stringByAppendingPathComponent:imageName];
+    UIImage * image = [UIImage imageNamed:imagePath];
+    if (image)
+    {
+      cell.iconImageView.image = image;
+    }
+    else if (!self.imageDownloaders[itemId])
+    {
+      ImageDownloader * downloader = [[ImageDownloader alloc] init];
+      downloader.delegate = self;
+      downloader.objectId = itemId;
+      self.imageDownloaders[itemId] = downloader;
 
-    cell.titleLabel.text = NSLocalizedString(@"become_a_pro", nil);
-    cell.iconImageView.image = [UIImage imageNamed:@"MWMProIcon"];
-    cell.titleLabel.textColor = [UIColor applicationColor];
-
-    return cell;
+      NSDictionary * links = item[@"IconURLs"];
+      NSString * key = [UIScreen mainScreen].scale == 2 ? @"2x" : @"1x";
+      NSString * link = links[key];
+      [downloader startDownloadingWithURL:[NSURL URLWithString:link]];
+    }
   }
+
+  cell.titleLabel.textColor = item[@"Color"] ? [UIColor colorWithColorCode:item[@"Color"]] : [UIColor whiteColor];
+
+  if (item[@"Title"])
+  {
+    cell.titleLabel.text = item[@"Title"];
+  }
+  else if (item[@"Titles"])
+  {
+    NSDictionary * titles = item[@"Titles"];
+    NSString * title = titles[[[NSLocale preferredLanguages] firstObject]];
+    if (!title)
+      title = titles[@"*"];
+
+    cell.titleLabel.text = title;
+  }
+
+  return cell;
+}
+
+- (void)imageDownloaderDidFinishLoading:(ImageDownloader *)downloader
+{
+  NSInteger row = 0;
+  for (NSInteger i = 0; i < [self.items count]; i++)
+  {
+    if ([self.items[i][@"Id"] isEqualToString:downloader.objectId])
+    {
+      row = i;
+      break;
+    }
+  }
+  BottomMenuCell * cell = (BottomMenuCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
+  cell.iconImageView.image = downloader.image;
+
+  NSString * imageName = downloader.objectId;
+  NSString * imagePath = [[self imagesPath] stringByAppendingPathComponent:imageName];
+  [UIImagePNGRepresentation(downloader.image) writeToFile:imagePath atomically:YES];
+
+  [self.imageDownloaders removeObjectForKey:downloader.objectId];
+}
+
+- (NSString *)imagesPath
+{
+  NSString * libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
+  NSString * path = [libraryPath stringByAppendingPathComponent:@"bottom_menu_images/"];
+  if (![[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:nil])
+    [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:NO error:nil];
+  return path;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -90,11 +189,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (GetPlatform().IsPro() || (!GetPlatform().IsPro() && indexPath.section == 1))
-    [self.delegate bottomMenu:self didPressItemWithName:self.items[indexPath.row][@"Item"]];
-  else
-    [self.delegate bottomMenuDidPressBuyButton:self];
-
+  NSDictionary * item = self.items[indexPath.row];
+  NSDictionary * urls = item[@"WebURLs"];
+  NSString * url = urls[[[NSLocale preferredLanguages] firstObject]];
+  if (!url)
+    url = urls[@"*"];
+  [self.delegate bottomMenu:self didPressItemWithName:item[@"Id"] appURL:item[@"AppURL"] webURL:url];
   [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
 
@@ -135,7 +235,7 @@
     _tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.scrollEnabled = NO;
+    _tableView.alwaysBounceVertical = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.backgroundColor = [UIColor colorWithColorCode:@"444651"];
   }
@@ -153,6 +253,11 @@
     [_fadeView addGestureRecognizer:tap];
   }
   return _fadeView;
+}
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

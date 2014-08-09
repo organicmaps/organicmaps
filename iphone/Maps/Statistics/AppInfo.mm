@@ -10,6 +10,9 @@ NSString * const AppFeatureInterstitial = @"AppFeatureInterstitial";
 NSString * const AppFeatureBanner = @"AppFeatureBanner";
 NSString * const AppFeatureProButtonOnMap = @"AppFeatureProButtonOnMap";
 NSString * const AppFeatureMoreAppsBanner = @"AppFeatureMoreAppsBanner";
+NSString * const AppFeatureBottomMenuItems = @"AppFeatureBottomMenuItems";
+
+NSString * const AppInfoSyncedNotification = @"AppInfoSyncedNotification";
 
 @interface AppInfo ()
 
@@ -39,13 +42,16 @@ NSString * const AppFeatureMoreAppsBanner = @"AppFeatureMoreAppsBanner";
 
 - (void)update
 {
-  NSString * urlString = @"http://application.server/ios/features.json";
+#warning <#message#>
+  NSString * urlString = @"http://application.server/ios/features_test.json";
   NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20];
   [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * r, NSData * d, NSError * e){
     if ([(NSHTTPURLResponse *)r statusCode] == 200)
     {
       [d writeToFile:[self featuresPath] atomically:YES];
+      _features = nil;
       [self.reachability stopNotifier];
+      [[NSNotificationCenter defaultCenter] postNotificationName:AppInfoSyncedNotification object:nil];
     }
     else
     {

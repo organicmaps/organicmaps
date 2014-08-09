@@ -6,6 +6,9 @@ extern NSString * const AppFeatureInterstitial;
 extern NSString * const AppFeatureBanner;
 extern NSString * const AppFeatureProButtonOnMap;
 extern NSString * const AppFeatureMoreAppsBanner;
+extern NSString * const AppFeatureBottomMenuItems;
+
+extern NSString * const AppInfoSyncedNotification;
 
 @interface AppInfo : NSObject
 

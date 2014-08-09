@@ -708,11 +708,7 @@ const long long LITE_IDL = 431183278L;
 {
   if (!_bottomMenu)
   {
-    NSArray * items = @[@{@"Item" : @"Maps",      @"Title" : NSLocalizedString(@"download_maps", nil),     @"Icon" : [UIImage imageNamed:@"IconMap"]},
-                        @{@"Item" : @"Settings",  @"Title" : NSLocalizedString(@"settings", nil),          @"Icon" : [UIImage imageNamed:@"IconSettings"]},
-                        @{@"Item" : @"Share",     @"Title" : NSLocalizedString(@"share_my_location", nil), @"Icon" : [UIImage imageNamed:@"IconShare"]},
-                        @{@"Item" : @"MoreApps",  @"Title" : NSLocalizedString(@"more_apps_title", nil),   @"Icon" : [UIImage imageNamed:@"IconMoreApps"]}];
-    _bottomMenu = [[BottomMenu alloc] initWithFrame:self.view.bounds items:items];
+    _bottomMenu = [[BottomMenu alloc] initWithFrame:self.view.bounds];
     _bottomMenu.delegate = self;
   }
   return _bottomMenu;
@@ -927,13 +923,7 @@ const long long LITE_IDL = 431183278L;
 
 #pragma mark - BottomMenuDelegate
 
-- (void)bottomMenuDidPressBuyButton:(BottomMenu *)menu
-{
-  [[Statistics instance] logProposalReason:@"Pro button in menu" withAnswer:@"YES"];
-  [[UIApplication sharedApplication] openProVersionFrom:@"ios_bottom_menu"];
-}
-
-- (void)bottomMenu:(BottomMenu *)menu didPressItemWithName:(NSString *)itemName
+- (void)bottomMenu:(BottomMenu *)menu didPressItemWithName:(NSString *)itemName appURL:(NSString *)appURL webURL:(NSString *)webURL
 {
   if ([itemName isEqualToString:@"Maps"])
   {
@@ -941,7 +931,7 @@ const long long LITE_IDL = 431183278L;
   }
   else if ([itemName isEqualToString:@"Settings"])
   {
-    SettingsViewController * vc = [self.mainStoryboard instantiateViewControllerWithIdentifier:[SettingsViewController className]];
+    SettingsAndMoreVC * vc = [[SettingsAndMoreVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([itemName isEqualToString:@"Share"])
@@ -966,6 +956,17 @@ const long long LITE_IDL = 431183278L;
   {
     MoreAppsVC * vc = [[MoreAppsVC alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+  }
+  else if ([itemName isEqualToString:@"MWMPro"])
+  {
+    [[Statistics instance] logProposalReason:@"Pro button in menu" withAnswer:@"YES"];
+    [[UIApplication sharedApplication] openProVersionFrom:@"ios_bottom_menu"];
+  }
+  else
+  {
+    [menu setMenuHidden:YES animated:YES];
+    [[Statistics instance] logEvent:@"Bottom menu item clicked" withParameters:@{@"Item" : itemName, @"Country": [AppInfo sharedInfo].countryCode}];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:(appURL ? appURL : webURL)]];
   }
 }
 
