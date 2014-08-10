@@ -14,57 +14,18 @@
 namespace df
 {
 
-using m2::PointF;
-
-struct LetterInfo
-{
-  LetterInfo(float xOff, float yOff, float adv, float hw, float hh)
-  : m_xOffset(xOff), m_yOffset(yOff), m_advance(adv),
-    m_halfWidth(hw), m_halfHeight(hh){}
-
-  LetterInfo(){}
-
-  float m_xOffset;
-  float m_yOffset;
-  float m_advance;
-  float m_halfWidth;
-  float m_halfHeight;
-};
-
 class PathTextShape : public MapShape
 {
 public:
-  PathTextShape(m2::SharedSpline const & spline, PathTextViewParams const & params);
+  PathTextShape(m2::SharedSpline const & spline,
+                PathTextViewParams const & params,
+                float const scaleGtoP);
   virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
 
 private:
   m2::SharedSpline m_spline;
   PathTextViewParams m_params;
-};
-
-class PathTextHandle : public dp::OverlayHandle
-{
-public:
-  static const uint8_t DirectionAttributeID = 1;
-  PathTextHandle(m2::SharedSpline const & spl, PathTextViewParams const & params,
-                 vector<LetterInfo> const & info, float maxSize, float textLength);
-
-  virtual void Update(ScreenBase const & screen);
-  void DrawReverse(ScreenBase const & screen);
-  void DrawForward(ScreenBase const & screen);
-  void ClearPositions();
-  int ChooseDirection(ScreenBase const & screen);
-  virtual m2::RectD GetPixelRect(ScreenBase const & screen) const;
-  virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const;
-
-private:
-  m2::SharedSpline m_path;
-  PathTextViewParams m_params;
-  vector<LetterInfo> m_infos;
-  float m_scaleFactor;
-  mutable vector<glsl_types::vec2> m_positions;
-  float m_maxSize;
-  float m_textLength;
+  float const m_scaleGtoP;
 };
 
 } // namespace df

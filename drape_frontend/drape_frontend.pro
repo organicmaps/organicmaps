@@ -38,6 +38,7 @@ SOURCES += \
     path_text_shape.cpp \
     path_symbol_shape.cpp \
     common_structures.cpp \
+    text_layout.cpp
 
 HEADERS += \
     engine_context.hpp \
@@ -72,3 +73,5 @@ HEADERS += \
     path_symbol_shape.hpp \
     common_structures.hpp \
     fribidi.hpp \
+    text_layout.hpp \
+    intrusive_vector.hpp

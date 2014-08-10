@@ -312,7 +312,7 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
     params.m_text = m_captions.GetPathName();
     params.m_textFont = fontDecl;
 
-    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathTextShape(m_spline, params)));
+    m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new PathTextShape(m_spline, params, m_currentScaleGtoP)));
   }
 
   if (pLineRule != NULL)

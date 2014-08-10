@@ -1,4 +1,7 @@
 #include "path_text_shape.hpp"
+#include "text_layout.hpp"
+#include "visual_params.hpp"
+#include "intrusive_vector.hpp"
 
 #include "../drape/shader_def.hpp"
 #include "../drape/attribute_provider.hpp"
@@ -18,332 +21,257 @@
 #include "../std/algorithm.hpp"
 #include "../std/vector.hpp"
 
-namespace df
-{
-
-using m2::PointF;
 using m2::Spline;
 using glsl_types::vec2;
-using glsl_types::vec4;
 
 namespace
 {
-  static float const realFontSize = 28.0f;
-
-  struct Buffer
+  struct AccumulateRect
   {
-    vector<vec2>        m_pos;
-    vector<vec4>        m_uvs;
-    vector<vec4>        m_baseColor;
-    vector<vec4>        m_outlineColor;
-    vector<LetterInfo>  m_info;
-    float               m_offset;
-    float               m_maxSize;
-
-    void addSizes(float x, float y)
+    ScreenBase const & m_screen;
+    m2::RectD m_pixelRect;
+    AccumulateRect(ScreenBase const & screen)
+      : m_screen(screen)
     {
-      if (x > m_maxSize)
-        m_maxSize = x;
-      if (y > m_maxSize)
-        m_maxSize = y;
     }
+
+    void operator()(m2::PointF const & pt)
+    {
+      m_pixelRect.Add(m_screen.GtoP(pt));
+    }
+
   };
+
+  class PathTextHandle : public dp::OverlayHandle
+  {
+  public:
+    static const uint8_t PathGlyphPositionID = 1;
+
+    PathTextHandle(m2::SharedSpline const & spl,
+                   df::SharedTextLayout const & layout,
+                   float const mercatorOffset,
+                   float const depth)
+      : OverlayHandle(FeatureID(), dp::Center, depth)
+      , m_spline(spl)
+      , m_layout(layout)
+      , m_splineOffset(mercatorOffset)
+    {
+    }
+
+    void Update(ScreenBase const & screen)
+    {
+      m_scalePtoG = screen.GetScale();
+      GetBegEnd(m_begin, m_end);
+
+      SetIsValid(!m_begin.BeginAgain() && !m_end.BeginAgain());
+      if (!IsValid())
+        return;
+
+      if (screen.GtoP(m_end.m_pos).x < screen.GtoP(m_begin.m_pos).x)
+        m_isForward = false;
+      else
+        m_isForward = true;
+    }
+
+    m2::RectD GetPixelRect(ScreenBase const & screen) const
+    {
+      ASSERT(IsValid(), ());
+      ASSERT(!m_begin.BeginAgain(), ());
+      ASSERT(!m_end.BeginAgain(), ());
+
+      AccumulateRect f(screen);
+      m_spline->ForEachNode(m_begin, m_end, f);
+      float const pixelHeight = m_layout->GetPixelHeight();
+      f.m_pixelRect.Inflate(2 * pixelHeight, 2 * pixelHeight);
+      return f.m_pixelRect;
+    }
+
+    void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const
+    {
+      ASSERT(IsValid(), ());
+      uint32_t byteCount = 4 * m_layout->GetGlyphCount() * sizeof(glsl_types::vec2);
+      void * buffer = mutator->AllocateMutationBuffer(byteCount);
+      df::IntrusiveVector<glsl_types::vec2> positions(buffer, byteCount);
+      // m_splineOffset set offset to Center of text.
+      // By this we calc offset for start of text in mercator
+      m_layout->LayoutPathText(m_begin, m_scalePtoG, positions, m_isForward);
+
+      TOffsetNode const & node = GetOffsetNode(PathGlyphPositionID);
+      dp::MutateNode mutateNode;
+      mutateNode.m_region = node.second;
+      mutateNode.m_data = dp::MakeStackRefPointer<void>(buffer);
+      mutator->AddMutation(node.first, mutateNode);
+    }
+
+  private:
+    void GetBegEnd(Spline::iterator & beg, Spline::iterator & end) const
+    {
+      beg = m_spline.CreateIterator();
+      end = m_spline.CreateIterator();
+      float const textLangth = m_layout->GetPixelLength() * m_scalePtoG;
+      float const step = max(0.0f, m_splineOffset - textLangth / 2.0f);
+      if (step > 0.0f)
+        beg.Step(step);
+      end.Step(step + textLangth);
+    }
+
+  private:
+    m2::SharedSpline m_spline;
+    m2::Spline::iterator m_begin;
+    m2::Spline::iterator m_end;
+
+    df::SharedTextLayout m_layout;
+    float m_scalePtoG;
+    float m_splineOffset;
+    bool m_isForward;
+  };
+
+  void BatchPathText(m2::SharedSpline const & spline,
+                      buffer_vector<float, 32> const & offsets,
+                      float depth,
+                      dp::RefPointer<dp::Batcher> batcher,
+                      df::SharedTextLayout const & layout,
+                      vector<glsl_types::vec2> & positions,
+                      vector<glsl_types::Quad4> & texCoord,
+                      vector<glsl_types::Quad4> & fontColor,
+                      vector<glsl_types::Quad4> & outlineColor)
+  {
+    ASSERT(!offsets.empty(), ());
+    layout->InitPathText(depth, texCoord, fontColor, outlineColor);
+
+    dp::GLState state(gpu::PATH_FONT_PROGRAM, dp::GLState::OverlayLayer);
+    state.SetTextureSet(layout->GetTextureSet());
+    state.SetBlending(dp::Blending(true));
+
+    for (size_t i = 0; i < offsets.size(); ++i)
+    {
+      dp::AttributeProvider provider(4, 4 * layout->GetGlyphCount());
+      {
+        dp::BindingInfo positionBind(1, PathTextHandle::PathGlyphPositionID);
+        dp::BindingDecl & decl = positionBind.GetBindingDecl(0);
+        decl.m_attributeName = "a_position";
+        decl.m_componentCount = 2;
+        decl.m_componentType = gl_const::GLFloatType;
+        decl.m_offset = 0;
+        decl.m_stride = 0;
+        provider.InitStream(0, positionBind, dp::MakeStackRefPointer(&positions[0]));
+      }
+      {
+        dp::BindingInfo texCoordBind(1);
+        dp::BindingDecl & decl = texCoordBind.GetBindingDecl(0);
+        decl.m_attributeName = "a_texcoord";
+        decl.m_componentCount = 4;
+        decl.m_componentType = gl_const::GLFloatType;
+        decl.m_offset = 0;
+        decl.m_stride = 0;
+        provider.InitStream(1, texCoordBind, dp::MakeStackRefPointer(&texCoord[0]));
+      }
+      {
+        dp::BindingInfo fontColorBind(1);
+        dp::BindingDecl & decl = fontColorBind.GetBindingDecl(0);
+        decl.m_attributeName = "a_color";
+        decl.m_componentCount = 4;
+        decl.m_componentType = gl_const::GLFloatType;
+        decl.m_offset = 0;
+        decl.m_stride = 0;
+        provider.InitStream(2, fontColorBind, dp::MakeStackRefPointer(&fontColor[0]));
+      }
+      {
+        dp::BindingInfo outlineColorBind(1);
+        dp::BindingDecl & decl = outlineColorBind.GetBindingDecl(0);
+        decl.m_attributeName = "a_outline_color";
+        decl.m_componentCount = 4;
+        decl.m_componentType = gl_const::GLFloatType;
+        decl.m_offset = 0;
+        decl.m_stride = 0;
+        provider.InitStream(3, outlineColorBind, dp::MakeStackRefPointer(&outlineColor[0]));
+      }
+
+      dp::OverlayHandle * handle = new PathTextHandle(spline, layout, offsets[i], depth);
+      batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
+    }
+  }
 }
 
-PathTextShape::PathTextShape(m2::SharedSpline const & spline, PathTextViewParams const & params)
+namespace df
+{
+
+PathTextShape::PathTextShape(m2::SharedSpline const & spline,
+                             PathTextViewParams const & params,
+                             float const scaleGtoP)
   : m_spline(spline)
   , m_params(params)
+  , m_scaleGtoP(scaleGtoP)
 {
 }
 
 void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  strings::UniString const text = strings::MakeUniString(m_params.m_text);
-  float const fontSize = m_params.m_textFont.m_size;
+  SharedTextLayout layout(new TextLayout(strings::MakeUniString(m_params.m_text),
+                                         m_params.m_textFont,
+                                         textures));
 
-  // Fill buffers
-  int const cnt = text.size();
-  vector<Buffer> buffers(1);
-  float const needOutline = m_params.m_textFont.m_needOutline;
-  float length = 0.0f;
+  //we leave a little space on either side of the text that would
+  //remove the comparison for equality of spline portions
+  float const TextBorder = 4.0f;
+  float const textLength = TextBorder + layout->GetPixelLength();
+  float const textHalfLength = textLength / 2.0f;
+  float const pathGlbLength = m_spline->GetLength();
 
-  int textureSet;
-  for (int i = 0; i < cnt; i++)
+  // on next readable scale m_scaleGtoP will be twice
+  if (textLength > pathGlbLength * 2 * m_scaleGtoP)
+    return;
+
+  float const pathLength = m_scaleGtoP * m_spline->GetLength();
+
+  /// copied from old code
+  /// @todo Choose best constant for minimal space.
+  float const etalonEmpty = max(200 * df::VisualParams::Instance().GetVisualScale(), (double)textLength);
+  float const minPeriodSize = etalonEmpty + textLength;
+  float const twoTextAndEmpty = minPeriodSize + textLength;
+
+  uint32_t glyphCount = layout->GetGlyphCount();
+  vector<glsl_types::vec2>  positions(glyphCount, vec2(0.0, 0.0));
+  vector<glsl_types::Quad4> texCoords(glyphCount);
+  vector<glsl_types::Quad4> fontColor(glyphCount);
+  vector<glsl_types::Quad4> outlineColor(glyphCount);
+  buffer_vector<float, 32> offsets;
+
+  float const scalePtoG = 1.0f / m_scaleGtoP;
+
+  if (pathLength < twoTextAndEmpty)
   {
-    dp::TextureSetHolder::GlyphRegion region;
-    textures->GetGlyphRegion(text[i], region);
-    float xOffset, yOffset, advance;
-    m2::PointU pixelSize;
-    region.GetMetrics(xOffset, yOffset, advance);
-    region.GetPixelSize(pixelSize);
-    float halfWidth = pixelSize.x / 2.0f;
-    float halfHeight = pixelSize.y / 2.0f;
-    float const aspect = fontSize / realFontSize;
+    // if we can't place 2 text and empty part on path
+    // we place only one text on center of path
+    offsets.push_back(pathGlbLength / 2.0f);
 
-    textureSet = region.GetTextureNode().m_textureSet;
-    if (buffers.size() < textureSet)
-      buffers.resize(textureSet + 1);
-
-    Buffer & curBuffer = buffers[textureSet];
-
-    yOffset *= aspect;
-    xOffset *= aspect;
-    halfWidth *= aspect;
-    halfHeight *= aspect;
-    advance *= aspect;
-    length += advance;
-
-    curBuffer.addSizes(halfWidth, halfHeight);
-
-    curBuffer.m_info.push_back(
-                LetterInfo(xOffset, yOffset, advance + curBuffer.m_offset, halfWidth, halfHeight));
-
-    for (int i = 0; i < buffers.size(); ++i)
-      buffers[i].m_offset += advance;
-
-    curBuffer.m_offset = 0;
-
-
-    m2::RectF const & rect = region.GetTexRect();
-    float const textureNum = (region.GetTextureNode().m_textureOffset << 1) + needOutline;
-
-    dp::ColorF const base(m_params.m_textFont.m_color);
-    dp::ColorF const outline(m_params.m_textFont.m_outlineColor);
-
-    curBuffer.m_uvs.push_back(vec4(rect.minX(), rect.maxY(), textureNum, m_params.m_depth));
-    curBuffer.m_uvs.push_back(vec4(rect.minX(), rect.minY(), textureNum, m_params.m_depth));
-    curBuffer.m_uvs.push_back(vec4(rect.maxX(), rect.maxY(), textureNum, m_params.m_depth));
-    curBuffer.m_uvs.push_back(vec4(rect.maxX(), rect.minY(), textureNum, m_params.m_depth));
-
-    int const newSize = curBuffer.m_baseColor.size() + 4;
-    curBuffer.m_baseColor.resize(newSize, base);
-    curBuffer.m_outlineColor.resize(newSize, outline);
-    curBuffer.m_pos.resize(newSize, vec2(0.0f, 0.0f));
   }
-
-  for (int i = 0; i < buffers.size(); ++i)
+  else if (pathLength < twoTextAndEmpty + minPeriodSize)
   {
-    if (buffers[i].m_pos.empty())
-      continue;
+    // if we can't place 3 text and 2 empty path
+    // we place 2 text with empty space beetwen
+    // and some offset from path end
+    float const endOffset = (pathLength - (2 * textLength + etalonEmpty)) / 2;
 
-    dp::GLState state(gpu::PATH_FONT_PROGRAM, dp::GLState::OverlayLayer);
-    state.SetTextureSet(i);
-    state.SetBlending(dp::Blending(true));
-
-    dp::AttributeProvider provider(4, buffers[i].m_pos.size());
-    {
-      dp::BindingInfo position(1, PathTextHandle::DirectionAttributeID);
-      dp::BindingDecl & decl = position.GetBindingDecl(0);
-      decl.m_attributeName = "a_position";
-      decl.m_componentCount = 2;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(0, position, dp::MakeStackRefPointer(&buffers[i].m_pos[0]));
-    }
-    {
-      dp::BindingInfo texcoord(1);
-      dp::BindingDecl & decl = texcoord.GetBindingDecl(0);
-      decl.m_attributeName = "a_texcoord";
-      decl.m_componentCount = 4;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(1, texcoord, dp::MakeStackRefPointer(&buffers[i].m_uvs[0]));
-    }
-    {
-      dp::BindingInfo base_color(1);
-      dp::BindingDecl & decl = base_color.GetBindingDecl(0);
-      decl.m_attributeName = "a_color";
-      decl.m_componentCount = 4;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(2, base_color, dp::MakeStackRefPointer(&buffers[i].m_baseColor[0]));
-    }
-    {
-      dp::BindingInfo outline_color(1);
-      dp::BindingDecl & decl = outline_color.GetBindingDecl(0);
-      decl.m_attributeName = "a_outline_color";
-      decl.m_componentCount = 4;
-      decl.m_componentType = gl_const::GLFloatType;
-      decl.m_offset = 0;
-      decl.m_stride = 0;
-      provider.InitStream(3, outline_color, dp::MakeStackRefPointer(&buffers[i].m_outlineColor[0]));
-    }
-
-    dp::OverlayHandle * handle = new PathTextHandle(m_spline, m_params, buffers[i].m_info, buffers[i].m_maxSize, length);
-
-    batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), dp::MovePointer(handle), 4);
+    // division on m_scaleGtoP give as global coord frame (Mercator)
+    offsets.push_back((endOffset + textHalfLength) * scalePtoG);
+    offsets.push_back((pathLength - (textHalfLength + endOffset)) * scalePtoG);
   }
-}
-
-m2::RectD PathTextHandle::GetPixelRect(ScreenBase const & screen) const
-{
-  int const cnt = m_infos.size();
-
-  vec2 const & v1 = m_positions[1];
-  vec2 const & v2 = m_positions[2];
-  PointF centr((v1.x + v2.x) / 2.0f, (v1.y + v2.y) / 2.0f);
-  centr = screen.GtoP(centr);
-  float minx, maxx, miny, maxy;
-  minx = maxx = centr.x;
-  miny = maxy = centr.y;
-
-  for (int i = 1; i < cnt; i++)
-  {
-    vec2 const & v1 = m_positions[i * 4 + 1];
-    vec2 const & v2 = m_positions[i * 4 + 2];
-    PointF centr((v1.x + v2.x) / 2.0f, (v1.y + v2.y) / 2.0f);
-    centr = screen.GtoP(centr);
-    if(centr.x > maxx)
-      maxx = centr.x;
-    if(centr.x < minx)
-      minx = centr.x;
-    if(centr.y > maxy)
-      maxy = centr.y;
-    if(centr.y < miny)
-      miny = centr.y;
-  }
-
-  return m2::RectD(minx - m_maxSize, miny - m_maxSize, maxx + m_maxSize, maxy + m_maxSize);
-}
-
-PathTextHandle::PathTextHandle(m2::SharedSpline const & spl, PathTextViewParams const & params,
-                               vector<LetterInfo> const & info, float maxSize, float textLength)
-  : OverlayHandle(FeatureID()
-  , dp::Center, 0.0f)
-  , m_path(spl)
-  , m_params(params)
-  , m_infos(info)
-  , m_scaleFactor(1.0f)
-  , m_positions(info.size() * 4)
-  , m_maxSize(maxSize)
-  , m_textLength(textLength)
-{
-}
-
-void PathTextHandle::Update(ScreenBase const & screen)
-{
-  switch(ChooseDirection(screen))
-  {
-  case -1:
-    DrawReverse(screen);
-    break;
-  case 0:
-    ClearPositions();
-    break;
-  case 1:
-    DrawForward(screen);
-    break;
-  }
-}
-
-int PathTextHandle::ChooseDirection(ScreenBase const & screen)
-{
-  m_scaleFactor = screen.GetScale();
-  Spline::iterator itr = m_path.CreateIterator();
-  itr.Step(m_params.m_offsetStart * m_scaleFactor);
-  PointF const p1 = screen.GtoP(itr.m_pos);
-  itr.Step(m_textLength * m_scaleFactor);
-  PointF const p2 = screen.GtoP(itr.m_pos);
-  if (itr.BeginAgain())
-    return 0;
-
-  if ((p2 - p1).x >= 0 )
-    return 1;
   else
-    return -1;
-}
-
-void PathTextHandle::ClearPositions()
-{
-  std::fill(m_positions.begin(), m_positions.end(), vec2(0.0f, 0.0f));
-}
-
-void PathTextHandle::DrawReverse(ScreenBase const & screen)
-{
-  m_scaleFactor = screen.GetScale();
-  int const cnt = m_infos.size();
-  Spline::iterator itr = m_path.CreateIterator();
-  itr.Step(m_params.m_offsetStart * m_scaleFactor);
-
-  for (int i = cnt - 1; i >= 0; i--)
   {
-    float const advance = m_infos[i].m_advance * m_scaleFactor;
-    float const halfWidth = m_infos[i].m_halfWidth;
-    float const halfHeight = m_infos[i].m_halfHeight;
-    float const xOffset = m_infos[i].m_xOffset + halfWidth;
-    float const yOffset = m_infos[i].m_yOffset + halfHeight;
-
-    ASSERT_NOT_EQUAL(advance, 0.0, ());
-    PointF const pos = itr.m_pos;
-    itr.Step(advance);
-    ASSERT(!itr.BeginAgain(), ());
-
-    PointF dir = itr.m_avrDir.Normalize();
-    PointF norm(-dir.y, dir.x);
-    PointF norm2 = norm;
-    dir *= halfWidth * m_scaleFactor;
-    norm *= halfHeight * m_scaleFactor;
-
-    float const fontSize = m_params.m_textFont.m_size * m_scaleFactor / 2.0f;
-    PointF const pivot = dir * xOffset / halfWidth + norm * yOffset / halfHeight + pos + norm2 * fontSize;
-
-    int index = i * 4;
-    m_positions[index++] = pivot + dir + norm;
-    m_positions[index++] = pivot + dir - norm;
-    m_positions[index++] = pivot - dir + norm;
-    m_positions[index++] = pivot - dir - norm;
+    // here we place 2 text on the ends of path
+    // then we place as much as possible text on center path uniformly
+    offsets.push_back(textHalfLength * scalePtoG);
+    offsets.push_back((pathLength - textHalfLength) * scalePtoG);
+    float const emptySpace = pathLength - 2 * textLength;
+    uint32_t textCount = static_cast<uint32_t>(ceil(emptySpace / minPeriodSize));
+    float const offset = (emptySpace - textCount * textLength) / (textCount + 1);
+    for (size_t i = 0; i < textCount; ++i)
+      offsets.push_back((textHalfLength + (textLength + offset) * (i + 1)) * scalePtoG);
   }
-}
 
-void PathTextHandle::DrawForward(ScreenBase const & screen)
-{
-  m_scaleFactor = screen.GetScale();
-  int const cnt = m_infos.size();
-  Spline::iterator itr = m_path.CreateIterator();
-  itr.Step(m_params.m_offsetStart * m_scaleFactor);
-
-  for (int i = 0; i < cnt; i++)
-  {
-    float const advance = m_infos[i].m_advance * m_scaleFactor;
-    float const halfWidth = m_infos[i].m_halfWidth;
-    float const halfHeight = m_infos[i].m_halfHeight;
-    /// TODO Can be optimized later (filling stage)
-    float const xOffset = m_infos[i].m_xOffset + halfWidth;
-    float const yOffset = -m_infos[i].m_yOffset - halfHeight;
-
-    ASSERT_NOT_EQUAL(advance, 0.0, ());
-    PointF const pos = itr.m_pos;
-    itr.Step(advance);
-    ASSERT(!itr.BeginAgain(), ());
-
-    PointF dir = itr.m_avrDir.Normalize();
-    PointF norm(-dir.y, dir.x);
-    PointF norm2 = norm;
-    dir *= halfWidth * m_scaleFactor;
-    norm *= halfHeight * m_scaleFactor;
-
-    float const fontSize = m_params.m_textFont.m_size * m_scaleFactor / 2.0f;
-    PointF const pivot = dir * xOffset / halfWidth + norm * yOffset / halfHeight + pos - norm2 * fontSize;
-
-    int index = i * 4;
-    m_positions[index++] = pivot - dir - norm;
-    m_positions[index++] = pivot - dir + norm;
-    m_positions[index++] = pivot + dir - norm;
-    m_positions[index++] = pivot + dir + norm;
-  }
-}
-
-
-void PathTextHandle::GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const
-{
-  TOffsetNode const & node = GetOffsetNode(DirectionAttributeID);
-  dp::MutateNode mutateNode;
-  mutateNode.m_region = node.second;
-  mutateNode.m_data = dp::MakeStackRefPointer<void>(&m_positions[0]);
-  mutator->AddMutation(node.first, mutateNode);
+  BatchPathText(m_spline, offsets, m_params.m_depth, batcher, layout,
+                positions, texCoords, fontColor, outlineColor);
 }
 
 }

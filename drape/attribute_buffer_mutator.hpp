@@ -3,6 +3,8 @@
 #include "pointers.hpp"
 #include "binding_info.hpp"
 
+#include "../base/shared_buffer_manager.hpp"
+
 #include "../std/stdint.hpp"
 #include "../std/map.hpp"
 
@@ -26,10 +28,14 @@ struct MutateNode
 
 class AttributeBufferMutator
 {
+  typedef pair<SharedBufferManager::shared_buffer_ptr_t, size_t> TBufferNode;
+  typedef vector<TBufferNode> TBufferArray;
   typedef vector<MutateNode> TMutateNodes;
   typedef map<BindingInfo, TMutateNodes> TMutateData;
 public:
+  ~AttributeBufferMutator();
   void AddMutation(BindingInfo const & info, MutateNode const & node);
+  void * AllocateMutationBuffer(uint32_t byteCount);
 
 private:
   friend class VertexArrayBuffer;
@@ -37,6 +43,7 @@ private:
 
 private:
   TMutateData m_data;
+  TBufferArray m_array;
 };
 
 } // namespace dp
