@@ -57,6 +57,7 @@ public:
     GlyphRegion();
 
     void GetMetrics(float & xOffset, float & yOffset, float & advance) const;
+    float GetAdvance() const;
   };
 
   virtual void GetSymbolRegion(string const & symbolName, SymbolRegion & region) const = 0;

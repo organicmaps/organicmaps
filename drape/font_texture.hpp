@@ -33,6 +33,7 @@ public:
 
     virtual ResourceType GetType() const { return Texture::Glyph; }
     void GetMetrics(float & xOffset, float & yOffset, float & advance) const;
+    float GetAdvance() const;
 
   private:
     float m_xOffset, m_yOffset;

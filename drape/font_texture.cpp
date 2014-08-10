@@ -49,6 +49,11 @@ void FontTexture::GlyphInfo::GetMetrics(float & xOffset, float & yOffset, float 
   advance = m_advance;
 }
 
+float FontTexture::GlyphInfo::GetAdvance() const
+{
+  return m_advance;
+}
+
 ////////////////////////////////////////////////////////////////////////
 
 Texture::ResourceInfo const * FontTexture::FindResource(Texture::Key const & key) const

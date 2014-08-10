@@ -71,4 +71,10 @@ void TextureSetHolder::GlyphRegion::GetMetrics(float & xOffset, float & yOffset,
   info->GetMetrics(xOffset, yOffset, advance);
 }
 
+float TextureSetHolder::GlyphRegion::GetAdvance() const
+{
+  ASSERT(m_info->GetType() == Texture::Glyph, ());
+  return static_cast<FontTexture::GlyphInfo const *>(m_info)->GetAdvance();
+}
+
 } // namespace dp
