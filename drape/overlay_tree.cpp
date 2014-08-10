@@ -16,6 +16,10 @@ void OverlayTree::Add(RefPointer<OverlayHandle> handle)
 {
   handle->SetIsVisible(m_canOverlap);
   handle->Update(m_modelView);
+
+  if (!handle->IsValid())
+    return;
+
   m2::RectD pixelRect = handle->GetPixelRect(m_modelView);
   
   find_result_t elements;

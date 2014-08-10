@@ -26,6 +26,8 @@ public:
   bool IsVisible() const;
   void SetIsVisible(bool isVisible);
 
+  bool IsValid() const { return m_isValid; }
+
   virtual void Update(ScreenBase const & /*screen*/) {}
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const = 0;
   uint16_t * IndexStorage(uint16_t size);
@@ -40,6 +42,9 @@ public:
   double const & GetPriority() const;
 
 protected:
+  void SetIsValid(bool isValid) { m_isValid = isValid; }
+
+protected:
   FeatureID const m_id;
   dp::Anchor const m_anchor;
   double const m_priority;
@@ -49,6 +54,7 @@ protected:
 
 private:
   bool m_isVisible;
+  bool m_isValid;
 
   vector<uint16_t> m_indexes;
   struct LessOffsetNode

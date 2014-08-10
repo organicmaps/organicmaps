@@ -26,11 +26,16 @@ OverlayHandle::OverlayHandle(FeatureID const & id,
   , m_anchor(anchor)
   , m_priority(priority)
   , m_isVisible(false)
+  , m_isValid(true)
 {
 }
 
 bool OverlayHandle::IsVisible() const
 {
+#ifdef DEBUG
+  if (m_isVisible)
+    ASSERT(m_isValid, ());
+#endif
   return m_isVisible;
 }
 
