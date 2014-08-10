@@ -106,9 +106,19 @@ void Spline::iterator::Step(float speed)
   m_avrDir += m_pos;
 }
 
-bool Spline::iterator::BeginAgain()
+bool Spline::iterator::BeginAgain() const
 {
   return m_checker;
+}
+
+float Spline::iterator::GetDistance() const
+{
+  return m_dist;
+}
+
+int Spline::iterator::GetIndex() const
+{
+  return m_index;
 }
 
 SharedSpline::SharedSpline(vector<PointF> const & path)
@@ -144,7 +154,7 @@ void SharedSpline::Reset(vector<PointF> const & path)
   m_spline.reset(new Spline(path));
 }
 
-Spline::iterator SharedSpline::CreateIterator()
+Spline::iterator SharedSpline::CreateIterator() const
 {
   Spline::iterator result;
   result.Attach(*m_spline.get());

@@ -20,7 +20,11 @@ public:
     iterator();
     void Attach(Spline const & spl);
     void Step(float speed);
-    bool BeginAgain();
+    bool BeginAgain() const;
+
+    float GetDistance() const;
+    int GetIndex() const;
+
   private:
     bool m_checker;
     Spline const * m_spl;
@@ -35,6 +39,22 @@ public:
 
   void AddPoint(PointF const & pt);
   vector<PointF> const & GetPath() const { return m_position; }
+
+  template <typename TFunctor>
+  void ForEachNode(iterator const & begin, iterator const & end, TFunctor & f) const
+  {
+    ASSERT(begin.BeginAgain() == false, ());
+    ASSERT(end.BeginAgain() == false, ());
+
+    if (!my::AlmostEqual(begin.GetDistance(), 0.0f))
+      f(begin.m_pos);
+
+    for (int i = begin.GetIndex() + 1; i <= end.GetIndex(); ++i)
+      f(m_position[i]);
+
+    if (!my::AlmostEqual(end.GetDistance(), 0.0f))
+      f(end.m_pos);
+  }
 
   bool IsEmpty() const;
   bool IsValid() const;
@@ -59,7 +79,7 @@ public:
   void Reset(Spline * spline);
   void Reset(vector<PointF> const & path);
 
-  Spline::iterator CreateIterator();
+  Spline::iterator CreateIterator() const;
 
   Spline * operator->();
   Spline const * operator->() const;
