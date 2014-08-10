@@ -96,7 +96,6 @@ public class MWMActivity extends NvEventQueueActivity
 
   private static final String IS_KML_MOVED = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
-  private static final String ARE_LITE_MAPS_MOVED = "MapsMovedFromLite";
 
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
@@ -403,18 +402,12 @@ public class MWMActivity extends NvEventQueueActivity
    */
   private void checkLiteMapsInPro()
   {
-    final boolean areLiteMapsMoved = MWMApplication.get().nativeGetBoolean(ARE_LITE_MAPS_MOVED, false);
-
-    if (!areLiteMapsMoved &&
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
         mApplication.isProVersion() &&
         (Utils.isAppInstalled(Constants.Package.MWM_LITE_PACKAGE) || Utils.isAppInstalled(Constants.Package.MWM_SAMSUNG_PACKAGE)))
     {
       if (!mPathManager.containsLiteMapsOnSdcard())
-      {
-        MWMApplication.get().nativeSetBoolean(ARE_LITE_MAPS_MOVED, true);
         return;
-      }
 
       mPathManager.moveMapsLiteToPro(this,
           new SetStoragePathListener()
@@ -422,7 +415,6 @@ public class MWMActivity extends NvEventQueueActivity
             @Override
             public void moveFilesFinished(String newPath)
             {
-              mApplication.nativeSetBoolean(ARE_LITE_MAPS_MOVED, true);
               ShowAlertDlg(R.string.move_lite_maps_to_pro_ok);
             }
 

@@ -160,6 +160,7 @@ public class MapStorage
 
   private native String[] nativeGetMapsWithoutSearch();
 
+  public static native boolean nativeMoveFile(String oldFile, String newFile);
 
   public MapStorage()
   {

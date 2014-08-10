@@ -1,6 +1,7 @@
 #include "MapStorage.hpp"
 #include "Framework.hpp"
 
+#include "../../../../../coding/internal/file_data.hpp"
 
 extern "C"
 {
@@ -160,6 +161,12 @@ extern "C"
     for (int i = 0; i < count; ++i)
       env->SetObjectArrayElement(ret, i, env->NewStringUTF(v[i].c_str()));
     return ret;
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_MapStorage_nativeMoveFile(JNIEnv * env, jobject thiz, jstring oldFile, jstring newFile)
+  {
+    return my::RenameFileX(jni::ToNativeString(env, oldFile), jni::ToNativeString(env, newFile));
   }
 }
 

@@ -16,6 +16,7 @@ import android.util.Log;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MWMApplication;
+import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
@@ -429,7 +430,10 @@ public class StoragePathManager
     try
     {
       for (File moveFile : internalFiles)
-        copyFile(moveFile, new File(fullNewPath + moveFile.getName()));
+      {
+        if (!MapStorage.nativeMoveFile(moveFile.getAbsolutePath(), fullNewPath + moveFile.getName()))
+          copyFile(moveFile, new File(fullNewPath + moveFile.getName()));
+      }
     } catch (IOException e)
     {
       for (File moveFile : internalFiles)
