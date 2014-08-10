@@ -90,4 +90,24 @@ struct vec4
   float w;
 };
 
+template <typename TVertex>
+struct Quad
+{
+  Quad() {}
+  Quad(TVertex const & v0, TVertex const & v1,
+       TVertex const & v2, TVertex const & v3)
+  {
+    v[0] = v0;
+    v[1] = v1;
+    v[2] = v2;
+    v[3] = v3;
+  }
+
+  TVertex v[4];
+};
+
+typedef Quad<vec2> Quad2;
+typedef Quad<vec3> Quad3;
+typedef Quad<vec4> Quad4;
+
 }
