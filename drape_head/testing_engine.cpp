@@ -404,13 +404,10 @@ void TestingEngine::DrawImpl()
   path.push_back(m2::PointF(1600, 450));
 
   PathTextViewParams params3;
-  params3.m_featureID = FeatureID(23, 78);
   params3.m_depth = -10.0f;
-  params3.m_offsetEnd = 600.0f;
-  params3.m_offsetStart = 100.0f;
   params3.m_text = "√2+√3=?-fghjkfghjf---_________----+";
   params3.m_textFont = params.m_primaryTextFont;
-  PathTextShape sh3(path, params3);
+  PathTextShape sh3(path, params3, 1);
   sh3.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
   PathSymbolViewParams params4;

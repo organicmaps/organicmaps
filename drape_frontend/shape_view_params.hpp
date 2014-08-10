@@ -67,11 +67,8 @@ struct TextViewParams : CommonViewParams
 
 struct PathTextViewParams : CommonViewParams
 {
-  FeatureID m_featureID;
   FontDecl m_textFont;
   string m_text;
-  float m_offsetStart;
-  float m_offsetEnd;
 };
 
 struct PathSymbolViewParams : CommonViewParams

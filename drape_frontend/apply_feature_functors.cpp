@@ -309,9 +309,6 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
 
     PathTextViewParams params;
     params.m_depth = depth;
-    params.m_featureID = m_id;
-    params.m_offsetStart = 0;
-    params.m_offsetEnd = 300;
     params.m_text = m_captions.GetPathName();
     params.m_textFont = fontDecl;
 
