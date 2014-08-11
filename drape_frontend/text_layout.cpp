@@ -267,27 +267,9 @@ void TextLayout::GetMetrics(int32_t const index, float & xOffset, float & yOffse
 }
 
 ///////////////////////////////////////////////////////////////
-
-SharedTextLayout::SharedTextLayout()
-{
-}
-
 SharedTextLayout::SharedTextLayout(TextLayout * layout)
   : m_layout(layout)
 {
-}
-
-SharedTextLayout::SharedTextLayout(SharedTextLayout const & other)
-{
-  m_layout = other.m_layout;
-}
-
-SharedTextLayout const & SharedTextLayout::operator=(SharedTextLayout const & other)
-{
-  if (&other != this)
-    m_layout = other.m_layout;
-
-  return *this;
 }
 
 bool SharedTextLayout::IsNull() const

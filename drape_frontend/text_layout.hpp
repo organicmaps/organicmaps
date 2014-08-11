@@ -67,10 +67,7 @@ private:
 class SharedTextLayout
 {
 public:
-  SharedTextLayout();
   SharedTextLayout(TextLayout * layout);
-  SharedTextLayout(SharedTextLayout const & other);
-  SharedTextLayout const & operator= (SharedTextLayout const & other);
 
   bool IsNull() const;
   void Reset(TextLayout * layout);

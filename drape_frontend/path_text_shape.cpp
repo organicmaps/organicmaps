@@ -108,11 +108,11 @@ namespace
     {
       beg = m_spline.CreateIterator();
       end = m_spline.CreateIterator();
-      float const textLangth = m_layout->GetPixelLength() * m_scalePtoG;
-      float const step = max(0.0f, m_splineOffset - textLangth / 2.0f);
+      float const textLength = m_layout->GetPixelLength() * m_scalePtoG;
+      float const step = max(0.0f, m_splineOffset - textLength / 2.0f);
       if (step > 0.0f)
         beg.Step(step);
-      end.Step(step + textLangth);
+      end.Step(step + textLength);
     }
 
   private:

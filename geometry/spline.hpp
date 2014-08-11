@@ -22,6 +22,8 @@ public:
     void Step(float speed);
     bool BeginAgain() const;
 
+  private:
+    friend class Spline;
     float GetDistance() const;
     int GetIndex() const;
 
