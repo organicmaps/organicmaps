@@ -18,20 +18,37 @@
 
   self.title = NSLocalizedString(@"maps_me_community", nil);
 
-  self.items = @[@{@"Id" : @"Facebook", @"Title" : NSLocalizedString(@"like_on_facebook", nil), @"Icon" : @"MWMProIcon"},
-                 @{@"Id" : @"Twitter", @"Title" : NSLocalizedString(@"follow_on_twitter", nil), @"Icon" : @"MWMProIcon"},
-                 @{@"Id" : @"Contact", @"Title" : NSLocalizedString(@"contact_us", nil), @"Icon" : @"MWMProIcon"},
-                 @{@"Id" : @"Subscribe", @"Title" : NSLocalizedString(@"subscribe_to_news", nil), @"Icon" : @"MWMProIcon"}];
+  self.items = @[@{@"Title" : @"",
+                   @"Items" : @[@{@"Id" : @"Facebook", @"Title" : NSLocalizedString(@"like_on_facebook", nil), @"Icon" : @"IconFacebook"},
+                                @{@"Id" : @"Twitter", @"Title" : NSLocalizedString(@"follow_on_twitter", nil), @"Icon" : @"IconTwitter"},
+                                @{@"Id" : @"Subscribe", @"Title" : NSLocalizedString(@"subscribe_to_news", nil), @"Icon" : @"IconSubscribe"}]},
+                 @{@"Title" : @"",
+                   @"Items" : @[@{@"Id" : @"Contact", @"Title" : NSLocalizedString(@"contact_us", nil), @"Icon" : @"IconReportABug"}]}];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+  return 0.001;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  return 20;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   return [self.items count];
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+  return [self.items[section][@"Items"] count];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSDictionary * item = self.items[indexPath.row];
+  NSDictionary * item = self.items[indexPath.section][@"Items"][indexPath.row];
 
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
   if (!cell) // iOS 5
@@ -45,7 +62,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString * itemId = self.items[indexPath.row][@"Id"];
+  NSString * itemId = self.items[indexPath.section][@"Items"][indexPath.row][@"Id"];
   if ([itemId isEqualToString:@"Facebook"])
   {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/MapsWithMe"]];
@@ -67,38 +84,29 @@
 
 - (void)contact
 {
-  if ([MFMailComposeViewController canSendMail])
-  {
-    MFMailComposeViewController * vc = [MFMailComposeViewController new];
-    vc.mailComposeDelegate = self;
-    [vc setSubject:@"maps.me"];
-    [vc setToRecipients:@[@"info@maps.me"]];
-    [self presentViewController:vc animated:YES completion:nil];
-  }
-  else
-  {
-#warning translation
-    NSString * text = [NSString stringWithFormat:@"!!!Почтовый клиент не настроен. Попробуйте написать нам другим способом"];
-    [[[UIAlertView alloc] initWithTitle:@"!!!Не настроена почта" message:text delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
-  }
+  [self sendEmailWithText:nil subject:@"MAPS.ME" toRecipient:@"info@maps.me"];
 }
 
 - (void)subscribe
 {
+  [self sendEmailWithText:NSLocalizedString(@"subscribe_me_body", nil) subject:NSLocalizedString(@"subscribe_me_subject", nil) toRecipient:@"subscribe@maps.me"];
+}
+
+- (void)sendEmailWithText:(NSString *)text subject:(NSString *)subject toRecipient:(NSString *)email
+{
   if ([MFMailComposeViewController canSendMail])
   {
-    MFMailComposeViewController * vc = [MFMailComposeViewController new];
+    MFMailComposeViewController * vc = [[MFMailComposeViewController alloc] init];
     vc.mailComposeDelegate = self;
-    [vc setSubject:NSLocalizedString(@"subscribe_me_subject", nil)];
-    [vc setToRecipients:@[@"subscribe@maps.me"]];
-    [vc setMessageBody:NSLocalizedString(@"subscribe_me_body", nil) isHTML:NO];
+    [vc setSubject:subject];
+    [vc setMessageBody:text isHTML:NO];
+    [vc setToRecipients:@[email]];
     [self presentViewController:vc animated:YES completion:nil];
   }
   else
   {
-#warning translation
-    NSString * text = [NSString stringWithFormat:@"!!!Почтовый клиент не настроен. Попробуйте написать нам другим способом"];
-    [[[UIAlertView alloc] initWithTitle:@"!!!Не настроена почта" message:text delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
+    NSString * text = [NSString stringWithFormat:NSLocalizedString(@"email_error_body", nil), email];
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"email_error_title", nil) message:text delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
   }
 }
 

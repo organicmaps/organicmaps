@@ -33,7 +33,6 @@
 {
   CGRect frame = [UIScreen mainScreen].applicationFrame;
   UIWebView * webView = [[UIWebView alloc] initWithFrame:frame];
-//  webView.scalesPageToFit = YES;
   webView.autoresizesSubviews = YES;
   webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
   webView.delegate = self;
@@ -51,7 +50,7 @@
   return YES;
 }
 
--(BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
+- (BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
 {
   if (self.openInSafari && inType == UIWebViewNavigationTypeLinkClicked)
   {

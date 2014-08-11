@@ -53,25 +53,48 @@
                        @"iPad4,4" : @"iPad Mini - Wifi 2nd generation",
                        @"iPad4,5" : @"iPad Mini - Cellular 2nd generation"};
 
-  self.items = @[@{@"Id" : @"About", @"Title" : NSLocalizedString(@"about_menu_title", nil), @"Icon" : @"MWMProIcon"},
-                 @{@"Id" : @"Community", @"Title" : NSLocalizedString(@"maps_me_community", nil), @"Icon" : @"MWMProIcon"},
-                 @{@"Id" : @"RateApp", @"Title" : NSLocalizedString(@"rate_the_app", nil), @"Icon" : @"MWMProIcon"},
-                 @{@"Id" : @"Settings", @"Title" : NSLocalizedString(@"settings", nil), @"Icon" : @"MWMProIcon"},
-                 @{@"Id" : @"ReportBug", @"Title" : NSLocalizedString(@"report_a_bug", nil), @"Icon" : @"MWMProIcon"},
-                 @{@"Id" : @"Help", @"Title" : NSLocalizedString(@"help", nil), @"Icon" : @"MWMProIcon"},
-                 @{@"Id" : @"Copyright", @"Title" : NSLocalizedString(@"copyright", nil), @"Icon" : @"MWMProIcon"}];
+  self.items = @[@{@"Title" : @"",
+                   @"Items" : @[@{@"Id" : @"Settings", @"Title" : NSLocalizedString(@"settings", nil), @"Icon" : @"IconAppSettings"},
+                                @{@"Id" : @"Help", @"Title" : NSLocalizedString(@"help", nil), @"Icon" : @"IconHelp"},
+                                @{@"Id" : @"ReportBug", @"Title" : NSLocalizedString(@"report_a_bug", nil), @"Icon" : @"IconReportABug"}]},
+                 @{@"Title" : @"",
+                   @"Items" : @[@{@"Id" : @"Community", @"Title" : NSLocalizedString(@"maps_me_community", nil), @"Icon" : @"IconSocial"},
+                                @{@"Id" : @"RateApp", @"Title" : NSLocalizedString(@"rate_the_app", nil), @"Icon" : @"IconRate"}]},
+                 @{@"Title" : @"",
+                   @"Items" : @[@{@"Id" : @"About", @"Title" : NSLocalizedString(@"about_menu_title", nil), @"Icon" : @"IconAbout"},
+                                @{@"Id" : @"Copyright", @"Title" : NSLocalizedString(@"copyright", nil), @"Icon" : @"IconCopyright"}]}];
 }
 
 #pragma mark - TableView
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   return [self.items count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+  return 0.001;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  return 20;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+  return self.items[section][@"Title"];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+  return [self.items[section][@"Items"] count];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSDictionary * item = self.items[indexPath.row];
+  NSDictionary * item = self.items[indexPath.section][@"Items"][indexPath.row];
 
   UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:[UITableViewCell className]];
   if (!cell) // iOS 5
@@ -85,14 +108,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString * itemId = self.items[indexPath.row][@"Id"];
+  NSString * itemId = self.items[indexPath.section][@"Items"][indexPath.row][@"Id"];
   if ([itemId isEqualToString:@"About"])
   {
     [self about];
   }
   else if ([itemId isEqualToString:@"Community"])
   {
-    CommunityVC * vc = [[CommunityVC alloc] init];
+    CommunityVC * vc = [[CommunityVC alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([itemId isEqualToString:@"RateApp"])
@@ -107,16 +130,26 @@
   }
   else if ([itemId isEqualToString:@"ReportBug"])
   {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self reportBug];
   }
   else if ([itemId isEqualToString:@"Help"])
   {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self help];
   }
   else if ([itemId isEqualToString:@"Copyright"])
   {
     [self copyright];
   }
+}
+
+- (void)help
+{
+  NSString * path = [[NSBundle mainBundle] pathForResource:@"faq" ofType:@"html"];
+  NSString * html = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+  WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:html baseUrl:nil andTitleOrNil:NSLocalizedString(@"help", nil)];
+  aboutViewController.openInSafari = YES;
+  [self.navigationController pushViewController:aboutViewController animated:YES];
 }
 
 - (void)about
@@ -128,9 +161,7 @@
 
 - (void)copyright
 {
-  ReaderPtr<Reader> r = GetPlatform().GetReader("about.html");
-  string s;
-  r.ReadAsString(s);
+  string s; GetPlatform().GetReader("about.html")->ReadAsString(s);
   NSString * str = [NSString stringWithFormat:@"Version: %@ \n", [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"]];
   NSString * text = [NSString stringWithFormat:@"%@%@", str, [NSString stringWithUTF8String:s.c_str()]];
   WebViewController * aboutViewController = [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:NSLocalizedString(@"copyright", nil)];
@@ -142,9 +173,9 @@
 {
   dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::OK);
   if (GetPlatform().IsPro())
-    [[UIApplication sharedApplication] rateProVersionFrom:@"ios_popup"];
+    [[UIApplication sharedApplication] rateProVersionFrom:@"ios_pro_popup"];
   else
-    [[UIApplication sharedApplication] rateLiteVersionFrom:@"ios_popup"];
+    [[UIApplication sharedApplication] rateLiteVersionFrom:@"ios_lite_popup"];
 }
 
 - (void)reportBug
@@ -152,22 +183,21 @@
   struct utsname systemInfo;
   uname(&systemInfo);
   NSString * machine = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-  NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- maps.me %@", self.deviceNames[machine], [UIDevice currentDevice].systemVersion, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
-  NSString * email = @"bugs@maps.me";
+  NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@", self.deviceNames[machine], [UIDevice currentDevice].systemVersion, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
+  NSString * email = @"ios@maps.me";
   if ([MFMailComposeViewController canSendMail])
   {
-    MFMailComposeViewController * vc = [MFMailComposeViewController new];
+    MFMailComposeViewController * vc = [[MFMailComposeViewController alloc] init];
     vc.mailComposeDelegate = self;
-    [vc setSubject:@"maps.me"];
+    [vc setSubject:@"MAPS.ME"];
     [vc setToRecipients:@[email]];
     [vc setMessageBody:text isHTML:NO];
     [self presentViewController:vc animated:YES completion:nil];
   }
   else
   {
-    #warning translation
-    NSString * text = [NSString stringWithFormat:@"!!!Почтовый клиент не настроен. Попробуйте написать нам другим способом на %@", email];
-    [[[UIAlertView alloc] initWithTitle:@"!!!Не настроена почта" message:text delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
+    NSString * text = [NSString stringWithFormat:NSLocalizedString(@"email_error_body", nil), email];
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"email_error_title", nil) message:text delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
   }
 }
 

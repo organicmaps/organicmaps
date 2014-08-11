@@ -64,6 +64,8 @@
 		978D4A261996B0EC00D72CA7 /* CommunityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A241996B0EC00D72CA7 /* CommunityVC.m */; };
 		978D4A291996C17300D72CA7 /* RichTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A281996C17300D72CA7 /* RichTextVC.m */; };
 		978D4A2A1996C17300D72CA7 /* RichTextVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 978D4A281996C17300D72CA7 /* RichTextVC.m */; };
+		978D4A31199A11E600D72CA7 /* faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 978D4A30199A11E600D72CA7 /* faq.html */; };
+		978D4A32199A11E600D72CA7 /* faq.html in Resources */ = {isa = PBXBuildFile; fileRef = 978D4A30199A11E600D72CA7 /* faq.html */; };
 		978F9240183B660F000D6C7C /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9239183B660F000D6C7C /* SettingsViewController.mm */; };
 		978F9241183B660F000D6C7C /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 978F9239183B660F000D6C7C /* SettingsViewController.mm */; };
 		978F9242183B660F000D6C7C /* SelectableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 978F923A183B660F000D6C7C /* SelectableCell.m */; };
@@ -1401,6 +1403,7 @@
 		978D4A241996B0EC00D72CA7 /* CommunityVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityVC.m; sourceTree = "<group>"; };
 		978D4A271996C17300D72CA7 /* RichTextVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RichTextVC.h; sourceTree = "<group>"; };
 		978D4A281996C17300D72CA7 /* RichTextVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RichTextVC.m; sourceTree = "<group>"; };
+		978D4A30199A11E600D72CA7 /* faq.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = faq.html; path = ../../data/faq.html; sourceTree = "<group>"; };
 		978F9239183B660F000D6C7C /* SettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SettingsViewController.mm; path = Settings/SettingsViewController.mm; sourceTree = "<group>"; };
 		978F923A183B660F000D6C7C /* SelectableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectableCell.m; path = Settings/SelectableCell.m; sourceTree = "<group>"; };
 		978F923B183B660F000D6C7C /* SwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwitchCell.m; path = Settings/SwitchCell.m; sourceTree = "<group>"; };
@@ -2298,6 +2301,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				978D4A30199A11E600D72CA7 /* faq.html */,
 				ED9CC5EE17CA18770051642E /* ios-guides.json */,
 				97D40C09184D031900A1D572 /* Images.xcassets */,
 				97D40C04184CF5F100A1D572 /* ImagesLite.xcassets */,
@@ -3709,6 +3713,7 @@
 				FAF804A91417E3510024E8C1 /* ki@2x.png in Resources */,
 				FAF804AA1417E3510024E8C1 /* km@2x.png in Resources */,
 				FAF804AB1417E3510024E8C1 /* kn@2x.png in Resources */,
+				978D4A31199A11E600D72CA7 /* faq.html in Resources */,
 				FAF804AC1417E3510024E8C1 /* kp@2x.png in Resources */,
 				FAF804AD1417E3510024E8C1 /* kr@2x.png in Resources */,
 				FAF804AE1417E3510024E8C1 /* kw@2x.png in Resources */,
@@ -4291,6 +4296,7 @@
 				FAFB084A151215EE0041901D /* kp@2x.png in Resources */,
 				FAFB084B151215EE0041901D /* kr@2x.png in Resources */,
 				FAFB084C151215EE0041901D /* kw@2x.png in Resources */,
+				978D4A32199A11E600D72CA7 /* faq.html in Resources */,
 				FAFB084D151215EE0041901D /* ky@2x.png in Resources */,
 				FAFB084E151215EE0041901D /* kz@2x.png in Resources */,
 				FAFB084F151215EE0041901D /* la@2x.png in Resources */,

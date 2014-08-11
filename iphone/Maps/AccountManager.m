@@ -24,15 +24,16 @@
 {
   self.completionBlock = block;
   NSString * permissionName = @"publish_actions";
-  if ([FBSession activeSession].isOpen)
+  FBSession * session = [FBSession activeSession];
+  if (session.isOpen)
   {
-    if ([[FBSession activeSession].permissions containsObject:permissionName])
+    if ([session.permissions containsObject:permissionName])
     {
       [self shareTextToFacebookWithCompletion:block];
     }
     else
     {
-      [[FBSession activeSession] requestNewPublishPermissions:@[permissionName] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession * session, NSError * error) {
+      [session requestNewPublishPermissions:@[permissionName] defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession * session, NSError * error) {
         if (error)
           block(NO);
         else
@@ -54,8 +55,7 @@
 - (void)shareTextToFacebookWithCompletion:(CompletionBlock)block
 {
   NSDictionary * parameters = @{@"message" : NSLocalizedString(@"maps_me_is_free_today_facebook_post_ios", nil),
-#warning picture
-                                @"picture" : @"http://maps.me/en/images/appsection_bg_03.png"};
+                                @"picture" : @"http://static.mapswithme.com/images/17th_august_promo.jpg"};
 
   [FBRequestConnection startWithGraphPath:@"me/feed" parameters:parameters HTTPMethod:@"POST" completionHandler:^(FBRequestConnection * connection, id result, NSError * error) {
     block(!error);

@@ -196,7 +196,7 @@
 
 - (void)rateLiteVersionFrom:(NSString *)launchPlaceName
 {
-  NSString * urlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id431183278?mt=8&at=10lGar&ct=%@", launchPlaceName];
+  NSString * urlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id431183278?mt=8&at=1l3v7ya&ct=%@", launchPlaceName];
   [self openURL:[NSURL URLWithString:urlString]];
 }
 

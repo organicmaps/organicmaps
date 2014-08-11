@@ -43,7 +43,7 @@
     [items addObject:@{@"Id" : @"MWMPro", @"Title" : NSLocalizedString(@"become_a_pro", nil), @"Icon" : [UIImage imageNamed:@"MWMProIcon"], @"Color" : @"15c783"}];
 
    NSArray * firstGroup = @[@{@"Id" : @"Maps", @"Title" : NSLocalizedString(@"download_maps", nil), @"Icon" : [UIImage imageNamed:@"IconMap"]},
-                            @{@"Id" : @"Settings", @"Title" : NSLocalizedString(@"settings", nil), @"Icon" : [UIImage imageNamed:@"IconSettings"]},
+                            @{@"Id" : @"Settings", @"Title" : NSLocalizedString(@"settings_and_more", nil), @"Icon" : [UIImage imageNamed:@"IconSettings"]},
                             @{@"Id" : @"Share", @"Title" : NSLocalizedString(@"share_my_location", nil), @"Icon" : [UIImage imageNamed:@"IconShare"]}];
 
   [items addObjectsFromArray:firstGroup];

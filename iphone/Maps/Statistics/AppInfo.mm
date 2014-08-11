@@ -42,8 +42,7 @@ NSString * const AppInfoSyncedNotification = @"AppInfoSyncedNotification";
 
 - (void)update
 {
-#warning <#message#>
-  NSString * urlString = @"http://application.server/ios/features_test.json";
+  NSString * urlString = @"http://application.server/ios/features.json";
   NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20];
   [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * r, NSData * d, NSError * e){
     if ([(NSHTTPURLResponse *)r statusCode] == 200)

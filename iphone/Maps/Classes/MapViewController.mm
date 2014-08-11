@@ -574,11 +574,6 @@
 #endif
 
   [self showPromoAlertIfNeeded];
-
-  [self performAfterDelay:0.3 block:^{
-    SettingsAndMoreVC * vc = [[SettingsAndMoreVC alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-  }];
 }
 
 - (BOOL)dateIsInPromoTime:(NSDate *)date
@@ -927,7 +922,7 @@
   }
   else if ([itemName isEqualToString:@"Settings"])
   {
-    SettingsAndMoreVC * vc = [[SettingsAndMoreVC alloc] init];
+    SettingsAndMoreVC * vc = [[SettingsAndMoreVC alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([itemName isEqualToString:@"Share"])
@@ -988,9 +983,9 @@
       {
         dlg_settings::SaveResult(dlg_settings::AppStore, dlg_settings::OK);
         if (GetPlatform().IsPro())
-          [[UIApplication sharedApplication] rateProVersionFrom:@"ios_popup"];
+          [[UIApplication sharedApplication] rateProVersionFrom:@"ios_pro_popup"];
         else
-          [[UIApplication sharedApplication] rateLiteVersionFrom:@"ios_popup"];
+          [[UIApplication sharedApplication] rateLiteVersionFrom:@"ios_lite_popup"];
       }
       else if (buttonIndex == 2)
       {
