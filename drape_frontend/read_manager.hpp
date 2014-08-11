@@ -3,12 +3,14 @@
 #include "memory_feature_index.hpp"
 #include "engine_context.hpp"
 #include "tile_info.hpp"
+#include "read_mwm_task.hpp"
 
 #include "../map/feature_vec_model.hpp"
 
 #include "../geometry/screenbase.hpp"
 
 #include "../drape/pointers.hpp"
+#include "../drape/object_pool.hpp"
 
 #include "../base/thread_pool.hpp"
 
@@ -60,6 +62,8 @@ private:
 
   typedef set<tileinfo_ptr, LessByTileKey> tile_set_t;
   tile_set_t m_tileInfos;
+
+  ObjectPool<ReadMWMTask, ReadMWMTaskFactory> myPool;
 
   void CancelTileInfo(tileinfo_ptr const & tileToCancel);
   void ClearTileInfo(tileinfo_ptr const & tileToClear);

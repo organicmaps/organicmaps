@@ -1,5 +1,4 @@
 #include "read_manager.hpp"
-#include "read_mwm_task.hpp"
 #include "visual_params.hpp"
 
 #include "../platform/platform.hpp"
@@ -34,13 +33,16 @@ struct LessCoverageCell
 ReadManager::ReadManager(EngineContext & context, model::FeaturesFetcher & model)
   : m_context(context)
   , m_model(model)
+  , myPool(100, ReadMWMTaskFactory(m_memIndex, m_model, m_context))
 {
   m_pool.Reset(new threads::ThreadPool(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)));
 }
 
 void ReadManager::OnTaskFinished(threads::IRoutine * task)
 {
-  delete task;
+  ReadMWMTask * t = (ReadMWMTask *)task;
+  t->Reset();
+  myPool.Return(t);
 }
 
 void ReadManager::UpdateCoverage(ScreenBase const & screen, set<TileKey> const & tiles)
@@ -114,12 +116,16 @@ void ReadManager::PushTaskBackForTileKey(TileKey const & tileKey)
 {
   tileinfo_ptr tileInfo(new TileInfo(tileKey));
   m_tileInfos.insert(tileInfo);
-  m_pool->PushBack(new ReadMWMTask(tileInfo, m_memIndex, m_model, m_context));
+  ReadMWMTask * task = myPool.Get();
+  task->Init(tileInfo);
+  m_pool->PushBack(task);
 }
 
 void ReadManager::PushTaskFront(tileinfo_ptr const & tileToReread)
 {
-  m_pool->PushFront(new ReadMWMTask(tileToReread, m_memIndex, m_model, m_context));
+  ReadMWMTask * task = myPool.Get();
+  task->Init(tileToReread);
+  m_pool->PushFront(task);
 }
 
 void ReadManager::CancelTileInfo(tileinfo_ptr const & tileToCancel)
