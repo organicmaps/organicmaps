@@ -1,79 +1,74 @@
 #pragma once
 
-#include "../std/list.hpp"
-#include "../std/vector.hpp"
-#include "../std/set.hpp"
-
 #include "../base/assert.hpp"
+#include "../base/mutex.hpp"
 
-#include "../../drape_frontend/read_mwm_task.hpp"
+#include "../std/list.hpp"
+#include "../std/set.hpp"
 
 template <typename T, typename Factory>
 class ObjectPool
 {
 private:
 #ifdef DEBUG
-  std::set<T*> checkerSet;
+  set<T *> m_checkerSet;
 #endif
-  std::list<T*> pool;
-  Factory factory;
+  list<T *> m_pool;
+  Factory m_factory;
+  threads::Mutex m_lock;
 public:
-  ObjectPool(int count, Factory const & f) : factory(f)
+  ObjectPool(int count, Factory const & f) : m_factory(f)
   {
-#ifdef DEBUG
-    for(int i = 0; i < count; ++i)
+    for (int i = 0; i < count; ++i)
     {
-      T * novice = factory.GetNew();
-      checkerSet.insert(novice);
-      pool.push_back(novice);
-    }
-#else
-    for(int i = 0; i < count; ++i)
-      pool.push_back(factory.GetNew());
+      T * novice = m_factory.GetNew();
+#ifdef DEBUG
+      m_checkerSet.insert(novice);
 #endif
+      m_pool.push_back(novice);
+    }
   }
 
   ~ObjectPool()
   {
-    for (typename list<T*>::iterator it = pool.begin(); it != pool.end(); it++)
+    for (typename list<T *>::iterator it = m_pool.begin(); it != m_pool.end(); it++)
     {
       T * cur = *it;
 #ifdef DEBUG
-      typename set<T*>::iterator its = checkerSet.find(cur);
-      ASSERT(its != checkerSet.end(), ("The same element returned twice or more!"));
-      checkerSet.erase(its);
+      typename set<T *>::iterator its = m_checkerSet.find(cur);
+      ASSERT(its != m_checkerSet.end(), ("The same element returned twice or more!"));
+      m_checkerSet.erase(its);
 #endif
       delete cur;
     }
 #ifdef DEBUG
-    ASSERT(checkerSet.empty(), ("Alert! Don't all elements returned to pool!"));
+    ASSERT(m_checkerSet.empty(), ("Alert! Don't all elements returned to pool!"));
 #endif
   }
 
   T * Get()
   {
-    if (pool.empty())
+    threads::MutexGuard guard(m_lock);
+    if (m_pool.empty())
     {
+      T * novice = m_factory.GetNew();
 #ifdef DEBUG
-      T * novice = factory.GetNew();
-      checkerSet.insert(novice);
-      return novice;
-#else
-      return factory.GetNew();
+      m_checkerSet.insert(novice);
 #endif
+      return novice;
     }
     else
     {
-      T* pt = pool.front();
-      pool.pop_front();
+      T * pt = m_pool.front();
+      m_pool.pop_front();
       return pt;
     }
   }
 
   void Return(T * object)
   {
-    object->Reset();
-    pool.push_back(object);
+    threads::MutexGuard guard(m_lock);
+    m_pool.push_back(object);
   }
 };
 
