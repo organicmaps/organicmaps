@@ -1,15 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
-
-if( CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR AND NOT MSVC_IDE )
-  message(FATAL_ERROR "In-source builds are not allowed.
-Please create a directory and run cmake from there, passing the path to this source directory as the last argument.
-This process created the file `CMakeCache.txt' and the directory `CMakeFiles'. Please delete them.")
-endif()
-
 project(OSRM)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include(CheckCXXCompilerFlag)
 include(FindPackageHandleStandardArgs)
+
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(GetGitRevisionDescription)
@@ -27,8 +22,7 @@ if (WIN32 AND MSVC_VERSION LESS 1800)
   message(FATAL_ERROR "Building with Microsoft compiler needs Visual Studio 2013 or later (Express version works too)")
 endif()
 
-OPTION(WITH_TOOLS "Build OSRM tools" OFF)
-OPTION(BUILD_TOOLS "Build OSRM tools" OFF)
+OPTION(WITH_TOOLS "Build ORSM tools" OFF)
 
 include_directories(${CMAKE_SOURCE_DIR}/Include/)
 
@@ -41,23 +35,23 @@ add_custom_command(OUTPUT ${CMAKE_SOURCE_DIR}/Util/FingerPrint.cpp FingerPrint.c
   VERBATIM)
 
 add_custom_target(FingerPrintConfigure DEPENDS ${CMAKE_SOURCE_DIR}/Util/FingerPrint.cpp)
-add_custom_target(tests DEPENDS datastructure-tests)
-add_custom_target(benchmarks DEPENDS rtree-bench)
 
-set(BOOST_COMPONENTS date_time filesystem iostreams program_options regex system thread unit_test_framework)
+set(BOOST_COMPONENTS date_time filesystem iostreams program_options regex system thread)
 
 configure_file(
   ${CMAKE_SOURCE_DIR}/Util/GitDescription.cpp.in
   ${CMAKE_SOURCE_DIR}/Util/GitDescription.cpp
 )
 file(GLOB ExtractorGlob Extractor/*.cpp)
+file(GLOB ExtractorGlobH Extractor/*.h)
 file(GLOB ImporterGlob DataStructures/Import*.cpp)
 add_library(IMPORT STATIC ${ImporterGlob})
-set(ExtractorSources extractor.cpp ${ExtractorGlob})
+set(ExtractorSources extractor.cpp ${ExtractorGlob} ${ExtractorGlobH})
 add_executable(osrm-extract ${ExtractorSources})
 
+file(GLOB PrepareGlobH Contractor/*.h DataStructures/*.h)
 file(GLOB PrepareGlob Contractor/*.cpp DataStructures/HilbertValue.cpp DataStructures/RestrictionMap.cpp)
-set(PrepareSources prepare.cpp ${PrepareGlob})
+set(PrepareSources prepare.cpp ${PrepareGlob} ${PrepareGlobH})
 add_executable(osrm-prepare ${PrepareSources})
 
 file(GLOB ServerGlob Server/*.cpp)
@@ -68,7 +62,6 @@ file(GLOB CoordinateGlob DataStructures/Coordinate.cpp)
 file(GLOB AlgorithmGlob Algorithms/*.cpp)
 file(GLOB HttpGlob Server/Http/*.cpp)
 file(GLOB LibOSRMGlob Library/*.cpp)
-file(GLOB DataStructureTestsGlob UnitTests/DataStructures/*.cpp DataStructures/HilbertValue.cpp)
 
 set(
   OSRMSources
@@ -87,12 +80,6 @@ add_dependencies(FINGERPRINT FingerPrintConfigure)
 
 add_executable(osrm-routed routed.cpp ${ServerGlob} ${RoutingAlgs})
 add_executable(osrm-datastore datastore.cpp)
-
-# Unit tests
-add_executable(datastructure-tests EXCLUDE_FROM_ALL UnitTests/datastructure_tests.cpp ${DataStructureTestsGlob})
-
-# Benchmarks
-add_executable(rtree-bench EXCLUDE_FROM_ALL Benchmarks/StaticRTreeBench.cpp)
 
 # Check the release mode
 if(NOT CMAKE_BUILD_TYPE MATCHES Debug)
@@ -124,10 +111,6 @@ if(CMAKE_BUILD_TYPE MATCHES Release)
   endif (HAS_LTO_FLAG)
 endif()
 
-if (NOT WIN32)
-add_definitions(-DBOOST_TEST_DYN_LINK)
-endif()
-
 # Configuring compilers
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   # using Clang
@@ -139,6 +122,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     add_definitions(-DM_PI=3.141592653589793238462643383) # define M_PI
     add_definitions(-DWIN32)
     SET(OPTIONAL_SOCKET_LIBS ws2_32 wsock32)
+    SET(OPTIONAL_OMP_LIB gomp)
   endif()
 elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
   # using Intel C++
@@ -203,16 +187,11 @@ target_link_libraries(osrm-extract ${Boost_LIBRARIES} FINGERPRINT GITDESCRIPTION
 target_link_libraries(osrm-prepare ${Boost_LIBRARIES} FINGERPRINT GITDESCRIPTION COORDLIB IMPORT)
 target_link_libraries(osrm-routed ${Boost_LIBRARIES} ${OPTIONAL_SOCKET_LIBS} OSRM FINGERPRINT GITDESCRIPTION)
 target_link_libraries(osrm-datastore ${Boost_LIBRARIES} FINGERPRINT GITDESCRIPTION COORDLIB)
-target_link_libraries(datastructure-tests ${Boost_LIBRARIES} COORDLIB)
-target_link_libraries(rtree-bench ${Boost_LIBRARIES} COORDLIB)
 
 find_package(Threads REQUIRED)
-target_link_libraries(osrm-extract ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(osrm-extract ${CMAKE_THREAD_LIBS_INIT} ${OPTIONAL_OMP_LIB})
 target_link_libraries(osrm-datastore ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(osrm-prepare ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(OSRM ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(datastructure-tests ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(rtree-bench ${CMAKE_THREAD_LIBS_INIT})
 
 find_package(TBB REQUIRED)
 if(WIN32 AND CMAKE_BUILD_TYPE MATCHES Debug)
@@ -222,8 +201,6 @@ target_link_libraries(osrm-datastore ${TBB_LIBRARIES})
 target_link_libraries(osrm-extract ${TBB_LIBRARIES})
 target_link_libraries(osrm-prepare ${TBB_LIBRARIES})
 target_link_libraries(osrm-routed ${TBB_LIBRARIES})
-target_link_libraries(datastructure-tests ${TBB_LIBRARIES})
-target_link_libraries(rtree-bench ${TBB_LIBRARIES})
 include_directories(${TBB_INCLUDE_DIR})
 
 find_package(Lua52)
@@ -281,7 +258,7 @@ include_directories(${ZLIB_INCLUDE_DIRS})
 target_link_libraries(osrm-extract ${ZLIB_LIBRARY})
 target_link_libraries(osrm-routed ${ZLIB_LIBRARY})
 
-if(WITH_TOOLS OR BUILD_TOOLS)
+if(WITH_TOOLS)
   message(STATUS "Activating OSRM internal tools")
   find_package(GDAL)
   if(GDAL_FOUND)
@@ -291,7 +268,6 @@ if(WITH_TOOLS OR BUILD_TOOLS)
     target_link_libraries(
       osrm-components
       ${GDAL_LIBRARIES} ${Boost_LIBRARIES} FINGERPRINT GITDESCRIPTION COORDLIB)
-    install(TARGETS osrm-components DESTINATION bin)
   else()
     message(FATAL_ERROR "libgdal and/or development headers not found")
   endif()
@@ -305,13 +281,6 @@ if(WITH_TOOLS OR BUILD_TOOLS)
   if(UNIX AND NOT APPLE)
     target_link_libraries(osrm-unlock-all rt)
   endif()
-  add_executable(osrm-check-hsgr Tools/check-hsgr.cpp)
-  target_link_libraries(osrm-check-hsgr ${Boost_LIBRARIES} GITDESCRIPTION FINGERPRINT)
-
-  install(TARGETS osrm-cli DESTINATION bin)
-  install(TARGETS osrm-io-benchmark DESTINATION bin)
-  install(TARGETS osrm-unlock-all DESTINATION bin)
-  install(TARGETS osrm-check-hsgr DESTINATION bin)
 endif()
 
 file(GLOB InstallGlob Include/osrm/*.h Library/OSRM.h)
@@ -341,3 +310,5 @@ endforeach ()
 
 configure_file(${CMAKE_SOURCE_DIR}/cmake/pkgconfig.in libosrm.pc @ONLY)
 install(FILES ${PROJECT_BINARY_DIR}/libosrm.pc DESTINATION lib/pkgconfig)
+
+add_subdirectory(mapsme)
