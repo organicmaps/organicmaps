@@ -235,13 +235,93 @@ UNIT_TEST(BatchListOfStript_6stride)
   expectations.RunTest(data, indexes, VERTEX_COUNT, 3, INDEX_COUNT, bind(fn, _1, _2, _3, 6));
 }
 
+namespace
+{
+  class PartialBatcherTest
+  {
+  public:
+    struct BufferNode
+    {
+      BufferNode(uint32_t indexByteCount, uint32_t vertexByteCount,
+                 void * indexData, void * vertexData)
+        : m_indexByteCount(indexByteCount)
+        , m_vertexByteCount(vertexByteCount)
+        , m_indexData(indexData)
+        , m_vertexData(vertexData)
+        , m_indexBufferID(0)
+        , m_vertexBufferID(0)
+      {
+      }
+
+      uint32_t m_indexByteCount;
+      uint32_t m_vertexByteCount;
+      void * m_indexData;
+      void * m_vertexData;
+      uint32_t m_indexBufferID;
+      uint32_t m_vertexBufferID;
+    };
+
+    PartialBatcherTest()
+      : m_bufferIDCounter(1)
+    {
+    }
+
+    ~PartialBatcherTest()
+    {
+      for_each(m_comparators.begin(), m_comparators.end(), DeleteFunctor());
+    }
+
+    void AddBufferNode(BufferNode const & node)
+    {
+      m_nodes.push_back(node);
+      BufferNode & currentNode = m_nodes.back();
+      currentNode.m_indexBufferID = m_bufferIDCounter++;
+      currentNode.m_vertexBufferID = m_bufferIDCounter++;
+
+      // Index buffer creation
+      EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_indexBufferID));
+      EXPECTGL(glBindBuffer(currentNode.m_indexBufferID, gl_const::GLElementArrayBuffer));
+      EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, _, NULL, _));
+
+      m_comparators.push_back(new MemoryComparer(currentNode.m_indexData, currentNode.m_indexByteCount));
+      MemoryComparer * indexComparer = m_comparators.back();
+      // upload indexes
+      EXPECTGL(glBindBuffer(currentNode.m_indexBufferID, gl_const::GLElementArrayBuffer));
+      EXPECTGL(glBufferSubData(gl_const::GLElementArrayBuffer, currentNode.m_indexByteCount, _, 0))
+          .WillOnce(Invoke(indexComparer, &MemoryComparer::cmp));
+
+      // data buffer creation
+      EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_vertexBufferID));
+      EXPECTGL(glBindBuffer(currentNode.m_vertexBufferID, gl_const::GLArrayBuffer));
+      EXPECTGL(glBufferData(gl_const::GLArrayBuffer, _, NULL, _));
+
+      m_comparators.push_back(new MemoryComparer(currentNode.m_vertexData, currentNode.m_vertexByteCount));
+      MemoryComparer * vertexComparer = m_comparators.back();
+      // upload data
+      EXPECTGL(glBindBuffer(currentNode.m_vertexBufferID, gl_const::GLArrayBuffer));
+      EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, currentNode.m_vertexByteCount, _, 0))
+              .WillOnce(Invoke(vertexComparer, &MemoryComparer::cmp));
+    }
+
+    void CloseExpection()
+    {
+      for (size_t i = 0; i < m_nodes.size(); ++i)
+      {
+        EXPECTGL(glDeleteBuffer(m_nodes[i].m_indexBufferID));
+        EXPECTGL(glDeleteBuffer(m_nodes[i].m_vertexBufferID));
+      }
+    }
+
+  private:
+    uint32_t m_bufferIDCounter;
+
+    vector<BufferNode> m_nodes;
+    vector<MemoryComparer *> m_comparators;
+  };
+}
+
 UNIT_TEST(BatchListOfStript_partial)
 {
-  uint32_t const IndexBufferID1 = 1;
-  uint32_t const VertexBufferID1 = 2;
-  uint32_t const IndexBufferID2 = 3;
-  uint32_t const VertexBufferID2 = 4;
-
   uint32_t const VertexCount = 16;
   uint32_t const ComponentCount = 3;
   uint32_t const VertexArraySize = VertexCount * ComponentCount;
@@ -266,82 +346,50 @@ UNIT_TEST(BatchListOfStript_partial)
       0, 1, 2, // start new buffer
       1, 2, 3};
 
-  MemoryComparer vertexCmp1(vertexData, FirstBufferVertexPortion * ComponentCount * sizeof(float));
-  MemoryComparer indexCmp1(indexData, FirstBufferIndexPortion * sizeof(uint16_t));
+  PartialBatcherTest::BufferNode node1(FirstBufferIndexPortion * sizeof(uint16_t),
+                                       FirstBufferVertexPortion * ComponentCount * sizeof(float),
+                                       indexData, vertexData);
 
-  MemoryComparer vertexCmp2(vertexData + FirstBufferVertexPortion * ComponentCount,
-                            SecondBufferVertexPortion * ComponentCount * sizeof(float));
-  MemoryComparer indexCmp2(indexData + FirstBufferIndexPortion, SecondBufferIndexPortion * sizeof(uint16_t));
+  PartialBatcherTest::BufferNode node2(SecondBufferIndexPortion * sizeof(uint16_t),
+                                       SecondBufferVertexPortion * ComponentCount * sizeof(float),
+                                       indexData + FirstBufferIndexPortion,
+                                       vertexData + FirstBufferVertexPortion * ComponentCount);
 
-  InSequence seq;
+  typedef pair<uint32_t, uint32_t> IndexVertexCount;
+  vector<IndexVertexCount> srcData;
+  srcData.push_back(make_pair(30, 12));
+  srcData.push_back(make_pair(30, 13));
+  srcData.push_back(make_pair(18, 30));
+  srcData.push_back(make_pair(19, 30));
 
-  // Index buffer creation
-  EXPECTGL(glGenBuffer()).WillOnce(Return(IndexBufferID1));
-  EXPECTGL(glBindBuffer(IndexBufferID1, gl_const::GLElementArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, _, NULL, _));
+  for (size_t i = 0; i < srcData.size(); ++i)
+  {
+    InSequence seq;
+    PartialBatcherTest test;
+    test.AddBufferNode(node1);
+    test.AddBufferNode(node2);
+    test.CloseExpection();
 
-  // upload indexes
-  EXPECTGL(glBindBuffer(IndexBufferID1, gl_const::GLElementArrayBuffer));
-  EXPECTGL(glBufferSubData(gl_const::GLElementArrayBuffer, FirstBufferIndexPortion * sizeof(unsigned short), _, 0))
-      .WillOnce(Invoke(&indexCmp1, &MemoryComparer::cmp));
+    GLState state(0, GLState::GeometryLayer);
 
-  // data buffer creation
-  EXPECTGL(glGenBuffer()).WillOnce(Return(VertexBufferID1));
-  EXPECTGL(glBindBuffer(VertexBufferID1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, _, NULL, _));
+    BindingInfo binding(1);
+    BindingDecl & decl = binding.GetBindingDecl(0);
+    decl.m_attributeName = "position";
+    decl.m_componentCount = ComponentCount;
+    decl.m_componentType = gl_const::GLFloatType;
+    decl.m_offset = 0;
+    decl.m_stride = 0;
 
-  // upload data
-  EXPECTGL(glBindBuffer(VertexBufferID1, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer,
-                           ComponentCount * FirstBufferVertexPortion * sizeof(float), _, 0))
-          .WillOnce(Invoke(&vertexCmp1, &MemoryComparer::cmp));
+    AttributeProvider provider(1, VertexCount);
+    provider.InitStream(0, binding, MakeStackRefPointer(vertexData));
 
-  // Create second buffer on ChangeBuffer operation
-  // Index buffer creation
-  EXPECTGL(glGenBuffer()).WillOnce(Return(IndexBufferID2));
-  EXPECTGL(glBindBuffer(IndexBufferID2, gl_const::GLElementArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLElementArrayBuffer, _, NULL, _));
+    VAOAcceptor vaoAcceptor;
+    Batcher batcher(srcData[i].first, srcData[i].second);
+    batcher.StartSession(bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
+    batcher.InsertListOfStrip(state, MakeStackRefPointer(&provider), 4);
+    batcher.EndSession();
 
-  // upload indexes
-  EXPECTGL(glBindBuffer(IndexBufferID2, gl_const::GLElementArrayBuffer));
-  EXPECTGL(glBufferSubData(gl_const::GLElementArrayBuffer, SecondBufferIndexPortion * sizeof(unsigned short), _, 0))
-      .WillOnce(Invoke(&indexCmp2, &MemoryComparer::cmp));
-
-  // data buffer creation
-  EXPECTGL(glGenBuffer()).WillOnce(Return(VertexBufferID2));
-  EXPECTGL(glBindBuffer(VertexBufferID2, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferData(gl_const::GLArrayBuffer, _, NULL, _));
-
-  // upload data
-  EXPECTGL(glBindBuffer(VertexBufferID2, gl_const::GLArrayBuffer));
-  EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer,
-                           ComponentCount * SecondBufferVertexPortion * sizeof(float), _, 0))
-          .WillOnce(Invoke(&vertexCmp2, &MemoryComparer::cmp));
-
-  EXPECTGL(glDeleteBuffer(IndexBufferID1));
-  EXPECTGL(glDeleteBuffer(VertexBufferID1));
-  EXPECTGL(glDeleteBuffer(IndexBufferID2));
-  EXPECTGL(glDeleteBuffer(VertexBufferID2));
-
-  GLState state(0, GLState::GeometryLayer);
-
-  BindingInfo binding(1);
-  BindingDecl & decl = binding.GetBindingDecl(0);
-  decl.m_attributeName = "position";
-  decl.m_componentCount = ComponentCount;
-  decl.m_componentType = gl_const::GLFloatType;
-  decl.m_offset = 0;
-  decl.m_stride = 0;
-
-  AttributeProvider provider(1, VertexCount);
-  provider.InitStream(0, binding, MakeStackRefPointer(vertexData));
-
-  VAOAcceptor vaoAcceptor;
-  Batcher batcher(30, 12);
-  batcher.StartSession(bind(&VAOAcceptor::FlushFullBucket, &vaoAcceptor, _1, _2));
-  batcher.InsertListOfStrip(state, MakeStackRefPointer(&provider), 4);
-  batcher.EndSession();
-
-  for (size_t i = 0; i < vaoAcceptor.m_vao.size(); ++i)
-    vaoAcceptor.m_vao[i].Destroy();
+    for (size_t i = 0; i < vaoAcceptor.m_vao.size(); ++i)
+      vaoAcceptor.m_vao[i].Destroy();
+  }
 }

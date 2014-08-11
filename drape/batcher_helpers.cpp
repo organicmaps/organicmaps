@@ -240,15 +240,17 @@ void FanStripHelper::CalcBatchPortion(uint16_t vertexCount, uint16_t avVertex, u
 
   if (vertexCount > avVertex || indexCount > avIndex)
   {
-    uint32_t indexCountForAvailableVertexCount = VtoICount(avVertex);
-    if (indexCountForAvailableVertexCount <= avIndex)
+    uint16_t alignedAvVertex = AlignVCount(avVertex);
+    uint16_t alignedAvIndex = AlignICount(avIndex);
+    uint32_t indexCountForAvailableVertexCount = VtoICount(alignedAvVertex);
+    if (indexCountForAvailableVertexCount <= alignedAvIndex)
     {
-      batchVertexCount = AlignVCount(avVertex);
+      batchVertexCount = alignedAvVertex;
       batchIndexCount = indexCountForAvailableVertexCount;
     }
     else
     {
-      batchIndexCount = AlignICount(avIndex);
+      batchIndexCount = alignedAvIndex;
       batchVertexCount = ItoVCount(batchIndexCount);
     }
     m_isFullUploaded = false;
