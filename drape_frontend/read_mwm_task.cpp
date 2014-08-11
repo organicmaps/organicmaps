@@ -4,37 +4,37 @@
 
 namespace df
 {
-
-ReadMWMTask::ReadMWMTask(weak_ptr<TileInfo> const & tileInfo,
-                         MemoryFeatureIndex & memIndex,
-                         model::FeaturesFetcher & model,
-                         EngineContext & context)
-  : m_tileInfo(tileInfo)
-  , m_memIndex(memIndex)
-  , m_model(model)
-  , m_context(context)
-{
-}
-
 ReadMWMTask::ReadMWMTask(MemoryFeatureIndex & memIndex, model::FeaturesFetcher & model,
                          EngineContext & context)
   : m_memIndex(memIndex)
   , m_model(model)
   , m_context(context)
 {
+#ifdef DEBUG
+  m_checker = false;
+#endif
 }
 
-void ReadMWMTask::init(weak_ptr<TileInfo> const & tileInfo)
+void ReadMWMTask::Init(weak_ptr<TileInfo> const & tileInfo)
 {
   m_tileInfo = tileInfo;
+#ifdef DEBUG
+  m_checker = true;
+#endif
 }
 
 void ReadMWMTask::Reset()
 {
+#ifdef DEBUG
+  m_checker = false;
+#endif
 }
 
 void ReadMWMTask::Do()
 {
+#ifdef DEBUG
+  ASSERT(m_checker, ());
+#endif
   shared_ptr<TileInfo> tileInfo = m_tileInfo.lock();
   if (tileInfo == NULL)
     return;

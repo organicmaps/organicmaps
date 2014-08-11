@@ -18,11 +18,6 @@ class EngineContext;
 class ReadMWMTask : public threads::IRoutine
 {
 public:
-  ReadMWMTask(weak_ptr<TileInfo> const & tileInfo,
-              MemoryFeatureIndex & memIndex,
-              model::FeaturesFetcher & model,
-              EngineContext & context);
-
   ReadMWMTask(MemoryFeatureIndex & memIndex,
               model::FeaturesFetcher & model,
               EngineContext & context);
