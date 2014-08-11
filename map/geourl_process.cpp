@@ -78,15 +78,16 @@ namespace url_scheme
   {
     regexp::RegExpT m_regexp;
     Info & m_info;
-    int m_pLat, m_pLon;
+    int m_latPriority, m_lonPriority;
 
     class AssignCoordinates
     {
       LatLonParser & m_parser;
-      int m_p;
+      int m_priority;
+
     public:
-      AssignCoordinates(LatLonParser & parser, int p)
-        : m_parser(parser), m_p(p)
+      AssignCoordinates(LatLonParser & parser, int priority)
+        : m_parser(parser), m_priority(priority)
       {
       }
 
@@ -103,19 +104,20 @@ namespace url_scheme
         VERIFY(strings::to_double(token.substr(n, token.size() - n), lon), ());
 
         if (m_parser.m_info.SetLat(lat) && m_parser.m_info.SetLon(lon))
-          m_parser.m_pLat = m_parser.m_pLon = m_p;
+          m_parser.m_latPriority = m_parser.m_lonPriority = m_priority;
       }
     };
 
   public:
-    LatLonParser(Info & info) : m_info(info), m_pLat(-1), m_pLon(-1)
+    LatLonParser(Info & info)
+      : m_info(info), m_latPriority(-1), m_lonPriority(-1)
     {
       regexp::Create("-?\\d+\\.?\\d*, *-?\\d+\\.?\\d*", m_regexp);
     }
 
     bool IsValid() const
     {
-      return (m_pLat == m_pLon && m_pLat != -1);
+      return (m_latPriority == m_lonPriority && m_latPriority != -1);
     }
 
     void operator()(string const & key, string const & value)
@@ -128,13 +130,13 @@ namespace url_scheme
         return;
       }
 
-      int const p = GetCoordinatesPriority(key);
-      if (p == -1 || p < m_pLat || p < m_pLon)
+      int const priority = GetCoordinatesPriority(key);
+      if (priority == -1 || priority < m_latPriority || priority < m_lonPriority)
         return;
 
-      if (p != 4)
+      if (priority != 4)
       {
-        regexp::ForEachMatched(value, m_regexp, AssignCoordinates(*this, p));
+        regexp::ForEachMatched(value, m_regexp, AssignCoordinates(*this, priority));
       }
       else
       {
@@ -144,13 +146,13 @@ namespace url_scheme
           if (key == "lat")
           {
             if (m_info.SetLat(x))
-              m_pLat = p;
+              m_latPriority = priority;
           }
           else
           {
             ASSERT_EQUAL(key, "lon", ());
             if (m_info.SetLon(x))
-              m_pLon = p;
+              m_lonPriority = priority;
           }
         }
       }
