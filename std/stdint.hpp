@@ -20,6 +20,9 @@
   #include <stdint.h>
 
 #else
+  #ifdef OMIM_OS_LINUX
+  #include <stdint.h>
+  #endif
   #include <boost/cstdint.hpp>
 
 #endif

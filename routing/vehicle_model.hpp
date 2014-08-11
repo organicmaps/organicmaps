@@ -2,6 +2,7 @@
 #include "../std/unordered_map.hpp"
 #include "../std/utility.hpp"
 #include "../std/vector.hpp"
+#include "../std/stdint.hpp"
 
 class Classificator;
 class FeatureType;
