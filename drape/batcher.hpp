@@ -42,7 +42,6 @@ public:
   typedef function<void (GLState const &, TransferPointer<RenderBucket> )> flush_fn;
   void StartSession(flush_fn const & flusher);
   void EndSession();
-  void Reset();
 
 private:
 

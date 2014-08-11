@@ -29,7 +29,7 @@ public:
 
   virtual void Do();
 
-  void init(weak_ptr<TileInfo> const & tileInfo);
+  void Init(weak_ptr<TileInfo> const & tileInfo);
   void Reset();
 
 private:
@@ -40,6 +40,7 @@ private:
 
 #ifdef DEBUG
   dbg::ObjectTracker m_objTracker;
+  bool m_checker;
 #endif
 };
 

@@ -4,7 +4,6 @@
 #include "../drape/batcher.hpp"
 
 #include "../base/assert.hpp"
-#include "../base/logging.hpp"
 
 #include "../std/bind.hpp"
 
@@ -29,11 +28,13 @@ void FlushGeometry(BatchersPool::TSendMessageFn const & sendMessage,
 
 BatchersPool::BatchersPool(int initBatcherCount, TSendMessageFn const & sendMessageFn)
   : m_sendMessageFn(sendMessageFn)
-  , m_factory()
-  , m_pool(initBatcherCount, m_factory)
+  , m_pool(initBatcherCount, dp::BatcherFactory())
 {}
 
-BatchersPool::~BatchersPool() {}
+BatchersPool::~BatchersPool()
+{
+  ASSERT(m_batchs.empty(), ());
+}
 
 void BatchersPool::ReserveBatcher(TileKey const & key)
 {
@@ -43,9 +44,9 @@ void BatchersPool::ReserveBatcher(TileKey const & key)
     it->second.second++;
     return;
   }
-  Batcher * B = m_pool.Get();
-  m_batchs.insert(make_pair(key, make_pair(B, 1)));
-  B->StartSession(bind(&FlushGeometry, m_sendMessageFn, key, _1, _2));
+  Batcher * batcher = m_pool.Get();
+  m_batchs.insert(make_pair(key, make_pair(batcher, 1)));
+  batcher->StartSession(bind(&FlushGeometry, m_sendMessageFn, key, _1, _2));
 }
 
 dp::RefPointer<dp::Batcher> BatchersPool::GetTileBatcher(TileKey const & key)
@@ -62,9 +63,9 @@ void BatchersPool::ReleaseBatcher(TileKey const & key)
   ASSERT_GREATER(it->second.second, 0, ());
   if ((--it->second.second)== 0)
   {
-    Batcher * B = it->second.first;
-    B->EndSession();
-    m_pool.Return(B);
+    Batcher * batcher = it->second.first;
+    batcher->EndSession();
+    m_pool.Return(batcher);
     m_batchs.erase(it);
   }
 }

@@ -33,7 +33,6 @@ private:
   typedef TBatcherMap::iterator TIterator;
   TSendMessageFn m_sendMessageFn;
 
-  dp::BatcherFactory m_factory;
   ObjectPool<dp::Batcher, dp::BatcherFactory> m_pool;
   TBatcherMap m_batchs;
 };
