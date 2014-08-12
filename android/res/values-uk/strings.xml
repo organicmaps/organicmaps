@@ -364,7 +364,7 @@
 	<!-- Message to display on 17th-18th august -->
 	<string name="maps_me_is_free_today_android">Сьогодні в Google Play знижка на MAPS.ME 80%</string>
 	<!-- Message for facebook post on 17th-18th august -->
-	<string name="maps_me_is_free_today_facebook_post_ios">Я щойно безкоштовно скачав(ла)[maps_me_is_free_today_facebook_post_android] MAPS.ME с iTunes. А в Google Play знижка на програму 80%. Не пропустіть!</string>
+	<string name="maps_me_is_free_today_facebook_post_ios">Сьогодні чудова програма з офлайн-картами MAPS.ME безкоштовна в App Store, а в Google Play - зі знижкою 80%. Рекомендую! Акція скоро закінчиться.</string>
 	<!-- Message for facebook post on 17th-18th august -->
 	<string name="maps_me_is_free_today_facebook_post_android">Я щойно скачав(ла) MAPS.ME з Google Play зі знижкою 80%. А в iTunes програму можна встановити цілком безкоштовно. Не пропустіть!</string>
 	<!-- Text in menu -->

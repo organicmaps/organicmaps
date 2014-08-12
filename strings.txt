@@ -4773,26 +4773,26 @@
   [maps_me_is_free_today_facebook_post_ios]
     tags = ios
     comment = Message for facebook post on 17th-18th august
-    en = I’ve just got MAPS.ME offline maps for free on iTunes. It’s also available with 80% discount on Google Play. Don’t miss!
-    cs = Právě jsem na iTunes získal(a) zdarma offline mapy MAPS.ME. Jsou také dostupné na Google Play se slevou 80 %. Nezmeškejte to!
-    de = Ich habe gerade die Offline-Karten MAPS.ME bei iTunes kostenlos bekommen. Es gibt sie auch mit 80 % Rabatt auf Google Play. Nicht verpassen!
-    es = Acabo de conseguir MAPS.ME, mapas sin conexión, gratis en iTunes. Está disponible también en Google Play con un 80 % de descuento. ¡No te lo pierdas!
-    fr = Je viens de me procurer les cartes hors-ligne MAPS.ME gratuitement sur iTunes. L'appli est également disponible avec 80 % de remise sur Google Play. Ne passez pas à côté !
-    it = Ho appena scaricato gratuitamente le mappe offline di MAPS.ME da iTunes. L'app è disponibile anche su Google Play con uno sconto dell'80%. Non perdertela!
-    ja = たった今iTunesからMAPS.MEのオフラインマップを無料で手に入れました。Google Playからは8割引の価格でお買い求めできます。お見逃しなく！
-    ko = 방금 아이튠스에서 MAPS.ME 오프라인 지도를 무료로 받았습니다. 구글 플레이에서도 80% 할인된 가격으로 구입할 수 있습니다. 놓치지 마세요!
-    nl = Ik heb MAPS.ME offline kaarten net gratis gekregen op iTunes. Het is ook met 80% korting te koop op Google Play. Mis het niet!
-    ru  = Я только что бесплатно скачал(а) MAPS.ME с iTunes. А в Google Play скидка на приложение 80%. Не пропустите!
-    uk = Я щойно безкоштовно скачав(ла)[maps_me_is_free_today_facebook_post_android] MAPS.ME с iTunes. А в Google Play знижка на програму 80%. Не пропустіть!
-    zh-Hant = 我剛剛免費在iTunes上獲取了MAPS.ME離線地圖。在Google Play亦可享受80％折扣。千萬不要錯過！
-    pl = Właśnie pobrałem MAPS.ME - mapy dostępne w trybie offline za darmo na iTunes. MAPS.ME jest również dostępne z 80% zniżką na Google Play. Nie przegap tego!
-    pt = Acabei de receber gratuitamente os mapas offline da MAPS.ME através do iTunes. Também estão disponíveis com 80% de desconto na Google Play. Não perca!
-    hu = Az iTuneson ingyenesek a MAPS.ME offline térképei. A Google Playen is elérhetőek 80 százalék kedvezménnyel. Ne hagyd ki!
-    th = ฉันเพิ่งได้รับแผนที่ MAPS.ME แบบออฟไลน์ฟรีบน iTune ยังสามารถใช้ MAPS.ME ลด 80% บน Google Play อย่าพลาด!
-    zh-Hans = 我刚刚免费在iTunes上获取了MAPS.ME离线地图。在Google Play也可享受80％折扣。千万不要错过！
-    ar = لقد تحصلت للتو على MAPS.ME خرائط مجانية لا تحتاج للأنترنت على اي تيونز. متوفرة أيضا مع خصم 80٪ على منصة جوجل بلاي. لا نضيع الفرصة!
-    da = Jeg har netop fået MAPS.ME offline kort gratis på iTunes. Det er også tilgængeligt med 80% rabat på Google Play. Gå ikke glip af det!
-    tr = MAPS.ME çevrimdışı haritaları iTunes'dan ücretsiz aldım. Şimdi Google Play'de de %80 indirimli. Kaçırma!
+    en = Awesome offline maps app MAPS.ME is free on the App Store and is available with an 80% discount on Google Play. Hurry up to get the app today, the promotion will soon be over!
+    cs = Úžasné offline mapy MAPS.ME jsou zdarma na App Store a dostupné s 80% slevou na Google Play. Pospěšte si a získejte tuto aplikaci ještě dnes, tato propagační akce brzy skončí!
+    de = Die tolle Offline-Karten-App MAPS.ME gibt es gratis im App Store und ist mit 80 % Rabatt bei Google Play verfügbar. Beeilen Sie sich und holen Sie sich heute die App. Die Aktion ist bald vorbei!
+    es = La increíble app de mapas sin conexión, MAPS.ME, está en la App Store gratis y disponible en Google Play con un descuento del 80 %. Date prisa y consigue la app hoy, ¡la promoción pronto se acabará!
+    fr = Cette géniale application hors-connexion de cartes MAPS.ME est gratuite sur l'App Store et disponible avec une réduction de 80 % sur Google Play. Dépêchez-vous d'obtenir l'application dès aujourd'hui, la promotion se termine bientôt !
+    it = La bellissima app MAPS.ME con mappe off-line è gratuita sull'App Store ed è disponibile con l'80% di sconto su Google Play. Affrettati per avere l'applicazione oggi stesso; la promozione scadrà presto!
+    ja = 素晴らしい機能を搭載し、オフラインでも使用可能なマップアプリのMAPS.MEがApp Storeで無料、Google Playからは8割引の価格で入手できます。このプロモーションは間もなく終わってしまうので、今すぐにでもゲットしましょう！
+    ko = 멋진 오프라인 지도 앱인 MAPS.ME는 App Store에서 무료이며, Google Play에서 80% 할인된 가격으로 사용할 수 있습니다. 오늘 서둘러 앱을 다운로드하세요. 프로모션이 곧 끝납니다!
+    nl = Geweldige app MAPS.ME met offline kaarten is gratis in de App Store en beschikbaar met een korting van 80% op Google Play. Wees er snel bij en haal die app vandaag, want de actie is binnenkort ten einde!
+    ru  = Сегодня замечательное приложение с офлайн-картами MAPS.ME бесплатно в App Store, а в Google Play - со скидкой 80%. Рекомендую! Акция скоро закончится.
+    uk = Сьогодні чудова програма з офлайн-картами MAPS.ME безкоштовна в App Store, а в Google Play - зі знижкою 80%. Рекомендую! Акція скоро закінчиться.
+    zh-Hant = 精彩的離線地圖應用MAPS.ME可在App Store免費獲取，在Google Play則可享受兩折優惠。趕快立即獲取該應用吧，此優惠促銷很快即將結束！
+    pl = Fantastyczna aplikacja z mapami offline MAPS.ME jest dostępna na darmo w App Store oraz z 80% zniżką w Google Play. Pospiesz się i pobierz ją już dziś, gdyż promocja wkrótce dobiegnie końca!
+    pt = A app espetacular de mapas offline MAPS.ME é grátis na App Store e está disponível com um desconto de 80% no Google Play. Apresse-se para obter hoje a app, a promoção acabará em breve!
+    hu = A szuper offline térképek alkalmazása, a MAPS.ME ingyenes az App Store-ban és elérhető 80%-os kedvezménnyel a Google Play-en. Siess és szerezd meg az alkalmazást még ma, az akció hamarosan véget ér!
+    th = แอป MAPS.ME แผนที่ออฟไลน์สุดเจ๋งฟรีใน App Store และสามารถใช้ได้กับส่วนลด 80% บน Google Play เร็วเข้าเพื่อรับแอปวันนี้ โปรโมชั่นจะหมดเร็ว ๆ นี้!
+    zh-Hans = 精彩的离线地图应用MAPS.ME可在App Store免费获取，在Google Play则可享受两折优惠。赶快立即获取该应用吧，此优惠促销很快即将结束！
+    ar = تطبيق الخرائط غير المتصلة المذهل MAPS.ME أصبح مجاني على متجر التطبيقات ومتوفر بخصم 80% على Google Play. أسرع للحصول على التطبيق اليوم، فالترويج سوف ينتهي قريبا!
+    da = Den fantastiske offline kort app MAPS.ME er gratis i App Store og kan fås på Google Play med 80% i rabat. Skynd dig at få app´en i dag, promotionperioden er snart forbi!
+    tr = Mükemmel çevrimdışı harita uygulaması MAPS.ME App Store'da ücretsiz, Google Play üzerinde ise %80 indirimle hizmetinizde. Uygulamayı bugün edinmek için acele edin, promosyon yakında sona erecek!
 
   [maps_me_is_free_today_facebook_post_android]
     tags = android

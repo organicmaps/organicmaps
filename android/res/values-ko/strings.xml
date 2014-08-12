@@ -347,7 +347,7 @@
 	<!-- Message to display on 17th-18th august -->
 	<string name="maps_me_is_free_today_android">MAPS.ME는 구글 플레이에서 80% 할인된 가격으로 구입할 수 있습니다.</string>
 	<!-- Message for facebook post on 17th-18th august -->
-	<string name="maps_me_is_free_today_facebook_post_ios">방금 아이튠스에서 MAPS.ME 오프라인 지도를 무료로 받았습니다. 구글 플레이에서도 80% 할인된 가격으로 구입할 수 있습니다. 놓치지 마세요!</string>
+	<string name="maps_me_is_free_today_facebook_post_ios">멋진 오프라인 지도 앱인 MAPS.ME는 App Store에서 무료이며, Google Play에서 80% 할인된 가격으로 사용할 수 있습니다. 오늘 서둘러 앱을 다운로드하세요. 프로모션이 곧 끝납니다!</string>
 	<!-- Message for facebook post on 17th-18th august -->
 	<string name="maps_me_is_free_today_facebook_post_android">방금 구글 플레이에서 MAPS.ME 오프라인 지도를 80% 할인된 가격으로 구입했습니다. 아이튠스에서는 무료입니다. 놓치지 마세요!</string>
 	<!-- Text in menu -->

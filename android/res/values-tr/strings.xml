@@ -373,7 +373,7 @@
 	<!-- Message to display on 17th-18th august -->
 	<string name="maps_me_is_free_today_android">MAPS.ME Google Play\&#39;de %80 indirimli.</string>
 	<!-- Message for facebook post on 17th-18th august -->
-	<string name="maps_me_is_free_today_facebook_post_ios">MAPS.ME çevrimdışı haritaları iTunes\&#39;dan ücretsiz aldım. Şimdi Google Play\&#39;de de %80 indirimli. Kaçırma!</string>
+	<string name="maps_me_is_free_today_facebook_post_ios">Mükemmel çevrimdışı harita uygulaması MAPS.ME App Store\&#39;da ücretsiz, Google Play üzerinde ise %80 indirimle hizmetinizde. Uygulamayı bugün edinmek için acele edin, promosyon yakında sona erecek!</string>
 	<!-- Message for facebook post on 17th-18th august -->
 	<string name="maps_me_is_free_today_facebook_post_android">MAPS.ME çevrimdışı haritaları Google Play\&#39;den %80 indirimli aldım. iTunes\&#39;ta da ücretsiz. Kaçırma!</string>
 	<!-- Text in menu -->

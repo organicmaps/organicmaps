@@ -368,7 +368,7 @@
 	<!-- Message to display on 17th-18th august -->
 	<string name="maps_me_is_free_today_android">A MAPS.ME 80 százalékos kedvezménnyel érhető el a Google Playen.</string>
 	<!-- Message for facebook post on 17th-18th august -->
-	<string name="maps_me_is_free_today_facebook_post_ios">Az iTuneson ingyenesek a MAPS.ME offline térképei. A Google Playen is elérhetőek 80 százalék kedvezménnyel. Ne hagyd ki!</string>
+	<string name="maps_me_is_free_today_facebook_post_ios">A szuper offline térképek alkalmazása, a MAPS.ME ingyenes az App Store-ban és elérhető 80%-os kedvezménnyel a Google Play-en. Siess és szerezd meg az alkalmazást még ma, az akció hamarosan véget ér!</string>
 	<!-- Message for facebook post on 17th-18th august -->
 	<string name="maps_me_is_free_today_facebook_post_android">A Google Playen 80 százalék kedvezménnyel beszerezhetőek a MAPS.ME offline térképei. Ingyenesen az iTuneson is elérhetőek. Ne hagyd ki!</string>
 	<!-- Text in menu -->
