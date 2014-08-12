@@ -56,7 +56,7 @@
 {
   NSDictionary * parameters = @{@"message" : NSLocalizedString(@"maps_me_is_free_today_facebook_post_ios", nil),
                                 @"picture" : @"http://static.mapswithme.com/images/17th_august_promo.jpg",
-                                @"link" : @"http://www.maps.me/free"};
+                                @"link" : @"http://maps.me/get?17aug"};
   [FBRequestConnection startWithGraphPath:@"me/feed" parameters:parameters HTTPMethod:@"POST" completionHandler:^(FBRequestConnection * connection, id result, NSError * error) {
     block(!error);
   }];
