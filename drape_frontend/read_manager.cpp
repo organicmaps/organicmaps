@@ -33,7 +33,7 @@ struct LessCoverageCell
 ReadManager::ReadManager(EngineContext & context, model::FeaturesFetcher & model)
   : m_context(context)
   , m_model(model)
-  , myPool(1024, ReadMWMTaskFactory(m_memIndex, m_model, m_context))
+  , myPool(64, ReadMWMTaskFactory(m_memIndex, m_model, m_context))
 {
   m_pool.Reset(new threads::ThreadPool(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)));
 }
