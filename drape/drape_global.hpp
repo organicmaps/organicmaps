@@ -3,6 +3,19 @@
 namespace dp
 {
 
+enum TextureFormat
+{
+  RGBA8,
+  RGBA4,
+  ALPHA,
+  UNSPECIFIED
+};
+
+enum ResourceTag
+{
+  StipplePenTag
+};
+
 enum Anchor
 {
   Center      = 0,

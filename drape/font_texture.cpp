@@ -150,7 +150,7 @@ namespace
     void SingleTexture(vector<uint8_t> const & image, uint32_t width, uint32_t height)
     {
       FontTexture * texture = new FontTexture();
-      texture->Create(width, height, Texture::ALPHA, MakeStackRefPointer((void *)&image[0]));
+      texture->Create(width, height, ALPHA, MakeStackRefPointer((void *)&image[0]));
       m_regions.push_back(make_pair(m2::RectU(0, 0, width, height), texture));
     }
 
@@ -180,7 +180,7 @@ namespace
 
           copy_pixels(subView, dstView);
           FontTexture * texture = new FontTexture();
-          texture->Create(cutSize, cutSize, Texture::ALPHA,
+          texture->Create(cutSize, cutSize, ALPHA,
                           MakeStackRefPointer<void>(&regionImage[0]));
 
           m_regions.push_back(make_pair(m2::RectU(pxDx, pxDy,

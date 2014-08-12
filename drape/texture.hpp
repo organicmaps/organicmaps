@@ -2,6 +2,7 @@
 
 #include "pointers.hpp"
 #include "glconstants.hpp"
+#include "drape_global.hpp"
 
 #include "../geometry/rect2d.hpp"
 
@@ -14,13 +15,6 @@ namespace dp
 class Texture
 {
 public:
-  enum TextureFormat
-  {
-    RGBA8,
-    RGBA4,
-    ALPHA
-  };
-
   enum ResourceType
   {
     Symbol,
@@ -61,6 +55,7 @@ public:
 
   virtual ResourceInfo const * FindResource(Key const & key) const = 0;
 
+  TextureFormat GetFormat() const;
   uint32_t GetWidth() const;
   uint32_t GetHeight() const;
   float GetS(uint32_t x) const;
@@ -78,6 +73,7 @@ private:
   int32_t m_textureID;
   uint32_t m_width;
   uint32_t m_height;
+  TextureFormat m_format;
 };
 
 } // namespace dp

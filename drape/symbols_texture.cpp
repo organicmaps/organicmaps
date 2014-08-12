@@ -154,7 +154,7 @@ void SymbolsTexture::Load(string const & skinPathName)
   unsigned char * data = stbi_png_load_from_memory(&rawData[0], rawData.size(), &w, &h, &bpp, 0);
 
   if (width == w && height == h)
-    Create(width, height, Texture::RGBA8, MakeStackRefPointer<void>(data));
+    Create(width, height, RGBA8, MakeStackRefPointer<void>(data));
   else
     Fail();
 
@@ -177,7 +177,7 @@ void SymbolsTexture::Fail()
 {
   m_definition.clear();
   int32_t alfaTexture = 0;
-  Create(1, 1, Texture::RGBA8, MakeStackRefPointer(&alfaTexture));
+  Create(1, 1, RGBA8, MakeStackRefPointer(&alfaTexture));
 }
 
 } // namespace dp

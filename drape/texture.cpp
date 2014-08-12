@@ -24,6 +24,7 @@ Texture::Texture()
   : m_textureID(-1)
   , m_width(0)
   , m_height(0)
+  , m_format(dp::UNSPECIFIED)
 {
 }
 
@@ -40,6 +41,7 @@ void Texture::Create(uint32_t width, uint32_t height, TextureFormat format)
 
 void Texture::Create(uint32_t width, uint32_t height, TextureFormat format, RefPointer<void> data)
 {
+  m_format = format;
   m_width = width;
   m_height = height;
   if (!GLExtensionsList::Instance().IsSupported(GLExtensionsList::TextureNPOT))
@@ -78,12 +80,18 @@ void Texture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height
                          TextureFormat format, RefPointer<void> data)
 {
   ASSERT_ID;
+  ASSERT(format == m_format, ());
   glConst layout;
   glConst pixelType;
 
   UnpackFormat(format, layout, pixelType);
 
   GLFunctions::glTexSubImage2D(x, y, width, height, layout, pixelType, data.GetRaw());
+}
+
+TextureFormat Texture::GetFormat() const
+{
+  return m_format;
 }
 
 uint32_t Texture::GetWidth() const
@@ -121,7 +129,7 @@ uint32_t Texture::GetMaxTextureSize()
   return GLFunctions::glGetInteger(gl_const::GLMaxTextureSize);
 }
 
-void Texture::UnpackFormat(Texture::TextureFormat format, glConst & layout, glConst & pixelType)
+void Texture::UnpackFormat(TextureFormat format, glConst & layout, glConst & pixelType)
 {
   bool requiredFormat = GLExtensionsList::Instance().IsSupported(GLExtensionsList::RequiredInternalFormat);
   switch (format) {
