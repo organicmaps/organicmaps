@@ -34,11 +34,36 @@ public enum Statistics
   private int mBookmarksCreated = 0;
   private int mSharedTimes = 0;
 
-
-  public void trackSearchQuery(final String query)
+  public static class EventName
   {
-    NativeEventTracker.trackSearchQuery(query);
+    public static final String COUNTRY_DOWNLOAD = "Country download";
+    public static final String YOTA_BACK_CALL = "Yota back screen call";
+    public static final String COUNTRY_UPDATE = "Country update";
+    public static final String COUNTRY_DELETE = "Country deleted";
+    public static final String SEARCH_CAT_CLICKED = "Search category clicked";
+    public static final String BOOKMARK_GROUP_CHANGED = "Bookmark group changed";
+    public static final String DESCRIPTION_CHANGED = "Description changed";
+    public static final String GROUP_CREATED = "Group Created";
+    public static final String SEARCH_CONTEXT_CNAHGED = "Search context changed";
+    public static final String COLOR_CHANGED = "Color changed";
+    public static final String BOOKMARK_CREATED = "Bookmark created";
+    public static final String PLACE_SHARED = "Place Shared";
+    public static final String API_CALLED = "API called";
+    public static final String WIFI_CONNECTED = "Wifi connected";
+    public static final String DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN = "Download country notification shown";
+    public static final String DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED = "Download country notification clicked";
+    public static final String SETTINGS_RATE = "Settings. Rate app called";
+    public static final String MAIL_INFO = "Send mail at info@maps.me";
+    public static final String MAIL_SUBSCRIBE = "Settings. Subscribed";
+    public static final String REPORT_BUG = "Settings. Bug reported";
+    public static final String SETTINGS_FB = "Settings. Go to FB.";
+    public static final String SETTINGS_TWITTER = "Settings. Go to twitter.";
+    public static final String SETTINGS_HELP = "Settings. Help.";
+    public static final String SETTINGS_ABOUT = "Settings. About.";
+    public static final String SETTINGS_COPYRIGHT = "Settings. Copyright.";
   }
+
+
 
   private Statistics()
   {
@@ -64,7 +89,7 @@ public enum Statistics
   public void trackBackscreenCall(Context context, String from)
   {
     final Event event = getEventBuilder().reset()
-        .setName("Yota back screen call")
+        .setName(EventName.YOTA_BACK_CALL)
         .addParam("from", from)
         .getEvent();
 
@@ -73,23 +98,23 @@ public enum Statistics
 
   public void trackCountryDownload(Context context)
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent("Country download"));
+    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.COUNTRY_DOWNLOAD));
   }
 
   public void trackCountryUpdate(Context context)
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent("Country update"));
+    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.COUNTRY_UPDATE));
   }
 
   public void trackCountryDeleted(Context context)
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent("Country deleted"));
+    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.COUNTRY_DELETE));
   }
 
   public void trackSearchCategoryClicked(Context context, String category)
   {
     final Event event = getEventBuilder().reset()
-        .setName("Search category clicked")
+        .setName(EventName.SEARCH_CAT_CLICKED)
         .addParam("category", category)
         .getEvent();
 
@@ -98,23 +123,23 @@ public enum Statistics
 
   public void trackGroupChanged(Context context)
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent("Bookmark group changed"));
+    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.BOOKMARK_GROUP_CHANGED));
   }
 
   public void trackDescriptionChanged(Context context)
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent("Description changed"));
+    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.DESCRIPTION_CHANGED));
   }
 
   public void trackGroupCreated(Context context)
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent("Group Created"));
+    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.GROUP_CREATED));
   }
 
   public void trackSearchContextChanged(Context context, String from, String to)
   {
     final Event event = getEventBuilder().reset()
-        .setName("Search context changed")
+        .setName(EventName.SEARCH_CONTEXT_CNAHGED)
         .addParam("from", from)
         .addParam("to", to)
         .getEvent();
@@ -125,7 +150,7 @@ public enum Statistics
   public void trackColorChanged(Context context, String from, String to)
   {
     final Event event = getEventBuilder().reset()
-        .setName("Color changed")
+        .setName(EventName.COLOR_CHANGED)
         .addParam("from", from)
         .addParam("to", to)
         .getEvent();
@@ -136,7 +161,7 @@ public enum Statistics
   public void trackBookmarkCreated(Context context)
   {
     final Event event = getEventBuilder().reset()
-        .setName("Bookmark created")
+        .setName(EventName.BOOKMARK_CREATED)
         .addParam("Count", String.valueOf(++mBookmarksCreated))
         .getEvent();
 
@@ -146,7 +171,7 @@ public enum Statistics
   public void trackPlaceShared(Context context, String channel)
   {
     final Event event = getEventBuilder().reset()
-        .setName("Place Shared")
+        .setName(EventName.PLACE_SHARED)
         .addParam("Channel", channel)
         .addParam("Count", String.valueOf(++mSharedTimes))
         .getEvent();
@@ -171,7 +196,7 @@ public enum Statistics
       ensureConfigured(MWMApplication.get());
       //@formatter:off
       final Event event = getEventBuilder().reset()
-          .setName("API called")
+          .setName(EventName.API_CALLED)
           .addParam("Caller ID", request.getCallerInfo().packageName)
           .getEvent();
       //@formatter:on
@@ -183,7 +208,7 @@ public enum Statistics
   {
     ensureConfigured(MWMApplication.get());
     final Event event = getEventBuilder().reset().
-        setName("Wifi connected").
+        setName(EventName.WIFI_CONNECTED).
         addParam("Had valid location", String.valueOf(hasValidLocation)).
         getEvent();
     trackIfEnabled(MWMApplication.get(), event);
@@ -193,7 +218,7 @@ public enum Statistics
   {
     ensureConfigured(MWMApplication.get());
     final Event event = getEventBuilder().reset().
-        setName("Wifi connected").
+        setName(EventName.WIFI_CONNECTED).
         addParam("Had valid location", String.valueOf(isLocationExpired)).
         addParam("Delay in milliseconds", String.valueOf(delayMillis)).
         getEvent();
@@ -203,13 +228,13 @@ public enum Statistics
   public void trackDownloadCountryNotificationShown()
   {
     ensureConfigured(MWMApplication.get());
-    getEventBuilder().getSimpleNamedEvent("Download country notification shown").post();
+    getEventBuilder().getSimpleNamedEvent(EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN).post();
   }
 
   public void trackDownloadCountryNotificationClicked()
   {
     ensureConfigured(MWMApplication.get());
-    getEventBuilder().getSimpleNamedEvent("Download country notification clicked").post();
+    getEventBuilder().getSimpleNamedEvent(EventName.DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED).post();
   }
 
   public void trackSimpleNamedEvent(String eventName)

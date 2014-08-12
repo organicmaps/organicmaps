@@ -34,7 +34,7 @@
       android:drawableLeft="@drawable/ic_menu_settings"
       android:gravity="center_vertical"
       android:paddingLeft="10dp"
-      android:text="@string/settings"
+      android:text="@string/settings_and_more"
       android:textColor="@android:color/white"/>
 
   <View

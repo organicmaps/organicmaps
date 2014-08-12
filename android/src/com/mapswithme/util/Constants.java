@@ -8,6 +8,9 @@ public class Constants
   public static class Url
   {
     public static final String GE0_PREFIX = "ge0://";
+    public static final String MAILTO_SCHEME = "mailto:";
+    public static final String MAIL_SUBJECT = "?subject=";
+    public static final String MAIL_BODY = "&body=";
     public static final String HTTP_GE0_PREFIX = "http://ge0.me/";
 
     public static final String PLAY_MARKET_APP_PREFIX = "market://details?id=";
@@ -16,6 +19,12 @@ public class Constants
     public static final String FB_MAPSME_COMMUNITY_HTTP = "http://www.facebook.com/MapsWithMe";
     // Profile id is taken from http://graph.facebook.com/MapsWithMe
     public static final String FB_MAPSME_COMMUNITY_NATIVE = "fb://profile/111923085594432";
+    public static final String TWITTER_MAPSME_HTTP = "https://twitter.com/MAPS_ME";
+    public static final String TWITTER_MAPSME_NATIVE = "twitter://user?user_id=MAPS_ME";
+
+    public static final String MAIL_MAPSME_INFO = "android@maps.me";
+    public static final String MAIL_MAPSME_BUGS = "android@maps.me";
+    public static final String MAIL_MAPSME_SUBSCRIBE = "subscribe@maps.me";
 
     public static final String DATA_SCHEME_FILE = "file";
 
@@ -28,6 +37,7 @@ public class Constants
     public static final String MWM_PRO_PACKAGE = "com.mapswithme.maps.pro";
     public static final String MWM_LITE_PACKAGE = "com.mapswithme.maps";
     public static final String MWM_SAMSUNG_PACKAGE = "com.mapswithme.maps.samsung";
+    public static final String TWITTER_PACKAGE = "com.twitter.android";
 
     private Package() {}
   }

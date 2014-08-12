@@ -143,7 +143,7 @@
     <activity
         android:name="com.mapswithme.maps.settings.SettingsActivity"
         android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/settings"
+        android:label="@string/settings_and_more"
         android:screenOrientation="behind">
     </activity>
 

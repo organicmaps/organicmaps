@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
@@ -30,14 +29,17 @@ import android.webkit.WebViewClient;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
 
-public class SettingsActivity extends PreferenceActivity
+public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener, Preference.OnPreferenceChangeListener
 {
   public final static String ZOOM_BUTTON_ENABLED = "ZoomButtonsEnabled";
-  private static final String ABOUT_ASSET_URL = "file:///android_asset/about.html";
+  private static final String COPYRIGHT_HTML_URL = "file:///android_asset/copyright.html";
+  private static final String FAQ_HTML_URL = "file:///android_asset/faq.html";
 
   private Preference mStoragePreference = null;
   private StoragePathManager mPathManager = new StoragePathManager();
@@ -57,97 +59,43 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     addPreferencesFromResource(R.xml.preferences);
+    initPreferences();
+    yotaSetup();
+  }
 
-    final Activity parent = this;
-
+  @SuppressWarnings("deprecation")
+  private void initPreferences()
+  {
     mStoragePreference = findPreference(getString(R.string.pref_storage_activity));
-    mStoragePreference.setOnPreferenceClickListener(new OnPreferenceClickListener()
-    {
-      @Override
-      public boolean onPreferenceClick(Preference preference)
-      {
-        if (isDownloadingActive())
-        {
-          new AlertDialog.Builder(parent)
-              .setTitle(parent.getString(R.string.downloading_is_active))
-              .setMessage(parent.getString(R.string.cant_change_this_setting))
-              .setPositiveButton(parent.getString(R.string.ok), new DialogInterface.OnClickListener()
-              {
-                @Override
-                public void onClick(DialogInterface dlg, int which)
-                {
-                  dlg.dismiss();
-                }
-              })
-              .create()
-              .show();
-
-          return false;
-        }
-        else
-        {
-          parent.startActivity(new Intent(parent, StoragePathActivity.class));
-          return true;
-        }
-      }
-    });
+    mStoragePreference.setOnPreferenceClickListener(this);
 
     final ListPreference lPref = (ListPreference) findPreference(getString(R.string.pref_munits));
-
     lPref.setValue(String.valueOf(UnitLocale.getUnits()));
-    lPref.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        UnitLocale.setUnits(Integer.parseInt((String) newValue));
-        return true;
-      }
-    });
-
+    lPref.setOnPreferenceChangeListener(this);
 
     final CheckBoxPreference allowStatsPreference = (CheckBoxPreference) findPreference(getString(R.string.pref_allow_stat));
     allowStatsPreference.setChecked(Statistics.INSTANCE.isStatisticsEnabled(this));
-    allowStatsPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        Statistics.INSTANCE.setStatEnabled(getApplicationContext(), (Boolean) newValue);
-        return true;
-      }
-    });
+    allowStatsPreference.setOnPreferenceChangeListener(this);
 
     final CheckBoxPreference enableZoomButtons = (CheckBoxPreference) findPreference(getString(R.string.pref_zoom_btns_enabled));
     enableZoomButtons.setChecked(MWMApplication.get().nativeGetBoolean(ZOOM_BUTTON_ENABLED, true));
-    enableZoomButtons.setOnPreferenceChangeListener(new OnPreferenceChangeListener()
-    {
-      @Override
-      public boolean onPreferenceChange(Preference preference, Object newValue)
-      {
-        MWMApplication.get().nativeSetBoolean(ZOOM_BUTTON_ENABLED, (Boolean) newValue);
-        return true;
-      }
-    });
+    enableZoomButtons.setOnPreferenceChangeListener(this);
 
-    final Preference pref = findPreference(getString(R.string.pref_about));
-    pref.setOnPreferenceClickListener(new OnPreferenceClickListener()
-    {
-      @Override
-      public boolean onPreferenceClick(Preference preference)
-      {
-        onAboutDialogClicked(SettingsActivity.this);
-        return true;
-      }
-    });
-
-    yotaSetup();
+    findPreference(getString(R.string.pref_about)).setOnPreferenceClickListener(this);
+    findPreference(getString(R.string.pref_rate_app)).setOnPreferenceClickListener(this);
+    findPreference(getString(R.string.pref_contact)).setOnPreferenceClickListener(this);
+    findPreference(getString(R.string.pref_copyright)).setOnPreferenceClickListener(this);
+    findPreference(getString(R.string.pref_like_fb)).setOnPreferenceClickListener(this);
+    findPreference(getString(R.string.pref_follow_twitter)).setOnPreferenceClickListener(this);
+    findPreference(getString(R.string.pref_report_bug)).setOnPreferenceClickListener(this);
+    findPreference(getString(R.string.pref_subscribe)).setOnPreferenceClickListener(this);
+    findPreference(getString(R.string.pref_help)).setOnPreferenceClickListener(this);
   }
 
   @SuppressWarnings("deprecation")
   private void storagePathSetup()
   {
-    PreferenceScreen screen = getPreferenceScreen();
+    PreferenceScreen screen = (PreferenceScreen) findPreference(getString(R.string.pref_settings));
     if (Yota.isYota())
       screen.removePreference(mStoragePreference);
     else if (mPathManager.hasMoreThanOneStorage())
@@ -159,9 +107,10 @@ public class SettingsActivity extends PreferenceActivity
   @SuppressWarnings("deprecation")
   private void yotaSetup()
   {
+    final PreferenceScreen screen = (PreferenceScreen) findPreference(getString(R.string.pref_settings));
     final Preference yopPreference = findPreference(getString(R.string.pref_yota));
     if (!Yota.isYota())
-      getPreferenceScreen().removePreference(yopPreference);
+      screen.removePreference(yopPreference);
     else
     {
       yopPreference.setOnPreferenceClickListener(new OnPreferenceClickListener()
@@ -229,10 +178,10 @@ public class SettingsActivity extends PreferenceActivity
       return super.onOptionsItemSelected(item);
   }
 
-  public void onAboutDialogClicked(Activity parent)
+  private WebView buildWebViewDialog(String dialogTitle)
   {
-    final LayoutInflater inflater = LayoutInflater.from(parent);
-    final View alertDialogView = inflater.inflate(R.layout.about, null);
+    final LayoutInflater inflater = LayoutInflater.from(this);
+    final View alertDialogView = inflater.inflate(R.layout.dialog_about, null);
     final WebView myWebView = (WebView) alertDialogView.findViewById(R.id.webview_about);
 
     myWebView.setWebViewClient(new WebViewClient()
@@ -286,18 +235,9 @@ public class SettingsActivity extends PreferenceActivity
       }
     });
 
-    String versionStr = "";
-    try
-    {
-      versionStr = parent.getPackageManager().getPackageInfo(parent.getPackageName(), 0).versionName;
-    } catch (final NameNotFoundException e)
-    {
-      e.printStackTrace();
-    }
-
-    new AlertDialog.Builder(parent)
+    new AlertDialog.Builder(this)
         .setView(alertDialogView)
-        .setTitle(String.format(parent.getString(R.string.version), versionStr))
+        .setTitle(dialogTitle)
         .setPositiveButton(R.string.close, new DialogInterface.OnClickListener()
         {
           @Override
@@ -309,10 +249,144 @@ public class SettingsActivity extends PreferenceActivity
         .create()
         .show();
 
-    myWebView.loadUrl(ABOUT_ASSET_URL);
+    return myWebView;
+  }
+
+  private void showWebViewDialogWithUrl(String url, String dialogTitle)
+  {
+    WebView webView = buildWebViewDialog(dialogTitle);
+    webView.getSettings().setJavaScriptEnabled(true);
+    webView.getSettings().setDefaultTextEncodingName("utf-8");
+    webView.loadUrl(url);
+  }
+
+  private void showDialogWithData(String text, String title)
+  {
+    new AlertDialog.Builder(this)
+        .setTitle(title)
+        .setMessage(text)
+        .setPositiveButton(R.string.close, new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            dialog.dismiss();
+          }
+        })
+        .create()
+        .show();
   }
 
   private native boolean isDownloadingActive();
+
+  @Override
+  public boolean onPreferenceClick(Preference preference)
+  {
+    final String key = preference.getKey();
+    if (key.equals(getString(R.string.pref_rate_app)))
+    {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_RATE);
+      UiUtils.runProMarketActivity(this);
+    }
+    else if (key.equals(getString(R.string.pref_contact)))
+    {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.MAIL_INFO);
+      final Intent intent = new Intent(Intent.ACTION_SENDTO);
+      intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_INFO, "", ""));
+      startActivity(intent);
+    }
+    else if (key.equals(getString(R.string.pref_subscribe)))
+    {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.MAIL_SUBSCRIBE);
+      final Intent intent = new Intent(Intent.ACTION_SENDTO);
+      intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_SUBSCRIBE, getString(R.string.subscribe_me_subject), getString(R.string.subscribe_me_body)));
+      startActivity(intent);
+    }
+    else if (key.equals(getString(R.string.pref_report_bug)))
+    {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.REPORT_BUG);
+      final Intent intent = new Intent(Intent.ACTION_SENDTO);
+      intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_BUGS, "", ""));
+      startActivity(intent);
+    }
+    else if (key.equals(getString(R.string.pref_like_fb)))
+    {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_FB);
+      UiUtils.showFacebookPage(this);
+    }
+    else if (key.equals(getString(R.string.pref_follow_twitter)))
+    {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_TWITTER);
+      UiUtils.showTwitterPage(this);
+    }
+    else if (key.equals(getString(R.string.pref_help)))
+    {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_HELP);
+      showWebViewDialogWithUrl(FAQ_HTML_URL, getString(R.string.help));
+    }
+    else if (key.equals(getString(R.string.pref_copyright)))
+    {
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_COPYRIGHT);
+      showWebViewDialogWithUrl(COPYRIGHT_HTML_URL, getString(R.string.copyright));
+    }
+    else if (key.equals(getString(R.string.pref_about)))
+    {
+      String versionStr = "";
+      try
+      {
+        versionStr = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+      } catch (final NameNotFoundException e)
+      {
+        e.printStackTrace();
+      }
+
+      Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_ABOUT);
+      showDialogWithData(getString(R.string.about_text),
+          String.format(getString(R.string.version), versionStr));
+    }
+    else if (key.equals(getString(R.string.pref_storage_activity)))
+    {
+      if (isDownloadingActive())
+      {
+        new AlertDialog.Builder(SettingsActivity.this)
+            .setTitle(getString(R.string.downloading_is_active))
+            .setMessage(getString(R.string.cant_change_this_setting))
+            .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dlg, int which)
+              {
+                dlg.dismiss();
+              }
+            })
+            .create()
+            .show();
+
+        return false;
+      }
+      else
+      {
+        startActivity(new Intent(this, StoragePathActivity.class));
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  @Override
+  public boolean onPreferenceChange(Preference preference, Object newValue)
+  {
+    final String key = preference.getKey();
+    if (key.equals(getString(R.string.pref_munits)))
+      UnitLocale.setUnits(Integer.parseInt((String) newValue));
+    else if (key.equals(getString(R.string.pref_allow_stat)))
+      Statistics.INSTANCE.setStatEnabled(getApplicationContext(), (Boolean) newValue);
+    else if (key.equals(getString(R.string.pref_zoom_btns_enabled)))
+      MWMApplication.get().nativeSetBoolean(ZOOM_BUTTON_ENABLED, (Boolean) newValue);
+
+    return true;
+  }
 
 
   // needed for soft keyboard to appear in alertdialog.

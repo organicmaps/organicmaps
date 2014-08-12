@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -486,20 +485,6 @@ public class MWMActivity extends NvEventQueueActivity
         .show();
   }
 
-  private void showFacebookPage()
-  {
-    try
-    {
-      // Exception is thrown if we don't have installed Facebook application.
-      getPackageManager().getPackageInfo(Constants.Package.FB_PACKAGE, 0);
-
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.FB_MAPSME_COMMUNITY_NATIVE)));
-    } catch (final Exception e)
-    {
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.FB_MAPSME_COMMUNITY_HTTP)));
-    }
-  }
-
   private boolean isChinaISO(String iso)
   {
     final String arr[] = {"CN", "CHN", "HK", "HKG", "MO", "MAC"};
@@ -551,7 +536,7 @@ public class MWMActivity extends NvEventQueueActivity
               mApplication.submitDialogResult(MWMApplication.FACEBOOK, MWMApplication.OK);
 
               dlg.dismiss();
-              showFacebookPage();
+              UiUtils.showFacebookPage(MWMActivity.this);
             }
           }
       );

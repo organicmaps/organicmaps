@@ -275,6 +275,38 @@ public final class UiUtils
     }
   }
 
+  public static void showFacebookPage(Activity activity)
+  {
+    try
+    {
+      // Exception is thrown if we don't have installed Facebook application.
+      activity.getPackageManager().getPackageInfo(Constants.Package.FB_PACKAGE, 0);
+
+      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.FB_MAPSME_COMMUNITY_NATIVE)));
+    } catch (final Exception e)
+    {
+      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.FB_MAPSME_COMMUNITY_HTTP)));
+    }
+  }
+
+  public static void showTwitterPage(Activity activity)
+  {
+    Intent intent;
+    try
+    {
+      // get the Twitter app if possible
+      activity.getPackageManager().getPackageInfo(Constants.Package.TWITTER_PACKAGE, 0);
+      intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_NATIVE));
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    } catch (Exception e)
+    {
+      // no Twitter app, revert to browser
+      intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_HTTP));
+    }
+    activity.startActivity(intent);
+  }
+
+
   // utility class
   private UiUtils()
   {}

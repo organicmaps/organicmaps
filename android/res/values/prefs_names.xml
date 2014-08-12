@@ -7,7 +7,16 @@
   <string name="pref_yota" translatable="false">Yota</string>
   <string name="pref_zoom_btns_enabled" translatable="false">ZoomButtonsEnabled</string>
   <string name="pref_about" translatable="false">AboutMapsWithMe</string>
-
+  <string name="pref_rate_app" translatable="false">RateApp</string>
+  <string name="pref_help" translatable="false">Help</string>
+  <string name="pref_copyright" translatable="false">Copyright</string>
+  <string name="pref_report_bug" translatable="false">ReportBug</string>
+  <string name="pref_community" translatable="false">Community</string>
+  <string name="pref_like_fb" translatable="false">LikeFb</string>
+  <string name="pref_follow_twitter" translatable="false">FollowTwitter</string>
+  <string name="pref_contact" translatable="false">ContactUs</string>
+  <string name="pref_subscribe" translatable="false">Subscribe</string>
+  <string name="pref_settings" translatable="false">Settings</string>
   <string name="pref_file_name" translatable="false">MapsMePrefs</string>
 
 </resources>

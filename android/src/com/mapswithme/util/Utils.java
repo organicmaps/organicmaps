@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
@@ -211,6 +212,15 @@ public class Utils
   {
     PackageManager mgr = MWMApplication.get().getPackageManager();
     return mgr.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).size() > 0;
+  }
+
+  public static Uri buildMailUri(String to, String subject, String body)
+  {
+    String uriString = Constants.Url.MAILTO_SCHEME + Uri.encode(to) +
+        Constants.Url.MAIL_SUBJECT + Uri.encode(subject) +
+        Constants.Url.MAIL_BODY + Uri.encode(body);
+
+    return Uri.parse(uriString);
   }
 
   private Utils() {}

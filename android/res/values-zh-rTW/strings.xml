@@ -346,7 +346,7 @@
 	<!-- Message to display on 17th-18th august -->
 	<string name="maps_me_is_free_today_ios">MAPS.ME今日免費！在Facebook上分享此新聞。</string>
 	<!-- Message to display on 17th-18th august -->
-	<string name="maps_me_is_free_today_android">MAPS.ME在Google Play上可享受80％折扣。</string>
+	<string name="maps_me_is_free_today_android">MAPS.ME在Google Play上可享受80％折扣! 在Facebook上分享此新聞。</string>
 	<!-- Message for facebook post on 17th-18th august -->
 	<string name="maps_me_is_free_today_facebook_post_ios">精彩的離線地圖應用MAPS.ME可在App Store免費獲取，在Google Play則可享受兩折優惠。趕快立即獲取該應用吧，此優惠促銷很快即將結束！</string>
 	<!-- Message for facebook post on 17th-18th august -->

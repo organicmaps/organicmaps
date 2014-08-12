@@ -1,40 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+  <PreferenceCategory
+      android:order="0"
+      android:title=" ">
 
     <Preference
-        android:key="@string/pref_storage_activity"
-        android:summary="@string/maps_storage_summary"
-        android:title="@string/maps_storage" 
-        android:order="0"/>
-
-    <ListPreference
-        android:entries="@array/measument_units"
-        android:entryValues="@array/measument_units_values"
-        android:key="@string/pref_munits"
-        android:summary="@string/measurement_units_summary"
-        android:title="@string/measurement_units"
-        android:order="1"/>
-
-    <CheckBoxPreference
-        android:key="@string/pref_allow_stat"
-        android:summary="@string/allow_statistics_hint"
-        android:title="@string/allow_statistics"
-        android:order="2"/>
-    <CheckBoxPreference
-        android:key="@string/pref_zoom_btns_enabled"
-        android:summary="@string/pref_zoom_summary"
-        android:title="@string/pref_zoom_title"
-        android:order="3"/>
+        android:key="@string/pref_help"
+        android:order="1"
+        android:title="@string/help"/>
 
     <Preference
-        android:key="@string/pref_yota"
-        android:summary="@string/yopme_pref_summary"
-        android:title="@string/yopme_pref_title"
-        android:order="98"/>
+        android:key="@string/pref_report_bug"
+        android:order="2"
+        android:title="@string/report_a_bug"/>
+
+    <PreferenceScreen
+        android:key="@string/pref_settings"
+        android:order="0"
+        android:persistent="false"
+        android:title="@string/settings">
+
+      <Preference
+          android:key="@string/pref_storage_activity"
+          android:order="1"
+          android:summary="@string/maps_storage_summary"
+          android:title="@string/maps_storage"/>
+
+      <ListPreference
+          android:entries="@array/measument_units"
+          android:entryValues="@array/measument_units_values"
+          android:key="@string/pref_munits"
+          android:order="2"
+          android:summary="@string/measurement_units_summary"
+          android:title="@string/measurement_units"/>
+
+      <CheckBoxPreference
+          android:key="@string/pref_allow_stat"
+          android:order="3"
+          android:summary="@string/allow_statistics_hint"
+          android:title="@string/allow_statistics"/>
+
+      <CheckBoxPreference
+          android:key="@string/pref_zoom_btns_enabled"
+          android:order="4"
+          android:summary="@string/pref_zoom_summary"
+          android:title="@string/pref_zoom_title"/>
+
+      <Preference
+          android:key="@string/pref_yota"
+          android:order="98"
+          android:summary="@string/yopme_pref_summary"
+          android:title="@string/yopme_pref_title"/>
+
+    </PreferenceScreen>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      android:order="1"
+      android:title=" ">
+
+    <PreferenceScreen
+        android:order="1"
+        android:persistent="false"
+        android:title="@string/maps_me_community">
+
+      <Preference
+          android:key="@string/pref_like_fb"
+          android:order="1"
+          android:title="@string/like_on_facebook"/>
+
+      <Preference
+          android:key="@string/pref_follow_twitter"
+          android:order="2"
+          android:title="@string/follow_on_twitter"/>
+
+      <PreferenceCategory
+          android:order="4"
+          android:title=" ">
+
+        <Preference
+            android:key="@string/pref_contact"
+            android:title="@string/contact_us"/>
+
+      </PreferenceCategory>
+
+      <Preference
+          android:key="@string/pref_subscribe"
+          android:order="3"
+          android:title="@string/subscribe_to_news"/>
+    </PreferenceScreen>
+
+    <Preference
+        android:key="@string/pref_rate_app"
+        android:order="2"
+        android:title="@string/rate_the_app"/>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      android:order="2"
+      android:title=" ">
 
     <Preference
         android:key="@string/pref_about"
-        android:title="@string/about_menu_title"
-        android:order="99"/>
+        android:order="0"
+        android:title="@string/about_menu_title"/>
+
+    <Preference
+        android:key="@string/pref_copyright"
+        android:order="1"
+        android:title="@string/copyright"/>
+
+  </PreferenceCategory>
 
 </PreferenceScreen>

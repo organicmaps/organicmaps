@@ -4749,26 +4749,26 @@
   [maps_me_is_free_today_android]
     tags = android
     comment = Message to display on 17th-18th august
-    en = MAPS.ME is available with 80% discount at Google Play.
-    cs = MAPS.ME jsou dostupné na Google Play se slevou 80 %.
-    de = MAPS.ME gibt es mit 80 % Rabatt auf Google Play.
-    es = MAPS.ME disponible con un descuento del 80 % en Google Play
-    fr = MAPS.ME est disponible avec 80 % de réduction sur Google Play.
-    it = MAPS.ME è disponibile con uno sconto dell'80% su Google Play
-    ja = Google Playから8割引の価格でMAPS.MEをお買い求めいただけます。
-    ko = MAPS.ME는 구글 플레이에서 80% 할인된 가격으로 구입할 수 있습니다.
-    nl = MAPS.ME is met 80% korting te koop op Google Play.
-    ru = Сегодня в Google Play скидка на MAPS.ME 80%
-    uk = Сьогодні в Google Play знижка на MAPS.ME 80%
-    zh-Hant = MAPS.ME在Google Play上可享受80％折扣。
-    pl = MAPS.ME jest dostępne z 80% zniżką na Google Play.
-    pt = A MAPS.ME está disponível com 80% de desconto na Google Play.
-    hu = A MAPS.ME 80 százalékos kedvezménnyel érhető el a Google Playen.
-    th = สามารถใช้ MAPS.ME ลด 80% ได้ที่ Google Play
-    zh-Hans = MAPS.ME在Google Play上可享受80％折扣。
-    ar = MAPS.ME متوفر الآن مع خصم 80٪ على منصة جوجل بلاي.
-    da = MAPS.ME er tilgængeligt med 80% rabat på Google Play.
-    tr = MAPS.ME Google Play'de %80 indirimli.
+    en = MAPS.ME is available with 80% discount at Google Play! Share the news on Facebook.
+    cs = MAPS.ME jsou dostupné na Google Play se slevou 80 %! Sdílejte tu zprávu na Facebooku.
+    de = MAPS.ME gibt es mit 80 % Rabatt auf Google Play! Neuigkeiten auf Facebook teilen.
+    es = MAPS.ME disponible con un descuento del 80 % en Google Play! Comparte la noticia en Facebook.
+    fr = MAPS.ME est disponible avec 80 % de réduction sur Google Play ! Partagez la nouvelle sur Facebook.
+    it = MAPS.ME è disponibile con uno sconto dell'80% su Google Play! Condividi la notizia su Facebook.
+    ja = Google Playから8割引の価格でMAPS.MEをお買い求めいただけます! Facebookでニュースをシェアしよう。
+    ko = MAPS.ME는 구글 플레이에서 80% 할인된 가격으로 구입할 수 있습니다! Facebook에서 뉴스를 공유할 수 있습니다.
+    nl = MAPS.ME is met 80% korting te koop op Google Play! Deel het nieuws op Facebook.
+    ru = Сегодня в Google Play скидка на MAPS.ME 80%! Поделись новостью на Facebook.
+    uk = Сьогодні в Google Play знижка на MAPS.ME 80%! Розповсюдити новину на Facebook.
+    zh-Hant = MAPS.ME在Google Play上可享受80％折扣! 在Facebook上分享此新聞。
+    pl = MAPS.ME jest dostępne z 80% zniżką na Google Play! Podziel się tą wiadomością na Facebooku.
+    pt = A MAPS.ME está disponível com 80% de desconto na Google Play! Partilhe a notícia no Facebook.
+    hu = A MAPS.ME 80 százalékos kedvezménnyel érhető el a Google Playen! Oszd meg a hírt facebookon.
+    th = สามารถใช้ MAPS.ME ลด 80% ได้ที่ Google Play! แบ่งปันข่าวนี้บน Facebook
+    zh-Hans = MAPS.ME在Google Play上可享受80％折扣! 在Facebook上分享该消息。
+    ar = MAPS.ME متوفر الآن مع خصم 80٪ على منصة جوجل بلاي. يمكنك مشاركة الأخبار على الفيسبوك.
+    da = MAPS.ME er tilgængeligt med 80% rabat på Google Play! Del nyheden på Facebook.
+    tr = MAPS.ME Google Play'de %80 indirimli! Haberi Facebook'ta paylaş.
 
   [maps_me_is_free_today_facebook_post_ios]
     tags = ios
