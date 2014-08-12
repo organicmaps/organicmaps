@@ -65,7 +65,7 @@
   NSString * itemId = self.items[indexPath.section][@"Items"][indexPath.row][@"Id"];
   if ([itemId isEqualToString:@"Facebook"])
   {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/MapsWithMe"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://facebook.com/MapsWithMe"]];
   }
   else if ([itemId isEqualToString:@"Twitter"])
   {
