@@ -33,14 +33,15 @@ struct LessCoverageCell
 ReadManager::ReadManager(EngineContext & context, model::FeaturesFetcher & model)
   : m_context(context)
   , m_model(model)
-  , myPool(100, ReadMWMTaskFactory(m_memIndex, m_model, m_context))
+  , myPool(1024, ReadMWMTaskFactory(m_memIndex, m_model, m_context))
 {
   m_pool.Reset(new threads::ThreadPool(ReadCount(), bind(&ReadManager::OnTaskFinished, this, _1)));
 }
 
 void ReadManager::OnTaskFinished(threads::IRoutine * task)
 {
-  ReadMWMTask * t = (ReadMWMTask *)task;
+  ASSERT(dynamic_cast<ReadMWMTask *>(task) != NULL, ());
+  ReadMWMTask * t = static_cast<ReadMWMTask *>(task);
   t->Reset();
   myPool.Return(t);
 }
@@ -140,4 +141,3 @@ void ReadManager::ClearTileInfo(tileinfo_ptr const & tileToClear)
 }
 
 } // namespace df
-
