@@ -52,7 +52,8 @@
 
 - (BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
 {
-  if (self.openInSafari && inType == UIWebViewNavigationTypeLinkClicked)
+  if (self.openInSafari && inType == UIWebViewNavigationTypeLinkClicked
+      && ![inRequest.URL.scheme isEqualToString:@"applewebdata"]) // do not try to open local links in Safari
   {
     [[UIApplication sharedApplication] openURL:[inRequest URL]];
     return NO;
