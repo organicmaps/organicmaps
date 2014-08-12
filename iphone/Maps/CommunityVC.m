@@ -84,7 +84,7 @@
 
 - (void)contact
 {
-  [self sendEmailWithText:nil subject:@"MAPS.ME" toRecipient:@"info@maps.me"];
+  [self sendEmailWithText:nil subject:@"MAPS.ME" toRecipient:@"ios@maps.me"];
 }
 
 - (void)subscribe
