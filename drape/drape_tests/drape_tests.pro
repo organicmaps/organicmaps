@@ -39,6 +39,7 @@ SOURCES += \
     pointers_tests.cpp \
     font_texture_tests.cpp \
     bingind_info_tests.cpp \
+    stipple_pen_tests.cpp
 
 HEADERS += \
     glmock_functions.hpp \
