@@ -596,7 +596,7 @@
     [userDefaults setBool:YES forKey:alertKey];
     [userDefaults synchronize];
 
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"Facebook" message:NSLocalizedString(@"maps_me_is_free_today_ios", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"no_thanks", nil) otherButtonTitles:NSLocalizedString(@"share", nil), nil];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"maps_me_is_free_today_ios", nil) message:NSLocalizedString(@"maps_me_is_free_today_facebook_post_ios", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"no_thanks", nil) otherButtonTitles:NSLocalizedString(@"share", nil), nil];
     alertView.tag = ALERT_VIEW_PROMO;
     [alertView show];
   }
