@@ -4926,7 +4926,7 @@
     ja = お問い合わせ
     ko = 연락처
     nl = Contact met ons opnemen
-    ru = Контакты
+    ru = Свяжитесь с нами
     uk = Контакти
     zh-Hant = 聯絡我們
     pl = Skontaktuj się z nami
