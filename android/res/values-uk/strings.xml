@@ -353,6 +353,8 @@
 	<string name="download_map_notification">Завантажуйте карту тієї місцевості, де ви знаходитесь</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today">MAPS.ME Pro сьогодні безкоштовно! Завантажуй та розкажи друзям.</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today_android">Сьогодні в Google Play знижка на MAPS.ME 80%! Завантажуй та розкажи друзям.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Ми переносимо завантажені карти з MAPS.ME Lite в MAPS.ME. Це може зайняти декілька хвилин.</string>
 	<!-- Message to display when maps moved. -->

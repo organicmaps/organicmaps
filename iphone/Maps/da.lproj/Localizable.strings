@@ -578,6 +578,9 @@
 /* text of notification */
 "pro_version_is_free_today" = "MAPS.ME Pro er gratis i dag! Hent nu og fortæl dine venner.";
 
+/* text of notification */
+"pro_version_is_free_today_android" = "MAPS.ME er tilgængeligt med 80% rabat på Google Play! Del nyheden på Facebook.";
+
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Vi overfører dine downloadede kort fra MAPS.ME Lite til MAPS.ME. Det kan tage et par minutter.";
 

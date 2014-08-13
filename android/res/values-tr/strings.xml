@@ -362,6 +362,8 @@
 	<string name="download_map_notification">Bulunduğun yerin haritasını indir</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today">MAPS.ME Pro bugün ücretsiz! İndir ve arkadaşlarına haber ver.</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today_android">MAPS.ME Google Play\&#39;de %80 indirimli! İndir ve arkadaşlarına haber ver.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">MAPS.ME Lite\&#39;den indirmiş olduğunuz haritaları MAPS.ME\&#39;ye aktarıyoruz. Bu bir kaç dakika sürebilir.</string>
 	<!-- Message to display when maps moved. -->

@@ -578,6 +578,9 @@
 /* text of notification */
 "pro_version_is_free_today" = "MAPS.ME Pro dnes zdarma! Stáhněte nyní a řekněte svým kamarádům.";
 
+/* text of notification */
+"pro_version_is_free_today_android" = "MAPS.ME jsou dostupné na Google Play se slevou 80 %! Stáhněte nyní a řekněte svým kamarádům.";
+
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Právě přenášíme Vaše stažené mapy z MAPS.ME Lite na MAPS.ME. Může to několik minut trvat.";
 

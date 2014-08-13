@@ -578,6 +578,9 @@
 /* text of notification */
 "pro_version_is_free_today" = "A MAPS.ME Pro ma ingyenes! Töltsd le most és meséld el barátaidnak.";
 
+/* text of notification */
+"pro_version_is_free_today_android" = "A MAPS.ME 80%-kal olcsóbban érhető el a Google Play-n! Töltsd le most és mondd el barátaidnak!";
+
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Letöltött térképeidet áthelyezzük a MAPS.ME Lite-ból a MAPS.ME-be. Ez eltarthat pár percig.";
 

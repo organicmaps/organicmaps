@@ -155,11 +155,11 @@ public class Notifier
         setAction(WorkerService.ACTION_PROMO_NOTIFICATION_CLICK);
     final PendingIntent pendingIntent = PendingIntent.getService(MWMApplication.get(), 0, intent, 0);
 
-    // TODO add correct string from resources after translations
+    final String text = MWMApplication.get().getString(R.string.pro_version_is_free_today_android);
     final Notification notification = getBuilder()
-        .setContentTitle("promo action")
-        .setContentText("download mwmpro for 1 dollar!")
-        .setTicker("promo action" + ": " + "download mwmpro for 1 dollar")
+        .setContentTitle(MWMApplication.get().getString(R.string.app_name))
+        .setContentText(text)
+        .setTicker(text)
         .setContentIntent(pendingIntent)
         .build();
 

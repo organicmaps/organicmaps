@@ -4650,6 +4650,30 @@
     da = MAPS.ME Pro er gratis i dag! Hent nu og fortæl dine venner.
     tr = MAPS.ME Pro bugün ücretsiz! İndir ve arkadaşlarına haber ver.
 
+  [pro_version_is_free_today_android]
+    tags = android
+    comment = text of notification
+    en = MAPS.ME is available with 80% discount at Google Play! Download now and tell your friends.
+    cs = MAPS.ME jsou dostupné na Google Play se slevou 80 %! Stáhněte nyní a řekněte svým kamarádům.
+    de = MAPS.ME gibt es mit 80 % Rabatt auf Google Play! Jetzt runterladen & Freunde informieren.
+    es = MAPS.ME disponible con un descuento del 80 % en Google Play! Descárgalo ahora y dilo a tus amigos.
+    fr = MAPS.ME est disponible avec 80% de réduction sur Google Play! Téléch. maint. et parlez-en à vos amis
+    it = MAPS.ME è disponibile con uno sconto dell'80% su Google Play! Scaricala ora e dillo ai tuoi amici!
+    ja = Google Playから8割引の価格でMAPS.MEをお買い求めいただけます! 今すぐダウンロードして友達に教えてあげましょう。
+    ko = MAPS.ME는 구글 플레이에서 80% 할인된 가격으로 구입할 수 있습니다! 지금 다운로드하고 친구들에게 알리세요.
+    nl = MAPS.ME is met 80% korting te koop op Google Play! Download nu en vertel het je vrienden.
+    ru = Сегодня в Google Play скидка на MAPS.ME 80%! Скачай сейчас и расскажи друзьям.
+    uk = Сьогодні в Google Play знижка на MAPS.ME 80%! Завантажуй та розкажи друзям.
+    zh-Hant = MAPS.ME在Google Play上可享受80％折扣! 馬上下載并告訴您的朋友。
+    pl = MAPS.ME jest dostępne z 80% zniżką na Google Play! Pobierz teraz i powiedz znajomym.
+    pt = A MAPS.ME está disponível com 80% de desconto na Google Play! Descarregue e conte aos seus amigos.
+    hu = A MAPS.ME 80%-kal olcsóbban érhető el a Google Play-n! Töltsd le most és mondd el barátaidnak!
+    th = สามารถใช้ MAPS.ME ลด 80% ได้ที่ Google Play! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ
+    zh-Hans = MAPS.ME在Google Play上可享受80％折扣! 立刻下载并告诉您的好友。
+    ar = MAPS.ME متوفر الآن مع خصم 80٪ على منصة جوجل بلاي. قم بتنزيله الآن وأخبر أصدقائك.
+    da = MAPS.ME er tilgængeligt med 80% rabat på Google Play! Del nyheden på Facebook.
+    tr = MAPS.ME Google Play'de %80 indirimli! İndir ve arkadaşlarına haber ver.
+
   [move_lite_maps_to_pro]
     tags = android
     comment = Dialog for transferring maps from lite to pro.

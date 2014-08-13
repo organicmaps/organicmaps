@@ -578,6 +578,9 @@
 /* text of notification */
 "pro_version_is_free_today" = "MAPS.ME Pro è oggi gratis! Scaricala ora e dillo ai tuoi amici!";
 
+/* text of notification */
+"pro_version_is_free_today_android" = "MAPS.ME è disponibile con uno sconto dell'80% su Google Play! Scaricala ora e dillo ai tuoi amici!";
+
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Stiamo trasferendo le tue mappe scaricate da MAPS.ME Lite a MAPS.ME. Potrebbe richiedere alcuni minuti.";
 

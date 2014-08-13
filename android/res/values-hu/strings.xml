@@ -357,6 +357,8 @@
 	<string name="download_map_notification">Töltsd le annak a helynek a térképét, ahol most vagy</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today">A MAPS.ME Pro ma ingyenes! Töltsd le most és meséld el barátaidnak.</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today_android">A MAPS.ME 80%-kal olcsóbban érhető el a Google Play-n! Töltsd le most és mondd el barátaidnak!</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Letöltött térképeidet áthelyezzük a MAPS.ME Lite-ból a MAPS.ME-be. Ez eltarthat pár percig.</string>
 	<!-- Message to display when maps moved. -->

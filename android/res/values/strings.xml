@@ -373,6 +373,8 @@
 	<string name="download_map_notification">Download the map of the place where you are</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today">MAPS.ME Pro is free today! Download now and tell your friends.</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today_android">MAPS.ME is available with 80% discount at Google Play! Download now and tell your friends.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">We are transferring your downloaded maps from MAPS.ME Lite to MAPS.ME. It may take a few minutes.</string>
 	<!-- Message to display when maps moved. -->

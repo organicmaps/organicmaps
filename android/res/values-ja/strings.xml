@@ -345,6 +345,8 @@
 	<string name="download_map_notification">あなたがいる場所のマップをダウンロードしよう</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today">MAPS.ME Proが本日無料！今すぐダウンロードして友達に教えてあげましょう。</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today_android">Google Playから8割引の価格でMAPS.MEをお買い求めいただけます! 今すぐダウンロードして友達に教えてあげましょう。</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">ダウンロード済みの地図をMAPS.ME LiteからMAPS.MEに転送します。完了までに数分かかるかもしれません。</string>
 	<!-- Message to display when maps moved. -->

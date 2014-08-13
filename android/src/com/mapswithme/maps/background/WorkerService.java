@@ -214,10 +214,9 @@ public class WorkerService extends IntentService
     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MWMApplication.get().getProVersionURL())).
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     if (!Utils.isIntentAvailable(intent))
-    {
       intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MWMApplication.get().getDefaultProVersionURL())).
           addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    }
+
     startActivity(intent);
     Statistics.INSTANCE.trackSimpleNamedEvent(PROMO_CLICK_EVENT_NAME);
   }

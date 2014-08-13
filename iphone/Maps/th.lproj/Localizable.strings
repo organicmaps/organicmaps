@@ -578,6 +578,9 @@
 /* text of notification */
 "pro_version_is_free_today" = "MAPS.ME Pro วันนี้ฟรี! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ";
 
+/* text of notification */
+"pro_version_is_free_today_android" = "สามารถใช้ MAPS.ME ลด 80% ได้ที่ Google Play! ดาวน์โหลดตอนนี้แล้วบอกเพื่อน ๆ ของคุณ";
+
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "เรากำลังโอนแผนที่ที่ดาวน์โหลดของคุณจาก MAPS.ME Lite ไปยัง MAPS.ME อาจใช้เวลาสองสามวินาที";
 

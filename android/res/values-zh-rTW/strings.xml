@@ -337,6 +337,8 @@
 	<string name="download_map_notification">下載您所在地方的地圖</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today">MAPS.ME Pro今日免費！馬上下載并告訴您的朋友。</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today_android">MAPS.ME在Google Play上可享受80％折扣! 馬上下載并告訴您的朋友。</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">我們正在將您從MAPS.ME Lite下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。</string>
 	<!-- Message to display when maps moved. -->

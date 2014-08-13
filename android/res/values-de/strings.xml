@@ -353,6 +353,8 @@
 	<string name="download_map_notification">Laden Sie die Karte des Ortes herunter, in dem Sie sich befinden</string>
 	<!-- text of notification -->
 	<string name="pro_version_is_free_today">MAPS.ME Pro heute gratis! Jetzt runterladen &amp; Freunde informieren</string>
+	<!-- text of notification -->
+	<string name="pro_version_is_free_today_android">MAPS.ME gibt es mit 80 % Rabatt auf Google Play! Jetzt runterladen &amp; Freunde informieren.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
 	<string name="move_lite_maps_to_pro">Wir übertragen Ihre heruntergeladenen Karten von MAPS.ME Lite zu MAPS.ME. Der Vorgang kann einige Minuten in Anspruch nehmen.</string>
 	<!-- Message to display when maps moved. -->
