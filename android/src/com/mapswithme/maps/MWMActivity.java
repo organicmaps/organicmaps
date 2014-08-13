@@ -110,12 +110,8 @@ public class MWMActivity extends NvEventQueueActivity
     @Override
     public void call(Session session, SessionState state, Exception exception)
     {
-      if (state.isOpened())
-      {
-        if (mShouldReauthorize &&
-            state.equals(SessionState.OPENED_TOKEN_UPDATED))
-          showPromoDialog();
-      }
+      if (state.isOpened() && mShouldReauthorize)
+        mShouldReauthorize = FbUtil.makeFbPromoPost(MWMActivity.this);
     }
   };
 
@@ -1032,9 +1028,10 @@ public class MWMActivity extends NvEventQueueActivity
   private void showPromoDialog()
   {
     new AlertDialog.Builder(MWMActivity.this)
-        .setMessage(getString(R.string.maps_me_is_free_today_android))
+        .setMessage(getString(R.string.maps_me_is_free_today_facebook_post_android))
+        .setTitle(getString(R.string.maps_me_is_free_today_android))
         .setCancelable(true)
-        .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+        .setPositiveButton(R.string.share, new Dialog.OnClickListener()
         {
           @Override
           public void onClick(DialogInterface dialog, int which)
@@ -1049,14 +1046,14 @@ public class MWMActivity extends NvEventQueueActivity
             dialog.dismiss();
           }
         })
-        .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
-    {
-      @Override
-      public void onClick(DialogInterface dlg, int which)
-      {
-        dlg.dismiss();
-      }
-    })
+        .setNegativeButton(getString(R.string.no_thanks), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            dlg.dismiss();
+          }
+        })
         .create()
         .show();
   }
