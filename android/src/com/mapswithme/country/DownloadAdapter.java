@@ -39,33 +39,25 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-/// ListView adapter
 class DownloadAdapter extends BaseAdapter
 {
-  /// @name Different row types.
-  //@{
   private static final int TYPE_GROUP = 0;
   private static final int TYPE_COUNTRY_GROUP = 1;
   private static final int TYPE_COUNTRY_IN_PROCESS = 2;
   private static final int TYPE_COUNTRY_READY = 3;
   private static final int TYPE_COUNTRY_NOT_DOWNLOADED = 4;
   private static final int TYPES_COUNT = 5;
-  //@}
 
-  //{@ System
   private final LayoutInflater mInflater;
   private final Activity mContext;
-  private final ExecutorService executor =
+  private final ExecutorService mExecutor =
       Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
   private final boolean mHasGoogleStore;
-  //@}
 
-  //@{ Map
   private int mSlotID = 0;
   final MapStorage mStorage;
   private Index mIdx = new Index();
   private DownloadAdapter.CountryItem[] mItems = null;
-  //@}
 
   private static final Typeface LIGHT = Typeface.create("sans-serif-light", Typeface.NORMAL);
   private static final Typeface REGULAR = Typeface.create("sans-serif", Typeface.NORMAL);
@@ -101,12 +93,9 @@ class DownloadAdapter extends BaseAdapter
       }
     }
 
-    /**
-     * Asynchronous blocking status update.
-     */
     public void updateStatus(final MapStorage storage, final Index idx)
     {
-      mStatusFuture = executor.submit(new Callable<Integer>()
+      mStatusFuture = mExecutor.submit(new Callable<Integer>()
       {
         @Override
         public Integer call() throws Exception
@@ -149,7 +138,6 @@ class DownloadAdapter extends BaseAdapter
       }
     }
 
-    /// Get item type for list view representation;
     public int getType()
     {
       switch (getStatus())
@@ -160,11 +148,9 @@ class DownloadAdapter extends BaseAdapter
         return TYPE_COUNTRY_GROUP;
       case MapStorage.NOT_DOWNLOADED:
         return TYPE_COUNTRY_NOT_DOWNLOADED;
-
       case MapStorage.ON_DISK:
       case MapStorage.ON_DISK_OUT_OF_DATE:
         return TYPE_COUNTRY_READY;
-
       default:
         return TYPE_COUNTRY_IN_PROCESS;
       }
@@ -181,7 +167,9 @@ class DownloadAdapter extends BaseAdapter
     fillList();
   }
 
-  /// Fill list for current m_group and m_country.
+  /**
+   * Updates list items from current index.
+   */
   private void fillList()
   {
     final int count = mStorage.countriesCount(mIdx);
@@ -195,12 +183,10 @@ class DownloadAdapter extends BaseAdapter
     notifyDataSetChanged();
   }
 
-  /// Process list item click.
   public void onItemClick(int position, View view)
   {
     if (position >= mItems.length)
       return; // we have reports at GP that it crashes.
-
 
     if (mItems[position].getStatus() < 0)
     {
@@ -308,16 +294,16 @@ class DownloadAdapter extends BaseAdapter
     }
   }
 
-  /// @name Process routine from parent Activity.
-  //@{
-  /// @return true If "back" was processed.
+
+  /**
+   * Process routine from parent Activity.
+   * @return true If "back" was processed.
+   */
   public boolean onBackPressed()
   {
-    // we are on the root level already - return
     if (mIdx.isRoot())
       return false;
 
-    // go to the parent level
     mIdx = mIdx.getParent();
 
     fillList();
@@ -329,7 +315,6 @@ class DownloadAdapter extends BaseAdapter
     if (mSlotID == 0)
       mSlotID = mStorage.subscribe(listener);
 
-    // update actual statuses for items after resuming activity
     updateStatuses();
     notifyDataSetChanged();
   }
@@ -342,7 +327,6 @@ class DownloadAdapter extends BaseAdapter
       mSlotID = 0;
     }
   }
-  //@}
 
   @Override
   public int getItemViewType(int position)
@@ -397,7 +381,7 @@ class DownloadAdapter extends BaseAdapter
   {
     final String strID = mItems[position].mFlag;
 
-    int id = -1;
+    int id;
     try
     {
       // works faster than 'getIdentifier()'
@@ -409,10 +393,10 @@ class DownloadAdapter extends BaseAdapter
         v.setVisibility(View.VISIBLE);
       }
       else
-        v.setVisibility(View.INVISIBLE);
+        v.setVisibility(View.GONE);
     } catch (final Exception e)
     {
-      v.setVisibility(View.INVISIBLE);
+      v.setVisibility(View.GONE);
     }
   }
 
@@ -428,19 +412,19 @@ class DownloadAdapter extends BaseAdapter
       switch (type)
       {
       case TYPE_GROUP:
-        convertView = mInflater.inflate(R.layout.download_item_group, null);
+        convertView = mInflater.inflate(R.layout.download_item_group, parent, false);
         holder.initFromView(convertView);
         break;
 
       case TYPE_COUNTRY_GROUP:
-        convertView = mInflater.inflate(R.layout.download_item_country_group, null);
+        convertView = mInflater.inflate(R.layout.download_item_country_group, parent, false);
         holder.initFromView(convertView);
         break;
 
       case TYPE_COUNTRY_IN_PROCESS:
       case TYPE_COUNTRY_READY:
       case TYPE_COUNTRY_NOT_DOWNLOADED:
-        convertView = mInflater.inflate(R.layout.download_item_country, null);
+        convertView = mInflater.inflate(R.layout.download_item_country, parent, false);
         holder.initFromView(convertView);
         break;
       }
@@ -457,9 +441,7 @@ class DownloadAdapter extends BaseAdapter
 
       // this part if only for downloadable items
       if (type != TYPE_COUNTRY_GROUP)
-      {
         setUpProgress(holder, type, position);
-      }
     }
 
     setItemText(position, holder);
@@ -508,8 +490,11 @@ class DownloadAdapter extends BaseAdapter
     holder.mName.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
   }
 
-  /// Get list item position by index(g, c, r).
-  /// @return -1 If no such item in display list.
+  /**
+   *
+   * @param idx
+   * @return -1 If no such item in display list.
+   */
   private int getItemPosition(Index idx)
   {
     if (mIdx.isChild(idx))
@@ -523,7 +508,11 @@ class DownloadAdapter extends BaseAdapter
     return -1;
   }
 
-  /// @return Current country status (@see MapStorage).
+  /**
+   *
+   * @param idx
+   * @return Current country status (@see MapStorage).
+   */
   public int onCountryStatusChanged(Index idx)
   {
     final int position = getItemPosition(idx);

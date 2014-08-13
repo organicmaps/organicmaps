@@ -27,8 +27,6 @@ public class MapStorage
     public void onCountryProgress(Index idx, long current, long total);
   }
 
-  ;
-
   public static class Index implements Serializable
   {
     private static final long serialVersionUID = 1L;
