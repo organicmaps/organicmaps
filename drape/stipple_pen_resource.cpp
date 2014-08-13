@@ -1,6 +1,7 @@
 #include "stipple_pen_resource.hpp"
 
 #include "../std/numeric.hpp"
+#include "../std/sstream.hpp"
 
 namespace dp
 {
@@ -42,7 +43,34 @@ m2::RectU StipplePenPacker::PackResource(uint32_t width)
   return m2::RectU(xOffset, yOffset, xOffset + width, yOffset + 1);
 }
 
-StipplePenResource::StipplePenResource(StipplePenKey const & key)
+StipplePenKey::StipplePenKey(StipplePenInfo const & info)
+  : m_keyValue(0)
+{
+  // encoding scheme
+  // 63 - 61 bits = size of pattern in range [1 : 8]
+  // 60 - 53 bits = first value of pattern in range [1 : 128]
+  // 52 - 45 bits = second value of pattern
+  // ....
+  // 0 - 5 bits = reserved
+
+  uint32_t patternSize = info.m_pattern.size();
+  ASSERT(patternSize > 1, ());
+  ASSERT(patternSize < 9, ());
+
+  m_keyValue = patternSize - 1; // we code value 1 as 000 and value 8 as 111
+  for (size_t i = 0; i < patternSize; ++i)
+  {
+    m_keyValue <<=7;
+    ASSERT(info.m_pattern[i] > 0, ()); // we have 7 bytes for value. value = 1 encode like 0000000
+    ASSERT(info.m_pattern[i] < 129, ()); // value = 128 encode like 1111111
+    uint32_t value = info.m_pattern[i] - 1;
+    m_keyValue += value;
+  }
+
+  m_keyValue <<= ((8 - patternSize) * 7 + 5);
+}
+
+StipplePenResource::StipplePenResource(StipplePenInfo const & key)
   : m_key(key)
 {
   uint32_t fullPattern = accumulate(m_key.m_pattern.begin(), m_key.m_pattern.end(), 0);
@@ -85,6 +113,13 @@ void StipplePenResource::Rasterize(void * buffer)
     memcpy(pixels + offset, pixels, period);
     offset += period;
   }
+}
+
+string DebugPrint(const StipplePenKey & key)
+{
+  ostringstream out;
+  out << "0x" << hex << key.m_keyValue;
+  return out.str();
 }
 
 }

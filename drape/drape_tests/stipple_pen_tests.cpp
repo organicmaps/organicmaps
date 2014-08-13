@@ -25,14 +25,13 @@ UNIT_TEST(SimpleStipplePackTest)
 
 UNIT_TEST(SimpleStippleTest)
 {
-  StipplePenKey key;
-  TEST_EQUAL(key.Tag, StipplePenTag, ());
-  key.m_pattern.push_back(12);
-  key.m_pattern.push_back(12);
-  key.m_pattern.push_back(8);
-  key.m_pattern.push_back(9);
+  StipplePenInfo info;
+  info.m_pattern.push_back(12);
+  info.m_pattern.push_back(12);
+  info.m_pattern.push_back(8);
+  info.m_pattern.push_back(9);
 
-  StipplePenResource res(key);
+  StipplePenResource res(info);
   TEST_EQUAL(res.GetSize(), 246, ());
   TEST_EQUAL(res.GetBufferSize(), 246, ());
 
@@ -78,5 +77,36 @@ UNIT_TEST(SimpleStippleTest)
     TCheckNode const & node = nodes[i];
     for (size_t r = node.first.first; r < node.first.second; ++r)
       TEST_EQUAL(buffer[r], node.second, (r));
+  }
+}
+
+UNIT_TEST(SimplePatternKey)
+{
+  {
+    StipplePenInfo info;
+    info.m_pattern.push_back(2);
+    info.m_pattern.push_back(21);
+
+    TEST_EQUAL(StipplePenKey(info), StipplePenKey(0x204A000000000000), ());
+  }
+
+  {
+    StipplePenInfo info;
+    info.m_pattern.push_back(1);
+    info.m_pattern.push_back(1);
+    TEST_EQUAL(StipplePenKey(info), StipplePenKey(0x2000000000000000), ());
+  }
+
+  {
+    StipplePenInfo info;
+    info.m_pattern.push_back(12);
+    info.m_pattern.push_back(12);
+    info.m_pattern.push_back(8);
+    info.m_pattern.push_back(9);
+    info.m_pattern.push_back(128);
+    info.m_pattern.push_back(128);
+    info.m_pattern.push_back(40);
+    info.m_pattern.push_back(40);
+    TEST_EQUAL(StipplePenKey(info), StipplePenKey(0xE2C58711FFFA74E0), ());
   }
 }

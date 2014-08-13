@@ -23,17 +23,30 @@ private:
   uint32_t m_currentColumn;
 };
 
+struct StipplePenInfo
+{
+  buffer_vector<uint8_t, 8> m_pattern;
+};
+
 struct StipplePenKey
 {
   enum { Tag = StipplePenTag };
 
-  buffer_vector<uint8_t, 8> m_pattern;
+  StipplePenKey(uint64_t value) : m_keyValue(value) {} // don't use this ctor. Only for tests
+  StipplePenKey(StipplePenInfo const & info);
+
+  bool operator == (StipplePenKey const & other) const { return m_keyValue == other.m_keyValue; }
+  bool operator < (StipplePenKey const & other) const { return m_keyValue < other.m_keyValue; }
+
+private:
+  friend string DebugPrint(StipplePenKey const & );
+  uint64_t m_keyValue;
 };
 
 class StipplePenResource
 {
 public:
-  StipplePenResource(StipplePenKey const & key);
+  StipplePenResource(StipplePenInfo const & key);
 
   uint32_t GetSize() const;
   uint32_t GetBufferSize() const;
@@ -42,8 +55,10 @@ public:
   void Rasterize(void * buffer);
 
 private:
-  StipplePenKey m_key;
+  StipplePenInfo m_key;
   uint32_t m_pixelLength;
 };
+
+string DebugPrint(StipplePenKey const & key);
 
 }
