@@ -42,8 +42,7 @@ SUBDIRS = 3party \
           gui/gui_tests \
           qt \
           drape_head \
-          map_server \
-          yopme_desktop
+          map_server
 } else {
   # libraries which are used on mobile devices
   SUBDIRS = 3party \

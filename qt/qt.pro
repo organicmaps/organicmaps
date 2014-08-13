@@ -37,7 +37,7 @@ linux* {
   desktop.files += res/$${TARGET}.desktop
 
   OTHER_RES.path = $$RESDIR
-  OTHER_RES.files = ../data/about.html ../data/eula.html ../data/welcome.html \
+  OTHER_RES.files = ../data/copyright.html ../data/eula.html ../data/welcome.html \
                     ../data/countries.txt \
                     ../data/languages.txt ../data/categories.txt \
                     ../data/packed_polygons.bin res/logo.png
@@ -85,7 +85,7 @@ macx-* {
 
   # Bundle Resouces
   OTHER_RES.path = Contents/Resources
-  OTHER_RES.files = ../data/about.html ../data/eula.html ../data/welcome.html \
+  OTHER_RES.files = ../data/copyright.html ../data/eula.html ../data/welcome.html \
                     ../data/countries.txt  \
                     ../data/languages.txt ../data/categories.txt \
                     ../data/packed_polygons.bin
