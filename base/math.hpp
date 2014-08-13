@@ -139,4 +139,49 @@ inline uint32_t NextPowOf2(uint32_t v)
   return v + 1;
 }
 
+// Greatest Common Divisor
+inline uint32_t GCD(uint32_t a, uint32_t b)
+{
+  uint32_t multiplier = 1;
+  uint32_t gcd = 1;
+  while (true)
+  {
+    if (a == 0 || b == 0)
+    {
+      gcd = max(a, b);
+      break;
+    }
+
+    if (a == 1 || b == 1)
+    {
+      gcd = 1;
+      break;
+    }
+
+    if ((a & 0x1) == 0 && (b & 0x1) == 0)
+    {
+      multiplier <<= 1;
+      a >>= 1;
+      b >>= 1;
+      continue;
+    }
+
+    if ((a & 0x1) != 0 && (b & 0x1) != 0)
+    {
+      uint32_t minV = min(a, b);
+      uint32_t maxV = max(a, b);
+      a = (maxV - minV) >> 1;
+      b = minV;
+      continue;
+    }
+
+    if ((a & 0x1) != 0)
+      swap(a, b);
+
+    a >>= 1;
+  }
+
+  return multiplier * gcd;
+}
+
 }

@@ -131,3 +131,13 @@ UNIT_TEST(IsIntersect_Intervals)
   TEST(my::IsIntersect(0, 100, -50, 0), ());
   TEST(!my::IsIntersect(0, 100, -50, -20), ());
 }
+
+UNIT_TEST(GCD_Test)
+{
+  TEST_EQUAL(my::GCD(6, 3), 3, ());
+  TEST_EQUAL(my::GCD(14, 7), 7, ());
+  TEST_EQUAL(my::GCD(100, 100), 100, ());
+  TEST_EQUAL(my::GCD(7, 3), 1, ());
+  TEST_EQUAL(my::GCD(8, 3), 1, ());
+  TEST_EQUAL(my::GCD(9, 3), 3, ());
+}
