@@ -74,7 +74,8 @@ namespace di
     }
 
     // Low zoom heuristics - don't show superlong names on World map.
-    if (zoom <= 5 && m_primaryText.size() > 50)
+    strings::UniString uniPrimary = strings::MakeUniString(m_primaryText);
+    if (zoom <= 5 && uniPrimary.size() > 50)
       m_primaryText.clear();
 
     string houseNumber = f.GetHouseNumber();
