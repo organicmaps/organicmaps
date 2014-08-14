@@ -61,7 +61,9 @@ public enum Statistics
     public static final String SETTINGS_HELP = "Settings. Help.";
     public static final String SETTINGS_ABOUT = "Settings. About.";
     public static final String SETTINGS_COPYRIGHT = "Settings. Copyright.";
-    public static final String SEARCH_KEY_PRESSED = "Search key pressed.";
+    public static final String SEARCH_KEY_CLICKED = "Search key pressed.";
+    public static final String SEARCH_ON_MAP_CLICKED = "Search on map clicked.";
+
   }
 
 

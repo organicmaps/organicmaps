@@ -401,6 +401,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       switch (getItemViewType(position))
       {
       case MESSAGE_TYPE:
+        Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
         SearchActivity.nativeShowAllSearchResults();
         return null;
       case RESULT_TYPE:
@@ -572,7 +573,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
         if ((isSearchDown || isActionSearch) && getSearchAdapter().getCount() > 0)
         {
-          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_PRESSED);
+          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_CLICKED);
           if (!doShowCategories())
             presentResult(0);
           return true;
