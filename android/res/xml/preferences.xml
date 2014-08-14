@@ -7,16 +7,19 @@
       android:title=" ">
 
     <Preference
+        android:icon="@drawable/ic_help"
         android:key="@string/pref_help"
         android:order="1"
         android:title="@string/help"/>
 
     <Preference
+        android:icon="@drawable/ic_report_a_bug"
         android:key="@string/pref_report_bug"
         android:order="2"
         android:title="@string/report_a_bug"/>
 
     <PreferenceScreen
+        android:icon="@drawable/ic_app_settings"
         android:key="@string/pref_settings"
         android:order="0"
         android:persistent="false"
@@ -63,16 +66,19 @@
       android:title=" ">
 
     <PreferenceScreen
+        android:icon="@drawable/ic_social"
         android:order="1"
         android:persistent="false"
         android:title="@string/maps_me_community">
 
       <Preference
+          android:icon="@drawable/ic_facebook"
           android:key="@string/pref_like_fb"
           android:order="1"
           android:title="@string/like_on_facebook"/>
 
       <Preference
+          android:icon="@drawable/ic_twitter"
           android:key="@string/pref_follow_twitter"
           android:order="2"
           android:title="@string/follow_on_twitter"/>
@@ -88,12 +94,14 @@
       </PreferenceCategory>
 
       <Preference
+          android:icon="@drawable/ic_subscribe"
           android:key="@string/pref_subscribe"
           android:order="3"
           android:title="@string/subscribe_to_news"/>
     </PreferenceScreen>
 
     <Preference
+        android:icon="@drawable/ic_rate"
         android:key="@string/pref_rate_app"
         android:order="2"
         android:title="@string/rate_the_app"/>
