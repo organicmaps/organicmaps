@@ -561,26 +561,21 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       runSearch();
     }
 
-    // Listen for keyboard buttons
     mSearchEt.setOnEditorActionListener(new OnEditorActionListener()
     {
       @Override
       public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
       {
-        if (doShowCategories())
-          return false;
+        final boolean isSearchDown = (event != null) &&
+            (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_SEARCH);
+        final boolean isActionSearch = (actionId == EditorInfo.IME_ACTION_SEARCH);
 
-        final boolean isEnterDown = (event != null) &&
-            (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER);
-        final boolean isActionDone = (actionId == EditorInfo.IME_ACTION_DONE);
-
-        if (isEnterDown || isActionDone)
+        if ((isSearchDown || isActionSearch) && getSearchAdapter().getCount() > 0)
         {
-          if (getSearchAdapter().getCount() > 1)
-          {
-            getListView().performItemClick(getSearchAdapter().getView(0, null, null), 0, 0);
-            return true;
-          }
+          Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_KEY_PRESSED);
+          if (!doShowCategories())
+            presentResult(0);
+          return true;
         }
         return false;
       }
@@ -696,7 +691,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     final String suggestion = getSearchAdapter().onItemClick(position);
     if (suggestion == null)
     {
-      presentResult(v, position);
+      presentResult(position);
     }
     else
     {
@@ -705,7 +700,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     }
   }
 
-  private void presentResult(View v, int position)
+  private void presentResult(int position)
   {
     // If user searched for something, then clear API layer
     SearchController.getInstance().cancelApiCall();

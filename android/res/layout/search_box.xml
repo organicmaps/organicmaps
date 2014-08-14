@@ -48,7 +48,7 @@
         android:layout_weight="1"
         android:background="@null"
         android:fontFamily="@string/robotoLight"
-        android:imeOptions="actionDone|flagNoExtractUi"
+        android:imeOptions="actionSearch|flagNoExtractUi"
         android:inputType="text"
         android:padding="@dimen/margin_tiny"
         android:singleLine="true"
