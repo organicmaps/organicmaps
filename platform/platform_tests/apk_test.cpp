@@ -13,7 +13,7 @@
 namespace
 {
   char const * arrFiles[] = {
-    "about.html",
+    "copyright.html",
     "resources-ldpi/basic.skn",
     "resources-ldpi/plus.png",
     "resources-ldpi/symbols.png",

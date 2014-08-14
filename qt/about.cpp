@@ -40,7 +40,7 @@ AboutDialog::AboutDialog(QWidget * parent)
   string aboutText;
   try
   {
-    ReaderPtr<Reader> reader = GetPlatform().GetReader("about.html");
+    ReaderPtr<Reader> reader = GetPlatform().GetReader("copyright.html");
     reader.ReadAsString(aboutText);
   }
   catch (RootException const & ex)

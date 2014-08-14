@@ -781,7 +781,6 @@
 		FAFB06BE151215EE0041901D /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
 		FAFB06BF151215EE0041901D /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
 		FAFB06C0151215EE0041901D /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
-		FAFB06C3151215EE0041901D /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = FAFCB63713367AD1001A5C59 /* about.html */; };
 		FAFB06C7151215EE0041901D /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
 		FAFB06C8151215EE0041901D /* 02_wqy-microhei.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E6134C4968003A9827 /* 02_wqy-microhei.ttf */; };
 		FAFB06C9151215EE0041901D /* 03_jomolhari-id-a3d.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */; };
@@ -1338,7 +1337,6 @@
 		FAFB0910151215EE0041901D /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEA8B291437CA80002A6737 /* libjansson.a */; };
 		FAFB0911151215EE0041901D /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF29846146EEF4A00FF0057 /* libprotobuf.a */; };
 		FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB63513366E78001A5C59 /* WebViewController.mm */; };
-		FAFCB63813367AD1001A5C59 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = FAFCB63713367AD1001A5C59 /* about.html */; };
 		FAFF422A1347F101009BBB14 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 /* End PBXBuildFile section */
 
@@ -2122,7 +2120,6 @@
 		FAFB0920151215EF0041901D /* MapsWithMe-Lite.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MapsWithMe-Lite.plist"; sourceTree = "<group>"; };
 		FAFCB63413366E78001A5C59 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		FAFCB63513366E78001A5C59 /* WebViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewController.mm; sourceTree = "<group>"; };
-		FAFCB63713367AD1001A5C59 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = about.html; path = ../../data/about.html; sourceTree = SOURCE_ROOT; };
 		FAFF42291347F101009BBB14 /* World.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = World.mwm; path = ../../data/World.mwm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2301,8 +2298,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				978D4A30199A11E600D72CA7 /* faq.html */,
-				ED9CC5EE17CA18770051642E /* ios-guides.json */,
 				97D40C09184D031900A1D572 /* Images.xcassets */,
 				97D40C04184CF5F100A1D572 /* ImagesLite.xcassets */,
 				97D40C07184CFA4100A1D572 /* ImagesPro.xcassets */,
@@ -2520,6 +2515,8 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				ED9CC5EE17CA18770051642E /* ios-guides.json */,
+				978D4A30199A11E600D72CA7 /* faq.html */,
 				5797B6D316C931EE00FFE6D2 /* resources-mdpi */,
 				5797B6D416C931EE00FFE6D2 /* resources-xhdpi */,
 				FAAEA7D0161BD26600CCD661 /* synonyms.txt */,
@@ -2536,7 +2533,6 @@
 				EE164810135CEE49003B8A3E /* 06_code2000.ttf */,
 				FAFF42291347F101009BBB14 /* World.mwm */,
 				FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */,
-				FAFCB63713367AD1001A5C59 /* about.html */,
 				EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */,
 				EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */,
 				EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */,
@@ -3328,7 +3324,6 @@
 				EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */,
 				EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */,
 				EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */,
-				FAFCB63813367AD1001A5C59 /* about.html in Resources */,
 				FAFF422A1347F101009BBB14 /* World.mwm in Resources */,
 				EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */,
 				EEA61602134C496A003A9827 /* 02_wqy-microhei.ttf in Resources */,
@@ -3907,7 +3902,6 @@
 				FAFB06BE151215EE0041901D /* unicode_blocks.txt in Resources */,
 				FAFB06BF151215EE0041901D /* fonts_blacklist.txt in Resources */,
 				FAFB06C0151215EE0041901D /* fonts_whitelist.txt in Resources */,
-				FAFB06C3151215EE0041901D /* about.html in Resources */,
 				FAFB06C7151215EE0041901D /* 01_dejavusans.ttf in Resources */,
 				FAFB06C8151215EE0041901D /* 02_wqy-microhei.ttf in Resources */,
 				FAFB06C9151215EE0041901D /* 03_jomolhari-id-a3d.ttf in Resources */,

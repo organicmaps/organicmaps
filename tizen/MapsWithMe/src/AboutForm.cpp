@@ -43,7 +43,7 @@ result AboutForm::OnInitializing(void)
   Web * pWeb = static_cast<Web *>(GetControl(IDC_WEB, true));
   Tizen::Base::String url = "file://";
   url += (Tizen::App::App::GetInstance()->GetAppDataPath());
-  url += "about.html";
+  url += "copyright.html";
   pWeb->LoadUrl(url);
 
   Button * pButtonBack = static_cast<Button *>(GetControl(IDC_CLOSE_BUTTON, true));
