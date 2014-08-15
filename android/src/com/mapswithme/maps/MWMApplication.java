@@ -13,6 +13,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.background.Notifier;
+import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
@@ -155,6 +156,8 @@ public class MWMApplication extends android.app.Application implements MapStorag
       BookmarkManager.getBookmarkManager(getApplicationContext());
 
     Notifier.schedulePromoNotification();
+
+    WorkerService.startActionUpdateAds(this);
   }
 
   public LocationService getLocationService()

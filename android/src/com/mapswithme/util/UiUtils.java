@@ -3,6 +3,7 @@ package com.mapswithme.util;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -14,8 +15,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
@@ -304,6 +307,29 @@ public final class UiUtils
       intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_HTTP));
     }
     activity.startActivity(intent);
+  }
+
+  public static String getDisplayDensityString()
+  {
+    final DisplayMetrics metrics = new DisplayMetrics();
+    ((WindowManager) MWMApplication.get().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(metrics);
+    switch (metrics.densityDpi)
+    {
+    case DisplayMetrics.DENSITY_LOW:
+      return "ldpi";
+    case DisplayMetrics.DENSITY_MEDIUM:
+      return "mdpi";
+    case DisplayMetrics.DENSITY_HIGH:
+      return "hdpi";
+    case DisplayMetrics.DENSITY_XHIGH:
+      return "xhdpi";
+    case DisplayMetrics.DENSITY_XXHIGH:
+      return "xxhdpi";
+    case DisplayMetrics.DENSITY_XXXHIGH:
+      return "xxxhdpi";
+    }
+
+    return "hdpi";
   }
 
 

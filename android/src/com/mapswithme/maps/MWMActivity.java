@@ -7,12 +7,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -21,16 +25,20 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.mapswithme.country.DownloadActivity;
+import com.mapswithme.maps.Ads.AdsManager;
+import com.mapswithme.maps.Ads.MenuAd;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.LocationButtonImageSetter.ButtonState;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
+import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.BookmarkActivity;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
@@ -59,6 +67,7 @@ import com.mapswithme.util.statistics.Statistics;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
 
@@ -114,6 +123,17 @@ public class MWMActivity extends NvEventQueueActivity
         mShouldReauthorize = FbUtil.makeFbPromoPost(MWMActivity.this);
     }
   };
+
+  // ads in vertical toolbar
+  private BroadcastReceiver mUpdateAdsReceiver = new BroadcastReceiver()
+  {
+    @Override
+    public void onReceive(Context context, Intent intent)
+    {
+      updateToolbarAds();
+    }
+  };
+  private boolean mAreToolbarAdsUpdated;
 
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
@@ -725,6 +745,43 @@ public class MWMActivity extends NvEventQueueActivity
 
     mFbUiHelper = new UiLifecycleHelper(this, mFbStatusCallback);
     mFbUiHelper.onCreate(savedInstanceState);
+
+    updateToolbarAds();
+    LocalBroadcastManager.getInstance(this).registerReceiver(mUpdateAdsReceiver, new IntentFilter(WorkerService.ACTION_UPDATE_MENU_ADS));
+  }
+
+  private void updateToolbarAds()
+  {
+    final List<MenuAd> ads = AdsManager.getMenuAds();
+    if (ads != null && !mAreToolbarAdsUpdated)
+    {
+      mAreToolbarAdsUpdated = true;
+      int startAdMenuPosition = 7;
+      for (final MenuAd ad : ads)
+      {
+        final View view = getLayoutInflater().inflate(R.layout.item_bottom_toolbar, mVerticalToolbar, false);
+        final TextView textView = (TextView) view.findViewById(R.id.tv__bottom_item_text);
+        textView.setText(ad.getTitle());
+        try
+        {
+          textView.setTextColor(Color.parseColor(ad.getHexColor()));
+        } catch (IllegalArgumentException e)
+        {
+          e.printStackTrace();
+        }
+        view.setOnClickListener(new OnClickListener()
+        {
+          @Override
+          public void onClick(View v)
+          {
+            final Intent it = new Intent(Intent.ACTION_VIEW);
+            it.setData(Uri.parse(ad.getAppUrl()));
+            startActivity(it);
+          }
+        });
+        mVerticalToolbar.addView(view, startAdMenuPosition++);
+      }
+    }
   }
 
   private void setUpToolbars()

@@ -28,6 +28,7 @@ public class Constants
     public static final String MAIL_MAPSME_SUBSCRIBE = "subscribe@maps.me";
 
     public static final String DATA_SCHEME_FILE = "file";
+    public static final String MENU_ADS_JSON = "http://application.server/android/features.json";
 
     private Url() {}
   }
