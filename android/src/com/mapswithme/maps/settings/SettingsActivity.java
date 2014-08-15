@@ -286,7 +286,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     if (key.equals(getString(R.string.pref_rate_app)))
     {
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SETTINGS_RATE);
-      UiUtils.runProMarketActivity(this);
+      UiUtils.runLiteOrProActivity(this);
     }
     else if (key.equals(getString(R.string.pref_contact)))
     {

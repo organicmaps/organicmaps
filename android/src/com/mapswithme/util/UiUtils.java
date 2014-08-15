@@ -278,6 +278,33 @@ public final class UiUtils
     }
   }
 
+  public static void runLiteOrProActivity(Activity activity)
+  {
+    if (MWMApplication.get().isProVersion())
+      runProMarketActivity(activity);
+    else
+      runLiteActivity(activity);
+  }
+
+  private static void runLiteActivity(Activity activity)
+  {
+    try
+    {
+      activity.startActivity(new Intent(Intent.ACTION_VIEW,
+          Uri.parse(Constants.Url.PLAY_MARKET_APP_PREFIX + Constants.Package.MWM_LITE_PACKAGE)));
+    } catch (final Exception e1)
+    {
+      try
+      {
+        activity.startActivity(new Intent(Intent.ACTION_VIEW,
+            Uri.parse(Constants.Url.PLAY_MARKET_HTTP_APP_PREFIX + Constants.Package.MWM_LITE_PACKAGE)));
+      } catch (final Exception e2)
+      {
+        e2.printStackTrace();
+      }
+    }
+  }
+
   public static void showFacebookPage(Activity activity)
   {
     try
