@@ -5118,7 +5118,7 @@
     ja = 最新ニュース、アップデートとプロモーションにすいてまず知りたいです。いつでも購読をキャンセル出来ます。
     ko = 나는 최신 뉴스 업데이트 및 프로모션에 대해 알게될 첫번째 사람이 되고 싶습니다. 나는 언제나 구독을 취소할 수 있습니다.
     nl = Ik wil graag als eerste horen over het laatste nieuws updates en acties. Ik kan mijn abonnement te allen tijde annuleren.
-    ru = Я хочу первым узнавать обо всех новостях обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.
+    ru = Я хочу первым узнавать обо всех новостях, обновлениях приложения и акциях. Я могу отписаться от рассылки в любой момент.
     uk = Я хочу першим дізнаватися про всі новини оновлення програм і акції. Я можу відписатися від розсилки в будь-який момент.
     zh-Hant = 我想搶先了解最新新聞、更新和促銷活動。我可以隨時取消我的訂閱。
     pl = Chcę w pierwszej kolejności otrzymywać powiadomienia o nowościach aktualizacjach i promocjach. Mogę w każdej chwili anulować swoją subskrypcję.
