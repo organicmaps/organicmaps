@@ -1,5 +1,9 @@
 #include "stipple_pen_resource.hpp"
 
+#include "texture.hpp"
+
+#include "../base/shared_buffer_manager.hpp"
+
 #include "../std/numeric.hpp"
 #include "../std/sstream.hpp"
 
@@ -43,8 +47,27 @@ m2::RectU StipplePenPacker::PackResource(uint32_t width)
   return m2::RectU(xOffset, yOffset, xOffset + width, yOffset + 1);
 }
 
+m2::RectF StipplePenPacker::MapTextureCoords(m2::RectU const & pixelRect) const
+{
+  return m2::RectF((pixelRect.minX() + 0.5f) / m_canvasSize.x,
+                   (pixelRect.minY() + 0.5f) / m_canvasSize.y,
+                   (pixelRect.maxX() - 0.5f) / m_canvasSize.x,
+                   (pixelRect.maxY() - 0.5f) / m_canvasSize.y);
+}
+
+StipplePenKey::StipplePenKey(buffer_vector<uint8_t, 8> const & pattern)
+  : m_keyValue(0)
+{
+  Init(pattern);
+}
+
 StipplePenKey::StipplePenKey(StipplePenInfo const & info)
   : m_keyValue(0)
+{
+  Init(info.m_pattern);
+}
+
+void StipplePenKey::Init(const buffer_vector<uint8_t, 8> & pattern)
 {
   // encoding scheme
   // 63 - 61 bits = size of pattern in range [1 : 8]
@@ -53,7 +76,7 @@ StipplePenKey::StipplePenKey(StipplePenInfo const & info)
   // ....
   // 0 - 5 bits = reserved
 
-  uint32_t patternSize = info.m_pattern.size();
+  uint32_t patternSize = pattern.size();
   ASSERT(patternSize > 1, ());
   ASSERT(patternSize < 9, ());
 
@@ -61,9 +84,9 @@ StipplePenKey::StipplePenKey(StipplePenInfo const & info)
   for (size_t i = 0; i < patternSize; ++i)
   {
     m_keyValue <<=7;
-    ASSERT(info.m_pattern[i] > 0, ()); // we have 7 bytes for value. value = 1 encode like 0000000
-    ASSERT(info.m_pattern[i] < 129, ()); // value = 128 encode like 1111111
-    uint32_t value = info.m_pattern[i] - 1;
+    ASSERT(pattern[i] > 0, ()); // we have 7 bytes for value. value = 1 encode like 0000000
+    ASSERT(pattern[i] < 129, ()); // value = 128 encode like 1111111
+    uint32_t value = pattern[i] - 1;
     m_keyValue += value;
   }
 
@@ -89,11 +112,6 @@ uint32_t StipplePenResource::GetBufferSize() const
   return m_pixelLength;
 }
 
-TextureFormat StipplePenResource::GetExpectedFormat() const
-{
-  return ALPHA;
-}
-
 void StipplePenResource::Rasterize(void * buffer)
 {
   uint8_t * pixels = static_cast<uint8_t *>(buffer);
@@ -115,7 +133,91 @@ void StipplePenResource::Rasterize(void * buffer)
   }
 }
 
-string DebugPrint(const StipplePenKey & key)
+m2::RectF const & StipplePenIndex::MapResource(StipplePenInfo const & info)
+{
+  StipplePenKey key(info);
+  TResourceMapping::const_iterator it = m_resourceMapping.find(key);
+  if (it != m_resourceMapping.end())
+    return it->second;
+
+  StipplePenResource resource(info);
+  m2::RectU pixelRect = m_packer.PackResource(resource.GetSize());
+  m_pendingNodes.push_back(make_pair(pixelRect, resource));
+
+  typedef pair<TResourceMapping::iterator, bool> TInsertionNode;
+  TInsertionNode result = m_resourceMapping.insert(make_pair(key, m_packer.MapTextureCoords(pixelRect)));
+  ASSERT(result.second, ());
+  return result.first->second;
+}
+
+void StipplePenIndex::UploadResources(RefPointer<Texture> texture)
+{
+  ASSERT(texture->GetFormat() == dp::ALPHA, ());
+  if (m_pendingNodes.empty())
+    return;
+
+  buffer_vector<uint32_t, 5> ranges;
+  ranges.push_back(0);
+
+  uint32_t xOffset = m_pendingNodes[0].first.minX();
+  for (size_t i = 1; i < m_pendingNodes.size(); ++i)
+  {
+    m2::RectU & node = m_pendingNodes[i].first;
+#ifdef DEBUG
+    ASSERT(xOffset <= node.minX(), ());
+    if (xOffset == node.minX())
+    {
+      m2::RectU const & prevNode = m_pendingNodes[i - 1].first;
+      ASSERT(prevNode.minY() < node.minY(), ());
+    }
+#endif
+    if (node.minX() > xOffset)
+      ranges.push_back(i);
+    xOffset = node.minX();
+  }
+
+  ranges.push_back(m_pendingNodes.size());
+  SharedBufferManager & mng = SharedBufferManager::instance();
+
+  for (size_t i = 1; i < ranges.size(); ++i)
+  {
+    uint32_t rangeStart = ranges[i - 1];
+    uint32_t rangeEnd = ranges[i];
+    // rangeEnd - rangeStart give us count of patterns in this package
+    // 2 * range - count of lines for patterns
+    uint32_t lineCount = 2 * (rangeEnd - rangeStart);
+    // MAX_STIPPLE_PEN_LENGTH * lineCount - byte count on all patterns
+    uint32_t bufferSize = MAX_STIPPLE_PEN_LENGTH * lineCount;
+    uint32_t reserveBufferSize = my::NextPowOf2(bufferSize);
+    SharedBufferManager::shared_buffer_ptr_t ptr = mng.reserveSharedBuffer(reserveBufferSize);
+    uint8_t * rawBuffer = SharedBufferManager::GetRawPointer(ptr);
+    memset(rawBuffer, 0, reserveBufferSize);
+
+    m2::RectU const & startNode = m_pendingNodes[rangeStart].first;
+    uint32_t minX = startNode.minX();
+    uint32_t minY = startNode.minY();
+#ifdef DEBUG
+    m2::RectU const & endNode = m_pendingNodes[rangeEnd - 1].first;
+    ASSERT(endNode.maxY() + 1 == (minY + lineCount), ());
+#endif
+
+    for (size_t r = rangeStart; r < rangeEnd; ++r)
+    {
+      m_pendingNodes[r].second.Rasterize(rawBuffer);
+      rawBuffer += 2 * MAX_STIPPLE_PEN_LENGTH;
+    }
+
+    rawBuffer = SharedBufferManager::GetRawPointer(ptr);
+    texture->UploadData(minX, minY, MAX_STIPPLE_PEN_LENGTH, lineCount,
+                        dp::ALPHA, MakeStackRefPointer<void>(rawBuffer));
+
+    mng.freeSharedBuffer(reserveBufferSize, ptr);
+  }
+
+  m_pendingNodes.clear();
+}
+
+string DebugPrint(StipplePenKey const & key)
 {
   ostringstream out;
   out << "0x" << hex << key.m_keyValue;

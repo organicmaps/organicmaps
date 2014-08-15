@@ -31,3 +31,8 @@ void SharedBufferManager::freeSharedBuffer(size_t s, shared_buffer_ptr_t buf)
 
   l.push_back(buf);
 }
+
+uint8_t * SharedBufferManager::GetRawPointer(SharedBufferManager::shared_buffer_ptr_t ptr)
+{
+  return &((*ptr)[0]);
+}

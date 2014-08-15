@@ -44,3 +44,4 @@ SOURCES += \
 HEADERS += \
     glmock_functions.hpp \
     enum_shaders.hpp \
+    memory_comparer.hpp

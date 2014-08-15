@@ -1,4 +1,5 @@
 #include "../../testing/testing.hpp"
+#include "memory_comparer.hpp"
 
 #include "../glconstants.hpp"
 #include "../batcher.hpp"
@@ -37,24 +38,6 @@ struct VAOAcceptor
   }
 
   vector<MasterPointer<RenderBucket> > m_vao;
-};
-
-struct MemoryComparer
-{
-  void * m_mem;
-  int m_size;
-
-  MemoryComparer(void * memory, int size)
-    : m_mem(memory)
-    , m_size(size)
-  {
-  }
-
-  void cmp(glConst /*type*/, uint32_t size, void const * data, uint32_t /*offset*/) const
-  {
-    TEST_EQUAL(size, m_size, ());
-    TEST_EQUAL(memcmp(m_mem, data, size), 0, ());
-  }
 };
 
 class BatcherExpectations
@@ -115,7 +98,7 @@ public:
     // upload indexes
     EXPECTGL(glBindBuffer(m_indexBufferID, gl_const::GLElementArrayBuffer));
     EXPECTGL(glBufferSubData(gl_const::GLElementArrayBuffer, indexCount * sizeof(unsigned short), _, 0))
-        .WillOnce(Invoke(&indexCmp, &MemoryComparer::cmp));
+        .WillOnce(Invoke(&indexCmp, &MemoryComparer::cmpSubBuffer));
 
     // data buffer creation
     EXPECTGL(glGenBuffer()).WillOnce(Return(m_dataBufferID));
@@ -125,7 +108,7 @@ public:
     // upload data
     EXPECTGL(glBindBuffer(m_dataBufferID, gl_const::GLArrayBuffer));
     EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, vertxeCount * sizeof(float), _, 0))
-        .WillOnce(Invoke(&vertexCmp, &MemoryComparer::cmp));
+        .WillOnce(Invoke(&vertexCmp, &MemoryComparer::cmpSubBuffer));
   }
 
   void ExpectBufferDeletion()
@@ -288,7 +271,7 @@ namespace
       // upload indexes
       EXPECTGL(glBindBuffer(currentNode.m_indexBufferID, gl_const::GLElementArrayBuffer));
       EXPECTGL(glBufferSubData(gl_const::GLElementArrayBuffer, currentNode.m_indexByteCount, _, 0))
-          .WillOnce(Invoke(indexComparer, &MemoryComparer::cmp));
+          .WillOnce(Invoke(indexComparer, &MemoryComparer::cmpSubBuffer));
 
       // data buffer creation
       EXPECTGL(glGenBuffer()).WillOnce(Return(currentNode.m_vertexBufferID));
@@ -300,7 +283,7 @@ namespace
       // upload data
       EXPECTGL(glBindBuffer(currentNode.m_vertexBufferID, gl_const::GLArrayBuffer));
       EXPECTGL(glBufferSubData(gl_const::GLArrayBuffer, currentNode.m_vertexByteCount, _, 0))
-              .WillOnce(Invoke(vertexComparer, &MemoryComparer::cmp));
+              .WillOnce(Invoke(vertexComparer, &MemoryComparer::cmpSubBuffer));
     }
 
     void CloseExpection()
