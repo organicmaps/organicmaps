@@ -295,17 +295,7 @@ public final class UiUtils
   public static void showTwitterPage(Activity activity)
   {
     Intent intent;
-    try
-    {
-      // get the Twitter app if possible
-      activity.getPackageManager().getPackageInfo(Constants.Package.TWITTER_PACKAGE, 0);
-      intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_NATIVE));
-      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    } catch (Exception e)
-    {
-      // no Twitter app, revert to browser
-      intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_HTTP));
-    }
+    intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.TWITTER_MAPSME_HTTP));
     activity.startActivity(intent);
   }
 
