@@ -120,7 +120,7 @@ public class MWMActivity extends NvEventQueueActivity
     @Override
     public void call(Session session, SessionState state, Exception exception)
     {
-      if (state.isOpened() && mShouldReauthorize)
+      if (state != null && state.isOpened() && mShouldReauthorize)
         mShouldReauthorize = FbUtil.makeFbPromoPost(MWMActivity.this);
     }
   };
