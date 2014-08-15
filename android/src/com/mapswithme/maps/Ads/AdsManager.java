@@ -108,8 +108,8 @@ public class AdsManager
   {
     final List<MenuAd> ads = new ArrayList<>();
 
-    final JSONArray menuItemsJson = adsJson.getJSONObject(ROOT_MENU_ITEMS_KEY).
-        getJSONObject(DEFAULT_KEY).
+    final String countryCode = Locale.getDefault().getCountry();
+    final JSONArray menuItemsJson = getJsonObjectByKeyOrDefault(adsJson.getJSONObject(ROOT_MENU_ITEMS_KEY), countryCode).
         getJSONArray(MENU_ITEMS_KEY);
 
     final String localeKey = Locale.getDefault().getLanguage();
@@ -137,8 +137,9 @@ public class AdsManager
 
   /**
    * Loads and caches ad icon. If internet isnt connected tries to reuse cached icon.
+   *
    * @param urlString url of the icon
-   * @param adId name of cachefile
+   * @param adId      name of cachefile
    * @return
    */
   private static Bitmap loadAdIcon(String urlString, String adId)
@@ -203,6 +204,15 @@ public class AdsManager
     String res = json.optString(key);
     if (res.isEmpty())
       res = json.optString(DEFAULT_KEY);
+
+    return res;
+  }
+
+  private static JSONObject getJsonObjectByKeyOrDefault(JSONObject json, String key) throws JSONException
+  {
+    JSONObject res = json.optJSONObject(key);
+    if (res == null)
+      res = json.getJSONObject(DEFAULT_KEY);
 
     return res;
   }
