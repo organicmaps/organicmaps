@@ -1084,9 +1084,12 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void showPromoDialog()
   {
+    final TextView textView = (TextView) getLayoutInflater().inflate(R.layout.title_share_dialog, null);
+    textView.setText(getString(R.string.maps_me_is_free_today_android));
+
     new AlertDialog.Builder(MWMActivity.this)
+        .setCustomTitle(textView)
         .setMessage(getString(R.string.maps_me_is_free_today_facebook_post_android))
-        .setTitle(getString(R.string.maps_me_is_free_today_android))
         .setCancelable(true)
         .setPositiveButton(R.string.share, new Dialog.OnClickListener()
         {
