@@ -1,5 +1,8 @@
 package com.mapswithme.maps.Ads;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Constants;
@@ -15,6 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -116,16 +120,82 @@ public class AdsManager
       final String icon = getStringByKeyOrDefault(menuItemJson.getJSONObject(ICON_KEY), density);
       final String webUrl = getStringByKeyOrDefault(menuItemJson.getJSONObject(WEB_URL_KEY), localeKey);
       final String title = getStringByKeyOrDefault(menuItemJson.getJSONObject(TITLE_KEY), localeKey);
+      final String id = menuItemJson.getString(ID_KEY);
+      final Bitmap bitmap = loadAdIcon(icon, id);
 
       ads.add(new MenuAd(icon,
           title,
           menuItemJson.getString(COLOR_KEY),
-          menuItemJson.getString(ID_KEY),
+          id,
           menuItemJson.getString(APP_URL_KEY),
-          webUrl));
+          webUrl,
+          bitmap));
     }
 
     return ads;
+  }
+
+  /**
+   * Loads and caches ad icon. If internet isnt connected tries to reuse cached icon.
+   * @param urlString url of the icon
+   * @param adId name of cachefile
+   * @return
+   */
+  private static Bitmap loadAdIcon(String urlString, String adId)
+  {
+    if (!ConnectionState.isConnected(MWMApplication.get()))
+      return loadCachedBitmap(adId);
+
+    try
+    {
+      final URL url = new java.net.URL(urlString);
+      final HttpURLConnection connection = (HttpURLConnection) url
+          .openConnection();
+      final int timeout = 5000;
+      connection.setReadTimeout(timeout);
+      connection.setConnectTimeout(timeout);
+      connection.setDoInput(true);
+      connection.connect();
+      InputStream input = connection.getInputStream();
+      final Bitmap bitmap = BitmapFactory.decodeStream(input);
+      cacheBitmap(bitmap, adId);
+      return bitmap;
+    } catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+
+    return null;
+  }
+
+  private static void cacheBitmap(Bitmap bitmap, String fileName)
+  {
+    final File cacheFile = new File(MWMApplication.get().getDataStoragePath(), fileName);
+    try (FileOutputStream fileOutputStream = new FileOutputStream(cacheFile))
+    {
+      bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+      fileOutputStream.close();
+    } catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
+  private static Bitmap loadCachedBitmap(String fileName)
+  {
+    final File cacheFile = new File(MWMApplication.get().getDataStoragePath(), fileName);
+    if (!cacheFile.exists())
+      return null;
+
+    try (InputStream inputStream = new FileInputStream(cacheFile))
+    {
+      return BitmapFactory.decodeStream(inputStream);
+    } catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+
+    return null;
   }
 
   private static String getStringByKeyOrDefault(JSONObject json, String key) throws JSONException

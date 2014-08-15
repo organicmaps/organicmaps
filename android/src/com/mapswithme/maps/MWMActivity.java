@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -769,6 +770,9 @@ public class MWMActivity extends NvEventQueueActivity
         {
           e.printStackTrace();
         }
+        final ImageView imageView = (ImageView) view.findViewById(R.id.iv__bottom_icon);
+        imageView.setImageBitmap(ad.getIcon());
+
         view.setOnClickListener(new OnClickListener()
         {
           @Override

@@ -1,5 +1,6 @@
 package com.mapswithme.maps.Ads;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -11,8 +12,9 @@ public class MenuAd implements Parcelable
   private String mId;
   private String mAppUrl;
   private String mWebUrl;
+  private Bitmap mIcon;
 
-  public MenuAd(String iconUrl, String title, String hexColor, String id, String appUrl, String webUrl)
+  public MenuAd(String iconUrl, String title, String hexColor, String id, String appUrl, String webUrl, Bitmap icon)
   {
     mIconUrl = iconUrl;
     mTitle = title;
@@ -20,6 +22,7 @@ public class MenuAd implements Parcelable
     mId = id;
     mAppUrl = appUrl;
     mWebUrl = webUrl;
+    mIcon = icon;
   }
 
   public MenuAd(Parcel source)
@@ -30,6 +33,7 @@ public class MenuAd implements Parcelable
     mId = source.readString();
     mAppUrl = source.readString();
     mWebUrl = source.readString();
+    mIcon = source.readParcelable(Bitmap.class.getClassLoader());
   }
 
   @Override
@@ -68,6 +72,11 @@ public class MenuAd implements Parcelable
     return mWebUrl;
   }
 
+  public Bitmap getIcon()
+  {
+    return mIcon;
+  }
+
   @Override
   public int describeContents()
   {
@@ -83,6 +92,7 @@ public class MenuAd implements Parcelable
     dest.writeString(mId);
     dest.writeString(mAppUrl);
     dest.writeString(mWebUrl);
+    dest.writeParcelable(mIcon, 0);
   }
 
   public static final Creator<MenuAd> CREATOR = new Creator<MenuAd>()
