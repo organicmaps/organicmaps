@@ -306,7 +306,10 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     {
       Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.REPORT_BUG);
       final Intent intent = new Intent(Intent.ACTION_SENDTO);
-      intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_BUGS, "", ""));
+      intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_BUGS, "",
+          "Android version : " + Build.VERSION.RELEASE + "\n" +
+              "Device name : " + android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL + "\n\n"
+      ));
       startActivity(intent);
     }
     else if (key.equals(getString(R.string.pref_like_fb)))
