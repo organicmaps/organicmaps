@@ -55,19 +55,19 @@ m2::RectF StipplePenPacker::MapTextureCoords(m2::RectU const & pixelRect) const
                    (pixelRect.maxY() - 0.5f) / m_canvasSize.y);
 }
 
-StipplePenKey::StipplePenKey(buffer_vector<uint8_t, 8> const & pattern)
+StipplePenHandle::StipplePenHandle(buffer_vector<uint8_t, 8> const & pattern)
   : m_keyValue(0)
 {
   Init(pattern);
 }
 
-StipplePenKey::StipplePenKey(StipplePenInfo const & info)
+StipplePenHandle::StipplePenHandle(StipplePenKey const & info)
   : m_keyValue(0)
 {
   Init(info.m_pattern);
 }
 
-void StipplePenKey::Init(const buffer_vector<uint8_t, 8> & pattern)
+void StipplePenHandle::Init(buffer_vector<uint8_t, 8> const & pattern)
 {
   // encoding scheme
   // 63 - 61 bits = size of pattern in range [1 : 8]
@@ -93,7 +93,7 @@ void StipplePenKey::Init(const buffer_vector<uint8_t, 8> & pattern)
   m_keyValue <<= ((8 - patternSize) * 7 + 5);
 }
 
-StipplePenResource::StipplePenResource(StipplePenInfo const & key)
+StipplePenRasterizator::StipplePenRasterizator(StipplePenKey const & key)
   : m_key(key)
 {
   uint32_t fullPattern = accumulate(m_key.m_pattern.begin(), m_key.m_pattern.end(), 0);
@@ -102,17 +102,17 @@ StipplePenResource::StipplePenResource(StipplePenInfo const & key)
   m_pixelLength = count * fullPattern;
 }
 
-uint32_t StipplePenResource::GetSize() const
+uint32_t StipplePenRasterizator::GetSize() const
 {
   return m_pixelLength;
 }
 
-uint32_t StipplePenResource::GetBufferSize() const
+uint32_t StipplePenRasterizator::GetBufferSize() const
 {
   return m_pixelLength;
 }
 
-void StipplePenResource::Rasterize(void * buffer)
+void StipplePenRasterizator::Rasterize(void * buffer)
 {
   uint8_t * pixels = static_cast<uint8_t *>(buffer);
   uint16_t offset = 0;
@@ -133,21 +133,23 @@ void StipplePenResource::Rasterize(void * buffer)
   }
 }
 
-m2::RectF const & StipplePenIndex::MapResource(StipplePenInfo const & info)
+StipplePenResourceInfo const * StipplePenIndex::MapResource(StipplePenKey const & key)
 {
-  StipplePenKey key(info);
-  TResourceMapping::const_iterator it = m_resourceMapping.find(key);
+  StipplePenHandle handle(key);
+  TResourceMapping::const_iterator it = m_resourceMapping.find(handle);
   if (it != m_resourceMapping.end())
-    return it->second;
+    return it->second.GetRaw();
 
-  StipplePenResource resource(info);
+  StipplePenRasterizator resource(key);
   m2::RectU pixelRect = m_packer.PackResource(resource.GetSize());
   m_pendingNodes.push_back(make_pair(pixelRect, resource));
 
   typedef pair<TResourceMapping::iterator, bool> TInsertionNode;
-  TInsertionNode result = m_resourceMapping.insert(make_pair(key, m_packer.MapTextureCoords(pixelRect)));
+  StipplePenResourceInfo * info = new StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect),
+                                                             resource.GetSize());
+  TInsertionNode result = m_resourceMapping.insert(make_pair(handle, info));
   ASSERT(result.second, ());
-  return result.first->second;
+  return result.first->second.GetRaw();
 }
 
 void StipplePenIndex::UploadResources(RefPointer<Texture> texture)
@@ -217,7 +219,7 @@ void StipplePenIndex::UploadResources(RefPointer<Texture> texture)
   m_pendingNodes.clear();
 }
 
-string DebugPrint(StipplePenKey const & key)
+string DebugPrint(StipplePenHandle const & key)
 {
   ostringstream out;
   out << "0x" << hex << key.m_keyValue;

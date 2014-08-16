@@ -63,6 +63,8 @@ public:
   virtual void GetSymbolRegion(string const & symbolName, SymbolRegion & region) const = 0;
   virtual bool GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const = 0;
   virtual int GetMaxTextureSet() const = 0;
+
+  virtual void UpdateDynamicTextures() = 0;
 };
 
 } // namespace dp

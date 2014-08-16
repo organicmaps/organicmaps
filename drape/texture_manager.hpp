@@ -18,6 +18,8 @@ public:
   virtual bool GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const;
   virtual int GetMaxTextureSet() const;
 
+  virtual void UpdateDynamicTextures();
+
   void BindTextureSet(uint32_t textureSet) const;
   uint32_t GetTextureCount(uint32_t textureSet) const;
 

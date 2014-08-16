@@ -19,6 +19,7 @@ public:
   {
     Symbol,
     Glyph,
+    StipplePen,
     UniformValue
   };
 
@@ -54,6 +55,7 @@ public:
                   RefPointer<void> data);
 
   virtual ResourceInfo const * FindResource(Key const & key) const = 0;
+  virtual void UpdateState() {}
 
   TextureFormat GetFormat() const;
   uint32_t GetWidth() const;

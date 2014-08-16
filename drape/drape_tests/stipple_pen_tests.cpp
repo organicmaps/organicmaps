@@ -58,13 +58,13 @@ UNIT_TEST(SimpleStipplePackTest)
 
 UNIT_TEST(SimpleStippleTest)
 {
-  StipplePenInfo info;
+  StipplePenKey info;
   info.m_pattern.push_back(12);
   info.m_pattern.push_back(12);
   info.m_pattern.push_back(8);
   info.m_pattern.push_back(9);
 
-  StipplePenResource res(info);
+  StipplePenRasterizator res(info);
   TEST_EQUAL(res.GetSize(), 246, ());
   TEST_EQUAL(res.GetBufferSize(), 246, ());
 
@@ -116,22 +116,22 @@ UNIT_TEST(SimpleStippleTest)
 UNIT_TEST(SimplePatternKey)
 {
   {
-    StipplePenInfo info;
+    StipplePenKey info;
     info.m_pattern.push_back(2);
     info.m_pattern.push_back(21);
 
-    TEST_EQUAL(StipplePenKey(info), StipplePenKey(0x204A000000000000), ());
+    TEST_EQUAL(StipplePenHandle(info), StipplePenHandle(0x204A000000000000), ());
   }
 
   {
-    StipplePenInfo info;
+    StipplePenKey info;
     info.m_pattern.push_back(1);
     info.m_pattern.push_back(1);
-    TEST_EQUAL(StipplePenKey(info), StipplePenKey(0x2000000000000000), ());
+    TEST_EQUAL(StipplePenHandle(info), StipplePenHandle(0x2000000000000000), ());
   }
 
   {
-    StipplePenInfo info;
+    StipplePenKey info;
     info.m_pattern.push_back(12);
     info.m_pattern.push_back(12);
     info.m_pattern.push_back(8);
@@ -140,7 +140,7 @@ UNIT_TEST(SimplePatternKey)
     info.m_pattern.push_back(128);
     info.m_pattern.push_back(40);
     info.m_pattern.push_back(40);
-    TEST_EQUAL(StipplePenKey(info), StipplePenKey(0xE2C58711FFFA74E0), ());
+    TEST_EQUAL(StipplePenHandle(info), StipplePenHandle(0xE2C58711FFFA74E0), ());
   }
 }
 
@@ -374,30 +374,30 @@ UNIT_TEST(StippleMappingTest)
   uint32_t const height = 10;
   StipplePenIndex index(m2::PointU(512, 10));
 
-  StipplePenInfo info;
+  StipplePenKey info;
   info.m_pattern.push_back(2);
   info.m_pattern.push_back(2);
   info.m_pattern.push_back(10);
   info.m_pattern.push_back(10);
 
-  m2::RectF const & r1 = index.MapResource(info);
-  TEST(IsRectsEqual(r1, m2::RectF(1.5f / 512.0f, 1.5f / 10.0f,
-                                 240.5f/ 512.0f, 1.5f / 10.0f)), ());
+  StipplePenResourceInfo const * r1 = index.MapResource(info);
+  TEST(IsRectsEqual(r1->GetTexRect(), m2::RectF(1.5f / 512.0f, 1.5f / 10.0f,
+                                                240.5f/ 512.0f, 1.5f / 10.0f)), ());
 
-  m2::RectF const & r2 = index.MapResource(info);
-  TEST(IsRectsEqual(r1, r2), ());
+  StipplePenResourceInfo const * r2 = index.MapResource(info);
+  TEST(IsRectsEqual(r1->GetTexRect(), r2->GetTexRect()), ());
 
   info.m_pattern.push_back(4);
   info.m_pattern.push_back(4);
-  m2::RectF const & r3 = index.MapResource(info);
-  TEST(IsRectsEqual(r3, m2::RectF(1.5f  / 512.0f, 3.5f / 10.0f,
-                                  224.5f / 512.0f, 3.5f / 10.0f)), ());
+  r1 = index.MapResource(info);
+  TEST(IsRectsEqual(r1->GetTexRect(), m2::RectF(1.5f  / 512.0f, 3.5f / 10.0f,
+                                                224.5f / 512.0f, 3.5f / 10.0f)), ());
 
   info.m_pattern.push_back(3);
   info.m_pattern.push_back(20);
-  m2::RectF const & r4 = index.MapResource(info);
-  TEST(IsRectsEqual(r4, m2::RectF(1.5f / 512.0f, 5.5f / 10.0f,
-                                  220.5f / 512.0f, 5.5f / 10.0f)), ());
+  r1 = index.MapResource(info);
+  TEST(IsRectsEqual(r1->GetTexRect(), m2::RectF(1.5f / 512.0f, 5.5f / 10.0f,
+                                                220.5f / 512.0f, 5.5f / 10.0f)), ());
 
   InSequence seq;
   EXPECTGL(glHasExtension(_)).WillRepeatedly(Return(true));
@@ -416,18 +416,18 @@ UNIT_TEST(StippleMappingTest)
   texture.Create(width, height, dp::ALPHA);
   index.UploadResources(MakeStackRefPointer<Texture>(&texture));
 
-  StipplePenInfo secInfo;
+  StipplePenKey secInfo;
   secInfo.m_pattern.push_back(20);
   secInfo.m_pattern.push_back(20);
-  m2::RectF const & r12 = index.MapResource(secInfo);
-  TEST(IsRectsEqual(r12, m2::RectF(1.5f   / 512.0f, 7.5f / 10.0f,
-                                   240.5f / 512.0f, 7.5f / 10.0f)), ());
+  StipplePenResourceInfo const * r12 = index.MapResource(secInfo);
+  TEST(IsRectsEqual(r12->GetTexRect(), m2::RectF(1.5f   / 512.0f, 7.5f / 10.0f,
+                                                 240.5f / 512.0f, 7.5f / 10.0f)), ());
 
   secInfo.m_pattern.push_back(10);
   secInfo.m_pattern.push_back(10);
-  m2::RectF const & r22 = index.MapResource(secInfo);
-  TEST(IsRectsEqual(r22, m2::RectF(256.5f / 512.0f, 1.5f / 10.0f,
-                                   495.5f / 512.0f, 1.5f / 10.0f)), ());
+  r12 = index.MapResource(secInfo);
+  TEST(IsRectsEqual(r12->GetTexRect(), m2::RectF(256.5f / 512.0f, 1.5f / 10.0f,
+                                                 495.5f / 512.0f, 1.5f / 10.0f)), ());
 
   MemoryComparer cmp21(secondUploadFirstPartEtalon, ARRAY_SIZE(secondUploadFirstPartEtalon));
   EXPECTGL(glTexSubImage2D(1, 7, 254, 2, gl_const::GLAlpha, gl_const::GL8BitOnChannel, _))

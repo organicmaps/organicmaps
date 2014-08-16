@@ -2,6 +2,7 @@
 
 #include "drape_global.hpp"
 #include "pointers.hpp"
+#include "texture.hpp"
 
 #include "../base/buffer_vector.hpp"
 
@@ -12,6 +13,64 @@
 
 namespace dp
 {
+
+class StipplePenKey : public Texture::Key
+{
+public:
+  virtual Texture::ResourceType GetType() const { return Texture::StipplePen; }
+
+  buffer_vector<uint8_t, 8> m_pattern;
+};
+
+class StipplePenHandle
+{
+public:
+  StipplePenHandle(uint64_t value) : m_keyValue(value) {} // don't use this ctor. Only for tests
+  StipplePenHandle(buffer_vector<uint8_t, 8> const & pattern);
+  StipplePenHandle(StipplePenKey const & info);
+
+  bool operator == (StipplePenHandle const & other) const { return m_keyValue == other.m_keyValue; }
+  bool operator < (StipplePenHandle const & other) const { return m_keyValue < other.m_keyValue; }
+
+private:
+  void Init(buffer_vector<uint8_t, 8> const & pattern);
+
+private:
+  friend string DebugPrint(StipplePenHandle const & );
+  uint64_t m_keyValue;
+};
+
+class StipplePenRasterizator
+{
+public:
+  StipplePenRasterizator() : m_pixelLength(0) {}
+  StipplePenRasterizator(StipplePenKey const & key);
+
+  uint32_t GetSize() const;
+  uint32_t GetBufferSize() const;
+
+  void Rasterize(void * buffer);
+
+private:
+  StipplePenKey m_key;
+  uint32_t m_pixelLength;
+};
+
+class StipplePenResourceInfo : public Texture::ResourceInfo
+{
+public:
+  StipplePenResourceInfo(m2::RectF const & texRect, uint32_t pixelLength)
+    : Texture::ResourceInfo(texRect)
+    , m_pixelLength(pixelLength)
+  {
+  }
+
+  virtual Texture::ResourceType GetType() const { return Texture::StipplePen; }
+  uint32_t GetPixelLength() const { return m_pixelLength; }
+
+private:
+  uint32_t m_pixelLength;
+};
 
 class StipplePenPacker
 {
@@ -27,57 +86,17 @@ private:
   uint32_t m_currentColumn;
 };
 
-struct StipplePenInfo
-{
-  buffer_vector<uint8_t, 8> m_pattern;
-};
-
-struct StipplePenKey
-{
-  enum { Tag = StipplePenTag };
-
-  StipplePenKey(uint64_t value) : m_keyValue(value) {} // don't use this ctor. Only for tests
-  StipplePenKey(buffer_vector<uint8_t, 8> const & pattern);
-  StipplePenKey(StipplePenInfo const & info);
-
-  bool operator == (StipplePenKey const & other) const { return m_keyValue == other.m_keyValue; }
-  bool operator < (StipplePenKey const & other) const { return m_keyValue < other.m_keyValue; }
-
-private:
-  void Init(buffer_vector<uint8_t, 8> const & pattern);
-
-private:
-  friend string DebugPrint(StipplePenKey const & );
-  uint64_t m_keyValue;
-};
-
-class StipplePenResource
-{
-public:
-  StipplePenResource() : m_pixelLength(0) {}
-  StipplePenResource(StipplePenInfo const & key);
-
-  uint32_t GetSize() const;
-  uint32_t GetBufferSize() const;
-
-  void Rasterize(void * buffer);
-
-private:
-  StipplePenInfo m_key;
-  uint32_t m_pixelLength;
-};
-
-class Texture;
 class StipplePenIndex
 {
 public:
   StipplePenIndex(m2::PointU const & canvasSize) : m_packer(canvasSize) {}
-  m2::RectF const & MapResource(StipplePenInfo const &info);
+  StipplePenResourceInfo const * MapResource(StipplePenKey const & key);
   void UploadResources(RefPointer<Texture> texture);
 
 private:
-  typedef map<StipplePenKey, m2::RectF> TResourceMapping;
-  typedef pair<m2::RectU, StipplePenResource> TPendingNode;
+  typedef MasterPointer<StipplePenResourceInfo> TResourcePtr;
+  typedef map<StipplePenHandle, TResourcePtr> TResourceMapping;
+  typedef pair<m2::RectU, StipplePenRasterizator> TPendingNode;
   typedef buffer_vector<TPendingNode, 32> TPendingNodes;
 
   TResourceMapping m_resourceMapping;
@@ -85,6 +104,6 @@ private:
   StipplePenPacker m_packer;
 };
 
-string DebugPrint(StipplePenKey const & key);
+string DebugPrint(StipplePenHandle const & key);
 
 }

@@ -36,7 +36,7 @@ BackendRenderer::BackendRenderer(dp::RefPointer<ThreadsCommutator> commutator,
   ///}
 
   m_commutator->RegisterThread(ThreadsCommutator::ResourceUploadThread, this);
-  m_batchersPool.Reset(new BatchersPool(ReadManager::ReadCount(), bind(&BackendRenderer::PostToRenderThreads, this, _1)));
+  m_batchersPool.Reset(new BatchersPool(ReadManager::ReadCount(), bind(&BackendRenderer::FlushGeometry, this, _1)));
   m_readManager.Reset(new ReadManager(m_engineContext, m_model));
 
   StartThread();
@@ -138,8 +138,10 @@ void BackendRenderer::InitGLDependentResource()
   m_textures->Init(VisualParams::Instance().GetResourcePostfix());
 }
 
-void BackendRenderer::PostToRenderThreads(dp::TransferPointer<Message> message)
+void BackendRenderer::FlushGeometry(dp::TransferPointer<Message> message)
 {
+  m_textures->UpdateDynamicTextures();
+  GLFunctions::glFlush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, message);
 }
 

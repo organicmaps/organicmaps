@@ -11,11 +11,6 @@ enum TextureFormat
   UNSPECIFIED
 };
 
-enum ResourceTag
-{
-  StipplePenTag
-};
-
 enum Anchor
 {
   Center      = 0,

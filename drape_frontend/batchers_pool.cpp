@@ -20,7 +20,6 @@ void FlushGeometry(BatchersPool::TSendMessageFn const & sendMessage,
                    dp::GLState const & state,
                    dp::TransferPointer<dp::RenderBucket> buffer)
 {
-  GLFunctions::glFlush();
   sendMessage(dp::MovePointer<Message>(new FlushRenderBucketMessage(key, state, buffer)));
 }
 

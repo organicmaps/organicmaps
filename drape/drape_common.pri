@@ -35,7 +35,7 @@ SOURCES += \
     $$DRAPE_DIR/texture_set_holder.cpp \
     $$DRAPE_DIR/utils/stb_image.c \
     $$DRAPE_DIR/attribute_buffer_mutator.cpp \
-    $$DRAPE_DIR/stipple_pen_resource.cpp
+    $$DRAPE_DIR/stipple_pen_resource.cpp \
 
 HEADERS += \
     $$DRAPE_DIR/data_buffer.hpp \
@@ -77,4 +77,5 @@ HEADERS += \
     $$DRAPE_DIR/attribute_buffer_mutator.hpp \
     $$DRAPE_DIR/drape_global.hpp \
     $$DRAPE_DIR/object_pool.hpp \
-    $$DRAPE_DIR/stipple_pen_resource.hpp
+    $$DRAPE_DIR/stipple_pen_resource.hpp \
+    $$DRAPE_DIR/dynamic_texture.hpp \

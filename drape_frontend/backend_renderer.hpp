@@ -59,7 +59,7 @@ private:
   virtual void Do();
 
   void InitGLDependentResource();
-  void PostToRenderThreads(dp::TransferPointer<Message> message);
+  void FlushGeometry(dp::TransferPointer<Message> message);
 
 private:
   threads::Thread m_selfThread;

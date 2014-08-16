@@ -1,6 +1,8 @@
 #include "texture_manager.hpp"
 #include "symbols_texture.hpp"
 #include "font_texture.hpp"
+#include "dynamic_texture.hpp"
+#include "stipple_pen_resource.hpp"
 
 #include "glfunctions.hpp"
 
@@ -11,6 +13,7 @@
 #include "../base/stl_add.hpp"
 
 #include "../std/vector.hpp"
+#include "../std/bind.hpp"
 
 namespace dp
 {
@@ -58,6 +61,12 @@ public:
     return NULL;
   }
 
+  void UpdateDynamicTextures()
+  {
+    for_each(m_textures.begin(), m_textures.end(), bind(&Texture::UpdateState,
+                                                        bind(&NonConstGetter<Texture>, _1)));
+  }
+
   void BindTextureSet() const
   {
     for (size_t i = 0; i < m_textures.size(); ++i)
@@ -80,6 +89,12 @@ private:
 int TextureManager::GetMaxTextureSet() const
 {
   return m_textures.size();
+}
+
+void TextureManager::UpdateDynamicTextures()
+{
+  for_each(m_textures.begin(), m_textures.end(), bind(&TextureSet::UpdateDynamicTextures,
+                                                        bind(&NonConstGetter<TextureSet>, _1)));
 }
 
 void TextureManager::Init(string const & resourcePrefix)
@@ -107,6 +122,16 @@ void TextureManager::Init(string const & resourcePrefix)
 
     set->AddTexture(tempTextures[i]);
   }
+
+  RefPointer<TextureSet> textureSet = m_textures.back().GetRefPointer();
+  if (textureSet->IsFull())
+  {
+    m_textures.push_back(MasterPointer<TextureSet>(new TextureSet(m_maxTextureBlocks)));
+    textureSet = m_textures.back().GetRefPointer();
+  }
+
+  typedef DynamicTexture<StipplePenIndex, StipplePenKey, Texture::StipplePen> TStippleTexture;
+  textureSet->AddTexture(MovePointer<Texture>(new TStippleTexture(m2::PointU(1024, 1024), dp::ALPHA)));
 }
 
 void TextureManager::Release()
