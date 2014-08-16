@@ -119,74 +119,99 @@ void TextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   ASSERT(!m_params.m_primaryText.empty(), ());
   if (m_params.m_secondaryText.empty())
   {
-    df::FontDecl const & primaryFont = m_params.m_primaryTextFont;
-    TextLayout const primaryLayout(fribidi::log2vis(strings::MakeUniString(m_params.m_primaryText)), primaryFont, textures);
-    PointF const pixelOffset = GetShift(m_params.m_anchor, primaryLayout.GetPixelLength(), primaryFont.m_size) + m_params.m_primaryOffset;
+    TextLayout const primaryLayout(fribidi::log2vis(strings::MakeUniString(m_params.m_primaryText)),
+                                   m_params.m_primaryTextFont, textures);
+    if (primaryLayout.GetGlyphCount() == 0)
+      return;
 
-    size_t glyphCount = primaryLayout.GetGlyphCount();
-    vector<glsl_types::Quad4> positions(glyphCount);
-    vector<glsl_types::Quad4> texCoord(glyphCount);
-    vector<glsl_types::Quad4> fontColor(glyphCount);
-    vector<glsl_types::Quad4> outlineColor(glyphCount);
+    DrawSingleLine(batcher, primaryLayout);
+  }
+  else
+  {
+    TextLayout const primaryLayout(fribidi::log2vis(strings::MakeUniString(m_params.m_primaryText)),
+                                                    m_params.m_primaryTextFont, textures);
+    TextLayout const secondaryLayout(fribidi::log2vis(strings::MakeUniString(m_params.m_secondaryText)),
+                                                    m_params.m_secondaryTextFont, textures);
+    uint32_t primGlyphCount = primaryLayout.GetGlyphCount();
+    uint32_t secondGlyphCount = secondaryLayout.GetGlyphCount();
 
+    if (primGlyphCount == 0 && secondGlyphCount == 0)
+      return;
+
+    if (primGlyphCount == 0)
+      DrawSingleLine(batcher, secondaryLayout);
+    else if (secondGlyphCount == 0)
+      DrawSingleLine(batcher, primaryLayout);
+    else
+      DrawDoubleLine(batcher, primaryLayout, secondaryLayout);
+  }
+}
+
+void TextShape::DrawSingleLine(dp::RefPointer<dp::Batcher> batcher, TextLayout const & layout) const
+{
+  size_t glyphCount = layout.GetGlyphCount();
+  vector<glsl_types::Quad4> positions(glyphCount);
+  vector<glsl_types::Quad4> texCoord(glyphCount);
+  vector<glsl_types::Quad4> fontColor(glyphCount);
+  vector<glsl_types::Quad4> outlineColor(glyphCount);
+
+  PointF const pixelOffset = GetShift(m_params.m_anchor, layout.GetPixelLength(), m_params.m_primaryTextFont.m_size) + m_params.m_primaryOffset;
+  dp::OverlayHandle * handle = layout.LayoutText(m_params.m_featureID, m_basePoint,
+                                                        pixelOffset, m_params.m_depth,
+                                                        positions, texCoord, fontColor, outlineColor);
+  BatchText(batcher, layout.GetTextureSet(),
+            positions, texCoord,
+            fontColor, outlineColor,
+            glyphCount, handle);
+}
+
+void TextShape::DrawDoubleLine(dp::RefPointer<dp::Batcher> batcher, TextLayout const & primaryLayout,
+                                                                    TextLayout const & secondaryLayout) const
+{
+  float const primaryTextLength = primaryLayout.GetPixelLength();
+  float const secondaryTextLength = secondaryLayout.GetPixelLength();
+  bool const isPrimaryLonger = primaryTextLength > secondaryTextLength;
+  float const maxLength = max(primaryTextLength, secondaryTextLength);
+  float const minLength = min(primaryTextLength, secondaryTextLength);
+  float const halfLengthDiff = (maxLength - minLength) / 2.0;
+
+  uint32_t primarySize = m_params.m_primaryTextFont.m_size;
+  uint32_t secondarySize = m_params.m_secondaryTextFont.m_size;
+
+  float const textHeight = TEXT_EXPAND_FACTOR * (primarySize + secondarySize);
+  PointF const anchorOffset = GetShift(m_params.m_anchor, maxLength, textHeight);
+
+  float const primaryDx = isPrimaryLonger ? 0.0f : halfLengthDiff;
+  float const primaryDy = (1.0f - TEXT_EXPAND_FACTOR) * primarySize - TEXT_EXPAND_FACTOR * secondarySize;
+  PointF const primaryPixelOffset = PointF(primaryDx, primaryDy) + anchorOffset + m_params.m_primaryOffset;
+
+  size_t glyphCount = max(primaryLayout.GetGlyphCount(), secondaryLayout.GetGlyphCount());
+  vector<glsl_types::Quad4> positions(glyphCount);
+  vector<glsl_types::Quad4> texCoord(glyphCount);
+  vector<glsl_types::Quad4> fontColor(glyphCount);
+  vector<glsl_types::Quad4> outlineColor(glyphCount);
+
+  {
     dp::OverlayHandle * handle = primaryLayout.LayoutText(m_params.m_featureID, m_basePoint,
-                                                          pixelOffset, m_params.m_depth,
+                                                          primaryPixelOffset, m_params.m_depth,
                                                           positions, texCoord, fontColor, outlineColor);
     BatchText(batcher, primaryLayout.GetTextureSet(),
               positions, texCoord,
               fontColor, outlineColor,
-              glyphCount, handle);
+              primaryLayout.GetGlyphCount(), handle);
   }
-  else
+
+  float const secondaryDx = isPrimaryLonger ? halfLengthDiff : 0.0f;
+  PointF const secondaryPixelOffset = PointF(secondaryDx, 0.0f) + anchorOffset + m_params.m_primaryOffset;
+
   {
-    df::FontDecl const & primaryFont = m_params.m_primaryTextFont;
-    df::FontDecl const & secondaryFont = m_params.m_secondaryTextFont;
-
-    TextLayout const primaryLayout(fribidi::log2vis(strings::MakeUniString(m_params.m_primaryText)), primaryFont, textures);
-    TextLayout const secondaryLayout(fribidi::log2vis(strings::MakeUniString(m_params.m_secondaryText)), secondaryFont, textures);
-
-    float const primaryTextLength = primaryLayout.GetPixelLength();
-    float const secondaryTextLength = secondaryLayout.GetPixelLength();
-    bool const isPrimaryLonger = primaryTextLength > secondaryTextLength;
-    float const maxLength = max(primaryTextLength, secondaryTextLength);
-    float const minLength = min(primaryTextLength, secondaryTextLength);
-    float const halfLengthDiff = (maxLength - minLength) / 2.0;
-
-    float const textHeight = TEXT_EXPAND_FACTOR * (primaryFont.m_size + secondaryFont.m_size);
-    PointF const anchorOffset = GetShift(m_params.m_anchor, maxLength, textHeight);
-
-    float const primaryDx = isPrimaryLonger ? 0.0f : halfLengthDiff;
-    float const primaryDy = (1.0f - TEXT_EXPAND_FACTOR) * primaryFont.m_size - TEXT_EXPAND_FACTOR * secondaryFont.m_size;
-    PointF const primaryPixelOffset = PointF(primaryDx, primaryDy) + anchorOffset + m_params.m_primaryOffset;
-
-    size_t glyphCount = max(primaryLayout.GetGlyphCount(), secondaryLayout.GetGlyphCount());
-    vector<glsl_types::Quad4> positions(glyphCount);
-    vector<glsl_types::Quad4> texCoord(glyphCount);
-    vector<glsl_types::Quad4> fontColor(glyphCount);
-    vector<glsl_types::Quad4> outlineColor(glyphCount);
-
-    {
-      dp::OverlayHandle * handle = primaryLayout.LayoutText(m_params.m_featureID, m_basePoint,
-                                                            primaryPixelOffset, m_params.m_depth,
+    dp::OverlayHandle * handle = secondaryLayout.LayoutText(m_params.m_featureID, m_basePoint,
+                                                            secondaryPixelOffset, m_params.m_depth,
                                                             positions, texCoord, fontColor, outlineColor);
-      BatchText(batcher, primaryLayout.GetTextureSet(),
-                positions, texCoord,
-                fontColor, outlineColor,
-                primaryLayout.GetGlyphCount(), handle);
-    }
-
-    float const secondaryDx = isPrimaryLonger ? halfLengthDiff : 0.0f;
-    PointF const secondaryPixelOffset = PointF(secondaryDx, 0.0f) + anchorOffset + m_params.m_primaryOffset;
-
-    {
-      dp::OverlayHandle * handle = secondaryLayout.LayoutText(m_params.m_featureID, m_basePoint,
-                                                              secondaryPixelOffset, m_params.m_depth,
-                                                              positions, texCoord, fontColor, outlineColor);
-      BatchText(batcher, secondaryLayout.GetTextureSet(),
-                positions, texCoord,
-                fontColor, outlineColor,
-                secondaryLayout.GetGlyphCount(), handle);
-    }
+    BatchText(batcher, secondaryLayout.GetTextureSet(),
+              positions, texCoord,
+              fontColor, outlineColor,
+              secondaryLayout.GetGlyphCount(), handle);
   }
 }
 

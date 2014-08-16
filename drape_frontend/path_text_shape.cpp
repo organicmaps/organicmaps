@@ -211,6 +211,10 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
                                          m_params.m_textFont,
                                          textures));
 
+  uint32_t glyphCount = layout->GetGlyphCount();
+  if (glyphCount == 0)
+    return;
+
   //we leave a little space on either side of the text that would
   //remove the comparison for equality of spline portions
   float const TextBorder = 4.0f;
@@ -230,7 +234,6 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
   float const minPeriodSize = etalonEmpty + textLength;
   float const twoTextAndEmpty = minPeriodSize + textLength;
 
-  uint32_t glyphCount = layout->GetGlyphCount();
   vector<glsl_types::vec2>  positions(glyphCount, vec2(0.0, 0.0));
   vector<glsl_types::Quad4> texCoords(glyphCount);
   vector<glsl_types::Quad4> fontColor(glyphCount);
