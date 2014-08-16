@@ -2940,8 +2940,8 @@
     ja = メモ
     ko = 메모
     nl = Notities
-    ru = Заметки
-    uk = Примiтки
+    ru = Добавить примечание
+    uk = Додати примітку
     zh-Hant = 描述說明
     pl = Notatki
     pt = Notas
@@ -4647,7 +4647,7 @@
     uk = MAPS.ME Pro сьогодні безкоштовно! Завантажуй та розкажи друзям.
     zh-Hans = MAPS.ME Pro今日免费！立刻下载并告诉您的好友。
     zh-Hant = MAPS.ME Pro今日免費！馬上下載并告訴您的朋友。
-    da = MAPS.ME Pro er gratis i dag! Hent nu og fortæl dine venner.
+    da = MAPS.ME Pro er gratis i dag! Download nu og fortæl dine venner om det.
     tr = MAPS.ME Pro bugün ücretsiz! İndir ve arkadaşlarına haber ver.
 
   [pro_version_is_free_today_android]
