@@ -150,9 +150,9 @@ void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & r
   region.SetTextureNode(node);
 }
 
-bool TextureManager::GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const
+template <typename TKey, typename TRegion>
+bool TextureManager::FindResource(TKey const & key, TRegion & region) const
 {
-  FontTexture::GlyphKey key(charCode);
   for (size_t i = 0; i < m_textures.size(); ++i)
   {
     TextureNode node;
@@ -167,6 +167,17 @@ bool TextureManager::GetGlyphRegion(strings::UniChar charCode, GlyphRegion & reg
   }
 
   return false;
+}
+
+bool TextureManager::GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const
+{
+  FontTexture::GlyphKey key(charCode);
+  return FindResource(key, region);
+}
+
+void TextureManager::GetStippleRegion(StipplePenKey const & pen, TextureSetHolder::StippleRegion & region) const
+{
+  VERIFY(FindResource(pen, region), ());
 }
 
 void TextureManager::BindTextureSet(uint32_t textureSet) const

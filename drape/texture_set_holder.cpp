@@ -77,4 +77,10 @@ float TextureSetHolder::GlyphRegion::GetAdvance() const
   return static_cast<FontTexture::GlyphInfo const *>(m_info)->GetAdvance();
 }
 
+uint32_t TextureSetHolder::StippleRegion::GetTemplateLength() const
+{
+  ASSERT(m_info->GetType() == Texture::StipplePen, ());
+  return static_cast<StipplePenResourceInfo const *>(m_info)->GetPixelLength();
+}
+
 } // namespace dp

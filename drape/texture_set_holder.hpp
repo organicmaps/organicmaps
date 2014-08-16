@@ -1,6 +1,7 @@
 #pragma once
 
 #include "texture.hpp"
+#include "stipple_pen_resource.hpp"
 
 #include "../base/string_utils.hpp"
 
@@ -60,8 +61,17 @@ public:
     float GetAdvance() const;
   };
 
+  class StippleRegion : public BaseRegion
+  {
+  public:
+    StippleRegion() : BaseRegion() {}
+
+    uint32_t GetTemplateLength() const;
+  };
+
   virtual void GetSymbolRegion(string const & symbolName, SymbolRegion & region) const = 0;
   virtual bool GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const = 0;
+  virtual void GetStippleRegion(StipplePenKey const & pen, StippleRegion & region) const = 0;
   virtual int GetMaxTextureSet() const = 0;
 
   virtual void UpdateDynamicTextures() = 0;
