@@ -1,6 +1,7 @@
 package com.mapswithme.maps;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
@@ -33,6 +34,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private final static String TAG = "MWMApplication";
   private static final CharSequence PRO_PACKAGE_POSTFIX = ".pro";
   private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
+  private static final String PROMO_NOTIFICATION_SHOWED = "PromoNotifocationShowed";
 
   private static MWMApplication mSelf;
 
@@ -155,7 +157,13 @@ public class MWMApplication extends android.app.Application implements MapStorag
     if (hasBookmarks())
       BookmarkManager.getBookmarkManager(getApplicationContext());
 
-    Notifier.schedulePromoNotification();
+    final SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
+    if (!prefs.getBoolean(PROMO_NOTIFICATION_SHOWED, false))
+    {
+      Notifier.schedulePromoNotification();
+
+      prefs.edit().putBoolean(PROMO_NOTIFICATION_SHOWED, true).commit();
+    }
 
     WorkerService.startActionUpdateAds(this);
   }
