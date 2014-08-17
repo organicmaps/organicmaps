@@ -142,11 +142,14 @@ public class StoragePathManager
       parseMountFiles(paths);
 
     Map<Long, String> pathsSizesMap = new HashMap<Long, String>();
+
+    // Add current path first!
+    final String currentStorageDir = getWritableDirRoot();
+    addStoragePathWithSize(currentStorageDir, pathsSizesMap);
+
     for (String path : paths)
       addStoragePathWithSize(path, pathsSizesMap);
     addStoragePathWithSize(Environment.getExternalStorageDirectory().getAbsolutePath(), pathsSizesMap);
-    String currentStorageDir = getWritableDirRoot();
-    addStoragePathWithSize(currentStorageDir, pathsSizesMap);
 
     mItems = new ArrayList<StoragePathAdapter.StorageItem>();
     mCurrentStorageIndex = -1;
@@ -156,6 +159,12 @@ public class StoragePathManager
       mItems.add(item);
       if (item.mPath.equals(currentStorageDir))
         mCurrentStorageIndex = mItems.size() - 1;
+    }
+
+    if (mCurrentStorageIndex == -1)
+    {
+      Log.w(TAG, "Unrecognized current path: " + currentStorageDir);
+      Log.w(TAG, "Parsed paths: " + Utils.mapPrettyPrint(pathsSizesMap));
     }
   }
 
@@ -399,14 +408,18 @@ public class StoragePathManager
 
   private static boolean doMoveMaps(StoragePathAdapter.StorageItem newStorage, StoragePathAdapter.StorageItem oldStorage)
   {
+    final String fullNewPath = getItemFullPath(newStorage);
+
     // According to onStorageItemClick code above, oldStorage can be null.
     if (oldStorage == null)
+    {
+      Log.w(TAG, "Old storage path is null. New path is: " + fullNewPath);
       return false;
+    }
 
-    String fullOldPath = getItemFullPath(oldStorage);
-    String fullNewPath = getItemFullPath(newStorage);
-    File oldDir = new File(fullOldPath);
-    File newDir = new File(fullNewPath);
+    final String fullOldPath = getItemFullPath(oldStorage);
+    final File oldDir = new File(fullOldPath);
+    final File newDir = new File(fullNewPath);
     if (!newDir.exists())
       newDir.mkdir();
 
@@ -431,6 +444,13 @@ public class StoragePathManager
       }
     });
 
+    // Strange thing: null only if oldDir is not a directory, but it fires according to the developer console.
+    if (internalFiles == null)
+    {
+      Log.w(TAG, "Source path is not a directory: " + fullOldPath);
+      return false;
+    }
+
     try
     {
       for (File moveFile : internalFiles)
@@ -438,7 +458,8 @@ public class StoragePathManager
         if (!MapStorage.nativeMoveFile(moveFile.getAbsolutePath(), fullNewPath + moveFile.getName()))
           copyFile(moveFile, new File(fullNewPath + moveFile.getName()));
       }
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
       for (File moveFile : internalFiles)
         new File(fullNewPath + moveFile.getName()).delete();
