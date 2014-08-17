@@ -73,6 +73,13 @@ namespace di
       m_secondaryText.clear();
     }
 
+    /// @todo Temporary bug. Remove after maps update.
+    if (m_primaryText == "Ельничина")
+    {
+      m_primaryText.clear();
+      m_secondaryText.clear();
+    }
+
     // Low zoom heuristics - don't show superlong names on World map.
     //if (zoom <= 5)
     //{
