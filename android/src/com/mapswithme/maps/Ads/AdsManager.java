@@ -73,6 +73,9 @@ public class AdsManager
 
   private static void cacheMenuAds(String menuAdsString)
   {
+    if (menuAdsString == null)
+      return;
+
     final File cacheFile = new File(MWMApplication.get().getDataStoragePath(), CACHE_FILE);
     try (FileOutputStream fileOutputStream = new FileOutputStream(cacheFile))
     {

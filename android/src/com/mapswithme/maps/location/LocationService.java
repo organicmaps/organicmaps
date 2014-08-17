@@ -556,7 +556,7 @@ public class LocationService implements
     @Override
     protected Location getLastGpsLocation()
     {
-      return mLocationClient.getLastLocation();
+      return (mLocationClient != null ? mLocationClient.getLastLocation() : null);
     }
 
     private void refreshUpdates()

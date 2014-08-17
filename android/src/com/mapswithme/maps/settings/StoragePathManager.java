@@ -399,6 +399,10 @@ public class StoragePathManager
 
   private static boolean doMoveMaps(StoragePathAdapter.StorageItem newStorage, StoragePathAdapter.StorageItem oldStorage)
   {
+    // According to onStorageItemClick code above, oldStorage can be null.
+    if (oldStorage == null)
+      return false;
+
     String fullOldPath = getItemFullPath(oldStorage);
     String fullNewPath = getItemFullPath(newStorage);
     File oldDir = new File(fullOldPath);
