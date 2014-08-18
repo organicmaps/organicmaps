@@ -183,7 +183,10 @@
   struct utsname systemInfo;
   uname(&systemInfo);
   NSString * machine = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
-  NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@", self.deviceNames[machine], [UIDevice currentDevice].systemVersion, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
+  NSString * device = self.deviceNames[machine];
+  if (!device)
+    device = machine;
+  NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@", device, [UIDevice currentDevice].systemVersion, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
   NSString * email = @"ios@maps.me";
   if ([MFMailComposeViewController canSendMail])
   {
