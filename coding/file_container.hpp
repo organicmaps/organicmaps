@@ -44,7 +44,14 @@ protected:
   {
     bool operator() (Info const & t1, Info const & t2) const
     {
-      return (t1.m_offset < t2.m_offset);
+      if (t1.m_offset == t2.m_offset)
+      {
+        // Element with nonzero size should be the last one,
+        // for correct append writer mode (FilesContainerW::GetWriter).
+        return (t1.m_size < t2.m_size);
+      }
+      else
+        return (t1.m_offset < t2.m_offset);
     }
     bool operator() (Info const & t1, uint64_t const & t2) const
     {
