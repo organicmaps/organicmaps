@@ -19,8 +19,7 @@ StipplePenPacker::StipplePenPacker(m2::PointU const & canvasSize)
 {
   // canvasSize.x - 1 = we reserve 1 pixel border on left
   // to reduce problems with bilinear filtration on GPU
-  // MAX_STIPPLE_PEN_LENGTH + 1 = we reserve 1 pixel empty space after pen resource
-  // pen in last column reserve 1 pixel on right size of canvas
+  // we devide on MAX_STIPPLE_PEN_LENGTH because this length considers 1 pixel border on right side
   uint32_t columnCount = floor((canvasSize.x - 1) / MAX_STIPPLE_PEN_LENGTH);
   m_columns.resize(columnCount, 0);
 }
