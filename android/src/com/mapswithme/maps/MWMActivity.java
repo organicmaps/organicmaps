@@ -90,7 +90,6 @@ public class MWMActivity extends NvEventQueueActivity
   private static final String EXTRA_SEARCH_RES_SINGLE = "search_res_index";
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<MapTask>();
-  private MWMApplication mApplication = null;
   private BroadcastReceiver mExternalStorageReceiver = null;
   private StoragePathManager mPathManager = new StoragePathManager();
   private AlertDialog mStorageDisconnectedDialog = null;
@@ -153,50 +152,35 @@ public class MWMActivity extends NvEventQueueActivity
 
   private native void deactivatePopup();
 
-  private LocationService getLocationService()
-  {
-    return mApplication.getLocationService();
-  }
-
-  private MapStorage getMapStorage()
-  {
-    return mApplication.getMapStorage();
-  }
-
-  private LocationState getLocationState()
-  {
-    return mApplication.getLocationState();
-  }
-
   private void startLocation()
   {
-    getLocationState().onStartLocation();
+    MWMApplication.get().getLocationState().onStartLocation();
     resumeLocation();
   }
 
   private void stopLocation()
   {
-    getLocationState().onStopLocation();
+    MWMApplication.get().getLocationState().onStopLocation();
     pauseLocation();
   }
 
   private void pauseLocation()
   {
-    getLocationService().stopUpdate(this);
+    MWMApplication.get().getLocationService().stopUpdate(this);
     // Enable automatic turning screen off while app is idle
     Utils.automaticIdleScreen(true, getWindow());
   }
 
   private void resumeLocation()
   {
-    getLocationService().startUpdate(this);
+    MWMApplication.get().getLocationService().startUpdate(this);
     // Do not turn off the screen while displaying position
     Utils.automaticIdleScreen(false, getWindow());
   }
 
   public void checkShouldResumeLocationService()
   {
-    final LocationState state = getLocationState();
+    final LocationState state = MWMApplication.get().getLocationState();
     final boolean hasPosition = state.hasPosition();
     final boolean isFollowMode = (state.getCompassProcessMode() == LocationState.COMPASS_FOLLOW);
 
@@ -337,7 +321,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onBookmarksClicked(View v)
   {
-    if (!mApplication.hasBookmarks())
+    if (!MWMApplication.get().hasBookmarks())
       showProVersionBanner(getString(R.string.bookmarks_in_pro_version));
     else
       startActivity(new Intent(this, BookmarkCategoriesActivity.class));
@@ -345,12 +329,12 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onMyPositionClicked(View v)
   {
-    final LocationState state = mApplication.getLocationState();
+    final LocationState state = MWMApplication.get().getLocationState();
     if (state.hasPosition())
     {
       if (state.isCentered())
       {
-        if (mApplication.isProVersion() && state.hasCompass())
+        if (MWMApplication.get().isProVersion() && state.hasCompass())
         {
           final boolean isFollowMode = (state.getCompassProcessMode() == LocationState.COMPASS_FOLLOW);
           if (isFollowMode)
@@ -408,7 +392,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     if (!kmlMoved)
       if (mPathManager.moveBookmarks())
-        mApplication.nativeSetBoolean(IS_KML_MOVED, true);
+        MWMApplication.get().nativeSetBoolean(IS_KML_MOVED, true);
       else
       {
         ShowAlertDlg(R.string.bookmark_move_fail);
@@ -422,7 +406,7 @@ public class MWMActivity extends NvEventQueueActivity
             @Override
             public void moveFilesFinished(String newPath)
             {
-              mApplication.nativeSetBoolean(IS_KITKAT_MIGRATION_COMPLETED, true);
+              MWMApplication.get().nativeSetBoolean(IS_KITKAT_MIGRATION_COMPLETED, true);
               ShowAlertDlg(R.string.kitkat_migrate_ok);
             }
 
@@ -442,7 +426,7 @@ public class MWMActivity extends NvEventQueueActivity
   private void checkLiteMapsInPro()
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-        mApplication.isProVersion() &&
+        MWMApplication.get().isProVersion() &&
         (Utils.isAppInstalled(Constants.Package.MWM_LITE_PACKAGE) || Utils.isAppInstalled(Constants.Package.MWM_SAMSUNG_PACKAGE)))
     {
       if (!mPathManager.containsLiteMapsOnSdcard())
@@ -474,7 +458,7 @@ public class MWMActivity extends NvEventQueueActivity
     {
       mNeedCheckUpdate = false;
 
-      getMapStorage().updateMaps(R.string.advise_update_maps, this, new MapStorage.UpdateFunctor()
+      MWMApplication.get().getMapStorage().updateMaps(R.string.advise_update_maps, this, new MapStorage.UpdateFunctor()
       {
         @Override
         public void doUpdate()
@@ -509,7 +493,7 @@ public class MWMActivity extends NvEventQueueActivity
           public void onClick(DialogInterface dlg, int which)
           {
             dlg.dismiss();
-            mApplication.submitDialogResult(dlgID, MWMApplication.NEVER);
+            MWMApplication.get().submitDialogResult(dlgID, MWMApplication.get().NEVER);
           }
         })
         .setNegativeButton(getString(R.string.later), new DialogInterface.OnClickListener()
@@ -518,7 +502,7 @@ public class MWMActivity extends NvEventQueueActivity
           public void onClick(DialogInterface dlg, int which)
           {
             dlg.dismiss();
-            mApplication.submitDialogResult(dlgID, MWMApplication.LATER);
+            MWMApplication.get().submitDialogResult(dlgID, MWMApplication.get().LATER);
           }
         })
         .create()
@@ -546,7 +530,7 @@ public class MWMActivity extends NvEventQueueActivity
     }
     else
     {
-      final Location l = mApplication.getLocationService().getLastKnown();
+      final Location l = MWMApplication.get().getLocationService().getLastKnown();
       if (l != null && nativeIsInChina(l.getLatitude(), l.getLongitude()))
         return true;
       else
@@ -564,16 +548,16 @@ public class MWMActivity extends NvEventQueueActivity
   private void checkFacebookDialog()
   {
     if (ConnectionState.isConnected(this) &&
-        mApplication.shouldShowDialog(MWMApplication.FACEBOOK) &&
+        MWMApplication.get().shouldShowDialog(MWMApplication.get().FACEBOOK) &&
         !isChinaRegion())
     {
-      showDialogImpl(MWMApplication.FACEBOOK, R.string.share_on_facebook_text,
+      showDialogImpl(MWMApplication.get().FACEBOOK, R.string.share_on_facebook_text,
           new DialogInterface.OnClickListener()
           {
             @Override
             public void onClick(DialogInterface dlg, int which)
             {
-              mApplication.submitDialogResult(MWMApplication.FACEBOOK, MWMApplication.OK);
+              MWMApplication.get().submitDialogResult(MWMApplication.get().FACEBOOK, MWMApplication.get().OK);
 
               dlg.dismiss();
               UiUtils.showFacebookPage(MWMActivity.this);
@@ -597,9 +581,9 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void checkBuyProDialog()
   {
-    if (!mApplication.isProVersion() &&
+    if (!MWMApplication.get().isProVersion() &&
         (ConnectionState.isConnected(this)) &&
-        mApplication.shouldShowDialog(MWMApplication.BUYPRO))
+        MWMApplication.get().shouldShowDialog(MWMApplication.BUYPRO))
     {
       showDialogImpl(MWMApplication.BUYPRO, R.string.pro_version_available,
           new DialogInterface.OnClickListener()
@@ -607,7 +591,7 @@ public class MWMActivity extends NvEventQueueActivity
             @Override
             public void onClick(DialogInterface dlg, int which)
             {
-              mApplication.submitDialogResult(MWMApplication.BUYPRO, MWMApplication.OK);
+              MWMApplication.get().submitDialogResult(MWMApplication.BUYPRO, MWMApplication.OK);
               dlg.dismiss();
               UiUtils.runProMarketActivity(MWMActivity.this);
             }
@@ -623,11 +607,11 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onSearchClicked(View v)
   {
-    if (!mApplication.isProVersion())
+    if (!MWMApplication.get().isProVersion())
     {
       showProVersionBanner(getString(R.string.search_available_in_pro_version));
     }
-    else if (!getMapStorage().updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
+    else if (!MWMApplication.get().getMapStorage().updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
     {
       @Override
       public void doUpdate()
@@ -704,13 +688,12 @@ public class MWMActivity extends NvEventQueueActivity
     }
     setContentView(R.layout.map);
     super.onCreate(savedInstanceState);
-    mApplication = (MWMApplication) getApplication();
 
     // Log app start events - successful installation means that user has passed DownloadResourcesActivity
-    mApplication.onMwmStart(this);
+    MWMApplication.get().onMwmStart(this);
 
     // Do not turn off the screen while benchmarking
-    if (mApplication.nativeIsBenchmarking())
+    if (MWMApplication.get().nativeIsBenchmarking())
       getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
     nativeConnectDownloadButton();
@@ -730,7 +713,7 @@ public class MWMActivity extends NvEventQueueActivity
     addTask(intent);
 
     // Initialize location service
-    getLocationService();
+    MWMApplication.get().getLocationService();
 
     mSearchController = SearchController.getInstance();
     mSearchController.onCreate(this);
@@ -833,7 +816,7 @@ public class MWMActivity extends NvEventQueueActivity
           final double[] latLon = Framework.getScreenRectCenter();
           final double zoom = Framework.getDrawScale();
 
-          final LocationState locState = mApplication.getLocationState();
+          final LocationState locState = MWMApplication.get().getLocationState();
 
           if (locState.hasPosition() && locState.isCentered())
             Yota.showLocation(getApplicationContext(), zoom);
@@ -924,7 +907,7 @@ public class MWMActivity extends NvEventQueueActivity
     // Notify user about turned off location services
     if (errorCode == LocationService.ERROR_DENIED)
     {
-      getLocationState().turnOff();
+      MWMApplication.get().getLocationState().turnOff();
 
       // Do not show this dialog on Kindle Fire - it doesn't have location services
       // and even wifi settings can't be opened programmatically
@@ -975,7 +958,7 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onLocationUpdated(final Location l)
   {
-    if (getLocationState().isFirstPosition())
+    if (MWMApplication.get().getLocationState().isFirstPosition())
       LocationButtonImageSetter.setButtonViewFromState(ButtonState.HAS_LOCATION, mLocationButton);
 
     nativeLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy(), l.getAltitude(), l.getSpeed(), l.getBearing());
@@ -1010,7 +993,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     if (newStatus == 1)
       LocationButtonImageSetter.setButtonViewFromState(ButtonState.FOLLOW_MODE, mLocationButton);
-    else if (getLocationState().hasPosition())
+    else if (MWMApplication.get().getLocationState().hasPosition())
       LocationButtonImageSetter.setButtonViewFromState(ButtonState.HAS_LOCATION, mLocationButton);
     else
       LocationButtonImageSetter.setButtonViewFromState(ButtonState.NO_LOCATION, mLocationButton);
@@ -1032,12 +1015,12 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void startWatchingCompassStatusUpdate()
   {
-    mCompassStatusListenerID = mApplication.getLocationState().addCompassStatusListener(this);
+    mCompassStatusListenerID = MWMApplication.get().getLocationState().addCompassStatusListener(this);
   }
 
   private void stopWatchingCompassStatusUpdate()
   {
-    mApplication.getLocationState().removeCompassStatusListener(mCompassStatusListenerID);
+    MWMApplication.get().getLocationState().removeCompassStatusListener(mCompassStatusListenerID);
   }
 
   @Override
@@ -1065,7 +1048,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     startWatchingExternalStorage();
 
-    UiUtils.showIf(mApplication.nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true),
+    UiUtils.showIf(MWMApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true),
         findViewById(R.id.map_button_plus),
         findViewById(R.id.map_button_minus));
 
@@ -1074,7 +1057,7 @@ public class MWMActivity extends NvEventQueueActivity
     mSearchController.onResume();
     mInfoView.onResume();
 
-    getMwmApplication().onMwmResume(this);
+    MWMApplication.get().onMwmResume(this);
 
     mFbUiHelper.onResume();
     if (MWMApplication.get().isProVersion() && MWMApplication.get().nativeGetBoolean(IS_FIRST_RUN, true))
@@ -1237,7 +1220,7 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void run()
         {
-          final String poiType = ParsedMmwRequest.getCurrentRequest().getCallerName(mApplication).toString();
+          final String poiType = ParsedMmwRequest.getCurrentRequest().getCallerName(MWMApplication.get()).toString();
           final ApiPoint apiPoint = new ApiPoint(name, id, poiType, lat, lon);
 
           if (!mInfoView.hasMapObject(apiPoint))
@@ -1484,7 +1467,7 @@ public class MWMActivity extends NvEventQueueActivity
     @Override
     public boolean run(MWMActivity target)
     {
-      final MapStorage storage = target.getMapStorage();
+      final MapStorage storage = MWMApplication.get().getMapStorage();
       if (mDoAutoDownload)
       {
         storage.downloadCountry(mIndex);
