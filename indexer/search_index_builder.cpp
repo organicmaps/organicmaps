@@ -433,12 +433,12 @@ bool indexer::BuildSearchIndexFromDatFile(string const & fName, bool forceRebuil
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LERROR, ("Error while reading file: ", e.what()));
+    LOG(LERROR, ("Error while reading file: ", e.Msg()));
     return false;
   }
   catch (Writer::Exception const & e)
   {
-    LOG(LERROR, ("Error writing index file: ", e.what()));
+    LOG(LERROR, ("Error writing index file: ", e.Msg()));
     return false;
   }
 
