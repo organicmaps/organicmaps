@@ -39,8 +39,7 @@ UNIT_TEST(CompileShaders_Test)
   if (!platform.IsFileExistsByFullPath(glslCompilerPath))
   {
     glslCompilerPath = platform.WritableDir() + "shaders_compiler/" SHADERS_COMPILER;
-    if (!platform.IsFileExistsByFullPath(glslCompilerPath))
-      TEST_EQUAL(false, true, ("GLSL compiler not found"));
+    TEST(platform.IsFileExistsByFullPath(glslCompilerPath), ("GLSL compiler not found"));
   }
 
   bool isPass = true;
@@ -58,11 +57,8 @@ UNIT_TEST(CompileShaders_Test)
          << "-v";
     p.start(QString::fromStdString(glslCompilerPath), args, QIODevice::ReadOnly);
 
-    if (!p.waitForStarted())
-      TEST_EQUAL(false, true, ("GLSL compiler not started"));
-
-    if (!p.waitForFinished())
-      TEST_EQUAL(false, true, ("GLSL compiler not finished in time"));
+    TEST(p.waitForStarted(), ("GLSL compiler not started"));
+    TEST(p.waitForFinished(), ("GLSL compiler not finished in time"));
 
     QString result = p.readAllStandardOutput();
     if (result.indexOf("Success") == -1)
@@ -84,11 +80,8 @@ UNIT_TEST(CompileShaders_Test)
          << "-f";
     p.start(QString::fromStdString(glslCompilerPath), args, QIODevice::ReadOnly);
 
-    if (!p.waitForStarted())
-      TEST_EQUAL(false, true, ("GLSL compiler not started"));
-
-    if (!p.waitForFinished())
-      TEST_EQUAL(false, true, ("GLSL compiler not finished in time"));
+    TEST(p.waitForStarted(), ("GLSL compiler not started"));
+    TEST(p.waitForFinished(), ("GLSL compiler not finished in time"));
 
     QString result = p.readAllStandardOutput();
     if (result.indexOf("Succes") == -1)
@@ -100,24 +93,16 @@ UNIT_TEST(CompileShaders_Test)
     }
   }
 
-  TEST_EQUAL(isPass, true, (errorLog));
+  TEST(isPass, (errorLog));
 }
 
 #ifdef OMIM_OS_MAC
-
-using std::vector;
-using std::string;
 
 void TestMaliShaders(string driver, string hardware, string release)
 {
   Platform & platform = GetPlatform();
   string glslCompilerPath = platform.ResourcesDir() + "shaders_compiler/" MALI_SHADERS_COMPILER;
-  if (!platform.IsFileExistsByFullPath(glslCompilerPath))
-  {
-    glslCompilerPath = platform.WritableDir() + "shaders_compiler/" MALI_SHADERS_COMPILER;
-    if (!platform.IsFileExistsByFullPath(glslCompilerPath))
-      TEST_EQUAL(false, true, ("GLSL MALI compiler not found"));
-  }
+  TEST(platform.IsFileExistsByFullPath(glslCompilerPath), ("GLSL MALI compiler not found"));
 
   bool isPass = true;
   QString errorLog;
@@ -147,11 +132,8 @@ void TestMaliShaders(string driver, string hardware, string release)
          << QString::fromStdString(gpu_test::VertexEnum[i]);
     p.start(QString::fromStdString(glslCompilerPath), args, QIODevice::ReadOnly);
 
-    if (!p.waitForStarted())
-      TEST_EQUAL(false, true, ("GLSL compiler not started"));
-
-    if (!p.waitForFinished())
-      TEST_EQUAL(false, true, ("GLSL compiler not finished in time"));
+    TEST(p.waitForStarted(), ("GLSL compiler not started"));
+    TEST(p.waitForFinished(), ("GLSL compiler not finished in time"));
 
     QString result = p.readAllStandardOutput();
     if (result.indexOf("Compilation succeeded.") == -1)
@@ -180,11 +162,8 @@ void TestMaliShaders(string driver, string hardware, string release)
          << QString::fromStdString(gpu_test::FragmentEnum[i]);
     p.start(QString::fromStdString(glslCompilerPath), args, QIODevice::ReadOnly);
 
-    if (!p.waitForStarted())
-      TEST_EQUAL(false, true, ("GLSL compiler not started"));
-
-    if (!p.waitForFinished())
-      TEST_EQUAL(false, true, ("GLSL compiler not finished in time"));
+    TEST(p.waitForStarted(), ("GLSL compiler not started"));
+    TEST(p.waitForFinished(), ("GLSL compiler not finished in time"));
 
     QString result = p.readAllStandardOutput();
     if (result.indexOf("Compilation succeeded.") == -1)
@@ -196,7 +175,7 @@ void TestMaliShaders(string driver, string hardware, string release)
     }
   }
 
-  TEST_EQUAL(isPass, true, (errorLog));
+  TEST(isPass, (errorLog));
 }
 
 UNIT_TEST(MALI_CompileShaders_Test)
@@ -247,13 +226,9 @@ UNIT_TEST(MALI_CompileShaders_Test)
   models[2].m_releases.push_back(make_pair("Mali-T760", "r0p3"));
   models[2].m_releases.push_back(make_pair("Mali-T760", "r1p0"));
 
-  for(int i = 0; i < models.size(); ++i)
-  {
-    for(int j = 0; j < models[i].m_releases.size(); ++j)
-    {
+  for(size_t i = 0; i < models.size(); ++i)
+    for(size_t j = 0; j < models[i].m_releases.size(); ++j)
       TestMaliShaders(models[i].m_driverName, models[i].m_releases[j].first, models[i].m_releases[j].second);
-    }
-  }
 }
 
 #endif
