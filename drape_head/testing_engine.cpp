@@ -6,6 +6,7 @@
 #include "../drape/vertex_array_buffer.hpp"
 #include "../drape/shader_def.hpp"
 #include "../drape/overlay_tree.hpp"
+#include "../drape/stipple_pen_resource.hpp"
 
 #include "../drape_frontend/visual_params.hpp"
 #include "../drape_frontend/line_shape.hpp"
@@ -28,6 +29,95 @@
 
 namespace df
 {
+
+class DummyStippleElement : public MapShape
+{
+public:
+  DummyStippleElement(m2::PointU const & base)
+    : m_base(base)
+  {
+  }
+
+  void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
+  {
+    dp::StipplePenKey key;
+    key.m_pattern.push_back(10);
+    key.m_pattern.push_back(3);
+    key.m_pattern.push_back(7);
+    key.m_pattern.push_back(5);
+    key.m_pattern.push_back(5);
+    key.m_pattern.push_back(10);
+    dp::TextureSetHolder::StippleRegion region;
+    textures->GetStippleRegion(key, region);
+
+    m2::RectF const & rect = region.GetTexRect();
+    float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
+
+    uint32_t length = region.GetTemplateLength();
+    m2::PointF positions[4] =
+    {
+      m_base, m_base,
+      m_base + m2::PointF(length, 0.0), m_base + m2::PointF(length, 0.0)
+    };
+
+    m2::PointF normals[4] =
+    {
+      m2::PointF(0.0, 1.0), m2::PointF(0.0, -1.0),
+      m2::PointF(0.0, 1.0), m2::PointF(0.0, -1.0)
+    };
+
+    glsl_types::vec3 texCoord[4] =
+    {
+      glsl_types::vec3(rect.minX(), rect.minY(), texIndex),
+      glsl_types::vec3(rect.minX(), rect.maxY(), texIndex),
+      glsl_types::vec3(rect.maxX(), rect.minY(), texIndex),
+      glsl_types::vec3(rect.maxX(), rect.maxY(), texIndex)
+    };
+
+    dp::AttributeProvider provider(3, 4);
+    {
+      dp::BindingInfo info(1);
+      dp::BindingDecl & decl = info.GetBindingDecl(0);
+      decl.m_attributeName = "a_position";
+      decl.m_componentCount = 2;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(0, info, dp::MakeStackRefPointer<void>(positions));
+    }
+
+    {
+      dp::BindingInfo info(1);
+      dp::BindingDecl & decl = info.GetBindingDecl(0);
+      decl.m_attributeName = "a_normal";
+      decl.m_componentCount = 2;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(1, info, dp::MakeStackRefPointer<void>(normals));
+    }
+
+    {
+      dp::BindingInfo info(1);
+      dp::BindingDecl & decl = info.GetBindingDecl(0);
+      decl.m_attributeName = "a_texCoords";
+      decl.m_componentCount = 3;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(2, info, dp::MakeStackRefPointer<void>(texCoord));
+    }
+
+    dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
+    state.SetTextureSet(region.GetTextureNode().m_textureSet);
+    state.SetBlending(dp::Blending(true));
+
+    batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider));
+  }
+
+private:
+  m2::PointU m_base;
+};
 
 class SquareHandle : public dp::OverlayHandle
 {
@@ -284,6 +374,7 @@ void TestingEngine::Draw()
     m_batcher->StartSession(bind(&df::TestingEngine::OnFlushData, this, _1, _2));
     DrawImpl();
     m_batcher->EndSession();
+    m_textures->UpdateDynamicTextures();
     isInitialized = true;
   }
 
@@ -418,6 +509,9 @@ void TestingEngine::DrawImpl()
   params4.m_symbolName = "arrow";
   PathSymbolShape sh4(path, params4, 10);
   sh4.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+
+  DummyStippleElement e(m2::PointU(100, 900));
+  e.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 }
 
 void TestingEngine::ModelViewInit()
