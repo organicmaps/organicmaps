@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -99,12 +100,43 @@ public class LocationService implements
     }
   }
 
+  @SuppressWarnings("deprecation")
   private void createLocationProvider()
   {
-    if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplication) == ConnectionResult.SUCCESS)
-      mLocationProvider = new GoogleFusedLocationProvider();
+    boolean isLocationTurnedOn = false;
+    // if location is turned off(by user in system settings), google client( = fused provider) api doesnt work at all
+    // but external gps receivers still can work. in that case we prefer native provider instead of fused - it works.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+    {
+      String locationProviders = Settings.Secure.getString(MWMApplication.get().getContentResolver(),
+          Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+      if (!locationProviders.isEmpty())
+        isLocationTurnedOn = true;
+    }
     else
+    {
+      try
+      {
+        int locationMode = Settings.Secure.getInt(MWMApplication.get().getContentResolver(),
+            Settings.Secure.LOCATION_MODE);
+        isLocationTurnedOn = locationMode != Settings.Secure.LOCATION_MODE_OFF;
+      } catch (Settings.SettingNotFoundException e)
+      {
+        e.printStackTrace();
+      }
+    }
+
+    if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplication) == ConnectionResult.SUCCESS &&
+        isLocationTurnedOn)
+    {
+      mLogger.d("Use fused provider.");
+      mLocationProvider = new GoogleFusedLocationProvider();
+    }
+    else
+    {
+      mLogger.d("Use native provider.");
       mLocationProvider = new AndroidNativeLocationProvider();
+    }
   }
 
   public Location getLastKnown() { return mLastLocation; }
@@ -399,7 +431,6 @@ public class LocationService implements
         mIsGPSOff = false;
 
         final List<String> providers = getFilteredProviders();
-        mLogger.d("Enabled providers count = ", providers.size());
 
         startWifiLocationUpdate();
 
@@ -410,10 +441,7 @@ public class LocationService implements
           mIsActive = true;
 
           for (final String provider : providers)
-          {
-            mLogger.d("Connected to provider = ", provider);
             mLocationManager.requestLocationUpdates(provider, LOCATION_UPDATE_INTERVAL, 0, LocationService.this);
-          }
 
           registerSensorListeners();
 
