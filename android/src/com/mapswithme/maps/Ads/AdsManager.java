@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -77,13 +78,18 @@ public class AdsManager
       return;
 
     final File cacheFile = new File(MWMApplication.get().getDataStoragePath(), CACHE_FILE);
-    try (FileOutputStream fileOutputStream = new FileOutputStream(cacheFile))
+    FileOutputStream fileOutputStream = null;
+    try
     {
+      fileOutputStream = new FileOutputStream(cacheFile);
       fileOutputStream.write(menuAdsString.getBytes());
       fileOutputStream.close();
     } catch (IOException e)
     {
       e.printStackTrace();
+    } finally
+    {
+      Utils.closeStream(fileOutputStream);
     }
   }
 
@@ -91,8 +97,10 @@ public class AdsManager
   {
     String menuAdsString = null;
     final File cacheFile = new File(MWMApplication.get().getDataStoragePath(), CACHE_FILE);
-    try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(cacheFile))))
+    BufferedReader reader = null;
+    try
     {
+      reader = new BufferedReader(new FileReader(cacheFile));
       final StringBuilder stringBuilder = new StringBuilder();
       String line;
       while ((line = reader.readLine()) != null)
@@ -102,6 +110,9 @@ public class AdsManager
     } catch (IOException e)
     {
       e.printStackTrace();
+    } finally
+    {
+      Utils.closeStream(reader);
     }
 
     return menuAdsString;
@@ -150,6 +161,7 @@ public class AdsManager
     if (!ConnectionState.isConnected(MWMApplication.get()))
       return loadCachedBitmap(adId);
 
+    InputStream inputStream = null;
     try
     {
       final URL url = new java.net.URL(urlString);
@@ -160,13 +172,16 @@ public class AdsManager
       connection.setConnectTimeout(timeout);
       connection.setDoInput(true);
       connection.connect();
-      InputStream input = connection.getInputStream();
-      final Bitmap bitmap = BitmapFactory.decodeStream(input);
+      inputStream = connection.getInputStream();
+      final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
       cacheBitmap(bitmap, adId);
       return bitmap;
     } catch (IOException e)
     {
       e.printStackTrace();
+    } finally
+    {
+      Utils.closeStream(inputStream);
     }
 
     return null;
@@ -175,13 +190,18 @@ public class AdsManager
   private static void cacheBitmap(Bitmap bitmap, String fileName)
   {
     final File cacheFile = new File(MWMApplication.get().getDataStoragePath(), fileName);
-    try (FileOutputStream fileOutputStream = new FileOutputStream(cacheFile))
+    FileOutputStream fileOutputStream = null;
+    try
     {
+      fileOutputStream = new FileOutputStream(cacheFile);
       bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
       fileOutputStream.close();
     } catch (IOException e)
     {
       e.printStackTrace();
+    } finally
+    {
+      Utils.closeStream(fileOutputStream);
     }
   }
 
@@ -191,12 +211,17 @@ public class AdsManager
     if (!cacheFile.exists())
       return null;
 
-    try (InputStream inputStream = new FileInputStream(cacheFile))
+    InputStream inputStream = null;
+    try
     {
+      inputStream = new FileInputStream(cacheFile);
       return BitmapFactory.decodeStream(inputStream);
     } catch (IOException e)
     {
       e.printStackTrace();
+    } finally
+    {
+      Utils.closeStream(inputStream);
     }
 
     return null;
