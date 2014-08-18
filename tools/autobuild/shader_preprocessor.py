@@ -98,7 +98,7 @@ def writeShader(outputFile, shaderFile, shaderDir):
         outputLine = line.rstrip().replace(lowPSearch, "\" " + lowPDefine + " \"")
         outputLine = outputLine.replace(mediumPSearch, "\" " + mediumPDefine + " \"")
         outputLine = outputLine.replace(highPSearch, "\" " + highPDefine+ " \"")
-        outputFile.write("  %s \\\n" % (outputLine))
+        outputFile.write("  %s \\n\\\n" % (outputLine))
     outputFile.write("  \";\n\n")
 
 def writeShadersIndex(outputFile, shaderIndex):
