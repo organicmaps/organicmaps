@@ -7,12 +7,44 @@
 #include "../../coding/hex.hpp"
 #include "../../coding/reader.hpp"
 #include "../../coding/writer.hpp"
+
 #include "../../base/macros.hpp"
 #include "../../base/pseudo_random.hpp"
+
 #include "../../std/string.hpp"
 #include "../../std/vector.hpp"
 
+
 char const kHexSerial[] = "03000000" "01000000" "04000000" "06000000" "616263646566";
+
+namespace
+{
+
+template <typename ItT, typename TDstStream>
+void WriteVarSerialVector(ItT begin, ItT end, TDstStream & dst)
+{
+  vector<uint32_t> offsets;
+  uint32_t offset = 0;
+  for (ItT it = begin; it != end; ++it)
+  {
+    offset += it->size() * sizeof((*it)[0]);
+    offsets.push_back(offset);
+  }
+
+  WriteToSink(dst, static_cast<uint32_t>(end - begin));
+
+  for (size_t i = 0; i < offsets.size(); ++i)
+    WriteToSink(dst, offsets[i]);
+
+  for (ItT it = begin; it != end; ++it)
+  {
+    typename ItT::value_type const & v = *it;
+    if (!v.empty())
+      dst.Write(&v[0], v.size() * sizeof(v[0]));
+  }
+}
+
+}
 
 UNIT_TEST(WriteSerial)
 {

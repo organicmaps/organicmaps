@@ -1,75 +1,58 @@
 #pragma once
 
-#include "endianness.hpp"
 #include "reader.hpp"
 #include "write_to_sink.hpp"
+
 #include "../base/assert.hpp"
-#include "../base/base.hpp"
+
 #include "../std/string.hpp"
 #include "../std/utility.hpp"
-#include "../std/vector.hpp"
-#include "../std/scoped_ptr.hpp"
 
-
-template <typename ItT, typename TDstStream>
-void WriteVarSerialVector(ItT begin, ItT end, TDstStream & dst)
-{
-  vector<uint32_t> offsets;
-  uint32_t offset = 0;
-  for (ItT it = begin; it != end; ++it)
-  {
-    offset += it->size() * sizeof((*it)[0]);
-    offsets.push_back(offset);
-  }
-
-  WriteToSink(dst, static_cast<uint32_t>(end - begin));
-
-  for (size_t i = 0; i < offsets.size(); ++i)
-    WriteToSink(dst, offsets[i]);
-
-  for (ItT it = begin; it != end; ++it)
-  {
-    typename ItT::value_type const & v = *it;
-    if (!v.empty())
-      dst.Write(&v[0], v.size() * sizeof(v[0]));
-  }
-}
 
 template <class WriterT> class VarSerialVectorWriter
 {
 public:
   // Actually, it is possible to refactor to accept maxPossibleSize (i.e. capacity) instead of size.
   VarSerialVectorWriter(WriterT & writer, uint32_t size)
-    : m_Writer(writer), m_Size(size), m_RecordNumber(0)
+    : m_writer(writer), m_size(size), m_recordNumber(0)
   {
-    WriteToSink(m_Writer, size);
-    m_SizesOffset = m_Writer.Pos();
-    m_Writer.Seek(m_SizesOffset + size * 4);
+    WriteToSink(m_writer, size);
+    m_sizesOffset = m_writer.Pos();
+    m_writer.Seek(GetDataStartPos());
   }
 
   ~VarSerialVectorWriter()
   {
-    CHECK_EQUAL(m_RecordNumber, m_Size, ());
+    CHECK_EQUAL(m_recordNumber, m_size, ());
   }
 
   void FinishRecord()
   {
-    CHECK_LESS(m_RecordNumber, m_Size, ());
-    uint64_t const pos = m_Writer.Pos();
-    uint64_t recordSize64 = pos - m_SizesOffset - m_Size * 4;
-    uint32_t recordSize = static_cast<uint32_t>(recordSize64);
+    CHECK_LESS(m_recordNumber, m_size, ());
+
+    uint64_t const pos = m_writer.Pos();
+    uint64_t const recordSize64 = pos - GetDataStartPos();
+    uint32_t const recordSize = static_cast<uint32_t>(recordSize64);
     CHECK_EQUAL(recordSize, recordSize64, ());
-    m_Writer.Seek(m_SizesOffset + m_RecordNumber * 4);
-    WriteToSink(m_Writer, recordSize);
-    m_Writer.Seek(pos);
-    ++m_RecordNumber;
+
+    m_writer.Seek(m_sizesOffset + m_recordNumber * sizeof(uint32_t));
+    WriteToSink(m_writer, recordSize);
+    m_writer.Seek(pos);
+
+    ++m_recordNumber;
   }
 
 private:
-  WriterT & m_Writer;
-  uint64_t m_SizesOffset;
-  uint32_t m_Size;
-  uint32_t m_RecordNumber;
+  uint64_t GetDataStartPos() const
+  {
+    return m_sizesOffset + m_size * sizeof(uint32_t);
+  }
+
+private:
+  WriterT & m_writer;
+  uint64_t m_sizesOffset;
+  uint32_t m_size;
+  uint32_t m_recordNumber;
 };
 
 template <class ReaderT>
@@ -89,34 +72,37 @@ public:
   {
   }
 
-  string Read(uint64_t i) const
+  /// Used for unit tests only. Dont't do COW in production code.
+  string Read(uint32_t i) const
   {
-    size_t begin =
-        i == 0 ? 0 : ReadPrimitiveFromPos<uint32_t>(m_offsetsReader, (i - 1) * sizeof(uint32_t));
-    size_t end = ReadPrimitiveFromPos<uint32_t>(m_offsetsReader, i * sizeof(uint32_t));
+    pair<uint32_t, uint32_t> const posAsize = GetPosAndSize(i);
 
     string result;
-    result.resize(end - begin);
-    ReadFromPos(m_dataReader, begin, (void *)result.data(), end - begin);
+    result.resize(posAsize.second);
+    ReadFromPos(m_dataReader, posAsize.first, (void *)result.data(), posAsize.second);
     return result;
   }
 
-  ReaderT SubReader(uint64_t i) const
+  ReaderT SubReader(uint32_t i) const
   {
-    size_t begin =
-        i == 0 ? 0 : ReadPrimitiveFromPos<uint32_t>(m_offsetsReader, (i - 1) * sizeof(uint32_t));
-    size_t end = ReadPrimitiveFromPos<uint32_t>(m_offsetsReader, i * sizeof(uint32_t));
-
-    return m_dataReader.SubReader(begin, end - begin);
+    pair<uint32_t, uint32_t> const posAsize = GetPosAndSize(i);
+    return m_dataReader.SubReader(posAsize.first, posAsize.second);
   }
 
-  uint64_t Size() const
+  uint64_t Size() const { return m_size; }
+
+private:
+  pair<uint32_t, uint32_t> GetPosAndSize(uint32_t i) const
   {
-    return m_size;
+    uint32_t const begin =
+            i == 0 ? 0 : ReadPrimitiveFromPos<uint32_t>(m_offsetsReader, (i - 1) * sizeof(uint32_t));
+    uint32_t const end = ReadPrimitiveFromPos<uint32_t>(m_offsetsReader, i * sizeof(uint32_t));
+
+    ASSERT_LESS_OR_EQUAL(begin, end, ());
+    return make_pair(begin, end - begin);
   }
 
 private:
-
   /// @note Do NOT change declaration order.
   uint64_t m_size;
   ReaderT m_offsetsReader;

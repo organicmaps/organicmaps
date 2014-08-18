@@ -76,6 +76,7 @@ UNIT_TEST(Reverse_Smoke)
       TEST_EQUAL(str.size(), buffer.size(), ());
       TEST(equal(str.begin(), str.end(), buffer.begin()), ());
     }
+
     FileWriter::DeleteFileX(tmpFile);
   }
 }

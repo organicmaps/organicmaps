@@ -66,53 +66,55 @@ class SubWriter
 {
 public:
   inline explicit SubWriter(WriterT & writer)
-    : m_Writer(writer), m_Pos(0), m_MaxPos(0)
+    : m_writer(writer), m_pos(0), m_maxPos(0)
 #ifdef DEBUG
-    , m_Offset(m_Writer.Pos() - m_Pos)
+    , m_offset(GetOffset())
 #endif
   {
   }
 
   ~SubWriter()
   {
-    ASSERT_EQUAL(m_Offset, m_Writer.Pos() - m_Pos, ());
-    if (m_Pos != m_MaxPos)
-      Seek(m_MaxPos);
+    ASSERT_EQUAL(m_offset, GetOffset(), ());
+    if (m_pos != m_maxPos)
+      Seek(m_maxPos);
   }
 
   inline void Seek(int64_t pos)
   {
-    ASSERT_EQUAL(m_Offset, m_Writer.Pos() - m_Pos, ());
-    m_MaxPos = max(m_MaxPos, pos);
-    m_Writer.Seek(m_Writer.Pos() - m_Pos + pos);
-    m_Pos = pos;
+    ASSERT_EQUAL(m_offset, GetOffset(), ());
+    m_writer.Seek(GetOffset() + pos);
+
+    m_pos = pos;
+    m_maxPos = max(m_maxPos, m_pos);
   }
 
   inline int64_t Pos() const
   {
-    ASSERT_EQUAL(m_Offset, m_Writer.Pos() - m_Pos, ());
-    return m_Pos;
+    ASSERT_EQUAL(m_offset, GetOffset(), ());
+    return m_pos;
   }
 
   inline void Write(void const * p, size_t size)
   {
-    ASSERT_EQUAL(m_Offset, m_Writer.Pos() - m_Pos, ());
-    m_MaxPos = max(m_MaxPos, static_cast<int64_t>(m_Pos + size));
-    m_Writer.Write(p, size);
-    m_Pos += size;
+    ASSERT_EQUAL(m_offset, GetOffset(), ());
+    m_writer.Write(p, size);
+
+    m_pos += size;
+    m_maxPos = max(m_maxPos, m_pos);
   }
 
-  inline uint64_t Size() const
-  {
-    return m_MaxPos;
-  }
+  inline uint64_t Size() const { return m_maxPos; }
 
 private:
-  WriterT & m_Writer;
-  int64_t m_Pos;
-  int64_t m_MaxPos;
+  inline uint64_t GetOffset() const { return m_writer.Pos() - m_pos; }
+
+private:
+  WriterT & m_writer;
+  int64_t m_pos;
+  int64_t m_maxPos;
 #ifdef DEBUG
-  int64_t const m_Offset;
+  int64_t const m_offset;
 #endif
 };
 
