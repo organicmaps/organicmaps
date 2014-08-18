@@ -2283,8 +2283,10 @@
 				FAFB0920151215EF0041901D /* MapsWithMe-Lite.plist */,
 				8D1107310486CEB800E47090 /* MapsWithMe-Pro.plist */,
 			);
+			indentWidth = 2;
 			name = Maps;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
