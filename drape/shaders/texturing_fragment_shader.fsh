@@ -1,6 +1,11 @@
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+  #define MAXPREC highp
+#else
+  #define MAXPREC mediump
+#endif
 uniform sampler2D u_textures[8];
 varying lowp vec2 v_texCoords;
-varying highp float v_textureIndex;
+varying MAXPREC float v_textureIndex;
 
 const int Index0  = 0;
 const int Index1  = 1;

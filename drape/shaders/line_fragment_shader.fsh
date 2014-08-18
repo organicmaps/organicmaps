@@ -1,14 +1,19 @@
-varying highp float v_dx;
-varying highp vec4 v_radius;
-varying highp vec4 v_centres;
-varying highp vec2 v_type;
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+  #define MAXPREC highp
+#else
+  #define MAXPREC mediump
+#endif
+varying MAXPREC float v_dx;
+varying MAXPREC vec4 v_radius;
+varying MAXPREC vec4 v_centres;
+varying MAXPREC vec2 v_type;
 
 varying lowp vec4 baseColor;
 varying lowp vec4 outlineColor;
 
-void sphere_join(highp float gip2)
+void sphere_join(MAXPREC float gip2)
 {
-  highp float r = v_radius.y;
+  MAXPREC float r = v_radius.y;
   gl_FragColor = baseColor;
   if (gip2 > v_radius.w * v_radius.w)
   {
@@ -31,12 +36,12 @@ void sphere_join(highp float gip2)
 
 void main(void)
 {
-  highp float r = v_radius.y;
-  highp float dist = abs(v_radius.x);
+  MAXPREC float r = v_radius.y;
+  MAXPREC float dist = abs(v_radius.x);
   gl_FragColor = baseColor;
   if (v_type.x > 0.5)
   {
-    highp float coord = (v_dx + 1.0) * v_radius.y / 2.0;
+    MAXPREC float coord = (v_dx + 1.0) * v_radius.y / 2.0;
     if (v_type.y > 0.5)
     {
       if (coord > v_radius.w)
@@ -63,11 +68,11 @@ void main(void)
   }
   else if (v_type.x < -0.5)
   {
-    highp float y = (v_dx + 1.0) * v_radius.y / 2.0;
+    MAXPREC float y = (v_dx + 1.0) * v_radius.y / 2.0;
     if (v_type.y < 0.5)
       y = v_radius.y - (v_dx + 1.0) * v_radius.y / 2.0;
 
-    highp float sq = dist*dist + y*y;
+    MAXPREC float sq = dist*dist + y*y;
     if (sq >= v_radius.y * v_radius.y)
       discard;
     if (sq > v_radius.w * v_radius.w)
@@ -83,8 +88,8 @@ void main(void)
     {
       if (v_dx >= 1.0)
       {
-        highp float y = (v_dx - 1.0) * v_radius.z / 2.0;
-        highp float gip2 = dist*dist + y*y;
+        MAXPREC float y = (v_dx - 1.0) * v_radius.z / 2.0;
+        MAXPREC float gip2 = dist*dist + y*y;
         if(gip2 > v_radius.y * v_radius.y)
           discard;
         else
@@ -92,8 +97,8 @@ void main(void)
       }
       else if (v_dx <= -1.0)
       {
-        highp float y = (v_dx + 1.0) * v_radius.z / 2.0;
-        highp float gip2 = dist*dist + y*y;
+        MAXPREC float y = (v_dx + 1.0) * v_radius.z / 2.0;
+        MAXPREC float gip2 = dist*dist + y*y;
         if(gip2 > v_radius.y * v_radius.y)
           discard;
         else
