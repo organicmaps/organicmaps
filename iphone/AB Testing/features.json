@@ -1,4 +1,147 @@
 {
+    "AppFeatureBottomMenuItems": {
+        "RU": {
+            "Items": [
+                {
+                    "Id": "Hotellook1",
+                    "IconURLs": {
+                        "2x": "http://i.imgur.com/3EhddtQ.png",
+                        "1x": "http://i.imgur.com/N9CCCw8.png"
+                    },
+                    "Titles": {
+                        "*": "Hotels search",
+                        "ru": "Поиск отелей",
+                        "uk": "Пошук готелів "
+                    },
+                    "AppURL": "https://82080.api-04.com/serve?action=click&publisher_id=82080&site_id=52984&offer_id=311258&sub1=40485.1"
+                },
+                {
+                    "Id": "Aviasales1",
+                    "IconURLs": {
+                        "2x": "http://i.imgur.com/KDGCFNF.png",
+                        "1x": "http://i.imgur.com/b0LCyVV.png"
+                    },
+                    "Titles": {
+                        "*": "Cheap air tickets",
+                        "ru": "Дешевые авиабилеты",
+                        "uk": "Дешеві авіаквитки"
+                    },
+                    "AppURL": "https://82080.api-04.com/serve?action=click&publisher_id=82080&site_id=12644&offer_id=310762&sub1=40485"
+                }
+            ]
+        },
+        "BY": {
+            "Items": [
+                {
+                    "Id": "Hotellook1",
+                    "IconURLs": {
+                        "2x": "http://i.imgur.com/3EhddtQ.png",
+                        "1x": "http://i.imgur.com/N9CCCw8.png"
+                    },
+                    "Titles": {
+                        "*": "Hotels search",
+                        "ru": "Поиск отелей",
+                        "uk": "Пошук готелів "
+                    },
+                    "AppURL": "https://82080.api-04.com/serve?action=click&publisher_id=82080&site_id=52984&offer_id=311258&sub1=40485.1"
+                },
+                {
+                    "Id": "Aviasales1",
+                    "IconURLs": {
+                        "2x": "http://i.imgur.com/KDGCFNF.png",
+                        "1x": "http://i.imgur.com/b0LCyVV.png"
+                    },
+                    "Titles": {
+                        "*": "Cheap air tickets",
+                        "ru": "Дешевые авиабилеты",
+                        "uk": "Дешеві авіаквитки"
+                    },
+                    "AppURL": "https://82080.api-04.com/serve?action=click&publisher_id=82080&site_id=12644&offer_id=310762&sub1=40485"
+                }
+            ]
+        },
+        "UA": {
+            "Items": [
+                {
+                    "Id": "Hotellook1",
+                    "IconURLs": {
+                        "2x": "http://i.imgur.com/3EhddtQ.png",
+                        "1x": "http://i.imgur.com/N9CCCw8.png"
+                    },
+                    "Titles": {
+                        "*": "Hotels search",
+                        "ru": "Поиск отелей",
+                        "uk": "Пошук готелів "
+                    },
+                    "AppURL": "https://82080.api-04.com/serve?action=click&publisher_id=82080&site_id=52984&offer_id=311258&sub1=40485.1"
+                },
+                {
+                    "Id": "Aviasales1",
+                    "IconURLs": {
+                        "2x": "http://i.imgur.com/KDGCFNF.png",
+                        "1x": "http://i.imgur.com/b0LCyVV.png"
+                    },
+                    "Titles": {
+                        "*": "Cheap air tickets",
+                        "ru": "Дешевые авиабилеты",
+                        "uk": "Дешеві авіаквитки"
+                    },
+                    "AppURL": "https://82080.api-04.com/serve?action=click&publisher_id=82080&site_id=12644&offer_id=310762&sub1=40485"
+                }
+            ]
+        },
+        "*": {
+            "Items": [
+                {
+                    "Id": "Booking1",
+                    "IconURLs": {
+                        "2x": "http://i.imgur.com/3EhddtQ.png",
+                        "1x": "http://i.imgur.com/N9CCCw8.png"
+                    },
+                    "Titles": {
+                        "*": "Hotels search",
+                        "ru": "Поиск отелей",
+                        "uk": "Пошук готелів ",
+                        "en": "Hotels search",
+                        "es": "Búsqueda de hoteles",
+                        "th": "ค้นหาโรงแรม",
+                        "tr": "Otel arama",
+                        "ko": "호텔 검색",
+                        "pl": "Wyszukiwanie hoteli",
+                        "pt": "Pesquisa de hotéis",
+                        "hu": "Szálláshelyek keresése",
+                        "it": "Ricerca hotel",
+                        "ja": "ホテル検索",
+                        "da": "Hotelsøgninger",
+                        "nl": "Hotels zoeken",
+                        "fr": "Recherche d'hôtels",
+                        "de": "Hotels suchen",
+                        "zh-Hant": "酒店搜尋",
+                        "cz": "Vyhledávání hotelů",
+                        "ar": "البحث عن فنادق",
+                        "zh-Hans": "酒店搜索"
+                    },
+                    "AppURL": "http://www.booking.com/index.html?aid=396676"
+                }
+            ]
+        },
+        "TH": {
+            "Items": [
+                {
+                    "Id": "JetRadar1",
+                    "IconURLs": {
+                        "2x": "http://i.imgur.com/KDGCFNF.png",
+                        "1x": "http://i.imgur.com/b0LCyVV.png"
+                    },
+                    "Titles": {
+                        "th": "ตั๋วเครื่องบินราคาถูก",
+                        "*": "Cheap air tickets"
+                    },
+                    "AppURL": "https://82080.api-04.com/serve?action=click&publisher_id=82080&site_id=20098&offer_id=311262&sub1=40485.3"
+                }
+            ]
+        }
+    },
     "AppFeatureBanner": {
 
     },
@@ -11,23 +154,23 @@
                     "Languages": ["ru", "en"], 
                     "Idiom": "Phone", 
                     "Online": true,
-                    "LaunchCount": [5, 1000000000],
+                    "LaunchCount": [5, 1000000000]
                 },
                 "MWMPro4_OnlyIpad": {
                     "Chance": 10,
                     "Idiom": "Pad",
                     "Languages": ["ru", "en"],  
                     "Online": true,
-                    "LaunchCount": [5, 1000000000],
+                    "LaunchCount": [5, 1000000000]
                 },
                 "MWMProUI3": {
                     "Chance": 10,
                     "Languages": ["ru", "en"], 
                     "Online": true,
-                    "LaunchCount": [5, 1000000000],
-                },
-            },
-        },
+                    "LaunchCount": [5, 1000000000]
+                }
+            }
+        }
     },
     "AppFeatureProButtonOnMap": {
         "*": {
@@ -47,11 +190,11 @@
                 "pt": "COMPRAR PRO",
                 "en": "BUY PRO",
                 "ru": "КУПИТЬ PRO",
-                "*": "BUY PRO",
-            },
-        },
+                "*": "BUY PRO"
+            }
+        }
     },  
     "AppFeatureMoreAppsBanner": {
         
-    },
+    }
 }
