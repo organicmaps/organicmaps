@@ -17,7 +17,13 @@
 
 
 #ifdef OMIM_OS_IPHONE
+
 #include <sys/xattr.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <CoreFoundation/CFURL.h>
+// declaration is taken from NSObjCRuntime.h to avoid including of ObjC code
+extern "C" double NSFoundationVersionNumber;
+
 #endif
 
 void DisableBackupForFile(string const & filePath)
@@ -25,12 +31,34 @@ void DisableBackupForFile(string const & filePath)
 #ifdef OMIM_OS_IPHONE
   // We need to disable iCloud backup for downloaded files.
   // This is the reason for rejecting from the AppStore
+  // https://developer.apple.com/library/iOS/qa/qa1719/_index.html
 
-  static char const * attrName = "com.apple.MobileBackup";
-  u_int8_t attrValue = 1;
-  const int result = setxattr(filePath.c_str(), attrName, &attrValue, sizeof(attrValue), 0, 0);
-  if (result != 0)
-    LOG(LWARNING, ("Error while disabling iCloud backup for file", filePath));
+  // value is taken from NSObjCRuntime.h to avoid including of ObjC code
+  #define NSFoundationVersionNumber_iOS_5_1  890.10
+  if (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_5_1)
+  {
+    CFURLRef url = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault,
+                                                           reinterpret_cast<unsigned char const *>(filePath.c_str()),
+                                                           filePath.size(),
+                                                           0);
+    CFErrorRef err;
+    signed char valueRaw = 1; // BOOL YES
+    CFNumberRef value = CFNumberCreate(kCFAllocatorDefault, kCFNumberCharType, &valueRaw);
+    if (!CFURLSetResourcePropertyForKey(url, kCFURLIsExcludedFromBackupKey, value, &err))
+    {
+      LOG(LWARNING, ("Error while disabling iCloud backup for file", filePath));
+    }
+    CFRelease(value);
+    CFRelease(url);
+  }
+  else
+  {
+    static char const * attrName = "com.apple.MobileBackup";
+    u_int8_t attrValue = 1;
+    const int result = setxattr(filePath.c_str(), attrName, &attrValue, sizeof(attrValue), 0, 0);
+    if (result != 0)
+      LOG(LWARNING, ("Error while disabling iCloud backup for file", filePath));
+  }
 #endif
 }
 
