@@ -78,7 +78,7 @@
 {
   CGFloat menuHeight = [self.items count] * [BottomMenuCell cellHeight];
   if (self.superview.width > self.superview.height)
-    menuHeight = MIN(menuHeight, 228);
+    menuHeight = MIN(menuHeight, IPAD ? menuHeight : 228);
 
   self.tableView.frame = CGRectMake(self.tableView.minX, self.tableView.minY, self.width, menuHeight);
 
