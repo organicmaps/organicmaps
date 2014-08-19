@@ -18,11 +18,11 @@
 	<!-- Choose measurement on first launch alert - choose imperial system button -->
 	<text id="IDS_MILES">Míle</text>
 	<!-- Settings/Downloader - No internet connection dialog title -->
-	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">Nenalezeno připojení k Internetu</text>
+	<text id="IDS_NO_INTERNET_CONNECTION_DETECTED">Připojení k Internetu nenalezeno</text>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Nenalezeno připojení k WiFi. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %s?</text>
+	<text id="IDS_NO_WIFI_ASK_CELLULAR_DOWNLOAD">Připojení k WiFi nenalezeno. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %s?</text>
 	<!-- Settings/Downloader - No internet connection dialog message -->
-	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Doporučujeme použít WiFi pro stahování větších map</text>
+	<text id="IDS_USE_WIFI_RECOMMENDATION_TEXT">Pro stahování větších map doporučujeme používat WiFi</text>
 	<text id="IDS_DOWNLOAD">Stáhnout</text>
 	<!-- Show popup notification on top of the map when country download has failed. -->
 	<text id="IDS_DOWNLOAD_COUNTRY_FAILED">Stahování selhalo: %s</text>
@@ -80,11 +80,11 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<text id="IDS_MY_POSITION_SHARE_SMS">Koukni kde jsem. Otevři odkaz: %1$s nebo %2$s</text>
 	<!-- Subject for emailed bookmark -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Koukni na moji značku na mapě MAPS.ME</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL_SUBJECT">Koukni na moji značku na mapě v MAPS.ME</text>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<text id="IDS_BOOKMARK_SHARE_EMAIL">Ahoj,\n\nOznačil/a jsem: %1$s v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDíky.</text>
+	<text id="IDS_BOOKMARK_SHARE_EMAIL">Ahoj,\n\noznačil/a jsem: %1$s v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDíky.</text>
 	<!-- Subject for emailed position -->
-	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Podívejte se na mou aktuální polohu na mapě na MAPS.ME</text>
+	<text id="IDS_MY_POSITION_SHARE_EMAIL_SUBJECT">Podívej se na mou aktuální polohu na mapě na MAPS.ME</text>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<text id="IDS_MY_POSITION_SHARE_EMAIL">Ahoj,\n\nPrávě jsem tady: %1$s. Klepni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDíky.</text>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -105,4 +105,10 @@
 	<text id="IDS_BECOME_A_PRO">Provést upgrade</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Tlačítka přiblížení/oddálení</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Zobrazit na obrazovce</text>
+	<!-- Show on first launch. -->
+	<text id="IDS_MAPS_LICENCE_INFO">Tato aplikace využívá geografická data (zahrnující mapy, zakreslení firem a zájmových bodů, hranice států a regionů apod.), která byla převzata z otevřeného projektu OpenStreetMap. Konzistenci, přesnost, úplnost ani správnost těchto OpenStreetMap dat proto nemůžeme zaručit.</text>
+	<!-- Show on first launch. -->
+	<text id="IDS_AGREE">Souhlasím</text>
+	<!-- Show on first launch -->
+	<text id="IDS_DISAGREE">Nesouhlasím</text>
 </string_table>

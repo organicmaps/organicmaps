@@ -608,7 +608,7 @@
     tags = tizen
     en = No Internet connection detected
     comment = Settings/Downloader - No internet connection dialog title
-    cs = Nenalezeno připojení k Internetu
+    cs = Připojení k Internetu nenalezeno
     de = Keine Internetverbindung
     es = No hay conexión al Internet
     fr = Pas de connexion internet
@@ -632,7 +632,7 @@
     tags = tizen
     en = No WiFi connection detected. Would you like to use cellular data (GPRS, EDGE or 3G) to download %@?
     comment = Settings/Downloader - 3G download warning dialog title
-    cs = Nenalezeno připojení k WiFi. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %@?
+    cs = Připojení k WiFi nenalezeno. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %@?
     de = Keine WLAN-Verbindung. Möchten Sie %@ über das Mobilnetz (GPRS, EDGE oder 3G) herunterladen?
     es = No hay conexión WiFi. ¿Quieres descargar con el %@ operador (GPRS, EDGE or 3G)?
     fr = Pas de connexion WiFi. Désirez-vous télécharger par le réseau de téléphone mobile (GPRS, EDGE ou 3G) ?
@@ -688,7 +688,7 @@
   [free_disk_space_for_country_x]
     en = Please free some space on your device first in order to download %@
     comment = Settings/Downloader - No free space dialog message
-    cs = Prosím, uvolni nějaké místo v tvém zařízení, než začneš stahovat %@
+    cs = Prosím, uvolni nějaké místo ve svém zařízení, než začneš stahovat %@
     de = Kein Speicherplatz vorhanden. Löschen Sie bitte unnötige Karten oder Apps, um den Download %@ durchführen zu können.
     es = No hay espacio suficiente para realizar la descarga %@
     fr = Veuillez libérer un peu de place sur votre appareil pour télécharger %@
@@ -939,7 +939,7 @@
     tags = tizen
     en = We recommend using WiFi to download large maps
     comment = Settings/Downloader - No internet connection dialog message
-    cs = Doporučujeme použít WiFi pro stahování větších map
+    cs = Pro stahování větších map doporučujeme používat WiFi
     de = Wir empfehlen Ihnen, grosse Länder über eine WLAN-Verbindung herunterzuladen
     es = Recomendamos usar WiFi para descarga de los países grandes
     fr = Nous recommandons d'utiliser le WiFi pour télécharger de grandes cartes
@@ -1448,7 +1448,7 @@
 
   [free_space_for_country]
     en = Please free %1$@ on your device first in order to download %2$@
-    cs = Prosím, uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@
+    cs = Prosím, uvolni nejprve %1$@ ve svém zařízení, aby bylo možné stáhnout %2$@
     de = Bitte zuerst %1$@ Platz schaffen um %2$@ herunterzuladen
     es = Por favor liberar %1$@ primero para descargar %2$@
     fr = Veuillez libérer %1$@ avant de télécharger %2$@
@@ -1953,7 +1953,7 @@
     en = Bookmark Set Name
     tags = ios
     comment = Add Bookmark Set dialog - hint when set name is empty
-    cs = Jméno záložky
+    cs = Název záložky
     de = Name des Lesezeichens
     es = Nombre del grupo de marcadores
     fr = Nom du groupe de signets
@@ -2191,7 +2191,7 @@
     en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.
     tags = ios,android
     comment = Text hint in Bookmarks dialog when no any bookmarks are added
-    cs = Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
+    cs = Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.
     de = Sie haben bislang noch keine Lesezeichen gesetzt.\nTippen Sie auf der Karte auf irgendeinen Punkt, um ein Lesezeichen hinzuzufügen.\nLesezeichen von anderen Quellen können ebenfalls importiert und in der MAPS.ME-App angezeigt werden. KML-/KMZ-Datei mit gespeicherten Pins aus einer E-Mail, Dropbox oder einem Weblink öffnen.
     es = Todavía no tienes favoritos.\nToca en cualquier lugar del mapa y añade favoritos.\nTambién se pueden importar y mostrar marcadores de otras fuentes en la aplicación MAPS.ME. Abre el archivo KML/KMZ con los alfileres guardados desde el corre, Dropbox o Weblink.
     fr = Vous n'avez encore aucun favori.\nTapotez n'importe où sur la carte pour ajouter un favori.\nLes signets provenant d'autres sources peuvent également être importés et affichés dans MAPS.ME. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.
@@ -3052,7 +3052,7 @@
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
     tags = ios,android
     comment = Kmz file successful loading
-    cs = Záložky byly úspěšně nahrány! Můžeš je najít na mapě nebo na obrazovce Správce záložek.
+    cs = Záložky byly úspěšně nahrány! Můžeš je najít na mapě nebo ve správci záložek.
     de = Lesezeichen erfolgreich geladen! Sie können diese nun auf Ihrer Karte oder im Lesezeichen-Manager sehen.
     es = ¡Los favoritos se han cargado con éxito! Puedes encontrarlos en el mapa o en la pantalla de Gestión de favoritos.
     fr = Signets chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran de gestion des signets.
@@ -3191,7 +3191,7 @@
     en = Sorry, Map Storage settings are currently disabled.
     tags = android
     comment = Alert message that we can't run Map Storage settings due to some reasons.
-    cs = Promiň, nastavení uložení map je dočasně nedostupné.
+    cs = Omlouváme se, nastavení uložení map je dočasně nedostupné.
     de = Es tut uns leid, die Einstellungen der Kartenspeicherung sind deaktiviert.
     es = Lo sentimos, la configuración de Guardar Mapa está desactivada.
     fr = Désolé, les paramètres de stockage des cartes sont désactivés.
@@ -3239,7 +3239,7 @@
     en = Hope you enjoy using MAPS.ME! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
     tags = ios
     comment = Message that will be shown in alert view, when we ask user to leave review on App Store
-    cs = Doufáme, že se Ti používání MAPS.ME líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere Ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme Ti za Tvou podporu!
+    cs = Doufáme, že se Ti používání MAPS.ME líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme ti za tvou podporu!
     de = Wir hoffen, dass Ihnen die Verwendung von MAPS.ME Freude bereitet! Wenn ja, geben Sie bitte eine Bewertung oder einen Bericht für die App im App Store ab. Es dauert weniger als eine Minute, kann uns aber wirklich helfen. Danke für Ihre Unterstützung!
     es = ¡Ojalá disfrute mucho con MAPS.ME! Si le gusta, le agradeceremos que puntúe nuestra aplicación en el App Store. Es menos de un minuto y nos sería de gran ayuda. ¡Gracias por su apoyo!
     fr = Nous espérons que vous appréciez MAPS.ME ! Si oui, merci de l'évaluer sur l'App Store. Cela prend un instant mais peut vraiment nous aider. Merci pour votre soutien !
@@ -3341,7 +3341,7 @@
     es = Mira mi alfiler en el mapa de MAPS.ME
     nl = Kijk naar mijn pin op MAPS.ME kaart
     fr = Regarde mon épingle sur la carte MAPS.ME
-    cs = Koukni na moji značku na mapě MAPS.ME
+    cs = Koukni na moji značku na mapě v MAPS.ME
     de = Schau dir meine Nadel auf der MAPS.ME-Karte an
     pl = Obejrzyj mój znacznik na mapie w MAPS.ME
     pt = Veja o meu marcador no mapa do MAPS.ME.
@@ -3364,7 +3364,7 @@
     es = ¡Hola!\n\nMarqué con un alfiler: %1$@ en MAPS.ME, mapas del mundo sin conexión. Haz clic en este enlace %2$@ o este %3$@ para ver el sitio en el mapa.\n\nGracias.
     nl = Hoi,\n\nIk heb: %1$@ geprikt bij MAPS.ME, offline wereldkaarten. Klik op deze %2$@ of deze %3$@ om de plaats op de kaart te zien.\n\nBedankt.
     fr = Salut,\n\nJ'ai épinglé %1$@ sur MAPS.ME, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.
-    cs = Ahoj,\n\nOznačil/a jsem: %1$@ v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
+    cs = Ahoj,\n\noznačil/a jsem: %1$@ v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.
     de = Hi,\n\nIch habe gepinnt: %1$@ auf MAPS.ME, Offline-Weltkarten. Klicke auf diesen Link %2$@ oder diesen %3$@, um den Ort auf der Karte zu sehen.\n\nVielen Dank.
     pl = Cześć,\n\nDodałem znacznik w: %1$@ w aplikacji MAPS.ME, mapach offline całego świata. Naciśnij ten link %2$@ lub ten %3$@ by zobaczyć to miejsce na mapie.\n\nDziękuję.
     pt = Olá,\n\nFixei:%1$@ na MAPS.ME, mapas offline mundiais. Clique nesta ligação %2$@ ou nesta %3$@ para ver o local no mapa.\n\nObrigado.
@@ -3387,7 +3387,7 @@
     es = Mira mi ubicación actual en el mapa en MAPS.ME
     nl = Kijk naar mijn huidige locatie op MAPS.ME kaart
     fr = Regarde ma localisation actuelle sur la carte MAPS.ME
-    cs = Podívejte se na mou aktuální polohu na mapě na MAPS.ME
+    cs = Podívej se na mou aktuální polohu na mapě na MAPS.ME
     de = Sieh dir meinen aktuellen Standort auf der Karte MAPS.ME an
     pl = Zobacz moją aktualną lokalizację na mapie przy użyciu MAPS.ME
     pt = Veja a minha localização atual em MAPS.ME map
@@ -3520,6 +3520,7 @@
     en = Promo Code Activation
     tags = android
     comment = Promocode Activation dialog title
+	cs = Uplatnit kód
     de = Aktivierung des Aktionscodes
     fr = Activation de code de promotion
     pl = Aktywacja kodu promocyjnego
@@ -3534,6 +3535,7 @@
     en = Enter Promo Code
     tags = android
     comment = Enter promo code hint
+	cs = Zadej promo kód
     de = Geben Sie den Aktionscode ein
     fr = Entrer le code de promotion
     pl = Wprowadź kod promocyjny
@@ -3549,6 +3551,7 @@
     en = Promo code is activated!
     tags = android
     comment = Promocode Activation success message
+	cs = Kód byl úspěšně přijat!
     de = Aktionscode wurde aktiviert!
     fr = Code de promotion activé !
     pl = Kod promocyjny został aktywowany!
@@ -3564,6 +3567,7 @@
     en = Connection error. Please try again later.
     tags = android
     comment = Promocode Activation connection/io error
+	cs = Chyba připojení. Opakuj akci později.
     de = Verbindungsfehler: Bitte versuchen Sie es später erneut.
     fr = Erreur de connexion. Veuillez recommencer ultérieurement.
     pl = Błąd połączenia. Proszę spróbować ponownie później.
@@ -3579,6 +3583,7 @@
     en = Invalid promo code. Please try again.
     tags = android
     comment = Promocode Activation is invalid  message.
+	cs = Nesprávný kód! Opakuj zadání.
     de = Ungültiger Aktionscode. Bitte versuchen Sie es nochmals.
     fr = Code de promotion non valide. Veuillez recommencer.
     pl = Błędny kod promocyjny. Spróbuj ponownie.
@@ -3692,7 +3697,7 @@
     comment = Hint near allow statictics checkbox
     ru = Разрешить сбор статистики. Это помогает нам совершенствовать приложение.
     ja = アプリを向上できるよう、使用状況の統計を収集させてください
-    cs = Dovol nám, prosím, shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšit
+    cs = Dovol nám, prosím, shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšovat
     pl = Pozwól nam na zbieranie statystyk dotyczących używania aplikacji, abyśmy mogli ją udoskonalić
     uk = Просимо дозволити нам збирати статистичні дані по використанню, щоб поліпшити застосунок
     nl = Sta ons toe om gebruiksstatistieken te verzamelen om de app te verbeteren
@@ -4045,7 +4050,7 @@
     it = Altre app
     ko = 기타 앱
     nl = Meer apps
-    cs = Více aplikací
+    cs = Další aplikace
     ja = その他のアプリ
     hu = Több alkalmazás
     th = แอปเพิ่มเติม
@@ -4087,7 +4092,7 @@
     it = Altre app
     ko = 기타 앱
     nl = Meer apps
-    cs = Více aplikací
+    cs = Další aplikace
     ja = その他のアプリ
     hu = Több alkalmazás
     en = More Apps
@@ -4173,7 +4178,7 @@
     pt = Ver no mapa
     uk = Подивитись на карті
     ko = 지도 보기
-    cs = Zobrazit a mapě
+    cs = Zobrazit na mapě
     de = Auf der Karte ansehen
     zh-Hant = 在地图上查看
     ja = 地図に表示
@@ -4491,7 +4496,7 @@
     ar = اختيار نقطة البداية…
     bg = Изберете начална точка…
     ca = Trieu un punt de partida…
-    cs = Zvolte začátek…
+    cs = Zvol začátek…
     da = Vælg dit startpunkt…
     de = Start auswählen…
     el = Επιλέξτε σημείο εκκίνησης…
@@ -4535,7 +4540,7 @@
     ar = اختيار الوجهة…
     bg = Изберете направление…
     ca = Trieu una destinació…
-    cs = Zvolte cíl…
+    cs = Zvol cíl…
     da = Vælg din destination…
     de = Ziel auswählen…
     el = Επιλέξτε προορισμό…
@@ -4576,7 +4581,8 @@
     tags = tizen
     comment = Show on first launch.
     en = This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.
-    ru = Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.
+    cs = Tato aplikace využívá geografická data (zahrnující mapy, zakreslení firem a zájmových bodů, hranice států a regionů apod.), která byla převzata z otevřeného projektu OpenStreetMap. Konzistenci, přesnost, úplnost ani správnost těchto OpenStreetMap dat proto nemůžeme zaručit.
+	ru = Это приложение использует географические данные (включая карты, справочники, достопримечательности, границы стран и регионов, др.) взятые из проекта OpenStreetMap. Мы не гарантируем последовательности, точности, полноты и пригодности данных OpenStreetMap.
     fr = Cette application utilise des données géographiques (dont des cartes, des listes d'entreprises, des points d'intérêt, des frontières de pays et de régions, etc.) tirées du projet OpenStreetMap. Nous ne garantissons en aucune manière la cohérence, l'exactitude, la complétude ou l'applicabilité des données d'OpenStreetMap.
     ja = このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。
     zh-Hans = 这个应用程序使用了源自OpenStreetMap项目的地理数据（包括地图、商业清单、景点、国家和地区边界等）。我们对OpenStreetMap任何数据的一致性、准确性、完整性或适用性不做担保。
@@ -4586,6 +4592,7 @@
     tags = tizen
     comment = Show on first launch.
     en = I agree
+	cs = Souhlasím
     ru = Я согласен
     fr = Je suis d'accord
     ja = 同意する
@@ -4597,6 +4604,7 @@
     comment = Show on first launch
     en = I disagree
     ru = Я не согласен
+    cs = Nesouhlasím
     fr = Je ne suis pas d'accord
     ja = 同意しない
     zh-Hans = 我不同意
@@ -4607,7 +4615,7 @@
     comment = text of notification
     en = Download the map of the place where you are
     ar = تنزيل خريطة المكان الذي توجد فيه
-    cs = Stáhněte si mapu místa, kde právě jste
+    cs = Stáhni si mapu místa, kde právě jsi
     de = Laden Sie die Karte des Ortes herunter, in dem Sie sich befinden
     es = Descarga el mapa del lugar en que te encuentras
     fr = Téléchargez la carte de l'endroit où vous êtes
@@ -4631,7 +4639,7 @@
     comment = text of notification
     en = MAPS.ME Pro is free today! Download now and tell your friends.
     ar = تطبيق MAPS.ME Pro مجاني اليوم! قم بتنزيله الآن وأخبر أصدقائك.
-    cs = MAPS.ME Pro dnes zdarma! Stáhněte nyní a řekněte svým kamarádům.
+    cs = MAPS.ME Pro dnes zdarma! Stáhni si ji nyní a dej vědět kamarádům.
     de = MAPS.ME Pro heute gratis! Jetzt runterladen & Freunde informieren
     es = ¡MAPS.ME Pro gratis hoy! Descárgalo ahora y dilo a tus amigos.
     fr = MAPS.ME Pro gratuit auj. ! Téléch. maint. et parlez-en à vos amis
@@ -4654,7 +4662,7 @@
     tags = android
     comment = text of notification
     en = MAPS.ME is available with 80% discount at Google Play! Download now and tell your friends.
-    cs = MAPS.ME jsou dostupné na Google Play se slevou 80 %! Stáhněte nyní a řekněte svým kamarádům.
+    cs = Aplikace MAPS.ME je dostupná na Google Play se slevou 80 %! Stáhni si ji nyní a dej vědět kamarádům.
     de = MAPS.ME gibt es mit 80 % Rabatt auf Google Play! Jetzt runterladen & Freunde informieren.
     es = MAPS.ME disponible con un descuento del 80 % en Google Play! Descárgalo ahora y dilo a tus amigos.
     fr = MAPS.ME est disponible avec 80% de réduction sur Google Play! Téléch. maint. et parlez-en à vos amis
@@ -4678,7 +4686,7 @@
     tags = android
     comment = Dialog for transferring maps from lite to pro.
     en = We are transferring your downloaded maps from MAPS.ME Lite to MAPS.ME. It may take a few minutes. 
-    cs = Právě přenášíme Vaše stažené mapy z MAPS.ME Lite na MAPS.ME. Může to několik minut trvat. 
+    cs = Právě přenášíme tvé stažené mapy z MAPS.ME Lite do MAPS.ME. Může to několik minut trvat.
     de = Wir übertragen Ihre heruntergeladenen Karten von MAPS.ME Lite zu MAPS.ME. Der Vorgang kann einige Minuten in Anspruch nehmen. 
     es = Estamos transfiriendo tus mapas descargados de MAPS.ME Lite a MAPS.ME, lo cual puede llevar unos minutos.
     fr = Nous transférons vos cartes téléchargées de MAPS.ME Lite vers MAPS.ME. Cela peut prendre quelques minutes. 
@@ -4702,7 +4710,7 @@
     tags = android
     comment = Message to display when maps moved.
     en = Your downloaded maps are successfully transferred to MAPS.ME.
-    cs = Vaše stažené mapy jsou úspěšně přeneseny na MAPS.ME.
+    cs = Tvé stažené mapy jsou úspěšně přeneseny do MAPS.ME.
     de = Ihre heruntergeladenen Karten wurden erfolgreich zu MAPS.ME übertragen.
     es = Tus mapas descargados se han transferido correctamente a MAPS.ME.
     fr = Vos cartes téléchargées ont été transférées avec succès sur MAPS.ME.
@@ -4726,7 +4734,7 @@
     tags = android
     comment = Message to display when maps move failed.
     en = Your maps failed to transfer. Please delete MAPS.ME Lite and download the maps again.
-    cs = Vaše mapy se nepodařilo přenést. Vymažte prosím MAPS.ME Lite a stáhněte si mapy znovu.
+    cs = Tvé mapy se nepodařilo přenést. Prosím, odstraň MAPS.ME Lite a stáhni si mapy znovu.
     de = Ihre Karten konnten nicht übertragen werden. Bitte löschen Sie MAPS.ME Lite und laden Sie die Karten erneut herunter.
     es = No se han podido transferir tus mapas. Por favor, elimina MAPS.ME Lite y descarga los mapas de nuevo.
     fr = Vos cartes n'ont pas pu être transférées. Veuillez supprimer MAPS.ME Lite et téléchargez de nouveau les cartes.
@@ -4750,7 +4758,7 @@
     tags = ios
     comment = Message to display on 17th-18th august
     en = MAPS.ME Pro is free today! Share the news on Facebook.
-    cs = MAPS.ME je dnes zdarma! Sdílejte tu zprávu na Facebooku.
+    cs = MAPS.ME je dnes zdarma! Sdílej tu zprávu na Facebooku.
     de = MAPS.ME Pro ist heute gratis! Neuigkeiten auf Facebook teilen.
     es = ¡MAPS.ME es gratis hoy! Comparte la noticia en Facebook.
     fr = MAPS.ME est gratuit aujourd'hui ! Partagez la nouvelle sur Facebook.
@@ -4774,7 +4782,7 @@
     tags = android
     comment = Message to display on 17th-18th august
     en = MAPS.ME is available with 80% discount at Google Play! Share the news on Facebook.
-    cs = MAPS.ME jsou dostupné na Google Play se slevou 80 %! Sdílejte tu zprávu na Facebooku.
+    cs = MAPS.ME jsou dostupné na Google Play se slevou 80%! Sdílej tu zprávu na Facebooku.
     de = MAPS.ME gibt es mit 80 % Rabatt auf Google Play! Neuigkeiten auf Facebook teilen.
     es = MAPS.ME disponible con un descuento del 80 % en Google Play! Comparte la noticia en Facebook.
     fr = MAPS.ME est disponible avec 80 % de réduction sur Google Play ! Partagez la nouvelle sur Facebook.
@@ -4798,7 +4806,7 @@
     tags = ios
     comment = Message for facebook post on 17th-18th august
     en = Awesome offline maps app MAPS.ME is free on the App Store and is available with an 80% discount on Google Play. Hurry up to get the app today, the promotion will soon be over!
-    cs = Úžasné offline mapy MAPS.ME jsou zdarma na App Store a dostupné s 80% slevou na Google Play. Pospěšte si a získejte tuto aplikaci ještě dnes, tato propagační akce brzy skončí!
+    cs = Úžasné offline mapy MAPS.ME jsou zdarma na App Store a dostupné s 80% slevou na Google Play. Pospěš si a získej tuto aplikaci ještě dnes, tato propagační akce brzy skončí!
     de = Die tolle Offline-Karten-App MAPS.ME gibt es gratis im App Store und ist mit 80 % Rabatt bei Google Play verfügbar. Beeilen Sie sich und holen Sie sich heute die App. Die Aktion ist bald vorbei!
     es = La increíble app de mapas sin conexión, MAPS.ME, está en la App Store gratis y disponible en Google Play con un descuento del 80 %. Date prisa y consigue la app hoy, ¡la promoción pronto se acabará!
     fr = Cette géniale application hors-connexion de cartes MAPS.ME est gratuite sur l'App Store et disponible avec une réduction de 80 % sur Google Play. Dépêchez-vous d'obtenir l'application dès aujourd'hui, la promotion se termine bientôt !
@@ -4822,7 +4830,7 @@
     tags = android
     comment = Message for facebook post on 17th-18th august
     en = I’ve just got MAPS.ME offline maps with 80% discount on Google Play. It’s also available for free on iTunes. Don’t miss!
-    cs = Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80 %. Jsou také dostupné zdarma na iTunes. Nezmeškejte to!
+    cs = Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80%. Jsou také dostupné zdarma na iTunes. Nezmeškej to!
     de = Ich habe gerade die Offline-Karten MAPS.ME mit 80 % Rabatt auf Google Play bekommen. Es gibt sie auch kostenlos bei iTunes. Nicht verpassen!
     es = Acabo de comprar MAPS.ME, mapas sin conexión, en Google Play con un descuento del 80 %. También está disponible gratis en iTunes. ¡No te lo pierdas!
     fr = Je viens de me procurer les cartes hors-ligne MAPS.ME avec 80 % de remise sur Google Play. L'appli est également disponible gratuitement sur iTunes. Ne passez pas à côté !
@@ -4846,7 +4854,7 @@
     tags = ios, android
     comment = Text in menu
     en = Settings & More
-    cs = Nastavení a více
+    cs = Nastavení & další
     de = Einstellungen & mehr
     es = Ajustes y más
     fr = Paramètres & plus
@@ -4894,7 +4902,7 @@
     tags = ios, android
     comment = Text in menu
     en = Like on Facebook
-    cs = Označit pomocí To se mi líbí na Facebooku
+    cs = Lajknout na Facebooku
     de = „Gefällt mir“ auf Facebook
     es = Pulsa "Me gusta" en Facebook
     fr = Aimer sur Facebook
@@ -4966,7 +4974,7 @@
     tags = ios, android
     comment = Text in menu
     en = Subscribe to our news
-    cs = Přihlásit se k našim novinkám
+    cs = Přihlásit se k odběru novinek
     de = Abonnieren Sie unsere News
     es = Suscríbete a nuestras noticias
     fr = Abonnez-vous à nos actus
@@ -5086,7 +5094,7 @@
     tags = ios, android
     comment = Email subject
     en = Please subscribe me to the MAPS.ME newsletter
-    cs = Přihlaste mě prosím k odběru zpravodaje MAPS.ME
+    cs = Přihlaste mě, prosím, k odběru zpravodaje MAPS.ME
     de = Ich möchte gerne den MAPS.ME-Newsletter abonnieren
     es = Por favor quiero suscribirme al boletín de MAPS.ME
     fr = Veuillez m'inscrire à la newsletter de MAPS.ME
@@ -5110,7 +5118,7 @@
     tags = ios, android
     comment = Email body
     en = I want to be the first to learn about latest news updates and promotions. I can cancel my subscription at any time.
-    cs = Chci se vždy jako první dozvídat o nejnovějších zprávách aktualizacích a akčních nabídkách. Svoje přihlášení k odběru mohu kdykoli zrušit.
+    cs = Chci se vždy jako první dozvídat o nejnovějších zprávách, aktualizacích a akčních nabídkách. Své přihlášení k odběru mohu kdykoli zrušit.
     de = Gerne möchte ich zu den Ersten gehören die aktuelle Neuigkeiten erfahren und über neueste Updates und Werbeangebote informiert werden. Mein Abo kann ich jederzeit kündigen.
     es = Quiero ser el primero en conocer las últimas noticias actualizaciones y promociones. Puedo cancelar mi suscripción en cualquier momento.
     fr = Je veux être informé(e) en priorité des dernières nouvelles des mises à jour et des promotions. Je pourrai annuler mon abonnement quand je le souhaiterai.
@@ -5134,7 +5142,7 @@
     tags = ios, android
     comment = About text
     en = MAPS.ME offers the fastest offline maps of all the cities, all countries of the world. Travel with full confidence: wherever you are, MAPS.ME helps to locate yourself on the map, find the nearest restaurant, hotel, bank, gas station etc. It doesn’t require internet connection.\n\nWe are always working on new features and would love to hear from you on how you think we could improve MAPS.ME. If you have any problems with the app, don't hesitate to contact us at support@maps.me. We respond to every request!\n\nDo you like MAPS.ME and want to support us? There are some simple and absolutely free ways:\n\n- post a review at your App Market\n- like our Facebook page http://www.facebook.com/mapswithme\n- or just tell about MAPS.ME to your mom, friends and colleagues :)\n\nThank you for being with us. We appreciate your support very much!\n\nP.S. We take map data from OpenStreetMap, a mapping project similar to Wikipedia, which allows users to create and edit maps. If you see something is missing or wrong on the map, you can correct the maps directly at http://openstreetmap.org, and your changes will appear in MAPS.ME app with the next version release.
-    cs = MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestujte s naprostou důvěrou: kdekoliv jste, MAPS.ME vám pomůže se najít na mapě, najít nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli váš názor, jak můžeme vylepšit MAPS.ME. Pokud máte s touto aplikací jakékoliv problémy, pak nás neváhejte kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se vám MAPS.ME a chtěli byste nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napište recenzi ve svém obchodě s aplikacemi\n- označte naši stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekněte o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jste s námi. Velmi oceňujeme vaši podporu!\n\nP.S. Mapová data získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíte, že na mapě něco chybí nebo je špatně, pak můžete mapy opravit přímo na http://openstreetmap.org, a vaše změny se objeví v příští verzi MAPS.ME.
+    cs = MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestuj s naprostou důvěrou: kdekoliv jsi, MAPS.ME ti pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také Tvůj názor, jak můžeme MAPS.ME vylepšit. Pokud máš s touto aplikací jakékoliv problémy, pak nás neváhej kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se ti MAPS.ME a chceš nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napiš recenzi ve svém obchodu s aplikacemi\n- označ naši facebookovou stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekni o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jsi s námi. Velmi oceňujeme tvou podporu!\n\nP.S. Mapová data získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíš, že na mapě něco chybí nebo je špatně, pak můžeš mapy opravit přímo na http://openstreetmap.org, a tvé změny se objeví v příští verzi MAPS.ME. Díky!
     de = MAPS.ME bietet die schnellsten Offline-Karten aller Städte in allen Ländern der Welt. Reisen Sie mit Vertrauen: wo immer Sie sind, MAPS.ME hilft Ihnen, sich selbst auf der Karte zu finden. Finden Sie das nächste Restaurant, ein Hotel, eine Bank, eine Tankstelle usw. Es ist keine Internet-Verbindung erforderlich.\n\nWir arbeiten ständig an neuen Funktionen und freuen uns, von Ihnen zu hören, wie wir MAPS.ME verbessern können. Wenn Sie Probleme mit der App haben, zögern Sie nicht, mit uns über support@maps.me in Verbindung zu treten. Wir reagieren auf jede Anfrage!\n\nMögen Sie MAPS.ME und wollen Sie uns unterstützen? Es gibt einige einfache und absolut kostenlose Möglichkeiten:\n\n- Veröffentlichen Sie eine Bewertung auf Ihrem App-Markt\n- Liken Sie unsere Facebook-Seite http://www.facebook.com/mapswithme\n- Oder erzählen einfach nur Ihrer Mutter, Freunden und Kollegen von MAPS.ME:)\n\nDanke, dass Sie bei uns sind. Wir freuen uns sehr über Ihre Unterstützung!\n\nP. S. Wir nehmen die Kartendaten von OpenStreetMap, einem Mapping-Projekt ähnlich Wikipedia, bei welchem Benutzer Karten erstellen und bearbeiten können. Wenn Sie sehen, dass auf der Karte etwas fehlt oder falsch ist, können Sie die Karten direkt auf http://openstreetmap.org korrigieren und die Änderungen erscheinen in der nächsten MAPS.ME App Version.
     es = MAPS.ME ofrece los mapas sin conexión más rápidos de todas las ciudades y todos los países del mundo. Viaja con plena confianza: estés donde estés, MAPS.ME te ayuda a ubicarte en el mapa, encontrar el restaurante, hotel, banco o gasolinera más próximo, etc. No requiere conexión a Internet.\n\nTrabajamos continuamente en el desarrollo de nuevas funcionalidades y nos encantaría conocer tu opinión sobre cómo podríamos mejorar MAPS.ME. Si tienes cualquier problema con la aplicación, no dudes en contactar con nosotros en support@maps.me. ¡Respondemos a todas las solicitudes!\n\n¿Te gusta MAPS.ME y quieres apoyarnos? Estas son algunas formas simples y totalmente gratis:\n\n- Publica una opinión en tu App Market\n- Dale a me gusta a nuestra página de Facebook http://www.facebook.com/mapswithme\n- O simplemente habla sobre MAPS.ME a tu madre, amigos y colegas :)\n\nGracias por estar a nuestro lado. ¡Agradecemos mucho tu apoyo!\n\nPD: obtenemos datos de los mapas de OpenStreetMap, un proyecto de mapeo similar a Wikipedia, que permite a los usuarios crear y editar mapas. Si crees que falta algo o hay cualquier error en el mapa, puedes corregir los mapas directamente en http://openstreetmap.org y los cambios aparecerán en la aplicación MAPS.ME en el próximo lanzamiento de la versión.
     fr = MAPS.ME offre la possibilité de consulter hors-ligne le plus rapidement possible les cartes de toutes les villes, de tous les pays du monde. Voyagez en toute confiance : où que vous soyez, MAPS.ME permet de vous situer sur la carte, de trouver le restaurant le plus proche, un hôtel, une banque, une station d'essence, etc. Cela ne nécessite aucune connexion Internet.\n\nNous travaillons toujours sur de nouvelles fonctionnalités et nous aimerions avoir votre avis sur la manière d'améliorer MAPS.ME. Si vous avez des problèmes avec l'application, n'hésitez pas à nous contacter à l'adresse suivante : support@maps.me. Nous répondons à toutes les demandes !\n\nAimez-vous MAPS.ME et souhaitez-vous nous soutenir ? Il existe des moyens simples et tout à fait gratuits:\n\n- Publier un avis sur votre App Market\n- Aimez notre page Facebook www.facebook.com/mapswithme\n- Ou parlez tout simplement de MAPS.ME à votre mère, à vos amis et à vos collègues :)\n\nNous vous remercions de votre fidélité. Nous apprécions énormément votre soutien !\n\nP.S. Nous prenons les données cartographiques de OpenStreetMap, un projet de cartographie similaire à Wikipédia, qui permet aux utilisateurs de créer et de modifier des cartes. Si vous voyez une omission ou une erreur sur la carte, vous pouvez la corriger directement à l'adresse suivante : http://openstreetmap.org, et vos modifications apparaîtront lors de la sortie de la prochaine version de l'application MAPS.ME.
@@ -5159,7 +5167,7 @@
     tags = ios
     comment = Alert text
     en = The email client has not been set up. Please configure it or use any other way to contact us at %@
-    cs = Emailový klient nebyl nastaven. Nakonfigurujte ho prosím nebo použijte jiný způsob k tomu, abyste nás kontaktovali na %@
+    cs = Emailový klient nebyl ještě nakonfigurován. Nastav ho, prosím, nebo použij jiný způsob k našemu kontaktování na %@
     de = Der E-Mail-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %@ zu erreichen.
     es = No se ha configurado el cliente de correo electrónico. Por favor, configúralo o utiliza alguna otra forma de ponerte en contacto con nosotros en %@
     fr = Le client de messagerie n'a pas été configuré. Veuillez s'il vous plaît le configurer ou employer tout autre moyen pour nous contacter à l’adresse %@.

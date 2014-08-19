@@ -89,10 +89,10 @@
 "my_position" = "Moje poloha";
 
 /* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Nenalezeno připojení k Internetu";
+"no_internet_connection_detected" = "Připojení k Internetu nenalezeno";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Nenalezeno připojení k WiFi. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %@?";
+"no_wifi_ask_cellular_download" = "Připojení k WiFi nenalezeno. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %@?";
 
 "ok" = "OK";
 
@@ -100,7 +100,7 @@
 "enable_location_services" = "Prosím, povol Služby určování polohy";
 
 /* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Prosím, uvolni nějaké místo v tvém zařízení, než začneš stahovat %@";
+"free_disk_space_for_country_x" = "Prosím, uvolni nějaké místo ve svém zařízení, než začneš stahovat %@";
 
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Upozornit mě později";
@@ -133,7 +133,7 @@
 "use_cellular_data" = "Ano";
 
 /* Settings/Downloader - No internet connection dialog message */
-"use_wifi_recommendation_text" = "Doporučujeme použít WiFi pro stahování větších map";
+"use_wifi_recommendation_text" = "Pro stahování větších map doporučujeme používat WiFi";
 
 /* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
 "new_map_data_format_upgrade_dialog" = "Aktualizovali jsme mapovou databázi a zmenšili objem map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, bude třeba odstranit všechny staré mapové podklady, které již byly staženy.";
@@ -191,7 +191,7 @@
 
 "not_enough_memory" = "Nedostatek paměti ke spuštění aplikace";
 
-"free_space_for_country" = "Prosím, uvolni nejprve %1$@ v tvém zařízení, abys mohl/a stáhnout %2$@";
+"free_space_for_country" = "Prosím, uvolni nejprve %1$@ ve svém zařízení, aby bylo možné stáhnout %2$@";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "download_resources" = "Ještě než začneš, bude třeba stáhnout obecnou mapu světa.\nZabere to %.1f%@.";
@@ -250,7 +250,7 @@
 "bookmark_color" = "Barva záložky";
 
 /* Add Bookmark Set dialog - hint when set name is empty */
-"bookmark_set_name" = "Jméno záložky";
+"bookmark_set_name" = "Název záložky";
 
 /* Bookmark Sets dialog title */
 "bookmark_sets" = "Skupiny záložek";
@@ -280,7 +280,7 @@
 "set" = "Skupina";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.";
+"bookmarks_usage_hint" = "Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
 "bookmarks_usage_hint_import_only" = "V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.";
@@ -387,7 +387,7 @@
 "load_kmz_title" = "Nahrávání záložek";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Záložky byly úspěšně nahrány! Můžeš je najít na mapě nebo na obrazovce Správce záložek.";
+"load_kmz_successful" = "Záložky byly úspěšně nahrány! Můžeš je najít na mapě nebo ve správci záložek.";
 
 /* Kml file loading failed */
 "load_kmz_failed" = "Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.";
@@ -405,13 +405,13 @@
 "download_viewport_country_to_search" = "Stahování země, v níž hledáš (%@)";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "Promiň, nastavení uložení map je dočasně nedostupné.";
+"cant_change_this_setting" = "Omlouváme se, nastavení uložení map je dočasně nedostupné.";
 
 /* Alert message that downloading is in progress. */
 "downloading_is_active" = "Právě probíhá stahování země.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Doufáme, že se Ti používání MAPS.ME líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere Ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme Ti za Tvou podporu!";
+"appStore_message" = "Doufáme, že se Ti používání MAPS.ME líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme ti za tvou podporu!";
 
 /* No, thanks */
 "no_thanks" = "Ne, díky";
@@ -423,13 +423,13 @@
 "my_position_share_sms" = "Koukni kde jsem. Otevři odkaz: %1$@ nebo %2$@";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Koukni na moji značku na mapě MAPS.ME";
+"bookmark_share_email_subject" = "Koukni na moji značku na mapě v MAPS.ME";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Ahoj,\n\nOznačil/a jsem: %1$@ v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.";
+"bookmark_share_email" = "Ahoj,\n\noznačil/a jsem: %1$@ v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Podívejte se na mou aktuální polohu na mapě na MAPS.ME";
+"my_position_share_email_subject" = "Podívej se na mou aktuální polohu na mapě na MAPS.ME";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
 "my_position_share_email" = "Ahoj,\n\nPrávě jsem tady: %1$@. Klepni na jeden z těchto odkazů %2$@, %3$@ a uvidíš toto místo na mapě.\n\nDíky.";
@@ -447,19 +447,19 @@
 "email" = "E-Mail";
 
 /* Promocode Activation dialog title */
-"promocode_activation" = "Promo Code Activation";
+"promocode_activation" = "Uplatnit kód";
 
 /* Enter promo code hint */
-"enter_promocode_hint" = "Enter Promo Code";
+"enter_promocode_hint" = "Zadej promo kód";
 
 /* Promocode Activation success message */
-"promocode_success" = "Promo code is activated!";
+"promocode_success" = "Kód byl úspěšně přijat!";
 
 /* Promocode Activation connection/io error */
-"promocode_error" = "Connection error. Please try again later.";
+"promocode_error" = "Chyba připojení. Opakuj akci později.";
 
 /* Promocode Activation is invalid  message. */
-"promocode_failure" = "Invalid promo code. Please try again.";
+"promocode_failure" = "Nesprávný kód! Opakuj zadání.";
 
 /* Copy Link */
 "copy_link" = "Zkopírovat odkaz";
@@ -474,7 +474,7 @@
 "allow_statistics" = "Odesílat statistiky";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Dovol nám, prosím, shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšit";
+"allow_statistics_hint" = "Dovol nám, prosím, shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšovat";
 
 /* place preview title */
 "info" = "Více informací";
@@ -513,11 +513,11 @@
 
 "pref_zoom_summary" = "Zobrazit na obrazovce";
 
-"more_apps_title" = "Více aplikací";
+"more_apps_title" = "Další aplikace";
 
 "more_apps_guides" = "Cestovní průvodce";
 
-"more_apps_ads" = "Více aplikací";
+"more_apps_ads" = "Další aplikace";
 
 "placepage_distance" = "Vzdálenost";
 
@@ -525,7 +525,7 @@
 
 "placepage_unsorted" = "Nezařazené";
 
-"search_show_on_map" = "Zobrazit a mapě";
+"search_show_on_map" = "Zobrazit na mapě";
 
 /* Used to warn user when fixing KitKat issue */
 "kitkat_migrate_ok" = "Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžeš ho smazat.";
@@ -558,58 +558,58 @@
 "routes" = "Trasy";
 
 /* button in the interface */
-"choose_starting_point" = "Zvolte začátek…";
+"choose_starting_point" = "Zvol začátek…";
 
 /* button in the interface */
-"choose_destination" = "Zvolte cíl…";
+"choose_destination" = "Zvol cíl…";
 
 /* Show on first launch. */
-"maps_licence_info" = "This applications uses geographical data (including maps, business listings, points of interest, borders of countries and regions, etc.) taken from the OpenStreetMap project. We do not warrant any consistency, accuracy, completeness or applicability of the OpenStreetMap data.";
+"maps_licence_info" = "Tato aplikace využívá geografická data (zahrnující mapy, zakreslení firem a zájmových bodů, hranice států a regionů apod.), která byla převzata z otevřeného projektu OpenStreetMap. Konzistenci, přesnost, úplnost ani správnost těchto OpenStreetMap dat proto nemůžeme zaručit.";
 
 /* Show on first launch. */
-"agree" = "I agree";
+"agree" = "Souhlasím";
 
 /* Show on first launch */
-"disagree" = "I disagree";
+"disagree" = "Nesouhlasím";
 
 /* text of notification */
-"download_map_notification" = "Stáhněte si mapu místa, kde právě jste";
+"download_map_notification" = "Stáhni si mapu místa, kde právě jsi";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro dnes zdarma! Stáhněte nyní a řekněte svým kamarádům.";
+"pro_version_is_free_today" = "MAPS.ME Pro dnes zdarma! Stáhni si ji nyní a dej vědět kamarádům.";
 
 /* text of notification */
-"pro_version_is_free_today_android" = "MAPS.ME jsou dostupné na Google Play se slevou 80 %! Stáhněte nyní a řekněte svým kamarádům.";
+"pro_version_is_free_today_android" = "Aplikace MAPS.ME je dostupná na Google Play se slevou 80 %! Stáhni si ji nyní a dej vědět kamarádům.";
 
 /* Dialog for transferring maps from lite to pro. */
-"move_lite_maps_to_pro" = "Právě přenášíme Vaše stažené mapy z MAPS.ME Lite na MAPS.ME. Může to několik minut trvat.";
+"move_lite_maps_to_pro" = "Právě přenášíme tvé stažené mapy z MAPS.ME Lite do MAPS.ME. Může to několik minut trvat.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Vaše stažené mapy jsou úspěšně přeneseny na MAPS.ME.";
+"move_lite_maps_to_pro_ok" = "Tvé stažené mapy jsou úspěšně přeneseny do MAPS.ME.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Vaše mapy se nepodařilo přenést. Vymažte prosím MAPS.ME Lite a stáhněte si mapy znovu.";
+"move_lite_maps_to_pro_failed" = "Tvé mapy se nepodařilo přenést. Prosím, odstraň MAPS.ME Lite a stáhni si mapy znovu.";
 
 /* Message to display on 17th-18th august */
-"maps_me_is_free_today_ios" = "MAPS.ME je dnes zdarma! Sdílejte tu zprávu na Facebooku.";
+"maps_me_is_free_today_ios" = "MAPS.ME je dnes zdarma! Sdílej tu zprávu na Facebooku.";
 
 /* Message to display on 17th-18th august */
-"maps_me_is_free_today_android" = "MAPS.ME jsou dostupné na Google Play se slevou 80 %! Sdílejte tu zprávu na Facebooku.";
+"maps_me_is_free_today_android" = "MAPS.ME jsou dostupné na Google Play se slevou 80%! Sdílej tu zprávu na Facebooku.";
 
 /* Message for facebook post on 17th-18th august */
-"maps_me_is_free_today_facebook_post_ios" = "Úžasné offline mapy MAPS.ME jsou zdarma na App Store a dostupné s 80% slevou na Google Play. Pospěšte si a získejte tuto aplikaci ještě dnes, tato propagační akce brzy skončí!";
+"maps_me_is_free_today_facebook_post_ios" = "Úžasné offline mapy MAPS.ME jsou zdarma na App Store a dostupné s 80% slevou na Google Play. Pospěš si a získej tuto aplikaci ještě dnes, tato propagační akce brzy skončí!";
 
 /* Message for facebook post on 17th-18th august */
-"maps_me_is_free_today_facebook_post_android" = "Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80 %. Jsou také dostupné zdarma na iTunes. Nezmeškejte to!";
+"maps_me_is_free_today_facebook_post_android" = "Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80%. Jsou také dostupné zdarma na iTunes. Nezmeškej to!";
 
 /* Text in menu */
-"settings_and_more" = "Nastavení a více";
+"settings_and_more" = "Nastavení & další";
 
 /* Text in menu */
 "maps_me_community" = "Komunita MAPS.ME";
 
 /* Text in menu */
-"like_on_facebook" = "Označit pomocí To se mi líbí na Facebooku";
+"like_on_facebook" = "Lajknout na Facebooku";
 
 /* Text in menu */
 "follow_on_twitter" = "Následovat na Twitteru";
@@ -618,7 +618,7 @@
 "contact_us" = "Kontaktovat nás";
 
 /* Text in menu */
-"subscribe_to_news" = "Přihlásit se k našim novinkám";
+"subscribe_to_news" = "Přihlásit se k odběru novinek";
 
 /* Text in menu */
 "rate_the_app" = "Ohodnotit aplikaci";
@@ -633,16 +633,16 @@
 "report_a_bug" = "Nahlásit chybu";
 
 /* Email subject */
-"subscribe_me_subject" = "Přihlaste mě prosím k odběru zpravodaje MAPS.ME";
+"subscribe_me_subject" = "Přihlaste mě, prosím, k odběru zpravodaje MAPS.ME";
 
 /* Email body */
-"subscribe_me_body" = "Chci se vždy jako první dozvídat o nejnovějších zprávách aktualizacích a akčních nabídkách. Svoje přihlášení k odběru mohu kdykoli zrušit.";
+"subscribe_me_body" = "Chci se vždy jako první dozvídat o nejnovějších zprávách, aktualizacích a akčních nabídkách. Své přihlášení k odběru mohu kdykoli zrušit.";
 
 /* About text */
-"about_text" = "MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestujte s naprostou důvěrou: kdekoliv jste, MAPS.ME vám pomůže se najít na mapě, najít nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli váš názor, jak můžeme vylepšit MAPS.ME. Pokud máte s touto aplikací jakékoliv problémy, pak nás neváhejte kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se vám MAPS.ME a chtěli byste nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napište recenzi ve svém obchodě s aplikacemi\n- označte naši stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekněte o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jste s námi. Velmi oceňujeme vaši podporu!\n\nP.S. Mapová data získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíte, že na mapě něco chybí nebo je špatně, pak můžete mapy opravit přímo na http://openstreetmap.org, a vaše změny se objeví v příští verzi MAPS.ME.";
+"about_text" = "MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestuj s naprostou důvěrou: kdekoliv jsi, MAPS.ME ti pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také Tvůj názor, jak můžeme MAPS.ME vylepšit. Pokud máš s touto aplikací jakékoliv problémy, pak nás neváhej kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se ti MAPS.ME a chceš nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napiš recenzi ve svém obchodu s aplikacemi\n- označ naši facebookovou stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekni o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jsi s námi. Velmi oceňujeme tvou podporu!\n\nP.S. Mapová data získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíš, že na mapě něco chybí nebo je špatně, pak můžeš mapy opravit přímo na http://openstreetmap.org, a tvé změny se objeví v příští verzi MAPS.ME. Díky!";
 
 /* Alert text */
-"email_error_body" = "Emailový klient nebyl nastaven. Nakonfigurujte ho prosím nebo použijte jiný způsob k tomu, abyste nás kontaktovali na %@";
+"email_error_body" = "Emailový klient nebyl ještě nakonfigurován. Nastav ho, prosím, nebo použij jiný způsob k našemu kontaktování na %@";
 
 /* Alert title */
 "email_error_title" = "Chyba při odesílání emailu";

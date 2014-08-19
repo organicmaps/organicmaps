@@ -560,7 +560,7 @@ it:3opere d'arte|3turistico
 es:3obras de arte|3turismo
 ko:1작품|관광
 ja:1イラスト|1芸術作品|観光
-cs:3umělecká díla|3pamětihodnost
+cs:3umělecké dílo|3pamětihodnost
 nl:3kunstwerk|3toerisme
 zh-Hant:1藝術品|3旅遊景點
 pl:3rzeźba|turystyka|osobliwości miasta
@@ -582,7 +582,7 @@ it:3panorama|turistico
 es:3vista panorámica|turismo
 ko:1관점|관 광|명소|관광
 ja:1観光スポット|見どころ|観光|名所|観光名所
-cs:3vyhlídka|pamětihodnost
+cs:3vyhlídka|zajímavost|pamětihodnost
 nl:4uitzicht|toerisme
 zh-Hant:1視野|景觀|景點|觀光|3旅遊景點
 pl:3punkt widokowy|widok|krajobraz|osobliwości miasta
@@ -604,7 +604,7 @@ it:4informazione|turistico
 es:4información|turismo
 ko:1관광 정보|정보|명소|관광
 ja:1インフォメーション|観光情報|情報|案内
-cs:4infocentrum|4turistické informace|pamětihodnosti|Íčko
+cs:4infocentrum|4turistické informace|pamětihodnost|Íčko
 nl:4toeristen informatie|4informatie|toerisme
 zh-Hant:2觀光諮詢|旅遊中心|旅遊問題|資訊|旅遊資訊
 pl:4informacja turystyczna|punkt informacji|osobliwości miasta
@@ -670,7 +670,7 @@ it:2museo|turistico
 es:2museo|turismo
 ko:1박물관|관광
 ja:1博物館|美術館
-cs:2muzeum|pamětihodnosti
+cs:2muzeum|zajímavost|pamětihodnost
 nl:2museum|attractie|toerisme
 zh-Hant:1博物館|旅遊|觀光|景點|遊覽|歷史|旅遊景點
 pl:2muzeum|turystyka|zwiedzanie|osobliwości miasta
@@ -684,7 +684,7 @@ tr:2müze|cazibe merkezleri|turizm|görülecek yerler
 
 waterway-waterfall|natural-waterfall
 en:2waterfall|sights
-cs:2vodopád|pamětihodnosti
+cs:2vodopád|zajímavost|pamětihodnost
 de:2Wasserfall|Sehenswürdigkeit
 es:3cascada|turismo
 fr:3cascade|site touristique
@@ -714,7 +714,7 @@ it:memoriale|monumento|turistico
 es:memorial|turismo
 ko:1기념물|관광
 ja:1記念碑|観光
-cs:pomník|památka|atrakce|zajímavost|pamětihodnost
+cs:pomník|památka|zajímavost|pamětihodnost
 nl:gedenkteken|monument|attractie|toerisme
 zh-Hant:1紀念碑|紀念館|旅遊景點
 pl:3pomnik|osobliwości miasta
@@ -780,7 +780,7 @@ it:castello|turistico
 es:castillo|turismo
 ko:대저택|관광
 ja:城|観光|お城|砦|城砦
-cs:zámek|atrakce|pamětihodnosti
+cs:zámek|zajímavost|pamětihodnost
 nl:kasteel|attractie|toerisme
 zh-Hant:城堡|堡|古蹟|歷史|旅遊景點
 pl:3zamek|turystyka|zwiedzanie|osobliwości miasta
@@ -802,7 +802,7 @@ it:sito archeologico|turistico
 es:sitio arqueológico|turismo
 ko:1발굴|관광
 ja:1考古遺跡|発掘|観光|発掘現場|考古学|遺跡
-cs:vykopávky|pamětihodnost
+cs:vykopávky|zajímavost|pamětihodnost
 nl:archeologische opgraving|attractie|toerisme
 zh-Hant:1考古遺址|考古|遺址|古蹟|歷史|旅遊景點
 pl:5miejsce arhceologiczne|wykopaliska|osobliwości miasta
@@ -824,7 +824,7 @@ it:2giardino|turistico
 es:2jardín|turismo
 ko:1정원|관광
 ja:1庭園|庭|園|観光
-cs:2zahrada|pamětihodnosti
+cs:2zahrada|zajímavost|pamětihodnost
 nl:2tuin|toerisme
 zh-Hant:1花園|旅遊景點
 pl:2ogród|osobliwości miasta

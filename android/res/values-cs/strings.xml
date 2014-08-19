@@ -53,13 +53,13 @@
 	<!-- View and button titles for accessibility -->
 	<string name="my_position">Moje poloha</string>
 	<!-- Settings/Downloader - No internet connection dialog title -->
-	<string name="no_internet_connection_detected">Nenalezeno připojení k Internetu</string>
+	<string name="no_internet_connection_detected">Připojení k Internetu nenalezeno</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Nenalezeno připojení k WiFi. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %s?</string>
+	<string name="no_wifi_ask_cellular_download">Připojení k WiFi nenalezeno. Chceš použít mobilní sítě (GPRS, EDGE nebo 3G) pro stažení %s?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Prosím, povol Služby určování polohy</string>
 	<!-- Settings/Downloader - No free space dialog message -->
-	<string name="free_disk_space_for_country_x">Prosím, uvolni nějaké místo v tvém zařízení, než začneš stahovat %s</string>
+	<string name="free_disk_space_for_country_x">Prosím, uvolni nějaké místo ve svém zařízení, než začneš stahovat %s</string>
 	<!-- Leave Review dialog - Not now button (remind me later) -->
 	<string name="remind_me_later">Upozornit mě později</string>
 	<!-- Update maps later/Buy pro version later button text -->
@@ -81,7 +81,7 @@
 	<!-- Settings/Downloader - 3G download warning dialog confirm button -->
 	<string name="use_cellular_data">Ano</string>
 	<!-- Settings/Downloader - No internet connection dialog message -->
-	<string name="use_wifi_recommendation_text">Doporučujeme použít WiFi pro stahování větších map</string>
+	<string name="use_wifi_recommendation_text">Pro stahování větších map doporučujeme používat WiFi</string>
 	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
 	<string name="new_map_data_format_upgrade_dialog">Aktualizovali jsme mapovou databázi a zmenšili objem map. U větších zemí si nyní můžeš vybrat ke stažení pouze region/stát, který potřebuješ. Pokud však chceš používat nové mapy, bude třeba odstranit všechny staré mapové podklady, které již byly staženy.</string>
 	<!-- Choose measurement on first launch alert - title -->
@@ -114,7 +114,7 @@
 	<string name="disconnect_usb_cable">Prosím, odpoj USB kabel nebo vlož paměťovou kartu pro použití s MAPS.ME</string>
 	<string name="not_enough_free_space_on_sdcard">Prosím, uvolni nejprve nějaký prostor na SD kartě/USB uložišti</string>
 	<string name="not_enough_memory">Nedostatek paměti ke spuštění aplikace</string>
-	<string name="free_space_for_country">Prosím, uvolni nejprve %1$s v tvém zařízení, abys mohl/a stáhnout %2$s</string>
+	<string name="free_space_for_country">Prosím, uvolni nejprve %1$s ve svém zařízení, aby bylo možné stáhnout %2$s</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_resources">Ještě než začneš, bude třeba stáhnout obecnou mapu světa.\nZabere to %1$.1f%2$s.</string>
 	<string name="getting_position">Získávání aktuální polohy</string>
@@ -151,7 +151,7 @@
 	<!-- Bookmark Color dialog title -->
 	<string name="bookmark_color">Barva záložky</string>
 	<!-- Add Bookmark Set dialog - hint when set name is empty -->
-	<string name="bookmark_set_name">Jméno záložky</string>
+	<string name="bookmark_set_name">Název záložky</string>
 	<!-- Bookmark Sets dialog title -->
 	<string name="bookmark_sets">Skupiny záložek</string>
 	<!-- Bookmarks - dialog title -->
@@ -171,7 +171,7 @@
 	<!-- Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell -->
 	<string name="set">Skupina</string>
 	<!-- Text hint in Bookmarks dialog when no any bookmarks are added -->
-	<string name="bookmarks_usage_hint">Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME také mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
+	<string name="bookmarks_usage_hint">Zatím nemáš žádné záložky.\nZáložku můžeš přidat přidržením libovolného místa na mapě.\nV MAPS.ME mohou být také zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
 	<!-- Text hint in Bookmarks dialog when at least one bookmark is added -->
 	<string name="bookmarks_usage_hint_import_only">V MAPS.ME mohou být zobrazeny importované záložky z jiných zdrojů. Soubor ve formátu KML/KMZ s uloženými záložkami můžeš otevřít např. z emailu, Dropboxu nebo webového odkazu.</string>
 	<!-- Settings button in system menu -->
@@ -242,7 +242,7 @@
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Nahrávání záložek</string>
 	<!-- Kmz file successful loading -->
-	<string name="load_kmz_successful">Záložky byly úspěšně nahrány! Můžeš je najít na mapě nebo na obrazovce Správce záložek.</string>
+	<string name="load_kmz_successful">Záložky byly úspěšně nahrány! Můžeš je najít na mapě nebo ve správci záložek.</string>
 	<!-- Kml file loading failed -->
 	<string name="load_kmz_failed">Nahrávání záložek se nezdařilo. Soubor může být poškozený nebo vadný.</string>
 	<!-- resource for context menu -->
@@ -254,11 +254,11 @@
 	<!-- Warning message when viewport country isn't downloaded during search -->
 	<string name="download_viewport_country_to_search">Stahování země, v níž hledáš (%s)</string>
 	<!-- Alert message that we can't run Map Storage settings due to some reasons. -->
-	<string name="cant_change_this_setting">Promiň, nastavení uložení map je dočasně nedostupné.</string>
+	<string name="cant_change_this_setting">Omlouváme se, nastavení uložení map je dočasně nedostupné.</string>
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Právě probíhá stahování země.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Doufáme, že se Ti používání MAPS.ME líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere Ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme Ti za Tvou podporu!</string>
+	<string name="appStore_message">Doufáme, že se Ti používání MAPS.ME líbí! Je-li tomu tak, ohodnoť, prosím, naši aplikaci nebo na ni napiš recenzi v Obchodu s aplikacemi. Nezabere ti to ani minutu, ale opravdu nám tím můžeš pomoci. Děkujeme ti za tvou podporu!</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Ne, díky</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -266,11 +266,11 @@
 	<!-- Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
 	<string name="my_position_share_sms">Koukni kde jsem. Otevři odkaz: %1$s nebo %2$s</string>
 	<!-- Subject for emailed bookmark -->
-	<string name="bookmark_share_email_subject">Koukni na moji značku na mapě MAPS.ME</string>
+	<string name="bookmark_share_email_subject">Koukni na moji značku na mapě v MAPS.ME</string>
 	<!-- Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me -->
-	<string name="bookmark_share_email">Ahoj,\n\nOznačil/a jsem: %1$s v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDíky.</string>
+	<string name="bookmark_share_email">Ahoj,\n\noznačil/a jsem: %1$s v MAPS.ME, offline mapách celého světa. Klepni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDíky.</string>
 	<!-- Subject for emailed position -->
-	<string name="my_position_share_email_subject">Podívejte se na mou aktuální polohu na mapě na MAPS.ME</string>
+	<string name="my_position_share_email_subject">Podívej se na mou aktuální polohu na mapě na MAPS.ME</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
 	<string name="my_position_share_email">Ahoj,\n\nPrávě jsem tady: %1$s. Klepni na jeden z těchto odkazů %2$s, %3$s a uvidíš toto místo na mapě.\n\nDíky.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
@@ -281,6 +281,16 @@
 	<string name="message">Zpráva</string>
 	<!-- Share by email button text -->
 	<string name="email">E-Mail</string>
+	<!-- Promocode Activation dialog title -->
+	<string name="promocode_activation">Uplatnit kód</string>
+	<!-- Enter promo code hint -->
+	<string name="enter_promocode_hint">Zadej promo kód</string>
+	<!-- Promocode Activation success message -->
+	<string name="promocode_success">Kód byl úspěšně přijat!</string>
+	<!-- Promocode Activation connection/io error -->
+	<string name="promocode_error">Chyba připojení. Opakuj akci později.</string>
+	<!-- Promocode Activation is invalid  message. -->
+	<string name="promocode_failure">Nesprávný kód! Opakuj zadání.</string>
 	<!-- Copy Link -->
 	<string name="copy_link">Zkopírovat odkaz</string>
 	<!-- Text for the button that returns to caller application -->
@@ -290,7 +300,7 @@
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Odesílat statistiky</string>
 	<!-- Hint near allow statictics checkbox -->
-	<string name="allow_statistics_hint">Dovol nám, prosím, shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšit</string>
+	<string name="allow_statistics_hint">Dovol nám, prosím, shromažďovat statistické údaje o využivání, abychom mohli aplikaci zlepšovat</string>
 	<!-- place preview title -->
 	<string name="info">Více informací</string>
 	<!-- Used for bookmark editing -->
@@ -314,13 +324,13 @@
 	<string name="menu_search">Vyhledávání</string>
 	<string name="pref_zoom_title">Tlačítka přiblížení/oddálení</string>
 	<string name="pref_zoom_summary">Zobrazit na obrazovce</string>
-	<string name="more_apps_title">Více aplikací</string>
+	<string name="more_apps_title">Další aplikace</string>
 	<string name="more_apps_guides">Cestovní průvodce</string>
-	<string name="more_apps_ads">Více aplikací</string>
+	<string name="more_apps_ads">Další aplikace</string>
 	<string name="placepage_distance">Vzdálenost</string>
 	<string name="placepage_coordinates">Souřadnice</string>
 	<string name="placepage_unsorted">Nezařazené</string>
-	<string name="search_show_on_map">Zobrazit a mapě</string>
+	<string name="search_show_on_map">Zobrazit na mapě</string>
 	<!-- Used to warn user when fixing KitKat issue -->
 	<string name="kitkat_migrate_ok">Uložiště map bylo optimalizováno. Prosím, restartuj aplikaci.\n\nAdresář MapsWithMe v kořenové složce SD karty již není potřeba, můžeš ho smazat.</string>
 	<!-- Used to warn user when fixing KitKat issue -->
@@ -342,41 +352,47 @@
 	<!-- category title -->
 	<string name="routes">Trasy</string>
 	<!-- button in the interface -->
-	<string name="choose_starting_point">Zvolte začátek…</string>
+	<string name="choose_starting_point">Zvol začátek…</string>
 	<!-- button in the interface -->
-	<string name="choose_destination">Zvolte cíl…</string>
+	<string name="choose_destination">Zvol cíl…</string>
+	<!-- Show on first launch. -->
+	<string name="maps_licence_info">Tato aplikace využívá geografická data (zahrnující mapy, zakreslení firem a zájmových bodů, hranice států a regionů apod.), která byla převzata z otevřeného projektu OpenStreetMap. Konzistenci, přesnost, úplnost ani správnost těchto OpenStreetMap dat proto nemůžeme zaručit.</string>
+	<!-- Show on first launch. -->
+	<string name="agree">Souhlasím</string>
+	<!-- Show on first launch -->
+	<string name="disagree">Nesouhlasím</string>
 	<!-- text of notification -->
-	<string name="download_map_notification">Stáhněte si mapu místa, kde právě jste</string>
+	<string name="download_map_notification">Stáhni si mapu místa, kde právě jsi</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today">MAPS.ME Pro dnes zdarma! Stáhněte nyní a řekněte svým kamarádům.</string>
+	<string name="pro_version_is_free_today">MAPS.ME Pro dnes zdarma! Stáhni si ji nyní a dej vědět kamarádům.</string>
 	<!-- text of notification -->
-	<string name="pro_version_is_free_today_android">MAPS.ME jsou dostupné na Google Play se slevou 80 %! Stáhněte nyní a řekněte svým kamarádům.</string>
+	<string name="pro_version_is_free_today_android">Aplikace MAPS.ME je dostupná na Google Play se slevou 80 %! Stáhni si ji nyní a dej vědět kamarádům.</string>
 	<!-- Dialog for transferring maps from lite to pro. -->
-	<string name="move_lite_maps_to_pro">Právě přenášíme Vaše stažené mapy z MAPS.ME Lite na MAPS.ME. Může to několik minut trvat.</string>
+	<string name="move_lite_maps_to_pro">Právě přenášíme tvé stažené mapy z MAPS.ME Lite do MAPS.ME. Může to několik minut trvat.</string>
 	<!-- Message to display when maps moved. -->
-	<string name="move_lite_maps_to_pro_ok">Vaše stažené mapy jsou úspěšně přeneseny na MAPS.ME.</string>
+	<string name="move_lite_maps_to_pro_ok">Tvé stažené mapy jsou úspěšně přeneseny do MAPS.ME.</string>
 	<!-- Message to display when maps move failed. -->
-	<string name="move_lite_maps_to_pro_failed">Vaše mapy se nepodařilo přenést. Vymažte prosím MAPS.ME Lite a stáhněte si mapy znovu.</string>
+	<string name="move_lite_maps_to_pro_failed">Tvé mapy se nepodařilo přenést. Prosím, odstraň MAPS.ME Lite a stáhni si mapy znovu.</string>
 	<!-- Message to display on 17th-18th august -->
-	<string name="maps_me_is_free_today_ios">MAPS.ME je dnes zdarma! Sdílejte tu zprávu na Facebooku.</string>
+	<string name="maps_me_is_free_today_ios">MAPS.ME je dnes zdarma! Sdílej tu zprávu na Facebooku.</string>
 	<!-- Message to display on 17th-18th august -->
-	<string name="maps_me_is_free_today_android">MAPS.ME jsou dostupné na Google Play se slevou 80 %! Sdílejte tu zprávu na Facebooku.</string>
+	<string name="maps_me_is_free_today_android">MAPS.ME jsou dostupné na Google Play se slevou 80%! Sdílej tu zprávu na Facebooku.</string>
 	<!-- Message for facebook post on 17th-18th august -->
-	<string name="maps_me_is_free_today_facebook_post_ios">Úžasné offline mapy MAPS.ME jsou zdarma na App Store a dostupné s 80% slevou na Google Play. Pospěšte si a získejte tuto aplikaci ještě dnes, tato propagační akce brzy skončí!</string>
+	<string name="maps_me_is_free_today_facebook_post_ios">Úžasné offline mapy MAPS.ME jsou zdarma na App Store a dostupné s 80% slevou na Google Play. Pospěš si a získej tuto aplikaci ještě dnes, tato propagační akce brzy skončí!</string>
 	<!-- Message for facebook post on 17th-18th august -->
-	<string name="maps_me_is_free_today_facebook_post_android">Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80 %. Jsou také dostupné zdarma na iTunes. Nezmeškejte to!</string>
+	<string name="maps_me_is_free_today_facebook_post_android">Právě jsem na Google Play získal(a) offline mapy MAPS.ME se slevou 80%. Jsou také dostupné zdarma na iTunes. Nezmeškej to!</string>
 	<!-- Text in menu -->
-	<string name="settings_and_more">Nastavení a více</string>
+	<string name="settings_and_more">Nastavení &amp; další</string>
 	<!-- Text in menu -->
 	<string name="maps_me_community">Komunita MAPS.ME</string>
 	<!-- Text in menu -->
-	<string name="like_on_facebook">Označit pomocí To se mi líbí na Facebooku</string>
+	<string name="like_on_facebook">Lajknout na Facebooku</string>
 	<!-- Text in menu -->
 	<string name="follow_on_twitter">Následovat na Twitteru</string>
 	<!-- Text in menu -->
 	<string name="contact_us">Kontaktovat nás</string>
 	<!-- Text in menu -->
-	<string name="subscribe_to_news">Přihlásit se k našim novinkám</string>
+	<string name="subscribe_to_news">Přihlásit se k odběru novinek</string>
 	<!-- Text in menu -->
 	<string name="rate_the_app">Ohodnotit aplikaci</string>
 	<!-- Text in menu -->
@@ -386,13 +402,13 @@
 	<!-- Text in menu -->
 	<string name="report_a_bug">Nahlásit chybu</string>
 	<!-- Email subject -->
-	<string name="subscribe_me_subject">Přihlaste mě prosím k odběru zpravodaje MAPS.ME</string>
+	<string name="subscribe_me_subject">Přihlaste mě, prosím, k odběru zpravodaje MAPS.ME</string>
 	<!-- Email body -->
-	<string name="subscribe_me_body">Chci se vždy jako první dozvídat o nejnovějších zprávách aktualizacích a akčních nabídkách. Svoje přihlášení k odběru mohu kdykoli zrušit.</string>
+	<string name="subscribe_me_body">Chci se vždy jako první dozvídat o nejnovějších zprávách, aktualizacích a akčních nabídkách. Své přihlášení k odběru mohu kdykoli zrušit.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestujte s naprostou důvěrou: kdekoliv jste, MAPS.ME vám pomůže se najít na mapě, najít nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli váš názor, jak můžeme vylepšit MAPS.ME. Pokud máte s touto aplikací jakékoliv problémy, pak nás neváhejte kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se vám MAPS.ME a chtěli byste nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napište recenzi ve svém obchodě s aplikacemi\n- označte naši stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekněte o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jste s námi. Velmi oceňujeme vaši podporu!\n\nP.S. Mapová data získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíte, že na mapě něco chybí nebo je špatně, pak můžete mapy opravit přímo na http://openstreetmap.org, a vaše změny se objeví v příští verzi MAPS.ME.</string>
+	<string name="about_text">MAPS.ME nabízí nejrychlejší offline mapy všech měst a zemí po celém světě. Cestuj s naprostou důvěrou: kdekoliv jsi, MAPS.ME ti pomůže se najít na mapě, vyhledat nejbližší restauraci, hotel, banku, benzínovou pumpu atd. Nevyžaduje připojení k Internetu.\n\nNeustále pracujeme na nových funkcích a rádi bychom slyšeli také Tvůj názor, jak můžeme MAPS.ME vylepšit. Pokud máš s touto aplikací jakékoliv problémy, pak nás neváhej kontaktovat na support@maps.me. Odpovídáme na každý požadavek!\n\nLíbí se ti MAPS.ME a chceš nás podpořit? Existuje několik snadných způsobů zcela zdarma:\n\n- napiš recenzi ve svém obchodu s aplikacemi\n- označ naši facebookovou stránku http://www.facebook.com/mapswithme pomocí To se mi líbí\n- nebo jen řekni o MAPS.ME své mámě, kamarádům a kolegům :)\n\nDěkujeme, že jsi s námi. Velmi oceňujeme tvou podporu!\n\nP.S. Mapová data získáváme z OpenStreetMap, což je mapový projekt podobný Wikipedii, který umožňuje uživatelům vytvářet a upravovat mapy. Pokud zjistíš, že na mapě něco chybí nebo je špatně, pak můžeš mapy opravit přímo na http://openstreetmap.org, a tvé změny se objeví v příští verzi MAPS.ME. Díky!</string>
 	<!-- Alert text -->
-	<string name="email_error_body">Emailový klient nebyl nastaven. Nakonfigurujte ho prosím nebo použijte jiný způsob k tomu, abyste nás kontaktovali na %s</string>
+	<string name="email_error_body">Emailový klient nebyl ještě nakonfigurován. Nastav ho, prosím, nebo použij jiný způsob k našemu kontaktování na %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Chyba při odesílání emailu</string>
 </resources>
