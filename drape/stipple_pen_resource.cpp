@@ -144,9 +144,9 @@ StipplePenResourceInfo const * StipplePenIndex::MapResource(StipplePenKey const 
   m_pendingNodes.push_back(make_pair(pixelRect, resource));
 
   typedef pair<TResourceMapping::iterator, bool> TInsertionNode;
-  StipplePenResourceInfo * info = new StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect),
-                                                             resource.GetSize());
-  TInsertionNode result = m_resourceMapping.insert(make_pair(handle, info));
+  MasterPointer<StipplePenResourceInfo> info(new StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect),
+                                                             resource.GetSize()));
+  TInsertionNode result = m_resourceMapping.insert(TResourceMapping::value_type(handle, info));
   ASSERT(result.second, ());
   return result.first->second.GetRaw();
 }
