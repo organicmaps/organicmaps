@@ -36,8 +36,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <boost/assert.hpp>
 
-#include <tbb/parallel_sort.h>
-
 #include <algorithm>
 #include <limits>
 #include <utility>
@@ -89,7 +87,7 @@ template <typename EdgeDataT, bool UseSharedMemory = false> class StaticGraph
 
     StaticGraph(const int nodes, std::vector<InputEdge> &graph)
     {
-        tbb::parallel_sort(graph.begin(), graph.end());
+        std::sort(graph.begin(), graph.end());
         number_of_nodes = nodes;
         number_of_edges = (EdgeIterator)graph.size();
         node_array.resize(number_of_nodes + 1);

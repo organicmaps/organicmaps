@@ -61,6 +61,7 @@ set(PrepareSources prepare.cpp ${PrepareGlob})
 add_executable(osrm-prepare ${PrepareSources})
 
 file(GLOB ServerGlob Server/*.cpp)
+file(GLOB RoutingAlgs RoutingAlgorithms/*.h)
 file(GLOB DescriptorGlob Descriptors/*.cpp)
 file(GLOB DatastructureGlob DataStructures/SearchEngineData.cpp DataStructures/RouteParameters.cpp)
 file(GLOB CoordinateGlob DataStructures/Coordinate.cpp)
@@ -84,7 +85,7 @@ add_library(OSRM ${OSRMSources} Util/GitDescription.cpp Util/FingerPrint.cpp)
 add_library(GITDESCRIPTION STATIC Util/GitDescription.cpp)
 add_dependencies(FINGERPRINT FingerPrintConfigure)
 
-add_executable(osrm-routed routed.cpp ${ServerGlob})
+add_executable(osrm-routed routed.cpp ${ServerGlob} ${RoutingAlgs})
 add_executable(osrm-datastore datastore.cpp)
 
 # Unit tests
