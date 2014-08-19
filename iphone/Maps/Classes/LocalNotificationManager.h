@@ -9,6 +9,4 @@
 - (void)showDownloadMapAlertIfNeeded;
 - (void)processNotification:(UILocalNotification *)notification;
 
-- (void)schedulePromoNotification;
-
 @end

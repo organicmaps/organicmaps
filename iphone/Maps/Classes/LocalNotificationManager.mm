@@ -9,7 +9,6 @@
 #import "UIKitCategories.h"
 
 #define DOWNLOAD_MAP_ACTION_NAME @"DownloadMapAction"
-#define PROMO_ACTION_NAME @"PromoAction"
 
 #define FLAGS_KEY @"DownloadMapNotificationFlags"
 #define SHOW_INTERVAL (6 * 30 * 24 * 60 * 60) // six months
@@ -134,49 +133,6 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 
     TIndex const index = TIndex([ui[@"Group"] intValue], [ui[@"Country"] intValue], [ui[@"Region"] intValue]);
     [self downloadCountryWithIndex:index];
-  }
-  else if ([ui[@"Action"] isEqualToString:PROMO_ACTION_NAME])
-  {
-    [[Statistics instance] logEvent:@"'Promo' Notification Clicked"];
-    [self performAfterDelay:0.3 block:^{
-      [[UIApplication sharedApplication] openProVersionFrom:@"ios_promo_notif"];
-    }];
-  }
-}
-
-- (void)schedulePromoNotification
-{
-  if (GetPlatform().IsPro())
-    return;
-
-  UIApplication * application = [UIApplication sharedApplication];
-
-  if ([application canOpenURL:[NSURL URLWithString:MAPSWITHME_PREMIUM_LOCAL_URL]])
-    return;
-
-  for (UILocalNotification * notification in application.scheduledLocalNotifications)
-  {
-    if ([notification.userInfo[@"Action"] isEqualToString:PROMO_ACTION_NAME])
-      return;
-  }
-
-  NSDateComponents * components = [[NSDateComponents alloc] init];
-  [components setYear:2014];
-  [components setMonth:8];
-  [components setDay:17];
-  [components setHour:12];
-  NSDate * date = [[NSCalendar currentCalendar] dateFromComponents:components];
-
-  if ([date timeIntervalSinceNow] > 0)
-  {
-    UILocalNotification * notification = [[UILocalNotification alloc] init];
-    notification.fireDate = date;
-    notification.alertBody = NSLocalizedString(@"pro_version_is_free_today", nil);
-    notification.soundName = UILocalNotificationDefaultSoundName;
-    notification.userInfo = @{@"Action" : PROMO_ACTION_NAME};
-
-    [application scheduleLocalNotification:notification];
-    [[Statistics instance] logEvent:@"'Promo' Notification Scheduled"];
   }
 }
 

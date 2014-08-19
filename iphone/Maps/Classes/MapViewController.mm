@@ -572,34 +572,6 @@
     [self.buyButton setTitle:proText forState:UIControlStateNormal];
   }
 #endif
-
-  [self showPromoAlertIfNeeded];
-}
-
-- (BOOL)dateIsInPromoTime:(NSDate *)date
-{
-  NSCalendar * calendar = [NSCalendar currentCalendar];
-  NSCalendarUnit unit = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour;
-  NSDateComponents * comp = [calendar components:unit fromDate:date];
-  return (comp.year == 2014) && (comp.month == 8) && ((comp.day == 17 && comp.hour >= 2) || (comp.day == 18 && comp.hour <= 22));
-}
-
-- (void)showPromoAlertIfNeeded
-{
-  NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-  NSString * alertKey = @"PromoAlertShowed";
-  if ([userDefaults boolForKey:alertKey])
-    return;
-
-  if ([self dateIsInPromoTime:[NSDate date]] && [self dateIsInPromoTime:[AppInfo sharedInfo].firstLaunchDate])
-  {
-    [userDefaults setBool:YES forKey:alertKey];
-    [userDefaults synchronize];
-
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"maps_me_is_free_today_ios", nil) message:NSLocalizedString(@"maps_me_is_free_today_facebook_post_ios", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"no_thanks", nil) otherButtonTitles:NSLocalizedString(@"share", nil), nil];
-    alertView.tag = ALERT_VIEW_PROMO;
-    [alertView show];
-  }
 }
 
 - (void)viewDidAppear:(BOOL)animated
