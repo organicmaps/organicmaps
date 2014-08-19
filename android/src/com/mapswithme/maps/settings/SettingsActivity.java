@@ -27,6 +27,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.Constants;
@@ -320,7 +321,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
       final Intent intent = new Intent(Intent.ACTION_SENDTO);
       intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_BUGS, "",
           "Android version : " + Build.VERSION.RELEASE + "\n" +
-              "Device name : " + android.os.Build.MANUFACTURER + " " + android.os.Build.MODEL + "\n\n"
+          "Device name : " + Build.MANUFACTURER + " " + Build.MODEL + "\n" +
+          "App version : " + BuildConfig.PACKAGE_NAME + " " + BuildConfig.VERSION_NAME + "\n\n"
       ));
       startActivity(intent);
     }
