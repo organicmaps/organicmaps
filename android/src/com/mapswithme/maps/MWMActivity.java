@@ -85,7 +85,7 @@ public class MWMActivity extends NvEventQueueActivity
   // Need it for search
   private static final String EXTRA_SEARCH_RES_SINGLE = "search_res_index";
   // Map tasks that we run AFTER rendering initialized
-  private final Stack<MapTask> mTasks = new Stack<MapTask>();
+  private final Stack<MapTask> mTasks = new Stack<>();
   private BroadcastReceiver mExternalStorageReceiver = null;
   private StoragePathManager mPathManager = new StoragePathManager();
   private AlertDialog mStorageDisconnectedDialog = null;
@@ -474,7 +474,7 @@ public class MWMActivity extends NvEventQueueActivity
           public void onClick(DialogInterface dlg, int which)
           {
             dlg.dismiss();
-            MWMApplication.get().submitDialogResult(dlgID, MWMApplication.get().NEVER);
+            MWMApplication.get().submitDialogResult(dlgID, MWMApplication.NEVER);
           }
         })
         .setNegativeButton(getString(R.string.later), new DialogInterface.OnClickListener()
@@ -483,7 +483,7 @@ public class MWMActivity extends NvEventQueueActivity
           public void onClick(DialogInterface dlg, int which)
           {
             dlg.dismiss();
-            MWMApplication.get().submitDialogResult(dlgID, MWMApplication.get().LATER);
+            MWMApplication.get().submitDialogResult(dlgID, MWMApplication.LATER);
           }
         })
         .create()
@@ -529,16 +529,16 @@ public class MWMActivity extends NvEventQueueActivity
   private void checkFacebookDialog()
   {
     if (ConnectionState.isConnected(this) &&
-        MWMApplication.get().shouldShowDialog(MWMApplication.get().FACEBOOK) &&
+        MWMApplication.get().shouldShowDialog(MWMApplication.FACEBOOK) &&
         !isChinaRegion())
     {
-      showDialogImpl(MWMApplication.get().FACEBOOK, R.string.share_on_facebook_text,
+      showDialogImpl(MWMApplication.FACEBOOK, R.string.share_on_facebook_text,
           new DialogInterface.OnClickListener()
           {
             @Override
             public void onClick(DialogInterface dlg, int which)
             {
-              MWMApplication.get().submitDialogResult(MWMApplication.get().FACEBOOK, MWMApplication.get().OK);
+              MWMApplication.get().submitDialogResult(MWMApplication.FACEBOOK, MWMApplication.OK);
 
               dlg.dismiss();
               UiUtils.showFacebookPage(MWMActivity.this);
