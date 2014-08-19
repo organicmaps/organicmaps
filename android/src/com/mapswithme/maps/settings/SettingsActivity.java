@@ -178,6 +178,18 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
       return super.onOptionsItemSelected(item);
   }
 
+  @SuppressWarnings("deprecation")
+  @Override
+  public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference)
+  {
+    super.onPreferenceTreeClick(preferenceScreen, preference);
+    if (preference != null && preference instanceof PreferenceScreen &&
+        ((PreferenceScreen) preference).getDialog() != null)
+      ((PreferenceScreen) preference).getDialog().getWindow().getDecorView().
+          setBackgroundDrawable(getWindow().getDecorView().getBackground().getConstantState().newDrawable());
+    return false;
+  }
+
   private WebView buildWebViewDialog(String dialogTitle)
   {
     final LayoutInflater inflater = LayoutInflater.from(this);
