@@ -6,16 +6,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.Ads.AdsManager;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 import com.mapswithme.util.statistics.Statistics;
@@ -33,8 +30,6 @@ public class WorkerService extends IntentService
   public static final String ACTION_PUSH_STATISTICS = "com.mapswithme.maps.action.stat";
   public static final String ACTION_CHECK_UPDATE = "com.mapswithme.maps.action.update";
   public static final String ACTION_DOWNLOAD_COUNTRY = "com.mapswithme.maps.action.download_country";
-  public static final String ACTION_PROMO_NOTIFICATION_SHOW = "com.mapswithme.maps.action.notification.show";
-  public static final String ACTION_PROMO_NOTIFICATION_CLICK = "com.mapswithme.maps.action.notification.click";
   public static final String ACTION_UPDATE_MENU_ADS = "com.mapswithme.maps.action.ads.update";
 
   private static final String PROMO_SHOW_EVENT_NAME = "PromoShowAndroid";
@@ -115,12 +110,6 @@ public class WorkerService extends IntentService
         break;
       case ACTION_DOWNLOAD_COUNTRY:
         handleActionCheckLocation();
-        break;
-      case ACTION_PROMO_NOTIFICATION_SHOW:
-        showPromoNotification();
-        break;
-      case ACTION_PROMO_NOTIFICATION_CLICK:
-        promoNotificationClicked();
         break;
       case ACTION_UPDATE_MENU_ADS:
         updateMenuAds();
@@ -217,24 +206,6 @@ public class WorkerService extends IntentService
         prefs.edit().putString(country, String.valueOf(System.currentTimeMillis())).commit();
       }
     }
-  }
-
-  private void showPromoNotification()
-  {
-    Notifier.placePromoNotification();
-    Statistics.INSTANCE.trackSimpleNamedEvent(PROMO_SHOW_EVENT_NAME);
-  }
-
-  private void promoNotificationClicked()
-  {
-    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MWMApplication.get().getProVersionURL())).
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    if (!Utils.isIntentAvailable(intent))
-      intent = new Intent(Intent.ACTION_VIEW, Uri.parse(MWMApplication.get().getDefaultProVersionURL())).
-          addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-    startActivity(intent);
-    Statistics.INSTANCE.trackSimpleNamedEvent(PROMO_CLICK_EVENT_NAME);
   }
 
   private void updateMenuAds()

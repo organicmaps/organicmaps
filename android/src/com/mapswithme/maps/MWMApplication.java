@@ -1,7 +1,6 @@
 package com.mapswithme.maps;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Environment;
@@ -156,14 +155,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
     // init BookmarkManager (automatically loads bookmarks)
     if (hasBookmarks())
       BookmarkManager.getBookmarkManager(getApplicationContext());
-
-    final SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
-    if (!prefs.getBoolean(PROMO_NOTIFICATION_SHOWED, false))
-    {
-      Notifier.schedulePromoNotification();
-
-      prefs.edit().putBoolean(PROMO_NOTIFICATION_SHOWED, true).commit();
-    }
 
     WorkerService.startActionUpdateAds(this);
   }

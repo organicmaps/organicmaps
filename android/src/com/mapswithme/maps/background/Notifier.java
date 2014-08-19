@@ -25,7 +25,6 @@ public class Notifier
   private final static int ID_GUIDE_AVAIL = 0x2;
   private final static int ID_DOWNLOAD_STATUS = 0x3;
   private final static int ID_DOWNLOAD_NEW_COUNTRY = 0x4;
-  private final static int ID_MWM_PRO_PROMOACTION = 0x5;
 
   private Notifier() { }
 
@@ -120,49 +119,5 @@ public class Notifier
     getNotificationManager().notify(ID_DOWNLOAD_NEW_COUNTRY, notification);
 
     Statistics.INSTANCE.trackDownloadCountryNotificationShown();
-  }
-
-  public static void schedulePromoNotification()
-  {
-    final int promoYear = 2014;
-    final int promoDate = 17;
-    final int promoHour = 12;
-    final Calendar calendar = Calendar.getInstance();
-    calendar.set(Calendar.YEAR, promoYear);
-    calendar.set(Calendar.MONTH, Calendar.AUGUST);
-    calendar.set(Calendar.DAY_OF_MONTH, promoDate);
-    calendar.set(Calendar.HOUR_OF_DAY, promoHour);
-    calendar.set(Calendar.MINUTE, 0);
-    calendar.set(Calendar.SECOND, 0);
-
-    if (System.currentTimeMillis() < calendar.getTimeInMillis())
-    {
-      final Intent intent = new Intent(MWMApplication.get(), WorkerService.class).
-          setAction(WorkerService.ACTION_PROMO_NOTIFICATION_SHOW);
-      final PendingIntent pendingIntent = PendingIntent.getService(MWMApplication.get(), 0, intent, 0);
-
-      final AlarmManager alarm = (AlarmManager) MWMApplication.get().getSystemService(Context.ALARM_SERVICE);
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-        alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-      else
-        alarm.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-    }
-  }
-
-  public static void placePromoNotification()
-  {
-    final Intent intent = new Intent(MWMApplication.get(), WorkerService.class).
-        setAction(WorkerService.ACTION_PROMO_NOTIFICATION_CLICK);
-    final PendingIntent pendingIntent = PendingIntent.getService(MWMApplication.get(), 0, intent, 0);
-
-    final String text = MWMApplication.get().getString(R.string.pro_version_is_free_today_android);
-    final Notification notification = getBuilder()
-        .setContentTitle(MWMApplication.get().getString(R.string.app_name))
-        .setContentText(text)
-        .setTicker(text)
-        .setContentIntent(pendingIntent)
-        .build();
-
-    getNotificationManager().notify(ID_MWM_PRO_PROMOACTION, notification);
   }
 }
