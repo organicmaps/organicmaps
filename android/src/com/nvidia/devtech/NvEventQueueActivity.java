@@ -242,7 +242,7 @@ public abstract class NvEventQueueActivity extends MapsWithMeBaseActivity implem
    */
   protected boolean CleanupEGL()
   {
-    return mEglWrapper.TerminateEGL();
+    return mEglWrapper != null && mEglWrapper.TerminateEGL();
   }
 
   protected boolean CreateSurfaceEGL()
