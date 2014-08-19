@@ -4,6 +4,8 @@
 #include "../glconstants.hpp"
 #include "../../base/logging.hpp"
 
+#include "../../std/cstring.hpp"
+
 namespace dp
 {
   struct MemoryComparer
