@@ -236,3 +236,66 @@ UNIT_TEST(OsmType_AlabamaRiver)
   TEST(params.IsTypeExist(GetType(arrT)), ());
   TEST_EQUAL(params.m_Types.size(), 1, ());
 }
+
+UNIT_TEST(OsmType_Synonims)
+{
+  // Smoke test.
+  {
+    char const * arr[][2] = {
+      { "building", "yes" },
+      { "shop", "yes" },
+      { "atm", "yes" }
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    char const * arrT1[] = { "building" };
+    char const * arrT2[] = { "amenity", "atm" };
+    char const * arrT3[] = { "shop" };
+    TEST_EQUAL(params.m_Types.size(), 3, ());
+    TEST(params.IsTypeExist(GetType(arrT1)), ());
+    TEST(params.IsTypeExist(GetType(arrT2)), ());
+    TEST(params.IsTypeExist(GetType(arrT3)), ());
+  }
+
+  // Duplicating test.
+  {
+    char const * arr[][2] = {
+      { "amenity", "atm" },
+      { "atm", "yes" }
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    char const * arrT[] = { "amenity", "atm" };
+    TEST_EQUAL(params.m_Types.size(), 1, ());
+    TEST(params.IsTypeExist(GetType(arrT)), ());
+  }
+
+  // "NO" tag test.
+  {
+    char const * arr[][2] = {
+      { "building", "yes" },
+      { "shop", "no" },
+      { "atm", "no" }
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    char const * arrT[] = { "building" };
+    TEST_EQUAL(params.m_Types.size(), 1, ());
+    TEST(params.IsTypeExist(GetType(arrT)), ());
+  }
+}

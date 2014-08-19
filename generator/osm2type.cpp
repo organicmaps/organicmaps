@@ -59,8 +59,8 @@ namespace ftype
       {
         if (p->childs[i].name == "tag")
         {
-          string const & k = p->childs[i].attrs["k"];
-          string const & v = p->childs[i].attrs["v"];
+          string & k = p->childs[i].attrs["k"];
+          string & v = p->childs[i].attrs["v"];
 
           if (k.empty() || is_skip_tag(k))
             continue;
@@ -70,7 +70,8 @@ namespace ftype
             continue;
 
           res = toDo(k, v);
-          if (res) return res;
+          if (res)
+            return res;
         }
       }
       return res;
@@ -144,7 +145,8 @@ namespace ftype
       {
         ++m_count;
 
-        if (v.empty()) return false;
+        if (v.empty())
+          return false;
 
         // get name with language suffix
         string lang;
@@ -223,7 +225,8 @@ namespace ftype
         if (is_good_tag(k, v))
         {
           ClassifObjectPtr p = m_parent->BinaryFind(m_isKey ? k : v);
-          if (p) return p;
+          if (p)
+            return p;
         }
         return ClassifObjectPtr(0, 0);
       }
@@ -256,11 +259,30 @@ namespace ftype
 
             // now try to match correspondent value
             p = do_find_obj(p.get(), false)(k, v);
-            if (p) m_path.push_back(p);
+            if (p)
+              m_path.push_back(p);
           }
         }
 
         return (!m_path.empty() ? m_path.back() : ClassifObjectPtr(0, 0));
+      }
+    };
+
+    /// Process synonim tags to match existing classificator types.
+    /// @todo We are planning to rewrite classificator <-> tags matching.
+    class do_replace_synonims
+    {
+    public:
+      typedef bool result_type;
+
+      bool operator() (string & k, string & v) const
+      {
+        if (k == "atm" && v == "yes")
+        {
+          k = "amenity";
+          v = "atm";
+        }
+        return false;
       }
     };
   }
@@ -275,6 +297,11 @@ namespace ftype
     size_t count;
     for_each_tag(p, do_find_name(count, params));
     return count;
+  }
+
+  void process_synonims(XMLElement * p)
+  {
+    for_each_tag(p, do_replace_synonims());
   }
 
 //#ifdef DEBUG
@@ -323,6 +350,8 @@ namespace ftype
     // maybe an empty feature
     if (process_common_params(p, params) == 0)
       return;
+
+    process_synonims(p);
 
     set<string> skipRootKeys;
 
