@@ -268,9 +268,9 @@ namespace ftype
       }
     };
 
-    /// Process synonim tags to match existing classificator types.
+    /// Process synonym tags to match existing classificator types.
     /// @todo We are planning to rewrite classificator <-> tags matching.
-    class do_replace_synonims
+    class do_replace_synonyms
     {
     public:
       typedef bool result_type;
@@ -301,7 +301,7 @@ namespace ftype
 
   void process_synonims(XMLElement * p)
   {
-    for_each_tag(p, do_replace_synonims());
+    for_each_tag(p, do_replace_synonyms());
   }
 
 //#ifdef DEBUG

@@ -3520,7 +3520,7 @@
     en = Promo Code Activation
     tags = android
     comment = Promocode Activation dialog title
-	cs = Uplatnit kód
+    cs = Uplatnit kód
     de = Aktivierung des Aktionscodes
     fr = Activation de code de promotion
     pl = Aktywacja kodu promocyjnego
@@ -3535,7 +3535,7 @@
     en = Enter Promo Code
     tags = android
     comment = Enter promo code hint
-	cs = Zadej promo kód
+    cs = Zadej promo kód
     de = Geben Sie den Aktionscode ein
     fr = Entrer le code de promotion
     pl = Wprowadź kod promocyjny
@@ -3551,7 +3551,7 @@
     en = Promo code is activated!
     tags = android
     comment = Promocode Activation success message
-	cs = Kód byl úspěšně přijat!
+    cs = Kód byl úspěšně přijat!
     de = Aktionscode wurde aktiviert!
     fr = Code de promotion activé !
     pl = Kod promocyjny został aktywowany!
@@ -3567,7 +3567,7 @@
     en = Connection error. Please try again later.
     tags = android
     comment = Promocode Activation connection/io error
-	cs = Chyba připojení. Opakuj akci později.
+    cs = Chyba připojení. Opakuj akci později.
     de = Verbindungsfehler: Bitte versuchen Sie es später erneut.
     fr = Erreur de connexion. Veuillez recommencer ultérieurement.
     pl = Błąd połączenia. Proszę spróbować ponownie później.
@@ -3583,7 +3583,7 @@
     en = Invalid promo code. Please try again.
     tags = android
     comment = Promocode Activation is invalid  message.
-	cs = Nesprávný kód! Opakuj zadání.
+    cs = Nesprávný kód! Opakuj zadání.
     de = Ungültiger Aktionscode. Bitte versuchen Sie es nochmals.
     fr = Code de promotion non valide. Veuillez recommencer.
     pl = Błędny kod promocyjny. Spróbuj ponownie.

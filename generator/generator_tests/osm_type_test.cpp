@@ -237,7 +237,7 @@ UNIT_TEST(OsmType_AlabamaRiver)
   TEST_EQUAL(params.m_Types.size(), 1, ());
 }
 
-UNIT_TEST(OsmType_Synonims)
+UNIT_TEST(OsmType_Synonyms)
 {
   // Smoke test.
   {
