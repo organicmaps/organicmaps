@@ -2265,7 +2265,7 @@ hu:oszlop|sport
 th:ขว้าง|กีฬา
 zh-Hans:2球场|运动
 ar:ميدان اللعب|رياضة
-da:teltplads|fiskested|fodboldbane|bane|sportsplads
+da:sport|fiskested|fodboldbane|bane|sportsplads
 tr:alan|spor
 
 leisure-swimming_pool
@@ -2444,7 +2444,7 @@ hu:4kemping|sátrazóhely
 th:4การตั้งแคมป์|สถานที่ตั้งแคมป์|ที่ตั้งแคม
 zh-Hans:露营|营地|营地
 ar:تخييم|مكان التخييم|أرض التخييم
-da:camping|campingplads|teltplads|lejrplads|campingplads|teltplads|lejrplads
+da:camping|campingplads|teltplads|lejrplads
 tr:2kamp alanı|kamp|kamp yeri
 
 
