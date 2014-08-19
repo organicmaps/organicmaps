@@ -1,8 +1,7 @@
 #pragma once
 
 #include "../indexer/search_delimiters.hpp"
-#include "../base/buffer_vector.hpp"
-#include "../std/algorithm.hpp"
+
 
 namespace search
 {

@@ -335,7 +335,6 @@ UNIT_TEST(LastUniChar)
   TEST_EQUAL(strings::LastUniChar(""), 0, ());
   TEST_EQUAL(strings::LastUniChar("Hello"), 0x6f, ());
   TEST_EQUAL(strings::LastUniChar(" \xD0\x90"), 0x0410, ());
-
 }
 
 UNIT_TEST(GetUniString)
@@ -372,10 +371,17 @@ UNIT_TEST(Normalize)
   TEST_EQUAL(us, result, ());
 }
 
-UNIT_TEST(Normalize_Polish)
+UNIT_TEST(Normalize_Special)
 {
-  string const utf8 = "ąĄćłŁÓŻźŃĘęĆ";
-  TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), "aAclLOZzNEeC", ());
+  {
+    string const utf8 = "ąĄćłŁÓŻźŃĘęĆ";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), "aAclLOZzNEeC", ());
+  }
+
+  {
+    string const utf8 = "əüöğ";
+    TEST_EQUAL(strings::ToUtf8(strings::Normalize(strings::MakeUniString(utf8))), "əuog", ());
+  }
 }
 
 UNIT_TEST(UniStringToUtf8)
