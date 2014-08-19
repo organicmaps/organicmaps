@@ -45,7 +45,8 @@ area::* {
 *[man_made],
 *[natural],
 *[power],
-*[landuse]
+*[landuse],
+*[craft],
 {
   text-position: center
 }
@@ -536,7 +537,11 @@ line|z12[railway=disused]
   opacity: 0.5;
 }
 area|z12-13[natural=peak],
-node|z12-13[natural=peak]
+node|z12-13[natural=peak],
+area|z12-13[natural=rock],
+node|z12-13[natural=rock],
+area|z13-15[natural=bare_rock],
+node|z13-15[natural=bare_rock],
 {
   icon-image: peak-mini.svg;
 }
@@ -688,7 +693,11 @@ node|z13[aerialway=station]
   symbol-size: 2;
 }
 area|z13-15[natural=peak],
-node|z13-15[natural=peak]
+node|z13-15[natural=peak],
+area|z13-15[natural=rock],
+node|z13-15[natural=rock],
+area|z13-15[natural=bare_rock],
+node|z13-15[natural=bare_rock],
 {
   text-offset: 10;
   text: name;
@@ -837,10 +846,12 @@ line|z14[railway=yard]
   width: 1.6;
   z-index: 208;
 }
-area|z14-15[natural=cave_entrance],
 area|z14-15[natural=volcano],
+node|z14-15[natural=volcano],
 node|z14-15[natural=cave_entrance],
-node|z14-15[natural=volcano]
+area|z14-15[natural=cave_entrance],
+node|z14-15[natural=cape],
+area|z14-15[natural=cape],
 {
   text-offset: 10;
   text: name;
@@ -857,7 +868,11 @@ line|z14[railway=abandoned]::d1p3
   dashes: 4.5,4.5;
 }
 area|z14-[natural=peak],
-node|z14-[natural=peak]
+node|z14-[natural=peak],
+area|z14-[natural=rock],
+node|z14-[natural=rock],
+area|z14-[natural=bare_rock],
+node|z14-[natural=bare_rock],
 {
   icon-image: peak.svg;
 }
@@ -2164,10 +2179,12 @@ area|z17-[amenity],
 area|z17-[historic],
 area|z17-[office][office!=no],
 area|z17-[tourism],
+area|z17-[craft],
 node|z17-[amenity],
 node|z17-[historic],
 node|z17-[office][office!=no],
-node|z17-[tourism]
+node|z17-[tourism],
+node|z17-[craft],
 {
   font-size: 11;
   text-halo-radius: 2;
@@ -2266,7 +2283,11 @@ node|z16-[power=pole]
   icon-image: power-pole.svg;
 }
 area|z16-[natural=peak],
-node|z16-[natural=peak]
+node|z16-[natural=peak],
+area|z16-[natural=rock],
+node|z16-[natural=rock],
+area|z16-[natural=bare_rock],
+node|z16-[natural=bare_rock],
 {
   text-offset: 10;
   text: name;
@@ -2444,10 +2465,12 @@ line|z16[boundary=administrative][border_type=suburb]
   z-index: 936;
   dashes: 4,20;
 }
-area|z16-[natural=cave_entrance],
+node|z16-[natural=volcano],
 area|z16-[natural=volcano],
 node|z16-[natural=cave_entrance],
-node|z16-[natural=volcano]
+area|z16-[natural=cave_entrance],
+node|z16-[natural=cape],
+area|z16-[natural=cape],
 {
   text-offset: 10;
   text: name;
@@ -3811,6 +3834,11 @@ line|z16-[oneway?]::arrows
   z-index: 1000;
   pattern-image: arrow.svg;
   pattern-spacing: 234;
+}
+line|z16-[natural=tree_row]
+{
+  pattern-image: tree.svg;
+  pattern-spacing: 100;
 }
 
 /* Review roads styles for different access. Opacity == 0 is useless. */

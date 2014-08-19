@@ -149,6 +149,19 @@ world  +
             underground  -
             {}
         {}
+    craft  +
+        brewery  -
+        carpenter  -
+        electrician  -
+        gardener  -
+        hvac  -
+        metal_construction  -
+        painter  -
+        photographer  -
+        plumber  -
+        shoemaker  -
+        tailor  -
+        {}
     earthquake:damage  +
         spontaneous_camp  -
         {}
@@ -386,11 +399,7 @@ world  +
         playing_fields  +
             tennis  -
             {}
-        recreation_ground  +
-            no-access  -
-            permissive  -
-            private  -
-            {}
+        recreation_ground  -
         slipway  -
         sports_centre  -
         stadium  -
@@ -427,8 +436,10 @@ world  +
         bunker  -
         {}
     natural  +
+        bare_rock  -
         bay  -
         beach  -
+        cape  -
         cave_entrance  -
         cliff  -
         coastline  -
@@ -442,10 +453,12 @@ world  +
         orchard  -
         peak  -
         pond  -
+        rock  -
         salt_pond  -
         scrub  -
         spring  -
         tree  -
+        tree_row  -
         vineyard  -
         volcano  -
         water  -

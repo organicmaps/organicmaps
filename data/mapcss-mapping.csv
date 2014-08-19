@@ -357,7 +357,7 @@ amenity|parking|underground|fee;[amenity=parking][location=underground][fee?];;n
 amenity|parking|underground;[amenity=parking][location=underground];;name;int_name;357;
 man_made|pipeline|gas;[man_made=pipeline][gas];x;name;int_name;358;man_made|pipeline
 amenity|parking|multi-storey;[amenity=parking][parking=multi-storey];;name;int_name;359;
-leisure|recreation_ground|private;[leisure=recreation_ground][access=private];;name;int_name;360;
+leisure|recreation_ground;[leisure=recreation_ground];;name;int_name;360;
 highway|footway|mountain_hiking;[highway=footway][sac_scale=mountain_hiking];;name;int_name;361;
 highway|service|driveway|bridge;[highway=service][service=driveway][bridge?];;name;int_name;362;
 amenity|parking|multi-storey|fee;[amenity=parking][parking=multi-storey][fee?];;name;int_name;363;
@@ -661,7 +661,7 @@ natural|construction;[natural][construction?];x;name;int_name;660;
 communication|line;[communication=line];;name;int_name;661;
 highway|tertiary_link|motorroad;[highway=tertiary_link][motorroad?];x;name;int_name;662;highway|tertiary_link
 railway|dismantled|tunnel;[railway=dismantled][tunnel?];x;name;int_name;663;
-leisure|recreation_ground|permissive;[leisure=recreation_ground][access=permissive];;name;int_name;664;
+leisure|recreation_ground|permissive;[leisure=recreation_ground][access=permissive];x;name;int_name;664;leisure|recreation_ground
 railway|yard|bridge;[railway=yard][bridge?];;name;int_name;665;
 landuse|raceway|dismantled;[landuse=raceway][dismantled?];x;name;int_name;666;
 railway|planned|tunnel;[railway=planned][tunnel?];x;name;int_name;667;
@@ -846,8 +846,8 @@ landuse|scrub|mixed;[landuse=scrub][wood=mixed];x;name;int_name;845;
 leisure|dog_park|tennis;[leisure=dog_park][sport=tennis];;name;int_name;846;
 leisure|park|no-access;[leisure=park][access=no];;name;int_name;847;
 leisure|playing_fields|tennis;[leisure=playing_fields][sport=tennis];;name;int_name;848;
-leisure|recreation_ground|destination;[leisure=recreation_ground][access=destination];x;name;int_name;849;
-leisure|recreation_ground|no-access;[leisure=recreation_ground][access=no];;name;int_name;850;
+leisure|recreation_ground|private;[leisure=recreation_ground][access=private];x;name;int_name;849;leisure|recreation_ground
+leisure|recreation_ground|no-access;[leisure=recreation_ground][access=no];x;name;int_name;850;leisure|recreation_ground
 man_made|pipeline|gas|overground;[man_made=pipeline][type=gas][location=overground];x;name;int_name;851;man_made|pipeline
 man_made|pipeline|heat|overground;[man_made=pipeline][type=heat][location=overground];x;name;int_name;852;man_made|pipeline
 man_made|pipeline|hot_water|overground;[man_made=pipeline][type=hot_water][location=overground];x;name;int_name;853;man_made|pipeline
@@ -966,3 +966,18 @@ historic|wayside_shrine;[historic=wayside_shrine];;name;int_name;965;
 historic|boundary_stone;[historic=boundary_stone];;name;int_name;966;
 historic|citywalls;[historic=citywalls];;name;int_name;967;
 historic|tomb;[historic=tomb];;name;int_name;968;
+natural|rock;[natural=rock];;name;int_name;969;
+natural|bare_rock;[natural=bare_rock];;name;int_name;970;
+natural|tree_row;[natural=tree_row];;name;int_name;971;
+natural|cape;[natural=cape];;name;int_name;972;
+craft|carpenter;[craft=carpenter];;name;int_name;973;
+craft|shoemaker;[craft=shoemaker];;name;int_name;974;
+craft|photographer;[craft=photographer];;name;int_name;975;
+craft|electrician;[craft=electrician];;name;int_name;976;
+craft|tailor;[craft=tailor];;name;int_name;977;
+craft|plumber;[craft=plumber];;name;int_name;978;
+craft|brewery;[craft=brewery];;name;int_name;979;
+craft|metal_construction;[craft=metal_construction];;name;int_name;980;
+craft|hvac;[craft=hvac];;name;int_name;981;
+craft|painter;[craft=painter];;name;int_name;982;
+craft|gardener;[craft=gardener];;name;int_name;983;

@@ -357,7 +357,7 @@ amenity|parking|underground|fee
 amenity|parking|underground
 man_made|pipeline
 amenity|parking|multi-storey
-leisure|recreation_ground|private
+leisure|recreation_ground
 highway|footway|mountain_hiking
 highway|service|driveway|bridge
 amenity|parking|multi-storey|fee
@@ -661,7 +661,7 @@ mapswithme
 communication|line
 highway|tertiary_link
 mapswithme
-leisure|recreation_ground|permissive
+leisure|recreation_ground
 railway|yard|bridge
 mapswithme
 mapswithme
@@ -846,8 +846,8 @@ mapswithme
 leisure|dog_park|tennis
 leisure|park|no-access
 leisure|playing_fields|tennis
-mapswithme
-leisure|recreation_ground|no-access
+leisure|recreation_ground
+leisure|recreation_ground
 man_made|pipeline
 man_made|pipeline
 man_made|pipeline
@@ -966,3 +966,18 @@ historic|wayside_shrine
 historic|boundary_stone
 historic|citywalls
 historic|tomb
+natural|rock
+natural|bare_rock
+natural|tree_row
+natural|cape
+craft|carpenter
+craft|shoemaker
+craft|photographer
+craft|electrician
+craft|tailor
+craft|plumber
+craft|brewery
+craft|metal_construction
+craft|hvac
+craft|painter
+craft|gardener

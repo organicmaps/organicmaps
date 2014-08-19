@@ -1,6 +1,6 @@
 area[landuse],
 area[natural],
-area[leisure]
+area[leisure],
 {
   fill-position: background;
 }
@@ -34,9 +34,10 @@ area|z12-[landuse=field],
 area|z12-[landuse=grass],
 area|z12-[landuse=meadow],
 area|z12-[landuse=recreation_ground],
+area|z12-[leisure=recreation_ground],
 area|z12-[landuse=village_green],
 area|z12-[natural=scrub],
-area|z12-[natural=grassland]
+area|z12-[natural=grassland],
 {
   fill-color: #d0e8c4;
 }
@@ -151,6 +152,7 @@ area|z15[landuse=orchard],
 area|z15[landuse=quarry],
 area|z15[landuse=railway],
 area|z15[landuse=recreation_ground],
+area|z15[leisure=recreation_ground],
 area|z15[landuse=reservoir],
 area|z15[landuse=retail],
 area|z15[landuse=salt_pond],
@@ -165,7 +167,7 @@ area|z15[natural=vineyard],
 node|z17-[aeroway=gate],
 node|z14-15[natural=bay],
 area|z14-[landuse=field],
-area|z15-[landuse=residential]
+area|z15-[landuse=residential],
 {
   text: name;
   font-size: 12;
@@ -181,7 +183,7 @@ area|z17-[leisure=park],
 node|z13-[highway=motorway_junction],
 node|z17-[tourism=caravan_site],
 node|z17-[tourism=zoo],
-node|z16-[amenity=townhall]
+node|z16-[amenity=townhall],
 {
   font-size: 12;
   text-halo-radius: 2;
@@ -211,6 +213,7 @@ area|z16-[landuse=orchard],
 area|z16-[landuse=quarry],
 area|z16-[landuse=railway],
 area|z16-[landuse=recreation_ground],
+area|z16-[leisure=recreation_ground],
 area|z16-[landuse=reservoir],
 area|z16-[landuse=retail],
 area|z16-[landuse=salt_pond],
@@ -243,6 +246,7 @@ node|z16-[landuse=orchard],
 node|z16-[landuse=quarry],
 node|z16-[landuse=railway],
 node|z16-[landuse=recreation_ground],
+node|z16-[leisure=recreation_ground],
 node|z16-[landuse=reservoir],
 node|z16-[landuse=retail],
 node|z16-[landuse=salt_pond],
@@ -253,7 +257,7 @@ node|z16-[natural=grassland],
 node|z16-[natural=meadow],
 node|z16-[natural=orchard],
 node|z16-[natural=salt_pond],
-node|z16-[natural=vineyard]
+node|z16-[natural=vineyard],
 {
   text: name;
   font-size: 16;
