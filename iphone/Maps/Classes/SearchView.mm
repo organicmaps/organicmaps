@@ -174,23 +174,14 @@ __weak SearchView * selfPointer;
   if ((_state == SearchViewStateResults && state == SearchViewStateHidden) || state == SearchViewStateFullscreen)
     [self clearSearchResultsMode];
 
-  UIViewAnimationOptions options = UIViewAnimationOptionCurveEaseInOut;
-  double damping = 0.9;
-  NSTimeInterval duration = animated ? 0.3 : 0;
-  CGFloat searchBarOffset = (state == SearchViewStateHidden) ? -self.searchBar.height : [self defaultSearchBarMinY];
+  UIViewAnimationOptions const options = UIViewAnimationOptionCurveEaseInOut;
+  double const damping = 0.9;
+  NSTimeInterval const duration = animated ? 0.3 : 0;
+  CGFloat const searchBarOffset = (state == SearchViewStateHidden) ? -self.searchBar.height : [self defaultSearchBarMinY];
 
-  CGFloat const fieldBackgroundMinX = 12.5;
-  CGRect const fieldBackgroundFrame = CGRectMake(fieldBackgroundMinX, self.searchBar.fieldBackgroundView.minY, self.searchBar.width - fieldBackgroundMinX - 69, self.searchBar.fieldBackgroundView.height);
-
-  CGFloat const textFieldMinX = 44;
-  CGRect const textFieldFrame = CGRectMake(textFieldMinX, self.searchBar.textField.minY, self.searchBar.width - textFieldMinX - 95, 22);
-
-  CGFloat const shift = 55;
-  CGRect shiftedFieldBackgroundFrame = fieldBackgroundFrame;
-  shiftedFieldBackgroundFrame.size.width += shift;
-
-  CGRect shiftedTextFieldFrame = textFieldFrame;
-  shiftedTextFieldFrame.size.width += shift;
+  CGFloat const cancelButtonMinX = (state == SearchViewStateResults) ? self.searchBar.width - 4 : self.searchBar.cancelButton.minX;
+  CGFloat const textFieldBackgroundWidth = cancelButtonMinX - self.searchBar.fieldBackgroundView.minX - 8;
+  CGFloat const textFieldWidth = textFieldBackgroundWidth - 60;
 
   if (state == SearchViewStateFullscreen)
   {
@@ -211,8 +202,8 @@ __weak SearchView * selfPointer;
       self.topBackgroundView.height = [self defaultTopBackgroundHeight];
       self.searchBar.minY = searchBarOffset;
       self.searchBar.alpha = 1;
-      self.searchBar.fieldBackgroundView.frame = fieldBackgroundFrame;
-      self.searchBar.textField.frame = textFieldFrame;
+      self.searchBar.fieldBackgroundView.width = textFieldBackgroundWidth;
+      self.searchBar.textField.width = textFieldWidth;
       [self.searchBar.clearButton setImage:[UIImage imageNamed:@"SearchBarClearButton"] forState:UIControlStateNormal];
     } completion:^(BOOL finished){
       if (needToScroll)
@@ -240,8 +231,8 @@ __weak SearchView * selfPointer;
         self.topBackgroundView.height = [self defaultTopBackgroundHeight];
       }
       self.tableView.alpha = 0;
-      self.searchBar.fieldBackgroundView.frame = shiftedFieldBackgroundFrame;
-      self.searchBar.textField.frame = shiftedTextFieldFrame;
+      self.searchBar.fieldBackgroundView.width = textFieldBackgroundWidth;
+      self.searchBar.textField.width = textFieldWidth;
       [self.searchBar.clearButton setImage:[UIImage imageNamed:@"SearchBarClearResultsButton"] forState:UIControlStateNormal];
     } completion:nil];
   }
@@ -254,8 +245,8 @@ __weak SearchView * selfPointer;
       self.searchBar.alpha = 0;
       self.topBackgroundView.maxY = 0;
       self.tableView.alpha = 0;
-      self.searchBar.fieldBackgroundView.frame = fieldBackgroundFrame;
-      self.searchBar.textField.frame = textFieldFrame;
+      self.searchBar.fieldBackgroundView.width = textFieldBackgroundWidth;
+      self.searchBar.textField.width = textFieldWidth;
       [self.searchBar.clearButton setImage:[UIImage imageNamed:@"SearchBarClearButton"] forState:UIControlStateNormal];
     } completion:nil];
   }

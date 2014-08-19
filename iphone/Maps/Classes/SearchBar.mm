@@ -21,6 +21,7 @@
 
   [self addSubview:self.fieldBackgroundView];
   self.fieldBackgroundView.maxY = self.height - 12;
+  self.fieldBackgroundView.minX = 12.5;
 
   [self.fieldBackgroundView addSubview:self.spotImageView];
   self.spotImageView.center = CGPointMake(14, self.fieldBackgroundView.height / 2 - 1);
@@ -32,11 +33,12 @@
   self.clearButton.midX = self.fieldBackgroundView.width - 14;
 
   self.cancelButton.midY = self.height / 2 - 5;
-  self.cancelButton.maxX = self.width - 3;
+  self.cancelButton.maxX = self.width - 4;
   [self addSubview:self.cancelButton];
 
-  self.textField.midY = self.height / 2 - 3;
   [self addSubview:self.textField];
+  self.textField.midY = self.height / 2 - 3;
+  self.textField.minX = 44;
 
   if ([self.textField respondsToSelector:@selector(setTintColor:)])
     self.textField.tintColor = [UIColor whiteColor];
@@ -79,12 +81,15 @@
 {
   if (!_cancelButton)
   {
-    _cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, 44)];
+    _cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 52, 44)];
     _cancelButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
     _cancelButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_cancelButton setTitleColor:[UIColor colorWithWhite:1 alpha:0.5] forState:UIControlStateHighlighted];
-    [_cancelButton setTitle:NSLocalizedString(@"cancel", nil) forState:UIControlStateNormal];
+    NSString * title = NSLocalizedString(@"cancel", nil);
+    CGFloat const titleWidth = [title sizeWithDrawSize:CGSizeMake(80, 25) font:_cancelButton.titleLabel.font].width;
+    _cancelButton.width = MAX(titleWidth, _cancelButton.width);
+    [_cancelButton setTitle:title forState:UIControlStateNormal];
     [_cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
   return _cancelButton;
