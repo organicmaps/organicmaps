@@ -2,6 +2,7 @@ package com.mapswithme.maps.Ads;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.util.ConnectionState;
@@ -230,7 +231,7 @@ public class AdsManager
   private static String getStringByKeyOrDefault(JSONObject json, String key) throws JSONException
   {
     String res = json.optString(key);
-    if (res.isEmpty())
+    if (TextUtils.isEmpty(res))
       res = json.optString(DEFAULT_KEY);
 
     return res;

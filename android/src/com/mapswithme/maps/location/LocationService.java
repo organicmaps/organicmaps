@@ -1,5 +1,6 @@
 package com.mapswithme.maps.location;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.hardware.GeomagneticField;
 import android.hardware.Sensor;
@@ -11,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -104,30 +106,30 @@ public class LocationService implements
   private void createLocationProvider()
   {
     boolean isLocationTurnedOn = false;
-    // if location is turned off(by user in system settings), google client( = fused provider) api doesnt work at all
-    // but external gps receivers still can work. in that case we prefer native provider instead of fused - it works.
+
+    // If location is turned off(by user in system settings), google client( = fused provider) api doesn't work at all
+    // but external gps receivers still can work. In that case we prefer native provider instead of fused - it works.
+    final ContentResolver resolver = MWMApplication.get().getContentResolver();
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
     {
-      String locationProviders = Settings.Secure.getString(MWMApplication.get().getContentResolver(),
-          Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-      if (!locationProviders.isEmpty())
-        isLocationTurnedOn = true;
+      final String providers = Settings.Secure.getString(resolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+      isLocationTurnedOn = !TextUtils.isEmpty(providers);
     }
     else
     {
       try
       {
-        int locationMode = Settings.Secure.getInt(MWMApplication.get().getContentResolver(),
-            Settings.Secure.LOCATION_MODE);
-        isLocationTurnedOn = locationMode != Settings.Secure.LOCATION_MODE_OFF;
-      } catch (Settings.SettingNotFoundException e)
+        final int mode = Settings.Secure.getInt(resolver, Settings.Secure.LOCATION_MODE);
+        isLocationTurnedOn = mode != Settings.Secure.LOCATION_MODE_OFF;
+      }
+      catch (Settings.SettingNotFoundException e)
       {
         e.printStackTrace();
       }
     }
 
-    if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplication) == ConnectionResult.SUCCESS &&
-        isLocationTurnedOn)
+    if (isLocationTurnedOn &&
+        GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplication) == ConnectionResult.SUCCESS)
     {
       mLogger.d("Use fused provider.");
       mLocationProvider = new GoogleFusedLocationProvider();
