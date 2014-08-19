@@ -37,6 +37,8 @@
                        @"iPhone2,1" : @"iPhone 3GS",
                        @"iPhone3,1" : @"iPhone 4",
                        @"iPhone4,1" : @"iPhone 4S",
+                       @"iPhone4,2" : @"iPhone 4S",
+                       @"iPhone4,3" : @"iPhone 4S",
                        @"iPhone5,1" : @"iPhone 5",
                        @"iPhone5,2" : @"iPhone 5",
                        @"iPhone5,3" : @"iPhone 5c",
@@ -44,8 +46,12 @@
                        @"iPhone6,1" : @"iPhone 5s",
                        @"iPhone6,2" : @"iPhone 5s",
                        @"iPad1,1" : @"iPad",
-                       @"iPad2,1" : @"iPad 2",
-                       @"iPad3,1" : @"iPad 3rd generation",
+                       @"iPad2,1" : @"iPad 2 WiFi",
+                       @"iPad2,2" : @"iPad 2 GSM",
+                       @"iPad2,2" : @"iPad 2 CDMA",
+                       @"iPad3,1" : @"iPad 3rd generation WiFi",
+                       @"iPad3,2" : @"iPad 3rd generation GSM",
+                       @"iPad3,3" : @"iPad 3rd generation CDMA",
                        @"iPad3,4" : @"iPad 4th generation",
                        @"iPad2,5" : @"iPad Mini",
                        @"iPad4,1" : @"iPad Air - Wifi",
@@ -186,7 +192,7 @@
   NSString * device = self.deviceNames[machine];
   if (!device)
     device = machine;
-  NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@", device, [UIDevice currentDevice].systemVersion, [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
+  NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@ %@", device, [UIDevice currentDevice].systemVersion, (GetPlatform().IsPro() ? @"Pro" : @"Lite"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
   NSString * email = @"ios@maps.me";
   if ([MFMailComposeViewController canSendMail])
   {
