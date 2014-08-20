@@ -45,24 +45,6 @@ void RenderBucket::CollectOverlayHandles(RefPointer<OverlayTree> tree)
                                                     bind(&MasterPointer<OverlayHandle>::GetRefPointer, _1)));
 }
 
-namespace
-{
-
-void AccumulateMutations(MasterPointer<OverlayHandle> const & handle,
-                         RefPointer<IndexBufferMutator> indexMutator,
-                         RefPointer<AttributeBufferMutator> attributeMutator,
-                         ScreenBase const & screen)
-{
-  if (handle->IsVisible())
-  {
-    handle->GetElementIndexes(indexMutator);
-    if (handle->HasDynamicAttributes())
-      handle->GetAttributeMutation(attributeMutator, screen);
-  }
-}
-
-} // namespace
-
 void RenderBucket::Render(ScreenBase const & screen)
 {
   if (!m_overlay.empty())
@@ -70,12 +52,20 @@ void RenderBucket::Render(ScreenBase const & screen)
     // in simple case when overlay is symbol each element will be contains 6 indexes
     AttributeBufferMutator attributeMutator;
     IndexBufferMutator indexMutator(6 * m_overlay.size());
-    for_each(m_overlay.begin(), m_overlay.end(), bind(&AccumulateMutations, _1,
-                                                      MakeStackRefPointer(&indexMutator),
-                                                      MakeStackRefPointer(&attributeMutator),
-                                                      screen));
-    m_buffer->ApplyMutation(MakeStackRefPointer(&indexMutator),
-                            MakeStackRefPointer(&attributeMutator));
+    RefPointer<IndexBufferMutator> rfpIndex = MakeStackRefPointer(&indexMutator);
+    RefPointer<AttributeBufferMutator> rfpAttrib = MakeStackRefPointer(&attributeMutator);
+
+    for_each(m_overlay.begin(), m_overlay.end(), [&] (MasterPointer<OverlayHandle> handle)
+    {
+      if (handle->IsVisible())
+      {
+        handle->GetElementIndexes(rfpIndex);
+        if (handle->HasDynamicAttributes())
+          handle->GetAttributeMutation(rfpAttrib, screen);
+      }
+    });
+
+    m_buffer->ApplyMutation(rfpIndex, rfpAttrib);
   }
   m_buffer->Render();
 }
