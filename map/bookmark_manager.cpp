@@ -287,6 +287,8 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
 
 void BookmarkManager::DeleteBmCategory(CategoryIter i)
 {
+  m_selection.ActivateMark(0, false);
+
   BookmarkCategory * cat = *i;
 
   FileWriter::DeleteFileX(cat->GetFileName());
