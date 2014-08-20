@@ -39,20 +39,19 @@
 {
   NSMutableArray * items = [[NSMutableArray alloc] init];
 
-  if (!GetPlatform().IsPro())
-    [items addObject:@{@"Id" : @"MWMPro", @"Title" : NSLocalizedString(@"become_a_pro", nil), @"Icon" : [UIImage imageNamed:@"MWMProIcon"], @"Color" : @"15c783"}];
-
-   NSArray * firstGroup = @[@{@"Id" : @"Maps", @"Title" : NSLocalizedString(@"download_maps", nil), @"Icon" : [UIImage imageNamed:@"IconMap"]},
-                            @{@"Id" : @"Settings", @"Title" : NSLocalizedString(@"settings_and_more", nil), @"Icon" : [UIImage imageNamed:@"IconSettings"]},
-                            @{@"Id" : @"Share", @"Title" : NSLocalizedString(@"share_my_location", nil), @"Icon" : [UIImage imageNamed:@"IconShare"]}];
-
-  [items addObjectsFromArray:firstGroup];
-
   NSArray * serverItems = [[AppInfo sharedInfo] featureValue:AppFeatureBottomMenuItems forKey:@"Items"];
   if ([serverItems count])
     [items addObjectsFromArray:serverItems];
 
-  [items addObject:@{@"Id" : @"MoreApps",  @"Title" : NSLocalizedString(@"more_apps_title", nil), @"Icon" : [UIImage imageNamed:@"IconMoreApps"]}];
+  if (!GetPlatform().IsPro())
+    [items addObject:@{@"Id" : @"MWMPro", @"Title" : NSLocalizedString(@"become_a_pro", nil), @"Icon" : @"MWMProIcon", @"Color" : @"15c783"}];
+
+  [items addObject:@{@"Id" : @"MoreApps",  @"Title" : NSLocalizedString(@"more_apps_title", nil), @"Icon" : @"IconMoreApps"}];
+
+   NSArray * standardItems = @[@{@"Id" : @"Maps", @"Title" : NSLocalizedString(@"download_maps", nil), @"Icon" : @"IconMap"},
+                            @{@"Id" : @"Settings", @"Title" : NSLocalizedString(@"settings_and_more", nil), @"Icon" : @"IconSettings"},
+                            @{@"Id" : @"Share", @"Title" : NSLocalizedString(@"share_my_location", nil), @"Icon" : @"IconShare"}];
+  [items addObjectsFromArray:standardItems];
 
   return items;
 }
@@ -107,7 +106,7 @@
 
   if (item[@"Icon"])
   {
-    cell.iconImageView.image = item[@"Icon"];
+    cell.iconImageView.image = [UIImage imageNamed:item[@"Icon"]];
   }
   else if (item[@"IconURLs"])
   {
