@@ -11,6 +11,7 @@
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Framework.h"
+#import "Statistics.h"
 
 typedef NS_ENUM(NSUInteger, Section)
 {
@@ -123,6 +124,7 @@ typedef NS_ENUM(NSUInteger, Section)
   NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
   if (indexPath.section == SectionStatistics)
   {
+    [[Statistics instance] logEvent:@"StatisticsStatusChanged" withParameters:@{@"Enabled" : @(value)}];
     Settings::Set("StatisticsEnabled", (bool)value);
   }
   else if (indexPath.section == SectionZoomButtons)
