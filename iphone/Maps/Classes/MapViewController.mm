@@ -929,7 +929,12 @@
   {
     [menu setMenuHidden:YES animated:YES];
     [[Statistics instance] logEvent:@"Bottom menu item clicked" withParameters:@{@"Item" : itemName, @"Country": [AppInfo sharedInfo].countryCode}];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:(appURL ? appURL : webURL)]];
+    UIApplication * application = [UIApplication sharedApplication];
+    NSURL * url = [NSURL URLWithString:appURL];
+    if ([application canOpenURL:url])
+      [application openURL:url];
+    else
+      [application openURL:[NSURL URLWithString:webURL]];
   }
 }
 
