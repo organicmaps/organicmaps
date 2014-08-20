@@ -547,7 +547,7 @@ public class StoragePathManager
 
   private static void addStoragePathWithSize(String path, Map<Long, String> sizesPaths)
   {
-    Log.i(TAG, "trying to add path " + path);
+    Log.i(TAG, "Trying to add path " + path);
     try
     {
       final File f = new File(path + "/");
@@ -559,7 +559,7 @@ public class StoragePathManager
         {
           if (!sizesPaths.containsKey(size))
           {
-            Log.i(TAG, "add path " + path + ", size = " + size);
+            Log.i(TAG, "Path added: " + path + ", size = " + size);
             sizesPaths.put(size, path);
           }
         }
@@ -567,7 +567,7 @@ public class StoragePathManager
     } catch (final IllegalArgumentException ex)
     {
       // Suppress exceptions for unavailable storages.
-      Log.i(TAG, "StatFs error for storage: " + path);
+      Log.i(TAG, "StatFs error for path: " + path);
     }
   }
 
@@ -586,7 +586,6 @@ public class StoragePathManager
       while (true)
       {
         final String line = reader.readLine();
-        Log.i(TAG, "line : " + line);
         if (line == null)
           break;
 
