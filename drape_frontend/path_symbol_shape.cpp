@@ -26,7 +26,8 @@ public:
     : OverlayHandle(FeatureID(), dp::Center, 0.0f),
       m_params(params), m_spline(spl), m_scaleFactor(1.0f),
       m_positions(maxCount * VertexPerQuad), m_maxCount(maxCount),
-      m_symbolHalfWidth(hw), m_symbolHalfHeight(hh)
+      m_symbolHalfWidth(hw), m_symbolHalfHeight(hh),
+      m_bbox(1, m2::RectF(0, 0, 0, 0))
   {
     SetIsVisible(true);
   }
@@ -58,12 +59,17 @@ public:
     }
   }
 
+  vector<m2::RectF> & GetPixelShape(ScreenBase const & screen)
+  {
+    return m_bbox;
+  }
+
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const
   {
     return m2::RectD(0, 0, 0, 0);
   }
 
-  virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const
+  virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
   {
     TOffsetNode const & node = GetOffsetNode(PositionAttributeID);
     dp::MutateNode mutateNode;
@@ -80,6 +86,7 @@ private:
   int const m_maxCount;
   float m_symbolHalfWidth;
   float m_symbolHalfHeight;
+  vector<m2::RectF> m_bbox;
 };
 
 PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline,

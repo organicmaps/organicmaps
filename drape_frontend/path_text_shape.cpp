@@ -86,7 +86,13 @@ namespace
       return f.m_pixelRect;
     }
 
-    void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const
+
+    vector<m2::RectF> & GetPixelShape(ScreenBase const & screen)
+    {
+      return m_bboxes;
+    }
+
+    void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
     {
       ASSERT(IsValid(), ());
       uint32_t byteCount = 4 * m_layout->GetGlyphCount() * sizeof(glsl_types::vec2);
@@ -94,7 +100,7 @@ namespace
       df::IntrusiveVector<glsl_types::vec2> positions(buffer, byteCount);
       // m_splineOffset set offset to Center of text.
       // By this we calc offset for start of text in mercator
-      m_layout->LayoutPathText(m_begin, m_scalePtoG, positions, m_isForward);
+      m_layout->LayoutPathText(m_begin, m_scalePtoG, positions, m_isForward, m_bboxes, screen);
 
       TOffsetNode const & node = GetOffsetNode(PathGlyphPositionID);
       dp::MutateNode mutateNode;
@@ -119,6 +125,7 @@ namespace
     m2::SharedSpline m_spline;
     m2::Spline::iterator m_begin;
     m2::Spline::iterator m_end;
+    mutable vector<m2::RectF> m_bboxes;
 
     df::SharedTextLayout m_layout;
     float m_scalePtoG;

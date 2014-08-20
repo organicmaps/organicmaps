@@ -43,7 +43,9 @@ public:
   void LayoutPathText(m2::Spline::iterator const & iterator,
                       float const scalePtoG,
                       IntrusiveVector<glsl_types::vec2> & positions,
-                      bool isForwardDirection) const;
+                      bool isForwardDirection,
+                      vector<m2::RectF> & rects,
+                      const ScreenBase & screen) const;
 
   uint32_t GetGlyphCount() const;
   uint32_t GetTextureSet() const;
@@ -55,6 +57,7 @@ private:
   float AccumulateAdvance(double const & currentValue, GlyphRegion const & reg2) const;
   void InitMetric(strings::UniChar const & unicodePoint, dp::RefPointer<dp::TextureSetHolder> textures);
 
+public:
   void GetMetrics(int32_t const index, float & xOffset, float & yOffset, float & advance,
                   float & halfWidth, float & halfHeight) const;
 

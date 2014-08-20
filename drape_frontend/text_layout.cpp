@@ -3,6 +3,7 @@
 #include "../std/numeric.hpp"
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
+#include "../std/algorithm.hpp"
 
 using glsl_types::vec4;
 using glsl_types::Quad4;
@@ -30,6 +31,7 @@ public:
     , m_pivot(pivot)
     , m_offset(offset)
     , m_size(pxSize)
+    , m_bbox(1)
   {
   }
 
@@ -39,10 +41,17 @@ public:
     return m2::RectD(pivot, pivot + m_size);
   }
 
+  vector<m2::RectF> & GetPixelShape(ScreenBase const & screen)
+  {
+    m2::RectD rd = GetPixelRect(screen);
+    m_bbox[0] = m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY());
+    return m_bbox;
+  }
 private:
   m2::PointD m_pivot;
   m2::PointD m_offset;
   m2::PointD m_size;
+  vector<m2::RectF> m_bbox;
 };
 
 namespace
@@ -102,6 +111,9 @@ dp::OverlayHandle * TextLayout::LayoutText(const FeatureID & featureID,
   FillColor(fontColor, m_font.m_color);
   FillColor(outlineColor, m_font.m_outlineColor);
 
+  float maxHeight = 0.0f;
+  float minHeight = 10000.0f;
+
   float glyphOffset = 0.0;
   for (size_t i = 0; i < glyphCount; ++i)
   {
@@ -120,6 +132,8 @@ dp::OverlayHandle * TextLayout::LayoutText(const FeatureID & featureID,
     region.GetPixelSize(size);
     double const h = size.y * m_textSizeRatio;
     double const w = size.x * m_textSizeRatio;
+    maxHeight = max((float)h, maxHeight);
+    minHeight = min(yOffset, minHeight);
 
     Quad4 & position = positions[i];
     position.v[0] = vec4(pivot, m2::PointF(glyphOffset + xOffset, yOffset) + pixelOffset);
@@ -129,8 +143,14 @@ dp::OverlayHandle * TextLayout::LayoutText(const FeatureID & featureID,
     glyphOffset += advance;
   }
 
-  return new StraightTextHandle(featureID, pivot, m2::PointD(glyphOffset, m_font.m_size),
-                                pixelOffset, depth);
+  GlyphRegion const & region = m_metrics[0];
+  m2::PointU size;
+  region.GetPixelSize(size);
+  double const w = size.x * m_textSizeRatio;
+  glyphOffset += w/2.0f;
+
+  return new StraightTextHandle(featureID, pivot, m2::PointD(glyphOffset, maxHeight),
+                                m2::PointF(pixelOffset.x, pixelOffset.y + minHeight), depth);
 }
 
 void TextLayout::InitPathText(float depth,
@@ -156,7 +176,9 @@ void TextLayout::InitPathText(float depth,
 void TextLayout::LayoutPathText(m2::Spline::iterator const & iterator,
                                 float const scalePtoG,
                                 IntrusiveVector<glsl_types::vec2> & positions,
-                                bool isForwardDirection) const
+                                bool isForwardDirection,
+                                vector<m2::RectF> & rects,
+                                ScreenBase const & screen) const
 {
   if (!isForwardDirection)
     positions.SetFillDirection(df::Backward);
@@ -168,6 +190,11 @@ void TextLayout::LayoutPathText(m2::Spline::iterator const & iterator,
   int32_t endIndex = isForwardDirection ? glyphCount : -1;
   int32_t incSign = isForwardDirection ? 1 : -1;
 
+  m2::PointF accum = itr.m_dir;
+  float const koef = 0.7f;
+
+  rects.resize(GetGlyphCount());
+
   for (int32_t i = startIndex; i != endIndex; i += incSign)
   {
     float xOffset, yOffset, advance;
@@ -176,26 +203,29 @@ void TextLayout::LayoutPathText(m2::Spline::iterator const & iterator,
     advance *= scalePtoG;
 
     ASSERT_NOT_EQUAL(advance, 0.0, ());
-    m2::PointF const pos = itr.m_pos;
+    m2::PointF pos = itr.m_pos;
     itr.Step(advance);
     ASSERT(!itr.BeginAgain(), ());
 
-    m2::PointF dir = itr.m_avrDir.Normalize();
+    m2::PointF dir = (itr.m_avrDir.Normalize() * koef + accum * (1.0f - koef)).Normalize();
+    accum = dir;
     m2::PointF norm(-dir.y, dir.x);
-    m2::PointF norm2 = norm;
     dir *= halfWidth * scalePtoG;
     norm *= halfHeight * scalePtoG;
 
-    float const halfFontSize = m_textSizeRatio * scalePtoG / 2.0f;
     m2::PointF const dirComponent = dir * xOffset / halfWidth;
     m2::PointF const normalComponent = -norm * incSign * yOffset / halfHeight;
-    m2::PointF const fontSizeComponent = norm2 * incSign * halfFontSize;
-    m2::PointF const pivot = dirComponent + normalComponent + pos - fontSizeComponent;
+    m2::PointF const pivot = dirComponent + normalComponent + pos;
 
     positions.PushBack(glsl_types::vec2(pivot - dir + norm));
     positions.PushBack(glsl_types::vec2(pivot - dir - norm));
     positions.PushBack(glsl_types::vec2(pivot + dir + norm));
     positions.PushBack(glsl_types::vec2(pivot + dir - norm));
+
+    pos = screen.GtoP(pivot);
+    float maxDim = max(halfWidth, halfHeight);
+    m2::PointF const maxDir(maxDim, maxDim);
+    rects[i] = m2::RectF(pos - maxDir, pos + maxDir);
   }
 }
 

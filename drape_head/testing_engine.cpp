@@ -131,8 +131,14 @@ public:
   }
 
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const { return m2::RectD(); }
+  vector<m2::RectF> & GetPixelShape(ScreenBase const & screen)
+  {
+    m2::RectD rd = GetPixelRect(screen);
+    m_bbox[0] = m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY());
+    return m_bbox;
+  }
 
-  virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator) const
+  virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
   {
     static const my::Timer timer;
     double const angle = timer.ElapsedSeconds();
@@ -152,6 +158,7 @@ public:
 
 private:
   vector<m2::PointF> m_vectors;
+  vector<m2::RectF> m_bbox;
 };
 
 class SquareShape : public MapShape
@@ -401,7 +408,7 @@ void TestingEngine::Draw()
     for (size_t i = 0; i < buckets.size(); ++i)
       buckets[i]->CollectOverlayHandles(MakeStackRefPointer(&tree));
     for (size_t i = 0; i < buckets.size(); ++i)
-      buckets[i]->Render();
+      buckets[i]->Render(m_modelView);
     tree.EndOverlayPlacing();
   }
 
@@ -446,8 +453,8 @@ void TestingEngine::DrawImpl()
     LOG(LCRITICAL, (e.Msg()));
   }
 
-  for (size_t i = 0; i < shapes.size(); ++i)
-    shapes[i]->Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  //for (size_t i = 0; i < shapes.size(); ++i)
+    shapes[1]->Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
   DeleteRange(shapes, DeleteFunctor());
 
@@ -472,7 +479,7 @@ void TestingEngine::DrawImpl()
   params.m_secondaryTextFont = auxFd;
   params.m_secondaryText = "Small fix bugs";
   TextShape sh1(m2::PointF(200.0f, 300.0f), params);
-  sh1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  //sh1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
   params.m_featureID = FeatureID(23, 78);
   params.m_depth = -10.0f;
@@ -496,10 +503,10 @@ void TestingEngine::DrawImpl()
 
   PathTextViewParams params3;
   params3.m_depth = -10.0f;
-  params3.m_text = "√2+√3=?-fghjkfghjf---_________----+";
+  params3.m_text = "√2+√3=?----+";
   params3.m_textFont = params.m_primaryTextFont;
   PathTextShape sh3(path, params3, 1);
-  sh3.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  //sh3.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
   PathSymbolViewParams params4;
   params4.m_featureID = FeatureID(23, 78);
@@ -508,10 +515,10 @@ void TestingEngine::DrawImpl()
   params4.m_offset = 0.0f;
   params4.m_symbolName = "arrow";
   PathSymbolShape sh4(path, params4, 10);
-  sh4.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  //sh4.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
   DummyStippleElement e(m2::PointU(100, 900));
-  e.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  //e.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 }
 
 void TestingEngine::ModelViewInit()

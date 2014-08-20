@@ -11,6 +11,8 @@
 #include "../geometry/point2d.hpp"
 #include "../geometry/rect2d.hpp"
 
+#include "../base/buffer_vector.hpp"
+
 namespace dp
 {
 
@@ -30,10 +32,15 @@ public:
 
   virtual void Update(ScreenBase const & /*screen*/) {}
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const = 0;
+
+  virtual vector<m2::RectF> & GetPixelShape(ScreenBase const & screen) = 0;
+
+  bool IsIntersect(ScreenBase const & screen, OverlayHandle & h);
+
   uint16_t * IndexStorage(uint16_t size);
   size_t GetIndexCount() const;
   void GetElementIndexes(RefPointer<IndexBufferMutator> mutator) const;
-  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const;
+  virtual void GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator, ScreenBase const & screen) const;
 
   bool HasDynamicAttributes() const;
   void AddDynamicAttribute(BindingInfo const & binding, uint16_t offset, uint16_t count);
@@ -80,11 +87,13 @@ public:
                m2::PointD const & pxSize,
                double priority);
 
-  m2::RectD GetPixelRect(ScreenBase const & screen) const;
+  virtual m2::RectD GetPixelRect(ScreenBase const & screen) const;
+  virtual vector<m2::RectF> & GetPixelShape(ScreenBase const & screen);
 
 private:
   m2::PointD m_gbPivot;
   m2::PointD m_pxHalfSize;
+  vector<m2::RectF> m_bbox;
 };
 
 } // namespace dp

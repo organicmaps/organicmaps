@@ -44,6 +44,19 @@ void OverlayHandle::SetIsVisible(bool isVisible)
   m_isVisible = isVisible;
 }
 
+bool OverlayHandle::IsIntersect(ScreenBase const & screen, OverlayHandle & h)
+{
+  vector<m2::RectF> const & ar1 = GetPixelShape(screen);
+  vector<m2::RectF> const & ar2 = h.GetPixelShape(screen);
+
+  for (int i = 0; i < ar1.size(); ++i)
+    for (int j = 0; j < ar2.size(); ++j)
+      if (ar1[i].IsIntersect(ar2[j]))
+        return true;
+
+  return false;
+}
+
 uint16_t * OverlayHandle::IndexStorage(uint16_t size)
 {
   m_indexes.resize(size);
@@ -61,7 +74,7 @@ void OverlayHandle::GetElementIndexes(RefPointer<IndexBufferMutator> mutator) co
   mutator->AppendIndexes(&m_indexes[0], m_indexes.size());
 }
 
-void OverlayHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator) const
+void OverlayHandle::GetAttributeMutation(RefPointer<AttributeBufferMutator> mutator, const ScreenBase & screen) const
 {
   UNUSED_VALUE(mutator);
 }
@@ -103,6 +116,7 @@ SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor,
   : base_t(id, anchor, priority)
   , m_gbPivot(gbPivot)
   , m_pxHalfSize(pxSize.x / 2.0, pxSize.y / 2.0)
+  , m_bbox(1)
 {
 }
 
@@ -124,6 +138,13 @@ m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen) const
 
   result.Offset(offset);
   return result;
+}
+
+vector<m2::RectF> & SquareHandle::GetPixelShape(ScreenBase const & screen)
+{
+  m2::RectD rd = GetPixelRect(screen);
+  m_bbox[0] = m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY());
+  return m_bbox;
 }
 
 } // namespace dp
