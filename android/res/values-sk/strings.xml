@@ -408,4 +408,6 @@
 	<string name="email_error_body">Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Chyba pri odosielaní emailu</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Compass kalibrácia</string>
 </resources>

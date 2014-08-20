@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "จดหมายที่ส่งเกิดความผิดพลาด";
+
+/* Settings item title */
+"pref_calibration_title" = "การปรับเทียบเข็มทิศ";

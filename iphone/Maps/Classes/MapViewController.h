@@ -3,6 +3,7 @@
 #import "LocationManager.h"
 #import "LocationButton.h"
 #import "BottomMenu.h"
+#import "SearchView.h"
 
 #include "../../geometry/point2d.hpp"
 #include "../../geometry/rect2d.hpp"
@@ -44,6 +45,7 @@ namespace search { struct AddressInfo; }
 @property (nonatomic, strong) UIPopoverController * popoverVC;
 @property (nonatomic) BottomMenu * bottomMenu;
 @property (nonatomic, readonly) BOOL apiMode;
+@property (nonatomic) SearchView * searchView;
 - (void)setApiMode:(BOOL)apiMode animated:(BOOL)animated;
 
 @end

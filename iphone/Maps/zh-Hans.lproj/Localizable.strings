@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "电子邮件发送错误";
+
+/* Settings item title */
+"pref_calibration_title" = "指南针校准";

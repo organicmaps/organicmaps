@@ -406,4 +406,6 @@
 	<string name="email_error_body">อีเมลลูกค้ายังไม่ได้รับการจัดตั้งขึ้น กรุณาตั้งค่าหรือใช้วิธีอื่นที่จะติดต่อเราที่ %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">จดหมายที่ส่งเกิดความผิดพลาด</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">การปรับเทียบเข็มทิศ</string>
 </resources>

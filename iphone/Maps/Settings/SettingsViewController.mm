@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, Section)
 {
   SectionMetrics,
   SectionZoomButtons,
+  SectionCalibration,
   SectionStatistics,
   SectionCount
 };
@@ -66,9 +67,8 @@ typedef NS_ENUM(NSUInteger, Section)
   if (indexPath.section == SectionMetrics)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SelectableCell className]];
-    Settings::Units units;
-    if (!Settings::Get("Units", units))
-      units = Settings::Metric;
+    Settings::Units units = Settings::Metric;
+    (void)Settings::Get("Units", units);
     BOOL selected = units == unitsForIndex(indexPath.row);
 
     SelectableCell * customCell = (SelectableCell *)cell;
@@ -79,9 +79,8 @@ typedef NS_ENUM(NSUInteger, Section)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
-    bool on;
-    if (!Settings::Get("StatisticsEnabled", on))
-      on = true;
+    bool on = true;
+    (void)Settings::Get("StatisticsEnabled", on);
     customCell.switchButton.on = on;
     customCell.titleLabel.text = NSLocalizedString(@"allow_statistics", nil);
     customCell.delegate = self;
@@ -90,11 +89,20 @@ typedef NS_ENUM(NSUInteger, Section)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
     SwitchCell * customCell = (SwitchCell *)cell;
-    bool on;
-    if (!Settings::Get("ZoomButtonsEnabled", on))
-      on = false;
+    bool on = false;
+    (void)Settings::Get("ZoomButtonsEnabled", on);
     customCell.switchButton.on = on;
     customCell.titleLabel.text = NSLocalizedString(@"pref_zoom_title", nil);
+    customCell.delegate = self;
+  }
+  else if (indexPath.section == SectionCalibration)
+  {
+    cell = [tableView dequeueReusableCellWithIdentifier:[SwitchCell className]];
+    SwitchCell * customCell = (SwitchCell *)cell;
+    bool on = false;
+    (void)Settings::Get("CompassCalibrationEnabled", on);
+    customCell.switchButton.on = on;
+    customCell.titleLabel.text = NSLocalizedString(@"pref_calibration_title", nil);
     customCell.delegate = self;
   }
 
@@ -107,8 +115,7 @@ typedef NS_ENUM(NSUInteger, Section)
     return NSLocalizedString(@"allow_statistics_hint", nil);
   else if (section == SectionZoomButtons)
     return NSLocalizedString(@"pref_zoom_summary", nil);
-  else
-    return nil;
+  return nil;
 }
 
 - (void)switchCell:(SwitchCell *)cell didChangeValue:(BOOL)value
@@ -122,6 +129,10 @@ typedef NS_ENUM(NSUInteger, Section)
   {
     Settings::Set("ZoomButtonsEnabled", (bool)value);
     [MapsAppDelegate theApp].m_mapViewController.zoomButtonsView.hidden = !value;
+  }
+  else if (indexPath.section == SectionCalibration)
+  {
+    Settings::Set("CompassCalibrationEnabled", (bool)value);
   }
 }
 

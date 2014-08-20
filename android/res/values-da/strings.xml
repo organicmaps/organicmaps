@@ -406,4 +406,6 @@
 	<string name="email_error_body">E-mailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Mailforsendelsesfejl</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Kalibrering af kompas</string>
 </resources>

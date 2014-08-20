@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "Chyba pri odosielaní emailu";
+
+/* Settings item title */
+"pref_calibration_title" = "Compass kalibrácia";

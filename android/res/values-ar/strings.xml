@@ -408,4 +408,6 @@
 	<string name="email_error_body">لم يتم تعيين البريد الإلكتروني للعميل. يرجى تكوينه أو استخدام أي وسيلة أخرى للاتصال بنا على %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">هناك خطأ في إرسال البريد الإلكتروني</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">معايرة البوصلة</string>
 </resources>

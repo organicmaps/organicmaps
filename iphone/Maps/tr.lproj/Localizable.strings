@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "Posta gönderme hatası";
+
+/* Settings item title */
+"pref_calibration_title" = "Pusula kalibrasyonu";

@@ -403,4 +403,6 @@
 	<string name="email_error_body">Az e-mail kliens nincs beállítva. Kérjük, konfiguráld vagy próbálj meg valamilyen más módon kapcsolatba lépni velünk a %s e-mail címen keresztül.</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Hiba az e-mail küldése során</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Iránytű kalibrálás</string>
 </resources>

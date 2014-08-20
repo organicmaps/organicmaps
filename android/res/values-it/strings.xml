@@ -391,4 +391,6 @@
 	<string name="email_error_body">Il client email non è stato configurato. Si prega di configurarlo o di usare qualsiasi altro metodo per contattarci all\&#39;indirizzo %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Errore invio email</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Calibrazione del compasso</string>
 </resources>

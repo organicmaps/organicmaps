@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "Errore invio email";
+
+/* Settings item title */
+"pref_calibration_title" = "Calibrazione del compasso";

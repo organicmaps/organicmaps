@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "Error de envío de correo";
+
+/* Settings item title */
+"pref_calibration_title" = "Calibrado de la brújula";

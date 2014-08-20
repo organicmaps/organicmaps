@@ -399,4 +399,6 @@
 	<string name="email_error_body">Поштовий клієнт не налаштований. Налаштуйте його або скористайтеся іншими способами зв\&#39;язку. Наша адреса – %s.</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Помилка при відправленні листа</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Калібрування компаса</string>
 </resources>

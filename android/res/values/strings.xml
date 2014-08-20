@@ -419,4 +419,6 @@
 	<string name="email_error_body">The email client has not been set up. Please configure it or use any other way to contact us at %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Mail sending error</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Compass calibration</string>
 </resources>

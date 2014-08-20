@@ -408,4 +408,6 @@
 	<string name="email_error_body">E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın ya da bize %s adresinden ulaşmak için başka bir yöntem deneyin</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Posta gönderme hatası</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Pusula kalibrasyonu</string>
 </resources>

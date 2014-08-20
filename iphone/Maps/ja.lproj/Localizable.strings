@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "メール送信エラー";
+
+/* Settings item title */
+"pref_calibration_title" = "コンパスの調整";

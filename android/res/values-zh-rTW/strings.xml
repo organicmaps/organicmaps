@@ -383,4 +383,6 @@
 	<string name="email_error_body">電子郵件用戶端尚未建立。請設定或使用任何其他方式與我們聯絡%s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">電子郵件發送錯誤</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">指南針校準</string>
 </resources>

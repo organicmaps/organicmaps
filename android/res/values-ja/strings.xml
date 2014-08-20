@@ -391,4 +391,6 @@
 	<string name="email_error_body">このメールクライアントはセットアップされていません。設定するか、他の方法で%sにご連絡ください。</string>
 	<!-- Alert title -->
 	<string name="email_error_title">メール送信エラー</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">コンパスの調整</string>
 </resources>

@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "Помилка при відправленні листа";
+
+/* Settings item title */
+"pref_calibration_title" = "Калібрування компаса";

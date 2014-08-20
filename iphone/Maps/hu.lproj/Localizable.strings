@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "Hiba az e-mail küldése során";
+
+/* Settings item title */
+"pref_calibration_title" = "Iránytű kalibrálás";

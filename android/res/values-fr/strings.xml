@@ -5,7 +5,7 @@
 <resources>
 	<!-- SECTION: Strings -->
 	<!-- Dialog text when paid version become available on the market. Showed only once. -->
-	<string name="pro_version_available">Naviguez plus facilement avec la recherche hors ligne de la version complète de MAPS.ME. À installer !</string>
+	<string name="pro_version_available">Naviguez plus facilement avec la recherche hors ligne de la version complète de MAPS.ME. À installer !</string>
 	<!-- About button text (should be short) -->
 	<string name="about">À propos</string>
 	<!-- Button text (should be short) -->
@@ -37,7 +37,7 @@
 	<string name="downloading">Téléchargement en cours…</string>
 	<string name="get_it_now">Installer</string>
 	<!-- Text to show occasionaly with a proposal to Like our program on Facebook -->
-	<string name="share_on_facebook_text">MAPS.ME vous plait ? Faites le connaître à vos amis et vos proches : partagez-le sur Facebook !</string>
+	<string name="share_on_facebook_text">MAPS.ME vous plait ? Faites le connaître à vos amis et vos proches : partagez-le sur Facebook !</string>
 	<!-- Settings/Downloader - size string, only strings different from English should be translated -->
 	<string name="kb">ko</string>
 	<!-- Choose measurement on first launch alert - choose metric system button -->
@@ -59,7 +59,7 @@
 	<!-- Settings/Downloader - No internet connection dialog title -->
 	<string name="no_internet_connection_detected">Pas de connexion internet</string>
 	<!-- Settings/Downloader - 3G download warning dialog title -->
-	<string name="no_wifi_ask_cellular_download">Pas de connexion WiFi. Désirez-vous télécharger par le réseau de téléphone mobile (GPRS, EDGE ou 3G) ?</string>
+	<string name="no_wifi_ask_cellular_download">Pas de connexion WiFi. Désirez-vous télécharger par le réseau de téléphone mobile (GPRS, EDGE ou 3G) ?</string>
 	<!-- not used? Search View - Location is disabled by user warning text -->
 	<string name="enable_location_services">Veuillez activer le service de localisation</string>
 	<!-- Settings/Downloader - No free space dialog message -->
@@ -75,7 +75,7 @@
 	<!-- View and button titles for accessibility -->
 	<string name="search">Recherche</string>
 	<!-- Search button pressed dialog title in the free version -->
-	<string name="search_available_in_pro_version">La recherche n\&#39;est disponible que dans la version complète. Voulez-vous l\&#39;installer maintenant ?</string>
+	<string name="search_available_in_pro_version">La recherche n\&#39;est disponible que dans la version complète. Voulez-vous l\&#39;installer maintenant ?</string>
 	<!-- Search box placeholder text -->
 	<string name="search_map">Rechercher sur la carte</string>
 	<!-- Settings/Downloader - No free space dialog title -->
@@ -89,7 +89,7 @@
 	<!-- NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 -->
 	<string name="new_map_data_format_upgrade_dialog">Nous avons réduit la taille des cartes. Concernant les pays vastes, vous pouvez désormais télécharger uniquement la zone que vous souhaitez. Cependant pour utiliser ces nouvelles cartes, il faut effacer les anciennes cartes téléchargées.</string>
 	<!-- Choose measurement on first launch alert - title -->
-	<string name="which_measurement_system">Quel système de mesure préférez-vous ?</string>
+	<string name="which_measurement_system">Quel système de mesure préférez-vous ?</string>
 	<!-- Location services are disabled by user alert - message -->
 	<string name="location_is_disabled_long_text">Aucun service de localisation activé. Veuillez l\&#39;activer dans les réglages.</string>
 	<!-- Location Services are not available on the device alert - message -->
@@ -124,8 +124,8 @@
 	<string name="getting_position">Détermination de votre position</string>
 	<string name="download_resources_continue">Aller sur la carte</string>
 	<string name="downloading_country_can_proceed">Téléchargement de %s. Maintenant\nvous pouvez aller sur la carte.</string>
-	<string name="download_country_ask">Télécharger %s ?</string>
-	<string name="update_country_ask">Actualiser %s ?</string>
+	<string name="download_country_ask">Télécharger %s ?</string>
+	<string name="update_country_ask">Actualiser %s ?</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="download_location_map_proposal">Vous pouvez télécharger la carte\nde votre position actuelle.</string>
 	<!-- REMOVE THIS_STRING AFTER REFACTORING -->
@@ -139,15 +139,15 @@
 	<string name="downloaded_touch_to_update">Téléchargé (%s), touchez pour actualiser ou effacer</string>
 	<string name="update_mb_or_kb">Actualiser %s</string>
 	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
-	<string name="search_update_maps">Il faut actualiser les cartes pour la recherche :</string>
+	<string name="search_update_maps">Il faut actualiser les cartes pour la recherche :</string>
 	<!-- Show popup notification on app start when we have out-of-date maps -->
-	<string name="advise_update_maps">Mise à jour disponible pour ces cartes :</string>
+	<string name="advise_update_maps">Mise à jour disponible pour ces cartes :</string>
 	<!-- Show popup notification in Pro version that Lite can be deleted -->
 	<string name="suggest_uninstall_lite">Vous n\&#39;avez plus besoin de MAPS.ME Lite et pouvez le supprimer.</string>
 	<!-- Show popup notification on top of the map when country was downloaded. -->
-	<string name="download_country_success">%s : téléchargement réussi</string>
+	<string name="download_country_success">%s : téléchargement réussi</string>
 	<!-- Show popup notification on top of the map when country download has failed. -->
-	<string name="download_country_failed">%s : échec du téléchargement</string>
+	<string name="download_country_failed">%s : échec du téléchargement</string>
 	<!-- Add New Bookmark Set dialog title -->
 	<string name="add_new_set">Ajouter un groupe de signets</string>
 	<!-- Place Page - Add To Bookmarks button -->
@@ -185,13 +185,13 @@
 	<!-- Detailed description of Maps Storage settings button -->
 	<string name="maps_storage_summary">Sélectionnez l\&#39;emplacement où les cartes doivent être enregistrées</string>
 	<!-- Question dialog for transferring maps from one storage to another -->
-	<string name="move_maps">Déplacer les cartes ?</string>
+	<string name="move_maps">Déplacer les cartes ?</string>
 	<!-- Ask to wait user several minutes (some long process in modal dialog). -->
 	<string name="wait_several_minutes">Cela peut prendre plusieurs minutes.\nVeuillez patienter…</string>
 	<!-- Show bookmarks from this category on a map or not -->
 	<string name="visible">Visible</string>
 	<!-- Proposal to download Pro version with Bookmarks -->
-	<string name="bookmarks_in_pro_version">Les signets sont seulement dans la version complète de MAPS.ME. L\&#39;installer maintenant ?</string>
+	<string name="bookmarks_in_pro_version">Les signets sont seulement dans la version complète de MAPS.ME. L\&#39;installer maintenant ?</string>
 	<!-- Toast which is displayed when GPS has been deactivated -->
 	<string name="gps_is_disabled_long_text">GPS désactivé. Veuillez l\&#39;activer dans les réglages.</string>
 	<!-- Measurement units title in settings activity -->
@@ -242,7 +242,7 @@
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Signets MAPS.ME partagés avec vous</string>
 	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne MAPS.ME dans le fichier \&quot;%s.kmz:\&quot; ci-joint. Veuillez l\&#39;ouvrir si vous avez déjà installé MAPS.ME Pro. Sinon, téléchargez d\&#39;abord l\&#39;application pour appareil iOS ou Android depuis le lien http://maps.me/get?kmz\n\nAmusez-vous bien avec MAPS.ME !</string>
+	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne MAPS.ME dans le fichier \&quot;%s.kmz:\&quot; ci-joint. Veuillez l\&#39;ouvrir si vous avez déjà installé MAPS.ME Pro. Sinon, téléchargez d\&#39;abord l\&#39;application pour appareil iOS ou Android depuis le lien http://maps.me/get?kmz\n\nAmusez-vous bien avec MAPS.ME !</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Chargement des signets</string>
 	<!-- Kmz file successful loading -->
@@ -262,7 +262,7 @@
 	<!-- Alert message that downloading is in progress. -->
 	<string name="downloading_is_active">Téléchargement du pays actuellement en cours.</string>
 	<!-- Message that will be shown in alert view, when we ask user to leave review on App Store -->
-	<string name="appStore_message">Nous espérons que vous appréciez MAPS.ME ! Si oui, merci de l\&#39;évaluer sur l\&#39;App Store. Cela prend un instant mais peut vraiment nous aider. Merci pour votre soutien !</string>
+	<string name="appStore_message">Nous espérons que vous appréciez MAPS.ME ! Si oui, merci de l\&#39;évaluer sur l\&#39;App Store. Cela prend un instant mais peut vraiment nous aider. Merci pour votre soutien !</string>
 	<!-- No, thanks -->
 	<string name="no_thanks">Non, merci</string>
 	<!-- Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 -->
@@ -276,7 +276,7 @@
 	<!-- Subject for emailed position -->
 	<string name="my_position_share_email_subject">Regarde ma localisation actuelle sur la carte MAPS.ME</string>
 	<!-- Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME -->
-	<string name="my_position_share_email">Salut,\n\nJe me trouve actuellement ici : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</string>
+	<string name="my_position_share_email">Salut,\n\nJe me trouve actuellement ici : %1$s. Clique sur ce lien %2$s ou sur celui-ci %3$s pour voir l\&#39;endroit sur la carte.\n\nMerci.</string>
 	<!-- Android share by Message/SMS button text (including SMS) -->
 	<string name="share_by_message">Partager par message</string>
 	<!-- Share button text which opens menu with more buttons, like Message, EMail, Facebook etc. -->
@@ -290,7 +290,7 @@
 	<!-- Enter promo code hint -->
 	<string name="enter_promocode_hint">Entrer le code de promotion</string>
 	<!-- Promocode Activation success message -->
-	<string name="promocode_success">Code de promotion activé !</string>
+	<string name="promocode_success">Code de promotion activé !</string>
 	<!-- Promocode Activation connection/io error -->
 	<string name="promocode_error">Erreur de connexion. Veuillez recommencer ultérieurement.</string>
 	<!-- Promocode Activation is invalid  message. -->
@@ -300,7 +300,7 @@
 	<!-- Text for the button that returns to caller application -->
 	<string name="more_info">Afficher plus d\&#39;informations</string>
 	<!-- Text for message when used successfully copied something -->
-	<string name="copied_to_clipboard">Copié dans le presse-papiers : %1$s</string>
+	<string name="copied_to_clipboard">Copié dans le presse-papiers : %1$s</string>
 	<!-- Setting label for statistics turn on/off -->
 	<string name="allow_statistics">Envoyez des statistiques</string>
 	<!-- Hint near allow statictics checkbox -->
@@ -316,9 +316,9 @@
 	<!-- Hint for upper-right icon p2b -->
 	<string name="show_on_backscreen">Afficher sur l\&#39;écran arrière</string>
 	<!-- Prints version number in About dialog -->
-	<string name="version">Version : %s</string>
+	<string name="version">Version : %s</string>
 	<!-- Confirmation in downloading countries dialog -->
-	<string name="are_you_sure">Souhaitez-vous vraiment continuer ?</string>
+	<string name="are_you_sure">Souhaitez-vous vraiment continuer ?</string>
 	<!-- Title for tracks category in bookmarks manager -->
 	<string name="tracks">Parcours</string>
 	<!-- Length of track in cell that describes route -->
@@ -415,4 +415,6 @@
 	<string name="email_error_body">Le client de messagerie n\&#39;a pas été configuré. Veuillez s\&#39;il vous plaît le configurer ou employer tout autre moyen pour nous contacter à l’adresse %s.</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Mail d’erreur d\&#39;envoi</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Étalonnage de la boussole</string>
 </resources>

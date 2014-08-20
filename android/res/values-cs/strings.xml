@@ -411,4 +411,6 @@
 	<string name="email_error_body">Emailový klient nebyl ještě nakonfigurován. Nastav ho, prosím, nebo použij jiný způsob k našemu kontaktování na %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Chyba při odesílání emailu</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Kalibrace kompasu</string>
 </resources>

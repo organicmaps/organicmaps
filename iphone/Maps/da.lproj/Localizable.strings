@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "Mailforsendelsesfejl";
+
+/* Settings item title */
+"pref_calibration_title" = "Kalibrering af kompas";

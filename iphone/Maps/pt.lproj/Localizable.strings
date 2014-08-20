@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "Erro de envio de email";
+
+/* Settings item title */
+"pref_calibration_title" = "Calibração de bússola";

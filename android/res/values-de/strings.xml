@@ -399,4 +399,6 @@
 	<string name="email_error_body">Der E-Mail-Client ist noch nicht eingerichtet worden. Konfigurieren Sie ihn bitte oder nutzen Sie eine andere Möglichkeit, uns unter %s zu erreichen.</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Fehler beim E-Mail-Versand</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Kompass-Kalibrierung</string>
 </resources>

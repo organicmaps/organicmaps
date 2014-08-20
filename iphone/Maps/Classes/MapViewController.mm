@@ -10,7 +10,6 @@
 #import "InterstitialView.h"
 #import "MoreAppsVC.h"
 #import "ContainerView.h"
-#import "SearchView.h"
 #import "ToolbarView.h"
 #import "SelectSetVC.h"
 #import "BookmarkDescriptionVC.h"
@@ -43,7 +42,6 @@
 
 @property (nonatomic) ShareActionSheet * shareActionSheet;
 @property (nonatomic) UIButton * buyButton;
-@property (nonatomic) SearchView * searchView;
 @property (nonatomic) ToolbarView * toolbarView;
 @property (nonatomic) ContainerView * containerView;
 @property (nonatomic) UIImageView * apiBar;

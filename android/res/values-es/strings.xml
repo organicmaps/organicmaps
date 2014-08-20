@@ -385,4 +385,6 @@
 	<string name="email_error_body">No se ha configurado el cliente de correo electrónico. Por favor, configúralo o utiliza alguna otra forma de ponerte en contacto con nosotros en %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Error de envío de correo</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Calibrado de la brújula</string>
 </resources>

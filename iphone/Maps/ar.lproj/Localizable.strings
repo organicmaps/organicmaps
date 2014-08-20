@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "هناك خطأ في إرسال البريد الإلكتروني";
+
+/* Settings item title */
+"pref_calibration_title" = "معايرة البوصلة";

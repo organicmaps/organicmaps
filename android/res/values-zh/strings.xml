@@ -410,4 +410,6 @@
 	<string name="email_error_body">电子邮件客户端尚未建立。请配置或使用任何其他方式与我们联系%s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">电子邮件发送错误</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">指南针校准</string>
 </resources>

@@ -6,6 +6,7 @@
 
 #include "../../base/math.hpp"
 #import "MapViewController.h"
+#import "MapsAppDelegate.h"
 
 @implementation LocationManager
 
@@ -201,7 +202,19 @@
 
 - (BOOL)locationManagerShouldDisplayHeadingCalibration:(CLLocationManager *)manager
 {
-  // Never display calibration dialog as it sucks on iOS 7
+  bool on = false;
+  Settings::Get("CompassCalibrationEnabled", on);
+  if (!on)
+    return NO;
+
+  if ([MapsAppDelegate theApp].m_mapViewController.searchView.state == SearchViewStateResults)
+    return NO;
+  if (!manager.heading)
+    return YES;
+  else if (manager.heading.headingAccuracy < 0)
+    return YES;
+  else if (manager.heading.headingAccuracy > 5)
+    return YES;
   return NO;
 }
 

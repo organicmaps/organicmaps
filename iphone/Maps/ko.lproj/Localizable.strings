@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "메일 전송 중 오류";
+
+/* Settings item title */
+"pref_calibration_title" = "나침반 보정";

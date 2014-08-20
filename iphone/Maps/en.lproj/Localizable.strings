@@ -646,3 +646,6 @@
 
 /* Alert title */
 "email_error_title" = "Mail sending error";
+
+/* Settings item title */
+"pref_calibration_title" = "Compass calibration";

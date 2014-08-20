@@ -405,4 +405,6 @@
 	<string name="email_error_body">Email klienta nie został założony. Proszę skonfigurować adres email, bądź skorzystać z innych opcji, aby się z nami skontaktować na %s</string>
 	<!-- Alert title -->
 	<string name="email_error_title">Błąd wysyłania wiadomości</string>
+	<!-- Settings item title -->
+	<string name="pref_calibration_title">Kalibracja kompasu</string>
 </resources>
