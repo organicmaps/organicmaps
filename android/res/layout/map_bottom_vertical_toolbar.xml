@@ -18,6 +18,7 @@
       android:layout_height="@dimen/bottom_panel_height"
       android:background="@drawable/bg_toolbar_button_selector"
       android:drawableLeft="@drawable/ic_menu_download"
+      android:drawablePadding="@dimen/margin_small"
       android:gravity="center_vertical"
       android:paddingLeft="10dp"
       android:text="@string/download_maps"
@@ -32,6 +33,7 @@
       android:layout_height="@dimen/bottom_panel_height"
       android:background="@drawable/bg_toolbar_button_selector"
       android:drawableLeft="@drawable/ic_menu_settings"
+      android:drawablePadding="@dimen/margin_small"
       android:gravity="center_vertical"
       android:paddingLeft="10dp"
       android:text="@string/settings_and_more"
@@ -47,6 +49,7 @@
       android:background="@drawable/bg_toolbar_button_selector"
       android:drawableLeft="@drawable/ic_menu_send_my_location"
       android:gravity="center_vertical"
+      android:drawablePadding="@dimen/margin_small"
       android:paddingLeft="10dp"
       android:text="@string/share_my_location"
       android:textColor="@android:color/white"/>
@@ -61,6 +64,7 @@
       android:background="@drawable/bg_toolbar_button_selector"
       android:drawableLeft="@drawable/ic_menu_more_apps"
       android:gravity="center_vertical"
+      android:drawablePadding="@dimen/margin_small"
       android:paddingLeft="10dp"
       android:text="@string/more_apps_title"
       android:textColor="@android:color/white"/>

@@ -17,6 +17,7 @@
       android:layout_width="wrap_content"
       android:layout_height="@dimen/bottom_panel_height"
       android:layout_toRightOf="@id/iv__bottom_icon"
+      android:layout_marginLeft="@dimen/margin_small"
       android:gravity="center_vertical"
       android:textColor="@android:color/white"/>
 
