@@ -80,6 +80,11 @@ class DrapePointer
 public:
   DrapePointer() : m_p(NULL) { SET_CHECK_FLAG(true); }
 
+  bool operator==(DrapePointer<T> const & other) const
+  {
+    return m_p == other.m_p;
+  }
+
 protected:
   DrapePointer(T * p, bool needDestroyedCheck = true)
     : m_p(p)
