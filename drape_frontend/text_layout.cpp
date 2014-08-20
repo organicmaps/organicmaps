@@ -4,6 +4,7 @@
 #include "../std/algorithm.hpp"
 #include "../std/bind.hpp"
 #include "../std/algorithm.hpp"
+#include "../std/limits.hpp"
 
 using glsl_types::vec4;
 using glsl_types::Quad4;
@@ -31,7 +32,6 @@ public:
     , m_pivot(pivot)
     , m_offset(offset)
     , m_size(pxSize)
-    , m_bbox(1)
   {
   }
 
@@ -41,17 +41,15 @@ public:
     return m2::RectD(pivot, pivot + m_size);
   }
 
-  vector<m2::RectF> & GetPixelShape(ScreenBase const & screen)
+  void GetPixelShape(ScreenBase const & screen, Rects & rects) const
   {
     m2::RectD rd = GetPixelRect(screen);
-    m_bbox[0] = m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY());
-    return m_bbox;
+    rects.push_back(m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY()));
   }
 private:
   m2::PointD m_pivot;
   m2::PointD m_offset;
   m2::PointD m_size;
-  vector<m2::RectF> m_bbox;
 };
 
 namespace
@@ -112,7 +110,7 @@ dp::OverlayHandle * TextLayout::LayoutText(const FeatureID & featureID,
   FillColor(outlineColor, m_font.m_outlineColor);
 
   float maxHeight = 0.0f;
-  float minHeight = 10000.0f;
+  float minHeight = numeric_limits<float>::max();
 
   float glyphOffset = 0.0;
   for (size_t i = 0; i < glyphCount; ++i)
