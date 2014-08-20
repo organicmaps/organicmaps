@@ -50,19 +50,20 @@ namespace
 
 void AccumulateMutations(MasterPointer<OverlayHandle> const & handle,
                          RefPointer<IndexBufferMutator> indexMutator,
-                         RefPointer<AttributeBufferMutator> attributeMutator)
+                         RefPointer<AttributeBufferMutator> attributeMutator,
+                         ScreenBase const & screen)
 {
   if (handle->IsVisible())
   {
     handle->GetElementIndexes(indexMutator);
     if (handle->HasDynamicAttributes())
-      handle->GetAttributeMutation(attributeMutator);
+      handle->GetAttributeMutation(attributeMutator, screen);
   }
 }
 
 } // namespace
 
-void RenderBucket::Render()
+void RenderBucket::Render(ScreenBase const & screen)
 {
   if (!m_overlay.empty())
   {
@@ -71,7 +72,8 @@ void RenderBucket::Render()
     IndexBufferMutator indexMutator(6 * m_overlay.size());
     for_each(m_overlay.begin(), m_overlay.end(), bind(&AccumulateMutations, _1,
                                                       MakeStackRefPointer(&indexMutator),
-                                                      MakeStackRefPointer(&attributeMutator)));
+                                                      MakeStackRefPointer(&attributeMutator),
+                                                      screen));
     m_buffer->ApplyMutation(MakeStackRefPointer(&indexMutator),
                             MakeStackRefPointer(&attributeMutator));
   }

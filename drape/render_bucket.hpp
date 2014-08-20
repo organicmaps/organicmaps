@@ -23,7 +23,7 @@ public:
 
   void Update(ScreenBase const & modelView);
   void CollectOverlayHandles(RefPointer<OverlayTree> tree);
-  void Render();
+  void Render(const ScreenBase & screen);
 
 private:
   vector<MasterPointer<OverlayHandle> > m_overlay;

@@ -34,11 +34,11 @@ void RenderGroup::CollectOverlay(dp::RefPointer<dp::OverlayTree> tree)
                                                                 tree));
 }
 
-void RenderGroup::Render()
+void RenderGroup::Render(ScreenBase const & screen)
 {
   ASSERT(m_pendingOnDelete == false, ());
   for_each(m_renderBuckets.begin(), m_renderBuckets.end(), bind(&dp::RenderBucket::Render,
-                                                                bind(&dp::NonConstGetter<dp::RenderBucket>, _1)));
+                                                                bind(&dp::NonConstGetter<dp::RenderBucket>, _1), screen));
 }
 
 void RenderGroup::PrepareForAdd(size_t countForAdd)

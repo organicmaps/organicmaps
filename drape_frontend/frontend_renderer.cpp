@@ -220,7 +220,7 @@ void FrontendRenderer::RenderScene()
     ApplyUniforms(m_generalUniforms, program);
     ApplyState(state, program, m_textureController.GetRefPointer());
 
-    group->Render();
+    group->Render(m_view);
   }
 
 #ifdef DRAW_INFO
@@ -327,6 +327,9 @@ void FrontendRenderer::ThreadMain()
     //processingTime = timer.ElapsedSeconds();
     //int messageCount = 0;
     double availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
+
+    if (availableTime < 0.0)
+      availableTime = 0.01;
 
     while (availableTime > 0)
     {
