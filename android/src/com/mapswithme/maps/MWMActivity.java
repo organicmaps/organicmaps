@@ -23,6 +23,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -99,8 +101,12 @@ public class MWMActivity extends NvEventQueueActivity
   // Initialized to invalid combination to force update on the first check
   private boolean mStorageAvailable = false;
   private boolean mStorageWritable = true;
+  // toolbars
+  private static final long VERT_TOOLBAR_ANIM_DURATION = 250;
   private ViewGroup mVerticalToolbar;
   private ViewGroup mToolbar;
+  private Animation mVerticalToolbarAnimation;
+  private View mFadeView;
 
   private static final String IS_KML_MOVED = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
@@ -620,8 +626,67 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onMoreClicked(View v)
   {
-    UiUtils.show(mVerticalToolbar);
-    UiUtils.hide(mToolbar);
+    setVerticalToolbarVisible(true);
+  }
+
+  private void setVerticalToolbarVisible(boolean showVerticalToolbar)
+  {
+    if (mVerticalToolbarAnimation != null ||
+        (mVerticalToolbar.getVisibility() == View.VISIBLE && showVerticalToolbar) ||
+        (mVerticalToolbar.getVisibility() != View.VISIBLE && !showVerticalToolbar))
+      return;
+
+    int fromY, toY;
+    Animation.AnimationListener listener;
+    float fromAlpha, toAlpha;
+    if (showVerticalToolbar)
+    {
+      fromY = 1;
+      toY = 0;
+      fromAlpha = 0.0f;
+      toAlpha = 0.5f;
+      listener = new UiUtils.SimpleAnimationListener()
+      {
+        @Override
+        public void onAnimationStart(Animation animation)
+        {
+          mVerticalToolbar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation)
+        {
+          mVerticalToolbarAnimation = null;
+        }
+      };
+    }
+    else
+    {
+      fromY = 0;
+      toY = 1;
+      fromAlpha = 0.5f;
+      toAlpha = 0.0f;
+      listener = new UiUtils.SimpleAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animation animation)
+        {
+          mVerticalToolbar.setVisibility(View.INVISIBLE);
+          mVerticalToolbarAnimation = null;
+        }
+      };
+    }
+    // slide vertical toolbar
+    mVerticalToolbarAnimation = UiUtils.generateSlideAnimation(0, 0, fromY, toY);
+    mVerticalToolbarAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
+    mVerticalToolbarAnimation.setAnimationListener(listener);
+    mVerticalToolbar.startAnimation(mVerticalToolbarAnimation);
+    // fade map
+    Animation alphaAnimation = new AlphaAnimation(fromAlpha, toAlpha);
+    alphaAnimation.setFillBefore(true);
+    alphaAnimation.setFillAfter(true);
+    alphaAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
+    mFadeView.startAnimation(alphaAnimation);
   }
 
   private void shareMyLocation()
@@ -759,15 +824,19 @@ public class MWMActivity extends NvEventQueueActivity
     mVerticalToolbar.findViewById(R.id.btn_settings).setOnClickListener(this);
     View moreApps = mVerticalToolbar.findViewById(R.id.btn_more_apps);
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB || Framework.getGuideIds().length == 0)
-    {
       UiUtils.hide(moreApps);
-    }
     else
-    {
       moreApps.setOnClickListener(this);
-    }
 
-    UiUtils.hide(mVerticalToolbar);
+    UiUtils.invisible(mVerticalToolbar);
+
+    // hacky way to implement alpha at pre-honeycomb SDK.
+    mFadeView = findViewById(R.id.fade_view);
+    Animation alphaAnimation = new AlphaAnimation(0.0f, 0.0f);
+    alphaAnimation.setFillAfter(true);
+    alphaAnimation.setDuration(0);
+    mFadeView.startAnimation(alphaAnimation);
+    mFadeView.setVisibility(View.VISIBLE);
   }
 
   private void setUpInfoBox()
@@ -1127,10 +1196,7 @@ public class MWMActivity extends NvEventQueueActivity
       deactivatePopup();
     }
     else if (mVerticalToolbar.getVisibility() == View.VISIBLE)
-    {
-      UiUtils.show(mToolbar);
-      UiUtils.hide(mVerticalToolbar);
-    }
+      setVerticalToolbarVisible(false);
     else
       super.onBackPressed();
   }
@@ -1283,13 +1349,13 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onPreviewVisibilityChanged(boolean isVisible)
   {
-    UiUtils.hide(mVerticalToolbar);
+    setVerticalToolbarVisible(false);
   }
 
   @Override
   public void onPlacePageVisibilityChanged(boolean isVisible)
   {
-    UiUtils.hide(mVerticalToolbar);
+    setVerticalToolbarVisible(false);
   }
 
   @Override
@@ -1298,28 +1364,23 @@ public class MWMActivity extends NvEventQueueActivity
     switch (v.getId())
     {
     case R.id.btn_buy_pro:
-      UiUtils.hide(mVerticalToolbar);
-      UiUtils.show(mToolbar);
+      setVerticalToolbarVisible(false);
       UiUtils.runProMarketActivity(MWMActivity.this);
       break;
     case R.id.btn_share:
-      UiUtils.hide(mVerticalToolbar);
-      UiUtils.show(mToolbar);
+      setVerticalToolbarVisible(false);
       shareMyLocation();
       break;
     case R.id.btn_settings:
-      UiUtils.hide(mVerticalToolbar);
-      UiUtils.show(mToolbar);
+      setVerticalToolbarVisible(false);
       startActivity(new Intent(this, SettingsActivity.class));
       break;
     case R.id.btn_download_maps:
-      UiUtils.hide(mVerticalToolbar);
-      UiUtils.show(mToolbar);
+      setVerticalToolbarVisible(false);
       runDownloadActivity();
       break;
     case R.id.btn_more_apps:
-      UiUtils.hide(mVerticalToolbar);
-      UiUtils.show(mToolbar);
+      setVerticalToolbarVisible(false);
       startActivity(new Intent(this, MoreAppsActivity.class));
       break;
     default:
@@ -1330,8 +1391,12 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public boolean onTouch(View view, MotionEvent event)
   {
-    UiUtils.hide(mVerticalToolbar);
-    UiUtils.show(mToolbar);
+    // if vertical toolbar is visible - hide it and ignore touch
+    if (mVerticalToolbar.getVisibility() == View.VISIBLE)
+    {
+      setVerticalToolbarVisible(false);
+      return true;
+    }
     if (mInfoView.getState() == State.FULL_PLACEPAGE)
     {
       deactivatePopup();

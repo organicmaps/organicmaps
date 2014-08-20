@@ -30,18 +30,24 @@
       android:layout_height="match_parent"
       android:layout_below="@id/search_box"/>
 
-  <FrameLayout
+  <View
+      android:id="@+id/fade_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@android:color/black"
+      android:visibility="gone"/>
+
+  <include
+      android:id="@+id/map_bottom_toolbar"
+      layout="@layout/map_bottom_toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/bottom_panel_height"
+      android:layout_alignParentBottom="true"/>
+
+  <include
+      android:id="@+id/map_bottom_vertical_toolbar"
+      layout="@layout/map_bottom_vertical_toolbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true">
-
-    <include
-        android:id="@+id/map_bottom_toolbar"
-        layout="@layout/map_bottom_toolbar"/>
-
-    <include
-        android:id="@+id/map_bottom_vertical_toolbar"
-        layout="@layout/map_bottom_vertical_toolbar"/>
-
-  </FrameLayout>
+      android:layout_alignParentBottom="true"/>
 </RelativeLayout>

@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -101,6 +102,15 @@ public final class UiUtils
   {
     show(target);
     target.startAnimation(anim);
+  }
+
+  public static TranslateAnimation generateSlideAnimation(float fromX, float toX, float fromY, float toY)
+  {
+    return new TranslateAnimation(
+        Animation.RELATIVE_TO_SELF, fromX,
+        Animation.RELATIVE_TO_SELF, toX,
+        Animation.RELATIVE_TO_SELF, fromY,
+        Animation.RELATIVE_TO_SELF, toY);
   }
 
   public static Drawable setCompoundDrawableBounds(int drawableId, int dimenId, Resources res)
@@ -348,7 +358,6 @@ public final class UiUtils
 
     return "hdpi";
   }
-
 
   // utility class
   private UiUtils()

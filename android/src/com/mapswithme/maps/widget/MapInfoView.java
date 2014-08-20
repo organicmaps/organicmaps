@@ -258,7 +258,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     TranslateAnimation slide;
     if (show) // slide up
     {
-      slide = generateSlideAnimation(0, 0, -1, 0);
+      slide = UiUtils.generateSlideAnimation(0, 0, -1, 0);
       slide.setDuration(SHORT_ANIM_DURATION);
       UiUtils.show(mPlacePageGroup);
       UiUtils.hide(mArrow);
@@ -267,7 +267,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     }
     else // slide down
     {
-      slide = generateSlideAnimation(0, 0, 0, -1);
+      slide = UiUtils.generateSlideAnimation(0, 0, 0, -1);
 
       slide.setDuration(SHORT_ANIM_DURATION);
       slide.setFillEnabled(true);
@@ -298,7 +298,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     TranslateAnimation slide;
     if (show)
     {
-      slide = generateSlideAnimation(0, 0, -1, 0);
+      slide = UiUtils.generateSlideAnimation(0, 0, -1, 0);
       UiUtils.show(mPreviewGroup);
       slide.setAnimationListener(new SimpleAnimationListener()
       {
@@ -312,7 +312,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     }
     else
     {
-      slide = generateSlideAnimation(0, 0, 0, -1);
+      slide = UiUtils.generateSlideAnimation(0, 0, 0, -1);
       slide.setAnimationListener(new SimpleAnimationListener()
       {
         @Override
@@ -332,7 +332,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
   private void hideEverything()
   {
-    final TranslateAnimation slideDown = generateSlideAnimation(0, 0, 0, -1);
+    final TranslateAnimation slideDown = UiUtils.generateSlideAnimation(0, 0, 0, -1);
     slideDown.setDuration(LONG_ANIM_DURATION);
 
     slideDown.setAnimationListener(new SimpleAnimationListener()
@@ -758,15 +758,6 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       Statistics.INSTANCE.trackColorChanged(getContext(), from, to);
     mColorImage.setImageDrawable(UiUtils
         .drawCircleForPin(to, (int) getResources().getDimension(R.dimen.color_chooser_radius), getResources()));
-  }
-
-  private TranslateAnimation generateSlideAnimation(float fromX, float toX, float fromY, float toY)
-  {
-    return new TranslateAnimation(
-        Animation.RELATIVE_TO_SELF, fromX,
-        Animation.RELATIVE_TO_SELF, toX,
-        Animation.RELATIVE_TO_SELF, fromY,
-        Animation.RELATIVE_TO_SELF, toY);
   }
 
   @Override
