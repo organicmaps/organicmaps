@@ -23,7 +23,7 @@ public:
 
   void Update(ScreenBase const & modelView);
   void CollectOverlay(dp::RefPointer<dp::OverlayTree> tree);
-  void Render(const ScreenBase & screen);
+  void Render(ScreenBase const & screen);
 
   void PrepareForAdd(size_t countForAdd);
   void AddBucket(dp::TransferPointer<dp::RenderBucket> bucket);

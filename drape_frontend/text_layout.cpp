@@ -145,7 +145,7 @@ dp::OverlayHandle * TextLayout::LayoutText(const FeatureID & featureID,
   m2::PointU size;
   region.GetPixelSize(size);
   double const w = size.x * m_textSizeRatio;
-  glyphOffset += w/2.0f;
+  glyphOffset += w / 2.0f;
 
   return new StraightTextHandle(featureID, pivot, m2::PointD(glyphOffset, maxHeight),
                                 m2::PointF(pixelOffset.x, pixelOffset.y + minHeight), depth);

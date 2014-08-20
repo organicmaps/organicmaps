@@ -451,8 +451,8 @@ void TestingEngine::DrawImpl()
     LOG(LCRITICAL, (e.Msg()));
   }
 
-  //for (size_t i = 0; i < shapes.size(); ++i)
-    shapes[1]->Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  for (size_t i = 0; i < shapes.size(); ++i)
+    shapes[i]->Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
   DeleteRange(shapes, DeleteFunctor());
 

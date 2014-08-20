@@ -323,9 +323,6 @@ void FrontendRenderer::ThreadMain()
     context->setDefaultFramebuffer();
     RenderScene();
 
-    //double avarageMessageTime = processingTime;
-    //processingTime = timer.ElapsedSeconds();
-    //int messageCount = 0;
     double availableTime = VSyncInterval - (timer.ElapsedSeconds() /*+ avarageMessageTime*/);
 
     if (availableTime < 0.0)
