@@ -26,8 +26,7 @@ public:
     : OverlayHandle(FeatureID(), dp::Center, 0.0f),
       m_params(params), m_spline(spl), m_scaleFactor(1.0f),
       m_positions(maxCount * VertexPerQuad), m_maxCount(maxCount),
-      m_symbolHalfWidth(hw), m_symbolHalfHeight(hh),
-      m_bbox(1, m2::RectF(0, 0, 0, 0))
+      m_symbolHalfWidth(hw), m_symbolHalfHeight(hh)
   {
     SetIsVisible(true);
   }
@@ -59,9 +58,9 @@ public:
     }
   }
 
-  vector<m2::RectF> & GetPixelShape(ScreenBase const & screen)
+  void GetPixelShape(ScreenBase const & screen, Rects & rects) const
   {
-    return m_bbox;
+    rects.push_back(m2::RectF(0, 0, 0, 0));
   }
 
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const
@@ -86,7 +85,6 @@ private:
   int const m_maxCount;
   float m_symbolHalfWidth;
   float m_symbolHalfHeight;
-  vector<m2::RectF> m_bbox;
 };
 
 PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline,

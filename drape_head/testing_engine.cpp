@@ -131,11 +131,10 @@ public:
   }
 
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const { return m2::RectD(); }
-  vector<m2::RectF> & GetPixelShape(ScreenBase const & screen)
+  void GetPixelShape(ScreenBase const & screen, Rects & rects) const
   {
     m2::RectD rd = GetPixelRect(screen);
-    m_bbox[0] = m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY());
-    return m_bbox;
+    rects.push_back(m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY()));
   }
 
   virtual void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
@@ -158,7 +157,6 @@ public:
 
 private:
   vector<m2::PointF> m_vectors;
-  vector<m2::RectF> m_bbox;
 };
 
 class SquareShape : public MapShape

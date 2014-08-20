@@ -19,6 +19,8 @@ namespace dp
 class OverlayHandle
 {
 public:
+  typedef vector<m2::RectF> Rects;
+
   OverlayHandle(FeatureID const & id,
                 dp::Anchor anchor,
                 double priority);
@@ -33,9 +35,9 @@ public:
   virtual void Update(ScreenBase const & /*screen*/) {}
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const = 0;
 
-  virtual vector<m2::RectF> & GetPixelShape(ScreenBase const & screen) = 0;
+  virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const = 0;
 
-  bool IsIntersect(ScreenBase const & screen, OverlayHandle & h);
+  bool IsIntersect(ScreenBase const & screen, OverlayHandle const & h) const;
 
   uint16_t * IndexStorage(uint16_t size);
   size_t GetIndexCount() const;
@@ -88,12 +90,11 @@ public:
                double priority);
 
   virtual m2::RectD GetPixelRect(ScreenBase const & screen) const;
-  virtual vector<m2::RectF> & GetPixelShape(ScreenBase const & screen);
+  virtual void GetPixelShape(ScreenBase const & screen, Rects & rects) const;
 
 private:
   m2::PointD m_gbPivot;
   m2::PointD m_pxHalfSize;
-  vector<m2::RectF> m_bbox;
 };
 
 } // namespace dp

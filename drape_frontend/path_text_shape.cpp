@@ -87,9 +87,9 @@ namespace
     }
 
 
-    vector<m2::RectF> & GetPixelShape(ScreenBase const & screen)
+    void GetPixelShape(ScreenBase const & screen, Rects & rects) const
     {
-      return m_bboxes;
+      rects = m_bboxes;
     }
 
     void GetAttributeMutation(dp::RefPointer<dp::AttributeBufferMutator> mutator, ScreenBase const & screen) const
@@ -125,7 +125,7 @@ namespace
     m2::SharedSpline m_spline;
     m2::Spline::iterator m_begin;
     m2::Spline::iterator m_end;
-    mutable vector<m2::RectF> m_bboxes;
+    mutable Rects m_bboxes;
 
     df::SharedTextLayout m_layout;
     float m_scalePtoG;

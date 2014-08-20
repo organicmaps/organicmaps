@@ -44,13 +44,16 @@ void OverlayHandle::SetIsVisible(bool isVisible)
   m_isVisible = isVisible;
 }
 
-bool OverlayHandle::IsIntersect(ScreenBase const & screen, OverlayHandle & h)
+bool OverlayHandle::IsIntersect(ScreenBase const & screen, const OverlayHandle & h) const
 {
-  vector<m2::RectF> const & ar1 = GetPixelShape(screen);
-  vector<m2::RectF> const & ar2 = h.GetPixelShape(screen);
+  Rects ar1;
+  Rects ar2;
 
-  for (int i = 0; i < ar1.size(); ++i)
-    for (int j = 0; j < ar2.size(); ++j)
+  GetPixelShape(screen, ar1);
+  h.GetPixelShape(screen, ar2);
+
+  for (size_t i = 0; i < ar1.size(); ++i)
+    for (size_t j = 0; j < ar2.size(); ++j)
       if (ar1[i].IsIntersect(ar2[j]))
         return true;
 
@@ -116,7 +119,6 @@ SquareHandle::SquareHandle(FeatureID const & id, dp::Anchor anchor,
   : base_t(id, anchor, priority)
   , m_gbPivot(gbPivot)
   , m_pxHalfSize(pxSize.x / 2.0, pxSize.y / 2.0)
-  , m_bbox(1)
 {
 }
 
@@ -140,11 +142,10 @@ m2::RectD SquareHandle::GetPixelRect(ScreenBase const & screen) const
   return result;
 }
 
-vector<m2::RectF> & SquareHandle::GetPixelShape(ScreenBase const & screen)
+void SquareHandle::GetPixelShape(ScreenBase const & screen, Rects & rects) const
 {
   m2::RectD rd = GetPixelRect(screen);
-  m_bbox[0] = m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY());
-  return m_bbox;
+  rects.push_back(m2::RectF(rd.minX(), rd.minY(), rd.maxX(), rd.maxY()));
 }
 
 } // namespace dp
