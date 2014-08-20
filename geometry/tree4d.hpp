@@ -12,15 +12,15 @@
 namespace m4
 {
   template <typename T>
-  struct Traits
+  struct TraitsDef
   {
-    m2::RectD const LimitRect(T const & t)
+    m2::RectD const LimitRect(T const & t) const
     {
       return t.GetLimitRect();
     }
   };
 
-  template <class T, typename Traits = Traits<T> >
+  template <class T, typename Traits = TraitsDef<T> >
   class Tree
   {
     struct value_t
@@ -53,7 +53,7 @@ namespace m4
       {
         ostringstream out;
 
-        out << m_val.get() << ", ("
+        out << DebugPrint(m_val) << ", ("
             << m_pts[0] << ", "
             << m_pts[1] << ", "
             << m_pts[2] << ", "
@@ -141,13 +141,18 @@ namespace m4
       }
     };
 
+  protected:
+    Traits m_traits;
+    m2::RectD GetLimitRect(T const & t) const { return m_traits.LimitRect(t); }
+
   public:
+    Tree(Traits const & traits = Traits()) : m_traits(traits) {}
 
     typedef T elem_t;
 
     void Add(T const & obj)
     {
-      Add(obj, Traits::LimitRect(obj));
+      Add(obj, GetLimitRect(obj));
     }
 
     void Add(T const & obj, m2::RectD const & rect)
@@ -177,10 +182,16 @@ namespace m4
       m_tree.erase_exact(val);
     }
 
+    void Erase(T const & obj)
+    {
+      value_t val(obj, m_traits.LimitRect(obj));
+      m_tree.erase_exact(val);
+    }
+
     template <class TCompare>
     void ReplaceIf(T const & obj, TCompare comp)
     {
-      ReplaceIf(obj, Traits::LimitRect(obj), comp);
+      ReplaceIf(obj, GetLimitRect(obj), comp);
     }
 
     template <class ToDo>
