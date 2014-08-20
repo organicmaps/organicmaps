@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "menu-download.png"
+      "filename" : "MenuDownload.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "menu-download@2x.png"
+      "filename" : "MenuDownload@2x.png"
     }
   ],
   "info" : {

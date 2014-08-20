@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "menu-send-my-location.png"
+      "filename" : "MenuSendMyLocation.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "menu-send-my-location@2x.png"
+      "filename" : "MenuSendMyLocation@2x.png"
     }
   ],
   "info" : {
