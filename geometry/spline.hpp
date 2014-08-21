@@ -48,14 +48,12 @@ public:
     ASSERT(begin.BeginAgain() == false, ());
     ASSERT(end.BeginAgain() == false, ());
 
-    if (!my::AlmostEqual(begin.GetDistance(), 0.0f))
-      f(begin.m_pos);
+    f(begin.m_pos);
 
     for (int i = begin.GetIndex() + 1; i <= end.GetIndex(); ++i)
       f(m_position[i]);
 
-    if (!my::AlmostEqual(end.GetDistance(), 0.0f))
-      f(end.m_pos);
+    f(end.m_pos);
   }
 
   bool IsEmpty() const;
