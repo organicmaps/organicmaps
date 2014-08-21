@@ -4,7 +4,7 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = map generator indexer platform geometry coding base expat sgitess protobuf tomcrypt
+DEPENDENCIES = map generator indexer platform geometry coding base expat sgitess protobuf tomcrypt osrm
 
 include($$ROOT_DIR/common.pri)
 

@@ -4,13 +4,15 @@ CONFIG += staticlib
 
 ROOT_DIR = ../..
 
+QMAKE_CXXFLAGS *= -Wno-unused-function -Wno-unused-const-variable -Wno-ignored-qualifiers
+
 include($$ROOT_DIR/common.pri)
 
 INCLUDEPATH *= osrm-backend/Include
 
 SOURCES += \
     osrm-backend/Algorithms/DouglasPeucker.cpp \
-#    Algorithms/PolylineCompressor.cpp \
+    osrm-backend/Algorithms/PolylineCompressor.cpp \
 #    Contractor/EdgeBasedGraphFactory.cpp \
 #    Contractor/GeometryCompressor.cpp \
 #    Contractor/TemporaryStorage.cpp \
@@ -23,6 +25,7 @@ SOURCES += \
     osrm-backend/DataStructures/RouteParameters.cpp \
     osrm-backend/DataStructures/SearchEngineData.cpp \
     osrm-backend/Descriptors/DescriptionFactory.cpp \
+#    osrm-backend/Util/FingerPrint.cpp \
 #    Extractor/BaseParser.cpp \
 #    Extractor/ExtractionContainers.cpp \
 #    Extractor/ExtractorCallbacks.cpp \
@@ -48,3 +51,4 @@ HEADERS += \
     osrm-backend/DataStructures/RouteParameters.h \
     osrm-backend/Algorithms/DouglasPeucker.h \
     osrm-backend/Descriptors/DescriptionFactory.h \
+    osrm-backend/Util/FingerPrint.h \

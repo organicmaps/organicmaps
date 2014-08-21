@@ -8,7 +8,8 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src
+INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src \
+               $$ROOT_DIR/3party/osrm/osrm-backend/Include
 
 QT *= core
 
@@ -32,6 +33,7 @@ SOURCES += \
     coastlines_generator.cpp \
     tesselator.cpp \
     check_model.cpp \
+    routing_generator.cpp \
 
 HEADERS += \
     feature_merger.hpp \
@@ -62,3 +64,4 @@ HEADERS += \
     check_model.hpp \
     ways_merger.hpp \
     gen_mwm_info.hpp \
+    routing_generator.hpp \

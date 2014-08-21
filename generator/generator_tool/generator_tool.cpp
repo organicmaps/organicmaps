@@ -9,6 +9,7 @@
 #include "../unpack_mwm.hpp"
 #include "../generate_info.hpp"
 #include "../check_model.hpp"
+#include "../routing_generator.hpp"
 
 #include "../../indexer/drawing_rules.hpp"
 #include "../../indexer/classificator_loader.hpp"
@@ -62,6 +63,7 @@ DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from c
 DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
 DEFINE_string(address_file_name, "", "Output file name for storing full addresses.");
 DEFINE_string(export_poly_path, "", "Output dir for osm .poly files created from .borders (countires are read from polygons.lst)");
+DEFINE_string(osrm_file_name, "", "Input osrm file to generate routing info");
 
 
 string AddSlashIfNeeded(string const & str)
@@ -261,6 +263,9 @@ int main(int argc, char ** argv)
     borders::LoadCountriesList(path, countries);
     borders::ExportOSMPolylines(FLAGS_export_poly_path, countries);
   }
+
+  if (!FLAGS_osrm_file_name.empty())
+    routing::GenerateNodesInfo(datFile, FLAGS_osrm_file_name);
 
   return 0;
 }
