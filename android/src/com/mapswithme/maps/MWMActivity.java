@@ -321,7 +321,7 @@ public class MWMActivity extends NvEventQueueActivity
     {
       if (state.isCentered())
       {
-        if (MWMApplication.get().isProVersion() && state.hasCompass())
+        if (BuildConfig.IS_PRO && state.hasCompass())
         {
           final boolean isFollowMode = (state.getCompassProcessMode() == LocationState.COMPASS_FOLLOW);
           if (isFollowMode)
@@ -413,7 +413,7 @@ public class MWMActivity extends NvEventQueueActivity
   private void checkLiteMapsInPro()
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-        MWMApplication.get().isProVersion() &&
+        BuildConfig.IS_PRO &&
         (Utils.isAppInstalled(Constants.Package.MWM_LITE_PACKAGE) || Utils.isAppInstalled(Constants.Package.MWM_SAMSUNG_PACKAGE)))
     {
       if (!mPathManager.containsLiteMapsOnSdcard())
@@ -568,7 +568,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void checkBuyProDialog()
   {
-    if (!MWMApplication.get().isProVersion() &&
+    if (!BuildConfig.IS_PRO &&
         (ConnectionState.isConnected(this)) &&
         MWMApplication.get().shouldShowDialog(MWMApplication.BUYPRO))
     {
@@ -594,7 +594,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onSearchClicked(View v)
   {
-    if (!MWMApplication.get().isProVersion())
+    if (!BuildConfig.IS_PRO)
     {
       showProVersionBanner(getString(R.string.search_available_in_pro_version));
     }

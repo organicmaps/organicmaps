@@ -332,11 +332,11 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
     return getPackageManager().getLaunchIntentForPackage(s);
   }
 
-  private boolean checkLiteProPackages(boolean isPro)
+  private boolean checkLiteProPackages()
   {
     try
     {
-      if (!isPro)
+      if (!BuildConfig.IS_PRO)
       {
         final Intent intent = getPackageIntent(Constants.Package.MWM_PRO_PACKAGE);
         if (intent != null)
@@ -375,8 +375,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseActivity
 
     mApplication = (MWMApplication) getApplication();
 
-    final boolean isPro = mApplication.isProVersion();
-    if (checkLiteProPackages(isPro))
+    if (checkLiteProPackages())
       return;
 
     final boolean dispatched = dispatchIntent();

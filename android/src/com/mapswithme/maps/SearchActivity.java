@@ -706,7 +706,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     // If user searched for something, then clear API layer
     SearchController.getInstance().cancelApiCall();
 
-    if (MWMApplication.get().isProVersion())
+    if (BuildConfig.IS_PRO)
     {
       finish();
 

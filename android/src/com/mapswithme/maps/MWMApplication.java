@@ -33,7 +33,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private final static String TAG = "MWMApplication";
   private static final CharSequence PRO_PACKAGE_POSTFIX = ".pro";
   private static final String FOREGROUND_TIME_SETTING = "AllForegroundTime";
-  private static final String PROMO_NOTIFICATION_SHOWED = "PromoNotifocationShowed";
 
   private static MWMApplication mSelf;
 
@@ -41,12 +40,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   private LocationState mLocationState = null;
   private MapStorage mStorage = null;
 
-  private boolean mIsPro = false;
   private boolean mIsYota = false;
-
-  // Set default string to Google Play page.
-  private final static String DEFAULT_PRO_URL = "http://play.google.com/store/apps/details?id=com.mapswithme.maps.pro";
-  private String mProVersionURL = DEFAULT_PRO_URL;
 
   // We check how old is modified date of our MapsWithMe folder
   private final static long TIME_DELTA = 5 * 1000;
@@ -112,19 +106,11 @@ public class MWMApplication extends android.app.Application implements MapStorag
   {
     super.onCreate();
 
-    mIsPro = getPackageName().contains(PRO_PACKAGE_POSTFIX);
     mIsYota = Build.DEVICE.equals(Constants.DEVICE_YOTAPHONE);
 
     // http://stackoverflow.com/questions/1440957/httpurlconnection-getresponsecode-returns-1-on-second-invocation
     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1)
       System.setProperty("http.keepAlive", "false");
-
-    // get url for PRO version
-    if (!mIsPro)
-    {
-      mProVersionURL = BuildConfig.PRO_URL;
-      Log.i(TAG, "Pro version url: " + mProVersionURL);
-    }
 
     final String extStoragePath = getDataStoragePath();
     final String extTmpPath = getTempPath();
@@ -135,7 +121,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
     // init native framework
     nativeInit(getApkPath(), extStoragePath, extTmpPath,
-        getOBBGooglePath(), mIsPro, mIsYota);
+        getOBBGooglePath(), BuildConfig.IS_PRO, mIsYota);
 
     getMapStorage().subscribe(this);
 
@@ -226,29 +212,14 @@ public class MWMApplication extends android.app.Application implements MapStorag
     return nativeGetDouble(FOREGROUND_TIME_SETTING, 0);
   }
 
-  public boolean isProVersion()
-  {
-    return mIsPro;
-  }
-
   public boolean hasBookmarks()
   {
-    return mIsPro || mIsYota;
+    return BuildConfig.IS_PRO || mIsYota;
   }
 
   public boolean isYota()
   {
     return mIsYota;
-  }
-
-  public String getProVersionURL()
-  {
-    return mProVersionURL;
-  }
-
-  public String getDefaultProVersionURL()
-  {
-    return DEFAULT_PRO_URL;
   }
 
   static

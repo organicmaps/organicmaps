@@ -25,6 +25,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
 
@@ -275,22 +276,16 @@ public final class UiUtils
   {
     try
     {
-      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(MWMApplication.get().getProVersionURL())));
-    } catch (final Exception e1)
+      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.PRO_URL)));
+    } catch (final Exception e)
     {
-      try
-      {
-        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(MWMApplication.get().getDefaultProVersionURL())));
-      } catch (final Exception e2)
-      {
-        e2.printStackTrace();
-      }
+      e.printStackTrace();
     }
   }
 
   public static void runLiteOrProActivity(Activity activity)
   {
-    if (MWMApplication.get().isProVersion())
+    if (BuildConfig.IS_PRO)
       runProMarketActivity(activity);
     else
       runLiteActivity(activity);
