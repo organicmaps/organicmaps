@@ -257,7 +257,7 @@ public final class UiUtils
           public void onClick(DialogInterface dlg, int which)
           {
             dlg.dismiss();
-            runProMarketActivity(activity);
+            openAppInMarket(activity, BuildConfig.PRO_URL);
           }
         }).
         setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener()
@@ -272,41 +272,14 @@ public final class UiUtils
         .show();
   }
 
-  public static void runProMarketActivity(Activity activity)
+  public static void openAppInMarket(Activity activity, String marketUrl)
   {
     try
     {
-      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.PRO_URL)));
+      activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(marketUrl)));
     } catch (final Exception e)
     {
       e.printStackTrace();
-    }
-  }
-
-  public static void runLiteOrProActivity(Activity activity)
-  {
-    if (BuildConfig.IS_PRO)
-      runProMarketActivity(activity);
-    else
-      runLiteActivity(activity);
-  }
-
-  private static void runLiteActivity(Activity activity)
-  {
-    try
-    {
-      activity.startActivity(new Intent(Intent.ACTION_VIEW,
-          Uri.parse(Constants.Url.PLAY_MARKET_APP_PREFIX + Constants.Package.MWM_LITE_PACKAGE)));
-    } catch (final Exception e1)
-    {
-      try
-      {
-        activity.startActivity(new Intent(Intent.ACTION_VIEW,
-            Uri.parse(Constants.Url.PLAY_MARKET_HTTP_APP_PREFIX + Constants.Package.MWM_LITE_PACKAGE)));
-      } catch (final Exception e2)
-      {
-        e2.printStackTrace();
-      }
     }
   }
 

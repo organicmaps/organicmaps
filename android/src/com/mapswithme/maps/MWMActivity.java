@@ -580,7 +580,7 @@ public class MWMActivity extends NvEventQueueActivity
             {
               MWMApplication.get().submitDialogResult(MWMApplication.BUYPRO, MWMApplication.OK);
               dlg.dismiss();
-              UiUtils.runProMarketActivity(MWMActivity.this);
+              UiUtils.openAppInMarket(MWMActivity.this, BuildConfig.PRO_URL);
             }
           }
       );
@@ -1365,7 +1365,7 @@ public class MWMActivity extends NvEventQueueActivity
     {
     case R.id.btn_buy_pro:
       setVerticalToolbarVisible(false);
-      UiUtils.runProMarketActivity(MWMActivity.this);
+      UiUtils.openAppInMarket(MWMActivity.this, BuildConfig.PRO_URL);
       break;
     case R.id.btn_share:
       setVerticalToolbarVisible(false);

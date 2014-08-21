@@ -14,7 +14,6 @@ public class Constants
     public static final String HTTP_GE0_PREFIX = "http://ge0.me/";
 
     public static final String PLAY_MARKET_APP_PREFIX = "market://details?id=";
-    public static final String PLAY_MARKET_HTTP_APP_PREFIX = "http://play.google.com/store/apps/details?id=";
     public static final String GEOLOCATION_SERVER_MAPSME = "http://geolocation.server/";
 
     public static final String FB_MAPSME_COMMUNITY_HTTP = "http://www.facebook.com/MapsWithMe";
