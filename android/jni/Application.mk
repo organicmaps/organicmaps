@@ -1,6 +1,7 @@
 NDK_TOOLCHAIN_VERSION := clang
 APP_PLATFORM := android-5
-APP_STL := c++_static
+APP_STL := gnustl_static
+APP_CPPFLAGS += -std=c++11
 
 ifeq (x$(NDK_ABI_TO_BUILD), x)
   APP_ABI := armeabi armeabi-v7a-hard x86
