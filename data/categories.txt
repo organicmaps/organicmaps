@@ -3,7 +3,7 @@ en:3atm|money
 ru:3банкомат|деньги
 uk:3банкомат|гроші
 de:3Geldautomat|Bankomat|Geld
-fr:3DAB|5distributeur de billets|argent
+fr:3GAB|3DAB|argent
 it:3bancomat|soldi
 es:3atm|dinero
 ko:atm|돈
@@ -49,7 +49,7 @@ en:3currency exchange|3exchange|money
 ru:3обмен валюты|обменник|4валюта|деньги
 uk:3обмін валют|валюта|гроші
 de:3Geldwechselstelle|Geld
-fr:3change|devises|argent
+fr:3bureau de change|3change|3devises|argent
 it:3cambio valute|valuta|soldi
 es:3cambio de devisas|dinero
 ko:1환전|돈|교환을
@@ -72,7 +72,7 @@ en:2bar|2pub|beer|drink|food
 ru:2бар|2паб|пиво|выпить|еда
 uk:2бар|2паб|пиво|напої|їжа
 de:2Bar|2Pub|Bier|Essen
-fr:2bar|2pub|bière|boisson|nourriture|alimentation
+fr:2bar|2pub|bière|boisson|nourriture
 it:2bar|2birra|pub|mangiare
 es:2bar|2pub|comer
 ko:바|술집|맥주|음료|음식
@@ -95,7 +95,7 @@ en:3cafe|3restaurant|3food
 ru:3кафе|3ресторан|3еда
 uk:3кафе|3ресторан|2їжа|2їсти
 de:3Cafe|3Restautant|essen
-fr:3café|3restaurant|nourriture|manger|alimentation
+fr:3café|3restaurant|3resto|3nourriture
 it:3caffè|3ristorante|pasto|mangiare
 es:3café|3restaurante|comer
 ko:1카페|레스토랑|음식
@@ -118,7 +118,7 @@ en:4fast food|3restaurant|3cafe|takeaway|3food
 ru:3фастфуд|3ресторан|3кафе|еда
 uk:3фастфуд|3ресторан|3кафе|2їжа|2їсти
 de:4Fast food|takeaway|Restaurant|Cafe|Pizzeria|essen
-fr:4fast-food|restauration rapide|café|à emporter|nourriture|manger|alimentation
+fr:4restauration rapide|3restaurant|3café|à emporter|3nourriture|3resto
 it:4fast food|takeaway|caffè|ristorante|pasto|mangiare
 es:4comida rápida|restaurante|café|comer
 ko:1패스트 푸드|레스토랑|카페|테이크 아웃|푸드
@@ -141,7 +141,7 @@ en:3restaurant|3cafe|3food
 ru:3ресторан|3кафе|еда
 uk:3ресторан|3кафе|2їжа|2їсти
 de:3Restaurant|3Cafe|Gasthaus|3essen
-fr:3restaurant|3café|nourriture|manger|alimentation
+fr:3restaurant|3café|3nourriture|3resto
 it:3ristorante|3caffè|mangiare
 es:3restaurante|3café|comer
 ko:1레스토랑|카페|음식
@@ -164,7 +164,7 @@ en:gas station|3fuel|2gas
 ru:3заправка|бензин|топливо
 uk:3заправка|бензин|газ
 de:3Tankstelle|Tankstation
-fr:3station-service|carburant|essence|gazole
+fr:station-service|3carburant|2essence
 it:3stazione di rifornimento
 es:3gasolinera
 ko:1가스가 역|연료|가스
@@ -280,7 +280,7 @@ en:clothes shop|4clothes
 ru:магазин одежды|4одежда
 uk:магазин одягу|речі|4одяг|2крамниця
 de:Bekleidungsgeschäft|Laden
-fr:boutique de vêtements|magasin
+fr:boutique de vêtements|4vêtements
 it:negozio di abbigliamento|negozio
 es:tienda de ropa|3ropa|tienda
 ko:1옷 가게|쇼핑
@@ -303,7 +303,7 @@ en:car shop
 ru:автосалон|магазин
 uk:автосалон|магазин
 de:Auto-Shop|Laden
-fr:vente voitures|6concessionnaire automobile|voitures|magasin
+fr:réparation auto|voitures|auto
 it:car negozio|negozio
 es:venta de coches|tienda
 ko:1자동차 가게|쇼핑
@@ -326,7 +326,7 @@ en:4bicycle shop|cycle|bike|shop
 ru:4веломагазин|велосипед|магазин
 uk:4веломагазін|велосипед|магазин
 de:3Fahrradladen|Fahrrad|Velo|Laden
-fr:magasin de vélo|4vélos|bicyclettes|cycles
+fr:4magasin de vélos|vélo|bicyclette|magasin
 it:negozio di biciclette|bicicletta|bici
 es:bicicletería|bicicleta|tienda
 ko:자전거 가게|쇼핑
@@ -349,7 +349,7 @@ en:kiosk|shop
 ru:киоск|магазин
 uk:кіоск|магазин|крамниця
 de:Kiosk|Laden
-fr:kiosque|presse|magasin
+fr:kiosque|magasin
 it:chiosco|negozio
 es:quiosco|tienda
 ko:1정자|쇼핑
@@ -373,7 +373,7 @@ en:bus stop|2bus|stop|4transport
 ru:4остановка|4автобус|4транспорт
 uk:4зупинка|4автобус|4траспорт
 de:Bushaltestelle|Haltestelle|2Bus|Autobus|Verkehr
-fr:3arrêt de bus|station|arrêt|2bus|autobus|4transport
+fr:arrêt de bus|2bus|arrêt|2autobus|4transport
 it:3fermata|autobus|4transporto
 es:parada de autobuses|4transporte
 ko:1수송|운송선|황홀|버스 정류장|버스|모선
@@ -396,7 +396,7 @@ en:tram stop|3tram|stop|4transport
 ru:4остановка|4трамвай|4транспорт
 uk:4зупинка|4трамвай|4транспорт
 de:4Haltestelle|Tram|Verkehr
-fr:3arrêt de tramway|station|arrêt|4tramway|4transport
+fr:arrêt de tramway|3tramway|3tram|arrêt|4transport
 it:fermata|tram|4transporto
 es:parada|4transporte
 ko:1트램|트램 정류장|교통|전차|수송|운송선|황홀
@@ -419,7 +419,7 @@ en:bus station|2bus|station|4transport
 ru:автостанция|4автобус|4остановка|4транспорт
 uk:автовокзал|4автобус|4зупинка|4транспорт
 de:4Bahnhof|Haltestelle|Bus|Autobus|Verkehr
-fr:gare routière|terminus|arrêt|station|bus|4transport
+fr:gare routière|2bus|2autobus|arrêt|4transport
 it:autostazione|fermata|autobus|4transporto
 es:estación de autobuses|4transporte
 ko:1버스 정류장|버스|역|교통|모선|역|위치|수송|운송선|황홀
@@ -442,7 +442,7 @@ en:3train station|4railway|railroad|3train|4station|4transport
 ru:ж/д станция|3поезд|3станция|4транспорт
 uk:залізничний вокзал|3поїзд|залізниця|3станція|4транспорт
 de:3Haltestelle|3Station|Zug|Verkehr
-fr:3gare|train|6chemin de fer|transport
+fr:3gare|4chemin de fer|3train|4transport
 it:3stazione ferroviaria|3treno|transporto
 es:3estación de tren|3tren|transporte
 ko:1기차역|철도|철도|철도|역|교통|수송
@@ -465,7 +465,7 @@ en:3subway|3tube|3metro|3underground|transport
 ru:3метро|транспорт
 uk:3метро|транспорт
 de:2U-Bahn|Metro|Verkehr
-fr:3métro|3rame|transport
+fr:3métro|transport
 it:3metrò|transporto
 es:3metro|3subte|transporte
 ko:1지하철|교통|수송
@@ -488,7 +488,7 @@ en:3ferry|terminal|transport
 ru:3паром|транспорт
 uk:3пором|транспорт
 de:2Fähre|Verkehr
-fr:3traversier|transport
+fr:3traversier|terminal|transport
 it:3traghetto|transporto
 es:3transbordador|transporte
 ko:1나룻배|수송
@@ -580,7 +580,7 @@ en:3artwork|3tourism|3sights
 ru:3произведение искусства|3туризм|3скульптура|достопримечательность
 uk:3твір мистецтва|визначна річ|3туризм|3скульптура|пам’ятні місця
 de:3Kunstwerk|3Sehenswürdigkeit
-fr:3œuvre|3oeuvre|3tourisme|3site touristique
+fr:3œuvre|3oeuvre|3art|3tourisme|3site touristique
 it:3opere d'arte|3turistico
 es:3obras de arte|3turismo
 ko:1작품|관광
@@ -603,7 +603,7 @@ en:4viewpoint|tourism|sights
 ru:4обзорная площадка|туризм|достопримечательность
 uk:4оглядний майданчик|4місце огляду|туризм|пам’ятка|пам’ятні місця
 de:3Panorama|Sehenswürdigkeit
-fr:4panorama|tourisme|site touristique
+fr:4belvédère|4point de vue|4panorama|tourisme|site touristique
 it:3panorama|turistico
 es:3vista panorámica|turismo
 ko:1관점|관 광|명소|관광
@@ -626,7 +626,7 @@ en:4tourist information|4information|sights
 ru:4туринформация|информация|достопримечательность
 uk:4турінформація|інформація|пам’ятка|пам’ятні місця
 de:4Information|Sehenswürdigkeit
-fr:4information|syndicat d'initiative|tourisme|site touristique
+fr:4informations touritiques|4informations|site touristique
 it:4informazione|turistico
 es:4información|turismo
 ko:1관광 정보|정보|명소|관광
@@ -649,7 +649,7 @@ en:3picnic site|sights
 ru:3пикник|достопримечательность
 uk:3пікнік|зупинка|відпочинок|пам’ятні місця
 de:3Picknick|Sehenswürdigkeit
-fr:3pique-nique|aire de pique-nique|site touristique
+fr:3terrain de pique-nique|3aire de pique-nique|site touristique
 it:3picnic|turistico
 es:3picnic|turismo
 ko:1소풍 사이트|명소|피크닉|관광
@@ -672,7 +672,7 @@ en:place of worship|4temple|sights
 ru:3храм|церковь|достопримечательность
 uk:3храм|церква|собор|пам’ятка|алтарь|мавзолей|пам’ятні місця
 de:4Tempel|Kirche|Dom|Sehenswürdigkeit
-fr:4lieu de culte|église|cathédrale|temple|mosquée|site touristique
+fr:4lieu de culte|site touristique
 it:4tempio|cattedrale|duomo|turistico
 es:4templo|lugar de culto|turismo
 ko:1예배 장소|사찰|볼거리|관광
@@ -695,7 +695,7 @@ en:2museum|attraction|tourism|sights
 ru:2музей|достопримечательность|туризм
 uk:2музей|пам'ятка|туризм|пам’ятні місця
 de:2Museum|Sehenswürdigkeit
-fr:2musée|tourisme|site touristique
+fr:2musée|attraction|tourisme|site touristique
 it:2museo|turistico
 es:2museo|turismo
 ko:1박물관|관광
@@ -741,7 +741,7 @@ en:memorial|monument|attraction|tourism|sights
 ru:мемориал|монумент|достопримечательность|туризм
 uk:меморіал|монумент|пам'ятка|туризм|статуя|пам'ятник|пам’ятні місця
 de:Denkmal|Gedenkstätte|Sehenswürdigkeit
-fr:mémorial|monument|tourisme|site touristique
+fr:mémorial|monument|attraction|tourisme|site touristique
 it:memoriale|monumento|turistico
 es:memorial|turismo
 ko:1기념물|관광
@@ -764,7 +764,7 @@ en:monument|attraction|tourism|sights
 ru:памятник|достопримечательность|туризм
 uk:пам'ятник|монумент|статуя|пам'ятка|туризм|пам’ятні місця
 de:Monument|Denkmal|Sehenswürdigkeit
-fr:monument|tourisme|site touristique
+fr:monument|attraction|tourisme|site touristique
 it:monumento|turistico
 es:monumento|turismo
 ko:1기념물|관광
@@ -787,7 +787,7 @@ en:ruins|attraction|tourism|sights
 ru:руины|развалины|достопримечательность|туризм
 uk:руїни|розвалини|древність|історична пам'ятка|туризм|пам’ятні місця
 de:Ruinen|Sehenswürdigkeit
-fr:ruines|tourisme|site touristique
+fr:ruines|attraction|tourisme|site touristique
 it:rovine|turistico
 es:ruinas|turismo
 ko:1유적|관광
@@ -810,7 +810,7 @@ en:castle|attraction|tourism|sights
 ru:замок|достопримечательность|туризм
 uk:замок|фортеця|мури|туризм|пам'ятка|пам’ятні місця
 de:Burg|Schloss|Festung|Sehenswürdigkeit
-fr:château|tourisme|site touristique
+fr:château|attraction|tourisme|site touristique
 it:castello|turistico
 es:castillo|turismo
 ko:대저택|관광
@@ -833,7 +833,7 @@ en:archaeological site|attraction|tourism|sights
 ru:раскопки|достопримечательность|туризм
 uk:розкопки|історична пам'ятка|туризм|пам’ятні місця
 de:Ausgrabungen|Sehenswürdigkeit
-fr:site archéologique|tourisme|site touristique
+fr:site archéologique|attraction|tourisme|site touristique
 it:sito archeologico|turistico
 es:sitio arqueológico|turismo
 ko:1발굴|관광
@@ -901,7 +901,7 @@ en:4bicycle rental|cycle|bike|3rental
 ru:4велопрокат|велосипед|3прокат
 uk:4велопрокат|велосипед|3прокат
 de:3Fahrradverleih|Fahrrad|Velo|3Verleih
-fr:location de vélos|4vélos|bicyclettes|cycles|3location
+fr:location de vélos|vélo|bicyclette|3location
 it:noleggio biciclette|4bicicletta|bici|3noleggio
 es:alquiler de bicicletas|4bicicleta|3alquiler
 ko:1자전거 대여|1임대의
@@ -924,7 +924,7 @@ en:3car rental|car|rental|sharing
 ru:4прокат авто|3авто|3машина|прокат
 uk:4прокат авто|3авто|3машина|прокат
 de:3Autoverleih|Auto|Farzeug Mieten|Verleih
-fr:4location de voiture|voiture|location
+fr:4location de voitures|auto|loueur|location|partage
 it:3noleggio di automobili|noleggio
 es:3coche compartido|alquiler
 ko:1자동차 공유|자동차|자동차 임대|임대의
@@ -948,7 +948,7 @@ en:3cinema|entertainment
 ru:кинотеатр|3кино|развлечения
 uk:3кіно|кінотеатр|розваги
 de:3Kino|Cinema|Filmtheater|Unterhaltung
-fr:4cinéma|divertissement
+fr:3cinéma|divertissement
 it:3cinema|teatro|divertimento
 es:3cine|entretenimiento
 ko:1영화|엔터테인먼트
@@ -994,7 +994,7 @@ en:3nightclub|3disco|dance|entertainment
 ru:3ночной клуб|3дискотека|развлечения
 uk:3нічний клуб|3дискотека|розваги
 de:3Nachtclub|Nachtklub|Unterhaltung
-fr:3discothèque|3boîte de nuit|divertissement
+fr:3discothèque|3boîte de nuit|danse|divertissement
 it:3night club|divertimento
 es:3discoteca|nightclub|entretenimiento
 ko:1나이트 클럽|엔터테인먼트
@@ -1017,7 +1017,7 @@ en:brothel|entertainment
 ru:бордель|развлечения
 uk:бордель|розваги
 de:Bordell|Unterhaltung
-fr:maison de tolérance|divertissement
+fr:maison de prostitution|divertissement
 it:bordello|divertimento
 es:burdel|entretenimiento
 ko:유곽|엔터테인먼트
@@ -1064,7 +1064,7 @@ en:college
 ru:колледж
 uk:коледж
 de:College|Fachschule
-fr:collège
+fr:enseignement post-secondaire
 it:collegio
 es:colegio
 ko:1칼리지|대학
@@ -1087,7 +1087,7 @@ en:4drinking water
 ru:4питьевой фонтан
 uk:4питна вода
 de:4Trinkwasser|Brunnen
-fr:3eau potable
+fr:4eau potable
 it:4acqua potabile
 es:4agua potable
 ko:1식수|분수식 물마시는 곳
@@ -1110,7 +1110,7 @@ en:fire station
 ru:пожарные
 uk:пожежна частина
 de:Feuerwehr
-fr:7caserne de pompiers|7pompiers
+fr:caserne de pompiers
 it:scuadra antincendio
 es:parque de bomberos
 ko:1소방서
@@ -1179,7 +1179,7 @@ en:3hospital|clinic|3doctor
 ru:3больница|3госпиталь|врач|доктор
 uk:3лікарня|клініка|лікар|травмпункт
 de:3Spital|Krankenhaus
-fr:3hôpital|clinique|médecin|docteur
+fr:3hôpital|clinique|3médecin|3docteur
 it:3ospedale
 es:3hospital
 ko:1병원|병원|의사|의사가
@@ -1202,7 +1202,7 @@ en:hunting stand
 ru:охотничья вышка
 uk:мисливська башта
 de:Hochsitz
-fr:tour de chasse
+fr:mirador
 it:torre di caccio
 ko:1사냥 스탠드
 ja:1狩猟スタンド
@@ -1224,7 +1224,7 @@ en:kindergarten
 ru:детсад|ясли
 uk:дитячий садок|ясла
 de:Kindergarten|Kinderkrippe|Krippe
-fr:5école maternelle|garderie
+fr:maternelle|garderie
 it:scuola materna
 es:kindergarden|preescolar
 ko:1유치원
@@ -1270,7 +1270,7 @@ en:3parking
 ru:3парковка
 uk:3парковка|автостоянка|паркінг
 de:3Parkplatz|Parking
-fr:3parking
+fr:3stationnement|3parking
 it:3parcheggio
 es:3estacionamiento|3aparcamiento
 ko:1주차
@@ -1293,7 +1293,7 @@ en:3pharmacy|3drugstore|apothecary|dispensary
 ru:3аптека
 uk:3аптека|3ліки
 de:3Apotheke|3Droguerie
-fr:4pharmacie|4droguerie
+fr:3pharmacie|dispensaire
 it:3farmacia
 es:3farmacia
 ko:1약국|약물 매장|약종상
@@ -1317,7 +1317,7 @@ en:3postbox|post
 ru:3почтовый ящик
 uk:3поштова скринька|пошта
 de:3Briefkasten|3Postfach
-fr:3boîte aux lettres|3boîte à lettres|courrier
+fr:3boîte aux lettres|courrier
 it:3casella
 es:3buzón
 ko:1포스트 박스
@@ -1340,7 +1340,7 @@ en:3post
 ru:3почта
 uk:3пошта
 de:3Post|Postamt
-fr:3poste
+fr:3poste|3comptoir postal
 it:3posta
 es:4oficina de correos|3post
 ko:1우편
@@ -1363,7 +1363,7 @@ en:recycling|trash|bin|garbage
 ru:мусорка
 uk:сміттєвий бак|сміття|корзина
 de:Abfälle|Recycling|Müll
-fr:poubelle|recyclage|déchet|déchèterie|décharge
+fr:recyclage|poubelle|déchet
 it:rifiuti
 es:reciclaje
 ko:1휴지통|휴지통|쓰레기
@@ -1409,7 +1409,7 @@ en:shelter
 ru:укрытие
 uk:укриття
 de:Schutz|Zivilschutz
-fr:abri|refuge
+fr:refuge
 it:riparo
 es:abrigo
 ko:1피난처
@@ -1455,7 +1455,7 @@ en:3toilet|wc
 ru:3туалет
 uk:3туалет
 de:WC|3Toilette
-fr:WC|3toilettes
+fr:3toilettes|wc
 it:WC|3toilette
 es:3servicios sanitario|3lavabo|inodoro|baño
 ko:1화장실
@@ -1478,7 +1478,7 @@ en:4university
 ru:4университет|вуз|институт
 uk:4університет|інститут|освіта
 de:4Universität|Uni|Hochschule|Institut
-fr:4université|institut|école supérieure
+fr:4université|école supérieure
 it:4università|istituto
 es:4universidad
 ko:1대학
@@ -1548,7 +1548,7 @@ en:city|town
 ru:город
 uk:місто
 de:Stadt
-fr:ville|cité
+fr:ville
 it:città
 es:ciudad
 ko:1도시|타운
@@ -1571,7 +1571,7 @@ en:town|city
 ru:город
 uk:місто
 de:Stadt
-fr:ville|commune
+fr:ville
 it:città
 es:pueblo
 ko:1타운|도시
@@ -1640,7 +1640,7 @@ en:state|province
 ru:штат|провинция
 uk:штат|провінція|регіон
 de:Land|Staat|Kanton|Provinz
-fr:province|état
+fr:état|province
 it:provincia|stato
 es:estado|provincia
 ko:1상태|지역
@@ -1686,7 +1686,7 @@ en:island|islet
 ru:остров
 uk:острів
 de:Insel
-fr:île
+fr:île|ilôt
 it:isola
 es:isla
 ko:섬
@@ -1709,7 +1709,7 @@ en:suburb|district
 ru:район|микрорайон|округ|квартал
 uk:район|мікрорайон|квартал|округа
 de:Kreis|Wohnbezirk|Wohnviertel
-fr:arrondissement|quartier|banlieue
+fr:banlieue|arrondissement|quartier
 it:quartiere
 es:barrio
 ko:1교외|지역
@@ -1778,7 +1778,7 @@ en:locality
 ru:местность|регион
 uk:місцевість|регіон
 de:Lokal|Region|Raum
-fr:localité|lieu-dit
+fr:localité
 it:località|luogo|regione|area
 es:localidad
 ko:1장소
@@ -1916,7 +1916,7 @@ en:street|st|str|ave|road|rd
 ru:улица|переулок|проезд|тракт|проспект|ул
 uk:вулиця|провулок|проїзд|проспект|бульвар|вул
 de:Strasse|Weg|Avenue|Gasse|str
-fr:rue|avenue|boulevard|ruelle|chemin
+fr:rue|avenue|av|boul|boulevard|route
 it:via|strada|corso|vicolo
 es:calle|avenue|camino
 ko:1거리|가도
@@ -1938,7 +1938,7 @@ highway-motorway_junction
 en:3exit|3junction
 ru:3съезд
 uk:з'їзд|сполучення|переплетення
-fr:4sortie|4carrefour
+fr:3sortie|3bifurcation
 de:4Ausfahrt
 cs:dopravní uzel|3dálnice
 sk:dopravný uzol|3diaľnica
@@ -2005,7 +2005,7 @@ en:pond|water
 ru:пруд|водоём
 uk:ставок|водойма
 de:Teich|Wasserbecken
-fr:étang|bassin|mare|eau
+fr:étang|bassin|eau
 it:stagno|bacino
 es:estanque|aljibe
 ko:1연못이|연못
@@ -2099,7 +2099,7 @@ en:3hostel|hotel|motel
 ru:3хостел|гостиница|отель|мотель
 uk:3хостел|отель|мотель|вітальниця|готель
 de:3Wohnheim|Gasthaus
-fr:3auberge|hôtel|gîte
+fr:3auberge de jeunesse|hôtel|motel
 it:3ostello
 es:3albergue juvenil|4residencia
 ko:1호스텔
@@ -2122,7 +2122,7 @@ en:2hotel|motel
 ru:2гостиница|2отель|мотель
 uk:2готель|мотель
 de:2Hotel|Gasthaus
-fr:2hôtel
+fr:2hôtel|motel
 it:2hôtel|albergo
 es:2hotel|residencia
 ko:1호텔
@@ -2145,7 +2145,7 @@ en:guest house|hotel|hostel
 ru:гостевой дом|гостиница|отель|хостел
 uk:гостинний дім|готель|хостел|постояльний двір
 de:Gästehaus|Hotel|Gasthaus|Wohnheim
-fr:maison d'hôtes|hôtel|auberge|gîte
+fr:maison d'hôtes|hôtel|auberge de jeunesse
 it:guest house|hôtel|albergo|ostello
 es:casa de huéspedes|hotel|albergue juvenil|residencia
 ko:1영빈관|호텔|호스텔
@@ -2168,7 +2168,7 @@ en:3motel|hotel|hostel
 ru:3мотель|гостиница|отель|хостел
 uk:3мотель|готель|хостел
 de:3Motel|Hotel|Gasthaus|Wohnheim
-fr:3motel|hôtel|auberge
+fr:3motel|hôtel|auberge de jeunesse
 it:3motel|hôtel|albergo|ostello
 es:3motel|hotel|albergue juvenil|residencia
 ko:1모텔|호텔|호스텔
@@ -2191,7 +2191,7 @@ en:mountains lodging|hotel|hostel|alpine hut
 ru:горный отель|отель
 uk:гірський готель|гірська хатинка|готель
 de:4Berghütte|Almhütte|Berghotel|hotel
-fr:hôtel de montagne|refuge|chaumière alpine|hôtel
+fr:hôtel de montagne|hôtel|auberge de jeunesse|cabane alpine
 it:hotel di montagna|baita|capanna|capanna di montagna|capanna alpina|hotel
 es:4cabaña|cabaña de los Alpes|hotel de montaña|hotel
 ko:1고산 오두막|산 호텔|호텔
@@ -2215,7 +2215,7 @@ en:3hairdresser
 ru:3парикмахерская
 uk:3перукарня
 de:3Friseur|Frisiersalon|Coiffeure
-fr:3coiffeur|5salon de coiffure
+fr:3coiffeur|salon de coiffure
 it:4parrucchiera
 es:4peluquero
 ko:1이발사
@@ -2284,7 +2284,7 @@ en:playground
 ru:детская площадка
 uk:дитячий майданчик
 de:Spielplatz
-fr:aire de jeu
+fr:terrain de jeu|aire de jeu
 it:campo giochi
 es:patio de recreo
 ko:1운동장
@@ -2330,7 +2330,7 @@ en:golf course|sport
 ru:площадка для гольфа|спорт
 uk:майданчик для гольфу|спорт
 de:Golfplatz|Sport
-fr:terrain de golf|golf|sport
+fr:terrain de golf|sport
 it:campo da golf|sport
 es:campo de golf|deporte
 ko:1골프장|스포츠
@@ -2368,7 +2368,7 @@ hu:oszlop|sport
 th:ขว้าง|กีฬา
 zh-Hans:2球场|运动
 ar:ميدان اللعب|رياضة
-da:sport|fiskested|fodboldbane|bane|sportsplads
+da:teltplads|fiskested|fodboldbane|bane|sportsplads
 tr:alan|spor
 
 leisure-swimming_pool
@@ -2422,7 +2422,7 @@ en:4police
 ru:4милиция|4полиция
 uk:4міліція|4поліція
 de:4Polizeistation|Polizei
-fr:4police|4gendarmerie|commissariat
+fr:4police|4gendarmerie
 it:posto di polizia|4polizia
 es:4policía
 ko:1치안대|보안대|경찰
@@ -2468,7 +2468,7 @@ en:bay
 ru:залив
 uk:затока
 de:Bucht
-fr:golfe|baie
+fr:baie
 it:baia
 es:bahía
 ko:만
@@ -2516,7 +2516,7 @@ en:3car repair shop|4service station|auto
 ru:3СТО|3автомастерская|автосервис|авто
 uk:3СТО|3автомайстерня|автосервіс|ремонт авто
 de:3Autowerkstatt|Car|Auto
-fr:3réparation automobile|3voiture|3garage
+fr:3réparation d'automobiles|3garage|4station service|voiture|auto
 it:3riparazione auto|auto|macchina|3automobile|vettura
 es:3reparaciones auto|coche|automóvil|3auto|carro
 ko:1자동차 수리|자동차|차|차량
@@ -2540,7 +2540,7 @@ en:4camping|campsite|campground
 ru:4кемпинг
 uk:4кемпінг|табір|стоянка
 de:4Camping|Campingplatz|Zelten
-fr:4camping
+fr:4camping|terrain de camping
 it:4campeggio|campeggi|camping
 es:4campamento|cámping|acampar|acampada
 ko:1캠핑|캠프|캠프장|캠핑을
@@ -2564,7 +2564,7 @@ en:4caravan site|RV site
 ru:4автокемпинг|кемпинг|стоянка грузовиков
 uk:4автокемпінг|кемпінг|стоянка грузових авто
 de:4Wohnwagenstellplatz|Campingplatz|Wohnwagenplatz|Wohnmobilpark
-fr:aire de service|caravane|camping-car
+fr:4parc caravanier|VR|caravane|camping-car
 it:area per campeggiatori
 es:zona de caravanas|zona de camping
 ko:1대상 사이트
@@ -2587,7 +2587,7 @@ en:3office|company
 ru:2офис|компания|контора|фирма
 uk:2офіс
 de:Amt
-fr:3office
+fr:3bureau|compagnie
 it:3ufficio
 es:3oficina
 ko:1사무실

@@ -10,10 +10,10 @@
 "shared_user_label" = "Maps With Me";
 
 /* Dialog text when paid version become available on the market. Showed only once. */
-"pro_version_available" = "Naviguez plus facilement avec la recherche hors ligne de la version complète de MAPS.ME. À installer !";
+"pro_version_available" = "Naviguez plus facilement avec la version complète de MAPS.ME proposant la recherche hors ligne. Obtenez-la maintenant !";
 
 /* About button text (should be short) */
-"about" = "À propos";
+"about" = "À propos de";
 
 /* Button text (should be short) */
 "back" = "Retour";
@@ -25,10 +25,10 @@
 "cancel_download" = "Annuler le téléchargement";
 
 /* Button which deletes downloaded country */
-"delete" = "Effacer";
+"delete" = "Supprimer";
 
 /* Button in iOS Downloader, displayed only when upgrading from v1 to v2 */
-"delete_old_maps" = "Effacer les anciennes cartes et continuer";
+"delete_old_maps" = "Supprimer les anciennes cartes et continuer";
 
 /* Button to dismiss dialog forever */
 "do_not_ask_me_again" = "Ne plus me demander";
@@ -45,21 +45,21 @@
 "download_x_mb" = "Télécharger %qu Mo";
 
 /* Settings/Downloader - info for country when download fails */
-"download_has_failed" = "Échec du téléchargement. Veuillez réessayer.";
+"download_has_failed" = "Échec lors du téléchargement. Toucher de nouveau pour un essai de plus.";
 
 /* Settings/Downloader - info for downloaded country */
-"downloaded_x_y_touch_to_delete" = "Téléchargé (%1$qu %2$@), touchez pour effacer";
+"downloaded_x_y_touch_to_delete" = "Téléchargé (%1$qu %2$@), toucher pour supprimer";
 
 /* Settings/Downloader - country info current download progress */
-"downloading_x_touch_to_cancel" = "Téléchargement de %qu%%, touchez pour annuler";
+"downloading_x_touch_to_cancel" = "Téléchargement de %qu%%, toucher pour annuler";
 
 /* Settings/Downloader - info for country which started downloading */
-"downloading" = "Téléchargement en cours…";
+"downloading" = "Téléchargement…";
 
-"get_it_now" = "Installer";
+"get_it_now" = "Obtenez-la maintenant";
 
 /* Text to show occasionaly with a proposal to Like our program on Facebook */
-"share_on_facebook_text" = "MAPS.ME vous plait ? Faites le connaître à vos amis et vos proches : partagez-le sur Facebook !";
+"share_on_facebook_text" = "Vous appréciez MAPS.ME ? Aidez vos amis et votre famille à en apprendre plus sur l'appli, partagez-la avec eux sur Facebook !";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "kb" = "ko";
@@ -68,16 +68,16 @@
 "kilometres" = "kilomètres";
 
 /* Leave Review dialog - Review button */
-"leave_a_review" = "Rédiger un avis";
+"leave_a_review" = "Laisser une critique";
 
 /* Location purpose text description */
-"location_services_are_needed_desc" = "Le service de localisation est nécessaire pour déterminer votre position sur la carte.";
+"location_services_are_needed_desc" = "Les services de localisation sont nécessaires pour afficher votre position actuelle sur la carte.";
 
 /* View and button titles for accessibility */
 "maps" = "Cartes";
 
 /* Settings/Downloader - info for country in the download queue */
-"marked_for_downloading" = "À télécharger, touchez pour annuler";
+"marked_for_downloading" = "Marqué pour le téléchargement, toucher pour annuler";
 
 /* Settings/Downloader - size string, only strings different from English should be translated */
 "mb" = "Mo";
@@ -89,18 +89,18 @@
 "my_position" = "Ma position";
 
 /* Settings/Downloader - No internet connection dialog title */
-"no_internet_connection_detected" = "Pas de connexion internet";
+"no_internet_connection_detected" = "Aucune connexion Internet détectée";
 
 /* Settings/Downloader - 3G download warning dialog title */
-"no_wifi_ask_cellular_download" = "Pas de connexion WiFi. Désirez-vous télécharger par le réseau de téléphone mobile (GPRS, EDGE ou 3G) ?";
+"no_wifi_ask_cellular_download" = "Aucun connexion Wi-Fi détectée. Désirez-vous utiliser les données mobiles (GPRS, EDGE ou 3G) pour télécharger %@ ?";
 
 "ok" = "OK";
 
 /* not used? Search View - Location is disabled by user warning text */
-"enable_location_services" = "Veuillez activer le service de localisation";
+"enable_location_services" = "Veuillez activer les services de localisation";
 
 /* Settings/Downloader - No free space dialog message */
-"free_disk_space_for_country_x" = "Veuillez libérer un peu de place sur votre appareil pour télécharger %@";
+"free_disk_space_for_country_x" = "Veuillez d'abord libérer de l'espace sur votre appareil afin de télécharger %@";
 
 /* Leave Review dialog - Not now button (remind me later) */
 "remind_me_later" = "Me le rappeler plus tard";
@@ -118,60 +118,60 @@
 "search" = "Recherche";
 
 /* Search button pressed dialog title in the free version */
-"search_available_in_pro_version" = "La recherche n'est disponible que dans la version complète. Voulez-vous l'installer maintenant ?";
+"search_available_in_pro_version" = "La recherche n'est disponible que dans la version complète de MAPS.ME. Obtenez-la maintenant !";
 
 /* Search box placeholder text */
 "search_map" = "Rechercher sur la carte";
 
 /* Settings/Downloader - No free space dialog title */
-"not_enough_disk_space" = "Place libre insuffisante sur le disque";
+"not_enough_disk_space" = "Il n'y a pas assez d'espace disque libre";
 
 /* Settings/Downloader - info for not downloaded country */
-"touch_to_download" = "Touchez pour télécharger";
+"touch_to_download" = "Toucher pour télécharger";
 
 /* Settings/Downloader - 3G download warning dialog confirm button */
 "use_cellular_data" = "Oui";
 
 /* Settings/Downloader - No internet connection dialog message */
-"use_wifi_recommendation_text" = "Nous recommandons d'utiliser le WiFi pour télécharger de grandes cartes";
+"use_wifi_recommendation_text" = "Nous recommandons d'utiliser une connexion Wi-Fi pour télécharger de grandes cartes";
 
 /* NOTE: NO NEW TRANSLATIONS ARE NEEDED! Used only for several old users when upgrading from v1 to v2 */
-"new_map_data_format_upgrade_dialog" = "Nous avons réduit la taille des cartes. Concernant les pays vastes, vous pouvez désormais télécharger uniquement la zone que vous souhaitez. Cependant pour utiliser ces nouvelles cartes, il faut effacer les anciennes cartes téléchargées.";
+"new_map_data_format_upgrade_dialog" = "Nous avons mis à jour les données de la carte et les avons réduites. Pour les pays plus grands, vous pouvez maintenant choisir de télécharger uniquement la région/l'état/la province dont vous avez besoin. Cependant, pour utiliser les nouvelles cartes, vous devriez supprimer toutes les anciennes données cartographiques téléchargées.";
 
 /* Choose measurement on first launch alert - title */
-"which_measurement_system" = "Quel système de mesure préférez-vous ?";
+"which_measurement_system" = "Quel système de mesure préférez-vous ?";
 
 /* Location services are disabled by user alert - message */
-"location_is_disabled_long_text" = "Aucun service de localisation activé. Veuillez l'activer dans les réglages.";
+"location_is_disabled_long_text" = "Tous les services de localisation de cet appareil sont désactivés, ou ils le sont pour cette application. Veuillez les activer dans les paramètres.";
 
 /* Location Services are not available on the device alert - message */
-"device_doesnot_support_location_services" = "Votre appareil ne dispose pas de service de localisation";
+"device_doesnot_support_location_services" = "Votre appareil ne prend pas en charge les services de localisation";
 
 /* View and button titles for accessibility */
 "zoom_to_country" = "Zoomer sur le pays";
 
 /* Message to display at the center of the screen when the country is added to the downloading queue */
-"country_status_added_to_queue" = "^\najouté à la file d'attente de téléchargement";
+"country_status_added_to_queue" = "^\nest ajouté à la file de téléchargement";
 
 /* Message to display at the center of the screen when the country is downloading */
-"country_status_downloading" = "Téléchargement en cours\n^\n^%";
+"country_status_downloading" = "Téléchargement de \n^\n^%";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
 "country_status_download" = "Télécharger\n^";
 
 /* Message to display at the center of the screen when the country download has failed */
-"country_status_download_failed" = "Échec du téléchargement\n^";
+"country_status_download_failed" = "^\n - Échec lors du téléchargement";
 
 /* Button text for the button under the country_status_download_failed message */
-"try_again" = "Réessayer";
+"try_again" = "Ressayer";
 
 "app_name" = "MAPS.ME";
 
 "about_menu_title" = "À propos de MAPS.ME";
 
-"downloading_touch_to_cancel" = "Téléchargement de %d%%, touchez pour annuler";
+"downloading_touch_to_cancel" = "Téléchargement de %d%%, toucher pour annuler";
 
-"downloaded_touch_to_delete" = "Téléchargé (%@), touchez pour effacer";
+"downloaded_touch_to_delete" = "Téléchargé (%@), toucher pour supprimer";
 
 "connection_settings" = "Paramètres de connexion";
 
@@ -179,41 +179,41 @@
 
 "close" = "Fermer";
 
-"unsupported_phone" = "Hélas, l'accélération OpenGL matérielle est nécessaire mais votre appareil n'en dispose pas.";
+"unsupported_phone" = "L'accélération OpenGL matérielle est exigée. Malheureusement, votre appareil n'est pas pris en charge.";
 
 "download" = "Télécharger";
 
-"external_storage_is_not_available" = "Les cartes téléchargées sur carte SD ou support USB sont indisponibles";
+"external_storage_is_not_available" = "La carte SD/le stockage USB contenant les cartes téléchargées n'est pas disponible";
 
 "disconnect_usb_cable" = "Veuillez débrancher le câble USB ou insérer la carte SD pour utiliser MAPS.ME";
 
-"not_enough_free_space_on_sdcard" = "Veuillez libérer un peu d'espace sur la carte SD ou le support USB pour utiliser l'application";
+"not_enough_free_space_on_sdcard" = "Veuillez d'abord libérer de l'espace sur la carte SD/le stockage USB afin d'utiliser l'appli";
 
-"not_enough_memory" = "Mémoire insuffisante pour lancer l'application";
+"not_enough_memory" = "Mémoire insuffisante pour lancer l'appli";
 
-"free_space_for_country" = "Veuillez libérer %1$@ avant de télécharger %2$@";
+"free_space_for_country" = "Veuillez d'abord libérer %1$@ sur votre appareil avant de télécharger %2$@";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_resources" = "Avant de commencer, nous devons télécharger la carte générale du monde.\nCela occupera %.1f%@ de données.";
+"download_resources" = "Avant de commencer, permettez-nous de télécharger la carte générale du monde dans votre appareil.\n%.1f%@ de données sont nécessaires.";
 
-"getting_position" = "Détermination de votre position";
+"getting_position" = "Obtention de la position actuelle";
 
 "download_resources_continue" = "Aller sur la carte";
 
-"downloading_country_can_proceed" = "Téléchargement de %@. Maintenant\nvous pouvez aller sur la carte.";
+"downloading_country_can_proceed" = "%@ en téléchargement. Vous pouvez\nmaintenant aller sur la carte.";
 
-"download_country_ask" = "Télécharger %@ ?";
+"download_country_ask" = "Télécharger %@ ?";
 
-"update_country_ask" = "Actualiser %@ ?";
+"update_country_ask" = "Mettre %@ à jour ?";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "download_location_map_proposal" = "Vous pouvez télécharger la carte\nde votre position actuelle.";
 
 /* REMOVE THIS_STRING AFTER REFACTORING */
-"download_location_update_map_proposal" = "Vous pouvez actualiser la carte\nde votre position actuelle.";
+"download_location_update_map_proposal" = "Vous pouvez mettre à jour la carte\nde votre position actuelle.";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
-"download_location_map_up_to_date" = "La carte de votre position\n(%@) est à jour";
+"download_location_map_up_to_date" = "La carte de votre position\nactuelle (%@) est à jour";
 
 /* REMOVE THIS STRING AFTER REFACTORING */
 "pause" = "Pause";
@@ -221,27 +221,27 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Continuer";
 
-"downloaded_touch_to_update" = "Téléchargé (%@), touchez pour actualiser ou effacer";
+"downloaded_touch_to_update" = "%@ téléchargé, toucher pour mettre à jour ou supprimer";
 
-"update_mb_or_kb" = "Actualiser %@";
+"update_mb_or_kb" = "Mettre à jour %@";
 
 /* Show popup notification when we have downloaded countries without search (from Lite version) */
-"search_update_maps" = "Il faut actualiser les cartes pour la recherche :";
+"search_update_maps" = "Il vous faut des cartes mises à jour pour la fonction de recherche :";
 
 /* Show popup notification on app start when we have out-of-date maps */
-"advise_update_maps" = "Mise à jour disponible pour ces cartes :";
+"advise_update_maps" = "Des mises à jour sont disponibles pour ces cartes :";
 
 /* Show popup notification in Pro version that Lite can be deleted */
-"suggest_uninstall_lite" = "Vous n'avez plus besoin de MAPS.ME Lite et pouvez le supprimer.";
+"suggest_uninstall_lite" = "Vous n'avez plus besoin de MAPS.ME Lite, pouvez donc le désinstaller.";
 
 /* Show popup notification on top of the map when country was downloaded. */
-"download_country_success" = "%@ : téléchargement réussi";
+"download_country_success" = "%@, téléchargement réussi";
 
 /* Show popup notification on top of the map when country download has failed. */
-"download_country_failed" = "%@ : échec du téléchargement";
+"download_country_failed" = "%@, échec lors du téléchargement";
 
 /* Add New Bookmark Set dialog title */
-"add_new_set" = "Ajouter un groupe de signets";
+"add_new_set" = "Ajouter un nouveau groupe";
 
 /* Place Page - Add To Bookmarks button */
 "add_to_bookmarks" = "Ajouter aux signets";
@@ -265,7 +265,7 @@
 "dropped_pin" = "Épingle placée";
 
 /* Default bookmarks set name */
-"my_places" = "Mes lieux";
+"my_places" = "Mes endroits";
 
 /* Add bookmark dialog - bookmark name */
 "name" = "Nom";
@@ -274,46 +274,46 @@
 "address" = "Adresse";
 
 /* Place Page - Remove Pin button */
-"remove_pin" = "Supprimer l'épingle";
+"remove_pin" = "Enlever l'épingle";
 
 /* Add bookmark dialog - bookmark set, Bookmarks dialog - Bookmark set cell */
 "set" = "Groupe";
 
 /* Text hint in Bookmarks dialog when no any bookmarks are added */
-"bookmarks_usage_hint" = "Vous n'avez encore aucun favori.\nTapotez n'importe où sur la carte pour ajouter un favori.\nLes signets provenant d'autres sources peuvent également être importés et affichés dans MAPS.ME. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.";
+"bookmarks_usage_hint" = "Vous n'avez encore aucun signet.\nTouchez n'importe où sur la carte pour en ajouter un.\nLes signets provenant d'autres sources peuvent aussi être importés et affichés dans MAPS.ME. Ouvrez des fichiers KML/KMZ contenant des signets enregistrés, à partir d'un courriel, de Dropbox ou d'un lien Web.";
 
 /* Text hint in Bookmarks dialog when at least one bookmark is added */
-"bookmarks_usage_hint_import_only" = "Les signets provenant d'autres sources peuvent être importés et affichés dans MAPS.ME. Ouvrez les fichiers KML/KMZ depuis le courrier, Dropbox ou un lien internet.";
+"bookmarks_usage_hint_import_only" = "Les signets provenant d'autres sources peuvent être importés et affichés dans MAPS.ME. Ouvrez des fichiers KML/KMZ contenant des signets enregistrés, à partir d'un courriel, de Dropbox ou d'un lien Web.";
 
 /* Settings button in system menu */
-"settings" = "Réglages";
+"settings" = "Paramètres";
 
 /* Header of settings activity where user defines storage path */
-"maps_storage" = "Sauvegarde des cartes";
+"maps_storage" = "Stockage des cartes";
 
 /* Detailed description of Maps Storage settings button */
-"maps_storage_summary" = "Sélectionnez l'emplacement où les cartes doivent être enregistrées";
+"maps_storage_summary" = "Sélectionner l'emplacement où les cartes devraient être téléchargées";
 
 /* Question dialog for transferring maps from one storage to another */
-"move_maps" = "Déplacer les cartes ?";
+"move_maps" = "Déplacer les cartes ?";
 
 /* Ask to wait user several minutes (some long process in modal dialog). */
-"wait_several_minutes" = "Cela peut prendre plusieurs minutes.\nVeuillez patienter…";
+"wait_several_minutes" = "Ceci peut prendre plusieurs minutes.\nVeuillez patienter…";
 
 /* Show bookmarks from this category on a map or not */
 "visible" = "Visible";
 
 /* Proposal to download Pro version with Bookmarks */
-"bookmarks_in_pro_version" = "Les signets sont seulement dans la version complète de MAPS.ME. L'installer maintenant ?";
+"bookmarks_in_pro_version" = "Les signets ne sont disponibles que dans la version complète de MAPS.ME. Obtenez-la maintenant !";
 
 /* Toast which is displayed when GPS has been deactivated */
-"gps_is_disabled_long_text" = "GPS désactivé. Veuillez l'activer dans les réglages.";
+"gps_is_disabled_long_text" = "Le GPS est désactivé. Veuillez l'activer dans les Paramètres.";
 
 /* Measurement units title in settings activity */
 "measurement_units" = "Unités de mesure";
 
 /* Detailed description of Measurement Units settings button */
-"measurement_units_summary" = "Choisissez entre miles et kilomètres";
+"measurement_units_summary" = "Choisir entre miles et kilomètres";
 
 /* Do search in all sources */
 "search_mode_all" = "Partout";
@@ -322,19 +322,19 @@
 "search_mode_nearme" = "Près de moi";
 
 /* Do search in current viewport only */
-"search_mode_viewport" = "Sur l'écran";
+"search_mode_viewport" = "À l'écran";
 
 /* Search Suggestion */
-"food" = "alimentation";
+"food" = "nourriture";
 
 /* Search Suggestion */
 "transport" = "transport";
 
 /* Search Suggestion */
-"fuel" = "carburant";
+"fuel" = "essence";
 
 /* Search Suggestion */
-"parking" = "parking";
+"parking" = "stationnement";
 
 /* Search Suggestion */
 "shop" = "magasin";
@@ -348,7 +348,7 @@
 "entertainment" = "divertissement";
 
 /* Search Suggestion */
-"atm" = "distributeur de billets";
+"atm" = "GAB";
 
 /* Search Suggestion */
 "bank" = "banque";
@@ -375,22 +375,22 @@
 "description" = "Notes";
 
 /* Button text */
-"share_by_email" = "Partager par courrier";
+"share_by_email" = "Partager par courriel";
 
 /* Email Subject when sharing bookmarks category */
-"share_bookmarks_email_subject" = "Signets MAPS.ME partagés avec vous";
+"share_bookmarks_email_subject" = "Signets MAPS.ME partagés";
 
 /* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Bonjour,\n\nVous trouverez mes signets des cartes hors-ligne MAPS.ME dans le fichier \"%@.kmz:\" ci-joint. Veuillez l'ouvrir si vous avez déjà installé MAPS.ME Pro. Sinon, téléchargez d'abord l'application pour appareil iOS ou Android depuis le lien http://maps.me/get?kmz\n\nAmusez-vous bien avec MAPS.ME !";
+"share_bookmarks_email_body" = "Bonjour,\n\nVous trouverez ci-joints mes signets de MAPS.ME - cartes hors ligne. Veuillez ouvrir le ficher si vous avez MAPS.ME Pro d'installé. Sinon, téléchargez l'appli pour votre appareil iOS ou Android en suivant ce lien http://maps.me/get?kmz\n\nAppréciez vos voyages avec MAPS.ME !";
 
 /* message title of loading file */
 "load_kmz_title" = "Chargement des signets";
 
 /* Kmz file successful loading */
-"load_kmz_successful" = "Signets chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran de gestion des signets.";
+"load_kmz_successful" = "Les signets ont été chargés avec succès ! Vous pouvez les trouver sur la carte ou sur l'écran du Gestionnaire de signets.";
 
 /* Kml file loading failed */
-"load_kmz_failed" = "Échec du chargement des signets. Le fichier peut être corrompu ou défectueux.";
+"load_kmz_failed" = "Échec lors du téléversement des signets. Le fichier peut être corrompu ou défectueux.";
 
 /* resource for context menu */
 "edit" = "Modifier";
@@ -402,37 +402,37 @@
 "download_location_country" = "Télécharger le pays de votre position actuelle (%@)";
 
 /* Warning message when viewport country isn't downloaded during search */
-"download_viewport_country_to_search" = "Télécharger le pays que vous recherchez sur (%@)";
+"download_viewport_country_to_search" = "Télécharger le pays que vous recherchez (%@)";
 
 /* Alert message that we can't run Map Storage settings due to some reasons. */
-"cant_change_this_setting" = "Désolé, les paramètres de stockage des cartes sont désactivés.";
+"cant_change_this_setting" = "Désolé, les paramètres de stockage des cartes sont présentement désactivés.";
 
 /* Alert message that downloading is in progress. */
-"downloading_is_active" = "Téléchargement du pays actuellement en cours.";
+"downloading_is_active" = "Le téléchargement du pays est en cours.";
 
 /* Message that will be shown in alert view, when we ask user to leave review on App Store */
-"appStore_message" = "Nous espérons que vous appréciez MAPS.ME ! Si oui, merci de l'évaluer sur l'App Store. Cela prend un instant mais peut vraiment nous aider. Merci pour votre soutien !";
+"appStore_message" = "Nous espérons que vous appréciez l'utilisation de MAPS.ME ! Si oui, veuillez évaluer l'appli ou laisser une critique sur l'App Store. Cela prend moins d'une minute, mais peut vraiment nous aider. Merci pour votre soutien !";
 
 /* No, thanks */
 "no_thanks" = "Non, merci";
 
 /* Share one specific bookmark using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"bookmark_share_sms" = "Regarde cette epingle sur la carte ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get";
+"bookmark_share_sms" = "Hé, regarde mon épingle sur MAPS.ME ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://maps.me/get";
 
 /* Share my position using SMS, %1$@ contains ge0:// and %2$@ http://ge0.me link WITHOUT NAME. @NOTE non-ascii symbols in the link will make 70 bytes sms instead of 140 */
-"my_position_share_sms" = "Regarde ma position sur MAPS.ME ! Ouvre %1$@ ou %2$@. Pas de carte hors-ligne ? A obtenir ici http://maps.me/get";
+"my_position_share_sms" = "Hé, regarde ma position actuelle sur MAPS.ME ! %1$@ ou %2$@. Les cartes hors ligne ne sont pas installées ? Les télécharger ici : http://maps.me/get";
 
 /* Subject for emailed bookmark */
-"bookmark_share_email_subject" = "Regarde mon épingle sur la carte MAPS.ME";
+"bookmark_share_email_subject" = "Hé, regarde mon épingle sur la carte MAPS.ME !";
 
 /* Share one specific bookmark using EMail, %1$@ is bookmark's name, %2$@ is ge0:// link and %3$@ http://ge0.me */
-"bookmark_share_email" = "Salut,\n\nJ'ai épinglé %1$@ sur MAPS.ME, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.";
+"bookmark_share_email" = "Bonjour,\n\nJ'ai épinglé %1$@ sur MAPS.ME, les cartes du monde hors ligne. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.";
 
 /* Subject for emailed position */
-"my_position_share_email_subject" = "Regarde ma localisation actuelle sur la carte MAPS.ME";
+"my_position_share_email_subject" = "Hé, regarde ma position actuelle sur la carte MAPS.ME !";
 
 /* Share my position using EMail, %1$@ is ge0:// and %2$@ is http://ge0.me link WITHOUT NAME */
-"my_position_share_email" = "Salut,\n\nJe me trouve actuellement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.";
+"my_position_share_email" = "Bonjour,\n\nJe suis actuelement ici : %1$@. Clique sur ce lien %2$@ ou sur celui-ci %3$@ pour voir l'endroit sur la carte.\n\nMerci.";
 
 /* Android share by Message/SMS button text (including SMS) */
 "share_by_message" = "Partager par message";
@@ -444,22 +444,22 @@
 "message" = "Message";
 
 /* Share by email button text */
-"email" = "E-mail";
+"email" = "Courriel";
 
 /* Promocode Activation dialog title */
-"promocode_activation" = "Activation de code de promotion";
+"promocode_activation" = "Activation du code de promotion";
 
 /* Enter promo code hint */
-"enter_promocode_hint" = "Entrer le code de promotion";
+"enter_promocode_hint" = "Saisir le code de promotion";
 
 /* Promocode Activation success message */
-"promocode_success" = "Code de promotion activé !";
+"promocode_success" = "Le code de promotion est activé !";
 
 /* Promocode Activation connection/io error */
-"promocode_error" = "Erreur de connexion. Veuillez recommencer ultérieurement.";
+"promocode_error" = "Erreur de connexion. Veuillez ressayer ultérieurement.";
 
 /* Promocode Activation is invalid  message. */
-"promocode_failure" = "Code de promotion non valide. Veuillez recommencer.";
+"promocode_failure" = "Code de promotion invalide. Veuillez ressayer.";
 
 /* Copy Link */
 "copy_link" = "Copier le lien";
@@ -468,34 +468,34 @@
 "more_info" = "Afficher plus d'informations";
 
 /* Text for message when used successfully copied something */
-"copied_to_clipboard" = "Copié dans le presse-papiers : %1$@";
+"copied_to_clipboard" = "Copié dans le presse-papiers : %1$@";
 
 /* Setting label for statistics turn on/off */
-"allow_statistics" = "Envoyez des statistiques";
+"allow_statistics" = "Envoyer des statistiques";
 
 /* Hint near allow statictics checkbox */
-"allow_statistics_hint" = "Autorisez-nous à collecter des statistiques d'utilisation pour améliorer l'appli";
+"allow_statistics_hint" = "Nous permet de collecter des statistiques d'utilisation pour améliorer l'appli";
 
 /* place preview title */
 "info" = "Infos";
 
 /* Used for bookmark editing */
-"done" = "Fin";
+"done" = "Terminé";
 
 /* Summary for preferences in MWM */
-"yopme_pref_summary" = "Choisissez les réglages de l'écran arrière";
+"yopme_pref_summary" = "Choisir les réglages de l'arrière-plan";
 
 /* Title for yopme preferences in MWM */
-"yopme_pref_title" = "Paramètres de l'écran arrière";
+"yopme_pref_title" = "Paramètres de l'arrière-plan";
 
 /* Hint for upper-right icon p2b */
-"show_on_backscreen" = "Afficher sur l'écran arrière";
+"show_on_backscreen" = "Afficher sur l'arrière-plan";
 
 /* Prints version number in About dialog */
-"version" = "Version : %@";
+"version" = "Version : %@";
 
 /* Confirmation in downloading countries dialog */
-"are_you_sure" = "Souhaitez-vous vraiment continuer ?";
+"are_you_sure" = "Êtes-vous certain de vouloir continuer ?";
 
 /* Title for tracks category in bookmarks manager */
 "tracks" = "Parcours";
@@ -503,15 +503,15 @@
 /* Length of track in cell that describes route */
 "length" = "Longueur";
 
-"share_my_location" = "Partagez mon emplacement";
+"share_my_location" = "Partager ma position";
 
 "become_a_pro" = "Mettre à niveau";
 
-"menu_search" = "Recherchez";
+"menu_search" = "Rechercher";
 
-"pref_zoom_title" = "Boutons zoom";
+"pref_zoom_title" = "Boutons de zoom";
 
-"pref_zoom_summary" = "Afficher sur l'écran";
+"pref_zoom_summary" = "Afficher à l'écran";
 
 "more_apps_title" = "Plus d'applis";
 
@@ -523,21 +523,21 @@
 
 "placepage_coordinates" = "Coordonnées";
 
-"placepage_unsorted" = "Non classé";
+"placepage_unsorted" = "Non trié";
 
-"search_show_on_map" = "Afficher sur la carte";
-
-/* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_ok" = "Le stockage des données cartographiques a été optimisé. Veuillez redémarrer l'application.\n\nLe fichier MapsWithMe qui se trouve dans le répertoire racine de la carte SD n'est plus nécessaire, vous pouvez le supprimer.";
+"search_show_on_map" = "Voir sur la carte";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_migrate_failed" = "En raison des changements qui se sont produits sur l'Android 4.4, nous avons besoin d'optimiser le stockage des données cartographiques, mais il n'y a pas assez d'espace pour copier les données cartographiques.\n\nVeuillez libérer de la mémoire, sinon les cartes seront disponibles en mode lecture seule.";
+"kitkat_migrate_ok" = "Le stockage des données cartographiques a été optimisé. Veuillez redémarrer l'appli.\n\nLe dossier MapsWithMe se trouvant sur la racine de la carte SD n'est plus nécessaire, vous pouvez le supprimer.";
 
 /* Used to warn user when fixing KitKat issue */
-"bookmark_move_fail" = "Nous devons déplacer vos marque-pages dans la mémoire interne, mais il n'existe pas d'espace disponible pour eux. Veuillez libérer de la mémoire, sinon les marque-pages ne seront pas disponibles.";
+"kitkat_migrate_failed" = "En raison de changements dans Android 4.4, nous devons optimiser le stockage des données cartographiques, mais il n'y a pas assez d'espace pour les copier.\n\nVeuillez libérer de la mémoire, sinon les cartes seront disponibles en mode lecture seule.";
 
 /* Used to warn user when fixing KitKat issue */
-"kitkat_optimization_in_progress" = "Le stockage de votre carte est en cours d'optimisation. Veuillez patienter, cela peut prendre quelques minutes.";
+"bookmark_move_fail" = "Nous devons déplacer vos signets vers la mémoire interne, mais il n'y a pas d'espace disponible pour eux. Veuillez libérer de la mémoire, sinon les signets ne seront pas disponibles.";
+
+/* Used to warn user when fixing KitKat issue */
+"kitkat_optimization_in_progress" = "Votre stockage des cartes est en cours d'optimisation. Veuillez patienter, cela pourrait prendre quelques minutes.";
 
 /* Used in More Apps menu */
 "free" = "Gratuit";
@@ -546,7 +546,7 @@
 "buy" = "Acheter";
 
 /* 1st search button-like result */
-"search_on_map" = "Recherche sur la carte";
+"search_on_map" = "Rechercher sur la carte";
 
 /* toast with an error */
 "no_route_found" = "Aucun itinéraire trouvé";
@@ -558,13 +558,13 @@
 "routes" = "Itinéraires";
 
 /* button in the interface */
-"choose_starting_point" = "Choisissez un point de départ…";
+"choose_starting_point" = "Choisir le point de départ…";
 
 /* button in the interface */
-"choose_destination" = "Choisissez une destination…";
+"choose_destination" = "Choisir la destination…";
 
 /* Show on first launch. */
-"maps_licence_info" = "Cette application utilise des données géographiques (dont des cartes, des listes d'entreprises, des points d'intérêt, des frontières de pays et de régions, etc.) tirées du projet OpenStreetMap. Nous ne garantissons en aucune manière la cohérence, l'exactitude, la complétude ou l'applicabilité des données d'OpenStreetMap.";
+"maps_licence_info" = "Cette application utilise des données géographiques (incluant des cartes, des listes d'entreprises, des centres d'intérêt, des frontières de pays et de régions, etc.) extraites du projet OpenStreetMap. Nous ne garantissons aucune cohérence, exactitude, complétude ou applicabilité des données d'OpenStreetMap.";
 
 /* Show on first launch. */
 "agree" = "Je suis d'accord";
@@ -573,22 +573,22 @@
 "disagree" = "Je ne suis pas d'accord";
 
 /* text of notification */
-"download_map_notification" = "Téléchargez la carte de l'endroit où vous êtes";
+"download_map_notification" = "Télécharger la carte de l'endroit où vous êtes";
 
 /* text of notification */
-"pro_version_is_free_today" = "MAPS.ME Pro gratuit auj. ! Téléch. maint. et parlez-en à vos amis";
+"pro_version_is_free_today" = "MAPS.ME Pro est gratuit aujoud'hui ! Téléchargez-le maintenant et dites-le à vos amis.";
 
 /* text of notification */
-"pro_version_is_free_today_android" = "MAPS.ME est disponible avec 80% de réduction sur Google Play! Téléch. maint. et parlez-en à vos amis";
+"pro_version_is_free_today_android" = "MAPS.ME est disponible avec 80 % de réduction sur Google Play ! Téléchargez-le maintenant et dites-le à vos amis.";
 
 /* Dialog for transferring maps from lite to pro. */
 "move_lite_maps_to_pro" = "Nous transférons vos cartes téléchargées de MAPS.ME Lite vers MAPS.ME. Cela peut prendre quelques minutes.";
 
 /* Message to display when maps moved. */
-"move_lite_maps_to_pro_ok" = "Vos cartes téléchargées ont été transférées avec succès sur MAPS.ME.";
+"move_lite_maps_to_pro_ok" = "Vos cartes téléchargées ont été transférées avec succès vers MAPS.ME.";
 
 /* Message to display when maps move failed. */
-"move_lite_maps_to_pro_failed" = "Vos cartes n'ont pas pu être transférées. Veuillez supprimer MAPS.ME Lite et téléchargez de nouveau les cartes.";
+"move_lite_maps_to_pro_failed" = "Le transfert de vos cartes a échoué. Veuillez supprimer MAPS.ME Lite et télécharger les cartes de nouveau.";
 
 /* Message to display on 17th-18th august */
 "maps_me_is_free_today_ios" = "MAPS.ME est gratuit aujourd'hui ! Partagez la nouvelle sur Facebook.";
@@ -597,10 +597,10 @@
 "maps_me_is_free_today_android" = "MAPS.ME est disponible avec 80 % de réduction sur Google Play ! Partagez la nouvelle sur Facebook.";
 
 /* Message for facebook post on 17th-18th august */
-"maps_me_is_free_today_facebook_post_ios" = "Cette géniale application hors-connexion de cartes MAPS.ME est gratuite sur l'App Store et disponible avec une réduction de 80 % sur Google Play. Dépêchez-vous d'obtenir l'application dès aujourd'hui, la promotion se termine bientôt !";
+"maps_me_is_free_today_facebook_post_ios" = "Incroyable ! L'appli de cartes hors ligne MAPS.ME est gratuite sur l'App Store et est disponible avec une réduction de 80 % sur Google Play. Dépêchez-vous d'obtenir l'appli aujourd'hui, la promotion sera bientôt finie !";
 
 /* Message for facebook post on 17th-18th august */
-"maps_me_is_free_today_facebook_post_android" = "Je viens de me procurer les cartes hors-ligne MAPS.ME avec 80 % de remise sur Google Play. L'appli est également disponible gratuitement sur iTunes. Ne passez pas à côté !";
+"maps_me_is_free_today_facebook_post_android" = "Je viens de me procurer MAPS.ME - cartes hors ligne, avec 80 % de réduction sur Google Play, également disponible gratuitement sur iTunes. Ne rate pas ça !";
 
 /* Text in menu */
 "settings_and_more" = "Paramètres & plus";
@@ -618,34 +618,34 @@
 "contact_us" = "Contactez-nous";
 
 /* Text in menu */
-"subscribe_to_news" = "Abonnez-vous à nos actus";
+"subscribe_to_news" = "S'abonner à nos informations";
 
 /* Text in menu */
-"rate_the_app" = "Noter l'appli";
+"rate_the_app" = "Évaluer l'appli";
 
 /* Text in menu */
 "help" = "Aide";
 
 /* Text in menu */
-"copyright" = "Copyright";
+"copyright" = "Tous droits réservés";
 
 /* Text in menu */
-"report_a_bug" = "Signaler un bug";
+"report_a_bug" = "Signaler un bogue";
 
 /* Email subject */
-"subscribe_me_subject" = "Veuillez m'inscrire à la newsletter de MAPS.ME";
+"subscribe_me_subject" = "Veuillez m'inscrire à la lettre d'information de MAPS.ME";
 
 /* Email body */
-"subscribe_me_body" = "Je veux être informé(e) en priorité des dernières nouvelles des mises à jour et des promotions. Je pourrai annuler mon abonnement quand je le souhaiterai.";
+"subscribe_me_body" = "Informez-moi en priorité des dernières nouvelles, des mises à jour et des promotions. Je peux annuler mon abonnement à tout moment.";
 
 /* About text */
-"about_text" = "MAPS.ME offre la possibilité de consulter hors-ligne le plus rapidement possible les cartes de toutes les villes, de tous les pays du monde. Voyagez en toute confiance : où que vous soyez, MAPS.ME permet de vous situer sur la carte, de trouver le restaurant le plus proche, un hôtel, une banque, une station d'essence, etc. Cela ne nécessite aucune connexion Internet.\n\nNous travaillons toujours sur de nouvelles fonctionnalités et nous aimerions avoir votre avis sur la manière d'améliorer MAPS.ME. Si vous avez des problèmes avec l'application, n'hésitez pas à nous contacter à l'adresse suivante : support@maps.me. Nous répondons à toutes les demandes !\n\nAimez-vous MAPS.ME et souhaitez-vous nous soutenir ? Il existe des moyens simples et tout à fait gratuits:\n\n- Publier un avis sur votre App Market\n- Aimez notre page Facebook www.facebook.com/mapswithme\n- Ou parlez tout simplement de MAPS.ME à votre mère, à vos amis et à vos collègues :)\n\nNous vous remercions de votre fidélité. Nous apprécions énormément votre soutien !\n\nP.S. Nous prenons les données cartographiques de OpenStreetMap, un projet de cartographie similaire à Wikipédia, qui permet aux utilisateurs de créer et de modifier des cartes. Si vous voyez une omission ou une erreur sur la carte, vous pouvez la corriger directement à l'adresse suivante : http://openstreetmap.org, et vos modifications apparaîtront lors de la sortie de la prochaine version de l'application MAPS.ME.";
+"about_text" = "MAPS.ME offre les cartes hors ligne les plus rapides de toutes les villes, de tous les pays du monde. Voyagez en toute confiance : où que vous soyez, MAPS.ME permet de vous situer sur la carte, de trouver le restaurant, l'hôtel, la banque, la station d'essence, etc. les plus proches. Ceci sans aucune connexion Internet.\n\nNous travaillons toujours sur de nouvelles fonctionnalités et nous aimerions avoir votre avis sur la manière d'améliorer MAPS.ME. Si vous avez quelque problème avec l'appli, n'hésitez pas à nous contacter à support@maps.me. Nous répondons à toutes les demandes !\n\nVous aimez-vous MAPS.ME et souhaitez nous soutenir ? Il existe des moyens simples et tout à fait gratuits :\n\n- Publier une critique sur votre boutique d'applis\n- aimez notre page Facebook http://www.facebook.com/mapswithme\n- ou parlez simplement de MAPS.ME à votre maman, à vos amis et à vos collègues :)\n\nNous vous remercions de votre fidélité. Nous apprécions beaucoup votre soutien !\n\nP.S. : nous prenons les données cartographiques d'OpenStreetMap, un projet de cartographie similaire à Wikipédia, qui permet aux utilisateurs de créer et de modifier des cartes. Si vous voyez une omission ou une erreur sur la carte, vous pouvez corriger les cartes directement sur http://openstreetmap.org, et vos modifications apparaîtront dans l'appli MAPS.ME lors la prochaine version.";
 
 /* Alert text */
-"email_error_body" = "Le client de messagerie n'a pas été configuré. Veuillez s'il vous plaît le configurer ou employer tout autre moyen pour nous contacter à l’adresse %@.";
+"email_error_body" = "Le client de courriel n'a pas été configuré. Veuillez le faire ou employer tout autre moyen pour nous contacter à %@";
 
 /* Alert title */
-"email_error_title" = "Mail d’erreur d'envoi";
+"email_error_title" = "Erreur d'envoi de courriel";
 
 /* Settings item title */
 "pref_calibration_title" = "Étalonnage de la boussole";
