@@ -232,7 +232,9 @@ Framework::Framework()
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.enableDebugPoints(true);
 #endif
+
   m_model.InitClassificator();
+  LOG(LDEBUG, ("Classificator initialized"));
 
   // Get all available maps.
   vector<string> maps;
@@ -248,22 +250,25 @@ Framework::Framework()
 
   // Add founded maps to index.
   for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
+  LOG(LDEBUG, ("Map index initialized"));
 
   // Init storage with needed callback.
   m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1));
+  LOG(LDEBUG, ("Storage initialized"));
 
   // To avoid possible races - init search engine once in constructor.
   (void)GetSearchEngine();
-
-  LOG(LDEBUG, ("Storage initialized"));
+  LOG(LDEBUG, ("Search engine initialized"));
 
 #ifndef OMIM_OS_DESKTOP
-  //Init guides manager
+  // Init guides manager
   m_storage.GetGuideManager().RestoreFromFile();
+  LOG(LDEBUG, ("Guides info initialized"));
 #endif
 
   // Restore temporary states from persistent Settings storage
   RestoreSesame();
+  LOG(LDEBUG, ("Sesame initialized"));
 }
 
 Framework::~Framework()
