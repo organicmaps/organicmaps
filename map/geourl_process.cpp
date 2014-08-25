@@ -53,6 +53,7 @@ namespace url_scheme
     return false;
   }
 
+  int const LL_PRIORITY = 5;
 
   /// Priority for accepting coordinates if we have many choices.
   /// -1 - not initialized
@@ -64,12 +65,14 @@ namespace url_scheme
       return 0;
     else if (token == "q")
       return 1;
-    else if (token == "point")
+    else if (token == "daddr")
       return 2;
-    else if (token == "ll")
+    else if (token == "point")
       return 3;
-    else if (token == "lat" || token == "lon")
+    else if (token == "ll")
       return 4;
+    else if (token == "lat" || token == "lon")
+      return LL_PRIORITY;
 
     return -1;
   }
@@ -134,7 +137,7 @@ namespace url_scheme
       if (priority == -1 || priority < m_latPriority || priority < m_lonPriority)
         return;
 
-      if (priority != 4)
+      if (priority != LL_PRIORITY)
       {
         regexp::ForEachMatched(value, m_regexp, AssignCoordinates(*this, priority));
       }
