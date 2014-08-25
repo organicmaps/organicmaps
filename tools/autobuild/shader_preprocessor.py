@@ -69,7 +69,9 @@ def definitionChanged(programIndex, defFilePath):
 def writeDefinitionFile(programIndex, defFilePath):
     file = open(defFilePath, 'w')
     file.write("#pragma once\n\n")
-    file.write("#include \"../std/map.hpp\"\n\n")
+    file.write("#include \"../std/map.hpp\"\n")
+    file.write("#include \"../std/vector.hpp\"\n")
+    file.write("#include \"../std/string.hpp\"\n\n")
     file.write("namespace gpu\n")
     file.write("{\n")
     file.write("\n")
@@ -89,34 +91,43 @@ def writeDefinitionFile(programIndex, defFilePath):
 
     file.write("\n")
     file.write("void InitGpuProgramsLib(map<int, ProgramInfo> & gpuIndex);\n\n")
+    file.write("#if defined(COMPILER_TESTS)\n")
+    file.write("extern vector<string> VertexEnum;\n")
+    file.write("extern vector<string> FragmentEnum;\n\n")
+    file.write("void InitEnumeration();\n\n")
+    file.write("#endif\n")
     file.write("} // namespace gpu\n")
     file.close()
 
 def writeShader(outputFile, shaderFile, shaderDir):
     outputFile.write("  static char const %s[] = \" \\\n" % (formatShaderSourceName(shaderFile)));
     for line in open(os.path.join(shaderDir, shaderFile)):
-        outputLine = line.rstrip().replace(lowPSearch, "\" " + lowPDefine + " \"")
-        outputLine = outputLine.replace(mediumPSearch, "\" " + mediumPDefine + " \"")
-        outputLine = outputLine.replace(highPSearch, "\" " + highPDefine+ " \"")
-        outputFile.write("  %s \\n\\\n" % (outputLine))
+        if not line.lstrip().startswith("//"):
+            outputLine = line.rstrip().replace(lowPSearch, "\" " + lowPDefine + " \"")
+            outputLine = outputLine.replace(mediumPSearch, "\" " + mediumPDefine + " \"")
+            outputLine = outputLine.replace(highPSearch, "\" " + highPDefine+ " \"")
+            outputFile.write("  %s \\n\\\n" % (outputLine))
     outputFile.write("  \";\n\n")
 
 def writeShadersIndex(outputFile, shaderIndex):
     for shader in shaderIndex:
         outputFile.write("#define %s %s\n" % (formatShaderIndexName(shader), shaderIndex[shader]))
 
-def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, implFile, defFile):
+def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, implFile, defFile, shaders):
+    vertexShaders = [s for s in shaders if s.endswith(".vsh")]
+    fragmentShaders = [s for s in shaders if s.endswith(".fsh")]
     file = open(formatOutFilePath(shaderDir, implFile), 'w')
     file.write("#include \"%s\"\n\n" % (defFile))
     file.write("#include \"../std/utility.hpp\"\n\n")
-    file.write("#if defined(OMIM_OS_DESKTOP)\n")
-    file.write("  #define %s\n" % (lowPDefine))
-    file.write("  #define %s\n" % (mediumPDefine))
-    file.write("  #define %s\n" % (highPDefine))
+    
+    file.write("#if defined(OMIM_OS_DESKTOP) && !defined(COMPILER_TESTS)\n")
+    file.write("  #define %s \n" % (lowPDefine))
+    file.write("  #define %s \n" % (mediumPDefine))
+    file.write("  #define %s \n" % (highPDefine))
     file.write("#else\n")
-    file.write("  #define %s %s\n" % (lowPDefine, lowPSearch))
-    file.write("  #define %s %s\n" % (mediumPDefine, mediumPSearch))
-    file.write("  #define %s %s\n" % (highPDefine, highPSearch))
+    file.write("  #define %s \"%s\"\n" % (lowPDefine, lowPSearch))
+    file.write("  #define %s \"%s\"\n" % (mediumPDefine, mediumPSearch))
+    file.write("  #define %s \"%s\"\n" % (highPDefine, highPSearch))
     file.write("#endif\n\n")
 
     file.write("namespace gpu\n")
@@ -127,6 +138,11 @@ def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, i
 
     file.write("//---------------------------------------------//\n")
     writeShadersIndex(file, shaderIndex)
+    file.write("//---------------------------------------------//\n")
+    file.write("#if defined(COMPILER_TESTS)\n")
+    file.write("vector<string> VertexEnum;\n")
+    file.write("vector<string> FragmentEnum;\n\n")
+    file.write("#endif\n")
     file.write("//---------------------------------------------//\n")
     for program in programIndex:
         file.write("const int %s = %s;\n" % (program, programIndex[program]));
@@ -159,6 +175,18 @@ def writeImplementationFile(programsDef, programIndex, shaderIndex, shaderDir, i
 
         file.write("  gpuIndex.insert(make_pair(%s, ProgramInfo(%s, %s, %s, %s)));\n" % (program, vertexIndexName, fragmentIndexName, vertexSourceName, fragmentSourceName))
     file.write("}\n\n")
+    file.write("#if defined(COMPILER_TESTS)\n")
+    file.write("void InitEnumeration()\n")
+    file.write("{\n")
+    
+    for s in vertexShaders:
+        file.write("  VertexEnum.push_back(string(%s));\n" % formatShaderSourceName(s))
+    
+    for s in fragmentShaders:
+        file.write("  FragmentEnum.push_back(string(%s));\n" % formatShaderSourceName(s))
+    
+    file.write("}\n\n")
+    file.write("#endif\n")
     file.write("} // namespace gpu\n")
     file.close()
 
@@ -172,31 +200,6 @@ def validateDocumentation(shaders, shaderDir):
     if undocumentedShaders:
         print "no documentation for shaders:", undocumentedShaders
         #exit(20)
-
-def writeEnumerationFile(shaderDir, shaders, outputFile):
-    file = open(outputFile, 'w')
-    vertexShaders = [s for s in shaders if s.endswith(".vsh")]
-    fragmentShaders = [s for s in shaders if s.endswith(".fsh")]
-
-    file.write("#pragma once\n\n")
-    file.write("#include \"../../std/vector.hpp\"\n")
-    file.write("#include \"../../std/string.hpp\"\n\n")
-    file.write("namespace gpu_test\n")
-    file.write("{\n\n")
-
-    file.write("vector<string> VertexEnum;\n")
-    file.write("vector<string> FragmentEnum;\n\n")
-
-    file.write("void InitEnumeration()\n")
-    file.write("{\n")
-
-    for s in vertexShaders:
-        file.write("  VertexEnum.push_back(\"%s\");\n" % (os.path.abspath(os.path.join(shaderDir, s))))
-    for s in fragmentShaders:
-        file.write("  FragmentEnum.push_back(\"%s\");\n" % (os.path.abspath(os.path.join(shaderDir, s))))
-
-    file.write("}\n\n")
-    file.write("} // namespace gpu_test\n")
 
 if len(sys.argv) < 4:
   print "Usage : " + sys.argv[0] + " <shader_dir> <index_file_name> <generate_file_name>"
@@ -217,8 +220,5 @@ if definitionChanged(programIndex, formatOutFilePath(shaderDir, definesFile)):
     writeDefinitionFile(programIndex, formatOutFilePath(shaderDir, definesFile))
 else:
     print "No need to update definition file"
-writeImplementationFile(programDefinition, programIndex, shaderIndex, shaderDir, implFile, definesFile)
+writeImplementationFile(programDefinition, programIndex, shaderIndex, shaderDir, implFile, definesFile, shaders)
 validateDocumentation(shaders, shaderDir)
-
-if len(sys.argv) > 4:
-    writeEnumerationFile(shaderDir, shaders, sys.argv[4])
