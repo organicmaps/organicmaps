@@ -13,7 +13,7 @@ AreaShape::AreaShape(vector<m2::PointF> const & triangleList, AreaViewParams con
 {
   m_vertexes.reserve(triangleList.size());
 
-#if __cplusplus > 199711L
+#if (__cplusplus > 199711L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
   void (vector<Point3D>::* fn)(Point3D &&) =
 #else
   void (vector<Point3D>::* fn)(Point3D const &) =

@@ -8,7 +8,7 @@
 #ifdef _MSC_VER
   #define HASH_MAP_H <hash_map>
 #else
-  #if __cplusplus > 199711L
+  #if (__cplusplus > 199711L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
     #define HASH_MAP_H <unordered_map>
   #else
     #define HASH_MAP_H <tr1/unordered_map>
@@ -19,7 +19,7 @@
 #ifdef _MSC_VER
   #define HASH_NAMESPACE stdext
 #else
-  #if __cplusplus > 199711L
+  #if (__cplusplus > 199711L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
     #define HASH_NAMESPACE std
   #else
     #define HASH_NAMESPACE std::tr1
@@ -33,7 +33,7 @@
 #ifdef _MSC_VER
   #define HASH_SET_H <hash_set>
 #else
-  #if __cplusplus > 199711L
+  #if (__cplusplus > 199711L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
     #define HASH_SET_H <unordered_set>
   #else
     #define HASH_SET_H <tr1/unordered_set>
