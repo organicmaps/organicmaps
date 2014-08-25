@@ -8,11 +8,11 @@ TARGET = drape_tests
 CONFIG += console warn_on
 CONFIG -= app_bundle
 TEMPLATE = app
-DEFINES += OGL_TEST_ENABLED GTEST_DONT_DEFINE_TEST
+DEFINES += OGL_TEST_ENABLED GTEST_DONT_DEFINE_TEST COMPILER_TESTS
 
 DEPENDENCIES = platform coding base gmock
 ROOT_DIR = ../..
-SHADER_COMPILE_ARGS = $$PWD/../shaders shader_index.txt shader_def $$PWD/enum_shaders.hpp
+SHADER_COMPILE_ARGS = $$PWD/../shaders shader_index.txt shader_def
 include($$ROOT_DIR/common.pri)
 
 QT += core
