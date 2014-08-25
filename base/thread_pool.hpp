@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../base/base.hpp"
+
 #include "../std/function.hpp"
 
 namespace threads
