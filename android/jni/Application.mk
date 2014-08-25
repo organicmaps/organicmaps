@@ -1,7 +1,9 @@
-NDK_TOOLCHAIN_VERSION := clang
+NDK_TOOLCHAIN_VERSION := 4.6
 APP_PLATFORM := android-5
 APP_STL := gnustl_static
 APP_CPPFLAGS += -std=c++11
+# for gcc 4.8+
+#APP_CPPFLAGS += -Wno-deprecated-register
 
 ifeq (x$(NDK_ABI_TO_BUILD), x)
   APP_ABI := armeabi armeabi-v7a-hard x86

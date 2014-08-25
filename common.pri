@@ -17,11 +17,6 @@ CONFIG -= depend_includepath
 
 CONFIG *= c++11
 
-CONFIG(c++11) {
-  QMAKE_CFLAGS *= -Wno-deprecated-register
-  QMAKE_CXXFLAGS *= -Wno-deprecated-register
-}
-
 # Automatically enable release config for production
 CONFIG(production) {
   CONFIG *= release

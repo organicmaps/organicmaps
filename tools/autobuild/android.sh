@@ -14,7 +14,7 @@ CONFIGURATION="$1"
 source "$MY_PATH/build.sh"
 source "$MY_PATH/ndk_helper.sh"
 
-MKSPEC="$MY_PATH/../mkspecs/android-clang"
+MKSPEC="$MY_PATH/../mkspecs/android-g++"
 QMAKE_PARAMS="CONFIG+=${CONFIGURATION}"
 SHADOW_DIR_BASE="$MY_PATH/../../../omim-android"
 
