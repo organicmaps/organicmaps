@@ -1050,16 +1050,19 @@
           m2::PointD const pinPoint = [self.containerView.placePage pinPoint];
           CGPoint viewPinPoint = [(EAGLView *)self.view globalPoint2ViewPoint:CGPointMake(pinPoint.x, pinPoint.y)];
 
-          CGFloat const minOffset = 40;
-          viewPinPoint.x = MIN(self.view.width - minOffset, viewPinPoint.x);
-          viewPinPoint.x = MAX(minOffset, viewPinPoint.x);
-          viewPinPoint.y = MIN(self.view.height - minOffset - self.toolbarView.height, viewPinPoint.y);
-          viewPinPoint.y = MAX(minOffset + self.containerView.placePage.maxY, viewPinPoint.y);
+          if (CGRectContainsPoint(self.view.bounds, viewPinPoint))
+          {
+            CGFloat const minOffset = 40;
+            viewPinPoint.x = MIN(self.view.width - minOffset, viewPinPoint.x);
+            viewPinPoint.x = MAX(minOffset, viewPinPoint.x);
+            viewPinPoint.y = MIN(self.view.height - minOffset - self.toolbarView.height, viewPinPoint.y);
+            viewPinPoint.y = MAX(minOffset + self.containerView.placePage.maxY, viewPinPoint.y);
 
-          CGPoint const center = [(EAGLView *)self.view viewPoint2GlobalPoint:viewPinPoint];
-          m2::PointD const offset = [self.containerView.placePage pinPoint] - m2::PointD(center.x, center.y);
-          Framework & framework = GetFramework();
-          framework.SetViewportCenterAnimated(framework.GetViewportCenter() + offset);
+            CGPoint const center = [(EAGLView *)self.view viewPoint2GlobalPoint:viewPinPoint];
+            m2::PointD const offset = [self.containerView.placePage pinPoint] - m2::PointD(center.x, center.y);
+            Framework & framework = GetFramework();
+            framework.SetViewportCenterAnimated(framework.GetViewportCenter() + offset);
+          }
         }
 
         [UIView animateWithDuration:0.3 animations:^{
