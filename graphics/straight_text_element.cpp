@@ -5,6 +5,7 @@
 
 #include "../std/iterator.hpp"
 #include "../std/algorithm.hpp"
+#include "../std/cstring.hpp"
 
 
 namespace graphics

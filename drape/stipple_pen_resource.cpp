@@ -6,6 +6,7 @@
 
 #include "../std/numeric.hpp"
 #include "../std/sstream.hpp"
+#include "../std/cstring.hpp"
 
 namespace dp
 {
