@@ -645,6 +645,7 @@ public class MWMActivity extends NvEventQueueActivity
       toY = 0;
       fromAlpha = 0.0f;
       toAlpha = 0.5f;
+
       listener = new UiUtils.SimpleAnimationListener()
       {
         @Override
@@ -656,6 +657,7 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void onAnimationEnd(Animation animation)
         {
+          mFadeView.setVisibility(View.GONE);
           mVerticalToolbarAnimation = null;
         }
       };
@@ -666,26 +668,31 @@ public class MWMActivity extends NvEventQueueActivity
       toY = 1;
       fromAlpha = 0.5f;
       toAlpha = 0.0f;
+
       listener = new UiUtils.SimpleAnimationListener()
       {
         @Override
         public void onAnimationEnd(Animation animation)
         {
           mVerticalToolbar.setVisibility(View.INVISIBLE);
+          mFadeView.setVisibility(View.GONE);
           mVerticalToolbarAnimation = null;
         }
       };
     }
+
     // slide vertical toolbar
     mVerticalToolbarAnimation = UiUtils.generateSlideAnimation(0, 0, fromY, toY);
     mVerticalToolbarAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
     mVerticalToolbarAnimation.setAnimationListener(listener);
     mVerticalToolbar.startAnimation(mVerticalToolbarAnimation);
+
     // fade map
     Animation alphaAnimation = new AlphaAnimation(fromAlpha, toAlpha);
     alphaAnimation.setFillBefore(true);
     alphaAnimation.setFillAfter(true);
     alphaAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
+    mFadeView.setVisibility(View.VISIBLE);
     mFadeView.startAnimation(alphaAnimation);
   }
 
@@ -830,13 +837,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     UiUtils.invisible(mVerticalToolbar);
 
-    // hacky way to implement alpha at pre-honeycomb SDK.
     mFadeView = findViewById(R.id.fade_view);
-    Animation alphaAnimation = new AlphaAnimation(0.0f, 0.0f);
-    alphaAnimation.setFillAfter(true);
-    alphaAnimation.setDuration(0);
-    mFadeView.startAnimation(alphaAnimation);
-    mFadeView.setVisibility(View.VISIBLE);
   }
 
   private void setUpInfoBox()
