@@ -1,4 +1,5 @@
 #pragma once
+#include "glfunctions.hpp"
 
 #include "../std/string.hpp"
 #include "../std/stdint.hpp"
@@ -21,9 +22,14 @@ public:
   int GetID() const;
 
 private:
-  string const m_source;
+  string m_source;
   Type m_type;
   uint32_t m_glID;
 };
+
+namespace sh
+{
+  void Inject(string & src);
+}
 
 } // namespace dp
