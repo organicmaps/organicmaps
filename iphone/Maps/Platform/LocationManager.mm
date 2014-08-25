@@ -129,6 +129,11 @@
   info.m_speed = location.speed;
 }
 
+- (void)triggerCompass
+{
+  [self locationManager:m_locationManager didUpdateHeading:m_locationManager.heading];
+}
+
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
   // Stop passing driving course if last time stamp for GPS location is later than 20 seconds.

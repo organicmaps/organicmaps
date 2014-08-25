@@ -40,5 +40,6 @@
 
 - (bool)lastLocationIsValid;
 - (BOOL)enabledOnMap;
+- (void)triggerCompass;
 
 @end

@@ -203,6 +203,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
     cell.selectedColorView.alpha = [self isBookmark] ? 1 : 0;
     cell.delegate = self;
     cell.myPositionMode = [self isMyPosition];
+    [[MapsAppDelegate theApp].m_locationManager triggerCompass];
+
     return cell;
   }
   else if (row == CellRowSet)
