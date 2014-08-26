@@ -134,12 +134,16 @@ public class StoragePathManager
         {
           // add only secondary dirs
           if (f != null && !f.equals(primaryStorageDir))
+          {
+            Log.i(TAG, "Additional storage path: " + f.getPath());
             paths.add(f.getPath());
+          }
         }
       }
     }
-    else
-      parseMountFiles(paths);
+
+    // Do it even on KitKat due to some bugs with getExternalFilesDirs()
+    parseMountFiles(paths);
 
     Map<Long, String> pathsSizesMap = new HashMap<Long, String>();
 
