@@ -1300,6 +1300,16 @@ bool Framework::SesameOpen(search::SearchParams const & params)
     Settings::Set(ROUTER_MAPSME, false);
     searchResult = "maps.me routing disabled";
   }
+  else if (params.m_query == "?menulinks off")
+  {
+    Settings::Set("MenuLinksEnabled", false);
+    searchResult = "maps.me menu links disabled";
+  }
+  else if (params.m_query == "?menulinks on")
+  {
+    Settings::Set("MenuLinksEnabled", true);
+    searchResult = "maps.me menu links enabled";
+  }
 
   if (searchResult)
   {

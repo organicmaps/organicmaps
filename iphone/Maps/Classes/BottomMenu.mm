@@ -3,6 +3,7 @@
 #import "BottomMenuCell.h"
 #import "UIKitCategories.h"
 #include "../../../platform/platform.hpp"
+#include "../../../platform/settings.hpp"
 #import "AppInfo.h"
 #import "ImageDownloader.h"
 
@@ -39,9 +40,14 @@
 {
   NSMutableArray * items = [[NSMutableArray alloc] init];
 
-  NSArray * serverItems = [[AppInfo sharedInfo] featureValue:AppFeatureBottomMenuItems forKey:@"Items"];
-  if ([serverItems count])
-    [items addObjectsFromArray:serverItems];
+  bool adsEnabled = true;
+  (void)Settings::Get("MenuLinksEnabled", adsEnabled);
+  if (adsEnabled)
+  {
+    NSArray * serverItems = [[AppInfo sharedInfo] featureValue:AppFeatureBottomMenuItems forKey:@"Items"];
+    if ([serverItems count])
+      [items addObjectsFromArray:serverItems];
+  }
 
   if (!GetPlatform().IsPro())
     [items addObject:@{@"Id" : @"MWMPro", @"Title" : NSLocalizedString(@"become_a_pro", nil), @"Icon" : @"MWMProIcon", @"Color" : @"15c783"}];
