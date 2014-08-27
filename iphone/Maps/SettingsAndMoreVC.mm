@@ -200,7 +200,12 @@
   NSString * device = self.deviceNames[machine];
   if (!device)
     device = machine;
-  NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@ %@", device, [UIDevice currentDevice].systemVersion, (GetPlatform().IsPro() ? @"Pro" : @"Lite"), [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
+  NSString * languageCode = [[NSLocale preferredLanguages] firstObject];
+  NSString * language = [[NSLocale localeWithLocaleIdentifier:@"en_gb"] displayNameForKey:NSLocaleLanguageCode value:languageCode];
+  NSString * locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+  NSString * country = [[NSLocale localeWithLocaleIdentifier:@"en_gb"] displayNameForKey:NSLocaleCountryCode value:locale];
+  NSString * bundleVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+  NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@ %@\n- %@/%@", device, [UIDevice currentDevice].systemVersion, (GetPlatform().IsPro() ? @"Pro" : @"Lite"), bundleVersion, language, country];
   NSString * email = @"ios@maps.me";
   if ([MFMailComposeViewController canSendMail])
   {
