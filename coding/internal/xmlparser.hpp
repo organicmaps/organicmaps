@@ -4,13 +4,16 @@
 
 #include "expat_impl.h"
 
+#include "../../base/logging.hpp"
+
+
 template <typename DispatcherT>
 class XmlParser : public CExpatImpl< XmlParser<DispatcherT> >
 {
   typedef CExpatImpl< XmlParser<DispatcherT> > BaseT;
 
 public:
-  XmlParser(DispatcherT& dispatcher, bool enableCharHandler = false)
+  XmlParser(DispatcherT & dispatcher, bool enableCharHandler = false)
     : m_depth(0), m_restrictDepth(static_cast<size_t>(-1)), m_dispatcher(dispatcher),
     m_enableCharHandler(enableCharHandler)
   {
@@ -59,11 +62,19 @@ public:
       m_dispatcher.Pop(string(pszName));
   }
 
-  void OnCharacterData(const XML_Char *pszData, int nLength)
+  void OnCharacterData(XML_Char const * pszData, int nLength)
   {
     // Accumulate character data - it can be passed by parts
     // (when reading from fixed length buffer).
     m_charData.append(pszData, nLength);
+  }
+
+  void PrintError()
+  {
+    if (BaseT::GetErrorCode() != XML_ERROR_NONE)
+      LOG(LWARNING, ("XML parse error at line",
+                     BaseT::GetCurrentLineNumber(),
+                     "and byte", BaseT::GetCurrentByteIndex()));
   }
 
 private:

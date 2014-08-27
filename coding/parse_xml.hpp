@@ -1,6 +1,6 @@
 #pragma once
 
-#include "internal/xmlparser.h"
+#include "internal/xmlparser.hpp"
 
 #include "../base/assert.hpp"
 
@@ -23,8 +23,14 @@ uint64_t ParseXMLSequence(SequenceT & source, XMLDispatcherT & dispatcher, bool 
     ASSERT(buffer, ());
 
     readed = source.Read(buffer, BUFFER_SIZE);
-    if (readed == 0 || !parser.ParseBuffer(readed, false))
+    if (readed == 0)
       return res;
+
+    if (!parser.ParseBuffer(readed, false))
+    {
+      parser.PrintError();
+      return res;
+    }
 
     res += readed;
   } while (readed == BUFFER_SIZE);

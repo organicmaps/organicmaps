@@ -37,7 +37,7 @@ SOURCES += \
     file_name_utils.cpp \
 
 HEADERS += \
-    internal/xmlparser.h \
+    internal/xmlparser.hpp \
     internal/expat_impl.h \
     internal/file_data.hpp \
     internal/file64_api.hpp \
