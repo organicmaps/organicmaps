@@ -1,5 +1,3 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "overlay_renderer.hpp"
 #include "straight_text_element.hpp"
 #include "path_text_element.hpp"
@@ -8,6 +6,7 @@
 #include "circled_symbol.hpp"
 #include "overlay.hpp"
 #include "resource_manager.hpp"
+
 
 namespace graphics
 {

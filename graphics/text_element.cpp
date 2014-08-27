@@ -1,12 +1,10 @@
 #include "text_element.hpp"
-#include "screen.hpp"
-#include "resource_cache.hpp"
-#include "resource_manager.hpp"
 #include "overlay_renderer.hpp"
 #include "glyph.hpp"
-#include "resource.hpp"
+#include "glyph_layout.hpp"
 
 #include "../base/logging.hpp"
+
 
 namespace graphics
 {

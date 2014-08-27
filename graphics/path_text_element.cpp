@@ -1,6 +1,6 @@
-#include "../base/SRC_FIRST.hpp"
 #include "path_text_element.hpp"
 #include "overlay_renderer.hpp"
+
 
 namespace graphics
 {

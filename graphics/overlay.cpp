@@ -1,8 +1,5 @@
-#include "../base/SRC_FIRST.hpp"
-
 #include "overlay.hpp"
 #include "overlay_renderer.hpp"
-#include "text_element.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/stl_add.hpp"
@@ -16,11 +13,11 @@ namespace graphics
   bool betterOverlayElement(shared_ptr<OverlayElement> const & l,
                             shared_ptr<OverlayElement> const & r)
   {
-    /// "frozen" object shouldn't be popped out.
+    // "frozen" object shouldn't be popped out.
     if (r->isFrozen())
       return false;
 
-    /// for the composite elements, collected in OverlayRenderer to replace the part elements
+    // for the composite elements, collected in OverlayRenderer to replace the part elements
     return l->priority() > r->priority();
   }
 
@@ -360,24 +357,4 @@ namespace graphics
 
 //    LOG(LINFO, ("clipped out", clippedCnt, "elements,", elemCnt, "elements total"));
   }
-
-  bool Overlay::checkHasEquals(Overlay const * l) const
-  {
-    vector<shared_ptr<OverlayElement> > v0;
-    m_tree.ForEach(MakeBackInsertFunctor(v0));
-
-    sort(v0.begin(), v0.end());
-
-    vector<shared_ptr<OverlayElement> > v1;
-    l->m_tree.ForEach(MakeBackInsertFunctor(v1));
-
-    sort(v1.begin(), v1.end());
-
-    vector<shared_ptr<OverlayElement> > res;
-
-    set_intersection(v0.begin(), v0.end(), v1.begin(), v1.end(), back_inserter(res));
-
-    return !res.empty();
-  }
 }
-

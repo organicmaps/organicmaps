@@ -1,8 +1,5 @@
 #pragma once
 
-#include "text_element.hpp"
-#include "symbol_element.hpp"
-
 #include "../geometry/rect2d.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/tree4d.hpp"
@@ -10,11 +7,15 @@
 #include "../base/matrix.hpp"
 #include "../base/mutex.hpp"
 
-#include "../std/map.hpp"
 #include "../std/list.hpp"
+#include "../std/shared_ptr.hpp"
+
 
 namespace graphics
 {
+  class OverlayRenderer;
+  class OverlayElement;
+
   struct OverlayElementTraits
   {
     static m2::RectD const LimitRect(shared_ptr<OverlayElement> const & elem);
@@ -64,8 +65,6 @@ namespace graphics
     void merge(Overlay const & infoLayer);
 
     void clip(m2::RectI const & r);
-
-    bool checkHasEquals(Overlay const * l) const;
 
     template <typename Fn>
     void forEach(Fn fn)

@@ -2,7 +2,6 @@
 
 #include "../geometry/rect2d.hpp"
 
-#include "../std/shared_ptr.hpp"
 
 namespace graphics
 {

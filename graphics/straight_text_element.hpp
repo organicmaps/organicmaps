@@ -1,6 +1,8 @@
 #pragma once
 
 #include "text_element.hpp"
+#include "glyph_layout.hpp"
+
 
 namespace graphics
 {

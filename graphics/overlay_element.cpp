@@ -1,5 +1,5 @@
-#include "../base/SRC_FIRST.hpp"
 #include "overlay_element.hpp"
+
 
 namespace graphics
 {

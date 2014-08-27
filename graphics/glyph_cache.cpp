@@ -23,13 +23,6 @@ namespace graphics
       m_color()
   {}
 
-  uint32_t GlyphKey::toUInt32() const
-  {
-    return static_cast<uint32_t>(m_symbolCode) << 16
-         | static_cast<uint32_t>(m_fontSize) << 8
-         | static_cast<uint32_t>(m_isMask);
-  }
-
   bool operator<(GlyphKey const & l, GlyphKey const & r)
   {
     if (l.m_symbolCode != r.m_symbolCode)

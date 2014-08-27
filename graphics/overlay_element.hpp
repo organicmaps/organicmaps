@@ -1,10 +1,14 @@
 #pragma once
 
+#include "defines.hpp"
+
 #include "../geometry/point2d.hpp"
 #include "../geometry/any_rect2d.hpp"
+
 #include "../base/matrix.hpp"
-#include "defines.hpp"
+
 #include "../std/vector.hpp"
+
 
 namespace graphics
 {

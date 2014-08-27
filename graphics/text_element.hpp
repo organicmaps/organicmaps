@@ -1,22 +1,15 @@
 #pragma once
-
-#include "../base/string_utils.hpp"
+#include "overlay_element.hpp"
+#include "font_desc.hpp"
 
 #include "../base/matrix.hpp"
+#include "../base/string_utils.hpp"
 
-#include "../geometry/any_rect2d.hpp"
-
-#include "../std/shared_ptr.hpp"
-
-#include "font_desc.hpp"
-#include "glyph_layout.hpp"
-#include "overlay_element.hpp"
 
 namespace graphics
 {
-  class ResourceManager;
-  class Skin;
-  class ResourceCache;
+  class GlyphLayout;
+  class GlyphCache;
   class OverlayRenderer;
 
   class TextElement : public OverlayElement

@@ -1,26 +1,21 @@
 #pragma once
 
+#include "glyph_cache.hpp"
 #include "defines.hpp"
-
-#include "../base/string_utils.hpp"
+#include "text_path.hpp"
+#include "font_desc.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/any_rect2d.hpp"
 #include "../geometry/angles.hpp"
 
-#include "../std/vector.hpp"
-#include "../std/string.hpp"
-#include "../std/shared_ptr.hpp"
+#include "../base/string_utils.hpp"
 
-#include "glyph_cache.hpp"
-#include "text_path.hpp"
-#include "font_desc.hpp"
 
 namespace graphics
 {
   class GlyphCache;
-  struct FontDesc;
 
   struct GlyphLayoutElem
   {

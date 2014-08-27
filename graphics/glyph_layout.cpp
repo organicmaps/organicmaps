@@ -1,14 +1,9 @@
 #include "glyph_layout.hpp"
-#include "font_desc.hpp"
 #include "resource.hpp"
 
 #include "../base/logging.hpp"
 #include "../base/math.hpp"
-#include "../std/sstream.hpp"
 
-#include "../geometry/angles.hpp"
-#include "../geometry/any_rect2d.hpp"
-#include "../base/thread.hpp"
 
 namespace graphics
 {

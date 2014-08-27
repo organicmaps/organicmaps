@@ -1,13 +1,15 @@
 #pragma once
 
+#include "path_view.hpp"
+
 #include "../base/matrix.hpp"
 #include "../base/buffer_vector.hpp"
 
-#include "glyph_cache.hpp"
-#include "path_view.hpp"
 
 namespace graphics
 {
+  struct GlyphMetrics;
+
   class TextPath
   {
   private:

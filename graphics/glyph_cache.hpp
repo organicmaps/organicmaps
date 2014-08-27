@@ -40,9 +40,7 @@ namespace graphics
     int m_fontSize;
     bool m_isMask;
     graphics::Color m_color;
-    /// as it's used for fixed fonts only, the color doesn't matter
-    /// @TODO REMOVE IT!!! All chars are already 32bit
-    uint32_t toUInt32() const;
+
     GlyphKey(strings::UniChar symbolCode,
              int fontSize,
              bool isMask,
