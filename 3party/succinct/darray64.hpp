@@ -12,7 +12,7 @@ namespace succinct {
                 : n_ones(0)
             {}
 
-            void append1(size_t skip0 = 0)
+            void append1(uint64_t skip0 = 0)
             {
                 bits.append_bits(0, skip0);
                 bits.push_back(1);
@@ -27,7 +27,7 @@ namespace succinct {
                 n_ones += 1;
             }
 
-            size_t n_ones;
+            uint64_t n_ones;
             bit_vector_builder bits;
             std::vector<uint64_t> block_inventory;
             std::vector<uint16_t> subblock_inventory;
@@ -63,7 +63,7 @@ namespace succinct {
                 ;
         }
 
-        size_t num_ones() const
+        uint64_t num_ones() const
         {
             return m_num_ones;
         }
@@ -73,25 +73,25 @@ namespace succinct {
             return m_bits;
         }
 
-        size_t select(size_t idx) const
+        uint64_t select(uint64_t idx) const
         {
             assert(idx < num_ones());
-            size_t block = idx / block_size;
-            size_t block_pos = m_block_inventory[block];
+            uint64_t block = idx / block_size;
+            uint64_t block_pos = m_block_inventory[block];
 
-            size_t subblock = idx / subblock_size;
-            size_t start_pos = block_pos + m_subblock_inventory[subblock];
-            size_t reminder = idx % subblock_size;
+            uint64_t subblock = idx / subblock_size;
+            uint64_t start_pos = block_pos + m_subblock_inventory[subblock];
+            uint64_t reminder = idx % subblock_size;
 
             if (!reminder) {
                 return start_pos;
             } else {
-                size_t word_idx = start_pos / 64;
-                size_t word_shift = start_pos % 64;
+                uint64_t word_idx = start_pos / 64;
+                uint64_t word_shift = start_pos % 64;
                 uint64_t word = m_bits.data()[word_idx] & (uint64_t(-1) << word_shift);
 
                 while (true) {
-                    size_t popcnt = broadword::popcount(word);
+                    uint64_t popcnt = broadword::popcount(word);
                     if (reminder < popcnt) break;
                     reminder -= popcnt;
                     word = m_bits.data()[++word_idx];
@@ -106,7 +106,7 @@ namespace succinct {
         static const size_t block_size = 1024; // 64 * block_size must fit in an uint16_t (64 is the max sparsity of bits)
         static const size_t subblock_size = 64;
 
-        size_t m_num_ones;
+        uint64_t m_num_ones;
         bit_vector m_bits;
         mapper::mappable_vector<uint64_t> m_block_inventory;
         mapper::mappable_vector<uint16_t> m_subblock_inventory;

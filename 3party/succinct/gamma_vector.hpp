@@ -38,14 +38,14 @@ namespace succinct {
             bit_vector(&low_bits).swap(m_low_bits);
         }
 
-        value_type operator[](size_t idx) const
+        value_type operator[](uint64_t idx) const
         {
-            size_t pos = m_high_bits.select(idx);
-            size_t l; // ignored
+            uint64_t pos = m_high_bits.select(idx);
+            uint64_t l; // ignored
             return retrieve_value(idx, pos, l);
         }
 
-        size_t size() const
+        uint64_t size() const
         {
             return m_high_bits.num_ones() - 1;
         }
@@ -66,7 +66,7 @@ namespace succinct {
 
     private:
 
-        value_type retrieve_value(size_t idx, size_t pos, size_t& l) const
+        value_type retrieve_value(uint64_t idx, uint64_t pos, uint64_t & l) const
         {
             assert(m_high_bits.bits()[pos] == 1);
             l = broadword::lsb(m_high_bits.bits().get_word(pos + 1));
@@ -110,8 +110,8 @@ namespace succinct {
 
     private:
         gamma_vector const* m_c;
-        size_t m_idx;
-        size_t m_pos;
+        uint64_t m_idx;
+        uint64_t m_pos;
 
         bit_vector::unary_enumerator m_high_bits_enumerator;
         bit_vector::enumerator m_low_bits_enumerator;

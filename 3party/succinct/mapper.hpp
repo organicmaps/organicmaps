@@ -11,7 +11,11 @@
 
 #include "mappable_vector.hpp"
 
+
 namespace succinct { namespace mapper {
+
+    #define NEED_TO_ALIGN4(v) (4 - ((v) % 4))
+    #define ALIGN4_PTR(v) { uint32_t x = (uint64_t)(v) % 4; if (x > 0) (v) += 4 - x; }
 
     struct freeze_flags {
         // enum {
@@ -34,7 +38,7 @@ namespace succinct { namespace mapper {
         {}
 
         std::string name;
-        size_t size;
+        uint64_t size;
         std::vector<size_node_ptr> children;
 
         void dump(std::ostream& os = std::cerr, size_t depth = 0) {
@@ -72,6 +76,14 @@ namespace succinct { namespace mapper {
             operator()(T& val, const char* /* friendly_name */) {
                 m_fout.write(reinterpret_cast<const char*>(&val), sizeof(T));
                 m_written += sizeof(T);
+
+                uint32_t padding = NEED_TO_ALIGN4(m_written);
+                static uint32_t const zero = 0;
+                if (padding > 0 && padding < 4)
+                {
+                  m_fout.write(reinterpret_cast<const char*>(&zero), padding);
+                  m_written += padding;
+                }
                 return *this;
             }
 
@@ -83,6 +95,14 @@ namespace succinct { namespace mapper {
                 size_t n_bytes = static_cast<size_t>(vec.m_size * sizeof(T));
                 m_fout.write(reinterpret_cast<const char*>(vec.m_data), long(n_bytes));
                 m_written += n_bytes;
+
+                uint32_t padding = NEED_TO_ALIGN4(m_written);
+                static uint32_t const zero = 0;
+                if (padding > 0 && padding < 4)
+                {
+                  m_fout.write(reinterpret_cast<const char*>(&zero), padding);
+                  m_written += padding;
+                }
 
                 return *this;
             }
@@ -120,6 +140,8 @@ namespace succinct { namespace mapper {
             operator()(T& val, const char* /* friendly_name */) {
                 val = *reinterpret_cast<const T*>(m_cur);
                 m_cur += sizeof(T);
+
+                ALIGN4_PTR(m_cur);
                 return *this;
             }
 
@@ -141,6 +163,7 @@ namespace succinct { namespace mapper {
                 }
 
                 m_cur += bytes;
+                ALIGN4_PTR(m_cur);
                 return *this;
             }
 
@@ -168,7 +191,7 @@ namespace succinct { namespace mapper {
             template <typename T>
             typename boost::disable_if<boost::is_pod<T>, sizeof_visitor&>::type
             operator()(T& val, const char* friendly_name) {
-                size_t checkpoint = m_size;
+                uint64_t checkpoint = m_size;
                 size_node_ptr parent_node;
                 if (m_cur_size_node) {
                     parent_node = m_cur_size_node;
@@ -195,9 +218,9 @@ namespace succinct { namespace mapper {
             template<typename T>
             sizeof_visitor&
             operator()(mappable_vector<T>& vec, const char* friendly_name) {
-                size_t checkpoint = m_size;
+                uint64_t checkpoint = m_size;
                 (*this)(vec.m_size, "size");
-                m_size += static_cast<size_t>(vec.m_size * sizeof(T));
+                m_size += static_cast<uint64_t>(vec.m_size * sizeof(T));
 
                 if (m_cur_size_node) {
                     make_node(friendly_name)->size = m_size - checkpoint;
@@ -206,7 +229,7 @@ namespace succinct { namespace mapper {
                 return *this;
             }
 
-            size_t size() const {
+            uint64_t size() const {
                 return m_size;
             }
 
@@ -225,7 +248,7 @@ namespace succinct { namespace mapper {
                 return node;
             }
 
-            size_t m_size;
+            uint64_t m_size;
             size_node_ptr m_cur_size_node;
         };
 
@@ -261,7 +284,7 @@ namespace succinct { namespace mapper {
     }
 
     template <typename T>
-    size_t size_of(T& val)
+    uint64_t size_of(T& val)
     {
         detail::sizeof_visitor sizer;
         sizer(val, "");

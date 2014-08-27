@@ -236,7 +236,7 @@ namespace succinct {
             other.m_bits.swap(m_bits);
         }
 
-        inline size_t size() const {
+        inline uint64_t size() const {
             return m_size;
         }
 
@@ -277,12 +277,14 @@ namespace succinct {
         }
 
         // unsafe and fast version of get_word, it retrieves at least 56 bits
+        /*
         inline uint64_t get_word56(uint64_t pos) const
         {
             // XXX check endianness?
             const char* ptr = reinterpret_cast<const char*>(m_bits.data());
             return *(reinterpret_cast<uint64_t const*>(ptr + pos / 8)) >> (pos % 8);
         }
+        */
 
         inline uint64_t predecessor0(uint64_t pos) const {
             assert(pos < m_size);
@@ -355,7 +357,7 @@ namespace succinct {
                 , m_pos(uint64_t(-1))
             {}
 
-            enumerator(bit_vector const& bv, size_t pos)
+            enumerator(bit_vector const& bv, uint64_t pos)
                 : m_bv(&bv)
                 , m_pos(pos)
                 , m_buf(0)
@@ -374,7 +376,7 @@ namespace succinct {
                 return b;
             }
 
-            inline uint64_t take(size_t l)
+            inline uint64_t take(uint64_t l)
             {
                 if (m_avail < l) fill_buf();
                 uint64_t val;
@@ -422,9 +424,9 @@ namespace succinct {
             }
 
             bit_vector const* m_bv;
-            size_t m_pos;
+            uint64_t m_pos;
             uint64_t m_buf;
-            size_t m_avail;
+            uint64_t m_avail;
         };
 
         struct unary_enumerator {
@@ -504,7 +506,7 @@ namespace succinct {
         };
 
     protected:
-        size_t m_size;
+        uint64_t m_size;
         mapper::mappable_vector<uint64_t> m_bits;
     };
 

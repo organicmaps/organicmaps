@@ -24,8 +24,8 @@ namespace succinct {
                 std::vector<uint16_t> subblock_inventory;
                 std::vector<uint64_t> overflow_positions;
 
-                for (size_t word_idx = 0; word_idx < data.size(); ++word_idx) {
-                    size_t cur_pos = word_idx * 64;
+                for (uint64_t word_idx = 0; word_idx < data.size(); ++word_idx) {
+                    uint64_t cur_pos = word_idx * 64;
                     uint64_t cur_word = WordGetter()(data, word_idx);
                     unsigned long l;
                     while (broadword::lsb(cur_word, l)) {
@@ -81,20 +81,20 @@ namespace succinct {
                     return m_overflow_positions[overflow_pos + (idx % block_size)];
                 }
 
-                size_t subblock = idx / subblock_size;
-                size_t start_pos = uint64_t(block_pos) + m_subblock_inventory[subblock];
-                size_t reminder = idx % subblock_size;
+                uint64_t subblock = idx / subblock_size;
+                uint64_t start_pos = uint64_t(block_pos) + m_subblock_inventory[subblock];
+                uint64_t reminder = idx % subblock_size;
                 mapper::mappable_vector<uint64_t> const& data = bv.data();
 
                 if (!reminder) {
                     return start_pos;
                 } else {
-                    size_t word_idx = start_pos / 64;
-                    size_t word_shift = start_pos % 64;
+                    uint64_t word_idx = start_pos / 64;
+                    uint64_t word_shift = start_pos % 64;
                     uint64_t word = WordGetter()(data, word_idx) & (uint64_t(-1) << word_shift);
 
                     while (true) {
-                        size_t popcnt = broadword::popcount(word);
+                        uint64_t popcnt = broadword::popcount(word);
                         if (reminder < popcnt) break;
                         reminder -= popcnt;
                         word = WordGetter()(data, ++word_idx);
@@ -136,7 +136,7 @@ namespace succinct {
             static const size_t subblock_size = 32;
             static const size_t max_in_block_distance = 1 << 16;
 
-            size_t m_positions;
+            uint64_t m_positions;
             mapper::mappable_vector<int64_t> m_block_inventory;
             mapper::mappable_vector<uint16_t> m_subblock_inventory;
             mapper::mappable_vector<uint64_t> m_overflow_positions;
