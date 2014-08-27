@@ -141,4 +141,13 @@ UNIT_TEST(LatLon_Degree_Match)
   TEST(MatchLatLonDegree("47.33471°N 8.53112°E", lat, lon), ());
   TEST_ALMOST_EQUAL(lat, 47.33471, ());
   TEST_ALMOST_EQUAL(lon, 8.53112, ());
+
+  TEST(MatchLatLonDegree("N 51* 33.217 E 11* 10.113", lat, lon), ());
+  TEST_ALMOST_EQUAL(lat, 51.55361666666667, ());
+  TEST_ALMOST_EQUAL(lon, 11.16855, ());
+
+  TEST(!MatchLatLonDegree("N 51* 33.217 E 11* 60.113", lat, lon), ());
+  TEST(!MatchLatLonDegree("N 51* -33.217 E 11* 10.113", lat, lon), ());
+  TEST(!MatchLatLonDegree("N 33.217\' E 11* 10.113", lat, lon), ());
+  TEST(!MatchLatLonDegree("N 51* 33.217 E 11* 10.113\"", lat, lon), ());
 }

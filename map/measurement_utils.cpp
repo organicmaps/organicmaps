@@ -11,6 +11,9 @@
 #include "../std/sstream.hpp"
 
 
+using namespace Settings;
+using namespace strings;
+
 namespace MeasurementUtils
 {
 
@@ -45,9 +48,8 @@ bool FormatDistanceImpl(double m, string & res,
 
 bool FormatDistance(double m, string & res)
 {
-  using namespace Settings;
   Units u = Metric;
-  Settings::Get("Units", u);
+  (void)Get("Units", u);
 
   /// @todo Put string units resources.
   switch (u)
@@ -84,7 +86,7 @@ string FormatLatLonAsDMSImpl(double value, char positive, char negative, int dac
   sstream << setw(2) << i;
 
   if (dac > 0)
-    sstream << strings::to_string_dac(d, dac).substr(1);
+    sstream << to_string_dac(d, dac).substr(1);
 
   sstream << "″";
 
@@ -128,13 +130,13 @@ string FormatMercatorAsDMS(m2::PointD const & mercator, int dac)
 // @TODO take into account decimal points or commas as separators in different locales
 string FormatLatLon(double lat, double lon, int dac)
 {
-  return strings::to_string_dac(lat, dac) + " " + strings::to_string_dac(lon, dac);
+  return to_string_dac(lat, dac) + " " + to_string_dac(lon, dac);
 }
 
 void FormatLatLon(double lat, double lon, string & latText, string & lonText, int dac)
 {
-  latText = strings::to_string_dac(lat, dac);
-  lonText = strings::to_string_dac(lon, dac);
+  latText = to_string_dac(lat, dac);
+  lonText = to_string_dac(lon, dac);
 }
 
 string FormatMercator(m2::PointD const & mercator, int dac)
@@ -144,33 +146,32 @@ string FormatMercator(m2::PointD const & mercator, int dac)
 
 void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int dac)
 {
-  lat = strings::to_string_dac(MercatorBounds::YToLat(mercator.y), dac);
-  lon = strings::to_string_dac(MercatorBounds::XToLon(mercator.x), dac);
+  lat = to_string_dac(MercatorBounds::YToLat(mercator.y), dac);
+  lon = to_string_dac(MercatorBounds::XToLon(mercator.x), dac);
 }
 
 string FormatAltitude(double altitudeInMeters)
 {
-  using namespace Settings;
   Units u = Metric;
-  (void)Settings::Get("Units", u);
+  (void)Get("Units", u);
 
-  ostringstream sstream;
-  sstream << std::fixed << setprecision(0);
+  ostringstream ss;
+  ss << fixed << setprecision(0);
+
   /// @todo Put string units resources.
   switch (u)
   {
-  case Yard: sstream << MetersToYards(altitudeInMeters) << "yd"; break;
-  case Foot: sstream << MetersToFeet(altitudeInMeters) << "ft"; break;
-  default: sstream << altitudeInMeters << "m"; break;
+  case Yard: ss << MetersToYards(altitudeInMeters) << "yd"; break;
+  case Foot: ss << MetersToFeet(altitudeInMeters) << "ft"; break;
+  default: ss << altitudeInMeters << "m"; break;
   }
-  return sstream.str();
+  return ss.str();
 }
 
 string FormatSpeed(double metersPerSecond)
 {
-  using namespace Settings;
   Units u = Metric;
-  (void)Settings::Get("Units", u);
+  (void)Get("Units", u);
 
   double perHour;
   string res;

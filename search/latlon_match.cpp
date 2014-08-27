@@ -146,6 +146,7 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
 
   // Positions of N, S, E, W symbols
   char const * arrPos[] = { 0, 0, 0, 0 };
+  bool arrDegreeSymbol[] = { false, false };
 
   char const * s = query.c_str();
   while (true)
@@ -179,17 +180,21 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
     SkipSpaces(s);
 
     int i = GetDMSIndex(s);
+    bool degreeSymbol = true;
     if (i == -1)
     {
-      if (v[base].second && v[base + 1].second && !v[base + 2].second)
+      // try to assign next possible value mark
+      if (arrDegreeSymbol[base / 3])
       {
-        // assume seconds if degrees and minutes are present
-        i = 2;
+        if (!v[base + 1].second)
+          i = 1;
+        else
+          i = 2;
       }
       else
       {
-        // assume degrees by default
         i = 0;
+        degreeSymbol = false;
       }
     }
 
@@ -205,11 +210,17 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
           return false;
         }
       }
+      arrDegreeSymbol[base / 3] = degreeSymbol;
     }
-    else        // minutes or seconds
+    else  // minutes or seconds
     {
-      if (x < 0.0 || v[base + i].second || !v[base].second)
+      if (x < 0.0 || x > 60.0 ||            // minutes or seconds should be in [0, 60] range
+          v[base + i].second ||             // value already exists
+          !v[base].second ||                // no degrees found for value
+          (i == 2 && !v[base + 1].second))  // no minutes for seconds
+      {
         return false;
+      }
     }
 
     v[base + i].first = x;
