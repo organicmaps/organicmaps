@@ -28,38 +28,29 @@ namespace graphics
 
   class GlyphLayout
   {
-  private:
-
+  protected:
     size_t m_firstVisible;
     size_t m_lastVisible;
 
-    TextPath m_path;
-
-    strings::UniString m_visText;
-
     graphics::FontDesc m_fontDesc;
 
-    buffer_vector<GlyphMetrics, 32> m_metrics;
-    buffer_vector<GlyphLayoutElem, 32> m_entries;
-    buffer_vector<m2::AnyRectD, 16> m_boundRects;
+    buffer_vector<GlyphMetrics, 8> m_metrics;
+    buffer_vector<GlyphLayoutElem, 8> m_entries;
+    buffer_vector<m2::AnyRectD, 1> m_boundRects;
 
     m2::PointD m_pivot;
     m2::PointD m_offset;
 
     double m_textLength;
-    double m_textOffset;
 
     void computeBoundRects();
 
-    void recalcPivot();
-    void recalcAlongPath();
-
-    inline void addGlyph(GlyphCache * glyphCache,
-                        GlyphKey const & key,
-                        bool isFirst,
-                        strings::UniChar symbol,
-                        m2::RectD & boundRect,
-                        m2::PointD & curPt);
+    void addGlyph(GlyphCache * glyphCache,
+                  GlyphKey const & key,
+                  bool isFirst,
+                  strings::UniChar symbol,
+                  m2::RectD & boundRect,
+                  m2::PointD & curPt);
 
     void initStraigthText(GlyphCache * glyphCache,
                           FontDesc const & font,
@@ -68,40 +59,27 @@ namespace graphics
                           graphics::EPosition pos,
                           unsigned maxWidth);
 
+  protected:
+    GlyphLayout(FontDesc const & font);
+
   public:
-
-    GlyphLayout();
-
-    GlyphLayout(GlyphLayout const & layout,
-                math::Matrix<double, 3, 3> const & m);
-
-    GlyphLayout(GlyphCache * glyphCache,
-                FontDesc const & font,
-                m2::PointD const & pt,
-                strings::UniString const & visText,
-                graphics::EPosition pos);
+    GlyphLayout() {}
 
     GlyphLayout(GlyphCache * glyphCache,
                 FontDesc const & font,
                 m2::PointD const & pt,
                 strings::UniString const & visText,
                 graphics::EPosition pos,
-                unsigned maxWidth);
-
-    GlyphLayout(GlyphCache * glyphCache,
-                FontDesc const & font,
-                m2::PointD const * pts,
-                size_t ptsCount,
-                strings::UniString const & visText,
-                double fullLength,
-                double pathOffset,
-                double textOffset);
+                unsigned maxWidth = numeric_limits<unsigned>::max());
 
     size_t firstVisible() const;
     size_t lastVisible() const;
 
-    buffer_vector<GlyphLayoutElem, 32> const & entries() const;
-    buffer_vector<m2::AnyRectD, 16> const & boundRects() const;
+    buffer_vector<GlyphLayoutElem, 8> const & entries() const { return m_entries; }
+    buffer_vector<m2::AnyRectD, 1> const & boundRects() const { return m_boundRects; }
+
+    /// @note! Used only in StraightTextElement.
+    m2::RectD GetLastGlobalRect() const { return m_boundRects.back().GetGlobalRect(); }
 
     graphics::FontDesc const & fontDesc() const;
 
@@ -112,5 +90,32 @@ namespace graphics
     void setOffset(m2::PointD const & offs);
 
     int baseLineOffset();
+  };
+
+  class GlyphLayoutPath : public GlyphLayout
+  {
+    TextPath m_path;
+    strings::UniString m_visText;
+
+    double m_textOffset;
+
+    void recalcAlongPath();
+
+  public:
+    GlyphLayoutPath() {}
+
+    GlyphLayoutPath(GlyphLayoutPath const & layout,
+                math::Matrix<double, 3, 3> const & m);
+
+    GlyphLayoutPath(GlyphCache * glyphCache,
+                FontDesc const & font,
+                m2::PointD const * pts,
+                size_t ptsCount,
+                strings::UniString const & visText,
+                double fullLength,
+                double pathOffset,
+                double textOffset);
+
+    bool IsFullVisible() const;
   };
 }

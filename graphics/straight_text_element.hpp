@@ -10,9 +10,10 @@ namespace graphics
   {
   private:
 
-    /// glyph layout of the text parts.
-    vector<GlyphLayout> m_glyphLayouts;
-    vector<m2::PointD> m_offsets;
+    // Glyph layout of the text parts.
+    // In 99% cases cantainers will hold 1 element.
+    buffer_vector<GlyphLayout, 1> m_glyphLayouts;
+    buffer_vector<m2::PointD, 1> m_offsets;
 
   public:
 

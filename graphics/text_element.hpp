@@ -16,22 +16,9 @@ namespace graphics
   {
   protected:
 
-    /// text-element specific
-    FontDesc m_fontDesc;
-    FontDesc m_auxFontDesc;
-
-    strings::UniString m_logText; //< logical string
-    strings::UniString m_auxLogText;
-
-    strings::UniString m_visText; //< visual string, BIDI processed
-    strings::UniString m_auxVisText;
-
-    bool m_log2vis;
+    FontDesc m_fontDesc, m_auxFontDesc;
 
     mutable vector<m2::AnyRectD> m_boundRects;
-
-    bool isBidi() const;
-    bool isAuxBidi() const;
 
   public:
 
@@ -45,6 +32,9 @@ namespace graphics
 
       bool m_log2vis;
       GlyphCache * m_glyphCache;
+
+      pair<bool, bool> GetVisibleTexts(strings::UniString & visText,
+                                       strings::UniString & auxVisText) const;
     };
 
     TextElement(Params const & p);
@@ -56,10 +46,7 @@ namespace graphics
                       bool doAlignPivot,
                       FontDesc const & desc,
                       double depth) const;
-    strings::UniString const & logText() const;
-    strings::UniString const & auxLogText() const;
-    strings::UniString const & visText() const;
-    strings::UniString const & auxVisText() const;
+
     FontDesc const & fontDesc() const;
     FontDesc const & auxFontDesc() const;
   };

@@ -7,23 +7,14 @@
 
 namespace graphics
 {
-  GlyphLayout::GlyphLayout()
-  {}
-
-  GlyphLayout::GlyphLayout(GlyphCache * glyphCache,
-                           FontDesc const & fontDesc,
-                           m2::PointD const & pt,
-                           strings::UniString const & visText,
-                           graphics::EPosition pos)
+  GlyphLayout::GlyphLayout(FontDesc const & font)
     : m_firstVisible(0),
-      m_lastVisible(visText.size()),
-      m_fontDesc(fontDesc),
-      m_pivot(pt),
+      m_lastVisible(0),
+      m_fontDesc(font),
+      m_pivot(0, 0),
       m_offset(0, 0),
-      m_textLength(0),
-      m_textOffset(0)
+      m_textLength(0)
   {
-    initStraigthText(glyphCache, fontDesc, pt, visText, pos, numeric_limits<unsigned>::max());
   }
 
   GlyphLayout::GlyphLayout(GlyphCache * glyphCache,
@@ -37,26 +28,22 @@ namespace graphics
       m_fontDesc(fontDesc),
       m_pivot(pt),
       m_offset(0, 0),
-      m_textLength(0),
-      m_textOffset(0)
+      m_textLength(0)
   {
     initStraigthText(glyphCache, fontDesc, pt, visText, pos, maxWidth);
   }
 
-  GlyphLayout::GlyphLayout(GlyphLayout const & src,
-                           math::Matrix<double, 3, 3> const & m)
-    : m_firstVisible(0),
-      m_lastVisible(0),
+  GlyphLayoutPath::GlyphLayoutPath(GlyphLayoutPath const & src,
+                                   math::Matrix<double, 3, 3> const & m)
+    : GlyphLayout(src.m_fontDesc),
       m_path(src.m_path, m),
-      m_visText(src.m_visText),
-      m_fontDesc(src.m_fontDesc),
-      m_metrics(src.m_metrics),
-      m_pivot(0, 0),
-      m_offset(0, 0),
-      m_textLength(src.m_textLength)
+      m_visText(src.m_visText)
   {
     if (!m_fontDesc.IsValid())
       return;
+
+    m_metrics = src.m_metrics;
+    m_textLength = src.m_textLength;
 
     m_boundRects.push_back(m2::AnyRectD(m2::RectD(0, 0, 0, 0)));
 
@@ -69,22 +56,17 @@ namespace graphics
     recalcAlongPath();
   }
 
-  GlyphLayout::GlyphLayout(GlyphCache * glyphCache,
-                           FontDesc const & fontDesc,
-                           m2::PointD const * pts,
-                           size_t ptsCount,
-                           strings::UniString const & visText,
-                           double fullLength,
-                           double pathOffset,
-                           double textOffset)
-    : m_firstVisible(0),
-      m_lastVisible(0),
+  GlyphLayoutPath::GlyphLayoutPath(GlyphCache * glyphCache,
+                                   FontDesc const & fontDesc,
+                                   m2::PointD const * pts,
+                                   size_t ptsCount,
+                                   strings::UniString const & visText,
+                                   double fullLength,
+                                   double pathOffset,
+                                   double textOffset)
+    : GlyphLayout(fontDesc),
       m_path(pts, ptsCount, fullLength, pathOffset),
       m_visText(visText),
-      m_fontDesc(fontDesc),
-      m_pivot(0, 0),
-      m_offset(0, 0),
-      m_textLength(0),
       m_textOffset(textOffset)
   {
     if (!m_fontDesc.IsValid())
@@ -224,7 +206,7 @@ namespace graphics
     m_boundRects.push_back(m2::AnyRectD(boundRect));
   }
 
-  void GlyphLayout::recalcAlongPath()
+  void GlyphLayoutPath::recalcAlongPath()
   {
     size_t const count = m_visText.size();
     if (count == 0 || m_path.fullLength() < m_textLength)
@@ -321,7 +303,7 @@ namespace graphics
     }
 
     // storing glyph coordinates relative to pivot point.
-    for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
+    for (size_t i = m_firstVisible; i < m_lastVisible; ++i)
       m_entries[i].m_pt -= m_pivot;
 
     computeBoundRects();
@@ -331,7 +313,7 @@ namespace graphics
   {
     map<double, m2::AnyRectD> rects;
 
-    for (unsigned i = m_firstVisible; i < m_lastVisible; ++i)
+    for (size_t i = m_firstVisible; i < m_lastVisible; ++i)
     {
       if (m_metrics[i].m_width != 0)
       {
@@ -383,16 +365,6 @@ namespace graphics
     return m_lastVisible;
   }
 
-  buffer_vector<GlyphLayoutElem, 32> const & GlyphLayout::entries() const
-  {
-    return m_entries;
-  }
-
-  buffer_vector<m2::AnyRectD, 16> const & GlyphLayout::boundRects() const
-  {
-    return m_boundRects;
-  }
-
   m2::PointD const & GlyphLayout::pivot() const
   {
     return m_pivot;
@@ -400,7 +372,7 @@ namespace graphics
 
   void GlyphLayout::setPivot(m2::PointD const & pivot)
   {
-    for (unsigned i = 0; i < m_boundRects.size(); ++i)
+    for (size_t i = 0; i < m_boundRects.size(); ++i)
       m_boundRects[i].Offset(pivot - m_pivot);
 
     m_pivot = pivot;
@@ -413,7 +385,7 @@ namespace graphics
 
   void GlyphLayout::setOffset(m2::PointD const & offset)
   {
-    for (unsigned i = 0; i < m_boundRects.size(); ++i)
+    for (size_t i = 0; i < m_boundRects.size(); ++i)
       m_boundRects[i].Offset(offset - m_offset);
 
     m_offset = offset;
@@ -431,5 +403,10 @@ namespace graphics
       result = min(m_metrics[i].m_yOffset, result);
 
     return -result;
+  }
+
+  bool GlyphLayoutPath::IsFullVisible() const
+  {
+    return (m_firstVisible == 0 && m_lastVisible == m_visText.size());
   }
 }

@@ -11,42 +11,28 @@ namespace graphics
   TextElement::TextElement(Params const & p)
     : OverlayElement(p),
       m_fontDesc(p.m_fontDesc),
-      m_auxFontDesc(p.m_auxFontDesc),
-      m_logText(p.m_logText),
-      m_auxLogText(p.m_auxLogText),
-      m_log2vis(p.m_log2vis)
+      m_auxFontDesc(p.m_auxFontDesc)
+  {
+  }
+
+  pair<bool, bool> TextElement::Params::GetVisibleTexts(
+      strings::UniString & visText, strings::UniString & auxVisText) const
   {
     if (m_log2vis)
     {
-      m_visText = p.m_glyphCache->log2vis(m_logText);
+      visText = m_glyphCache->log2vis(m_logText);
       if (!m_auxLogText.empty())
-        m_auxVisText = p.m_glyphCache->log2vis(m_auxLogText);
+        auxVisText = m_glyphCache->log2vis(m_auxLogText);
+
+      return make_pair(visText != m_logText, auxVisText != m_auxLogText);
     }
     else
     {
-      m_visText = m_logText;
-      m_auxVisText = m_auxLogText;
+      visText = m_logText;
+      auxVisText = m_auxLogText;
+
+      return make_pair(false, false);
     }
-  }
-
-  strings::UniString const & TextElement::logText() const
-  {
-    return m_logText;
-  }
-
-  strings::UniString const & TextElement::auxLogText() const
-  {
-    return m_auxLogText;
-  }
-
-  strings::UniString const & TextElement::visText() const
-  {
-    return m_visText;
-  }
-
-  strings::UniString const & TextElement::auxVisText() const
-  {
-    return m_auxVisText;
   }
 
   FontDesc const & TextElement::fontDesc() const
@@ -57,16 +43,6 @@ namespace graphics
   FontDesc const & TextElement::auxFontDesc() const
   {
     return m_auxFontDesc;
-  }
-
-  bool TextElement::isBidi() const
-  {
-    return m_logText != m_visText;
-  }
-
-  bool TextElement::isAuxBidi() const
-  {
-    return m_auxLogText != m_auxVisText;
   }
 
   void TextElement::drawTextImpl(GlyphLayout const & layout,
@@ -96,17 +72,17 @@ namespace graphics
       deltaA = (ang::AngleD(0) * m).val();
     }
 
-    size_t cnt = layout.entries().size();
+    size_t const cnt = layout.entries().size();
 
     buffer_vector<Glyph::Info, 32> glyphInfos(cnt);
     buffer_vector<Resource::Info const *, 32> resInfos(cnt);
     buffer_vector<uint32_t, 32> glyphIDs(cnt);
 
-    unsigned firstVis = layout.firstVisible();
-    unsigned lastVis = layout.lastVisible();
+    size_t const firstVis = layout.firstVisible();
+    size_t const lastVis = layout.lastVisible();
 
     /// collecting all glyph infos in one array and packing them as a whole.
-    for (unsigned i = firstVis; i < lastVis; ++i)
+    for (size_t i = firstVis; i < lastVis; ++i)
     {
       GlyphKey glyphKey(layout.entries()[i].m_sym,
                         fontDesc.m_size,
@@ -117,16 +93,16 @@ namespace graphics
       resInfos[i] = &glyphInfos[i];
     }
 
-    if ((firstVis != lastVis)
-    && !screen->mapInfo(&resInfos[firstVis],
-                            &glyphIDs[firstVis],
-                            lastVis - firstVis))
+    if (firstVis != lastVis &&
+        !screen->mapInfo(&resInfos[firstVis],
+                         &glyphIDs[firstVis],
+                         lastVis - firstVis))
     {
       LOG(LDEBUG, ("cannot render string", lastVis - firstVis, "characters long"));
       return;
     }
 
-    for (unsigned i = firstVis; i < lastVis; ++i)
+    for (size_t i = firstVis; i < lastVis; ++i)
     {
       GlyphLayoutElem const & elem = layout.entries()[i];
       Glyph const * glyph = static_cast<Glyph const *>(screen->fromID(glyphIDs[i]));

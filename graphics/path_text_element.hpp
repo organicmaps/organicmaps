@@ -10,7 +10,7 @@ namespace graphics
   {
   private:
 
-    GlyphLayout m_glyphLayout;
+    GlyphLayoutPath m_glyphLayout;
 
   public:
 

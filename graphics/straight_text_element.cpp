@@ -80,51 +80,54 @@ namespace graphics
     double allElemWidth = 0;
     double allElemHeight = 0;
 
-    if (!visText().empty())
+    strings::UniString visText, auxVisText;
+    pair<bool, bool> const isBidi = p.GetVisibleTexts(visText, auxVisText);
+
+    if (!visText.empty())
     {
       buffer_vector<strings::UniString, 3> res;
-      if (p.m_doForceSplit || (p.m_doSplit && !isBidi()))
+      if (p.m_doForceSplit || (p.m_doSplit && !isBidi.first))
       {
         res.clear();
         if (!p.m_delimiters.empty())
-          visSplit(visText(), res, p.m_delimiters.c_str(), p.m_useAllParts);
+          visSplit(visText, res, p.m_delimiters.c_str(), p.m_useAllParts);
         else
-          visSplit(visText(), res, " \n\t", p.m_useAllParts);
+          visSplit(visText, res, " \n\t", p.m_useAllParts);
       }
       else
-        res.push_back(visText());
+        res.push_back(visText);
 
-      for (unsigned i = 0; i < res.size(); ++i)
+      for (size_t i = 0; i < res.size(); ++i)
       {
         m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_fontDesc, m2::PointD(0, 0), res[i], graphics::EPosCenter, p.m_maxPixelWidth));
-        m2::RectD r = m_glyphLayouts.back().boundRects().back().GetGlobalRect();
+        m2::RectD const r = m_glyphLayouts.back().GetLastGlobalRect();
         allElemWidth = max(r.SizeX(), allElemWidth);
         allElemHeight += r.SizeY();
       }
     }
 
-    if (p.m_auxFontDesc.IsValid() && !auxVisText().empty())
+    if (p.m_auxFontDesc.IsValid() && !auxVisText.empty())
     {
       buffer_vector<strings::UniString, 3> auxRes;
 
-      GlyphLayout l(p.m_glyphCache, p.m_auxFontDesc, m2::PointD(0, 0), auxVisText(), graphics::EPosCenter);
-      if (l.boundRects().back().GetGlobalRect().SizeX() > allElemWidth)
+      GlyphLayout l(p.m_glyphCache, p.m_auxFontDesc, m2::PointD(0, 0), auxVisText, graphics::EPosCenter);
+      if (l.GetLastGlobalRect().SizeX() > allElemWidth)
       {
         // should split
-        if (p.m_doSplit && !isAuxBidi())
+        if (p.m_doSplit && !isBidi.second)
         {
           if (!p.m_delimiters.empty())
-            visSplit(auxVisText(), auxRes, p.m_delimiters.c_str(), p.m_useAllParts);
+            visSplit(auxVisText, auxRes, p.m_delimiters.c_str(), p.m_useAllParts);
           else
-            visSplit(auxVisText(), auxRes, " \n\t", p.m_useAllParts);
+            visSplit(auxVisText, auxRes, " \n\t", p.m_useAllParts);
         }
         else
-          auxRes.push_back(auxVisText());
+          auxRes.push_back(auxVisText);
       }
       else
-        auxRes.push_back(auxVisText());
+        auxRes.push_back(auxVisText);
 
-      for (int i = 0; i < auxRes.size(); ++i)
+      for (size_t i = 0; i < auxRes.size(); ++i)
         m_glyphLayouts.push_back(GlyphLayout(p.m_glyphCache, p.m_auxFontDesc, m2::PointD(0, 0), auxRes[i], graphics::EPosCenter));
     }
 
@@ -133,32 +136,31 @@ namespace graphics
 
     double curShift = allElemHeight / 2;
 
-    /// performing aligning of glyphLayouts as for the center position
-
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+    // performing aligning of glyphLayouts as for the center position
+    for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
     {
-      double elemSize = m_glyphLayouts[i].boundRects().back().GetGlobalRect().SizeY();
+      double const elemSize = m_glyphLayouts[i].GetLastGlobalRect().SizeY();
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(0, -curShift + elemSize / 2) + p.m_offset);
       curShift -= elemSize;
     }
 
     if (position() & graphics::EPosLeft)
-      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+      for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
         m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(-allElemWidth / 2, 0));
 
     if (position() & graphics::EPosRight)
-      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+      for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
         m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(allElemWidth / 2, 0));
 
     if (position() & graphics::EPosAbove)
-      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+      for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
         m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(0, -allElemHeight / 2));
 
     if (position() & graphics::EPosUnder)
-      for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+      for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
         m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + m2::PointD(0, allElemHeight / 2));
 
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+    for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
     {
       m_offsets.push_back(m_glyphLayouts[i].pivot());
       m_glyphLayouts[i].setPivot(m_offsets[i] + pivot());
@@ -209,7 +211,7 @@ namespace graphics
 
       doffs += 1;
 
-      for (unsigned i = 0 ; i < boundRects().size(); ++i)
+      for (size_t i = 0 ; i < boundRects().size(); ++i)
         screen->drawRectangle(boundRects()[i], c, depth() + doffs);
 
       doffs += 1;
@@ -218,7 +220,7 @@ namespace graphics
     if (!isNeedRedraw())
       return;
 
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+    for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
     {
       if (m_glyphLayouts[i].fontDesc().m_isMasked)
         drawTextImpl(m_glyphLayouts[i], screen, m, true, true, m_glyphLayouts[i].fontDesc(), depth() + doffs);
@@ -226,7 +228,7 @@ namespace graphics
 
     doffs += 1;
 
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+    for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
     {
       graphics::FontDesc fontDesc = m_glyphLayouts[i].fontDesc();
       fontDesc.m_isMasked = false;
@@ -241,7 +243,7 @@ namespace graphics
 
     TextElement::setPivot(pv);
 
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+    for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
       m_glyphLayouts[i].setPivot(m_glyphLayouts[i].pivot() + offs);
   }
 
@@ -249,7 +251,7 @@ namespace graphics
   {
     setPivot(pivot() * getResetMatrix() * m);
 
-    for (unsigned i = 0; i < m_glyphLayouts.size(); ++i)
+    for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
     {
       m_glyphLayouts[i].setPivot(pivot());
       m_glyphLayouts[i].setOffset(m_offsets[i]);

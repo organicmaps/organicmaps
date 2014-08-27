@@ -13,18 +13,18 @@ namespace graphics
   {}
 
   PathTextElement::PathTextElement(Params const & p)
-    : TextElement(p),
-      m_glyphLayout(p.m_glyphCache,
-        p.m_fontDesc,
-        p.m_pts,
-        p.m_ptsCount,
-        visText(),
-        p.m_fullLength,
-        p.m_pathOffset,
-        p.m_textOffset)
+    : TextElement(p)
   {
+    strings::UniString visText, auxVisText;
+    (void) p.GetVisibleTexts(visText, auxVisText);
+
+    m_glyphLayout = GlyphLayoutPath(p.m_glyphCache, p.m_fontDesc,
+                                    p.m_pts, p.m_ptsCount,
+                                    visText, p.m_fullLength,
+                                    p.m_pathOffset, p.m_textOffset);
+
     setPivot(m_glyphLayout.pivot());
-    setIsValid((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
+    setIsValid(m_glyphLayout.IsFullVisible());
   }
 
   vector<m2::AnyRectD> const & PathTextElement::boundRects() const
@@ -86,9 +86,9 @@ namespace graphics
 
   void PathTextElement::setTransformation(const math::Matrix<double, 3, 3> & m)
   {
-    m_glyphLayout = GlyphLayout(m_glyphLayout, getResetMatrix() * m);
+    m_glyphLayout = GlyphLayoutPath(m_glyphLayout, getResetMatrix() * m);
     TextElement::setPivot(m_glyphLayout.pivot());
-    setIsValid((m_glyphLayout.firstVisible() == 0) && (m_glyphLayout.lastVisible() == visText().size()));
+    setIsValid(m_glyphLayout.IsFullVisible());
     TextElement::setTransformation(m);
   }
 }
