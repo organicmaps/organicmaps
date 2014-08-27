@@ -42,7 +42,7 @@ NSString * const AppInfoSyncedNotification = @"AppInfoSyncedNotification";
 
 - (void)update
 {
-  NSString * urlString = @"http://application.server/ios/features.json";
+  NSString * urlString = @"http://application.server/ios/features_v2.json";
   NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20];
   [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * r, NSData * d, NSError * e){
     if ([(NSHTTPURLResponse *)r statusCode] == 200)
@@ -91,8 +91,7 @@ NSString * const AppInfoSyncedNotification = @"AppInfoSyncedNotification";
   self.featuresByDefault = @{AppFeatureInterstitial : @NO,
                              AppFeatureBanner : @NO,
                              AppFeatureProButtonOnMap : @YES,
-                             AppFeatureMoreAppsBanner : @YES,
-                            };
+                             AppFeatureMoreAppsBanner : @YES};
 
   [self update];
 
@@ -107,20 +106,36 @@ NSString * const AppInfoSyncedNotification = @"AppInfoSyncedNotification";
   if (!self.features) // features haven't been downloaded yet
     return [self.featuresByDefault[featureName] boolValue];
 
-  NSDictionary * localizations = self.features[featureName];
-  return localizations[self.countryCode] || localizations[@"*"];
+  return [self featureParameters:featureName] != nil;
 }
 
 - (id)featureValue:(NSString *)featureName forKey:(NSString *)key
 {
-  NSDictionary * localizations = self.features[featureName];
-  NSDictionary * parameters = localizations[self.countryCode];
-  if (!parameters)
-    parameters = localizations[@"*"];
+  NSDictionary *parameters = [self featureParameters:featureName];
   if (parameters && parameters[key])
     return parameters[key];
 
   return nil;
+}
+
+- (NSDictionary *)findValueForKey:(NSString *)key inDictionary:(NSDictionary *)parameters
+{
+  for (NSString * aKey in [parameters allKeys])
+    if ([aKey rangeOfString:key].location != NSNotFound)
+      return parameters[aKey];
+  return nil;
+}
+
+- (NSDictionary *)featureParameters:(NSString *)featureName
+{
+  NSDictionary * parameters = [self findValueForKey:[NSString stringWithFormat:@"Country=%@", self.countryCode] inDictionary:self.features[featureName]];
+  if (!parameters)
+    parameters = [self findValueForKey:[NSString stringWithFormat:@"Lang=%@", [[NSLocale preferredLanguages] firstObject]] inDictionary:self.features[featureName]];
+
+  if (!parameters)
+    parameters = [self findValueForKey:@"*" inDictionary:self.features[featureName]];
+
+  return parameters;
 }
 
 - (NSString *)snapshot
