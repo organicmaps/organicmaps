@@ -283,35 +283,36 @@ namespace graphics
   {
     vector<shared_ptr<OverlayElement> > v;
 
-    /// 1. collecting all elements from tree
+    // 1. collecting all elements from tree
     layer.m_tree.ForEach(MakeBackInsertFunctor(v));
 
-    /// 2. sorting by priority, so the more important ones comes first
+    // 2. sorting by priority, so the more important ones comes first
     sort(v.begin(), v.end(), &greater_priority);
 
-    /// 3. merging them into the infoLayer starting from most
-    /// important one to optimize the space usage.
-    // @TODO Avoid std::bind overload compile error in the better way
-    void (Overlay::*fn)(shared_ptr<OverlayElement> const &,
-                        math::Matrix<double, 3, 3> const &) = &Overlay::processOverlayElement;
-    for_each(v.begin(), v.end(), bind(fn, this, _1, cref(m)));
+    // 3. merging them into the infoLayer starting from most
+    // important one to optimize the space usage.
+    for_each(v.begin(), v.end(), [&] (shared_ptr<OverlayElement> const & p)
+    {
+      processOverlayElement(p, m);
+    });
   }
 
   void Overlay::merge(Overlay const & infoLayer)
   {
     vector<shared_ptr<OverlayElement> > v;
 
-    /// 1. collecting all elements from tree
+    // 1. collecting all elements from tree
     infoLayer.m_tree.ForEach(MakeBackInsertFunctor(v));
 
-    /// 2. sorting by priority, so the more important ones comes first
+    // 2. sorting by priority, so the more important ones comes first
     sort(v.begin(), v.end(), &greater_priority);
 
-    /// 3. merging them into the infoLayer starting from most
-    /// important one to optimize the space usage.
-    // @TODO Avoid std::bind overload compile error in the better way
-    void (Overlay::*fn)(shared_ptr<OverlayElement> const &) = &Overlay::processOverlayElement;
-    for_each(v.begin(), v.end(), bind(fn, this, _1));
+    // 3. merging them into the infoLayer starting from most
+    // important one to optimize the space usage.
+    for_each(v.begin(), v.end(), [this] (shared_ptr<OverlayElement> const & p)
+    {
+      processOverlayElement(p);
+    });
   }
 
   void Overlay::clip(m2::RectI const & r)
