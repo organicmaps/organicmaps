@@ -254,9 +254,20 @@ UNIT_TEST(to_string_dac)
 
   TEST_EQUAL(strings::to_string_dac(-0.0039, 2), "-0", ());
   TEST_EQUAL(strings::to_string_dac(0.0039, 2), "0", ());
+  TEST_EQUAL(strings::to_string_dac(-1.0039, 2), "-1", ());
+  TEST_EQUAL(strings::to_string_dac(1.0039, 2), "1", ());
 
   TEST_EQUAL(strings::to_string_dac(0., 5), "0", ());
   TEST_EQUAL(strings::to_string_dac(0., 0), "0", ());
+
+  TEST_EQUAL(strings::to_string_dac(1.0, 6), "1", ());
+  TEST_EQUAL(strings::to_string_dac(0.9, 6), "0.9", ());
+  TEST_EQUAL(strings::to_string_dac(-1.0, 30), "-1", ());
+  TEST_EQUAL(strings::to_string_dac(-0.99, 30), "-0.99", ());
+
+  TEST_EQUAL(strings::to_string_dac(1.0E30, 6), "1e+30", ());
+  TEST_EQUAL(strings::to_string_dac(1.0E-15, 15), "0.000000000000001", ());
+  TEST_EQUAL(strings::to_string_dac(1.0 + 1.0E-14, 15), "1.00000000000001", ());
 }
 
 struct FunctorTester

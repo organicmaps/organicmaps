@@ -118,9 +118,12 @@ namespace
 {
   char ascii_to_lower(char in)
   {
-    static char const diff = 'Z'-'z';
-    if (in <= 'Z' && in >= 'A')
-      return (in-diff);
+    char const diff = 'z' - 'Z';
+    STATIC_ASSERT(diff == 'a' - 'A');
+    STATIC_ASSERT(diff > 0);
+
+    if (in >= 'A' && in <= 'Z')
+      return (in + diff);
     return in;
   }
 }
@@ -169,7 +172,10 @@ bool StartsWith(string const & s1, char const * s2)
 
 string to_string_dac(double d, int dac)
 {
+  dac = min(numeric_limits<double>::digits10, dac);
+
   ostringstream ss;
+
   if (d < 1. && d > -1.)
   {
     string res;
@@ -188,17 +194,15 @@ string to_string_dac(double d, int dac)
     return res;
   }
 
-  double fD = fabs(d);
-
   // Calc digits before comma (log10).
-  int dbc = 0;
-  while (fD >= 1.0 && dbc < numeric_limits<double>::digits10)
+  double fD = fabs(d);
+  while (fD >= 1.0 && dac < numeric_limits<double>::digits10)
   {
     fD /= 10.0;
-    ++dbc;
+    ++dac;
   }
 
-  ss << setprecision(dac + dbc) << d;
+  ss << setprecision(dac) << d;
   return ss.str();
 }
 
