@@ -1,10 +1,10 @@
 #include "../../testing/testing.hpp"
 
-#include "../../coding/reader.hpp"
-#include "../../coding/writer.hpp"
-#include "../../coding/streams_sink.hpp"
-
 #include "../simple_tree.hpp"
+
+
+namespace
+{
 
 template <class TNode>
 struct Calculator
@@ -17,10 +17,12 @@ struct Calculator
   }
 };
 
-UNIT_TEST(SimpleTree)
+}
+
+UNIT_TEST(SimpleTree_Smoke)
 {
-  typedef SimpleTree<int> mytree;
-  mytree tree;
+  typedef SimpleTree<int> TreeT;
+  TreeT tree;
 
   tree.Add(4);
   tree.Add(3);
@@ -42,16 +44,16 @@ UNIT_TEST(SimpleTree)
   TEST_EQUAL(tree[0][1].Value(), 20, ());
   TEST_EQUAL(tree[0][2].Value(), 30, ());
 
-  Calculator<mytree> c1;
+  Calculator<TreeT> c1;
   tree.ForEachSibling(c1);
   TEST_EQUAL(c1.count, 5, ());
 
-  Calculator<mytree> c2;
+  Calculator<TreeT> c2;
   tree.ForEachChildren(c2);
   TEST_EQUAL(c2.count, 8, ());
 
   tree.Clear();
-  Calculator<mytree> c3;
+  Calculator<TreeT> c3;
   tree.ForEachChildren(c3);
   TEST_EQUAL(c3.count, 0, ("Tree should be empty"));
 }

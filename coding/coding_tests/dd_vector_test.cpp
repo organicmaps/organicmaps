@@ -1,10 +1,10 @@
 #include "../../testing/testing.hpp"
+
 #include "../dd_vector.hpp"
-#include "../endianness.hpp"
 #include "../reader.hpp"
 
 
-UNIT_TEST(DDVector)
+UNIT_TEST(DDVector_Smoke)
 {
   vector<uint16_t> data;
   // Push size. Big endian is used.

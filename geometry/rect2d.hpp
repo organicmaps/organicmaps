@@ -1,12 +1,12 @@
 #pragma once
 
 #include "point2d.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/internal/message.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/limits.hpp"
-#include "../std/type_traits.hpp"
 
 
 namespace m2

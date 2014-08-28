@@ -1,8 +1,10 @@
 #include "check_model.hpp"
 
+#include "../defines.hpp"
+
 #include "../indexer/features_vector.hpp"
 
-#include "../defines.hpp"
+#include "../base/logging.hpp"
 
 
 namespace check_model

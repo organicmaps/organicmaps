@@ -2,9 +2,11 @@
 
 #include "../platform/platform.hpp"
 
-#include <QtCore/QFile>
+#include "../base/logging.hpp"
 
+#include <QtCore/QFile>
 #include <QtGui/QIcon>
+
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
   #include <QtGui/QMenuBar>

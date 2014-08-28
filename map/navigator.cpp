@@ -4,20 +4,16 @@
 
 #include "../platform/settings.hpp"
 
-#include "../coding/file_reader.hpp"
-#include "../coding/file_writer.hpp"
-#include "../coding/streams_sink.hpp"
-
 #include "../geometry/angles.hpp"
 #include "../geometry/transformations.hpp"
 #include "../geometry/point2d.hpp"
 #include "../geometry/distance_on_sphere.hpp"
 
-#include "../base/std_serialization.hpp"
 #include "../base/logging.hpp"
 
 #include "../std/function.hpp"
 #include "../std/bind.hpp"
+
 
 namespace
 {

@@ -6,6 +6,7 @@
 #include "../../coding/internal/file_data.hpp"
 
 #include "../../base/thread.hpp"
+#include "../../base/logging.hpp"
 
 #include "../../std/numeric.hpp"
 

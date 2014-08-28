@@ -1,15 +1,11 @@
 #include "blob_indexer.hpp"
-#include "../coding/byte_stream.hpp"
-#include "../coding/endianness.hpp"
-#include "../coding/varint.hpp"
+
 #include "../coding/writer.hpp"
 #include "../coding/write_to_sink.hpp"
+
 #include "../base/assert.hpp"
-#include "../base/base.hpp"
 #include "../base/logging.hpp"
-#include "../std/algorithm.hpp"
-#include "../std/set.hpp"
-#include "../std/string.hpp"
+
 
 BlobIndexer::BlobIndexer(Writer & writer,
                          size_t maxUncompressedChunkSize,

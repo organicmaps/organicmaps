@@ -2,7 +2,6 @@
 #include "endianness.hpp"
 
 #include "../base/assert.hpp"
-#include "../base/logging.hpp"
 #include "../base/exception.hpp"
 
 #include "../std/shared_array.hpp"
