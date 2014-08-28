@@ -41,7 +41,6 @@
 @interface MapViewController () <PlacePageViewDelegate, ToolbarViewDelegate, BottomMenuDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate>
 
 @property (nonatomic) ShareActionSheet * shareActionSheet;
-@property (nonatomic) UIButton * buyButton;
 @property (nonatomic) ToolbarView * toolbarView;
 @property (nonatomic) ContainerView * containerView;
 @property (nonatomic) UIImageView * apiBar;
@@ -549,27 +548,6 @@
   [self.view addSubview:self.containerView];
 
   [self.view addSubview:self.bottomMenu];
-
-#ifdef OMIM_LITE
-  AppInfo * info = [AppInfo sharedInfo];
-  if ([info featureAvailable:AppFeatureProButtonOnMap])
-  {
-    [self.view insertSubview:self.buyButton belowSubview:self.toolbarView];
-
-    NSDictionary * texts = [info featureValue:AppFeatureProButtonOnMap forKey:@"Texts"];
-    NSString * proText = texts[[[NSLocale preferredLanguages] firstObject]];
-    if (!proText)
-      proText = texts[@"*"];
-    if (!proText)
-      proText = [NSLocalizedString(@"become_a_pro", nil) uppercaseString];
-
-    CGFloat width = [proText sizeWithDrawSize:CGSizeMake(200, self.buyButton.height) font:self.buyButton.titleLabel.font].width;
-    self.buyButton.width = width + 4 * self.buyButton.height / 3;
-    self.buyButton.midX = self.view.width / 2;
-    self.buyButton.maxY = self.toolbarView.minY - 14;
-    [self.buyButton setTitle:proText forState:UIControlStateNormal];
-  }
-#endif
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -695,23 +673,6 @@
     [_searchView addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
   }
   return _searchView;
-}
-
-- (UIButton *)buyButton
-{
-  if (!_buyButton)
-  {
-    UIImage * buyImage = [[UIImage imageNamed:@"ProVersionButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 14, 14, 14)];
-    _buyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 115, 33)];
-    _buyButton.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _buyButton.titleLabel.textAlignment = NSTextAlignmentCenter;
-    _buyButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16];
-    _buyButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
-    [_buyButton setBackgroundImage:buyImage forState:UIControlStateNormal];
-    [_buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_buyButton addTarget:self action:@selector(buyButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-  }
-  return _buyButton;
 }
 
 - (ContainerView *)containerView
@@ -934,12 +895,6 @@
     else
       [application openURL:[NSURL URLWithString:webURL]];
   }
-}
-
-- (void)buyButtonPressed:(id)sender
-{
-  [[Statistics instance] logProposalReason:@"Pro button on map" withAnswer:@"YES"];
-  [[UIApplication sharedApplication] openProVersionFrom:@"ios_bottom_map"];
 }
 
 #pragma mark - UIKitViews delegates
