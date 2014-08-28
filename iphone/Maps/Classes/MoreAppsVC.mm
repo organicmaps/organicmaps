@@ -29,7 +29,7 @@ using namespace::storage;
 {
   [super viewDidLoad];
 
-  self.title = NSLocalizedString(@"more_apps_title", nil);
+  self.title = NSLocalizedString(@"more_apps_guides", nil);
 
   guides::GuidesManager & manager = GetFramework().GetGuidesManager();
   NSString * JSONPath = [NSString stringWithUTF8String:manager.GetDataFileFullPath().c_str()];

@@ -52,7 +52,7 @@
   if (!GetPlatform().IsPro())
     [items addObject:@{@"Id" : @"MWMPro", @"Title" : NSLocalizedString(@"become_a_pro", nil), @"Icon" : @"MWMProIcon", @"Color" : @"15c783"}];
 
-  [items addObject:@{@"Id" : @"MoreApps",  @"Title" : NSLocalizedString(@"more_apps_title", nil), @"Icon" : @"IconMoreApps"}];
+  [items addObject:@{@"Id" : @"MoreApps",  @"Title" : NSLocalizedString(@"more_apps_guides", nil), @"Icon" : @"IconMoreApps"}];
 
    NSArray * standardItems = @[@{@"Id" : @"Maps", @"Title" : NSLocalizedString(@"download_maps", nil), @"Icon" : @"IconMap"},
                             @{@"Id" : @"Settings", @"Title" : NSLocalizedString(@"settings_and_more", nil), @"Icon" : @"IconSettings"},
