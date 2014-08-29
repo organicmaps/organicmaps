@@ -208,9 +208,24 @@ namespace ftype
         if (is_name_tag(k))
           return false;
 
-        uint64_t dummy;
-        if (!m_isKey && strings::to_uint64(v, dummy))
-          return (k == "admin_level");
+        // Filter 3rd component of type here.
+        if (m_isKey)
+        {
+          /// @todo Probably, we need to filter most keys like == "yes" here,
+          /// but need to carefully investigate the classificator.
+
+          // Grab only "capital == yes" and skip all other capitals.
+          if (k == "capital")
+            return (get_mark_value(k, v) == 1);
+        }
+        else
+        {
+          // Numbers are used in boundary-administrative-X types.
+          // Take only "admin_level" tags to avoid grabbing any other trash numbers.
+          uint64_t dummy;
+          if (strings::to_uint64(v, dummy))
+            return (k == "admin_level");
+        }
 
         return true;
       }

@@ -299,3 +299,40 @@ UNIT_TEST(OsmType_Synonyms)
     TEST(params.IsTypeExist(GetType(arrT)), ());
   }
 }
+
+UNIT_TEST(OsmType_Capital)
+{
+  {
+    char const * arr[][2] = {
+      { "place", "city" },
+      { "capital", "yes" }
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 1, ());
+    char const * type[] = { "place", "city", "capital" };
+    TEST(params.IsTypeExist(GetType(type)), ());
+  }
+
+  {
+    char const * arr[][2] = {
+      { "place", "city" },
+      { "capital", "6" }
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 1, ());
+    char const * type[] = { "place", "city" };
+    TEST(params.IsTypeExist(GetType(type)), ());
+  }
+}
