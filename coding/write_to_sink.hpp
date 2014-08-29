@@ -2,55 +2,14 @@
 
 #include "endianness.hpp"
 
-template <class TSink> void WriteToSink(TSink & sink, unsigned char c)
-{
-  sink.Write(&c, 1);
-}
+#include "../std/type_traits.hpp"
 
-template <class TSink> void WriteToSink(TSink & sink, signed char c)
-{
-  sink.Write(&c, 1);
-}
 
-template <class TSink> void WriteToSink(TSink & sink, char c)
+template <class TSink, typename T>
+typename enable_if<is_integral<T>, void>::type WriteToSink(TSink & sink, T const & v)
 {
-  sink.Write(&c, 1);
-}
-
-template <class TSink> void WriteToSink(TSink & sink, uint16_t v)
-{
-  uint16_t t = SwapIfBigEndian(v);
-  sink.Write(&t, 2);
-}
-
-template <class TSink> void WriteToSink(TSink & sink, int16_t v)
-{
-  int16_t t = SwapIfBigEndian(v);
-  sink.Write(&t, 2);
-}
-
-template <class TSink> void WriteToSink(TSink & sink, int32_t v)
-{
-  int32_t t = SwapIfBigEndian(v);
-  sink.Write(&t, 4);
-}
-
-template <class TSink> void WriteToSink(TSink & sink, uint32_t v)
-{
-  uint32_t t = SwapIfBigEndian(v);
-  sink.Write(&t, 4);
-}
-
-template <class TSink> void WriteToSink(TSink & sink, int64_t v)
-{
-  int64_t t = SwapIfBigEndian(v);
-  sink.Write(&t, 8);
-}
-
-template <class TSink> void WriteToSink(TSink & sink, uint64_t v)
-{
-  uint64_t t = SwapIfBigEndian(v);
-  sink.Write(&t, 8);
+  T const t = SwapIfBigEndian(v);
+  sink.Write(&t, sizeof(T));
 }
 
 template <class TSink> void WriteZeroesToSink(TSink & sink, uint64_t size)
@@ -61,14 +20,13 @@ template <class TSink> void WriteZeroesToSink(TSink & sink, uint64_t size)
   sink.Write(zeroes, size & 255);
 }
 
-template <typename SinkT>
-struct WriterFunctor
+template <typename SinkT> class WriterFunctor
 {
   SinkT & m_Sink;
-  explicit WriterFunctor(SinkT & sink) : m_Sink(sink) {}
 
-  template <typename T>
-  inline void operator() (T const & t) const
+public:
+  explicit WriterFunctor(SinkT & sink) : m_Sink(sink) {}
+  template <typename T> void operator() (T const & t) const
   {
     m_Sink.Write(&t, sizeof(T));
   }

@@ -2,6 +2,9 @@
 
 #include "../base/base.hpp"
 
+#include "../std/type_traits.hpp"
+
+
 // #define ENDIAN_IS_BIG
 
 inline bool IsBigEndian()
@@ -15,7 +18,8 @@ inline bool IsBigEndian()
 
 template <typename T> T ReverseByteOrder(T t)
 {
-  // TODO: Static check that T is primitive type
+  STATIC_ASSERT(is_integral<T>::value);
+
   T res;
   char const * a = reinterpret_cast<char const *>(&t);
   char * b = reinterpret_cast<char *>(&res);
