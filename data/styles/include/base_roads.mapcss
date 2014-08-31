@@ -467,12 +467,12 @@ line|z15[highway=track]
 }
 line|z15-[highway=pedestrian]
 {
-  color: #c8c8af;
+  color: #B9BA95;
 }
 area|z15-[highway=pedestrian],
 area|z15-[area:highway=pedestrian]
 {
-  fill-color: #c8c8af;
+  fill-color: #B9BA95;
 }
 line|z15[highway=pedestrian]
 {
