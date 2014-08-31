@@ -18,8 +18,8 @@ CONFIG -= depend_includepath
 CONFIG *= c++11
 # For old android gcc 4.6
 !android* {
-  QMAKE_CFLAGS   *= -Wno-deprecated-register
-  QMAKE_CXXFLAGS *= -Wno-deprecated-register
+  QMAKE_CFLAGS   *= -Wno-deprecated-register -Wno-unused-local-typedefs
+  QMAKE_CXXFLAGS *= -Wno-deprecated-register -Wno-unused-local-typedefs
 }
 
 # Automatically enable release config for production
