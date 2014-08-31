@@ -47,6 +47,7 @@ area::* {
 *[power],
 *[landuse],
 *[craft],
+*[internet_access],
 {
   text-position: center
 }
@@ -2180,11 +2181,13 @@ area|z17-[historic],
 area|z17-[office][office!=no],
 area|z17-[tourism],
 area|z17-[craft],
+area|z17-[internet_access],
 node|z17-[amenity],
 node|z17-[historic],
 node|z17-[office][office!=no],
 node|z17-[tourism],
 node|z17-[craft],
+node|z17-[internet_access],
 {
   font-size: 11;
   text-halo-radius: 2;

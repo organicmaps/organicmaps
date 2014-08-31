@@ -336,6 +336,9 @@ world  +
         wayside_cross  -
         wayside_shrine  -
         {}
+    internet_access  +
+        wlan  -
+        {}
     landuse  +
         allotments  -
         basin  -

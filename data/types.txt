@@ -981,3 +981,5 @@ craft|metal_construction
 craft|hvac
 craft|painter
 craft|gardener
+internet_access
+internet_access|wlan

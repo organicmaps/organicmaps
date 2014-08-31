@@ -33809,6 +33809,84 @@ cont {
   }
 }
 cont {
+  name: "internet_access"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "internet_access-wlan"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
   name: "landuse-allotments"
   element {
     scale: 12
