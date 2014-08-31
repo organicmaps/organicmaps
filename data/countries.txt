@@ -1341,6 +1341,47 @@
        "s":288261
       }
      ]
+    },
+    {
+     "n":"Pacific Ocean",
+     "g":[
+      {
+       "n":"Clarion Island",
+       "c":"",
+       "s":73850
+      },
+      {
+       "n":"Clipperton Island",
+       "c":"",
+       "s":162074
+      },
+      {
+       "n":"Cocos Island",
+       "c":"",
+       "s":1205348
+      },
+      {
+       "n":"Galápagos Islands",
+       "c":"",
+       "s":86372,
+       "f":"Galapagos Islands"
+      },
+      {
+       "n":"Guadalupe Island",
+       "c":"",
+       "s":21883118
+      },
+      {
+       "n":"Malpelo Island",
+       "c":"",
+       "s":764832
+      },
+      {
+       "n":"Socorro Island",
+       "c":"",
+       "s":565597
+      }
+     ]
     }
    ]
   },
