@@ -50,6 +50,11 @@ namespace ang
 
       return *this;
     }
+
+    friend string DebugPrint(Angle<T> const & ang)
+    {
+      return DebugPrint(ang.m_val);
+    }
   };
 
   typedef Angle<double> AngleD;

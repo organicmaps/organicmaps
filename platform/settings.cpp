@@ -144,7 +144,6 @@ namespace Settings
     rect = m2::AnyRectD(m2::PointD(val[0], val[1]),
                        ang::AngleD(val[2]),
                        m2::RectD(val[3], val[4], val[5], val[6]));
-
     return true;
   }
 
@@ -161,10 +160,7 @@ namespace Settings
     if (!impl::FromStringArray(str, val))
       return false;
 
-    rect.setMinX(val[0]);
-    rect.setMinY(val[1]);
-    rect.setMaxX(val[2]);
-    rect.setMaxY(val[3]);
+    rect = m2::RectD(val[0], val[1], val[2], val[3]);
     return true;
   }
 

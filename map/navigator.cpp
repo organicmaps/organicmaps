@@ -81,10 +81,7 @@ double Navigator::ComputeMoveSpeed(m2::PointD const & p0, m2::PointD const & p1)
 
 void Navigator::SaveState()
 {
-  m2::AnyRectD r = m_Screen.GlobalRect();
-  r.SetAngle(0);
-
-  Settings::Set("ScreenClipRect", r);
+  Settings::Set("ScreenClipRect", m_Screen.GlobalRect());
 }
 
 bool Navigator::LoadState()

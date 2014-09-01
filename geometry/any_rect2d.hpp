@@ -4,8 +4,9 @@
 #include "rect2d.hpp"
 #include "rect_intersect.hpp"
 #include "angles.hpp"
+
 #include "../base/math.hpp"
-#include <cmath>
+
 
 namespace m2
 {
@@ -14,10 +15,6 @@ namespace m2
   class AnyRect
   {
     ang::Angle<T> m_angle;
-
-    /// @todo No need to store orthos separately. They are stored in m_angle.
-    Point<T> m_i;
-    Point<T> m_j;
 
     Point<T> m_zero;
     Rect<T>  m_rect;
@@ -35,11 +32,10 @@ namespace m2
     }
 
   public:
-    AnyRect() : m_i(1, 0), m_j(0, 1), m_zero(0, 0), m_rect() {}
+    AnyRect() : m_zero(0, 0), m_rect() {}
 
     /// creating from regular rect
     explicit AnyRect(Rect<T> const & r)
-      : m_angle(0), m_i(m_angle.cos(), m_angle.sin()), m_j(-m_angle.sin(), m_angle.cos())
     {
       if (r.IsValid())
       {
@@ -54,10 +50,9 @@ namespace m2
     }
 
     AnyRect(Point<T> const & zero, ang::Angle<T> const & angle, Rect<T> const & r)
-      : m_angle(angle), m_i(m_angle.cos(), m_angle.sin()), m_j(-m_angle.sin(), m_angle.cos()),
-        m_zero(Convert(zero, Point<T>(1, 0), Point<T>(0, 1), m_i, m_j)),
-        m_rect(r)
+      : m_angle(angle), m_rect(r)
     {
+      m_zero = Convert(zero, Point<T>(1, 0), Point<T>(0, 1), i(), j());
     }
 
     Point<T> const & LocalZero() const
@@ -67,19 +62,17 @@ namespace m2
 
     Point<T> const GlobalZero() const
     {
-      m2::Point<T> i(1, 0);
-      m2::Point<T> j(0, 1);
-      return Convert(m_zero, m_i, m_j, i, j);
+      return Convert(m_zero, i(), j(), m2::Point<T>(1, 0), m2::Point<T>(0, 1));
     }
 
-    Point<T> const & i() const
+    Point<T> const i() const
     {
-      return m_i;
+      return Point<T>(m_angle.cos(), m_angle.sin());
     }
 
-    Point<T> const & j() const
+    Point<T> const j() const
     {
-      return m_j;
+      return Point<T>(-m_angle.sin(), m_angle.cos());
     }
 
     void SetAngle(ang::Angle<T> const & a)
@@ -87,10 +80,7 @@ namespace m2
       m2::Point<T> glbZero = GlobalZero();
 
       m_angle = a;
-      m_i = m2::Point<T>(m_angle.cos(), m_angle.sin());
-      m_j = m2::Point<T>(-m_angle.sin(), m_angle.cos());
-
-      m_zero = Convert(glbZero, Point<T>(1, 0), Point<T>(0, 1), m_i, m_j);
+      m_zero = Convert(glbZero, Point<T>(1, 0), Point<T>(0, 1), i(), j());
     }
 
     ang::Angle<T> const & Angle() const
@@ -157,9 +147,9 @@ namespace m2
     /// Convert into coordinate system of this AnyRect
     Point<T> const ConvertTo(Point<T> const & p) const
     {
-      m2::Point<T> i(1, 0);
-      m2::Point<T> j(0, 1);
-      return Convert(p - Convert(m_zero, m_i, m_j, i, j), i, j, m_i, m_j);
+      m2::Point<T> i1(1, 0);
+      m2::Point<T> j1(0, 1);
+      return Convert(p - Convert(m_zero, i(), j(), i1, j1), i1, j1, i(), j());
     }
 
     void ConvertTo(Point<T> * pts, size_t count) const
@@ -171,9 +161,7 @@ namespace m2
     /// Convert into global coordinates from the local coordinates of this AnyRect
     Point<T> const ConvertFrom(Point<T> const & p) const
     {
-      m2::Point<T> i(1, 0);
-      m2::Point<T> j(0, 1);
-      return Convert(p + m_zero, m_i, m_j, i, j);
+      return Convert(p + m_zero, i(), j(), m2::Point<T>(1, 0), m2::Point<T>(0, 1));
     }
 
     void ConvertFrom(Point<T> * pts, size_t count) const
@@ -238,6 +226,13 @@ namespace m2
     {
       m_rect.SetSizesToIncludePoint(ConvertTo(p));
     }
+
+    friend string DebugPrint(m2::AnyRect<T> const & r)
+    {
+      return "{ Zero = " + DebugPrint(r.m_zero) +
+             ", Rect = " + DebugPrint(r.m_rect) +
+             ", Ang = "  + DebugPrint(r.m_angle) + " }";
+    }
   };
 
   template <typename T>
@@ -264,10 +259,4 @@ namespace m2
 
   typedef AnyRect<double> AnyRectD;
   typedef AnyRect<float> AnyRectF;
-
-  template <typename T>
-  inline string DebugPrint(m2::AnyRect<T> const & r)
-  {
-    return DebugPrint(r.GetGlobalRect());
-  }
 }
