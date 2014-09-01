@@ -349,6 +349,7 @@ void ExtractionContainers::PrepareData(const std::string &output_file_name,
                 short zero = 0;
                 short one = 1;
 
+                file_out_stream.write((char *)&edge_iterator->way_id, sizeof(unsigned));
                 file_out_stream.write((char *)&edge_iterator->start, sizeof(unsigned));
                 file_out_stream.write((char *)&edge_iterator->target, sizeof(unsigned));
                 file_out_stream.write((char *)&integer_distance, sizeof(int));
@@ -378,6 +379,7 @@ void ExtractionContainers::PrepareData(const std::string &output_file_name,
                 file_out_stream.write((char *)&edge_iterator->is_access_restricted, sizeof(bool));
                 file_out_stream.write((char *)&edge_iterator->is_contra_flow, sizeof(bool));
                 file_out_stream.write((char *)&edge_iterator->is_split, sizeof(bool));
+
                 ++number_of_used_edges;
             }
             ++edge_iterator;

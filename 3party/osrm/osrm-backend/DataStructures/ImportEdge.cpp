@@ -46,7 +46,8 @@ bool NodeBasedEdge::operator<(const NodeBasedEdge &other) const
     return source < other.source;
 }
 
-NodeBasedEdge::NodeBasedEdge(NodeID source,
+NodeBasedEdge::NodeBasedEdge(unsigned way_id,
+                             NodeID source,
                              NodeID target,
                              NodeID name_id,
                              EdgeWeight weight,
@@ -58,7 +59,7 @@ NodeBasedEdge::NodeBasedEdge(NodeID source,
                              bool access_restricted,
                              bool contra_flow,
                              bool is_split)
-    : source(source), target(target), name_id(name_id), weight(weight), type(type),
+    : way_id(way_id), source(source), target(target), name_id(name_id), weight(weight), type(type),
       forward(forward), backward(backward), roundabout(roundabout), in_tiny_cc(in_tiny_cc),
       access_restricted(access_restricted), contra_flow(contra_flow), is_split(is_split)
 {

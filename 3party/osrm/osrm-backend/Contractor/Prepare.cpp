@@ -134,7 +134,7 @@ int Prepare::Process(int argc, char *argv[])
 #ifdef WIN32
 #pragma message("Memory consumption on Windows can be higher due to different bit packing")
 #else
-    static_assert(sizeof(ImportEdge) == 20,
+    static_assert(sizeof(ImportEdge) == 24,
                   "changing ImportEdge type has influence on memory consumption!");
 #endif
     NodeID number_of_node_based_nodes =
@@ -550,10 +550,10 @@ void Prepare::WriteNodeMapping()
 
     Saves info to files: '.ramIndex' and '.fileIndex'.
  */
-void Prepare::BuildRTree(std::vector<EdgeBasedNode> &node_based_edge_list)
+void Prepare::BuildRTree(std::vector<EdgeBasedNode> &edge_based_node_list)
 {
     SimpleLogger().Write() << "building r-tree ...";
-    StaticRTree<EdgeBasedNode>(node_based_edge_list,
+    StaticRTree<EdgeBasedNode>(edge_based_node_list,
                                rtree_nodes_path.c_str(),
                                rtree_leafs_path.c_str(),
                                internal_to_external_node_map);

@@ -34,7 +34,8 @@ struct NodeBasedEdge
 {
     bool operator<(const NodeBasedEdge &e) const;
 
-    explicit NodeBasedEdge(NodeID source,
+    explicit NodeBasedEdge(unsigned way_id,
+                           NodeID source,
                            NodeID target,
                            NodeID name_id,
                            EdgeWeight weight,
@@ -47,6 +48,7 @@ struct NodeBasedEdge
                            bool contra_flow,
                            bool is_split);
 
+    unsigned way_id;
     NodeID source;
     NodeID target;
     NodeID name_id;

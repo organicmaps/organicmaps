@@ -118,6 +118,7 @@ void ExtractorCallbacks::ProcessWay(ExtractionWay &parsed_way)
     for (unsigned n = 0; n < (parsed_way.path.size() - 1); ++n)
     {
         external_memory.all_edges_list.push_back(InternalExtractorEdge(
+            parsed_way.id,
             parsed_way.path[n],
             parsed_way.path[n + 1],
             parsed_way.type,
@@ -148,7 +149,8 @@ void ExtractorCallbacks::ProcessWay(ExtractionWay &parsed_way)
         for (std::vector<NodeID>::size_type n = 0; n < parsed_way.path.size() - 1; ++n)
         {
             external_memory.all_edges_list.push_back(
-                InternalExtractorEdge(parsed_way.path[n],
+                InternalExtractorEdge(parsed_way.id,
+                                      parsed_way.path[n],
                                       parsed_way.path[n + 1],
                                       parsed_way.type,
                                       ExtractionWay::oneway,

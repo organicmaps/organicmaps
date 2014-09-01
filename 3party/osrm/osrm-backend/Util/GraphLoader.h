@@ -128,9 +128,11 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
     NodeID nameID;
     int length;
     bool is_roundabout, ignore_in_grid, is_access_restricted, is_contra_flow, is_split;
+    unsigned way_id;
 
     for (EdgeID i = 0; i < m; ++i)
     {
+        input_stream.read((char *)&way_id, sizeof(unsigned));
         input_stream.read((char *)&source, sizeof(unsigned));
         input_stream.read((char *)&target, sizeof(unsigned));
         input_stream.read((char *)&length, sizeof(int));
@@ -188,7 +190,8 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
             std::swap(forward, backward);
         }
 
-        edge_list.emplace_back(source,
+        edge_list.emplace_back(way_id,
+                               source,
                                target,
                                nameID,
                                weight,
@@ -304,10 +307,12 @@ NodeID readBinaryOSRMGraphFromStream(std::istream &input_stream,
     short type;
     NodeID nameID;
     int length;
+    unsigned way_id;
     bool is_roundabout, ignore_in_grid, is_access_restricted, is_contra_flow, is_split;
 
     for (EdgeID i = 0; i < m; ++i)
     {
+        input_stream.read((char *)&way_id, sizeof(unsigned));
         input_stream.read((char *)&source, sizeof(unsigned));
         input_stream.read((char *)&target, sizeof(unsigned));
         input_stream.read((char *)&length, sizeof(int));

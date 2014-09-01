@@ -12,13 +12,14 @@
 struct NodeBasedEdgeData
 {
     NodeBasedEdgeData()
-        : distance(INVALID_EDGE_WEIGHT), edgeBasedNodeID(SPECIAL_NODEID),
+        : way_id(-1), distance(INVALID_EDGE_WEIGHT), edgeBasedNodeID(SPECIAL_NODEID),
           nameID(std::numeric_limits<unsigned>::max()), type(std::numeric_limits<short>::max()),
           isAccessRestricted(false), shortcut(false), forward(false), backward(false),
           roundabout(false), ignore_in_grid(false), contraFlow(false)
     {
     }
 
+    unsigned way_id;
     int distance;
     unsigned edgeBasedNodeID;
     unsigned nameID;
@@ -59,7 +60,7 @@ typedef DynamicGraph<SimpleEdgeData> SimpleNodeBasedDynamicGraph;
 inline std::shared_ptr<NodeBasedDynamicGraph>
 NodeBasedDynamicGraphFromImportEdges(int number_of_nodes, std::vector<ImportEdge> &input_edge_list)
 {
-    static_assert(sizeof(NodeBasedEdgeData) == 16, "changing node based edge data size changes memory consumption");
+    static_assert(sizeof(NodeBasedEdgeData) == 20, "changing node based edge data size changes memory consumption");
 
     DeallocatingVector<NodeBasedDynamicGraph::InputEdge> edges_list;
     NodeBasedDynamicGraph::InputEdge edge;
@@ -79,6 +80,8 @@ NodeBasedDynamicGraphFromImportEdges(int number_of_nodes, std::vector<ImportEdge
             edge.data.backward = import_edge.forward;
             edge.data.forward = import_edge.backward;
         }
+
+        edge.data.way_id = import_edge.way_id;
 
         if (edge.source == edge.target)
         {
@@ -173,7 +176,7 @@ template<class SimpleEdgeT>
 inline std::shared_ptr<SimpleNodeBasedDynamicGraph>
 SimpleNodeBasedDynamicGraphFromEdges(int number_of_nodes, std::vector<SimpleEdgeT> &input_edge_list)
 {
-    static_assert(sizeof(NodeBasedEdgeData) == 16, "changing node based edge data size changes memory consumption");
+    static_assert(sizeof(NodeBasedEdgeData) == 20, "changing node based edge data size changes memory consumption");
     tbb::parallel_sort(input_edge_list.begin(), input_edge_list.end());
 
     DeallocatingVector<SimpleNodeBasedDynamicGraph::InputEdge> edges_list;

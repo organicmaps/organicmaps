@@ -36,13 +36,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 struct InternalExtractorEdge
 {
     InternalExtractorEdge()
-        : start(0), target(0), type(0), direction(0), speed(0), name_id(0), is_roundabout(false),
+        : way_id(0), start(0), target(0), type(0), direction(0), speed(0), name_id(0), is_roundabout(false),
           is_in_tiny_cc(false), is_duration_set(false), is_access_restricted(false),
           is_contra_flow(false), is_split(false)
     {
     }
 
-    explicit InternalExtractorEdge(NodeID start,
+    explicit InternalExtractorEdge(unsigned id,
+                                   NodeID start,
                                    NodeID target,
                                    short type,
                                    short direction,
@@ -54,7 +55,7 @@ struct InternalExtractorEdge
                                    bool is_access_restricted,
                                    bool is_contra_flow,
                                    bool is_split)
-        : start(start), target(target), type(type), direction(direction), speed(speed),
+        : way_id(id), start(start), target(target), type(type), direction(direction), speed(speed),
           name_id(name_id), is_roundabout(is_roundabout), is_in_tiny_cc(is_in_tiny_cc),
           is_duration_set(is_duration_set), is_access_restricted(is_access_restricted),
           is_contra_flow(is_contra_flow), is_split(is_split)
@@ -65,14 +66,15 @@ struct InternalExtractorEdge
     // necessary static util functions for stxxl's sorting
     static InternalExtractorEdge min_value()
     {
-        return InternalExtractorEdge(0, 0, 0, 0, 0, 0, false, false, false, false, false, false);
+        return InternalExtractorEdge(0, 0, 0, 0, 0, 0, 0, false, false, false, false, false, false);
     }
     static InternalExtractorEdge max_value()
     {
         return InternalExtractorEdge(
-            SPECIAL_NODEID, SPECIAL_NODEID, 0, 0, 0, 0, false, false, false, false, false, false);
+            SPECIAL_EDGEID, SPECIAL_NODEID, SPECIAL_NODEID, 0, 0, 0, 0, false, false, false, false, false, false);
     }
 
+    unsigned way_id;
     NodeID start;
     NodeID target;
     short type;

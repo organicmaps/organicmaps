@@ -170,7 +170,9 @@ EdgeBasedGraphFactory::InsertEdgeBasedNode(const NodeID u, const NodeID v, const
             BOOST_ASSERT(current_edge_target_coordinate_id != current_edge_source_coordinate_id);
 
             // build edges
-            m_edge_based_node_list.emplace_back(forward_data.edgeBasedNodeID,
+            m_edge_based_node_list.emplace_back(forward_data.way_id,
+                                                reverse_data.way_id,
+                                                forward_data.edgeBasedNodeID,
                                                 reverse_data.edgeBasedNodeID,
                                                 current_edge_source_coordinate_id,
                                                 current_edge_target_coordinate_id,
@@ -220,7 +222,9 @@ EdgeBasedGraphFactory::InsertEdgeBasedNode(const NodeID u, const NodeID v, const
         BOOST_ASSERT(forward_data.edgeBasedNodeID != SPECIAL_NODEID ||
                      reverse_data.edgeBasedNodeID != SPECIAL_NODEID);
 
-        m_edge_based_node_list.emplace_back(forward_data.edgeBasedNodeID,
+        m_edge_based_node_list.emplace_back(forward_data.way_id,
+                                            reverse_data.way_id,
+                                            forward_data.edgeBasedNodeID,
                                             reverse_data.edgeBasedNodeID,
                                             u,
                                             v,
