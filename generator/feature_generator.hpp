@@ -27,7 +27,8 @@ namespace feature
   protected:
     static uint32_t GetFileSize(FileWriter const & f);
 
-    void WriteFeatureBase(vector<char> const & bytes, FeatureBuilder1 const & fb);
+    /// @return feature offset in the file, which is used as an ID later
+    uint32_t WriteFeatureBase(vector<char> const & bytes, FeatureBuilder1 const & fb);
 
   public:
     FeaturesCollector(string const & fName);

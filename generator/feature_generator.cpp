@@ -142,18 +142,18 @@ uint32_t FeaturesCollector::GetFileSize(FileWriter const & f)
   return ret;
 }
 
-void FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuilder1 const & fb)
+uint32_t FeaturesCollector::WriteFeatureBase(vector<char> const & bytes, FeatureBuilder1 const & fb)
 {
   size_t const sz = bytes.size();
-  CHECK ( sz != 0, ("Empty feature not allowed here!") );
+  CHECK(sz != 0, ("Empty feature not allowed here!"));
 
-  if (sz > 0)
-  {
-    WriteVarUint(m_datFile, sz);
-    m_datFile.Write(&bytes[0], sz);
+  uint32_t const offset = GetFileSize(m_datFile);
 
-    m_bounds.Add(fb.GetLimitRect());
-  }
+  WriteVarUint(m_datFile, sz);
+  m_datFile.Write(&bytes[0], sz);
+
+  m_bounds.Add(fb.GetLimitRect());
+  return offset;
 }
 
 void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
@@ -163,7 +163,7 @@ void FeaturesCollector::operator() (FeatureBuilder1 const & fb)
 
   FeatureBuilder1::buffer_t bytes;
   fb.Serialize(bytes);
-  WriteFeatureBase(bytes, fb);
+  (void)WriteFeatureBase(bytes, fb);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
