@@ -727,6 +727,7 @@ static void onSearchResultCallback(search::Results const & results)
         @"entertainment",
         @"atm",
         @"bank",
+        @"wifi",
         @"parking",
         @"toilet",
         @"pharmacy",
