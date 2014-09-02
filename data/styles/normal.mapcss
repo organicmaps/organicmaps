@@ -1581,19 +1581,24 @@ line|z15-[piste:lift=j-bar]
 area|z16[amenity=parking][!access],
 area|z16[amenity=parking][access?],
 node|z16[amenity=parking][!access],
-node|z16[amenity=parking][access?]
+node|z16[amenity=parking][access?],
 {
   icon-image: parking-mini.svg;
 }
 area|z16-[amenity=parking][access=permissive],
-node|z16-[amenity=parking][access=permissive]
+node|z16-[amenity=parking][access=permissive],
 {
   icon-image: parking-permissive.svg;
+}
+area|z16-[amenity=parking][access=private],
+node|z16-[amenity=parking][access=private],
+{
+  icon-image: parking-private.svg;
 }
 area|z15-[tourism=viewpoint],
 node|z15-[tourism=viewpoint],
 area|z15-[tourism=artwork],
-node|z15-[tourism=artwork]
+node|z15-[tourism=artwork],
 {
   icon-image: viewpoint.svg;
 }

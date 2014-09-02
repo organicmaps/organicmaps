@@ -3604,7 +3604,18 @@ cont {
 cont {
   name: "amenity-parking-private"
   element {
+    scale: 16
+    symbol {
+      name: "parking-private"
+      priority: 16000
+    }
+  }
+  element {
     scale: 17
+    symbol {
+      name: "parking-private"
+      priority: 16002
+    }
     caption {
       primary {
         height: 11
@@ -3617,6 +3628,10 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "parking-private"
+      priority: 16002
+    }
     caption {
       primary {
         height: 11
@@ -3629,6 +3644,10 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "parking-private"
+      priority: 16002
+    }
     caption {
       primary {
         height: 11
