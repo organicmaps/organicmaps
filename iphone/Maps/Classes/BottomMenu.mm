@@ -40,6 +40,9 @@
 {
   NSMutableArray * items = [[NSMutableArray alloc] init];
 
+  if (!GetPlatform().IsPro())
+    [items addObject:@{@"Id" : @"MWMPro", @"Title" : NSLocalizedString(@"become_a_pro", nil), @"Icon" : @"MWMProIcon", @"Color" : @"15c783"}];
+
   bool adsEnabled = true;
   (void)Settings::Get("MenuLinksEnabled", adsEnabled);
   if (adsEnabled)
@@ -49,14 +52,11 @@
       [items addObjectsFromArray:serverItems];
   }
 
-  if (!GetPlatform().IsPro())
-    [items addObject:@{@"Id" : @"MWMPro", @"Title" : NSLocalizedString(@"become_a_pro", nil), @"Icon" : @"MWMProIcon", @"Color" : @"15c783"}];
-
   [items addObject:@{@"Id" : @"MoreApps",  @"Title" : NSLocalizedString(@"more_apps_guides", nil), @"Icon" : @"IconMoreApps"}];
 
    NSArray * standardItems = @[@{@"Id" : @"Maps", @"Title" : NSLocalizedString(@"download_maps", nil), @"Icon" : @"IconMap"},
-                            @{@"Id" : @"Settings", @"Title" : NSLocalizedString(@"settings_and_more", nil), @"Icon" : @"IconSettings"},
-                            @{@"Id" : @"Share", @"Title" : NSLocalizedString(@"share_my_location", nil), @"Icon" : @"IconShare"}];
+                               @{@"Id" : @"Settings", @"Title" : NSLocalizedString(@"settings_and_more", nil), @"Icon" : @"IconSettings"},
+                               @{@"Id" : @"Share", @"Title" : NSLocalizedString(@"share_my_location", nil), @"Icon" : @"IconShare"}];
   [items addObjectsFromArray:standardItems];
 
   return items;
