@@ -93,7 +93,8 @@ void InitLocalizedStrings()
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [[Statistics instance] startSession];
+  [[Statistics instance] startSessionWithLaunchOptions:launchOptions];
+
   [AppInfo sharedInfo]; // we call it to init -firstLaunchDate
   if ([AppInfo sharedInfo].advertisingId)
     [[Statistics instance] logEvent:@"Device Info" withParameters:@{@"IFA" : [AppInfo sharedInfo].advertisingId, @"Country" : [AppInfo sharedInfo].countryCode}];
@@ -147,11 +148,15 @@ void InitLocalizedStrings()
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+  [[Statistics instance] applicationWillTerminate];
+
 	[self.m_mapViewController onTerminate];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+  [[Statistics instance] applicationDidEnterBackground];
+
 	[self.m_mapViewController onEnterBackground];
   if (m_activeDownloadsCounter)
   {
@@ -162,14 +167,23 @@ void InitLocalizedStrings()
   }
 }
 
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+  [[Statistics instance] applicationWillResignActive];
+}
+
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+  [[Statistics instance] applicationWillEnterForeground];
+
   [self.m_locationManager orientationChanged];
   [self.m_mapViewController onEnterForeground];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+  [[Statistics instance] applicationDidBecomeActive];
+
   Framework & f = GetFramework();
   if (m_geoURL)
   {

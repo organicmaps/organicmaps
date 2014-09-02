@@ -3,24 +3,20 @@
 #include "../../../platform/settings.hpp"
 #import "Flurry.h"
 #import "AppInfo.h"
+#import "LocalyticsSession.h"
 
 @implementation Statistics
 
-- (void)startSession
+- (void)startSessionWithLaunchOptions:(NSDictionary *)launchOptions
 {
   if (self.enabled)
   {
     [Flurry startSession:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FlurryKey"]];
-    [self configure];
-  }
-}
-
-- (void)configure
-{
-  if (self.enabled)
-  {
     [Flurry setCrashReportingEnabled:YES];
     [Flurry setSessionReportsOnPauseEnabled:NO];
+
+    [[LocalyticsSession shared] integrateLocalytics:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"LocalyticsKey"] launchOptions:launchOptions];
+    [LocalyticsSession shared].enableHTTPS = YES;
   }
 }
 
@@ -37,45 +33,81 @@
   }
 }
 
-- (void)logEvent:(NSString *)eventName
+- (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
 {
   if (self.enabled)
-    [Flurry logEvent:eventName];
+  {
+    [Flurry logEvent:eventName withParameters:parameters];
+    [[LocalyticsSession shared] tagEvent:eventName attributes:parameters];
+  }
+}
+
+- (void)logEvent:(NSString *)eventName
+{
+  [self logEvent:eventName withParameters:nil];
 }
 
 - (void)logInAppMessageEvent:(NSString *)eventName imageType:(NSString *)imageType
 {
-  if (self.enabled)
-  {
-    NSString * language = [[NSLocale preferredLanguages] firstObject];
-    AppInfo * info = [AppInfo sharedInfo];
-    [Flurry logEvent:eventName withParameters:@{@"Type": imageType, @"Country" : info.countryCode, @"Language" : language, @"Id" : info.uniqueId}];
-  }
-}
-
-- (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
-{
-  if (self.enabled)
-    [Flurry logEvent:eventName withParameters:parameters];
+  NSString * language = [[NSLocale preferredLanguages] firstObject];
+  AppInfo * info = [AppInfo sharedInfo];
+  [self logEvent:eventName withParameters:@{@"Type": imageType, @"Country" : info.countryCode, @"Language" : language, @"Id" : info.uniqueId}];
 }
 
 - (void)logProposalReason:(NSString *)reason withAnswer:(NSString *)answer
 {
-  if (self.enabled)
-  {
-    NSString * screen = [NSString stringWithFormat:@"Open AppStore With Proposal on %@", reason];
-    [[Statistics instance] logEvent:screen withParameters:@{@"Answer" : answer}];
-  }
+  NSString * screen = [NSString stringWithFormat:@"Open AppStore With Proposal on %@", reason];
+  [self logEvent:screen withParameters:@{@"Answer" : answer}];
 }
 
 - (void)logApiUsage:(NSString *)programName
 {
+  if (programName)
+    [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : programName}];
+  else
+    [self logEvent:@"Api Usage" withParameters: @{@"Application Name" : @"Error passing nil as SourceApp name."}];
+}
+
+- (void)applicationWillResignActive
+{
+  [self closeLocalytics];
+}
+
+- (void)applicationWillTerminate
+{
+  [self closeLocalytics];
+}
+
+- (void)applicationDidEnterBackground
+{
+  [self closeLocalytics];
+}
+
+- (void)applicationWillEnterForeground
+{
+  [self resumeLocalytics];
+}
+
+- (void)applicationDidBecomeActive
+{
+  [self resumeLocalytics];
+}
+
+- (void)resumeLocalytics
+{
   if (self.enabled)
   {
-    if (programName)
-      [[Statistics instance] logEvent:@"Api Usage" withParameters: @{@"Application Name" : programName}];
-    else
-      [[Statistics instance] logEvent:@"Api Usage" withParameters: @{@"Application Name" : @"Error passing nil as SourceApp name."}];
+    [[LocalyticsSession shared] resume];
+    [[LocalyticsSession shared] upload];
+  }
+}
+
+- (void)closeLocalytics
+{
+  if (self.enabled)
+  {
+    [[LocalyticsSession shared] close];
+    [[LocalyticsSession shared] upload];
   }
 }
 

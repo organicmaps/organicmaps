@@ -42,6 +42,16 @@
 		97508420199501F100A7457D /* ImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9750841E199501F100A7457D /* ImageDownloader.m */; };
 		97508423199522D300A7457D /* SettingsAndMoreVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97508422199522D300A7457D /* SettingsAndMoreVC.mm */; };
 		97508424199522D300A7457D /* SettingsAndMoreVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97508422199522D300A7457D /* SettingsAndMoreVC.mm */; };
+		9767700F19B5BE1600402693 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9767700E19B5BE1600402693 /* libz.dylib */; };
+		9767701119B5BE2200402693 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9767701019B5BE2200402693 /* libsqlite3.dylib */; };
+		9767701219B5BE3800402693 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9767700E19B5BE1600402693 /* libz.dylib */; };
+		9767701319B5BE3E00402693 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9767701019B5BE2200402693 /* libsqlite3.dylib */; };
+		9767702019B718D700402693 /* iOSa_2.60.0.version in Resources */ = {isa = PBXBuildFile; fileRef = 9767701B19B718D700402693 /* iOSa_2.60.0.version */; };
+		9767702119B718D700402693 /* iOSa_2.60.0.version in Resources */ = {isa = PBXBuildFile; fileRef = 9767701B19B718D700402693 /* iOSa_2.60.0.version */; };
+		9767702219B718D700402693 /* libLocalyticsAMP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9767701C19B718D700402693 /* libLocalyticsAMP.a */; };
+		9767702319B718D700402693 /* libLocalyticsAMP.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9767701C19B718D700402693 /* libLocalyticsAMP.a */; };
+		9767702419B718D800402693 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9767701D19B718D700402693 /* LICENSE */; };
+		9767702519B718D800402693 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9767701D19B718D700402693 /* LICENSE */; };
 		9769D6EF1912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
 		9769D6F01912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
 		97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
@@ -1385,6 +1395,13 @@
 		9750841E199501F100A7457D /* ImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDownloader.m; sourceTree = "<group>"; };
 		97508421199522D300A7457D /* SettingsAndMoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsAndMoreVC.h; sourceTree = "<group>"; };
 		97508422199522D300A7457D /* SettingsAndMoreVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingsAndMoreVC.mm; sourceTree = "<group>"; };
+		9767700E19B5BE1600402693 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		9767701019B5BE2200402693 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		9767701B19B718D700402693 /* iOSa_2.60.0.version */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = iOSa_2.60.0.version; sourceTree = "<group>"; };
+		9767701C19B718D700402693 /* libLocalyticsAMP.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLocalyticsAMP.a; sourceTree = "<group>"; };
+		9767701D19B718D700402693 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		9767701E19B718D700402693 /* LocalyticsAmpSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalyticsAmpSession.h; sourceTree = "<group>"; };
+		9767701F19B718D700402693 /* LocalyticsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalyticsSession.h; sourceTree = "<group>"; };
 		9769D6ED1912BF3000CA6158 /* ContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerView.h; sourceTree = "<group>"; };
 		9769D6EE1912BF3000CA6158 /* ContainerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContainerView.mm; sourceTree = "<group>"; };
 		97719D441843B6DC00BDD815 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -2133,6 +2150,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9767701119B5BE2200402693 /* libsqlite3.dylib in Frameworks */,
+				9767700F19B5BE1600402693 /* libz.dylib in Frameworks */,
 				FAA0F163196AC14100E01C3F /* librouting.a in Frameworks */,
 				97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */,
 				97719D491843B6F700BDD815 /* Security.framework in Frameworks */,
@@ -2164,6 +2183,7 @@
 				EEF5745512DE1AD50082F472 /* libfribidi.a in Frameworks */,
 				FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */,
 				49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */,
+				9767702219B718D700402693 /* libLocalyticsAMP.a in Frameworks */,
 				FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */,
 				FAAFD699139D9C6B000AE70C /* libsearch.a in Frameworks */,
 				FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */,
@@ -2178,6 +2198,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9767701319B5BE3E00402693 /* libsqlite3.dylib in Frameworks */,
+				9767701219B5BE3800402693 /* libz.dylib in Frameworks */,
 				FAA0F164196AC15E00E01C3F /* librouting.a in Frameworks */,
 				97EDDCE518A299C000AEFB7A /* Twitter.framework in Frameworks */,
 				972CDCC61887F1B7006641CA /* CFNetwork.framework in Frameworks */,
@@ -2203,6 +2225,7 @@
 				FAFB08FE151215EE0041901D /* CoreGraphics.framework in Frameworks */,
 				FAFB08FF151215EE0041901D /* OpenGLES.framework in Frameworks */,
 				FAFB0900151215EE0041901D /* QuartzCore.framework in Frameworks */,
+				9767702319B718D700402693 /* libLocalyticsAMP.a in Frameworks */,
 				FAFB0901151215EE0041901D /* CoreLocation.framework in Frameworks */,
 				FAFB0902151215EE0041901D /* libbase.a in Frameworks */,
 				97DD585918A8EB060079837E /* MobileAppTracker.framework in Frameworks */,
@@ -2319,6 +2342,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9767701019B5BE2200402693 /* libsqlite3.dylib */,
+				9767700E19B5BE1600402693 /* libz.dylib */,
 				FAA0F162196AC14100E01C3F /* librouting.a */,
 				974386D81934CBAC00FD5659 /* FacebookSDK.framework */,
 				97EDDCE418A299C000AEFB7A /* Twitter.framework */,
@@ -2368,6 +2393,18 @@
 				9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		9767701A19B718D700402693 /* Localitycs */ = {
+			isa = PBXGroup;
+			children = (
+				9767701B19B718D700402693 /* iOSa_2.60.0.version */,
+				9767701C19B718D700402693 /* libLocalyticsAMP.a */,
+				9767701D19B718D700402693 /* LICENSE */,
+				9767701E19B718D700402693 /* LocalyticsAmpSession.h */,
+				9767701F19B718D700402693 /* LocalyticsSession.h */,
+			);
+			path = Localitycs;
 			sourceTree = "<group>";
 		};
 		9770A04618AD19D300126E5C /* More Apps */ = {
@@ -2505,6 +2542,7 @@
 		CB252D6816FF82C8001E41E9 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				9767701A19B718D700402693 /* Localitycs */,
 				97C98521186AE3CF00AF7E9E /* AppInfo.h */,
 				97C98520186AE3CF00AF7E9E /* AppInfo.mm */,
 				97C9851D186AE3C500AF7E9E /* Reachability.h */,
@@ -3522,6 +3560,7 @@
 				FAF800EC1417D7E50024E8C1 /* ph.png in Resources */,
 				FAF800ED1417D7E50024E8C1 /* pk.png in Resources */,
 				FAF800EE1417D7E50024E8C1 /* pl.png in Resources */,
+				9767702019B718D700402693 /* iOSa_2.60.0.version in Resources */,
 				FAF800EF1417D7E50024E8C1 /* pm.png in Resources */,
 				FAF800F01417D7E50024E8C1 /* pn.png in Resources */,
 				FAF800F11417D7E50024E8C1 /* pr.png in Resources */,
@@ -3602,6 +3641,7 @@
 				FAF804351417E3510024E8C1 /* ae@2x.png in Resources */,
 				FAF804361417E3510024E8C1 /* af@2x.png in Resources */,
 				FAF804371417E3510024E8C1 /* ag@2x.png in Resources */,
+				9767702419B718D800402693 /* LICENSE in Resources */,
 				FAF804381417E3510024E8C1 /* ai@2x.png in Resources */,
 				FAF804391417E3510024E8C1 /* al@2x.png in Resources */,
 				FAF8043A1417E3510024E8C1 /* am@2x.png in Resources */,
@@ -3948,6 +3988,7 @@
 				FAFB06ED151215EE0041901D /* bj.png in Resources */,
 				FAFB06EE151215EE0041901D /* bl.png in Resources */,
 				FAFB06EF151215EE0041901D /* bm.png in Resources */,
+				9767702519B718D800402693 /* LICENSE in Resources */,
 				FAFB06F0151215EE0041901D /* bn.png in Resources */,
 				FAFB06F1151215EE0041901D /* bo.png in Resources */,
 				FAFB06F2151215EE0041901D /* br.png in Resources */,
@@ -3975,6 +4016,7 @@
 				FAFB0708151215EE0041901D /* cw.png in Resources */,
 				FAFB0709151215EE0041901D /* cx.png in Resources */,
 				FAFB070A151215EE0041901D /* cy.png in Resources */,
+				9767702119B718D700402693 /* iOSa_2.60.0.version in Resources */,
 				FAFB070B151215EE0041901D /* cz.png in Resources */,
 				FAFB070C151215EE0041901D /* de.png in Resources */,
 				FAFB070D151215EE0041901D /* dj.png in Resources */,
@@ -4684,6 +4726,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4799,6 +4842,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4867,6 +4911,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -4939,6 +4984,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5006,6 +5052,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5074,6 +5121,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5146,6 +5194,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5218,6 +5267,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5289,6 +5339,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5360,6 +5411,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5430,6 +5482,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5454,6 +5507,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5482,6 +5536,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5510,6 +5565,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5538,6 +5594,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5566,6 +5623,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5594,6 +5652,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5622,6 +5681,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5650,6 +5710,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5678,6 +5739,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5706,6 +5768,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
@@ -5734,6 +5797,7 @@
 					"$(inherited)",
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
+					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
 				OTHER_LDFLAGS = (
 					"-lstats_client",
