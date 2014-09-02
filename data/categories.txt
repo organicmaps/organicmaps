@@ -149,7 +149,7 @@ ja:1レストラン|食べ物|飲食|食事|2ファミレス
 cs:3restaurace|hospoda|kavárna|jídlo
 sk:3reštaurácia|pohostinstvo|kaviareň|jedlo
 nl:3restaurant|3café|3eten
-zh-Hant:1餐廳|餐館|飯店|吃飯|餐點|早餐|午餐|晚餐|食堂|飲食|用餐
+zh-Hant:1餐廳|餐館|吃飯|餐點|早餐|午餐|晚餐|食堂|飲食|用餐
 pl:4restauracja|3kawiarnia|2jedzenie
 pt:3restaurante|3café|3alimentação
 hu:3étterem|3kávézó|3élelmiszer
