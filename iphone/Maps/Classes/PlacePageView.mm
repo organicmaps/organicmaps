@@ -597,7 +597,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (CGFloat)maxHeight
 {
-  return IPAD ? 600 : (self.superview.width > self.superview.height ? 270 : 460);
+  if (IPAD)
+    return 600;
+  else
+    return self.superview.width > self.superview.height ? 270 : self.superview.height - 64;
 }
 
 - (void)didMoveToSuperview
@@ -1083,7 +1086,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
   UIScrollView * sv = scrollView;
-  if (sv.contentOffset.y > 30 && !sv.dragging && sv.decelerating)
+  if (sv.contentOffset.y + sv.height - sv.contentSize.height > 30 && !sv.dragging && sv.decelerating)
   {
     if (self.state == PlacePageStateOpened)
       [self setState:PlacePageStateHidden animated:YES withCallback:YES];
