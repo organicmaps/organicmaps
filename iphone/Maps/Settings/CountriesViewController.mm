@@ -63,7 +63,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   Framework & f = GetFramework();
   if ((f.Storage().CountriesCount(index) == 0) && f.GetGuideInfo(index, info))
   {
-    string const lang = languages::CurrentLanguage();
+    string const lang = languages::GetCurrentNorm();
     name = info.GetAdTitle(lang);
     return true;
   }
@@ -266,7 +266,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
     NSString * title = [actionSheet buttonTitleAtIndex:buttonIndex];
     guides::GuideInfo info;
     BOOL isGuideAvailable = f.GetGuideInfo(m_clickedIndex, info);
-    string const lang = languages::CurrentLanguage();
+    string const lang = languages::GetCurrentNorm();
     if (isGuideAvailable && [title isEqualToString:[NSString stringWithUTF8String:info.GetAdTitle(lang).c_str()]])
     {
       NSURL * guideUrl = [NSURL URLWithString:[NSString stringWithUTF8String:info.GetAppID().c_str()]];
@@ -478,7 +478,6 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   string guideAdevertiseString;
   if (getGuideName(guideAdevertiseString, m_clickedIndex))
   {
-    string const lang = languages::CurrentLanguage();
     [as addButtonWithTitle:[NSString stringWithUTF8String:guideAdevertiseString.c_str()]];
     ++numOfButtons;
   }

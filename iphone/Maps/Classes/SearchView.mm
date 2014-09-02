@@ -311,7 +311,7 @@ __weak SearchView * selfPointer;
   sp.SetSearchMode(search::SearchParams::ALL);
   sp.m_query = [[newQuery precomposedStringWithCompatibilityMapping] UTF8String];
   sp.m_callback = bind(&onSearchResultCallback, _1);
-  sp.SetInputLanguage([GetKeyboardInputLanguage() UTF8String]);
+  sp.SetInputLocale([GetKeyboardInputLanguage() UTF8String]);
   sp.SetForceSearch(force == YES);
 }
 
@@ -444,7 +444,7 @@ static void onSearchResultCallback(search::Results const & results)
 
     search::SearchParams params;
     params.m_query = [[self.searchBar.textField.text precomposedStringWithCompatibilityMapping] UTF8String];
-    params.SetInputLanguage([GetKeyboardInputLanguage() UTF8String]);
+    params.SetInputLocale([GetKeyboardInputLanguage() UTF8String]);
 
     f.StartInteractiveSearch(params);
 

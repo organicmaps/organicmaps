@@ -1,48 +1,31 @@
 #include "../../testing/testing.hpp"
 
-#include "../../std/string.hpp"
-#include "../../std/vector.hpp"
-
 #include "../preferred_languages.hpp"
 
-namespace languages
+#include "../../std/string.hpp"
+
+
+UNIT_TEST(LangNormalize_Smoke)
 {
-  void FilterLanguages(vector<string> & langs);
+  char const * arr1[] = { "en", "en-GB", "zh", "es-SP", "zh-penyn", "en-US", "ru_RU", "es" };
+  char const * arr2[] = { "en", "en", "zh", "es", "zh", "en", "ru", "es" };
+  STATIC_ASSERT(ARRAY_SIZE(arr1) == ARRAY_SIZE(arr2));
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
+    TEST_EQUAL(arr2[i], languages::Normalize(arr1[i]), ());
 }
 
-UNIT_TEST(LangFilter)
+UNIT_TEST(PrefLanguages_Smoke)
 {
-  vector<string> v;
-  v.push_back("en");
-  v.push_back("en-GB");
-  v.push_back("zh");
-  v.push_back("es-SP");
-  v.push_back("zh-penyn");
-  v.push_back("en-US");
-  v.push_back("ru_RU");
-  v.push_back("es");
+  string s = languages::GetPreferred();
+  TEST(!s.empty(), ());
+  cout << "Preferred langs: " << s << endl;
 
-  languages::FilterLanguages(v);
+  s = languages::GetCurrentOrig();
+  TEST(!s.empty(), ());
+  cout << "Current original lang: " << s << endl;
 
-  vector<string> c;
-  c.push_back("en");
-  c.push_back("zh");
-  c.push_back("es");
-  c.push_back("ru");
-
-  TEST_EQUAL(v.size(), c.size(), (v, c));
-  for (size_t i = 0; i < c.size(); ++i)
-  {
-    TEST_EQUAL(c[i], v[i], (v, c));
-  }
-}
-
-UNIT_TEST(PrefLanguagesSmoke)
-{
-  string const prefLangs = languages::PreferredLanguages();
-  TEST_GREATER(prefLangs.size(), 0, ());
-  cout << "Preferred langs: " << prefLangs << endl;
-  string const currLang = languages::CurrentLanguage();
-  TEST_GREATER(currLang.size(), 0, ());
-  cout << "Current lang: " << currLang << endl;
+  s = languages::GetCurrentNorm();
+  TEST(!s.empty(), ());
+  cout << "Current normalized lang: " << s << endl;
 }

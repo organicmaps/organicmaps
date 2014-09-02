@@ -20,7 +20,7 @@ void SearchParams::SetPosition(double lat, double lon)
 bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
 {
   return (m_query == rhs.m_query &&
-          m_inputLanguage == rhs.m_inputLanguage &&
+          m_inputLocale == rhs.m_inputLocale &&
           m_validPos == rhs.m_validPos &&
           m_searchMode == rhs.m_searchMode);
 }
@@ -28,7 +28,9 @@ bool SearchParams::IsEqualCommon(SearchParams const & rhs) const
 string DebugPrint(SearchParams const & params)
 {
   ostringstream stream;
-  stream << "search::SearchParams: Query = " << params.m_query << " Mode = " << params.m_searchMode;
+  stream << "{ Query = " << params.m_query <<
+            ", Locale = " << params.m_inputLocale <<
+            ", Mode = " << params.m_searchMode << " }";
   return stream.str();
 }
 

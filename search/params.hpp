@@ -41,8 +41,8 @@ namespace search
     void SetPosition(double lat, double lon);
     bool IsValidPosition() const { return m_validPos; }
 
-    /// @param[in] language can be "fr", "en-US", "ru_RU" etc.
-    void SetInputLanguage(string const & language) { m_inputLanguage = language; }
+    /// @param[in] locale can be "fr", "en-US", "ru_RU" etc.
+    void SetInputLocale(string const & locale) { m_inputLocale = locale; }
 
     bool IsEqualCommon(SearchParams const & rhs) const;
 
@@ -52,7 +52,7 @@ namespace search
     SearchCallbackT m_callback;
 
     string m_query;
-    string m_inputLanguage;
+    string m_inputLocale;
 
     double m_lat, m_lon;
 

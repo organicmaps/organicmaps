@@ -34,7 +34,7 @@ public:
   // Doesn't take ownership of @pIndex. Takes ownership of pCategories
   Engine(IndexType const * pIndex, Reader * pCategoriesR,
          ModelReaderPtr polyR, ModelReaderPtr countryR,
-         string const & lang);
+         string const & locale);
   ~Engine();
 
   void SupportOldFormat(bool b);

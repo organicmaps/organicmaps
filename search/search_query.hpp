@@ -93,8 +93,8 @@ public:
   /// Suggestions language code, not the same as we use in mwm data
   int8_t m_inputLocaleCode, m_currentLocaleCode;
 
-  void SetPreferredLanguage(string const & lang);
-  void SetInputLanguage(string const & lang);
+  void SetPreferredLocale(string const & locale);
+  void SetInputLocale(string const & locale);
 
   void SetQuery(string const & query);
   inline bool IsEmptyQuery() const { return (m_prefix.empty() && m_tokens.empty()); }

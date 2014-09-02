@@ -73,7 +73,7 @@ public:
 
 Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
                ModelReaderPtr polyR, ModelReaderPtr countryR,
-               string const & lang)
+               string const & locale)
   : m_readyThread(false),
     m_pData(new EngineData(pCategoriesR, polyR, countryR))
 {
@@ -85,7 +85,7 @@ Engine::Engine(IndexType const * pIndex, Reader * pCategoriesR,
                            &m_pData->m_categories,
                            &m_pData->m_stringsToSuggest,
                            &m_pData->m_infoGetter));
-  m_pQuery->SetPreferredLanguage(lang);
+  m_pQuery->SetPreferredLocale(locale);
 }
 
 Engine::~Engine()
@@ -289,7 +289,7 @@ void Engine::SearchAsync(bool viewportPoints)
   m_pQuery->SetSortByViewport(params.IsSortByViewport());
 
   // Language validity is checked inside
-  m_pQuery->SetInputLanguage(params.m_inputLanguage);
+  m_pQuery->SetInputLocale(params.m_inputLocale);
 
   m_pQuery->SetQuery(params.m_query);
   bool const emptyQuery = m_pQuery->IsEmptyQuery();

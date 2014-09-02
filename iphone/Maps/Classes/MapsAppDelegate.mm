@@ -438,7 +438,7 @@ void InitLocalizedStrings()
   notification.timeZone = [NSTimeZone defaultTimeZone];
   notification.soundName = UILocalNotificationDefaultSoundName;
 
-  string const lang = languages::CurrentLanguage();
+  string const lang = languages::GetCurrentNorm();
   NSString * message = [NSString stringWithUTF8String:guide.GetAdMessage(lang).c_str()];
   notification.alertBody = message;
   notification.userInfo = @{

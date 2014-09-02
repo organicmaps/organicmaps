@@ -357,9 +357,9 @@ namespace
       }
     }
 
-    void FillAddress(search::Engine const * eng, search::AddressInfo & info, string const & lang)
+    void FillAddress(search::Engine const * eng, search::AddressInfo & info)
     {
-      int8_t const locale = CategoriesHolder::MapLocaleToInteger(lang);
+      int8_t const locale = CategoriesHolder::MapLocaleToInteger(languages::GetCurrentOrig());
 
       SortResults();
 
@@ -485,8 +485,7 @@ void Framework::GetAddressInfoForGlobalPoint(m2::PointD const & pt, search::Addr
   DoGetAddressInfo getAddress(pt, scale, GetChecker(), addressR);
 
   m_model.ForEachFeature(rect, getAddress, scale);
-  // @TODO Pass language as a parameter from UI
-  getAddress.FillAddress(GetSearchEngine(), info, languages::CurrentLanguage());
+  getAddress.FillAddress(GetSearchEngine(), info);
 
   // @todo Temporarily commented - it's slow and not used in UI
   //GetLocality(pt, info);
@@ -509,8 +508,7 @@ void Framework::GetAddressInfo(FeatureType const & ft, m2::PointD const & pt, se
   // FeatureType::WORST_GEOMETRY - no need to check on visibility
   DoGetAddressInfo getAddress(pt, FeatureType::WORST_GEOMETRY, GetChecker(), addressR);
   getAddress(ft);
-  // @TODO Pass language as a parameter from UI
-  getAddress.FillAddress(GetSearchEngine(), info, languages::CurrentLanguage());
+  getAddress.FillAddress(GetSearchEngine(), info);
 
   /// @todo Temporarily commented - it's slow and not used in UI
   //GetLocality(pt, info);

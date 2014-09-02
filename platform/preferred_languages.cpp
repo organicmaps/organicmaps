@@ -45,45 +45,7 @@ static const MSLocale gLocales[] = {{0x1,"ar"},{0x2,"bg"},{0x3,"ca"},{0x4,"zh-Ha
 namespace languages
 {
 
-class LangFilter
-{
-  set<string> & m_known;
-public:
-  LangFilter(set<string> & known) : m_known(known) {}
-  bool operator()(string const & t)
-  {
-    return !m_known.insert(t).second;
-  }
-};
-
-class NormalizeFilter
-{
-public:
-  void operator()(string & t)
-  {
-    strings::SimpleTokenizer const iter(t, "-_ ");
-    if (iter)
-      t = *iter;
-    else
-    {
-      LOG(LWARNING, ("Invalid language"));
-    }
-  }
-};
-
-void FilterLanguages(vector<string> & langs)
-{
-  // normalize languages: en-US -> en, ru_RU -> ru etc.
-  for_each(langs.begin(), langs.end(), NormalizeFilter());
-  {
-    // tmp storage
-    set<string> known;
-    // remove duplicate languages
-    langs.erase(remove_if(langs.begin(), langs.end(), LangFilter(known)), langs.end());
-  }
-}
-
-void SystemPreferredLanguages(vector<string> & languages)
+void GetSystemPreferred(vector<string> & languages)
 {
 #if defined(OMIM_OS_MAC) || defined(OMIM_OS_IPHONE)
   // Mac and iOS implementation
@@ -166,14 +128,12 @@ void SystemPreferredLanguages(vector<string> & languages)
 #else
   #error "Define language preferences for your platform"
 #endif
-
-  FilterLanguages(languages);
 }
 
-string PreferredLanguages()
+string GetPreferred()
 {
   vector<string> arr;
-  SystemPreferredLanguages(arr);
+  GetSystemPreferred(arr);
 
   // generate output string
   string result;
@@ -182,6 +142,7 @@ string PreferredLanguages()
     result.append(arr[i]);
     result.push_back('|');
   }
+
   if (result.empty())
     result = "default";
   else
@@ -189,14 +150,26 @@ string PreferredLanguages()
   return result;
 }
 
-string CurrentLanguage()
+string GetCurrentOrig()
 {
   vector<string> arr;
-  SystemPreferredLanguages(arr);
+  GetSystemPreferred(arr);
   if (arr.empty())
     return "en";
   else
     return arr[0];
+}
+
+string Normalize(string const & lang)
+{
+  strings::SimpleTokenizer const iter(lang, "-_ ");
+  ASSERT(iter, ());
+  return *iter;
+}
+
+string GetCurrentNorm()
+{
+  return Normalize(GetCurrentOrig());
 }
 
 }

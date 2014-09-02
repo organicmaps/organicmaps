@@ -27,11 +27,24 @@ string GetAndroidSystemLanguage()
   jobject localeInstance = env->CallStaticObjectMethod(localeClass, localeGetDefaultId);
   ASSERT(localeInstance, ());
 
-  jmethodID localeGetLanguageId = env->GetMethodID(localeClass, "getLanguage", "()Ljava/lang/String;");
+  jmethodID localeGetLanguageId = env->GetMethodID(localeClass, "toString", "()Ljava/lang/String;");
   ASSERT(localeGetLanguageId, ());
 
   jstring langString = (jstring)env->CallObjectMethod(localeInstance, localeGetLanguageId);
   ASSERT(langString, ());
+
+  // I'm out of ideas here. This simple code works at startup, but crashes a bit later.
+  // Probably, some kind of specific threads routine.
+  /*
+  jclass langClass = env->FindClass("com/mapswithme/util/Language");
+  ASSERT(langClass, ());
+
+  jmethodID langGetDefaultId = env->GetStaticMethodID(langClass, "getDefault", "()Ljava/lang/String;");
+  ASSERT(langGetDefaultId, ());
+
+  jstring langString = (jstring)env->CallStaticObjectMethod(langClass, langGetDefaultId);
+  ASSERT(langString, ());
+  */
 
   string res = jni::ToNativeString(env, langString);
   if (res.empty())

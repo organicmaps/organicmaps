@@ -269,6 +269,8 @@ Framework::Framework()
   // Restore temporary states from persistent Settings storage
   RestoreSesame();
   LOG(LDEBUG, ("Sesame initialized"));
+
+  LOG(LINFO, ("System languages:", languages::GetPreferred()));
 }
 
 Framework::~Framework()
@@ -1111,7 +1113,7 @@ search::Engine * Framework::GetSearchEngine() const
                               pl.GetReader(SEARCH_CATEGORIES_FILE_NAME),
                               pl.GetReader(PACKED_POLYGONS_FILE),
                               pl.GetReader(COUNTRIES_FILE),
-                              languages::CurrentLanguage()));
+                              languages::GetCurrentOrig()));
 
       m_pSearchEngine->SupportOldFormat(m_lowestMapVersion < feature::DataHeader::v3);
     }

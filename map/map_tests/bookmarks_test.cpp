@@ -401,7 +401,7 @@ UNIT_TEST(Bookmarks_AddressInfo)
   fm.OnSize(800, 600);
 
   // assume that developers have English or Russian system language :)
-  string const lang = languages::CurrentLanguage();
+  string const lang = languages::GetCurrentNorm();
   LOG(LINFO, ("Current language =", lang));
 
   // default name (street in russian, category in english).

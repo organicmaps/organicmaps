@@ -207,7 +207,7 @@ Java_com_mapswithme_maps_SearchActivity_nativeRunSearch(
   search::SearchParams params;
 
   params.m_query = jni::ToNativeString(env, s);
-  params.SetInputLanguage(jni::ToNativeString(env, lang));
+  params.SetInputLocale(jni::ToNativeString(env, lang));
 
   params.SetSearchMode(searchMode);
 
@@ -304,7 +304,7 @@ Java_com_mapswithme_maps_SearchActivity_runInteractiveSearch(JNIEnv * env, jobje
 {
   search::SearchParams params;
   params.m_query = jni::ToNativeString(env, query);
-  params.SetInputLanguage(jni::ToNativeString(env, lang));
+  params.SetInputLocale(jni::ToNativeString(env, lang));
 
   g_framework->NativeFramework()->StartInteractiveSearch(params);
 }

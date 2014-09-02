@@ -18,6 +18,8 @@
 #include "../indexer/categories_holder.hpp"
 #include "../indexer/classificator.hpp"
 
+#include "../platform/preferred_languages.hpp"
+
 #include "../coding/multilang_utf8_string.hpp"
 #include "../coding/reader_wrapper.hpp"
 
@@ -112,7 +114,7 @@ Query::Query(Index const * pIndex,
   langPriorities[3].push_back(StringUtf8Multilang::GetLangIndex("default"));
   m_keywordsScorer.SetLanguages(langPriorities);
 
-  SetPreferredLanguage("en");
+  SetPreferredLocale("en");
 }
 
 Query::~Query()
@@ -196,40 +198,31 @@ void Query::NullPosition()
   m_region.clear();
 }
 
-void Query::SetPreferredLanguage(string const & lang)
+void Query::SetPreferredLocale(string const & locale)
 {
-  // We have normalized language string here.
-  ASSERT(lang.find_first_of("-_") == string::npos, (lang));
-  LOG(LDEBUG, ("Preffered (system) language = ", lang));
+  LOG(LDEBUG, ("New preffered locale:", locale));
 
-  int8_t const code = StringUtf8Multilang::GetLangIndex(lang);
+  int8_t const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
   SetLanguage(LANG_CURRENT, code);
 
-  m_currentLocaleCode = CategoriesHolder::MapLocaleToInteger(lang);
+  m_currentLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 
   // Default initialization.
-  // If you want to reset input language, call SetInputLanguage before search.
-  SetInputLanguage(lang);
+  // If you want to reset input language, call SetInputLocale before search.
+  SetInputLocale(locale);
 
 #ifdef FIND_LOCALITY_TEST
   m_locality.SetLanguage(code);
 #endif
 }
 
-void Query::SetInputLanguage(string const & lang)
+void Query::SetInputLocale(string const & locale)
 {
-  if (!lang.empty())
-  {
-    LOG(LDEBUG, ("New input language = ", lang));
+  LOG(LDEBUG, ("New input locale:", locale));
 
-    // For "data" language we need normalized code.
-    size_t const delimPos = lang.find_first_of("-_");
-    int8_t const code = StringUtf8Multilang::GetLangIndex(
-          delimPos == string::npos ? lang : lang.substr(0, delimPos));
-    SetLanguage(LANG_INPUT, code);
+  SetLanguage(LANG_INPUT, StringUtf8Multilang::GetLangIndex(languages::Normalize(locale)));
 
-    m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(lang);
-  }
+  m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
 }
 
 void Query::ClearCaches()

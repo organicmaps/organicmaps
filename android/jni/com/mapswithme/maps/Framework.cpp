@@ -923,7 +923,7 @@ extern "C"
       m_giClass = m_env->FindClass("com/mapswithme/maps/guides/GuideInfo");
       m_methodID = m_env->GetMethodID(m_giClass,
                 "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-      m_lang = languages::CurrentLanguage();
+      m_lang = languages::GetCurrentNorm();
     }
 
     jclass GetClass() const { return m_giClass; }
