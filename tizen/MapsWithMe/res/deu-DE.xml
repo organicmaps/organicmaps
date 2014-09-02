@@ -103,4 +103,6 @@
 	<text id="IDS_BECOME_A_PRO">Upgrade</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Zoom-Tasten</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Auf dem Bildschirm anzeigen</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_WIFI">Wi-Fi</text>
 </string_table>

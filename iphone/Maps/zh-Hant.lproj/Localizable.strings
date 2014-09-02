@@ -649,3 +649,6 @@
 
 /* Settings item title */
 "pref_calibration_title" = "指南針校準";
+
+/* Search Suggestion */
+"wifi" = "無線網絡";

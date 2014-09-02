@@ -403,4 +403,6 @@
 	<string name="email_error_title">Erro de envio de email</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Calibração de bússola</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">Wi-Fi</string>
 </resources>

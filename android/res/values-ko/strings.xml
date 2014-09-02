@@ -384,4 +384,6 @@
 	<string name="email_error_title">메일 전송 중 오류</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">나침반 보정</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">Wi-Fi 인터넷</string>
 </resources>

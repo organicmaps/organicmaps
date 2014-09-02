@@ -387,4 +387,6 @@
 	<string name="email_error_title">Error de envío de correo</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Calibrado de la brújula</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">Wi-Fi</string>
 </resources>

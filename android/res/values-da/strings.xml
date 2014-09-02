@@ -408,4 +408,6 @@
 	<string name="email_error_title">Mailforsendelsesfejl</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibrering af kompas</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">Wi-Fi</string>
 </resources>

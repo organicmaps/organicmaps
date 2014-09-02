@@ -408,4 +408,6 @@
 	<string name="email_error_title">จดหมายที่ส่งเกิดความผิดพลาด</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">การปรับเทียบเข็มทิศ</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">Wi-Fi</string>
 </resources>

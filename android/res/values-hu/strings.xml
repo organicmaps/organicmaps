@@ -405,4 +405,6 @@
 	<string name="email_error_title">Hiba az e-mail küldése során</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Iránytű kalibrálás</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">Wi-Fi</string>
 </resources>

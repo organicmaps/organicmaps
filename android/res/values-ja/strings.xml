@@ -393,4 +393,6 @@
 	<string name="email_error_title">メール送信エラー</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">コンパスの調整</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">無線LAN</string>
 </resources>

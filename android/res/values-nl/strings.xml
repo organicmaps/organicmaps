@@ -386,4 +386,6 @@
 	<string name="email_error_title">E-mail verzendfout</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompascalibratie</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">Wi-Fi</string>
 </resources>

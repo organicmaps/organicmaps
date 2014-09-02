@@ -407,4 +407,6 @@
 	<string name="email_error_title">Błąd wysyłania wiadomości</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibracja kompasu</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">Wi-Fi</string>
 </resources>

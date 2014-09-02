@@ -105,4 +105,6 @@
 	<text id="IDS_BECOME_A_PRO">Obter PRO</text>
 	<text id="IDS_PREF_ZOOM_TITLE">Botões de zoom</text>
 	<text id="IDS_PREF_ZOOM_SUMMARY">Mostrar no ecrã</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_WIFI">Wi-Fi</text>
 </string_table>

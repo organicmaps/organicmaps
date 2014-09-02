@@ -113,4 +113,6 @@
 	<text id="IDS_AGREE">Je suis d\&#39;accord</text>
 	<!-- Show on first launch -->
 	<text id="IDS_DISAGREE">Je ne suis pas d\&#39;accord</text>
+	<!-- Search Suggestion -->
+	<text id="IDS_WIFI">Wi-Fi</text>
 </string_table>

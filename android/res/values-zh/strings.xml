@@ -412,4 +412,6 @@
 	<string name="email_error_title">电子邮件发送错误</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">指南针校准</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">无线网络</string>
 </resources>

@@ -649,3 +649,6 @@
 
 /* Settings item title */
 "pref_calibration_title" = "Kalibrace kompasu";
+
+/* Search Suggestion */
+"wifi" = "Wi-Fi";

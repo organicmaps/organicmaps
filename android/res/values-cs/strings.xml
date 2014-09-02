@@ -413,4 +413,6 @@
 	<string name="email_error_title">Chyba při odesílání emailu</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibrace kompasu</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">Wi-Fi</string>
 </resources>

@@ -401,4 +401,6 @@
 	<string name="email_error_title">Fehler beim E-Mail-Versand</string>
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kompass-Kalibrierung</string>
+	<!-- Search Suggestion -->
+	<string name="wifi">Wi-Fi</string>
 </resources>
