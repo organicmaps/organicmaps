@@ -165,6 +165,9 @@ public:
   //@}
 
 protected:
+  bool IsHighway() const;
+
+protected:
   /// Used for features debugging
   vector<osm::Id> m_osmIds;
 
@@ -230,6 +233,8 @@ public:
   bool PreSerialize(buffers_holder_t const & data);
   void Serialize(buffers_holder_t & data, serial::CodingParams const & params);
   //@}
+
+  uint64_t GetWayIDForRouting() const;
 };
 
 namespace feature

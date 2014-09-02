@@ -161,6 +161,15 @@ namespace
   }
 }
 
+bool FeatureBuilder1::IsHighway() const
+{
+  /// @todo Add additional type for check "route-ferry-motorcar"
+  /// when it will be added as separate type into classificator.
+
+  static feature::TypeSetChecker const checkHighway("highway");
+  return checkHighway.IsEqualV(m_params.m_Types);
+}
+
 bool FeatureBuilder1::PreSerialize()
 {
   if (!m_params.IsValid())
@@ -188,10 +197,8 @@ bool FeatureBuilder1::PreSerialize()
 
   case GEOM_LINE:
   {
-    static feature::TypeSetChecker checkHighway("highway");
-
     // We need refs for road's numbers.
-    if (!checkHighway.IsEqualV(m_params.m_Types))
+    if (!IsHighway())
       m_params.ref.clear();
 
     m_params.rank = 0;
@@ -585,4 +592,12 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
       serial::WriteVarUintArray(data.m_trgOffset, sink);
     }
   }
+}
+
+uint64_t FeatureBuilder2::GetWayIDForRouting() const
+{
+  if (m_osmIds.size() == 1 && m_osmIds[0].IsWay() && IsLine() && IsHighway())
+    return m_osmIds[0].OsmId();
+  else
+    return 0;
 }

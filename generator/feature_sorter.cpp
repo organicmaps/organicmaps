@@ -2,6 +2,7 @@
 #include "feature_generator.hpp"
 #include "feature_builder.hpp"
 #include "tesselator.hpp"
+#include "gen_mwm_info.hpp"
 
 #include "../defines.hpp"
 
@@ -89,6 +90,8 @@ namespace feature
 
     DataHeader m_header;
 
+    gen::OsmID2FeatureID m_osm2ft;
+
   public:
     FeaturesCollector2(string const & fName, DataHeader const & header)
       : FeaturesCollector(fName + DATA_FILE_TAG), m_writer(fName), m_header(header)
@@ -144,6 +147,12 @@ namespace feature
       }
 
       m_writer.Finish();
+
+      if (m_header.GetType() == DataHeader::country)
+      {
+        FileWriter osm2ftWriter(m_writer.GetFileName() + OSM2FEATURE_FILE_EXTENSION);
+        m_osm2ft.Flush(osm2ftWriter);
+      }
     }
 
   private:
@@ -493,7 +502,11 @@ namespace feature
       {
         fb.Serialize(holder.m_buffer, m_header.GetDefCodingParams());
 
-        WriteFeatureBase(holder.m_buffer.m_buffer, fb);
+        uint32_t const ftID = WriteFeatureBase(holder.m_buffer.m_buffer, fb);
+
+        uint64_t const osmID = fb.GetWayIDForRouting();
+        if (osmID != 0)
+          m_osm2ft.Add(make_pair(osmID, ftID));
       }
     }
   };
@@ -565,24 +578,31 @@ namespace feature
         reader.ReadAsString(buffer);
         strings::Tokenize(buffer, "|", DoStoreLanguages(header));
       }
-      catch (Reader::OpenException const &)
+      catch (Reader::Exception const &)
       {
-        LOG(LWARNING, ("No language file for country ", name));
+        LOG(LWARNING, ("No language file for country:", name));
       }
 
-      // Transform features from row format to optimized format.
-      FeaturesCollector2 collector(datFilePath, header);
-
-      for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
+      // Transform features from raw format to optimized format.
+      try
       {
-        ReaderSource<FileReader> src(reader);
-        src.Skip(midPoints.m_vec[i].second);
+        FeaturesCollector2 collector(datFilePath, header);
 
-        FeatureBuilder1 f;
-        ReadFromSourceRowFormat(src, f);
+        for (size_t i = 0; i < midPoints.m_vec.size(); ++i)
+        {
+          ReaderSource<FileReader> src(reader);
+          src.Skip(midPoints.m_vec[i].second);
 
-        // emit the feature
-        collector(GetFeatureBuilder2(f));
+          FeatureBuilder1 f;
+          ReadFromSourceRowFormat(src, f);
+
+          // emit the feature
+          collector(GetFeatureBuilder2(f));
+        }
+      }
+      catch (Writer::Exception const & ex)
+      {
+        LOG(LCRITICAL, ("MWM writing error:", ex.Msg()));
       }
 
       // at this point files should be closed

@@ -128,6 +128,8 @@ public:
   /// @precondition Container should be opened with FileWriter::OP_WRITE_EXISTING.
   void DeleteSection(Tag const & tag);
 
+  inline string const & GetFileName() const { return m_name; }
+
 private:
   uint64_t SaveCurrentSize();
 

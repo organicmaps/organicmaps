@@ -38,6 +38,11 @@ uint64_t Id::OsmId() const
   return m_encodedId & RESET;
 }
 
+bool Id::IsWay() const
+{
+  return ((m_encodedId & WAY) == WAY);
+}
+
 string Id::Type() const
 {
   if ((m_encodedId & RELATION) == RELATION)

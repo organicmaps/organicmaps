@@ -15,10 +15,14 @@ class Id
 
 public:
   explicit Id(uint64_t encodedId = INVALID);
+
   static Id Node(uint64_t osmId);
   static Id Way(uint64_t osmId);
   static Id Relation(uint64_t osmId);
+
   uint64_t OsmId() const;
+  bool IsWay() const;
+
   /// For debug output
   string Type() const;
 
