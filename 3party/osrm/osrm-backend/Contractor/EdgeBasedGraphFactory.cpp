@@ -77,6 +77,11 @@ void EdgeBasedGraphFactory::GetEdgeBasedNodes(std::vector<EdgeBasedNode> &nodes)
     nodes.swap(m_edge_based_node_list);
 }
 
+void EdgeBasedGraphFactory::GetEdgeBasedNodeData(std::vector<NodeData> &data)
+{
+  data.swap(m_edge_based_node_data);
+}
+
 void
 EdgeBasedGraphFactory::InsertEdgeBasedNode(const NodeID u, const NodeID v, const bool belongs_to_tiny_cc)
 {
@@ -264,6 +269,10 @@ void EdgeBasedGraphFactory::Run(const std::string &original_edge_data_filename,
     RenumberEdges();
     TIMER_STOP(renumber);
 
+    TIMER_START(generate_node_data);
+    GenerateEdgeBasedNodeData();
+    TIMER_STOP(generate_node_data);
+
     TIMER_START(generate_nodes);
     GenerateEdgeExpandedNodes();
     TIMER_STOP(generate_nodes);
@@ -279,6 +288,7 @@ void EdgeBasedGraphFactory::Run(const std::string &original_edge_data_filename,
     SimpleLogger().Write() << "Renumbering edges: " << TIMER_SEC(renumber) << "s";
     SimpleLogger().Write() << "Generating nodes: " << TIMER_SEC(generate_nodes) << "s";
     SimpleLogger().Write() << "Generating edges: " << TIMER_SEC(generate_edges) << "s";
+    SimpleLogger().Write() << "Generating node data: " << TIMER_SEC(generate_node_data) << "s";
 }
 
 void EdgeBasedGraphFactory::CompressGeometry()
@@ -463,6 +473,60 @@ void EdgeBasedGraphFactory::RenumberEdges()
         }
     }
     m_number_of_edge_based_nodes = numbered_edges_count;
+}
+
+void EdgeBasedGraphFactory::GenerateEdgeBasedNodeData()
+{
+  m_edge_based_node_data.resize(m_number_of_edge_based_nodes);
+  std::vector<bool> found;
+  found.resize(m_number_of_edge_based_nodes, false);
+
+  for (NodeID current_node = 0; current_node < m_node_based_graph->GetNumberOfNodes();
+       ++current_node)
+  {
+      for (EdgeID current_edge : m_node_based_graph->GetAdjacentEdgeRange(current_node))
+      {
+          EdgeData &edge_data = m_node_based_graph->GetEdgeData(current_edge);
+          if (!edge_data.forward)
+          {
+              continue;
+          }
+          NodeID target = m_node_based_graph->GetTarget(current_edge);
+
+          NodeData data;
+          data.lat1 = m_node_info_list[current_node].lat / COORDINATE_PRECISION;
+          data.lon1 = m_node_info_list[current_node].lon / COORDINATE_PRECISION;
+
+          data.lat2 = m_node_info_list[target].lat / COORDINATE_PRECISION;
+          data.lon2 = m_node_info_list[target].lon / COORDINATE_PRECISION;
+
+          data.way_id = edge_data.way_id;
+
+          if (found[edge_data.edgeBasedNodeID])
+          {
+            if (m_edge_based_node_data[edge_data.edgeBasedNodeID] != data)
+            {
+              std::cout << "Error!" << std::endl;
+              throw std::exception();
+            }
+          } else
+          {
+            found[edge_data.edgeBasedNodeID] = true;
+            m_edge_based_node_data[edge_data.edgeBasedNodeID] = data;
+          }
+      }
+  }
+
+  for (auto v : found)
+  {
+    if (!v)
+    {
+      std::cout << "Error2" << std::endl;
+      throw std::exception();
+    }
+  }
+
+  SimpleLogger().Write() << "Edge based node data count: " << m_edge_based_node_data.size();
 }
 
 /**

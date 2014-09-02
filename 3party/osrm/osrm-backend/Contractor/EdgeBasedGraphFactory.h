@@ -57,6 +57,24 @@ class EdgeBasedGraphFactory
     EdgeBasedGraphFactory() = delete;
     EdgeBasedGraphFactory(const EdgeBasedGraphFactory &) = delete;
 
+    struct NodeData
+    {
+      double lat1, lon1;
+      double lat2, lon2;
+      unsigned way_id;
+
+      bool operator == (NodeData const & other)
+      {
+        return (way_id == other.way_id) && (lat1 == other.lat1) && (lon1 == other.lon1)
+            && (lat2 == other.lat2) && (lon2 == other.lon2);
+      }
+
+      bool operator != (NodeData const & other)
+      {
+        return !(*this == other);
+      }
+    };
+
     struct SpeedProfileProperties;
 
     explicit EdgeBasedGraphFactory(const std::shared_ptr<NodeBasedDynamicGraph> &node_based_graph,
@@ -73,6 +91,8 @@ class EdgeBasedGraphFactory
     void GetEdgeBasedEdges(DeallocatingVector<EdgeBasedEdge> &edges);
 
     void GetEdgeBasedNodes(std::vector<EdgeBasedNode> &nodes);
+
+    void GetEdgeBasedNodeData(std::vector<NodeData> &data);
 
     TurnInstruction AnalyzeTurn(const NodeID u, const NodeID v, const NodeID w, double angle) const;
 
@@ -106,11 +126,13 @@ class EdgeBasedGraphFactory
     std::unordered_set<NodeID> m_traffic_lights;
 
     std::unique_ptr<RestrictionMap> m_restriction_map;
+    std::vector<NodeData> m_edge_based_node_data;
 
     GeometryCompressor m_geometry_compressor;
 
     void CompressGeometry();
     void RenumberEdges();
+    void GenerateEdgeBasedNodeData();
     void GenerateEdgeExpandedNodes();
     void GenerateEdgeExpandedEdges(const std::string &original_edge_data_filename,
                                    lua_State *lua_state);

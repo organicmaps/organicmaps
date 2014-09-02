@@ -116,6 +116,7 @@ int Prepare::Process(int argc, char *argv[])
     graph_out = input_path.string() + ".hsgr";
     rtree_nodes_path = input_path.string() + ".ramIndex";
     rtree_leafs_path = input_path.string() + ".fileIndex";
+    node_data_filename = input_path.string() + ".nodeData";
 
     /*** Setup Scripting Environment ***/
     // Create a new lua state
@@ -521,6 +522,25 @@ void Prepare::BuildEdgeExpandedGraph(lua_State *lua_state,
 
     edge_based_graph_factory->GetEdgeBasedEdges(edge_based_edge_list);
     edge_based_graph_factory->GetEdgeBasedNodes(node_based_edge_list);
+
+    // serialize node data
+    std::vector<EdgeBasedGraphFactory::NodeData> data;
+    edge_based_graph_factory->GetEdgeBasedNodeData(data);
+
+    SimpleLogger().Write() << "Serialize node data";
+
+    std::ofstream stream;
+    stream.open(node_data_filename);
+    if (!stream.is_open())
+    {
+      SimpleLogger().Write() << "Can't open file " << node_data_filename;
+      throw std::exception();
+    }
+    uint32_t count = data.size();
+    stream.write((const char*)&count, sizeof(count));
+    stream.write((const char*)(&data[0]), data.size() * sizeof(EdgeBasedGraphFactory::NodeData));
+    stream.close();
+
     delete edge_based_graph_factory;
 
     node_based_graph.reset();
