@@ -242,7 +242,7 @@
     _tableView.dataSource = self;
     _tableView.alwaysBounceVertical = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.backgroundColor = [UIColor colorWithColorCode:@"444651"];
+    _tableView.backgroundColor = [UIColor colorWithColorCode:@"1D1F29"];
   }
   return _tableView;
 }
