@@ -15,6 +15,8 @@
 #include "pin_click_manager.hpp"
 
 #include "mwm_url.hpp"
+#include "move_screen_task.hpp"
+#include "track.hpp"
 
 #include "../defines.hpp"
 
@@ -41,9 +43,6 @@
 #include "../std/unique_ptr.hpp"
 #include "../std/target_os.hpp"
 
-#include "move_screen_task.hpp"
-
-#include "track.hpp"
 
 //#define DRAW_TOUCH_POINTS
 

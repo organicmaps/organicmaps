@@ -6,10 +6,9 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../base/matrix.hpp"
-#include "../base/scheduled_task.hpp"
 
-#include "../std/function.hpp"
 #include "../std/shared_ptr.hpp"
+
 
 /// Calculates screen parameters in navigation (dragging, scaling, etc.).
 class Navigator

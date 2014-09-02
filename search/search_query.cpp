@@ -200,6 +200,8 @@ void Query::NullPosition()
 
 void Query::SetPreferredLocale(string const & locale)
 {
+  ASSERT(!locale.empty(), ());
+
   LOG(LDEBUG, ("New preffered locale:", locale));
 
   int8_t const code = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
@@ -218,11 +220,14 @@ void Query::SetPreferredLocale(string const & locale)
 
 void Query::SetInputLocale(string const & locale)
 {
-  LOG(LDEBUG, ("New input locale:", locale));
+  if (!locale.empty())
+  {
+    LOG(LDEBUG, ("New input locale:", locale));
 
-  SetLanguage(LANG_INPUT, StringUtf8Multilang::GetLangIndex(languages::Normalize(locale)));
+    SetLanguage(LANG_INPUT, StringUtf8Multilang::GetLangIndex(languages::Normalize(locale)));
 
-  m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
+    m_inputLocaleCode = CategoriesHolder::MapLocaleToInteger(locale);
+  }
 }
 
 void Query::ClearCaches()

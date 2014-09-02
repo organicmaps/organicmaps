@@ -163,7 +163,7 @@ string GetCurrentOrig()
 string Normalize(string const & lang)
 {
   strings::SimpleTokenizer const iter(lang, "-_ ");
-  ASSERT(iter, ());
+  ASSERT(iter, (lang));
   return *iter;
 }
 
