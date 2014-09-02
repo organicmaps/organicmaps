@@ -218,6 +218,8 @@
 	<!-- Search Suggestion -->
 	<string name="entertainment">娛樂</string>
 	<!-- Search Suggestion -->
+	<string name="atm">自動櫃員機</string>
+	<!-- Search Suggestion -->
 	<string name="bank">銀行</string>
 	<!-- Search Suggestion -->
 	<string name="pharmacy">藥局</string>

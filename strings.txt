@@ -2869,6 +2869,7 @@
     nl = geldautomaat
     ru = банкомат
     uk = банкомат
+    zh-Hant = 自動櫃員機
     pl = bankomat
     pt = multibanco
     hu = pénzautomata
