@@ -244,7 +244,6 @@ public:
   void SetGeomType(feature::EGeomType t);
   void SetGeomTypePointEx();
   feature::EGeomType GetGeomType() const;
-  uint8_t GetTypeMask() const;
 
   inline void AddType(uint32_t t) { m_Types.push_back(t); }
 
@@ -297,6 +296,8 @@ public:
   }
 
 private:
+  uint8_t GetTypeMask() const;
+
   static uint32_t GetIndexForType(uint32_t t);
   static uint32_t GetTypeForIndex(uint32_t i);
 };

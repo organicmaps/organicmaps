@@ -528,15 +528,15 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
 
   BitSink< PushBackByteSink<buffer_t> > bitSink(sink);
 
-  uint8_t const h = m_params.GetTypeMask();
+  EGeomType const type = m_params.GetGeomType();
 
-  if (h == HEADER_GEOM_LINE)
+  if (type == GEOM_LINE)
   {
     bitSink.Write(ptsCount, 4);
     if (ptsCount == 0)
       bitSink.Write(data.m_ptsMask, 4);
   }
-  else if (h == HEADER_GEOM_AREA)
+  else if (type == GEOM_AREA)
   {
     bitSink.Write(trgCount, 4);
     if (trgCount == 0)
@@ -545,7 +545,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
 
   bitSink.Finish();
 
-  if (h == HEADER_GEOM_LINE)
+  if (type == GEOM_LINE)
   {
     if (ptsCount > 0)
     {
@@ -574,7 +574,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
       serial::WriteVarUintArray(data.m_ptsOffset, sink);
     }
   }
-  else if (h == HEADER_GEOM_AREA)
+  else if (type == GEOM_AREA)
   {
     if (trgCount > 0)
       serial::SaveInnerTriangles(data.m_innerTrg, params, sink);

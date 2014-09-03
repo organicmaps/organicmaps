@@ -30,8 +30,8 @@ public:
   void AddPoint(m2::PointD const & p);
 
   /// Set that feature is linear type.
-  void SetLinear() { m_params.SetGeomType(feature::GEOM_LINE); }
-  void SetArea() { m_params.SetGeomType(feature::GEOM_AREA); }
+  inline void SetLinear() { m_params.SetGeomType(feature::GEOM_LINE); }
+  inline void SetArea() { m_params.SetGeomType(feature::GEOM_AREA); }
 
   /// Set that feature is area and get ownership of holes.
   void SetAreaAddHoles(list<vector<m2::PointD> > const & holes);
@@ -218,12 +218,12 @@ public:
     buffers_holder_t() : m_ptsMask(0), m_trgMask(0), m_ptsSimpMask(0) {}
   };
 
-  bool IsLine() const { return (m_params.GetTypeMask() == feature::HEADER_GEOM_LINE); }
-  bool IsArea() const { return (m_params.GetTypeMask() == feature::HEADER_GEOM_AREA); }
+  inline bool IsLine() const { return (GetGeomType() == feature::GEOM_LINE); }
+  inline bool IsArea() const { return (GetGeomType() == feature::GEOM_AREA); }
   bool IsDrawableInRange(int lowS, int highS) const;
 
-  points_t const & GetOuterPoly() const { return GetGeometry(); }
-  list<points_t> const & GetPolygons() const { return m_polygons; }
+  inline points_t const & GetOuterPoly() const { return GetGeometry(); }
+  inline list<points_t> const & GetPolygons() const { return m_polygons; }
 
   /// @name Overwrite from base_type.
   //@{
