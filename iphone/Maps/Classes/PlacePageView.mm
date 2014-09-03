@@ -205,7 +205,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
     cell.selectedColorView.alpha = [self isBookmark] ? 1 : 0;
     cell.delegate = self;
     cell.myPositionMode = [self isMyPosition];
-    [[MapsAppDelegate theApp].m_locationManager triggerCompass];
 
     return cell;
   }
@@ -413,14 +412,16 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self reloadHeader];
   [self alignAnimated:animated];
   [self.tableView setContentOffset:CGPointZero animated:animated];
-  if (state != PlacePageStateHidden)
-  {
-    if ([[MapsAppDelegate theApp].m_locationManager enabledOnMap])
-      [[MapsAppDelegate theApp].m_locationManager start:self];
-  }
+
+  LocationManager * locationManager = [MapsAppDelegate theApp].m_locationManager;
+  if (state == PlacePageStateHidden)
+    [locationManager stop:self];
   else
   {
-    [[MapsAppDelegate theApp].m_locationManager stop:self];
+    if ([locationManager enabledOnMap])
+      [locationManager start:self];
+    if (state == PlacePageStateOpened)
+      [locationManager triggerCompass];
   }
 }
 
@@ -433,8 +434,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self setState:self.state animated:YES withCallback:YES];
     CGFloat const headerHeight = [self headerHeight];
     self.tableView.frame = CGRectMake(0, headerHeight, self.superview.width, self.backgroundView.height - headerHeight - BOTTOM_SHADOW_OFFSET);
-//    [self reloadHeader];
-//    [self alignAnimated:YES];
   }
 }
 
