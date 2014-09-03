@@ -1,39 +1,30 @@
 #include "routing_generator.hpp"
+#include "gen_mwm_info.hpp"
 
 #include "../indexer/index.hpp"
 #include "../indexer/classificator_loader.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/ftypes_matcher.hpp"
+#include "../indexer/mercator.hpp"
 
-#include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
-#include "../3party/osrm/osrm-backend/Server/DataStructures/InternalDataFacade.h"
+#include "../geometry/distance_on_sphere.hpp"
+
+#include "../routing/osrm_data_facade_types.hpp"
+
+#include "../platform/platform.hpp"
+
+#include "../base/logging.hpp"
+
+#include "../std/fstream.hpp"
+
+#include "../3party/osrm/osrm-backend/DataStructures/EdgeBasedNodeData.h"
+
 
 namespace routing
 {
 
-uint32_t const MAX_SCALE = 15;  // max scale for roads
 
-struct Node2Feature
-{
-  NodeID m_nodeId;
-  FeatureID m_FID;
-  uint32_t m_start;
-  uint32_t m_len;
-
-  Node2Feature(NodeID nodeId, FeatureID fid, uint32_t start, uint32_t len)
-    : m_nodeId(nodeId), m_FID(fid), m_start(start), m_len(len)
-  {
-  }
-};
-
-struct Node2FeatureSetComp
-{
-  bool operator() (Node2Feature const & a, Node2Feature const & b)
-  {
-    return a.m_nodeId < b.m_nodeId;
-  }
-};
-typedef std::set<Node2Feature, Node2FeatureSetComp> Node2FeatureSet;
+double const EQUAL_POINT_RADIUS_M = 1;
 
 void GenerateNodesInfo(string const & mwmName, string const & osrmName)
 {
@@ -47,73 +38,110 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
     return;
   }
 
-  ServerPaths server_paths;
-  server_paths["hsgrdata"] = boost::filesystem::path(osrmName + ".hsgr");
-  server_paths["ramindex"] = boost::filesystem::path(osrmName + ".ramIndex");
-  server_paths["fileindex"] = boost::filesystem::path(osrmName + ".fileIndex");
-  server_paths["geometries"] = boost::filesystem::path(osrmName + ".geometry");
-  server_paths["nodesdata"] = boost::filesystem::path(osrmName + ".nodes");
-  server_paths["edgesdata"] = boost::filesystem::path(osrmName + ".edges");
-  server_paths["namesdata"] = boost::filesystem::path(osrmName + ".names");
-  server_paths["timestamp"] = boost::filesystem::path(osrmName + ".timestamp");
+  Platform & pl = GetPlatform();
 
-  InternalDataFacade<QueryEdge::EdgeData> facade(server_paths);
-
-  Node2FeatureSet nodesSet;
-  uint32_t processed = 0;
-  auto fn = [&](FeatureType const & ft)
+  gen::OsmID2FeatureID osm2ft;
   {
-    processed++;
+    ReaderSource<ModelReaderPtr> src(pl.GetReader(mwmName + OSM2FEATURE_FILE_EXTENSION));
+    osm2ft.Read(src);
+  }
 
-    if (processed % 1000 == 0)
+  string nodeFileName = osrmName + ".nodeData";
+
+  OsrmFtSegMapping mapping;
+
+  ifstream input;
+  input.open(nodeFileName);
+  if (!input.is_open())
+  {
+    LOG(LERROR, ("Can't open file ", nodeFileName));
+    return;
+  }
+
+  osrm::NodeDataVectorT nodeData;
+  if (!osrm::LoadNodeDataFromFile(nodeFileName, nodeData))
+  {
+    LOG(LERROR, ("Can't load node data"));
+    return;
+  }
+
+  uint32_t found = 0, all = 0;
+  uint32_t nodeId = 0;
+  for (osrm::NodeData data : nodeData)
+  {
+    uint32_t segId = 0;
+    OsrmFtSegMapping::FtSegVectorT vec;
+    vec.resize(data.m_segments.size());
+
+    for (auto seg : data.m_segments)
     {
-      if (processed % 10000 == 0)
-        std::cout << "[" << processed / 1000 << "k]";
-      else
-        std::cout << ".";
-      std::cout.flush();
-    }
+      m2::PointD pts[2] = {{seg.lon1, seg.lat1}, {seg.lon2, seg.lat2}};
 
-    feature::TypesHolder types(ft);
-    if (types.GetGeoType() != feature::GEOM_LINE)
-      return;
+      all++;
 
-    if (!ftypes::IsStreetChecker::Instance()(ft))
-        return;
-
-    std::cout << "------------ FID: " << ft.GetID().m_offset << std::endl;
-
-    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-    uint32_t lastId = std::numeric_limits<uint32_t>::max();
-    uint32_t start = 0;
-    for (uint32_t i = 1; i < ft.GetPointsCount(); ++i)
-    {
-      m2::PointD p = ft.GetPoint(i -1).mid(ft.GetPoint(i));
-      FixedPointCoordinate fp(static_cast<int>(p.x * COORDINATE_PRECISION),
-                              static_cast<int>(p.y * COORDINATE_PRECISION));
-
-      PhantomNode node;
-      if (facade.FindPhantomNodeForCoordinate(fp, node, 18))
+      // now need to determine feature id and segments in it
+      uint32_t const fID = osm2ft.GetFeatureID(seg.wayId);
+      if (fID == 0)
       {
-        if (node.forward_node_id != lastId)
+        LOG(LWARNING, ("No feature id for way:", seg.wayId));
+        continue;
+      }
+
+      FeatureType ft;
+      Index::FeaturesLoaderGuard loader(index, 0);
+      loader.GetFeature(fID, ft);
+
+      ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+      int32_t indicies[2] = {-1, -1};
+
+      for (uint32_t j = 0; j < ft.GetPointsCount(); ++j)
+      {
+        double lon = MercatorBounds::XToLon(ft.GetPoint(j).x);
+        double lat = MercatorBounds::YToLat(ft.GetPoint(j).y);
+        for (uint32_t k = 0; k < 2; ++k)
         {
-          if (lastId != std::numeric_limits<uint32_t>::max())
+          double const dist = ms::DistanceOnEarth(pts[k].y, pts[k].x, lat, lon);
+          //LOG(LINFO, ("Distance: ", dist));
+
+          if (dist <= EQUAL_POINT_RADIUS_M)
           {
-            bool added = nodesSet.insert(Node2Feature(node.forward_node_id, ft.GetID(), start, i - 1)).second;
-            assert(added);
+            //ASSERT_EQUAL(indicies[k], -1, ());
+            indicies[k] = j;
           }
-          lastId = node.forward_node_id;
-          start = i - 1;
-          std::cout << "LastID: " << lastId << " ForwardID: " << node.forward_node_id << " Offset: " << node.forward_offset << std::endl;
         }
-      } else
-        break;
+      }
+
+      // Check if indicies found
+      if (indicies[0] != -1 && indicies[1] != -1)
+      {
+        found++;
+        ASSERT_NOT_EQUAL(indicies[0], indicies[1], ());
+        OsrmFtSegMapping::FtSeg & segData = vec[segId++];
+        segData.m_fid = fID;
+        segData.m_pointEnd = indicies[1];
+        segData.m_pointStart = indicies[0];
+        mapping.Append(nodeId++, vec);
+      }
+      else
+      {
+        LOG(LINFO, ("----------------- Way ID: ", seg.wayId, "--- Segments: ", data.m_segments.size(), " SegId: ", segId));
+        LOG(LINFO, ("P1: ", pts[0].y, " ", pts[0].x, " P2: ", pts[1].y, " ", pts[1].x));
+        for (uint32_t j = 0; j < ft.GetPointsCount(); ++j)
+        {
+          double lon = MercatorBounds::XToLon(ft.GetPoint(j).x);
+          double lat = MercatorBounds::YToLat(ft.GetPoint(j).y);
+          double const dist1 = ms::DistanceOnEarth(pts[0].y, pts[0].x, lat, lon);
+          double const dist2 = ms::DistanceOnEarth(pts[1].y, pts[1].x, lat, lon);
+          LOG(LINFO, ("p", j, ": ", lat, ", ", lon, " Dist1: ", dist1, " Dist2: ", dist2));
+        }
+      }
+
+
     }
-  };
-  index.ForEachInRect(fn, MercatorBounds::FullRect(), MAX_SCALE);
+  }
 
-  std::cout << "Nodes: " << facade.GetNumberOfNodes() << " Set: " << nodesSet.size() << std::endl;
-
+  LOG(LINFO, ("Found: ", found, " All: ", all));
+  mapping.Save(osrmName + ".ftseg");
 }
 
 }

@@ -493,8 +493,13 @@ void Prepare::BuildEdgeExpandedGraph(lua_State *lua_state,
         NodeBasedDynamicGraphFromImportEdges(number_of_node_based_nodes, edge_list);
     std::unique_ptr<RestrictionMap> restriction_map =
         std::unique_ptr<RestrictionMap>(new RestrictionMap(node_based_graph, restriction_list));
+
+    std::shared_ptr<NodeBasedDynamicGraph> node_based_graph_origin =
+        NodeBasedDynamicGraphFromImportEdges(number_of_node_based_nodes, edge_list);
+
     EdgeBasedGraphFactory *edge_based_graph_factory =
         new EdgeBasedGraphFactory(node_based_graph,
+                                  node_based_graph_origin,
                                   std::move(restriction_map),
                                   barrier_node_list,
                                   traffic_light_list,
@@ -524,22 +529,12 @@ void Prepare::BuildEdgeExpandedGraph(lua_State *lua_state,
     edge_based_graph_factory->GetEdgeBasedNodes(node_based_edge_list);
 
     // serialize node data
-    std::vector<EdgeBasedGraphFactory::NodeData> data;
+    osrm::NodeDataVectorT data;
     edge_based_graph_factory->GetEdgeBasedNodeData(data);
 
     SimpleLogger().Write() << "Serialize node data";
 
-    std::ofstream stream;
-    stream.open(node_data_filename);
-    if (!stream.is_open())
-    {
-      SimpleLogger().Write() << "Can't open file " << node_data_filename;
-      throw std::exception();
-    }
-    uint32_t count = data.size();
-    stream.write((const char*)&count, sizeof(count));
-    stream.write((const char*)(&data[0]), data.size() * sizeof(EdgeBasedGraphFactory::NodeData));
-    stream.close();
+    osrm::SaveNodeDataToFile(node_data_filename, data);
 
     delete edge_based_graph_factory;
 

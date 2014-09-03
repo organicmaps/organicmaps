@@ -31,6 +31,7 @@ HEADERS += \
     osrm_router.hpp \
     osrm_online_router.hpp \
     osrm_data_facade.hpp \
+    osrm_data_facade_types.hpp \
     road_graph_router.hpp \
     dijkstra_router.hpp \
     features_road_graph.hpp \

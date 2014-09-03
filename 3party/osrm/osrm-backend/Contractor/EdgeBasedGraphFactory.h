@@ -38,6 +38,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../DataStructures/TurnInstructions.h"
 #include "../DataStructures/NodeBasedGraph.h"
 #include "../DataStructures/RestrictionMap.h"
+#include "../DataStructures/EdgeBasedNodeData.h"
 #include "GeometryCompressor.h"
 
 #include <algorithm>
@@ -49,6 +50,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unordered_set>
 #include <vector>
 
+
 struct lua_State;
 
 class EdgeBasedGraphFactory
@@ -57,27 +59,10 @@ class EdgeBasedGraphFactory
     EdgeBasedGraphFactory() = delete;
     EdgeBasedGraphFactory(const EdgeBasedGraphFactory &) = delete;
 
-    struct NodeData
-    {
-      double lat1, lon1;
-      double lat2, lon2;
-      unsigned way_id;
-
-      bool operator == (NodeData const & other)
-      {
-        return (way_id == other.way_id) && (lat1 == other.lat1) && (lon1 == other.lon1)
-            && (lat2 == other.lat2) && (lon2 == other.lon2);
-      }
-
-      bool operator != (NodeData const & other)
-      {
-        return !(*this == other);
-      }
-    };
-
     struct SpeedProfileProperties;
 
     explicit EdgeBasedGraphFactory(const std::shared_ptr<NodeBasedDynamicGraph> &node_based_graph,
+                                   const std::shared_ptr<NodeBasedDynamicGraph> &node_based_graph_origin,
                                    std::unique_ptr<RestrictionMap> restricion_map,
                                    std::vector<NodeID> &barrier_node_list,
                                    std::vector<NodeID> &traffic_light_node_list,
@@ -92,7 +77,7 @@ class EdgeBasedGraphFactory
 
     void GetEdgeBasedNodes(std::vector<EdgeBasedNode> &nodes);
 
-    void GetEdgeBasedNodeData(std::vector<NodeData> &data);
+    void GetEdgeBasedNodeData(osrm::NodeDataVectorT &data);
 
     TurnInstruction AnalyzeTurn(const NodeID u, const NodeID v, const NodeID w, double angle) const;
 
@@ -122,11 +107,12 @@ class EdgeBasedGraphFactory
     DeallocatingVector<EdgeBasedEdge> m_edge_based_edge_list;
 
     std::shared_ptr<NodeBasedDynamicGraph> m_node_based_graph;
+    std::shared_ptr<NodeBasedDynamicGraph> m_node_based_graph_origin;
     std::unordered_set<NodeID> m_barrier_nodes;
     std::unordered_set<NodeID> m_traffic_lights;
 
     std::unique_ptr<RestrictionMap> m_restriction_map;
-    std::vector<NodeData> m_edge_based_node_data;
+    std::vector<osrm::NodeData> m_edge_based_node_data;
 
     GeometryCompressor m_geometry_compressor;
 
