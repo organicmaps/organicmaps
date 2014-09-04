@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Arrow.png"
+      "filename" : "arrow_mdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Arrow@2x.png"
+      "filename" : "arrow_xhdpi.png"
     }
   ],
   "info" : {

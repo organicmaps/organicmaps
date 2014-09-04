@@ -449,6 +449,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
   return self.statusBarIncluded ? (SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -20 : 0) : -20;
 }
 
+- (CGPoint)arrowCenterForHeaderWithHeight:(CGFloat)headerHeight
+{
+  return CGPointMake(self.width / 2, headerHeight + BOTTOM_SHADOW_OFFSET - 12.5);
+}
+
 - (void)alignAnimated:(BOOL)animated
 {
   UIViewAnimationOptions options = UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction;
@@ -458,9 +463,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     self.tableView.alpha = 0;
     self.titleLabel.userInteractionEnabled = NO;
-    self.arrowImageView.center = CGPointMake(self.width / 2, headerHeight + BOTTOM_SHADOW_OFFSET - 13);
-    [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
+    [UIView animateWithDuration:(animated ? 0.2 : 0) delay:0.2 options:UIViewAnimationCurveEaseInOut animations:^{
       self.arrowImageView.alpha = 1;
+    } completion:nil];
+    [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
+      self.arrowImageView.center = [self arrowCenterForHeaderWithHeight:headerHeight];
       [self updateHeight:(headerHeight + BOTTOM_SHADOW_OFFSET)];
       self.minY = [self viewMinY];
       self.headerSeparator.alpha = 0;
@@ -471,8 +478,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
     self.tableView.alpha = 1;
     self.titleLabel.userInteractionEnabled = YES;
     self.headerSeparator.maxY = headerHeight;
-    [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
+    [UIView animateWithDuration:(animated ? 0.1 : 0) animations:^{
       self.arrowImageView.alpha = 0;
+    }];
+    [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
+      self.arrowImageView.center = [self arrowCenterForHeaderWithHeight:headerHeight];
       [self updateHeight:[self fullHeight]];
       self.minY = [self viewMinY];
       self.headerSeparator.alpha = 1;
@@ -487,6 +497,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   else if (self.state == PlacePageStateHidden)
   {
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
+      self.arrowImageView.center = [self arrowCenterForHeaderWithHeight:headerHeight];
       self.maxY = 0;
       self.tableView.alpha = 0;
     } completion:nil];
@@ -1231,9 +1242,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if (!_arrowImageView)
   {
-    _arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+    _arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 40)];
     _arrowImageView.image = [UIImage imageNamed:@"PlacePageArrow"];
-    _arrowImageView.contentMode = UIViewContentModeCenter;
     _arrowImageView.userInteractionEnabled = YES;
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     [_arrowImageView addGestureRecognizer:tap];
