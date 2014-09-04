@@ -59,7 +59,7 @@
 {
   if (!_iconImageView)
   {
-    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(13, 13, 18, 18)];
+    _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(9, 9, 25, 25)];
     _iconImageView.contentMode = UIViewContentModeCenter;
   }
   return _iconImageView;
