@@ -336,10 +336,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     [self iphoneLandscapeTitleSize:&titleSize typesSize:&typesSize];
     self.titleLabel.size = titleSize;
-    self.titleLabel.minY = 25.5;
+    self.titleLabel.minY = 25;
     self.typeLabel.textAlignment = NSTextAlignmentRight;
     self.typeLabel.size = typesSize;
-    self.typeLabel.minY = self.titleLabel.minY + 3.5;
+    self.typeLabel.minY = self.titleLabel.minY + 3;
     self.typeLabel.maxX = self.width - TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET;
     self.bookmarkButton.midY = 37;
   }
@@ -347,10 +347,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     [self portraitTitleSize:&titleSize typesSize:&typesSize];
     self.titleLabel.size = titleSize;
-    self.titleLabel.minY = 24.5;
+    self.titleLabel.minY = 24;
     self.typeLabel.textAlignment = NSTextAlignmentLeft;
     self.typeLabel.size = typesSize;
-    self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY + 1);
+    self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY);
     self.bookmarkButton.midY = 36;
   }
 }
