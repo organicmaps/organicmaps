@@ -24,7 +24,7 @@
 
 - (void)layoutSubviews
 {
-  CGFloat const xOffset = 20;
+  CGFloat const xOffset = 14;
   CGFloat const height = [self.shareButton backgroundImageForState:UIControlStateNormal].size.height;
   if (self.apiAppTitle)
   {

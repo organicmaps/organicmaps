@@ -13,7 +13,7 @@
   self.selectedBackgroundView = selectedBackgroundView;
 
   UIImageView * editImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PlacePageEditButton"]];
-  editImageView.center = CGPointMake(self.width - 30, 20);
+  editImageView.center = CGPointMake(self.width - 24, 20);
   editImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
   [self addSubview:editImageView];
 
@@ -30,8 +30,8 @@
   return self;
 }
 
-#define LEFT_SHIFT 20
-#define RIGHT_SHIFT 47
+#define LEFT_SHIFT 14
+#define RIGHT_SHIFT 41
 #define TITLE_FONT [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5]
 
 - (void)layoutSubviews
@@ -50,7 +50,7 @@
   {
     [self.contentView addSubview:webView];
     webView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    CGFloat const xOffset = 12;
+    CGFloat const xOffset = 6;
     CGFloat const yOffset = 1;
     webView.frame = CGRectMake(xOffset, yOffset, self.width - 2 * xOffset, self.height - 2 * yOffset);
     webView.clipsToBounds = YES;

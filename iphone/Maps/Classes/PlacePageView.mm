@@ -301,8 +301,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self.delegate placePageView:self willEditProperty:@"Description" inBookmarkAndCategory:GetFramework().FindBookmark([self userMark])];
 }
 
-#define TITLE_LABEL_LEFT_OFFSET 20
-#define TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET 80
+#define TITLE_LABEL_LEFT_OFFSET 12
+#define TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET 74
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
@@ -328,7 +328,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   else
     self.typeLabel.text = self.types;
 
-  self.bookmarkButton.midX = self.headerView.width - 29.5;
+  self.bookmarkButton.midX = self.headerView.width - 23.5;
   self.titleLabel.minX = TITLE_LABEL_LEFT_OFFSET;
   CGSize titleSize;
   CGSize typesSize;
@@ -336,10 +336,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     [self iphoneLandscapeTitleSize:&titleSize typesSize:&typesSize];
     self.titleLabel.size = titleSize;
-    self.titleLabel.minY = 25;
+    self.titleLabel.minY = 25.5;
     self.typeLabel.textAlignment = NSTextAlignmentRight;
     self.typeLabel.size = typesSize;
-    self.typeLabel.minY = self.titleLabel.minY + 4;
+    self.typeLabel.minY = self.titleLabel.minY + 3.5;
     self.typeLabel.maxX = self.width - TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET;
     self.bookmarkButton.midY = 37;
   }
@@ -347,11 +347,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     [self portraitTitleSize:&titleSize typesSize:&typesSize];
     self.titleLabel.size = titleSize;
-    self.titleLabel.minY = 24;
+    self.titleLabel.minY = 24.5;
     self.typeLabel.textAlignment = NSTextAlignmentLeft;
     self.typeLabel.size = typesSize;
     self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY + 1);
-    self.bookmarkButton.midY = 39;
+    self.bookmarkButton.midY = 36;
   }
 }
 
@@ -525,7 +525,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)updateBookmarkViewsAlpha:(BOOL)animated
 {
-  self.editImageView.center = CGPointMake(self.titleLabel.maxX + 14, self.titleLabel.minY + 11.5);
+  self.editImageView.center = CGPointMake(self.titleLabel.maxX + 14, self.titleLabel.minY + 13);
   [UIView animateWithDuration:(animated ? 0.3 : 0) delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
     PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
     if ([self isBookmark])
@@ -1122,7 +1122,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     _titleLabel = [[CopyLabel alloc] initWithFrame:CGRectZero];
     _titleLabel.backgroundColor = [UIColor clearColor];
-    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+    _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:19];
     _titleLabel.textColor = [UIColor blackColor];
     _titleLabel.numberOfLines = 0;
     _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -1142,7 +1142,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     _typeLabel.backgroundColor = [UIColor clearColor];
     _typeLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
     _typeLabel.textAlignment = NSTextAlignmentLeft;
-    _typeLabel.textColor = [UIColor blackColor];
+    _typeLabel.textColor = [UIColor colorWithColorCode:@"565656"];
     _typeLabel.numberOfLines = 0;
     _typeLabel.lineBreakMode = NSLineBreakByWordWrapping;
   }
@@ -1184,7 +1184,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [_headerView addSubview:self.titleLabel];
     [_headerView addSubview:self.typeLabel];
     [_headerView addSubview:self.bookmarkButton];
-    self.bookmarkButton.center = CGPointMake(_headerView.width - 32, 42);
 
     UIImage * separatorImage = [[UIImage imageNamed:@"PlacePageSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     CGFloat const offset = 12.5;

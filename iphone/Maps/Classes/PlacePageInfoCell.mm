@@ -106,7 +106,7 @@
 }
 
 #define RIGHT_SHIFT 55
-#define LEFT_SHIFT 20
+#define LEFT_SHIFT 14
 
 - (void)layoutSubviews
 {
@@ -141,7 +141,7 @@
     self.longitudeLabel.midY = self.longitudeLabel.superview.height / 2;
   }
 
-  self.selectedColorView.center = CGPointMake(self.width - 30, 27);
+  self.selectedColorView.center = CGPointMake(self.width - 24, 27);
   [self.selectedColorView setColor:self.color];
 
   self.separatorView.maxY = self.height;
