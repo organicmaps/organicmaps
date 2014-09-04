@@ -43,7 +43,6 @@ namespace
 
 class InitSuggestions
 {
-  // Key - is a string with suggestion's _locale_ code, not a language from multilang_utf8_string.cpp
   typedef map<pair<strings::UniString, int8_t>, uint8_t> SuggestMapT;
   SuggestMapT m_suggests;
 

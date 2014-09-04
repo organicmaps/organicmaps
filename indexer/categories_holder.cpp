@@ -43,6 +43,8 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
 
     for (size_t i = 0; i < p->m_synonyms.size(); ++i)
     {
+      ASSERT(p->m_synonyms[i].m_locale != UNSUPPORTED_LOCALE_CODE, ());
+
       StringT const uniName = search::NormalizeAndSimplifyString(p->m_synonyms[i].m_name);
 
       vector<StringT> tokens;
@@ -51,7 +53,7 @@ void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)
       for (size_t j = 0; j < tokens.size(); ++j)
         for (size_t k = 0; k < types.size(); ++k)
           if (ValidKeyToken(tokens[j]))
-            m_name2type.insert(make_pair(tokens[j], types[k]));
+            m_name2type.insert(make_pair(make_pair(p->m_synonyms[i].m_locale, tokens[j]), types[k]));
     }
   }
 
@@ -129,7 +131,7 @@ void CategoriesHolder::LoadFromStream(istream & s)
         }
 
         int8_t const langCode = MapLocaleToInteger(*iter);
-        CHECK_NOT_EQUAL(langCode, UNSUPPORTED_LOCALE_CODE, ("Invalid language code:", *iter, "at line:", lineNumber));
+        CHECK(langCode != UNSUPPORTED_LOCALE_CODE, ("Invalid language code:", *iter, "at line:", lineNumber));
 
         while (++iter)
         {

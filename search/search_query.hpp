@@ -159,6 +159,9 @@ private:
 
   void ClearQueues();
 
+  int GetCategoryLocales(int8_t (&arr) [3]) const;
+  template <class ToDo> void ForEachCategoryTypes(ToDo toDo) const;
+
   typedef vector<MwmInfo> MWMVectorT;
   typedef vector<vector<uint32_t> > OffsetsVectorT;
   typedef feature::DataHeader FHeaderT;
@@ -208,7 +211,6 @@ private:
 
   void SuggestStrings(Results & res);
   void MatchForSuggestionsImpl(strings::UniString const & token, int8_t locale, string const & prolog, Results & res);
-  void MatchForSuggestions(strings::UniString const & token, Results & res);
 
   void GetBestMatchName(FeatureType const & f, string & name) const;
 

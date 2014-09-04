@@ -37,7 +37,7 @@ public:
 private:
   typedef strings::UniString StringT;
   typedef multimap<uint32_t, shared_ptr<Category> > Type2CategoryContT;
-  typedef multimap<StringT, uint32_t> Name2CatContT;
+  typedef multimap<pair<int8_t, StringT>, uint32_t> Name2CatContT;
   typedef Type2CategoryContT::const_iterator IteratorT;
 
   Type2CategoryContT m_type2cat;
@@ -66,11 +66,11 @@ public:
   }
 
   template <class ToDo>
-  void ForEachTypeByName(StringT const & name, ToDo toDo) const
+  void ForEachTypeByName(int8_t locale, StringT const & name, ToDo toDo) const
   {
     typedef typename Name2CatContT::const_iterator IterT;
 
-    pair<IterT, IterT> range = m_name2type.equal_range(name);
+    pair<IterT, IterT> range = m_name2type.equal_range(make_pair(locale, name));
     while (range.first != range.second)
     {
       toDo(range.first->second);

@@ -333,6 +333,44 @@ void Query::ClearQueues()
     m_results[i].clear();
 }
 
+int Query::GetCategoryLocales(int8_t (&arr) [3]) const
+{
+  static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
+
+  // Prepare array of processing locales. English locale is always present for category matching.
+  int count = 0;
+  if (m_currentLocaleCode != -1)
+    arr[count++] = m_currentLocaleCode;
+  if (m_inputLocaleCode != -1 && m_inputLocaleCode != m_currentLocaleCode)
+    arr[count++] = m_inputLocaleCode;
+  if (enLocaleCode != m_currentLocaleCode && enLocaleCode != m_inputLocaleCode)
+    arr[count++] = enLocaleCode;
+
+  return count;
+}
+
+template <class ToDo> void Query::ForEachCategoryTypes(ToDo toDo) const
+{
+  if (m_pCategories)
+  {
+    int8_t arrLocales[3];
+    int const localesCount = GetCategoryLocales(arrLocales);
+
+    size_t const tokensCount = m_tokens.size();
+    for (size_t i = 0; i < tokensCount; ++i)
+    {
+      for (int j = 0; j < localesCount; ++j)
+        m_pCategories->ForEachTypeByName(arrLocales[j], m_tokens[i], bind<void>(toDo, i, _1));
+    }
+
+    if (!m_prefix.empty())
+    {
+      for (int j = 0; j < localesCount; ++j)
+        m_pCategories->ForEachTypeByName(arrLocales[j], m_prefix, bind<void>(toDo, tokensCount, _1));
+    }
+  }
+}
+
 void Query::SetQuery(string const & query)
 {
   m_query = &query;
@@ -386,14 +424,10 @@ void Query::SetQuery(string const & query)
 
   // get preffered types to show in results
   m_prefferedTypes.clear();
-  if (m_pCategories)
+  ForEachCategoryTypes([&] (size_t, uint32_t t)
   {
-    for (size_t i = 0; i < m_tokens.size(); ++i)
-      m_pCategories->ForEachTypeByName(m_tokens[i], MakeInsertFunctor(m_prefferedTypes));
-
-    if (!m_prefix.empty())
-      m_pCategories->ForEachTypeByName(m_prefix, MakeInsertFunctor(m_prefferedTypes));
-  }
+    m_prefferedTypes.insert(t);
+  });
 }
 
 void Query::SearchCoordinates(string const & query, Results & res) const
@@ -409,6 +443,7 @@ void Query::SearchCoordinates(string const & query, Results & res) const
 void Query::Search(Results & res, size_t resCount)
 {
   if (m_cancel) return;
+
   if (m_tokens.empty())
     SuggestStrings(res);
 
@@ -1066,15 +1101,7 @@ public:
 
 namespace
 {
-  typedef vector<strings::UniString> TokensVectorT;
-
-  class DoInsertTypeNames
-  {
-    Classificator const & m_c;
-    TokensVectorT & m_tokens;
-    bool m_supportOldFormat;
-
-    static int GetOldTypeFromIndex(size_t index)
+    int GetOldTypeFromIndex(size_t index)
     {
       // "building" has old type value = 70
       ASSERT_NOT_EQUAL(index, 70, ());
@@ -1220,31 +1247,7 @@ namespace
       }
       return -1;
     }
-
-  public:
-    DoInsertTypeNames(TokensVectorT & tokens, bool supportOldFormat)
-      : m_c(classif()), m_tokens(tokens), m_supportOldFormat(supportOldFormat)
-    {
-    }
-    void operator() (uint32_t t)
-    {
-      uint32_t const index = m_c.GetIndexForType(t);
-      m_tokens.push_back(FeatureTypeToString(index));
-
-      // v2-version MWM has raw classificator types in search index prefix, so
-      // do the hack: add synonyms for old convention if needed.
-      if (m_supportOldFormat)
-      {
-        int const type = GetOldTypeFromIndex(index);
-        if (type >= 0)
-        {
-          ASSERT ( type == 70 || type > 4000, (type));
-          m_tokens.push_back(FeatureTypeToString(static_cast<uint32_t>(type)));
-        }
-      }
-    }
-  };
-}  // namespace search::impl
+}
 
 Query::Params::Params(Query const & q, bool isLocalities/* = false*/)
 {
@@ -1259,13 +1262,28 @@ Query::Params::Params(Query const & q, bool isLocalities/* = false*/)
     m_tokens[i].push_back(q.m_tokens[i]);
 
   // Add names of categories (and synonyms).
-  if (q.m_pCategories && !isLocalities)
+  if (!isLocalities)
   {
-    for (size_t i = 0; i < tokensCount; ++i)
-      q.m_pCategories->ForEachTypeByName(q.m_tokens[i], DoInsertTypeNames(m_tokens[i], q.m_supportOldFormat));
+    Classificator const & cl = classif();
+    q.ForEachCategoryTypes([&] (size_t i, uint32_t t)
+    {
+      TokensVectorT & v = (i < tokensCount ? m_tokens[i] : m_prefixTokens);
 
-    if (!q.m_prefix.empty())
-      q.m_pCategories->ForEachTypeByName(q.m_prefix, DoInsertTypeNames(m_prefixTokens, q.m_supportOldFormat));
+      uint32_t const index = cl.GetIndexForType(t);
+      v.push_back(FeatureTypeToString(index));
+
+      // v2-version MWM has raw classificator types in search index prefix, so
+      // do the hack: add synonyms for old convention if needed.
+      if (q.m_supportOldFormat)
+      {
+        int const type = GetOldTypeFromIndex(index);
+        if (type >= 0)
+        {
+          ASSERT ( type == 70 || type > 4000, (type));
+          v.push_back(FeatureTypeToString(static_cast<uint32_t>(type)));
+        }
+      }
+    });
   }
 
   FillLanguages(q);
@@ -2107,8 +2125,14 @@ void Query::SuggestStrings(Results & res)
 {
   if (m_pStringsToSuggest && !m_prefix.empty())
   {
-    // Match prefix.
-    MatchForSuggestions(m_prefix, res);
+    int8_t arrLocales[3];
+    int const localesCount = GetCategoryLocales(arrLocales);
+
+    string prolog;
+    RemoveStringPrefix(*m_query, prolog);
+
+    for (int i = 0; i < localesCount; ++i)
+      MatchForSuggestionsImpl(m_prefix, arrLocales[i], prolog, res);
   }
 }
 
@@ -2129,25 +2153,6 @@ void Query::MatchForSuggestionsImpl(strings::UniString const & token, int8_t loc
       res.AddResultCheckExisting(r);
     }
   }
-}
-
-void Query::MatchForSuggestions(strings::UniString const & token, Results & res)
-{
-  string prolog;
-  RemoveStringPrefix(*m_query, prolog);
-
-  static int8_t const enLocaleCode = CategoriesHolder::MapLocaleToInteger("en");
-
-  size_t const oldCount = res.GetCount();
-
-  // Advise suggests in input and current language.
-  MatchForSuggestionsImpl(token, m_inputLocaleCode, prolog, res);
-  if (m_inputLocaleCode != m_currentLocaleCode)
-    MatchForSuggestionsImpl(token, m_currentLocaleCode, prolog, res);
-
-  // Advise suggests in English if empty.
-  if (oldCount == res.GetCount() && enLocaleCode != m_inputLocaleCode && enLocaleCode != m_currentLocaleCode)
-    MatchForSuggestionsImpl(token, enLocaleCode, prolog, res);
 }
 
 m2::RectD const & Query::GetViewport(ViewportID vID /*= DEFAULT_V*/) const
