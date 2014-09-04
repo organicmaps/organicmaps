@@ -19,6 +19,7 @@ import android.os.Environment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -1405,6 +1406,17 @@ public class MWMActivity extends NvEventQueueActivity
       return true;
     }
     return super.onTouch(view, event);
+  }
+
+  @Override
+  public boolean onKeyUp(int keyCode, KeyEvent event)
+  {
+    if (keyCode == KeyEvent.KEYCODE_MENU)
+    {
+      setVerticalToolbarVisible(true);
+      return true;
+    }
+    return super.onKeyUp(keyCode, event);
   }
 
   @Override
