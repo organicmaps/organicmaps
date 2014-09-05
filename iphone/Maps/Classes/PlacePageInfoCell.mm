@@ -115,8 +115,9 @@
   BOOL const shouldShowLocationViews = [[MapsAppDelegate theApp].m_locationManager enabledOnMap] && !self.myPositionMode;
   if (shouldShowLocationViews)
   {
-    self.compassView.origin = CGPointMake(15, 12.5);
-    self.compassView.hidden = NO;
+    BOOL const headingAvailable = [CLLocationManager headingAvailable];
+    self.compassView.origin = CGPointMake(15 - (headingAvailable ? 0 : self.compassView.width + 17), 12.5);
+    self.compassView.hidden = !headingAvailable;
 
     CGFloat const width = 134;
     self.distanceLabel.frame = CGRectMake(self.compassView.maxX + 15, 13, width, 20);
