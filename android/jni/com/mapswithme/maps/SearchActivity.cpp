@@ -36,27 +36,31 @@ class SearchAdapter
       return;
     }
 
-    threads::MutexGuard guard(m_updateMutex);
-
-    if (m_activity == 0)
+    // IMPORTANT! mutex must be unlocked before updateData Java call at the bottom of the method, so that consecutive usage of native methods
+    // from java didnt cause deadlocks. so MutexGuard creation & usage should be wrapped by braces.
     {
-      // In case when activity is destroyed, but search thread passed any results.
-      return;
-    }
+      threads::MutexGuard guard(m_updateMutex);
 
-    // store current results
-    m_storeResults = res;
+      if (m_activity == 0)
+      {
+        // In case when activity is destroyed, but search thread passed any results.
+        return;
+      }
 
-    if (m_storeID >= queryID && m_storeID < queryID + QUERY_STEP)
-    {
-      ++m_storeID;
-      // not more than QUERY_STEP results per query
-      ASSERT_LESS ( m_storeID, queryID + QUERY_STEP, () );
-    }
-    else
-    {
-      ASSERT_LESS ( m_storeID, queryID, () );
-      m_storeID = queryID;
+      // store current results
+      m_storeResults = res;
+
+      if (m_storeID >= queryID && m_storeID < queryID + QUERY_STEP)
+      {
+        ++m_storeID;
+        // not more than QUERY_STEP results per query
+        ASSERT_LESS ( m_storeID, queryID + QUERY_STEP, () );
+      }
+      else
+      {
+        ASSERT_LESS ( m_storeID, queryID, () );
+        m_storeID = queryID;
+      }
     }
 
     // get new environment pointer here because of different thread

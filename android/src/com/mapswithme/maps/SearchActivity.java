@@ -222,14 +222,11 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
 
     private boolean doShowSearchOnMapButton()
     {
-      if (mCount == 0 ||
-          (mContext.getResult(0, mResultID) != null &&
-              mContext.getResult(0, mResultID).mType != SearchResult.TYPE_SUGGESTION))
-      {
+      if (mCount == 0)
         return true;
-      }
 
-      return false;
+      final SearchResult result = mContext.getResult(0, mResultID);
+      return result != null && result.mType != SearchResult.TYPE_SUGGESTION;
     }
 
     public int getPositionInResults(int position)
