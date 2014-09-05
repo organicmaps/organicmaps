@@ -114,6 +114,7 @@ public class MWMActivity extends NvEventQueueActivity
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
 
   // ads in vertical toolbar
+  private static final String MENU_ADS_ENABLED = "MenuLinksEnabled";
   private BroadcastReceiver mUpdateAdsReceiver = new BroadcastReceiver()
   {
     @Override
@@ -798,7 +799,7 @@ public class MWMActivity extends NvEventQueueActivity
   private void updateToolbarAds()
   {
     final List<MenuAd> ads = AdsManager.getMenuAds();
-    if (ads != null && !mAreToolbarAdsUpdated)
+    if (ads != null && !mAreToolbarAdsUpdated && MWMApplication.get().nativeGetBoolean(MENU_ADS_ENABLED, true))
     {
       mAreToolbarAdsUpdated = true;
       int startAdMenuPosition = 7;
