@@ -413,5 +413,5 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">指南针校准</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">无线网络</string>
+	<string name="wifi">无线网络/互联网</string>
 </resources>

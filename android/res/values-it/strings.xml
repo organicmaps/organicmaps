@@ -394,5 +394,5 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Calibrazione del compasso</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">Wi-Fi</string>
+	<string name="wifi">Wi-Fi/Internet</string>
 </resources>

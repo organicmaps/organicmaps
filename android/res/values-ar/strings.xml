@@ -411,5 +411,5 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">معايرة البوصلة</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">واي فاي</string>
+	<string name="wifi">واي فاي/الإنترنت</string>
 </resources>

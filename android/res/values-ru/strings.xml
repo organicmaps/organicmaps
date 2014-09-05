@@ -408,5 +408,5 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Калибровка компаса</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">Wi-Fi</string>
+	<string name="wifi">Wi-Fi/Интернет</string>
 </resources>

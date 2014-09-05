@@ -394,5 +394,5 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">コンパスの調整</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">無線LAN</string>
+	<string name="wifi">無線LAN/インターネット</string>
 </resources>

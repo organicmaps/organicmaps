@@ -112,5 +112,5 @@
 	<!-- Show on first launch -->
 	<text id="IDS_DISAGREE">Nesouhlasím</text>
 	<!-- Search Suggestion -->
-	<text id="IDS_WIFI">Wi-Fi</text>
+	<text id="IDS_WIFI">Wi-Fi/Internet</text>
 </string_table>

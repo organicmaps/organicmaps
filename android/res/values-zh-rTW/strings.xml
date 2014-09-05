@@ -388,5 +388,5 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">指南針校準</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">無線網絡</string>
+	<string name="wifi">無線網絡/互聯網</string>
 </resources>

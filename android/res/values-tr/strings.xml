@@ -411,5 +411,5 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Pusula kalibrasyonu</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">Wi-Fi</string>
+	<string name="wifi">Wi-Fi/İnternet</string>
 </resources>

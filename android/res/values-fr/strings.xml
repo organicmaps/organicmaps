@@ -418,5 +418,5 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Étalonnage de la boussole</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">Wi-Fi</string>
+	<string name="wifi">Wi-Fi/Internet</string>
 </resources>
