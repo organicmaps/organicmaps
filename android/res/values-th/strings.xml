@@ -409,5 +409,5 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">การปรับเทียบเข็มทิศ</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">Wi-Fi/อินเทอร์เน็ต</string>
+	<string name="wifi">WiFi/อินเทอร์เน็ต</string>
 </resources>

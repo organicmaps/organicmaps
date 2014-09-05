@@ -414,5 +414,5 @@
 	<!-- Settings item title -->
 	<string name="pref_calibration_title">Kalibrace kompasu</string>
 	<!-- Search Suggestion -->
-	<string name="wifi">Wi-Fi/Internet</string>
+	<string name="wifi">WiFi/Internet</string>
 </resources>
