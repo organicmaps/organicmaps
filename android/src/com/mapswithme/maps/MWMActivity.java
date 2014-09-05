@@ -107,6 +107,7 @@ public class MWMActivity extends NvEventQueueActivity
   private ViewGroup mVerticalToolbar;
   private ViewGroup mToolbar;
   private Animation mVerticalToolbarAnimation;
+  private static final float FADE_VIEW_ALPHA = 0.5f;
   private View mFadeView;
 
   private static final String IS_KML_MOVED = "KmlBeenMoved";
@@ -467,6 +468,16 @@ public class MWMActivity extends NvEventQueueActivity
   {
     super.onConfigurationChanged(newConfig);
     alignControls();
+
+    // alpha from animation is lost on some devices after configuration changes.
+    // we should restore it manually.
+    if (mFadeView != null && mFadeView.getVisibility() == View.VISIBLE)
+    {
+      Animation alphaAnimation = new AlphaAnimation(FADE_VIEW_ALPHA, FADE_VIEW_ALPHA);
+      alphaAnimation.setFillAfter(true);
+      alphaAnimation.setDuration(0);
+      mFadeView.startAnimation(alphaAnimation);
+    }
   }
 
   private void showDialogImpl(final int dlgID, int resMsg, DialogInterface.OnClickListener okListener)
@@ -645,7 +656,7 @@ public class MWMActivity extends NvEventQueueActivity
       fromY = 1;
       toY = 0;
       fromAlpha = 0.0f;
-      toAlpha = 0.5f;
+      toAlpha = FADE_VIEW_ALPHA;
 
       listener = new UiUtils.SimpleAnimationListener()
       {
@@ -658,7 +669,6 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void onAnimationEnd(Animation animation)
         {
-          mFadeView.setVisibility(View.GONE);
           mVerticalToolbarAnimation = null;
         }
       };
@@ -667,7 +677,7 @@ public class MWMActivity extends NvEventQueueActivity
     {
       fromY = 0;
       toY = 1;
-      fromAlpha = 0.5f;
+      fromAlpha = FADE_VIEW_ALPHA;
       toAlpha = 0.0f;
 
       listener = new UiUtils.SimpleAnimationListener()
