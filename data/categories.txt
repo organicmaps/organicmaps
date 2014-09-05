@@ -2675,24 +2675,24 @@ da:ocean
 tr:okyanus
 
 internet_access|internet_access-wlan
-en:Wi-Fi|wifi|Internet
-cs:Wi-Fi|wifi|Internet
-sk:Wi-Fi|wifi|Internet
-de:Wi-Fi|wifi|Internet
-es:Wi-Fi|wifi|Internet
-fr:Wi-Fi|wifi|Internet
-it:Wi-Fi|wifi|Internet
-ja:無線LAN|インターネット|Wi-Fi|wifi|Internet
-ko:Wi-Fi 인터넷|인터넷|wifi|Internet
-nl:Wi-Fi|wifi|Internet
-ru:Wi-Fi|Интернет|вайфай|wifi|Internet
-uk:Wi-Fi|Інтернет|wifi|Internet
-zh-Hant:無線網絡|互聯網|Wi-Fi|wifi|Internet
-pl:Wi-Fi|wifi|Internet
-pt:Wi-Fi|wifi|Internet
-hu:Wi-Fi|wifi|Internet
-th:Wi-Fi|อินเทอร์เน็ต|wifi|Internet
-zh-Hans:无线网络|互联网|Wi-Fi|wifi|Internet
-ar:واي فاي|الإنترنت|Wi-Fi|wifi|Internet
-da:Wi-Fi|wifi|Internet
-tr:Wi-Fi|wifi|Internet
+en:Wi-Fi|wifi|3Internet
+cs:Wi-Fi|wifi|3Internet
+sk:Wi-Fi|wifi|3Internet
+de:Wi-Fi|wifi|3Internet
+es:Wi-Fi|wifi|3Internet
+fr:Wi-Fi|wifi|3Internet
+it:Wi-Fi|wifi|3Internet
+ja:無線LAN|3インターネット|Wi-Fi|wifi|3Internet
+ko:Wi-Fi 인터넷|3인터넷|wifi|3Internet
+nl:Wi-Fi|wifi|3Internet
+ru:Wi-Fi|3Интернет|вайфай|wifi|Internet
+uk:Wi-Fi|3Інтернет|wifi|Internet
+zh-Hant:無線網絡|3互聯網|Wi-Fi|wifi|3Internet
+pl:Wi-Fi|wifi|3Internet
+pt:Wi-Fi|wifi|3Internet
+hu:Wi-Fi|wifi|3Internet
+th:Wi-Fi|3อินเทอร์เน็ต|wifi|3Internet
+zh-Hans:无线网络|3互联网|Wi-Fi|wifi|3Internet
+ar:واي فاي|الإنترنت|Wi-Fi|wifi|3Internet
+da:Wi-Fi|wifi|3Internet
+tr:Wi-Fi|wifi|3Internet
