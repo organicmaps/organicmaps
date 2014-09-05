@@ -217,6 +217,7 @@ __weak SearchView * selfPointer;
   {
     [self.searchBar.textField resignFirstResponder];
     [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{
+      self.alpha = 1;
       self.searchBar.cancelButton.alpha = 0;
       self.searchBar.alpha = 1;
       self.topBackgroundView.minY = 0;
@@ -252,6 +253,9 @@ __weak SearchView * selfPointer;
   }
   else if (state == SearchViewStateAlpha)
   {
+    [UIView animateWithDuration:duration delay:0.1 damping:damping initialVelocity:0 options:options animations:^{
+      self.alpha = 0;
+    } completion:nil];
     [self.searchBar.textField resignFirstResponder];
   }
   if (withCallback)
