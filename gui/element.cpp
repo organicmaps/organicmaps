@@ -86,7 +86,7 @@ namespace gui
 
   void Element::draw(graphics::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
   {
-    for (unsigned i = 0; i < boundRects().size(); ++i)
+    for (size_t i = 0; i < boundRects().size(); ++i)
       r->drawRectangle(boundRects()[i], color(state()), depth());
   }
 

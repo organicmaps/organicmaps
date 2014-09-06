@@ -2,11 +2,9 @@
 
 #include "../gui/element.hpp"
 
-#include "../platform/location.hpp"
-
 #include "../geometry/point2d.hpp"
-#include "../geometry/screenbase.hpp"
 
+#include "../std/function.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/unique_ptr.hpp"
 #include "../std/map.hpp"
@@ -77,7 +75,7 @@ namespace location
     ELocationProcessMode m_locationProcessMode;
     ECompassProcessMode m_compassProcessMode;
 
-    typedef gui::Element base_t;
+    typedef gui::Element BaseT;
 
     graphics::Color m_locationAreaColor;
 
@@ -106,7 +104,7 @@ namespace location
     void FollowCompass();
 
   public:
-    struct Params : base_t::Params
+    struct Params : BaseT::Params
     {
       graphics::Color m_locationAreaColor;
       Framework * m_framework;
@@ -155,12 +153,12 @@ namespace location
     void OnCompassUpdate(location::CompassInfo const & info);
     //@}
 
-    /// graphics::OverlayElement and gui::Element related methods
-    // @{
+    /// @name Override from graphics::OverlayElement and gui::Element.
+    //@{
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     bool roughHitTest(m2::PointD const & pt) const;
     bool hitTest(m2::PointD const & pt) const;
-    /// @}
+    //@}
   };
 }

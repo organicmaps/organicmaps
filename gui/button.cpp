@@ -1,9 +1,12 @@
 #include "button.hpp"
 #include "controller.hpp"
+#include "text_view.hpp"
 
 #include "../graphics/screen.hpp"
+#include "../graphics/display_list.hpp"
 
 #include "../geometry/transformations.hpp"
+
 
 namespace gui
 {
@@ -112,15 +115,15 @@ namespace gui
 
     cs->beginFrame();
 
-    shared_ptr<graphics::DisplayList> & dl = m_dls[state];
+    unique_ptr<graphics::DisplayList> & dl = m_dls[state];
 
     dl.reset();
     dl.reset(cs->createDisplayList());
 
     cs->setDisplayList(dl.get());
 
-    double k = visualScale();
-    m2::RectD rr = roughBoundRect();
+    double const k = visualScale();
+    m2::RectD const rr = roughBoundRect();
 
     cs->drawRoundedRectangle(m2::RectD(-rr.SizeX() / 2,
                                        -rr.SizeY() / 2,
@@ -192,16 +195,9 @@ namespace gui
 
     checkDirtyLayout();
 
-    math::Matrix<double, 3, 3> drawM = math::Shift(math::Identity<double, 3>(),
-                                                   pivot());
+    math::Matrix<double, 3, 3> const drawM = math::Shift(math::Identity<double, 3>(), pivot());
 
-    map<EState, shared_ptr<graphics::DisplayList> >::const_iterator it;
-    it = m_dls.find(state());
-
-    if (it != m_dls.end())
-      r->drawDisplayList(it->second.get(), drawM * m);
-    else
-      LOG(LDEBUG/*LWARNING*/, ("m_dls[state] is not set!"));
+    r->drawDisplayList(m_dls.at(state()).get(), drawM * m);
 
     m_textView->draw(r, m);
   }
@@ -224,4 +220,3 @@ namespace gui
     Element::setColor(state, c);
   }
 }
-

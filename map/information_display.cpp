@@ -3,29 +3,20 @@
 #include "country_status_display.hpp"
 #include "compass_arrow.hpp"
 #include "framework.hpp"
-
-#include "../indexer/mercator.hpp"
+#include "ruler.hpp"
 
 #include "../gui/controller.hpp"
 #include "../gui/button.hpp"
 #include "../gui/cached_text_view.hpp"
 
 #include "../graphics/defines.hpp"
-#include "../graphics/pen.hpp"
-#include "../graphics/straight_text_element.hpp"
 #include "../graphics/depth_constants.hpp"
-
-#include "../base/string_utils.hpp"
-#include "../base/logging.hpp"
-#include "../base/math.hpp"
-#include "../base/mutex.hpp"
-#include "../base/macros.hpp"
+#include "../graphics/display_list.hpp"
 
 #include "../geometry/transformations.hpp"
 
-#include "../std/fstream.hpp"
-#include "../std/iomanip.hpp"
-#include "../std/target_os.hpp"
+
+using namespace graphics;
 
 namespace
 {
@@ -37,10 +28,9 @@ namespace
 }
 
 InformationDisplay::InformationDisplay(Framework * fw)
-  : m_bottomShift(0),
-    m_visualScale(1)
+  : m_visualScale(1)
 {
-  m_fontDesc.m_color = graphics::Color(0x44, 0x44, 0x44, 0xFF);
+  m_fontDesc.m_color = Color(0x44, 0x44, 0x44, 0xFF);
 
   InitRuler(fw);
   InitCountryStatusDisplay(fw);
@@ -53,10 +43,11 @@ InformationDisplay::InformationDisplay(Framework * fw)
   enableMemoryWarning(false);
   enableBenchmarkInfo(false);
   enableCountryStatusDisplay(false);
+
   m_compassArrow->setIsVisible(false);
   m_ruler->setIsVisible(false);
 
-  for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
+  for (size_t i = 0; i < ARRAY_SIZE(m_DebugPts); ++i)
     m_DebugPts[i] = m2::PointD(0, 0);
 
   setVisualScale(m_visualScale);
@@ -66,8 +57,8 @@ void InformationDisplay::InitRuler(Framework * fw)
 {
   Ruler::Params p;
 
-  p.m_depth = graphics::rulerDepth;
-  p.m_position = graphics::EPosAboveLeft;
+  p.m_depth = rulerDepth;
+  p.m_position = EPosAboveLeft;
   p.m_framework = fw;
 
   m_ruler.reset(new Ruler(p));
@@ -78,8 +69,8 @@ void InformationDisplay::InitCountryStatusDisplay(Framework * fw)
   CountryStatusDisplay::Params p;
 
   p.m_pivot = m2::PointD(0, 0);
-  p.m_position = graphics::EPosCenter;
-  p.m_depth = graphics::countryStatusDepth;
+  p.m_position = EPosCenter;
+  p.m_depth = countryStatusDepth;
   p.m_storage = &fw->Storage();
 
   m_countryStatusDisplay.reset(new CountryStatusDisplay(p));
@@ -89,8 +80,8 @@ void InformationDisplay::InitCompassArrow(Framework * fw)
 {
   CompassArrow::Params p;
 
-  p.m_position = graphics::EPosCenter;
-  p.m_depth = graphics::compassDepth;
+  p.m_position = EPosCenter;
+  p.m_depth = compassDepth;
   p.m_pivot = m2::PointD(0, 0);
   p.m_framework = fw;
 
@@ -101,10 +92,10 @@ void InformationDisplay::InitLocationState(Framework * fw)
 {
   location::State::Params p;
 
-  p.m_position = graphics::EPosCenter;
-  p.m_depth = graphics::locationDepth;
+  p.m_position = EPosCenter;
+  p.m_depth = locationDepth;
   p.m_pivot = m2::PointD(0, 0);
-  p.m_locationAreaColor = graphics::Color(0x51, 0xA3, 0xDC, 0x46);
+  p.m_locationAreaColor = Color(0x51, 0xA3, 0xDC, 0x46);
   p.m_framework = fw;
 
   m_locationState.reset(new location::State(p));
@@ -114,14 +105,14 @@ void InformationDisplay::InitDebugLabel()
 {
   gui::CachedTextView::Params p;
 
-  p.m_depth = graphics::debugDepth;
-  p.m_position = graphics::EPosAboveRight;
+  p.m_depth = debugDepth;
+  p.m_position = EPosAboveRight;
   p.m_pivot = m2::PointD(0, 0);
 
   m_debugLabel.reset(new gui::CachedTextView(p));
 }
 
-void InformationDisplay::setController(gui::Controller *controller)
+void InformationDisplay::setController(gui::Controller * controller)
 {
   m_controller = controller;
   m_controller->AddElement(m_countryStatusDisplay);
@@ -131,44 +122,21 @@ void InformationDisplay::setController(gui::Controller *controller)
   m_controller->AddElement(m_debugLabel);
 }
 
-void InformationDisplay::setScreen(ScreenBase const & screen)
-{
-  m_screen = screen;
-
-  m2::RectD const & pxRect = m_screen.PixelRect();
-  if (m_countryStatusDisplay->isVisible())
-  {
-    m2::PointD pt = m2::PointD(pxRect.SizeX() / 2, pxRect.SizeY() / 2) - m2::PointD(0, m_bottomShift * m_visualScale);
-    m_countryStatusDisplay->setPivot(pt);
-  }
-
-  double k = m_controller->GetVisualScale();
-  m2::PointD size = m_compassArrow->GetPixelSize();
-
-  double compassX = COMPASS_X_OFFSET * k + size.x / 2.0;
-  double compassY = pxRect.maxY() - COMPASS_Y_OFFSET * k - size.y / 2.0;
-
-  m_compassArrow->setPivot(m2::PointD(compassX, compassY));
-}
-
-void InformationDisplay::setBottomShift(double bottomShift)
-{
-  m_bottomShift = bottomShift;
-}
-
 void InformationDisplay::setDisplayRect(m2::RectI const & rect)
 {
   m_displayRect = rect;
 
-  m2::PointD const pt(m2::PointD(m_displayRect.maxX() - RULLER_X_OFFSET * m_visualScale,
-                                 m_displayRect.maxY() - RULLER_Y_OFFSET * m_visualScale));
+  m_countryStatusDisplay->setPivot(m2::PointD(rect.Center()));
 
-  m_ruler->setPivot(pt);
+  m2::PointD const size = m_compassArrow->GetPixelSize();
+  m_compassArrow->setPivot(m2::PointD(COMPASS_X_OFFSET * m_visualScale + size.x / 2.0,
+                                      rect.maxY() - COMPASS_Y_OFFSET * m_visualScale - size.y / 2.0));
 
-  m2::PointD const debugLabelPivot(m_displayRect.minX() + 10,
-                                   m_displayRect.minY() + 50 + 5 * m_visualScale);
+  m_ruler->setPivot(m2::PointD(rect.maxX() - RULLER_X_OFFSET * m_visualScale,
+                               rect.maxY() - RULLER_Y_OFFSET * m_visualScale));
 
-  m_debugLabel->setPivot(debugLabelPivot);
+  m_debugLabel->setPivot(m2::PointD(rect.minX() + 10,
+                                    rect.minY() + 50 + 5 * m_visualScale));
 }
 
 void InformationDisplay::enableDebugPoints(bool doEnable)
@@ -183,11 +151,11 @@ void InformationDisplay::setDebugPoint(int pos, m2::PointD const & pt)
 
 void InformationDisplay::drawDebugPoints(Drawer * pDrawer)
 {
-  for (int i = 0; i < sizeof(m_DebugPts) / sizeof(m2::PointD); ++i)
+  for (size_t i = 0; i < ARRAY_SIZE(m_DebugPts); ++i)
     if (m_DebugPts[i] != m2::PointD(0, 0))
     {
-      pDrawer->screen()->drawArc(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::debugDepth);
-      pDrawer->screen()->fillSector(m_DebugPts[i], 0, math::pi * 2, 30, graphics::Color(0, 0, 255, 32), graphics::debugDepth);
+      pDrawer->screen()->drawArc(m_DebugPts[i], 0, math::pi * 2, 30, Color(0, 0, 255, 32), debugDepth);
+      pDrawer->screen()->fillSector(m_DebugPts[i], 0, math::pi * 2, 30, Color(0, 0, 255, 32), debugDepth);
     }
 }
 
@@ -221,11 +189,8 @@ void InformationDisplay::enableDebugInfo(bool doEnable)
 
 void InformationDisplay::setDebugInfo(double frameDuration, int currentScale)
 {
-  m_frameDuration = frameDuration;
-  m_currentScale = currentScale;
-
   ostringstream out;
-  out << "Scale : " << m_currentScale;
+  out << "Scale : " << currentScale;
 
   m_debugLabel->setText(out.str());
 }
@@ -251,21 +216,13 @@ void InformationDisplay::drawMemoryWarning(Drawer * drawer)
 
   drawer->screen()->drawText(m_fontDesc,
                              pos,
-                             graphics::EPosAboveRight,
+                             EPosAboveRight,
                              out.str(),
-                             graphics::debugDepth,
+                             debugDepth,
                              false);
 
   if (m_lastMemoryWarning.ElapsedSeconds() > 5)
     enableMemoryWarning(false);
-}
-
-void InformationDisplay::drawPlacemark(Drawer * pDrawer, string const & symbol, m2::PointD const & pt)
-{
-  pDrawer->screen()->drawDisplayList(m_controller
-                                       ->GetDisplayListCache()
-                                       ->FindSymbol(symbol.c_str()).get(),
-                                     math::Shift(math::Identity<double, 3>(), pt));
 }
 
 void InformationDisplay::enableCompassArrow(bool doEnable)
@@ -296,7 +253,7 @@ void InformationDisplay::setEmptyCountryIndex(storage::TIndex const & idx)
   m_countryStatusDisplay->setCountryIndex(idx);
 }
 
-void InformationDisplay::setDownloadListener(gui::Button::TOnClickListener l)
+void InformationDisplay::setDownloadListener(gui::Button::TOnClickListener const & l)
 {
   m_downloadButton->setOnClickListener(l);
 }
@@ -323,9 +280,9 @@ void InformationDisplay::drawBenchmarkInfo(Drawer * pDrawer)
   m2::PointD pos(m_displayRect.minX() + 10, m_displayRect.minY() + m_yOffset);
   pDrawer->screen()->drawText(m_fontDesc,
                               pos,
-                              graphics::EPosAboveRight,
+                              EPosAboveRight,
                               "benchmark info :",
-                              graphics::benchmarkDepth,
+                              benchmarkDepth,
                               false);
 
   size_t const count = m_benchmarkInfo.size();
@@ -343,9 +300,9 @@ void InformationDisplay::drawBenchmarkInfo(Drawer * pDrawer)
     pos.y += 20;
     pDrawer->screen()->drawText(m_fontDesc,
                                 pos,
-                                graphics::EPosAboveRight,
+                                EPosAboveRight,
                                 out.str(),
-                                graphics::benchmarkDepth,
+                                benchmarkDepth,
                                 false);
   }
 }
@@ -371,7 +328,7 @@ shared_ptr<location::State> const & InformationDisplay::locationState() const
   return m_locationState;
 }
 
-shared_ptr<Ruler> const & InformationDisplay::ruler() const
+void InformationDisplay::measurementSystemChanged()
 {
-  return m_ruler;
+  m_ruler->setIsDirtyLayout(true);
 }

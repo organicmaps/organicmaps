@@ -7,7 +7,6 @@
 
 #include "../platform/settings.hpp"
 
-#include "../gui/cached_text_view.hpp"
 #include "../gui/controller.hpp"
 
 #include "../graphics/glyph.hpp"
@@ -17,24 +16,28 @@
 #include "../graphics/uniforms_holder.hpp"
 
 #include "../indexer/mercator.hpp"
+
 #include "../geometry/distance_on_sphere.hpp"
 #include "../geometry/transformations.hpp"
 
-#include "../base/logging.hpp"
 #include "../base/string_utils.hpp"
-#include "../base/macros.hpp"
+
+
+using namespace graphics;
 
 namespace
 {
-  static const float RulerHeight = 2.0;
-  static const int32_t MinPixelWidth = 60;
-  static const int32_t MinMetersWidth = 10;
-  static const int32_t MaxMetersWidth = 1000000;
-  static const int32_t CacheLength = 500;
+  static const int RulerHeight = 2;
+  static const int MinPixelWidth = 60;
+  static const int MinMetersWidth = 10;
+  static const int MaxMetersWidth = 1000000;
+  static const int CacheLength = 500;
 
-  static const int32_t MinUnitValue = -1;
-  static const int32_t MaxUnitValue = numeric_limits<int32_t>::max() - 1;
-  static const int32_t InvalidUnitValue = MaxUnitValue + 1;
+  static const int MinUnitValue = -1;
+  static const int MaxUnitValue = numeric_limits<int>::max() - 1;
+  static const int InvalidUnitValue = MaxUnitValue + 1;
+
+  static const int TextOffsetFromRuler = 3;
 
   struct UnitValue
   {
@@ -119,15 +122,14 @@ Ruler::RulerFrame::RulerFrame(Framework & f, const Ruler::RulerFrame::frame_end_
 
 
 Ruler::RulerFrame::RulerFrame(const Ruler::RulerFrame & other, const Ruler::RulerFrame::frame_end_fn & fn)
-  : m_f(other.m_f)
+  : m_f(other.m_f), m_dl(other.m_dl), m_textDL(other.m_textDL)
 {
-  m_dl = other.m_dl;
-  m_textDL = other.m_textDL;
   m_textLengthInPx = other.m_textLengthInPx;
   m_scale = other.m_scale;
   m_depth = other.m_depth;
   m_orgPt = other.m_orgPt;
   m_callback = fn;
+
   HideAnimate(false);
 }
 
@@ -147,121 +149,32 @@ bool Ruler::RulerFrame::IsValid() const
   return m_dl != NULL && m_textDL != NULL;
 }
 
-void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
+void Ruler::RulerFrame::Cache(const string & text, FontDesc const & f)
 {
   gui::Controller * controller = m_f.GetGuiController();
-  graphics::Screen * cs = controller->GetCacheScreen();
-  double k = m_f.GetVisualScale();
+  Screen * cs = controller->GetCacheScreen();
+  double const k = m_f.GetVisualScale();
+
+  // Create solid line DL.
   if (m_dl == NULL)
   {
     m_dl.reset(cs->createDisplayList());
 
     cs->beginFrame();
-
     cs->setDisplayList(m_dl.get());
-
     cs->applyVarAlfaStates();
-
-//    double halfLength = CacheLength / 2.0;
-
-//    graphics::GlyphKey key(strings::LastUniChar("0"), f.m_size, f.m_isMasked, f.m_color);
-//    graphics::Glyph::Info glyphInfo(key, controller->GetGlyphCache());
-//    uint32_t zeroMarkGlyph = cs->mapInfo(glyphInfo);
-//    graphics::Resource const * glyphRes = cs->fromID(zeroMarkGlyph);
-
-//    m2::RectI glyphRect(glyphRes->m_texRect);
-//    double glyphHalfW = glyphRect.SizeX() / 2.0;
-//    double glyphHalfH = glyphRect.SizeY() / 2.0;
-//    double zeroMarkOffset = (glyphHalfH + 2) + 5 * k;
-
-    graphics::Brush::Info brushInfo(graphics::Color(0, 0, 0, 0x99));
-    uint32_t brushId = cs->mapInfo(brushInfo);
-    graphics::Resource const * brushRes = cs->fromID(brushId);
-    m2::RectU brushRect = brushRes->m_texRect;
-
-    //shared_ptr<graphics::gl::BaseTexture> glyphTexture = cs->pipeline(glyphRes->m_pipelineID).texture();
-    m2::PointF brushCenter = cs->pipeline(brushRes->m_pipelineID).texture()->mapPixel(brushRect.Center());
-
-    //  0  1     10  11        18  17
-    //   --        --            --
-    //   ||        ||            ||
-    //   || 3, 6  9||8, 12     16||14
-    //  2|---------  -------------|
-    //   |                        |
-    //   |                        |
-    //  4--------------------------
-    //    5         7, 13         15
 
     m2::PointD coords[] =
     {
-    //      Zero mark geometry
-    /*-4*/  //m2::PointD(0.0, -zeroMarkOffset),
-    /*-3*/  //m2::PointD(0.0, -zeroMarkOffset),
-    /*-2*/  //m2::PointD(0.0, -zeroMarkOffset),
-    /*-1*/  //m2::PointD(0.0, -zeroMarkOffset),
-    //      Ruler geometry
-    /* 0*/  //m2::PointD(0.0, -5.0 * k),
-    /* 1*/  //m2::PointD(0.0, -5.0 * k),
-    /* 2*/  //m2::PointD(0.0, -3.0 * k),
     /* 3*/  m2::PointD(0.0, -RulerHeight * k),
     /* 4*/  m2::PointD(0.0,  0.0),
-    /* 5*/  //m2::PointD(0.0,  0.0),
-    /* 6*/  //m2::PointD(0.0, -3.0 * k),
-    /* 7*/  //m2::PointD(halfLength - 0.5,  0.0),
-    /* 8*/  //m2::PointD(halfLength - 0.5, -3.0 * k),
-    /* 9*/  //m2::PointD(halfLength - 0.5, -3.0 * k),
-    /*10*/  //m2::PointD(halfLength - 0.5, -7.0 * k),
-    /*11*/  //m2::PointD(halfLength - 0.5, -7.0 * k),
-    /*12*/  //m2::PointD(halfLength - 0.5, -3.0 * k),
-    /*13*/  //m2::PointD(halfLength - 0.5,  0.0 * k),
     /*14*/  m2::PointD(CacheLength, -RulerHeight * k),
     /*15*/  m2::PointD(CacheLength,  0.0 * k),
-    /*16*/  //m2::PointD(CacheLength, -3.0 * k),
-    /*17*/  //m2::PointD(CacheLength, -5.0 * k),
-    /*18*/  //m2::PointD(CacheLength, -5.0 * k)
     };
 
-    //m2::PointF normals[] =
-    //{
-    //      Zero mark normals
-    /*-4*/  //m2::PointF(-glyphHalfW + 1, -glyphHalfH),
-    /*-3*/  //m2::PointF(-glyphHalfW + 1,  glyphHalfH),
-    /*-2*/  //m2::PointF( glyphHalfW + 1, -glyphHalfH),
-    /*-1*/  //m2::PointF( glyphHalfW + 1,  glyphHalfH),
-    //      Ruler normals
-    /* 0*/  //m2::PointF( 0.0     , 0.0),
-    /* 1*/  //m2::PointF( 1.0 * k , 0.0),
-    /* 2*/  //m2::PointF( 0.0     , 0.0),
-    /* 3*/  //m2::PointF( 1.0 * k , 0.0),
-    /* 4*/  //m2::PointF( 0.0     , 0.0),
-    /* 5*/  //m2::PointF( 1.0 * k , 0.0),
-    /* 6*/  //m2::PointF( 1.0 * k , 0.0),
-    /* 7*/  //m2::PointF( 1.0 * k , 0.0),
-    /* 8*/  //m2::PointF( 1.0 * k , 0.0),
-    /* 9*/  //m2::PointF( 0.0     , 0.0),
-    /*10*/  //m2::PointF( 0.0     , 0.0),
-    /*11*/  //m2::PointF( 1.0 * k , 0.0),
-    /*12*/  //m2::PointF( 1.0 * k , 0.0),
-    /*13*/  //m2::PointF( 1.0 * k , 0.0),
-    /*14*/  //m2::PointF( 0.0     , 0.0),
-    /*15*/  //m2::PointF( 0.0     , 0.0),
-    /*16*/  //m2::PointF(-1.0 * k , 0.0),
-    /*17*/  //m2::PointF( 0.0     , 0.0),
-    /*18*/  //m2::PointF(-1.0 * k , 0.0)
-    //};
-
-    //vector<m2::PointF> texCoords(ARRAY_SIZE(coords), brushCenter);
-    //texCoords[0] = glyphTexture->mapPixel(m2::PointF(glyphRect.minX(), glyphRect.minY()));
-    //texCoords[1] = glyphTexture->mapPixel(m2::PointF(glyphRect.minX(), glyphRect.maxY()));
-    //texCoords[2] = glyphTexture->mapPixel(m2::PointF(glyphRect.maxX(), glyphRect.minY()));
-    //texCoords[3] = glyphTexture->mapPixel(m2::PointF(glyphRect.maxX(), glyphRect.maxY()));
-
-    //ASSERT(ARRAY_SIZE(coords) == ARRAY_SIZE(normals), ());
-
-//    cs->addTexturedStripStrided(coords, sizeof(m2::PointD),
-//                               normals, sizeof(m2::PointF),
-//                               &texCoords[0], sizeof(m2::PointF), 4,
-//                               m_depth, glyphRes->m_pipelineID);
+    Brush::Info const brushInfo(Color(0, 0, 0, 0x99));
+    Resource const * brushRes = cs->fromID(cs->mapInfo(brushInfo));
+    m2::PointF const brushCenter = cs->pipeline(brushRes->m_pipelineID).texture()->mapPixel(brushRes->m_texRect.Center());
 
     m2::PointF normal(0.0, 0.0);
     cs->addTexturedStripStrided(coords , sizeof(m2::PointD),
@@ -270,13 +183,11 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
                                m_depth, brushRes->m_pipelineID);
 
     cs->setDisplayList(0);
-
     cs->applyStates();
-
     cs->endFrame();
   }
 
-  // ============================================================ //
+  // Create text DL.
 
   ASSERT(!text.empty(), ());
 
@@ -290,14 +201,14 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
 
     strings::UniString uniString = strings::MakeUniString(text);
     size_t length = uniString.size();
-    buffer_vector<graphics::Glyph::Info, 8> infos(length, graphics::Glyph::Info());
-    buffer_vector<graphics::Resource::Info const *, 8> resInfos(length, NULL);
+    buffer_vector<Glyph::Info, 8> infos(length, Glyph::Info());
+    buffer_vector<Resource::Info const *, 8> resInfos(length, NULL);
     buffer_vector<uint32_t, 8> ids(length, 0);
-    buffer_vector<graphics::Resource const *, 8> glyphRes(length, NULL);
+    buffer_vector<Resource const *, 8> glyphRes(length, NULL);
 
     for (size_t i = 0; i < uniString.size(); ++i)
     {
-      infos[i] = graphics::Glyph::Info(graphics::GlyphKey(uniString[i], f.m_size, false, f.m_color),
+      infos[i] = Glyph::Info(GlyphKey(uniString[i], f.m_size, false, f.m_color),
                                        controller->GetGlyphCache());
 
       resInfos[i] = &infos[i];
@@ -307,12 +218,12 @@ void Ruler::RulerFrame::Cache(const string & text, graphics::FontDesc const & f)
     {
       for (size_t i = 0; i < ids.size(); ++i)
       {
-        graphics::Resource const * res = cs->fromID(ids[i]);
+        Resource const * res = cs->fromID(ids[i]);
         glyphRes[i] = res;
       }
 
       int32_t pipelineID = glyphRes[0]->m_pipelineID;
-      shared_ptr<graphics::gl::BaseTexture> texture = cs->pipeline(pipelineID).texture();
+      shared_ptr<gl::BaseTexture> texture = cs->pipeline(pipelineID).texture();
       double lengthFromStart = 0.0;
 
       buffer_vector<m2::PointF, 48> coords;
@@ -416,19 +327,19 @@ void Ruler::RulerFrame::HideAnimate(bool needPause)
   CreateAnim(1.0, 0.0, timeInterval, offset, false);
 }
 
-void Ruler::RulerFrame::Draw(graphics::OverlayRenderer * r, const math::Matrix<double, 3, 3> & m)
+void Ruler::RulerFrame::Draw(OverlayRenderer * r, const math::Matrix<double, 3, 3> & m)
 {
-  ASSERT(m_dl != NULL, ("Main display list is null"));
-  ASSERT(m_textDL != NULL, ("Text display list is null"));
-  graphics::UniformsHolder holder;
-  float a = GetCurrentAlfa();
-  holder.insertValue(graphics::ETransparency, a);
+  ASSERT(m_dl, ());
+  ASSERT(m_textDL, ());
+
+  UniformsHolder holder;
+  holder.insertValue(ETransparency, GetCurrentAlfa());
 
   r->drawDisplayList(m_dl.get(), math::Shift(
                            math::Scale(m, m2::PointD(m_scale, 1.0)),
                             m_orgPt), &holder);
 
-  double yOffset = -(2 + 3 * m_f.GetVisualScale());
+  double const yOffset = -(2 + TextOffsetFromRuler * m_f.GetVisualScale());
   r->drawDisplayList(m_textDL.get(),
                      math::Shift(m, m_orgPt + m2::PointF(CacheLength * m_scale - m_textLengthInPx, yOffset)),
                      &holder);
@@ -538,8 +449,6 @@ Ruler::Ruler(Params const & p)
     m_boundRects(1),
     m_currentRangeIndex(InvalidUnitValue),
     m_currSystem(0),
-    m_mainFrame(NULL),
-    m_animFrame(NULL),
     m_framework(p.m_framework)
 {
   setIsVisible(false);
@@ -604,10 +513,7 @@ void Ruler::UpdateText(const string & text)
     return;
 
   if (frame->IsValid())
-  {
-    delete m_animFrame;
-    m_animFrame = new RulerFrame(*frame, bind(&Ruler::AnimFrameAnimEnded, this, _1, _2));
-  }
+    m_animFrame.reset(new RulerFrame(*frame, bind(&Ruler::AnimFrameAnimEnded, this, _1, _2)));
 
   frame->Cache(text, font(EActive));
   if (isVisible())
@@ -622,42 +528,40 @@ void Ruler::MainFrameAnimEnded(bool isVisible, RulerFrame * frame)
 
 void Ruler::AnimFrameAnimEnded(bool /*isVisible*/, RulerFrame * frame)
 {
-  delete frame;
-  m_animFrame = NULL;
+  ASSERT_EQUAL(m_animFrame.get(), frame, ());
+  m_animFrame.reset();
 }
 
 Ruler::RulerFrame * Ruler::GetMainFrame()
 {
-  if (m_mainFrame == NULL)
-    m_mainFrame = new RulerFrame(*m_framework, bind(&Ruler::MainFrameAnimEnded, this, _1, _2), depth());
-
-  return m_mainFrame;
+  if (!m_mainFrame)
+    m_mainFrame.reset(new RulerFrame(*m_framework, bind(&Ruler::MainFrameAnimEnded, this, _1, _2), depth()));
+  return m_mainFrame.get();
 }
 
 Ruler::RulerFrame * Ruler::GetMainFrame() const
 {
-  ASSERT(m_mainFrame != NULL, ());
-  return m_mainFrame;
+  ASSERT(m_mainFrame, ());
+  return m_mainFrame.get();
 }
 
 void Ruler::purge()
 {
   m_currentRangeIndex = InvalidUnitValue;
-  delete m_mainFrame;
-  m_mainFrame = NULL;
 
-  delete m_animFrame;
-  m_animFrame = NULL;
+  m_mainFrame.reset();
+  m_animFrame.reset();
+
   setIsVisible(false);
 }
 
 void Ruler::update()
 {
-  double k = visualScale();
+  double const k = visualScale();
 
   ScreenBase const & screen = m_framework->GetNavigator().Screen();
 
-  int const rulerHeight = my::rounds(5 * k);
+  int const rulerHeight = my::rounds(RulerHeight * k);
   int const minPxWidth = my::rounds(MinPixelWidth * k);
 
   // pivot() here is the down right point of the ruler.
@@ -694,16 +598,16 @@ void Ruler::update()
 
   m2::PointD orgPt = pivot() + m2::PointD(-scalerWidthInPx / 2, rulerHeight / 2);
 
-  if (position() & graphics::EPosLeft)
+  if (position() & EPosLeft)
     orgPt.x -= scalerWidthInPx / 2;
 
-  if (position() & graphics::EPosRight)
+  if (position() & EPosRight)
     orgPt.x += scalerWidthInPx / 2;
 
-  if (position() & graphics::EPosAbove)
+  if (position() & EPosAbove)
     orgPt.y -= rulerHeight / 2;
 
-  if (position() & graphics::EPosUnder)
+  if (position() & EPosUnder)
     orgPt.y += rulerHeight / 2;
 
   RulerFrame * frame = GetMainFrame();
@@ -715,7 +619,7 @@ vector<m2::AnyRectD> const & Ruler::boundRects() const
 {
   if (isDirtyRect())
   {
-    graphics::FontDesc const & f = font(EActive);
+    FontDesc const & f = font(EActive);
     RulerFrame * frame = GetMainFrame();
     m2::PointD org = frame->GetOrgPoint();
     m2::PointD size = m2::PointD(CacheLength * frame->GetScale(), f.m_size * 2);
@@ -733,7 +637,7 @@ void Ruler::cache()
   update();
 }
 
-void Ruler::draw(graphics::OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const
+void Ruler::draw(OverlayRenderer * s, math::Matrix<double, 3, 3> const & m) const
 {
   if (isVisible())
   {
@@ -744,4 +648,9 @@ void Ruler::draw(graphics::OverlayRenderer * s, math::Matrix<double, 3, 3> const
     if (m_animFrame)
       m_animFrame->Draw(s, m);
   }
+}
+
+int Ruler::GetTextOffsetFromLine() const
+{
+  return TextOffsetFromRuler;
 }

@@ -4,10 +4,14 @@
 
 #include "../gui/element.hpp"
 #include "../gui/button.hpp"
-#include "../gui/text_view.hpp"
 
-#include "../std/shared_ptr.hpp"
+#include "../std/unique_ptr.hpp"
 
+
+namespace gui
+{
+  class TextView;
+}
 
 /// This class is a composite GUI element to display
 /// an on-screen GUI for the country, which is not downloaded yet.
@@ -29,9 +33,9 @@ private:
   void UpdateStatusAndProgress();
 
   /// download button
-  shared_ptr<gui::Button> m_downloadButton;
+  unique_ptr<gui::Button> m_downloadButton;
   /// country status message
-  shared_ptr<gui::TextView> m_statusMsg;
+  unique_ptr<gui::TextView> m_statusMsg;
   /// current map name, "Province" part of the fullName
   string m_mapName;
   /// current map group name, "Country" part of the fullName
@@ -45,13 +49,7 @@ private:
 
   bool m_notEnoughSpace;
 
-  /// bounding rects
   mutable vector<m2::AnyRectD> m_boundRects;
-
-  /// caching resources for fast rendering.
-  void cache();
-  void purge();
-  void layout();
 
   string const displayName() const;
 
@@ -75,20 +73,22 @@ public:
   void setDownloadListener(gui::Button::TOnClickListener const & l);
   /// set current country name
   void setCountryIndex(storage::TIndex const & idx);
-  /// reposition element
+
+  /// @name Override from graphics::OverlayElement and gui::Element.
+  //@{
   void setPivot(m2::PointD const & pv);
-  /// attach element to controller.
-  void setController(gui::Controller *controller);
-  /// render element
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-  /// get bounding rects
   vector<m2::AnyRectD> const & boundRects() const;
 
-  /// react on touch events
-  /// @{
+  void cache();
+  void purge();
+  void layout();
+
+  void setController(gui::Controller * controller);
+
   bool onTapStarted(m2::PointD const & pt);
   bool onTapMoved(m2::PointD const & pt);
   bool onTapEnded(m2::PointD const & pt);
   bool onTapCancelled(m2::PointD const & pt);
-  /// @}
+  //@}
 };

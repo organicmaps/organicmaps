@@ -2,14 +2,10 @@
 
 #include "../gui/element.hpp"
 
-#include "../geometry/screenbase.hpp"
-#include "../geometry/point2d.hpp"
-#include "../geometry/any_rect2d.hpp"
-
-#include "../graphics/display_list.hpp"
-
 #include "../std/shared_ptr.hpp"
-#include "../std/list.hpp"
+#include "../std/unique_ptr.hpp"
+#include "../std/function.hpp"
+
 
 namespace anim
 {
@@ -18,18 +14,16 @@ namespace anim
 
 namespace graphics
 {
+  class DisplayList;
+
   namespace gl
   {
     class OverlayRenderer;
   }
 }
 
-namespace gui
-{
-  class CachedTextView;
-}
-
 class Framework;
+
 
 class Ruler : public gui::Element
 {
@@ -73,8 +67,10 @@ class Ruler : public gui::Element
 
   private:
     Framework & m_f;
+
     shared_ptr<graphics::DisplayList> m_dl;
     shared_ptr<graphics::DisplayList> m_textDL;
+
     int m_textLengthInPx;
     double m_scale;
     double m_depth;
@@ -95,8 +91,9 @@ private:
 
   RulerFrame * GetMainFrame();
   RulerFrame * GetMainFrame() const;
-  RulerFrame * m_mainFrame;
-  RulerFrame * m_animFrame;
+
+  unique_ptr<RulerFrame> m_mainFrame;
+  unique_ptr<RulerFrame> m_animFrame;
 
   Framework * m_framework;
 
@@ -113,6 +110,8 @@ public:
   void AnimateShow();
   void AnimateHide();
 
+  /// @name Override from graphics::OverlayElement and gui::Element.
+  //@{
   vector<m2::AnyRectD> const & boundRects() const;
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
@@ -120,4 +119,7 @@ public:
   void layout();
   void cache();
   void purge();
+  //@}
+
+  int GetTextOffsetFromLine() const;
 };

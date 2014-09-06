@@ -18,8 +18,6 @@
 #include "move_screen_task.hpp"
 #include "track.hpp"
 
-#include "../defines.hpp"
-
 #include "../search/search_engine.hpp"
 
 #include "../routing/routing_engine.hpp"
@@ -35,7 +33,6 @@
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
 
-#include "../base/logging.hpp"
 #include "../base/strings_bundle.hpp"
 
 #include "../std/vector.hpp"

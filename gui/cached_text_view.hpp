@@ -2,16 +2,19 @@
 
 #include "element.hpp"
 
-#include "../std/map.hpp"
-#include "../std/vector.hpp"
-#include "../std/shared_ptr.hpp"
-
 #include "../base/string_utils.hpp"
 #include "../base/matrix.hpp"
 
-#include "../graphics/glyph_cache.hpp"
-#include "../graphics/display_list.hpp"
-#include "../graphics/glyph_layout.hpp"
+#include "../std/vector.hpp"
+#include "../std/shared_ptr.hpp"
+#include "../std/unique_ptr.hpp"
+
+
+namespace graphics
+{
+  class DisplayList;
+  class GlyphLayout;
+}
 
 namespace gui
 {

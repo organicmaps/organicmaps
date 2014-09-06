@@ -1,41 +1,42 @@
 #include "display_list_cache.hpp"
 
+#include "../graphics/screen.hpp"
 #include "../graphics/display_list.hpp"
 #include "../graphics/glyph.hpp"
 #include "../graphics/depth_constants.hpp"
 
-#include "../std/cstring.hpp"
 
+using namespace graphics;
 
 namespace gui
 {
-  DisplayListCache::DisplayListCache(graphics::Screen * CacheScreen,
-                                     graphics::GlyphCache * GlyphCache)
+  DisplayListCache::DisplayListCache(Screen * CacheScreen,
+                                     GlyphCache * GlyphCache)
     : m_CacheScreen(CacheScreen),
       m_GlyphCache(GlyphCache)
   {}
 
-  shared_ptr<graphics::DisplayList> const & DisplayListCache::FindGlyph(graphics::GlyphKey const & key)
+  shared_ptr<DisplayList> const & DisplayListCache::FindGlyph(GlyphKey const & key)
   {
     TGlyphs::const_iterator it = m_Glyphs.find(key);
 
     if (it != m_Glyphs.end())
       return it->second;
 
-    shared_ptr<graphics::DisplayList> & dl = m_Glyphs[key];
+    shared_ptr<DisplayList> & dl = m_Glyphs[key];
 
     dl.reset(m_CacheScreen->createDisplayList());
 
     m_CacheScreen->beginFrame();
     m_CacheScreen->setDisplayList(dl.get());
 
-    uint32_t resID = m_CacheScreen->mapInfo(graphics::Glyph::Info(key, m_GlyphCache));
-    graphics::Resource const * res = m_CacheScreen->fromID(resID);
+    uint32_t resID = m_CacheScreen->mapInfo(Glyph::Info(key, m_GlyphCache));
+    Resource const * res = m_CacheScreen->fromID(resID);
 
-    ASSERT(res->m_cat == graphics::Resource::EGlyph, ());
-    graphics::Glyph const * glyph = static_cast<graphics::Glyph const *>(res);
+    ASSERT(res->m_cat == Resource::EGlyph, ());
+    Glyph const * glyph = static_cast<Glyph const *>(res);
 
-    m_CacheScreen->drawGlyph(m2::PointD(0, 0), m2::PointD(0, 0), ang::AngleD(0), 0, glyph, graphics::maxDepth - 10);
+    m_CacheScreen->drawGlyph(m2::PointD(0, 0), m2::PointD(0, 0), ang::AngleD(0), 0, glyph, maxDepth - 10);
 
     m_CacheScreen->setDisplayList(0);
     m_CacheScreen->endFrame();
@@ -43,16 +44,17 @@ namespace gui
     return dl;
   }
 
-  void DisplayListCache::TouchGlyph(graphics::GlyphKey const & key)
+  void DisplayListCache::TouchGlyph(GlyphKey const & key)
   {
     FindGlyph(key);
   }
 
-  bool DisplayListCache::HasGlyph(graphics::GlyphKey const & key)
+  bool DisplayListCache::HasGlyph(GlyphKey const & key)
   {
     return m_Glyphs.find(key) != m_Glyphs.end();
   }
 
+  /*
   void DisplayListCache::TouchSymbol(char const * name)
   {
     FindSymbol(name);
@@ -63,7 +65,7 @@ namespace gui
     return m_Symbols.find(name) != m_Symbols.end();
   }
 
-  shared_ptr<graphics::DisplayList> const & DisplayListCache::FindSymbol(char const * name)
+  shared_ptr<DisplayList> const & DisplayListCache::FindSymbol(char const * name)
   {
     string s(name);
     TSymbols::const_iterator it = m_Symbols.find(s);
@@ -71,27 +73,25 @@ namespace gui
     if (it != m_Symbols.end())
       return it->second;
 
-    shared_ptr<graphics::DisplayList> & dl = m_Symbols[s];
+    shared_ptr<DisplayList> & dl = m_Symbols[s];
 
     dl.reset(m_CacheScreen->createDisplayList());
 
     m_CacheScreen->beginFrame();
     m_CacheScreen->setDisplayList(dl.get());
 
-    graphics::EPosition pos = graphics::EPosAbove;
-    if (strcmp(name, "search-result") == 0)
-    {
-      LOG(LDEBUG, ("Position checked"));
-      pos = graphics::EPosCenter;
-    }
+    EPosition pos = EPosAbove;
+    if (s == "search-result")
+      pos = EPosCenter;
 
     /// @todo do not cache depth in display list. use separate vertex shader and uniform constant
     /// to specify it while rendering display list.
-    m_CacheScreen->drawSymbol(m2::PointD(0, 0), name, pos, graphics::poiDepth);
+    m_CacheScreen->drawSymbol(m2::PointD(0, 0), name, pos, poiDepth);
 
     m_CacheScreen->setDisplayList(0);
     m_CacheScreen->endFrame();
 
     return dl;
   }
+  */
 }

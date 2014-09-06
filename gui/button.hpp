@@ -1,15 +1,16 @@
 #pragma once
 
 #include "element.hpp"
-#include "text_view.hpp"
 
 #include "../std/function.hpp"
 #include "../std/string.hpp"
 #include "../std/unique_ptr.hpp"
 
+
 namespace graphics
 {
   class OverlayElement;
+  class DisplayList;
 
   namespace gl
   {
@@ -19,6 +20,8 @@ namespace graphics
 
 namespace gui
 {
+  class TextView;
+
   class Button : public Element
   {
   public:
@@ -33,13 +36,11 @@ namespace gui
     unsigned m_minHeight;
 
     unique_ptr<TextView> m_textView;
-    map<EState, shared_ptr<graphics::DisplayList> > m_dls;
+    map<EState, unique_ptr<graphics::DisplayList> > m_dls;
 
     void cacheButtonBody(EState state);
 
     mutable vector<m2::AnyRectD> m_boundRects;
-
-    void cache();
 
   public:
 
@@ -53,14 +54,8 @@ namespace gui
 
     Button(Params const & p);
 
-    bool onTapStarted(m2::PointD const & pt);
-    bool onTapMoved(m2::PointD const & pt);
-    bool onTapEnded(m2::PointD const & pt);
-    bool onTapCancelled(m2::PointD const & pt);
-
     void setOnClickListener(TOnClickListener const & l);
 
-    void setPivot(m2::PointD const & pv);
     void setFont(EState state, graphics::FontDesc const & font);
     void setColor(EState state, graphics::Color const & c);
 
@@ -73,17 +68,22 @@ namespace gui
     void setMinHeight(unsigned minHeightInDIP);
     unsigned minHeight() const;
 
-    void setController(Controller * controller);
-
-    /// Inherited from OverlayElement
-    /// @{
-
+    /// @name Override from graphics::OverlayElement and gui::Element.
+    //@{
     vector<m2::AnyRectD> const & boundRects() const;
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
+    void setPivot(m2::PointD const & pv);
 
     void purge();
     void layout();
+    void cache();
 
-    /// @}
+    void setController(Controller * controller);
+
+    bool onTapStarted(m2::PointD const & pt);
+    bool onTapMoved(m2::PointD const & pt);
+    bool onTapEnded(m2::PointD const & pt);
+    bool onTapCancelled(m2::PointD const & pt);
+    //@}
   };
 }

@@ -1,12 +1,11 @@
 #pragma once
 
-#include "../geometry/point2d.hpp"
-
 #include "../graphics/overlay_element.hpp"
 #include "../graphics/color.hpp"
 #include "../graphics/font_desc.hpp"
 
 #include "../std/map.hpp"
+
 
 namespace graphics
 {
@@ -83,12 +82,15 @@ namespace gui
     virtual void layout();
     /// set the parent controller for this element.
     virtual void setController(Controller * controller);
+
     /// check if the layout of element is dirty and re-layout element if needed.
     void checkDirtyLayout() const;
 
+    /// @name Override from OverlayElement.
+    //@{
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     double priority() const;
-
     void setTransformation(const math::Matrix<double, 3, 3> & m);
+    //@}
   };
 }

@@ -1,6 +1,7 @@
 #include "country_status_display.hpp"
 
 #include "../gui/controller.hpp"
+#include "../gui/text_view.hpp"
 
 #include "../graphics/overlay_renderer.hpp"
 
@@ -10,6 +11,7 @@
 
 #include "../std/bind.hpp"
 #include "../std/sstream.hpp"
+
 
 CountryStatusDisplay::Params::Params()
   : m_storage(0)
@@ -147,25 +149,27 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
   m_slotID = m_storage->Subscribe(bind(&CountryStatusDisplay::CountryStatusChanged, this, _1),
                                   bind(&CountryStatusDisplay::CountryProgress, this, _1, _2));
 
+  using namespace graphics;
+
   gui::Button::Params bp;
 
   bp.m_depth = depth();
   bp.m_minWidth = 200;
   bp.m_minHeight = 40;
   bp.m_pivot = m2::PointD(0, 0);
-  bp.m_position = graphics::EPosCenter;
+  bp.m_position = EPosCenter;
   bp.m_text = "Download";
 
   m_downloadButton.reset(new gui::Button(bp));
   m_downloadButton->setOnClickListener(bind(&CountryStatusDisplay::downloadCountry, this));
   m_downloadButton->setIsVisible(false);
-  m_downloadButton->setPosition(graphics::EPosCenter);
+  m_downloadButton->setPosition(EPosCenter);
 
-  m_downloadButton->setFont(EActive, graphics::FontDesc(16, graphics::Color(255, 255, 255, 255)));
-  m_downloadButton->setFont(EPressed, graphics::FontDesc(16, graphics::Color(255, 255, 255, 255)));
+  m_downloadButton->setFont(EActive, FontDesc(16, Color(255, 255, 255, 255)));
+  m_downloadButton->setFont(EPressed, FontDesc(16, Color(255, 255, 255, 255)));
 
-  m_downloadButton->setColor(EActive, graphics::Color(graphics::Color(0, 0, 0, 0.6 * 255)));
-  m_downloadButton->setColor(EPressed, graphics::Color(graphics::Color(0, 0, 0, 0.4 * 255)));
+  m_downloadButton->setColor(EActive, Color(Color(0, 0, 0, 0.6 * 255)));
+  m_downloadButton->setColor(EPressed, Color(Color(0, 0, 0, 0.4 * 255)));
 
   gui::TextView::Params tp;
   tp.m_depth = depth();
@@ -175,9 +179,9 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
   m_statusMsg.reset(new gui::TextView(tp));
 
   m_statusMsg->setIsVisible(false);
-  m_statusMsg->setPosition(graphics::EPosCenter);
+  m_statusMsg->setPosition(EPosCenter);
 
-  m_statusMsg->setFont(gui::Element::EActive, graphics::FontDesc(18));
+  m_statusMsg->setFont(gui::Element::EActive, FontDesc(18));
 
   setIsVisible(false);
 

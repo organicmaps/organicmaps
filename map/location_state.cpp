@@ -11,14 +11,14 @@
 
 #include "../gui/controller.hpp"
 
+#include "../indexer/mercator.hpp"
+
 #include "../platform/platform.hpp"
+#include "../platform/location.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/transformations.hpp"
 
-#include "../indexer/mercator.hpp"
-
-#include "../base/logging.hpp"
 
 namespace location
 {
@@ -36,7 +36,7 @@ namespace location
   {}
 
   State::State(Params const & p)
-    : base_t(p),
+    : BaseT(p),
       m_errorRadius(0),
       m_position(0, 0),
       m_drawHeading(0.0),

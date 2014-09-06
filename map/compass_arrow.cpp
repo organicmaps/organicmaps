@@ -1,5 +1,4 @@
 #include "compass_arrow.hpp"
-
 #include "framework.hpp"
 #include "alfa_animation_task.hpp"
 
@@ -7,13 +6,11 @@
 
 #include "../gui/controller.hpp"
 
-#include "../geometry/any_rect2d.hpp"
 #include "../geometry/transformations.hpp"
-#include "../graphics/display_list.hpp"
 
 #include "../graphics/display_list.hpp"
 #include "../graphics/screen.hpp"
-#include "../graphics/pen.hpp"
+
 
 using namespace graphics;
 
@@ -24,7 +21,6 @@ CompassArrow::Params::Params()
 CompassArrow::CompassArrow(Params const & p)
   : base_t(p),
     m_angle(0),
-    m_displayList(NULL),
     m_boundRects(1),
     m_framework(p.m_framework)
 {
@@ -80,7 +76,7 @@ vector<m2::AnyRectD> const & CompassArrow::boundRects() const
   return m_boundRects;
 }
 
-void CompassArrow::draw(graphics::OverlayRenderer * r,
+void CompassArrow::draw(OverlayRenderer * r,
                         math::Matrix<double, 3, 3> const & m) const
 {
   if (isBaseVisible())
@@ -96,7 +92,7 @@ void CompassArrow::draw(graphics::OverlayRenderer * r,
                                            m_angle),
                                          pivot());
 
-    r->drawDisplayList(m_displayList, drawM * m, &holder);
+    r->drawDisplayList(m_dl.get(), drawM * m, &holder);
   }
 }
 
@@ -155,13 +151,13 @@ const Resource * CompassArrow::GetCompassResource() const
 
 void CompassArrow::cache()
 {
-  graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
+  Screen * cacheScreen = m_controller->GetCacheScreen();
 
-  purge();
-  m_displayList = cacheScreen->createDisplayList();
+  m_dl.reset();
+  m_dl.reset(cacheScreen->createDisplayList());
 
   cacheScreen->beginFrame();
-  cacheScreen->setDisplayList(m_displayList);
+  cacheScreen->setDisplayList(m_dl.get());
   cacheScreen->applyVarAlfaStates();
 
   Resource const * res = GetCompassResource();
@@ -199,8 +195,7 @@ void CompassArrow::cache()
 
 void CompassArrow::purge()
 {
-  delete m_displayList;
-  m_displayList = NULL;
+  m_dl.reset();
 }
 
 bool CompassArrow::isBaseVisible() const

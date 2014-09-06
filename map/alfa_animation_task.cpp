@@ -1,8 +1,10 @@
 #include "alfa_animation_task.hpp"
-
 #include "framework.hpp"
 
-AlfaAnimationTask::AlfaAnimationTask(double start, double end, double timeInterval, double timeOffset, Framework * f)
+
+AlfaAnimationTask::AlfaAnimationTask(double start, double end,
+                                     double timeInterval, double timeOffset,
+                                     Framework * f)
   : m_start(start)
   , m_end(end)
   , m_current(start)
@@ -25,17 +27,18 @@ float AlfaAnimationTask::GetCurrentAlfa() const
 void AlfaAnimationTask::OnStart(double ts)
 {
   m_timeStart = ts;
-  base_t::OnStart(ts);
+  BaseT::OnStart(ts);
   m_f->Invalidate();
 }
 
 void AlfaAnimationTask::OnStep(double ts)
 {
-  base_t::OnStep(ts);
-  double elapsed = ts - (m_timeStart + m_timeOffset);
+  BaseT::OnStep(ts);
+
+  double const elapsed = ts - (m_timeStart + m_timeOffset);
   if (elapsed >= 0.0)
   {
-    double t = elapsed / m_timeInterval;
+    double const t = elapsed / m_timeInterval;
     if (t > 1.0)
     {
       m_current = m_end;

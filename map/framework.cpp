@@ -682,15 +682,13 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
     m_informationDisplay.setEmptyCountryIndex(GetCountryIndex(GetViewportCenter()));
 
   m_informationDisplay.enableCountryStatusDisplay(isEmptyModel);
-  bool isCompassEnabled = ang::AngleIn2PI(m_navigator.Screen().GetAngle()) > my::DegToRad(3.0);
+  bool const isCompassEnabled = ang::AngleIn2PI(m_navigator.Screen().GetAngle()) > my::DegToRad(3.0);
   m_informationDisplay.enableCompassArrow(isCompassEnabled ||
                                           (m_informationDisplay.isCompassArrowEnabled() && m_navigator.InAction()));
 
   m_informationDisplay.setCompassArrowAngle(m_navigator.Screen().GetAngle());
 
-  m_informationDisplay.setScreen(m_navigator.Screen());
-
-  int drawScale = GetDrawScale();
+  int const drawScale = GetDrawScale();
   m_informationDisplay.setDebugInfo(0, drawScale);
 
   m_informationDisplay.enableRuler(drawScale > 4);
@@ -699,6 +697,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 #endif
 
   m_informationDisplay.doDraw(pDrawer);
+
   pScreen->endFrame();
 
   m_bmManager.DrawItems(e);
@@ -1613,7 +1612,7 @@ RenderPolicy * Framework::GetRenderPolicy() const
 
 void Framework::SetupMeasurementSystem()
 {
-  m_informationDisplay.ruler()->setIsDirtyLayout(true);
+  m_informationDisplay.measurementSystemChanged();
   Invalidate();
 }
 

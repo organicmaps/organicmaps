@@ -1,8 +1,10 @@
 #pragma once
 
 #include "../gui/element.hpp"
-#include "../geometry/any_rect2d.hpp"
+
 #include "../std/shared_ptr.hpp"
+#include "../std/unique_ptr.hpp"
+
 
 namespace anim
 {
@@ -26,7 +28,7 @@ private:
 
   double m_angle;
 
-  graphics::DisplayList * m_displayList;
+  unique_ptr<graphics::DisplayList> m_dl;
 
   shared_ptr<anim::Task> m_animTask;
 
@@ -40,8 +42,6 @@ private:
   Framework * m_framework;
   graphics::Resource const * GetCompassResource() const;
 
-  void cache();
-  void purge();
   bool isBaseVisible() const;
 
 public:
@@ -60,12 +60,17 @@ public:
   void SetAngle(double angle);
   m2::PointD GetPixelSize() const;
 
+  /// @name Override from graphics::Overlayelement and gui::Element.
+  //@{
   vector<m2::AnyRectD> const & boundRects() const;
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-  virtual bool isVisible() const;
-
-  bool onTapEnded(m2::PointD const & pt);
-
+  bool isVisible() const;
   bool roughHitTest(m2::PointD const & pt) const;
   bool hitTest(m2::PointD const & pt) const;
+
+  void cache();
+  void purge();
+
+  bool onTapEnded(m2::PointD const & pt);
+  //@}
 };

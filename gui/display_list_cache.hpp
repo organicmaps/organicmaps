@@ -1,8 +1,16 @@
 #pragma once
 
+
+#include "../graphics/glyph_cache.hpp"
+
 #include "../std/shared_ptr.hpp"
 
-#include "../graphics/screen.hpp"
+
+namespace graphics
+{
+  class Screen;
+  class DisplayList;
+}
 
 namespace gui
 {
@@ -26,21 +34,20 @@ namespace gui
     DisplayListCache(graphics::Screen * CacheScreen,
                      graphics::GlyphCache * GlyphCache);
 
-    /// Add element to cache if need be
+    /// Add element to cache if needed
     void TouchGlyph(graphics::GlyphKey const & key);
     /// Find glyph in cache, caching if needed.
     shared_ptr<graphics::DisplayList> const & FindGlyph(graphics::GlyphKey const & key);
     /// Check, whether the glyph is present in cache.
     bool HasGlyph(graphics::GlyphKey const & key);
 
-    /// @todo refactor to have common functions TouchInfo, FindInfo, HasInfo
-    /// taking as example ResourceCache mapInfo, findInfo, hasInfo functions
-
+    /*
     /// Add symbol to cache if needed
     void TouchSymbol(char const * name);
     /// Find symbol in cache, caching if needed
     shared_ptr<graphics::DisplayList> const & FindSymbol(char const * name);
     /// Check, whether the display list for specified symbol is present in cache
     bool HasSymbol(char const * name);
+    */
   };
 }
