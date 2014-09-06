@@ -9558,42 +9558,42 @@ cont {
   element {
     scale: 14
     symbol {
-      name: "earthquakecamp"
+      name: "earthquake-camp"
       priority: 16000
     }
   }
   element {
     scale: 15
     symbol {
-      name: "earthquakecamp"
+      name: "earthquake-camp"
       priority: 16000
     }
   }
   element {
     scale: 16
     symbol {
-      name: "earthquakecamp"
+      name: "earthquake-camp"
       priority: 16000
     }
   }
   element {
     scale: 17
     symbol {
-      name: "earthquakecamp"
+      name: "earthquake-camp"
       priority: 16000
     }
   }
   element {
     scale: 18
     symbol {
-      name: "earthquakecamp"
+      name: "earthquake-camp"
       priority: 16000
     }
   }
   element {
     scale: 19
     symbol {
-      name: "earthquakecamp"
+      name: "earthquake-camp"
       priority: 16000
     }
   }
@@ -37450,7 +37450,7 @@ cont {
       priority: -16189
     }
     symbol {
-      name: "golfCourse"
+      name: "golf-course"
       priority: 16000
     }
   }
@@ -37461,7 +37461,7 @@ cont {
       priority: -16190
     }
     symbol {
-      name: "golfCourse"
+      name: "golf-course"
       priority: 16000
     }
   }
@@ -37472,7 +37472,7 @@ cont {
       priority: -16191
     }
     symbol {
-      name: "golfCourse"
+      name: "golf-course"
       priority: 16000
     }
   }
@@ -59891,21 +59891,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "golfCourse"
+      name: "golf-course"
       priority: 16000
     }
   }
   element {
     scale: 18
     symbol {
-      name: "golfCourse"
+      name: "golf-course"
       priority: 16000
     }
   }
   element {
     scale: 19
     symbol {
-      name: "golfCourse"
+      name: "golf-course"
       priority: 16000
     }
   }

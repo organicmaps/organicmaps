@@ -105,7 +105,7 @@ node|z17-[sport=golf],
 area|z17-[leisure=golf_course],
 node|z17-[leisure=golf_course]
 {
-  icon-image: golfCourse.svg;
+  icon-image: golf-course.svg;
 }
 area|z17-[sport=baseball],
 node|z17-[sport=baseball]

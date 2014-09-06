@@ -331,7 +331,7 @@
   <symbolStyle id="110" name="gymnastics-borderless">
    <resourceStyle width="20" x="180" y="95" height="20"/>
   </symbolStyle>
-  <symbolStyle id="111" name="golfcourse">
+  <symbolStyle id="111" name="golf-course">
    <resourceStyle width="20" x="200" y="95" height="20"/>
   </symbolStyle>
   <symbolStyle id="112" name="alpine_hut">
@@ -346,7 +346,7 @@
   <symbolStyle id="115" name="athletics-borderless">
    <resourceStyle width="20" x="280" y="95" height="20"/>
   </symbolStyle>
-  <symbolStyle id="116" name="earthquakecamp">
+  <symbolStyle id="116" name="earthquake-camp">
    <resourceStyle width="20" x="300" y="95" height="20"/>
   </symbolStyle>
   <symbolStyle id="117" name="arrow">

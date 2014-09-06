@@ -902,7 +902,7 @@ line|z14[piste:lift=j-bar]::d2p2
 area|z14-[earthquake:damage=spontaneous_camp],
 node|z14-[earthquake:damage=spontaneous_camp]
 {
-  icon-image: earthquakecamp.svg;
+  icon-image: earthquake-camp.svg;
 }
 line|z14[railway=spur]
 {

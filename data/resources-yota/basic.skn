@@ -331,7 +331,7 @@
   <symbolStyle id="110" name="gymnastics-borderless">
    <resourceStyle height="23" x="69" y="125" width="23"/>
   </symbolStyle>
-  <symbolStyle id="111" name="golfcourse">
+  <symbolStyle id="111" name="golf-course">
    <resourceStyle height="23" x="92" y="125" width="23"/>
   </symbolStyle>
   <symbolStyle id="112" name="gate">
@@ -358,7 +358,7 @@
   <symbolStyle id="119" name="dog_park">
    <resourceStyle height="23" x="276" y="125" width="23"/>
   </symbolStyle>
-  <symbolStyle id="120" name="earthquakecamp">
+  <symbolStyle id="120" name="earthquake-camp">
    <resourceStyle height="23" x="299" y="125" width="23"/>
   </symbolStyle>
   <symbolStyle id="121" name="equestrian-borderless">
