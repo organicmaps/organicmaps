@@ -27,9 +27,7 @@ class Framework;
 
 class Ruler : public gui::Element
 {
-  typedef gui::Element base_t;
-
-  mutable vector<m2::AnyRectD> m_boundRects;
+  typedef gui::Element BaseT;
 
   class RulerFrame
   {
@@ -112,7 +110,8 @@ public:
 
   /// @name Override from graphics::OverlayElement and gui::Element.
   //@{
-  vector<m2::AnyRectD> const & boundRects() const;
+  virtual m2::RectD GetBoundRect() const;
+
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
   void update();

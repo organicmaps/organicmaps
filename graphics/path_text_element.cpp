@@ -13,7 +13,7 @@ namespace graphics
   {}
 
   PathTextElement::PathTextElement(Params const & p)
-    : TextElement(p)
+    : BaseT(p)
   {
     strings::UniString visText, auxVisText;
     (void) p.GetVisibleTexts(visText, auxVisText);
@@ -27,23 +27,23 @@ namespace graphics
     setIsValid(m_glyphLayout.IsFullVisible());
   }
 
-  vector<m2::AnyRectD> const & PathTextElement::boundRects() const
+  m2::RectD PathTextElement::GetBoundRect() const
   {
-    if (isDirtyRect())
+    if (isDirtyLayout())
     {
-      m_boundRects.clear();
-      m_boundRects.reserve(m_glyphLayout.boundRects().size());
-
-      for (unsigned i = 0; i < m_glyphLayout.boundRects().size(); ++i)
-        m_boundRects.push_back(m_glyphLayout.boundRects()[i]);
-
-      //for (unsigned i = 0; i < m_boundRects.size(); ++i)
-      //  m_boundRects[i] = m2::Inflate(m_boundRects[i], m2::PointD(10, 10));
-      //m_boundRects[i].m2::Inflate(m2::PointD(40, 2)); //< to create more sparse street names structure
-      setIsDirtyRect(false);
+      m_boundRect = BaseT::GetBoundRect();
+      setIsDirtyLayout(false);
     }
+    return m_boundRect;
+  }
 
-    return m_boundRects;
+  void PathTextElement::GetMiniBoundRects(RectsT & rects) const
+  {
+    size_t const count = m_glyphLayout.boundRects().size();
+    rects.reserve(count);
+    copy(m_glyphLayout.boundRects().begin(),
+         m_glyphLayout.boundRects().end(),
+         back_inserter(rects));
   }
 
   void PathTextElement::draw(OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
@@ -58,10 +58,9 @@ namespace graphics
       if (isNeedRedraw())
         c = graphics::Color(255, 0, 0, 64);
 
-      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), depth() + doffs++);
+      screen->drawRectangle(GetBoundRect(), graphics::Color(255, 255, 0, 64), depth() + doffs++);
 
-      for (unsigned i = 0; i < boundRects().size(); ++i)
-        screen->drawRectangle(boundRects()[i], c, depth() + doffs++);
+      DrawRectsDebug(screen, c, depth() + doffs++);
     }
 
     if (!isNeedRedraw() || !isVisible() || !isValid())
@@ -81,6 +80,7 @@ namespace graphics
   void PathTextElement::setPivot(m2::PointD const & pivot)
   {
     TextElement::setPivot(pivot);
+
     m_glyphLayout.setPivot(pivot);
   }
 
@@ -89,6 +89,7 @@ namespace graphics
     m_glyphLayout = GlyphLayoutPath(m_glyphLayout, getResetMatrix() * m);
     TextElement::setPivot(m_glyphLayout.pivot());
     setIsValid(m_glyphLayout.IsFullVisible());
+
     TextElement::setTransformation(m);
   }
 }

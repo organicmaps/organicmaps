@@ -1,13 +1,14 @@
 #pragma once
 
 #include "defines.hpp"
+#include "color.hpp"
 
 #include "../geometry/point2d.hpp"
 #include "../geometry/any_rect2d.hpp"
 
 #include "../base/matrix.hpp"
+#include "../base/buffer_vector.hpp"
 
-#include "../std/vector.hpp"
 #include "../std/bitset.hpp"
 
 
@@ -40,13 +41,10 @@ namespace graphics
            FROZEN,
            VISIBLE,
            VALID,
-           DIRTY_RECT,
            DIRTY_LAYOUT,
-           DIRTY_ROUGH_RECT,
            FLAGS_COUNT };
 
     mutable bitset<FLAGS_COUNT> m_flags;
-    mutable m2::RectD m_roughBoundRect;
 
     math::Matrix<double, 3, 3> m_inverseMatrix;
 
@@ -72,8 +70,13 @@ namespace graphics
     OverlayElement(Params const & p);
     virtual ~OverlayElement();
 
-    /// PLEASE, REMEMBER THE REFERENCE!!!
-    virtual vector<m2::AnyRectD> const & boundRects() const = 0;
+    /// @name Getting element boundaries.
+    //@{
+    virtual m2::RectD GetBoundRect() const;
+    typedef buffer_vector<m2::AnyRectD, 4> RectsT;
+    virtual void GetMiniBoundRects(RectsT & rects) const;
+    //@}
+
     virtual void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const = 0;
     /// Set new transformation ! RELATIVE TO INIT STATE ! for drawing and safe information for reseting
     /// Need to call base class method
@@ -104,9 +107,6 @@ namespace graphics
     bool isNeedRedraw() const;
     void setIsNeedRedraw(bool flag);
 
-    bool isDirtyRect() const;
-    void setIsDirtyRect(bool flag) const;
-
     bool isDirtyLayout() const;
     void setIsDirtyLayout(bool flag) const;
 
@@ -122,10 +122,8 @@ namespace graphics
     UserInfo const & userInfo() const;
 
     virtual bool hitTest(m2::PointD const & pt) const;
-    virtual bool roughHitTest(m2::PointD const & pt) const;
-
-    m2::RectD const & roughBoundRect() const;
-
     virtual bool hasSharpGeometry() const;
+
+    void DrawRectsDebug(graphics::OverlayRenderer * r, Color color, double depth) const;
   };
 }

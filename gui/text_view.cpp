@@ -3,7 +3,10 @@
 
 #include "../graphics/display_list.hpp"
 #include "../graphics/screen.hpp"
+#include "../graphics/straight_text_element.hpp"
+
 #include "../geometry/transformations.hpp"
+
 
 namespace gui
 {
@@ -35,7 +38,7 @@ namespace gui
 
   void TextView::layoutBody(EState state)
   {
-    shared_ptr<graphics::StraightTextElement> & elem = m_elems[state];
+    unique_ptr<graphics::StraightTextElement> & elem = m_elems[state];
 
     graphics::StraightTextElement::Params params;
 
@@ -66,7 +69,7 @@ namespace gui
   {
     graphics::Screen * cs = m_controller->GetCacheScreen();
 
-    shared_ptr<graphics::DisplayList> & dl = m_dls[state];
+    unique_ptr<graphics::DisplayList> & dl = m_dls[state];
 
     dl.reset();
     dl.reset(cs->createDisplayList());
@@ -99,43 +102,21 @@ namespace gui
     {
       checkDirtyLayout();
 
-      map<EState, shared_ptr<graphics::DisplayList> >::const_iterator it;
-      it = m_dls.find(state());
-
       math::Matrix<double, 3, 3> drawM = math::Shift(math::Identity<double, 3>(),
                                                      pivot());
 
-      if (it != m_dls.end())
-        r->drawDisplayList(it->second.get(), drawM * m);
-      else
-        LOG(LDEBUG/*LWARNING*/, ("m_dls[state()] is not set!"));
+      r->drawDisplayList(m_dls.at(state()).get(), drawM * m);
     }
   }
 
-  vector<m2::AnyRectD> const & TextView::boundRects() const
+  void TextView::GetMiniBoundRects(RectsT & rects) const
   {
-    if (isDirtyRect())
-    {
-      const_cast<TextView*>(this)->layout();
-      m_boundRects.clear();
+    checkDirtyLayout();
 
-      map<EState, shared_ptr<graphics::StraightTextElement> >::const_iterator it;
-      it = m_elems.find(EActive);
+    m2::PointD const pt = pivot();
 
-      m2::PointD pt = pivot();
-
-      if (it != m_elems.end())
-        m_boundRects.push_back(m2::AnyRectD(Offset(it->second->roughBoundRect(), pt)));
-
-      it = m_elems.find(EPressed);
-
-      if (it != m_elems.end())
-        m_boundRects.push_back(m2::AnyRectD(Offset(it->second->roughBoundRect(), pt)));
-
-      setIsDirtyRect(false);
-    }
-
-    return m_boundRects;
+    rects.push_back(m2::AnyRectD(Offset(m_elems.at(EActive)->GetBoundRect(), pt)));
+    rects.push_back(m2::AnyRectD(Offset(m_elems.at(EPressed)->GetBoundRect(), pt)));
   }
 
   void TextView::setMaxWidth(unsigned width)

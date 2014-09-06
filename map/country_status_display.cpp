@@ -4,6 +4,7 @@
 #include "../gui/text_view.hpp"
 
 #include "../graphics/overlay_renderer.hpp"
+#include "../graphics/display_list.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -68,7 +69,6 @@ void CountryStatusDisplay::cache()
   m_downloadButton->setIsVisible(false);
   m_statusMsg->setIsVisible(false);
   setIsVisible(false);
-  setIsDirtyRect(true);
 
   string const dn = displayName();
 
@@ -116,10 +116,6 @@ void CountryStatusDisplay::cache()
   }
 
   setIsVisible(m_statusMsg->isVisible() || m_downloadButton->isVisible());
-
-  // Element bound rect is possibly changed,
-  // however it's called in the beginning of the function.
-  setIsDirtyRect(true);
 }
 
 void CountryStatusDisplay::CountryStatusChanged(storage::TIndex const & idx)
@@ -268,24 +264,15 @@ void CountryStatusDisplay::draw(graphics::OverlayRenderer *r,
     m_statusMsg->draw(r, m);
 }
 
-vector<m2::AnyRectD> const & CountryStatusDisplay::boundRects() const
+m2::RectD CountryStatusDisplay::GetBoundRect() const
 {
   checkDirtyLayout();
 
-  if (isDirtyRect())
-  {
-    m_boundRects.clear();
+  m2::RectD r(pivot(), pivot());
+  if (m_downloadButton->isVisible())
+    r.Add(m_downloadButton->GetBoundRect());
 
-    m2::RectD r(pivot(), pivot());
-
-    if (m_downloadButton->isVisible())
-      r.Add(m_downloadButton->roughBoundRect());
-
-    m_boundRects.push_back(m2::AnyRectD(r));
-    setIsDirtyRect(false);
-  }
-
-  return m_boundRects;
+  return r;
 }
 
 void CountryStatusDisplay::setController(gui::Controller *controller)
@@ -299,10 +286,9 @@ void CountryStatusDisplay::setPivot(m2::PointD const & pv)
 {
   if (m_countryStatus == storage::EDownloadFailed)
   {
-    size_t buttonHeight = m_downloadButton->roughBoundRect().SizeY();
-    size_t statusHeight = m_statusMsg->roughBoundRect().SizeY();
-
-    size_t commonHeight = buttonHeight + statusHeight + 10 * visualScale();
+    size_t const buttonHeight = m_downloadButton->GetBoundRect().SizeY();
+    size_t const statusHeight = m_statusMsg->GetBoundRect().SizeY();
+    size_t const commonHeight = buttonHeight + statusHeight + 10 * visualScale();
 
     m_downloadButton->setPivot(m2::PointD(pv.x, pv.y + commonHeight / 2 - buttonHeight / 2));
     m_statusMsg->setPivot(m2::PointD(pv.x, pv.y - commonHeight / 2 + statusHeight / 2));

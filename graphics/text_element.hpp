@@ -15,13 +15,9 @@ namespace graphics
   class TextElement : public OverlayElement
   {
   protected:
-
     FontDesc m_fontDesc, m_auxFontDesc;
 
-    mutable vector<m2::AnyRectD> m_boundRects;
-
   public:
-
     struct Params : OverlayElement::Params
     {
       FontDesc m_fontDesc;

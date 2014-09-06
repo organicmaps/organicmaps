@@ -14,7 +14,7 @@ namespace graphics
   {}
 
   SymbolElement::SymbolElement(Params const & p)
-    : base_t(p),
+    : BaseT(p),
       m_info(p.m_info),
       m_symbolRect(0, 0, 0, 0)
   {
@@ -23,36 +23,20 @@ namespace graphics
 
     if (res == 0)
     {
-      LOG(LDEBUG/*LWARNING*/, ("POI", m_info.m_name, "wasn't found on current skin."));
+      LOG(LWARNING, ("POI", m_info.m_name, "wasn't found on current skin."));
       return;
     }
 
     m_symbolRect = res->m_texRect;
   }
 
-  vector<m2::AnyRectD> const & SymbolElement::boundRects() const
+  m2::RectD SymbolElement::GetBoundRect() const
   {
-    if (isDirtyRect())
-    {
-      m_boundRects.clear();
-      m_boundRects.push_back(boundRect());
-      setIsDirtyRect(false);
-    }
-    return m_boundRects;
-  }
+    // Skip for one pixel on every border.
+    m2::PointD const sz(m_symbolRect.SizeX() - 2, m_symbolRect.SizeY() - 2);
+    m2::PointD const posPt = computeTopLeft(sz, pivot(), position());
 
-  m2::AnyRectD const SymbolElement::boundRect() const
-  {
-    m2::RectI texRect(m_symbolRect);
-    texRect.Inflate(-1, -1);
-
-    m2::PointD sz(texRect.SizeX(), texRect.SizeY());
-
-    m2::PointD const posPt = computeTopLeft(sz,
-                                            pivot(),
-                                            position());
-
-    return m2::AnyRectD(m2::RectD(posPt, posPt + sz));
+    return m2::RectD(posPt, posPt + sz);
   }
 
   void SymbolElement::draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
@@ -96,7 +80,7 @@ namespace graphics
   void SymbolElement::setTransformation(const math::Matrix<double, 3, 3> & m)
   {
     setPivot(pivot() * getResetMatrix() * m);
-    base_t::setTransformation(m);
+    BaseT::setTransformation(m);
   }
 
   bool SymbolElement::hasSharpGeometry() const

@@ -14,8 +14,7 @@ namespace gui
   {}
 
   ImageView::ImageView(Params const & p)
-    : base_t(p),
-      m_boundRects(1)
+    : BaseT(p)
   {
     m_image = p.m_image;
   }
@@ -47,23 +46,11 @@ namespace gui
     m_displayList.reset();
   }
 
-  vector<m2::AnyRectD> const & ImageView::boundRects() const
+  m2::RectD ImageView::GetBoundRect() const
   {
-    if (isDirtyRect())
-    {
-      m2::PointD sz(m_image.m_size);
-
-      m2::PointD pt = computeTopLeft(sz,
-                                     pivot(),
-                                     position());
-
-
-      m_boundRects[0] = m2::AnyRectD(m2::RectD(pt, pt + sz));
-
-      setIsDirtyRect(false);
-    }
-
-    return m_boundRects;
+    m2::PointD const sz(m_image.m_size);
+    m2::PointD const pt = computeTopLeft(sz, pivot(), position());
+    return m2::RectD(pt, pt + sz);
   }
 
   void ImageView::draw(graphics::OverlayRenderer * r,

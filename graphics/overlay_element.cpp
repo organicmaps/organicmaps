@@ -1,4 +1,5 @@
 #include "overlay_element.hpp"
+#include "overlay_renderer.hpp"
 
 
 namespace graphics
@@ -50,7 +51,6 @@ namespace graphics
   void OverlayElement::offset(m2::PointD const & offs)
   {
     setPivot(pivot() + offs);
-    setIsDirtyRect(true);
   }
 
   m2::PointD const & OverlayElement::pivot() const
@@ -61,7 +61,7 @@ namespace graphics
   void OverlayElement::setPivot(m2::PointD const & pivot)
   {
     m_pivot = pivot;
-    setIsDirtyRect(true);
+    setIsDirtyLayout(true);
   }
 
   graphics::EPosition OverlayElement::position() const
@@ -72,7 +72,7 @@ namespace graphics
   void OverlayElement::setPosition(graphics::EPosition pos)
   {
     m_position = pos;
-    setIsDirtyRect(true);
+    setIsDirtyLayout(true);
   }
 
   double OverlayElement::depth() const
@@ -123,52 +123,31 @@ namespace graphics
   void OverlayElement::setIsDirtyLayout(bool flag) const
   {
     m_flags[DIRTY_LAYOUT] = flag;
-    if (flag)
-      setIsDirtyRect(true);
   }
 
-  bool OverlayElement::isDirtyRect() const
+  m2::RectD OverlayElement::GetBoundRect() const
   {
-    return m_flags[DIRTY_RECT];
+    RectsT rects;
+    GetMiniBoundRects(rects);
+
+    m2::RectD rect;
+    for (size_t i = 0; i < rects.size(); ++i)
+      rect.Add(rects[i].GetGlobalRect());
+    return rect;
   }
 
-  void OverlayElement::setIsDirtyRect(bool flag) const
+  void OverlayElement::GetMiniBoundRects(RectsT & rects) const
   {
-    if (flag)
-      m_flags[DIRTY_ROUGH_RECT] = true;
-    m_flags[DIRTY_RECT] = flag;
-  }
-
-  m2::RectD const & OverlayElement::roughBoundRect() const
-  {
-    if (m_flags[DIRTY_ROUGH_RECT])
-    {
-      vector<m2::AnyRectD> const & rects = boundRects();
-      size_t const count = rects.size();
-      if (count == 0)
-      {
-        /// @todo Is it correct use-case?
-        m_roughBoundRect = m2::RectD(pivot(), pivot());
-      }
-      else
-      {
-        m_roughBoundRect = rects[0].GetGlobalRect();
-        for (size_t i = 1; i < count; ++i)
-          m_roughBoundRect.Add(rects[i].GetGlobalRect());
-      }
-
-      m_flags[DIRTY_ROUGH_RECT] = false;
-    }
-
-    return m_roughBoundRect;
+    rects.push_back(m2::AnyRectD(GetBoundRect()));
   }
 
   bool OverlayElement::hitTest(m2::PointD const & pt) const
   {
-    vector<m2::AnyRectD> const & rects = boundRects();
+    RectsT rects;
+    GetMiniBoundRects(rects);
 
-    for (vector<m2::AnyRectD>::const_iterator it = rects.begin(); it != rects.end(); ++it)
-      if (it->IsPointInside(pt))
+    for (size_t i = 0; i < rects.size(); ++i)
+      if (rects[i].IsPointInside(pt))
         return true;
 
     return false;
@@ -184,11 +163,6 @@ namespace graphics
     m_flags[VALID] = flag;
   }
 
-  bool OverlayElement::roughHitTest(m2::PointD const & pt) const
-  {
-    return roughBoundRect().IsPointInside(pt);
-  }
-
   OverlayElement::UserInfo const & OverlayElement::userInfo() const
   {
     return m_userInfo;
@@ -200,21 +174,21 @@ namespace graphics
     /// In general there is no need to store m_roughBoundRect at all.
     /// It's calculating time is fast, because elements already cache vector<m2::AnyRectD>.
 
-    m2::PointD res = m_roughBoundRect.Center();
+    m2::RectD const rect = GetBoundRect();
+    m2::PointD res = rect.Center();
 
     if (pos & EPosLeft)
-      res.x = m_roughBoundRect.minX();
+      res.x = rect.minX();
     if (pos & EPosRight)
-      res.x = m_roughBoundRect.maxX();
+      res.x = rect.maxX();
 
     if (pos & EPosAbove)
-      res.y = m_roughBoundRect.minY();
+      res.y = rect.minY();
     if (pos & EPosUnder)
-      res.y = m_roughBoundRect.maxY();
+      res.y = rect.maxY();
 
     return res;
   }
-
 
   bool OverlayElement::hasSharpGeometry() const
   {
@@ -239,5 +213,14 @@ namespace graphics
   void OverlayElement::resetTransformation()
   {
     setTransformation(math::Identity<double, 3>());
+  }
+
+  void OverlayElement::DrawRectsDebug(graphics::OverlayRenderer * r, Color color, double depth) const
+  {
+    RectsT rects;
+    GetMiniBoundRects(rects);
+
+    for (size_t i = 0; i < rects.size(); ++i)
+      r->drawRectangle(rects[i], color, depth);
   }
 }

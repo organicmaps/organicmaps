@@ -16,8 +16,7 @@ namespace gui
   CachedTextView::CachedTextView(Params const & p)
     : Element(p)
   {
-    m_text = p.m_text;
-    m_uniText = strings::MakeUniString(p.m_text);
+    setText(p.m_text);
 
     setFont(EActive, FontDesc(12, Color(0, 0, 0, 255)));
     setFont(EPressed, FontDesc(12, Color(0, 0, 0, 255)));
@@ -28,10 +27,10 @@ namespace gui
 
   void CachedTextView::setText(string const & text)
   {
-    if (m_text != text)
+    strings::UniString const uText = strings::MakeUniString(text);
+    if (uText != m_uniText)
     {
-      m_text = text;
-      m_uniText = strings::MakeUniString(text);
+      m_uniText = uText;
       setIsDirtyLayout(true);
     }
   }
@@ -42,24 +41,14 @@ namespace gui
     Element::setFont(state, desc);
   }
 
-  string const & CachedTextView::text() const
+  void CachedTextView::GetMiniBoundRects(RectsT & rects) const
   {
-    return m_text;
-  }
+    checkDirtyLayout();
 
-  vector<m2::AnyRectD> const & CachedTextView::boundRects() const
-  {
-    if (isDirtyRect())
-    {
-      const_cast<CachedTextView*>(this)->layout();
-
-      m_boundRects.clear();
-
-      copy(m_layout->boundRects().begin(),
-           m_layout->boundRects().end(),
-           back_inserter(m_boundRects));
-    }
-    return m_boundRects;
+    rects.resize(m_layout->boundRects().size());
+    copy(m_layout->boundRects().begin(),
+         m_layout->boundRects().end(),
+         back_inserter(rects));
   }
 
   void CachedTextView::draw(OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
@@ -83,8 +72,6 @@ namespace gui
 
   void CachedTextView::cache()
   {
-    layout();
-
     DisplayListCache * dlc = m_controller->GetDisplayListCache();
     FontDesc fontDesc = font(EActive);
 
@@ -111,6 +98,7 @@ namespace gui
 
   void CachedTextView::purge()
   {
+    m_maskedDls.clear();
     m_dls.clear();
   }
 
@@ -141,6 +129,7 @@ namespace gui
   void CachedTextView::setPivot(m2::PointD const & pv)
   {
     Element::setPivot(pv);
+
     if (m_maskedLayout)
       m_maskedLayout->setPivot(pivot());
     if (m_layout)

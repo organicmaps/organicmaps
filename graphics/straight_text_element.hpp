@@ -34,7 +34,7 @@ namespace graphics
 
     StraightTextElement(Params const & p);
 
-    vector<m2::AnyRectD> const & boundRects() const;
+    virtual void GetMiniBoundRects(RectsT & rects) const;
 
     void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 

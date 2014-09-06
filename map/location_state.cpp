@@ -53,8 +53,6 @@ namespace location
     m_locationAreaColor = p.m_locationAreaColor;
     m_framework = p.m_framework;
 
-    m_boundRects.resize(1);
-
     setState(EActive);
     setIsVisible(false);
   }
@@ -172,15 +170,9 @@ namespace location
     invalidate();
   }
 
-  vector<m2::AnyRectD> const & State::boundRects() const
+  m2::RectD State::GetBoundRect() const
   {
-    if (isDirtyRect())
-    {
-      m_boundRects[0] = m2::AnyRectD(m_boundRect);
-      setIsDirtyRect(false);
-    }
-
-    return m_boundRects;
+    return m_boundRect;
   }
 
   bool State::IsPositionFaultCritical() const
@@ -340,12 +332,7 @@ namespace location
                           pxPosition + m_halfArrowSize);
 
       newRect.Add(arrowRect);
-
-      if (newRect != m_boundRect)
-      {
-        m_boundRect = newRect;
-        setIsDirtyRect(true);
-      }
+      m_boundRect = newRect;
     }
   }
 

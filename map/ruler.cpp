@@ -445,8 +445,7 @@ Ruler::Params::Params()
 {}
 
 Ruler::Ruler(Params const & p)
-  : base_t(p),
-    m_boundRects(1),
+  : BaseT(p),
     m_currentRangeIndex(InvalidUnitValue),
     m_currSystem(0),
     m_framework(p.m_framework)
@@ -615,20 +614,13 @@ void Ruler::update()
   frame->SetOrgPoint(orgPt);
 }
 
-vector<m2::AnyRectD> const & Ruler::boundRects() const
+m2::RectD Ruler::GetBoundRect() const
 {
-  if (isDirtyRect())
-  {
-    FontDesc const & f = font(EActive);
-    RulerFrame * frame = GetMainFrame();
-    m2::PointD org = frame->GetOrgPoint();
-    m2::PointD size = m2::PointD(CacheLength * frame->GetScale(), f.m_size * 2);
-    m2::RectD rect(org - m2::PointD(size.x, 0.0), org + m2::PointD(0.0, size.y));
-    m_boundRects[0] = m2::AnyRectD(rect);
-    setIsDirtyRect(false);
-  }
-
-  return m_boundRects;
+  FontDesc const & f = font(EActive);
+  RulerFrame * frame = GetMainFrame();
+  m2::PointD const org = frame->GetOrgPoint();
+  m2::PointD const size = m2::PointD(CacheLength * frame->GetScale(), f.m_size * 2);
+  return m2::RectD(org - m2::PointD(size.x, 0.0), org + m2::PointD(0.0, size.y));
 }
 
 void Ruler::cache()

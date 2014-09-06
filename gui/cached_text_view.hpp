@@ -20,10 +20,6 @@ namespace gui
 {
   class CachedTextView : public Element
   {
-  private:
-
-    string m_text;
-
     strings::UniString m_uniText;
 
     vector<shared_ptr<graphics::DisplayList> > m_dls;
@@ -32,10 +28,7 @@ namespace gui
     unique_ptr<graphics::GlyphLayout> m_layout;
     unique_ptr<graphics::GlyphLayout> m_maskedLayout;
 
-    mutable vector<m2::AnyRectD> m_boundRects;
-
   public:
-
     struct Params : public Element::Params
     {
       string m_text;
@@ -44,9 +37,8 @@ namespace gui
     CachedTextView(Params const & p);
 
     void setText(string const & text);
-    string const & text() const;
 
-    vector<m2::AnyRectD> const & boundRects() const;
+    virtual void GetMiniBoundRects(RectsT & rects) const;
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
     void cache();

@@ -123,7 +123,7 @@ namespace gui
     cs->setDisplayList(dl.get());
 
     double const k = visualScale();
-    m2::RectD const rr = roughBoundRect();
+    m2::RectD const rr = GetBoundRect();
 
     cs->drawRoundedRectangle(m2::RectD(-rr.SizeX() / 2,
                                        -rr.SizeY() / 2,
@@ -153,39 +153,33 @@ namespace gui
     m_textView->setIsDirtyLayout(true);
   }
 
-  vector<m2::AnyRectD> const & Button::boundRects() const
+  m2::RectD Button::GetBoundRect() const
   {
-    if (isDirtyRect())
-    {
-      m_boundRects.clear();
-      double k = visualScale();
+    double const k = visualScale();
 
-      m2::RectD tr(m_textView->roughBoundRect());
-      m2::RectD rc(0, 0, tr.SizeX(), tr.SizeY());
+    m2::RectD tr(m_textView->GetBoundRect());
+    m2::RectD rc(0, 0, tr.SizeX(), tr.SizeY());
 
-      rc.Inflate(15 * k, 5 * k);
+    rc.Inflate(15 * k, 5 * k);
 
-      double dx = 0;
-      double dy = 0;
+    double dx = 0;
+    double dy = 0;
 
-      if (rc.SizeX() < m_minWidth * k)
-        dx = (m_minWidth * k - rc.SizeX()) / 2;
-      if (rc.SizeY() < m_minHeight * k)
-        dy = (m_minHeight * k - rc.SizeY()) / 2;
+    if (rc.SizeX() < m_minWidth * k)
+      dx = (m_minWidth * k - rc.SizeX()) / 2;
+    if (rc.SizeY() < m_minHeight * k)
+      dy = (m_minHeight * k - rc.SizeY()) / 2;
 
-      rc.Inflate(dx, dy);
-      rc.Offset(-rc.minX(), -rc.minY());
+    rc.Inflate(dx, dy);
+    rc.Offset(-rc.minX(), -rc.minY());
 
-      m2::PointD pt = computeTopLeft(m2::PointD(rc.SizeX(), rc.SizeY()),
-                                     pivot(),
-                                     position());
+    m2::PointD pt = computeTopLeft(m2::PointD(rc.SizeX(), rc.SizeY()),
+                                   pivot(),
+                                   position());
 
-      rc.Offset(pt);
-      m_boundRects.push_back(m2::AnyRectD(rc));
-      setIsDirtyRect(false);
-    }
+    rc.Offset(pt);
 
-    return m_boundRects;
+    return rc;
   }
 
   void Button::draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const

@@ -32,17 +32,14 @@ namespace
     CrossElement(OverlayElement::Params const & params)
       : OverlayElement(params)
     {
-      m2::PointD offset(ApiPinLength, ApiPinLength);
-      m2::PointD const & pt = pivot();
-      m2::RectD r(pt - offset, pt + offset);
-
-      m_boundRects.push_back(m2::AnyRectD(r));
       setIsFrozen(true);
     }
 
-    vector<m2::AnyRectD> const & boundRects() const
+    virtual m2::RectD GetBoundRect() const
     {
-      return m_boundRects;
+      m2::PointD const offset(ApiPinLength, ApiPinLength);
+      m2::PointD const & pt = pivot();
+      return m2::RectD(pt - offset, pt + offset);
     }
 
     void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
@@ -80,9 +77,6 @@ namespace
     {
       OverlayElement::setTransformation(m);
     }
-
-  private:
-    vector<m2::AnyRectD> m_boundRects;
   };
 }
 

@@ -23,7 +23,7 @@ namespace graphics
 
   m2::RectD const OverlayElementTraits::LimitRect(shared_ptr<OverlayElement> const & elem)
   {
-    return elem->roughBoundRect();
+    return elem->GetBoundRect();
   }
 
   void DrawIfNotCancelled(OverlayRenderer * r,
@@ -52,15 +52,19 @@ namespace graphics
   void offsetTree(Tree & tree, m2::PointD const & offs, m2::RectD const & r)
   {
     m2::AnyRectD AnyRect(r);
+
     typedef typename Tree::elem_t elem_t;
     vector<elem_t> elems;
+
     tree.ForEach(MakeBackInsertFunctor(elems));
     tree.Clear();
 
     for (typename vector<elem_t>::iterator it = elems.begin(); it != elems.end(); ++it)
     {
       (*it)->offset(offs);
-      vector<m2::AnyRectD> const & aaLimitRects = (*it)->boundRects();
+      OverlayElement::RectsT aaLimitRects;
+      (*it)->GetMiniBoundRects(aaLimitRects);
+
       bool doAppend = false;
 
       (*it)->setIsNeedRedraw(false);
@@ -69,15 +73,12 @@ namespace graphics
       bool hasInside = false;
       bool hasOutside = false;
 
-      for (int i = 0; i < aaLimitRects.size(); ++i)
+      for (size_t i = 0; i < aaLimitRects.size(); ++i)
       {
-        bool isPartInsideRect = AnyRect.IsRectInside(aaLimitRects[i]);
-
-        if (isPartInsideRect)
+        if (AnyRect.IsRectInside(aaLimitRects[i]))
         {
           if (hasOutside)
           {
-            /// intersecting
             (*it)->setIsNeedRedraw(true);
             doAppend = true;
             break;
@@ -90,25 +91,20 @@ namespace graphics
           }
         }
 
-        bool isRectInsidePart = aaLimitRects[i].IsRectInside(AnyRect);
-
-        if (isRectInsidePart)
+        if (aaLimitRects[i].IsRectInside(AnyRect))
         {
           doAppend = true;
           break;
         }
 
-        bool isPartIntersectRect = AnyRect.IsIntersect(aaLimitRects[i]);
-
-        if (isPartIntersectRect)
+        if (AnyRect.IsIntersect(aaLimitRects[i]))
         {
-          /// intersecting
           (*it)->setIsNeedRedraw(true);
           doAppend = true;
           break;
         }
 
-        /// the last case remains here - part rect is outside big rect
+        // the last case remains here - part rect is outside big rect
         if (hasInside)
         {
           (*it)->setIsNeedRedraw(true);
@@ -183,15 +179,12 @@ namespace graphics
 
     void operator()(shared_ptr<OverlayElement> const & e)
     {
-      vector<m2::AnyRectD> const & rects = e->boundRects();
+      OverlayElement::RectsT rects;
+      e->GetMiniBoundRects(rects);
 
-      for (vector<m2::AnyRectD>::const_iterator it = rects.begin();
-           it != rects.end();
-           ++it)
+      for (size_t i = 0; i < rects.size(); ++i)
       {
-        m2::AnyRectD const & rect = *it;
-
-        if (m_rect.IsIntersect(rect))
+        if (m_rect.IsIntersect(rects[i]))
         {
           m_elements->push_back(e);
           break;
@@ -200,37 +193,49 @@ namespace graphics
     }
   };
 
-  struct DoPreciseIntersect
+  class DoPreciseIntersect
   {
     shared_ptr<OverlayElement> m_oe;
-    bool * m_isIntersect;
+    OverlayElement::RectsT m_rects;
 
-    DoPreciseIntersect(shared_ptr<OverlayElement> const & oe, bool * isIntersect)
-      : m_oe(oe),
-        m_isIntersect(isIntersect)
-    {}
+    bool m_isIntersect;
+
+  public:
+    DoPreciseIntersect(shared_ptr<OverlayElement> const & oe)
+      : m_oe(oe), m_isIntersect(false)
+    {
+      m_oe->GetMiniBoundRects(m_rects);
+    }
+
+    m2::RectD GetSearchRect() const
+    {
+      m2::RectD rect;
+      for (size_t i = 0; i < m_rects.size(); ++i)
+        rect.Add(m_rects[i].GetGlobalRect());
+      return rect;
+    }
 
     void operator()(shared_ptr<OverlayElement> const & e)
     {
-      if (*m_isIntersect)
+      if (m_isIntersect)
         return;
 
       if (m_oe->m_userInfo == e->m_userInfo)
         return;
 
-      vector<m2::AnyRectD> const & lr = m_oe->boundRects();
-      vector<m2::AnyRectD> const & rr = e->boundRects();
+      OverlayElement::RectsT rects;
+      e->GetMiniBoundRects(rects);
 
-      for (vector<m2::AnyRectD>::const_iterator lit = lr.begin(); lit != lr.end(); ++lit)
-      {
-        for (vector<m2::AnyRectD>::const_iterator rit = rr.begin(); rit != rr.end(); ++rit)
+      for (size_t i = 0; i < m_rects.size(); ++i)
+        for (size_t j = 0; j < rects.size(); ++j)
         {
-          *m_isIntersect = lit->IsIntersect(*rit);
-          if (*m_isIntersect)
+          m_isIntersect = m_rects[i].IsIntersect(rects[j]);
+          if (m_isIntersect)
             return;
         }
-      }
     }
+
+    bool IsIntersect() const { return m_isIntersect; }
   };
 
   void Overlay::selectOverlayElements(m2::RectD const & rect, list<shared_ptr<OverlayElement> > & res) const
@@ -241,10 +246,10 @@ namespace graphics
 
   void Overlay::replaceOverlayElement(shared_ptr<OverlayElement> const & oe)
   {
-    bool isIntersect = false;
-    DoPreciseIntersect fn(oe, &isIntersect);
-    m_tree.ForEachInRect(oe->roughBoundRect(), fn);
-    if (isIntersect)
+    DoPreciseIntersect fn(oe);
+    m_tree.ForEachInRect(fn.GetSearchRect(), bind<void>(ref(fn), _1));
+
+    if (fn.IsIntersect())
       m_tree.ReplaceIf(oe, &betterOverlayElement);
     else
       m_tree.Add(oe);
@@ -321,41 +326,25 @@ namespace graphics
     m_tree.ForEach(MakeBackInsertFunctor(v));
     m_tree.Clear();
 
-    //int clippedCnt = 0;
-    //int elemCnt = v.size();
-
-    m2::RectD rd(r);
+    m2::RectD const rd(r);
     m2::AnyRectD ard(rd);
 
-    for (unsigned i = 0; i < v.size(); ++i)
+    for (size_t i = 0; i < v.size(); ++i)
     {
       shared_ptr<OverlayElement> const & e = v[i];
 
       if (!e->isVisible())
-      {
-        //clippedCnt++;
         continue;
-      }
 
-      if (e->roughBoundRect().IsIntersect(rd))
-      {
-        bool hasIntersection = false;
-        for (unsigned j = 0; j < e->boundRects().size(); ++j)
+      OverlayElement::RectsT rects;
+      e->GetMiniBoundRects(rects);
+
+      for (size_t j = 0; j < rects.size(); ++j)
+        if (ard.IsIntersect(rects[j]))
         {
-          if (ard.IsIntersect(e->boundRects()[j]))
-          {
-            hasIntersection = true;
-            break;
-          }
-        }
-
-        if (hasIntersection)
           processOverlayElement(e);
-      }
-      //else
-      //  clippedCnt++;
+          break;
+        }
     }
-
-//    LOG(LINFO, ("clipped out", clippedCnt, "elements,", elemCnt, "elements total"));
   }
 }

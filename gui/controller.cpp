@@ -38,7 +38,7 @@ namespace gui
          ++it)
     {
       shared_ptr<gui::Element> const & e = *it;
-      if ((!onlyVisible || e->isVisible()) && e->roughHitTest(pt) && e->hitTest(pt))
+      if ((!onlyVisible || e->isVisible()) && e->hitTest(pt))
         l.push_back(e);
     }
   }

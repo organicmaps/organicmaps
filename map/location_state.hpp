@@ -81,15 +81,13 @@ namespace location
 
     Framework * m_framework;
 
-    /// Compass Rendering Parameters
-    /// @{
-
+    /// @nameCompass Rendering Parameters
+    //@{
     unique_ptr<graphics::DisplayList> m_positionArrow;
     unique_ptr<graphics::DisplayList> m_locationMarkDL;
     unique_ptr<graphics::DisplayList> m_positionMarkDL;
+    //@}
 
-    /// @}
-    ///
     void cachePositionArrow();
     void cacheLocationMark();
 
@@ -97,7 +95,6 @@ namespace location
     void purge();
     void update();
 
-    mutable vector<m2::AnyRectD> m_boundRects;
     m2::RectD m_boundRect;
 
     void CheckCompassFollowing();
@@ -155,7 +152,8 @@ namespace location
 
     /// @name Override from graphics::OverlayElement and gui::Element.
     //@{
-    vector<m2::AnyRectD> const & boundRects() const;
+    virtual m2::RectD GetBoundRect() const;
+
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     bool roughHitTest(m2::PointD const & pt) const;
     bool hitTest(m2::PointD const & pt) const;

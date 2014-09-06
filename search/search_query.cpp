@@ -360,13 +360,13 @@ template <class ToDo> void Query::ForEachCategoryTypes(ToDo toDo) const
     for (size_t i = 0; i < tokensCount; ++i)
     {
       for (int j = 0; j < localesCount; ++j)
-        m_pCategories->ForEachTypeByName(arrLocales[j], m_tokens[i], bind<void>(toDo, i, _1));
+        m_pCategories->ForEachTypeByName(arrLocales[j], m_tokens[i], bind<void>(ref(toDo), i, _1));
     }
 
     if (!m_prefix.empty())
     {
       for (int j = 0; j < localesCount; ++j)
-        m_pCategories->ForEachTypeByName(arrLocales[j], m_prefix, bind<void>(toDo, tokensCount, _1));
+        m_pCategories->ForEachTypeByName(arrLocales[j], m_prefix, bind<void>(ref(toDo), tokensCount, _1));
     }
   }
 }

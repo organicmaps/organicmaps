@@ -1,9 +1,8 @@
 #include "element.hpp"
 #include "controller.hpp"
 
-#include "../graphics/overlay_renderer.hpp"
-
 #include "../base/logging.hpp"
+
 
 namespace gui
 {
@@ -84,10 +83,9 @@ namespace gui
     }
   }
 
-  void Element::draw(graphics::OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
+  void Element::draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const &) const
   {
-    for (size_t i = 0; i < boundRects().size(); ++i)
-      r->drawRectangle(boundRects()[i], color(state()), depth());
+    DrawRectsDebug(r, color(state()), depth());
   }
 
   double Element::priority() const

@@ -19,9 +19,9 @@ CompassArrow::Params::Params()
 {}
 
 CompassArrow::CompassArrow(Params const & p)
-  : base_t(p),
+  : BaseT(p),
+    m_pixelSize(-1, -1),
     m_angle(0),
-    m_boundRects(1),
     m_framework(p.m_framework)
 {
 }
@@ -49,31 +49,25 @@ void CompassArrow::AnimateHide()
 void CompassArrow::SetAngle(double angle)
 {
   m_angle = angle;
-  setIsDirtyRect(true);
 }
 
-m2::PointD CompassArrow::GetPixelSize() const
+m2::PointI CompassArrow::GetPixelSize() const
 {
-  Resource const * res = GetCompassResource();
-  return m2::PointD(res->m_texRect.SizeX(), res->m_texRect.SizeY());
-}
-
-vector<m2::AnyRectD> const & CompassArrow::boundRects() const
-{
-  if (isDirtyRect())
+  if (m_pixelSize == m2::PointI(-1, -1))
   {
     Resource const * res = GetCompassResource();
-    double halfW = res->m_texRect.SizeX() / 2.0;
-    double halfH = res->m_texRect.SizeY() / 2.0;
-
-    m_boundRects[0] = m2::AnyRectD(pivot(),
-                                   -math::pi / 2 + m_angle,
-                                   m2::RectD(-halfW, -halfH, halfW, halfH));
-
-    setIsDirtyRect(false);
+    m_pixelSize = m2::PointI(res->m_texRect.SizeX(), res->m_texRect.SizeY());
   }
+  return m_pixelSize;
+}
 
-  return m_boundRects;
+void CompassArrow::GetMiniBoundRects(RectsT & rects) const
+{
+  double const halfW = m_pixelSize.x / 2.0;
+  double const halfH = m_pixelSize.y / 2.0;
+
+  rects.push_back(m2::AnyRectD(pivot(), -math::pi / 2 + m_angle,
+                               m2::RectD(-halfW, -halfH, halfW, halfH)));
 }
 
 void CompassArrow::draw(OverlayRenderer * r,
@@ -200,7 +194,7 @@ void CompassArrow::purge()
 
 bool CompassArrow::isBaseVisible() const
 {
-  return base_t::isVisible();
+  return BaseT::isVisible();
 }
 
 bool CompassArrow::onTapEnded(m2::PointD const & pt)

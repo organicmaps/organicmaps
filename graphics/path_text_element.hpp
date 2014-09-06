@@ -8,13 +8,15 @@ namespace graphics
 {
   class PathTextElement : public TextElement
   {
-  private:
+    typedef TextElement BaseT;
 
     GlyphLayoutPath m_glyphLayout;
 
-  public:
+    /// Cached bound rect for the fast Overlay tree routine.
+    mutable m2::RectD m_boundRect;
 
-    struct Params : TextElement::Params
+  public:
+    struct Params : BaseT::Params
     {
       m2::PointD const * m_pts;
       size_t m_ptsCount;
@@ -26,7 +28,8 @@ namespace graphics
 
     PathTextElement(Params const & p);
 
-    vector<m2::AnyRectD> const & boundRects() const;
+    virtual m2::RectD GetBoundRect() const;
+    virtual void GetMiniBoundRects(RectsT & rects) const;
 
     void draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 

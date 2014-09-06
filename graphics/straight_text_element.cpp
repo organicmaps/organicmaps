@@ -179,20 +179,14 @@ namespace graphics
       m_offset(0, 0)
   {}
 
-  vector<m2::AnyRectD> const & StraightTextElement::boundRects() const
+  void StraightTextElement::GetMiniBoundRects(RectsT & rects) const
   {
-    if (isDirtyRect())
+    for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
     {
-      m_boundRects.clear();
-
-      for (size_t i = 0; i < m_glyphLayouts.size(); ++i)
-        copy(m_glyphLayouts[i].boundRects().begin(),
-             m_glyphLayouts[i].boundRects().end(),
-             back_inserter(m_boundRects));
-
-      setIsDirtyRect(false);
+      copy(m_glyphLayouts[i].boundRects().begin(),
+           m_glyphLayouts[i].boundRects().end(),
+           back_inserter(rects));
     }
-    return m_boundRects;
   }
 
   void StraightTextElement::draw(OverlayRenderer * screen, math::Matrix<double, 3, 3> const & m) const
@@ -207,14 +201,9 @@ namespace graphics
       if (isNeedRedraw())
         c = graphics::Color(255, 0, 0, 64);
 
-      screen->drawRectangle(roughBoundRect(), graphics::Color(255, 255, 0, 64), depth());
+      screen->drawRectangle(GetBoundRect(), graphics::Color(255, 255, 0, 64), depth() + doffs++);
 
-      doffs += 1;
-
-      for (size_t i = 0 ; i < boundRects().size(); ++i)
-        screen->drawRectangle(boundRects()[i], c, depth() + doffs);
-
-      doffs += 1;
+      DrawRectsDebug(screen, c, depth() + doffs++);
     }
 
     if (!isNeedRedraw())

@@ -23,9 +23,9 @@ class Framework;
 /// and rotates screen back to straight orientation when beeing pressed
 class CompassArrow : public gui::Element
 {
-private:
-  typedef gui::Element base_t;
+  typedef gui::Element BaseT;
 
+  mutable m2::PointI m_pixelSize;
   double m_angle;
 
   unique_ptr<graphics::DisplayList> m_dl;
@@ -37,16 +37,13 @@ private:
   float GetCurrentAlfa() const;
   void CreateAnim(double startAlfa, double endAlfa, double timeInterval, double timeOffset, bool isVisibleAtEnd);
 
-  mutable vector<m2::AnyRectD> m_boundRects;
-
   Framework * m_framework;
   graphics::Resource const * GetCompassResource() const;
 
   bool isBaseVisible() const;
 
 public:
-
-  struct Params : public base_t::Params
+  struct Params : public BaseT::Params
   {
     Framework * m_framework;
     Params();
@@ -58,11 +55,12 @@ public:
   void AnimateHide();
 
   void SetAngle(double angle);
-  m2::PointD GetPixelSize() const;
+  m2::PointI GetPixelSize() const;
 
   /// @name Override from graphics::Overlayelement and gui::Element.
   //@{
-  vector<m2::AnyRectD> const & boundRects() const;
+  virtual void GetMiniBoundRects(RectsT & rects) const;
+
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
   bool isVisible() const;
   bool roughHitTest(m2::PointD const & pt) const;

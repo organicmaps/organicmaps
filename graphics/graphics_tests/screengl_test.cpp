@@ -898,7 +898,7 @@ namespace
       params.m_logText = strings::MakeUniString("Simplicity is the ultimate sophistication");
       graphics::StraightTextElement ste(params);
 
-      m2::RectD r = ste.roughBoundRect();
+      m2::RectD const r = ste.GetBoundRect();
       p->drawRectangle(r, graphics::Color(0, 0, 255, 255), 0);
 
       base_t::DoDraw(p);

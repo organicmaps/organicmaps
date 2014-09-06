@@ -9,36 +9,18 @@ namespace graphics
   {}
 
   CircleElement::CircleElement(Params const & p)
-    : base_t(p),
+    : BaseT(p),
       m_ci(p.m_ci)
   {}
 
-  vector<m2::AnyRectD> const & CircleElement::boundRects() const
+  m2::RectD CircleElement::GetBoundRect() const
   {
-    if (isDirtyRect())
-    {
-      m_boundRects.clear();
-      m_boundRects.push_back(boundRect());
-      setIsDirtyRect(false);
-    }
+    // Skip for one pixel on every border.
+    m2::PointD sz = m_ci.resourceSize();
+    sz -= m2::PointD(2, 2);
 
-    return m_boundRects;
-  }
-
-  m2::AnyRectD const CircleElement::boundRect() const
-  {
-    m2::RectI texRect(m2::PointI(0, 0),
-                      m2::PointI(m_ci.resourceSize()));
-
-    texRect.Inflate(-1, -1);
-
-    m2::PointD sz(texRect.SizeX(), texRect.SizeY());
-
-    m2::PointD posPt = computeTopLeft(sz,
-                                      pivot(),
-                                      position());
-
-    return m2::AnyRectD(m2::RectD(posPt, posPt + sz));
+    m2::PointD const posPt = computeTopLeft(sz, pivot(), position());
+    return m2::RectD(posPt, posPt + sz);
   }
 
   void CircleElement::draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
@@ -69,6 +51,6 @@ namespace graphics
   void CircleElement::setTransformation(const math::Matrix<double, 3, 3> & m)
   {
     setPivot(pivot() * getResetMatrix() * m);
-    base_t::setTransformation(m);
+    BaseT::setTransformation(m);
   }
 }

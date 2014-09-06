@@ -25,11 +25,9 @@ namespace gui
   class Button : public Element
   {
   public:
-
     typedef function<void (Element const *)> TOnClickListener;
 
   private:
-
     TOnClickListener m_OnClickListener;
 
     unsigned m_minWidth;
@@ -40,10 +38,7 @@ namespace gui
 
     void cacheButtonBody(EState state);
 
-    mutable vector<m2::AnyRectD> m_boundRects;
-
   public:
-
     struct Params : Element::Params
     {
       unsigned m_minWidth;
@@ -70,7 +65,8 @@ namespace gui
 
     /// @name Override from graphics::OverlayElement and gui::Element.
     //@{
-    vector<m2::AnyRectD> const & boundRects() const;
+    virtual m2::RectD GetBoundRect() const;
+
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
     void setPivot(m2::PointD const & pv);
 

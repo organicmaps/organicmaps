@@ -49,8 +49,6 @@ private:
 
   bool m_notEnoughSpace;
 
-  mutable vector<m2::AnyRectD> m_boundRects;
-
   string const displayName() const;
 
   template <class T1, class T2>
@@ -76,9 +74,10 @@ public:
 
   /// @name Override from graphics::OverlayElement and gui::Element.
   //@{
+  virtual m2::RectD GetBoundRect() const;
+
   void setPivot(m2::PointD const & pv);
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-  vector<m2::AnyRectD> const & boundRects() const;
 
   void cache();
   void purge();
