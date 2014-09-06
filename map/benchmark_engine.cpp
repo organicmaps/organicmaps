@@ -1,5 +1,5 @@
 #include "benchmark_engine.hpp"
-#include "benchmark_provider.hpp"
+#include "framework.hpp"
 
 #include "../platform/settings.hpp"
 #include "../platform/platform.hpp"
@@ -10,16 +10,16 @@
 #include "../std/fstream.hpp"
 
 
-template <class T> class DoGetBenchmarks
+class DoGetBenchmarks
 {
   set<string> m_processed;
-  vector<T> & m_benchmarks;
-  Navigator & m_navigator;
+
+  BenchmarkEngine & m_engine;
   Platform & m_pl;
 
 public:
-  DoGetBenchmarks(vector<T> & benchmarks, Navigator & navigator)
-    : m_benchmarks(benchmarks), m_navigator(navigator), m_pl(GetPlatform())
+  DoGetBenchmarks(BenchmarkEngine & engine)
+    : m_engine(engine), m_pl(GetPlatform())
   {
   }
 
@@ -28,7 +28,7 @@ public:
     if (v[0][0] == '#')
       return;
 
-    T b;
+    BenchmarkEngine::Benchmark b;
     b.m_name = v[1];
 
     m2::RectD r;
@@ -50,25 +50,29 @@ public:
     int lastScale;
     if (v.size() > 3)
     {
-      double x0, y0, x1, y1;
-      strings::to_double(v[2], x0);
-      strings::to_double(v[3], y0);
-      strings::to_double(v[4], x1);
-      strings::to_double(v[5], y1);
-      r = m2::RectD(x0, y0, x1, y1);
-      strings::to_int(v[6], lastScale);
+      double lat1, lon1, lat2, lon2;
+      CHECK(strings::to_double(v[2], lat1), (v[2]));
+      CHECK(strings::to_double(v[3], lon1), (v[3]));
+      CHECK(strings::to_double(v[4], lat2), (v[4]));
+      CHECK(strings::to_double(v[5], lon2), (v[5]));
+
+      r = m2::RectD(m2::PointD(MercatorBounds::LonToX(lon1), MercatorBounds::LatToY(lat1)),
+                    m2::PointD(MercatorBounds::LonToX(lon2), MercatorBounds::LatToY(lat2)));
+      CHECK(strings::to_int(v[6], lastScale), (v[6]));
     }
     else
-      strings::to_int(v[2], lastScale);
+      CHECK(strings::to_int(v[2], lastScale), (v[2]));
 
     ASSERT ( r != m2::RectD::GetEmptyRect(), (r) );
 
-    m_navigator.SetFromRect(m2::AnyRectD(r));
-    r = m_navigator.Screen().GlobalRect().GetGlobalRect();
+    Navigator & nav = m_engine.m_framework->GetNavigator();
 
-    b.m_provider.reset(new BenchmarkRectProvider(scales::GetScaleLevel(r), r, lastScale));
+    nav.SetFromRect(m2::AnyRectD(r));
+    r = nav.Screen().GlobalRect().GetGlobalRect();
 
-    m_benchmarks.push_back(b);
+    b.m_provider.reset(new BenchmarkRectProvider(nav.GetDrawScale(), r, lastScale));
+
+    m_engine.m_benchmarks.push_back(b);
   }
 };
 
@@ -81,7 +85,7 @@ void ForEachBenchmarkRecord(ToDo & toDo)
     if (!Settings::Get("BenchmarkConfig", configPath))
       return;
 
-    ReaderStreamBuf buffer(GetPlatform().GetReader(configPath));
+    ReaderStreamBuf buffer(GetPlatform().GetReader(configPath, "w"));
     istream stream(&buffer);
 
     string line;
@@ -176,7 +180,7 @@ void BenchmarkEngine::SaveBenchmarkResults()
     /// @todo Place correct version here from bundle (platform).
 
     fout << GetPlatform().DeviceName() << " "
-         << "2.3.0" << " "
+         << "3.0.0" << " "
          << m_startTime << " "
          << m_benchmarkResults[i].m_name << " "
          << m_benchmarkResults[i].m_rect.minX() << " "
@@ -191,18 +195,12 @@ void BenchmarkEngine::SaveBenchmarkResults()
 
 void BenchmarkEngine::SendBenchmarkResults()
 {
-//    ofstream fout(GetPlatform().WritablePathForFile("benchmarks/results.txt").c_str(), ios::app);
-//    fout << "[COMPLETED]";
-//    fout.close();
-  /// send to server for adding to statistics graphics
-  /// and delete results file
 }
 
 void BenchmarkEngine::MarkBenchmarkResultsEnd()
 {
   string resultsPath;
   Settings::Get("BenchmarkResults", resultsPath);
-  LOG(LINFO, (resultsPath));
   ofstream fout(GetPlatform().WritablePathForFile(resultsPath).c_str(), ios::app);
   fout << "END " << m_startTime << endl;
 }
@@ -211,18 +209,17 @@ void BenchmarkEngine::MarkBenchmarkResultsStart()
 {
   string resultsPath;
   Settings::Get("BenchmarkResults", resultsPath);
-  LOG(LINFO, (resultsPath));
   ofstream fout(GetPlatform().WritablePathForFile(resultsPath).c_str(), ios::app);
   fout << "START " << m_startTime << endl;
 }
 
 bool BenchmarkEngine::NextBenchmarkCommand()
 {
-  if ((m_benchmarks[m_curBenchmark].m_provider->hasRect()) || (++m_curBenchmark < m_benchmarks.size()))
+  if (m_benchmarks[m_curBenchmark].m_provider->hasRect() || ++m_curBenchmark < m_benchmarks.size())
   {
-    double s = m_benchmarksTimer.ElapsedSeconds();
+    double const s = m_benchmarksTimer.ElapsedSeconds();
 
-    int fenceID = m_framework->GetRenderPolicy()->InsertBenchmarkFence();
+    int const fenceID = m_framework->GetRenderPolicy()->InsertBenchmarkFence();
 
     m_framework->ShowRect(m_benchmarks[m_curBenchmark].m_provider->nextRect());
     m_curBenchmarkRect = m_framework->GetCurrentViewport();
@@ -239,7 +236,8 @@ bool BenchmarkEngine::NextBenchmarkCommand()
     SaveBenchmarkResults();
     MarkBenchmarkResultsEnd();
     SendBenchmarkResults();
-    LOG(LINFO, ("Bechmarks took ", m_benchmarksTimer.ElapsedSeconds(), " seconds to complete"));
+
+    LOG(LINFO, ("Bechmarks took", m_benchmarksTimer.ElapsedSeconds(), "seconds to complete"));
     return false;
   }
 }
@@ -254,11 +252,11 @@ void BenchmarkEngine::Do()
   PrepareMaps();
 
   int benchMarkCount = 1;
-  Settings::Get("BenchmarkCyclesCount", benchMarkCount);
+  (void) Settings::Get("BenchmarkCyclesCount", benchMarkCount);
 
   for (int i = 0; i < benchMarkCount; ++i)
   {
-    DoGetBenchmarks<Benchmark> doGet(m_benchmarks, m_framework->m_navigator);
+    DoGetBenchmarks doGet(*this);
     ForEachBenchmarkRecord(doGet);
 
     m_curBenchmark = 0;

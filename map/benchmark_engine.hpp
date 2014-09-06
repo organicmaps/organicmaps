@@ -1,6 +1,5 @@
 #pragma once
-
-#include "framework.hpp"
+#include "benchmark_provider.hpp"
 
 #include "../geometry/rect2d.hpp"
 
@@ -11,9 +10,8 @@
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 
-struct BenchmarkRectProvider;
-class WindowHandle;
-class PaintEvent;
+
+class Framework;
 
 /// BenchmarkEngine is class which:
 /// - Creates it's own thread
@@ -22,8 +20,6 @@ class PaintEvent;
 /// - Measure the time of each task and save the result
 class BenchmarkEngine : public threads::IRoutine
 {
-private:
-
   threads::Thread m_thread;
 
   double m_paintDuration;
@@ -66,8 +62,9 @@ private:
 
   void Do();
 
-public:
+  friend class DoGetBenchmarks;
 
+public:
   BenchmarkEngine(Framework * fw);
 
   void Start();

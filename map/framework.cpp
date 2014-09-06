@@ -601,7 +601,7 @@ bool Framework::SetUpdatesEnabled(bool doEnable)
 
 int Framework::GetDrawScale() const
 {
-  return m_scales.GetDrawTileScale(m_navigator.Screen());
+  return m_navigator.GetDrawScale();
 }
 
 RenderPolicy::TRenderFn Framework::DrawModelFn()

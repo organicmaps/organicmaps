@@ -678,3 +678,8 @@ bool Navigator::DoSupportRotation() const
 {
   return m_DoSupportRotation;
 }
+
+int Navigator::GetDrawScale() const
+{
+  return m_scales.GetDrawTileScale(m_Screen);
+}
