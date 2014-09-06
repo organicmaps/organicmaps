@@ -8,6 +8,7 @@
 #include "../base/matrix.hpp"
 
 #include "../std/vector.hpp"
+#include "../std/bitset.hpp"
 
 
 namespace graphics
@@ -17,7 +18,6 @@ namespace graphics
   class OverlayElement
   {
   public:
-
     struct UserInfo
     {
       size_t m_mwmID;
@@ -32,19 +32,20 @@ namespace graphics
     };
 
   private:
-
     m2::PointD m_pivot;
     graphics::EPosition m_position;
     double m_depth;    
 
-    bool m_isNeedRedraw;
-    bool m_isFrozen;
-    bool m_isVisible;
-    bool m_isValid;
-    mutable bool m_isDirtyRect;
-    mutable bool m_isDirtyLayout;
+    enum { NEED_REDRAW,
+           FROZEN,
+           VISIBLE,
+           VALID,
+           DIRTY_RECT,
+           DIRTY_LAYOUT,
+           DIRTY_ROUGH_RECT,
+           FLAGS_COUNT };
 
-    mutable bool m_isDirtyRoughRect;
+    mutable bitset<FLAGS_COUNT> m_flags;
     mutable m2::RectD m_roughBoundRect;
 
     math::Matrix<double, 3, 3> m_inverseMatrix;
@@ -53,8 +54,8 @@ namespace graphics
     math::Matrix<double, 3, 3> const & getResetMatrix() const;
 
   public:
-
     UserInfo m_userInfo;
+
     static m2::PointD const computeTopLeft(m2::PointD const & sz,
                                            m2::PointD const & pv,
                                            EPosition pos);
@@ -127,5 +128,4 @@ namespace graphics
 
     virtual bool hasSharpGeometry() const;
   };
-
 }

@@ -17,16 +17,12 @@ namespace graphics
     : m_pivot(p.m_pivot),
       m_position(p.m_position),
       m_depth(p.m_depth),
-      m_isNeedRedraw(true),
-      m_isFrozen(false),
-      m_isVisible(true),
-      m_isValid(true),
-      m_isDirtyRect(true),
-      m_isDirtyLayout(true),
-      m_isDirtyRoughRect(true),
       m_inverseMatrix(math::Identity<double, 3>()),
       m_userInfo(p.m_userInfo)
-  {}
+  {
+    m_flags.set();
+    m_flags[FROZEN] = false;
+  }
 
   m2::PointD const OverlayElement::computeTopLeft(m2::PointD const & sz,
                                                   m2::PointD const & pv,
@@ -91,61 +87,61 @@ namespace graphics
 
   bool OverlayElement::isFrozen() const
   {
-    return m_isFrozen;
+    return m_flags[FROZEN];
   }
 
   void OverlayElement::setIsFrozen(bool flag)
   {
-    m_isFrozen = flag;
+    m_flags[FROZEN] = flag;
   }
 
   bool OverlayElement::isNeedRedraw() const
   {
-    return m_isNeedRedraw;
+    return m_flags[NEED_REDRAW];
   }
 
   void OverlayElement::setIsNeedRedraw(bool flag)
   {
-    m_isNeedRedraw = flag;
+    m_flags[NEED_REDRAW] = flag;
   }
 
   bool OverlayElement::isVisible() const
   {
-    return m_isVisible;
+    return m_flags[VISIBLE];
   }
 
   void OverlayElement::setIsVisible(bool flag)
   {
-    m_isVisible = flag;
+    m_flags[VISIBLE] = flag;
   }
 
   bool OverlayElement::isDirtyLayout() const
   {
-   return m_isDirtyLayout;
+   return m_flags[DIRTY_LAYOUT];
   }
 
   void OverlayElement::setIsDirtyLayout(bool flag) const
   {
-    m_isDirtyLayout = flag;
+    m_flags[DIRTY_LAYOUT] = flag;
     if (flag)
       setIsDirtyRect(true);
   }
 
   bool OverlayElement::isDirtyRect() const
   {
-    return m_isDirtyRect;
+    return m_flags[DIRTY_RECT];
   }
 
   void OverlayElement::setIsDirtyRect(bool flag) const
   {
     if (flag)
-      m_isDirtyRoughRect = true;
-    m_isDirtyRect = flag;
+      m_flags[DIRTY_ROUGH_RECT] = true;
+    m_flags[DIRTY_RECT] = flag;
   }
 
   m2::RectD const & OverlayElement::roughBoundRect() const
   {
-    if (m_isDirtyRoughRect)
+    if (m_flags[DIRTY_ROUGH_RECT])
     {
       vector<m2::AnyRectD> const & rects = boundRects();
       size_t const count = rects.size();
@@ -161,7 +157,7 @@ namespace graphics
           m_roughBoundRect.Add(rects[i].GetGlobalRect());
       }
 
-      m_isDirtyRoughRect = false;
+      m_flags[DIRTY_ROUGH_RECT] = false;
     }
 
     return m_roughBoundRect;
@@ -180,12 +176,12 @@ namespace graphics
 
   bool OverlayElement::isValid() const
   {
-    return m_isValid;
+    return m_flags[VALID];
   }
 
   void OverlayElement::setIsValid(bool flag)
   {
-    m_isValid = flag;
+    m_flags[VALID] = flag;
   }
 
   bool OverlayElement::roughHitTest(m2::PointD const & pt) const
