@@ -7,6 +7,9 @@
 */
 #ifndef BOOST_POLYGON_RECTANGLE_TRAITS_HPP
 #define BOOST_POLYGON_RECTANGLE_TRAITS_HPP
+
+#include "isotropy.hpp"
+
 namespace boost { namespace polygon{
 
   template <typename T, typename enable = gtl_yes>

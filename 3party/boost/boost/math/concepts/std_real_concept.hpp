@@ -68,7 +68,7 @@ public:
    std_real_concept(double c) : m_value(c){}
    std_real_concept(long double c) : m_value(c){}
 #ifdef BOOST_MATH_USE_FLOAT128
-   std_real_concept(__float128 c) : m_value(c){}
+   std_real_concept(BOOST_MATH_FLOAT128_TYPE c) : m_value(c){}
 #endif
 
    // Assignment:
@@ -316,10 +316,19 @@ inline std::basic_ostream<charT, traits>& operator<<(std::basic_ostream<charT, t
 template <class charT, class traits>
 inline std::basic_istream<charT, traits>& operator>>(std::basic_istream<charT, traits>& is, std_real_concept& a)
 {
+#if defined(__SGI_STL_PORT) || defined(_RWSTD_VER) || defined(__LIBCOMO__) || defined(_LIBCPP_VERSION)
+   std::string s;
+   std_real_concept_base_type d;
+   is >> s;
+   std::sscanf(s.c_str(), "%Lf", &d);
+   a = d;
+   return is;
+#else
    std_real_concept_base_type v;
    is >> v;
    a = v;
    return is;
+#endif
 }
 
 } // namespace concepts
@@ -333,7 +342,7 @@ namespace tools
 {
 
 template <>
-inline concepts::std_real_concept make_big_value<concepts::std_real_concept>(long double val, const char* , mpl::false_ const&, mpl::false_ const&)
+inline concepts::std_real_concept make_big_value<concepts::std_real_concept>(boost::floatmax_t val, const char*, mpl::false_ const&, mpl::false_ const&)
 {
    return val;  // Can't use lexical_cast here, sometimes it fails....
 }

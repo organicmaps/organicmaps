@@ -7,6 +7,7 @@
 #if !defined(FUSION_VECTOR10_05042005_0257)
 #define FUSION_VECTOR10_05042005_0257
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/vector/vector10_fwd.hpp>
 #include <boost/fusion/support/sequence_base.hpp>
 #include <boost/fusion/support/detail/access.hpp>
@@ -50,9 +51,11 @@ namespace boost { namespace fusion
         typedef random_access_traversal_tag category;
         typedef mpl::int_<0> size;
 
+        BOOST_FUSION_GPU_ENABLED
         vector0() {}
 
         template<typename Sequence>
+        BOOST_FUSION_GPU_ENABLED
         vector0(Sequence const& /*seq*/)
         {}
     };
@@ -80,12 +83,16 @@ namespace boost { namespace fusion
 
 namespace boost { namespace fusion
 {
+    struct vector_tag;
+    struct fusion_sequence_tag;
+    struct random_access_traversal_tag;
 
+#define FUSION_HASH #
 // expand vector1 to vector10
 #define BOOST_PP_FILENAME_1 <boost/fusion/container/vector/detail/vector_n.hpp>
 #define BOOST_PP_ITERATION_LIMITS (1, 10)
 #include BOOST_PP_ITERATE()
-
+#undef FUSION_HASH
 }}
 
 #if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)

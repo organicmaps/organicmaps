@@ -126,13 +126,13 @@
         const T range_zmin = (std::max<T>)(z_estimate - T(1), T(1));
         const T range_zmax = z_estimate + T(1);
 
-        const int digits2_of_t = int(float(std::numeric_limits<T>::digits)
-                                     * (  log(float(std::numeric_limits<T>::radix))
-                                        / log(float(2))));
+        const int my_digits10 = static_cast<int>(static_cast<float>(boost::math::tools::digits<T>() * 0.301F));
 
-        const int digits2_for_root = (std::min)(digits2_of_t, std::numeric_limits<double>::digits);
+        // Select the maximum allowed iterations based on the number
+        // of decimal digits in the numeric type T, being at least 12.
+        const boost::uintmax_t iterations_allowed = static_cast<boost::uintmax_t>((std::max)(12, my_digits10 * 2));
 
-        boost::uintmax_t iteration_count = boost::uintmax_t(std::numeric_limits<T>::digits10 * 2);
+        boost::uintmax_t iterations_used = iterations_allowed;
 
         // Calculate the root of z as a function of zeta.
         const T z = boost::math::tools::newton_raphson_iterate(
@@ -140,10 +140,10 @@
           z_estimate,
           range_zmin,
           range_zmax,
-          digits2_for_root,
-          iteration_count);
+          (std::min)(boost::math::tools::digits<T>(), boost::math::tools::digits<float>()),
+          iterations_used);
 
-        static_cast<void>(iteration_count);
+        static_cast<void>(iterations_used);
 
         // Continue with the implementation of A&S Eq. 9.3.39.
         const T zsq_minus_one      = (z * z) - T(1);

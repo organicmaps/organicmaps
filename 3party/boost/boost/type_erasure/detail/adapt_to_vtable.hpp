@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: adapt_to_vtable.hpp 83325 2013-03-05 22:24:25Z steven_watanabe $
+// $Id$
 
 #if !defined(BOOST_PP_IS_ITERATING)
 

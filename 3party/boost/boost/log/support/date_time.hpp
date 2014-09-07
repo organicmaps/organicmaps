@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -36,7 +36,7 @@
 #include <boost/log/utility/formatting_ostream.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -142,7 +142,7 @@ struct date_time_formatter_generator_traits_impl
         typedef typename date_time_formatter_generator_traits_impl< TimeT, CharT >::value_type value_type;
 
     public:
-        BOOST_LOG_DEFAULTED_FUNCTION(formatter(), {})
+        BOOST_DEFAULTED_FUNCTION(formatter(), {})
         formatter(formatter const& that) : base_type(static_cast< base_type const& >(that)) {}
         formatter(BOOST_RV_REF(formatter) that) { this->swap(that); }
 
@@ -217,7 +217,7 @@ struct date_time_formatter_generator_traits< local_time::local_date_time_base< T
         typedef typename date_time_formatter_generator_traits< local_time::local_date_time_base< TimeT, TimeZoneT >, CharT, VoidT >::value_type value_type;
 
     public:
-        BOOST_LOG_DEFAULTED_FUNCTION(formatter(), {})
+        BOOST_DEFAULTED_FUNCTION(formatter(), {})
         formatter(formatter const& that) : base_type(static_cast< base_type const& >(that)) {}
         formatter(BOOST_RV_REF(formatter) that) { this->swap(that); }
 
@@ -320,7 +320,7 @@ struct date_formatter_generator_traits_impl
         typedef typename date_formatter_generator_traits_impl< DateT, CharT >::value_type value_type;
 
     public:
-        BOOST_LOG_DEFAULTED_FUNCTION(formatter(), {})
+        BOOST_DEFAULTED_FUNCTION(formatter(), {})
         formatter(formatter const& that) : base_type(static_cast< base_type const& >(that)) {}
         formatter(BOOST_RV_REF(formatter) that) { this->swap(that); }
 
@@ -394,7 +394,7 @@ struct time_duration_formatter_generator_traits_impl
         typedef typename time_duration_formatter_generator_traits_impl< TimeDurationT, CharT >::value_type value_type;
 
     public:
-        BOOST_LOG_DEFAULTED_FUNCTION(formatter(), {})
+        BOOST_DEFAULTED_FUNCTION(formatter(), {})
         formatter(formatter const& that) : base_type(static_cast< base_type const& >(that)) {}
         formatter(BOOST_RV_REF(formatter) that) { this->swap(that); }
 
@@ -492,7 +492,7 @@ struct date_duration_formatter_generator_traits_impl
         typedef typename date_duration_formatter_generator_traits_impl< DateDurationT, CharT >::value_type value_type;
 
     public:
-        BOOST_LOG_DEFAULTED_FUNCTION(formatter(), {})
+        BOOST_DEFAULTED_FUNCTION(formatter(), {})
         formatter(formatter const& that) : base_type(static_cast< base_type const& >(that)) {}
         formatter(BOOST_RV_REF(formatter) that) { this->swap(that); }
 

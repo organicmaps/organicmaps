@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_SHM_NAMED_CONDITION_ANY_HPP
 #define BOOST_INTERPROCESS_SHM_NAMED_CONDITION_ANY_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -157,7 +157,7 @@ class shm_named_condition_any
       public:
       typedef interprocess_mutex       mutex_type;
       typedef interprocess_condition   condvar_type;
-  
+
       condvar_type&  get_condvar() {  return m_cond;  }
       mutex_type&    get_mutex()   {  return m_mtx; }
 

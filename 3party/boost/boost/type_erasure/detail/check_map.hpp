@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: check_map.hpp 80883 2012-10-06 01:28:13Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_DETAIL_CHECK_MAP_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_DETAIL_CHECK_MAP_HPP_INCLUDED

@@ -136,7 +136,7 @@ namespace boost { namespace math {
       BOOST_MATH_STD_USING
       static const char* function = "boost::math::pdf(const hypergeometric_distribution<%1%>&, const %1%&)";
       RealType r = static_cast<RealType>(x);
-      unsigned u = itrunc(r);
+      unsigned u = itrunc(r, typename policies::normalise<Policy, policies::rounding_error<policies::ignore_error> >::type());
       if(u != r)
       {
          return boost::math::policies::raise_domain_error<RealType>(
@@ -165,7 +165,7 @@ namespace boost { namespace math {
       BOOST_MATH_STD_USING
       static const char* function = "boost::math::cdf(const hypergeometric_distribution<%1%>&, const %1%&)";
       RealType r = static_cast<RealType>(x);
-      unsigned u = itrunc(r);
+      unsigned u = itrunc(r, typename policies::normalise<Policy, policies::rounding_error<policies::ignore_error> >::type());
       if(u != r)
       {
          return boost::math::policies::raise_domain_error<RealType>(
@@ -194,7 +194,7 @@ namespace boost { namespace math {
       BOOST_MATH_STD_USING
       static const char* function = "boost::math::cdf(const hypergeometric_distribution<%1%>&, const %1%&)";
       RealType r = static_cast<RealType>(c.param);
-      unsigned u = itrunc(r);
+      unsigned u = itrunc(r, typename policies::normalise<Policy, policies::rounding_error<policies::ignore_error> >::type());
       if(u != r)
       {
          return boost::math::policies::raise_domain_error<RealType>(

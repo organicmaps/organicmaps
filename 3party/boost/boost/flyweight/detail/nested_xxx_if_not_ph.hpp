@@ -9,7 +9,7 @@
 #ifndef BOOST_FLYWEIGHT_DETAIL_NESTED_XXX_IF_NOT_PH_HPP
 #define BOOST_FLYWEIGHT_DETAIL_NESTED_XXX_IF_NOT_PH_HPP
 
-#if defined(_MSC_VER)&&(_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 

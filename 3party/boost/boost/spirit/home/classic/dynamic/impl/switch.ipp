@@ -410,7 +410,7 @@ struct parse_switch;
                 return delegate_parse(                                      \
                     chain_parser<                                           \
                         case_chain<ParserT>::depth, ParserT                 \
-               >::left(p), scan, save);                                \
+                    >::left(p), scan, save);                                \
                                                                             \
             BOOST_PP_REPEAT_FROM_TO_ ## z(1, BOOST_PP_INC(N),               \
                 BOOST_SPIRIT_PARSE_SWITCH_CASES, _)                         \

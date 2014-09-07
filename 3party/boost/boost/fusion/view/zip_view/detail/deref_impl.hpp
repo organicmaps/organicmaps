@@ -8,6 +8,7 @@
 #if !defined(FUSION_DEREF_IMPL_20061024_1959)
 #define FUSION_DEREF_IMPL_20061024_1959
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/iterator/deref.hpp>
 #include <boost/fusion/algorithm/transformation/transform.hpp>
@@ -42,12 +43,14 @@ namespace boost { namespace fusion {
             };
 
             template<typename It>
+            BOOST_FUSION_GPU_ENABLED
             typename result<poly_deref(It)>::type
             operator()(const It& it) const
             {
                 return fusion::deref(it);
             }
 
+            BOOST_FUSION_GPU_ENABLED
             unused_type operator()(unused_type const&) const
             {
                 return unused_type();
@@ -69,6 +72,7 @@ namespace boost { namespace fusion {
                 typedef typename result_of::as_vector<
                     typename result_of::transform<typename It::iterators, detail::poly_deref>::type>::type type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(It const& it)
                 {

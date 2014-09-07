@@ -28,7 +28,6 @@
 #include "boost/mpl/aux_/config/ttp.hpp"
 
 #if defined(BOOST_NO_TEMPLATE_TEMPLATE_PARAMETERS) \
- || defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) \
  && !defined(BOOST_VARIANT_DETAIL_NO_SUBSTITUTE)
 #   define BOOST_VARIANT_DETAIL_NO_SUBSTITUTE
 #endif

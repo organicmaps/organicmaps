@@ -15,7 +15,8 @@
 namespace boost { namespace phoenix
 {
     template <typename RT, typename ClassT, typename ClassA>
-    inline typename
+    inline
+    typename
         detail::expression::function_eval<
             detail::member_variable<RT, RT ClassT::*>
           , ClassA
@@ -29,7 +30,8 @@ namespace boost { namespace phoenix
     }
 
     template <typename RT, typename ClassT>
-    inline typename
+    inline
+    typename
         detail::expression::function_eval<
             detail::member_variable<RT, RT ClassT::*>
           , ClassT

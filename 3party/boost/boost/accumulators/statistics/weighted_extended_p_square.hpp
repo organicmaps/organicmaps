@@ -67,7 +67,7 @@ namespace impl
       : accumulator_base
     {
         typedef typename numeric::functional::multiplies<Sample, Weight>::result_type weighted_sample;
-        typedef typename numeric::functional::average<weighted_sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<weighted_sample, std::size_t>::result_type float_type;
         typedef std::vector<float_type> array_type;
         // for boost::result_of
         typedef iterator_range<

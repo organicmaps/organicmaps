@@ -132,6 +132,13 @@ public:
    {
       return m_value;
    }
+   template <class Archive>
+   void serialize(Archive& ar, const unsigned int /*version*/)
+   {
+      log_prefix_event(m_value, "serialize");
+      ar & m_value;
+      log_postfix_event(m_value, "serialize");
+   }
 };
 
 template <class T>
@@ -380,6 +387,16 @@ inline unsigned eval_lsb(const logged_adaptor<Backend>& arg)
    log_prefix_event(arg.value(), "least-significant-bit");
    unsigned r = eval_lsb(arg.value());
    log_postfix_event(arg.value(), r, "least-significant-bit");
+   return r;
+}
+
+template <class Backend>
+inline unsigned eval_msb(const logged_adaptor<Backend>& arg)
+{
+   using default_ops::eval_msb;
+   log_prefix_event(arg.value(), "most-significant-bit");
+   unsigned r = eval_msb(arg.value());
+   log_postfix_event(arg.value(), r, "most-significant-bit");
    return r;
 }
 

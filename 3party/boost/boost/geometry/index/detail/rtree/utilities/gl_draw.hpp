@@ -11,6 +11,8 @@
 #ifndef BOOST_GEOMETRY_INDEX_DETAIL_RTREE_UTILITIES_GL_DRAW_HPP
 #define BOOST_GEOMETRY_INDEX_DETAIL_RTREE_UTILITIES_GL_DRAW_HPP
 
+#include <boost/mpl/assert.hpp>
+
 namespace boost { namespace geometry { namespace index { namespace detail {
 
 namespace utilities {
@@ -26,8 +28,16 @@ struct gl_draw_point<Point, 2>
 {
     static inline void apply(Point const& p, typename coordinate_type<Point>::type z)
     {
-        glBegin(GL_POINT);
-        glVertex3f(geometry::get<0>(p), geometry::get<1>(p), z);
+        typename coordinate_type<Point>::type const& x = geometry::get<0>(p);
+        typename coordinate_type<Point>::type const& y = geometry::get<1>(p);
+        /*glBegin(GL_POINT);
+        glVertex3f(x, y, z);
+        glEnd();*/
+        glBegin(GL_QUADS);
+        glVertex3f(x+1, y, z);
+        glVertex3f(x, y+1, z);
+        glVertex3f(x-1, y, z);
+        glVertex3f(x, y-1, z);
         glEnd();
     }
 };
@@ -50,32 +60,42 @@ struct gl_draw_box<Box, 2>
     }
 };
 
+template <typename Segment, size_t Dimension>
+struct gl_draw_segment
+{};
+
+template <typename Segment>
+struct gl_draw_segment<Segment, 2>
+{
+    static inline void apply(Segment const& s, typename coordinate_type<Segment>::type z)
+    {
+        glBegin(GL_LINES);
+        glVertex3f(geometry::get<0, 0>(s), geometry::get<0, 1>(s), z);
+        glVertex3f(geometry::get<1, 0>(s), geometry::get<1, 1>(s), z);
+        glEnd();
+    }
+};
+
 template <typename Indexable, typename Tag>
 struct gl_draw_indexable
 {
+    BOOST_MPL_ASSERT_MSG((false), NOT_IMPLEMENTED_FOR_THIS_TAG, (Tag));
 };
 
-template <typename Indexable>
-struct gl_draw_indexable<Indexable, box_tag>
-{
-    static const size_t dimension = dimension<Indexable>::value;
+template <typename Box>
+struct gl_draw_indexable<Box, box_tag>
+    : gl_draw_box<Box, geometry::dimension<Box>::value>
+{};
 
-    static inline void apply(Indexable const& i, typename coordinate_type<Indexable>::type z)
-    {
-        gl_draw_box<Indexable, dimension>::apply(i, z);
-    }
-};
+template <typename Point>
+struct gl_draw_indexable<Point, point_tag>
+    : gl_draw_point<Point, geometry::dimension<Point>::value>
+{};
 
-template <typename Indexable>
-struct gl_draw_indexable<Indexable, point_tag>
-{
-    static const size_t dimension = dimension<Indexable>::value;
-
-    static inline void apply(Indexable const& i, typename coordinate_type<Indexable>::type z)
-    {
-        gl_draw_point<Indexable, dimension>::apply(i, z);
-    }
-};
+template <typename Segment>
+struct gl_draw_indexable<Segment, segment_tag>
+    : gl_draw_segment<Segment, geometry::dimension<Segment>::value>
+{};
 
 } // namespace dispatch
 

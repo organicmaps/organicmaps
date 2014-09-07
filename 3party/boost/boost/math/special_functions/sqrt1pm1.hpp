@@ -10,9 +10,9 @@
 #pragma once
 #endif
 
+#include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/special_functions/log1p.hpp>
 #include <boost/math/special_functions/expm1.hpp>
-#include <boost/math/special_functions/math_fwd.hpp>
 
 //
 // This algorithm computes sqrt(1+x)-1 for small x:

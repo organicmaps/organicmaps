@@ -104,25 +104,21 @@ public:
     /// Constructor for a single interval
     explicit split_interval_set(const domain_type& itv): base_type() { this->add(itv); }
 
-    /// Assignment operator
-    split_interval_set& operator = (const split_interval_set& src)
-    { 
-        base_type::operator=(src);
-        return *this;
-    }
-
-    /// Assignment operator for base type
-    template<class SubType>
-    split_interval_set& operator =
-        (const interval_base_set<SubType,DomainT,Compare,Interval,Alloc>& src)
-    { this->assign(src); return *this; }
-
     /// Assignment from a base interval_set.
     template<class SubType>
     void assign(const interval_base_set<SubType,DomainT,Compare,Interval,Alloc>& src)
     {
         this->clear();
         this->_set.insert(src.begin(), src.end());
+    }
+
+    /// Assignment operator for base type
+    template<class SubType>
+    split_interval_set& operator =
+        (const interval_base_set<SubType,DomainT,Compare,Interval,Alloc>& src)
+    { 
+        this->assign(src); 
+        return *this; 
     }
 
 #   ifndef BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
@@ -136,14 +132,22 @@ public:
     {}
 
     /// Move assignment operator
-    split_interval_set& operator = (split_interval_set&& src)
+    split_interval_set& operator = (split_interval_set src)
     { 
         base_type::operator=(boost::move(src));
         return *this;
     }
     //==========================================================================
-#   endif // BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
+#   else
 
+    /// Assignment operator
+    split_interval_set& operator = (const split_interval_set& src)
+    { 
+        base_type::operator=(src);
+        return *this;
+    }
+
+#   endif // BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
     
 private:
     // Private functions that shall be accessible by the baseclass:

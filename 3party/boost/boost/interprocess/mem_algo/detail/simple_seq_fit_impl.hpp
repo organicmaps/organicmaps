@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_MEM_ALGO_DETAIL_SIMPLE_SEQ_FIT_IMPL_HPP
 #define BOOST_INTERPROCESS_MEM_ALGO_DETAIL_SIMPLE_SEQ_FIT_IMPL_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -80,12 +80,11 @@ class simple_seq_fit_impl
 
    private:
    class block_ctrl;
+   friend class block_ctrl;
+
    typedef typename boost::intrusive::
       pointer_traits<VoidPointer>::template
          rebind_pointer<block_ctrl>::type                   block_ctrl_ptr;
-
-   class block_ctrl;
-   friend class block_ctrl;
 
    //!Block control structure
    class block_ctrl

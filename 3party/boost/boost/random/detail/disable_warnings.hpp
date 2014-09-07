@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: disable_warnings.hpp 60755 2010-03-22 00:45:06Z steven_watanabe $
+ * $Id$
  *
  */
 
@@ -20,4 +20,9 @@
 #pragma warning(disable:4512)
 #pragma warning(disable:4127)
 #pragma warning(disable:4724)
+#endif
+
+#if defined(BOOST_GCC) && BOOST_GCC >= 40600
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wlogical-op"
 #endif

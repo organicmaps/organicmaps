@@ -2455,7 +2455,7 @@ Exit_Pt_Helper const exit_pt_ = Exit_Pt_Helper();
 
 #define BOOST_MSM_EUML_ACTION(instance_name)                                                        \
     struct instance_name ## _impl;                                                              \
-    struct instance_name ## _helper :  msm::front::euml::euml_action<instance_name ## _impl>    \
+    struct instance_name ## _helper :  boost::msm::front::euml::euml_action<instance_name ## _impl>    \
     {                                                                                           \
         instance_name ## _helper(){}                                                            \
         typedef instance_name ## _impl action_name;                                             \
@@ -2465,7 +2465,7 @@ Exit_Pt_Helper const exit_pt_ = Exit_Pt_Helper();
 
 #define BOOST_MSM_EUML_DECLARE_ACTION(instance_name)                                                        \
     struct instance_name ;                                                                      \
-    struct instance_name ## _helper :  msm::front::euml::euml_action<instance_name >            \
+    struct instance_name ## _helper :  boost::msm::front::euml::euml_action<instance_name >     \
     {                                                                                           \
         instance_name ## _helper(){}                                                            \
         typedef instance_name action_name;                                                      \
@@ -2474,13 +2474,13 @@ Exit_Pt_Helper const exit_pt_ = Exit_Pt_Helper();
 
 
 #define BOOST_MSM_EUML_EVENT(instance_name)                                                     \
-    struct instance_name ## _helper : msm::front::euml::euml_event<instance_name ## _helper>{   \
+    struct instance_name ## _helper : boost::msm::front::euml::euml_event<instance_name ## _helper>{   \
     instance_name ## _helper(){}                                                                \
     instance_name ## _helper const& operator()() const {return *this;} };                       \
     static instance_name ## _helper instance_name;
 
 // an event matching any event
-struct kleene_ : msm::front::euml::euml_event<kleene_>, public boost::any
+struct kleene_ : boost::msm::front::euml::euml_event<kleene_>, public boost::any
 {
     kleene_() : boost::any(){}
     template<typename ValueType>
@@ -2489,7 +2489,7 @@ struct kleene_ : msm::front::euml::euml_event<kleene_>, public boost::any
 static kleene_ kleene;
 
 #define BOOST_MSM_EUML_DECLARE_EVENT(instance_name)                                             \
-    struct instance_name : msm::front::euml::euml_event<instance_name >{                        \
+    struct instance_name : boost::msm::front::euml::euml_event<instance_name >{                 \
     instance_name(){}                                                                           \
     instance_name const& operator()() const {return *this;} };
 
@@ -2528,9 +2528,9 @@ static kleene_ kleene;
         (BOOST_PP_ENUM(n, MSM_EUML_EVENT_INSTANCE_HELPER_EXECUTE1, ~ ))const{                   \
         return BOOST_PP_CAT(instance,_helper) (BOOST_PP_ENUM(n, MSM_EUML_EVENT_INSTANCE_HELPER_EXECUTE2, ~ ));}
 
-#define BOOST_MSM_EUML_EVENT_WITH_ATTRIBUTES(instance_name, attributes_name)                          \
+#define BOOST_MSM_EUML_EVENT_WITH_ATTRIBUTES(instance_name, attributes_name)                    \
     struct instance_name ## _helper :                                                           \
-        msm::front::euml::euml_event<instance_name ## _helper> , public attributes_name         \
+        boost::msm::front::euml::euml_event<instance_name ## _helper> , public attributes_name  \
     {                                                                                           \
         template <class T,int checked_size> struct size_helper                                  \
         {                                                                                       \
@@ -2557,11 +2557,11 @@ static kleene_ kleene;
 #define BOOST_MSM_EUML_FLAG_NAME(instance_name) instance_name ## _helper
 
 #define BOOST_MSM_EUML_FLAG(instance_name)                                                      \
-    struct instance_name ## _helper : msm::front::euml::euml_flag<instance_name ## _helper>{};  \
+    struct instance_name ## _helper : boost::msm::front::euml::euml_flag<instance_name ## _helper>{};  \
     static instance_name ## _helper instance_name;
 
 #define BOOST_MSM_EUML_DECLARE_FLAG(instance_name)                                                      \
-    struct instance_name : msm::front::euml::euml_flag<instance_name >{};
+    struct instance_name : boost::msm::front::euml::euml_flag<instance_name >{};
 
 #define BOOST_MSM_EUML_STATE_NAME(instance_name) instance_name ## _helper
 

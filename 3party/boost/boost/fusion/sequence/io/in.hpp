@@ -9,6 +9,7 @@
 #if !defined(BOOST_IN_05042005_0120)
 #define BOOST_IN_05042005_0120
 
+#include <boost/fusion/support/config.hpp>
 #include <istream>
 #include <boost/fusion/sequence/io/detail/in.hpp>
 #include <boost/fusion/support/is_sequence.hpp>

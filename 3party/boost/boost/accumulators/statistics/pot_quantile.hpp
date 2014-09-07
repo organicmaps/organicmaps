@@ -49,7 +49,7 @@ namespace impl
     struct pot_quantile_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type float_type;
         // for boost::result_of
         typedef float_type result_type;
 

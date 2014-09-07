@@ -58,9 +58,8 @@ namespace boost
                        OutputIterator                       out,
                        BinaryFunction                       fn)
         {
-            for (; first1 != last1; ++first1, ++first2)
+            for (; first1 != last1 && first2 != last2; ++first1, ++first2)
             {
-                BOOST_ASSERT( first2 != last2 );
                 *out = fn(*first1, *first2);
                 ++out;
             }

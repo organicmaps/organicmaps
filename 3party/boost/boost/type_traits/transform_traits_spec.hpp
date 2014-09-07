@@ -6,9 +6,9 @@
 //
 //  See http://www.boost.org/libs/type_traits for most recent version including documentation.
 
-#ifndef BOOST_TT_TRANSFORM_TRAITS_SPEC_HPP_INCLUDED
-#define BOOST_TT_TRANSFORM_TRAITS_SPEC_HPP_INCLUDED
+#ifndef BOOST_TT_TRANSFORM_TRAITS_HPP_INCLUDED
+#define BOOST_TT_TRANSFORM_TRAITS_HPP_INCLUDED
 
-#include <boost/type_traits/broken_compiler_spec.hpp>
+#include <boost/type_traits/config.hpp>
 
-#endif // BOOST_TT_TRANSFORM_TRAITS_SPEC_HPP_INCLUDED
+#endif

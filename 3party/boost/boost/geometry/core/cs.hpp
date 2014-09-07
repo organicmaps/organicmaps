@@ -28,7 +28,7 @@ namespace boost { namespace geometry
 /*!
 \brief Unit of plane angle: Degrees
 \details Tag defining the unit of plane angle for spherical coordinate systems.
-    This tag specifies that coordinates are defined in degrees (-180 .. 180). 
+    This tag specifies that coordinates are defined in degrees (-180 .. 180).
     It has to be specified for some coordinate systems.
 \qbk{[include reference/core/degree_radian.qbk]}
 */
@@ -38,7 +38,7 @@ struct degree {};
 /*!
 \brief Unit of plane angle: Radians
 \details Tag defining the unit of plane angle for spherical coordinate systems.
-    This tag specifies that coordinates are defined in radians (-PI .. PI). 
+    This tag specifies that coordinates are defined in radians (-PI .. PI).
     It has to be specified for some coordinate systems.
 \qbk{[include reference/core/degree_radian.qbk]}
 */
@@ -106,7 +106,7 @@ struct spherical
 /*!
 \brief Spherical equatorial coordinate system, in degree or in radian
 \details This one resembles the geographic coordinate system, and has latitude
-    up from zero at the equator, to 90 at the pole 
+    up from zero at the equator, to 90 at the pole
     (opposite to the spherical(polar) coordinate system).
     Used in astronomy and in GIS (but there is also the geographic)
 
@@ -185,20 +185,22 @@ struct cs_tag<cs::cartesian>
 
 /*!
 \brief Meta-function returning coordinate system tag (cs family) of any geometry
+\tparam Geometry \tparam_geometry
 \ingroup core
 */
-template <typename G>
+template <typename Geometry>
 struct cs_tag
 {
     typedef typename traits::cs_tag
         <
-            typename geometry::coordinate_system<G>::type
+            typename geometry::coordinate_system<Geometry>::type
         >::type type;
 };
 
 
 /*!
 \brief Meta-function to verify if a coordinate system is radian
+\tparam CoordinateSystem Any coordinate system.
 \ingroup core
 */
 template <typename CoordinateSystem>

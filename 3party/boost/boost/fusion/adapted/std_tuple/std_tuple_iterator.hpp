@@ -7,6 +7,7 @@
 #if !defined(FUSION_STD_TUPLE_ITERATOR_09112011_1905)
 #define FUSION_STD_TUPLE_ITERATOR_09112011_1905
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/iterator_facade.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_const.hpp>
@@ -35,7 +36,7 @@ namespace boost { namespace fusion
             typename add_const<Tuple>::type, Index>
         identity;
 
-        explicit std_tuple_iterator(Tuple& tuple)
+        BOOST_FUSION_GPU_ENABLED explicit std_tuple_iterator(Tuple& tuple)
           : tuple(tuple) {}
 
         Tuple& tuple;
@@ -57,6 +58,7 @@ namespace boost { namespace fusion
                 >::type
             type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator const& iter)
             {
@@ -71,6 +73,7 @@ namespace boost { namespace fusion
             typedef typename Iterator::tuple_type tuple_type;
             typedef std_tuple_iterator<tuple_type, index+N::value> type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type
             call(Iterator const& i)
             {
@@ -93,6 +96,7 @@ namespace boost { namespace fusion
         {
             typedef mpl::int_<Last::index-First::index> type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type
             call(First const&, Last const&)
             {

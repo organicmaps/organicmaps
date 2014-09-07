@@ -63,6 +63,7 @@ namespace boost { namespace fusion
 #define N BOOST_PP_ITERATION()
 
     template <BOOST_PP_ENUM_PARAMS(N, typename T)>
+    BOOST_FUSION_GPU_ENABLED
     inline tuple<BOOST_PP_ENUM(N, BOOST_FUSION_REF, _)>
     tie(BOOST_PP_ENUM_BINARY_PARAMS(N, T, & _))
     {

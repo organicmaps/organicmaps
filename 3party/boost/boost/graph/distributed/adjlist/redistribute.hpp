@@ -179,7 +179,6 @@ PBGL_DISTRIB_ADJLIST_TYPE
   typedef detail::parallel::redistributed_descriptor<edge_descriptor, 
                                                      edge_property_type>
     redistributed_edge;
-  typedef std::pair<vertices_size_type, edges_size_type> num_relocated_pair;
 
   vertex_iterator vi, vi_end;
   edge_iterator ei, ei_end;

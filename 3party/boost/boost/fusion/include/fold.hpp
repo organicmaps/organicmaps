@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_FOLD)
 #define FUSION_INCLUDE_FOLD
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/iteration/fold.hpp>
 
 #endif

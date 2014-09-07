@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 54633 $
+//  Version     : $Revision$
 //
 //  Description : token iterator for string and range tokenization
 // ***************************************************************************

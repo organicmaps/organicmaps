@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_WINAPI_MUTEX_WRAPPER_HPP
 #define BOOST_INTERPROCESS_DETAIL_WINAPI_MUTEX_WRAPPER_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -21,6 +21,7 @@
 #include <boost/interprocess/permissions.hpp>
 #include <boost/interprocess/detail/win32_api.hpp>
 #include <boost/interprocess/detail/posix_time_types_wrk.hpp>
+#include <boost/interprocess/sync/windows/winapi_wrapper_common.hpp>
 #include <boost/interprocess/errors.hpp>
 #include <boost/interprocess/exceptions.hpp>
 #include <limits>
@@ -44,53 +45,16 @@ class winapi_mutex_functions
    {}
 
    void unlock()
-   {
-      winapi::release_mutex(m_mtx_hnd);
-   }
+   {  winapi::release_mutex(m_mtx_hnd);   }
 
    void lock()
-   {
-      if(winapi::wait_for_single_object(m_mtx_hnd, winapi::infinite_time) != winapi::wait_object_0){
-         error_info err = system_error_code();
-         throw interprocess_exception(err);
-      }
-   }
+   {  return winapi_wrapper_wait_for_single_object(m_mtx_hnd);  }
 
    bool try_lock()
-   {
-      unsigned long ret = winapi::wait_for_single_object(m_mtx_hnd, 0);
-      if(ret == winapi::wait_object_0){
-         return true;
-      }
-      else if(ret == winapi::wait_timeout){
-         return false;
-      }
-      else{
-         error_info err = system_error_code();
-         throw interprocess_exception(err);
-      }
-   }
+   {  return winapi_wrapper_try_wait_for_single_object(m_mtx_hnd);  }
 
    bool timed_lock(const boost::posix_time::ptime &abs_time)
-   {
-      if(abs_time == boost::posix_time::pos_infin){
-         this->lock();
-         return true;
-      }
-
-      unsigned long ret = winapi::wait_for_single_object
-         (m_mtx_hnd, (abs_time - microsec_clock::universal_time()).total_milliseconds());
-      if(ret == winapi::wait_object_0){
-         return true;
-      }
-      else if(ret == winapi::wait_timeout){
-         return false;
-      }
-      else{
-         error_info err = system_error_code();
-         throw interprocess_exception(err);
-      }
-   }
+   {  return winapi_wrapper_timed_wait_for_single_object(m_mtx_hnd, abs_time);  }
 
    /// @cond
    protected:
@@ -109,8 +73,11 @@ class winapi_mutex_wrapper
    winapi_mutex_wrapper &operator=(const winapi_mutex_wrapper &);
    /// @endcond
 
+   //Note that Windows API does not return winapi::invalid_handle_value
+   //when failing to create/open a mutex, but a nullptr
+
    public:
-   winapi_mutex_wrapper(void *mtx_hnd = winapi::invalid_handle_value)
+   winapi_mutex_wrapper(void *mtx_hnd = 0)
       : winapi_mutex_functions(mtx_hnd)
    {}
 
@@ -120,7 +87,7 @@ class winapi_mutex_wrapper
    void *release()
    {
       void *hnd = m_mtx_hnd;
-      m_mtx_hnd = winapi::invalid_handle_value;
+      m_mtx_hnd = 0;
       return hnd;
    }
 
@@ -129,24 +96,24 @@ class winapi_mutex_wrapper
 
    bool open_or_create(const char *name, const permissions &perm)
    {
-      if(m_mtx_hnd == winapi::invalid_handle_value){
+      if(m_mtx_hnd == 0){
          m_mtx_hnd = winapi::open_or_create_mutex
             ( name
             , false
             , (winapi::interprocess_security_attributes*)perm.get_permissions()
             );
-         return m_mtx_hnd != winapi::invalid_handle_value;
+         return m_mtx_hnd != 0;
       }
       else{
          return false;
       }
-   }  
+   }
 
    void close()
    {
-      if(m_mtx_hnd != winapi::invalid_handle_value){
+      if(m_mtx_hnd != 0){
          winapi::close_handle(m_mtx_hnd);
-         m_mtx_hnd = winapi::invalid_handle_value;
+         m_mtx_hnd = 0;
       }
    }
 

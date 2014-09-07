@@ -206,7 +206,7 @@ namespace boost
          T non_central_t_cdf(T v, T delta, T t, bool invert, const Policy& pol)
          {
             BOOST_MATH_STD_USING
-            if (boost::math::isinf(v))
+            if ((boost::math::isinf)(v))
             { // Infinite degrees of freedom, so use normal distribution located at delta.
                normal_distribution<T, Policy> n(delta, 1); 
                return cdf(n, t);
@@ -320,7 +320,7 @@ namespace boost
 
 
             value_type guess = 0;
-            if ( (boost::math::isinf(v)) || (v > 1 / boost::math::tools::epsilon<T>()) )
+            if ( ((boost::math::isinf)(v)) || (v > 1 / boost::math::tools::epsilon<T>()) )
             { // Infinite or very large degrees of freedom, so use normal distribution located at delta.
                normal_distribution<T, Policy> n(delta, 1);
                if (p < q)
@@ -447,10 +447,10 @@ namespace boost
          T non_central_t_pdf(T n, T delta, T t, const Policy& pol)
          {
             BOOST_MATH_STD_USING
-            if (boost::math::isinf(n))
+            if ((boost::math::isinf)(n))
             { // Infinite degrees of freedom, so use normal distribution located at delta.
-               normal_distribution<T, Policy> n(delta, 1); 
-               return pdf(n, t);
+               normal_distribution<T, Policy> norm(delta, 1); 
+               return pdf(norm, t);
             }
             //
             // Otherwise, for t < 0 we have to use the reflection formula:
@@ -515,7 +515,7 @@ namespace boost
          template <class T, class Policy>
          T mean(T v, T delta, const Policy& pol)
          {
-            if (boost::math::isinf(v))
+            if ((boost::math::isinf)(v))
             {
                return delta;
             }
@@ -536,7 +536,7 @@ namespace boost
          template <class T, class Policy>
          T variance(T v, T delta, const Policy& pol)
          {
-            if (boost::math::isinf(v))
+            if ((boost::math::isinf)(v))
             {
                return 1;
             }
@@ -554,7 +554,7 @@ namespace boost
          T skewness(T v, T delta, const Policy& pol)
          {
             BOOST_MATH_STD_USING
-            if (boost::math::isinf(v))
+            if ((boost::math::isinf)(v))
             {
                return 0;
             }
@@ -576,7 +576,7 @@ namespace boost
          T kurtosis_excess(T v, T delta, const Policy& pol)
          {
             BOOST_MATH_STD_USING
-            if (boost::math::isinf(v))
+            if ((boost::math::isinf)(v))
             {
                return 3;
             }
@@ -647,7 +647,7 @@ namespace boost
             RealType result = ir.first + (ir.second - ir.first) / 2;
             if(max_iter >= policies::get_max_root_iterations<Policy>())
             {
-               policies::raise_evaluation_error<RealType>(function, "Unable to locate solution in a reasonable time:"
+               return policies::raise_evaluation_error<RealType>(function, "Unable to locate solution in a reasonable time:"
                   " or there is no answer to problem.  Current best guess is %1%", result, Policy());
             }
             return result;
@@ -705,7 +705,7 @@ namespace boost
             RealType result = ir.first + (ir.second - ir.first) / 2;
             if(max_iter >= policies::get_max_root_iterations<Policy>())
             {
-               policies::raise_evaluation_error<RealType>(function, "Unable to locate solution in a reasonable time:"
+               return policies::raise_evaluation_error<RealType>(function, "Unable to locate solution in a reasonable time:"
                   " or there is no answer to problem.  Current best guess is %1%", result, Policy());
             }
             return result;
@@ -1097,7 +1097,7 @@ namespace boost
             &r,
             Policy()))
                return (RealType)r;
-          if (boost::math::isinf(v))
+          if ((boost::math::isinf)(v))
           { // Infinite degrees of freedom, so use normal distribution located at delta.
              normal_distribution<RealType, Policy> n(l, 1); 
              cdf(n, x);
@@ -1152,7 +1152,7 @@ namespace boost
             Policy()))
                return (RealType)r;
 
-         if (boost::math::isinf(v))
+         if ((boost::math::isinf)(v))
          { // Infinite degrees of freedom, so use normal distribution located at delta.
              normal_distribution<RealType, Policy> n(l, 1); 
              return cdf(complement(n, x));

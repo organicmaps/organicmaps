@@ -22,7 +22,7 @@ namespace boost { namespace spirit { namespace support { namespace detail
         typedef T value_type;
 
         range() : first(), last() {}
-        range(T first, T last) : first(first), last(last) {}
+        range(T first_, T last_) : first(first_), last(last_) {}
 
         T first;
         T last;

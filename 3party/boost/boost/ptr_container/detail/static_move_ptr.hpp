@@ -5,7 +5,7 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt.)
 
 // Implementation of the move_ptr from the "Move Proposal" 
-// (http://std.dkuug.dk/jtc1/sc22/wg21/docs/papers/2002/n1377.htm) 
+// (http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1377.htm) 
 // enhanced to support custom deleters and safe boolean conversions.
 //
 // The implementation is based on an implementation by Daniel Wallin, at

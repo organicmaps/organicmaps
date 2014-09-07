@@ -175,19 +175,20 @@ namespace boost { namespace spirit { namespace karma
         //  Generate the integer part of the number.
         //
         //      sink       The output iterator to use for generation
-        //      n          The absolute value of the integer part of the floating 
-        //                 point number to convert (always non-negative). 
-        //      sign       The sign of the overall floating point number to 
+        //      n          The absolute value of the integer part of the floating
+        //                 point number to convert (always non-negative).
+        //      sign       The sign of the overall floating point number to
         //                 convert.
-        //      force_sign Whether a sign has to be generated even for 
-        //                 non-negative numbers
+        //      force_sign Whether a sign has to be generated even for
+        //                 non-negative numbers. Note, that force_sign will be
+        //                 set to false for zero floating point values.
         ///////////////////////////////////////////////////////////////////////
         template <typename OutputIterator>
         static bool integer_part (OutputIterator& sink, T n, bool sign
           , bool force_sign)
         {
             return sign_inserter::call(
-                      sink, traits::test_zero(n), sign, force_sign) &&
+                      sink, traits::test_zero(n), sign, force_sign, force_sign) &&
                    int_inserter<10>::call(sink, n);
         }
 

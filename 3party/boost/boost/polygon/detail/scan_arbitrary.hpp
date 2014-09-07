@@ -206,7 +206,7 @@ namespace boost { namespace polygon{
           outer != data.end(); ++outer) {
         const half_edge& he1 = (*outer).first;
         segment_id id1 = (*outer).second;
-        typedef rectangle_data<Unit> Rectangle;
+        //typedef rectangle_data<Unit> Rectangle;
         //Rectangle rect1;
         //set_points(rect1, he1.first, he1.second);
         //typename std::vector<Point>::iterator itr = lower_bound(pts.begin(), newend, (std::min)(he1.first, he1.second));
@@ -1024,7 +1024,7 @@ namespace boost { namespace polygon{
 
     template <typename result_type, typename result_functor, typename iT>
     iT handle_input_events(result_type& result, result_functor rf, iT begin, iT end) {
-      typedef typename high_precision_type<Unit>::type high_precision;
+      //typedef typename high_precision_type<Unit>::type high_precision;
       //for each event
       property_map vertical_properties_above;
       property_map vertical_properties_below;

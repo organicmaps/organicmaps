@@ -48,7 +48,7 @@ namespace impl
       : accumulator_base
     {
         // for boost::result_of
-        typedef typename numeric::functional::average<Sample, Sample>::result_type result_type;
+        typedef typename numeric::functional::fdiv<Sample, Sample>::result_type result_type;
 
         skewness_impl(dont_care)
         {
@@ -57,7 +57,7 @@ namespace impl
         template<typename Args>
         result_type result(Args const &args) const
         {
-            return numeric::average(
+            return numeric::fdiv(
                         accumulators::moment<3>(args)
                         - 3. * accumulators::moment<2>(args) * mean(args)
                         + 2. * mean(args) * mean(args) * mean(args)

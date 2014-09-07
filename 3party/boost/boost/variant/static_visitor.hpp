@@ -19,10 +19,6 @@
 #include "boost/mpl/if.hpp"
 #include "boost/type_traits/is_base_and_derived.hpp"
 
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-#   include "boost/type_traits/is_same.hpp"
-#endif
-
 // should be the last #include
 #include "boost/type_traits/detail/bool_trait_def.hpp"
 
@@ -52,10 +48,13 @@ public: // typedefs
     typedef R result_type;
 
 protected: // for use as base class only
-
-    static_visitor() { }
-    ~static_visitor() { }
-
+#ifndef BOOST_NO_DEFAULTED_FUNCTIONS
+    static_visitor() = default;
+    ~static_visitor() = default;
+#else
+    static_visitor()  BOOST_NOEXCEPT { }
+    ~static_visitor()  BOOST_NOEXCEPT { }
+#endif
 };
 
 //////////////////////////////////////////////////////////////////////////

@@ -91,13 +91,13 @@ public:
    typedef RealType value_type;
    typedef Policy policy_type;
 
-   inverse_gamma_distribution(RealType shape = 1, RealType scale = 1)
-      : m_shape(shape), m_scale(scale)
+   inverse_gamma_distribution(RealType l_shape = 1, RealType l_scale = 1)
+      : m_shape(l_shape), m_scale(l_scale)
    {
       RealType result;
       detail::check_inverse_gamma(
         "boost::math::inverse_gamma_distribution<%1%>::inverse_gamma_distribution",
-        scale, shape, &result, Policy());
+        l_scale, l_shape, &result, Policy());
    }
 
    RealType shape()const

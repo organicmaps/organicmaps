@@ -10,9 +10,6 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_ENRICHMENT_INFO_HPP
 
 
-#include <boost/geometry/strategies/distance.hpp>
-
-
 namespace boost { namespace geometry
 {
 
@@ -31,23 +28,10 @@ namespace detail { namespace overlay
 template<typename P>
 struct enrichment_info
 {
-    typedef typename strategy::distance::services::return_type
-        <
-            typename strategy::distance::services::comparable_type
-                <
-                    typename strategy::distance::services::default_strategy
-                        <
-                            point_tag,
-                            P
-                        >::type
-                >::type
-        >::type distance_type;
-
     inline enrichment_info()
         : travels_to_vertex_index(-1)
         , travels_to_ip_index(-1)
         , next_ip_index(-1)
-        , distance(distance_type())
     {}
 
     // vertex to which is free travel after this IP,
@@ -60,8 +44,6 @@ struct enrichment_info
 
     // index of next IP on this segment, -1 if there is no one
     int next_ip_index;
-
-    distance_type distance; // distance-measurement from segment.first to IP
 };
 
 

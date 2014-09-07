@@ -24,33 +24,31 @@ namespace boost { namespace geometry
 
 // Silence warning C4127: conditional expression is constant
 #if defined(_MSC_VER)
-#pragma warning(push)  
-#pragma warning(disable : 4127)  
+#pragma warning(push)
+#pragma warning(disable : 4127)
 #endif
 
 namespace strategy { namespace transform
 {
 
 /*!
-\brief Transformation strategy to do map from one to another Cartesian system
+\brief Transformation strategy to map from one to another Cartesian coordinate system
 \ingroup strategies
-\tparam P1 first point type
-\tparam P2 second point type
 \tparam Mirror if true map is mirrored upside-down (in most cases pixels
     are from top to bottom, while map is from bottom to top)
  */
 template
 <
-    typename P1, typename P2,
-    bool Mirror = false, bool SameScale = true,
-    std::size_t Dimension1 = dimension<P1>::type::value,
-    std::size_t Dimension2 = dimension<P2>::type::value
+    typename CalculationType,
+    std::size_t Dimension1,
+    std::size_t Dimension2,
+    bool Mirror = false,
+    bool SameScale = true
 >
 class map_transformer
-    : public ublas_transformer<P1, P2, Dimension1, Dimension2>
+    : public ublas_transformer<CalculationType, Dimension1, Dimension2>
 {
-    typedef typename select_coordinate_type<P1, P2>::type T;
-    typedef boost::numeric::ublas::matrix<T> M;
+    typedef boost::numeric::ublas::matrix<CalculationType> M;
 
 public :
     template <typename B, typename D>
@@ -164,7 +162,7 @@ private :
 }} // namespace strategy::transform
 
 #if defined(_MSC_VER)
-#pragma warning(pop)  
+#pragma warning(pop)
 #endif
 
 }} // namespace boost::geometry

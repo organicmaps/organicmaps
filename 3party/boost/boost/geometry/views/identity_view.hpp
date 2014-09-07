@@ -23,7 +23,7 @@ namespace boost { namespace geometry
 
 // Silence warning C4512: assignment operator could not be generated
 #if defined(_MSC_VER)
-#pragma warning(push)  
+#pragma warning(push)
 #pragma warning(disable : 4512)
 #endif
 

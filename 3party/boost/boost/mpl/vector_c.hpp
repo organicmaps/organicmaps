@@ -10,9 +10,9 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Id: vector_c.hpp 49271 2008-10-11 06:46:00Z agurtovoy $
-// $Date: 2008-10-10 23:46:00 -0700 (Fri, 10 Oct 2008) $
-// $Revision: 49271 $
+// $Id$
+// $Date$
+// $Revision$
 
 #if !defined(BOOST_MPL_PREPROCESSING_MODE)
 #   include <boost/mpl/limits/vector.hpp>

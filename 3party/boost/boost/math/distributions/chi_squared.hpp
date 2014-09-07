@@ -55,6 +55,11 @@ private:
 
 typedef chi_squared_distribution<double> chi_squared;
 
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable:4127)
+#endif
+
 template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> range(const chi_squared_distribution<RealType, Policy>& /*dist*/)
 { // Range of permissible values for random variable x.
@@ -68,6 +73,10 @@ inline const std::pair<RealType, RealType> range(const chi_squared_distribution<
     return std::pair<RealType, RealType>(static_cast<RealType>(0), max_value<RealType>()); // 0 to + max.
   }
 }
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 
 template <class RealType, class Policy>
 inline const std::pair<RealType, RealType> support(const chi_squared_distribution<RealType, Policy>& /*dist*/)

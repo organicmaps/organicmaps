@@ -2,7 +2,7 @@
 // detail/win_iocp_operation.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -22,7 +22,6 @@
 #include <boost/asio/detail/handler_tracking.hpp>
 #include <boost/asio/detail/op_queue.hpp>
 #include <boost/asio/detail/socket_types.hpp>
-#include <boost/asio/detail/win_iocp_io_service_fwd.hpp>
 #include <boost/system/error_code.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
@@ -30,6 +29,8 @@
 namespace boost {
 namespace asio {
 namespace detail {
+
+class win_iocp_io_service;
 
 // Base class for all operations. A function pointer is used instead of virtual
 // functions to avoid the associated overhead.

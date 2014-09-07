@@ -12,6 +12,7 @@
 
 #if BOOST_PP_VARIADICS
 
+#include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/has_xxx.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
@@ -27,6 +28,7 @@
 #include <boost/preprocessor/variadic/to_seq.hpp>
 #include <boost/tti/detail/dtemplate.hpp>
 #include <boost/tti/detail/dtemplate_params.hpp>
+#include <boost/type_traits/is_class.hpp>
 
 #if !defined(BOOST_MPL_CFG_NO_HAS_XXX_TEMPLATE)
 #if !BOOST_WORKAROUND(BOOST_MSVC, <= 1400)
@@ -132,13 +134,27 @@
     ) \
 /**/
 
-#define BOOST_TTI_DETAIL_VM_CALL_TRAIT_HAS_TEMPLATE_CHECK_PARAMS(trait,name,...) \
+#define BOOST_TTI_DETAIL_VM_CT_INVOKE(trait,name,...) \
   BOOST_TTI_DETAIL_VM_TRAIT_HAS_TEMPLATE_CHECK_PARAMS(BOOST_PP_CAT(trait,_detail),name,__VA_ARGS__) \
+  template<class BOOST_TTI_DETAIL_TP_T> \
+  struct BOOST_PP_CAT(trait,_detail_vm_ct_invoke) : \
+  	BOOST_PP_CAT(trait,_detail)<BOOST_TTI_DETAIL_TP_T> \
+    { \
+    }; \
+/**/
+
+#define BOOST_TTI_DETAIL_VM_CALL_TRAIT_HAS_TEMPLATE_CHECK_PARAMS(trait,name,...) \
+  BOOST_TTI_DETAIL_VM_CT_INVOKE(trait,name,__VA_ARGS__) \
   template<class BOOST_TTI_DETAIL_TP_T> \
   struct trait \
     { \
-    typedef typename BOOST_PP_CAT(trait,_detail)<BOOST_TTI_DETAIL_TP_T>::type type; \
-    \
+    typedef typename \
+  	boost::mpl::eval_if \
+  		< \
+  		boost::is_class<BOOST_TTI_DETAIL_TP_T>, \
+  		BOOST_PP_CAT(trait,_detail_vm_ct_invoke)<BOOST_TTI_DETAIL_TP_T>, \
+  		boost::mpl::false_ \
+  		>::type type; \
     BOOST_STATIC_CONSTANT(bool,value=type::value); \
     }; \
 /**/

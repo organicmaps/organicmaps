@@ -6,8 +6,8 @@
  Default operations. They work with the default numerical types, like float, double, complex< double> ...
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2010-2012 Karsten Ahnert
+ Copyright 2010-2013 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -497,9 +497,6 @@ struct default_operations
 
         typedef Value result_type;
     };
-
-
-
 
 
     template< class Fac1 = double >

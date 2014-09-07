@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 81913 $
+//  Version     : $Revision$
 //
 //  Description : defines model of formal parameter
 // ***************************************************************************

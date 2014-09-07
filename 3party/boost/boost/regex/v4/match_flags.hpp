@@ -71,7 +71,7 @@ typedef enum _match_flags
 
 } match_flags;
 
-#if (defined(_MSC_VER) && (_MSC_VER < 1300)) || defined(__BORLANDC__)
+#if defined(__BORLANDC__)
 typedef unsigned long match_flag_type;
 #else
 typedef match_flags match_flag_type;

@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: rebind_placeholders.hpp 83253 2013-03-02 21:48:27Z steven_watanabe $
+// $Id$
 
 #if !defined(BOOST_PP_IS_ITERATING)
 

@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_INCLUDE_MAKE_UNFUSED_HPP
 #define BOOST_FUSION_INCLUDE_MAKE_UNFUSED_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/functional/generation/make_unfused.hpp>
 
 #endif

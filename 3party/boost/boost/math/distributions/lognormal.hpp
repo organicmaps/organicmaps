@@ -48,12 +48,12 @@ public:
    typedef RealType value_type;
    typedef Policy policy_type;
 
-   lognormal_distribution(RealType location = 0, RealType scale = 1)
-      : m_location(location), m_scale(scale)
+   lognormal_distribution(RealType l_location = 0, RealType l_scale = 1)
+      : m_location(l_location), m_scale(l_scale)
    {
       RealType result;
-      detail::check_scale("boost::math::lognormal_distribution<%1%>::lognormal_distribution", scale, &result, Policy());
-      detail::check_location("boost::math::lognormal_distribution<%1%>::lognormal_distribution", location, &result, Policy());
+      detail::check_scale("boost::math::lognormal_distribution<%1%>::lognormal_distribution", l_scale, &result, Policy());
+      detail::check_location("boost::math::lognormal_distribution<%1%>::lognormal_distribution", l_location, &result, Policy());
    }
 
    RealType location()const

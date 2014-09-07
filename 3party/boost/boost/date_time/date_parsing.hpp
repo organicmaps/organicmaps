@@ -6,7 +6,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date: 2012-09-30 16:25:22 -0700 (Sun, 30 Sep 2012) $
+ * $Date$
  */
 
 #include <string>
@@ -113,7 +113,6 @@ namespace date_time {
         spec_str = "mdy";
       }
 
-      typedef typename date_type::year_type year_type;
       typedef typename date_type::month_type month_type;
       unsigned pos = 0;
       unsigned short year(0), month(0), day(0);
@@ -160,7 +159,6 @@ namespace date_time {
     parse_undelimited_date(const std::string& s) {
       int offsets[] = {4,2,2};
       int pos = 0;
-      typedef typename date_type::year_type year_type;
       //typename date_type::ymd_type ymd((year_type::min)(),1,1);
       unsigned short y = 0, m = 0, d = 0;
 

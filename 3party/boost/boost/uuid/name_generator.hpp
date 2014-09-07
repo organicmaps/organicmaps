@@ -30,8 +30,8 @@ class name_generator {
 public:
     typedef uuid result_type;
 
-    explicit name_generator(uuid const& namespace_uuid)
-        : namespace_uuid(namespace_uuid)
+    explicit name_generator(uuid const& namespace_uuid_)
+        : namespace_uuid(namespace_uuid_)
     {}
 
     uuid operator()(const char* name) {
@@ -71,10 +71,10 @@ private:
 
         for (size_t i=0; i<count; i++) {
             uint32_t c = characters[i];
-            sha.process_byte( (c >>  0) & 0xFF );
-            sha.process_byte( (c >>  8) & 0xFF );
-            sha.process_byte( (c >> 16) & 0xFF );
-            sha.process_byte( (c >> 24) & 0xFF );
+            sha.process_byte(static_cast<unsigned char>((c >>  0) & 0xFF));
+            sha.process_byte(static_cast<unsigned char>((c >>  8) & 0xFF));
+            sha.process_byte(static_cast<unsigned char>((c >> 16) & 0xFF));
+            sha.process_byte(static_cast<unsigned char>((c >> 24) & 0xFF));
         }
     }
     
@@ -96,10 +96,10 @@ private:
 
         uuid u;
         for (int i=0; i<4; ++i) {
-            *(u.begin() + i*4+0) = ((digest[i] >> 24) & 0xFF);
-            *(u.begin() + i*4+1) = ((digest[i] >> 16) & 0xFF);
-            *(u.begin() + i*4+2) = ((digest[i] >> 8) & 0xFF);
-            *(u.begin() + i*4+3) = ((digest[i] >> 0) & 0xFF);
+            *(u.begin() + i*4+0) = static_cast<uint8_t>((digest[i] >> 24) & 0xFF);
+            *(u.begin() + i*4+1) = static_cast<uint8_t>((digest[i] >> 16) & 0xFF);
+            *(u.begin() + i*4+2) = static_cast<uint8_t>((digest[i] >> 8) & 0xFF);
+            *(u.begin() + i*4+3) = static_cast<uint8_t>((digest[i] >> 0) & 0xFF);
         }
 
         // set variant

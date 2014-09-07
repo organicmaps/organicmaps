@@ -8,7 +8,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: uniform_on_sphere.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id$
  *
  * Revision history
  *  2001-02-18  moved to individual header files
@@ -152,7 +152,7 @@ public:
      * Effects: Subsequent uses of the distribution do not depend
      * on values produced by any engine prior to invoking reset.
      */
-    void reset() { _normal.reset(); }
+    void reset() {}
 
     /**
      * Returns a point uniformly distributed over the surface of
@@ -161,18 +161,73 @@ public:
     template<class Engine>
     const result_type & operator()(Engine& eng)
     {
-        RealType sqsum = 0;
-        for(typename Cont::iterator it = _container.begin();
-            it != _container.end();
-            ++it) {
-            RealType val = _normal(eng);
-            *it = val;
-            sqsum += val * val;
-        }
         using std::sqrt;
-        // for all i: result[i] /= sqrt(sqsum)
-        std::transform(_container.begin(), _container.end(), _container.begin(),
-                       std::bind2nd(std::divides<RealType>(), sqrt(sqsum)));
+        switch(_dim)
+        {
+        case 0: break;
+        case 1:
+            {
+                if(uniform_01<RealType>()(eng) < 0.5) {
+                    *_container.begin() = -1;
+                } else {
+                    *_container.begin() = 1;
+                }
+            }
+        case 2:
+            {
+                uniform_01<RealType> uniform;
+                RealType sqsum;
+                RealType x, y;
+                do {
+                    x = uniform(eng) * 2 - 1;
+                    y = uniform(eng) * 2 - 1;
+                    sqsum = x*x + y*y;
+                } while(sqsum == 0 || sqsum > 1);
+                RealType mult = 1/sqrt(sqsum);
+                typename Cont::iterator iter = _container.begin();
+                *iter = x * mult;
+                iter++;
+                *iter = y * mult;
+                break;
+            }
+        case 3:
+            {
+                uniform_01<RealType> uniform;
+                RealType sqsum;
+                RealType x, y, z;
+                do {
+                    x = uniform(eng) * 2 - 1;
+                    y = uniform(eng) * 2 - 1;
+                    sqsum = x*x + y*y;
+                } while(sqsum > 1);
+                RealType mult = 2 * sqrt(1 - sqsum);
+                typename Cont::iterator iter = _container.begin();
+                *iter = x * mult;
+                ++iter;
+                *iter = y * mult;
+                ++iter;
+                *iter = 2 * sqsum - 1;
+                break;
+            }
+        default:
+            {
+                detail::unit_normal_distribution<RealType> normal;
+                RealType sqsum;
+                do {
+                    sqsum = 0;
+                    for(typename Cont::iterator it = _container.begin();
+                        it != _container.end();
+                        ++it) {
+                        RealType val = normal(eng);
+                        *it = val;
+                        sqsum += val * val;
+                    }
+                } while(sqsum == 0);
+                // for all i: result[i] /= sqrt(sqsum)
+                std::transform(_container.begin(), _container.end(), _container.begin(),
+                               std::bind2nd(std::multiplies<RealType>(), 1/sqrt(sqsum)));
+            }
+        }
         return _container;
     }
 
@@ -206,7 +261,7 @@ public:
      * sequences of values, given equal generators.
      */
     BOOST_RANDOM_DETAIL_EQUALITY_OPERATOR(uniform_on_sphere, lhs, rhs)
-    { return lhs._dim == rhs._dim && lhs._normal == rhs._normal; }
+    { return lhs._dim == rhs._dim; }
 
     /**
      * Returns true if the two distributions may produce different
@@ -215,7 +270,6 @@ public:
     BOOST_RANDOM_DETAIL_INEQUALITY_OPERATOR(uniform_on_sphere)
 
 private:
-    normal_distribution<RealType> _normal;
     result_type _container;
     int _dim;
 };

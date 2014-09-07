@@ -102,7 +102,6 @@ namespace boost {
   {
     typedef typename graph_traits<Graph>::vertices_size_type size_type;
     typedef typename graph_traits<Graph>::vertex_descriptor vertex_t;
-    typedef typename property_map<Graph, vertex_index_t>::type index_map_t;
     if (num_vertices(g) == 0) return; // Nothing to do in this case
     typename graph_traits<Graph>::vertices_size_type
       n = num_vertices(g);

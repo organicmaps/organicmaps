@@ -2,7 +2,7 @@
 #define BOOST_ARCHIVE_POLYMORPHIC_TEXT_OARCHIVE_HPP
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -24,7 +24,7 @@ namespace boost {
 namespace archive {
 
 typedef detail::polymorphic_oarchive_route<
-    text_oarchive_impl<naked_text_oarchive> 
+    text_oarchive_impl<text_oarchive> 
 > polymorphic_text_oarchive;
 
 } // namespace archive

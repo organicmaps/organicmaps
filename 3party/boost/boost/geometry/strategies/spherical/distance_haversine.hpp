@@ -14,6 +14,7 @@
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/radian_access.hpp>
 
+#include <boost/geometry/util/math.hpp>
 #include <boost/geometry/util/select_calculation_type.hpp>
 #include <boost/geometry/util/promote_floating_point.hpp>
 
@@ -39,52 +40,57 @@ namespace comparable
 // - applying asin (which is strictly (monotone) increasing)
 template
 <
-    typename Point1,
-    typename Point2 = Point1,
+    typename RadiusType,
     typename CalculationType = void
 >
 class haversine
 {
 public :
-    typedef typename promote_floating_point
-        <
-            typename select_calculation_type
-                <
-                    Point1,
-                    Point2,
-                    CalculationType
-                >::type
-        >::type calculation_type;
+    template <typename Point1, typename Point2>
+    struct calculation_type
+        : promote_floating_point
+          <
+              typename select_calculation_type
+                  <
+                      Point1,
+                      Point2,
+                      CalculationType
+                  >::type
+          >
+    {};
 
-    inline haversine(calculation_type const& r = 1.0)
+    typedef RadiusType radius_type;
+
+    explicit inline haversine(RadiusType const& r = 1.0)
         : m_radius(r)
     {}
 
-
-    static inline calculation_type apply(Point1 const& p1, Point2 const& p2)
+    template <typename Point1, typename Point2>
+    static inline typename calculation_type<Point1, Point2>::type
+    apply(Point1 const& p1, Point2 const& p2)
     {
-        return calculate(get_as_radian<0>(p1), get_as_radian<1>(p1),
-                        get_as_radian<0>(p2), get_as_radian<1>(p2));
+        return calculate<typename calculation_type<Point1, Point2>::type>(
+                   get_as_radian<0>(p1), get_as_radian<1>(p1),
+                   get_as_radian<0>(p2), get_as_radian<1>(p2)
+               );
     }
 
-    inline calculation_type radius() const
+    inline RadiusType radius() const
     {
         return m_radius;
     }
 
 
 private :
-
-    static inline calculation_type calculate(calculation_type const& lon1,
-            calculation_type const& lat1,
-            calculation_type const& lon2,
-            calculation_type const& lat2)
+    template <typename R, typename T1, typename T2>
+    static inline R calculate(T1 const& lon1, T1 const& lat1,
+                              T2 const& lon2, T2 const& lat2)
     {
         return math::hav(lat2 - lat1)
                 + cos(lat1) * cos(lat2) * math::hav(lon2 - lon1);
     }
 
-    calculation_type m_radius;
+    RadiusType m_radius;
 };
 
 
@@ -95,8 +101,7 @@ private :
 \brief Distance calculation for spherical coordinates
 on a perfect sphere using haversine
 \ingroup strategies
-\tparam Point1 \tparam_first_point
-\tparam Point2 \tparam_second_point
+\tparam RadiusType \tparam_radius
 \tparam CalculationType \tparam_calculation
 \author Adapted from: http://williams.best.vwh.net/avform.htm
 \see http://en.wikipedia.org/wiki/Great-circle_distance
@@ -107,7 +112,7 @@ A mathematically equivalent formula, which is less subject
     to rounding error for short distances is:
     d=2*asin(sqrt((sin((lat1-lat2) / 2))^2
     + cos(lat1)*cos(lat2)*(sin((lon1-lon2) / 2))^2))
-    
+
 
 \qbk{
 [heading See also]
@@ -117,23 +122,26 @@ A mathematically equivalent formula, which is less subject
 */
 template
 <
-    typename Point1,
-    typename Point2 = Point1,
+    typename RadiusType,
     typename CalculationType = void
 >
 class haversine
 {
-    typedef comparable::haversine<Point1, Point2, CalculationType> comparable_type;
+    typedef comparable::haversine<RadiusType, CalculationType> comparable_type;
 
 public :
+    template <typename Point1, typename Point2>
+    struct calculation_type
+        : services::return_type<comparable_type, Point1, Point2>
+    {};
 
-    typedef typename services::return_type<comparable_type>::type calculation_type;
+    typedef RadiusType radius_type;
 
     /*!
     \brief Constructor
     \param radius radius of the sphere, defaults to 1.0 for the unit sphere
     */
-    inline haversine(calculation_type const& radius = 1.0)
+    inline haversine(RadiusType const& radius = 1.0)
         : m_radius(radius)
     {}
 
@@ -143,10 +151,13 @@ public :
     \param p1 first point
     \param p2 second point
     */
-    inline calculation_type apply(Point1 const& p1, Point2 const& p2) const
+    template <typename Point1, typename Point2>
+    inline typename calculation_type<Point1, Point2>::type
+    apply(Point1 const& p1, Point2 const& p2) const
     {
+        typedef typename calculation_type<Point1, Point2>::type calculation_type;
         calculation_type const a = comparable_type::apply(p1, p2);
-        calculation_type const c = calculation_type(2.0) * asin(sqrt(a));
+        calculation_type const c = calculation_type(2.0) * asin(math::sqrt(a));
         return m_radius * c;
     }
 
@@ -154,13 +165,13 @@ public :
     \brief access to radius value
     \return the radius
     */
-    inline calculation_type radius() const
+    inline RadiusType radius() const
     {
         return m_radius;
     }
 
 private :
-    calculation_type m_radius;
+    RadiusType m_radius;
 };
 
 
@@ -168,52 +179,32 @@ private :
 namespace services
 {
 
-template <typename Point1, typename Point2, typename CalculationType>
-struct tag<haversine<Point1, Point2, CalculationType> >
+template <typename RadiusType, typename CalculationType>
+struct tag<haversine<RadiusType, CalculationType> >
 {
     typedef strategy_tag_distance_point_point type;
 };
 
 
-template <typename Point1, typename Point2, typename CalculationType>
-struct return_type<haversine<Point1, Point2, CalculationType> >
+template <typename RadiusType, typename CalculationType, typename P1, typename P2>
+struct return_type<haversine<RadiusType, CalculationType>, P1, P2>
+    : haversine<RadiusType, CalculationType>::template calculation_type<P1, P2>
+{};
+
+
+template <typename RadiusType, typename CalculationType>
+struct comparable_type<haversine<RadiusType, CalculationType> >
 {
-    typedef typename haversine<Point1, Point2, CalculationType>::calculation_type type;
+    typedef comparable::haversine<RadiusType, CalculationType> type;
 };
 
 
-template <typename Point1, typename Point2, typename CalculationType, typename P1, typename P2>
-struct similar_type<haversine<Point1, Point2, CalculationType>, P1, P2>
-{
-    typedef haversine<P1, P2, CalculationType> type;
-};
-
-
-template <typename Point1, typename Point2, typename CalculationType, typename P1, typename P2>
-struct get_similar<haversine<Point1, Point2, CalculationType>, P1, P2>
+template <typename RadiusType, typename CalculationType>
+struct get_comparable<haversine<RadiusType, CalculationType> >
 {
 private :
-    typedef haversine<Point1, Point2, CalculationType> this_type;
-public :
-    static inline typename similar_type<this_type, P1, P2>::type apply(this_type const& input)
-    {
-        return haversine<P1, P2, CalculationType>(input.radius());
-    }
-};
-
-template <typename Point1, typename Point2, typename CalculationType>
-struct comparable_type<haversine<Point1, Point2, CalculationType> >
-{
-    typedef comparable::haversine<Point1, Point2, CalculationType> type;
-};
-
-
-template <typename Point1, typename Point2, typename CalculationType>
-struct get_comparable<haversine<Point1, Point2, CalculationType> >
-{
-private :
-    typedef haversine<Point1, Point2, CalculationType> this_type;
-    typedef comparable::haversine<Point1, Point2, CalculationType> comparable_type;
+    typedef haversine<RadiusType, CalculationType> this_type;
+    typedef comparable::haversine<RadiusType, CalculationType> comparable_type;
 public :
     static inline comparable_type apply(this_type const& input)
     {
@@ -221,12 +212,12 @@ public :
     }
 };
 
-template <typename Point1, typename Point2, typename CalculationType>
-struct result_from_distance<haversine<Point1, Point2, CalculationType> >
+template <typename RadiusType, typename CalculationType, typename P1, typename P2>
+struct result_from_distance<haversine<RadiusType, CalculationType>, P1, P2>
 {
 private :
-    typedef haversine<Point1, Point2, CalculationType> this_type;
-    typedef typename return_type<this_type>::type return_type;
+    typedef haversine<RadiusType, CalculationType> this_type;
+    typedef typename return_type<this_type, P1, P2>::type return_type;
 public :
     template <typename T>
     static inline return_type apply(this_type const& , T const& value)
@@ -237,51 +228,31 @@ public :
 
 
 // Specializations for comparable::haversine
-template <typename Point1, typename Point2, typename CalculationType>
-struct tag<comparable::haversine<Point1, Point2, CalculationType> >
+template <typename RadiusType, typename CalculationType>
+struct tag<comparable::haversine<RadiusType, CalculationType> >
 {
     typedef strategy_tag_distance_point_point type;
 };
 
 
-template <typename Point1, typename Point2, typename CalculationType>
-struct return_type<comparable::haversine<Point1, Point2, CalculationType> >
+template <typename RadiusType, typename CalculationType, typename P1, typename P2>
+struct return_type<comparable::haversine<RadiusType, CalculationType>, P1, P2>
+    : comparable::haversine<RadiusType, CalculationType>::template calculation_type<P1, P2>
+{};
+
+
+template <typename RadiusType, typename CalculationType>
+struct comparable_type<comparable::haversine<RadiusType, CalculationType> >
 {
-    typedef typename comparable::haversine<Point1, Point2, CalculationType>::calculation_type type;
+    typedef comparable::haversine<RadiusType, CalculationType> type;
 };
 
 
-template <typename Point1, typename Point2, typename CalculationType, typename P1, typename P2>
-struct similar_type<comparable::haversine<Point1, Point2, CalculationType>, P1, P2>
-{
-    typedef comparable::haversine<P1, P2, CalculationType> type;
-};
-
-
-template <typename Point1, typename Point2, typename CalculationType, typename P1, typename P2>
-struct get_similar<comparable::haversine<Point1, Point2, CalculationType>, P1, P2>
+template <typename RadiusType, typename CalculationType>
+struct get_comparable<comparable::haversine<RadiusType, CalculationType> >
 {
 private :
-    typedef comparable::haversine<Point1, Point2, CalculationType> this_type;
-public :
-    static inline typename similar_type<this_type, P1, P2>::type apply(this_type const& input)
-    {
-        return comparable::haversine<P1, P2, CalculationType>(input.radius());
-    }
-};
-
-template <typename Point1, typename Point2, typename CalculationType>
-struct comparable_type<comparable::haversine<Point1, Point2, CalculationType> >
-{
-    typedef comparable::haversine<Point1, Point2, CalculationType> type;
-};
-
-
-template <typename Point1, typename Point2, typename CalculationType>
-struct get_comparable<comparable::haversine<Point1, Point2, CalculationType> >
-{
-private :
-    typedef comparable::haversine<Point1, Point2, CalculationType> this_type;
+    typedef comparable::haversine<RadiusType, CalculationType> this_type;
 public :
     static inline this_type apply(this_type const& input)
     {
@@ -290,12 +261,12 @@ public :
 };
 
 
-template <typename Point1, typename Point2, typename CalculationType>
-struct result_from_distance<comparable::haversine<Point1, Point2, CalculationType> >
+template <typename RadiusType, typename CalculationType, typename P1, typename P2>
+struct result_from_distance<comparable::haversine<RadiusType, CalculationType>, P1, P2>
 {
 private :
-    typedef comparable::haversine<Point1, Point2, CalculationType> strategy_type;
-    typedef typename return_type<strategy_type>::type return_type;
+    typedef comparable::haversine<RadiusType, CalculationType> strategy_type;
+    typedef typename return_type<strategy_type, P1, P2>::type return_type;
 public :
     template <typename T>
     static inline return_type apply(strategy_type const& strategy, T const& distance)
@@ -306,12 +277,16 @@ public :
 };
 
 
-// Register it as the default for point-types 
+// Register it as the default for point-types
 // in a spherical equatorial coordinate system
 template <typename Point1, typename Point2>
-struct default_strategy<point_tag, Point1, Point2, spherical_equatorial_tag, spherical_equatorial_tag>
+struct default_strategy
+    <
+        point_tag, point_tag, Point1, Point2,
+        spherical_equatorial_tag, spherical_equatorial_tag
+    >
 {
-    typedef strategy::distance::haversine<Point1, Point2> type;
+    typedef strategy::distance::haversine<typename select_coordinate_type<Point1, Point2>::type> type;
 };
 
 // Note: spherical polar coordinate system requires "get_as_radian_equatorial"

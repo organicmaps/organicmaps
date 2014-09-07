@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_SET_FWD)
 #define FUSION_INCLUDE_SET_FWD
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/set/set_fwd.hpp>
 
 #endif

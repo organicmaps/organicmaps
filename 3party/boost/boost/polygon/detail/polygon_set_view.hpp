@@ -92,7 +92,7 @@ namespace boost { namespace polygon{
   template <typename value_type, typename geometry_type_1, typename geometry_type_2, int op_type>
   void execute_boolean_op(value_type& output_, const geometry_type_1& lvalue_, const geometry_type_2& rvalue_) {
     typedef geometry_type_1 ltype;
-    typedef geometry_type_2 rtype;
+    //typedef geometry_type_2 rtype;
     typedef typename polygon_set_traits<ltype>::coordinate_type coordinate_type;
     value_type linput_;
     value_type rinput_;

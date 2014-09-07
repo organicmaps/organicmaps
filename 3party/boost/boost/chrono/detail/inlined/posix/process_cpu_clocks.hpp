@@ -22,7 +22,7 @@
 namespace boost { namespace chrono {
 namespace chrono_detail
 {
-  inline long tick_factor()        // multiplier to convert ticks
+  inline nanoseconds::rep tick_factor()        // multiplier to convert ticks
                             //  to nanoseconds; -1 if unknown
   {
     static long factor = 0;
@@ -281,12 +281,13 @@ process_cpu_clock::time_point process_cpu_clock::now() BOOST_NOEXCEPT
     }
     else
     {
-        if ( chrono_detail::tick_factor() != -1 )
+        nanoseconds::rep factor = chrono_detail::tick_factor();
+        if ( factor != -1 )
         {
             time_point::rep r(
-                    1000*c*chrono_detail::tick_factor(),
-                    1000*(tm.tms_utime + tm.tms_cutime)*chrono_detail::tick_factor(),
-                    1000*(tm.tms_stime + tm.tms_cstime)*chrono_detail::tick_factor());
+                    c*factor,
+                    (tm.tms_utime + tm.tms_cutime)*factor,
+                    (tm.tms_stime + tm.tms_cstime)*factor);
             return time_point(duration(r));
         }
         else
@@ -324,9 +325,9 @@ process_cpu_clock::time_point process_cpu_clock::now(
         if ( chrono_detail::tick_factor() != -1 )
         {
             time_point::rep r(
-                1000*c*chrono_detail::tick_factor(),
-                1000*(tm.tms_utime + tm.tms_cutime)*chrono_detail::tick_factor(),
-                1000*(tm.tms_stime + tm.tms_cstime)*chrono_detail::tick_factor());
+                c*chrono_detail::tick_factor(),
+                (tm.tms_utime + tm.tms_cutime)*chrono_detail::tick_factor(),
+                (tm.tms_stime + tm.tms_cstime)*chrono_detail::tick_factor());
             return time_point(duration(r));
         }
         else

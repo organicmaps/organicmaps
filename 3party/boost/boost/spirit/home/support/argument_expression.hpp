@@ -21,29 +21,6 @@ namespace boost { namespace spirit
 
     namespace expression
     {
-#ifndef BOOST_SPIRIT_USE_PHOENIX_V3
-        template <int N>
-        struct argument
-        {
-            typedef phoenix::actor<spirit::argument<N> > type;
-
-            static type make()
-            {
-                return spirit::argument<N>();
-            }
-        };
-
-        template <typename Dummy>
-        struct attribute_context
-        {
-            typedef phoenix::actor<spirit::attribute_context<Dummy> > type;
-            
-            static type make()
-            {
-                return spirit::attribute_context<Dummy>();
-            }
-        };
-#else
         template <int N>
         struct argument
           : phoenix::expression::terminal<spirit::argument<N> >
@@ -73,11 +50,9 @@ namespace boost { namespace spirit
                 return e;
             }
         };
-#endif
     }
 }}
 
-#ifdef BOOST_SPIRIT_USE_PHOENIX_V3
 namespace boost { namespace phoenix
 {
     namespace result_of
@@ -127,6 +102,5 @@ namespace boost { namespace phoenix
         >
     {};
 }}
-#endif // BOOST_SPIRIT_USE_PHOENIX_V3
 
 #endif

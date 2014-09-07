@@ -20,7 +20,6 @@
 #include "boost/variant/detail/forced_return.hpp"
 #include "boost/variant/detail/generic_result_type.hpp"
 
-#include "boost/assert.hpp"
 #include "boost/mpl/eval_if.hpp"
 #include "boost/mpl/bool.hpp"
 #include "boost/mpl/identity.hpp"
@@ -47,8 +46,16 @@
 // and potentially increase runtime performance. (TODO: Investigate further.)
 //
 #if !defined(BOOST_VARIANT_VISITATION_UNROLLING_LIMIT)
+
+#ifndef BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES
+#   include "boost/mpl/limits/list.hpp"
+#   define BOOST_VARIANT_VISITATION_UNROLLING_LIMIT   \
+        BOOST_MPL_LIMIT_LIST_SIZE
+#else
 #   define BOOST_VARIANT_VISITATION_UNROLLING_LIMIT   \
         BOOST_VARIANT_LIMIT_TYPES
+#endif
+
 #endif
 
 namespace boost {
@@ -67,7 +74,6 @@ struct apply_visitor_unrolled {};
 // "Never ending" iterator range facilitates visitation_impl unrolling.
 //
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template <typename Iter, typename LastIter>
 struct visitation_impl_step
@@ -87,29 +93,6 @@ struct visitation_impl_step< LastIter,LastIter >
     typedef visitation_impl_step next;
 };
 
-#else // defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-
-template <typename Iter, typename LastIter>
-struct visitation_impl_step
-{
-    typedef typename mpl::eval_if<
-          is_same<Iter, LastIter>
-        , mpl::identity<apply_visitor_unrolled>
-        , Iter
-        >::type type;
-
-    typedef typename mpl::eval_if<
-          is_same<type, apply_visitor_unrolled> //is_same<Iter, LastIter>
-        , mpl::identity<LastIter>
-        , mpl::next<Iter>
-        >::type next_iter;
-
-    typedef visitation_impl_step<
-          next_iter, LastIter
-        > next;
-};
-
-#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION workaround
 
 ///////////////////////////////////////////////////////////////////////////////
 // (detail) function template visitation_impl_invoke
@@ -178,8 +161,7 @@ inline
     BOOST_VARIANT_AUX_GENERIC_RESULT_TYPE(typename Visitor::result_type)
 visitation_impl_invoke(int, Visitor&, VoidPtrCV, apply_visitor_unrolled*, NBF, long)
 {
-    // should never be here at runtime:
-    BOOST_ASSERT(false);
+    // should never be here at runtime!
     typedef typename Visitor::result_type result_type;
     return ::boost::detail::variant::forced_return< result_type >();
 }
@@ -203,8 +185,7 @@ visitation_impl(
     , NBF, W* = 0, S* = 0
     )
 {
-    // should never be here at runtime:
-    BOOST_ASSERT(false);
+    // should never be here at runtime!
     typedef typename Visitor::result_type result_type;
     return ::boost::detail::variant::forced_return< result_type >();
 }

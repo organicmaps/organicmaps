@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: seed_impl.hpp 72951 2011-07-07 04:57:37Z steven_watanabe $
+ * $Id$
  */
 
 #ifndef BOOST_RANDOM_DETAIL_SEED_IMPL_HPP
@@ -15,6 +15,7 @@
 
 #include <stdexcept>
 #include <boost/cstdint.hpp>
+#include <boost/throw_exception.hpp>
 #include <boost/config/no_tr1/cmath.hpp>
 #include <boost/integer/integer_mask.hpp>
 #include <boost/integer/static_log2.hpp>
@@ -253,7 +254,7 @@ IntType get_one_int(Iter& first, Iter last)
     IntType s = 0;
     for(int j = 0; j < k; ++j) {
         if(first == last) {
-            throw ::std::invalid_argument("Not enough elements in call to seed.");
+            boost::throw_exception(::std::invalid_argument("Not enough elements in call to seed."));
         }
         IntType digit = const_mod<IntType, m>::apply(IntType(*first++));
         IntType mult = IntType(1) << 32*j;
@@ -303,7 +304,7 @@ void fill_array_int_impl(Iter& first, Iter last, UIntType (&x)[n])
         UIntType val = 0;
         for(std::size_t k = 0; k < (w+31)/32; ++k) {
             if(first == last) {
-                throw std::invalid_argument("Not enough elements in call to seed.");
+                boost::throw_exception(std::invalid_argument("Not enough elements in call to seed."));
             }
             val += static_cast<UIntType>(*first++) << 32*k;
         }
@@ -373,12 +374,12 @@ void fill_array_real(Iter& first, Iter last, RealType (&x)[n])
         RealType val = RealType(0);
         RealType mult = divisor;
         for(int k = 0; k < w/32; ++k, ++first) {
-            if(first == last) throw std::invalid_argument("Not enough elements in call to seed.");
+            if(first == last) boost::throw_exception(std::invalid_argument("Not enough elements in call to seed."));
             val += *first * mult;
             mult *= two32;
         }
         if(mask != 0) {
-            if(first == last) throw std::invalid_argument("Not enough elements in call to seed.");
+            if(first == last) boost::throw_exception(std::invalid_argument("Not enough elements in call to seed."));
             val += (*first & mask) * mult;
             ++first;
         }

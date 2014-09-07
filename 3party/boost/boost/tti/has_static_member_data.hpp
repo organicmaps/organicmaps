@@ -47,9 +47,11 @@
 #define BOOST_TTI_TRAIT_HAS_STATIC_MEMBER_DATA(trait,name) \
   BOOST_TTI_DETAIL_TRAIT_HAS_STATIC_MEMBER_DATA(trait,name) \
   template<class BOOST_TTI_TP_T,class BOOST_TTI_TP_TYPE> \
-  struct trait : \
-    BOOST_PP_CAT(trait,_detail_hsd)<BOOST_TTI_TP_T,BOOST_TTI_TP_TYPE> \
+  struct trait \
     { \
+    typedef typename \
+    BOOST_PP_CAT(trait,_detail_hsd)<BOOST_TTI_TP_T,BOOST_TTI_TP_TYPE>::type type; \
+    BOOST_STATIC_CONSTANT(bool,value=type::value); \
     }; \
 /**/
 

@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Stephen Cleary 2000.
-// (C) Copyright Ion Gaztanaga 2007-2012.
+// (C) Copyright Ion Gaztanaga 2007-2013.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -16,7 +16,9 @@
 #ifndef BOOST_CONTAINER_DETAIL_MATH_FUNCTIONS_HPP
 #define BOOST_CONTAINER_DETAIL_MATH_FUNCTIONS_HPP
 
-#include "config_begin.hpp"
+#include <boost/container/detail/config_begin.hpp>
+#include <boost/container/detail/workaround.hpp>
+
 #include <climits>
 #include <boost/static_assert.hpp>
 
@@ -94,7 +96,7 @@ inline std::size_t floor_log2 (std::size_t x)
 
    std::size_t n = x;
    std::size_t log2 = 0;
-  
+
    for(std::size_t shift = Bits >> 1; shift; shift >>= 1){
       std::size_t tmp = n >> shift;
       if (tmp)

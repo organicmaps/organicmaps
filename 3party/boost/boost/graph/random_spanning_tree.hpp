@@ -33,7 +33,6 @@ namespace boost {
     template <typename Graph, typename PredMap, typename ColorMap, typename NextEdge>
     void random_spanning_tree_internal(const Graph& g, typename graph_traits<Graph>::vertex_descriptor s, PredMap pred, ColorMap color, NextEdge next_edge) {
       typedef typename graph_traits<Graph>::vertex_descriptor vertex_descriptor;
-      typedef typename graph_traits<Graph>::edge_descriptor edge_descriptor;
 
       BOOST_ASSERT (num_vertices(g) >= 1); // g must also be undirected (or symmetric) and connected
 

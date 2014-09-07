@@ -205,7 +205,7 @@ BOOST_MP_FORCEINLINE typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<Mi
       eval_multiply(result, a, static_cast<limb_type>(val));
    else
    {
-      eval_multiply(result, a, static_cast<limb_type>(-val));
+      eval_multiply(result, a, static_cast<limb_type>(boost::multiprecision::detail::unsigned_abs(val)));
       result.negate();
    }
 }
@@ -234,7 +234,7 @@ inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBit
    }
    else if(val >= -static_cast<signed_double_limb_type>((std::numeric_limits<limb_type>::max)()))
    {
-      eval_multiply(result, a, static_cast<limb_type>(-val));
+      eval_multiply(result, a, static_cast<limb_type>(boost::multiprecision::detail::unsigned_abs(val)));
       result.negate();
       return;
    }

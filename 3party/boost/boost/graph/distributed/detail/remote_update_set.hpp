@@ -39,7 +39,7 @@ class remote_set_semantics
     (bool, 
      queued = (is_convertible<
                  typename ProcessGroup::communication_category,
-                 parallel::bsp_process_group_tag>::value));
+                 boost::parallel::bsp_process_group_tag>::value));
 
  public:
   typedef typename mpl::if_c<queued, 

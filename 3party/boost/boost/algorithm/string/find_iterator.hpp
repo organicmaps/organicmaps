@@ -15,7 +15,7 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 
-#include <boost/range/iterator_range.hpp>
+#include <boost/range/iterator_range_core.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator.hpp>
@@ -132,12 +132,7 @@ namespace boost {
             // increment
             void increment()
             {
-                if(m_Match.begin() == m_Match.end())
-                    m_Match=this->do_find(m_Match.end(),m_End);
-                else {
-                    input_iterator_type last = m_Match.begin();
-                    m_Match=this->do_find(++last,m_End);
-                    }
+                m_Match=this->do_find(m_Match.end(),m_End);
             }
 
             // comparison
@@ -235,7 +230,7 @@ namespace boost {
     
                 \post eof()==true
             */
-            split_iterator() {}
+            split_iterator() { m_bEof = true; }
             //! Copy constructor
             /*!
                 Construct a copy of the split_iterator

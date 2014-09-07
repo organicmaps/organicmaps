@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -15,13 +15,13 @@
 #ifndef BOOST_LOG_SUPPORT_REGEX_HPP_INCLUDED_
 #define BOOST_LOG_SUPPORT_REGEX_HPP_INCLUDED_
 
+#include <string>
 #include <boost/regex.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/utility/functional/matches.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -31,35 +31,37 @@ BOOST_LOG_OPEN_NAMESPACE
 
 namespace aux {
 
-//! The trait verifies if the type can be converted to a Boost.Regex expression
-template< typename T >
-struct is_regex< T, true >
+//! This tag type is used if an expression is recognized as a Boost.Regex expression
+struct boost_regex_expression_tag;
+
+//! The metafunction detects the matching expression kind and returns a tag that is used to specialize \c match_traits
+template< typename CharT, typename TraitsT >
+struct matching_expression_kind< boost::basic_regex< CharT, TraitsT > >
 {
-private:
-    typedef char yes_type;
-    struct no_type { char dummy[2]; };
-
-    template< typename CharT, typename TraitsT >
-    static yes_type check_regex(basic_regex< CharT, TraitsT > const&);
-    static no_type check_regex(...);
-    static T& get_T();
-
-public:
-    enum { value = sizeof(check_regex(get_T())) == sizeof(yes_type) };
-    typedef mpl::bool_< value > type;
+    typedef boost_regex_expression_tag type;
 };
 
-//! The regex matching functor implementation
-template< >
-struct matches_fun_impl< boost_regex_expression_tag >
+//! The matching function implementation
+template< typename ExpressionT >
+struct match_traits< ExpressionT, boost_regex_expression_tag >
 {
+    typedef ExpressionT compiled_type;
+    static compiled_type compile(ExpressionT const& expr) { return expr; }
+
     template< typename StringT, typename CharT, typename TraitsT >
-    static bool matches(
-        StringT const& str,
-        basic_regex< CharT, TraitsT > const& expr,
-        match_flag_type flags = match_default)
+    static bool matches(StringT const& str, boost::basic_regex< CharT, TraitsT > const& expr, boost::regex_constants::match_flag_type flags = boost::regex_constants::match_default)
     {
         return boost::regex_match(str.begin(), str.end(), expr, flags);
+    }
+
+    template< typename CharT, typename StringTraitsT, typename AllocatorT, typename ReTraitsT >
+    static bool matches(
+        std::basic_string< CharT, StringTraitsT, AllocatorT > const& str,
+        boost::basic_regex< CharT, ReTraitsT > const& expr,
+        boost::regex_constants::match_flag_type flags = boost::regex_constants::match_default)
+    {
+        const CharT* p = str.c_str();
+        return boost::regex_match(p, p + str.size(), expr, flags);
     }
 };
 

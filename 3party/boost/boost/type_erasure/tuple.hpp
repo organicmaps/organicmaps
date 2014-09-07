@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: tuple.hpp 83452 2013-03-15 22:29:03Z steven_watanabe $
+// $Id$
 
 #if !defined(BOOST_PP_IS_ITERATING)
 

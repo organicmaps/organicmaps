@@ -56,9 +56,9 @@ namespace boost { namespace spirit { namespace qi
 
         grammar(
             start_type const& start
-          , std::string const& name_ = "unnamed-grammar")
+          , std::string const& name = "unnamed-grammar")
         : proto::extends<terminal, base_type>(terminal::make(reference_(start)))
-        , name_(name_)
+        , name_(name)
         {}
 
         // This constructor is used to catch if the start rule is not
@@ -90,10 +90,10 @@ namespace boost { namespace spirit { namespace qi
         template <typename Context, typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
-          , Attribute& attr) const
+          , Attribute& attr_) const
         {
             return this->proto_base().child0.parse(
-                first, last, context, skipper, attr);
+                first, last, context, skipper, attr_);
         }
 
         template <typename Context>

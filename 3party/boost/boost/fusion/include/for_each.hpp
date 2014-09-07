@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_FOR_EACH)
 #define FUSION_INCLUDE_FOR_EACH
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/iteration/for_each.hpp>
 
 #endif

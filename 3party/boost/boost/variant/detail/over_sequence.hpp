@@ -16,12 +16,6 @@
 #define BOOST_VARIANT_DETAIL_OVER_SEQUENCE_HPP
 
 #include "boost/mpl/aux_/config/ctps.hpp"
-#if defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-#   include "boost/mpl/eval_if.hpp"
-#   include "boost/mpl/bool.hpp"
-#   include "boost/mpl/identity.hpp"
-#   include "boost/type.hpp"
-#endif
 
 
 namespace boost {
@@ -44,7 +38,6 @@ struct over_sequence
 // Indicates whether the specified type is of form over_sequence<...> or not.
 //
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template <typename T>
 struct is_over_sequence
@@ -58,36 +51,6 @@ struct is_over_sequence< over_sequence<Types> >
 {
 };
 
-#else // defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-
-typedef char (&yes_over_sequence_t)[1];
-typedef char (&no_over_sequence_t)[2];
-
-no_over_sequence_t is_over_sequence_test(...);
-
-template<typename T>
-yes_over_sequence_t is_over_sequence_test(
-      type< ::boost::detail::variant::over_sequence<T> >
-    );
-
-template<typename T>
-struct is_over_sequence_impl
-{
-    BOOST_STATIC_CONSTANT(bool, value = (
-          sizeof(is_over_sequence_test(type<T>()))
-          == sizeof(yes_over_sequence_t)
-        ));
-};
-
-template <typename T>
-struct is_over_sequence
-    : mpl::bool_<
-          ::boost::detail::variant::is_over_sequence_impl<T>::value
-        >
-{
-};
-
-#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION workaround
 
 }} // namespace detail::variant
 } // namespace boost

@@ -2,7 +2,7 @@
 // detail/timer_scheduler.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -18,7 +18,9 @@
 #include <boost/asio/detail/config.hpp>
 #include <boost/asio/detail/timer_scheduler_fwd.hpp>
 
-#if defined(BOOST_ASIO_HAS_IOCP)
+#if defined(BOOST_ASIO_WINDOWS_RUNTIME)
+# include <boost/asio/detail/winrt_timer_scheduler.hpp>
+#elif defined(BOOST_ASIO_HAS_IOCP)
 # include <boost/asio/detail/win_iocp_io_service.hpp>
 #elif defined(BOOST_ASIO_HAS_EPOLL)
 # include <boost/asio/detail/epoll_reactor.hpp>

@@ -1,4 +1,4 @@
-/* Copyright 2003-2008 Joaquin M Lopez Munoz.
+/* Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -36,14 +36,13 @@
 #ifndef BOOST_MULTI_INDEX_DETAIL_ORD_INDEX_NODE_HPP
 #define BOOST_MULTI_INDEX_DETAIL_ORD_INDEX_NODE_HPP
 
-#if defined(_MSC_VER)&&(_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <cstddef>
 #include <boost/detail/allocator_utilities.hpp>
-#include <boost/multi_index/detail/prevent_eti.hpp>
 
 #if !defined(BOOST_MULTI_INDEX_DISABLE_COMPRESSED_ORDERED_INDEX_NODES)
 #include <boost/mpl/and.hpp>
@@ -70,22 +69,18 @@ struct ordered_index_node_impl; /* fwd decl. */
 template<typename Allocator>
 struct ordered_index_node_std_base
 {
-  typedef typename prevent_eti<
+  typedef typename
+  boost::detail::allocator::rebind_to<
     Allocator,
-    typename boost::detail::allocator::rebind_to<
-      Allocator,
-      ordered_index_node_impl<Allocator>
-    >::type
-  >::type::pointer                                pointer;
-  typedef typename prevent_eti<
+    ordered_index_node_impl<Allocator>
+  >::type::pointer                     pointer;
+  typedef typename
+  boost::detail::allocator::rebind_to<
     Allocator,
-    typename boost::detail::allocator::rebind_to<
-      Allocator,
-      ordered_index_node_impl<Allocator>
-    >::type
-  >::type::const_pointer                          const_pointer;
-  typedef ordered_index_color&                    color_ref;
-  typedef pointer&                                parent_ref;
+    ordered_index_node_impl<Allocator>
+  >::type::const_pointer               const_pointer;
+  typedef ordered_index_color&         color_ref;
+  typedef pointer&                     parent_ref;
 
   ordered_index_color& color(){return color_;}
   ordered_index_color  color()const{return color_;}
@@ -216,12 +211,9 @@ struct ordered_index_node_impl_base:
     !(has_uintptr_type::value)||
     (alignment_of<ordered_index_node_compressed_base<Allocator> >::value%2)||
     !(is_same<
-      typename prevent_eti<
+      typename boost::detail::allocator::rebind_to<
         Allocator,
-        typename boost::detail::allocator::rebind_to<
-          Allocator,
-          ordered_index_node_impl<Allocator>
-        >::type
+        ordered_index_node_impl<Allocator>
       >::type::pointer,
       ordered_index_node_impl<Allocator>*>::value),
     ordered_index_node_std_base<Allocator>,
@@ -557,25 +549,19 @@ public:
 
 template<typename Super>
 struct ordered_index_node_trampoline:
-  prevent_eti<
-    Super,
-    ordered_index_node_impl<
-      typename boost::detail::allocator::rebind_to<
-        typename Super::allocator_type,
-        char
-      >::type
-    >
-  >::type
+  ordered_index_node_impl<
+    typename boost::detail::allocator::rebind_to<
+      typename Super::allocator_type,
+      char
+    >::type
+  >
 {
-  typedef typename prevent_eti<
-    Super,
-    ordered_index_node_impl<
-      typename boost::detail::allocator::rebind_to<
-        typename Super::allocator_type,
-        char
-      >::type
-    >
-  >::type impl_type;
+  typedef ordered_index_node_impl<
+    typename boost::detail::allocator::rebind_to<
+      typename Super::allocator_type,
+      char
+    >::type
+  > impl_type;
 };
 
 template<typename Super>

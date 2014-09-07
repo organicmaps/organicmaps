@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_INSERT)
 #define FUSION_INCLUDE_INSERT
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/transformation/insert.hpp>
 
 #endif

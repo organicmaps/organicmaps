@@ -2,7 +2,7 @@
 // detail/impl/win_iocp_socket_service_base.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -32,6 +32,7 @@ win_iocp_socket_service_base::win_iocp_socket_service_base(
   : io_service_(io_service),
     iocp_service_(use_service<win_iocp_io_service>(io_service)),
     reactor_(0),
+    connect_ex_(0),
     mutex_(),
     impl_list_(0)
 {
@@ -545,8 +546,51 @@ void win_iocp_socket_service_base::start_reactor_op(
 
 void win_iocp_socket_service_base::start_connect_op(
     win_iocp_socket_service_base::base_implementation_type& impl,
-    reactor_op* op, const socket_addr_type* addr, std::size_t addrlen)
+    int family, int type, const socket_addr_type* addr,
+    std::size_t addrlen, win_iocp_socket_connect_op_base* op)
 {
+  // If ConnectEx is available, use that.
+  if (family == BOOST_ASIO_OS_DEF(AF_INET)
+      || family == BOOST_ASIO_OS_DEF(AF_INET6))
+  {
+    if (connect_ex_fn connect_ex = get_connect_ex(impl, type))
+    {
+      union address_union
+      {
+        socket_addr_type base;
+        sockaddr_in4_type v4;
+        sockaddr_in6_type v6;
+      } a;
+
+      using namespace std; // For memset.
+      memset(&a, 0, sizeof(a));
+      a.base.sa_family = family;
+
+      socket_ops::bind(impl.socket_, &a.base,
+          family == BOOST_ASIO_OS_DEF(AF_INET)
+          ? sizeof(a.v4) : sizeof(a.v6), op->ec_);
+      if (op->ec_ && op->ec_ != boost::asio::error::invalid_argument)
+      {
+        iocp_service_.post_immediate_completion(op, false);
+        return;
+      }
+
+      op->connect_ex_ = true;
+      update_cancellation_thread_id(impl);
+      iocp_service_.work_started();
+
+      BOOL result = connect_ex(impl.socket_,
+          addr, static_cast<int>(addrlen), 0, 0, 0, op);
+      DWORD last_error = ::WSAGetLastError();
+      if (!result && last_error != WSA_IO_PENDING)
+        iocp_service_.on_completion(op, last_error);
+      else
+        iocp_service_.on_pending(op);
+      return;
+    }
+  }
+
+  // Otherwise, fall back to a reactor-based implementation.
   reactor& r = get_reactor();
   update_cancellation_thread_id(impl);
 
@@ -621,6 +665,35 @@ reactor& win_iocp_socket_service_base::get_reactor()
     interlocked_exchange_pointer(reinterpret_cast<void**>(&reactor_), r);
   }
   return *r;
+}
+
+win_iocp_socket_service_base::connect_ex_fn
+win_iocp_socket_service_base::get_connect_ex(
+    win_iocp_socket_service_base::base_implementation_type& impl, int type)
+{
+  if (type != BOOST_ASIO_OS_DEF(SOCK_STREAM)
+      && type != BOOST_ASIO_OS_DEF(SOCK_SEQPACKET))
+    return 0;
+
+  void* ptr = interlocked_compare_exchange_pointer(&connect_ex_, 0, 0);
+  if (!ptr)
+  {
+    GUID guid = { 0x25a207b9, 0xddf3, 0x4660,
+      { 0x8e, 0xe9, 0x76, 0xe5, 0x8c, 0x74, 0x06, 0x3e } };
+
+    DWORD bytes = 0;
+    if (::WSAIoctl(impl.socket_, SIO_GET_EXTENSION_FUNCTION_POINTER,
+          &guid, sizeof(guid), &ptr, sizeof(ptr), &bytes, 0, 0) != 0)
+    {
+      // Set connect_ex_ to a special value to indicate that ConnectEx is
+      // unavailable. That way we won't bother trying to look it up again.
+      ptr = this;
+    }
+
+    interlocked_exchange_pointer(&connect_ex_, ptr);
+  }
+
+  return reinterpret_cast<connect_ex_fn>(ptr == this ? 0 : ptr);
 }
 
 void* win_iocp_socket_service_base::interlocked_compare_exchange_pointer(

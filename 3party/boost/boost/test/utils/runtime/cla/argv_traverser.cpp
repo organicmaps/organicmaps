@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 49312 $
+//  Version     : $Revision$
 //
 //  Description : offline implementation for argc/argv traverser
 // ***************************************************************************

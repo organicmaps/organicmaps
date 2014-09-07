@@ -19,8 +19,8 @@ struct distribution_quantile_finder
    typedef typename Dist::value_type value_type;
    typedef typename Dist::policy_type policy_type;
 
-   distribution_quantile_finder(const Dist d, value_type p, value_type q)
-      : dist(d), target(p < q ? p : q), comp(p < q ? false : true) {}
+   distribution_quantile_finder(const Dist d, value_type p, bool c)
+      : dist(d), target(p), comp(c) {}
 
    value_type operator()(value_type const& x)
    {
@@ -73,7 +73,7 @@ typename Dist::value_type
    do_inverse_discrete_quantile(
       const Dist& dist,
       const typename Dist::value_type& p,
-      const typename Dist::value_type& q,
+      bool comp,
       typename Dist::value_type guess,
       const typename Dist::value_type& multiplier,
       typename Dist::value_type adder,
@@ -87,7 +87,7 @@ typename Dist::value_type
 
    BOOST_MATH_STD_USING
 
-   distribution_quantile_finder<Dist> f(dist, p, q);
+   distribution_quantile_finder<Dist> f(dist, p, comp);
    //
    // Max bounds of the distribution:
    //
@@ -215,7 +215,7 @@ typename Dist::value_type
          while(((boost::math::sign)(fb) == (boost::math::sign)(fa)) && (a != b))
          {
             if(count == 0)
-               policies::raise_evaluation_error(function, "Unable to bracket root, last nearest value was %1%", b, policy_type());
+               return policies::raise_evaluation_error(function, "Unable to bracket root, last nearest value was %1%", b, policy_type());
             a = b;
             fa = fb;
             b *= multiplier;
@@ -242,7 +242,7 @@ typename Dist::value_type
                return 0;
             }
             if(count == 0)
-               policies::raise_evaluation_error(function, "Unable to bracket root, last nearest value was %1%", a, policy_type());
+               return policies::raise_evaluation_error(function, "Unable to bracket root, last nearest value was %1%", a, policy_type());
             b = a;
             fb = fa;
             a /= multiplier;
@@ -280,6 +280,80 @@ typename Dist::value_type
    return (r.first + r.second) / 2;
 }
 //
+// Some special routine for rounding up and down:
+// We want to check and see if we are very close to an integer, and if so test to see if
+// that integer is an exact root of the cdf.  We do this because our root finder only
+// guarantees to find *a root*, and there can sometimes be many consecutive floating
+// point values which are all roots.  This is especially true if the target probability
+// is very close 1.
+//
+template <class Dist>
+inline typename Dist::value_type round_to_floor(const Dist& d, typename Dist::value_type result, typename Dist::value_type p, bool c)
+{
+   BOOST_MATH_STD_USING
+   typename Dist::value_type cc = ceil(result);
+   typename Dist::value_type pp = cc <= support(d).second ? c ? cdf(complement(d, cc)) : cdf(d, cc) : 1;
+   if(pp == p)
+      result = cc;
+   else
+      result = floor(result);
+   //
+   // Now find the smallest integer <= result for which we get an exact root:
+   //
+   while(result != 0)
+   {
+      cc = result - 1;
+      if(cc < support(d).first)
+         break;
+      typename Dist::value_type pp = c ? cdf(complement(d, cc)) : cdf(d, cc);
+      if(pp == p)
+         result = cc;
+      else if(c ? pp > p : pp < p)
+         break;
+      result -= 1;
+   }
+
+   return result;
+}
+
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable:4127)
+#endif
+
+template <class Dist>
+inline typename Dist::value_type round_to_ceil(const Dist& d, typename Dist::value_type result, typename Dist::value_type p, bool c)
+{
+   BOOST_MATH_STD_USING
+   typename Dist::value_type cc = floor(result);
+   typename Dist::value_type pp = cc >= support(d).first ? c ? cdf(complement(d, cc)) : cdf(d, cc) : 0;
+   if(pp == p)
+      result = cc;
+   else
+      result = ceil(result);
+   //
+   // Now find the largest integer >= result for which we get an exact root:
+   //
+   while(true)
+   {
+      cc = result + 1;
+      if(cc > support(d).second)
+         break;
+      typename Dist::value_type pp = c ? cdf(complement(d, cc)) : cdf(d, cc);
+      if(pp == p)
+         result = cc;
+      else if(c ? pp < p : pp > p)
+         break;
+      result += 1;
+   }
+
+   return result;
+}
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
+//
 // Now finally are the public API functions.
 // There is one overload for each policy,
 // each one is responsible for selecting the correct
@@ -290,20 +364,26 @@ template <class Dist>
 inline typename Dist::value_type 
    inverse_discrete_quantile(
       const Dist& dist,
-      const typename Dist::value_type& p,
-      const typename Dist::value_type& q,
+      typename Dist::value_type p,
+      bool c,
       const typename Dist::value_type& guess,
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
       const policies::discrete_quantile<policies::real>&,
       boost::uintmax_t& max_iter)
 {
-   if(p <= pdf(dist, 0))
+   if(p > 0.5)
+   {
+      p = 1 - p;
+      c = !c;
+   }
+   typename Dist::value_type pp = c ? 1 - p : p;
+   if(pp <= pdf(dist, 0))
       return 0;
    return do_inverse_discrete_quantile(
       dist, 
       p, 
-      q,
+      c,
       guess, 
       multiplier, 
       adder, 
@@ -316,7 +396,7 @@ inline typename Dist::value_type
    inverse_discrete_quantile(
       const Dist& dist,
       const typename Dist::value_type& p,
-      const typename Dist::value_type& q,
+      bool c,
       const typename Dist::value_type& guess,
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
@@ -325,32 +405,33 @@ inline typename Dist::value_type
 {
    typedef typename Dist::value_type value_type;
    BOOST_MATH_STD_USING
-   if(p <= pdf(dist, 0))
+   typename Dist::value_type pp = c ? 1 - p : p;
+   if(pp <= pdf(dist, 0))
       return 0;
    //
    // What happens next depends on whether we're looking for an 
    // upper or lower quantile:
    //
-   if(p < 0.5f)
-      return floor(do_inverse_discrete_quantile(
+   if(pp < 0.5f)
+      return round_to_floor(dist, do_inverse_discrete_quantile(
          dist, 
          p, 
-         q,
+         c,
          (guess < 1 ? value_type(1) : (value_type)floor(guess)), 
          multiplier, 
          adder, 
          tools::equal_floor(),
-         max_iter));
+         max_iter), p, c);
    // else:
-   return ceil(do_inverse_discrete_quantile(
+   return round_to_ceil(dist, do_inverse_discrete_quantile(
       dist, 
       p, 
-      q,
+      c,
       (value_type)ceil(guess), 
       multiplier, 
       adder, 
       tools::equal_ceil(),
-      max_iter));
+      max_iter), p, c);
 }
 
 template <class Dist>
@@ -358,7 +439,7 @@ inline typename Dist::value_type
    inverse_discrete_quantile(
       const Dist& dist,
       const typename Dist::value_type& p,
-      const typename Dist::value_type& q,
+      bool c,
       const typename Dist::value_type& guess,
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
@@ -367,32 +448,33 @@ inline typename Dist::value_type
 {
    typedef typename Dist::value_type value_type;
    BOOST_MATH_STD_USING
-   if(p <= pdf(dist, 0))
+   typename Dist::value_type pp = c ? 1 - p : p;
+   if(pp <= pdf(dist, 0))
       return 0;
    //
    // What happens next depends on whether we're looking for an 
    // upper or lower quantile:
    //
-   if(p < 0.5f)
-      return ceil(do_inverse_discrete_quantile(
+   if(pp < 0.5f)
+      return round_to_ceil(dist, do_inverse_discrete_quantile(
          dist, 
          p, 
-         q,
+         c,
          ceil(guess), 
          multiplier, 
          adder, 
          tools::equal_ceil(),
-         max_iter));
+         max_iter), p, c);
    // else:
-   return floor(do_inverse_discrete_quantile(
+   return round_to_floor(dist, do_inverse_discrete_quantile(
       dist, 
       p, 
-      q,
+      c,
       (guess < 1 ? value_type(1) : floor(guess)), 
       multiplier, 
       adder, 
       tools::equal_floor(),
-      max_iter));
+      max_iter), p, c);
 }
 
 template <class Dist>
@@ -400,7 +482,7 @@ inline typename Dist::value_type
    inverse_discrete_quantile(
       const Dist& dist,
       const typename Dist::value_type& p,
-      const typename Dist::value_type& q,
+      bool c,
       const typename Dist::value_type& guess,
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
@@ -409,17 +491,18 @@ inline typename Dist::value_type
 {
    typedef typename Dist::value_type value_type;
    BOOST_MATH_STD_USING
-   if(p <= pdf(dist, 0))
+   typename Dist::value_type pp = c ? 1 - p : p;
+   if(pp <= pdf(dist, 0))
       return 0;
-   return floor(do_inverse_discrete_quantile(
+   return round_to_floor(dist, do_inverse_discrete_quantile(
       dist, 
       p, 
-      q,
+      c,
       (guess < 1 ? value_type(1) : floor(guess)), 
       multiplier, 
       adder, 
       tools::equal_floor(),
-      max_iter));
+      max_iter), p, c);
 }
 
 template <class Dist>
@@ -427,7 +510,7 @@ inline typename Dist::value_type
    inverse_discrete_quantile(
       const Dist& dist,
       const typename Dist::value_type& p,
-      const typename Dist::value_type& q,
+      bool c,
       const typename Dist::value_type& guess,
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
@@ -435,17 +518,18 @@ inline typename Dist::value_type
       boost::uintmax_t& max_iter)
 {
    BOOST_MATH_STD_USING
-   if(p <= pdf(dist, 0))
+   typename Dist::value_type pp = c ? 1 - p : p;
+   if(pp <= pdf(dist, 0))
       return 0;
-   return ceil(do_inverse_discrete_quantile(
+   return round_to_ceil(dist, do_inverse_discrete_quantile(
       dist, 
       p, 
-      q,
+      c,
       ceil(guess), 
       multiplier, 
       adder, 
       tools::equal_ceil(),
-      max_iter));
+      max_iter), p, c);
 }
 
 template <class Dist>
@@ -453,7 +537,7 @@ inline typename Dist::value_type
    inverse_discrete_quantile(
       const Dist& dist,
       const typename Dist::value_type& p,
-      const typename Dist::value_type& q,
+      bool c,
       const typename Dist::value_type& guess,
       const typename Dist::value_type& multiplier,
       const typename Dist::value_type& adder,
@@ -462,26 +546,26 @@ inline typename Dist::value_type
 {
    typedef typename Dist::value_type value_type;
    BOOST_MATH_STD_USING
-   if(p <= pdf(dist, 0))
+   typename Dist::value_type pp = c ? 1 - p : p;
+   if(pp <= pdf(dist, 0))
       return 0;
    //
    // Note that we adjust the guess to the nearest half-integer:
    // this increase the chances that we will bracket the root
    // with two results that both round to the same integer quickly.
    //
-   return floor(do_inverse_discrete_quantile(
+   return round_to_floor(dist, do_inverse_discrete_quantile(
       dist, 
       p, 
-      q,
+      c,
       (guess < 0.5f ? value_type(1.5f) : floor(guess + 0.5f) + 0.5f), 
       multiplier, 
       adder, 
       tools::equal_nearest_integer(),
-      max_iter) + 0.5f);
+      max_iter) + 0.5f, p, c);
 }
 
 }}} // namespaces
 
 #endif // BOOST_MATH_DISTRIBUTIONS_DETAIL_INV_DISCRETE_QUANTILE
-
 

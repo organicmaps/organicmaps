@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: seed.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id$
  */
 
 #ifndef BOOST_RANDOM_DETAIL_SEED_HPP

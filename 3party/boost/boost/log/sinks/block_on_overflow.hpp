@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -18,7 +18,7 @@
 
 #include <boost/log/detail/config.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -74,16 +74,11 @@ private:
     //! Blocked threads
     thread_contexts m_thread_contexts;
 
-private:
-    //  Copying prohibited
-    block_on_overflow(block_on_overflow const&);
-    block_on_overflow& operator= (block_on_overflow const&);
-
 public:
     /*!
      * Default constructor.
      */
-    block_on_overflow() {}
+    BOOST_DEFAULTED_FUNCTION(block_on_overflow(), {})
 
     /*!
      * This method is called by the queue when overflow is detected.
@@ -134,6 +129,10 @@ public:
             m_thread_contexts.pop_front();
         }
     }
+
+    //  Copying prohibited
+    BOOST_DELETED_FUNCTION(block_on_overflow(block_on_overflow const&))
+    BOOST_DELETED_FUNCTION(block_on_overflow& operator= (block_on_overflow const&))
 #endif // BOOST_LOG_DOXYGEN_PASS
 };
 

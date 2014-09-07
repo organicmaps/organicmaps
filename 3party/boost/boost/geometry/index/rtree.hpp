@@ -3,7 +3,7 @@
 // R-tree implementation
 //
 // Copyright (c) 2008 Federico J. Fernandez.
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -12,13 +12,30 @@
 #ifndef BOOST_GEOMETRY_INDEX_RTREE_HPP
 #define BOOST_GEOMETRY_INDEX_RTREE_HPP
 
+// STD
 #include <algorithm>
 
+// Boost
 #include <boost/tuple/tuple.hpp>
 #include <boost/move/move.hpp>
 
-#include <boost/geometry/geometry.hpp>
+// Boost.Geometry
+#include <boost/geometry/algorithms/detail/comparable_distance/interface.hpp>
+#include <boost/geometry/algorithms/centroid.hpp>
+#include <boost/geometry/algorithms/covered_by.hpp>
+#include <boost/geometry/algorithms/disjoint.hpp>
+#include <boost/geometry/algorithms/equals.hpp>
+#include <boost/geometry/algorithms/intersects.hpp>
+#include <boost/geometry/algorithms/overlaps.hpp>
+#include <boost/geometry/algorithms/touches.hpp>
+#include <boost/geometry/algorithms/within.hpp>
 
+#include <boost/geometry/geometries/point.hpp>
+#include <boost/geometry/geometries/box.hpp>
+
+#include <boost/geometry/strategies/strategies.hpp>
+
+// Boost.Geometry.Index
 #include <boost/geometry/index/detail/config_begin.hpp>
 
 #include <boost/geometry/index/detail/assert.hpp>
@@ -61,11 +78,11 @@
 
 #include <boost/geometry/index/detail/rtree/utilities/view.hpp>
 
-#ifdef BOOST_GEOMETRY_INDEX_DETAIL_EXPERIMENTAL
 #include <boost/geometry/index/detail/rtree/query_iterators.hpp>
-#ifdef BOOST_GEOMETRY_INDEX_DETAIL_ENABLE_TYPE_ERASED_ITERATORS
-#include <boost/geometry/index/detail/type_erased_iterators.hpp>
-#endif
+
+#ifdef BOOST_GEOMETRY_INDEX_DETAIL_EXPERIMENTAL
+// serialization
+#include <boost/geometry/index/detail/serialization.hpp>
 #endif
 
 // TODO change the name to bounding_tree
@@ -98,13 +115,18 @@ Predefined algorithms with run-time parameters are:
  \li \c boost::geometry::index::dynamic_quadratic,
  \li \c boost::geometry::index::dynamic_rstar.
 
-\par Translator
-The Translator translates from Value to Indexable each time r-tree requires it. Which means that this
-operation is done for each Value access. Therefore the Translator should return the Indexable by
-const reference instead of a value. Default translator can translate all types adapted to Point
-or Box concepts (called Indexables). It also handles <tt>std::pair<Indexable, T></tt> and
+\par IndexableGetter
+The object of IndexableGetter type translates from Value to Indexable each time r-tree requires it. Which means that this
+operation is done for each Value access. Therefore the IndexableGetter should return the Indexable by
+const reference instead of a value. Default one can translate all types adapted to Point, Box or Segment
+concepts (called Indexables). It also handles <tt>std::pair<Indexable, T></tt> and
 <tt>boost::tuple<Indexable, ...></tt>. For example, if <tt>std::pair<Box, int></tt> is stored in the
-container, the default translator translates from <tt>std::pair<Box, int> const&</tt> to <tt>Box const&</tt>.
+container, the default IndexableGetter translates from <tt>std::pair<Box, int> const&</tt> to <tt>Box const&</tt>.
+
+\par EqualTo
+The object of EqualTo type compares Values and returns <tt>true</tt> if they're equal. It's similar to <tt>std::equal_to<></tt>.
+The default EqualTo returns the result of <tt>boost::geometry::equals()</tt> for types adapted to some Geometry concept
+defined in Boost.Geometry and the result of operator= for other types. Components of Pairs and Tuples are compared left-to-right.
 
 \tparam Value           The type of objects stored in the container.
 \tparam Parameters      Compile-time parameters.
@@ -166,8 +188,13 @@ private:
 
     typedef typename allocators_type::node_pointer node_pointer;
     typedef ::boost::container::allocator_traits<Allocator> allocator_traits_type;
+    typedef detail::rtree::node_auto_ptr<value_type, options_type, translator_type, box_type, allocators_type> node_auto_ptr;
 
     friend class detail::rtree::utilities::view<rtree>;
+#ifdef BOOST_GEOMETRY_INDEX_DETAIL_EXPERIMENTAL
+    friend class detail::rtree::private_view<rtree>;
+    friend class detail::rtree::const_private_view<rtree>;
+#endif
 
 public:
 
@@ -183,6 +210,9 @@ public:
     typedef typename allocators_type::difference_type difference_type;
     /*! \brief Unsigned integral type used by the container. */
     typedef typename allocators_type::size_type size_type;
+
+    /*! \brief Type of const query iterator. */
+    typedef index::detail::rtree::iterators::query_iterator<value_type, allocators_type> const_query_iterator;
 
 public:
 
@@ -223,6 +253,8 @@ public:
     /*!
     \brief The constructor.
 
+    The tree is created using packing algorithm.
+
     \param first        The beginning of the range of Values.
     \param last         The end of the range of Values.
     \param parameters   The parameters object.
@@ -253,6 +285,8 @@ public:
 
     /*!
     \brief The constructor.
+
+    The tree is created using packing algorithm.
 
     \param rng          The range of Values.
     \param parameters   The parameters object.
@@ -682,14 +716,18 @@ public:
     <b>Spatial predicates</b>
     
     Spatial predicates may be generated by one of the functions listed below:
+    \li \c boost::geometry::index::contains(),
     \li \c boost::geometry::index::covered_by(),
+    \li \c boost::geometry::index::covers(),
     \li \c boost::geometry::index::disjoint(),
     \li \c boost::geometry::index::intersects(),
     \li \c boost::geometry::index::overlaps(),
     \li \c boost::geometry::index::within(),
 
     It is possible to negate spatial predicates:
+    \li <tt>! boost::geometry::index::contains()</tt>,
     \li <tt>! boost::geometry::index::covered_by()</tt>,
+    \li <tt>! boost::geometry::index::covers()</tt>,
     \li <tt>! boost::geometry::index::disjoint()</tt>,
     \li <tt>! boost::geometry::index::intersects()</tt>,
     \li <tt>! boost::geometry::index::overlaps()</tt>,
@@ -726,6 +764,7 @@ public:
 
     \par Throws
     If Value copy constructor or copy assignment throws.
+    If predicates copy throws.
 
     \warning
     Only one \c nearest() perdicate may be passed to the query. Passing more of them results in compile-time error.
@@ -748,44 +787,123 @@ public:
         return query_dispatch(predicates, out_it, boost::mpl::bool_<is_distance_predicate>());
     }
 
-#ifdef BOOST_GEOMETRY_INDEX_DETAIL_EXPERIMENTAL
+    /*!
+    \brief Returns the query iterator pointing at the begin of the query range.
 
-#ifdef BOOST_GEOMETRY_INDEX_DETAIL_ENABLE_TYPE_ERASED_ITERATORS
+    This method returns the iterator which may be used to perform iterative queries. For the information
+    about the predicates which may be passed to this method see query().
+    
+    \par Example
+    \verbatim    
+    for ( Rtree::const_query_iterator it = tree.qbegin(bgi::nearest(pt, 10000)) ;
+          it != tree.qend() ; ++it )
+    {
+        // do something with value
+        if ( has_enough_nearest_values() )
+            break;
+    }
+    \endverbatim
 
-    // BEWARE!
-    // Don't use this type-erased iterator after assigning values returned by qbegin(Pred) and qend()
-    // e.g. don't pass them into the std::copy() or compare them like this:
-    // const_query_iterator i1 = qbegin(...);
-    // const_query_iterator i2 = qend();
-    // i1 == i2; // BAM!
-    // now this will cause undefined behaviour.
-    // using native types is ok:
-    // qbegin(...) == qend();
+    \par Throws
+    If predicates copy throws.
+    If allocation throws.
 
-    typedef typename index::detail::single_pass_iterator_type<
-        value_type, const_reference, const_pointer, difference_type
-    >::type const_query_iterator;
+    \param predicates   Predicates.
+    
+    \return             The iterator pointing at the begin of the query range.
+    */
+    template <typename Predicates>
+    const_query_iterator qbegin(Predicates const& predicates) const
+    {
+        return const_query_iterator(qbegin_(predicates));
+    }
 
-#endif // BOOST_GEOMETRY_INDEX_DETAIL_ENABLE_TYPE_ERASED_ITERATORS
+    /*!
+    \brief Returns the query iterator pointing at the end of the query range.
 
+    This method returns the iterator which may be used to check if the query has ended.
+    
+    \par Example
+    \verbatim    
+    for ( Rtree::const_query_iterator it = tree.qbegin(bgi::nearest(pt, 10000)) ;
+          it != tree.qend() ; ++it )
+    {
+        // do something with value
+        if ( has_enough_nearest_values() )
+            break;
+    }
+    \endverbatim
+
+    \par Throws
+    Nothing
+    
+    \return             The iterator pointing at the end of the query range.
+    */
+    const_query_iterator qend() const
+    {
+        return const_query_iterator();
+    }
+
+#ifndef BOOST_GEOMETRY_INDEX_DETAIL_EXPERIMENTAL
+private:
+#endif
+    /*!
+    \brief Returns the query iterator pointing at the begin of the query range.
+
+    This method returns the iterator which may be used to perform iterative queries. For the information
+    about the predicates which may be passed to this method see query().
+    
+    The type of the returned iterator depends on the type of passed Predicates but the iterator of this type
+    may be assigned to the variable of const_query_iterator type. If you'd like to use the type of the iterator
+    returned by this method you may get the type e.g. by using C++11 decltype or Boost.Typeof library.
+    This iterator may be compared with iterators returned by both versions of qend() method.
+
+    \par Example
+    \verbatim
+    // Store the result in the container using std::copy() - it requires both iterators of the same type
+    std::copy(tree.qbegin(bgi::intersects(box)), tree.qend(bgi::intersects(box)), std::back_inserter(result));
+
+    // Store the result in the container using std::copy() and type-erased iterators
+    Rtree::const_query_iterator first = tree.qbegin(bgi::intersects(box));
+    Rtree::const_query_iterator last = tree.qend();
+    std::copy(first, last, std::back_inserter(result));
+
+    // Boost.Typeof
+    typedef BOOST_TYPEOF(tree.qbegin(bgi::nearest(pt, 10000))) Iter;
+    for ( Iter it = tree.qbegin(bgi::nearest(pt, 10000)) ; it != tree.qend() ; ++it )
+    {
+        // do something with value
+        if ( has_enough_nearest_values() )
+            break;
+    }
+    \endverbatim
+
+    \par Throws
+    If predicates copy throws.
+    If allocation throws.
+
+    \param predicates   Predicates.
+    
+    \return             The iterator pointing at the begin of the query range.
+    */
     template <typename Predicates>
     typename boost::mpl::if_c<
         detail::predicates_count_distance<Predicates>::value == 0,
-        detail::rtree::spatial_query_iterator<value_type, options_type, translator_type, box_type, allocators_type, Predicates>,
-        detail::rtree::distance_query_iterator<
+        detail::rtree::iterators::spatial_query_iterator<value_type, options_type, translator_type, box_type, allocators_type, Predicates>,
+        detail::rtree::iterators::distance_query_iterator<
             value_type, options_type, translator_type, box_type, allocators_type, Predicates,
             detail::predicates_find_distance<Predicates>::value
         >
     >::type
-    qbegin(Predicates const& predicates) const
+    qbegin_(Predicates const& predicates) const
     {
         static const unsigned distance_predicates_count = detail::predicates_count_distance<Predicates>::value;
         BOOST_MPL_ASSERT_MSG((distance_predicates_count <= 1), PASS_ONLY_ONE_DISTANCE_PREDICATE, (Predicates));
 
         typedef typename boost::mpl::if_c<
             detail::predicates_count_distance<Predicates>::value == 0,
-            detail::rtree::spatial_query_iterator<value_type, options_type, translator_type, box_type, allocators_type, Predicates>,
-            detail::rtree::distance_query_iterator<
+            detail::rtree::iterators::spatial_query_iterator<value_type, options_type, translator_type, box_type, allocators_type, Predicates>,
+            detail::rtree::iterators::distance_query_iterator<
                 value_type, options_type, translator_type, box_type, allocators_type, Predicates,
                 detail::predicates_find_distance<Predicates>::value
             >
@@ -797,24 +915,50 @@ public:
         return iterator_type(m_members.root, m_members.translator(), predicates);
     }
 
+    /*!
+    \brief Returns the query iterator pointing at the end of the query range.
+
+    This method returns the iterator which may be used to perform iterative queries. For the information
+    about the predicates which may be passed to this method see query().
+    
+    The type of the returned iterator depends on the type of passed Predicates but the iterator of this type
+    may be assigned to the variable of const_query_iterator type. If you'd like to use the type of the iterator
+    returned by this method you may get the type e.g. by using C++11 decltype or Boost.Typeof library.
+
+    The type of the iterator returned by this method is the same as the one returned by qbegin() to which
+    the same predicates were passed.
+
+    \par Example
+    \verbatim
+    // Store the result in the container using std::copy() - it requires both iterators of the same type
+    std::copy(tree.qbegin(bgi::intersects(box)), tree.qend(bgi::intersects(box)), std::back_inserter(result));
+    \endverbatim
+
+    \par Throws
+    If predicates copy throws.
+
+    \param predicates   Predicates.
+    
+    \return             The iterator pointing at the end of the query range.
+    */
     template <typename Predicates>
     typename boost::mpl::if_c<
         detail::predicates_count_distance<Predicates>::value == 0,
-        detail::rtree::spatial_query_iterator<value_type, options_type, translator_type, box_type, allocators_type, Predicates>,
-        detail::rtree::distance_query_iterator<
+        detail::rtree::iterators::spatial_query_iterator<value_type, options_type, translator_type, box_type, allocators_type, Predicates>,
+        detail::rtree::iterators::distance_query_iterator<
             value_type, options_type, translator_type, box_type, allocators_type, Predicates,
             detail::predicates_find_distance<Predicates>::value
         >
     >::type
-    qend(Predicates const& predicates) const
+    qend_(Predicates const& predicates) const
     {
         static const unsigned distance_predicates_count = detail::predicates_count_distance<Predicates>::value;
         BOOST_MPL_ASSERT_MSG((distance_predicates_count <= 1), PASS_ONLY_ONE_DISTANCE_PREDICATE, (Predicates));
 
         typedef typename boost::mpl::if_c<
             detail::predicates_count_distance<Predicates>::value == 0,
-            detail::rtree::spatial_query_iterator<value_type, options_type, translator_type, box_type, allocators_type, Predicates>,
-            detail::rtree::distance_query_iterator<
+            detail::rtree::iterators::spatial_query_iterator<value_type, options_type, translator_type, box_type, allocators_type, Predicates>,
+            detail::rtree::iterators::distance_query_iterator<
                 value_type, options_type, translator_type, box_type, allocators_type, Predicates,
                 detail::predicates_find_distance<Predicates>::value
             >
@@ -823,13 +967,48 @@ public:
         return iterator_type(m_members.translator(), predicates);
     }
 
-    detail::rtree::end_query_iterator<value_type, allocators_type>
-    qend() const
+    /*!
+    \brief Returns the query iterator pointing at the end of the query range.
+
+    This method returns the iterator which may be compared with the iterator returned by qbegin() in order to
+    check if the query has ended.
+    
+    The type of the returned iterator is different than the type returned by qbegin() but the iterator of this type
+    may be assigned to the variable of const_query_iterator type. If you'd like to use the type of the iterator returned by this
+    method, which most certainly will be faster than the type-erased iterator, you may get the type
+    e.g. by using C++11 decltype or Boost.Typeof library.
+
+    The type of the iterator returned by this method is dfferent than the type returned by qbegin().
+
+    \par Example
+    \verbatim
+    // Store the result in the container using std::copy() and type-erased iterators
+    Rtree::const_query_iterator first = tree.qbegin(bgi::intersects(box));
+    Rtree::const_query_iterator last = tree.qend();
+    std::copy(first, last, std::back_inserter(result));
+
+    // Boost.Typeof
+    typedef BOOST_TYPEOF(tree.qbegin(bgi::nearest(pt, 10000))) Iter;
+    for ( Iter it = tree.qbegin(bgi::nearest(pt, 10000)) ; it != tree.qend() ; ++it )
     {
-        return detail::rtree::end_query_iterator<value_type, allocators_type>();
+        // do something with value
+        if ( has_enough_nearest_values() )
+            break;
+    }
+    \endverbatim
+
+    \par Throws
+    Nothing
+    
+    \return             The iterator pointing at the end of the query range.
+    */
+    detail::rtree::iterators::end_query_iterator<value_type, allocators_type>
+    qend_() const
+    {
+        return detail::rtree::iterators::end_query_iterator<value_type, allocators_type>();
     }
 
-#endif // BOOST_GEOMETRY_INDEX_DETAIL_EXPERIMENTAL
+public:
 
     /*!
     \brief Returns the number of stored values.
@@ -1155,6 +1334,7 @@ private:
             dst.m_members.parameters() = src.m_members.parameters();
         }
 
+        // TODO use node_auto_ptr
         if ( dst.m_members.root )
         {
             detail::rtree::visitors::destroy<value_type, options_type, translator_type, box_type, allocators_type>
@@ -1393,14 +1573,18 @@ Values will be returned only if all predicates are met.
 <b>Spatial predicates</b>
     
 Spatial predicates may be generated by one of the functions listed below:
+\li \c boost::geometry::index::contains(),
 \li \c boost::geometry::index::covered_by(),
+\li \c boost::geometry::index::covers(),
 \li \c boost::geometry::index::disjoint(),
 \li \c boost::geometry::index::intersects(),
 \li \c boost::geometry::index::overlaps(),
 \li \c boost::geometry::index::within(),
 
 It is possible to negate spatial predicates:
+\li <tt>! boost::geometry::index::contains()</tt>,
 \li <tt>! boost::geometry::index::covered_by()</tt>,
+\li <tt>! boost::geometry::index::covers()</tt>,
 \li <tt>! boost::geometry::index::disjoint()</tt>,
 \li <tt>! boost::geometry::index::intersects()</tt>,
 \li <tt>! boost::geometry::index::overlaps()</tt>,
@@ -1457,6 +1641,75 @@ query(rtree<Value, Parameters, IndexableGetter, EqualTo, Allocator> const& tree,
       OutIter out_it)
 {
     return tree.query(predicates, out_it);
+}
+
+/*!
+\brief Returns the query iterator pointing at the begin of the query range.
+
+This method returns the iterator which may be used to perform iterative queries. For the information
+about the predicates which may be passed to this method see query().
+    
+\par Example
+\verbatim
+    
+for ( Rtree::const_query_iterator it = qbegin(tree, bgi::nearest(pt, 10000)) ;
+        it != qend(tree) ; ++it )
+{
+    // do something with value
+    if ( has_enough_nearest_values() )
+        break;
+}
+\endverbatim
+
+\par Throws
+If predicates copy throws.
+If allocation throws.
+
+\ingroup rtree_functions
+
+\param tree         The rtree.
+\param predicates   Predicates.
+    
+\return             The iterator pointing at the begin of the query range.
+*/
+template <typename Value, typename Parameters, typename IndexableGetter, typename EqualTo, typename Allocator,
+          typename Predicates> inline
+typename rtree<Value, Parameters, IndexableGetter, EqualTo, Allocator>::const_query_iterator
+qbegin(rtree<Value, Parameters, IndexableGetter, EqualTo, Allocator> const& tree,
+       Predicates const& predicates)
+{
+    return tree.qbegin(predicates);
+}
+
+/*!
+\brief Returns the query iterator pointing at the end of the query range.
+
+This method returns the iterator which may be used to check if the query has ended.
+    
+\par Example
+\verbatim
+    
+for ( Rtree::const_query_iterator it = qbegin(tree, bgi::nearest(pt, 10000)) ;
+      it != qend(tree) ; ++it )
+{
+    // do something with value
+    if ( has_enough_nearest_values() )
+        break;
+}
+\endverbatim
+
+\par Throws
+Nothing
+
+\ingroup rtree_functions
+    
+\return             The iterator pointing at the end of the query range.
+*/
+template <typename Value, typename Parameters, typename IndexableGetter, typename EqualTo, typename Allocator> inline
+typename rtree<Value, Parameters, IndexableGetter, EqualTo, Allocator>::const_query_iterator
+qend(rtree<Value, Parameters, IndexableGetter, EqualTo, Allocator> const& tree)
+{
+    return tree.qend();
 }
 
 /*!
@@ -1544,6 +1797,9 @@ inline void swap(rtree<Value, Parameters, IndexableGetter, EqualTo, Allocator> &
 }
 
 }}} // namespace boost::geometry::index
+
+// TODO: don't include the implementation at the end of the file
+#include <boost/geometry/algorithms/detail/comparable_distance/implementation.hpp>
 
 #include <boost/geometry/index/detail/config_end.hpp>
 

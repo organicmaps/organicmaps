@@ -53,7 +53,7 @@ namespace impl
       : accumulator_base
     {
         typedef typename numeric::functional::multiplies<Sample, Weight>::result_type weighted_sample;
-        typedef typename numeric::functional::average<weighted_sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<weighted_sample, std::size_t>::result_type float_type;
         typedef std::vector<std::pair<float_type, float_type> > histogram_type;
         typedef std::vector<float_type> array_type;
         // for boost::result_of
@@ -153,7 +153,7 @@ namespace impl
                 for (std::size_t i = 1; i < b + 1; ++i)
                 {
                     this->desired_positions[i] = this->actual_positions[0]
-                                               + numeric::average((i-1) * (sum_of_weights(args) - this->actual_positions[0]), b);
+                                               + numeric::fdiv((i-1) * (sum_of_weights(args) - this->actual_positions[0]), b);
                 }
 
                 // adjust heights of markers 2 to num_cells if necessary
@@ -214,7 +214,7 @@ namespace impl
 
                 for (std::size_t i = 0; i < this->histogram.size(); ++i)
                 {
-                    this->histogram[i] = std::make_pair(this->heights[i], numeric::average(this->actual_positions[i], sum_of_weights(args)));
+                    this->histogram[i] = std::make_pair(this->heights[i], numeric::fdiv(this->actual_positions[i], sum_of_weights(args)));
                 }
             }
 

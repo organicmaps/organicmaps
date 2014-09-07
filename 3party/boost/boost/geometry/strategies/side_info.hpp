@@ -16,8 +16,9 @@
 
 #include <cmath>
 #include <utility>
-#ifdef BOOST_GEOMETRY_DEBUG_INTERSECTION
-#include <iostream>
+
+#if defined(BOOST_GEOMETRY_DEBUG_INTERSECTION) || defined(BOOST_GEOMETRY_DEBUG_ROBUSTNESS)
+#  include <iostream>
 #endif
 
 namespace boost { namespace geometry
@@ -25,8 +26,8 @@ namespace boost { namespace geometry
 
 // Silence warning C4127: conditional expression is constant
 #if defined(_MSC_VER)
-#pragma warning(push)  
-#pragma warning(disable : 4127)  
+#pragma warning(push)
+#pragma warning(disable : 4127)
 #endif
 
 /*!
@@ -145,13 +146,13 @@ public :
         return sides[Which].first == 0 ? 0 : 1;
     }
 
-#ifdef BOOST_GEOMETRY_DEBUG_INTERSECTION
+#if defined(BOOST_GEOMETRY_DEBUG_INTERSECTION) || defined(BOOST_GEOMETRY_DEBUG_ROBUSTNESS)
     inline void debug() const
     {
         std::cout << sides[0].first << " "
             << sides[0].second << " "
             << sides[1].first << " "
-            << sides[1].second 
+            << sides[1].second
             << std::endl;
     }
 #endif
@@ -167,7 +168,7 @@ public :
 };
 
 #if defined(_MSC_VER)
-#pragma warning(pop)  
+#pragma warning(pop)
 #endif
 
 }} // namespace boost::geometry

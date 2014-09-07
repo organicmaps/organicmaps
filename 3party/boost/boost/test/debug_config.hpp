@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 49312 $
+//  Version     : $Revision$
 //
 //  Description : user's config for Boost.Test debugging support
 // ***************************************************************************

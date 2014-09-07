@@ -40,9 +40,6 @@
 
 */
 
-#ifdef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-#error The vector-as-graph module requires a compiler that supports partial specialization
-#endif
 
 
 namespace boost {
@@ -53,7 +50,6 @@ namespace boost {
   }
 }
 
-#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 namespace boost {
 
   struct vector_as_graph_traversal_tag
@@ -97,7 +93,6 @@ namespace boost {
     typedef void type;
   };
 }
-#endif
 
 namespace boost {
 

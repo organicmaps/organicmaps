@@ -8,6 +8,8 @@
 #if !defined(BOOST_FUSION_SEQUENCE_CONTAINER_DEQUE_24112006_2036)
 #define BOOST_FUSION_SEQUENCE_CONTAINER_DEQUE_24112006_2036
 
+#include <boost/fusion/support/config.hpp>
+#include <boost/fusion/container/deque/deque_fwd.hpp>
 #include <boost/fusion/container/deque/deque.hpp>
 #include <boost/fusion/container/deque/convert.hpp>
 

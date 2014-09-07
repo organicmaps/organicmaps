@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 54633 $
+//  Version     : $Revision$
 //
 //  Description : enable previosly suppressed warnings
 // ***************************************************************************

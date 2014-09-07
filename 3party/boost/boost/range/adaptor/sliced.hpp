@@ -14,6 +14,7 @@
 #include <boost/range/adaptor/argument_fwd.hpp>
 #include <boost/range/size_type.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/range/concepts.hpp>
 
 namespace boost
 {
@@ -34,7 +35,8 @@ namespace boost
         public:
             template<typename Rng, typename T, typename U>
             sliced_range(Rng& rng, T t, U u)
-                : base_t(boost::make_iterator_range(rng, t, u - boost::size(rng)))
+                : base_t(boost::next(boost::begin(rng), t),
+                         boost::next(boost::begin(rng), u))
             {
             }
         };
@@ -43,6 +45,9 @@ namespace boost
         inline sliced_range<RandomAccessRange>
         slice( RandomAccessRange& rng, std::size_t t, std::size_t u )
         {
+            BOOST_RANGE_CONCEPT_ASSERT((
+                RandomAccessRangeConcept<RandomAccessRange>));
+
             BOOST_ASSERT( t <= u && "error in slice indices" );
             BOOST_ASSERT( static_cast<std::size_t>(boost::size(rng)) >= u &&
                           "second slice index out of bounds" );
@@ -54,6 +59,9 @@ namespace boost
         inline iterator_range< BOOST_DEDUCED_TYPENAME range_iterator<const RandomAccessRange>::type >
         slice( const RandomAccessRange& rng, std::size_t t, std::size_t u )
         {
+            BOOST_RANGE_CONCEPT_ASSERT((
+                RandomAccessRangeConcept<const RandomAccessRange>));
+
             BOOST_ASSERT( t <= u && "error in slice indices" );
             BOOST_ASSERT( static_cast<std::size_t>(boost::size(rng)) >= u &&
                           "second slice index out of bounds" );
@@ -65,6 +73,9 @@ namespace boost
         inline sliced_range<RandomAccessRange>
         operator|( RandomAccessRange& r, const sliced& f )
         {
+            BOOST_RANGE_CONCEPT_ASSERT((
+                RandomAccessRangeConcept<RandomAccessRange>));
+
             return sliced_range<RandomAccessRange>( r, f.t, f.u );
         }
 
@@ -72,6 +83,9 @@ namespace boost
         inline sliced_range<const RandomAccessRange>
         operator|( const RandomAccessRange& r, const sliced& f )
         {
+            BOOST_RANGE_CONCEPT_ASSERT((
+                RandomAccessRangeConcept<const RandomAccessRange>));
+
             return sliced_range<const RandomAccessRange>( r, f.t, f.u );
         }
 

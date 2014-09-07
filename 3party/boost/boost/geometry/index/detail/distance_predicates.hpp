@@ -3,7 +3,7 @@
 // Spatial index distance predicates, calculators and checkers
 // used in nearest query - specialized for envelopes
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -108,11 +108,11 @@ struct calculate_distance< nearest<PointRelation>, Indexable, Tag >
 {
     typedef detail::relation<PointRelation> relation;
     typedef typename relation::value_type point_type;
-    typedef typename geometry::default_distance_result<point_type, Indexable>::type result_type;
+    typedef typename geometry::default_comparable_distance_result<point_type, Indexable>::type result_type;
 
     static inline bool apply(nearest<PointRelation> const& p, Indexable const& i, result_type & result)
     {
-        result = index::detail::comparable_distance_near(relation::value(p.point_or_relation), i);
+        result = geometry::comparable_distance(relation::value(p.point_or_relation), i);
         return true;
     }
 };
@@ -121,7 +121,7 @@ template <typename Point, typename Indexable>
 struct calculate_distance< nearest< to_centroid<Point> >, Indexable, value_tag>
 {
     typedef Point point_type;
-    typedef typename geometry::default_distance_result<point_type, Indexable>::type result_type;
+    typedef typename geometry::default_comparable_distance_result<point_type, Indexable>::type result_type;
 
     static inline bool apply(nearest< to_centroid<Point> > const& p, Indexable const& i, result_type & result)
     {
@@ -134,7 +134,7 @@ template <typename Point, typename Indexable>
 struct calculate_distance< nearest< to_furthest<Point> >, Indexable, value_tag>
 {
     typedef Point point_type;
-    typedef typename geometry::default_distance_result<point_type, Indexable>::type result_type;
+    typedef typename geometry::default_comparable_distance_result<point_type, Indexable>::type result_type;
 
     static inline bool apply(nearest< to_furthest<Point> > const& p, Indexable const& i, result_type & result)
     {

@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_REPETITIVE_VIEW_ITERATOR_HPP_INCLUDED)
 #define BOOST_FUSION_REPETITIVE_VIEW_HPP_ITERATOR_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/iterator_base.hpp>
 #include <boost/fusion/support/category_of.hpp>
 #include <boost/fusion/iterator/mpl/convert_iterator.hpp>
@@ -35,9 +36,10 @@ namespace boost { namespace fusion
         typedef typename convert_iterator<typename result_of::end<Sequence>::type>::type end_type;
         typedef single_pass_traversal_tag category;
 
-        explicit repetitive_view_iterator(Sequence& in_seq)
+        BOOST_FUSION_GPU_ENABLED explicit repetitive_view_iterator(Sequence& in_seq)
             : seq(in_seq), pos(begin(in_seq)) {}
 
+        BOOST_FUSION_GPU_ENABLED
         repetitive_view_iterator(Sequence& in_seq, pos_type const& in_pos)
             : seq(in_seq), pos(in_pos) {}
 

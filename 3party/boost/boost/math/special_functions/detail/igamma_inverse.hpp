@@ -281,11 +281,11 @@ T find_inverse_gamma(T a, T p, T q, const Policy& pol, bool* p_has_10_digits)
             // DiDonato and Morris Eq 35:
             T v = log(p) + boost::math::lgamma(ap1, pol);
             z = exp((v + w) / a);
-            s = boost::math::log1p(z / ap1 * (1 + z / ap2));
+            s = boost::math::log1p(z / ap1 * (1 + z / ap2), pol);
             z = exp((v + z - s) / a);
-            s = boost::math::log1p(z / ap1 * (1 + z / ap2));
+            s = boost::math::log1p(z / ap1 * (1 + z / ap2), pol);
             z = exp((v + z - s) / a);
-            s = boost::math::log1p(z / ap1 * (1 + z / ap2 * (1 + z / (a + 3))));
+            s = boost::math::log1p(z / ap1 * (1 + z / ap2 * (1 + z / (a + 3))), pol);
             z = exp((v + z - s) / a);
             BOOST_MATH_INSTRUMENT_VARIABLE(z);
          }
@@ -396,11 +396,11 @@ T gamma_p_inv_imp(T a, T p, const Policy& pol)
    BOOST_MATH_INSTRUMENT_VARIABLE(p);
 
    if(a <= 0)
-      policies::raise_domain_error<T>(function, "Argument a in the incomplete gamma function inverse must be >= 0 (got a=%1%).", a, pol);
+      return policies::raise_domain_error<T>(function, "Argument a in the incomplete gamma function inverse must be >= 0 (got a=%1%).", a, pol);
    if((p < 0) || (p > 1))
-      policies::raise_domain_error<T>(function, "Probabilty must be in the range [0,1] in the incomplete gamma function inverse (got p=%1%).", p, pol);
+      return policies::raise_domain_error<T>(function, "Probabilty must be in the range [0,1] in the incomplete gamma function inverse (got p=%1%).", p, pol);
    if(p == 1)
-      return tools::max_value<T>();
+      return policies::raise_overflow_error<T>(function, 0, Policy());
    if(p == 0)
       return 0;
    bool has_10_digits;
@@ -456,11 +456,11 @@ T gamma_q_inv_imp(T a, T q, const Policy& pol)
    static const char* function = "boost::math::gamma_q_inv<%1%>(%1%, %1%)";
 
    if(a <= 0)
-      policies::raise_domain_error<T>(function, "Argument a in the incomplete gamma function inverse must be >= 0 (got a=%1%).", a, pol);
+      return policies::raise_domain_error<T>(function, "Argument a in the incomplete gamma function inverse must be >= 0 (got a=%1%).", a, pol);
    if((q < 0) || (q > 1))
-      policies::raise_domain_error<T>(function, "Probabilty must be in the range [0,1] in the incomplete gamma function inverse (got q=%1%).", q, pol);
+      return policies::raise_domain_error<T>(function, "Probabilty must be in the range [0,1] in the incomplete gamma function inverse (got q=%1%).", q, pol);
    if(q == 0)
-      return tools::max_value<T>();
+      return policies::raise_overflow_error<T>(function, 0, Policy());
    if(q == 1)
       return 0;
    bool has_10_digits;

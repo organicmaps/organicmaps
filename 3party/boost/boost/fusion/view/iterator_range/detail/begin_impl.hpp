@@ -24,6 +24,7 @@ namespace boost { namespace fusion
             {
                 typedef typename Sequence::begin_type type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& s)
                 {

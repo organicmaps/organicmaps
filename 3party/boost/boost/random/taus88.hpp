@@ -8,7 +8,7 @@
  *
  * See http://www.boost.org/libs/random for documentation.
  *
- * $Id: taus88.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id$
  *
  */
 

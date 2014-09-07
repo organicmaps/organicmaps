@@ -18,7 +18,9 @@
 #include <iterator>
 
 #include <boost/concept_check.hpp>
+#include <boost/core/ignore_unused.hpp>
 
+#include <boost/geometry/geometries/point.hpp>
 #include <boost/geometry/strategies/concepts/distance_concept.hpp>
 
 
@@ -30,7 +32,7 @@ namespace boost { namespace geometry { namespace concept
     \brief Checks strategy for simplify
     \ingroup simplify
 */
-template <typename Strategy>
+template <typename Strategy, typename Point>
 struct SimplifyStrategy
 {
 #ifndef DOXYGEN_NO_CONCEPT_MEMBERS
@@ -44,7 +46,7 @@ private :
     struct checker
     {
         template <typename ApplyMethod>
-        static void apply(ApplyMethod const&)
+        static void apply(ApplyMethod)
         {
             namespace ft = boost::function_types;
             typedef typename ft::parameter_types
@@ -59,29 +61,14 @@ private :
                     boost::mpl::int_<0>
                 >::type base_index;
 
-            // 1: inspect and define both arguments of apply
-            typedef typename boost::remove_const
-                <
-                    typename boost::remove_reference
-                    <
-                        typename boost::mpl::at
-                            <
-                                parameter_types,
-                                base_index
-                            >::type
-                    >::type
-                >::type point_type;
-
-
-
             BOOST_CONCEPT_ASSERT
                 (
-                    (concept::PointSegmentDistanceStrategy<ds_type>)
+                    (concept::PointSegmentDistanceStrategy<ds_type, Point, Point>)
                 );
 
             Strategy *str = 0;
-            std::vector<point_type> const* v1 = 0;
-            std::vector<point_type> * v2 = 0;
+            std::vector<Point> const* v1 = 0;
+            std::vector<Point> * v2 = 0;
 
             // 2) must implement method apply with arguments
             //    - Range
@@ -89,15 +76,15 @@ private :
             //    - floating point value
             str->apply(*v1, std::back_inserter(*v2), 1.0);
 
-            boost::ignore_unused_variable_warning(str);
+            boost::ignore_unused<parameter_types, base_index>();
+            boost::ignore_unused(str);
         }
     };
 
 public :
     BOOST_CONCEPT_USAGE(SimplifyStrategy)
     {
-        checker::apply(&ds_type::apply);
-
+        checker::apply(&ds_type::template apply<Point, Point>);
     }
 #endif
 };

@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_MAKE_FUSED_PROCEDURE)
 #define FUSION_INCLUDE_MAKE_FUSED_PROCEDURE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/functional/generation/make_fused_procedure.hpp>
 
 #endif

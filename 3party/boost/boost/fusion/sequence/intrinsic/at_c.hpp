@@ -7,6 +7,7 @@
 #if !defined(FUSION_AT_C_08252008_0308)
 #define FUSION_AT_C_08252008_0308
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 
 #endif

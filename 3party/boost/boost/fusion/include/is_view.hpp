@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_IS_VIEW)
 #define FUSION_INCLUDE_IS_VIEW
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/is_view.hpp>
 
 #endif

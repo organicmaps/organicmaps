@@ -1,3 +1,9 @@
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable: 4512) // assignment operator could not be generated
+#pragma warning(disable: 4510) // default constructor could not be generated
+#pragma warning(disable: 4610) // can never be instantiated - user defined constructor required
+#endif
 #if !defined(BOOST_PHOENIX_DONT_USE_PREPROCESSED_FILES)
 
 #ifndef BOOST_PHOENIX_SUPPORT_VECTOR_HPP
@@ -131,4 +137,8 @@ BOOST_FUSION_ADAPT_TPL_STRUCT_NO_PARTIAL(
 
 #endif
 
+#endif
+
+#ifdef BOOST_MSVC
+#pragma warning(pop)
 #endif

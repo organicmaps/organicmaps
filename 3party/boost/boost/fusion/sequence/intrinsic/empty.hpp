@@ -7,6 +7,7 @@
 #if !defined(FUSION_EMPTY_09162005_0335)
 #define FUSION_EMPTY_09162005_0335
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic_fwd.hpp>
 #include <boost/fusion/sequence/intrinsic/size.hpp>
 #include <boost/mpl/bool.hpp>
@@ -50,6 +51,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::empty<Sequence>::type
     empty(Sequence const&)
     {

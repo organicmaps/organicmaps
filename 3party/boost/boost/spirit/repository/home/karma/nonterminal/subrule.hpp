@@ -207,7 +207,7 @@ namespace boost { namespace spirit { namespace repository { namespace karma
             // trying to use a subrule which has inherited attributes,
             // without passing values for them.
             context_type context(*this
-              , traits::pre_transform<karma::domain, subrule_attr_type>(
+              , traits::pre_transform<spirit::karma::domain, subrule_attr_type>(
                       make_attribute::call(attr)));
 
             return def.binder(sink, context, delimiter);
@@ -242,7 +242,7 @@ namespace boost { namespace spirit { namespace repository { namespace karma
             // trying to use a subrule which has inherited attributes,
             // passing values of incompatible types for them.
             context_type context(*this
-              , traits::pre_transform<karma::domain, subrule_attr_type>(
+              , traits::pre_transform<spirit::karma::domain, subrule_attr_type>(
                         make_attribute::call(attr)), params, caller_context);
 
             return def.binder(sink, context, delimiter);

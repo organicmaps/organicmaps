@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_BOOST_TUPLE_09272006_0732)
 #define BOOST_FUSION_BOOST_TUPLE_09272006_0732
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/boost_tuple/tag_of.hpp>
 #include <boost/fusion/adapted/boost_tuple/detail/is_view_impl.hpp>
 #include <boost/fusion/adapted/boost_tuple/detail/is_sequence_impl.hpp>

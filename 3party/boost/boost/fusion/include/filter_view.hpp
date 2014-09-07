@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_FILTER_VIEW)
 #define FUSION_INCLUDE_FILTER_VIEW
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/filter_view.hpp>
 
 #endif

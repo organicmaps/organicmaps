@@ -8,7 +8,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: geometric_distribution.hpp 74867 2011-10-09 23:13:31Z steven_watanabe $
+ * $Id$
  *
  * Revision history
  *  2001-02-18  moved to individual header files
@@ -104,8 +104,8 @@ public:
      *
      * Requires: 0 < p < 1
      */
-    explicit geometric_distribution(const RealType& p = RealType(0.5))
-      : _p(p)
+    explicit geometric_distribution(const RealType& p_arg = RealType(0.5))
+      : _p(p_arg)
     {
         BOOST_ASSERT(RealType(0) < _p && _p < RealType(1));
         init();

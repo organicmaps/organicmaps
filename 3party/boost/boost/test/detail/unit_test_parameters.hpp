@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 57992 $
+//  Version     : $Revision$
 //
 //  Description : storage for unit test framework parameters information
 // ***************************************************************************

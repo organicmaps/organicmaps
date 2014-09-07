@@ -8,7 +8,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 54633 $
+//  Version     : $Revision$
 //
 //  Description : this is an abridged version of an excelent BOOST_FOREACH facility
 //  presented by Eric Niebler. I am so fond of it so I can't wait till it 

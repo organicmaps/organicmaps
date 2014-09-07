@@ -192,6 +192,11 @@ class compressed_sparse_row_graph<directedS, VertexProperty, EdgeProperty, Graph
                                             VertexProperty, Vertex, typed_identity_property_map<Vertex> >
     inherited_vertex_properties;
 
+  // Some tests to prevent use of "void" is a property type (as was done in some test cases):
+  BOOST_STATIC_ASSERT((!is_same<VertexProperty, void>::value));
+  BOOST_STATIC_ASSERT((!is_same<EdgeProperty, void>::value));
+  BOOST_STATIC_ASSERT((!is_same<GraphProperty, void>::value));
+
  public:
   // For Property Graph
   typedef GraphProperty graph_property_type;

@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +15,7 @@
 #ifndef BOOST_LOG_EXPRESSIONS_FORMATTER_HPP_INCLUDED_
 #define BOOST_LOG_EXPRESSIONS_FORMATTER_HPP_INCLUDED_
 
+#include <boost/ref.hpp>
 #include <boost/move/core.hpp>
 #include <boost/move/utility.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -28,13 +29,69 @@
 #include <boost/log/expressions/message.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
 namespace boost {
 
 BOOST_LOG_OPEN_NAMESPACE
+
+namespace expressions {
+
+namespace aux {
+
+// This reference class is a workaround for a Boost.Phoenix bug: https://svn.boost.org/trac/boost/ticket/9363
+// It is needed to pass output streams by non-const reference to function objects wrapped in phoenix::bind and phoenix::function.
+// It's an implementation detail and will be removed when Boost.Phoenix is fixed.
+template< typename StreamT >
+class stream_ref :
+    public reference_wrapper< StreamT >
+{
+public:
+    BOOST_FORCEINLINE explicit stream_ref(StreamT& strm) : reference_wrapper< StreamT >(strm)
+    {
+    }
+
+    template< typename T >
+    BOOST_FORCEINLINE StreamT& operator<< (T& val) const
+    {
+        StreamT& strm = this->get();
+        strm << val;
+        return strm;
+    }
+
+    template< typename T >
+    BOOST_FORCEINLINE StreamT& operator<< (T const& val) const
+    {
+        StreamT& strm = this->get();
+        strm << val;
+        return strm;
+    }
+};
+
+//! Default log record message formatter
+struct message_formatter
+{
+    typedef void result_type;
+
+    message_formatter() : m_MessageName(expressions::tag::message::get_name())
+    {
+    }
+
+    template< typename StreamT >
+    result_type operator() (record_view const& rec, StreamT& strm) const
+    {
+        boost::log::visit< expressions::tag::message::value_type >(m_MessageName, rec, boost::log::bind_output(strm));
+    }
+
+private:
+    const attribute_name m_MessageName;
+};
+
+} // namespace aux
+
+} // namespace expressions
 
 /*!
  * Log record formatter function wrapper.
@@ -56,25 +113,7 @@ public:
 
 private:
     //! Filter function type
-    typedef boost::log::aux::light_function< void (record_view const&, stream_type&) > formatter_type;
-
-    //! Default formatter, always returns \c true
-    struct default_formatter
-    {
-        typedef void result_type;
-
-        default_formatter() : m_MessageName(expressions::tag::message::get_name())
-        {
-        }
-
-        result_type operator() (record_view const& rec, stream_type& strm) const
-        {
-            boost::log::visit< expressions::tag::message::value_type >(m_MessageName, rec, boost::log::bind_output(strm));
-        }
-
-    private:
-        const attribute_name m_MessageName;
-    };
+    typedef boost::log::aux::light_function< void (record_view const&, expressions::aux::stream_ref< stream_type >) > formatter_type;
 
 private:
     //! Formatter function
@@ -84,7 +123,7 @@ public:
     /*!
      * Default constructor. Creates a formatter that only outputs log message.
      */
-    basic_formatter() : m_Formatter(default_formatter())
+    basic_formatter() : m_Formatter(expressions::aux::message_formatter())
     {
     }
     /*!
@@ -94,7 +133,7 @@ public:
     {
     }
     /*!
-     * Move constructor
+     * Move constructor. The moved-from formatter is left in an unspecified state.
      */
     basic_formatter(BOOST_RV_REF(this_type) that) BOOST_NOEXCEPT : m_Formatter(boost::move(that.m_Formatter))
     {
@@ -115,7 +154,7 @@ public:
     }
 
     /*!
-     * Move assignment.
+     * Move assignment. The moved-from formatter is left in an unspecified state.
      */
     basic_formatter& operator= (BOOST_RV_REF(this_type) that) BOOST_NOEXCEPT
     {
@@ -154,7 +193,7 @@ public:
      */
     result_type operator() (record_view const& rec, stream_type& strm) const
     {
-        m_Formatter(rec, strm);
+        m_Formatter(rec, expressions::aux::stream_ref< stream_type >(strm));
     }
 
     /*!
@@ -162,7 +201,7 @@ public:
      */
     void reset()
     {
-        m_Formatter = default_formatter();
+        m_Formatter = expressions::aux::message_formatter();
     }
 
     /*!

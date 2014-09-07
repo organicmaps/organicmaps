@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +15,8 @@
 #ifndef BOOST_LOG_UTILITY_MANIPULATORS_ADD_VALUE_HPP_INCLUDED_
 #define BOOST_LOG_UTILITY_MANIPULATORS_ADD_VALUE_HPP_INCLUDED_
 
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_scalar.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/log/detail/config.hpp>
@@ -25,7 +27,7 @@
 #include <boost/log/sources/record_ostream.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -54,25 +56,39 @@ public:
     typedef typename remove_cv< typename remove_reference< reference_type >::type >::type value_type;
 
 private:
-    //  The stored reference type is always an lvalue reference since apparently different compilers (GCC and MSVC) have different quirks when rvalue references are stored as members
-    typedef typename remove_reference< reference_type >::type& stored_reference_type;
+    //  The stored reference type is an lvalue reference since apparently different compilers (GCC and MSVC) have different quirks when rvalue references are stored as members.
+    //  Additionally, MSVC (at least 11.0) has a bug which causes a dangling reference to be stored in the manipulator, if a scalar rvalue is passed to the add_value generator.
+    //  To work around this problem we save the value inside the manipulator in this case.
+    typedef typename remove_reference< reference_type >::type& lvalue_reference_type;
+
+    typedef typename mpl::if_<
+        is_scalar< value_type >,
+        value_type,
+        lvalue_reference_type
+    >::type stored_type;
+
+    typedef typename mpl::if_<
+        is_scalar< value_type >,
+        value_type,
+        reference_type
+    >::type get_value_result_type;
 
 private:
     //! Attribute value
-    stored_reference_type m_value;
+    stored_type m_value;
     //! Attribute name
     attribute_name m_name;
 
 public:
     //! Initializing constructor
-    add_value_manip(attribute_name const& name, reference_type value) : m_value(static_cast< stored_reference_type >(value)), m_name(name)
+    add_value_manip(attribute_name const& name, reference_type value) : m_value(static_cast< lvalue_reference_type >(value)), m_name(name)
     {
     }
 
     //! Returns attribute name
     attribute_name get_name() const { return m_name; }
     //! Returns attribute value
-    reference_type get_value() const { return static_cast< reference_type >(m_value); }
+    get_value_result_type get_value() const { return static_cast< get_value_result_type >(m_value); }
 };
 
 //! The operator attaches an attribute value to the log record
@@ -86,7 +102,7 @@ inline basic_record_ostream< CharT >& operator<< (basic_record_ostream< CharT >&
 }
 
 //! The function creates a manipulator that attaches an attribute value to a log record
-#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !(defined(BOOST_MSVC) && BOOST_MSVC <= 1600)
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 
 template< typename T >
 inline add_value_manip< T&& > add_value(attribute_name const& name, T&& value)
@@ -111,7 +127,15 @@ add_value(expressions::attribute_keyword< DescriptorT, ActorT > const&, typename
     return add_value_manip< typename DescriptorT::value_type& >(DescriptorT::get_name(), value);
 }
 
-#else // !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !(defined(BOOST_MSVC) && BOOST_MSVC <= 1600)
+//! \overload
+template< typename DescriptorT, template< typename > class ActorT >
+inline add_value_manip< typename DescriptorT::value_type const& >
+add_value(expressions::attribute_keyword< DescriptorT, ActorT > const&, typename DescriptorT::value_type const& value)
+{
+    return add_value_manip< typename DescriptorT::value_type const& >(DescriptorT::get_name(), value);
+}
+
+#else // !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 
 template< typename T >
 inline add_value_manip< T const& > add_value(attribute_name const& name, T const& value)
@@ -126,7 +150,7 @@ add_value(expressions::attribute_keyword< DescriptorT, ActorT > const&, typename
     return add_value_manip< typename DescriptorT::value_type const& >(DescriptorT::get_name(), value);
 }
 
-#endif // !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !(defined(BOOST_MSVC) && BOOST_MSVC <= 1600)
+#endif // !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 
 BOOST_LOG_CLOSE_NAMESPACE // namespace log
 

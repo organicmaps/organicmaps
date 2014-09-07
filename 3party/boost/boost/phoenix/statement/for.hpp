@@ -39,12 +39,12 @@ namespace boost { namespace phoenix
             Init const& init
           , Cond const& cond
           , Step const& step
-          , Do const& do_
+          , Do const& do_it
           , Context const & ctx
         ) const
         {
             for(boost::phoenix::eval(init, ctx); boost::phoenix::eval(cond, ctx); boost::phoenix::eval(step, ctx))
-                boost::phoenix::eval(do_, ctx);
+                boost::phoenix::eval(do_it, ctx);
         }
     };
     
@@ -56,17 +56,17 @@ namespace boost { namespace phoenix
     template <typename Init, typename Cond, typename Step>
     struct for_gen
     {
-        for_gen(Init const& init, Cond const& cond, Step const& step)
-            : init(init), cond(cond), step(step) {}
+        for_gen(Init const& init_, Cond const& cond_, Step const& step_)
+            : init(init_), cond(cond_), step(step_) {}
 
         template <typename Do>
         typename expression::for_<Init, Cond, Step, Do>::type const
-        operator[](Do const& do_) const
+        operator[](Do const& do_it) const
         {
             return
                 expression::
                     for_<Init, Cond, Step, Do>::
-                        make(init, cond, step, do_);
+                        make(init, cond, step, do_it);
         }
 
         Init init;

@@ -6,11 +6,11 @@
 #if !defined(BOOST_FUNCTIONAL_HASH_DETAIL_HASH_FLOAT_HEADER)
 #define BOOST_FUNCTIONAL_HASH_DETAIL_HASH_FLOAT_HEADER
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
-# pragma once
+#include <boost/config.hpp>
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#pragma once
 #endif
 
-#include <boost/config.hpp>
 #include <boost/functional/hash/detail/float_functions.hpp>
 #include <boost/functional/hash/detail/limits.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -90,15 +90,21 @@ namespace boost
             return seed;
         }
 
+        template <typename Float, unsigned digits, unsigned max_exponent>
+        struct enable_binary_hash
+        {
+            BOOST_STATIC_CONSTANT(bool, value =
+                std::numeric_limits<Float>::is_iec559 &&
+                std::numeric_limits<Float>::digits == digits &&
+                std::numeric_limits<Float>::radix == 2 &&
+                std::numeric_limits<Float>::max_exponent == max_exponent);
+        };
+
         template <typename Float>
         inline std::size_t float_hash_impl(Float v,
             BOOST_DEDUCED_TYPENAME boost::enable_if_c<
-                std::numeric_limits<Float>::is_iec559 &&
-                std::numeric_limits<Float>::digits == 24 &&
-                std::numeric_limits<Float>::radix == 2 &&
-                std::numeric_limits<Float>::max_exponent == 128,
-                int>::type
-            )
+                enable_binary_hash<Float, 24, 128>::value,
+                std::size_t>::type)
         {
             return hash_binary((char*) &v, 4);
         }
@@ -107,12 +113,8 @@ namespace boost
         template <typename Float>
         inline std::size_t float_hash_impl(Float v,
             BOOST_DEDUCED_TYPENAME boost::enable_if_c<
-                std::numeric_limits<Float>::is_iec559 &&
-                std::numeric_limits<Float>::digits == 53 &&
-                std::numeric_limits<Float>::radix == 2 &&
-                std::numeric_limits<Float>::max_exponent == 1024,
-                int>::type
-            )
+                enable_binary_hash<Float, 53, 1024>::value,
+                std::size_t>::type)
         {
             return hash_binary((char*) &v, 8);
         }
@@ -120,12 +122,8 @@ namespace boost
         template <typename Float>
         inline std::size_t float_hash_impl(Float v,
             BOOST_DEDUCED_TYPENAME boost::enable_if_c<
-                std::numeric_limits<Float>::is_iec559 &&
-                std::numeric_limits<Float>::digits == 64 &&
-                std::numeric_limits<Float>::radix == 2 &&
-                std::numeric_limits<Float>::max_exponent == 16384,
-                int>::type
-            )
+                enable_binary_hash<Float, 64, 16384>::value,
+                std::size_t>::type)
         {
             return hash_binary((char*) &v, 10);
         }
@@ -133,12 +131,8 @@ namespace boost
         template <typename Float>
         inline std::size_t float_hash_impl(Float v,
             BOOST_DEDUCED_TYPENAME boost::enable_if_c<
-                std::numeric_limits<Float>::is_iec559 &&
-                std::numeric_limits<Float>::digits == 113 &&
-                std::numeric_limits<Float>::radix == 2 &&
-                std::numeric_limits<Float>::max_exponent == 16384,
-                int>::type
-            )
+                enable_binary_hash<Float, 113, 16384>::value,
+                std::size_t>::type)
         {
             return hash_binary((char*) &v, 16);
         }

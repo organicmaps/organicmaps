@@ -2,7 +2,7 @@
 //
 // R-tree count visitor implementation
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -36,8 +36,12 @@ struct count
         for (typename elements_type::const_iterator it = elements.begin();
              it != elements.end(); ++it)
         {
-            if ( geometry::covered_by(indexable, it->first) )
+            if ( geometry::covered_by(
+                    return_ref_or_bounds(indexable),
+                    it->first) )
+            {
                 rtree::apply_visitor(*this, *it->second);
+            }
         }
     }
 
@@ -84,8 +88,12 @@ struct count<Value, Value, Options, Translator, Box, Allocators>
         for (typename elements_type::const_iterator it = elements.begin();
              it != elements.end(); ++it)
         {
-            if ( geometry::covered_by(tr(value), it->first) )
+            if ( geometry::covered_by(
+                    return_ref_or_bounds(tr(value)),
+                    it->first) )
+            {
                 rtree::apply_visitor(*this, *it->second);
+            }
         }
     }
 

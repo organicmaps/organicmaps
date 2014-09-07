@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: rebind_any.hpp 81428 2012-11-19 21:19:34Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_REBIND_ANY_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_REBIND_ANY_HPP_INCLUDED

@@ -188,7 +188,7 @@ namespace boost { namespace spirit { namespace char_encoding
             return isascii_(ch);
         }
 
-        static int
+        static bool
         isalnum(int ch)
         {
             BOOST_ASSERT(isascii_(ch));
@@ -196,78 +196,78 @@ namespace boost { namespace spirit { namespace char_encoding
                 || (ascii_char_types[ch] & BOOST_CC_DIGIT);
         }
 
-        static int
+        static bool
         isalpha(int ch)
         {
             BOOST_ASSERT(isascii_(ch));
-            return (ascii_char_types[ch] & BOOST_CC_ALPHA);
+            return (ascii_char_types[ch] & BOOST_CC_ALPHA) ? true : false;
         }
 
-        static int
+        static bool
         isdigit(int ch)
         {
             BOOST_ASSERT(isascii_(ch));
-            return (ascii_char_types[ch] & BOOST_CC_DIGIT);
+            return (ascii_char_types[ch] & BOOST_CC_DIGIT) ? true : false;
         }
 
-        static int
+        static bool
         isxdigit(int ch)
         {
             BOOST_ASSERT(isascii_(ch));
-            return (ascii_char_types[ch] & BOOST_CC_XDIGIT);
+            return (ascii_char_types[ch] & BOOST_CC_XDIGIT) ? true : false;
         }
 
-        static int
+        static bool
         iscntrl(int ch)
         {
             BOOST_ASSERT(isascii_(ch));
-            return (ascii_char_types[ch] & BOOST_CC_CTRL);
+            return (ascii_char_types[ch] & BOOST_CC_CTRL) ? true : false;
         }
 
-        static int
+        static bool
         isgraph(int ch)
         {
             return ('\x21' <= ch && ch <= '\x7e');
         }
 
-        static int
+        static bool
         islower(int ch)
         {
             BOOST_ASSERT(isascii_(ch));
-            return (ascii_char_types[ch] & BOOST_CC_LOWER);
+            return (ascii_char_types[ch] & BOOST_CC_LOWER) ? true : false;
         }
 
-        static int
+        static bool
         isprint(int ch)
         {
             return ('\x20' <= ch && ch <= '\x7e');
         }
 
-        static int
+        static bool
         ispunct(int ch)
         {
             BOOST_ASSERT(isascii_(ch));
-            return (ascii_char_types[ch] & BOOST_CC_PUNCT);
+            return (ascii_char_types[ch] & BOOST_CC_PUNCT) ? true : false;
         }
 
-        static int
+        static bool
         isspace(int ch)
         {
             BOOST_ASSERT(isascii_(ch));
-            return (ascii_char_types[ch] & BOOST_CC_SPACE);
+            return (ascii_char_types[ch] & BOOST_CC_SPACE) ? true : false;
         }
 
-        static int
+        static bool
         isblank BOOST_PREVENT_MACRO_SUBSTITUTION (int ch)
         {
             return ('\x09' == ch || '\x20' == ch);
         }
 
-        static int
+        static bool
         isupper(int ch)
         {
             BOOST_ASSERT(isascii_(ch));
-            return (ascii_char_types[ch] & BOOST_CC_UPPER);
+            return (ascii_char_types[ch] & BOOST_CC_UPPER) ? true : false;
         }
 
         ///////////////////////////////////////////////////////////////////////

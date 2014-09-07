@@ -7,6 +7,7 @@
 #if !defined(FUSION_SEQUENCE_VIEW_FILTER_VIEW_10022005_0608)
 #define FUSION_SEQUENCE_VIEW_FILTER_VIEW_10022005_0608
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/filter_view/filter_view.hpp>
 #include <boost/fusion/view/filter_view/filter_view_iterator.hpp>
 

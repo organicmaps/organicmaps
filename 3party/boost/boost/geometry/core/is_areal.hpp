@@ -16,8 +16,7 @@
 #define BOOST_GEOMETRY_CORE_IS_AREAL_HPP
 
 
-#include <boost/type_traits.hpp>
-
+#include <boost/type_traits/integral_constant.hpp>
 
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
@@ -36,7 +35,7 @@ template <typename GeometryTag> struct is_areal : boost::false_type {};
 template <> struct is_areal<ring_tag> : boost::true_type {};
 template <> struct is_areal<box_tag> : boost::true_type {};
 template <> struct is_areal<polygon_tag> : boost::true_type {};
-
+template <> struct is_areal<multi_polygon_tag> : boost::true_type {};
 
 } // namespace core_dispatch
 #endif

@@ -79,31 +79,6 @@ template <typename T> struct rank<PHOENIX_STD::complex<T> >
 //  specializations for std::istream
 //
 ///////////////////////////////////////////////////////////////////////////////
-#if defined(__GNUC__) && (__GNUC__ < 3)
-    #if defined(_STLPORT_VERSION)
-        #define PHOENIX_ISTREAM _IO_istream_withassign
-    #else
-        #define PHOENIX_ISTREAM PHOENIX_STD::_IO_istream_withassign
-    #endif
-#else
-//    #if (defined(__ICL) && defined(_STLPORT_VERSION))
-//        #define PHOENIX_ISTREAM istream_withassign
-//    #else
-        #define PHOENIX_ISTREAM PHOENIX_STD::istream
-//    #endif
-#endif
-
-//////////////////////////////////
-#if defined(__GNUC__) && (__GNUC__ < 3)
-//    || (defined(__ICL) && defined(_STLPORT_VERSION))
-template <typename T1>
-struct binary_operator<shift_r_op, PHOENIX_ISTREAM, T1>
-{
-    typedef PHOENIX_STD::istream& result_type;
-    static result_type eval(PHOENIX_STD::istream& out, T1& rhs)
-    { return out >> rhs; }
-};
-#endif
 
 //////////////////////////////////
 template <typename T1>
@@ -117,45 +92,19 @@ struct binary_operator<shift_r_op, PHOENIX_STD::istream, T1>
 //////////////////////////////////
 template <typename BaseT>
 inline typename impl::make_binary3
-    <shift_r_op, variable<PHOENIX_ISTREAM>, BaseT>::type
-operator>>(PHOENIX_ISTREAM& _0, actor<BaseT> const& _1)
+    <shift_r_op, variable<PHOENIX_STD::istream>, BaseT>::type
+operator>>(PHOENIX_STD::istream& _0, actor<BaseT> const& _1)
 {
     return impl::make_binary3
-    <shift_r_op, variable<PHOENIX_ISTREAM>, BaseT>
+    <shift_r_op, variable<PHOENIX_STD::istream>, BaseT>
     ::construct(var(_0), _1);
 }
 
-#undef PHOENIX_ISTREAM
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  specializations for std::ostream
 //
 ///////////////////////////////////////////////////////////////////////////////
-#if defined(__GNUC__) && (__GNUC__ < 3)
-    #if defined(_STLPORT_VERSION)
-        #define PHOENIX_OSTREAM _IO_ostream_withassign
-    #else
-        #define PHOENIX_OSTREAM PHOENIX_STD::_IO_ostream_withassign
-    #endif
-#else
-//    #if (defined(__ICL) && defined(_STLPORT_VERSION))
-//        #define PHOENIX_OSTREAM ostream_withassign
-//    #else
-        #define PHOENIX_OSTREAM PHOENIX_STD::ostream
-//    #endif
-#endif
-
-//////////////////////////////////
-#if defined(__GNUC__) && (__GNUC__ < 3)
-//    || (defined(__ICL) && defined(_STLPORT_VERSION))
-template <typename T1>
-struct binary_operator<shift_l_op, PHOENIX_OSTREAM, T1>
-{
-    typedef PHOENIX_STD::ostream& result_type;
-    static result_type eval(PHOENIX_STD::ostream& out, T1 const& rhs)
-    { return out << rhs; }
-};
-#endif
 
 //////////////////////////////////
 template <typename T1>
@@ -169,15 +118,13 @@ struct binary_operator<shift_l_op, PHOENIX_STD::ostream, T1>
 //////////////////////////////////
 template <typename BaseT>
 inline typename impl::make_binary3
-    <shift_l_op, variable<PHOENIX_OSTREAM>, BaseT>::type
-operator<<(PHOENIX_OSTREAM& _0, actor<BaseT> const& _1)
+    <shift_l_op, variable<PHOENIX_STD::ostream>, BaseT>::type
+operator<<(PHOENIX_STD::ostream& _0, actor<BaseT> const& _1)
 {
     return impl::make_binary3
-    <shift_l_op, variable<PHOENIX_OSTREAM>, BaseT>
+    <shift_l_op, variable<PHOENIX_STD::ostream>, BaseT>
     ::construct(var(_0), _1);
 }
-
-#undef PHOENIX_OSTREAM
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -228,8 +175,6 @@ operator<<(PHOENIX_STD::PHOENIX_SSTREAM& _0, actor<BaseT> const& _1)
 //      I/O manipulator specializations
 //
 ///////////////////////////////////////////////////////////////////////////////
-#if (!defined(__GNUC__) || (__GNUC__ > 2))
-//    && !(defined(__ICL) && defined(_STLPORT_VERSION))
 
 typedef PHOENIX_STD::ios_base&  (*iomanip_t)(PHOENIX_STD::ios_base&);
 typedef PHOENIX_STD::istream&   (*imanip_t)(PHOENIX_STD::istream&);
@@ -300,7 +245,6 @@ operator<<(actor<BaseT> const& _0, iomanip_t _1)
 }
 
 #endif // __BORLANDC__
-#endif // !defined(__GNUC__) || (__GNUC__ > 2)
 
 ///////////////////////////////////////////////////////////////////////////////
 //

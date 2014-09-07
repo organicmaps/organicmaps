@@ -58,15 +58,15 @@ namespace boost{ namespace math{
     typedef RealType value_type;
     typedef Policy policy_type;
 
-    skew_normal_distribution(RealType location = 0, RealType scale = 1, RealType shape = 0)
-      : location_(location), scale_(scale), shape_(shape)
+    skew_normal_distribution(RealType l_location = 0, RealType l_scale = 1, RealType l_shape = 0)
+      : location_(l_location), scale_(l_scale), shape_(l_shape)
     { // Default is a 'standard' normal distribution N01. (shape=0 results in the normal distribution with no skew)
       static const char* function = "boost::math::skew_normal_distribution<%1%>::skew_normal_distribution";
 
       RealType result;
-      detail::check_scale(function, scale, &result, Policy());
-      detail::check_location(function, location, &result, Policy());
-      detail::check_skew_normal_shape(function, shape, &result, Policy());
+      detail::check_scale(function, l_scale, &result, Policy());
+      detail::check_location(function, l_location, &result, Policy());
+      detail::check_skew_normal_shape(function, l_shape, &result, Policy());
     }
 
     RealType location()const

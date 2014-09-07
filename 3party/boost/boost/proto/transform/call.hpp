@@ -9,7 +9,7 @@
 #ifndef BOOST_PROTO_TRANSFORM_CALL_HPP_EAN_11_02_2007
 #define BOOST_PROTO_TRANSFORM_CALL_HPP_EAN_11_02_2007
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(push)
 # pragma warning(disable: 4714) // function 'xxx' marked as __forceinline not inlined
 #endif
@@ -394,7 +394,7 @@ namespace boost { namespace proto
 
 }} // namespace boost::proto
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 

@@ -9,7 +9,7 @@
 #define BOOST_XPRESSIVE_DETAIL_STATIC_PLACEHOLDERS_HPP_EAN_10_04_2005
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 # pragma warning(push)
 # pragma warning(disable:4510) // default constructor could not be generated
@@ -113,7 +113,7 @@ struct attribute_placeholder
 
 }}} // namespace boost::xpressive::detail
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 

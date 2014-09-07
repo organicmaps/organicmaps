@@ -2,6 +2,7 @@
 //
 // Copyright (c) 2012-2013 Adam Wulkiewicz, Lodz, Poland.
 // Copyright (c) 2011-2013 Andrew Hundt.
+// Copyright (c) 2013-2014 Ion Gaztanaga
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -10,7 +11,7 @@
 #ifndef BOOST_CONTAINER_STATIC_VECTOR_HPP
 #define BOOST_CONTAINER_STATIC_VECTOR_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -20,6 +21,8 @@
 #include <boost/aligned_storage.hpp>
 
 namespace boost { namespace container {
+
+#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
 namespace container_detail {
 
@@ -61,42 +64,45 @@ class static_storage_allocator
 
 }  //namespace container_detail {
 
-/**
- * @defgroup static_vector_non_member static_vector non-member functions
- */
+#endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
-/**
- * @brief A variable-size array container with fixed capacity.
- *
- * static_vector is a sequence container like boost::container::vector with contiguous storage that can
- * change in size, along with the static allocation, low overhead, and fixed capacity of boost::array.
- *
- * A static_vector is a sequence that supports random access to elements, constant time insertion and
- * removal of elements at the end, and linear time insertion and removal of elements at the beginning or 
- * in the middle. The number of elements in a static_vector may vary dynamically up to a fixed capacity
- * because elements are stored within the object itself similarly to an array. However, objects are 
- * initialized as they are inserted into static_vector unlike C arrays or std::array which must construct
- * all elements on instantiation. The behavior of static_vector enables the use of statically allocated
- * elements in cases with complex object lifetime requirements that would otherwise not be trivially 
- * possible.
- *
- * @par Error Handling
- *  Insertion beyond the capacity and out of bounds errors results in calling throw_bad_alloc().
- *  The reason for this is because unlike vectors, static_vector does not perform allocation.
- *
- * @tparam Value    The type of element that will be stored.
- * @tparam Capacity The maximum number of elements static_vector can store, fixed at compile time.
- */
+//!
+//!@brief A variable-size array container with fixed capacity.
+//!
+//!static_vector is a sequence container like boost::container::vector with contiguous storage that can
+//!change in size, along with the static allocation, low overhead, and fixed capacity of boost::array.
+//!
+//!A static_vector is a sequence that supports random access to elements, constant time insertion and
+//!removal of elements at the end, and linear time insertion and removal of elements at the beginning or
+//!in the middle. The number of elements in a static_vector may vary dynamically up to a fixed capacity
+//!because elements are stored within the object itself similarly to an array. However, objects are
+//!initialized as they are inserted into static_vector unlike C arrays or std::array which must construct
+//!all elements on instantiation. The behavior of static_vector enables the use of statically allocated
+//!elements in cases with complex object lifetime requirements that would otherwise not be trivially
+//!possible.
+//!
+//!@par Error Handling
+//! Insertion beyond the capacity result in throwing std::bad_alloc() if exceptions are enabled or
+//! calling throw_bad_alloc() if not enabled.
+//!
+//! std::out_of_range is thrown if out of bound access is performed in <code>at()</code> if exceptions are
+//! enabled, throw_out_of_range() if not enabled.
+//!
+//!@tparam Value    The type of element that will be stored.
+//!@tparam Capacity The maximum number of elements static_vector can store, fixed at compile time.
 template <typename Value, std::size_t Capacity>
 class static_vector
     : public vector<Value, container_detail::static_storage_allocator<Value, Capacity> >
 {
-    typedef vector<Value, container_detail::static_storage_allocator<Value, Capacity> > base_t;
+   #ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
+   typedef vector<Value, container_detail::static_storage_allocator<Value, Capacity> > base_t;
 
-    BOOST_COPYABLE_AND_MOVABLE(static_vector)
+   BOOST_COPYABLE_AND_MOVABLE(static_vector)
 
    template<class U, std::size_t OtherCapacity>
    friend class static_vector;
+
+   #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
 public:
     //! @brief The type of elements stored in the container.
@@ -135,17 +141,35 @@ public:
 
     //! @pre <tt>count <= capacity()</tt>
     //!
-    //! @brief Constructs a static_vector containing count default constructed Values.
+    //! @brief Constructs a static_vector containing count value initialized values.
     //!
     //! @param count    The number of values which will be contained in the container.
     //!
     //! @par Throws
-    //!   If Value's default constructor throws.
+    //!   If Value's value initialization throws.
     //!
     //! @par Complexity
     //!   Linear O(N).
     explicit static_vector(size_type count)
         : base_t(count)
+    {}
+
+    //! @pre <tt>count <= capacity()</tt>
+    //!
+    //! @brief Constructs a static_vector containing count default initialized values.
+    //!
+    //! @param count    The number of values which will be contained in the container.
+    //!
+    //! @par Throws
+    //!   If Value's default initialization throws.
+    //!
+    //! @par Complexity
+    //!   Linear O(N).
+    //!
+    //! @par Note
+    //!   Non-standard extension
+    static_vector(size_type count, default_init_t)
+        : base_t(count, default_init_t())
     {}
 
     //! @pre <tt>count <= capacity()</tt>
@@ -208,45 +232,9 @@ public:
     //! @par Complexity
     //!   Linear O(N).
     template <std::size_t C>
-    static_vector(static_vector<value_type, C> const& other) : base_t(other) {}
-
-    //! @brief Copy assigns Values stored in the other static_vector to this one.
-    //!
-    //! @param other    The static_vector which content will be copied to this one.
-    //!
-    //! @par Throws
-    //!   If Value's copy constructor or copy assignment throws.
-    //!
-    //! @par Complexity
-    //! Linear O(N).
-    static_vector & operator=(BOOST_COPY_ASSIGN_REF(static_vector) other)
-    {
-        base_t::operator=(static_cast<base_t const&>(other));
-        return *this;
-    }
-
-    //! @pre <tt>other.size() <= capacity()</tt>
-    //!
-    //! @brief Copy assigns Values stored in the other static_vector to this one.
-    //!
-    //! @param other    The static_vector which content will be copied to this one.
-    //!
-    //! @par Throws
-    //!   If Value's copy constructor or copy assignment throws.
-    //!
-    //! @par Complexity
-    //!   Linear O(N).
-    template <std::size_t C>
-// TEMPORARY WORKAROUND
-#if defined(BOOST_NO_RVALUE_REFERENCES)
-    static_vector & operator=(::boost::rv< static_vector<value_type, C> > const& other)
-#else
-    static_vector & operator=(static_vector<value_type, C> const& other)
-#endif
-    {
-        base_t::operator=(static_cast<static_vector<value_type, C> const&>(other));
-        return *this;
-    }
+    static_vector(static_vector<value_type, C> const& other)
+        : base_t(other)
+    {}
 
     //! @brief Move constructor. Moves Values stored in the other static_vector to this one.
     //!
@@ -279,6 +267,38 @@ public:
         : base_t(boost::move(static_cast<typename static_vector<value_type, C>::base_t&>(other)))
     {}
 
+    //! @brief Copy assigns Values stored in the other static_vector to this one.
+    //!
+    //! @param other    The static_vector which content will be copied to this one.
+    //!
+    //! @par Throws
+    //!   If Value's copy constructor or copy assignment throws.
+    //!
+    //! @par Complexity
+    //! Linear O(N).
+    static_vector & operator=(BOOST_COPY_ASSIGN_REF(static_vector) other)
+    {
+        return static_cast<static_vector&>(base_t::operator=(static_cast<base_t const&>(other)));
+    }
+
+    //! @pre <tt>other.size() <= capacity()</tt>
+    //!
+    //! @brief Copy assigns Values stored in the other static_vector to this one.
+    //!
+    //! @param other    The static_vector which content will be copied to this one.
+    //!
+    //! @par Throws
+    //!   If Value's copy constructor or copy assignment throws.
+    //!
+    //! @par Complexity
+    //!   Linear O(N).
+    template <std::size_t C>
+    static_vector & operator=(static_vector<value_type, C> const& other)
+    {
+        return static_cast<static_vector&>(base_t::operator=
+            (static_cast<typename static_vector<value_type, C>::base_t const&>(other)));
+    }
+
     //! @brief Move assignment. Moves Values stored in the other static_vector to this one.
     //!
     //! @param other    The static_vector which content will be moved to this one.
@@ -291,8 +311,7 @@ public:
     //!   Linear O(N).
     static_vector & operator=(BOOST_RV_REF(static_vector) other)
     {
-        base_t::operator=(boost::move(static_cast<base_t&>(other)));
-        return *this;
+        return static_cast<static_vector&>(base_t::operator=(boost::move(static_cast<base_t&>(other))));
     }
 
     //! @pre <tt>other.size() <= capacity()</tt>
@@ -310,8 +329,8 @@ public:
     template <std::size_t C>
     static_vector & operator=(BOOST_RV_REF_BEG static_vector<value_type, C> BOOST_RV_REF_END other)
     {
-        base_t::operator=(boost::move(static_cast<typename static_vector<value_type, C>::base_t&>(other)));
-        return *this;
+        return static_cast<static_vector&>(base_t::operator=
+         (boost::move(static_cast<typename static_vector<value_type, C>::base_t&>(other))));
     }
 
 #ifdef BOOST_CONTAINER_DOXYGEN_INVOKED
@@ -355,16 +374,33 @@ public:
     //! @pre <tt>count <= capacity()</tt>
     //!
     //! @brief Inserts or erases elements at the end such that
-    //!   the size becomes count. New elements are default constructed.
+    //!   the size becomes count. New elements are value initialized.
     //!
     //! @param count    The number of elements which will be stored in the container.
     //!
     //! @par Throws
-    //!   If Value's default constructor throws.
+    //!   If Value's value initialization throws.
     //!
     //! @par Complexity
     //!   Linear O(N).
     void resize(size_type count);
+
+    //! @pre <tt>count <= capacity()</tt>
+    //!
+    //! @brief Inserts or erases elements at the end such that
+    //!   the size becomes count. New elements are default initialized.
+    //!
+    //! @param count    The number of elements which will be stored in the container.
+    //!
+    //! @par Throws
+    //!   If Value's default initialization throws.
+    //!
+    //! @par Complexity
+    //!   Linear O(N).
+    //!
+    //! @par Note
+    //!   Non-standard extension
+    void resize(size_type count, default_init_t);
 
     //! @pre <tt>count <= capacity()</tt>
     //!

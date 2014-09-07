@@ -316,7 +316,6 @@ namespace boost {
     core_numbers(Graph& g, CoreMap c, EdgeWeightMap wm, VertexIndexMap vim,
         CoreNumVisitor vis)
     {
-        typedef typename graph_traits<Graph>::vertices_size_type size_type;
         detail::compute_in_degree_map(g,c,wm);
         return detail::core_numbers_dispatch(g,c,wm,vim,vis);
     }

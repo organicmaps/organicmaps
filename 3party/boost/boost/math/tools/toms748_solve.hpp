@@ -298,9 +298,9 @@ std::pair<T, T> toms748_solve(F f, const T& ax, const T& bx, const T& fax, const
    a = ax;
    b = bx;
    if(a >= b)
-      policies::raise_domain_error(
+      return boost::math::detail::pair_from_single(policies::raise_domain_error(
          function, 
-         "Parameters a and b out of order: a=%1%", a, pol);
+         "Parameters a and b out of order: a=%1%", a, pol));
    fa = fax;
    fb = fbx;
 
@@ -315,9 +315,9 @@ std::pair<T, T> toms748_solve(F f, const T& ax, const T& bx, const T& fax, const
    }
 
    if(boost::math::sign(fa) * boost::math::sign(fb) > 0)
-      policies::raise_domain_error(
+      return boost::math::detail::pair_from_single(policies::raise_domain_error(
          function, 
-         "Parameters a and b do not bracket the root: a=%1%", a, pol);
+         "Parameters a and b do not bracket the root: a=%1%", a, pol));
    // dummy value for fd, e and fe:
    fe = e = fd = 1e5F;
 
@@ -502,7 +502,7 @@ std::pair<T, T> bracket_and_solve_root(F f, const T& guess, T factor, bool risin
       while((boost::math::sign)(fb) == (boost::math::sign)(fa))
       {
          if(count == 0)
-            policies::raise_evaluation_error(function, "Unable to bracket root, last nearest value was %1%", b, pol);
+            return boost::math::detail::pair_from_single(policies::raise_evaluation_error(function, "Unable to bracket root, last nearest value was %1%", b, pol));
          //
          // Heuristic: every 20 iterations we double the growth factor in case the
          // initial guess was *really* bad !
@@ -536,7 +536,7 @@ std::pair<T, T> bracket_and_solve_root(F f, const T& guess, T factor, bool risin
             return a > 0 ? std::make_pair(T(0), T(a)) : std::make_pair(T(a), T(0)); 
          }
          if(count == 0)
-            policies::raise_evaluation_error(function, "Unable to bracket root, last nearest value was %1%", a, pol);
+            return boost::math::detail::pair_from_single(policies::raise_evaluation_error(function, "Unable to bracket root, last nearest value was %1%", a, pol));
          //
          // Heuristic: every 20 iterations we double the growth factor in case the
          // initial guess was *really* bad !

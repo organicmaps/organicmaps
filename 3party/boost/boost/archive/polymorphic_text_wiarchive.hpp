@@ -2,7 +2,7 @@
 #define BOOST_ARCHIVE_POLYMORPHIC_TEXT_WIARCHIVE_HPP
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -33,11 +33,11 @@ namespace boost {
 namespace archive {
 
 class polymorphic_text_wiarchive : 
-    public detail::polymorphic_iarchive_route<naked_text_wiarchive>
+    public detail::polymorphic_iarchive_route<text_wiarchive>
 {
 public:
     polymorphic_text_wiarchive(std::wistream & is, unsigned int flags = 0) :
-        detail::polymorphic_iarchive_route<naked_text_wiarchive>(is, flags)
+        detail::polymorphic_iarchive_route<text_wiarchive>(is, flags)
     {}
     ~polymorphic_text_wiarchive(){}
 };

@@ -6,8 +6,9 @@
  Implementaiton of the Burlish-Stoer method with dense output
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Mario Mulansky
+ Copyright 2011-2013 Karsten Ahnert
+ Copyright 2012 Christoph Koke
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -34,6 +35,8 @@
 #include <boost/numeric/odeint/stepper/controlled_step_result.hpp>
 #include <boost/numeric/odeint/algebra/range_algebra.hpp>
 #include <boost/numeric/odeint/algebra/default_operations.hpp>
+#include <boost/numeric/odeint/algebra/algebra_dispatcher.hpp>
+#include <boost/numeric/odeint/algebra/operations_dispatcher.hpp>
 
 #include <boost/numeric/odeint/util/state_wrapper.hpp>
 #include <boost/numeric/odeint/util/is_resizeable.hpp>
@@ -52,8 +55,8 @@ template<
     class Value = double ,
     class Deriv = State ,
     class Time = Value ,
-    class Algebra = range_algebra ,
-    class Operations = default_operations ,
+    class Algebra = typename algebra_dispatcher< State >::algebra_type ,
+    class Operations = typename operations_dispatcher< State >::operations_type ,
     class Resizer = initially_resizer
     >
 class bulirsch_stoer_dense_out {
@@ -169,11 +172,11 @@ public:
             m_midpoint.set_steps( m_interval_sequence[k] );
             if( k == 0 )
             {
-                m_midpoint.do_step( sys , in , dxdt , t , out , dt , m_mp_states[k].m_v , m_derivs[k]);
+                m_midpoint.do_step( system , in , dxdt , t , out , dt , m_mp_states[k].m_v , m_derivs[k]);
             }
             else
             {
-                m_midpoint.do_step( sys , in , dxdt , t , m_table[k-1].m_v , dt , m_mp_states[k].m_v , m_derivs[k] );
+                m_midpoint.do_step( system , in , dxdt , t , m_table[k-1].m_v , dt , m_mp_states[k].m_v , m_derivs[k] );
                 extrapolate( k , m_table , m_coeff , out );
                 // get error estimate
                 m_algebra.for_each3( m_err.m_v , out , m_table[0].m_v ,

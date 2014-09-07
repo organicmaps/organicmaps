@@ -109,6 +109,17 @@ namespace boost { namespace phoenix
 #if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
 #pragma wave option(preserve: 2, line: 0, output: "preprocessed/function_equal_" BOOST_PHOENIX_LIMIT_STR ".hpp")
 #endif
+/*==============================================================================
+    Copyright (c) 2001-2010 Joel de Guzman
+    Copyright (c) 2004 Daniel Wallin
+    Copyright (c) 2010 Thomas Heller
+
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+==============================================================================*/
+#if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
+#pragma wave option(preserve: 1)
+#endif
 
                 #define BOOST_PHOENIX_FUNCTION_EQUAL_R(Z, N, DATA)              \
                     && function_equal_()(                                       \

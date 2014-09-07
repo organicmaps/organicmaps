@@ -7,8 +7,10 @@
  Adams-Bashforth-Moulton method.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Karsten Ahnert
+ Copyright 2011-2013 Mario Mulansky
+ Copyright 2012 Christoph Koke
+ Copyright 2013 Pascal Germroth
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -26,6 +28,8 @@
 
 #include <boost/numeric/odeint/algebra/range_algebra.hpp>
 #include <boost/numeric/odeint/algebra/default_operations.hpp>
+#include <boost/numeric/odeint/algebra/algebra_dispatcher.hpp>
+#include <boost/numeric/odeint/algebra/operations_dispatcher.hpp>
 
 #include <boost/numeric/odeint/util/state_wrapper.hpp>
 #include <boost/numeric/odeint/util/is_resizeable.hpp>
@@ -41,7 +45,6 @@
 #include <boost/numeric/odeint/stepper/detail/rotating_buffer.hpp>
 
 
-
 namespace boost {
 namespace numeric {
 namespace odeint {
@@ -53,8 +56,8 @@ class State ,
 class Value = double ,
 class Deriv = State ,
 class Time = Value ,
-class Algebra = range_algebra ,
-class Operations = default_operations ,
+class Algebra = typename algebra_dispatcher< State >::algebra_type ,
+class Operations = typename operations_dispatcher< State >::operations_type ,
 class Resizer = initially_resizer ,
 class InitializingStepper = runge_kutta4< State , Value , Deriv , Time , Algebra , Operations, Resizer >
 >
@@ -79,8 +82,9 @@ public :
 
     typedef InitializingStepper initializing_stepper_type;
 
-    typedef typename algebra_stepper_base< Algebra , Operations >::algebra_type algebra_type;
-    typedef typename algebra_stepper_base< Algebra , Operations >::operations_type operations_type;
+    typedef algebra_stepper_base< Algebra , Operations > algebra_stepper_base_type;
+    typedef typename algebra_stepper_base_type::algebra_type algebra_type;
+    typedef typename algebra_stepper_base_type::operations_type operations_type;
 #ifndef DOXYGEN_SKIP
     typedef adams_bashforth< Steps , State , Value , Deriv , Time , Algebra , Operations , Resizer , InitializingStepper > stepper_type;
 #endif
@@ -98,24 +102,11 @@ public :
     order_type order( void ) const { return order_value; }
 
     adams_bashforth( const algebra_type &algebra = algebra_type() )
-    : m_step_storage() , m_resizer() , m_coefficients() ,
-      m_steps_initialized( 0 ) , m_initializing_stepper() ,
-      m_algebra( algebra )
+    : algebra_stepper_base_type( algebra ) ,
+      m_step_storage() , m_resizer() , m_coefficients() ,
+      m_steps_initialized( 0 ) , m_initializing_stepper()
     { }
 
-    adams_bashforth( const adams_bashforth &stepper )
-    : m_step_storage( stepper.m_step_storage ) , m_resizer( stepper.m_resizer ) , m_coefficients() ,
-      m_steps_initialized( stepper.m_steps_initialized ) , m_initializing_stepper( stepper.m_initializing_stepper ) ,
-      m_algebra( stepper.m_algebra )
-    { }
-
-    adams_bashforth& operator=( const adams_bashforth &stepper )
-    {
-        m_resizer = stepper.m_resizer;
-        m_step_storage = stepper.m_step_storage;
-        m_algebra = stepper.m_algebra;
-        return *this;
-    }
 
 
     /*
@@ -186,7 +177,7 @@ public :
 
         m_resizer.adjust_size( x , detail::bind( &stepper_type::template resize_impl<StateIn> , detail::ref( *this ) , detail::_1 ) );
 
-        for( size_t i=0 ; i<steps-1 ; ++i )
+        for( size_t i=0 ; i+1<steps ; ++i )
         {
             if( i != 0 ) m_step_storage.rotate();
             sys( x , m_step_storage[0].m_v , t );
@@ -209,7 +200,7 @@ public :
 
     bool is_initialized( void ) const
     {
-        return m_steps_initialized >= steps;
+        return m_steps_initialized >= ( steps - 1 );
     }
 
     const initializing_stepper_type& initializing_stepper( void ) const { return m_initializing_stepper; }
@@ -227,18 +218,18 @@ private:
             m_steps_initialized = 0;
         }
 
-        if( m_steps_initialized < steps - 1 )
+        if( m_steps_initialized + 1 < steps )
         {
             if( m_steps_initialized != 0 ) m_step_storage.rotate();
             sys( in , m_step_storage[0].m_v , t );
             m_initializing_stepper.do_step( system , in , m_step_storage[0].m_v , t , out , dt );
-            m_steps_initialized++;
+            ++m_steps_initialized;
         }
         else
         {
             m_step_storage.rotate();
             sys( in , m_step_storage[0].m_v , t );
-            detail::adams_bashforth_call_algebra< steps , algebra_type , operations_type >()( m_algebra , in , out , m_step_storage , m_coefficients , dt );
+            detail::adams_bashforth_call_algebra< steps , algebra_type , operations_type >()( this->m_algebra , in , out , m_step_storage , m_coefficients , dt );
         }
     }
 
@@ -256,19 +247,10 @@ private:
 
     step_storage_type m_step_storage;
     resizer_type m_resizer;
-    const detail::adams_bashforth_coefficients< value_type , steps > m_coefficients;
+    detail::adams_bashforth_coefficients< value_type , steps > m_coefficients;
     size_t m_steps_initialized;
     initializing_stepper_type m_initializing_stepper;
 
-
-
-
-
-
-
-protected:
-
-    algebra_type m_algebra;
 };
 
 

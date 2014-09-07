@@ -85,8 +85,7 @@
 // (this macro is used to turn on __declspec(dllimport) modifiers, so that 
 // the compiler knows which symbols to look for in a dll rather than in a 
 // static library).  Note that there may be some libraries that can only 
-// be statically linked (Boost.Test for example) and others which may only 
-// be dynamically linked (Boost.Threads for example), in these cases this 
+// be linked in one way (statically or dynamically), in these cases this 
 // macro has no effect.
 // #define BOOST_ALL_DYN_LINK
  
@@ -97,9 +96,9 @@
 // BOOST_REGEX_DYN_LINK etc (this macro is used to turn on __declspec(dllimport) 
 // modifiers, so that the compiler knows which symbols to look for in a dll 
 // rather than in a static library).  
-// Note that there may be some libraries that can only be statically linked 
-// (Boost.Test for example) and others which may only be dynamically linked 
-// (Boost.Threads for example), in these cases this macro is unsupported.
+// Note that there may be some libraries that can only 
+// be linked in one way (statically or dynamically), 
+// in these cases this macro is unsupported.
 // #define BOOST_WHATEVER_DYN_LINK
  
 // BOOST_ALL_NO_LIB: Tells the config system not to automatically select 

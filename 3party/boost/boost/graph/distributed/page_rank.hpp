@@ -89,8 +89,6 @@ page_rank_impl(const Graph& g, RankMap rank_map, Done done,
   int me;
   MPI_Comm_rank(MPI_COMM_WORLD, &me);
 
-  typedef typename property_map<Graph, vertex_owner_t>
-    ::const_type vertex_owner_map;
   typename property_map<Graph, vertex_owner_t>::const_type
     owner = get(vertex_owner, g);
   (void)owner;

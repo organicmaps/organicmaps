@@ -12,9 +12,9 @@ namespace boost { namespace phoenix
         template <typename Object, typename MemPtr>
         struct mem_fun_ptr_gen
         {
-            mem_fun_ptr_gen(Object const& obj, MemPtr ptr)
-              : obj(obj)
-              , ptr(ptr)
+            mem_fun_ptr_gen(Object const& obj_, MemPtr ptr_)
+              : obj(obj_)
+              , ptr(ptr_)
             {}
             typename phoenix::expression::mem_fun_ptr<Object, MemPtr>::type const
             operator()() const

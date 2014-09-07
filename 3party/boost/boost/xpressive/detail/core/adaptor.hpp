@@ -9,7 +9,7 @@
 #define BOOST_XPRESSIVE_DETAIL_CORE_ADAPTOR_HPP_EAN_10_04_2005
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -37,8 +37,7 @@ struct xpression_adaptor
     Xpr xpr_;
 
     xpression_adaptor(Xpr const &xpr)
-    #if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))                          \
-      && ((__GNUC__ > 3) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
+    #if BOOST_WORKAROUND(__GNUC__, BOOST_TESTED_AT(4))
         // Ugh, gcc has an optimizer bug which elides this c'tor call
         // resulting in pure virtual function calls.
         __attribute__((__noinline__))

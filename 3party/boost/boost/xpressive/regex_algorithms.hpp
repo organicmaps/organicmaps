@@ -10,7 +10,7 @@
 #define BOOST_XPRESSIVE_ALGORITHMS_HPP_EAN_10_04_2005
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -303,7 +303,6 @@ namespace detail
     )
     {
         typedef core_access<BidiIter> access;
-        typedef typename iterator_value<BidiIter>::type char_type;
         match_results<BidiIter> &what = *state.context_.results_ptr_;
         BOOST_ASSERT(0 != re.regex_id());
 

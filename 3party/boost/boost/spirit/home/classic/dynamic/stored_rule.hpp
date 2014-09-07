@@ -101,17 +101,11 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
         friend class impl::rule_base_access;
         friend class stored_rule<T0, T1, T2, !EmbedByValue>;
 
-#if defined(__GNUC__) && (__GNUC__ < 3)
-    public:
-#endif
         abstract_parser_t*
         get() const
         {
             return ptr.get();
         }
-#if defined(__GNUC__) && (__GNUC__ < 3)
-    private:
-#endif
 
         stored_rule(shared_ptr<abstract_parser_t> const& ptr)
         : ptr(ptr) {}

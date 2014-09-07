@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: ranlux.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id$
  *
  * Revision history
  *  2001-02-18  created
@@ -37,7 +37,7 @@ namespace detail {
  * The levels are given in
  * 
  *  @blockquote
- *  "RANLUX: A Fortran implementation ofthe high-quality
+ *  "RANLUX: A Fortran implementation of the high-quality
  *  pseudorandom number generator of Luescher", F. James,
  *  Computer Physics Communications 79 (1994) 111-114
  *  @endblockquote

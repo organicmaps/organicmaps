@@ -2,7 +2,7 @@
 #define BOOST_SERIALIZATION_HASH_MAP_HPP
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -40,11 +40,11 @@ struct archive_input_hash_map
         Container &s, 
         const unsigned int v
     ){
-        typedef BOOST_DEDUCED_TYPENAME Container::value_type type;
+        typedef typename Container::value_type type;
         detail::stack_construct<Archive, type> t(ar, v);
         // borland fails silently w/o full namespace
         ar >> boost::serialization::make_nvp("item", t.reference());
-        std::pair<BOOST_DEDUCED_TYPENAME Container::const_iterator, bool> result = 
+        std::pair<typename Container::const_iterator, bool> result = 
             s.insert(t.reference());
         // note: the following presumes that the map::value_type was NOT tracked
         // in the archive.  This is the usual case, but here there is no way
@@ -67,11 +67,11 @@ struct archive_input_hash_multimap
         Container &s, 
         const unsigned int v
     ){
-        typedef BOOST_DEDUCED_TYPENAME Container::value_type type;
+        typedef typename Container::value_type type;
         detail::stack_construct<Archive, type> t(ar, v);
         // borland fails silently w/o full namespace
         ar >> boost::serialization::make_nvp("item", t.reference());
-        BOOST_DEDUCED_TYPENAME Container::const_iterator result 
+        typename Container::const_iterator result 
             = s.insert(t.reference());
         // note: the following presumes that the map::value_type was NOT tracked
         // in the archive.  This is the usual case, but here there is no way

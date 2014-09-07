@@ -158,15 +158,6 @@ struct segments_de9im
                      false, false, false, true);
     }
 
-    static inline return_type collinear_disjoint()
-    {
-        return de9im_segment(0,0,
-                -1, -1, 1,
-                -1, -1, 0,
-                 1,  0, 2,
-                true);
-    }
-
 };
 
 

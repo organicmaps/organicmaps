@@ -16,7 +16,7 @@
 #define BOOST_XPRESSIVE_MATCH_RESULTS_HPP_EAN_10_04_2005
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -1096,11 +1096,12 @@ private:
             case BOOST_XPR_CHAR_(char_type, ':'):
                 if(metacolon)
                 {
+                    BOOST_FALLTHROUGH;
             case BOOST_XPR_CHAR_(char_type, ')'):
                     ++cur;
                     return out;
                 }
-                // else fall-through
+                BOOST_FALLTHROUGH;
 
             default:
                 *out++ = *cur++;

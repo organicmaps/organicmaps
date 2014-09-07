@@ -36,13 +36,6 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
         typedef typename T::embed_t type;
     };
 
-#if defined(BOOST_MSVC) && BOOST_MSVC <= 1300
-    template <> struct embed_t_accessor<int>
-    {
-        typedef int type;
-    };
-#endif
-
     template <typename ConditionT>
     struct condition_parser_selector
     {

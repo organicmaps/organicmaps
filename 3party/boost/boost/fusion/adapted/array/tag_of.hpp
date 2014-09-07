@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_ADAPTED_ARRAY_TAG_OF_HPP
 #define BOOST_FUSION_ADAPTED_ARRAY_TAG_OF_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/tag_of_fwd.hpp>
 #include <cstddef>
 

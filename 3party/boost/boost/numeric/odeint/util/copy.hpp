@@ -6,8 +6,8 @@
  Copy abstraction for the usage in the steppers.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2012 Karsten Ahnert
+ Copyright 2011-2012 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -46,20 +46,32 @@ namespace detail {
 } // namespace detail
 
 
+
 /*
  * Default implementation of the copy operation used the assign operator
  * gsl_vector must copied differently
  */
-template< class Container1, class Container2 , class Enabler = void >
-struct copy_impl
+template< class Container1 , class Container2 , class Enabler = void >
+struct copy_impl_sfinae
 {
     static void copy( const Container1 &from , Container2 &to )
     {
         typedef typename boost::numeric::odeint::detail::is_range< Container1 >::type is_range_type;
         detail::do_copying( from , to , is_range_type() );
     }
+
 };
 
+template< class Container1, class Container2 >
+struct copy_impl
+{
+    static void copy( const Container1 &from , Container2 &to )
+    {
+        copy_impl_sfinae< Container1 , Container2 >::copy( from , to );
+    }
+};
+
+// ToDo: allow also to copy INTO a range, not only from a range! Needs "const Container2 &to"
 template< class Container1 , class Container2 >
 void copy( const Container1 &from , Container2 &to )
 {

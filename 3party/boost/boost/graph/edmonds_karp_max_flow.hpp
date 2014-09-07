@@ -151,7 +151,6 @@ namespace boost {
        const bgl_named_params<P, T, R>& params,
        param_not_found)
       {
-        typedef typename graph_traits<Graph>::edge_descriptor edge_descriptor;
         typedef typename graph_traits<Graph>::vertices_size_type size_type;
         size_type n = is_default_param(get_param(params, vertex_color)) ?
           num_vertices(g) : 1;

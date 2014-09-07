@@ -11,7 +11,7 @@
 #ifndef BOOST_RANGE_POINTER_TYPE_HPP
 #define BOOST_RANGE_POINTER_TYPE_HPP
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -22,7 +22,8 @@
 namespace boost
 {
     template< class T >
-    struct range_pointer : iterator_pointer< typename range_iterator<T>::type >
+    struct range_pointer
+            : iterator_pointer< BOOST_DEDUCED_TYPENAME range_iterator<T>::type >
     { };
 }
 

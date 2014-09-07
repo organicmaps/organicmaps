@@ -108,6 +108,14 @@ public:
    {
       return m_value;
    }
+   template <class Archive>
+   void serialize(Archive& ar, const unsigned int /*version*/)
+   {
+      ar & m_value;
+      typedef typename Archive::is_loading tag;
+      if(tag::value)
+         update_view();
+   }
 };
 
 template <class Backend>
@@ -333,6 +341,13 @@ inline unsigned eval_lsb(const debug_adaptor<Backend>& arg)
 {
    using default_ops::eval_lsb;
    return eval_lsb(arg.value());
+}
+
+template <class Backend>
+inline unsigned eval_msb(const debug_adaptor<Backend>& arg)
+{
+   using default_ops::eval_msb;
+   return eval_msb(arg.value());
 }
 
 template <class Backend>

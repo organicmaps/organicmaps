@@ -160,7 +160,6 @@
 #define BOOST_SIGNALS2_SIGNATURE_FULL_ARGS(arity) Args ... args
 #define BOOST_SIGNALS2_SIGNATURE_ARG_NAMES(arity) args...
 #define BOOST_SIGNALS2_PORTABLE_SIGNATURE(arity, Signature) Signature
-#define BOOST_SIGNALS2_SLOT_CLASS_NAME(arity) slot
 
 #define BOOST_SIGNALS2_SLOT_TEMPLATE_SPECIALIZATION_DECL(arity) \
   typename SlotFunction, \

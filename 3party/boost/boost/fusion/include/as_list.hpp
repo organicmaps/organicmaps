@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_AS_LIST)
 #define FUSION_INCLUDE_AS_LIST
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/list/convert.hpp>
 
 #endif

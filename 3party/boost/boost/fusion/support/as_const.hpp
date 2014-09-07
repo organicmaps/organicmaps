@@ -16,6 +16,7 @@ namespace boost { namespace fusion { namespace extension
     // such contexts with calls to this function. Users can
     // specialize this function for their own wrappers.
     template <typename T>
+    BOOST_FUSION_GPU_ENABLED
     const T& as_const(const T& obj)
     {
         return obj;

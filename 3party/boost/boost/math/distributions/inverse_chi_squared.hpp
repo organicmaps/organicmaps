@@ -51,7 +51,7 @@ public:
    typedef RealType value_type;
    typedef Policy policy_type;
 
-   inverse_chi_squared_distribution(RealType df, RealType scale) : m_df(df), m_scale (scale)
+   inverse_chi_squared_distribution(RealType df, RealType l_scale) : m_df(df), m_scale (l_scale)
    {
       RealType result;
       detail::check_df(

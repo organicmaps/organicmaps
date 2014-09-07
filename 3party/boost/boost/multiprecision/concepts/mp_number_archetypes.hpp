@@ -215,7 +215,7 @@ public:
    static number_type (max)() BOOST_NOEXCEPT { return (base_type::max)(); }
    static number_type lowest() BOOST_NOEXCEPT { return -(max)(); }
    static number_type epsilon() BOOST_NOEXCEPT { return base_type::epsilon(); }
-   static number_type round_error() BOOST_NOEXCEPT { return epsilon() / 2; }
+   static number_type round_error() BOOST_NOEXCEPT { return base_type::round_error(); }
    static number_type infinity() BOOST_NOEXCEPT { return base_type::infinity(); }
    static number_type quiet_NaN() BOOST_NOEXCEPT { return base_type::quiet_NaN(); }
    static number_type signaling_NaN() BOOST_NOEXCEPT { return base_type::signaling_NaN(); }

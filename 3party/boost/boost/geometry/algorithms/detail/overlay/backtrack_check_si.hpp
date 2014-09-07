@@ -55,8 +55,8 @@ inline void clear_visit_info(Turns& turns)
 struct backtrack_state
 {
     bool m_good;
-    
-    inline backtrack_state() : m_good(true) {}         
+
+    inline backtrack_state() : m_good(true) {}
     inline void reset() { m_good = true; }
     inline bool good() const { return m_good; }
 };
@@ -79,29 +79,30 @@ class backtrack_check_self_intersections
 public :
     typedef state state_type;
 
-    template <typename Operation, typename Rings, typename Turns>
-    static inline void apply(std::size_t size_at_start, 
-                Rings& rings, typename boost::range_value<Rings>::type& ring,
+    template <typename Operation, typename Rings, typename Ring, typename Turns, typename RobustPolicy>
+    static inline void apply(std::size_t size_at_start,
+                Rings& rings, Ring& ring,
                 Turns& turns, Operation& operation,
                 std::string const& ,
                 Geometry1 const& geometry1,
                 Geometry2 const& geometry2,
+                RobustPolicy const& robust_policy,
                 state_type& state
                 )
     {
         state.m_good = false;
-        
+
         // Check self-intersections and throw exception if appropriate
         if (! state.m_checked)
         {
             state.m_checked = true;
-            has_self_intersections(geometry1);
-            has_self_intersections(geometry2);
+            has_self_intersections(geometry1, robust_policy);
+            has_self_intersections(geometry2, robust_policy);
         }
 
         // Make bad output clean
         rings.resize(size_at_start);
-        ring.clear();
+        geometry::traits::clear<typename boost::range_value<Rings>::type>::apply(ring);
 
         // Reject this as a starting point
         operation.visited.set_rejected();
@@ -123,7 +124,7 @@ public :
     typedef backtrack_state state_type;
 
     template <typename Operation, typename Rings, typename Turns>
-    static inline void apply(std::size_t size_at_start, 
+    static inline void apply(std::size_t size_at_start,
                 Rings& rings, typename boost::range_value<Rings>::type& ring,
                 Turns& turns, Operation& operation,
                 std::string const& reason,
@@ -133,7 +134,7 @@ public :
                 )
     {
         std::cout << " REJECT " << reason << std::endl;
-        
+
         state.m_good = false;
 
         rings.resize(size_at_start);

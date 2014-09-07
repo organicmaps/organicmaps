@@ -22,7 +22,7 @@ namespace boost { namespace fusion
             typedef list<> type;
         };
     }
-    inline list<>
+    BOOST_FUSION_GPU_ENABLED inline list<>
     make_list()
     {
         return list<>();
@@ -30,12 +30,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0>
-        struct make_list<T0>
+        struct make_list< T0 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef list<typename detail::as_fusion_element<T0>::type> type;
         };
     }
     template <typename T0>
+    BOOST_FUSION_GPU_ENABLED
     inline list<typename detail::as_fusion_element<T0>::type>
     make_list(T0 const& _0)
     {
@@ -45,12 +46,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1>
-        struct make_list<T0 , T1>
+        struct make_list< T0 , T1 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type> type;
         };
     }
     template <typename T0 , typename T1>
+    BOOST_FUSION_GPU_ENABLED
     inline list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type>
     make_list(T0 const& _0 , T1 const& _1)
     {
@@ -60,12 +62,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2>
-        struct make_list<T0 , T1 , T2>
+        struct make_list< T0 , T1 , T2 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type> type;
         };
     }
     template <typename T0 , typename T1 , typename T2>
+    BOOST_FUSION_GPU_ENABLED
     inline list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type>
     make_list(T0 const& _0 , T1 const& _1 , T2 const& _2)
     {
@@ -75,12 +78,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3>
-        struct make_list<T0 , T1 , T2 , T3>
+        struct make_list< T0 , T1 , T2 , T3 , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3>
+    BOOST_FUSION_GPU_ENABLED
     inline list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type>
     make_list(T0 const& _0 , T1 const& _1 , T2 const& _2 , T3 const& _3)
     {
@@ -90,12 +94,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4>
-        struct make_list<T0 , T1 , T2 , T3 , T4>
+        struct make_list< T0 , T1 , T2 , T3 , T4 , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4>
+    BOOST_FUSION_GPU_ENABLED
     inline list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type>
     make_list(T0 const& _0 , T1 const& _1 , T2 const& _2 , T3 const& _3 , T4 const& _4)
     {
@@ -105,12 +110,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5>
-        struct make_list<T0 , T1 , T2 , T3 , T4 , T5>
+        struct make_list< T0 , T1 , T2 , T3 , T4 , T5 , void_ , void_ , void_ , void_ , void_ >
         {
             typedef list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type , typename detail::as_fusion_element<T5>::type> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5>
+    BOOST_FUSION_GPU_ENABLED
     inline list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type , typename detail::as_fusion_element<T5>::type>
     make_list(T0 const& _0 , T1 const& _1 , T2 const& _2 , T3 const& _3 , T4 const& _4 , T5 const& _5)
     {
@@ -120,12 +126,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6>
-        struct make_list<T0 , T1 , T2 , T3 , T4 , T5 , T6>
+        struct make_list< T0 , T1 , T2 , T3 , T4 , T5 , T6 , void_ , void_ , void_ , void_ >
         {
             typedef list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type , typename detail::as_fusion_element<T5>::type , typename detail::as_fusion_element<T6>::type> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6>
+    BOOST_FUSION_GPU_ENABLED
     inline list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type , typename detail::as_fusion_element<T5>::type , typename detail::as_fusion_element<T6>::type>
     make_list(T0 const& _0 , T1 const& _1 , T2 const& _2 , T3 const& _3 , T4 const& _4 , T5 const& _5 , T6 const& _6)
     {
@@ -135,12 +142,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7>
-        struct make_list<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7>
+        struct make_list< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , void_ , void_ , void_ >
         {
             typedef list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type , typename detail::as_fusion_element<T5>::type , typename detail::as_fusion_element<T6>::type , typename detail::as_fusion_element<T7>::type> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7>
+    BOOST_FUSION_GPU_ENABLED
     inline list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type , typename detail::as_fusion_element<T5>::type , typename detail::as_fusion_element<T6>::type , typename detail::as_fusion_element<T7>::type>
     make_list(T0 const& _0 , T1 const& _1 , T2 const& _2 , T3 const& _3 , T4 const& _4 , T5 const& _5 , T6 const& _6 , T7 const& _7)
     {
@@ -150,12 +158,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8>
-        struct make_list<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8>
+        struct make_list< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , void_ , void_ >
         {
             typedef list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type , typename detail::as_fusion_element<T5>::type , typename detail::as_fusion_element<T6>::type , typename detail::as_fusion_element<T7>::type , typename detail::as_fusion_element<T8>::type> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8>
+    BOOST_FUSION_GPU_ENABLED
     inline list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type , typename detail::as_fusion_element<T5>::type , typename detail::as_fusion_element<T6>::type , typename detail::as_fusion_element<T7>::type , typename detail::as_fusion_element<T8>::type>
     make_list(T0 const& _0 , T1 const& _1 , T2 const& _2 , T3 const& _3 , T4 const& _4 , T5 const& _5 , T6 const& _6 , T7 const& _7 , T8 const& _8)
     {
@@ -165,12 +174,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9>
-        struct make_list<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9>
+        struct make_list< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , void_ >
         {
             typedef list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type , typename detail::as_fusion_element<T5>::type , typename detail::as_fusion_element<T6>::type , typename detail::as_fusion_element<T7>::type , typename detail::as_fusion_element<T8>::type , typename detail::as_fusion_element<T9>::type> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9>
+    BOOST_FUSION_GPU_ENABLED
     inline list<typename detail::as_fusion_element<T0>::type , typename detail::as_fusion_element<T1>::type , typename detail::as_fusion_element<T2>::type , typename detail::as_fusion_element<T3>::type , typename detail::as_fusion_element<T4>::type , typename detail::as_fusion_element<T5>::type , typename detail::as_fusion_element<T6>::type , typename detail::as_fusion_element<T7>::type , typename detail::as_fusion_element<T8>::type , typename detail::as_fusion_element<T9>::type>
     make_list(T0 const& _0 , T1 const& _1 , T2 const& _2 , T3 const& _3 , T4 const& _4 , T5 const& _5 , T6 const& _6 , T7 const& _7 , T8 const& _8 , T9 const& _9)
     {

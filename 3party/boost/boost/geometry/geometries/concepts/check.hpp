@@ -18,21 +18,23 @@
 
 #include <boost/concept_check.hpp>
 #include <boost/concept/requires.hpp>
-
 #include <boost/type_traits/is_const.hpp>
+#include <boost/variant/variant_fwd.hpp>
 
 #include <boost/geometry/core/tag.hpp>
+#include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/geometries/concepts/box_concept.hpp>
 #include <boost/geometry/geometries/concepts/linestring_concept.hpp>
+#include <boost/geometry/geometries/concepts/multi_point_concept.hpp>
+#include <boost/geometry/geometries/concepts/multi_linestring_concept.hpp>
+#include <boost/geometry/geometries/concepts/multi_polygon_concept.hpp>
 #include <boost/geometry/geometries/concepts/point_concept.hpp>
 #include <boost/geometry/geometries/concepts/polygon_concept.hpp>
 #include <boost/geometry/geometries/concepts/ring_concept.hpp>
 #include <boost/geometry/geometries/concepts/segment_concept.hpp>
 
 #include <boost/geometry/algorithms/not_implemented.hpp>
-
-#include <boost/variant/variant_fwd.hpp>
 
 namespace boost { namespace geometry
 {
@@ -57,7 +59,7 @@ class check
 namespace dispatch
 {
 
-template 
+template
 <
     typename Geometry,
     typename GeometryTag = typename geometry::tag<Geometry>::type,
@@ -135,6 +137,42 @@ struct check<Geometry, segment_tag, true>
 template <typename Geometry>
 struct check<Geometry, segment_tag, false>
     : detail::concept_check::check<concept::Segment<Geometry> >
+{};
+
+
+template <typename Geometry>
+struct check<Geometry, multi_point_tag, true>
+    : detail::concept_check::check<concept::ConstMultiPoint<Geometry> >
+{};
+
+
+template <typename Geometry>
+struct check<Geometry, multi_point_tag, false>
+    : detail::concept_check::check<concept::MultiPoint<Geometry> >
+{};
+
+
+template <typename Geometry>
+struct check<Geometry, multi_linestring_tag, true>
+    : detail::concept_check::check<concept::ConstMultiLinestring<Geometry> >
+{};
+
+
+template <typename Geometry>
+struct check<Geometry, multi_linestring_tag, false>
+    : detail::concept_check::check<concept::MultiLinestring<Geometry> >
+{};
+
+
+template <typename Geometry>
+struct check<Geometry, multi_polygon_tag, true>
+    : detail::concept_check::check<concept::ConstMultiPolygon<Geometry> >
+{};
+
+
+template <typename Geometry>
+struct check<Geometry, multi_polygon_tag, false>
+    : detail::concept_check::check<concept::MultiPolygon<Geometry> >
 {};
 
 

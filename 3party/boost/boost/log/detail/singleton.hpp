@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -10,7 +10,7 @@
  * \date   20.04.2008
  *
  * \brief  This header is the Boost.Log library implementation, see the library documentation
- *         at http://www.boost.org/libs/log/doc/log.html.
+ *         at http://www.boost.org/doc/libs/release/libs/log/doc/html/index.html.
  */
 
 #ifndef BOOST_LOG_DETAIL_SINGLETON_HPP_INCLUDED_
@@ -20,7 +20,7 @@
 #include <boost/log/utility/once_block.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -35,7 +35,7 @@ template< typename DerivedT, typename StorageT = DerivedT >
 class lazy_singleton
 {
 public:
-    BOOST_LOG_DEFAULTED_FUNCTION(lazy_singleton(), {})
+    BOOST_DEFAULTED_FUNCTION(lazy_singleton(), {})
 
     //! Returns the singleton instance
     static StorageT& get()
@@ -53,8 +53,8 @@ public:
         get_instance();
     }
 
-    BOOST_LOG_DELETED_FUNCTION(lazy_singleton(lazy_singleton const&))
-    BOOST_LOG_DELETED_FUNCTION(lazy_singleton& operator= (lazy_singleton const&))
+    BOOST_DELETED_FUNCTION(lazy_singleton(lazy_singleton const&))
+    BOOST_DELETED_FUNCTION(lazy_singleton& operator= (lazy_singleton const&))
 
 protected:
     //! Returns the singleton instance (not thread-safe)

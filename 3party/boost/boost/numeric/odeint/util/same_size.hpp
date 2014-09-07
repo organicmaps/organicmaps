@@ -7,8 +7,8 @@
  destruction, copying construction, assignment and resizing.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Karsten Ahnert
+ Copyright 2011 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -34,15 +34,25 @@
 namespace boost {
 namespace numeric {
 namespace odeint {
-
-// same_size function
-// standard implementation relies on boost.range
-template< class State1 , class State2 , class Enabler = void >
-struct same_size_impl
+    
+template< typename State1 , typename State2 , class Enabler = void >
+struct same_size_impl_sfinae
 {
     static bool same_size( const State1 &x1 , const State2 &x2 )
     {
         return ( boost::size( x1 ) == boost::size( x2 ) );
+    }
+
+};
+
+// same_size function
+// standard implementation relies on boost.range
+template< class State1 , class State2 >
+struct same_size_impl
+{
+    static bool same_size( const State1 &x1 , const State2 &x2 )
+    {
+        return same_size_impl_sfinae< State1 , State2 >::same_size( x1 , x2 );
     }
 };
 
@@ -84,7 +94,7 @@ struct same_size_fusion
 
 
 template< class FusionSeq >
-struct same_size_impl< FusionSeq , FusionSeq , typename boost::enable_if< typename boost::fusion::traits::is_sequence< FusionSeq >::type >::type >
+struct same_size_impl_sfinae< FusionSeq , FusionSeq , typename boost::enable_if< typename boost::fusion::traits::is_sequence< FusionSeq >::type >::type >
 {
     static bool same_size( const FusionSeq &x1 , const FusionSeq &x2 )
     {

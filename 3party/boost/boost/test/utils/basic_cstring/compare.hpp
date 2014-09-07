@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 49312 $
+//  Version     : $Revision$
 //
 //  Description : class basic_cstring comparisons implementation
 // ***************************************************************************

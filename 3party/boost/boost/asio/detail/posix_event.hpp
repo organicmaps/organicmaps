@@ -2,7 +2,7 @@
 // detail/posix_event.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -42,24 +42,48 @@ public:
     ::pthread_cond_destroy(&cond_);
   }
 
-  // Signal the event.
+  // Signal the event. (Retained for backward compatibility.)
   template <typename Lock>
   void signal(Lock& lock)
   {
-    BOOST_ASIO_ASSERT(lock.locked());
-    (void)lock;
-    signalled_ = true;
-    ::pthread_cond_signal(&cond_); // Ignore EINVAL.
+    this->signal_all(lock);
   }
 
-  // Signal the event and unlock the mutex.
+  // Signal all waiters.
   template <typename Lock>
-  void signal_and_unlock(Lock& lock)
+  void signal_all(Lock& lock)
   {
     BOOST_ASIO_ASSERT(lock.locked());
-    signalled_ = true;
+    (void)lock;
+    state_ |= 1;
+    ::pthread_cond_broadcast(&cond_); // Ignore EINVAL.
+  }
+
+  // Unlock the mutex and signal one waiter.
+  template <typename Lock>
+  void unlock_and_signal_one(Lock& lock)
+  {
+    BOOST_ASIO_ASSERT(lock.locked());
+    state_ |= 1;
+    bool have_waiters = (state_ > 1);
     lock.unlock();
-    ::pthread_cond_signal(&cond_); // Ignore EINVAL.
+    if (have_waiters)
+      ::pthread_cond_signal(&cond_); // Ignore EINVAL.
+  }
+
+  // If there's a waiter, unlock the mutex and signal it.
+  template <typename Lock>
+  bool maybe_unlock_and_signal_one(Lock& lock)
+  {
+    BOOST_ASIO_ASSERT(lock.locked());
+    state_ |= 1;
+    if (state_ > 1)
+    {
+      lock.unlock();
+      ::pthread_cond_signal(&cond_); // Ignore EINVAL.
+      return true;
+    }
+    return false;
   }
 
   // Reset the event.
@@ -68,7 +92,7 @@ public:
   {
     BOOST_ASIO_ASSERT(lock.locked());
     (void)lock;
-    signalled_ = false;
+    state_ &= ~std::size_t(1);
   }
 
   // Wait for the event to become signalled.
@@ -76,13 +100,17 @@ public:
   void wait(Lock& lock)
   {
     BOOST_ASIO_ASSERT(lock.locked());
-    while (!signalled_)
+    while ((state_ & 1) == 0)
+    {
+      state_ += 2;
       ::pthread_cond_wait(&cond_, &lock.mutex().mutex_); // Ignore EINVAL.
+      state_ -= 2;
+    }
   }
 
 private:
   ::pthread_cond_t cond_;
-  bool signalled_;
+  std::size_t state_;
 };
 
 } // namespace detail

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2012
+// (C) Copyright Ion Gaztanaga  2007-2013
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -12,8 +12,9 @@
 // The implementation of splay trees is based on the article and code published
 // in C++ Users Journal "Implementing Splay Trees in C++" (September 1, 2005).
 //
-// The code has been modified and (supposely) improved by Ion Gaztanaga.
-// Here is the header of the file used as base code:
+// The splay code has been modified and (supposedly) improved by Ion Gaztanaga.
+//
+// Here is the copyright notice of the original file containing the splay code:
 //
 //  splay_tree.h -- implementation of a STL compatible splay tree.
 //
@@ -24,35 +25,18 @@
 //  This software is provided "as is" without express or implied
 //  warranty, and with no claim as to its suitability for any purpose.
 //
-//  Please send questions, comments, complaints, performance data, etc to
-//  ralf.mattethat@teknologisk.dk
-//
-//  Requirements for element type
-//  * must be copy-constructible
-//  * destructor must not throw exception
-//
-//    Methods marked with note A only throws an exception if the evaluation of the
-//    predicate throws an exception. If an exception is thrown the call has no
-//    effect on the containers state
-//
-//    Methods marked with note B only throws an exception if the coppy constructor
-//    or assignment operator of the predicate throws an exception. If an exception
-//    is thrown the call has no effect on the containers state
-//
-//    iterators are only invalidated, if the element pointed to by the iterator
-//    is deleted. The same goes for element references
-//
+/////////////////////////////////////////////////////////////////////////////
 
 #ifndef BOOST_INTRUSIVE_SPLAYTREE_ALGORITHMS_HPP
 #define BOOST_INTRUSIVE_SPLAYTREE_ALGORITHMS_HPP
 
 #include <boost/intrusive/detail/config_begin.hpp>
-#include <boost/intrusive/detail/assert.hpp>
 #include <boost/intrusive/intrusive_fwd.hpp>
+#include <boost/intrusive/detail/assert.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 #include <cstddef>
 #include <boost/intrusive/detail/utilities.hpp>
-#include <boost/intrusive/detail/tree_algorithms.hpp>
+#include <boost/intrusive/bstree_algorithms.hpp>
 
 namespace boost {
 namespace intrusive {
@@ -61,33 +45,70 @@ namespace intrusive {
 namespace detail {
 
 template<class NodeTraits>
-struct splaydown_rollback
+struct splaydown_assemble_and_fix_header
 {
    typedef typename NodeTraits::node_ptr node_ptr;
-   splaydown_rollback( const node_ptr *pcur_subtree, const node_ptr & header
-                     , const node_ptr & leftmost           , const node_ptr & rightmost)
-      : pcur_subtree_(pcur_subtree)  , header_(header)
-      , leftmost_(leftmost)   , rightmost_(rightmost)
+
+   splaydown_assemble_and_fix_header(const node_ptr & t, const node_ptr & header, const node_ptr &leftmost, const node_ptr &rightmost)
+      : t_(t)
+      , null_node_(header)
+      , l_(null_node_)
+      , r_(null_node_)
+      , leftmost_(leftmost)
+      , rightmost_(rightmost)
    {}
 
-   void release()
-   {  pcur_subtree_ = 0;  }
-
-   ~splaydown_rollback()
+   ~splaydown_assemble_and_fix_header()
    {
-      if(pcur_subtree_){
-         //Exception can only be thrown by comp, but
-         //tree invariants still hold. *pcur_subtree is the current root
-         //so link it to the header.
-         NodeTraits::set_parent(*pcur_subtree_, header_);
-         NodeTraits::set_parent(header_, *pcur_subtree_);
-         //Recover leftmost/rightmost pointers
-         NodeTraits::set_left (header_, leftmost_);
-         NodeTraits::set_right(header_, rightmost_);
+      this->assemble();
+
+      //Now recover the original header except for the
+      //splayed root node.
+      //"t_" is the current root and "null_node_" is the header node
+      NodeTraits::set_parent(null_node_, t_);
+      NodeTraits::set_parent(t_, null_node_);
+      //Recover leftmost/rightmost pointers
+      NodeTraits::set_left (null_node_, leftmost_);
+      NodeTraits::set_right(null_node_, rightmost_);
+   }
+
+   private:
+
+   void assemble()
+   {
+      //procedure assemble;
+      //    left(r), right(l) := right(t), left(t);
+      //    left(t), right(t) := right(null), left(null);
+      //end assemble;
+      {  //    left(r), right(l) := right(t), left(t);
+         
+         node_ptr const old_t_left  = NodeTraits::get_left(t_);
+         node_ptr const old_t_right = NodeTraits::get_right(t_);
+         NodeTraits::set_right(l_, old_t_left);
+         NodeTraits::set_left (r_, old_t_right);
+         if(old_t_left){
+            NodeTraits::set_parent(old_t_left, l_);
+         }
+         if(old_t_right){
+            NodeTraits::set_parent(old_t_right, r_);
+         }
+      }
+      {  //    left(t), right(t) := right(null), left(null);
+         node_ptr const null_right = NodeTraits::get_right(null_node_);
+         node_ptr const null_left  = NodeTraits::get_left(null_node_);
+         NodeTraits::set_left (t_, null_right);
+         NodeTraits::set_right(t_, null_left);
+         if(null_right){
+            NodeTraits::set_parent(null_right, t_);
+         }
+         if(null_left){
+            NodeTraits::set_parent(null_left, t_);
+         }
       }
    }
-   const node_ptr *pcur_subtree_;
-   node_ptr header_, leftmost_, rightmost_;
+
+   public:
+   node_ptr t_, null_node_, l_, r_, leftmost_, rightmost_;
 };
 
 }  //namespace detail {
@@ -100,14 +121,14 @@ struct splaydown_rollback
 //!      by Daniel Dominic Sleator and Robert Endre Tarjan
 //!      AT&T Bell Laboratories, Murray Hill, NJ
 //!      Journal of the ACM, Vol 32, no 3, July 1985, pp 652-686
-
+//!
 //! splaytree_algorithms is configured with a NodeTraits class, which encapsulates the
 //! information about the node to be manipulated. NodeTraits must support the
 //! following interface:
 //!
 //! <b>Typedefs</b>:
 //!
-//! <tt>node</tt>: The type of the node that forms the circular list
+//! <tt>node</tt>: The type of the node that forms the binary search tree
 //!
 //! <tt>node_ptr</tt>: A pointer to a node
 //!
@@ -128,10 +149,13 @@ struct splaydown_rollback
 //! <tt>static void set_right(node_ptr n, node_ptr right);</tt>
 template<class NodeTraits>
 class splaytree_algorithms
+   #ifndef BOOST_INTRUSIVE_DOXYGEN_INVOKED
+   : public bstree_algorithms<NodeTraits>
+   #endif
 {
    /// @cond
    private:
-   typedef detail::tree_algorithms<NodeTraits>  tree_algorithms;
+   typedef bstree_algorithms<NodeTraits> bstree_algo;
    /// @endcond
 
    public:
@@ -142,611 +166,344 @@ class splaytree_algorithms
 
    //! This type is the information that will be
    //! filled by insert_unique_check
-   typedef typename tree_algorithms::insert_commit_data insert_commit_data;
-
-   /// @cond
-   private:
-   static node_ptr uncast(const const_node_ptr & ptr)
-   {  return pointer_traits<node_ptr>::const_cast_from(ptr);  }
-   /// @endcond
+   typedef typename bstree_algo::insert_commit_data insert_commit_data;
 
    public:
-   static node_ptr begin_node(const const_node_ptr & header)
-   {  return tree_algorithms::begin_node(header);   }
+   #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
+   //! @copydoc ::boost::intrusive::bstree_algorithms::get_header(const const_node_ptr&)
+   static node_ptr get_header(const const_node_ptr & n);
 
-   static node_ptr end_node(const const_node_ptr & header)
-   {  return tree_algorithms::end_node(header);   }
+   //! @copydoc ::boost::intrusive::bstree_algorithms::begin_node
+   static node_ptr begin_node(const const_node_ptr & header);
 
-   //! <b>Requires</b>: node is a node of the tree or an node initialized
-   //!   by init(...).
-   //!
-   //! <b>Effects</b>: Returns true if the node is initialized by init().
-   //!
-   //! <b>Complexity</b>: Constant time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   static bool unique(const const_node_ptr & node)
-   {  return tree_algorithms::unique(node);  }
+   //! @copydoc ::boost::intrusive::bstree_algorithms::end_node
+   static node_ptr end_node(const const_node_ptr & header);
 
-   static void unlink(const node_ptr & node)
-   {  tree_algorithms::unlink(node);   }
+   //! @copydoc ::boost::intrusive::bstree_algorithms::swap_tree
+   static void swap_tree(const node_ptr & header1, const node_ptr & header2);
 
-   //! <b>Requires</b>: node1 and node2 can't be header nodes
-   //!  of two trees.
-   //!
-   //! <b>Effects</b>: Swaps two nodes. After the function node1 will be inserted
-   //!   in the position node2 before the function. node2 will be inserted in the
-   //!   position node1 had before the function.
-   //!
-   //! <b>Complexity</b>: Logarithmic.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: This function will break container ordering invariants if
-   //!   node1 and node2 are not equivalent according to the ordering rules.
-   //!
-   //!Experimental function
-   static void swap_nodes(const node_ptr & node1, const node_ptr & node2)
+   //! @copydoc ::boost::intrusive::bstree_algorithms::swap_nodes(const node_ptr&,const node_ptr&)
+   static void swap_nodes(const node_ptr & node1, const node_ptr & node2);
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::swap_nodes(const node_ptr&,const node_ptr&,const node_ptr&,const node_ptr&)
+   static void swap_nodes(const node_ptr & node1, const node_ptr & header1, const node_ptr & node2, const node_ptr & header2);
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::replace_node(const node_ptr&,const node_ptr&)
+   static void replace_node(const node_ptr & node_to_be_replaced, const node_ptr & new_node);
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::replace_node(const node_ptr&,const node_ptr&,const node_ptr&)
+   static void replace_node(const node_ptr & node_to_be_replaced, const node_ptr & header, const node_ptr & new_node);
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::unlink(const node_ptr&)
+   static void unlink(const node_ptr & node);
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::unlink_leftmost_without_rebalance
+   static node_ptr unlink_leftmost_without_rebalance(const node_ptr & header);
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::unique(const const_node_ptr&)
+   static bool unique(const const_node_ptr & node);
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::size(const const_node_ptr&)
+   static std::size_t size(const const_node_ptr & header);
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::next_node(const node_ptr&)
+   static node_ptr next_node(const node_ptr & node);
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::prev_node(const node_ptr&)
+   static node_ptr prev_node(const node_ptr & node);
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::init(const node_ptr&)
+   static void init(const node_ptr & node);
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::init_header(const node_ptr&)
+   static void init_header(const node_ptr & header);
+   
+   #endif   //#ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::erase(const node_ptr&,const node_ptr&)
+   //! Additional notes: the previous node of z is splayed to speed up range deletions.
+   static void erase(const node_ptr & header, const node_ptr & z)
    {
-      if(node1 == node2)
-         return;
-
-      node_ptr header1(tree_algorithms::get_header(node1)), header2(tree_algorithms::get_header(node2));
-      swap_nodes(node1, header1, node2, header2);
+      //posibility 1
+      if(NodeTraits::get_left(z)){
+         splay_up(bstree_algo::prev_node(z), header);
+      }
+      /*
+      //possibility 2
+      if(NodeTraits::get_left(z)){
+         node_ptr l = NodeTraits::get_left(z);
+         splay_up(l, header);
+      }*/
+      /*
+      if(NodeTraits::get_left(z)){
+         node_ptr l = bstree_algo::prev_node(z);
+         splay_up_impl(l, z);
+      }*/
+      /*
+      //possibility 4
+      splay_up(z, header);
+      */
+      bstree_algo::erase(header, z);
    }
 
-   //! <b>Requires</b>: node1 and node2 can't be header nodes
-   //!  of two trees with header header1 and header2.
-   //!
-   //! <b>Effects</b>: Swaps two nodes. After the function node1 will be inserted
-   //!   in the position node2 before the function. node2 will be inserted in the
-   //!   position node1 had before the function.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: This function will break container ordering invariants if
-   //!   node1 and node2 are not equivalent according to the ordering rules.
-   //!
-   //!Experimental function
-   static void swap_nodes(const node_ptr & node1, const node_ptr & header1, const node_ptr & node2, const node_ptr & header2)
-   {  tree_algorithms::swap_nodes(node1, header1, node2, header2);   }
+   #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
+   //! @copydoc ::boost::intrusive::bstree_algorithms::clone(const const_node_ptr&,const node_ptr&,Cloner,Disposer)
+   template <class Cloner, class Disposer>
+   static void clone
+      (const const_node_ptr & source_header, const node_ptr & target_header, Cloner cloner, Disposer disposer);
 
-   //! <b>Requires</b>: node_to_be_replaced must be inserted in a tree
-   //!   and new_node must not be inserted in a tree.
-   //!
-   //! <b>Effects</b>: Replaces node_to_be_replaced in its position in the
-   //!   tree with new_node. The tree does not need to be rebalanced
-   //!
-   //! <b>Complexity</b>: Logarithmic.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: This function will break container ordering invariants if
-   //!   new_node is not equivalent to node_to_be_replaced according to the
-   //!   ordering rules. This function is faster than erasing and inserting
-   //!   the node, since no rebalancing and comparison is needed.
-   //!
-   //!Experimental function
-   static void replace_node(const node_ptr & node_to_be_replaced, const node_ptr & new_node)
-   {
-      if(node_to_be_replaced == new_node)
-         return;
-      replace_node(node_to_be_replaced, tree_algorithms::get_header(node_to_be_replaced), new_node);
-   }
-
-   //! <b>Requires</b>: node_to_be_replaced must be inserted in a tree
-   //!   with header "header" and new_node must not be inserted in a tree.
-   //!
-   //! <b>Effects</b>: Replaces node_to_be_replaced in its position in the
-   //!   tree with new_node. The tree does not need to be rebalanced
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: This function will break container ordering invariants if
-   //!   new_node is not equivalent to node_to_be_replaced according to the
-   //!   ordering rules. This function is faster than erasing and inserting
-   //!   the node, since no rebalancing or comparison is needed.
-   //!
-   //!Experimental function
-   static void replace_node(const node_ptr & node_to_be_replaced, const node_ptr & header, const node_ptr & new_node)
-   {  tree_algorithms::replace_node(node_to_be_replaced, header, new_node);   }
-
-   //! <b>Requires</b>: p is a node from the tree except the header.
-   //!
-   //! <b>Effects</b>: Returns the next node of the tree.
-   //!
-   //! <b>Complexity</b>: Average constant time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   static node_ptr next_node(const node_ptr & p)
-   {  return tree_algorithms::next_node(p); }
-
-   //! <b>Requires</b>: p is a node from the tree except the leftmost node.
-   //!
-   //! <b>Effects</b>: Returns the previous node of the tree.
-   //!
-   //! <b>Complexity</b>: Average constant time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   static node_ptr prev_node(const node_ptr & p)
-   {  return tree_algorithms::prev_node(p); }
-
-   //! <b>Requires</b>: node must not be part of any tree.
-   //!
-   //! <b>Effects</b>: After the function unique(node) == true.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Nodes</b>: If node is inserted in a tree, this function corrupts the tree.
-   static void init(const node_ptr & node)
-   {  tree_algorithms::init(node);  }
-
-   //! <b>Requires</b>: node must not be part of any tree.
-   //!
-   //! <b>Effects</b>: Initializes the header to represent an empty tree.
-   //!   unique(header) == true.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Nodes</b>: If node is inserted in a tree, this function corrupts the tree.
-   static void init_header(const node_ptr & header)
-   {  tree_algorithms::init_header(header);  }
-
-   //! <b>Requires</b>: "disposer" must be an object function
-   //!   taking a node_ptr parameter and shouldn't throw.
-   //!
-   //! <b>Effects</b>: Empties the target tree calling
-   //!   <tt>void disposer::operator()(const node_ptr &)</tt> for every node of the tree
-   //!    except the header.
-   //!
-   //! <b>Complexity</b>: Linear to the number of element of the source tree plus the.
-   //!   number of elements of tree target tree when calling this function.
-   //!
-   //! <b>Throws</b>: If cloner functor throws. If this happens target nodes are disposed.
+   //! @copydoc ::boost::intrusive::bstree_algorithms::clear_and_dispose(const node_ptr&,Disposer)
    template<class Disposer>
-   static void clear_and_dispose(const node_ptr & header, Disposer disposer)
-   {  tree_algorithms::clear_and_dispose(header, disposer); }
+   static void clear_and_dispose(const node_ptr & header, Disposer disposer);
 
-   //! <b>Requires</b>: node is a node of the tree but it's not the header.
-   //!
-   //! <b>Effects</b>: Returns the number of nodes of the subtree.
-   //!
-   //! <b>Complexity</b>: Linear time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   static std::size_t count(const const_node_ptr & node)
-   {  return tree_algorithms::count(node);   }
+   #endif   //#ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
+   //! @copydoc ::boost::intrusive::bstree_algorithms::count(const const_node_ptr&,const KeyType&,KeyNodePtrCompare)
+   //! Additional notes: an element with key `key` is splayed.
+   template<class KeyType, class KeyNodePtrCompare>
+   static std::size_t count
+      (const node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {
+      std::pair<node_ptr, node_ptr> ret = equal_range(header, key, comp);
+      std::size_t n = 0;
+      while(ret.first != ret.second){
+         ++n;
+         ret.first = next_node(ret.first);
+      }
+      return n;
+   }
 
-   //! <b>Requires</b>: header is the header node of the tree.
-   //!
-   //! <b>Effects</b>: Returns the number of nodes above the header.
-   //!
-   //! <b>Complexity</b>: Linear time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   static std::size_t size(const const_node_ptr & header)
-   {  return tree_algorithms::size(header);   }
+   //! @copydoc ::boost::intrusive::bstree_algorithms::count(const const_node_ptr&,const KeyType&,KeyNodePtrCompare)
+   //! Additional note: no splaying is performed
+   template<class KeyType, class KeyNodePtrCompare>
+   static std::size_t count
+      (const const_node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {  return bstree_algo::count(header, key, comp);  }
 
-   //! <b>Requires</b>: header1 and header2 must be the header nodes
-   //!  of two trees.
-   //!
-   //! <b>Effects</b>: Swaps two trees. After the function header1 will contain
-   //!   links to the second tree and header2 will have links to the first tree.
-   //!
-   //! <b>Complexity</b>: Constant.
-   //!
-   //! <b>Throws</b>: Nothing.
-   static void swap_tree(const node_ptr & header1, const node_ptr & header2)
-   {  return tree_algorithms::swap_tree(header1, header2);  }
+   //! @copydoc ::boost::intrusive::bstree_algorithms::lower_bound(const const_node_ptr&,const KeyType&,KeyNodePtrCompare)
+   //! Additional notes: the first node of the range is splayed.
+   template<class KeyType, class KeyNodePtrCompare>
+   static node_ptr lower_bound
+      (const node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {
+      splay_down(detail::uncast(header), key, comp);
+      node_ptr y = bstree_algo::lower_bound(header, key, comp);
+      //splay_up(y, detail::uncast(header));
+      return y;
+   }
 
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   "commit_data" must have been obtained from a previous call to
-   //!   "insert_unique_check". No objects should have been inserted or erased
-   //!   from the set between the "insert_unique_check" that filled "commit_data"
-   //!   and the call to "insert_commit".
-   //!
-   //!
-   //! <b>Effects</b>: Inserts new_node in the set using the information obtained
-   //!   from the "commit_data" that a previous "insert_check" filled.
-   //!
-   //! <b>Complexity</b>: Constant time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Notes</b>: This function has only sense if a "insert_unique_check" has been
-   //!   previously executed to fill "commit_data". No value should be inserted or
-   //!   erased between the "insert_check" and "insert_commit" calls.
-   static void insert_unique_commit
-      (const node_ptr & header, const node_ptr & new_value, const insert_commit_data &commit_data)
-   {  tree_algorithms::insert_unique_commit(header, new_value, commit_data);  }
+   //! @copydoc ::boost::intrusive::bstree_algorithms::lower_bound(const const_node_ptr&,const KeyType&,KeyNodePtrCompare)
+   //! Additional note: no splaying is performed
+   template<class KeyType, class KeyNodePtrCompare>
+   static node_ptr lower_bound
+      (const const_node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {  return bstree_algo::lower_bound(header, key, comp);  }
 
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   KeyNodePtrCompare is a function object that induces a strict weak
-   //!   ordering compatible with the strict weak ordering used to create the
-   //!   the tree. NodePtrCompare compares KeyType with a node_ptr.
-   //!
-   //! <b>Effects</b>: Checks if there is an equivalent node to "key" in the
-   //!   tree according to "comp" and obtains the needed information to realize
-   //!   a constant-time node insertion if there is no equivalent node.
-   //!
-   //! <b>Returns</b>: If there is an equivalent value
-   //!   returns a pair containing a node_ptr to the already present node
-   //!   and false. If there is not equivalent key can be inserted returns true
-   //!   in the returned pair's boolean and fills "commit_data" that is meant to
-   //!   be used with the "insert_commit" function to achieve a constant-time
-   //!   insertion function.
-   //!
-   //! <b>Complexity</b>: Average complexity is at most logarithmic.
-   //!
-   //! <b>Throws</b>: If "comp" throws.
-   //!
-   //! <b>Notes</b>: This function is used to improve performance when constructing
-   //!   a node is expensive and the user does not want to have two equivalent nodes
-   //!   in the tree: if there is an equivalent value
-   //!   the constructed object must be discarded. Many times, the part of the
-   //!   node that is used to impose the order is much cheaper to construct
-   //!   than the node and this function offers the possibility to use that part
-   //!   to check if the insertion will be successful.
-   //!
-   //!   If the check is successful, the user can construct the node and use
-   //!   "insert_commit" to insert the node in constant-time. This gives a total
-   //!   logarithmic complexity to the insertion: check(O(log(N)) + commit(O(1)).
-   //!
-   //!   "commit_data" remains valid for a subsequent "insert_unique_commit" only
-   //!   if no more objects are inserted or erased from the set.
+   //! @copydoc ::boost::intrusive::bstree_algorithms::upper_bound(const const_node_ptr&,const KeyType&,KeyNodePtrCompare)
+   //! Additional notes: the first node of the range is splayed.
+   template<class KeyType, class KeyNodePtrCompare>
+   static node_ptr upper_bound
+      (const node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {
+      splay_down(detail::uncast(header), key, comp);
+      node_ptr y = bstree_algo::upper_bound(header, key, comp);
+      //splay_up(y, detail::uncast(header));
+      return y;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::upper_bound(const const_node_ptr&,const KeyType&,KeyNodePtrCompare)
+   //! Additional note: no splaying is performed
+   template<class KeyType, class KeyNodePtrCompare>
+   static node_ptr upper_bound
+      (const const_node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {  return bstree_algo::upper_bound(header, key, comp);  }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::find(const const_node_ptr&, const KeyType&,KeyNodePtrCompare)
+   //! Additional notes: the found node of the lower bound is splayed.
+   template<class KeyType, class KeyNodePtrCompare>
+   static node_ptr find
+      (const node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {
+      splay_down(detail::uncast(header), key, comp);
+      return bstree_algo::find(header, key, comp);
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::find(const const_node_ptr&, const KeyType&,KeyNodePtrCompare)
+   //! Additional note: no splaying is performed
+   template<class KeyType, class KeyNodePtrCompare>
+   static node_ptr find
+      (const const_node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {  return bstree_algo::find(header, key, comp);  }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::equal_range(const const_node_ptr&,const KeyType&,KeyNodePtrCompare)
+   //! Additional notes: the first node of the range is splayed.
+   template<class KeyType, class KeyNodePtrCompare>
+   static std::pair<node_ptr, node_ptr> equal_range
+      (const node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {
+      splay_down(detail::uncast(header), key, comp);
+      std::pair<node_ptr, node_ptr> ret = bstree_algo::equal_range(header, key, comp);
+      //splay_up(ret.first, detail::uncast(header));
+      return ret;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::equal_range(const const_node_ptr&,const KeyType&,KeyNodePtrCompare)
+   //! Additional note: no splaying is performed
+   template<class KeyType, class KeyNodePtrCompare>
+   static std::pair<node_ptr, node_ptr> equal_range
+      (const const_node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {  return bstree_algo::equal_range(header, key, comp);  }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::lower_bound_range(const const_node_ptr&,const KeyType&,KeyNodePtrCompare)
+   //! Additional notes: the first node of the range is splayed.
+   template<class KeyType, class KeyNodePtrCompare>
+   static std::pair<node_ptr, node_ptr> lower_bound_range
+      (const node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {
+      splay_down(detail::uncast(header), key, comp);
+      std::pair<node_ptr, node_ptr> ret = bstree_algo::lower_bound_range(header, key, comp);
+      //splay_up(ret.first, detail::uncast(header));
+      return ret;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::lower_bound_range(const const_node_ptr&,const KeyType&,KeyNodePtrCompare)
+   //! Additional note: no splaying is performed
+   template<class KeyType, class KeyNodePtrCompare>
+   static std::pair<node_ptr, node_ptr> lower_bound_range
+      (const const_node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   {  return bstree_algo::lower_bound_range(header, key, comp);  }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::bounded_range(const const_node_ptr&,const KeyType&,const KeyType&,KeyNodePtrCompare,bool,bool)
+   //! Additional notes: the first node of the range is splayed.
+   template<class KeyType, class KeyNodePtrCompare>
+   static std::pair<node_ptr, node_ptr> bounded_range
+      (const node_ptr & header, const KeyType &lower_key, const KeyType &upper_key, KeyNodePtrCompare comp
+      , bool left_closed, bool right_closed)
+   {
+      splay_down(detail::uncast(header), lower_key, comp);
+      std::pair<node_ptr, node_ptr> ret =
+         bstree_algo::bounded_range(header, lower_key, upper_key, comp, left_closed, right_closed);
+      //splay_up(ret.first, detail::uncast(header));
+      return ret;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::bounded_range(const const_node_ptr&,const KeyType&,const KeyType&,KeyNodePtrCompare,bool,bool)
+   //! Additional note: no splaying is performed
+   template<class KeyType, class KeyNodePtrCompare>
+   static std::pair<node_ptr, node_ptr> bounded_range
+      (const const_node_ptr & header, const KeyType &lower_key, const KeyType &upper_key, KeyNodePtrCompare comp
+      , bool left_closed, bool right_closed)
+   {  return bstree_algo::bounded_range(header, lower_key, upper_key, comp, left_closed, right_closed);  }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::insert_equal_upper_bound(const node_ptr&,const node_ptr&,NodePtrCompare)
+   //! Additional note: the inserted node is splayed
+   template<class NodePtrCompare>
+   static node_ptr insert_equal_upper_bound
+      (const node_ptr & header, const node_ptr & new_node, NodePtrCompare comp)
+   {
+      splay_down(header, new_node, comp);
+      return bstree_algo::insert_equal_upper_bound(header, new_node, comp);
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::insert_equal_lower_bound(const node_ptr&,const node_ptr&,NodePtrCompare)
+   //! Additional note: the inserted node is splayed
+   template<class NodePtrCompare>
+   static node_ptr insert_equal_lower_bound
+      (const node_ptr & header, const node_ptr & new_node, NodePtrCompare comp)
+   {
+      splay_down(header, new_node, comp);
+      return bstree_algo::insert_equal_lower_bound(header, new_node, comp);
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::insert_equal(const node_ptr&,const node_ptr&,const node_ptr&,NodePtrCompare)
+   //! Additional note: the inserted node is splayed
+   template<class NodePtrCompare>
+   static node_ptr insert_equal
+      (const node_ptr & header, const node_ptr & hint, const node_ptr & new_node, NodePtrCompare comp)
+   {
+      splay_down(header, new_node, comp);
+      return bstree_algo::insert_equal(header, hint, new_node, comp);
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::insert_before(const node_ptr&,const node_ptr&,const node_ptr&)
+   //! Additional note: the inserted node is splayed
+   static node_ptr insert_before
+      (const node_ptr & header, const node_ptr & pos, const node_ptr & new_node)
+   {
+      bstree_algo::insert_before(header, pos, new_node);
+      splay_up(new_node, header);
+      return new_node;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::push_back(const node_ptr&,const node_ptr&)
+   //! Additional note: the inserted node is splayed
+   static void push_back(const node_ptr & header, const node_ptr & new_node)
+   {
+      bstree_algo::push_back(header, new_node);
+      splay_up(new_node, header);
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::push_front(const node_ptr&,const node_ptr&)
+   //! Additional note: the inserted node is splayed
+   static void push_front(const node_ptr & header, const node_ptr & new_node)
+   {
+      bstree_algo::push_front(header, new_node);
+      splay_up(new_node, header);
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::insert_unique_check(const const_node_ptr&,const KeyType&,KeyNodePtrCompare,insert_commit_data&)
+   //! Additional note: nodes with the given key are splayed
    template<class KeyType, class KeyNodePtrCompare>
    static std::pair<node_ptr, bool> insert_unique_check
       (const node_ptr & header, const KeyType &key
       ,KeyNodePtrCompare comp, insert_commit_data &commit_data)
    {
       splay_down(header, key, comp);
-      return tree_algorithms::insert_unique_check(header, key, comp, commit_data);
+      return bstree_algo::insert_unique_check(header, key, comp, commit_data);
    }
 
+   //! @copydoc ::boost::intrusive::bstree_algorithms::insert_unique_check(const const_node_ptr&,const node_ptr&,const KeyType&,KeyNodePtrCompare,insert_commit_data&)
+   //! Additional note: nodes with the given key are splayed
    template<class KeyType, class KeyNodePtrCompare>
    static std::pair<node_ptr, bool> insert_unique_check
       (const node_ptr & header, const node_ptr &hint, const KeyType &key
       ,KeyNodePtrCompare comp, insert_commit_data &commit_data)
    {
       splay_down(header, key, comp);
-      return tree_algorithms::insert_unique_check(header, hint, key, comp, commit_data);
+      return bstree_algo::insert_unique_check(header, hint, key, comp, commit_data);
    }
 
-   static bool is_header(const const_node_ptr & p)
-   {  return tree_algorithms::is_header(p);  }
+   #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
+   //! @copydoc ::boost::intrusive::bstree_algorithms::insert_unique_commit(const node_ptr&,const node_ptr&,const insert_commit_data&)
+   static void insert_unique_commit
+      (const node_ptr & header, const node_ptr & new_value, const insert_commit_data &commit_data);
 
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   KeyNodePtrCompare is a function object that induces a strict weak
-   //!   ordering compatible with the strict weak ordering used to create the
-   //!   the tree. KeyNodePtrCompare can compare KeyType with tree's node_ptrs.
-   //!
-   //! <b>Effects</b>: Returns an node_ptr to the element that is equivalent to
-   //!   "key" according to "comp" or "header" if that element does not exist.
-   //!
-   //! <b>Complexity</b>: Logarithmic.
-   //!
-   //! <b>Throws</b>: If "comp" throws.
-   template<class KeyType, class KeyNodePtrCompare>
-   static node_ptr find
-      (const const_node_ptr & header, const KeyType &key, KeyNodePtrCompare comp, bool splay = true)
-   {
-      if(splay)
-         splay_down(uncast(header), key, comp);
-      node_ptr end = uncast(header);
-      node_ptr y = lower_bound(header, key, comp, false);
-      node_ptr r = (y == end || comp(key, y)) ? end : y;
-      return r;
-   }
+   //! @copydoc ::boost::intrusive::bstree_algorithms::is_header
+   static bool is_header(const const_node_ptr & p);
 
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   KeyNodePtrCompare is a function object that induces a strict weak
-   //!   ordering compatible with the strict weak ordering used to create the
-   //!   the tree. KeyNodePtrCompare can compare KeyType with tree's node_ptrs.
-   //!
-   //! <b>Effects</b>: Returns an a pair of node_ptr delimiting a range containing
-   //!   all elements that are equivalent to "key" according to "comp" or an
-   //!   empty range that indicates the position where those elements would be
-   //!   if they there are no equivalent elements.
-   //!
-   //! <b>Complexity</b>: Logarithmic.
-   //!
-   //! <b>Throws</b>: If "comp" throws.
-   template<class KeyType, class KeyNodePtrCompare>
-   static std::pair<node_ptr, node_ptr> equal_range
-      (const const_node_ptr & header, const KeyType &key, KeyNodePtrCompare comp, bool splay = true)
-   {
-      //if(splay)
-         //splay_down(uncast(header), key, comp);
-      std::pair<node_ptr, node_ptr> ret =
-         tree_algorithms::equal_range(header, key, comp);
+   //! @copydoc ::boost::intrusive::bstree_algorithms::rebalance
+   static void rebalance(const node_ptr & header);
 
-      if(splay)
-         splay_up(ret.first, uncast(header));
-      return ret;
-   }
+   //! @copydoc ::boost::intrusive::bstree_algorithms::rebalance_subtree
+   static node_ptr rebalance_subtree(const node_ptr & old_root);
 
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   KeyNodePtrCompare is a function object that induces a strict weak
-   //!   ordering compatible with the strict weak ordering used to create the
-   //!   the tree. KeyNodePtrCompare can compare KeyType with tree's node_ptrs.
-   //!   'lower_key' must not be greater than 'upper_key' according to 'comp'. If
-   //!   'lower_key' == 'upper_key', ('left_closed' || 'right_closed') must be false.
-   //!
-   //! <b>Effects</b>: Returns an a pair with the following criteria:
-   //!
-   //!   first = lower_bound(lower_key) if left_closed, upper_bound(lower_key) otherwise
-   //!
-   //!   second = upper_bound(upper_key) if right_closed, lower_bound(upper_key) otherwise
-   //!
-   //! <b>Complexity</b>: Logarithmic.
-   //!
-   //! <b>Throws</b>: If "comp" throws.
-   //!
-   //! <b>Note</b>: This function can be more efficient than calling upper_bound
-   //!   and lower_bound for lower_key and upper_key.
-   template<class KeyType, class KeyNodePtrCompare>
-   static std::pair<node_ptr, node_ptr> bounded_range
-      (const const_node_ptr & header, const KeyType &lower_key, const KeyType &upper_key, KeyNodePtrCompare comp
-      , bool left_closed, bool right_closed, bool splay = true)
-   {
-      std::pair<node_ptr, node_ptr> ret =
-         tree_algorithms::bounded_range(header, lower_key, upper_key, comp, left_closed, right_closed);
-
-      if(splay)
-         splay_up(ret.first, uncast(header));
-      return ret;
-   }
-
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   KeyNodePtrCompare is a function object that induces a strict weak
-   //!   ordering compatible with the strict weak ordering used to create the
-   //!   the tree. KeyNodePtrCompare can compare KeyType with tree's node_ptrs.
-   //!
-   //! <b>Effects</b>: Returns an node_ptr to the first element that is
-   //!   not less than "key" according to "comp" or "header" if that element does
-   //!   not exist.
-   //!
-   //! <b>Complexity</b>: Logarithmic.
-   //!
-   //! <b>Throws</b>: If "comp" throws.
-   template<class KeyType, class KeyNodePtrCompare>
-   static node_ptr lower_bound
-      (const const_node_ptr & header, const KeyType &key, KeyNodePtrCompare comp, bool splay = true)
-   {
-      //if(splay)
-         //splay_down(uncast(header), key, comp);
-      node_ptr y = tree_algorithms::lower_bound(header, key, comp);
-      if(splay)
-         splay_up(y, uncast(header));
-      return y;
-   }
-
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   KeyNodePtrCompare is a function object that induces a strict weak
-   //!   ordering compatible with the strict weak ordering used to create the
-   //!   the tree. KeyNodePtrCompare can compare KeyType with tree's node_ptrs.
-   //!
-   //! <b>Effects</b>: Returns an node_ptr to the first element that is greater
-   //!   than "key" according to "comp" or "header" if that element does not exist.
-   //!
-   //! <b>Complexity</b>: Logarithmic.
-   //!
-   //! <b>Throws</b>: If "comp" throws.
-   template<class KeyType, class KeyNodePtrCompare>
-   static node_ptr upper_bound
-      (const const_node_ptr & header, const KeyType &key, KeyNodePtrCompare comp, bool splay = true)
-   {
-      //if(splay)
-         //splay_down(uncast(header), key, comp);
-      node_ptr y = tree_algorithms::upper_bound(header, key, comp);
-      if(splay)
-         splay_up(y, uncast(header));
-      return y;
-   }
-
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   NodePtrCompare is a function object that induces a strict weak
-   //!   ordering compatible with the strict weak ordering used to create the
-   //!   the tree. NodePtrCompare compares two node_ptrs. "hint" is node from
-   //!   the "header"'s tree.
-   //!
-   //! <b>Effects</b>: Inserts new_node into the tree, using "hint" as a hint to
-   //!   where it will be inserted. If "hint" is the upper_bound
-   //!   the insertion takes constant time (two comparisons in the worst case).
-   //!
-   //! <b>Complexity</b>: Logarithmic in general, but it is amortized
-   //!   constant time if new_node is inserted immediately before "hint".
-   //!
-   //! <b>Throws</b>: If "comp" throws.
-   template<class NodePtrCompare>
-   static node_ptr insert_equal
-      (const node_ptr & header, const node_ptr & hint, const node_ptr & new_node, NodePtrCompare comp)
-   {
-      splay_down(header, new_node, comp);
-      return tree_algorithms::insert_equal(header, hint, new_node, comp);
-   }
-
-
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   "pos" must be a valid iterator or header (end) node.
-   //!   "pos" must be an iterator pointing to the successor to "new_node"
-   //!   once inserted according to the order of already inserted nodes. This function does not
-   //!   check "pos" and this precondition must be guaranteed by the caller.
-   //!
-   //! <b>Effects</b>: Inserts new_node into the tree before "pos".
-   //!
-   //! <b>Complexity</b>: Constant-time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: If "pos" is not the successor of the newly inserted "new_node"
-   //! tree invariants might be broken.
-   static node_ptr insert_before
-      (const node_ptr & header, const node_ptr & pos, const node_ptr & new_node)
-   {
-      tree_algorithms::insert_before(header, pos, new_node);
-      splay_up(new_node, header);
-      return new_node;
-   }
-
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   "new_node" must be, according to the used ordering no less than the
-   //!   greatest inserted key.
-   //!
-   //! <b>Effects</b>: Inserts new_node into the tree before "pos".
-   //!
-   //! <b>Complexity</b>: Constant-time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: If "new_node" is less than the greatest inserted key
-   //! tree invariants are broken. This function is slightly faster than
-   //! using "insert_before".
-   static void push_back(const node_ptr & header, const node_ptr & new_node)
-   {
-      tree_algorithms::push_back(header, new_node);
-      splay_up(new_node, header);
-   }
-
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   "new_node" must be, according to the used ordering, no greater than the
-   //!   lowest inserted key.
-   //!
-   //! <b>Effects</b>: Inserts new_node into the tree before "pos".
-   //!
-   //! <b>Complexity</b>: Constant-time.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Note</b>: If "new_node" is greater than the lowest inserted key
-   //! tree invariants are broken. This function is slightly faster than
-   //! using "insert_before".
-   static void push_front(const node_ptr & header, const node_ptr & new_node)
-   {
-      tree_algorithms::push_front(header, new_node);
-      splay_up(new_node, header);
-   }
-
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   NodePtrCompare is a function object that induces a strict weak
-   //!   ordering compatible with the strict weak ordering used to create the
-   //!   the tree. NodePtrCompare compares two node_ptrs.
-   //!
-   //! <b>Effects</b>: Inserts new_node into the tree before the upper bound
-   //!   according to "comp".
-   //!
-   //! <b>Complexity</b>: Average complexity for insert element is at
-   //!   most logarithmic.
-   //!
-   //! <b>Throws</b>: If "comp" throws.
-   template<class NodePtrCompare>
-   static node_ptr insert_equal_upper_bound
-      (const node_ptr & header, const node_ptr & new_node, NodePtrCompare comp)
-   {
-      splay_down(header, new_node, comp);
-      return tree_algorithms::insert_equal_upper_bound(header, new_node, comp);
-   }
-
-   //! <b>Requires</b>: "header" must be the header node of a tree.
-   //!   NodePtrCompare is a function object that induces a strict weak
-   //!   ordering compatible with the strict weak ordering used to create the
-   //!   the tree. NodePtrCompare compares two node_ptrs.
-   //!
-   //! <b>Effects</b>: Inserts new_node into the tree before the lower bound
-   //!   according to "comp".
-   //!
-   //! <b>Complexity</b>: Average complexity for insert element is at
-   //!   most logarithmic.
-   //!
-   //! <b>Throws</b>: If "comp" throws.
-   template<class NodePtrCompare>
-   static node_ptr insert_equal_lower_bound
-      (const node_ptr & header, const node_ptr & new_node, NodePtrCompare comp)
-   {
-      splay_down(header, new_node, comp);
-      return tree_algorithms::insert_equal_lower_bound(header, new_node, comp);
-   }
-
-   //! <b>Requires</b>: "cloner" must be a function
-   //!   object taking a node_ptr and returning a new cloned node of it. "disposer" must
-   //!   take a node_ptr and shouldn't throw.
-   //!
-   //! <b>Effects</b>: First empties target tree calling
-   //!   <tt>void disposer::operator()(const node_ptr &)</tt> for every node of the tree
-   //!    except the header.
-   //!
-   //!   Then, duplicates the entire tree pointed by "source_header" cloning each
-   //!   source node with <tt>node_ptr Cloner::operator()(const node_ptr &)</tt> to obtain
-   //!   the nodes of the target tree. If "cloner" throws, the cloned target nodes
-   //!   are disposed using <tt>void disposer(const node_ptr &)</tt>.
-   //!
-   //! <b>Complexity</b>: Linear to the number of element of the source tree plus the.
-   //!   number of elements of tree target tree when calling this function.
-   //!
-   //! <b>Throws</b>: If cloner functor throws. If this happens target nodes are disposed.
-   template <class Cloner, class Disposer>
-   static void clone
-      (const const_node_ptr & source_header, const node_ptr & target_header, Cloner cloner, Disposer disposer)
-   {  tree_algorithms::clone(source_header, target_header, cloner, disposer);   }
-
-   // delete node                        | complexity : constant        | exception : nothrow
-   static void erase(const node_ptr & header, const node_ptr & z, bool splay = true)
-   {
-//      node_base* n = t->right;
-//      if( t->left != node_ptr() ){
-//         node_base* l = t->previous();
-//         splay_up( l , t );
-//         n = t->left;
-//         n->right = t->right;
-//         if( n->right != node_ptr() )
-//            n->right->parent = n;
-//      }
-//
-//      if( n != node_ptr() )
-//         n->parent = t->parent;
-//
-//      if( t->parent->left == t )
-//         t->parent->left = n;
-//      else // must be ( t->parent->right == t )
-//         t->parent->right = n;
-//
-//      if( data_->parent == t )
-//         data_->parent = find_leftmost();
-         //posibility 1
-      if(splay && NodeTraits::get_left(z)){
-         splay_up(prev_node(z), header);
-      }
-      /*
-      //possibility 2
-      if(splay && NodeTraits::get_left(z) != node_ptr() ){
-         node_ptr l = NodeTraits::get_left(z);
-         splay_up(l, header);
-      }*//*
-      if(splay && NodeTraits::get_left(z) != node_ptr() ){
-         node_ptr l = prev_node(z);
-         splay_up_impl(l, z);
-      }*/
-      /*
-      //possibility 4
-      if(splay){
-         splay_up(z, header);
-      }*/
-
-      //if(splay)
-         //splay_up(z, header);
-      tree_algorithms::erase(header, z);
-   }
+   #endif   //#ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
    // bottom-up splay, use data_ as parent for n    | complexity : logarithmic    | exception : nothrow
    static void splay_up(const node_ptr & node, const node_ptr & header)
+   {  priv_splay_up<true>(node, header); }
+
+   // top-down splay | complexity : logarithmic    | exception : strong, note A
+   template<class KeyType, class KeyNodePtrCompare>
+   static node_ptr splay_down(const node_ptr & header, const KeyType &key, KeyNodePtrCompare comp, bool *pfound = 0)
+   {  return priv_splay_down<true>(header, key, comp, pfound);   }
+
+   private:
+
+   /// @cond
+
+   // bottom-up splay, use data_ as parent for n    | complexity : logarithmic    | exception : nothrow
+   template<bool SimpleSplay>
+   static void priv_splay_up(const node_ptr & node, const node_ptr & header)
    {
       // If (node == header) do a splay for the right most node instead
       // this is to boost performance of equal_range/count on equivalent containers in the case
@@ -772,20 +529,19 @@ class splaytree_algorithms
             rotate(p);
             rotate(n);
          }
-         else{
+         else {
             // zig-zag
             rotate(n);
-            rotate(n);
+            if(!SimpleSplay){
+               rotate(n);
+            }
          }
       }
    }
 
-   // top-down splay | complexity : logarithmic    | exception : strong, note A
-   template<class KeyType, class KeyNodePtrCompare>
-   static node_ptr splay_down(const node_ptr & header, const KeyType &key, KeyNodePtrCompare comp)
+   template<bool SimpleSplay, class KeyType, class KeyNodePtrCompare>
+   static node_ptr priv_splay_down(const node_ptr & header, const KeyType &key, KeyNodePtrCompare comp, bool *pfound = 0)
    {
-      if(!NodeTraits::get_parent(header))
-         return header;
       //Most splay tree implementations use a dummy/null node to implement.
       //this function. This has some problems for a generic library like Intrusive:
       //
@@ -796,151 +552,87 @@ class splaytree_algorithms
       //are not changed when splaying (because the invariants of the tree don't
       //change) We can back up them, use the header as the null node and
       //reassign old values after the function has been completed.
-      node_ptr t = NodeTraits::get_parent(header);
-      //Check if tree has a single node
-      if(!NodeTraits::get_left(t) && !NodeTraits::get_right(t))
-         return t;
-      //Backup leftmost/rightmost
-      node_ptr leftmost (NodeTraits::get_left(header));
-      node_ptr rightmost(NodeTraits::get_right(header));
-      {
-         //Anti-exception rollback, recovers the original header node if an exception is thrown.
-         detail::splaydown_rollback<NodeTraits> rollback(&t, header, leftmost, rightmost);
-         node_ptr null_node = header;
-         node_ptr l = null_node;
-         node_ptr r = null_node;
+      node_ptr const old_root  = NodeTraits::get_parent(header);
+      node_ptr const leftmost  = NodeTraits::get_left(header);
+      node_ptr const rightmost = NodeTraits::get_right(header);
+      if(leftmost == rightmost){ //Empty or unique node
+         if(pfound){
+            *pfound = old_root && !comp(key, old_root) && !comp(old_root, key);
+         }
+         return old_root ? old_root : header;
+      }
+      else{
+         //Initialize "null node" (the header in our case)
+         NodeTraits::set_left (header, node_ptr());
+         NodeTraits::set_right(header, node_ptr());
+         //Class that will backup leftmost/rightmost from header, commit the assemble(),
+         //and will restore leftmost/rightmost to header even if "comp" throws
+         detail::splaydown_assemble_and_fix_header<NodeTraits> commit(old_root, header, leftmost, rightmost);
+         bool found = false;
 
          for( ;; ){
-            if(comp(key, t)){
-               if(NodeTraits::get_left(t) == node_ptr() )
+            if(comp(key, commit.t_)){
+               node_ptr const t_left = NodeTraits::get_left(commit.t_);
+               if(!t_left)
                   break;
-               if(comp(key, NodeTraits::get_left(t))){
-                  t = tree_algorithms::rotate_right(t);
-
-                  if(NodeTraits::get_left(t) == node_ptr())
+               if(comp(key, t_left)){
+                  bstree_algo::rotate_right_no_parent_fix(commit.t_, t_left);
+                  commit.t_ = t_left;
+                  if( !NodeTraits::get_left(commit.t_) )
                      break;
-                  link_right(t, r);
-               }
-               else if(comp(NodeTraits::get_left(t), key)){
-                  link_right(t, r);
-
-                  if(NodeTraits::get_right(t) == node_ptr() )
-                     break;
-                  link_left(t, l);
+                  link_right(commit.t_, commit.r_);
                }
                else{
-                  link_right(t, r);
+                  link_right(commit.t_, commit.r_);
+                  if(!SimpleSplay && comp(t_left, key)){
+                     if( !NodeTraits::get_right(commit.t_) )
+                        break;
+                     link_left(commit.t_, commit.l_);
+                  }
                }
             }
-            else if(comp(t, key)){
-               if(NodeTraits::get_right(t) == node_ptr() )
+            else if(comp(commit.t_, key)){
+               node_ptr const t_right = NodeTraits::get_right(commit.t_);
+               if(!t_right)
                   break;
 
-               if(comp(NodeTraits::get_right(t), key)){
-                     t = tree_algorithms::rotate_left( t );
-
-                     if(NodeTraits::get_right(t) == node_ptr() )
+               if(comp(t_right, key)){
+                     bstree_algo::rotate_left_no_parent_fix(commit.t_, t_right);
+                     commit.t_ = t_right;
+                     if( !NodeTraits::get_right(commit.t_) )
                         break;
-                     link_left(t, l);
-               }
-               else if(comp(key, NodeTraits::get_right(t))){
-                  link_left(t, l);
-
-                  if(NodeTraits::get_left(t) == node_ptr())
-                     break;
-
-                  link_right(t, r);
+                     link_left(commit.t_, commit.l_);
                }
                else{
-                  link_left(t, l);
+                  link_left(commit.t_, commit.l_);
+                  if(!SimpleSplay && comp(key, t_right)){
+                     if( !NodeTraits::get_left(commit.t_) )
+                        break;
+                     link_right(commit.t_, commit.r_);
+                  }
                }
             }
             else{
+               found = true;
                break;
             }
          }
 
-         assemble(t, l, r, null_node);
-         rollback.release();
-      }
-
-      //Now recover the original header except for the
-      //splayed root node.
-      //t is the current root
-      NodeTraits::set_parent(header, t);
-      NodeTraits::set_parent(t, header);
-      //Recover leftmost/rightmost pointers
-      NodeTraits::set_left (header, leftmost);
-      NodeTraits::set_right(header, rightmost);
-      return t;
-   }
-
-   //! <b>Requires</b>: header must be the header of a tree.
-   //!
-   //! <b>Effects</b>: Rebalances the tree.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Complexity</b>: Linear.
-   static void rebalance(const node_ptr & header)
-   {  tree_algorithms::rebalance(header); }
-
-   //! <b>Requires</b>: old_root is a node of a tree.
-   //!
-   //! <b>Effects</b>: Rebalances the subtree rooted at old_root.
-   //!
-   //! <b>Returns</b>: The new root of the subtree.
-   //!
-   //! <b>Throws</b>: Nothing.
-   //!
-   //! <b>Complexity</b>: Linear.
-   static node_ptr rebalance_subtree(const node_ptr & old_root)
-   {  return tree_algorithms::rebalance_subtree(old_root); }
-
-
-   //! <b>Requires</b>: "n" must be a node inserted in a tree.
-   //!
-   //! <b>Effects</b>: Returns a pointer to the header node of the tree.
-   //!
-   //! <b>Complexity</b>: Logarithmic.
-   //!
-   //! <b>Throws</b>: Nothing.
-   static node_ptr get_header(const node_ptr & n)
-   {  return tree_algorithms::get_header(n);   }
-
-   private:
-
-   /// @cond
-
-   // assemble the three sub-trees into new tree pointed to by t    | complexity : constant        | exception : nothrow
-   static void assemble(const node_ptr &t, const node_ptr & l, const node_ptr & r, const const_node_ptr & null_node )
-   {
-      NodeTraits::set_right(l, NodeTraits::get_left(t));
-      NodeTraits::set_left(r, NodeTraits::get_right(t));
-
-      if(NodeTraits::get_right(l) != node_ptr()){
-         NodeTraits::set_parent(NodeTraits::get_right(l), l);
-      }
-
-      if(NodeTraits::get_left(r) != node_ptr()){
-         NodeTraits::set_parent(NodeTraits::get_left(r), r);
-      }
-
-      NodeTraits::set_left (t, NodeTraits::get_right(null_node));
-      NodeTraits::set_right(t, NodeTraits::get_left(null_node));
-
-      if( NodeTraits::get_left(t) != node_ptr() ){
-         NodeTraits::set_parent(NodeTraits::get_left(t), t);
-      }
-
-      if( NodeTraits::get_right(t) ){
-         NodeTraits::set_parent(NodeTraits::get_right(t), t);
+         //commit.~splaydown_assemble_and_fix_header<NodeTraits>() will first
+         //"assemble()" + link the new root & recover header's leftmost & rightmost
+         if(pfound){
+            *pfound = found;
+         }
+         return commit.t_;
       }
    }
 
    // break link to left child node and attach it to left tree pointed to by l   | complexity : constant | exception : nothrow
    static void link_left(node_ptr & t, node_ptr & l)
    {
+      //procedure link_left;
+      //    t, l, right(l) := right(t), t, t
+      //end link_left
       NodeTraits::set_right(l, t);
       NodeTraits::set_parent(t, l);
       l = t;
@@ -950,6 +642,9 @@ class splaytree_algorithms
    // break link to right child node and attach it to right tree pointed to by r | complexity : constant | exception : nothrow
    static void link_right(node_ptr & t, node_ptr & r)
    {
+      //procedure link_right;
+      //    t, r, left(r) := left(t), t, t
+      //end link_right;
       NodeTraits::set_left(r, t);
       NodeTraits::set_parent(t, r);
       r = t;
@@ -959,21 +654,24 @@ class splaytree_algorithms
    // rotate n with its parent                     | complexity : constant    | exception : nothrow
    static void rotate(const node_ptr & n)
    {
+      //procedure rotate_left;
+      //    t, right(t), left(right(t)) := right(t), left(right(t)), t
+      //end rotate_left;
       node_ptr p = NodeTraits::get_parent(n);
       node_ptr g = NodeTraits::get_parent(p);
       //Test if g is header before breaking tree
       //invariants that would make is_header invalid
-      bool g_is_header = is_header(g);
+      bool g_is_header = bstree_algo::is_header(g);
 
       if(NodeTraits::get_left(p) == n){
          NodeTraits::set_left(p, NodeTraits::get_right(n));
-         if(NodeTraits::get_left(p) != node_ptr())
+         if(NodeTraits::get_left(p))
             NodeTraits::set_parent(NodeTraits::get_left(p), p);
          NodeTraits::set_right(n, p);
       }
       else{ // must be ( p->right == n )
          NodeTraits::set_right(p, NodeTraits::get_left(n));
-         if(NodeTraits::get_right(p) != node_ptr())
+         if(NodeTraits::get_right(p))
             NodeTraits::set_parent(NodeTraits::get_right(p), p);
          NodeTraits::set_left(n, p);
       }
@@ -999,6 +697,16 @@ class splaytree_algorithms
 
    /// @endcond
 };
+
+/// @cond
+
+template<class NodeTraits>
+struct get_algo<SplayTreeAlgorithms, NodeTraits>
+{
+   typedef splaytree_algorithms<NodeTraits> type;
+};
+
+/// @endcond
 
 } //namespace intrusive
 } //namespace boost

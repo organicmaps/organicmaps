@@ -3,6 +3,12 @@
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
+
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -22,11 +28,13 @@
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/coordinate_dimension.hpp>
+#include <boost/geometry/core/geometry_id.hpp>
 #include <boost/geometry/core/reverse_dispatch.hpp>
+#include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
-#include <boost/geometry/algorithms/detail/disjoint.hpp>
+#include <boost/geometry/algorithms/detail/equals/point_point.hpp>
 #include <boost/geometry/algorithms/detail/not.hpp>
 #include <boost/geometry/algorithms/not_implemented.hpp>
 
@@ -38,10 +46,12 @@
 #include <boost/geometry/util/select_most_precise.hpp>
 
 #include <boost/geometry/algorithms/detail/equals/collect_vectors.hpp>
+#include <boost/geometry/algorithms/detail/relate/relate.hpp>
+
+#include <boost/geometry/views/detail/indexed_point_view.hpp>
 
 #include <boost/variant/static_visitor.hpp>
 #include <boost/variant/apply_visitor.hpp>
-
 
 namespace boost { namespace geometry
 {
@@ -77,6 +87,28 @@ struct box_box<DimensionCount, DimensionCount>
     static inline bool apply(Box1 const& , Box2 const& )
     {
         return true;
+    }
+};
+
+
+struct segment_segment
+{
+    template <typename Segment1, typename Segment2>
+    static inline bool apply(Segment1 const& segment1, Segment2 const& segment2)
+    {
+        return equals::equals_point_point(
+                    indexed_point_view<Segment1 const, 0>(segment1),
+                    indexed_point_view<Segment2 const, 0>(segment2) )
+                ? equals::equals_point_point(
+                    indexed_point_view<Segment1 const, 1>(segment1),
+                    indexed_point_view<Segment2 const, 1>(segment2) )
+                : ( equals::equals_point_point(
+                        indexed_point_view<Segment1 const, 0>(segment1),
+                        indexed_point_view<Segment2 const, 1>(segment2) )
+                 && equals::equals_point_point(
+                        indexed_point_view<Segment1 const, 1>(segment1),
+                        indexed_point_view<Segment2 const, 0>(segment2) )
+                  );
     }
 };
 
@@ -144,6 +176,15 @@ struct equals_by_collection
     }
 };
 
+template<typename Geometry1, typename Geometry2>
+struct equals_by_relate
+    : detail::relate::relate_base
+        <
+            detail::relate::static_mask_equals_type,
+            Geometry1,
+            Geometry2
+        >
+{};
 
 }} // namespace detail::equals
 #endif // DOXYGEN_NO_DETAIL
@@ -218,12 +259,6 @@ struct equals<Polygon1, Polygon2, polygon_tag, polygon_tag, 2, Reverse>
 {};
 
 
-template <typename LineString1, typename LineString2, bool Reverse>
-struct equals<LineString1, LineString2, linestring_tag, linestring_tag, 2, Reverse>
-    : detail::equals::equals_by_collection<detail::equals::length_check>
-{};
-
-
 template <typename Polygon, typename Ring, bool Reverse>
 struct equals<Polygon, Ring, polygon_tag, ring_tag, 2, Reverse>
     : detail::equals::equals_by_collection<detail::equals::area_check>
@@ -241,9 +276,60 @@ struct equals<Polygon, Box, polygon_tag, box_tag, 2, Reverse>
     : detail::equals::equals_by_collection<detail::equals::area_check>
 {};
 
+template <typename Segment1, typename Segment2, std::size_t DimensionCount, bool Reverse>
+struct equals<Segment1, Segment2, segment_tag, segment_tag, DimensionCount, Reverse>
+    : detail::equals::segment_segment
+{};
+
+template <typename LineString1, typename LineString2, bool Reverse>
+struct equals<LineString1, LineString2, linestring_tag, linestring_tag, 2, Reverse>
+    //: detail::equals::equals_by_collection<detail::equals::length_check>
+    : detail::equals::equals_by_relate<LineString1, LineString2>
+{};
+
+template <typename LineString, typename MultiLineString, bool Reverse>
+struct equals<LineString, MultiLineString, linestring_tag, multi_linestring_tag, 2, Reverse>
+    : detail::equals::equals_by_relate<LineString, MultiLineString>
+{};
+
+template <typename MultiLineString1, typename MultiLineString2, bool Reverse>
+struct equals<MultiLineString1, MultiLineString2, multi_linestring_tag, multi_linestring_tag, 2, Reverse>
+    : detail::equals::equals_by_relate<MultiLineString1, MultiLineString2>
+{};
+
+
+template <typename MultiPolygon1, typename MultiPolygon2, bool Reverse>
+struct equals
+    <
+        MultiPolygon1, MultiPolygon2,
+        multi_polygon_tag, multi_polygon_tag,
+        2,
+        Reverse
+    >
+    : detail::equals::equals_by_collection<detail::equals::area_check>
+{};
+
+
+template <typename Polygon, typename MultiPolygon, bool Reverse>
+struct equals
+    <
+        Polygon, MultiPolygon,
+        polygon_tag, multi_polygon_tag,
+        2,
+        Reverse
+    >
+    : detail::equals::equals_by_collection<detail::equals::area_check>
+{};
+
+
+} // namespace dispatch
+#endif // DOXYGEN_NO_DISPATCH
+
+
+namespace resolve_variant {
 
 template <typename Geometry1, typename Geometry2>
-struct devarianted_equals
+struct equals
 {
     static inline bool apply(Geometry1 const& geometry1,
                              Geometry2 const& geometry2)
@@ -253,12 +339,14 @@ struct devarianted_equals
             Geometry1 const,
             Geometry2 const
         >();
-        return equals<Geometry1, Geometry2>::apply(geometry1, geometry2);
+
+        return dispatch::equals<Geometry1, Geometry2>
+                       ::apply(geometry1, geometry2);
     }
 };
 
 template <BOOST_VARIANT_ENUM_PARAMS(typename T), typename Geometry2>
-struct devarianted_equals<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
+struct equals<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
 {
     struct visitor: static_visitor<bool>
     {
@@ -271,8 +359,8 @@ struct devarianted_equals<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry
         template <typename Geometry1>
         inline bool operator()(Geometry1 const& geometry1) const
         {
-            return devarianted_equals<Geometry1, Geometry2>
-                       ::apply(geometry1, m_geometry2);
+            return equals<Geometry1, Geometry2>
+                   ::apply(geometry1, m_geometry2);
         }
 
     };
@@ -287,7 +375,7 @@ struct devarianted_equals<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry
 };
 
 template <typename Geometry1, BOOST_VARIANT_ENUM_PARAMS(typename T)>
-struct devarianted_equals<Geometry1, boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
+struct equals<Geometry1, boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
 {
     struct visitor: static_visitor<bool>
     {
@@ -300,8 +388,8 @@ struct devarianted_equals<Geometry1, boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)
         template <typename Geometry2>
         inline bool operator()(Geometry2 const& geometry2) const
         {
-            return devarianted_equals<Geometry1, Geometry2>
-                       ::apply(m_geometry1, geometry2);
+            return equals<Geometry1, Geometry2>
+                   ::apply(m_geometry1, geometry2);
         }
 
     };
@@ -319,7 +407,7 @@ template <
     BOOST_VARIANT_ENUM_PARAMS(typename T1),
     BOOST_VARIANT_ENUM_PARAMS(typename T2)
 >
-struct devarianted_equals<
+struct equals<
     boost::variant<BOOST_VARIANT_ENUM_PARAMS(T1)>,
     boost::variant<BOOST_VARIANT_ENUM_PARAMS(T2)>
 >
@@ -330,8 +418,8 @@ struct devarianted_equals<
         inline bool operator()(Geometry1 const& geometry1,
                                Geometry2 const& geometry2) const
         {
-            return devarianted_equals<Geometry1, Geometry2>
-                ::apply(geometry1, geometry2);
+            return equals<Geometry1, Geometry2>
+                   ::apply(geometry1, geometry2);
         }
 
     };
@@ -345,16 +433,14 @@ struct devarianted_equals<
     }
 };
 
-
-} // namespace dispatch
-#endif // DOXYGEN_NO_DISPATCH
+} // namespace resolve_variant
 
 
 /*!
 \brief \brief_check{are spatially equal}
-\details \details_check12{equals, is spatially equal}. Spatially equal means 
+\details \details_check12{equals, is spatially equal}. Spatially equal means
     that the same point set is included. A box can therefore be spatially equal
-    to a ring or a polygon, or a linestring can be spatially equal to a 
+    to a ring or a polygon, or a linestring can be spatially equal to a
     multi-linestring or a segment. This only works theoretically, not all
     combinations are implemented yet.
 \ingroup equals
@@ -370,8 +456,8 @@ struct devarianted_equals<
 template <typename Geometry1, typename Geometry2>
 inline bool equals(Geometry1 const& geometry1, Geometry2 const& geometry2)
 {
-    return dispatch::devarianted_equals<Geometry1, Geometry2>
-               ::apply(geometry1, geometry2);
+    return resolve_variant::equals<Geometry1, Geometry2>
+                          ::apply(geometry1, geometry2);
 }
 
 

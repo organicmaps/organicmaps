@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_IS_VIEW_IMPL_09242011_1744)
 #define BOOST_FUSION_IS_VIEW_IMPL_09242011_1744
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace boost { namespace fusion

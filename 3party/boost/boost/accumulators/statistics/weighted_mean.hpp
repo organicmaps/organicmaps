@@ -36,7 +36,7 @@ namespace impl
     {
         typedef typename numeric::functional::multiplies<Sample, Weight>::result_type weighted_sample;
         // for boost::result_of
-        typedef typename numeric::functional::average<weighted_sample, Weight>::result_type result_type;
+        typedef typename numeric::functional::fdiv<weighted_sample, Weight>::result_type result_type;
 
         weighted_mean_impl(dont_care) {}
 
@@ -53,7 +53,7 @@ namespace impl
 
             extractor<weighted_sum_tag> const some_weighted_sum = {};
 
-            return numeric::average(some_weighted_sum(args), sum_of_weights(args));
+            return numeric::fdiv(some_weighted_sum(args), sum_of_weights(args));
         }
     };
 
@@ -66,12 +66,12 @@ namespace impl
     {
         typedef typename numeric::functional::multiplies<Sample, Weight>::result_type weighted_sample;
         // for boost::result_of
-        typedef typename numeric::functional::average<weighted_sample, Weight>::result_type result_type;
+        typedef typename numeric::functional::fdiv<weighted_sample, Weight>::result_type result_type;
 
         template<typename Args>
         immediate_weighted_mean_impl(Args const &args)
           : mean(
-                numeric::average(
+                numeric::fdiv(
                     args[parameter::keyword<Tag>::get() | Sample()]
                       * numeric::one<Weight>::value
                   , numeric::one<Weight>::value
@@ -89,7 +89,7 @@ namespace impl
             Weight w_sum = sum_of_weights(args);
             Weight w = args[weight];
             weighted_sample const &s = args[parameter::keyword<Tag>::get()] * w;
-            this->mean = numeric::average(this->mean * (w_sum - w) + s, w_sum);
+            this->mean = numeric::fdiv(this->mean * (w_sum - w) + s, w_sum);
         }
 
         result_type result(dont_care) const

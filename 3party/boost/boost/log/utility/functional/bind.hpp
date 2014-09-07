@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -20,7 +20,7 @@
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -105,13 +105,13 @@ private:
 };
 
 template< typename FunT, typename FirstArgT >
-BOOST_LOG_FORCEINLINE binder1st< FunT, FirstArgT > bind1st(FunT fun, FirstArgT const& arg)
+BOOST_FORCEINLINE binder1st< FunT, FirstArgT > bind1st(FunT fun, FirstArgT const& arg)
 {
     return binder1st< FunT, FirstArgT >(fun, arg);
 }
 
 template< typename FunT, typename FirstArgT >
-BOOST_LOG_FORCEINLINE binder1st< FunT, FirstArgT > bind1st(FunT fun, FirstArgT& arg)
+BOOST_FORCEINLINE binder1st< FunT, FirstArgT > bind1st(FunT fun, FirstArgT& arg)
 {
     return binder1st< FunT, FirstArgT >(fun, arg);
 }
@@ -167,13 +167,13 @@ private:
 };
 
 template< typename FunT, typename SecondArgT >
-BOOST_LOG_FORCEINLINE binder2nd< FunT, SecondArgT > bind2nd(FunT fun, SecondArgT const& arg)
+BOOST_FORCEINLINE binder2nd< FunT, SecondArgT > bind2nd(FunT fun, SecondArgT const& arg)
 {
     return binder2nd< FunT, SecondArgT >(fun, arg);
 }
 
 template< typename FunT, typename SecondArgT >
-BOOST_LOG_FORCEINLINE binder2nd< FunT, SecondArgT > bind2nd(FunT fun, SecondArgT& arg)
+BOOST_FORCEINLINE binder2nd< FunT, SecondArgT > bind2nd(FunT fun, SecondArgT& arg)
 {
     return binder2nd< FunT, SecondArgT >(fun, arg);
 }
@@ -217,13 +217,13 @@ private:
 };
 
 template< typename FunT, typename ThirdArgT >
-BOOST_LOG_FORCEINLINE binder3rd< FunT, ThirdArgT > bind3rd(FunT fun, ThirdArgT const& arg)
+BOOST_FORCEINLINE binder3rd< FunT, ThirdArgT > bind3rd(FunT fun, ThirdArgT const& arg)
 {
     return binder3rd< FunT, ThirdArgT >(fun, arg);
 }
 
 template< typename FunT, typename ThirdArgT >
-BOOST_LOG_FORCEINLINE binder3rd< FunT, ThirdArgT > bind3rd(FunT fun, ThirdArgT& arg)
+BOOST_FORCEINLINE binder3rd< FunT, ThirdArgT > bind3rd(FunT fun, ThirdArgT& arg)
 {
     return binder3rd< FunT, ThirdArgT >(fun, arg);
 }

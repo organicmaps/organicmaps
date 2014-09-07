@@ -39,7 +39,7 @@ namespace impl
       : accumulator_base
     {
         // for boost::result_of
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type result_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type result_type;
 
         median_impl(dont_care) {}
 
@@ -63,7 +63,7 @@ namespace impl
     struct with_density_median_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type float_type;
         typedef std::vector<std::pair<float_type, float_type> > histogram_type;
         typedef iterator_range<typename histogram_type::iterator> range_type;
         // for boost::result_of
@@ -71,7 +71,7 @@ namespace impl
 
         template<typename Args>
         with_density_median_impl(Args const &args)
-          : sum(numeric::average(args[sample | Sample()], (std::size_t)1))
+          : sum(numeric::fdiv(args[sample | Sample()], (std::size_t)1))
           , is_dirty(true)
         {
         }
@@ -98,7 +98,7 @@ namespace impl
                     ++it;
                 }
                 --it;
-                float_type over = numeric::average(this->sum - 0.5 * cnt, it->second * cnt);
+                float_type over = numeric::fdiv(this->sum - 0.5 * cnt, it->second * cnt);
                 this->median = it->first * over + (it + 1)->first * (1. - over);
             }
 
@@ -125,7 +125,7 @@ namespace impl
     struct with_p_square_cumulative_distribution_median_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type float_type;
         typedef std::vector<std::pair<float_type, float_type> > histogram_type;
         typedef iterator_range<typename histogram_type::iterator> range_type;
         // for boost::result_of
@@ -154,7 +154,7 @@ namespace impl
                 {
                     ++it;
                 }
-                float_type over = numeric::average(it->second - 0.5, it->second - (it - 1)->second);
+                float_type over = numeric::fdiv(it->second - 0.5, it->second - (it - 1)->second);
                 this->median = it->first * over + (it + 1)->first * ( 1. - over );
             }
 

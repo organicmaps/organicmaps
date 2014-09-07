@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -10,7 +10,7 @@
  * \date   08.03.2007
  *
  * \brief  This header is the Boost.Log library implementation, see the library documentation
- *         at http://www.boost.org/libs/log/doc/log.html. In this file
+ *         at http://www.boost.org/doc/libs/release/libs/log/doc/html/index.html. In this file
  *         internal configuration macros are defined.
  */
 
@@ -30,6 +30,14 @@
 #   error Boost.Log: RTTI is required by the library
 #endif
 
+#if defined(_MSC_VER) && _MSC_VER >= 1600
+#   define BOOST_LOG_HAS_PRAGMA_DETECT_MISMATCH
+#endif
+
+#if defined(BOOST_LOG_HAS_PRAGMA_DETECT_MISMATCH)
+#include <boost/preprocessor/stringize.hpp>
+#endif
+
 #if !defined(BOOST_WINDOWS)
 #   ifndef BOOST_LOG_WITHOUT_DEBUG_OUTPUT
 #       define BOOST_LOG_WITHOUT_DEBUG_OUTPUT
@@ -39,11 +47,7 @@
 #   endif
 #endif
 
-#if (defined(_MSC_VER) && (_MSC_VER >= 1020)) || defined(__GNUC__) || defined(BOOST_CLANG) || defined(BOOST_INTEL) || defined(__COMO__) || defined(__DMC__)
-#   define BOOST_LOG_HAS_PRAGMA_ONCE
-#endif
-
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -57,8 +61,8 @@
 #       define BOOST_LOG_BROKEN_TEMPLATE_DEFINITION_MATCHING
 #   endif
 #   if _MSC_VER <= 1400
-        // Older MSVC versions reject friend declarations for class template instantiations
-#       define BOOST_LOG_BROKEN_FRIEND_TEMPLATE_INSTANTIATIONS
+        // Older MSVC versions reject friend declarations for class template specializations
+#       define BOOST_LOG_BROKEN_FRIEND_TEMPLATE_SPECIALIZATIONS
 #   endif
 #   if _MSC_VER <= 1600
         // MSVC up to 10.0 attempts to invoke copy constructor when initializing a const reference from rvalue returned from a function.
@@ -82,8 +86,8 @@
 #   endif
 #endif
 
-#if defined(BOOST_INTEL)
-    // Intel compiler has problems with friend declarations for member classes
+#if defined(BOOST_INTEL) || defined(__SUNPRO_CC)
+    // Intel compiler and Sun Studio 12.3 have problems with friend declarations for nested class templates
 #   define BOOST_LOG_NO_MEMBER_TEMPLATE_FRIENDS
 #endif
 
@@ -103,16 +107,6 @@
 #   endif
 #endif
 
-#if (defined(__SUNPRO_CC) && (__SUNPRO_CC <= 0x530)) && !defined(BOOST_NO_COMPILER_CONFIG)
-    // Sun C++ 5.3 can't handle the safe_bool idiom, so don't use it
-#   define BOOST_LOG_NO_UNSPECIFIED_BOOL
-#endif // (defined(__SUNPRO_CC) && (__SUNPRO_CC <= 0x530)) && !defined(BOOST_NO_COMPILER_CONFIG)
-
-#if defined(__GNUC__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 1))
-    // GCC 4.0.0 (and probably older) can't cope with some optimizations regarding string literals
-#   define BOOST_LOG_BROKEN_STRING_LITERALS
-#endif
-
 #if defined(__GNUC__) && (__GNUC__ == 4 && __GNUC_MINOR__ <= 2)
     // GCC 4.1 and 4.2 have buggy anonymous namespaces support, which interferes with symbol linkage
 #   define BOOST_LOG_ANONYMOUS_NAMESPACE namespace anonymous {} using namespace anonymous; namespace anonymous
@@ -120,37 +114,9 @@
 #   define BOOST_LOG_ANONYMOUS_NAMESPACE namespace
 #endif
 
-#define BOOST_LOG_NO_TRAILING_RESULT_TYPE
-#define BOOST_LOG_NO_INLINE_NAMESPACES
-
-#if defined(BOOST_CLANG)
-#   if __has_feature(cxx_trailing_return)
-#       undef BOOST_LOG_NO_TRAILING_RESULT_TYPE
-#   endif
-#   if __has_feature(cxx_inline_namespaces)
-#       undef BOOST_LOG_NO_INLINE_NAMESPACES
-#   endif
-#elif defined(__GNUC__) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#   if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4))
-#       undef BOOST_LOG_NO_TRAILING_RESULT_TYPE
-#       undef BOOST_LOG_NO_INLINE_NAMESPACES
-#   endif
-#endif
-
 #if defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || (defined(__GNUC__) && (__GNUC__ == 4 && __GNUC_MINOR__ <= 6))
 // GCC up to 4.6 (inclusively) did not support expanding template argument packs into non-variadic template arguments
 #define BOOST_LOG_NO_CXX11_ARG_PACKS_TO_NON_VARIADIC_ARGS_EXPANSION
-#endif
-
-// Extended declaration macros. Used to implement compiler-specific optimizations.
-#if defined(BOOST_FORCEINLINE)
-#   define BOOST_LOG_FORCEINLINE BOOST_FORCEINLINE
-#elif defined(_MSC_VER)
-#   define BOOST_LOG_FORCEINLINE __forceinline
-#elif defined(__GNUC__) && (__GNUC__ > 3)
-#   define BOOST_LOG_FORCEINLINE inline __attribute__((always_inline))
-#else
-#   define BOOST_LOG_FORCEINLINE inline
 #endif
 
 #if defined(_MSC_VER)
@@ -182,11 +148,14 @@
 #endif
 #if !defined(BOOST_LOG_UNREACHABLE)
 #   define BOOST_LOG_UNREACHABLE()
+#   define BOOST_LOG_UNREACHABLE_RETURN(r) return r
+#else
+#   define BOOST_LOG_UNREACHABLE_RETURN(r) BOOST_LOG_UNREACHABLE()
 #endif
 
 // Some compilers support a special attribute that shows that a function won't return
 #if defined(__GNUC__) || (defined(__SUNPRO_CC) && __SUNPRO_CC >= 0x590)
-    // GCC and (supposedly) Sun Studio 12 support attribute syntax
+    // GCC and Sun Studio 12 support attribute syntax
 #   define BOOST_LOG_NORETURN __attribute__((noreturn))
 #elif defined (_MSC_VER)
     // Microsoft-compatible compilers go here
@@ -195,23 +164,6 @@
     // The rest compilers might emit bogus warnings about missing return statements
     // in functions with non-void return types when throw_exception is used.
 #   define BOOST_LOG_NORETURN
-#endif
-
-// cxxabi.h availability macro
-#if defined(BOOST_CLANG)
-#   if defined(__has_include) && __has_include(<cxxabi.h>)
-#       define BOOST_LOG_HAS_CXXABI_H
-#   endif
-#elif defined(__GNUC__) && !defined(__QNX__)
-#   define BOOST_LOG_HAS_CXXABI_H
-#endif
-
-#if defined(BOOST_SYMBOL_VISIBLE)
-#   define BOOST_LOG_VISIBLE BOOST_SYMBOL_VISIBLE
-#elif defined(__GNUC__) && (__GNUC__ >= 4)
-#   define BOOST_LOG_VISIBLE __attribute__((visibility("default")))
-#else
-#   define BOOST_LOG_VISIBLE
 #endif
 
 #if !defined(BOOST_LOG_BUILDING_THE_LIB)
@@ -269,7 +221,7 @@
 #       endif
 #   endif
 #   ifndef BOOST_LOG_API
-#       define BOOST_LOG_API BOOST_LOG_VISIBLE
+#       define BOOST_LOG_API BOOST_SYMBOL_VISIBLE
 #   endif
 
 #endif // !defined(BOOST_LOG_BUILDING_THE_LIB)
@@ -312,21 +264,9 @@
 #   endif
 #endif // defined(BOOST_LOG_USE_COMPILER_TLS)
 
-#if defined(__GNUC__) && (__GNUC__ == 4 && __GNUC_MINOR__ <= 5)
-     // GCC 4.5 forbids declaration of defaulted functions in private or protected sections
-#    define BOOST_LOG_NO_CXX11_NON_PUBLIC_DEFAULTED_FUNCTIONS
-#endif
-
-#if defined(BOOST_LOG_DOXYGEN_PASS) || !(defined(BOOST_NO_CXX11_DEFAULTED_FUNCTIONS) || defined(BOOST_LOG_NO_CXX11_NON_PUBLIC_DEFAULTED_FUNCTIONS))
-#   define BOOST_LOG_DEFAULTED_FUNCTION(fun, body) fun = default;
-#else
-#   define BOOST_LOG_DEFAULTED_FUNCTION(fun, body) fun body
-#endif
-
-#if defined(BOOST_LOG_DOXYGEN_PASS) || !defined(BOOST_NO_CXX11_DELETED_FUNCTIONS)
-#   define BOOST_LOG_DELETED_FUNCTION(fun) fun = delete;
-#else
-#   define BOOST_LOG_DELETED_FUNCTION(fun) private: fun;
+#ifndef BOOST_LOG_CPU_CACHE_LINE_SIZE
+//! The macro defines the CPU cache line size for the target architecture. This is mostly used for optimization.
+#define BOOST_LOG_CPU_CACHE_LINE_SIZE 64
 #endif
 
 namespace boost {
@@ -370,7 +310,7 @@ namespace boost {
 
 namespace log {
 
-#   if !defined(BOOST_LOG_NO_INLINE_NAMESPACES)
+#   if !defined(BOOST_NO_CXX11_INLINE_NAMESPACES)
 
 inline namespace BOOST_LOG_VERSION_NAMESPACE {}
 }
@@ -383,7 +323,7 @@ inline namespace BOOST_LOG_VERSION_NAMESPACE {}
 namespace BOOST_LOG_VERSION_NAMESPACE {}
 
 using namespace BOOST_LOG_VERSION_NAMESPACE
-#       if defined(__GNUC__) && (__GNUC__ >= 4 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4))
+#       if defined(__GNUC__) && (__GNUC__ >= 4 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)) && !defined(__clang__)
 __attribute__((__strong__))
 #       endif
 ;
@@ -401,6 +341,10 @@ namespace log {}
 #   define BOOST_LOG_CLOSE_NAMESPACE }
 
 #endif // !defined(BOOST_LOG_DOXYGEN_PASS)
+
+#if defined(BOOST_LOG_HAS_PRAGMA_DETECT_MISMATCH)
+#pragma detect_mismatch("boost_log_abi", BOOST_PP_STRINGIZE(BOOST_LOG_VERSION_NAMESPACE))
+#endif
 
 } // namespace boost
 

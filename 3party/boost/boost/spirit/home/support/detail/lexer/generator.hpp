@@ -186,10 +186,10 @@ protected:
         while (regex_iter_ != regex_iter_end_)
         {
             // re-declare var, otherwise we perform an assignment..!
-            const typename rules::string &regex_ = *regex_iter_;
+            const typename rules::string &regex2_ = *regex_iter_;
 
-            root_ = parser::parse (regex_.c_str (),
-                regex_.c_str () + regex_.size (), *ids_iter_,
+            root_ = parser::parse (regex2_.c_str (),
+                regex2_.c_str () + regex2_.size (), *ids_iter_,
                 *unique_ids_iter_, *states_iter_, rules_.flags (),
                 rules_.locale (), node_ptr_vector_, macromap_, token_map_,
                 internals_._seen_BOL_assertion,
@@ -337,16 +337,16 @@ protected:
                         equiv_end_ = equivset_->_index_vector.end ();
                         equiv_iter_ != equiv_end_; ++equiv_iter_)
                     {
-                        const std::size_t index_ = *equiv_iter_;
+                        const std::size_t equiv_index_ = *equiv_iter_;
 
-                        if (index_ == bol_token)
+                        if (equiv_index_ == bol_token)
                         {
                             if (ptr_[eol_index] == 0)
                             {
                                 ptr_[bol_index] = transition_;
                             }
                         }
-                        else if (index_ == eol_token)
+                        else if (equiv_index_ == eol_token)
                         {
                             if (ptr_[bol_index] == 0)
                             {
@@ -355,7 +355,7 @@ protected:
                         }
                         else
                         {
-                            ptr_[index_ + dfa_offset] = transition_;
+                            ptr_[equiv_index_ + dfa_offset] = transition_;
                         }
                     }
                 }
@@ -561,7 +561,12 @@ protected:
 
         if (token_._negated)
         {
-            CharT curr_char_ = (std::numeric_limits<CharT>::min)();
+            // $$$ FIXME JDG July 2014 $$$
+            // this code is problematic on platforms where wchar_t is signed
+            // with min generating negative numbers. This crashes with BAD_ACCESS
+            // because of the vector index below:
+            //  ptr_[static_cast<typename Traits::index_type>(curr_char_)]
+            CharT curr_char_ = 0; // (std::numeric_limits<CharT>::min)();
             std::size_t i_ = 0;
 
             while (curr_ < chars_end_)

@@ -10,7 +10,7 @@
 #define BOOST_XPRESSIVE_XPRESSIVE_FWD_HPP_EAN_10_04_2005
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -23,9 +23,6 @@
 # define BOOST_PROTO_FUSION_V2
 #endif
 
-#ifdef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-# error Sorry, xpressive requires a compiler that supports partial template specialization.
-#endif
 
 #if defined(BOOST_NO_STD_LOCALE) & !defined(BOOST_XPRESSIVE_USE_C_TRAITS)
 # define BOOST_XPRESSIVE_USE_C_TRAITS

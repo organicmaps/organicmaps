@@ -11,7 +11,7 @@
 #include <boost/detail/workaround.hpp>
 #include <boost/noncopyable.hpp>
 
-#if BOOST_WORKAROUND(_MSC_VER, >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -104,17 +104,11 @@ template<>
 inline std::basic_string<char> get_default_indeterminate_name<char>()
 { return "indeterminate"; }
 
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-// VC++ 6.0 chokes on the specialization below, so we're stuck without 
-// wchar_t support. What a pain. TODO: it might just need a the template 
-// parameter as function parameter...
-#else
-#  ifndef BOOST_NO_WCHAR_T
+#ifndef BOOST_NO_WCHAR_T
 /// Returns the wide character string L"indeterminate".
 template<>
 inline std::basic_string<wchar_t> get_default_indeterminate_name<wchar_t>()
 { return L"indeterminate"; }
-#  endif
 #endif
 
 // http://www.cantrip.org/locale.html

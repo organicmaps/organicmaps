@@ -72,18 +72,31 @@ struct identity
    typedef T type;
 };
 
-//is_convertible
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+
+//use intrinsic since in MSVC
+//overaligned types can't go through ellipsis
+template <class T, class U>
+struct is_convertible
+{
+   static const bool value = __is_convertible_to(T, U);
+};
+
+#else
+
 template <class T, class U>
 class is_convertible
 {
    typedef char true_t;
    class false_t { char dummy[2]; };
-   static true_t dispatch(U);
    static false_t dispatch(...);
+   static true_t  dispatch(U);
    static T &trigger();
    public:
-   enum { value = sizeof(dispatch(trigger())) == sizeof(true_t) };
+   static const bool value = sizeof(dispatch(trigger())) == sizeof(true_t);
 };
+
+#endif
 
 //and_ not_
 template <typename Condition1, typename Condition2, typename Condition3 = integral_constant<bool, true> >

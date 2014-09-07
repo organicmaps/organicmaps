@@ -2,7 +2,7 @@
 #define BOOST_ARCHIVE_POLYMORPHIC_XML_IARCHIVE_HPP
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -29,11 +29,11 @@ namespace boost {
 namespace archive {
 
 class polymorphic_xml_iarchive : 
-    public detail::polymorphic_iarchive_route<naked_xml_iarchive>
+    public detail::polymorphic_iarchive_route<xml_iarchive>
 {
 public:
     polymorphic_xml_iarchive(std::istream & is, unsigned int flags = 0) :
-        detail::polymorphic_iarchive_route<naked_xml_iarchive>(is, flags)
+        detail::polymorphic_iarchive_route<xml_iarchive>(is, flags)
     {}
     ~polymorphic_xml_iarchive(){}
 };

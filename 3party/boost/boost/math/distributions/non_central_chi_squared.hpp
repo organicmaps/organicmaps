@@ -101,7 +101,7 @@ namespace boost
             }
             //Error check:
             if(static_cast<boost::uintmax_t>(i-k) >= max_iter)
-               policies::raise_evaluation_error(
+               return policies::raise_evaluation_error(
                   "cdf(non_central_chi_squared_distribution<%1%>, %1%)",
                   "Series did not converge, closest value was %1%", sum, pol);
             //
@@ -175,7 +175,7 @@ namespace boost
             }
             //Error check:
             if(static_cast<boost::uintmax_t>(i) >= max_iter)
-               policies::raise_evaluation_error(
+               return policies::raise_evaluation_error(
                   "cdf(non_central_chi_squared_distribution<%1%>, %1%)",
                   "Series did not converge, closest value was %1%", sum, pol);
             return sum;
@@ -274,7 +274,7 @@ namespace boost
 
             //Error check:
             if(static_cast<boost::uintmax_t>(i) >= max_iter)
-               policies::raise_evaluation_error(
+               return policies::raise_evaluation_error(
                   "cdf(non_central_chi_squared_distribution<%1%>, %1%)",
                   "Series did not converge, closest value was %1%", sum, pol);
 
@@ -400,6 +400,7 @@ namespace boost
          template <class RealType, class Policy>
          RealType nccs_quantile(const non_central_chi_squared_distribution<RealType, Policy>& dist, const RealType& p, bool comp)
          {
+            BOOST_MATH_STD_USING
             static const char* function = "quantile(non_central_chi_squared_distribution<%1%>, %1%)";
             typedef typename policies::evaluation<RealType, Policy>::type value_type;
             typedef typename policies::normalise<
@@ -428,25 +429,57 @@ namespace boost
                &r,
                Policy()))
                   return (RealType)r;
-
-            value_type b = (l * l) / (k + 3 * l);
+            //
+            // Special cases get short-circuited first:
+            //
+            if(p == 0)
+               return comp ? policies::raise_overflow_error<RealType>(function, 0, Policy()) : 0;
+            if(p == 1)
+               return comp ? 0 : policies::raise_overflow_error<RealType>(function, 0, Policy());
+            //
+            // This is Pearson's approximation to the quantile, see
+            // Pearson, E. S. (1959) "Note on an approximation to the distribution of 
+            // noncentral chi squared", Biometrika 46: 364.
+            // See also:
+            // "A comparison of approximations to percentiles of the noncentral chi2-distribution",
+            // Hardeo Sahai and Mario Miguel Ojeda, Revista de Matematica: Teoria y Aplicaciones 2003 10(1–2) : 57–76.
+            // Note that the latter reference refers to an approximation of the CDF, when they really mean the quantile.
+            //
+            value_type b = -(l * l) / (k + 3 * l);
             value_type c = (k + 3 * l) / (k + 2 * l);
             value_type ff = (k + 2 * l) / (c * c);
             value_type guess;
             if(comp)
+            {
                guess = b + c * quantile(complement(chi_squared_distribution<value_type, forwarding_policy>(ff), p));
+            }
             else
+            {
                guess = b + c * quantile(chi_squared_distribution<value_type, forwarding_policy>(ff), p);
-
-            if(guess < 0)
-               guess = tools::min_value<value_type>();
-
+            }
+            //
+            // Sometimes guess goes very small or negative, in that case we have
+            // to do something else for the initial guess, this approximation
+            // was provided in a private communication from Thomas Luu, PhD candidate, 
+            // University College London.  It's an asymptotic expansion for the
+            // quantile which usually gets us within an order of magnitude of the
+            // correct answer.
+            //
+            if(guess < 0.005)
+            {
+               value_type pp = comp ? 1 - p : p;
+               //guess = pow(pow(value_type(2), (k / 2 - 1)) * exp(l / 2) * pp * k, 2 / k);
+               guess = pow(pow(value_type(2), (k / 2 - 1)) * exp(l / 2) * pp * k * boost::math::tgamma(k / 2, forwarding_policy()), (2 / k));
+               if(guess == 0)
+                  guess = tools::min_value<value_type>();
+            }
             value_type result = detail::generic_quantile(
                non_central_chi_squared_distribution<value_type, forwarding_policy>(k, l),
                p,
                guess,
                comp,
                function);
+
             return policies::checked_narrowing_cast<RealType, forwarding_policy>(
                result,
                function);
@@ -564,7 +597,7 @@ namespace boost
             RealType result = ir.first + (ir.second - ir.first) / 2;
             if(max_iter >= policies::get_max_root_iterations<Policy>())
             {
-               policies::raise_evaluation_error<RealType>(function, "Unable to locate solution in a reasonable time:"
+               return policies::raise_evaluation_error<RealType>(function, "Unable to locate solution in a reasonable time:"
                   " or there is no answer to problem.  Current best guess is %1%", result, Policy());
             }
             return result;
@@ -620,7 +653,7 @@ namespace boost
             RealType result = ir.first + (ir.second - ir.first) / 2;
             if(max_iter >= policies::get_max_root_iterations<Policy>())
             {
-               policies::raise_evaluation_error<RealType>(function, "Unable to locate solution in a reasonable time:"
+               return policies::raise_evaluation_error<RealType>(function, "Unable to locate solution in a reasonable time:"
                   " or there is no answer to problem.  Current best guess is %1%", result, Policy());
             }
             return result;

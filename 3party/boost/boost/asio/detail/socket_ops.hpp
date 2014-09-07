@@ -2,7 +2,7 @@
 // detail/socket_ops.hpp
 // ~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -63,6 +63,8 @@ struct noop_deleter { void operator()(void*) {} };
 typedef shared_ptr<void> shared_cancel_token_type;
 typedef weak_ptr<void> weak_cancel_token_type;
 
+#if !defined(BOOST_ASIO_WINDOWS_RUNTIME)
+
 BOOST_ASIO_DECL socket_type accept(socket_type s, socket_addr_type* addr,
     std::size_t* addrlen, boost::system::error_code& ec);
 
@@ -106,8 +108,14 @@ BOOST_ASIO_DECL int connect(socket_type s, const socket_addr_type* addr,
 BOOST_ASIO_DECL void sync_connect(socket_type s, const socket_addr_type* addr,
     std::size_t addrlen, boost::system::error_code& ec);
 
+#if defined(BOOST_ASIO_HAS_IOCP)
+
+BOOST_ASIO_DECL void complete_iocp_connect(socket_type s,
+    boost::system::error_code& ec);
+
+#endif // defined(BOOST_ASIO_HAS_IOCP)
+
 BOOST_ASIO_DECL bool non_blocking_connect(socket_type s,
-    const socket_addr_type* addr, std::size_t addrlen,
     boost::system::error_code& ec);
 
 BOOST_ASIO_DECL int socketpair(int af, int type, int protocol,
@@ -264,6 +272,8 @@ BOOST_ASIO_DECL int poll_write(socket_type s,
 
 BOOST_ASIO_DECL int poll_connect(socket_type s, boost::system::error_code& ec);
 
+#endif // !defined(BOOST_ASIO_WINDOWS_RUNTIME)
+
 BOOST_ASIO_DECL const char* inet_ntop(int af, const void* src, char* dest,
     size_t length, unsigned long scope_id, boost::system::error_code& ec);
 
@@ -272,6 +282,8 @@ BOOST_ASIO_DECL int inet_pton(int af, const char* src, void* dest,
 
 BOOST_ASIO_DECL int gethostname(char* name,
     int namelen, boost::system::error_code& ec);
+
+#if !defined(BOOST_ASIO_WINDOWS_RUNTIME)
 
 BOOST_ASIO_DECL boost::system::error_code getaddrinfo(const char* host,
     const char* service, const addrinfo_type& hints,
@@ -299,6 +311,8 @@ BOOST_ASIO_DECL boost::system::error_code background_getnameinfo(
     const socket_addr_type* addr, std::size_t addrlen,
     char* host, std::size_t hostlen, char* serv,
     std::size_t servlen, int sock_type, boost::system::error_code& ec);
+
+#endif // !defined(BOOST_ASIO_WINDOWS_RUNTIME)
 
 BOOST_ASIO_DECL u_long_type network_to_host_long(u_long_type value);
 

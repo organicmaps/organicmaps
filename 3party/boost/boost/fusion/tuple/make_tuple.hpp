@@ -16,7 +16,7 @@
 
 namespace boost { namespace fusion
 {
-    inline tuple<>
+    BOOST_FUSION_GPU_ENABLED inline tuple<>
     make_tuple()
     {
         return tuple<>();
@@ -73,6 +73,7 @@ namespace boost { namespace fusion
 #define N BOOST_PP_ITERATION()
 
     template <BOOST_PP_ENUM_PARAMS(N, typename T)>
+    BOOST_FUSION_GPU_ENABLED
     inline tuple<BOOST_PP_ENUM(N, BOOST_FUSION_AS_FUSION_ELEMENT, _)>
     make_tuple(BOOST_PP_ENUM_BINARY_PARAMS(N, T, const& _))
     {

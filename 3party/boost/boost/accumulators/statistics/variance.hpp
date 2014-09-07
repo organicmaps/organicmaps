@@ -42,7 +42,7 @@ namespace impl
       : accumulator_base
     {
         // for boost::result_of
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type result_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type result_type;
 
         lazy_variance_impl(dont_care) {}
 
@@ -85,11 +85,11 @@ namespace impl
       : accumulator_base
     {
         // for boost::result_of
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type result_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type result_type;
 
         template<typename Args>
         variance_impl(Args const &args)
-          : variance(numeric::average(args[sample | Sample()], numeric::one<std::size_t>::value))
+          : variance(numeric::fdiv(args[sample | Sample()], numeric::one<std::size_t>::value))
         {
         }
 
@@ -103,8 +103,8 @@ namespace impl
                 extractor<MeanFeature> mean;
                 result_type tmp = args[parameter::keyword<Tag>::get()] - mean(args);
                 this->variance =
-                    numeric::average(this->variance * (cnt - 1), cnt)
-                  + numeric::average(tmp * tmp, cnt - 1);
+                    numeric::fdiv(this->variance * (cnt - 1), cnt)
+                  + numeric::fdiv(tmp * tmp, cnt - 1);
             }
         }
 

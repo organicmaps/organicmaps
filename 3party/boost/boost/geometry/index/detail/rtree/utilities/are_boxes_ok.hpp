@@ -2,7 +2,7 @@
 //
 // R-tree boxes validating visitor implementation
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -89,7 +89,9 @@ public:
             }
         
             Box box_exp;
-            geometry::convert(m_tr(elements.front()), box_exp);
+            geometry::convert(
+                index::detail::return_ref_or_bounds(m_tr(elements.front())),
+                box_exp);
             for(typename elements_type::const_iterator it = elements.begin() + 1;
                 it != elements.end() ; ++it)
             {

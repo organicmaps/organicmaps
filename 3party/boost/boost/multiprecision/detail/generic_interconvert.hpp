@@ -136,19 +136,19 @@ void generic_interconvert(To& to, const From& from, const mpl::int_<number_kind_
    //
    int c = eval_fpclassify(from);
 
-   if(c == FP_ZERO) 
+   if(c == (int)FP_ZERO)
    {
       to = ui_type(0);
       return;
    }
-   else if(c == FP_NAN)
+   else if(c == (int)FP_NAN)
    {
-      to = "nan";
+      to = static_cast<const char*>("nan");
       return;
    }
-   else if(c == FP_INFINITE)
+   else if(c == (int)FP_INFINITE)
    {
-      to = "inf";
+      to = static_cast<const char*>("inf");
       if(eval_get_sign(from) < 0)
          to.negate();
       return;
@@ -177,7 +177,7 @@ void generic_interconvert(To& to, const From& from, const mpl::int_<number_kind_
    typedef typename To::exponent_type to_exponent;
    if((e > (std::numeric_limits<to_exponent>::max)()) || (e < (std::numeric_limits<to_exponent>::min)()))
    {
-      to = "inf";
+      to = static_cast<const char*>("inf");
       if(eval_get_sign(from) < 0)
          to.negate();
       return;
@@ -191,7 +191,6 @@ void generic_interconvert(To& to, const From& from, const mpl::int_<number_kind_
 template <class To, class From>
 void generic_interconvert(To& to, const From& from, const mpl::int_<number_kind_rational>& /*to_type*/, const mpl::int_<number_kind_rational>& /*from_type*/)
 {
-   typedef typename component_type<number<From> >::type   from_component_type;
    typedef typename component_type<number<To> >::type     to_component_type;
 
    number<From> t(from);

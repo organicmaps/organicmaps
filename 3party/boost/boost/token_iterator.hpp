@@ -34,7 +34,7 @@ namespace boost
           , typename detail::minimum_category<
                 forward_traversal_tag
               , typename iterator_traversal<Iterator>::type
-            >::type 
+            >::type
           , const Type&
         >
   {
@@ -88,7 +88,7 @@ namespace boost
 
       Iterator base()const{return begin_;}
 
-      Iterator end()const{return end_;};
+      Iterator end()const{return end_;}
 
       TokenizerFunc tokenizer_function()const{return f_;}
 
@@ -101,24 +101,24 @@ namespace boost
 
   };
     template <
-        class TokenizerFunc = char_delimiters_separator<char>, 
+        class TokenizerFunc = char_delimiters_separator<char>,
         class Iterator = std::string::const_iterator,
         class Type = std::string
     >
     class token_iterator_generator {
 
-    private: 
+    private:
     public:
         typedef token_iterator<TokenizerFunc,Iterator,Type> type;
     };
-    
-    
+
+
     // Type has to be first because it needs to be explicitly specified
     // because there is no way the function can deduce it.
     template<class Type, class Iterator, class TokenizerFunc>
-        typename token_iterator_generator<TokenizerFunc,Iterator,Type>::type 
+        typename token_iterator_generator<TokenizerFunc,Iterator,Type>::type
     make_token_iterator(Iterator begin, Iterator end,const TokenizerFunc& fun){
-        typedef typename 
+        typedef typename
             token_iterator_generator<TokenizerFunc,Iterator,Type>::type ret_type;
         return ret_type(fun,begin,end);
     }

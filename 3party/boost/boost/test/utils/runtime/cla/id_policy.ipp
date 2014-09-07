@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 54633 $
+//  Version     : $Revision$
 //
 //  Description : some generic identification policies implementation
 // ***************************************************************************

@@ -8,10 +8,6 @@
 #ifndef BOOST_PHOENIX_FUSION_HPP
 #define BOOST_PHOENIX_FUSION_HPP
 
-#ifdef BOOST_PHOENIX_USE_V2_OVER_V3
-#include <boost/spirit/home/phoenix/fusion.hpp>
-#else
 #include <boost/phoenix/fusion/at.hpp>
-#endif
 
 #endif

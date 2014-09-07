@@ -49,7 +49,7 @@ inline boost::uint32_t atomic_cas32
 }  //namespace interprocess{
 }  //namespace boost{
 
-#if (defined BOOST_INTERPROCESS_WINDOWS)
+#if defined (BOOST_INTERPROCESS_WINDOWS)
 
 #include <boost/interprocess/detail/win32_api.hpp>
 
@@ -93,7 +93,7 @@ inline boost::uint32_t atomic_cas32
 }  //namespace interprocess{
 }  //namespace boost{
 
-#elif defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__))
+#elif defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__)) && !defined(_CRAYC)
 
 namespace boost {
 namespace interprocess {
@@ -213,7 +213,7 @@ inline boost::uint32_t atomic_cas32
                  "bne-   1b\n\t"
                  "2:"
                  : "=&r"(prev)
-                 : "b" (mem), "r"(cmp), "r" (with)
+                 : "b" (mem), "r" (with), "r" (cmp)
                  : "cc", "memory");
    return prev;
 }

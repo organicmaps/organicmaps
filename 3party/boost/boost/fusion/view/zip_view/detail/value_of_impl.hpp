@@ -8,6 +8,7 @@
 #if !defined(FUSION_VALUE_OF_IMPL_20060124_2147)
 #define FUSION_VALUE_OF_IMPL_20060124_2147
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/vector/convert.hpp>
 #include <boost/fusion/algorithm/transformation/transform.hpp>
 #include <boost/fusion/iterator/value_of.hpp>
@@ -37,8 +38,9 @@ namespace boost { namespace fusion
             {};
 
             // never called, but needed for decltype-based result_of (C++0x)
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
             template<typename It>
+            BOOST_FUSION_GPU_ENABLED
             typename result<poly_value_of(It)>::type
             operator()(It&&) const;
 #endif

@@ -64,7 +64,9 @@ namespace boost { namespace polygon{
       //inline CountTouch& operator=(int count) { counts[0] = counts[1] = count; return *this; }
       inline CountTouch& operator=(const CountTouch& count) { counts = count.counts; return *this; }
       inline int& operator[](int index) {
-        std::vector<std::pair<int, int> >::iterator itr = lower_bound(counts.begin(), counts.end(), std::make_pair(index, int(0)));
+        std::vector<std::pair<int, int> >::iterator itr =
+            std::lower_bound(counts.begin(), counts.end(),
+                             std::make_pair(index, int(0)));
         if(itr != counts.end() && itr->first == index) {
             return itr->second;
         }

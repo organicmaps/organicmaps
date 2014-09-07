@@ -7,6 +7,7 @@
 #if !defined(FUSION_FILTER_IF_07172005_0818)
 #define FUSION_FILTER_IF_07172005_0818
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/filter_view/filter_view.hpp>
 
 namespace boost { namespace fusion
@@ -21,6 +22,7 @@ namespace boost { namespace fusion
     }
     
     template <typename Pred, typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::filter_if<Sequence const, Pred>::type
     filter_if(Sequence const& seq)
     {

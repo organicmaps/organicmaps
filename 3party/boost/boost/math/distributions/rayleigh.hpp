@@ -59,11 +59,11 @@ public:
    typedef RealType value_type;
    typedef Policy policy_type;
 
-   rayleigh_distribution(RealType sigma = 1)
-      : m_sigma(sigma)
+   rayleigh_distribution(RealType l_sigma = 1)
+      : m_sigma(l_sigma)
    {
       RealType err;
-      detail::verify_sigma("boost::math::rayleigh_distribution<%1%>::rayleigh_distribution", sigma, &err, Policy());
+      detail::verify_sigma("boost::math::rayleigh_distribution<%1%>::rayleigh_distribution", l_sigma, &err, Policy());
    } // rayleigh_distribution
 
    RealType sigma()const
@@ -179,7 +179,11 @@ inline RealType cdf(const complemented2_type<rayleigh_distribution<RealType, Pol
    {
       return result;
    }
-   result =  exp(-x * x / ( 2 * sigma * sigma));
+   RealType ea = x * x / (2 * sigma * sigma);
+   // Fix for VC11/12 x64 bug in exp(float):
+   if (ea >= tools::max_value<RealType>())
+	   return 0;
+   result =  exp(-ea);
    return result;
 } // cdf complement
 

@@ -55,7 +55,7 @@ namespace boost
         signal<Signature, Combiner, Group, GroupCompare, SlotFunction, ExtendedSlotFunction, Mutex> &sig2)
     {
       sig1.swap(sig2);
-    };
+    }
   }
 }
 

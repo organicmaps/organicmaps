@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_FUNCTIONAL)
 #define FUSION_INCLUDE_FUNCTIONAL
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/functional.hpp>
 
 #endif

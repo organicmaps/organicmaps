@@ -14,7 +14,7 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_UTILITIES_HPP
 #define BOOST_INTERPROCESS_DETAIL_UTILITIES_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -148,9 +148,9 @@ template<class SizeType>
 inline bool multiplication_overflows(SizeType a, SizeType b)
 {
    const SizeType sqrt_size_max = sqrt_size_type_max<SizeType>::value;
-   return   //Fast runtime check 
+   return   //Fast runtime check
          (  (a | b) > sqrt_size_max &&
-            //Slow division check 
+            //Slow division check
             b && a > SizeType(-1)/b
          );
 }
@@ -168,6 +168,8 @@ template<class RawPointer>
 class pointer_size_t_caster
 {
    public:
+   BOOST_STATIC_ASSERT(sizeof(std::size_t) == sizeof(void*));
+
    explicit pointer_size_t_caster(std::size_t sz)
       : m_ptr(reinterpret_cast<RawPointer>(sz))
    {}

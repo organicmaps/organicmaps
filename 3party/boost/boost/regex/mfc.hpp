@@ -31,20 +31,16 @@ typedef match_results<TCHAR const*> tmatch;
 typedef regex_iterator<TCHAR const*> tregex_iterator;
 typedef regex_token_iterator<TCHAR const*> tregex_token_iterator;
 
-#if _MSC_VER >= 1310
+// Obsolete. Remove
 #define SIMPLE_STRING_PARAM class B, bool b
 #define SIMPLE_STRING_ARG_LIST B, b
-#else
-#define SIMPLE_STRING_PARAM class B
-#define SIMPLE_STRING_ARG_LIST B
-#endif
 
 //
 // define regex creation functions:
 //
-template <SIMPLE_STRING_PARAM>
+template <class B, bool b>
 inline basic_regex<B> 
-make_regex(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s, ::boost::regex_constants::syntax_option_type f = boost::regex_constants::normal)
+make_regex(const ATL::CSimpleStringT<B, b>& s, ::boost::regex_constants::syntax_option_type f = boost::regex_constants::normal)
 {
    basic_regex<B> result(s.GetString(), s.GetString() + s.GetLength(), f);
    return result;
@@ -52,8 +48,8 @@ make_regex(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s, ::boost::regex_
 //
 // regex_match overloads:
 //
-template <SIMPLE_STRING_PARAM, class A, class T>
-inline bool regex_match(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s,
+template <class B, bool b, class A, class T>
+inline bool regex_match(const ATL::CSimpleStringT<B, b>& s,
                  match_results<const B*, A>& what,
                  const basic_regex<B, T>& e,
                  boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
@@ -65,8 +61,8 @@ inline bool regex_match(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s,
                                f);
 }
 
-template <SIMPLE_STRING_PARAM, class T>
-inline bool regex_match(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s,
+template <class B, bool b, class T>
+inline bool regex_match(const ATL::CSimpleStringT<B, b>& s,
                  const basic_regex<B, T>& e,
                  boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
 {
@@ -78,8 +74,8 @@ inline bool regex_match(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s,
 //
 // regex_search overloads:
 //
-template <SIMPLE_STRING_PARAM, class A, class T>
-inline bool regex_search(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s,
+template <class B, bool b, class A, class T>
+inline bool regex_search(const ATL::CSimpleStringT<B, b>& s,
                  match_results<const B*, A>& what,
                  const basic_regex<B, T>& e,
                  boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
@@ -91,8 +87,8 @@ inline bool regex_search(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s,
                                f);
 }
 
-template <SIMPLE_STRING_PARAM, class T>
-inline bool regex_search(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s,
+template <class B, bool b, class T>
+inline bool regex_search(const ATL::CSimpleStringT<B, b>& s,
                  const basic_regex<B, T>& e,
                  boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
 {
@@ -104,45 +100,45 @@ inline bool regex_search(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s,
 //
 // regex_iterator creation:
 //
-template <SIMPLE_STRING_PARAM>
+template <class B, bool b>
 inline regex_iterator<B const*> 
-make_regex_iterator(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s, const basic_regex<B>& e, ::boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
+make_regex_iterator(const ATL::CSimpleStringT<B, b>& s, const basic_regex<B>& e, ::boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
 {
    regex_iterator<B const*> result(s.GetString(), s.GetString() + s.GetLength(), e, f);
    return result;
 }
 
-template <SIMPLE_STRING_PARAM>
+template <class B, bool b>
 inline regex_token_iterator<B const*> 
-   make_regex_token_iterator(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s, const basic_regex<B>& e, int sub = 0, ::boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
+   make_regex_token_iterator(const ATL::CSimpleStringT<B, b>& s, const basic_regex<B>& e, int sub = 0, ::boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
 {
    regex_token_iterator<B const*> result(s.GetString(), s.GetString() + s.GetLength(), e, sub, f);
    return result;
 }
 
-template <SIMPLE_STRING_PARAM>
+template <class B, bool b>
 inline regex_token_iterator<B const*> 
-make_regex_token_iterator(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s, const basic_regex<B>& e, const std::vector<int>& subs, ::boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
+make_regex_token_iterator(const ATL::CSimpleStringT<B, b>& s, const basic_regex<B>& e, const std::vector<int>& subs, ::boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
 {
    regex_token_iterator<B const*> result(s.GetString(), s.GetString() + s.GetLength(), e, subs, f);
    return result;
 }
 
-template <SIMPLE_STRING_PARAM, std::size_t N>
+template <class B, bool b, std::size_t N>
 inline regex_token_iterator<B const*> 
-make_regex_token_iterator(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s, const basic_regex<B>& e, const int (& subs)[N], ::boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
+make_regex_token_iterator(const ATL::CSimpleStringT<B, b>& s, const basic_regex<B>& e, const int (& subs)[N], ::boost::regex_constants::match_flag_type f = boost::regex_constants::match_default)
 {
    regex_token_iterator<B const*> result(s.GetString(), s.GetString() + s.GetLength(), e, subs, f);
    return result;
 }
 
 template <class OutputIterator, class BidirectionalIterator, class traits,
-          SIMPLE_STRING_PARAM>
+          class B, bool b>
 OutputIterator regex_replace(OutputIterator out,
                            BidirectionalIterator first,
                            BidirectionalIterator last,
                            const basic_regex<B, traits>& e,
-                           const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& fmt,
+                           const ATL::CSimpleStringT<B, b>& fmt,
                            match_flag_type flags = match_default)
 {
    return ::boost::regex_replace(out, first, last, e, fmt.GetString(), flags);
@@ -150,12 +146,12 @@ OutputIterator regex_replace(OutputIterator out,
 
 namespace re_detail{
 
-template <SIMPLE_STRING_PARAM>
+template <class B, bool b>
 class mfc_string_out_iterator
 {
-   ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>* out;
+   ATL::CSimpleStringT<B, b>* out;
 public:
-   mfc_string_out_iterator(ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s) : out(&s) {}
+   mfc_string_out_iterator(ATL::CSimpleStringT<B, b>& s) : out(&s) {}
    mfc_string_out_iterator& operator++() { return *this; }
    mfc_string_out_iterator& operator++(int) { return *this; }
    mfc_string_out_iterator& operator*() { return *this; }
@@ -173,14 +169,14 @@ public:
 
 }
 
-template <class traits, SIMPLE_STRING_PARAM>
-ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST> regex_replace(const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& s,
+template <class traits, class B, bool b>
+ATL::CSimpleStringT<B, b> regex_replace(const ATL::CSimpleStringT<B, b>& s,
                             const basic_regex<B, traits>& e,
-                            const ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST>& fmt,
+                            const ATL::CSimpleStringT<B, b>& fmt,
                             match_flag_type flags = match_default)
 {
-   ATL::CSimpleStringT<SIMPLE_STRING_ARG_LIST> result(s.GetManager());
-   re_detail::mfc_string_out_iterator<SIMPLE_STRING_ARG_LIST> i(result);
+   ATL::CSimpleStringT<B, b> result(s.GetManager());
+   re_detail::mfc_string_out_iterator<B, b> i(result);
    regex_replace(i, s.GetString(), s.GetString() + s.GetLength(), e, fmt.GetString(), flags);
    return result;
 }

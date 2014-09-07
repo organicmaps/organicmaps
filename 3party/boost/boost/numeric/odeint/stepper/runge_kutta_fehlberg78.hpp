@@ -6,8 +6,8 @@
  Implementation of the Runge-Kutta-Fehlberg stepper with the generic stepper.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Mario Mulansky
+ Copyright 2012-2013 Karsten Ahnert
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -22,9 +22,11 @@
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/container/generation/make_vector.hpp>
 
-#include <boost/numeric/odeint/stepper/explicit_generic_rk.hpp>
+#include <boost/numeric/odeint/stepper/explicit_error_generic_rk.hpp>
 #include <boost/numeric/odeint/algebra/range_algebra.hpp>
 #include <boost/numeric/odeint/algebra/default_operations.hpp>
+#include <boost/numeric/odeint/algebra/algebra_dispatcher.hpp>
+#include <boost/numeric/odeint/algebra/operations_dispatcher.hpp>
 
 #include <boost/array.hpp>
 
@@ -291,8 +293,8 @@ class State ,
 class Value = double ,
 class Deriv = State ,
 class Time = Value ,
-class Algebra = range_algebra ,
-class Operations = default_operations ,
+class Algebra = typename algebra_dispatcher< State >::algebra_type ,
+class Operations = typename operations_dispatcher< State >::operations_type ,
 class Resizer = initially_resizer
 >
 #ifndef DOXYGEN_SKIP

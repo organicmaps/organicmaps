@@ -53,7 +53,7 @@
 #    error Unknown platform
 #  endif
 
-#endif   //#if (defined BOOST_INTERPROCESS_WINDOWS)
+#endif   //#if defined (BOOST_INTERPROCESS_WINDOWS)
 
 //!\file
 //!Describes mapped region class
@@ -186,7 +186,7 @@ class mapped_region
 
    //!This enum specifies region usage behaviors that an application can specify
    //!to the mapped region implementation.
-   enum advice_types{ 
+   enum advice_types{
       //!Specifies that the application has no advice to give on its behavior with respect to
       //!the region. It is the default characteristic if no advice is given for a range of memory.
       advice_normal,
@@ -520,7 +520,7 @@ inline bool mapped_region::shrink_by(std::size_t bytes, bool from_back)
    }
    else if(shrink_page_bytes){
       //In Windows, we can't decommit the storage or release the virtual address space,
-      //the best we can do is try to remove some memory from the process working set. 
+      //the best we can do is try to remove some memory from the process working set.
       //With a bit of luck we can free some physical memory.
       unsigned long old_protect_ignored;
       bool b_ret = winapi::virtual_unlock(shrink_page_start, shrink_page_bytes)
@@ -561,7 +561,7 @@ inline void mapped_region::priv_close()
 inline void mapped_region::dont_close_on_destruction()
 {}
 
-#else    //#if (defined BOOST_INTERPROCESS_WINDOWS)
+#else    //#if defined (BOOST_INTERPROCESS_WINDOWS)
 
 inline mapped_region::mapped_region()
    :  m_base(0), m_size(0), m_page_offset(0), m_mode(read_only), m_is_xsi(false)
@@ -741,6 +741,9 @@ inline bool mapped_region::advise(advice_types advice)
    const unsigned int mode_none = 0;
    const unsigned int mode_padv = 1;
    const unsigned int mode_madv = 2;
+   // Suppress "unused variable" warnings
+   (void)mode_padv;
+   (void)mode_madv;
    unsigned int mode = mode_none;
    //Choose advice either from POSIX (preferred) or native Unix
    switch(advice){
@@ -830,7 +833,7 @@ inline void mapped_region::priv_close()
 inline void mapped_region::dont_close_on_destruction()
 {  m_base = 0;   }
 
-#endif   //##if (defined BOOST_INTERPROCESS_WINDOWS)
+#endif   //#if defined (BOOST_INTERPROCESS_WINDOWS)
 
 template<int dummy>
 const std::size_t mapped_region::page_size_holder<dummy>::PageSize
@@ -850,7 +853,7 @@ inline void mapped_region::swap(mapped_region &other)
    ipcdetail::do_swap(this->m_size, other.m_size);
    ipcdetail::do_swap(this->m_page_offset, other.m_page_offset);
    ipcdetail::do_swap(this->m_mode,  other.m_mode);
-   #if (defined BOOST_INTERPROCESS_WINDOWS)
+   #if defined (BOOST_INTERPROCESS_WINDOWS)
    ipcdetail::do_swap(this->m_file_or_mapping_hnd, other.m_file_or_mapping_hnd);
    #else
    ipcdetail::do_swap(this->m_is_xsi, other.m_is_xsi);

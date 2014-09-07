@@ -2,7 +2,7 @@
 // handler_invoke_hook.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -22,8 +22,10 @@
 namespace boost {
 namespace asio {
 
-/// Default invoke function for handlers.
-/**
+/** @defgroup asio_handler_invoke boost::asio::asio_handler_invoke
+ *
+ * @brief Default invoke function for handlers.
+ *
  * Completion handlers for asynchronous operations are invoked by the
  * io_service associated with the corresponding object (e.g. a socket or
  * deadline_timer). Certain guarantees are made on when the handler may be
@@ -42,10 +44,10 @@ namespace asio {
  * Implement asio_handler_invoke for your own handlers to specify a custom
  * invocation strategy.
  *
- * This default implementation is simply:
- * @code
- * function();
- * @endcode
+ * This default implementation invokes the function object like so:
+ * @code function(); @endcode
+ * If necessary, the default implementation makes a copy of the function object
+ * so that the non-const operator() can be used.
  *
  * @par Example
  * @code
@@ -58,11 +60,24 @@ namespace asio {
  * }
  * @endcode
  */
+/*@{*/
+
+/// Default handler invocation hook used for non-const function objects.
 template <typename Function>
-inline void asio_handler_invoke(Function function, ...)
+inline void asio_handler_invoke(Function& function, ...)
 {
   function();
 }
+
+/// Default handler invocation hook used for const function objects.
+template <typename Function>
+inline void asio_handler_invoke(const Function& function, ...)
+{
+  Function tmp(function);
+  tmp();
+}
+
+/*@}*/
 
 } // namespace asio
 } // namespace boost

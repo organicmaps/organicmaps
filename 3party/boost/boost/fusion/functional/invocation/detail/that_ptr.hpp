@@ -9,6 +9,7 @@
 #if !defined(BOOST_FUSION_FUNCTIONAL_INVOCATION_DETAIL_THAT_PTR_HPP_INCLUDED)
 #define BOOST_FUSION_FUNCTIONAL_INVOCATION_DETAIL_THAT_PTR_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/get_pointer.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/type_traits/config.hpp>
@@ -24,11 +25,13 @@ namespace boost { namespace fusion { namespace detail
         typedef typename remove_reference<Wanted>::type pointee;
 
         template <typename T> 
+        BOOST_FUSION_GPU_ENABLED
         static inline pointee * do_get_pointer(T &, pointee * x) 
         {
             return x;
         }
         template <typename T> 
+        BOOST_FUSION_GPU_ENABLED
         static inline pointee * do_get_pointer(T & x, void const *) 
         {
             return get_pointer(x); 
@@ -36,17 +39,21 @@ namespace boost { namespace fusion { namespace detail
 
       public:
 
+        BOOST_FUSION_GPU_ENABLED
         static inline pointee * get(pointee * x)
         {
             return x; 
         }
 
+        BOOST_FUSION_GPU_ENABLED
         static inline pointee * get(pointee & x)
         {
             return boost::addressof(x); 
         }
 
-        template <typename T> static inline pointee * get(T & x)
+        template <typename T>
+        BOOST_FUSION_GPU_ENABLED
+        static inline pointee * get(T & x)
         {
             return do_get_pointer(x, boost::addressof(x)); 
         }

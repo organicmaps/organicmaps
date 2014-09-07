@@ -102,9 +102,9 @@ namespace boost { namespace property_tree { namespace xml_parser
                    > &stream,
                    const Ptree &pt,
                    const xml_writer_settings<
-                       typename Ptree::key_type::value_type
+                       typename Ptree::key_type
                    > & settings = xml_writer_settings<
-                                    typename Ptree::key_type::value_type>() )
+                                    typename Ptree::key_type>() )
     {
         write_xml_internal(stream, pt, std::string(), settings);
     }
@@ -125,9 +125,8 @@ namespace boost { namespace property_tree { namespace xml_parser
                    const Ptree &pt,
                    const std::locale &loc = std::locale(),
                    const xml_writer_settings<
-                       typename Ptree::key_type::value_type
-                   > & settings = xml_writer_settings<
-                                    typename Ptree::key_type::value_type>())
+                       typename Ptree::key_type
+                   > & settings = xml_writer_settings<typename Ptree::key_type>())
     {
         std::basic_ofstream<typename Ptree::key_type::value_type>
             stream(filename.c_str());

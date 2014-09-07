@@ -7,6 +7,7 @@
 #if !defined(FUSION_IS_SEQUENCE_05052005_1002)
 #define FUSION_IS_SEQUENCE_05052005_1002
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/sequence_base.hpp>
 #include <boost/fusion/support/tag_of.hpp>
 #include <boost/mpl/is_sequence.hpp>
@@ -61,7 +62,7 @@ namespace boost { namespace fusion
         struct is_sequence
           : mpl::bool_<
                 (bool)extension::is_sequence_impl<
-                typename fusion::detail::tag_of<T>::type
+                    typename fusion::detail::tag_of<T>::type
                 >::template apply<T>::type::value
             >
         {};

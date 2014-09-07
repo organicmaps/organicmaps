@@ -122,9 +122,13 @@ protected:
     ) const;
 
     virtual std::codecvt_base::result do_out(
-        std::mbstate_t & state, const wchar_t * from,
-        const wchar_t * from_end, const wchar_t*  & from_next,
-        char * to, char * to_end, char * & to_next
+        std::mbstate_t & state,
+        const wchar_t * from,
+        const wchar_t * from_end,
+        const wchar_t*  & from_next,
+        char * to,
+        char * to_end,
+        char * & to_next
     ) const;
 
     bool invalid_continuing_octet(unsigned char octet_1) const {
@@ -137,17 +141,19 @@ protected:
     }
 
     // continuing octets = octets except for the leading octet
-    static unsigned int get_cont_octet_count(unsigned   char lead_octet) {
+    static unsigned int get_cont_octet_count(unsigned char lead_octet) {
         return get_octet_count(lead_octet) - 1;
     }
 
-    static unsigned int get_octet_count(unsigned char   lead_octet);
+    static unsigned int get_octet_count(unsigned char lead_octet);
 
     // How many "continuing octets" will be needed for this word
     // ==   total octets - 1.
     int get_cont_octet_out_count(wchar_t word) const ;
 
-    virtual bool do_always_noconv() const throw() { return false; }
+    virtual bool do_always_noconv() const BOOST_NOEXCEPT_OR_NOTHROW {
+        return false;
+    }
 
     // UTF-8 isn't really stateful since we rewind on partial conversions
     virtual std::codecvt_base::result do_unshift(
@@ -155,13 +161,12 @@ protected:
         char * from,
         char * /*to*/,
         char * & next
-    ) const 
-    {
+    ) const {
         next = from;
         return ok;
     }
 
-    virtual int do_encoding() const throw() {
+    virtual int do_encoding() const BOOST_NOEXCEPT_OR_NOTHROW {
         const int variable_byte_external_encoding=0;
         return variable_byte_external_encoding;
     }
@@ -173,14 +178,10 @@ protected:
         const char * from,
         const char * from_end, 
         std::size_t max_limit
-#if BOOST_WORKAROUND(__IBMCPP__, BOOST_TESTED_AT(600))
-        ) const throw();
-#else
-        ) const;
-#endif
+    ) const;
 
     // Largest possible value do_length(state,from,from_end,1) could return.
-    virtual int do_max_length() const throw () {
+    virtual int do_max_length() const BOOST_NOEXCEPT_OR_NOTHROW {
         return 6; // largest UTF-8 encoding of a UCS-4 character
     }
 };

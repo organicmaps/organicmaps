@@ -55,7 +55,7 @@ namespace impl
     {
         BOOST_MPL_ASSERT_RELATION(N::value, >, 0);
         // for boost::result_of
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type result_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type result_type;
 
         template<typename Args>
         moment_impl(Args const &args)
@@ -72,7 +72,7 @@ namespace impl
         template<typename Args>
         result_type result(Args const &args) const
         {
-            return numeric::average(this->sum, count(args));
+            return numeric::fdiv(this->sum, count(args));
         }
 
     private:

@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 54633 $
+//  Version     : $Revision$
 //
 //  Description : privides core implementation for Unit Test Framework.
 //                Extensions can be provided in separate files

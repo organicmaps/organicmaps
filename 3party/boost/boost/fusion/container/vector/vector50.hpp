@@ -7,6 +7,7 @@
 #if !defined(FUSION_VECTOR50_05052005_0207)
 #define FUSION_VECTOR50_05052005_0207
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/vector/vector50_fwd.hpp>
 #include <boost/fusion/support/sequence_base.hpp>
 #include <boost/fusion/support/detail/access.hpp>
@@ -60,11 +61,12 @@ namespace boost { namespace fusion
     struct fusion_sequence_tag;
     struct random_access_traversal_tag;
 
+#define FUSION_HASH #
 // expand vector41 to vector50
 #define BOOST_PP_FILENAME_1 <boost/fusion/container/vector/detail/vector_n.hpp>
 #define BOOST_PP_ITERATION_LIMITS (41, 50)
 #include BOOST_PP_ITERATE()
-
+#undef FUSION_HASH
 }}
 
 #if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)

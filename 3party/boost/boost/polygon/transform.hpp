@@ -1,4 +1,4 @@
-// Boost.Polygon library point_data.hpp header file
+// Boost.Polygon library transform.hpp header file
 
 // Copyright (c) Intel Corporation 2008.
 // Copyright (c) 2008-2012 Simonson Lucanus.

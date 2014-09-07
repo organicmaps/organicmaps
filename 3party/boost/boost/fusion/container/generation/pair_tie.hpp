@@ -8,6 +8,7 @@
 #if !defined (BOOST_FUSION_PAIR_TIE_20060812_2058)
 #define BOOST_FUSION_PAIR_TIE_20060812_2058
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -26,6 +27,7 @@ namespace boost { namespace fusion {
     }
 
     template<typename Key, typename T>
+    BOOST_FUSION_GPU_ENABLED
     typename disable_if<is_const<T>, typename result_of::pair_tie<Key, T>::type>::type
     pair_tie(T& t)
     {
@@ -33,6 +35,7 @@ namespace boost { namespace fusion {
     }
 
     template<typename Key, typename T>
+    BOOST_FUSION_GPU_ENABLED
     typename result_of::pair_tie<Key, T const>::type
     pair_tie(T const& t)
     {

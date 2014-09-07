@@ -146,16 +146,16 @@ class dynamic_property_map_adaptor : public dynamic_property_map
   {
     using boost::put;
 
-    key_type key = any_cast<key_type>(in_key);
+    key_type key_ = any_cast<key_type>(in_key);
     if (in_value.type() == typeid(value_type)) {
-      put(property_map_, key, any_cast<value_type>(in_value));
+      put(property_map_, key_, any_cast<value_type>(in_value));
     } else {
       //  if in_value is an empty string, put a default constructed value_type.
       std::string v = any_cast<std::string>(in_value);
       if (v.empty()) {
-        put(property_map_, key, value_type());
+        put(property_map_, key_, value_type());
       } else {
-        put(property_map_, key, detail::read_value<value_type>(v));
+        put(property_map_, key_, detail::read_value<value_type>(v));
       }
     }
   }
@@ -169,15 +169,15 @@ public:
   explicit dynamic_property_map_adaptor(const PropertyMap& property_map_)
     : property_map_(property_map_) { }
 
-  virtual boost::any get(const any& key)
+  virtual boost::any get(const any& key_)
   {
-    return get_wrapper_xxx(property_map_, any_cast<typename boost::property_traits<PropertyMap>::key_type>(key));
+    return get_wrapper_xxx(property_map_, any_cast<typename boost::property_traits<PropertyMap>::key_type>(key_));
   }
 
-  virtual std::string get_string(const any& key)
+  virtual std::string get_string(const any& key_)
   {
     std::ostringstream out;
-    out << get_wrapper_xxx(property_map_, any_cast<typename boost::property_traits<PropertyMap>::key_type>(key));
+    out << get_wrapper_xxx(property_map_, any_cast<typename boost::property_traits<PropertyMap>::key_type>(key_));
     return out.str();
   }
 
@@ -232,6 +232,15 @@ public:
     property_maps.insert(property_maps_type::value_type(name, pm));
 
     return *this;
+  }
+
+  template<typename PropertyMap>
+  dynamic_properties
+  property(const std::string& name, PropertyMap property_map_) const
+  {
+    dynamic_properties result = *this;
+    result.property(name, property_map_);
+    return result;
   }
 
   iterator       begin()       { return property_maps.begin(); }
@@ -290,7 +299,6 @@ put(const std::string& name, dynamic_properties& dp, const Key& key,
   }
 }
 
-#ifndef BOOST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS 
 template<typename Value, typename Key>
 Value
 get(const std::string& name, const dynamic_properties& dp, const Key& key)
@@ -303,7 +311,6 @@ get(const std::string& name, const dynamic_properties& dp, const Key& key)
 
   BOOST_THROW_EXCEPTION(dynamic_get_failure(name));
 }
-#endif
 
 template<typename Value, typename Key>
 Value
@@ -333,7 +340,7 @@ get(const std::string& name, const dynamic_properties& dp, const Key& key)
 
 // The easy way to ignore properties.
 inline
-boost::shared_ptr<boost::dynamic_property_map> 
+boost::shared_ptr<boost::dynamic_property_map>
 ignore_other_properties(const std::string&,
                         const boost::any&,
                         const boost::any&) {

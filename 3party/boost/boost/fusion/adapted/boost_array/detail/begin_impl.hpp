@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_BEGIN_IMPL_27122005_1117)
 #define BOOST_FUSION_BEGIN_IMPL_27122005_1117
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/boost_array/array_iterator.hpp>
 
 namespace boost { namespace fusion {
@@ -27,6 +28,7 @@ namespace boost { namespace fusion {
             {
                 typedef array_iterator<Sequence, 0> type;
     
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& v)
                 {

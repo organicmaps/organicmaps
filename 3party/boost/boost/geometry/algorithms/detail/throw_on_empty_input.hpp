@@ -16,7 +16,7 @@
 
 // BSG 2012-02-06: we use this currently only for distance.
 // For other scalar results area,length,perimeter it is commented on purpose.
-// Reason is that for distance there is no other choice. distance of two 
+// Reason is that for distance there is no other choice. distance of two
 // empty geometries (or one empty) should NOT return any value.
 // But for area it is no problem to be 0.
 // Suppose: area(intersection(a,b)). We (probably) don't want a throw there...

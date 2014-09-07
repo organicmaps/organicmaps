@@ -47,7 +47,7 @@ typename Dist::value_type generic_find_mode(const Dist& dist, typename Dist::val
       // Oops we don't know how to handle this, or even in which
       // direction we should move in, treat as an evaluation error:
       //
-      policies::raise_evaluation_error(
+      return policies::raise_evaluation_error(
          function, 
          "Could not locate a starting location for the search for the mode, original guess was %1%", guess, policy_type());
    }

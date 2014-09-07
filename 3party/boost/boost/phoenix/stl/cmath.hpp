@@ -16,6 +16,7 @@
 
 namespace boost {
 
+#ifdef BOOST_NO_CXX11_DECLTYPE
 #define BOOST_PHOENIX_MATH_FUNCTION(name, n)                            \
     namespace phoenix_impl {                                            \
     struct name ## _impl {                                              \
@@ -36,8 +37,32 @@ namespace boost {
     };                                                                  \
     }                                                                   \
     namespace phoenix {                                                 \
-    BOOST_PHOENIX_ADAPT_CALLABLE(name, phoenix_impl::name ## _impl, 1)  \
+    BOOST_PHOENIX_ADAPT_CALLABLE(name, phoenix_impl::name ## _impl, n)  \
     }
+#else
+#define BOOST_PHOENIX_MATH_FUNCTION(name, n)                            \
+    namespace phoenix_impl {                                            \
+    struct name ## _impl {                                              \
+        template<class Sig>                                             \
+        struct result;                                                  \
+        template<class This, BOOST_PHOENIX_typename_A(n)>               \
+        struct result<This(BOOST_PHOENIX_A(n))>                         \
+        {                                                               \
+            typedef                                                     \
+               decltype( name(typename proto::detail::uncvref<A0>::type()) )  \
+                type;                                                   \
+        };                                                              \
+        template<BOOST_PHOENIX_typename_A(n)>                           \
+        auto operator()(BOOST_PHOENIX_A_const_ref_a(n)) const -> decltype( name(BOOST_PHOENIX_a(n)) ) {    \
+            using namespace std;                                        \
+            return name(BOOST_PHOENIX_a(n));                            \
+        }                                                               \
+    };                                                                  \
+    }                                                                   \
+    namespace phoenix {                                                 \
+    BOOST_PHOENIX_ADAPT_CALLABLE(name, phoenix_impl::name ## _impl, n)  \
+    }
+#endif
 
 BOOST_PHOENIX_MATH_FUNCTION(acos, 1)
 BOOST_PHOENIX_MATH_FUNCTION(asin, 1)

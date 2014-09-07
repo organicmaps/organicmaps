@@ -6,8 +6,9 @@
  Implementation of the Adams-Bashforth-Moulton method, a predictor-corrector multistep method.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Karsten Ahnert
+ Copyright 2011-2013 Mario Mulansky
+ Copyright 2012 Christoph Koke
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -24,12 +25,15 @@
 #include <boost/numeric/odeint/stepper/stepper_categories.hpp>
 #include <boost/numeric/odeint/algebra/range_algebra.hpp>
 #include <boost/numeric/odeint/algebra/default_operations.hpp>
+#include <boost/numeric/odeint/algebra/algebra_dispatcher.hpp>
+#include <boost/numeric/odeint/algebra/operations_dispatcher.hpp>
 
 #include <boost/numeric/odeint/util/state_wrapper.hpp>
 #include <boost/numeric/odeint/util/resizer.hpp>
 
 #include <boost/numeric/odeint/stepper/adams_bashforth.hpp>
 #include <boost/numeric/odeint/stepper/adams_moulton.hpp>
+
 
 
 namespace boost {
@@ -43,8 +47,8 @@ class State ,
 class Value = double ,
 class Deriv = State ,
 class Time = Value ,
-class Algebra = range_algebra ,
-class Operations = default_operations ,
+class Algebra = typename algebra_dispatcher< State >::algebra_type ,
+class Operations = typename operations_dispatcher< State >::operations_type ,
 class Resizer = initially_resizer
 >
 class adams_bashforth_moulton
@@ -72,17 +76,20 @@ public :
 #ifndef DOXYGEN_SKIP
     typedef adams_bashforth< steps , state_type , value_type , deriv_type , time_type , algebra_type , operations_type , resizer_type > adams_bashforth_type;
     typedef adams_moulton< steps , state_type , value_type , deriv_type , time_type , algebra_type , operations_type , resizer_type > adams_moulton_type;
+    typedef adams_bashforth_moulton< steps , state_type , value_type , deriv_type , time_type , algebra_type , operations_type , resizer_type > stepper_type;
 #endif //DOXYGEN_SKIP
     typedef unsigned short order_type;
-    static const order_type order_value = steps + 1;
+    static const order_type order_value = steps;
 
     /** \brief Constructs the adams_bashforth class. */
     adams_bashforth_moulton( void )
     : m_adams_bashforth() , m_adams_moulton( m_adams_bashforth.algebra() )
+    , m_x() , m_resizer()
     { }
 
     adams_bashforth_moulton( const algebra_type &algebra )
     : m_adams_bashforth( algebra ) , m_adams_moulton( m_adams_bashforth.algebra() )
+    , m_x() , m_resizer()    
     { }
 
     order_type order( void ) const { return order_value; }
@@ -90,8 +97,7 @@ public :
     template< class System , class StateInOut >
     void do_step( System system , StateInOut &x , time_type t , time_type dt )
     {
-        m_adams_bashforth.do_step( system , x , t , dt );
-        m_adams_moulton.do_step( system , x , t , dt , m_adams_bashforth.step_storage() );
+        do_step_impl1( system , x , t , dt );
     }
 
     /**
@@ -100,15 +106,13 @@ public :
     template< class System , class StateInOut >
     void do_step( System system , const StateInOut &x , time_type t , time_type dt )
     {
-        m_adams_bashforth.do_step( system , x , t , dt );
-        m_adams_moulton.do_step( system , x , t , dt , m_adams_bashforth.step_storage() );
+        do_step_impl1( system , x , t , dt );
     }
 
     template< class System , class StateIn , class StateOut >
     void do_step( System system , const StateIn &in , time_type t , const StateOut &out , time_type dt )
     {
-        m_adams_bashforth.do_step( system , in , t , out , dt );
-        m_adams_moulton.do_step( system , out , t , dt , m_adams_bashforth.step_storage() );
+        do_step_impl2( system , in , t , out , dt );
     }
 
     /**
@@ -117,8 +121,7 @@ public :
     template< class System , class StateIn , class StateOut >
     void do_step( System system , const StateIn &in , time_type t , StateOut &out , time_type dt )
     {
-        m_adams_bashforth.do_step( system , in , t , out , dt );
-        m_adams_moulton.do_step( system , out , t , dt , m_adams_bashforth.step_storage() );
+        do_step_impl2( system , in ,t , out , dt );
     }
 
 
@@ -127,6 +130,7 @@ public :
     {
         m_adams_bashforth.adjust_size( x );
         m_adams_moulton.adjust_size( x );
+        resize_impl( x );
     }
 
 
@@ -146,9 +150,48 @@ public :
 
 
 private:
+    
+    template< typename System , typename StateInOut >
+    void do_step_impl1( System system , StateInOut &x , time_type t , time_type dt )
+    {
+        if( m_adams_bashforth.is_initialized() )
+        {
+            m_resizer.adjust_size( x , detail::bind( &stepper_type::template resize_impl< StateInOut > , detail::ref( *this ) , detail::_1 ) );
+            m_adams_bashforth.do_step( system , x , t , m_x.m_v , dt );
+            m_adams_moulton.do_step( system , x , m_x.m_v , t , x , dt , m_adams_bashforth.step_storage() );
+        }
+        else
+        {
+            m_adams_bashforth.do_step( system , x , t , dt );
+        }
+    }
+    
+    template< typename System , typename StateIn , typename StateInOut >
+    void do_step_impl2( System system , StateIn const &in , time_type t , StateInOut & out , time_type dt )
+    {
+        if( m_adams_bashforth.is_initialized() )
+        {
+            m_resizer.adjust_size( in , detail::bind( &stepper_type::template resize_impl< StateInOut > , detail::ref( *this ) , detail::_1 ) );        
+            m_adams_bashforth.do_step( system , in , t , m_x.m_v , dt );
+            m_adams_moulton.do_step( system , in , m_x.m_v , t , out , dt , m_adams_bashforth.step_storage() );
+        }
+        else
+        {
+            m_adams_bashforth.do_step( system , in , t , out , dt );
+        }
+    }
+
+    
+    template< class StateIn >
+    bool resize_impl( const StateIn &x )
+    {
+        return adjust_size_by_resizeability( m_x , x , typename is_resizeable< state_type >::type() );
+    }
 
     adams_bashforth_type m_adams_bashforth;
     adams_moulton_type m_adams_moulton;
+    wrapped_state_type m_x;
+    resizer_type m_resizer;
 };
 
 

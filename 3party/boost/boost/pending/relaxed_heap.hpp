@@ -163,7 +163,7 @@ public:
   void remove(const value_type& x)
   {
     group* a = &index_to_group[get(id, x) / log_n];
-    assert(groups[get(id, x)] != 0);
+    assert(groups[get(id, x)]);
     a->value = x;
     a->kind = smallest_key;
     promote(a);

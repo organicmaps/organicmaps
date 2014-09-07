@@ -21,11 +21,11 @@
 #include <boost/geometry/util/select_most_precise.hpp>
 
 
-namespace boost{ namespace geometry 
-{ 
+namespace boost{ namespace geometry
+{
 
 
-// Specialize for Boost.Geometry's coordinate cast 
+// Specialize for Boost.Geometry's coordinate cast
 // (from string to coordinate type)
 namespace detail
 {
@@ -70,7 +70,7 @@ struct coordinate_cast<rational<T> >
             }
             split_parts(source, p, before, after, negate, len);
 
-            return negate 
+            return negate
                 ? -rational<T>(before, after)
                 : rational<T>(before, after)
                 ;
@@ -85,7 +85,7 @@ struct coordinate_cast<rational<T> >
             den *= 10;
         }
 
-        return negate 
+        return negate
             ? -rational<T>(before) - rational<T>(after, den)
             : rational<T>(before) + rational<T>(after, den)
             ;
@@ -115,19 +115,19 @@ struct select_most_precise<boost::rational<T>, double>
 
 
 // Specializes boost::rational to boost::numeric::bounds
-namespace boost { namespace numeric 
+namespace boost { namespace numeric
 {
 
 template<class T>
 struct bounds<rational<T> >
 {
-    static inline rational<T> lowest() 
-    { 
-        return rational<T>(bounds<T>::lowest(), 1); 
+    static inline rational<T> lowest()
+    {
+        return rational<T>(bounds<T>::lowest(), 1);
     }
-    static inline rational<T> highest() 
-    { 
-        return rational<T>(bounds<T>::highest(), 1); 
+    static inline rational<T> highest()
+    {
+        return rational<T>(bounds<T>::highest(), 1);
     }
 };
 

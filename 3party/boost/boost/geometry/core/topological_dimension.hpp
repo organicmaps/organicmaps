@@ -49,10 +49,12 @@ struct top_dim<segment_tag>    : boost::mpl::int_<1> {};
 
 
 // ring: topological dimension of two, but some people say: 1 !!
+// NOTE: This is not OGC LinearRing!
 template <>
 struct top_dim<ring_tag>       : boost::mpl::int_<2> {};
 
 
+// TODO: This is wrong! Boxes may have various topological dimensions
 template <>
 struct top_dim<box_tag>        : boost::mpl::int_<2> {};
 
@@ -60,6 +62,17 @@ struct top_dim<box_tag>        : boost::mpl::int_<2> {};
 template <>
 struct top_dim<polygon_tag>    : boost::mpl::int_<2> {};
 
+
+template <>
+struct top_dim<multi_point_tag> : boost::mpl::int_<0> {};
+
+
+template <>
+struct top_dim<multi_linestring_tag> : boost::mpl::int_<1> {};
+
+
+template <>
+struct top_dim<multi_polygon_tag> : boost::mpl::int_<2> {};
 
 
 } // namespace core_dispatch

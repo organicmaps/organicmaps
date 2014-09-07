@@ -2,7 +2,7 @@
 // ip/impl/address_v6.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -110,7 +110,8 @@ std::string address_v6::to_string(boost::system::error_code& ec) const
 {
   char addr_str[boost::asio::detail::max_addr_v6_str_len];
   const char* addr =
-    boost::asio::detail::socket_ops::inet_ntop(AF_INET6, &addr_, addr_str,
+    boost::asio::detail::socket_ops::inet_ntop(
+        BOOST_ASIO_OS_DEF(AF_INET6), &addr_, addr_str,
         boost::asio::detail::max_addr_v6_str_len, scope_id_, ec);
   if (addr == 0)
     return std::string();
@@ -130,7 +131,7 @@ address_v6 address_v6::from_string(
 {
   address_v6 tmp;
   if (boost::asio::detail::socket_ops::inet_pton(
-        AF_INET6, str, &tmp.addr_, &tmp.scope_id_, ec) <= 0)
+        BOOST_ASIO_OS_DEF(AF_INET6), str, &tmp.addr_, &tmp.scope_id_, ec) <= 0)
     return address_v6();
   return tmp;
 }

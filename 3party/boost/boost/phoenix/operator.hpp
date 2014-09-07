@@ -18,5 +18,6 @@
 #include <boost/phoenix/operator/logical.hpp>
 #include <boost/phoenix/operator/io.hpp>
 #include <boost/phoenix/operator/member.hpp>
+#include <boost/phoenix/scope/local_variable.hpp> // to fix 5824
 
 #endif

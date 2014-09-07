@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_SINGLE_VIEW_DISTANCE_IMPL_JUL_07_2011_1348PM)
 #define BOOST_FUSION_SINGLE_VIEW_DISTANCE_IMPL_JUL_07_2011_1348PM
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/minus.hpp>
 
 namespace boost { namespace fusion 
@@ -29,6 +30,7 @@ namespace boost { namespace fusion
                 typedef typename mpl::minus<typename Last::position,
                     typename First::position>::type type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(First const& /*first*/, Last const& /*last*/)
                 {

@@ -14,11 +14,11 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
-
+#include <boost/assert.hpp>
 #include <pthread.h>
 
 namespace boost
@@ -44,20 +44,20 @@ public:
 // HPUX 10.20 / DCE has a nonstandard pthread_mutex_init
 
 #if defined(__hpux) && defined(_DECTHREADS_)
-        pthread_mutex_init(&m_, pthread_mutexattr_default);
+        BOOST_VERIFY(pthread_mutex_init(&m_, pthread_mutexattr_default) == 0);
 #else
-        pthread_mutex_init(&m_, 0);
+        BOOST_VERIFY(pthread_mutex_init(&m_, 0) == 0);
 #endif
     }
 
     ~mutex()
     {
-        pthread_mutex_destroy(&m_);
+        BOOST_VERIFY(pthread_mutex_destroy(&m_) == 0);
     }
 
     void lock()
     {
-        pthread_mutex_lock(&m_);
+        BOOST_VERIFY(pthread_mutex_lock(&m_) == 0);
     }
 
     bool try_lock()
@@ -67,7 +67,7 @@ public:
 
     void unlock()
     {
-        pthread_mutex_unlock(&m_);
+        BOOST_VERIFY(pthread_mutex_unlock(&m_) == 0);
     }
 };
 

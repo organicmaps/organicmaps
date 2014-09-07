@@ -6,7 +6,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2011-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2011-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -17,7 +17,7 @@
 #ifndef BOOST_CONTAINER_ALLOCATOR_SCOPED_ALLOCATOR_HPP
 #define BOOST_CONTAINER_ALLOCATOR_SCOPED_ALLOCATOR_HPP
 
-#if (defined MSC_VER) && (_MSC_VER >= 1200)
+#if defined (_MSC_VER)
 #  pragma once
 #endif
 
@@ -46,8 +46,8 @@ namespace boost { namespace container {
 //! and if T is used in a context where a container must call such a constructor, then the program is
 //! ill-formed.
 //!
-//! [Example:
-//!  template <class T, class Allocator = allocator<T> >  
+//! <code>
+//!  template <class T, class Allocator = allocator<T> >
 //!  class Z {
 //!    public:
 //!      typedef Allocator allocator_type;
@@ -62,9 +62,9 @@ namespace boost { namespace container {
 //!
 //! // Specialize trait for class template Z
 //! template <class T, class Allocator = allocator<T> >
-//! struct constructible_with_allocator_suffix<Z<T,Allocator> > 
+//! struct constructible_with_allocator_suffix<Z<T,Allocator> >
 //!      : ::boost::true_type { };
-//! -- end example]
+//! </code>
 //!
 //! <b>Note</b>: This trait is a workaround inspired by "N2554: The Scoped Allocator Model (Rev 2)"
 //! (Pablo Halpern, 2008-02-29) to backport the scoped allocator model to C++03, as
@@ -80,7 +80,7 @@ struct constructible_with_allocator_suffix
 {};
 
 //! <b>Remark</b>: if a specialization is derived from true_type, indicates that T may be constructed
-//! with allocator_arg and T::allocator_type as its first two constructor arguments. 
+//! with allocator_arg and T::allocator_type as its first two constructor arguments.
 //! Ideally, all constructors of T (including the copy and move constructors) should have a variant
 //! that accepts these two initial arguments.
 //!
@@ -90,32 +90,32 @@ struct constructible_with_allocator_suffix
 //! called with these initial arguments, and if T is used in a context where a container must call such
 //! a constructor, then the program is ill-formed.
 //!
-//! [Example:
+//! <code>
 //! template <class T, class Allocator = allocator<T> >
 //! class Y {
 //!    public:
 //!       typedef Allocator allocator_type;
-//! 
+//!
 //!       // Default constructor with and allocator-extended default constructor
 //!       Y();
 //!       Y(allocator_arg_t, const allocator_type& a);
-//! 
+//!
 //!       // Copy constructor and allocator-extended copy constructor
 //!       Y(const Y& yy);
 //!       Y(allocator_arg_t, const allocator_type& a, const Y& yy);
-//! 
+//!
 //!       // Variadic constructor and allocator-extended variadic constructor
 //!       template<class ...Args> Y(Args&& args...);
-//!       template<class ...Args> 
+//!       template<class ...Args>
 //!       Y(allocator_arg_t, const allocator_type& a, Args&&... args);
 //! };
-//! 
+//!
 //! // Specialize trait for class template Y
 //! template <class T, class Allocator = allocator<T> >
-//! struct constructible_with_allocator_prefix<Y<T,Allocator> > 
+//! struct constructible_with_allocator_prefix<Y<T,Allocator> >
 //!       : ::boost::true_type { };
-//! 
-//! -- end example]
+//!
+//! </code>
 //!
 //! <b>Note</b>: This trait is a workaround inspired by "N2554: The Scoped Allocator Model (Rev 2)"
 //! (Pablo Halpern, 2008-02-29) to backport the scoped allocator model to C++03, as
@@ -130,7 +130,7 @@ struct constructible_with_allocator_prefix
     : ::boost::false_type
 {};
 
-///@cond
+#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
 namespace container_detail {
 
@@ -159,7 +159,7 @@ struct uses_allocator_imp
 
 }  //namespace container_detail {
 
-///@endcond
+#endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
 //! <b>Remark</b>: Automatically detects if T has a nested allocator_type that is convertible from
 //! Alloc. Meets the BinaryTypeTrait requirements ([meta.rqmts] 20.4.1). A program may
@@ -173,7 +173,7 @@ struct uses_allocator
    : boost::integral_constant<bool, container_detail::uses_allocator_imp<T, Alloc>::value>
 {};
 
-///@cond
+#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
 namespace container_detail {
 
@@ -583,8 +583,10 @@ class scoped_allocator_adaptor_base
    };
 
    typedef OuterAlloc outer_allocator_type;
-   typedef scoped_allocator_adaptor<InnerAllocs...> inner_allocator_type;
-   typedef allocator_traits<inner_allocator_type>   inner_traits_type;
+   typedef scoped_allocator_adaptor<InnerAllocs...>   inner_allocator_type;
+   typedef allocator_traits<inner_allocator_type>     inner_traits_type;
+   typedef scoped_allocator_adaptor
+      <OuterAlloc, InnerAllocs...>                    scoped_allocator_type;
    typedef boost::integral_constant<
       bool,
       outer_traits_type::propagate_on_container_copy_assignment::value ||
@@ -635,7 +637,7 @@ class scoped_allocator_adaptor_base
       , m_inner(other.inner_allocator())
       {}
 
-   protected:
+   public:
    struct internal_type_t{};
 
    template <class OuterA2>
@@ -670,17 +672,29 @@ class scoped_allocator_adaptor_base
       boost::container::swap_dispatch(this->m_inner, r.inner_allocator());
    }
 
-   inner_allocator_type&       inner_allocator()
+   friend void swap(scoped_allocator_adaptor_base &l, scoped_allocator_adaptor_base &r)
+   {  l.swap(r);  }
+
+   inner_allocator_type&       inner_allocator() BOOST_CONTAINER_NOEXCEPT
       { return m_inner; }
 
-   inner_allocator_type const& inner_allocator() const
+   inner_allocator_type const& inner_allocator() const BOOST_CONTAINER_NOEXCEPT
       { return m_inner; }
 
-   outer_allocator_type      & outer_allocator()
+   outer_allocator_type      & outer_allocator() BOOST_CONTAINER_NOEXCEPT
       { return static_cast<outer_allocator_type&>(*this); }
 
-   const outer_allocator_type &outer_allocator() const
+   const outer_allocator_type &outer_allocator() const BOOST_CONTAINER_NOEXCEPT
       { return static_cast<const outer_allocator_type&>(*this); }
+
+   scoped_allocator_type select_on_container_copy_construction() const
+   {
+      return scoped_allocator_type
+         (internal_type_t()
+         ,outer_traits_type::select_on_container_copy_construction(this->outer_allocator())
+         ,inner_traits_type::select_on_container_copy_construction(this->inner_allocator())
+         );
+   }
 
    private:
    inner_allocator_type m_inner;
@@ -730,6 +744,11 @@ class scoped_allocator_adaptor_base<OuterAlloc, true                            
          ( BOOST_PP_SUB(BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS, n)                          \
          , BOOST_CONTAINER_PP_IDENTITY, nat)                                                    \
       > inner_allocator_type;                                                                   \
+   typedef scoped_allocator_adaptor<OuterAlloc, BOOST_PP_ENUM_PARAMS(n, Q)                      \
+      BOOST_PP_ENUM_TRAILING                                                                    \
+         ( BOOST_PP_SUB(BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS, n)                          \
+         , BOOST_CONTAINER_PP_IDENTITY, nat)                                                    \
+      > scoped_allocator_type;                                                                  \
    typedef allocator_traits<inner_allocator_type>   inner_traits_type;                          \
    typedef boost::integral_constant<                                                            \
       bool,                                                                                     \
@@ -790,7 +809,7 @@ class scoped_allocator_adaptor_base<OuterAlloc, true                            
       , m_inner(other.inner_allocator())                                                        \
       {}                                                                                        \
                                                                                                 \
-   protected:                                                                                   \
+   public:                                                                                      \
    struct internal_type_t{};                                                                    \
                                                                                                 \
    template <class OuterA2>                                                                     \
@@ -824,6 +843,9 @@ class scoped_allocator_adaptor_base<OuterAlloc, true                            
       boost::container::swap_dispatch(this->m_inner, r.inner_allocator());                      \
    }                                                                                            \
                                                                                                 \
+   friend void swap(scoped_allocator_adaptor_base &l, scoped_allocator_adaptor_base &r)         \
+   {  l.swap(r);  }                                                                             \
+                                                                                                \
    inner_allocator_type&       inner_allocator()                                                \
       { return m_inner; }                                                                       \
                                                                                                 \
@@ -836,6 +858,14 @@ class scoped_allocator_adaptor_base<OuterAlloc, true                            
    const outer_allocator_type &outer_allocator() const                                          \
       { return static_cast<const outer_allocator_type&>(*this); }                               \
                                                                                                 \
+   scoped_allocator_type select_on_container_copy_construction() const                          \
+   {                                                                                            \
+      return scoped_allocator_type                                                              \
+         (internal_type_t()                                                                     \
+         ,outer_traits_type::select_on_container_copy_construction(this->outer_allocator())     \
+         ,inner_traits_type::select_on_container_copy_construction(this->inner_allocator())     \
+         );                                                                                     \
+   }                                                                                            \
    private:                                                                                     \
    inner_allocator_type m_inner;                                                                \
 };                                                                                              \
@@ -874,6 +904,7 @@ class scoped_allocator_adaptor_base
    typedef OuterAlloc                           outer_allocator_type;
    typedef allocator_traits<OuterAlloc>         outer_traits_type;
    typedef scoped_allocator_adaptor<OuterAlloc> inner_allocator_type;
+   typedef inner_allocator_type                 scoped_allocator_type;
    typedef allocator_traits<inner_allocator_type>   inner_traits_type;
    typedef typename outer_traits_type::
       propagate_on_container_copy_assignment    propagate_on_container_copy_assignment;
@@ -922,14 +953,14 @@ class scoped_allocator_adaptor_base
       : outer_allocator_type(other.outer_allocator())
       {}
 
-   protected:
+   public:
    struct internal_type_t{};
 
    template <class OuterA2>
    scoped_allocator_adaptor_base(internal_type_t, BOOST_FWD_REF(OuterA2) outerAlloc, const inner_allocator_type &)
       : outer_allocator_type(::boost::forward<OuterA2>(outerAlloc))
       {}
- 
+
    public:
    scoped_allocator_adaptor_base &operator=(BOOST_COPY_ASSIGN_REF(scoped_allocator_adaptor_base) other)
    {
@@ -948,6 +979,9 @@ class scoped_allocator_adaptor_base
       boost::container::swap_dispatch(this->outer_allocator(), r.outer_allocator());
    }
 
+   friend void swap(scoped_allocator_adaptor_base &l, scoped_allocator_adaptor_base &r)
+   {  l.swap(r);  }
+
    inner_allocator_type&       inner_allocator()
       { return static_cast<inner_allocator_type&>(*this); }
 
@@ -959,11 +993,22 @@ class scoped_allocator_adaptor_base
 
    const outer_allocator_type &outer_allocator() const
       { return static_cast<const outer_allocator_type&>(*this); }
+
+   scoped_allocator_type select_on_container_copy_construction() const
+   {
+      return scoped_allocator_type
+         (internal_type_t()
+         ,outer_traits_type::select_on_container_copy_construction(this->outer_allocator())
+         //Don't use inner_traits_type::select_on_container_copy_construction(this->inner_allocator())
+         //as inner_allocator() is equal to *this and that would trigger an infinite loop
+         , this->inner_allocator()
+         );
+   }
 };
 
 }  //namespace container_detail {
 
-///@endcond
+#endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
 //Scoped allocator
 #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
@@ -993,14 +1038,14 @@ class scoped_allocator_adaptor_base
    //! scoped_allocator_adaptor is derived from the outer allocator type so it can be
    //! substituted for the outer allocator type in most expressions. -end note]
    //!
-   //! In the construct member functions, `OUTERMOST(x)` is x if x does not have
-   //! an `outer_allocator()` member function and
-   //! `OUTERMOST(x.outer_allocator())` otherwise; `OUTERMOST_ALLOC_TRAITS(x)` is
-   //! `allocator_traits<decltype(OUTERMOST(x))>`.
+   //! In the construct member functions, <code>OUTERMOST(x)</code> is x if x does not have
+   //! an <code>outer_allocator()</code> member function and
+   //! <code>OUTERMOST(x.outer_allocator())</code> otherwise; <code>OUTERMOST_ALLOC_TRAITS(x)</code> is
+   //! <code>allocator_traits<decltype(OUTERMOST(x))></code>.
    //!
-   //! [<b>Note</b>: `OUTERMOST(x)` and
-   //! `OUTERMOST_ALLOC_TRAITS(x)` are recursive operations. It is incumbent upon
-   //! the definition of `outer_allocator()` to ensure that the recursion terminates.
+   //! [<b>Note</b>: <code>OUTERMOST(x)</code> and
+   //! <code>OUTERMOST_ALLOC_TRAITS(x)</code> are recursive operations. It is incumbent upon
+   //! the definition of <code>outer_allocator()</code> to ensure that the recursion terminates.
    //! It will terminate for all instantiations of scoped_allocator_adaptor. -end note]
    template <typename OuterAlloc, typename ...InnerAllocs>
    class scoped_allocator_adaptor
@@ -1031,7 +1076,7 @@ class scoped_allocator_adaptor
    BOOST_COPYABLE_AND_MOVABLE(scoped_allocator_adaptor)
 
    public:
-   /// @cond
+   #ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
    typedef container_detail::scoped_allocator_adaptor_base
       <OuterAlloc
       #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
@@ -1040,14 +1085,14 @@ class scoped_allocator_adaptor
       , true BOOST_PP_ENUM_TRAILING_PARAMS(BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS, Q)
       #endif
       >                       base_type;
-   typedef typename base_type::internal_type_t internal_type_t;
-   /// @endcond
+   typedef typename base_type::internal_type_t              internal_type_t;
+   #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
    typedef OuterAlloc                                       outer_allocator_type;
    //! Type: For exposition only
    //!
    typedef allocator_traits<OuterAlloc>                     outer_traits_type;
-   //! Type: `scoped_allocator_adaptor<OuterAlloc>` if `sizeof...(InnerAllocs)` is zero; otherwise,
-   //! `scoped_allocator_adaptor<InnerAllocs...>`.
+   //! Type: <code>scoped_allocator_adaptor<OuterAlloc></code> if <code>sizeof...(InnerAllocs)</code> is zero; otherwise,
+   //! <code>scoped_allocator_adaptor<InnerAllocs...></code>.
    typedef typename base_type::inner_allocator_type         inner_allocator_type;
    typedef allocator_traits<inner_allocator_type>           inner_traits_type;
    typedef typename outer_traits_type::value_type           value_type;
@@ -1057,23 +1102,23 @@ class scoped_allocator_adaptor
    typedef typename outer_traits_type::const_pointer        const_pointer;
    typedef typename outer_traits_type::void_pointer         void_pointer;
    typedef typename outer_traits_type::const_void_pointer   const_void_pointer;
-   //! Type: `true_type` if `allocator_traits<Allocator>::propagate_on_container_copy_assignment::value` is
-   //! true for any `Allocator` in the set of `OuterAlloc` and `InnerAllocs...`; otherwise, false_type.
+   //! Type: <code>true_type</code> if <code>allocator_traits<Allocator>::propagate_on_container_copy_assignment::value</code> is
+   //! true for any <code>Allocator</code> in the set of <code>OuterAlloc</code> and <code>InnerAllocs...</code>; otherwise, false_type.
    typedef typename base_type::
       propagate_on_container_copy_assignment                propagate_on_container_copy_assignment;
-   //! Type: `true_type` if `allocator_traits<Allocator>::propagate_on_container_move_assignment::value` is
-   //! true for any `Allocator` in the set of `OuterAlloc` and `InnerAllocs...`; otherwise, false_type.
+   //! Type: <code>true_type</code> if <code>allocator_traits<Allocator>::propagate_on_container_move_assignment::value</code> is
+   //! true for any <code>Allocator</code> in the set of <code>OuterAlloc</code> and <code>InnerAllocs...</code>; otherwise, false_type.
    typedef typename base_type::
       propagate_on_container_move_assignment                propagate_on_container_move_assignment;
-   //! Type: `true_type` if `allocator_traits<Allocator>::propagate_on_container_swap::value` is true for any
-   //! `Allocator` in the set of `OuterAlloc` and `InnerAllocs...`; otherwise, false_type.
+   //! Type: <code>true_type</code> if <code>allocator_traits<Allocator>::propagate_on_container_swap::value</code> is true for any
+   //! <code>Allocator</code> in the set of <code>OuterAlloc</code> and <code>InnerAllocs...</code>; otherwise, false_type.
    typedef typename base_type::
       propagate_on_container_swap                           propagate_on_container_swap;
 
    //! Type: Rebinds scoped allocator to
-   //!    `typedef scoped_allocator_adaptor
+   //!    <code>typedef scoped_allocator_adaptor
    //!      < typename outer_traits_type::template portable_rebind_alloc<U>::type
-   //!      , InnerAllocs... >`
+   //!      , InnerAllocs... ></code>
    template <class U>
    struct rebind
    {
@@ -1164,132 +1209,117 @@ class scoped_allocator_adaptor
       {}
 
    scoped_allocator_adaptor &operator=(BOOST_COPY_ASSIGN_REF(scoped_allocator_adaptor) other)
-   {
-      base_type::operator=(static_cast<const base_type &>(other));
-      return *this;
-   }
+   {  return static_cast<scoped_allocator_adaptor&>(base_type::operator=(static_cast<const base_type &>(other))); }
 
    scoped_allocator_adaptor &operator=(BOOST_RV_REF(scoped_allocator_adaptor) other)
-   {
-      base_type::operator=(boost::move(static_cast<scoped_allocator_adaptor&>(other)));
-      return *this;
-   }
+   {  return static_cast<scoped_allocator_adaptor&>(base_type::operator=(boost::move(static_cast<base_type&>(other)))); }
+
+   #ifdef BOOST_CONTAINER_DOXYGEN_INVOKED
+   //! <b>Effects</b>: swaps *this with r.
+   //!
+   void swap(scoped_allocator_adaptor &r);
 
    //! <b>Effects</b>: swaps *this with r.
    //!
-   void swap(scoped_allocator_adaptor &r)
-   {
-      base_type::swap(r);
-   }
-
-   //! <b>Effects</b>: swaps *this with r.
-   //!
-   friend void swap(scoped_allocator_adaptor &l, scoped_allocator_adaptor &r)
-   {  l.swap(r);  }
+   friend void swap(scoped_allocator_adaptor &l, scoped_allocator_adaptor &r);
 
    //! <b>Returns</b>:
-   //!   `static_cast<OuterAlloc&>(*this)`.
-   outer_allocator_type      & outer_allocator()
-      {  return *this; }
+   //!   <code>static_cast<OuterAlloc&>(*this)</code>.
+   outer_allocator_type      & outer_allocator() BOOST_CONTAINER_NOEXCEPT;
 
    //! <b>Returns</b>:
-   //!   `static_cast<const OuterAlloc&>(*this)`.
-   const outer_allocator_type &outer_allocator() const
-      {  return *this; }
+   //!   <code>static_cast<const OuterAlloc&>(*this)</code>.
+   const outer_allocator_type &outer_allocator() const BOOST_CONTAINER_NOEXCEPT;
 
    //! <b>Returns</b>:
-   //!   *this if `sizeof...(InnerAllocs)` is zero; otherwise, inner.
-   inner_allocator_type&       inner_allocator()
-      {  return base_type::inner_allocator(); }
+   //!   *this if <code>sizeof...(InnerAllocs)</code> is zero; otherwise, inner.
+   inner_allocator_type&       inner_allocator() BOOST_CONTAINER_NOEXCEPT;
 
    //! <b>Returns</b>:
-   //!   *this if `sizeof...(InnerAllocs)` is zero; otherwise, inner.
-   inner_allocator_type const& inner_allocator() const
-      {  return base_type::inner_allocator(); }
+   //!   *this if <code>sizeof...(InnerAllocs)</code> is zero; otherwise, inner.
+   inner_allocator_type const& inner_allocator() const BOOST_CONTAINER_NOEXCEPT;
+
+   #endif   //BOOST_CONTAINER_DOXYGEN_INVOKED
 
    //! <b>Returns</b>:
-   //!   `allocator_traits<OuterAlloc>::max_size(outer_allocator())`.
-   size_type max_size() const
+   //!   <code>allocator_traits<OuterAlloc>::max_size(outer_allocator())</code>.
+   size_type max_size() const BOOST_CONTAINER_NOEXCEPT
    {
       return outer_traits_type::max_size(this->outer_allocator());
    }
 
    //! <b>Effects</b>:
-   //!   calls `OUTERMOST_ALLOC_TRAITS(*this)::destroy(OUTERMOST(*this), p)`.
+   //!   calls <code>OUTERMOST_ALLOC_TRAITS(*this)::destroy(OUTERMOST(*this), p)</code>.
    template <class T>
-   void destroy(T* p)
+   void destroy(T* p) BOOST_CONTAINER_NOEXCEPT
    {
       allocator_traits<typename outermost_allocator<OuterAlloc>::type>
          ::destroy(get_outermost_allocator(this->outer_allocator()), p);
    }
 
    //! <b>Returns</b>:
-   //! `allocator_traits<OuterAlloc>::allocate(outer_allocator(), n)`.
+   //! <code>allocator_traits<OuterAlloc>::allocate(outer_allocator(), n)</code>.
    pointer allocate(size_type n)
    {
       return outer_traits_type::allocate(this->outer_allocator(), n);
    }
 
    //! <b>Returns</b>:
-   //! `allocator_traits<OuterAlloc>::allocate(outer_allocator(), n, hint)`.
+   //! <code>allocator_traits<OuterAlloc>::allocate(outer_allocator(), n, hint)</code>.
    pointer allocate(size_type n, const_void_pointer hint)
    {
       return outer_traits_type::allocate(this->outer_allocator(), n, hint);
    }
 
    //! <b>Effects</b>:
-   //! `allocator_traits<OuterAlloc>::deallocate(outer_allocator(), p, n)`.
+   //! <code>allocator_traits<OuterAlloc>::deallocate(outer_allocator(), p, n)</code>.
    void deallocate(pointer p, size_type n)
    {
       outer_traits_type::deallocate(this->outer_allocator(), p, n);
    }
 
+   #ifdef BOOST_CONTAINER_DOXYGEN_INVOKED
    //! <b>Returns</b>: Allocator new scoped_allocator_adaptor object where each allocator
    //! A in the adaptor is initialized from the result of calling
-   //! `allocator_traits<Allocator>::select_on_container_copy_construction()` on
+   //! <code>allocator_traits<Allocator>::select_on_container_copy_construction()</code> on
    //! the corresponding allocator in *this.
-   scoped_allocator_adaptor select_on_container_copy_construction() const
-   {
-      return scoped_allocator_adaptor
-         (internal_type_t()
-         ,outer_traits_type::select_on_container_copy_construction(this->outer_allocator())
-         ,inner_traits_type::select_on_container_copy_construction(this->inner_allocator())
-         );
-   }
-   /// @cond
+   scoped_allocator_adaptor select_on_container_copy_construction() const;
+   #endif   //BOOST_CONTAINER_DOXYGEN_INVOKED
+
+   #ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
    base_type &base()             { return *this; }
 
    const base_type &base() const { return *this; }
-   /// @endcond
+   #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
    #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
 
    //! <b>Effects</b>:
-   //! 1) If `uses_allocator<T, inner_allocator_type>::value` is false calls
-   //!    `OUTERMOST_ALLOC_TRAITS(*this)::construct
-   //!       (OUTERMOST(*this), p, std::forward<Args>(args)...)`.
+   //! 1) If <code>uses_allocator<T, inner_allocator_type>::value</code> is false calls
+   //!    <code>OUTERMOST_ALLOC_TRAITS(*this)::construct
+   //!       (OUTERMOST(*this), p, std::forward<Args>(args)...)</code>.
    //!
-   //! 2) Otherwise, if `uses_allocator<T, inner_allocator_type>::value` is true and
-   //!    `is_constructible<T, allocator_arg_t, inner_allocator_type, Args...>::value` is true, calls
-   //!    `OUTERMOST_ALLOC_TRAITS(*this)::construct(OUTERMOST(*this), p, allocator_arg,
-   //!    inner_allocator(), std::forward<Args>(args)...)`.
+   //! 2) Otherwise, if <code>uses_allocator<T, inner_allocator_type>::value</code> is true and
+   //!    <code>is_constructible<T, allocator_arg_t, inner_allocator_type, Args...>::value</code> is true, calls
+   //!    <code>OUTERMOST_ALLOC_TRAITS(*this)::construct(OUTERMOST(*this), p, allocator_arg,
+   //!    inner_allocator(), std::forward<Args>(args)...)</code>.
    //!
-   //! [<b>Note</b>: In compilers without advanced decltype SFINAE support, `is_constructible` can't
+   //! [<b>Note</b>: In compilers without advanced decltype SFINAE support, <code>is_constructible</code> can't
    //! be implemented so that condition will be replaced by
    //! constructible_with_allocator_prefix<T>::value. -end note]
    //!
    //! 3) Otherwise, if uses_allocator<T, inner_allocator_type>::value is true and
-   //!    `is_constructible<T, Args..., inner_allocator_type>::value` is true, calls
-   //!    `OUTERMOST_ALLOC_TRAITS(*this)::construct(OUTERMOST(*this), p,
-   //!    std::forward<Args>(args)..., inner_allocator())`.
+   //!    <code>is_constructible<T, Args..., inner_allocator_type>::value</code> is true, calls
+   //!    <code>OUTERMOST_ALLOC_TRAITS(*this)::construct(OUTERMOST(*this), p,
+   //!    std::forward<Args>(args)..., inner_allocator())</code>.
    //!
-   //! [<b>Note</b>: In compilers without advanced decltype SFINAE support, `is_constructible` can't be
+   //! [<b>Note</b>: In compilers without advanced decltype SFINAE support, <code>is_constructible</code> can't be
    //! implemented so that condition will be replaced by
-   //! `constructible_with_allocator_suffix<T>::value`. -end note]
+   //! <code>constructible_with_allocator_suffix<T>::value</code>. -end note]
    //!
    //! 4) Otherwise, the program is ill-formed.
    //!
-   //! [<b>Note</b>: An error will result if `uses_allocator` evaluates
+   //! [<b>Note</b>: An error will result if <code>uses_allocator</code> evaluates
    //! to true but the specific constructor does not take an allocator. This definition prevents a silent
    //! failure to pass an inner allocator to a contained element. -end note]
    template < typename T, class ...Args>
@@ -1345,7 +1375,7 @@ class scoped_allocator_adaptor
    template <class T1, class T2, class U, class V>
    void construct(container_detail::pair<T1, T2>* p, BOOST_FWD_REF(U) x, BOOST_FWD_REF(V) y)
    {  this->construct_pair(p, ::boost::forward<U>(x), ::boost::forward<V>(y));   }
-  
+
    template <class T1, class T2, class U, class V>
    void construct(std::pair<T1, T2>* p, const std::pair<U, V>& x)
    {  this->construct_pair(p, x);   }
@@ -1354,7 +1384,7 @@ class scoped_allocator_adaptor
    void construct( container_detail::pair<T1, T2>* p
                  , const container_detail::pair<U, V>& x)
    {  this->construct_pair(p, x);   }
-  
+
    template <class T1, class T2, class U, class V>
    void construct( std::pair<T1, T2>* p
                  , BOOST_RV_REF_BEG std::pair<U, V> BOOST_RV_REF_END x)
@@ -1365,7 +1395,7 @@ class scoped_allocator_adaptor
                  , BOOST_RV_REF_BEG container_detail::pair<U, V> BOOST_RV_REF_END x)
    {  this->construct_pair(p, x);   }
 
-   /// @cond
+   #ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
    private:
    template <class Pair>
    void construct_pair(Pair* p)
@@ -1426,13 +1456,14 @@ class scoped_allocator_adaptor
    //template <class T1, class T2, class... Args1, class... Args2>
    //void construct(pair<T1, T2>* p, piecewise_construct_t, tuple<Args1...> x, tuple<Args2...> y);
 
-   private:
+   public:
+   //Internal function
    template <class OuterA2>
    scoped_allocator_adaptor(internal_type_t, BOOST_FWD_REF(OuterA2) outer, const inner_allocator_type& inner)
       : base_type(internal_type_t(), ::boost::forward<OuterA2>(outer), inner)
    {}
 
-   /// @endcond
+   #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 };
 
 template <typename OuterA1, typename OuterA2
@@ -1458,7 +1489,7 @@ inline bool operator==(
       #endif
    >& b)
 {
-   #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)  
+   #if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) || defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
    const bool has_zero_inner = sizeof...(InnerAllocs) == 0u;
    #else
    const bool has_zero_inner =

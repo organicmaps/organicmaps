@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2012.
+// (C) Copyright Ion Gaztanaga 2005-2013.
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -13,11 +13,11 @@
 #ifndef BOOST_CONTAINER_CONTAINER_DETAIL_PAIR_HPP
 #define BOOST_CONTAINER_CONTAINER_DETAIL_PAIR_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
-#include "config_begin.hpp"
+#include <boost/container/detail/config_begin.hpp>
 #include <boost/container/detail/workaround.hpp>
 
 #include <boost/container/detail/mpl.hpp>

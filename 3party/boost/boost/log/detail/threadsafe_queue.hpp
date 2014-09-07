@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -10,7 +10,7 @@
  * \date   05.11.2010
  *
  * \brief  This header is the Boost.Log library implementation, see the library documentation
- *         at http://www.boost.org/libs/log/doc/log.html.
+ *         at http://www.boost.org/doc/libs/release/libs/log/doc/html/index.html.
  */
 
 #ifndef BOOST_LOG_DETAIL_THREADSAFE_QUEUE_HPP_INCLUDED_
@@ -18,7 +18,7 @@
 
 #include <boost/log/detail/config.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -246,7 +246,7 @@ public:
         threadsafe_queue_impl::node_base *dealloc, *destr;
         if (m_pImpl->try_pop(dealloc, destr))
         {
-            register node* p = static_cast< node* >(destr);
+            node* p = static_cast< node* >(destr);
             auto_deallocate guard(static_cast< base_type* >(this), static_cast< node* >(dealloc), p);
             value = boost::move(p->value());
             return true;
@@ -255,10 +255,9 @@ public:
             return false;
     }
 
-private:
     // Copying and assignment is prohibited
-    threadsafe_queue(threadsafe_queue const&);
-    threadsafe_queue& operator= (threadsafe_queue const&);
+    BOOST_DELETED_FUNCTION(threadsafe_queue(threadsafe_queue const&))
+    BOOST_DELETED_FUNCTION(threadsafe_queue& operator= (threadsafe_queue const&))
 
 private:
     //! Pointer to the implementation

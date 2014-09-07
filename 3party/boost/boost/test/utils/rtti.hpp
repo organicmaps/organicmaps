@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 49312 $
+//  Version     : $Revision$
 //
 //  Description : simple facilities for accessing type information at runtime
 // ***************************************************************************

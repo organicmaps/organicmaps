@@ -9,7 +9,7 @@
 #define BOOST_THREAD_FUTURE_ERROR_CODE_HPP
 
 #include <boost/thread/detail/config.hpp>
-#include <boost/detail/scoped_enum_emulation.hpp>
+#include <boost/core/scoped_enum.hpp>
 #include <boost/system/error_code.hpp>
 #include <boost/type_traits/integral_constant.hpp>
 
@@ -29,11 +29,11 @@ namespace boost
   namespace system
   {
     template <>
-    struct BOOST_SYMBOL_VISIBLE is_error_code_enum<future_errc> : public true_type {};
+    struct BOOST_SYMBOL_VISIBLE is_error_code_enum< ::boost::future_errc> : public true_type {};
 
     #ifdef BOOST_NO_CXX11_SCOPED_ENUMS
     template <>
-    struct BOOST_SYMBOL_VISIBLE is_error_code_enum<future_errc::enum_type> : public true_type { };
+    struct BOOST_SYMBOL_VISIBLE is_error_code_enum< ::boost::future_errc::enum_type> : public true_type { };
     #endif
   } // system
 
@@ -53,7 +53,7 @@ namespace boost
     error_condition
     make_error_condition(future_errc e) BOOST_NOEXCEPT
     {
-        return error_condition(underlying_cast<int>(e), future_category());
+        return error_condition(underlying_cast<int>(e), boost::future_category());
     }
   } // system
 } // boost

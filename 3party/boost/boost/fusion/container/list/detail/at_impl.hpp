@@ -7,6 +7,7 @@
 #if !defined(FUSION_AT_IMPL_07172005_0726)
 #define FUSION_AT_IMPL_07172005_0726
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/detail/access.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/add_const.hpp>
@@ -106,6 +107,7 @@ namespace boost { namespace fusion
                 type;
 
                 template <typename Cons, int N2>
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Cons& s, mpl::int_<N2>)
                 {
@@ -113,12 +115,14 @@ namespace boost { namespace fusion
                 }
 
                 template <typename Cons>
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Cons& s, mpl::int_<0>)
                 {
                     return s.car;
                 }
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& s)
                 {

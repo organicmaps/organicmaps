@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_CATEGORY_OF_IMPL_20060217_2141)
 #define BOOST_FUSION_CATEGORY_OF_IMPL_20060217_2141
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/detail/mpl_iterator_category.hpp>
 #include <boost/mpl/begin_end.hpp>
 #include <boost/mpl/is_sequence.hpp>

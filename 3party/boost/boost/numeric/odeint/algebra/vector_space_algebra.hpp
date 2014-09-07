@@ -6,8 +6,8 @@
  An algebra for types which have vector space semantics, hence types on which the operators +,-,* are well defined.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2010-2012 Karsten Ahnert
+ Copyright 2010-2013 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -18,6 +18,8 @@
 #ifndef BOOST_NUMERIC_ODEINT_ALGEBRA_VECTOR_SPACE_ALGEBRA_HPP_INCLUDED
 #define BOOST_NUMERIC_ODEINT_ALGEBRA_VECTOR_SPACE_ALGEBRA_HPP_INCLUDED
 
+#include <complex>
+
 #include <boost/type_traits/remove_reference.hpp>
 
 
@@ -25,26 +27,46 @@ namespace boost {
 namespace numeric {
 namespace odeint {
 
-
 /*
- * This class template has to be overload in order to call vector_space_algebra::reduce
+ * This class template has to be overload in order to call vector_space_algebra::norm_inf
  */
-template< class State > struct vector_space_reduce;
+template< class State > struct vector_space_norm_inf;
 
 /*
- * Example: instantiation for sole doubles
+ * Example: instantiation for sole doubles and complex
  */
 template<>
-struct vector_space_reduce< double >
+struct vector_space_norm_inf< double >
 {
-  template< class Op >
-  double operator()( double x , Op op , double init ) const
-  {
-      init = op( init , x );
-      return init;
-  }
+    typedef double result_type;
+    double operator()( double x ) const
+    {
+        using std::abs;
+        return abs(x);
+    }
 };
 
+template<>
+struct vector_space_norm_inf< float >
+{
+    typedef float result_type;
+    result_type operator()( float x ) const
+    {
+        using std::abs;
+        return abs(x);
+    }
+};
+
+template< typename T >
+struct vector_space_norm_inf< std::complex<T> >
+{
+    typedef T result_type;
+    result_type operator()( std::complex<T> x ) const
+    {
+        using std::abs;
+        return abs( x );
+    }
+};
 
 struct vector_space_algebra
 {
@@ -139,11 +161,11 @@ struct vector_space_algebra
         op( s1 , s2 , s3 , s4 , s5 , s6 , s7 , s8 , s9 , s10 , s11 , s12 , s13 , s14 , s15 );
     }
 
-    template< class Value , class S , class Red >
-    static Value reduce( const S &s , Red red , Value init )
+    template< class S >
+    static typename boost::numeric::odeint::vector_space_norm_inf< S >::result_type norm_inf( const S &s )
     {
-        boost::numeric::odeint::vector_space_reduce< S > r;
-        return r( s , red , init );
+        boost::numeric::odeint::vector_space_norm_inf< S > n;
+        return n( s );
     }
 };
 

@@ -16,7 +16,7 @@
 
 
 #include <boost/mpl/assert.hpp>
-#include <boost/range.hpp>
+#include <boost/range/value_type.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
 #include <boost/geometry/core/ring_type.hpp>
@@ -102,13 +102,45 @@ struct point_type<polygon_tag, Polygon>
 };
 
 
+template <typename MultiPoint>
+struct point_type<multi_point_tag, MultiPoint>
+{
+    typedef typename boost::range_value
+        <
+            MultiPoint
+        >::type type;
+};
+
+
+template <typename MultiLinestring>
+struct point_type<multi_linestring_tag, MultiLinestring>
+{
+    typedef typename point_type
+        <
+            linestring_tag,
+            typename boost::range_value<MultiLinestring>::type
+        >::type type;
+};
+
+
+template <typename MultiPolygon>
+struct point_type<multi_polygon_tag, MultiPolygon>
+{
+    typedef typename point_type
+        <
+            polygon_tag,
+            typename boost::range_value<MultiPolygon>::type
+        >::type type;
+};
+
+
 } // namespace core_dispatch
 #endif // DOXYGEN_NO_DISPATCH
 
 
 /*!
 \brief \brief_meta{type, point_type, \meta_geometry_type}
-\tparam Geometry \tparam_geometry 
+\tparam Geometry \tparam_geometry
 \ingroup core
 
 \qbk{[include reference/core/point_type.qbk]}

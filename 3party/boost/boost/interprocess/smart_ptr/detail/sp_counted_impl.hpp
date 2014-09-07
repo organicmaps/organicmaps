@@ -3,7 +3,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -83,6 +83,8 @@ class sp_counted_impl_pd
          portable_rebind_alloc
             < const this_type >::type        const_this_allocator;
    typedef typename this_allocator::pointer  this_pointer;
+   typedef typename boost::intrusive::
+      pointer_traits<this_pointer>           this_pointer_traits;
 
    sp_counted_impl_pd( sp_counted_impl_pd const & );
    sp_counted_impl_pd & operator= ( sp_counted_impl_pd const & );
@@ -115,11 +117,10 @@ class sp_counted_impl_pd
 
    void destroy() // nothrow
    {
-      //Self destruction, so get a copy of the allocator
-      //(in the future we could move it)
-      this_allocator a_copy(*this);
+      //Self destruction, so move the allocator
+      this_allocator a_copy(::boost::move(static_cast<this_allocator&>(*this)));
       BOOST_ASSERT(a_copy == *this);
-      this_pointer this_ptr (this);
+      this_pointer this_ptr(this_pointer_traits::pointer_to(*this));
       //Do it now!
       scoped_ptr< this_type, scoped_ptr_dealloc_functor<this_allocator> >
          deleter_ptr(this_ptr, a_copy);

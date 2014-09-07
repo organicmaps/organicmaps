@@ -2,7 +2,7 @@
 // detail/gcc_x86_fenced_block.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -64,7 +64,11 @@ private:
   static void lbarrier()
   {
 #if defined(__SSE2__)
+# if (__GNUC__ >= 4) && !defined(__INTEL_COMPILER) && !defined(__ICL)
+    __builtin_ia32_lfence();
+# else // (__GNUC__ >= 4) && !defined(__INTEL_COMPILER) && !defined(__ICL)
     __asm__ __volatile__ ("lfence" ::: "memory");
+# endif // (__GNUC__ >= 4) && !defined(__INTEL_COMPILER) && !defined(__ICL)
 #else // defined(__SSE2__)
     barrier();
 #endif // defined(__SSE2__)
@@ -73,7 +77,11 @@ private:
   static void sbarrier()
   {
 #if defined(__SSE2__)
+# if (__GNUC__ >= 4) && !defined(__INTEL_COMPILER) && !defined(__ICL)
+    __builtin_ia32_sfence();
+# else // (__GNUC__ >= 4) && !defined(__INTEL_COMPILER) && !defined(__ICL)
     __asm__ __volatile__ ("sfence" ::: "memory");
+# endif // (__GNUC__ >= 4) && !defined(__INTEL_COMPILER) && !defined(__ICL)
 #else // defined(__SSE2__)
     barrier();
 #endif // defined(__SSE2__)

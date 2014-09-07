@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: access.hpp 83321 2013-03-05 21:27:18Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_DETAIL_ACCESS_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_DETAIL_ACCESS_HPP_INCLUDED

@@ -5,8 +5,9 @@
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 #if !defined(FUSION_SEQUENCE_10022005_0559)
-#define FUSION_ITERATOR_10022005_0559
+#define FUSION_SEQUENCE_10022005_0559
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/sequence_facade.hpp>
 #include <boost/fusion/sequence/comparison.hpp>
 #include <boost/fusion/sequence/intrinsic.hpp>

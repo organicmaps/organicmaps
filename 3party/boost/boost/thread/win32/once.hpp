@@ -18,7 +18,7 @@
 #include <boost/detail/interlocked.hpp>
 #include <boost/thread/win32/thread_primitives.hpp>
 #include <boost/thread/win32/interlocked_read.hpp>
-#include <boost/detail/no_exceptions_support.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 #include <boost/thread/detail/move.hpp>
 #include <boost/thread/detail/invoke.hpp>
 
@@ -227,7 +227,7 @@ namespace boost
         }
     }
 
-#ifndef BOOST_NO_CXX11_VARIADIC_TEMPLATES
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 //#if defined(BOOST_THREAD_RVALUE_REFERENCES_DONT_MATCH_FUNTION_PTR)
     inline void call_once(once_flag& flag, void (*f)())
     {
@@ -363,7 +363,7 @@ namespace boost
         }
     }
 #else
-#ifndef BOOST_MSVC
+#if ! defined(BOOST_MSVC) && ! defined(BOOST_INTEL)
     template<typename Function>
     void call_once(once_flag& flag,Function f)
     {

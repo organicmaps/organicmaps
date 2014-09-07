@@ -22,9 +22,9 @@
 #include <boost/geometry/strategies/within.hpp>
 
 
-namespace boost { namespace geometry { namespace strategy 
+namespace boost { namespace geometry { namespace strategy
 {
-    
+
 namespace within
 {
 
@@ -71,11 +71,11 @@ struct point_in_box_by_side
         boost::array<typename point_type<Box>::type, 5> bp;
         geometry::detail::assign_box_corners_oriented<true>(box, bp);
         bp[4] = bp[0];
-        
+
         bool result = true;
         side_strategy_type strategy;
         boost::ignore_unused_variable_warning(strategy);
-        
+
         for (int i = 1; i < 5; i++)
         {
             int const side = strategy.apply(point, bp[i - 1], bp[i]);
@@ -84,7 +84,7 @@ struct point_in_box_by_side
                 return result;
             }
         }
-    
+
         return result;
     }
 };
@@ -102,9 +102,9 @@ namespace within { namespace services
 template <typename Point, typename Box>
 struct default_strategy
     <
-        point_tag, box_tag, 
-        point_tag, areal_tag, 
-        spherical_tag, spherical_tag, 
+        point_tag, box_tag,
+        point_tag, areal_tag,
+        spherical_tag, spherical_tag,
         Point, Box
     >
 {
@@ -126,9 +126,9 @@ namespace covered_by { namespace services
 template <typename Point, typename Box>
 struct default_strategy
     <
-        point_tag, box_tag, 
-        point_tag, areal_tag, 
-        spherical_tag, spherical_tag, 
+        point_tag, box_tag,
+        point_tag, areal_tag,
+        spherical_tag, spherical_tag,
         Point, Box
     >
 {

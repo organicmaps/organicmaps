@@ -27,7 +27,7 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_POSIX_MUTEX_HPP
 #define BOOST_INTERPROCESS_DETAIL_POSIX_MUTEX_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -44,6 +44,7 @@
 
 #ifndef BOOST_INTERPROCESS_POSIX_TIMEOUTS
 #  include <boost/interprocess/detail/os_thread_functions.hpp>
+#  include <boost/interprocess/sync/detail/common_algorithms.hpp>
 #endif
 #include <boost/assert.hpp>
 
@@ -102,12 +103,12 @@ inline bool posix_mutex::try_lock()
 
 inline bool posix_mutex::timed_lock(const boost::posix_time::ptime &abs_time)
 {
+   #ifdef BOOST_INTERPROCESS_POSIX_TIMEOUTS
+   //Posix does not support infinity absolute time so handle it here
    if(abs_time == boost::posix_time::pos_infin){
       this->lock();
       return true;
    }
-   #ifdef BOOST_INTERPROCESS_POSIX_TIMEOUTS
-
    timespec ts = ptime_to_timespec(abs_time);
    int res = pthread_mutex_timedlock(&m_mut, &ts);
    if (res != 0 && res != ETIMEDOUT)
@@ -116,22 +117,7 @@ inline bool posix_mutex::timed_lock(const boost::posix_time::ptime &abs_time)
 
    #else //BOOST_INTERPROCESS_POSIX_TIMEOUTS
 
-   //Obtain current count and target time
-   boost::posix_time::ptime now = microsec_clock::universal_time();
-
-   do{
-      if(this->try_lock()){
-         break;
-      }
-      now = microsec_clock::universal_time();
-
-      if(now >= abs_time){
-         return false;
-      }
-      // relinquish current time slice
-     thread_yield();
-   }while (true);
-   return true;
+   return ipcdetail::try_based_timed_lock(*this, abs_time);
 
    #endif   //BOOST_INTERPROCESS_POSIX_TIMEOUTS
 }

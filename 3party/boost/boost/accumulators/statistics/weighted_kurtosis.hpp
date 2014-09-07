@@ -52,7 +52,7 @@ namespace impl
     {
         typedef typename numeric::functional::multiplies<Sample, Weight>::result_type weighted_sample;
         // for boost::result_of
-        typedef typename numeric::functional::average<weighted_sample, weighted_sample>::result_type result_type;
+        typedef typename numeric::functional::fdiv<weighted_sample, weighted_sample>::result_type result_type;
 
         weighted_kurtosis_impl(dont_care)
         {
@@ -61,7 +61,7 @@ namespace impl
         template<typename Args>
         result_type result(Args const &args) const
         {
-            return numeric::average(
+            return numeric::fdiv(
                         accumulators::weighted_moment<4>(args)
                         - 4. * accumulators::weighted_moment<3>(args) * weighted_mean(args)
                         + 6. * accumulators::weighted_moment<2>(args) * weighted_mean(args) * weighted_mean(args)

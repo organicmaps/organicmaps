@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_VECTOR10)
 #define FUSION_INCLUDE_VECTOR10
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/vector/vector10.hpp>
 
 #endif

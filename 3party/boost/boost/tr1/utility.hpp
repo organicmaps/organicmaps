@@ -31,7 +31,6 @@ namespace std{ namespace tr1{
 template <class T> struct tuple_size; // forward declaration
 template < int I, class T> struct tuple_element; // forward declaration
 
-#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 template <class T1, class T2> 
 struct tuple_size< ::std::pair<T1, T2> >
    : public ::boost::integral_constant< ::std::size_t, 2>
@@ -49,7 +48,6 @@ struct tuple_element<1, std::pair<T1, T2> >
 {
    typedef typename std::pair<T1, T2>::second_type type;
 };
-#endif
 
 namespace tuple_detail{
    template <int I, class T1, class T2>

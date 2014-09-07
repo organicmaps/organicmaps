@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_NOT_EQUAL_TO)
 #define FUSION_INCLUDE_NOT_EQUAL_TO
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/equal_to.hpp>
 #include <boost/fusion/sequence/comparison/not_equal_to.hpp>
 

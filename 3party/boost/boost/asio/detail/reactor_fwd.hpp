@@ -2,7 +2,7 @@
 // detail/reactor_fwd.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,32 +17,22 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if defined(BOOST_ASIO_HAS_IOCP)
-# include <boost/asio/detail/select_reactor_fwd.hpp>
-#elif defined(BOOST_ASIO_HAS_EPOLL)
-# include <boost/asio/detail/epoll_reactor_fwd.hpp>
-#elif defined(BOOST_ASIO_HAS_KQUEUE)
-# include <boost/asio/detail/kqueue_reactor_fwd.hpp>
-#elif defined(BOOST_ASIO_HAS_DEV_POLL)
-# include <boost/asio/detail/dev_poll_reactor_fwd.hpp>
-#else
-# include <boost/asio/detail/select_reactor_fwd.hpp>
-#endif
-
 namespace boost {
 namespace asio {
 namespace detail {
 
-#if defined(BOOST_ASIO_HAS_IOCP)
-typedef select_reactor reactor;
+#if defined(BOOST_ASIO_WINDOWS_RUNTIME)
+typedef class null_reactor reactor;
+#elif defined(BOOST_ASIO_HAS_IOCP)
+typedef class select_reactor reactor;
 #elif defined(BOOST_ASIO_HAS_EPOLL)
-typedef epoll_reactor reactor;
+typedef class epoll_reactor reactor;
 #elif defined(BOOST_ASIO_HAS_KQUEUE)
-typedef kqueue_reactor reactor;
+typedef class kqueue_reactor reactor;
 #elif defined(BOOST_ASIO_HAS_DEV_POLL)
-typedef dev_poll_reactor reactor;
+typedef class dev_poll_reactor reactor;
 #else
-typedef select_reactor reactor;
+typedef class select_reactor reactor;
 #endif
 
 } // namespace detail

@@ -54,26 +54,26 @@
       namespace airy_ai_zero_detail
       {
         template<class T>
-        T initial_guess(const unsigned m)
+        T initial_guess(const int m)
         {
           T guess;
 
           switch(m)
           {
-            case 0U: { guess = T(0);                       break; }
-            case 1U: { guess = T(-2.33810741045976703849); break; }
-            case 2U: { guess = T(-4.08794944413097061664); break; }
-            case 3U: { guess = T(-5.52055982809555105913); break; }
-            case 4U: { guess = T(-6.78670809007175899878); break; }
-            case 5U: { guess = T(-7.94413358712085312314); break; }
-            case 6U: { guess = T(-9.02265085334098038016); break; }
-            case 7U: { guess = T(-10.0401743415580859306); break; }
-            case 8U: { guess = T(-11.0085243037332628932); break; }
-            case 9U: { guess = T(-11.9360155632362625170); break; }
-            case 10U:{ guess = T(-12.8287767528657572004); break; }
+            case  0: { guess = T(0);                       break; }
+            case  1: { guess = T(-2.33810741045976703849); break; }
+            case  2: { guess = T(-4.08794944413097061664); break; }
+            case  3: { guess = T(-5.52055982809555105913); break; }
+            case  4: { guess = T(-6.78670809007175899878); break; }
+            case  5: { guess = T(-7.94413358712085312314); break; }
+            case  6: { guess = T(-9.02265085334098038016); break; }
+            case  7: { guess = T(-10.0401743415580859306); break; }
+            case  8: { guess = T(-11.0085243037332628932); break; }
+            case  9: { guess = T(-11.9360155632362625170); break; }
+            case 10:{ guess = T(-12.8287767528657572004); break; }
             default:
             {
-              const T t(((boost::math::constants::pi<T>() * 3U) * ((T(m) * 4U) - 1)) / 8U);
+              const T t(((boost::math::constants::pi<T>() * 3) * ((T(m) * 4) - 1)) / 8);
               guess = -boost::math::detail::airy_zero::equation_as_10_4_105(t);
               break;
             }
@@ -105,26 +105,26 @@
       namespace airy_bi_zero_detail
       {
         template<class T>
-        T initial_guess(const unsigned m)
+        T initial_guess(const int m)
         {
           T guess;
 
           switch(m)
           {
-            case 0U: { guess = T(0);                       break; }
-            case 1U: { guess = T(-1.17371322270912792492); break; }
-            case 2U: { guess = T(-3.27109330283635271568); break; }
-            case 3U: { guess = T(-4.83073784166201593267); break; }
-            case 4U: { guess = T(-6.16985212831025125983); break; }
-            case 5U: { guess = T(-7.37676207936776371360); break; }
-            case 6U: { guess = T(-8.49194884650938801345); break; }
-            case 7U: { guess = T(-9.53819437934623888663); break; }
-            case 8U: { guess = T(-10.5299135067053579244); break; }
-            case 9U: { guess = T(-11.4769535512787794379); break; }
-            case 10U:{ guess = T(-12.3864171385827387456); break; }
+            case  0: { guess = T(0);                       break; }
+            case  1: { guess = T(-1.17371322270912792492); break; }
+            case  2: { guess = T(-3.27109330283635271568); break; }
+            case  3: { guess = T(-4.83073784166201593267); break; }
+            case  4: { guess = T(-6.16985212831025125983); break; }
+            case  5: { guess = T(-7.37676207936776371360); break; }
+            case  6: { guess = T(-8.49194884650938801345); break; }
+            case  7: { guess = T(-9.53819437934623888663); break; }
+            case  8: { guess = T(-10.5299135067053579244); break; }
+            case  9: { guess = T(-11.4769535512787794379); break; }
+            case 10: { guess = T(-12.3864171385827387456); break; }
             default:
             {
-              const T t(((boost::math::constants::pi<T>() * 3U) * ((T(m) * 4U) - 3)) / 8U);
+              const T t(((boost::math::constants::pi<T>() * 3) * ((T(m) * 4) - 3)) / 8);
               guess = -boost::math::detail::airy_zero::equation_as_10_4_105(t);
               break;
             }

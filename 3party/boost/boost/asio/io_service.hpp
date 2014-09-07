@@ -2,7 +2,7 @@
 // io_service.hpp
 // ~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -21,15 +21,8 @@
 #include <typeinfo>
 #include <boost/asio/async_result.hpp>
 #include <boost/asio/detail/noncopyable.hpp>
-#include <boost/asio/detail/service_registry_fwd.hpp>
 #include <boost/asio/detail/wrapped_handler.hpp>
 #include <boost/system/error_code.hpp>
-
-#if defined(BOOST_ASIO_HAS_IOCP)
-# include <boost/asio/detail/win_iocp_io_service_fwd.hpp>
-#else
-# include <boost/asio/detail/task_io_service_fwd.hpp>
-#endif
 
 #if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 # include <boost/asio/detail/winsock_init.hpp>
@@ -48,11 +41,15 @@ template <typename Service> Service& use_service(io_service& ios);
 template <typename Service> void add_service(io_service& ios, Service* svc);
 template <typename Service> bool has_service(io_service& ios);
 
+namespace detail {
 #if defined(BOOST_ASIO_HAS_IOCP)
-namespace detail { typedef win_iocp_io_service io_service_impl; }
+  typedef class win_iocp_io_service io_service_impl;
+  class win_iocp_overlapped_ptr;
 #else
-namespace detail { typedef task_io_service io_service_impl; }
+  typedef class task_io_service io_service_impl;
 #endif
+  class service_registry;
+} // namespace detail
 
 /// Provides core I/O functionality.
 /**

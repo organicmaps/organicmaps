@@ -8,6 +8,7 @@
 #if !defined(FUSION_AS_FUSION_ELEMENT_05052005_0338)
 #define FUSION_AS_FUSION_ELEMENT_05052005_0338
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/ref.hpp>
 
 namespace boost { namespace fusion { namespace detail

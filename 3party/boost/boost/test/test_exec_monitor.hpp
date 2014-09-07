@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 49312 $
+//  Version     : $Revision$
 //
 //  Description : Entry point for the end user into the Test Execution Monitor.
 // ***************************************************************************

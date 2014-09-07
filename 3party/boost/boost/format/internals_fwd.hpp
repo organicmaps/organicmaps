@@ -50,6 +50,10 @@ namespace detail {
     template<class Ch, class Tr, class Alloc, class T> 
     basic_format<Ch, Tr, Alloc>& 
     feed (basic_format<Ch,Tr, Alloc>& self, T x);
+
+    template<class Ch, class Tr, class Alloc, class T> 
+    basic_format<Ch, Tr, Alloc>& 
+    feed_impl (basic_format<Ch,Tr, Alloc>& self, T x);
  
 } // namespace detail
 

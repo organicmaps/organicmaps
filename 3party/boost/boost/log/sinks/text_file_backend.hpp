@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -20,7 +20,7 @@
 #include <ostream>
 #include <boost/limits.hpp>
 #include <boost/cstdint.hpp>
-#include <boost/shared_ptr.hpp>
+#include <boost/smart_ptr/shared_ptr.hpp>
 #include <boost/date_time/date_defs.hpp>
 #include <boost/date_time/special_defs.hpp>
 #include <boost/date_time/gregorian/greg_day.hpp>
@@ -41,7 +41,7 @@
 #include <boost/log/sinks/frontend_requirements.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -71,7 +71,7 @@ struct BOOST_LOG_NO_VTABLE collector
     /*!
      * Default constructor
      */
-    BOOST_LOG_DEFAULTED_FUNCTION(collector(), {})
+    BOOST_DEFAULTED_FUNCTION(collector(), {})
 
     /*!
      * Virtual destructor
@@ -119,8 +119,8 @@ struct BOOST_LOG_NO_VTABLE collector
     virtual uintmax_t scan_for_files(
         scan_method method, filesystem::path const& pattern = filesystem::path(), unsigned int* counter = 0) = 0;
 
-    BOOST_LOG_DELETED_FUNCTION(collector(collector const&))
-    BOOST_LOG_DELETED_FUNCTION(collector& operator= (collector const&))
+    BOOST_DELETED_FUNCTION(collector(collector const&))
+    BOOST_DELETED_FUNCTION(collector& operator= (collector const&))
 };
 
 namespace aux {

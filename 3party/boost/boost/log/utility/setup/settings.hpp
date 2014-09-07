@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -26,16 +26,16 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/log/detail/setup_config.hpp>
 #include <boost/log/detail/native_typeof.hpp>
-#include <boost/log/utility/explicit_operator_bool.hpp>
+#include <boost/utility/explicit_operator_bool.hpp>
 #if !defined(BOOST_LOG_TYPEOF)
 #include <boost/utility/enable_if.hpp>
 #endif
-#if defined(BOOST_LOG_TYPEOF) && defined(BOOST_LOG_NO_TRAILING_RESULT_TYPE)
+#if defined(BOOST_LOG_TYPEOF) && defined(BOOST_NO_CXX11_TRAILING_RESULT_TYPES)
 #include <boost/utility/declval.hpp>
 #endif
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -175,7 +175,7 @@ private:
             return *this;
         }
 
-        BOOST_LOG_EXPLICIT_OPERATOR_BOOL()
+        BOOST_EXPLICIT_OPERATOR_BOOL()
 
         bool operator! () const
         {
@@ -223,7 +223,7 @@ private:
         }
 
 #if defined(BOOST_LOG_TYPEOF) && !(defined(__GNUC__) && !defined(__INTEL_COMPILER) && !defined(__clang__) && !defined(__PATHSCALE__) && !defined(__GXX_EXPERIMENTAL_CXX0X__) && (__GNUC__ == 4 && __GNUC_MINOR__ <= 5))
-#if !defined(BOOST_LOG_NO_TRAILING_RESULT_TYPE)
+#if !defined(BOOST_NO_CXX11_TRAILING_RESULT_TYPES)
         template< typename T >
         auto or_default(T const& def_value) const -> BOOST_LOG_TYPEOF(property_tree_type().get(typename property_tree_type::path_type(), def_value))
         {
@@ -297,7 +297,7 @@ private:
         typedef typename iterator_adaptor_::reference reference;
 
     public:
-        BOOST_LOG_DEFAULTED_FUNCTION(iter(), {})
+        BOOST_DEFAULTED_FUNCTION(iter(), {})
         template< bool OtherIsConstV >
         iter(iter< OtherIsConstV > const& that) : iterator_adaptor_(that.base()) {}
         explicit iter(base_iterator_type const& it) : iterator_adaptor_(it) {}
@@ -368,12 +368,12 @@ public:
     /*!
      * Checks if the section refers to the container.
      */
-    BOOST_LOG_EXPLICIT_OPERATOR_BOOL()
+    BOOST_EXPLICIT_OPERATOR_BOOL_NOEXCEPT()
 
     /*!
      * Checks if the section refers to the container.
      */
-    bool operator! () const { return !m_ptree; }
+    bool operator! () const BOOST_NOEXCEPT { return !m_ptree; }
 
     /*!
      * Returns an iterator over the nested subsections and parameters.
@@ -506,7 +506,7 @@ public:
     {
         if (m_ptree)
         {
-            optional< property_tree_type const& > section = m_ptree->get_child_optional(section_name);
+            optional< property_tree_type& > section = m_ptree->get_child_optional(section_name);
             if (!!section)
                 return (section->find(param_name) != section->not_found());
         }

@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -30,7 +30,7 @@
 #include <boost/log/utility/unique_identifier_name.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -99,7 +99,7 @@ public:
     }
 
 #ifndef BOOST_LOG_BROKEN_REFERENCE_FROM_RVALUE_INIT
-    BOOST_LOG_DELETED_FUNCTION(scoped_logger_attribute(scoped_logger_attribute const&))
+    BOOST_DELETED_FUNCTION(scoped_logger_attribute(scoped_logger_attribute const&))
 #else // BOOST_LOG_BROKEN_REFERENCE_FROM_RVALUE_INIT
     scoped_logger_attribute(scoped_logger_attribute const& that) : m_pLogger(that.m_pLogger), m_itAttribute(that.m_itAttribute)
     {
@@ -107,7 +107,7 @@ public:
     }
 #endif // BOOST_LOG_BROKEN_REFERENCE_FROM_RVALUE_INIT
 
-    BOOST_LOG_DELETED_FUNCTION(scoped_logger_attribute& operator= (scoped_logger_attribute const&))
+    BOOST_DELETED_FUNCTION(scoped_logger_attribute& operator= (scoped_logger_attribute const&))
 };
 
 } // namespace aux
@@ -122,7 +122,7 @@ public:
  * \return An unspecified guard object which may be used to initialize a \c scoped_attribute variable.
  */
 template< typename LoggerT >
-BOOST_LOG_FORCEINLINE aux::scoped_logger_attribute< LoggerT > add_scoped_logger_attribute(LoggerT& l, attribute_name const& name, attribute const& attr)
+BOOST_FORCEINLINE aux::scoped_logger_attribute< LoggerT > add_scoped_logger_attribute(LoggerT& l, attribute_name const& name, attribute const& attr)
 {
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     return aux::scoped_logger_attribute< LoggerT >(l, name, attr);
@@ -194,7 +194,7 @@ public:
     }
 
 #ifndef BOOST_LOG_BROKEN_REFERENCE_FROM_RVALUE_INIT
-    BOOST_LOG_DELETED_FUNCTION(scoped_thread_attribute(scoped_thread_attribute const&))
+    BOOST_DELETED_FUNCTION(scoped_thread_attribute(scoped_thread_attribute const&))
 #else // BOOST_LOG_BROKEN_REFERENCE_FROM_RVALUE_INIT
     scoped_thread_attribute(scoped_thread_attribute const& that) : m_itAttribute(that.m_itAttribute)
     {
@@ -202,7 +202,7 @@ public:
     }
 #endif // BOOST_LOG_BROKEN_REFERENCE_FROM_RVALUE_INIT
 
-    BOOST_LOG_DELETED_FUNCTION(scoped_thread_attribute& operator= (scoped_thread_attribute const&))
+    BOOST_DELETED_FUNCTION(scoped_thread_attribute& operator= (scoped_thread_attribute const&))
 };
 
 } // namespace aux
@@ -215,7 +215,7 @@ public:
  * \param attr The attribute. Must not be NULL.
  * \return An unspecified guard object which may be used to initialize a \c scoped_attribute variable.
  */
-BOOST_LOG_FORCEINLINE aux::scoped_thread_attribute add_scoped_thread_attribute(attribute_name const& name, attribute const& attr)
+BOOST_FORCEINLINE aux::scoped_thread_attribute add_scoped_thread_attribute(attribute_name const& name, attribute const& attr)
 {
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     return aux::scoped_thread_attribute(name, attr);

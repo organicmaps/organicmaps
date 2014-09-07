@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -10,7 +10,7 @@
  * \date   07.11.2012
  *
  * \brief  This header is the Boost.Log library implementation, see the library documentation
- *         at http://www.boost.org/libs/log/doc/log.html.
+ *         at http://www.boost.org/doc/libs/release/libs/log/doc/html/index.html.
  */
 
 #ifndef BOOST_LOG_DETAIL_DECOMPOSED_TIME_HPP_INCLUDED_
@@ -28,7 +28,7 @@
 #include <boost/log/utility/formatting_ostream.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -100,7 +100,7 @@ struct decomposed_time_wrapper :
     typedef T value_type;
     value_type m_time;
 
-    BOOST_LOG_DEFAULTED_FUNCTION(decomposed_time_wrapper(), {})
+    BOOST_DEFAULTED_FUNCTION(decomposed_time_wrapper(), {})
 
     explicit decomposed_time_wrapper(value_type const& time) : m_time(time)
     {
@@ -144,8 +144,8 @@ public:
         {
         }
 
-        BOOST_LOG_DELETED_FUNCTION(context(context const&))
-        BOOST_LOG_DELETED_FUNCTION(context& operator=(context const&))
+        BOOST_DELETED_FUNCTION(context(context const&))
+        BOOST_DELETED_FUNCTION(context& operator=(context const&))
     };
 
 private:
@@ -159,7 +159,7 @@ protected:
     string_type m_literal_chars;
 
 public:
-    BOOST_LOG_DEFAULTED_FUNCTION(date_time_formatter(), {})
+    BOOST_DEFAULTED_FUNCTION(date_time_formatter(), {})
     date_time_formatter(date_time_formatter const& that) :
         m_formatters(that.m_formatters),
         m_literal_lens(that.m_literal_lens),
@@ -203,7 +203,7 @@ public:
     void swap(date_time_formatter& that)
     {
         m_formatters.swap(that.m_formatters);
-        m_literal_lens.swap(that.m_literals);
+        m_literal_lens.swap(that.m_literal_lens);
         m_literal_chars.swap(that.m_literal_chars);
     }
 

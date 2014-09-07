@@ -50,17 +50,17 @@ namespace boost { namespace spirit { namespace qi { namespace detail
             return bytes_read;
         }
 
-        // Write is implemented only to satisfy the requirements of a 
+        // Write is implemented only to satisfy the requirements of a
         // boost::iostreams::seekable_device. We need to have see support to
-        // be able to figure out how many characters have been actually 
+        // be able to figure out how many characters have been actually
         // consumed by the stream.
-        std::streamsize write(const char*, std::streamsize) 
+        std::streamsize write(const char_type*, std::streamsize)
         {
             BOOST_ASSERT(false);    // not supported
             return -1;
         }
 
-        std::streampos seek(boost::iostreams::stream_offset, std::ios_base::seekdir way) 
+        std::streampos seek(boost::iostreams::stream_offset, std::ios_base::seekdir way)
         {
             BOOST_ASSERT(way == std::ios_base::cur);    // only support queries
             return pos;                              // return current position

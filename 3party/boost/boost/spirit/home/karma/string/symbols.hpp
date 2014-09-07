@@ -298,7 +298,7 @@ namespace boost { namespace spirit { namespace karma
             return sym.remove(attr);
         }
 
-#if defined(BOOST_NO_RVALUE_REFERENCES)
+#if defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
         // non-const version needed to suppress proto's += kicking in
         template <typename Attr, typename T_>
         friend adder const&

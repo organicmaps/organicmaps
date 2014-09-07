@@ -36,6 +36,7 @@
 #include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/bindings/detail/big_digamma.hpp>
 #include <boost/math/bindings/detail/big_lanczos.hpp>
+#include <boost/math/tools/big_constant.hpp>
 
 inline mpfr_class fabs(const mpfr_class& v)
 {
@@ -115,9 +116,9 @@ inline mpfr_class modf(const __gmp_expr<T,U>& v, long long* ipart, const Policy&
 }
 
 template <class Policy>
-inline int iround(mpfr_class const& x, const Policy& pol)
+inline int iround(mpfr_class const& x, const Policy&)
 {
-   return boost::math::tools::real_cast<int>(boost::math::round(x, pol));
+   return boost::math::tools::real_cast<int>(boost::math::round(x, typename boost::math::policies::normalise<Policy, boost::math::policies::rounding_error< boost::math::policies::throw_on_error> >::type()));
 }
 template <class T, class U, class Policy>
 inline int iround(__gmp_expr<T,U> const& x, const Policy& pol)
@@ -126,9 +127,9 @@ inline int iround(__gmp_expr<T,U> const& x, const Policy& pol)
 }
 
 template <class Policy>
-inline long lround(mpfr_class const& x, const Policy& pol)
+inline long lround(mpfr_class const& x, const Policy&)
 {
-   return boost::math::tools::real_cast<long>(boost::math::round(x, pol));
+   return boost::math::tools::real_cast<long>(boost::math::round(x, typename boost::math::policies::normalise<Policy, boost::math::policies::rounding_error< boost::math::policies::throw_on_error> >::type()));
 }
 template <class T, class U, class Policy>
 inline long lround(__gmp_expr<T,U> const& x, const Policy& pol)
@@ -137,9 +138,9 @@ inline long lround(__gmp_expr<T,U> const& x, const Policy& pol)
 }
 
 template <class Policy>
-inline long long llround(mpfr_class const& x, const Policy& pol)
+inline long long llround(mpfr_class const& x, const Policy&)
 {
-   return boost::math::tools::real_cast<long long>(boost::math::round(x, pol));
+   return boost::math::tools::real_cast<long long>(boost::math::round(x, typename boost::math::policies::normalise<Policy, boost::math::policies::rounding_error< boost::math::policies::throw_on_error> >::type()));
 }
 template <class T, class U, class Policy>
 inline long long llround(__gmp_expr<T,U> const& x, const Policy& pol)
@@ -148,9 +149,9 @@ inline long long llround(__gmp_expr<T,U> const& x, const Policy& pol)
 }
 
 template <class Policy>
-inline int itrunc(mpfr_class const& x, const Policy& pol)
+inline int itrunc(mpfr_class const& x, const Policy&)
 {
-   return boost::math::tools::real_cast<int>(boost::math::trunc(x, pol));
+   return boost::math::tools::real_cast<int>(boost::math::trunc(x, typename boost::math::policies::normalise<Policy, boost::math::policies::rounding_error< boost::math::policies::throw_on_error> >::type()));
 }
 template <class T, class U, class Policy>
 inline int itrunc(__gmp_expr<T,U> const& x, const Policy& pol)
@@ -159,9 +160,9 @@ inline int itrunc(__gmp_expr<T,U> const& x, const Policy& pol)
 }
 
 template <class Policy>
-inline long ltrunc(mpfr_class const& x, const Policy& pol)
+inline long ltrunc(mpfr_class const& x, const Policy&)
 {
-   return boost::math::tools::real_cast<long>(boost::math::trunc(x, pol));
+   return boost::math::tools::real_cast<long>(boost::math::trunc(x, typename boost::math::policies::normalise<Policy, boost::math::policies::rounding_error< boost::math::policies::throw_on_error> >::type()));
 }
 template <class T, class U, class Policy>
 inline long ltrunc(__gmp_expr<T,U> const& x, const Policy& pol)
@@ -170,9 +171,9 @@ inline long ltrunc(__gmp_expr<T,U> const& x, const Policy& pol)
 }
 
 template <class Policy>
-inline long long lltrunc(mpfr_class const& x, const Policy& pol)
+inline long long lltrunc(mpfr_class const& x, const Policy&)
 {
-   return boost::math::tools::real_cast<long long>(boost::math::trunc(x, pol));
+   return boost::math::tools::real_cast<long long>(boost::math::trunc(x, typename boost::math::policies::normalise<Policy, boost::math::policies::rounding_error< boost::math::policies::throw_on_error> >::type()));
 }
 template <class T, class U, class Policy>
 inline long long lltrunc(__gmp_expr<T,U> const& x, const Policy& pol)
@@ -180,7 +181,14 @@ inline long long lltrunc(__gmp_expr<T,U> const& x, const Policy& pol)
    return lltrunc(static_cast<mpfr_class>(x), pol);
 }
 
-namespace boost{ namespace math{
+namespace boost{ 
+
+#ifdef BOOST_MATH_USE_FLOAT128
+   template<> struct is_convertible<BOOST_MATH_FLOAT128_TYPE, mpfr_class> : public boost::integral_constant<bool, false>{};
+#endif
+   template<> struct is_convertible<long long, mpfr_class> : public boost::integral_constant<bool, false>{};
+
+namespace math{
 
 #if defined(__GNUC__) && (__GNUC__ < 4)
    using ::iround;

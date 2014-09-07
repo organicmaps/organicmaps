@@ -63,6 +63,7 @@ namespace boost { namespace fusion
 
     public:
 
+        BOOST_FUSION_GPU_ENABLED
         inline explicit unfused_typed(func_const_fwd_t f = Function())
             : fnc_transformed(f)
         { }
@@ -80,7 +81,7 @@ namespace boost { namespace fusion
 
 namespace boost 
 {
-#if !defined(BOOST_RESULT_OF_USE_DECLTYPE) || defined(BOOST_NO_DECLTYPE)
+#if !defined(BOOST_RESULT_OF_USE_DECLTYPE) || defined(BOOST_NO_CXX11_DECLTYPE)
     template<class F, class Seq>
     struct result_of< boost::fusion::unfused_typed<F,Seq> const () >
         : boost::fusion::unfused_typed<F,Seq>::template result< 
@@ -129,7 +130,8 @@ namespace boost
 #define M(z,i,s)                                                                \
     typename call_param<typename result_of::value_at_c<s,i>::type>::type a##i
 
-            inline typename boost::result_of< 
+            BOOST_FUSION_GPU_ENABLED
+            inline typename boost::result_of<
                 function_c(arg_vector_t &) >::type
             operator()(BOOST_PP_ENUM(N,M,arg_vector_t)) const
             {
@@ -141,6 +143,7 @@ namespace boost
                 return static_cast<Derived const *>(this)->fnc_transformed(arg);
             }
 
+            BOOST_FUSION_GPU_ENABLED
             inline typename boost::result_of<
                 function(arg_vector_t &) >::type 
             operator()(BOOST_PP_ENUM(N,M,arg_vector_t)) 

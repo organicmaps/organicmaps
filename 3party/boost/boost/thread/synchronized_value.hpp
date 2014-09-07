@@ -17,7 +17,7 @@
 #include <boost/thread/lock_algorithms.hpp>
 #include <boost/thread/lock_factories.hpp>
 #include <boost/thread/strict_lock.hpp>
-#include <boost/utility/swap.hpp>
+#include <boost/core/swap.hpp>
 #include <boost/utility/declval.hpp>
 //#include <boost/type_traits.hpp>
 //#include <boost/thread/detail/is_nothrow_default_constructible.hpp>
@@ -26,9 +26,11 @@
 //#endif
 
 #if ! defined(BOOST_THREAD_NO_SYNCHRONIZE)
-#include <tuple> // todo change to <boost/tuple.hpp> once Boost.Tuple or Boost.Fusion provides Move semantics.
+#include <tuple> // todo change to <boost/tuple.hpp> once Boost.Tuple or Boost.Fusion provides Move semantics on C++98 compilers.
 #include <functional>
 #endif
+
+#include <boost/utility/result_of.hpp>
 
 #include <boost/config/abi_prefix.hpp>
 
@@ -470,8 +472,8 @@ namespace boost
      */
     synchronized_value(BOOST_THREAD_RV_REF(synchronized_value) other)
     {
-      strict_lock<mutex_type> lk(other.mtx_);
-      value_= boost::move(other.value_);
+      strict_lock<mutex_type> lk(BOOST_THREAD_RV(other).mtx_);
+      value_= boost::move(BOOST_THREAD_RV(other).value_);
     }
 
     // mutation
@@ -593,8 +595,6 @@ namespace boost
       boost::swap(value_, rhs);
     }
 
-
-
     /**
      * Essentially calling a method obj->foo(x, y, z) calls the method foo(x, y, z) inside a critical section as
      * long-lived as the call itself.
@@ -614,13 +614,80 @@ namespace boost
     }
 
     /**
+     * Call function on a locked block.
+     *
+     * @requires fct(value_) is well formed.
+     *
+     * Example
+     *   void fun(synchronized_value<vector<int>> & v) {
+     *     v ( [](vector<int>> & vec)
+     *     {
+     *       vec.push_back(42);
+     *       assert(vec.back() == 42);
+     *     } );
+     *   }
+     */
+    template <typename F>
+    inline
+    typename boost::result_of<F(value_type&)>::type
+    operator()(BOOST_THREAD_RV_REF(F) fct)
+    {
+      strict_lock<mutex_type> lk(mtx_);
+      return fct(value_);
+    }
+    template <typename F>
+    inline
+    typename boost::result_of<F(value_type const&)>::type
+    operator()(BOOST_THREAD_RV_REF(F) fct) const
+    {
+      strict_lock<mutex_type> lk(mtx_);
+      return fct(value_);
+    }
+
+
+#if defined  BOOST_NO_CXX11_RVALUE_REFERENCES
+    template <typename F>
+    inline
+    typename boost::result_of<F(value_type&)>::type
+    operator()(F const & fct)
+    {
+      strict_lock<mutex_type> lk(mtx_);
+      return fct(value_);
+    }
+    template <typename F>
+    inline
+    typename boost::result_of<F(value_type const&)>::type
+    operator()(F const & fct) const
+    {
+      strict_lock<mutex_type> lk(mtx_);
+      return fct(value_);
+    }
+
+    template <typename R>
+    inline
+    R operator()(R(*fct)(value_type&))
+    {
+      strict_lock<mutex_type> lk(mtx_);
+      return fct(value_);
+    }
+    template <typename R>
+    inline
+    R operator()(R(*fct)(value_type const&)) const
+    {
+      strict_lock<mutex_type> lk(mtx_);
+      return fct(value_);
+    }
+#endif
+
+
+    /**
      * The synchronize() factory make easier to lock on a scope.
      * As discussed, operator-> can only lock over the duration of a call, so it is insufficient for complex operations.
      * With synchronize() you get to lock the object in a scoped and to directly access the object inside that scope.
      *
      * Example
-     *   void fun(synchronized_value<vector<int>> & vec) {
-     *     auto&& vec=vec.synchronize();
+     *   void fun(synchronized_value<vector<int>> & v) {
+     *     auto&& vec=v.synchronize();
      *     vec.push_back(42);
      *     assert(vec.back() == 42);
      *   }
@@ -880,9 +947,9 @@ namespace boost
 
   //Hash support
 
-  template <class T> struct hash;
-  template <typename T, typename L>
-  struct hash<synchronized_value<T,L> >;
+//  template <class T> struct hash;
+//  template <typename T, typename L>
+//  struct hash<synchronized_value<T,L> >;
 
   // Comparison with T
   template <typename T, typename L>

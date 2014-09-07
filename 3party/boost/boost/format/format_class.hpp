@@ -126,7 +126,7 @@ namespace boost {
 
         template<class Ch2, class Tr2, class Alloc2, class T>  
         friend basic_format<Ch2, Tr2, Alloc2>&  
-        io::detail::feed (basic_format<Ch2, Tr2, Alloc2>&, T);
+        io::detail::feed_impl (basic_format<Ch2, Tr2, Alloc2>&, T);
 
         template<class Ch2, class Tr2, class Alloc2, class T>  friend   
         void io::detail::distribute (basic_format<Ch2, Tr2, Alloc2>&, T);

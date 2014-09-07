@@ -46,14 +46,14 @@ namespace boost { namespace spirit { namespace qi
             type;
         };
 
-        difference(Left const& left, Right const& right)
-          : left(left), right(right) {}
+        difference(Left const& left_, Right const& right_)
+          : left(left_), right(right_) {}
 
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
-          , Attribute& attr) const
+          , Attribute& attr_) const
         {
             // Unlike classic Spirit, with this version of difference, the rule
             // lit("policeman") - "police" will always fail to match.
@@ -71,7 +71,7 @@ namespace boost { namespace spirit { namespace qi
                 return false;
             }
             // RHS fails, now try LHS
-            return left.parse(first, last, context, skipper, attr);
+            return left.parse(first, last, context, skipper, attr_);
         }
 
         template <typename Context>

@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_SEGMENTED_FOLD_UNTIL_IMPL_HPP_INCLUDED)
 #define BOOST_FUSION_SEGMENTED_FOLD_UNTIL_IMPL_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
@@ -65,6 +66,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Cur, typename Context>
+    BOOST_FUSION_GPU_ENABLED
     typename result_of::make_segmented_iterator<Cur, Context>::type
     make_segmented_iterator(Cur const& cur, Context const& context)
     {
@@ -119,6 +121,7 @@ namespace boost { namespace fusion
             typedef iterator_range<Cur, End>    range_type;
             typedef cons<range_type, Context>   type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Cur const& cur, End const& end, Context const& context)
             {
                 return cons<range_type, Context>(range_type(cur, end), context);
@@ -167,6 +170,7 @@ namespace boost { namespace fusion
             typedef typename impl::type type;
             typedef typename impl::continue_type continue_type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Sequence& seq, State const& state, Context const& context, Fun const& fun)
             {
                 return impl::call(fusion::segments(seq), state, context, fun);
@@ -188,6 +192,7 @@ namespace boost { namespace fusion
             typedef typename apply_type::type type;
             typedef typename apply_type::continue_type continue_type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Sequence& seq, State const& state, Context const& context, Fun const& fun)
             {
                 return apply_type::call(seq, state, context, fun);
@@ -269,12 +274,14 @@ namespace boost { namespace fusion
                 >::type
             continue_type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Begin const& beg, End const& end, State const& state
                            , Context const& context, Fun const& fun)
             {
                 return call(beg, end, state, context, fun, typename fold_recurse_impl::continue_type());
             }
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Begin const& beg, End const& end, State const& state
                            , Context const& context, Fun const& fun, mpl::true_) // continue
             {
@@ -290,6 +297,7 @@ namespace boost { namespace fusion
                   , fun);
             }
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Begin const& beg, End const& end, State const& state
                            , Context const& context, Fun const& fun, mpl::false_) // break
             {
@@ -317,6 +325,7 @@ namespace boost { namespace fusion
             typedef typename impl::type type;
             typedef typename impl::continue_type continue_type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Begin const& beg, End const& end, State const& state
                            , Context const& context, Fun const& fun)
             {
@@ -342,6 +351,7 @@ namespace boost { namespace fusion
             typedef typename impl::type type;
             typedef typename impl::continue_type continue_type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Begin const& beg, End const& end, State const& state
                            , Context const& context, Fun const& fun)
             {
@@ -355,6 +365,7 @@ namespace boost { namespace fusion
             typedef State type;
             typedef mpl::true_ continue_type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Begin const&, End const&, State const& state
                            , Context const&, Fun const&)
             {
@@ -378,6 +389,7 @@ namespace boost { namespace fusion
             typedef typename impl::type type;
             typedef typename impl::continue_type continue_type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Segments& segs, State const& state, Context const& context, Fun const& fun)
             {
                 return impl::call(fusion::begin(segs), fusion::end(segs), state, context, fun);

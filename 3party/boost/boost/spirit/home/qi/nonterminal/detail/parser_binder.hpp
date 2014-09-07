@@ -21,8 +21,8 @@ namespace boost { namespace spirit { namespace qi { namespace detail
     template <typename Parser, typename Auto>
     struct parser_binder
     {
-        parser_binder(Parser const& p)
-          : p(p) {}
+        parser_binder(Parser const& p_)
+          : p(p_) {}
 
         template <typename Iterator, typename Skipper, typename Context>
         bool call(Iterator& first, Iterator const& last
@@ -60,8 +60,8 @@ namespace boost { namespace spirit { namespace qi { namespace detail
     template <typename Parser>
     struct parser_binder<Parser, mpl::true_>
     {
-        parser_binder(Parser const& p)
-          : p(p) {}
+        parser_binder(Parser const& p_)
+          : p(p_) {}
 
         template <typename Iterator, typename Skipper, typename Context>
         bool operator()(

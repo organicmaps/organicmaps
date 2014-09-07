@@ -6,8 +6,8 @@
  Integration of n steps with constant time size. Adaptive and dense-output methods are fully supported.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Karsten Ahnert
+ Copyright 2011-2012 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -40,11 +40,11 @@ Time integrate_n_steps(
         Time start_time , Time dt , size_t num_of_steps ,
         Observer observer )
 {
-
+    typedef typename odeint::unwrap_reference< Stepper >::type::stepper_category stepper_category;
     return detail::integrate_n_steps(
                 stepper , system , start_state ,
                 start_time , dt , num_of_steps ,
-                observer , typename Stepper::stepper_category() );
+                observer , stepper_category() );
 }
 
 /**
@@ -56,10 +56,11 @@ Time integrate_n_steps(
         Time start_time , Time dt , size_t num_of_steps ,
         Observer observer )
 {
+    typedef typename odeint::unwrap_reference< Stepper >::type::stepper_category stepper_category;
     return detail::integrate_n_steps(
                  stepper , system , start_state ,
                  start_time , dt , num_of_steps ,
-                 observer , typename Stepper::stepper_category() );
+                 observer , stepper_category() );
 }
 
 

@@ -41,8 +41,8 @@ namespace boost { namespace spirit { namespace qi
           : traits::attribute_of<Subject, Context, Iterator>
         {};
 
-        action(Subject const& subject, Action f)
-          : subject(subject), f(f) {}
+        action(Subject const& subject_, Action f_)
+          : subject(subject_), f(f_) {}
 
 #ifndef BOOST_SPIRIT_ACTIONS_ALLOW_ATTR_COMPAT
         template <typename Iterator, typename Context

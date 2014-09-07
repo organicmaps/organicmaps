@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_INCLUDE_ADAPT_ASSOC_ADT_HPP
 #define BOOST_FUSION_INCLUDE_ADAPT_ASSOC_ADR_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/adt/adapt_assoc_adt.hpp>
 
 #endif

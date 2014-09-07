@@ -81,6 +81,7 @@ namespace boost
       explicit ios_state_ptr(std::ios_base& ios) :
         ios_(ios)
       {
+
       }
       /**
        * Nothing to do as xalloc index can not be removed.

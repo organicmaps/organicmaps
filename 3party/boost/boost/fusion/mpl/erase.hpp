@@ -7,6 +7,7 @@
 #if !defined(FUSION_ERASE_10022005_1835)
 #define FUSION_ERASE_10022005_1835
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/erase.hpp>
 #include <boost/fusion/support/tag_of.hpp>
 #include <boost/fusion/algorithm/transformation/erase.hpp>

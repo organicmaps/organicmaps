@@ -8,6 +8,7 @@
 #if !defined(FUSION_PRIOR_IMPL_20060124_2006)
 #define FUSION_PRIOR_IMPL_20060124_2006
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/zip_view/zip_view_iterator_fwd.hpp>
 #include <boost/fusion/iterator/prior.hpp>
 #include <boost/fusion/algorithm/transformation/transform.hpp>
@@ -40,12 +41,14 @@ namespace boost { namespace fusion {
             };
 
             template<typename It>
+            BOOST_FUSION_GPU_ENABLED
             typename result<poly_prior(It)>::type
             operator()(const It& it) const
             {
                 return fusion::prior(it);
             }
 
+            BOOST_FUSION_GPU_ENABLED
             unused_type operator()(unused_type const&) const
             {
                 return unused_type();
@@ -68,6 +71,7 @@ namespace boost { namespace fusion {
                     typename result_of::transform<typename Iterator::iterators, detail::poly_prior>::type,
                     typename Iterator::category> type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& it)
 

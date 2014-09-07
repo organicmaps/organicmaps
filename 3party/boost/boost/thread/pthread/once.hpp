@@ -16,7 +16,7 @@
 
 #include <boost/thread/pthread/pthread_mutex_scoped_lock.hpp>
 #include <boost/thread/detail/delete.hpp>
-#include <boost/detail/no_exceptions_support.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 
 #include <boost/bind.hpp>
 #include <boost/assert.hpp>
@@ -42,7 +42,7 @@ namespace boost
   }
 
 #ifdef BOOST_THREAD_PROVIDES_ONCE_CXX11
-#ifndef BOOST_NO_CXX11_VARIADIC_TEMPLATES
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     template<typename Function, class ...ArgTypes>
     inline void call_once(once_flag& flag, BOOST_THREAD_RV_REF(Function) f, BOOST_THREAD_RV_REF(ArgTypes)... args);
 #else
@@ -65,7 +65,7 @@ namespace boost
   private:
       volatile thread_detail::uintmax_atomic_t epoch;
 
-#ifndef BOOST_NO_CXX11_VARIADIC_TEMPLATES
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
       template<typename Function, class ...ArgTypes>
       friend void call_once(once_flag& flag, BOOST_THREAD_RV_REF(Function) f, BOOST_THREAD_RV_REF(ArgTypes)... args);
 #else
@@ -118,7 +118,7 @@ namespace boost
     // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2444.html
 
 
-#ifndef BOOST_NO_CXX11_VARIADIC_TEMPLATES
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 
 
   template<typename Function, class ...ArgTypes>

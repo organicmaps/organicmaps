@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: macro.hpp 80601 2012-09-19 22:46:36Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_MACRO_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_MACRO_HPP_INCLUDED

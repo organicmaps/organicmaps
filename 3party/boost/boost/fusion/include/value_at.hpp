@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_VALUE_AT)
 #define FUSION_INCLUDE_VALUE_AT
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/value_at.hpp>
 
 #endif

@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_NVIEW)
 #define FUSION_INCLUDE_NVIEW
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/nview.hpp>
 
 #endif

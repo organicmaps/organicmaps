@@ -63,6 +63,7 @@ namespace boost { namespace fusion { namespace result_of
 namespace boost { namespace fusion
 {
     template<BOOST_PP_ENUM_PARAMS(N, int I), typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline nview<Sequence, mpl::vector_c<int, BOOST_PP_ENUM_PARAMS(N, I)> >
     as_nview(Sequence& s)
     {

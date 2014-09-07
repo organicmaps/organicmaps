@@ -310,13 +310,13 @@ inline T constant_four_minus_pi<T>::compute(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SP
    return static_cast<T>(4) - pi<T, policies::policy<policies::digits2<N> > >();
 }
 
-template <class T>
-template<int N>
-inline T constant_pow23_four_minus_pi<T>::compute(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(mpl::int_<N>))
-{
-   BOOST_MATH_STD_USING
-   return pow(four_minus_pi<T, policies::policy<policies::digits2<N> > >(), static_cast<T>(1.5));
-}
+//template <class T>
+//template<int N>
+//inline T constant_pow23_four_minus_pi<T>::compute(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(mpl::int_<N>))
+//{
+//   BOOST_MATH_STD_USING
+//   return pow(four_minus_pi<T, policies::policy<policies::digits2<N> > >(), static_cast<T>(1.5));
+//}
 
 template <class T>
 template<int N>

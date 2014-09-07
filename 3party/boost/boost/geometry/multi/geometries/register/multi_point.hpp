@@ -15,45 +15,8 @@
 #ifndef BOOST_GEOMETRY_MULTI_GEOMETRIES_REGISTER_MULTI_POINT_HPP
 #define BOOST_GEOMETRY_MULTI_GEOMETRIES_REGISTER_MULTI_POINT_HPP
 
-#include <boost/geometry/core/tag.hpp>
-#include <boost/geometry/multi/core/tags.hpp>
 
-/*!
-\brief \brief_macro{multi_point}
-\ingroup register
-\details \details_macro{BOOST_GEOMETRY_REGISTER_MULTI_POINT, multi_point} The 
-    multi_point may contain template parameters, which must be specified then.
-\param MultiPoint \param_macro_type{multi_point}
-
-\qbk{
-[heading Example]
-[register_multi_point]
-[register_multi_point_output]
-}
-*/
-#define BOOST_GEOMETRY_REGISTER_MULTI_POINT(MultiPoint) \
-namespace boost { namespace geometry { namespace traits {  \
-    template<> struct tag<MultiPoint> { typedef multi_point_tag type; }; \
-}}}
-
-
-/*!
-\brief \brief_macro{templated multi_point}
-\ingroup register
-\details \details_macro{BOOST_GEOMETRY_REGISTER_MULTI_POINT_TEMPLATED, templated multi_point} 
-    \details_macro_templated{multi_point, point}
-\param MultiPoint \param_macro_type{multi_point (without template parameters)}
-
-\qbk{
-[heading Example]
-[register_multi_point_templated]
-[register_multi_point_templated_output]
-}
-*/
-#define BOOST_GEOMETRY_REGISTER_MULTI_POINT_TEMPLATED(MultiPoint) \
-namespace boost { namespace geometry { namespace traits {  \
-    template<typename Point> struct tag< MultiPoint<Point> > { typedef multi_point_tag type; }; \
-}}}
+#include <boost/geometry/geometries/register/multi_point.hpp>
 
 
 #endif // BOOST_GEOMETRY_MULTI_GEOMETRIES_REGISTER_MULTI_POINT_HPP

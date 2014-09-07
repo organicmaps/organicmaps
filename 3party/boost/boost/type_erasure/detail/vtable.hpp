@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: vtable.hpp 83248 2013-03-02 18:15:06Z steven_watanabe $
+// $Id$
 
 #if !defined(BOOST_PP_IS_ITERATING)
 
@@ -30,7 +30,7 @@ namespace boost {
 namespace type_erasure {
 namespace detail {
 
-#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && !defined(BOOST_NO_CONSTEXPR) && !defined(BOOST_NO_DEFAULTED_FUNCTIONS)
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && !defined(BOOST_NO_CXX11_CONSTEXPR) && !defined(BOOST_NO_CXX11_DEFAULTED_FUNCTIONS)
 
 template<class... T>
 struct stored_arg_pack;

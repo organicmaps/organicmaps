@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_SEQUENCE_FACADE)
 #define FUSION_INCLUDE_SEQUENCE_FACADE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/sequence_facade.hpp>
 
 #endif

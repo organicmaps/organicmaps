@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_CONTAINER_SET_DETAIL_VALUE_OF_IMPL_HPP
 #define BOOST_FUSION_CONTAINER_SET_DETAIL_VALUE_OF_IMPL_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/value_at.hpp>
 
 namespace boost { namespace fusion { namespace extension

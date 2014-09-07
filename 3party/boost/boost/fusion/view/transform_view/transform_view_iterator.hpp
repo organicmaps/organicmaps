@@ -7,6 +7,7 @@
 #if !defined(FUSION_TRANSFORM_VIEW_ITERATOR_07162005_1033)
 #define FUSION_TRANSFORM_VIEW_ITERATOR_07162005_1033
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/iterator_base.hpp>
 #include <boost/fusion/support/category_of.hpp>
 #include <boost/fusion/iterator/mpl/convert_iterator.hpp>
@@ -34,6 +35,7 @@ namespace boost { namespace fusion
         typedef typename traits::category_of<first_type>::type category;
         typedef F transform_type;
 
+        BOOST_FUSION_GPU_ENABLED
         transform_view_iterator(First const& in_first, F const& in_f)
             : first(converter::call(in_first)), f(in_f) {}
 
@@ -60,6 +62,7 @@ namespace boost { namespace fusion
         typedef typename traits::category_of<first1_type>::type category;
         typedef F transform_type;
 
+        BOOST_FUSION_GPU_ENABLED
         transform_view_iterator2(First1 const& in_first1, First2 const& in_first2, F const& in_f)
             : first1(converter1::call(in_first1)), first2(converter2::call(in_first2)), f(in_f) {}
 

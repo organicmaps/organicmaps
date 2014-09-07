@@ -2,7 +2,7 @@
 #define BOOST_ARCHIVE_POLYMORPHIC_XML_OARCHIVE_HPP
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -24,7 +24,7 @@ namespace boost {
 namespace archive {
 
 typedef detail::polymorphic_oarchive_route<
-    xml_oarchive_impl<naked_xml_oarchive> 
+    xml_oarchive_impl<xml_oarchive> 
 > polymorphic_xml_oarchive;
 
 } // namespace archive

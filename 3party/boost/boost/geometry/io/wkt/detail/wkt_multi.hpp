@@ -14,9 +14,8 @@
 #ifndef BOOST_GEOMETRY_DOMAINS_GIS_IO_WKT_DETAIL_WKT_MULTI_HPP
 #define BOOST_GEOMETRY_DOMAINS_GIS_IO_WKT_DETAIL_WKT_MULTI_HPP
 
-
+#include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/domains/gis/io/wkt/write.hpp>
-#include <boost/geometry/multi/core/tags.hpp>
 
 
 namespace boost { namespace geometry

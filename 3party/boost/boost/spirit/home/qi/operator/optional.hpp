@@ -55,23 +55,23 @@ namespace boost { namespace spirit { namespace qi
             type;
         };
 
-        optional(Subject const& subject)
-          : subject(subject) {}
+        optional(Subject const& subject_)
+          : subject(subject_) {}
 
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
         bool parse_impl(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
-          , Attribute& attr, mpl::false_) const
+          , Attribute& attr_, mpl::false_) const
         {
             // create a local value if Attribute is not unused_type
-            typename spirit::result_of::optional_value<Attribute>::type val = 
+            typename spirit::result_of::optional_value<Attribute>::type val =
                 typename spirit::result_of::optional_value<Attribute>::type();
 
             if (subject.parse(first, last, context, skipper, val))
             {
                 // assign the parsed value into our attribute
-                spirit::traits::assign_to(val, attr);
+                spirit::traits::assign_to(val, attr_);
             }
             return true;
         }
@@ -80,9 +80,9 @@ namespace boost { namespace spirit { namespace qi
           , typename Skipper, typename Attribute>
         bool parse_impl(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
-          , Attribute& attr, mpl::true_) const
+          , Attribute& attr_, mpl::true_) const
         {
-            subject.parse(first, last, context, skipper, attr);
+            subject.parse(first, last, context, skipper, attr_);
             return true;
         }
 
@@ -90,12 +90,12 @@ namespace boost { namespace spirit { namespace qi
           , typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
-          , Attribute& attr) const
+          , Attribute& attr_) const
         {
-            typedef typename spirit::result_of::optional_value<Attribute>::type 
+            typedef typename spirit::result_of::optional_value<Attribute>::type
                 attribute_type;
 
-            return parse_impl(first, last, context, skipper, attr
+            return parse_impl(first, last, context, skipper, attr_
               , traits::is_container<attribute_type>());
         }
 

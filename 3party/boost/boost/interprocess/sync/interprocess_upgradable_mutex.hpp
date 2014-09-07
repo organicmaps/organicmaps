@@ -13,7 +13,7 @@
 #ifndef BOOST_INTERPROCESS_UPGRADABLE_MUTEX_HPP
 #define BOOST_INTERPROCESS_UPGRADABLE_MUTEX_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -325,10 +325,8 @@ inline bool interprocess_upgradable_mutex::try_lock()
 inline bool interprocess_upgradable_mutex::timed_lock
    (const boost::posix_time::ptime &abs_time)
 {
-   if(abs_time == boost::posix_time::pos_infin){
-      this->lock();
-      return true;
-   }
+   //Mutexes and condvars handle just fine infinite abs_times
+   //so avoid checking it here
    scoped_lock_t lck(m_mut, abs_time);
    if(!lck.owns())   return false;
 
@@ -413,10 +411,8 @@ inline bool interprocess_upgradable_mutex::try_lock_upgradable()
 inline bool interprocess_upgradable_mutex::timed_lock_upgradable
    (const boost::posix_time::ptime &abs_time)
 {
-   if(abs_time == boost::posix_time::pos_infin){
-      this->lock_upgradable();
-      return true;
-   }
+   //Mutexes and condvars handle just fine infinite abs_times
+   //so avoid checking it here
    scoped_lock_t lck(m_mut, abs_time);
    if(!lck.owns())   return false;
 
@@ -492,10 +488,8 @@ inline bool interprocess_upgradable_mutex::try_lock_sharable()
 inline bool interprocess_upgradable_mutex::timed_lock_sharable
    (const boost::posix_time::ptime &abs_time)
 {
-   if(abs_time == boost::posix_time::pos_infin){
-      this->lock_sharable();
-      return true;
-   }
+   //Mutexes and condvars handle just fine infinite abs_times
+   //so avoid checking it here
    scoped_lock_t lck(m_mut, abs_time);
    if(!lck.owns())   return false;
 
@@ -504,7 +498,7 @@ inline bool interprocess_upgradable_mutex::timed_lock_sharable
    //or there are too many sharable locks
    while (this->m_ctrl.exclusive_in
          || this->m_ctrl.num_upr_shar == constants::max_readers){
-      if(!this->m_first_gate.timed_wait(lck, abs_time)){   
+      if(!this->m_first_gate.timed_wait(lck, abs_time)){
          if(this->m_ctrl.exclusive_in
             || this->m_ctrl.num_upr_shar == constants::max_readers){
             return false;
@@ -607,10 +601,8 @@ inline bool interprocess_upgradable_mutex::try_unlock_upgradable_and_lock()
 inline bool interprocess_upgradable_mutex::timed_unlock_upgradable_and_lock
    (const boost::posix_time::ptime &abs_time)
 {
-   if(abs_time == boost::posix_time::pos_infin){
-      this->unlock_upgradable_and_lock();
-      return true;
-   }
+   //Mutexes and condvars handle just fine infinite abs_times
+   //so avoid checking it here
    scoped_lock_t lck(m_mut, abs_time);
    if(!lck.owns())   return false;
 

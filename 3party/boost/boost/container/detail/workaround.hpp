@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -35,9 +35,28 @@
    #define BOOST_CONTAINER_UNIMPLEMENTED_PACK_EXPANSION_TO_FIXED_LIST
 #endif
 
+#if !defined(BOOST_FALLTHOUGH)
+   #define BOOST_CONTAINER_FALLTHOUGH
+#else
+   #define BOOST_CONTAINER_FALLTHOUGH BOOST_FALLTHOUGH;
+#endif
+
 //Macros for documentation purposes. For code, expands to the argument
 #define BOOST_CONTAINER_IMPDEF(TYPE) TYPE
 #define BOOST_CONTAINER_SEEDOC(TYPE) TYPE
+
+//Macros for memset optimization. In most platforms
+//memsetting pointers and floatings is safe and faster.
+//
+//If your platform does not offer these guarantees
+//define these to value zero.
+#ifndef BOOST_CONTAINER_MEMZEROED_FLOATING_POINT_IS_NOT_ZERO
+#define BOOST_CONTAINER_MEMZEROED_FLOATING_POINT_IS_ZERO 1
+#endif
+
+#ifndef BOOST_CONTAINER_MEMZEROED_POINTER_IS_NOT_NULL
+#define BOOST_CONTAINER_MEMZEROED_POINTER_IS_NULL
+#endif
 
 #include <boost/container/detail/config_end.hpp>
 

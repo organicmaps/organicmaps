@@ -26,18 +26,22 @@ namespace boost
     template <class To, class Rep, class Period>
     To round(const duration<Rep, Period>& d)
     {
+        typedef typename common_type<To, duration<Rep, Period> >::type  result_type;
+        result_type diff0;
+        result_type diff1;
+
         To t0 = duration_cast<To>(d);
         To t1 = t0;
-        ++t1;
-#if 0
-        // Avoid the user of BOOST_AUTO to make the library portable to Sun, PGI, ..
-        BOOST_AUTO(diff0, d - t0);
-        BOOST_AUTO(diff1, t1 - d);
-#else
-        typedef typename common_type<To, duration<Rep, Period> >::type  result_type;
-        result_type diff0 = d - t0;
-        result_type diff1 = t1 - d;
-#endif
+        if (t0>d) {
+          --t1;
+          diff0 = t0 - d;
+          diff1 = d - t1;
+        } else {
+          ++t1;
+          diff0 = d - t0;
+          diff1 = t1 - d;
+        }
+
         if (diff0 == diff1)
         {
             if (t0.count() & 1)

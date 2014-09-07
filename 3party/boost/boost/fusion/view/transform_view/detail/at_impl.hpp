@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_AT_IMPL_20061029_1946)
 #define BOOST_FUSION_AT_IMPL_20061029_1946
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/fusion/view/transform_view/detail/apply_transform_result.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
@@ -32,6 +33,7 @@ namespace boost { namespace fusion {
                 typedef typename boost::fusion::result_of::at<typename Seq::sequence_type, N>::type value_type;
                 typedef typename mpl::apply<transform_type, value_type>::type type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type call(Seq& seq)
                 {
                     return seq.f(boost::fusion::at<N>(seq.seq));
@@ -51,6 +53,7 @@ namespace boost { namespace fusion {
                 typedef typename boost::fusion::result_of::at<typename Seq::sequence2_type, N>::type value2_type;
                 typedef typename mpl::apply<transform_type, value1_type, value2_type>::type type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type call(Seq& seq)
                 {
                     return seq.f(boost::fusion::at<N>(seq.seq1), boost::fusion::at<N>(seq.seq2));

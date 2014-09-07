@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 57992 $
+//  Version     : $Revision$
 //
 //  Description : generic typed_argument_factory implementation
 // ***************************************************************************

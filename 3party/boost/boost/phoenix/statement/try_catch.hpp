@@ -274,7 +274,7 @@ namespace boost { namespace phoenix
     template <typename TryCatch, typename Exception>
     struct catch_gen
     {
-        catch_gen(TryCatch const& try_catch) : try_catch(try_catch) {}
+        catch_gen(TryCatch const& try_catch_) : try_catch(try_catch_) {}
 
         template <typename Expr>
         typename boost::disable_if<
@@ -301,7 +301,7 @@ namespace boost { namespace phoenix
     template <typename TryCatch>
     struct catch_all_gen
     {
-        catch_all_gen(TryCatch const& try_catch) : try_catch(try_catch) {}
+        catch_all_gen(TryCatch const& try_catch_) : try_catch(try_catch_) {}
 
         template <typename Expr>
         typename boost::disable_if<

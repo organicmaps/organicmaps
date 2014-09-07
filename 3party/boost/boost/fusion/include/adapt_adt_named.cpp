@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_ADAPT_ADT_NAMED)
 #define FUSION_INCLUDE_ADAPT_ADT_NAMED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/adt/adapt_adt_named.hpp>
 
 #endif

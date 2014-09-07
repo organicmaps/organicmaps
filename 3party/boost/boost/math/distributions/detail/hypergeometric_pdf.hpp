@@ -61,15 +61,15 @@ T hypergeometric_pdf_lanczos_imp(T /*dummy*/, unsigned x, unsigned r, unsigned n
    BOOST_MATH_INSTRUMENT_VARIABLE(typeid(Lanczos).name());
 
    T bases[9] = {
-      T(n) + Lanczos::g() + 0.5f,
-      T(r) + Lanczos::g() + 0.5f,
-      T(N - n) + Lanczos::g() + 0.5f,
-      T(N - r) + Lanczos::g() + 0.5f,
-      1 / (T(N) + Lanczos::g() + 0.5f),
-      1 / (T(x) + Lanczos::g() + 0.5f),
-      1 / (T(n - x) + Lanczos::g() + 0.5f),
-      1 / (T(r - x) + Lanczos::g() + 0.5f),
-      1 / (T(N - n - r + x) + Lanczos::g() + 0.5f)
+      T(n) + static_cast<T>(Lanczos::g()) + 0.5f,
+      T(r) + static_cast<T>(Lanczos::g()) + 0.5f,
+      T(N - n) + static_cast<T>(Lanczos::g()) + 0.5f,
+      T(N - r) + static_cast<T>(Lanczos::g()) + 0.5f,
+      1 / (T(N) + static_cast<T>(Lanczos::g()) + 0.5f),
+      1 / (T(x) + static_cast<T>(Lanczos::g()) + 0.5f),
+      1 / (T(n - x) + static_cast<T>(Lanczos::g()) + 0.5f),
+      1 / (T(r - x) + static_cast<T>(Lanczos::g()) + 0.5f),
+      1 / (T(N - n - r + x) + static_cast<T>(Lanczos::g()) + 0.5f)
    };
    T exponents[9] = {
       n + T(0.5f),

@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -15,12 +15,9 @@
 #ifndef BOOST_LOG_SINKS_ASYNC_FRONTEND_HPP_INCLUDED_
 #define BOOST_LOG_SINKS_ASYNC_FRONTEND_HPP_INCLUDED_
 
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/log/detail/config.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -29,8 +26,11 @@
 #endif
 
 #include <boost/bind.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/smart_ptr/shared_ptr.hpp>
+#include <boost/smart_ptr/make_shared_object.hpp>
 #include <boost/thread/locks.hpp>
-#include <boost/thread/mutex.hpp>
+#include <boost/thread/recursive_mutex.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/condition_variable.hpp>
 #include <boost/log/exceptions.hpp>
@@ -86,7 +86,6 @@ namespace sinks {
 template< typename SinkBackendT, typename QueueingStrategyT = unbounded_fifo_queue >
 class asynchronous_sink :
     public aux::make_sink_frontend_base< SinkBackendT >::type,
-    private boost::log::aux::locking_ptr_counter_base,
     public QueueingStrategyT
 {
     typedef typename aux::make_sink_frontend_base< SinkBackendT >::type base_type;
@@ -94,7 +93,7 @@ class asynchronous_sink :
 
 private:
     //! Backend synchronization mutex type
-    typedef boost::mutex backend_mutex_type;
+    typedef boost::recursive_mutex backend_mutex_type;
     //! Frontend synchronization mutex type
     typedef typename base_type::mutex_type frontend_mutex_type;
 
@@ -187,7 +186,7 @@ public:
 #ifndef BOOST_LOG_DOXYGEN_PASS
 
     //! A pointer type that locks the backend until it's destroyed
-    typedef boost::log::aux::locking_ptr< sink_backend_type > locked_backend_ptr;
+    typedef boost::log::aux::locking_ptr< sink_backend_type, backend_mutex_type > locked_backend_ptr;
 
 #else // BOOST_LOG_DOXYGEN_PASS
 
@@ -271,9 +270,7 @@ public:
      */
     locked_backend_ptr locked_backend()
     {
-        return locked_backend_ptr(
-            m_pBackend,
-            static_cast< boost::log::aux::locking_ptr_counter_base& >(*this));
+        return locked_backend_ptr(m_pBackend, m_BackendMutex);
     }
 
     /*!
@@ -425,18 +422,13 @@ private:
         boost::thread(boost::bind(&asynchronous_sink::run, this)).swap(m_DedicatedFeedingThread);
     }
 
-    // locking_ptr_counter_base methods
-    void lock() { m_BackendMutex.lock(); }
-    bool try_lock() { return m_BackendMutex.try_lock(); }
-    void unlock() { m_BackendMutex.unlock(); }
-
     //! The record feeding loop
     void do_feed_records()
     {
         while (!m_StopRequested)
         {
             record_view rec;
-            register bool dequeued = false;
+            bool dequeued = false;
             if (!m_FlushRequested)
                 dequeued = queue_base_type::try_dequeue_ready(rec);
             else

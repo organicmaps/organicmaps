@@ -29,7 +29,7 @@ namespace impl
       : accumulator_base
     {
         // for boost::result_of
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type result_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type result_type;
 
         error_of_mean_impl(dont_care) {}
 
@@ -38,7 +38,7 @@ namespace impl
         {
             using namespace std;
             extractor<Variance> const variance = {};
-            return sqrt(numeric::average(variance(args), count(args) - 1));
+            return sqrt(numeric::fdiv(variance(args), count(args) - 1));
         }
     };
 

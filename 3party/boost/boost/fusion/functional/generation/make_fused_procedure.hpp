@@ -9,6 +9,7 @@
 #if !defined(BOOST_FUSION_FUNCTIONAL_GENERATION_MAKE_FUSED_PROCEDURE_HPP_INCLUDED)
 #define BOOST_FUSION_FUNCTIONAL_GENERATION_MAKE_FUSED_PROCEDURE_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/functional/adapter/fused_procedure.hpp>
 
 #define BOOST_FUSION_CLASS_TPL_NAME fused_procedure

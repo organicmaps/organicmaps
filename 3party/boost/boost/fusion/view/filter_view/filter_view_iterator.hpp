@@ -7,6 +7,7 @@
 #if !defined(FUSION_FILTER_VIEW_ITERATOR_05062005_0849)
 #define FUSION_FILTER_VIEW_ITERATOR_05062005_0849
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/mpl/convert_iterator.hpp>
 #include <boost/fusion/adapted/mpl/mpl_iterator.hpp>
 #include <boost/fusion/iterator/value_of.hpp>
@@ -54,6 +55,7 @@ namespace boost { namespace fusion
         typedef last_iter last_type;
         typedef Pred pred_type;
 
+        BOOST_FUSION_GPU_ENABLED
         filter_iterator(First const& in_first)
             : first(filter::iter_call(first_converter::call(in_first))) {}
 

@@ -50,13 +50,9 @@ namespace boost {
   
   template <class Graph, class ParentMap
           , class Node 
-#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
              = typename graph_traits<Graph>::vertex_descriptor
-#endif
           , class ChIt
-#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
               = typename graph_traits<Graph>::adjacency_iterator
-#endif
            >
   class graph_as_tree
     : public graph_as_tree_base<Graph, Node, ChIt, 

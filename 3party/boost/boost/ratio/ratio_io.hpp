@@ -44,10 +44,6 @@ struct ratio_string
 #include <string>
 #include <sstream>
 
-#ifdef BOOST_RATIO_HAS_STATIC_STRING
-#include <boost/ratio/ratio_static_string.hpp>
-#include <boost/static_string/static_string.hpp>
-#endif
 
 #if defined(BOOST_NO_CXX11_UNICODE_LITERALS) || defined(BOOST_NO_CXX11_CHAR16_T) || defined(BOOST_NO_CXX11_CHAR32_T) || defined(BOOST_NO_CXX11_U16STRING) || defined(BOOST_NO_CXX11_U32STRING)
 #if defined BOOST_RATIO_HAS_UNICODE_SUPPORT
@@ -815,6 +811,262 @@ struct ratio_string<exa, wchar_t>
     static std::wstring symbol() {return std::wstring(1, L'E');}
     static std::wstring prefix()  {return std::wstring(L"exa");}
 };
+#endif
+#endif
+
+
+#ifdef BOOST_RATIO_EXTENSIONS
+
+#ifdef BOOST_RATIO_HAS_STATIC_STRING
+template <typename CharT>
+struct ratio_string<kibi, CharT> :
+    ratio_detail::ratio_string_static<kibi,CharT>
+{};
+
+#else
+template <>
+struct ratio_string<kibi, char>
+{
+    static std::string symbol() {return std::string("Ki");}
+    static std::string prefix()  {return std::string("kibi");}
+};
+
+#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+
+template <>
+struct ratio_string<kibi, char16_t>
+{
+    static std::u16string symbol() {return std::u16string(u"Ki");}
+    static std::u16string prefix()  {return std::u16string(u"kibi");}
+};
+
+template <>
+struct ratio_string<kibi, char32_t>
+{
+    static std::u32string symbol() {return std::u32string(U"Ki");}
+    static std::u32string prefix()  {return std::u32string(U"kibi");}
+};
+
+#endif
+
+#ifndef BOOST_NO_STD_WSTRING
+template <>
+struct ratio_string<kibi, wchar_t>
+{
+    static std::wstring symbol() {return std::wstring(L"Ki");}
+    static std::wstring prefix()  {return std::wstring(L"kibi");}
+};
+#endif
+#endif
+
+#ifdef BOOST_RATIO_HAS_STATIC_STRING
+template <typename CharT>
+struct ratio_string<mebi, CharT> :
+    ratio_detail::ratio_string_static<mebi,CharT>
+{};
+
+#else
+template <>
+struct ratio_string<mebi, char>
+{
+    static std::string symbol() {return std::string("Mi");}
+    static std::string prefix()  {return std::string("mebi");}
+};
+
+#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+
+template <>
+struct ratio_string<mebi, char16_t>
+{
+    static std::u16string symbol() {return std::u16string(u"Mi");}
+    static std::u16string prefix()  {return std::u16string(u"mebi");}
+};
+
+template <>
+struct ratio_string<mebi, char32_t>
+{
+    static std::u32string symbol() {return std::u32string(U"Mi");}
+    static std::u32string prefix()  {return std::u32string(U"mebi");}
+};
+
+#endif
+
+#ifndef BOOST_NO_STD_WSTRING
+template <>
+struct ratio_string<mebi, wchar_t>
+{
+    static std::wstring symbol() {return std::wstring(L"Mi");}
+    static std::wstring prefix()  {return std::wstring(L"mebi");}
+};
+#endif
+#endif
+
+#ifdef BOOST_RATIO_HAS_STATIC_STRING
+template <typename CharT>
+struct ratio_string<gibi, CharT> :
+    ratio_detail::ratio_string_static<gibi,CharT>
+{};
+
+#else
+template <>
+struct ratio_string<gibi, char>
+{
+    static std::string symbol() {return std::string("Gi");}
+    static std::string prefix()  {return std::string("gibi");}
+};
+
+#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+
+template <>
+struct ratio_string<gibi, char16_t>
+{
+    static std::u16string symbol() {return std::u16string(u"Gi");}
+    static std::u16string prefix()  {return std::u16string(u"gibi");}
+};
+
+template <>
+struct ratio_string<gibi, char32_t>
+{
+    static std::u32string symbol() {return std::u32string(U"Gi");}
+    static std::u32string prefix()  {return std::u32string(U"gibi");}
+};
+
+#endif
+
+#ifndef BOOST_NO_STD_WSTRING
+template <>
+struct ratio_string<gibi, wchar_t>
+{
+    static std::wstring symbol() {return std::wstring(L"Gi");}
+    static std::wstring prefix()  {return std::wstring(L"gibi");}
+};
+#endif
+#endif
+
+#ifdef BOOST_RATIO_HAS_STATIC_STRING
+template <typename CharT>
+struct ratio_string<tebi, CharT> :
+    ratio_detail::ratio_string_static<tebi,CharT>
+{};
+
+#else
+template <>
+struct ratio_string<tebi, char>
+{
+    static std::string symbol() {return std::string("Ti");}
+    static std::string prefix()  {return std::string("tebi");}
+};
+
+#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+
+template <>
+struct ratio_string<tebi, char16_t>
+{
+    static std::u16string symbol() {return std::u16string(u"Ti");}
+    static std::u16string prefix()  {return std::u16string(u"tebi");}
+};
+
+template <>
+struct ratio_string<tebi, char32_t>
+{
+    static std::u32string symbol() {return std::u32string(U"Ti");}
+    static std::u32string prefix()  {return std::u32string(U"tebi");}
+};
+
+#endif
+
+#ifndef BOOST_NO_STD_WSTRING
+template <>
+struct ratio_string<tebi, wchar_t>
+{
+    static std::wstring symbol() {return std::wstring(L"Ti");}
+    static std::wstring prefix()  {return std::wstring(L"tebi");}
+};
+#endif
+#endif
+
+#ifdef BOOST_RATIO_HAS_STATIC_STRING
+template <typename CharT>
+struct ratio_string<pebi, CharT> :
+    ratio_detail::ratio_string_static<pebi,CharT>
+{};
+
+#else
+template <>
+struct ratio_string<pebi, char>
+{
+    static std::string symbol() {return std::string("Pi");}
+    static std::string prefix()  {return std::string("pebi");}
+};
+
+#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+
+template <>
+struct ratio_string<pebi, char16_t>
+{
+    static std::u16string symbol() {return std::u16string(u"Pi");}
+    static std::u16string prefix()  {return std::u16string(u"pebi");}
+};
+
+template <>
+struct ratio_string<pebi, char32_t>
+{
+    static std::u32string symbol() {return std::u32string(U"Pi");}
+    static std::u32string prefix()  {return std::u32string(U"pebi");}
+};
+
+#endif
+
+#ifndef BOOST_NO_STD_WSTRING
+template <>
+struct ratio_string<pebi, wchar_t>
+{
+    static std::wstring symbol() {return std::wstring(L"Pi");}
+    static std::wstring prefix()  {return std::wstring(L"pebi");}
+};
+#endif
+#endif
+
+#ifdef BOOST_RATIO_HAS_STATIC_STRING
+template <typename CharT>
+struct ratio_string<exbi, CharT> :
+    ratio_detail::ratio_string_static<exbi,CharT>
+{};
+
+#else
+template <>
+struct ratio_string<exbi, char>
+{
+    static std::string symbol() {return std::string("Ei");}
+    static std::string prefix()  {return std::string("exbi");}
+};
+
+#if BOOST_RATIO_HAS_UNICODE_SUPPORT
+
+template <>
+struct ratio_string<exbi, char16_t>
+{
+    static std::u16string symbol() {return std::u16string(u"Ei");}
+    static std::u16string prefix()  {return std::u16string(u"exbi");}
+};
+
+template <>
+struct ratio_string<exbi, char32_t>
+{
+    static std::u32string symbol() {return std::u32string(U"Ei");}
+    static std::u32string prefix()  {return std::u32string(U"exbi");}
+};
+
+#endif
+
+#ifndef BOOST_NO_STD_WSTRING
+template <>
+struct ratio_string<exbi, wchar_t>
+{
+    static std::wstring symbol() {return std::wstring(L"Ei");}
+    static std::wstring prefix()  {return std::wstring(L"exbi");}
+};
+#endif
 #endif
 #endif
 

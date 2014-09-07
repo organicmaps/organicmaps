@@ -8,6 +8,7 @@
 #if !defined(FUSION_VECTOR_FORWARD_07072005_0125)
 #define FUSION_VECTOR_FORWARD_07072005_0125
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/vector/limits.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 

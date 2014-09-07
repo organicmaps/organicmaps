@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: any_base.hpp 80886 2012-10-06 17:19:08Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_DETAIL_ANY_BASE_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_DETAIL_ANY_BASE_HPP_INCLUDED

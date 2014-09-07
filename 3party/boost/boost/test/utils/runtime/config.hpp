@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 57992 $
+//  Version     : $Revision$
 //
 //  Description : Runtime.Param library configuration
 // ***************************************************************************

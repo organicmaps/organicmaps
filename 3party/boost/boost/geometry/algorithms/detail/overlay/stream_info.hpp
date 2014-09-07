@@ -35,7 +35,6 @@ namespace detail { namespace overlay
     template <typename P>
     std::ostream& operator<<(std::ostream &os, turn_info<P> const& info)
     {
-        typename geometry::coordinate_type<P>::type d = info.distance;
         os  << "\t"
             << " src " << info.seg_id.source_index
             << " seg " << info.seg_id.segment_index
@@ -54,7 +53,7 @@ namespace detail { namespace overlay
             << " nxt seg " << info.travels_to_vertex_index
             << " , ip " << info.travels_to_ip_index
             << " , or " << info.next_ip_index
-            << " dst " << double(d)
+            << " frac " << info.fraction
             << info.visit_state;
         if (info.flagged)
         {

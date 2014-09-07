@@ -10,7 +10,7 @@
 #ifndef BOOST_SERIALIZATION_OPTIONAL_HPP_
 #define BOOST_SERIALIZATION_OPTIONAL_HPP_
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -89,37 +89,6 @@ void serialize(
 ){
     boost::serialization::split_free(ar, t, version);
 }
-
-// the following would be slightly more efficient.  But it
-// would mean that archives created with programs that support
-// TPS wouldn't be readable by programs that don't support TPS.
-// Hence we decline to support this otherwise convenient optimization.
-//#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-#if 0
-
-template <class T>
-struct implementation_level<optional< T > >
-{
-    typedef mpl::integral_c_tag tag;
-    typedef mpl::int_<boost::serialization::object_serializable> type;
-    BOOST_STATIC_CONSTANT(
-        int , 
-        value = boost::serialization::implementation_level::type::value
-    );
-};
-
-template<class T>
-struct tracking_level<optional< T > >
-{
-    typedef mpl::integral_c_tag tag;
-    typedef mpl::int_<boost::serialization::track_never> type;
-    BOOST_STATIC_CONSTANT(
-        int , 
-        value = boost::serialization::tracking_level::type::value
-    );
-};
-
-#endif
 
 } // serialization
 } // namespace boost

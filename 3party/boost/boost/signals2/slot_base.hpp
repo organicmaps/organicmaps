@@ -12,7 +12,6 @@
 #ifndef BOOST_SIGNALS2_SLOT_BASE_HPP
 #define BOOST_SIGNALS2_SLOT_BASE_HPP
 
-#include <boost/any.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 #include <boost/signals2/detail/foreign_ptr.hpp>

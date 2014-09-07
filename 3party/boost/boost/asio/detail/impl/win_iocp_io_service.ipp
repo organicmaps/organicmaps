@@ -2,7 +2,7 @@
 // detail/impl/win_iocp_io_service.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -21,6 +21,7 @@
 
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_service.hpp>
+#include <boost/asio/detail/cstdint.hpp>
 #include <boost/asio/detail/handler_alloc_helpers.hpp>
 #include <boost/asio/detail/handler_invoke_helpers.hpp>
 #include <boost/asio/detail/limits.hpp>
@@ -70,12 +71,14 @@ win_iocp_io_service::win_iocp_io_service(
     stopped_(0),
     stop_event_posted_(0),
     shutdown_(0),
+    gqcs_timeout_(get_gqcs_timeout()),
     dispatch_required_(0)
 {
   BOOST_ASIO_HANDLER_TRACKING_INIT;
 
   iocp_.handle = ::CreateIoCompletionPort(INVALID_HANDLE_VALUE, 0, 0,
-      static_cast<DWORD>((std::min<size_t>)(concurrency_hint, DWORD(~0))));
+      static_cast<DWORD>(concurrency_hint < DWORD(~0)
+        ? concurrency_hint : DWORD(~0)));
   if (!iocp_.handle)
   {
     DWORD last_error = ::GetLastError();
@@ -116,7 +119,7 @@ void win_iocp_io_service::shutdown_service()
       dword_ptr_t completion_key = 0;
       LPOVERLAPPED overlapped = 0;
       ::GetQueuedCompletionStatus(iocp_.handle, &bytes_transferred,
-          &completion_key, &overlapped, gqcs_timeout);
+          &completion_key, &overlapped, gqcs_timeout_);
       if (overlapped)
       {
         ::InterlockedDecrement(&outstanding_work_);
@@ -283,7 +286,8 @@ void win_iocp_io_service::on_pending(win_iocp_operation* op)
   if (::InterlockedCompareExchange(&op->ready_, 1, 0) == 1)
   {
     // Enqueue the operation on the I/O completion port.
-    if (!::PostQueuedCompletionStatus(iocp_.handle, 0, 0, op))
+    if (!::PostQueuedCompletionStatus(iocp_.handle,
+          0, overlapped_contains_result, op))
     {
       // Out of resources. Put on completed queue instead.
       mutex::scoped_lock lock(dispatch_mutex_);
@@ -361,7 +365,7 @@ size_t win_iocp_io_service::do_one(bool block, boost::system::error_code& ec)
     LPOVERLAPPED overlapped = 0;
     ::SetLastError(0);
     BOOL ok = ::GetQueuedCompletionStatus(iocp_.handle, &bytes_transferred,
-        &completion_key, &overlapped, block ? gqcs_timeout : 0);
+        &completion_key, &overlapped, block ? gqcs_timeout_ : 0);
     DWORD last_error = ::GetLastError();
 
     if (overlapped)
@@ -450,6 +454,22 @@ size_t win_iocp_io_service::do_one(bool block, boost::system::error_code& ec)
       }
     }
   }
+}
+
+DWORD win_iocp_io_service::get_gqcs_timeout()
+{
+  OSVERSIONINFOEX osvi;
+  ZeroMemory(&osvi, sizeof(osvi));
+  osvi.dwOSVersionInfoSize = sizeof(osvi);
+  osvi.dwMajorVersion = 6ul;
+
+  const uint64_t condition_mask = ::VerSetConditionMask(
+      0, VER_MAJORVERSION, VER_GREATER_EQUAL);
+
+  if (!!::VerifyVersionInfo(&osvi, VER_MAJORVERSION, condition_mask))
+    return INFINITE;
+
+  return default_gqcs_timeout;
 }
 
 void win_iocp_io_service::do_add_timer_queue(timer_queue_base& queue)

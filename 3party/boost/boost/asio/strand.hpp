@@ -2,7 +2,7 @@
 // strand.hpp
 // ~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -72,6 +72,9 @@ namespace asio {
  * are performed is unspecified. That is, you cannot state whether one
  * happens-before the other. Therefore none of the above conditions are met and
  * no ordering guarantee is made.
+ *
+ * @note The implementation makes no guarantee that handlers posted or
+ * dispatched through different @c strand objects will be invoked concurrently.
  *
  * @par Thread Safety
  * @e Distinct @e objects: Safe.@n

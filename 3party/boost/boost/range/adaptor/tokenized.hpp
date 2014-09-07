@@ -52,9 +52,9 @@ namespace boost
         template< class T, class U, class V >
         struct regex_holder
         {
-            const T&  re;
-            const U&  sub;
-            V         f;
+            T  re;
+            U  sub;
+            V  f;
 
             regex_holder( const T& rex, const U& subm, V flag ) :
                 re(rex), sub(subm), f(flag)

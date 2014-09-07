@@ -7,6 +7,7 @@
 #if !defined(FUSION_REPLACE_08182005_0830)
 #define FUSION_REPLACE_08182005_0830
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/transform_view/transform_view.hpp>
 #include <boost/fusion/algorithm/transformation/detail/replace.hpp>
 #include <boost/fusion/support/is_sequence.hpp>
@@ -24,6 +25,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename T>
+    BOOST_FUSION_GPU_ENABLED
     inline 
     typename
         enable_if<

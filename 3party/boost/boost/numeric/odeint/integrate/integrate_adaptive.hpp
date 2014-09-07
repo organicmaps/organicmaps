@@ -6,8 +6,8 @@
  Adaptive integration of ODEs.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Karsten Ahnert
+ Copyright 2011-2012 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -38,10 +38,11 @@ size_t integrate_adaptive(
         Time start_time , Time end_time , Time dt ,
         Observer observer )
 {
+    typedef typename odeint::unwrap_reference< Stepper >::type::stepper_category stepper_category;
     return detail::integrate_adaptive(
             stepper , system , start_state ,
             start_time , end_time , dt ,
-            observer , typename Stepper::stepper_category() );
+            observer , stepper_category() );
 
     /*
      * Suggestion for a new extendable version:
@@ -61,10 +62,11 @@ size_t integrate_adaptive(
         Time start_time , Time end_time , Time dt ,
         Observer observer )
 {
+    typedef typename odeint::unwrap_reference< Stepper >::type::stepper_category stepper_category;
     return detail::integrate_adaptive(
             stepper , system , start_state ,
             start_time , end_time , dt ,
-            observer , typename Stepper::stepper_category() );
+            observer , stepper_category() );
 }
 
 

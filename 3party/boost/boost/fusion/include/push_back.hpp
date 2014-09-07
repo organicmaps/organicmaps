@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_PUSH_BACK)
 #define FUSION_INCLUDE_PUSH_BACK
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/transformation/push_back.hpp>
 
 #endif

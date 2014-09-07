@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: any.hpp 83393 2013-03-10 03:48:33Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_ANY_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_ANY_HPP_INCLUDED
@@ -519,7 +519,7 @@ public:
             ), other)
         )
     {}
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
     any(any<Concept, T&>&& other)
       : table(::boost::type_erasure::detail::access::table(other)),
         data(::boost::type_erasure::call(
@@ -545,7 +545,7 @@ public:
             ), other)
         )
     {}
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
     any(any<Concept, const T&>&& other)
       : table(::boost::type_erasure::detail::access::table(other)),
         data(::boost::type_erasure::call(

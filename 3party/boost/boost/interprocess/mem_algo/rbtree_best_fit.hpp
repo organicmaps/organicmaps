@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_MEM_ALGO_RBTREE_BEST_FIT_HPP
 #define BOOST_INTERPROCESS_MEM_ALGO_RBTREE_BEST_FIT_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -31,11 +31,12 @@
 #include <boost/interprocess/detail/math_functions.hpp>
 #include <boost/interprocess/detail/type_traits.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
+#include <boost/type_traits/alignment_of.hpp>
 #include <boost/type_traits/type_with_alignment.hpp>
+#include <boost/type_traits/make_unsigned.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 #include <boost/assert.hpp>
 #include <boost/static_assert.hpp>
-#include <boost/type_traits.hpp>
 #include <algorithm>
 #include <utility>
 #include <climits>

@@ -8,6 +8,7 @@
 #if !defined(FUSION_ZIP_VIEW_ITERATOR_23012006_0814)
 #define FUSION_ZIP_VIEW_ITERATOR_23012006_0814
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/zip_view/zip_view_iterator_fwd.hpp>
 #include <boost/fusion/support/iterator_base.hpp>
 #include <boost/fusion/view/zip_view/detail/deref_impl.hpp>
@@ -34,6 +35,7 @@ namespace boost { namespace fusion {
         typedef Traversal category;
 
         template<typename InitSeq>
+        BOOST_FUSION_GPU_ENABLED
         zip_view_iterator(
             const InitSeq& iterator_seq)
             : iterators_(iterator_seq)

@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_ADAPTED_ARRAY_END_IMPL_HPP
 #define BOOST_FUSION_ADAPTED_ARRAY_END_IMPL_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/basic_iterator.hpp>
 #include <boost/type_traits/rank.hpp>
 #include <boost/type_traits/extent.hpp>
@@ -32,6 +33,7 @@ namespace boost { namespace fusion { namespace extension
                 >
             type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type
             call(Seq& seq)
             {

@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -17,7 +17,7 @@
 #define BOOST_LOG_UTILITY_SETUP_FROM_SETTINGS_HPP_INCLUDED_
 
 #include <string>
-#include <boost/shared_ptr.hpp>
+#include <boost/smart_ptr/shared_ptr.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
 #include <boost/log/detail/setup_config.hpp>
@@ -25,7 +25,7 @@
 #include <boost/log/utility/setup/settings.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -60,7 +60,7 @@ struct sink_factory
     /*!
      * Default constructor
      */
-    BOOST_LOG_DEFAULTED_FUNCTION(sink_factory(), {})
+    BOOST_DEFAULTED_FUNCTION(sink_factory(), {})
 
     /*!
      * Virtual destructor
@@ -74,8 +74,8 @@ struct sink_factory
      */
     virtual shared_ptr< sinks::sink > create_sink(settings_section const& settings) = 0;
 
-    BOOST_LOG_DELETED_FUNCTION(sink_factory(sink_factory const&))
-    BOOST_LOG_DELETED_FUNCTION(sink_factory& operator= (sink_factory const&))
+    BOOST_DELETED_FUNCTION(sink_factory(sink_factory const&))
+    BOOST_DELETED_FUNCTION(sink_factory& operator= (sink_factory const&))
 };
 
 /*!

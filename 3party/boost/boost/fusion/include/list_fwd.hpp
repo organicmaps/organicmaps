@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_LIST_FWD)
 #define FUSION_INCLUDE_LIST_FWD
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/list/list_fwd.hpp>
 
 #endif

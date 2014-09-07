@@ -98,9 +98,9 @@ xml_iarchive_impl<Archive>::load(wchar_t * ws){
     const char * end = start + s.size();
     while(start < end){
         wchar_t wc;
-        int result = std::mbtowc(&wc, start, end - start);
-        if(0 < result){
-            start += result;
+        int length = std::mbtowc(&wc, start, end - start);
+        if(0 < length){
+            start += length;
             *ws++ = wc;
             continue;
         }

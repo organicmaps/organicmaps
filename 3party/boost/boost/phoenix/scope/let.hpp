@@ -130,8 +130,8 @@ namespace boost { namespace phoenix
     template <typename Locals, typename Map>
     struct let_actor_gen
     {
-        let_actor_gen(Locals const & locals)
-            : locals(locals)
+        let_actor_gen(Locals const & locals_)
+            : locals(locals_)
         {}
 
         let_actor_gen(let_actor_gen const & o)

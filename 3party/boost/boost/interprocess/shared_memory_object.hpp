@@ -19,7 +19,7 @@
 #include <boost/interprocess/interprocess_fwd.hpp>
 #include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/detail/os_file_functions.hpp>
-#include <boost/interprocess/detail/tmp_dir_helpers.hpp>
+#include <boost/interprocess/detail/shared_dir_helpers.hpp>
 #include <boost/interprocess/permissions.hpp>
 #include <cstddef>
 #include <string>
@@ -180,7 +180,7 @@ inline bool shared_memory_object::priv_open_or_create
 {
    m_filename = filename;
    std::string shmfile;
-   ipcdetail::create_tmp_and_clean_old_and_get_filename(filename, shmfile);
+   ipcdetail::create_shared_dir_cleaning_old_and_get_filepath(filename, shmfile);
 
    //Set accesses
    if (mode != read_write && mode != read_only){
@@ -221,7 +221,7 @@ inline bool shared_memory_object::remove(const char *filename)
    try{
       //Make sure a temporary path is created for shared memory
       std::string shmfile;
-      ipcdetail::tmp_filename(filename, shmfile);
+      ipcdetail::shared_filepath(filename, shmfile);
       return ipcdetail::delete_file(shmfile.c_str());
    }
    catch(...){
@@ -285,7 +285,7 @@ inline bool shared_memory_object::priv_open_or_create
       ipcdetail::add_leading_slash(filename, m_filename);
    }
    else{
-      ipcdetail::create_tmp_and_clean_old_and_get_filename(filename, m_filename);
+      ipcdetail::create_shared_dir_cleaning_old_and_get_filepath(filename, m_filename);
    }
 
    //Create new mapping
@@ -365,7 +365,7 @@ inline bool shared_memory_object::priv_open_or_create
 inline bool shared_memory_object::remove(const char *filename)
 {
    try{
-      std::string file_str;
+      std::string filepath;
       #if defined(BOOST_INTERPROCESS_FILESYSTEM_BASED_POSIX_SHARED_MEMORY)
       const bool add_leading_slash = false;
       #elif defined(BOOST_INTERPROCESS_RUNTIME_FILESYSTEM_BASED_POSIX_SHARED_MEMORY)
@@ -374,12 +374,12 @@ inline bool shared_memory_object::remove(const char *filename)
       const bool add_leading_slash = true;
       #endif
       if(add_leading_slash){
-         ipcdetail::add_leading_slash(filename, file_str);
+         ipcdetail::add_leading_slash(filename, filepath);
       }
       else{
-         ipcdetail::tmp_filename(filename, file_str);
+         ipcdetail::shared_filepath(filename, filepath);
       }
-      return 0 == shm_unlink(file_str.c_str());
+      return 0 == shm_unlink(filepath.c_str());
    }
    catch(...){
       return false;

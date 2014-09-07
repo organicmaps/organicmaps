@@ -2,7 +2,7 @@
 // detail/epoll_reactor.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -21,7 +21,6 @@
 
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/detail/atomic_count.hpp>
-#include <boost/asio/detail/epoll_reactor_fwd.hpp>
 #include <boost/asio/detail/limits.hpp>
 #include <boost/asio/detail/mutex.hpp>
 #include <boost/asio/detail/object_pool.hpp>
@@ -30,7 +29,6 @@
 #include <boost/asio/detail/select_interrupter.hpp>
 #include <boost/asio/detail/socket_types.hpp>
 #include <boost/asio/detail/timer_queue_base.hpp>
-#include <boost/asio/detail/timer_queue_fwd.hpp>
 #include <boost/asio/detail/timer_queue_set.hpp>
 #include <boost/asio/detail/wait_op.hpp>
 

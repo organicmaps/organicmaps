@@ -21,7 +21,7 @@
 #include <boost/proto/generate.hpp>
 #include <boost/proto/make_expr.hpp>
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(push)
 # pragma warning(disable : 4714) // function 'xxx' marked as __forceinline not inlined
 #endif
@@ -371,7 +371,7 @@ namespace boost { namespace proto
 
 }}
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 

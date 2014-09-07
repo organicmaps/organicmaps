@@ -1,4 +1,4 @@
-/* Copyright 2003-2011 Joaquin M Lopez Munoz.
+/* Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -9,19 +9,17 @@
 #ifndef BOOST_MULTI_INDEX_COMPOSITE_KEY_HPP
 #define BOOST_MULTI_INDEX_COMPOSITE_KEY_HPP
 
-#if defined(_MSC_VER)&&(_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <boost/functional/hash_fwd.hpp>
 #include <boost/multi_index/detail/access_specifier.hpp>
-#include <boost/multi_index/detail/prevent_eti.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/mpl/aux_/nttp_decl.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/control/expr_if.hpp>
 #include <boost/preprocessor/list/at.hpp>
@@ -59,11 +57,7 @@
  */
 
 #if !defined(BOOST_MULTI_INDEX_LIMIT_COMPOSITE_KEY_SIZE)
-#if defined(BOOST_MSVC)&&(BOOST_MSVC<1300)
-#define BOOST_MULTI_INDEX_LIMIT_COMPOSITE_KEY_SIZE 5
-#else
 #define BOOST_MULTI_INDEX_LIMIT_COMPOSITE_KEY_SIZE 10
-#endif
 #endif
 
 /* maximum number of key extractors in a composite key */
@@ -114,17 +108,14 @@ namespace detail{
 
 /* n-th key extractor of a composite key */
 
-template<typename CompositeKey,BOOST_MPL_AUX_NTTP_DECL(int, N)>
+template<typename CompositeKey,int N>
 struct nth_key_from_value
 {
   typedef typename CompositeKey::key_extractor_tuple key_extractor_tuple;
-  typedef typename prevent_eti<
+  typedef typename mpl::eval_if_c<
+    N<tuples::length<key_extractor_tuple>::value,
     tuples::element<N,key_extractor_tuple>,
-    typename mpl::eval_if_c<
-      N<tuples::length<key_extractor_tuple>::value,
-      tuples::element<N,key_extractor_tuple>,
-      mpl::identity<tuples::null_type>
-    >::type
+    mpl::identity<tuples::null_type>
   >::type                                            type;
 };
 
@@ -146,7 +137,7 @@ struct BOOST_PP_CAT(key_,name)<tuples::null_type>                            \
   typedef tuples::null_type type;                                            \
 };                                                                           \
                                                                              \
-template<typename CompositeKey,BOOST_MPL_AUX_NTTP_DECL(int, N)>              \
+template<typename CompositeKey,int  N>                                       \
 struct BOOST_PP_CAT(nth_composite_key_,name)                                 \
 {                                                                            \
   typedef typename nth_key_from_value<CompositeKey,N>::type key_from_value;  \
@@ -589,16 +580,6 @@ struct composite_key_result
 
 /* composite_key */
 
-/* NB. Some overloads of operator() have an extra dummy parameter int=0.
- * This disambiguator serves several purposes:
- *  - Without it, MSVC++ 6.0 incorrectly regards some overloads as
- *    specializations of a previous member function template.
- *  - MSVC++ 6.0/7.0 seem to incorrectly treat some different memfuns
- *    as if they have the same signature.
- *  - If remove_const is broken due to lack of PTS, int=0 avoids the
- *    declaration of memfuns with identical signature.
- */
-
 template<
   typename Value,
   BOOST_MULTI_INDEX_CK_ENUM(BOOST_MULTI_INDEX_CK_TEMPLATE_PARM,KeyFromValue)
@@ -648,7 +629,7 @@ public:
     return result_type(*this,x.get());
   }
 
-  result_type operator()(const reference_wrapper<value_type>& x,int=0)const
+  result_type operator()(const reference_wrapper<value_type>& x)const
   {
     return result_type(*this,x.get());
   }
@@ -1238,7 +1219,6 @@ public:
  * for composite_key_results enabling interoperation with tuples of values.
  */
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 namespace std{
 
 template<typename CompositeKey>
@@ -1278,34 +1258,6 @@ struct hash<boost::multi_index::composite_key_result<CompositeKey> >:
 };
 
 } /* namespace boost */
-#else
-/* Lacking template partial specialization, std::equal_to, std::less and
- * std::greater will still work for composite_key_results although without
- * tuple interoperability. To achieve the same graceful degrading with
- * boost::hash, we define the appropriate hash_value overload.
- */
-
-namespace boost{
-
-#if !defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-namespace multi_index{
-#endif
-
-template<typename CompositeKey>
-inline std::size_t hash_value(
-  const boost::multi_index::composite_key_result<CompositeKey>& x)
-{
-  boost::multi_index::composite_key_result_hash<
-    boost::multi_index::composite_key_result<CompositeKey> > h;
-  return h(x);
-}
-
-#if !defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-} /* namespace multi_index */
-#endif
-
-} /* namespace boost */
-#endif
 
 #undef BOOST_MULTI_INDEX_CK_RESULT_HASH_SUPER
 #undef BOOST_MULTI_INDEX_CK_RESULT_GREATER_SUPER

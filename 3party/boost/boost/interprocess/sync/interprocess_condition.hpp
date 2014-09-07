@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_CONDITION_HPP
 #define BOOST_INTERPROCESS_CONDITION_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -59,7 +59,7 @@ class named_condition;
 //!
 //!Unlike std::condition_variable in C++11, it is NOT safe to invoke the destructor if all
 //!threads have been only notified. It is required that they have exited their respective wait
-//!functions. 
+//!functions.
 class interprocess_condition
 {
    /// @cond
@@ -94,7 +94,7 @@ class interprocess_condition
    //!this->notify_one() or this->notify_all(), and then reacquires the lock.
    template <typename L>
    void wait(L& lock)
-   {  
+   {
       ipcdetail::internal_mutex_lock<L> internal_lock(lock);
       m_condition.wait(internal_lock);
    }

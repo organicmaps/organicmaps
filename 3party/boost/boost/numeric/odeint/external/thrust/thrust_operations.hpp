@@ -6,8 +6,8 @@
  Operations of thrust zipped iterators. Is the counterpart of the thrust_algebra.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2010-2013 Mario Mulansky
+ Copyright 2010-2012 Karsten Ahnert
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -220,25 +220,6 @@ struct thrust_operations
         }
 
         typedef void result_type;
-    };
-
-
-    /*
-     * for usage in reduce
-     */
-
-    template< class Value >
-    struct maximum
-    {
-        template< class Fac1 , class Fac2 >
-        __host__ __device__
-        Value operator()( const Fac1 t1 , const Fac2 t2 ) const
-        {
-            using std::max;
-            return ( abs( t1 ) < abs( t2 ) ) ? t2 : t1 ;
-        }
-
-        typedef Value result_type;
     };
 
 

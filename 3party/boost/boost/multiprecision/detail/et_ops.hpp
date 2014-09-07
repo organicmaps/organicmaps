@@ -11,12 +11,19 @@ namespace boost{ namespace multiprecision{
 //
 // Non-member operators for number:
 //
-// Unary operators first:
+// Unary operators first.
+// Note that these *must* return by value, even though that's somewhat against
+// existing practice.  The issue is that in C++11 land one could easily and legitimately
+// write:
+//    auto x = +1234_my_user_defined_suffix;
+// which would result in a dangling-reference-to-temporary if unary + returned a reference
+// to it's argument.  While return-by-value is obviously inefficient in other situations
+// the reality is that no one ever uses unary operator+ anyway...!
 //
 template <class B, expression_template_option ExpressionTemplates>
-inline BOOST_CONSTEXPR const number<B, ExpressionTemplates>& operator + (const number<B, ExpressionTemplates>& v) { return v; }
+inline BOOST_CONSTEXPR const number<B, ExpressionTemplates> operator + (const number<B, ExpressionTemplates>& v) { return v; }
 template <class tag, class Arg1, class Arg2, class Arg3, class Arg4>
-inline BOOST_CONSTEXPR const detail::expression<tag, Arg1, Arg2, Arg3, Arg4>& operator + (const detail::expression<tag, Arg1, Arg2, Arg3, Arg4>& v) { return v; }
+inline BOOST_CONSTEXPR const detail::expression<tag, Arg1, Arg2, Arg3, Arg4> operator + (const detail::expression<tag, Arg1, Arg2, Arg3, Arg4>& v) { return v; }
 template <class B>
 inline detail::expression<detail::negate, number<B, et_on> > operator - (const number<B, et_on>& v)
 {

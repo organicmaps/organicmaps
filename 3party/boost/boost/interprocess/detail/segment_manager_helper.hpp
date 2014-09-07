@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_SEGMENT_MANAGER_BASE_HPP
 #define BOOST_INTERPROCESS_SEGMENT_MANAGER_BASE_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -32,6 +32,7 @@
 #include <string>    //char_traits
 #include <new>       //std::nothrow
 #include <utility>   //std::pair
+#include <iterator>  //std::iterator_traits
 #include <boost/assert.hpp>   //BOOST_ASSERT
 #include <functional>   //unary_function
 #ifndef BOOST_NO_EXCEPTIONS
@@ -323,6 +324,15 @@ class char_ptr_holder
    operator const CharType *()
    {  return m_name;  }
 
+   const CharType *get() const
+   {  return m_name;  }
+
+   bool is_unique() const
+   {  return m_name == reinterpret_cast<CharType*>(-1);  }
+
+   bool is_anonymous() const
+   {  return m_name == static_cast<CharType*>(0);  }
+
    private:
    const CharType *m_name;
 };
@@ -472,12 +482,12 @@ class segment_manager_iterator_value_adaptor<Iterator, false>
 
 template<class Iterator, bool intrusive>
 struct segment_manager_iterator_transform
-   :  std::unary_function< typename Iterator::value_type
+   :  std::unary_function< typename std::iterator_traits<Iterator>::value_type
                          , segment_manager_iterator_value_adaptor<Iterator, intrusive> >
 {
    typedef segment_manager_iterator_value_adaptor<Iterator, intrusive> result_type;
 
-   result_type operator()(const typename Iterator::value_type &arg) const
+   result_type operator()(const typename std::iterator_traits<Iterator>::value_type &arg) const
    {  return result_type(arg); }
 };
 

@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_END_IMPL_09272006_0721)
 #define BOOST_FUSION_END_IMPL_09272006_0721
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/boost_tuple/boost_tuple_iterator.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_const.hpp>
@@ -41,6 +42,7 @@ namespace boost { namespace fusion
                     > 
                 type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& seq)
                 {

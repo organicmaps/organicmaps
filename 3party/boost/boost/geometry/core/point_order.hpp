@@ -16,7 +16,7 @@
 
 
 #include <boost/mpl/assert.hpp>
-#include <boost/range.hpp>
+#include <boost/range/value_type.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
 #include <boost/geometry/core/ring_type.hpp>
@@ -29,10 +29,10 @@ namespace boost { namespace geometry
 /*!
 \brief Enumerates options for the order of points within polygons
 \ingroup enum
-\details The enumeration order_selector describes options for the order of 
-    points within a polygon. Polygons can be ordered either clockwise or 
-    counterclockwise. The specific order of a polygon type is defined by the 
-    point_order metafunction. The point_order metafunction defines a value, 
+\details The enumeration order_selector describes options for the order of
+    points within a polygon. Polygons can be ordered either clockwise or
+    counterclockwise. The specific order of a polygon type is defined by the
+    point_order metafunction. The point_order metafunction defines a value,
     which is one of the values enumerated in the order_selector
 
 \qbk{
@@ -120,7 +120,7 @@ struct point_order<linestring_tag, LineString>
 template <typename Ring>
 struct point_order<ring_tag, Ring>
 {
-    static const order_selector value 
+    static const order_selector value
         = geometry::traits::point_order<Ring>::value;
 };
 
@@ -135,12 +135,32 @@ struct point_order<polygon_tag, Polygon>
         >::value ;
 };
 
+template <typename MultiPoint>
+struct point_order<multi_point_tag, MultiPoint>
+    : public detail::point_order::clockwise {};
+
+template <typename MultiLinestring>
+struct point_order<multi_linestring_tag, MultiLinestring>
+    : public detail::point_order::clockwise {};
+
+
+// Specialization for multi_polygon: the order is the order of its polygons
+template <typename MultiPolygon>
+struct point_order<multi_polygon_tag, MultiPolygon>
+{
+    static const order_selector value = core_dispatch::point_order
+        <
+            polygon_tag,
+            typename boost::range_value<MultiPolygon>::type
+        >::value ;
+};
+
 } // namespace core_dispatch
 #endif // DOXYGEN_NO_DISPATCH
 
 
 /*!
-\brief \brief_meta{value, point order (clockwise\, counterclockwise), 
+\brief \brief_meta{value, point order (clockwise\, counterclockwise),
     \meta_geometry_type}
 \tparam Geometry \tparam_geometry
 \ingroup core

@@ -2,7 +2,7 @@
 #define BOOST_ARCHIVE_BASIC_STREAMBUF_LOCALE_SAVER_HPP
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -50,7 +50,7 @@ public:
     explicit basic_streambuf_locale_saver( state_type &s )
         : s_save_( s ), a_save_( s.getloc() )
         {}
-    basic_streambuf_locale_saver( state_type &s, aspect_type const &a )
+    explicit basic_streambuf_locale_saver( state_type &s, aspect_type const &a )
         : s_save_( s ), a_save_( s.pubimbue(a) )
         {}
     ~basic_streambuf_locale_saver()

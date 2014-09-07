@@ -79,7 +79,7 @@ namespace impl
     struct tail_variate_means_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type float_type;
         typedef std::vector<float_type> array_type;
         // for boost::result_of
         typedef iterator_range<typename array_type::iterator> result_type;

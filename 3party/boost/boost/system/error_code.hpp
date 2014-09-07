@@ -14,7 +14,6 @@
 #include <boost/system/config.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/assert.hpp>
-#include <boost/operators.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <ostream>
@@ -513,7 +512,7 @@ namespace boost
 #include <boost/config/abi_suffix.hpp> // pops abi_prefix.hpp pragmas
 
 # ifdef BOOST_ERROR_CODE_HEADER_ONLY
-#   include <boost/../libs/system/src/error_code.cpp>
+#   include <boost/system/detail/error_code.ipp>
 # endif
 
 #endif // BOOST_ERROR_CODE_HPP

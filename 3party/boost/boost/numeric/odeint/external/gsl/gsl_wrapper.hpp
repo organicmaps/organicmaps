@@ -6,8 +6,8 @@
  Wrapper for gsl_vector.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2012 Mario Mulansky
+ Copyright 2011 Karsten Ahnert
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -184,7 +184,7 @@ struct same_size_impl< gsl_vector* , gsl_vector* >
 template <>
 struct resize_impl< gsl_vector* , gsl_vector* >
 {
-    static void resize( gsl_vector* x , const gsl_vector* y )
+    static void resize( gsl_vector* &x , const gsl_vector* y )
     {
         gsl_vector_free( x );
         x = gsl_vector_alloc( y->size );

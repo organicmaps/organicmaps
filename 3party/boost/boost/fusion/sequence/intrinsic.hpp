@@ -7,6 +7,7 @@
 #if !defined(FUSION_SEQUENCE_INTRINSIC_10022005_0618)
 #define FUSION_SEQUENCE_INTRINSIC_10022005_0618
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/intrinsic/back.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>

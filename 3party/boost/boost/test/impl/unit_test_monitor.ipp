@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 49312 $
+//  Version     : $Revision$
 //
 //  Description : implements specific subclass of Executon Monitor used by Unit
 //  Test Framework to monitor test cases run.

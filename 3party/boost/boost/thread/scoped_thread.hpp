@@ -47,14 +47,13 @@ namespace boost
      *
      */
 #if ! defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
-    template <class F, class ...Args>
-    explicit strict_scoped_thread(BOOST_THREAD_FWD_REF(F) f, BOOST_THREAD_FWD_REF(Args)... args,
-        typename disable_if<is_same<typename decay<F>::type, thread>, dummy* >::type=0) :
+    template <class F, class ...Args, typename = typename disable_if<is_same<typename decay<F>::type, thread>, void* >::type>
+    explicit strict_scoped_thread(BOOST_THREAD_FWD_REF(F) f, BOOST_THREAD_FWD_REF(Args)... args) :
       t_(boost::forward<F>(f), boost::forward<Args>(args)...) {}
 #else
     template <class F>
     explicit strict_scoped_thread(BOOST_THREAD_FWD_REF(F) f,
-        typename disable_if<is_same<typename decay<F>::type, thread>, dummy* >::type=0) :
+        typename disable_if<is_same<typename decay<F>::type, thread>, void* >::type=0) :
       t_(boost::forward<F>(f)) {}
     template <class F, class A1>
     strict_scoped_thread(BOOST_THREAD_FWD_REF(F) f, BOOST_THREAD_FWD_REF(A1) a1) :
@@ -138,14 +137,13 @@ namespace boost
      */
 
 #if ! defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
-    template <class F, class ...Args>
-    explicit scoped_thread(BOOST_THREAD_FWD_REF(F) f, BOOST_THREAD_FWD_REF(Args)... args,
-        typename disable_if<is_same<typename decay<F>::type, thread>, dummy* >::type=0) :
+    template <class F, class ...Args, typename = typename disable_if<is_same<typename decay<F>::type, thread>, void* >::type>
+    explicit scoped_thread(BOOST_THREAD_FWD_REF(F) f, BOOST_THREAD_FWD_REF(Args)... args) :
       t_(boost::forward<F>(f), boost::forward<Args>(args)...) {}
 #else
     template <class F>
     explicit scoped_thread(BOOST_THREAD_FWD_REF(F) f,
-        typename disable_if<is_same<typename decay<F>::type, thread>, dummy* >::type=0) :
+        typename disable_if<is_same<typename decay<F>::type, thread>, void* >::type=0) :
       t_(boost::forward<F>(f)) {}
     template <class F, class A1>
     scoped_thread(BOOST_THREAD_FWD_REF(F) f, BOOST_THREAD_FWD_REF(A1) a1) :
@@ -179,7 +177,7 @@ namespace boost
      * Move constructor.
      */
     scoped_thread(BOOST_RV_REF(scoped_thread) x) BOOST_NOEXCEPT :
-    t_(boost::move(x.t_))
+    t_(boost::move(BOOST_THREAD_RV(x).t_))
     {}
 
     /**
@@ -199,7 +197,7 @@ namespace boost
      */
     scoped_thread& operator=(BOOST_RV_REF(scoped_thread) x)
     {
-      t_ = boost::move(x.t_);
+      t_ = boost::move(BOOST_THREAD_RV(x).t_);
       return *this;
     }
 
@@ -263,11 +261,17 @@ namespace boost
     }
 #endif
 
-    static unsigned hardware_concurrency()BOOST_NOEXCEPT
+    static unsigned hardware_concurrency() BOOST_NOEXCEPT
     {
       return thread::hardware_concurrency();
     }
 
+#ifdef BOOST_THREAD_PROVIDES_PHYSICAL_CONCURRENCY
+    static unsigned physical_concurrency() BOOST_NOEXCEPT
+    {
+      return thread::physical_concurrency();
+    }
+#endif
   };
 
   /**

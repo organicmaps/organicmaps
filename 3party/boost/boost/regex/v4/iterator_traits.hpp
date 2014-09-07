@@ -33,7 +33,7 @@
 namespace boost{
 namespace re_detail{
 
-#if defined(BOOST_NO_STD_ITERATOR_TRAITS) || defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if defined(BOOST_NO_STD_ITERATOR_TRAITS)
 
 template <class T>
 struct regex_iterator_traits 

@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_COUNT)
 #define FUSION_INCLUDE_COUNT
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/query/count.hpp>
 
 #endif

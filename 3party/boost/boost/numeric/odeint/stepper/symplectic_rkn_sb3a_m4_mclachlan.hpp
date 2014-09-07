@@ -6,8 +6,8 @@
   tba.
   [end_description]
 
-  Copyright 2009-2012 Karsten Ahnert
-  Copyright 2009-2012 Mario Mulansky
+  Copyright 2012-2013 Karsten Ahnert
+  Copyright 2012-2013 Mario Mulansky
 
   Distributed under the Boost Software License, Version 1.0.
   (See accompanying file LICENSE_1_0.txt or
@@ -17,6 +17,12 @@
 
 #ifndef BOOST_NUMERIC_ODEINT_STEPPER_SYMPLECTIC_RKN_SB3A_M4_MCLACHLAN_HPP_DEFINED
 #define BOOST_NUMERIC_ODEINT_STEPPER_SYMPLECTIC_RKN_SB3A_M4_MCLACHLAN_HPP_DEFINED
+
+#include <boost/numeric/odeint/algebra/default_operations.hpp>
+#include <boost/numeric/odeint/algebra/algebra_dispatcher.hpp>
+#include <boost/numeric/odeint/algebra/operations_dispatcher.hpp>
+
+#include <boost/numeric/odeint/util/resizer.hpp>
 
 
 namespace boost {
@@ -80,8 +86,8 @@ template<
     class CoorDeriv = Coor ,
     class MomentumDeriv = Coor ,
     class Time = Value ,
-    class Algebra = range_algebra ,
-    class Operations = default_operations ,
+    class Algebra = typename algebra_dispatcher< Coor >::algebra_type ,
+    class Operations = typename operations_dispatcher< Coor >::operations_type ,
     class Resizer = initially_resizer
     >
 #ifndef DOXYGEN_SKIP

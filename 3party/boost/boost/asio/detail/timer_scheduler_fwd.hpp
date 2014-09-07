@@ -2,7 +2,7 @@
 // detail/timer_scheduler_fwd.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,32 +17,22 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if defined(BOOST_ASIO_HAS_IOCP)
-# include <boost/asio/detail/win_iocp_io_service_fwd.hpp>
-#elif defined(BOOST_ASIO_HAS_EPOLL)
-# include <boost/asio/detail/epoll_reactor_fwd.hpp>
-#elif defined(BOOST_ASIO_HAS_KQUEUE)
-# include <boost/asio/detail/kqueue_reactor_fwd.hpp>
-#elif defined(BOOST_ASIO_HAS_DEV_POLL)
-# include <boost/asio/detail/dev_poll_reactor_fwd.hpp>
-#else
-# include <boost/asio/detail/select_reactor_fwd.hpp>
-#endif
-
 namespace boost {
 namespace asio {
 namespace detail {
 
-#if defined(BOOST_ASIO_HAS_IOCP)
-typedef win_iocp_io_service timer_scheduler;
+#if defined(BOOST_ASIO_WINDOWS_RUNTIME)
+typedef class winrt_timer_scheduler timer_scheduler;
+#elif defined(BOOST_ASIO_HAS_IOCP)
+typedef class win_iocp_io_service timer_scheduler;
 #elif defined(BOOST_ASIO_HAS_EPOLL)
-typedef epoll_reactor timer_scheduler;
+typedef class epoll_reactor timer_scheduler;
 #elif defined(BOOST_ASIO_HAS_KQUEUE)
-typedef kqueue_reactor timer_scheduler;
+typedef class kqueue_reactor timer_scheduler;
 #elif defined(BOOST_ASIO_HAS_DEV_POLL)
-typedef dev_poll_reactor timer_scheduler;
+typedef class dev_poll_reactor timer_scheduler;
 #else
-typedef select_reactor timer_scheduler;
+typedef class select_reactor timer_scheduler;
 #endif
 
 } // namespace detail

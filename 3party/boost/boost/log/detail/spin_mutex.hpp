@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -10,7 +10,7 @@
  * \date   01.08.2010
  *
  * \brief  This header is the Boost.Log library implementation, see the library documentation
- *         at http://www.boost.org/libs/log/doc/log.html.
+ *         at http://www.boost.org/doc/libs/release/libs/log/doc/html/index.html.
  */
 
 #ifndef BOOST_LOG_DETAIL_SPIN_MUTEX_HPP_INCLUDED_
@@ -18,11 +18,14 @@
 
 #include <boost/log/detail/config.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
 #ifndef BOOST_LOG_NO_THREADS
+
+#include <boost/throw_exception.hpp>
+#include <boost/thread/exceptions.hpp>
 
 #if defined(BOOST_THREAD_POSIX) // This one can be defined by users, so it should go first
 #define BOOST_LOG_SPIN_MUTEX_USE_PTHREAD
@@ -75,8 +78,8 @@ extern "C" void _mm_pause(void);
 #        define BOOST_LOG_PAUSE_OP _mm_pause()
 #    endif
 #    if defined(__INTEL_COMPILER)
-#        define BOOST_LOG_COMPILER_BARRIER __asm { nop }
-#    elif _MSC_VER >= 1310
+#        define BOOST_LOG_COMPILER_BARRIER __memory_barrier()
+#    else
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #        define BOOST_LOG_COMPILER_BARRIER _ReadWriteBarrier()
@@ -117,14 +120,14 @@ public:
     void lock()
     {
 #if defined(BOOST_LOG_PAUSE_OP)
-        register unsigned int pause_count = initial_pause;
+        unsigned int pause_count = initial_pause;
 #endif
         while (!try_lock())
         {
 #if defined(BOOST_LOG_PAUSE_OP)
             if (pause_count < max_pause)
             {
-                for (register unsigned int i = 0; i < pause_count; ++i)
+                for (unsigned int i = 0; i < pause_count; ++i)
                 {
                     BOOST_LOG_PAUSE_OP;
                 }
@@ -154,8 +157,8 @@ public:
     }
 
     //  Non-copyable
-    BOOST_LOG_DELETED_FUNCTION(spin_mutex(spin_mutex const&))
-    BOOST_LOG_DELETED_FUNCTION(spin_mutex& operator= (spin_mutex const&))
+    BOOST_DELETED_FUNCTION(spin_mutex(spin_mutex const&))
+    BOOST_DELETED_FUNCTION(spin_mutex& operator= (spin_mutex const&))
 };
 
 #undef BOOST_LOG_PAUSE_OP
@@ -192,28 +195,52 @@ private:
 public:
     spin_mutex()
     {
-        BOOST_VERIFY(pthread_spin_init(&m_State, PTHREAD_PROCESS_PRIVATE) == 0);
+        const int err = pthread_spin_init(&m_State, PTHREAD_PROCESS_PRIVATE);
+        if (err != 0)
+            throw_exception< thread_resource_error >(err, "failed to initialize a spin mutex", "spin_mutex::spin_mutex()", __FILE__, __LINE__);
     }
+
     ~spin_mutex()
     {
-        pthread_spin_destroy(&m_State);
+        BOOST_VERIFY(pthread_spin_destroy(&m_State) == 0);
     }
+
     bool try_lock()
     {
-        return (pthread_spin_trylock(&m_State) == 0);
+        const int err = pthread_spin_trylock(&m_State);
+        if (err == 0)
+            return true;
+        if (err != EBUSY)
+            throw_exception< lock_error >(err, "failed to lock a spin mutex", "spin_mutex::try_lock()", __FILE__, __LINE__);
+        return false;
     }
+
     void lock()
     {
-        BOOST_VERIFY(pthread_spin_lock(&m_State) == 0);
+        const int err = pthread_spin_lock(&m_State);
+        if (err != 0)
+            throw_exception< lock_error >(err, "failed to lock a spin mutex", "spin_mutex::lock()", __FILE__, __LINE__);
     }
+
     void unlock()
     {
-        pthread_spin_unlock(&m_State);
+        BOOST_VERIFY(pthread_spin_unlock(&m_State) == 0);
     }
 
     //  Non-copyable
-    BOOST_LOG_DELETED_FUNCTION(spin_mutex(spin_mutex const&))
-    BOOST_LOG_DELETED_FUNCTION(spin_mutex& operator= (spin_mutex const&))
+    BOOST_DELETED_FUNCTION(spin_mutex(spin_mutex const&))
+    BOOST_DELETED_FUNCTION(spin_mutex& operator= (spin_mutex const&))
+
+private:
+    template< typename ExceptionT >
+    static BOOST_NOINLINE BOOST_LOG_NORETURN void throw_exception(int err, const char* descr, const char* func, const char* file, int line)
+    {
+#if !defined(BOOST_EXCEPTION_DISABLE)
+        boost::exception_detail::throw_exception_(ExceptionT(err, descr), func, file, line);
+#else
+        boost::throw_exception(ExceptionT(err, descr));
+#endif
+    }
 };
 
 #else // defined(_POSIX_SPIN_LOCKS)
@@ -227,28 +254,52 @@ private:
 public:
     spin_mutex()
     {
-        BOOST_VERIFY(pthread_mutex_init(&m_State, NULL) == 0);
+        const int err = pthread_mutex_init(&m_State, NULL);
+        if (err != 0)
+            throw_exception< thread_resource_error >(err, "failed to initialize a spin mutex", "spin_mutex::spin_mutex()", __FILE__, __LINE__);
     }
+
     ~spin_mutex()
     {
-        pthread_mutex_destroy(&m_State);
+        BOOST_VERIFY(pthread_mutex_destroy(&m_State) == 0);
     }
+
     bool try_lock()
     {
-        return (pthread_mutex_trylock(&m_State) == 0);
+        const int err = pthread_mutex_trylock(&m_State);
+        if (err == 0)
+            return true;
+        if (err != EBUSY)
+            throw_exception< lock_error >(err, "failed to lock a spin mutex", "spin_mutex::try_lock()", __FILE__, __LINE__);
+        return false;
     }
+
     void lock()
     {
-        BOOST_VERIFY(pthread_mutex_lock(&m_State) == 0);
+        const int err = pthread_mutex_lock(&m_State);
+        if (err != 0)
+            throw_exception< lock_error >(err, "failed to lock a spin mutex", "spin_mutex::lock()", __FILE__, __LINE__);
     }
+
     void unlock()
     {
-        pthread_mutex_unlock(&m_State);
+        BOOST_VERIFY(pthread_mutex_unlock(&m_State) == 0);
     }
 
     //  Non-copyable
-    BOOST_LOG_DELETED_FUNCTION(spin_mutex(spin_mutex const&))
-    BOOST_LOG_DELETED_FUNCTION(spin_mutex& operator= (spin_mutex const&))
+    BOOST_DELETED_FUNCTION(spin_mutex(spin_mutex const&))
+    BOOST_DELETED_FUNCTION(spin_mutex& operator= (spin_mutex const&))
+
+private:
+    template< typename ExceptionT >
+    static BOOST_NOINLINE BOOST_LOG_NORETURN void throw_exception(int err, const char* descr, const char* func, const char* file, int line)
+    {
+#if !defined(BOOST_EXCEPTION_DISABLE)
+        boost::exception_detail::throw_exception_(ExceptionT(err, descr), func, file, line);
+#else
+        boost::throw_exception(ExceptionT(err, descr));
+#endif
+    }
 };
 
 #endif // defined(_POSIX_SPIN_LOCKS)

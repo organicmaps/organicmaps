@@ -11,11 +11,12 @@
 #define BOOST_XPRESSIVE_REGEX_COMPILER_HPP_EAN_10_04_2005
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
 #include <map>
+#include <boost/config.hpp>
 #include <boost/assert.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/range/begin.hpp>
@@ -282,7 +283,7 @@ private:
             break;
         case 2:
             seq = detail::make_dynamic<BidiIter>(alternate_matcher()) | seq;
-            // fall-through
+            BOOST_FALLTHROUGH;
         default:
             seq |= this->parse_sequence(tmp, end);
         }
@@ -322,13 +323,15 @@ private:
             break;
 
         case token_negative_lookahead:
-            negative = true; // fall-through
+            negative = true;
+            BOOST_FALLTHROUGH;
         case token_positive_lookahead:
             lookahead = true;
             break;
 
         case token_negative_lookbehind:
-            negative = true; // fall-through
+            negative = true;
+            BOOST_FALLTHROUGH;
         case token_positive_lookbehind:
             lookbehind = true;
             break;
@@ -342,10 +345,16 @@ private:
             {
                 switch(this->traits_.get_token(begin, end))
                 {
-                case token_group_end: return this->parse_atom(begin, end);
-                case token_escape: BOOST_XPR_ENSURE_(begin != end, error_escape, "incomplete escape sequence");
-                case token_literal: ++begin;
-                default:;
+                case token_group_end:
+                    return this->parse_atom(begin, end);
+                case token_escape:
+                    BOOST_XPR_ENSURE_(begin != end, error_escape, "incomplete escape sequence");
+                    BOOST_FALLTHROUGH;
+                case token_literal:
+                    ++begin;
+                    break;
+                default:
+                    break;
                 }
             }
             break;
@@ -433,20 +442,20 @@ private:
         if(lookahead)
         {
             seq += detail::make_independent_end_xpression<BidiIter>(seq.pure());
-            detail::lookahead_matcher<xpr_type> lookahead(seq.xpr(), negative, seq.pure());
-            seq = detail::make_dynamic<BidiIter>(lookahead);
+            detail::lookahead_matcher<xpr_type> lam(seq.xpr(), negative, seq.pure());
+            seq = detail::make_dynamic<BidiIter>(lam);
         }
         else if(lookbehind)
         {
             seq += detail::make_independent_end_xpression<BidiIter>(seq.pure());
-            detail::lookbehind_matcher<xpr_type> lookbehind(seq.xpr(), seq.width().value(), negative, seq.pure());
-            seq = detail::make_dynamic<BidiIter>(lookbehind);
+            detail::lookbehind_matcher<xpr_type> lbm(seq.xpr(), seq.width().value(), negative, seq.pure());
+            seq = detail::make_dynamic<BidiIter>(lbm);
         }
         else if(keeper) // independent sub-expression
         {
             seq += detail::make_independent_end_xpression<BidiIter>(seq.pure());
-            detail::keeper_matcher<xpr_type> keeper(seq.xpr(), seq.pure());
-            seq = detail::make_dynamic<BidiIter>(keeper);
+            detail::keeper_matcher<xpr_type> km(seq.xpr(), seq.pure());
+            seq = detail::make_dynamic<BidiIter>(km);
         }
 
         // restore the modifiers
@@ -688,11 +697,17 @@ private:
         {
             switch(this->traits_.get_token(begin, end))
             {
-            case token_quote_meta_end: return string_type(old_begin, old_end);
-            case token_escape: BOOST_XPR_ENSURE_(begin != end, error_escape, "incomplete escape sequence");
+            case token_quote_meta_end:
+                return string_type(old_begin, old_end);
+            case token_escape:
+                BOOST_XPR_ENSURE_(begin != end, error_escape, "incomplete escape sequence");
+                BOOST_FALLTHROUGH;
             case token_invalid_quantifier:
-            case token_literal: ++begin;
-            default:;
+            case token_literal:
+                ++begin;
+                break;
+            default:
+                break;
             }
         }
         return string_type(old_begin, begin);

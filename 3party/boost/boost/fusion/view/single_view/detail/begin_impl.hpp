@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_SINGLE_VIEW_BEGIN_IMPL_05052005_0305)
 #define BOOST_FUSION_SINGLE_VIEW_BEGIN_IMPL_05052005_0305
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/int.hpp>
 
 namespace boost { namespace fusion
@@ -30,6 +31,7 @@ namespace boost { namespace fusion
             {
                 typedef single_view_iterator<Sequence, mpl::int_<0> > type;
     
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& seq)
                 {

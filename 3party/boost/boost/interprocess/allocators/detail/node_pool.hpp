@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_NODE_POOL_HPP
 #define BOOST_INTERPROCESS_DETAIL_NODE_POOL_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -19,8 +19,6 @@
 #include <boost/interprocess/detail/workaround.hpp>
 
 #include <boost/intrusive/slist.hpp>
-#include <boost/math/common_factor_ct.hpp>
-
 #include <boost/interprocess/detail/utilities.hpp>
 #include <boost/interprocess/allocators/detail/allocator_common.hpp>
 #include <boost/container/detail/node_pool_impl.hpp>

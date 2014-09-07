@@ -19,3 +19,4 @@
 #else
 #error "FUSION_MAX_VECTOR_SIZE out of bounds for preprocessed headers"
 #endif
+

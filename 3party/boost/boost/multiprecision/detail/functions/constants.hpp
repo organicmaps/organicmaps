@@ -81,7 +81,6 @@ template <class T>
 void calc_e(T& result, unsigned digits)
 {
    typedef typename mpl::front<typename T::unsigned_types>::type ui_type;
-   typedef typename mpl::front<typename T::float_types>::type real_type;
    //
    // 1100 digits in string form:
    //

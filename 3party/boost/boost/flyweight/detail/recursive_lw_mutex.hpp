@@ -1,4 +1,4 @@
-/* Copyright 2006-2008 Joaquin M Lopez Munoz.
+/* Copyright 2006-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -9,7 +9,7 @@
 #ifndef BOOST_FLYWEIGHT_DETAIL_RECURSIVE_LW_MUTEX_HPP
 #define BOOST_FLYWEIGHT_DETAIL_RECURSIVE_LW_MUTEX_HPP
 
-#if defined(_MSC_VER)&&(_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 
@@ -39,6 +39,7 @@ typedef boost::detail::lightweight_mutex recursive_lightweight_mutex;
 #else
 /* code shamelessly ripped from <boost/detail/lwm_pthreads.hpp> */
 
+#include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
 #include <pthread.h>
 
@@ -53,10 +54,10 @@ struct recursive_lightweight_mutex:noncopyable
   recursive_lightweight_mutex()
   {
     pthread_mutexattr_t attr;
-    pthread_mutexattr_init(&attr);
-    pthread_mutexattr_settype(&attr,PTHREAD_MUTEX_RECURSIVE);
-    pthread_mutex_init(&m_,&attr);
-    pthread_mutexattr_destroy(&attr);
+    BOOST_VERIFY(pthread_mutexattr_init(&attr)==0);
+    BOOST_VERIFY(pthread_mutexattr_settype(&attr,PTHREAD_MUTEX_RECURSIVE)==0);
+    BOOST_VERIFY(pthread_mutex_init(&m_,&attr)==0);
+    BOOST_VERIFY(pthread_mutexattr_destroy(&attr)==0);
   }
 
   ~recursive_lightweight_mutex(){pthread_mutex_destroy(&m_);}
@@ -68,10 +69,10 @@ struct recursive_lightweight_mutex:noncopyable
   public:
     scoped_lock(recursive_lightweight_mutex& m):m_(m.m_)
     {
-        pthread_mutex_lock(&m_);
+      BOOST_VERIFY(pthread_mutex_lock(&m_)==0);
     }
 
-    ~scoped_lock(){pthread_mutex_unlock(&m_);}
+    ~scoped_lock(){BOOST_VERIFY(pthread_mutex_unlock(&m_)==0);}
 
   private:
     pthread_mutex_t& m_;

@@ -9,7 +9,7 @@
 #define BOOST_XPRESSIVE_DETAIL_CORE_MATCHER_ALTERNATE_END_MATCHER_HPP_EAN_10_04_2005
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 # pragma warning(push)
 # pragma warning(disable : 4100) // unreferenced formal parameter
@@ -44,7 +44,7 @@ namespace boost { namespace xpressive { namespace detail
 
 }}}
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 

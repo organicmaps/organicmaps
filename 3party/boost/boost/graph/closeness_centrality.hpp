@@ -123,7 +123,6 @@ all_closeness_centralities(const Graph& g,
     typedef typename property_traits<DistanceMatrixMap>::value_type DistanceMap;
     BOOST_CONCEPT_ASSERT(( ReadablePropertyMapConcept<DistanceMap,Vertex> ));
     BOOST_CONCEPT_ASSERT(( WritablePropertyMapConcept<CentralityMap,Vertex> ));
-    typedef typename property_traits<DistanceMap>::value_type Distance;
     typedef typename property_traits<CentralityMap>::value_type Centrality;
 
     typename graph_traits<Graph>::vertex_iterator i, end;
@@ -147,7 +146,6 @@ all_closeness_centralities(const Graph& g,
     BOOST_CONCEPT_ASSERT(( ReadablePropertyMapConcept<DistanceMatrixMap,Vertex> ));
     typedef typename property_traits<DistanceMatrixMap>::value_type DistanceMap;
     BOOST_CONCEPT_ASSERT(( ReadablePropertyMapConcept<DistanceMap,Vertex> ));
-    typedef typename property_traits<DistanceMap>::value_type Distance;
     typedef typename property_traits<CentralityMap>::value_type Result;
 
     all_closeness_centralities(g, dist, cent, measure_closeness<Result>(g, DistanceMap()));

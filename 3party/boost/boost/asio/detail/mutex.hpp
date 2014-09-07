@@ -2,7 +2,7 @@
 // detail/mutex.hpp
 // ~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -23,8 +23,10 @@
 # include <boost/asio/detail/win_mutex.hpp>
 #elif defined(BOOST_ASIO_HAS_PTHREADS)
 # include <boost/asio/detail/posix_mutex.hpp>
+#elif defined(BOOST_ASIO_HAS_STD_MUTEX_AND_CONDVAR)
+# include <boost/asio/detail/std_mutex.hpp>
 #else
-# error Only Windows and POSIX are supported!
+# error Only Windows, POSIX and std::mutex are supported!
 #endif
 
 namespace boost {
@@ -37,6 +39,8 @@ typedef null_mutex mutex;
 typedef win_mutex mutex;
 #elif defined(BOOST_ASIO_HAS_PTHREADS)
 typedef posix_mutex mutex;
+#elif defined(BOOST_ASIO_HAS_STD_MUTEX_AND_CONDVAR)
+typedef std_mutex mutex;
 #endif
 
 } // namespace detail

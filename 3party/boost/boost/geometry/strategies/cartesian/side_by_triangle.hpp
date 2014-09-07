@@ -47,6 +47,30 @@ public :
     // Types can be all three different. Therefore it is
     // not implemented (anymore) as "segment"
 
+    template <typename coordinate_type, typename promoted_type, typename P1, typename P2, typename P>
+    static inline promoted_type side_value(P1 const& p1, P2 const& p2, P const& p)
+    {
+        coordinate_type const x = get<0>(p);
+        coordinate_type const y = get<1>(p);
+
+        coordinate_type const sx1 = get<0>(p1);
+        coordinate_type const sy1 = get<1>(p1);
+        coordinate_type const sx2 = get<0>(p2);
+        coordinate_type const sy2 = get<1>(p2);
+
+        promoted_type const dx = sx2 - sx1;
+        promoted_type const dy = sy2 - sy1;
+        promoted_type const dpx = x - sx1;
+        promoted_type const dpy = y - sy1;
+
+        return geometry::detail::determinant<promoted_type>
+                (
+                    dx, dy,
+                    dpx, dpy
+                );
+
+    }
+
     template <typename P1, typename P2, typename P>
     static inline int apply(P1 const& p1, P2 const& p2, P const& p)
     {
@@ -65,14 +89,6 @@ public :
                 CalculationType
             >::type coordinate_type;
 
-        coordinate_type const x = get<0>(p);
-        coordinate_type const y = get<1>(p);
-
-        coordinate_type const sx1 = get<0>(p1);
-        coordinate_type const sy1 = get<1>(p1);
-        coordinate_type const sx2 = get<0>(p2);
-        coordinate_type const sy2 = get<1>(p2);
-
         // Promote float->double, small int->int
         typedef typename select_most_precise
             <
@@ -80,23 +96,14 @@ public :
                 double
             >::type promoted_type;
 
-        promoted_type const dx = sx2 - sx1;
-        promoted_type const dy = sy2 - sy1;
-        promoted_type const dpx = x - sx1;
-        promoted_type const dpy = y - sy1;
-
-        promoted_type const s 
-            = geometry::detail::determinant<promoted_type>
-                (
-                    dx, dy, 
-                    dpx, dpy
-                );
-
+        promoted_type const s = side_value<coordinate_type, promoted_type>(p1, p2, p);
         promoted_type const zero = promoted_type();
-        return math::equals(s, zero) ? 0 
-            : s > zero ? 1 
+
+        return math::equals(s, zero) ? 0
+            : s > zero ? 1
             : -1;
     }
+
 };
 
 

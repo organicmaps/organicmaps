@@ -27,8 +27,8 @@ namespace boost { namespace phoenix { namespace detail
     {
         typedef typename function_ptr_impl<N>::template impl<RT, FP> base;
 
-        function_ptr(FP fp)
-            : base(fp) {}
+        function_ptr(FP fp_)
+            : base(fp_) {}
         
         using base::fp;
 
@@ -38,7 +38,7 @@ namespace boost { namespace phoenix { namespace detail
         }
 
         template <int M, typename RhsRT, typename RhsFP>
-        bool operator==(function_ptr<M, RhsRT, RhsFP> const & rhs) const
+        bool operator==(function_ptr<M, RhsRT, RhsFP> const & /*rhs*/) const
         {
             return false;
         }
@@ -53,8 +53,8 @@ namespace boost { namespace phoenix { namespace detail
         {
             typedef RT result_type;
 
-            impl(FP fp)
-                : fp(fp) {}
+            impl(FP fp_)
+                : fp(fp_) {}
 
             RT operator()() const
             {
@@ -73,8 +73,8 @@ namespace boost { namespace phoenix { namespace detail
         {
             typedef RT result_type;
 
-            impl(FP fp)
-                : fp(fp) {}
+            impl(FP fp_)
+                : fp(fp_) {}
 
             template <typename A>
             RT operator()(A &a) const
@@ -135,8 +135,8 @@ namespace boost { namespace phoenix { namespace detail
         {
             typedef RT result_type;
 
-            impl(FP fp)
-                : fp(fp) {}
+            impl(FP fp_)
+                : fp(fp_) {}
 
             template <BOOST_PHOENIX_typename_A>
             RT operator()(BOOST_PHOENIX_A_ref_a) const

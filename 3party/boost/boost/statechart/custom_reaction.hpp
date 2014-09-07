@@ -10,7 +10,7 @@
 
 #include <boost/statechart/result.hpp>
 
-#include <boost/cast.hpp> // boost::polymorphic_downcast
+#include <boost/polymorphic_cast.hpp> // boost::polymorphic_downcast
 
 
 

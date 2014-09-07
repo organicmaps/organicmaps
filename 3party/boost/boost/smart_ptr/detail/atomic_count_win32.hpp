@@ -17,7 +17,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#include <boost/detail/interlocked.hpp>
+#include <boost/smart_ptr/detail/sp_interlocked.hpp>
 
 namespace boost
 {
@@ -35,12 +35,12 @@ public:
 
     long operator++()
     {
-        return BOOST_INTERLOCKED_INCREMENT( &value_ );
+        return BOOST_SP_INTERLOCKED_INCREMENT( &value_ );
     }
 
     long operator--()
     {
-        return BOOST_INTERLOCKED_DECREMENT( &value_ );
+        return BOOST_SP_INTERLOCKED_DECREMENT( &value_ );
     }
 
     operator long() const

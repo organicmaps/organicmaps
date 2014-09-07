@@ -34,6 +34,8 @@ namespace strategy
 
 struct strategy_tag_distance_point_point {};
 struct strategy_tag_distance_point_segment {};
+struct strategy_tag_distance_point_box {};
+struct strategy_tag_distance_box_box {};
 
 
 }} // namespace boost::geometry

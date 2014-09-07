@@ -18,6 +18,12 @@
 #define BOOST_ENDIAN_FORCE_PODNESS 1
 #endif
 
+// If Boost has the endian library, use it, otherwise use an adapted version
+// included with Spirit
+// #if BOOST_VERSION >= 105100
+// #include <boost/endian/integers.hpp>
+// #else
 #include <boost/spirit/home/support/detail/endian/endian.hpp>
+// #endif
 
 #endif

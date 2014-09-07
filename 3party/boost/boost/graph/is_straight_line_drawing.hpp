@@ -106,11 +106,8 @@ namespace boost
   {
 
     typedef typename graph_traits<Graph>::vertex_descriptor vertex_t;
-    typedef typename graph_traits<Graph>::vertex_iterator vertex_iterator_t;
     typedef typename graph_traits<Graph>::edge_descriptor edge_t;
     typedef typename graph_traits<Graph>::edge_iterator edge_iterator_t;
-    typedef typename graph_traits<Graph>::edges_size_type e_size_t;
-    typedef typename graph_traits<Graph>::vertices_size_type v_size_t;
 
     typedef std::size_t x_coord_t;
     typedef std::size_t y_coord_t;

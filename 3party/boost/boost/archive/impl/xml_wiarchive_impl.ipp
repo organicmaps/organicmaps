@@ -1,5 +1,5 @@
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
-// xml_wiprimitive.cpp:
+// xml_wiarchive_impl.ipp:
 
 // (C) Copyright 2002 Robert Ramey - http://www.rrsd.com .
 // Distributed under the Boost Software License, Version 1.0. (See
@@ -7,8 +7,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org for updates, documentation, and revision history.
-
-#include <boost/config.hpp> // for BOOST_DEDUCED_TYPENAME
 
 #include <cstring>
 #if defined(BOOST_NO_STDC_NAMESPACE)
@@ -21,7 +19,7 @@ namespace std{
 #ifndef BOOST_NO_STD_WSTREAMBUF
 
 #include <boost/assert.hpp>
-#include <algorithm>
+#include <algorithm> // std::copy
 
 #include <boost/detail/workaround.hpp> // Dinkumware and RogueWave
 #if BOOST_WORKAROUND(BOOST_DINKUMWARE_STDLIB, == 1)
@@ -34,9 +32,16 @@ namespace std{
 
 #include <boost/serialization/string.hpp>
 #include <boost/archive/add_facet.hpp>
-#include <boost/archive/xml_archive_exception.hpp>
-#include <boost/archive/detail/utf8_codecvt_facet.hpp>
+#ifndef BOOST_NO_CXX11_HDR_CODECVT
+    #include <codecvt>
+    namespace boost { namespace archive { namespace detail {
+        typedef std::codecvt_utf8<wchar_t> utf8_codecvt_facet;
+    } } }
+#else
+    #include <boost/archive/detail/utf8_codecvt_facet.hpp>
+#endif
 
+#include <boost/archive/xml_archive_exception.hpp>
 #include <boost/archive/iterators/mb_from_wchar.hpp>
 
 #include <boost/archive/basic_xml_archive.hpp>
@@ -167,7 +172,7 @@ xml_wiarchive_impl<Archive>::xml_wiarchive_impl(
     if(0 == (flags & no_codecvt)){
         archive_locale.reset(
             add_facet(
-                std::locale::classic(),
+                is_.getloc(),
                 new boost::archive::detail::utf8_codecvt_facet
             )
         );

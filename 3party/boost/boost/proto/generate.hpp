@@ -24,7 +24,7 @@
 #include <boost/proto/proto_fwd.hpp>
 #include <boost/proto/args.hpp>
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(push)
 # pragma warning(disable : 4714) // function 'xxx' marked as __forceinline not inlined
 #endif
@@ -463,7 +463,7 @@ namespace boost
     #endif
 }
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 

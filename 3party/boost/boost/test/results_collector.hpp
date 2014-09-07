@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 49312 $
+//  Version     : $Revision$
 //
 //  Description : defines class unit_test_result that is responsible for 
 //  gathering test results and presenting this information to end-user

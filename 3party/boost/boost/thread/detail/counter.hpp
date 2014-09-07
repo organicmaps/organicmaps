@@ -75,15 +75,28 @@ namespace boost
     };
     struct counter_is_not_zero
     {
-      counter_is_not_zero(const counter& count) : count_(count) {}
+      counter_is_not_zero(counter const& count) : count_(count) {}
       bool operator()() const { return count_ != 0; }
-      const counter& count_;
+      counter const& count_;
     };
     struct counter_is_zero
     {
-      counter_is_zero(const counter& count) : count_(count) {}
+      counter_is_zero(counter const& count) : count_(count) {}
       bool operator()() const { return count_ == 0; }
-      const counter& count_;
+      counter const& count_;
+    };
+    struct is_zero
+    {
+      is_zero(std::size_t& count) : count_(count) {}
+      bool operator()() const { return count_ == 0; }
+      std::size_t& count_;
+    };
+    struct not_equal
+    {
+      not_equal(std::size_t& x, std::size_t& y) : x_(x), y_(y) {}
+      bool operator()() const { return x_ != y_; }
+      std::size_t& x_;
+      std::size_t& y_;
     };
   }
 } // namespace boost

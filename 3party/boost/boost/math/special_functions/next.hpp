@@ -10,13 +10,19 @@
 #pragma once
 #endif
 
+#include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/policies/error_handling.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <boost/math/special_functions/sign.hpp>
 #include <boost/math/special_functions/trunc.hpp>
 
-#ifdef BOOST_MSVC
 #include <float.h>
+
+#if !defined(_CRAYC) && !defined(__CUDACC__) && (!defined(__GNUC__) || (__GNUC__ > 3) || ((__GNUC__ == 3) && (__GNUC_MINOR__ > 3)))
+#if (defined(_M_IX86_FP) && (_M_IX86_FP >= 2)) || defined(__SSE2__)
+#include "xmmintrin.h"
+#define BOOST_MATH_CHECK_SSE2
+#endif
 #endif
 
 namespace boost{ namespace math{
@@ -32,7 +38,11 @@ inline T get_smallest_value(mpl::true_ const&)
    // when using the SSE2 registers in DAZ or FTZ mode.
    //
    static const T m = std::numeric_limits<T>::denorm_min();
-   return ((tools::min_value<T>() - m) == tools::min_value<T>()) ? tools::min_value<T>() : m;
+#ifdef BOOST_MATH_CHECK_SSE2
+   return (_mm_getcsr() & (_MM_FLUSH_ZERO_ON | 0x40)) ? tools::min_value<T>() : m;;
+#else
+   return ((tools::min_value<T>() / 2) == 0) ? tools::min_value<T>() : m;
+#endif
 }
 
 template <class T>
@@ -103,7 +113,7 @@ T float_next_imp(const T& val, const Policy& pol)
 
    int fpclass = (boost::math::fpclassify)(val);
 
-   if((fpclass == FP_NAN) || (fpclass == FP_INFINITE))
+   if((fpclass == (int)FP_NAN) || (fpclass == (int)FP_INFINITE))
    {
       if(val < 0)
          return -tools::max_value<T>();
@@ -118,7 +128,7 @@ T float_next_imp(const T& val, const Policy& pol)
    if(val == 0)
       return detail::get_smallest_value<T>();
 
-   if((fpclass != FP_SUBNORMAL) && (fpclass != FP_ZERO) && (fabs(val) < detail::get_min_shift_value<T>()) && (val != -tools::min_value<T>()))
+   if((fpclass != (int)FP_SUBNORMAL) && (fpclass != (int)FP_ZERO) && (fabs(val) < detail::get_min_shift_value<T>()) && (val != -tools::min_value<T>()))
    {
       //
       // Special case: if the value of the least significant bit is a denorm, and the result
@@ -185,7 +195,7 @@ T float_prior_imp(const T& val, const Policy& pol)
 
    int fpclass = (boost::math::fpclassify)(val);
 
-   if((fpclass == FP_NAN) || (fpclass == FP_INFINITE))
+   if((fpclass == (int)FP_NAN) || (fpclass == (int)FP_INFINITE))
    {
       if(val > 0)
          return tools::max_value<T>();
@@ -200,7 +210,7 @@ T float_prior_imp(const T& val, const Policy& pol)
    if(val == 0)
       return -detail::get_smallest_value<T>();
 
-   if((fpclass != FP_SUBNORMAL) && (fpclass != FP_ZERO) && (fabs(val) < detail::get_min_shift_value<T>()) && (val != tools::min_value<T>()))
+   if((fpclass != (int)FP_SUBNORMAL) && (fpclass != (int)FP_ZERO) && (fabs(val) < detail::get_min_shift_value<T>()) && (val != tools::min_value<T>()))
    {
       //
       // Special case: if the value of the least significant bit is a denorm, and the result
@@ -318,7 +328,7 @@ T float_distance_imp(const T& a, const T& b, const Policy& pol)
    // because we actually have fewer than tools::digits<T>()
    // significant bits in the representation:
    //
-   frexp(((boost::math::fpclassify)(a) == FP_SUBNORMAL) ? tools::min_value<T>() : a, &expon);
+   frexp(((boost::math::fpclassify)(a) == (int)FP_SUBNORMAL) ? tools::min_value<T>() : a, &expon);
    T upper = ldexp(T(1), expon);
    T result = 0;
    expon = tools::digits<T>() - expon;
@@ -335,7 +345,7 @@ T float_distance_imp(const T& a, const T& b, const Policy& pol)
    // errors in the subtraction:
    //
    T mb, x, y, z;
-   if(((boost::math::fpclassify)(a) == FP_SUBNORMAL) || (b - a < tools::min_value<T>()))
+   if(((boost::math::fpclassify)(a) == (int)FP_SUBNORMAL) || (b - a < tools::min_value<T>()))
    {
       //
       // Special case - either one end of the range is a denormal, or else the difference is.
@@ -399,7 +409,7 @@ T float_advance_imp(T val, int distance, const Policy& pol)
 
    int fpclass = (boost::math::fpclassify)(val);
 
-   if((fpclass == FP_NAN) || (fpclass == FP_INFINITE))
+   if((fpclass == (int)FP_NAN) || (fpclass == (int)FP_INFINITE))
       return policies::raise_domain_error<T>(
          function,
          "Argument val must be finite, but got %1%", val, pol);
@@ -456,7 +466,7 @@ T float_advance_imp(T val, int distance, const Policy& pol)
       limit_distance = float_distance(val, limit);
       if(distance && (limit_distance == 0))
       {
-         policies::raise_evaluation_error<T>(function, "Internal logic failed while trying to increment floating point value %1%: most likely your FPU is in non-IEEE conforming mode.", val, pol);
+         return policies::raise_evaluation_error<T>(function, "Internal logic failed while trying to increment floating point value %1%: most likely your FPU is in non-IEEE conforming mode.", val, pol);
       }
    }
    if((0.5f == frexp(val, &expon)) && (distance < 0))

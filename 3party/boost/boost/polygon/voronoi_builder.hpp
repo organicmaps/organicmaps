@@ -388,7 +388,7 @@ class voronoi_builder {
     site_event_type site1 = it_first->first.left_site();
 
     if (!site1.is_segment() && site3.is_segment() &&
-        site3.point1(true) == site1.point0()) {
+        site3.point1() == site1.point0()) {
       site3.inverse();
     }
 

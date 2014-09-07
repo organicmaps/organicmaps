@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 54633 $
+//  Version     : $Revision$
 //
 //  Description : defines test_unit, test_case, test_case_results, test_suite and test_tree_visitor
 // ***************************************************************************

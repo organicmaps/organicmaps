@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_ADAPTED_ARRAY_DEREF_IMPL_HPP
 #define BOOST_FUSION_ADAPTED_ARRAY_DEREF_IMPL_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/remove_extent.hpp>
 
@@ -28,6 +29,7 @@ namespace boost { namespace fusion { namespace extension
                 >::type
             type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type
             call(It const& it)
             {

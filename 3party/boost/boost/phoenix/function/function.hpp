@@ -8,6 +8,7 @@
 #ifndef BOOST_PHOENIX_FUNCTION_FUNCTION_HPP
 #define BOOST_PHOENIX_FUNCTION_FUNCTION_HPP
 
+#include <boost/config.hpp>
 //#include <boost/phoenix/function/function_handling.hpp>
 #include <boost/phoenix/core/detail/function_eval.hpp>
 #include <boost/preprocessor/facilities/expand.hpp>
@@ -19,15 +20,25 @@ namespace boost { namespace phoenix
     /////////////////////////////////////////////////////////////////////////////
     // Functions
     /////////////////////////////////////////////////////////////////////////////
+    
+    namespace expression
+    {
+        template <typename F, BOOST_PHOENIX_typename_A_void(BOOST_PHOENIX_ACTOR_LIMIT)>
+        struct function
+            : detail::expression::function_eval<F, BOOST_PHOENIX_A(BOOST_PHOENIX_ACTOR_LIMIT)>
+        {};
+    }
 
     // functor which returns our lazy function call extension
     template<typename F>
     struct function
     {
-        function() {}
+        BOOST_CONSTEXPR function()
+          : f()
+        {}
 
-        function(F f)
-          : f(f)
+        BOOST_CONSTEXPR function(F f_)
+          : f(f_)
         {}
 
         template <typename Sig>

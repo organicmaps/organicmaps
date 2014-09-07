@@ -16,12 +16,8 @@
 #include <boost/chrono/duration.hpp>
 #include <boost/chrono/time_point.hpp>
 #include <boost/assert.hpp>
-#ifdef BOOST_NO_CXX11_HDR_FUNCTIONAL
-#include <boost/function.hpp>
-#else
-#include <functional>
-#endif
-//#include <boost/thread/latch.hpp>
+//#include <boost/thread/detail/nullary_function.hpp>
+#include <boost/thread/csbl/functional.hpp>
 
 #include <boost/config/abi_prefix.hpp>
 
@@ -37,11 +33,8 @@ namespace boost
   {
   public:
     /// the implementation defined completion function type
-#ifdef BOOST_NO_CXX11_HDR_FUNCTIONAL
-    typedef function<void()> completion_function;
-#else
-    typedef std::function<void()> completion_function;
-#endif
+    //typedef detail::nullary_function<void()> completion_function;
+    typedef csbl::function<void()> completion_function;
     /// noop completion function factory
     static completion_function noop()
     {

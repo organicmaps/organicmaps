@@ -9,6 +9,9 @@
 
 #include <boost/mpl/bool.hpp>
 
+// Note to Thomas and any future maintainer: please make this as
+// lightweight as possible (as it is right now).
+
 namespace boost { namespace phoenix
 {
 ///////////////////////////////////////////////////////////////////////////////

@@ -13,6 +13,7 @@
 #define BOOST_MATH_POW_HPP
 
 
+#include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/policies/policy.hpp>
 #include <boost/math/policies/error_handling.hpp>
 #include <boost/math/tools/promotion.hpp>

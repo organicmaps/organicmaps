@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -18,7 +18,7 @@
 
 #include <boost/log/detail/config.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -139,8 +139,7 @@ protected:
         {
             rec.swap(m_queue.front());
             m_queue.pop();
-            if (size == MaxQueueSizeV)
-                overflow_strategy::on_queue_space_available();
+            overflow_strategy::on_queue_space_available();
             return true;
         }
 
@@ -159,8 +158,7 @@ protected:
             {
                 rec.swap(m_queue.front());
                 m_queue.pop();
-                if (size == MaxQueueSizeV)
-                    overflow_strategy::on_queue_space_available();
+                overflow_strategy::on_queue_space_available();
                 return true;
             }
             else

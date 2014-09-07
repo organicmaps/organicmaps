@@ -70,9 +70,8 @@ namespace detail {
     } // -mk_str(..) 
 
 
-#if BOOST_WORKAROUND( BOOST_MSVC, <= 1300) || \
-    BOOST_WORKAROUND(__DECCXX_VER, BOOST_TESTED_AT(60590042))
-// MSVC needs to be tricked to disambiguate this simple overload..
+#if BOOST_WORKAROUND(__DECCXX_VER, BOOST_TESTED_AT(60590042))
+// __DECCXX needs to be tricked to disambiguate this simple overload..
 // the trick is in "boost/format/msvc_disambiguater.hpp"
   
     template< class Ch, class Tr, class T> inline
@@ -115,7 +114,40 @@ namespace detail {
         os << x ;
     }
 #endif
-#endif  // -msvc workaround
+#endif  // -__DECCXX workaround
+
+    template< class Ch, class Tr, class T>
+    void call_put_head(BOOST_IO_STD basic_ostream<Ch, Tr> & os, const void* x) {
+        put_head(os, *(typename ::boost::remove_reference<T>::type*)x);
+    }
+
+    template< class Ch, class Tr, class T>
+    void call_put_last(BOOST_IO_STD basic_ostream<Ch, Tr> & os, const void* x) {
+        put_last(os, *(T*)x);
+    }
+
+    template< class Ch, class Tr>
+    struct put_holder {
+        template<class T>
+        put_holder(T& t)
+          : arg(&t),
+            put_head(&call_put_head<Ch, Tr, T>),
+            put_last(&call_put_last<Ch, Tr, T>)
+        {}
+        const void* arg;
+        void (*put_head)(BOOST_IO_STD basic_ostream<Ch, Tr> & os, const void* x);
+        void (*put_last)(BOOST_IO_STD basic_ostream<Ch, Tr> & os, const void* x);
+    };
+    
+    template< class Ch, class Tr> inline
+    void put_head( BOOST_IO_STD basic_ostream<Ch, Tr> & os, const put_holder<Ch, Tr>& t) {
+        t.put_head(os, t.arg);
+    }
+    
+    template< class Ch, class Tr> inline
+    void put_last( BOOST_IO_STD basic_ostream<Ch, Tr> & os, const put_holder<Ch, Tr>& t) {
+        t.put_last(os, t.arg);
+    }
 
 
     template< class Ch, class Tr, class Alloc, class T> 
@@ -258,7 +290,7 @@ namespace detail {
 
     template<class Ch, class Tr, class Alloc, class T> 
     basic_format<Ch, Tr, Alloc>&  
-    feed (basic_format<Ch,Tr, Alloc>& self, T x) {
+    feed_impl (basic_format<Ch,Tr, Alloc>& self, T x) {
         if(self.dumped_) self.clear();
         distribute<Ch, Tr, Alloc, T> (self, x);
         ++self.cur_arg_;
@@ -267,6 +299,12 @@ namespace detail {
                     ++self.cur_arg_;
         }
         return self;
+    }
+
+    template<class Ch, class Tr, class Alloc, class T> inline
+    basic_format<Ch, Tr, Alloc>&  
+    feed (basic_format<Ch,Tr, Alloc>& self, T x) {
+        return feed_impl<Ch, Tr, Alloc, const put_holder<Ch, Tr>&>(self, put_holder<Ch, Tr>(x));
     }
     
 } // namespace detail

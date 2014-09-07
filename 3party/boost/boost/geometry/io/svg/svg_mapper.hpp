@@ -37,7 +37,6 @@
 #include <boost/geometry/strategies/transform/map_transformer.hpp>
 #include <boost/geometry/views/segment_view.hpp>
 
-#include <boost/geometry/multi/core/tags.hpp>
 #include <boost/geometry/multi/algorithms/envelope.hpp>
 #include <boost/geometry/multi/algorithms/num_points.hpp>
 
@@ -226,10 +225,17 @@ inline void svg_map(std::ostream& stream,
 template <typename Point, bool SameScale = true>
 class svg_mapper : boost::noncopyable
 {
+    typedef typename geometry::select_most_precise
+        <
+            typename coordinate_type<Point>::type,
+            double
+        >::type calculation_type;
+
     typedef strategy::transform::map_transformer
         <
-            Point,
-            detail::svg::svg_point_type,
+            calculation_type,
+            geometry::dimension<Point>::type::value,
+            geometry::dimension<Point>::type::value,
             true,
             SameScale
         > transformer_type;
@@ -247,6 +253,7 @@ class svg_mapper : boost::noncopyable
             m_matrix.reset(new transformer_type(m_bounding_box,
                             m_width, m_height));
 
+
             m_stream << "<?xml version=\"1.0\" standalone=\"no\"?>"
                 << std::endl
                 << "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\""
@@ -255,7 +262,10 @@ class svg_mapper : boost::noncopyable
                 << std::endl
                 << "<svg " << m_width_height << " version=\"1.1\""
                 << std::endl
-                << "xmlns=\"http://www.w3.org/2000/svg\">"
+                << "xmlns=\"http://www.w3.org/2000/svg\""
+                << std::endl
+                << "xmlns:xlink=\"http://www.w3.org/1999/xlink\""
+                << ">"
                 << std::endl;
         }
     }
@@ -319,18 +329,6 @@ public :
     void map(Geometry const& geometry, std::string const& style,
                 int size = -1)
     {
-        BOOST_MPL_ASSERT_MSG
-        (
-            ( boost::is_same
-                <
-                    Point,
-                    typename point_type<Geometry>::type
-                >::value )
-            , POINT_TYPES_ARE_NOT_SAME_FOR_MAPPER_AND_MAP
-            , (types<Point, typename point_type<Geometry>::type>)
-        );
-
-
         init_matrix();
         svg_map(m_stream, style, size, geometry, *m_matrix);
     }

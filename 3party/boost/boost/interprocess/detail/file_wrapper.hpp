@@ -167,7 +167,8 @@ inline bool file_wrapper::priv_open_or_create
 
    //Check for error
    if(m_handle == invalid_file()){
-      throw interprocess_exception(error_info(system_error_code()));
+      error_info err = system_error_code();
+      throw interprocess_exception(err);
    }
 
    m_mode = mode;

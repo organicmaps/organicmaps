@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2012
+// (C) Copyright Ion Gaztanaga  2006-2013
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -19,7 +19,6 @@
 #include <boost/intrusive/pointer_traits.hpp>
 #include <cstddef>
 #include <boost/intrusive/detail/mpl.hpp>
-#include <boost/pointer_cast.hpp>
 
 namespace boost {
 namespace intrusive {

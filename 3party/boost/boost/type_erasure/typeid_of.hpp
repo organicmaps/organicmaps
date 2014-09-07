@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: typeid_of.hpp 80909 2012-10-08 21:59:50Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_TYPEID_OF_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_TYPEID_OF_HPP_INCLUDED

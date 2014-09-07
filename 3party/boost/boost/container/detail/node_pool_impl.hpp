@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -11,13 +11,14 @@
 #ifndef BOOST_CONTAINER_DETAIL_NODE_POOL_IMPL_HPP
 #define BOOST_CONTAINER_DETAIL_NODE_POOL_IMPL_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
-#include "config_begin.hpp"
-#include <boost/container/container_fwd.hpp>
+#include <boost/container/detail/config_begin.hpp>
 #include <boost/container/detail/workaround.hpp>
+
+#include <boost/container/container_fwd.hpp>
 #include <boost/container/detail/utilities.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 #include <boost/intrusive/set.hpp>
@@ -29,8 +30,6 @@
 #include <boost/detail/no_exceptions_support.hpp>
 #include <boost/assert.hpp>
 #include <cstddef>
-#include <functional>   //std::unary_function
-
 
 namespace boost {
 namespace container {
@@ -88,7 +87,7 @@ class private_node_pool_impl
 
    void *allocate_node()
    {  return this->priv_alloc_node();  }
-  
+
    //!Deallocates an array pointed by ptr. Never throws
    void deallocate_node(void *ptr)
    {  this->priv_dealloc_node(ptr); }
@@ -236,7 +235,7 @@ class private_node_pool_impl
       push_in_list(free_nodes_t &l, typename free_nodes_t::iterator &it)
          :  slist_(l), last_it_(it)
       {}
-     
+
       void operator()(typename free_nodes_t::pointer p) const
       {
          slist_.push_front(*p);
@@ -251,12 +250,14 @@ class private_node_pool_impl
    };
 
    struct is_between
-      :  std::unary_function<typename free_nodes_t::value_type, bool>
    {
+	   typedef typename free_nodes_t::value_type argument_type;
+	   typedef bool                              result_type;
+
       is_between(const void *addr, std::size_t size)
          :  beg_(static_cast<const char *>(addr)), end_(beg_+size)
       {}
-     
+
       bool operator()(typename free_nodes_t::const_reference v) const
       {
          return (beg_ <= reinterpret_cast<const char *>(&v) &&
@@ -333,13 +334,13 @@ class private_node_pool_impl
    private:
    //!Returns a reference to the block hook placed in the end of the block
    static node_t & get_block_hook (void *block, size_type blocksize)
-   { 
-      return *reinterpret_cast<node_t*>(reinterpret_cast<char*>(block) + blocksize); 
+   {
+      return *reinterpret_cast<node_t*>(reinterpret_cast<char*>(block) + blocksize);
    }
 
    //!Returns the starting address of the block reference to the block hook placed in the end of the block
    void *get_block_from_hook (node_t *hook, size_type blocksize)
-   { 
+   {
       return (reinterpret_cast<char*>(hook) - blocksize);
    }
 

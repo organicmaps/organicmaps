@@ -7,6 +7,7 @@
 #if !defined(FUSION_SEQUENCE_GENERATION_10022005_0615)
 #define FUSION_SEQUENCE_GENERATION_10022005_0615
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/generation/make_deque.hpp>
 #include <boost/fusion/container/generation/deque_tie.hpp>
 #include <boost/fusion/container/generation/cons_tie.hpp>

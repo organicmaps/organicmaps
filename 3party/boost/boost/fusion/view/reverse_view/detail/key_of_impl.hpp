@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_VIEW_REVERSE_VIEW_DETAIL_KEY_OF_IMPL_HPP
 #define BOOST_FUSION_VIEW_REVERSE_VIEW_DETAIL_KEY_OF_IMPL_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/key_of.hpp>
 
 namespace boost { namespace fusion { namespace extension

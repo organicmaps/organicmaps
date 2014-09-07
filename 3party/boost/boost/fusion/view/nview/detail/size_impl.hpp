@@ -7,6 +7,7 @@
 #if !defined(FUSION_NVIEW_SIZE_IMPL_OCT_06_2009_0525PM)
 #define FUSION_NVIEW_SIZE_IMPL_OCT_06_2009_0525PM
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/distance.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/fusion/sequence/intrinsic/end.hpp>

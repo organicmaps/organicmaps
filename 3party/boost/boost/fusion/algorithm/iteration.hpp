@@ -7,6 +7,7 @@
 #if !defined(FUSION_ALGORITHM_ITERATION_10022005_0549)
 #define FUSION_ALGORITHM_ITERATION_10022005_0549
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/iteration/accumulate.hpp>
 #include <boost/fusion/algorithm/iteration/fold.hpp>
 #include <boost/fusion/algorithm/iteration/for_each.hpp>

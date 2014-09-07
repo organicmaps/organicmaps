@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_ADAPTED_ARRAY_IS_VIEW_IMPL_HPP
 #define BOOST_FUSION_ADAPTED_ARRAY_IS_VIEW_IMPL_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace boost { namespace fusion { namespace extension

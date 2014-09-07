@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_PUSH_FRONT)
 #define FUSION_INCLUDE_PUSH_FRONT
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/transformation/push_front.hpp>
 
 #endif

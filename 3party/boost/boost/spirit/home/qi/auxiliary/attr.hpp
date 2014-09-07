@@ -59,9 +59,9 @@ namespace boost { namespace spirit { namespace qi
           , typename Skipper, typename Attribute>
         bool parse(Iterator& /*first*/, Iterator const& /*last*/
           , Context& /*context*/, Skipper const& /*skipper*/
-          , Attribute& attr) const
+          , Attribute& attr_) const
         {
-            spirit::traits::assign_to(value_, attr);
+            spirit::traits::assign_to(value_, attr_);
             return true;        // never consume any input, succeed always
         }
 

@@ -6,7 +6,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2011-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2011-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -17,14 +17,15 @@
 #ifndef BOOST_INTRUSIVE_POINTER_TRAITS_HPP
 #define BOOST_INTRUSIVE_POINTER_TRAITS_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
 #include <boost/intrusive/detail/config_begin.hpp>
+#include <boost/intrusive/intrusive_fwd.hpp>
 #include <boost/intrusive/detail/workaround.hpp>
 #include <boost/intrusive/detail/memory_util.hpp>
-#include <boost/type_traits/integral_constant.hpp>
+#include <boost/intrusive/detail/mpl.hpp>
 #include <cstddef>
 
 namespace boost {
@@ -59,9 +60,7 @@ struct pointer_traits
       //!shall be used instead of rebind<U> to obtain a pointer to U.
       template <class U> using rebind = unspecified;
 
-      //!Ptr::rebind<U> if such a type exists; otherwise, SomePointer<U, Args> if Ptr is
-      //!a class template instantiation of the form SomePointer<T, Args>, where Args is zero or
-      //!more type arguments ; otherwise, the instantiation of rebind is ill-formed.
+      //!Ptr::reference if such a type exists (non-standard extension); otherwise, element_type &
       //!
       typedef element_type &reference;
    #else
@@ -73,8 +72,9 @@ struct pointer_traits
       //
       typedef BOOST_INTRUSIVE_OBTAIN_TYPE_WITH_DEFAULT
          (boost::intrusive::detail::, Ptr, difference_type, std::ptrdiff_t)   difference_type;
-      //
-      typedef typename boost::intrusive::detail::unvoid<element_type>::type&  reference;
+
+      typedef BOOST_INTRUSIVE_OBTAIN_TYPE_WITH_DEFAULT
+         (boost::intrusive::detail::, Ptr, reference, typename boost::intrusive::detail::unvoid_ref<element_type>::type)   reference;
       //
       template <class U> struct rebind_pointer
       {
@@ -97,8 +97,8 @@ struct pointer_traits
       //tries to converts &r to pointer.
       const bool value = boost::intrusive::detail::
          has_member_function_callable_with_pointer_to
-            <Ptr, typename boost::intrusive::detail::unvoid<element_type &>::type>::value;
-      ::boost::integral_constant<bool, value> flag;
+            <Ptr, reference>::value;
+      boost::intrusive::detail::bool_<value> flag;
       return pointer_traits::priv_pointer_to(flag, r);
    }
 
@@ -112,7 +112,7 @@ struct pointer_traits
       const bool value = boost::intrusive::detail::
          has_member_function_callable_with_static_cast_from
             <Ptr, const UPtr>::value;
-      ::boost::integral_constant<bool, value> flag;
+      boost::intrusive::detail::bool_<value> flag;
       return pointer_traits::priv_static_cast_from(flag, uptr);
    }
 
@@ -126,7 +126,7 @@ struct pointer_traits
       const bool value = boost::intrusive::detail::
          has_member_function_callable_with_const_cast_from
             <Ptr, const UPtr>::value;
-      ::boost::integral_constant<bool, value> flag;
+      boost::intrusive::detail::bool_<value> flag;
       return pointer_traits::priv_const_cast_from(flag, uptr);
    }
 
@@ -140,7 +140,7 @@ struct pointer_traits
       const bool value = boost::intrusive::detail::
          has_member_function_callable_with_dynamic_cast_from
             <Ptr, const UPtr>::value;
-      ::boost::integral_constant<bool, value> flag;
+      boost::intrusive::detail::bool_<value> flag;
       return pointer_traits::priv_dynamic_cast_from(flag, uptr);
    }
 
@@ -157,38 +157,46 @@ struct pointer_traits
    {  return pointer_traits::to_raw_pointer(p.operator->());  }
 
    //priv_pointer_to
-   static pointer priv_pointer_to(boost::true_type, typename boost::intrusive::detail::unvoid<element_type>::type& r)
-      { return Ptr::pointer_to(r); }
+   static pointer priv_pointer_to(boost::intrusive::detail::true_, reference r)
+   { return Ptr::pointer_to(r); }
 
-   static pointer priv_pointer_to(boost::false_type, typename boost::intrusive::detail::unvoid<element_type>::type& r)
-      { return pointer(boost::intrusive::detail::addressof(r)); }
+   static pointer priv_pointer_to(boost::intrusive::detail::false_, reference r)
+   { return pointer(boost::intrusive::detail::addressof(r)); }
 
    //priv_static_cast_from
    template<class UPtr>
-   static pointer priv_static_cast_from(boost::true_type, const UPtr &uptr)
+   static pointer priv_static_cast_from(boost::intrusive::detail::true_, const UPtr &uptr)
    { return Ptr::static_cast_from(uptr); }
 
    template<class UPtr>
-   static pointer priv_static_cast_from(boost::false_type, const UPtr &uptr)
+   static pointer priv_static_cast_from(boost::intrusive::detail::false_, const UPtr &uptr)
    {  return pointer_to(*static_cast<element_type*>(to_raw_pointer(uptr)));  }
 
    //priv_const_cast_from
    template<class UPtr>
-   static pointer priv_const_cast_from(boost::true_type, const UPtr &uptr)
+   static pointer priv_const_cast_from(boost::intrusive::detail::true_, const UPtr &uptr)
    { return Ptr::const_cast_from(uptr); }
 
    template<class UPtr>
-   static pointer priv_const_cast_from(boost::false_type, const UPtr &uptr)
+   static pointer priv_const_cast_from(boost::intrusive::detail::false_, const UPtr &uptr)
    {  return pointer_to(const_cast<element_type&>(*uptr));  }
 
    //priv_dynamic_cast_from
    template<class UPtr>
-   static pointer priv_dynamic_cast_from(boost::true_type, const UPtr &uptr)
+   static pointer priv_dynamic_cast_from(boost::intrusive::detail::true_, const UPtr &uptr)
    { return Ptr::dynamic_cast_from(uptr); }
 
    template<class UPtr>
-   static pointer priv_dynamic_cast_from(boost::false_type, const UPtr &uptr)
-   {  return pointer_to(*dynamic_cast<element_type*>(&*uptr));  }
+   static pointer priv_dynamic_cast_from(boost::intrusive::detail::false_, const UPtr &uptr)
+   {
+      element_type *p = dynamic_cast<element_type*>(&*uptr);
+	  if(!p){
+		  return pointer();
+	  }
+	  else{
+		  return pointer_to(*p);
+	  }
+   }
    ///@endcond
 };
 
@@ -224,7 +232,7 @@ struct pointer_traits<T*>
       //!shall be used instead of rebind<U> to obtain a pointer to U.
       template <class U> using rebind = U*;
    #else
-      typedef typename boost::intrusive::detail::unvoid<element_type>::type& reference;
+      typedef typename boost::intrusive::detail::unvoid_ref<element_type>::type reference;
       #if !defined(BOOST_NO_CXX11_TEMPLATE_ALIASES)
          template <class U> using rebind = U*;
       #endif

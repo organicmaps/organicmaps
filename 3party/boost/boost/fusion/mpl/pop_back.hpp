@@ -7,6 +7,7 @@
 #if !defined(FUSION_POP_BACK_10022005_1801)
 #define FUSION_POP_BACK_10022005_1801
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/pop_back.hpp>
 #include <boost/fusion/support/tag_of.hpp>
 #include <boost/fusion/algorithm/transformation/pop_back.hpp>

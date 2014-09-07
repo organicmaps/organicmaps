@@ -66,6 +66,15 @@ struct is_nothrow_move_constructible_imp{
 
 #endif
 
+#ifdef BOOST_NO_NOEXCEPT
+//
+// The above logic doesn't quite work in the absense of noexcept, 
+// this is really to improve things with VC13:
+//
+template <class T>
+struct is_nothrow_move_constructible_imp<T&>{ BOOST_STATIC_CONSTANT(bool, value = false); };
+#endif
+
 }
 
 BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_nothrow_move_constructible,T,::boost::detail::is_nothrow_move_constructible_imp<T>::value)

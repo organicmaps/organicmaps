@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_INVOKE_PROCEDURE)
 #define FUSION_INCLUDE_INVOKE_PROCEDURE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/functional/invocation/invoke_procedure.hpp>
 
 #endif

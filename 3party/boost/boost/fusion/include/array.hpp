@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_ARRAY)
 #define FUSION_INCLUDE_ARRAY
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/array.hpp>
 
 #endif

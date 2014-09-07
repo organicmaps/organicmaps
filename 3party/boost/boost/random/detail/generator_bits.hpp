@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: generator_bits.hpp 72951 2011-07-07 04:57:37Z steven_watanabe $
+ * $Id$
  *
  */
 

@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -18,15 +18,15 @@
 #include <boost/mpl/lambda.hpp>
 #include <boost/log/detail/config.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
 #if defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
 
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_shifted_params.hpp>
-#include <boost/preprocessor/repetition/enum_shifted_binary_params.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
 
 //! The macro defines the maximum number of features that can be specified for a logger

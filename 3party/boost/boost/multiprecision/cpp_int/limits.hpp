@@ -130,7 +130,7 @@ public:
    }
    static number_type lowest() { return (min)(); }
    BOOST_STATIC_CONSTEXPR int digits = boost::multiprecision::backends::max_precision<backend_type>::value == UINT_MAX ? INT_MAX : boost::multiprecision::backends::max_precision<backend_type>::value;
-   BOOST_STATIC_CONSTEXPR int digits10 = (INT_MAX / 1000) * 301L;
+   BOOST_STATIC_CONSTEXPR int digits10 = (digits > INT_MAX / 301) ? (digits / 1000) * 301L : (digits * 301) / 1000;
    BOOST_STATIC_CONSTEXPR int max_digits10 = digits10 + 2;
    BOOST_STATIC_CONSTEXPR bool is_signed = boost::multiprecision::is_signed_number<backend_type>::value;
    BOOST_STATIC_CONSTEXPR bool is_integer = true;

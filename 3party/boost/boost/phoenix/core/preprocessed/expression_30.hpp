@@ -46,8 +46,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -88,8 +89,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -130,8 +132,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -172,8 +175,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -214,8 +218,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -256,8 +261,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -298,8 +304,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -340,8 +347,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -382,8 +390,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -424,8 +433,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -466,8 +476,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -508,8 +519,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -550,8 +562,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -592,8 +605,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -634,8 +648,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -676,8 +691,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -718,8 +734,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -760,8 +777,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -802,8 +820,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -844,8 +863,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18 , typename call_traits<A19>::param_type a19)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -886,8 +906,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18 , typename call_traits<A19>::param_type a19 , typename call_traits<A20>::param_type a20)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -928,8 +949,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18 , typename call_traits<A19>::param_type a19 , typename call_traits<A20>::param_type a20 , typename call_traits<A21>::param_type a21)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -970,8 +992,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18 , typename call_traits<A19>::param_type a19 , typename call_traits<A20>::param_type a20 , typename call_traits<A21>::param_type a21 , typename call_traits<A22>::param_type a22)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -1012,8 +1035,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18 , typename call_traits<A19>::param_type a19 , typename call_traits<A20>::param_type a20 , typename call_traits<A21>::param_type a21 , typename call_traits<A22>::param_type a22 , typename call_traits<A23>::param_type a23)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -1054,8 +1078,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18 , typename call_traits<A19>::param_type a19 , typename call_traits<A20>::param_type a20 , typename call_traits<A21>::param_type a21 , typename call_traits<A22>::param_type a22 , typename call_traits<A23>::param_type a23 , typename call_traits<A24>::param_type a24)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -1096,8 +1121,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18 , typename call_traits<A19>::param_type a19 , typename call_traits<A20>::param_type a20 , typename call_traits<A21>::param_type a21 , typename call_traits<A22>::param_type a22 , typename call_traits<A23>::param_type a23 , typename call_traits<A24>::param_type a24 , typename call_traits<A25>::param_type a25)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -1138,8 +1164,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18 , typename call_traits<A19>::param_type a19 , typename call_traits<A20>::param_type a20 , typename call_traits<A21>::param_type a21 , typename call_traits<A22>::param_type a22 , typename call_traits<A23>::param_type a23 , typename call_traits<A24>::param_type a24 , typename call_traits<A25>::param_type a25 , typename call_traits<A26>::param_type a26)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -1180,8 +1207,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18 , typename call_traits<A19>::param_type a19 , typename call_traits<A20>::param_type a20 , typename call_traits<A21>::param_type a21 , typename call_traits<A22>::param_type a22 , typename call_traits<A23>::param_type a23 , typename call_traits<A24>::param_type a24 , typename call_traits<A25>::param_type a25 , typename call_traits<A26>::param_type a26 , typename call_traits<A27>::param_type a27)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -1222,8 +1250,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18 , typename call_traits<A19>::param_type a19 , typename call_traits<A20>::param_type a20 , typename call_traits<A21>::param_type a21 , typename call_traits<A22>::param_type a22 , typename call_traits<A23>::param_type a23 , typename call_traits<A24>::param_type a24 , typename call_traits<A25>::param_type a25 , typename call_traits<A26>::param_type a26 , typename call_traits<A27>::param_type a27 , typename call_traits<A28>::param_type a28)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag
@@ -1264,8 +1293,9 @@ namespace boost { namespace phoenix
             proto_grammar;
         
         static type make(typename call_traits<A0>::param_type a0 , typename call_traits<A1>::param_type a1 , typename call_traits<A2>::param_type a2 , typename call_traits<A3>::param_type a3 , typename call_traits<A4>::param_type a4 , typename call_traits<A5>::param_type a5 , typename call_traits<A6>::param_type a6 , typename call_traits<A7>::param_type a7 , typename call_traits<A8>::param_type a8 , typename call_traits<A9>::param_type a9 , typename call_traits<A10>::param_type a10 , typename call_traits<A11>::param_type a11 , typename call_traits<A12>::param_type a12 , typename call_traits<A13>::param_type a13 , typename call_traits<A14>::param_type a14 , typename call_traits<A15>::param_type a15 , typename call_traits<A16>::param_type a16 , typename call_traits<A17>::param_type a17 , typename call_traits<A18>::param_type a18 , typename call_traits<A19>::param_type a19 , typename call_traits<A20>::param_type a20 , typename call_traits<A21>::param_type a21 , typename call_traits<A22>::param_type a22 , typename call_traits<A23>::param_type a23 , typename call_traits<A24>::param_type a24 , typename call_traits<A25>::param_type a25 , typename call_traits<A26>::param_type a26 , typename call_traits<A27>::param_type a27 , typename call_traits<A28>::param_type a28 , typename call_traits<A29>::param_type a29)
-        {
-            actor<base_type> const e =
+      { 
+        
+                actor<base_type> const e =
                 {
                     proto::make_expr<
                         Tag

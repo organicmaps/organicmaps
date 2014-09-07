@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: xor_combine.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id$
  *
  */
 
@@ -24,6 +24,7 @@
 #include <boost/random/detail/config.hpp>
 #include <boost/random/detail/seed.hpp>
 #include <boost/random/detail/seed_impl.hpp>
+#include <boost/random/detail/operators.hpp>
 
 namespace boost {
 namespace random {

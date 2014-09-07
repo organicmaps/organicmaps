@@ -51,10 +51,6 @@ void write_dimacs_max_flow(const Graph& g,
                          typename graph_traits<Graph>::vertex_descriptor sink,
                          std::ostream& out)
 {
-  typedef typename graph_traits<Graph>::vertex_descriptor vertex_descriptor;
-  typedef typename graph_traits<Graph>::vertices_size_type vertices_size_type;
-  typedef typename graph_traits<Graph>::edge_descriptor edge_descriptor;
-  typedef typename graph_traits<Graph>::edges_size_type edges_size_type;
   typedef typename graph_traits<Graph>::edge_iterator edge_iterator;
    
   out << "c DIMACS max-flow file generated from boost::write_dimacs_max_flow" << std::endl;

@@ -7,9 +7,10 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: lagged_fibonacci.hpp 72951 2011-07-07 04:57:37Z steven_watanabe $
+ * $Id$
  *
  * Revision history
+ *  2013-10-14  fixed some warnings with Wshadow (mgaunard)
  *  2001-02-18  moved to individual header files
  */
 
@@ -35,7 +36,7 @@
 namespace boost {
 namespace random {
 
-/** 
+/**
  * Instantiations of class template \lagged_fibonacci_engine model a
  * \pseudo_random_number_generator. It uses a lagged Fibonacci
  * algorithm with two lags @c p and @c q:
@@ -79,7 +80,7 @@ public:
     { seed(first, last); }
 
     // compiler-generated copy ctor and assignment operator are fine
-    
+
     /** Calls @c seed(default_seed). */
     void seed() { seed(default_seed); }
 
@@ -123,7 +124,7 @@ public:
             fill();
         return x[i++];
     }
-  
+
     /** Fills a range with random values */
     template<class Iter>
     void generate(Iter first, Iter last)
@@ -136,36 +137,36 @@ public:
             (*this)();
         }
     }
-  
+
     /**
      * Writes the textual representation of the generator to a @c std::ostream.
      */
     BOOST_RANDOM_DETAIL_OSTREAM_OPERATOR(os, lagged_fibonacci_engine, f)
     {
         os << f.i;
-        for(unsigned int i = 0; i < f.long_lag; ++i)
-            os << ' ' << f.x[i];
+        for(unsigned int j = 0; j < f.long_lag; ++j)
+            os << ' ' << f.x[j];
         return os;
     }
-    
+
     /**
      * Reads the textual representation of the generator from a @c std::istream.
      */
     BOOST_RANDOM_DETAIL_ISTREAM_OPERATOR(is, lagged_fibonacci_engine, f)
     {
         is >> f.i >> std::ws;
-        for(unsigned int i = 0; i < f.long_lag; ++i)
-            is >> f.x[i] >> std::ws;
+        for(unsigned int j = 0; j < f.long_lag; ++j)
+            is >> f.x[j] >> std::ws;
         return is;
     }
-    
+
     /**
      * Returns true if the two generators will produce identical
      * sequences of outputs.
      */
-    BOOST_RANDOM_DETAIL_EQUALITY_OPERATOR(lagged_fibonacci_engine, x, y)
-    { return x.i == y.i && std::equal(x.x, x.x+long_lag, y.x); }
-    
+    BOOST_RANDOM_DETAIL_EQUALITY_OPERATOR(lagged_fibonacci_engine, x_, y_)
+    { return x_.i == y_.i && std::equal(x_.x, x_.x+long_lag, y_.x); }
+
     /**
      * Returns true if the two generators will produce different
      * sequences of outputs.
@@ -306,7 +307,7 @@ public:
         detail::seed_array_real<w>(seq, x);
         i = long_lag;
     }
-    
+
     /**
      * Seeds this @c lagged_fibonacci_01_engine using values from the
      * iterator range [first, last).  If there are not enough elements
@@ -318,7 +319,7 @@ public:
         detail::fill_array_real<w>(first, last, x);
         i = long_lag;
     }
-    
+
     /** Returns the smallest value that the generator can produce. */
     static result_type min BOOST_PREVENT_MACRO_SUBSTITUTION () { return result_type(0); }
     /** Returns the upper bound of the generators outputs. */
@@ -331,7 +332,7 @@ public:
             fill();
         return x[i++];
     }
-  
+
     /** Fills a range with random values */
     template<class Iter>
     void generate(Iter first, Iter last)
@@ -344,7 +345,7 @@ public:
             (*this)();
         }
     }
-    
+
     /**
      * Writes the textual representation of the generator to a @c std::ostream.
      */
@@ -353,34 +354,34 @@ public:
         // allow for Koenig lookup
         using std::pow;
         os << f.i;
-        std::ios_base::fmtflags oldflags = os.flags(os.dec | os.fixed | os.left); 
-        for(unsigned int i = 0; i < f.long_lag; ++i)
-            os << ' ' << f.x[i] * f.modulus();
+        std::ios_base::fmtflags oldflags = os.flags(os.dec | os.fixed | os.left);
+        for(unsigned int j = 0; j < f.long_lag; ++j)
+            os << ' ' << f.x[j] * f.modulus();
         os.flags(oldflags);
         return os;
     }
-    
+
     /**
      * Reads the textual representation of the generator from a @c std::istream.
      */
     BOOST_RANDOM_DETAIL_ISTREAM_OPERATOR(is, lagged_fibonacci_01_engine, f)
     {
         is >> f.i;
-        for(unsigned int i = 0; i < f.long_lag; ++i) {
+        for(unsigned int j = 0; j < f.long_lag; ++j) {
             typename lagged_fibonacci_01_engine::result_type value;
             is >> std::ws >> value;
-            f.x[i] = value / f.modulus();
+            f.x[j] = value / f.modulus();
         }
         return is;
     }
-    
+
     /**
      * Returns true if the two generators will produce identical
      * sequences of outputs.
      */
-    BOOST_RANDOM_DETAIL_EQUALITY_OPERATOR(lagged_fibonacci_01_engine, x, y)
-    { return x.i == y.i && std::equal(x.x, x.x+long_lag, y.x); }
-    
+    BOOST_RANDOM_DETAIL_EQUALITY_OPERATOR(lagged_fibonacci_01_engine, x_, y_)
+    { return x_.i == y_.i && std::equal(x_.x, x_.x+long_lag, y_.x); }
+
     /**
      * Returns true if the two generators will produce different
      * sequences of outputs.

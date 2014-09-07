@@ -7,6 +7,7 @@
 #if !defined(FUSION_VALUE_OF_IMPL_07162005_1030)
 #define FUSION_VALUE_OF_IMPL_07162005_1030
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/fusion/iterator/value_of.hpp>
 #include <boost/fusion/view/transform_view/detail/apply_transform_result.hpp>

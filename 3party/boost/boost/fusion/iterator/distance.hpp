@@ -7,6 +7,7 @@
 #if !defined(FUSION_DISTANCE_09172005_0721)
 #define FUSION_DISTANCE_09172005_0721
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/detail/distance.hpp>
 #include <boost/fusion/support/category_of.hpp>
 
@@ -68,6 +69,7 @@ namespace boost { namespace fusion
     }
         
     template <typename First, typename Last>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::distance<First, Last>::type
     distance(First const& a, Last const& b)
     {

@@ -114,7 +114,7 @@ public:
     typedef T element_type;
     typedef T value_type;
     typedef T * pointer;
-    typedef BOOST_DEDUCED_TYPENAME detail::shared_ptr_traits< T >::reference reference;
+    typedef typename detail::shared_ptr_traits< T >::reference reference;
 
     shared_ptr(): px(0), pn() // never throws in 1.30+
     {
@@ -353,17 +353,6 @@ template<class T, class U> inline bool operator!=(shared_ptr< T > const & a, sha
     return a.get() != b.get();
 }
 
-#if __GNUC__ == 2 && __GNUC_MINOR__ <= 96
-
-// Resolve the ambiguity between our op!= and the one in rel_ops
-
-template<class T> inline bool operator!=(shared_ptr< T > const & a, shared_ptr< T > const & b)
-{
-    return a.get() != b.get();
-}
-
-#endif
-
 template<class T, class U> inline bool operator<(shared_ptr< T > const & a, shared_ptr<U> const & b)
 {
     return a._internal_less(b);
@@ -421,33 +410,16 @@ template<class T> inline T * get_pointer(shared_ptr< T > const & p)
 
 // operator<<
 
-#if defined(__GNUC__) &&  (__GNUC__ < 3)
 
-template<class Y> std::ostream & operator<< (std::ostream & os, shared_ptr<Y> const & p)
-{
-    os << p.get();
-    return os;
-}
-
-#else
-
-# if defined(BOOST_MSVC) && BOOST_WORKAROUND(BOOST_MSVC, <= 1200 && __SGI_STL_PORT)
-// MSVC6 has problems finding std::basic_ostream through the using declaration in namespace _STL
-using std::basic_ostream;
-template<class E, class T, class Y> basic_ostream<E, T> & operator<< (basic_ostream<E, T> & os, shared_ptr<Y> const & p)
-# else
 template<class E, class T, class Y> std::basic_ostream<E, T> & operator<< (std::basic_ostream<E, T> & os, shared_ptr<Y> const & p)
-# endif 
 {
     os << p.get();
     return os;
 }
-
-#endif
 
 // get_deleter (experimental)
 
-#if (defined(__GNUC__) &&  (__GNUC__ < 3)) || (defined(__EDG_VERSION__) && (__EDG_VERSION__ <= 238))
+#if defined(__EDG_VERSION__) && (__EDG_VERSION__ <= 238)
 
 // g++ 2.9x doesn't allow static_cast<X const *>(void *)
 // apparently EDG 2.38 also doesn't accept it

@@ -10,6 +10,7 @@
 #ifndef BOOST_FUSION_ADAPTED_STRUCT_ADAPT_STRUCT_NAMED_HPP
 #define BOOST_FUSION_ADAPTED_STRUCT_ADAPT_STRUCT_NAMED_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>
 #include <boost/fusion/adapted/struct/detail/proxy_type.hpp>
 #include <boost/preprocessor/empty.hpp>

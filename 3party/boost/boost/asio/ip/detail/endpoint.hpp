@@ -2,7 +2,7 @@
 // ip/detail/endpoint.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -109,7 +109,7 @@ public:
   // Determine whether the endpoint is IPv4.
   bool is_v4() const
   {
-    return data_.base.sa_family == AF_INET;
+    return data_.base.sa_family == BOOST_ASIO_OS_DEF(AF_INET);
   }
 
 #if !defined(BOOST_ASIO_NO_IOSTREAM)

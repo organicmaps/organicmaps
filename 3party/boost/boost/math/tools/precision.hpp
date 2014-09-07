@@ -157,11 +157,19 @@ inline T epsilon(const mpl::true_& BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_TYPE(T))
    return std::numeric_limits<T>::epsilon();
 }
 
-#if (defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__)) && ((LDBL_MANT_DIG == 106) || (__LDBL_MANT_DIG__ == 106))
+#if defined(__GNUC__) && ((LDBL_MANT_DIG == 106) || (__LDBL_MANT_DIG__ == 106))
 template <>
 inline long double epsilon<long double>(const mpl::true_& BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_TYPE(long double))
 {
-   // numeric_limits on Darwin tells lies here.
+   // numeric_limits on Darwin (and elsewhere) tells lies here:
+   // the issue is that long double on a few platforms is
+   // really a "double double" which has a non-contiguous
+   // mantissa: 53 bits followed by an unspecified number of
+   // zero bits, followed by 53 more bits.  Thus the apparent
+   // precision of the type varies depending where it's been.
+   // Set epsilon to the value that a 106 bit fixed mantissa
+   // type would have, as that will give us sensible behaviour everywhere.
+   //
    // This static assert fails for some unknown reason, so
    // disabled for now...
    // BOOST_STATIC_ASSERT(std::numeric_limits<long double>::digits == 106);
@@ -280,6 +288,38 @@ inline T root_epsilon_imp(const T*, const Tag&)
 }
 
 template <class T>
+inline T cbrt_epsilon_imp(const mpl::int_<24>&)
+{
+   return static_cast<T>(0.0049215666011518482998719164346805794944150447839903L);
+}
+
+template <class T>
+inline T cbrt_epsilon_imp(const T*, const mpl::int_<53>&)
+{
+   return static_cast<T>(6.05545445239333906078989272793696693569753008995e-6L);
+}
+
+template <class T>
+inline T cbrt_epsilon_imp(const T*, const mpl::int_<64>&)
+{
+   return static_cast<T>(4.76837158203125e-7L);
+}
+
+template <class T>
+inline T cbrt_epsilon_imp(const T*, const mpl::int_<113>&)
+{
+   return static_cast<T>(5.7749313854154005630396773604745549542403508090496e-12L);
+}
+
+template <class T, class Tag>
+inline T cbrt_epsilon_imp(const T*, const Tag&)
+{
+   BOOST_MATH_STD_USING;
+   static const T cbrt_eps = pow(tools::epsilon<T>(), T(1) / 3);
+   return cbrt_eps;
+}
+
+template <class T>
 inline T forth_root_epsilon_imp(const T*, const mpl::int_<24>&)
 {
    return static_cast<T>(0.018581361171917516667460937040007436176452688944747L);
@@ -318,6 +358,13 @@ inline T root_epsilon()
 {
    typedef mpl::int_< (::std::numeric_limits<T>::radix == 2) ? std::numeric_limits<T>::digits : 0> tag_type;
    return detail::root_epsilon_imp(static_cast<T const*>(0), tag_type());
+}
+
+template <class T>
+inline T cbrt_epsilon()
+{
+   typedef mpl::int_< (::std::numeric_limits<T>::radix == 2) ? std::numeric_limits<T>::digits : 0> tag_type;
+   return detail::cbrt_epsilon_imp(static_cast<T const*>(0), tag_type());
 }
 
 template <class T>

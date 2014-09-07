@@ -15,8 +15,8 @@
 
 #include<boost/config.hpp>
 
-#if !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_NO_LAMBDAS) && \
-    !defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_NO_DECLTYPE)
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_LAMBDAS) && \
+    !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && !defined(BOOST_NO_CXX11_DECLTYPE)
 #include <utility>
 #include <type_traits>
 #endif
@@ -30,8 +30,8 @@ namespace boost { namespace spirit { namespace traits
     template <typename Component>
     struct action_dispatch
     {
-#if !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_NO_LAMBDAS) && \
-    !defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_NO_DECLTYPE)
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && !defined(BOOST_NO_CXX11_LAMBDAS) && \
+    !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && !defined(BOOST_NO_CXX11_DECLTYPE)
         // omit function parameters without specializing for each possible
         // type of callable entity
         // many thanks to Eelis/##iso-c++ for this contribution

@@ -17,8 +17,8 @@
 #if BOOST_VERSION >= 104000
 # include <boost/detail/scoped_enum_emulation.hpp>
 #else
-# if !defined(BOOST_NO_SCOPED_ENUMS)
-#  define BOOST_NO_SCOPED_ENUMS
+# if !defined(BOOST_NO_CXX11_SCOPED_ENUMS)
+#  define BOOST_NO_CXX11_SCOPED_ENUMS
 # endif 
 # define BOOST_SCOPED_ENUM_START(name) struct name { enum enum_type
 # define BOOST_SCOPED_ENUM_END };

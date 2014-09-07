@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_SINGLE_VIEW_PRIOR_IMPL_JUL_07_2011_1348PM)
 #define BOOST_FUSION_SINGLE_VIEW_PRIOR_IMPL_JUL_07_2011_1348PM
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/prior.hpp>
 
 namespace boost { namespace fusion
@@ -32,6 +33,7 @@ namespace boost { namespace fusion
                     typename mpl::prior<typename Iterator::position>::type>
                 type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

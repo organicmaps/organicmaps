@@ -42,8 +42,8 @@ namespace boost { namespace spirit { namespace qi
             typedef unused_type type;
         };
 
-        not_predicate(Subject const& subject)
-          : subject(subject) {}
+        not_predicate(Subject const& subject_)
+          : subject(subject_) {}
 
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>

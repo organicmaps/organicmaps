@@ -27,11 +27,11 @@ namespace boost { namespace phoenix
 
         template <typename Cond, typename Do, typename Context>
         result_type
-        operator()(Cond const& cond, Do const& do_, Context const & ctx) const
+        operator()(Cond const& cond, Do const& do_it, Context const & ctx) const
         {
             while(boost::phoenix::eval(cond, ctx))
             {
-                boost::phoenix::eval(do_, ctx);
+                boost::phoenix::eval(do_it, ctx);
             }
         }
     };
@@ -44,13 +44,13 @@ namespace boost { namespace phoenix
     template <typename Cond>
     struct while_gen
     {
-        while_gen(Cond const& cond) : cond(cond) {}
+        while_gen(Cond const& cond_) : cond(cond_) {}
 
         template <typename Do>
         typename expression::while_<Cond, Do>::type const
-        operator[](Do const& do_) const
+        operator[](Do const& do_it) const
         {
-            return expression::while_<Cond, Do>::make(cond, do_);
+            return expression::while_<Cond, Do>::make(cond, do_it);
         }
 
         Cond const& cond;

@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_ADAPTED_ARRAY_VALUE_AT_IMPL_HPP
 #define BOOST_FUSION_ADAPTED_ARRAY_VALUE_AT_IMPL_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/type_traits/remove_extent.hpp>
 
 namespace boost { namespace fusion { namespace extension

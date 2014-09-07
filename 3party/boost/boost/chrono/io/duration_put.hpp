@@ -13,6 +13,7 @@
 
 #include <boost/chrono/config.hpp>
 #include <boost/chrono/io/duration_units.hpp>
+#include <boost/chrono/process_cpu_clocks.hpp>
 #include <boost/assert.hpp>
 #include <locale>
 
@@ -191,6 +192,19 @@ namespace boost
             static_cast<long int> (d.count()));
       }
 
+      template <typename Rep, typename Period>
+      iter_type put_value(iter_type s, std::ios_base& ios, char_type fill, duration<process_times<Rep>, Period> const& d) const
+      {
+        *s++ = CharT('{');
+        s = put_value(s, ios, fill, process_real_cpu_clock::duration(d.count().real));
+        *s++ = CharT(';');
+        s = put_value(s, ios, fill, process_user_cpu_clock::duration(d.count().user));
+        *s++ = CharT(';');
+        s = put_value(s, ios, fill, process_system_cpu_clock::duration(d.count().system));
+        *s++ = CharT('}');
+        return s;
+      }
+
       /**
        *
        * @param s an output stream iterator
@@ -236,6 +250,25 @@ namespace boost
           std::use_facet<std::num_put<CharT, iter_type> >(ios.getloc()).put(s, ios, fill, Period::den);
           *s++ = CharT(']');
           string_type str = facet.get_n_d_unit(get_duration_style(ios), d);
+          s=std::copy(str.begin(), str.end(), s);
+        }
+        return s;
+      }
+      template <typename Rep, typename Period>
+      iter_type put_unit(duration_units<CharT> const& facet, iter_type s, std::ios_base& ios, char_type fill,
+          duration<process_times<Rep>, Period> const& d) const
+      {
+        duration<Rep,Period> real(d.count().real);
+        if (facet.template is_named_unit<Period>()) {
+          string_type str = facet.get_unit(get_duration_style(ios), real);
+          s=std::copy(str.begin(), str.end(), s);
+        } else {
+          *s++ = CharT('[');
+          std::use_facet<std::num_put<CharT, iter_type> >(ios.getloc()).put(s, ios, fill, Period::num);
+          *s++ = CharT('/');
+          std::use_facet<std::num_put<CharT, iter_type> >(ios.getloc()).put(s, ios, fill, Period::den);
+          *s++ = CharT(']');
+          string_type str = facet.get_n_d_unit(get_duration_style(ios), real);
           s=std::copy(str.begin(), str.end(), s);
         }
         return s;

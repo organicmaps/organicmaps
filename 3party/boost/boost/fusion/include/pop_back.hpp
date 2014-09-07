@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_POP_BACK)
 #define FUSION_INCLUDE_POP_BACK
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/transformation/pop_back.hpp>
 
 #endif

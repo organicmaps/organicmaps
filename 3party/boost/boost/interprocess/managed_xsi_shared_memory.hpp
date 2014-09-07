@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_MANAGED_XSI_SHARED_MEMORY_HPP
 #define BOOST_INTERPROCESS_MANAGED_XSI_SHARED_MEMORY_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 

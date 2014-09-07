@@ -7,6 +7,7 @@
 #if !defined(FUSION_VALUE_AT_IMPL_07172005_0952)
 #define FUSION_VALUE_AT_IMPL_07172005_0952
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/detail/access.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/mpl/eval_if.hpp>

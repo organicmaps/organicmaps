@@ -29,12 +29,24 @@ namespace boost { namespace phoenix
         template <typename T>
         struct value
             : expression::terminal<T>
-        {};
+        {
+            typedef
+                typename expression::terminal<T>::type
+                type;
+           /*
+            static const type make(T & t)
+            {
+                typename value<T>::type const e = {{t}};
+                return e;
+            }
+           */
+        };
     }
 
     template <typename T>
+    inline
     typename expression::value<T>::type const
-    inline val(T t)
+    val(T t)
     {
         return expression::value<T>::make(t);
     }
@@ -55,11 +67,11 @@ namespace boost { namespace phoenix
         template <typename This, typename Actor, typename Context>
         struct result<This(Actor, Context)>
             : boost::remove_const<
-				    typename boost::remove_reference<
+                    typename boost::remove_reference<
                     typename evaluator::impl<Actor, Context, proto::empty_env>::result_type
-                >::type
-				>
-        {};     
+                 >::type
+             >
+        {};
 
         template <typename Context>
         typename result<custom_terminal(actor<Expr> const &, Context &)>::type

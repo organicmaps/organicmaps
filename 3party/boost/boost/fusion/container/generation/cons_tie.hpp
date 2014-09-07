@@ -7,15 +7,16 @@
 #if !defined(FUSION_CONS_TIE_07182005_0854)
 #define FUSION_CONS_TIE_07182005_0854
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/list/cons.hpp>
 
 namespace boost { namespace fusion
 {
-    struct nil;
+    struct nil_;
 
     namespace result_of
     {
-        template <typename Car, typename Cdr = nil>
+        template <typename Car, typename Cdr = nil_>
         struct cons_tie
         {
             typedef cons<Car&, Cdr> type;
@@ -24,6 +25,7 @@ namespace boost { namespace fusion
 
     // $$$ do we really want a cons_tie? $$$
     template <typename Car>
+    BOOST_FUSION_GPU_ENABLED
     inline cons<Car&>
     cons_tie(Car& car)
     {
@@ -32,6 +34,7 @@ namespace boost { namespace fusion
 
     // $$$ do we really want a cons_tie? $$$
     template <typename Car, typename Cdr>
+    BOOST_FUSION_GPU_ENABLED
     inline cons<Car&, Cdr>
     cons_tie(Car& car, Cdr const& cdr)
     {

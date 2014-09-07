@@ -24,6 +24,9 @@ namespace boost { namespace phoenix
     struct phoenix_generator
         : proto::switch_<phoenix_generator>
     {
+
+        BOOST_PROTO_USE_BASIC_EXPR()
+
         template<typename Tag>
         struct case_
             : proto::otherwise<proto::call<proto::pod_generator<actor>(proto::_)> >
@@ -39,7 +42,8 @@ namespace boost { namespace phoenix
     {
         template <typename T>
         struct as_child
-            : as_expr<T>
+        : proto_base_domain::as_expr<T> // proto lambda example.
+        // : as_expr<T>
         {};
     };
 }}

@@ -53,6 +53,10 @@
 #     endif
 #  endif
 
+#ifdef __ANDROID__
+#  define BOOST_TR1_GCC_INCLUDE_PATH include
+#endif
+
 
 #  if (defined(__SGI_STL_PORT) || defined(_STLPORT_VERSION)) && !defined(__BORLANDC__)
 #     ifdef __SUNPRO_CC
@@ -82,13 +86,16 @@
 #  elif defined(__clang__)
 #     define BOOST_TR1_STD_HEADER(name) <../include/name>
 
-#  elif defined(__GNUC__) && __GNUC__ >= 3
+#  elif defined(_CRAYC)
+#     define BOOST_TR1_STD_HEADER(name) <../include/name>
+
+#  elif defined(__GNUC__)
 #    if defined(BOOST_TR1_GCC_INCLUDE_PATH)
 #      define BOOST_TR1_STD_HEADER(name) <../BOOST_TR1_GCC_INCLUDE_PATH/name>
-#    elif ( (__GNUC__ == 3 ) && ((__GNUC_MINOR__ == 0) || ((__GNUC_MINOR__ < 3) && defined(__APPLE_CC__))))
-#      define BOOST_TR1_STD_HEADER(name) <../g++-v3/name>
+#    elif (defined(__FreeBSD__))
+#      define BOOST_TR1_STD_HEADER(name) <../__GNUC__.__GNUC_MINOR__/name>
 #    else
-#      if ( ((__GNUC__ == 3 ) && (__GNUC_MINOR__ >= 3)) && (defined(__APPLE_CC__) || defined(__CYGWIN__)))
+#      if ( (__GNUC__ == 3) && (defined(__APPLE_CC__) || defined(__CYGWIN__)))
 #        define BOOST_TR1_STD_HEADER(name) <../c++/name>
 #      elif ((__GLIBCXX__ == 20050421) && defined(__APPLE_CC__))
          // Some Darwin tools fix libstdc++ at 4.0.0 irrespective of the actual
@@ -107,7 +114,7 @@
 #    endif
 
 #      if !defined(BOOST_TR1_DISABLE_INCLUDE_NEXT) && !defined(__ICC) \
-            && (defined(linux) || defined(__linux) || defined(__linux__) || defined(__GNU__) || defined(__GLIBC__))
+            && (defined(__FreeBSD__) || defined(linux) || defined(__linux) || defined(__linux__) || defined(__GNU__) || defined(__GLIBC__))
          // Disable use of #include_next on Linux as typically we are installed in a directory that is searched
          // *after* the std lib include path:
 #        define BOOST_TR1_DISABLE_INCLUDE_NEXT
@@ -149,10 +156,6 @@
 #     define BOOST_TR1_NO_CONFIG_ALL_RECURSION
 #  endif
 #  include_next <utility>
-#  if (__GNUC__ < 3)
-#     include_next <algorithm>
-#     include_next <iterator>
-#  endif
 #  ifdef BOOST_TR1_NO_CONFIG_ALL_RECURSION
 #     undef BOOST_TR1_NO_CONFIG_ALL_RECURSION
 #     undef BOOST_TR1_NO_RECURSION

@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_VIEW_REVERSE_VIEW_DETAIL_DEREF_DATA_IMPL_HPP
 #define BOOST_FUSION_VIEW_REVERSE_VIEW_DETAIL_DEREF_DATA_IMPL_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/deref_data.hpp>
 
 namespace boost { namespace fusion { namespace extension
@@ -25,6 +26,7 @@ namespace boost { namespace fusion { namespace extension
                 result_of::deref_data<typename It::first_type>::type
             type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type
             call(It const& it)
             {

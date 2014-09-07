@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2012-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2012-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -11,12 +11,13 @@
 #ifndef BOOST_CONTAINER_DETAIL_ALLOCATOR_VERSION_TRAITS_HPP
 #define BOOST_CONTAINER_DETAIL_ALLOCATOR_VERSION_TRAITS_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
 #include <boost/container/detail/config_begin.hpp>
 #include <boost/container/detail/workaround.hpp>
+
 #include <boost/container/allocator_traits.hpp>             //allocator_traits
 #include <boost/container/throw_exception.hpp>
 #include <boost/container/detail/multiallocation_chain.hpp> //multiallocation_chain
@@ -92,8 +93,12 @@ struct allocator_version_traits<Allocator, 1>
 
    static void deallocate_individual(Allocator &a, multiallocation_chain &holder)
    {
-      while(!holder.empty()){
-         a.deallocate(holder.pop_front(), 1);
+      size_type n = holder.size();
+      typename multiallocation_chain::iterator it = holder.begin();
+      while(n--){
+         pointer p = boost::intrusive::pointer_traits<pointer>::pointer_to(*it);
+         ++it;
+         a.deallocate(p, 1);
       }
    }
 

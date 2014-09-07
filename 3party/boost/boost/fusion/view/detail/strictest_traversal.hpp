@@ -8,6 +8,7 @@
 #if !defined(FUSION_STRICTEST_TRAVERSAL_20060123_2101)
 #define FUSION_STRICTEST_TRAVERSAL_20060123_2101
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/config.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/if.hpp>
@@ -56,8 +57,9 @@ namespace boost { namespace fusion
             };
 
             // never called, but needed for decltype-based result_of (C++0x)
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
             template<typename StrictestSoFar, typename Next>
+            BOOST_FUSION_GPU_ENABLED
             typename result<strictest_traversal_impl(StrictestSoFar, Next)>::type
             operator()(StrictestSoFar&&, Next&&) const;
 #endif

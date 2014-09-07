@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_NVIEW_ITERATOR_SEP_24_2009_0329PM)
 #define BOOST_FUSION_NVIEW_ITERATOR_SEP_24_2009_0329PM
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/equal_to.hpp>
 
 namespace boost { namespace fusion 

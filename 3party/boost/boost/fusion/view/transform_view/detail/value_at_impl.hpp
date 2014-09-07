@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_VALUE_AT_IMPL_20061101_0745)
 #define BOOST_FUSION_VALUE_AT_IMPL_20061101_0745
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/fusion/view/transform_view/detail/apply_transform_result.hpp>
 #include <boost/fusion/sequence/intrinsic/value_at.hpp>

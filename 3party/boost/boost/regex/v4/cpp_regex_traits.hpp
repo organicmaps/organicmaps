@@ -21,6 +21,7 @@
 
 #include <boost/config.hpp>
 #include <boost/integer.hpp>
+#include <boost/type_traits/make_unsigned.hpp>
 
 #ifndef BOOST_NO_STD_LOCALE
 
@@ -507,8 +508,18 @@ typename cpp_regex_traits_implementation<charT>::string_type
    // we adhere to gcc's (buggy) preconditions...
    //
    BOOST_ASSERT(*p2 == 0);
-
    string_type result;
+#if defined(_CPPLIB_VER)
+   //
+   // A bug in VC11 and 12 causes the program to hang if we pass a null-string
+   // to std::collate::transform, but only for certain locales :-(
+   // Probably effects Intel and Clang or any compiler using the VC std library (Dinkumware).
+   //
+   if(*p1 == 0)
+   {
+      return string_type(1, charT(0));
+   }
+#endif
    //
    // swallowing all exceptions here is a bad idea
    // however at least one std lib will always throw
@@ -582,7 +593,18 @@ typename cpp_regex_traits_implementation<charT>::string_type
    // however at least one std lib will always throw
    // std::bad_alloc for certain arguments...
    //
-   string_type result;
+   string_type result, result2;
+#if defined(_CPPLIB_VER)
+   //
+   // A bug in VC11 and 12 causes the program to hang if we pass a null-string
+   // to std::collate::transform, but only for certain locales :-(
+   // Probably effects Intel and Clang or any compiler using the VC std library (Dinkumware).
+   //
+   if(*p1 == 0)
+   {
+      return result;
+   }
+#endif
 #ifndef BOOST_NO_EXCEPTIONS
    try{
 #endif
@@ -601,14 +623,36 @@ typename cpp_regex_traits_implementation<charT>::string_type
       while(result.size() && (charT(0) == *result.rbegin()))
          result.erase(result.size() - 1);
 #endif
-      BOOST_ASSERT(std::find(result.begin(), result.end(), charT(0)) == result.end());
+      //
+      // We may have NULL's used as separators between sections of the collate string,
+      // an example would be Boost.Locale.  We have no way to detect this case via
+      // #defines since this can be used with any compiler/platform combination.
+      // Unfortunately our state machine (which was devised when all implementations
+      // used underlying C language API's) can't cope with that case.  One workaround
+      // is to replace each character with 2, fortunately this code isn't used that
+      // much as this is now slower than before :-(
+      //
+      typedef typename make_unsigned<charT>::type uchar_type;
+      result2.reserve(result.size() * 2 + 2);
+      for(unsigned i = 0; i < result.size(); ++i)
+      {
+         if(static_cast<uchar_type>(result[i]) == (std::numeric_limits<uchar_type>::max)())
+         {
+            result2.append(1, charT((std::numeric_limits<uchar_type>::max)())).append(1, charT('b'));
+         }
+         else
+         {
+            result2.append(1, static_cast<charT>(1 + static_cast<uchar_type>(result[i]))).append(1, charT('b') - 1);
+         }
+      }
+      BOOST_ASSERT(std::find(result2.begin(), result2.end(), charT(0)) == result2.end());
 #ifndef BOOST_NO_EXCEPTIONS
    }
    catch(...)
    {
    }
 #endif
-   return result;
+   return result2;
 }
 
 
@@ -624,7 +668,6 @@ typename cpp_regex_traits_implementation<charT>::string_type
          return pos->second;
    }
 #if !defined(BOOST_NO_TEMPLATED_ITERATOR_CONSTRUCTORS)\
-               && !BOOST_WORKAROUND(BOOST_MSVC, < 1300)\
                && !BOOST_WORKAROUND(__BORLANDC__, <= 0x0551)
    std::string name(p1, p2);
 #else
@@ -635,7 +678,6 @@ typename cpp_regex_traits_implementation<charT>::string_type
 #endif
    name = lookup_default_collate_name(name);
 #if !defined(BOOST_NO_TEMPLATED_ITERATOR_CONSTRUCTORS)\
-               && !BOOST_WORKAROUND(BOOST_MSVC, < 1300)\
                && !BOOST_WORKAROUND(__BORLANDC__, <= 0x0551)
    if(name.size())
       return string_type(name.begin(), name.end());
@@ -857,7 +899,7 @@ bool cpp_regex_traits_implementation<charT>::isctype(const charT c, char_class_t
 
 
 template <class charT>
-inline boost::shared_ptr<const cpp_regex_traits_implementation<charT> > create_cpp_regex_traits(const std::locale& l BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(charT))
+inline boost::shared_ptr<const cpp_regex_traits_implementation<charT> > create_cpp_regex_traits(const std::locale& l)
 {
    cpp_regex_traits_base<charT> key(l);
    return ::boost::object_cache<cpp_regex_traits_base<charT>, cpp_regex_traits_implementation<charT> >::get(key, 5);

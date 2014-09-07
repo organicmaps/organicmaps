@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: builtin.hpp 83237 2013-03-02 01:03:12Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_BUILTIN_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_BUILTIN_HPP_INCLUDED

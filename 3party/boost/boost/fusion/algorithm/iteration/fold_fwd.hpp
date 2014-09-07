@@ -17,6 +17,7 @@ namespace boost { namespace fusion
     }
 
     template<typename Seq, typename State, typename F>
+    BOOST_FUSION_GPU_ENABLED
     typename result_of::fold<
         Seq
       , State const
@@ -25,6 +26,7 @@ namespace boost { namespace fusion
     fold(Seq& seq, State const& state, F f);
 
     template<typename Seq, typename State, typename F>
+    BOOST_FUSION_GPU_ENABLED
     typename result_of::fold<
         Seq const
       , State const
@@ -33,6 +35,7 @@ namespace boost { namespace fusion
     fold(Seq const& seq, State const& state, F f);
 
     template<typename Seq, typename State, typename F>
+    BOOST_FUSION_GPU_ENABLED
     typename result_of::fold<
         Seq
       , State const
@@ -41,6 +44,7 @@ namespace boost { namespace fusion
     fold(Seq& seq, State& state, F f);
 
     template<typename Seq, typename State, typename F>
+    BOOST_FUSION_GPU_ENABLED
     typename result_of::fold<
         Seq const
       , State const

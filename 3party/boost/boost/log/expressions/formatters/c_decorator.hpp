@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -22,7 +22,7 @@
 #include <boost/log/expressions/formatters/char_decorator.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -90,7 +90,7 @@ struct c_decorator_traits< wchar_t >
     static std::size_t print_escaped(wchar_t (&buf)[N], wchar_t c)
     {
         const wchar_t* format;
-        register unsigned int val;
+        unsigned int val;
         if (sizeof(wchar_t) == 1)
         {
             format = L"\\x%0.2X";
@@ -118,7 +118,7 @@ struct c_decorator_gen
     typedef CharT char_type;
 
     template< typename SubactorT >
-    BOOST_LOG_FORCEINLINE char_decorator_actor< SubactorT, pattern_replacer< char_type > > operator[] (SubactorT const& subactor) const
+    BOOST_FORCEINLINE char_decorator_actor< SubactorT, pattern_replacer< char_type > > operator[] (SubactorT const& subactor) const
     {
         typedef c_decorator_traits< char_type > traits_type;
         typedef pattern_replacer< char_type > replacer_type;
@@ -153,7 +153,7 @@ const aux::c_decorator_gen< wchar_t > wc_decor = {};
  * The function creates a C-style decorator generator for arbitrary character type.
  */
 template< typename CharT >
-BOOST_LOG_FORCEINLINE aux::c_decorator_gen< CharT > make_c_decor()
+BOOST_FORCEINLINE aux::c_decorator_gen< CharT > make_c_decor()
 {
     return aux::c_decorator_gen< CharT >();
 }
@@ -218,7 +218,7 @@ struct c_ascii_decorator_gen
     typedef CharT char_type;
 
     template< typename SubactorT >
-    BOOST_LOG_FORCEINLINE char_decorator_actor< SubactorT, c_ascii_pattern_replacer< char_type > > operator[] (SubactorT const& subactor) const
+    BOOST_FORCEINLINE char_decorator_actor< SubactorT, c_ascii_pattern_replacer< char_type > > operator[] (SubactorT const& subactor) const
     {
         typedef c_decorator_traits< char_type > traits_type;
         typedef c_ascii_pattern_replacer< char_type > replacer_type;
@@ -254,7 +254,7 @@ const aux::c_ascii_decorator_gen< wchar_t > wc_ascii_decor = {};
  * The function creates a C-style decorator generator for arbitrary character type.
  */
 template< typename CharT >
-BOOST_LOG_FORCEINLINE aux::c_ascii_decorator_gen< CharT > make_c_ascii_decor()
+BOOST_FORCEINLINE aux::c_ascii_decorator_gen< CharT > make_c_ascii_decor()
 {
     return aux::c_ascii_decorator_gen< CharT >();
 }

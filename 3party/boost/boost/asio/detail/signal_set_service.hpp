@@ -2,7 +2,7 @@
 // detail/signal_set_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -46,7 +46,7 @@ enum { max_signal_number = 128 };
 
 extern BOOST_ASIO_DECL struct signal_state* get_signal_state();
 
-extern "C" BOOST_ASIO_DECL void asio_signal_handler(int signal_number);
+extern "C" BOOST_ASIO_DECL void boost_asio_signal_handler(int signal_number);
 
 class signal_set_service
 {
@@ -182,7 +182,9 @@ private:
   // The io_service instance used for dispatching handlers.
   io_service_impl& io_service_;
 
-#if !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
+#if !defined(BOOST_ASIO_WINDOWS) \
+  && !defined(BOOST_ASIO_WINDOWS_RUNTIME) \
+  && !defined(__CYGWIN__)
   // The type used for registering for pipe reactor notifications.
   class pipe_read_op;
 
@@ -191,7 +193,9 @@ private:
 
   // The per-descriptor reactor data used for the pipe.
   reactor::per_descriptor_data reactor_data_;
-#endif // !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
+#endif // !defined(BOOST_ASIO_WINDOWS)
+       //   && !defined(BOOST_ASIO_WINDOWS_RUNTIME)
+       //   && !defined(__CYGWIN__)
 
   // A mapping from signal number to the registered signal sets.
   registration* registrations_[max_signal_number];

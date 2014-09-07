@@ -32,7 +32,7 @@
 #include <boost/proto/domain.hpp>
 #include <boost/proto/transform/pass_through.hpp>
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(push)
 # if BOOST_WORKAROUND( BOOST_MSVC, >= 1400 )
 #  pragma warning(disable: 4180) // warning C4180: qualifier applied to function type has no meaning; ignored
@@ -1251,7 +1251,7 @@ namespace boost { namespace proto
 
 }}
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 

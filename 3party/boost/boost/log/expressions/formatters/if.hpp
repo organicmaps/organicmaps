@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -28,7 +28,7 @@
 #include <boost/log/detail/custom_terminal_spec.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -55,23 +55,12 @@ public:
     template< typename >
     struct result;
 
-    template< typename ContextT >
-    struct result< this_type(ContextT) >
+    template< typename ThisT, typename ContextT >
+    struct result< ThisT(ContextT) >
     {
         typedef typename remove_cv< typename remove_reference< ContextT >::type >::type context_type;
         typedef typename phoenix::evaluator::impl<
             typename LeftT::proto_base_expr&,
-            context_type,
-            phoenix::unused
-        >::result_type type;
-    };
-
-    template< typename ContextT >
-    struct result< const this_type(ContextT) >
-    {
-        typedef typename remove_cv< typename remove_reference< ContextT >::type >::type context_type;
-        typedef typename phoenix::evaluator::impl<
-            typename LeftT::proto_base_expr const&,
             context_type,
             phoenix::unused
         >::result_type type;
@@ -113,7 +102,7 @@ public:
         return strm;
     }
 
-    BOOST_LOG_DELETED_FUNCTION(if_output_terminal())
+    BOOST_DELETED_FUNCTION(if_output_terminal())
 };
 
 template< typename LeftT, typename CondT, typename ThenT, typename ElseT >
@@ -131,23 +120,12 @@ public:
     template< typename >
     struct result;
 
-    template< typename ContextT >
-    struct result< this_type(ContextT) >
+    template< typename ThisT, typename ContextT >
+    struct result< ThisT(ContextT) >
     {
         typedef typename remove_cv< typename remove_reference< ContextT >::type >::type context_type;
         typedef typename phoenix::evaluator::impl<
             typename LeftT::proto_base_expr&,
-            context_type,
-            phoenix::unused
-        >::result_type type;
-    };
-
-    template< typename ContextT >
-    struct result< const this_type(ContextT) >
-    {
-        typedef typename remove_cv< typename remove_reference< ContextT >::type >::type context_type;
-        typedef typename phoenix::evaluator::impl<
-            typename LeftT::proto_base_expr const&,
             context_type,
             phoenix::unused
         >::result_type type;
@@ -195,7 +173,7 @@ public:
         return strm;
     }
 
-    BOOST_LOG_DELETED_FUNCTION(if_else_output_terminal())
+    BOOST_DELETED_FUNCTION(if_else_output_terminal())
 };
 
 
@@ -215,7 +193,7 @@ struct if_then_else_gen
 
 #define BOOST_LOG_AUX_OVERLOAD(left_ref, right_ref)\
     template< typename LeftExprT, typename CondT, typename ThenT, typename ElseT >\
-    BOOST_LOG_FORCEINLINE phoenix::actor< if_else_output_terminal< phoenix::actor< LeftExprT >, CondT, ThenT, ElseT > >\
+    BOOST_FORCEINLINE phoenix::actor< if_else_output_terminal< phoenix::actor< LeftExprT >, CondT, ThenT, ElseT > >\
     operator<< (phoenix::actor< LeftExprT > left_ref left, if_then_else_gen< CondT, ThenT, ElseT > right_ref right)\
     {\
         typedef if_else_output_terminal< phoenix::actor< LeftExprT >, CondT, ThenT, ElseT > terminal_type;\
@@ -242,7 +220,7 @@ struct if_then_gen
         }
 
         template< typename ElseT >
-        BOOST_LOG_FORCEINLINE if_then_else_gen< CondT, ThenT, ElseT > operator[] (ElseT const& el)
+        BOOST_FORCEINLINE if_then_else_gen< CondT, ThenT, ElseT > operator[] (ElseT const& el)
         {
             return if_then_else_gen< CondT, ThenT, ElseT >(m_cond, m_then, el);
         }
@@ -256,7 +234,7 @@ struct if_then_gen
 
 #define BOOST_LOG_AUX_OVERLOAD(left_ref, right_ref)\
     template< typename LeftExprT, typename CondT, typename ThenT >\
-    BOOST_LOG_FORCEINLINE phoenix::actor< if_output_terminal< phoenix::actor< LeftExprT >, CondT, ThenT > >\
+    BOOST_FORCEINLINE phoenix::actor< if_output_terminal< phoenix::actor< LeftExprT >, CondT, ThenT > >\
     operator<< (phoenix::actor< LeftExprT > left_ref left, if_then_gen< CondT, ThenT > right_ref right)\
     {\
         typedef if_output_terminal< phoenix::actor< LeftExprT >, CondT, ThenT > terminal_type;\
@@ -282,7 +260,7 @@ public:
     }
 
     template< typename ThenT >
-    BOOST_LOG_FORCEINLINE if_then_gen< CondT, ThenT > operator[] (ThenT const& then_) const
+    BOOST_FORCEINLINE if_then_gen< CondT, ThenT > operator[] (ThenT const& then_) const
     {
         return if_then_gen< CondT, ThenT >(m_cond, then_);
     }
@@ -297,7 +275,7 @@ public:
  * \param cond A filter expression that will be used as the condition
  */
 template< typename CondT >
-BOOST_LOG_FORCEINLINE aux::if_gen< CondT > if_(CondT const& cond)
+BOOST_FORCEINLINE aux::if_gen< CondT > if_(CondT const& cond)
 {
     return aux::if_gen< CondT >(cond);
 }

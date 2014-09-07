@@ -10,20 +10,35 @@
 #pragma once
 #endif
 
+#include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/tools/config.hpp>
 #include <boost/math/policies/error_handling.hpp>
 #include <boost/math/special_functions/fpclassify.hpp>
 
-namespace boost{ namespace math{
+namespace boost{ namespace math{ namespace detail{
 
 template <class T, class Policy>
-inline typename tools::promote_args<T>::type trunc(const T& v, const Policy& pol)
+inline typename tools::promote_args<T>::type trunc(const T& v, const Policy& pol, const mpl::false_&)
 {
    BOOST_MATH_STD_USING
    typedef typename tools::promote_args<T>::type result_type;
    if(!(boost::math::isfinite)(v))
       return policies::raise_rounding_error("boost::math::trunc<%1%>(%1%)", 0, static_cast<result_type>(v), static_cast<result_type>(v), pol);
    return (v >= 0) ? static_cast<result_type>(floor(v)) : static_cast<result_type>(ceil(v));
+}
+
+template <class T, class Policy>
+inline typename tools::promote_args<T>::type trunc(const T& v, const Policy&, const mpl::true_&)
+{
+   return v;
+}
+
+}
+
+template <class T, class Policy>
+inline typename tools::promote_args<T>::type trunc(const T& v, const Policy& pol)
+{
+   return detail::trunc(v, pol, mpl::bool_<detail::is_integer_for_rounding<T>::value>());
 }
 template <class T>
 inline typename tools::promote_args<T>::type trunc(const T& v)

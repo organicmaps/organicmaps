@@ -26,7 +26,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/proto/proto_fwd.hpp>
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(push)
 # pragma warning(disable: 4348) // redefinition of default parameter
 #endif
@@ -90,7 +90,7 @@ namespace boost { namespace proto
     }
 }}
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 

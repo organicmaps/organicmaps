@@ -8,6 +8,7 @@
 #if !defined(FUSION_CONVERT_IMPL_09222005_1104)
 #define FUSION_CONVERT_IMPL_09222005_1104
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/vector/detail/as_vector.hpp>
 #include <boost/fusion/container/vector/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
@@ -33,6 +34,7 @@ namespace boost { namespace fusion
                     template apply<typename result_of::begin<Sequence>::type>::type
                 type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type call(Sequence& seq)
                 {
                     return gen::call(fusion::begin(seq));

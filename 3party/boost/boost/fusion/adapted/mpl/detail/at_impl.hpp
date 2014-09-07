@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_AT_IMPL_31122005_1642)
 #define BOOST_FUSION_AT_IMPL_31122005_1642
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/at.hpp>
 
 namespace boost { namespace fusion 
@@ -27,6 +28,7 @@ namespace boost { namespace fusion
             {
                 typedef typename mpl::at<Sequence, N>::type type;
                 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence)
                 {

@@ -26,7 +26,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  Spirit predefined maximum grammar start parser limit. This limit defines
-//  the maximum number of of possible different parsers exposed from a
+//  the maximum number of possible different parsers exposed from a
 //  particular grammar. This number defaults to 3.
 //  The actual maximum is rounded up in multiples of 3. Thus, if this value
 //  is 4, the actual limit is 6. The ultimate maximum limit in this

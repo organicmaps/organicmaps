@@ -15,49 +15,7 @@
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_REVERSE_HPP
 
 
-#include <boost/range/metafunctions.hpp>
-
 #include <boost/geometry/algorithms/reverse.hpp>
-#include <boost/geometry/multi/algorithms/detail/modify.hpp>
-
-#include <boost/geometry/multi/core/tags.hpp>
-#include <boost/geometry/multi/geometries/concepts/check.hpp>
-
-
-namespace boost { namespace geometry
-{
-
-
-#ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch
-{
-
-
-template <typename Geometry>
-struct reverse<Geometry, multi_linestring_tag>
-    : detail::multi_modify
-        <
-            Geometry,
-            detail::reverse::range_reverse
-        >
-{};
-
-
-template <typename Geometry>
-struct reverse<Geometry, multi_polygon_tag>
-    : detail::multi_modify
-        <
-            Geometry,
-            detail::reverse::polygon_reverse
-        >
-{};
-
-
-} // namespace dispatch
-#endif // DOXYGEN_NO_DISPATCH
-
-
-}} // namespace boost::geometry
 
 
 #endif // BOOST_GEOMETRY_MULTI_ALGORITHMS_REVERSE_HPP

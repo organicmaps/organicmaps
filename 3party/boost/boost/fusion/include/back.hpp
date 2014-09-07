@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_BACK)
 #define FUSION_INCLUDE_BACK
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/back.hpp>
 
 #endif

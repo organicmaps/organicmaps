@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: integer_log2.hpp 83381 2013-03-09 22:55:05Z eric_niebler $
+ * $Id$
  *
  */
 
@@ -27,7 +27,7 @@ namespace detail {
 #elif defined(BOOST_MSVC)
 #define BOOST_RANDOM_DETAIL_CONSTEXPR __forceinline
 #elif defined(__GNUC__) && __GNUC__ >= 4
-#define BOOST_RANDOM_DETAIL_CONSTEXPR inline __attribute__((const)) __attribute__((always_inline))
+#define BOOST_RANDOM_DETAIL_CONSTEXPR inline __attribute__((__const__)) __attribute__((__always_inline__))
 #else
 #define BOOST_RANDOM_DETAIL_CONSTEXPR inline
 #endif

@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_AS_DEQUE)
 #define FUSION_INCLUDE_AS_DEQUE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/deque/convert.hpp>
 
 #endif

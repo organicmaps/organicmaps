@@ -8,6 +8,7 @@
 #if !defined(FUSION_ADVANCE_IMPL_13122005_1906)
 #define FUSION_ADVANCE_IMPL_13122005_1906
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/advance.hpp>
 
 namespace boost { namespace fusion 
@@ -38,6 +39,7 @@ namespace boost { namespace fusion
                 typedef typename Iterator::transform_type transform_type;
                 typedef transform_view_iterator<advanced_type, transform_type> type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {
@@ -60,6 +62,7 @@ namespace boost { namespace fusion
                 typedef typename Iterator::transform_type transform_type;
                 typedef transform_view_iterator2<advanced1_type, advanced2_type, transform_type> type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

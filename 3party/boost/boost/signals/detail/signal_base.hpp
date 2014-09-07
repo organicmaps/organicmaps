@@ -17,7 +17,7 @@
 #include <boost/signals/trackable.hpp>
 #include <boost/signals/slot.hpp>
 #include <boost/smart_ptr.hpp>
-#include <boost/utility.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/function/function2.hpp>
 #include <utility>
 #include <vector>

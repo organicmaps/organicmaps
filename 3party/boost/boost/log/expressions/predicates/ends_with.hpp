@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -27,7 +27,7 @@
 #include <boost/log/utility/functional/ends_with.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -84,7 +84,7 @@ public:
  * which is assumed to be a string, ends with the specified substring.
  */
 template< typename T, typename FallbackPolicyT, typename TagT, template< typename > class ActorT, typename SubstringT >
-BOOST_LOG_FORCEINLINE ActorT< aux::unary_function_terminal< attribute_ends_with< T, typename boost::log::aux::make_embedded_string_type< SubstringT >::type, FallbackPolicyT > > >
+BOOST_FORCEINLINE ActorT< aux::unary_function_terminal< attribute_ends_with< T, typename boost::log::aux::make_embedded_string_type< SubstringT >::type, FallbackPolicyT > > >
 ends_with(attribute_actor< T, FallbackPolicyT, TagT, ActorT > const& attr, SubstringT const& substring)
 {
     typedef aux::unary_function_terminal< attribute_ends_with< T, typename boost::log::aux::make_embedded_string_type< SubstringT >::type, FallbackPolicyT > > terminal_type;
@@ -97,7 +97,7 @@ ends_with(attribute_actor< T, FallbackPolicyT, TagT, ActorT > const& attr, Subst
  * which is assumed to be a string, ends with the specified substring.
  */
 template< typename DescriptorT, template< typename > class ActorT, typename SubstringT >
-BOOST_LOG_FORCEINLINE ActorT< aux::unary_function_terminal< attribute_ends_with< typename DescriptorT::value_type, typename boost::log::aux::make_embedded_string_type< SubstringT >::type > > >
+BOOST_FORCEINLINE ActorT< aux::unary_function_terminal< attribute_ends_with< typename DescriptorT::value_type, typename boost::log::aux::make_embedded_string_type< SubstringT >::type > > >
 ends_with(attribute_keyword< DescriptorT, ActorT > const&, SubstringT const& substring)
 {
     typedef aux::unary_function_terminal< attribute_ends_with< typename DescriptorT::value_type, typename boost::log::aux::make_embedded_string_type< SubstringT >::type > > terminal_type;
@@ -110,7 +110,7 @@ ends_with(attribute_keyword< DescriptorT, ActorT > const&, SubstringT const& sub
  * which is assumed to be a string, ends with the specified substring.
  */
 template< typename T, typename SubstringT >
-BOOST_LOG_FORCEINLINE phoenix::actor< aux::unary_function_terminal< attribute_ends_with< T, typename boost::log::aux::make_embedded_string_type< SubstringT >::type > > >
+BOOST_FORCEINLINE phoenix::actor< aux::unary_function_terminal< attribute_ends_with< T, typename boost::log::aux::make_embedded_string_type< SubstringT >::type > > >
 ends_with(attribute_name const& name, SubstringT const& substring)
 {
     typedef aux::unary_function_terminal< attribute_ends_with< T, typename boost::log::aux::make_embedded_string_type< SubstringT >::type > > terminal_type;

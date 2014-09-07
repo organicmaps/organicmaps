@@ -13,11 +13,12 @@
 #include <boost/assert.hpp>
 #include <boost/range.hpp>
 
-
-#include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
+#include <boost/geometry/core/ring_type.hpp>
+#include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/algorithms/detail/ring_identifier.hpp>
+#include <boost/geometry/geometries/concepts/check.hpp>
 
 
 namespace boost { namespace geometry
@@ -88,6 +89,25 @@ struct get_ring<polygon_tag>
         return id.ring_index < 0
             ? exterior_ring(polygon)
             : interior_rings(polygon)[id.ring_index];
+    }
+};
+
+
+template<>
+struct get_ring<multi_polygon_tag>
+{
+    template<typename MultiPolygon>
+    static inline typename ring_type<MultiPolygon>::type const& apply(
+                ring_identifier const& id,
+                MultiPolygon const& multi_polygon)
+    {
+        BOOST_ASSERT
+            (
+                id.multi_index >= 0
+                && id.multi_index < int(boost::size(multi_polygon))
+            );
+        return get_ring<polygon_tag>::apply(id,
+                    multi_polygon[id.multi_index]);
     }
 };
 

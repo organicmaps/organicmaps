@@ -336,12 +336,12 @@ namespace boost
       if (m == 0)
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::operation_not_permitted, "boost unique_lock has no mutex"));
+            boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost unique_lock has no mutex"));
       }
       if (owns_lock())
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::resource_deadlock_would_occur, "boost unique_lock owns already the mutex"));
+            boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost unique_lock owns already the mutex"));
       }
       m->lock();
       is_locked = true;
@@ -351,12 +351,12 @@ namespace boost
       if (m == 0)
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::operation_not_permitted, "boost unique_lock has no mutex"));
+            boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost unique_lock has no mutex"));
       }
       if (owns_lock())
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::resource_deadlock_would_occur, "boost unique_lock owns already the mutex"));
+            boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost unique_lock owns already the mutex"));
       }
       is_locked = m->try_lock();
       return is_locked;
@@ -367,11 +367,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost unique_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost unique_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost unique_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost unique_lock owns already the mutex"));
       }
       is_locked=m->timed_lock(relative_time);
       return is_locked;
@@ -381,11 +381,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost unique_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost unique_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost unique_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost unique_lock owns already the mutex"));
       }
       is_locked=m->timed_lock(absolute_time);
       return is_locked;
@@ -394,11 +394,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost unique_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost unique_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost unique_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost unique_lock owns already the mutex"));
       }
       is_locked=m->timed_lock(absolute_time);
       return is_locked;
@@ -411,11 +411,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost unique_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost unique_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost unique_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost unique_lock owns already the mutex"));
       }
       is_locked=m->try_lock_for(rel_time);
       return is_locked;
@@ -425,11 +425,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost unique_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost unique_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost unique_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost unique_lock owns already the mutex"));
       }
       is_locked=m->try_lock_until(abs_time);
       return is_locked;
@@ -441,12 +441,12 @@ namespace boost
       if (m == 0)
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::operation_not_permitted, "boost unique_lock has no mutex"));
+            boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost unique_lock has no mutex"));
       }
       if (!owns_lock())
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::operation_not_permitted, "boost unique_lock doesn't own the mutex"));
+            boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost unique_lock doesn't own the mutex"));
       }
       m->unlock();
       is_locked = false;
@@ -636,11 +636,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost shared_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost shared_lock owns already the mutex"));
       }
       m->lock_shared();
       is_locked=true;
@@ -649,11 +649,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost shared_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost shared_lock owns already the mutex"));
       }
       is_locked=m->try_lock_shared();
       return is_locked;
@@ -663,11 +663,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost shared_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost shared_lock owns already the mutex"));
       }
       is_locked=m->timed_lock_shared(target_time);
       return is_locked;
@@ -677,11 +677,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost shared_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost shared_lock owns already the mutex"));
       }
       is_locked=m->timed_lock_shared(target_time);
       return is_locked;
@@ -693,11 +693,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost shared_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost shared_lock owns already the mutex"));
       }
       is_locked=m->try_lock_shared_for(rel_time);
       return is_locked;
@@ -707,11 +707,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost shared_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost shared_lock owns already the mutex"));
       }
       is_locked=m->try_lock_shared_until(abs_time);
       return is_locked;
@@ -721,11 +721,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if(!owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock doesn't own the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock doesn't own the mutex"));
       }
       m->unlock_shared();
       is_locked=false;
@@ -934,12 +934,12 @@ namespace boost
       if (m == 0)
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+            boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if (owns_lock())
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::resource_deadlock_would_occur, "boost upgrade_lock owns already the mutex"));
+            boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost upgrade_lock owns already the mutex"));
       }
       m->lock_upgrade();
       is_locked = true;
@@ -949,12 +949,12 @@ namespace boost
       if (m == 0)
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+            boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if (owns_lock())
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::resource_deadlock_would_occur, "boost upgrade_lock owns already the mutex"));
+            boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost upgrade_lock owns already the mutex"));
       }
       is_locked = m->try_lock_upgrade();
       return is_locked;
@@ -964,12 +964,12 @@ namespace boost
       if (m == 0)
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+            boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if (!owns_lock())
       {
         boost::throw_exception(
-            boost::lock_error(system::errc::operation_not_permitted, "boost upgrade_lock doesn't own the mutex"));
+            boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost upgrade_lock doesn't own the mutex"));
       }
       m->unlock_upgrade();
       is_locked = false;
@@ -980,11 +980,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost shared_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost shared_lock owns already the mutex"));
       }
       is_locked=m->try_lock_upgrade_for(rel_time);
       return is_locked;
@@ -994,11 +994,11 @@ namespace boost
     {
       if(m==0)
       {
-        boost::throw_exception(boost::lock_error(system::errc::operation_not_permitted, "boost shared_lock has no mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::operation_not_permitted), "boost shared_lock has no mutex"));
       }
       if(owns_lock())
       {
-        boost::throw_exception(boost::lock_error(system::errc::resource_deadlock_would_occur, "boost shared_lock owns already the mutex"));
+        boost::throw_exception(boost::lock_error(static_cast<int>(system::errc::resource_deadlock_would_occur), "boost shared_lock owns already the mutex"));
       }
       is_locked=m->try_lock_upgrade_until(abs_time);
       return is_locked;
@@ -1112,6 +1112,10 @@ namespace boost
     {
       return exclusive.owns_lock();
     }
+    Mutex* mutex() const BOOST_NOEXCEPT
+    {
+      return exclusive.mutex();
+    }
   };
 
 BOOST_THREAD_DCL_MOVABLE_BEG(Mutex) upgrade_to_unique_lock<Mutex> BOOST_THREAD_DCL_MOVABLE_END
@@ -1187,7 +1191,7 @@ private unique_lock<Mutex>
     {
       return base::owns_lock();
     }
-    Mutex* mutex() const
+    Mutex* mutex() const BOOST_NOEXCEPT
     {
       return base::mutex();
     }

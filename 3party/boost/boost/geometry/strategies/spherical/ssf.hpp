@@ -88,13 +88,13 @@ public :
 
         // (Third point is converted directly)
         ct const cos_delta = cos(delta);
-        
+
         // Apply the "Spherical Side Formula" as presented on my blog
-        ct const dist 
-            = (c1y * c2z - c1z * c2y) * cos_delta * cos(lambda) 
+        ct const dist
+            = (c1y * c2z - c1z * c2y) * cos_delta * cos(lambda)
             + (c1z * c2x - c1x * c2z) * cos_delta * sin(lambda)
             + (c1x * c2y - c1y * c2x) * sin(delta);
-        
+
         ct zero = ct();
         return dist > zero ? 1
             : dist < zero ? -1

@@ -16,7 +16,8 @@
 
 namespace boost{ namespace multiprecision{ namespace detail{
 
-inline void round_string_up_at(std::string& s, int pos)
+template <class I>
+inline void round_string_up_at(std::string& s, int pos, I& expon)
 {
    //
    // Rounds up a string representation of a number at pos:
@@ -24,14 +25,18 @@ inline void round_string_up_at(std::string& s, int pos)
    if(pos < 0)
    {
       s.insert(0, 1, '1');
+      s.erase(s.size() - 1);
+      ++expon;
    }
    else if(s[pos] == '9')
    {
       s[pos] = '0';
-      round_string_up_at(s, pos - 1);
+      round_string_up_at(s, pos - 1, expon);
    }
    else
    {
+      if((pos == 0) && (s[pos] == '0') && (s.size() == 1))
+         ++expon;
       ++s[pos];
    }
 }
@@ -54,25 +59,25 @@ std::string convert_to_string(Backend b, std::streamsize digits, std::ios_base::
    std::string result;
    bool iszero = false;
    bool isneg = false;
-   exponent_type expon;
+   exponent_type expon = 0;
    std::streamsize org_digits = digits;
    BOOST_ASSERT(digits > 0);
 
    int fpt = eval_fpclassify(b);
 
-   if(fpt == FP_ZERO)
+   if(fpt == (int)FP_ZERO)
    {
       result = "0";
       iszero = true;
    }
-   else if(fpt == FP_INFINITE)
+   else if(fpt == (int)FP_INFINITE)
    {
       if(b.compare(ui_type(0)) < 0)
          return "-inf";
       else
          return ((f & std::ios_base::showpos) == std::ios_base::showpos) ? "+inf" : "inf";
    }
-   else if(fpt == FP_NAN)
+   else if(fpt == (int)FP_NAN)
    {
       return "nan";
    }
@@ -91,8 +96,21 @@ std::string convert_to_string(Backend b, std::streamsize digits, std::ios_base::
       eval_log10(t, b);
       eval_floor(t, t);
       eval_convert_to(&expon, t);
-      eval_pow(t, ten, -expon);
-      eval_multiply(t, b);
+      if(-expon > std::numeric_limits<number<Backend> >::max_exponent10 - 3)
+      {
+         int e = -expon / 2;
+         Backend t2;
+         eval_pow(t2, ten, e);
+         eval_multiply(t, t2, b);
+         eval_multiply(t, t2);
+         if(expon & 1)
+            eval_multiply(t, ten);
+      }
+      else
+      {
+         eval_pow(t, ten, -expon);
+         eval_multiply(t, b);
+      }
       //
       // Make sure we're between [1,10) and adjust if not:
       //
@@ -137,14 +155,14 @@ std::string convert_to_string(Backend b, std::streamsize digits, std::ios_base::
          if((cdigit == 5) && (t.compare(ui_type(0)) == 0))
          {
             // Bankers rounding:
-            if((*result.rend() - '0') & 1)
+            if((*result.rbegin() - '0') & 1)
             {
-               round_string_up_at(result, result.size() - 1);
+               round_string_up_at(result, result.size() - 1, expon);
             }
          }
          else if(cdigit >= 5)
          {
-            round_string_up_at(result, result.size() - 1);
+            round_string_up_at(result, result.size() - 1, expon);
          }
       }
    }

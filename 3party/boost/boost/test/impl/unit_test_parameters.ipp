@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 63640 $
+//  Version     : $Revision$
 //
 //  Description : simple implementation for Unit Test Framework parameter
 //  handling routines. May be rewritten in future to use some kind of

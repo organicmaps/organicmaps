@@ -61,13 +61,13 @@ namespace boost { namespace spirit { namespace qi
 
         template <typename Iterator, typename Context, typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
-          , Context& context, Skipper const& skipper, Attribute& attr) const
+          , Context& context, Skipper const& skipper, Attribute& attr_) const
         {
             qi::skip_over(first, last, skipper);
 
             if (first != last && this->derived().test(*first, context))
             {
-                spirit::traits::assign_to(*first, attr);
+                spirit::traits::assign_to(*first, attr_);
                 ++first;
                 return true;
             }
@@ -87,8 +87,8 @@ namespace boost { namespace spirit { namespace qi
     struct negated_char_parser :
         char_parser<negated_char_parser<Positive>, typename Positive::char_type>
     {
-        negated_char_parser(Positive const& positive)
-          : positive(positive) {}
+        negated_char_parser(Positive const& positive_)
+          : positive(positive_) {}
 
         template <typename CharParam, typename Context>
         bool test(CharParam ch, Context& context) const

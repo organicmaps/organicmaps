@@ -115,23 +115,6 @@ public:
         this->add(itv); 
     }
 
-    /// Assignment operator
-    interval_set& operator = (const interval_set& src)
-    { 
-        base_type::operator=(src);
-        return *this;
-    }
-
-    /// Assignment operator for base type
-    template<class SubType>
-    interval_set& operator =
-        (const interval_base_set<SubType,DomainT,Compare,Interval,Alloc>& src)
-    { 
-        this->assign(src); 
-        return *this; 
-    }
-
-
     /// Assignment from a base interval_set.
     template<class SubType>
     void assign(const interval_base_set<SubType,DomainT,Compare,Interval,Alloc>& src)
@@ -142,6 +125,15 @@ public:
         iterator prior_ = this->_set.end();
         ICL_const_FORALL(typename base_set_type, it_, src) 
             prior_ = this->add(prior_, *it_);
+    }
+
+    /// Assignment operator for base type
+    template<class SubType>
+    interval_set& operator =
+        (const interval_base_set<SubType,DomainT,Compare,Interval,Alloc>& src)
+    { 
+        this->assign(src); 
+        return *this; 
     }
 
 #   ifndef BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
@@ -155,12 +147,21 @@ public:
     {}
 
     /// Move assignment operator
-    interval_set& operator = (interval_set&& src)
+    interval_set& operator = (interval_set src)
     { 
         base_type::operator=(boost::move(src));
         return *this;
     }
+
     //==========================================================================
+#   else
+    /// Assignment operator
+    interval_set& operator = (const interval_set& src)
+    { 
+        base_type::operator=(src);
+        return *this;
+    }
+
 #   endif // BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
 
 private:

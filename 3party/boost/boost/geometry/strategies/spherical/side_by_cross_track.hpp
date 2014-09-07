@@ -11,6 +11,7 @@
 
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits.hpp>
+#include <boost/core/ignore_unused.hpp>
 
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/core/access.hpp>
@@ -81,6 +82,8 @@ public :
                     >::type,
                 CalculationType
             >::type coordinate_type;
+
+        boost::ignore_unused<coordinate_type>();
 
         double d1 = 0.001; // m_strategy.apply(sp1, p);
         double crs_AD = detail::course(p1, p);

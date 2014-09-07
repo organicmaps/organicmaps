@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_UNFUSED_TYPED)
 #define FUSION_INCLUDE_UNFUSED_TYPED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/functional/adapter/unfused_typed.hpp>
 
 #endif

@@ -11,7 +11,7 @@
 #ifndef BOOST_ASSIGN_PTR_CONTAINER_PTR_MAP_INSERTER_HPP
 #define BOOST_ASSIGN_PTR_CONTAINER_PTR_MAP_INSERTER_HPP
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 

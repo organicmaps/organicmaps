@@ -15,43 +15,7 @@
 #define BOOST_GEOMETRY_MULTI_CORE_POINT_ORDER_HPP
 
 
-#include <boost/range.hpp>
-
 #include <boost/geometry/core/point_order.hpp>
-#include <boost/geometry/multi/core/tags.hpp>
 
-namespace boost { namespace geometry
-{
-
-
-#ifndef DOXYGEN_NO_DISPATCH
-namespace core_dispatch
-{
-
-template <typename Multi>
-struct point_order<multi_point_tag, Multi>
-    : public detail::point_order::clockwise {};
-
-template <typename Multi>
-struct point_order<multi_linestring_tag, Multi>
-    : public detail::point_order::clockwise {};
-
-
-// Specialization for multi_polygon: the order is the order of its polygons
-template <typename MultiPolygon>
-struct point_order<multi_polygon_tag, MultiPolygon>
-{
-    static const order_selector value = core_dispatch::point_order
-        <
-            polygon_tag,
-            typename boost::range_value<MultiPolygon>::type
-        >::value ;
-};
-
-} // namespace core_dispatch
-#endif // DOXYGEN_NO_DISPATCH
-
-
-}} // namespace boost::geometry
 
 #endif // BOOST_GEOMETRY_MULTI_CORE_POINT_ORDER_HPP

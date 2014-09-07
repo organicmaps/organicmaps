@@ -6,7 +6,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date: 2008-02-27 12:00:24 -0800 (Wed, 27 Feb 2008) $
+ * $Date$
  */
 
 #include "boost/date_time/c_time.hpp"
@@ -36,18 +36,18 @@ namespace date_time {
     {
       ::std::tm result;
       ::std::tm* curr = get_local_time(result);
-      return ymd_type(curr->tm_year + 1900, 
-                      curr->tm_mon + 1, 
-                      curr->tm_mday);
+      return ymd_type(static_cast<unsigned short>(curr->tm_year + 1900),
+                      static_cast<unsigned short>(curr->tm_mon + 1),
+                      static_cast<unsigned short>(curr->tm_mday));
     }
     //! Get the current day in universal date as a ymd_type
     static typename date_type::ymd_type universal_day_ymd() 
     {
       ::std::tm result;
       ::std::tm* curr = get_universal_time(result);
-      return ymd_type(curr->tm_year + 1900, 
-                      curr->tm_mon + 1, 
-                      curr->tm_mday);
+      return ymd_type(static_cast<unsigned short>(curr->tm_year + 1900),
+                      static_cast<unsigned short>(curr->tm_mon + 1),
+                      static_cast<unsigned short>(curr->tm_mday));
     }
     //! Get the UTC day as a date type
     static date_type universal_day() 

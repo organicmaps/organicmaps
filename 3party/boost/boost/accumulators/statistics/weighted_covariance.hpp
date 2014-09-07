@@ -57,8 +57,8 @@ namespace impl
     struct weighted_covariance_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::multiplies<Weight, typename numeric::functional::average<Sample, std::size_t>::result_type>::result_type weighted_sample_type;
-        typedef typename numeric::functional::multiplies<Weight, typename numeric::functional::average<VariateType, std::size_t>::result_type>::result_type weighted_variate_type;
+        typedef typename numeric::functional::multiplies<Weight, typename numeric::functional::fdiv<Sample, std::size_t>::result_type>::result_type weighted_sample_type;
+        typedef typename numeric::functional::multiplies<Weight, typename numeric::functional::fdiv<VariateType, std::size_t>::result_type>::result_type weighted_variate_type;
         // for boost::result_of
         typedef typename numeric::functional::outer_product<weighted_sample_type, weighted_variate_type>::result_type result_type;
 
@@ -66,9 +66,9 @@ namespace impl
         weighted_covariance_impl(Args const &args)
           : cov_(
                 numeric::outer_product(
-                    numeric::average(args[sample | Sample()], (std::size_t)1)
+                    numeric::fdiv(args[sample | Sample()], (std::size_t)1)
                       * numeric::one<Weight>::value
-                  , numeric::average(args[parameter::keyword<VariateTag>::get() | VariateType()], (std::size_t)1)
+                  , numeric::fdiv(args[parameter::keyword<VariateTag>::get() | VariateType()], (std::size_t)1)
                       * numeric::one<Weight>::value
                 )
             )

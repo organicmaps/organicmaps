@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -17,7 +17,7 @@
 
 #include <boost/log/detail/config.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -25,7 +25,7 @@
 #error Boost.Log: The current_thread_id attribute is only available in multithreaded builds
 #endif
 
-#include <boost/intrusive_ptr.hpp>
+#include <boost/smart_ptr/intrusive_ptr.hpp>
 #include <boost/log/detail/thread_id.hpp>
 #include <boost/log/attributes/attribute.hpp>
 #include <boost/log/attributes/attribute_cast.hpp>
@@ -56,7 +56,7 @@ public:
 
 protected:
     //! Factory implementation
-    class BOOST_LOG_VISIBLE impl :
+    class BOOST_SYMBOL_VISIBLE impl :
         public attribute_value::impl
     {
     public:

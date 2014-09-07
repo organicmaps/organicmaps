@@ -60,7 +60,7 @@ namespace boost { namespace spirit { namespace qi
         bool lazy_parse_impl(Parser const& p
           , Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
-          , Attribute& attr, mpl::true_)
+          , Attribute& /*attr*/, mpl::true_)
         {
             // If DeducedAuto is false (semantic actions is present), the
             // component's attribute is unused.
@@ -111,8 +111,8 @@ namespace boost { namespace spirit { namespace qi
             type;
         };
 
-        lazy_parser(Function const& function, Modifiers const& modifiers)
-          : function(function), modifiers(modifiers) {}
+        lazy_parser(Function const& function_, Modifiers const& modifiers_)
+          : function(function_), modifiers(modifiers_) {}
 
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
@@ -183,10 +183,10 @@ namespace boost { namespace spirit { namespace qi
         };
 
         lazy_directive(
-            Function const& function
-          , Subject const& subject
-          , Modifiers const& modifiers)
-          : function(function), subject(subject), modifiers(modifiers) {}
+            Function const& function_
+          , Subject const& subject_
+          , Modifiers const& modifiers_)
+          : function(function_), subject(subject_), modifiers(modifiers_) {}
 
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>

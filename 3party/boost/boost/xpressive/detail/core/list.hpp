@@ -12,7 +12,7 @@
 #define BOOST_XPRESSIVE_DETAIL_CORE_LIST_HPP_EAN_10_26_2009
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 

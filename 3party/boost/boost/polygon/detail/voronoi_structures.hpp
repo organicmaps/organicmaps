@@ -130,48 +130,36 @@ class site_event {
            (this->point1_ != that.point1_);
   }
 
-  coordinate_type x(bool oriented = false) const {
-    return x0(oriented);
+  coordinate_type x() const {
+    return point0_.x();
   }
 
-  coordinate_type y(bool oriented = false) const {
-    return y0(oriented);
+  coordinate_type y() const {
+    return point0_.y();
   }
 
-  coordinate_type x0(bool oriented = false) const {
-    if (!oriented)
-      return point0_.x();
-    return is_inverse() ? point1_.x() : point0_.x();
+  coordinate_type x0() const {
+    return point0_.x();
   }
 
-  coordinate_type y0(bool oriented = false) const {
-    if (!oriented)
-      return point0_.y();
-    return is_inverse() ? point1_.y() : point0_.y();
+  coordinate_type y0() const {
+    return point0_.y();
   }
 
-  coordinate_type x1(bool oriented = false) const {
-    if (!oriented)
-      return point1_.x();
-    return is_inverse() ? point0_.x() : point1_.x();
+  coordinate_type x1() const {
+    return point1_.x();
   }
 
-  coordinate_type y1(bool oriented = false) const {
-    if (!oriented)
-      return point1_.y();
-    return is_inverse() ? point0_.y() : point1_.y();
+  coordinate_type y1() const {
+    return point1_.y();
   }
 
-  const point_type& point0(bool oriented = false) const {
-    if (!oriented)
-      return point0_;
-    return is_inverse() ? point1_ : point0_;
+  const point_type& point0() const {
+    return point0_;
   }
 
-  const point_type& point1(bool oriented = false) const {
-    if (!oriented)
-      return point1_;
-    return is_inverse() ? point0_ : point1_;
+  const point_type& point1() const {
+    return point1_;
   }
 
   std::size_t sorted_index() const {
@@ -197,6 +185,7 @@ class site_event {
   }
 
   site_event& inverse() {
+    std::swap(point0_, point1_);
     flags_ ^= IS_INVERSE;
     return *this;
   }

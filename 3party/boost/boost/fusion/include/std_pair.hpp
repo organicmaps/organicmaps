@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_STD_PAIR)
 #define FUSION_INCLUDE_STD_PAIR
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/std_pair.hpp>
 
 #endif

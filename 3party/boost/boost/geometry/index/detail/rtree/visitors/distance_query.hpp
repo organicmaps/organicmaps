@@ -318,6 +318,12 @@ public:
         return *(neighbors[current_neighbor].second);
     }
 
+    void initialize(node_pointer root)
+    {
+        rtree::apply_visitor(*this, *root);
+        increment();
+    }
+
     void increment()
     {
         for (;;)

@@ -71,7 +71,7 @@ template <typename _fpt>
 struct extened_exponent_fpt_traits;
 
 template <>
-class extened_exponent_fpt_traits<fpt64> {
+struct extened_exponent_fpt_traits<fpt64> {
  public:
   typedef int exp_type;
   enum {

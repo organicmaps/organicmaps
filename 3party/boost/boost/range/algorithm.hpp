@@ -19,7 +19,7 @@
 // were originally written by Vladimir Prus'
 // <ghost@cs.msu.su> code from Boost Wiki
 
-#if defined(_MSC_VER) && _MSC_VER >= 1000
+#if defined(_MSC_VER)
 #pragma once
 #endif
 

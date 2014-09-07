@@ -105,7 +105,7 @@ template <> struct indexed_access<Box, max_corner, 1> \
 /*!
 \brief \brief_macro{box}
 \ingroup register
-\details \details_macro{BOOST_GEOMETRY_REGISTER_BOX, box} The 
+\details \details_macro{BOOST_GEOMETRY_REGISTER_BOX, box} The
     box may contain template parameters, which must be specified then.
 \param Box \param_macro_type{Box}
 \param Point Point type on which box is based. Might be two or three-dimensional
@@ -128,7 +128,7 @@ namespace boost { namespace geometry { namespace traits {  \
 /*!
 \brief \brief_macro{box}
 \ingroup register
-\details \details_macro{BOOST_GEOMETRY_REGISTER_BOX_TEMPLATED, box} 
+\details \details_macro{BOOST_GEOMETRY_REGISTER_BOX_TEMPLATED, box}
     \details_macro_templated{box, point}
 \param Box \param_macro_type{Box}
 \param MinCorner minimum corner (should be public member or method)
@@ -149,10 +149,10 @@ namespace boost { namespace geometry { namespace traits {  \
 /*!
 \brief \brief_macro{box}
 \ingroup register
-\details \details_macro{BOOST_GEOMETRY_REGISTER_BOX_2D_4VALUES, box} 
+\details \details_macro{BOOST_GEOMETRY_REGISTER_BOX_2D_4VALUES, box}
 \param Box \param_macro_type{Box}
 \param Point Point type reported as point_type by box. Must be two dimensional.
-    Note that these box tyeps do not contain points, but they must have a 
+    Note that these box tyeps do not contain points, but they must have a
     related point_type
 \param Left Left side (must be public member or method)
 \param Bottom Bottom side (must be public member or method)

@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_SEGMENTED_FIND_HPP_INCLUDED)
 #define BOOST_FUSION_SEGMENTED_FIND_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/fusion/algorithm/query/find_fwd.hpp>
@@ -44,16 +45,19 @@ namespace boost { namespace fusion { namespace detail
                 >::type
             type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Sequence& seq, State const&state, Context const& context, segmented_find_fun)
             {
                 return call_impl(seq, state, context, continue_type());
             }
 
+            BOOST_FUSION_GPU_ENABLED
             static type call_impl(Sequence&, State const&state, Context const&, mpl::true_)
             {
                 return state;
             }
 
+            BOOST_FUSION_GPU_ENABLED
             static type call_impl(Sequence& seq, State const&, Context const& context, mpl::false_)
             {
                 return fusion::make_segmented_iterator(fusion::find<T>(seq), context);
@@ -74,6 +78,7 @@ namespace boost { namespace fusion { namespace detail
                 >::type
             type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type call(Sequence& seq)
             {
                 return fusion::segmented_fold_until(

@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: subtract_with_carry.hpp 83381 2013-03-09 22:55:05Z eric_niebler $
+ * $Id$
  *
  * Revision history
  *  2002-03-02  created

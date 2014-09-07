@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_BOOST_ARRAY_27122005_1035)
 #define BOOST_FUSION_BOOST_ARRAY_27122005_1035
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/boost_array/array_iterator.hpp>
 #include <boost/fusion/adapted/boost_array/tag_of.hpp>
 #include <boost/fusion/adapted/boost_array/detail/is_view_impl.hpp>

@@ -110,12 +110,6 @@ namespace boost { namespace spirit { namespace lex
         state_setter(Actor const& actor)
           : actor_(actor) {}
 
-        // see explanation for this constructor at the end of this file
-#ifndef BOOST_SPIRIT_USE_PHOENIX_V3
-        state_setter(phoenix::actor<state_getter>, Actor const& actor)
-          : actor_(actor) {}
-#endif
-
         Actor actor_;
     };
 
@@ -189,12 +183,6 @@ namespace boost { namespace spirit { namespace lex
 
         value_setter(Actor const& actor)
           : actor_(actor) {}
-
-#ifndef BOOST_SPIRIT_USE_PHOENIX_V3
-        // see explanation for this constructor at the end of this file
-        value_setter(phoenix::actor<value_getter>, Actor const& actor)
-          : actor_(actor) {}
-#endif
 
         Actor actor_;
     };
@@ -281,81 +269,6 @@ namespace boost { namespace spirit { namespace lex
 #endif
 }}}
 
-///////////////////////////////////////////////////////////////////////////////
-#ifndef BOOST_SPIRIT_USE_PHOENIX_V3
-namespace boost { namespace phoenix
-{
-    ///////////////////////////////////////////////////////////////////////////
-    //  The specialization of as_actor_base<> below is needed to convert all
-    //  occurrences of _state in places where it's used as a rvalue into the 
-    //  proper Phoenix actor (spirit::state_getter) accessing the lexer state.
-    template<>
-    struct as_actor_base<actor<spirit::lex::state_context> >
-    {
-        typedef spirit::lex::state_getter type;
-
-        static spirit::lex::state_getter
-        convert(actor<spirit::lex::state_context>)
-        {
-            return spirit::lex::state_getter();
-        }
-    };
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  The specialization of as_composite<> below is needed to convert all
-    //  assignments to _state (places where it's used as a lvalue) into the
-    //  proper Phoenix actor (spirit::state_setter) allowing to change the
-    //  lexer state.
-    template <typename RHS>
-    struct as_composite<assign_eval, actor<spirit::lex::state_context>, RHS>
-    {
-        // For an assignment to _state (a spirit::state_context actor), this
-        // specialization makes Phoenix's compose() function construct a
-        // spirit::state_setter actor from 1. the LHS, a spirit::state_getter
-        // actor (due to the specialization of as_actor_base<> above),
-        // and 2. the RHS actor.
-        // This is why spirit::state_setter needs a constructor which takes
-        // a dummy spirit::state_getter as its first argument in addition
-        // to its real, second argument (the RHS actor).
-        typedef spirit::lex::state_setter<typename as_actor<RHS>::type> type;
-    };
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  The specialization of as_actor_base<> below is needed to convert all
-    //  occurrences of _val in places where it's used as a rvalue into the 
-    //  proper Phoenix actor (spirit::value_getter) accessing the token value.
-    template<>
-    struct as_actor_base<actor<spirit::lex::value_context> >
-    {
-        typedef spirit::lex::value_getter type;
-
-        static spirit::lex::value_getter
-        convert(actor<spirit::lex::value_context>)
-        {
-            return spirit::lex::value_getter();
-        }
-    };
-
-    ///////////////////////////////////////////////////////////////////////////
-    //  The specialization of as_composite<> below is needed to convert all
-    //  assignments to _val (places where it's used as a lvalue) into the
-    //  proper Phoenix actor (spirit::value_setter) allowing to change the
-    //  token value.
-    template <typename RHS>
-    struct as_composite<assign_eval, actor<spirit::lex::value_context>, RHS>
-    {
-        // For an assignment to _val (a spirit::value_context actor), this
-        // specialization makes Phoenix's compose() function construct a
-        // spirit::value_setter actor from 1. the LHS, a spirit::value_getter
-        // actor (due to the specialization of as_actor_base<> above),
-        // and 2. the RHS actor.
-        // This is why spirit::value_setter needs a constructor which takes
-        // a dummy spirit::value_getter as its first argument in addition
-        // to its real, second argument (the RHS actor).
-        typedef spirit::lex::value_setter<typename as_actor<RHS>::type> type;
-    };
-}}
-#endif
 
 #undef SPIRIT_DECLARE_ARG
 #endif

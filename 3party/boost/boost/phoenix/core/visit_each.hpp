@@ -22,7 +22,7 @@ namespace boost { namespace phoenix
         struct visit_each_impl
         {
             Visitor& visitor;
-            visit_each_impl(Visitor& visitor ) : visitor(visitor) {}
+            visit_each_impl(Visitor& visitor_ ) : visitor(visitor_) {}
 
             template <typename T>
             void operator()(T const& t) const

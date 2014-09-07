@@ -35,8 +35,7 @@ class voronoi_predicates {
 
   enum {
     ULPS = 64,
-    ULPSx2 = 128,
-    ULPSx5 = 320
+    ULPSx2 = 128
   };
 
   template <typename Point>
@@ -161,32 +160,21 @@ class voronoi_predicates {
 
     bool operator()(const site_type& lhs, const circle_type& rhs) const {
       typename ulp_cmp_type::Result xCmp =
-          ulp_cmp(to_fpt(lhs.x()), to_fpt(rhs.lower_x()), ULPSx5);
-      if (xCmp != ulp_cmp_type::EQUAL)
-        return xCmp == ulp_cmp_type::LESS;
-      typename ulp_cmp_type::Result yCmp =
-          ulp_cmp(to_fpt(lhs.y()), to_fpt(rhs.lower_y()), ULPSx5);
-      return yCmp == ulp_cmp_type::LESS;
+          ulp_cmp(to_fpt(lhs.x0()), to_fpt(rhs.lower_x()), ULPS);
+      return xCmp == ulp_cmp_type::LESS;
     }
 
     bool operator()(const circle_type& lhs, const site_type& rhs) const {
       typename ulp_cmp_type::Result xCmp =
-          ulp_cmp(to_fpt(lhs.lower_x()), to_fpt(rhs.x()), ULPSx5);
-      if (xCmp != ulp_cmp_type::EQUAL)
-        return xCmp == ulp_cmp_type::LESS;
-      typename ulp_cmp_type::Result yCmp =
-          ulp_cmp(to_fpt(lhs.lower_y()), to_fpt(rhs.y()), ULPSx5);
-      return yCmp == ulp_cmp_type::LESS;
+          ulp_cmp(to_fpt(lhs.lower_x()), to_fpt(rhs.x0()), ULPS);
+      return xCmp == ulp_cmp_type::LESS;
     }
 
     bool operator()(const circle_type& lhs, const circle_type& rhs) const {
-      typename ulp_cmp_type::Result xCmp =
-          ulp_cmp(to_fpt(lhs.lower_x()), to_fpt(rhs.lower_x()), ULPSx2);
-      if (xCmp != ulp_cmp_type::EQUAL)
-        return xCmp == ulp_cmp_type::LESS;
-      typename ulp_cmp_type::Result yCmp =
-          ulp_cmp(to_fpt(lhs.lower_y()), to_fpt(rhs.lower_y()), ULPSx2);
-      return yCmp == ulp_cmp_type::LESS;
+      if (lhs.lower_x() != rhs.lower_x()) {
+        return lhs.lower_x() < rhs.lower_x();
+      }
+      return lhs.y() < rhs.y();
     }
 
    private:
@@ -198,24 +186,25 @@ class voronoi_predicates {
   class distance_predicate {
    public:
     typedef Site site_type;
+    typedef typename site_type::point_type point_type;
 
     // Returns true if a horizontal line going through a new site intersects
     // right arc at first, else returns false. If horizontal line goes
     // through intersection point of the given two arcs returns false also.
     bool operator()(const site_type& left_site,
                     const site_type& right_site,
-                    const site_type& new_site) const {
+                    const point_type& new_point) const {
       if (!left_site.is_segment()) {
         if (!right_site.is_segment()) {
-          return pp(left_site, right_site, new_site);
+          return pp(left_site, right_site, new_point);
         } else {
-          return ps(left_site, right_site, new_site, false);
+          return ps(left_site, right_site, new_point, false);
         }
       } else {
         if (!right_site.is_segment()) {
-          return ps(right_site, left_site, new_site, true);
+          return ps(right_site, left_site, new_point, true);
         } else {
-          return ss(left_site, right_site, new_site);
+          return ss(left_site, right_site, new_point);
         }
       }
     }
@@ -229,18 +218,15 @@ class voronoi_predicates {
       MORE = 1
     };
 
-    typedef typename Site::point_type point_type;
-
     // Robust predicate, avoids using high-precision libraries.
     // Returns true if a horizontal line going through the new point site
     // intersects right arc at first, else returns false. If horizontal line
     // goes through intersection point of the given two arcs returns false.
     bool pp(const site_type& left_site,
             const site_type& right_site,
-            const site_type& new_site) const {
+            const point_type& new_point) const {
       const point_type& left_point = left_site.point0();
       const point_type& right_point = right_site.point0();
-      const point_type& new_point = new_site.point0();
       if (left_point.x() > right_point.x()) {
         if (new_point.y() <= left_point.y())
           return false;
@@ -261,16 +247,15 @@ class voronoi_predicates {
     }
 
     bool ps(const site_type& left_site, const site_type& right_site,
-            const site_type& new_site, bool reverse_order) const {
+            const point_type& new_point, bool reverse_order) const {
       kPredicateResult fast_res = fast_ps(
-        left_site, right_site, new_site, reverse_order);
-      if (fast_res != UNDEFINED)
-        return (fast_res == LESS);
+        left_site, right_site, new_point, reverse_order);
+      if (fast_res != UNDEFINED) {
+        return fast_res == LESS;
+      }
 
-      fpt_type dist1 = find_distance_to_point_arc(
-          left_site, new_site.point0());
-      fpt_type dist2 = find_distance_to_segment_arc(
-          right_site, new_site.point0());
+      fpt_type dist1 = find_distance_to_point_arc(left_site, new_point);
+      fpt_type dist2 = find_distance_to_segment_arc(right_site, new_point);
 
       // The undefined ulp range is equal to 3EPS + 7EPS <= 10ULP.
       return reverse_order ^ (dist1 < dist2);
@@ -278,19 +263,15 @@ class voronoi_predicates {
 
     bool ss(const site_type& left_site,
             const site_type& right_site,
-            const site_type& new_site) const {
+            const point_type& new_point) const {
       // Handle temporary segment sites.
-      if (left_site.point0() == right_site.point0() &&
-          left_site.point1() == right_site.point1()) {
-        return ot::eval(left_site.point0(),
-                        left_site.point1(),
-                        new_site.point0()) == ot::LEFT;
+      if (left_site.sorted_index() == right_site.sorted_index()) {
+        return ot::eval(
+            left_site.point0(), left_site.point1(), new_point) == ot::LEFT;
       }
 
-      fpt_type dist1 = find_distance_to_segment_arc(
-          left_site, new_site.point0());
-      fpt_type dist2 = find_distance_to_segment_arc(
-          right_site, new_site.point0());
+      fpt_type dist1 = find_distance_to_segment_arc(left_site, new_point);
+      fpt_type dist2 = find_distance_to_segment_arc(right_site, new_point);
 
       // The undefined ulp range is equal to 7EPS + 7EPS <= 14ULP.
       return dist1 < dist2;
@@ -309,8 +290,8 @@ class voronoi_predicates {
       if (is_vertical(site)) {
         return (to_fpt(site.x()) - to_fpt(point.x())) * to_fpt(0.5);
       } else {
-        const point_type& segment0 = site.point0(true);
-        const point_type& segment1 = site.point1(true);
+        const point_type& segment0 = site.point0();
+        const point_type& segment1 = site.point1();
         fpt_type a1 = to_fpt(segment1.x()) - to_fpt(segment0.x());
         fpt_type b1 = to_fpt(segment1.y()) - to_fpt(segment0.y());
         fpt_type k = get_sqrt(a1 * a1 + b1 * b1);
@@ -335,11 +316,10 @@ class voronoi_predicates {
 
     kPredicateResult fast_ps(
         const site_type& left_site, const site_type& right_site,
-        const site_type& new_site, bool reverse_order) const {
+        const point_type& new_point, bool reverse_order) const {
       const point_type& site_point = left_site.point0();
-      const point_type& segment_start = right_site.point0(true);
-      const point_type& segment_end = right_site.point1(true);
-      const point_type& new_point = new_site.point0();
+      const point_type& segment_start = right_site.point0();
+      const point_type& segment_end = right_site.point1();
 
       if (ot::eval(segment_start, segment_end, new_point) != ot::RIGHT)
         return (!right_site.is_inverse()) ? LESS : MORE;
@@ -394,7 +374,9 @@ class voronoi_predicates {
    public:
     typedef Node node_type;
     typedef typename Node::site_type site_type;
-    typedef typename site_type::coordinate_type coordinate_type;
+    typedef typename site_type::point_type point_type;
+    typedef typename point_type::coordinate_type coordinate_type;
+    typedef point_comparison_predicate<point_type> point_comparison_type;
     typedef distance_predicate<site_type> distance_predicate_type;
 
     // Compares nodes in the balanced binary search tree. Nodes are
@@ -408,13 +390,17 @@ class voronoi_predicates {
       // Get x coordinate of the rightmost site from both nodes.
       const site_type& site1 = get_comparison_site(node1);
       const site_type& site2 = get_comparison_site(node2);
+      const point_type& point1 = get_comparison_point(site1);
+      const point_type& point2 = get_comparison_point(site2);
 
-      if (site1.x() < site2.x()) {
+      if (point1.x() < point2.x()) {
         // The second node contains a new site.
-        return predicate_(node1.left_site(), node1.right_site(), site2);
-      } else if (site1.x() > site2.x()) {
+        return distance_predicate_(
+            node1.left_site(), node1.right_site(), point2);
+      } else if (point1.x() > point2.x()) {
         // The first node contains a new site.
-        return !predicate_(node2.left_site(), node2.right_site(), site1);
+        return !distance_predicate_(
+            node2.left_site(), node2.right_site(), point1);
       } else {
         // This checks were evaluated experimentally.
         if (site1.sorted_index() == site2.sorted_index()) {
@@ -443,25 +429,31 @@ class voronoi_predicates {
       return node.right_site();
     }
 
+    const point_type& get_comparison_point(const site_type& site) const {
+      return point_comparison_(site.point0(), site.point1()) ?
+          site.point0() : site.point1();
+    }
+
     // Get comparison pair: y coordinate and direction of the newer site.
     std::pair<coordinate_type, int> get_comparison_y(
       const node_type& node, bool is_new_node = true) const {
       if (node.left_site().sorted_index() ==
           node.right_site().sorted_index()) {
-        return std::make_pair(node.left_site().y(), 0);
+        return std::make_pair(node.left_site().y0(), 0);
       }
       if (node.left_site().sorted_index() > node.right_site().sorted_index()) {
         if (!is_new_node &&
             node.left_site().is_segment() &&
             is_vertical(node.left_site())) {
-          return std::make_pair(node.left_site().y1(), 1);
+          return std::make_pair(node.left_site().y0(), 1);
         }
-        return std::make_pair(node.left_site().y(), 1);
+        return std::make_pair(node.left_site().y1(), 1);
       }
-      return std::make_pair(node.right_site().y(), -1);
+      return std::make_pair(node.right_site().y0(), -1);
     }
 
-    distance_predicate_type predicate_;
+    point_comparison_type point_comparison_;
+    distance_predicate_type distance_predicate_;
   };
 
   template <typename Site>
@@ -473,8 +465,9 @@ class voronoi_predicates {
     bool ppp(const site_type& site1,
              const site_type& site2,
              const site_type& site3) const {
-      return ot::eval(site1.point0(), site2.point0(), site3.point0()) ==
-             ot::RIGHT;
+      return ot::eval(site1.point0(),
+                      site2.point0(),
+                      site3.point0()) == ot::RIGHT;
     }
 
     bool pps(const site_type& site1,
@@ -482,10 +475,10 @@ class voronoi_predicates {
              const site_type& site3,
              int segment_index) const {
       if (segment_index != 2) {
-        typename ot::Orientation orient1 = ot::eval(site1.point0(),
-            site2.point0(), site3.point0(true));
-        typename ot::Orientation orient2 = ot::eval(site1.point0(),
-            site2.point0(), site3.point1(true));
+        typename ot::Orientation orient1 = ot::eval(
+            site1.point0(), site2.point0(), site3.point0());
+        typename ot::Orientation orient2 = ot::eval(
+            site1.point0(), site2.point0(), site3.point1());
         if (segment_index == 1 && site1.x0() >= site2.x0()) {
           if (orient1 != ot::RIGHT)
             return false;
@@ -496,9 +489,8 @@ class voronoi_predicates {
           return false;
         }
       } else {
-        if (site3.point0(true) == site1.point0() &&
-            site3.point1(true) == site2.point0())
-          return false;
+        return (site3.point0() != site1.point0()) ||
+               (site3.point1() != site2.point0());
       }
       return true;
     }
@@ -507,17 +499,16 @@ class voronoi_predicates {
              const site_type& site2,
              const site_type& site3,
              int point_index) const {
-      if (site2.point0() == site3.point0() &&
-          site2.point1() == site3.point1()) {
+      if (site2.sorted_index() == site3.sorted_index()) {
         return false;
       }
       if (point_index == 2) {
         if (!site2.is_inverse() && site3.is_inverse())
           return false;
         if (site2.is_inverse() == site3.is_inverse() &&
-            ot::eval(site2.point0(true),
+            ot::eval(site2.point0(),
                      site1.point0(),
-                     site3.point1(true)) != ot::RIGHT)
+                     site3.point1()) != ot::RIGHT)
           return false;
       }
       return true;
@@ -526,11 +517,8 @@ class voronoi_predicates {
     bool sss(const site_type& site1,
              const site_type& site2,
              const site_type& site3) const {
-      if (site1.point0() == site2.point0() && site1.point1() == site2.point1())
-        return false;
-      if (site2.point0() == site3.point0() && site2.point1() == site3.point1())
-        return false;
-      return true;
+      return (site1.sorted_index() != site2.sorted_index()) &&
+             (site2.sorted_index() != site3.sorted_index());
     }
   };
 
@@ -620,10 +608,10 @@ class voronoi_predicates {
              bool recompute_c_y = true,
              bool recompute_lower_x = true) {
       big_int_type cA[4], cB[4];
-      big_int_type line_a = static_cast<int_x2_type>(site3.point1(true).y()) -
-                            static_cast<int_x2_type>(site3.point0(true).y());
-      big_int_type line_b = static_cast<int_x2_type>(site3.point0(true).x()) -
-                            static_cast<int_x2_type>(site3.point1(true).x());
+      big_int_type line_a = static_cast<int_x2_type>(site3.y1()) -
+                            static_cast<int_x2_type>(site3.y0());
+      big_int_type line_b = static_cast<int_x2_type>(site3.x0()) -
+                            static_cast<int_x2_type>(site3.x1());
       big_int_type segm_len = line_a * line_a + line_b * line_b;
       big_int_type vec_x = static_cast<int_x2_type>(site2.y()) -
                            static_cast<int_x2_type>(site1.y());
@@ -636,21 +624,21 @@ class voronoi_predicates {
       big_int_type teta = line_a * vec_x + line_b * vec_y;
       big_int_type denom = vec_x * line_b - vec_y * line_a;
 
-      big_int_type dif0 = static_cast<int_x2_type>(site3.point1().y()) -
+      big_int_type dif0 = static_cast<int_x2_type>(site3.y1()) -
                           static_cast<int_x2_type>(site1.y());
       big_int_type dif1 = static_cast<int_x2_type>(site1.x()) -
-                          static_cast<int_x2_type>(site3.point1().x());
+                          static_cast<int_x2_type>(site3.x1());
       big_int_type A = line_a * dif1 - line_b * dif0;
-      dif0 = static_cast<int_x2_type>(site3.point1().y()) -
+      dif0 = static_cast<int_x2_type>(site3.y1()) -
              static_cast<int_x2_type>(site2.y());
       dif1 = static_cast<int_x2_type>(site2.x()) -
-             static_cast<int_x2_type>(site3.point1().x());
+             static_cast<int_x2_type>(site3.x1());
       big_int_type B = line_a * dif1 - line_b * dif0;
       big_int_type sum_AB = A + B;
 
       if (is_zero(denom)) {
         big_int_type numer = teta * teta - sum_AB * sum_AB;
-        big_int_type denom = teta * sum_AB;
+        denom = teta * sum_AB;
         cA[0] = denom * sum_x * 2 + numer * vec_x;
         cB[0] = segm_len;
         cA[1] = denom * sum_AB * 2 + numer * teta;
@@ -716,10 +704,10 @@ class voronoi_predicates {
              bool recompute_c_y = true,
              bool recompute_lower_x = true) {
       big_int_type a[2], b[2], c[2], cA[4], cB[4];
-      const point_type& segm_start1 = site2.point1(true);
-      const point_type& segm_end1 = site2.point0(true);
-      const point_type& segm_start2 = site3.point0(true);
-      const point_type& segm_end2 = site3.point1(true);
+      const point_type& segm_start1 = site2.point1();
+      const point_type& segm_end1 = site2.point0();
+      const point_type& segm_start2 = site3.point0();
+      const point_type& segm_end2 = site3.point1();
       a[0] = static_cast<int_x2_type>(segm_end1.x()) -
              static_cast<int_x2_type>(segm_start1.x());
       b[0] = static_cast<int_x2_type>(segm_end1.y()) -
@@ -850,32 +838,32 @@ class voronoi_predicates {
       big_int_type a[3], b[3], c[3], cA[4], cB[4];
       // cA - corresponds to the cross product.
       // cB - corresponds to the squared length.
-      a[0] = static_cast<int_x2_type>(site1.x1(true)) -
-             static_cast<int_x2_type>(site1.x0(true));
-      a[1] = static_cast<int_x2_type>(site2.x1(true)) -
-             static_cast<int_x2_type>(site2.x0(true));
-      a[2] = static_cast<int_x2_type>(site3.x1(true)) -
-             static_cast<int_x2_type>(site3.x0(true));
+      a[0] = static_cast<int_x2_type>(site1.x1()) -
+             static_cast<int_x2_type>(site1.x0());
+      a[1] = static_cast<int_x2_type>(site2.x1()) -
+             static_cast<int_x2_type>(site2.x0());
+      a[2] = static_cast<int_x2_type>(site3.x1()) -
+             static_cast<int_x2_type>(site3.x0());
 
-      b[0] = static_cast<int_x2_type>(site1.y1(true)) -
-             static_cast<int_x2_type>(site1.y0(true));
-      b[1] = static_cast<int_x2_type>(site2.y1(true)) -
-             static_cast<int_x2_type>(site2.y0(true));
-      b[2] = static_cast<int_x2_type>(site3.y1(true)) -
-             static_cast<int_x2_type>(site3.y0(true));
+      b[0] = static_cast<int_x2_type>(site1.y1()) -
+             static_cast<int_x2_type>(site1.y0());
+      b[1] = static_cast<int_x2_type>(site2.y1()) -
+             static_cast<int_x2_type>(site2.y0());
+      b[2] = static_cast<int_x2_type>(site3.y1()) -
+             static_cast<int_x2_type>(site3.y0());
 
-      c[0] = static_cast<int_x2_type>(site1.x0(true)) *
-             static_cast<int_x2_type>(site1.y1(true)) -
-             static_cast<int_x2_type>(site1.y0(true)) *
-             static_cast<int_x2_type>(site1.x1(true));
-      c[1] = static_cast<int_x2_type>(site2.x0(true)) *
-             static_cast<int_x2_type>(site2.y1(true)) -
-             static_cast<int_x2_type>(site2.y0(true)) *
-             static_cast<int_x2_type>(site2.x1(true));
-      c[2] = static_cast<int_x2_type>(site3.x0(true)) *
-             static_cast<int_x2_type>(site3.y1(true)) -
-             static_cast<int_x2_type>(site3.y0(true)) *
-             static_cast<int_x2_type>(site3.x1(true));
+      c[0] = static_cast<int_x2_type>(site1.x0()) *
+             static_cast<int_x2_type>(site1.y1()) -
+             static_cast<int_x2_type>(site1.y0()) *
+             static_cast<int_x2_type>(site1.x1());
+      c[1] = static_cast<int_x2_type>(site2.x0()) *
+             static_cast<int_x2_type>(site2.y1()) -
+             static_cast<int_x2_type>(site2.y0()) *
+             static_cast<int_x2_type>(site2.x1());
+      c[2] = static_cast<int_x2_type>(site3.x0()) *
+             static_cast<int_x2_type>(site3.y1()) -
+             static_cast<int_x2_type>(site3.y0()) *
+             static_cast<int_x2_type>(site3.x1());
 
       for (int i = 0; i < 3; ++i)
         cB[i] = a[i] * a[i] + b[i] * b[i];
@@ -1060,48 +1048,46 @@ class voronoi_predicates {
              const site_type& site3,
              int segment_index,
              circle_type& c_event) {
-      fpt_type line_a = to_fpt(site3.point1(true).y()) -
-                        to_fpt(site3.point0(true).y());
-      fpt_type line_b = to_fpt(site3.point0(true).x()) -
-                        to_fpt(site3.point1(true).x());
+      fpt_type line_a = to_fpt(site3.y1()) - to_fpt(site3.y0());
+      fpt_type line_b = to_fpt(site3.x0()) - to_fpt(site3.x1());
       fpt_type vec_x = to_fpt(site2.y()) - to_fpt(site1.y());
       fpt_type vec_y = to_fpt(site1.x()) - to_fpt(site2.x());
       robust_fpt_type teta(robust_cross_product(
-          static_cast<int_x2_type>(site3.point1(true).y()) -
-          static_cast<int_x2_type>(site3.point0(true).y()),
-          static_cast<int_x2_type>(site3.point0(true).x()) -
-          static_cast<int_x2_type>(site3.point1(true).x()),
+          static_cast<int_x2_type>(site3.y1()) -
+          static_cast<int_x2_type>(site3.y0()),
+          static_cast<int_x2_type>(site3.x0()) -
+          static_cast<int_x2_type>(site3.x1()),
           static_cast<int_x2_type>(site2.x()) -
           static_cast<int_x2_type>(site1.x()),
           static_cast<int_x2_type>(site2.y()) -
           static_cast<int_x2_type>(site1.y())), to_fpt(1.0));
       robust_fpt_type A(robust_cross_product(
-          static_cast<int_x2_type>(site3.point1(true).y()) -
-          static_cast<int_x2_type>(site3.point0(true).y()),
-          static_cast<int_x2_type>(site3.point0(true).x()) -
-          static_cast<int_x2_type>(site3.point1(true).x()),
-          static_cast<int_x2_type>(site3.point1().y()) -
+          static_cast<int_x2_type>(site3.y0()) -
+          static_cast<int_x2_type>(site3.y1()),
+          static_cast<int_x2_type>(site3.x0()) -
+          static_cast<int_x2_type>(site3.x1()),
+          static_cast<int_x2_type>(site3.y1()) -
           static_cast<int_x2_type>(site1.y()),
-          static_cast<int_x2_type>(site1.x()) -
-          static_cast<int_x2_type>(site3.point1().x())), to_fpt(1.0));
+          static_cast<int_x2_type>(site3.x1()) -
+          static_cast<int_x2_type>(site1.x())), to_fpt(1.0));
       robust_fpt_type B(robust_cross_product(
-          static_cast<int_x2_type>(site3.point1(true).y()) -
-          static_cast<int_x2_type>(site3.point0(true).y()),
-          static_cast<int_x2_type>(site3.point0(true).x()) -
-          static_cast<int_x2_type>(site3.point1(true).x()),
-          static_cast<int_x2_type>(site3.point1().y()) -
+          static_cast<int_x2_type>(site3.y0()) -
+          static_cast<int_x2_type>(site3.y1()),
+          static_cast<int_x2_type>(site3.x0()) -
+          static_cast<int_x2_type>(site3.x1()),
+          static_cast<int_x2_type>(site3.y1()) -
           static_cast<int_x2_type>(site2.y()),
-          static_cast<int_x2_type>(site2.x()) -
-          static_cast<int_x2_type>(site3.point1().x())), to_fpt(1.0));
+          static_cast<int_x2_type>(site3.x1()) -
+          static_cast<int_x2_type>(site2.x())), to_fpt(1.0));
       robust_fpt_type denom(robust_cross_product(
-          static_cast<int_x2_type>(site2.y()) -
-          static_cast<int_x2_type>(site1.y()),
+          static_cast<int_x2_type>(site1.y()) -
+          static_cast<int_x2_type>(site2.y()),
           static_cast<int_x2_type>(site1.x()) -
           static_cast<int_x2_type>(site2.x()),
-          static_cast<int_x2_type>(site3.point1(true).y()) -
-          static_cast<int_x2_type>(site3.point0(true).y()),
-          static_cast<int_x2_type>(site3.point0(true).x()) -
-          static_cast<int_x2_type>(site3.point1(true).x())), to_fpt(1.0));
+          static_cast<int_x2_type>(site3.y1()) -
+          static_cast<int_x2_type>(site3.y0()),
+          static_cast<int_x2_type>(site3.x1()) -
+          static_cast<int_x2_type>(site3.x0())), to_fpt(1.0));
       robust_fpt_type inv_segm_len(to_fpt(1.0) /
           get_sqrt(line_a * line_a + line_b * line_b), to_fpt(3.0));
       robust_dif_type t;
@@ -1118,11 +1104,11 @@ class voronoi_predicates {
         t += teta * (A + B) / (robust_fpt_type(to_fpt(2.0)) * denom * denom);
       }
       robust_dif_type c_x, c_y;
-      c_x += robust_fpt_type(to_fpt(0.5) * (to_fpt(site1.x()) +
-                                            to_fpt(site2.x())));
+      c_x += robust_fpt_type(to_fpt(0.5) *
+          (to_fpt(site1.x()) + to_fpt(site2.x())));
       c_x += robust_fpt_type(vec_x) * t;
-      c_y += robust_fpt_type(to_fpt(0.5) * (to_fpt(site1.y()) +
-                                            to_fpt(site2.y())));
+      c_y += robust_fpt_type(to_fpt(0.5) *
+          (to_fpt(site1.y()) + to_fpt(site2.y())));
       c_y += robust_fpt_type(vec_y) * t;
       robust_dif_type r, lower_x(c_x);
       r -= robust_fpt_type(line_a) * robust_fpt_type(site3.x0());
@@ -1149,10 +1135,10 @@ class voronoi_predicates {
              const site_type& site3,
              int point_index,
              circle_type& c_event) {
-      const point_type& segm_start1 = site2.point1(true);
-      const point_type& segm_end1 = site2.point0(true);
-      const point_type& segm_start2 = site3.point0(true);
-      const point_type& segm_end2 = site3.point1(true);
+      const point_type& segm_start1 = site2.point1();
+      const point_type& segm_end1 = site2.point0();
+      const point_type& segm_start2 = site3.point0();
+      const point_type& segm_end2 = site3.point1();
       fpt_type a1 = to_fpt(segm_end1.x()) - to_fpt(segm_start1.x());
       fpt_type b1 = to_fpt(segm_end1.y()) - to_fpt(segm_start1.y());
       fpt_type a2 = to_fpt(segm_end2.x()) - to_fpt(segm_start2.x());
@@ -1343,54 +1329,54 @@ class voronoi_predicates {
              const site_type& site2,
              const site_type& site3,
              circle_type& c_event) {
-      robust_fpt_type a1(to_fpt(site1.x1(true)) - to_fpt(site1.x0(true)));
-      robust_fpt_type b1(to_fpt(site1.y1(true)) - to_fpt(site1.y0(true)));
+      robust_fpt_type a1(to_fpt(site1.x1()) - to_fpt(site1.x0()));
+      robust_fpt_type b1(to_fpt(site1.y1()) - to_fpt(site1.y0()));
       robust_fpt_type c1(robust_cross_product(
-          site1.x0(true), site1.y0(true),
-          site1.x1(true), site1.y1(true)), to_fpt(1.0));
+          site1.x0(), site1.y0(),
+          site1.x1(), site1.y1()), to_fpt(1.0));
 
-      robust_fpt_type a2(to_fpt(site2.x1(true)) - to_fpt(site2.x0(true)));
-      robust_fpt_type b2(to_fpt(site2.y1(true)) - to_fpt(site2.y0(true)));
+      robust_fpt_type a2(to_fpt(site2.x1()) - to_fpt(site2.x0()));
+      robust_fpt_type b2(to_fpt(site2.y1()) - to_fpt(site2.y0()));
       robust_fpt_type c2(robust_cross_product(
-          site2.x0(true), site2.y0(true),
-          site2.x1(true), site2.y1(true)), to_fpt(1.0));
+          site2.x0(), site2.y0(),
+          site2.x1(), site2.y1()), to_fpt(1.0));
 
-      robust_fpt_type a3(to_fpt(site3.x1(true)) - to_fpt(site3.x0(true)));
-      robust_fpt_type b3(to_fpt(site3.y1(true)) - to_fpt(site3.y0(true)));
+      robust_fpt_type a3(to_fpt(site3.x1()) - to_fpt(site3.x0()));
+      robust_fpt_type b3(to_fpt(site3.y1()) - to_fpt(site3.y0()));
       robust_fpt_type c3(robust_cross_product(
-          site3.x0(true), site3.y0(true),
-          site3.x1(true), site3.y1(true)), to_fpt(1.0));
+          site3.x0(), site3.y0(),
+          site3.x1(), site3.y1()), to_fpt(1.0));
 
       robust_fpt_type len1 = (a1 * a1 + b1 * b1).sqrt();
       robust_fpt_type len2 = (a2 * a2 + b2 * b2).sqrt();
       robust_fpt_type len3 = (a3 * a3 + b3 * b3).sqrt();
       robust_fpt_type cross_12(robust_cross_product(
-          static_cast<int_x2_type>(site1.x1(true)) -
-          static_cast<int_x2_type>(site1.x0(true)),
-          static_cast<int_x2_type>(site1.y1(true)) -
-          static_cast<int_x2_type>(site1.y0(true)),
-          static_cast<int_x2_type>(site2.x1(true)) -
-          static_cast<int_x2_type>(site2.x0(true)),
-          static_cast<int_x2_type>(site2.y1(true)) -
-          static_cast<int_x2_type>(site2.y0(true))), to_fpt(1.0));
+          static_cast<int_x2_type>(site1.x1()) -
+          static_cast<int_x2_type>(site1.x0()),
+          static_cast<int_x2_type>(site1.y1()) -
+          static_cast<int_x2_type>(site1.y0()),
+          static_cast<int_x2_type>(site2.x1()) -
+          static_cast<int_x2_type>(site2.x0()),
+          static_cast<int_x2_type>(site2.y1()) -
+          static_cast<int_x2_type>(site2.y0())), to_fpt(1.0));
       robust_fpt_type cross_23(robust_cross_product(
-          static_cast<int_x2_type>(site2.x1(true)) -
-          static_cast<int_x2_type>(site2.x0(true)),
-          static_cast<int_x2_type>(site2.y1(true)) -
-          static_cast<int_x2_type>(site2.y0(true)),
-          static_cast<int_x2_type>(site3.x1(true)) -
-          static_cast<int_x2_type>(site3.x0(true)),
-          static_cast<int_x2_type>(site3.y1(true)) -
-          static_cast<int_x2_type>(site3.y0(true))), to_fpt(1.0));
+          static_cast<int_x2_type>(site2.x1()) -
+          static_cast<int_x2_type>(site2.x0()),
+          static_cast<int_x2_type>(site2.y1()) -
+          static_cast<int_x2_type>(site2.y0()),
+          static_cast<int_x2_type>(site3.x1()) -
+          static_cast<int_x2_type>(site3.x0()),
+          static_cast<int_x2_type>(site3.y1()) -
+          static_cast<int_x2_type>(site3.y0())), to_fpt(1.0));
       robust_fpt_type cross_31(robust_cross_product(
-          static_cast<int_x2_type>(site3.x1(true)) -
-          static_cast<int_x2_type>(site3.x0(true)),
-          static_cast<int_x2_type>(site3.y1(true)) -
-          static_cast<int_x2_type>(site3.y0(true)),
-          static_cast<int_x2_type>(site1.x1(true)) -
-          static_cast<int_x2_type>(site1.x0(true)),
-          static_cast<int_x2_type>(site1.y1(true)) -
-          static_cast<int_x2_type>(site1.y0(true))), to_fpt(1.0));
+          static_cast<int_x2_type>(site3.x1()) -
+          static_cast<int_x2_type>(site3.x0()),
+          static_cast<int_x2_type>(site3.y1()) -
+          static_cast<int_x2_type>(site3.y0()),
+          static_cast<int_x2_type>(site1.x1()) -
+          static_cast<int_x2_type>(site1.x0()),
+          static_cast<int_x2_type>(site1.y1()) -
+          static_cast<int_x2_type>(site1.y0())), to_fpt(1.0));
 
       // denom = cross_12 * len3 + cross_23 * len1 + cross_31 * len2.
       robust_dif_type denom;
@@ -1512,10 +1498,29 @@ class voronoi_predicates {
           }
         }
       }
+      if (lies_outside_vertical_segment(circle, site1) ||
+          lies_outside_vertical_segment(circle, site2) ||
+          lies_outside_vertical_segment(circle, site3)) {
+        return false;
+      }
       return true;
     }
 
    private:
+    bool lies_outside_vertical_segment(
+        const circle_type& c, const site_type& s) {
+      if (!s.is_segment() || !is_vertical(s)) {
+        return false;
+      }
+      fpt_type y0 = to_fpt(s.is_inverse() ? s.y1() : s.y0());
+      fpt_type y1 = to_fpt(s.is_inverse() ? s.y0() : s.y1());
+      return ulp_cmp(c.y(), y0, ULPS) == ulp_cmp_type::LESS ||
+             ulp_cmp(c.y(), y1, ULPS) == ulp_cmp_type::MORE;
+    }
+
+   private:
+    to_fpt_converter to_fpt;
+    ulp_cmp_type ulp_cmp;
     circle_existence_predicate_type circle_existence_predicate_;
     circle_formation_functor_type circle_formation_functor_;
   };

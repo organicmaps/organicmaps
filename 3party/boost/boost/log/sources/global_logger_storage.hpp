@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -17,15 +17,15 @@
 
 #include <typeinfo>
 #include <stdexcept>
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
+#include <boost/smart_ptr/shared_ptr.hpp>
+#include <boost/smart_ptr/make_shared_object.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/singleton.hpp>
 #include <boost/log/detail/visible_type.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -38,7 +38,7 @@ namespace sources {
 namespace aux {
 
 //! The base class for logger holders
-struct BOOST_LOG_NO_VTABLE BOOST_LOG_VISIBLE logger_holder_base
+struct BOOST_LOG_NO_VTABLE BOOST_SYMBOL_VISIBLE logger_holder_base
 {
     //! The source file name where the logger was registered
     const char* m_RegistrationFile;
@@ -56,7 +56,7 @@ struct BOOST_LOG_NO_VTABLE BOOST_LOG_VISIBLE logger_holder_base
 
 //! The actual logger holder class
 template< typename LoggerT >
-struct BOOST_LOG_VISIBLE logger_holder :
+struct BOOST_SYMBOL_VISIBLE logger_holder :
     public logger_holder_base
 {
     //! The logger instance
@@ -79,9 +79,9 @@ struct global_storage
     BOOST_LOG_API static shared_ptr< logger_holder_base > get_or_init(std::type_info const& key, initializer_t initializer);
 
     //  Non-constructible, non-copyable, non-assignable
-    BOOST_LOG_DELETED_FUNCTION(global_storage())
-    BOOST_LOG_DELETED_FUNCTION(global_storage(global_storage const&))
-    BOOST_LOG_DELETED_FUNCTION(global_storage& operator= (global_storage const&))
+    BOOST_DELETED_FUNCTION(global_storage())
+    BOOST_DELETED_FUNCTION(global_storage(global_storage const&))
+    BOOST_DELETED_FUNCTION(global_storage& operator= (global_storage const&))
 };
 
 //! Throws the \c odr_violation exception

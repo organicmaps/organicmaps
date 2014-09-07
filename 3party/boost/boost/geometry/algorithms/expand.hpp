@@ -3,6 +3,7 @@
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2014 Samuel Debionne, Grenoble, France.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -27,6 +28,9 @@
 
 #include <boost/geometry/strategies/compare.hpp>
 #include <boost/geometry/policies/compare.hpp>
+
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
 
 
 namespace boost { namespace geometry
@@ -249,6 +253,51 @@ struct expand<Box, Segment, StrategyLess, StrategyGreater, box_tag, segment_tag>
 #endif // DOXYGEN_NO_DISPATCH
 
 
+namespace resolve_variant {
+    
+template <typename Geometry>
+struct expand
+{
+    template <typename Box>
+    static inline void apply(Box& box, Geometry const& geometry)
+    {
+        concept::check<Box>();
+        concept::check<Geometry const>();
+        concept::check_concepts_and_equal_dimensions<Box, Geometry const>();
+        
+        dispatch::expand<Box, Geometry>::apply(box, geometry);
+    }
+};
+
+template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+struct expand<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
+{
+    template <typename Box>
+    struct visitor: boost::static_visitor<void>
+    {
+        Box& m_box;
+        
+        visitor(Box& box) : m_box(box) {}
+        
+        template <typename Geometry>
+        void operator()(Geometry const& geometry) const
+        {
+            return expand<Geometry>::apply(m_box, geometry);
+        }
+    };
+    
+    template <class Box>
+    static inline void
+    apply(Box& box,
+          boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry)
+    {
+        return boost::apply_visitor(visitor<Box>(box), geometry);
+    }
+};
+    
+} // namespace resolve_variant
+    
+    
 /***
 *!
 \brief Expands a box using the extend (envelope) of another geometry (box, point)
@@ -290,9 +339,7 @@ inline void expand(Box& box, Geometry const& geometry,
 template <typename Box, typename Geometry>
 inline void expand(Box& box, Geometry const& geometry)
 {
-    concept::check_concepts_and_equal_dimensions<Box, Geometry const>();
-
-    dispatch::expand<Box, Geometry>::apply(box, geometry);
+    resolve_variant::expand<Geometry>::apply(box, geometry);
 }
 
 }} // namespace boost::geometry

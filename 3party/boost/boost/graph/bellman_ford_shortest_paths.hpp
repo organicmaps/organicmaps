@@ -102,8 +102,6 @@ namespace boost {
     typedef typename GTraits::vertex_descriptor Vertex;
     BOOST_CONCEPT_ASSERT(( ReadWritePropertyMapConcept<DistanceMap, Vertex> ));
     BOOST_CONCEPT_ASSERT(( ReadablePropertyMapConcept<WeightMap, Edge> ));
-    typedef typename property_traits<DistanceMap>::value_type D_value;
-    typedef typename property_traits<WeightMap>::value_type W_value;
 
     typename GTraits::edge_iterator i, end;
 

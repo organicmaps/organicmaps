@@ -2,7 +2,7 @@
 // ip/tcp.hpp
 // ~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -52,25 +52,25 @@ public:
   /// Construct to represent the IPv4 TCP protocol.
   static tcp v4()
   {
-    return tcp(PF_INET);
+    return tcp(BOOST_ASIO_OS_DEF(AF_INET));
   }
 
   /// Construct to represent the IPv6 TCP protocol.
   static tcp v6()
   {
-    return tcp(PF_INET6);
+    return tcp(BOOST_ASIO_OS_DEF(AF_INET6));
   }
 
   /// Obtain an identifier for the type of the protocol.
   int type() const
   {
-    return SOCK_STREAM;
+    return BOOST_ASIO_OS_DEF(SOCK_STREAM);
   }
 
   /// Obtain an identifier for the protocol.
   int protocol() const
   {
-    return IPPROTO_TCP;
+    return BOOST_ASIO_OS_DEF(IPPROTO_TCP);
   }
 
   /// Obtain an identifier for the protocol family.
@@ -123,7 +123,7 @@ public:
   typedef implementation_defined no_delay;
 #else
   typedef boost::asio::detail::socket_option::boolean<
-    IPPROTO_TCP, TCP_NODELAY> no_delay;
+    BOOST_ASIO_OS_DEF(IPPROTO_TCP), BOOST_ASIO_OS_DEF(TCP_NODELAY)> no_delay;
 #endif
 
   /// Compare two protocols for equality.

@@ -23,6 +23,7 @@
 #include <boost/mpl/push_back.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/contains.hpp>
+#include <boost/mpl/limits/list.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 namespace boost { namespace spirit { namespace detail
@@ -30,6 +31,8 @@ namespace boost { namespace spirit { namespace detail
     template <int size>
     struct as_variant_impl;
 
+#if !defined(BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES)
+#else
     template <>
     struct as_variant_impl<0>
     {
@@ -39,6 +42,7 @@ namespace boost { namespace spirit { namespace detail
             typedef variant<> type;
         };
     };
+#endif
 
 #define BOOST_FUSION_NEXT_ITERATOR(z, n, data)                                  \
     typedef typename fusion::result_of::next<BOOST_PP_CAT(I, n)>::type          \
@@ -53,7 +57,13 @@ namespace boost { namespace spirit { namespace detail
         BOOST_PP_CAT(T, n);
 
 #define BOOST_PP_FILENAME_1 <boost/spirit/home/support/detail/as_variant.hpp>
+
+#if !defined(BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES)
+#define BOOST_PP_ITERATION_LIMITS (1, BOOST_MPL_LIMIT_LIST_SIZE)
+#else
 #define BOOST_PP_ITERATION_LIMITS (1, BOOST_VARIANT_LIMIT_TYPES)
+#endif
+
 #include BOOST_PP_ITERATE()
 
 #undef BOOST_FUSION_NEXT_ITERATOR

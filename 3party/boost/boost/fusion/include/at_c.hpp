@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_AT_C)
 #define FUSION_INCLUDE_AT_C
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/at_c.hpp>
 
 #endif

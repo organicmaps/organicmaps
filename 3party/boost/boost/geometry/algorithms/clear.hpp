@@ -15,17 +15,19 @@
 #define BOOST_GEOMETRY_ALGORITHMS_CLEAR_HPP
 
 
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
+
 #include <boost/geometry/algorithms/not_implemented.hpp>
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/mutable_range.hpp>
 #include <boost/geometry/core/tag_cast.hpp>
+#include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/variant/apply_visitor.hpp>
-#include <boost/variant/static_visitor.hpp>
-#include <boost/variant/variant_fwd.hpp>
 
 
 namespace boost { namespace geometry
@@ -125,16 +127,28 @@ struct clear<Polygon, polygon_tag>
 
 
 template <typename Geometry>
-struct devarianted_clear
+struct clear<Geometry, multi_tag>
+    : detail::clear::collection_clear<Geometry>
+{};
+
+
+} // namespace dispatch
+#endif // DOXYGEN_NO_DISPATCH
+
+
+namespace resolve_variant {
+
+template <typename Geometry>
+struct clear
 {
     static inline void apply(Geometry& geometry)
     {
-        clear<Geometry>::apply(geometry);
+        dispatch::clear<Geometry>::apply(geometry);
     }
 };
 
 template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
-struct devarianted_clear<variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
+struct clear<variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
 {
     struct visitor: static_visitor<void>
     {
@@ -151,9 +165,7 @@ struct devarianted_clear<variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
     }
 };
 
-
-} // namespace dispatch
-#endif // DOXYGEN_NO_DISPATCH
+} // namespace resolve_variant
 
 
 /*!
@@ -174,7 +186,7 @@ inline void clear(Geometry& geometry)
 {
     concept::check<Geometry>();
 
-    dispatch::devarianted_clear<Geometry>::apply(geometry);
+    resolve_variant::clear<Geometry>::apply(geometry);
 }
 
 

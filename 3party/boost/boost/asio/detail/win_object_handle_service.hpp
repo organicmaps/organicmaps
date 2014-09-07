@@ -2,7 +2,7 @@
 // detail/win_object_handle_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 // Copyright (c) 2011 Boris Schaeling (boris@highscore.de)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -130,7 +130,7 @@ public:
 
   /// Start an asynchronous wait.
   template <typename Handler>
-  void async_wait(implementation_type& impl, Handler handler)
+  void async_wait(implementation_type& impl, Handler& handler)
   {
     // Allocate and construct an operation to wrap the handler.
     typedef wait_handler<Handler> op;

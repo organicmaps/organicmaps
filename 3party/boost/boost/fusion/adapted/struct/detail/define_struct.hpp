@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_ADAPTED_DETAIL_STRUCT_DEFINE_STRUCT_HPP
 #define BOOST_FUSION_ADAPTED_DETAIL_STRUCT_DEFINE_STRUCT_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/config.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/fusion/iterator/deref.hpp>
@@ -61,6 +62,7 @@
     ATTRIBUTES_SEQ, ATTRIBUTE_TUPEL_SIZE)                                       \
                                                                                 \
     template<typename Seq>                                                      \
+    BOOST_FUSION_GPU_ENABLED                                                    \
     self_type&                                                                  \
     operator=(Seq const& seq)                                                   \
     {                                                                           \
@@ -119,6 +121,7 @@
         ATTRIBUTE_TUPEL_SIZE,                                                   \
         ATTRIBUTES_SEQ)                                                         \
                                                                                 \
+    BOOST_FUSION_GPU_ENABLED                                                    \
     NAME()                                                                      \
       : BOOST_PP_SEQ_FOR_EACH_I_R(                                              \
             1,                                                                  \
@@ -127,6 +130,7 @@
             ATTRIBUTES_SEQ)                                                     \
     {}                                                                          \
                                                                                 \
+    BOOST_FUSION_GPU_ENABLED                                                    \
     NAME(self_type const& other_self)                                           \
       : BOOST_PP_SEQ_FOR_EACH_I_R(                                              \
             1,                                                                  \
@@ -136,6 +140,7 @@
     {}                                                                          \
                                                                                 \
     template<typename Seq>                                                      \
+    BOOST_FUSION_GPU_ENABLED                                                    \
     NAME(Seq const& seq                                                         \
         BOOST_PP_IF(                                                            \
             BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(ATTRIBUTES_SEQ)),                    \
@@ -155,6 +160,7 @@
 #define BOOST_FUSION_DEFINE_STRUCT_CTOR_1(                                      \
         NAME, ATTRIBUTES_SEQ, ATTRIBUTE_TUPEL_SIZE)                             \
                                                                                 \
+        BOOST_FUSION_GPU_ENABLED                                                \
         explicit                                                                \
         NAME(boost::call_traits<                                                \
                 BOOST_PP_TUPLE_ELEM(                                            \
@@ -167,6 +173,7 @@
 #define BOOST_FUSION_DEFINE_TPL_STRUCT_CTOR_1(                                  \
         TEMPLATE_PARAMS_SEQ, NAME, ATTRIBUTES_SEQ, ATTRIBUTE_TUPEL_SIZE)        \
                                                                                 \
+        BOOST_FUSION_GPU_ENABLED                                                \
         explicit                                                                \
         NAME(typename boost::call_traits<                                       \
                 typename boost::fusion::detail::get_first_arg<                  \
@@ -203,6 +210,7 @@
 #define BOOST_FUSION_DEFINE_TPL_STRUCT_CTOR_N(                                  \
     TEMPLATE_PARAMS_SEQ, NAME, ATTRIBUTES_SEQ, ATTRIBUTE_TUPEL_SIZE)            \
                                                                                 \
+        BOOST_FUSION_GPU_ENABLED                                                \
         NAME(BOOST_PP_SEQ_FOR_EACH_I_R(                                         \
                 1,                                                              \
                 BOOST_FUSION_DEFINE_TPL_STRUCT_CTOR_ARG_I,                      \
@@ -230,6 +238,7 @@
 #define BOOST_FUSION_DEFINE_STRUCT_CTOR_N(                                      \
     NAME, ATTRIBUTES_SEQ, ATTRIBUTE_TUPEL_SIZE)                                 \
                                                                                 \
+        BOOST_FUSION_GPU_ENABLED                                                \
         NAME(BOOST_PP_SEQ_FOR_EACH_I_R(                                         \
                 1,                                                              \
                 BOOST_FUSION_DEFINE_STRUCT_CTOR_ARG_I,                          \
@@ -271,10 +280,12 @@
     NAME, ATTRIBUTES_SEQ, ATTRIBUTE_TUPEL_SIZE)                                 \
                                                                                 \
         template<typename Seq>                                                  \
+        BOOST_FUSION_GPU_ENABLED                                                \
         NAME(Seq const&)                                                        \
         {}                                                                      \
                                                                                 \
         template<typename Seq>                                                  \
+        BOOST_FUSION_GPU_ENABLED                                                \
         self_type&                                                              \
         operator=(Seq const& seq)                                               \
         {                                                                       \

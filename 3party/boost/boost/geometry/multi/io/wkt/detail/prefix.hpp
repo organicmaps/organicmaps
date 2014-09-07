@@ -14,38 +14,8 @@
 #ifndef BOOST_GEOMETRY_MULTI_IO_WKT_DETAIL_PREFIX_HPP
 #define BOOST_GEOMETRY_MULTI_IO_WKT_DETAIL_PREFIX_HPP
 
-#include <boost/geometry/multi/core/tags.hpp>
 
-namespace boost { namespace geometry
-{
+#include <boost/geometry/io/wkt/detail/prefix.hpp>
 
-#ifndef DOXYGEN_NO_DETAIL
-namespace detail { namespace wkt
-{
-
-struct prefix_null
-{
-    static inline const char* apply() { return ""; }
-};
-
-struct prefix_multipoint
-{
-    static inline const char* apply() { return "MULTIPOINT"; }
-};
-
-struct prefix_multilinestring
-{
-    static inline const char* apply() { return "MULTILINESTRING"; }
-};
-
-struct prefix_multipolygon
-{
-    static inline const char* apply() { return "MULTIPOLYGON"; }
-};
-
-}} // namespace wkt::impl
-#endif
-
-}} // namespace boost::geometry
 
 #endif // BOOST_GEOMETRY_MULTI_IO_WKT_DETAIL_PREFIX_HPP

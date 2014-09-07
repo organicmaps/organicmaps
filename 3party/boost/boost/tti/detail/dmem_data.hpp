@@ -15,18 +15,21 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/tti/detail/ddeftype.hpp>
 #include <boost/tti/detail/dftclass.hpp>
 #include <boost/tti/gen/namespace_gen.hpp>
 #include <boost/type_traits/detail/yes_no_type.hpp>
+#include <boost/type_traits/is_class.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/remove_const.hpp>
 
 #if defined(BOOST_MSVC) || (BOOST_WORKAROUND(BOOST_GCC, >= 40400) && BOOST_WORKAROUND(BOOST_GCC, < 40600))
 
-#define BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA(trait,name) \
+#define BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA_OP(trait,name) \
   template<class BOOST_TTI_DETAIL_TP_T,class BOOST_TTI_DETAIL_TP_C> \
-  struct BOOST_PP_CAT(trait,_detail_hmd) \
+  struct BOOST_PP_CAT(trait,_detail_hmd_op) \
     { \
     template<class> \
     struct return_of; \
@@ -73,8 +76,6 @@
     \
     typedef typename ttc_md<BOOST_TTI_DETAIL_TP_T,BOOST_TTI_DETAIL_TP_C>::type type; \
     \
-    BOOST_STATIC_CONSTANT(bool,value=type::value); \
-    \
     }; \
 /**/
 
@@ -82,16 +83,85 @@
 
 #include <boost/tti/detail/dmem_fun.hpp>
 
-#define BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA(trait,name) \
+#define BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA_OP(trait,name) \
   BOOST_TTI_DETAIL_TRAIT_HAS_TYPES_MEMBER_FUNCTION(trait,name) \
   template<class BOOST_TTI_DETAIL_TP_T,class BOOST_TTI_DETAIL_TP_C> \
-  struct BOOST_PP_CAT(trait,_detail_hmd) : \
+  struct BOOST_PP_CAT(trait,_detail_hmd_op) : \
     BOOST_PP_CAT(trait,_detail_types)<BOOST_TTI_DETAIL_TP_T,BOOST_TTI_DETAIL_TP_C> \
     { \
     }; \
 /**/
 
 #endif // defined(BOOST_MSVC)
+
+#define BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA_INVOKE_ENCLOSING_CLASS(trait) \
+  template<class BOOST_TTI_DETAIL_TP_ET,class BOOST_TTI_DETAIL_TP_TYPE> \
+  struct BOOST_PP_CAT(trait,_detail_hmd_invoke_enclosing_class) : \
+  	BOOST_PP_CAT(trait,_detail_hmd_op) \
+		< \
+		typename BOOST_TTI_NAMESPACE::detail::ptmd<BOOST_TTI_DETAIL_TP_ET,BOOST_TTI_DETAIL_TP_TYPE>::type, \
+		typename boost::remove_const<BOOST_TTI_DETAIL_TP_ET>::type \
+		> \
+  	{ \
+  	}; \
+/**/
+
+#define BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA_INVOKE_PT_MEMBER(trait) \
+  template<class BOOST_TTI_DETAIL_TP_ET,class BOOST_TTI_DETAIL_TP_TYPE> \
+  struct BOOST_PP_CAT(trait,_detail_hmd_invoke_pt_member) : \
+	BOOST_PP_CAT(trait,_detail_hmd_op) \
+		< \
+		typename BOOST_TTI_NAMESPACE::detail::dmem_get_type<BOOST_TTI_DETAIL_TP_ET,BOOST_TTI_DETAIL_TP_TYPE>::type, \
+		typename boost::remove_const \
+			< \
+			typename BOOST_TTI_NAMESPACE::detail::dmem_get_enclosing<BOOST_TTI_DETAIL_TP_ET,BOOST_TTI_DETAIL_TP_TYPE>::type \
+			>::type \
+		> \
+  	{ \
+  	}; \
+/**/
+
+#define BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA_WITH_ENCLOSING_CLASS(trait) \
+  BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA_INVOKE_ENCLOSING_CLASS(trait) \
+  template<class BOOST_TTI_DETAIL_TP_ET,class BOOST_TTI_DETAIL_TP_TYPE> \
+  struct BOOST_PP_CAT(trait,_detail_hmd_with_enclosing_class) : \
+	boost::mpl::eval_if \
+		< \
+ 		boost::is_class<BOOST_TTI_DETAIL_TP_ET>, \
+ 		BOOST_PP_CAT(trait,_detail_hmd_invoke_enclosing_class) \
+ 			< \
+ 			BOOST_TTI_DETAIL_TP_ET, \
+ 			BOOST_TTI_DETAIL_TP_TYPE \
+ 			>, \
+ 		boost::mpl::false_ \
+		> \
+  	{ \
+  	}; \
+/**/
+
+#define BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA(trait,name) \
+  BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA_OP(trait,name) \
+  BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA_WITH_ENCLOSING_CLASS(trait) \
+  BOOST_TTI_DETAIL_TRAIT_HAS_MEMBER_DATA_INVOKE_PT_MEMBER(trait) \
+  template<class BOOST_TTI_DETAIL_TP_ET,class BOOST_TTI_DETAIL_TP_TYPE> \
+  struct BOOST_PP_CAT(trait,_detail_hmd) : \
+ 	boost::mpl::eval_if \
+ 		< \
+		boost::is_same<BOOST_TTI_DETAIL_TP_TYPE,BOOST_TTI_NAMESPACE::detail::deftype>, \
+ 		BOOST_PP_CAT(trait,_detail_hmd_invoke_pt_member) \
+ 			< \
+ 			BOOST_TTI_DETAIL_TP_ET, \
+ 			BOOST_TTI_DETAIL_TP_TYPE \
+ 			>, \
+ 		BOOST_PP_CAT(trait,_detail_hmd_with_enclosing_class) \
+ 			< \
+ 			BOOST_TTI_DETAIL_TP_ET, \
+ 			BOOST_TTI_DETAIL_TP_TYPE \
+ 			> \
+ 		> \
+    { \
+    }; \
+/**/
 
 namespace boost
   {

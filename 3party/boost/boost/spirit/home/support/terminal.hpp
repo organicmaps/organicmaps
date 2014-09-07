@@ -33,10 +33,10 @@ namespace boost { namespace spirit
         typedef Terminal terminal_type;
         typedef Args args_type;
 
-        terminal_ex(Args const& args)
-          : args(args) {}
-        terminal_ex(Args const& args, Terminal const& term)
-          : args(args), term(term) {}
+        terminal_ex(Args const& args_)
+          : args(args_) {}
+        terminal_ex(Args const& args_, Terminal const& term_)
+          : args(args_), term(term_) {}
 
         Args args;  // Args is guaranteed to be a fusion::vectorN so you
                     // can use that template for detection and specialization
@@ -50,10 +50,10 @@ namespace boost { namespace spirit
         typedef Actor actor_type;
         static int const arity = Arity;
 
-        lazy_terminal(Actor const& actor)
-          : actor(actor) {}
-        lazy_terminal(Actor const& actor, Terminal const& term)
-          : actor(actor), term(term) {}
+        lazy_terminal(Actor const& actor_)
+          : actor(actor_) {}
+        lazy_terminal(Actor const& actor_, Terminal const& term_)
+          : actor(actor_), term(term_) {}
 
         Actor actor;
         Terminal term;
@@ -104,11 +104,11 @@ namespace boost { namespace spirit
         typedef result_type type;
 
         result_type
-        operator()(F f, A0 const& _0) const
+        operator()(F f, A0 const& _0_) const
         {
             typedef typename result_type::proto_child0 child_type;
             return result_type::make(child_type(
-                phoenix::detail::expression::function_eval<F, A0>::make(f, _0)
+                phoenix::detail::expression::function_eval<F, A0>::make(f, _0_)
               , f.proto_base().child0
             ));
         }
@@ -129,11 +129,11 @@ namespace boost { namespace spirit
         typedef result_type type;
 
         result_type
-        operator()(F f, A0 const& _0, A1 const& _1) const
+        operator()(F f, A0 const& _0_, A1 const& _1_) const
         {
             typedef typename result_type::proto_child0 child_type;
             return result_type::make(child_type(
-                phoenix::detail::expression::function_eval<F, A0, A1>::make(f, _0, _1)
+                phoenix::detail::expression::function_eval<F, A0, A1>::make(f, _0_, _1_)
               , f.proto_base().child0
             ));
         }
@@ -154,11 +154,11 @@ namespace boost { namespace spirit
         typedef result_type type;
 
         result_type
-        operator()(F f, A0 const& _0, A1 const& _1, A2 const& _2) const
+        operator()(F f, A0 const& _0_, A1 const& _1_, A2 const& _2_) const
         {
             typedef typename result_type::proto_child0 child_type;
             return result_type::make(child_type(
-                phoenix::detail::expression::function_eval<F, A0, A1, A2>::make(f, _0, _1, _2)
+                phoenix::detail::expression::function_eval<F, A0, A1, A2>::make(f, _0_, _1_, _2_)
               , f.proto_base().child0
             ));
         }
@@ -368,42 +368,42 @@ namespace boost { namespace spirit
 
         template <typename A0>
         typename result<A0>::type
-        operator()(A0 const& _0
+        operator()(A0 const& _0_
           , typename detail::contains_actor<A0>::is_false = 0) const
         {
             typedef typename result<A0>::type result_type;
             typedef typename result_type::proto_child0 child_type;
             return result_type::make(
                 child_type(
-                    detail::make_vector(_0)
+                    detail::make_vector(_0_)
                   , this->proto_base().child0)
             );
         }
 
         template <typename A0, typename A1>
         typename result<A0, A1>::type
-        operator()(A0 const& _0, A1 const& _1
+        operator()(A0 const& _0_, A1 const& _1_
           , typename detail::contains_actor<A0, A1>::is_false = 0) const
         {
             typedef typename result<A0, A1>::type result_type;
             typedef typename result_type::proto_child0 child_type;
             return result_type::make(
                 child_type(
-                    detail::make_vector(_0, _1)
+                    detail::make_vector(_0_, _1_)
                   , this->proto_base().child0)
             );
         }
 
         template <typename A0, typename A1, typename A2>
         typename result<A0, A1, A2>::type
-        operator()(A0 const& _0, A1 const& _1, A2 const& _2
+        operator()(A0 const& _0_, A1 const& _1_, A2 const& _2_
           , typename detail::contains_actor<A0, A1, A2>::is_false = 0) const
         {
             typedef typename result<A0, A1, A2>::type result_type;
             typedef typename result_type::proto_child0 child_type;
             return result_type::make(
                 child_type(
-                    detail::make_vector(_0, _1, _2)
+                    detail::make_vector(_0_, _1_, _2_)
                   , this->proto_base().child0)
             );
         }
@@ -412,38 +412,38 @@ namespace boost { namespace spirit
         // least one arg is a Phoenix actor.
         template <typename A0>
         typename result<A0>::type
-        operator()(A0 const& _0
+        operator()(A0 const& _0_
           , typename detail::contains_actor<A0>::is_true = 0) const
         {
             return make_lazy<this_type
               , typename phoenix::as_actor<A0>::type>()(*this
-              , phoenix::as_actor<A0>::convert(_0));
+              , phoenix::as_actor<A0>::convert(_0_));
         }
 
         template <typename A0, typename A1>
         typename result<A0, A1>::type
-        operator()(A0 const& _0, A1 const& _1
+        operator()(A0 const& _0_, A1 const& _1_
           , typename detail::contains_actor<A0, A1>::is_true = 0) const
         {
             return make_lazy<this_type
               , typename phoenix::as_actor<A0>::type
               , typename phoenix::as_actor<A1>::type>()(*this
-              , phoenix::as_actor<A0>::convert(_0)
-              , phoenix::as_actor<A1>::convert(_1));
+              , phoenix::as_actor<A0>::convert(_0_)
+              , phoenix::as_actor<A1>::convert(_1_));
         }
 
         template <typename A0, typename A1, typename A2>
         typename result<A0, A1, A2>::type
-        operator()(A0 const& _0, A1 const& _1, A2 const& _2
+        operator()(A0 const& _0_, A1 const& _1_, A2 const& _2_
           , typename detail::contains_actor<A0, A1, A2>::is_true = 0) const
         {
             return make_lazy<this_type
               , typename phoenix::as_actor<A0>::type
               , typename phoenix::as_actor<A1>::type
               , typename phoenix::as_actor<A2>::type>()(*this
-              , phoenix::as_actor<A0>::convert(_0)
-              , phoenix::as_actor<A1>::convert(_1)
-              , phoenix::as_actor<A2>::convert(_2));
+              , phoenix::as_actor<A0>::convert(_0_)
+              , phoenix::as_actor<A1>::convert(_1_)
+              , phoenix::as_actor<A2>::convert(_2_));
         }
 
     private:
@@ -547,7 +547,6 @@ namespace boost { namespace spirit
 
 }}
 
-#ifdef BOOST_SPIRIT_USE_PHOENIX_V3
 namespace boost { namespace phoenix
 {
     template <typename Tag>
@@ -558,6 +557,10 @@ namespace boost { namespace phoenix
     template <typename Tag>
     struct custom_terminal<Tag, typename Tag::is_spirit_tag>
     {
+#ifndef BOOST_PHOENIX_NO_SPECIALIZE_CUSTOM_TERMINAL
+        typedef void _is_default_custom_terminal; // fix for #7730
+#endif
+
         typedef spirit::terminal<Tag> result_type;
 
         template <typename Context>
@@ -567,7 +570,6 @@ namespace boost { namespace phoenix
         }
     };
 }}
-#endif
 
 // Define a spirit terminal. This macro may be placed in any namespace.
 // Common placeholders are placed in the main boost::spirit namespace

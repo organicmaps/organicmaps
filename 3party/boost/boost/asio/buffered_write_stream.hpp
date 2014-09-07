@@ -2,7 +2,7 @@
 // buffered_write_stream.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -118,156 +118,37 @@ public:
   /// Flush all data from the buffer to the next layer. Returns the number of
   /// bytes written to the next layer on the last write operation. Throws an
   /// exception on failure.
-  std::size_t flush()
-  {
-    std::size_t bytes_written = write(next_layer_,
-        buffer(storage_.data(), storage_.size()));
-    storage_.consume(bytes_written);
-    return bytes_written;
-  }
+  std::size_t flush();
 
   /// Flush all data from the buffer to the next layer. Returns the number of
   /// bytes written to the next layer on the last write operation, or 0 if an
   /// error occurred.
-  std::size_t flush(boost::system::error_code& ec)
-  {
-    std::size_t bytes_written = write(next_layer_,
-        buffer(storage_.data(), storage_.size()),
-        transfer_all(), ec);
-    storage_.consume(bytes_written);
-    return bytes_written;
-  }
-
-  template <typename WriteHandler>
-  class flush_handler
-  {
-  public:
-    flush_handler(boost::asio::io_service& io_service,
-        detail::buffered_stream_storage& storage, WriteHandler handler)
-      : io_service_(io_service),
-        storage_(storage),
-        handler_(handler)
-    {
-    }
-
-    void operator()(const boost::system::error_code& ec,
-        std::size_t bytes_written)
-    {
-      storage_.consume(bytes_written);
-      io_service_.dispatch(detail::bind_handler(handler_, ec, bytes_written));
-    }
-
-  private:
-    boost::asio::io_service& io_service_;
-    detail::buffered_stream_storage& storage_;
-    WriteHandler handler_;
-  };
+  std::size_t flush(boost::system::error_code& ec);
 
   /// Start an asynchronous flush.
   template <typename WriteHandler>
-  void async_flush(WriteHandler handler)
-  {
-    async_write(next_layer_, buffer(storage_.data(), storage_.size()),
-        flush_handler<WriteHandler>(get_io_service(), storage_, handler));
-  }
+  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+      void (boost::system::error_code, std::size_t))
+  async_flush(BOOST_ASIO_MOVE_ARG(WriteHandler) handler);
 
   /// Write the given data to the stream. Returns the number of bytes written.
   /// Throws an exception on failure.
   template <typename ConstBufferSequence>
-  std::size_t write_some(const ConstBufferSequence& buffers)
-  {
-    if (boost::asio::buffer_size(buffers) == 0)
-      return 0;
-
-    if (storage_.size() == storage_.capacity())
-      flush();
-
-    return copy(buffers);
-  }
+  std::size_t write_some(const ConstBufferSequence& buffers);
 
   /// Write the given data to the stream. Returns the number of bytes written,
   /// or 0 if an error occurred and the error handler did not throw.
   template <typename ConstBufferSequence>
   std::size_t write_some(const ConstBufferSequence& buffers,
-      boost::system::error_code& ec)
-  {
-    ec = boost::system::error_code();
-
-    if (boost::asio::buffer_size(buffers) == 0)
-      return 0;
-
-    if (storage_.size() == storage_.capacity() && !flush(ec))
-      return 0;
-
-    return copy(buffers);
-  }
-
-  template <typename ConstBufferSequence, typename WriteHandler>
-  class write_some_handler
-  {
-  public:
-    write_some_handler(boost::asio::io_service& io_service,
-        detail::buffered_stream_storage& storage,
-        const ConstBufferSequence& buffers, WriteHandler handler)
-      : io_service_(io_service),
-        storage_(storage),
-        buffers_(buffers),
-        handler_(handler)
-    {
-    }
-
-    void operator()(const boost::system::error_code& ec, std::size_t)
-    {
-      if (ec)
-      {
-        std::size_t length = 0;
-        io_service_.dispatch(detail::bind_handler(handler_, ec, length));
-      }
-      else
-      {
-        std::size_t orig_size = storage_.size();
-        std::size_t space_avail = storage_.capacity() - orig_size;
-        std::size_t bytes_avail = boost::asio::buffer_size(buffers_);
-        std::size_t length = bytes_avail < space_avail
-          ? bytes_avail : space_avail;
-        storage_.resize(orig_size + length);
-        std::size_t bytes_copied = boost::asio::buffer_copy(
-            storage_.data() + orig_size, buffers_, length);
-
-        io_service_.dispatch(detail::bind_handler(handler_, ec, bytes_copied));
-      }
-    }
-
-  private:
-    boost::asio::io_service& io_service_;
-    detail::buffered_stream_storage& storage_;
-    ConstBufferSequence buffers_;
-    WriteHandler handler_;
-  };
+      boost::system::error_code& ec);
 
   /// Start an asynchronous write. The data being written must be valid for the
   /// lifetime of the asynchronous operation.
   template <typename ConstBufferSequence, typename WriteHandler>
-  void async_write_some(const ConstBufferSequence& buffers,
-      WriteHandler handler)
-  {
-    if (boost::asio::buffer_size(buffers) == 0)
-    {
-      get_io_service().post(detail::bind_handler(
-            handler, boost::system::error_code(), 0));
-    }
-    else if (storage_.size() == storage_.capacity())
-    {
-      async_flush(write_some_handler<ConstBufferSequence, WriteHandler>(
-            get_io_service(), storage_, buffers, handler));
-    }
-    else
-    {
-      std::size_t bytes_copied = copy(buffers);
-      get_io_service().post(detail::bind_handler(
-            handler, boost::system::error_code(), bytes_copied));
-    }
-  }
+  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+      void (boost::system::error_code, std::size_t))
+  async_write_some(const ConstBufferSequence& buffers,
+      BOOST_ASIO_MOVE_ARG(WriteHandler) handler);
 
   /// Read some data from the stream. Returns the number of bytes read. Throws
   /// an exception on failure.
@@ -289,10 +170,20 @@ public:
   /// Start an asynchronous read. The buffer into which the data will be read
   /// must be valid for the lifetime of the asynchronous operation.
   template <typename MutableBufferSequence, typename ReadHandler>
-  void async_read_some(const MutableBufferSequence& buffers,
-      ReadHandler handler)
+  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
+      void (boost::system::error_code, std::size_t))
+  async_read_some(const MutableBufferSequence& buffers,
+      BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
   {
-    next_layer_.async_read_some(buffers, handler);
+    detail::async_result_init<
+      ReadHandler, void (boost::system::error_code, std::size_t)> init(
+        BOOST_ASIO_MOVE_CAST(ReadHandler)(handler));
+
+    next_layer_.async_read_some(buffers,
+        BOOST_ASIO_MOVE_CAST(BOOST_ASIO_HANDLER_TYPE(ReadHandler,
+            void (boost::system::error_code, std::size_t)))(init.handler));
+
+    return init.result.get();
   }
 
   /// Peek at the incoming data on the stream. Returns the number of bytes read.
@@ -328,16 +219,7 @@ private:
   /// Copy data into the internal buffer from the specified source buffer.
   /// Returns the number of bytes copied.
   template <typename ConstBufferSequence>
-  std::size_t copy(const ConstBufferSequence& buffers)
-  {
-    std::size_t orig_size = storage_.size();
-    std::size_t space_avail = storage_.capacity() - orig_size;
-    std::size_t bytes_avail = boost::asio::buffer_size(buffers);
-    std::size_t length = bytes_avail < space_avail ? bytes_avail : space_avail;
-    storage_.resize(orig_size + length);
-    return boost::asio::buffer_copy(
-        storage_.data() + orig_size, buffers, length);
-  }
+  std::size_t copy(const ConstBufferSequence& buffers);
 
   /// The next layer.
   Stream next_layer_;
@@ -350,5 +232,7 @@ private:
 } // namespace boost
 
 #include <boost/asio/detail/pop_options.hpp>
+
+#include <boost/asio/impl/buffered_write_stream.hpp>
 
 #endif // BOOST_ASIO_BUFFERED_WRITE_STREAM_HPP

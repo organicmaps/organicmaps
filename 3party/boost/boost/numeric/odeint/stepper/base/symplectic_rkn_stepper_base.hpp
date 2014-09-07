@@ -6,8 +6,9 @@
  Base class for symplectic Runge-Kutta-Nystrom steppers.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Karsten Ahnert
+ Copyright 2011-2013 Mario Mulansky
+ Copyright 2012 Christoph Koke
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -255,30 +256,27 @@ private:
         momentum_out_type &momentum_out = state_out.second;
 
 
-        m_dqdt_resizer.adjust_size( coor_in , detail::bind( &internal_stepper_base_type::template resize_dqdt< coor_in_type > , detail::ref( *this ) , detail::_1 ) );
+        // m_dqdt not required when called with momentum_func only - don't resize
+        // m_dqdt_resizer.adjust_size( coor_in , detail::bind( &internal_stepper_base_type::template resize_dqdt< coor_in_type > , detail::ref( *this ) , detail::_1 ) );
         m_dpdt_resizer.adjust_size( momentum_in , detail::bind( &internal_stepper_base_type::template resize_dpdt< momentum_in_type > , detail::ref( *this ) , detail::_1 ) );
 
 
         // ToDo: check sizes?
 
-        for( size_t l=0 ; l<num_of_stages ; ++l )
+        // step 0
+        this->m_algebra.for_each3( coor_out  , coor_in , momentum_in ,
+                        typename operations_type::template scale_sum2< value_type , time_type >( 1.0 , m_coef_a[0] * dt ) );
+        momentum_func( coor_out , m_dpdt.m_v );
+        this->m_algebra.for_each3( momentum_out , momentum_in , m_dpdt.m_v ,
+                                           typename operations_type::template scale_sum2< value_type , time_type >( 1.0 , m_coef_b[0] * dt ) );
+
+        for( size_t l=1 ; l<num_of_stages ; ++l )
         {
-            if( l == 0 )
-            {
-                this->m_algebra.for_each3( coor_out  , coor_in , momentum_in ,
+            this->m_algebra.for_each3( coor_out , coor_out , momentum_out ,
                         typename operations_type::template scale_sum2< value_type , time_type >( 1.0 , m_coef_a[l] * dt ) );
-                momentum_func( coor_out , m_dpdt.m_v );
-                this->m_algebra.for_each3( momentum_out , momentum_in , m_dpdt.m_v ,
-                                           typename operations_type::template scale_sum2< value_type , time_type >( 1.0 , m_coef_b[l] * dt ) );
-            }
-            else
-            {
-                this->m_algebra.for_each3( coor_out , coor_out , momentum_out ,
-                        typename operations_type::template scale_sum2< value_type , time_type >( 1.0 , m_coef_a[l] * dt ) );
-                momentum_func( coor_out , m_dpdt.m_v );
-                this->m_algebra.for_each3( momentum_out , momentum_out , m_dpdt.m_v ,
-                        typename operations_type::template scale_sum2< value_type , time_type >( 1.0 , m_coef_b[l] * dt ) );
-            }
+            momentum_func( coor_out , m_dpdt.m_v );
+            this->m_algebra.for_each3( momentum_out , momentum_out , m_dpdt.m_v ,
+                                       typename operations_type::template scale_sum2< value_type , time_type >( 1.0 , m_coef_b[l] * dt ) );
         }
     }
 

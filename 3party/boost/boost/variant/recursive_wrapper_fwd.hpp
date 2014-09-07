@@ -16,12 +16,6 @@
 #define BOOST_VARIANT_RECURSIVE_WRAPPER_FWD_HPP
 
 #include "boost/mpl/aux_/config/ctps.hpp"
-#if defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-#   include "boost/mpl/eval_if.hpp"
-#   include "boost/mpl/bool.hpp"
-#   include "boost/mpl/identity.hpp"
-#   include "boost/type.hpp"
-#endif
 
 #include "boost/mpl/aux_/lambda_support.hpp"
 
@@ -56,7 +50,6 @@ template <typename T> class recursive_wrapper;
 
 namespace detail {
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template <typename T>
 struct is_recursive_wrapper_impl
@@ -70,28 +63,6 @@ struct is_recursive_wrapper_impl< recursive_wrapper<T> >
 {
 };
 
-#else // defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-
-typedef char (&yes_recursive_wrapper_t)[1];
-typedef char (&no_recursive_wrapper_t)[2];
-
-no_recursive_wrapper_t is_recursive_wrapper_test(...);
-
-template<typename T>
-yes_recursive_wrapper_t is_recursive_wrapper_test(
-      type< ::boost::recursive_wrapper<T> >
-    );
-
-template<typename T>
-struct is_recursive_wrapper_impl
-{
-    BOOST_STATIC_CONSTANT(bool, value = (
-          sizeof(is_recursive_wrapper_test(type<T>()))
-          == sizeof(yes_recursive_wrapper_t)
-        ));
-};
-
-#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION workaround
 
 } // namespace detail
 
@@ -107,7 +78,6 @@ BOOST_TT_AUX_BOOL_TRAIT_DEF1(
 // If specified type T matches recursive_wrapper<U>, then U; else T.
 //
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template <typename T>
 struct unwrap_recursive
@@ -125,20 +95,6 @@ struct unwrap_recursive< recursive_wrapper<T> >
     BOOST_MPL_AUX_LAMBDA_SUPPORT_SPEC(1,unwrap_recursive,(T))
 };
 
-#else // defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-
-template <typename T>
-struct unwrap_recursive
-    : mpl::eval_if<
-          is_recursive_wrapper<T>
-        , T
-        , mpl::identity< T >
-        >
-{
-    BOOST_MPL_AUX_LAMBDA_SUPPORT(1,unwrap_recursive,(T))
-};
-
-#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION workaround
 
 } // namespace boost
 

@@ -16,6 +16,7 @@
 #include <boost/range/iterator_range.hpp>
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
 #include <algorithm>
@@ -49,13 +50,13 @@ struct ucd_range
 {
     ucd_range(uint32_t start, uint32_t finish)
         : start(start), finish(finish) {}
-            
-    // we need this so we can use ucd_range as a multimap key 
+
+    // we need this so we can use ucd_range as a multimap key
     friend bool operator<(ucd_range const& a, ucd_range const& b)
     {
         return a.start < b.start;
     }
-            
+
     uint32_t start;
     uint32_t finish;
 };
@@ -89,23 +90,23 @@ public:
             rule<iterator_type, std::string()> field = *(char_-(';'|endl)) >> (';'|&endl);
             rule<iterator_type, ucd_line()> line = +(field-endl) >> endl;
             rule<iterator_type, std::vector<ucd_line>()> file = +(endl | line[push_back(_val, _1)]);
-            
+
             parse(f, l, file, info);
         }
     }
-    
+
     template <typename Array>
     void collect(Array& data, int field, bool collect_properties = true) const
     {
         BOOST_ASSERT(!info.empty());
         ucd_vector::const_iterator current = info.begin();
         ucd_vector::const_iterator end = info.end();
-        
+
         while (current != end)
         {
             std::string range = (*current)[0];
             boost::trim(range);
-            
+
             std::string::const_iterator f = range.begin();
             std::string::const_iterator l = range.end();
 
@@ -113,14 +114,14 @@ public:
             uint32_t start;
             uint32_t finish;
             parse(f, l, hex[ref(start) = ref(finish) = _1] >> -(".." >> hex[ref(finish) = _1]));
-            
+
             // special case for UnicodeData.txt ranges:
             if ((*current)[1].find("First>") != std::string::npos)
             {
                 ++current;
                 BOOST_ASSERT(current != end);
                 BOOST_ASSERT((*current)[1].find("Last>") != std::string::npos);
-                                
+
                 std::string range = (*current)[0];
                 boost::trim(range);
                 f = range.begin();
@@ -128,7 +129,7 @@ public:
 
                 parse(f, l, hex[ref(finish) = _1]);
             }
-            
+
             std::string code;
             if (field < int(current->size()))
                 code = (*current)[field];
@@ -136,7 +137,7 @@ public:
             // Only collect properties we are interested in
             if (collect_properties) // code for properties
             {
-                if (!ignore_property(code)) 
+                if (!ignore_property(code))
                 {
                     for (uint32_t i = start; i <= finish; ++i)
                         data[i] |= map_property(code);
@@ -161,7 +162,7 @@ public:
             ++current;
         }
     }
-    
+
 private:
 
     static bool ignore_property(std::string const& p)
@@ -169,7 +170,7 @@ private:
         // We don't handle all properties
         std::map<std::string, int>& pm = get_property_map();
         std::map<std::string, int>::iterator i = pm.find(p);
-        return i == pm.end();        
+        return i == pm.end();
     }
 
     static int
@@ -181,7 +182,7 @@ private:
         return i->second;
     }
 
-    static std::map<std::string, int>& 
+    static std::map<std::string, int>&
     get_property_map()
     {
         // The properties we are interested in:
@@ -194,25 +195,25 @@ private:
             map["Lt"] = 2;
             map["Lm"] = 3;
             map["Lo"] = 4;
-            
+
             map["Mn"] = 8;
             map["Me"] = 9;
             map["Mc"] = 10;
-            
+
             map["Nd"] = 16;
             map["Nl"] = 17;
             map["No"] = 18;
-            
+
             map["Zs"] = 24;
             map["Zl"] = 25;
             map["Zp"] = 26;
-            
+
             map["Cc"] = 32;
             map["Cf"] = 33;
             map["Co"] = 34;
             map["Cs"] = 35;
             map["Cn"] = 36;
-            
+
             map["Pd"] = 40;
             map["Ps"] = 41;
             map["Pe"] = 42;
@@ -220,12 +221,12 @@ private:
             map["Po"] = 44;
             map["Pi"] = 45;
             map["Pf"] = 46;
-            
+
             map["Sm"] = 48;
             map["Sc"] = 49;
             map["Sk"] = 50;
             map["So"] = 51;
-            
+
             // Derived Properties.
             map["Alphabetic"] = 64;
             map["Uppercase"] = 128;
@@ -351,24 +352,24 @@ public:
         for (uint32_t i = 0; i < full_span; ++i)
             p[i] = 0;
     }
-    
+
     void collect(char const* filename, int field, bool collect_properties = true)
     {
         std::cout << "collecting " << filename << std::endl;
         ucd_info info(filename);
         info.collect(p, field, collect_properties);
     }
-    
+
     void build(std::vector<uint8_t>& stage1, std::vector<T const*>& stage2)
-    {        
+    {
         std::cout << "building tables" << std::endl;
         std::map<block_ptr, std::vector<T const*> > blocks;
         for (T const* i = p.get(); i < (p.get() + full_span); i += block_size)
             blocks[block_ptr(i)].push_back(i);
-        
+
         // Not enough bits to store the block indices.
         BOOST_ASSERT(blocks.size() < (1 << (sizeof(uint8_t) * 8)));
-        
+
         typedef std::pair<block_ptr, std::vector<T const*> > blocks_value_type;
         std::map<T const*, std::vector<T const*> > sorted_blocks;
         BOOST_FOREACH(blocks_value_type const& val, blocks)
@@ -392,9 +393,9 @@ public:
             }
         }
     }
-        
+
 private:
-    
+
     struct block_ptr
     {
         block_ptr(T const* p) : p(p) {}
@@ -404,7 +405,7 @@ private:
             return std::lexicographical_compare(
                 a.p, a.p + block_size, b.p, b.p + block_size);
         }
-        
+
         T const* p;
     };
 
@@ -422,7 +423,7 @@ template <typename Out, typename C>
 void print_table(Out& out, C const& c, bool trailing_comma, int width = 4, int group = 16)
 {
     int const tab = 4;
-    C::size_type size = c.size();
+    typename C::size_type size = c.size();
     BOOST_ASSERT(size > 1);
     print_tab(out, tab);
     out << std::setw(width) << int(c[0]);
@@ -436,7 +437,7 @@ void print_table(Out& out, C const& c, bool trailing_comma, int width = 4, int g
         }
         out << std::setw(width) << int(c[i]);
     }
-    
+
     if (trailing_comma)
         out << ", " << std::endl;
 }
@@ -444,7 +445,7 @@ void print_table(Out& out, C const& c, bool trailing_comma, int width = 4, int g
 template <typename Out>
 void print_head(Out& out)
 {
-    out 
+    out
         << "/*=============================================================================\n"
         << "    Copyright (c) 2001-2011 Joel de Guzman\n"
         << "\n"
@@ -463,7 +464,7 @@ void print_head(Out& out)
 template <typename Out>
 void print_tail(Out& out)
 {
-    out 
+    out
         << "\n"
         << "}}}} // namespace boost::spirit::unicode::detail\n"
         ;
@@ -489,13 +490,13 @@ void print_file(Out& out, Builder& builder, int field_width, char const* name)
     uint32_t const block_size = Builder::block_size;
     typedef typename Builder::value_type value_type;
     print_head(out);
-    
+
     std::vector<uint8_t> stage1;
     std::vector<value_type const*> stage2;
     builder.build(stage1, stage2);
     std::cout << "Block Size: " << block_size << std::endl;
-    std::cout << "Total Bytes: " 
-        << stage1.size()+(stage2.size()*block_size*sizeof(value_type)) 
+    std::cout << "Total Bytes: "
+        << stage1.size()+(stage2.size()*block_size*sizeof(value_type))
         << std::endl;
 
     out
@@ -503,11 +504,11 @@ void print_file(Out& out, Builder& builder, int field_width, char const* name)
         << "    static const ::boost::uint8_t " << name << "_stage1[] = {\n"
         << "\n"
         ;
-    
+
     print_table(out, stage1, false, 3);
     char const* int_name = get_int_type_name(sizeof(value_type));
 
-    out 
+    out
         << "\n"
         << "    };"
         << "\n"
@@ -521,17 +522,17 @@ void print_file(Out& out, Builder& builder, int field_width, char const* name)
         value_type const* p = stage2[i];
         bool last = (i+1 == stage2.size());
         out << "\n\n    // block " << block_n++ << std::endl;
-        print_table(out, 
+        print_table(out,
             boost::iterator_range<value_type const*>(p, p+block_size), !last, field_width);
     }
 
-    out 
+    out
         << "\n"
         << "    };"
         << "\n"
         ;
-    
-    out 
+
+    out
         << "\n"
         << "    inline " << int_name << ' ' << name << "_lookup(::boost::uint32_t ch)\n"
         << "    {\n"
@@ -539,7 +540,7 @@ void print_file(Out& out, Builder& builder, int field_width, char const* name)
         << "        return " << name << "_stage2[block_offset + ch % " << block_size << "];\n"
         << "    }\n"
         ;
-    
+
     print_tail(out);
 }
 
@@ -554,7 +555,7 @@ int main()
         builder.collect("PropList.txt", 1);
         print_file(out, builder, 4, "category");
     }
-    
+
     // The script tables
     {
         std::ofstream out("script_table.hpp");
@@ -562,7 +563,7 @@ int main()
         builder.collect("Scripts.txt", 1);
         print_file(out, builder, 3, "script");
     }
-    
+
     // The lowercase tables
     {
         std::ofstream out("lowercase_table.hpp");
@@ -570,7 +571,7 @@ int main()
         builder.collect("UnicodeData.txt", 13, false);
         print_file(out, builder, 6, "lowercase");
     }
-    
+
     // The uppercase tables
     {
         std::ofstream out("uppercase_table.hpp");

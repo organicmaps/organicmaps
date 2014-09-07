@@ -7,6 +7,7 @@
 #if !defined(FUSION_DISTANCE_IMPL_09172005_0751)
 #define FUSION_DISTANCE_IMPL_09172005_0751
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/minus.hpp>
 
 namespace boost { namespace fusion
@@ -24,6 +25,7 @@ namespace boost { namespace fusion
             template <typename First, typename Last>
             struct apply : mpl::minus<typename Last::index, typename First::index>
             {    
+                BOOST_FUSION_GPU_ENABLED
                 static typename mpl::minus<
                     typename Last::index, typename First::index>::type
                 call(First const&, Last const&)

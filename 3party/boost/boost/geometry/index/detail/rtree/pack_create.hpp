@@ -2,7 +2,7 @@
 //
 // R-tree initial packing
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -55,14 +55,14 @@ struct point_entries_comparer
 };
 
 template <std::size_t I, std::size_t Dimension>
-struct partial_sort_and_half_boxes
+struct nth_element_and_half_boxes
 {
     template <typename EIt, typename Box>
     static inline void apply(EIt first, EIt median, EIt last, Box const& box, Box & left, Box & right, std::size_t dim_index)
     {
         if ( I == dim_index )
         {
-            std::partial_sort(first, median, last, point_entries_comparer<I>());
+            std::nth_element(first, median, last, point_entries_comparer<I>());
 
             geometry::convert(box, left);
             geometry::convert(box, right);
@@ -74,12 +74,12 @@ struct partial_sort_and_half_boxes
             geometry::set<min_corner, I>(right, median);
         }
         else
-            partial_sort_and_half_boxes<I+1, Dimension>::apply(first, median, last, box, left, right, dim_index);
+            nth_element_and_half_boxes<I+1, Dimension>::apply(first, median, last, box, left, right, dim_index);
     }
 };
 
 template <std::size_t Dimension>
-struct partial_sort_and_half_boxes<Dimension, Dimension>
+struct nth_element_and_half_boxes<Dimension, Dimension>
 {
     template <typename EIt, typename Box>
     static inline void apply(EIt , EIt , EIt , Box const& , Box & , Box & , std::size_t ) {}
@@ -278,7 +278,7 @@ private:
         std::size_t greatest_dim_index = 0;
         pack_utils::biggest_edge<dimension>::apply(hint_box, greatest_length, greatest_dim_index);
         Box left, right;
-        pack_utils::partial_sort_and_half_boxes<0, dimension>
+        pack_utils::nth_element_and_half_boxes<0, dimension>
             ::apply(first, median, last, hint_box, left, right, greatest_dim_index);
         
         per_level_packets(first, median, left,
@@ -294,7 +294,7 @@ private:
     inline static
     subtree_elements_counts calculate_subtree_elements_counts(std::size_t elements_count, parameters_type const& parameters, size_type & leafs_level)
     {
-        (void)parameters;
+        boost::ignore_unused_variable_warning(parameters);
 
         subtree_elements_counts res(1, 1);
         leafs_level = 0;

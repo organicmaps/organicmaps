@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_MAKE_SET)
 #define FUSION_INCLUDE_MAKE_SET
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/generation/make_set.hpp>
 
 #endif

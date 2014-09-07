@@ -2,7 +2,7 @@
 #define BOOST_SERIALIZATION_HASH_COLLECTIONS_SAVE_IMP_HPP
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -39,7 +39,7 @@ inline void save_hash_collection(Archive & ar, const Container &s)
     collection_size_type count(s.size());
     const collection_size_type bucket_count(s.bucket_count());
     const item_version_type item_version(
-        version<BOOST_DEDUCED_TYPENAME Container::value_type>::value
+        version<typename Container::value_type>::value
     );
 
     #if 0
@@ -76,14 +76,14 @@ inline void save_hash_collection(Archive & ar, const Container &s)
         ar << BOOST_SERIALIZATION_NVP(item_version);
     #endif
 
-    BOOST_DEDUCED_TYPENAME Container::const_iterator it = s.begin();
+    typename Container::const_iterator it = s.begin();
     while(count-- > 0){
         // note borland emits a no-op without the explicit namespace
         boost::serialization::save_construct_data_adl(
             ar, 
             &(*it), 
             boost::serialization::version<
-                BOOST_DEDUCED_TYPENAME Container::value_type
+                typename Container::value_type
             >::value
         );
         ar << boost::serialization::make_nvp("item", *it++);

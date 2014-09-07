@@ -121,7 +121,6 @@ namespace boost {
      VertexEquivalencePredicate vertices_equivalent,
      bool only_connected_subgraphs)
     {
-      typedef typename graph_traits<GraphFirst>::vertex_descriptor VertexFirst;
       typedef typename graph_traits<GraphSecond>::vertex_descriptor VertexSecond;
       
       typedef typename graph_traits<GraphFirst>::edge_descriptor EdgeFirst;
@@ -328,15 +327,11 @@ namespace boost {
             put(correspondence_map_2_to_1, new_vertex2, new_vertex1);
             vertex_stack1.push(new_vertex1);
 
-            // Only output sub-graphs larger than a single vertex
-            if (new_graph_size > 1) {
-            
-              // Returning false from the callback will cancel iteration
-              if (!subgraph_callback(correspondence_map_1_to_2,
-                                     correspondence_map_2_to_1,
-                                     new_graph_size)) {
-                return (false);
-              }
+            // Returning false from the callback will cancel iteration
+            if (!subgraph_callback(correspondence_map_1_to_2,
+                                   correspondence_map_2_to_1,
+                                   new_graph_size)) {
+              return (false);
             }
       
             // Depth-first search into the state space of possible sub-graphs

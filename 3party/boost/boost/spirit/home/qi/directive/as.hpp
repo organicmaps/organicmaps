@@ -76,8 +76,8 @@ namespace boost { namespace spirit { namespace qi
     struct as_directive : unary_parser<as_directive<Subject, T> >
     {
         typedef Subject subject_type;
-        as_directive(Subject const& subject)
-          : subject(subject) {}
+        as_directive(Subject const& subject_)
+          : subject(subject_) {}
 
         template <typename Context, typename Iterator>
         struct attribute
@@ -88,13 +88,13 @@ namespace boost { namespace spirit { namespace qi
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
-          , Context& context, Skipper const& skipper, Attribute& attr) const
+          , Context& context, Skipper const& skipper, Attribute& attr_) const
         {
             Iterator i = first;
             T as_attr;
             if (subject.parse(i, last, context, skipper, as_attr))
             {
-                spirit::traits::assign_to(as_attr, attr);
+                spirit::traits::assign_to(as_attr, attr_);
                 first = i;
                 return true;
             }
@@ -103,10 +103,10 @@ namespace boost { namespace spirit { namespace qi
 
         template <typename Iterator, typename Context, typename Skipper>
         bool parse(Iterator& first, Iterator const& last
-          , Context& context, Skipper const& skipper, T& attr) const
+          , Context& context, Skipper const& skipper, T& attr_) const
         {
             Iterator i = first;
-            if (subject.parse(i, last, context, skipper, attr))
+            if (subject.parse(i, last, context, skipper, attr_))
             {
                 first = i;
                 return true;

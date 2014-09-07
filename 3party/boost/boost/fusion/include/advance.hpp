@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_ADVANCE)
 #define FUSION_INCLUDE_ADVANCE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/advance.hpp>
 
 #endif

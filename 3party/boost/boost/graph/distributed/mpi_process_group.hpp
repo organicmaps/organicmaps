@@ -28,13 +28,13 @@
 #include <boost/function/function2.hpp>
 #include <boost/function/function0.hpp>
 #include <boost/mpi.hpp>
-#include <boost/graph/parallel/process_group.hpp>
+#include <boost/property_map/parallel/process_group.hpp>
 #include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace graph { namespace distributed {
 
 // Process group tags
-struct mpi_process_group_tag : virtual parallel::linear_process_group_tag { };
+struct mpi_process_group_tag : virtual boost::parallel::linear_process_group_tag { };
 
 class mpi_process_group
 {
@@ -75,7 +75,7 @@ class mpi_process_group
 
   /// Classification of the capabilities of this process group
   struct communication_category
-    : virtual parallel::bsp_process_group_tag, 
+    : virtual boost::parallel::bsp_process_group_tag, 
       virtual mpi_process_group_tag { };
 
   // TBD: We can eliminate the "source" field and possibly the

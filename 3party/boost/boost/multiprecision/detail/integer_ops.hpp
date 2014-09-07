@@ -195,6 +195,24 @@ inline typename enable_if_c<number_category<typename multiprecision::detail::exp
 }
 
 template <class Backend, expression_template_option ExpressionTemplates>
+inline typename enable_if_c<number_category<Backend>::value == number_kind_integer, unsigned>::type 
+   msb(const number<Backend, ExpressionTemplates>& x)
+{
+   using default_ops::eval_msb;
+   return eval_msb(x.backend());
+}
+
+template <class tag, class A1, class A2, class A3, class A4>
+inline typename enable_if_c<number_category<typename multiprecision::detail::expression<tag, A1, A2, A3, A4>::result_type>::value == number_kind_integer, unsigned>::type 
+   msb(const multiprecision::detail::expression<tag, A1, A2, A3, A4>& x)
+{
+   typedef typename multiprecision::detail::expression<tag, A1, A2, A3, A4>::result_type number_type;
+   number_type n(x);
+   using default_ops::eval_msb;
+   return eval_msb(n.backend());
+}
+
+template <class Backend, expression_template_option ExpressionTemplates>
 inline typename enable_if_c<number_category<Backend>::value == number_kind_integer, bool>::type 
    bit_test(const number<Backend, ExpressionTemplates>& x, unsigned index)
 {
@@ -252,6 +270,20 @@ struct double_precision_type
 };
 
 //
+// If the exponent is a signed integer type, then we need to
+// check the value is positive:
+//
+template <class Backend>
+inline void check_sign_of_backend(const Backend& v, const mpl::true_)
+{
+   if(eval_get_sign(v) < 0)
+   {
+      BOOST_THROW_EXCEPTION(std::runtime_error("powm requires a positive exponent."));
+   }
+}
+template <class Backend>
+inline void check_sign_of_backend(const Backend&, const mpl::false_){}
+//
 // Calculate (a^p)%c:
 //
 template <class Backend>
@@ -265,6 +297,8 @@ void eval_powm(Backend& result, const Backend& a, const Backend& p, const Backen
 
    typedef typename double_precision_type<Backend>::type double_type;
    typedef typename boost::multiprecision::detail::canonical<unsigned char, double_type>::type ui_type;
+
+   check_sign_of_backend(p, mpl::bool_<std::numeric_limits<number<Backend> >::is_signed>());
    
    double_type x, y(a), b(p), t;
    x = ui_type(1u);
@@ -297,6 +331,8 @@ void eval_powm(Backend& result, const Backend& a, const Backend& p, Integer c)
    using default_ops::eval_multiply;
    using default_ops::eval_modulus;
    using default_ops::eval_right_shift;
+
+   check_sign_of_backend(p, mpl::bool_<std::numeric_limits<number<Backend> >::is_signed>());
 
    if(eval_get_sign(p) < 0)
    {

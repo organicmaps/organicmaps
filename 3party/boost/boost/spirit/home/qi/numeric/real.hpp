@@ -161,24 +161,24 @@ namespace boost { namespace spirit { namespace qi
         template <typename Iterator, typename Context, typename Skipper>
         bool parse(Iterator& first, Iterator const& last
           , Context& /*context*/, Skipper const& skipper
-          , T& attr) const
+          , T& attr_) const
         {
             typedef detail::real_impl<T, RealPolicies> extract;
             qi::skip_over(first, last, skipper);
-            return extract::parse(first, last, attr, RealPolicies());
+            return extract::parse(first, last, attr_, RealPolicies());
         }
 
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
-          , Attribute& attr) const
+          , Attribute& attr_param) const
         {
             // this case is called when Attribute is not T
             T attr_;
             if (parse(first, last, context, skipper, attr_))
             {
-                traits::assign_to(attr_, attr);
+                traits::assign_to(attr_, attr_param);
                 return true;
             }
             return false;
@@ -207,8 +207,8 @@ namespace boost { namespace spirit { namespace qi
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
-          , Context& context, Skipper const& skipper
-          , Attribute& attr) const
+          , Context&, Skipper const& skipper
+          , Attribute& attr_param) const
         {
             typedef detail::real_impl<T, RealPolicies> extract;
             qi::skip_over(first, last, skipper);
@@ -219,7 +219,7 @@ namespace boost { namespace spirit { namespace qi
             if (extract::parse(first, last, attr_, RealPolicies()) &&
                 (attr_ == n_))
             {
-                traits::assign_to(attr_, attr);
+                traits::assign_to(attr_, attr_param);
                 return true;
             }
 

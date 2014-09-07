@@ -1124,7 +1124,6 @@ namespace boost { namespace polygon{
             //std::cout << poly << "\n";
             //std::cout << "test3\n";
             typedef typename cT::value_type result_type;
-            typedef typename geometry_concept<result_type>::type result_concept;
             output.push_back(result_type());
             assign(output.back(), polyData);
             //std::cout << "test4\n";
@@ -2630,7 +2629,7 @@ namespace boost { namespace polygon{
 
     template <class cT, class iT>
     inline iT processEvent_(cT& output, iT inputBegin, iT inputEnd) {
-      typedef typename high_precision_type<Unit>::type high_precision;
+      //typedef typename high_precision_type<Unit>::type high_precision;
       //std::cout << "processEvent_\n";
       polygon_arbitrary_formation<Unit>::justBefore_ = true;
       //collect up all elements from the tree that are at the y

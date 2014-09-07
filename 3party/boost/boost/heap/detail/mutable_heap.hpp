@@ -368,20 +368,6 @@ public:
     }
 
     /**
-     * \b Effects: Merge with priority queue rhs.
-     *
-     * \b Complexity: N log(N)
-     *
-     * */
-    void merge(priority_queue_mutable_wrapper const & rhs)
-    {
-        q_.reserve(q_.size() + rhs.q_.size());
-
-        for (typename object_list::const_iterator it = rhs.objects.begin(); it != rhs.objects.end(); ++it)
-            push(it->first);
-    }
-
-    /**
      * \b Effects: Assigns \c v to the element handled by \c handle & updates the priority queue.
      *
      * \b Complexity: Logarithmic.

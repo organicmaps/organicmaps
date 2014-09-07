@@ -2,7 +2,7 @@
 // detail/socket_option.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -274,14 +274,14 @@ public:
 
   // Get the address of the linger data.
   template <typename Protocol>
-  ::linger* data(const Protocol&)
+  detail::linger_type* data(const Protocol&)
   {
     return &value_;
   }
 
   // Get the address of the linger data.
   template <typename Protocol>
-  const ::linger* data(const Protocol&) const
+  const detail::linger_type* data(const Protocol&) const
   {
     return &value_;
   }
@@ -305,7 +305,7 @@ public:
   }
 
 private:
-  ::linger value_;
+  detail::linger_type value_;
 };
 
 } // namespace socket_option

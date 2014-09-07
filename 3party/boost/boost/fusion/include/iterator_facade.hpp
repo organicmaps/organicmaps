@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_ITERATOR_FACADE)
 #define FUSION_INCLUDE_ITERATOR_FACADE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/iterator_facade.hpp>
 
 #endif

@@ -5,7 +5,7 @@
  * Subject to the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date: 2012-09-22 15:33:33 -0700 (Sat, 22 Sep 2012) $
+ * $Date$
  */
 
 #include "boost/date_time/time_zone_base.hpp"
@@ -64,7 +64,7 @@ namespace local_time {
     //! True if zone uses daylight savings adjustments
     virtual bool has_dst() const
     {
-      return (dst_calc_rules_); //if calc_rule is set the tz has dst
+      return (bool) dst_calc_rules_; //if calc_rule is set the tz has dst
     }
     //! Local time that DST starts -- NADT if has_dst is false
     virtual posix_time::ptime dst_local_start_time(gregorian::greg_year y) const

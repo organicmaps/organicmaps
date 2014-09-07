@@ -47,21 +47,21 @@ class points_view
         // Constructor: Begin iterator
         inline points_iterator(Point const* p)
             : m_points(p)
-            , m_index(0) 
+            , m_index(0)
         {}
 
         // Constructor: End iterator
         inline points_iterator(Point const* p, bool)
             : m_points(p)
-            , m_index(MaxSize) 
+            , m_index(MaxSize)
         {}
 
         // Constructor: default (for Range Concept checking).
         inline points_iterator()
             : m_points(NULL)
-            , m_index(MaxSize) 
+            , m_index(MaxSize)
         {}
-        
+
         typedef std::ptrdiff_t difference_type;
 
     private:
@@ -73,7 +73,7 @@ class points_view
             {
                 return m_points[m_index];
             }
-            
+
             // If it index larger (or smaller) return first point
             // (assuming initialized)
             return m_points[0];
@@ -98,7 +98,7 @@ class points_view
         {
             return other.m_index - this->m_index;
         }
-        
+
         inline void advance(difference_type n)
         {
             m_index += n;
@@ -127,8 +127,8 @@ protected :
     {
        copy.apply(m_points);
     }
-    
-private :    
+
+private :
     // Copy points here - box might define them otherwise
     Point m_points[MaxSize];
 };

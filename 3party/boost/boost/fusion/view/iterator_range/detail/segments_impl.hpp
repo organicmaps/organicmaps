@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_ITERATOR_RANGE_SEGMENTS_HPP_INCLUDED)
 #define BOOST_FUSION_ITERATOR_RANGE_SEGMENTS_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/fusion/sequence/intrinsic/segments.hpp>
 #include <boost/fusion/support/is_segmented.hpp>
@@ -40,6 +41,7 @@ namespace boost { namespace fusion
                     typename result_of::segments<typename impl::type>::type
                 type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type call(Sequence & seq)
                 {
                     return fusion::segments(impl::call(seq.first, seq.last));

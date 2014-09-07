@@ -2,7 +2,7 @@
 //
 // minmaxdist used in R-tree k nearest neighbors query
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -28,7 +28,7 @@ template <
     size_t DimensionIndex>
 struct smallest_for_indexable_dimension<Point, BoxIndexable, box_tag, minmaxdist_tag, DimensionIndex>
 {
-    typedef typename geometry::default_distance_result<Point, BoxIndexable>::type result_type;
+    typedef typename geometry::default_comparable_distance_result<Point, BoxIndexable>::type result_type;
 
     inline static result_type apply(Point const& pt, BoxIndexable const& i, result_type const& maxd)
     {
@@ -73,7 +73,7 @@ struct minmaxdist_impl
 template <typename Point, typename Indexable>
 struct minmaxdist_impl<Point, Indexable, point_tag>
 {
-    typedef typename geometry::default_distance_result<Point, Indexable>::type result_type;
+    typedef typename geometry::default_comparable_distance_result<Point, Indexable>::type result_type;
 
     inline static result_type apply(Point const& pt, Indexable const& i)
     {
@@ -84,7 +84,7 @@ struct minmaxdist_impl<Point, Indexable, point_tag>
 template <typename Point, typename Indexable>
 struct minmaxdist_impl<Point, Indexable, box_tag>
 {
-    typedef typename geometry::default_distance_result<Point, Indexable>::type result_type;
+    typedef typename geometry::default_comparable_distance_result<Point, Indexable>::type result_type;
 
     inline static result_type apply(Point const& pt, Indexable const& i)
     {
@@ -104,7 +104,7 @@ struct minmaxdist_impl<Point, Indexable, box_tag>
  * This is comparable distace.
  */
 template <typename Point, typename Indexable>
-typename geometry::default_distance_result<Point, Indexable>::type
+typename geometry::default_comparable_distance_result<Point, Indexable>::type
 minmaxdist(Point const& pt, Indexable const& i)
 {
     return detail::minmaxdist_impl<

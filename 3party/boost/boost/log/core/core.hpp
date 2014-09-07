@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -16,7 +16,7 @@
 #define BOOST_LOG_CORE_CORE_HPP_INCLUDED_
 
 #include <utility>
-#include <boost/shared_ptr.hpp>
+#include <boost/smart_ptr/shared_ptr.hpp>
 #include <boost/move/core.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/light_function.hpp>
@@ -28,7 +28,7 @@
 #include <boost/log/expressions/filter.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -288,7 +288,7 @@ public:
      * \b Throws: If an exception handler is installed, only throws if the handler throws. Otherwise may
      *            throw if one of the sinks throws, or some system resource limitation is reached.
      */
-    BOOST_LOG_FORCEINLINE record open_record(BOOST_RV_REF(attribute_value_set) source_attributes)
+    BOOST_FORCEINLINE record open_record(BOOST_RV_REF(attribute_value_set) source_attributes)
     {
         return open_record_move(static_cast< attribute_value_set& >(source_attributes));
     }
@@ -303,13 +303,13 @@ public:
      * \b Throws: If an exception handler is installed, only throws if the handler throws. Otherwise may
      *            throw if one of the sinks throws.
      */
-    BOOST_LOG_FORCEINLINE void push_record(BOOST_RV_REF(record) rec)
+    BOOST_FORCEINLINE void push_record(BOOST_RV_REF(record) rec)
     {
         push_record_move(static_cast< record& >(rec));
     }
 
-    BOOST_LOG_DELETED_FUNCTION(core(core const&))
-    BOOST_LOG_DELETED_FUNCTION(core& operator= (core const&))
+    BOOST_DELETED_FUNCTION(core(core const&))
+    BOOST_DELETED_FUNCTION(core& operator= (core const&))
 
 #ifndef BOOST_LOG_DOXYGEN_PASS
 private:

@@ -1,12 +1,22 @@
 // (C) Copyright Douglas Gregor 2010
 //
-//  Use, modification and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  Use, modification and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org for most recent version.
 
 // Clang compiler setup.
+
+#define BOOST_HAS_PRAGMA_ONCE
+
+// When compiling with clang before __has_extension was defined,
+// even if one writes 'defined(__has_extension) && __has_extension(xxx)',
+// clang reports a compiler error. So the only workaround found is:
+
+#ifndef __has_extension
+#define __has_extension __has_feature
+#endif
 
 #if !__has_feature(cxx_exceptions) && !defined(BOOST_NO_EXCEPTIONS)
 #  define BOOST_NO_EXCEPTIONS
@@ -26,8 +36,21 @@
 
 #define BOOST_HAS_NRVO
 
+// Branch prediction hints
+#if defined(__has_builtin)
+#if __has_builtin(__builtin_expect)
+#define BOOST_LIKELY(x) __builtin_expect(x, 1)
+#define BOOST_UNLIKELY(x) __builtin_expect(x, 0)
+#endif
+#endif
+
 // Clang supports "long long" in all compilation modes.
 #define BOOST_HAS_LONG_LONG
+
+#if defined(__SIZEOF_INT128__)
+#  define BOOST_HAS_INT128
+#endif
+
 
 //
 // Dynamic shared object (DSO) and dynamic-link library (DLL) support
@@ -38,22 +61,25 @@
 #  define BOOST_SYMBOL_VISIBLE __attribute__((__visibility__("default")))
 #endif
 
-// 
-// The BOOST_FALLTHROUGH macro can be used to annotate implicit fall-through 
-// between switch labels. 
-// 
-#if __cplusplus >= 201103L && defined(__has_warning) 
-#  if __has_feature(cxx_attributes) && __has_warning("-Wimplicit-fallthrough") 
-#    define BOOST_FALLTHROUGH [[clang::fallthrough]] 
-#  endif 
-#endif 
+//
+// The BOOST_FALLTHROUGH macro can be used to annotate implicit fall-through
+// between switch labels.
+//
+#if __cplusplus >= 201103L && defined(__has_warning)
+#  if __has_feature(cxx_attributes) && __has_warning("-Wimplicit-fallthrough")
+#    define BOOST_FALLTHROUGH [[clang::fallthrough]]
+#  endif
+#endif
 
 #if !__has_feature(cxx_auto_type)
 #  define BOOST_NO_CXX11_AUTO_DECLARATIONS
 #  define BOOST_NO_CXX11_AUTO_MULTIDECLARATIONS
 #endif
 
-#if !(defined(__GXX_EXPERIMENTAL_CXX0X__) || __cplusplus >= 201103L)
+//
+// Currently clang on Windows using VC++ RTL does not support C++11's char16_t or char32_t
+//
+#if defined(_MSC_VER) || !(defined(__GXX_EXPERIMENTAL_CXX0X__) || __cplusplus >= 201103L)
 #  define BOOST_NO_CXX11_CHAR16_T
 #  define BOOST_NO_CXX11_CHAR32_T
 #endif
@@ -114,6 +140,10 @@
 #  define BOOST_NO_CXX11_RAW_LITERALS
 #endif
 
+#if !__has_feature(cxx_reference_qualified_functions)
+#  define BOOST_NO_CXX11_REF_QUALIFIERS
+#endif
+
 #if !__has_feature(cxx_generalized_initializers)
 #  define BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX
 #endif
@@ -144,6 +174,18 @@
 
 #if !__has_feature(cxx_user_literals)
 #  define BOOST_NO_CXX11_USER_DEFINED_LITERALS
+#endif
+
+#if !(__has_feature(cxx_alignas) || __has_extension(cxx_alignas))
+#  define BOOST_NO_CXX11_ALIGNAS
+#endif
+
+#if !__has_feature(cxx_trailing_return)
+#  define BOOST_NO_CXX11_TRAILING_RESULT_TYPES
+#endif
+
+#if !__has_feature(cxx_inline_namespaces)
+#  define BOOST_NO_CXX11_INLINE_NAMESPACES
 #endif
 
 // Clang always supports variadic macros

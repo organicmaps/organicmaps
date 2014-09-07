@@ -8,12 +8,13 @@
 #if !defined(FUSION_END_IMPL_07172005_0828)
 #define FUSION_END_IMPL_07172005_0828
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_const.hpp>
 
 namespace boost { namespace fusion
 {
-    struct nil;
+    struct nil_;
 
     struct cons_tag;
 
@@ -35,9 +36,10 @@ namespace boost { namespace fusion
             struct apply 
             {
                 typedef cons_iterator<
-                    typename mpl::if_<is_const<Sequence>, nil const, nil>::type>
+                    typename mpl::if_<is_const<Sequence>, nil_ const, nil_>::type>
                 type;
     
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence&)
                 {

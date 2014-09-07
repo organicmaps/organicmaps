@@ -2,7 +2,7 @@
 // detail/impl/pipe_select_interrupter.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,6 +17,7 @@
 
 #include <boost/asio/detail/config.hpp>
 
+#if !defined(BOOST_ASIO_WINDOWS_RUNTIME)
 #if !defined(BOOST_ASIO_WINDOWS)
 #if !defined(__CYGWIN__)
 #if !defined(__SYMBIAN32__)
@@ -120,5 +121,6 @@ bool pipe_select_interrupter::reset()
 #endif // !defined(__SYMBIAN32__)
 #endif // !defined(__CYGWIN__)
 #endif // !defined(BOOST_ASIO_WINDOWS)
+#endif // !defined(BOOST_ASIO_WINDOWS_RUNTIME)
 
 #endif // BOOST_ASIO_DETAIL_IMPL_PIPE_SELECT_INTERRUPTER_IPP

@@ -103,8 +103,8 @@ namespace multiprecision{
 
 typedef detail::largest_unsigned_type<32>::type limb_type;
 typedef detail::largest_signed_type<32>::type signed_limb_type;
-typedef boost::uint64_t double_limb_type;
-typedef boost::int64_t signed_double_limb_type;
+typedef detail::largest_unsigned_type<64>::type double_limb_type;
+typedef detail::largest_signed_type<64>::type signed_double_limb_type;
 static const limb_type max_block_10 = 1000000000;
 static const limb_type digits_per_block_10 = 9;
 

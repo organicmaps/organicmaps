@@ -234,9 +234,9 @@ namespace boost { namespace numeric
             }
         };
 
-        // partial specialization of numeric::average<> for std::valarray.
+        // partial specialization of numeric::fdiv<> for std::valarray.
         template<typename Left, typename Right, typename RightTag>
-        struct average<Left, Right, std_valarray_tag, RightTag>
+        struct fdiv<Left, Right, std_valarray_tag, RightTag>
           : mpl::if_<
                 are_integral<typename Left::value_type, Right>
               , divides<Left, double const>

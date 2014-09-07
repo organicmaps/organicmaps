@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_PAIR)
 #define FUSION_INCLUDE_PAIR
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/pair.hpp>
 
 #endif

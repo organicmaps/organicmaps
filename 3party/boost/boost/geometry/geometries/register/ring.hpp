@@ -22,7 +22,7 @@
 /*!
 \brief \brief_macro{ring}
 \ingroup register
-\details \details_macro{BOOST_GEOMETRY_REGISTER_RING, ring} The 
+\details \details_macro{BOOST_GEOMETRY_REGISTER_RING, ring} The
     ring may contain template parameters, which must be specified then.
 \param Ring \param_macro_type{ring}
 
@@ -41,7 +41,7 @@ namespace boost { namespace geometry { namespace traits {  \
 /*!
 \brief \brief_macro{templated ring}
 \ingroup register
-\details \details_macro{BOOST_GEOMETRY_REGISTER_RING_TEMPLATED, templated ring} 
+\details \details_macro{BOOST_GEOMETRY_REGISTER_RING_TEMPLATED, templated ring}
     \details_macro_templated{ring, point}
 \param Ring \param_macro_type{ring (without template parameters)}
 

@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_MPL)
 #define FUSION_INCLUDE_MPL
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/mpl.hpp>
 

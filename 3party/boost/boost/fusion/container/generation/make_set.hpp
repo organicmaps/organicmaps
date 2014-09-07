@@ -57,7 +57,7 @@ namespace boost { namespace fusion
         };
     }
 
-    inline set<>
+    BOOST_FUSION_GPU_ENABLED inline set<>
     make_set()
     {
         return set<>();
@@ -94,19 +94,16 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <BOOST_PP_ENUM_PARAMS(N, typename T)>
-#if defined(BOOST_NO_PARTIAL_SPECIALIZATION_IMPLICIT_DEFAULT_ARGS)
         #define TEXT(z, n, text) , text
         struct make_set< BOOST_PP_ENUM_PARAMS(N, T) BOOST_PP_REPEAT_FROM_TO(BOOST_PP_DEC(N), FUSION_MAX_SET_SIZE, TEXT, void_) >
         #undef TEXT
-#else
-        struct make_set<BOOST_PP_ENUM_PARAMS(N, T)>
-#endif
         {
             typedef set<BOOST_PP_ENUM(N, BOOST_FUSION_AS_FUSION_ELEMENT, _)> type;
         };
     }
 
     template <BOOST_PP_ENUM_PARAMS(N, typename T)>
+    BOOST_FUSION_GPU_ENABLED
     inline set<BOOST_PP_ENUM(N, BOOST_FUSION_AS_FUSION_ELEMENT, _)>
     make_set(BOOST_PP_ENUM_BINARY_PARAMS(N, T, const& _))
     {

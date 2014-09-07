@@ -11,6 +11,7 @@
 #define BOOST_SYSTEM_CONFIG_HPP
 
 #include <boost/config.hpp>
+#include <boost/predef/platform.h>
 #include <boost/system/api_config.hpp>  // for BOOST_POSIX_API or BOOST_WINDOWS_API
 
 // This header implements separate compilation features as described in

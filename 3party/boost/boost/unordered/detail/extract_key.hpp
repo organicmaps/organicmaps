@@ -6,6 +6,11 @@
 #ifndef BOOST_UNORDERED_DETAIL_EXTRACT_KEY_HPP_INCLUDED
 #define BOOST_UNORDERED_DETAIL_EXTRACT_KEY_HPP_INCLUDED
 
+#include <boost/config.hpp>
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#pragma once
+#endif
+
 #include <boost/unordered/detail/table.hpp>
 
 namespace boost {
@@ -56,19 +61,19 @@ namespace detail {
             return no_key();
         }
         
-#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
-        template <class... Args>
-        static no_key extract(Args const&...)
-        {
-            return no_key();
-        }
-#else
         template <class Arg>
         static no_key extract(Arg const&)
         {
             return no_key();
         }
 
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
+        template <class Arg1, class Arg2, class... Args>
+        static no_key extract(Arg1 const&, Arg2 const&, Args const&...)
+        {
+            return no_key();
+        }
+#else
         template <class Arg1, class Arg2>
         static no_key extract(Arg1 const&, Arg2 const&)
         {
@@ -107,14 +112,6 @@ namespace detail {
             return k;
         }
 
-#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
-        template <class... Args>
-        static no_key extract(Args const&...)
-        {
-            return no_key();
-        }
-#else
-
         static no_key extract()
         {
             return no_key();
@@ -126,8 +123,16 @@ namespace detail {
             return no_key();
         }
 
-        template <class Arg, class Arg1>
-        static no_key extract(Arg const&, Arg1 const&)
+        template <class Arg1, class Arg2>
+        static no_key extract(Arg1 const&, Arg2 const&)
+        {
+            return no_key();
+        }
+
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
+        template <class Arg1, class Arg2, class Arg3, class... Args>
+        static no_key extract(Arg1 const&, Arg2 const&, Arg3 const&,
+                Args const&...)
         {
             return no_key();
         }

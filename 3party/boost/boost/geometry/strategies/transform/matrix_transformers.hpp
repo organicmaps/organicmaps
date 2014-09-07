@@ -22,8 +22,19 @@
 #define BOOST_UBLAS_TYPE_CHECK 0
 
 #include <boost/numeric/conversion/cast.hpp>
+
+#if defined(__clang__)
+// Avoid warning about unused UBLAS function: boost_numeric_ublas_abs
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
+
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 #include <boost/geometry/core/access.hpp>
 #include <boost/geometry/core/coordinate_dimension.hpp>
@@ -46,14 +57,12 @@ namespace strategy { namespace transform
 \see http://en.wikipedia.org/wiki/Affine_transformation
      and http://www.devmaster.net/wiki/Transformation_matrices
 \ingroup strategies
-\tparam P1 first point type (source)
-\tparam P2 second point type (target)
-\tparam Dimension1 number of dimensions to transform from first point
-\tparam Dimension1 number of dimensions to transform to second point
+\tparam Dimension1 number of dimensions to transform from
+\tparam Dimension2 number of dimensions to transform to
  */
 template
 <
-    typename P1, typename P2,
+    typename CalculationType,
     std::size_t Dimension1,
     std::size_t Dimension2
 >
@@ -62,13 +71,12 @@ class ublas_transformer
 };
 
 
-template <typename P1, typename P2>
-class ublas_transformer<P1, P2, 2, 2>
+template <typename CalculationType>
+class ublas_transformer<CalculationType, 2, 2>
 {
 protected :
-    typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
-    typedef coordinate_type ct; // Abbreviation
-    typedef boost::numeric::ublas::matrix<coordinate_type> matrix_type;
+    typedef CalculationType ct;
+    typedef boost::numeric::ublas::matrix<ct> matrix_type;
     matrix_type m_matrix;
 
 public :
@@ -91,17 +99,17 @@ public :
 
     inline ublas_transformer() : m_matrix(3, 3) {}
 
+    template <typename P1, typename P2>
     inline bool apply(P1 const& p1, P2& p2) const
     {
         assert_dimension_greater_equal<P1, 2>();
         assert_dimension_greater_equal<P2, 2>();
 
-        coordinate_type const& c1 = get<0>(p1);
-        coordinate_type const& c2 = get<1>(p1);
+        ct const& c1 = get<0>(p1);
+        ct const& c2 = get<1>(p1);
 
-
-        coordinate_type p2x = c1 * m_matrix(0,0) + c2 * m_matrix(0,1) + m_matrix(0,2);
-        coordinate_type p2y = c1 * m_matrix(1,0) + c2 * m_matrix(1,1) + m_matrix(1,2);
+        ct p2x = c1 * m_matrix(0,0) + c2 * m_matrix(0,1) + m_matrix(0,2);
+        ct p2y = c1 * m_matrix(1,0) + c2 * m_matrix(1,1) + m_matrix(1,2);
 
         typedef typename geometry::coordinate_type<P2>::type ct2;
         set<0>(p2, boost::numeric_cast<ct2>(p2x));
@@ -115,36 +123,34 @@ public :
 
 
 // It IS possible to go from 3 to 2 coordinates
-template <typename P1, typename P2>
-class ublas_transformer<P1, P2, 3, 2> : public ublas_transformer<P1, P2, 2, 2>
+template <typename CalculationType>
+class ublas_transformer<CalculationType, 3, 2> : public ublas_transformer<CalculationType, 2, 2>
 {
-    typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
-    typedef coordinate_type ct; // Abbreviation
+    typedef CalculationType ct;
 
 public :
     inline ublas_transformer(
                 ct const& m_0_0, ct const& m_0_1, ct const& m_0_2,
                 ct const& m_1_0, ct const& m_1_1, ct const& m_1_2,
                 ct const& m_2_0, ct const& m_2_1, ct const& m_2_2)
-        : ublas_transformer<P1, P2, 2, 2>(
+        : ublas_transformer<CalculationType, 2, 2>(
                     m_0_0, m_0_1, m_0_2,
                     m_1_0, m_1_1, m_1_2,
                     m_2_0, m_2_1, m_2_2)
     {}
 
     inline ublas_transformer()
-        : ublas_transformer<P1, P2, 2, 2>()
+        : ublas_transformer<CalculationType, 2, 2>()
     {}
 };
 
 
-template <typename P1, typename P2>
-class ublas_transformer<P1, P2, 3, 3>
+template <typename CalculationType>
+class ublas_transformer<CalculationType, 3, 3>
 {
 protected :
-    typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
-    typedef coordinate_type ct; // Abbreviation
-    typedef boost::numeric::ublas::matrix<coordinate_type> matrix_type;
+    typedef CalculationType ct;
+    typedef boost::numeric::ublas::matrix<ct> matrix_type;
     matrix_type m_matrix;
 
 public :
@@ -164,11 +170,12 @@ public :
 
     inline ublas_transformer() : m_matrix(4, 4) {}
 
+    template <typename P1, typename P2>
     inline bool apply(P1 const& p1, P2& p2) const
     {
-        coordinate_type const& c1 = get<0>(p1);
-        coordinate_type const& c2 = get<1>(p1);
-        coordinate_type const& c3 = get<2>(p1);
+        ct const& c1 = get<0>(p1);
+        ct const& c2 = get<1>(p1);
+        ct const& c3 = get<2>(p1);
 
         typedef typename geometry::coordinate_type<P2>::type ct2;
 
@@ -191,34 +198,30 @@ public :
 \details Translate moves a geometry a fixed distance in 2 or 3 dimensions.
 \see http://en.wikipedia.org/wiki/Translation_%28geometry%29
 \ingroup strategies
-\tparam P1 first point type
-\tparam P2 second point type
-\tparam Dimension1 number of dimensions to transform from first point
-\tparam Dimension1 number of dimensions to transform to second point
+\tparam Dimension1 number of dimensions to transform from
+\tparam Dimension2 number of dimensions to transform to
  */
 template
 <
-    typename P1, typename P2,
-    std::size_t Dimension1 = geometry::dimension<P1>::type::value,
-    std::size_t Dimension2 = geometry::dimension<P2>::type::value
+    typename CalculationType,
+    std::size_t Dimension1,
+    std::size_t Dimension2
 >
 class translate_transformer
 {
 };
 
 
-template <typename P1, typename P2>
-class translate_transformer<P1, P2, 2, 2> : public ublas_transformer<P1, P2, 2, 2>
+template<typename CalculationType>
+class translate_transformer<CalculationType, 2, 2> : public ublas_transformer<CalculationType, 2, 2>
 {
-    typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
-
 public :
     // To have translate transformers compatible for 2/3 dimensions, the
     // constructor takes an optional third argument doing nothing.
-    inline translate_transformer(coordinate_type const& translate_x,
-                coordinate_type const& translate_y,
-                coordinate_type const& = 0)
-        : ublas_transformer<P1, P2, 2, 2>(
+    inline translate_transformer(CalculationType const& translate_x,
+                CalculationType const& translate_y,
+                CalculationType const& = 0)
+        : ublas_transformer<CalculationType, 2, 2>(
                 1, 0, translate_x,
                 0, 1, translate_y,
                 0, 0, 1)
@@ -226,16 +229,14 @@ public :
 };
 
 
-template <typename P1, typename P2>
-class translate_transformer<P1, P2, 3, 3> : public ublas_transformer<P1, P2, 3, 3>
+template <typename CalculationType>
+class translate_transformer<CalculationType, 3, 3> : public ublas_transformer<CalculationType, 3, 3>
 {
-    typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
-
 public :
-    inline translate_transformer(coordinate_type const& translate_x,
-                coordinate_type const& translate_y,
-                coordinate_type const& translate_z)
-        : ublas_transformer<P1, P2, 3, 3>(
+    inline translate_transformer(CalculationType const& translate_x,
+                CalculationType const& translate_y,
+                CalculationType const& translate_z)
+        : ublas_transformer<CalculationType, 3, 3>(
                 1, 0, 0, translate_x,
                 0, 1, 0, translate_y,
                 0, 0, 1, translate_z,
@@ -250,40 +251,37 @@ public :
 \details Scale scales a geometry up or down in all its dimensions.
 \see http://en.wikipedia.org/wiki/Scaling_%28geometry%29
 \ingroup strategies
-\tparam P1 first point type
-\tparam P2 second point type
-\tparam Dimension1 number of dimensions to transform from first point
-\tparam Dimension1 number of dimensions to transform to second point
+\tparam Dimension1 number of dimensions to transform from
+\tparam Dimension2 number of dimensions to transform to
 */
 template
 <
-    typename P1, typename P2 = P1,
-    std::size_t Dimension1 = geometry::dimension<P1>::type::value,
-    std::size_t Dimension2 = geometry::dimension<P2>::type::value
+    typename CalculationType,
+    std::size_t Dimension1,
+    std::size_t Dimension2
 >
 class scale_transformer
 {
 };
 
 
-template <typename P1, typename P2>
-class scale_transformer<P1, P2, 2, 2> : public ublas_transformer<P1, P2, 2, 2>
+template <typename CalculationType>
+class scale_transformer<CalculationType, 2, 2> : public ublas_transformer<CalculationType, 2, 2>
 {
-    typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
 
 public :
-    inline scale_transformer(coordinate_type const& scale_x,
-                coordinate_type const& scale_y,
-                coordinate_type const& = 0)
-        : ublas_transformer<P1, P2, 2, 2>(
+    inline scale_transformer(CalculationType const& scale_x,
+                CalculationType const& scale_y,
+                CalculationType const& = 0)
+        : ublas_transformer<CalculationType, 2, 2>(
                 scale_x, 0,       0,
                 0,       scale_y, 0,
                 0,       0,       1)
     {}
 
 
-    inline scale_transformer(coordinate_type const& scale)
-        : ublas_transformer<P1, P2, 2, 2>(
+    inline scale_transformer(CalculationType const& scale)
+        : ublas_transformer<CalculationType, 2, 2>(
                 scale, 0,     0,
                 0,     scale, 0,
                 0,     0,     1)
@@ -291,16 +289,14 @@ public :
 };
 
 
-template <typename P1, typename P2>
-class scale_transformer<P1, P2, 3, 3> : public ublas_transformer<P1, P2, 3, 3>
+template <typename CalculationType>
+class scale_transformer<CalculationType, 3, 3> : public ublas_transformer<CalculationType, 3, 3>
 {
-    typedef typename select_coordinate_type<P1, P2>::type coordinate_type;
-
 public :
-    inline scale_transformer(coordinate_type const& scale_x,
-                coordinate_type const& scale_y,
-                coordinate_type const& scale_z)
-        : ublas_transformer<P1, P2, 3, 3>(
+    inline scale_transformer(CalculationType const& scale_x,
+                CalculationType const& scale_y,
+                CalculationType const& scale_z)
+        : ublas_transformer<CalculationType, 3, 3>(
                 scale_x, 0,       0,       0,
                 0,       scale_y, 0,       0,
                 0,       0,       scale_z, 0,
@@ -308,8 +304,8 @@ public :
     {}
 
 
-    inline scale_transformer(coordinate_type const& scale)
-        : ublas_transformer<P1, P2, 3, 3>(
+    inline scale_transformer(CalculationType const& scale)
+        : ublas_transformer<CalculationType, 3, 3>(
                 scale, 0,     0,     0,
                 0,     scale, 0,     0,
                 0,     0,     scale, 0,
@@ -352,23 +348,16 @@ struct as_radian<degree>
 
 template
 <
-    typename P1, typename P2,
-    std::size_t Dimension1 = geometry::dimension<P1>::type::value,
-    std::size_t Dimension2 = geometry::dimension<P2>::type::value
+    typename CalculationType,
+    std::size_t Dimension1,
+    std::size_t Dimension2
 >
 class rad_rotate_transformer
-    : public ublas_transformer<P1, P2, Dimension1, Dimension2>
+    : public ublas_transformer<CalculationType, Dimension1, Dimension2>
 {
-    // Angle has type of coordinate type, but at least a double
-    typedef typename select_most_precise
-        <
-            typename select_coordinate_type<P1, P2>::type,
-            double
-        >::type angle_type;
-
 public :
-    inline rad_rotate_transformer(angle_type const& angle)
-        : ublas_transformer<P1, P2, Dimension1, Dimension2>(
+    inline rad_rotate_transformer(CalculationType const& angle)
+        : ublas_transformer<CalculationType, Dimension1, Dimension2>(
                  cos(angle), sin(angle), 0,
                 -sin(angle), cos(angle), 0,
                  0,          0,          1)
@@ -381,33 +370,31 @@ public :
 
 
 /*!
-\brief Strategy of rotate transformation in Cartesian system.
+\brief Strategy for rotate transformation in Cartesian coordinate system.
 \details Rotate rotates a geometry of specified angle about a fixed point (e.g. origin).
 \see http://en.wikipedia.org/wiki/Rotation_%28mathematics%29
 \ingroup strategies
-\tparam P1 first point type
-\tparam P2 second point type
 \tparam DegreeOrRadian degree/or/radian, type of rotation angle specification
 \note A single angle is needed to specify a rotation in 2D.
       Not yet in 3D, the 3D version requires special things to allow
       for rotation around X, Y, Z or arbitrary axis.
 \todo The 3D version will not compile.
  */
-template <typename P1, typename P2, typename DegreeOrRadian>
-class rotate_transformer : public detail::rad_rotate_transformer<P1, P2>
+template
+<
+    typename DegreeOrRadian,
+    typename CalculationType,
+    std::size_t Dimension1,
+    std::size_t Dimension2
+>
+class rotate_transformer : public detail::rad_rotate_transformer<CalculationType, Dimension1, Dimension2>
 {
-    // Angle has type of coordinate type, but at least a double
-    typedef typename select_most_precise
-        <
-            typename select_coordinate_type<P1, P2>::type,
-            double
-        >::type angle_type;
 
 public :
-    inline rotate_transformer(angle_type const& angle)
+    inline rotate_transformer(CalculationType const& angle)
         : detail::rad_rotate_transformer
             <
-                P1, P2
+                CalculationType, Dimension1, Dimension2
             >(detail::as_radian<DegreeOrRadian>::get(angle))
     {}
 };

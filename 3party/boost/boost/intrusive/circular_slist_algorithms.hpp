@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2012
+// (C) Copyright Ion Gaztanaga  2006-2013
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -18,6 +18,7 @@
 #include <boost/intrusive/intrusive_fwd.hpp>
 #include <boost/intrusive/detail/common_slist_algorithms.hpp>
 #include <boost/intrusive/detail/assert.hpp>
+#include <boost/intrusive/detail/utilities.hpp>
 #include <cstddef>
 
 namespace boost {
@@ -249,33 +250,21 @@ class circular_slist_algorithms
    {
       if (other_node == this_node)
          return;
-      bool this_inited  = base_t::inited(this_node);
-      bool other_inited = base_t::inited(other_node);
-      if(this_inited){
-         base_t::init_header(this_node);
-      }
-      if(other_inited){
-         base_t::init_header(other_node);
-      }
+      const node_ptr this_next = NodeTraits::get_next(this_node);
+      const node_ptr other_next = NodeTraits::get_next(other_node);
+      const bool this_null   = !this_next;
+      const bool other_null  = !other_next;
+      const bool this_empty  = this_next == this_node;
+      const bool other_empty = other_next == other_node;
 
-      bool empty1 = base_t::unique(this_node);
-      bool empty2 = base_t::unique(other_node);
-      node_ptr prev_this (get_previous_node(this_node));
-      node_ptr prev_other(get_previous_node(other_node));
-
-      node_ptr this_next (NodeTraits::get_next(this_node));
-      node_ptr other_next(NodeTraits::get_next(other_node));
-      NodeTraits::set_next(this_node, other_next);
-      NodeTraits::set_next(other_node, this_next);
-      NodeTraits::set_next(empty1 ? other_node : prev_this, other_node);
-      NodeTraits::set_next(empty2 ? this_node  : prev_other, this_node);
-
-      if(this_inited){
-         base_t::init(other_node);
+      if(!(other_null || other_empty)){
+         NodeTraits::set_next(this_next == other_node ? other_node : get_previous_node(other_node), this_node );
       }
-      if(other_inited){
-         base_t::init(this_node);
+      if(!(this_null | this_empty)){
+         NodeTraits::set_next(other_next == this_node ? this_node  : get_previous_node(this_node), other_node );
       }
+      NodeTraits::set_next(this_node,  other_empty ? this_node  : (other_next == this_node ? other_node : other_next) );
+      NodeTraits::set_next(other_node, this_empty  ? other_node : (this_next == other_node ? this_node :  this_next ) );
    }
 
    //! <b>Effects</b>: Reverses the order of elements in the list.
@@ -395,6 +384,16 @@ class circular_slist_algorithms
       return new_last;
    }
 };
+
+/// @cond
+
+template<class NodeTraits>
+struct get_algo<CircularSListAlgorithms, NodeTraits>
+{
+   typedef circular_slist_algorithms<NodeTraits> type;
+};
+
+/// @endcond
 
 } //namespace intrusive
 } //namespace boost

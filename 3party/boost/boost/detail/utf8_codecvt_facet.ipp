@@ -171,14 +171,13 @@ std::codecvt_base::result utf8_codecvt_facet::do_out(
 // How many char objects can I process to get <= max_limit
 // wchar_t objects?
 int utf8_codecvt_facet::do_length(
-    BOOST_CODECVT_DO_LENGTH_CONST std::mbstate_t &,
+    const std::mbstate_t &,
     const char * from,
     const char * from_end, 
     std::size_t max_limit
-#if BOOST_WORKAROUND(__IBMCPP__, BOOST_TESTED_AT(600))
-) const throw()
-#else
 ) const
+#if BOOST_WORKAROUND(__IBMCPP__, BOOST_TESTED_AT(600))
+        throw()
 #endif
 { 
     // RG - this code is confusing!  I need a better way to express it.

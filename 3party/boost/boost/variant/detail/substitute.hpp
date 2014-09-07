@@ -125,6 +125,27 @@ struct substitute<
 // template expression (i.e., F<...>) specializations
 //
 
+#if !defined(BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES)
+template <
+      template <typename...> class F
+    , typename... Ts
+    , typename Dest
+    , typename Source
+      BOOST_MPL_AUX_LAMBDA_ARITY_PARAM(typename Arity)
+    >
+struct substitute<
+      F<Ts...>
+    , Dest
+    , Source
+      BOOST_MPL_AUX_LAMBDA_ARITY_PARAM(Arity)
+    >
+{
+    typedef F<typename substitute<
+          Ts, Dest, Source
+        >::type...> type;
+};
+#endif // !defined(BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES)
+
 #define BOOST_VARIANT_AUX_SUBSTITUTE_TYPEDEF_IMPL(N) \
     typedef typename substitute< \
           BOOST_PP_CAT(U,N), Dest, Source \

@@ -14,7 +14,17 @@
 #include <boost/geometry/algorithms/detail/ring_identifier.hpp>
 #include <boost/geometry/algorithms/detail/overlay/copy_segment_point.hpp>
 #include <boost/geometry/algorithms/detail/overlay/turn_info.hpp>
+#include <boost/geometry/algorithms/detail/recalculate.hpp>
 
+#include <boost/geometry/policies/robustness/robust_point_type.hpp>
+#include <boost/geometry/policies/robustness/segment_ratio_type.hpp>
+#include <boost/geometry/policies/robustness/robust_type.hpp>
+
+#if defined(BOOST_GEOMETRY_DEBUG_HANDLE_TANGENCIES)
+#include <boost/geometry/algorithms/detail/overlay/debug_turn_info.hpp>
+#endif
+
+#include <boost/geometry/geometries/point.hpp>
 #include <boost/geometry/geometries/segment.hpp>
 
 
@@ -31,6 +41,7 @@ template
     typename TurnPoints,
     typename Indexed,
     typename Geometry1, typename Geometry2,
+    typename RobustPolicy,
     bool Reverse1, bool Reverse2,
     typename Strategy
 >
@@ -39,10 +50,12 @@ struct sort_in_cluster
     inline sort_in_cluster(TurnPoints const& turn_points
             , Geometry1 const& geometry1
             , Geometry2 const& geometry2
+            , RobustPolicy const& robust_policy
             , Strategy const& strategy)
         : m_turn_points(turn_points)
         , m_geometry1(geometry1)
         , m_geometry2(geometry2)
+        , m_rescale_policy(robust_policy)
         , m_strategy(strategy)
     {}
 
@@ -51,58 +64,28 @@ private :
     TurnPoints const& m_turn_points;
     Geometry1 const& m_geometry1;
     Geometry2 const& m_geometry2;
+    RobustPolicy const& m_rescale_policy;
     Strategy const& m_strategy;
 
     typedef typename Indexed::type turn_operation_type;
     typedef typename geometry::point_type<Geometry1>::type point_type;
-    typedef model::referring_segment<point_type const> segment_type;
 
-    // Determine how p/r and p/s are located.
-    template <typename P>
-    static inline void overlap_info(P const& pi, P const& pj,
-        P const& ri, P const& rj,
-        P const& si, P const& sj,
-        bool& pr_overlap, bool& ps_overlap, bool& rs_overlap)
+    typedef typename geometry::robust_point_type
+    <
+        point_type,
+        RobustPolicy
+    >::type robust_point_type;
+
+    // TODO: this function is shared with enrich_intersection_points
+    // Still called by #case_102_multi, #case_107_multi
+    // #case_recursive_boxes_3
+    inline void get_situation_map(Indexed const& left, Indexed const& right,
+                              robust_point_type& pi_rob, robust_point_type& pj_rob,
+                              robust_point_type& ri_rob, robust_point_type& rj_rob,
+                              robust_point_type& si_rob, robust_point_type& sj_rob) const
     {
-        // Determine how p/r and p/s are located.
-        // One of them is coming from opposite direction.
-
-        typedef strategy::intersection::relate_cartesian_segments
-            <
-                policies::relate::segments_intersection_points
-                    <
-                        segment_type,
-                        segment_type,
-                        segment_intersection_points<point_type>
-                    >
-            > policy;
-
-        segment_type p(pi, pj);
-        segment_type r(ri, rj);
-        segment_type s(si, sj);
-
-        // Get the intersection point (or two points)
-        segment_intersection_points<point_type> pr = policy::apply(p, r);
-        segment_intersection_points<point_type> ps = policy::apply(p, s);
-        segment_intersection_points<point_type> rs = policy::apply(r, s);
-
-        // Check on overlap
-        pr_overlap = pr.count == 2;
-        ps_overlap = ps.count == 2;
-        rs_overlap = rs.count == 2;
-    }
-
-
-#ifdef BOOST_GEOMETRY_DEBUG_ENRICH
-    inline void debug_consider(int order, Indexed const& left,
-            Indexed const& right, std::string const& header,
-            bool skip = true,
-            std::string const& extra = "", bool ret = false
-        ) const
-    {
-        if (skip) return;
-
         point_type pi, pj, ri, rj, si, sj;
+
         geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
             left.subject.seg_id,
             pi, pj);
@@ -113,8 +96,86 @@ private :
             right.subject.other_id,
             si, sj);
 
+        geometry::recalculate(pi_rob, pi, m_rescale_policy);
+        geometry::recalculate(pj_rob, pj, m_rescale_policy);
+        geometry::recalculate(ri_rob, ri, m_rescale_policy);
+        geometry::recalculate(rj_rob, rj, m_rescale_policy);
+        geometry::recalculate(si_rob, si, m_rescale_policy);
+        geometry::recalculate(sj_rob, sj, m_rescale_policy);
+    }
+
+#if BOOST_GEOMETRY_HANDLE_TANGENCIES_WITH_OVERLAP_INFO
+    // This method was still called but did no effect whatsoever on the results,
+    // with or without robustness-rescaling.
+    // Probable cause: we rescale in this file ourselves, ignoring passed policy
+    // TODO: check this more.
+    // Besides this, it currently does not compile for yet unknown reasons
+    // (does not find specialization for segment_ratio_type)
+    // It is currently only called from the Unit Test "multi_intersection.cpp"
+
+    // Determine how p/r and p/s are located.
+    inline void overlap_info(
+        robust_point_type const& pi, robust_point_type const& pj,
+        robust_point_type const& ri, robust_point_type const& rj,
+        robust_point_type const& si, robust_point_type const& sj,
+        bool& pr_overlap, bool& ps_overlap, bool& rs_overlap) const
+    {
+        // Determine how p/r and p/s are located.
+        // One of them is coming from opposite direction.
+
+        typedef segment_intersection_points
+                <
+                    point_type,
+                    typename segment_ratio_type
+                    <
+                        point_type, RobustPolicy
+                    >::type
+                > intersection_return_type;
+
+        typedef strategy::intersection::relate_cartesian_segments
+            <
+                policies::relate::segments_intersection_points
+                    <
+                        intersection_return_type
+                    >
+            > policy;
+
+        typedef model::referring_segment<robust_point_type const> segment_type;
+        segment_type p(pi, pj);
+        segment_type r(ri, rj);
+        segment_type s(si, sj);
+
+        // Get the intersection point (or two points)
+        intersection_return_type pr = policy::apply(p, r, m_rescale_policy, pi, pj, ri, rj);
+        intersection_return_type ps = policy::apply(p, s, m_rescale_policy, pi, pj, si, sj);
+        intersection_return_type rs = policy::apply(r, s, m_rescale_policy, ri, rj, si, sj);
+
+        // Check on overlap
+        pr_overlap = pr.count == 2;
+        ps_overlap = ps.count == 2;
+        rs_overlap = rs.count == 2;
+    }
+#endif
+
+
+#ifdef BOOST_GEOMETRY_DEBUG_HANDLE_TANGENCIES
+    inline void debug_consider(int order, Indexed const& left,
+            Indexed const& right, std::string const& header,
+            bool skip = true,
+            std::string const& extra = "", bool ret = false
+        ) const
+    {
+        if (skip) return;
+
+        std::cout << "Case: " << header << " for " << left.index << " / " << right.index << std::endl;
+
+        robust_point_type pi, pj, ri, rj, si, sj;
+        get_situation_map(left, right, pi, pj, ri, rj, si, sj);
+
+#if BOOST_GEOMETRY_HANDLE_TANGENCIES_WITH_OVERLAP_INFO
         bool prc = false, psc = false, rsc = false;
         overlap_info(pi, pj, ri, rj, si, sj, prc, psc, rsc);
+#endif
 
         int const side_ri_p = m_strategy.apply(pi, pj, ri);
         int const side_rj_p = m_strategy.apply(pi, pj, rj);
@@ -123,8 +184,7 @@ private :
         int const side_si_r = m_strategy.apply(ri, rj, si);
         int const side_sj_r = m_strategy.apply(ri, rj, sj);
 
-        std::cout << "Case: " << header << " for " << left.index << " / " << right.index << std::endl;
-#ifdef BOOST_GEOMETRY_DEBUG_ENRICH_MORE
+#ifdef BOOST_GEOMETRY_DEBUG_HANDLE_TANGENCIES_MORE
         std::cout << " Segment p:" << geometry::wkt(pi) << " .. " << geometry::wkt(pj) << std::endl;
         std::cout << " Segment r:" << geometry::wkt(ri) << " .. " << geometry::wkt(rj) << std::endl;
         std::cout << " Segment s:" << geometry::wkt(si) << " .. " << geometry::wkt(sj) << std::endl;
@@ -141,7 +201,9 @@ private :
                 << " ri//p: " << side_ri_p
                 << " si//p: " << side_si_p
                 << " si//r: " << side_si_r
+#if BOOST_GEOMETRY_HANDLE_TANGENCIES_WITH_OVERLAP_INFO
                 << " cnts: " << int(prc) << ","  << int(psc) << "," << int(rsc)
+#endif
                 //<< " idx: " << left.index << "/" << right.index
                 ;
 
@@ -183,7 +245,7 @@ private :
         }
         else
         {
-#ifdef BOOST_GEOMETRY_DEBUG_ENRICH
+#if defined(BOOST_GEOMETRY_DEBUG_HANDLE_TANGENCIES)
             std::cout << "ux/ux unhandled" << std::endl;
 #endif
         }
@@ -226,7 +288,7 @@ private :
         }
         else
         {
-#ifdef BOOST_GEOMETRY_DEBUG_ENRICH
+#if defined(BOOST_GEOMETRY_DEBUG_HANDLE_TANGENCIES)
             // this still happens in the traverse.cpp test
             std::cout << " iu/ux unhandled" << std::endl;
 #endif
@@ -270,7 +332,7 @@ private :
 
         // Default case, should not occur
 
-#ifdef BOOST_GEOMETRY_DEBUG_ENRICH
+#if defined(BOOST_GEOMETRY_DEBUG_HANDLE_TANGENCIES)
         std::cout << "ix/ix unhandled" << std::endl;
 #endif
         //debug_consider(0, left, right, header, false, "-> return", ret);
@@ -280,7 +342,7 @@ private :
 
 
     inline bool consider_iu_iu(Indexed const& left, Indexed const& right,
-                    std::string const& header) const
+                    std::string const& header, bool redo = false) const
     {
         //debug_consider(0, left, right, header);
 
@@ -298,16 +360,8 @@ private :
             return true;
         }
 
-        point_type pi, pj, ri, rj, si, sj;
-        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
-            left.subject.seg_id,
-            pi, pj);
-        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
-            left.subject.other_id,
-            ri, rj);
-        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
-            right.subject.other_id,
-            si, sj);
+        robust_point_type pi, pj, ri, rj, si, sj;
+        get_situation_map(left, right, pi, pj, ri, rj, si, sj);
 
         int const side_ri_p = m_strategy.apply(pi, pj, ri);
         int const side_si_p = m_strategy.apply(pi, pj, si);
@@ -337,14 +391,18 @@ private :
                 debug_consider(0, left, right, header, false, "opp.", ret);
                 return ret;
             }
-#ifdef BOOST_GEOMETRY_DEBUG_ENRICH
+#if defined(BOOST_GEOMETRY_DEBUG_HANDLE_TANGENCIES)
             std::cout << " iu/iu coming from opposite unhandled" << std::endl;
 #endif
         }
 
+#if BOOST_GEOMETRY_HANDLE_TANGENCIES_WITH_OVERLAP_INFO
         // We need EXTRA information here: are p/r/s overlapping?
         bool pr_ov = false, ps_ov = false, rs_ov = false;
         overlap_info(pi, pj, ri, rj, si, sj, pr_ov, ps_ov, rs_ov);
+#else
+        // std::cout << "Boost.Geometry: skipping overlap_info" << std::endl;
+#endif
 
         // One coming from right (#83,#90)
         // One coming from left (#90, #94, #95)
@@ -352,12 +410,14 @@ private :
         {
             bool ret = false;
 
+#if BOOST_GEOMETRY_HANDLE_TANGENCIES_WITH_OVERLAP_INFO
             if (pr_ov || ps_ov)
             {
                 int r = side_ri_p != 0 ? side_ri_p : side_si_p;
                 ret = r * side_si_r == 1;
             }
             else
+#endif
             {
                 ret = side_si_r == 1;
             }
@@ -374,6 +434,7 @@ private :
             // Take the one NOT overlapping
             bool ret = false;
             bool found = false;
+#if BOOST_GEOMETRY_HANDLE_TANGENCIES_WITH_OVERLAP_INFO
             if (pr_ov && ! ps_ov)
             {
                 ret = true;
@@ -384,6 +445,7 @@ private :
                 ret = false;
                 found = true;
             }
+#endif
 
             debug_consider(0, left, right, header, false, "aligned", ret);
             if (found)
@@ -392,10 +454,17 @@ private :
             }
         }
 
-#ifdef BOOST_GEOMETRY_DEBUG_ENRICH
+#if defined(BOOST_GEOMETRY_DEBUG_HANDLE_TANGENCIES)
         std::cout << " iu/iu unhandled" << std::endl;
         debug_consider(0, left, right, header, false, "unhandled", left.index < right.index);
 #endif
+        if (! redo)
+        {
+            // In some cases behaviour is not symmetrical. TODO: fix this properly
+            //   OR: alternatively we might consider calling all these functions one-way anyway
+            return ! consider_iu_iu(right, left, header, true);
+        }
+
         return left.index < right.index;
     }
 
@@ -404,16 +473,8 @@ private :
     {
         debug_consider(0, left, right, header);
 
-        point_type pi, pj, ri, rj, si, sj;
-        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
-            left.subject.seg_id,
-            pi, pj);
-        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
-            left.subject.other_id,
-            ri, rj);
-        geometry::copy_segment_points<Reverse1, Reverse2>(m_geometry1, m_geometry2,
-            right.subject.other_id,
-            si, sj);
+        robust_point_type pi, pj, ri, rj, si, sj;
+        get_situation_map(left, right, pi, pj, ri, rj, si, sj);
 
         int const side_ri_p = m_strategy.apply(pi, pj, ri);
         int const side_si_p = m_strategy.apply(pi, pj, si);
@@ -518,7 +579,7 @@ public :
 
         // Now we have no clue how to sort.
 
-#ifdef BOOST_GEOMETRY_DEBUG_ENRICH
+#if defined(BOOST_GEOMETRY_DEBUG_HANDLE_TANGENCIES)
         std::cout << " Consider: " << operation_char(m_turn_points[left.index].operations[0].operation)
                 << operation_char(m_turn_points[left.index].operations[1].operation)
                 << "/" << operation_char(m_turn_points[right.index].operations[0].operation)
@@ -633,12 +694,14 @@ template
     typename TurnPoints,
     typename Geometry1,
     typename Geometry2,
+    typename RobustPolicy,
     typename Strategy
 >
 inline void handle_cluster(Iterator begin_cluster, Iterator end_cluster,
             TurnPoints& turn_points,
             operation_type for_operation,
             Geometry1 const& geometry1, Geometry2 const& geometry2,
+            RobustPolicy& robust_policy,
             Strategy const& strategy)
 {
     // First inspect and (possibly) discard rows
@@ -653,17 +716,17 @@ inline void handle_cluster(Iterator begin_cluster, Iterator end_cluster,
                         TurnPoints,
                         IndexType,
                         Geometry1, Geometry2,
+                        RobustPolicy,
                         Reverse1, Reverse2,
                         Strategy
-                    >(turn_points, geometry1, geometry2, strategy));
+                    >(turn_points, geometry1, geometry2, robust_policy, strategy));
 
-
-#ifdef BOOST_GEOMETRY_DEBUG_ENRICH
+#if defined(BOOST_GEOMETRY_DEBUG_HANDLE_TANGENCIES)
     typedef typename IndexType::type operations_type;
     operations_type const& op = turn_points[begin_cluster->index].operations[begin_cluster->operation_index];
-    std::cout << "Clustered points on equal distance " << op.enriched.distance << std::endl;
-    std::cout << "->Indexes ";
+    std::cout << std::endl << "Clustered points on equal distance " << op.fraction << std::endl;
 
+    std::cout << "->Indexes ";
     for (Iterator it = begin_cluster; it != end_cluster; ++it)
     {
         std::cout << " " << it->index;

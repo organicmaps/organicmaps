@@ -15,6 +15,7 @@
 #include <boost/range/difference_type.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/range/detail/implementation_help.hpp>
 #include <boost/assert.hpp>
 
 namespace boost
@@ -27,8 +28,8 @@ inline Container& push_front( Container& on, const Range& from )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<Container> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<const Range> ));
-    BOOST_ASSERT( (void*)&on != (void*)&from &&
-                  "cannot copy from a container to itself" );
+    BOOST_ASSERT_MSG(!range_detail::is_same_object(on, from),
+        "cannot copy from a container to itself");
     on.insert( on.begin(), boost::begin(from), boost::end(from) );
     return on;
 }

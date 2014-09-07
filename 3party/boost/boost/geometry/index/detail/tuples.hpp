@@ -164,13 +164,16 @@ struct add_unique
     >::type type;
 };
 
-template <typename Tuple, typename T, size_t I, size_t N>
-struct push_back_impl
+template <typename Tuple,
+          typename T,
+          size_t I = 0,
+          size_t N = boost::tuples::length<Tuple>::value>
+struct push_back
 {
     typedef
     boost::tuples::cons<
         typename boost::tuples::element<I, Tuple>::type,
-        typename push_back_impl<Tuple, T, I+1, N>::type
+        typename push_back<Tuple, T, I+1, N>::type
     > type;
 
     static type apply(Tuple const& tup, T const& t)
@@ -178,13 +181,13 @@ struct push_back_impl
         return
         type(
             boost::get<I>(tup),
-            push_back_impl<Tuple, T, I+1, N>::apply(tup, t)
+            push_back<Tuple, T, I+1, N>::apply(tup, t)
         );
     }
 };
 
 template <typename Tuple, typename T, size_t N>
-struct push_back_impl<Tuple, T, N, N>
+struct push_back<Tuple, T, N, N>
 {
     typedef boost::tuples::cons<T, boost::tuples::null_type> type;
 

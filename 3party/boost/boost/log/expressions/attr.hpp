@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -25,6 +25,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/log/detail/config.hpp>
+#include <boost/log/detail/copy_cv.hpp>
 #include <boost/log/detail/custom_terminal_spec.hpp>
 #include <boost/log/attributes/attribute_name.hpp>
 #include <boost/log/attributes/value_extraction.hpp>
@@ -32,7 +33,7 @@
 #include <boost/log/expressions/attr_fwd.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -69,26 +70,16 @@ public:
     template< typename >
     struct result;
 
-    template< typename ContextT >
-    struct result< this_type(ContextT) >
+    template< typename ThisT, typename ContextT >
+    struct result< ThisT(ContextT) >
     {
         typedef typename remove_cv<
             typename remove_reference< typename phoenix::result_of::env< ContextT >::type >::type
         >::type env_type;
         typedef typename env_type::args_type args_type;
+        typedef typename boost::log::aux::copy_cv< ThisT, value_extractor_type >::type cv_value_extractor_type;
 
-        typedef typename boost::result_of< value_extractor_type(attribute_name const&, typename fusion::result_of::at_c< args_type, 0 >::type) >::type type;
-    };
-
-    template< typename ContextT >
-    struct result< const this_type(ContextT) >
-    {
-        typedef typename remove_cv<
-            typename remove_reference< typename phoenix::result_of::env< ContextT >::type >::type
-        >::type env_type;
-        typedef typename env_type::args_type args_type;
-
-        typedef typename boost::result_of< const value_extractor_type(attribute_name const&, typename fusion::result_of::at_c< args_type, 0 >::type) >::type type;
+        typedef typename boost::result_of< cv_value_extractor_type(attribute_name const&, typename fusion::result_of::at_c< args_type, 0 >::type) >::type type;
     };
 
 private:
@@ -149,7 +140,7 @@ public:
         return m_value_extractor(m_name, fusion::at_c< 0 >(phoenix::env(ctx).args()));
     }
 
-    BOOST_LOG_DELETED_FUNCTION(attribute_terminal())
+    BOOST_DELETED_FUNCTION(attribute_terminal())
 };
 
 /*!
@@ -232,7 +223,7 @@ public:
  * with the specified name and type.
  */
 template< typename AttributeValueT >
-BOOST_LOG_FORCEINLINE attribute_actor< AttributeValueT > attr(attribute_name const& name)
+BOOST_FORCEINLINE attribute_actor< AttributeValueT > attr(attribute_name const& name)
 {
     typedef attribute_actor< AttributeValueT > result_type;
     typedef typename result_type::terminal_type result_terminal;
@@ -245,7 +236,7 @@ BOOST_LOG_FORCEINLINE attribute_actor< AttributeValueT > attr(attribute_name con
  * with the specified name and type.
  */
 template< typename AttributeValueT, typename TagT >
-BOOST_LOG_FORCEINLINE attribute_actor< AttributeValueT, fallback_to_none, TagT > attr(attribute_name const& name)
+BOOST_FORCEINLINE attribute_actor< AttributeValueT, fallback_to_none, TagT > attr(attribute_name const& name)
 {
     typedef attribute_actor< AttributeValueT, fallback_to_none, TagT > result_type;
     typedef typename result_type::terminal_type result_terminal;

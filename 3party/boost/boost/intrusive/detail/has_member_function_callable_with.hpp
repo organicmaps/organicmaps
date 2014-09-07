@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2011-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2011-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -70,11 +70,11 @@
    #error "BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_NS_END not defined!"
    #endif
 
-   #if BOOST_PP_ITERATION_START() != 0
-   #error "BOOST_PP_ITERATION_START() must be zero (0)"
+   #if BOOST_PP_ITERATION_START() > BOOST_PP_ITERATION_FINISH()
+   #error "BOOST_PP_ITERATION_START() must be <= BOOST_PP_ITERATION_FINISH()"
    #endif
 
-   #if BOOST_PP_ITERATION() == 0
+   #if BOOST_PP_ITERATION() == BOOST_PP_ITERATION_START()
 
       BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_NS_BEGIN
 
@@ -113,6 +113,119 @@
             static const bool value = false;
          };
          //!
+
+      #else //!defined(BOOST_INTRUSIVE_PERFECT_FORWARDING)
+
+         template<typename Fun, bool HasFunc, class ...Args>
+         struct BOOST_PP_CAT(BOOST_PP_CAT(has_member_function_callable_with_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME),_impl);
+
+         template<typename Fun, class ...Args>
+         struct BOOST_PP_CAT(BOOST_PP_CAT(has_member_function_callable_with_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME),_impl)
+            <Fun, false, Args...>
+         {
+            static const bool value = false;
+         };
+
+         #ifdef BOOST_NO_CXX11_DECLTYPE
+
+         //Special case for 0 args
+         template< class F
+               , std::size_t N =
+                     sizeof((boost::move_detail::declval<F>().
+                        BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME (), 0))>
+         struct BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)
+         {
+            boost_intrusive_has_member_function_callable_with::yes_type dummy;
+            BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)(int);
+         };
+
+         //For buggy compilers like MSVC 7.1+ ((F*)0)->func() does not
+         //SFINAE-out the zeroarg_checker_ instantiation but sizeof yields to 0.
+         template<class F>
+         struct BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)<F, 0>
+         {
+            boost_intrusive_has_member_function_callable_with::no_type dummy;
+            BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)(int);
+         };
+
+         #endif   //#ifdef BOOST_NO_CXX11_DECLTYPE
+
+         template<typename Fun>
+         struct BOOST_PP_CAT(BOOST_PP_CAT(has_member_function_callable_with_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME),_impl)
+            <Fun, true>
+         {
+            #ifndef BOOST_NO_CXX11_DECLTYPE
+            template<class U, class V = decltype(boost::move_detail::declval<U>().BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME()) >
+            static boost_intrusive_has_member_function_callable_with::yes_type Test(U*);
+            #else
+            template<class U>
+               static BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)
+               <U> Test(BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)<U>*);
+            #endif
+   
+            template <class U>
+            static boost_intrusive_has_member_function_callable_with::no_type Test(...);
+
+            static const bool value = sizeof(Test< Fun >(0))
+                                 == sizeof(boost_intrusive_has_member_function_callable_with::yes_type);
+         };
+
+         template<typename Fun, class ...DontCares>
+         struct BOOST_PP_CAT( funwrap_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME )
+            : Fun
+         {
+            BOOST_PP_CAT( funwrap_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME )();
+            using Fun::BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME;
+
+            boost_intrusive_has_member_function_callable_with::private_type
+               BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME
+                  ( DontCares...)  const;
+         };
+
+         template<typename Fun, class ...Args>
+         struct BOOST_PP_CAT( BOOST_PP_CAT(has_member_function_callable_with_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME), _impl)
+            <Fun, true , Args...>
+         {
+            template<class T>
+            struct make_dontcare
+            {
+               typedef boost_intrusive_has_member_function_callable_with::dont_care type;
+            };
+
+            typedef BOOST_PP_CAT( funwrap_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME )
+               <Fun, typename make_dontcare<Args>::type...> FunWrap;
+
+            static bool const value = (sizeof(boost_intrusive_has_member_function_callable_with::no_type) ==
+                                       sizeof(boost_intrusive_has_member_function_callable_with::is_private_type
+                                                ( (::boost::move_detail::declval< FunWrap >().
+                                          BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME
+                                             ( ::boost::move_detail::declval<Args>()... ), 0) )
+                                             )
+                                       );
+         };
+
+         template<typename Fun, class ...Args>
+         struct BOOST_PP_CAT( has_member_function_callable_with_
+                            , BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)
+            : public BOOST_PP_CAT( BOOST_PP_CAT(has_member_function_callable_with_
+                                 , BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME),_impl)
+               < Fun
+               , BOOST_PP_CAT( has_member_function_named_
+                             , BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME )<Fun>::value
+               , Args... >
+         {};
+
+      #endif   //!defined(BOOST_INTRUSIVE_PERFECT_FORWARDING)
+
+      BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_NS_END
+
+   #endif   //BOOST_PP_ITERATION() == BOOST_PP_ITERATION_START()
+
+   #if BOOST_PP_ITERATION() == 0
+
+      BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_NS_BEGIN
+
+      #if !defined(BOOST_INTRUSIVE_PERFECT_FORWARDING)
 
          #if !defined(_MSC_VER) || (_MSC_VER < 1600)
 
@@ -171,9 +284,9 @@
                <Fun, true BOOST_PP_ENUM_TRAILING(BOOST_PP_SUB(BOOST_PP_ITERATION_FINISH(), BOOST_PP_ITERATION()), BOOST_INTRUSIVE_PP_IDENTITY, void)>
             {
                template<class U>
-               static decltype( boost::move_detail::declval<Fun>().BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME()
+               static decltype( boost::move_detail::declval<U>().BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME()
                               , boost_intrusive_has_member_function_callable_with::yes_type())
-                  Test(Fun*);
+                  Test(U*);
 
                template<class U>
                static boost_intrusive_has_member_function_callable_with::no_type Test(...);
@@ -184,96 +297,6 @@
          #endif   //#if !defined(_MSC_VER) || (_MSC_VER < 1600)
 
       #else   //#if !defined(BOOST_INTRUSIVE_PERFECT_FORWARDING)
-
-         template<typename Fun, bool HasFunc, class ...Args>
-         struct BOOST_PP_CAT(BOOST_PP_CAT(has_member_function_callable_with_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME),_impl);
-
-         template<typename Fun, class ...Args>
-         struct BOOST_PP_CAT(BOOST_PP_CAT(has_member_function_callable_with_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME),_impl)
-            <Fun, false, Args...>
-         {
-            static const bool value = false;
-         };
-
-         //Special case for 0 args
-         template< class F
-               , std::size_t N =
-                     sizeof((boost::move_detail::declval<F>().
-                        BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME (), 0))>
-         struct BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)
-         {
-            boost_intrusive_has_member_function_callable_with::yes_type dummy;
-            BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)(int);
-         };
-
-         //For buggy compilers like MSVC 7.1+ ((F*)0)->func() does not
-         //SFINAE-out the zeroarg_checker_ instantiation but sizeof yields to 0.
-         template<class F>
-         struct BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)<F, 0>
-         {
-            boost_intrusive_has_member_function_callable_with::no_type dummy;
-            BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)(int);
-         };
-
-         template<typename Fun>
-         struct BOOST_PP_CAT(BOOST_PP_CAT(has_member_function_callable_with_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME),_impl)
-            <Fun, true>
-         {
-            template<class U>
-            static BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)
-               <U> Test(BOOST_PP_CAT(zeroarg_checker_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)<U>*);
-
-            template <class U>
-            static boost_intrusive_has_member_function_callable_with::no_type Test(...);
-
-            static const bool value = sizeof(Test< Fun >(0))
-                                 == sizeof(boost_intrusive_has_member_function_callable_with::yes_type);
-         };
-
-         template<typename Fun, class ...DontCares>
-         struct BOOST_PP_CAT( funwrap_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME )
-            : Fun
-         {
-            BOOST_PP_CAT( funwrap_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME )();
-            using Fun::BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME;
-
-            boost_intrusive_has_member_function_callable_with::private_type
-               BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME
-                  ( DontCares...)  const;
-         };
-
-         template<typename Fun, class ...Args>
-         struct BOOST_PP_CAT( BOOST_PP_CAT(has_member_function_callable_with_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME), _impl)
-            <Fun, true , Args...>
-         {
-            template<class T>
-            struct make_dontcare
-            {
-               typedef boost_intrusive_has_member_function_callable_with::dont_care type;
-            };
-
-            typedef BOOST_PP_CAT( funwrap_, BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME )
-               <Fun, typename make_dontcare<Args>::type...> FunWrap;
-
-            static bool const value = (sizeof(boost_intrusive_has_member_function_callable_with::no_type) ==
-                                       sizeof(boost_intrusive_has_member_function_callable_with::is_private_type
-                                                ( (::boost::move_detail::declval< FunWrap >().
-                                          BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME
-                                             ( ::boost::move_detail::declval<Args>()... ), 0) )
-                                             )
-                                       );
-         };
-
-         template<typename Fun, class ...Args>
-         struct BOOST_PP_CAT( has_member_function_callable_with_
-                            , BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME)
-            : public BOOST_PP_CAT( BOOST_PP_CAT(has_member_function_callable_with_
-                                 , BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME),_impl)
-               < Fun
-               , BOOST_PP_CAT( has_member_function_named_
-                             , BOOST_INTRUSIVE_HAS_MEMBER_FUNCTION_CALLABLE_WITH_FUNCNAME )<Fun>::value
-               , Args... >
-         {};
 
       #endif   //#if !defined(BOOST_INTRUSIVE_PERFECT_FORWARDING)
 

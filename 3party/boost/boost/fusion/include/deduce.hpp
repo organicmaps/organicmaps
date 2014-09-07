@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_DEDUCE)
 #define FUSION_INCLUDE_DEDUCE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/deduce.hpp>
 
 #endif

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -11,13 +11,14 @@
 #ifndef BOOST_CONTAINER_DETAIL_ADAPTIVE_NODE_POOL_IMPL_HPP
 #define BOOST_CONTAINER_DETAIL_ADAPTIVE_NODE_POOL_IMPL_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
-#include "config_begin.hpp"
-#include <boost/container/container_fwd.hpp>
+#include <boost/container/detail/config_begin.hpp>
 #include <boost/container/detail/workaround.hpp>
+
+#include <boost/container/container_fwd.hpp>
 #include <boost/container/detail/utilities.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 #include <boost/intrusive/set.hpp>
@@ -481,7 +482,7 @@ class private_adaptive_node_pool_impl
          free_nodes_iterator itf(nodes.begin()), itbf(itbb);
          size_type splice_node_count = size_type(-1);
          while(itf != ite){
-            void *pElem = container_detail::to_raw_pointer(&*itf);
+            void *pElem = container_detail::to_raw_pointer(container_detail::iterator_to_pointer(itf));
             block_info_t &block_info = *this->priv_block_from_node(pElem);
             BOOST_ASSERT(block_info.free_nodes.size() < m_real_num_node);
             ++splice_node_count;
@@ -638,7 +639,7 @@ class private_adaptive_node_pool_impl
 
       {  //We iterate through the block tree to free the memory
          const_block_iterator it(m_block_container.begin());
-   
+
          if(it != itend){
             for(++it; it != itend; ++it){
                const_block_iterator prev(it);

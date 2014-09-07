@@ -7,8 +7,8 @@
  The routines makes full use of adaptive and dense-output methods.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Karsten Ahnert
+ Copyright 2011-2012 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -44,19 +44,20 @@ size_t integrate_const(
         Observer observer
 )
 {
+    typedef typename odeint::unwrap_reference< Stepper >::type::stepper_category stepper_category;
     // we want to get as fast as possible to the end
     if( boost::is_same< null_observer , Observer >::value )
     {
         return detail::integrate_adaptive(
                 stepper , system , start_state ,
                 start_time , end_time  , dt ,
-                observer , typename Stepper::stepper_category() );
+                observer , stepper_category() );
     }
     else
     {
         return detail::integrate_const( stepper , system , start_state , 
                                         start_time , end_time , dt ,
-                                        observer , typename Stepper::stepper_category() );
+                                        observer , stepper_category() );
       }
 }
 
@@ -71,19 +72,20 @@ size_t integrate_const(
         Observer observer
 )
 {
+    typedef typename odeint::unwrap_reference< Stepper >::type::stepper_category stepper_category;
     // we want to get as fast as possible to the end
     if( boost::is_same< null_observer , Observer >::value )
     {
         return detail::integrate_adaptive(
                 stepper , system , start_state ,
                 start_time , end_time  , dt ,
-                observer , typename Stepper::stepper_category() );
+                observer , stepper_category() );
     }
     else
     {
         return detail::integrate_const( stepper , system , start_state , 
                                         start_time , end_time , dt ,
-                                        observer , typename Stepper::stepper_category() );
+                                        observer , stepper_category() );
     }
 }
 

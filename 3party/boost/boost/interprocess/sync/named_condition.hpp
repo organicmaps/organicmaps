@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_NAMED_CONDITION_HPP
 #define BOOST_INTERPROCESS_NAMED_CONDITION_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -177,7 +177,7 @@ inline bool named_condition::timed_wait
 template <typename L, typename Pr>
 inline bool named_condition::timed_wait
    (L& lock, const boost::posix_time::ptime &abs_time, Pr pred)
-{  
+{
    ipcdetail::internal_mutex_lock<L> internal_lock(lock);
    return m_cond.timed_wait(internal_lock, abs_time, pred);
 }

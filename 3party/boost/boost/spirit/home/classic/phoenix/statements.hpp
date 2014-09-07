@@ -86,7 +86,7 @@ operator,(actor<BaseT0> const& _0, actor<BaseT1> const& _1)
 //      is true, the true_statement (again an actor) is executed
 //      otherwise, the false_statement (another actor) is executed. The
 //      result type of this is void. Note the trailing underscore after
-//      if_ and the the leading dot and the trailing underscore before
+//      if_ and the leading dot and the trailing underscore before
 //      and after .else_.
 //
 ///////////////////////////////////////////////////////////////////////////////

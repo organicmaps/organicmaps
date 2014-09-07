@@ -116,11 +116,11 @@ namespace boost{ namespace math
     typedef RealType value_type;
     typedef Policy policy_type;
 
-    uniform_distribution(RealType lower = 0, RealType upper = 1) // Constructor.
-      : m_lower(lower), m_upper(upper) // Default is standard uniform distribution.
+    uniform_distribution(RealType l_lower = 0, RealType l_upper = 1) // Constructor.
+      : m_lower(l_lower), m_upper(l_upper) // Default is standard uniform distribution.
     {
       RealType result;
-      detail::check_uniform("boost::math::uniform_distribution<%1%>::uniform_distribution", lower, upper, &result, Policy());
+      detail::check_uniform("boost::math::uniform_distribution<%1%>::uniform_distribution", l_lower, l_upper, &result, Policy());
     }
     // Accessor functions.
     RealType lower()const

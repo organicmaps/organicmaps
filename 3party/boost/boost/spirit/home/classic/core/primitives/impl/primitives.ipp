@@ -10,21 +10,12 @@
 #if !defined(BOOST_SPIRIT_PRIMITIVES_IPP)
 #define BOOST_SPIRIT_PRIMITIVES_IPP
 
-// This should eventually go to a config file.
-#if defined(__GNUC__) && (__GNUC__ < 3) && !defined(_STLPORT_VERSION)
-#  ifndef BOOST_SPIRIT_NO_CHAR_TRAITS
-#    define BOOST_SPIRIT_NO_CHAR_TRAITS
-#  endif
-#endif
-
 #include <cctype>
 #if !defined(BOOST_NO_CWCTYPE)
 #include <cwctype>
 #endif
 
-#ifndef BOOST_SPIRIT_NO_CHAR_TRAITS
-#  include <string> // char_traits
-#endif
+#include <string> // char_traits
 
 #if defined(BOOST_MSVC)
 #  pragma warning (push)
@@ -79,80 +70,6 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
     //
     ///////////////////////////////////////////////////////////////////////////
 
-#ifndef BOOST_SPIRIT_NO_CHAR_TRAITS
-#  define BOOST_SPIRIT_CHAR_TRAITS_NAMESPACE std
-#else
-
-        template <typename CharT>
-        struct char_traits
-        {
-            typedef CharT int_type;
-            typedef CharT char_type;
-        };
-
-        template<>
-        struct char_traits<char>
-        {
-            typedef int int_type;
-            typedef char char_type;
-
-            static char_type
-            to_char_type(int_type c)
-            {
-                return static_cast<char_type>(c);
-            }
-
-            static int
-            to_int_type(char c)
-            {
-                return static_cast<unsigned char>(c);
-            }
-        };
-
-        template<>
-        struct char_traits<unsigned char>
-        {
-            typedef int int_type;
-            typedef unsigned char char_type;
-
-            static char_type
-            to_char_type(int_type c)
-            {
-                return static_cast<char_type>(c);
-            }
-
-            static int
-            to_int_type(unsigned char c)
-            {
-                return c;
-            }
-        };
-
-#  define BOOST_SPIRIT_CHAR_TRAITS_NAMESPACE impl
-#  ifndef BOOST_NO_CWCTYPE
-
-        template<>
-        struct char_traits<wchar_t>
-        {
-            typedef wint_t int_type;
-            typedef wchar_t char_type;
-
-            static char_type
-            to_char_type(int_type c)
-            {
-                return static_cast<char_type>(c);
-            }
-
-            static wint_t
-            to_int_type(wchar_t c)
-            {
-                return c;
-            }
-        };
-
-#  endif
-#endif // BOOST_SPIRIT_NO_CHAR_TRAITS
-
         //  Use char_traits for char and wchar_t only, as these are the only
         //  specializations provided in the standard. Other types are on their
         //  own.
@@ -182,19 +99,16 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
         struct char_type_char_traits_helper
         {
             typedef CharT char_type;
-            typedef typename BOOST_SPIRIT_CHAR_TRAITS_NAMESPACE
-                ::char_traits<CharT>::int_type int_type;
+            typedef typename std::char_traits<CharT>::int_type int_type;
 
             static int_type to_int_type(CharT c)
             {
-                return BOOST_SPIRIT_CHAR_TRAITS_NAMESPACE
-                    ::char_traits<CharT>::to_int_type(c);
+                return std::char_traits<CharT>::to_int_type(c);
             }
 
             static char_type to_char_type(int_type i)
             {
-                return BOOST_SPIRIT_CHAR_TRAITS_NAMESPACE
-                    ::char_traits<CharT>::to_char_type(i);
+                return std::char_traits<CharT>::to_char_type(i);
             }
         };
 

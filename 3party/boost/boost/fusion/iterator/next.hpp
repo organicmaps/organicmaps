@@ -7,6 +7,7 @@
 #if !defined(FUSION_NEXT_05042005_1101)
 #define FUSION_NEXT_05042005_1101
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/tag_of.hpp>
 
 namespace boost { namespace fusion
@@ -53,6 +54,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Iterator>
+    BOOST_FUSION_GPU_ENABLED
     typename result_of::next<Iterator>::type const
     next(Iterator const& i)
     {

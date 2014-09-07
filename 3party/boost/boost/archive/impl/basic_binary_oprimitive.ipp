@@ -31,6 +31,7 @@ namespace std{ using ::wcslen; }
 
 #include <boost/archive/add_facet.hpp>
 #include <boost/archive/codecvt_null.hpp>
+#include <boost/archive/basic_binary_oprimitive.hpp>
 
 namespace boost {
 namespace archive {

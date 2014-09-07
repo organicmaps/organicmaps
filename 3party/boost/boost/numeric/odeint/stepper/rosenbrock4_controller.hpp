@@ -6,8 +6,9 @@
  Controller for the Rosenbrock4 method.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2012 Karsten Ahnert
+ Copyright 2011-2012 Mario Mulansky
+ Copyright 2012 Christoph Koke
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -113,7 +114,10 @@ public:
         m_stepper.do_step( sys , x , t , xout , dt , m_xerr.m_v );
         value_type err = error( xout , x , m_xerr.m_v );
 
-        value_type fac = max BOOST_PREVENT_MACRO_SUBSTITUTION ( fac2 , min BOOST_PREVENT_MACRO_SUBSTITUTION ( fac1 , pow( err , 0.25 ) / safe ) );
+        value_type fac = max BOOST_PREVENT_MACRO_SUBSTITUTION (
+            fac2 , min BOOST_PREVENT_MACRO_SUBSTITUTION (
+                fac1 ,
+                static_cast< value_type >( pow( err , 0.25 ) / safe ) ) );
         value_type dt_new = dt / fac;
         if ( err <= 1.0 )
         {
@@ -124,15 +128,18 @@ public:
             else
             {
                 value_type fac_pred = ( m_dt_old / dt ) * pow( err * err / m_err_old , 0.25 ) / safe;
-                fac_pred = max BOOST_PREVENT_MACRO_SUBSTITUTION ( fac2 , min BOOST_PREVENT_MACRO_SUBSTITUTION ( fac1 , fac_pred ) );
+                fac_pred = max BOOST_PREVENT_MACRO_SUBSTITUTION (
+                    fac2 , min BOOST_PREVENT_MACRO_SUBSTITUTION ( fac1 , fac_pred ) );
                 fac = max BOOST_PREVENT_MACRO_SUBSTITUTION ( fac , fac_pred );
                 dt_new = dt / fac;
             }
 
             m_dt_old = dt;
-            m_err_old = max BOOST_PREVENT_MACRO_SUBSTITUTION ( 0.01 , err );
+            m_err_old = max BOOST_PREVENT_MACRO_SUBSTITUTION ( static_cast< value_type >( 0.01 ) , err );
             if( m_last_rejected )
-                dt_new = ( dt >= 0.0 ? min BOOST_PREVENT_MACRO_SUBSTITUTION ( dt_new , dt ) : max BOOST_PREVENT_MACRO_SUBSTITUTION ( dt_new , dt ) );
+                dt_new = ( dt >= 0.0 ?
+                min BOOST_PREVENT_MACRO_SUBSTITUTION ( dt_new , dt ) :
+                max BOOST_PREVENT_MACRO_SUBSTITUTION ( dt_new , dt ) );
             t += dt;
             dt = dt_new;
             m_last_rejected = false;

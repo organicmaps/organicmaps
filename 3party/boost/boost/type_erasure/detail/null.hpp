@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: null.hpp 79190 2012-06-30 20:07:23Z steven_watanabe $
+// $Id$
 
 #if !defined(BOOST_PP_IS_ITERATING)
 

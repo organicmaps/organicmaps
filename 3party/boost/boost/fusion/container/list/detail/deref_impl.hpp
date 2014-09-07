@@ -8,6 +8,7 @@
 #if !defined(FUSION_DEREF_IMPL_07172005_0831)
 #define FUSION_DEREF_IMPL_07172005_0831
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/add_const.hpp>
@@ -37,6 +38,7 @@ namespace boost { namespace fusion
                   , add_reference<value_type> >::type
                 type;
     
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

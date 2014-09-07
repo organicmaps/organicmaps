@@ -372,7 +372,13 @@ T inverse_students_t(T df, T u, T v, const Policy& pol, bool* pexact = 0)
    else
    {
 calculate_real:
-      if(df < 3)
+      if(df > 0x10000000)
+      {
+         result = -boost::math::erfc_inv(2 * u, pol) * constants::root_two<T>();
+         if((pexact) && (df >= 1e20))
+            *pexact = true;
+      }
+      else if(df < 3)
       {
          //
          // Use a roughly linear scheme to choose between Shaw's
@@ -395,7 +401,7 @@ calculate_real:
          // where we use Shaw's tail series.
          // The crossover point is roughly exponential in -df:
          //
-         T crossover = ldexp(1.0f, iround(T(df / -0.654f), pol));
+         T crossover = ldexp(1.0f, iround(T(df / -0.654f), typename policies::normalise<Policy, policies::rounding_error<policies::ignore_error> >::type()));
          if(u > crossover)
          {
             result = boost::math::detail::inverse_students_t_hill(df, u, pol);
@@ -410,15 +416,14 @@ calculate_real:
 }
 
 template <class T, class Policy>
-inline T find_ibeta_inv_from_t_dist(T a, T p, T q, T* py, const Policy& pol)
+inline T find_ibeta_inv_from_t_dist(T a, T p, T /*q*/, T* py, const Policy& pol)
 {
-   T u = (p > q) ? T(0.5f - q) / T(2) : T(p / 2);
-   T v = 1 - u; // u < 0.5 so no cancellation error
+   T u = p / 2;
+   T v = 1 - u;
    T df = a * 2;
    T t = boost::math::detail::inverse_students_t(df, u, v, pol);
-   T x = df / (df + t * t);
    *py = t * t / (df + t * t);
-   return x;
+   return df / (df + t * t);
 }
 
 template <class T, class Policy>

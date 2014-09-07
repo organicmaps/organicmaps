@@ -6,8 +6,8 @@
  Algebra caller for the Adams Bashforth stepper.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2012 Karsten Ahnert
+ Copyright 2011 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -115,11 +115,11 @@ struct adams_bashforth_call_algebra< 7 , Algebra , Operations >
     template< class StateIn , class StateOut , class StepStorage , class Coefficients , class Time >
     void operator()( Algebra &algebra , const StateIn &in , StateOut &out , const StepStorage &steps , const Coefficients &coef , Time dt ) const
     {
-        BOOST_ASSERT( false ); // not implemented
-        // typedef typename Coefficients::value_type value_type;
-        // Algebra::for_each9( out , in , steps[0] , steps[1] , steps[2] , steps[3] , steps[4] , steps[5] , steps[6]
-        //                     typename Operations::template scale_sum8< value_type , Time , Time , Time , Time , Time , Time >(
-        //                         1.0 , dt * coef[0] , dt * coef[1] , dt * coef[2] , dt * coef[3] , dt * coef[4] , dt * coef[5] , dt * coef[6] ) );
+        //BOOST_ASSERT( false ); // not implemented
+        typedef typename Coefficients::value_type value_type;
+        Algebra::for_each9( out , in , steps[0].m_v , steps[1].m_v , steps[2].m_v , steps[3].m_v , steps[4].m_v , steps[5].m_v , steps[6].m_v ,
+                            typename Operations::template scale_sum8< value_type , Time , Time , Time , Time , Time , Time >(
+                                1.0 , dt * coef[0] , dt * coef[1] , dt * coef[2] , dt * coef[3] , dt * coef[4] , dt * coef[5] , dt * coef[6] ) );
     }
 };
 
@@ -130,11 +130,11 @@ struct adams_bashforth_call_algebra< 8 , Algebra , Operations >
     template< class StateIn , class StateOut , class StepStorage , class Coefficients , class Time >
     void operator()( Algebra &algebra , const StateIn &in , StateOut &out , const StepStorage &steps , const Coefficients &coef , Time dt ) const
     {
-        BOOST_ASSERT( false ); // not implemented
-        // typedef typename Coefficients::value_type value_type;
-        // Algebra::for_each10( out , in , steps[0] , steps[1] , steps[2] , steps[3] , steps[4] , steps[5] , steps[6] , steps[7] ,
-        //                      typename Operations::template scale_sum9< value_type , Time , Time , Time , Time , Time , Time , Time >(
-        //                          1.0 , dt * coef[0] , dt * coef[1] , dt * coef[2] , dt * coef[3] , dt * coef[4] , dt * coef[5] , dt * coef[6] , dt * coef[7] ) );
+        //BOOST_ASSERT( false ); // not implemented
+        typedef typename Coefficients::value_type value_type;
+        Algebra::for_each10( out , in , steps[0].m_v , steps[1].m_v , steps[2].m_v , steps[3].m_v , steps[4].m_v , steps[5].m_v , steps[6].m_v , steps[7].m_v ,
+                             typename Operations::template scale_sum9< value_type , Time , Time , Time , Time , Time , Time , Time >(
+                                 1.0 , dt * coef[0] , dt * coef[1] , dt * coef[2] , dt * coef[3] , dt * coef[4] , dt * coef[5] , dt * coef[6] , dt * coef[7] ) );
     }
 };
 

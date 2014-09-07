@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_JOIN)
 #define FUSION_INCLUDE_JOIN
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/transformation/join.hpp>
 
 #endif

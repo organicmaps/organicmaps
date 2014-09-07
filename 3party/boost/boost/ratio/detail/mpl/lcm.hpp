@@ -17,7 +17,6 @@
 #include <boost/mpl/aux_/largest_int.hpp>
 #include <boost/mpl/aux_/na_spec.hpp>
 #include <boost/mpl/aux_/lambda_support.hpp>
-#include <boost/mpl/aux_/config/eti.hpp>
 #include <boost/mpl/aux_/config/integral.hpp>
 #include <boost/mpl/aux_/config/static_constant.hpp>
 #include <boost/mpl/aux_/config/dependent_nttp.hpp>
@@ -25,6 +24,7 @@
 
 #if    !defined(BOOST_MPL_CFG_NO_NESTED_VALUE_ARITHMETIC_2) \
     && !defined(BOOST_MPL_PREPROCESSING_MODE) \
+    && !defined(__CUDACC__) \
     && ( defined(BOOST_MSVC) \
         || BOOST_WORKAROUND(__EDG_VERSION__, <= 238) \
         )

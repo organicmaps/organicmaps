@@ -54,49 +54,48 @@ namespace boost { namespace property_tree { namespace detail
 
 
     // Naively convert narrow string to another character type
-    template<class Ch>
-    std::basic_string<Ch> widen(const char *text)
+    template<typename Str>
+    Str widen(const char *text)
     {
-        std::basic_string<Ch> result;
+	Str result;
         while (*text)
         {
-            result += Ch(*text);
+            result += typename Str::value_type(*text);
             ++text;
         }
         return result;
     }
 
     // Naively convert string to narrow character type
-    template<class Ch>
-    std::string narrow(const Ch *text)
+    template<typename Str, typename char_type>
+    Str narrow(const char_type *text)
     {
-        std::string result;
+	Str result;
         while (*text)
         {
             if (*text < 0 || *text > (std::numeric_limits<char>::max)())
                 result += '*';
             else
-                result += char(*text);
+                result += typename Str::value_type(*text);
             ++text;
         }
         return result;
     }
 
     // Remove trailing and leading spaces
-    template<class Ch>
-    std::basic_string<Ch> trim(const std::basic_string<Ch> &s,
-                               const std::locale &loc = std::locale())
+    template<class Str>
+    Str trim(const Str &s, const std::locale &loc = std::locale())
     {
-        typename std::basic_string<Ch>::const_iterator first = s.begin();
-        typename std::basic_string<Ch>::const_iterator end = s.end();
+        typename Str::const_iterator first = s.begin();
+        typename Str::const_iterator end = s.end();
         while (first != end && std::isspace(*first, loc))
             ++first;
         if (first == end)
-            return std::basic_string<Ch>();
-        typename std::basic_string<Ch>::const_iterator last = end;
+            return Str();
+        typename Str::const_iterator last = end;
         do --last; while (std::isspace(*last, loc));
         if (first != s.begin() || last + 1 != end)
-            return std::basic_string<Ch>(first, last + 1);
+            return Str(first, last + 1);
         else
             return s;
     }

@@ -57,7 +57,7 @@ struct linear_tag {};
 struct areal_tag {};
 
 // Subset of areal types (polygon, multi_polygon, ring)
-struct polygonal_tag : areal_tag {}; 
+struct polygonal_tag : areal_tag {};
 
 /// For volume types (also box (?), polyhedron)
 struct volumetric_tag {};
@@ -87,6 +87,49 @@ struct box_tag : single_tag, areal_tag {};
 /// Convenience segment (2-points) identifying tag
 struct segment_tag : single_tag, linear_tag {};
 
+
+/// OGC Multi point identifying tag
+struct multi_point_tag : multi_tag, pointlike_tag  {};
+
+/// OGC Multi linestring identifying tag
+struct multi_linestring_tag : multi_tag, linear_tag {};
+
+/// OGC Multi polygon identifying tag
+struct multi_polygon_tag : multi_tag, polygonal_tag {};
+
+/// OGC Geometry Collection identifying tag
+struct geometry_collection_tag : multi_tag {};
+
+
+/*!
+\brief Meta-function to get for a tag of a multi-geometry
+    the tag of the corresponding single-geometry
+*/
+template <typename Tag>
+struct single_tag_of
+{};
+
+#ifndef DOXYGEN_NO_DETAIL
+
+template <>
+struct single_tag_of<multi_point_tag>
+{
+    typedef point_tag type;
+};
+
+template <>
+struct single_tag_of<multi_linestring_tag>
+{
+    typedef linestring_tag type;
+};
+
+template <>
+struct single_tag_of<multi_polygon_tag>
+{
+    typedef polygon_tag type;
+};
+
+#endif
 
 
 }} // namespace boost::geometry

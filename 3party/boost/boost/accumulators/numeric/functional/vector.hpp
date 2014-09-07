@@ -231,7 +231,7 @@ namespace boost { namespace numeric
 
         // partial specialization for std::vector.
         template<typename Left, typename Right>
-        struct average<Left, Right, std_vector_tag, void>
+        struct fdiv<Left, Right, std_vector_tag, void>
           : mpl::if_<
                 are_integral<typename Left::value_type, Right>
               , divides<Left, double const>

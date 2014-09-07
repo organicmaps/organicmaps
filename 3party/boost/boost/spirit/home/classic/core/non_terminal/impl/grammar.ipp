@@ -33,19 +33,6 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
 template <typename DerivedT, typename ContextT>
 struct grammar;
 
-#if defined(BOOST_MSVC) && (BOOST_MSVC < 1300)
-
-BOOST_SPIRIT_DEPENDENT_TEMPLATE_WRAPPER(grammar_definition_wrapper, definition);
-
-//////////////////////////////////
-template <typename GrammarT, typename ScannerT>
-struct grammar_definition
-{
-    typedef typename impl::grammar_definition_wrapper<GrammarT>
-        ::template result_<ScannerT>::param_t type;
-};
-
-#else
 
 //////////////////////////////////
 template <typename GrammarT, typename ScannerT>
@@ -54,7 +41,6 @@ struct grammar_definition
     typedef typename GrammarT::template definition<ScannerT> type;
 };
 
-#endif
 
     namespace impl
     {
@@ -122,8 +108,7 @@ struct grammar_definition
     //////////////////////////////////
     struct grammartract_helper_list;
 
-#if !defined(BOOST_SPIRIT_SINGLE_GRAMMAR_INSTANCE)    \
-    && (!defined(__GNUC__) || (__GNUC__ > 2))
+#if !defined(BOOST_SPIRIT_SINGLE_GRAMMAR_INSTANCE)
 
     struct grammartract_helper_list
     {
@@ -162,11 +147,7 @@ struct grammar_definition
         define(grammar_t const* target_grammar)
         {
             grammar_helper_list<GrammarT> &helpers =
-#if !defined(__GNUC__) || (__GNUC__ > 2)
-                grammartract_helper_list::do_(target_grammar);
-#else
-                target_grammar->helpers;
-#endif
+            grammartract_helper_list::do_(target_grammar);
             typename grammar_t::object_id id = target_grammar->get_object_id();
 
             if (definitions.size()<=id)
@@ -252,7 +233,6 @@ struct grammar_definition
 #endif
     }
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
     template <int N>
     struct call_helper {
 
@@ -263,11 +243,6 @@ struct grammar_definition
             result = def.template get_start_parser<N>()->parse(scan);
         }
     };
-#else
-    //  The grammar_def stuff isn't supported for compilers, which do not
-    //  support partial template specialization
-    template <int N> struct call_helper;
-#endif
 
     template <>
     struct call_helper<0> {
@@ -310,14 +285,9 @@ struct grammar_definition
         typedef typename helper_list_t::vector_t::reverse_iterator iterator_t;
 
         helper_list_t&  helpers =
-# if !defined(__GNUC__) || (__GNUC__ > 2)
-            grammartract_helper_list::do_(self);
-# else
-            self->helpers;
-# endif
+        grammartract_helper_list::do_(self);
 
-# if (defined(BOOST_MSVC) && (BOOST_MSVC < 1300)) \
-    || defined(BOOST_INTEL_CXX_VERSION)
+# if defined(BOOST_INTEL_CXX_VERSION)
         for (iterator_t i = helpers.rbegin(); i != helpers.rend(); ++i)
             (*i)->undefine(self);
 # else
@@ -383,16 +353,9 @@ struct grammar_definition
 #endif
 
 ///////////////////////////////////////
-#if !defined(__GNUC__) || (__GNUC__ > 2)
-#define BOOST_SPIRIT_GRAMMAR_ACCESS private:
-#else
-#define BOOST_SPIRIT_GRAMMAR_ACCESS
-#endif
-
-///////////////////////////////////////
 #if !defined(BOOST_SPIRIT_SINGLE_GRAMMAR_INSTANCE)
 #define BOOST_SPIRIT_GRAMMAR_STATE                            \
-    BOOST_SPIRIT_GRAMMAR_ACCESS                               \
+    private:                                                  \
     friend struct impl::grammartract_helper_list;    \
     mutable impl::grammar_helper_list<self_t> helpers;
 #else

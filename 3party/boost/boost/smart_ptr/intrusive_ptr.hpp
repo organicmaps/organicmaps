@@ -146,9 +146,21 @@ public:
         this_type( rhs ).swap( *this );
     }
 
+    void reset( T * rhs, bool add_ref )
+    {
+        this_type( rhs, add_ref ).swap( *this );
+    }
+
     T * get() const BOOST_NOEXCEPT
     {
         return px;
+    }
+
+    T * detach() BOOST_NOEXCEPT
+    {
+        T * ret = px;
+        px = 0;
+        return ret;
     }
 
     T & operator*() const

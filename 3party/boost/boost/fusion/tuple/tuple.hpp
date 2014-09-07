@@ -7,6 +7,7 @@
 #if !defined(FUSION_TUPLE_10032005_0810)
 #define FUSION_TUPLE_10032005_0810
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/tuple/tuple_fwd.hpp>
 #include <boost/fusion/container/vector/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/size.hpp>
@@ -47,25 +48,28 @@ namespace boost { namespace fusion
             BOOST_PP_ENUM_PARAMS(FUSION_MAX_VECTOR_SIZE, T)>
         base_type;
 
-        tuple()
+        BOOST_FUSION_GPU_ENABLED tuple()
             : base_type() {}
 
-        tuple(tuple const& rhs)
+        BOOST_FUSION_GPU_ENABLED tuple(tuple const& rhs)
             : base_type(rhs) {}
 
         template <typename U1, typename U2>
+        BOOST_FUSION_GPU_ENABLED
         tuple(std::pair<U1, U2> const& rhs)
             : base_type(rhs) {}
 
         #include <boost/fusion/tuple/detail/tuple_expand.hpp>
 
         template <typename T>
+        BOOST_FUSION_GPU_ENABLED
         tuple& operator=(T const& rhs)
         {
             base_type::operator=(rhs);
             return *this;
         }
 
+        BOOST_FUSION_GPU_ENABLED
         tuple& operator=(tuple const& rhs)
         {
             base_type::operator=(rhs);
@@ -73,6 +77,7 @@ namespace boost { namespace fusion
         }
 
         template <typename U1, typename U2>
+        BOOST_FUSION_GPU_ENABLED
         tuple& operator=(std::pair<U1, U2> const& rhs)
         {
             base_type::operator=(rhs);
@@ -87,6 +92,7 @@ namespace boost { namespace fusion
     struct tuple_element : result_of::value_at_c<Tuple, N> {};
 
     template <int N, typename Tuple>
+    BOOST_FUSION_GPU_ENABLED
     inline typename
         lazy_disable_if<
             is_const<Tuple>
@@ -98,6 +104,7 @@ namespace boost { namespace fusion
     }
 
     template <int N, typename Tuple>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::at_c<Tuple const, N>::type
     get(Tuple const& tup)
     {
@@ -112,3 +119,4 @@ namespace boost { namespace fusion
 #endif // BOOST_FUSION_DONT_USE_PREPROCESSED_FILES
 
 #endif
+

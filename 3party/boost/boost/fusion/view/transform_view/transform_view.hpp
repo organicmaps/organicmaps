@@ -7,6 +7,7 @@
 #if !defined(FUSION_TRANSFORM_VIEW_07162005_1037)
 #define FUSION_TRANSFORM_VIEW_07162005_1037
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/fusion/support/detail/access.hpp>
 #include <boost/fusion/support/is_view.hpp>
@@ -55,15 +56,20 @@ namespace boost { namespace fusion
         typedef Sequence2 sequence2_type;
         typedef F transform_type;
 
+        BOOST_FUSION_GPU_ENABLED
         transform_view(Sequence1& in_seq1, Sequence2& in_seq2, F const& binop)
             : f(binop)
             , seq1(in_seq1)
             , seq2(in_seq2)
         {}
 
+        BOOST_FUSION_GPU_ENABLED
         first1_type first1() const { return fusion::begin(seq1); }
+        BOOST_FUSION_GPU_ENABLED
         first2_type first2() const { return fusion::begin(seq2); }
+        BOOST_FUSION_GPU_ENABLED
         last1_type last1() const { return fusion::end(seq1); }
+        BOOST_FUSION_GPU_ENABLED
         last2_type last2() const { return fusion::end(seq2); }
 
         transform_type f;
@@ -94,12 +100,15 @@ namespace boost { namespace fusion
         typedef Sequence sequence_type;
         typedef F transform_type;
 
+        BOOST_FUSION_GPU_ENABLED
         transform_view(Sequence& in_seq, F const& in_f)
             : seq(in_seq)
             , f(in_f)
         {}
 
+        BOOST_FUSION_GPU_ENABLED
         first_type first() const { return fusion::begin(seq); }
+        BOOST_FUSION_GPU_ENABLED
         last_type last() const { return fusion::end(seq); }
         typename mpl::if_<traits::is_view<Sequence>, Sequence, Sequence&>::type seq;
         transform_type f;

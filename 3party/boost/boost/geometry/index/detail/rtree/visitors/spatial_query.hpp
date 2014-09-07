@@ -112,7 +112,6 @@ public:
     {
         m_values = ::boost::addressof(rtree::elements(n));
         m_current = rtree::elements(n).begin();
-        m_last = rtree::elements(n).end();
     }
 
     const_reference dereference() const
@@ -121,17 +120,26 @@ public:
         return *m_current;
     }
 
+    void initialize(node_pointer root)
+    {
+        rtree::apply_visitor(*this, *root);
+        search_value();
+    }
+
     void increment()
     {
-        if ( m_values )
-            ++m_current;
+        ++m_current;
+        search_value();
+    }
 
+    void search_value()
+    {
         for (;;)
         {
             // if leaf is choosen, move to the next value in leaf
             if ( m_values )
             {
-                if ( m_current != m_last )
+                if ( m_current != m_values->end() )
                 {
                     // return if next value is found
                     Value const& v = *m_current;
@@ -188,7 +196,7 @@ private:
 
     std::vector< std::pair<internal_iterator, internal_iterator> > m_internal_stack;
     const leaf_elements * m_values;
-    leaf_iterator m_current, m_last;
+    leaf_iterator m_current;
 };
 
 }}} // namespace detail::rtree::visitors

@@ -7,6 +7,7 @@
 #if !defined(FUSION_END_IMPL_07162005_1028)
 #define FUSION_END_IMPL_07162005_1028
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/transform_view/transform_view_fwd.hpp>
 
 namespace boost { namespace fusion
@@ -33,6 +34,7 @@ namespace boost { namespace fusion
                 typedef typename Sequence::transform_type transform_type;
                 typedef transform_view_iterator<last_type, transform_type> type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& s)
                 {
@@ -53,6 +55,7 @@ namespace boost { namespace fusion
                 typedef typename Sequence::transform_type transform_type;
                 typedef transform_view_iterator2<last1_type, last2_type, transform_type> type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& s)
                 {

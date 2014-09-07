@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -40,7 +40,7 @@
 #include <boost/log/utility/type_dispatch/static_type_dispatcher.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -137,14 +137,14 @@ private:
 
 //! The function unwraps \c value_ref, if possible
 template< typename T, typename TagT >
-BOOST_LOG_FORCEINLINE typename enable_if< mpl::is_sequence< T >, value_ref< T, TagT > >::type
+BOOST_FORCEINLINE typename enable_if< mpl::is_sequence< T >, value_ref< T, TagT > >::type
 unwrap_value_ref(value_ref< T, TagT > const& r)
 {
     return r;
 }
 
 template< typename T, typename TagT >
-BOOST_LOG_FORCEINLINE typename disable_if< mpl::is_sequence< T >, T const& >::type
+BOOST_FORCEINLINE typename disable_if< mpl::is_sequence< T >, T const& >::type
 unwrap_value_ref(value_ref< T, TagT > const& r)
 {
     return r.get();
@@ -175,7 +175,7 @@ public:
     /*!
      * Default constructor
      */
-    BOOST_LOG_DEFAULTED_FUNCTION(value_extractor(), {})
+    BOOST_DEFAULTED_FUNCTION(value_extractor(), {})
 
     /*!
      * Copy constructor

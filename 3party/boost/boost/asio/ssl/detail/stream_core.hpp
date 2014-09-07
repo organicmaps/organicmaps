@@ -2,7 +2,7 @@
 // ssl/detail/stream_core.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -90,13 +90,13 @@ struct stream_core
   // Helper function for obtaining a time value that always fires.
   static boost::asio::steady_timer::time_point neg_infin()
   {
-    return boost::asio::steady_timer::time_point::min();
+    return (boost::asio::steady_timer::time_point::min)();
   }
 
   // Helper function for obtaining a time value that never fires.
   static boost::asio::steady_timer::time_point pos_infin()
   {
-    return boost::asio::steady_timer::time_point::max();
+    return (boost::asio::steady_timer::time_point::max)();
   }
 #endif // defined(BOOST_ASIO_HAS_BOOST_DATE_TIME)
 

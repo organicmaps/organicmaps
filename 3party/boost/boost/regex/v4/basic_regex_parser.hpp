@@ -971,7 +971,7 @@ bool basic_regex_parser<charT, traits>::parse_repeat(std::size_t low, std::size_
       // the last state was a literal with more than one character, split it in two:
       re_literal* lit = static_cast<re_literal*>(this->m_last_state);
       charT c = (static_cast<charT*>(static_cast<void*>(lit+1)))[lit->length - 1];
-      --(lit->length);
+      lit->length -= 1;
       // now append new state:
       lit = static_cast<re_literal*>(this->append_state(syntax_element_literal, sizeof(re_literal) + sizeof(charT)));
       lit->length = 1;

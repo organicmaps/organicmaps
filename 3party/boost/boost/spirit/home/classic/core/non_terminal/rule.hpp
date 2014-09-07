@@ -15,7 +15,7 @@
 //  Spirit predefined maximum number of simultaneously usable different
 //  scanner types.
 //
-//  This limit defines the maximum number of of possible different scanner
+//  This limit defines the maximum number of possible different scanner
 //  types for which a specific rule<> may be used. If this isn't defined, a
 //  rule<> may be used with one scanner type only (multiple scanner support
 //  is disabled).

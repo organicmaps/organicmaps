@@ -7,6 +7,7 @@
 #if !defined(FUSION_BEGIN_IMPL_05042005_1136)
 #define FUSION_BEGIN_IMPL_05042005_1136
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/vector/vector_iterator.hpp>
 
 namespace boost { namespace fusion
@@ -26,6 +27,7 @@ namespace boost { namespace fusion
             {
                 typedef vector_iterator<Sequence, 0> type;
     
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& v)
                 {

@@ -208,9 +208,6 @@ void gursoy_atun_refine(const VertexListAndIncidenceGraph& graph,
 
   typedef typename graph_traits<VertexListAndIncidenceGraph>::vertex_iterator
     vertex_iterator;
-  typedef typename graph_traits<VertexListAndIncidenceGraph>::vertex_descriptor
-    vertex_descriptor;
-  typedef typename Topology::point_type point_type;
   vertex_iterator i, iend;
   double diameter_ratio = (double)diameter_final / diameter_initial;
   double learning_constant_ratio = 
@@ -230,6 +227,7 @@ void gursoy_atun_refine(const VertexListAndIncidenceGraph& graph,
                                 vertex_index_map);
   for (int round = 0; round < nsteps; ++round) {
     double part_done = (double)round / (nsteps - 1);
+    // fprintf(stderr, "%2d%% done\n", int(rint(part_done * 100.)));
     int diameter = (int)(diameter_initial * pow(diameter_ratio, part_done));
     double learning_constant = 
       learning_constant_initial * pow(learning_constant_ratio, part_done);

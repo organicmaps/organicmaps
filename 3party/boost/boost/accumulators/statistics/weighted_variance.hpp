@@ -41,7 +41,7 @@ namespace impl
     {
         typedef typename numeric::functional::multiplies<Sample, Weight>::result_type weighted_sample;
         // for boost::result_of
-        typedef typename numeric::functional::average<weighted_sample, Weight>::result_type result_type;
+        typedef typename numeric::functional::fdiv<weighted_sample, Weight>::result_type result_type;
 
         lazy_weighted_variance_impl(dont_care) {}
 
@@ -73,11 +73,11 @@ namespace impl
     {
         typedef typename numeric::functional::multiplies<Sample, Weight>::result_type weighted_sample;
         // for boost::result_of
-        typedef typename numeric::functional::average<weighted_sample, Weight>::result_type result_type;
+        typedef typename numeric::functional::fdiv<weighted_sample, Weight>::result_type result_type;
 
         template<typename Args>
         weighted_variance_impl(Args const &args)
-          : weighted_variance(numeric::average(args[sample | Sample()], numeric::one<Weight>::value))
+          : weighted_variance(numeric::fdiv(args[sample | Sample()], numeric::one<Weight>::value))
         {
         }
 
@@ -93,8 +93,8 @@ namespace impl
                 result_type tmp = args[parameter::keyword<Tag>::get()] - some_mean(args);
 
                 this->weighted_variance =
-                    numeric::average(this->weighted_variance * (sum_of_weights(args) - args[weight]), sum_of_weights(args))
-                  + numeric::average(tmp * tmp * args[weight], sum_of_weights(args) - args[weight] );
+                    numeric::fdiv(this->weighted_variance * (sum_of_weights(args) - args[weight]), sum_of_weights(args))
+                  + numeric::fdiv(tmp * tmp * args[weight], sum_of_weights(args) - args[weight] );
             }
         }
 

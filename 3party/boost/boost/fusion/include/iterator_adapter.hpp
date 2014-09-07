@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_ITERATOR_ADAPTER)
 #define FUSION_INCLUDE_ITERATOR_ADAPTER
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/iterator_adapter.hpp>
 
 #endif

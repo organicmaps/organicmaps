@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_COUNT_09162005_0150)
 #define BOOST_FUSION_COUNT_09162005_0150
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/query/count_if.hpp>
 #include <boost/fusion/algorithm/query/detail/count.hpp>
 #include <boost/fusion/support/is_sequence.hpp>
@@ -25,6 +26,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence, typename T>
+    BOOST_FUSION_GPU_ENABLED
     inline
     typename
         enable_if<

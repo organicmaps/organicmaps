@@ -9,6 +9,7 @@
 #if !defined(BOOST_FUSION_VECTOR40_FWD_HPP_INCLUDED)
 #define BOOST_FUSION_VECTOR40_FWD_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>

@@ -61,7 +61,7 @@ namespace boost { namespace property_tree
 #ifndef BOOST_NO_STD_WSTRING
         inline std::string dump_sequence(const std::wstring &s)
         {
-            return narrow(s.c_str());
+            return narrow<std::string>(s.c_str());
         }
 #endif
     }

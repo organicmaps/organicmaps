@@ -23,28 +23,40 @@ namespace boost
 {
   class latch
   {
-    /// @Requires: count_.value_ must be greater than 0
-    /// Effect: Decrement the count. Unlocks the lock notify anyone waiting if we reached zero.
-    /// Returns: true if count_.value_ reached the value 0.
+    /// @Requires: count_ must be greater than 0
+    /// Effect: Decrement the count. Unlocks the lock and notify anyone waiting if we reached zero.
+    /// Returns: true if count_ reached the value 0.
     /// @ThreadSafe ensured by the @c lk parameter
     bool count_down(unique_lock<mutex> &lk)
-    /// pre_condition (count_.value_ > 0)
+    /// pre_condition (count_ > 0)
     {
-      BOOST_ASSERT(count_.value_ > 0);
-      if (--count_.value_ == 0)
+      BOOST_ASSERT(count_ > 0);
+      if (--count_ == 0)
       {
-        count_.cond_.notify_all();
+        ++generation_;
         lk.unlock();
+        cond_.notify_all();
         return true;
       }
       return false;
+    }
+    /// Effect: Decrement the count is > 0. Unlocks the lock notify anyone waiting if we reached zero.
+    /// Returns: true if count_ is 0.
+    /// @ThreadSafe ensured by the @c lk parameter
+    bool try_count_down(unique_lock<mutex> &lk)
+    {
+      if (count_ > 0)
+      {
+        return count_down(lk);
+      }
+      return true;
     }
   public:
     BOOST_THREAD_NO_COPYABLE( latch)
 
     /// Constructs a latch with a given count.
     latch(std::size_t count) :
-      count_(count)
+      count_(count), generation_(0)
     {
     }
 
@@ -60,7 +72,8 @@ namespace boost
     void wait()
     {
       boost::unique_lock<boost::mutex> lk(mutex_);
-      count_.cond_.wait(lk, detail::counter_is_zero(count_));
+      std::size_t generation(generation_);
+      cond_.wait(lk, detail::not_equal(generation, generation_));
     }
 
     /// @return true if the internal counter is already 0, false otherwise
@@ -76,7 +89,8 @@ namespace boost
     cv_status wait_for(const chrono::duration<Rep, Period>& rel_time)
     {
       boost::unique_lock<boost::mutex> lk(mutex_);
-      return count_.cond_.wait_for(lk, rel_time, detail::counter_is_zero(count_))
+      std::size_t generation(generation_);
+      return cond_.wait_for(lk, rel_time, detail::not_equal(generation, generation_))
               ? cv_status::no_timeout
               : cv_status::timeout;
     }
@@ -87,7 +101,8 @@ namespace boost
     cv_status wait_until(const chrono::time_point<Clock, Duration>& abs_time)
     {
       boost::unique_lock<boost::mutex> lk(mutex_);
-      return count_.cond_.wait_until(lk, abs_time, detail::counter_is_zero(count_))
+      std::size_t generation(generation_);
+      return cond_.wait_until(lk, abs_time, detail::not_equal(generation, generation_))
           ? cv_status::no_timeout
           : cv_status::timeout;
     }
@@ -98,6 +113,13 @@ namespace boost
     {
       boost::unique_lock<boost::mutex> lk(mutex_);
       count_down(lk);
+    }
+    /// Effect: Decrement the count if it is > 0 and notify anyone waiting if we reached zero.
+    /// Returns: true if count_ was 0 or reached 0.
+    bool try_count_down()
+    {
+      boost::unique_lock<boost::mutex> lk(mutex_);
+      return try_count_down(lk);
     }
     void signal()
     {
@@ -110,11 +132,12 @@ namespace boost
     void count_down_and_wait()
     {
       boost::unique_lock<boost::mutex> lk(mutex_);
+      std::size_t generation(generation_);
       if (count_down(lk))
       {
         return;
       }
-      count_.cond_.wait(lk, detail::counter_is_zero(count_));
+      cond_.wait(lk, detail::not_equal(generation, generation_));
     }
     void sync()
     {
@@ -132,7 +155,9 @@ namespace boost
 
   private:
     mutex mutex_;
-    detail::counter count_;
+    condition_variable cond_;
+    std::size_t count_;
+    std::size_t generation_;
   };
 
 } // namespace boost

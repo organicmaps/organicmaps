@@ -2,7 +2,7 @@
 // detail/keyword_tss_ptr.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -55,11 +55,11 @@ public:
   }
 
 private:
-  static __thread T* value_;
+  static BOOST_ASIO_THREAD_KEYWORD T* value_;
 };
 
 template <typename T>
-__thread T* keyword_tss_ptr<T>::value_;
+BOOST_ASIO_THREAD_KEYWORD T* keyword_tss_ptr<T>::value_;
 
 } // namespace detail
 } // namespace asio

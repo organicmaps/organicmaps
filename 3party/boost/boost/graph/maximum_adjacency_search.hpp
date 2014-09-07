@@ -118,8 +118,6 @@ namespace boost {
       void
       maximum_adjacency_search(const Graph& g, WeightMap weights, MASVisitor vis, const typename boost::graph_traits<Graph>::vertex_descriptor start, VertexAssignmentMap assignments, KeyedUpdatablePriorityQueue pq) {
       typedef typename boost::graph_traits<Graph>::vertex_descriptor vertex_descriptor;
-      typedef typename boost::graph_traits<Graph>::vertices_size_type vertices_size_type;
-      typedef typename boost::graph_traits<Graph>::edge_descriptor edge_descriptor;
       typedef typename boost::property_traits<WeightMap>::value_type weight_type;
 
      std::set<vertex_descriptor> assignedVertices;
@@ -197,7 +195,7 @@ maximum_adjacency_search(const Graph& g, WeightMap weights, MASVisitor vis, cons
     typedef typename boost::graph_traits<Graph>::edge_descriptor edge_descriptor;
     BOOST_CONCEPT_ASSERT((boost::Convertible<typename boost::graph_traits<Graph>::directed_category, boost::undirected_tag>));
     BOOST_CONCEPT_ASSERT((boost::ReadablePropertyMapConcept<WeightMap, edge_descriptor>));
-    typedef typename boost::property_traits<WeightMap>::value_type weight_type;
+    // typedef typename boost::property_traits<WeightMap>::value_type weight_type;
     boost::function_requires< MASVisitorConcept<MASVisitor, Graph> >();
     BOOST_CONCEPT_ASSERT((boost::ReadWritePropertyMapConcept<VertexAssignmentMap, vertex_descriptor>));
     BOOST_CONCEPT_ASSERT((boost::Convertible<vertex_descriptor, typename boost::property_traits<VertexAssignmentMap>::value_type>));

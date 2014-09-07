@@ -48,10 +48,10 @@ Copyright (c) 2009-2011: Joachim Faulhaber
 +-----------------------------------------------------------------------------*/
 #if defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 #   define BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
-#elif defined(__clang__)
-#   define BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
-#elif (defined(__GNUC__) && (__GNUC__ == 4) && (__GNUC_MINOR__ >= 7))
-#   define BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
+//#elif defined(__clang__)
+//#   define BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
+//#elif (defined(__GNUC__) && (__GNUC__ == 4) && (__GNUC_MINOR__ >= 7))
+//#   define BOOST_ICL_NO_CXX11_RVALUE_REFERENCES
 #endif
 
 #include <boost/move/move.hpp>

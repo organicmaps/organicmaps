@@ -37,15 +37,19 @@ namespace boost
 //
 // if( mo & ( memory_order_acquire | memory_order_consume ) ) { ...fence... }
 //
+// The values are also in the order of increasing "strength"
+// of the fences so that success/failure orders can be checked
+// efficiently in compare_exchange methods.
+//
 
 enum memory_order
 {
     memory_order_relaxed = 0,
-    memory_order_acquire = 1,
-    memory_order_release = 2,
-    memory_order_acq_rel = 3, // acquire | release
-    memory_order_seq_cst = 7, // acq_rel | 4
-    memory_order_consume = 8
+    memory_order_consume = 1,
+    memory_order_acquire = 2,
+    memory_order_release = 4,
+    memory_order_acq_rel = 6, // acquire | release
+    memory_order_seq_cst = 14 // acq_rel | 8
 };
 
 } // namespace boost

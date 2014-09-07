@@ -74,14 +74,14 @@ public:
    typedef RealType value_type;
    typedef Policy policy_type;
 
-   inverse_gaussian_distribution(RealType mean = 1, RealType scale = 1)
-      : m_mean(mean), m_scale(scale)
+   inverse_gaussian_distribution(RealType l_mean = 1, RealType l_scale = 1)
+      : m_mean(l_mean), m_scale(l_scale)
    { // Default is a 1,1 inverse_gaussian distribution.
      static const char* function = "boost::math::inverse_gaussian_distribution<%1%>::inverse_gaussian_distribution";
 
      RealType result;
-     detail::check_scale(function, scale, &result, Policy());
-     detail::check_location(function, mean, &result, Policy());
+     detail::check_scale(function, l_scale, &result, Policy());
+     detail::check_location(function, l_mean, &result, Policy());
    }
 
    RealType mean()const
@@ -286,7 +286,7 @@ namespace detail
       // Define the distribution, using gamma_nooverflow:
       typedef gamma_distribution<RealType, no_overthrow_policy> gamma_nooverflow;
 
-      gamma_distribution<RealType, no_overthrow_policy> g(static_cast<RealType>(0.5), static_cast<RealType>(1.));
+      gamma_nooverflow g(static_cast<RealType>(0.5), static_cast<RealType>(1.));
 
       // gamma_nooverflow g(static_cast<RealType>(0.5), static_cast<RealType>(1.));
       // R qgamma(0.2, 0.5, 1)  0.0320923

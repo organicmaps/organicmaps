@@ -78,7 +78,6 @@ public:
 // See boost/variant/detail/enable_recursive_fwd.hpp for more information.
 //
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template <typename T, typename RecursiveVariant, typename NoWrapper>
 struct enable_recursive
@@ -112,34 +111,6 @@ public: // metafunction result
 
 };
 
-#else // defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-
-template <typename T, typename RecursiveVariant, typename NoWrapper>
-struct enable_recursive
-{
-private: // helpers, for metafunction result (below)
-
-    typedef typename BOOST_VARIANT_AUX_ENABLE_RECURSIVE_IMPL(
-          T, RecursiveVariant, ::boost::recursive_variant_
-        )::type t_;
-
-public: // metafunction result
-
-    // [Wrap with recursive_wrapper only if rebind really changed something:]
-    typedef typename mpl::if_<
-          mpl::or_<
-              NoWrapper
-            , is_same< t_,T >
-            , is_reference<t_>
-            , is_pointer<t_>
-            >
-        , t_
-        , boost::recursive_wrapper<t_>
-        >::type type;
-
-};
-
-#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION workaround
 
 ///////////////////////////////////////////////////////////////////////////////
 // (detail) metafunction class quoted_enable_recursive

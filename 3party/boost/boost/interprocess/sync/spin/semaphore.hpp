@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_SPIN_SEMAPHORE_HPP
 #define BOOST_INTERPROCESS_DETAIL_SPIN_SEMAPHORE_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -20,6 +20,8 @@
 #include <boost/interprocess/detail/atomic.hpp>
 #include <boost/interprocess/detail/os_thread_functions.hpp>
 #include <boost/interprocess/detail/posix_time_types_wrk.hpp>
+#include <boost/interprocess/sync/detail/common_algorithms.hpp>
+#include <boost/interprocess/sync/detail/locks.hpp>
 #include <boost/cstdint.hpp>
 
 namespace boost {
@@ -59,11 +61,8 @@ inline void spin_semaphore::post()
 
 inline void spin_semaphore::wait()
 {
-   while(!ipcdetail::atomic_add_unless32(&m_count, boost::uint32_t(-1), boost::uint32_t(0))){
-      while(ipcdetail::atomic_read32(&m_count) == 0){
-         ipcdetail::thread_yield();
-      }
-   }
+   ipcdetail::lock_to_wait<spin_semaphore> lw(*this);
+   return ipcdetail::try_based_lock(lw);
 }
 
 inline bool spin_semaphore::try_wait()
@@ -73,28 +72,9 @@ inline bool spin_semaphore::try_wait()
 
 inline bool spin_semaphore::timed_wait(const boost::posix_time::ptime &abs_time)
 {
-   if(abs_time == boost::posix_time::pos_infin){
-      this->wait();
-      return true;
-   }
-   //Obtain current count and target time
-   boost::posix_time::ptime now(microsec_clock::universal_time());
-
-   do{
-      if(this->try_wait()){
-         break;
-      }
-      now = microsec_clock::universal_time();
-
-      if(now >= abs_time){
-         return this->try_wait();
-      }
-      // relinquish current time slice
-      ipcdetail::thread_yield();
-   }while (true);
-   return true;
+   ipcdetail::lock_to_wait<spin_semaphore> lw(*this);
+   return ipcdetail::try_based_timed_lock(lw, abs_time);
 }
-
 
 //inline int spin_semaphore::get_count() const
 //{

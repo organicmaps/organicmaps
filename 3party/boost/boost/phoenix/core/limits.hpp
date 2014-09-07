@@ -16,14 +16,20 @@
 
 
 #if defined(BOOST_PHOENIX_LIMIT)
-#define BOOST_PROTO_MAX_ARITY BOOST_PHOENIX_LIMIT
+# if !defined( BOOST_PROTO_MAX_ARITY )
+#  define BOOST_PROTO_MAX_ARITY BOOST_PHOENIX_LIMIT
+# elif (BOOST_PROTO_MAX_ARITY < BOOST_PHOENIX_LIMIT)
+#  error "BOOST_PROTO_MAX_ARITY is set too low"
+# endif
 #include <boost/proto/proto_fwd.hpp>
 #else
 #include <boost/proto/proto_fwd.hpp>
 #define BOOST_PHOENIX_LIMIT BOOST_PROTO_MAX_ARITY
 #endif
 
+#if !defined(PHOENIX_LIMIT)
 #define PHOENIX_LIMIT BOOST_PHOENIX_LIMIT
+#endif
 
 #define BOOST_PHOENIX_LIMIT_STR BOOST_PP_STRINGIZE(BOOST_PHOENIX_PP_ROUND_UP(BOOST_PHOENIX_LIMIT))
 

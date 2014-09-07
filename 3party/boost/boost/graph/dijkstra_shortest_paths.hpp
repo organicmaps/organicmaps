@@ -118,6 +118,7 @@ namespace boost {
     struct dijkstra_bfs_visitor
     {
       typedef typename property_traits<DistanceMap>::value_type D;
+      typedef typename property_traits<WeightMap>::value_type W;
 
       dijkstra_bfs_visitor(UniformCostVisitor vis, UpdatableQueue& Q,
                            WeightMap w, PredecessorMap p, DistanceMap d,
@@ -159,13 +160,39 @@ namespace boost {
       void examine_vertex(Vertex u, Graph& g) { m_vis.examine_vertex(u, g); }
       template <class Edge, class Graph>
       void examine_edge(Edge e, Graph& g) {
-        // Comparison needs to be more complicated because distance and weight
-        // types may not be the same; see bug 8398
-        // (https://svn.boost.org/trac/boost/ticket/8398)
-        D source_dist = get(m_distance, source(e, g));
-        if (m_compare(m_combine(source_dist, get(m_weight, e)), source_dist))
+        // Test for negative-weight edges:
+        //
+        // Reasons that other comparisons do not work:
+        //
+        // m_compare(e_weight, D(0)):
+        //    m_compare only needs to work on distances, not weights, and those
+        //    types do not need to be the same (bug 8398,
+        //    https://svn.boost.org/trac/boost/ticket/8398).
+        // m_compare(m_combine(source_dist, e_weight), source_dist):
+        //    if m_combine is project2nd (as in prim_minimum_spanning_tree),
+        //    this test will claim that the edge weight is negative whenever
+        //    the edge weight is less than source_dist, even if both of those
+        //    are positive (bug 9012,
+        //    https://svn.boost.org/trac/boost/ticket/9012).
+        // m_compare(m_combine(e_weight, source_dist), source_dist):
+        //    would fix project2nd issue, but documentation only requires that
+        //    m_combine be able to take a distance and a weight (in that order)
+        //    and return a distance.
+
+        // W e_weight = get(m_weight, e);
+        // sd_plus_ew = source_dist + e_weight.
+        // D sd_plus_ew = m_combine(source_dist, e_weight);
+        // sd_plus_2ew = source_dist + 2 * e_weight.
+        // D sd_plus_2ew = m_combine(sd_plus_ew, e_weight);
+        // The test here is equivalent to e_weight < 0 if m_combine has a
+        // cancellation law, but always returns false when m_combine is a
+        // projection operator.
+        if (m_compare(m_combine(m_zero, get(m_weight, e)), m_zero)) 
             boost::throw_exception(negative_edge());
+        // End of test for negative-weight edges.
+
         m_vis.examine_edge(e, g);
+
       }
       template <class Edge, class Graph>
       void black_target(Edge, Graph&) { }
@@ -256,6 +283,31 @@ namespace boost {
   }
 
   // Call breadth first search with default color map.
+  template <class Graph, class SourceInputIter, class DijkstraVisitor,
+            class PredecessorMap, class DistanceMap,
+            class WeightMap, class IndexMap, class Compare, class Combine,
+            class DistZero>
+  inline void
+  dijkstra_shortest_paths_no_init
+    (const Graph& g,
+     SourceInputIter s_begin, SourceInputIter s_end,
+     PredecessorMap predecessor, DistanceMap distance, WeightMap weight,
+     IndexMap index_map,
+     Compare compare, Combine combine, DistZero zero,
+     DijkstraVisitor vis)
+  {
+    typedef
+      detail::default_color_map_generator<Graph, IndexMap>
+      ColorMapHelper;
+    typedef typename ColorMapHelper::type ColorMap;
+    ColorMap color =
+      ColorMapHelper::build(g, index_map);
+    dijkstra_shortest_paths_no_init( g, s_begin, s_end, predecessor, distance, weight,
+      index_map, compare, combine, zero, vis,
+        color);
+  }
+
+  // Call breadth first search with default color map.
   template <class Graph, class DijkstraVisitor,
             class PredecessorMap, class DistanceMap,
             class WeightMap, class IndexMap, class Compare, class Combine,
@@ -269,26 +321,20 @@ namespace boost {
      Compare compare, Combine combine, DistZero zero,
      DijkstraVisitor vis)
   {
-    typedef
-      detail::default_color_map_generator<Graph, IndexMap>
-      ColorMapHelper;
-    typedef typename ColorMapHelper::type ColorMap;
-    ColorMap color =
-      ColorMapHelper::build(g, index_map);
-    dijkstra_shortest_paths_no_init( g, s, predecessor, distance, weight,
-      index_map, compare, combine, zero, vis,
-        color);
+    dijkstra_shortest_paths_no_init(g, &s, &s + 1, predecessor, distance,
+                                    weight, index_map, compare, combine, zero,
+                                    vis);
   }
 
   // Call breadth first search
-  template <class Graph, class DijkstraVisitor,
+  template <class Graph, class SourceInputIter, class DijkstraVisitor,
             class PredecessorMap, class DistanceMap,
             class WeightMap, class IndexMap, class Compare, class Combine,
             class DistZero, class ColorMap>
   inline void
   dijkstra_shortest_paths_no_init
     (const Graph& g,
-     typename graph_traits<Graph>::vertex_descriptor s,
+     SourceInputIter s_begin, SourceInputIter s_end,
      PredecessorMap predecessor, DistanceMap distance, WeightMap weight,
      IndexMap index_map,
      Compare compare, Combine combine, DistZero zero,
@@ -309,7 +355,7 @@ namespace boost {
         PredecessorMap, DistanceMap, Combine, Compare>
       bfs_vis(vis, Q, weight, predecessor, distance, combine, compare, zero);
 
-      breadth_first_visit(g, s, Q, bfs_vis, color);
+      breadth_first_visit(g, s_begin, s_end, Q, bfs_vis, color);
       return;
     }
 #endif // BOOST_GRAPH_DIJKSTRA_TESTING
@@ -334,7 +380,49 @@ namespace boost {
       PredecessorMap, DistanceMap, Combine, Compare>
         bfs_vis(vis, Q, weight, predecessor, distance, combine, compare, zero);
 
-    breadth_first_visit(g, s, Q, bfs_vis, color);
+    breadth_first_visit(g, s_begin, s_end, Q, bfs_vis, color);
+  }
+
+  // Call breadth first search
+  template <class Graph, class DijkstraVisitor,
+            class PredecessorMap, class DistanceMap,
+            class WeightMap, class IndexMap, class Compare, class Combine,
+            class DistZero, class ColorMap>
+  inline void
+  dijkstra_shortest_paths_no_init
+    (const Graph& g,
+     typename graph_traits<Graph>::vertex_descriptor s,
+     PredecessorMap predecessor, DistanceMap distance, WeightMap weight,
+     IndexMap index_map,
+     Compare compare, Combine combine, DistZero zero,
+     DijkstraVisitor vis, ColorMap color)
+  {
+    dijkstra_shortest_paths_no_init(g, &s, &s + 1, predecessor, distance,
+                                    weight, index_map, compare, combine,
+                                    zero, vis, color);
+  }
+
+  // Initialize distances and call breadth first search with default color map
+  template <class VertexListGraph, class SourceInputIter, class DijkstraVisitor,
+            class PredecessorMap, class DistanceMap,
+            class WeightMap, class IndexMap, class Compare, class Combine,
+            class DistInf, class DistZero, typename T, typename Tag, 
+            typename Base>
+  inline void
+  dijkstra_shortest_paths
+    (const VertexListGraph& g,
+     SourceInputIter s_begin, SourceInputIter s_end,
+     PredecessorMap predecessor, DistanceMap distance, WeightMap weight,
+     IndexMap index_map,
+     Compare compare, Combine combine, DistInf inf, DistZero zero,
+     DijkstraVisitor vis,
+     const bgl_named_params<T, Tag, Base>&
+     BOOST_GRAPH_ENABLE_IF_MODELS_PARM(VertexListGraph,vertex_list_graph_tag))
+  {
+    boost::two_bit_color_map<IndexMap> color(num_vertices(g), index_map);
+    dijkstra_shortest_paths(g, s_begin, s_end, predecessor, distance, weight,
+                            index_map, compare, combine, inf, zero, vis,
+                            color);
   }
 
   // Initialize distances and call breadth first search with default color map
@@ -354,9 +442,39 @@ namespace boost {
      const bgl_named_params<T, Tag, Base>&
      BOOST_GRAPH_ENABLE_IF_MODELS_PARM(VertexListGraph,vertex_list_graph_tag))
   {
-    boost::two_bit_color_map<IndexMap> color(num_vertices(g), index_map);
-    dijkstra_shortest_paths(g, s, predecessor, distance, weight, index_map,
-                            compare, combine, inf, zero, vis,
+    dijkstra_shortest_paths(g, &s, &s + 1, predecessor, distance, weight,
+                            index_map, compare, combine, inf, zero, vis);
+  }
+
+  // Initialize distances and call breadth first search
+  template <class VertexListGraph, class SourceInputIter, class DijkstraVisitor,
+            class PredecessorMap, class DistanceMap,
+            class WeightMap, class IndexMap, class Compare, class Combine,
+            class DistInf, class DistZero, class ColorMap>
+  inline void
+  dijkstra_shortest_paths
+    (const VertexListGraph& g,
+     SourceInputIter s_begin, SourceInputIter s_end,
+     PredecessorMap predecessor, DistanceMap distance, WeightMap weight,
+     IndexMap index_map,
+     Compare compare, Combine combine, DistInf inf, DistZero zero,
+     DijkstraVisitor vis, ColorMap color)
+  {
+    typedef typename property_traits<ColorMap>::value_type ColorValue;
+    typedef color_traits<ColorValue> Color;
+    typename graph_traits<VertexListGraph>::vertex_iterator ui, ui_end;
+    for (boost::tie(ui, ui_end) = vertices(g); ui != ui_end; ++ui) {
+      vis.initialize_vertex(*ui, g);
+      put(distance, *ui, inf);
+      put(predecessor, *ui, *ui);
+      put(color, *ui, Color::white());
+    }
+    for (SourceInputIter it = s_begin; it != s_end; ++it) {
+      put(distance, *it, zero);
+    }
+
+    dijkstra_shortest_paths_no_init(g, s_begin, s_end, predecessor, distance,
+                            weight, index_map, compare, combine, zero, vis,
                             color);
   }
 
@@ -374,19 +492,30 @@ namespace boost {
      Compare compare, Combine combine, DistInf inf, DistZero zero,
      DijkstraVisitor vis, ColorMap color)
   {
-    typedef typename property_traits<ColorMap>::value_type ColorValue;
-    typedef color_traits<ColorValue> Color;
-    typename graph_traits<VertexListGraph>::vertex_iterator ui, ui_end;
-    for (boost::tie(ui, ui_end) = vertices(g); ui != ui_end; ++ui) {
-      vis.initialize_vertex(*ui, g);
-      put(distance, *ui, inf);
-      put(predecessor, *ui, *ui);
-      put(color, *ui, Color::white());
-    }
-    put(distance, s, zero);
+    dijkstra_shortest_paths(g, &s, &s + 1, predecessor, distance, weight,
+                            index_map, compare, combine, inf, zero,
+                            vis, color);
+  }
 
-    dijkstra_shortest_paths_no_init(g, s, predecessor, distance, weight,
-                            index_map, compare, combine, zero, vis, color);
+  // Initialize distances and call breadth first search
+  template <class VertexListGraph, class SourceInputIter,
+            class DijkstraVisitor,
+            class PredecessorMap, class DistanceMap,
+            class WeightMap, class IndexMap, class Compare, class Combine,
+            class DistInf, class DistZero>
+  inline void
+  dijkstra_shortest_paths
+    (const VertexListGraph& g,
+     SourceInputIter s_begin, SourceInputIter s_end,
+     PredecessorMap predecessor, DistanceMap distance, WeightMap weight,
+     IndexMap index_map,
+     Compare compare, Combine combine, DistInf inf, DistZero zero,
+     DijkstraVisitor vis)
+  {
+    dijkstra_shortest_paths(g, s_begin, s_end, predecessor, distance,
+                            weight, index_map,
+                            compare, combine, inf, zero, vis,
+                            no_named_parameters());
   }
 
   // Initialize distances and call breadth first search
@@ -403,9 +532,9 @@ namespace boost {
      Compare compare, Combine combine, DistInf inf, DistZero zero,
      DijkstraVisitor vis)
   {
-    dijkstra_shortest_paths(g, s, predecessor, distance, weight, index_map,
-                            compare, combine, inf, zero, vis,
-                            no_named_parameters());
+    dijkstra_shortest_paths(g, &s, &s + 1, predecessor, distance,
+                            weight, index_map,
+                            compare, combine, inf, zero, vis);
   }
 
   namespace detail {

@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_AT_IMPL_27122005_1241)
 #define BOOST_FUSION_AT_IMPL_27122005_1241
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/type_traits/is_const.hpp>
 
 #include <boost/mpl/if.hpp>
@@ -32,6 +33,7 @@ namespace boost { namespace fusion {
                     typename Sequence::const_reference, 
                     typename Sequence::reference>::type type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& seq)
                 {

@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -20,7 +20,7 @@
 #include <boost/log/expressions/formatters/char_decorator.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -87,7 +87,7 @@ struct xml_decorator_gen
     typedef CharT char_type;
 
     template< typename SubactorT >
-    BOOST_LOG_FORCEINLINE char_decorator_actor< SubactorT, pattern_replacer< char_type > > operator[] (SubactorT const& subactor) const
+    BOOST_FORCEINLINE char_decorator_actor< SubactorT, pattern_replacer< char_type > > operator[] (SubactorT const& subactor) const
     {
         typedef xml_decorator_traits< char_type > traits_type;
         typedef pattern_replacer< char_type > replacer_type;
@@ -122,7 +122,7 @@ const aux::xml_decorator_gen< wchar_t > wxml_decor = {};
  * The function creates an XML-style decorator generator for arbitrary character type.
  */
 template< typename CharT >
-BOOST_LOG_FORCEINLINE aux::xml_decorator_gen< CharT > make_xml_decor()
+BOOST_FORCEINLINE aux::xml_decorator_gen< CharT > make_xml_decor()
 {
     return aux::xml_decorator_gen< CharT >();
 }

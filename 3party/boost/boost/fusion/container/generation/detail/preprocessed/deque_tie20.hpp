@@ -20,12 +20,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0>
-        struct deque_tie<T0>
+        struct deque_tie< T0 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0&> type;
         };
     }
     template <typename T0>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0&>
     deque_tie(T0 & _0)
     {
@@ -35,12 +36,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1>
-        struct deque_tie<T0 , T1>
+        struct deque_tie< T0 , T1 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1&> type;
         };
     }
     template <typename T0 , typename T1>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1&>
     deque_tie(T0 & _0 , T1 & _1)
     {
@@ -50,12 +52,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2>
-        struct deque_tie<T0 , T1 , T2>
+        struct deque_tie< T0 , T1 , T2 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2)
     {
@@ -65,12 +68,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3>
-        struct deque_tie<T0 , T1 , T2 , T3>
+        struct deque_tie< T0 , T1 , T2 , T3 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3)
     {
@@ -80,12 +84,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4)
     {
@@ -95,12 +100,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5)
     {
@@ -110,12 +116,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6)
     {
@@ -125,12 +132,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7)
     {
@@ -140,12 +148,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8)
     {
@@ -155,12 +164,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8 , T9 & _9)
     {
@@ -170,12 +180,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8 , T9 & _9 , T10 & _10)
     {
@@ -185,12 +196,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8 , T9 & _9 , T10 & _10 , T11 & _11)
     {
@@ -200,12 +212,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8 , T9 & _9 , T10 & _10 , T11 & _11 , T12 & _12)
     {
@@ -215,12 +228,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , void_ , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8 , T9 & _9 , T10 & _10 , T11 & _11 , T12 & _12 , T13 & _13)
     {
@@ -230,12 +244,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , void_ , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8 , T9 & _9 , T10 & _10 , T11 & _11 , T12 & _12 , T13 & _13 , T14 & _14)
     {
@@ -245,12 +260,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , void_ , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14& , T15&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14& , T15&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8 , T9 & _9 , T10 & _10 , T11 & _11 , T12 & _12 , T13 & _13 , T14 & _14 , T15 & _15)
     {
@@ -260,12 +276,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , void_ , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14& , T15& , T16&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14& , T15& , T16&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8 , T9 & _9 , T10 & _10 , T11 & _11 , T12 & _12 , T13 & _13 , T14 & _14 , T15 & _15 , T16 & _16)
     {
@@ -275,12 +292,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , void_ , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14& , T15& , T16& , T17&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14& , T15& , T16& , T17&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8 , T9 & _9 , T10 & _10 , T11 & _11 , T12 & _12 , T13 & _13 , T14 & _14 , T15 & _15 , T16 & _16 , T17 & _17)
     {
@@ -290,12 +308,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , void_ , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14& , T15& , T16& , T17& , T18&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14& , T15& , T16& , T17& , T18&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8 , T9 & _9 , T10 & _10 , T11 & _11 , T12 & _12 , T13 & _13 , T14 & _14 , T15 & _15 , T16 & _16 , T17 & _17 , T18 & _18)
     {
@@ -305,12 +324,13 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19>
-        struct deque_tie<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19>
+        struct deque_tie< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , void_ >
         {
             typedef deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14& , T15& , T16& , T17& , T18& , T19&> type;
         };
     }
     template <typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 , typename T10 , typename T11 , typename T12 , typename T13 , typename T14 , typename T15 , typename T16 , typename T17 , typename T18 , typename T19>
+    BOOST_FUSION_GPU_ENABLED
     inline deque<T0& , T1& , T2& , T3& , T4& , T5& , T6& , T7& , T8& , T9& , T10& , T11& , T12& , T13& , T14& , T15& , T16& , T17& , T18& , T19&>
     deque_tie(T0 & _0 , T1 & _1 , T2 & _2 , T3 & _3 , T4 & _4 , T5 & _5 , T6 & _6 , T7 & _7 , T8 & _8 , T9 & _9 , T10 & _10 , T11 & _11 , T12 & _12 , T13 & _13 , T14 & _14 , T15 & _15 , T16 & _16 , T17 & _17 , T18 & _18 , T19 & _19)
     {

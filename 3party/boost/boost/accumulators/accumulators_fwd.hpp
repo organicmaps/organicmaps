@@ -11,6 +11,7 @@
 #include <boost/config.hpp>
 #include <boost/mpl/apply_fwd.hpp> // for mpl::na
 #include <boost/mpl/limits/vector.hpp>
+#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>

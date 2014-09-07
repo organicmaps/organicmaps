@@ -31,8 +31,8 @@
 namespace boost { namespace algorithm {
 
 /// \fn clamp ( T const& val, 
-///               typename boost::mpl::identity<T>::type const& lo, 
-///               typename boost::mpl::identity<T>::type const& hi, Pred p )
+///               typename boost::mpl::identity<T>::type const & lo, 
+///               typename boost::mpl::identity<T>::type const & hi, Pred p )
 /// \return the value "val" brought into the range [ lo, hi ]
 ///     using the comparison predicate p.
 ///     If p ( val, lo ) return lo.
@@ -56,8 +56,8 @@ namespace boost { namespace algorithm {
 
 
 /// \fn clamp ( T const& val, 
-///               typename boost::mpl::identity<T>::type const& lo, 
-///               typename boost::mpl::identity<T>::type const& hi )
+///               typename boost::mpl::identity<T>::type const & lo, 
+///               typename boost::mpl::identity<T>::type const & hi )
 /// \return the value "val" brought into the range [ lo, hi ].
 ///     If the value is less than lo, return lo.
 ///     If the value is greater than "hi", return hi.
@@ -76,8 +76,8 @@ namespace boost { namespace algorithm {
   } 
 
 /// \fn clamp_range ( InputIterator first, InputIterator last, OutputIterator out, 
-///       std::iterator_traits<InputIterator>::value_type lo, 
-///       std::iterator_traits<InputIterator>::value_type hi )
+///       std::iterator_traits<InputIterator>::value_type const & lo, 
+///       std::iterator_traits<InputIterator>::value_type const & hi )
 /// \return clamp the sequence of values [first, last) into [ lo, hi ]
 /// 
 /// \param first The start of the range of values
@@ -88,8 +88,8 @@ namespace boost { namespace algorithm {
 ///
   template<typename InputIterator, typename OutputIterator> 
   OutputIterator clamp_range ( InputIterator first, InputIterator last, OutputIterator out,
-    typename std::iterator_traits<InputIterator>::value_type lo, 
-    typename std::iterator_traits<InputIterator>::value_type hi )
+    typename std::iterator_traits<InputIterator>::value_type const & lo, 
+    typename std::iterator_traits<InputIterator>::value_type const & hi )
   {
   // this could also be written with bind and std::transform
     while ( first != last )
@@ -98,8 +98,8 @@ namespace boost { namespace algorithm {
   } 
 
 /// \fn clamp_range ( const Range &r, OutputIterator out, 
-///       typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type lo,
-///       typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type hi )
+///       typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type const & lo,
+///       typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type const & hi )
 /// \return clamp the sequence of values [first, last) into [ lo, hi ]
 /// 
 /// \param r     The range of values to be clamped
@@ -110,16 +110,16 @@ namespace boost { namespace algorithm {
   template<typename Range, typename OutputIterator> 
   typename boost::disable_if_c<boost::is_same<Range, OutputIterator>::value, OutputIterator>::type
   clamp_range ( const Range &r, OutputIterator out,
-    typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type lo, 
-    typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type hi )
+    typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type const & lo, 
+    typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type const & hi )
   {
     return clamp_range ( boost::begin ( r ), boost::end ( r ), out, lo, hi );
   } 
 
 
 /// \fn clamp_range ( InputIterator first, InputIterator last, OutputIterator out, 
-///       std::iterator_traits<InputIterator>::value_type lo, 
-///       std::iterator_traits<InputIterator>::value_type hi, Pred p )
+///       std::iterator_traits<InputIterator>::value_type const & lo, 
+///       std::iterator_traits<InputIterator>::value_type const & hi, Pred p )
 /// \return clamp the sequence of values [first, last) into [ lo, hi ]
 ///     using the comparison predicate p.
 /// 
@@ -134,8 +134,8 @@ namespace boost { namespace algorithm {
 ///
   template<typename InputIterator, typename OutputIterator, typename Pred> 
   OutputIterator clamp_range ( InputIterator first, InputIterator last, OutputIterator out,
-    typename std::iterator_traits<InputIterator>::value_type lo, 
-    typename std::iterator_traits<InputIterator>::value_type hi, Pred p )
+    typename std::iterator_traits<InputIterator>::value_type const & lo, 
+    typename std::iterator_traits<InputIterator>::value_type const & hi, Pred p )
   {
   // this could also be written with bind and std::transform
     while ( first != last )
@@ -144,8 +144,8 @@ namespace boost { namespace algorithm {
   } 
 
 /// \fn clamp_range ( const Range &r, OutputIterator out, 
-///       typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type lo,
-///       typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type hi,
+///       typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type const & lo,
+///       typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type const & hi,
 ///       Pred p )
 /// \return clamp the sequence of values [first, last) into [ lo, hi ]
 ///     using the comparison predicate p.
@@ -162,8 +162,8 @@ namespace boost { namespace algorithm {
   template<typename Range, typename OutputIterator, typename Pred> 
   typename boost::disable_if_c<boost::is_same<Range, OutputIterator>::value, OutputIterator>::type
   clamp_range ( const Range &r, OutputIterator out,
-    typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type lo, 
-    typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type hi,
+    typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type const & lo, 
+    typename std::iterator_traits<typename boost::range_iterator<const Range>::type>::value_type const & hi,
     Pred p )
   {
     return clamp_range ( boost::begin ( r ), boost::end ( r ), out, lo, hi, p );

@@ -6,8 +6,8 @@
  Algebra for boost::fusion sequences.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Karsten Ahnert
+ Copyright 2011-2013 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -18,6 +18,9 @@
 #ifndef BOOST_NUMERIC_ODEINT_ALGEBRA_FUSION_ALGEBRA_HPP_INCLUDED
 #define BOOST_NUMERIC_ODEINT_ALGEBRA_FUSION_ALGEBRA_HPP_INCLUDED
 
+#include <algorithm>
+
+#include <boost/numeric/odeint/config.hpp>
 
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/algorithm/iteration/for_each.hpp>
@@ -29,6 +32,30 @@ namespace boost {
 namespace numeric {
 namespace odeint {
 
+namespace detail {
+
+    template< class Value >
+    struct fusion_maximum
+    {
+        template< class Fac1 , class Fac2 >
+        Value operator()( Fac1 t1 , const Fac2 t2 ) const
+        {
+            using std::abs;
+            Value a1 = abs( get_unit_value( t1 ) ) , a2 = abs( get_unit_value( t2 ) );
+            return ( a1 < a2 ) ? a2 : a1 ;
+        }
+
+        typedef Value result_type;
+    };
+}
+
+/* specialize this if the fundamental numeric type in your fusion sequence is
+ * anything else but double (most likely not)
+ */
+template< typename Sequence >
+struct fusion_traits {
+    typedef double value_type;
+};
 
 struct fusion_algebra
 {
@@ -169,11 +196,14 @@ struct fusion_algebra
         boost::fusion::for_each( boost::fusion::zip_view< Sequences >( sequences ) , boost::fusion::make_fused( op ) );
     }
 
-    template< class Value , class S , class Reduction >
-    static Value reduce( const S &s , Reduction red , Value init)
+    template< class S >
+    static typename fusion_traits< S >::value_type norm_inf( const S &s )
     {
-        return boost::fusion::accumulate( s , init , red );
+        typedef typename fusion_traits< S >::value_type value_type;
+        return boost::fusion::accumulate( s , static_cast<value_type>(0) ,
+                                          detail::fusion_maximum<value_type>() );
     }
+
 };
 
 

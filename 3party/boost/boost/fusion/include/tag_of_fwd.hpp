@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_TAG_OF_FWD)
 #define FUSION_INCLUDE_TAG_OF_FWD
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/tag_of_fwd.hpp>
 
 #endif

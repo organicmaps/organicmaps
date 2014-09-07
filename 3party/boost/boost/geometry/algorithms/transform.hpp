@@ -3,6 +3,7 @@
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -18,10 +19,14 @@
 #include <iterator>
 
 #include <boost/range.hpp>
-#include <boost/typeof/typeof.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
 
 #include <boost/geometry/algorithms/assign.hpp>
 #include <boost/geometry/algorithms/clear.hpp>
+#include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 #include <boost/geometry/algorithms/num_interior_rings.hpp>
 
 #include <boost/geometry/core/cs.hpp>
@@ -30,7 +35,9 @@
 #include <boost/geometry/core/mutable_range.hpp>
 #include <boost/geometry/core/ring_type.hpp>
 #include <boost/geometry/core/tag_cast.hpp>
+#include <boost/geometry/core/tags.hpp>
 #include <boost/geometry/geometries/concepts/check.hpp>
+#include <boost/geometry/strategies/default_strategy.hpp>
 #include <boost/geometry/strategies/transform.hpp>
 
 
@@ -149,8 +156,6 @@ struct transform_polygon
     static inline bool apply(Polygon1 const& poly1, Polygon2& poly2,
                 Strategy const& strategy)
     {
-        typedef typename ring_type<Polygon1>::type ring1_type;
-        typedef typename ring_type<Polygon2>::type ring2_type;
         typedef typename point_type<Polygon2>::type point2_type;
 
         geometry::clear(poly2);
@@ -170,16 +175,20 @@ struct transform_polygon
                 >::type
             >::apply(interior_rings(poly2), num_interior_rings(poly1));
 
-        typename interior_return_type<Polygon1 const>::type rings1
-                    = interior_rings(poly1);
-        typename interior_return_type<Polygon2>::type rings2
-                    = interior_rings(poly2);
-        BOOST_AUTO_TPL(it1, boost::begin(rings1));
-        BOOST_AUTO_TPL(it2, boost::begin(rings2));
-        for ( ; it1 != boost::end(interior_rings(poly1)); ++it1, ++it2)
+        typename interior_return_type<Polygon1 const>::type
+            rings1 = interior_rings(poly1);
+        typename interior_return_type<Polygon2>::type
+            rings2 = interior_rings(poly2);
+
+        typename detail::interior_iterator<Polygon1 const>::type
+            it1 = boost::begin(rings1);
+        typename detail::interior_iterator<Polygon2>::type
+            it2 = boost::begin(rings2);
+        for ( ; it1 != boost::end(rings1); ++it1, ++it2)
         {
-            if (!transform_range_out<point2_type>(*it1,
-                std::back_inserter(*it2), strategy))
+            if ( ! transform_range_out<point2_type>(*it1,
+                                                    std::back_inserter(*it2),
+                                                    strategy) )
             {
                 return false;
             }
@@ -220,6 +229,36 @@ struct transform_range
                 std::back_inserter(range2), strategy);
     }
 };
+
+
+/*!
+    \brief Is able to transform any multi-geometry, calling the single-version as policy
+*/
+template <typename Policy>
+struct transform_multi
+{
+    template <typename Multi1, typename Multi2, typename S>
+    static inline bool apply(Multi1 const& multi1, Multi2& multi2, S const& strategy)
+    {
+        traits::resize<Multi2>::apply(multi2, boost::size(multi1));
+
+        typename boost::range_iterator<Multi1 const>::type it1
+                = boost::begin(multi1);
+        typename boost::range_iterator<Multi2>::type it2
+                = boost::begin(multi2);
+
+        for (; it1 != boost::end(multi1); ++it1, ++it2)
+        {
+            if (! Policy::apply(*it1, *it2, strategy))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+};
+
 
 }} // namespace detail::transform
 #endif // DOXYGEN_NO_DETAIL
@@ -278,9 +317,117 @@ struct transform<Segment1, Segment2, segment_tag, segment_tag>
 {
 };
 
+template <typename Multi1, typename Multi2>
+struct transform
+    <
+        Multi1, Multi2,
+        multi_tag, multi_tag
+    >
+    : detail::transform::transform_multi
+        <
+            dispatch::transform
+                <
+                    typename boost::range_value<Multi1>::type,
+                    typename boost::range_value<Multi2>::type
+                >
+        >
+{};
+
 
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH
+
+
+namespace resolve_strategy {
+
+struct transform
+{
+    template <typename Geometry1, typename Geometry2, typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2& geometry2,
+                             Strategy const& strategy)
+    {
+        concept::check<Geometry1 const>();
+        concept::check<Geometry2>();
+
+        return dispatch::transform<Geometry1, Geometry2>::apply(
+            geometry1,
+            geometry2,
+            strategy
+        );
+    }
+
+    template <typename Geometry1, typename Geometry2>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2& geometry2,
+                             default_strategy)
+    {
+        return apply(
+            geometry1,
+            geometry2,
+            typename detail::transform::select_strategy<Geometry1, Geometry2>::type()
+        );
+    }
+};
+
+} // namespace resolve_strategy
+
+
+namespace resolve_variant {
+
+template <typename Geometry1, typename Geometry2>
+struct transform
+{
+    template <typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2& geometry2,
+                             Strategy const& strategy)
+    {
+        return resolve_strategy::transform::apply(
+            geometry1,
+            geometry2,
+            strategy
+        );
+    }
+};
+
+template <BOOST_VARIANT_ENUM_PARAMS(typename T), typename Geometry2>
+struct transform<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>, Geometry2>
+{
+    template <typename Strategy>
+    struct visitor: static_visitor<bool>
+    {
+        Geometry2& m_geometry2;
+        Strategy const& m_strategy;
+
+        visitor(Geometry2& geometry2, Strategy const& strategy)
+            : m_geometry2(geometry2)
+            , m_strategy(strategy)
+        {}
+
+        template <typename Geometry1>
+        inline bool operator()(Geometry1 const& geometry1) const
+        {
+            return transform<Geometry1, Geometry2>::apply(
+                geometry1,
+                m_geometry2,
+                m_strategy
+            );
+        }
+    };
+
+    template <typename Strategy>
+    static inline bool apply(
+        boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& geometry1,
+        Geometry2& geometry2,
+        Strategy const& strategy
+    )
+    {
+        return apply_visitor(visitor<Strategy>(geometry2, strategy), geometry1);
+    }
+};
+
+} // namespace resolve_variant
 
 
 /*!
@@ -302,12 +449,8 @@ template <typename Geometry1, typename Geometry2, typename Strategy>
 inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2,
             Strategy const& strategy)
 {
-    concept::check<Geometry1 const>();
-    concept::check<Geometry2>();
-
-    typedef dispatch::transform<Geometry1, Geometry2> transform_type;
-
-    return transform_type::apply(geometry1, geometry2, strategy);
+    return resolve_variant::transform<Geometry1, Geometry2>
+                          ::apply(geometry1, geometry2, strategy);
 }
 
 
@@ -325,11 +468,7 @@ inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2,
 template <typename Geometry1, typename Geometry2>
 inline bool transform(Geometry1 const& geometry1, Geometry2& geometry2)
 {
-    concept::check<Geometry1 const>();
-    concept::check<Geometry2>();
-
-    typename detail::transform::select_strategy<Geometry1, Geometry2>::type strategy;
-    return transform(geometry1, geometry2, strategy);
+    return transform(geometry1, geometry2, default_strategy());
 }
 
 

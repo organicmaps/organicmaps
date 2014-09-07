@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_INCLUDE_IS_SEGMENTED)
 #define BOOST_FUSION_INCLUDE_IS_SEGMENTED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/is_segmented.hpp>
 
 #endif

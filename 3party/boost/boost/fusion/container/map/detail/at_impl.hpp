@@ -1,17 +1,14 @@
 /*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-    Copyright (c) 2011 Brandon Kohn
+    Copyright (c) 2001-2013 Joel de Guzman
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
-#if !defined(BOOST_FUSION_MAP_DETAIL_AT_IMPL_HPP)
-#define BOOST_FUSION_MAP_DETAIL_AT_IMPL_HPP
+#if !defined(BOOST_FUSION_MAP_DETAIL_AT_IMPL_02042013_0821)
+#define BOOST_FUSION_MAP_DETAIL_AT_IMPL_02042013_0821
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/detail/access.hpp>
-#include <boost/type_traits/is_const.hpp>
-#include <boost/mpl/at.hpp>
-#include <boost/mpl/int.hpp>
 
 namespace boost { namespace fusion
 {
@@ -26,36 +23,38 @@ namespace boost { namespace fusion
         struct at_impl<map_tag>
         {
             template <typename Sequence, typename N>
-            struct apply 
+            struct apply
             {
-                typedef typename 
-                    mpl::at<typename Sequence::storage_type::types, N>::type 
-                element;
-                typedef typename detail::ref_result<element>::type type;
-    
+                typedef mpl::int_<N::value> index;
+                typedef
+                    decltype(std::declval<Sequence>().get(index()))
+                type;
+
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& m)
                 {
-                    return m.get_data().at_impl(N());
+                    return m.get(index());
                 }
             };
 
             template <typename Sequence, typename N>
             struct apply<Sequence const, N>
             {
-                typedef typename 
-                    mpl::at<typename Sequence::storage_type::types, N>::type 
-                element;
-                typedef typename detail::cref_result<element>::type type;
-    
+                typedef mpl::int_<N::value> index;
+                typedef
+                    decltype(std::declval<Sequence const>().get(index()))
+                type;
+
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence const& m)
                 {
-                    return m.get_data().at_impl(N());
+                    return m.get(index());
                 }
             };
         };
     }
 }}
 
-#endif //BOOST_FUSION_MAP_DETAIL_AT_IMPL_HPP
+#endif

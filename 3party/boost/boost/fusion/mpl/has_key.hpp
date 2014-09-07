@@ -7,6 +7,7 @@
 #if !defined(FUSION_HAS_KEY_10022005_1617)
 #define FUSION_HAS_KEY_10022005_1617
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/has_key.hpp>
 #include <boost/fusion/sequence/intrinsic/has_key.hpp>
 

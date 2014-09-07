@@ -4,96 +4,129 @@
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
-#if !defined(FUSION_MAP_07212005_1106)
-#define FUSION_MAP_07212005_1106
+#if !defined(FUSION_MAP_MAIN_07212005_1106)
+#define FUSION_MAP_MAIN_07212005_1106
 
-#include <boost/fusion/support/pair.hpp>
-#include <boost/fusion/support/category_of.hpp>
-#include <boost/fusion/support/detail/access.hpp>
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/map/map_fwd.hpp>
-#include <boost/fusion/container/map/detail/at_impl.hpp>
-#include <boost/fusion/container/map/detail/value_at_impl.hpp>
+#include <boost/fusion/support/pair.hpp>
+
+///////////////////////////////////////////////////////////////////////////////
+// Without variadics, we will use the PP version
+///////////////////////////////////////////////////////////////////////////////
+#if !defined(BOOST_FUSION_HAS_VARIADIC_MAP)
+# include <boost/fusion/container/map/detail/cpp03/map.hpp>
+#else
+
+///////////////////////////////////////////////////////////////////////////////
+// C++11 interface
+///////////////////////////////////////////////////////////////////////////////
+#include <boost/fusion/container/map/detail/map_impl.hpp>
 #include <boost/fusion/container/map/detail/begin_impl.hpp>
 #include <boost/fusion/container/map/detail/end_impl.hpp>
-#include <boost/fusion/container/map/detail/value_of_impl.hpp>
-#include <boost/fusion/container/map/detail/deref_data_impl.hpp>
-#include <boost/fusion/container/map/detail/deref_impl.hpp>
-#include <boost/fusion/container/map/detail/key_of_impl.hpp>
-#include <boost/fusion/container/map/detail/value_of_data_impl.hpp>
-#include <boost/fusion/container/vector/vector.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/mpl/bool.hpp>
+#include <boost/fusion/container/map/detail/at_impl.hpp>
+#include <boost/fusion/container/map/detail/at_key_impl.hpp>
+#include <boost/fusion/container/map/detail/value_at_impl.hpp>
+#include <boost/fusion/container/map/detail/value_at_key_impl.hpp>
+#include <boost/fusion/sequence/intrinsic/begin.hpp>
+#include <boost/fusion/sequence/intrinsic/end.hpp>
+#include <boost/fusion/sequence/intrinsic/at.hpp>
+#include <boost/fusion/sequence/intrinsic/at_c.hpp>
+#include <boost/fusion/support/is_sequence.hpp>
+#include <boost/fusion/support/sequence_base.hpp>
+#include <boost/fusion/support/category_of.hpp>
 
-#if !defined(BOOST_FUSION_DONT_USE_PREPROCESSED_FILES)
-#include <boost/fusion/container/map/detail/preprocessed/map.hpp>
-#else
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 2, line: 0, output: "detail/preprocessed/map" FUSION_MAX_MAP_SIZE_STR ".hpp")
-#endif
-
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-    This is an auto-generated file. Do not edit!
-==============================================================================*/
-
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 1)
-#endif
+#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace fusion
 {
-    struct void_;
-    struct fusion_sequence_tag;
+    struct map_tag;
 
-    template <BOOST_PP_ENUM_PARAMS(FUSION_MAX_MAP_SIZE, typename T)>
-    struct map : sequence_base<map<BOOST_PP_ENUM_PARAMS(FUSION_MAX_MAP_SIZE, T)> >
+    template <typename ...T>
+    struct map : detail::map_impl<0, T...>, sequence_base<map<T...>>
     {
-        struct category : random_access_traversal_tag, associative_tag {};
-
         typedef map_tag fusion_tag;
-        typedef fusion_sequence_tag tag; // this gets picked up by MPL
+        typedef detail::map_impl<0, T...> base_type;
+
+        struct category : random_access_traversal_tag, associative_tag {};
+        typedef mpl::int_<base_type::size> size;
         typedef mpl::false_ is_view;
 
-        typedef vector<
-            BOOST_PP_ENUM_PARAMS(FUSION_MAX_MAP_SIZE, T)>
-        storage_type;
+        BOOST_FUSION_GPU_ENABLED
+        map() {}
 
-        typedef typename storage_type::size size;
+        BOOST_FUSION_GPU_ENABLED
+        map(map const& seq)
+          : base_type(seq.base())
+        {}
 
-        map()
-            : data() {}
+        BOOST_FUSION_GPU_ENABLED
+        map(map&& seq)
+          : base_type(std::forward<map>(seq))
+        {}
 
         template <typename Sequence>
-        map(Sequence const& rhs)
-            : data(rhs) {}
+        BOOST_FUSION_GPU_ENABLED
+        map(Sequence const& seq
+          , typename enable_if<traits::is_sequence<Sequence>>::type* /*dummy*/ = 0)
+          : base_type(begin(seq), detail::map_impl_from_iterator())
+        {}
 
-        #include <boost/fusion/container/map/detail/map_forward_ctor.hpp>
+        template <typename Sequence>
+        BOOST_FUSION_GPU_ENABLED
+        map(Sequence& seq
+          , typename enable_if<traits::is_sequence<Sequence>>::type* /*dummy*/ = 0)
+          : base_type(begin(seq), detail::map_impl_from_iterator())
+        {}
 
-        template <typename T>
-        map&
-        operator=(T const& rhs)
+        template <typename Sequence>
+        BOOST_FUSION_GPU_ENABLED
+        map(Sequence&& seq
+          , typename enable_if<traits::is_sequence<Sequence>>::type* /*dummy*/ = 0)
+          : base_type(begin(seq), detail::map_impl_from_iterator())
+        {}
+
+        template <typename First, typename ...T_>
+        BOOST_FUSION_GPU_ENABLED
+        map(First const& first, T_ const&... rest)
+          : base_type(first, rest...)
+        {}
+
+        template <typename First, typename ...T_>
+        BOOST_FUSION_GPU_ENABLED
+        map(First&& first, T_&&... rest)
+          : base_type(std::forward<First>(first), std::forward<T_>(rest)...)
+        {}
+
+        BOOST_FUSION_GPU_ENABLED
+        map& operator=(map const& rhs)
         {
-            data = rhs;
+            base_type::operator=(rhs.base());
             return *this;
         }
 
-        storage_type& get_data() { return data; }
-        storage_type const& get_data() const { return data; }
+        BOOST_FUSION_GPU_ENABLED
+        map& operator=(map&& rhs)
+        {
+            base_type::operator=(std::forward<base_type>(rhs.base()));
+            return *this;
+        }
 
-    private:
+        template <typename Sequence>
+        BOOST_FUSION_GPU_ENABLED
+        typename enable_if<traits::is_sequence<Sequence>, map&>::type
+        operator=(Sequence const& seq)
+        {
+            base().assign(begin(seq), detail::map_impl_from_iterator());
+            return *this;
+        }
 
-        storage_type data;
+        BOOST_FUSION_GPU_ENABLED
+        base_type& base() { return *this; }
+        BOOST_FUSION_GPU_ENABLED
+        base_type const& base() const { return *this; }
     };
 }}
 
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(output: null)
 #endif
-
-#endif // BOOST_FUSION_DONT_USE_PREPROCESSED_FILES
-
 #endif

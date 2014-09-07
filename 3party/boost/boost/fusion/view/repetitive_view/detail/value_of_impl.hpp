@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_REPETITIVE_VIEW_VALUE_OF_IMPL_HPP_INCLUDED)
 #define BOOST_FUSION_REPETITIVE_VIEW_VALUE_OF_IMPL_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/value_of.hpp>
 
 namespace boost { namespace fusion

@@ -3,6 +3,7 @@
 //
 //  Copyright (c) 2002, 2003 Peter Dimov
 //  Copyright (c) 2008 Frank Mori Hess
+//  Copyright (c) Microsoft Corporation 2014
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -14,7 +15,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -23,6 +24,8 @@
 #ifdef BOOST_USE_WINDOWS_H
 #  include <windows.h>
 #endif
+
+#include <boost/predef/platform.h>
 
 namespace boost
 {
@@ -46,7 +49,11 @@ struct critical_section
 #endif
 };
 
+#if BOOST_PLAT_WINDOWS_RUNTIME
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSectionEx(critical_section *, unsigned long, unsigned long);
+#else
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(critical_section *);
+#endif
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(critical_section *);
 extern "C" __declspec(dllimport) bool __stdcall TryEnterCriticalSection(critical_section *);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(critical_section *);
@@ -71,7 +78,11 @@ public:
 
     mutex()
     {
+#if BOOST_PLAT_WINDOWS_RUNTIME
+        InitializeCriticalSectionEx(&cs_, 4000, 0);
+#else
         InitializeCriticalSection(&cs_);
+#endif
     }
 
     ~mutex()

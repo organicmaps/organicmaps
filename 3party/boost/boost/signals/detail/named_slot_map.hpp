@@ -13,7 +13,6 @@
 #include <boost/signals/detail/config.hpp>
 #include <boost/signals/detail/signals_common.hpp>
 #include <boost/signals/connection.hpp>
-#include <boost/utility.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/function/function2.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -127,7 +126,7 @@ public:
         || slot_ == other.slot_));
   }
 
-#if BOOST_WORKAROUND(_MSC_VER, <= 1700)
+#if BOOST_WORKAROUND(_MSC_VER, <= 1900)
   void decrement();
   void advance(difference_type);
 #endif

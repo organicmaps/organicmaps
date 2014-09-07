@@ -17,7 +17,7 @@
 #include <cstddef>
 
 #include <boost/mpl/assert.hpp>
-#include <boost/range.hpp>
+#include <boost/range/value_type.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
 #include <boost/geometry/core/tag.hpp>
@@ -82,6 +82,17 @@ struct interior_rings<polygon_tag, Polygon>
                 typename boost::remove_const<Polygon>::type
             >::get(polygon);
     }
+};
+
+
+template <typename MultiPolygon>
+struct interior_type<multi_polygon_tag, MultiPolygon>
+{
+    typedef typename core_dispatch::interior_type
+        <
+            polygon_tag,
+            typename boost::range_value<MultiPolygon>::type
+        >::type type;
 };
 
 

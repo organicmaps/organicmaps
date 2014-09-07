@@ -28,8 +28,8 @@ namespace boost { namespace phoenix { namespace detail
     {
         typedef typename member_function_ptr_impl<N>::
             template impl<RT, FP> base;
-        member_function_ptr(FP fp)
-            : base(fp) {}
+        member_function_ptr(FP fp_)
+            : base(fp_) {}
         
         using base::fp;
 
@@ -39,7 +39,7 @@ namespace boost { namespace phoenix { namespace detail
         }
 
         template <int M, typename RhsRT, typename RhsFP>
-        bool operator==(member_function_ptr<M, RhsRT, RhsFP> const & rhs) const
+        bool operator==(member_function_ptr<M, RhsRT, RhsFP> const &) const
         {
             return false;
         }
@@ -53,8 +53,8 @@ namespace boost { namespace phoenix { namespace detail
         {
             typedef RT result_type;
 
-            impl(FP fp)
-                : fp(fp) {}
+            impl(FP fp_)
+                : fp(fp_) {}
 
             template <typename Class>
             RT operator()(Class& obj) const
@@ -124,8 +124,8 @@ namespace boost { namespace phoenix { namespace detail
         {
             typedef RT result_type;
 
-            impl(FP fp)
-                : fp(fp) {}
+            impl(FP fp_)
+                : fp(fp_) {}
 
             template <typename Class, BOOST_PHOENIX_typename_A>
             RT operator()(Class& obj, BOOST_PHOENIX_A_ref_a) const

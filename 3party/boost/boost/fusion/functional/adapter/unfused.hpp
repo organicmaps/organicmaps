@@ -47,14 +47,14 @@ namespace boost { namespace fusion
 
         using unfused<Function,false>::operator();
 
-        inline explicit unfused(func_const_fwd_t f = function())
+        BOOST_FUSION_GPU_ENABLED inline explicit unfused(func_const_fwd_t f = function())
             : unfused<Function,false>(f)
         { }
 
         typedef typename boost::result_of<
             function_c(fusion::vector0<> &) >::type call_const_0_result;
 
-        inline call_const_0_result operator()() const
+        BOOST_FUSION_GPU_ENABLED inline call_const_0_result operator()() const
         {
             fusion::vector0<> arg;
             return this->fnc_transformed(arg);
@@ -63,7 +63,7 @@ namespace boost { namespace fusion
         typedef typename boost::result_of< 
             function(fusion::vector0<> &) >::type call_0_result;
 
-        inline call_0_result operator()() 
+        BOOST_FUSION_GPU_ENABLED inline call_0_result operator()() 
         {
             fusion::vector0<> arg;
             return this->fnc_transformed(arg);
@@ -79,6 +79,7 @@ namespace boost { namespace fusion
         typedef typename detail::call_param<Function>::type func_const_fwd_t;
       public:
 
+        BOOST_FUSION_GPU_ENABLED
         inline explicit unfused(func_const_fwd_t f = function())
             : fnc_transformed(f)
         { }
@@ -100,7 +101,7 @@ namespace boost { namespace fusion
 
 namespace boost 
 {
-#if !defined(BOOST_RESULT_OF_USE_DECLTYPE) || defined(BOOST_NO_DECLTYPE)
+#if !defined(BOOST_RESULT_OF_USE_DECLTYPE) || defined(BOOST_NO_CXX11_DECLTYPE)
     template<class F>
     struct result_of< boost::fusion::unfused<F> const () >
     {
@@ -148,6 +149,7 @@ namespace boost
         { };
 
         template <BOOST_PP_ENUM_PARAMS(N,typename T)>
+        BOOST_FUSION_GPU_ENABLED
         inline typename boost::result_of<function_c(BOOST_PP_CAT(fusion::vector,N)
             <BOOST_PP_ENUM_BINARY_PARAMS(N,T,& BOOST_PP_INTERCEPT)> & )>::type
         operator()(BOOST_PP_ENUM_BINARY_PARAMS(N,T,& a)) const
@@ -159,6 +161,7 @@ namespace boost
         }
 
         template <BOOST_PP_ENUM_PARAMS(N,typename T)>
+        BOOST_FUSION_GPU_ENABLED
         inline typename boost::result_of<function(BOOST_PP_CAT(fusion::vector,N)
             <BOOST_PP_ENUM_BINARY_PARAMS(N,T,& BOOST_PP_INTERCEPT)> & )>::type
         operator()(BOOST_PP_ENUM_BINARY_PARAMS(N,T,& a)) 

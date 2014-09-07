@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_AT_KEY)
 #define FUSION_INCLUDE_AT_KEY
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/at_key.hpp>
 
 #endif

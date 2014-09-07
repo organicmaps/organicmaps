@@ -29,9 +29,9 @@ namespace boost { namespace spirit { namespace qi
             )>
         function_type;
 
-        success_handler(function_type subject, F f)
-          : subject(subject)
-          , f(f)
+        success_handler(function_type subject_, F f_)
+          : subject(subject_)
+          , f(f_)
         {
         }
 

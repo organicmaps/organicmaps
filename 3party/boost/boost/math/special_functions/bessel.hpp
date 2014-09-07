@@ -15,6 +15,8 @@
 #  pragma once
 #endif
 
+#include <limits>
+#include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/special_functions/detail/bessel_jy.hpp>
 #include <boost/math/special_functions/detail/bessel_jn.hpp>
 #include <boost/math/special_functions/detail/bessel_yn.hpp>
@@ -48,7 +50,13 @@ struct sph_bessel_j_small_z_series_term
    {
       BOOST_MATH_STD_USING
       mult = x / 2;
-      term = pow(mult, T(v)) / boost::math::tgamma(v+1+T(0.5f), Policy());
+      if(v + 3 > max_factorial<T>::value)
+      {
+         term = v * log(mult) - boost::math::lgamma(v+1+T(0.5f), Policy());
+         term = exp(term);
+      }
+      else
+         term = pow(mult, T(v)) / boost::math::tgamma(v+1+T(0.5f), Policy());
       mult *= -mult;
    }
    T operator()()
@@ -141,6 +149,11 @@ inline T sph_bessel_j_imp(unsigned n, T x, const Policy& pol)
    //
    if(n == 0)
       return boost::math::sinc_pi(x, pol);
+   //
+   // Special case for x == 0:
+   //
+   if(x == 0)
+      return 0;
    //
    // When x is small we may end up with 0/0, use series evaluation
    // instead, especially as it converges rapidly:
@@ -412,10 +425,6 @@ inline T cyl_bessel_j_zero_imp(T v, int m, const Policy& pol)
    // Select the maximum allowed iterations from the policy.
    boost::uintmax_t number_of_iterations = policies::get_max_root_iterations<Policy>();
 
-   // Select the desired number of binary digits of precision.
-   // Account for the radix of number representations having non-two radix!
-   const int my_digits2 = policies::digits<T, Policy>();
-
    const T delta_lo = ((guess_root > 0.2F) ? T(0.2) : T(guess_root / 2U));
 
    // Perform the root-finding using Newton-Raphson iteration from Boost.Math.
@@ -425,12 +434,12 @@ inline T cyl_bessel_j_zero_imp(T v, int m, const Policy& pol)
          guess_root,
          T(guess_root - delta_lo),
          T(guess_root + 0.2F),
-         my_digits2,
+         policies::digits<T, Policy>(),
          number_of_iterations);
 
    if(number_of_iterations >= policies::get_max_root_iterations<Policy>())
    {
-      policies::raise_evaluation_error<T>(function, "Unable to locate root in a reasonable time:"
+      return policies::raise_evaluation_error<T>(function, "Unable to locate root in a reasonable time:"
          "  Current best guess is %1%", jvm, Policy());
    }
 
@@ -495,10 +504,6 @@ inline T cyl_neumann_zero_imp(T v, int m, const Policy& pol)
    // Select the maximum allowed iterations from the policy.
    boost::uintmax_t number_of_iterations = policies::get_max_root_iterations<Policy>();
 
-   // Select the desired number of binary digits of precision.
-   // Account for the radix of number representations having non-two radix!
-   const int my_digits2 = policies::digits<T, Policy>();
-
    const T delta_lo = ((guess_root > 0.2F) ? T(0.2) : T(guess_root / 2U));
 
    // Perform the root-finding using Newton-Raphson iteration from Boost.Math.
@@ -508,12 +513,12 @@ inline T cyl_neumann_zero_imp(T v, int m, const Policy& pol)
          guess_root,
          T(guess_root - delta_lo),
          T(guess_root + 0.2F),
-         my_digits2,
+         policies::digits<T, Policy>(),
          number_of_iterations);
 
    if(number_of_iterations >= policies::get_max_root_iterations<Policy>())
    {
-      policies::raise_evaluation_error<T>(function, "Unable to locate root in a reasonable time:"
+      return policies::raise_evaluation_error<T>(function, "Unable to locate root in a reasonable time:"
          "  Current best guess is %1%", yvm, Policy());
    }
 
@@ -663,14 +668,23 @@ inline typename detail::bessel_traits<T, T, Policy>::result_type cyl_bessel_j_ze
       policies::promote_double<false>, 
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
-   BOOST_STATIC_ASSERT_MSG(false == std::numeric_limits<value_type>::is_integer, "Order must be a floating-point type.");
+
+   BOOST_STATIC_ASSERT_MSG(    false == std::numeric_limits<T>::is_specialized
+                           || (   true  == std::numeric_limits<T>::is_specialized
+                               && false == std::numeric_limits<T>::is_integer),
+                           "Order must be a floating-point type.");
+
    return policies::checked_narrowing_cast<result_type, Policy>(detail::cyl_bessel_j_zero_imp<value_type>(v, m, forwarding_policy()), "boost::math::cyl_bessel_j_zero<%1%>(%1%,%1%)");
 }
 
 template <class T>
 inline typename detail::bessel_traits<T, T, policies::policy<> >::result_type cyl_bessel_j_zero(T v, int m)
 {
-   BOOST_STATIC_ASSERT_MSG(false == std::numeric_limits<T>::is_integer, "Order must be a floating-point type.");
+   BOOST_STATIC_ASSERT_MSG(    false == std::numeric_limits<T>::is_specialized
+                           || (   true  == std::numeric_limits<T>::is_specialized
+                               && false == std::numeric_limits<T>::is_integer),
+                           "Order must be a floating-point type.");
+
    return cyl_bessel_j_zero<T, policies::policy<> >(v, m, policies::policy<>());
 }
 
@@ -681,8 +695,12 @@ inline OutputIterator cyl_bessel_j_zero(T v,
                               OutputIterator out_it,
                               const Policy& pol)
 {
-   BOOST_STATIC_ASSERT_MSG(false == std::numeric_limits<T>::is_integer, "Order must be a floating-point type.");
-   for(unsigned i = 0; i < number_of_zeros; ++i)
+   BOOST_STATIC_ASSERT_MSG(    false == std::numeric_limits<T>::is_specialized
+                           || (   true  == std::numeric_limits<T>::is_specialized
+                               && false == std::numeric_limits<T>::is_integer),
+                           "Order must be a floating-point type.");
+
+   for(int i = 0; i < static_cast<int>(number_of_zeros); ++i)
    {
       *out_it = boost::math::cyl_bessel_j_zero(v, start_index + i, pol);
       ++out_it;
@@ -711,14 +729,23 @@ inline typename detail::bessel_traits<T, T, Policy>::result_type cyl_neumann_zer
       policies::promote_double<false>, 
       policies::discrete_quantile<>,
       policies::assert_undefined<> >::type forwarding_policy;
-   BOOST_STATIC_ASSERT_MSG(false == std::numeric_limits<value_type>::is_integer, "Order must be a floating-point type.");
+
+   BOOST_STATIC_ASSERT_MSG(    false == std::numeric_limits<T>::is_specialized
+                           || (   true  == std::numeric_limits<T>::is_specialized
+                               && false == std::numeric_limits<T>::is_integer),
+                           "Order must be a floating-point type.");
+
    return policies::checked_narrowing_cast<result_type, Policy>(detail::cyl_neumann_zero_imp<value_type>(v, m, forwarding_policy()), "boost::math::cyl_neumann_zero<%1%>(%1%,%1%)");
 }
 
 template <class T>
 inline typename detail::bessel_traits<T, T, policies::policy<> >::result_type cyl_neumann_zero(T v, int m)
 {
-   BOOST_STATIC_ASSERT_MSG(false == std::numeric_limits<T>::is_integer, "Order must be a floating-point type.");
+   BOOST_STATIC_ASSERT_MSG(    false == std::numeric_limits<T>::is_specialized
+                           || (   true  == std::numeric_limits<T>::is_specialized
+                               && false == std::numeric_limits<T>::is_integer),
+                           "Order must be a floating-point type.");
+
    return cyl_neumann_zero<T, policies::policy<> >(v, m, policies::policy<>());
 }
 
@@ -729,8 +756,12 @@ inline OutputIterator cyl_neumann_zero(T v,
                              OutputIterator out_it,
                              const Policy& pol)
 {
-   BOOST_STATIC_ASSERT_MSG(false == std::numeric_limits<T>::is_integer, "Order must be a floating-point type.");
-   for(unsigned i = 0; i < number_of_zeros; ++i)
+   BOOST_STATIC_ASSERT_MSG(    false == std::numeric_limits<T>::is_specialized
+                           || (   true  == std::numeric_limits<T>::is_specialized
+                               && false == std::numeric_limits<T>::is_integer),
+                           "Order must be a floating-point type.");
+
+   for(int i = 0; i < static_cast<int>(number_of_zeros); ++i)
    {
       *out_it = boost::math::cyl_neumann_zero(v, start_index + i, pol);
       ++out_it;
@@ -751,4 +782,5 @@ inline OutputIterator cyl_neumann_zero(T v,
 } // namespace boost
 
 #endif // BOOST_MATH_BESSEL_HPP
+
 

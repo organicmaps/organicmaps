@@ -57,7 +57,7 @@ struct lanczos22UDT : public mpl::int_<120>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 2.50662827463100050241576528481104525333))
       };
       static const T denom[22] = {
-         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 0)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 0.0)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 2432902008176640000.0)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 8752948036761600000.0)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 13803759753640704000.0)),
@@ -74,11 +74,11 @@ struct lanczos22UDT : public mpl::int_<120>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 756111184500.0)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 40171771630.0)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1672280820.0)),
-         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 53327946)),
-         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1256850)),
-         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 20615)),
-         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 210)),
-         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1))
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 53327946.0)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1256850.0)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 20615.0)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 210.0)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1.0))
       };
       return boost::math::tools::evaluate_rational(num, denom, z);
    }
@@ -112,7 +112,7 @@ struct lanczos22UDT : public mpl::int_<120>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 0.3765495513732730583386223384116545391759e-9))
       };
       static const T denom[22] = {
-         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 0)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 0.0)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 2432902008176640000.0)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 8752948036761600000.0)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 13803759753640704000.0)),
@@ -131,9 +131,9 @@ struct lanczos22UDT : public mpl::int_<120>
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1672280820.0)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 53327946.0)),
          static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1256850.0)),
-         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 20615)),
-         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 210)),
-         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1))
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 20615.0)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 210.0)),
+         static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 120, 1.0))
       };
       return boost::math::tools::evaluate_rational(num, denom, z);
    }

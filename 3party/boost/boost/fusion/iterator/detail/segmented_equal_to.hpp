@@ -7,13 +7,14 @@
 #if !defined(BOOST_FUSION_SEGMENTED_ITERATOR_EQUAL_TO_HPP_INCLUDED)
 #define BOOST_FUSION_SEGMENTED_ITERATOR_EQUAL_TO_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/fusion/iterator/equal_to.hpp>
 
 namespace boost { namespace fusion
 {
-    struct nil;
+    struct nil_;
 
     namespace detail
     {
@@ -32,7 +33,7 @@ namespace boost { namespace fusion
         {};
 
         template <>
-        struct segmented_equal_to<fusion::nil, fusion::nil>
+        struct segmented_equal_to<fusion::nil_, fusion::nil_>
           : mpl::true_
         {};
     }

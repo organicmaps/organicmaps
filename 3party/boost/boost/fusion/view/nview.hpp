@@ -9,6 +9,7 @@
 #if !defined(FUSION_NVIEW_SEP_23_2009_1107PM)
 #define FUSION_NVIEW_SEP_23_2009_1107PM
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/nview/nview.hpp>
 #include <boost/fusion/view/nview/nview_iterator.hpp>
 

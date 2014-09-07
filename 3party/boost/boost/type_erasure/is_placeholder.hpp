@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: is_placeholder.hpp 78453 2012-05-13 15:24:00Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_DETAIL_IS_PLACEHOLDER_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_DETAIL_IS_PLACEHOLDER_HPP_INCLUDED

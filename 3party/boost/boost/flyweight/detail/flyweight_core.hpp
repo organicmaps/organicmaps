@@ -1,4 +1,4 @@
-/* Copyright 2006-2009 Joaquin M Lopez Munoz.
+/* Copyright 2006-2014 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -9,15 +9,15 @@
 #ifndef BOOST_FLYWEIGHT_DETAIL_FLYWEIGHT_CORE_HPP
 #define BOOST_FLYWEIGHT_DETAIL_FLYWEIGHT_CORE_HPP
 
-#if defined(_MSC_VER)&&(_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <boost/detail/no_exceptions_support.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/flyweight/detail/perfect_fwd.hpp>
 #include <boost/mpl/apply.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
 
 #if BOOST_WORKAROUND(BOOST_MSVC,BOOST_TESTED_AT(1400))
 #pragma warning(push)
@@ -63,11 +63,12 @@ public:
   }
 
   template<typename Checker>
-  static void erase(const handle_type& h,Checker check)
+  static void erase(const handle_type& h,Checker chk)
   {
     typedef typename core::lock_type lock_type;
+    core::init();
     lock_type lock(core::mutex());
-    if(check(h))core::factory().erase(h);
+    if(chk(h))core::factory().erase(h);
   }
 };
 
@@ -118,15 +119,24 @@ public:
 
   /* insert overloads*/
 
-#define BOOST_FLYWEIGHT_PERFECT_FWD_NAME static handle_type insert
-#define BOOST_FLYWEIGHT_PERFECT_FWD_BODY(n)                \
-{                                                          \
-  return insert_rep(rep_type(BOOST_PP_ENUM_PARAMS(n,t))); \
+#define BOOST_FLYWEIGHT_PERFECT_FWD_INSERT_BODY(args)         \
+{                                                             \
+  return insert_rep(rep_type(BOOST_FLYWEIGHT_FORWARD(args))); \
 }
-#include <boost/flyweight/detail/perfect_fwd.hpp>
+
+  BOOST_FLYWEIGHT_PERFECT_FWD(
+    static handle_type insert,
+    BOOST_FLYWEIGHT_PERFECT_FWD_INSERT_BODY)
+
+#undef BOOST_FLYWEIGHT_PERFECT_FWD_INSERT_BODY
 
   static handle_type insert(const value_type& x){return insert_value(x);}
   static handle_type insert(value_type& x){return insert_value(x);}
+
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+  static handle_type insert(const value_type&& x){return insert_value(x);}
+  static handle_type insert(value_type&& x){return insert_value(std::move(x));}
+#endif
 
   static const entry_type& entry(const base_handle_type& h)
   {
@@ -169,7 +179,12 @@ private:
     init();
     entry_type       e(x);
     lock_type        lock(mutex());
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+    base_handle_type h(factory().insert(std::move(e)));
+#else
     base_handle_type h(factory().insert(e));
+#endif
+
     BOOST_TRY{
       ValuePolicy::construct_value(
         static_cast<const rep_type&>(entry(h)));
@@ -187,7 +202,13 @@ private:
     init();
     entry_type       e((rep_type(x)));
     lock_type        lock(mutex());
+
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+    base_handle_type h(factory().insert(std::move(e)));
+#else
     base_handle_type h(factory().insert(e));
+#endif
+
     BOOST_TRY{
       ValuePolicy::copy_value(
         static_cast<const rep_type&>(entry(h)));
@@ -199,6 +220,45 @@ private:
     BOOST_CATCH_END
     return static_cast<handle_type>(h);
   }
+
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+  static handle_type insert_rep(rep_type&& x)
+  {
+    init();
+    entry_type       e(std::move(x));
+    lock_type        lock(mutex());
+    base_handle_type h(factory().insert(std::move(e)));
+
+    BOOST_TRY{
+      ValuePolicy::construct_value(
+        static_cast<const rep_type&>(entry(h)));
+    }
+    BOOST_CATCH(...){
+      factory().erase(h);
+      BOOST_RETHROW;
+    }
+    BOOST_CATCH_END
+    return static_cast<handle_type>(h);
+  }
+
+  static handle_type insert_value(value_type&& x)
+  {
+    init();
+    entry_type       e(rep_type(std::move(x)));
+    lock_type        lock(mutex());
+    base_handle_type h(factory().insert(std::move(e)));
+    BOOST_TRY{
+      ValuePolicy::move_value(
+        static_cast<const rep_type&>(entry(h)));
+    }
+    BOOST_CATCH(...){
+      factory().erase(h);
+      BOOST_RETHROW;
+    }
+    BOOST_CATCH_END
+    return static_cast<handle_type>(h);
+  }
+#endif
 
   static bool          static_initializer;
   static factory_type* static_factory_ptr;

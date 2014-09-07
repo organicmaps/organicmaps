@@ -11,6 +11,7 @@
 #include <boost/array.hpp>
 #include <boost/cstdint.hpp>
 #include <boost/math/policies/error_handling.hpp>
+#include <boost/math/special_functions/math_fwd.hpp>
 
 namespace boost{ namespace math{
 

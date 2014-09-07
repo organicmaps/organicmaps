@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_TAG_OF_09262006_1900)
 #define BOOST_FUSION_TAG_OF_09262006_1900
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/tag_of_fwd.hpp>
 
 namespace boost { namespace tuples

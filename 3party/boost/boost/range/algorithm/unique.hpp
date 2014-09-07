@@ -89,11 +89,11 @@ inline BOOST_DEDUCED_TYPENAME range_return<ForwardRange, return_begin_found>::ty
 unique( ForwardRange& rng, BinaryPredicate pred )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<ForwardRange> ));
-    return ::boost::range::unique<return_begin_found>(rng);
+    return ::boost::range::unique<return_begin_found>(rng, pred);
 }
 /// \overload
 template< class ForwardRange, class BinaryPredicate >
-inline BOOST_DEDUCED_TYPENAME range_iterator<const ForwardRange>::type
+inline BOOST_DEDUCED_TYPENAME range_return<const ForwardRange, return_begin_found>::type
 unique( const ForwardRange& rng, BinaryPredicate pred )
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<const ForwardRange> ));

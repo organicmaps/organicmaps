@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -26,7 +26,7 @@
 #endif // BOOST_LOG_NO_THREADS
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -57,7 +57,7 @@ public:
 
 protected:
     //! Base class for factory implementation
-    class BOOST_LOG_NO_VTABLE BOOST_LOG_VISIBLE impl :
+    class BOOST_LOG_NO_VTABLE BOOST_SYMBOL_VISIBLE impl :
         public attribute::impl
     {
     };
@@ -128,8 +128,8 @@ public:
 
     attribute_value get_value()
     {
-        register unsigned long next_counter = static_cast< unsigned long >(++m_Counter);
-        register value_type next = static_cast< value_type >(m_Initial + (next_counter * m_Step));
+        const unsigned long next_counter = static_cast< unsigned long >(++m_Counter);
+        value_type next = static_cast< value_type >(m_Initial + (next_counter * m_Step));
         return make_attribute_value(next);
     }
 };

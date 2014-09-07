@@ -9,7 +9,7 @@
 #define BOOST_XPRESSIVE_DETAIL_SET_HPP_EAN_10_04_2005
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 # pragma warning(push)
 # pragma warning(disable : 4127) // conditional expression constant
@@ -91,7 +91,7 @@ struct set_initializer
 {
 };
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 

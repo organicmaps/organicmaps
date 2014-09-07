@@ -2,7 +2,7 @@
 // detail/impl/win_object_handle_service.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 // Copyright (c) 2011 Boris Schaeling (boris@highscore.de)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -421,7 +421,7 @@ void win_object_handle_service::wait_callback(PVOID param, BOOLEAN)
         boost::system::error_code ec(last_error,
             boost::asio::error::get_system_category());
 
-        while (wait_op* op = impl->op_queue_.front())
+        while ((op = impl->op_queue_.front()) != 0)
         {
           op->ec_ = ec;
           impl->op_queue_.pop();

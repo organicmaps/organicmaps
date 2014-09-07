@@ -10,6 +10,7 @@
 #pragma once
 #endif
 
+#include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/special_functions/factorials.hpp>
 #include <boost/math/special_functions/beta.hpp>
 #include <boost/math/policies/error_handling.hpp>

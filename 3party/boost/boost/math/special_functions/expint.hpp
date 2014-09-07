@@ -15,6 +15,7 @@
 #include <boost/math/tools/fraction.hpp>
 #include <boost/math/tools/series.hpp>
 #include <boost/math/policies/error_handling.hpp>
+#include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/special_functions/digamma.hpp>
 #include <boost/math/special_functions/log1p.hpp>
 #include <boost/math/special_functions/pow.hpp>
@@ -55,7 +56,7 @@ T expint_1_rational(const T& z, const mpl::int_<53>&)
          BOOST_MATH_BIG_CONSTANT(T, 53, -0.000111507792921197858394)
       };
       static const T Q[6] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 53, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 53, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 53, 0.37091387659397013215),
          BOOST_MATH_BIG_CONSTANT(T, 53, 0.056770677104207528384),
          BOOST_MATH_BIG_CONSTANT(T, 53, 0.00427347600017103698101),
@@ -84,7 +85,7 @@ T expint_1_rational(const T& z, const mpl::int_<53>&)
          BOOST_MATH_BIG_CONSTANT(T, 53, -1185.45720315201027667)
       };
       static const T Q[12] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 53, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 53, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 53, 45.3058660811801465927),
          BOOST_MATH_BIG_CONSTANT(T, 53, 809.193214954550328455),
          BOOST_MATH_BIG_CONSTANT(T, 53, 7417.37624454689546708),
@@ -130,7 +131,7 @@ T expint_1_rational(const T& z, const mpl::int_<64>&)
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.30853660894346057053e-4)
       };
       static const T Q[7] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 64, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 64, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.317978365797784100273),
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.0393622602554758722511),
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.00204062029115966323229),
@@ -163,7 +164,7 @@ T expint_1_rational(const T& z, const mpl::int_<64>&)
          BOOST_MATH_BIG_CONSTANT(T, 64, -2038.82870680427258038)
       };
       static const T Q[14] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 64, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 64, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 64, 64.1517806091379399478),
          BOOST_MATH_BIG_CONSTANT(T, 64, 1690.76044393722763785),
          BOOST_MATH_BIG_CONSTANT(T, 64, 24035.9534033068949426),
@@ -215,7 +216,7 @@ T expint_1_rational(const T& z, const mpl::int_<113>&)
          BOOST_MATH_BIG_CONSTANT(T, 113, -0.340500302777838063940402160594523429e-9)
       };
       static const T Q[10] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.426568827778942588160423015589537302),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.0841384046470893490592450881447510148),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.0100557215850668029618957359471132995),
@@ -256,7 +257,7 @@ T expint_1_rational(const T& z, const mpl::int_<113>&)
          BOOST_MATH_BIG_CONSTANT(T, 113, -1.51492042209561411434644938098833499)
       };
       static const T Q[16] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, 46.734521442032505570517810766704587),
          BOOST_MATH_BIG_CONSTANT(T, 113, 908.694714348462269000247450058595655),
          BOOST_MATH_BIG_CONSTANT(T, 113, 9701.76053033673927362784882748513195),
@@ -305,7 +306,7 @@ T expint_1_rational(const T& z, const mpl::int_<113>&)
          BOOST_MATH_BIG_CONSTANT(T, 113, -68028222642.1941480871395695677675137)
       };
       static const T Q[20] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, 168.542326331163836642960118190147311),
          BOOST_MATH_BIG_CONSTANT(T, 113, 12535.7237814586576783518249115343619),
          BOOST_MATH_BIG_CONSTANT(T, 113, 544891.263372016404143120911148640627),
@@ -541,7 +542,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<53>& tag)
          BOOST_MATH_BIG_CONSTANT(T, 53, 0.2777056254402008721e-6)
       };
       static const T Q[8] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 53, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 53, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 53, -1.17090412365413911947),
          BOOST_MATH_BIG_CONSTANT(T, 53, 0.62215109846016746276),
          BOOST_MATH_BIG_CONSTANT(T, 53, -0.195114782069495403315),
@@ -563,7 +564,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<53>& tag)
       result *= t;
       if(fabs(t) < 0.1)
       {
-         result += boost::math::log1p(t / r);
+         result += boost::math::log1p(t / r, pol);
       }
       else
       {
@@ -587,7 +588,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<53>& tag)
          BOOST_MATH_BIG_CONSTANT(T, 53, -0.396487648924804510056e-5)
       };
       static const T Q[8] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 53, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 53, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 53, 0.744625566823272107711),
          BOOST_MATH_BIG_CONSTANT(T, 53, 0.329061095011767059236),
          BOOST_MATH_BIG_CONSTANT(T, 53, 0.100128624977313872323),
@@ -621,7 +622,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<53>& tag)
          BOOST_MATH_BIG_CONSTANT(T, 53, -0.138652200349182596186e-4)
       };
       static const T Q[9] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 53, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 53, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 53, 1.97017214039061194971),
          BOOST_MATH_BIG_CONSTANT(T, 53, 1.86232465043073157508),
          BOOST_MATH_BIG_CONSTANT(T, 53, 1.09601437090337519977),
@@ -657,7 +658,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<53>& tag)
          BOOST_MATH_BIG_CONSTANT(T, 53, -0.113161784705911400295e-9)
       };
       static const T Q[9] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 53, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 53, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 53, 2.84354408840148561131),
          BOOST_MATH_BIG_CONSTANT(T, 53, 3.6599610090072393012),
          BOOST_MATH_BIG_CONSTANT(T, 53, 2.75088464344293083595),
@@ -686,7 +687,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<53>& tag)
          BOOST_MATH_BIG_CONSTANT(T, 53, -38703.1431362056714134)
       };
       static const T Q[7] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 53, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 53, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 53, 61.9733592849439884145),
          BOOST_MATH_BIG_CONSTANT(T, 53, -2354.56211323420194283),
          BOOST_MATH_BIG_CONSTANT(T, 53, 22329.1459489893079041),
@@ -757,7 +758,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<64>& tag)
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.177833045143692498221e-7)
       };
       static const T Q[9] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 64, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 64, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 64, -1.20352377969742325748),
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.66707904942606479811),
          BOOST_MATH_BIG_CONSTANT(T, 64, -0.223014531629140771914),
@@ -780,7 +781,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<64>& tag)
       result *= t;
       if(fabs(t) < 0.1)
       {
-         result += boost::math::log1p(t / r);
+         result += boost::math::log1p(t / r, pol);
       }
       else
       {
@@ -806,7 +807,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<64>& tag)
          BOOST_MATH_BIG_CONSTANT(T, 64, -0.377246883283337141444e-6)
       };
       static const T Q[10] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 64, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 64, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 64, 1.08073635708902053767),
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.553681133533942532909),
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.176763647137553797451),
@@ -844,7 +845,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<64>& tag)
          BOOST_MATH_BIG_CONSTANT(T, 64, -0.252788029251437017959e-5)
       };
       static const T Q[10] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 64, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 64, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 64, 2.00323265503572414261),
          BOOST_MATH_BIG_CONSTANT(T, 64, 1.94688958187256383178),
          BOOST_MATH_BIG_CONSTANT(T, 64, 1.19733638134417472296),
@@ -883,7 +884,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<64>& tag)
          BOOST_MATH_BIG_CONSTANT(T, 64, -0.533769629702262072175e-11)
       };
       static const T Q[9] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 64, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 64, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 64, 3.13286733695729715455),
          BOOST_MATH_BIG_CONSTANT(T, 64, 4.49281223045653491929),
          BOOST_MATH_BIG_CONSTANT(T, 64, 3.84900294427622911374),
@@ -921,7 +922,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<64>& tag)
          BOOST_MATH_BIG_CONSTANT(T, 64, 137839271.592778020028)
       };
       static const T Q[9] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 64, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 64, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 64, 27.2103343964943718802),
          BOOST_MATH_BIG_CONSTANT(T, 64, -8785.48528692879413676),
          BOOST_MATH_BIG_CONSTANT(T, 64, 397530.290000322626766),
@@ -962,8 +963,8 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<64>& tag)
    return result;
 }
 
-template <class T>
-void expint_i_imp_113a(T& result, const T& z)
+template <class T, class Policy>
+void expint_i_imp_113a(T& result, const T& z, const Policy& pol)
 {
    BOOST_MATH_STD_USING
    // Maximum Deviation Found:                     1.230e-36
@@ -989,7 +990,7 @@ void expint_i_imp_113a(T& result, const T& z)
       BOOST_MATH_BIG_CONSTANT(T, 113, 0.306243138978114692252817805327426657e-13)
    };
    static const T Q[15] = {    
-      BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+      BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
       BOOST_MATH_BIG_CONSTANT(T, 113, -1.40178870313943798705491944989231793),
       BOOST_MATH_BIG_CONSTANT(T, 113, 0.943810968269701047641218856758605284),
       BOOST_MATH_BIG_CONSTANT(T, 113, -0.405026631534345064600850391026113165),
@@ -1022,7 +1023,7 @@ void expint_i_imp_113a(T& result, const T& z)
    result *= t;
    if(fabs(t) < 0.1)
    {
-      result += boost::math::log1p(t / r);
+      result += boost::math::log1p(t / r, pol);
    }
    else
    {
@@ -1057,7 +1058,7 @@ void expint_i_113b(T& result, const T& z)
       BOOST_MATH_BIG_CONSTANT(T, 113, -0.384276705503357655108096065452950822e-12)
    };
    static const T Q[15] = {    
-      BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+      BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
       BOOST_MATH_BIG_CONSTANT(T, 113, 1.58784732785354597996617046880946257),
       BOOST_MATH_BIG_CONSTANT(T, 113, 1.18550755302279446339364262338114098),
       BOOST_MATH_BIG_CONSTANT(T, 113, 0.55598993549661368604527040349702836),
@@ -1110,7 +1111,7 @@ void expint_i_113c(T& result, const T& z)
       BOOST_MATH_BIG_CONSTANT(T, 113, 0.869226483473172853557775877908693647e-15)
    };
    static const T Q[15] = {    
-      BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+      BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
       BOOST_MATH_BIG_CONSTANT(T, 113, 2.23227220874479061894038229141871087),
       BOOST_MATH_BIG_CONSTANT(T, 113, 2.40221000361027971895657505660959863),
       BOOST_MATH_BIG_CONSTANT(T, 113, 1.65476320985936174728238416007084214),
@@ -1159,7 +1160,7 @@ void expint_i_113d(T& result, const T& z)
       BOOST_MATH_BIG_CONSTANT(T, 113, -0.133141358866324100955927979606981328e-10)
    };
    static const T Q[14] = {    
-      BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+      BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
       BOOST_MATH_BIG_CONSTANT(T, 113, 1.72490783907582654629537013560044682),
       BOOST_MATH_BIG_CONSTANT(T, 113, 1.44524329516800613088375685659759765),
       BOOST_MATH_BIG_CONSTANT(T, 113, 0.778241785539308257585068744978050181),
@@ -1211,7 +1212,7 @@ void expint_i_113e(T& result, const T& z)
       BOOST_MATH_BIG_CONSTANT(T, 113, -0.105428907085424234504608142258423505e-8)
    };
    static const T Q[16] = {    
-      BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+      BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
       BOOST_MATH_BIG_CONSTANT(T, 113, 3.17261315255467581204685605414005525),
       BOOST_MATH_BIG_CONSTANT(T, 113, 4.85267952971640525245338392887217426),
       BOOST_MATH_BIG_CONSTANT(T, 113, 4.74341914912439861451492872946725151),
@@ -1262,7 +1263,7 @@ void expint_i_113f(T& result, const T& z)
       BOOST_MATH_BIG_CONSTANT(T, 113, -0.107839681938752337160494412638656696e-8)
    };
    static const T Q[12] = {    
-      BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+      BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
       BOOST_MATH_BIG_CONSTANT(T, 113, 2.09913805456661084097134805151524958),
       BOOST_MATH_BIG_CONSTANT(T, 113, 2.07041755535439919593503171320431849),
       BOOST_MATH_BIG_CONSTANT(T, 113, 1.26406517226052371320416108604874734),
@@ -1308,7 +1309,7 @@ void expint_i_113g(T& result, const T& z)
       BOOST_MATH_BIG_CONSTANT(T, 113, -0.720558173805289167524715527536874694e-7)
    };
    static const T Q[11] = {    
-      BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+      BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
       BOOST_MATH_BIG_CONSTANT(T, 113, 2.95918362458402597039366979529287095),
       BOOST_MATH_BIG_CONSTANT(T, 113, 3.96472247520659077944638411856748924),
       BOOST_MATH_BIG_CONSTANT(T, 113, 3.15563251550528513747923714884142131),
@@ -1351,7 +1352,7 @@ void expint_i_113h(T& result, const T& z)
       BOOST_MATH_BIG_CONSTANT(T, 113, -6758379.93672362080947905580906028645)
    };
    static const T Q[10] = {    
-      BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+      BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
       BOOST_MATH_BIG_CONSTANT(T, 113, -99.4868026047611434569541483506091713),
       BOOST_MATH_BIG_CONSTANT(T, 113, 3879.67753690517114249705089803055473),
       BOOST_MATH_BIG_CONSTANT(T, 113, -76495.82413252517165830203774900806),
@@ -1383,7 +1384,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<113>& tag)
 
    if(z <= 6)
    {
-      expint_i_imp_113a(result, z);
+      expint_i_imp_113a(result, z, pol);
    }
    else if (z <= 10)
    {
@@ -1432,7 +1433,7 @@ T expint_i_imp(T z, const Policy& pol, const mpl::int_<113>& tag)
          BOOST_MATH_BIG_CONSTANT(T, 113, 175864.614717440010942804684741336853)
       };
       static const T Q[9] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, -65.6998869881600212224652719706425129),
          BOOST_MATH_BIG_CONSTANT(T, 113, 1642.73850032324014781607859416890077),
          BOOST_MATH_BIG_CONSTANT(T, 113, -19937.2610222467322481947237312818575),

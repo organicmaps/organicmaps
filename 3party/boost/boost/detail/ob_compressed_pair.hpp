@@ -167,17 +167,6 @@ public:
    compressed_pair_1(const ::boost::compressed_pair<T1,T2>& x)
       : T2(x.second()), _first(x.first()) {}
 
-#if defined(BOOST_MSVC) && BOOST_MSVC <= 1300
-  // Total weirdness. If the assignment to _first is moved after
-  // the call to the inherited operator=, then this breaks graph/test/graph.cpp
-  // by way of iterator_adaptor.
-  compressed_pair_1& operator=(const compressed_pair_1& x) {
-    _first = x._first;
-    T2::operator=(x);
-    return *this;
-  }
-#endif
-
    first_reference       first()       { return _first; }
    first_const_reference first() const { return _first; }
 

@@ -7,6 +7,7 @@
 #if !defined(FUSION_FRONT_10022005_1618)
 #define FUSION_FRONT_10022005_1618
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/front.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/fusion/iterator/value_of.hpp>

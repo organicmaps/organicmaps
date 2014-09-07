@@ -13,7 +13,7 @@
 #ifndef BOOST_INTERPROCESS_BAD_WEAK_PTR_HPP_INCLUDED
 #define BOOST_INTERPROCESS_BAD_WEAK_PTR_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -36,7 +36,7 @@ class bad_weak_ptr
    {  return "boost::interprocess::bad_weak_ptr"; }
 };
 
-} // namespace interprocess 
+} // namespace interprocess
 } // namespace boost
 
 #include <boost/interprocess/detail/config_end.hpp>

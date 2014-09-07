@@ -1,8 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
+// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -17,12 +18,13 @@
 
 #include <boost/numeric/conversion/cast.hpp>
 #include <boost/range.hpp>
-#include <boost/typeof/typeof.hpp>
 
-#include <boost/geometry/multi/core/tags.hpp>
+#include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 
 #include <boost/geometry/core/cs.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
+#include <boost/geometry/core/tags.hpp>
+
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 #include <boost/geometry/util/math.hpp>
@@ -75,9 +77,9 @@ struct collected_vector
 
     inline bool same_direction(collected_vector<T> const& other) const
     {
-        // For high precision arithmetic, we have to be 
+        // For high precision arithmetic, we have to be
         // more relaxed then using ==
-        // Because 2/sqrt( (0,0)<->(2,2) ) == 1/sqrt( (0,0)<->(1,1) ) 
+        // Because 2/sqrt( (0,0)<->(2,2) ) == 1/sqrt( (0,0)<->(1,1) )
         // is not always true (at least, it is not for ttmath)
         return math::equals_with_epsilon(dx, other.dx)
             && math::equals_with_epsilon(dy, other.dy);
@@ -111,6 +113,9 @@ struct range_collect_vectors
             return;
         }
 
+        typedef typename boost::range_size<Collection>::type collection_size_t;
+        collection_size_t c_old_size = boost::size(collection);
+
         typedef typename boost::range_iterator<Range const>::type iterator;
 
         bool first = true;
@@ -131,7 +136,7 @@ struct range_collect_vectors
 
             // Normalize the vector -> this results in points+direction
             // and is comparible between geometries
-            calculation_type magnitude = sqrt(
+            calculation_type magnitude = math::sqrt(
                 boost::numeric_cast<calculation_type>(v.dx * v.dx + v.dy * v.dy));
 
             // Avoid non-duplicate points (AND division by zero)
@@ -150,10 +155,19 @@ struct range_collect_vectors
         }
 
         // If first one has same direction as last one, remove first one
-        if (boost::size(collection) > 1 
-            && collection.front().same_direction(collection.back()))
+        collection_size_t collected_count = boost::size(collection) - c_old_size;
+        if ( collected_count > 1 )
         {
-            collection.erase(collection.begin());
+            typedef typename boost::range_iterator<Collection>::type c_iterator;
+            c_iterator first = collection.begin() + c_old_size;
+
+            if ( first->same_direction(collection.back()) )
+            {
+                //collection.erase(first);
+                // O(1) instead of O(N)
+                *first = collection.back();
+                collection.pop_back();
+            }
         }
     }
 };
@@ -194,9 +208,10 @@ struct polygon_collect_vectors
         typedef range_collect_vectors<ring_type, Collection> per_range;
         per_range::apply(collection, exterior_ring(polygon));
 
-        typename interior_return_type<Polygon const>::type rings
-                    = interior_rings(polygon);
-        for (BOOST_AUTO_TPL(it, boost::begin(rings)); it != boost::end(rings); ++it)
+        typename interior_return_type<Polygon const>::type
+            rings = interior_rings(polygon);
+        for (typename detail::interior_iterator<Polygon const>::type
+                it = boost::begin(rings); it != boost::end(rings); ++it)
         {
             per_range::apply(collection, *it);
         }

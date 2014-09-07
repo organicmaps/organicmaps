@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_NVIEW_DEREF_IMPL_SEP_24_2009_0818AM)
 #define BOOST_FUSION_NVIEW_DEREF_IMPL_SEP_24_2009_0818AM
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/deref.hpp>
 #include <boost/fusion/container/vector.hpp>
 
@@ -33,6 +34,7 @@ namespace boost { namespace fusion
                 typedef typename result_of::at<
                     typename sequence_type::sequence_type, index>::type type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type call(Iterator const& i)
                 {
                     return at<index>(i.seq.seq);

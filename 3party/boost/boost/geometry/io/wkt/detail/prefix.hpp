@@ -17,9 +17,15 @@
 namespace boost { namespace geometry
 {
 
+
 #ifndef DOXYGEN_NO_DETAIL
 namespace detail { namespace wkt
 {
+
+struct prefix_null
+{
+    static inline const char* apply() { return ""; }
+};
 
 struct prefix_point
 {
@@ -34,6 +40,21 @@ struct prefix_polygon
 struct prefix_linestring
 {
     static inline const char* apply() { return "LINESTRING"; }
+};
+
+struct prefix_multipoint
+{
+    static inline const char* apply() { return "MULTIPOINT"; }
+};
+
+struct prefix_multilinestring
+{
+    static inline const char* apply() { return "MULTILINESTRING"; }
+};
+
+struct prefix_multipolygon
+{
+    static inline const char* apply() { return "MULTIPOLYGON"; }
 };
 
 }} // namespace wkt::impl

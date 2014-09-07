@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_CATEGORY_OF)
 #define FUSION_INCLUDE_CATEGORY_OF
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/category_of.hpp>
 
 #endif

@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -26,7 +26,7 @@
 #include <boost/log/utility/functional/nop.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -131,7 +131,7 @@ public:
  * presence in a log record. The node will also check that the attribute value has the specified type, if present.
  */
 template< typename AttributeValueT >
-BOOST_LOG_FORCEINLINE phoenix::actor< aux::unary_function_terminal< has_attribute< AttributeValueT > > > has_attr(attribute_name const& name)
+BOOST_FORCEINLINE phoenix::actor< aux::unary_function_terminal< has_attribute< AttributeValueT > > > has_attr(attribute_name const& name)
 {
     typedef aux::unary_function_terminal< has_attribute< AttributeValueT > > terminal_type;
     phoenix::actor< terminal_type > act = {{ terminal_type(name) }};
@@ -142,7 +142,7 @@ BOOST_LOG_FORCEINLINE phoenix::actor< aux::unary_function_terminal< has_attribut
  * The function generates a terminal node in a template expression. The node will check for the attribute value
  * presence in a log record.
  */
-BOOST_LOG_FORCEINLINE phoenix::actor< aux::unary_function_terminal< has_attribute< void > > > has_attr(attribute_name const& name)
+BOOST_FORCEINLINE phoenix::actor< aux::unary_function_terminal< has_attribute< void > > > has_attr(attribute_name const& name)
 {
     typedef aux::unary_function_terminal< has_attribute< void > > terminal_type;
     phoenix::actor< terminal_type > act = {{ terminal_type(name) }};
@@ -154,7 +154,7 @@ BOOST_LOG_FORCEINLINE phoenix::actor< aux::unary_function_terminal< has_attribut
  * presence in a log record. The node will also check that the attribute value has the specified type, if present.
  */
 template< typename DescriptorT, template< typename > class ActorT >
-BOOST_LOG_FORCEINLINE ActorT< aux::unary_function_terminal< has_attribute< typename DescriptorT::value_type > > > has_attr(attribute_keyword< DescriptorT, ActorT > const&)
+BOOST_FORCEINLINE ActorT< aux::unary_function_terminal< has_attribute< typename DescriptorT::value_type > > > has_attr(attribute_keyword< DescriptorT, ActorT > const&)
 {
     typedef aux::unary_function_terminal< has_attribute< typename DescriptorT::value_type > > terminal_type;
     ActorT< terminal_type > act = {{ terminal_type(DescriptorT::get_name()) }};

@@ -33,23 +33,6 @@ namespace boost
 {
     namespace math
     {
-#if     BOOST_WORKAROUND(__GNUC__, < 3)
-        // gcc 2.95.x uses expression templates for valarray calculations, but
-        // the result is not conforming. We need BOOST_GET_VALARRAY to get an
-        // actual valarray result when we need to call a member function
-    #define    BOOST_GET_VALARRAY(T,x)    ::std::valarray<T>(x)
-        // gcc 2.95.x has an "std::ios" class that is similar to 
-        // "std::ios_base", so we just use a #define
-    #define    BOOST_IOS_BASE    ::std::ios
-        // gcc 2.x ignores function scope using declarations,
-        // put them in the scope of the enclosing namespace instead:
-        using    ::std::valarray;
-        using    ::std::sqrt;
-        using    ::std::cos;
-        using    ::std::sin;
-        using    ::std::exp;
-        using    ::std::cosh;
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
 
 #define    BOOST_QUATERNION_ACCESSOR_GENERATOR(type)                    \
             type                    real() const                        \
@@ -601,40 +584,7 @@ namespace boost
                 return(*this);                                       \
             }
 
-#if defined(__GNUC__) && (__GNUC__ < 3)
-    #define    BOOST_QUATERNION_MEMBER_DIV_GENERATOR_2(type)                                            \
-            quaternion<type> &        operator /= (::std::complex<type> const & rhs)                    \
-            {                                                                                           \
-                using    ::std::valarray;                                                               \
-                                                                                                        \
-                valarray<type>    tr(2);                                                                \
-                                                                                                        \
-                tr[0] = rhs.real();                                                                     \
-                tr[1] = rhs.imag();                                                                     \
-                                                                                                        \
-                type            mixam = (BOOST_GET_VALARRAY(type,static_cast<type>(1)/abs(tr)).max)();  \
-                                                                                                        \
-                tr *= mixam;                                                                            \
-                                                                                                        \
-                valarray<type>    tt(4);                                                                \
-                                                                                                        \
-                tt[0] = +a*tr[0]+b*tr[1];                                                               \
-                tt[1] = -a*tr[1]+b*tr[0];                                                               \
-                tt[2] = +c*tr[0]-d*tr[1];                                                               \
-                tt[3] = +c*tr[1]+d*tr[0];                                                               \
-                                                                                                        \
-                tr *= tr;                                                                               \
-                                                                                                        \
-                tt *= (mixam/tr.sum());                                                                 \
-                                                                                                        \
-                a = tt[0];                                                                              \
-                b = tt[1];                                                                              \
-                c = tt[2];                                                                              \
-                d = tt[3];                                                                              \
-                                                                                                        \
-                return(*this);                                                                          \
-            }
-#elif    defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+#if defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     #define    BOOST_QUATERNION_MEMBER_DIV_GENERATOR_2(type)                         \
             quaternion<type> &        operator /= (::std::complex<type> const & rhs) \
             {                                                                        \
@@ -701,45 +651,9 @@ namespace boost
                                                                                      \
                 return(*this);                                                       \
             }
-#endif /* defined(__GNUC__) && (__GNUC__ < 3) */ /* BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP */
+#endif /* BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP */
     
-#if defined(__GNUC__) && (__GNUC__ < 3)
-    #define    BOOST_QUATERNION_MEMBER_DIV_GENERATOR_3(type)                                            \
-            template<typename X>                                                                        \
-            quaternion<type> &        operator /= (quaternion<X> const & rhs)                           \
-            {                                                                                           \
-                using    ::std::valarray;                                                               \
-                                                                                                        \
-                valarray<type>    tr(4);                                                                \
-                                                                                                        \
-                tr[0] = static_cast<type>(rhs.R_component_1());                                         \
-                tr[1] = static_cast<type>(rhs.R_component_2());                                         \
-                tr[2] = static_cast<type>(rhs.R_component_3());                                         \
-                tr[3] = static_cast<type>(rhs.R_component_4());                                         \
-                                                                                                        \
-                type            mixam = (BOOST_GET_VALARRAY(type,static_cast<type>(1)/abs(tr)).max)();  \
-                                                                                                        \
-                tr *= mixam;                                                                            \
-                                                                                                        \
-                valarray<type>    tt(4);                                                                \
-                                                                                                        \
-                tt[0] = +a*tr[0]+b*tr[1]+c*tr[2]+d*tr[3];                                               \
-                tt[1] = -a*tr[1]+b*tr[0]-c*tr[3]+d*tr[2];                                               \
-                tt[2] = -a*tr[2]+b*tr[3]+c*tr[0]-d*tr[1];                                               \
-                tt[3] = -a*tr[3]-b*tr[2]+c*tr[1]+d*tr[0];                                               \
-                                                                                                        \
-                tr *= tr;                                                                               \
-                                                                                                        \
-                tt *= (mixam/tr.sum());                                                                 \
-                                                                                                        \
-                a = tt[0];                                                                              \
-                b = tt[1];                                                                              \
-                c = tt[2];                                                                              \
-                d = tt[3];                                                                              \
-                                                                                                        \
-                return(*this);                                                                          \
-            }
-#elif    defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+#if defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     #define    BOOST_QUATERNION_MEMBER_DIV_GENERATOR_3(type)                  \
             template<typename X>                                              \
             quaternion<type> &        operator /= (quaternion<X> const & rhs) \
@@ -812,7 +726,7 @@ namespace boost
                                                                               \
                 return(*this);                                                \
             }
-#endif /* defined(__GNUC__) && (__GNUC__ < 3) */ /* BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP */
+#endif /* BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP */
     
 #define    BOOST_QUATERNION_MEMBER_ADD_GENERATOR(type)   \
         BOOST_QUATERNION_MEMBER_ADD_GENERATOR_1(type)    \
@@ -1219,19 +1133,10 @@ namespace boost
         //            a
         //            (a), (a,b), (a,b,c), (a,b,c,d)
         //            (a,(c)), (a,(c,d)), ((a)), ((a),c), ((a),(c)), ((a),(c,d)), ((a,b)), ((a,b),c), ((a,b),(c)), ((a,b),(c,d))
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-        template<typename T>
-        std::istream &                            operator >> (    ::std::istream & is,
-                                                                quaternion<T> & q)
-#else
         template<typename T, typename charT, class traits>
         ::std::basic_istream<charT,traits> &    operator >> (    ::std::basic_istream<charT,traits> & is,
                                                                 quaternion<T> & q)
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
         {
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-            typedef char    charT;
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
             
 #ifdef    BOOST_NO_STD_LOCALE
 #else
@@ -1319,20 +1224,12 @@ namespace boost
                         }
                         else                            // error
                         {
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-                            is.setstate(::std::ios::failbit);
-#else
                             is.setstate(::std::ios_base::failbit);
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
                         }
                     }
                     else                                // error
                     {
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-                        is.setstate(::std::ios::failbit);
-#else
                         is.setstate(::std::ios_base::failbit);
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
                     }
                 }
                 else                                // read "(a", possible: (a), (a,b), (a,b,c), (a,b,c,d), (a,(c)), (a,(c,d))
@@ -1396,11 +1293,7 @@ namespace boost
                             }
                             else                        // error
                             {
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-                                is.setstate(::std::ios::failbit);
-#else
                                 is.setstate(::std::ios_base::failbit);
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
                             }
                         }
                         else                        // read "(a,b", possible: (a,b), (a,b,c), (a,b,c,d)
@@ -1467,39 +1360,23 @@ namespace boost
                                     }
                                     else                // error
                                     {
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-                                        is.setstate(::std::ios::failbit);
-#else
                                         is.setstate(::std::ios_base::failbit);
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
                                     }
                                 }
                                 else                    // error
                                 {
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-                                    is.setstate(::std::ios::failbit);
-#else
                                     is.setstate(::std::ios_base::failbit);
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
                                 }
                             }
                             else                        // error
                             {
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-                                is.setstate(::std::ios::failbit);
-#else
                                 is.setstate(::std::ios_base::failbit);
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
                             }
                         }
                     }
                     else                                // error
                     {
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-                        is.setstate(::std::ios::failbit);
-#else
                         is.setstate(::std::ios_base::failbit);
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
                     }
                 }
             }
@@ -1519,22 +1396,12 @@ namespace boost
         }
         
         
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-        template<typename T>
-        ::std::ostream &                         operator << (    ::std::ostream & os,
-                                                                quaternion<T> const & q)
-#else
         template<typename T, typename charT, class traits>
         ::std::basic_ostream<charT,traits> &    operator << (    ::std::basic_ostream<charT,traits> & os,
                                                                 quaternion<T> const & q)
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
         {
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-            ::std::ostringstream                        s;
-#else
             ::std::basic_ostringstream<charT,traits>    s;
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
-            
+
             s.flags(os.flags());
 #ifdef    BOOST_NO_STD_LOCALE
 #else
@@ -1587,11 +1454,7 @@ namespace boost
             
             BOOST_QUATERNION_VALARRAY_LOADER
             
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-            return((BOOST_GET_VALARRAY(T, abs(temp)).max)());
-#else
             return((abs(temp).max)());
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
         }
         
         
@@ -1604,11 +1467,7 @@ namespace boost
             
             BOOST_QUATERNION_VALARRAY_LOADER
             
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-            return(BOOST_GET_VALARRAY(T, abs(temp)).sum());
-#else
             return(abs(temp).sum());
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
         }
         
         
@@ -1623,11 +1482,7 @@ namespace boost
             
             BOOST_QUATERNION_VALARRAY_LOADER
             
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-            T            maxim = (BOOST_GET_VALARRAY(T, abs(temp)).max)();    // overflow protection
-#else
             T            maxim = (abs(temp).max)();    // overflow protection
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
             
             if    (maxim == static_cast<T>(0))
             {
@@ -1914,11 +1769,5 @@ namespace boost
         }
     }
 }
-
-
-#if    BOOST_WORKAROUND(__GNUC__, < 3)
-    #undef    BOOST_GET_VALARRAY
-#endif /* BOOST_WORKAROUND(__GNUC__, < 3) */
-
 
 #endif /* BOOST_QUATERNION_HPP */

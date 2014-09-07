@@ -13,7 +13,7 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_MIN_MAX_HPP
 #define BOOST_INTERPROCESS_DETAIL_MIN_MAX_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 

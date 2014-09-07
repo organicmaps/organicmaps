@@ -117,7 +117,7 @@ inline std::complex<float> conj(const float& t)
    return ct;
 }
 
-#if !BOOST_WORKAROUND(__BORLANDC__, <=0x570) && !BOOST_WORKAROUND(BOOST_MSVC, < 1310)
+#if !BOOST_WORKAROUND(__BORLANDC__, <=0x570)
 inline complex<double> polar(const char& rho, const char& theta = 0)
 { return ::std::polar(static_cast<double>(rho), static_cast<double>(theta)); }
 inline complex<double> polar(const unsigned char& rho, const unsigned char& theta = 0)

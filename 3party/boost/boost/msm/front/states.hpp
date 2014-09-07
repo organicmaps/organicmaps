@@ -15,6 +15,7 @@
 #include <boost/mpl/vector.hpp>
 #include <boost/msm/front/common_states.hpp>
 #include <boost/msm/row_tags.hpp>
+#include <boost/msm/back/metafunctions.hpp>
 
 namespace boost { namespace msm { namespace front
 {
@@ -74,9 +75,10 @@ struct interrupt_state : public boost::msm::front::detail::state_base<BASE>, SMP
 {
     // tags
     typedef ::boost::mpl::vector0<>                           flag_list;
-    typedef ::boost::mpl::vector<boost::msm::InterruptedFlag,
-        boost::msm::EndInterruptFlag<EndInterruptEvent> >       
-                                                              internal_flag_list;
+    typedef typename boost::msm::back::build_interrupt_state_flag_list<
+        typename boost::msm::back::get_interrupt_events<EndInterruptEvent>::type
+    >::type internal_flag_list; 
+
     //default: no deferred events
     typedef ::boost::mpl::vector0<>                           deferred_events;
 };

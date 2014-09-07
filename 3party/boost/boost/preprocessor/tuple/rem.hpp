@@ -1,7 +1,7 @@
 # /* **************************************************************************
 #  *                                                                          *
 #  *     (C) Copyright Paul Mensonides 2002-2011.                             *
-#  *     (C) Copyright Edward Diener 2011.                                    *
+#  *     (C) Copyright Edward Diener 2011,2013.                               *
 #  *     Distributed under the Boost Software License, Version 1.0. (See      *
 #  *     accompanying file LICENSE_1_0.txt or copy at                         *
 #  *     http://www.boost.org/LICENSE_1_0.txt)                                *
@@ -27,7 +27,10 @@
 #
 # /* BOOST_PP_TUPLE_REM */
 #
-# if BOOST_PP_VARIADICS
+/*
+  VC++8.0 cannot handle the variadic version of BOOST_PP_TUPLE_REM(size)
+*/
+# if BOOST_PP_VARIADICS && !(BOOST_PP_VARIADICS_MSVC && _MSC_VER == 1400)
 #    define BOOST_PP_TUPLE_REM(size) BOOST_PP_REM
 # else
 #    if ~BOOST_PP_CONFIG_FLAGS() & BOOST_PP_CONFIG_MWCC()
@@ -38,6 +41,7 @@
 #    endif
 #    define BOOST_PP_TUPLE_REM_I(size) BOOST_PP_TUPLE_REM_ ## size
 # endif
+# define BOOST_PP_TUPLE_REM_0()
 # define BOOST_PP_TUPLE_REM_1(e0) e0
 # define BOOST_PP_TUPLE_REM_2(e0, e1) e0, e1
 # define BOOST_PP_TUPLE_REM_3(e0, e1, e2) e0, e1, e2

@@ -7,6 +7,7 @@
 #if !defined(FUSION_SEQUENCE_VIEW_ITERATOR_RANGE_10022005_0610)
 #define FUSION_SEQUENCE_VIEW_ITERATOR_RANGE_10022005_0610
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/iterator_range/iterator_range.hpp>
 
 #endif

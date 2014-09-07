@@ -2,7 +2,7 @@
 // ip/resolver_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -18,10 +18,15 @@
 #include <boost/asio/detail/config.hpp>
 #include <boost/asio/async_result.hpp>
 #include <boost/system/error_code.hpp>
-#include <boost/asio/detail/resolver_service.hpp>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/basic_resolver_iterator.hpp>
 #include <boost/asio/ip/basic_resolver_query.hpp>
+
+#if defined(BOOST_ASIO_WINDOWS_RUNTIME)
+# include <boost/asio/detail/winrt_resolver_service.hpp>
+#else
+# include <boost/asio/detail/resolver_service.hpp>
+#endif
 
 #include <boost/asio/detail/push_options.hpp>
 
@@ -59,8 +64,13 @@ public:
 
 private:
   // The type of the platform-specific implementation.
+#if defined(BOOST_ASIO_WINDOWS_RUNTIME)
+  typedef boost::asio::detail::winrt_resolver_service<InternetProtocol>
+    service_impl_type;
+#else
   typedef boost::asio::detail::resolver_service<InternetProtocol>
     service_impl_type;
+#endif
 
 public:
   /// The type of a resolver implementation.

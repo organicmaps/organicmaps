@@ -7,6 +7,7 @@
 #if !defined(FUSION_LIST_TO_CONS_07172005_1041)
 #define FUSION_LIST_TO_CONS_07172005_1041
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/list/cons.hpp>
 #include <boost/fusion/container/list/limits.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
@@ -18,7 +19,7 @@
 
 namespace boost { namespace fusion
 {
-    struct nil;
+    struct nil_;
     struct void_;
 }}
 
@@ -61,7 +62,7 @@ namespace boost { namespace fusion { namespace detail
     template <>
     struct list_to_cons<BOOST_PP_ENUM(FUSION_MAX_LIST_SIZE, FUSION_VOID, _)>
     {
-        typedef nil type;
+        typedef nil_ type;
     };
 }}}
 

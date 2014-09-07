@@ -29,10 +29,16 @@ inline Container& insert( Container& on,
 {
     BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<Container> ));
     BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<Range> ));
-    BOOST_ASSERT( (void*)&on != (void*)&from &&
-                  "cannot copy from a container to itself" );
     on.insert( before, boost::begin(from), boost::end(from) );
     return on;
+}
+
+template< class Container, class Range >
+inline Container& insert( Container& on, const Range& from )
+{
+    BOOST_RANGE_CONCEPT_ASSERT(( ForwardRangeConcept<Container> ));
+    BOOST_RANGE_CONCEPT_ASSERT(( SinglePassRangeConcept<Range> ));
+    on.insert(boost::begin(from), boost::end(from));
 }
 
     } // namespace range

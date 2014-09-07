@@ -62,7 +62,7 @@ namespace boost { namespace spirit { namespace traits
             };
 
             // never called, but needed for decltype-based result_of (C++0x)
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
             template <typename Element>
             typename result<element_properties(Element)>::type
             operator()(Element&&) const;

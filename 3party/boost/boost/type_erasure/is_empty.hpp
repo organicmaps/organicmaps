@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: is_empty.hpp 80968 2012-10-12 20:25:51Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_IS_EMPTY_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_IS_EMPTY_HPP_INCLUDED

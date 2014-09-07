@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_LESS_EQUAL)
 #define FUSION_INCLUDE_LESS_EQUAL
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/comparison/less_equal.hpp>
 
 #endif

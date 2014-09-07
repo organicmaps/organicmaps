@@ -28,11 +28,11 @@ namespace boost { namespace spirit
     // for uniformity.
     struct info
     {
-        struct nil {};
+        struct nil_ {};
 
         typedef
             boost::variant<
-                nil
+                nil_
               , utf8_string
               , recursive_wrapper<info>
               , recursive_wrapper<std::pair<info, info> >
@@ -40,30 +40,30 @@ namespace boost { namespace spirit
             >
         value_type;
 
-        explicit info(utf8_string const& tag)
-          : tag(tag), value(nil()) {}
+        explicit info(utf8_string const& tag_)
+          : tag(tag_), value(nil_()) {}
 
         template <typename T>
-        info(utf8_string const& tag, T const& value)
-          : tag(tag), value(value) {}
+        info(utf8_string const& tag_, T const& value_)
+          : tag(tag_), value(value_) {}
 
-        info(utf8_string const& tag, char value)
-          : tag(tag), value(utf8_string(1, value)) {}
+        info(utf8_string const& tag_, char value_)
+          : tag(tag_), value(utf8_string(1, value_)) {}
 
-        info(utf8_string const& tag, wchar_t value)
-          : tag(tag), value(to_utf8(value)) {}
+        info(utf8_string const& tag_, wchar_t value_)
+          : tag(tag_), value(to_utf8(value_)) {}
 
-        info(utf8_string const& tag, ucs4_char value)
-          : tag(tag), value(to_utf8(value)) {}
+        info(utf8_string const& tag_, ucs4_char value_)
+          : tag(tag_), value(to_utf8(value_)) {}
 
         template <typename Char>
-        info(utf8_string const& tag, Char const* str)
-          : tag(tag), value(to_utf8(str)) {}
+        info(utf8_string const& tag_, Char const* str)
+          : tag(tag_), value(to_utf8(str)) {}
 
         template <typename Char, typename Traits, typename Allocator>
-        info(utf8_string const& tag
+        info(utf8_string const& tag_
               , std::basic_string<Char, Traits, Allocator> const& str)
-          : tag(tag), value(to_utf8(str)) {}
+          : tag(tag_), value(to_utf8(str)) {}
 
         utf8_string tag;
         value_type value;
@@ -75,10 +75,10 @@ namespace boost { namespace spirit
         typedef void result_type;
         typedef basic_info_walker<Callback> this_type;
 
-        basic_info_walker(Callback& callback, utf8_string const& tag, int depth)
-          : callback(callback), tag(tag), depth(depth) {}
+        basic_info_walker(Callback& callback_, utf8_string const& tag_, int depth_)
+          : callback(callback_), tag(tag_), depth(depth_) {}
 
-        void operator()(info::nil) const
+        void operator()(info::nil_) const
         {
             callback.element(tag, "", depth);
         }
@@ -128,8 +128,8 @@ namespace boost { namespace spirit
     {
         typedef utf8_string string;
 
-        simple_printer(Out& out)
-          : out(out) {}
+        simple_printer(Out& out_)
+          : out(out_) {}
 
         void element(string const& tag, string const& value, int /*depth*/) const
         {

@@ -54,7 +54,7 @@ namespace impl
     struct p_square_cumulative_distribution_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type float_type;
         typedef std::vector<float_type> array_type;
         typedef std::vector<std::pair<float_type, float_type> > histogram_type;
         // for boost::result_of
@@ -76,7 +76,7 @@ namespace impl
             {
                 this->actual_positions[i] = i + 1.;
                 this->desired_positions[i] = i + 1.;
-                this->positions_increments[i] = numeric::average(i, b);
+                this->positions_increments[i] = numeric::fdiv(i, b);
             }
         }
 
@@ -198,7 +198,7 @@ namespace impl
 
                 for (std::size_t i = 0; i < this->histogram.size(); ++i)
                 {
-                    this->histogram[i] = std::make_pair(this->heights[i], numeric::average(this->actual_positions[i], cnt));
+                    this->histogram[i] = std::make_pair(this->heights[i], numeric::fdiv(this->actual_positions[i], cnt));
                 }
             }
             //return histogram;

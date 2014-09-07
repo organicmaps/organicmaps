@@ -58,7 +58,7 @@ struct tommath_int
    }
    tommath_int& operator = (tommath_int&& o)
    {
-      mp_exch(&m_data, &o.data());
+      mp_exch(&m_data, &o.m_data);
       return *this;
    }
 #endif
@@ -93,11 +93,10 @@ struct tommath_int
    }
    tommath_int& operator = (long long i)
    {
-      BOOST_MP_USING_ABS
       if(m_data.dp == 0)
          detail::check_tommath_result(mp_init(&m_data));
       bool neg = i < 0;
-      *this = static_cast<unsigned long long>(abs(i));
+      *this = boost::multiprecision::detail::unsigned_abs(i);
       if(neg)
          detail::check_tommath_result(mp_neg(&m_data, &m_data));
       return *this;
@@ -607,6 +606,20 @@ inline unsigned eval_lsb(const tommath_int& val)
       BOOST_THROW_EXCEPTION(std::range_error("Testing individual bits in negative values is not supported - results are undefined."));
    }
    return mp_cnt_lsb(const_cast< ::mp_int*>(&val.data()));
+}
+
+inline unsigned eval_msb(const tommath_int& val)
+{
+   int c = eval_get_sign(val);
+   if(c == 0)
+   {
+      BOOST_THROW_EXCEPTION(std::range_error("No bits were set in the operand."));
+   }
+   if(c < 0)
+   {
+      BOOST_THROW_EXCEPTION(std::range_error("Testing individual bits in negative values is not supported - results are undefined."));
+   }
+   return mp_count_bits(const_cast< ::mp_int*>(&val.data())) - 1;
 }
 
 template <class Integer>

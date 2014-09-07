@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_EMPTY)
 #define FUSION_INCLUDE_EMPTY
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/empty.hpp>
 
 #endif

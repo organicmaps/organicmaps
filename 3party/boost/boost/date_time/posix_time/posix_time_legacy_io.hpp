@@ -6,7 +6,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst 
- * $Date: 2008-02-27 12:00:24 -0800 (Wed, 27 Feb 2008) $
+ * $Date$
  */
 
 /*! @file posix_time_pre133_operators.hpp
@@ -80,7 +80,7 @@ namespace posix_time {
     // any marker (such as '\0').
     typename std::basic_string<charT>::iterator e = inp_s.end();
     while(b != e){
-      out_ss << out_ss.narrow(*b, 0);
+      out_ss << is.narrow(*b, 0);
       ++b;
     }
 

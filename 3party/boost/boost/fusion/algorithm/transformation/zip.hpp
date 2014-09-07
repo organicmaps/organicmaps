@@ -62,10 +62,14 @@ namespace boost { namespace fusion
         struct zip;
     }
 
+#define FUSION_TEXT(z, n, text) , text
+
 #define BOOST_PP_FILENAME_1 \
     <boost/fusion/algorithm/transformation/zip.hpp>
 #define BOOST_PP_ITERATION_LIMITS (2, FUSION_MAX_ZIP_SEQUENCES)
 #include BOOST_PP_ITERATE()
+
+#undef FUSION_TEXT
 
 }}
 
@@ -84,13 +88,9 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template< BOOST_PP_ENUM_PARAMS(ZIP_ITERATION, typename T) >
-#if defined(BOOST_NO_PARTIAL_SPECIALIZATION_IMPLICIT_DEFAULT_ARGS)
-        #define TEXT(z, n, text) , text
-        struct zip< BOOST_PP_ENUM_PARAMS(ZIP_ITERATION, T) BOOST_PP_REPEAT_FROM_TO(BOOST_PP_DEC(ZIP_ITERATION), FUSION_MAX_ZIP_SEQUENCES, TEXT, void_) >
-        #undef TEXT
-#else
-        struct zip< BOOST_PP_ENUM_PARAMS(ZIP_ITERATION, T) >
-#endif
+        struct zip< BOOST_PP_ENUM_PARAMS(ZIP_ITERATION, T)
+                    BOOST_PP_REPEAT_FROM_TO(BOOST_PP_DEC(ZIP_ITERATION), FUSION_MAX_ZIP_SEQUENCES, FUSION_TEXT, void_)
+        >
         {
             typedef mpl::vector< BOOST_PP_ENUM_PARAMS(ZIP_ITERATION, T) > sequences;
             typedef typename mpl::transform<sequences, add_reference<mpl::_> >::type ref_params;
@@ -101,6 +101,7 @@ namespace boost { namespace fusion
 #define FUSION_REF_PARAM(z, n, data) const T ## n&
 
     template<BOOST_PP_ENUM_PARAMS(ZIP_ITERATION, typename T)>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<BOOST_PP_ENUM_PARAMS(ZIP_ITERATION, const T)>::type
     zip(BOOST_PP_ENUM_BINARY_PARAMS(ZIP_ITERATION, T, const& t))
     {

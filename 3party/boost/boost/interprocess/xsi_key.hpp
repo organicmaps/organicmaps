@@ -55,7 +55,7 @@ class xsi_key
    //!If the shared memory previously exists, throws an error.
    xsi_key(const char *path, boost::uint8_t id)
    {
-      key_t key;   
+      key_t key;
       if(path){
          key  = ::ftok(path, id);
          if(((key_t)-1) == key){

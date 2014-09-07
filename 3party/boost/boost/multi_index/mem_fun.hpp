@@ -1,4 +1,4 @@
-/* Copyright 2003-2008 Joaquin M Lopez Munoz.
+/* Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -9,7 +9,7 @@
 #ifndef BOOST_MULTI_INDEX_MEM_FUN_HPP
 #define BOOST_MULTI_INDEX_MEM_FUN_HPP
 
-#if defined(_MSC_VER)&&(_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 
@@ -112,6 +112,9 @@ struct mem_fun
  *   news:microsoft.public.vc.language, 21st nov 2002, 
  *   http://groups.google.com/groups?
  *     hl=en&lr=&ie=UTF-8&selm=ukwvg3O0BHA.1512%40tkmsftngp05
+ *
+ * MSVC++ 6.0 support has been dropped and [const_]mem_fun_explicit is
+ * deprecated.
  */
 
 template<
@@ -183,27 +186,17 @@ struct mem_fun_explicit
   }
 };
 
-/* BOOST_MULTI_INDEX_CONST_MEM_FUN and BOOST_MULTI_INDEX_MEM_FUN resolve to
- * [const_]mem_fun_explicit for MSVC++ 6.0 and to [const_]mem_fun otherwise.
+/* BOOST_MULTI_INDEX_CONST_MEM_FUN and BOOST_MULTI_INDEX_MEM_FUN used to
+ * resolve to [const_]mem_fun_explicit for MSVC++ 6.0 and to
+ * [const_]mem_fun otherwise. Support for this compiler having been dropped,
+ * they are now just wrappers over [const_]mem_fun kept for backwards-
+ * compatibility reasons.
  */
-
-#if defined(BOOST_MSVC)&&(BOOST_MSVC<1300)
-
-#define BOOST_MULTI_INDEX_CONST_MEM_FUN(Class,Type,MemberFunName) \
-::boost::multi_index::const_mem_fun_explicit<\
-  Class,Type,Type (Class::*)()const,&Class::MemberFunName >
-#define BOOST_MULTI_INDEX_MEM_FUN(Class,Type,MemberFunName) \
-::boost::multi_index::mem_fun_explicit<\
-  Class,Type,Type (Class::*)(),&Class::MemberFunName >
-
-#else
 
 #define BOOST_MULTI_INDEX_CONST_MEM_FUN(Class,Type,MemberFunName) \
 ::boost::multi_index::const_mem_fun< Class,Type,&Class::MemberFunName >
 #define BOOST_MULTI_INDEX_MEM_FUN(Class,Type,MemberFunName) \
 ::boost::multi_index::mem_fun< Class,Type,&Class::MemberFunName >
-
-#endif
 
 } /* namespace multi_index */
 

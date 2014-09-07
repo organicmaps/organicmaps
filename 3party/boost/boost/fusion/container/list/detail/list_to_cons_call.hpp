@@ -26,6 +26,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 #define N BOOST_PP_ITERATION()
 
+    BOOST_FUSION_GPU_ENABLED
     static type
     call(BOOST_PP_ENUM_BINARY_PARAMS(
         N, typename detail::call_param<T, >::type _))

@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_PRIOR)
 #define FUSION_INCLUDE_PRIOR
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/prior.hpp>
 
 #endif

@@ -7,6 +7,7 @@
 #if !defined(FUSION_LIST_07172005_1153)
 #define FUSION_LIST_07172005_1153
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/list/list_fwd.hpp>
 #include <boost/fusion/container/list/detail/list_to_cons.hpp>
 
@@ -32,7 +33,7 @@
 
 namespace boost { namespace fusion
 {
-    struct nil;
+    struct nil_;
     struct void_;
 
     template <BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, typename T)>
@@ -47,14 +48,17 @@ namespace boost { namespace fusion
     public:
         typedef typename list_to_cons::type inherited_type;
 
+        BOOST_FUSION_GPU_ENABLED
         list()
             : inherited_type() {}
 
         template <BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, typename U)>
+        BOOST_FUSION_GPU_ENABLED
         list(list<BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, U)> const& rhs)
             : inherited_type(rhs) {}
 
         template <typename Sequence>
+        BOOST_FUSION_GPU_ENABLED
         list(Sequence const& rhs)
             : inherited_type(rhs) {}
 
@@ -68,6 +72,7 @@ namespace boost { namespace fusion
         #include <boost/fusion/container/list/detail/list_forward_ctor.hpp>
 
         template <BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, typename U)>
+        BOOST_FUSION_GPU_ENABLED
         list&
         operator=(list<BOOST_PP_ENUM_PARAMS(FUSION_MAX_LIST_SIZE, U)> const& rhs)
         {
@@ -76,6 +81,7 @@ namespace boost { namespace fusion
         }
 
         template <typename T>
+        BOOST_FUSION_GPU_ENABLED
         list&
         operator=(T const& rhs)
         {

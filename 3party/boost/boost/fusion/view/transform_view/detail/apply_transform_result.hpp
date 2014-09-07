@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_APPLY_TRANSFORM_RESULT_02092006_1936)
 #define BOOST_FUSION_APPLY_TRANSFORM_RESULT_02092006_1936
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/utility/result_of.hpp>
 
 namespace boost { namespace fusion

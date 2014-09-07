@@ -7,6 +7,7 @@
 #if !defined(FUSION_SET_FORWARD_09162005_1102)
 #define FUSION_SET_FORWARD_09162005_1102
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/set/limits.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 

@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: any_cast.hpp 80974 2012-10-13 00:02:25Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_ANY_CAST_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_ANY_CAST_HPP_INCLUDED
@@ -97,6 +97,16 @@ bool check_any_cast(const any<Concept, Tag>& arg)
  * If casting to a pointer fails, \any_cast returns
  * a null pointer.  Casting to @c void* always succeeds
  * and returns the address of stored object.
+ *
+ * \code
+ * any<mpl::vector<typeid_<>, copy_constructible<> > > x(1);
+ * any_cast<int>(x);      // returns 1
+ * any_cast<int&>(x);     // returns a reference to the contents of x
+ * any_cast<double>(x);   // throws bad_any_cast
+ * any_cast<int*>(&x);    // returns a pointer to the contents of x
+ * any_cast<void*>(&x);   // returns a pointer to the contents of x
+ * any_cast<double*>(&x); // returns NULL
+ * \endcode
  *
  * \pre if @c arg is a pointer, @c T must be a pointer type.
  * \pre @c Concept must contain @ref typeid_<tt>&lt;Tag&gt;</tt>.

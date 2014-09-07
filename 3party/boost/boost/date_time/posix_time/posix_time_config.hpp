@@ -6,7 +6,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland, Bart Garst
- * $Date: 2012-10-10 12:05:03 -0700 (Wed, 10 Oct 2012) $
+ * $Date$
  */
 
 #include <cstdlib> //for MCW 7.2 std::abs(long long)

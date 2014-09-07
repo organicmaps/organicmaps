@@ -20,25 +20,6 @@ namespace boost {
 
 //  SGI's std::rope<> traits  -----------------------------------------------//
 
-#ifdef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-
-        // native replace tester
-        template<typename T, typename TraitsT, typename AllocT>
-        yes_type has_native_replace_tester( const std::rope<T, TraitsT, AllocT>* );
-
-        // stable iterators tester
-        template<typename T, typename TraitsT, typename AllocT>
-        yes_type has_stable_iterators_tester( const std::rope<T, TraitsT, AllocT>* );
-
-        // const time insert tester
-        template<typename T, typename TraitsT, typename AllocT>
-        yes_type has_const_time_insert_tester( const std::rope<T, TraitsT, AllocT>* );
-
-        // const time erase tester
-        template<typename T, typename TraitsT, typename AllocT>
-        yes_type has_const_time_erase_tester( const std::rope<T, TraitsT, AllocT>* );
-
-#else // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
     
     // native replace trait
         template<typename T, typename TraitsT, typename AllocT>
@@ -91,7 +72,6 @@ namespace boost {
 #endif // BOOST_WORKAROUND( __IBMCPP__, <= 600 )
             typedef mpl::bool_<value> type;     
         };
-#endif
 
 
     } // namespace algorithm

@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_POSIX_NAMED_MUTEX_HPP
 #define BOOST_INTERPROCESS_POSIX_NAMED_MUTEX_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -94,13 +94,7 @@ inline bool posix_named_mutex::try_lock()
 {  return m_sem.try_wait();  }
 
 inline bool posix_named_mutex::timed_lock(const boost::posix_time::ptime &abs_time)
-{
-   if(abs_time == boost::posix_time::pos_infin){
-      this->lock();
-      return true;
-   }
-   return m_sem.timed_wait(abs_time);
-}
+{  return m_sem.timed_wait(abs_time);  }
 
 inline bool posix_named_mutex::remove(const char *name)
 {  return posix_named_semaphore::remove(name);   }

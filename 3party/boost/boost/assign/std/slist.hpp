@@ -14,7 +14,7 @@
 #include <boost/config.hpp>
 #ifdef BOOST_HAS_SLIST
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 

@@ -19,7 +19,6 @@
 
 namespace boost { namespace accumulators
 {
-
 namespace impl
 {
     ///////////////////////////////////////////////////////////////////////////////
@@ -47,7 +46,7 @@ namespace impl
         }
 
         template<typename Args>
-        result_type result(Args const &args) const
+        result_type result(Args const & /*args*/) const
         {
             return this->sum_;
         }
@@ -87,7 +86,6 @@ namespace extract
 }
 
 using extract::rolling_sum;
-
 }} // namespace boost::accumulators
 
 #endif

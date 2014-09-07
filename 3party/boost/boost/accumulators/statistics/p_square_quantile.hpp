@@ -54,7 +54,7 @@ namespace impl
     struct p_square_quantile_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type float_type;
         typedef array<float_type, 5> array_type;
         // for boost::result_of
         typedef float_type result_type;
@@ -69,7 +69,7 @@ namespace impl
         {
             for(std::size_t i = 0; i < 5; ++i)
             {
-                this->actual_positions[i] = i + 1;
+                this->actual_positions[i] = i + 1.;
             }
 
             this->desired_positions[0] = 1.;

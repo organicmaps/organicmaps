@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_ITERATOR_DEREF_DATA_HPP
 #define BOOST_FUSION_ITERATOR_DEREF_DATA_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/tag_of.hpp>
 
 namespace boost { namespace fusion
@@ -39,6 +40,7 @@ namespace boost { namespace fusion
     }
 
     template <typename It>
+    BOOST_FUSION_GPU_ENABLED
     typename result_of::deref_data<It>::type
     deref_data(It const& it)
     {

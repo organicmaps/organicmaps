@@ -31,11 +31,7 @@ public:
         const CharT *ptr_ = in_.c_str ();
         std::size_t size_ = in_.size ();
 
-#if defined _MSC_VER && _MSC_VER <= 1200
-        out_.erase ();
-#else
         out_.clear ();
-#endif
 
         while (size_)
         {

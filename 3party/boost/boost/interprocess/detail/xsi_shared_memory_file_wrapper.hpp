@@ -23,7 +23,7 @@
 #include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/detail/utilities.hpp>
 #include <boost/interprocess/detail/os_file_functions.hpp>
-#include <boost/interprocess/detail/tmp_dir_helpers.hpp>
+#include <boost/interprocess/detail/shared_dir_helpers.hpp>
 #include <boost/interprocess/interprocess_fwd.hpp>
 #include <boost/interprocess/exceptions.hpp>
 

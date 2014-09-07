@@ -25,7 +25,7 @@ class internal_mutex_lock
    public:
 
    typedef typename Lock::mutex_type::internal_mutex_type  mutex_type;
-   
+
 
    internal_mutex_lock(Lock &l)
       : l_(l)
@@ -55,6 +55,33 @@ class lock_inverter
    {}
    void lock()    {   l_.unlock();   }
    void unlock()  {   l_.lock();     }
+};
+
+template <class Lock>
+class lock_to_sharable
+{
+   Lock &l_;
+
+   public:
+   explicit lock_to_sharable(Lock &l)
+      :  l_(l)
+   {}
+   void lock()    {  l_.lock_sharable();     }
+   bool try_lock(){  return l_.try_lock_sharable(); }
+   void unlock()  {  l_.unlock_sharable();   }
+};
+
+template <class Lock>
+class lock_to_wait
+{
+   Lock &l_;
+
+   public:
+   explicit lock_to_wait(Lock &l)
+      :  l_(l)
+   {}
+   void lock()    {  l_.wait();     }
+   bool try_lock(){  return l_.try_wait(); }
 };
 
 }  //namespace ipcdetail

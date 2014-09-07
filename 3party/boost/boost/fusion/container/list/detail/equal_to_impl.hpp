@@ -7,6 +7,7 @@
 #if !defined(FUSION_EQUAL_TO_IMPL_09172005_1120)
 #define FUSION_EQUAL_TO_IMPL_09172005_1120
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/and.hpp>

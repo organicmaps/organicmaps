@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -32,7 +32,7 @@
 #include <boost/log/utility/formatting_ostream.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -63,23 +63,12 @@ public:
     template< typename >
     struct result;
 
-    template< typename ContextT >
-    struct result< this_type(ContextT) >
+    template< typename ThisT, typename ContextT >
+    struct result< ThisT(ContextT) >
     {
         typedef typename remove_cv< typename remove_reference< ContextT >::type >::type context_type;
         typedef typename phoenix::evaluator::impl<
             typename LeftT::proto_base_expr&,
-            context_type,
-            phoenix::unused
-        >::result_type type;
-    };
-
-    template< typename ContextT >
-    struct result< const this_type(ContextT) >
-    {
-        typedef typename remove_cv< typename remove_reference< ContextT >::type >::type context_type;
-        typedef typename phoenix::evaluator::impl<
-            typename LeftT::proto_base_expr const&,
             context_type,
             phoenix::unused
         >::result_type type;
@@ -121,7 +110,7 @@ public:
         return strm;
     }
 
-    BOOST_LOG_DELETED_FUNCTION(wrapped_formatter_output_terminal())
+    BOOST_DELETED_FUNCTION(wrapped_formatter_output_terminal())
 };
 
 BOOST_MPL_HAS_XXX_TRAIT_NAMED_DEF(has_char_type, char_type, false)
@@ -262,7 +251,7 @@ public:
 
 #define BOOST_LOG_AUX_OVERLOAD(left_ref, right_ref)\
     template< typename LeftExprT, typename FunT, typename CharT >\
-    BOOST_LOG_FORCEINLINE phoenix::actor< aux::wrapped_formatter_output_terminal< phoenix::actor< LeftExprT >, FunT > >\
+    BOOST_FORCEINLINE phoenix::actor< aux::wrapped_formatter_output_terminal< phoenix::actor< LeftExprT >, FunT > >\
     operator<< (phoenix::actor< LeftExprT > left_ref left, wrapped_formatter_actor< FunT, CharT > right_ref right)\
     {\
         typedef aux::wrapped_formatter_output_terminal< phoenix::actor< LeftExprT >, FunT > terminal_type;\
@@ -287,7 +276,7 @@ public:
  * where \c CharT is the character type of the formatting expression.
  */
 template< typename FunT >
-BOOST_LOG_FORCEINLINE wrapped_formatter_actor< FunT, typename aux::default_char_type< FunT >::type > wrap_formatter(FunT const& fun)
+BOOST_FORCEINLINE wrapped_formatter_actor< FunT, typename aux::default_char_type< FunT >::type > wrap_formatter(FunT const& fun)
 {
     typedef wrapped_formatter_actor< FunT, typename aux::default_char_type< FunT >::type > actor_type;
     typedef typename actor_type::terminal_type terminal_type;
@@ -306,7 +295,7 @@ BOOST_LOG_FORCEINLINE wrapped_formatter_actor< FunT, typename aux::default_char_
  * where \c CharT is the character type of the formatting expression.
  */
 template< typename CharT, typename FunT >
-BOOST_LOG_FORCEINLINE wrapped_formatter_actor< FunT, CharT > wrap_formatter(FunT const& fun)
+BOOST_FORCEINLINE wrapped_formatter_actor< FunT, CharT > wrap_formatter(FunT const& fun)
 {
     typedef wrapped_formatter_actor< FunT, CharT > actor_type;
     typedef typename actor_type::terminal_type terminal_type;

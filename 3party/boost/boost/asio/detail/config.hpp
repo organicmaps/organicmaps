@@ -2,7 +2,7 @@
 // detail/config.hpp
 // ~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -97,6 +97,11 @@
 #    endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
 #   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
 #  endif // defined(__GNUC__)
+#  if defined(BOOST_ASIO_MSVC)
+#   if (_MSC_VER >= 1700)
+#    define BOOST_ASIO_HAS_MOVE 1
+#   endif // (_MSC_VER >= 1700)
+#  endif // defined(BOOST_ASIO_MSVC)
 # endif // !defined(BOOST_ASIO_DISABLE_MOVE)
 #endif // !defined(BOOST_ASIO_HAS_MOVE)
 
@@ -152,6 +157,31 @@
 # endif // !defined(BOOST_ASIO_DISABLE_VARIADIC_TEMPLATES)
 #endif // !defined(BOOST_ASIO_HAS_VARIADIC_TEMPLATES)
 
+// Support constexpr on compilers known to allow it.
+#if !defined(BOOST_ASIO_HAS_CONSTEXPR)
+# if !defined(BOOST_ASIO_DISABLE_CONSTEXPR)
+#  if defined(__clang__)
+#   if __has_feature(__cxx_constexpr__)
+#    define BOOST_ASIO_HAS_CONSTEXPR 1
+#   endif // __has_feature(__cxx_constexr__)
+#  endif // defined(__clang__)
+#  if defined(__GNUC__)
+#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
+#    if defined(__GXX_EXPERIMENTAL_CXX0X__)
+#     define BOOST_ASIO_HAS_CONSTEXPR 1
+#    endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
+#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
+#  endif // defined(__GNUC__)
+# endif // !defined(BOOST_ASIO_DISABLE_CONSTEXPR)
+#endif // !defined(BOOST_ASIO_HAS_CONSTEXPR)
+#if !defined(BOOST_ASIO_CONSTEXPR)
+# if defined(BOOST_ASIO_HAS_CONSTEXPR)
+#  define BOOST_ASIO_CONSTEXPR constexpr
+# else // defined(BOOST_ASIO_HAS_CONSTEXPR)
+#  define BOOST_ASIO_CONSTEXPR
+# endif // defined(BOOST_ASIO_HAS_CONSTEXPR)
+#endif // !defined(BOOST_ASIO_CONSTEXPR)
+
 // Standard library support for system errors.
 # if !defined(BOOST_ASIO_DISABLE_STD_SYSTEM_ERROR)
 #  if defined(BOOST_ASIO_HAS_CLANG_LIBCXX)
@@ -164,6 +194,11 @@
 #    endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
 #   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
 #  endif // defined(__GNUC__)
+#  if defined(BOOST_ASIO_MSVC)
+#   if (_MSC_VER >= 1700)
+#    define BOOST_ASIO_HAS_STD_SYSTEM_ERROR 1
+#   endif // (_MSC_VER >= 1700)
+#  endif // defined(BOOST_ASIO_MSVC)
 # endif // !defined(BOOST_ASIO_DISABLE_STD_SYSTEM_ERROR)
 
 // Compliant C++11 compilers put noexcept specifiers on error_category members.
@@ -241,6 +276,11 @@
 #    endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
 #   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
 #  endif // defined(__GNUC__)
+#  if defined(BOOST_ASIO_MSVC)
+#   if (_MSC_VER >= 1700)
+#    define BOOST_ASIO_HAS_STD_ATOMIC 1
+#   endif // (_MSC_VER >= 1700)
+#  endif // defined(BOOST_ASIO_MSVC)
 # endif // !defined(BOOST_ASIO_DISABLE_STD_ATOMIC)
 #endif // !defined(BOOST_ASIO_HAS_STD_ATOMIC)
 
@@ -262,6 +302,11 @@
 #    endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
 #   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 6)) || (__GNUC__ > 4)
 #  endif // defined(__GNUC__)
+#  if defined(BOOST_ASIO_MSVC)
+#   if (_MSC_VER >= 1700)
+#    define BOOST_ASIO_HAS_STD_CHRONO 1
+#   endif // (_MSC_VER >= 1700)
+#  endif // defined(BOOST_ASIO_MSVC)
 # endif // !defined(BOOST_ASIO_DISABLE_STD_CHRONO)
 #endif // !defined(BOOST_ASIO_HAS_STD_CHRONO)
 
@@ -294,6 +339,11 @@
 #    endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
 #   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
 #  endif // defined(__GNUC__)
+#  if defined(BOOST_ASIO_MSVC)
+#   if (_MSC_VER >= 1700)
+#    define BOOST_ASIO_HAS_STD_ADDRESSOF 1
+#   endif // (_MSC_VER >= 1700)
+#  endif // defined(BOOST_ASIO_MSVC)
 # endif // !defined(BOOST_ASIO_DISABLE_STD_ADDRESSOF)
 #endif // !defined(BOOST_ASIO_HAS_STD_ADDRESSOF)
 
@@ -310,6 +360,11 @@
 #    endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
 #   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
 #  endif // defined(__GNUC__)
+#  if defined(BOOST_ASIO_MSVC)
+#   if (_MSC_VER >= 1700)
+#    define BOOST_ASIO_HAS_STD_FUNCTION 1
+#   endif // (_MSC_VER >= 1700)
+#  endif // defined(BOOST_ASIO_MSVC)
 # endif // !defined(BOOST_ASIO_DISABLE_STD_FUNCTION)
 #endif // !defined(BOOST_ASIO_HAS_STD_FUNCTION)
 
@@ -326,6 +381,11 @@
 #    endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
 #   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
 #  endif // defined(__GNUC__)
+#  if defined(BOOST_ASIO_MSVC)
+#   if (_MSC_VER >= 1700)
+#    define BOOST_ASIO_HAS_STD_TYPE_TRAITS 1
+#   endif // (_MSC_VER >= 1700)
+#  endif // defined(BOOST_ASIO_MSVC)
 # endif // !defined(BOOST_ASIO_DISABLE_STD_TYPE_TRAITS)
 #endif // !defined(BOOST_ASIO_HAS_STD_TYPE_TRAITS)
 
@@ -342,16 +402,75 @@
 #    endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
 #   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 5)) || (__GNUC__ > 4)
 #  endif // defined(__GNUC__)
+#  if defined(BOOST_ASIO_MSVC)
+#   if (_MSC_VER >= 1700)
+#    define BOOST_ASIO_HAS_CSTDINT 1
+#   endif // (_MSC_VER >= 1700)
+#  endif // defined(BOOST_ASIO_MSVC)
 # endif // !defined(BOOST_ASIO_DISABLE_CSTDINT)
 #endif // !defined(BOOST_ASIO_HAS_CSTDINT)
 
-// Windows target.
+// Standard library support for the thread class.
+#if !defined(BOOST_ASIO_HAS_STD_THREAD)
+# if !defined(BOOST_ASIO_DISABLE_STD_THREAD)
+#  if defined(BOOST_ASIO_HAS_CLANG_LIBCXX)
+#   define BOOST_ASIO_HAS_STD_THREAD 1
+#  endif // defined(BOOST_ASIO_HAS_CLANG_LIBCXX)
+#  if defined(__GNUC__)
+#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
+#    if defined(__GXX_EXPERIMENTAL_CXX0X__)
+#     define BOOST_ASIO_HAS_STD_THREAD 1
+#    endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
+#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
+#  endif // defined(__GNUC__)
+#  if defined(BOOST_ASIO_MSVC)
+#   if (_MSC_VER >= 1700)
+#    define BOOST_ASIO_HAS_STD_THREAD 1
+#   endif // (_MSC_VER >= 1700)
+#  endif // defined(BOOST_ASIO_MSVC)
+# endif // !defined(BOOST_ASIO_DISABLE_STD_THREAD)
+#endif // !defined(BOOST_ASIO_HAS_STD_THREAD)
+
+// Standard library support for the mutex and condition variable classes.
+#if !defined(BOOST_ASIO_HAS_STD_MUTEX_AND_CONDVAR)
+# if !defined(BOOST_ASIO_DISABLE_STD_MUTEX_AND_CONDVAR)
+#  if defined(BOOST_ASIO_HAS_CLANG_LIBCXX)
+#   define BOOST_ASIO_HAS_STD_MUTEX_AND_CONDVAR 1
+#  endif // defined(BOOST_ASIO_HAS_CLANG_LIBCXX)
+#  if defined(__GNUC__)
+#   if ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
+#    if defined(__GXX_EXPERIMENTAL_CXX0X__)
+#     define BOOST_ASIO_HAS_STD_MUTEX_AND_CONDVAR 1
+#    endif // defined(__GXX_EXPERIMENTAL_CXX0X__)
+#   endif // ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)) || (__GNUC__ > 4)
+#  endif // defined(__GNUC__)
+#  if defined(BOOST_ASIO_MSVC)
+#   if (_MSC_VER >= 1700)
+#    define BOOST_ASIO_HAS_STD_MUTEX_AND_CONDVAR 1
+#   endif // (_MSC_VER >= 1700)
+#  endif // defined(BOOST_ASIO_MSVC)
+# endif // !defined(BOOST_ASIO_DISABLE_STD_MUTEX_AND_CONDVAR)
+#endif // !defined(BOOST_ASIO_HAS_STD_MUTEX_AND_CONDVAR)
+
+// WinRT target.
+#if !defined(BOOST_ASIO_WINDOWS_RUNTIME)
+# if defined(__cplusplus_winrt)
+#  include <winapifamily.h>
+#  if WINAPI_FAMILY_ONE_PARTITION(WINAPI_FAMILY, WINAPI_PARTITION_APP)
+#   define BOOST_ASIO_WINDOWS_RUNTIME 1
+#  endif // WINAPI_FAMILY_ONE_PARTITION(WINAPI_FAMILY, WINAPI_PARTITION_APP)
+# endif // defined(__cplusplus_winrt)
+#endif // !defined(BOOST_ASIO_WINDOWS_RUNTIME)
+
+// Windows target. Excludes WinRT.
 #if !defined(BOOST_ASIO_WINDOWS)
-# if defined(BOOST_ASIO_HAS_BOOST_CONFIG) && defined(BOOST_WINDOWS)
-#  define BOOST_ASIO_WINDOWS 1
-# elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
-#  define BOOST_ASIO_WINDOWS 1
-# endif // defined(BOOST_ASIO_HAS_BOOST_CONFIG) && defined(BOOST_WINDOWS)
+# if !defined(BOOST_ASIO_WINDOWS_RUNTIME)
+#  if defined(BOOST_ASIO_HAS_BOOST_CONFIG) && defined(BOOST_WINDOWS)
+#   define BOOST_ASIO_WINDOWS 1
+#  elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
+#   define BOOST_ASIO_WINDOWS 1
+#  endif // defined(BOOST_ASIO_HAS_BOOST_CONFIG) && defined(BOOST_WINDOWS)
+# endif // !defined(BOOST_ASIO_WINDOWS_RUNTIME)
 #endif // !defined(BOOST_ASIO_WINDOWS)
 
 // Windows: target OS version.
@@ -479,14 +598,18 @@
 // Serial ports.
 #if !defined(BOOST_ASIO_HAS_SERIAL_PORT)
 # if defined(BOOST_ASIO_HAS_IOCP) \
-    || !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
+  || !defined(BOOST_ASIO_WINDOWS) \
+  && !defined(BOOST_ASIO_WINDOWS_RUNTIME) \
+  && !defined(__CYGWIN__)
 #  if !defined(__SYMBIAN32__)
 #   if !defined(BOOST_ASIO_DISABLE_SERIAL_PORT)
 #    define BOOST_ASIO_HAS_SERIAL_PORT 1
 #   endif // !defined(BOOST_ASIO_DISABLE_SERIAL_PORT)
 #  endif // !defined(__SYMBIAN32__)
 # endif // defined(BOOST_ASIO_HAS_IOCP)
-        //   || !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
+        //   || !defined(BOOST_ASIO_WINDOWS)
+        //   && !defined(BOOST_ASIO_WINDOWS_RUNTIME)
+        //   && !defined(__CYGWIN__)
 #endif // !defined(BOOST_ASIO_HAS_SERIAL_PORT)
 
 // Windows: stream handles.
@@ -530,27 +653,39 @@
 // POSIX: stream-oriented file descriptors.
 #if !defined(BOOST_ASIO_HAS_POSIX_STREAM_DESCRIPTOR)
 # if !defined(BOOST_ASIO_DISABLE_POSIX_STREAM_DESCRIPTOR)
-#  if !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
+#  if !defined(BOOST_ASIO_WINDOWS) \
+  && !defined(BOOST_ASIO_WINDOWS_RUNTIME) \
+  && !defined(__CYGWIN__)
 #   define BOOST_ASIO_HAS_POSIX_STREAM_DESCRIPTOR 1
-#  endif // !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
+#  endif // !defined(BOOST_ASIO_WINDOWS)
+         //   && !defined(BOOST_ASIO_WINDOWS_RUNTIME)
+         //   && !defined(__CYGWIN__)
 # endif // !defined(BOOST_ASIO_DISABLE_POSIX_STREAM_DESCRIPTOR)
 #endif // !defined(BOOST_ASIO_HAS_POSIX_STREAM_DESCRIPTOR)
 
 // UNIX domain sockets.
 #if !defined(BOOST_ASIO_HAS_LOCAL_SOCKETS)
 # if !defined(BOOST_ASIO_DISABLE_LOCAL_SOCKETS)
-#  if !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
+#  if !defined(BOOST_ASIO_WINDOWS) \
+  && !defined(BOOST_ASIO_WINDOWS_RUNTIME) \
+  && !defined(__CYGWIN__)
 #   define BOOST_ASIO_HAS_LOCAL_SOCKETS 1
-#  endif // !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
+#  endif // !defined(BOOST_ASIO_WINDOWS)
+         //   && !defined(BOOST_ASIO_WINDOWS_RUNTIME)
+         //   && !defined(__CYGWIN__)
 # endif // !defined(BOOST_ASIO_DISABLE_LOCAL_SOCKETS)
 #endif // !defined(BOOST_ASIO_HAS_LOCAL_SOCKETS)
 
 // Can use sigaction() instead of signal().
 #if !defined(BOOST_ASIO_HAS_SIGACTION)
 # if !defined(BOOST_ASIO_DISABLE_SIGACTION)
-#  if !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
+#  if !defined(BOOST_ASIO_WINDOWS) \
+  && !defined(BOOST_ASIO_WINDOWS_RUNTIME) \
+  && !defined(__CYGWIN__)
 #   define BOOST_ASIO_HAS_SIGACTION 1
-#  endif // !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
+#  endif // !defined(BOOST_ASIO_WINDOWS)
+         //   && !defined(BOOST_ASIO_WINDOWS_RUNTIME)
+         //   && !defined(__CYGWIN__)
 # endif // !defined(BOOST_ASIO_DISABLE_SIGACTION)
 #endif // !defined(BOOST_ASIO_HAS_SIGACTION)
 
@@ -562,6 +697,19 @@
 #  endif // !defined(UNDER_CE)
 # endif // !defined(BOOST_ASIO_DISABLE_SIGNAL)
 #endif // !defined(BOOST_ASIO_HAS_SIGNAL)
+
+// Can use getaddrinfo() and getnameinfo().
+#if !defined(BOOST_ASIO_HAS_GETADDRINFO)
+# if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
+#  if defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0501)
+#   define BOOST_ASIO_HAS_GETADDRINFO 1
+#  elif defined(UNDER_CE)
+#   define BOOST_ASIO_HAS_GETADDRINFO 1
+#  endif // defined(UNDER_CE)
+# elif !(defined(__MACH__) && defined(__APPLE__))
+#  define BOOST_ASIO_HAS_GETADDRINFO 1
+# endif // !(defined(__MACH__) && defined(__APPLE__))
+#endif // !defined(BOOST_ASIO_HAS_GETADDRINFO)
 
 // Whether standard iostreams are disabled.
 #if !defined(BOOST_ASIO_NO_IOSTREAM)
@@ -728,13 +876,23 @@
 #   if ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 3)) || (__GNUC__ > 3)
 #    if !defined(__INTEL_COMPILER) && !defined(__ICL)
 #     define BOOST_ASIO_HAS_THREAD_KEYWORD_EXTENSION 1
+#     define BOOST_ASIO_THREAD_KEYWORD __thread
 #    elif defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 1100)
 #     define BOOST_ASIO_HAS_THREAD_KEYWORD_EXTENSION 1
 #    endif // defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 1100)
 #   endif // ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 3)) || (__GNUC__ > 3)
 #  endif // defined(__GNUC__) && (defined(__i386__) || defined(__x86_64__))
 # endif // defined(__linux__)
+# if defined(BOOST_ASIO_MSVC) && defined(BOOST_ASIO_WINDOWS_RUNTIME)
+#  if (_MSC_VER >= 1700)
+#   define BOOST_ASIO_HAS_THREAD_KEYWORD_EXTENSION 1
+#   define BOOST_ASIO_THREAD_KEYWORD __declspec(thread)
+#  endif // (_MSC_VER >= 1700)
+# endif // defined(BOOST_ASIO_MSVC) && defined(BOOST_ASIO_WINDOWS_RUNTIME)
 #endif // !defined(BOOST_ASIO_DISABLE_THREAD_KEYWORD_EXTENSION)
+#if !defined(BOOST_ASIO_THREAD_KEYWORD)
+# define BOOST_ASIO_THREAD_KEYWORD __thread
+#endif // !defined(BOOST_ASIO_THREAD_KEYWORD)
 
 // Support for POSIX ssize_t typedef.
 #if !defined(BOOST_ASIO_DISABLE_SSIZE_T)

@@ -9,11 +9,7 @@
 #ifndef BOOST_PHOENIX_STL_HPP
 #define BOOST_PHOENIX_STL_HPP
 
-#ifdef BOOST_PHOENIX_USE_V2
-#include <boost/spirit/home/phoenix/stl.hpp>
-#else
 #include <boost/phoenix/stl/algorithm.hpp>
 #include <boost/phoenix/stl/container.hpp>
-#endif
 
 #endif

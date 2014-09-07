@@ -19,6 +19,11 @@
 #include <boost/heap/detail/heap_comparison.hpp>
 #include <boost/heap/detail/stable_heap.hpp>
 
+#ifdef BOOST_HAS_PRAGMA_ONCE
+#pragma once
+#endif
+
+
 namespace boost  {
 namespace heap   {
 namespace detail {

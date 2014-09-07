@@ -50,7 +50,7 @@ namespace impl
     struct weighted_density_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::average<Weight, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<Weight, std::size_t>::result_type float_type;
         typedef std::vector<std::pair<float_type, float_type> > histogram_type;
         typedef std::vector<float_type> array_type;
         // for boost::result_of
@@ -66,8 +66,8 @@ namespace impl
             , histogram(
                 num_bins + 2
               , std::make_pair(
-                    numeric::average(args[sample | Sample()],(std::size_t)1)
-                  , numeric::average(args[sample | Sample()],(std::size_t)1)
+                    numeric::fdiv(args[sample | Sample()],(std::size_t)1)
+                  , numeric::fdiv(args[sample | Sample()],(std::size_t)1)
                 )
               )
             , is_dirty(true)
@@ -92,9 +92,9 @@ namespace impl
             // Store their lower bounds (bin_positions) and fill the bins with the cached samples (samples_in_bin).
             if (cnt == this->cache_size)
             {
-                float_type minimum = numeric::average((min)(args),(std::size_t)1);
-                float_type maximum = numeric::average((max)(args),(std::size_t)1);
-                float_type bin_size = numeric::average(maximum - minimum, this->num_bins);
+                float_type minimum = numeric::fdiv((min)(args),(std::size_t)1);
+                float_type maximum = numeric::fdiv((max)(args),(std::size_t)1);
+                float_type bin_size = numeric::fdiv(maximum - minimum, this->num_bins);
 
                 // determine bin positions (their lower bounds)
                 for (std::size_t i = 0; i < this->num_bins + 2; ++i)
@@ -163,7 +163,7 @@ namespace impl
 
                 for (std::size_t i = 0; i < this->num_bins + 2; ++i)
                 {
-                    this->histogram[i] = std::make_pair(this->bin_positions[i], numeric::average(this->samples_in_bin[i], sum_of_weights(args)));
+                    this->histogram[i] = std::make_pair(this->bin_positions[i], numeric::fdiv(this->samples_in_bin[i], sum_of_weights(args)));
                 }
             }
 

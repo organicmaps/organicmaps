@@ -546,7 +546,7 @@ operator>>(std::basic_istream<CharT, Traits>& is, duration<Rep, Period>& d)
                 t /= den;
                 //std::cerr << __FILE__ << "[" << __LINE__ << "]"<< std::endl;
 
-                if (t > 0)
+                if (t > duration_values<common_type_t>::zero())
                 {
                   //std::cerr << __FILE__ << "[" << __LINE__ << "]"<< std::endl;
                   Rep pt = t;

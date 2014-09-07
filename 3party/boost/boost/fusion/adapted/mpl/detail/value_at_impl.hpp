@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_VALUE_AT_IMPL_31122005_1621)
 #define BOOST_FUSION_VALUE_AT_IMPL_31122005_1621
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/at.hpp>
 
 namespace boost { namespace fusion 

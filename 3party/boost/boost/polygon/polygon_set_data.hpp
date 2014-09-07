@@ -197,36 +197,34 @@ namespace boost { namespace polygon {
 
     template <class iT>
     inline void insert_vertex_sequence(iT begin_vertex, iT end_vertex, direction_1d winding, bool is_hole) {
-      bool first_iteration = true;
-      point_type first_point;
-      point_type previous_point;
-      point_type current_point;
-      direction_1d winding_dir = winding;
-      int multiplier = winding_dir == COUNTERCLOCKWISE ? 1 : -1;
-      if(is_hole) multiplier *= -1;
-      for( ; begin_vertex != end_vertex; ++begin_vertex) {
-        assign(current_point, *begin_vertex);
-        if(first_iteration) {
-          first_iteration = false;
-          first_point = previous_point = current_point;
-        } else {
-          if(previous_point != current_point) {
-            element_type elem(edge_type(previous_point, current_point),
-                              ( previous_point.get(HORIZONTAL) == current_point.get(HORIZONTAL) ? -1 : 1) * multiplier);
-            insert_clean(elem);
-          }
-        }
-        previous_point = current_point;
+      if (begin_vertex == end_vertex) {
+        // No edges to insert.
+        return;
       }
-      current_point = first_point;
-      if(!first_iteration) {
-        if(previous_point != current_point) {
-          element_type elem(edge_type(previous_point, current_point),
-                            ( previous_point.get(HORIZONTAL) == current_point.get(HORIZONTAL) ? -1 : 1) * multiplier);
+      // Current edge endpoints.
+      iT vertex0 = begin_vertex;
+      iT vertex1 = begin_vertex;
+      if (++vertex1 == end_vertex) {
+        // No edges to insert.
+        return;
+      }
+      int wmultiplier = (winding == COUNTERCLOCKWISE) ? 1 : -1;
+      dirty_ = true;
+      unsorted_ = true;
+      while (vertex0 != end_vertex) {
+        point_type p0, p1;
+        assign(p0, *vertex0);
+        assign(p1, *vertex1);
+        if (p0 != p1) {
+          int hmultiplier = (p0.get(HORIZONTAL) == p1.get(HORIZONTAL)) ? -1 : 1;
+          element_type elem(edge_type(p0, p1), hmultiplier * wmultiplier);
           insert_clean(elem);
         }
-        dirty_ = true;
-        unsorted_ = true;
+        ++vertex0;
+        ++vertex1;
+        if (vertex1 == end_vertex) {
+          vertex1 = begin_vertex;
+        }
       }
     }
 
@@ -271,7 +269,7 @@ namespace boost { namespace polygon {
 
     // equivalence operator
     inline bool operator==(const polygon_set_data& p) const;
-    
+
     // inequivalence operator
     inline bool operator!=(const polygon_set_data& p) const {
       return !((*this) == p);

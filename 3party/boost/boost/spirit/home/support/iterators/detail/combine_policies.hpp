@@ -21,43 +21,6 @@ namespace boost { namespace spirit { namespace iterator_policies
     //  single multi_pass_policy as required by the multi_pass template
     ///////////////////////////////////////////////////////////////////////////
 
-#if defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-    // without partial template specialization there is nothing much to do in
-    // terms of empty base optimization anyways...
-    template <typename T, typename Ownership, typename Checking,
-        typename Input, typename Storage>
-    struct multi_pass_unique
-      : Ownership, Checking, Input, Storage
-    {
-        multi_pass_unique() {}
-        multi_pass_unique(T& x) : Input(x) {}
-        multi_pass_unique(T const& x) : Input(x) {}
-
-        template <typename MultiPass>
-        static void destroy(MultiPass& mp)
-        {
-            Ownership::destroy(mp);
-            Checking::destroy(mp);
-            Input::destroy(mp);
-            Storage::destroy(mp);
-        }
-
-        void swap(multi_pass_unique& x)
-        {
-            this->Ownership::swap(x);
-            this->Checking::swap(x);
-            this->Input::swap(x);
-            this->Storage::swap(x);
-        }
-
-        template <typename MultiPass>
-        inline static void clear_queue(MultiPass& mp)
-        {
-            Checking::clear_queue(mp);
-            Storage::clear_queue(mp);
-        }
-    };
-#else
     ///////////////////////////////////////////////////////////////////////////
     // select the correct derived classes based on if a policy is empty
     template <typename T
@@ -470,7 +433,6 @@ namespace boost { namespace spirit { namespace iterator_policies
         inline static bool is_unique(MultiPass const& mp)
             { return Ownership::is_unique(mp); }
     };
-#endif
 
     ///////////////////////////////////////////////////////////////////////////
     // the multi_pass_shared structure is used to combine the shared data items

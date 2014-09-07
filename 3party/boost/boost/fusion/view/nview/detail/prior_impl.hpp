@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_NVIEW_PRIOR_IMPL_SEP_24_2009_0142PM)
 #define BOOST_FUSION_NVIEW_PRIOR_IMPL_SEP_24_2009_0142PM
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/prior.hpp>
 
 namespace boost { namespace fusion
@@ -34,6 +35,7 @@ namespace boost { namespace fusion
                 typedef nview_iterator<sequence_type,
                     typename mpl::prior<first_type>::type> type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

@@ -15,39 +15,7 @@
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_DETAIL_MODIFY_HPP
 
 
-#include <boost/range.hpp>
-
-
-namespace boost { namespace geometry
-{
-
-
-#ifndef DOXYGEN_NO_DETAIL
-namespace detail
-{
-
-
-template <typename MultiGeometry, typename Policy>
-struct multi_modify
-{
-    static inline void apply(MultiGeometry& multi)
-    {
-        typedef typename boost::range_iterator<MultiGeometry>::type iterator_type;
-        for (iterator_type it = boost::begin(multi);
-            it != boost::end(multi);
-            ++it)
-        {
-            Policy::apply(*it);
-        }
-    }
-};
-
-
-} // namespace detail
-#endif
-
-
-}} // namespace boost::geometry
+#include <boost/geometry/algorithms/detail/multi_modify.hpp>
 
 
 #endif // BOOST_GEOMETRY_MULTI_ALGORITHMS_DETAIL_MODIFY_HPP

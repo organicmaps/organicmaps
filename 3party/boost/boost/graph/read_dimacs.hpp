@@ -45,7 +45,6 @@ int read_dimacs_max_flow_internal(Graph& g,
   const int NODE_FIELDS = 2;    /* no of fields in node line  */
   const int P_FIELDS = 3;       /* no of fields in problem line */
 
-  typedef typename graph_traits<Graph>::vertices_size_type vertices_size_type;
   typedef typename graph_traits<Graph>::vertex_descriptor vertex_descriptor;
   typedef typename graph_traits<Graph>::edge_descriptor edge_descriptor;
 

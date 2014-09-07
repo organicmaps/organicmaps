@@ -125,7 +125,7 @@ namespace impl
     struct peaks_over_threshold_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type float_type;
         // for boost::result_of
         typedef boost::tuple<float_type, float_type, float_type> result_type;
         // for left tail fitting, mirror the extreme values
@@ -134,8 +134,8 @@ namespace impl
         template<typename Args>
         peaks_over_threshold_impl(Args const &args)
           : Nu_(0)
-          , mu_(sign::value * numeric::average(args[sample | Sample()], (std::size_t)1))
-          , sigma2_(numeric::average(args[sample | Sample()], (std::size_t)1))
+          , mu_(sign::value * numeric::fdiv(args[sample | Sample()], (std::size_t)1))
+          , sigma2_(numeric::fdiv(args[sample | Sample()], (std::size_t)1))
           , threshold_(sign::value * args[pot_threshold_value])
           , fit_parameters_(boost::make_tuple(0., 0., 0.))
           , is_dirty_(true)
@@ -164,13 +164,13 @@ namespace impl
 
                 std::size_t cnt = count(args);
 
-                this->mu_ = sign::value * numeric::average(this->mu_, this->Nu_);
-                this->sigma2_ = numeric::average(this->sigma2_, this->Nu_);
+                this->mu_ = sign::value * numeric::fdiv(this->mu_, this->Nu_);
+                this->sigma2_ = numeric::fdiv(this->sigma2_, this->Nu_);
                 this->sigma2_ -= this->mu_ * this->mu_;
 
-                float_type threshold_probability = numeric::average(cnt - this->Nu_, cnt);
+                float_type threshold_probability = numeric::fdiv(cnt - this->Nu_, cnt);
 
-                float_type tmp = numeric::average(( this->mu_ - this->threshold_ )*( this->mu_ - this->threshold_ ), this->sigma2_);
+                float_type tmp = numeric::fdiv(( this->mu_ - this->threshold_ )*( this->mu_ - this->threshold_ ), this->sigma2_);
                 float_type xi_hat = 0.5 * ( 1. - tmp );
                 float_type beta_hat = 0.5 * ( this->mu_ - this->threshold_ ) * ( 1. + tmp );
                 float_type beta_bar = beta_hat * std::pow(1. - threshold_probability, xi_hat);
@@ -205,7 +205,7 @@ namespace impl
     struct peaks_over_threshold_prob_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type float_type;
         // for boost::result_of
         typedef boost::tuple<float_type, float_type, float_type> result_type;
         // for left tail fitting, mirror the extreme values
@@ -213,8 +213,8 @@ namespace impl
 
         template<typename Args>
         peaks_over_threshold_prob_impl(Args const &args)
-          : mu_(sign::value * numeric::average(args[sample | Sample()], (std::size_t)1))
-          , sigma2_(numeric::average(args[sample | Sample()], (std::size_t)1))
+          : mu_(sign::value * numeric::fdiv(args[sample | Sample()], (std::size_t)1))
+          , sigma2_(numeric::fdiv(args[sample | Sample()], (std::size_t)1))
           , threshold_probability_(args[pot_threshold_probability])
           , fit_parameters_(boost::make_tuple(0., 0., 0.))
           , is_dirty_(true)
@@ -272,14 +272,14 @@ namespace impl
                         sigma2_ += *(tail(args).begin() + i) * (*(tail(args).begin() + i));
                     }
 
-                    this->mu_ = sign::value * numeric::average(this->mu_, n);
-                    this->sigma2_ = numeric::average(this->sigma2_, n);
+                    this->mu_ = sign::value * numeric::fdiv(this->mu_, n);
+                    this->sigma2_ = numeric::fdiv(this->sigma2_, n);
                     this->sigma2_ -= this->mu_ * this->mu_;
 
                     if (is_same<LeftRight, left>::value)
                         this->threshold_probability_ = 1. - this->threshold_probability_;
 
-                    float_type tmp = numeric::average(( this->mu_ - u )*( this->mu_ - u ), this->sigma2_);
+                    float_type tmp = numeric::fdiv(( this->mu_ - u )*( this->mu_ - u ), this->sigma2_);
                     float_type xi_hat = 0.5 * ( 1. - tmp );
                     float_type beta_hat = 0.5 * ( this->mu_ - u ) * ( 1. + tmp );
                     float_type beta_bar = beta_hat * std::pow(1. - threshold_probability_, xi_hat);

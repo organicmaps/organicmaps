@@ -7,6 +7,7 @@
 #if !defined(FUSION_CLEAR_09172005_1127)
 #define FUSION_CLEAR_09172005_1127
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/vector/vector10.hpp>
 
 namespace boost { namespace fusion
@@ -21,6 +22,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::clear<Sequence const>::type
     clear(Sequence const& /*seq*/)
     {

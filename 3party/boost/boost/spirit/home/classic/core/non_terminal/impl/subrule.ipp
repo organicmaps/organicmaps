@@ -22,76 +22,6 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
 
     namespace impl {
 
-    #if defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-
-        template <int N, typename ListT>
-        struct get_subrule;
-
-        template <int N, typename ListT>
-        struct get_subrule_chooser
-        {
-                static ListT t();
-                static char test(nil_t);
-                static int  test(...);
-
-                //  Set value to
-                //      0: ListT is empty
-                //      1: ListT's first item has same ID
-                //      2: ListT's first item has a different ID
-
-                enum
-                {
-                id = ListT::first_t::id,
-                is_same_id = N == id,
-                    is_nil_t = sizeof(char) == sizeof(test(t())),
-                    value = is_nil_t ? 0 : (is_same_id ? 1 : 2)
-                };
-          };
-
-        template <int N>
-        struct subrule_chooser;
-
-        template <>
-        struct subrule_chooser<0>
-        {
-            //  First case. ListT is empty
-
-            template <int N, typename ListT>
-            struct result
-            { typedef nil_t type; };
-        };
-
-        template <>
-        struct subrule_chooser<1>
-        {
-            //  Second case. ListT is non-empty and the list's
-            //  first item has the ID we are looking for.
-
-            template <int N, typename ListT>
-            struct result
-            { typedef typename ListT::first_t::def_t type; };
-        };
-
-        template <>
-        struct subrule_chooser<2>
-        {
-            //  Third case. ListT is non-empty but the list's
-            //  first item does not have the ID we are looking for.
-
-            template <int N, typename ListT>
-            struct result
-            { typedef typename get_subrule<N, ListT::rest_t>::type type; };
-        };
-
-        template <int N, typename ListT>
-        struct get_subrule
-        {
-            enum { n = get_subrule_chooser<N, ListT>::value };
-            typedef typename subrule_chooser<n>::template
-                result<N, ListT>::type type;
-        };
-
-    #else
 
         template <int N, typename ListT>
         struct get_subrule
@@ -122,7 +52,6 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_BEGIN
             typedef nil_t type;
         };
 
-    #endif
 
         template <typename T1, typename T2>
         struct get_result_t {

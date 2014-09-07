@@ -25,7 +25,6 @@
 # include <boost/static_assert.hpp>
 # include <boost/concept_archetype.hpp> // for detail::dummy_constructor
 # include <boost/implicit_cast.hpp>
-# include <boost/type_traits/broken_compiler_spec.hpp>
 
 namespace boost {
 
@@ -41,8 +40,6 @@ struct dummyT {
 
 }
 
-BOOST_TT_BROKEN_COMPILER_SPEC(boost::dummyT)
-    
 namespace boost {
 
 // Tests whether type Iterator satisfies the requirements for a

@@ -46,36 +46,30 @@ namespace detail { namespace assign
 {
 
 
-template
-<
-    typename Box, std::size_t Index,
-    std::size_t Dimension, std::size_t DimensionCount
->
+template <std::size_t Index, std::size_t Dimension, std::size_t DimensionCount>
 struct initialize
 {
-    typedef typename coordinate_type<Box>::type coordinate_type;
-
-    static inline void apply(Box& box, coordinate_type const& value)
+    template <typename Box>
+    static inline void apply(Box& box, typename coordinate_type<Box>::type const& value)
     {
         geometry::set<Index, Dimension>(box, value);
-        initialize<Box, Index, Dimension + 1, DimensionCount>::apply(box, value);
+        initialize<Index, Dimension + 1, DimensionCount>::apply(box, value);
     }
 };
 
 
-template <typename Box, std::size_t Index, std::size_t DimensionCount>
-struct initialize<Box, Index, DimensionCount, DimensionCount>
+template <std::size_t Index, std::size_t DimensionCount>
+struct initialize<Index, DimensionCount, DimensionCount>
 {
-    typedef typename coordinate_type<Box>::type coordinate_type;
-
-    static inline void apply(Box&,  coordinate_type const& )
+    template <typename Box>
+    static inline void apply(Box&, typename coordinate_type<Box>::type const&)
     {}
 };
 
 
-template <typename Point>
 struct assign_zero_point
 {
+    template <typename Point>
     static inline void apply(Point& point)
     {
         geometry::assign_value(point, 0);
@@ -83,44 +77,38 @@ struct assign_zero_point
 };
 
 
-template <typename BoxOrSegment>
 struct assign_inverse_box_or_segment
 {
-    typedef typename point_type<BoxOrSegment>::type point_type;
 
+    template <typename BoxOrSegment>
     static inline void apply(BoxOrSegment& geometry)
     {
+        typedef typename point_type<BoxOrSegment>::type point_type;
         typedef typename coordinate_type<point_type>::type bound_type;
 
-        initialize
-            <
-                BoxOrSegment, 0, 0, dimension<BoxOrSegment>::type::value
-            >::apply(
-            geometry, boost::numeric::bounds<bound_type>::highest());
-        initialize
-            <
-                BoxOrSegment, 1, 0, dimension<BoxOrSegment>::type::value
-            >::apply(
-            geometry, boost::numeric::bounds<bound_type>::lowest());
+        initialize<0, 0, dimension<BoxOrSegment>::type::value>::apply(
+            geometry, boost::numeric::bounds<bound_type>::highest()
+        );
+        initialize<1, 0, dimension<BoxOrSegment>::type::value>::apply(
+            geometry, boost::numeric::bounds<bound_type>::lowest()
+        );
     }
 };
 
 
-template <typename BoxOrSegment>
 struct assign_zero_box_or_segment
 {
+    template <typename BoxOrSegment>
     static inline void apply(BoxOrSegment& geometry)
     {
         typedef typename coordinate_type<BoxOrSegment>::type coordinate_type;
 
-        initialize
-            <
-                BoxOrSegment, 0, 0, dimension<BoxOrSegment>::type::value
-            >::apply(geometry, coordinate_type());
-        initialize
-            <
-                BoxOrSegment, 1, 0, dimension<BoxOrSegment>::type::value
-            >::apply(geometry, coordinate_type());
+        initialize<0, 0, dimension<BoxOrSegment>::type::value>::apply(
+            geometry, coordinate_type()
+        );
+        initialize<1, 0, dimension<BoxOrSegment>::type::value>::apply(
+            geometry, coordinate_type()
+        );
     }
 };
 
@@ -312,17 +300,17 @@ struct assign_zero {};
 
 template <typename Point>
 struct assign_zero<point_tag, Point>
-    : detail::assign::assign_zero_point<Point>
+    : detail::assign::assign_zero_point
 {};
 
 template <typename Box>
 struct assign_zero<box_tag, Box>
-    : detail::assign::assign_zero_box_or_segment<Box>
+    : detail::assign::assign_zero_box_or_segment
 {};
 
 template <typename Segment>
 struct assign_zero<segment_tag, Segment>
-    : detail::assign::assign_zero_box_or_segment<Segment>
+    : detail::assign::assign_zero_box_or_segment
 {};
 
 
@@ -331,111 +319,17 @@ struct assign_inverse {};
 
 template <typename Box>
 struct assign_inverse<box_tag, Box>
-    : detail::assign::assign_inverse_box_or_segment<Box>
+    : detail::assign::assign_inverse_box_or_segment
 {};
 
 template <typename Segment>
 struct assign_inverse<segment_tag, Segment>
-    : detail::assign::assign_inverse_box_or_segment<Segment>
+    : detail::assign::assign_inverse_box_or_segment
 {};
 
 
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH
-
-
-/*!
-\brief Assign two coordinates to a geometry (usually a 2D point)
-\ingroup assign
-\tparam Geometry \tparam_geometry
-\tparam Type \tparam_numeric to specify the coordinates
-\param geometry \param_geometry
-\param c1 \param_x
-\param c2 \param_y
-
-\qbk{distinguish, 2 coordinate values}
-\qbk{
-[heading Example]
-[assign_2d_point] [assign_2d_point_output]
-
-[heading See also]
-\* [link geometry.reference.algorithms.make.make_2_2_coordinate_values make]
-}
- */
-template <typename Geometry, typename Type>
-inline void assign_values(Geometry& geometry, Type const& c1, Type const& c2)
-{
-    concept::check<Geometry>();
-
-    dispatch::assign
-        <
-            typename tag<Geometry>::type,
-            Geometry,
-            geometry::dimension<Geometry>::type::value
-        >::apply(geometry, c1, c2);
-}
-
-/*!
-\brief Assign three values to a geometry (usually a 3D point)
-\ingroup assign
-\tparam Geometry \tparam_geometry
-\tparam Type \tparam_numeric to specify the coordinates
-\param geometry \param_geometry
-\param c1 \param_x
-\param c2 \param_y
-\param c3 \param_z
-
-\qbk{distinguish, 3 coordinate values}
-\qbk{
-[heading Example]
-[assign_3d_point] [assign_3d_point_output]
-
-[heading See also]
-\* [link geometry.reference.algorithms.make.make_3_3_coordinate_values make]
-}
- */
-template <typename Geometry, typename Type>
-inline void assign_values(Geometry& geometry,
-            Type const& c1, Type const& c2, Type const& c3)
-{
-    concept::check<Geometry>();
-
-    dispatch::assign
-        <
-            typename tag<Geometry>::type,
-            Geometry,
-            geometry::dimension<Geometry>::type::value
-        >::apply(geometry, c1, c2, c3);
-}
-
-/*!
-\brief Assign four values to a geometry (usually a box or segment)
-\ingroup assign
-\tparam Geometry \tparam_geometry
-\tparam Type \tparam_numeric to specify the coordinates
-\param geometry \param_geometry
-\param c1 First coordinate (usually x1)
-\param c2 Second coordinate (usually y1)
-\param c3 Third coordinate (usually x2)
-\param c4 Fourth coordinate (usually y2)
-
-\qbk{distinguish, 4 coordinate values}
- */
-template <typename Geometry, typename Type>
-inline void assign_values(Geometry& geometry,
-                Type const& c1, Type const& c2, Type const& c3, Type const& c4)
-{
-    concept::check<Geometry>();
-
-    dispatch::assign
-        <
-            typename tag<Geometry>::type,
-            Geometry,
-            geometry::dimension<Geometry>::type::value
-        >::apply(geometry, c1, c2, c3, c4);
-}
-
-
 
 }} // namespace boost::geometry
 

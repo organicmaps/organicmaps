@@ -20,6 +20,7 @@
 #include <boost/spirit/home/lex/lexer/lexertl/static_version.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/scoped_array.hpp>
 
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace lex { namespace lexertl
@@ -50,7 +51,7 @@ namespace boost { namespace spirit { namespace lex { namespace lexertl
         {
             using namespace std;        // some systems have size_t in ns std
             size_t len = strlen(source);
-            std::auto_ptr<wchar_t> result (new wchar_t[len+1]);
+            boost::scoped_array<wchar_t> result (new wchar_t[len+1]);
             result.get()[len] = '\0';
 
             // working with wide character streams is supported only if the

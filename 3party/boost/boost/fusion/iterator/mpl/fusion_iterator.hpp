@@ -7,6 +7,7 @@
 #if !defined(FUSION_FUSION_ITERATOR_10012005_1551)
 #define FUSION_FUSION_ITERATOR_10012005_1551
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/value_of.hpp>
 #include <boost/fusion/iterator/next.hpp>
 #include <boost/fusion/iterator/prior.hpp>

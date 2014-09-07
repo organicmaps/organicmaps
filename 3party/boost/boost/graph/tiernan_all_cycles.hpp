@@ -212,7 +212,6 @@ namespace detail
     {
         BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept<Graph> ));
         typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
-        typedef typename graph_traits<Graph>::edge_descriptor Edge;
         typedef typename graph_traits<Graph>::out_edge_iterator OutIterator;
 
         // get the current vertex

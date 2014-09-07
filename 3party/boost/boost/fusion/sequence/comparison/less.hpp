@@ -8,6 +8,7 @@
 #if !defined(FUSION_LESS_05052005_0432)
 #define FUSION_LESS_05052005_0432
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/fusion/sequence/intrinsic/end.hpp>
 #include <boost/fusion/sequence/intrinsic/size.hpp>
@@ -17,6 +18,7 @@
 namespace boost { namespace fusion
 {
     template <typename Seq1, typename Seq2>
+    BOOST_FUSION_GPU_ENABLED
     inline bool
     less(Seq1 const& a, Seq2 const& b)
     {
@@ -27,6 +29,7 @@ namespace boost { namespace fusion
     namespace operators
     {
         template <typename Seq1, typename Seq2>
+        BOOST_FUSION_GPU_ENABLED
         inline typename
             boost::enable_if<
                 traits::enable_comparison<Seq1, Seq2>

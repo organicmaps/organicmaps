@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_SINGLE_VIEW_ITERATOR_05052005_0340)
 #define BOOST_FUSION_SINGLE_VIEW_ITERATOR_05052005_0340
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/detail/access.hpp>
 #include <boost/fusion/support/iterator_base.hpp>
 #include <boost/fusion/view/single_view/detail/deref_impl.hpp>
@@ -39,7 +40,7 @@ namespace boost { namespace fusion
         typedef Pos position;
         typedef SingleView single_view_type;
 
-        explicit single_view_iterator(single_view_type& in_view)
+        BOOST_FUSION_GPU_ENABLED explicit single_view_iterator(single_view_type& in_view)
             : view(in_view) {}
 
         SingleView& view;

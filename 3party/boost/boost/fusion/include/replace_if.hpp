@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_REPLACE_IF)
 #define FUSION_INCLUDE_REPLACE_IF
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/transformation/replace_if.hpp>
 
 #endif

@@ -73,11 +73,11 @@ public:
    typedef RealType value_type;
    typedef Policy policy_type;
 
-   weibull_distribution(RealType shape, RealType scale = 1)
-      : m_shape(shape), m_scale(scale)
+   weibull_distribution(RealType l_shape, RealType l_scale = 1)
+      : m_shape(l_shape), m_scale(l_scale)
    {
       RealType result;
-      detail::check_weibull("boost::math::weibull_distribution<%1%>::weibull_distribution", scale, shape, &result, Policy());
+      detail::check_weibull("boost::math::weibull_distribution<%1%>::weibull_distribution", l_scale, l_shape, &result, Policy());
    }
 
    RealType shape()const

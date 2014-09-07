@@ -17,11 +17,7 @@
 
 #include "boost/mpl/bool_fwd.hpp"
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 #   include "boost/mpl/bool.hpp"
-#else
-#   include "boost/type_traits/is_base_and_derived.hpp"
-#endif
 
 namespace boost {
 namespace detail { namespace variant {
@@ -32,7 +28,6 @@ namespace detail { namespace variant {
 // Signifies that the variant should perform recursive substituion.
 //
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template <typename T>
 struct recursive_flag
@@ -40,20 +35,6 @@ struct recursive_flag
     typedef T type;
 };
 
-#else // defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-
-struct recursive_flag_tag
-{
-};
-
-template <typename T>
-struct recursive_flag
-    : recursive_flag_tag
-{
-    typedef T type;
-};
-
-#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION workaround
 
 ///////////////////////////////////////////////////////////////////////////////
 // (detail) metafunction is_recursive_flag
@@ -61,7 +42,6 @@ struct recursive_flag
 // Signifies that the variant should perform recursive substituion.
 //
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template <typename T>
 struct is_recursive_flag
@@ -75,15 +55,6 @@ struct is_recursive_flag< recursive_flag<T> >
 {
 };
 
-#else // defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-
-template <typename T>
-struct is_recursive_flag
-    : is_base_and_derived< recursive_flag_tag,T >
-{
-};
-
-#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION workaround
 
 ///////////////////////////////////////////////////////////////////////////////
 // (detail) metafunction enable_recursive

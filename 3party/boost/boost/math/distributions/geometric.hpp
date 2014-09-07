@@ -372,8 +372,8 @@ namespace boost
       //RealType q = 1 - p;  // Bad for small p
       //RealType probability = 1 - std::pow(q, k+1);
 
-      RealType z = boost::math::log1p(-p) * (k+1);
-      RealType probability = -boost::math::expm1(z);
+      RealType z = boost::math::log1p(-p, Policy()) * (k + 1);
+      RealType probability = -boost::math::expm1(z, Policy());
 
       return probability;
     } // cdf Cumulative Distribution Function geometric.
@@ -398,7 +398,7 @@ namespace boost
       {
         return result;
       }
-      RealType z = boost::math::log1p(-p) * (k+1);
+      RealType z = boost::math::log1p(-p, Policy()) * (k+1);
       RealType probability = exp(z);
       return probability;
     } // cdf Complemented Cumulative Distribution Function geometric.
@@ -448,7 +448,7 @@ namespace boost
       }
    
       // log(1-x) /log(1-success_fraction) -1; but use log1p in case success_fraction is small
-      result = boost::math::log1p(-x) / boost::math::log1p(-success_fraction) -1;
+      result = boost::math::log1p(-x, Policy()) / boost::math::log1p(-success_fraction, Policy()) - 1;
       // Subtract a few epsilons here too?
       // to make sure it doesn't slip over, so ceil would be one too many.
       return result;
@@ -496,7 +496,7 @@ namespace boost
           // unless #define BOOST_MATH_THROW_ON_OVERFLOW_ERROR
        }
        // log(x) /log(1-success_fraction) -1; but use log1p in case success_fraction is small
-       result = log(x) / boost::math::log1p(-success_fraction) -1;
+       result = log(x) / boost::math::log1p(-success_fraction, Policy()) - 1;
       return result;
 
     } // quantile complement

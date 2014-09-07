@@ -22,7 +22,7 @@
 /*!
 \brief \brief_macro{linestring}
 \ingroup register
-\details \details_macro{BOOST_GEOMETRY_REGISTER_LINESTRING, linestring} The 
+\details \details_macro{BOOST_GEOMETRY_REGISTER_LINESTRING, linestring} The
     linestring may contain template parameters, which must be specified then.
 \param Linestring \param_macro_type{linestring}
 
@@ -41,7 +41,7 @@ namespace boost { namespace geometry { namespace traits {  \
 /*!
 \brief \brief_macro{templated linestring}
 \ingroup register
-\details \details_macro{BOOST_GEOMETRY_REGISTER_LINESTRING_TEMPLATED, templated linestring} 
+\details \details_macro{BOOST_GEOMETRY_REGISTER_LINESTRING_TEMPLATED, templated linestring}
     \details_macro_templated{linestring, point}
 \param Linestring \param_macro_type{linestring (without template parameters)}
 

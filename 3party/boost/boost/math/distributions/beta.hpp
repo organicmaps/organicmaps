@@ -156,7 +156,7 @@ namespace boost
       typedef RealType value_type;
       typedef Policy policy_type;
 
-      beta_distribution(RealType alpha = 1, RealType beta = 1) : m_alpha(alpha), m_beta(beta)
+      beta_distribution(RealType l_alpha = 1, RealType l_beta = 1) : m_alpha(l_alpha), m_beta(l_beta)
       {
         RealType result;
         beta_detail::check_dist(

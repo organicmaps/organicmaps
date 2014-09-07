@@ -98,7 +98,7 @@ namespace boost { namespace program_options {
         void store(const basic_parsed_options<char>& options, 
               variables_map& m, bool);
 
-        friend BOOST_PROGRAM_OPTIONS_DECL class variables_map;
+        friend class BOOST_PROGRAM_OPTIONS_DECL variables_map;
     };
 
     /** Implements string->string mapping with convenient value casting

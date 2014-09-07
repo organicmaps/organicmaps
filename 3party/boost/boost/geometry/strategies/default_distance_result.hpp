@@ -1,8 +1,13 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
+
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -14,10 +19,7 @@
 #ifndef BOOST_GEOMETRY_STRATEGIES_DEFAULT_DISTANCE_RESULT_HPP
 #define BOOST_GEOMETRY_STRATEGIES_DEFAULT_DISTANCE_RESULT_HPP
 
-
-#include <boost/geometry/core/cs.hpp>
-#include <boost/geometry/core/point_type.hpp>
-#include <boost/geometry/strategies/distance.hpp>
+#include <boost/geometry/strategies/distance_result.hpp>
 
 
 namespace boost { namespace geometry
@@ -31,17 +33,8 @@ namespace boost { namespace geometry
  */
 template <typename Geometry1, typename Geometry2 = Geometry1>
 struct default_distance_result
-{
-    typedef typename strategy::distance::services::return_type
-        <
-            typename strategy::distance::services::default_strategy
-                <
-                    point_tag,
-                    typename point_type<Geometry1>::type,
-                    typename point_type<Geometry2>::type
-                >::type
-        >::type type;
-};
+    : distance_result<Geometry1, Geometry2, void>
+{};
 
 
 }} // namespace boost::geometry

@@ -43,7 +43,7 @@
 #include <boost/proto/transform/when.hpp>
 #include <boost/proto/transform/impl.hpp>
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(push)
 # pragma warning(disable:4305) // 'specialization' : truncation from 'const int' to 'bool'
 #endif
@@ -940,7 +940,7 @@ namespace boost { namespace proto
 #undef BOOST_PROTO_LOGICAL_typename_G
 #undef BOOST_PROTO_LOGICAL_G
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 

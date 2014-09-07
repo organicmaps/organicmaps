@@ -1,7 +1,7 @@
 #ifndef BOOST_SERIALIZATION_SCOPED_PTR_HPP_VP_2003_10_30
 #define BOOST_SERIALIZATION_SCOPED_PTR_HPP_VP_2003_10_30
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 

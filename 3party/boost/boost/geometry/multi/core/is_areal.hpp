@@ -16,28 +16,7 @@
 #define BOOST_GEOMETRY_MULTI_CORE_IS_AREAL_HPP
 
 
-#include <boost/type_traits.hpp>
-
-
 #include <boost/geometry/core/is_areal.hpp>
-#include <boost/geometry/multi/core/tags.hpp>
-
-
-namespace boost { namespace geometry
-{
-
-
-#ifndef DOXYGEN_NO_DISPATCH
-namespace core_dispatch
-{
-
-template <> struct is_areal<multi_polygon_tag> : boost::true_type {};
-
-} // namespace core_dispatch
-#endif
-
-
-}} // namespace boost::geometry
 
 
 #endif // BOOST_GEOMETRY_MULTI_CORE_IS_AREAL_HPP

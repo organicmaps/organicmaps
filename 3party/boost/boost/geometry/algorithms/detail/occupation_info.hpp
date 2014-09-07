@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2012-2014 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -9,17 +9,13 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OCCUPATION_INFO_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OCCUPATION_INFO_HPP
 
-#if ! defined(NDEBUG)
-//  #define BOOST_GEOMETRY_DEBUG_BUFFER_OCCUPATION
-#endif
-
 #include <algorithm>
 #include <boost/range.hpp>
 
 #include <boost/geometry/core/coordinate_type.hpp>
 #include <boost/geometry/core/point_type.hpp>
 
-#include <boost/geometry/algorithms/equals.hpp>
+#include <boost/geometry/policies/compare.hpp>
 #include <boost/geometry/iterators/closing_iterator.hpp>
 
 #include <boost/geometry/algorithms/detail/get_left_turns.hpp>
@@ -33,80 +29,6 @@ namespace boost { namespace geometry
 namespace detail
 {
 
-template <typename P>
-class relaxed_less
-{
-    typedef typename geometry::coordinate_type<P>::type coordinate_type;
-
-    coordinate_type epsilon;
-
-public :
-
-    inline relaxed_less()
-    {
-        // TODO: adapt for ttmath, and maybe build the map in another way 
-        // (e.g. exact constellations of segment-id's), maybe adaptive.
-        epsilon = std::numeric_limits<double>::epsilon() * 100.0;
-    }
-
-    inline bool operator()(P const& a, P const& b) const
-    {
-        coordinate_type const dx = math::abs(geometry::get<0>(a) - geometry::get<0>(b));
-        coordinate_type const dy = math::abs(geometry::get<1>(a) - geometry::get<1>(b));
-
-
-        if (dx < epsilon && dy < epsilon)
-        {
-            return false;
-        }
-        if (dx < epsilon)
-        {
-            return geometry::get<1>(a) < geometry::get<1>(b);
-        }
-
-        return geometry::get<0>(a) < geometry::get<0>(b);
-    }
-
-    inline bool equals(P const& a, P const& b) const
-    {
-        typedef typename geometry::coordinate_type<P>::type coordinate_type;
-
-        coordinate_type const dx = math::abs(geometry::get<0>(a) - geometry::get<0>(b));
-        coordinate_type const dy = math::abs(geometry::get<1>(a) - geometry::get<1>(b));
-
-        return dx < epsilon && dy < epsilon;
-    };
-};
-
-
-template <typename T, typename P1, typename P2>
-inline T calculate_angle(P1 const& from_point, P2 const& to_point)
-{
-    typedef P1 vector_type;
-    vector_type v = from_point;
-    geometry::subtract_point(v, to_point);
-    return atan2(geometry::get<1>(v), geometry::get<0>(v));
-}
-
-template <typename Iterator, typename Vector>
-inline Iterator advance_circular(Iterator it, Vector const& vector, segment_identifier& seg_id, bool forward = true)
-{
-    int const increment = forward ? 1 : -1;
-    if (it == boost::begin(vector) && increment < 0)
-    {
-        it = boost::end(vector);
-        seg_id.segment_index = boost::size(vector);
-    }
-    it += increment;
-    seg_id.segment_index += increment;
-    if (it == boost::end(vector))
-    {
-        seg_id.segment_index = 0;
-        it = boost::begin(vector);
-    }
-    return it;
-}
-
 template <typename Point, typename T>
 struct angle_info
 {
@@ -117,207 +39,160 @@ struct angle_info
     int turn_index;
     int operation_index;
     Point intersection_point;
-    Point direction_point;
-    T angle;
+    Point point; // either incoming or outgoing point
     bool incoming;
+    bool blocked;
+    bool included;
+
+    inline angle_info()
+        : blocked(false)
+        , included(false)
+    {}
 };
 
 template <typename AngleInfo>
 class occupation_info
 {
+public :
     typedef std::vector<AngleInfo> collection_type;
+    typedef std::vector
+        <
+            detail::left_turns::turn_angle_info<typename AngleInfo::point_type>
+        > turn_vector_type;
 
-    struct angle_sort
-    {
-        inline bool operator()(AngleInfo const& left, AngleInfo const& right) const
-        {
-            // In this case we can compare even double using equals
-            // return geometry::math::equals(left.angle, right.angle)
-            return left.angle == right.angle
-                ? int(left.incoming) < int(right.incoming)
-                : left.angle < right.angle
-                ;
-        }
-    };
+    collection_type angles; // each turn splitted in incoming/outgoing vectors
+    turn_vector_type turns;
+    int count;
 
-public :
-    collection_type angles;
-private :
-    bool m_occupied;
-    bool m_calculated;
 
-    inline bool is_occupied()
-    {
-        if (boost::size(angles) <= 1)
-        {
-            return false;
-        }
-
-        std::sort(angles.begin(), angles.end(), angle_sort());
-
-        typedef geometry::closing_iterator<collection_type const> closing_iterator;
-        closing_iterator vit(angles);
-        closing_iterator end(angles, true);
-
-        closing_iterator prev = vit++;
-        for( ; vit != end; prev = vit++)
-        {
-            if (! geometry::math::equals(prev->angle, vit->angle)
-                && ! prev->incoming
-                && vit->incoming)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-
-public :
     inline occupation_info()
-        : m_occupied(false)
-        , m_calculated(false)
+        : count(0)
     {}
 
-    template <typename PointC, typename Point1, typename Point2>
-    inline void add(PointC const& map_point, Point1 const& direction_point, Point2 const& intersection_point,
+    template <typename RobustPoint>
+    inline void add(RobustPoint const& incoming_point,
+                    RobustPoint const& outgoing_point,
+                    RobustPoint const& intersection_point,
                     int turn_index, int operation_index,
-                    segment_identifier const& seg_id, bool incoming)
+                    segment_identifier const& seg_id)
     {
-        //std::cout << "-> adding angle " << geometry::wkt(direction_point) << " .. " << geometry::wkt(intersection_point) << " " << int(incoming) << std::endl;
-        if (geometry::equals(direction_point, intersection_point))
+        geometry::equal_to<RobustPoint> comparator;
+        if (comparator(incoming_point, intersection_point))
         {
-            //std::cout << "EQUAL! Skipping" << std::endl;
+            return;
+        }
+        if (comparator(outgoing_point, intersection_point))
+        {
             return;
         }
 
         AngleInfo info;
-        info.incoming = incoming;
-        info.angle = calculate_angle<typename AngleInfo::angle_type>(direction_point, map_point);
         info.seg_id = seg_id;
         info.turn_index = turn_index;
         info.operation_index = operation_index;
         info.intersection_point = intersection_point;
-        info.direction_point = direction_point;
-        angles.push_back(info);
 
-        m_calculated = false;
-    }
-
-    inline bool occupied()
-    {
-        if (! m_calculated)
         {
-            m_occupied = is_occupied();
-            m_calculated = true;
+            info.point = incoming_point;
+            info.incoming = true;
+            angles.push_back(info);
         }
-        return m_occupied;
+        {
+            info.point = outgoing_point;
+            info.incoming = false;
+            angles.push_back(info);
+        }
+        detail::left_turns::turn_angle_info<typename AngleInfo::point_type> turn(seg_id, incoming_point, outgoing_point);
+        turn.turn_index = turn_index;
+        turns.push_back(turn);
     }
 
-    template <typename Turns, typename TurnSegmentIndices>
-    inline void get_left_turns(
-                    Turns& turns, TurnSegmentIndices const& turn_segment_indices,
-                    std::set<int>& keep_indices)
+    template <typename RobustPoint>
+    inline void get_left_turns(RobustPoint const& origin,
+                    std::vector<detail::left_turns::left_turn>& turns_to_keep)
     {
-        std::sort(angles.begin(), angles.end(), angle_sort());
-        calculate_left_turns<AngleInfo>(angles, turns, turn_segment_indices, keep_indices);
+        // Sort on angle
+        std::sort(angles.begin(), angles.end(),
+                detail::left_turns::angle_less<typename AngleInfo::point_type>(origin));
+
+        // Block all turns on the right side of any turn
+        detail::left_turns::block_turns_on_right_sides(turns, angles);
+
+        detail::left_turns::get_left_turns(angles, origin, turns_to_keep);
+    }
+
+    template <typename RobustPoint>
+    inline bool has_rounding_issues(RobustPoint const& origin) const
+    {
+        return detail::left_turns::has_rounding_issues(angles, origin);
     }
 };
 
+template<typename Pieces>
+inline void move_index(Pieces const& pieces, int& index, int& piece_index, int direction)
+{
+    BOOST_ASSERT(direction == 1 || direction == -1);
+    BOOST_ASSERT(piece_index >= 0 && piece_index < static_cast<int>(boost::size(pieces)) );
+    BOOST_ASSERT(index >= 0 && index < static_cast<int>(boost::size(pieces[piece_index].robust_ring)));
 
-template <typename Point, typename Ring, typename Info>
-inline void add_incoming_and_outgoing_angles(Point const& map_point, Point const& intersection_point,
-                Ring const& ring, 
+    index += direction;
+    if (direction == -1 && index < 0)
+    {
+        piece_index--;
+        if (piece_index < 0)
+        {
+            piece_index = boost::size(pieces) - 1;
+        }
+        index = boost::size(pieces[piece_index].robust_ring) - 1;
+    }
+    if (direction == 1
+        && index >= static_cast<int>(boost::size(pieces[piece_index].robust_ring)))
+    {
+        piece_index++;
+        if (piece_index >= static_cast<int>(boost::size(pieces)))
+        {
+            piece_index = 0;
+        }
+        index = 0;
+    }
+}
+
+
+template
+<
+    typename RobustPoint,
+    typename Turn,
+    typename Pieces,
+    typename Info
+>
+inline void add_incoming_and_outgoing_angles(
+                RobustPoint const& intersection_point, // rescaled
+                Turn const& turn,
+                Pieces const& pieces, // using rescaled offsets of it
                 int turn_index,
                 int operation_index,
                 segment_identifier seg_id,
                 Info& info)
 {
-    typedef typename boost::range_iterator
-        <
-            Ring const
-        >::type iterator_type;
-
-    int const n = boost::size(ring);
-    if (seg_id.segment_index >= n || seg_id.segment_index < 0)
-    {
-        return;
-    }
-
     segment_identifier real_seg_id = seg_id;
-    iterator_type it = boost::begin(ring) + seg_id.segment_index;
+    geometry::equal_to<RobustPoint> comparator;
 
-    // TODO: if we use turn-info ("to", "middle"), we know if to advance without resorting to equals
-    relaxed_less<Point> comparator;
-
-    if (comparator.equals(intersection_point, *it))
+    // Move backward and forward
+    RobustPoint direction_points[2];
+    for (int i = 0; i < 2; i++)
     {
-        // It should be equal only once. But otherwise we skip it (in "add")
-        it = advance_circular(it, ring, seg_id, false);
-    }
-
-    info.add(map_point, *it, intersection_point, turn_index, operation_index, real_seg_id, true);
-
-    if (comparator.equals(intersection_point, *it))
-    {
-        it = advance_circular(it, ring, real_seg_id);
-    }
-    else
-    {
-        // Don't upgrade the ID
-        it = advance_circular(it, ring, seg_id);
-    }
-    for (int defensive_check = 0; 
-        comparator.equals(intersection_point, *it) && defensive_check < n; 
-        defensive_check++)
-    {
-        it = advance_circular(it, ring, real_seg_id);
-    }
-
-    info.add(map_point, *it, intersection_point, turn_index, operation_index, real_seg_id, false);
-}
-
-
-// Map in two senses of the word: it is a std::map where the key is a point.
-// Per point an "occupation_info" record is kept
-// Used for the buffer (but will also be used for intersections/unions having complex self-tangencies)
-template <typename Point, typename OccupationInfo>
-class occupation_map
-{
-public :
-    typedef std::map<Point, OccupationInfo, relaxed_less<Point> > map_type;
-
-    map_type map;
-    std::set<int> turn_indices;
-
-    inline OccupationInfo& find_or_insert(Point const& point, Point& mapped_point)
-    {
-        typename map_type::iterator it = map.find(point);
-        if (it == boost::end(map))
+        int index = turn.operations[operation_index].index_in_robust_ring;
+        int piece_index = turn.operations[operation_index].piece_index;
+        while(comparator(pieces[piece_index].robust_ring[index], intersection_point))
         {
-            std::pair<typename map_type::iterator, bool> pair 
-                        = map.insert(std::make_pair(point, OccupationInfo()));
-            it = pair.first;
+            move_index(pieces, index, piece_index, i == 0 ? -1 : 1);
         }
-        mapped_point = it->first;
-        return it->second;
+        direction_points[i] = pieces[piece_index].robust_ring[index];
     }
 
-    inline bool contains(Point const& point) const
-    {
-        typename map_type::const_iterator it = map.find(point);
-        return it != boost::end(map);
-    }
-
-    inline bool contains_turn_index(int index) const
-    {
-        return turn_indices.count(index) > 0;
-    }
-
-    inline void insert_turn_index(int index)
-    {
-        turn_indices.insert(index);
-    }
-};
+    info.add(direction_points[0], direction_points[1], intersection_point,
+        turn_index, operation_index, real_seg_id);
+}
 
 
 } // namespace detail

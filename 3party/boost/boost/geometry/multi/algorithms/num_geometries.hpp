@@ -16,38 +16,7 @@
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_NUM_GEOMETRIES_HPP
 
 
-#include <cstddef>
-
-#include <boost/range.hpp>
-
 #include <boost/geometry/algorithms/num_geometries.hpp>
-#include <boost/geometry/multi/core/tags.hpp>
-#include <boost/geometry/multi/geometries/concepts/check.hpp>
-
-
-namespace boost { namespace geometry
-{
-
-
-#ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch
-{
-
-template <typename MultiGeometry>
-struct num_geometries<MultiGeometry, multi_tag>
-{
-    static inline std::size_t apply(MultiGeometry const& multi_geometry)
-    {
-        return boost::size(multi_geometry);
-    }
-};
-
-
-} // namespace dispatch
-#endif
-
-
-}} // namespace boost::geometry
 
 
 #endif // BOOST_GEOMETRY_MULTI_ALGORITHMS_NUM_GEOMETRIES_HPP

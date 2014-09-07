@@ -1,4 +1,4 @@
-/* Copyright 2006-2010 Joaquin M Lopez Munoz.
+/* Copyright 2006-2014 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -9,7 +9,7 @@
 #ifndef BOOST_FLYWEIGHT_REFCOUNTED_HPP
 #define BOOST_FLYWEIGHT_REFCOUNTED_HPP
 
-#if defined(_MSC_VER)&&(_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 
@@ -20,6 +20,10 @@
 #include <boost/flyweight/refcounted_fwd.hpp>
 #include <boost/flyweight/tracking_tag.hpp>
 #include <boost/utility/swap.hpp>
+
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+#include <utility>
+#endif
 
 /* Refcounting tracking policy.
  * The implementation deserves some explanation; values are equipped with two
@@ -63,6 +67,22 @@ public:
     x=r.x;
     return *this;
   }
+
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+  explicit refcounted_value(Value&& x_):
+    x(std::move(x_)),ref(0),del_ref(0)
+  {}
+
+  refcounted_value(refcounted_value&& r):
+    x(std::move(r.x)),ref(0),del_ref(0)
+  {}
+
+  refcounted_value& operator=(refcounted_value&& r)
+  {
+    x=std::move(r.x);
+    return *this;
+  }
+#endif
   
   operator const Value&()const{return x;}
   operator const Key&()const{return x;}
@@ -103,7 +123,7 @@ public:
 
   refcounted_handle& operator=(refcounted_handle x)
   {
-    swap(*this,x);
+    this->swap(x);
     return *this;
   }
 
@@ -116,9 +136,9 @@ public:
 
   operator const Handle&()const{return h;}
 
-  friend void swap(refcounted_handle& x, refcounted_handle& y)
+  void swap(refcounted_handle& x)
   {
-    boost::swap(x.h,y.h);
+    std::swap(h,x.h);
   }
 
 private:
@@ -130,7 +150,31 @@ private:
   Handle h;
 };
 
+template<typename Handle,typename TrackingHelper>
+void swap(
+  refcounted_handle<Handle,TrackingHelper>& x,
+  refcounted_handle<Handle,TrackingHelper>& y)
+{
+  x.swap(y);
+}
+
 } /* namespace flyweights::detail */
+
+#if BOOST_WORKAROUND(BOOST_MSVC,<=1500)
+/* swap lookup by boost::swap fails under obscure circumstances */
+
+} /* namespace flyweights */
+
+template<typename Handle,typename TrackingHelper>
+void swap(
+  ::boost::flyweights::detail::refcounted_handle<Handle,TrackingHelper>& x,
+  ::boost::flyweights::detail::refcounted_handle<Handle,TrackingHelper>& y)
+{
+  ::boost::flyweights::detail::swap(x,y);
+}
+
+namespace flyweights{
+#endif
 
 struct refcounted:tracking_marker
 {

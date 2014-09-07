@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_SHM_NAMED_RECURSIVE_MUTEX_HPP
 #define BOOST_INTERPROCESS_SHM_NAMED_RECURSIVE_MUTEX_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -153,13 +153,7 @@ inline bool shm_named_recursive_mutex::try_lock()
 {  return this->mutex()->try_lock();  }
 
 inline bool shm_named_recursive_mutex::timed_lock(const boost::posix_time::ptime &abs_time)
-{
-   if(abs_time == boost::posix_time::pos_infin){
-      this->lock();
-      return true;
-   }
-   return this->mutex()->timed_lock(abs_time);
-}
+{  return this->mutex()->timed_lock(abs_time);  }
 
 inline bool shm_named_recursive_mutex::remove(const char *name)
 {  return shared_memory_object::remove(name); }

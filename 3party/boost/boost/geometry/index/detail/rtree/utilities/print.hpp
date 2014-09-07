@@ -66,12 +66,13 @@ struct print_corner<Box, Corner, 1>
 template <typename Indexable, typename Tag>
 struct print_indexable
 {
+    BOOST_MPL_ASSERT_MSG((false), NOT_IMPLEMENTED_FOR_THIS_TAG, (Tag));
 };
 
 template <typename Indexable>
 struct print_indexable<Indexable, box_tag>
 {
-    static const size_t dimension = dimension<Indexable>::value;
+    static const size_t dimension = geometry::dimension<Indexable>::value;
 
     static inline void apply(std::ostream &os, Indexable const& i)
     {
@@ -86,12 +87,27 @@ struct print_indexable<Indexable, box_tag>
 template <typename Indexable>
 struct print_indexable<Indexable, point_tag>
 {
-    static const size_t dimension = dimension<Indexable>::value;
+    static const size_t dimension = geometry::dimension<Indexable>::value;
 
     static inline void apply(std::ostream &os, Indexable const& i)
     {
         os << '(';
         print_point<Indexable, dimension>::apply(os, i);
+        os << ')';
+    }
+};
+
+template <typename Indexable>
+struct print_indexable<Indexable, segment_tag>
+{
+    static const size_t dimension = geometry::dimension<Indexable>::value;
+
+    static inline void apply(std::ostream &os, Indexable const& i)
+    {
+        os << '(';
+        print_corner<Indexable, 0, dimension>::apply(os, i);
+        os << ")-(";
+        print_corner<Indexable, 1, dimension>::apply(os, i);
         os << ')';
     }
 };

@@ -7,6 +7,7 @@
 #if !defined(FUSION_CATEGORY_OF_07202005_0308)
 #define FUSION_CATEGORY_OF_07202005_0308
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/detail/category_of.hpp>
 #include <boost/fusion/support/tag_of.hpp>
 #include <boost/type_traits/is_base_of.hpp>

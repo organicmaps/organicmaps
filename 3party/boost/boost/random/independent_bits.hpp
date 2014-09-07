@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: independent_bits.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id$
  *
  */
 

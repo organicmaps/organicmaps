@@ -30,7 +30,7 @@ namespace boost { namespace geometry
 
 // Silence warning C4127: conditional expression is constant
 #if defined(_MSC_VER)
-#pragma warning(push)  
+#pragma warning(push)
 #pragma warning(disable : 4127)
 #endif
 
@@ -71,7 +71,7 @@ public:
     {}
 
     /// @brief Constructor to set one, two or three values
-    inline point(CoordinateType const& v0, CoordinateType const& v1 = 0, CoordinateType const& v2 = 0)
+    explicit inline point(CoordinateType const& v0, CoordinateType const& v1 = 0, CoordinateType const& v2 = 0)
     {
         if (DimensionCount >= 1) m_values[0] = v0;
         if (DimensionCount >= 2) m_values[1] = v1;

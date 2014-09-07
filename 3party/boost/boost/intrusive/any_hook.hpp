@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2012
+// (C) Copyright Ion Gaztanaga  2006-2013
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -37,7 +37,7 @@ struct get_any_node_algo
 #if defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED) || defined(BOOST_INTRUSIVE_VARIADIC_TEMPLATES)
 template<class ...Options>
 #else
-template<class O1 = none, class O2 = none, class O3 = none>
+template<class O1 = void, class O2 = void, class O3 = void>
 #endif
 struct make_any_base_hook
 {
@@ -51,11 +51,11 @@ struct make_any_base_hook
       #endif
       >::type packed_options;
 
-   typedef detail::generic_hook
+   typedef generic_hook
    < get_any_node_algo<typename packed_options::void_pointer>
    , typename packed_options::tag
    , packed_options::link_mode
-   , detail::AnyBaseHook
+   , AnyBaseHookId
    > implementation_defined;
    /// @endcond
    typedef implementation_defined type;
@@ -75,7 +75,7 @@ struct make_any_base_hook
 //! \c link_mode<> will specify the linking mode of the hook (\c normal_link, \c safe_link).
 //!
 //! \c void_pointer<> is the pointer type that will be used internally in the hook
-//! and the the container configured to use this hook.
+//! and the container configured to use this hook.
 #if defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED) || defined(BOOST_INTRUSIVE_VARIADIC_TEMPLATES)
 template<class ...Options>
 #else
@@ -142,7 +142,7 @@ class any_base_hook
 #if defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED) || defined(BOOST_INTRUSIVE_VARIADIC_TEMPLATES)
 template<class ...Options>
 #else
-template<class O1 = none, class O2 = none, class O3 = none>
+template<class O1 = void, class O2 = void, class O3 = void>
 #endif
 struct make_any_member_hook
 {
@@ -156,11 +156,11 @@ struct make_any_member_hook
       #endif
       >::type packed_options;
 
-   typedef detail::generic_hook
+   typedef generic_hook
    < get_any_node_algo<typename packed_options::void_pointer>
    , member_tag
    , packed_options::link_mode
-   , detail::NoBaseHook
+   , NoBaseHookId
    > implementation_defined;
    /// @endcond
    typedef implementation_defined type;
@@ -175,7 +175,7 @@ struct make_any_member_hook
 //! \c link_mode<> will specify the linking mode of the hook (\c normal_link or \c safe_link).
 //!
 //! \c void_pointer<> is the pointer type that will be used internally in the hook
-//! and the the container configured to use this hook.
+//! and the container configured to use this hook.
 #if defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED) || defined(BOOST_INTRUSIVE_VARIADIC_TEMPLATES)
 template<class ...Options>
 #else
@@ -244,7 +244,7 @@ namespace detail{
 template<class ValueTraits>
 struct any_to_get_base_pointer_type
 {
-   typedef typename pointer_traits<typename ValueTraits::boost_intrusive_tags::node_traits::node_ptr>::template
+   typedef typename pointer_traits<typename ValueTraits::hooktags::node_traits::node_ptr>::template
       rebind_pointer<void>::type type;
 };
 
@@ -260,17 +260,18 @@ struct any_to_get_member_pointer_type
 template<class BaseHook, template <class> class NodeTraits>
 struct any_to_some_hook
 {
-   typedef typename BaseHook::template pack<none>::value_traits old_value_traits;
+   typedef typename BaseHook::template pack<empty>::proto_value_traits old_proto_value_traits;
+
    template<class Base>
    struct pack : public Base
    {
-      struct value_traits : public old_value_traits
+      struct proto_value_traits : public old_proto_value_traits
       {
          static const bool is_any_hook = true;
          typedef typename detail::eval_if_c
-            < detail::internal_base_hook_bool_is_true<old_value_traits>::value
-            , any_to_get_base_pointer_type<old_value_traits>
-            , any_to_get_member_pointer_type<old_value_traits>
+            < detail::internal_base_hook_bool_is_true<old_proto_value_traits>::value
+            , any_to_get_base_pointer_type<old_proto_value_traits>
+            , any_to_get_member_pointer_type<old_proto_value_traits>
             >::type void_pointer;
          typedef NodeTraits<void_pointer> node_traits;
       };

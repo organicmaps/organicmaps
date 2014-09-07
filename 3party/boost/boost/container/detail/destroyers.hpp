@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2012.
+// (C) Copyright Ion Gaztanaga 2005-2013.
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -13,12 +13,13 @@
 #ifndef BOOST_CONTAINER_DESTROYERS_HPP
 #define BOOST_CONTAINER_DESTROYERS_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
-#include "config_begin.hpp"
+#include <boost/container/detail/config_begin.hpp>
 #include <boost/container/detail/workaround.hpp>
+
 #include <boost/container/detail/version_type.hpp>
 #include <boost/container/detail/utilities.hpp>
 #include <boost/container/allocator_traits.hpp>
@@ -68,6 +69,9 @@ struct scoped_deallocator
    pointer get() const
    {  return m_ptr;  }
 
+   void set(const pointer &p)
+   {  m_ptr = p;  }
+
    void release()
    {  m_ptr = 0; }
 };
@@ -87,6 +91,9 @@ struct null_scoped_deallocator
 
    pointer get() const
    {  return pointer();  }
+
+   void set(const pointer &)
+   {}
 };
 
 //!A deleter for scoped_ptr that deallocates the memory
@@ -191,7 +198,7 @@ struct scoped_destructor_n
 
    void shrink_forward(size_type inc)
    {  m_n -= inc;   m_p += inc;  }
-  
+
    ~scoped_destructor_n()
    {
       if(!m_p) return;
@@ -225,6 +232,9 @@ struct null_scoped_destructor_n
    void increment_size_backwards(size_type)
    {}
 
+   void shrink_forward(size_type)
+   {}
+
    void release()
    {}
 };
@@ -248,6 +258,11 @@ class scoped_destructor
 
    void release()
    {  pv_ = 0; }
+
+
+   void set(value_type *ptr) { pv_ = ptr; }
+
+   value_type *get() const { return pv_; }
 
    private:
    value_type *pv_;

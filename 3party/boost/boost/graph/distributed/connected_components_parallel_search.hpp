@@ -290,8 +290,6 @@ namespace boost { namespace graph { namespace distributed {
     typedef typename boost::graph::parallel::process_group_type<Graph>
       ::type process_group_type;
     typedef typename process_group_type::process_id_type process_id_type;
-    typedef typename property_map<Graph, vertex_owner_t>
-      ::const_type vertex_owner_map;
     typedef std::queue<vertex_descriptor> work_queue;
 
     static const component_value_type max_component = 

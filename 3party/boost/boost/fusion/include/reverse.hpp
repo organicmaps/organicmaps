@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_REVERSE)
 #define FUSION_INCLUDE_REVERSE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/transformation/reverse.hpp>
 
 #endif

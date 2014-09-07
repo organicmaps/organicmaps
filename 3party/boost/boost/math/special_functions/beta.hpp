@@ -35,9 +35,9 @@ T beta_imp(T a, T b, const Lanczos&, const Policy& pol)
    BOOST_MATH_STD_USING  // for ADL of std names
 
    if(a <= 0)
-      policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got a=%1%).", a, pol);
+      return policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got a=%1%).", a, pol);
    if(b <= 0)
-      policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got b=%1%).", b, pol);
+      return policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got b=%1%).", b, pol);
 
    T result;
 
@@ -119,9 +119,9 @@ T beta_imp(T a, T b, const lanczos::undefined_lanczos& /* l */, const Policy& po
    BOOST_MATH_STD_USING
 
    if(a <= 0)
-      policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got a=%1%).", a, pol);
+      return policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got a=%1%).", a, pol);
    if(b <= 0)
-      policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got b=%1%).", b, pol);
+      return policies::raise_domain_error<T>("boost::math::beta<%1%>(%1%,%1%)", "The arguments to the beta function must be greater than zero (got b=%1%).", b, pol);
 
    T result;
 
@@ -889,19 +889,19 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
       *p_derivative = -1; // value not set.
 
    if((x < 0) || (x > 1))
-      policies::raise_domain_error<T>(function, "Parameter x outside the range [0,1] in the incomplete beta function (got x=%1%).", x, pol);
+      return policies::raise_domain_error<T>(function, "Parameter x outside the range [0,1] in the incomplete beta function (got x=%1%).", x, pol);
 
    if(normalised)
    {
       if(a < 0)
-         policies::raise_domain_error<T>(function, "The argument a to the incomplete beta function must be >= zero (got a=%1%).", a, pol);
+         return policies::raise_domain_error<T>(function, "The argument a to the incomplete beta function must be >= zero (got a=%1%).", a, pol);
       if(b < 0)
-         policies::raise_domain_error<T>(function, "The argument b to the incomplete beta function must be >= zero (got b=%1%).", b, pol);
+         return policies::raise_domain_error<T>(function, "The argument b to the incomplete beta function must be >= zero (got b=%1%).", b, pol);
       // extend to a few very special cases:
       if(a == 0)
       {
          if(b == 0)
-            policies::raise_domain_error<T>(function, "The arguments a and b to the incomplete beta function cannot both be zero, with x=%1%.", x, pol);
+            return policies::raise_domain_error<T>(function, "The arguments a and b to the incomplete beta function cannot both be zero, with x=%1%.", x, pol);
          if(b > 0)
             return inv ? 0 : 1;
       }
@@ -914,9 +914,9 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
    else
    {
       if(a <= 0)
-         policies::raise_domain_error<T>(function, "The argument a to the incomplete beta function must be greater than zero (got a=%1%).", a, pol);
+         return policies::raise_domain_error<T>(function, "The argument a to the incomplete beta function must be greater than zero (got a=%1%).", a, pol);
       if(b <= 0)
-         policies::raise_domain_error<T>(function, "The argument b to the incomplete beta function must be greater than zero (got b=%1%).", b, pol);
+         return policies::raise_domain_error<T>(function, "The argument b to the incomplete beta function must be greater than zero (got b=%1%).", b, pol);
    }
 
    if(x == 0)
@@ -934,6 +934,49 @@ T ibeta_imp(T a, T b, T x, const Policy& pol, bool inv, bool normalised, T* p_de
          *p_derivative = (b == 1) ? T(1) : (b < 1) ? T(tools::max_value<T>() / 2) : T(tools::min_value<T>() * 2);
       }
       return (invert == 0 ? (normalised ? 1 : boost::math::beta(a, b, pol)) : 0);
+   }
+   if((a == 0.5f) && (b == 0.5f))
+   {
+      // We have an arcsine distribution:
+      if(p_derivative)
+      {
+         *p_derivative = (invert ? -1 : 1) / constants::pi<T>() * sqrt(y * x);
+      }
+      T p = invert ? asin(sqrt(y)) / constants::half_pi<T>() : asin(sqrt(x)) / constants::half_pi<T>();
+      if(!normalised)
+         p *= constants::pi<T>();
+      return p;
+   }
+   if(a == 1)
+   {
+      std::swap(a, b);
+      std::swap(x, y);
+      invert = !invert;
+   }
+   if(b == 1)
+   {
+      //
+      // Special case see: http://functions.wolfram.com/GammaBetaErf/BetaRegularized/03/01/01/
+      //
+      if(a == 1)
+      {
+         if(p_derivative)
+            *p_derivative = invert ? -1 : 1;
+         return invert ? y : x;
+      }
+      
+      if(p_derivative)
+      {
+         *p_derivative = (invert ? -1 : 1) * a * pow(x, a - 1);
+      }
+      T p;
+      if(y < 0.5)
+         p = invert ? T(-boost::math::expm1(a * boost::math::log1p(-y, pol), pol)) : T(exp(a * boost::math::log1p(-y, pol)));
+      else
+         p = invert ? T(-boost::math::powm1(x, a, pol)) : T(pow(x, a));
+      if(!normalised)
+         p /= a;
+      return p;
    }
 
    if((std::min)(a, b) <= 1)
@@ -1238,11 +1281,11 @@ T ibeta_derivative_imp(T a, T b, T x, const Policy& pol)
    // start with the usual error checks:
    //
    if(a <= 0)
-      policies::raise_domain_error<T>(function, "The argument a to the incomplete beta function must be greater than zero (got a=%1%).", a, pol);
+      return policies::raise_domain_error<T>(function, "The argument a to the incomplete beta function must be greater than zero (got a=%1%).", a, pol);
    if(b <= 0)
-      policies::raise_domain_error<T>(function, "The argument b to the incomplete beta function must be greater than zero (got b=%1%).", b, pol);
+      return policies::raise_domain_error<T>(function, "The argument b to the incomplete beta function must be greater than zero (got b=%1%).", b, pol);
    if((x < 0) || (x > 1))
-      policies::raise_domain_error<T>(function, "Parameter x outside the range [0,1] in the incomplete beta function (got x=%1%).", x, pol);
+      return policies::raise_domain_error<T>(function, "Parameter x outside the range [0,1] in the incomplete beta function (got x=%1%).", x, pol);
    //
    // Now the corner cases:
    //
@@ -1331,7 +1374,6 @@ inline typename tools::promote_args<RT1, RT2, RT3>::type
    BOOST_FPU_EXCEPTION_GUARD
    typedef typename tools::promote_args<RT1, RT2, RT3>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   typedef typename lanczos::lanczos<value_type, Policy>::type evaluation_type;
    typedef typename policies::normalise<
       Policy, 
       policies::promote_float<false>, 
@@ -1349,7 +1391,6 @@ inline typename tools::promote_args<RT1, RT2, RT3>::type
    BOOST_FPU_EXCEPTION_GUARD
    typedef typename tools::promote_args<RT1, RT2, RT3>::type result_type;
    typedef typename policies::evaluation<result_type, Policy>::type value_type;
-   typedef typename lanczos::lanczos<value_type, Policy>::type evaluation_type;
    typedef typename policies::normalise<
       Policy, 
       policies::promote_float<false>, 

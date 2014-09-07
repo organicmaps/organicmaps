@@ -49,6 +49,10 @@ namespace boost { namespace phoenix
 
     template <typename T, typename Dummy>
     struct custom_terminal;
+
+    namespace tag {
+      struct terminal /*: public proto::tag::terminal */ {};
+    }
  
     namespace expression
     {
@@ -60,7 +64,8 @@ namespace boost { namespace phoenix
         {
             typedef
                 proto::basic_expr<
-                    proto::tag::terminal
+                proto::tag::terminal
+            // tag::terminal //cannot change to use phoenix tag - breaks code.
                   , proto::term<T>
                   , 0
                 >
@@ -69,7 +74,9 @@ namespace boost { namespace phoenix
             
             static const type make(typename call_traits<T>::param_type t)
             {
+            // ?? Should the next line be Actor not actor which is the default?
                 actor<base_type> const e = {base_type::make(t)};
+                //Actor<base_type> const e = {base_type::make(t)};
                 return e;
             }
         };

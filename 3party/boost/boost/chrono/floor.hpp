@@ -24,7 +24,9 @@ namespace boost
     template <class To, class Rep, class Period>
     To floor(const duration<Rep, Period>& d)
     {
-        return duration_cast<To>(d);
+      To t = duration_cast<To>(d);
+      if (t>d) --t;
+      return t;
     }
 
 

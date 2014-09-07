@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_AS_SET)
 #define FUSION_INCLUDE_AS_SET
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/set/convert.hpp>
 
 #endif

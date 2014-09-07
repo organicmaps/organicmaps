@@ -6,7 +6,7 @@
  * Boost Software License, Version 1.0. (See accompanying
  * file LICENSE_1_0.txt or http://www.boost.org/LICENSE_1_0.txt)
  * Author: Jeff Garland
- * $Date: 2013-06-21 08:04:12 -0700 (Fri, 21 Jun 2013) $
+ * $Date$
  */
 
 #include <sstream>
@@ -35,7 +35,6 @@ gather_month_strings(const std::locale& locale, bool short_strings=true)
 {
   typedef std::basic_string<charT> string_type;
   typedef std::vector<string_type> collection_type;
-  typedef std::basic_ostringstream<charT> ostream_type;
   typedef std::ostreambuf_iterator<charT> ostream_iter_type;
   typedef std::basic_ostringstream<charT> stringstream_type;
   typedef std::time_put<charT>           time_put_facet_type;
@@ -86,7 +85,6 @@ gather_weekday_strings(const std::locale& locale, bool short_strings=true)
 {
   typedef std::basic_string<charT> string_type;
   typedef std::vector<string_type> collection_type;
-  typedef std::basic_ostringstream<charT> ostream_type;
   typedef std::ostreambuf_iterator<charT> ostream_iter_type;
   typedef std::basic_ostringstream<charT> stringstream_type;
   typedef std::time_put<charT>           time_put_facet_type;

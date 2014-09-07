@@ -2,7 +2,7 @@
 // detail/win_iocp_socket_service_base.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -37,6 +37,7 @@
 #include <boost/asio/detail/socket_types.hpp>
 #include <boost/asio/detail/win_iocp_io_service.hpp>
 #include <boost/asio/detail/win_iocp_null_buffers_op.hpp>
+#include <boost/asio/detail/win_iocp_socket_connect_op.hpp>
 #include <boost/asio/detail/win_iocp_socket_send_op.hpp>
 #include <boost/asio/detail/win_iocp_socket_recv_op.hpp>
 #include <boost/asio/detail/win_iocp_socket_recvmsg_op.hpp>
@@ -215,7 +216,7 @@ public:
   template <typename ConstBufferSequence, typename Handler>
   void async_send(base_implementation_type& impl,
       const ConstBufferSequence& buffers,
-      socket_base::message_flags flags, Handler handler)
+      socket_base::message_flags flags, Handler& handler)
   {
     // Allocate and construct an operation to wrap the handler.
     typedef win_iocp_socket_send_op<ConstBufferSequence, Handler> op;
@@ -238,7 +239,7 @@ public:
   // Start an asynchronous wait until data can be sent without blocking.
   template <typename Handler>
   void async_send(base_implementation_type& impl, const null_buffers&,
-      socket_base::message_flags, Handler handler)
+      socket_base::message_flags, Handler& handler)
   {
     // Allocate and construct an operation to wrap the handler.
     typedef win_iocp_null_buffers_op<Handler> op;
@@ -282,7 +283,7 @@ public:
   template <typename MutableBufferSequence, typename Handler>
   void async_receive(base_implementation_type& impl,
       const MutableBufferSequence& buffers,
-      socket_base::message_flags flags, Handler handler)
+      socket_base::message_flags flags, Handler& handler)
   {
     // Allocate and construct an operation to wrap the handler.
     typedef win_iocp_socket_recv_op<MutableBufferSequence, Handler> op;
@@ -305,7 +306,7 @@ public:
   // Wait until data can be received without blocking.
   template <typename Handler>
   void async_receive(base_implementation_type& impl, const null_buffers&,
-      socket_base::message_flags flags, Handler handler)
+      socket_base::message_flags flags, Handler& handler)
   {
     // Allocate and construct an operation to wrap the handler.
     typedef win_iocp_null_buffers_op<Handler> op;
@@ -356,7 +357,7 @@ public:
   template <typename MutableBufferSequence, typename Handler>
   void async_receive_with_flags(base_implementation_type& impl,
       const MutableBufferSequence& buffers, socket_base::message_flags in_flags,
-      socket_base::message_flags& out_flags, Handler handler)
+      socket_base::message_flags& out_flags, Handler& handler)
   {
     // Allocate and construct an operation to wrap the handler.
     typedef win_iocp_socket_recvmsg_op<MutableBufferSequence, Handler> op;
@@ -379,7 +380,7 @@ public:
   template <typename Handler>
   void async_receive_with_flags(base_implementation_type& impl,
       const null_buffers&, socket_base::message_flags in_flags,
-      socket_base::message_flags& out_flags, Handler handler)
+      socket_base::message_flags& out_flags, Handler& handler)
   {
     // Allocate and construct an operation to wrap the handler.
     typedef win_iocp_null_buffers_op<Handler> op;
@@ -451,7 +452,8 @@ protected:
 
   // Start the asynchronous connect operation using the reactor.
   BOOST_ASIO_DECL void start_connect_op(base_implementation_type& impl,
-      reactor_op* op, const socket_addr_type* addr, std::size_t addrlen);
+      int family, int type, const socket_addr_type* remote_addr,
+      std::size_t remote_addrlen, win_iocp_socket_connect_op_base* op);
 
   // Helper function to close a socket when the associated object is being
   // destroyed.
@@ -465,6 +467,16 @@ protected:
   // new one is obtained from the io_service and a pointer to it is cached in
   // this service.
   BOOST_ASIO_DECL reactor& get_reactor();
+
+  // The type of a ConnectEx function pointer, as old SDKs may not provide it.
+  typedef BOOL (PASCAL *connect_ex_fn)(SOCKET,
+      const socket_addr_type*, int, void*, DWORD, DWORD*, OVERLAPPED*);
+
+  // Helper function to get the ConnectEx pointer. If no ConnectEx pointer has
+  // been obtained yet, one is obtained using WSAIoctl and the pointer is
+  // cached. Returns a null pointer if ConnectEx is not available.
+  BOOST_ASIO_DECL connect_ex_fn get_connect_ex(
+      base_implementation_type& impl, int type);
 
   // Helper function to emulate InterlockedCompareExchangePointer functionality
   // for:
@@ -488,6 +500,9 @@ protected:
   // The reactor used for performing connect operations. This object is created
   // only if needed.
   reactor* reactor_;
+
+  // Pointer to ConnectEx implementation.
+  void* connect_ex_;
 
   // Mutex to protect access to the linked list of implementations. 
   boost::asio::detail::mutex mutex_;

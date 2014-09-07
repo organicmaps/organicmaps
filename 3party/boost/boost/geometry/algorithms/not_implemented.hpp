@@ -18,7 +18,6 @@
 
 #include <boost/mpl/assert.hpp>
 #include <boost/geometry/core/tags.hpp>
-#include <boost/geometry/multi/core/tags.hpp>
 
 
 namespace boost { namespace geometry

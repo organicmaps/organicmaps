@@ -154,6 +154,10 @@ namespace boost { namespace spirit { namespace char_encoding
             return (ch == L' ' || ch == L'\t');
         }
 
+        ///////////////////////////////////////////////////////////////////////
+        //  Simple character conversions
+        ///////////////////////////////////////////////////////////////////////
+
         static wchar_t
         tolower(wchar_t ch)
         {

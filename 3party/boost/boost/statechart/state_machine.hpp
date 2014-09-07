@@ -33,7 +33,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/assert.hpp>
 #include <boost/static_assert.hpp>
-#include <boost/cast.hpp> // boost::polymorphic_downcast
+#include <boost/polymorphic_cast.hpp> // boost::polymorphic_downcast
 // BOOST_NO_EXCEPTIONS, BOOST_MSVC, BOOST_MSVC_STD_ITERATOR
 #include <boost/config.hpp>
 

@@ -11,6 +11,7 @@
 #include <boost/phoenix/operator/detail/define_operator.hpp>
 #include <boost/phoenix/core/expression.hpp>
 #include <boost/proto/operators.hpp>
+#include <boost/proto/fusion.hpp> // Added to solve bug 6268
 
 namespace boost { namespace phoenix
 {

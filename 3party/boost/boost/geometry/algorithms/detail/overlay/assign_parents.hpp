@@ -18,6 +18,10 @@
 
 #include <boost/geometry/geometries/box.hpp>
 
+#ifdef BOOST_GEOMETRY_TIME_OVERLAY
+#  include <boost/timer.hpp>
+#endif
+
 
 namespace boost { namespace geometry
 {
@@ -243,7 +247,7 @@ inline void assign_parents(Geometry1 const& geometry1,
                 //    a dramatic improvement (factor 5 for star_comb testcase)
                 ring_identifier id_of_positive = vector[index_positive].id;
                 ring_info_type& outer = ring_map[id_of_positive];
-                std::size_t index = 0;
+                index = 0;
                 for (vector_iterator_type it = boost::begin(vector);
                     it != boost::end(vector); ++it, ++index)
                 {

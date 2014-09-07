@@ -2,7 +2,7 @@
 // seq_packet_socket_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -22,7 +22,9 @@
 #include <boost/asio/error.hpp>
 #include <boost/asio/io_service.hpp>
 
-#if defined(BOOST_ASIO_HAS_IOCP)
+#if defined(BOOST_ASIO_WINDOWS_RUNTIME)
+# include <boost/asio/detail/null_socket_service.hpp>
+#elif defined(BOOST_ASIO_HAS_IOCP)
 # include <boost/asio/detail/win_iocp_socket_service.hpp>
 #else
 # include <boost/asio/detail/reactive_socket_service.hpp>
@@ -57,7 +59,9 @@ public:
 
 private:
   // The type of the platform-specific implementation.
-#if defined(BOOST_ASIO_HAS_IOCP)
+#if defined(BOOST_ASIO_WINDOWS_RUNTIME)
+  typedef detail::null_socket_service<Protocol> service_impl_type;
+#elif defined(BOOST_ASIO_HAS_IOCP)
   typedef detail::win_iocp_socket_service<Protocol> service_impl_type;
 #else
   typedef detail::reactive_socket_service<Protocol> service_impl_type;
@@ -140,7 +144,7 @@ public:
   boost::system::error_code open(implementation_type& impl,
       const protocol_type& protocol, boost::system::error_code& ec)
   {
-    if (protocol.type() == SOCK_SEQPACKET)
+    if (protocol.type() == BOOST_ASIO_OS_DEF(SOCK_SEQPACKET))
       service_impl_.open(impl, protocol, ec);
     else
       ec = boost::asio::error::invalid_argument;
@@ -314,13 +318,20 @@ public:
 
   /// Start an asynchronous send.
   template <typename ConstBufferSequence, typename WriteHandler>
-  void async_send(implementation_type& impl,
+  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+      void (boost::system::error_code, std::size_t))
+  async_send(implementation_type& impl,
       const ConstBufferSequence& buffers,
       socket_base::message_flags flags,
       BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
   {
-    service_impl_.async_send(impl, buffers, flags,
+    detail::async_result_init<
+      WriteHandler, void (boost::system::error_code, std::size_t)> init(
         BOOST_ASIO_MOVE_CAST(WriteHandler)(handler));
+
+    service_impl_.async_send(impl, buffers, flags, init.handler);
+
+    return init.result.get();
   }
 
   /// Receive some data from the peer.
@@ -335,13 +346,21 @@ public:
 
   /// Start an asynchronous receive.
   template <typename MutableBufferSequence, typename ReadHandler>
-  void async_receive(implementation_type& impl,
+  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
+      void (boost::system::error_code, std::size_t))
+  async_receive(implementation_type& impl,
       const MutableBufferSequence& buffers, socket_base::message_flags in_flags,
       socket_base::message_flags& out_flags,
       BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
   {
-    service_impl_.async_receive_with_flags(impl, buffers, in_flags,
-        out_flags, BOOST_ASIO_MOVE_CAST(ReadHandler)(handler));
+    detail::async_result_init<
+      ReadHandler, void (boost::system::error_code, std::size_t)> init(
+        BOOST_ASIO_MOVE_CAST(ReadHandler)(handler));
+
+    service_impl_.async_receive_with_flags(impl,
+        buffers, in_flags, out_flags, init.handler);
+
+    return init.result.get();
   }
 
 private:

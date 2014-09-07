@@ -17,10 +17,6 @@
 #include "boost/variant/detail/generic_result_type.hpp"
 #include "boost/assert.hpp"
 
-#if !defined(BOOST_MSVC) && !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-#   include "boost/type_traits/remove_reference.hpp"
-#endif
-
 namespace boost {
 namespace detail { namespace variant {
 
@@ -32,24 +28,22 @@ namespace detail { namespace variant {
 //
 
 #if !defined(BOOST_MSVC)                                \
- && !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)  \
  && !defined(BOOST_NO_VOID_RETURNS)
 
 // "standard" implementation:
 
 template <typename T>
-inline T forced_return( BOOST_EXPLICIT_TEMPLATE_TYPE(T) )
+inline T forced_return()
 {
     // logical error: should never be here! (see above)
     BOOST_ASSERT(false);
 
-    typedef typename boost::remove_reference<T>::type basic_type;
-    basic_type* dummy = 0;
-    return *static_cast< basic_type* >(dummy);
+    T (*dummy_function_ptr)() = 0;
+    return dummy_function_ptr();
 }
 
 template <>
-inline void forced_return<void>( BOOST_EXPLICIT_TEMPLATE_TYPE_SPEC(void) )
+inline void forced_return<void>()
 {
     // logical error: should never be here! (see above)
     BOOST_ASSERT(false);
@@ -66,7 +60,7 @@ inline void forced_return<void>( BOOST_EXPLICIT_TEMPLATE_TYPE_SPEC(void) )
 template <typename T>
 inline
     BOOST_VARIANT_AUX_GENERIC_RESULT_TYPE(T)
-forced_return( BOOST_EXPLICIT_TEMPLATE_TYPE(T) )
+forced_return()
 {
     // logical error: should never be here! (see above)
     BOOST_ASSERT(false);
@@ -77,6 +71,8 @@ forced_return( BOOST_EXPLICIT_TEMPLATE_TYPE(T) )
 
 #else // defined(BOOST_MSVC)
 
+# pragma warning( push )
+# pragma warning( disable : 4702 ) // unreachable code
 // msvc-specific implementation
 //
 // Leverages __declspec(noreturn) for optimized implementation.
@@ -88,13 +84,15 @@ inline void forced_return_no_return() {};
 template <typename T>
 inline
     BOOST_VARIANT_AUX_GENERIC_RESULT_TYPE(T)
-forced_return( BOOST_EXPLICIT_TEMPLATE_TYPE(T) )
+forced_return()
 {
     // logical error: should never be here! (see above)
     BOOST_ASSERT(false);
 
     forced_return_no_return();
 }
+
+# pragma warning( pop )
 
 #endif // BOOST_MSVC optimization
 

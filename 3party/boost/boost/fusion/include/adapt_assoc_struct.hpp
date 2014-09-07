@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_INCLUDE_ADAPT_ASSOC_STRUCT_HPP
 #define BOOST_FUSION_INCLUDE_ADAPT_ASSOC_STRUCT_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/struct/adapt_assoc_struct.hpp>
 
 #endif

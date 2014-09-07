@@ -77,7 +77,7 @@ namespace boost { namespace spirit { namespace karma
             if (Execute) {
                 // wrap the given output iterator to avoid output
                 detail::disable_output<OutputIterator> disable(sink);
-                subject.generate(sink, ctx, d, attr);
+                return subject.generate(sink, ctx, d, attr);
             }
             return true;
         }

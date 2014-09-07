@@ -296,14 +296,8 @@ namespace boost { namespace graph { namespace distributed {
 
       typedef typename graph_traits<DistributedGraph>::adjacency_iterator
         adjacency_iterator;
-      typedef typename graph_traits<DistributedGraph>::out_edge_iterator
-        out_edge_iterator;
-      typedef typename graph_traits<DistributedGraph>::edge_iterator
-        edge_iterator;
       typedef typename graph_traits<DistributedGraph>::vertex_descriptor
         vertex_descriptor;
-      typedef typename graph_traits<DistributedGraph>::edge_descriptor
-        edge_descriptor;
 
       typedef typename boost::graph::parallel::process_group_type<DistributedGraph>
         ::type process_group_type;

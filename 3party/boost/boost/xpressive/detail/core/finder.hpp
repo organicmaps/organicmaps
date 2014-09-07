@@ -8,7 +8,7 @@
 #define BOOST_XPRESSIVE_DETAIL_CORE_FINDER_HPP_EAN_10_04_2005
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 # pragma warning(push)
 # pragma warning(disable : 4189) // local variable is initialized but not referenced
@@ -214,7 +214,7 @@ private:
 
 }}}
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 

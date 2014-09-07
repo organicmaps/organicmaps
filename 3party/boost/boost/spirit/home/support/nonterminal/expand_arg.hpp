@@ -50,8 +50,8 @@ namespace boost { namespace spirit { namespace detail
         struct result<F(A0&)>
           : result_type<A0> {};
 
-        expand_arg(Context& context)
-          : context(context)
+        expand_arg(Context& context_)
+          : context(context_)
         {
         }
 

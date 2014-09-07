@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 57991 $
+//  Version     : $Revision$
 //
 //  Description : implements framework API - main driver for the test
 // ***************************************************************************

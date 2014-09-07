@@ -2,7 +2,7 @@
 //
 // R-tree quadratic split algorithm implementation
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -15,6 +15,8 @@
 
 #include <boost/geometry/index/detail/algorithms/content.hpp>
 #include <boost/geometry/index/detail/algorithms/union_content.hpp>
+
+#include <boost/geometry/index/detail/bounded_view.hpp>
 
 #include <boost/geometry/index/detail/rtree/node/node.hpp>
 #include <boost/geometry/index/detail/rtree/visitors/insert.hpp>
@@ -34,6 +36,7 @@ struct pick_seeds
     typedef typename coordinate_type<indexable_type>::type coordinate_type;
     typedef Box box_type;
     typedef typename index::detail::default_content_result<box_type>::type content_type;
+    typedef index::detail::bounded_view<indexable_type, box_type> bounded_indexable_view;
 
     static inline void apply(Elements const& elements,
                              Parameters const& parameters,
@@ -61,7 +64,11 @@ struct pick_seeds
                 detail::bounds(ind1, enlarged_box);
                 geometry::expand(enlarged_box, ind2);
 
-                content_type free_content = (index::detail::content(enlarged_box) - index::detail::content(ind1)) - index::detail::content(ind2);
+                bounded_indexable_view bounded_ind1(ind1);
+                bounded_indexable_view bounded_ind2(ind2);
+                content_type free_content = ( index::detail::content(enlarged_box)
+                                                - index::detail::content(bounded_ind1) )
+                                                    - index::detail::content(bounded_ind2);
                 
                 if ( greatest_free_content < free_content )
                 {
@@ -101,7 +108,6 @@ struct redistribute_elements<Value, Options, Translator, Box, Allocators, quadra
         typedef typename rtree::elements_type<Node>::type elements_type;
         typedef typename elements_type::value_type element_type;
         typedef typename rtree::element_indexable_type<element_type, Translator>::type indexable_type;
-        typedef typename coordinate_type<indexable_type>::type coordinate_type;
 
         elements_type & elements1 = rtree::elements(n);
         elements_type & elements2 = rtree::elements(second_node);
@@ -109,6 +115,7 @@ struct redistribute_elements<Value, Options, Translator, Box, Allocators, quadra
         BOOST_GEOMETRY_INDEX_ASSERT(elements1.size() == parameters.get_max_elements() + 1, "unexpected elements number");
 
         // copy original elements
+        // TODO: use container_from_elements_type for std::allocator
         elements_type elements_copy(elements1);                                                             // MAY THROW, STRONG (alloc, copy)
         elements_type elements_backup(elements1);                                                           // MAY THROW, STRONG (alloc, copy)
         

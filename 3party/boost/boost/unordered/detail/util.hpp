@@ -7,8 +7,9 @@
 #ifndef BOOST_UNORDERED_DETAIL_UTIL_HPP_INCLUDED
 #define BOOST_UNORDERED_DETAIL_UTIL_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
-# pragma once
+#include <boost/config.hpp>
+#if defined(BOOST_HAS_PRAGMA_ONCE)
+#pragma once
 #endif
 
 #include <boost/type_traits/is_convertible.hpp>
@@ -27,6 +28,11 @@ namespace boost { namespace unordered { namespace detail {
     static const std::size_t default_bucket_count = 11;
     struct move_tag {};
     struct empty_emplace {};
+
+    namespace func {
+        template <class T>
+        inline void ignore_unused_variable_warning(T const&) {}
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     // iterator SFINAE

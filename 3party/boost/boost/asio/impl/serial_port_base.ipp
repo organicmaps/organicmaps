@@ -2,7 +2,7 @@
 // impl/serial_port_base.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 // Copyright (c) 2008 Rep Invariant Systems, Inc. (info@repinvariant.com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -111,7 +111,6 @@ boost::system::error_code serial_port_base::baud_rate::store(
   case 4000000: baud = B4000000; break;
 # endif
   default:
-    baud = B0;
     ec = boost::asio::error::invalid_argument;
     return ec;
   }

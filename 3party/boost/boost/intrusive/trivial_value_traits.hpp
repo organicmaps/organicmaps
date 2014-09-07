@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2012
+// (C) Copyright Ion Gaztanaga  2006-2013
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -13,6 +13,8 @@
 #ifndef BOOST_INTRUSIVE_TRIVIAL_VALUE_TRAITS_HPP
 #define BOOST_INTRUSIVE_TRIVIAL_VALUE_TRAITS_HPP
 
+#include <boost/intrusive/detail/config_begin.hpp>
+#include <boost/intrusive/intrusive_fwd.hpp>
 #include <boost/intrusive/link_mode.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 
@@ -22,7 +24,11 @@ namespace intrusive {
 //!This value traits template is used to create value traits
 //!from user defined node traits where value_traits::value_type and
 //!node_traits::node should be equal
-template<class NodeTraits, link_mode_type LinkMode = normal_link>
+template<class NodeTraits, link_mode_type LinkMode
+   #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
+   = safe_link
+   #endif
+>
 struct trivial_value_traits
 {
    typedef NodeTraits                                          node_traits;
@@ -42,5 +48,7 @@ struct trivial_value_traits
 
 } //namespace intrusive
 } //namespace boost
+
+#include <boost/intrusive/detail/config_end.hpp>
 
 #endif //BOOST_INTRUSIVE_TRIVIAL_VALUE_TRAITS_HPP

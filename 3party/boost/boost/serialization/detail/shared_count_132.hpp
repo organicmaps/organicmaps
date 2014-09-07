@@ -3,7 +3,7 @@
 
 // MS compatible compilers support #pragma once
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -201,12 +201,12 @@ public:
 
 #if defined(BOOST_SP_ENABLE_DEBUG_HOOKS)
 
-template<class T> void cbi_call_constructor_hook(sp_counted_base * pn, T * px, checked_deleter< T > const &, int)
+template<class T> void cbi_call_constructor_hook(sp_counted_base * pn, T * px, boost::checked_deleter< T > const &, int)
 {
     boost::sp_scalar_constructor_hook(px, sizeof(T), pn);
 }
 
-template<class T> void cbi_call_constructor_hook(sp_counted_base *, T * px, checked_array_deleter< T > const &, int)
+template<class T> void cbi_call_constructor_hook(sp_counted_base *, T * px, boost::checked_array_deleter< T > const &, int)
 {
     boost::sp_array_constructor_hook(px);
 }
@@ -215,12 +215,12 @@ template<class P, class D> void cbi_call_constructor_hook(sp_counted_base *, P c
 {
 }
 
-template<class T> void cbi_call_destructor_hook(sp_counted_base * pn, T * px, checked_deleter< T > const &, int)
+template<class T> void cbi_call_destructor_hook(sp_counted_base * pn, T * px, boost::checked_deleter< T > const &, int)
 {
     boost::sp_scalar_destructor_hook(px, sizeof(T), pn);
 }
 
-template<class T> void cbi_call_destructor_hook(sp_counted_base *, T * px, checked_array_deleter< T > const &, int)
+template<class T> void cbi_call_destructor_hook(sp_counted_base *, T * px, boost::checked_array_deleter< T > const &, int)
 {
     boost::sp_array_destructor_hook(px);
 }

@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -10,7 +10,7 @@
  * \date   29.07.2007
  *
  * \brief  This header is the Boost.Log library implementation, see the library documentation
- *         at http://www.boost.org/libs/log/doc/log.html.
+ *         at http://www.boost.org/doc/libs/release/libs/log/doc/html/index.html.
  */
 
 #ifndef BOOST_LOG_ATTACHABLE_SSTREAM_BUF_HPP_INCLUDED_
@@ -24,7 +24,7 @@
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -82,8 +82,8 @@ public:
     //! Clears the buffer to the initial state
     void clear()
     {
-        register char_type* pBase = this->pbase();
-        register char_type* pPtr = this->pptr();
+        char_type* pBase = this->pbase();
+        char_type* pPtr = this->pptr();
         if (pBase != pPtr)
             this->pbump(static_cast< int >(pBase - pPtr));
     }
@@ -113,8 +113,8 @@ protected:
     int sync()
     {
         BOOST_ASSERT(m_Storage != 0);
-        register char_type* pBase = this->pbase();
-        register char_type* pPtr = this->pptr();
+        char_type* pBase = this->pbase();
+        char_type* pPtr = this->pptr();
         if (pBase != pPtr)
         {
             m_Storage->append(pBase, pPtr);
@@ -141,7 +141,7 @@ protected:
         BOOST_ASSERT(m_Storage != 0);
         basic_ostringstreambuf::sync();
         typedef typename string_type::size_type string_size_type;
-        register const string_size_type max_storage_left =
+        const string_size_type max_storage_left =
             m_Storage->max_size() - m_Storage->size();
         if (static_cast< string_size_type >(n) < max_storage_left)
         {
@@ -156,9 +156,9 @@ protected:
     }
 
     //! Copy constructor (closed)
-    BOOST_LOG_DELETED_FUNCTION(basic_ostringstreambuf(basic_ostringstreambuf const& that))
+    BOOST_DELETED_FUNCTION(basic_ostringstreambuf(basic_ostringstreambuf const& that))
     //! Assignment (closed)
-    BOOST_LOG_DELETED_FUNCTION(basic_ostringstreambuf& operator= (basic_ostringstreambuf const& that))
+    BOOST_DELETED_FUNCTION(basic_ostringstreambuf& operator= (basic_ostringstreambuf const& that))
 };
 
 } // namespace aux

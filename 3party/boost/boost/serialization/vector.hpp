@@ -2,7 +2,7 @@
 #define BOOST_SERIALIZATION_VECTOR_HPP
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -121,9 +121,9 @@ inline void save(
     const std::vector<U, Allocator> &t,
     const unsigned int file_version
 ){
-    typedef BOOST_DEDUCED_TYPENAME 
+    typedef typename 
     boost::serialization::use_array_optimization<Archive>::template apply<
-        BOOST_DEDUCED_TYPENAME remove_const<U>::type 
+        typename remove_const<U>::type 
     >::type use_optimized;
     save(ar,t,file_version, use_optimized());
 }
@@ -141,9 +141,9 @@ inline void load(
       return;
     }
 #endif
-    typedef BOOST_DEDUCED_TYPENAME 
+    typedef typename 
     boost::serialization::use_array_optimization<Archive>::template apply<
-        BOOST_DEDUCED_TYPENAME remove_const<U>::type 
+        typename remove_const<U>::type 
     >::type use_optimized;
     load(ar,t,file_version, use_optimized());
 }
@@ -158,8 +158,6 @@ inline void serialize(
 ){
     boost::serialization::split_free(ar, t, file_version);
 }
-
-#if ! BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 // vector<bool>
@@ -206,8 +204,6 @@ inline void serialize(
 ){
     boost::serialization::split_free(ar, t, file_version);
 }
-
-#endif // BOOST_WORKAROUND
 
 } // serialization
 } // namespace boost

@@ -285,7 +285,7 @@ namespace boost { namespace spirit { namespace lex
             lexer_def_& operator= (lexer_def_ const&);
         };
 
-#if defined(BOOST_NO_RVALUE_REFERENCES)
+#if defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
         // allow to assign a token definition expression
         template <typename LexerDef, typename Expr>
         inline lexer_def_<LexerDef>&

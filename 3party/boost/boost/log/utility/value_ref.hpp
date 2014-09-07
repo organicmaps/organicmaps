@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -37,7 +37,7 @@
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/parameter_tools.hpp>
 #include <boost/log/detail/value_ref_visitation.hpp>
-#include <boost/log/utility/explicit_operator_bool.hpp>
+#include <boost/utility/explicit_operator_bool.hpp>
 #include <boost/log/utility/formatting_ostream_fwd.hpp>
 #include <boost/log/utility/functional/logical.hpp>
 #include <boost/log/utility/functional/bind.hpp>
@@ -47,7 +47,7 @@
 #include <boost/log/utility/value_ref_fwd.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -428,12 +428,12 @@ public:
     /*!
      * Default constructor. Creates a reference wrapper that does not refer to a value.
      */
-    BOOST_LOG_DEFAULTED_FUNCTION(value_ref(), BOOST_NOEXCEPT {})
+    BOOST_DEFAULTED_FUNCTION(value_ref(), BOOST_NOEXCEPT {})
 
     /*!
      * Copy constructor.
      */
-    BOOST_LOG_DEFAULTED_FUNCTION(value_ref(value_ref const& that), BOOST_NOEXCEPT : base_type(static_cast< base_type const& >(that)) {})
+    BOOST_DEFAULTED_FUNCTION(value_ref(value_ref const& that), BOOST_NOEXCEPT : base_type(static_cast< base_type const& >(that)) {})
 
     /*!
      * Initializing constructor. Creates a reference wrapper that refers to the specified value.
@@ -447,7 +447,7 @@ public:
     /*!
      * The operator verifies if the wrapper refers to a value.
      */
-    BOOST_LOG_EXPLICIT_OPERATOR_BOOL()
+    BOOST_EXPLICIT_OPERATOR_BOOL_NOEXCEPT()
 
     /*!
      * The operator verifies if the wrapper does not refer to a value.

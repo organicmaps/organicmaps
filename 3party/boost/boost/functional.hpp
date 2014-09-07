@@ -6,7 +6,7 @@
 // Boost functional.hpp header file
 // See http://www.boost.org/libs/functional for documentation.
 // ------------------------------------------------------------------------------
-// $Id: functional.hpp 36246 2006-12-02 14:17:26Z andreas_huber69 $
+// $Id$
 // ------------------------------------------------------------------------------
 
 #ifndef BOOST_FUNCTIONAL_HPP

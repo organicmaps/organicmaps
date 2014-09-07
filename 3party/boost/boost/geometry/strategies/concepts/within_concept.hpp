@@ -143,7 +143,7 @@ class WithinStrategyPointBox
                 (
                     (boost::is_same
                         <
-                            bool, 
+                            bool,
                             typename boost::function_types::result_type<ApplyMethod>::type
                         >::type::value),
                     WRONG_RETURN_TYPE
@@ -207,7 +207,7 @@ class WithinStrategyBoxBox
                 (
                     (boost::is_same
                         <
-                            bool, 
+                            bool,
                             typename boost::function_types::result_type<ApplyMethod>::type
                         >::type::value),
                     WRONG_RETURN_TYPE
@@ -237,8 +237,8 @@ public :
 };
 
 // So now: boost::geometry::concept::within
-namespace within 
-{ 
+namespace within
+{
 
 #ifndef DOXYGEN_NO_DISPATCH
 namespace dispatch

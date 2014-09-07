@@ -8,7 +8,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: discard_block.hpp 72951 2011-07-07 04:57:37Z steven_watanabe $
+ * $Id$
  *
  * Revision history
  *  2001-03-02  created
@@ -24,6 +24,7 @@
 #include <boost/static_assert.hpp>
 #include <boost/random/detail/config.hpp>
 #include <boost/random/detail/seed.hpp>
+#include <boost/random/detail/seed_impl.hpp>
 
 
 namespace boost {
@@ -61,7 +62,7 @@ public:
     /** Constructs a new \discard_block_engine with a copy of rng. */
     explicit discard_block_engine(const base_type & rng) : _rng(rng), _n(0) { }
 
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
     /** Constructs a new \discard_block_engine with rng. */
     explicit discard_block_engine(base_type && rng) : _rng(rng), _n(0) { }
 #endif

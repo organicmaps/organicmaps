@@ -47,9 +47,7 @@ struct digraph : public std::pair<charT, charT>
    digraph(charT c1) : std::pair<charT, charT>(c1, 0){}
    digraph(charT c1, charT c2) : std::pair<charT, charT>(c1, c2)
    {}
-#if !BOOST_WORKAROUND(BOOST_MSVC, < 1300)
    digraph(const digraph<charT>& d) : std::pair<charT, charT>(d.first, d.second){}
-#endif
    template <class Seq>
    digraph(const Seq& s) : std::pair<charT, charT>()
    {
@@ -346,7 +344,7 @@ re_literal* basic_regex_creator<charT, traits>::append_literal(charT c)
       m_last_state = result = static_cast<re_literal*>(getaddress(off));
       charT* characters = static_cast<charT*>(static_cast<void*>(result+1));
       characters[result->length] = m_traits.translate(c, m_icase);
-      ++(result->length);
+      result->length += 1;
    }
    return result;
 }
@@ -433,20 +431,10 @@ re_syntax_base* basic_regex_creator<charT, traits>::append_set(
       if(flags() & regex_constants::collate)
       {
          // we need to transform our range into sort keys:
-#if BOOST_WORKAROUND(__GNUC__, < 3)
-         string_type in(3, charT(0));
-         in[0] = c1.first;
-         in[1] = c1.second;
-         s1 = this->m_traits.transform(in.c_str(), (in[1] ? in.c_str()+2 : in.c_str()+1));
-         in[0] = c2.first;
-         in[1] = c2.second;
-         s2 = this->m_traits.transform(in.c_str(), (in[1] ? in.c_str()+2 : in.c_str()+1));
-#else
          charT a1[3] = { c1.first, c1.second, charT(0), };
          charT a2[3] = { c2.first, c2.second, charT(0), };
          s1 = this->m_traits.transform(a1, (a1[1] ? a1+2 : a1+1));
          s2 = this->m_traits.transform(a2, (a2[1] ? a2+2 : a2+1));
-#endif
          if(s1.size() == 0)
             s1 = string_type(1, charT(0));
          if(s2.size() == 0)
@@ -491,15 +479,8 @@ re_syntax_base* basic_regex_creator<charT, traits>::append_set(
       string_type s;
       if(first->second)
       {
-#if BOOST_WORKAROUND(__GNUC__, < 3)
-         string_type in(3, charT(0));
-         in[0] = first->first;
-         in[1] = first->second;
-         s = m_traits.transform_primary(in.c_str(), in.c_str()+2);
-#else
          charT cs[3] = { first->first, first->second, charT(0), };
          s = m_traits.transform_primary(cs, cs+2);
-#endif
       }
       else
          s = m_traits.transform_primary(&first->first, &first->first+1);

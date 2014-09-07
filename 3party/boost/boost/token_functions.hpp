@@ -278,22 +278,7 @@ namespace boost{
   struct assign_or_plus_equal {
     template<class Iterator, class Token>
     static void assign(Iterator b, Iterator e, Token &t) {
-
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300) &&\
-    BOOST_WORKAROUND(__SGI_STL_PORT, < 0x500) &&\
-    defined(_STLP_DEBUG) &&\
-    (defined(_STLP_USE_DYNAMIC_LIB) || defined(_DLL))
-    // Problem with string::assign for msvc-stlport in debug mode: the
-    // linker tries to import the templatized version of this memfun,
-    // which is obviously not exported.
-    // See http://www.stlport.com/dcforum/DCForumID6/1763.html for details.
-
-      t = Token();
-      while(b != e) t += *b++;
-#else
       t.assign(b, e);
-#endif
-
     }
 
     template<class Token, class Value>

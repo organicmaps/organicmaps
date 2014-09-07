@@ -7,6 +7,7 @@
 #if !defined(FUSION_AT_05042005_0722)
 #define FUSION_AT_05042005_0722
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/fusion/sequence/intrinsic_fwd.hpp>
@@ -71,6 +72,7 @@ namespace boost { namespace fusion
 
 
     template <typename N, typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename
         lazy_disable_if<
             is_const<Sequence>
@@ -82,6 +84,7 @@ namespace boost { namespace fusion
     }
 
     template <typename N, typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::at<Sequence const, N>::type
     at(Sequence const& seq)
     {
@@ -89,6 +92,7 @@ namespace boost { namespace fusion
     }
 
     template <int N, typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename
         lazy_disable_if<
             is_const<Sequence>
@@ -100,6 +104,7 @@ namespace boost { namespace fusion
     }
 
     template <int N, typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::at_c<Sequence const, N>::type
     at_c(Sequence const& seq)
     {

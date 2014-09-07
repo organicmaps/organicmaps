@@ -18,11 +18,13 @@
 #pragma once
 #endif
 
+#include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/special_functions/ellint_rf.hpp>
 #include <boost/math/special_functions/ellint_rd.hpp>
 #include <boost/math/constants/constants.hpp>
 #include <boost/math/policies/error_handling.hpp>
 #include <boost/math/tools/workaround.hpp>
+#include <boost/math/special_functions/round.hpp>
 
 // Elliptic integrals (complete and incomplete) of the second kind
 // Carlson, Numerische Mathematik, vol 33, 1 (1979)
@@ -74,14 +76,14 @@ T ellint_e_imp(T phi, T k, const Policy& pol)
        // but that fails if T has more digits than a long long,
        // so rewritten to use fmod instead:
        //
-       T rphi = boost::math::tools::fmod_workaround(phi, T(constants::pi<T>() / 2));
-       T m = floor((2 * phi) / constants::pi<T>());
+       T rphi = boost::math::tools::fmod_workaround(phi, T(constants::half_pi<T>()));
+       T m = boost::math::round((phi - rphi) / constants::half_pi<T>());
        int s = 1;
        if(boost::math::tools::fmod_workaround(m, T(2)) > 0.5)
        {
           m += 1;
           s = -1;
-          rphi = constants::pi<T>() / 2 - rphi;
+          rphi = constants::half_pi<T>() - rphi;
        }
        T sinp = sin(rphi);
        T cosp = cos(rphi);

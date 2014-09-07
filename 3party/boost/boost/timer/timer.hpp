@@ -26,12 +26,6 @@
 
 //--------------------------------------------------------------------------------------//
 
-//  TODO:
-//  
-//  * Add BOOST_NOEXCEPT where applicable
-
-//--------------------------------------------------------------------------------------//
-
 namespace boost
 {
 namespace timer
@@ -65,19 +59,19 @@ namespace timer
   public:
 
     //  constructor
-    cpu_timer()                                    { start(); }
+    cpu_timer() BOOST_NOEXCEPT                                   { start(); }
 
     //  observers
-    bool          is_stopped() const               { return m_is_stopped; }
-    cpu_times     elapsed() const;  // does not stop()
+    bool          is_stopped() const BOOST_NOEXCEPT              { return m_is_stopped; }
+    cpu_times     elapsed() const BOOST_NOEXCEPT;  // does not stop()
     std::string   format(short places, const std::string& format) const
                         { return ::boost::timer::format(elapsed(), places, format); }
     std::string   format(short places = default_places) const
                         { return ::boost::timer::format(elapsed(), places); }
     //  actions
-    void          start();
-    void          stop();
-    void          resume(); 
+    void          start() BOOST_NOEXCEPT;
+    void          stop() BOOST_NOEXCEPT;
+    void          resume() BOOST_NOEXCEPT; 
 
   private:
     cpu_times     m_times;

@@ -86,7 +86,6 @@ inline bool can_start(unsigned int c, const unsigned char* map, unsigned char ma
 // which succeeds when it should not.
 //
 #ifndef _RWSTD_VER
-#if !BOOST_WORKAROUND(BOOST_MSVC, < 1310)
 template <class C, class T, class A>
 inline int string_compare(const std::basic_string<C,T,A>& s, const C* p)
 { 
@@ -97,9 +96,7 @@ inline int string_compare(const std::basic_string<C,T,A>& s, const C* p)
    }
    return s.compare(p); 
 }
-#endif
 #else
-#if !BOOST_WORKAROUND(BOOST_MSVC, < 1310)
 template <class C, class T, class A>
 inline int string_compare(const std::basic_string<C,T,A>& s, const C* p)
 { 
@@ -110,7 +107,6 @@ inline int string_compare(const std::basic_string<C,T,A>& s, const C* p)
    }
    return s.compare(p); 
 }
-#endif
 inline int string_compare(const std::string& s, const char* p)
 { return std::strcmp(s.c_str(), p); }
 # ifndef BOOST_NO_WREGEX

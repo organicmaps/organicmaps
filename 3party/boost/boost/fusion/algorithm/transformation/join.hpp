@@ -8,6 +8,7 @@
 #if !defined(FUSION_JOIN_200601222109)
 #define FUSION_JOIN_200601222109
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/joint_view.hpp>
 
 namespace boost { namespace fusion {
@@ -22,6 +23,7 @@ namespace boost { namespace fusion {
     }
 
     template<typename LhSequence, typename RhSequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::join<LhSequence const, RhSequence const>::type
     join(LhSequence const& lhs, RhSequence const& rhs)
     {

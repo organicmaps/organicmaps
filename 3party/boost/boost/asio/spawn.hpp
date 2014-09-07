@@ -2,7 +2,7 @@
 // spawn.hpp
 // ~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,7 +16,7 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
-#include <boost/coroutine/coroutine.hpp>
+#include <boost/coroutine/all.hpp>
 #include <boost/asio/detail/weak_ptr.hpp>
 #include <boost/asio/detail/wrapped_handler.hpp>
 #include <boost/asio/io_service.hpp>
@@ -58,7 +58,7 @@ public:
    */
 #if defined(GENERATING_DOCUMENTATION)
   typedef implementation_defined callee_type;
-#elif defined(BOOST_COROUTINES_UNIDRECT) || defined(BOOST_COROUTINES_V2)
+#elif defined(BOOST_COROUTINES_UNIDIRECT) || defined(BOOST_COROUTINES_V2)
   typedef boost::coroutines::push_coroutine<void> callee_type;
 #else
   typedef boost::coroutines::coroutine<void()> callee_type;
@@ -73,7 +73,7 @@ public:
    */
 #if defined(GENERATING_DOCUMENTATION)
   typedef implementation_defined caller_type;
-#elif defined(BOOST_COROUTINES_UNIDRECT) || defined(BOOST_COROUTINES_V2)
+#elif defined(BOOST_COROUTINES_UNIDIRECT) || defined(BOOST_COROUTINES_V2)
   typedef boost::coroutines::pull_coroutine<void> caller_type;
 #else
   typedef boost::coroutines::coroutine<void()>::caller_type caller_type;
@@ -131,7 +131,7 @@ private:
 };
 
 #if defined(GENERATING_DOCUMENTATION)
-/// Context object the represents the currently executing coroutine.
+/// Context object that represents the currently executing coroutine.
 typedef basic_yield_context<unspecified> yield_context;
 #else // defined(GENERATING_DOCUMENTATION)
 typedef basic_yield_context<
@@ -218,7 +218,7 @@ void spawn(basic_yield_context<Handler> ctx,
     const boost::coroutines::attributes& attributes
       = boost::coroutines::attributes());
 
-/// Start a new stackful coroutine that executes in the contex of a strand.
+/// Start a new stackful coroutine that executes in the context of a strand.
 /**
  * This function is used to launch a new coroutine.
  *

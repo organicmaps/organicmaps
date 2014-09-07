@@ -2,7 +2,7 @@
 // ip/basic_resolver_query.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -153,7 +153,7 @@ public:
   {
     typename InternetProtocol::endpoint endpoint;
     hints_.ai_flags = static_cast<int>(resolve_flags);
-    hints_.ai_family = PF_UNSPEC;
+    hints_.ai_family = BOOST_ASIO_OS_DEF(AF_UNSPEC);
     hints_.ai_socktype = endpoint.protocol().type();
     hints_.ai_protocol = endpoint.protocol().protocol();
     hints_.ai_addrlen = 0;

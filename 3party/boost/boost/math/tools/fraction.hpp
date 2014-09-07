@@ -33,7 +33,7 @@ namespace detail
        typedef typename Gen::result_type result_type;
        typedef typename Gen::result_type value_type;
 
-       static result_type a(const value_type& v)
+       static result_type a(const value_type&)
        {
           return 1;
        }

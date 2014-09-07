@@ -183,9 +183,9 @@ public:
         typename node<Value, Parameters, Box, allocators, node_d_mem_dynamic_tag>::type
     >::other::pointer node_pointer;
 
-    typedef typename Allocator::template rebind<
-        typename internal_node<Value, Parameters, Box, allocators, node_d_mem_dynamic_tag>::type
-    >::other::pointer internal_node_pointer;
+//    typedef typename Allocator::template rebind<
+//        typename internal_node<Value, Parameters, Box, allocators, node_d_mem_dynamic_tag>::type
+//    >::other::pointer internal_node_pointer;
 
     typedef typename Allocator::template rebind<
         typename internal_node<Value, Parameters, Box, allocators, node_d_mem_dynamic_tag>::type

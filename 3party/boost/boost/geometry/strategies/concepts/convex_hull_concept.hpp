@@ -46,11 +46,11 @@ class ConvexHullStrategy
     {
         static void apply()
         {
-            Strategy const* str;
+            Strategy const* str = 0;
 
-            state_type* st;
-            geometry_type* sp;
-            std::vector<point_type> *v;
+            state_type* st = 0;
+            geometry_type* sp = 0;
+            std::vector<point_type> *v = 0;
 
             // 4) must implement a method apply, iterating over a range
             str->apply(*sp, *st);

@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -16,14 +16,14 @@
 #define BOOST_LOG_ATTRIBUTES_ATTRIBUTE_HPP_INCLUDED_
 
 #include <new>
-#include <boost/intrusive_ptr.hpp>
 #include <boost/move/core.hpp>
+#include <boost/smart_ptr/intrusive_ptr.hpp>
+#include <boost/smart_ptr/intrusive_ref_counter.hpp>
 #include <boost/log/detail/config.hpp>
-#include <boost/log/utility/intrusive_ref_counter.hpp>
-#include <boost/log/utility/explicit_operator_bool.hpp>
+#include <boost/utility/explicit_operator_bool.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -66,9 +66,14 @@ public:
      *
      * All attributes must derive their implementation from this class.
      */
-    struct BOOST_LOG_NO_VTABLE BOOST_LOG_VISIBLE impl :
-        public intrusive_ref_counter
+    struct BOOST_LOG_NO_VTABLE BOOST_SYMBOL_VISIBLE impl :
+        public boost::intrusive_ref_counter< impl >
     {
+        /*!
+         * \brief Virtual destructor
+         */
+        virtual ~impl() {}
+
         /*!
          * \return The actual attribute value. It shall not return empty values (exceptions
          *         shall be used to indicate errors).
@@ -88,7 +93,7 @@ public:
      * Default constructor. Creates an empty attribute value factory, which is not usable until
      * \c set_impl is called.
      */
-    BOOST_LOG_DEFAULTED_FUNCTION(attribute(), {})
+    BOOST_DEFAULTED_FUNCTION(attribute(), {})
 
     /*!
      * Copy constructor
@@ -132,7 +137,7 @@ public:
     /*!
      * Verifies that the factory is not in empty state
      */
-    BOOST_LOG_EXPLICIT_OPERATOR_BOOL()
+    BOOST_EXPLICIT_OPERATOR_BOOL_NOEXCEPT()
 
     /*!
      * Verifies that the factory is in empty state

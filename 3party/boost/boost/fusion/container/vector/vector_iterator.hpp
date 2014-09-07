@@ -7,6 +7,7 @@
 #if !defined(FUSION_VECTOR_ITERATOR_05042005_0635)
 #define FUSION_VECTOR_ITERATOR_05042005_0635
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/iterator_base.hpp>
 #include <boost/fusion/container/vector/detail/deref_impl.hpp>
 #include <boost/fusion/container/vector/detail/value_of_impl.hpp>
@@ -36,6 +37,7 @@ namespace boost { namespace fusion
         typedef vector_iterator_identity<
             typename add_const<Vector>::type, N> identity;
 
+        BOOST_FUSION_GPU_ENABLED
         vector_iterator(Vector& in_vec)
             : vec(in_vec) {}
         Vector& vec;

@@ -123,7 +123,6 @@ boman_et_al_graph_coloring
     process_group_type;
   typedef typename process_group_type::process_id_type process_id_type;
   typedef typename graph_traits<DistributedGraph>::vertex_descriptor Vertex;
-  typedef typename graph_traits<DistributedGraph>::edge_descriptor Edge;
   typedef typename graph_traits<DistributedGraph>::vertices_size_type 
     vertices_size_type;
   typedef typename property_traits<ColorMap>::value_type color_type;
@@ -148,7 +147,7 @@ boman_et_al_graph_coloring
   typedef typename process_group_type::communication_category
     communication_category;
   static const bool asynchronous = 
-    is_convertible<communication_category, immediate_process_group_tag>::value;
+    is_convertible<communication_category, boost::parallel::immediate_process_group_tag>::value;
   process_group_type pg = process_group(g);
 
   // U_i <- V_i

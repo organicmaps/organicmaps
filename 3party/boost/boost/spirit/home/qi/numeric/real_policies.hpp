@@ -37,9 +37,9 @@ namespace boost { namespace spirit { namespace qi
 
         template <typename Iterator, typename Attribute>
         static bool
-        parse_n(Iterator& first, Iterator const& last, Attribute& attr)
+        parse_n(Iterator& first, Iterator const& last, Attribute& attr_)
         {
-            return extract_uint<T, 10, 1, -1>::call(first, last, attr);
+            return extract_uint<T, 10, 1, -1>::call(first, last, attr_);
         }
 
         template <typename Iterator>
@@ -54,9 +54,9 @@ namespace boost { namespace spirit { namespace qi
 
         template <typename Iterator, typename Attribute>
         static bool
-        parse_frac_n(Iterator& first, Iterator const& last, Attribute& attr)
+        parse_frac_n(Iterator& first, Iterator const& last, Attribute& attr_)
         {
-            return extract_uint<T, 10, 1, -1, true>::call(first, last, attr);
+            return extract_uint<T, 10, 1, -1, true>::call(first, last, attr_);
         }
 
         template <typename Iterator>
@@ -71,9 +71,9 @@ namespace boost { namespace spirit { namespace qi
 
         template <typename Iterator>
         static bool
-        parse_exp_n(Iterator& first, Iterator const& last, int& attr)
+        parse_exp_n(Iterator& first, Iterator const& last, int& attr_)
         {
-            return extract_int<int, 10, 1, -1>::call(first, last, attr);
+            return extract_int<int, 10, 1, -1>::call(first, last, attr_);
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ namespace boost { namespace spirit { namespace qi
         ///////////////////////////////////////////////////////////////////////
         template <typename Iterator, typename Attribute>
         static bool
-        parse_nan(Iterator& first, Iterator const& last, Attribute& attr)
+        parse_nan(Iterator& first, Iterator const& last, Attribute& attr_)
         {
             if (first == last)
                 return false;   // end of input reached
@@ -128,7 +128,7 @@ namespace boost { namespace spirit { namespace qi
 
                     first = ++i;
                 }
-                attr = std::numeric_limits<T>::quiet_NaN();
+                attr_ = std::numeric_limits<T>::quiet_NaN();
                 return true;
             }
             return false;
@@ -136,7 +136,7 @@ namespace boost { namespace spirit { namespace qi
 
         template <typename Iterator, typename Attribute>
         static bool
-        parse_inf(Iterator& first, Iterator const& last, Attribute& attr)
+        parse_inf(Iterator& first, Iterator const& last, Attribute& attr_)
         {
             if (first == last)
                 return false;   // end of input reached
@@ -149,7 +149,7 @@ namespace boost { namespace spirit { namespace qi
             {
                 // skip allowed 'inity' part of infinity
                 detail::string_parse("inity", "INITY", first, last, unused);
-                attr = std::numeric_limits<T>::infinity();
+                attr_ = std::numeric_limits<T>::infinity();
                 return true;
             }
             return false;

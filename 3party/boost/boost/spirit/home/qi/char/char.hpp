@@ -123,8 +123,8 @@ namespace boost { namespace spirit { namespace qi
         typedef CharEncoding char_encoding;
 
         template <typename Char>
-        literal_char(Char ch)
-          : ch(static_cast<char_type>(ch)) {}
+        literal_char(Char ch_)
+          : ch(static_cast<char_type>(ch_)) {}
 
         template <typename Context, typename Iterator>
         struct attribute
@@ -201,8 +201,8 @@ namespace boost { namespace spirit { namespace qi
         typedef typename CharEncoding::char_type char_type;
         typedef CharEncoding char_encoding;
 
-        char_range(char_type from, char_type to)
-          : from(from), to(to) {}
+        char_range(char_type from_, char_type to_)
+          : from(from_), to(to_) {}
 
         template <typename CharParam, typename Context>
         bool test(CharParam ch_, Context&) const

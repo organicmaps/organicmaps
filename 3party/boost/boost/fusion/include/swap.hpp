@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_SWAP)
 #define FUSION_INCLUDE_SWAP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/swap.hpp>
 
 #endif

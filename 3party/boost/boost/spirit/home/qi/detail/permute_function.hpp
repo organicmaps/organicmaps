@@ -20,12 +20,12 @@ namespace boost { namespace spirit { namespace qi { namespace detail
     struct permute_function
     {
         permute_function(
-            Iterator& first, Iterator const& last
-          , Context& context, Skipper const& skipper)
-          : first(first)
-          , last(last)
-          , context(context)
-          , skipper(skipper)
+            Iterator& first_, Iterator const& last_
+          , Context& context_, Skipper const& skipper_)
+          : first(first_)
+          , last(last_)
+          , context(context_)
+          , skipper(skipper_)
         {
         }
 

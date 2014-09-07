@@ -285,78 +285,6 @@ operator^(chlit<CharT> const& a, chset<CharT> const& b)
     return chset<CharT>(a.ch) ^ b;
 }
 
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-
-///////////////////////////////////////////////////////////////////////////////
-//
-//  negated_char_parser <--> chset free operators implementation
-//
-///////////////////////////////////////////////////////////////////////////////
-template <typename CharT, typename ParserT>
-inline chset<CharT>
-operator|(chset<CharT> const& a, negated_char_parser<ParserT> const& b)
-{
-    return a | chset<CharT>(b);
-}
-
-//////////////////////////////////
-template <typename CharT, typename ParserT>
-inline chset<CharT>
-operator&(chset<CharT> const& a, negated_char_parser<ParserT> const& b)
-{
-    return a & chset<CharT>(b);
-}
-
-//////////////////////////////////
-template <typename CharT, typename ParserT>
-inline chset<CharT>
-operator-(chset<CharT> const& a, negated_char_parser<ParserT> const& b)
-{
-    return a - chset<CharT>(b);
-}
-
-//////////////////////////////////
-template <typename CharT, typename ParserT>
-inline chset<CharT>
-operator^(chset<CharT> const& a, negated_char_parser<ParserT> const& b)
-{
-    return a ^ chset<CharT>(b);
-}
-
-//////////////////////////////////
-template <typename CharT, typename ParserT>
-inline chset<CharT>
-operator|(negated_char_parser<ParserT> const& a, chset<CharT> const& b)
-{
-    return chset<CharT>(a) | b;
-}
-
-//////////////////////////////////
-template <typename CharT, typename ParserT>
-inline chset<CharT>
-operator&(negated_char_parser<ParserT> const& a, chset<CharT> const& b)
-{
-    return chset<CharT>(a) & b;
-}
-
-//////////////////////////////////
-template <typename CharT, typename ParserT>
-inline chset<CharT>
-operator-(negated_char_parser<ParserT> const& a, chset<CharT> const& b)
-{
-    return chset<CharT>(a) - b;
-}
-
-//////////////////////////////////
-template <typename CharT, typename ParserT>
-inline chset<CharT>
-operator^(negated_char_parser<ParserT> const& a, chset<CharT> const& b)
-{
-    return chset<CharT>(a) ^ b;
-}
-
-#else // BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  negated_char_parser<range> <--> chset free operators implementation
@@ -492,8 +420,6 @@ operator^(negated_char_parser<chlit<CharT> > const& a, chset<CharT> const& b)
 {
     return chset<CharT>(a) ^ b;
 }
-
-#endif // BOOST_WORKAROUND(BOOST_MSVC, < 1300)
 
 ///////////////////////////////////////////////////////////////////////////////
 //

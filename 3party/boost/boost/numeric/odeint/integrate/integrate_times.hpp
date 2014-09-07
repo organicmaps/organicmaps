@@ -6,8 +6,8 @@
  Integration of ODEs with observation at user defined points
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Karsten Ahnert
+ Copyright 2011-2012 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -40,10 +40,11 @@ size_t integrate_times(
         TimeIterator times_start , TimeIterator times_end , Time dt ,
         Observer observer )
 {
+    typedef typename odeint::unwrap_reference< Stepper >::type::stepper_category stepper_category;
     return detail::integrate_times(
             stepper , system , start_state ,
             times_start , times_end , dt ,
-            observer , typename Stepper::stepper_category() );
+            observer , stepper_category() );
 }
 
 /**
@@ -55,10 +56,11 @@ size_t integrate_times(
         TimeIterator times_start , TimeIterator times_end , Time dt ,
         Observer observer )
 {
+    typedef typename odeint::unwrap_reference< Stepper >::type::stepper_category stepper_category;
     return detail::integrate_times(
             stepper , system , start_state ,
             times_start , times_end , dt ,
-            observer , typename Stepper::stepper_category() );
+            observer , stepper_category() );
 }
 
 /**

@@ -2,7 +2,7 @@
 #define BOOST_ARCHIVE_BINARY_IPRIMITIVE_HPP
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -126,7 +126,7 @@ public:
         template <class T>  
         #if defined(BOOST_NO_DEPENDENT_NESTED_DERIVATIONS)  
             struct apply {  
-                typedef BOOST_DEDUCED_TYPENAME boost::serialization::is_bitwise_serializable< T >::type type;  
+                typedef typename boost::serialization::is_bitwise_serializable< T >::type type;  
             };
         #else
             struct apply : public boost::serialization::is_bitwise_serializable< T > {};  
@@ -178,7 +178,7 @@ basic_binary_iprimitive<Archive, Elem, Tr>::load_binary(
             boost::serialization::throw_exception(
                 archive_exception(archive_exception::input_stream_error)
             );
-        std::memcpy(static_cast<char*>(address) + (count - s), &t, s);
+        std::memcpy(static_cast<char*>(address) + (count - s), &t, static_cast<std::size_t>(s));
     }
 }
 

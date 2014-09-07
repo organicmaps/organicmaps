@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: exception.hpp 81315 2012-11-13 00:45:01Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_EXCEPTION_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_EXCEPTION_HPP_INCLUDED

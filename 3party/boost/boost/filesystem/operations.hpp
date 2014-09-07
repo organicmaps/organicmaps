@@ -33,8 +33,9 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/iterator.hpp>
 #include <boost/cstdint.hpp>
+#include <boost/range/mutable_iterator.hpp>
+#include <boost/range/const_iterator.hpp>
 #include <boost/assert.hpp>
-
 #include <string>
 #include <utility> // for pair
 #include <ctime>
@@ -53,6 +54,116 @@ namespace boost
 {
   namespace filesystem
   {
+
+    //--------------------------------------------------------------------------------------//
+    //                                                                                      //
+    //                            class filesystem_error                                    //
+    //                                                                                      //
+    //--------------------------------------------------------------------------------------//
+
+    class BOOST_SYMBOL_VISIBLE filesystem_error : public system::system_error
+    {
+      // see http://www.boost.org/more/error_handling.html for design rationale
+
+      // all functions are inline to avoid issues with crossing dll boundaries
+
+      // functions previously throw() are now BOOST_NOEXCEPT_OR_NOTHROW
+      // functions previously without throw() are now BOOST_NOEXCEPT
+
+    public:
+      // compiler generates copy constructor and copy assignment
+
+      filesystem_error(
+        const std::string & what_arg, system::error_code ec) BOOST_NOEXCEPT
+        : system::system_error(ec, what_arg)
+      {
+        try
+        {
+          m_imp_ptr.reset(new m_imp);
+        }
+        catch (...) { m_imp_ptr.reset(); }
+      }
+
+      filesystem_error(
+        const std::string & what_arg, const path& path1_arg,
+        system::error_code ec) BOOST_NOEXCEPT
+        : system::system_error(ec, what_arg)
+      {
+        try
+        {
+          m_imp_ptr.reset(new m_imp);
+          m_imp_ptr->m_path1 = path1_arg;
+        }
+        catch (...) { m_imp_ptr.reset(); }
+      }
+
+      filesystem_error(
+        const std::string & what_arg, const path& path1_arg,
+        const path& path2_arg, system::error_code ec) BOOST_NOEXCEPT
+        : system::system_error(ec, what_arg)
+      {
+        try
+        {
+          m_imp_ptr.reset(new m_imp);
+          m_imp_ptr->m_path1 = path1_arg;
+          m_imp_ptr->m_path2 = path2_arg;
+        }
+        catch (...) { m_imp_ptr.reset(); }
+      }
+
+      ~filesystem_error() BOOST_NOEXCEPT_OR_NOTHROW{}
+
+        const path& path1() const BOOST_NOEXCEPT
+      {
+        static const path empty_path;
+        return m_imp_ptr.get() ? m_imp_ptr->m_path1 : empty_path;
+      }
+        const path& path2() const  BOOST_NOEXCEPT
+      {
+        static const path empty_path;
+        return m_imp_ptr.get() ? m_imp_ptr->m_path2 : empty_path;
+      }
+
+        const char* what() const BOOST_NOEXCEPT_OR_NOTHROW
+      {
+        if (!m_imp_ptr.get())
+        return system::system_error::what();
+
+        try
+        {
+          if (m_imp_ptr->m_what.empty())
+          {
+            m_imp_ptr->m_what = system::system_error::what();
+            if (!m_imp_ptr->m_path1.empty())
+            {
+              m_imp_ptr->m_what += ": \"";
+              m_imp_ptr->m_what += m_imp_ptr->m_path1.string();
+              m_imp_ptr->m_what += "\"";
+            }
+            if (!m_imp_ptr->m_path2.empty())
+            {
+              m_imp_ptr->m_what += ", \"";
+              m_imp_ptr->m_what += m_imp_ptr->m_path2.string();
+              m_imp_ptr->m_what += "\"";
+            }
+          }
+          return m_imp_ptr->m_what.c_str();
+        }
+        catch (...)
+        {
+          return system::system_error::what();
+        }
+      }
+
+    private:
+      struct m_imp
+      {
+        path         m_path1; // may be empty()
+        path         m_path2; // may be empty()
+        std::string  m_what;  // not built until needed
+      };
+      boost::shared_ptr<m_imp> m_imp_ptr;
+    };
 
 //--------------------------------------------------------------------------------------//
 //                                     file_type                                        //
@@ -108,7 +219,7 @@ namespace boost
     others_exe = 01,    // S_IXOTH, Execute/search permission, others
     others_all = 07,    // S_IRWXO, Read, write, execute/search by others
 
-    all_all = owner_all|group_all|others_all,  // 0777
+    all_all = 0777,     // owner_all|group_all|others_all
 
     // other POSIX bits
 
@@ -121,7 +232,7 @@ namespace boost
                             // (SVID-v4.2) On directories: restricted deletion flag
                             // Also see http://en.wikipedia.org/wiki/Sticky_bit
 
-    perms_mask = all_all|set_uid_on_exe|set_gid_on_exe|sticky_bit,  // 07777
+    perms_mask = 07777,     // all_all|set_uid_on_exe|set_gid_on_exe|sticky_bit
 
     perms_not_known = 0xFFFF, // present when directory_entry cache not loaded
 
@@ -721,6 +832,37 @@ namespace detail
       { return m_imp == rhs.m_imp; }
   };
 
+  //  enable C++11 range-base for statement use  ---------------------------------------//
+
+  //  begin() and end() are only used by a range-based for statement in the context of
+  //  auto - thus the top-level const is stripped - so returning const is harmless and
+  //  emphasizes begin() is just a pass through.
+  inline
+  const directory_iterator& begin(const directory_iterator& iter)  {return iter;}
+  inline
+  directory_iterator end(const directory_iterator&)  {return directory_iterator();}
+
+  //  enable BOOST_FOREACH  ------------------------------------------------------------//
+
+  inline
+  directory_iterator& range_begin(directory_iterator& iter) {return iter;}
+  inline
+  directory_iterator range_begin(const directory_iterator& iter) {return iter;}
+  inline
+  directory_iterator range_end(const directory_iterator&) {return directory_iterator();}
+  }  // namespace filesystem
+
+  //  namespace boost template specializations
+  template<>
+  struct range_mutable_iterator<boost::filesystem::directory_iterator>
+    { typedef boost::filesystem::directory_iterator type; };
+  template<>
+  struct range_const_iterator <boost::filesystem::directory_iterator>
+    { typedef boost::filesystem::directory_iterator type; };
+
+namespace filesystem
+{
+
 //--------------------------------------------------------------------------------------//
 //                                                                                      //
 //                      recursive_directory_iterator helpers                            //
@@ -751,6 +893,8 @@ namespace detail
 
       void increment(system::error_code* ec);  // ec == 0 means throw on error
 
+      bool push_directory(system::error_code& ec) BOOST_NOEXCEPT;
+
       void pop();
 
     };
@@ -760,9 +904,14 @@ namespace detail
     //  clients of struct 'boost::filesystem::detail::recur_dir_itr_imp'
 
     inline
-    void recur_dir_itr_imp::increment(system::error_code* ec)
-    // ec == 0 means throw on error
+    bool recur_dir_itr_imp::push_directory(system::error_code& ec) BOOST_NOEXCEPT
+    // Returns: true if push occurs, otherwise false. Always returns false on error.
     {
+      ec.clear();
+
+      //  Discover if the iterator is for a directory that needs to be recursed into,
+      //  taking symlinks and options into account.
+
       if ((m_options & symlink_option::_detail_no_push) == symlink_option::_detail_no_push)
         m_options &= ~symlink_option::_detail_no_push;
 
@@ -775,40 +924,78 @@ namespace detail
         //       && is_directory(m_stack.top()->status())) ...
         // The predicate code has since been rewritten to pass error_code arguments,
         // per ticket #5653.
-        bool or_pred = (m_options & symlink_option::recurse) == symlink_option::recurse
-                       || (ec == 0 ? !is_symlink(m_stack.top()->symlink_status())
-                                   : !is_symlink(m_stack.top()->symlink_status(*ec)));
-        if (ec != 0 && *ec)
-          return;
-        bool and_pred = or_pred && (ec == 0 ? is_directory(m_stack.top()->status())
-                                            : is_directory(m_stack.top()->status(*ec)));
-        if (ec != 0 && *ec)
-          return;
 
-        if (and_pred)
+        file_status symlink_stat;
+
+        if ((m_options & symlink_option::recurse) != symlink_option::recurse)
         {
-          if (ec == 0)
-            m_stack.push(directory_iterator(m_stack.top()->path()));
-          else
+          symlink_stat = m_stack.top()->symlink_status(ec);
+          if (ec)
+            return false;
+        }
+
+        if ((m_options & symlink_option::recurse) == symlink_option::recurse
+          || !is_symlink(symlink_stat))
+        {
+          file_status stat = m_stack.top()->status(ec);
+          if (ec || !is_directory(stat))
+            return false;
+
+          directory_iterator next(m_stack.top()->path(), ec);
+          if (!ec && next != directory_iterator())
           {
-            m_stack.push(directory_iterator(m_stack.top()->path(), *ec));
-            if (*ec)
-              return;
-          }
-          if (m_stack.top() != directory_iterator())
-          {
+            m_stack.push(next);
             ++m_level;
-            return;
+            return true;
           }
-          m_stack.pop();
         }
       }
+      return false;
+    }
 
+    inline
+    void recur_dir_itr_imp::increment(system::error_code* ec)
+    // ec == 0 means throw on error
+    // 
+    // Invariant: On return, the top of the iterator stack is the next valid (possibly
+    // end) iterator, regardless of whether or not an error is reported, and regardless of
+    // whether any error is reported by exception or error code. In other words, progress
+    // is always made so a loop on the iterator will always eventually terminate
+    // regardless of errors.
+    {
+      system::error_code ec_push_directory;
+
+      //  if various conditions are met, push a directory_iterator into the iterator stack
+      if (push_directory(ec_push_directory))
+      {
+        if (ec)
+          ec->clear();
+        return;
+      }
+
+      //  Do the actual increment operation on the top iterator in the iterator
+      //  stack, popping the stack if necessary, until either the stack is empty or a
+      //  non-end iterator is reached.
       while (!m_stack.empty() && ++m_stack.top() == directory_iterator())
       {
         m_stack.pop();
         --m_level;
       }
+
+      // report errors if any
+      if (ec_push_directory)
+      {
+        if (ec)
+          *ec = ec_push_directory;
+        else
+        {
+          BOOST_FILESYSTEM_THROW(filesystem_error(
+            "filesystem::recursive_directory_iterator directory error",
+            ec_push_directory));
+        }
+      }
+      else if (ec)
+        ec->clear();
     }
 
     inline
@@ -967,116 +1154,45 @@ namespace detail
 
   };
 
+  //  enable C++11 range-base for statement use  ---------------------------------------//
+
+  //  begin() and end() are only used by a range-based for statement in the context of
+  //  auto - thus the top-level const is stripped - so returning const is harmless and
+  //  emphasizes begin() is just a pass through.
+  inline
+  const recursive_directory_iterator& begin(const recursive_directory_iterator& iter)
+                                                                            {return iter;}
+  inline
+  recursive_directory_iterator end(const recursive_directory_iterator&)
+                                                  {return recursive_directory_iterator();}
+
+  //  enable BOOST_FOREACH  ------------------------------------------------------------//
+
+  inline
+  recursive_directory_iterator& range_begin(recursive_directory_iterator& iter)
+                                                                            {return iter;}
+  inline
+  recursive_directory_iterator range_begin(const recursive_directory_iterator& iter)
+                                                                            {return iter;}
+  inline
+  recursive_directory_iterator range_end(const recursive_directory_iterator&)
+                                                  {return recursive_directory_iterator();}
+  }  // namespace filesystem
+
+  //  namespace boost template specializations
+  template<>
+  struct range_mutable_iterator<boost::filesystem::recursive_directory_iterator>
+                        { typedef boost::filesystem::recursive_directory_iterator type; };
+  template<>
+  struct range_const_iterator <boost::filesystem::recursive_directory_iterator>
+                        { typedef boost::filesystem::recursive_directory_iterator type; };
+
+namespace filesystem
+{
+
 # if !defined(BOOST_FILESYSTEM_NO_DEPRECATED)
   typedef recursive_directory_iterator wrecursive_directory_iterator;
 # endif
-
-//--------------------------------------------------------------------------------------//
-//                                                                                      //
-//                            class filesystem_error                                    //
-//                                                                                      //
-//--------------------------------------------------------------------------------------//
-  
-  class BOOST_SYMBOL_VISIBLE filesystem_error : public system::system_error
-  {
-  // see http://www.boost.org/more/error_handling.html for design rationale
-
-  // all functions are inline to avoid issues with crossing dll boundaries
-
-  public:
-    // compiler generates copy constructor and copy assignment
-
-    filesystem_error(
-      const std::string & what_arg, system::error_code ec)
-      : system::system_error(ec, what_arg)
-    {
-      try
-      {
-        m_imp_ptr.reset(new m_imp);
-      }
-      catch (...) { m_imp_ptr.reset(); }
-    }
-
-    filesystem_error(
-      const std::string & what_arg, const path& path1_arg,
-      system::error_code ec)
-      : system::system_error(ec, what_arg)
-    {
-      try
-      {
-        m_imp_ptr.reset(new m_imp);
-        m_imp_ptr->m_path1 = path1_arg;
-      }
-      catch (...) { m_imp_ptr.reset(); }
-    }
-    
-    filesystem_error(
-      const std::string & what_arg, const path& path1_arg,
-      const path& path2_arg, system::error_code ec)
-      : system::system_error(ec, what_arg)
-    {
-      try
-      {
-        m_imp_ptr.reset(new m_imp);
-        m_imp_ptr->m_path1 = path1_arg;
-        m_imp_ptr->m_path2 = path2_arg;
-      }
-      catch (...) { m_imp_ptr.reset(); }
-    }
-
-    ~filesystem_error() throw() {}
-
-    const path& path1() const
-    {
-      static const path empty_path;
-      return m_imp_ptr.get() ? m_imp_ptr->m_path1 : empty_path ;
-    }
-    const path& path2() const
-    {
-      static const path empty_path;
-      return m_imp_ptr.get() ? m_imp_ptr->m_path2 : empty_path ;
-    }
-
-    const char* what() const throw()
-    {
-      if (!m_imp_ptr.get())
-        return system::system_error::what();
-
-      try
-      {
-        if (m_imp_ptr->m_what.empty())
-        {
-          m_imp_ptr->m_what = system::system_error::what();
-          if (!m_imp_ptr->m_path1.empty())
-          {
-            m_imp_ptr->m_what += ": \"";
-            m_imp_ptr->m_what += m_imp_ptr->m_path1.string();
-            m_imp_ptr->m_what += "\"";
-          }
-          if (!m_imp_ptr->m_path2.empty())
-          {
-            m_imp_ptr->m_what += ", \"";
-            m_imp_ptr->m_what += m_imp_ptr->m_path2.string();
-            m_imp_ptr->m_what += "\"";
-          }
-        }
-        return m_imp_ptr->m_what.c_str();
-      }
-      catch (...)
-      {
-        return system::system_error::what();
-      }
-    }
-
-  private:
-    struct m_imp
-    {
-      path         m_path1; // may be empty()
-      path         m_path2; // may be empty()
-      std::string  m_what;  // not built until needed
-    };
-    boost::shared_ptr<m_imp> m_imp_ptr;
-  };
 
 //  test helper  -----------------------------------------------------------------------//
 

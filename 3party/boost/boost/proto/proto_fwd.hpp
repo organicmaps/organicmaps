@@ -123,7 +123,7 @@
 # define BOOST_PROTO_EXTENDED_TEMPLATE_PARAMETERS_MATCHING 
 #endif
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # define BOOST_PROTO_DISABLE_MSVC_C4522 __pragma(warning(disable : 4522))  // 'class' : multiple assignment operators specified
 # define BOOST_PROTO_DISABLE_MSVC_C4714 __pragma(warning(disable : 4714))  // function 'xxx' marked as __forceinline not inlined
 #else

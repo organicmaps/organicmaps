@@ -62,7 +62,7 @@ inline ReturnType determinant(U const& u, V const& v)
 
     return calculate_determinant
         <
-            ReturnType, 
+            ReturnType,
             typename geometry::coordinate_type<U>::type,
             typename geometry::coordinate_type<V>::type
         >::apply(get<0>(u), get<1>(u), get<0>(v), get<1>(v));

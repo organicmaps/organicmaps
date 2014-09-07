@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_INCLUDE_ADAPT_ASSOC_CLASS_NAMED_HPP
 #define BOOST_FUSION_INCLUDE_ADAPT_ASSOC_CLASS_NAMED_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/class/adapt_assoc_class_named.hpp>
 
 #endif

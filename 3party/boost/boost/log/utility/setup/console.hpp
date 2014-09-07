@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -16,8 +16,9 @@
 #define BOOST_LOG_UTILITY_SETUP_CONSOLE_HPP_INCLUDED_
 
 #include <iostream>
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
+#include <boost/smart_ptr/shared_ptr.hpp>
+#include <boost/smart_ptr/make_shared_object.hpp>
+#include <boost/core/null_deleter.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/sink_init_helpers.hpp>
 #ifndef BOOST_LOG_NO_THREADS
@@ -26,13 +27,12 @@
 #include <boost/log/sinks/unlocked_frontend.hpp>
 #endif
 #include <boost/log/sinks/text_ostream_backend.hpp>
-#include <boost/log/utility/empty_deleter.hpp>
 #include <boost/log/keywords/format.hpp>
 #include <boost/log/keywords/filter.hpp>
 #include <boost/log/keywords/auto_flush.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -59,7 +59,7 @@ shared_ptr<
     >
 > add_console_log(std::basic_ostream< CharT >& strm, ArgsT const& args)
 {
-    shared_ptr< std::basic_ostream< CharT > > pStream(&strm, empty_deleter());
+    shared_ptr< std::basic_ostream< CharT > > pStream(&strm, boost::null_deleter());
 
     typedef sinks::basic_text_ostream_backend< CharT > backend_t;
     shared_ptr< backend_t > pBackend = boost::make_shared< backend_t >();

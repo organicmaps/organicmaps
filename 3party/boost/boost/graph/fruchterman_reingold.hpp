@@ -282,7 +282,6 @@ fruchterman_reingold_force_directed_layout
   Cooling         cool,
   DisplacementMap displacement)
 {
-  typedef typename Topology::point_type Point;
   typedef typename graph_traits<Graph>::vertex_iterator   vertex_iterator;
   typedef typename graph_traits<Graph>::vertex_descriptor vertex_descriptor;
   typedef typename graph_traits<Graph>::edge_iterator     edge_iterator;

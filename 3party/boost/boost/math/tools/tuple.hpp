@@ -7,8 +7,6 @@
 #  define BOOST_MATH_TUPLE_HPP_INCLUDED
 #  include <boost/config.hpp>
 
-#include <boost/tr1/detail/config.hpp>  // for BOOST_HAS_TR1_TUPLE
-
 #ifndef BOOST_NO_CXX11_HDR_TUPLE
 
 #include <tuple>
@@ -29,27 +27,7 @@ using ::std::tuple_element;
 
 }}
 
-#elif defined(BOOST_HAS_TR1_TUPLE)
-
-#include <boost/tr1/tuple.hpp>
-
-namespace boost{ namespace math{
-
-using ::std::tr1::tuple;
-
-// [6.1.3.2] Tuple creation functions
-using ::std::tr1::ignore;
-using ::std::tr1::make_tuple;
-using ::std::tr1::tie;
-using ::std::tr1::get;
-
-// [6.1.3.3] Tuple helper classes
-using ::std::tr1::tuple_size;
-using ::std::tr1::tuple_element;
-
-}}
-
-#elif (defined(__BORLANDC__) && (__BORLANDC__ <= 0x600)) || (defined(_MSC_VER) && (_MSC_VER < 1310)) || defined(__IBMCPP__)
+#elif (defined(__BORLANDC__) && (__BORLANDC__ <= 0x600)) || defined(__IBMCPP__)
 
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>

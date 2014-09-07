@@ -9,6 +9,7 @@
 #if !defined(FUSION_MANIP_05052005_1200)
 #define FUSION_MANIP_05052005_1200
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/config.hpp>
 #include <string>
 #include <vector>
@@ -19,15 +20,11 @@
 #define FUSION_GET_CHAR_TYPE(T) typename T::char_type
 #define FUSION_GET_TRAITS_TYPE(T) typename T::traits_type
 
-#if defined (BOOST_NO_TEMPLATED_STREAMS)
-#define FUSION_STRING_OF_STREAM(Stream) std::string
-#else
 #define FUSION_STRING_OF_STREAM(Stream)                                         \
     std::basic_string<                                                          \
         FUSION_GET_CHAR_TYPE(Stream)                                            \
       , FUSION_GET_TRAITS_TYPE(Stream)                                          \
     >
-#endif
 
 //$$$ these should be part of the public API$$$
 //$$$ rename tuple_open, tuple_close and tuple_delimiter to 
@@ -154,55 +151,6 @@ namespace boost { namespace fusion
 
     } // detail
 
-#if defined (BOOST_NO_TEMPLATED_STREAMS)
-
-#define STD_TUPLE_DEFINE_MANIPULATOR(name)                                      \
-    namespace detail                                                            \
-    {                                                                           \
-        struct name##_tag;                                                      \
-                                                                                \
-        struct name##_type                                                      \
-        {                                                                       \
-            typedef std::string string_type;                                    \
-            string_type data;                                                   \
-            name##_type(const string_type& d): data(d) {}                       \
-        };                                                                      \
-                                                                                \
-        template <typename Stream>                                              \
-        Stream& operator>>(Stream& s, const name##_type& m)                     \
-        {                                                                       \
-            string_ios_manip<name##_tag, Stream>(s).set(m.data);                \
-            return s;                                                           \
-        }                                                                       \
-                                                                                \
-        template <typename Stream>                                              \
-        Stream& operator<<(Stream& s, const name##_type& m)                     \
-        {                                                                       \
-            string_ios_manip<name##_tag, Stream>(s).set(m.data);                \
-            return s;                                                           \
-        }                                                                       \
-    }
-
-#define STD_TUPLE_DEFINE_MANIPULATOR_FUNCTIONS(name)                            \
-    inline detail::name##_type                                                  \
-    name(const std::string& s)                                                  \
-    {                                                                           \
-        return detail::name##_type(s);                                          \
-    }                                                                           \
-                                                                                \
-    inline detail::name##_type                                                  \
-    name(const char* s)                                                         \
-    {                                                                           \
-        return detail::name##_type(std::string(s));                             \
-    }                                                                           \
-                                                                                \
-    inline detail::name##_type                                                  \
-    name(char c)                                                                \
-    {                                                                           \
-        return detail::name##_type(std::string(1, c));                          \
-    }
-
-#else // defined(BOOST_NO_TEMPLATED_STREAMS)
 
 #if defined(BOOST_NO_FUNCTION_TEMPLATE_ORDERING)
 
@@ -299,7 +247,6 @@ namespace boost { namespace fusion
         }                                                                       \
     }                                                                           \
 
-#endif // defined(BOOST_NO_TEMPLATED_STREAMS)
 
     STD_TUPLE_DEFINE_MANIPULATOR(tuple_open)
     STD_TUPLE_DEFINE_MANIPULATOR(tuple_close)

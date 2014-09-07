@@ -73,11 +73,11 @@ public:
    typedef RealType value_type;
    typedef Policy policy_type;
 
-   gamma_distribution(RealType shape, RealType scale = 1)
-      : m_shape(shape), m_scale(scale)
+   gamma_distribution(RealType l_shape, RealType l_scale = 1)
+      : m_shape(l_shape), m_scale(l_scale)
    {
       RealType result;
-      detail::check_gamma("boost::math::gamma_distribution<%1%>::gamma_distribution", scale, shape, &result, Policy());
+      detail::check_gamma("boost::math::gamma_distribution<%1%>::gamma_distribution", l_scale, l_shape, &result, Policy());
    }
 
    RealType shape()const

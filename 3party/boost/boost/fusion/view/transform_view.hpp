@@ -7,6 +7,7 @@
 #if !defined(FUSION_SEQUENCE_VIEW_TRANSFORM_VIEW_10022005_0612)
 #define FUSION_SEQUENCE_VIEW_TRANSFORM_VIEW_10022005_0612
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/transform_view/transform_view.hpp>
 #include <boost/fusion/view/transform_view/transform_view_iterator.hpp>
 

@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_FUSED_FUNCTION_OBJECT)
 #define FUSION_INCLUDE_FUSED_FUNCTION_OBJECT
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/functional/adapter/fused_function_object.hpp>
 
 #endif

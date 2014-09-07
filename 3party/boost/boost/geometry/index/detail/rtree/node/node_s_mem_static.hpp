@@ -111,9 +111,9 @@ public:
         typename node<Value, Parameters, Box, allocators, node_s_mem_static_tag>::type
     >::other::pointer node_pointer;
 
-    typedef typename Allocator::template rebind<
-        typename internal_node<Value, Parameters, Box, allocators, node_s_mem_static_tag>::type
-    >::other::pointer internal_node_pointer;
+//    typedef typename Allocator::template rebind<
+//        typename internal_node<Value, Parameters, Box, allocators, node_s_mem_static_tag>::type
+//    >::other::pointer internal_node_pointer;
 
     typedef typename Allocator::template rebind<
         typename node<Value, Parameters, Box, allocators, node_s_mem_static_tag>::type
@@ -175,7 +175,7 @@ struct create_node<
         return create_static_node<
             typename Allocators::node_pointer,
             static_internal_node<Value, Parameters, Box, Allocators, node_s_mem_static_tag>
-        >::template apply(allocators.node_allocator());
+        >::apply(allocators.node_allocator());
     }
 };
 
@@ -191,7 +191,7 @@ struct create_node<
         return create_static_node<
             typename Allocators::node_pointer,
             static_leaf<Value, Parameters, Box, Allocators, node_s_mem_static_tag>
-        >::template apply(allocators.node_allocator());
+        >::apply(allocators.node_allocator());
     }
 };
 

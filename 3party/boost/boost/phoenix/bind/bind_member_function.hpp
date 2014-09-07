@@ -19,7 +19,8 @@ namespace boost { namespace phoenix
 {
 
     template <typename RT, typename ClassT, typename ClassA>
-    inline typename detail::expression::function_eval<
+    inline
+    typename detail::expression::function_eval<
             detail::member_function_ptr<0, RT, RT(ClassT::*)()>
           , ClassA
     >::type const
@@ -34,7 +35,8 @@ namespace boost { namespace phoenix
     }
 
     template <typename RT, typename ClassT, typename ClassA>
-    inline typename detail::expression::function_eval<
+    inline
+    typename detail::expression::function_eval<
             detail::member_function_ptr<0, RT, RT(ClassT::*)() const>
           , ClassA
     >::type const
@@ -51,7 +53,8 @@ namespace boost { namespace phoenix
     }
 
     template <typename RT, typename ClassT>
-    inline typename detail::expression::function_eval<
+    inline
+    typename detail::expression::function_eval<
             detail::member_function_ptr<0, RT, RT(ClassT::*)()>
           , ClassT
     >::type const
@@ -69,7 +72,8 @@ namespace boost { namespace phoenix
     }
 
     template <typename RT, typename ClassT>
-    inline typename detail::expression::function_eval<
+    inline
+    typename detail::expression::function_eval<
             detail::member_function_ptr<0, RT, RT(ClassT::*)() const>
           , ClassT
     >::type const

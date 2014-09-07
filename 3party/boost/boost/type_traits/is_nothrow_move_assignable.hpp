@@ -51,6 +51,15 @@ struct is_nothrow_move_assignable_imp{
         >::value));
 };
 
+#ifdef BOOST_NO_NOEXCEPT
+//
+// The above logic doesn't quite work in the absense of noexcept, 
+// this is really to improve things with VC13:
+//
+template <class T>
+struct is_nothrow_move_assignable_imp<T&>{ BOOST_STATIC_CONSTANT(bool, value = false); };
+#endif
+
 #else
 
 template <class T>

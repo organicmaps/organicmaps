@@ -294,7 +294,7 @@ public:
     }
 
     void swap(undirected_graph& g) {
-        m_graph.swap(g);
+        m_graph.swap(g.m_graph);
         std::swap(m_num_vertices, g.m_num_vertices);
         std::swap(m_max_vertex_index, g.m_max_vertex_index);
         std::swap(m_num_edges, g.m_num_edges);

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2012
+// (C) Copyright Ion Gaztanaga  2007-2013
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -16,24 +16,23 @@
 #include <boost/intrusive/detail/config_begin.hpp>
 #include <boost/intrusive/intrusive_fwd.hpp>
 #include <boost/intrusive/link_mode.hpp>
+#include <boost/intrusive/pack_options.hpp>
 #include <boost/intrusive/detail/mpl.hpp>
 #include <boost/intrusive/detail/utilities.hpp>
 #include <boost/static_assert.hpp>
 
-
 namespace boost {
 namespace intrusive {
 
-/// @cond
+#ifndef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
+//typedef void default_tag;
 struct default_tag;
 struct member_tag;
 
 namespace detail{
 
 struct default_hook_tag{};
-
-#ifndef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
 #define BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER) \
 struct BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER : public default_hook_tag\
@@ -45,54 +44,46 @@ struct BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER : public default_hook_tag\
 
 BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_list_hook);
 BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_slist_hook);
-BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_set_hook);
-BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_uset_hook);
-BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_avl_set_hook);
-BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_splay_set_hook);
-BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_bs_set_hook);
+BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_rbtree_hook);
+BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_hashtable_hook);
+BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_avltree_hook);
+BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION(default_bstree_hook);
 
 #undef BOOST_INTRUSIVE_DEFAULT_HOOK_MARKER_DEFINITION
-
-#endif   //BOOST_INTRUSIVE_DOXYGEN_INVOKED
-
-template <class ValueTraits>
-struct eval_value_traits
-{
-   typedef typename ValueTraits::value_traits type;
-};
-
-template <class BucketTraits>
-struct eval_bucket_traits
-{
-   typedef typename BucketTraits::bucket_traits type;
-};
 
 template <class T, class BaseHook>
 struct concrete_hook_base_value_traits
 {
-   typedef typename BaseHook::boost_intrusive_tags tags;
-   typedef detail::base_hook_traits
+   typedef typename BaseHook::hooktags tags;
+   typedef bhtraits
       < T
       , typename tags::node_traits
       , tags::link_mode
       , typename tags::tag
-      , tags::hook_type> type;
+      , tags::type> type;
 };
 
 template <class BaseHook>
 struct concrete_hook_base_node_traits
-{  typedef typename BaseHook::boost_intrusive_tags::node_traits type;  };
+{  typedef typename BaseHook::hooktags::node_traits type;  };
 
-template <class T, class BaseHook>
+template <class T, class AnyToSomeHook_ProtoValueTraits>
 struct any_hook_base_value_traits
 {
-   typedef typename BaseHook::boost_intrusive_tags tags;
-   typedef detail::base_hook_traits
+   //AnyToSomeHook value_traits derive from a generic_hook
+   //The generic_hook is configured with any_node_traits
+   //and AnyToSomeHook::value_traits with the correct
+   //node traits for the container, so use node_traits
+   //from AnyToSomeHook_ProtoValueTraits and the rest of
+   //elements from the hooktags member of the generic_hook
+   typedef AnyToSomeHook_ProtoValueTraits proto_value_traits;
+   typedef bhtraits
       < T
-      , typename BaseHook::node_traits
-      , tags::link_mode
-      , typename tags::tag
-      , tags::hook_type> type;
+      , typename proto_value_traits::node_traits
+      , proto_value_traits::hooktags::link_mode
+      , typename proto_value_traits::hooktags::tag
+      , proto_value_traits::hooktags::type
+      > type;
 };
 
 template <class BaseHook>
@@ -139,13 +130,14 @@ struct get_value_traits
       ,detail::apply<SupposedValueTraits, T>
       ,detail::identity<SupposedValueTraits>
    >::type supposed_value_traits;
+
    //...if it's a default hook
    typedef typename detail::eval_if_c
       < internal_base_hook_bool_is_true<supposed_value_traits>::value
       //...get it's internal value traits using
       //the provided T value type.
       , get_base_value_traits<T, supposed_value_traits>
-      //...else use it's internal value traits tag
+      //...else use its internal value traits tag
       //(member hooks and custom value traits are in this group)
       , detail::eval_if_c
          < internal_member_value_traits<supposed_value_traits>::value
@@ -171,7 +163,7 @@ struct get_node_traits
       //...get it's internal value traits using
       //the provided T value type.
       , get_base_node_traits<supposed_value_traits>
-      //...else use it's internal value traits tag
+      //...else use its internal value traits tag
       //(member hooks and custom value traits are in this group)
       , detail::eval_if_c
          < internal_member_value_traits<supposed_value_traits>::value
@@ -183,60 +175,23 @@ struct get_node_traits
 
 }  //namespace detail{
 
-
-//!This type indicates that no option is being used
-//!and that the default options should be used
-struct none
-{
-    template<class Base>
-    struct pack : Base
-    { };
-};
-
-/// @endcond
+#endif   //BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
 //!This option setter specifies if the intrusive
 //!container stores its size as a member to
 //!obtain constant-time size() member.
-template<bool Enabled>
-struct constant_time_size
-{
-/// @cond
-    template<class Base>
-    struct pack : Base
-    {
-        static const bool constant_time_size = Enabled;
-    };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_CONSTANT(constant_time_size, bool, Enabled, constant_time_size)
+
+//!This option setter specifies a container header holder type
+BOOST_INTRUSIVE_OPTION_TYPE(header_holder_type, HeaderHolder, HeaderHolder, header_holder_type)
 
 //!This option setter specifies the type that
 //!the container will use to store its size.
-template<class SizeType>
-struct size_type
-{
-/// @cond
-    template<class Base>
-    struct pack : Base
-    {
-        typedef SizeType size_type;
-    };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_TYPE(size_type, SizeType, SizeType, size_type)
 
 //!This option setter specifies the strict weak ordering
 //!comparison functor for the value type
-template<class Compare>
-struct compare
-{
-/// @cond
-    template<class Base>
-    struct pack : Base
-    {
-        typedef Compare compare;
-    };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_TYPE(compare, Compare, Compare, compare)
 
 //!This option setter for scapegoat containers specifies if
 //!the intrusive scapegoat container should use a non-variable
@@ -250,74 +205,39 @@ struct compare
 //!If the user only needs an alpha value near 1/sqrt(2), this
 //!option also improves performance since avoids logarithm
 //!and division operations when rebalancing the tree.
-template<bool Enabled>
-struct floating_point
-{
-/// @cond
-    template<class Base>
-    struct pack : Base
-    {
-        static const bool floating_point = Enabled;
-    };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_CONSTANT(floating_point, bool, Enabled, floating_point)
 
 //!This option setter specifies the equality
 //!functor for the value type
-template<class Equal>
-struct equal
-{
-/// @cond
-    template<class Base>
-    struct pack : Base
-    {
-        typedef Equal equal;
-    };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_TYPE(equal, Equal, Equal, equal)
 
 //!This option setter specifies the equality
 //!functor for the value type
-template<class Priority>
-struct priority
-{
-/// @cond
-    template<class Base>
-    struct pack : Base
-    {
-        typedef Priority priority;
-    };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_TYPE(priority, Priority, Priority, priority)
 
 //!This option setter specifies the hash
 //!functor for the value type
-template<class Hash>
-struct hash
-{
-/// @cond
-    template<class Base>
-    struct pack : Base
-    {
-        typedef Hash hash;
-    };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_TYPE(hash, Hash, Hash, hash)
 
 //!This option setter specifies the relationship between the type
 //!to be managed by the container (the value type) and the node to be
 //!used in the node algorithms. It also specifies the linking policy.
-template<typename ValueTraits>
-struct value_traits
-{
-/// @cond
-    template<class Base>
-    struct pack : Base
-    {
-        typedef ValueTraits value_traits;
-    };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_TYPE(value_traits, ValueTraits, ValueTraits, proto_value_traits)
+
+//#define BOOST_INTRUSIVE_COMMA ,
+//#define BOOST_INTRUSIVE_LESS <
+//#define BOOST_INTRUSIVE_MORE >
+//BOOST_INTRUSIVE_OPTION_TYPE (member_hook, Parent BOOST_INTRUSIVE_COMMA class MemberHook BOOST_INTRUSIVE_COMMA MemberHook Parent::* PtrToMember , mhtraits BOOST_INTRUSIVE_LESS Parent BOOST_INTRUSIVE_COMMA MemberHook BOOST_INTRUSIVE_COMMA PtrToMember BOOST_INTRUSIVE_MORE , proto_value_traits)
+//template< class Parent , class MemberHook , MemberHook Parent::* PtrToMember>
+//struct member_hook {
+//   template<class Base> struct pack : Base {
+//      typedef mhtraits < Parent , MemberHook , PtrToMember > proto_value_traits;
+//   };
+//};
+//
+//#undef BOOST_INTRUSIVE_COMMA
+//#undef BOOST_INTRUSIVE_LESS
+//#undef BOOST_INTRUSIVE_MORE
 
 //!This option setter specifies the member hook the
 //!container must use.
@@ -326,172 +246,78 @@ template< typename Parent
         , MemberHook Parent::* PtrToMember>
 struct member_hook
 {
-/// @cond
-   typedef detail::member_hook_traits
-      < Parent
-      , MemberHook
-      , PtrToMember
-      > member_value_traits;
+// @cond
+//   typedef typename MemberHook::hooktags::node_traits node_traits;
+//   typedef typename node_traits::node node_type;
+//   typedef node_type Parent::* Ptr2MemNode;
+//   typedef mhtraits
+//      < Parent
+//      , node_traits
+//      //This cast is really ugly but necessary to reduce template bloat.
+//      //Since we control the layout between the hook and the node, and there is
+//      //always single inheritance, the offset of the node is exactly the offset of
+//      //the hook. Since the node type is shared between all member hooks, this saves
+//      //quite a lot of symbol stuff.
+//      , (Ptr2MemNode)PtrToMember 
+//      , MemberHook::hooktags::link_mode> member_value_traits;
+   typedef mhtraits <Parent, MemberHook, PtrToMember> member_value_traits;
    template<class Base>
    struct pack : Base
    {
-      typedef member_value_traits value_traits;
+      typedef member_value_traits proto_value_traits;
    };
 /// @endcond
 };
-
 
 //!This option setter specifies the function object that will
 //!be used to convert between values to be inserted in a container
 //!and the hook to be used for that purpose.
-template< typename Functor>
-struct function_hook
-{
-/// @cond
-   typedef detail::function_hook_traits
-      <Functor> function_value_traits;
-   template<class Base>
-   struct pack : Base
-   {
-      typedef function_value_traits value_traits;
-   };
-/// @endcond
-};
-
+BOOST_INTRUSIVE_OPTION_TYPE(function_hook, Functor, fhtraits<Functor>, proto_value_traits)
 
 //!This option setter specifies that the container
 //!must use the specified base hook
-template<typename BaseHook>
-struct base_hook
-{
-/// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      typedef BaseHook value_traits;
-   };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_TYPE(base_hook, BaseHook, BaseHook, proto_value_traits)
 
 //!This option setter specifies the type of
 //!a void pointer. This will instruct the hook
 //!to use this type of pointer instead of the
 //!default one
-template<class VoidPointer>
-struct void_pointer
-{
-/// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      typedef VoidPointer void_pointer;
-   };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_TYPE(void_pointer, VoidPointer, VoidPointer, void_pointer)
 
 //!This option setter specifies the type of
 //!the tag of a base hook. A type cannot have two
 //!base hooks of the same type, so a tag can be used
 //!to differentiate two base hooks with otherwise same type
-template<class Tag>
-struct tag
-{
-/// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      typedef Tag tag;
-   };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_TYPE(tag, Tag, Tag, tag)
 
 //!This option setter specifies the link mode
 //!(normal_link, safe_link or auto_unlink)
-template<link_mode_type LinkType>
-struct link_mode
-{
-/// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      static const link_mode_type link_mode = LinkType;
-   };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_CONSTANT(link_mode, link_mode_type, LinkType, link_mode)
 
 //!This option setter specifies if the hook
 //!should be optimized for size instead of for speed.
-template<bool Enabled>
-struct optimize_size
-{
-/// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      static const bool optimize_size = Enabled;
-   };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_CONSTANT(optimize_size, bool, Enabled, optimize_size)
 
-//!This option setter specifies if the list container should
+//!This option setter specifies if the slist container should
 //!use a linear implementation instead of a circular one.
-template<bool Enabled>
-struct linear
-{
-/// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      static const bool linear = Enabled;
-   };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_CONSTANT(linear, bool, Enabled, linear)
 
-//!This option setter specifies if the list container should
-//!use a linear implementation instead of a circular one.
-template<bool Enabled>
-struct cache_last
-{
-/// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      static const bool cache_last = Enabled;
-   };
-/// @endcond
-};
+//!If true, slist also stores a pointer to the last element of the singly linked list.
+//!This allows O(1) swap and splice_after(iterator, slist &) for circular slists and makes
+//!possible new functions like push_back(reference) and back().
+BOOST_INTRUSIVE_OPTION_CONSTANT(cache_last, bool, Enabled, cache_last)
 
 //!This option setter specifies the bucket traits
 //!class for unordered associative containers. When this option is specified,
 //!instead of using the default bucket traits, a user defined holder will be defined
-template<class BucketTraits>
-struct bucket_traits
-{
-/// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      typedef BucketTraits bucket_traits;
-   };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_TYPE(bucket_traits, BucketTraits, BucketTraits, bucket_traits)
 
 //!This option setter specifies if the unordered hook
 //!should offer room to store the hash value.
 //!Storing the hash in the hook will speed up rehashing
 //!processes in applications where rehashing is frequent,
 //!rehashing might throw or the value is heavy to hash.
-template<bool Enabled>
-struct store_hash
-{
-/// @cond
-    template<class Base>
-    struct pack : Base
-    {
-        static const bool store_hash = Enabled;
-    };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_CONSTANT(store_hash, bool, Enabled, store_hash)
 
 //!This option setter specifies if the unordered hook
 //!should offer room to store another link to another node
@@ -499,51 +325,20 @@ struct store_hash
 //!Storing this link will speed up lookups and insertions on
 //!unordered_multiset containers with a great number of elements
 //!with the same key.
-template<bool Enabled>
-struct optimize_multikey
-{
-/// @cond
-    template<class Base>
-    struct pack : Base
-    {
-        static const bool optimize_multikey = Enabled;
-    };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_CONSTANT(optimize_multikey, bool, Enabled, optimize_multikey)
 
 //!This option setter specifies if the bucket array will be always power of two.
 //!This allows using masks instead of the default modulo operation to determine
 //!the bucket number from the hash value, leading to better performance.
 //!In debug mode, if power of two buckets mode is activated, the bucket length
 //!will be checked to through assertions to assure the bucket length is power of two.
-template<bool Enabled>
-struct power_2_buckets
-{
-/// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      static const bool power_2_buckets = Enabled;
-   };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_CONSTANT(power_2_buckets, bool, Enabled, power_2_buckets)
 
 //!This option setter specifies if the container will cache a pointer to the first
 //!non-empty bucket so that begin() is always constant-time.
 //!This is specially helpful when we can have containers with a few elements
 //!but with big bucket arrays (that is, hashtables with low load factors).
-template<bool Enabled>
-struct cache_begin
-{
-/// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      static const bool cache_begin = Enabled;
-   };
-/// @endcond
-};
-
+BOOST_INTRUSIVE_OPTION_CONSTANT(cache_begin, bool, Enabled, cache_begin)
 
 //!This option setter specifies if the container will compare the hash value
 //!before comparing objects. This option can't be specified if store_hash<>
@@ -551,17 +346,7 @@ struct cache_begin
 //!This is specially helpful when we have containers with a high load factor.
 //!and the comparison function is much more expensive that comparing already
 //!stored hash values.
-template<bool Enabled>
-struct compare_hash
-{
-/// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      static const bool compare_hash = Enabled;
-   };
-/// @endcond
-};
+BOOST_INTRUSIVE_OPTION_CONSTANT(compare_hash, bool, Enabled, compare_hash)
 
 //!This option setter specifies if the hash container will use incremental
 //!hashing. With incremental hashing the cost of hash table expansion is spread
@@ -569,236 +354,27 @@ struct compare_hash
 //!Therefore linear hashing is well suited for interactive applications or real-time
 //!appplications where the worst-case insertion time of non-incremental hash containers
 //!(rehashing the whole bucket array) is not admisible.
-template<bool Enabled>
-struct incremental
-{
-   /// @cond
-   template<class Base>
-   struct pack : Base
-   {
-      static const bool incremental = Enabled;
-   };
-   /// @endcond
-};
+BOOST_INTRUSIVE_OPTION_CONSTANT(incremental, bool, Enabled, incremental)
 
 /// @cond
 
-//To-do: pass to variadic templates
-#if !defined(BOOST_INTRUSIVE_VARIADIC_TEMPLATES)
-
-template<class Prev, class Next>
-struct do_pack
+struct none
 {
-   //Use "pack" member template to pack options
-   typedef typename Next::template pack<Prev> type;
+   template<class Base>
+   struct pack : Base
+   {};
 };
-
-template<class Prev>
-struct do_pack<Prev, none>
-{
-   //Avoid packing "none" to shorten template names
-   typedef Prev type;
-};
-
-template
-   < class DefaultOptions
-   , class O1         = none
-   , class O2         = none
-   , class O3         = none
-   , class O4         = none
-   , class O5         = none
-   , class O6         = none
-   , class O7         = none
-   , class O8         = none
-   , class O9         = none
-   , class O10        = none
-   , class O11        = none
-   >
-struct pack_options
-{
-   // join options
-   typedef
-      typename do_pack
-      <  typename do_pack
-         <  typename do_pack
-            <  typename do_pack
-               <  typename do_pack
-                  <  typename do_pack
-                     <  typename do_pack
-                        <  typename do_pack
-                           <  typename do_pack
-                              <  typename do_pack
-                                 <  typename do_pack
-                                    < DefaultOptions
-                                    , O1
-                                    >::type
-                                 , O2
-                                 >::type
-                              , O3
-                              >::type
-                           , O4
-                           >::type
-                        , O5
-                        >::type
-                     , O6
-                     >::type
-                  , O7
-                  >::type
-               , O8
-               >::type
-            , O9
-            >::type
-         , O10
-         >::type
-      , O11
-      >::type
-   type;
-};
-#else
-
-//index_tuple
-template<int... Indexes>
-struct index_tuple{};
-
-//build_number_seq
-template<std::size_t Num, typename Tuple = index_tuple<> >
-struct build_number_seq;
-
-template<std::size_t Num, int... Indexes>
-struct build_number_seq<Num, index_tuple<Indexes...> >
-   : build_number_seq<Num - 1, index_tuple<Indexes..., sizeof...(Indexes)> >
-{};
-
-template<int... Indexes>
-struct build_number_seq<0, index_tuple<Indexes...> >
-{  typedef index_tuple<Indexes...> type;  };
-
-template<class ...Types>
-struct typelist
-{};
-
-//invert_typelist
-template<class T>
-struct invert_typelist;
-
-template<int I, typename Tuple>
-struct typelist_element;
-
-template<int I, typename Head, typename... Tail>
-struct typelist_element<I, typelist<Head, Tail...> >
-{
-   typedef typename typelist_element<I-1, typelist<Tail...> >::type type;
-};
-
-template<typename Head, typename... Tail>
-struct typelist_element<0, typelist<Head, Tail...> >
-{
-   typedef Head type;
-};
-
-template<int ...Ints, class ...Types>
-typelist<typename typelist_element<(sizeof...(Types) - 1) - Ints, typelist<Types...> >::type...>
-   inverted_typelist(index_tuple<Ints...>, typelist<Types...>)
-{
-   return typelist<typename typelist_element<(sizeof...(Types) - 1) - Ints, typelist<Types...> >::type...>();
-}
-
-//sizeof_typelist
-template<class Typelist>
-struct sizeof_typelist;
-
-template<class ...Types>
-struct sizeof_typelist< typelist<Types...> >
-{
-   static const std::size_t value = sizeof...(Types);
-};
-
-//invert_typelist_impl
-template<class Typelist, class Indexes>
-struct invert_typelist_impl;
-
-
-template<class Typelist, int ...Ints>
-struct invert_typelist_impl< Typelist, index_tuple<Ints...> >
-{
-   static const std::size_t last_idx = sizeof_typelist<Typelist>::value - 1;
-   typedef typelist
-      <typename typelist_element<last_idx - Ints, Typelist>::type...> type;
-};
-
-template<class Typelist, int Int>
-struct invert_typelist_impl< Typelist, index_tuple<Int> >
-{
-   typedef Typelist type;
-};
-
-template<class Typelist>
-struct invert_typelist_impl< Typelist, index_tuple<> >
-{
-   typedef Typelist type;
-};
-
-//invert_typelist
-template<class Typelist>
-struct invert_typelist;
-
-template<class ...Types>
-struct invert_typelist< typelist<Types...> >
-{
-   typedef typelist<Types...> typelist_t;
-   typedef typename build_number_seq<sizeof...(Types)>::type indexes_t;
-   typedef typename invert_typelist_impl<typelist_t, indexes_t>::type type;
-};
-
-//Do pack
-template<class Typelist>
-struct do_pack;
-
-template<>
-struct do_pack<typelist<> >;
-
-template<class Prev>
-struct do_pack<typelist<Prev> >
-{
-   typedef Prev type;
-};
-
-template<class Prev, class Last>
-struct do_pack<typelist<Prev, Last> >
-{
-   typedef typename Prev::template pack<Last> type;
-};
-
-template<class Prev, class ...Others>
-struct do_pack<typelist<Prev, Others...> >
-{
-   typedef typename Prev::template pack
-      <typename do_pack<typelist<Others...> >::type> type;
-};
-
-
-template<class ...Options>
-struct pack_options
-{
-   typedef typelist<Options...> typelist_t;
-   typedef typename invert_typelist<typelist_t>::type inverted_typelist;
-   typedef typename do_pack<inverted_typelist>::type type;
-};
-
-#endif
 
 struct hook_defaults
-   :  public pack_options
-      < none
-      , void_pointer<void*>
-      , link_mode<safe_link>
-      , tag<default_tag>
-      , optimize_size<false>
-      , store_hash<false>
-      , linear<false>
-      , optimize_multikey<false>
-      >::type
-{};
+{
+   typedef void* void_pointer;
+   static const link_mode_type link_mode = safe_link;
+   typedef default_tag tag;
+   static const bool optimize_size = false;
+   static const bool store_hash = false;
+   static const bool linear = false;
+   static const bool optimize_multikey = false;
+};
 
 /// @endcond
 

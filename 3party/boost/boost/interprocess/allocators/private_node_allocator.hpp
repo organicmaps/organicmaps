@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_PRIVATE_NODE_ALLOCATOR_HPP
 #define BOOST_INTERPROCESS_PRIVATE_NODE_ALLOCATOR_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 

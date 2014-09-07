@@ -29,6 +29,7 @@ namespace boost { namespace fusion
                 typedef typename Iterator::vector vector;
                 typedef vector_iterator<vector, index::value+N::value> type;
     
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

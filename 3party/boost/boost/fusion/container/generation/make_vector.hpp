@@ -56,7 +56,7 @@ namespace boost { namespace fusion
         };
     }
 
-    inline vector0<>
+    BOOST_FUSION_GPU_ENABLED inline vector0<>
     make_vector()
     {
         return vector0<>();
@@ -92,19 +92,16 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template <BOOST_PP_ENUM_PARAMS(N, typename T)>
-#if defined(BOOST_NO_PARTIAL_SPECIALIZATION_IMPLICIT_DEFAULT_ARGS)
         #define TEXT(z, n, text) , text
         struct make_vector< BOOST_PP_ENUM_PARAMS(N, T) BOOST_PP_REPEAT_FROM_TO(BOOST_PP_DEC(N), FUSION_MAX_VECTOR_SIZE, TEXT, void_) >
         #undef TEXT
-#else
-        struct make_vector<BOOST_PP_ENUM_PARAMS(N, T)>
-#endif
         {
             typedef BOOST_PP_CAT(vector, N)<BOOST_PP_ENUM(N, BOOST_FUSION_AS_FUSION_ELEMENT, _)> type;
         };
     }
 
     template <BOOST_PP_ENUM_PARAMS(N, typename T)>
+    BOOST_FUSION_GPU_ENABLED
     inline BOOST_PP_CAT(vector, N)<BOOST_PP_ENUM(N, BOOST_FUSION_AS_FUSION_ELEMENT, _)>
     make_vector(BOOST_PP_ENUM_BINARY_PARAMS(N, T, const& _))
     {

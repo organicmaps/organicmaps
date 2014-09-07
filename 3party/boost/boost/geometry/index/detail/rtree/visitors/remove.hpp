@@ -2,7 +2,7 @@
 //
 // R-tree removing visitor implementation
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -32,7 +32,9 @@ class remove
 
     typedef rtree::node_auto_ptr<Value, Options, Translator, Box, Allocators> node_auto_ptr;
     typedef typename Allocators::node_pointer node_pointer;
-    typedef typename Allocators::internal_node_pointer internal_node_pointer;
+
+    //typedef typename Allocators::internal_node_pointer internal_node_pointer;
+    typedef internal_node * internal_node_pointer;
 
 public:
     inline remove(node_pointer & root,
@@ -66,7 +68,9 @@ public:
         size_t child_node_index = 0;
         for ( ; child_node_index < children.size() ; ++child_node_index )
         {
-            if ( geometry::covered_by(m_translator(m_value), children[child_node_index].first) )
+            if ( geometry::covered_by(
+                    return_ref_or_bounds(m_translator(m_value)),
+                    children[child_node_index].first) )
             {
                 // next traversing step
                 traverse_apply_visitor(n, child_node_index);                                                            // MAY THROW
@@ -198,6 +202,9 @@ private:
 
         BOOST_TRY
         {
+            // NOTE: those are elements of the internal node which means that copy/move shouldn't throw
+            // Though it's safer in case if the pointer type could throw in copy ctor.
+            // In the future this try-catch block could be removed.
             rtree::move_from_back(elements, underfl_el_it);                                             // MAY THROW (E: copy)
             elements.pop_back();
         }

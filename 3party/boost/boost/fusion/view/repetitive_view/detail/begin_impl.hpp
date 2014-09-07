@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_REPETITIVE_VIEW_BEGIN_IMPL_HPP_INCLUDED)
 #define BOOST_FUSION_REPETITIVE_VIEW_BEGIN_IMPL_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/fusion/view/repetitive_view/repetitive_view_fwd.hpp>
 
@@ -34,6 +35,7 @@ namespace boost { namespace fusion
                 typedef repetitive_view_iterator<sequence_type,
                     typename result_of::begin<sequence_type>::type > type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type call(View const& v)
                 {
                     return type(v.seq);

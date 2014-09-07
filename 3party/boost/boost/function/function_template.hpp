@@ -935,10 +935,11 @@ namespace boost {
 
       if (stored_vtable.assign_to(f, functor)) {
         std::size_t value = reinterpret_cast<std::size_t>(&stored_vtable.base);
+        // coverity[pointless_expression]: suppress coverity warnings on apparant if(const).
         if (boost::has_trivial_copy_constructor<Functor>::value &&
             boost::has_trivial_destructor<Functor>::value &&
             detail::function::function_allows_small_object_optimization<Functor>::value)
-          value |= static_cast<size_t>(0x01);
+          value |= static_cast<std::size_t>(0x01);
         vtable = reinterpret_cast<detail::function::vtable_base *>(value);
       } else 
         vtable = 0;
@@ -969,6 +970,7 @@ namespace boost {
 
       if (stored_vtable.assign_to_a(f, functor, a)) { 
         std::size_t value = reinterpret_cast<std::size_t>(&stored_vtable.base);
+        // coverity[pointless_expression]: suppress coverity warnings on apparant if(const).
         if (boost::has_trivial_copy_constructor<Functor>::value &&
             boost::has_trivial_destructor<Functor>::value &&
             detail::function::function_allows_small_object_optimization<Functor>::value)

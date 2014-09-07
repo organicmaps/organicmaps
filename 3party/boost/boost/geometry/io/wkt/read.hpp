@@ -14,6 +14,7 @@
 #ifndef BOOST_GEOMETRY_IO_WKT_READ_HPP
 #define BOOST_GEOMETRY_IO_WKT_READ_HPP
 
+#include <cstddef>
 #include <string>
 
 #include <boost/lexical_cast.hpp>
@@ -36,6 +37,8 @@
 #include <boost/geometry/core/geometry_id.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/mutable_range.hpp>
+#include <boost/geometry/core/point_type.hpp>
+#include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
@@ -306,8 +309,6 @@ struct ring_parser
 };
 
 
-
-
 /*!
 \brief Internal, parses a polygon from a string like this "((x y,x y),(x y,x y))"
 \note used for parsing polygons and multi-polygons
@@ -357,6 +358,7 @@ struct polygon_parser
         handle_close_parenthesis(it, end, wkt);
     }
 };
+
 
 inline bool one_of(tokenizer::iterator const& it, std::string const& value,
             bool& is_present)
@@ -469,7 +471,101 @@ struct geometry_parser
 };
 
 
+template <typename MultiGeometry, template<typename> class Parser, typename PrefixPolicy>
+struct multi_parser
+{
+    static inline void apply(std::string const& wkt, MultiGeometry& geometry)
+    {
+        traits::clear<MultiGeometry>::apply(geometry);
 
+        tokenizer tokens(wkt, boost::char_separator<char>(" ", ",()"));
+        tokenizer::iterator it;
+        if (initialize<MultiGeometry>(tokens, PrefixPolicy::apply(), wkt, it))
+        {
+            handle_open_parenthesis(it, tokens.end(), wkt);
+
+            // Parse sub-geometries
+            while(it != tokens.end() && *it != ")")
+            {
+                traits::resize<MultiGeometry>::apply(geometry, boost::size(geometry) + 1);
+                Parser
+                    <
+                        typename boost::range_value<MultiGeometry>::type
+                    >::apply(it, tokens.end(), wkt, *(boost::end(geometry) - 1));
+                if (it != tokens.end() && *it == ",")
+                {
+                    // Skip "," after multi-element is parsed
+                    ++it;
+                }
+            }
+
+            handle_close_parenthesis(it, tokens.end(), wkt);
+        }
+
+        check_end(it, tokens.end(), wkt);
+    }
+};
+
+template <typename P>
+struct noparenthesis_point_parser
+{
+    static inline void apply(tokenizer::iterator& it, tokenizer::iterator end,
+        std::string const& wkt, P& point)
+    {
+        parsing_assigner<P, 0, dimension<P>::value>::apply(it, end, point, wkt);
+    }
+};
+
+template <typename MultiGeometry, typename PrefixPolicy>
+struct multi_point_parser
+{
+    static inline void apply(std::string const& wkt, MultiGeometry& geometry)
+    {
+        traits::clear<MultiGeometry>::apply(geometry);
+
+        tokenizer tokens(wkt, boost::char_separator<char>(" ", ",()"));
+        tokenizer::iterator it;
+
+        if (initialize<MultiGeometry>(tokens, PrefixPolicy::apply(), wkt, it))
+        {
+            handle_open_parenthesis(it, tokens.end(), wkt);
+
+            // If first point definition starts with "(" then parse points as (x y)
+            // otherwise as "x y"
+            bool using_brackets = (it != tokens.end() && *it == "(");
+
+            while(it != tokens.end() && *it != ")")
+            {
+                traits::resize<MultiGeometry>::apply(geometry, boost::size(geometry) + 1);
+
+                if (using_brackets)
+                {
+                    point_parser
+                        <
+                            typename boost::range_value<MultiGeometry>::type
+                        >::apply(it, tokens.end(), wkt, *(boost::end(geometry) - 1));
+                }
+                else
+                {
+                    noparenthesis_point_parser
+                        <
+                            typename boost::range_value<MultiGeometry>::type
+                        >::apply(it, tokens.end(), wkt, *(boost::end(geometry) - 1));
+                }
+
+                if (it != tokens.end() && *it == ",")
+                {
+                    // Skip "," after point is parsed
+                    ++it;
+                }
+            }
+
+            handle_close_parenthesis(it, tokens.end(), wkt);
+        }
+
+        check_end(it, tokens.end(), wkt);
+    }
+};
 
 
 /*!
@@ -522,7 +618,7 @@ struct box_parser
         check_end(it, end, wkt);
 
         int index = 0;
-        int n = boost::size(points);
+        std::size_t n = boost::size(points);
         if (n == 2)
         {
             index = 1;
@@ -589,7 +685,6 @@ struct segment_parser
 };
 
 
-
 }} // namespace detail::wkt
 #endif // DOXYGEN_NO_DETAIL
 
@@ -643,6 +738,36 @@ struct read_wkt<polygon_tag, Geometry>
 {};
 
 
+template <typename MultiGeometry>
+struct read_wkt<multi_point_tag, MultiGeometry>
+    : detail::wkt::multi_point_parser
+            <
+                MultiGeometry,
+                detail::wkt::prefix_multipoint
+            >
+{};
+
+template <typename MultiGeometry>
+struct read_wkt<multi_linestring_tag, MultiGeometry>
+    : detail::wkt::multi_parser
+            <
+                MultiGeometry,
+                detail::wkt::linestring_parser,
+                detail::wkt::prefix_multilinestring
+            >
+{};
+
+template <typename MultiGeometry>
+struct read_wkt<multi_polygon_tag, MultiGeometry>
+    : detail::wkt::multi_parser
+            <
+                MultiGeometry,
+                detail::wkt::polygon_parser,
+                detail::wkt::prefix_multipolygon
+            >
+{};
+
+
 // Box (Non-OGC)
 template <typename Box>
 struct read_wkt<box_tag, Box>
@@ -662,28 +787,11 @@ struct read_wkt<segment_tag, Segment>
 /*!
 \brief Parses OGC Well-Known Text (\ref WKT) into a geometry (any geometry)
 \ingroup wkt
+\tparam Geometry \tparam_geometry
 \param wkt string containing \ref WKT
-\param geometry output geometry
-\par Example:
-\note It is case insensitive and can have the WKT forms "point", "point m", "point z", "point zm", "point mz"
-\note Empty sequences can have forms as "LINESTRING ()" or "POLYGON(())"
-Small example showing how to use read_wkt to build a point
-\dontinclude doxygen_1.cpp
-\skip example_from_wkt_point
-\line {
-\until }
-\par Example:
-Small example showing how to use read_wkt to build a linestring
-\dontinclude doxygen_1.cpp
-\skip example_from_wkt_linestring
-\line {
-\until }
-\par Example:
-Small example showing how to use read_wkt to build a polygon
-\dontinclude doxygen_1.cpp
-\skip example_from_wkt_polygon
-\line {
-\until }
+\param geometry \param_geometry output geometry
+\ingroup wkt
+\qbk{[include reference/io/read_wkt.qbk]}
 */
 template <typename Geometry>
 inline void read_wkt(std::string const& wkt, Geometry& geometry)

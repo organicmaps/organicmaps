@@ -2,7 +2,7 @@
 //
 // R-tree R*-tree insert algorithm implementation
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -28,7 +28,9 @@ public:
     typedef typename rtree::leaf<Value, typename Options::parameters_type, Box, Allocators, typename Options::node_tag>::type leaf;
 
     typedef typename Options::parameters_type parameters_type;
-    typedef typename Allocators::internal_node_pointer internal_node_pointer;
+
+    //typedef typename Allocators::internal_node_pointer internal_node_pointer;
+    typedef internal_node * internal_node_pointer;
 
     template <typename ResultElements, typename Node>
     static inline void apply(ResultElements & result_elements,
@@ -43,7 +45,9 @@ public:
         typedef typename elements_type::value_type element_type;
         typedef typename geometry::point_type<Box>::type point_type;
         // TODO: awulkiew - change second point_type to the point type of the Indexable?
-        typedef typename geometry::default_distance_result<point_type>::type distance_type;
+        typedef typename
+            geometry::default_comparable_distance_result<point_type>::type
+                comparable_distance_type;
 
         elements_type & elements = rtree::elements(n);
 
@@ -61,8 +65,9 @@ public:
         // fill the container of centers' distances of children from current node's center
         typedef typename index::detail::rtree::container_from_elements_type<
             elements_type,
-            std::pair<distance_type, element_type>
+            std::pair<comparable_distance_type, element_type>
         >::type sorted_elements_type;
+
         sorted_elements_type sorted_elements;
         // If constructor is used instead of resize() MS implementation leaks here
         sorted_elements.reserve(elements_count);                                                         // MAY THROW, STRONG (V, E: alloc, copy)
@@ -82,7 +87,7 @@ public:
             sorted_elements.begin(),
             sorted_elements.begin() + reinserted_elements_count,
             sorted_elements.end(),
-            distances_dsc<distance_type, element_type>);                                                // MAY THROW, BASIC (V, E: copy)
+            distances_dsc<comparable_distance_type, element_type>);                                                // MAY THROW, BASIC (V, E: copy)
 
         // copy elements which will be reinserted
         result_elements.clear();

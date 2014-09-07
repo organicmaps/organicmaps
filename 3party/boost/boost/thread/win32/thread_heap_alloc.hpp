@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <boost/assert.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/detail/no_exceptions_support.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 
 #if defined( BOOST_USE_WINDOWS_H )
 # include <windows.h>

@@ -7,6 +7,7 @@
 #if !defined(FUSION_ADAPT_VALUE_TRAITS_05062005_0859)
 #define FUSION_ADAPT_VALUE_TRAITS_05062005_0859
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/value_of.hpp>
 
 namespace boost { namespace fusion { namespace detail

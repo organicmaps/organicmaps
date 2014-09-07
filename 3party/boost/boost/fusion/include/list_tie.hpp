@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_GENERATION)
 #define FUSION_INCLUDE_GENERATION
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/generation.hpp>
 #include <boost/fusion/functional/generation.hpp>
 

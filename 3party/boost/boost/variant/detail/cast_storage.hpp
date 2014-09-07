@@ -25,19 +25,13 @@ namespace detail { namespace variant {
 //
 
 template <typename T>
-inline T& cast_storage(
-      void* storage
-      BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(T)
-    )
+inline T& cast_storage(void* storage)
 {
     return *static_cast<T*>(storage);
 }
 
 template <typename T>
-inline const T& cast_storage(
-      const void* storage
-      BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(T)
-    )
+inline const T& cast_storage(const void* storage)
 {
     return *static_cast<const T*>(storage);
 }

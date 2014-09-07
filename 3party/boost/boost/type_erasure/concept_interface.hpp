@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: concept_interface.hpp 80974 2012-10-13 00:02:25Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_CONCEPT_INTERFACE_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_CONCEPT_INTERFACE_HPP_INCLUDED

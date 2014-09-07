@@ -2,7 +2,7 @@
 // completion_condition.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -26,7 +26,7 @@ namespace asio {
 namespace detail {
 
 // The default maximum number of bytes to transfer in a single operation.
-enum { default_max_transfer_size = 65536 };
+enum default_max_transfer_size_t { default_max_transfer_size = 65536 };
 
 // Adapt result of old-style completion conditions (which had a bool result
 // where true indicated that the operation was complete).

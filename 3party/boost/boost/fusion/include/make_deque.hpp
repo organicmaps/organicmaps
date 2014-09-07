@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_MAKE_DEQUE)
 #define FUSION_INCLUDE_MAKE_DEQUE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/generation/make_deque.hpp>
 
 #endif

@@ -164,6 +164,12 @@ namespace boost { namespace polygon{
     }
 
     template <typename output_container>
+    inline void get(output_container& output, size_t vthreshold) const {
+      get_dispatch(output, typename geometry_concept<typename output_container::value_type>::type(), vthreshold);
+    }
+
+
+    template <typename output_container>
     inline void get_polygons(output_container& output) const {
       get_dispatch(output, polygon_90_concept());
     }
@@ -829,10 +835,25 @@ namespace boost { namespace polygon{
     void get_dispatch(output_container& output, polygon_90_concept tag) const {
       get_fracture(output, true, tag);
     }
+
+    template <typename output_container>
+    void get_dispatch(output_container& output, polygon_90_concept tag, 
+      size_t vthreshold) const {
+      get_fracture(output, true, tag, vthreshold);
+    }
+
     template <typename output_container>
     void get_dispatch(output_container& output, polygon_90_with_holes_concept tag) const {
       get_fracture(output, false, tag);
     }
+
+    template <typename output_container>
+    void get_dispatch(output_container& output, polygon_90_with_holes_concept tag,
+      size_t vthreshold) const {
+      get_fracture(output, false, tag, vthreshold);
+    }
+
+
     template <typename output_container>
     void get_dispatch(output_container& output, polygon_45_concept tag) const {
       get_fracture(output, true, tag);
@@ -853,6 +874,13 @@ namespace boost { namespace polygon{
     void get_fracture(output_container& container, bool fracture_holes, concept_type tag) const {
       clean();
       ::boost::polygon::get_polygons(container, data_.begin(), data_.end(), orient_, fracture_holes, tag);
+    }
+
+    template <typename output_container, typename concept_type>
+    void get_fracture(output_container& container, bool fracture_holes, concept_type tag,
+      size_t vthreshold) const {
+      clean();
+      ::boost::polygon::get_polygons(container, data_.begin(), data_.end(), orient_, fracture_holes, tag, vthreshold);
     }
   };
 

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -11,19 +11,19 @@
 #ifndef BOOST_CONTAINER_ALLOCATION_TYPE_HPP
 #define BOOST_CONTAINER_ALLOCATION_TYPE_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
-#include "config_begin.hpp"
+#include <boost/container/detail/config_begin.hpp>
 #include <boost/container/detail/workaround.hpp>
 
 namespace boost {
 namespace container {
 
-/// @cond
+#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 enum allocation_type_v
-{  
+{
    // constants for allocation commands
    allocate_new_v   = 0x01,
    expand_fwd_v     = 0x02,
@@ -37,7 +37,7 @@ enum allocation_type_v
 };
 
 typedef int allocation_type;
-/// @endcond
+#endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 static const allocation_type allocate_new       = (allocation_type)allocate_new_v;
 static const allocation_type expand_fwd         = (allocation_type)expand_fwd_v;
 static const allocation_type expand_bwd         = (allocation_type)expand_bwd_v;

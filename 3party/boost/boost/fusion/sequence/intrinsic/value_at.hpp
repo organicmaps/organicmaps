@@ -7,6 +7,7 @@
 #if !defined(FUSION_VALUE_AT_05052005_0229)
 #define FUSION_VALUE_AT_05052005_0229
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/fusion/sequence/intrinsic_fwd.hpp>
 #include <boost/fusion/support/tag_of.hpp>

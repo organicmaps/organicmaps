@@ -3,7 +3,7 @@
 // ~~~~~~~~~~~~~~~~~~~~
 //
 // Copyright (c) 2005 Voipster / Indrek dot Juhani at voipster dot com
-// Copyright (c) 2005-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2005-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -236,19 +236,27 @@ void context::clear_options(context::options o)
 boost::system::error_code context::clear_options(
     context::options o, boost::system::error_code& ec)
 {
-#if !defined(SSL_OP_NO_COMPRESSION)
+#if (OPENSSL_VERSION_NUMBER >= 0x009080DFL) \
+  && (OPENSSL_VERSION_NUMBER != 0x00909000L)
+# if !defined(SSL_OP_NO_COMPRESSION)
   if ((o & context::no_compression) != 0)
   {
-#if (OPENSSL_VERSION_NUMBER >= 0x00908000L)
+# if (OPENSSL_VERSION_NUMBER >= 0x00908000L)
     handle_->comp_methods = SSL_COMP_get_compression_methods();
-#endif // (OPENSSL_VERSION_NUMBER >= 0x00908000L)
+# endif // (OPENSSL_VERSION_NUMBER >= 0x00908000L)
     o ^= context::no_compression;
   }
-#endif // !defined(SSL_OP_NO_COMPRESSION)
+# endif // !defined(SSL_OP_NO_COMPRESSION)
 
   ::SSL_CTX_clear_options(handle_, o);
 
   ec = boost::system::error_code();
+#else // (OPENSSL_VERSION_NUMBER >= 0x009080DFL)
+      //   && (OPENSSL_VERSION_NUMBER != 0x00909000L)
+  (void)o;
+  ec = boost::asio::error::operation_not_supported;
+#endif // (OPENSSL_VERSION_NUMBER >= 0x009080DFL)
+       //   && (OPENSSL_VERSION_NUMBER != 0x00909000L)
   return ec;
 }
 
@@ -428,7 +436,8 @@ boost::system::error_code context::use_certificate(
 
   if (format == context_base::asn1)
   {
-    if (::SSL_CTX_use_certificate_ASN1(handle_, buffer_size(certificate),
+    if (::SSL_CTX_use_certificate_ASN1(handle_,
+          static_cast<int>(buffer_size(certificate)),
           buffer_cast<const unsigned char*>(certificate)) == 1)
     {
       ec = boost::system::error_code();
@@ -929,7 +938,7 @@ BIO* context::make_buffer_bio(const const_buffer& b)
 {
   return ::BIO_new_mem_buf(
       const_cast<void*>(buffer_cast<const void*>(b)),
-      buffer_size(b));
+      static_cast<int>(buffer_size(b)));
 }
 
 #endif // !defined(BOOST_ASIO_ENABLE_OLD_SSL)

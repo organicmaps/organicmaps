@@ -153,11 +153,11 @@ namespace boost { namespace spirit { namespace qi
           , typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
           , Context& /*context*/, Skipper const& skipper
-          , Attribute& attr) const
+          , Attribute& attr_) const
         {
             typedef detail::bool_impl<T, BoolPolicies> extract;
             qi::skip_over(first, last, skipper);
-            return extract::parse(first, last, attr, BoolPolicies());
+            return extract::parse(first, last, attr_, BoolPolicies());
         }
 
         template <typename Context>
@@ -184,11 +184,11 @@ namespace boost { namespace spirit { namespace qi
           , typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
           , Context& /*context*/, Skipper const& skipper
-          , Attribute& attr) const
+          , Attribute& attr_) const
         {
             typedef detail::bool_impl<T, BoolPolicies> extract;
             qi::skip_over(first, last, skipper);
-            return extract::parse(first, last, attr, BoolPolicies(), n_, n_);
+            return extract::parse(first, last, attr_, BoolPolicies(), n_, n_);
         }
 
         template <typename Context>

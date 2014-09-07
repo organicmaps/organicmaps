@@ -7,24 +7,25 @@
 #define BOOST_MP_INTEGER_HPP
 
 #include <boost/multiprecision/cpp_int.hpp>
+#include <boost/multiprecision/detail/bitscan.hpp>
 
 namespace boost{
 namespace multiprecision{
 
 template <class Integer, class I2>
-typename enable_if_c<is_integral<Integer>::value && is_integral<I2>::value, Integer>::type
+typename enable_if_c<is_integral<Integer>::value && is_integral<I2>::value, Integer&>::type
    multiply(Integer& result, const I2& a, const I2& b)
 {
    return result = static_cast<Integer>(a) * static_cast<Integer>(b);
 }
 template <class Integer, class I2>
-typename enable_if_c<is_integral<Integer>::value && is_integral<I2>::value, Integer>::type
+typename enable_if_c<is_integral<Integer>::value && is_integral<I2>::value, Integer&>::type
    add(Integer& result, const I2& a, const I2& b)
 {
    return result = static_cast<Integer>(a) + static_cast<Integer>(b);
 }
 template <class Integer, class I2>
-typename enable_if_c<is_integral<Integer>::value && is_integral<I2>::value, Integer>::type
+typename enable_if_c<is_integral<Integer>::value && is_integral<I2>::value, Integer&>::type
    subtract(Integer& result, const I2& a, const I2& b)
 {
    return result = static_cast<Integer>(a) - static_cast<Integer>(b);
@@ -78,7 +79,7 @@ struct double_integer
 }
 
 template <class I1, class I2, class I3>
-typename enable_if_c<is_integral<I1>::value && is_integral<I2>::value && is_integral<I3>::value, I1>::type
+typename enable_if_c<is_integral<I1>::value && is_unsigned<I2>::value && is_integral<I3>::value, I1>::type
    powm(const I1& a, I2 b, I3 c)
 {
    typedef typename detail::double_integer<I1>::type double_type;
@@ -100,6 +101,17 @@ typename enable_if_c<is_integral<I1>::value && is_integral<I2>::value && is_inte
    return x % c;
 }
 
+template <class I1, class I2, class I3>
+inline typename enable_if_c<is_integral<I1>::value && is_signed<I2>::value && is_integral<I3>::value, I1>::type
+   powm(const I1& a, I2 b, I3 c)
+{
+   if(b < 0)
+   {
+      BOOST_THROW_EXCEPTION(std::runtime_error("powm requires a positive exponent."));
+   }
+   return powm(a, static_cast<typename make_unsigned<I2>::type>(b), c);
+}
+
 template <class Integer>
 typename enable_if_c<is_integral<Integer>::value, unsigned>::type lsb(const Integer& val)
 {
@@ -114,15 +126,24 @@ typename enable_if_c<is_integral<Integer>::value, unsigned>::type lsb(const Inte
          BOOST_THROW_EXCEPTION(std::range_error("Testing individual bits in negative values is not supported - results are undefined."));
       }
    }
-   unsigned index = 0;
-   Integer mask = 1;
+   return detail::find_lsb(val);
+}
 
-   while(((mask & val) == 0) && (index < sizeof(Integer) * CHAR_BIT))
+template <class Integer>
+typename enable_if_c<is_integral<Integer>::value, unsigned>::type msb(Integer val)
+{
+   if(val <= 0)
    {
-      ++index;
-      mask <<= 1;
+      if(val == 0)
+      {
+         BOOST_THROW_EXCEPTION(std::range_error("No bits were set in the operand."));
+      }
+      else
+      {
+         BOOST_THROW_EXCEPTION(std::range_error("Testing individual bits in negative values is not supported - results are undefined."));
+      }
    }
-   return index;
+   return detail::find_msb(val);
 }
 
 template <class Integer>
@@ -170,6 +191,59 @@ typename enable_if_c<is_integral<Integer>::value, Integer&>::type bit_flip(Integ
       mask <<= index;
    val ^= mask;
    return val;
+}
+
+template <class Integer>
+typename enable_if_c<is_integral<Integer>::value, Integer>::type sqrt(const Integer& x, Integer& r)
+{
+   //
+   // This is slow bit-by-bit integer square root, see for example
+   // http://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Binary_numeral_system_.28base_2.29
+   // There are better methods such as http://hal.inria.fr/docs/00/07/28/54/PDF/RR-3805.pdf
+   // and http://hal.inria.fr/docs/00/07/21/13/PDF/RR-4475.pdf which should be implemented
+   // at some point.
+   //
+   Integer s = 0;
+   if(x == 0)
+   {
+      r = 0;
+      return s;
+   }
+   int g = msb(x);
+   if(g == 0)
+   {
+      r = 1;
+      return s;
+   }
+   
+   Integer t = 0;
+   r = x;
+   g /= 2;
+   bit_set(s, g);
+   bit_set(t, 2 * g);
+   r = x - t;
+   --g;
+   do
+   {
+      t = s;
+      t <<= g + 1;
+      bit_set(t, 2 * g);
+      if(t <= r)
+      {
+         bit_set(s, g);
+         r -= t;
+      }
+      --g;
+   }
+   while(g >= 0);
+   return s;
+}
+
+template <class Integer>
+typename enable_if_c<is_integral<Integer>::value, Integer>::type sqrt(const Integer& x)
+{
+   Integer r;
+   return sqrt(x, r);
 }
 
 }} // namespaces

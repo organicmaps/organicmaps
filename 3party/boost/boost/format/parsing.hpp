@@ -390,11 +390,7 @@ namespace detail {
     void append_string(String& dst, const String& src, 
                        const typename String::size_type beg, 
                        const typename String::size_type end) {
-#if !defined(BOOST_NO_STRING_APPEND)
         dst.append(src.begin()+beg, src.begin()+end);
-#else
-        dst += src.substr(beg, end-beg);
-#endif
     }
 
 } // detail namespace

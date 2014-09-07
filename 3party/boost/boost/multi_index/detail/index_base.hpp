@@ -1,4 +1,4 @@
-/* Copyright 2003-2008 Joaquin M Lopez Munoz.
+/* Copyright 2003-2014 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -9,16 +9,21 @@
 #ifndef BOOST_MULTI_INDEX_DETAIL_INDEX_BASE_HPP
 #define BOOST_MULTI_INDEX_DETAIL_INDEX_BASE_HPP
 
-#if defined(_MSC_VER)&&(_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
-#include <boost/call_traits.hpp>
+#include <boost/detail/allocator_utilities.hpp>
+#include <boost/detail/no_exceptions_support.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/move/core.hpp>
+#include <boost/move/utility.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/multi_index/detail/copy_map.hpp>
+#include <boost/multi_index/detail/do_not_copy_elements_tag.hpp>
 #include <boost/multi_index/detail/node_type.hpp>
+#include <boost/multi_index/detail/vartempl_support.hpp>
 #include <boost/multi_index_container_fwd.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <utility>
@@ -42,6 +47,10 @@ namespace detail{
  *     cannot be called directly from the index classes.)
  */
 
+struct lvalue_tag{};
+struct rvalue_tag{};
+struct emplaced_tag{};
+
 template<typename Value,typename IndexSpecifierList,typename Allocator>
 class index_base
 {
@@ -53,9 +62,10 @@ protected:
     Value,IndexSpecifierList,Allocator>       final_type;
   typedef tuples::null_type                   ctor_args_list;
   typedef typename 
-    boost::detail::allocator::rebind_to<
-      Allocator,
-      typename Allocator::value_type>::type   final_allocator_type;
+  boost::detail::allocator::rebind_to<
+    Allocator,
+    typename Allocator::value_type
+  >::type                                     final_allocator_type;
   typedef mpl::vector0<>                      index_type_list;
   typedef mpl::vector0<>                      iterator_type_list;
   typedef mpl::vector0<>                      const_iterator_type_list;
@@ -74,24 +84,75 @@ protected:
 #endif
 
 private:
-  typedef typename call_traits<Value>::param_type value_param_type;
+  typedef Value                               value_type;
 
 protected:
   explicit index_base(const ctor_args_list&,const Allocator&){}
+
+  index_base(
+    const index_base<Value,IndexSpecifierList,Allocator>&,
+    do_not_copy_elements_tag)
+  {}
 
   void copy_(
     const index_base<Value,IndexSpecifierList,Allocator>&,const copy_map_type&)
   {}
 
-  node_type* insert_(value_param_type v,node_type* x)
+  final_node_type* insert_(const value_type& v,final_node_type*& x,lvalue_tag)
   {
-    boost::detail::allocator::construct(&x->value(),v);
+    x=final().allocate_node();
+    BOOST_TRY{
+      boost::detail::allocator::construct(&x->value(),v);
+    }
+    BOOST_CATCH(...){
+      final().deallocate_node(x);
+      BOOST_RETHROW;
+    }
+    BOOST_CATCH_END
     return x;
   }
 
-  node_type* insert_(value_param_type v,node_type*,node_type* x)
+  final_node_type* insert_(const value_type& v,final_node_type*& x,rvalue_tag)
   {
-    boost::detail::allocator::construct(&x->value(),v);
+    x=final().allocate_node();
+    BOOST_TRY{
+      /* This shoud have used a modified, T&&-compatible version of
+       * boost::detail::allocator::construct, but 
+       * <boost/detail/allocator_utilities.hpp> is too old and venerable to
+       * mess with; besides, it is a general internal utility and the imperfect
+       * perfect forwarding emulation of Boost.Move might break other libs.
+       */
+
+      new (&x->value()) value_type(boost::move(const_cast<value_type&>(v)));
+    }
+    BOOST_CATCH(...){
+      final().deallocate_node(x);
+      BOOST_RETHROW;
+    }
+    BOOST_CATCH_END
+    return x;
+  }
+
+  final_node_type* insert_(const value_type&,final_node_type*& x,emplaced_tag)
+  {
+    return x;
+  }
+
+  final_node_type* insert_(
+    const value_type& v,node_type*,final_node_type*& x,lvalue_tag)
+  {
+    return insert_(v,x,lvalue_tag());
+  }
+
+  final_node_type* insert_(
+    const value_type& v,node_type*,final_node_type*& x,rvalue_tag)
+  {
+    return insert_(v,x,rvalue_tag());
+  }
+
+  final_node_type* insert_(
+    const value_type&,node_type*,final_node_type*& x,emplaced_tag)
+  {
     return x;
   }
 
@@ -109,9 +170,17 @@ protected:
 
   void swap_(index_base<Value,IndexSpecifierList,Allocator>&){}
 
-  bool replace_(value_param_type v,node_type* x)
+  void swap_elements_(index_base<Value,IndexSpecifierList,Allocator>&){}
+
+  bool replace_(const value_type& v,node_type* x,lvalue_tag)
   {
     x->value()=v;
+    return true;
+  }
+
+  bool replace_(const value_type& v,node_type* x,rvalue_tag)
+  {
+    x->value()=boost::move(const_cast<value_type&>(v));
     return true;
   }
 
@@ -146,11 +215,46 @@ protected:
   std::size_t final_size_()const{return final().size_();}
   std::size_t final_max_size_()const{return final().max_size_();}
 
-  std::pair<final_node_type*,bool> final_insert_(value_param_type x)
+  std::pair<final_node_type*,bool> final_insert_(const value_type& x)
     {return final().insert_(x);}
+  std::pair<final_node_type*,bool> final_insert_rv_(const value_type& x)
+    {return final().insert_rv_(x);}
+  template<typename T>
+  std::pair<final_node_type*,bool> final_insert_ref_(const T& t)
+    {return final().insert_ref_(t);}
+  template<typename T>
+  std::pair<final_node_type*,bool> final_insert_ref_(T& t)
+    {return final().insert_ref_(t);}
+
+  template<BOOST_MULTI_INDEX_TEMPLATE_PARAM_PACK>
+  std::pair<final_node_type*,bool> final_emplace_(
+    BOOST_MULTI_INDEX_FUNCTION_PARAM_PACK)
+  {
+    return final().emplace_(BOOST_MULTI_INDEX_FORWARD_PARAM_PACK);
+  }
+
   std::pair<final_node_type*,bool> final_insert_(
-    value_param_type x,final_node_type* position)
+    const value_type& x,final_node_type* position)
     {return final().insert_(x,position);}
+  std::pair<final_node_type*,bool> final_insert_rv_(
+    const value_type& x,final_node_type* position)
+    {return final().insert_rv_(x,position);}
+  template<typename T>
+  std::pair<final_node_type*,bool> final_insert_ref_(
+    const T& t,final_node_type* position)
+    {return final().insert_ref_(t,position);}
+  template<typename T>
+  std::pair<final_node_type*,bool> final_insert_ref_(
+    T& t,final_node_type* position)
+    {return final().insert_ref_(t,position);}
+
+  template<BOOST_MULTI_INDEX_TEMPLATE_PARAM_PACK>
+  std::pair<final_node_type*,bool> final_emplace_hint_(
+    final_node_type* position,BOOST_MULTI_INDEX_FUNCTION_PARAM_PACK)
+  {
+    return final().emplace_hint_(
+      position,BOOST_MULTI_INDEX_FORWARD_PARAM_PACK);
+  }
 
   void final_erase_(final_node_type* x){final().erase_(x);}
 
@@ -159,9 +263,13 @@ protected:
   void final_clear_(){final().clear_();}
 
   void final_swap_(final_type& x){final().swap_(x);}
+
   bool final_replace_(
-    value_param_type k,final_node_type* x)
+    const value_type& k,final_node_type* x)
     {return final().replace_(k,x);}
+  bool final_replace_rv_(
+    const value_type& k,final_node_type* x)
+    {return final().replace_rv_(k,x);}
 
   template<typename Modifier>
   bool final_modify_(Modifier& mod,final_node_type* x)

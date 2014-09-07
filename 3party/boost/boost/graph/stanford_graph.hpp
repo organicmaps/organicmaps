@@ -347,7 +347,6 @@ namespace boost {
     }
   };
 
-#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION  
 
   template <class Tag>
   inline sgb_vertex_util_map<Tag, const typename Tag::type&>
@@ -371,7 +370,6 @@ namespace boost {
     return sgb_edge_util_map<Tag, typename Tag::type&>();
   }
 
-#endif // ! BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
   // Edge Length Access
   template <class Ref>
@@ -444,7 +442,6 @@ namespace boost {
     typedef sgb_vertex_name_map const_type;
   };
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
   namespace detail {
     template <class Kind, class PropertyTag>
@@ -510,49 +507,6 @@ namespace boost {
     sgb_##KIND##_util_map< X##_property<T>, T&>()[key] = value; \
   }
 
-#else // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-
-#define SGB_UTIL_ACCESSOR_TYPE(KIND,TAG,TYPE) \
-  inline sgb_##KIND##_util_map< TAG<TYPE>, TYPE& > \
-  get(TAG<TYPE>, sgb_graph_ptr&) { \
-    return sgb_##KIND##_util_map< TAG<TYPE>, TYPE& >(); \
-  } \
-  inline sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& > \
-  get(TAG<TYPE>, const sgb_graph_ptr&) { \
-    return sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >(); \
-  } \
-  inline sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& > \
-  get(TAG<TYPE>, const sgb_const_graph_ptr&) { \
-    return sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >(); \
-  } \
-  template <class Key> \
-  inline typename sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >::value_type \
-  get(TAG<TYPE>, const sgb_graph_ptr&, const Key& key) { \
-    return sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >()[key]; \
-  } \
-  template <class Key> \
-  inline typename sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >::value_type \
-  get(TAG<TYPE>, const sgb_const_graph_ptr&, const Key& key) { \
-    return sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >()[key]; \
-  } \
-  template <class Key, class Value> \
-  inline  void \
-  put(TAG<TYPE>, sgb_graph_ptr&, const Key& key, const Value& value) { \
-    sgb_##KIND##_util_map< TAG<TYPE>, TYPE& >()[key] = value; \
-  } \
-  template <> struct property_map<sgb_graph_ptr, TAG<TYPE> > { \
-    typedef sgb_##KIND##_util_map< TAG<TYPE>, TYPE&> type; \
-    typedef sgb_##KIND##_util_map< TAG<TYPE>, const TYPE&> const_type; \
-  }
-
-#define SGB_UTIL_ACCESSOR(KIND,TAG) \
-  SGB_UTIL_ACCESSOR_TYPE(KIND, TAG##_property, Vertex*); \
-  SGB_UTIL_ACCESSOR_TYPE(KIND, TAG##_property, Arc*); \
-  SGB_UTIL_ACCESSOR_TYPE(KIND, TAG##_property, sgb_graph_ptr); \
-  SGB_UTIL_ACCESSOR_TYPE(KIND, TAG##_property, long); \
-  SGB_UTIL_ACCESSOR_TYPE(KIND, TAG##_property, char*);
-
-#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
   SGB_UTIL_ACCESSOR(vertex, u)
   SGB_UTIL_ACCESSOR(vertex, v)

@@ -443,9 +443,7 @@ namespace boost {
     // graph type. Instead, use directedS, which also provides the
     // functionality required for a Bidirectional Graph (in_edges,
     // in_degree, etc.).
-#if !defined(_MSC_VER) || _MSC_VER > 1300
     BOOST_STATIC_ASSERT(type_traits::ice_not<(is_same<Directed, bidirectionalS>::value)>::value);
-#endif
 
     typedef typename mpl::if_<is_directed,
                                     bidirectional_tag, undirected_tag>::type
@@ -480,13 +478,11 @@ namespace boost {
     typedef adjacency_matrix_traits<Directed> Traits;
 
   public:
-#if !defined(BOOST_MSVC) || BOOST_MSVC > 1300
     // The bidirectionalS tag is not allowed with the adjacency_matrix
     // graph type. Instead, use directedS, which also provides the
     // functionality required for a Bidirectional Graph (in_edges,
     // in_degree, etc.).
     BOOST_STATIC_ASSERT(!(is_same<Directed, bidirectionalS>::value));
-#endif
 
     typedef GraphProperty graph_property_type;
     typedef typename lookup_one_property<GraphProperty, graph_bundle_t>::type graph_bundled;
@@ -500,10 +496,9 @@ namespace boost {
   public: // should be private
     typedef typename mpl::if_<typename has_property<edge_property_type>::type,
       std::pair<bool, edge_property_type>, char>::type StoredEdge;
-#if (defined(BOOST_MSVC) && BOOST_MSVC <= 1300) || defined(BOOST_NO_STD_ALLOCATOR)
+#if defined(BOOST_NO_STD_ALLOCATOR)
     typedef std::vector<StoredEdge> Matrix;
 #else
-    // This causes internal compiler error for MSVC
     typedef typename Allocator::template rebind<StoredEdge>::other Alloc;
     typedef std::vector<StoredEdge, Alloc> Matrix;
 #endif

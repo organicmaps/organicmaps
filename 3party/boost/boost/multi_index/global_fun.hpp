@@ -1,4 +1,4 @@
-/* Copyright 2003-2008 Joaquin M Lopez Munoz.
+/* Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -9,7 +9,7 @@
 #ifndef BOOST_MULTI_INDEX_GLOBAL_FUN_HPP
 #define BOOST_MULTI_INDEX_GLOBAL_FUN_HPP
 
-#if defined(_MSC_VER)&&(_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 
@@ -46,16 +46,6 @@ namespace detail{
  * arbitrary combinations of these (vg. T** or auto_ptr<T*>.)
  */
 
-/* NB. Some overloads of operator() have an extra dummy parameter int=0.
- * This disambiguator serves several purposes:
- *  - Without it, MSVC++ 6.0 incorrectly regards some overloads as
- *    specializations of a previous member function template.
- *  - MSVC++ 6.0/7.0 seem to incorrectly treat some different memfuns
- *    as if they have the same signature.
- *  - If remove_const is broken due to lack of PTS, int=0 avoids the
- *    declaration of memfuns with identical signature.
- */
-
 template<class Value,typename Type,Type (*PtrToFunction)(Value)>
 struct const_ref_global_fun_base
 {
@@ -90,7 +80,7 @@ struct const_ref_global_fun_base
   Type operator()(
     const reference_wrapper<
       typename remove_const<
-        typename remove_reference<Value>::type>::type>& x,int=0)const
+        typename remove_reference<Value>::type>::type>& x)const
   { 
     return operator()(x.get());
   }
@@ -158,8 +148,7 @@ struct non_ref_global_fun_base
   }
 
   Type operator()(
-    const reference_wrapper<
-      typename remove_const<Value>::type>& x,int=0)const
+    const reference_wrapper<typename remove_const<Value>::type>& x)const
   { 
     return operator()(x.get());
   }

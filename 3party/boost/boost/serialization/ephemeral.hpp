@@ -3,7 +3,7 @@
 
 // MS compatible compilers support 
 #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -21,10 +21,6 @@
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-// supress noise
-#if BOOST_WORKAROUND(BOOST_MSVC, <= 1200)
-# pragma warning (disable : 4786) // too long name, harmless warning
-#endif
 
 #include <boost/mpl/integral_c.hpp>
 #include <boost/mpl/integral_c_tag.hpp>

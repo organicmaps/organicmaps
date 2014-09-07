@@ -106,10 +106,8 @@ write_graphviz(std::ostream& out,
                BOOST_GRAPH_ENABLE_IF_MODELS_PARM(Graph,distributed_graph_tag))
 {
   typedef typename graph_traits<Graph>::directed_category directed_category;
-  typedef typename graph_traits<Graph>::vertices_size_type vertices_size_type;
   typedef typename boost::graph::parallel::process_group_type<Graph>::type 
     process_group_type;
-  typedef typename process_group_type::process_id_type process_id_type;
   typedef typename property_map<Graph, vertex_index_t>::const_type
     VertexIndexMap;
   typedef typename property_map<Graph, vertex_global_t>::const_type

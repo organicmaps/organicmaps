@@ -35,15 +35,6 @@
 #endif
 
 
-#if !defined(BOOST_RANGE_ATL_HAS_OLD_CSIMPLESTRING)
-    #if (_MSC_VER < 1310)   // from <boost/regex/mfc.hpp>, but dubious
-        #define BOOST_RANGE_ATL_HAS_OLD_CSIMPLESTRING
-    #endif
-#endif
-
-
-
-
 // forward declarations
 //
 

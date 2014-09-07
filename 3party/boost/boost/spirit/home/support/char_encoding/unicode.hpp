@@ -100,7 +100,7 @@ namespace boost { namespace spirit { namespace char_encoding
             return ucd::is_white_space(ch);
         }
 
-        static int
+        static bool
         isblank BOOST_PREVENT_MACRO_SUBSTITUTION (char_type ch)
         {
             return ucd::is_blank(ch);

@@ -1,6 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2012
+// (C) Copyright Ion Gaztanaga  		2006-2014
+// (C) Copyright Microsoft Corporation  2014
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -20,6 +21,59 @@ namespace boost {
 namespace intrusive {
 namespace detail {
 
+template <typename T, typename U>
+struct is_same
+{
+   static const bool value = false;
+};
+
+template <typename T>
+struct is_same<T, T>
+{
+   static const bool value = true;
+};
+
+template<typename T>
+struct add_const
+{  typedef const T type;   };
+
+template<typename T>
+struct remove_const
+{  typedef  T type;   };
+
+template<typename T>
+struct remove_const<const T>
+{  typedef T type;   };
+
+template<typename T>
+struct remove_cv
+{  typedef  T type;   };
+
+template<typename T>
+struct remove_cv<const T>
+{  typedef T type;   };
+
+template<typename T>
+struct remove_cv<const volatile T>
+{  typedef T type;   };
+
+template<typename T>
+struct remove_cv<volatile T>
+{  typedef T type;   };
+
+template<class T>
+struct remove_reference
+{
+   typedef T type;
+};
+
+template<class T>
+struct remove_reference<T&>
+{
+   typedef T type;
+};
+
+
 typedef char one;
 struct two {one _[2];};
 
@@ -27,6 +81,12 @@ template< bool C_ >
 struct bool_
 {
    static const bool value = C_;
+};
+
+template< class Integer, Integer Value >
+struct integer
+{
+   static const Integer value = Value;
 };
 
 typedef bool_<true>        true_;
@@ -58,17 +118,31 @@ struct apply
    typedef typename F::template apply<Param>::type type;
 };
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+
+template <class T, class U>
+struct is_convertible
+{
+   static const bool value = __is_convertible_to(T, U);
+};
+
+#else
+
 template <class T, class U>
 class is_convertible
 {
    typedef char true_t;
    class false_t { char dummy[2]; };
-   static true_t dispatch(U);
+   //use any_conversion as first parameter since in MSVC
+   //overaligned types can't go through ellipsis
    static false_t dispatch(...);
-   static const T &trigger();
+   static true_t  dispatch(U);
+   static typename remove_reference<T>::type &trigger();
    public:
    static const bool value = sizeof(dispatch(trigger())) == sizeof(true_t);
 };
+
+#endif
 
 template<
       bool C
@@ -130,7 +204,7 @@ struct identity
 #define BOOST_INTRUSIVE_TT_DECL
 #endif
 
-#if defined(_MSC_EXTENSIONS) && !defined(__BORLAND__) && !defined(_WIN64) && !defined(UNDER_CE)
+#if defined(_MSC_EXTENSIONS) && !defined(__BORLAND__) && !defined(_WIN64) && !defined(_M_ARM) && !defined(UNDER_CE)
 #define BOOST_INTRUSIVE_TT_TEST_MSC_FUNC_SIGS
 #endif
 
@@ -278,65 +352,6 @@ struct alignment_of
             < sizeof(alignment_of_hack<T>) - sizeof(T)
             , sizeof(T)
             >::value;
-};
-
-template <typename T, typename U>
-struct is_same
-{
-   typedef char yes_type;
-   struct no_type
-   {
-      char padding[8];
-   };
-
-   template <typename V>
-   static yes_type is_same_tester(V*, V*);
-   static no_type is_same_tester(...);
-
-   static T *t;
-   static U *u;
-
-   static const bool value = sizeof(yes_type) == sizeof(is_same_tester(t,u));
-};
-
-template<typename T>
-struct add_const
-{  typedef const T type;   };
-
-template<typename T>
-struct remove_const
-{  typedef  T type;   };
-
-template<typename T>
-struct remove_const<const T>
-{  typedef T type;   };
-
-template<typename T>
-struct remove_cv
-{  typedef  T type;   };
-
-template<typename T>
-struct remove_cv<const T>
-{  typedef T type;   };
-
-template<typename T>
-struct remove_cv<const volatile T>
-{  typedef T type;   };
-
-template<typename T>
-struct remove_cv<volatile T>
-{  typedef T type;   };
-
-template<class T>
-struct remove_reference
-{
-   typedef T type;
-};
-
-template<class T>
-struct remove_reference<T&>
-{
-   typedef T type;
 };
 
 template<class Class>

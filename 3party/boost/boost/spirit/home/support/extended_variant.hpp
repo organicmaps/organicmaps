@@ -12,7 +12,19 @@
 #endif
 
 #include <boost/variant.hpp>
+#include <boost/mpl/limits/list.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
+
+#if !defined(BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES)
+#define BOOST_SPIRIT_EXTENDED_VARIANT_LIMIT_TYPES BOOST_MPL_LIMIT_LIST_SIZE
+#else
+#define BOOST_SPIRIT_EXTENDED_VARIANT_LIMIT_TYPES BOOST_VARIANT_LIMIT_TYPES
+#endif
+
+#define BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(T)                          \
+    BOOST_PP_ENUM_PARAMS(BOOST_SPIRIT_EXTENDED_VARIANT_LIMIT_TYPES, T)        \
+    /**/
 
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit
@@ -31,16 +43,22 @@ namespace boost { namespace spirit
         struct adapted_variant_tag;
 
         typedef boost::variant<
-            BOOST_VARIANT_ENUM_PARAMS(T)>
+            BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(T)>
         variant_type;
         typedef typename variant_type::types types;
 
-        typedef extended_variant<BOOST_VARIANT_ENUM_PARAMS(T)> base_type;
+        typedef extended_variant<
+            BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(T)
+        > base_type;
 
         extended_variant() : var() {}
 
         template <typename T>
         extended_variant(T const& var)
+            : var(var) {}
+
+        template <typename T>
+        extended_variant(T& var)
             : var(var) {}
 
         template <typename F>
@@ -83,33 +101,40 @@ namespace boost { namespace spirit
 
 namespace boost
 {
-    template <typename T, BOOST_VARIANT_ENUM_PARAMS(typename T)>
+    template <typename T, BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(typename T)>
     inline T const&
-    get(boost::spirit::extended_variant<BOOST_VARIANT_ENUM_PARAMS(T)> const& x)
+    get(boost::spirit::extended_variant<
+        BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(T)> const& x)
     {
         return boost::get<T>(x.get());
     }
 
-    template <typename T, BOOST_VARIANT_ENUM_PARAMS(typename T)>
+    template <typename T, BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(typename T)>
     inline T&
-    get(boost::spirit::extended_variant<BOOST_VARIANT_ENUM_PARAMS(T)>& x)
+    get(boost::spirit::extended_variant<
+        BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(T)>& x)
     {
         return boost::get<T>(x.get());
     }
 
-    template <typename T, BOOST_VARIANT_ENUM_PARAMS(typename T)>
+    template <typename T, BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(typename T)>
     inline T const*
-    get(boost::spirit::extended_variant<BOOST_VARIANT_ENUM_PARAMS(T)> const* x)
+    get(boost::spirit::extended_variant<
+        BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(T)> const* x)
     {
         return boost::get<T>(&x->get());
     }
 
-    template <typename T, BOOST_VARIANT_ENUM_PARAMS(typename T)>
+    template <typename T, BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(typename T)>
     inline T*
-    get(boost::spirit::extended_variant<BOOST_VARIANT_ENUM_PARAMS(T)>* x)
+    get(boost::spirit::extended_variant<
+        BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS(T)>* x)
     {
         return boost::get<T>(&x->get());
     }
 }
+
+#undef BOOST_SPIRIT_EXTENDED_VARIANT_ENUM_PARAMS
+#undef BOOST_SPIRIT_EXTENDED_VARIANT_LIMIT_TYPES
 
 #endif

@@ -66,12 +66,12 @@ namespace boost { namespace spirit { namespace repository { namespace qi
     // kwd directive parser type identification
     namespace detail
     {
-        BOOST_MPL_HAS_XXX_TRAIT_DEF(kwd_parser_id)        
+        BOOST_MPL_HAS_XXX_TRAIT_DEF(kwd_parser_id)
         BOOST_MPL_HAS_XXX_TRAIT_DEF(complex_kwd_parser_id)
 
-    
+
     }
-                
+
     // kwd directive type query
     template <typename T>
     struct is_kwd_parser : detail::has_kwd_parser_id<T> {};
@@ -112,35 +112,35 @@ namespace boost { namespace spirit { namespace repository { namespace qi
                 traits::build_fusion_vector<all_attributes>::type
             type;
         };
-        
+
         /// Make sure that all subjects are of the kwd type
-        typedef typename mpl::count_if< 
-                Elements, 
-                        mpl::not_< 
+        typedef typename mpl::count_if<
+                Elements,
+                        mpl::not_<
                            mpl::or_<
-                            is_kwd_parser<
-                                mpl::_1 
+                              is_kwd_parser<
+                                mpl::_1
                               > ,
                               is_complex_kwd_parser<
                                 mpl::_1
-                            > 
-                        >
+                              >
+                          >
                         >
                 > non_kwd_subject_count;
-        
-        /// If the assertion fails here then you probably forgot to wrap a 
+
+        /// If the assertion fails here then you probably forgot to wrap a
         /// subject of the / operator in a kwd directive
         BOOST_MPL_ASSERT_RELATION( non_kwd_subject_count::value, ==, 0 );
-    
+
         ///////////////////////////////////////////////////////////////////////////
         // build_parser_tags
         //
-        // Builds a boost::variant from an mpl::range_c in order to "mark" every 
+        // Builds a boost::variant from an mpl::range_c in order to "mark" every
         // parser of the fusion sequence. The integer constant is used in the parser
         // dispatcher functor in order to use the parser corresponding to the recognised
         // keyword.
         ///////////////////////////////////////////////////////////////////////////
-        
+
         template <typename Sequence>
         struct build_parser_tags
         {
@@ -149,14 +149,14 @@ namespace boost { namespace spirit { namespace repository { namespace qi
 
             // Create an integer_c constant for every parser in the sequence
             typedef typename mpl::range_c<int, 0, sequence_size::value>::type int_range;
-            
+
             // Transform the range_c to an mpl vector in order to be able to transform it into a variant
             typedef typename mpl::copy<int_range, mpl::back_inserter<mpl::vector<> > >::type type;
-        
+
         };
         // Build an index mpl vector
         typedef typename build_parser_tags< Elements >::type parser_index_vector;
-        
+
         template <typename idx>
         struct is_complex_kwd_parser_filter : is_complex_kwd_parser< typename mpl::at<Elements, idx>::type >
         {};
@@ -166,8 +166,8 @@ namespace boost { namespace spirit { namespace repository { namespace qi
         {};
 
         // filter out the string kwd directives
-        typedef typename mpl::filter_view< Elements, is_kwd_parser<mpl_::_> >::type string_keywords;
-                        
+        typedef typename mpl::filter_view< Elements, is_kwd_parser<mpl::_> >::type string_keywords;
+
         typedef typename mpl::filter_view< parser_index_vector ,
                                          is_kwd_parser_filter< mpl::_ >
                                              >::type string_keyword_indexes;
@@ -183,13 +183,13 @@ namespace boost { namespace spirit { namespace repository { namespace qi
                 detail::empty_keywords_list,
                 detail::complex_keywords< complex_keywords_indexes >
                 >::type complex_keywords_type;
-        
-        // build a bool array and an integer array which will be used to 
-        // check that the repetition constraints of the kwd parsers are 
+
+        // build a bool array and an integer array which will be used to
+        // check that the repetition constraints of the kwd parsers are
         // met and bail out a soon as possible
         typedef boost::array<bool, fusion::result_of::size<Elements>::value> flags_type;
         typedef boost::array<int, fusion::result_of::size<Elements>::value> counters_type;
-        
+
         typedef typename mpl::if_<
                         typename mpl::empty<string_keyword_indexes>::type,
                         detail::empty_keywords_list,
@@ -200,13 +200,13 @@ namespace boost { namespace spirit { namespace repository { namespace qi
                                 flags_type,
                                 Modifiers>
                 >::type string_keywords_type;
-        
+
         keywords(Elements const& elements_) :
               elements(elements_)
             , string_keywords_inst(elements,flags_init)
       , complex_keywords_inst(elements,flags_init)
         {
-                }
+        }
 
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
@@ -214,30 +214,30 @@ namespace boost { namespace spirit { namespace repository { namespace qi
           , Context& context, Skipper const& skipper
           , Attribute& attr_) const
         {
-            // Select which parse function to call 
+            // Select which parse function to call
             // We need to handle the case where kwd / ikwd directives have been mixed
             // This is where we decide which function should be called.
             return parse_impl(first, last, context, skipper, attr_,
                                 typename string_keywords_type::requires_one_pass()
                              );
         }
-        
+
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
         bool parse_impl(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
           , Attribute& attr_,mpl::true_ /* one pass */) const
           {
-           
+
             // wrap the attribute in a tuple if it is not a tuple
             typename traits::wrap_if_not_tuple<Attribute>::type attr(attr_);
 
             flags_type flags(flags_init);
             //flags.assign(false);
-            
+
             counters_type counters;
             counters.assign(0);
-                    
+
             typedef repository::qi::detail::parse_dispatcher<Elements,Iterator, Context, Skipper
                                     , flags_type, counters_type
                                     , typename traits::wrap_if_not_tuple<Attribute>::type
@@ -246,7 +246,7 @@ namespace boost { namespace spirit { namespace repository { namespace qi
             parser_visitor_type parse_visitor(elements, first, last
                                              , context, skipper, flags
                                              , counters, attr);
-            
+
             typedef repository::qi::detail::complex_kwd_function< parser_visitor_type > complex_kwd_function_type;
 
             complex_kwd_function_type
@@ -255,16 +255,16 @@ namespace boost { namespace spirit { namespace repository { namespace qi
             // We have a bool array 'flags' with one flag for each parser as well as a 'counter'
             // array.
             // The kwd directive sets and increments the counter when a successeful parse occured
-            // as well as the slot of the corresponding parser to true in the flags array as soon 
-            // the minimum repetition requirement is met and keeps that value to true as long as 
-            // the maximum repetition requirement is met. 
+            // as well as the slot of the corresponding parser to true in the flags array as soon
+            // the minimum repetition requirement is met and keeps that value to true as long as
+            // the maximum repetition requirement is met.
             // The parsing takes place here in two steps:
             // 1) parse a keyword and fetch the parser index associated with that keyword
             // 2) call the associated parser and store the parsed value in the matching attribute.
 
             while(true)
             {
-                
+
                 spirit::qi::skip_over(first, last, skipper);
                 Iterator save = first;
                 if (string_keywords_inst.parse(first, last,parse_visitor,skipper))
@@ -272,28 +272,28 @@ namespace boost { namespace spirit { namespace repository { namespace qi
                     save = first;
                 }
                 else {
-          // restore the position to the last successful keyword parse
-          first = save;
-          if(!complex_keywords_inst.parse(complex_function))
-                {
-            first = save;
+                  // restore the position to the last successful keyword parse
+                  first = save;
+                  if(!complex_keywords_inst.parse(complex_function))
+                  {
+                    first = save;
                     // Check that we are leaving the keywords parser in a successfull state
                     BOOST_FOREACH(bool &valid,flags)
                     {
-                        if(!valid)
-                        {
-                            return false;
-                        }                        
+                      if(!valid)
+                      {
+                        return false;
+                      }
                     }
                     return true;
+                  }
+                  else
+                    save = first;
                 }
-          else
-            save = first;
-            }            
             }
             return false;
-        }
-        
+          }
+
         // Handle the mixed kwd and ikwd case
         template <typename Iterator, typename Context
           , typename Skipper, typename Attribute>
@@ -301,32 +301,32 @@ namespace boost { namespace spirit { namespace repository { namespace qi
           , Context& context, Skipper const& skipper
           , Attribute& attr_,mpl::false_ /* two passes */) const
           {
-           
+
             // wrap the attribute in a tuple if it is not a tuple
             typename traits::wrap_if_not_tuple<Attribute>::type attr(attr_);
 
             flags_type flags(flags_init);
             //flags.assign(false);
-            
+
             counters_type counters;
             counters.assign(0);
-                    
+
             typedef detail::parse_dispatcher<Elements, Iterator, Context, Skipper
                                     , flags_type, counters_type
-                                    , typename traits::wrap_if_not_tuple<Attribute>::type 
+                                    , typename traits::wrap_if_not_tuple<Attribute>::type
                                     , mpl::false_> parser_visitor_type;
-            
+
            typedef detail::parse_dispatcher<Elements, Iterator, Context, Skipper
                                     , flags_type, counters_type
-                                    , typename traits::wrap_if_not_tuple<Attribute>::type 
+                                    , typename traits::wrap_if_not_tuple<Attribute>::type
                                     , mpl::true_> no_case_parser_visitor_type;
-            
+
 
             parser_visitor_type parse_visitor(elements,first,last
                                              ,context,skipper,flags,counters,attr);
             no_case_parser_visitor_type no_case_parse_visitor(elements,first,last
-                                             ,context,skipper,flags,counters,attr);                    
-            
+                                             ,context,skipper,flags,counters,attr);
+
             typedef repository::qi::detail::complex_kwd_function< parser_visitor_type > complex_kwd_function_type;
 
             complex_kwd_function_type
@@ -336,9 +336,9 @@ namespace boost { namespace spirit { namespace repository { namespace qi
             // We have a bool array 'flags' with one flag for each parser as well as a 'counter'
             // array.
             // The kwd directive sets and increments the counter when a successeful parse occured
-            // as well as the slot of the corresponding parser to true in the flags array as soon 
-            // the minimum repetition requirement is met and keeps that value to true as long as 
-            // the maximum repetition requirement is met. 
+            // as well as the slot of the corresponding parser to true in the flags array as soon
+            // the minimum repetition requirement is met and keeps that value to true as long as
+            // the maximum repetition requirement is met.
             // The parsing takes place here in two steps:
             // 1) parse a keyword and fetch the parser index associated with that keyword
             // 2) call the associated parser and store the parsed value in the matching attribute.
@@ -353,29 +353,29 @@ namespace boost { namespace spirit { namespace repository { namespace qi
                     save = first;
                 }
                 else {
-          first = save;
+                  first = save;
 
-          if(!complex_keywords_inst.parse(complex_function))
-                {                    
-                            first = save;
+                  if(!complex_keywords_inst.parse(complex_function))
+                  {
+                    first = save;
                     // Check that we are leaving the keywords parser in a successfull state
                     BOOST_FOREACH(bool &valid,flags)
                     {
-                        if(!valid)
-                        {
-                            return false;                        
-                        }
+                      if(!valid)
+                      {
+                        return false;
+                      }
                     }
                     return true;
-                }
-          else
-          {
-            save = first;
-            }
+                  }
+                  else
+                  {
+                    save = first;
+                  }
                 }
             }
             return false;
-        }
+          }
 
         template <typename Context>
         info what(Context& context) const
@@ -389,7 +389,7 @@ namespace boost { namespace spirit { namespace repository { namespace qi
         Elements elements;
         string_keywords_type string_keywords_inst;
         complex_keywords_type complex_keywords_inst;
-        
+
     };
 }}}}
 
@@ -406,8 +406,8 @@ namespace boost { namespace spirit { namespace qi {
             return result_type(ref);
         }
     };
-    
-    
+
+
 }}}
 
 namespace boost { namespace spirit { namespace traits

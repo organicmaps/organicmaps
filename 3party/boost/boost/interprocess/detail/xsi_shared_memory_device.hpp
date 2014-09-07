@@ -23,7 +23,7 @@
 #include <boost/interprocess/exceptions.hpp>
 #include <boost/interprocess/detail/utilities.hpp>
 #include <boost/interprocess/detail/os_file_functions.hpp>
-#include <boost/interprocess/detail/tmp_dir_helpers.hpp>
+#include <boost/interprocess/detail/shared_dir_helpers.hpp>
 #include <boost/interprocess/interprocess_fwd.hpp>
 #include <boost/interprocess/exceptions.hpp>
 
@@ -197,7 +197,7 @@ inline void xsi_shared_memory_device::priv_obtain_index
    permissions p;
    p.set_unrestricted();
    std::string xsi_shm_emulation_file_path;
-   ipcdetail::create_tmp_and_clean_old_and_get_filename(filename, xsi_shm_emulation_file_path);
+   ipcdetail::create_shared_dir_cleaning_old_and_get_filepath(filename, xsi_shm_emulation_file_path);
    ipcdetail::create_or_open_file(xsi_shm_emulation_file_path.c_str(), read_write, p);
    const std::size_t MemSize = sizeof(info_t);
 

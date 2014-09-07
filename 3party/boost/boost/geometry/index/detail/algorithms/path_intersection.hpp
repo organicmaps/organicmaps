@@ -2,7 +2,7 @@
 //
 // n-dimensional box-linestring intersection
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -22,6 +22,11 @@ struct path_intersection
 {
     BOOST_MPL_ASSERT_MSG((false), NOT_IMPLEMENTED_FOR_THIS_GEOMETRY_OR_INDEXABLE, (path_intersection));
 };
+
+// TODO: FP type must be used as a relative distance type!
+// and default_distance_result can be some user-defined int type
+// BUT! This code is experimental and probably won't be released at all
+// since more flexible user-defined-nearest predicate should be added instead
 
 template <typename Indexable, typename Segment>
 struct path_intersection<Indexable, Segment, box_tag, segment_tag>

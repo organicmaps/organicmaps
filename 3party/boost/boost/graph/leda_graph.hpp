@@ -30,7 +30,6 @@
 
 // Warning: this implementation is in alpha and has not been tested
 
-#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 namespace boost {
 
   struct leda_graph_traversal_category : 
@@ -336,7 +335,6 @@ namespace boost {
   };
 
 } // namespace boost
-#endif
 
 namespace boost {
 

@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_REPETITIVE_VIEW_DEREF_IMPL_HPP_INCLUDED)
 #define BOOST_FUSION_REPETITIVE_VIEW_DEREF_IMPL_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/deref.hpp>
 
 namespace boost { namespace fusion
@@ -29,6 +30,7 @@ namespace boost { namespace fusion
                     result_of::deref<typename Iterator::pos_type>::type
                 type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type call(Iterator const& i)
                 {
                     return *i.pos;

@@ -2,7 +2,7 @@
 // detail/impl/socket_select_interrupter.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -16,6 +16,8 @@
 #endif // defined(_MSC_VER) && (_MSC_VER >= 1200)
 
 #include <boost/asio/detail/config.hpp>
+
+#if !defined(BOOST_ASIO_WINDOWS_RUNTIME)
 
 #if defined(BOOST_ASIO_WINDOWS) \
   || defined(__CYGWIN__) \
@@ -57,7 +59,7 @@ void socket_select_interrupter::open_descriptors()
   std::size_t addr_len = sizeof(addr);
   memset(&addr, 0, sizeof(addr));
   addr.sin_family = AF_INET;
-  addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+  addr.sin_addr.s_addr = socket_ops::host_to_network_long(INADDR_LOOPBACK);
   addr.sin_port = 0;
   if (socket_ops::bind(acceptor.get(), (const socket_addr_type*)&addr,
         addr_len, ec) == socket_error_retval)
@@ -70,7 +72,7 @@ void socket_select_interrupter::open_descriptors()
   // Some broken firewalls on Windows will intermittently cause getsockname to
   // return 0.0.0.0 when the socket is actually bound to 127.0.0.1. We
   // explicitly specify the target address here to work around this problem.
-  addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+  addr.sin_addr.s_addr = socket_ops::host_to_network_long(INADDR_LOOPBACK);
 
   if (socket_ops::listen(acceptor.get(),
         SOMAXCONN, ec) == socket_error_retval)
@@ -169,5 +171,7 @@ bool socket_select_interrupter::reset()
 #endif // defined(BOOST_ASIO_WINDOWS)
        // || defined(__CYGWIN__)
        // || defined(__SYMBIAN32__)
+
+#endif // !defined(BOOST_ASIO_WINDOWS_RUNTIME)
 
 #endif // BOOST_ASIO_DETAIL_IMPL_SOCKET_SELECT_INTERRUPTER_IPP

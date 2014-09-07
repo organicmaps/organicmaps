@@ -12,6 +12,7 @@
 
 #include <boost/config/no_tr1/cmath.hpp>
 #include <boost/math/tools/config.hpp>
+#include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/special_functions/trunc.hpp>
 #include <boost/math/tools/promotion.hpp>
 #include <boost/math/constants/constants.hpp>

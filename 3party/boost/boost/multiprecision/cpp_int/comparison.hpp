@@ -72,10 +72,9 @@ BOOST_MP_FORCEINLINE typename enable_if_c<
       bool
    >::type eval_eq(const cpp_int_backend<MinBits, MaxBits, signed_magnitude, Checked, Allocator>& a, signed_limb_type b) BOOST_NOEXCEPT
 {
-   BOOST_MP_USING_ABS
    return (a.sign() == (b < 0))
       && (a.size() == 1)
-      && (*a.limbs() == static_cast<limb_type>(abs(b)));
+      && (*a.limbs() == boost::multiprecision::detail::unsigned_abs(b));
 }
 template <unsigned MinBits, unsigned MaxBits, cpp_int_check_type Checked, class Allocator>
 BOOST_MP_FORCEINLINE typename enable_if_c<
@@ -113,20 +112,19 @@ inline typename enable_if_c<
       bool
    >::type eval_lt(const cpp_int_backend<MinBits, MaxBits, signed_magnitude, Checked, Allocator>& a, signed_limb_type b) BOOST_NOEXCEPT
 {
-   BOOST_MP_USING_ABS
    if((b == 0) || (a.sign() != (b < 0)))
       return a.sign();
    if(a.sign())
    {
       if(a.size() > 1)
          return true;
-      return *a.limbs() > static_cast<limb_type>(abs(b));
+      return *a.limbs() > boost::multiprecision::detail::unsigned_abs(b);
    }
    else
    {
       if(a.size() > 1)
          return false;
-      return *a.limbs() < static_cast<limb_type>(b);
+      return *a.limbs() < boost::multiprecision::detail::unsigned_abs(b);
    }
 }
 
@@ -167,7 +165,6 @@ inline typename enable_if_c<
       bool
    >::type eval_gt(const cpp_int_backend<MinBits, MaxBits, signed_magnitude, Checked, Allocator>& a, signed_limb_type b) BOOST_NOEXCEPT
 {
-   BOOST_MP_USING_ABS
    if(b == 0)
       return !a.sign() && ((a.size() > 1) || *a.limbs());
    if(a.sign() != (b < 0))
@@ -176,13 +173,13 @@ inline typename enable_if_c<
    {
       if(a.size() > 1)
          return false;
-      return *a.limbs() < static_cast<limb_type>(abs(b));
+      return *a.limbs() < boost::multiprecision::detail::unsigned_abs(b);
    }
    else
    {
       if(a.size() > 1)
          return true;
-      return *a.limbs() > static_cast<limb_type>(b);
+      return *a.limbs() > boost::multiprecision::detail::unsigned_abs(b);
    }
 }
 
@@ -237,9 +234,7 @@ BOOST_MP_FORCEINLINE typename enable_if_c<
       bool
    >::type eval_eq(const cpp_int_backend<MinBits, MaxBits, signed_magnitude, Checked, void>& a, S b) BOOST_NOEXCEPT
 {
-   BOOST_MP_USING_ABS
-   typedef typename make_unsigned<S>::type ui_type;
-   return (a.sign() == (b < 0)) && (*a.limbs() == static_cast<ui_type>(abs(b)));
+   return (a.sign() == (b < 0)) && (*a.limbs() == boost::multiprecision::detail::unsigned_abs(b));
 }
 template <unsigned MinBits, unsigned MaxBits, cpp_int_check_type Checked, class U>
 BOOST_MP_FORCEINLINE typename enable_if_c<
@@ -301,11 +296,9 @@ BOOST_MP_FORCEINLINE typename enable_if_c<
       bool
    >::type eval_lt(const cpp_int_backend<MinBits, MaxBits, signed_magnitude, Checked, void>& a, S b) BOOST_NOEXCEPT
 {
-   BOOST_MP_USING_ABS
-   typedef typename make_unsigned<S>::type ui_type;
    if(a.sign() != (b < 0))
       return a.sign();
-   return a.sign() ? (*a.limbs() > static_cast<ui_type>(abs(b))) : (*a.limbs() < static_cast<ui_type>(abs(b)));
+   return a.sign() ? (*a.limbs() > boost::multiprecision::detail::unsigned_abs(b)) : (*a.limbs() < boost::multiprecision::detail::unsigned_abs(b));
 }
 template <unsigned MinBits, unsigned MaxBits, cpp_int_check_type Checked, class U>
 BOOST_MP_FORCEINLINE typename enable_if_c<
@@ -367,11 +360,9 @@ BOOST_MP_FORCEINLINE typename enable_if_c<
       bool
    >::type eval_gt(const cpp_int_backend<MinBits, MaxBits, signed_magnitude, Checked, void>& a, S b) BOOST_NOEXCEPT
 {
-   BOOST_MP_USING_ABS
-   typedef typename make_unsigned<S>::type ui_type;
    if(a.sign() != (b < 0))
       return !a.sign();
-   return a.sign() ? (*a.limbs() < static_cast<ui_type>(abs(b))) : (*a.limbs() > static_cast<ui_type>(abs(b)));
+   return a.sign() ? (*a.limbs() < boost::multiprecision::detail::unsigned_abs(b)) : (*a.limbs() > boost::multiprecision::detail::unsigned_abs(b));
 }
 template <unsigned MinBits, unsigned MaxBits, cpp_int_check_type Checked, class U>
 BOOST_MP_FORCEINLINE typename enable_if_c<

@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_SEGMENTED_END_IMPL_HPP_INCLUDED)
 #define BOOST_FUSION_SEGMENTED_END_IMPL_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
@@ -47,6 +48,7 @@ namespace boost { namespace fusion { namespace detail
         typedef iterator_range<end_type, end_type>  pair_type;
         typedef cons<pair_type, Stack>              type;
 
+        BOOST_FUSION_GPU_ENABLED
         static type call(Sequence & seq, Stack stack)
         {
             end_type end = fusion::end(fusion::segments(seq));

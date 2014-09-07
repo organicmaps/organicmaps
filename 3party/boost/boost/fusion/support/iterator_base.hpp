@@ -7,6 +7,8 @@
 #if !defined(FUSION_ITERATOR_BASE_05042005_1008)
 #define FUSION_ITERATOR_BASE_05042005_1008
 
+#include <boost/fusion/support/config.hpp>
+
 namespace boost { namespace fusion
 {
     struct iterator_root {};
@@ -14,12 +16,14 @@ namespace boost { namespace fusion
     template <typename Iterator>
     struct iterator_base : iterator_root
     {
+        BOOST_FUSION_GPU_ENABLED
         Iterator const&
         cast() const
         {
             return static_cast<Iterator const&>(*this);
         }
 
+        BOOST_FUSION_GPU_ENABLED
         Iterator&
         cast()
         {

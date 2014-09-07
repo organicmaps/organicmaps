@@ -20,7 +20,11 @@
 #include <boost/type_traits/remove_const.hpp>
 
 #include <boost/array.hpp>
+#ifdef BOOST_NO_CXX11_HDR_UNORDERED_MAP
 #include <boost/tr1/tr1/unordered_map>
+#else
+#include <unordered_map>
+#endif
 
 #include <boost/algorithm/searching/detail/debugging.hpp>
 
@@ -35,7 +39,11 @@ namespace boost { namespace algorithm { namespace detail {
     template<typename key_type, typename value_type>
     class skip_table<key_type, value_type, false> {
     private:
+#ifdef BOOST_NO_CXX11_HDR_UNORDERED_MAP
         typedef std::tr1::unordered_map<key_type, value_type> skip_map;
+#else
+        typedef std::unordered_map<key_type, value_type> skip_map;
+#endif
         const value_type k_default_value;
         skip_map skip_;
         

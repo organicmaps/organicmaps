@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -19,10 +19,10 @@
 #include <boost/static_assert.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/visible_type.hpp>
-#include <boost/log/utility/explicit_operator_bool.hpp>
+#include <boost/utility/explicit_operator_bool.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -50,13 +50,13 @@ public:
         void* m_pTrampoline;
 
     public:
-        explicit callback_base(void* visitor = 0, void* tramp = 0) :
+        explicit callback_base(void* visitor = 0, void* tramp = 0) BOOST_NOEXCEPT :
             m_pVisitor(visitor),
             m_pTrampoline(tramp)
         {
         }
         template< typename ValueT >
-        explicit callback_base(void* visitor, void (*tramp)(void*, ValueT const&)) :
+        explicit callback_base(void* visitor, void (*tramp)(void*, ValueT const&)) BOOST_NOEXCEPT :
             m_pVisitor(visitor)
         {
             typedef void (*trampoline_t)(void*, ValueT const&);
@@ -92,10 +92,10 @@ public:
         typedef T supported_type;
 
     public:
-        callback() : callback_base()
+        callback() BOOST_NOEXCEPT : callback_base()
         {
         }
-        explicit callback(callback_base const& base) : callback_base(base)
+        explicit callback(callback_base const& base) BOOST_NOEXCEPT : callback_base(base)
         {
         }
 
@@ -112,9 +112,9 @@ public:
             (caster.as_trampoline)(this->m_pVisitor, value);
         }
 
-        BOOST_LOG_EXPLICIT_OPERATOR_BOOL()
+        BOOST_EXPLICIT_OPERATOR_BOOL_NOEXCEPT()
 
-        bool operator! () const { return (this->m_pVisitor == 0); }
+        bool operator! () const BOOST_NOEXCEPT { return (this->m_pVisitor == 0); }
     };
 
 #else // BOOST_LOG_DOXYGEN_PASS
@@ -136,12 +136,12 @@ public:
         /*!
          * The operator checks if the visitor is attached to a receiver
          */
-        BOOST_LOG_EXPLICIT_OPERATOR_BOOL()
+        BOOST_EXPLICIT_OPERATOR_BOOL_NOEXCEPT()
 
         /*!
          * The operator checks if the visitor is not attached to a receiver
          */
-        bool operator! () const;
+        bool operator! () const BOOST_NOEXCEPT;
     };
 
 #endif // BOOST_LOG_DOXYGEN_PASS
@@ -158,13 +158,14 @@ protected:
     /*!
      * Initializing constructor
      */
-    explicit type_dispatcher(get_callback_impl_type get_callback_impl) : m_get_callback_impl(get_callback_impl)
+    explicit type_dispatcher(get_callback_impl_type get_callback_impl) BOOST_NOEXCEPT : m_get_callback_impl(get_callback_impl)
     {
     }
+
     // Destructor and copying can only be called from the derived classes
-    BOOST_LOG_DEFAULTED_FUNCTION(~type_dispatcher(), {})
-    BOOST_LOG_DEFAULTED_FUNCTION(type_dispatcher(type_dispatcher const& that), : m_get_callback_impl(that.m_get_callback_impl) {})
-    BOOST_LOG_DEFAULTED_FUNCTION(type_dispatcher& operator= (type_dispatcher const& that), { m_get_callback_impl = that.m_get_callback_impl; return *this; })
+    BOOST_DEFAULTED_FUNCTION(~type_dispatcher(), {})
+    BOOST_DEFAULTED_FUNCTION(type_dispatcher(type_dispatcher const& that), : m_get_callback_impl(that.m_get_callback_impl) {})
+    BOOST_DEFAULTED_FUNCTION(type_dispatcher& operator= (type_dispatcher const& that), { m_get_callback_impl = that.m_get_callback_impl; return *this; })
 
 public:
     /*!

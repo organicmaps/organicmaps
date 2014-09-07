@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -26,11 +26,11 @@
 #include <boost/log/attributes/value_visitation_fwd.hpp>
 #include <boost/log/attributes/fallback_policy.hpp>
 #include <boost/log/expressions/keyword_fwd.hpp>
-#include <boost/log/utility/explicit_operator_bool.hpp>
+#include <boost/utility/explicit_operator_bool.hpp>
 #include <boost/log/utility/type_dispatch/static_type_dispatcher.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -71,7 +71,7 @@ public:
      *
      * \return \c true if the value was visited successfully, \c false otherwise.
      */
-    BOOST_LOG_EXPLICIT_OPERATOR_BOOL()
+    BOOST_EXPLICIT_OPERATOR_BOOL_NOEXCEPT()
     /*!
      * Checks if the visitation was unsuccessful.
      *
@@ -115,7 +115,7 @@ public:
     /*!
      * Default constructor
      */
-    BOOST_LOG_DEFAULTED_FUNCTION(value_visitor_invoker(), {})
+    BOOST_DEFAULTED_FUNCTION(value_visitor_invoker(), {})
 
     /*!
      * Copy constructor

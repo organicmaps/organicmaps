@@ -28,6 +28,7 @@ namespace std{
 #include <boost/archive/archive_exception.hpp>
 #include <boost/archive/codecvt_null.hpp>
 #include <boost/archive/add_facet.hpp>
+#include <boost/archive/basic_binary_iprimitive.hpp> 
 
 namespace boost {
 namespace archive {

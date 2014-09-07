@@ -540,13 +540,6 @@ crauser_et_al_shortest_paths
    Compare compare, Combine combine, DistInf inf, DistZero zero,
    DijkstraVisitor vis)
 {
-  typedef typename boost::graph::parallel::process_group_type<DistributedGraph>::type
-    process_group_type;
-  typedef typename process_group_type::process_id_type process_id_type;
-  typedef typename graph_traits<DistributedGraph>::vertex_descriptor
-    Vertex;
-  typedef typename graph_traits<DistributedGraph>::vertices_size_type
-    vertices_size_type;
 
 #ifdef PBGL_ACCOUNTING
   crauser_et_al_shortest_paths_stats.deleted_vertices.clear();

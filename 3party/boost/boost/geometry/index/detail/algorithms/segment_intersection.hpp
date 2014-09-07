@@ -2,7 +2,7 @@
 //
 // n-dimensional box-segment intersection
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -34,8 +34,10 @@ namespace dispatch {
 template <typename Box, typename Point, size_t I>
 struct box_segment_intersection_dim
 {
-    BOOST_STATIC_ASSERT(I < dimension<Box>::value);
-    BOOST_STATIC_ASSERT(I < dimension<Point>::value);
+    BOOST_STATIC_ASSERT(0 <= dimension<Box>::value);
+    BOOST_STATIC_ASSERT(0 <= dimension<Point>::value);
+    BOOST_STATIC_ASSERT(I < size_t(dimension<Box>::value));
+    BOOST_STATIC_ASSERT(I < size_t(dimension<Point>::value));
     BOOST_STATIC_ASSERT(dimension<Point>::value == dimension<Box>::value);
 
     // WARNING! - RelativeDistance must be IEEE float for this to work
@@ -108,6 +110,9 @@ struct segment_intersection<Indexable, Point, box_tag>
     template <typename RelativeDistance>
     static inline bool apply(Indexable const& b, Point const& p0, Point const& p1, RelativeDistance & relative_distance)
     {
+
+// TODO: this ASSERT CHECK is wrong for user-defined CoordinateTypes!
+
         static const bool check = !::boost::is_integral<RelativeDistance>::value;
         BOOST_MPL_ASSERT_MSG(check, RELATIVE_DISTANCE_MUST_BE_FLOATING_POINT_TYPE, (RelativeDistance));
 

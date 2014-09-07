@@ -24,15 +24,21 @@ namespace detail { namespace overlay
 {
 
 
-template <typename P>
-struct traversal_turn_operation : public turn_operation
+template <typename Point, typename SegmentRatio>
+struct traversal_turn_operation : public turn_operation<SegmentRatio>
 {
-    enrichment_info<P> enriched;
+    enrichment_info<Point> enriched;
     visit_info visited;
 };
 
-template <typename P>
-struct traversal_turn_info : public turn_info<P, traversal_turn_operation<P> >
+template <typename Point, typename SegmentRatio>
+struct traversal_turn_info
+    : public turn_info
+                <
+                    Point,
+                    SegmentRatio,
+                    traversal_turn_operation<Point, SegmentRatio>
+                >
 {};
 
 

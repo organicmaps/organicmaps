@@ -11,15 +11,14 @@
 
 #include <ostream>
 #include <string>
-#include <algorithm>
+#include <algorithm> // std::copy
 #include <locale>
 
-#include <boost/config.hpp> // msvc 6.0 needs this to suppress warnings 
-                            // for BOOST_DEDUCED_TYPENAME
 #include <cstring> // strlen
 #include <cstdlib> // mbtowc
 #include <cwchar>  // wcslen
 
+#include <boost/config.hpp>
 #if defined(BOOST_NO_STDC_NAMESPACE)
 namespace std{ 
     using ::strlen; 
@@ -39,7 +38,14 @@ namespace std{
 #include <boost/archive/iterators/dataflow_exception.hpp>
 
 #include <boost/archive/add_facet.hpp>
-#include <boost/archive/detail/utf8_codecvt_facet.hpp>
+#ifndef BOOST_NO_CXX11_HDR_CODECVT
+    #include <codecvt>
+    namespace boost { namespace archive { namespace detail {
+        typedef std::codecvt_utf8<wchar_t> utf8_codecvt_facet;
+    } } }
+#else
+    #include <boost/archive/detail/utf8_codecvt_facet.hpp>
+#endif
 
 namespace boost {
 namespace archive {
@@ -128,26 +134,27 @@ xml_woarchive_impl<Archive>::xml_woarchive_impl(
     // a) before output is invoked or
     // b) after flush has been called.  This prevents one-to-many
     // transforms (such as one to many transforms from getting
-    // mixed up.  Unfortunately, STLPort doesn't respect b) above
-    // so the restoration of the original archive locale done by
-    // the locale_saver doesn't get processed,
-    // before the current one is destroyed.
-    // so the codecvt doesn't get replaced with the orginal
-    // so closing the stream invokes codecvt::do_unshift
-    // so it crashes because the corresponding locale that contained
-    // the codecvt isn't around any more.
-    // we can hack around this by using a static codecvt that never
-    // gets destroyed.
+    // mixed up.
     if(0 == (flags & no_codecvt)){
         boost::archive::detail::utf8_codecvt_facet *pfacet;
         #if defined(__SGI_STL_PORT)
-            static boost::archive::detail::utf8_codecvt_facet 
+            // Unfortunately, STLPort doesn't respect b) above
+            // so the restoration of the original archive locale done by
+            // the locale_saver doesn't get processed,
+            // before the current one is destroyed.
+            // so the codecvt doesn't get replaced with the orginal
+            // so closing the stream invokes codecvt::do_unshift
+            // so it crashes because the corresponding locale that contained
+            // the codecvt isn't around any more.
+            // we can hack around this by using a static codecvt that never
+            // gets destroyed.
+            static boost::archive::detail::utf8_codecvt_facet
                 facet(static_cast<size_t>(1));
             pfacet = & facet;
         #else
             pfacet = new boost::archive::detail::utf8_codecvt_facet;
         #endif
-        archive_locale.reset(add_facet(std::locale::classic(), pfacet));
+        archive_locale.reset(add_facet(os_.getloc(), pfacet));
         os.imbue(* archive_locale);
     }
     if(0 == (flags & no_header))

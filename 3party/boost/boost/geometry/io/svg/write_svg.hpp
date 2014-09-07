@@ -1,6 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
 // Copyright (c) 2009-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -18,8 +19,8 @@
 #include <boost/config.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/range.hpp>
-#include <boost/typeof/typeof.hpp>
 
+#include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
@@ -135,13 +136,14 @@ struct svg_poly
 
         // Inner rings:
         {
-            typename interior_return_type<Polygon const>::type rings
-                        = interior_rings(polygon);
-            for (BOOST_AUTO_TPL(rit, boost::begin(rings));
-                rit != boost::end(rings); ++rit)
+            typename interior_return_type<Polygon const>::type
+                rings = interior_rings(polygon);
+            for (typename detail::interior_iterator<Polygon const>::type
+                    rit = boost::begin(rings); rit != boost::end(rings); ++rit)
             {
                 first = true;
-                for (BOOST_AUTO_TPL(it, boost::begin(*rit)); it != boost::end(*rit);
+                for (typename detail::interior_ring_iterator<Polygon const>::type
+                        it = boost::begin(*rit); it != boost::end(*rit);
                     ++it, first = false)
                 {
                     os << (first ? "M" : " L") << " "

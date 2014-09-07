@@ -17,9 +17,13 @@
 
 #include <boost/mpl/assert.hpp>
 #include <boost/concept/requires.hpp>
+#include <boost/range.hpp>
+#include <boost/type_traits/is_const.hpp>
+#include <boost/type_traits/remove_const.hpp>
 
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tag_cast.hpp>
+#include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/util/add_const_if_c.hpp>
 #include <boost/geometry/views/box_view.hpp>
@@ -34,24 +38,20 @@ namespace detail { namespace for_each
 {
 
 
-template <typename Range, typename Actor, bool IsConst>
+template <typename Range, typename Actor>
 struct fe_range_range
 {
-    static inline void apply(
-                    typename add_const_if_c<IsConst, Range>::type& range,
-                    Actor& actor)
+    static inline void apply(Range & range, Actor & actor)
     {
         actor.apply(range);
     }
 };
 
 
-template <typename Polygon, typename Actor, bool IsConst>
+template <typename Polygon, typename Actor>
 struct fe_range_polygon
 {
-    static inline void apply(
-                    typename add_const_if_c<IsConst, Polygon>::type& polygon,
-                    Actor& actor)
+    static inline void apply(Polygon & polygon, Actor & actor)
     {
         actor.apply(exterior_ring(polygon));
 
@@ -60,17 +60,27 @@ struct fe_range_polygon
     }
 };
 
-template <typename Box, typename Actor, bool IsConst>
+template <typename Box, typename Actor>
 struct fe_range_box
 {
-    static inline void apply(
-                    typename add_const_if_c<IsConst, Box>::type& box,
-                    Actor& actor)
+    static inline void apply(Box & box, Actor & actor)
     {
-        actor.apply(box_view<Box>(box));
+        actor.apply(box_view<typename boost::remove_const<Box>::type>(box));
     }
 };
 
+template <typename Multi, typename Actor, typename SinglePolicy>
+struct fe_range_multi
+{
+    static inline void apply(Multi & multi, Actor & actor)
+    {
+        for ( typename boost::range_iterator<Multi>::type
+                it = boost::begin(multi); it != boost::end(multi); ++it)
+        {
+            SinglePolicy::apply(*it, actor);
+        }
+    }
+};
 
 }} // namespace detail::for_each
 #endif // DOXYGEN_NO_DETAIL
@@ -83,10 +93,9 @@ namespace dispatch
 
 template
 <
-    typename Tag,
     typename Geometry,
     typename Actor,
-    bool IsConst
+    typename Tag = typename tag<Geometry>::type
 >
 struct for_each_range
 {
@@ -98,26 +107,71 @@ struct for_each_range
 };
 
 
-template <typename Linestring, typename Actor, bool IsConst>
-struct for_each_range<linestring_tag, Linestring, Actor, IsConst>
-    : detail::for_each::fe_range_range<Linestring, Actor, IsConst>
+template <typename Linestring, typename Actor>
+struct for_each_range<Linestring, Actor, linestring_tag>
+    : detail::for_each::fe_range_range<Linestring, Actor>
 {};
 
 
-template <typename Ring, typename Actor, bool IsConst>
-struct for_each_range<ring_tag, Ring, Actor, IsConst>
-    : detail::for_each::fe_range_range<Ring, Actor, IsConst>
+template <typename Ring, typename Actor>
+struct for_each_range<Ring, Actor, ring_tag>
+    : detail::for_each::fe_range_range<Ring, Actor>
 {};
 
 
-template <typename Polygon, typename Actor, bool IsConst>
-struct for_each_range<polygon_tag, Polygon, Actor, IsConst>
-    : detail::for_each::fe_range_polygon<Polygon, Actor, IsConst>
+template <typename Polygon, typename Actor>
+struct for_each_range<Polygon, Actor, polygon_tag>
+    : detail::for_each::fe_range_polygon<Polygon, Actor>
 {};
 
-template <typename Box, typename Actor, bool IsConst>
-struct for_each_range<box_tag, Box, Actor, IsConst>
-    : detail::for_each::fe_range_box<Box, Actor, IsConst>
+
+template <typename Box, typename Actor>
+struct for_each_range<Box, Actor, box_tag>
+    : detail::for_each::fe_range_box<Box, Actor>
+{};
+
+
+template <typename MultiPoint, typename Actor>
+struct for_each_range<MultiPoint, Actor, multi_point_tag>
+    : detail::for_each::fe_range_range<MultiPoint, Actor>
+{};
+
+
+template <typename Geometry, typename Actor>
+struct for_each_range<Geometry, Actor, multi_linestring_tag>
+    : detail::for_each::fe_range_multi
+        <
+            Geometry,
+            Actor,
+            detail::for_each::fe_range_range
+                <
+                    typename add_const_if_c
+                        <
+                            boost::is_const<Geometry>::value,
+                            typename boost::range_value<Geometry>::type
+                        >::type,
+                    Actor
+                >
+        >
+{};
+
+
+template <typename Geometry, typename Actor>
+struct for_each_range<Geometry, Actor, multi_polygon_tag>
+    : detail::for_each::fe_range_multi
+        <
+            Geometry,
+            Actor,
+            detail::for_each::fe_range_polygon
+                <
+                    typename add_const_if_c
+                        <
+                            boost::is_const<Geometry>::value,
+                            typename boost::range_value<Geometry>::type
+                        >::type,
+                    Actor
+                >
+        >
 {};
 
 
@@ -128,14 +182,12 @@ namespace detail
 {
 
 template <typename Geometry, typename Actor>
-inline void for_each_range(Geometry const& geometry, Actor& actor)
+inline void for_each_range(Geometry const& geometry, Actor & actor)
 {
     dispatch::for_each_range
         <
-            typename tag<Geometry>::type,
-            Geometry,
-            Actor,
-            true
+            Geometry const,
+            Actor
         >::apply(geometry, actor);
 }
 

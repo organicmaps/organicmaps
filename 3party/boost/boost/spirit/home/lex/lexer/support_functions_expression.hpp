@@ -21,37 +21,6 @@ namespace boost { namespace spirit { namespace lex
 }}}
 
 ///////////////////////////////////////////////////////////////////////////////
-#ifndef BOOST_SPIRIT_USE_PHOENIX_V3
-
-namespace boost { namespace spirit { namespace lex
-{
-    namespace expression
-    {
-        template <typename Eval>
-        struct less
-        {
-            typedef phoenix::actor<lex::less_type<Eval> > type;
-
-            static type make(Eval const & eval)
-            {
-                return lex::less_type<Eval>(eval);
-            }
-        };
-
-        template <typename IdType, typename State>
-        struct lookahead
-        {
-            typedef phoenix::actor<lex::lookahead_type<IdType, State> > type;
-
-            static type make(IdType const & id_type, State const & state)
-            {
-                return lex::lookahead_type<IdType, State>(id_type, state);
-            }
-        };
-    }
-}}}
-
-#else // BOOST_SPIRIT_USE_PHOENIX_V3
 
 BOOST_PHOENIX_DEFINE_EXPRESSION(
     (boost)(spirit)(lex)(less)
@@ -129,7 +98,5 @@ namespace boost { namespace phoenix
         >
     {};
 }}
-
-#endif // BOOST_SPIRIT_USE_PHOENIX_V3
 
 #endif

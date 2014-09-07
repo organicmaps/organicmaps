@@ -12,41 +12,41 @@
 #ifndef BOOST_ALGORITHM_EQUAL_HPP
 #define BOOST_ALGORITHM_EQUAL_HPP
 
-#include <algorithm>	// for std::equal
-#include <functional>	// for std::equal_to
+#include <algorithm>    // for std::equal
+#include <functional>   // for std::equal_to
 
 namespace boost { namespace algorithm {
 
 namespace detail {
 
-	template <class T1, class T2>
-	struct eq : public std::binary_function<T1, T2, bool> {
-		bool operator () ( const T1& v1, const T2& v2 ) const { return v1 == v2 ;}
-		};
-	
-	template <class RandomAccessIterator1, class RandomAccessIterator2, class BinaryPredicate>
-	bool equal ( RandomAccessIterator1 first1, RandomAccessIterator1 last1, 
-				 RandomAccessIterator2 first2, RandomAccessIterator2 last2, BinaryPredicate pred,
-				 std::random_access_iterator_tag, std::random_access_iterator_tag )
-	{
-	//	Random-access iterators let is check the sizes in constant time
-		if ( std::distance ( first1, last1 ) != std::distance ( first2, last2 ))
-			return false;
-	// If we know that the sequences are the same size, the original version is fine
-		return std::equal ( first1, last1, first2, pred );
-	}
+    template <class T1, class T2>
+    struct eq : public std::binary_function<T1, T2, bool> {
+        bool operator () ( const T1& v1, const T2& v2 ) const { return v1 == v2 ;}
+        };
+    
+    template <class RandomAccessIterator1, class RandomAccessIterator2, class BinaryPredicate>
+    bool equal ( RandomAccessIterator1 first1, RandomAccessIterator1 last1, 
+                 RandomAccessIterator2 first2, RandomAccessIterator2 last2, BinaryPredicate pred,
+                 std::random_access_iterator_tag, std::random_access_iterator_tag )
+    {
+    //  Random-access iterators let is check the sizes in constant time
+        if ( std::distance ( first1, last1 ) != std::distance ( first2, last2 ))
+            return false;
+    // If we know that the sequences are the same size, the original version is fine
+        return std::equal ( first1, last1, first2, pred );
+    }
 
-	template <class InputIterator1, class InputIterator2, class BinaryPredicate>
-	bool equal ( InputIterator1 first1, InputIterator1 last1, 
-				 InputIterator2 first2, InputIterator2 last2, BinaryPredicate pred,
-				 std::input_iterator_tag, std::input_iterator_tag )
-	{
-	for (; first1 != last1 && first2 != last2; ++first1, ++first2 )
-		if ( !pred(*first1, *first2 ))
-			return false;
+    template <class InputIterator1, class InputIterator2, class BinaryPredicate>
+    bool equal ( InputIterator1 first1, InputIterator1 last1, 
+                 InputIterator2 first2, InputIterator2 last2, BinaryPredicate pred,
+                 std::input_iterator_tag, std::input_iterator_tag )
+    {
+    for (; first1 != last1 && first2 != last2; ++first1, ++first2 )
+        if ( !pred(*first1, *first2 ))
+            return false;
 
-	return first1 == last1 && first2 == last2;
-	}
+    return first1 == last1 && first2 == last2;
+    }
 }
 
 /// \fn equal ( InputIterator1 first1, InputIterator1 last1, 
@@ -63,10 +63,10 @@ template <class InputIterator1, class InputIterator2, class BinaryPredicate>
 bool equal ( InputIterator1 first1, InputIterator1 last1, 
              InputIterator2 first2, InputIterator2 last2, BinaryPredicate pred )
 {
-	return boost::algorithm::detail::equal ( 
-		first1, last1, first2, last2, pred,
-		typename std::iterator_traits<InputIterator1>::iterator_category (),
-		typename std::iterator_traits<InputIterator2>::iterator_category ());
+    return boost::algorithm::detail::equal ( 
+        first1, last1, first2, last2, pred,
+        typename std::iterator_traits<InputIterator1>::iterator_category (),
+        typename std::iterator_traits<InputIterator2>::iterator_category ());
 }
 
 /// \fn equal ( InputIterator1 first1, InputIterator1 last1, 
@@ -81,16 +81,16 @@ template <class InputIterator1, class InputIterator2>
 bool equal ( InputIterator1 first1, InputIterator1 last1, 
              InputIterator2 first2, InputIterator2 last2 )
 {
-	return boost::algorithm::detail::equal (
-		first1, last1, first2, last2,
-		boost::algorithm::detail::eq<
-			typename std::iterator_traits<InputIterator1>::value_type,
-			typename std::iterator_traits<InputIterator2>::value_type> (),
-		typename std::iterator_traits<InputIterator1>::iterator_category (),
-		typename std::iterator_traits<InputIterator2>::iterator_category ());
+    return boost::algorithm::detail::equal (
+        first1, last1, first2, last2,
+        boost::algorithm::detail::eq<
+            typename std::iterator_traits<InputIterator1>::value_type,
+            typename std::iterator_traits<InputIterator2>::value_type> (),
+        typename std::iterator_traits<InputIterator1>::iterator_category (),
+        typename std::iterator_traits<InputIterator2>::iterator_category ());
 }
 
-//	There are already range-based versions of these.
+//  There are already range-based versions of these.
 
 }} // namespace boost and algorithm
 

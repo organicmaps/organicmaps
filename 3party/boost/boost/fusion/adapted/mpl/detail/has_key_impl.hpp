@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_HAS_KEY_IMPL_31122005_1647)
 #define BOOST_FUSION_HAS_KEY_IMPL_31122005_1647
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/has_key.hpp>
 
 namespace boost { namespace fusion 

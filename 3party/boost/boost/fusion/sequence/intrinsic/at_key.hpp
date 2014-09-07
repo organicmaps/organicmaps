@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_AT_KEY_20060304_1755)
 #define BOOST_FUSION_AT_KEY_20060304_1755
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/fusion/sequence/intrinsic_fwd.hpp>
 #include <boost/fusion/algorithm/query/find.hpp>
@@ -37,6 +38,7 @@ namespace boost { namespace fusion
                     >::type
                 type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Seq& seq)
                 {
@@ -72,6 +74,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Key, typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename 
         lazy_disable_if<
             is_const<Sequence>
@@ -83,6 +86,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Key, typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::at_key<Sequence const, Key>::type
     at_key(Sequence const& seq)
     {

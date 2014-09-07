@@ -887,9 +887,6 @@ inline OutputIterator u32regex_replace(OutputIterator out,
                          match_flag_type flags = match_default)
 {
    return re_detail::extract_output_base
-#if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-   <OutputIterator>
-#endif
     (
       re_detail::do_regex_replace(
          re_detail::make_utf32_out(out, static_cast<mpl::int_<sizeof(*first)> const*>(0)),
@@ -909,9 +906,6 @@ inline OutputIterator u32regex_replace(OutputIterator out,
                          match_flag_type flags = match_default)
 {
    return re_detail::extract_output_base
-#if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-   <OutputIterator>
-#endif
     (
       re_detail::do_regex_replace(
          re_detail::make_utf32_out(out, static_cast<mpl::int_<sizeof(*first)> const*>(0)),
@@ -931,9 +925,6 @@ inline OutputIterator u32regex_replace(OutputIterator out,
                          match_flag_type flags = match_default)
 {
    return re_detail::extract_output_base
-#if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-   <OutputIterator>
-#endif
    (
       re_detail::do_regex_replace(
          re_detail::make_utf32_out(out, static_cast<mpl::int_<sizeof(*first)> const*>(0)),

@@ -289,8 +289,6 @@ namespace boost {
                  BOOST_GRAPH_ENABLE_IF_MODELS_PARM(Graph,vertex_list_graph_tag))
   { write_graphviz(out, g, vpw, epw, gpw, get(vertex_index, g)); }
 
-#if !defined(BOOST_MSVC) || BOOST_MSVC > 1300
-  // ambiguous overload problem with VC++
   template <typename Graph>
   inline void
   write_graphviz(std::ostream& out, const Graph& g
@@ -300,7 +298,6 @@ namespace boost {
     default_writer gw;
     write_graphviz(out, g, dw, dw, gw);
   }
-#endif
 
   template <typename Graph, typename VertexWriter>
   inline void
@@ -349,21 +346,7 @@ namespace boost {
       typename Graph::const_children_iterator i_child, j_child;
 
       //print graph/node/edge attributes
-#if defined(BOOST_MSVC) && BOOST_MSVC <= 1300
-      typedef typename graph_property<Graph, graph_graph_attribute_t>::type
-        GAttrMap;
-      typedef typename graph_property<Graph, graph_vertex_attribute_t>::type
-        NAttrMap;
-      typedef typename graph_property<Graph, graph_edge_attribute_t>::type
-        EAttrMap;
-      GAttrMap gam = get_property(g, graph_graph_attribute);
-      NAttrMap nam = get_property(g, graph_vertex_attribute);
-      EAttrMap eam = get_property(g, graph_edge_attribute);
-      graph_attributes_writer<GAttrMap, NAttrMap, EAttrMap> writer(gam, nam, eam);
-      writer(out);
-#else
       make_graph_attributes_writer(g)(out);
-#endif
 
       //print subgraph
       for ( boost::tie(i_child,j_child) = g.children();
@@ -382,15 +365,7 @@ namespace boost {
         if ( vertex_marker[pos] ) {
           vertex_marker[pos] = false;
           out << escape_dot_string(pos);
-#if defined(BOOST_MSVC) && BOOST_MSVC <= 1300
-          typedef typename property_map<Graph, vertex_attribute_t>::const_type
-            VertexAttributeMap;
-          attributes_writer<VertexAttributeMap> vawriter(get(vertex_attribute,
-                                                             g.root()));
-          vawriter(out, v);
-#else
           make_vertex_attributes_writer(g.root())(out, v);
-#endif
           out << ";" << std::endl;
         }
       }
@@ -403,14 +378,7 @@ namespace boost {
           edge_marker[pos] = false;
           out << escape_dot_string(get(vertex_id, u)) << " " << Traits::delimiter()
               << " " << escape_dot_string(get(vertex_id, v));
-#if defined(BOOST_MSVC) && BOOST_MSVC <= 1300
-          typedef typename property_map<Graph, edge_attribute_t>::const_type
-            EdgeAttributeMap;
-          attributes_writer<EdgeAttributeMap> eawriter(get(edge_attribute, g));
-          eawriter(out, *ei);
-#else
           make_edge_attributes_writer(g)(out, *ei); //print edge properties
-#endif
           out << ";" << std::endl;
         }
       }
@@ -568,6 +536,28 @@ namespace boost {
     const std::string* node_id;
   };
 
+  template <typename Graph>
+  class dynamic_graph_properties_writer
+  {
+  public:
+    dynamic_graph_properties_writer(const dynamic_properties& dp, const Graph& g) : g(&g), dp(&dp) { }
+
+    void operator()(std::ostream& out) const
+    {
+      for (dynamic_properties::const_iterator i = dp->begin();
+           i != dp->end(); ++i) {
+        if (typeid(Graph*) == i->second->key()) {
+          // const_cast here is to match interface used in read_graphviz
+          out << i->first << "=" << escape_dot_string(i->second->get_string(const_cast<Graph*>(g))) << ";\n";
+        }
+      }
+    }
+
+  private:
+    const Graph* g;
+    const dynamic_properties* dp;
+  };
+
   namespace graph { namespace detail {
 
     template<typename Vertex>
@@ -619,7 +609,7 @@ namespace boost {
       (out, g,
        /*vertex_writer=*/dynamic_vertex_properties_writer(dp, node_id),
        /*edge_writer=*/dynamic_properties_writer(dp),
-       /*graph_writer=*/default_writer(),
+       /*graph_writer=*/dynamic_graph_properties_writer<Graph>(dp, g),
        id);
   }
 

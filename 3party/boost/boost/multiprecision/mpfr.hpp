@@ -144,11 +144,10 @@ struct mpfr_float_imp<digits10, allocate_dynamic>
    }
    mpfr_float_imp& operator = (long long i)
    {
-      BOOST_MP_USING_ABS
       if(m_data[0]._mpfr_d == 0)
          mpfr_init2(m_data, multiprecision::detail::digits10_2_2(digits10 ? digits10 : get_default_precision()));
       bool neg = i < 0;
-      *this = static_cast<unsigned long long>(abs(i));
+      *this = boost::multiprecision::detail::unsigned_abs(i);
       if(neg)
          mpfr_neg(m_data, m_data, GMP_RNDN);
       return *this;
@@ -427,9 +426,8 @@ struct mpfr_float_imp<digits10, allocate_stack>
    }
    mpfr_float_imp& operator = (long long i)
    {
-      BOOST_MP_USING_ABS
       bool neg = i < 0;
-      *this = static_cast<unsigned long long>(abs(i));
+      *this = boost::multiprecision::detail::unsigned_abs(i);
       if(neg)
          mpfr_neg(m_data, m_data, GMP_RNDN);
       return *this;
@@ -952,7 +950,10 @@ inline void eval_subtract(mpfr_float_backend<D1, A1>& result, const mpfr_float_b
 template <unsigned D1, unsigned D2, mpfr_allocation_type A1, mpfr_allocation_type A2>
 inline void eval_multiply(mpfr_float_backend<D1, A1>& result, const mpfr_float_backend<D2, A2>& o)
 {
-   mpfr_mul(result.data(), result.data(), o.data(), GMP_RNDN);
+   if((void*)&o == (void*)&result)
+      mpfr_sqr(result.data(), o.data(), GMP_RNDN);
+   else
+      mpfr_mul(result.data(), result.data(), o.data(), GMP_RNDN);
 }
 template <unsigned D1, unsigned D2, mpfr_allocation_type A1, mpfr_allocation_type A2>
 inline void eval_divide(mpfr_float_backend<D1, A1>& result, const mpfr_float_backend<D2, A2>& o)
@@ -985,7 +986,7 @@ inline void eval_add(mpfr_float_backend<digits10, AllocationType>& result, long 
    if(i > 0)
       mpfr_add_ui(result.data(), result.data(), i, GMP_RNDN);
    else
-      mpfr_sub_ui(result.data(), result.data(), std::abs(i), GMP_RNDN);
+      mpfr_sub_ui(result.data(), result.data(), boost::multiprecision::detail::unsigned_abs(i), GMP_RNDN);
 }
 template <unsigned digits10, mpfr_allocation_type AllocationType>
 inline void eval_subtract(mpfr_float_backend<digits10, AllocationType>& result, long i)
@@ -993,19 +994,19 @@ inline void eval_subtract(mpfr_float_backend<digits10, AllocationType>& result, 
    if(i > 0)
       mpfr_sub_ui(result.data(), result.data(), i, GMP_RNDN);
    else
-      mpfr_add_ui(result.data(), result.data(), std::abs(i), GMP_RNDN);
+      mpfr_add_ui(result.data(), result.data(), boost::multiprecision::detail::unsigned_abs(i), GMP_RNDN);
 }
 template <unsigned digits10, mpfr_allocation_type AllocationType>
 inline void eval_multiply(mpfr_float_backend<digits10, AllocationType>& result, long i)
 {
-   mpfr_mul_ui(result.data(), result.data(), std::abs(i), GMP_RNDN);
+   mpfr_mul_ui(result.data(), result.data(), boost::multiprecision::detail::unsigned_abs(i), GMP_RNDN);
    if(i < 0)
       mpfr_neg(result.data(), result.data(), GMP_RNDN);
 }
 template <unsigned digits10, mpfr_allocation_type AllocationType>
 inline void eval_divide(mpfr_float_backend<digits10, AllocationType>& result, long i)
 {
-   mpfr_div_ui(result.data(), result.data(), std::abs(i), GMP_RNDN);
+   mpfr_div_ui(result.data(), result.data(), boost::multiprecision::detail::unsigned_abs(i), GMP_RNDN);
    if(i < 0)
       mpfr_neg(result.data(), result.data(), GMP_RNDN);
 }
@@ -1026,7 +1027,7 @@ template <unsigned D1, unsigned D2, mpfr_allocation_type A1, mpfr_allocation_typ
 inline void eval_add(mpfr_float_backend<D1, A1>& a, const mpfr_float_backend<D2, A2>& x, long y)
 {
    if(y < 0)
-      mpfr_sub_ui(a.data(), x.data(), -y, GMP_RNDN);
+      mpfr_sub_ui(a.data(), x.data(), boost::multiprecision::detail::unsigned_abs(y), GMP_RNDN);
    else
       mpfr_add_ui(a.data(), x.data(), y, GMP_RNDN);
 }
@@ -1040,7 +1041,7 @@ inline void eval_add(mpfr_float_backend<D1, A1>& a, long x, const mpfr_float_bac
 {
    if(x < 0)
    {
-      mpfr_ui_sub(a.data(), -x, y.data(), GMP_RNDN);
+      mpfr_ui_sub(a.data(), boost::multiprecision::detail::unsigned_abs(x), y.data(), GMP_RNDN);
       mpfr_neg(a.data(), a.data(), GMP_RNDN);
    }
    else
@@ -1060,7 +1061,7 @@ template <unsigned D1, unsigned D2, mpfr_allocation_type A1, mpfr_allocation_typ
 inline void eval_subtract(mpfr_float_backend<D1, A1>& a, const mpfr_float_backend<D2, A2>& x, long y)
 {
    if(y < 0)
-      mpfr_add_ui(a.data(), x.data(), -y, GMP_RNDN);
+      mpfr_add_ui(a.data(), x.data(), boost::multiprecision::detail::unsigned_abs(y), GMP_RNDN);
    else
       mpfr_sub_ui(a.data(), x.data(), y, GMP_RNDN);
 }
@@ -1074,7 +1075,7 @@ inline void eval_subtract(mpfr_float_backend<D1, A1>& a, long x, const mpfr_floa
 {
    if(x < 0)
    {
-      mpfr_add_ui(a.data(), y.data(), -x, GMP_RNDN);
+      mpfr_add_ui(a.data(), y.data(), boost::multiprecision::detail::unsigned_abs(x), GMP_RNDN);
       mpfr_neg(a.data(), a.data(), GMP_RNDN);
    }
    else
@@ -1084,7 +1085,10 @@ inline void eval_subtract(mpfr_float_backend<D1, A1>& a, long x, const mpfr_floa
 template <unsigned D1, unsigned D2, mpfr_allocation_type A1, mpfr_allocation_type A2, unsigned D3>
 inline void eval_multiply(mpfr_float_backend<D1, A1>& a, const mpfr_float_backend<D2, A2>& x, const mpfr_float_backend<D3>& y)
 {
-   mpfr_mul(a.data(), x.data(), y.data(), GMP_RNDN);
+   if((void*)&x == (void*)&y)
+      mpfr_sqr(a.data(), x.data(), GMP_RNDN);
+   else
+      mpfr_mul(a.data(), x.data(), y.data(), GMP_RNDN);
 }
 template <unsigned D1, unsigned D2, mpfr_allocation_type A1, mpfr_allocation_type A2>
 inline void eval_multiply(mpfr_float_backend<D1, A1>& a, const mpfr_float_backend<D2, A2>& x, unsigned long y)
@@ -1096,7 +1100,7 @@ inline void eval_multiply(mpfr_float_backend<D1, A1>& a, const mpfr_float_backen
 {
    if(y < 0)
    {
-      mpfr_mul_ui(a.data(), x.data(), -y, GMP_RNDN);
+      mpfr_mul_ui(a.data(), x.data(), boost::multiprecision::detail::unsigned_abs(y), GMP_RNDN);
       a.negate();
    }
    else
@@ -1112,7 +1116,7 @@ inline void eval_multiply(mpfr_float_backend<D1, A1>& a, long x, const mpfr_floa
 {
    if(x < 0)
    {
-      mpfr_mul_ui(a.data(), y.data(), -x, GMP_RNDN);
+      mpfr_mul_ui(a.data(), y.data(), boost::multiprecision::detail::unsigned_abs(x), GMP_RNDN);
       mpfr_neg(a.data(), a.data(), GMP_RNDN);
    }
    else
@@ -1134,7 +1138,7 @@ inline void eval_divide(mpfr_float_backend<D1, A1>& a, const mpfr_float_backend<
 {
    if(y < 0)
    {
-      mpfr_div_ui(a.data(), x.data(), -y, GMP_RNDN);
+      mpfr_div_ui(a.data(), x.data(), boost::multiprecision::detail::unsigned_abs(y), GMP_RNDN);
       a.negate();
    }
    else
@@ -1150,7 +1154,7 @@ inline void eval_divide(mpfr_float_backend<D1, A1>& a, long x, const mpfr_float_
 {
    if(x < 0)
    {
-      mpfr_ui_div(a.data(), -x, y.data(), GMP_RNDN);
+      mpfr_ui_div(a.data(), boost::multiprecision::detail::unsigned_abs(x), y.data(), GMP_RNDN);
       mpfr_neg(a.data(), a.data(), GMP_RNDN);
    }
    else
@@ -1175,7 +1179,7 @@ inline void eval_convert_to(unsigned long* result, const mpfr_float_backend<digi
    {
       BOOST_THROW_EXCEPTION(std::runtime_error("Could not convert NaN to integer."));
    }
-   *result = mpfr_get_ui(val.data(), GMP_RNDN);
+   *result = mpfr_get_ui(val.data(), GMP_RNDZ);
 }
 template <unsigned digits10, mpfr_allocation_type AllocationType>
 inline void eval_convert_to(long* result, const mpfr_float_backend<digits10, AllocationType>& val)
@@ -1184,7 +1188,7 @@ inline void eval_convert_to(long* result, const mpfr_float_backend<digits10, All
    {
       BOOST_THROW_EXCEPTION(std::runtime_error("Could not convert NaN to integer."));
    }
-   *result = mpfr_get_si(val.data(), GMP_RNDN);
+   *result = mpfr_get_si(val.data(), GMP_RNDZ);
 }
 #ifdef _MPFR_H_HAVE_INTMAX_T
 template <unsigned digits10, mpfr_allocation_type AllocationType>
@@ -1194,7 +1198,7 @@ inline void eval_convert_to(unsigned long long* result, const mpfr_float_backend
    {
       BOOST_THROW_EXCEPTION(std::runtime_error("Could not convert NaN to integer."));
    }
-   *result = mpfr_get_uj(val.data(), GMP_RNDN);
+   *result = mpfr_get_uj(val.data(), GMP_RNDZ);
 }
 template <unsigned digits10, mpfr_allocation_type AllocationType>
 inline void eval_convert_to(long long* result, const mpfr_float_backend<digits10, AllocationType>& val)
@@ -1203,7 +1207,7 @@ inline void eval_convert_to(long long* result, const mpfr_float_backend<digits10
    {
       BOOST_THROW_EXCEPTION(std::runtime_error("Could not convert NaN to integer."));
    }
-   *result = mpfr_get_sj(val.data(), GMP_RNDN);
+   *result = mpfr_get_sj(val.data(), GMP_RNDZ);
 }
 #endif
 template <unsigned digits10, mpfr_allocation_type AllocationType>
@@ -1624,7 +1628,7 @@ public:
       {
          value.first = true;
          value.second = 1;
-         mpfr_div_2exp(value.second.backend().data(), value.second.backend().data(), digits, GMP_RNDN);
+         mpfr_div_2exp(value.second.backend().data(), value.second.backend().data(), 1, GMP_RNDN);
       }
       return value.second;
    }

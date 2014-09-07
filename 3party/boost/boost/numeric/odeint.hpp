@@ -6,8 +6,8 @@
  Forward include for odeint. Includes nearly everything.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2009-2013 Karsten Ahnert
+ Copyright 2010-2013 Mario Mulansky
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -47,6 +47,7 @@
 
 #include <boost/numeric/odeint/stepper/symplectic_euler.hpp>
 #include <boost/numeric/odeint/stepper/symplectic_rkn_sb3a_mclachlan.hpp>
+#include <boost/numeric/odeint/stepper/velocity_verlet.hpp>
 
 #include <boost/numeric/odeint/stepper/adams_bashforth_moulton.hpp>
 
@@ -55,11 +56,13 @@
 #include <boost/numeric/odeint/stepper/rosenbrock4_controller.hpp>
 #include <boost/numeric/odeint/stepper/rosenbrock4_dense_output.hpp>
 
+#include <boost/numeric/odeint/algebra/algebra_dispatcher.hpp>
+#include <boost/numeric/odeint/algebra/multi_array_algebra.hpp>
+#include <boost/numeric/odeint/util/multi_array_adaption.hpp>
 /*
  * Including this algebra slows down the compilation time
  */
 // #include <boost/numeric/odeint/algebra/fusion_algebra.hpp>
-#include <boost/numeric/odeint/algebra/vector_space_algebra.hpp>
 
 #include <boost/numeric/odeint/integrate/integrate.hpp>
 #include <boost/numeric/odeint/integrate/integrate_adaptive.hpp>
@@ -70,6 +73,11 @@
 #include <boost/numeric/odeint/integrate/observer_collection.hpp>
 
 #include <boost/numeric/odeint/stepper/generation.hpp>
+
+#include <boost/numeric/odeint/iterator/adaptive_iterator.hpp>
+#include <boost/numeric/odeint/iterator/adaptive_time_iterator.hpp>
+#include <boost/numeric/odeint/iterator/const_step_iterator.hpp>
+#include <boost/numeric/odeint/iterator/const_step_time_iterator.hpp>
 
 
 #endif // BOOST_NUMERIC_ODEINT_HPP_INCLUDED

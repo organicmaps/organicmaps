@@ -141,7 +141,7 @@ namespace boost { namespace numeric
         template<typename Left, typename Right, typename EnableIf = void>
         struct max_assign_base;
         template<typename Left, typename Right, typename EnableIf = void>
-        struct average_base;
+        struct fdiv_base;
         template<typename Arg, typename EnableIf = void>
         struct as_min_base;
         template<typename Arg, typename EnableIf = void>
@@ -158,7 +158,7 @@ namespace boost { namespace numeric
         template<typename Left, typename Right, typename LeftTag = typename tag<Left>::type, typename RightTag = typename tag<Right>::type>
         struct max_assign;
         template<typename Left, typename Right, typename LeftTag = typename tag<Left>::type, typename RightTag = typename tag<Right>::type>
-        struct average;
+        struct fdiv;
         template<typename Arg, typename Tag = typename tag<Arg>::type>
         struct as_min;
         template<typename Arg, typename Tag = typename tag<Arg>::type>
@@ -175,7 +175,7 @@ namespace boost { namespace numeric
         struct promote;
         struct min_assign;
         struct max_assign;
-        struct average;
+        struct fdiv;
         struct as_min;
         struct as_max;
         struct as_zero;
@@ -186,7 +186,7 @@ namespace boost { namespace numeric
     {
         extern op::min_assign const &min_assign;
         extern op::max_assign const &max_assign;
-        extern op::average const &average;
+        extern op::fdiv const &fdiv;
         extern op::as_min const &as_min;
         extern op::as_max const &as_max;
         extern op::as_zero const &as_zero;

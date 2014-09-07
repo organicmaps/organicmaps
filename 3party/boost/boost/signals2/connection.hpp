@@ -158,6 +158,32 @@ namespace boost
       connection(const boost::weak_ptr<detail::connection_body_base> &connectionBody):
         _weak_connection_body(connectionBody)
       {}
+      
+      // move support
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+      connection(connection && other): _weak_connection_body(std::move(other._weak_connection_body))
+      {
+        // make sure other is reset, in case it is a scoped_connection (so it
+        // won't disconnect on destruction after being moved away from).
+        other._weak_connection_body.reset();
+      }
+      connection & operator=(connection && other)
+      {
+        if(&other == this) return *this;
+        _weak_connection_body = std::move(other._weak_connection_body);
+        // make sure other is reset, in case it is a scoped_connection (so it
+        // won't disconnect on destruction after being moved away from).
+        other._weak_connection_body.reset();
+        return *this;
+      }
+#endif // !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+      connection & operator=(const connection & other)
+      {
+        if(&other == this) return *this;
+        _weak_connection_body = other._weak_connection_body;
+        return *this;
+      }
+
       ~connection() {}
       void disconnect() const
       {
@@ -224,6 +250,31 @@ namespace boost
         connection::operator=(rhs);
         return *this;
       }
+
+      // move support
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+      scoped_connection(scoped_connection && other): connection(std::move(other))
+      {
+      }
+      scoped_connection(connection && other): connection(std::move(other))
+      {
+      }
+      scoped_connection & operator=(scoped_connection && other)
+      {
+        if(&other == this) return *this;
+        disconnect();
+        connection::operator=(std::move(other));
+        return *this;
+      }
+      scoped_connection & operator=(connection && other)
+      {
+        if(&other == this) return *this;
+        disconnect();
+        connection::operator=(std::move(other));
+        return *this;
+      }
+#endif // !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+
       connection release()
       {
         connection conn(_weak_connection_body);

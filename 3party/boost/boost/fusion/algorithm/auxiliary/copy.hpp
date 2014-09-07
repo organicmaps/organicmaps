@@ -7,6 +7,7 @@
 #if !defined(FUSION_COPY_02162011_2308)
 #define FUSION_COPY_02162011_2308
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/fusion/sequence/intrinsic/end.hpp>
 #include <boost/fusion/sequence/intrinsic/size.hpp>
@@ -33,12 +34,14 @@ namespace boost { namespace fusion
             typedef typename result_of::end<Seq2>::type end2_type;
 
             template <typename I1, typename I2>
+            BOOST_FUSION_GPU_ENABLED
             static void
             call(I1 const&, I2 const&, mpl::true_)
             {
             }
 
             template <typename I1, typename I2>
+            BOOST_FUSION_GPU_ENABLED
             static void
             call(I1 const& src, I2 const& dest, mpl::false_)
             {
@@ -47,6 +50,7 @@ namespace boost { namespace fusion
             }
 
             template <typename I1, typename I2>
+            BOOST_FUSION_GPU_ENABLED
             static void
             call(I1 const& src, I2 const& dest)
             {
@@ -57,6 +61,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Seq1, typename Seq2>
+    BOOST_FUSION_GPU_ENABLED
     inline
     typename
         enable_if_c<
@@ -69,7 +74,7 @@ namespace boost { namespace fusion
     copy(Seq1 const& src, Seq2& dest)
     {
         BOOST_STATIC_ASSERT(
-            result_of::size<Seq1>::value == result_of::size<Seq2>::value);
+            result_of::size<Seq1>::value <= result_of::size<Seq2>::value);
 
         detail::sequence_copy<
             Seq1 const, Seq2>::

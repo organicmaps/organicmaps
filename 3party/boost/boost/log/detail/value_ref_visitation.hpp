@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -10,7 +10,7 @@
  * \date   28.07.2012
  *
  * \brief  This header is the Boost.Log library implementation, see the library documentation
- *         at http://www.boost.org/libs/log/doc/log.html. In this file
+ *         at http://www.boost.org/doc/libs/release/libs/log/doc/html/index.html. In this file
  *         internal configuration macros are defined.
  */
 
@@ -44,7 +44,7 @@ struct apply_visitor_dispatch
 {
     typedef typename VisitorT::result_type result_type;
 
-    static BOOST_LOG_FORCEINLINE result_type call(const void* p, unsigned int type_index, VisitorT& visitor)
+    static BOOST_FORCEINLINE result_type call(const void* p, unsigned int type_index, VisitorT& visitor)
     {
         typedef typename mpl::begin< SequenceT >::type begin_type;
         typedef typename mpl::advance_c< begin_type, SizeV / 2u >::type middle_type;
@@ -91,7 +91,7 @@ struct apply_visitor_dispatch< SequenceT, VisitorT, BOOST_LOG_AUX_SWITCH_SIZE >
 {
     typedef typename VisitorT::result_type result_type;
 
-    static BOOST_LOG_FORCEINLINE result_type call(const void* p, unsigned int type_index, VisitorT& visitor)
+    static BOOST_FORCEINLINE result_type call(const void* p, unsigned int type_index, VisitorT& visitor)
     {
         switch (type_index)
         {

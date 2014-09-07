@@ -9,10 +9,20 @@
 #if !defined(BOOST_CIRCULAR_BUFFER_DEBUG_HPP)
 #define BOOST_CIRCULAR_BUFFER_DEBUG_HPP
 
-#if defined(_MSC_VER) && _MSC_VER >= 1200
+#if defined(_MSC_VER)
     #pragma once
 #endif
 
+#if BOOST_CB_ENABLE_DEBUG
+#include <cstring>
+
+#if defined(BOOST_NO_STDC_NAMESPACE)
+namespace std {
+    using ::memset;
+}
+#endif
+
+#endif // BOOST_CB_ENABLE_DEBUG
 namespace boost {
 
 namespace cb_details {
@@ -21,6 +31,17 @@ namespace cb_details {
 
 // The value the uninitialized memory is filled with.
 const int UNINITIALIZED = 0xcc;
+
+template <class T>
+inline void do_fill_uninitialized_memory(T* data, std::size_t size_in_bytes) BOOST_NOEXCEPT {
+    std::memset(static_cast<void*>(data), UNINITIALIZED, size_in_bytes);
+}
+
+template <class T>
+inline void do_fill_uninitialized_memory(T& /*data*/, std::size_t /*size_in_bytes*/) BOOST_NOEXCEPT {
+    // Do nothing
+}
+
 
 class debug_iterator_registry;
 

@@ -57,7 +57,7 @@ namespace impl
     struct extended_p_square_quantile_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::average<Sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<Sample, std::size_t>::result_type float_type;
         typedef std::vector<float_type> array_type;
         typedef iterator_range<
             detail::lvalue_index_iterator<
@@ -137,7 +137,7 @@ namespace impl
                     float_type h1 = *iter_heights;
                     float_type h0 = *(iter_heights - 1);
 
-                    float_type a = numeric::average(h1 - h0, p1 - p0);
+                    float_type a = numeric::fdiv(h1 - h0, p1 - p0);
                     float_type b = h1 - p1 * a;
 
                     res = a * this->probability + b;
@@ -169,12 +169,12 @@ namespace impl
                         h2 = *iter_heights;
                     }
 
-                    float_type hp21 = numeric::average(h2 - h1, p2 - p1);
-                    float_type hp10 = numeric::average(h1 - h0, p1 - p0);
-                    float_type p21  = numeric::average(p2 * p2 - p1 * p1, p2 - p1);
-                    float_type p10  = numeric::average(p1 * p1 - p0 * p0, p1 - p0);
+                    float_type hp21 = numeric::fdiv(h2 - h1, p2 - p1);
+                    float_type hp10 = numeric::fdiv(h1 - h0, p1 - p0);
+                    float_type p21  = numeric::fdiv(p2 * p2 - p1 * p1, p2 - p1);
+                    float_type p10  = numeric::fdiv(p1 * p1 - p0 * p0, p1 - p0);
 
-                    float_type a = numeric::average(hp21 - hp10, p21 - p10);
+                    float_type a = numeric::fdiv(hp21 - hp10, p21 - p10);
                     float_type b = hp21 - a * p21;
                     float_type c = h2 - a * p2 * p2 - b * p2;
 

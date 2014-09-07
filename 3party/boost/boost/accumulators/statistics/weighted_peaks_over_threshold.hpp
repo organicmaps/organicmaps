@@ -56,16 +56,16 @@ namespace impl
       : accumulator_base
     {
         typedef typename numeric::functional::multiplies<Weight, Sample>::result_type weighted_sample;
-        typedef typename numeric::functional::average<weighted_sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<weighted_sample, std::size_t>::result_type float_type;
         // for boost::result_of
         typedef boost::tuple<float_type, float_type, float_type> result_type;
 
         template<typename Args>
         weighted_peaks_over_threshold_impl(Args const &args)
           : sign_((is_same<LeftRight, left>::value) ? -1 : 1)
-          , mu_(sign_ * numeric::average(args[sample | Sample()], (std::size_t)1))
-          , sigma2_(numeric::average(args[sample | Sample()], (std::size_t)1))
-          , w_sum_(numeric::average(args[weight | Weight()], (std::size_t)1))
+          , mu_(sign_ * numeric::fdiv(args[sample | Sample()], (std::size_t)1))
+          , sigma2_(numeric::fdiv(args[sample | Sample()], (std::size_t)1))
+          , w_sum_(numeric::fdiv(args[weight | Weight()], (std::size_t)1))
           , threshold_(sign_ * args[pot_threshold_value])
           , fit_parameters_(boost::make_tuple(0., 0., 0.))
           , is_dirty_(true)
@@ -92,13 +92,13 @@ namespace impl
             {
                 this->is_dirty_ = false;
 
-                this->mu_ = this->sign_ * numeric::average(this->mu_, this->w_sum_);
-                this->sigma2_ = numeric::average(this->sigma2_, this->w_sum_);
+                this->mu_ = this->sign_ * numeric::fdiv(this->mu_, this->w_sum_);
+                this->sigma2_ = numeric::fdiv(this->sigma2_, this->w_sum_);
                 this->sigma2_ -= this->mu_ * this->mu_;
 
-                float_type threshold_probability = numeric::average(sum_of_weights(args) - this->w_sum_, sum_of_weights(args));
+                float_type threshold_probability = numeric::fdiv(sum_of_weights(args) - this->w_sum_, sum_of_weights(args));
 
-                float_type tmp = numeric::average(( this->mu_ - this->threshold_ )*( this->mu_ - this->threshold_ ), this->sigma2_);
+                float_type tmp = numeric::fdiv(( this->mu_ - this->threshold_ )*( this->mu_ - this->threshold_ ), this->sigma2_);
                 float_type xi_hat = 0.5 * ( 1. - tmp );
                 float_type beta_hat = 0.5 * ( this->mu_ - this->threshold_ ) * ( 1. + tmp );
                 float_type beta_bar = beta_hat * std::pow(1. - threshold_probability, xi_hat);
@@ -135,15 +135,15 @@ namespace impl
       : accumulator_base
     {
         typedef typename numeric::functional::multiplies<Weight, Sample>::result_type weighted_sample;
-        typedef typename numeric::functional::average<weighted_sample, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<weighted_sample, std::size_t>::result_type float_type;
         // for boost::result_of
         typedef boost::tuple<float_type, float_type, float_type> result_type;
 
         template<typename Args>
         weighted_peaks_over_threshold_prob_impl(Args const &args)
           : sign_((is_same<LeftRight, left>::value) ? -1 : 1)
-          , mu_(sign_ * numeric::average(args[sample | Sample()], (std::size_t)1))
-          , sigma2_(numeric::average(args[sample | Sample()], (std::size_t)1))
+          , mu_(sign_ * numeric::fdiv(args[sample | Sample()], (std::size_t)1))
+          , sigma2_(numeric::fdiv(args[sample | Sample()], (std::size_t)1))
           , threshold_probability_(args[pot_threshold_probability])
           , fit_parameters_(boost::make_tuple(0., 0., 0.))
           , is_dirty_(true)
@@ -200,14 +200,14 @@ namespace impl
                 float_type u = *(tail(args).begin() + n - 1) * this->sign_;
 
 
-                this->mu_ = this->sign_ * numeric::average(this->mu_, sum);
-                this->sigma2_ = numeric::average(this->sigma2_, sum);
+                this->mu_ = this->sign_ * numeric::fdiv(this->mu_, sum);
+                this->sigma2_ = numeric::fdiv(this->sigma2_, sum);
                 this->sigma2_ -= this->mu_ * this->mu_;
 
                 if (is_same<LeftRight, left>::value)
                     this->threshold_probability_ = 1. - this->threshold_probability_;
 
-                float_type tmp = numeric::average(( this->mu_ - u )*( this->mu_ - u ), this->sigma2_);
+                float_type tmp = numeric::fdiv(( this->mu_ - u )*( this->mu_ - u ), this->sigma2_);
                 float_type xi_hat = 0.5 * ( 1. - tmp );
                 float_type beta_hat = 0.5 * ( this->mu_ - u ) * ( 1. + tmp );
                 float_type beta_bar = beta_hat * std::pow(1. - threshold_probability_, xi_hat);

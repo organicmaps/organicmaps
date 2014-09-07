@@ -7,6 +7,7 @@
 #if !defined(FUSION_VALUE_OF_IMPL_07202005_0900)
 #define FUSION_VALUE_OF_IMPL_07202005_0900
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/value_of.hpp>
 #include <boost/fusion/iterator/prior.hpp>
 

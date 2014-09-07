@@ -10,48 +10,7 @@
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_DETAIL_OVERLAY_SELF_TURN_POINTS_HPP
 
 
-#include <boost/geometry/multi/core/tags.hpp>
-#include <boost/geometry/multi/geometries/concepts/check.hpp>
 #include <boost/geometry/algorithms/detail/overlay/self_turn_points.hpp>
-
-
-namespace boost { namespace geometry
-{
-
-
-#ifndef DOXYGEN_NO_DISPATCH
-namespace dispatch
-{
-
-
-template
-<
-    typename MultiPolygon,
-    typename Turns,
-    typename TurnPolicy,
-    typename InterruptPolicy
->
-struct self_get_turn_points
-    <
-        multi_polygon_tag, MultiPolygon,
-        Turns,
-        TurnPolicy, InterruptPolicy
-    >
-    : detail::self_get_turn_points::get_turns
-        <
-            MultiPolygon,
-            Turns,
-            TurnPolicy,
-            InterruptPolicy
-        >
-{};
-
-
-} // namespace dispatch
-#endif // DOXYGEN_NO_DISPATCH
-
-
-}} // namespace boost::geometry
 
 
 #endif // BOOST_GEOMETRY_MULTI_ALGORITHMS_DETAIL_OVERLAY_SELF_TURN_POINTS_HPP

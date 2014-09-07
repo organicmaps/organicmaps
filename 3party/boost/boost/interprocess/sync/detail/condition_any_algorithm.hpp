@@ -189,10 +189,6 @@ class condition_any_wrapper
    template <typename L>
    bool timed_wait(L& lock, const boost::posix_time::ptime &abs_time)
    {
-      if(abs_time == boost::posix_time::pos_infin){
-         this->wait(lock);
-         return true;
-      }
       if (!lock)
          throw lock_exception();
       return algo_type::wait(m_data, lock, true, abs_time);
@@ -201,10 +197,6 @@ class condition_any_wrapper
    template <typename L, typename Pr>
    bool timed_wait(L& lock, const boost::posix_time::ptime &abs_time, Pr pred)
    {
-      if(abs_time == boost::posix_time::pos_infin){
-         this->wait(lock, pred);
-         return true;
-      }
       if (!lock)
             throw lock_exception();
       while (!pred()){

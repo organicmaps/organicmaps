@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_SUPPORT_UNUSED_20070305_1038)
 #define BOOST_FUSION_SUPPORT_UNUSED_20070305_1038
 
+#include <boost/fusion/support/config.hpp>
 #include <iosfwd>
 
 #include <boost/config.hpp>
@@ -21,16 +22,19 @@ namespace boost { namespace fusion
 {
     struct unused_type
     {
+        BOOST_FUSION_GPU_ENABLED
         unused_type()
         {
         }
 
         template <typename T>
+        BOOST_FUSION_GPU_ENABLED
         unused_type(T const&)
         {
         }
 
         template <typename T>
+        BOOST_FUSION_GPU_ENABLED
         unused_type const&
         operator=(T const&) const
         {
@@ -38,18 +42,21 @@ namespace boost { namespace fusion
         }
 
         template <typename T>
+        BOOST_FUSION_GPU_ENABLED
         unused_type&
         operator=(T const&)
         {
             return *this;
         }
 
+        BOOST_FUSION_GPU_ENABLED
         unused_type const&
         operator=(unused_type const&) const
         {
             return *this;
         }
 
+        BOOST_FUSION_GPU_ENABLED
         unused_type&
         operator=(unused_type const&)
         {
@@ -63,6 +70,7 @@ namespace boost { namespace fusion
     {
         struct unused_only
         {
+            BOOST_FUSION_GPU_ENABLED
             unused_only(unused_type const&) {}
         };
     }

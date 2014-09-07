@@ -7,6 +7,7 @@
 #if !defined(FUSION_ITERATOR_RANGE_05062005_1224)
 #define FUSION_ITERATOR_RANGE_05062005_1224
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/detail/access.hpp>
 #include <boost/fusion/support/sequence_base.hpp>
 #include <boost/fusion/support/category_of.hpp>
@@ -43,6 +44,7 @@ namespace boost { namespace fusion
 
         typedef typename traits::category_of<begin_type>::type category;
 
+        BOOST_FUSION_GPU_ENABLED
         iterator_range(First const& in_first, Last const& in_last)
             : first(convert_iterator<First>::call(in_first))
             , last(convert_iterator<Last>::call(in_last)) {}

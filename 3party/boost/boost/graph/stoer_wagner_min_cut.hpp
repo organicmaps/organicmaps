@@ -76,7 +76,6 @@ namespace boost {
       template < typename Vertex, typename Graph >
       void finish_vertex(Vertex u, const Graph & g)
       {
-        typedef typename boost::property_traits<ParityMap>::value_type parity_type;
         typedef typename boost::property_traits<InternalParityMap>::value_type internal_parity_type;
 
         ++m_visited;
@@ -131,10 +130,7 @@ namespace boost {
     typename boost::property_traits<WeightMap>::value_type
     stoer_wagner_min_cut(const UndirectedGraph& g, WeightMap weights, ParityMap parities, VertexAssignmentMap assignments, KeyedUpdatablePriorityQueue& pq, IndexMap index_map) {
       typedef typename boost::graph_traits<UndirectedGraph>::vertex_descriptor vertex_descriptor;
-      typedef typename boost::graph_traits<UndirectedGraph>::vertices_size_type vertices_size_type;
-      typedef typename boost::graph_traits<UndirectedGraph>::edge_descriptor edge_descriptor;
       typedef typename boost::property_traits<WeightMap>::value_type weight_type;
-      typedef typename boost::property_traits<ParityMap>::value_type parity_type;
 
       typename graph_traits<UndirectedGraph>::vertex_iterator u_iter, u_end;
 
@@ -185,9 +181,9 @@ namespace boost {
       typedef typename boost::graph_traits<UndirectedGraph>::edge_descriptor edge_descriptor;
       BOOST_CONCEPT_ASSERT((boost::Convertible<typename boost::graph_traits<UndirectedGraph>::directed_category, boost::undirected_tag>));
       BOOST_CONCEPT_ASSERT((boost::ReadablePropertyMapConcept<WeightMap, edge_descriptor>));
-      typedef typename boost::property_traits<WeightMap>::value_type weight_type;
+      // typedef typename boost::property_traits<WeightMap>::value_type weight_type;
       BOOST_CONCEPT_ASSERT((boost::WritablePropertyMapConcept<ParityMap, vertex_descriptor>));
-      typedef typename boost::property_traits<ParityMap>::value_type parity_type;
+      // typedef typename boost::property_traits<ParityMap>::value_type parity_type;
       BOOST_CONCEPT_ASSERT((boost::ReadWritePropertyMapConcept<VertexAssignmentMap, vertex_descriptor>));
       BOOST_CONCEPT_ASSERT((boost::Convertible<vertex_descriptor, typename boost::property_traits<VertexAssignmentMap>::value_type>));
       BOOST_CONCEPT_ASSERT((boost::KeyedUpdatableQueueConcept<KeyedUpdatablePriorityQueue>));

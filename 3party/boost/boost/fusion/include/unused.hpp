@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_UNUSED)
 #define FUSION_INCLUDE_UNUSED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/unused.hpp>
 
 #endif

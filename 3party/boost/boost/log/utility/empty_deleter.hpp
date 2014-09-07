@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -9,36 +9,31 @@
  * \author Andrey Semashev
  * \date   22.04.2007
  *
- * This header contains an \c empty_deleter implementation. This is an empty
- * function object that receives a pointer and does nothing with it.
- * Such empty deletion strategy may be convenient, for example, when
- * constructing <tt>shared_ptr</tt>s that point to some object that should not be
- * deleted (i.e. a variable on the stack or some global singleton, like <tt>std::cout</tt>).
+ * This header is deprecated, use boost/utility/empty_deleter.hpp instead. The header is left for
+ * backward compatibility and will be removed in future versions.
  */
 
 #ifndef BOOST_LOG_UTILITY_EMPTY_DELETER_HPP_INCLUDED_
 #define BOOST_LOG_UTILITY_EMPTY_DELETER_HPP_INCLUDED_
 
+#include <boost/core/null_deleter.hpp>
 #include <boost/log/detail/config.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
+#endif
+
+#if defined(__GNUC__)
+#pragma message "Boost.Log: This header is deprecated, use boost/core/null_deleter.hpp instead."
+#elif defined(_MSC_VER)
+#pragma message("Boost.Log: This header is deprecated, use boost/core/null_deleter.hpp instead.")
 #endif
 
 namespace boost {
 
 BOOST_LOG_OPEN_NAMESPACE
 
-//! A function object that does nothing and can be used as an empty deleter for \c shared_ptr
-struct empty_deleter
-{
-    //! Function object result type
-    typedef void result_type;
-    /*!
-     * Does nothing
-     */
-    void operator() (const volatile void*) const {}
-};
+typedef boost::null_deleter empty_deleter;
 
 BOOST_LOG_CLOSE_NAMESPACE // namespace log
 

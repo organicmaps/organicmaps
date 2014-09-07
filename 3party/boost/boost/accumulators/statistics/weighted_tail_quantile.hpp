@@ -66,7 +66,7 @@ namespace impl
     struct weighted_tail_quantile_impl
       : accumulator_base
     {
-        typedef typename numeric::functional::average<Weight, std::size_t>::result_type float_type;
+        typedef typename numeric::functional::fdiv<Weight, std::size_t>::result_type float_type;
         // for boost::result_of
         typedef Sample result_type;
 

@@ -9,6 +9,7 @@
 
 #include <boost/config.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/has_xxx.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
 #include <boost/preprocessor/arithmetic/sub.hpp>
@@ -19,6 +20,7 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/array/enum.hpp>
 #include <boost/preprocessor/array/size.hpp>
+#include <boost/type_traits/is_class.hpp>
 
 #if !defined(BOOST_MPL_CFG_NO_HAS_XXX_TEMPLATE)
 
@@ -33,8 +35,9 @@ BOOST_PP_ARRAY_ELEM(BOOST_PP_ADD(4,n),args) \
      typename BOOST_TTI_DETAIL_TP_FALLBACK_ \
        = boost::mpl::bool_< BOOST_PP_ARRAY_ELEM(3, args) > \
      > \
-   class BOOST_PP_ARRAY_ELEM(0, args) \
+   struct BOOST_PP_ARRAY_ELEM(0, args) \
      { \
+     private: \
      introspect_macro(args) \
      public: \
        static const bool value \
@@ -186,12 +189,28 @@ BOOST_PP_ARRAY_ELEM(BOOST_PP_ADD(4,n),args) \
 
 #endif // !BOOST_MPL_CFG_NO_HAS_XXX_TEMPLATE
 
-#define BOOST_TTI_DETAIL_TRAIT_HAS_TEMPLATE_CHECK_PARAMS(trait,name,tpArray) \
+#define BOOST_TTI_DETAIL_TRAIT_HAS_TEMPLATE_CHECK_PARAMS_OP(trait,name,tpArray) \
   BOOST_TTI_DETAIL_TRAIT_CALL_HAS_TEMPLATE_CHECK_PARAMS(BOOST_PP_CAT(trait,_detail),name,tpArray) \
   template<class BOOST_TTI_DETAIL_TP_T> \
-  struct trait : \
+  struct BOOST_PP_CAT(trait,_detail_cp_op) : \
     BOOST_PP_CAT(trait,_detail)<BOOST_TTI_DETAIL_TP_T> \
     { \
+    }; \
+/**/
+
+#define BOOST_TTI_DETAIL_TRAIT_HAS_TEMPLATE_CHECK_PARAMS(trait,name,tpArray) \
+  BOOST_TTI_DETAIL_TRAIT_HAS_TEMPLATE_CHECK_PARAMS_OP(trait,name,tpArray) \
+  template<class BOOST_TTI_DETAIL_TP_T> \
+  struct trait \
+    { \
+    typedef typename \
+  	boost::mpl::eval_if \
+  		< \
+  		boost::is_class<BOOST_TTI_DETAIL_TP_T>, \
+  		BOOST_PP_CAT(trait,_detail_cp_op)<BOOST_TTI_DETAIL_TP_T>, \
+  		boost::mpl::false_ \
+  		>::type type; \
+    BOOST_STATIC_CONSTANT(bool,value=type::value); \
     }; \
 /**/
 

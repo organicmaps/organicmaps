@@ -2,7 +2,7 @@
 // basic_streambuf.hpp
 // ~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -218,8 +218,8 @@ public:
    * Requires a preceding call <tt>prepare(x)</tt> where <tt>x >= n</tt>, and
    * no intervening operations that modify the input or output sequence.
    *
-   * @throws std::length_error If @c n is greater than the size of the output
-   * sequence.
+   * @note If @c n is greater than the size of the output sequence, the entire
+   * output sequence is moved to the input sequence and no error is issued.
    */
   void commit(std::size_t n)
   {
@@ -233,7 +233,8 @@ public:
   /**
    * Removes @c n characters from the beginning of the input sequence.
    *
-   * @throws std::length_error If <tt>n > size()</tt>.
+   * @note If @c n is greater than the size of the input sequence, the entire
+   * input sequence is consumed and no error is issued.
    */
   void consume(std::size_t n)
   {

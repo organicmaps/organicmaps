@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: const.hpp 83332 2013-03-06 18:46:56Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_DETAIL_CONST_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_DETAIL_CONST_HPP_INCLUDED

@@ -43,8 +43,8 @@ namespace boost { namespace phoenix { namespace detail {
                 type;
             };
 
-            member_variable(MP mp)
-                : mp(mp) {}
+            member_variable(MP mp_)
+                : mp(mp_) {}
 
             template <typename Class>
             RT& operator()(Class& obj) const
@@ -56,18 +56,18 @@ namespace boost { namespace phoenix { namespace detail {
             }
 
             template <typename Class>
+            RT& operator()(Class* obj) const
+            {
+                return obj->*mp;
+            }
+
+            template <typename Class>
             RT const& operator()(Class const& obj) const
             {
                 BOOST_PROTO_USE_GET_POINTER();
 
                 typedef typename proto::detail::class_member_traits<MP>::class_type class_type;
                 return (BOOST_PROTO_GET_POINTER(class_type, obj)->*mp);
-            }
-
-            template <typename Class>
-            RT& operator()(Class* obj) const
-            {
-                return obj->*mp;
             }
 
             template <typename Class>

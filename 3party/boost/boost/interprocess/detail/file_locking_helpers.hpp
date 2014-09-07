@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_FILE_LOCKING_HELPERS_HPP
 #define BOOST_INTERPROCESS_FILE_LOCKING_HELPERS_HPP
 
-#if defined(_MSC_VER)&&(_MSC_VER>=1200)
+#if defined(_MSC_VER)
 #pragma once
 #endif
 
@@ -26,7 +26,7 @@
 #include <cstddef>
 #include <boost/interprocess/detail/os_file_functions.hpp>
 
-#include <boost/interprocess/detail/tmp_dir_helpers.hpp>
+#include <boost/interprocess/detail/shared_dir_helpers.hpp>
 
 #if defined(BOOST_INTERPROCESS_WINDOWS)
 
@@ -287,7 +287,7 @@ inline bool compare_file_serial(int fd, const locking_file_serial_id &id)
             id.st_ino == info.st_ino;
 }
 
-#endif  
+#endif
 
 }  //namespace ipcdetail{
 }  //namespace interprocess{

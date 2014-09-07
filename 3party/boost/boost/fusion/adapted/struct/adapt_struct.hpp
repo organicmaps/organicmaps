@@ -9,6 +9,7 @@
 #ifndef BOOST_FUSION_ADAPTED_STRUCT_ADAPT_STRUCT_HPP
 #define BOOST_FUSION_ADAPTED_STRUCT_ADAPT_STRUCT_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/empty.hpp>
 #include <boost/type_traits/add_reference.hpp>

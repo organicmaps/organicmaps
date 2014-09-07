@@ -7,6 +7,7 @@
 #if !defined(FUSION_NEXT_IMPL_07162005_0136)
 #define FUSION_NEXT_IMPL_07162005_0136
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/next.hpp>
 #include <boost/fusion/iterator/equal_to.hpp>
 #include <boost/mpl/if.hpp>
@@ -44,18 +45,21 @@ namespace boost { namespace fusion
                     >::type
                 type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i, mpl::true_)
                 {
                     return i.concat;
                 }
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i, mpl::false_)
                 {
                     return type(fusion::next(i.first), i.concat);
                 }
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

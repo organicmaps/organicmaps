@@ -49,7 +49,7 @@ private: // representation
 
 public: // structors
 
-    explicit apply_visitor_delayed_t(Visitor& visitor)
+    explicit apply_visitor_delayed_t(Visitor& visitor) BOOST_NOEXCEPT
       : visitor_(visitor)
     {
     }

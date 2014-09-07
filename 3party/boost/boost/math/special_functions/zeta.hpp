@@ -10,6 +10,7 @@
 #pragma once
 #endif
 
+#include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/tools/precision.hpp>
 #include <boost/math/tools/series.hpp>
 #include <boost/math/tools/big_constant.hpp>
@@ -378,7 +379,7 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<64>&)
          BOOST_MATH_BIG_CONSTANT(T, 64, -0.279496685273033761927e-4),
         };
       static const T Q[7] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 64, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 64, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 64, -0.30425480068225790522),
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.050052748580371598736),
          BOOST_MATH_BIG_CONSTANT(T, 64, -0.00519355671064700627862),
@@ -406,7 +407,7 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<64>&)
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.700867470265983665042e-5),
       };
       static const T Q[7] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 64, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 64, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.259385759149531030085),
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.0373974962106091316854),
          BOOST_MATH_BIG_CONSTANT(T, 64, 0.00332735159183332820617),
@@ -554,7 +555,7 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<113>&)
       // Max error found at long double precision:    7.281332e-31
 
       static const T P[10] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, -1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, -1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, -0.0353008629988648122808504280990313668),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.0107795651204927743049369868548706909),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.000523961870530500751114866884685172975),
@@ -566,7 +567,7 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<113>&)
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.113103113698388531428914333768142527e-10),
         };
       static const T Q[11] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, -0.387483472099602327112637481818565459),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.0802265315091063135271497708694776875),
          BOOST_MATH_BIG_CONSTANT(T, 113, -0.0110727276164171919280036408995078164),
@@ -600,7 +601,7 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<113>&)
          BOOST_MATH_BIG_CONSTANT(T, 113, -0.835774625259919268768735944711219256e-11),
       };
       static const T Q[11] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.316661751179735502065583176348292881),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.0540401806533507064453851182728635272),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.00598621274107420237785899476374043797),
@@ -636,7 +637,7 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<113>&)
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.340169592866058506675897646629036044e-12),
       };
       static const T Q[12] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.363755247765087100018556983050520554),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.0696581979014242539385695131258321598),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.00882208914484611029571547753782014817),
@@ -675,7 +676,7 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<113>&)
          BOOST_MATH_BIG_CONSTANT(T, 113, -0.15090220092460596872172844424267351e-10),
       };
       static const T Q[14] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, 1.69490865837142338462982225731926485),
          BOOST_MATH_BIG_CONSTANT(T, 113, 1.22697696630994080733321401255942464),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.495409420862526540074366618006341533),
@@ -715,7 +716,7 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<113>&)
          BOOST_MATH_BIG_CONSTANT(T, 113, -0.420204769185233365849253969097184005e-12),
         };
       static const T Q[14] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.97663511666410096104783358493318814),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.40878780231201806504987368939673249),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.0963890666609396058945084107597727252),
@@ -753,7 +754,7 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<113>&)
          BOOST_MATH_BIG_CONSTANT(T, 113, -0.289187187441625868404494665572279364e-15),
         };
       static const T Q[14] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.427310044448071818775721584949868806),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.074602514873055756201435421385243062),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.00688651562174480772901425121653945942),
@@ -792,7 +793,7 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<113>&)
          BOOST_MATH_BIG_CONSTANT(T, 113, -0.402663128248642002351627980255756363e-16),
       };
       static const T Q[14] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.311288325355705609096155335186466508),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.0438318468940415543546769437752132748),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.00374396349183199548610264222242269536),
@@ -831,7 +832,7 @@ T zeta_imp_prec(T s, T sc, const Policy&, const mpl::int_<113>&)
          BOOST_MATH_BIG_CONSTANT(T, 113, -0.376708747782400769427057630528578187e-19),
       };
       static const T Q[16] = {    
-         BOOST_MATH_BIG_CONSTANT(T, 113, 1),
+         BOOST_MATH_BIG_CONSTANT(T, 113, 1.0),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.205076752981410805177554569784219717),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.0202526722696670378999575738524540269),
          BOOST_MATH_BIG_CONSTANT(T, 113, 0.001278305290005994980069466658219057),
@@ -866,9 +867,10 @@ template <class T, class Policy, class Tag>
 T zeta_imp(T s, T sc, const Policy& pol, const Tag& tag)
 {
    BOOST_MATH_STD_USING
+   static const char* function = "boost::math::zeta<%1%>";
    if(sc == 0)
       return policies::raise_pole_error<T>(
-         "boost::math::zeta<%1%>", 
+         function, 
          "Evaluation of zeta function at pole %1%", 
          s, pol);
    T result;
@@ -883,10 +885,25 @@ T zeta_imp(T s, T sc, const Policy& pol, const Tag& tag)
          result = 0;
       else
       {
-         result = boost::math::sin_pi(0.5f * sc, pol)
-            * 2 * pow(2 * constants::pi<T>(), -s) 
-            * boost::math::tgamma(s, pol) 
-            * zeta_imp(s, sc, pol, tag);
+         if(s > max_factorial<T>::value)
+         {
+            T mult = boost::math::sin_pi(0.5f * sc, pol) * 2 * zeta_imp(s, sc, pol, tag);
+            result = boost::math::lgamma(s, pol);
+            result -= s * log(2 * constants::pi<T>());
+            if(result > tools::log_max_value<T>())
+               return sign(mult) * policies::raise_overflow_error<T>(function, 0, pol);
+            result = exp(result);
+            if(tools::max_value<T>() / fabs(mult) < result)
+               return boost::math::sign(mult) * policies::raise_overflow_error<T>(function, 0, pol);
+            result *= mult;
+         }
+         else
+         {
+            result = boost::math::sin_pi(0.5f * sc, pol)
+               * 2 * pow(2 * constants::pi<T>(), -s) 
+               * boost::math::tgamma(s, pol) 
+               * zeta_imp(s, sc, pol, tag);
+         }
       }
    }
    else

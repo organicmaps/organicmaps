@@ -18,6 +18,7 @@
 #pragma once
 #endif
 
+#include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/special_functions/ellint_rf.hpp>
 #include <boost/math/special_functions/ellint_rj.hpp>
 #include <boost/math/special_functions/ellint_1.hpp>
@@ -26,6 +27,7 @@
 #include <boost/math/constants/constants.hpp>
 #include <boost/math/policies/error_handling.hpp>
 #include <boost/math/tools/workaround.hpp>
+#include <boost/math/special_functions/round.hpp>
 
 // Elliptic integrals (complete and incomplete) of the third kind
 // Carlson, Numerische Mathematik, vol 33, 1 (1979)
@@ -182,14 +184,14 @@ T ellint_pi_imp(T v, T phi, T k, T vc, const Policy& pol)
     }
     else
     {
-       T rphi = boost::math::tools::fmod_workaround(T(fabs(phi)), T(constants::pi<T>() / 2));
-       T m = floor((2 * fabs(phi)) / constants::pi<T>());
+       T rphi = boost::math::tools::fmod_workaround(T(fabs(phi)), T(constants::half_pi<T>()));
+       T m = boost::math::round((fabs(phi) - rphi) / constants::half_pi<T>());
        int sign = 1;
        if(boost::math::tools::fmod_workaround(m, T(2)) > 0.5)
        {
           m += 1;
           sign = -1;
-          rphi = constants::pi<T>() / 2 - rphi;
+          rphi = constants::half_pi<T>() - rphi;
        }
        T sinp = sin(rphi);
        T cosp = cos(rphi);

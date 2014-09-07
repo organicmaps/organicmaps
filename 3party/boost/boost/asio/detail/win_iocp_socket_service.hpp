@@ -2,7 +2,7 @@
 // detail/win_iocp_socket_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -31,7 +31,6 @@
 #include <boost/asio/detail/handler_invoke_helpers.hpp>
 #include <boost/asio/detail/mutex.hpp>
 #include <boost/asio/detail/operation.hpp>
-#include <boost/asio/detail/reactive_socket_connect_op.hpp>
 #include <boost/asio/detail/reactor.hpp>
 #include <boost/asio/detail/reactor_op.hpp>
 #include <boost/asio/detail/socket_holder.hpp>
@@ -40,6 +39,7 @@
 #include <boost/asio/detail/win_iocp_io_service.hpp>
 #include <boost/asio/detail/win_iocp_null_buffers_op.hpp>
 #include <boost/asio/detail/win_iocp_socket_accept_op.hpp>
+#include <boost/asio/detail/win_iocp_socket_connect_op.hpp>
 #include <boost/asio/detail/win_iocp_socket_recvfrom_op.hpp>
 #include <boost/asio/detail/win_iocp_socket_send_op.hpp>
 #include <boost/asio/detail/win_iocp_socket_service_base.hpp>
@@ -164,6 +164,24 @@ public:
 
     impl.remote_endpoint_ = other_impl.remote_endpoint_;
     other_impl.remote_endpoint_ = endpoint_type();
+  }
+
+  // Move-construct a new socket implementation from another protocol type.
+  template <typename Protocol1>
+  void converting_move_construct(implementation_type& impl,
+      typename win_iocp_socket_service<
+        Protocol1>::implementation_type& other_impl)
+  {
+    this->base_move_construct(impl, other_impl);
+
+    impl.protocol_ = protocol_type(other_impl.protocol_);
+    other_impl.protocol_ = typename Protocol1::endpoint().protocol();
+
+    impl.have_remote_endpoint_ = other_impl.have_remote_endpoint_;
+    other_impl.have_remote_endpoint_ = false;
+
+    impl.remote_endpoint_ = other_impl.remote_endpoint_;
+    other_impl.remote_endpoint_ = typename Protocol1::endpoint();
   }
 
   // Open a new socket implementation.
@@ -433,7 +451,7 @@ public:
           peer_endpoint ? &addr_len : 0, ec));
 
     // On success, assign new connection to peer socket object.
-    if (new_socket.get() >= 0)
+    if (new_socket.get() != invalid_socket)
     {
       if (peer_endpoint)
         peer_endpoint->resize(addr_len);
@@ -484,16 +502,16 @@ public:
       const endpoint_type& peer_endpoint, Handler& handler)
   {
     // Allocate and construct an operation to wrap the handler.
-    typedef reactive_socket_connect_op<Protocol, Handler> op;
+    typedef win_iocp_socket_connect_op<Handler> op;
     typename op::ptr p = { boost::asio::detail::addressof(handler),
       boost_asio_handler_alloc_helpers::allocate(
         sizeof(op), handler), 0 };
-    p.p = new (p.v) op(impl.socket_, peer_endpoint, handler);
+    p.p = new (p.v) op(impl.socket_, handler);
 
     BOOST_ASIO_HANDLER_CREATION((p.p, "socket", &impl, "async_connect"));
 
-    start_connect_op(impl, p.p, peer_endpoint.data(),
-        static_cast<int>(peer_endpoint.size()));
+    start_connect_op(impl, impl.protocol_.family(), impl.protocol_.type(),
+        peer_endpoint.data(), static_cast<int>(peer_endpoint.size()), p.p);
     p.v = p.p = 0;
   }
 };

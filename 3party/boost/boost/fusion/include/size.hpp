@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_SIZE)
 #define FUSION_INCLUDE_SIZE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/size.hpp>
 
 #endif

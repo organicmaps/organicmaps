@@ -2,7 +2,7 @@
 // write_at.hpp
 // ~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -407,7 +407,12 @@ std::size_t write_at(SyncRandomAccessWriteDevice& d, uint64_t offset,
  * @li An error occurred.
  *
  * This operation is implemented in terms of zero or more calls to the device's
- * async_write_some_at function.
+ * async_write_some_at function, and is known as a <em>composed operation</em>.
+ * The program must ensure that the device performs no <em>overlapping</em>
+ * write operations (such as async_write_at, the device's async_write_some_at
+ * function, or any other composed operations that perform writes) until this
+ * operation completes. Operations are overlapping if the regions defined by
+ * their offsets, and the numbers of bytes to write, intersect.
  *
  * @param d The device to which the data is to be written. The type must support
  * the AsyncRandomAccessWriteDevice concept.
@@ -466,7 +471,12 @@ async_write_at(AsyncRandomAccessWriteDevice& d, uint64_t offset,
  * @li The completion_condition function object returns 0.
  *
  * This operation is implemented in terms of zero or more calls to the device's
- * async_write_some_at function.
+ * async_write_some_at function, and is known as a <em>composed operation</em>.
+ * The program must ensure that the device performs no <em>overlapping</em>
+ * write operations (such as async_write_at, the device's async_write_some_at
+ * function, or any other composed operations that perform writes) until this
+ * operation completes. Operations are overlapping if the regions defined by
+ * their offsets, and the numbers of bytes to write, intersect.
  *
  * @param d The device to which the data is to be written. The type must support
  * the AsyncRandomAccessWriteDevice concept.
@@ -542,7 +552,12 @@ async_write_at(AsyncRandomAccessWriteDevice& d,
  * @li An error occurred.
  *
  * This operation is implemented in terms of zero or more calls to the device's
- * async_write_some_at function.
+ * async_write_some_at function, and is known as a <em>composed operation</em>.
+ * The program must ensure that the device performs no <em>overlapping</em>
+ * write operations (such as async_write_at, the device's async_write_some_at
+ * function, or any other composed operations that perform writes) until this
+ * operation completes. Operations are overlapping if the regions defined by
+ * their offsets, and the numbers of bytes to write, intersect.
  *
  * @param d The device to which the data is to be written. The type must support
  * the AsyncRandomAccessWriteDevice concept.
@@ -589,7 +604,12 @@ async_write_at(AsyncRandomAccessWriteDevice& d, uint64_t offset,
  * @li The completion_condition function object returns 0.
  *
  * This operation is implemented in terms of zero or more calls to the device's
- * async_write_some_at function.
+ * async_write_some_at function, and is known as a <em>composed operation</em>.
+ * The program must ensure that the device performs no <em>overlapping</em>
+ * write operations (such as async_write_at, the device's async_write_some_at
+ * function, or any other composed operations that perform writes) until this
+ * operation completes. Operations are overlapping if the regions defined by
+ * their offsets, and the numbers of bytes to write, intersect.
  *
  * @param d The device to which the data is to be written. The type must support
  * the AsyncRandomAccessWriteDevice concept.

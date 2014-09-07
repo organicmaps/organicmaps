@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -15,10 +15,10 @@
 #ifndef BOOST_LOG_CORE_RECORD_VIEW_HPP_INCLUDED_
 #define BOOST_LOG_CORE_RECORD_VIEW_HPP_INCLUDED_
 
-#include <boost/intrusive_ptr.hpp>
+#include <boost/smart_ptr/intrusive_ptr.hpp>
 #include <boost/move/core.hpp>
 #include <boost/log/detail/config.hpp>
-#include <boost/log/utility/explicit_operator_bool.hpp>
+#include <boost/utility/explicit_operator_bool.hpp>
 #include <boost/log/attributes/attribute_value_set.hpp>
 #include <boost/log/expressions/keyword_fwd.hpp>
 #ifndef BOOST_LOG_NO_THREADS
@@ -26,7 +26,7 @@
 #endif // BOOST_LOG_NO_THREADS
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -85,8 +85,8 @@ private:
     protected:
         ~public_data() {}
 
-        BOOST_LOG_DELETED_FUNCTION(public_data(public_data const&))
-        BOOST_LOG_DELETED_FUNCTION(public_data& operator= (public_data const&))
+        BOOST_DELETED_FUNCTION(public_data(public_data const&))
+        BOOST_DELETED_FUNCTION(public_data& operator= (public_data const&))
 
         friend void intrusive_ptr_add_ref(const public_data* p) { ++p->m_ref_counter; }
         friend void intrusive_ptr_release(const public_data* p) { if (--p->m_ref_counter == 0) public_data::destroy(p); }
@@ -108,7 +108,7 @@ public:
      *
      * \post <tt>!*this == true</tt>
      */
-    BOOST_LOG_DEFAULTED_FUNCTION(record_view(), {})
+    BOOST_DEFAULTED_FUNCTION(record_view(), {})
 
     /*!
      * Copy constructor
@@ -184,7 +184,7 @@ public:
      *
      * \return \c true, if the <tt>*this</tt> identifies a log record, \c false, if the <tt>*this</tt> is not valid
      */
-    BOOST_LOG_EXPLICIT_OPERATOR_BOOL()
+    BOOST_EXPLICIT_OPERATOR_BOOL_NOEXCEPT()
 
     /*!
      * Inverted conversion to an unspecified boolean type
@@ -216,6 +216,17 @@ public:
     void reset() BOOST_NOEXCEPT
     {
         m_impl.reset();
+    }
+
+    /*!
+     * Attribute value lookup.
+     *
+     * \param name Attribute name.
+     * \return An \c attribute_value, non-empty if it is found, empty otherwise.
+     */
+    attribute_value_set::mapped_type operator[] (attribute_value_set::key_type name) const
+    {
+        return m_impl->m_attribute_values[name];
     }
 
     /*!

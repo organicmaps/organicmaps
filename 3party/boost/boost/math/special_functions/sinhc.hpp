@@ -34,17 +34,6 @@ namespace boost
     {
        namespace detail
        {
-#if        defined(__GNUC__) && (__GNUC__ < 3)
-        // gcc 2.x ignores function scope using declarations,
-        // put them in the scope of the enclosing namespace instead:
-
-        using    ::std::abs;
-        using    ::std::sqrt;
-        using    ::std::sinh;
-
-        using    ::std::numeric_limits;
-#endif    /* defined(__GNUC__) && (__GNUC__ < 3) */
-
         // This is the "Hyperbolic Sinus Cardinal" of index Pi.
 
         template<typename T>

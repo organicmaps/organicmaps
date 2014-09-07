@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_INCLUDE_ADAPT_ASSOC_ADT_NAMED_HPP
 #define BOOST_FUSION_INCLUDE_ADAPT_ASSOC_ADT_NAMED_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/adt/adapt_assoc_adt_named.hpp>
 
 #endif

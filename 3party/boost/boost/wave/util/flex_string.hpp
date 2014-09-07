@@ -30,6 +30,10 @@
 // #HK090523:
 //      - Incorporated the changes from latest version of flex_string as 
 //        maintained in Loki
+//
+// #HK130910:
+//      - Removed the getline implementation which was borrowed from the SGI
+//        STL as the license for this code is not compatible with Boost.
 
 #ifndef FLEX_STRING_INC_
 #define FLEX_STRING_INC_
@@ -344,7 +348,7 @@ private:
             // 11-17-2000: comment added: 
             //     No need to allocate (capacity + 1) to 
             //     accommodate the terminating 0, because Data already
-            //     has one one character in there
+            //     has one character in there
             pData_ = static_cast<Data*>(
                 malloc(sizeof(Data) + capacity * sizeof(E)));
             if (!pData_) boost::throw_exception(std::bad_alloc());
@@ -2524,78 +2528,6 @@ operator<<(
     typename flex_string<E, T, A, S>::traits_type>& os,
     const flex_string<E, T, A, S>& str)
 { return os << str.c_str(); }
-
-
-// The getline below implementations are from the SGI STL (http://www.sgi.com/tech/stl/) 
-// and come with the following copyright:
-// 
-// Permission to use, copy, modify, distribute and sell this software and its 
-// documentation for any purpose is hereby granted without fee, provided that 
-// the below copyright notice appears in all copies and that both the copyright 
-// notice and this permission notice appear in supporting documentation. Silicon 
-// Graphics makes no representations about the suitability of this software for 
-// any purpose. It is provided "as is" without express or implied warranty.
-// 
-// Copyright (c) 1997-1999
-// Silicon Graphics Computer Systems, Inc.
-// 
-// Copyright (c) 1994
-// Hewlett-Packard Company 
-
-template <typename E, class T, class A, class S>
-std::basic_istream<typename flex_string<E, T, A, S>::value_type,
-    typename flex_string<E, T, A, S>::traits_type>&
-getline(
-    std::basic_istream<typename flex_string<E, T, A, S>::value_type, 
-        typename flex_string<E, T, A, S>::traits_type>& is,
-    flex_string<E, T, A, S>& str,
-    typename flex_string<E, T, A, S>::value_type delim)
-{
-    size_t nread = 0;
-    typename std::basic_istream<typename flex_string<E, T, A, S>::value_type,
-        typename flex_string<E, T, A, S>::traits_type>::sentry sentry(is, true);
-
-    if (sentry) {
-        std::basic_streambuf<typename flex_string<E, T, A, S>::value_type,
-            typename flex_string<E, T, A, S>::traits_type>* buf = is.rdbuf();
-        str.clear();
-
-        while (nread < str.max_size()) {
-            int c1 = buf->sbumpc();
-            if (flex_string<E, T, A, S>::traits_type::eq_int_type(c1,
-                flex_string<E, T, A, S>::traits_type::eof()))
-            {
-                is.setstate(std::ios_base::eofbit);
-                break;
-            }
-            else {
-                ++nread;
-                typename flex_string<E, T, A, S>::value_type c =
-                    flex_string<E, T, A, S>::traits_type::to_char_type(c1);
-
-                if (!flex_string<E, T, A, S>::traits_type::eq(c, delim))
-                    str.push_back(c);
-                else
-                    break;         // Character is extracted but not appended.
-            }
-        }
-    }
-    if (nread == 0 || nread >= str.max_size())
-        is.setstate(std::ios_base::failbit);
-
-    return is;
-}
-
-template <typename E, class T, class A, class S>
-std::basic_istream<typename flex_string<E, T, A, S>::value_type, 
-    typename flex_string<E, T, A, S>::traits_type>&
-getline(
-    std::basic_istream<typename flex_string<E, T, A, S>::value_type, 
-        typename flex_string<E, T, A, S>::traits_type>& is,
-    flex_string<E, T, A, S>& str)
-{
-    return getline(is, str, is.widen('\n'));
-}
 
 template <typename E1, class T, class A, class S>
 const typename flex_string<E1, T, A, S>::size_type

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2007-2012
+// (C) Copyright Ion Gaztanaga 2007-2013
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -17,7 +17,7 @@
 #include <boost/intrusive/intrusive_fwd.hpp>
 #include <boost/intrusive/detail/utilities.hpp>
 #include <boost/intrusive/detail/tree_node.hpp>
-#include <boost/intrusive/detail/tree_algorithms.hpp>
+#include <boost/intrusive/bstree_algorithms.hpp>
 #include <boost/intrusive/options.hpp>
 #include <boost/intrusive/detail/generic_hook.hpp>
 
@@ -28,7 +28,7 @@ namespace intrusive {
 template<class VoidPointer>
 struct get_bs_set_node_algo
 {
-   typedef detail::tree_algorithms<tree_node_traits<VoidPointer> > type;
+   typedef bstree_algorithms<tree_node_traits<VoidPointer> > type;
 };
 /// @endcond
 
@@ -37,7 +37,7 @@ struct get_bs_set_node_algo
 #if defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED) || defined(BOOST_INTRUSIVE_VARIADIC_TEMPLATES)
 template<class ...Options>
 #else
-template<class O1 = none, class O2 = none, class O3 = none>
+template<class O1 = void, class O2 = void, class O3 = void>
 #endif
 struct make_bs_set_base_hook
 {
@@ -50,14 +50,11 @@ struct make_bs_set_base_hook
    #endif
    ::type packed_options;
 
-   //Scapegoat trees can't be auto unlink trees
-   BOOST_STATIC_ASSERT(((int)packed_options::link_mode != (int)auto_unlink));
-
-   typedef detail::generic_hook
+   typedef generic_hook
    < get_bs_set_node_algo<typename packed_options::void_pointer>
    , typename packed_options::tag
    , packed_options::link_mode
-   , detail::BsSetBaseHook
+   , BsTreeBaseHookId
    > implementation_defined;
    /// @endcond
    typedef implementation_defined type;
@@ -76,7 +73,7 @@ struct make_bs_set_base_hook
 //! unique tag.
 //!
 //! \c void_pointer<> is the pointer type that will be used internally in the hook
-//! and the the container configured to use this hook.
+//! and the container configured to use this hook.
 //!
 //! \c link_mode<> will specify the linking mode of the hook (\c normal_link,
 //! \c auto_unlink or \c safe_link).
@@ -168,7 +165,7 @@ class bs_set_base_hook
 #if defined(BOOST_INTRUSIVE_DOXYGEN_INVOKED) || defined(BOOST_INTRUSIVE_VARIADIC_TEMPLATES)
 template<class ...Options>
 #else
-template<class O1 = none, class O2 = none, class O3 = none>
+template<class O1 = void, class O2 = void, class O3 = void>
 #endif
 struct make_bs_set_member_hook
 {
@@ -182,14 +179,11 @@ struct make_bs_set_member_hook
 
    ::type packed_options;
 
-   //Scapegoat trees can't be auto unlink trees
-   BOOST_STATIC_ASSERT(((int)packed_options::link_mode != (int)auto_unlink));
-
-   typedef detail::generic_hook
+   typedef generic_hook
    < get_bs_set_node_algo<typename packed_options::void_pointer>
    , member_tag
    , packed_options::link_mode
-   , detail::NoBaseHook
+   , NoBaseHookId
    > implementation_defined;
    /// @endcond
    typedef implementation_defined type;
@@ -202,7 +196,7 @@ struct make_bs_set_member_hook
 //! The hook admits the following options: \c void_pointer<>, \c link_mode<>.
 //!
 //! \c void_pointer<> is the pointer type that will be used internally in the hook
-//! and the the container configured to use this hook.
+//! and the container configured to use this hook.
 //!
 //! \c link_mode<> will specify the linking mode of the hook (\c normal_link,
 //! \c auto_unlink or \c safe_link).

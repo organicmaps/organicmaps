@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_ALGORITHM_ITERATION_REVERSE_ITER_FOLD_HPP
 #define BOOST_FUSION_ALGORITHM_ITERATION_REVERSE_ITER_FOLD_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/iteration/reverse_iter_fold_fwd.hpp>
 #include <boost/config.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>

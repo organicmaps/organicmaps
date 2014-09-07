@@ -2,7 +2,7 @@
 // detail/socket_option.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -402,7 +402,7 @@ public:
       boost::asio::ip::address_v6 ipv6_address = multicast_address.to_v6();
       boost::asio::ip::address_v6::bytes_type bytes = ipv6_address.to_bytes();
       memcpy(ipv6_value_.ipv6mr_multiaddr.s6_addr, bytes.data(), 16);
-      ipv6_value_.ipv6mr_interface = 0;
+      ipv6_value_.ipv6mr_interface = ipv6_address.scope_id();
     }
     else
     {
@@ -440,7 +440,10 @@ public:
     boost::asio::ip::address_v6::bytes_type bytes =
       multicast_address.to_bytes();
     memcpy(ipv6_value_.ipv6mr_multiaddr.s6_addr, bytes.data(), 16);
-    ipv6_value_.ipv6mr_interface = network_interface;
+    if (network_interface)
+      ipv6_value_.ipv6mr_interface = network_interface;
+    else
+      ipv6_value_.ipv6mr_interface = multicast_address.scope_id();
   }
 
   // Get the level of the socket option.

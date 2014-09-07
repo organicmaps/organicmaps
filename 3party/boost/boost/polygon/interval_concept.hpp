@@ -386,7 +386,6 @@ typename enable_if<
 >::type& scale_down(
     IntervalType& interval,
     typename interval_coordinate_type<IntervalType>::type factor) {
-  typedef typename interval_coordinate_type<IntervalType>::type Unit;
   typename interval_coordinate_type<IntervalType>::type newHigh =
       high(interval) / factor;
   low(interval, low(interval) / factor);

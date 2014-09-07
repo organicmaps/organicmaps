@@ -49,6 +49,12 @@ public:
          }
          return *this;
     }
+    // this policy deletes all waiting deferred events
+    template <class Event>
+    bool process_deferred_events(Event const&)const
+    {
+        return false;
+    }
     template<class Archive>
     void serialize(Archive & ar, const unsigned int)
     {
@@ -90,6 +96,13 @@ public:
          }
          return *this;
     }
+    // the history policy keeps all deferred events until next reentry
+    template <class Event>
+    bool process_deferred_events(Event const&)const
+    {
+        return true;
+    }
+
     template<class Archive>
     void serialize(Archive & ar, const unsigned int)
     {
@@ -138,6 +151,12 @@ public:
              m_currentStates[i] = rhs.m_currentStates[i];
          }
          return *this;
+    }
+    // the history policy keeps deferred events until next reentry if coming from our history event
+    template <class Event>
+    bool process_deferred_events(Event const&)const
+    {
+        return ::boost::mpl::contains<Events,Event>::value;
     }
     template<class Archive>
     void serialize(Archive & ar, const unsigned int)

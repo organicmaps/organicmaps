@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_ADAPTED_ARRAY_SIZE_IMPL_HPP
 #define BOOST_FUSION_ADAPTED_ARRAY_SIZE_IMPL_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/type_traits/rank.hpp>
 #include <boost/type_traits/extent.hpp>
 

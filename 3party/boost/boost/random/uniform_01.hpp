@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: uniform_01.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id$
  *
  * Revision history
  *  2001-02-18  moved to individual header files
@@ -128,7 +128,7 @@ public:
 
   BOOST_STATIC_CONSTANT(bool, has_fixed_range = false);
 
-#if !defined(BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS) && !(defined(BOOST_MSVC) && BOOST_MSVC <= 1300)
+#if !defined(BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS)
   BOOST_STATIC_ASSERT(!std::numeric_limits<RealType>::is_integer);
 #endif
 

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -8,14 +8,16 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef BOOST_CONTAINER_DETAIL_NODE_POOL_COMMON_HPP
-#define BOOST_CONTAINER_DETAIL_NODE_POOL_COMMON_HPP
+#ifndef BOOST_CONTAINER_DETAIL_POOL_COMMON_HPP
+#define BOOST_CONTAINER_DETAIL_POOL_COMMON_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
-#include "config_begin.hpp"
+#include <boost/container/detail/config_begin.hpp>
+#include <boost/container/detail/workaround.hpp>
+
 #include <boost/intrusive/slist.hpp>
 #include <new>
 

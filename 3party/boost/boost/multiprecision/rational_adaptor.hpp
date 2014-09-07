@@ -165,12 +165,43 @@ struct rational_adaptor
       return m_value > o.m_value ? 1 : (m_value < o.m_value ? -1 : 0);
    }
    template <class Arithmatic>
-   typename enable_if<is_arithmetic<Arithmatic>, int>::type compare(Arithmatic i)const
+   typename enable_if_c<is_arithmetic<Arithmatic>::value && !is_floating_point<Arithmatic>::value, int>::type compare(Arithmatic i)const
    {
       return m_value > i ? 1 : (m_value < i ? -1 : 0);
    }
+   template <class Arithmatic>
+   typename enable_if_c<is_floating_point<Arithmatic>::value, int>::type compare(Arithmatic i)const
+   {
+      rational_adaptor r;
+      r = i;
+      return this->compare(r);
+   }
    rational_type& data() { return m_value; }
    const rational_type& data()const { return m_value; }
+
+   template <class Archive>
+   void serialize(Archive& ar, const mpl::true_&)
+   {
+      // Saving
+      integer_type n(m_value.numerator()), d(m_value.denominator());
+      ar & n;
+      ar & d;
+   }
+   template <class Archive>
+   void serialize(Archive& ar, const mpl::false_&)
+   {
+      // Loading
+      integer_type n, d;
+      ar & n;
+      ar & d;
+      m_value.assign(n, d);
+   }
+   template <class Archive>
+   void serialize(Archive& ar, const unsigned int /*version*/)
+   {
+      typedef typename Archive::is_saving tag;
+      serialize(ar, tag());
+   }
 private:
    rational_type m_value;
 };
@@ -202,10 +233,19 @@ inline void eval_divide(rational_adaptor<IntBackend>& result, const rational_ada
 }
 
 template <class R, class IntBackend>
-inline void eval_convert_to(R* result, const rational_adaptor<IntBackend>& backend)
+inline typename disable_if_c<is_integral<R>::value>::type eval_convert_to(R* result, const rational_adaptor<IntBackend>& backend)
 {
    *result = backend.data().numerator().template convert_to<R>();
    *result /= backend.data().denominator().template convert_to<R>();
+}
+
+template <class R, class IntBackend>
+inline typename enable_if_c<is_integral<R>::value>::type eval_convert_to(R* result, const rational_adaptor<IntBackend>& backend)
+{
+   typedef typename component_type<number<rational_adaptor<IntBackend> > >::type comp_t;
+   comp_t t = backend.data().numerator();
+   t /= backend.data().denominator();
+   *result = t.template convert_to<R>();
 }
 
 template <class IntBackend>

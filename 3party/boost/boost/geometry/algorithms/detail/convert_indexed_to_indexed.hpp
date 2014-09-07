@@ -33,9 +33,9 @@ namespace detail { namespace conversion
 
 template
 <
-    typename Source, 
-    typename Destination, 
-    std::size_t Dimension, 
+    typename Source,
+    typename Destination,
+    std::size_t Dimension,
     std::size_t DimensionCount
 >
 struct indexed_to_indexed
@@ -44,25 +44,25 @@ struct indexed_to_indexed
     {
         typedef typename coordinate_type<Destination>::type coordinate_type;
 
-        geometry::set<min_corner, Dimension>(destination, 
+        geometry::set<min_corner, Dimension>(destination,
             boost::numeric_cast<coordinate_type>(
                 geometry::get<min_corner, Dimension>(source)));
-        geometry::set<max_corner, Dimension>(destination, 
+        geometry::set<max_corner, Dimension>(destination,
             boost::numeric_cast<coordinate_type>(
                 geometry::get<max_corner, Dimension>(source)));
-                
+
         indexed_to_indexed
             <
-                Source, Destination, 
+                Source, Destination,
                 Dimension + 1, DimensionCount
             >::apply(source, destination);
     }
 };
 
-template 
+template
 <
-    typename Source, 
-    typename Destination, 
+    typename Source,
+    typename Destination,
     std::size_t DimensionCount
 >
 struct indexed_to_indexed<Source, Destination, DimensionCount, DimensionCount>

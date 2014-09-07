@@ -15,7 +15,7 @@
 #include <boost/cstdint.hpp>
 #include <boost/thread/detail/move.hpp>
 #include <boost/thread/detail/invoke.hpp>
-#include <boost/detail/no_exceptions_support.hpp>
+#include <boost/core/no_exceptions_support.hpp>
 #include <boost/bind.hpp>
 #include <boost/atomic.hpp>
 
@@ -115,7 +115,7 @@ namespace boost
 #endif
 
 
-#ifndef BOOST_NO_CXX11_VARIADIC_TEMPLATES
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES) && !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 
   template<typename Function, class ...ArgTypes>
   inline void call_once(once_flag& flag, BOOST_THREAD_RV_REF(Function) f, BOOST_THREAD_RV_REF(ArgTypes)... args)

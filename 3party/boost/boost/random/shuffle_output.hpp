@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: shuffle_output.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id$
  *
  * Revision history
  *  2001-02-18  moved to individual header files
@@ -28,13 +28,13 @@ template<typename URNG, int k,
 class shuffle_output : public shuffle_order_engine<URNG, k>
 {
     typedef shuffle_order_engine<URNG, k> base_t;
-    typedef typename base_t::result_type result_type;
 public:
+    typedef typename base_t::result_type result_type;
     shuffle_output() {}
     template<class T>
-    shuffle_output(T& arg) : base_t(arg) {}
+    explicit shuffle_output(T& arg) : base_t(arg) {}
     template<class T>
-    shuffle_output(const T& arg) : base_t(arg) {}
+    explicit shuffle_output(const T& arg) : base_t(arg) {}
     template<class It>
     shuffle_output(It& first, It last) : base_t(first, last) {}
     result_type min BOOST_PREVENT_MACRO_SUBSTITUTION ()

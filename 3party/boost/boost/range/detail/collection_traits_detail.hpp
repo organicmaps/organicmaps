@@ -185,7 +185,6 @@ namespace boost {
 
 // Array container traits ---------------------------------------------------------------
 
-#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
             // array traits ( partial specialization )
             template< typename T >
             struct array_traits;
@@ -204,125 +203,6 @@ namespace boost {
                 BOOST_STATIC_CONSTANT( size_type, array_size = sz );
             };
 
-#else // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-
-            // array traits ( no partial specialization )
-            /*
-                without partial specialization we are able to
-                provide support only for a limited number of
-                types. Currently the primitive numeric types 
-                are supported
-            */
-            template< typename T, typename BaseT >
-            struct array_traits_impl
-            {
-                typedef BaseT value_type;
-                typedef BaseT* iterator;
-                typedef const BaseT* const_iterator;
-                typedef std::size_t size_type;
-                typedef std::ptrdiff_t difference_type;
-
-                // size of the array
-                BOOST_STATIC_CONSTANT( size_type, array_size = sizeof(T)/sizeof(BaseT) );
-            };
-            
-            template< typename T, typename BaseT >
-            struct array_traits_impl_selector
-            {
-                typedef array_traits_impl<T,BaseT> type;
-            };
-
-            struct array_traits_void
-            {
-                typedef void type;
-            };
-
-            template< typename T, typename BaseT >
-            struct array_traits_cv_selector
-            {
-                typedef BOOST_STRING_TYPENAME 
-                    ::boost::mpl::eval_if< 
-                        ::boost::is_convertible<T,BaseT*>,
-                        array_traits_impl_selector<T,BaseT>,
-                        ::boost::mpl::eval_if< 
-                            ::boost::is_convertible<T,const BaseT*>,
-                                array_traits_impl_selector<T, const BaseT>,
-                                ::boost::mpl::eval_if< 
-                                    ::boost::is_convertible<T, volatile BaseT*>,
-                                    array_traits_impl_selector<T, volatile BaseT>,
-                                    array_traits_impl_selector<T, const volatile BaseT>
-                                >
-                            >
-                    >::type type;
-            };
-
-            template< typename T >
-            struct array_traits_select
-            {
-                template< typename T1, typename T2 >
-                struct apply
-                {
-                    typedef BOOST_STRING_TYPENAME
-                        ::boost::mpl::eval_if< 
-                            ::boost::is_convertible<T,const volatile T2*>,
-                            array_traits_cv_selector<T,T2>,
-                            ::boost::mpl::identity<T1> >::type type;
-                };
-            };
-
-            template< typename T >
-            struct array_traits_selector 
-            {
-            private:
-                // supported array base types
-#ifndef BOOST_NO_INTRINSIC_WCHAR_T
-                typedef BOOST_STRING_TYPENAME
-                    ::boost::mpl::vector10<
-                        wchar_t,
-#else // BOOST_NO_INTRINSIC_WCHAR_T
-                typedef BOOST_STRING_TYPENAME
-                    ::boost::mpl::vector9<
-#endif // BOOST_NO_INTRINSIC_WCHAR_T
-                        char,
-                        signed char,
-                        unsigned char,
-                        signed short,
-                        unsigned short,
-                        signed int,
-                        unsigned int,
-                        signed long,
-                        unsigned long
-                >::type array_base_types;
-
-            public:
-                typedef BOOST_STRING_TYPENAME
-                    ::boost::mpl::fold<
-                        array_base_types,
-                        ::boost::algorithm::detail::array_traits_void,
-                        ::boost::algorithm::detail::array_traits_select<T> >::type type;
-            };
-
-            template< typename T >
-            struct array_traits
-            {
-                typedef BOOST_STRING_TYPENAME
-                    array_traits_selector<T>::type traits_type;
-
-                typedef BOOST_STRING_TYPENAME
-                    traits_type::value_type value_type;
-                typedef BOOST_STRING_TYPENAME
-                    traits_type::iterator iterator;
-                typedef BOOST_STRING_TYPENAME
-                    traits_type::const_iterator const_iterator;
-                typedef BOOST_STRING_TYPENAME
-                    traits_type::size_type size_type;
-                typedef BOOST_STRING_TYPENAME
-                    traits_type::difference_type difference_type;
-
-                BOOST_STATIC_CONSTANT( size_type, array_size = traits_type::array_size );
-            };
-
-#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
             
             // array length resolving
             /*

@@ -20,7 +20,6 @@
 
 #include "boost/multi_array/base.hpp"
 #include "boost/iterator/iterator_facade.hpp"
-#include "boost/mpl/aux_/msvc_eti_base.hpp"
 #include <algorithm>
 #include <cstddef>
 #include <iterator>
@@ -59,13 +58,7 @@ class array_iterator
       , Reference
     >
     , private
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-      mpl::aux::msvc_eti_base<typename 
-#endif 
           value_accessor_generator<T,NumDims>::type
-#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-      >::type
-#endif 
 {
   friend class iterator_core_access;
   typedef detail::multi_array::associated_types<T,NumDims> access_t;

@@ -2,7 +2,7 @@
 // detail/buffer_sequence_adapter.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -29,7 +29,23 @@ namespace detail {
 class buffer_sequence_adapter_base
 {
 protected:
-#if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
+#if defined(BOOST_ASIO_WINDOWS_RUNTIME)
+  // The maximum number of buffers to support in a single operation.
+  enum { max_buffers = 1 };
+
+  typedef Windows::Storage::Streams::IBuffer^ native_buffer_type;
+
+  BOOST_ASIO_DECL static void init_native_buffer(
+      native_buffer_type& buf,
+      const boost::asio::mutable_buffer& buffer);
+
+  BOOST_ASIO_DECL static void init_native_buffer(
+      native_buffer_type& buf,
+      const boost::asio::const_buffer& buffer);
+#elif defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
+  // The maximum number of buffers to support in a single operation.
+  enum { max_buffers = 64 < max_iov_len ? 64 : max_iov_len };
+
   typedef WSABUF native_buffer_type;
 
   static void init_native_buffer(WSABUF& buf,
@@ -46,6 +62,9 @@ protected:
     buf.len = static_cast<ULONG>(boost::asio::buffer_size(buffer));
   }
 #else // defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
+  // The maximum number of buffers to support in a single operation.
+  enum { max_buffers = 64 < max_iov_len ? 64 : max_iov_len };
+
   typedef iovec native_buffer_type;
 
   static void init_iov_base(void*& base, void* addr)
@@ -146,9 +165,6 @@ public:
   }
 
 private:
-  // The maximum number of buffers to support in a single operation.
-  enum { max_buffers = 64 < max_iov_len ? 64 : max_iov_len };
-
   native_buffer_type buffers_[max_buffers];
   std::size_t count_;
   std::size_t total_buffer_size_;
@@ -361,5 +377,9 @@ private:
 } // namespace boost
 
 #include <boost/asio/detail/pop_options.hpp>
+
+#if defined(BOOST_ASIO_HEADER_ONLY)
+# include <boost/asio/detail/impl/buffer_sequence_adapter.ipp>
+#endif // defined(BOOST_ASIO_HEADER_ONLY)
 
 #endif // BOOST_ASIO_DETAIL_BUFFER_SEQUENCE_ADAPTER_HPP

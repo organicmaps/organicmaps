@@ -1490,7 +1490,7 @@ namespace boost {
     adjacency_list(const ProcessGroup& pg = ProcessGroup())
       : named_graph_mixin(pg, default_distribution_type(pg, 0)),
         m_local_graph(GraphProperty()), 
-        process_group_(pg, graph::parallel::attach_distributed_object())
+        process_group_(pg, boost::parallel::attach_distributed_object())
     {
       setup_triggers();
     }
@@ -1499,7 +1499,7 @@ namespace boost {
                    const base_distribution_type& distribution)
       : named_graph_mixin(pg, distribution),
         m_local_graph(GraphProperty()), 
-        process_group_(pg, graph::parallel::attach_distributed_object())
+        process_group_(pg, boost::parallel::attach_distributed_object())
     {
       setup_triggers();
     }
@@ -1508,7 +1508,7 @@ namespace boost {
                    const ProcessGroup& pg = ProcessGroup())
       : named_graph_mixin(pg, default_distribution_type(pg, 0)),
         m_local_graph(g), 
-        process_group_(pg, graph::parallel::attach_distributed_object())
+        process_group_(pg, boost::parallel::attach_distributed_object())
     {
       setup_triggers();
     }
@@ -1519,7 +1519,7 @@ namespace boost {
                    const base_distribution_type& distribution)
       : named_graph_mixin(pg, distribution),
         m_local_graph(distribution.block_size(process_id(pg), n), p),
-        process_group_(pg, graph::parallel::attach_distributed_object())
+        process_group_(pg, boost::parallel::attach_distributed_object())
     {
       setup_triggers();
 
@@ -1532,7 +1532,7 @@ namespace boost {
                    const base_distribution_type& distribution)
       : named_graph_mixin(pg, distribution),
         m_local_graph(distribution.block_size(process_id(pg), n), GraphProperty()),
-        process_group_(pg, graph::parallel::attach_distributed_object()) 
+        process_group_(pg, boost::parallel::attach_distributed_object()) 
     {
       setup_triggers();
 
@@ -1545,7 +1545,7 @@ namespace boost {
                    const ProcessGroup& pg = ProcessGroup())
       : named_graph_mixin(pg, default_distribution_type(pg, n)),
         m_local_graph(this->distribution().block_size(process_id(pg), n), p),
-        process_group_(pg, graph::parallel::attach_distributed_object())
+        process_group_(pg, boost::parallel::attach_distributed_object())
     {
       setup_triggers();
 
@@ -1558,7 +1558,7 @@ namespace boost {
       : named_graph_mixin(pg, default_distribution_type(pg, n)),
         m_local_graph(this->distribution().block_size(process_id(pg), n), 
                       GraphProperty()),
-        process_group_(pg, graph::parallel::attach_distributed_object())
+        process_group_(pg, boost::parallel::attach_distributed_object())
     {
       setup_triggers();
 
@@ -1579,7 +1579,7 @@ namespace boost {
                    const GraphProperty& p = GraphProperty())
       : named_graph_mixin(pg, default_distribution_type(pg, n)),
         m_local_graph(this->distribution().block_size(process_id(pg), n), p),
-        process_group_(pg, graph::parallel::attach_distributed_object())
+        process_group_(pg, boost::parallel::attach_distributed_object())
     {
       setup_triggers();
 
@@ -1598,7 +1598,7 @@ namespace boost {
                    const GraphProperty& p = GraphProperty())
       : named_graph_mixin(pg, default_distribution_type(pg, n)),
         m_local_graph(this->distribution().block_size(process_id(pg), n), p),
-        process_group_(pg, graph::parallel::attach_distributed_object())
+        process_group_(pg, boost::parallel::attach_distributed_object())
     {
       setup_triggers();
 
@@ -1618,7 +1618,7 @@ namespace boost {
                    const GraphProperty& p = GraphProperty())
       : named_graph_mixin(pg, distribution),
         m_local_graph(distribution.block_size(process_id(pg), n), p),
-        process_group_(pg, graph::parallel::attach_distributed_object())
+        process_group_(pg, boost::parallel::attach_distributed_object())
     {
       setup_triggers();
 
@@ -1638,7 +1638,7 @@ namespace boost {
                    const GraphProperty& p = GraphProperty())
       : named_graph_mixin(pg, distribution),
         m_local_graph(this->distribution().block_size(process_id(pg), n), p),
-        process_group_(pg, graph::parallel::attach_distributed_object())
+        process_group_(pg, boost::parallel::attach_distributed_object())
     {
       setup_triggers();
 
@@ -2480,7 +2480,7 @@ namespace boost {
       else {
         // Edge is remote, so notify the target's owner that an edge
         // has been added.
-        if (self.process_group_.trigger_context() == graph::parallel::trc_out_of_band)
+        if (self.process_group_.trigger_context() == boost::parallel::trc_out_of_band)
           send_oob(self.process_group_, target.owner, msg_nonlocal_edge,
                    msg_nonlocal_edge_data(result.first.local, property));
         else
@@ -2501,9 +2501,6 @@ namespace boost {
     std::pair<edge_descriptor, bool> result
       = this->add_local_edge(property, directedS());
 
-    typedef detail::parallel::stored_in_edge<local_edge_descriptor>
-      stored_edge;
-
     if (result.second) {
       if (target.owner == self.processor()) {
         // Edge is local, so add the new edge to the list
@@ -2522,7 +2519,7 @@ namespace boost {
       else {
         // Edge is remote, so notify the target's owner that an edge
         // has been added.
-        if (self.process_group_.trigger_context() == graph::parallel::trc_out_of_band)
+        if (self.process_group_.trigger_context() == boost::parallel::trc_out_of_band)
           send_oob(self.process_group_, target.owner, msg_nonlocal_edge,
                    msg_nonlocal_edge_data(result.first.local, property));
         else
@@ -3045,8 +3042,6 @@ namespace boost {
               typename PBGL_DISTRIB_ADJLIST_TYPE::vertex_descriptor v,
               PBGL_DISTRIB_ADJLIST_TYPE& g)
   {
-    typedef typename PBGL_DISTRIB_ADJLIST_TYPE
-                       ::vertex_descriptor vertex_descriptor;
     typedef typename PBGL_DISTRIB_ADJLIST_TYPE
                        ::edge_descriptor edge_descriptor;
     std::pair<edge_descriptor, bool> the_edge = edge(u, v, g);
@@ -3777,7 +3772,6 @@ namespace boost {
   template<PBGL_DISTRIB_ADJLIST_TEMPLATE_PARMS>
   void synchronize(const PBGL_DISTRIB_ADJLIST_TYPE& g)
   {
-    typedef PBGL_DISTRIB_ADJLIST_TYPE graph_type;
     synchronize(g.process_group());
   }
 

@@ -7,6 +7,7 @@
 #if !defined(FUSION_FRONT_09162005_0343)
 #define FUSION_FRONT_09162005_0343
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic_fwd.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/fusion/iterator/deref.hpp>
@@ -25,6 +26,7 @@ namespace boost { namespace fusion
     }
     
     template <typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::front<Sequence>::type
     front(Sequence& seq)
     {
@@ -32,6 +34,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::front<Sequence const>::type
     front(Sequence const& seq)
     {

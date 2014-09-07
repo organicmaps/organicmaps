@@ -2,7 +2,7 @@
 // detail/reactor.hpp
 // ~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -23,6 +23,8 @@
 # include <boost/asio/detail/kqueue_reactor.hpp>
 #elif defined(BOOST_ASIO_HAS_DEV_POLL)
 # include <boost/asio/detail/dev_poll_reactor.hpp>
+#elif defined(BOOST_ASIO_WINDOWS_RUNTIME)
+# include <boost/asio/detail/null_reactor.hpp>
 #else
 # include <boost/asio/detail/select_reactor.hpp>
 #endif

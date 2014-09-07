@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 49312 $
+//  Version     : $Revision$
 //
 //  Description : defines models configuration file, it's parameter and parameter namespaces
 // ***************************************************************************

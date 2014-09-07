@@ -7,6 +7,7 @@
 #if !defined(FUSION_SEQUENCE_COMPARISON_10022005_0615)
 #define FUSION_SEQUENCE_COMPARISON_10022005_0615
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/comparison/equal_to.hpp>
 #include <boost/fusion/sequence/comparison/greater.hpp>
 #include <boost/fusion/sequence/comparison/greater_equal.hpp>

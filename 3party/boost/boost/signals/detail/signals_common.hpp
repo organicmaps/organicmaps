@@ -97,7 +97,6 @@ namespace boost {
       };
 
       // Determine if the incoming argument is a reference_wrapper
-#ifndef BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
       template<typename T>
       struct is_ref
       {
@@ -109,23 +108,6 @@ namespace boost {
       {
         BOOST_STATIC_CONSTANT(bool, value = true);
       };
-#else // no partial specialization
-      typedef char yes_type;
-      typedef double no_type;
-
-      no_type is_ref_tester(...);
-
-      template<typename T>
-      yes_type is_ref_tester(reference_wrapper<T>*);
-
-      template<typename T>
-      struct is_ref
-      {
-        static T* t;
-        BOOST_STATIC_CONSTANT(bool,
-          value = (sizeof(is_ref_tester(t)) == sizeof(yes_type)));
-      };
-#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
       // A slot can be a signal, a reference to a function object, or a
       // function object.

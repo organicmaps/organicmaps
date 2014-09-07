@@ -2,7 +2,7 @@
 // detail/select_reactor.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2013 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -20,7 +20,8 @@
 #if defined(BOOST_ASIO_HAS_IOCP) \
   || (!defined(BOOST_ASIO_HAS_DEV_POLL) \
       && !defined(BOOST_ASIO_HAS_EPOLL) \
-      && !defined(BOOST_ASIO_HAS_KQUEUE))
+      && !defined(BOOST_ASIO_HAS_KQUEUE) \
+      && !defined(BOOST_ASIO_WINDOWS_RUNTIME))
 
 #include <cstddef>
 #include <boost/asio/detail/fd_set_adapter.hpp>
@@ -30,10 +31,8 @@
 #include <boost/asio/detail/reactor_op.hpp>
 #include <boost/asio/detail/reactor_op_queue.hpp>
 #include <boost/asio/detail/select_interrupter.hpp>
-#include <boost/asio/detail/select_reactor_fwd.hpp>
 #include <boost/asio/detail/socket_types.hpp>
 #include <boost/asio/detail/timer_queue_base.hpp>
-#include <boost/asio/detail/timer_queue_fwd.hpp>
 #include <boost/asio/detail/timer_queue_set.hpp>
 #include <boost/asio/detail/wait_op.hpp>
 #include <boost/asio/io_service.hpp>
@@ -216,6 +215,7 @@ private:
 #endif // defined(BOOST_ASIO_HAS_IOCP)
        //   || (!defined(BOOST_ASIO_HAS_DEV_POLL)
        //       && !defined(BOOST_ASIO_HAS_EPOLL)
-       //       && !defined(BOOST_ASIO_HAS_KQUEUE))
+       //       && !defined(BOOST_ASIO_HAS_KQUEUE)
+       //       && !defined(BOOST_ASIO_WINDOWS_RUNTIME))
 
 #endif // BOOST_ASIO_DETAIL_SELECT_REACTOR_HPP

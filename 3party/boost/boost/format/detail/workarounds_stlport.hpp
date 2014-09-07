@@ -13,12 +13,6 @@
 #ifndef BOOST_MACROS_STLPORT_HPP
 #define BOOST_MACROS_STLPORT_HPP
 
-#if defined(_STLPORT_VERSION) && BOOST_WORKAROUND( BOOST_MSVC, <= 1300)
-// msvc-6-stlport fails to find basic_string::append( iterator, iterator) when linking
-// might affect other MSwindows compilers 
-#define BOOST_NO_STRING_APPEND
-#endif
-
 // *** This should go to "boost/config/stdlib/stlport.hpp".
 
 // If the streams are not native and there are problems with using templates

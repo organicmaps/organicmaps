@@ -98,6 +98,10 @@ inline bool check_x(
       RealType* result,
       const Policy& pol)
 {
+   // Note that this test catches both infinity and NaN.
+   // Some distributions permit x to be infinite, so these must be tested 1st and return,
+   // leaving this test to catch any NaNs.
+   // See Normal, Logistic, Laplace and Cauchy for example.
    if(!(boost::math::isfinite)(x))
    {
       *result = policies::raise_domain_error<RealType>(
@@ -106,9 +110,6 @@ inline bool check_x(
       return false;
    }
    return true;
-   // Note that this test catches both infinity and NaN.
-   // Some special cases permit x to be infinite, so these must be tested 1st,
-   // leaving this test to catch any NaNs.  see Normal and cauchy for example.
 } // bool check_x
 
 template <class RealType, class Policy>

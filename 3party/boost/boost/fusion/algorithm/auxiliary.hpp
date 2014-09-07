@@ -7,6 +7,7 @@
 #if !defined(FUSION_ALGORITHM_AUXILIARY_02192011_0907)
 #define FUSION_ALGORITHM_AUXILIARY_02192011_0907
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/auxiliary/copy.hpp>
 
 #endif

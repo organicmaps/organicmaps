@@ -7,6 +7,7 @@
 #if !defined(FUSION_VALUE_AT_IMPL_05052005_0232)
 #define FUSION_VALUE_AT_IMPL_05052005_0232
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/at.hpp>
 
 namespace boost { namespace fusion

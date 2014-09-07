@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -20,7 +20,6 @@
 #include <utility>
 #include <ostream>
 #include <boost/assert.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/move/core.hpp>
 #include <boost/move/utility.hpp>
 #include <boost/utility/addressof.hpp>
@@ -41,7 +40,7 @@
 #include <boost/log/sources/threading_models.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -101,7 +100,7 @@ public:
     //! Lock requirement for the remove_all_attributes_unlocked method
     typedef boost::log::aux::exclusive_lock_guard< threading_model > remove_all_attributes_lock;
     //! Lock requirement for the get_attributes method
-    typedef boost::log::aux::shared_lock_guard< threading_model > get_attributes_lock;
+    typedef boost::log::aux::shared_lock_guard< const threading_model > get_attributes_lock;
     //! Lock requirement for the open_record_unlocked method
     typedef boost::log::aux::shared_lock_guard< threading_model > open_record_lock;
     //! Lock requirement for the set_attributes method
@@ -111,7 +110,7 @@ public:
     typedef no_lock< threading_model > add_attribute_lock;
     typedef no_lock< threading_model > remove_attribute_lock;
     typedef no_lock< threading_model > remove_all_attributes_lock;
-    typedef no_lock< threading_model > get_attributes_lock;
+    typedef no_lock< const threading_model > get_attributes_lock;
     typedef no_lock< threading_model > open_record_lock;
     typedef no_lock< threading_model > set_attributes_lock;
 #endif
@@ -285,7 +284,7 @@ protected:
     }
 
     //! Assignment is closed (should be implemented through copy and swap in the final class)
-    BOOST_LOG_DELETED_FUNCTION(basic_logger& operator= (basic_logger const&))
+    BOOST_DELETED_FUNCTION(basic_logger& operator= (basic_logger const&))
 };
 
 /*!
@@ -599,7 +598,7 @@ protected:
 
 #define BOOST_LOG_FORWARD_LOGGER_CONSTRUCTORS_IMPL(class_type, typename_keyword)\
     public:\
-        BOOST_LOG_DEFAULTED_FUNCTION(class_type(), {})\
+        BOOST_DEFAULTED_FUNCTION(class_type(), {})\
         class_type(class_type const& that) : class_type::logger_base(\
             static_cast< typename_keyword() class_type::logger_base const& >(that)) {}\
         class_type(BOOST_RV_REF(class_type) that) : class_type::logger_base(\

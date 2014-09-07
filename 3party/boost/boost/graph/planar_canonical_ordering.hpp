@@ -41,10 +41,8 @@ namespace boost
     
     typedef typename graph_traits<Graph>::vertex_descriptor vertex_t;
     typedef typename graph_traits<Graph>::edge_descriptor edge_t;
-    typedef typename graph_traits<Graph>::vertex_iterator vertex_iterator_t;
     typedef typename graph_traits<Graph>::adjacency_iterator
       adjacency_iterator_t;
-    typedef typename std::pair<vertex_t, vertex_t> vertex_pair_t;
     typedef typename property_traits<PlanarEmbedding>::value_type 
       embedding_value_t;
     typedef typename embedding_value_t::const_iterator embedding_iterator_t;

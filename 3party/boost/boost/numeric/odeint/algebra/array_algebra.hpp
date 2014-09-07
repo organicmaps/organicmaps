@@ -6,8 +6,8 @@
  Algebra for boost::array. Highly specialized for odeint. Const arguments are introduce to work with odeint.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2013 Mario Mulansky
+ Copyright 2011-2012 Karsten Ahnert
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -18,7 +18,10 @@
 #ifndef BOOST_NUMERIC_ODEINT_ALGEBRA_ARRAY_ALGEBRA_HPP_INCLUDED
 #define BOOST_NUMERIC_ODEINT_ALGEBRA_ARRAY_ALGEBRA_HPP_INCLUDED
 
+#include <algorithm>
 #include <boost/array.hpp>
+
+#include <boost/numeric/odeint/algebra/norm_result_type.hpp>
 
 namespace boost {
 namespace numeric {
@@ -248,11 +251,15 @@ struct array_algebra
     }
 
 
-    template< class Value , class T , size_t dim , class Red >
-    static Value reduce( const boost::array< T , dim > &s , Red red , Value init)
+    template< typename T , size_t dim >
+    static typename norm_result_type< boost::array< T , dim > >::type norm_inf( const boost::array< T , dim > &s )
     {
+        BOOST_USING_STD_MAX();
+        using std::abs;
+        typedef typename norm_result_type< boost::array< T , dim > >::type result_type;
+        result_type init = static_cast< result_type >( 0 );
         for( size_t i=0 ; i<dim ; ++i )
-            init = red( init , s[i] );
+            init = max BOOST_PREVENT_MACRO_SUBSTITUTION ( init , static_cast< result_type >(abs(s[i])) );
         return init;
     }
 

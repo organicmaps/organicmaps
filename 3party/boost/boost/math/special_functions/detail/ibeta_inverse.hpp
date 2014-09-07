@@ -455,6 +455,11 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
    BOOST_MATH_STD_USING  // For ADL of math functions.
 
    //
+   // The flag invert is set to true if we swap a for b and p for q,
+   // in which case the result has to be subtracted from 1:
+   //
+   bool invert = false;
+   //
    // Handle trivial cases first:
    //
    if(q == 0)
@@ -467,16 +472,18 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
       if(py) *py = 1;
       return 0;
    }
-   else if((a == 1) && (b == 1))
+   else if(a == 1)
    {
-      if(py) *py = 1 - p;
-      return p;
+      if(b == 1)
+      {
+         if(py) *py = 1 - p;
+         return p;
+      }
+      // Change things around so we can handle as b == 1 special case below:
+      std::swap(a, b);
+      std::swap(p, q);
+      invert = true;
    }
-   //
-   // The flag invert is set to true if we swap a for b and p for q,
-   // in which case the result has to be subtracted from 1:
-   //
-   bool invert = false;
    //
    // Depending upon which approximation method we use, we may end up
    // calculating either x or y initially (where y = 1-x):
@@ -495,20 +502,60 @@ T ibeta_inv_imp(T a, T b, T p, T q, const Policy& pol, T* py)
    // Student's T with b = 0.5 gets handled as a special case, swap
    // around if the arguments are in the "wrong" order:
    //
-   if((a == 0.5f) && (b >= 0.5f))
+   if(a == 0.5f)
    {
-      std::swap(a, b);
-      std::swap(p, q);
-      invert = !invert;
+      if(b == 0.5f)
+      {
+         x = sin(p * constants::half_pi<T>());
+         x *= x;
+         if(py)
+         {
+            *py = sin(q * constants::half_pi<T>());
+            *py *= *py;
+         }
+         return x;
+      }
+      else if(b > 0.5f)
+      {
+         std::swap(a, b);
+         std::swap(p, q);
+         invert = !invert;
+      }
    }
    //
    // Select calculation method for the initial estimate:
    //
-   if((b == 0.5f) && (a >= 0.5f))
+   if((b == 0.5f) && (a >= 0.5f) && (p != 1))
    {
       //
       // We have a Student's T distribution:
       x = find_ibeta_inv_from_t_dist(a, p, q, &y, pol);
+   }
+   else if(b == 1)
+   {
+      if(p < q)
+      {
+         if(a > 1)
+         {
+            x = pow(p, 1 / a);
+            y = -boost::math::expm1(log(p) / a, pol);
+         }
+         else
+         {
+            x = pow(p, 1 / a);
+            y = 1 - x;
+         }
+      }
+      else
+      {
+         x = exp(boost::math::log1p(-q, pol) / a);
+         y = -boost::math::expm1(boost::math::log1p(-q, pol) / a, pol);
+      }
+      if(invert)
+         std::swap(x, y);
+      if(py)
+         *py = y;
+      return x;
    }
    else if(a + b > 5)
    {
@@ -894,11 +941,11 @@ inline typename tools::promote_args<T1, T2, T3, T4>::type
       policies::assert_undefined<> >::type forwarding_policy;
 
    if(a <= 0)
-      policies::raise_domain_error<result_type>(function, "The argument a to the incomplete beta function inverse must be greater than zero (got a=%1%).", a, pol);
+      return policies::raise_domain_error<result_type>(function, "The argument a to the incomplete beta function inverse must be greater than zero (got a=%1%).", a, pol);
    if(b <= 0)
-      policies::raise_domain_error<result_type>(function, "The argument b to the incomplete beta function inverse must be greater than zero (got b=%1%).", b, pol);
+      return policies::raise_domain_error<result_type>(function, "The argument b to the incomplete beta function inverse must be greater than zero (got b=%1%).", b, pol);
    if((q < 0) || (q > 1))
-      policies::raise_domain_error<result_type>(function, "Argument q outside the range [0,1] in the incomplete beta function inverse (got q=%1%).", q, pol);
+      return policies::raise_domain_error<result_type>(function, "Argument q outside the range [0,1] in the incomplete beta function inverse (got q=%1%).", q, pol);
 
    value_type rx, ry;
 

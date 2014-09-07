@@ -22,12 +22,16 @@ namespace boost
 {
   namespace signals2
   {
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
     template<typename Signature, typename SlotFunction> class slot;
+#else
+    template<typename Signature, typename SlotFunction = boost::function<Signature> >
+      class slot;
 
-    // slot class template.
-    template<BOOST_SIGNALS2_SIGNATURE_TEMPLATE_DECL(BOOST_SIGNALS2_NUM_ARGS),
-      typename SlotFunction = BOOST_SIGNALS2_FUNCTION_N_DECL(BOOST_SIGNALS2_NUM_ARGS)>
-      class BOOST_SIGNALS2_SLOT_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS);
+#if BOOST_WORKAROUND(BOOST_MSVC, <= 1900)
+    template<typename Signature, typename SlotFunction> class slot{};
+#endif
+#endif // BOOST_NO_CXX11_VARIADIC_TEMPLATES
 
     template<BOOST_SIGNALS2_SLOT_TEMPLATE_SPECIALIZATION_DECL(BOOST_SIGNALS2_NUM_ARGS)>
       class BOOST_SIGNALS2_SLOT_CLASS_NAME(BOOST_SIGNALS2_NUM_ARGS) BOOST_SIGNALS2_SLOT_TEMPLATE_SPECIALIZATION

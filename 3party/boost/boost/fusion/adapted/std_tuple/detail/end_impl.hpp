@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_END_IMPL_09242011_1744)
 #define BOOST_FUSION_END_IMPL_09242011_1744
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/std_tuple/std_tuple_iterator.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <tuple>
@@ -30,6 +31,7 @@ namespace boost { namespace fusion
                 static int const size = std::tuple_size<seq_type>::value;
                 typedef std_tuple_iterator<Sequence, size> type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& v)
                 {

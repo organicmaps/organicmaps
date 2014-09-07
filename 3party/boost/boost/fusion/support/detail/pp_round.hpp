@@ -8,6 +8,7 @@
 #ifndef BOOST_BOOST_FUSION_SUPPORT_PP_ROUND_HPP
 #define BOOST_BOOST_FUSION_SUPPORT_PP_ROUND_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/comparison/less.hpp>
 #include <boost/preprocessor/control/if.hpp>

@@ -7,7 +7,7 @@
 #if !defined(FUSION_SEQUENCE_CLASS_MAP_10022005_0606)
 #define FUSION_SEQUENCE_CLASS_MAP_10022005_0606
 
-#include <boost/fusion/container/map/limits.hpp>
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/map/map.hpp>
 #include <boost/fusion/container/map/map_fwd.hpp>
 #include <boost/fusion/container/map/convert.hpp>

@@ -2,6 +2,7 @@
     Copyright (c) 2005-2010 Joel de Guzman
     Copyright (c) 2010 Eric Niebler
     Copyright (c) 2010 Thomas Heller
+    Copyright (c) 2014 John Fletcher
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying 
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -29,6 +30,8 @@
 #ifdef BOOST_MSVC
 #pragma warning(push)
 #pragma warning(disable: 4522) // 'this' used in base member initializer list
+#pragma warning(disable: 4510) // default constructor could not be generated
+#pragma warning(disable: 4610) // can never be instantiated - user defined cons
 #endif
 
 namespace boost { namespace phoenix
@@ -81,7 +84,7 @@ namespace boost { namespace phoenix
             }
         };
 
-    #define BOOST_PHOENIX_ACTOR_ASSIGN_CHILD(Z, N, D)                           \
+    #define BOOST_PHOENIX_ACTOR_ASSIGN_CHILD(N)                                 \
         assign(                                                                 \
             proto::_child_c<N>                                                  \
           , proto::call<                                                        \
@@ -89,21 +92,35 @@ namespace boost { namespace phoenix
             >                                                                   \
         )                                                                       \
     /**/
-    #define BOOST_PHOENIX_ACTOR_ASSIGN_CALL(Z, N, D)                            \
-            proto::when<                                                        \
+    #define BOOST_PHOENIX_ACTOR_START_ASSIGN_CHILD(Z, N, D)                     \
+       proto::and_<                                                             \
+            BOOST_PHOENIX_ACTOR_ASSIGN_CHILD(N)                                 \
+    /**/
+    #define BOOST_PHOENIX_ACTOR_END_ASSIGN(Z, N, D)                             \
+        >                                                                       \
+    /**/
+    #define BOOST_PHOENIX_ACTOR_ASSIGN_CALL(N)                                  \
+           proto::when<                                                        \
                 proto::nary_expr<proto::_ ,                                     \
                   BOOST_PP_ENUM_PARAMS(N, proto::_ BOOST_PP_INTERCEPT)          \
                 >                                                               \
-               , proto::and_<                                                   \
-                  BOOST_PP_ENUM(                                                \
-                        N                                                       \
-                      , BOOST_PHOENIX_ACTOR_ASSIGN_CHILD                        \
-                      , _                                                       \
-                    )                                                           \
-                >                                                               \
+                , BOOST_PP_ENUM(                                                 \
+                     N                                                          \
+                  , BOOST_PHOENIX_ACTOR_START_ASSIGN_CHILD                     \
+                  , _                                                          \
+                 )                                                              \
+                 BOOST_PP_REPEAT(                                               \
+                     N                                                          \
+                   , BOOST_PHOENIX_ACTOR_END_ASSIGN                             \
+                   , _                                                          \
+                 )                                                              \
             >                                                                   \
       /**/
-
+    #define BOOST_PHOENIX_ACTOR_START_ASSIGN_CALL(Z, N, D)                      \
+        proto::or_<                                                             \
+            BOOST_PHOENIX_ACTOR_ASSIGN_CALL(N)                                  \
+    /**/
+ 
 #if !defined(BOOST_PHOENIX_DONT_USE_PREPROCESSED_FILES)
 #include <boost/phoenix/core/preprocessed/actor.hpp>
 #else
@@ -123,17 +140,20 @@ namespace boost { namespace phoenix
 #endif
 
         struct assign
-            : proto::or_<
-                BOOST_PP_ENUM_SHIFTED(
-                    BOOST_PHOENIX_LIMIT
-                  , BOOST_PHOENIX_ACTOR_ASSIGN_CALL
-                  , _
-                )
+            : BOOST_PP_ENUM_SHIFTED(
+                  BOOST_PHOENIX_LIMIT
+                , BOOST_PHOENIX_ACTOR_START_ASSIGN_CALL
+                , _
+              )
               , proto::when<
                     proto::terminal<proto::_>
                   , do_assign(proto::_, proto::_state)
                 >
-            >
+              BOOST_PP_REPEAT(
+                  BOOST_PP_DEC(BOOST_PHOENIX_LIMIT)
+                , BOOST_PHOENIX_ACTOR_END_ASSIGN
+                , _
+              )
         {};
 
 #if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
@@ -142,7 +162,11 @@ namespace boost { namespace phoenix
 
 #endif
     #undef BOOST_PHOENIX_ACTOR_ASSIGN_CALL
+    #undef BOOST_PHOENIX_ACTOR_START_ASSIGN_CALL
+    #undef BOOST_PHOENIX_ACTOR_END_ASSIGN_CALL
     #undef BOOST_PHOENIX_ACTOR_ASSIGN_CHILD
+    #undef BOOST_PHOENIX_ACTOR_START_ASSIGN_CHILD
+    #undef BOOST_PHOENIX_ACTOR_END_ASSIGN_CHILD
     }
 
     // Bring in the result_of::actor<>

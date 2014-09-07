@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_INCLUDE_DEFINE_STRUCT_HPP
 #define BOOST_FUSION_INCLUDE_DEFINE_STRUCT_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/struct/define_struct.hpp>
 
 #endif

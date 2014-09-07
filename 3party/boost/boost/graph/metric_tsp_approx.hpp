@@ -173,7 +173,6 @@ namespace boost
 
         // We build a custom graph in this algorithm.
         typedef adjacency_list <vecS, vecS, directedS, no_property, no_property > MSTImpl;
-        typedef graph_traits<MSTImpl>::edge_descriptor Edge;
         typedef graph_traits<MSTImpl>::vertex_descriptor Vertex;
         typedef graph_traits<MSTImpl>::vertex_iterator VItr;
 

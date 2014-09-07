@@ -24,6 +24,7 @@
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/type_traits/is_convertible.hpp>
+#include <boost/utility/declval.hpp>
 
 
 namespace boost{ namespace math
@@ -56,6 +57,29 @@ namespace boost{ namespace math
    };
 
    //
+   // Traits class determines how to convert from string based on whether T has a constructor
+   // from const char* or not:
+   //
+   template <int N>
+   struct dummy_size{};
+
+   template <class T>
+   struct is_explicitly_convertible_from_string
+   {
+#ifndef BOOST_NO_SFINAE_EXPR
+      template<typename S1, typename T1>
+      static type_traits::yes_type selector(dummy_size<sizeof(static_cast<T1>(declval<S1>()))>*);
+
+      template<typename S1, typename T1>
+      static type_traits::no_type selector(...);
+
+      static const bool value = sizeof(selector<const char*, T>(0)) == sizeof(type_traits::yes_type);
+#else
+      static const bool value = false;
+#endif
+   };
+
+   //
    // Max number of binary digits in the string representations
    // of our constants:
    //
@@ -84,7 +108,7 @@ namespace boost{ namespace math
                mpl::int_<construct_from_long_double>,
 #ifdef BOOST_MATH_USE_FLOAT128
                typename mpl::if_<
-                  mpl::and_<boost::is_convertible<__float128, Real>, mpl::bool_< t1::value <= t5::value>, mpl::bool_<0 != t1::value> >,
+               mpl::and_<boost::is_convertible<BOOST_MATH_FLOAT128_TYPE, Real>, mpl::bool_< t1::value <= t5::value>, mpl::bool_<0 != t1::value> >,
                   mpl::int_<construct_from_float128>,
                   typename mpl::if_<
                      mpl::and_<mpl::bool_< t1::value <= max_string_digits>, mpl::bool_<0 != t1::value> >,
@@ -139,7 +163,7 @@ namespace boost{ namespace math
          return p;
       }
 
-      template <class T, const T& (*F)(BOOST_EXPLICIT_TEMPLATE_TYPE_SPEC(T))>
+      template <class T, const T& (*F)()>
       struct constant_initializer
       {
          static void force_instantiate()
@@ -151,18 +175,14 @@ namespace boost{ namespace math
          {
             initializer()
             {
-               F(
-      #ifdef BOOST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS
-                  0
-      #endif
-                  );
+               F();
             }
             void force_instantiate()const{}
          };
          static const initializer init;
       };
 
-      template <class T, const T& (*F)(BOOST_EXPLICIT_TEMPLATE_TYPE_SPEC(T))>
+      template <class T, const T& (*F)()>
       typename constant_initializer<T, F>::initializer const constant_initializer<T, F>::init;
 
       template <class T, int N, const T& (*F)(BOOST_MATH_EXPLICIT_TEMPLATE_TYPE_SPEC(mpl::int_<N>) BOOST_MATH_APPEND_EXPLICIT_TEMPLATE_TYPE_SPEC(T))>
@@ -177,11 +197,7 @@ namespace boost{ namespace math
          {
             initializer()
             {
-               F(
-      #ifdef BOOST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS
-                  mpl::int_<N>() , 0
-      #endif
-                  );
+               F();
             }
             void force_instantiate()const{}
          };
@@ -201,14 +217,15 @@ namespace boost{ namespace math
 #  define BOOST_MATH_FLOAT128_CONSTANT_OVERLOAD(x)
 #endif
 
-   #define BOOST_DEFINE_MATH_CONSTANT(name, x, y)\
+#define BOOST_DEFINE_MATH_CONSTANT(name, x, y)\
    namespace detail{\
    template <class T> struct BOOST_JOIN(constant_, name){\
    private:\
    /* The default implementations come next: */ \
    static inline const T& get_from_string()\
    {\
-      static const T result = convert_from_string<T>(y, boost::is_convertible<const char*, T>());\
+      typedef mpl::bool_<boost::is_convertible<const char*, T>::value || boost::math::constants::is_explicitly_convertible_from_string<T>::value> tag_type;\
+      static const T result(convert_from_string<T>(y, tag_type()));\
       return result;\
    }\
    /* This one is for very high precision that is none the less known at compile time: */ \
@@ -287,7 +304,7 @@ namespace boost{ namespace math
   BOOST_DEFINE_MATH_CONSTANT(root_one_div_pi, 5.641895835477562869480794515607725858e-01, "5.64189583547756286948079451560772585844050629328998856844085721710642468441493414486743660202107363443028347906e-01")
   BOOST_DEFINE_MATH_CONSTANT(pi_minus_three, 1.415926535897932384626433832795028841e-01, "1.41592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513e-01")
   BOOST_DEFINE_MATH_CONSTANT(four_minus_pi, 8.584073464102067615373566167204971158e-01, "8.58407346410206761537356616720497115802830600624894179025055407692183593713791001371965174657882932017851913487e-01")
-  BOOST_DEFINE_MATH_CONSTANT(pow23_four_minus_pi, 7.953167673715975443483953350568065807e-01, "7.95316767371597544348395335056806580727639173327713205445302234388856268267518187590758006888600828436839800178e-01")
+  //BOOST_DEFINE_MATH_CONSTANT(pow23_four_minus_pi, 7.953167673715975443483953350568065807e-01, "7.95316767371597544348395335056806580727639173327713205445302234388856268267518187590758006888600828436839800178e-01")
   BOOST_DEFINE_MATH_CONSTANT(pi_pow_e, 2.245915771836104547342715220454373502e+01, "2.24591577183610454734271522045437350275893151339966922492030025540669260403991179123185197527271430315314500731e+01")
   BOOST_DEFINE_MATH_CONSTANT(pi_sqr, 9.869604401089358618834490999876151135e+00, "9.86960440108935861883449099987615113531369940724079062641334937622004482241920524300177340371855223182402591377e+00")
   BOOST_DEFINE_MATH_CONSTANT(pi_sqr_div_six, 1.644934066848226436472415166646025189e+00, "1.64493406684822643647241516664602518921894990120679843773555822937000747040320087383362890061975870530400431896e+00")
@@ -322,7 +339,7 @@ namespace boost{ namespace math
   BOOST_DEFINE_MATH_CONSTANT(rayleigh_skewness, 6.311106578189371381918993515442277798e-01, "6.31110657818937138191899351544227779844042203134719497658094585692926819617473725459905027032537306794400047264e-01")
   BOOST_DEFINE_MATH_CONSTANT(rayleigh_kurtosis, 3.245089300687638062848660410619754415e+00, "3.24508930068763806284866041061975441541706673178920936177133764493367904540874159051490619368679348977426462633e+00")
   BOOST_DEFINE_MATH_CONSTANT(rayleigh_kurtosis_excess, 2.450893006876380628486604106197544154e-01, "2.45089300687638062848660410619754415417066731789209361771337644933679045408741590514906193686793489774264626328e-01")
-  
+
   BOOST_DEFINE_MATH_CONSTANT(two_div_pi, 6.366197723675813430755350534900574481e-01, "6.36619772367581343075535053490057448137838582961825794990669376235587190536906140360455211065012343824291370907e-01")
   BOOST_DEFINE_MATH_CONSTANT(root_two_div_pi, 7.978845608028653558798921198687637369e-01, "7.97884560802865355879892119868763736951717262329869315331851659341315851798603677002504667814613872860605117725e-01")
 

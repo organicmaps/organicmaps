@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_MAKE_MAP)
 #define FUSION_INCLUDE_MAKE_MAP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/generation/make_map.hpp>
 
 #endif

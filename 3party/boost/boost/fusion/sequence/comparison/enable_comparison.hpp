@@ -7,6 +7,7 @@
 #if !defined(FUSION_ENABLE_COMPARISON_09232005_1958)
 #define FUSION_ENABLE_COMPARISON_09232005_1958
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>

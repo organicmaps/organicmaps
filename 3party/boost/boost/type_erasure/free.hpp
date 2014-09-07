@@ -6,7 +6,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
-// $Id: free.hpp 83372 2013-03-09 19:14:14Z steven_watanabe $
+// $Id$
 
 #ifndef BOOST_TYPE_ERASURE_FREE_HPP_INCLUDED
 #define BOOST_TYPE_ERASURE_FREE_HPP_INCLUDED

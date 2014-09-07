@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_SHM_NAMED_SEMAPHORE_HPP
 #define BOOST_INTERPROCESS_SHM_NAMED_SEMAPHORE_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -120,13 +120,7 @@ inline bool shm_named_semaphore::try_wait()
 {  return semaphore()->try_wait();   }
 
 inline bool shm_named_semaphore::timed_wait(const boost::posix_time::ptime &abs_time)
-{
-   if(abs_time == boost::posix_time::pos_infin){
-      this->wait();
-      return true;
-   }
-   return semaphore()->timed_wait(abs_time);
-}
+{  return semaphore()->timed_wait(abs_time); }
 
 inline bool shm_named_semaphore::remove(const char *name)
 {  return shared_memory_object::remove(name); }

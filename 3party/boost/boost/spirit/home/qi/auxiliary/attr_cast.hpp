@@ -50,11 +50,11 @@ namespace boost { namespace spirit { namespace qi
         typedef typename mpl::eval_if<
             traits::not_is_unused<Transformed>
           , mpl::identity<Transformed>
-          , traits::attribute_of<subject_type> >::type 
+          , traits::attribute_of<subject_type> >::type
         transformed_attribute_type;
 
-        attr_cast_parser(Subject const& subject)
-          : subject(subject) 
+        attr_cast_parser(Subject const& subject_)
+          : subject(subject_)
         {
             // If you got an error_invalid_expression error message here,
             // then the expression (Subject) is not a valid spirit qi
@@ -75,7 +75,7 @@ namespace boost { namespace spirit { namespace qi
           , typename Attribute>
         bool parse(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
-          , Attribute& attr) const
+          , Attribute& attr_param) const
         {
             // Find the real exposed attribute. If exposed is given, we use it
             // otherwise we assume the exposed attribute type to be the actual
@@ -87,21 +87,21 @@ namespace boost { namespace spirit { namespace qi
             // do down-stream transformation, provides attribute for embedded
             // parser
             typedef traits::transform_attribute<
-                exposed_attribute_type, transformed_attribute_type, domain> 
+                exposed_attribute_type, transformed_attribute_type, domain>
             transform;
 
-            typename transform::type attr_ = transform::pre(attr);
+            typename transform::type attr_ = transform::pre(attr_param);
 
             if (!compile<qi::domain>(subject).
                     parse(first, last, context, skipper, attr_))
             {
-                transform::fail(attr);
+                transform::fail(attr_param);
                 return false;
             }
 
             // do up-stream transformation, this mainly integrates the results
             // back into the original attribute value, if appropriate
-            traits::post_transform(attr, attr_);
+            traits::post_transform(attr_param, attr_);
             return true;
         }
 

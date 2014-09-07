@@ -591,17 +591,11 @@ two_graphs_common_spanning_trees
   typedef typename GraphTraits::edges_size_type edges_size_type;
   typedef typename GraphTraits::edge_iterator edge_iterator;
 
-  typedef typename Seq::const_iterator seq_const_iterator;
-  typedef typename Seq::difference_type seq_diff_type;
   typedef typename Seq::value_type seq_value_type;
   typedef typename Seq::size_type seq_size_type;
-  typedef typename Seq::iterator seq_iterator;
 
-  typedef typename Order::const_iterator order_const_iterator;
-  typedef typename Order::difference_type order_diff_type;
   typedef typename Order::value_type order_value_type;
   typedef typename Order::size_type order_size_type;
-  typedef typename Order::iterator order_iterator;
 
   BOOST_STATIC_ASSERT((is_same<order_value_type, edge_descriptor>::value));
   BOOST_CONCEPT_ASSERT((Convertible<order_size_type, edges_size_type>));
@@ -846,7 +840,6 @@ two_graphs_common_spanning_trees
   typedef graph_traits<Graph> GraphTraits;
 
   typedef typename GraphTraits::edge_descriptor edge_descriptor;
-  typedef typename GraphTraits::edges_size_type edges_size_type;
   typedef typename GraphTraits::edge_iterator edge_iterator;
 
   std::vector<edge_descriptor> iGO, vGO;

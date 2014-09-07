@@ -8,6 +8,7 @@
 #if !defined(FUSION_FIND_IF_05052005_1108)
 #define FUSION_FIND_IF_05052005_1108
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/query/find_if_fwd.hpp>
 #include <boost/fusion/algorithm/query/detail/find_if.hpp>
 #include <boost/fusion/algorithm/query/detail/segmented_find_if.hpp>
@@ -41,6 +42,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Pred, typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename 
         lazy_disable_if<
             is_const<Sequence>
@@ -53,6 +55,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Pred, typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::find_if<Sequence const, Pred>::type const
     find_if(Sequence const& seq)
     {

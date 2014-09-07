@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_INSERT_RANGE)
 #define FUSION_INCLUDE_INSERT_RANGE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/transformation/insert_range.hpp>
 
 #endif

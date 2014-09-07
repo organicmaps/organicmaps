@@ -8,6 +8,7 @@
 #if !defined(FUSION_BEGIN_IMPL_20060123_2147)
 #define FUSION_BEGIN_IMPL_20060123_2147
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/fusion/view/zip_view/zip_view_iterator_fwd.hpp>
 #include <boost/fusion/algorithm/transformation/transform.hpp>
@@ -40,6 +41,7 @@ namespace boost { namespace fusion {
             };
 
             template<typename Seq>
+            BOOST_FUSION_GPU_ENABLED
             typename result<poly_begin(Seq&)>::type
             operator()(Seq& seq) const
             {
@@ -47,12 +49,14 @@ namespace boost { namespace fusion {
             }
 
             template<typename Seq>
+            BOOST_FUSION_GPU_ENABLED
             typename result<poly_begin(Seq const&)>::type
             operator()(Seq const& seq) const
             {
                 return fusion::begin(seq);
             }
 
+            BOOST_FUSION_GPU_ENABLED
             unused_type operator()(unused_type const&) const
             {
                 return unused_type();
@@ -75,6 +79,7 @@ namespace boost { namespace fusion {
                     typename result_of::transform<typename Sequence::sequences, detail::poly_begin>::type,
                     typename Sequence::category> type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Sequence& sequence)
                 {

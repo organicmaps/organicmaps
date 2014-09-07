@@ -57,7 +57,7 @@ namespace boost { namespace phoenix
             : mpl::false_
         {};
     }
-
+  
     namespace detail
     {
         struct scope_is_nullary_actions
@@ -88,8 +88,8 @@ namespace boost { namespace phoenix
       : mpl::true_
     {};
 
-    template <typename Key>
-    struct custom_terminal<detail::local<Key> >
+  template <typename Key>
+  struct custom_terminal<detail::local<Key> >
     {
         template <typename Sig>
         struct result;

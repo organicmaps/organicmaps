@@ -231,7 +231,9 @@ protected:
 
     typedef rtree::node_auto_ptr<Value, Options, Translator, Box, Allocators> node_auto_ptr;
     typedef typename Allocators::node_pointer node_pointer;
-    typedef typename Allocators::internal_node_pointer internal_node_pointer;
+
+    //typedef typename Allocators::internal_node_pointer internal_node_pointer;
+    typedef internal_node * internal_node_pointer;
 
     inline insert(node_pointer & root,
                   size_t & leafs_level,
@@ -286,6 +288,8 @@ protected:
         // handle overflow
         if ( m_parameters.get_max_elements() < rtree::elements(n).size() )
         {
+            // NOTE: If the exception is thrown current node may contain more than MAX elements or be empty.
+            // Furthermore it may be empty root - internal node.
             split(n);                                                                                           // MAY THROW (V, E: alloc, copy, N:alloc)
         }
     }

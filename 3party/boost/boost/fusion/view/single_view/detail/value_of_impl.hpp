@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_SINGLE_VIEW_VALUE_OF_IMPL_05052005_0324)
 #define BOOST_FUSION_SINGLE_VIEW_VALUE_OF_IMPL_05052005_0324
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/equal_to.hpp>

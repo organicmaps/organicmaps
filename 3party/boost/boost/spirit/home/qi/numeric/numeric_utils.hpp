@@ -53,7 +53,7 @@ namespace boost { namespace spirit { namespace qi
             not_supported_radix, ());
 
         template <typename Iterator>
-        inline static bool call(Iterator& first, Iterator const& last, T& attr)
+        inline static bool call(Iterator& first, Iterator const& last, T& attr_)
         {
             if (first == last)
                 return false;
@@ -69,7 +69,7 @@ namespace boost { namespace spirit { namespace qi
 
             Iterator save = first;
             if (!extract_type::parse(first, last,
-                detail::cast_unsigned<T>::call(attr)))
+                detail::cast_unsigned<T>::call(attr_)))
             {
                 first = save;
                 return false;
@@ -81,10 +81,10 @@ namespace boost { namespace spirit { namespace qi
         inline static bool call(Iterator& first, Iterator const& last, Attribute& attr_)
         {
             // this case is called when Attribute is not T
-            T attr;
-            if (call(first, last, attr))
+            T attr_local;
+            if (call(first, last, attr_local))
             {
-                traits::assign_to(attr, attr_);
+                traits::assign_to(attr_local, attr_);
                 return true;
             }
             return false;
@@ -103,7 +103,7 @@ namespace boost { namespace spirit { namespace qi
             not_supported_radix, ());
 
         template <typename Iterator>
-        inline static bool call(Iterator& first, Iterator const& last, T& attr)
+        inline static bool call(Iterator& first, Iterator const& last, T& attr_)
         {
             if (first == last)
                 return false;
@@ -119,9 +119,9 @@ namespace boost { namespace spirit { namespace qi
             Iterator save = first;
             bool hit = extract_sign(first, last);
             if (hit)
-                hit = extract_neg_type::parse(first, last, attr);
+                hit = extract_neg_type::parse(first, last, attr_);
             else
-                hit = extract_pos_type::parse(first, last, attr);
+                hit = extract_pos_type::parse(first, last, attr_);
 
             if (!hit)
             {
@@ -135,10 +135,10 @@ namespace boost { namespace spirit { namespace qi
         inline static bool call(Iterator& first, Iterator const& last, Attribute& attr_)
         {
             // this case is called when Attribute is not T
-            T attr;
-            if (call(first, last, attr))
+            T attr_local;
+            if (call(first, last, attr_local))
             {
-                traits::assign_to(attr, attr_);
+                traits::assign_to(attr_local, attr_);
                 return true;
             }
             return false;

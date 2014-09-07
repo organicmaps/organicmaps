@@ -296,7 +296,6 @@ namespace detail { namespace graph {
                                       ShortestPaths shortest_paths)
   {
     typedef typename graph_traits<Graph>::vertex_iterator vertex_iterator;
-    typedef typename graph_traits<Graph>::edge_iterator edge_iterator;
     typedef typename graph_traits<Graph>::vertex_descriptor vertex_descriptor;
 
     // Initialize centrality
@@ -421,7 +420,6 @@ namespace detail { namespace graph {
                                            VertexIndexMap vertex_index)
   {
     typedef typename graph_traits<Graph>::degree_size_type degree_size_type;
-    typedef typename graph_traits<Graph>::vertex_descriptor vertex_descriptor;
     typedef typename graph_traits<Graph>::edge_descriptor edge_descriptor;
     typedef typename mpl::if_c<(is_same<CentralityMap, 
                                         dummy_property_map>::value),
@@ -457,7 +455,6 @@ namespace detail { namespace graph {
                                            VertexIndexMap vertex_index)
   {
     typedef typename graph_traits<Graph>::degree_size_type degree_size_type;
-    typedef typename graph_traits<Graph>::vertex_descriptor vertex_descriptor;
     typedef typename graph_traits<Graph>::edge_descriptor edge_descriptor;
     typedef typename mpl::if_c<(is_same<CentralityMap, 
                                         dummy_property_map>::value),

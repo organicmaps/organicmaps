@@ -17,6 +17,8 @@
 #include <numeric>
 #include <utility>
 
+#include <boost/detail/no_exceptions_support.hpp>
+
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/assert.hpp>
@@ -264,6 +266,7 @@ private:
     template <class StateType,class Enable=int>
     struct deferred_msg_queue_helper 
     {
+        void clear(){}
     };
     template <class StateType>
     struct deferred_msg_queue_helper<StateType,
@@ -272,6 +275,10 @@ private:
     {
     public:
         deferred_msg_queue_helper():m_deferred_events_queue(){}
+        void clear()
+        {
+            m_deferred_events_queue.clear();
+        }
         deferred_events_queue_t         m_deferred_events_queue;
     };
 
@@ -1314,6 +1321,11 @@ private:
         return m_events_queue.m_events_queue;
     }
 
+    void clear_deferred_queue()
+    {
+        m_deferred_events_queue.clear();
+    }
+
     deferred_events_queue_t& get_deferred_queue()
     {
         return m_deferred_events_queue.m_deferred_events_queue;
@@ -1732,16 +1744,21 @@ private:
     template <class StateType,class EventType>
     HandledEnum do_process_helper(EventType const& evt, ::boost::mpl::false_ const &, bool is_direct_call)
     {
-        try
+        // when compiling without exception support there is no formal parameter "e" in the catch handler. 
+        // Declaring a local variable here does not hurt and will be "used" to make the code in the handler 
+        // compilable although the code will never be executed.
+        std::exception e;
+        BOOST_TRY
         {
             return this->do_process_event(evt,is_direct_call);
         }
-        catch (std::exception& e)
+        BOOST_CATCH (std::exception& e)
         {
             // give a chance to the concrete state machine to handle
             this->exception_caught(evt,*this,e);
-        } 
-        return HANDLED_FALSE;
+        }
+        BOOST_CATCH_END
+        return HANDLED_TRUE;
     }
     // handling of deferred events
     // if none is found in the SM, take the following empty main version
@@ -2592,6 +2609,9 @@ BOOST_PP_REPEAT(BOOST_PP_ADD(BOOST_MSM_VISITOR_ARG_SIZE,1), MSM_VISITOR_ARGS_EXE
         direct_event_start_helper(this)(incomingEvent,fsm);
         // handle messages which were generated and blocked in the init calls
         m_event_processing = false;
+        // look for deferred events waiting
+        handle_defer_helper<library_sm> defer_helper(m_deferred_events_queue);
+        defer_helper.do_post_handle_deferred(HANDLED_TRUE);
         process_message_queue(this);
      }
      template <class Event,class FsmType>
@@ -2604,6 +2624,11 @@ BOOST_PP_REPEAT(BOOST_PP_ADD(BOOST_MSM_VISITOR_ARG_SIZE,1), MSM_VISITOR_ARGS_EXE
         (static_cast<Derived*>(this))->on_exit(incomingEvent,fsm);
         // give the history a chance to handle this (or not).
         m_history.history_exit(this->m_states);
+        // history decides what happens with deferred events
+        if (!m_history.process_deferred_events(incomingEvent))
+        {
+            clear_deferred_queue();
+        }
      }
 
     // the IBM and VC<8 compilers seem to have problems with the friend declaration of dispatch_table

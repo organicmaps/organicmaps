@@ -1,10 +1,12 @@
 /*
     Copyright 2008 Intel Corporation
-
+ 
     Use, modification and distribution are subject to the Boost Software License,
     Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
     http://www.boost.org/LICENSE_1_0.txt).
 */
+#include<iostream>
+#include<cassert>
 #ifndef BOOST_POLYGON_POLYGON_FORMATION_HPP
 #define BOOST_POLYGON_POLYGON_FORMATION_HPP
 namespace boost { namespace polygon{
@@ -25,24 +27,24 @@ namespace polygon_formation {
    * TAIL End is represented by true because TAIL comes after head and 1 after 0
    */
   const End TAIL = true;
-
+   
   /*
    * 2D turning direction, left and right sides (is a boolean value since it has two states.)
    */
   typedef bool Side;
-
+   
   /*
    * LEFT Side is 0 because we inuitively think left to right; left < right
    */
   const Side LEFT = false;
-
+   
   /*
    * RIGHT Side is 1 so that right > left
    */
   const Side RIGHT = true;
 
   /*
-   * The PolyLine class is data storage and services for building and representing partial polygons.
+   * The PolyLine class is data storage and services for building and representing partial polygons.  
    * As the polyline is added to it extends its storage to accomodate the data.
    * PolyLines can be joined head-to-head/head-to-tail when it is determined that two polylines are
    * part of the same polygon.
@@ -59,14 +61,14 @@ namespace polygon_formation {
   class PolyLine {
   private:
     //data
-
+     
     /*
      * ptdata_ a vector of coordiantes
      * if VERTICAL_HEAD, first coordiante is an X
      * else first coordinate is a Y
      */
     std::vector<Unit> ptdata_;
-
+   
     /*
      * head and tail points to other polylines before and after this in a chain
      */
@@ -87,18 +89,18 @@ namespace polygon_formation {
      * default constructor (for preallocation)
      */
     PolyLine();
-
+   
     /*
      * constructor that takes the orientation, coordiante and side to which there is solid
      */
     PolyLine(orientation_2d orient, Unit coord, Side side);
-
+   
     //copy constructor
     PolyLine(const PolyLine& pline);
-
+   
     //destructor
     ~PolyLine();
-
+   
     //assignment operator
     PolyLine& operator=(const PolyLine& that);
 
@@ -118,18 +120,18 @@ namespace polygon_formation {
     /*
      * returns true if first coordinate is an X value (first segment is vertical)
      */
-    bool verticalHead() const;
+    bool verticalHead() const; 
 
     /*
      * returns the orientation_2d fo the tail
      */
     orientation_2d tailOrient() const;
-
+      
     /*
      * returns true if last coordinate is an X value (last segment is vertical)
      */
     bool verticalTail() const;
-
+     
     /*
      * retrun true if PolyLine has odd number of coordiantes
      */
@@ -157,7 +159,7 @@ namespace polygon_formation {
      * retrun true if the tail of this polyline is connect to the head of a polyline
      */
     bool tailToHead() const;
-
+     
     /*
      * retrun the side on which there is solid for this polyline
      */
@@ -177,12 +179,12 @@ namespace polygon_formation {
      * adds a coordinate value to the end of the polyline changing the tail orientation
      */
     PolyLine& pushCoordinate(Unit coord);
-
+       
     /*
      * removes a coordinate value at the end of the polyline changing the tail orientation
      */
     PolyLine& popCoordinate();
-
+      
     /*
      * extends the tail of the polyline to include the point, changing orientation if needed
      */
@@ -299,7 +301,7 @@ namespace polygon_formation {
    * that edge is supposed to be solid or space.  Any incomplete polygon will have two active tails.  Active tails
    * may be joined together to merge two incomplete polygons into a larger incomplete polygon.  If two active tails
    * that are to be merged are the oppositve ends of the same incomplete polygon that indicates that the polygon
-   * has been closed and is complete.  The active tail keeps a pointer to the other active tail of its incomplete
+   * has been closed and is complete.  The active tail keeps a pointer to the other active tail of its incomplete 
    * polygon so that it is easy to check this condition.  These pointers are updated when active tails are joined.
    * The active tail also keeps a list of pointers to active tail objects that serve as handles to closed holes.  In
    * this way a hole can be associated to another incomplete polygon, which will eventually be its enclosing shell,
@@ -314,11 +316,25 @@ namespace polygon_formation {
   class ActiveTail {
   private:
     //data
-    PolyLine<Unit>* tailp_;
+    PolyLine<Unit>* tailp_; 
     ActiveTail *otherTailp_;
     std::list<ActiveTail*> holesList_;
+    //Sum of all the polylines which constitute the active tail (including holes)//
+    size_t polyLineSize_;  
   public:
 
+    inline size_t getPolyLineSize(){
+       return polyLineSize_;
+    }
+
+    inline void setPolyLineSize(int delta){
+       polyLineSize_ = delta;
+    }
+
+    inline void addPolyLineSize(int delta){
+       polyLineSize_ += delta;
+    }
+    
     /*
      * iterator over coordinates of the figure
      */
@@ -331,7 +347,7 @@ namespace polygon_formation {
       End startEnd_;
     public:
       inline iterator() : pLine_(), pLineEnd_(), index_(), indexEnd_(), startEnd_() {}
-      inline iterator(const ActiveTail* at, bool isHole, orientation_2d orient) :
+      inline iterator(const ActiveTail* at, bool isHole, orientation_2d orient) : 
         pLine_(), pLineEnd_(), index_(), indexEnd_(), startEnd_() {
         //if it is a hole and orientation is vertical or it is not a hole and orientation is horizontal
         //we want to use this active tail, otherwise we want to use the other active tail
@@ -343,7 +359,10 @@ namespace polygon_formation {
         //now we have the right winding direction
         //if it is horizontal we need to skip the first element
         pLine_ = at->getTail();
-        index_ = at->getTail()->numSegments() - 1;
+
+        if(at->getTail()->numSegments() > 0)
+         index_ = at->getTail()->numSegments() - 1;
+
         if((at->getOrient() == HORIZONTAL) ^ (orient == HORIZONTAL)) {
           pLineEnd_ = at->getTail();
           indexEnd_ = pLineEnd_->numSegments() - 1;
@@ -358,10 +377,27 @@ namespace polygon_formation {
           } else { --index_; }
         } else {
           pLineEnd_ = at->getOtherActiveTail()->getTail();
+          if(pLineEnd_->numSegments() > 0)
           indexEnd_ = pLineEnd_->numSegments() - 1;
         }
         at->getTail()->joinTailToTail(*(at->getOtherActiveTail()->getTail()));
       }
+
+      inline size_t size(void){
+        size_t count = 0;
+        End dir = startEnd_;
+        PolyLine<Unit> const * currLine = pLine_;
+        size_t ops = 0;
+        while(currLine != pLineEnd_){
+           ops++;
+           count += currLine->numSegments();
+           currLine = currLine->next(dir == HEAD ? TAIL : HEAD); 
+           dir = currLine->endConnectivity(dir == HEAD ? TAIL : HEAD); 
+        }
+        count += pLineEnd_->numSegments();
+        return count; //no. of vertices 
+      }
+
       //use bitwise copy and assign provided by the compiler
       inline iterator& operator++() {
         if(pLine_ == pLineEnd_ && index_ == indexEnd_) {
@@ -560,7 +596,7 @@ namespace polygon_formation {
   /* deallocate an activetail object */
   template <typename Unit>
   void destroyActiveTail(ActiveTail<Unit>* aTail);
-
+     
   template<bool orientT, typename Unit>
   class PolyLineHoleData {
   private:
@@ -576,7 +612,9 @@ namespace polygon_formation {
     inline compact_iterator_type end_compact() const { return p_->end(); }
     inline iterator_type begin() const { return iterator_type(begin_compact(), end_compact()); }
     inline iterator_type end() const { return iterator_type(end_compact(), end_compact()); }
-    inline std::size_t size() const { return 0; }
+    inline std::size_t size() const { 
+       return p_->getPolyLineSize();
+    }
     inline ActiveTail<Unit>* yield() { return p_; }
     template<class iT>
     inline PolyLineHoleData& set(iT inputBegin, iT inputEnd) {
@@ -586,7 +624,7 @@ namespace polygon_formation {
     inline PolyLineHoleData& set_compact(iT inputBegin, iT inputEnd) {
       return *this;
     }
-
+   
   };
 
   template<bool orientT, typename Unit>
@@ -646,7 +684,7 @@ namespace polygon_formation {
     inline PolyLinePolygonWithHolesData& set_compact(iT inputBegin, iT inputEnd) {
       return *this;
     }
-
+   
     // initialize a polygon from x,y values, it is assumed that the first is an x
     // and that the input is a well behaved polygon
     template<class iT>
@@ -679,18 +717,83 @@ namespace polygon_formation {
     std::vector<PolyLinePolygonData> outputPolygons_;
     bool fractureHoles_;
   public:
-    typedef typename std::vector<PolyLinePolygonData>::iterator iterator;
+    typedef typename std::vector<PolyLinePolygonData>::iterator iterator; 
     inline ScanLineToPolygonItrs() : tailMap_(), outputPolygons_(), fractureHoles_(false)  {}
     /* construct a scanline with the proper offsets, protocol and options */
     inline ScanLineToPolygonItrs(bool fractureHoles) : tailMap_(), outputPolygons_(), fractureHoles_(fractureHoles) {}
-
+   
     ~ScanLineToPolygonItrs() { clearOutput_(); }
-
+   
     /* process all vertical edges, left and right, at a unique x coordinate, edges must be sorted low to high */
-    void processEdges(iterator& beginOutput, iterator& endOutput,
-                      Unit currentX, std::vector<interval_data<Unit> >& leftEdges,
-                      std::vector<interval_data<Unit> >& rightEdges);
+    void processEdges(iterator& beginOutput, iterator& endOutput, 
+                      Unit currentX, std::vector<interval_data<Unit> >& leftEdges, 
+                      std::vector<interval_data<Unit> >& rightEdges,
+                      size_t vertexThreshold=(std::numeric_limits<size_t>::max)() );
+    
+   /**********************************************************************
+    *methods implementing new polygon formation code                                                                    
+    *
+    **********************************************************************/
+    void updatePartialSimplePolygonsWithRightEdges(Unit currentX, 
+         const std::vector<interval_data<Unit> >& leftEdges, size_t threshold);
 
+    void updatePartialSimplePolygonsWithLeftEdges(Unit currentX, 
+         const std::vector<interval_data<Unit> >& leftEdges, size_t threshold);
+
+    void closePartialSimplePolygon(Unit, ActiveTail<Unit>*, ActiveTail<Unit>*);
+
+    void maintainPartialSimplePolygonInvariant(iterator& ,iterator& ,Unit,
+         const std::vector<interval_data<Unit> >&, 
+         const std::vector<interval_data<Unit> >&, 
+         size_t vertexThreshold=(std::numeric_limits<size_t>::max)());
+
+    void insertNewLeftEdgeIntoTailMap(Unit, Unit, Unit,
+      typename std::map<Unit, ActiveTail<Unit>*>::iterator &);
+    /**********************************************************************/
+
+    inline size_t getTailMapSize(){
+       typename std::map<Unit, ActiveTail<Unit>* >::const_iterator itr;
+       size_t tsize = 0;
+       for(itr=tailMap_.begin(); itr!=tailMap_.end(); ++itr){
+          tsize +=  (itr->second)->getPolyLineSize();
+       }
+       return tsize;
+    }
+   /*print the active tails in this map:*/
+   inline void print(){
+      typename std::map<Unit, ActiveTail<Unit>* >::const_iterator itr;
+      printf("=========TailMap[%lu]=========\n", tailMap_.size());
+      for(itr=tailMap_.begin(); itr!=tailMap_.end(); ++itr){
+         std::cout<< "[" << itr->first << "] : " << std::endl;
+         //print active tail//
+         ActiveTail<Unit> const *t = (itr->second);
+         PolyLine<Unit> const *pBegin = t->getTail();
+         PolyLine<Unit> const *pEnd = t->getOtherActiveTail()->getTail();
+         std::string sorient = pBegin->solidToRight() ? "RIGHT" : "LEFT"; 
+         std::cout<< " ActiveTail.tailp_ (solid= " << sorient ;
+         End dir = TAIL;
+         while(pBegin!=pEnd){
+            std::cout << pBegin  << "={ ";
+            for(size_t i=0; i<pBegin->numSegments(); i++){
+               point_data<Unit> u = pBegin->getPoint(i);
+               std::cout << "(" << u.x() << "," << u.y() << ") ";
+            }
+            std::cout << "}  ";
+            pBegin = pBegin->next(dir == HEAD ? TAIL : HEAD);
+            dir = pBegin->endConnectivity(dir == HEAD ? TAIL : HEAD);
+         }
+         if(pEnd){
+            std::cout << pEnd << "={ ";
+            for(size_t i=0; i<pEnd->numSegments(); i++){
+               point_data<Unit> u = pEnd->getPoint(i);
+               std::cout << "(" << u.x() << "," << u.y() << ") ";
+            }
+            std::cout << "}  ";
+         }
+         std::cout << " end= " << pEnd << std::endl;
+      }
+   }
+   
   private:
     void clearOutput_();
   };
@@ -706,9 +809,9 @@ namespace polygon_formation {
 //     inline ScanLineToPolygons() : scanline_() {}
 //     /* construct a scanline with the proper offsets, protocol and options */
 //     inline ScanLineToPolygons(bool fractureHoles) : scanline_(fractureHoles) {}
-
+   
 //     /* process all vertical edges, left and right, at a unique x coordinate, edges must be sorted low to high */
-//     inline void processEdges(std::vector<Unit>& outBufferTmp, Unit currentX, std::vector<interval_data<Unit> >& leftEdges,
+//     inline void processEdges(std::vector<Unit>& outBufferTmp, Unit currentX, std::vector<interval_data<Unit> >& leftEdges, 
 //                              std::vector<interval_data<Unit> >& rightEdges) {
 //       typename ScanLineToPolygonItrs<true, Unit>::iterator itr, endItr;
 //       scanline_.processEdges(itr, endItr, currentX, leftEdges, rightEdges);
@@ -754,12 +857,12 @@ namespace polygon_formation {
 
   //constructor
   template <typename Unit>
-  inline PolyLine<Unit>::PolyLine(orientation_2d orient, Unit coord, Side side) :
+  inline PolyLine<Unit>::PolyLine(orientation_2d orient, Unit coord, Side side) : 
     ptdata_(1, coord),
     headp_(0),
     tailp_(0),
     state_(orient.to_int() +
-           (side << 3)) {}
+           (side << 3)){}
 
   //copy constructor
   template <typename Unit>
@@ -796,7 +899,7 @@ namespace polygon_formation {
 
   //valid PolyLine
   template <typename Unit>
-  inline bool PolyLine<Unit>::isValid() const {
+  inline bool PolyLine<Unit>::isValid() const { 
     return state_ > -1; }
 
   //first coordinate is an X value
@@ -818,7 +921,7 @@ namespace polygon_formation {
   inline bool PolyLine<Unit>::verticalTail() const {
     return to_bool(verticalHead() ^ oddLength());
   }
-
+     
   template <typename Unit>
   inline orientation_2d PolyLine<Unit>::tailOrient() const {
     return (verticalTail() ? VERTICAL : HORIZONTAL);
@@ -850,16 +953,16 @@ namespace polygon_formation {
   inline bool PolyLine<Unit>::tailToHead() const {
     return to_bool(!tailToTail());
   }
-
+     
   template <typename Unit>
   inline bool PolyLine<Unit>::tailToTail() const {
     return to_bool(state_ & TAIL_TO_TAIL);
   }
 
   template <typename Unit>
-  inline Side PolyLine<Unit>::solidSide() const {
+  inline Side PolyLine<Unit>::solidSide() const { 
     return solidToRight(); }
-
+      
   template <typename Unit>
   inline bool PolyLine<Unit>::solidToRight() const {
     return to_bool(state_ & SOLID_TO_RIGHT) != 0;
@@ -884,12 +987,14 @@ namespace polygon_formation {
 
   template <typename Unit>
   inline PolyLine<Unit>& PolyLine<Unit>::pushPoint(const point_data<Unit>& point) {
-    point_data<Unit> endPt = getEndPoint();
-    //vertical is true, horizontal is false
-    if((tailOrient().to_int() ? point.get(VERTICAL) == endPt.get(VERTICAL) : point.get(HORIZONTAL) == endPt.get(HORIZONTAL))) {
-      //we were pushing a colinear segment
-      return popCoordinate();
-    }
+     if(numSegments()){
+       point_data<Unit> endPt = getEndPoint();
+       //vertical is true, horizontal is false
+       if((tailOrient().to_int() ? point.get(VERTICAL) == endPt.get(VERTICAL) : point.get(HORIZONTAL) == endPt.get(HORIZONTAL))) {
+         //we were pushing a colinear segment
+         return popCoordinate();
+       }
+     }
     return pushCoordinate(tailOrient().to_int() ? point.get(VERTICAL) : point.get(HORIZONTAL));
   }
 
@@ -1007,28 +1112,31 @@ namespace polygon_formation {
   }
 
   template <typename Unit>
-  inline ActiveTail<Unit>::ActiveTail() : tailp_(0), otherTailp_(0), holesList_() {}
+  inline ActiveTail<Unit>::ActiveTail() : tailp_(0), otherTailp_(0), holesList_(), 
+   polyLineSize_(0) {}
 
   template <typename Unit>
-  inline ActiveTail<Unit>::ActiveTail(orientation_2d orient, Unit coord, Side solidToRight, ActiveTail* otherTailp) :
-    tailp_(0), otherTailp_(0), holesList_() {
+  inline ActiveTail<Unit>::ActiveTail(orientation_2d orient, Unit coord, Side solidToRight, ActiveTail* otherTailp) : 
+    tailp_(0), otherTailp_(0), holesList_(), polyLineSize_(0) {
     tailp_ = createPolyLine(orient, coord, solidToRight);
     otherTailp_ = otherTailp;
+    polyLineSize_ = tailp_->numSegments();
   }
 
   template <typename Unit>
-  inline ActiveTail<Unit>::ActiveTail(PolyLine<Unit>* active, ActiveTail<Unit>* otherTailp) :
-    tailp_(active), otherTailp_(otherTailp), holesList_() {}
+  inline ActiveTail<Unit>::ActiveTail(PolyLine<Unit>* active, ActiveTail<Unit>* otherTailp) : 
+    tailp_(active), otherTailp_(otherTailp), holesList_(), 
+      polyLineSize_(0) {}
 
   //copy constructor
   template <typename Unit>
-  inline ActiveTail<Unit>::ActiveTail(const ActiveTail<Unit>& that) : tailp_(that.tailp_), otherTailp_(that.otherTailp_), holesList_() {}
+  inline ActiveTail<Unit>::ActiveTail(const ActiveTail<Unit>& that) : tailp_(that.tailp_), otherTailp_(that.otherTailp_), holesList_(), polyLineSize_(that.polyLineSize_) {}
 
   //destructor
   template <typename Unit>
-  inline ActiveTail<Unit>::~ActiveTail() {
+  inline ActiveTail<Unit>::~ActiveTail() { 
     //clear them in case the memory is read later
-    tailp_ = 0; otherTailp_ = 0;
+    tailp_ = 0; otherTailp_ = 0; 
   }
 
   template <typename Unit>
@@ -1036,6 +1144,7 @@ namespace polygon_formation {
     //self assignment is safe in this case
     tailp_ = that.tailp_;
     otherTailp_ = that.otherTailp_;
+    polyLineSize_ = that.polyLineSize_;
     return *this;
   }
 
@@ -1050,45 +1159,50 @@ namespace polygon_formation {
   }
 
   template <typename Unit>
-  inline bool ActiveTail<Unit>::operator<=(const ActiveTail<Unit>& b) const {
+  inline bool ActiveTail<Unit>::operator<=(const ActiveTail<Unit>& b) const { 
     return !(*this > b); }
-
+   
   template <typename Unit>
-  inline bool ActiveTail<Unit>::operator>(const ActiveTail<Unit>& b) const {
+  inline bool ActiveTail<Unit>::operator>(const ActiveTail<Unit>& b) const { 
     return b < (*this); }
-
+   
   template <typename Unit>
-  inline bool ActiveTail<Unit>::operator>=(const ActiveTail<Unit>& b) const {
+  inline bool ActiveTail<Unit>::operator>=(const ActiveTail<Unit>& b) const { 
     return !(*this < b); }
 
   template <typename Unit>
-  inline PolyLine<Unit>* ActiveTail<Unit>::getTail() const {
+  inline PolyLine<Unit>* ActiveTail<Unit>::getTail() const { 
     return tailp_; }
 
   template <typename Unit>
-  inline PolyLine<Unit>* ActiveTail<Unit>::getOtherTail() const {
+  inline PolyLine<Unit>* ActiveTail<Unit>::getOtherTail() const { 
     return otherTailp_->tailp_; }
 
   template <typename Unit>
-  inline ActiveTail<Unit>* ActiveTail<Unit>::getOtherActiveTail() const {
+  inline ActiveTail<Unit>* ActiveTail<Unit>::getOtherActiveTail() const { 
     return otherTailp_; }
 
   template <typename Unit>
   inline bool ActiveTail<Unit>::isOtherTail(const ActiveTail<Unit>& b) {
     //       assert( (tailp_ == b.getOtherTail() && getOtherTail() == b.tailp_) ||
-    //                     (tailp_ != b.getOtherTail() && getOtherTail() != b.tailp_))
+    //                     (tailp_ != b.getOtherTail() && getOtherTail() != b.tailp_)) 
     //         ("ActiveTail: Active tails out of sync");
     return otherTailp_ == &b;
   }
 
   template <typename Unit>
   inline ActiveTail<Unit>& ActiveTail<Unit>::updateTail(PolyLine<Unit>* newTail) {
+    //subtract the old size and add new size//
+    int delta = newTail->numSegments() - tailp_->numSegments();
+    addPolyLineSize(delta);
+    otherTailp_->addPolyLineSize(delta);
     tailp_ = newTail;
     return *this;
   }
 
   template <typename Unit>
   inline ActiveTail<Unit>* ActiveTail<Unit>::addHole(ActiveTail<Unit>* hole, bool fractureHoles) {
+
     if(!fractureHoles){
       holesList_.push_back(hole);
       copyHoles(*hole);
@@ -1100,7 +1214,7 @@ namespace polygon_formation {
     if(other->getOrient() == VERTICAL) {
       //assert that hole.getOrient() == HORIZONTAL
       //this case should never happen
-      h = hole;
+      h = hole;  
       v = other;
     } else {
       //assert that hole.getOrient() == VERTICAL
@@ -1128,30 +1242,34 @@ namespace polygon_formation {
   }
 
   template <typename Unit>
-  inline bool ActiveTail<Unit>::solidToRight() const {
+  inline bool ActiveTail<Unit>::solidToRight() const { 
     return getTail()->solidToRight(); }
 
   template <typename Unit>
-  inline Unit ActiveTail<Unit>::getCoord() const {
+  inline Unit ActiveTail<Unit>::getCoord() const { 
     return getTail()->getEndCoord(); }
+ 
+  template <typename Unit>
+  inline Unit ActiveTail<Unit>::getCoordinate() const { 
+    return getCoord(); } 
 
   template <typename Unit>
-  inline Unit ActiveTail<Unit>::getCoordinate() const {
-    return getCoord(); }
-
-  template <typename Unit>
-  inline orientation_2d ActiveTail<Unit>::getOrient() const {
+  inline orientation_2d ActiveTail<Unit>::getOrient() const { 
     return getTail()->tailOrient(); }
 
   template <typename Unit>
-  inline void ActiveTail<Unit>::pushCoordinate(Unit coord) {
+  inline void ActiveTail<Unit>::pushCoordinate(Unit coord) { 
     //appropriately handle any co-linear polyline segments by calling push point internally
     point_data<Unit> p;
     p.set(HORIZONTAL, coord);
     p.set(VERTICAL, coord);
     //if we are vertical assign the last coordinate (an X) to p.x, else to p.y
     p.set(getOrient().get_perpendicular(), getCoordinate());
+    int oldSegments = tailp_->numSegments();
     tailp_->pushPoint(p);
+    int delta = tailp_->numSegments() - oldSegments;
+    addPolyLineSize(delta);
+    otherTailp_->addPolyLineSize(delta);
   }
 
 
@@ -1241,16 +1359,16 @@ namespace polygon_formation {
     if((getOrient() == HORIZONTAL) ^ !isHole) {
       //our first coordinate is a y value, so we need to rotate it to the end
       typename std::vector<Unit>::iterator tmpItr = outVec.begin();
-      tmpItr += size;
+      tmpItr += size; 
       outVec.erase(++tmpItr); //erase the 2nd element
     }
     End startEnd = tailp_->endConnectivity(HEAD);
     if(isHole) startEnd = otherTailp_->tailp_->endConnectivity(HEAD);
     while(nextPolyLinep) {
       bool nextStartEnd = nextPolyLinep->endConnectivity(!startEnd);
-      nextPolyLinep = nextPolyLinep->writeOut(outVec, startEnd);
+      nextPolyLinep = nextPolyLinep->writeOut(outVec, startEnd); 
       startEnd = nextStartEnd;
-    }
+    }      
     if((getOrient() == HORIZONTAL) ^ !isHole) {
       //we want to push the y value onto the end since we ought to have ended with an x
       outVec.push_back(firsty); //should never be executed because we want first value to be an x
@@ -1284,7 +1402,7 @@ namespace polygon_formation {
 
   //solid indicates if it was joined by a solit or a space
   template <typename Unit>
-  inline ActiveTail<Unit>* ActiveTail<Unit>::joinChains(ActiveTail<Unit>* at1, ActiveTail<Unit>* at2, bool solid, std::vector<Unit>& outBufferTmp)
+  inline ActiveTail<Unit>* ActiveTail<Unit>::joinChains(ActiveTail<Unit>* at1, ActiveTail<Unit>* at2, bool solid, std::vector<Unit>& outBufferTmp) 
   {
     //checks to see if we closed a figure
     if(at1->isOtherTail(*at2)){
@@ -1324,6 +1442,11 @@ namespace polygon_formation {
     at1->getTail()->joinTailToTail(*(at2->getTail()));
     *(at1->getOtherActiveTail()) = ActiveTail(at1->getOtherTail(), at2->getOtherActiveTail());
     *(at2->getOtherActiveTail()) = ActiveTail(at2->getOtherTail(), at1->getOtherActiveTail());
+
+    int accumulate = at2->getPolyLineSize() + at1->getPolyLineSize();
+    (at1->getOtherActiveTail())->setPolyLineSize(accumulate);
+    (at2->getOtherActiveTail())->setPolyLineSize(accumulate);
+
     at1->getOtherActiveTail()->copyHoles(*at1);
     at1->getOtherActiveTail()->copyHoles(*at2);
     destroyActiveTail(at1);
@@ -1334,7 +1457,7 @@ namespace polygon_formation {
   //solid indicates if it was joined by a solit or a space
   template <typename Unit>
   template <typename PolygonT>
-  inline ActiveTail<Unit>* ActiveTail<Unit>::joinChains(ActiveTail<Unit>* at1, ActiveTail<Unit>* at2, bool solid,
+  inline ActiveTail<Unit>* ActiveTail<Unit>::joinChains(ActiveTail<Unit>* at1, ActiveTail<Unit>* at2, bool solid, 
                                                         std::vector<PolygonT>& outBufferTmp) {
     //checks to see if we closed a figure
     if(at1->isOtherTail(*at2)){
@@ -1348,7 +1471,7 @@ namespace polygon_formation {
         //because otherwise it would have to have another vertex to the right of this one
         //and would not be closed at this point
         return at1;
-      } else {
+      } else {    
         //assert pG != 0
         //the figure that was closed is a shell
         outBufferTmp.push_back(at1);
@@ -1360,6 +1483,11 @@ namespace polygon_formation {
     at1->getTail()->joinTailToTail(*(at2->getTail()));
     *(at1->getOtherActiveTail()) = ActiveTail<Unit>(at1->getOtherTail(), at2->getOtherActiveTail());
     *(at2->getOtherActiveTail()) = ActiveTail<Unit>(at2->getOtherTail(), at1->getOtherActiveTail());
+
+    int accumulate = at2->getPolyLineSize() + at1->getPolyLineSize();
+    (at1->getOtherActiveTail())->setPolyLineSize(accumulate);
+    (at2->getOtherActiveTail())->setPolyLineSize(accumulate);
+
     at1->getOtherActiveTail()->copyHoles(*at1);
     at1->getOtherActiveTail()->copyHoles(*at2);
     destroyActiveTail(at1);
@@ -1367,8 +1495,8 @@ namespace polygon_formation {
     return 0;
   }
 
-  template <class TKey, class T> inline typename std::map<TKey, T>::iterator findAtNext(std::map<TKey, T>& theMap,
-                                                                                        typename std::map<TKey, T>::iterator pos, const TKey& key)
+  template <class TKey, class T> inline typename std::map<TKey, T>::iterator findAtNext(std::map<TKey, T>& theMap, 
+                                                                                        typename std::map<TKey, T>::iterator pos, const TKey& key) 
   {
     if(pos == theMap.end()) return theMap.find(key);
     //if they match the mapItr is pointing to the correct position
@@ -1377,22 +1505,22 @@ namespace polygon_formation {
     }
     if(pos->first > key) {
       return theMap.end();
-    }
+    } 
     //else they are equal and no need to do anything to the iterator
     return pos;
   }
 
   // createActiveTailsAsPair is called in these two end cases of geometry
   // 1. lower left concave corner
+  //         ###| 
   //         ###|
-  //         ###|
-  //         ###|###
+  //         ###|### 
   //         ###|###
   // 2. lower left convex corner
-  //            |###
-  //            |###
-  //            |
-  //            |
+  //            |###          
+  //            |###         
+  //            |            
+  //            |     
   // In case 1 there may be a hole propigated up from the bottom.  If the fracture option is enabled
   // the two active tails that form the filament fracture line edges can become the new active tail pair
   // by pushing x and y onto them.  Otherwise the hole simply needs to be associated to one of the new active tails
@@ -1408,7 +1536,11 @@ namespace polygon_formation {
       (*at2) = ActiveTail<Unit>(HORIZONTAL, y, !solid, at1);
       //provide a function through activeTail class to provide this
       at1->getTail()->joinHeadToHead(*(at2->getTail()));
-      if(phole)
+
+      at1->addPolyLineSize(1);
+      at2->addPolyLineSize(1);
+
+      if(phole) 
         at1->addHole(phole, fractureHoles); //assert fractureHoles == false
       return std::pair<ActiveTail<Unit>*, ActiveTail<Unit>*>(at1, at2);
     }
@@ -1425,118 +1557,486 @@ namespace polygon_formation {
     at1->pushCoordinate(x);
     //assert at2 is vertical
     at2->pushCoordinate(y);
+
     return std::pair<ActiveTail<Unit>*, ActiveTail<Unit>*>(at1, at2);
   }
 
+  /* 
+   *     |
+   *     |
+   *     =
+   *     |########
+   *     |########  (add a new ActiveTail in the tailMap_).
+   *     |########
+   *     |########
+   *     |########
+   *     =
+   *     |
+   *     |
+   *
+   * NOTE: Call this only if you are sure that the $ledege$ is not in the tailMap_
+   */
+  template<bool orientT, typename Unit, typename polygon_concept_type>
+  inline void ScanLineToPolygonItrs<orientT, Unit, polygon_concept_type>::
+  insertNewLeftEdgeIntoTailMap(Unit currentX, Unit yBegin, Unit yEnd,
+   typename std::map<Unit, ActiveTail<Unit> *>::iterator &hint){
+     ActiveTail<Unit> *currentTail = NULL;
+     std::pair<ActiveTail<Unit>*, ActiveTail<Unit>*> tailPair = 
+      createActiveTailsAsPair(currentX, yBegin, true, currentTail, 
+         fractureHoles_);
+     currentTail = tailPair.first; 
+     if(!tailMap_.empty()){
+        ++hint;
+     }
+     hint = tailMap_.insert(hint, std::make_pair(yBegin, tailPair.second));
+     currentTail->pushCoordinate(yEnd); ++hint;
+     hint = tailMap_.insert(hint, std::make_pair(yEnd, currentTail));
+  }
+
+  template<bool orientT, typename Unit, typename polygon_concept_type>
+  inline void ScanLineToPolygonItrs<orientT, Unit, polygon_concept_type>::
+  closePartialSimplePolygon(Unit currentX, ActiveTail<Unit>*pfig,
+      ActiveTail<Unit>*ppfig){
+     pfig->pushCoordinate(currentX);
+     ActiveTail<Unit>::joinChains(pfig, ppfig, false, outputPolygons_);
+  }
+  /*
+   * If the invariant is maintained correctly then left edges can do the
+   * following.
+   *
+   *               =###
+   *            #######
+   *            #######
+   *            #######
+   *            #######
+   *               =###
+   *               |### (input left edge)
+   *               |###
+   *               =###
+   *            #######
+   *            #######
+   *               =###
+   */
+  template<bool orientT, typename Unit, typename polygon_concept_type>
+  inline void ScanLineToPolygonItrs<orientT, Unit, polygon_concept_type>::
+  updatePartialSimplePolygonsWithLeftEdges(Unit currentX,
+   const std::vector<interval_data<Unit> > &leftEdges, size_t vertexThreshold){
+     typename std::map<Unit, ActiveTail<Unit>* >::iterator succ, succ1;
+     typename std::map<Unit, ActiveTail<Unit>* >::iterator pred, pred1, hint;
+     Unit begin, end;
+     ActiveTail<Unit> *pfig, *ppfig;
+     std::pair<ActiveTail<Unit>*, ActiveTail<Unit>*> tailPair;
+     size_t pfig_size = 0;
+
+     hint = tailMap_.begin();
+     for(size_t i=0; i < leftEdges.size(); i++){
+        begin = leftEdges[i].get(LOW); end = leftEdges[i].get(HIGH);
+        succ = findAtNext(tailMap_, hint, begin); 
+        pred = findAtNext(tailMap_, hint, end); 
+
+        if(succ != tailMap_.end() && pred != tailMap_.end()){ //CASE-1//
+           //join the corresponding active tails//
+           pfig = succ->second; ppfig = pred->second;
+           pfig_size = pfig->getPolyLineSize() + ppfig->getPolyLineSize();
+
+           if(pfig_size >= vertexThreshold){
+              size_t bsize = pfig->getPolyLineSize();
+              size_t usize = ppfig->getPolyLineSize();
+
+              if(usize+2 < vertexThreshold){
+                 //cut-off the lower piece (succ1, succ) join (succ1, pred)//
+                 succ1 = succ; --succ1;
+                 assert((succ1 != tailMap_.end()) && 
+                  ((succ->second)->getOtherActiveTail() == succ1->second));
+                 closePartialSimplePolygon(currentX, succ1->second, succ->second);
+                 tailPair = createActiveTailsAsPair<Unit>(currentX, succ1->first,
+                     true, NULL, fractureHoles_);
+
+                 //just update the succ1 with new ActiveTail<Unit>*//
+                 succ1->second = tailPair.second;
+                 ActiveTail<Unit>::joinChains(tailPair.first, pred->second, true,
+                     outputPolygons_);
+              }else if(bsize+2 < vertexThreshold){
+                 //cut-off the upper piece () join ()//
+                 pred1 = pred; ++pred1;
+                 assert(pred1 != tailMap_.end() && 
+                  ((pred1->second)->getOtherActiveTail() == pred->second));
+                 closePartialSimplePolygon(currentX, pred->second, pred1->second);
+
+                 //just update the pred1 with ActiveTail<Unit>* = pfig//
+                 pred1->second = pfig;
+                 pfig->pushCoordinate(currentX);
+                 pfig->pushCoordinate(pred1->first);
+              }else{ 
+                 //cut both and create an left edge between (pred->first, succ1)//
+                 succ1 = succ; --succ1; 
+                 pred1 = pred; ++pred1;
+                 assert(pred1 != tailMap_.end() && succ1 != tailMap_.end()); 
+                 assert((pred1->second)->getOtherActiveTail() == pred->second);
+                 assert((succ1->second)->getOtherActiveTail() == succ->second);
+
+                 closePartialSimplePolygon(currentX, succ1->second, succ->second);
+                 closePartialSimplePolygon(currentX, pred->second, pred1->second);
+
+                 tailPair = createActiveTailsAsPair<Unit>(currentX, succ1->first,
+                     true, NULL, fractureHoles_);
+                 succ1->second = tailPair.second;
+                 pred1->second = tailPair.first;
+                 (tailPair.first)->pushCoordinate(pred1->first);
+              }
+           }else{
+              //just join them with closing//
+              pfig->pushCoordinate(currentX);
+              ActiveTail<Unit>::joinChains(pfig, ppfig, true, outputPolygons_);
+           }
+           hint = pred; ++hint; 
+           tailMap_.erase(succ); tailMap_.erase(pred);
+        }else if(succ == tailMap_.end() && pred != tailMap_.end()){ //CASE-2//
+           //succ is missing in the map, first insert it into the map//
+           tailPair = createActiveTailsAsPair<Unit>(currentX, begin, true, NULL, 
+               fractureHoles_);
+           hint = pred; ++hint;
+           hint = tailMap_.insert(hint, std::make_pair(begin, tailPair.second));
+
+           pfig = pred->second;
+           pfig_size = pfig->getPolyLineSize() + 2;
+           if(pfig_size >= vertexThreshold){
+              //cut-off piece from [pred, pred1] , add [begin, pred1]//
+              pred1 = pred; ++pred1;
+              assert((pred1 != tailMap_.end()) && 
+               ((pred1->second)->getOtherActiveTail() == pred->second));
+              closePartialSimplePolygon(currentX, pred->second, pred1->second);
+
+              //update: we need left edge between (begin, pred1->first)//
+              pred1->second = tailPair.first;
+              (tailPair.first)->pushCoordinate(pred1->first);
+           }else{
+              //just join//
+              ActiveTail<Unit>::joinChains(tailPair.first, pfig, 
+                  true, outputPolygons_);
+           }
+           tailMap_.erase(pred);
+        }else if(succ != tailMap_.end() && pred == tailMap_.end()){ //CASE-3//
+            //pred is missing in the map, first insert it into the map//
+            hint = succ; ++hint;
+            hint = tailMap_.insert(hint, std::make_pair(end, (ActiveTail<Unit> *) NULL));
+            pfig = succ->second;
+            pfig_size = pfig->getPolyLineSize() + 2;
+            if(pfig_size >= vertexThreshold){
+               //this figure needs cutting here//
+               succ1 = succ; --succ1;
+               assert((succ1 != tailMap_.end()) &&
+                  (succ1->second == pfig->getOtherActiveTail()));
+               ppfig = succ1->second;
+               closePartialSimplePolygon(currentX, ppfig, pfig);
+
+               //update: we need a left edge between (succ1->first, end)//
+               tailPair = createActiveTailsAsPair<Unit>(currentX, succ1->first,
+                  true, NULL, fractureHoles_);
+               succ1->second = tailPair.second;
+               hint->second = tailPair.first;
+               (tailPair.first)->pushCoordinate(end);
+            }else{
+               //no cutting needed//
+               hint->second = pfig;
+               pfig->pushCoordinate(currentX);
+               pfig->pushCoordinate(end);
+            }
+            tailMap_.erase(succ);
+        }else{
+           //insert both pred and succ//
+           insertNewLeftEdgeIntoTailMap(currentX, begin, end, hint);
+        }
+     }
+  }
+
+  template<bool orientT, typename Unit, typename polygon_concept_type>
+  inline void ScanLineToPolygonItrs<orientT, Unit, polygon_concept_type>::
+  updatePartialSimplePolygonsWithRightEdges(Unit currentX,
+   const std::vector<interval_data<Unit> > &rightEdges, size_t vertexThreshold) 
+   {
+    
+     typename std::map<Unit, ActiveTail<Unit>* >::iterator succ, pred, hint;
+     std::pair<ActiveTail<Unit>*, ActiveTail<Unit>*> tailPair; 
+     Unit begin, end;
+     size_t i = 0;
+     //If rightEdges is non-empty Then tailMap_ is non-empty //
+     assert(rightEdges.empty() || !tailMap_.empty() );
+
+     while( i < rightEdges.size() ){
+        //find the interval in the tailMap which contains this interval// 
+        pred = tailMap_.lower_bound(rightEdges[i].get(HIGH)); 
+        assert(pred != tailMap_.end());
+        succ = pred; --succ;
+        assert(pred != succ);
+        end =  pred->first; begin = succ->first;
+
+        //we now have a [begin, end] //
+        bool found_solid_opening = false;
+        bool erase_succ = true, erase_pred = true;
+        Unit solid_opening_begin = 0;
+        Unit solid_opening_end = 0;
+        size_t j = i+1;
+        ActiveTail<Unit> *pfig = succ->second;
+        ActiveTail<Unit> *ppfig = pred->second;
+        size_t partial_fig_size = pfig->getPolyLineSize();
+        //Invariant://
+        assert(succ->second && (pfig)->getOtherActiveTail() == ppfig);
+
+        hint = succ;
+        Unit key = rightEdges[i].get(LOW);
+        if(begin != key){
+           found_solid_opening = true;
+           solid_opening_begin = begin; solid_opening_end = key;
+        }
+
+        while(j < rightEdges.size() && rightEdges[j].get(HIGH) <= end){
+           if(rightEdges[j-1].get(HIGH) != rightEdges[j].get(LOW)){
+              if(!found_solid_opening){
+                 found_solid_opening = true;
+                 solid_opening_begin = rightEdges[j-1].get(HIGH); 
+                 solid_opening_end = rightEdges[j].get(LOW);
+              }else{
+                 ++hint;
+                 insertNewLeftEdgeIntoTailMap(currentX, 
+                     rightEdges[j-1].get(HIGH), rightEdges[j].get(LOW), hint);
+              }
+           }
+           j++;
+        }
+
+        //trailing edge//
+        if(end != rightEdges[j-1].get(HIGH)){
+           if(!found_solid_opening){
+              found_solid_opening = true;
+              solid_opening_begin = rightEdges[j-1].get(HIGH); solid_opening_end = end;
+           }else{ 
+              // a solid opening has been found already, we need to insert a new left 
+              // between [rightEdges[j-1].get(HIGH), end]  
+              Unit lbegin = rightEdges[j-1].get(HIGH);
+              tailPair = createActiveTailsAsPair<Unit>(currentX, lbegin, true, NULL,
+                  fractureHoles_);
+              hint = tailMap_.insert(pred, std::make_pair(lbegin, tailPair.second));
+              pred->second = tailPair.first;
+              (tailPair.first)->pushCoordinate(end);
+              erase_pred = false;
+           }
+        }
+
+        size_t vertex_delta = ((begin != solid_opening_begin) && 
+               (end != solid_opening_end)) ? 4 : 2;
+
+        if(!found_solid_opening){
+           //just close the figure, TODO: call closePartialPolygon//
+           pfig->pushCoordinate(currentX);
+           ActiveTail<Unit>::joinChains(pfig, ppfig, false, outputPolygons_);
+           hint = pred; ++hint;
+        }else if(partial_fig_size+vertex_delta >= vertexThreshold){
+           //close the figure and add a pseudo left-edge//
+           closePartialSimplePolygon(currentX, pfig, ppfig);
+           assert(begin != solid_opening_begin || end != solid_opening_end);
+
+           if(begin != solid_opening_begin && end != solid_opening_end){
+               insertNewLeftEdgeIntoTailMap(currentX, solid_opening_begin, 
+                     solid_opening_end, hint);
+           }else if(begin == solid_opening_begin){
+              //we just need to update the succ in the tailMap_//
+              tailPair = createActiveTailsAsPair<Unit>(currentX, solid_opening_begin,
+                  true, NULL, fractureHoles_);
+              succ->second = tailPair.second;
+              hint = succ; ++hint;
+              hint = tailMap_.insert(pred, std::make_pair(solid_opening_end, 
+                  tailPair.first));
+              (tailPair.first)->pushCoordinate(solid_opening_end);
+              erase_succ = false;
+           }else{
+              //we just need to update the pred in the tailMap_//
+              tailPair = createActiveTailsAsPair<Unit>(currentX, solid_opening_begin,
+                  true, NULL, fractureHoles_);
+              hint = tailMap_.insert(pred, std::make_pair(solid_opening_begin,
+                  tailPair.second));
+              pred->second = tailPair.first;
+              (tailPair.first)->pushCoordinate(solid_opening_end);
+              erase_pred = false;
+           }
+        }else{
+           //continue the figure (by adding at-most two new vertices)//
+           if(begin != solid_opening_begin){
+              pfig->pushCoordinate(currentX);
+              pfig->pushCoordinate(solid_opening_begin);
+              //insert solid_opening_begin//
+              hint = succ; ++hint;
+              hint = tailMap_.insert(hint, std::make_pair(solid_opening_begin, pfig));
+           }else{
+              erase_succ = false;
+           }
+
+           if(end != solid_opening_end){
+              std::pair<ActiveTail<Unit>*, ActiveTail<Unit>*> tailPair = 
+               createActiveTailsAsPair<Unit>(currentX, solid_opening_end, false, 
+                     NULL, fractureHoles_);
+              hint = pred; ++hint;
+              hint = tailMap_.insert(hint, std::make_pair(solid_opening_end, 
+                  tailPair.second));
+              ActiveTail<Unit>::joinChains(tailPair.first, ppfig, false, 
+                  outputPolygons_);
+           }else{
+              erase_pred = false;
+           }
+        }
+
+        //Remove the pred and succ if necessary//
+        if(erase_succ){
+           tailMap_.erase(succ);
+        }
+        if(erase_pred){
+           tailMap_.erase(pred);
+        }
+        i = j;
+     }
+ }
+
+ // Maintains the following invariant:
+ // a. All the partial polygons formed at any state can be closed 
+ //    by a single edge.
+ template<bool orientT, typename Unit, typename polygon_concept_type>
+ inline void ScanLineToPolygonItrs<orientT, Unit, polygon_concept_type>::
+ maintainPartialSimplePolygonInvariant(iterator& beginOutput, 
+   iterator& endOutput, Unit currentX, const std::vector<interval_data<Unit> >& l, 
+      const std::vector<interval_data<Unit> >& r, size_t vertexThreshold) {
+
+      clearOutput_();
+      if(!l.empty()){
+         updatePartialSimplePolygonsWithLeftEdges(currentX, l, vertexThreshold);
+      }
+
+      if(!r.empty()){
+         updatePartialSimplePolygonsWithRightEdges(currentX, r, vertexThreshold);
+      }
+      beginOutput = outputPolygons_.begin();
+      endOutput = outputPolygons_.end();
+
+  }
+   
   //Process edges connects vertical input edges (right or left edges of figures) to horizontal edges stored as member
   //data of the scanline object.  It also creates now horizontal edges as needed to construct figures from edge data.
   //
-  //There are only 12 geometric end cases where the scanline intersects a horizontal edge and even fewer unique
+  //There are only 12 geometric end cases where the scanline intersects a horizontal edge and even fewer unique 
   //actions to take:
   // 1. Solid on both sides of the vertical partition after the current position and space on both sides before
-  //         ###|###
-  //         ###|###
-  //            |
-  //            |
+  //         ###|###          
+  //         ###|###         
+  //            |            
+  //            |            
   //    This case does not need to be handled because there is no vertical edge at the current x coordinate.
   //
   // 2. Solid on both sides of the vertical partition before the current position and space on both sides after
-  //            |
-  //            |
-  //         ###|###
-  //         ###|###
+  //            |            
+  //            |            
+  //         ###|###          
+  //         ###|###         
   //    This case does not need to be handled because there is no vertical edge at the current x coordinate.
   //
   // 3. Solid on the left of the vertical partition after the current position and space elsewhere
-  //         ###|
-  //         ###|
-  //            |
-  //            |
+  //         ###|          
+  //         ###|         
+  //            |            
+  //            |     
   //    The horizontal edge from the left is found and turns upward because of the vertical right edge to become
   //    the currently active vertical edge.
   //
   // 4. Solid on the left of the vertical partion before the current position and space elsewhere
-  //            |
-  //            |
-  //         ###|
+  //            |            
+  //            |            
+  //         ###| 
   //         ###|
   //    The horizontal edge from the left is found and joined to the currently active vertical edge.
   //
   // 5. Solid to the right above and below and solid to the left above current position.
-  //         ###|###
-  //         ###|###
-  //            |###
-  //            |###
+  //         ###|###          
+  //         ###|###         
+  //            |###            
+  //            |###            
   //    The horizontal edge from the left is found and joined to the currently active vertical edge,
   //    potentially closing a hole.
   //
   // 6. Solid on the left of the vertical partion before the current position and solid to the right above and below
   //            |###
-  //            |###
-  //         ###|###
+  //            |###            
+  //         ###|### 
   //         ###|###
   //    The horizontal edge from the left is found and turns upward because of the vertical right edge to become
   //    the currently active vertical edge.
   //
   // 7. Solid on the right of the vertical partition after the current position and space elsewhere
-  //            |###
-  //            |###
-  //            |
-  //            |
+  //            |###          
+  //            |###         
+  //            |            
+  //            |     
   //    Create two new ActiveTails, one is added to the horizontal edges and the other becomes the vertical currentTail
   //
   // 8. Solid on the right of the vertical partion before the current position and space elsewhere
-  //            |
-  //            |
-  //            |###
+  //            |            
+  //            |            
+  //            |### 
   //            |###
   //    The currentTail vertical edge turns right and is added to the horizontal edges data
   //
   // 9. Solid to the right above and solid to the left above and below current position.
-  //         ###|###
-  //         ###|###
-  //         ###|
+  //         ###|###          
+  //         ###|###         
+  //         ###| 
   //         ###|
   //    The currentTail vertical edge turns right and is added to the horizontal edges data
   //
   // 10. Solid on the left of the vertical partion above and below the current position and solid to the right below
+  //         ###| 
   //         ###|
-  //         ###|
-  //         ###|###
+  //         ###|### 
   //         ###|###
   //    Create two new ActiveTails, one is added to the horizontal edges data and the other becomes the vertical currentTail
   //
   // 11. Solid to the right above and solid to the left below current position.
+  //            |### 
   //            |###
-  //            |###
-  //         ###|
+  //         ###| 
   //         ###|
   //    The currentTail vertical edge joins the horizontal edge from the left (may close a polygon)
   //    Create two new ActiveTails, one is added to the horizontal edges data and the other becomes the vertical currentTail
   //
   // 12. Solid on the left of the vertical partion above the current position and solid to the right below
+  //         ###| 
   //         ###|
-  //         ###|
-  //            |###
+  //            |### 
   //            |###
   //    The currentTail vertical edge turns right and is added to the horizontal edges data.
   //    The horizontal edge from the left turns upward and becomes the currentTail vertical edge
   //
   template <bool orientT, typename Unit, typename polygon_concept_type>
   inline void ScanLineToPolygonItrs<orientT, Unit, polygon_concept_type>::
-  processEdges(iterator& beginOutput, iterator& endOutput,
-               Unit currentX, std::vector<interval_data<Unit> >& leftEdges,
-               std::vector<interval_data<Unit> >& rightEdges) {
+  processEdges(iterator& beginOutput, iterator& endOutput, 
+               Unit currentX, std::vector<interval_data<Unit> >& leftEdges, 
+               std::vector<interval_data<Unit> >& rightEdges,
+               size_t vertexThreshold) {
     clearOutput_();
-    typename std::map<Unit, ActiveTail<Unit>*>::iterator nextMapItr = tailMap_.begin();
+    typename std::map<Unit, ActiveTail<Unit>*>::iterator nextMapItr; 
     //foreach edge
     unsigned int leftIndex = 0;
     unsigned int rightIndex = 0;
     bool bottomAlreadyProcessed = false;
     ActiveTail<Unit>* currentTail = 0;
     const Unit UnitMax = (std::numeric_limits<Unit>::max)();
+
+    if(vertexThreshold < (std::numeric_limits<size_t>::max)()){
+      maintainPartialSimplePolygonInvariant(beginOutput, endOutput, currentX,
+         leftEdges, rightEdges, vertexThreshold);
+      return;
+    }
+
+    nextMapItr = tailMap_.begin();
     while(leftIndex < leftEdges.size() || rightIndex < rightEdges.size()) {
-      interval_data<Unit>  edges[2] = {interval_data<Unit> (UnitMax, UnitMax), interval_data<Unit> (UnitMax, UnitMax)};
+      interval_data<Unit>  edges[2] = {interval_data<Unit> (UnitMax, UnitMax), 
+         interval_data<Unit> (UnitMax, UnitMax)};
       bool haveNextEdge = true;
       if(leftIndex < leftEdges.size())
         edges[0] = leftEdges[leftIndex];
@@ -1551,7 +2051,7 @@ namespace polygon_formation {
       interval_data<Unit> & nextEdge = edges[!trailingEdge];
       //process this edge
       if(!bottomAlreadyProcessed) {
-        //assert currentTail = 0
+        //assert currentTail = 0 
 
         //process the bottom end of this edge
         typename std::map<Unit, ActiveTail<Unit>*>::iterator thisMapItr = findAtNext(tailMap_, nextMapItr, edge.get(LOW));
@@ -1578,7 +2078,7 @@ namespace polygon_formation {
           //we need to create one and another one to be the current vertical tail
           //if this is a trailing edge then there is space to the right of the vertical edge
           //so pass the inverse of trailingEdge to indicate solid to the right
-          std::pair<ActiveTail<Unit>*, ActiveTail<Unit>*> tailPair =
+          std::pair<ActiveTail<Unit>*, ActiveTail<Unit>*> tailPair = 
             createActiveTailsAsPair(currentX, edge.get(LOW), !trailingEdge, currentTail, fractureHoles_);
           currentTail = tailPair.first;
           tailMap_.insert(nextMapItr, std::pair<Unit, ActiveTail<Unit>*>(edge.get(LOW), tailPair.second));
@@ -1606,7 +2106,7 @@ namespace polygon_formation {
           //two new tails are created, the vertical becomes current tail, the horizontal becomes thisMapItr tail
           //pass true becuase they are created at the lower left corner of some solid
           //pass null because there is no hole pointer possible
-          std::pair<ActiveTail<Unit>*, ActiveTail<Unit>*> tailPair =
+          std::pair<ActiveTail<Unit>*, ActiveTail<Unit>*> tailPair = 
             createActiveTailsAsPair<Unit>(currentX, edge.get(HIGH), true, 0, fractureHoles_);
           currentTail = tailPair.first;
           thisMapItr->second = tailPair.second;
@@ -1640,7 +2140,7 @@ namespace polygon_formation {
           currentTail = ActiveTail<Unit>::joinChains(currentTail, tail, !trailingEdge, outputPolygons_);
           nextMapItr = thisMapItr; //set nextMapItr to the next position after this one
           ++nextMapItr;
-          if(currentTail) {
+          if(currentTail) { //figure is not closed//
             Unit nextItrY = UnitMax;
             if(nextMapItr != tailMap_.end()) {
               nextItrY = nextMapItr->first;
@@ -1662,7 +2162,7 @@ namespace polygon_formation {
               //set current tail to null
               currentTail = 0;
             }
-          }
+          }  
           //delete thisMapItr from the map
           tailMap_.erase(thisMapItr);
         } else {
@@ -1675,7 +2175,7 @@ namespace polygon_formation {
           //leave nextMapItr unchanged, it is still next
         }
       }
-
+ 
       //increment index
       leftIndex += !trailingEdge;
       rightIndex += trailingEdge;
@@ -1718,8 +2218,10 @@ namespace polygon_formation {
 
   //public API to access polygon formation algorithm
   template <typename output_container, typename iterator_type, typename concept_type>
-  unsigned int get_polygons(output_container& container, iterator_type begin, iterator_type end,
-                    orientation_2d orient, bool fracture_holes, concept_type ) {
+  unsigned int get_polygons(output_container& container, 
+      iterator_type begin, iterator_type end, orientation_2d orient, 
+      bool fracture_holes, concept_type, 
+      size_t sliceThreshold = (std::numeric_limits<size_t>::max)() ) {
     typedef typename output_container::value_type polygon_type;
     typedef typename std::iterator_traits<iterator_type>::value_type::first_type coordinate_type;
     polygon_type poly;
@@ -1738,7 +2240,8 @@ namespace polygon_formation {
       if(pos != prevPos) {
         if(orient == VERTICAL) {
           typename polygon_formation::ScanLineToPolygonItrs<true, coordinate_type, polygon_concept_type>::iterator itrPoly, itrPolyEnd;
-          scanlineToPolygonItrsV.processEdges(itrPoly, itrPolyEnd, prevPos, leftEdges, rightEdges);
+           scanlineToPolygonItrsV.processEdges(itrPoly, itrPolyEnd, prevPos, 
+               leftEdges, rightEdges, sliceThreshold);
           for( ; itrPoly != itrPolyEnd; ++ itrPoly) {
             ++countPolygons;
             assign(poly, *itrPoly);
@@ -1746,7 +2249,8 @@ namespace polygon_formation {
           }
         } else {
           typename polygon_formation::ScanLineToPolygonItrs<false, coordinate_type, polygon_concept_type>::iterator itrPoly, itrPolyEnd;
-          scanlineToPolygonItrsH.processEdges(itrPoly, itrPolyEnd, prevPos, leftEdges, rightEdges);
+          scanlineToPolygonItrsH.processEdges(itrPoly, itrPolyEnd, prevPos, 
+               leftEdges, rightEdges, sliceThreshold);
           for( ; itrPoly != itrPolyEnd; ++ itrPoly) {
             ++countPolygons;
             assign(poly, *itrPoly);
@@ -1783,7 +2287,7 @@ namespace polygon_formation {
     }
     if(orient == VERTICAL) {
       typename polygon_formation::ScanLineToPolygonItrs<true, coordinate_type, polygon_concept_type>::iterator itrPoly, itrPolyEnd;
-      scanlineToPolygonItrsV.processEdges(itrPoly, itrPolyEnd, prevPos, leftEdges, rightEdges);
+      scanlineToPolygonItrsV.processEdges(itrPoly, itrPolyEnd, prevPos, leftEdges, rightEdges, sliceThreshold);
       for( ; itrPoly != itrPolyEnd; ++ itrPoly) {
         ++countPolygons;
         assign(poly, *itrPoly);
@@ -1791,7 +2295,8 @@ namespace polygon_formation {
       }
     } else {
       typename polygon_formation::ScanLineToPolygonItrs<false, coordinate_type, polygon_concept_type>::iterator itrPoly, itrPolyEnd;
-      scanlineToPolygonItrsH.processEdges(itrPoly, itrPolyEnd, prevPos, leftEdges, rightEdges);
+      scanlineToPolygonItrsH.processEdges(itrPoly, itrPolyEnd, prevPos, leftEdges, rightEdges,  sliceThreshold);
+
       for( ; itrPoly != itrPolyEnd; ++ itrPoly) {
         ++countPolygons;
         assign(poly, *itrPoly);

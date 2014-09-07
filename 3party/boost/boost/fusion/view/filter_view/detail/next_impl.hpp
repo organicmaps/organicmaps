@@ -7,6 +7,7 @@
 #if !defined(FUSION_NEXT_IMPL_06052005_0900)
 #define FUSION_NEXT_IMPL_06052005_0900
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/query/detail/find_if.hpp>
 #include <boost/fusion/iterator/value_of.hpp>
 #include <boost/mpl/eval_if.hpp>
@@ -62,6 +63,7 @@ namespace boost { namespace fusion
                     category, typename filter::type, last_type, pred_type>
                 type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(Iterator const& i)
                 {

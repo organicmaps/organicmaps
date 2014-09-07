@@ -7,8 +7,9 @@
  which computes the corrector step in the Adams-Bashforth-Moulton method.
  [end_description]
 
- Copyright 2009-2011 Karsten Ahnert
- Copyright 2009-2011 Mario Mulansky
+ Copyright 2011-2012 Karsten Ahnert
+ Copyright 2011-2013 Mario Mulansky
+ Copyright 2012 Christoph Koke
 
  Distributed under the Boost Software License, Version 1.0.
  (See accompanying file LICENSE_1_0.txt or
@@ -24,6 +25,8 @@
 
 #include <boost/numeric/odeint/algebra/range_algebra.hpp>
 #include <boost/numeric/odeint/algebra/default_operations.hpp>
+#include <boost/numeric/odeint/algebra/algebra_dispatcher.hpp>
+#include <boost/numeric/odeint/algebra/operations_dispatcher.hpp>
 
 #include <boost/numeric/odeint/util/state_wrapper.hpp>
 #include <boost/numeric/odeint/util/is_resizeable.hpp>
@@ -35,8 +38,6 @@
 #include <boost/numeric/odeint/stepper/detail/adams_moulton_call_algebra.hpp>
 #include <boost/numeric/odeint/stepper/detail/adams_moulton_coefficients.hpp>
 #include <boost/numeric/odeint/stepper/detail/rotating_buffer.hpp>
-
-
 
 
 
@@ -55,8 +56,8 @@ class State ,
 class Value = double ,
 class Deriv = State ,
 class Time = Value ,
-class Algebra = range_algebra ,
-class Operations = default_operations ,
+class Algebra = typename algebra_dispatcher< State >::algebra_type ,
+class Operations = typename operations_dispatcher< State >::operations_type ,
 class Resizer = initially_resizer
 >
 class adams_moulton
@@ -112,16 +113,16 @@ public :
      *
      * solves the forwarding problem
      */
-    template< class System , class StateInOut , class ABBuf >
-    void do_step( System system , StateInOut &in , time_type t , time_type dt , const ABBuf &buf )
+    template< class System , class StateInOut , class StateIn , class ABBuf >
+    void do_step( System system , StateInOut &x , StateIn const & pred , time_type t , time_type dt , const ABBuf &buf )
     {
-        do_step( system , in , t , in , dt , buf );
+        do_step( system , x , pred , t , x , dt , buf );
     }
 
-    template< class System , class StateInOut , class ABBuf >
-    void do_step( System system , const StateInOut &in , time_type t , time_type dt , const ABBuf &buf )
+    template< class System , class StateInOut , class StateIn , class ABBuf >
+    void do_step( System system , const StateInOut &x , StateIn const & pred , time_type t , time_type dt , const ABBuf &buf )
     {
-        do_step( system , in , t , in , dt , buf );
+        do_step( system , x , pred , t , x , dt , buf );
     }
 
 
@@ -131,22 +132,16 @@ public :
      *
      * solves the forwarding problem
      */
-    template< class System , class StateIn , class StateOut , class ABBuf >
-    void do_step( System system , const StateIn &in , time_type t , StateOut &out , time_type dt , const ABBuf &buf )
+    template< class System , class StateIn , class PredIn , class StateOut , class ABBuf >
+    void do_step( System system , const StateIn &in , const PredIn &pred , time_type t , StateOut &out , time_type dt , const ABBuf &buf )
     {
-        typename odeint::unwrap_reference< System >::type &sys = system;
-        m_resizer.adjust_size( in , detail::bind( &stepper_type::template resize_impl<StateIn> , detail::ref( *this ) , detail::_1 ) );
-        sys( in , m_dxdt.m_v , t );
-        detail::adams_moulton_call_algebra< steps , algebra_type , operations_type >()( m_algebra , in , out , m_dxdt.m_v , buf , m_coefficients , dt );
+        do_step_impl( system , in , pred , t , out , dt , buf );
     }
 
-    template< class System , class StateIn , class StateOut , class ABBuf >
-    void do_step( System system , const StateIn &in , time_type t , const StateOut &out , time_type dt , const ABBuf &buf )
+    template< class System , class StateIn , class PredIn , class StateOut , class ABBuf >
+    void do_step( System system , const StateIn &in , const PredIn &pred , time_type t , const StateOut &out , time_type dt , const ABBuf &buf )
     {
-        typename odeint::unwrap_reference< System >::type &sys = system;
-        m_resizer.adjust_size( in , detail::bind( &stepper_type::template resize_impl<StateIn> , detail::ref( *this ) , detail::_1 ) );
-        sys( in , m_dxdt.m_v , t );
-        detail::adams_moulton_call_algebra< steps , algebra_type , operations_type >()( m_algebra , in , out , m_dxdt.m_v , buf , m_coefficients , dt );
+        do_step_impl( system , in , pred , t , out , dt , buf );
     }
 
 
@@ -165,6 +160,17 @@ public :
 
 
 private:
+
+
+    template< class System , class StateIn , class PredIn , class StateOut , class ABBuf >
+    void do_step_impl( System system , const StateIn &in , const PredIn &pred , time_type t , StateOut &out , time_type dt , const ABBuf &buf )
+    {
+        typename odeint::unwrap_reference< System >::type &sys = system;
+        m_resizer.adjust_size( in , detail::bind( &stepper_type::template resize_impl<StateIn> , detail::ref( *this ) , detail::_1 ) );
+        sys( pred , m_dxdt.m_v , t );
+        detail::adams_moulton_call_algebra< steps , algebra_type , operations_type >()( m_algebra , in , out , m_dxdt.m_v , buf , m_coefficients , dt );
+    }
+
 
     template< class StateIn >
     bool resize_impl( const StateIn &x )

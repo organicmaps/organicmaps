@@ -86,8 +86,6 @@ namespace boost {
   template <typename Graph, typename WeightMap, typename RandomNumGen>
   typename graph_traits<Graph>::edge_descriptor
   weighted_random_out_edge(Graph& g, typename graph_traits<Graph>::vertex_descriptor src, WeightMap weight, RandomNumGen& gen) {
-    typedef graph_traits<Graph> gt;
-    typedef typename gt::vertex_descriptor vertex_descriptor;
     typedef typename property_traits<WeightMap>::value_type weight_type;
     weight_type weight_sum(0);
     BGL_FORALL_OUTEDGES_T(src, e, g, Graph) {weight_sum += get(weight, e);}

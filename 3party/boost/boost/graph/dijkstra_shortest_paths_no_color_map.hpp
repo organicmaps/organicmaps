@@ -41,7 +41,6 @@ namespace boost {
   {
     typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
     typedef typename property_traits<DistanceMap>::value_type Distance;
-    typedef typename property_traits<WeightMap>::value_type Weight;
     
     typedef indirect_cmp<DistanceMap, DistanceCompare> DistanceIndirectCompare;
     DistanceIndirectCompare
@@ -92,7 +91,6 @@ namespace boost {
       }
   
       // Examine neighbors of min_vertex
-      typedef typename graph_traits<Graph>::edge_descriptor Edge;
       BGL_FORALL_OUTEDGES_T(min_vertex, current_edge, graph, Graph) {
         visitor.examine_edge(current_edge, graph);
         

@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_SEGMENTED_END_HPP_INCLUDED)
 #define BOOST_FUSION_SEGMENTED_END_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/detail/segmented_end_impl.hpp>
 #include <boost/fusion/iterator/segmented_iterator.hpp>
 #include <boost/fusion/container/list/cons.hpp>
@@ -18,19 +19,20 @@ namespace boost { namespace fusion { namespace detail
     //    return make_segmented_iterator( segmented_end_impl( seq ) );
     //}
 
-    template <typename Sequence, typename Nil = fusion::nil>
+    template <typename Sequence, typename Nil_ = fusion::nil_>
     struct segmented_end
     {
         typedef
             segmented_iterator<
-                typename segmented_end_impl<Sequence, Nil>::type
+                typename segmented_end_impl<Sequence, Nil_>::type
             >
         type;
 
+        BOOST_FUSION_GPU_ENABLED
         static type call(Sequence & seq)
         {
             return type(
-                segmented_end_impl<Sequence, Nil>::call(seq, Nil()));
+                segmented_end_impl<Sequence, Nil_>::call(seq, Nil_()));
         }
     };
 

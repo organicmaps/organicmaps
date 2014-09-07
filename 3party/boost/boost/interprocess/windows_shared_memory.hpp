@@ -60,13 +60,13 @@ class windows_shared_memory
    //!Represents an empty windows_shared_memory.
    windows_shared_memory();
 
-   //!Creates a new native shared memory with name "name" and mode "mode",
+   //!Creates a new native shared memory with name "name" and at least size "size",
    //!with the access mode "mode".
    //!If the file previously exists, throws an error.
    windows_shared_memory(create_only_t, const char *name, mode_t mode, std::size_t size, const permissions& perm = permissions())
    {  this->priv_open_or_create(ipcdetail::DoCreate, name, mode, size, perm);  }
 
-   //!Tries to create a shared memory object with name "name" and mode "mode", with the
+   //!Tries to create a shared memory object with name "name" and at least size "size", with the
    //!access mode "mode". If the file previously exists, it tries to open it with mode "mode".
    //!Otherwise throws an error.
    windows_shared_memory(open_or_create_t, const char *name, mode_t mode, std::size_t size, const permissions& perm = permissions())
@@ -112,6 +112,10 @@ class windows_shared_memory
    //!Returns the mapping handle. Never throws
    mapping_handle_t get_mapping_handle() const;
 
+   //!Returns the size of the windows shared memory. It will be a 4K rounded
+   //!size of the "size" passed in the constructor.
+   offset_t get_size() const;
+
    /// @cond
    private:
 
@@ -151,6 +155,12 @@ inline mapping_handle_t windows_shared_memory::get_mapping_handle() const
 
 inline mode_t windows_shared_memory::get_mode() const
 {  return m_mode; }
+
+inline offset_t windows_shared_memory::get_size() const
+{
+   offset_t size; //This shall never fail
+   return (m_handle && winapi::get_file_mapping_size(m_handle, size)) ? size : 0;
+}
 
 inline bool windows_shared_memory::priv_open_or_create
    (ipcdetail::create_enum_t type, const char *filename, mode_t mode, std::size_t size, const permissions& perm)

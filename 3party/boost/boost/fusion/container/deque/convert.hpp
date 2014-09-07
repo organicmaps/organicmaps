@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2005-2012 Joel de Guzman
+    Copyright (c) 2005-2013 Joel de Guzman
     Copyright (c) 2006 Dan Marsden
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -8,43 +8,54 @@
 #if !defined(FUSION_CONVERT_20061213_2207)
 #define FUSION_CONVERT_20061213_2207
 
-#include <boost/fusion/container/deque/detail/as_deque.hpp>
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/deque/detail/convert_impl.hpp>
 #include <boost/fusion/container/deque/deque.hpp>
-#include <boost/fusion/sequence/intrinsic/begin.hpp>
-#include <boost/fusion/sequence/intrinsic/size.hpp>
+
+#if !defined(BOOST_FUSION_HAS_VARIADIC_DEQUE)
+///////////////////////////////////////////////////////////////////////////////
+// C++03 (non-variadic) implementation
+///////////////////////////////////////////////////////////////////////////////
+#include <boost/fusion/container/deque/detail/cpp03/build_deque.hpp>
+
+#else
+///////////////////////////////////////////////////////////////////////////////
+// C++11 variadic implementation
+///////////////////////////////////////////////////////////////////////////////
+#include <boost/fusion/container/deque/detail/build_deque.hpp>
 
 namespace boost { namespace fusion
 {
     namespace result_of
     {
         template <typename Sequence>
-        struct as_deque
+        struct as_deque :
+            detail::build_deque<
+                typename result_of::begin<Sequence>::type
+              , typename result_of::end<Sequence>::type
+            >
         {
-            typedef typename
-                detail::as_deque<result_of::size<Sequence>::value>
-            gen;
-            typedef typename gen::
-                template apply<typename result_of::begin<Sequence>::type>::type
-            type;
         };
     }
 
     template <typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::as_deque<Sequence>::type
     as_deque(Sequence& seq)
     {
-        typedef typename result_of::as_deque<Sequence>::gen gen;
-        return gen::call(fusion::begin(seq));
+        typedef result_of::as_deque<Sequence> gen;
+        return gen::call(fusion::begin(seq), fusion::end(seq));
     }
 
     template <typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::as_deque<Sequence const>::type
     as_deque(Sequence const& seq)
     {
-        typedef typename result_of::as_deque<Sequence const>::gen gen;
-        return gen::call(fusion::begin(seq));
+        typedef result_of::as_deque<Sequence const> gen;
+        return gen::call(fusion::begin(seq), fusion::end(seq));
     }
 }}
 
+#endif
 #endif

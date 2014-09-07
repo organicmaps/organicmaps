@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_REVERSE_VIEW)
 #define FUSION_INCLUDE_REVERSE_VIEW
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/view/reverse_view.hpp>
 
 #endif

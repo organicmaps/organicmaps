@@ -81,8 +81,8 @@ namespace boost { namespace spirit { namespace qi
     template <typename T>
     struct exact_iterator // handles repeat(exact)[p]
     {
-        exact_iterator(T const exact)
-          : exact(exact) {}
+        exact_iterator(T const exact_)
+          : exact(exact_) {}
 
         typedef T type;
         T start() const { return 0; }
@@ -99,9 +99,9 @@ namespace boost { namespace spirit { namespace qi
     template <typename T>
     struct finite_iterator // handles repeat(min, max)[p]
     {
-        finite_iterator(T const min, T const max)
-          : min BOOST_PREVENT_MACRO_SUBSTITUTION (min)
-          , max BOOST_PREVENT_MACRO_SUBSTITUTION (max) {}
+        finite_iterator(T const min_, T const max_)
+          : min BOOST_PREVENT_MACRO_SUBSTITUTION (min_)
+          , max BOOST_PREVENT_MACRO_SUBSTITUTION (max_) {}
 
         typedef T type;
         T start() const { return 0; }
@@ -119,8 +119,8 @@ namespace boost { namespace spirit { namespace qi
     template <typename T>
     struct infinite_iterator // handles repeat(min, inf)[p]
     {
-        infinite_iterator(T const min)
-          : min BOOST_PREVENT_MACRO_SUBSTITUTION (min) {}
+        infinite_iterator(T const min_)
+          : min BOOST_PREVENT_MACRO_SUBSTITUTION (min_) {}
 
         typedef T type;
         T start() const { return 0; }
@@ -153,8 +153,8 @@ namespace boost { namespace spirit { namespace qi
             type;
         };
 
-        repeat_parser(Subject const& subject, LoopIter const& iter)
-          : subject(subject), iter(iter) {}
+        repeat_parser(Subject const& subject_, LoopIter const& iter_)
+          : subject(subject_), iter(iter_) {}
 
         template <typename F>
         bool parse_container(F f) const
@@ -183,17 +183,17 @@ namespace boost { namespace spirit { namespace qi
           , typename Skipper, typename Attribute>
         bool parse(Iterator& first, Iterator const& last
           , Context& context, Skipper const& skipper
-          , Attribute& attr) const
+          , Attribute& attr_) const
         {
             typedef detail::fail_function<Iterator, Context, Skipper>
                 fail_function;
 
             // ensure the attribute is actually a container type
-            traits::make_container(attr);
+            traits::make_container(attr_);
 
-            Iterator iter = first;
-            fail_function f(iter, last, context, skipper);
-            if (!parse_container(detail::make_pass_container(f, attr)))
+            Iterator iter_local = first;
+            fail_function f(iter_local, last, context, skipper);
+            if (!parse_container(detail::make_pass_container(f, attr_)))
                 return false;
 
             first = f.first;

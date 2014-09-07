@@ -152,13 +152,13 @@ public:
    typedef RealType value_type;
    typedef Policy policy_type;
 
-   cauchy_distribution(RealType location = 0, RealType scale = 1)
-      : m_a(location), m_hg(scale)
+   cauchy_distribution(RealType l_location = 0, RealType l_scale = 1)
+      : m_a(l_location), m_hg(l_scale)
    {
     static const char* function = "boost::math::cauchy_distribution<%1%>::cauchy_distribution";
      RealType result;
-     detail::check_location(function, location, &result, Policy());
-     detail::check_scale(function, scale, &result, Policy());
+     detail::check_location(function, l_location, &result, Policy());
+     detail::check_scale(function, l_scale, &result, Policy());
    } // cauchy_distribution
 
    RealType location()const

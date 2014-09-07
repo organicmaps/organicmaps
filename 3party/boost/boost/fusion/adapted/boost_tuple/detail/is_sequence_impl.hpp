@@ -7,6 +7,7 @@
 #if !defined(BOOST_FUSION_IS_SEQUENCE_IMPL_09272006_0726)
 #define BOOST_FUSION_IS_SEQUENCE_IMPL_09272006_0726
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace boost { namespace fusion 

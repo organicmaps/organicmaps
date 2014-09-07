@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -27,7 +27,7 @@
 #include <boost/log/detail/custom_terminal_spec.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -72,7 +72,7 @@ public:
         return m_format.make_pump(fusion::at_c< 1 >(phoenix::env(ctx).args()));
     }
 
-    BOOST_LOG_DELETED_FUNCTION(format_terminal())
+    BOOST_DELETED_FUNCTION(format_terminal())
 };
 
 /*!
@@ -80,7 +80,7 @@ public:
  * according to the provided format string.
  */
 template< typename CharT >
-BOOST_LOG_FORCEINLINE phoenix::actor< format_terminal< CharT > > format(const CharT* fmt)
+BOOST_FORCEINLINE phoenix::actor< format_terminal< CharT > > format(const CharT* fmt)
 {
     typedef format_terminal< CharT > terminal_type;
     phoenix::actor< terminal_type > act = {{ terminal_type(fmt) }};
@@ -92,7 +92,7 @@ BOOST_LOG_FORCEINLINE phoenix::actor< format_terminal< CharT > > format(const Ch
  * according to the provided format string.
  */
 template< typename CharT, typename TraitsT, typename AllocatorT >
-BOOST_LOG_FORCEINLINE phoenix::actor< format_terminal< CharT > > format(std::basic_string< CharT, TraitsT, AllocatorT > const& fmt)
+BOOST_FORCEINLINE phoenix::actor< format_terminal< CharT > > format(std::basic_string< CharT, TraitsT, AllocatorT > const& fmt)
 {
     typedef format_terminal< CharT > terminal_type;
     phoenix::actor< terminal_type > act = {{ terminal_type(fmt.c_str()) }};

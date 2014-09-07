@@ -18,7 +18,9 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template< typename T0 , typename T1 >
-        struct zip< T0 , T1 >
+        struct zip< T0 , T1
+                    , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_
+        >
         {
             typedef mpl::vector< T0 , T1 > sequences;
             typedef typename mpl::transform<sequences, add_reference<mpl::_> >::type ref_params;
@@ -26,6 +28,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1>::type
     zip(T0 const& t0 , T1 const& t1)
     {
@@ -37,7 +40,9 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template< typename T0 , typename T1 , typename T2 >
-        struct zip< T0 , T1 , T2 >
+        struct zip< T0 , T1 , T2
+                    , void_ , void_ , void_ , void_ , void_ , void_ , void_ , void_
+        >
         {
             typedef mpl::vector< T0 , T1 , T2 > sequences;
             typedef typename mpl::transform<sequences, add_reference<mpl::_> >::type ref_params;
@@ -45,6 +50,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2)
     {
@@ -56,7 +62,9 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template< typename T0 , typename T1 , typename T2 , typename T3 >
-        struct zip< T0 , T1 , T2 , T3 >
+        struct zip< T0 , T1 , T2 , T3
+                    , void_ , void_ , void_ , void_ , void_ , void_ , void_
+        >
         {
             typedef mpl::vector< T0 , T1 , T2 , T3 > sequences;
             typedef typename mpl::transform<sequences, add_reference<mpl::_> >::type ref_params;
@@ -64,6 +72,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3)
     {
@@ -75,7 +84,9 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template< typename T0 , typename T1 , typename T2 , typename T3 , typename T4 >
-        struct zip< T0 , T1 , T2 , T3 , T4 >
+        struct zip< T0 , T1 , T2 , T3 , T4
+                    , void_ , void_ , void_ , void_ , void_ , void_
+        >
         {
             typedef mpl::vector< T0 , T1 , T2 , T3 , T4 > sequences;
             typedef typename mpl::transform<sequences, add_reference<mpl::_> >::type ref_params;
@@ -83,6 +94,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4)
     {
@@ -94,7 +106,9 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template< typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 >
-        struct zip< T0 , T1 , T2 , T3 , T4 , T5 >
+        struct zip< T0 , T1 , T2 , T3 , T4 , T5
+                    , void_ , void_ , void_ , void_ , void_
+        >
         {
             typedef mpl::vector< T0 , T1 , T2 , T3 , T4 , T5 > sequences;
             typedef typename mpl::transform<sequences, add_reference<mpl::_> >::type ref_params;
@@ -102,6 +116,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5)
     {
@@ -113,7 +128,9 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template< typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 >
-        struct zip< T0 , T1 , T2 , T3 , T4 , T5 , T6 >
+        struct zip< T0 , T1 , T2 , T3 , T4 , T5 , T6
+                    , void_ , void_ , void_ , void_
+        >
         {
             typedef mpl::vector< T0 , T1 , T2 , T3 , T4 , T5 , T6 > sequences;
             typedef typename mpl::transform<sequences, add_reference<mpl::_> >::type ref_params;
@@ -121,6 +138,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6)
     {
@@ -132,7 +150,9 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template< typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 >
-        struct zip< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 >
+        struct zip< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7
+                    , void_ , void_ , void_
+        >
         {
             typedef mpl::vector< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 > sequences;
             typedef typename mpl::transform<sequences, add_reference<mpl::_> >::type ref_params;
@@ -140,6 +160,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7)
     {
@@ -151,7 +172,9 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template< typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 >
-        struct zip< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 >
+        struct zip< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8
+                    , void_ , void_
+        >
         {
             typedef mpl::vector< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 > sequences;
             typedef typename mpl::transform<sequences, add_reference<mpl::_> >::type ref_params;
@@ -159,6 +182,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8)
     {
@@ -170,7 +194,9 @@ namespace boost { namespace fusion
     namespace result_of
     {
         template< typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9 >
-        struct zip< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 >
+        struct zip< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9
+                    , void_
+        >
         {
             typedef mpl::vector< T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 > sequences;
             typedef typename mpl::transform<sequences, add_reference<mpl::_> >::type ref_params;
@@ -178,6 +204,7 @@ namespace boost { namespace fusion
         };
     }
     template<typename T0 , typename T1 , typename T2 , typename T3 , typename T4 , typename T5 , typename T6 , typename T7 , typename T8 , typename T9>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::zip<const T0 , const T1 , const T2 , const T3 , const T4 , const T5 , const T6 , const T7 , const T8 , const T9>::type
     zip(T0 const& t0 , T1 const& t1 , T2 const& t2 , T3 const& t3 , T4 const& t4 , T5 const& t5 , T6 const& t6 , T7 const& t7 , T8 const& t8 , T9 const& t9)
     {

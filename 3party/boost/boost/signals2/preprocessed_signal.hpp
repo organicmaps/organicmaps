@@ -48,6 +48,10 @@ namespace boost
       signal(const Combiner &combiner_arg = Combiner(), const GroupCompare &group_compare = GroupCompare()):
         base_type(combiner_arg, group_compare)
       {}
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES) && BOOST_WORKAROUND(BOOST_MSVC, < 1800)
+      signal(signal && other) : base_type(std::move(other)) {}
+      signal & operator=(signal && other) { base_type::operator=(std::move(other)); return *this; }
+#endif
     };
   }
 }

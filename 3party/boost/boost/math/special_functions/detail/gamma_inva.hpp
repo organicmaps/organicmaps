@@ -75,7 +75,7 @@ T gamma_inva_imp(const T& z, const T& p, const T& q, const Policy& pol)
    //
    if(p == 0)
    {
-      return tools::max_value<T>();
+      return policies::raise_overflow_error<T>("boost::math::gamma_p_inva<%1%>(%1%, %1%)", 0, Policy());
    }
    if(q == 0)
    {
@@ -144,7 +144,7 @@ T gamma_inva_imp(const T& z, const T& p, const T& q, const Policy& pol)
    //
    std::pair<T, T> r = bracket_and_solve_root(f, guess, factor, false, tol, max_iter, pol);
    if(max_iter >= policies::get_max_root_iterations<Policy>())
-      policies::raise_evaluation_error<T>("boost::math::gamma_p_inva<%1%>(%1%, %1%)", "Unable to locate the root within a reasonable number of iterations, closest approximation so far was %1%", r.first, pol);
+      return policies::raise_evaluation_error<T>("boost::math::gamma_p_inva<%1%>(%1%, %1%)", "Unable to locate the root within a reasonable number of iterations, closest approximation so far was %1%", r.first, pol);
    return (r.first + r.second) / 2;
 }
 
@@ -165,7 +165,7 @@ inline typename tools::promote_args<T1, T2>::type
 
    if(p == 0)
    {
-      return tools::max_value<result_type>();
+      policies::raise_overflow_error<result_type>("boost::math::gamma_p_inva<%1%>(%1%, %1%)", 0, Policy());
    }
    if(p == 1)
    {
@@ -195,7 +195,7 @@ inline typename tools::promote_args<T1, T2>::type
 
    if(q == 1)
    {
-      return tools::max_value<result_type>();
+      policies::raise_overflow_error<result_type>("boost::math::gamma_q_inva<%1%>(%1%, %1%)", 0, Policy());
    }
    if(q == 0)
    {

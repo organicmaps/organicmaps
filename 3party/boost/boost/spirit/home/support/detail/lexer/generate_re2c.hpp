@@ -331,11 +331,7 @@ void generate_re2c (const basic_state_machine<CharT> &state_machine_,
 
                             string_token::escape_char (start_char_, temp_);
                             os_ << "(ch_ >= '" << temp_;
-#if defined _MSC_VER && _MSC_VER <= 1200
-                            temp_.erase ();
-#else
                             temp_.clear ();
-#endif
                             string_token::escape_char (curr_char_, temp_);
                             os_ << "' && ch_ <= '" << temp_ << "')";
                             range_ = false;

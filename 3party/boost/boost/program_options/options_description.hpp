@@ -61,8 +61,8 @@ namespace program_options {
 
             Alas, derived->base conversion for auto_ptr does not really work,
             see
-            http://anubis.dkuug.dk/jtc1/sc22/wg21/docs/papers/2000/n1232.pdf
-            http://std.dkuug.dk/jtc1/sc22/wg21/docs/cwg_defects.html#84
+            http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2000/n1232.pdf
+            http://www.open-std.org/jtc1/sc22/wg21/docs/cwg_defects.html#84
 
             So, we have to use plain old pointers. Besides, users are not
             expected to use the constructor directly.
@@ -199,6 +199,10 @@ namespace program_options {
         */
         options_description& add(const options_description& desc);
 
+        /** Find the maximum width of the option column, including options 
+            in groups. */
+        unsigned get_option_column_width() const;
+
     public:
         /** Returns an object of implementation-defined type suitable for adding
             options to options_description. The returned object will
@@ -229,7 +233,7 @@ namespace program_options {
 
         /** Outputs 'desc' to the specified stream, calling 'f' to output each
             option_description element. */
-        void print(std::ostream& os) const;
+        void print(std::ostream& os, unsigned width = 0) const;
 
     private:
         typedef std::map<std::string, int>::const_iterator name2index_iterator;

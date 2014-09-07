@@ -18,10 +18,11 @@ namespace boost { namespace property_tree { namespace xml_parser
 {
     
     // Naively convert narrow string to another character type
-    template<class Ch>
-    std::basic_string<Ch> widen(const char *text)
+    template<class Str>
+    Str widen(const char *text)
     {
-        std::basic_string<Ch> result;
+	typedef typename Str::value_type Ch;
+        Str result;
         while (*text)
         {
             result += Ch(*text);
@@ -31,13 +32,14 @@ namespace boost { namespace property_tree { namespace xml_parser
     }
 
     //! Xml writer settings. The default settings lead to no pretty printing.
-    template<class Ch>
+    template<class Str>
     class xml_writer_settings
     {
+	typedef typename Str::value_type Ch;
     public:
         xml_writer_settings(Ch inchar = Ch(' '),
-                typename std::basic_string<Ch>::size_type incount = 0,
-                const std::basic_string<Ch> &enc = widen<Ch>("utf-8"))
+                typename Str::size_type incount = 0,
+                const Str &enc = widen<Str>("utf-8"))
             : indent_char(inchar)
             , indent_count(incount)
             , encoding(enc)
@@ -45,16 +47,16 @@ namespace boost { namespace property_tree { namespace xml_parser
         }
 
         Ch indent_char;
-        typename std::basic_string<Ch>::size_type indent_count;
-        std::basic_string<Ch> encoding;
+        typename Str::size_type indent_count;
+        Str encoding;
     };
 
-    template <class Ch>
-    xml_writer_settings<Ch> xml_writer_make_settings(Ch indent_char = Ch(' '),
-        typename std::basic_string<Ch>::size_type indent_count = 0,
-        const std::basic_string<Ch> &encoding = widen<Ch>("utf-8"))
+    template <class Str>
+    xml_writer_settings<Str> xml_writer_make_settings(typename Str::value_type indent_char = (typename Str::value_type)(' '),
+        typename Str::size_type indent_count = 0,
+        const Str &encoding = widen<Str>("utf-8"))
     {
-        return xml_writer_settings<Ch>(indent_char, indent_count, encoding);
+        return xml_writer_settings<Str>(indent_char, indent_count, encoding);
     }
 
 } } }

@@ -147,14 +147,14 @@ namespace boost{ namespace math
     typedef RealType value_type;
     typedef Policy policy_type;
 
-    triangular_distribution(RealType lower = -1, RealType mode = 0, RealType upper = 1)
-      : m_lower(lower), m_mode(mode), m_upper(upper) // Constructor.
+    triangular_distribution(RealType l_lower = -1, RealType l_mode = 0, RealType l_upper = 1)
+      : m_lower(l_lower), m_mode(l_mode), m_upper(l_upper) // Constructor.
     { // Evans says 'standard triangular' is lower 0, mode 1/2, upper 1,
       // has median sqrt(c/2) for c <=1/2 and 1 - sqrt(1-c)/2 for c >= 1/2
       // But this -1, 0, 1 is more useful in most applications to approximate normal distribution,
       // where the central value is the most likely and deviations either side equally likely.
       RealType result;
-      detail::check_triangular("boost::math::triangular_distribution<%1%>::triangular_distribution",lower, mode, upper, &result, Policy());
+      detail::check_triangular("boost::math::triangular_distribution<%1%>::triangular_distribution",l_lower, l_mode, l_upper, &result, Policy());
     }
     // Accessor functions.
     RealType lower()const

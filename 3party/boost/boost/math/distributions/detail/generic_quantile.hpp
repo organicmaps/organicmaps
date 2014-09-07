@@ -78,7 +78,7 @@ typename Dist::value_type generic_quantile(const Dist& dist, const typename Dist
    value_type result = ir.first + (ir.second - ir.first) / 2;
    if(max_iter >= policies::get_max_root_iterations<forwarding_policy>())
    {
-      policies::raise_evaluation_error<value_type>(function, "Unable to locate solution in a reasonable time:"
+      return policies::raise_evaluation_error<value_type>(function, "Unable to locate solution in a reasonable time:"
          " either there is no answer to quantile"
          " or the answer is infinite.  Current best guess is %1%", result, forwarding_policy());
    }

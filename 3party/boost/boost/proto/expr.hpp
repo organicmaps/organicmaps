@@ -26,7 +26,7 @@
 #include <boost/proto/args.hpp>
 #include <boost/proto/traits.hpp>
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(push)
 # pragma warning(disable : 4510) // default constructor could not be generated
 # pragma warning(disable : 4512) // assignment operator could not be generated
@@ -156,7 +156,7 @@ namespace boost { namespace proto
 
 }}
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma warning(pop)
 #endif
 

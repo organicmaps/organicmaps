@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_POSIX_CONDITION_HPP
 #define BOOST_INTERPROCESS_POSIX_CONDITION_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -83,12 +83,13 @@ class posix_condition
    template <typename L>
    bool timed_wait(L& lock, const boost::posix_time::ptime &abs_time)
    {
+      if (!lock)
+         throw lock_exception();
+      //Posix does not support infinity absolute time so handle it here
       if(abs_time == boost::posix_time::pos_infin){
          this->wait(lock);
          return true;
       }
-      if (!lock)
-            throw lock_exception();
       return this->do_timed_wait(abs_time, *lock.mutex());
    }
 
@@ -98,17 +99,17 @@ class posix_condition
    template <typename L, typename Pr>
    bool timed_wait(L& lock, const boost::posix_time::ptime &abs_time, Pr pred)
    {
+      if (!lock)
+         throw lock_exception();
+      //Posix does not support infinity absolute time so handle it here
       if(abs_time == boost::posix_time::pos_infin){
          this->wait(lock, pred);
          return true;
       }
-      if (!lock)
-            throw lock_exception();
       while (!pred()){
          if (!this->do_timed_wait(abs_time, *lock.mutex()))
             return pred();
       }
-
       return true;
    }
 

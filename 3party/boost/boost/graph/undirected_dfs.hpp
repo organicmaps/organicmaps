@@ -46,18 +46,18 @@ namespace boost {
       typedef color_traits<ColorValue> Color;
       typedef color_traits<EColorValue> EColor;
       typedef typename graph_traits<IncidenceGraph>::out_edge_iterator Iter;
-      typedef std::pair<Vertex, std::pair<Iter, Iter> > VertexInfo;
+      typedef std::pair<Vertex, std::pair<boost::optional<Edge>, std::pair<Iter, Iter> > > VertexInfo;
 
       std::vector<VertexInfo> stack;
 
       put(vertex_color, u, Color::gray());
       vis.discover_vertex(u, g);
-      stack.push_back(std::make_pair(u, out_edges(u, g)));
+      stack.push_back(std::make_pair(u, std::make_pair(boost::optional<Edge>(), out_edges(u, g))));
       while (!stack.empty()) {
         VertexInfo& back = stack.back();
         u = back.first;
-        Iter ei, ei_end;
-        boost::tie(ei, ei_end) = back.second;
+        boost::optional<Edge> src_e = back.second.first;
+        Iter ei = back.second.second.first, ei_end = back.second.second.second;
         stack.pop_back();
         while (ei != ei_end) {
           Vertex v = target(*ei, g);
@@ -67,20 +67,24 @@ namespace boost {
           put(edge_color, *ei, EColor::black());
           if (v_color == Color::white()) {
             vis.tree_edge(*ei, g);
-            stack.push_back(std::make_pair(u, std::make_pair(++ei, ei_end)));
+            src_e = *ei;
+            stack.push_back(std::make_pair(u, std::make_pair(src_e, std::make_pair(++ei, ei_end))));
             u = v;
             put(vertex_color, u, Color::gray());
             vis.discover_vertex(u, g);
             boost::tie(ei, ei_end) = out_edges(u, g);
           } else if (v_color == Color::gray()) {
             if (uv_color == EColor::white()) vis.back_edge(*ei, g);
+            call_finish_edge(vis, *ei, g);
             ++ei;
           } else { // if (v_color == Color::black())
+            call_finish_edge(vis, *ei, g);
             ++ei;
           }
         }
         put(vertex_color, u, Color::black());
         vis.finish_vertex(u, g);
+        if (src_e) call_finish_edge(vis, src_e.get(), g);
       }
     }
 
@@ -119,6 +123,7 @@ namespace boost {
           undir_dfv_impl(g, v, vis, vertex_color, edge_color);
         } else if (v_color == Color::gray() && uv_color == EColor::white())
                                              vis.back_edge(*ei, g);
+                                             call_finish_edge(vis, *ei, g);
       }
       put(vertex_color, u, Color::black());  vis.finish_vertex(u, g);
     }

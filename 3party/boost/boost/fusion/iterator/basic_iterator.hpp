@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_ITERATOR_BASIC_ITERATOR_HPP
 #define BOOST_FUSION_ITERATOR_BASIC_ITERATOR_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/iterator_facade.hpp>
 
 #include <boost/mpl/and.hpp>
@@ -39,7 +40,7 @@ namespace boost { namespace fusion
 
     template<typename Tag, typename Category, typename Seq, int Index>
     struct basic_iterator
-      : iterator_facade<basic_iterator<Tag,Category,Seq,Index>, Category>
+      : iterator_facade<basic_iterator<Tag, Category, Seq, Index>, Category>
     {
         typedef mpl::int_<Index> index;
         typedef Seq seq_type;
@@ -76,6 +77,7 @@ namespace boost { namespace fusion
                 basic_iterator<Tag, Category, Seq, Index + N::value>
             type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type
             call(It const& it)
             {
@@ -98,6 +100,7 @@ namespace boost { namespace fusion
         {
             typedef mpl::minus<typename It2::index, typename It1::index> type;
 
+            BOOST_FUSION_GPU_ENABLED
             static
             type
             call(It1 const&, It2 const&)
@@ -118,15 +121,18 @@ namespace boost { namespace fusion
         {};
 
         template<typename OtherSeq>
+        BOOST_FUSION_GPU_ENABLED
         basic_iterator(basic_iterator<Tag,Category,OtherSeq,Index> const& it)
           : seq(it.seq)
         {}
 
+        BOOST_FUSION_GPU_ENABLED
         basic_iterator(Seq& in_seq, int)
           : seq(&in_seq)
         {}
 
         template<typename OtherSeq>
+        BOOST_FUSION_GPU_ENABLED
         basic_iterator&
         operator=(basic_iterator<Tag,Category,OtherSeq,Index> const& it)
         {

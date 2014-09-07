@@ -35,20 +35,20 @@ namespace boost { namespace phoenix
         typedef Map map_type;
 
         scoped_environment(
-            Env const & env
-          , OuterEnv const &outer_env
-          , Locals const &locals
+            Env const & env_
+          , OuterEnv const &outer_env_
+          , Locals const &locals_
         )
-            : env(env)
-            , outer_env(outer_env)
-            , locals(locals)
+            : env(env_)
+            , outer_env(outer_env_)
+            , locals(locals_)
         {}
 
-		  scoped_environment(scoped_environment const & o)
-		      : env(o.env)
+        scoped_environment(scoped_environment const & o)
+            : env(o.env)
             , outer_env(o.outer_env)
-			   , locals(o.locals)
-		 {};
+            , locals(o.locals)
+        {};
 
         Env      const & env;
         OuterEnv const & outer_env;

@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_ADAPTED)
 #define FUSION_INCLUDE_ADAPTED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted.hpp>
 
 #endif

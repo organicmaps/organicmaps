@@ -9,6 +9,7 @@
 #if !defined(BOOST_FUSION_FUNCTIONAL_GENERATION_MAKE_UNFUSED_HPP_INCLUDED)
 #define BOOST_FUSION_FUNCTIONAL_GENERATION_MAKE_UNFUSED_HPP_INCLUDED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/functional/adapter/unfused.hpp>
 
 #define BOOST_FUSION_CLASS_TPL_NAME unfused

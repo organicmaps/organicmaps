@@ -8,11 +8,5 @@
 =============================================================================*/
 #ifndef BOOST_SPIRIT_INCLUDE_PHOENIX_CONTAINER
 #define BOOST_SPIRIT_INCLUDE_PHOENIX_CONTAINER
-
-#ifndef BOOST_SPIRIT_USE_PHOENIX_V3
-#include <boost/spirit/home/phoenix/container.hpp>
-#else
 #include <boost/phoenix/stl/container.hpp>
-#endif
-
 #endif

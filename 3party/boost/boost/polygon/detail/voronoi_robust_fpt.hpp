@@ -10,6 +10,7 @@
 #ifndef BOOST_POLYGON_DETAIL_VORONOI_ROBUST_FPT
 #define BOOST_POLYGON_DETAIL_VORONOI_ROBUST_FPT
 
+#include <algorithm>
 #include <cmath>
 
 // Geometry predicates with floating-point variables usually require

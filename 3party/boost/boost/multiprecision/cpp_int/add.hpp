@@ -314,7 +314,7 @@ BOOST_MP_FORCEINLINE typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<Mi
       const signed_limb_type& o) BOOST_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value))
 {
    if(o < 0)
-      eval_subtract(result, static_cast<limb_type>(-o));
+      eval_subtract(result, static_cast<limb_type>(boost::multiprecision::detail::unsigned_abs(o)));
    else if(o > 0)
       eval_add(result, static_cast<limb_type>(o));
 }
@@ -326,7 +326,7 @@ BOOST_MP_FORCEINLINE typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<Mi
       const signed_limb_type& o) BOOST_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value))
 {
    if(o < 0)
-      eval_subtract(result, a, static_cast<limb_type>(-o));
+      eval_subtract(result, a, static_cast<limb_type>(boost::multiprecision::detail::unsigned_abs(o)));
    else if(o > 0)
       eval_add(result, a, static_cast<limb_type>(o));
    else if(&result != &a)
@@ -370,7 +370,7 @@ BOOST_MP_FORCEINLINE typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<Mi
    if(o)
    {
       if(o < 0)
-         eval_add(result, static_cast<limb_type>(-o));
+         eval_add(result, static_cast<limb_type>(boost::multiprecision::detail::unsigned_abs(o)));
       else
          eval_subtract(result, static_cast<limb_type>(o));
    }
@@ -385,7 +385,7 @@ BOOST_MP_FORCEINLINE typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<Mi
    if(o)
    {
       if(o < 0)
-         eval_add(result, a, static_cast<limb_type>(-o));
+         eval_add(result, a, static_cast<limb_type>(boost::multiprecision::detail::unsigned_abs(o)));
       else
          eval_subtract(result, a, static_cast<limb_type>(o));
    }

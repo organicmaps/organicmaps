@@ -63,8 +63,8 @@ void iota ( Range &r, T value )
 template <typename OutputIterator, typename T>
 OutputIterator iota_n ( OutputIterator out, T value, std::size_t n )
 {
-    while ( n-- > 0 )
-        *out++ = value++;
+    for ( ; n > 0; --n, ++value )
+        *out++ = value;
 
     return out;
 }

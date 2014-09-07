@@ -584,7 +584,7 @@ namespace boost { namespace spirit { namespace char_encoding
             return (0 == (ch & ~0xff) || ~0 == (ch | 0xff)) ? true : false;
         }
 
-        static int
+        static bool
         isalnum(int ch)
         {
             BOOST_ASSERT(0 == (ch & ~UCHAR_MAX));
@@ -592,78 +592,78 @@ namespace boost { namespace spirit { namespace char_encoding
                 || (iso8859_1_char_types[ch] & BOOST_CC_DIGIT);
         }
 
-        static int
+        static bool
         isalpha(int ch)
         {
             BOOST_ASSERT(0 == (ch & ~UCHAR_MAX));
-            return (iso8859_1_char_types[ch] & BOOST_CC_ALPHA);
+            return (iso8859_1_char_types[ch] & BOOST_CC_ALPHA) ? true : false;
         }
 
-        static int
+        static bool
         isdigit(int ch)
         {
             BOOST_ASSERT(0 == (ch & ~UCHAR_MAX));
-            return (iso8859_1_char_types[ch] & BOOST_CC_DIGIT);
+            return (iso8859_1_char_types[ch] & BOOST_CC_DIGIT) ? true : false;
         }
 
-        static int
+        static bool
         isxdigit(int ch)
         {
             BOOST_ASSERT(0 == (ch & ~UCHAR_MAX));
-            return (iso8859_1_char_types[ch] & BOOST_CC_XDIGIT);
+            return (iso8859_1_char_types[ch] & BOOST_CC_XDIGIT) ? true : false;
         }
 
-        static int
+        static bool
         iscntrl(int ch)
         {
             BOOST_ASSERT(0 == (ch & ~UCHAR_MAX));
-            return (iso8859_1_char_types[ch] & BOOST_CC_CTRL);
+            return (iso8859_1_char_types[ch] & BOOST_CC_CTRL) ? true : false;
         }
 
-        static int
+        static bool
         isgraph(int ch)
         {
             return ('\x21' <= ch && ch <= '\x7e') || ('\xa1' <= ch && ch <= '\xff');
         }
 
-        static int
+        static bool
         islower(int ch)
         {
             BOOST_ASSERT(0 == (ch & ~UCHAR_MAX));
-            return (iso8859_1_char_types[ch] & BOOST_CC_LOWER);
+            return (iso8859_1_char_types[ch] & BOOST_CC_LOWER) ? true : false;
         }
 
-        static int
+        static bool
         isprint(int ch)
         {
             return ('\x20' <= ch && ch <= '\x7e') || ('\xa0' <= ch && ch <= '\xff');
         }
 
-        static int
+        static bool
         ispunct(int ch)
         {
             BOOST_ASSERT(0 == (ch & ~UCHAR_MAX));
-            return (iso8859_1_char_types[ch] & BOOST_CC_PUNCT);
+            return (iso8859_1_char_types[ch] & BOOST_CC_PUNCT) ? true : false;
         }
 
-        static int
+        static bool
         isspace(int ch)
         {
             BOOST_ASSERT(0 == (ch & ~UCHAR_MAX));
-            return (iso8859_1_char_types[ch] & BOOST_CC_SPACE);
+            return (iso8859_1_char_types[ch] & BOOST_CC_SPACE) ? true : false;
         }
 
-        static int
+        static bool
         isblank BOOST_PREVENT_MACRO_SUBSTITUTION (int ch)
         {
             return ('\x09' == ch || '\x20' == ch || '\xa0' == ch);
         }
 
-        static int
+        static bool
         isupper(int ch)
         {
             BOOST_ASSERT(0 == (ch & ~UCHAR_MAX));
-            return (iso8859_1_char_types[ch] & BOOST_CC_UPPER);
+            return (iso8859_1_char_types[ch] & BOOST_CC_UPPER) ? true : false;
         }
 
     ///////////////////////////////////////////////////////////////////////////

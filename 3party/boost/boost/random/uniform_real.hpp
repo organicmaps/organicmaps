@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: uniform_real.hpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id$
  *
  * Revision history
  *  2001-04-08  added min<max assertion (N. Becker)
@@ -63,7 +63,7 @@ public:
                           RealType max_arg = RealType(1.0))
       : base_type(min_arg, max_arg)
     {
-        BOOST_ASSERT(min_arg <= max_arg);
+        BOOST_ASSERT(min_arg < max_arg);
     }
 
     /** Constructs a uniform_real distribution from its parameters. */

@@ -8,6 +8,7 @@
 #if !defined(FUSION_ALL_05052005_1237)
 #define FUSION_ALL_05052005_1237
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/fusion/sequence/intrinsic/end.hpp>
@@ -20,6 +21,7 @@
 namespace boost { namespace fusion { namespace detail
 {
     template <typename First, typename Last, typename F>
+    BOOST_FUSION_GPU_ENABLED
     inline bool
     linear_all(First const&, Last const&, F const&, mpl::true_)
     {
@@ -27,6 +29,7 @@ namespace boost { namespace fusion { namespace detail
     }
 
     template <typename First, typename Last, typename F>
+    BOOST_FUSION_GPU_ENABLED
     inline bool
     linear_all(First const& first, Last const& last, F& f, mpl::false_)
     {
@@ -40,6 +43,7 @@ namespace boost { namespace fusion { namespace detail
     }
 
     template <typename Sequence, typename F, typename Tag>
+    BOOST_FUSION_GPU_ENABLED
     inline bool
     all(Sequence const& seq, F f, Tag)
     {
@@ -56,6 +60,7 @@ namespace boost { namespace fusion { namespace detail
     struct unrolled_all
     {
         template <typename It, typename F>
+        BOOST_FUSION_GPU_ENABLED
         static bool call(It const& it, F f)
         {
             return 
@@ -71,6 +76,7 @@ namespace boost { namespace fusion { namespace detail
     struct unrolled_all<3>
     {
         template <typename It, typename F>
+        BOOST_FUSION_GPU_ENABLED
         static bool call(It const& it, F f)
         {
             return 
@@ -84,6 +90,7 @@ namespace boost { namespace fusion { namespace detail
     struct unrolled_all<2>
     {
         template <typename It, typename F>
+        BOOST_FUSION_GPU_ENABLED
         static bool call(It const& it, F f)
         {
             return 
@@ -96,6 +103,7 @@ namespace boost { namespace fusion { namespace detail
     struct unrolled_all<1>
     {
         template <typename It, typename F>
+        BOOST_FUSION_GPU_ENABLED
         static bool call(It const& it, F f)
         {
             return f(*it);
@@ -106,6 +114,7 @@ namespace boost { namespace fusion { namespace detail
     struct unrolled_all<0>
     {
         template <typename It, typename F>
+        BOOST_FUSION_GPU_ENABLED
         static bool call(It const& /*it*/, F /*f*/)
         {
             return true;
@@ -113,6 +122,7 @@ namespace boost { namespace fusion { namespace detail
     };
 
     template <typename Sequence, typename F>
+    BOOST_FUSION_GPU_ENABLED
     inline bool
     all(Sequence const& seq, F f, random_access_traversal_tag)
     {

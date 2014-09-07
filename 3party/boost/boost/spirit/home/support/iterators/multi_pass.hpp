@@ -26,9 +26,6 @@ namespace boost { namespace spirit
       : private boost::base_from_member<
             typename Policies::BOOST_NESTED_TEMPLATE shared<T>*>
       , public Policies::BOOST_NESTED_TEMPLATE unique<T>
-#if defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-      , typename iterator_base_creator<T, typename Policies::input_policy>::type
-#endif
     {
     private:
         // unique and shared data types
@@ -41,11 +38,7 @@ namespace boost { namespace spirit
 
         // define the types the standard embedded iterator typedefs are taken
         // from
-#if defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-        typedef typename iterator_base_creator<Input, T>::type iterator_type;
-#else
         typedef typename policies_base_type::input_policy iterator_type;
-#endif
 
     public:
         // standard iterator typedefs

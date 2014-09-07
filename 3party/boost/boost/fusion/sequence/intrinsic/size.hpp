@@ -7,6 +7,7 @@
 #if !defined(FUSION_SIZE_05052005_0214)
 #define FUSION_SIZE_05052005_0214
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/int.hpp>
@@ -77,6 +78,7 @@ namespace boost { namespace fusion
     }
 
     template <typename Sequence>
+    BOOST_FUSION_GPU_ENABLED
     inline typename result_of::size<Sequence>::type
     size(Sequence const&)
     {

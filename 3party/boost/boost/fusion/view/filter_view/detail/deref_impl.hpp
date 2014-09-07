@@ -7,6 +7,7 @@
 #if !defined(FUSION_DEREF_IMPL_05062005_0905)
 #define FUSION_DEREF_IMPL_05062005_0905
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/detail/adapt_deref_traits.hpp>
 
 namespace boost { namespace fusion

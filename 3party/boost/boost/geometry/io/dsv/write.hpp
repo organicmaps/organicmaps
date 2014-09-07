@@ -3,6 +3,7 @@
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -20,12 +21,14 @@
 
 #include <boost/concept_check.hpp>
 #include <boost/range.hpp>
-#include <boost/typeof/typeof.hpp>
+
+#include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
 #include <boost/geometry/core/ring_type.hpp>
 #include <boost/geometry/core/tag_cast.hpp>
+#include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
@@ -209,9 +212,10 @@ struct dsv_poly
 
         dsv_range<ring>::apply(os, exterior_ring(poly), settings);
 
-        typename interior_return_type<Polygon const>::type rings
-                    = interior_rings(poly);
-        for (BOOST_AUTO_TPL(it, boost::begin(rings)); it != boost::end(rings); ++it)
+        typename interior_return_type<Polygon const>::type
+            rings = interior_rings(poly);
+        for (typename detail::interior_iterator<Polygon const>::type
+                it = boost::begin(rings); it != boost::end(rings); ++it)
         {
             os << settings.list_separator;
             dsv_range<ring>::apply(os, *it, settings);
@@ -339,8 +343,60 @@ private:
     dsv_settings m_settings;
 };
 
+
+template <typename MultiGeometry>
+struct dsv_multi
+{
+    typedef dispatch::dsv
+                <
+                    typename single_tag_of
+                        <
+                            typename tag<MultiGeometry>::type
+                        >::type,
+                    typename boost::range_value<MultiGeometry>::type
+                > dispatch_one;
+
+    typedef typename boost::range_iterator
+        <
+            MultiGeometry const
+        >::type iterator;
+
+
+    template <typename Char, typename Traits>
+    static inline void apply(std::basic_ostream<Char, Traits>& os,
+                MultiGeometry const& multi,
+                dsv_settings const& settings)
+    {
+        os << settings.list_open;
+
+        bool first = true;
+        for(iterator it = boost::begin(multi);
+            it != boost::end(multi);
+            ++it, first = false)
+        {
+            os << (first ? "" : settings.list_separator);
+            dispatch_one::apply(os, *it, settings);
+        }
+        os << settings.list_close;
+    }
+};
+
 }} // namespace detail::dsv
 #endif // DOXYGEN_NO_DETAIL
+
+// TODO: The alternative to this could be a forward declaration of dispatch::dsv<>
+//       or braking the code into the interface and implementation part
+#ifndef DOXYGEN_NO_DISPATCH
+namespace dispatch
+{
+
+template <typename Geometry>
+struct dsv<multi_tag, Geometry>
+    : detail::dsv::dsv_multi<Geometry>
+{};
+
+} // namespace dispatch
+#endif // DOXYGEN_NO_DISPATCH
 
 /*!
 \brief Main DSV-streaming function

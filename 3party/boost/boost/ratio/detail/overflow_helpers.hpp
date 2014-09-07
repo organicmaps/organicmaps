@@ -40,7 +40,7 @@ time2_demo contained this comment:
 #include <limits>
 #include <boost/cstdint.hpp>
 #include <boost/type_traits/integral_constant.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/integer_traits.hpp>
 
 //

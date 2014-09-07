@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_SEQUENCE_BASE)
 #define FUSION_INCLUDE_SEQUENCE_BASE
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/sequence_base.hpp>
 
 #endif

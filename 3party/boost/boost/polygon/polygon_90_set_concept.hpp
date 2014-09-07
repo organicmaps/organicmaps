@@ -328,7 +328,6 @@ namespace boost { namespace polygon{
   typename enable_if< typename is_mutable_polygon_90_set_type<polygon_set_type>::type,
                        polygon_set_type>::type &
   resize(polygon_set_type& polygon_set, coord_type resizing) {
-    typedef typename polygon_90_set_traits<polygon_set_type>::coordinate_type Unit;
     if(resizing > 0) {
       return bloat(polygon_set, resizing);
     }

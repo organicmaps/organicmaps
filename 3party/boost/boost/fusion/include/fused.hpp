@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_FUSED)
 #define FUSION_INCLUDE_FUSED
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/functional/adapter/fused.hpp>
 
 #endif

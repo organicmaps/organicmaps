@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -17,13 +17,13 @@
 
 #include <boost/move/core.hpp>
 #include <boost/log/detail/config.hpp>
-#include <boost/log/utility/explicit_operator_bool.hpp>
+#include <boost/utility/explicit_operator_bool.hpp>
 #include <boost/log/attributes/attribute_value_set.hpp>
 #include <boost/log/expressions/keyword_fwd.hpp>
 #include <boost/log/core/record_view.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -115,7 +115,7 @@ public:
      *
      * \return \c true, if the <tt>*this</tt> identifies a log record, \c false, if the <tt>*this</tt> is not valid
      */
-    BOOST_LOG_EXPLICIT_OPERATOR_BOOL()
+    BOOST_EXPLICIT_OPERATOR_BOOL_NOEXCEPT()
 
     /*!
      * Inverted conversion to an unspecified boolean type
@@ -153,6 +153,17 @@ public:
             public_data::destroy(m_impl);
             m_impl = NULL;
         }
+    }
+
+    /*!
+     * Attribute value lookup.
+     *
+     * \param name Attribute name.
+     * \return An \c attribute_value, non-empty if it is found, empty otherwise.
+     */
+    attribute_value_set::mapped_type operator[] (attribute_value_set::key_type name) const
+    {
+        return m_impl->m_attribute_values[name];
     }
 
     /*!

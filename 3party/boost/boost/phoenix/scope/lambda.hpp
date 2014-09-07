@@ -96,22 +96,22 @@ namespace boost { namespace phoenix
                 >::type
                 env_type;
 
-				typedef 
-				    typename result_of::eval<
-				        Lambda
-					   , typename result_of::context<
-						      scoped_environment<
-						          env_type
-					           , outer_env_type
-					           , locals_type
-					           , map_type
-					         >
-							 , typename result_of::actions<
-							 	    Context
-								>::type
-					     >::type
-					 >::type
-				    type;
+                    typedef
+                            typename result_of::eval<
+                                Lambda
+                                     , typename result_of::context<
+                                       scoped_environment<
+                                              env_type
+                                            , outer_env_type
+                                            , locals_type
+                                            , map_type
+                                            >
+                          , typename result_of::actions<
+                                Context
+                                            >::type
+                                       >::type
+                                    >::type
+                             type;
         };
 
         template <typename OuterEnv, typename Locals, typename Map, typename Lambda, typename Context>
@@ -148,7 +148,7 @@ namespace boost { namespace phoenix
                 >::type
                 env_type;
             
-				scoped_environment<
+                scoped_environment<
                 env_type
               , outer_env_type
               , locals_type
@@ -248,7 +248,7 @@ namespace boost { namespace phoenix
                      >::type
                      vars_type;
             
-            typedef typename 
+            typedef typename
                 detail::result_of::initialize_locals<
                     vars_type
                   , Context
@@ -281,23 +281,23 @@ namespace boost { namespace phoenix
                     typename result_of::env<Context>::type
                 >::type
                 env_type;
-            typedef
+            /*typedef
                 typename proto::detail::uncvref<
                     typename result_of::actions<Context>::type
                 >::type
-                actions_type;
+                actions_type;*/
             typedef
                 typename proto::detail::uncvref<
                     typename proto::result_of::value<Vars>::type
                      >::type
                      vars_type;
-            typedef
+            /*typedef
                 typename proto::detail::uncvref<
                     typename proto::result_of::value<Map>::type
                      >::type
-                     map_type;
-            
-            typedef typename 
+                     map_type;*/
+
+            typedef typename
                 detail::result_of::initialize_locals<
                     vars_type
                   , Context
@@ -337,8 +337,8 @@ namespace boost { namespace phoenix
     template <typename Locals, typename Map>
     struct lambda_actor_gen<Locals, Map>
     {
-        lambda_actor_gen(Locals const & locals)
-            : locals(locals)
+        lambda_actor_gen(Locals const & locals_)
+            : locals(locals_)
         {}
 
         lambda_actor_gen(lambda_actor_gen const & o)

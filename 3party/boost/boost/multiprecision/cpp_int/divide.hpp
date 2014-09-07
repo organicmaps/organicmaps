@@ -472,7 +472,7 @@ BOOST_MP_FORCEINLINE typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<Mi
 {
    cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> r;
    bool s = a.sign() != (b < 0);
-   divide_unsigned_helper(&result, a, static_cast<limb_type>(std::abs(b)), r);
+   divide_unsigned_helper(&result, a, static_cast<limb_type>(boost::multiprecision::detail::unsigned_abs(b)), r);
    result.sign(s);
 }
 

@@ -3,6 +3,7 @@
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -21,28 +22,34 @@
 
 #include <boost/mpl/assert.hpp>
 #include <boost/range.hpp>
-#include <boost/typeof/typeof.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/variant/static_visitor.hpp>
+#include <boost/variant/apply_visitor.hpp>
+#include <boost/variant/variant_fwd.hpp>
+
+#include <boost/geometry/algorithms/detail/interior_iterator.hpp>
 
 #include <boost/geometry/core/closure.hpp>
 #include <boost/geometry/core/cs.hpp>
-#include <boost/geometry/core/mutable_range.hpp>
-#include <boost/geometry/core/ring_type.hpp>
 #include <boost/geometry/core/exterior_ring.hpp>
 #include <boost/geometry/core/interior_rings.hpp>
+#include <boost/geometry/core/mutable_range.hpp>
+#include <boost/geometry/core/ring_type.hpp>
+#include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/geometries/concepts/check.hpp>
 
 #include <boost/geometry/algorithms/area.hpp>
 #include <boost/geometry/algorithms/disjoint.hpp>
+#include <boost/geometry/algorithms/detail/multi_modify.hpp>
 #include <boost/geometry/util/order_as_direction.hpp>
-
 
 namespace boost { namespace geometry
 {
 
 // Silence warning C4127: conditional expression is constant
 #if defined(_MSC_VER)
-#pragma warning(push)  
+#pragma warning(push)
 #pragma warning(disable : 4127)
 #endif
 
@@ -176,9 +183,10 @@ struct correct_polygon
                 std::less<area_result_type>
             >::apply(exterior_ring(poly));
 
-        typename interior_return_type<Polygon>::type rings
-                    = interior_rings(poly);
-        for (BOOST_AUTO_TPL(it, boost::begin(rings)); it != boost::end(rings); ++it)
+        typename interior_return_type<Polygon>::type
+            rings = interior_rings(poly);
+        for (typename detail::interior_iterator<Polygon>::type
+                it = boost::begin(rings); it != boost::end(rings); ++it)
         {
             correct_ring
                 <
@@ -238,8 +246,67 @@ struct correct<Polygon, polygon_tag>
 {};
 
 
+template <typename MultiPoint>
+struct correct<MultiPoint, multi_point_tag>
+    : detail::correct::correct_nop<MultiPoint>
+{};
+
+
+template <typename MultiLineString>
+struct correct<MultiLineString, multi_linestring_tag>
+    : detail::correct::correct_nop<MultiLineString>
+{};
+
+
+template <typename Geometry>
+struct correct<Geometry, multi_polygon_tag>
+    : detail::multi_modify
+        <
+            Geometry,
+            detail::correct::correct_polygon
+                <
+                    typename boost::range_value<Geometry>::type
+                >
+        >
+{};
+
+
 } // namespace dispatch
 #endif // DOXYGEN_NO_DISPATCH
+
+
+namespace resolve_variant {
+
+template <typename Geometry>
+struct correct
+{
+    static inline void apply(Geometry& geometry)
+    {
+        concept::check<Geometry const>();
+        dispatch::correct<Geometry>::apply(geometry);
+    }
+};
+
+template <BOOST_VARIANT_ENUM_PARAMS(typename T)>
+struct correct<boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
+{
+    struct visitor: boost::static_visitor<void>
+    {
+        template <typename Geometry>
+        void operator()(Geometry& geometry) const
+        {
+            correct<Geometry>::apply(geometry);
+        }
+    };
+
+    static inline void
+    apply(boost::variant<BOOST_VARIANT_ENUM_PARAMS(T)>& geometry)
+    {
+        boost::apply_visitor(visitor(), geometry);
+    }
+};
+
+} // namespace resolve_variant
 
 
 /*!
@@ -257,9 +324,7 @@ struct correct<Polygon, polygon_tag>
 template <typename Geometry>
 inline void correct(Geometry& geometry)
 {
-    concept::check<Geometry const>();
-
-    dispatch::correct<Geometry>::apply(geometry);
+    resolve_variant::correct<Geometry>::apply(geometry);
 }
 
 #if defined(_MSC_VER)

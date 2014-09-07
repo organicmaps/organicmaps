@@ -27,7 +27,7 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_SPIN_RECURSIVE_MUTEX_HPP
 #define BOOST_INTERPROCESS_DETAIL_SPIN_RECURSIVE_MUTEX_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -118,10 +118,6 @@ inline bool spin_recursive_mutex::try_lock()
 inline bool spin_recursive_mutex::timed_lock(const boost::posix_time::ptime &abs_time)
 {
    typedef ipcdetail::OS_systemwide_thread_id_t handle_t;
-   if(abs_time == boost::posix_time::pos_infin){
-      this->lock();
-      return true;
-   }
    const handle_t thr_id(ipcdetail::get_current_systemwide_thread_id());
    handle_t old_id;
    ipcdetail::systemwide_thread_id_copy(m_nOwner, old_id);
@@ -133,6 +129,7 @@ inline bool spin_recursive_mutex::timed_lock(const boost::posix_time::ptime &abs
       ++m_nLockCount;
       return true;
    }
+   //m_mutex supports abs_time so no need to check it
    if(m_mutex.timed_lock(abs_time)){
       ipcdetail::systemwide_thread_id_copy(thr_id, m_nOwner);
       m_nLockCount = 1;

@@ -19,7 +19,7 @@ struct is_lossy_conversion
 {
    typedef typename mpl::if_c<
       ((number_category<From>::value == number_kind_floating_point) && (number_category<To>::value == number_kind_integer))
-      || ((number_category<From>::value == number_kind_floating_point) && (number_category<To>::value == number_kind_rational))
+      /* || ((number_category<From>::value == number_kind_floating_point) && (number_category<To>::value == number_kind_rational))*/
       || ((number_category<From>::value == number_kind_rational) && (number_category<To>::value == number_kind_integer))
       || ((number_category<From>::value == number_kind_fixed_point) && (number_category<To>::value == number_kind_integer))
       || (number_category<From>::value == number_kind_unknown)

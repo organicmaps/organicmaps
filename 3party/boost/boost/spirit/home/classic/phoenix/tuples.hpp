@@ -8,10 +8,6 @@
 #ifndef PHOENIX_TUPLES_HPP
 #define PHOENIX_TUPLES_HPP
 
-#if defined(BOOST_MSVC) && (BOOST_MSVC <= 1300)
-#error "Sorry, Phoenix does not support VC6 and VC7. Please upgrade to at least VC7.1"
-#endif
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  Phoenix predefined maximum limit. This limit defines the maximum

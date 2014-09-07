@@ -8,6 +8,7 @@
 #ifndef BOOST_FUSION_CONTAINER_SET_DETAIL_DEREF_IMPL_HPP
 #define BOOST_FUSION_CONTAINER_SET_DETAIL_DEREF_IMPL_HPP
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/type_traits/is_const.hpp>
 
@@ -33,6 +34,7 @@ namespace boost { namespace fusion { namespace extension
                 >::type
             type;
 
+            BOOST_FUSION_GPU_ENABLED
             static type
             call(It const& it)
             {

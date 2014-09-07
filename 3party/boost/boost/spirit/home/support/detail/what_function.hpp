@@ -20,8 +20,8 @@ namespace boost { namespace spirit { namespace detail
     template <typename Context>
     struct what_function
     {
-        what_function(info& what, Context& context)
-          : what(what), context(context)
+        what_function(info& what_, Context& context_)
+          : what(what_), context(context_)
         {
             what.value = std::list<info>();
         }

@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_NAMED_MUTEX_HPP
 #define BOOST_INTERPROCESS_NAMED_MUTEX_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -56,7 +56,7 @@ class named_mutex
    /// @endcond
 
    public:
-   //!Creates a global interprocess_mutex with a name.
+   //!Creates a global mutex with a name.
    //!Throws interprocess_exception on error.
    named_mutex(create_only_t create_only, const char *name, const permissions &perm = permissions());
 
@@ -82,19 +82,19 @@ class named_mutex
    ~named_mutex();
 
    //!Unlocks a previously locked
-   //!interprocess_mutex.
+   //!mutex.
    void unlock();
 
-   //!Locks interprocess_mutex, sleeps when interprocess_mutex is already locked.
+   //!Locks the mutex, sleeps when the mutex is already locked.
    //!Throws interprocess_exception if a severe error is found
    void lock();
 
-   //!Tries to lock the interprocess_mutex, returns false when interprocess_mutex
+   //!Tries to lock the mutex, returns false when the mutex
    //!is already locked, returns true when success.
    //!Throws interprocess_exception if a severe error is found
    bool try_lock();
 
-   //!Tries to lock the interprocess_mutex until time abs_time,
+   //!Tries to lock the the mutex until time abs_time,
    //!Returns false when timeout expires, returns true when locks.
    //!Throws interprocess_exception if a severe error is found
    bool timed_lock(const boost::posix_time::ptime &abs_time);

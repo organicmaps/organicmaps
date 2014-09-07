@@ -7,6 +7,7 @@
 #if !defined(FUSION_ALGORITHM_10022005_0549)
 #define FUSION_ALGORITHM_10022005_0549
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/iteration.hpp>
 #include <boost/fusion/algorithm/query.hpp>
 #include <boost/fusion/algorithm/transformation.hpp>

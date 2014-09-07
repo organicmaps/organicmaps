@@ -7,6 +7,7 @@
 #if !defined(FUSION_BUILD_CONS_09232005_1222)
 #define FUSION_BUILD_CONS_09232005_1222
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/container/list/cons.hpp>
 #include <boost/fusion/iterator/equal_to.hpp>
 #include <boost/fusion/iterator/next.hpp>
@@ -24,12 +25,13 @@ namespace boost { namespace fusion { namespace detail
     template <typename First, typename Last>
     struct build_cons<First, Last, true>
     {
-        typedef nil type;
+        typedef nil_ type;
         
-        static nil
+        BOOST_FUSION_GPU_ENABLED
+        static nil_
         call(First const&, Last const&)
         {
-            return nil();
+            return nil_();
         }
     };
 
@@ -45,6 +47,7 @@ namespace boost { namespace fusion { namespace detail
           , typename next_build_cons::type> 
         type;
 
+        BOOST_FUSION_GPU_ENABLED
         static type
         call(First const& f, Last const& l)
         {

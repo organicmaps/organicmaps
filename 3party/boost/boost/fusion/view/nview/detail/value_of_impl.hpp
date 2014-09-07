@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_VALUE_OF_PRIOR_IMPL_SEP_24_2009_0158PM)
 #define BOOST_FUSION_VALUE_OF_PRIOR_IMPL_SEP_24_2009_0158PM
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/deref.hpp>
 #include <boost/fusion/container/vector.hpp>
 

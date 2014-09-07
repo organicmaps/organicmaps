@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -15,7 +15,7 @@
 
 #include <boost/log/detail/config.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -67,10 +67,9 @@ public:
     //! Sets the object to a signalled state
     BOOST_LOG_API void set_signalled();
 
-private:
     //  Copying prohibited
-    sem_based_event(sem_based_event const&);
-    sem_based_event& operator= (sem_based_event const&);
+    BOOST_DELETED_FUNCTION(sem_based_event(sem_based_event const&))
+    BOOST_DELETED_FUNCTION(sem_based_event& operator= (sem_based_event const&))
 };
 
 typedef sem_based_event event;
@@ -94,10 +93,9 @@ public:
     //! Sets the object to a signalled state
     BOOST_LOG_API void set_signalled();
 
-private:
     //  Copying prohibited
-    winapi_based_event(winapi_based_event const&);
-    winapi_based_event& operator= (winapi_based_event const&);
+    BOOST_DELETED_FUNCTION(winapi_based_event(winapi_based_event const&))
+    BOOST_DELETED_FUNCTION(winapi_based_event& operator= (winapi_based_event const&))
 };
 
 typedef winapi_based_event event;
@@ -122,10 +120,9 @@ public:
     //! Sets the object to a signalled state
     BOOST_LOG_API void set_signalled();
 
-private:
     //  Copying prohibited
-    generic_event(generic_event const&);
-    generic_event& operator= (generic_event const&);
+    BOOST_DELETED_FUNCTION(generic_event(generic_event const&))
+    BOOST_DELETED_FUNCTION(generic_event& operator= (generic_event const&))
 };
 
 typedef generic_event event;

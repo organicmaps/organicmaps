@@ -24,8 +24,8 @@ namespace boost { namespace spirit { namespace qi { namespace detail
     template <typename Char, typename T>
     struct tst_node
     {
-        tst_node(Char id)
-          : id(id), data(0), lt(0), eq(0), gt(0)
+        tst_node(Char id_)
+          : id(id_), data(0), lt(0), eq(0), gt(0)
         {
         }
 

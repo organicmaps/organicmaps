@@ -69,7 +69,26 @@ struct push_back<boost::polygon::polygon_data<CoordinateType> >
     }
 };
 
+template <typename CoordinateType>
+struct resize<boost::polygon::polygon_data<CoordinateType> >
+{
+    typedef boost::polygon::point_data<CoordinateType> point_type;
 
+    static inline void apply(boost::polygon::polygon_data<CoordinateType>& data,
+                             std::size_t new_size)
+    {
+        // Boost.Polygon's polygons are not resizable. So create a temporary vector,
+        // resize it and set it to the original. Of course: this is not efficient.
+        // But there seems no other way (without using a wrapper)
+        std::vector<point_type> temporary_vector
+            (
+                boost::polygon::begin_points(data),
+                boost::polygon::end_points(data)
+            );
+        temporary_vector.resize(new_size);
+        data.set(temporary_vector.begin(), temporary_vector.end());
+    }
+};
 
 
 } // namespace traits

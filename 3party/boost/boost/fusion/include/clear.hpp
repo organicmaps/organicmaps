@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_CLEAR)
 #define FUSION_INCLUDE_CLEAR
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/transformation/clear.hpp>
 
 #endif

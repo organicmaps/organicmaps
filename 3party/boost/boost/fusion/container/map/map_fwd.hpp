@@ -4,49 +4,42 @@
     Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
-#if !defined(FUSION_MAP_FORWARD_07212005_1105)
-#define FUSION_MAP_FORWARD_07212005_1105
+#if !defined(FUSION_MAP_FORWARD_MAIN_07212005_1105)
+#define FUSION_MAP_FORWARD_MAIN_07212005_1105
 
-#include <boost/fusion/container/map/limits.hpp>
-#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
+#include <boost/fusion/support/config.hpp>
+#include <boost/config.hpp>
 
-#if !defined(BOOST_FUSION_DONT_USE_PREPROCESSED_FILES)
-#include <boost/fusion/container/map/detail/preprocessed/map_fwd.hpp>
+#if (defined(BOOST_NO_CXX11_DECLTYPE)             \
+  || defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)   \
+  || defined(BOOST_NO_CXX11_RVALUE_REFERENCES))   \
+  || (defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES))
+# if defined(BOOST_FUSION_HAS_VARIADIC_MAP)
+#   undef BOOST_FUSION_HAS_VARIADIC_MAP
+# endif
 #else
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 2, line: 0, output: "detail/preprocessed/map" FUSION_MAX_MAP_SIZE_STR "_fwd.hpp")
+# if !defined(BOOST_FUSION_HAS_VARIADIC_MAP)
+#   define BOOST_FUSION_HAS_VARIADIC_MAP
+# endif
 #endif
 
-/*=============================================================================
-    Copyright (c) 2001-2011 Joel de Guzman
+///////////////////////////////////////////////////////////////////////////////
+// With no decltype and variadics, we will use the C++03 version
+///////////////////////////////////////////////////////////////////////////////
+#if !defined(BOOST_FUSION_HAS_VARIADIC_MAP)
+# include <boost/fusion/container/map/detail/cpp03/map_fwd.hpp>
+#else
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+#include <boost/fusion/container/map/detail/map_impl.hpp>
 
-    This is an auto-generated file. Do not edit!
-==============================================================================*/
-
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 1)
-#endif
-
+///////////////////////////////////////////////////////////////////////////////
+// C++11 interface
+///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace fusion
 {
-    struct void_;
-    struct map_tag;
-    struct map_iterator_tag;
-
-    template <
-        BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(
-            FUSION_MAX_MAP_SIZE, typename T, void_)
-    >
+    template <typename ...T>
     struct map;
 }}
 
-#if defined(__WAVE__) && defined(BOOST_FUSION_CREATE_PREPROCESSED_FILES)
-#pragma wave option(output: null)
 #endif
-
-#endif // BOOST_FUSION_DONT_USE_PREPROCESSED_FILES
-
 #endif

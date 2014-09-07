@@ -13,6 +13,7 @@
 #include <boost/phoenix/core/limits.hpp>
 #include <boost/phoenix/core/expression.hpp>
 #include <boost/phoenix/core/meta_grammar.hpp>
+#include <boost/proto/operators.hpp> // Included to solve #5715
 
 namespace boost { namespace phoenix
 {

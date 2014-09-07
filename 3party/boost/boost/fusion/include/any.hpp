@@ -7,6 +7,7 @@
 #if !defined(FUSION_INCLUDE_ANY)
 #define FUSION_INCLUDE_ANY
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/algorithm/query/any.hpp>
 
 #endif

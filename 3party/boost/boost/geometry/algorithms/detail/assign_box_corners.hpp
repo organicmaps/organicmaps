@@ -26,7 +26,7 @@ namespace boost { namespace geometry
 {
 
 #ifndef DOXYGEN_NO_DETAIL
-namespace detail 
+namespace detail
 {
 // Note: this is moved to namespace detail because the names and parameter orders
 // are not yet 100% clear.
@@ -69,8 +69,8 @@ inline void assign_box_corners(Box const& box,
 
 // Silence warning C4127: conditional expression is constant
 #if defined(_MSC_VER)
-#pragma warning(push)  
-#pragma warning(disable : 4127)  
+#pragma warning(push)
+#pragma warning(disable : 4127)
 #endif
 
 

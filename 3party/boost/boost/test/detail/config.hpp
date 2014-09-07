@@ -7,7 +7,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 63441 $
+//  Version     : $Revision$
 //
 //  Description : as a central place for global configuration switches
 // ***************************************************************************

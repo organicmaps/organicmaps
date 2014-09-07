@@ -120,9 +120,9 @@ namespace boost { namespace spirit { namespace detail
         construct(other.str(), other.str() + other.size());
     }
 
-    inline void fast_string::initialize() 
+    inline void fast_string::initialize()
     {
-        for (std::size_t i = 0; i != buff_size / (sizeof(long)/sizeof(char)); ++i) 
+        for (std::size_t i = 0; i != buff_size / (sizeof(long)/sizeof(char)); ++i)
             lbuff[i] = 0;
     }
 
@@ -293,7 +293,7 @@ namespace boost { namespace spirit { namespace detail
             return;
         }
 
-        detail::list::node* new_node = 
+        detail::list::node* new_node =
             new detail::list::node(val, pos.node, pos.node->prev);
 
         if (pos.node->prev)
@@ -330,7 +330,7 @@ namespace boost { namespace spirit { namespace detail
         if (last == 0)
             push_front(val);
         else {
-            detail::list::node* new_node = 
+            detail::list::node* new_node =
                 new detail::list::node(val, last->next, last);
             last->next = new_node;
             last = new_node;
@@ -402,7 +402,7 @@ namespace boost { namespace spirit { namespace detail
     ///////////////////////////////////////////////////////////////////////////
     // simple binder for binary visitation (we don't want to bring in the big guns)
     template <typename F, typename X>
-    struct bind_impl 
+    struct bind_impl
     {
         typedef typename F::result_type result_type;
         X& x; // always by reference
@@ -647,9 +647,9 @@ namespace boost { namespace spirit
     {
         return f(env);
     }
-    
+
     template <typename F>
-    utree stored_function<F>::operator()(utree& env) const 
+    utree stored_function<F>::operator()(utree& env) const
     {
         return f(env);
     }
@@ -660,7 +660,7 @@ namespace boost { namespace spirit
     {
         return new stored_function<F>(f);
     }
-    
+
     template <typename F>
     referenced_function<F>::referenced_function(F& f)
       : f(f)
@@ -677,7 +677,7 @@ namespace boost { namespace spirit
     {
         return f(env);
     }
-    
+
     template <typename F>
     utree referenced_function<F>::operator()(utree& env) const
     {
@@ -702,8 +702,8 @@ namespace boost { namespace spirit
         s.initialize();
         set_type(type::nil_type);
     }
-    
-    inline utree::utree(bool b_) 
+
+    inline utree::utree(bool b_)
     {
         s.initialize();
         b = b_;
@@ -718,21 +718,21 @@ namespace boost { namespace spirit
         set_type(type::string_type);
     }
 
-    inline utree::utree(unsigned int i_) 
+    inline utree::utree(unsigned int i_)
     {
         s.initialize();
         i = i_;
         set_type(type::int_type);
     }
 
-    inline utree::utree(int i_) 
+    inline utree::utree(int i_)
     {
         s.initialize();
         i = i_;
         set_type(type::int_type);
     }
 
-    inline utree::utree(double d_) 
+    inline utree::utree(double d_)
     {
         s.initialize();
         d = d_;
@@ -789,14 +789,14 @@ namespace boost { namespace spirit
         pf = pf_.clone();
         set_type(type::function_type);
     }
-    
+
     inline utree::utree(function_base* pf_)
     {
         s.initialize();
         pf = pf_;
         set_type(type::function_type);
     }
-    
+
     template <typename Iter>
     inline utree::utree(boost::iterator_range<Iter> r)
     {
@@ -930,7 +930,7 @@ namespace boost { namespace spirit
         set_type(type::reference_type);
         return *this;
     }
-    
+
     inline utree& utree::operator=(any_ptr const& p)
     {
         free();
@@ -939,7 +939,7 @@ namespace boost { namespace spirit
         set_type(type::any_type);
         return *this;
     }
-    
+
     inline utree& utree::operator=(function_base const& pf_)
     {
         free();
@@ -955,7 +955,7 @@ namespace boost { namespace spirit
         set_type(type::function_type);
         return *this;
     }
-    
+
     template <typename Iter>
     inline utree& utree::operator=(boost::iterator_range<Iter> r)
     {
@@ -1040,7 +1040,7 @@ namespace boost { namespace spirit
             return p->insert(pos, val);
 
         ensure_list_type("insert()");
-        if (!pos.node) 
+        if (!pos.node)
         {
             l.push_back(val);
             return utree::iterator(l.last, l.last->prev);
@@ -1275,10 +1275,10 @@ namespace boost { namespace spirit
 
         if (t == type::symbol_type)
             return s.size();
-        
+
         if (t == type::binary_type)
             return s.size();
-        
+
         if (t == type::string_range_type)
             return sr.last - sr.first;
 
@@ -1333,7 +1333,7 @@ namespace boost { namespace spirit
         }
 
         // otherwise...
-        if (get_type() != type::list_type) 
+        if (get_type() != type::list_type)
             BOOST_THROW_EXCEPTION(
                 bad_type_exception
                     ("back() called on non-list utree type", get_type()));
@@ -1381,7 +1381,7 @@ namespace boost { namespace spirit
         }
 
         // otherwise...
-        if (get_type() != type::list_type) 
+        if (get_type() != type::list_type)
             BOOST_THROW_EXCEPTION(
                 bad_type_exception
                     ("back() called on non-list utree type", get_type()));
@@ -1602,7 +1602,7 @@ namespace boost { namespace spirit
                     "eval() called on non-function utree type", get_type()));
         return (*pf)(env);
     }
-    
+
     inline utree utree::eval(utree& env) const
     {
         if (get_type() == type::reference_type)
@@ -1614,12 +1614,12 @@ namespace boost { namespace spirit
                     "eval() called on non-function utree type", get_type()));
         return (*pf)(env);
     }
-    
+
     inline utree utree::operator() (utree const& env) const
     {
         return eval(env);
     }
-    
+
     inline utree utree::operator() (utree& env) const
     {
         return eval(env);

@@ -55,8 +55,7 @@ namespace is_incrementable_
   
 # endif 
 
-# if BOOST_WORKAROUND(__MWERKS__, BOOST_TESTED_AT(0x3202)) \
-    || BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
+# if BOOST_WORKAROUND(__MWERKS__, BOOST_TESTED_AT(0x3202)) 
 #  define BOOST_comma(a,b) (a)
 # else 
   // In case an operator++ is found that returns void, we'll use ++x,0

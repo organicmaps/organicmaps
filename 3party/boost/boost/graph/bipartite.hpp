@@ -198,7 +198,6 @@ namespace boost {
     /// General types and variables
     typedef typename property_traits <PartitionMap>::value_type partition_color_t;
     typedef typename graph_traits <Graph>::vertex_descriptor vertex_descriptor_t;
-    typedef typename graph_traits <Graph>::vertex_iterator vertex_iterator_t;
 
     /// Declare dfs visitor
     //    detail::empty_recorder recorder;

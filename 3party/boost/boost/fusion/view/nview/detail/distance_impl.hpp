@@ -8,6 +8,7 @@
 #if !defined(BOOST_FUSION_NVIEW_DISTANCE_IMPL_SEP_23_2009_0328PM)
 #define BOOST_FUSION_NVIEW_DISTANCE_IMPL_SEP_23_2009_0328PM
 
+#include <boost/fusion/support/config.hpp>
 #include <boost/fusion/iterator/distance.hpp>
 
 namespace boost { namespace fusion 
@@ -30,6 +31,7 @@ namespace boost { namespace fusion
                     typename First::first_type, typename Last::first_type
                 >::type type;
 
+                BOOST_FUSION_GPU_ENABLED
                 static type
                 call(First const& /*first*/, Last const& /*last*/)
                 {

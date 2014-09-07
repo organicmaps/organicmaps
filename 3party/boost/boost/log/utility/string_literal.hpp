@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2013.
+ *          Copyright Andrey Semashev 2007 - 2014.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -18,6 +18,7 @@
 #include <cstddef>
 #include <stdexcept>
 #include <iosfwd>
+#include <ios> // std::streamsize
 #include <string>
 #include <iterator>
 #include <boost/operators.hpp>
@@ -28,7 +29,7 @@
 #include <boost/log/utility/string_literal_fwd.hpp>
 #include <boost/log/detail/header.hpp>
 
-#ifdef BOOST_LOG_HAS_PRAGMA_ONCE
+#ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
 #endif
 
@@ -92,7 +93,7 @@ public:
      *
      * \post <tt>empty() == true</tt>
      */
-    basic_string_literal() { clear(); }
+    basic_string_literal() BOOST_NOEXCEPT { clear(); }
 
     /*!
      * Constructor from a string literal
@@ -105,7 +106,7 @@ public:
         //! \cond
         , typename enable_if< is_same< T, const value_type >, int >::type = 0
         //! \endcond
-        )
+        ) BOOST_NOEXCEPT
         : m_pStart(p), m_Len(LenV - 1)
     {
     }
@@ -116,7 +117,7 @@ public:
      * \post <tt>*this == that</tt>
      * \param that Source literal to copy string from
      */
-    basic_string_literal(basic_string_literal const& that) : m_pStart(that.m_pStart), m_Len(that.m_Len) {}
+    basic_string_literal(basic_string_literal const& that) BOOST_NOEXCEPT : m_pStart(that.m_pStart), m_Len(that.m_Len) {}
 
     /*!
      * Assignment operator
@@ -124,7 +125,7 @@ public:
      * \post <tt>*this == that</tt>
      * \param that Source literal to copy string from
      */
-    this_type& operator= (this_type const& that)
+    this_type& operator= (this_type const& that) BOOST_NOEXCEPT
     {
         return assign(that);
     }
@@ -143,7 +144,7 @@ public:
 #else
     this_type&
 #endif // BOOST_LOG_DOXYGEN_PASS
-    operator= (T(&p)[LenV])
+    operator= (T(&p)[LenV]) BOOST_NOEXCEPT
     {
         return assign(p);
     }
@@ -154,7 +155,7 @@ public:
      * \param that Comparand
      * \return \c true if the comparand string equals to this string, \c false otherwise
      */
-    bool operator== (this_type const& that) const
+    bool operator== (this_type const& that) const BOOST_NOEXCEPT
     {
         return (compare_internal(m_pStart, m_Len, that.m_pStart, that.m_Len) == 0);
     }
@@ -164,7 +165,7 @@ public:
      * \param str Comparand. Must point to a zero-terminated sequence of characters, must not be NULL.
      * \return \c true if the comparand string equals to this string, \c false otherwise
      */
-    bool operator== (const_pointer str) const
+    bool operator== (const_pointer str) const BOOST_NOEXCEPT
     {
         return (compare_internal(m_pStart, m_Len, str, traits_type::length(str)) == 0);
     }
@@ -185,7 +186,7 @@ public:
      * \param that Comparand
      * \return \c true if this string is less than the comparand, \c false otherwise
      */
-    bool operator< (this_type const& that) const
+    bool operator< (this_type const& that) const BOOST_NOEXCEPT
     {
         return (compare_internal(m_pStart, m_Len, that.m_pStart, that.m_Len) < 0);
     }
@@ -195,7 +196,7 @@ public:
      * \param str Comparand. Must point to a zero-terminated sequence of characters, must not be NULL.
      * \return \c true if this string is less than the comparand, \c false otherwise
      */
-    bool operator< (const_pointer str) const
+    bool operator< (const_pointer str) const BOOST_NOEXCEPT
     {
         return (compare_internal(m_pStart, m_Len, str, traits_type::length(str)) < 0);
     }
@@ -216,7 +217,7 @@ public:
      * \param that Comparand
      * \return \c true if this string is greater than the comparand, \c false otherwise
      */
-    bool operator> (this_type const& that) const
+    bool operator> (this_type const& that) const BOOST_NOEXCEPT
     {
         return (compare_internal(m_pStart, m_Len, that.m_pStart, that.m_Len) > 0);
     }
@@ -226,7 +227,7 @@ public:
      * \param str Comparand. Must point to a zero-terminated sequence of characters, must not be NULL.
      * \return \c true if this string is greater than the comparand, \c false otherwise
      */
-    bool operator> (const_pointer str) const
+    bool operator> (const_pointer str) const BOOST_NOEXCEPT
     {
         return (compare_internal(m_pStart, m_Len, str, traits_type::length(str)) > 0);
     }
@@ -248,7 +249,7 @@ public:
      * \param i Requested character index
      * \return Constant reference to the requested character
      */
-    const_reference operator[] (size_type i) const
+    const_reference operator[] (size_type i) const BOOST_NOEXCEPT
     {
         return m_pStart[i];
     }
@@ -270,24 +271,24 @@ public:
     /*!
      * \return Pointer to the beginning of the literal
      */
-    const_pointer c_str() const { return m_pStart; }
+    const_pointer c_str() const BOOST_NOEXCEPT { return m_pStart; }
     /*!
      * \return Pointer to the beginning of the literal
      */
-    const_pointer data() const { return m_pStart; }
+    const_pointer data() const BOOST_NOEXCEPT { return m_pStart; }
     /*!
      * \return Length of the literal
      */
-    size_type size() const { return m_Len; }
+    size_type size() const BOOST_NOEXCEPT { return m_Len; }
     /*!
      * \return Length of the literal
      */
-    size_type length() const { return m_Len; }
+    size_type length() const BOOST_NOEXCEPT { return m_Len; }
 
     /*!
      * \return \c true if the literal is an empty string, \c false otherwise
      */
-    bool empty() const
+    bool empty() const BOOST_NOEXCEPT
     {
         return (m_Len == 0);
     }
@@ -295,19 +296,19 @@ public:
     /*!
      * \return Iterator that points to the first character of the literal
      */
-    const_iterator begin() const { return m_pStart; }
+    const_iterator begin() const BOOST_NOEXCEPT { return m_pStart; }
     /*!
      * \return Iterator that points after the last character of the literal
      */
-    const_iterator end() const { return m_pStart + m_Len; }
+    const_iterator end() const BOOST_NOEXCEPT { return m_pStart + m_Len; }
     /*!
      * \return Reverse iterator that points to the last character of the literal
      */
-    const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); }
+    const_reverse_iterator rbegin() const BOOST_NOEXCEPT { return const_reverse_iterator(end()); }
     /*!
      * \return Reverse iterator that points before the first character of the literal
      */
-    const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
+    const_reverse_iterator rend() const BOOST_NOEXCEPT { return const_reverse_iterator(begin()); }
 
     /*!
      * \return STL string constructed from the literal
@@ -322,7 +323,7 @@ public:
      *
      * \post <tt>empty() == true</tt>
      */
-    void clear()
+    void clear() BOOST_NOEXCEPT
     {
         m_pStart = g_EmptyString;
         m_Len = 0;
@@ -330,13 +331,13 @@ public:
     /*!
      * The method swaps two literals
      */
-    void swap(this_type& that)
+    void swap(this_type& that) BOOST_NOEXCEPT
     {
-        register const_pointer p = m_pStart;
+        const_pointer p = m_pStart;
         m_pStart = that.m_pStart;
         that.m_pStart = p;
 
-        register size_type l = m_Len;
+        size_type l = m_Len;
         m_Len = that.m_Len;
         that.m_Len = l;
     }
@@ -347,7 +348,7 @@ public:
      * \post <tt>*this == that</tt>
      * \param that Source literal to copy string from
      */
-    this_type& assign(this_type const& that)
+    this_type& assign(this_type const& that) BOOST_NOEXCEPT
     {
         m_pStart = that.m_pStart;
         m_Len = that.m_Len;
@@ -368,7 +369,7 @@ public:
 #else
     this_type&
 #endif // BOOST_LOG_DOXYGEN_PASS
-    assign(T(&p)[LenV])
+    assign(T(&p)[LenV]) BOOST_NOEXCEPT
     {
         m_pStart = p;
         m_Len = LenV - 1;
@@ -392,7 +393,7 @@ public:
         if (pos > m_Len)
             BOOST_THROW_EXCEPTION(std::out_of_range("basic_string_literal::copy: the position is out of range"));
 
-        register size_type len = m_Len - pos;
+        size_type len = m_Len - pos;
         if (len > n)
             len = n;
         traits_type::copy(str, m_pStart + pos, len);
@@ -417,7 +418,7 @@ public:
         if (pos > m_Len)
             BOOST_THROW_EXCEPTION(std::out_of_range("basic_string_literal::compare: the position is out of range"));
 
-        register size_type compare_size = m_Len - pos;
+        size_type compare_size = m_Len - pos;
         if (compare_size > len)
             compare_size = len;
         if (compare_size > n)
@@ -436,7 +437,7 @@ public:
      *
      * \b Throws: An <tt>std::exception</tt>-based exception if \a pos is out of range.
      */
-    int compare(size_type pos, size_type n, const_pointer str) const
+    int compare(size_type pos, size_type n, const_pointer str) const BOOST_NOEXCEPT
     {
         return compare(pos, n, str, traits_type::length(str));
     }
@@ -452,7 +453,7 @@ public:
      *
      * \b Throws: An <tt>std::exception</tt>-based exception if \a pos is out of range.
      */
-    int compare(size_type pos, size_type n, this_type const& that) const
+    int compare(size_type pos, size_type n, this_type const& that) const BOOST_NOEXCEPT
     {
         return compare(pos, n, that.c_str(), that.size());
     }
@@ -464,7 +465,7 @@ public:
      * \return Zero if the comparand equals this string, a negative value if this string is less than the comparand,
      *         a positive value if this string is greater than the comparand.
      */
-    int compare(const_pointer str, size_type len) const
+    int compare(const_pointer str, size_type len) const BOOST_NOEXCEPT
     {
         return compare(0, m_Len, str, len);
     }
@@ -475,7 +476,7 @@ public:
      * \return Zero if the comparand equals this string, a negative value if this string is less than the comparand,
      *         a positive value if this string is greater than the comparand.
      */
-    int compare(const_pointer str) const
+    int compare(const_pointer str) const BOOST_NOEXCEPT
     {
         return compare(0, m_Len, str, traits_type::length(str));
     }
@@ -486,7 +487,7 @@ public:
      * \return Zero if the comparand equals this string, a negative value if this string is less than the comparand,
      *         a positive value if this string is greater than the comparand.
      */
-    int compare(this_type const& that) const
+    int compare(this_type const& that) const BOOST_NOEXCEPT
     {
         return compare(0, m_Len, that.c_str(), that.size());
     }
@@ -494,16 +495,15 @@ public:
 private:
 #ifndef BOOST_LOG_DOXYGEN_PASS
     //! Internal comparison implementation
-    static int compare_internal(const_pointer pLeft, size_type LeftLen, const_pointer pRight, size_type RightLen)
+    static int compare_internal(const_pointer pLeft, size_type LeftLen, const_pointer pRight, size_type RightLen) BOOST_NOEXCEPT
     {
         if (pLeft != pRight)
         {
-            register const int result = traits_type::compare(
-                pLeft, pRight, (LeftLen < RightLen ? LeftLen : RightLen));
+            const int result = traits_type::compare(pLeft, pRight, (LeftLen < RightLen ? LeftLen : RightLen));
             if (result != 0)
                 return result;
         }
-        return static_cast< int >(LeftLen - RightLen);
+        return LeftLen < RightLen ? -1 : (LeftLen > RightLen ? 1 : 0);
     }
 #endif // BOOST_LOG_DOXYGEN_PASS
 };
@@ -512,20 +512,64 @@ template< typename CharT, typename TraitsT >
 typename basic_string_literal< CharT, TraitsT >::value_type const
 basic_string_literal< CharT, TraitsT >::g_EmptyString[1] = { 0 };
 
+namespace aux {
+
+template< typename CharT, typename TraitsT >
+inline void insert_fill_chars(std::basic_ostream< CharT, TraitsT >& strm, std::size_t n)
+{
+    enum { chunk_size = 8 };
+    CharT fill_chars[chunk_size];
+    const CharT filler = strm.fill();
+    for (unsigned int i = 0; i < chunk_size; ++i)
+        fill_chars[i] = filler;
+    for (; n >= chunk_size && strm.good(); n -= chunk_size)
+        strm.write(fill_chars, static_cast< std::size_t >(chunk_size));
+    if (n > 0 && strm.good())
+        strm.write(fill_chars, n);
+}
+
+template< typename CharT, typename TraitsT >
+void insert_aligned(std::basic_ostream< CharT, TraitsT >& strm, const CharT* p, std::size_t size)
+{
+    const std::size_t alignment_size = static_cast< std::size_t >(strm.width()) - size;
+    const bool align_left = (strm.flags() & std::basic_ostream< CharT, TraitsT >::adjustfield) == std::basic_ostream< CharT, TraitsT >::left;
+    if (align_left)
+    {
+        strm.write(p, size);
+        if (strm.good())
+            aux::insert_fill_chars(strm, alignment_size);
+    }
+    else
+    {
+        aux::insert_fill_chars(strm, alignment_size);
+        if (strm.good())
+            strm.write(p, size);
+    }
+}
+
+} // namespace aux
+
 //! Output operator
 template< typename CharT, typename StrmTraitsT, typename LitTraitsT >
 inline std::basic_ostream< CharT, StrmTraitsT >& operator<< (
     std::basic_ostream< CharT, StrmTraitsT >& strm, basic_string_literal< CharT, LitTraitsT > const& lit)
 {
-    strm.write(lit.c_str(), static_cast< std::streamsize >(lit.size()));
+    if (strm.good())
+    {
+        const std::size_t size = lit.size();
+        const std::size_t w = static_cast< std::size_t >(strm.width());
+        if (w <= size)
+            strm.write(lit.c_str(), static_cast< std::streamsize >(size));
+        else
+            aux::insert_aligned(strm, lit.c_str(), lit.size());
+        strm.width(0);
+    }
     return strm;
 }
 
 //! External swap
 template< typename CharT, typename TraitsT >
-inline void swap(
-    basic_string_literal< CharT, TraitsT >& left,
-    basic_string_literal< CharT, TraitsT >& right)
+inline void swap(basic_string_literal< CharT, TraitsT >& left, basic_string_literal< CharT, TraitsT >& right) BOOST_NOEXCEPT
 {
     left.swap(right);
 }
