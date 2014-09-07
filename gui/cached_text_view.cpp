@@ -43,8 +43,6 @@ namespace gui
 
   void CachedTextView::GetMiniBoundRects(RectsT & rects) const
   {
-    checkDirtyLayout();
-
     rects.resize(m_layout->boundRects().size());
     copy(m_layout->boundRects().begin(),
          m_layout->boundRects().end(),

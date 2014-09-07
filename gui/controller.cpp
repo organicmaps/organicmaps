@@ -1,12 +1,10 @@
 #include "controller.hpp"
 #include "element.hpp"
-#include "display_list_cache.hpp"
 
-#include "../map/drawer.hpp"
-
-#include "../graphics/overlay.hpp"
+#include "../graphics/screen.hpp"
 
 #include "../std/bind.hpp"
+
 
 namespace gui
 {
@@ -31,38 +29,29 @@ namespace gui
   Controller::~Controller()
   {}
 
-  void Controller::SelectElements(m2::PointD const & pt, elem_list_t & l, bool onlyVisible)
+  shared_ptr<Element> Controller::SelectTopElement(m2::PointD const & pt, bool onlyVisible) const
   {
-    for (elem_list_t::const_iterator it = m_Elements.begin();
-         it != m_Elements.end();
-         ++it)
+    shared_ptr<Element> res;
+
+    for (ElemsT::const_iterator it = m_Elements.begin(); it != m_Elements.end(); ++it)
     {
       shared_ptr<gui::Element> const & e = *it;
       if ((!onlyVisible || e->isVisible()) && e->hitTest(pt))
-        l.push_back(e);
+      {
+        if (!res || e->depth() > res->depth())
+          res = e;
+      }
     }
-  }
 
-  namespace
-  {
-    bool DepthGreater(const shared_ptr<Element> & e1,
-                      const shared_ptr<Element> & e2)
-    {
-      return e1->depth() > e2->depth();
-    }
+    return res;
   }
 
   bool Controller::OnTapStarted(m2::PointD const & pt)
   {
-    elem_list_t l;
-
-    SelectElements(pt, l, true);
-    l.sort(DepthGreater);
-
-    /// selecting first hit-tested element from the list
-    if (!l.empty())
+    shared_ptr<Element> e = SelectTopElement(pt, true);
+    if (e)
     {
-      m_focusedElement = l.front();
+      m_focusedElement = e;
       m_focusedElement->onTapStarted(pt);
       m_LastTapCancelled = false;
       return true;
@@ -86,7 +75,7 @@ namespace gui
           m_focusedElement->onTapMoved(pt);
       }
 
-      /// event handled
+      // event handled
       return true;
     }
 
@@ -132,7 +121,7 @@ namespace gui
 
   void Controller::RemoveElement(shared_ptr<Element> const & e)
   {
-    elem_list_t::iterator it = find(m_Elements.begin(), m_Elements.end(), e);
+    ElemsT::iterator it = find(m_Elements.begin(), m_Elements.end(), e);
 
     if (it != m_Elements.end())
       m_Elements.erase(it);

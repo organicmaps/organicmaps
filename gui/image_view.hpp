@@ -3,13 +3,14 @@
 #include "element.hpp"
 
 #include "../graphics/image.hpp"
-#include "../graphics/display_list.hpp"
 
 #include "../std/unique_ptr.hpp"
+
 
 namespace graphics
 {
   class OverlayRenderer;
+  class DisplayList;
 }
 
 namespace gui
@@ -21,10 +22,6 @@ namespace gui
     unique_ptr<graphics::DisplayList> m_displayList;
 
   public:
-
-    void cache();
-    void purge();
-
     typedef Element BaseT;
 
     struct Params : public BaseT::Params
@@ -35,9 +32,16 @@ namespace gui
 
     ImageView(Params const & p);
 
+    void setImage(graphics::Image::Info const & info);
+
+    /// @name Override from graphics::OverlayElement and gui::Element.
+    //@{
     virtual m2::RectD GetBoundRect() const;
 
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-    void setImage(graphics::Image::Info const & info);
+
+    void cache();
+    void purge();
+    //@}
   };
 }

@@ -36,6 +36,7 @@ private:
   unique_ptr<gui::Button> m_downloadButton;
   /// country status message
   unique_ptr<gui::TextView> m_statusMsg;
+
   /// current map name, "Province" part of the fullName
   string m_mapName;
   /// current map group name, "Country" part of the fullName

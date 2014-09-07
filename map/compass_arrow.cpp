@@ -129,6 +129,7 @@ void CompassArrow::CreateAnim(double startAlfa, double endAlfa, double timeInter
 
   if (m_animTask)
     m_animTask->Cancel();
+
   m_animTask.reset(new AlfaAnimationTask(startAlfa, endAlfa, timeInterval, timeOffset, m_framework));
   m_animTask->AddCallback(anim::Task::EEnded, bind(&CompassArrow::AlfaAnimEnded, this, isVisibleAtEnd));
   m_framework->GetAnimController()->AddTask(m_animTask);
@@ -202,22 +203,12 @@ bool CompassArrow::onTapEnded(m2::PointD const & pt)
   anim::Controller * animController = m_framework->GetAnimController();
   anim::Controller::Guard guard(animController);
 
-  /// switching off compass follow mode
+  // switching off compass follow mode
   m_framework->GetInformationDisplay().locationState()->StopCompassFollowing();
-
-  double startAngle = m_framework->GetNavigator().Screen().GetAngle();
-  double endAngle = 0;
-
-  m_framework->GetAnimator().RotateScreen(startAngle, endAngle);
-
+  m_framework->GetAnimator().RotateScreen(m_framework->GetNavigator().Screen().GetAngle(), 0.0);
   m_framework->Invalidate();
 
   return true;
-}
-
-bool CompassArrow::roughHitTest(m2::PointD const & pt) const
-{
-  return hitTest(pt);
 }
 
 bool CompassArrow::hitTest(m2::PointD const & pt) const

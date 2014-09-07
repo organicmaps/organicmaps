@@ -134,6 +134,7 @@ void CountryStatusDisplay::CountryProgress(storage::TIndex const & idx, pair<int
   if ((m_countryIdx == idx) && (m_countryStatus == storage::EDownloading))
   {
     m_countryProgress = progress;
+
     setIsDirtyLayout(true);
     invalidate();
   }
@@ -152,9 +153,7 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
   bp.m_depth = depth();
   bp.m_minWidth = 200;
   bp.m_minHeight = 40;
-  bp.m_pivot = m2::PointD(0, 0);
   bp.m_position = EPosCenter;
-  bp.m_text = "Download";
 
   m_downloadButton.reset(new gui::Button(bp));
   m_downloadButton->setOnClickListener(bind(&CountryStatusDisplay::downloadCountry, this));
@@ -169,8 +168,6 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
 
   gui::TextView::Params tp;
   tp.m_depth = depth();
-  tp.m_pivot = m2::PointD(0, 0);
-  tp.m_text = "Downloading";
 
   m_statusMsg.reset(new gui::TextView(tp));
 
@@ -253,21 +250,19 @@ void CountryStatusDisplay::setCountryIndex(storage::TIndex const & idx)
 void CountryStatusDisplay::draw(graphics::OverlayRenderer *r,
                                 math::Matrix<double, 3, 3> const & m) const
 {
-  if (!isVisible())
-    return;
+  if (isVisible())
+  {
+    checkDirtyLayout();
 
-  checkDirtyLayout();
-
-  if (m_downloadButton->isVisible())
-    m_downloadButton->draw(r, m);
-  if (m_statusMsg->isVisible())
-    m_statusMsg->draw(r, m);
+    if (m_downloadButton->isVisible())
+      m_downloadButton->draw(r, m);
+    if (m_statusMsg->isVisible())
+      m_statusMsg->draw(r, m);
+  }
 }
 
 m2::RectD CountryStatusDisplay::GetBoundRect() const
 {
-  checkDirtyLayout();
-
   m2::RectD r(pivot(), pivot());
   if (m_downloadButton->isVisible())
     r.Add(m_downloadButton->GetBoundRect());
@@ -275,7 +270,7 @@ m2::RectD CountryStatusDisplay::GetBoundRect() const
   return r;
 }
 
-void CountryStatusDisplay::setController(gui::Controller *controller)
+void CountryStatusDisplay::setController(gui::Controller * controller)
 {
   Element::setController(controller);
   m_statusMsg->setController(controller);

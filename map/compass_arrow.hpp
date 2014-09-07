@@ -63,7 +63,6 @@ public:
 
   void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
   bool isVisible() const;
-  bool roughHitTest(m2::PointD const & pt) const;
   bool hitTest(m2::PointD const & pt) const;
 
   void cache();

@@ -111,6 +111,9 @@ namespace gui
 
   void Button::cacheButtonBody(EState state)
   {
+    double const k = visualScale();
+    m2::RectD const rr = GetBoundRect();
+
     graphics::Screen * cs = m_controller->GetCacheScreen();
 
     cs->beginFrame();
@@ -121,9 +124,6 @@ namespace gui
     dl.reset(cs->createDisplayList());
 
     cs->setDisplayList(dl.get());
-
-    double const k = visualScale();
-    m2::RectD const rr = GetBoundRect();
 
     cs->drawRoundedRectangle(m2::RectD(-rr.SizeX() / 2,
                                        -rr.SizeY() / 2,
@@ -184,16 +184,16 @@ namespace gui
 
   void Button::draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
   {
-    if (!isVisible())
-      return;
+    if (isVisible())
+    {
+      checkDirtyLayout();
 
-    checkDirtyLayout();
+      math::Matrix<double, 3, 3> const drawM = math::Shift(math::Identity<double, 3>(), pivot());
 
-    math::Matrix<double, 3, 3> const drawM = math::Shift(math::Identity<double, 3>(), pivot());
+      r->drawDisplayList(m_dls.at(state()).get(), drawM * m);
 
-    r->drawDisplayList(m_dls.at(state()).get(), drawM * m);
-
-    m_textView->draw(r, m);
+      m_textView->draw(r, m);
+    }
   }
 
   void Button::setPivot(m2::PointD const & pv)

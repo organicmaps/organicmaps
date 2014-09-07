@@ -22,7 +22,6 @@ namespace gui
   class Element : public graphics::OverlayElement
   {
   public:
-
     enum EState
     {
       EInactive = 0,
@@ -32,18 +31,15 @@ namespace gui
     };
 
   protected:
-
     Controller * m_controller;
 
   private:
-
     EState m_state;
 
     mutable map<EState, graphics::FontDesc> m_fonts;
     mutable map<EState, graphics::Color> m_colors;
 
   public:
-
     typedef OverlayElement::Params Params;
 
     Element(Params const & p);
@@ -58,32 +54,36 @@ namespace gui
     graphics::Color const & color(EState state) const;
 
     /// Implement this method to handle single tap on the GUI element.
+    //@{
     virtual bool onTapStarted(m2::PointD const & pt);
     virtual bool onTapMoved(m2::PointD const & pt);
     virtual bool onTapEnded(m2::PointD const & pt);
     virtual bool onTapCancelled(m2::PointD const & pt);
+    //@}
 
-    /// invalidate the rendering system to redraw the gui elements.
+    /// Invalidate the rendering system to redraw the gui elements.
     void invalidate();
     /// obtain @see VisualScale
     double visualScale() const;
 
-    /// this method is called to cache visual appearance of gui::Element for fast rendering.
-    /// it should be called when isDirtyDrawing is set to true(visual parameters of object is changed).
+    /// This method is called to cache visual appearance of gui::Element for fast rendering.
+    /// It should be called after layout() is calculated properly.
     virtual void cache();
-    /// this method is called upon renderPolicy destruction and should clean
+    /// This method is called upon renderPolicy destruction and should clean
     /// all rendering-related resources, p.e. displayLists.
     virtual void purge();
-    /// this method is called in each frame and should be overriden if the
+    /// This method is called in each frame and should be overriden if the
     /// element wants to update it's internal state.
     virtual void update();
-    /// this method is called after gui::Controller::SetRenderParams to
+    /// This method is called after gui::Controller::SetRenderParams to
     /// perform layout calculations which might depends on RenderParams.
+    /// It should be called when isDirtyLayout is set to true (visual parameters of object is changed).
     virtual void layout();
-    /// set the parent controller for this element.
+    /// Set the parent controller for this element. Should be called for all inner Elemen's too.
     virtual void setController(Controller * controller);
 
-    /// check if the layout of element is dirty and re-layout element if needed.
+    /// Check if the layout of element is dirty and re-layout element if needed.
+    /// Used in a "lazy" layout/cache strategy (called before actual drawing).
     void checkDirtyLayout() const;
 
     /// @name Override from OverlayElement.

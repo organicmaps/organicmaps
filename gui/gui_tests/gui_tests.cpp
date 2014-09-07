@@ -5,7 +5,10 @@
 #include "../image_view.hpp"
 #include "../cached_text_view.hpp"
 
+#include "../../graphics/display_list.hpp"
+
 #include "../../map/country_status_display.hpp"
+
 
 struct ButtonTest
 {

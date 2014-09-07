@@ -85,8 +85,6 @@ namespace gui
 
   void TextView::cache()
   {
-    layout();
-
     cacheBody(EActive);
     cacheBody(EPressed);
   }

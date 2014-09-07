@@ -4,9 +4,10 @@
 #include "../graphics/screen.hpp"
 #include "../graphics/display_list.hpp"
 
+#include "../geometry/transformations.hpp"
+
 #include "../base/matrix.hpp"
 
-#include "../geometry/transformations.hpp"
 
 namespace gui
 {
@@ -34,7 +35,7 @@ namespace gui
           math::Identity<double, 3>(),
           -(int)m_image.m_size.x / 2, -(int)m_image.m_size.y / 2);
 
-    uint32_t imageResID = cs->mapInfo(m_image);
+    uint32_t const imageResID = cs->mapInfo(m_image);
     cs->drawImage(m, imageResID, depth());
 
     cs->setDisplayList(0);
@@ -71,10 +72,10 @@ namespace gui
       r->drawDisplayList(m_displayList.get(), drawM * m);
     }
   }
+
   void ImageView::setImage(graphics::Image::Info const & info)
   {
     m_image = info;
     setIsDirtyLayout(true);
-    invalidate();
   }
 }

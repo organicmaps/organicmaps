@@ -2,20 +2,21 @@
 
 #include "display_list_cache.hpp"
 
+#include "../graphics/defines.hpp"
+
+#include "../geometry/point2d.hpp"
+
+#include "../base/strings_bundle.hpp"
+
 #include "../std/shared_ptr.hpp"
 #include "../std/unique_ptr.hpp"
 #include "../std/function.hpp"
 #include "../std/list.hpp"
 
-#include "../geometry/point2d.hpp"
-#include "../graphics/defines.hpp"
-
-#include "../base/strings_bundle.hpp"
 
 namespace graphics
 {
   class GlyphCache;
-  class OverlayElement;
   class Screen;
 }
 
@@ -47,16 +48,15 @@ namespace gui
 
   private:
 
-    /// element that has focus.
+    /// Element that has focus.
     shared_ptr<Element> m_focusedElement;
 
-    typedef list<shared_ptr<graphics::OverlayElement> > base_list_t;
-    typedef list<shared_ptr<Element> > elem_list_t;
+    typedef list<shared_ptr<Element> > ElemsT;
 
-    elem_list_t m_Elements;
+    ElemsT m_Elements;
 
-    /// select elements under specified point
-    void SelectElements(m2::PointD const & pt, elem_list_t & l, bool onlyVisible);
+    /// Select top element under specified point for tap processing.
+    shared_ptr<Element> SelectTopElement(m2::PointD const & pt, bool onlyVisible) const;
 
     /// Invalidate GUI function
     TInvalidateFn m_InvalidateFn;

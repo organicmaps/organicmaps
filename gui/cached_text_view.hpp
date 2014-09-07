@@ -38,6 +38,8 @@ namespace gui
 
     void setText(string const & text);
 
+    /// @name Overrider from graphics::OverlayElement and gui::Element.
+    //@{
     virtual void GetMiniBoundRects(RectsT & rects) const;
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
 
@@ -48,5 +50,6 @@ namespace gui
     void setFont(EState state, graphics::FontDesc const & desc);
 
     void setPivot(m2::PointD const & pv);
+    //@}
   };
 }

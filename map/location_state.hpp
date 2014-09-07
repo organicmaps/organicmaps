@@ -91,10 +91,6 @@ namespace location
     void cachePositionArrow();
     void cacheLocationMark();
 
-    void cache();
-    void purge();
-    void update();
-
     m2::RectD m_boundRect;
 
     void CheckCompassFollowing();
@@ -155,8 +151,11 @@ namespace location
     virtual m2::RectD GetBoundRect() const;
 
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-    bool roughHitTest(m2::PointD const & pt) const;
     bool hitTest(m2::PointD const & pt) const;
+
+    void cache();
+    void purge();
+    void update();
     //@}
   };
 }
