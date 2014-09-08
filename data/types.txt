@@ -299,7 +299,7 @@ railway|abandoned|bridge
 man_made|lighthouse
 highway|path|demanding_mountain_hiking
 highway|primary
-amenity|restaurant|hotel
+tourism|hotel
 power|generator
 highway|pedestrian|bridge
 man_made|pipeline|overground
@@ -983,3 +983,4 @@ craft|painter
 craft|gardener
 internet_access
 internet_access|wlan
+amenity|waste_disposal

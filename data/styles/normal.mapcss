@@ -1034,7 +1034,7 @@ line|z14[boundary=administrative][border_type=country]
   -x-kot-layer: top;
 }
 area|z14-[tourism=alpine_hut],
-node|z14-[tourism=alpine_hut]
+node|z14-[tourism=alpine_hut],
 {
   icon-image: alpine_hut.svg;
   text-offset: 10;
@@ -2411,11 +2411,6 @@ line|z16[barrier=hedge]
   width: 0.4;
   z-index: 879;
 }
-area|z16-[amenity=restaurant][hotel],
-node|z16-[amenity=restaurant][hotel]
-{
-  icon-image: hotel_and_restaurant.svg;
-}
 line|z16[boundary=administrative][border_type=county]
 {
   color: #f9574b;
@@ -3411,7 +3406,7 @@ node|z17-[tourism=information][information=guidepost]
   icon-image: information-guidepost.svg;
 }
 line|z16-[barrier=fence],
-line|z16-[historic=citywalls]
+line|z16-[historic=citywalls],
 {
   color: #b0b0b0;
   width: .1;
@@ -3777,7 +3772,8 @@ node|z16-[amenity=pub]
 {
   icon-image: pub.svg;
 }
-node|z17-[amenity=recycling]
+node|z17-[amenity=recycling],
+node|z17-[amenity=waste_disposal],
 {
   icon-image: recycling.svg;
 }
@@ -3808,11 +3804,12 @@ node|z16-[railway=station]
 
 @import("include/base_publictransport.mapcss");
 
-/* Eval magic */
 line[railway]
 {
   text-position: line;
 }
+
+/* Process bridge and tunnel */
 line|z15-[bridge?]::bridgewhite,
 line|z15-[tunnel?]::tunnelwhite
 {
@@ -3836,6 +3833,7 @@ line|z15-[tunnel?]::tunnelblack
   casing-color: #707070;
   casing-dashes: 5,5;
 }
+
 line|z16-[oneway?]::arrows
 {
   pattern-offset: 200;
@@ -3843,6 +3841,7 @@ line|z16-[oneway?]::arrows
   pattern-image: arrow.svg;
   pattern-spacing: 234;
 }
+
 line|z16-[natural=tree_row]
 {
   pattern-image: tree.svg;

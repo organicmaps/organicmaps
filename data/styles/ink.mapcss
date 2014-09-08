@@ -45,7 +45,9 @@ area::* {
 *[man_made],
 *[natural],
 *[power],
-*[landuse]
+*[landuse],
+*[craft],
+*[internet_access],
 {
   text-position: center
 }
@@ -500,7 +502,11 @@ line|z12[railway=disused]
   opacity: 0.5;
 }
 area|z12-13[natural=peak],
-node|z12-13[natural=peak]
+node|z12-13[natural=peak],
+area|z12-13[natural=rock],
+node|z12-13[natural=rock],
+area|z13-15[natural=bare_rock],
+node|z13-15[natural=bare_rock],
 {
   icon-image: peak-mini.svg;
 }
@@ -652,7 +658,11 @@ node|z13[aerialway=station]
   symbol-size: 2;
 }
 area|z13-15[natural=peak],
-node|z13-15[natural=peak]
+node|z13-15[natural=peak],
+area|z13-15[natural=rock],
+node|z13-15[natural=rock],
+area|z13-15[natural=bare_rock],
+node|z13-15[natural=bare_rock],
 {
   text-offset: 10;
   text: name;
@@ -801,10 +811,12 @@ line|z14[railway=yard]
   width: 1.6;
   z-index: 208;
 }
-area|z14-15[natural=cave_entrance],
 area|z14-15[natural=volcano],
+node|z14-15[natural=volcano],
 node|z14-15[natural=cave_entrance],
-node|z14-15[natural=volcano]
+area|z14-15[natural=cave_entrance],
+node|z14-15[natural=cape],
+area|z14-15[natural=cape],
 {
   text-offset: 10;
   text: name;
@@ -821,7 +833,11 @@ line|z14[railway=abandoned]::d1p3
   dashes: 4.5,4.5;
 }
 area|z14-[natural=peak],
-node|z14-[natural=peak]
+node|z14-[natural=peak],
+area|z14-[natural=rock],
+node|z14-[natural=rock],
+area|z14-[natural=bare_rock],
+node|z14-[natural=bare_rock],
 {
   icon-image: peak.svg;
 }
@@ -981,10 +997,16 @@ line|z14[boundary=administrative][border_type=country]
   z-index: 533;
   -x-kot-layer: top;
 }
-area|z15-[tourism=alpine_hut],
-node|z15-[tourism=alpine_hut]
+area|z14-[tourism=alpine_hut],
+node|z14-[tourism=alpine_hut],
 {
   icon-image: alpine_hut.svg;
+  text-offset: 10;
+  font-size: 12;
+  text-halo-radius: 2;
+  text: name;
+  text-color: black;
+  text-halo-color: white;
 }
 line|z14[boundary=national_park]
 {
@@ -1528,7 +1550,7 @@ node|z16[amenity=parking]
 area|z15-[tourism=viewpoint],
 node|z15-[tourism=viewpoint],
 area|z15-[tourism=artwork],
-node|z15-[tourism=artwork]
+node|z15-[tourism=artwork],
 {
   icon-image: viewpoint.svg;
 }
@@ -2115,10 +2137,14 @@ area|z17-[amenity],
 area|z17-[historic],
 area|z17-[office][office!=no],
 area|z17-[tourism],
+area|z17-[craft],
+area|z17-[internet_access],
 node|z17-[amenity],
 node|z17-[historic],
 node|z17-[office][office!=no],
-node|z17-[tourism]
+node|z17-[tourism],
+node|z17-[craft],
+node|z17-[internet_access],
 {
   font-size: 11;
   text-halo-radius: 2;
@@ -2217,7 +2243,11 @@ node|z16-[power=pole]
   icon-image: power-pole.svg;
 }
 area|z16-[natural=peak],
-node|z16-[natural=peak]
+node|z16-[natural=peak],
+area|z16-[natural=rock],
+node|z16-[natural=rock],
+area|z16-[natural=bare_rock],
+node|z16-[natural=bare_rock],
 {
   text-offset: 10;
   text: name;
@@ -2333,11 +2363,6 @@ line|z16[barrier=hedge]
   width: 0.4;
   z-index: 879;
 }
-area|z16-[amenity=restaurant][hotel],
-node|z16-[amenity=restaurant][hotel]
-{
-  icon-image: hotel_and_restaurant.svg;
-}
 line|z16[boundary=administrative][border_type=county]
 {
   color: #f9574b;
@@ -2395,10 +2420,12 @@ line|z16[boundary=administrative][border_type=suburb]
   z-index: 936;
   dashes: 4,20;
 }
-area|z16-[natural=cave_entrance],
+node|z16-[natural=volcano],
 area|z16-[natural=volcano],
 node|z16-[natural=cave_entrance],
-node|z16-[natural=volcano]
+area|z16-[natural=cave_entrance],
+node|z16-[natural=cape],
+area|z16-[natural=cape],
 {
   text-offset: 10;
   text: name;
@@ -2765,10 +2792,6 @@ area|z17-[amenity=hospital],
 node|z17-[amenity=hospital]
 {
   icon-image: hospital.svg;
-}
-node|z16-[natural=tree]
-{
-  icon-image: tree.svg;
 }
 line|z16[boundary=administrative][type=nation]
 {
@@ -3309,7 +3332,8 @@ node|z17-[tourism=information][information=guidepost]
 {
   icon-image: information-guidepost.svg;
 }
-line|z16-[barrier=fence]
+line|z16-[barrier=fence],
+line|z16-[historic=citywalls],
 {
   color: #b0b0b0;
   width: .1;
@@ -3670,7 +3694,8 @@ node|z16-[amenity=pub]
 {
   icon-image: pub.svg;
 }
-node|z17-[amenity=recycling]
+node|z17-[amenity=recycling],
+node|z17-[amenity=waste_disposal],
 {
   icon-image: recycling.svg;
 }
@@ -3701,11 +3726,12 @@ node|z16-[railway=station]
 
 @import("include/base_publictransport.mapcss");
 
-/* Eval magic */
 line[railway]
 {
   text-position: line;
 }
+
+/* Process bridge and tunnel */
 line|z15-[bridge?]::bridgewhite,
 line|z15-[tunnel?]::tunnelwhite
 {
@@ -3729,6 +3755,7 @@ line|z15-[tunnel?]::tunnelblack
   casing-color: #707070;
   casing-dashes: 5,5;
 }
+
 line|z16-[oneway?]::arrows
 {
   pattern-offset: 200;

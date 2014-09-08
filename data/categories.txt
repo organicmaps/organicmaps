@@ -1358,7 +1358,7 @@ ar:البريد
 da:3post
 tr:3postane|posta
 
-amenity-recycling
+amenity-recycling|amenity-waste_disposal
 en:recycling|trash|bin|garbage
 ru:мусорка
 uk:сміттєвий бак|сміття|корзина

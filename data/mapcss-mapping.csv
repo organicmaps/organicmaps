@@ -299,7 +299,7 @@ railway|abandoned|bridge;[railway=abandoned][bridge?];;name;int_name;298;
 man_made|lighthouse;[man_made=lighthouse];;name;int_name;299;
 highway|path|demanding_mountain_hiking;[highway=path][sac_scale=demanding_mountain_hiking];;name;int_name;300;
 highway|primary|motorroad;[highway=primary][motorroad?];x;name;int_name;301;highway|primary
-amenity|restaurant|hotel;[amenity=restaurant][hotel];;name;int_name;302;
+amenity|restaurant|hotel;[amenity=restaurant][hotel];x;name;int_name;302;tourism|hotel
 power|generator;[power=generator];;name;int_name;303;
 highway|pedestrian|bridge;[highway=pedestrian][bridge?];;name;int_name;304;
 man_made|pipeline|overground;[man_made=pipeline][location=overground];;name;int_name;305;
@@ -983,3 +983,4 @@ craft|painter;[craft=painter];;name;int_name;982;
 craft|gardener;[craft=gardener];;name;int_name;983;
 internet_access;[internet_access=yes];;name;int_name;984;
 internet_access|wlan;[internet_access=wlan];;name;int_name;985;
+amenity|waste_disposal;[amenity=waste_disposal];;name;int_name;986;

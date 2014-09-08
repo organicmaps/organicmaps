@@ -4268,64 +4268,6 @@ cont {
   }
 }
 cont {
-  name: "amenity-restaurant-hotel"
-  element {
-    scale: 16
-    symbol {
-      name: "hotel_and_restaurant"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "hotel_and_restaurant"
-      priority: 16002
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15002
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "hotel_and_restaurant"
-      priority: 16002
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15002
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "hotel_and_restaurant"
-      priority: 16002
-    }
-    caption {
-      primary {
-        height: 11
-        color: 4473924
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15002
-    }
-  }
-}
-cont {
   name: "amenity-restaurant-vegan"
   element {
     scale: 16
@@ -5019,6 +4961,60 @@ cont {
     }
     symbol {
       name: "university"
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "amenity-waste_disposal"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling"
+      apply_for_type: 1
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling"
+      apply_for_type: 1
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling"
+      apply_for_type: 1
       priority: 16002
     }
     caption {

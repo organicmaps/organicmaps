@@ -767,7 +767,6 @@ line|z16[highway=trunk_link]
 line|z16[highway=steps]
 {
   width: 4;
-  z-index: 687;
   color: #d0ccac;
   linecap: butt;
   dashes: 2.4,0.8;
@@ -1131,6 +1130,9 @@ line|z19-[highway=living_street]
 {
   width: 41;
 }
+
+/* Define priorities and area fill color for highways */
+
 area|z15-[area:highway=footway],
 area|z15-[area:highway=path],
 area|z15-[area:highway=steps]
@@ -1140,47 +1142,92 @@ area|z15-[area:highway=steps]
 line[highway=footway],
 line[highway=pedestrian],
 line[highway=path],
-line[highway=steps]
 {
   z-index: 50;
 }
-line[highway=steps],
-{
-  z-index: 50.6;
-}
+
 line[highway=cycleway],
-line[highway=track]
+line[highway=track],
 {
   z-index: 50.5;
 }
+line[highway=steps],
+{
+  z-index: 50.75;
+}
+
 area|z15-[area:highway=service],
 area|z15-[area:highway=residential],
 area|z15-[area:highway=unclassified],
-area|z15-[area:highway=living_street]
 {
   fill-color: white;
 }
 line[highway=service],
 line[highway=residential],
-line[highway=unclassified]
+line[highway=unclassified],
 {
   z-index: 51;
 }
-area|z15-[area:highway=living_street] 
+
+area|z15-[area:highway=living_street]
 {
   fill-color: #707070;
 }
-line[highway=living_street] {z-index: 50}
-area|z15-[area:highway=primary] {fill-color: #FDE066}
-line[highway=primary], line[highway=primary_link]{z-index: 54}
-area|z15-[area:highway=secondary]{fill-color: #fffb80}
-line[highway=secondary], line[highway=secondary_link]{z-index: 53}
-area|z15-[area:highway=tertiary]{fill-color: #fffb80}
-line[highway=tertiary], line[highway=tertiary_link]{z-index: 52}
-area|z15-[area:highway=motorway]{fill-color: #f08800}
-line[highway=motorway], line[highway=motorway_link]{z-index: 55}
-area|z15-[area:highway=trunk]{fill-color: #ffc444}
-line[highway=trunk], line[highway=trunk_link]{z-index: 56}
+line[highway=living_street]
+{
+  z-index: 50;
+}
+
+area|z15-[area:highway=primary]
+{
+  fill-color: #FDE066
+}
+line[highway=primary],
+line[highway=primary_link]
+{
+  z-index: 54;
+}
+
+area|z15-[area:highway=secondary]
+{
+  fill-color: #fffb80;
+}
+line[highway=secondary],
+line[highway=secondary_link]
+{
+  z-index: 53;
+}
+
+area|z15-[area:highway=tertiary]
+{
+  fill-color: #fffb80;
+}
+line[highway=tertiary],
+line[highway=tertiary_link]
+{
+  z-index: 52;
+}
+
+area|z15-[area:highway=motorway]
+{
+  fill-color: #f08800;
+}
+line[highway=motorway],
+line[highway=motorway_link]
+{
+  z-index: 55;
+}
+
+area|z15-[area:highway=trunk]
+{
+  fill-color: #ffc444;
+}
+line[highway=trunk],
+line[highway=trunk_link]
+{
+  z-index: 56;
+}
+
 area[area:highway]
 {
   z-index: 400;

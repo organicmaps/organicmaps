@@ -3753,64 +3753,6 @@ cont {
   }
 }
 cont {
-  name: "amenity-restaurant-hotel"
-  element {
-    scale: 16
-    symbol {
-      name: "hotel_and_restaurant"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "hotel_and_restaurant"
-      priority: 16002
-    }
-    caption {
-      primary {
-        height: 11
-        color: 0
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15002
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "hotel_and_restaurant"
-      priority: 16002
-    }
-    caption {
-      primary {
-        height: 11
-        color: 0
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15002
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "hotel_and_restaurant"
-      priority: 16002
-    }
-    caption {
-      primary {
-        height: 11
-        color: 0
-        stroke_color: 16777215
-        offset_y: 10
-      }
-      priority: 15002
-    }
-  }
-}
-cont {
   name: "amenity-restaurant-vegan"
   element {
     scale: 16
@@ -4413,6 +4355,60 @@ cont {
     scale: 19
     symbol {
       name: "university"
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "amenity-waste_disposal"
+  element {
+    scale: 17
+    symbol {
+      name: "recycling"
+      apply_for_type: 1
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "recycling"
+      apply_for_type: 1
+      priority: 16002
+    }
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "recycling"
+      apply_for_type: 1
       priority: 16002
     }
     caption {
@@ -7182,6 +7178,435 @@ cont {
       priority: 1867
       join: ROUNDJOIN
       cap: BUTTCAP
+    }
+  }
+}
+cont {
+  name: "craft-brewery"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "craft-carpenter"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "craft-electrician"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "craft-gardener"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "craft-hvac"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "craft-metal_construction"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "craft-painter"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "craft-photographer"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "craft-plumber"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "craft-shoemaker"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "craft-tailor"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
     }
   }
 }
@@ -30865,7 +31290,24 @@ cont {
 cont {
   name: "historic-citywalls"
   element {
+    scale: 16
+    lines {
+      width: 0.1
+      color: 12303291
+      priority: 1919
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
+  }
+  element {
     scale: 17
+    lines {
+      width: 0.1
+      color: 12303291
+      priority: 1002
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
     caption {
       primary {
         height: 11
@@ -30878,6 +31320,13 @@ cont {
   }
   element {
     scale: 18
+    lines {
+      width: 0.1
+      color: 12303291
+      priority: 1002
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
     caption {
       primary {
         height: 11
@@ -30890,6 +31339,13 @@ cont {
   }
   element {
     scale: 19
+    lines {
+      width: 0.1
+      color: 12303291
+      priority: 1002
+      join: ROUNDJOIN
+      cap: ROUNDCAP
+    }
     caption {
       primary {
         height: 11
@@ -31322,6 +31778,84 @@ cont {
       primary {
         height: 11
         color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "internet_access"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
+  name: "internet_access-wlan"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 4473924
         stroke_color: 16777215
         offset_y: 10
       }
@@ -33872,6 +34406,114 @@ cont {
   }
 }
 cont {
+  name: "natural-bare_rock"
+  element {
+    scale: 13
+    symbol {
+      name: "peak-mini"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "natural-bay"
   element {
     scale: 14
@@ -33913,6 +34555,75 @@ cont {
     area {
       color: 6710886
       priority: 1015
+    }
+  }
+}
+cont {
+  name: "natural-cape"
+  element {
+    scale: 14
+    caption {
+      primary {
+        height: 12
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    caption {
+      primary {
+        height: 12
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 16
+    caption {
+      primary {
+        height: 16
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 16
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 16
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 16
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
     }
   }
 }
@@ -34607,6 +35318,121 @@ cont {
     area {
       color: 6710886
       priority: 1015
+    }
+  }
+}
+cont {
+  name: "natural-rock"
+  element {
+    scale: 12
+    symbol {
+      name: "peak-mini"
+      priority: 16000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "peak-mini"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "peak"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 16
+        color: 4473924
+        offset_y: 10
+      }
+      priority: 15000
     }
   }
 }
@@ -50220,10 +51046,35 @@ cont {
 cont {
   name: "tourism-alpine_hut"
   element {
+    scale: 14
+    symbol {
+      name: "alpine_hut"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15000
+    }
+  }
+  element {
     scale: 15
     symbol {
       name: "alpine_hut"
       priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15000
     }
   }
   element {
@@ -50231,6 +51082,15 @@ cont {
     symbol {
       name: "alpine_hut"
       priority: 16000
+    }
+    caption {
+      primary {
+        height: 12
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15000
     }
   }
   element {

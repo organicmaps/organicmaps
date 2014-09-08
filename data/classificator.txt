@@ -71,7 +71,6 @@ world  +
         pub  -
         recycling  -
         restaurant  +
-            hotel  -
             vegan  -
             vegetarian  -
             {}
@@ -84,6 +83,7 @@ world  +
         toilets  -
         townhall  -
         university  -
+        waste_disposal  -
         {}
     area:highway  +
         cycleway  -
