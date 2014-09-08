@@ -17,6 +17,6 @@
 @interface ShareActionSheet : NSObject
 
 - (instancetype)initWithInfo:(ShareInfo *)info viewController:(UIViewController *)viewController;
-- (void)show;
+- (void)showFromRect:(CGRect)rect;
 
 @end

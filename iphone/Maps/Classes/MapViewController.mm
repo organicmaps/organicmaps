@@ -786,7 +786,7 @@
 {
   ShareInfo * info = [[ShareInfo alloc] initWithText:text gX:point.x gY:point.y myPosition:NO];
   self.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self];
-  [self.shareActionSheet show];
+  [self.shareActionSheet showFromRect:CGRectMake(placePage.midX, placePage.maxY, 0, 0)];
 }
 
 - (void)placePageView:(PlacePageView *)placePage willEditProperty:(NSString *)propertyName inBookmarkAndCategory:(BookmarkAndCategory const &)bookmarkAndCategory
@@ -858,8 +858,6 @@
   }
   else if ([itemName isEqualToString:@"Share"])
   {
-    [menu setMenuHidden:YES animated:YES];
-
     CLLocation * location = [MapsAppDelegate theApp].m_locationManager.lastLocation;
     if (location)
     {
@@ -867,7 +865,7 @@
       double gY = MercatorBounds::LatToY(location.coordinate.latitude);
       ShareInfo * info = [[ShareInfo alloc] initWithText:nil gX:gX gY:gY myPosition:YES];
       self.shareActionSheet = [[ShareActionSheet alloc] initWithInfo:info viewController:self];
-      [self.shareActionSheet show];
+      [self.shareActionSheet showFromRect:CGRectMake(menu.midX, self.view.height - 40, 0, 0)];
     }
     else
     {

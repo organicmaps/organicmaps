@@ -41,7 +41,7 @@
   return self;
 }
 
-- (void)show
+- (void)showFromRect:(CGRect)rect
 {
   UIActionSheet * as = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"share", nil) delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 
@@ -52,7 +52,7 @@
   [as addButtonWithTitle:NSLocalizedString(@"copy_link", nil)];
   [as addButtonWithTitle:NSLocalizedString(@"cancel", nil)];
   [as setCancelButtonIndex:as.numberOfButtons - 1];
-  [as showInView:self.viewController.view];
+  [as showFromRect:rect inView:self.viewController.view animated:YES];
 }
 
 #define GE0_URL_LENGTH 16
