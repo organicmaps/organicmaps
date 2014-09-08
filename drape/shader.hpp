@@ -1,4 +1,5 @@
 #pragma once
+
 #include "glfunctions.hpp"
 
 #include "../std/string.hpp"
@@ -27,9 +28,6 @@ private:
   uint32_t m_glID;
 };
 
-namespace sh
-{
-  void Inject(string & src);
-}
+void PreprocessShaderSource(string & src);
 
 } // namespace dp

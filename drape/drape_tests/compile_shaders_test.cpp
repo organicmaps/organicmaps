@@ -7,7 +7,9 @@
 
 #include "glmock_functions.hpp"
 
+#include "../../base/scope_guard.hpp"
 #include "../../platform/platform.hpp"
+
 #include "../../std/sstream.hpp"
 #include "../../std/target_os.hpp"
 #include "../../std/vector.hpp"
@@ -44,12 +46,73 @@ string DebugPrint(QString const & s)
   return s.toStdString();
 }
 
+struct ShaderEnumGuard
+{
+  ShaderEnumGuard()
+  {
+    gpu::InitEnumeration();
+  }
+
+  ~ShaderEnumGuard()
+  {
+    gpu::VertexEnum.clear();
+    gpu::FragmentEnum.clear();
+  }
+};
+
 void WriteShaderToFile(QTemporaryFile & file, string shader)
 {
   EXPECTGL(glGetInteger(gl_const::GLMaxFragmentTextures)).WillRepeatedly(Return(8));
-  sh::Inject(shader);
+  PreprocessShaderSource(shader);
   QTextStream out(&file);
   out << QString::fromStdString(shader);
+}
+
+typedef function<void (QProcess & p)> TPrepareProcessFn;
+typedef function<void (QStringList & args, QString const & fileName)> TPrepareArgumentsFn;
+typedef function<bool (QString const & output)> TSuccessComparator;
+
+void RunShaderTest(QString const & glslCompiler,
+                   QString const & fileName,
+                   TPrepareProcessFn const & procPrepare,
+                   TPrepareArgumentsFn const & argsPrepare,
+                   TSuccessComparator const & successComparator,
+                   QTextStream & errorLog)
+{
+  QProcess p;
+  procPrepare(p);
+  p.setProcessChannelMode(QProcess::MergedChannels);
+  QStringList args;
+  argsPrepare(args, fileName);
+  p.start(glslCompiler, args, QIODevice::ReadOnly);
+
+  TEST(p.waitForStarted(), ("GLSL compiler not started"));
+  TEST(p.waitForFinished(), ("GLSL compiler not finished in time"));
+
+  QString result = p.readAllStandardOutput();
+  if (!successComparator(result))
+  {
+    errorLog << "\n" << QString("SHADER COMPILE ERROR\n");
+    errorLog << fileName << "\n";
+    errorLog << result.trimmed() << "\n";
+  }
+}
+
+void ForEachShader(vector<string> const & shaders,
+                   QString const & glslCompiler,
+                   TPrepareProcessFn const & procPrepare,
+                   TPrepareArgumentsFn const & argsPrepare,
+                   TSuccessComparator const & successComparator,
+                   QTextStream & errorLog)
+{
+  for (string src : shaders)
+  {
+    QTemporaryFile srcFile;
+    TEST(srcFile.open(), ("Temporary File can't be created!"));
+    WriteShaderToFile(srcFile, src);
+    RunShaderTest(glslCompiler, srcFile.fileName(),
+                  procPrepare, argsPrepare, successComparator, errorLog);
+  }
 }
 
 UNIT_TEST(CompileShaders_Test)
@@ -62,175 +125,84 @@ UNIT_TEST(CompileShaders_Test)
     TEST(platform.IsFileExistsByFullPath(glslCompilerPath), ("GLSL compiler not found"));
   }
 
-  bool isPass = true;
   QString errorLog;
   QTextStream ss(&errorLog);
 
-  gpu::InitEnumeration();
+  ShaderEnumGuard guard;
+  QString compilerPath = QString::fromStdString(glslCompilerPath);
+  QString shaderType = "-v";
+  auto argsPrepareFn = [&shaderType](QStringList & args, QString const & fileName)
+                       {
+                         args << fileName
+                              << fileName + ".bin"
+                              << shaderType;
+                       };
+  auto successComparator = [](QString const & output) { return output.indexOf("Success") != -1; };
 
-  for (size_t i = 0; i < gpu::VertexEnum.size(); ++i)
-  {
-    QTemporaryFile file;
-    if (file.open())
-      WriteShaderToFile(file, gpu::VertexEnum[i]);
-    else
-      TEST(false, ("File can't be created!"));
+  ForEachShader(gpu::VertexEnum, compilerPath, [](QProcess const &){},
+                argsPrepareFn, successComparator, ss);
+  shaderType = "-f";
+  ForEachShader(gpu::FragmentEnum, compilerPath,[](QProcess const &){},
+                argsPrepareFn, successComparator, ss);
 
-    QProcess p;
-    p.setProcessChannelMode(QProcess::MergedChannels);
-    QStringList args;
-
-    args << file.fileName()
-         << file.fileName() + ".bin"
-         << "-v";
-    p.start(QString::fromStdString(glslCompilerPath), args, QIODevice::ReadOnly);
-
-    TEST(p.waitForStarted(), ("GLSL compiler not started"));
-    TEST(p.waitForFinished(), ("GLSL compiler not finished in time"));
-
-    QString result = p.readAllStandardOutput();
-    if (result.indexOf("Success") == -1)
-    {
-      ss << "\n" << QString("SHADER COMPILE ERROR\n");
-      ss << file.fileName() << "\n";
-      ss << result.trimmed() << "\n";
-      isPass = false;
-    }
-  }
-
-  for (size_t i = 0; i < gpu::FragmentEnum.size(); ++i)
-  {
-    QTemporaryFile file;
-    if (file.open())
-      WriteShaderToFile(file, gpu::FragmentEnum[i]);
-    else
-      TEST(false, ("File can't be created!"));
-    QProcess p;
-    p.setProcessChannelMode(QProcess::MergedChannels);
-    QStringList args;
-    args << file.fileName()
-         << file.fileName() + ".bin"
-         << "-f";
-    p.start(QString::fromStdString(glslCompilerPath), args, QIODevice::ReadOnly);
-
-    TEST(p.waitForStarted(), ("GLSL compiler not started"));
-    TEST(p.waitForFinished(), ("GLSL compiler not finished in time"));
-
-    QString result = p.readAllStandardOutput();
-    if (result.indexOf("Succes") == -1)
-    {
-      ss << "\n" << QString("SHADER COMPILE ERROR\n");
-      ss << file.fileName() << "\n";
-      ss << result.trimmed() << "\n";
-      isPass = false;
-    }
-  }
-
-  TEST(isPass, (errorLog));
-
-  gpu::VertexEnum.clear();
-  gpu::FragmentEnum.clear();
+  TEST_EQUAL(errorLog.isEmpty(), true, (errorLog));
 }
 
 #ifdef OMIM_OS_MAC
 
-void TestMaliShaders(string driver, string hardware, string release)
+void TestMaliShaders(QString const & driver,
+                     QString const & hardware,
+                     QString const & release)
 {
   Platform & platform = GetPlatform();
   string glslCompilerPath = platform.ResourcesDir() + "shaders_compiler/" MALI_SHADERS_COMPILER;
   TEST(platform.IsFileExistsByFullPath(glslCompilerPath), ("GLSL MALI compiler not found"));
 
-  bool isPass = true;
   QString errorLog;
   QTextStream ss(&errorLog);
 
   QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
   env.insert("MALICM_LOCATION", QString::fromStdString(platform.ResourcesDir() + "shaders_compiler/" MALI_DIR));
-
-  for (size_t i = 0; i < gpu::VertexEnum.size(); ++i)
+  auto procPrepare = [&env](QProcess & p) { p.setProcessEnvironment(env); };
+  QString shaderType = "-v";
+  auto argForming = [&](QStringList & args, QString const & fileName)
   {
-    QTemporaryFile file;
-    if (file.open())
-      WriteShaderToFile(file, gpu::VertexEnum[i]);
-    else
-      TEST(false, ("File can't be created!"));
-
-    QProcess p;
-    p.setProcessEnvironment(env);
-    p.setProcessChannelMode(QProcess::MergedChannels);
-    QStringList args;
-    args << "-v"
+    args << shaderType
          << "-V"
          << "-r"
-         << QString::fromStdString(release)
+         << release
          << "-c"
-         << QString::fromStdString(hardware)
+         << hardware
          << "-d"
-         << QString::fromStdString(driver)
-         << file.fileName();
-    p.start(QString::fromStdString(glslCompilerPath), args, QIODevice::ReadOnly);
+         << driver
+         << fileName;
+  };
 
-    TEST(p.waitForStarted(), ("GLSL compiler not started"));
-    TEST(p.waitForFinished(), ("GLSL compiler not finished in time"));
+  auto succesComparator = [](QString const & output)
+                            {
+                              return output.indexOf("Compilation succeeded.") != -1;
+                            };
 
-    QString result = p.readAllStandardOutput();
-    if (result.indexOf("Compilation succeeded.") == -1)
-    {
-      ss << "\n" << QString("SHADER COMPILE ERROR\n");
-      ss << file.fileName() << "\n";
-      ss << result.trimmed() << "\n";
-      isPass = false;
-    }
-  }
+  QString const compilerPath = QString::fromStdString(glslCompilerPath);
+  ForEachShader(gpu::VertexEnum, compilerPath, procPrepare, argForming, succesComparator, ss);
+  shaderType = "-f";
+  ForEachShader(gpu::FragmentEnum, compilerPath, procPrepare, argForming, succesComparator, ss);
 
-  for (size_t i = 0; i < gpu::FragmentEnum.size(); ++i)
-  {
-    QTemporaryFile file;
-    if (file.open())
-      WriteShaderToFile(file, gpu::FragmentEnum[i]);
-    else
-      TEST(false, ("File can't be created!"));
-
-    QProcess p;
-    p.setProcessEnvironment(env);
-    p.setProcessChannelMode(QProcess::MergedChannels);
-    QStringList args;
-    args << "-f"
-         << "-V"
-         << "-r"
-         << QString::fromStdString(release)
-         << "-c"
-         << QString::fromStdString(hardware)
-         << "-d"
-         << QString::fromStdString(driver)
-         << file.fileName();
-    p.start(QString::fromStdString(glslCompilerPath), args, QIODevice::ReadOnly);
-
-    TEST(p.waitForStarted(), ("GLSL compiler not started"));
-    TEST(p.waitForFinished(), ("GLSL compiler not finished in time"));
-
-    QString result = p.readAllStandardOutput();
-    if (result.indexOf("Compilation succeeded.") == -1)
-    {
-      ss << "\n" << QString("SHADER COMPILE ERROR\n");
-      ss << file.fileName() << "\n";
-      ss << result.trimmed() << "\n";
-      isPass = false;
-    }
-  }
-
-  TEST(isPass, (errorLog));
+  TEST(errorLog.isEmpty(), (errorLog));
 }
 
 UNIT_TEST(MALI_CompileShaders_Test)
 {
-  struct driver_set
+  typedef pair<QString, QString> TReleaseVersion;
+  typedef vector<TReleaseVersion> TReleases;
+
+  struct DriverSet
   {
-    vector<std::pair<string, string> > m_releases;
-    string m_driverName;
+    TReleases m_releases;
+    QString m_driverName;
   };
 
-  vector<driver_set> models(3);
+  vector<DriverSet> models(3);
   models[0].m_driverName = "Mali-400_r4p0-00rel1";
   models[1].m_driverName = "Mali-T600_r4p0-00rel0";
   models[2].m_driverName = "Mali-T600_r4p1-00rel0";
@@ -270,14 +242,13 @@ UNIT_TEST(MALI_CompileShaders_Test)
   models[2].m_releases.push_back(make_pair("Mali-T760", "r0p3"));
   models[2].m_releases.push_back(make_pair("Mali-T760", "r1p0"));
 
-  gpu::InitEnumeration();
+  ShaderEnumGuard guard;
 
-  for(size_t i = 0; i < models.size(); ++i)
-    for(size_t j = 0; j < models[i].m_releases.size(); ++j)
-      TestMaliShaders(models[i].m_driverName, models[i].m_releases[j].first, models[i].m_releases[j].second);
-
-  gpu::VertexEnum.clear();
-  gpu::FragmentEnum.clear();
+  for (DriverSet set : models)
+  {
+    for (TReleaseVersion version : set.m_releases)
+      TestMaliShaders(set.m_driverName, version.first, version.second);
+  }
 }
 
 #endif

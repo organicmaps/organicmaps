@@ -1,26 +1,19 @@
 #include "shader.hpp"
+#include "shader_def.hpp"
 
 #include "../base/assert.hpp"
 #include "../base/string_utils.hpp"
 
 
+
 namespace dp
 {
-
-#if defined(OMIM_OS_DESKTOP) && !defined(COMPILER_TESTS)
-  #define LOW_P string("")
-  #define MEDIUM_P string("")
-  #define HIGH_P string("")
-#else
-  #define LOW_P string("lowp")
-  #define MEDIUM_P string("mediump")
-  #define HIGH_P string("highp")
-#endif
 
 using strings::to_string;
 
 namespace
 {
+
 glConst convert(Shader::Type t)
 {
   if (t == Shader::VertexShader)
@@ -31,39 +24,44 @@ glConst convert(Shader::Type t)
 
 void ResolveGetTexel(string & result, string const & sampler, int count)
 {
-  string const index = "Index";
+  string const index = "index";
   string const answer = "answer";
-  string const texindex = "texIndex";
-  string const texcoord = "texCoord";
+  string const texIndex = "texIndex";
+  string const texCoord = "texCoord";
+
+  result.reserve(250 + 130 * count);
 
   for (int i = 0; i < count; ++i)
   {
-    result += "const int " + index + to_string(i) + " = " + to_string(i) + ";\n";
+    string const number = to_string(i);
+    result.append("const int ").append(index).append(number).append(" = ").append(number).append(";\n");
   }
-  result += "\n";
 
-  result += "uniform sampler2D u_textures[" + to_string(count) + "];\n";
+  result.append("uniform sampler2D u_textures[").append(to_string(count)).append("];\n");
 
-  //Head
-  result += MEDIUM_P + " vec4 getTexel(int " + texindex + ", " + LOW_P + " vec2 " + texcoord + ") \n";
-  result += "{\n";
-  result += "  " + MEDIUM_P + " vec4 " + answer + "; \n";
-  //Body
-  result += "  if (" + texindex + " == " + index + "0) \n";
-  result += "    " + answer + " = texture2D(" + sampler + "[" + index + "0], " + texcoord + "); \n";
-  for (int i = 1; i < count; ++i)
+  // Function signature
+  result.append(MEDIUM_P).append(" vec4 getTexel(int ").append(texIndex).append(", ")
+        .append(LOW_P).append(" vec2 ").append(texCoord).append("){ \n");
+
+  // Declare result var;
+  result.append(MEDIUM_P).append(" vec4 ").append(answer).append(";\n");
+
+  for (uint32_t i = 0; i < count; ++i)
   {
-    string num = to_string(i);
-    result += "  else if (" + texindex + " == " + index + num + ") \n";
-    result += "    " + answer + " = texture2D(" + sampler + "[" + index + num + "], " + texcoord + "); \n";
+    string constIndex = index + to_string(i);
+    if (i != 0)
+      result.append("else ");
+    result.append("if (").append(texIndex).append("==").append(constIndex).append(")\n");
+    result.append(answer).append("=texture2D(")
+          .append(sampler).append("[").append(constIndex).append("],")
+          .append(texCoord).append(");\n");
   }
-  //Tail
-  result += "  return " + answer + ";\n";
-  result += "}\n";
-}
+  result.append("return ").append(answer).append(";}");
 }
 
-void sh::Inject(string & src)
+}
+
+void PreprocessShaderSource(string & src)
 {
   string const replacement("~getTexel~");
   int const pos = src.find(replacement);
@@ -81,7 +79,7 @@ Shader::Shader(string const & shaderSource, Type type)
   , m_glID(0)
 {
   m_glID = GLFunctions::glCreateShader(convert(m_type));
-  sh::Inject(m_source);
+  PreprocessShaderSource(m_source);
   GLFunctions::glShaderSource(m_glID, m_source);
   string errorLog;
   bool result = GLFunctions::glCompileShader(m_glID, errorLog);
