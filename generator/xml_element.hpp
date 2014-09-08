@@ -1,8 +1,8 @@
 #pragma once
-#include "../coding/file_reader.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/map.hpp"
+
 
 struct XMLElement
 {
@@ -11,13 +11,9 @@ struct XMLElement
   vector<XMLElement> childs;
   XMLElement * parent;
 
-  void Clear()
-  {
-    name.clear();
-    attrs.clear();
-    childs.clear();
-    parent = 0;
-  }
+  void Clear();
+
+  void AddKV(string const & k, string const & v);
 };
 
 class BaseOSMParser
@@ -45,5 +41,3 @@ protected:
 };
 
 void ParseXMLFromStdIn(BaseOSMParser & parser);
-
-void ParseXMLFromFile(FileReader const & reader, BaseOSMParser & parser);

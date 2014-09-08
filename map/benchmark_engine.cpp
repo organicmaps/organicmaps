@@ -42,7 +42,7 @@ public:
       }
       catch (RootException const & e)
       {
-        LOG(LINFO, ("Cannot add ", v[0], " file to benchmark: ", e.what()));
+        LOG(LINFO, ("Can't add", v[0], "file to benchmark:", e.Msg()));
         return;
       }
     }
@@ -107,7 +107,7 @@ void ForEachBenchmarkRecord(ToDo & toDo)
   }
   catch (RootException const & e)
   {
-    LOG(LERROR, ("Error reading benchmarks: ", e.what()));
+    LOG(LERROR, ("Error reading benchmarks:", e.Msg()));
   }
 }
 

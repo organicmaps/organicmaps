@@ -9,6 +9,7 @@
 #include "../base/math.hpp"
 
 #include "../std/vector.hpp"
+#include "../std/bind.hpp"
 
 #include <QtCore/QString>
 
@@ -26,8 +27,11 @@ namespace ftype
       strings::SimpleTokenizer it(v, "|");
       while (it)
       {
-        if (strings::IsInArray(aTrue, *it)) return 1;
-        if (strings::IsInArray(aFalse, *it)) return -1;
+        if (strings::IsInArray(aTrue, *it))
+          return 1;
+        if (k != "layer" && strings::IsInArray(aFalse, *it))
+          return -1;
+
         ++it;
       }
 
@@ -169,7 +173,7 @@ namespace ftype
         }
 
         // get reference (we process road numbers only)
-        if (k == "ref")
+        if (k == "ref" && v != "route")
           m_params.ref = v;
 
         // get house number
@@ -251,20 +255,21 @@ namespace ftype
 
     class do_find_root_obj
     {
-      set<string> const & m_skipTags;
+      set<int> & m_skipTags;
       path_type & m_path;
+      int m_id;
 
     public:
-      typedef ClassifObjectPtr result_type;
+      typedef bool result_type;
 
-      do_find_root_obj(set<string> const & skipTags, path_type & path)
-        : m_skipTags(skipTags), m_path(path)
+      do_find_root_obj(set<int> & skipTags, path_type & path)
+        : m_skipTags(skipTags), m_path(path), m_id(0)
       {
       }
 
-      ClassifObjectPtr operator() (string const & k, string const & v) const
+      bool operator() (string const & k, string const & v)
       {
-        if (m_skipTags.find(k) == m_skipTags.end())
+        if (m_skipTags.count(m_id) == 0)
         {
           // first try to match key
           ClassifObjectPtr p = do_find_obj(classif().GetRoot(), true)(k, v);
@@ -276,10 +281,14 @@ namespace ftype
             p = do_find_obj(p.get(), false)(k, v);
             if (p)
               m_path.push_back(p);
+
+            m_skipTags.insert(m_id);
+            return true;
           }
         }
 
-        return (!m_path.empty() ? m_path.back() : ClassifObjectPtr(0, 0));
+        ++m_id;
+        return false;
       }
     };
 
@@ -292,13 +301,51 @@ namespace ftype
 
       bool operator() (string & k, string & v) const
       {
-        if (k == "atm" && v == "yes")
+        if (v == "yes")
         {
-          k = "amenity";
-          v = "atm";
+          if (k == "atm" || k == "restaurant")
+          {
+            k.swap(v);
+            k = "amenity";
+          }
+          else if (k == "hotel")
+          {
+            k.swap(v);
+            k = "tourism";
+          }
         }
+
         return false;
       }
+    };
+
+    class do_find_pairs
+    {
+      string const (*m_arr) [2];
+      size_t m_size;
+
+      vector<bool> m_res;
+
+    public:
+      template <size_t N> do_find_pairs(string const (&arr) [N][2])
+        : m_arr(&arr[0]), m_size(N)
+      {
+        m_res.resize(m_size, false);
+      }
+
+      bool operator() (string const & k, string const & v)
+      {
+        for (size_t i = 0; i < m_size; ++i)
+          if ((k == "*" || k == m_arr[i][0]) &&
+              (v == "*" || v == m_arr[i][1]))
+          {
+            m_res[i] = true;
+          }
+
+        return false;
+      }
+
+      bool IsExist(size_t i) const { return m_res[i]; }
     };
   }
 
@@ -317,6 +364,26 @@ namespace ftype
   void process_synonims(XMLElement * p)
   {
     for_each_tag(p, do_replace_synonyms());
+  }
+
+  void add_layers(XMLElement * p)
+  {
+    static string const arr[][2] = {
+      { "bridge", "yes" },
+      { "tunnel", "yes" },
+      { "layer", "*" },
+    };
+
+    do_find_pairs doFind(arr);
+    for_each_tag(p, bind<bool>(ref(doFind), _1, _2));
+
+    if (!doFind.IsExist(2))
+    {
+      if (doFind.IsExist(0))
+        p->AddKV("layer", "1");
+      if (doFind.IsExist(1))
+        p->AddKV("layer", "-1");
+    }
   }
 
 //#ifdef DEBUG
@@ -362,21 +429,21 @@ namespace ftype
 //    }
 //#endif
 
+    process_synonims(p);
+    add_layers(p);
+
     // maybe an empty feature
     if (process_common_params(p, params) == 0)
       return;
 
-    process_synonims(p);
-
-    set<string> skipRootKeys;
-
+    set<int> skipRootKeys;
     do
     {
       path_type path;
 
       // find first root object by key
       do_find_root_obj doFindRoot(skipRootKeys, path);
-      (void)for_each_tag(p, doFindRoot);
+      for_each_tag(p, doFindRoot);
 
       if (path.empty())
         break;
@@ -409,9 +476,6 @@ namespace ftype
       if (feature::IsDrawableAny(t))
         params.AddType(t);
 
-      // save this root to skip, and try again
-      skipRootKeys.insert(path[0]->GetName());
-
     } while (true);
 
     if (!params.house.IsEmpty())
@@ -428,6 +492,8 @@ namespace ftype
         params.AddType(types.Address());
       }
     }
+
+    params.FinishAddingTypes();
   }
 
   uint32_t GetBoundaryType2()

@@ -1,12 +1,29 @@
 #include "xml_element.hpp"
 
 #include "../coding/parse_xml.hpp"
-#include "../coding/reader.hpp"
 
 #include "../std/cstdio.hpp"
 #include "../std/algorithm.hpp"
-#include "../std/limits.hpp"
 
+
+void XMLElement::Clear()
+{
+  name.clear();
+  attrs.clear();
+  childs.clear();
+  parent = 0;
+}
+
+void XMLElement::AddKV(string const & k, string const & v)
+{
+  childs.push_back(XMLElement());
+  XMLElement & e = childs.back();
+
+  e.name = "tag";
+  e.attrs["k"] = k;
+  e.attrs["v"] = v;
+  e.parent = this;
+}
 
 bool BaseOSMParser::is_our_tag(string const & name)
 {
@@ -75,10 +92,4 @@ void ParseXMLFromStdIn(BaseOSMParser & parser)
 {
   StdinReader reader;
   (void)ParseXMLSequence(reader, parser);
-}
-
-void ParseXMLFromFile(FileReader const & reader, BaseOSMParser & parser)
-{
-  ReaderSource<FileReader> src(reader);
-  CHECK(ParseXML(src, parser), ());
 }
