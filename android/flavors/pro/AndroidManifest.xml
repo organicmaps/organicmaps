@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application>
-        <activity android:name="com.mapswithme.maps.DownloadResourcesActivity" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:host="*" android:mimeType="application/vnd.google-earth.kmz" />
-            </intent-filter>
+  <application>
+    <activity android:name="com.mapswithme.maps.DownloadResourcesActivity">
 
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:host="*" android:mimeType="application/vnd.google-earth.kml+xml" />
-            </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+            android:host="*"
+            android:mimeType="application/vnd.google-earth.kmz"/>
+      </intent-filter>
 
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:host="*" android:pathPattern=".*\\.kmz" android:scheme="file" />
-            </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+            android:host="*"
+            android:mimeType="application/vnd.google-earth.kml+xml"/>
+      </intent-filter>
 
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:host="*" android:pathPattern=".*\\.kml" android:scheme="file" />
-            </intent-filter>
-        </activity>
-    </application>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+            android:host="*"
+            android:pathPattern=".*\\.kmz"
+            android:scheme="file"/>
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+            android:host="*"
+            android:pathPattern=".*\\.kml"
+            android:scheme="file"/>
+      </intent-filter>
+    </activity>
+  </application>
 </manifest>
