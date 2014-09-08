@@ -469,16 +469,6 @@ public class MWMActivity extends NvEventQueueActivity
   {
     super.onConfigurationChanged(newConfig);
     alignControls();
-
-    // alpha from animation is lost on some devices after configuration changes.
-    // we should restore it manually.
-    if (mFadeView != null && mFadeView.getVisibility() == View.VISIBLE)
-    {
-      Animation alphaAnimation = new AlphaAnimation(FADE_VIEW_ALPHA, FADE_VIEW_ALPHA);
-      alphaAnimation.setFillAfter(true);
-      alphaAnimation.setDuration(0);
-      mFadeView.startAnimation(alphaAnimation);
-    }
   }
 
   private void showDialogImpl(final int dlgID, int resMsg, DialogInterface.OnClickListener okListener)

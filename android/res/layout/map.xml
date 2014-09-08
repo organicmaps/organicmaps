@@ -30,11 +30,11 @@
       android:layout_height="match_parent"
       android:layout_below="@id/search_box"/>
 
-  <View
+  <ImageView
       android:id="@+id/fade_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@android:color/black"
+      android:src="@android:color/black"
       android:visibility="gone"/>
 
   <include
