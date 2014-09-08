@@ -20,8 +20,6 @@ public enum Statistics
 {
   INSTANCE;
 
-  private final static String TAG_PROMO_DE = "PROMO-DE: ";
-
   private final static String KEY_STAT_ENABLED = "StatisticsEnabled";
   private final static String KEY_STAT_COLLECTED = "InitialStatisticsCollected";
 
@@ -182,16 +180,6 @@ public enum Statistics
         .getEvent();
 
     trackIfEnabled(context, event);
-  }
-
-  public void trackPromocodeDialogOpenedEvent()
-  {
-    getEventBuilder().getSimpleNamedEvent(TAG_PROMO_DE + "opened promo code dialog").post();
-  }
-
-  public void trackPromocodeActivatedEvent()
-  {
-    getEventBuilder().getSimpleNamedEvent(TAG_PROMO_DE + "promo code activated").post();
   }
 
   public void trackApiCall(ParsedMmwRequest request)
