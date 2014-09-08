@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -90,6 +91,8 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private ImageView mColorImage;
   // Gestures
   private GestureDetectorCompat mGestureDetector;
+  private float mDownY;
+  private float mTouchSlop;
   // Data
   private MapObject mMapObject;
   private OnVisibilityChangedListener mVisibilityChangedListener;
@@ -99,7 +102,6 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private BookmarkManager mBookmarkManager;
   private List<Icon> mIcons;
   private MapObject mBookmarkedMapObject;
-
   private boolean mIsLatLonDms;
   private static final String PREF_USE_DMS = "use_dms";
 
@@ -196,6 +198,8 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
   private void initGestureDetector()
   {
+    mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+
     // Gestures
     mGestureDetector = new GestureDetectorCompat(getContext(), new GestureDetector.SimpleOnGestureListener()
     {
@@ -211,7 +215,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
         if (isVertical && isInRange)
         {
-          if (distanceY < 0)
+          if (distanceY > 0)
             setState(State.PREVIEW_ONLY);
           else
             setState(State.FULL_PLACEPAGE);
@@ -239,6 +243,26 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   {
     mGestureDetector.onTouchEvent(event);
     return super.onTouchEvent(event);
+  }
+
+  @Override
+  public boolean onInterceptTouchEvent(MotionEvent event)
+  {
+    switch (event.getAction())
+    {
+    case MotionEvent.ACTION_UP:
+    case MotionEvent.ACTION_CANCEL:
+      break;
+    case MotionEvent.ACTION_DOWN:
+      mDownY = event.getRawY();
+      break;
+    case MotionEvent.ACTION_MOVE:
+      if (Math.abs(mDownY - event.getRawY()) > mTouchSlop)
+        return true;
+      break;
+    }
+
+    return false;
   }
 
   @Override
