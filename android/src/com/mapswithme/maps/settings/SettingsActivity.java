@@ -36,6 +36,8 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.Locale;
+
 public class SettingsActivity extends PreferenceActivity implements OnPreferenceClickListener, Preference.OnPreferenceChangeListener
 {
   public final static String ZOOM_BUTTON_ENABLED = "ZoomButtonsEnabled";
@@ -322,7 +324,8 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
       intent.setData(Utils.buildMailUri(Constants.Url.MAIL_MAPSME_BUGS, "",
           "Android version : " + Build.VERSION.RELEASE + "\n" +
           "Device name : " + Build.MANUFACTURER + " " + Build.MODEL + "\n" +
-          "App version : " + BuildConfig.PACKAGE_NAME + " " + BuildConfig.VERSION_NAME + "\n\n"
+          "App version : " + BuildConfig.PACKAGE_NAME + " " + BuildConfig.VERSION_NAME + "\n" +
+          "Locale : " + Locale.getDefault() + "\n\n"
       ));
       startActivity(intent);
     }
