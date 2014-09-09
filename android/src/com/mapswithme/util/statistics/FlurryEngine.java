@@ -54,9 +54,9 @@ public class FlurryEngine extends StatisticsEngine
   {
     Utils.checkNotNull(event);
     if (event.hasParams())
-      FlurryAgent.logEvent(event.getName());
-    else
       FlurryAgent.logEvent(event.getName(), event.getParams());
+    else
+      FlurryAgent.logEvent(event.getName());
   }
 
 }
