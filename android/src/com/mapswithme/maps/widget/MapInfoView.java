@@ -468,9 +468,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       UiUtils.show(mEditBtn);
     }
     else
-    {
       UiUtils.hide(mEditBtn);
-    }
 
     showPreview(true);
   }
@@ -804,22 +802,16 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
         return;
       }
       if (mMapObject == null)
-      {
         return;
-      }
       if (mMapObject.getType() == MapObjectType.BOOKMARK)
       {
         MapObject p;
         if (mBookmarkedMapObject != null &&
             mBookmarkedMapObject.getLat() == mMapObject.getLat() &&
             mBookmarkedMapObject.getLon() == mMapObject.getLon()) // use cached POI of bookmark, if it corresponds to current object
-        {
           p = mBookmarkedMapObject;
-        }
         else
-        {
           p = Framework.nativeGetMapObjectForPoint(mMapObject.getLat(), mMapObject.getLon());
-        }
 
         mBookmarkManager.deleteBookmark((Bookmark) mMapObject);
         setMapObject(p);
