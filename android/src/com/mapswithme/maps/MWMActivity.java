@@ -1011,7 +1011,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     nativeLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy(), l.getAltitude(), l.getSpeed(), l.getBearing());
     if (mInfoView.getState() != State.HIDDEN)
-      mInfoView.updateDistanceAndAzimut(l);
+      mInfoView.updateLocation(l);
   }
 
   @SuppressWarnings("deprecation")

@@ -96,6 +96,16 @@ public abstract class MapObject
 
   public double getLon() { return mLon; }
 
+  public void setLat(double lat)
+  {
+    mLat = lat;
+  }
+
+  public void setLon(double lon)
+  {
+    mLon = lon;
+  }
+
   public String getPoiTypeName() { return mTypeName; }
 
   public abstract MapObjectType getType();

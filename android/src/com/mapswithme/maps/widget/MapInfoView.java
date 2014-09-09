@@ -521,7 +521,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     mTvLon.setOnClickListener(this);
 
     final Location lastKnown = MWMApplication.get().getLocationService().getLastKnown();
-    updateDistanceAndAzimut(lastKnown);
+    updateLocation(lastKnown);
 
     updateCoords();
     // Context menu for the coordinates copying.
@@ -540,7 +540,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       UiUtils.hide(mRouteStartBtn, mRouteEndBtn);
   }
 
-  public void updateDistanceAndAzimut(Location l)
+  public void updateLocation(Location l)
   {
     if (mGeoLayout != null && mMapObject != null)
     {
@@ -554,22 +554,23 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
               append(Framework.nativeFormatSpeed(l.getSpeed()));
         mSubtitle.setText(builder.toString());
 
-        mAvDirection.setVisibility(View.GONE);
         mDistanceText.setVisibility(View.GONE);
+
+        mMapObject.setLat(l.getLatitude());
+        mMapObject.setLon(l.getLongitude());
+        updateCoords();
       }
       else
       {
-        final int visibility = l != null ? View.VISIBLE : View.GONE;
-        mAvDirection.setVisibility(visibility);
-        mDistanceText.setVisibility(visibility);
-      }
-
-
-      if (l != null)
-      {
-        final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(mMapObject.getLat(),
-            mMapObject.getLon(), l.getLatitude(), l.getLongitude(), 0.0);
-        mDistanceText.setText(distanceAndAzimuth.getDistance());
+        if (l != null)
+        {
+          mDistanceText.setVisibility(View.VISIBLE);
+          final DistanceAndAzimut distanceAndAzimuth = Framework.nativeGetDistanceAndAzimutFromLatLon(mMapObject.getLat(),
+              mMapObject.getLon(), l.getLatitude(), l.getLongitude(), 0.0);
+          mDistanceText.setText(distanceAndAzimuth.getDistance());
+        }
+        else
+          mDistanceText.setVisibility(View.GONE);
       }
     }
   }
@@ -588,7 +589,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
   public void updateAzimuth(double northAzimuth)
   {
-    if (mGeoLayout != null && mMapObject != null)
+    if (mGeoLayout != null && mMapObject != null && mMapObject.getType() != MapObjectType.MY_POSITION)
     {
       final Location l = MWMApplication.get().getLocationService().getLastKnown();
       if (l != null)
@@ -598,7 +599,10 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
             l.getLatitude(), l.getLongitude(), northAzimuth);
 
         if (da.getAthimuth() >= 0)
+        {
+          mAvDirection.setVisibility(View.VISIBLE);
           mAvDirection.setAzimut(da.getAthimuth());
+        }
       }
     }
   }
