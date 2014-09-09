@@ -2,25 +2,26 @@ package com.mapswithme.util.statistics;
 
 import com.mapswithme.util.Utils;
 
+import java.util.List;
 import java.util.Map;
 
 public class Event
 {
   protected String mName;
   protected Map<String, String> mParams;
-  protected StatisticsEngine mEngine;
+  protected List<StatisticsEngine> mEngines;
 
   public void setName(String name) { mName = name; }
 
   public void setParams(Map<String, String> params) { mParams = params; }
 
-  public void setEngine(StatisticsEngine engine) { mEngine = engine; }
+  public void setEngines(List<StatisticsEngine> engines) { mEngines = engines; }
 
   public String getName() { return mName; }
 
   public Map<String, String> getParams() { return mParams; }
 
-  public StatisticsEngine getEngine() { return mEngine; }
+  public List<StatisticsEngine> getEngines() { return mEngines; }
 
   public boolean hasParams()
   {
@@ -29,7 +30,8 @@ public class Event
 
   public void post()
   {
-    mEngine.postEvent(this);
+    for (StatisticsEngine engine : mEngines)
+      engine.postEvent(this);
   }
 
   @Override

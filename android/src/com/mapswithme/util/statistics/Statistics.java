@@ -13,6 +13,9 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.SimpleLogger;
 import com.mapswithme.util.log.StubLogger;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Statistics
 {
   INSTANCE;
@@ -26,7 +29,7 @@ public enum Statistics
 
   // Statistics
   private EventBuilder mEventBuilder;
-  private StatisticsEngine mStatisticsEngine;
+  private List<StatisticsEngine> mStatisticsEngines;
   // Statistics params
   private final boolean DEBUG = false;
   private final Logger mLogger = DEBUG ? SimpleLogger.get("MwmStatistics") : StubLogger.get();
@@ -65,7 +68,6 @@ public enum Statistics
     public static final String SEARCH_ON_MAP_CLICKED = "Search on map clicked.";
 
   }
-
 
 
   private Statistics()
@@ -252,7 +254,8 @@ public enum Statistics
 
     if (isStatisticsEnabled(activity))
     {
-      mStatisticsEngine.onStartSession(activity);
+      for (StatisticsEngine engine : mStatisticsEngines)
+        engine.onStartActivity(activity);
 
       if (doCollectStatistics(activity))
         collectOneTimeStatistics(activity);
@@ -269,21 +272,29 @@ public enum Statistics
 
   private void ensureConfigured(Context context)
   {
-    if (mEventBuilder == null || mStatisticsEngine == null)
+    if (mEventBuilder == null || mStatisticsEngines == null)
     {
-      // Engine
       final String key = context.getResources().getString(R.string.flurry_app_key);
-      mStatisticsEngine = new FlurryEngine(DEBUG, key);
-      mStatisticsEngine.configure(null, null);
-      // Builder
-      mEventBuilder = new EventBuilder(mStatisticsEngine);
+      mStatisticsEngines = new ArrayList<>();
+
+      final StatisticsEngine flurryEngine = new FlurryEngine(DEBUG, key);
+      flurryEngine.configure(null, null);
+      mStatisticsEngines.add(flurryEngine);
+
+      final StatisticsEngine localyticsEngine = new LocalyticsEngine();
+      mStatisticsEngines.add(localyticsEngine);
+
+      mEventBuilder = new EventBuilder(mStatisticsEngines);
     }
   }
 
   public void stopActivity(Activity activity)
   {
     if (isStatisticsEnabled(activity))
-      mStatisticsEngine.onEndSession(activity);
+    {
+      for (StatisticsEngine engine : mStatisticsEngines)
+        engine.onEndActivity(activity);
+    }
   }
 
   private void collectOneTimeStatistics(Activity activity)

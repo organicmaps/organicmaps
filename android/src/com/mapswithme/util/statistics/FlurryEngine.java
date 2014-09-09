@@ -1,5 +1,6 @@
 package com.mapswithme.util.statistics;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
@@ -35,17 +36,17 @@ public class FlurryEngine extends StatisticsEngine
   }
 
   @Override
-  public void onStartSession(Context context)
+  public void onStartActivity(Activity activity)
   {
     Utils.checkNotNull(mKey);
-    Utils.checkNotNull(context);
-    FlurryAgent.onStartSession(context, mKey);
+    Utils.checkNotNull(activity);
+    FlurryAgent.onStartSession(activity, mKey);
   }
 
   @Override
-  public void onEndSession(Context context)
+  public void onEndActivity(Activity activity)
   {
-    FlurryAgent.onEndSession(context);
+    FlurryAgent.onEndSession(activity);
   }
 
   @Override

@@ -1,16 +1,17 @@
 package com.mapswithme.util.statistics;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EventBuilder
 {
   protected Event mEvent = new Event();
-  protected StatisticsEngine mEngine;
+  protected List<StatisticsEngine> mEngines;
 
-  public EventBuilder(StatisticsEngine engine)
+  public EventBuilder(List<StatisticsEngine> engine)
   {
-    mEngine = engine;
+    mEngines = engine;
   }
 
   public EventBuilder setName(String name)
@@ -37,7 +38,7 @@ public class EventBuilder
 
   public Event getEvent()
   {
-    mEvent.setEngine(mEngine);
+    mEvent.setEngines(mEngines);
     return mEvent;
   }
 
@@ -46,8 +47,8 @@ public class EventBuilder
     return reset().setName(name).getEvent();
   }
 
-  public void setEngine(StatisticsEngine engine)
+  public void setEngines(List<StatisticsEngine> engine)
   {
-    mEngine = engine;
+    mEngines = engine;
   }
 }
