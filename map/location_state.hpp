@@ -48,19 +48,13 @@ namespace location
 
     double m_errorRadius;   //< error radius in mercator
     m2::PointD m_position;  //< position in mercator
-    m2::PointD m_halfArrowSize; //< size of Arrow image
 
     double m_drawHeading;
 
     bool m_hasPosition;
-    double m_positionFault;
     bool m_hasCompass;
-    double m_compassFault;
     bool m_isCentered;
     bool m_isFirstPosition;
-
-    bool IsPositionFaultCritical() const;
-    bool IsCompassFaultCritical() const;
 
     typedef map<int, TCompassStatusListener> TCompassStatusListeners;
     TCompassStatusListeners m_compassStatusListeners;
@@ -91,8 +85,6 @@ namespace location
     void cachePositionArrow();
     void cacheLocationMark();
 
-    m2::RectD m_boundRect;
-
     void CheckCompassFollowing();
     void FollowCompass();
 
@@ -109,6 +101,8 @@ namespace location
     /// @return GPS center point in mercator
     m2::PointD const & Position() const;
 
+    // Заменяем на GetMode()
+    //{
     bool HasPosition() const;
     bool HasCompass() const;
     bool IsFirstPosition() const;
@@ -118,6 +112,7 @@ namespace location
 
     ECompassProcessMode GetCompassProcessMode() const;
     void SetCompassProcessMode(ECompassProcessMode mode);
+    //}
 
     int  AddCompassStatusListener(TCompassStatusListener const & l);
     void RemoveCompassStatusListener(int slotID);

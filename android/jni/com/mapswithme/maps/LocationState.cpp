@@ -13,27 +13,6 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_LocationState_setCompassProcessMode(JNIEnv * env, jobject thiz, jint mode)
-  {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
-    ls->SetCompassProcessMode((location::ECompassProcessMode)mode);
-  }
-
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_LocationState_getLocationProcessMode(JNIEnv * env, jobject thiz)
-  {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
-    return ls->GetLocationProcessMode();
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_LocationState_setLocationProcessMode(JNIEnv * env, jobject thiz, jint mode)
-  {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
-    return ls->SetLocationProcessMode((location::ELocationProcessMode)mode);
-  }
-
-  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_LocationState_startCompassFollowing(JNIEnv * env,
                                                                jobject thiz)
   {
@@ -78,14 +57,6 @@ extern "C"
     animController->Unlock();
 
     f->Invalidate();
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_LocationState_stopCompassFollowing(JNIEnv * env,
-                                                              jobject thiz)
-  {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetInformationDisplay().locationState();
-    ls->StopCompassFollowing();
   }
 
   void CompassStatusChanged(int mode, shared_ptr<jobject> const & obj)

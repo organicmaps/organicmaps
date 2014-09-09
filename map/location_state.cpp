@@ -41,9 +41,7 @@ namespace location
       m_position(0, 0),
       m_drawHeading(0.0),
       m_hasPosition(false),
-      m_positionFault(0.0),
       m_hasCompass(false),
-      m_compassFault(0.0),
       m_isCentered(false),
       m_isFirstPosition(false),
       m_currentSlotID(0),
@@ -69,7 +67,7 @@ namespace location
 
   bool State::HasCompass() const
   {
-    return m_hasCompass && !IsPositionFaultCritical() && !IsCompassFaultCritical();
+    return m_hasCompass;
   }
 
   bool State::IsFirstPosition() const
@@ -115,11 +113,9 @@ namespace location
   void State::OnLocationUpdate(location::GpsInfo const & info)
   {
     m_isFirstPosition = false;
-    m_positionFault = info.m_horizontalAccuracy;
-
     m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude,
                                                 info.m_latitude,
-                                                m_positionFault);
+                                                info.m_horizontalAccuracy);
     m2::PointD const center = rect.Center();
 
     m_hasPosition = true;
@@ -156,12 +152,8 @@ namespace location
   void State::OnCompassUpdate(location::CompassInfo const & info)
   {
     m_hasCompass = true;
-    m_compassFault = info.m_accuracy;
     if (info.m_trueHeading >= 0.0)
-    {
-      m_compassFault = 0.0;
       m_drawHeading = info.m_trueHeading;
-    }
     else
       m_drawHeading = info.m_magneticHeading;
 
@@ -172,20 +164,7 @@ namespace location
 
   m2::RectD State::GetBoundRect() const
   {
-    return m_boundRect;
-  }
-
-  bool State::IsPositionFaultCritical() const
-  {
-    //return m_positionFault > MaxPositionFault;
-    return false;
-  }
-
-  bool State::IsCompassFaultCritical() const
-  {
-    //static double s_maxOffset = my::DegToRad(MaxHeadingFaultDeg);
-    //return m_compassFault > s_maxOffset;
-    return false;
+    return m2::RectD();
   }
 
   void State::CallCompassStatusListeners(ECompassProcessMode mode)
@@ -234,8 +213,7 @@ namespace location
 
     graphics::Resource const * res = cacheScreen->fromID(cacheScreen->findInfo(info));
     m2::RectU rect = res->m_texRect;
-    m_halfArrowSize.x = rect.SizeX() / 2.0;
-    m_halfArrowSize.y = rect.SizeY() / 2.0;
+    m2::PointD halfArrowSize(rect.SizeX() / 2.0, rect.SizeY() / 2.0);
 
     m_positionArrow.reset();
     m_positionArrow.reset(cacheScreen->createDisplayList());
@@ -245,10 +223,10 @@ namespace location
 
     m2::PointD coords[4] =
     {
-      m2::PointD(-m_halfArrowSize.x, -m_halfArrowSize.y),
-      m2::PointD(-m_halfArrowSize.x,  m_halfArrowSize.y),
-      m2::PointD( m_halfArrowSize.x, -m_halfArrowSize.y),
-      m2::PointD( m_halfArrowSize.x,  m_halfArrowSize.y)
+      m2::PointD(-halfArrowSize.x, -halfArrowSize.y),
+      m2::PointD(-halfArrowSize.x,  halfArrowSize.y),
+      m2::PointD( halfArrowSize.x, -halfArrowSize.y),
+      m2::PointD( halfArrowSize.x,  halfArrowSize.y)
     };
 
     m2::PointF normal(0.0, 0.0);
@@ -320,19 +298,7 @@ namespace location
     if (isVisible() && m_hasPosition)
     {
       m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
-
       setPivot(pxPosition);
-
-      double const pxErrorRadius = pxPosition.Length(m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
-
-      m2::RectD newRect(pxPosition - m2::PointD(pxErrorRadius, pxErrorRadius),
-                        pxPosition + m2::PointD(pxErrorRadius, pxErrorRadius));
-
-      m2::RectD arrowRect(pxPosition - m_halfArrowSize,
-                          pxPosition + m_halfArrowSize);
-
-      newRect.Add(arrowRect);
-      m_boundRect = newRect;
     }
   }
 
@@ -388,7 +354,7 @@ namespace location
     }
   }
 
-  bool State::hitTest(m2::PointD const & pt) const
+  bool State::hitTest(m2::PointD const & /*pt*/) const
   {
     return false;
   }

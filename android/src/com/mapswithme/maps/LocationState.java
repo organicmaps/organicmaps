@@ -15,15 +15,7 @@ public class LocationState
 
   public native int getCompassProcessMode();
 
-  public native void setCompassProcessMode(int mode);
-
-  public native int getLocationProcessMode();
-
-  public native void setLocationProcessMode(int mode);
-
   public native void startCompassFollowing();
-
-  public native void stopCompassFollowing();
 
   public native void stopCompassFollowingAndRotateMap();
 
