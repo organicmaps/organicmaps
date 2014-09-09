@@ -55,8 +55,8 @@ public class MoreAppsAdapter extends BaseAdapter
     mAppIcons.put("com.guidewithme.singapore", R.drawable.ic_sg_guides_icon);
     mAppIcons.put("com.guidewithme.spain", R.drawable.ic_es_guides_icon);
     mAppIcons.put("com.guidewithme.sri.lanka", R.drawable.ic_lk_guides_icon);
-    mAppIcons.put("com.guidewithme.switzerland", R.drawable.ic_hk_guides_icon);
-    mAppIcons.put("com.guidewithme.taiwan", R.drawable.ic_ch_guides_icon);
+    mAppIcons.put("com.guidewithme.switzerland", R.drawable.ic_ch_guides_icon);
+    mAppIcons.put("com.guidewithme.taiwan", R.drawable.ic_tw_guides_icon);
     mAppIcons.put("com.guidewithme.thailand", R.drawable.ic_th_guides_icon);
     mAppIcons.put("com.guidewithme.turkey", R.drawable.ic_tr_guides_icon);
     mAppIcons.put("com.guidewithme.uk", R.drawable.ic_uk_guides_icon);
