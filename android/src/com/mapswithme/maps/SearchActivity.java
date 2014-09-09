@@ -399,7 +399,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       {
       case MESSAGE_TYPE:
         Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.SEARCH_ON_MAP_CLICKED);
-        SearchActivity.nativeShowAllSearchResults();
         return null;
       case RESULT_TYPE:
         final int resIndex = getPositionInResults(position);
@@ -714,7 +713,10 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       SearchController.getInstance().setQuery(allResults ? query : "");
 
       if (allResults)
+      {
+        SearchActivity.nativeShowAllSearchResults();
         runInteractiveSearch(query, Language.getKeyboardInput(this));
+      }
 
       MWMActivity.startWithSearchResult(this, !allResults);
     }
