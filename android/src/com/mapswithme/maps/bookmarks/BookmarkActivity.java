@@ -173,7 +173,7 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
       final String descr = mDescr.getText().toString().trim();
       final String oldDescr = mPin.getBookmarkDescription().trim();
       if (!TextUtils.equals(descr, oldDescr))
-        Statistics.INSTANCE.trackDescriptionChanged(this);
+        Statistics.INSTANCE.trackDescriptionChanged();
 
       mPin.setParams(mName.getText().toString(), mIcon, descr);
     }
@@ -198,7 +198,7 @@ public class BookmarkActivity extends MapsWithMeBaseActivity
       refreshValuesInViews();
 
       if (mCurrentCategoryId != mPin.getCategoryId())
-        Statistics.INSTANCE.trackGroupChanged(this);
+        Statistics.INSTANCE.trackGroupChanged();
 
       mCurrentCategoryId = mPin.getCategoryId();
     }

@@ -77,7 +77,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     lPref.setOnPreferenceChangeListener(this);
 
     final CheckBoxPreference allowStatsPreference = (CheckBoxPreference) findPreference(getString(R.string.pref_allow_stat));
-    allowStatsPreference.setChecked(Statistics.INSTANCE.isStatisticsEnabled(this));
+    allowStatsPreference.setChecked(Statistics.INSTANCE.isStatisticsEnabled());
     allowStatsPreference.setOnPreferenceChangeListener(this);
 
     final CheckBoxPreference enableZoomButtons = (CheckBoxPreference) findPreference(getString(R.string.pref_zoom_btns_enabled));
@@ -401,7 +401,7 @@ public class SettingsActivity extends PreferenceActivity implements OnPreference
     if (key.equals(getString(R.string.pref_munits)))
       UnitLocale.setUnits(Integer.parseInt((String) newValue));
     else if (key.equals(getString(R.string.pref_allow_stat)))
-      Statistics.INSTANCE.setStatEnabled(getApplicationContext(), (Boolean) newValue);
+      Statistics.INSTANCE.setStatEnabled((Boolean) newValue);
     else if (key.equals(getString(R.string.pref_zoom_btns_enabled)))
       MWMApplication.get().nativeSetBoolean(ZOOM_BUTTON_ENABLED, (Boolean) newValue);
 

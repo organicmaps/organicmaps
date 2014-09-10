@@ -179,7 +179,7 @@ public class LocationService implements
 
   private void startWifiLocationUpdate()
   {
-    if (Statistics.INSTANCE.isStatisticsEnabled(mApplication) &&
+    if (Statistics.INSTANCE.isStatisticsEnabled() &&
         ConnectionState.isWifiConnected(mApplication))
     {
       if (mWifiScanner == null)

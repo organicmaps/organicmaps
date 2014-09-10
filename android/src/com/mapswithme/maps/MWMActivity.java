@@ -873,7 +873,7 @@ public class MWMActivity extends NvEventQueueActivity
           else
             Yota.showMap(getApplicationContext(), latLon[0], latLon[1], zoom, null, locState.hasPosition());
 
-          Statistics.INSTANCE.trackBackscreenCall(getApplication(), "Map");
+          Statistics.INSTANCE.trackBackscreenCall("Map");
         }
       });
     }

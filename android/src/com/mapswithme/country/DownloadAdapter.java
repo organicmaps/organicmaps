@@ -228,7 +228,7 @@ class DownloadAdapter extends BaseAdapter
     else
     {
       mStorage.downloadCountry(idx);
-      Statistics.INSTANCE.trackCountryDownload(mContext);
+      Statistics.INSTANCE.trackCountryDownload();
     }
   }
 
@@ -260,7 +260,7 @@ class DownloadAdapter extends BaseAdapter
     else
     {
       mStorage.downloadCountry(idx);
-      Statistics.INSTANCE.trackCountryUpdate(mContext);
+      Statistics.INSTANCE.trackCountryUpdate();
     }
   }
 
@@ -276,7 +276,7 @@ class DownloadAdapter extends BaseAdapter
           public void onClick(DialogInterface dlg, int which)
           {
             mStorage.deleteCountry(idx);
-            Statistics.INSTANCE.trackCountryDeleted(mContext);
+            Statistics.INSTANCE.trackCountryDeleted();
             dlg.dismiss();
           }
         })

@@ -420,7 +420,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         break;
       case CATEGORY_TYPE:
         final String category = getCategoryName(mCategories[position]);
-        Statistics.INSTANCE.trackSearchCategoryClicked(mContext, category);
+        Statistics.INSTANCE.trackSearchCategoryClicked(category);
 
         return category + ' ';
       }

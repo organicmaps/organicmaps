@@ -116,7 +116,7 @@ public class WifiLocationScanner extends BroadcastReceiver
     final StringBuilder json = new StringBuilder("{\"version\":\"2.0\"");
     appendId(json);
 
-    final boolean statsEnabled = Statistics.INSTANCE.isStatisticsEnabled(context);
+    final boolean statsEnabled = Statistics.INSTANCE.isStatisticsEnabled();
 
     boolean wifiHeaderAdded = false;
     List<ScanResult> results = mWifi.getScanResults();

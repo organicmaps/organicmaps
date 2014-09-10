@@ -176,7 +176,7 @@ public class ChooseBookmarkCategoryActivity extends AbstractBookmarkCategoryActi
 
       getAdapter().chooseItem(index);
 
-      Statistics.INSTANCE.trackGroupCreated(ChooseBookmarkCategoryActivity.this);
+      Statistics.INSTANCE.trackGroupCreated();
     }
 
     private void switchToAddButton()

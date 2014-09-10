@@ -25,7 +25,7 @@ public class FbUtil
 
   public static void activate(Context context)
   {
-    if (!Statistics.INSTANCE.isStatisticsEnabled(context))
+    if (!Statistics.INSTANCE.isStatisticsEnabled())
       return;
 
     mLogger.d("ACTIVATING");

@@ -131,7 +131,7 @@ public abstract class ShareAction
 
     shareWithText(activity, body, subject);
 
-    Statistics.INSTANCE.trackPlaceShared(activity, this.getClass().getSimpleName());
+    Statistics.INSTANCE.trackPlaceShared(this.getClass().getSimpleName());
   }
 
   /**
@@ -177,7 +177,7 @@ public abstract class ShareAction
 
       shareWithText(activity, body, "");
 
-      Statistics.INSTANCE.trackPlaceShared(activity, this.getClass().getSimpleName());
+      Statistics.INSTANCE.trackPlaceShared(this.getClass().getSimpleName());
     }
   }
 

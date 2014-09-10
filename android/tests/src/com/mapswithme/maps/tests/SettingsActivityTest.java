@@ -37,6 +37,6 @@ public class SettingsActivityTest extends ActivityInstrumentationTestCase2<Setti
   {
    CheckBoxPreference pref =  (CheckBoxPreference)activity.findPreference(activity.getString(R.string.pref_allow_stat));
    assertNotNull(pref);
-   assertEquals(Statistics.INSTANCE.isStatisticsEnabled(activity), pref.isChecked());
+   assertEquals(Statistics.INSTANCE.isStatisticsEnabled(), pref.isChecked());
   }
 }

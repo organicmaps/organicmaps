@@ -50,7 +50,7 @@ public class BookmarkManager
 
   public int addBookmarkToLastEditedCategory(String name, double lat, double lon)
   {
-    Statistics.INSTANCE.trackBookmarkCreated(mContext);
+    Statistics.INSTANCE.trackBookmarkCreated();
     return nativeAddBookmarkToLastEditedCategory(name, lat, lon);
   }
 

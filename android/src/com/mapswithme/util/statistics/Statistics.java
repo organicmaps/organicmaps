@@ -1,8 +1,6 @@
 package com.mapswithme.util.statistics;
 
 import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
 
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
@@ -25,12 +23,12 @@ public enum Statistics
 
   private final static double ACTIVE_USER_MIN_FOREGROUND_TIME = 5 * 60; // 5 minutes
 
-  // Statistics
-  private EventBuilder mEventBuilder;
   private List<StatisticsEngine> mStatisticsEngines;
-  // Statistics params
+  private EventBuilder mEventBuilder;
+
   private final boolean DEBUG = false;
   private final Logger mLogger = DEBUG ? SimpleLogger.get("MwmStatistics") : StubLogger.get();
+
   // Statistics counters
   private int mBookmarksCreated = 0;
   private int mSharedTimes = 0;
@@ -64,221 +62,228 @@ public enum Statistics
     public static final String SETTINGS_COPYRIGHT = "Settings. Copyright.";
     public static final String SEARCH_KEY_CLICKED = "Search key pressed.";
     public static final String SEARCH_ON_MAP_CLICKED = "Search on map clicked.";
-
+    public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
   }
 
+  public static class EventParam
+  {
+    public static final String FROM = "from";
+    public static final String TO = "to";
+    public static final String CATEGORY = "category";
+    public static final String COUNT = "Count";
+    public static final String CHANNEL = "Channel";
+    public static final String CALLER_ID = "Caller ID";
+    public static final String HAD_VALID_LOCATION = "Had valid location";
+    public static final String DELAY_MILLIS = "Delay in milliseconds";
+    public static final String BOOKMARK_NUMBER_AVG = "Average number of bmks";
+    public static final String CATEGORIES_COUNT = "Categories count";
+    public static final String FG_TIME = "Foreground time";
+    public static final String PRO_STAT = "One time PRO stat";
+    public static final String ENABLED = "Enabled";
+  }
 
   private Statistics()
   {
-    Log.d(TAG, "Created Statistics instance.");
+    configure();
+    mLogger.d("Created Statistics instance.");
   }
 
-  private EventBuilder getEventBuilder()
+  public void trackIfEnabled(Event event)
   {
-    return mEventBuilder;
-  }
-
-  public void trackIfEnabled(Context context, Event event)
-  {
-    if (isStatisticsEnabled(context))
+    if (isStatisticsEnabled())
     {
-      event.post();
+      post(event);
       mLogger.d("Posted event:", event);
     }
     else
       mLogger.d("Skipped event:", event);
   }
 
-  public void trackBackscreenCall(Context context, String from)
+  private void post(Event event)
   {
-    final Event event = getEventBuilder().reset()
+    for (StatisticsEngine engine : mStatisticsEngines)
+      engine.postEvent(event);
+  }
+
+  public void trackBackscreenCall(String from)
+  {
+    final Event event = mEventBuilder
         .setName(EventName.YOTA_BACK_CALL)
-        .addParam("from", from)
-        .getEvent();
+        .addParam(EventParam.FROM, from)
+        .buildEvent();
 
-    trackIfEnabled(context, event);
+    trackIfEnabled(event);
   }
 
-  public void trackCountryDownload(Context context)
+  public void trackCountryDownload()
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.COUNTRY_DOWNLOAD));
+    trackIfEnabled(mEventBuilder.setName(EventName.COUNTRY_DOWNLOAD).buildEvent());
   }
 
-  public void trackCountryUpdate(Context context)
+  public void trackCountryUpdate()
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.COUNTRY_UPDATE));
+    trackIfEnabled(mEventBuilder.setName(EventName.COUNTRY_UPDATE).buildEvent());
   }
 
-  public void trackCountryDeleted(Context context)
+  public void trackCountryDeleted()
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.COUNTRY_DELETE));
+    trackIfEnabled(mEventBuilder.setName(EventName.COUNTRY_DELETE).buildEvent());
   }
 
-  public void trackSearchCategoryClicked(Context context, String category)
+  public void trackSearchCategoryClicked(String category)
   {
-    final Event event = getEventBuilder().reset()
+    final Event event = mEventBuilder
         .setName(EventName.SEARCH_CAT_CLICKED)
-        .addParam("category", category)
-        .getEvent();
+        .addParam(EventParam.CATEGORY, category)
+        .buildEvent();
 
-    trackIfEnabled(context, event);
+    trackIfEnabled(event);
   }
 
-  public void trackGroupChanged(Context context)
+  public void trackGroupChanged()
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.BOOKMARK_GROUP_CHANGED));
+    trackIfEnabled(mEventBuilder.setName(EventName.BOOKMARK_GROUP_CHANGED).buildEvent());
   }
 
-  public void trackDescriptionChanged(Context context)
+  public void trackDescriptionChanged()
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.DESCRIPTION_CHANGED));
+    trackIfEnabled(mEventBuilder.setName(EventName.DESCRIPTION_CHANGED).buildEvent());
   }
 
-  public void trackGroupCreated(Context context)
+  public void trackGroupCreated()
   {
-    trackIfEnabled(context, getEventBuilder().getSimpleNamedEvent(EventName.GROUP_CREATED));
+    trackIfEnabled(mEventBuilder.setName(EventName.GROUP_CREATED).buildEvent());
   }
 
-  public void trackSearchContextChanged(Context context, String from, String to)
+  public void trackSearchContextChanged(String from, String to)
   {
-    final Event event = getEventBuilder().reset()
+    final Event event = mEventBuilder
         .setName(EventName.SEARCH_CONTEXT_CNAHGED)
-        .addParam("from", from)
-        .addParam("to", to)
-        .getEvent();
+        .addParam(EventParam.FROM, from)
+        .addParam(EventParam.TO, to)
+        .buildEvent();
 
-    trackIfEnabled(context, event);
+    trackIfEnabled(event);
   }
 
-  public void trackColorChanged(Context context, String from, String to)
+  public void trackColorChanged(String from, String to)
   {
-    final Event event = getEventBuilder().reset()
+    final Event event = mEventBuilder
         .setName(EventName.COLOR_CHANGED)
-        .addParam("from", from)
-        .addParam("to", to)
-        .getEvent();
+        .addParam(EventParam.FROM, from)
+        .addParam(EventParam.TO, to)
+        .buildEvent();
 
-    trackIfEnabled(context, event);
+    trackIfEnabled(event);
   }
 
-  public void trackBookmarkCreated(Context context)
+  public void trackBookmarkCreated()
   {
-    final Event event = getEventBuilder().reset()
+    final Event event = mEventBuilder
         .setName(EventName.BOOKMARK_CREATED)
-        .addParam("Count", String.valueOf(++mBookmarksCreated))
-        .getEvent();
+        .addParam(EventParam.COUNT, String.valueOf(++mBookmarksCreated))
+        .buildEvent();
 
-    trackIfEnabled(context, event);
+    trackIfEnabled(event);
   }
 
-  public void trackPlaceShared(Context context, String channel)
+  public void trackPlaceShared(String channel)
   {
-    final Event event = getEventBuilder().reset()
+    final Event event = mEventBuilder
         .setName(EventName.PLACE_SHARED)
-        .addParam("Channel", channel)
-        .addParam("Count", String.valueOf(++mSharedTimes))
-        .getEvent();
+        .addParam(EventParam.CHANNEL, channel)
+        .addParam(EventParam.COUNT, String.valueOf(++mSharedTimes))
+        .buildEvent();
 
-    trackIfEnabled(context, event);
+    trackIfEnabled(event);
   }
 
   public void trackApiCall(ParsedMmwRequest request)
   {
     if (request != null && request.getCallerInfo() != null)
     {
-      ensureConfigured(MWMApplication.get());
       //@formatter:off
-      final Event event = getEventBuilder().reset()
+      final Event event = mEventBuilder
           .setName(EventName.API_CALLED)
-          .addParam("Caller ID", request.getCallerInfo().packageName)
-          .getEvent();
+          .addParam(EventParam.CALLER_ID, request.getCallerInfo().packageName)
+          .buildEvent();
       //@formatter:on
-      trackIfEnabled(MWMApplication.get(), event);
+      trackIfEnabled(event);
     }
   }
 
   public void trackWifiConnected(boolean hasValidLocation)
   {
-    ensureConfigured(MWMApplication.get());
-    final Event event = getEventBuilder().reset().
+    final Event event = mEventBuilder.
         setName(EventName.WIFI_CONNECTED).
-        addParam("Had valid location", String.valueOf(hasValidLocation)).
-        getEvent();
-    trackIfEnabled(MWMApplication.get(), event);
+        addParam(EventParam.HAD_VALID_LOCATION, String.valueOf(hasValidLocation)).
+        buildEvent();
+    trackIfEnabled(event);
   }
 
   public void trackWifiConnectedAfterDelay(boolean isLocationExpired, long delayMillis)
   {
-    ensureConfigured(MWMApplication.get());
-    final Event event = getEventBuilder().reset().
+    final Event event = mEventBuilder.
         setName(EventName.WIFI_CONNECTED).
-        addParam("Had valid location", String.valueOf(isLocationExpired)).
-        addParam("Delay in milliseconds", String.valueOf(delayMillis)).
-        getEvent();
-    trackIfEnabled(MWMApplication.get(), event);
+        addParam(EventParam.HAD_VALID_LOCATION, String.valueOf(isLocationExpired)).
+        addParam(EventParam.DELAY_MILLIS, String.valueOf(delayMillis)).
+        buildEvent();
+    trackIfEnabled(event);
   }
 
   public void trackDownloadCountryNotificationShown()
   {
-    ensureConfigured(MWMApplication.get());
-    getEventBuilder().getSimpleNamedEvent(EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN).post();
+    trackIfEnabled(mEventBuilder.setName(EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN).buildEvent());
   }
 
   public void trackDownloadCountryNotificationClicked()
   {
-    ensureConfigured(MWMApplication.get());
-    getEventBuilder().getSimpleNamedEvent(EventName.DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED).post();
+    trackIfEnabled(mEventBuilder.setName(EventName.DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED).buildEvent());
   }
 
   public void trackSimpleNamedEvent(String eventName)
   {
-    ensureConfigured(MWMApplication.get());
-    getEventBuilder().getSimpleNamedEvent(eventName).post();
+    trackIfEnabled(mEventBuilder.setName(eventName).buildEvent());
   }
 
   public void startActivity(Activity activity)
   {
-    ensureConfigured(activity);
-
-    if (isStatisticsEnabled(activity))
+    if (isStatisticsEnabled())
     {
       for (StatisticsEngine engine : mStatisticsEngines)
         engine.onStartActivity(activity);
 
-      if (doCollectStatistics(activity))
+      if (doCollectStatistics())
         collectOneTimeStatistics(activity);
     }
   }
 
-  private boolean doCollectStatistics(Context context)
+  private boolean doCollectStatistics()
   {
-    return isStatisticsEnabled(context)
-        && !isStatisticsCollected(context)
-        && isActiveUser(context, MWMApplication.get().getForegroundTime());
+    return isStatisticsEnabled()
+        && !isStatisticsCollected()
+        && isActiveUser(MWMApplication.get().getForegroundTime());
   }
 
 
-  private void ensureConfigured(Context context)
+  private void configure()
   {
-    if (mEventBuilder == null || mStatisticsEngines == null)
-    {
-      final String key = context.getResources().getString(R.string.flurry_app_key);
-      mStatisticsEngines = new ArrayList<>();
+    final String key = MWMApplication.get().getResources().getString(R.string.flurry_app_key);
+    mStatisticsEngines = new ArrayList<>();
 
-      final StatisticsEngine flurryEngine = new FlurryEngine(DEBUG, key);
-      flurryEngine.configure(null, null);
-      mStatisticsEngines.add(flurryEngine);
+    final StatisticsEngine flurryEngine = new FlurryEngine(DEBUG, key);
+    flurryEngine.configure(null, null);
+    mStatisticsEngines.add(flurryEngine);
 
-      final StatisticsEngine localyticsEngine = new LocalyticsEngine();
-      mStatisticsEngines.add(localyticsEngine);
+    final StatisticsEngine localyticsEngine = new LocalyticsEngine();
+    mStatisticsEngines.add(localyticsEngine);
 
-      mEventBuilder = new EventBuilder(mStatisticsEngines);
-    }
+    mEventBuilder = new EventBuilder();
   }
 
   public void stopActivity(Activity activity)
   {
-    if (isStatisticsEnabled(activity))
+    if (isStatisticsEnabled())
     {
       for (StatisticsEngine engine : mStatisticsEngines)
         engine.onEndActivity(activity);
@@ -287,10 +292,9 @@ public enum Statistics
 
   private void collectOneTimeStatistics(Activity activity)
   {
-    // Only when bookmarks available.
     if (MWMApplication.get().hasBookmarks())
     {
-      final EventBuilder eventBuilder = getEventBuilder().reset();
+      mEventBuilder.setName(EventParam.PRO_STAT);
 
       // Number of sets
       final BookmarkManager manager = BookmarkManager.getBookmarkManager(activity);
@@ -303,51 +307,45 @@ public enum Statistics
           sizes[catIndex] = manager.getCategoryById(catIndex).getSize();
         final double average = MathUtils.average(sizes);
 
-        eventBuilder.addParam("Average number of bmks", String.valueOf(average));
+        mEventBuilder.addParam(EventParam.BOOKMARK_NUMBER_AVG, String.valueOf(average));
       }
 
-      eventBuilder.addParam("Categories count", String.valueOf(categoriesCount))
-          .addParam("Foreground time", String.valueOf(MWMApplication.get().getForegroundTime()))
-          .setName("One time PRO stat");
+      mEventBuilder.addParam(EventParam.CATEGORIES_COUNT, String.valueOf(categoriesCount))
+          .addParam(EventParam.FG_TIME, String.valueOf(MWMApplication.get().getForegroundTime()));
 
-      trackIfEnabled(activity, eventBuilder.getEvent());
+      trackIfEnabled(mEventBuilder.buildEvent());
     }
-    setStatisticsCollected(activity, true);
+    setStatisticsCollected(true);
   }
 
-
-  private boolean isStatisticsCollected(Context context)
+  private boolean isStatisticsCollected()
   {
     return MWMApplication.get().nativeGetBoolean(KEY_STAT_COLLECTED, false);
   }
 
-  private void setStatisticsCollected(Context context, boolean isCollected)
+  private void setStatisticsCollected(boolean isCollected)
   {
     MWMApplication.get().nativeSetBoolean(KEY_STAT_COLLECTED, isCollected);
   }
 
-  public boolean isStatisticsEnabled(Context context)
+  public boolean isStatisticsEnabled()
   {
     return MWMApplication.get().nativeGetBoolean(KEY_STAT_ENABLED, true);
   }
 
-  public void setStatEnabled(Context context, boolean isEnabled)
+  public void setStatEnabled(boolean isEnabled)
   {
-    final MWMApplication app = MWMApplication.get();
-    app.nativeSetBoolean(KEY_STAT_ENABLED, isEnabled);
+    MWMApplication.get().nativeSetBoolean(KEY_STAT_ENABLED, isEnabled);
     // We track if user turned on/off
     // statistics to understand data better.
-    getEventBuilder().reset()
-        .setName("Statistics status changed")
-        .addParam("Enabled", String.valueOf(isEnabled))
-        .getEvent()
-        .post();
+    post(mEventBuilder
+        .setName(EventName.STATISTICS_STATUS_CHANGED)
+        .addParam(EventParam.ENABLED, String.valueOf(isEnabled))
+        .buildEvent());
   }
 
-  private boolean isActiveUser(Context context, double foregroundTime)
+  private boolean isActiveUser(double foregroundTime)
   {
     return foregroundTime > ACTIVE_USER_MIN_FOREGROUND_TIME;
   }
-
-  private final static String TAG = "MWMStat";
 }
