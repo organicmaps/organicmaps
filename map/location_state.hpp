@@ -114,10 +114,10 @@ namespace location
   private:
     // Mode bits
     // {
-    constexpr static uint16_t const ModeNotProcessed = 0x40;
-    constexpr static uint16_t const KnownDirectionBit = 0x80;
+    static uint16_t const ModeNotProcessed = 0x40;
+    static uint16_t const KnownDirectionBit = 0x80;
     // }
-    constexpr static float const s_cacheRadius = 500.0f;
+    static uint16_t const s_cacheRadius = 500.0f;
 
     uint16_t m_modeInfo; // combination of Mode enum and "Mode bits"
     uint16_t m_dragModeInfo;

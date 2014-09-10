@@ -898,10 +898,6 @@ void Framework::StartDrag(DragEvent const & e)
 
   if (m_renderPolicy)
     m_renderPolicy->StartDrag();
-
-//  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
-//  m_dragCompassProcessMode = locationState->GetCompassProcessMode();
-//  m_dragLocationProcessMode = locationState->GetLocationProcessMode();
 }
 
 void Framework::DoDrag(DragEvent const & e)

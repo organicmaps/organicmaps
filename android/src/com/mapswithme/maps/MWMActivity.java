@@ -142,18 +142,6 @@ public class MWMActivity extends NvEventQueueActivity
 
   private native void deactivatePopup();
 
-  private void startLocation()
-  {
-    MWMApplication.get().getLocationState().onStartLocation();
-    resumeLocation();
-  }
-
-  private void stopLocation()
-  {
-    MWMApplication.get().getLocationState().onStopLocation();
-    pauseLocation();
-  }
-
   private void pauseLocation()
   {
     MWMApplication.get().getLocationService().stopUpdate(this);
@@ -168,33 +156,36 @@ public class MWMActivity extends NvEventQueueActivity
     Utils.automaticIdleScreen(false, getWindow());
   }
 
+  private void updateMyPositionButton(int locationStateMode)
+  {
+    ButtonState buttonState = ButtonState.NO_LOCATION;
+    switch (locationStateMode)
+    {
+    case LocationState.UNKNOW_POSITION:
+      break;
+    case LocationState.PENDING_POSITION:
+      buttonState = ButtonState.WAITING_LOCATION;
+      break;
+    case LocationState.NOT_FOLLOW:
+    case LocationState.FOLLOW:
+      buttonState = ButtonState.HAS_LOCATION;
+      break;
+    case LocationState.ROTATE_AND_FOLLOW:
+      buttonState = ButtonState.FOLLOW_MODE;
+      break;
+    }
+
+    LocationButtonImageSetter.setButtonViewFromState(buttonState, mLocationButton);
+  }
+
   public void checkShouldResumeLocationService()
   {
     final LocationState state = MWMApplication.get().getLocationState();
-    final boolean hasPosition = state.hasPosition();
-    final boolean isFollowMode = (state.getCompassProcessMode() == LocationState.COMPASS_FOLLOW);
+    final int currentLocationMode = state.getLocationStateMode();
+    updateMyPositionButton(currentLocationMode);
 
-    if (hasPosition || state.isFirstPosition())
-    {
-      if (hasPosition && isFollowMode)
-      {
-        state.startCompassFollowing();
-        LocationButtonImageSetter.setButtonViewFromState(ButtonState.FOLLOW_MODE, mLocationButton);
-      }
-      else
-      {
-        LocationButtonImageSetter.setButtonViewFromState(
-            hasPosition
-                ? ButtonState.HAS_LOCATION
-                : ButtonState.WAITING_LOCATION, mLocationButton
-        );
-      }
+    if (currentLocationMode > LocationState.NOT_FOLLOW)
       resumeLocation();
-    }
-    else
-    {
-      LocationButtonImageSetter.setButtonViewFromState(ButtonState.NO_LOCATION, mLocationButton);
-    }
   }
 
   public void OnDownloadCountryClicked()
@@ -320,45 +311,7 @@ public class MWMActivity extends NvEventQueueActivity
   public void onMyPositionClicked(View v)
   {
     final LocationState state = MWMApplication.get().getLocationState();
-    if (state.hasPosition())
-    {
-      if (state.isCentered())
-      {
-        if (BuildConfig.IS_PRO && state.hasCompass())
-        {
-          final boolean isFollowMode = (state.getCompassProcessMode() == LocationState.COMPASS_FOLLOW);
-          if (isFollowMode)
-          {
-            state.stopCompassFollowingAndRotateMap();
-          }
-          else
-          {
-            state.startCompassFollowing();
-            LocationButtonImageSetter.setButtonViewFromState(ButtonState.FOLLOW_MODE, mLocationButton);
-            return;
-          }
-        }
-      }
-      else
-      {
-        state.animateToPositionAndEnqueueLocationProcessMode(LocationState.LOCATION_CENTER_ONLY);
-        mLocationButton.setSelected(true);
-        return;
-      }
-    }
-    else
-    {
-      if (!state.isFirstPosition())
-      {
-        LocationButtonImageSetter.setButtonViewFromState(ButtonState.WAITING_LOCATION, mLocationButton);
-        startLocation();
-        return;
-      }
-    }
-
-    // Stop location observing first ...
-    stopLocation();
-    LocationButtonImageSetter.setButtonViewFromState(ButtonState.NO_LOCATION, mLocationButton);
+    state.switchToNextMode();
   }
 
   private void ShowAlertDlg(int tittleID)
@@ -867,11 +820,12 @@ public class MWMActivity extends NvEventQueueActivity
           final double zoom = Framework.getDrawScale();
 
           final LocationState locState = MWMApplication.get().getLocationState();
+          final int locationStateMode = locState.getLocationStateMode();
 
-          if (locState.hasPosition() && locState.isCentered())
+          if (locationStateMode > LocationState.NOT_FOLLOW)
             Yota.showLocation(getApplicationContext(), zoom);
           else
-            Yota.showMap(getApplicationContext(), latLon[0], latLon[1], zoom, null, locState.hasPosition());
+            Yota.showMap(getApplicationContext(), latLon[0], latLon[1], zoom, null, locationStateMode == LocationState.NOT_FOLLOW);
 
           Statistics.INSTANCE.trackBackscreenCall("Map");
         }
@@ -1006,9 +960,6 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onLocationUpdated(final Location l)
   {
-    if (MWMApplication.get().getLocationState().isFirstPosition())
-      LocationButtonImageSetter.setButtonViewFromState(ButtonState.HAS_LOCATION, mLocationButton);
-
     nativeLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy(), l.getAltitude(), l.getSpeed(), l.getBearing());
     if (mInfoView.getState() != State.HIDDEN)
       mInfoView.updateLocation(l);
@@ -1037,18 +988,28 @@ public class MWMActivity extends NvEventQueueActivity
       mInfoView.updateAzimuth(heading);
   }
 
-  public void onCompassStatusChanged(int newStatus)
+  public void onLocationStateModeChanged(int newMode)
   {
-    if (newStatus == 1)
-      LocationButtonImageSetter.setButtonViewFromState(ButtonState.FOLLOW_MODE, mLocationButton);
-    else if (MWMApplication.get().getLocationState().hasPosition())
-      LocationButtonImageSetter.setButtonViewFromState(ButtonState.HAS_LOCATION, mLocationButton);
-    else
-      LocationButtonImageSetter.setButtonViewFromState(ButtonState.NO_LOCATION, mLocationButton);
+    updateMyPositionButton(newMode);
+    switch (newMode)
+    {
+    case LocationState.UNKNOW_POSITION:
+      pauseLocation();
+      break;
+    case LocationState.PENDING_POSITION:
+      resumeLocation();
+      break;
+    case LocationState.NOT_FOLLOW:
+      break;
+    case LocationState.FOLLOW:
+      break;
+    case LocationState.ROTATE_AND_FOLLOW:
+      break;
+    }
   }
 
   /// Callback from native compass GUI element processing.
-  public void OnCompassStatusChanged(int newStatus)
+  public void OnLocationStateModeChanged(int newStatus)
   {
     final int val = newStatus;
     runOnUiThread(new Runnable()
@@ -1056,19 +1017,19 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
-        onCompassStatusChanged(val);
+        onLocationStateModeChanged(val);
       }
     });
   }
 
   private void startWatchingCompassStatusUpdate()
   {
-    mCompassStatusListenerID = MWMApplication.get().getLocationState().addCompassStatusListener(this);
+    mCompassStatusListenerID = MWMApplication.get().getLocationState().addLocationStateModeListener(this);
   }
 
   private void stopWatchingCompassStatusUpdate()
   {
-    MWMApplication.get().getLocationState().removeCompassStatusListener(mCompassStatusListenerID);
+    MWMApplication.get().getLocationState().removeLocationStateModeListener(mCompassStatusListenerID);
   }
 
   @Override
