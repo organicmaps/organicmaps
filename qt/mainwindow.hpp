@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../map/location_state.hpp"
 #include "../platform/location_service.hpp"
 
 #include "../std/unique_ptr.hpp"
@@ -44,6 +45,8 @@ namespace qt
     string GetIniFile();
     void SaveState();
     void LoadState();
+
+    void LocationStateModeChanged(location::State::Mode mode);
 
   protected:
     void CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,

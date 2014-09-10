@@ -49,6 +49,8 @@ namespace qt
 MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this))
 {
   m_pDrawWidget = new DrawWidget(this);
+  shared_ptr<location::State> locState = m_pDrawWidget->GetFramework().GetLocationState();
+  locState->AddStateModeListener([this](location::State::Mode mode) { LocationStateModeChanged(mode);});
 
   CreateNavigationBar();
   CreateSearchBarAndPanel();
@@ -165,6 +167,23 @@ void MainWindow::LoadState()
   showMaximized();
 
   m_pDrawWidget->LoadState();
+}
+
+void MainWindow::LocationStateModeChanged(location::State::Mode mode)
+{
+  if (mode == location::State::PendingPosition)
+  {
+    m_locationService->Start();
+    m_pMyPositionAction->setIcon(QIcon(":/navig64/location-search.png"));
+    m_pMyPositionAction->setToolTip(tr("Looking for position..."));
+    return;
+  }
+
+  if (mode == location::State::UnknowPosition)
+    m_locationService->Stop();
+
+  m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
+  m_pMyPositionAction->setToolTip(tr("My Position"));
 }
 
 namespace
@@ -297,7 +316,7 @@ void MainWindow::OnLocationError(location::TLocationError errorCode)
   switch (errorCode)
   {
   case location::EDenied:
-    m_pMyPositionAction->setChecked(false);
+    m_pMyPositionAction->setEnabled(false);
     break;
 
   default:
@@ -309,31 +328,13 @@ void MainWindow::OnLocationError(location::TLocationError errorCode)
 
 void MainWindow::OnLocationUpdated(location::GpsInfo const & info)
 {
-  if (m_pDrawWidget->GetFramework().GetLocationState()->IsFirstPosition())
-  {
-    m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
-    m_pMyPositionAction->setToolTip(tr("My Position"));
-  }
-
   m_pDrawWidget->GetFramework().OnLocationUpdate(info);
 }
 
 void MainWindow::OnMyPosition()
 {
-  if (m_pMyPositionAction->isChecked())
-  {
-    m_pMyPositionAction->setIcon(QIcon(":/navig64/location-search.png"));
-    m_pMyPositionAction->setToolTip(tr("Looking for position..."));
-    m_locationService->Start();
-    m_pDrawWidget->GetFramework().StartLocation();
-  }
-  else
-  {
-    m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));
-    m_pMyPositionAction->setToolTip(tr("My Position"));
-    m_locationService->Stop();
-    m_pDrawWidget->GetFramework().StopLocation();
-  }
+  if (m_pMyPositionAction->isEnabled())
+    m_pDrawWidget->GetFramework().GetLocationState()->SwitchToNextMode();
 }
 
 void MainWindow::OnSearchButtonClicked()
