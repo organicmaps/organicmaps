@@ -8,6 +8,11 @@
       "idiom" : "universal",
       "scale" : "2x",
       "filename" : "SearchViewTopBackground@2x.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "NavigationBarBackground7@3x.png"
     }
   ],
   "info" : {

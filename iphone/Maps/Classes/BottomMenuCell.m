@@ -49,7 +49,7 @@
 {
   if (!_separator)
   {
-    UIImage * separatorImage = [[UIImage imageNamed:@"BottomMenuCellSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    UIImage * separatorImage = [[UIImage imageNamed:@"SearchCellSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     _separator = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, separatorImage.size.height)];
     _separator.image = separatorImage;
   }

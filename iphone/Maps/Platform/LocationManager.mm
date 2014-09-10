@@ -57,6 +57,7 @@
       CLAuthorizationStatus const authStatus = [CLLocationManager authorizationStatus];
       switch (authStatus)
       {
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
         case kCLAuthorizationStatusAuthorized:
         case kCLAuthorizationStatusNotDetermined:
           [m_locationManager startUpdatingLocation];

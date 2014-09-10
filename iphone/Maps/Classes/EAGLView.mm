@@ -77,20 +77,23 @@
 
   RenderPolicy::Params rpParams;
 
-  CGRect frameRect = [[UIScreen mainScreen] applicationFrame];
-  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  UIScreen * screen = [UIScreen mainScreen];
+  CGRect frameRect = screen.applicationFrame;
+  CGRect screenRect = screen.bounds;
 
-  double vs = [[UIScreen mainScreen] scale];
+  double vs = [screen respondsToSelector:@selector(nativeScale)] ? screen.nativeScale : screen.scale;
 
   rpParams.m_screenWidth = screenRect.size.width * vs;
   rpParams.m_screenHeight = screenRect.size.height * vs;
 
   rpParams.m_skinName = "basic.skn";
 
-  if (vs > 1.0)
+  if (vs == 1.0)
+    rpParams.m_density = graphics::EDensityMDPI;
+  else if (vs == 2.0)
     rpParams.m_density = graphics::EDensityXHDPI;
   else
-    rpParams.m_density = graphics::EDensityMDPI;
+    rpParams.m_density = graphics::EDensityXXHDPI;
 
   rpParams.m_videoTimer = videoTimer;
   rpParams.m_useDefaultFB = false;

@@ -39,7 +39,7 @@
   if (!_priceButton)
   {
     UIImage * image = [[UIImage imageNamed:@"PriceButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(4, 4, 4, 4)];
-    _priceButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, image.size.height)];
+    _priceButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 26)];
     _priceButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     _priceButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:12.5];
     _priceButton.userInteractionEnabled = NO;

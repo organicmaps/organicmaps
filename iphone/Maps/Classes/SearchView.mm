@@ -124,9 +124,7 @@ typedef NS_ENUM(NSUInteger, CellType)
 @end
 
 @implementation SearchView
-{
-  BOOL needToScroll;
-}
+
 __weak SearchView * selfPointer;
 
 - (id)initWithFrame:(CGRect)frame
@@ -148,7 +146,6 @@ __weak SearchView * selfPointer;
   [self addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
 
   selfPointer = self;
-  needToScroll = NO;
 
   if ([self.tableView respondsToSelector:@selector(registerClass:forCellReuseIdentifier:)])
   {
@@ -159,6 +156,9 @@ __weak SearchView * selfPointer;
     [self.tableView registerClass:[SearchShowOnMapCell class] forCellReuseIdentifier:[SearchShowOnMapCell className]];
   }
 
+  [self layoutSubviews];
+  self.tableView.contentOffset = CGPointMake(0, -self.topBackgroundView.height);
+
   return self;
 }
 
@@ -167,6 +167,8 @@ __weak SearchView * selfPointer;
   if (object == self && [keyPath isEqualToString:@"state"])
     [self setState:self.state animated:YES withCallback:NO];
 }
+
+static BOOL keyboardLoaded = NO;
 
 - (void)setState:(SearchViewState)state animated:(BOOL)animated withCallback:(BOOL)withCallback
 {
@@ -192,8 +194,9 @@ __weak SearchView * selfPointer;
     bool const hasPt = [[MapsAppDelegate theApp].m_locationManager getLat:latitude Lon:longitude];
     GetFramework().PrepareSearch(hasPt, latitude, longitude);
 
-    [self.searchBar.textField becomeFirstResponder];
-    [UIView animateWithDuration:0.25 delay:0. options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    if (keyboardLoaded)
+      [self.searchBar.textField becomeFirstResponder];
+    [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
       self.tableView.alpha = 1;
     } completion:nil];
     [UIView animateWithDuration:duration delay:0 damping:damping initialVelocity:0 options:options animations:^{
@@ -205,11 +208,11 @@ __weak SearchView * selfPointer;
       self.searchBar.fieldBackgroundView.width = textFieldBackgroundWidth;
       self.searchBar.textField.width = textFieldWidth;
       [self.searchBar.clearButton setImage:[UIImage imageNamed:@"SearchBarClearButton"] forState:UIControlStateNormal];
-    } completion:^(BOOL finished){
-      if (needToScroll)
+    } completion:^(BOOL) {
+      if (!keyboardLoaded)
       {
-        needToScroll = NO;
-        [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
+        keyboardLoaded = YES;
+        [self.searchBar.textField becomeFirstResponder];
       }
     }];
   }

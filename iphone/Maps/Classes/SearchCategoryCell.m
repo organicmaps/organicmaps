@@ -29,6 +29,7 @@
 {
   [super layoutSubviews];
 
+  self.titleLabel.origin = CGPointMake(44, 8);
   self.titleLabel.width = self.width - self.titleLabel.minX - 20;
 
   CGFloat const offsetL = 40;
@@ -46,7 +47,7 @@
 {
   if (!_titleLabel)
   {
-    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(44, 8, 0, 24)];
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 24)];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textColor = [UIColor whiteColor];

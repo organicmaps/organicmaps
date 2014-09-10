@@ -22,21 +22,22 @@
   return self;
 }
 
+#define BUTTON_HEIGHT 41
+
 - (void)layoutSubviews
 {
   CGFloat const xOffset = 14;
-  CGFloat const height = [self.shareButton backgroundImageForState:UIControlStateNormal].size.height;
   if (self.apiAppTitle)
   {
     CGFloat const betweenOffset = 10;
-    self.shareButton.frame = CGRectMake(xOffset, 0, (self.width - 2 * xOffset - betweenOffset) / 2, height);
-    self.apiButton.frame = CGRectMake(self.shareButton.maxX + betweenOffset, 0, (self.width - 2 * xOffset - betweenOffset) / 2, height);
+    self.shareButton.frame = CGRectMake(xOffset, 0, (self.width - 2 * xOffset - betweenOffset) / 2, BUTTON_HEIGHT);
+    self.apiButton.frame = CGRectMake(self.shareButton.maxX + betweenOffset, 0, (self.width - 2 * xOffset - betweenOffset) / 2, BUTTON_HEIGHT);
     self.apiButton.hidden = NO;
     [self.apiButton setTitle:self.apiAppTitle forState:UIControlStateNormal];
   }
   else
   {
-    self.shareButton.frame = CGRectMake(xOffset, 0, self.width - 2 * xOffset, height);
+    self.shareButton.frame = CGRectMake(xOffset, 0, self.width - 2 * xOffset, BUTTON_HEIGHT);
     self.apiButton.hidden = YES;
   }
   self.apiButton.midY = self.height / 2;
@@ -65,7 +66,7 @@
   if (!_shareButton)
   {
     UIImage * image = [[UIImage imageNamed:@"PlacePageButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(6, 6, 6, 6)];
-    _shareButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+    _shareButton = [[UIButton alloc] initWithFrame:CGRectZero];
     _shareButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
     _shareButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     [_shareButton setBackgroundImage:image forState:UIControlStateNormal];
@@ -82,7 +83,7 @@
   if (!_apiButton)
   {
     UIImage * image = [[UIImage imageNamed:@"PlacePageButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(6, 6, 6, 6)];
-    _apiButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+    _apiButton = [[UIButton alloc] initWithFrame:CGRectZero];
     _apiButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
     _apiButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
     [_apiButton setBackgroundImage:image forState:UIControlStateNormal];

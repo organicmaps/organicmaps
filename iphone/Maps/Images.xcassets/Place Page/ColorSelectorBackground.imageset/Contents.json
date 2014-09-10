@@ -8,6 +8,11 @@
       "idiom" : "universal",
       "scale" : "2x",
       "filename" : "ColorSelectorBackgound@2x.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "ColorSelectorBackgound@3x.png"
     }
   ],
   "info" : {

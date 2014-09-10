@@ -8,6 +8,11 @@
       "idiom" : "universal",
       "scale" : "2x",
       "filename" : "ApiBackButton@2x.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "ApiBackButton@3x.png"
     }
   ],
   "info" : {

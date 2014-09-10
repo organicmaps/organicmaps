@@ -83,7 +83,7 @@
 {
   CGFloat menuHeight = [self.items count] * [BottomMenuCell cellHeight];
   if (self.superview.width > self.superview.height)
-    menuHeight = MIN(menuHeight, IPAD ? menuHeight : 228);
+    menuHeight = MIN(menuHeight, IPAD ? menuHeight : self.superview.height - 92);
 
   self.tableView.frame = CGRectMake(self.tableView.minX, self.tableView.minY, self.width, menuHeight);
 
@@ -132,7 +132,7 @@
       self.imageDownloaders[itemId] = downloader;
 
       NSDictionary * links = item[@"IconURLs"];
-      NSString * key = [UIScreen mainScreen].scale == 2 ? @"2x" : @"1x";
+      NSString * key = [NSString stringWithFormat:@"%ix", (NSInteger)[UIScreen mainScreen].scale];
       NSString * link = links[key];
       [downloader startDownloadingWithURL:[NSURL URLWithString:link]];
     }
