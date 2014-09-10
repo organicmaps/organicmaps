@@ -95,10 +95,6 @@
   if (self.navigationController.visibleViewController == self)
   {
     Framework & f = GetFramework();
-
-    if (f.GetLocationState()->IsFirstPosition())
-      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
-
     f.OnLocationUpdate(info);
 
     [self showPopover];
@@ -117,23 +113,59 @@
     GetFramework().OnCompassUpdate(info);
 }
 
-- (void)onCompassStatusChanged:(int)newStatus
+- (void)onLocationStateModeChanged:(location::State::Mode)newMode
 {
   Framework & f = GetFramework();
   shared_ptr<location::State> ls = f.GetLocationState();
-
-  if (newStatus == location::ECompassFollow)
+  
+  switch (newMode)
   {
-    [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationFollow"] forState:UIControlStateSelected];
-  }
-  else
-  {
-    if (ls->HasPosition())
-      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
-    else
+    case location::State::UnknowPosition:
+    {
+      [[MapsAppDelegate theApp] enableStandby];
+      [[MapsAppDelegate theApp].m_locationManager stop:self];
+      
+      PlacePageView * placePage = self.containerView.placePage;
+      [[MapsAppDelegate theApp].m_locationManager stop:placePage];
+      if ([placePage isMyPosition])
+        [placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
+      else
+        [placePage setState:placePage.state animated:YES withCallback:YES];
+      
+      self.toolbarView.locationButton.selected = NO;
       [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
+      break;
+    }
+    case location::State::PendingPosition:
+    {
+      self.toolbarView.locationButton.selected = YES;
+      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSearch"] forState:UIControlStateSelected];
+      [self.toolbarView.locationButton setSearching];
+      
+      [[MapsAppDelegate theApp] disableStandby];
+      [[MapsAppDelegate theApp].m_locationManager start:self];
+      [[NSNotificationCenter defaultCenter] postNotificationName:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
 
-    self.toolbarView.locationButton.selected = YES;
+      break;
+    }
+    case location::State::NotFollow:
+    {
+      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
+      self.toolbarView.locationButton.selected = YES;
+      break;
+    }
+    case location::State::Follow:
+    {
+      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
+      self.toolbarView.locationButton.selected = YES;
+      break;
+    }
+    case location::State::RotateAndFollow:
+    {
+      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationFollow"] forState:UIControlStateSelected];
+      self.toolbarView.locationButton.selected = YES;
+      break;
+    }
   }
 }
 
@@ -155,85 +187,7 @@
 
 - (void)onMyPositionClicked:(id)sender
 {
-  Framework & f = GetFramework();
-  shared_ptr<location::State> ls = f.GetLocationState();
-
-  if (!ls->HasPosition())
-  {
-    if (!ls->IsFirstPosition())
-    {
-      self.toolbarView.locationButton.selected = YES;
-      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSearch"] forState:UIControlStateSelected];
-      [self.toolbarView.locationButton setSearching];
-
-      ls->OnStartLocation();
-
-      [[MapsAppDelegate theApp] disableStandby];
-      [[MapsAppDelegate theApp].m_locationManager start:self];
-      [[NSNotificationCenter defaultCenter] postNotificationName:LOCATION_MANAGER_STARTED_NOTIFICATION object:nil];
-
-      return;
-    }
-  }
-  else
-  {
-    if (!ls->IsCentered())
-    {
-      ls->AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationCenterOnly);
-      self.toolbarView.locationButton.selected = YES;
-      return;
-    }
-    else
-      if (GetPlatform().HasRotation())
-      {
-        if (ls->HasCompass())
-        {
-          if (ls->GetCompassProcessMode() != location::ECompassFollow)
-          {
-            if (ls->IsCentered())
-              ls->StartCompassFollowing();
-            else
-              ls->AnimateToPositionAndEnqueueFollowing();
-
-            self.toolbarView.locationButton.selected = YES;
-            [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationFollow"] forState:UIControlStateSelected];
-
-            return;
-          }
-          else
-          {
-            anim::Controller *animController = f.GetAnimController();
-            animController->Lock();
-
-            f.GetInformationDisplay().locationState()->StopCompassFollowing();
-
-            double startAngle = f.GetNavigator().Screen().GetAngle();
-            double endAngle = 0;
-
-            f.GetAnimator().RotateScreen(startAngle, endAngle);
-
-            animController->Unlock();
-
-            f.Invalidate();
-          }
-        }
-      }
-  }
-
-  ls->OnStopLocation();
-
-  [[MapsAppDelegate theApp] enableStandby];
-  [[MapsAppDelegate theApp].m_locationManager stop:self];
-
-  PlacePageView * placePage = self.containerView.placePage;
-  [[MapsAppDelegate theApp].m_locationManager stop:placePage];
-  if ([placePage isMyPosition])
-    [placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
-  else
-    [placePage setState:placePage.state animated:YES withCallback:YES];
-
-  self.toolbarView.locationButton.selected = NO;
-  [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationDefault"] forState:UIControlStateSelected];
+  GetFramework().GetLocationState()->SwitchToNextMode();
 }
 
 - (IBAction)zoomInPressed:(id)sender
@@ -615,12 +569,12 @@
     PlacePageDismissedFnT dismissFn = (PlacePageDismissedFnT)[self methodForSelector:dismissSelector];
     manager.ConnectDismissListener(bind(dismissFn, self, dismissSelector));
 
-    typedef void (*CompassStatusFnT)(id, SEL, int);
-    SEL compassStatusSelector = @selector(onCompassStatusChanged:);
-    CompassStatusFnT compassStatusFn = (CompassStatusFnT)[self methodForSelector:compassStatusSelector];
+    typedef void (*LocationStateModeFnT)(id, SEL, location::State::Mode);
+    SEL locationStateModeSelector = @selector(onLocationStateModeChanged:);
+    LocationStateModeFnT locationStateModeFn = (LocationStateModeFnT)[self methodForSelector:locationStateModeSelector];
 
     shared_ptr<location::State> ls = f.GetLocationState();
-    ls->AddCompassStatusListener(bind(compassStatusFn, self, compassStatusSelector, _1));
+    ls->AddStateModeListener(bind(locationStateModeFn, self, locationStateModeSelector, _1));
 
     m_StickyThreshold = 10;
 
