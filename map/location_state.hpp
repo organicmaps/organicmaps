@@ -35,14 +35,14 @@ namespace location
     };
 
   public:
-    // Do not change the order
+    // Do not change the order and values
     enum Mode
     {
-      UnknowPosition = 0x0,
+      UnknownPosition = 0x0,
       PendingPosition = 0x1,
       NotFollow = 0x2,
-      Follow = 0x4,
-      RotateAndFollow = 0x8,
+      Follow = 0x3,
+      RotateAndFollow = 0x4,
     };
 
     typedef function<void(Mode)> TStateModeListener;

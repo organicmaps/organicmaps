@@ -50,7 +50,10 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
 {
   m_pDrawWidget = new DrawWidget(this);
   shared_ptr<location::State> locState = m_pDrawWidget->GetFramework().GetLocationState();
-  locState->AddStateModeListener([this](location::State::Mode mode) { LocationStateModeChanged(mode);});
+  locState->AddStateModeListener([this](location::State::Mode mode)
+                                 {
+                                    LocationStateModeChanged(mode);
+                                 });
 
   CreateNavigationBar();
   CreateSearchBarAndPanel();
@@ -179,7 +182,7 @@ void MainWindow::LocationStateModeChanged(location::State::Mode mode)
     return;
   }
 
-  if (mode == location::State::UnknowPosition)
+  if (mode == location::State::UnknownPosition)
     m_locationService->Stop();
 
   m_pMyPositionAction->setIcon(QIcon(":/navig64/location.png"));

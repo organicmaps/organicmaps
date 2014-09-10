@@ -115,12 +115,9 @@
 
 - (void)onLocationStateModeChanged:(location::State::Mode)newMode
 {
-  Framework & f = GetFramework();
-  shared_ptr<location::State> ls = f.GetLocationState();
-  
   switch (newMode)
   {
-    case location::State::UnknowPosition:
+    case location::State::UnknownPosition:
     {
       [[MapsAppDelegate theApp] enableStandby];
       [[MapsAppDelegate theApp].m_locationManager stop:self];
@@ -149,11 +146,6 @@
       break;
     }
     case location::State::NotFollow:
-    {
-      [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
-      self.toolbarView.locationButton.selected = YES;
-      break;
-    }
     case location::State::Follow:
     {
       [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationSelected"] forState:UIControlStateSelected];
@@ -573,8 +565,7 @@
     SEL locationStateModeSelector = @selector(onLocationStateModeChanged:);
     LocationStateModeFnT locationStateModeFn = (LocationStateModeFnT)[self methodForSelector:locationStateModeSelector];
 
-    shared_ptr<location::State> ls = f.GetLocationState();
-    ls->AddStateModeListener(bind(locationStateModeFn, self, locationStateModeSelector, _1));
+    f.GetLocationState()->AddStateModeListener(bind(locationStateModeFn, self, locationStateModeSelector, _1));
 
     m_StickyThreshold = 10;
 

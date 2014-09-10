@@ -17,27 +17,22 @@ extern "C"
     return g_framework->NativeFramework()->GetLocationState()->GetMode();
   }
 
-  void CompassStatusChanged(location::State::Mode mode, shared_ptr<jobject> const & obj)
+  void LocationStateModeChanged(location::State::Mode mode, shared_ptr<jobject> const & obj)
   {
     JNIEnv * env = jni::GetEnv();
-    jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "OnLocationStateModeChanged", "(I)V");
-    jint val = static_cast<jint>(mode);
-    env->CallVoidMethod(*obj.get(), methodID, val);
+    env->CallVoidMethod(*obj.get(), jni::GetJavaMethodID(env, *obj.get(), "onLocationStateModeChangedCallback", "(I)V"), static_cast<jint>(mode));
   }
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_LocationState_addLocationStateModeListener(JNIEnv * env, jobject thiz, jobject obj)
   {
-    location::State::TStateModeListener fn = bind(&CompassStatusChanged, _1, jni::make_global_ref(obj));
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
-    return ls->AddStateModeListener(fn);
+    g_framework->NativeFramework()->GetLocationState()->AddStateModeListener(bind(&LocationStateModeChanged, _1, jni::make_global_ref(obj)));
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_LocationState_removeLocationStateModeListener(JNIEnv * env, jobject thiz, jint slotID)
   {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
-    ls->RemoveStateModeListener(slotID);
+    g_framework->NativeFramework()->GetLocationState()->RemoveStateModeListener(slotID);
   }
 
   JNIEXPORT void JNICALL

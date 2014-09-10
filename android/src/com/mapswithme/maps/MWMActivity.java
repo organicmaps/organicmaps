@@ -36,7 +36,6 @@ import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.maps.Ads.AdsManager;
 import com.mapswithme.maps.Ads.MenuAd;
 import com.mapswithme.maps.Framework.OnBalloonListener;
-import com.mapswithme.maps.LocationButtonImageSetter.ButtonState;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.background.WorkerService;
@@ -156,33 +155,11 @@ public class MWMActivity extends NvEventQueueActivity
     Utils.automaticIdleScreen(false, getWindow());
   }
 
-  private void updateMyPositionButton(int locationStateMode)
-  {
-    ButtonState buttonState = ButtonState.NO_LOCATION;
-    switch (locationStateMode)
-    {
-    case LocationState.UNKNOW_POSITION:
-      break;
-    case LocationState.PENDING_POSITION:
-      buttonState = ButtonState.WAITING_LOCATION;
-      break;
-    case LocationState.NOT_FOLLOW:
-    case LocationState.FOLLOW:
-      buttonState = ButtonState.HAS_LOCATION;
-      break;
-    case LocationState.ROTATE_AND_FOLLOW:
-      buttonState = ButtonState.FOLLOW_MODE;
-      break;
-    }
-
-    LocationButtonImageSetter.setButtonViewFromState(buttonState, mLocationButton);
-  }
-
   public void checkShouldResumeLocationService()
   {
     final LocationState state = MWMApplication.get().getLocationState();
     final int currentLocationMode = state.getLocationStateMode();
-    updateMyPositionButton(currentLocationMode);
+    LocationButtonImageSetter.setButtonViewFromState(currentLocationMode, mLocationButton);
 
     if (currentLocationMode > LocationState.NOT_FOLLOW)
       resumeLocation();
@@ -990,26 +967,22 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onLocationStateModeChanged(int newMode)
   {
-    updateMyPositionButton(newMode);
+    LocationButtonImageSetter.setButtonViewFromState(newMode, mLocationButton);
     switch (newMode)
     {
-    case LocationState.UNKNOW_POSITION:
+    case LocationState.UNKNOWN_POSITION:
       pauseLocation();
       break;
     case LocationState.PENDING_POSITION:
       resumeLocation();
       break;
-    case LocationState.NOT_FOLLOW:
-      break;
-    case LocationState.FOLLOW:
-      break;
-    case LocationState.ROTATE_AND_FOLLOW:
+    default:
       break;
     }
   }
 
   /// Callback from native compass GUI element processing.
-  public void OnLocationStateModeChanged(int newStatus)
+  public void onLocationStateModeChangedCallback(int newStatus)
   {
     final int val = newStatus;
     runOnUiThread(new Runnable()

@@ -55,7 +55,7 @@ State::Params::Params()
 
 State::State(Params const & p)
   : TBase(p),
-    m_modeInfo(UnknowPosition),
+    m_modeInfo(UnknownPosition),
     m_errorRadius(0),
     m_position(0, 0),
     m_drawDirection(0.0),
@@ -79,12 +79,12 @@ State::Mode State::GetMode() const
 
 bool State::IsModeChangeViewport() const
 {
-  return !(GetMode() < Follow);
+  return GetMode() >= Follow;
 }
 
 bool State::IsModeHasPosition() const
 {
-  return !(GetMode() < NotFollow);
+  return GetMode() >= NotFollow;
 }
 
 void State::SwitchToNextMode()
@@ -93,11 +93,11 @@ void State::SwitchToNextMode()
   Mode newMode = currentMode;
   switch (currentMode)
   {
-  case UnknowPosition:
+  case UnknownPosition:
     newMode = PendingPosition;
     break;
   case PendingPosition:
-    newMode = UnknowPosition;
+    newMode = UnknownPosition;
     break;
   case NotFollow:
     newMode = Follow;
@@ -106,10 +106,10 @@ void State::SwitchToNextMode()
     if (TestModeBit(m_modeInfo, KnownDirectionBit))
       newMode = RotateAndFollow;
     else
-      newMode = UnknowPosition;
+      newMode = UnknownPosition;
     break;
   case RotateAndFollow:
-    newMode = UnknowPosition;
+    newMode = UnknownPosition;
     break;
   }
 
@@ -123,20 +123,18 @@ void State::RestoreMode()
 
 void State::TurnOff()
 {
-  SetModeInfo(UnknowPosition);
+  SetModeInfo(UnknownPosition);
   setIsVisible(false);
   invalidate();
 }
 
 void State::OnLocationUpdate(location::GpsInfo const & info)
 {
-
   m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude,
                                               info.m_latitude,
                                               info.m_horizontalAccuracy);
-  m2::PointD const center = rect.Center();
 
-  m_position = center;
+  m_position = rect.Center();
   m_errorRadius = rect.SizeX() / 2;
 
   setIsVisible(true);
@@ -165,14 +163,14 @@ void State::OnCompassUpdate(location::CompassInfo const & info)
 
 void State::CallStateModeListeners()
 {
-  Mode currentMode = GetMode();
+  Mode const currentMode = GetMode();
   for (auto it : m_modeListeners)
     it.second(currentMode);
 }
 
 int State::AddStateModeListener(TStateModeListener const & l)
 {
-  int slotID = m_currentSlotID++;
+  int const slotID = m_currentSlotID++;
   m_modeListeners[slotID] = l;
   return slotID;
 }
@@ -190,9 +188,9 @@ void State::CallPositionChangedListeners(m2::PointD const & pt)
 
 int State::AddPositionChangedListener(State::TPositionListener const & func)
 {
-  int result = m_currentSlotID++;
-  m_positionListeners[result] = func;
-  return result;
+  int const slotID = m_currentSlotID++;
+  m_positionListeners[slotID] = func;
+  return slotID;
 }
 
 void State::RemovePositionChangedListener(int slotID)
@@ -227,7 +225,7 @@ void State::update()
 void State::draw(graphics::OverlayRenderer * r,
                  math::Matrix<double, 3, 3> const & m) const
 {
-  Mode currentMode = GetMode();
+  Mode const currentMode = GetMode();
   if (currentMode < NotFollow || !isVisible())
     return;
 
@@ -273,8 +271,8 @@ void State::CachePositionArrow()
   graphics::Icon::Info info("current-position-compas");
 
   graphics::Resource const * res = cacheScreen->fromID(cacheScreen->findInfo(info));
-  m2::RectU rect = res->m_texRect;
-  m2::PointD halfArrowSize(rect.SizeX() / 2.0, rect.SizeY() / 2.0);
+  m2::RectU const rect = res->m_texRect;
+  m2::PointD const halfArrowSize(rect.SizeX() / 2.0, rect.SizeY() / 2.0);
 
   m_positionArrow.reset();
   m_positionArrow.reset(cacheScreen->createDisplayList());
@@ -290,7 +288,7 @@ void State::CachePositionArrow()
     m2::PointD( halfArrowSize.x,  halfArrowSize.y)
   };
 
-  m2::PointF normal(0.0, 0.0);
+  m2::PointF const normal(0.0, 0.0);
   shared_ptr<graphics::gl::BaseTexture> texture = cacheScreen->pipeline(res->m_pipelineID).texture();
 
   m2::PointF texCoords[4] =
@@ -356,8 +354,8 @@ void State::FollowCompass()
 
 void State::SetModeInfo(uint16_t modeInfo)
 {
-  Mode newMode = ExcludeAllBits(modeInfo);
-  Mode oldMode = GetMode();
+  Mode const newMode = ExcludeAllBits(modeInfo);
+  Mode const oldMode = GetMode();
   m_modeInfo = modeInfo;
   if (newMode != oldMode)
   {
@@ -438,18 +436,18 @@ namespace
 
 bool ValidateTransition(State::Mode oldMode, State::Mode newMode)
 {
-  if (oldMode == State::UnknowPosition)
+  if (oldMode == State::UnknownPosition)
     return newMode == State::PendingPosition;
 
   if (oldMode == State::PendingPosition)
   {
-    return newMode == State::UnknowPosition ||
+    return newMode == State::UnknownPosition ||
            newMode == State::Follow;
   }
 
   if (oldMode == State::Follow)
   {
-    return newMode == State::UnknowPosition ||
+    return newMode == State::UnknownPosition ||
            newMode == State::NotFollow ||
            newMode == State::RotateAndFollow;
   }
@@ -460,7 +458,7 @@ bool ValidateTransition(State::Mode oldMode, State::Mode newMode)
   if (oldMode == State::RotateAndFollow)
   {
     return newMode == State::NotFollow ||
-           newMode == State::UnknowPosition;
+           newMode == State::UnknownPosition;
   }
 
   return false;
@@ -474,30 +472,26 @@ void State::AnimateStateTransition(Mode oldMode, Mode newMode)
 
   if (oldMode == PendingPosition && newMode == Follow)
   {
-    //TODO animate to position and scale
-    m2::PointD size(m_errorRadius, m_errorRadius);
+    m2::PointD const size(m_errorRadius, m_errorRadius);
     m_framework->ShowRectExVisibleScale(m2::RectD(m_position - size, m_position + size),
                                         scales::GetUpperComfortScale());
   }
   else if (oldMode == NotFollow && newMode == Follow)
   {
-    // TODO animate to position
     m_framework->SetViewportCenterAnimated(Position());
   }
   else if (newMode == RotateAndFollow)
   {
     FollowCompass();
   }
-  else if (oldMode == RotateAndFollow && newMode == UnknowPosition)
+  else if (oldMode == RotateAndFollow && newMode == UnknownPosition)
   {
-    // TODO rotate viewport on north
     m_framework->GetAnimator().RotateScreen(m_framework->GetNavigator().Screen().GetAngle(), 0.0);
   }
 }
 
 void State::AnimateFollow()
 {
-  // TODO
   m_framework->SetViewportCenterAnimated(Position());
   FollowCompass();
 }
