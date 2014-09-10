@@ -17,11 +17,12 @@ public:
   TextShape(m2::PointF const & basePoint, TextViewParams const & params);
 
   void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
-
+  void visSplit(strings::UniString const & visText,
+                buffer_vector<strings::UniString, 3> & res,
+                char const * delims,
+                bool splitAllFound) const;
 private:
-  void DrawSingleLine(dp::RefPointer<dp::Batcher> batcher, TextLayout const & layout) const;
-  void DrawDoubleLine(dp::RefPointer<dp::Batcher> batcher, TextLayout const & primaryLayout,
-                                                           TextLayout const & secondaryLayout) const;
+  void DrawPolyLine(dp::RefPointer<dp::Batcher> batcher, vector<TextLayout> & layouts, vector<bool> & delims) const;
 
 private:
   m2::PointF m_basePoint;
