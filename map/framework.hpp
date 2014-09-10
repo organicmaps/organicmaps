@@ -110,9 +110,6 @@ protected:
   int m_width;
   int m_height;
 
-  location::ECompassProcessMode m_dragCompassProcessMode;
-  location::ELocationProcessMode m_dragLocationProcessMode;
-
   void StopLocationFollow();
 
   storage::Storage m_storage;
@@ -215,10 +212,6 @@ public:
 
   /// @name GPS location updates routine.
   //@{
-
-  void StartLocation();
-  void StopLocation();
-
   void OnLocationError(location::TLocationError error);
   void OnLocationUpdate(location::GpsInfo const & info);
   void OnCompassUpdate(location::CompassInfo const & info);
@@ -391,9 +384,9 @@ public:
 
   /// @name Drag implementation.
   //@{
-private:
-  m2::PointD GetPixelCenter() const;
 public:
+  m2::PointD GetPixelCenter() const;
+
   void StartDrag(DragEvent const & e);
   void DoDrag(DragEvent const & e);
   void StopDrag(DragEvent const & e);

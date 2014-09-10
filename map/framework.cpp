@@ -104,16 +104,6 @@ void Framework::RemoveMap(string const & file)
   m_model.RemoveMap(file);
 }
 
-void Framework::StartLocation()
-{
-  m_informationDisplay.locationState()->OnStartLocation();
-}
-
-void Framework::StopLocation()
-{
-  m_informationDisplay.locationState()->OnStopLocation();
-}
-
 void Framework::OnLocationError(location::TLocationError error)
 {}
 
@@ -146,7 +136,7 @@ void Framework::OnLocationUpdate(location::GpsInfo const & info)
   state->OnLocationUpdate(rInfo);
   m_balloonManager.LocationChanged(rInfo);
 
-  if (state->GetLocationProcessMode() != location::ELocationDoNothing)
+  if (state->IsModeChangeViewport())
     UpdateUserViewportChanged();
 }
 
@@ -164,11 +154,7 @@ void Framework::OnCompassUpdate(location::CompassInfo const & info)
 
 void Framework::StopLocationFollow()
 {
-  shared_ptr<location::State> ls = m_informationDisplay.locationState();
-
-  ls->StopCompassFollowing();
-  ls->SetLocationProcessMode(location::ELocationDoNothing);
-  ls->SetIsCentered(false);
+  m_informationDisplay.locationState()->StopLocationFollow();
 }
 
 InformationDisplay & Framework::GetInformationDisplay()
@@ -908,13 +894,14 @@ void Framework::StartDrag(DragEvent const & e)
 #endif
 
   m_navigator.StartDrag(pt, ElapsedSeconds());
+  m_informationDisplay.locationState()->DragStarted();
 
   if (m_renderPolicy)
     m_renderPolicy->StartDrag();
 
-  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
-  m_dragCompassProcessMode = locationState->GetCompassProcessMode();
-  m_dragLocationProcessMode = locationState->GetLocationProcessMode();
+//  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
+//  m_dragCompassProcessMode = locationState->GetCompassProcessMode();
+//  m_dragLocationProcessMode = locationState->GetLocationProcessMode();
 }
 
 void Framework::DoDrag(DragEvent const & e)
@@ -926,12 +913,7 @@ void Framework::DoDrag(DragEvent const & e)
 #endif
 
   m_navigator.DoDrag(pt, ElapsedSeconds());
-
-  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
-
-  locationState->SetIsCentered(false);
-  locationState->StopCompassFollowing();
-  locationState->SetLocationProcessMode(location::ELocationDoNothing);
+  m_informationDisplay.locationState()->Draged();
 
   if (m_renderPolicy)
     m_renderPolicy->DoDrag();
@@ -946,24 +928,7 @@ void Framework::StopDrag(DragEvent const & e)
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, pt);
 #endif
-
-  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
-
-  if (m_dragLocationProcessMode != location::ELocationDoNothing)
-  {
-    // reset GPS centering mode if we have dragged far from current location
-    ScreenBase const & s = m_navigator.Screen();
-    if (GetPixelCenter().Length(s.GtoP(locationState->Position())) >= s.GetMinPixelRectSize() / 5.0)
-      locationState->SetLocationProcessMode(location::ELocationDoNothing);
-    else
-    {
-      locationState->SetLocationProcessMode(m_dragLocationProcessMode);
-      if (m_dragCompassProcessMode == location::ECompassFollow)
-        locationState->AnimateToPositionAndEnqueueFollowing();
-      else
-        locationState->AnimateToPosition();
-    }
-  }
+  m_informationDisplay.locationState()->DragEnded();
 
   if (m_renderPolicy)
   {
@@ -995,6 +960,7 @@ void Framework::StopRotate(RotateEvent const & e)
   if (m_renderPolicy && m_renderPolicy->DoSupportRotation())
   {
     m_navigator.StopRotate(e.Angle(), ElapsedSeconds());
+    m_informationDisplay.locationState()->Rotated();
     m_renderPolicy->StopRotate(e.Angle(), ElapsedSeconds());
 
     UpdateUserViewportChanged();
@@ -1013,9 +979,8 @@ void Framework::Move(double azDir, double factor)
 //@{
 void Framework::ScaleToPoint(ScaleToPointEvent const & e)
 {
-  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
-  m2::PointD const pt = (locationState->GetLocationProcessMode() == location::ELocationDoNothing) ?
-        m_navigator.ShiftPoint(e.Pt()) : GetPixelCenter();
+  m2::PointD pt = m_navigator.ShiftPoint(e.Pt());
+  m_informationDisplay.locationState()->ScaleCorrection(pt);
 
   m_animController->AddTask(m_navigator.ScaleToPointAnim(pt, e.ScaleFactor(), 0.25));
 
@@ -1041,16 +1006,7 @@ void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::Poin
   pt1 = m_navigator.ShiftPoint(e.Pt1());
   pt2 = m_navigator.ShiftPoint(e.Pt2());
 
-  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
-
-  if (locationState->HasPosition()
-  && (locationState->GetLocationProcessMode() == location::ELocationCenterOnly))
-  {
-    m2::PointD const ptC = (pt1 + pt2) / 2;
-    m2::PointD const ptDiff = GetPixelCenter() - ptC;
-    pt1 += ptDiff;
-    pt2 += ptDiff;
-  }
+  m_informationDisplay.locationState()->ScaleCorrection(pt1, pt2);
 
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, pt1);
@@ -1077,11 +1033,8 @@ void Framework::DoScale(ScaleEvent const & e)
   if (m_renderPolicy)
     m_renderPolicy->DoScale();
 
-  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
-
-  if (m_navigator.IsRotatingDuringScale()
-  && (locationState->GetCompassProcessMode() == location::ECompassFollow))
-    locationState->StopCompassFollowing();
+  if (m_navigator.IsRotatingDuringScale())
+    m_informationDisplay.locationState()->Rotated();
 }
 
 void Framework::StopScale(ScaleEvent const & e)
@@ -1349,7 +1302,7 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
 {
   shared_ptr<location::State> locationState = m_informationDisplay.locationState();
 
-  if (locationState->HasPosition())
+  if (locationState->IsModeHasPosition())
   {
     m2::PointD const pos = locationState->Position();
     lat = MercatorBounds::YToLat(pos.y);
@@ -1891,7 +1844,7 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
   m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * GetVisualScale(), rect);
 
   shared_ptr<location::State> const & locationState = GetLocationState();
-  if (locationState->HasPosition())
+  if (locationState->IsModeHasPosition())
   {
     m2::PointD const & glPivot = locationState->Position();
     if (rect.IsPointInside(glPivot))

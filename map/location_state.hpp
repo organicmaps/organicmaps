@@ -13,127 +13,73 @@
 class Framework;
 
 namespace graphics { class DisplayList; }
-namespace anim { class Task; }
 
 namespace location
 {
   class GpsInfo;
   class CompassInfo;
 
-  enum ELocationProcessMode
-  {
-    ELocationDoNothing = 0,
-    ELocationCenterAndScale,
-    ELocationCenterOnly
-  };
-
-  enum ECompassProcessMode
-  {
-    ECompassDoNothing = 0,
-    ECompassFollow
-  };
-
   // Class, that handles position and compass updates,
   // centers, scales and rotates map according to this updates
   // and draws location and compass marks.
   class State : public gui::Element
   {
-  public:
-    typedef function<void(int)> TCompassStatusListener;
-    typedef function<void (m2::PointD const &)> TPositionChangedCallback;
-
-  private:
-
-    static const double s_cacheRadius;
-
-    double m_errorRadius;   //< error radius in mercator
-    m2::PointD m_position;  //< position in mercator
-
-    double m_drawHeading;
-
-    bool m_hasPosition;
-    bool m_hasCompass;
-    bool m_isCentered;
-    bool m_isFirstPosition;
-
-    typedef map<int, TCompassStatusListener> TCompassStatusListeners;
-    TCompassStatusListeners m_compassStatusListeners;
-
-    typedef map<int, TPositionChangedCallback> TPositionChangedListeners;
-    TPositionChangedListeners m_callbacks;
-    int m_currentSlotID;
-
-    void CallPositionChangedListeners(m2::PointD const & pt);
-    void CallCompassStatusListeners(ECompassProcessMode mode);
-
-    ELocationProcessMode m_locationProcessMode;
-    ECompassProcessMode m_compassProcessMode;
-
-    typedef gui::Element BaseT;
-
-    graphics::Color m_locationAreaColor;
-
-    Framework * m_framework;
-
-    /// @nameCompass Rendering Parameters
-    //@{
-    unique_ptr<graphics::DisplayList> m_positionArrow;
-    unique_ptr<graphics::DisplayList> m_locationMarkDL;
-    unique_ptr<graphics::DisplayList> m_positionMarkDL;
-    //@}
-
-    void cachePositionArrow();
-    void cacheLocationMark();
-
-    void CheckCompassFollowing();
-    void FollowCompass();
+    typedef gui::Element TBase;
 
   public:
-    struct Params : BaseT::Params
+    struct Params : TBase::Params
     {
       graphics::Color m_locationAreaColor;
       Framework * m_framework;
       Params();
     };
 
+  public:
+    // Do not change the order
+    enum Mode
+    {
+      UnknowPosition = 0x0,
+      PendingPosition = 0x1,
+      NotFollow = 0x2,
+      Follow = 0x4,
+      RotateAndFollow = 0x8,
+    };
+
+    typedef function<void(Mode)> TStateModeListener;
+    typedef function<void (m2::PointD const &)> TPositionListener;
+
     State(Params const & p);
 
     /// @return GPS center point in mercator
     m2::PointD const & Position() const;
 
-    // Заменяем на GetMode()
-    //{
-    bool HasPosition() const;
-    bool HasCompass() const;
-    bool IsFirstPosition() const;
+    Mode GetMode() const;
+    bool IsModeChangeViewport() const;
+    bool IsModeHasPosition() const;
+    void SwitchToNextMode();
+    void RestoreMode();
 
-    ELocationProcessMode GetLocationProcessMode() const;
-    void SetLocationProcessMode(ELocationProcessMode mode);
+    int  AddStateModeListener(TStateModeListener const & l);
+    void RemoveStateModeListener(int slotID);
 
-    ECompassProcessMode GetCompassProcessMode() const;
-    void SetCompassProcessMode(ECompassProcessMode mode);
-    //}
-
-    int  AddCompassStatusListener(TCompassStatusListener const & l);
-    void RemoveCompassStatusListener(int slotID);
-
-    int  AddPositionChangedListener(TPositionChangedCallback const & func);
+    int  AddPositionChangedListener(TPositionListener const & func);
     void RemovePositionChangedListener(int slotID);
 
     void TurnOff();
-
-    void StartCompassFollowing();
     void StopCompassFollowing();
+    void StopLocationFollow();
 
-    void OnStartLocation();
-    void OnStopLocation();
+    /// @name User input notification block
+    //@{
+    void DragStarted();
+    void Draged();
+    void DragEnded();
 
-    void SetIsCentered(bool flag);
-    bool IsCentered() const;
+    void ScaleCorrection(m2::PointD & pt);
+    void ScaleCorrection(m2::PointD & pt1, m2::PointD & pt2);
 
-    void AnimateToPosition();
-    void AnimateToPositionAndEnqueueFollowing();
-    void AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationProcessMode mode);
+    void Rotated();
+    //@}
 
     /// @name GPS location updates routine.
     //@{
@@ -143,14 +89,57 @@ namespace location
 
     /// @name Override from graphics::OverlayElement and gui::Element.
     //@{
-    virtual m2::RectD GetBoundRect() const;
+    virtual m2::RectD GetBoundRect() const { return m2::RectD(); }
 
     void draw(graphics::OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const;
-    bool hitTest(m2::PointD const & pt) const;
+    bool hitTest(m2::PointD const & /*pt*/) const { return false; }
 
     void cache();
     void purge();
     void update();
+    //@}
+
+  private:
+    void AnimateCurrentState();
+
+    void CallPositionChangedListeners(m2::PointD const & pt);
+    void CallStateModeListeners();
+
+    void CachePositionArrow();
+    void CacheLocationMark();
+
+    void FollowCompass();
+    void SetModeInfo(uint16_t modeInfo);
+
+  private:
+    // Mode bits
+    // {
+    constexpr static uint16_t const ModeNotProcessed = 0x40;
+    constexpr static uint16_t const KnownDirectionBit = 0x80;
+    // }
+    constexpr static float const s_cacheRadius = 500.0f;
+
+    uint16_t m_modeInfo; // combination of Mode enum and "Mode bits"
+    uint16_t m_dragModeInfo;
+    Framework * m_framework;
+
+    double m_errorRadius;   //< error radius in mercator
+    m2::PointD m_position;  //< position in mercator
+    double m_drawDirection;
+
+    typedef map<int, TStateModeListener> TModeListeners;
+    typedef map<int, TPositionListener> TPositionListeners;
+
+    TModeListeners m_modeListeners;
+    TPositionListeners m_positionListeners;
+    int m_currentSlotID;
+
+    /// @nameCompass Rendering Parameters
+    //@{
+    unique_ptr<graphics::DisplayList> m_positionArrow;
+    unique_ptr<graphics::DisplayList> m_locationMarkDL;
+    unique_ptr<graphics::DisplayList> m_positionMarkDL;
+    graphics::Color m_locationAreaColor;
     //@}
   };
 }

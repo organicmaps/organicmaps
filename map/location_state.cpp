@@ -22,428 +22,459 @@
 
 namespace location
 {
-//  namespace
-//  {
-//    const float MaxPositionFault = 25.0;
-//    const float MaxHeadingFaultDeg = 3.0;
-//  }
 
-  double const State::s_cacheRadius = 500;
+namespace
+{
 
-  State::Params::Params()
-    : m_locationAreaColor(0, 0, 0, 0),
-      m_framework(0)
-  {}
+uint16_t IncludeModeBit(uint16_t mode, uint16_t bit)
+{
+  return mode | bit;
+}
 
-  State::State(Params const & p)
-    : BaseT(p),
-      m_errorRadius(0),
-      m_position(0, 0),
-      m_drawHeading(0.0),
-      m_hasPosition(false),
-      m_hasCompass(false),
-      m_isCentered(false),
-      m_isFirstPosition(false),
-      m_currentSlotID(0),
-      m_locationProcessMode(ELocationDoNothing),
-      m_compassProcessMode(ECompassDoNothing)
+uint16_t ExcludeModeBit(uint16_t mode, uint16_t bit)
+{
+  return mode & (~bit);
+}
+
+State::Mode ExcludeAllBits(uint16_t mode)
+{
+  return (State::Mode)(mode & 0xF);
+}
+
+uint16_t ChangeMode(uint16_t mode, State::Mode newMode)
+{
+  return (mode & 0xF0) | newMode;
+}
+
+bool TestModeBit(uint16_t mode, uint16_t bit)
+{
+  return (mode & bit) != 0;
+}
+
+}
+
+State::Params::Params()
+  : m_locationAreaColor(0, 0, 0, 0),
+    m_framework(0)
+{}
+
+State::State(Params const & p)
+  : TBase(p),
+    m_modeInfo(UnknowPosition),
+    m_errorRadius(0),
+    m_position(0, 0),
+    m_drawDirection(0.0),
+    m_currentSlotID(0)
+{
+  m_locationAreaColor = p.m_locationAreaColor;
+  m_framework = p.m_framework;
+
+  setIsVisible(false);
+}
+
+m2::PointD const & State::Position() const
+{
+  return m_position;
+}
+
+State::Mode State::GetMode() const
+{
+  return ExcludeAllBits(m_modeInfo);
+}
+
+bool State::IsModeChangeViewport() const
+{
+  return !(GetMode() < Follow);
+}
+
+bool State::IsModeHasPosition() const
+{
+  return !(GetMode() < NotFollow);
+}
+
+void State::SwitchToNextMode()
+{
+  Mode currentMode = GetMode();
+  Mode newMode = currentMode;
+  switch (currentMode)
   {
-    m_locationAreaColor = p.m_locationAreaColor;
-    m_framework = p.m_framework;
-
-    setState(EActive);
-    setIsVisible(false);
-  }
-
-  bool State::HasPosition() const
-  {
-    return m_hasPosition;
-  }
-
-  m2::PointD const & State::Position() const
-  {
-    return m_position;
-  }
-
-  bool State::HasCompass() const
-  {
-    return m_hasCompass;
-  }
-
-  bool State::IsFirstPosition() const
-  {
-    return m_isFirstPosition;
-  }
-
-  void State::TurnOff()
-  {
-    m_hasPosition = false;
-    m_hasCompass = false;
-    m_isFirstPosition = false;
-
-    setIsVisible(false);
-    invalidate();
-  }
-
-  ELocationProcessMode State::GetLocationProcessMode() const
-  {
-    return m_locationProcessMode;
-  }
-
-  void State::SetLocationProcessMode(ELocationProcessMode mode)
-  {
-    m_locationProcessMode = mode;
-  }
-
-  ECompassProcessMode State::GetCompassProcessMode() const
-  {
-    return m_compassProcessMode;
-  }
-
-  void State::SetCompassProcessMode(ECompassProcessMode mode)
-  {
-    bool stateChanged = (m_compassProcessMode != mode);
-
-    m_compassProcessMode = mode;
-
-    if (stateChanged)
-      CallCompassStatusListeners(mode);
-  }
-
-  void State::OnLocationUpdate(location::GpsInfo const & info)
-  {
-    m_isFirstPosition = false;
-    m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude,
-                                                info.m_latitude,
-                                                info.m_horizontalAccuracy);
-    m2::PointD const center = rect.Center();
-
-    m_hasPosition = true;
-    setIsVisible(true);
-    m_position = center;
-    m_errorRadius = rect.SizeX() / 2;
-
-    switch (m_locationProcessMode)
-    {
-    case ELocationCenterAndScale:
-      m_framework->ShowRectExVisibleScale(rect, scales::GetUpperComfortScale());
-
-      SetIsCentered(true);
-      CheckCompassFollowing();
-
-      m_locationProcessMode = ELocationCenterOnly;
-      break;
-
-    case ELocationCenterOnly:
-      m_framework->SetViewportCenter(center);
-
-      SetIsCentered(true);
-      CheckCompassFollowing();
-      break;
-
-    case ELocationDoNothing:
-      break;
-    }
-
-    CallPositionChangedListeners(m_position);
-    invalidate();
-  }
-
-  void State::OnCompassUpdate(location::CompassInfo const & info)
-  {
-    m_hasCompass = true;
-    if (info.m_trueHeading >= 0.0)
-      m_drawHeading = info.m_trueHeading;
+  case UnknowPosition:
+    newMode = PendingPosition;
+    break;
+  case PendingPosition:
+    newMode = UnknowPosition;
+    break;
+  case NotFollow:
+    newMode = Follow;
+    break;
+  case Follow:
+    if (TestModeBit(m_modeInfo, KnownDirectionBit))
+      newMode = RotateAndFollow;
     else
-      m_drawHeading = info.m_magneticHeading;
-
-    CheckCompassFollowing();
-
-    invalidate();
+      newMode = UnknowPosition;
+    break;
+  case RotateAndFollow:
+    newMode = UnknowPosition;
+    break;
   }
 
-  m2::RectD State::GetBoundRect() const
+  SetModeInfo(ChangeMode(m_modeInfo, newMode));
+}
+
+void State::RestoreMode()
+{
+  SetModeInfo(IncludeModeBit(m_modeInfo, ModeNotProcessed));
+}
+
+void State::TurnOff()
+{
+  SetModeInfo(UnknowPosition);
+  setIsVisible(false);
+  invalidate();
+}
+
+void State::OnLocationUpdate(location::GpsInfo const & info)
+{
+
+  m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude,
+                                              info.m_latitude,
+                                              info.m_horizontalAccuracy);
+  m2::PointD const center = rect.Center();
+
+  m_position = center;
+  m_errorRadius = rect.SizeX() / 2;
+
+  setIsVisible(true);
+
+  if (GetMode() == PendingPosition)
+    SetModeInfo(IncludeModeBit(ChangeMode(m_modeInfo, Follow), ModeNotProcessed));
+
+  AnimateCurrentState();
+
+  CallPositionChangedListeners(m_position);
+  invalidate();
+}
+
+void State::OnCompassUpdate(location::CompassInfo const & info)
+{
+  SetModeInfo(IncludeModeBit(m_modeInfo, KnownDirectionBit));
+
+  if (info.m_trueHeading >= 0.0)
+    m_drawDirection = info.m_trueHeading;
+  else
+    m_drawDirection = info.m_magneticHeading;
+
+  FollowCompass();
+  invalidate();
+}
+
+void State::CallStateModeListeners()
+{
+  Mode currentMode = GetMode();
+  for (auto it : m_modeListeners)
+    it.second(currentMode);
+}
+
+int State::AddStateModeListener(TStateModeListener const & l)
+{
+  int slotID = m_currentSlotID++;
+  m_modeListeners[slotID] = l;
+  return slotID;
+}
+
+void State::RemoveStateModeListener(int slotID)
+{
+  m_modeListeners.erase(slotID);
+}
+
+void State::CallPositionChangedListeners(m2::PointD const & pt)
+{
+  for (auto it : m_positionListeners)
+    it.second(pt);
+}
+
+int State::AddPositionChangedListener(State::TPositionListener const & func)
+{
+  int result = m_currentSlotID++;
+  m_positionListeners[result] = func;
+  return result;
+}
+
+void State::RemovePositionChangedListener(int slotID)
+{
+  m_positionListeners.erase(slotID);
+}
+
+void State::cache()
+{
+  CachePositionArrow();
+  CacheLocationMark();
+
+  m_controller->GetCacheScreen()->completeCommands();
+}
+
+void State::purge()
+{
+  m_positionArrow.reset();
+  m_locationMarkDL.reset();
+  m_positionMarkDL.reset();
+}
+
+void State::update()
+{
+  if (isVisible() && IsModeHasPosition())
   {
-    return m2::RectD();
+    m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
+    setPivot(pxPosition);
   }
+}
 
-  void State::CallCompassStatusListeners(ECompassProcessMode mode)
+void State::draw(graphics::OverlayRenderer * r,
+                 math::Matrix<double, 3, 3> const & m) const
+{
+  Mode currentMode = GetMode();
+  if (currentMode < NotFollow || !isVisible())
+    return;
+
+  checkDirtyLayout();
+
+  m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
+  double const pxErrorRadius = pxPosition.Length(
+        m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
+
+  double const drawScale = pxErrorRadius / s_cacheRadius;
+
+  math::Matrix<double, 3, 3> locationDrawM = math::Shift(
+                                               math::Scale(
+                                                 math::Identity<double, 3>(),
+                                                 drawScale,
+                                                 drawScale),
+                                               pivot());
+
+  math::Matrix<double, 3, 3> const drawM = locationDrawM * m;
+  // draw error sector
+  r->drawDisplayList(m_locationMarkDL.get(), drawM);
+
+  // if we know look direction than we draw arrow
+  if (TestModeBit(m_modeInfo, KnownDirectionBit))
   {
-    for (TCompassStatusListeners::const_iterator it = m_compassStatusListeners.begin();
-         it != m_compassStatusListeners.end();
-         ++it)
-      it->second(mode);
+    double rotateAngle = m_drawDirection + m_framework->GetNavigator().Screen().GetAngle();
+
+    math::Matrix<double, 3, 3> compassDrawM =math::Shift(
+                                              math::Rotate(
+                                                  math::Identity<double, 3>(),
+                                                  rotateAngle),
+                                              pivot());
+
+    r->drawDisplayList(m_positionArrow.get(), compassDrawM * m);
   }
+  else
+    r->drawDisplayList(m_positionMarkDL.get(), drawM);
+}
 
-  int State::AddCompassStatusListener(TCompassStatusListener const & l)
+void State::CachePositionArrow()
+{
+  graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
+  graphics::Icon::Info info("current-position-compas");
+
+  graphics::Resource const * res = cacheScreen->fromID(cacheScreen->findInfo(info));
+  m2::RectU rect = res->m_texRect;
+  m2::PointD halfArrowSize(rect.SizeX() / 2.0, rect.SizeY() / 2.0);
+
+  m_positionArrow.reset();
+  m_positionArrow.reset(cacheScreen->createDisplayList());
+
+  cacheScreen->beginFrame();
+  cacheScreen->setDisplayList(m_positionArrow.get());
+
+  m2::PointD coords[4] =
   {
-    int slotID = m_currentSlotID++;
-    m_compassStatusListeners[slotID] = l;
-    return slotID;
-  }
+    m2::PointD(-halfArrowSize.x, -halfArrowSize.y),
+    m2::PointD(-halfArrowSize.x,  halfArrowSize.y),
+    m2::PointD( halfArrowSize.x, -halfArrowSize.y),
+    m2::PointD( halfArrowSize.x,  halfArrowSize.y)
+  };
 
-  void State::RemoveCompassStatusListener(int slotID)
+  m2::PointF normal(0.0, 0.0);
+  shared_ptr<graphics::gl::BaseTexture> texture = cacheScreen->pipeline(res->m_pipelineID).texture();
+
+  m2::PointF texCoords[4] =
   {
-    m_compassStatusListeners.erase(slotID);
-  }
+    texture->mapPixel(m2::PointF(rect.minX(), rect.minY())),
+    texture->mapPixel(m2::PointF(rect.minX(), rect.maxY())),
+    texture->mapPixel(m2::PointF(rect.maxX(), rect.minY())),
+    texture->mapPixel(m2::PointF(rect.maxX(), rect.maxY()))
+  };
 
-  void State::CallPositionChangedListeners(m2::PointD const & pt)
+  cacheScreen->addTexturedStripStrided(coords, sizeof(m2::PointD),
+                                       &normal, 0,
+                                       texCoords, sizeof(m2::PointF),
+                                       4, depth(), res->m_pipelineID);
+  cacheScreen->setDisplayList(0);
+  cacheScreen->endFrame();
+}
+
+void State::CacheLocationMark()
+{
+  graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
+
+  m_locationMarkDL.reset();
+  m_locationMarkDL.reset(cacheScreen->createDisplayList());
+
+  m_positionMarkDL.reset();
+  m_positionMarkDL.reset(cacheScreen->createDisplayList());
+
+  cacheScreen->beginFrame();
+  cacheScreen->setDisplayList(m_locationMarkDL.get());
+
+  cacheScreen->fillSector(m2::PointD(0, 0),
+                          0, 2.0 * math::pi,
+                          s_cacheRadius,
+                          m_locationAreaColor,
+                          depth() - 3);
+
+  cacheScreen->setDisplayList(m_positionMarkDL.get());
+  cacheScreen->drawSymbol(m2::PointD(0, 0),
+                          "current-position",
+                          graphics::EPosCenter,
+                          depth() - 1);
+
+  cacheScreen->setDisplayList(0);
+
+  cacheScreen->endFrame();
+}
+
+void State::FollowCompass()
+{
+  if (!m_framework->GetNavigator().DoSupportRotation())
+    return;
+
+  if (TestModeBit(m_modeInfo, KnownDirectionBit) && GetMode() == RotateAndFollow)
   {
-    typedef TPositionChangedListeners::const_iterator iter_t;
-    for (iter_t it = m_callbacks.begin(); it != m_callbacks.end(); ++it)
-      it->second(pt);
-  }
-
-  int State::AddPositionChangedListener(State::TPositionChangedCallback const & func)
-  {
-    int result = m_currentSlotID++;
-    m_callbacks[result] = func;
-    return result;
-  }
-
-  void State::RemovePositionChangedListener(int slotID)
-  {
-    m_callbacks.erase(slotID);
-  }
-
-  void State::cachePositionArrow()
-  {
-    graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
-    graphics::Icon::Info info("current-position-compas");
-
-    graphics::Resource const * res = cacheScreen->fromID(cacheScreen->findInfo(info));
-    m2::RectU rect = res->m_texRect;
-    m2::PointD halfArrowSize(rect.SizeX() / 2.0, rect.SizeY() / 2.0);
-
-    m_positionArrow.reset();
-    m_positionArrow.reset(cacheScreen->createDisplayList());
-
-    cacheScreen->beginFrame();
-    cacheScreen->setDisplayList(m_positionArrow.get());
-
-    m2::PointD coords[4] =
-    {
-      m2::PointD(-halfArrowSize.x, -halfArrowSize.y),
-      m2::PointD(-halfArrowSize.x,  halfArrowSize.y),
-      m2::PointD( halfArrowSize.x, -halfArrowSize.y),
-      m2::PointD( halfArrowSize.x,  halfArrowSize.y)
-    };
-
-    m2::PointF normal(0.0, 0.0);
-    shared_ptr<graphics::gl::BaseTexture> texture = cacheScreen->pipeline(res->m_pipelineID).texture();
-
-    m2::PointF texCoords[4] =
-    {
-      texture->mapPixel(m2::PointF(rect.minX(), rect.minY())),
-      texture->mapPixel(m2::PointF(rect.minX(), rect.maxY())),
-      texture->mapPixel(m2::PointF(rect.maxX(), rect.minY())),
-      texture->mapPixel(m2::PointF(rect.maxX(), rect.maxY()))
-    };
-
-    cacheScreen->addTexturedStripStrided(coords, sizeof(m2::PointD),
-                                         &normal, 0,
-                                         texCoords, sizeof(m2::PointF),
-                                         4, depth(), res->m_pipelineID);
-    cacheScreen->setDisplayList(0);
-    cacheScreen->endFrame();
-  }
-
-  void State::cacheLocationMark()
-  {
-    graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
-
-    m_locationMarkDL.reset();
-    m_locationMarkDL.reset(cacheScreen->createDisplayList());
-
-    m_positionMarkDL.reset();
-    m_positionMarkDL.reset(cacheScreen->createDisplayList());
-
-    cacheScreen->beginFrame();
-    cacheScreen->setDisplayList(m_locationMarkDL.get());
-
-    cacheScreen->fillSector(m2::PointD(0, 0),
-                            0, 2.0 * math::pi,
-                            s_cacheRadius,
-                            m_locationAreaColor,
-                            depth() - 3);
-
-    cacheScreen->setDisplayList(m_positionMarkDL.get());
-    cacheScreen->drawSymbol(m2::PointD(0, 0),
-                            "current-position",
-                            graphics::EPosCenter,
-                            depth() - 1);
-
-    cacheScreen->setDisplayList(0);
-
-    cacheScreen->endFrame();
-  }
-
-  void State::cache()
-  {
-    cachePositionArrow();
-    cacheLocationMark();
-
-    m_controller->GetCacheScreen()->completeCommands();
-  }
-
-  void State::purge()
-  {
-    m_positionArrow.reset();
-    m_locationMarkDL.reset();
-    m_positionMarkDL.reset();
-  }
-
-  void State::update()
-  {
-    if (isVisible() && m_hasPosition)
-    {
-      m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
-      setPivot(pxPosition);
-    }
-  }
-
-  void State::draw(graphics::OverlayRenderer * r,
-                   math::Matrix<double, 3, 3> const & m) const
-  {
-    if (isVisible())
-    {
-      checkDirtyLayout();
-
-      if (m_hasPosition)
-      {
-        math::Matrix<double, 3, 3> locationDrawM;
-
-        /// then position
-        m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
-        double const pxErrorRadius = pxPosition.Length(
-              m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
-
-        double const drawScale = pxErrorRadius / s_cacheRadius;
-
-        locationDrawM =
-           math::Shift(
-             math::Scale(
-               math::Identity<double, 3>(),
-               drawScale,
-               drawScale),
-             pivot());
-
-        math::Matrix<double, 3, 3> const drawM = locationDrawM * m;
-        r->drawDisplayList(m_locationMarkDL.get(), drawM);
-
-        if (HasCompass())
-        {
-          double screenAngle = m_framework->GetNavigator().Screen().GetAngle();
-
-          math::Matrix<double, 3, 3> compassDrawM;
-
-          double const headingRad = m_drawHeading;
-
-          compassDrawM =
-              math::Shift(
-                math::Rotate(
-                    math::Identity<double, 3>(),
-                    screenAngle + headingRad),
-                pivot());
-
-          r->drawDisplayList(m_positionArrow.get(), compassDrawM * m);
-        }
-        else
-          r->drawDisplayList(m_positionMarkDL.get(), drawM);
-      }
-    }
-  }
-
-  bool State::hitTest(m2::PointD const & /*pt*/) const
-  {
-    return false;
-  }
-
-  void State::CheckCompassFollowing()
-  {
-    if (HasCompass()
-    && (GetCompassProcessMode() == ECompassFollow)
-    && IsCentered())
-      FollowCompass();
-  }
-
-  void State::FollowCompass()
-  {
-    if (!m_framework->GetNavigator().DoSupportRotation())
-      return;
-
     anim::Controller::Guard guard(m_framework->GetAnimController());
 
     m_framework->GetAnimator().RotateScreen(
           m_framework->GetNavigator().Screen().GetAngle(),
-          -m_drawHeading);
+          -m_drawDirection);
   }
+}
 
-  void State::AnimateToPosition()
+void State::SetModeInfo(uint16_t modeInfo)
+{
+  bool callModeChanged = GetMode() != ExcludeAllBits(modeInfo);
+  m_modeInfo = modeInfo;
+  if (callModeChanged)
   {
-    m_framework->SetViewportCenterAnimated(Position());
+    CallStateModeListeners();
+    AnimateCurrentState();
+    invalidate();
   }
+}
 
-  void State::AnimateToPositionAndEnqueueFollowing()
+void State::StopCompassFollowing()
+{
+  if (GetMode() != RotateAndFollow)
+    return;
+
+  SetModeInfo(ChangeMode(m_modeInfo, Follow));
+
+  m_framework->GetAnimator().StopRotation();
+  m_framework->GetAnimator().StopChangeViewport();
+  m_framework->GetAnimator().StopMoveScreen();
+}
+
+void State::StopLocationFollow()
+{
+  if (GetMode() > NotFollow)
+    SetModeInfo(NotFollow);
+}
+
+void State::DragStarted()
+{
+  m_dragModeInfo = m_modeInfo;
+}
+
+void State::Draged()
+{
+  if (GetMode() < Follow)
+    return;
+
+  StopCompassFollowing();
+  SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
+}
+
+void State::DragEnded()
+{
+  if (ExcludeAllBits(m_dragModeInfo) < Follow)
+    return;
+
+  // reset GPS centering mode if we have dragged far from current location
+  ScreenBase const & s = m_framework->GetNavigator().Screen();
+  m2::PointD const pixelCenter = m_framework->GetPixelCenter();
+  if (pixelCenter.Length(s.GtoP(Position())) < s.GetMinPixelRectSize() / 5.0)
+    SetModeInfo(IncludeModeBit(m_dragModeInfo, ModeNotProcessed));
+}
+
+void State::ScaleCorrection(m2::PointD & pt)
+{
+  if (GetMode() > NotFollow)
+    pt = m_framework->GetPixelCenter();
+}
+
+void State::ScaleCorrection(m2::PointD & pt1, m2::PointD & pt2)
+{
+  if (GetMode() > NotFollow)
   {
-    shared_ptr<MoveScreenTask> const & t = m_framework->SetViewportCenterAnimated(Position());
-
-    t->Lock();
-    t->AddCallback(anim::Task::EEnded, bind(&State::SetIsCentered, this, true));
-    t->AddCallback(anim::Task::EEnded, bind(&State::StartCompassFollowing, this));
-    t->Unlock();
+    m2::PointD const ptC = (pt1 + pt2) / 2;
+    m2::PointD const ptDiff = m_framework->GetPixelCenter() - ptC;
+    pt1 += ptDiff;
+    pt2 += ptDiff;
   }
+}
 
-  void State::AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationProcessMode mode)
+void State::Rotated()
+{
+  StopCompassFollowing();
+}
+
+void State::AnimateCurrentState()
+{
+  if (TestModeBit(m_modeInfo, ModeNotProcessed))
   {
-    shared_ptr<MoveScreenTask> const & t = m_framework->SetViewportCenterAnimated(Position());
-
-    t->Lock();
-    t->AddCallback(anim::Task::EEnded, bind(&State::SetIsCentered, this, true));
-    t->AddCallback(anim::Task::EEnded, bind(&State::SetLocationProcessMode, this, mode));
-    t->Unlock();
+    m2::PointD size(m_errorRadius, m_errorRadius);
+    m2::RectD rect(m_position - size, m_position + size);
+    m_framework->ShowRectExVisibleScale(rect, scales::GetUpperComfortScale());
+    SetModeInfo(ExcludeModeBit(m_modeInfo, ModeNotProcessed));
   }
-
-  void State::StartCompassFollowing()
+  else if (GetMode() > NotFollow)
   {
-    SetCompassProcessMode(ECompassFollow);
-    SetLocationProcessMode(ELocationCenterOnly);
-
-    CheckCompassFollowing();
-    setState(EPressed);
+    m_framework->SetViewportCenter(m_position);
+    FollowCompass();
   }
+}
 
-  void State::StopCompassFollowing()
-  {
-    SetCompassProcessMode(ECompassDoNothing);
-    m_framework->GetAnimator().StopRotation();
-    m_framework->GetAnimator().StopChangeViewport();
-    m_framework->GetAnimator().StopMoveScreen();
-    setState(EActive);
-  }
+//void State::AnimateToPosition()
+//{
+//  m_framework->SetViewportCenterAnimated(Position());
+//}
 
-  bool State::IsCentered() const
-  {
-    return m_isCentered;
-  }
+//void State::AnimateToPositionAndEnqueueFollowing()
+//{
+//  shared_ptr<MoveScreenTask> const & t = m_framework->SetViewportCenterAnimated(Position());
 
-  void State::SetIsCentered(bool flag)
-  {
-    m_isCentered = flag;
-  }
+//  t->Lock();
+//  t->AddCallback(anim::Task::EEnded, bind(&State::StartCompassFollowing, this));
+//  t->Unlock();
+//}
 
-  void State::OnStartLocation()
-  {
-    SetCompassProcessMode(location::ECompassDoNothing);
-    SetLocationProcessMode(location::ELocationCenterAndScale);
-    m_isFirstPosition = true;
-  }
+//void State::AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationProcessMode mode)
+//{
+//  shared_ptr<MoveScreenTask> const & t = m_framework->SetViewportCenterAnimated(Position());
 
-  void State::OnStopLocation()
-  {
-    SetLocationProcessMode(location::ELocationDoNothing);
-    SetCompassProcessMode(location::ECompassDoNothing);
-    m_isFirstPosition = false;
-    TurnOff();
-  }
+//  t->Lock();
+//  t->AddCallback(anim::Task::EEnded, bind(&State::SetIsCentered, this, true));
+//  t->AddCallback(anim::Task::EEnded, bind(&State::SetLocationProcessMode, this, mode));
+//  t->Unlock();
+//}
+
 }
