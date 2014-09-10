@@ -100,7 +100,8 @@ namespace location
     //@}
 
   private:
-    void AnimateCurrentState();
+    void AnimateStateTransition(Mode oldMode, Mode newMode);
+    void AnimateFollow();
 
     void CallPositionChangedListeners(m2::PointD const & pt);
     void CallStateModeListeners();
@@ -114,7 +115,6 @@ namespace location
   private:
     // Mode bits
     // {
-    static uint16_t const ModeNotProcessed = 0x40;
     static uint16_t const KnownDirectionBit = 0x80;
     // }
     static uint16_t const s_cacheRadius = 500.0f;

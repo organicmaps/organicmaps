@@ -31,11 +31,6 @@ uint16_t IncludeModeBit(uint16_t mode, uint16_t bit)
   return mode | bit;
 }
 
-uint16_t ExcludeModeBit(uint16_t mode, uint16_t bit)
-{
-  return mode & (~bit);
-}
-
 State::Mode ExcludeAllBits(uint16_t mode)
 {
   return (State::Mode)(mode & 0xF);
@@ -123,7 +118,7 @@ void State::SwitchToNextMode()
 
 void State::RestoreMode()
 {
-  SetModeInfo(IncludeModeBit(m_modeInfo, ModeNotProcessed));
+  SetModeInfo(m_modeInfo);
 }
 
 void State::TurnOff()
@@ -147,9 +142,9 @@ void State::OnLocationUpdate(location::GpsInfo const & info)
   setIsVisible(true);
 
   if (GetMode() == PendingPosition)
-    SetModeInfo(IncludeModeBit(ChangeMode(m_modeInfo, Follow), ModeNotProcessed));
-
-  AnimateCurrentState();
+    SetModeInfo(ChangeMode(m_modeInfo, Follow));
+  else
+    AnimateFollow();
 
   CallPositionChangedListeners(m_position);
   invalidate();
@@ -361,12 +356,13 @@ void State::FollowCompass()
 
 void State::SetModeInfo(uint16_t modeInfo)
 {
-  bool callModeChanged = GetMode() != ExcludeAllBits(modeInfo);
+  Mode newMode = ExcludeAllBits(modeInfo);
+  Mode oldMode = GetMode();
   m_modeInfo = modeInfo;
-  if (callModeChanged)
+  if (newMode != oldMode)
   {
     CallStateModeListeners();
-    AnimateCurrentState();
+    AnimateStateTransition(oldMode, newMode);
     invalidate();
   }
 }
@@ -412,7 +408,7 @@ void State::DragEnded()
   ScreenBase const & s = m_framework->GetNavigator().Screen();
   m2::PointD const pixelCenter = m_framework->GetPixelCenter();
   if (pixelCenter.Length(s.GtoP(Position())) < s.GetMinPixelRectSize() / 5.0)
-    SetModeInfo(IncludeModeBit(m_dragModeInfo, ModeNotProcessed));
+    SetModeInfo(m_dragModeInfo);
 }
 
 void State::ScaleCorrection(m2::PointD & pt)
@@ -437,44 +433,73 @@ void State::Rotated()
   StopCompassFollowing();
 }
 
-void State::AnimateCurrentState()
+namespace
 {
-  if (TestModeBit(m_modeInfo, ModeNotProcessed))
+
+bool ValidateTransition(State::Mode oldMode, State::Mode newMode)
+{
+  if (oldMode == State::UnknowPosition)
+    return newMode == State::PendingPosition;
+
+  if (oldMode == State::PendingPosition)
   {
-    m2::PointD size(m_errorRadius, m_errorRadius);
-    m2::RectD rect(m_position - size, m_position + size);
-    m_framework->ShowRectExVisibleScale(rect, scales::GetUpperComfortScale());
-    SetModeInfo(ExcludeModeBit(m_modeInfo, ModeNotProcessed));
+    return newMode == State::UnknowPosition ||
+           newMode == State::Follow;
   }
-  else if (GetMode() > NotFollow)
+
+  if (oldMode == State::Follow)
   {
-    m_framework->SetViewportCenter(m_position);
+    return newMode == State::UnknowPosition ||
+           newMode == State::NotFollow ||
+           newMode == State::RotateAndFollow;
+  }
+
+  if (oldMode == State::NotFollow)
+    return newMode == State::Follow;
+
+  if (oldMode == State::RotateAndFollow)
+  {
+    return newMode == State::NotFollow ||
+           newMode == State::UnknowPosition;
+  }
+
+  return false;
+}
+
+}
+
+void State::AnimateStateTransition(Mode oldMode, Mode newMode)
+{
+  ASSERT(ValidateTransition(oldMode, newMode), ("Old mode = ", oldMode, " new mode = ", newMode));
+
+  if (oldMode == PendingPosition && newMode == Follow)
+  {
+    //TODO animate to position and scale
+    m2::PointD size(m_errorRadius, m_errorRadius);
+    m_framework->ShowRectExVisibleScale(m2::RectD(m_position - size, m_position + size),
+                                        scales::GetUpperComfortScale());
+  }
+  else if (oldMode == NotFollow && newMode == Follow)
+  {
+    // TODO animate to position
+    m_framework->SetViewportCenterAnimated(Position());
+  }
+  else if (newMode == RotateAndFollow)
+  {
     FollowCompass();
+  }
+  else if (oldMode == RotateAndFollow && newMode == UnknowPosition)
+  {
+    // TODO rotate viewport on north
+    m_framework->GetAnimator().RotateScreen(m_framework->GetNavigator().Screen().GetAngle(), 0.0);
   }
 }
 
-//void State::AnimateToPosition()
-//{
-//  m_framework->SetViewportCenterAnimated(Position());
-//}
-
-//void State::AnimateToPositionAndEnqueueFollowing()
-//{
-//  shared_ptr<MoveScreenTask> const & t = m_framework->SetViewportCenterAnimated(Position());
-
-//  t->Lock();
-//  t->AddCallback(anim::Task::EEnded, bind(&State::StartCompassFollowing, this));
-//  t->Unlock();
-//}
-
-//void State::AnimateToPositionAndEnqueueLocationProcessMode(location::ELocationProcessMode mode)
-//{
-//  shared_ptr<MoveScreenTask> const & t = m_framework->SetViewportCenterAnimated(Position());
-
-//  t->Lock();
-//  t->AddCallback(anim::Task::EEnded, bind(&State::SetIsCentered, this, true));
-//  t->AddCallback(anim::Task::EEnded, bind(&State::SetLocationProcessMode, this, mode));
-//  t->Unlock();
-//}
+void State::AnimateFollow()
+{
+  // TODO
+  m_framework->SetViewportCenterAnimated(Position());
+  FollowCompass();
+}
 
 }
