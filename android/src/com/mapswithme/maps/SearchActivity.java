@@ -110,7 +110,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         "pharmacy",
         "hospital",
         "post",
-        "police"
+        "police",
+        "wifi"
     };
     private static final int mIcons[] = {
         R.drawable.ic_food,
@@ -127,7 +128,8 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         R.drawable.ic_pharmacy,
         R.drawable.ic_hospital,
         R.drawable.ic_post,
-        R.drawable.ic_police
+        R.drawable.ic_police,
+        R.drawable.ic_wifi
     };
 
     private static final int CATEGORY_TYPE = 0;
