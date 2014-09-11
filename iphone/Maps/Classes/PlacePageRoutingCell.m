@@ -4,7 +4,7 @@
 
 @interface PlacePageRoutingCell ()
 
-@property (nonatomic) UIButton * fromButton;
+@property (nonatomic) UIButton * cancelButton;
 @property (nonatomic) UIButton * toButton;
 
 @end
@@ -18,7 +18,7 @@
   self.selectionStyle = UITableViewCellSelectionStyleNone;
 
   [self addSubview:self.toButton];
-  [self addSubview:self.fromButton];
+  [self addSubview:self.cancelButton];
 
   return self;
 }
@@ -29,14 +29,14 @@
   CGFloat const yOffset = 14;
   CGFloat const height = [self.toButton backgroundImageForState:UIControlStateNormal].size.height;
   CGFloat const betweenOffset = 10;
-  self.fromButton.frame = CGRectMake(xOffset, yOffset, (self.width - 2 * xOffset - betweenOffset) / 2, height);
-  self.toButton.frame = CGRectMake(self.fromButton.maxX + betweenOffset, yOffset, (self.width - 2 * xOffset - betweenOffset) / 2, height);
+  self.cancelButton.frame = CGRectMake(xOffset, yOffset, (self.width - 2 * xOffset - betweenOffset) / 2, height);
+  self.toButton.frame = CGRectMake(self.cancelButton.maxX + betweenOffset, yOffset, (self.width - 2 * xOffset - betweenOffset) / 2, height);
   self.backgroundColor = [UIColor clearColor];
 }
 
-- (void)fromButtonPressed:(id)sender
+- (void)cancelButtonPressed:(id)sender
 {
-  [self.delegate routeCellDidSetStartPoint:self];
+  [self.delegate cancelRouting:self];
 }
 
 - (void)toButtonPressed:(id)sender
@@ -49,21 +49,21 @@
   return 70;
 }
 
-- (UIButton *)fromButton
+- (UIButton *)cancelButton
 {
-  if (!_fromButton)
+  if (!_cancelButton)
   {
     UIImage * image = [[UIImage imageNamed:@"PlacePageButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(6, 6, 6, 6)];
-    _fromButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
-    _fromButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5];
-    _fromButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
-    [_fromButton setBackgroundImage:image forState:UIControlStateNormal];
-    [_fromButton addTarget:self action:@selector(fromButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_fromButton setTitle:NSLocalizedString(@"choose_starting_point", nil) forState:UIControlStateNormal];
-    [_fromButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_fromButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    _cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, image.size.width, image.size.height)];
+    _cancelButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5];
+    _cancelButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
+    [_cancelButton setBackgroundImage:image forState:UIControlStateNormal];
+    [_cancelButton addTarget:self action:@selector(cancelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [_cancelButton setTitle:NSLocalizedString(@"choose_starting_point", nil) forState:UIControlStateNormal];
+    [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_cancelButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
   }
-  return _fromButton;
+  return _cancelButton;
 }
 
 - (UIButton *)toButton

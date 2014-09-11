@@ -676,15 +676,19 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
 }
 
-- (void)routeCellDidSetEndPoint:(PlacePageRoutingCell *)cell
+- (void)cancelRouting:(PlacePageRoutingCell *)cell
 {
-  GetFramework().SetRouteEnd([self pinPoint]);
+  GetFramework().CancelRoutingSession();
   [self setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
-- (void)routeCellDidSetStartPoint:(PlacePageRoutingCell *)cell
+- (void)routeCellDidSetEndPoint:(PlacePageRoutingCell *)cell
 {
-  GetFramework().SetRouteStart([self pinPoint]);
+  Framework & fw = GetFramework();
+  if (fw.IsRountingActive())
+    fw.CancelRoutingSession();
+  
+  fw.StartRoutingSession([self pinPoint]);
   [self setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 

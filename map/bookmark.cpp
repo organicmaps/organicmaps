@@ -26,7 +26,7 @@
 #include "../std/algorithm.hpp"
 #include "../std/auto_ptr.hpp"
 
-UserMarkCopy *Bookmark::Copy() const
+UserMarkCopy * Bookmark::Copy() const
 {
   return new UserMarkCopy(this, false);
 }

@@ -4,7 +4,7 @@
 @class PlacePageRoutingCell;
 @protocol PlacePageRoutingCellDelegate <NSObject>
 
-- (void)routeCellDidSetStartPoint:(PlacePageRoutingCell *)cell;
+- (void)cancelRouting:(PlacePageRoutingCell *)cell;
 - (void)routeCellDidSetEndPoint:(PlacePageRoutingCell *)cell;
 
 @end

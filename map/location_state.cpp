@@ -72,6 +72,11 @@ m2::PointD const & State::Position() const
   return m_position;
 }
 
+double State::GetErrorRadius() const
+{
+  return m_errorRadius;
+}
+
 State::Mode State::GetMode() const
 {
   return ExcludeAllBits(m_modeInfo);

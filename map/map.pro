@@ -67,7 +67,8 @@ HEADERS += \
     user_mark.hpp \
     user_mark_dl_cache.hpp \
     anim_phase_chain.hpp \
-    pin_click_manager.hpp
+    pin_click_manager.hpp \
+    routing_session.hpp
 
 SOURCES += \
     feature_vec_model.cpp \
@@ -121,7 +122,8 @@ SOURCES += \
     user_mark.cpp \
     user_mark_dl_cache.cpp \
     anim_phase_chain.cpp \
-    pin_click_manager.cpp
+    pin_click_manager.cpp \
+    routing_session.cpp
 
 !iphone*:!tizen*:!android* {
   HEADERS += qgl_render_context.hpp

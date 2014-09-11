@@ -17,6 +17,7 @@
 #include "mwm_url.hpp"
 #include "move_screen_task.hpp"
 #include "track.hpp"
+#include "routing_session.hpp"
 
 #include "../search/search_engine.hpp"
 
@@ -89,10 +90,15 @@ protected:
 
   mutable unique_ptr<search::Engine> m_pSearchEngine;
 
+  /// @deprecated
+  //@{
   routing::RoutingEngine m_routingEngine;
   routing::IRouter * CreateRouter();
   void RestoreSesame();
   bool SesameOpen(search::SearchParams const & params);
+  //@}
+
+  unique_ptr<routing::RoutingSession> m_routingSession;
 
   model::FeaturesFetcher m_model;
   ScalesProcessor m_scales;
@@ -480,11 +486,20 @@ public:
 
 public:
   /// @name Routing
+  /// @deprecated
   //@{
   bool IsRoutingEnabled() const;
-  void SetRouteStart(m2::PointD const & mercatorStart);
-  void SetRouteEnd(m2::PointD const & mercatorEnd);
-  void DeleteRoutes();
-  void OnRouteCalculated(routing::Route const & route);
+  //@}
+
+  /// @name Routing mode
+  //@{
+  bool IsRountingActive() const;
+  bool StartRoutingSession(m2::PointD const & destination);
+  void CancelRoutingSession();
+
+private:
+  void RemoveRoute();
+  void InsertRoute(routing::Route const & route);
+  void CheckLocationForRouting();
   //@}
 };

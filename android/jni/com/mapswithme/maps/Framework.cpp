@@ -1116,16 +1116,22 @@ extern "C"
     return g_framework->NativeFramework()->IsRoutingEnabled();
   }
 
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetRouteStart(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_Framework_nativeIsRoutingActive(JNIEnv * env, jclass thiz)
   {
-    g_framework->NativeFramework()->SetRouteStart(MercatorBounds::FromLatLon(lat, lon));
+    return g_framework->NativeFramework()->IsRountingActive();
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeSetRouteEnd(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
+  Java_com_mapswithme_maps_Framework_nativeCancelRoutingSession(JNIEnv * env, jclass thiz)
   {
-    g_framework->NativeFramework()->SetRouteEnd(MercatorBounds::FromLatLon(lat, lon));
+    return g_framework->NativeFramework()->CancelRoutingSession();
+  }
+
+  JNIEXPORT jboolean JNICALL
+  Java_com_mapswithme_maps_Framework_nativeStartRoutingSession(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
+  {
+    g_framework->NativeFramework()->StartRoutingSession(MercatorBounds::FromLatLon(lat, lon));
   }
 
   JNIEXPORT jobject JNICALL

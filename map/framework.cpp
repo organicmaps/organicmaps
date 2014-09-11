@@ -11,6 +11,7 @@
 #include "../defines.hpp"
 
 #include "../routing/route.hpp"
+#include "../routing/osrm_router.hpp"
 #include "../routing/dijkstra_router.hpp"
 
 #include "../search/search_engine.hpp"
@@ -134,6 +135,7 @@ void Framework::OnLocationUpdate(location::GpsInfo const & info)
 
   shared_ptr<location::State> const & state = m_informationDisplay.locationState();
   state->OnLocationUpdate(rInfo);
+  CheckLocationForRouting();
   m_balloonManager.LocationChanged(rInfo);
 
   if (state->IsModeChangeViewport())
@@ -1098,22 +1100,9 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
 
 namespace
 {
-char const * ROUTER_ALL = "all";
 char const * ROUTER_HELICOPTER = "helicopter";
 char const * ROUTER_OSRM = "osrm";
 char const * ROUTER_MAPSME = "routeme";
-}
-
-void Framework::SetRouteStart(m2::PointD const & mercatorStart)
-{
-  m_routingEngine.SetStartingPoint(mercatorStart);
-  m_routingEngine.Calculate(ROUTER_ALL, bind(&Framework::OnRouteCalculated, this, _1));
-}
-
-void Framework::SetRouteEnd(m2::PointD const & mercatorEnd)
-{
-  m_routingEngine.SetFinalPoint(mercatorEnd);
-  m_routingEngine.Calculate(ROUTER_ALL, bind(&Framework::OnRouteCalculated, this, _1));
 }
 
 bool Framework::IsRoutingEnabled() const
@@ -1121,53 +1110,10 @@ bool Framework::IsRoutingEnabled() const
   return m_routingEngine.IsRoutingEnabled();
 }
 
-void Framework::OnRouteCalculated(routing::Route const & route)
-{
-  if (!route.IsValid())
-  {
-    LOG(LWARNING, ("Route calculation has failed.", route.GetName()));
-    return;
-  }
-
-  // Get/create temporary category for route track
-  BookmarkManager & bm = GetBookmarkManager();
-  string const categoryName = m_stringsBundle.GetString("routes");
-  BookmarkCategory * cat = 0;
-  for (size_t i = 0; i < bm.GetBmCategoriesCount(); ++i)
-  {
-    if (bm.GetBmCategory(i)->GetName() == categoryName)
-    {
-      cat = bm.GetBmCategory(i);
-      break;
-    }
-  }
-  if (!cat)
-    cat = bm.GetBmCategory(bm.CreateBmCategory(categoryName));
-
-  Track track(route.GetPoly());
-  track.SetName(route.GetName());
-  string const & source = route.GetRouterId();
-
-  graphics::Color routeColor = graphics::Color::Black();
-  if (source == ROUTER_HELICOPTER)
-    routeColor = graphics::Color::Red();
-  else if (source == ROUTER_OSRM)
-    routeColor = graphics::Color::Blue();
-  else if (source == ROUTER_MAPSME)
-    routeColor = graphics::Color::Green();
-
-  track.SetColor(routeColor);
-  cat->AddTrack(track);
-}
-
-void Framework::DeleteRoutes()
-{
-  /// @todo
-}
-
 routing::IRouter * Framework::CreateRouter()
 {
-  return new routing::DijkstraRouter(&m_model.GetIndex());
+  //return new routing::DijkstraRouter(&m_model.GetIndex());
+  return new routing::OsrmRouter();
 }
 
 void Framework::RestoreSesame()
@@ -1986,4 +1932,93 @@ void Framework::UpdateSavedDataVersion()
 bool Framework::GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & info) const
 {
   return m_storage.GetGuideManager().GetGuideInfo(m_storage.CountryFileName(index), info);
+}
+
+bool Framework::IsRountingActive() const
+{
+  return m_routingSession != nullptr;
+}
+
+bool Framework::StartRoutingSession(m2::PointD const & destination)
+{
+  if (IsRountingActive())
+    CancelRoutingSession();
+
+  shared_ptr<location::State> state = GetLocationState();
+  if (state->GetMode() < location::State::NotFollow)
+    return false;
+
+  m_routingSession.reset(new routing::RoutingSession(CreateRouter()));
+  m_routingSession->BuildRoute(state->Position(), destination,
+                               [this](routing::Route const & route)
+                               {
+                                 InsertRoute(route);
+                               });
+
+  return true;
+}
+
+void Framework::CancelRoutingSession()
+{
+  ASSERT(IsRountingActive(), ());
+  m_routingSession.release();
+
+  string const categoryName = m_stringsBundle.GetString("routes");
+  BookmarkCategory * cat = 0;
+  for (size_t i = 0; i < m_bmManager.GetBmCategoriesCount(); ++i)
+  {
+    if (m_bmManager.GetBmCategory(i)->GetName() == categoryName)
+    {
+      cat = m_bmManager.GetBmCategory(i);
+      break;
+    }
+  }
+
+  if (cat)
+    cat->ClearTracks();
+
+  Invalidate();
+}
+
+void Framework::InsertRoute(routing::Route const & route)
+{
+  string const categoryName = m_stringsBundle.GetString("routes");
+  BookmarkCategory * cat = 0;
+  for (size_t i = 0; i < m_bmManager.GetBmCategoriesCount(); ++i)
+  {
+    if (m_bmManager.GetBmCategory(i)->GetName() == categoryName)
+    {
+      cat = m_bmManager.GetBmCategory(i);
+      break;
+    }
+  }
+
+  if (!cat)
+    cat = m_bmManager.GetBmCategory(m_bmManager.CreateBmCategory(categoryName));
+  else
+    cat->ClearTracks();
+
+  Track track(route.GetPoly());
+  track.SetName(route.GetName());
+  track.SetColor(graphics::Color(0, 0xA3,0xFF, 0xFF));
+  track.SetWidth(8.0f * GetVisualScale());
+  cat->AddTrack(track);
+  Invalidate();
+}
+
+void Framework::CheckLocationForRouting()
+{
+  if (!IsRountingActive())
+    return;
+
+  shared_ptr<location::State> const & state = GetLocationState();
+  m2::PointD const & position = state->Position();
+  double error = state->GetErrorRadius();
+  if (m_routingSession->OnLocationPositionChanged(position, error) == routing::RoutingSession::RouteLeft)
+  {
+    m_routingSession->RebuildRoute(position, [this] (routing::Route const & route)
+    {
+      InsertRoute(route);
+    });
+  }
 }

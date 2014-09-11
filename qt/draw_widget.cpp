@@ -79,8 +79,7 @@ namespace qt
       m_isRotate(false),
       //m_redrawInterval(100),
       m_ratio(1.0),
-      m_pScale(0),
-      m_routingMode(0)
+      m_pScale(0)
   {
     // Initialize with some stubs for test.
     PinClickManager & manager = GetBalloonManager();
@@ -393,23 +392,10 @@ namespace qt
       }
       else if (e->modifiers() & Qt::ShiftModifier)
       {
-        m2::PointD const mercPoint = m_framework->PtoG(pt);
+        if (m_framework->IsRountingActive())
+          m_framework->CancelRoutingSession();
 
-        switch (m_routingMode)
-        {
-        case 0:
-          m_framework->SetRouteStart(mercPoint);
-          break;
-        case 1:
-          m_framework->SetRouteEnd(mercPoint);
-          break;
-        default:
-          m_routingMode = -1;
-          m_framework->DeleteRoutes();
-          break;
-        }
-
-        ++m_routingMode;
+        m_framework->StartRoutingSession(m_framework->PtoG(pt));
       }
       else
       {

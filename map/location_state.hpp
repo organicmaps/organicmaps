@@ -52,6 +52,7 @@ namespace location
 
     /// @return GPS center point in mercator
     m2::PointD const & Position() const;
+    double GetErrorRadius() const;
 
     Mode GetMode() const;
     bool IsModeChangeViewport() const;
