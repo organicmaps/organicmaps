@@ -4718,6 +4718,7 @@
 					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
+					"-losrm",
 				);
 				PRODUCT_NAME = "maps.me dbg lite";
 				SDKROOT = iphoneos;
@@ -4787,6 +4788,7 @@
 					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
+					"-losrm",
 				);
 				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
@@ -4877,6 +4879,7 @@
 					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
+					"-losrm",
 				);
 				PRODUCT_NAME = "maps.me dbg lite";
 				SDKROOT = iphoneos;
@@ -4971,6 +4974,7 @@
 					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
+					"-losrm",
 				);
 				PRODUCT_NAME = "maps.me beta lite";
 				SDKROOT = iphoneos;
@@ -5060,6 +5064,7 @@
 					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
+					"-losrm",
 				);
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
@@ -5150,6 +5155,7 @@
 					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
+					"-losrm",
 				);
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
@@ -5244,6 +5250,7 @@
 					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
+					"-losrm",
 				);
 				PRODUCT_NAME = "maps.me beta";
 				SDKROOT = iphoneos;
@@ -5338,6 +5345,7 @@
 					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
+					"-losrm",
 				);
 				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
@@ -5431,6 +5439,7 @@
 					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
+					"-losrm",
 				);
 				PRODUCT_NAME = "maps.me rel lite";
 				SDKROOT = iphoneos;
@@ -5524,6 +5533,7 @@
 					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
+					"-losrm",
 				);
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
@@ -5616,6 +5626,7 @@
 					"-ltomcrypt",
 					"-lexpat",
 					"-lprotobuf",
+					"-losrm",
 				);
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
