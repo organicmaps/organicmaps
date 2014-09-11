@@ -71,7 +71,6 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
   {
     uint32_t segId = 0;
     OsrmFtSegMapping::FtSegVectorT vec;
-    vec.resize(data.m_segments.size());
 
     for (auto seg : data.m_segments)
     {
@@ -93,6 +92,7 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
 
       ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
       int32_t indicies[2] = {-1, -1};
+      double minDist[2] = {numeric_limits<double>::max(), numeric_limits<double>::max()};
 
       for (uint32_t j = 0; j < ft.GetPointsCount(); ++j)
       {
@@ -101,12 +101,11 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
         for (uint32_t k = 0; k < 2; ++k)
         {
           double const dist = ms::DistanceOnEarth(pts[k].y, pts[k].x, lat, lon);
-          //LOG(LINFO, ("Distance: ", dist));
 
-          if (dist <= EQUAL_POINT_RADIUS_M)
+          if (dist <= EQUAL_POINT_RADIUS_M && dist < minDist[k])
           {
-            //ASSERT_EQUAL(indicies[k], -1, ());
             indicies[k] = j;
+            minDist[k] = dist;
           }
         }
       }
@@ -115,12 +114,35 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
       if (indicies[0] != -1 && indicies[1] != -1)
       {
         found++;
-        ASSERT_NOT_EQUAL(indicies[0], indicies[1], ());
-        OsrmFtSegMapping::FtSeg & segData = vec[segId++];
-        segData.m_fid = fID;
-        segData.m_pointEnd = indicies[1];
-        segData.m_pointStart = indicies[0];
-        mapping.Append(nodeId++, vec);
+        //LOG(LINFO, ("i1: ", indicies[0], " i2: ", indicies[1], " wayId: ", seg.wayId));
+        //CHECK(indicies[0] != indicies[1], ());
+
+        /*bool canMerge = !vec.empty();
+        if (canMerge)
+        {
+          if (vec.back().m_fid == fID)
+          {
+            canMerge = true;
+
+            OsrmFtSegMapping::FtSeg & seg = vec.back();
+            if (indicies[0] == seg.m_pointEnd)
+              seg.m_pointEnd = indicies[1];
+            else
+            {
+              if (indicies[1] == seg.m_pointStart)
+                seg.m_pointStart = indicies[0];
+              else
+                canMerge = false;
+            }
+
+          }
+          else
+            canMerge = false;
+        }
+
+        if (!canMerge)*/
+          vec.emplace_back(fID, indicies[0], indicies[1]);
+
       }
       else
       {
@@ -135,9 +157,9 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
           LOG(LINFO, ("p", j, ": ", lat, ", ", lon, " Dist1: ", dist1, " Dist2: ", dist2));
         }
       }
-
-
     }
+
+    mapping.Append(nodeId++, vec);
   }
 
   LOG(LINFO, ("Found: ", found, " All: ", all));

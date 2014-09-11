@@ -505,13 +505,17 @@ void EdgeBasedGraphFactory::GenerateEdgeBasedNodeData()
             const std::vector<GeometryCompressor::CompressedNode> & via_nodes = m_geometry_compressor.GetBucketReference(current_edge);
             assert(via_nodes.size() > 0);
             std::vector< std::pair< NodeID, FixedPointCoordinate > > nodes;
+            if (via_nodes.front().first != current_node)
+              nodes.emplace_back(current_node, FixedPointCoordinate(m_node_info_list[current_node].lat, m_node_info_list[current_node].lon));
             for (auto n : via_nodes)
               nodes.emplace_back(n.first, FixedPointCoordinate(m_node_info_list[n.first].lat, m_node_info_list[n.first].lon));
+            if (via_nodes.back().first != target)
+              nodes.emplace_back(target, FixedPointCoordinate(m_node_info_list[target].lat, m_node_info_list[target].lon));
 
-            for (uint32_t i = 0; i < nodes.size() - 1; ++i)
+            for (uint32_t i = 1; i < nodes.size(); ++i)
             {
-              auto n1 = nodes[i];
-              auto n2 = nodes[i + 1];
+              auto n1 = nodes[i - 1];
+              auto n2 = nodes[i];
 
               if (n1.first == n2.first)
               {
