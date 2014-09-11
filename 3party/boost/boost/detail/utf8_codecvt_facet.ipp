@@ -171,7 +171,7 @@ std::codecvt_base::result utf8_codecvt_facet::do_out(
 // How many char objects can I process to get <= max_limit
 // wchar_t objects?
 int utf8_codecvt_facet::do_length(
-    const std::mbstate_t &,
+    std::mbstate_t &,
     const char * from,
     const char * from_end, 
     std::size_t max_limit

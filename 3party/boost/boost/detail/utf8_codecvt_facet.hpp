@@ -92,11 +92,11 @@ namespace std {
 }
 #endif
 
-#if !defined(__MSL_CPP__) && !defined(__LIBCOMO__)
-    #define BOOST_CODECVT_DO_LENGTH_CONST const
-#else
+//#if !defined(__MSL_CPP__) && !defined(__LIBCOMO__)
+//    #define BOOST_CODECVT_DO_LENGTH_CONST const
+//#else
     #define BOOST_CODECVT_DO_LENGTH_CONST
-#endif
+//#endif
 
 // maximum lenght of a multibyte string
 #define MB_LENGTH_MAX 8
