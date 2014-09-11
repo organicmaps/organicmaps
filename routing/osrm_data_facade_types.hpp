@@ -37,6 +37,36 @@ public:
     {
     }
 
+    bool Merge(FtSeg const & other)
+    {
+      if (other.m_fid != m_fid)
+        return false;
+
+      if (other.m_pointEnd > other.m_pointStart)
+      {
+        if (m_pointStart >= other.m_pointEnd)
+          return false;
+
+        if (other.m_pointStart == m_pointEnd)
+        {
+          m_pointEnd = other.m_pointEnd;
+          return true;
+        }
+      }else
+      {
+        if (m_pointEnd >= other.m_pointStart)
+          return false;
+
+        if (other.m_pointEnd == m_pointStart)
+        {
+          m_pointStart = other.m_pointStart;
+          return true;
+        }
+      }
+
+      return false;
+    }
+
     friend string DebugPrint(FtSeg const & seg)
     {
       stringstream ss;

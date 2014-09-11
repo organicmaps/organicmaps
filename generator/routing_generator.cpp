@@ -114,9 +114,6 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
       if (indicies[0] != -1 && indicies[1] != -1)
       {
         found++;
-        //LOG(LINFO, ("i1: ", indicies[0], " i2: ", indicies[1], " wayId: ", seg.wayId));
-        //CHECK(indicies[0] != indicies[1], ());
-
         /*bool canMerge = !vec.empty();
         if (canMerge)
         {
@@ -141,7 +138,9 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
         }
 
         if (!canMerge)*/
-          vec.emplace_back(fID, indicies[0], indicies[1]);
+        OsrmFtSegMapping::FtSeg ftSeg(fID, indicies[0], indicies[1]);
+        if (vec.empty() || !vec.back().Merge(ftSeg))
+          vec.push_back(ftSeg);
 
       }
       else
