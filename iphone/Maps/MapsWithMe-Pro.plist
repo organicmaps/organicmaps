@@ -158,5 +158,7 @@
 			</dict>
 		</dict>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string></string>
 </dict>
 </plist>

@@ -58,8 +58,10 @@
       switch (authStatus)
       {
         case kCLAuthorizationStatusAuthorizedWhenInUse:
-        case kCLAuthorizationStatusAuthorized:
+        case kCLAuthorizationStatusAuthorizedAlways:
         case kCLAuthorizationStatusNotDetermined:
+          if ([m_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
+            [m_locationManager requestAlwaysAuthorization];
           [m_locationManager startUpdatingLocation];
           if ([CLLocationManager headingAvailable])
             [m_locationManager startUpdatingHeading];
