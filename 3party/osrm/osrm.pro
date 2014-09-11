@@ -8,6 +8,7 @@ QMAKE_CXXFLAGS *= -Wno-unused-function -Wno-unused-const-variable -Wno-ignored-q
 
 include($$ROOT_DIR/common.pri)
 
+DEFINES *= BOOST_ERROR_CODE_HEADER_ONLY
 INCLUDEPATH *= osrm-backend/Include
 
 SOURCES += \
@@ -44,6 +45,10 @@ SOURCES += \
 #    Tools/io-benchmark.cpp \
 #    Tools/simpleclient.cpp \
 #    Tools/unlock_all_mutexes.cpp \
+    ../boost/libs/iostreams/src/mapped_file.cpp \
+    ../boost/libs/filesystem/src/operations.cpp \
+    ../boost/libs/filesystem/src/path.cpp \
+    boost_stub.cpp \
 
 HEADERS += \
     osrm-backend/osrm/Include/Coordinate.h \

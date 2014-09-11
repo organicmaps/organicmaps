@@ -7,6 +7,7 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
+DEFINES *= BOOST_ERROR_CODE_HEADER_ONLY
 INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
                $$ROOT_DIR/3party/osrm/osrm-backend/Include
 
