@@ -1,10 +1,14 @@
 #pragma once
 
 #include "../base/assert.hpp"
+#include "../base/logging.hpp"
+
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/fstream.hpp"
 #include "../std/unordered_map.hpp"
+#include "../std/sstream.hpp"
+
 
 namespace routing
 {
@@ -21,6 +25,26 @@ public:
     uint32_t m_fid;
     uint32_t m_pointStart;
     uint32_t m_pointEnd;
+
+    FtSeg()
+      : m_fid(-1), m_pointStart(-1), m_pointEnd(-1)
+    {
+
+    }
+
+    FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
+      : m_fid(fid), m_pointStart(ps), m_pointEnd(pe)
+    {
+    }
+
+    friend string DebugPrint(FtSeg const & seg)
+    {
+      stringstream ss;
+      ss << "{ fID = " << seg.m_fid <<
+            "; pStart = " << seg.m_pointStart <<
+            "; pEnd = " << seg.m_pointEnd << " }";
+      return ss.str();
+    }
   };
 
   typedef vector<FtSeg> FtSegVectorT;
@@ -89,24 +113,47 @@ public:
     return it->second;
   }
 
+  void DumpSegments(uint32_t fID) const
+  {
+    LOG(LINFO, ("Dump segments for feature:", fID));
+
+    for (auto it = m_osrm2FtSeg.begin(); it != m_osrm2FtSeg.end(); ++it)
+      for (auto s : it->second)
+        if (s.m_fid == fID)
+          LOG(LINFO, (s));
+  }
+
   void GetOsrmNode(FtSeg const & seg, OsrmNodeIdT & forward, OsrmNodeIdT & reverse) const
   {
+    ASSERT_LESS(seg.m_pointStart, seg.m_pointEnd, ());
+
     forward = SPECIAL_OSRM_NODE_ID;
     reverse = SPECIAL_OSRM_NODE_ID;
 
-    for (unordered_map<OsrmNodeIdT, FtSegVectorT>::const_iterator it = m_osrm2FtSeg.begin(); it != m_osrm2FtSeg.end(); ++it)
+    for (auto it = m_osrm2FtSeg.begin(); it != m_osrm2FtSeg.end(); ++it)
     {
+      /// @todo Do break in production here when both are found.
+
       for (auto s : it->second)
       {
+        if (s.m_fid != seg.m_fid)
+          continue;
+
         if (s.m_pointStart <= s.m_pointEnd)
         {
           if (seg.m_pointStart >= s.m_pointStart && seg.m_pointEnd <= s.m_pointEnd)
+          {
+            ASSERT_EQUAL(forward, SPECIAL_OSRM_NODE_ID, ());
             forward = it->first;
+          }
         }
         else
         {
           if (seg.m_pointStart >= s.m_pointEnd && seg.m_pointEnd <= s.m_pointStart)
+          {
+            ASSERT_EQUAL(reverse, SPECIAL_OSRM_NODE_ID, ());
             reverse = it->first;
+          }
         }
       }
     }

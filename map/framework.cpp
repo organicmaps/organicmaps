@@ -254,7 +254,7 @@ Framework::Framework()
   LOG(LDEBUG, ("Guides info initialized"));
 #endif
 
-  m_routingSession.SetRouter(new routing::OsrmRouter());
+  m_routingSession.SetRouter(new routing::OsrmRouter(&m_model.GetIndex()));
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 }

@@ -164,6 +164,7 @@ template <class DataFacadeT> class BasicRoutingInterface
             recursion_stack.emplace(packed_path[i - 1], packed_path[i]);
         }
 
+        unpacked_path.emplace_back(packed_path[0], INVALID_EDGE_WEIGHT, TurnInstruction::NoTurn, INVALID_EDGE_WEIGHT);
         std::pair<NodeID, NodeID> edge;
         while (!recursion_stack.empty())
         {
@@ -224,87 +225,91 @@ template <class DataFacadeT> class BasicRoutingInterface
             }
             else
             {
-                BOOST_ASSERT_MSG(!ed.shortcut, "original edge flagged as shortcut");
-                unsigned name_index = facade->GetNameIndexFromEdgeID(ed.id);
-                const TurnInstruction turn_instruction = facade->GetTurnInstructionForEdgeID(ed.id);
-
-                if (!facade->EdgeIsCompressed(ed.id))
-                {
-                    BOOST_ASSERT(!facade->EdgeIsCompressed(ed.id));
-                    unpacked_path.emplace_back(facade->GetGeometryIndexForEdgeID(ed.id),
-                                               name_index,
-                                               turn_instruction,
-                                               ed.distance);
-                }
-                else
-                {
-                    std::vector<unsigned> id_vector;
-                    facade->GetUncompressedGeometry(facade->GetGeometryIndexForEdgeID(ed.id),
-                                                    id_vector);
-
-                    const std::size_t start_index =
-                        (unpacked_path.empty()
-                             ? ((start_traversed_in_reverse)
-                                    ? id_vector.size() -
-                                          phantom_node_pair.source_phantom.fwd_segment_position - 1
-                                    : phantom_node_pair.source_phantom.fwd_segment_position)
-                             : 0);
-                    const std::size_t end_index = id_vector.size();
-
-                    BOOST_ASSERT(start_index >= 0);
-                    BOOST_ASSERT(start_index <= end_index);
-                    for (std::size_t i = start_index; i < end_index; ++i)
-                    {
-                        unpacked_path.emplace_back(id_vector[i], name_index, TurnInstruction::NoTurn, 0);
-                    }
-                    unpacked_path.back().turn_instruction = turn_instruction;
-                    unpacked_path.back().segment_duration = ed.distance;
-                }
-            }
-        }
-        if (SPECIAL_EDGEID != phantom_node_pair.target_phantom.packed_geometry_id)
-        {
-            std::vector<unsigned> id_vector;
-            facade->GetUncompressedGeometry(phantom_node_pair.target_phantom.packed_geometry_id,
-                                            id_vector);
-            const bool is_local_path = (phantom_node_pair.source_phantom.packed_geometry_id ==
-                                        phantom_node_pair.target_phantom.packed_geometry_id) &&
-                                       unpacked_path.empty();
-
-            std::size_t start_index = 0;
-            if (is_local_path)
-            {
-                start_index = phantom_node_pair.source_phantom.fwd_segment_position;
-                if (target_traversed_in_reverse)
-                {
-                    start_index =
-                        id_vector.size() - phantom_node_pair.source_phantom.fwd_segment_position;
-                }
-            }
-
-            std::size_t end_index = phantom_node_pair.target_phantom.fwd_segment_position;
-            if (target_traversed_in_reverse)
-            {
-                std::reverse(id_vector.begin(), id_vector.end());
-                end_index =
-                    id_vector.size() - phantom_node_pair.target_phantom.fwd_segment_position;
-            }
-
-            if (start_index > end_index)
-            {
-                start_index = std::min(start_index, id_vector.size()-1);
-            }
-
-            SimpleLogger().Write() << "start_index: " << start_index << ", end_index: " << end_index;
-            for (std::size_t i = start_index; i != end_index; (start_index < end_index ? ++i : --i))
-            {
-                BOOST_ASSERT(i < id_vector.size());
-                unpacked_path.emplace_back(PathData{id_vector[i],
-                                           phantom_node_pair.target_phantom.name_id,
+                unpacked_path.emplace_back(edge.second,
+                                           INVALID_EDGE_WEIGHT,
                                            TurnInstruction::NoTurn,
-                                           0});
+                                           INVALID_EDGE_WEIGHT);
+//                BOOST_ASSERT_MSG(!ed.shortcut, "original edge flagged as shortcut");
+//                unsigned name_index = facade->GetNameIndexFromEdgeID(ed.id);
+//                const TurnInstruction turn_instruction = facade->GetTurnInstructionForEdgeID(ed.id);
+
+//                if (!facade->EdgeIsCompressed(ed.id))
+//                {
+//                    BOOST_ASSERT(!facade->EdgeIsCompressed(ed.id));
+//                    unpacked_path.emplace_back(facade->GetGeometryIndexForEdgeID(ed.id),
+//                                               name_index,
+//                                               turn_instruction,
+//                                               ed.distance);
+//                }
+//                else
+//                {
+//                    std::vector<unsigned> id_vector;
+//                    facade->GetUncompressedGeometry(facade->GetGeometryIndexForEdgeID(ed.id),
+//                                                    id_vector);
+
+//                    const std::size_t start_index =
+//                        (unpacked_path.empty()
+//                             ? ((start_traversed_in_reverse)
+//                                    ? id_vector.size() -
+//                                          phantom_node_pair.source_phantom.fwd_segment_position - 1
+//                                    : phantom_node_pair.source_phantom.fwd_segment_position)
+//                             : 0);
+//                    const std::size_t end_index = id_vector.size();
+
+//                    BOOST_ASSERT(start_index >= 0);
+//                    BOOST_ASSERT(start_index <= end_index);
+//                    for (std::size_t i = start_index; i < end_index; ++i)
+//                    {
+//                        unpacked_path.emplace_back(id_vector[i], name_index, TurnInstruction::NoTurn, 0);
+//                    }
+//                    unpacked_path.back().turn_instruction = turn_instruction;
+//                    unpacked_path.back().segment_duration = ed.distance;
+//                }
             }
         }
+//        if (SPECIAL_EDGEID != phantom_node_pair.target_phantom.packed_geometry_id)
+//        {
+//            std::vector<unsigned> id_vector;
+//            facade->GetUncompressedGeometry(phantom_node_pair.target_phantom.packed_geometry_id,
+//                                            id_vector);
+//            const bool is_local_path = (phantom_node_pair.source_phantom.packed_geometry_id ==
+//                                        phantom_node_pair.target_phantom.packed_geometry_id) &&
+//                                       unpacked_path.empty();
+
+//            std::size_t start_index = 0;
+//            if (is_local_path)
+//            {
+//                start_index = phantom_node_pair.source_phantom.fwd_segment_position;
+//                if (target_traversed_in_reverse)
+//                {
+//                    start_index =
+//                        id_vector.size() - phantom_node_pair.source_phantom.fwd_segment_position;
+//                }
+//            }
+
+//            std::size_t end_index = phantom_node_pair.target_phantom.fwd_segment_position;
+//            if (target_traversed_in_reverse)
+//            {
+//                std::reverse(id_vector.begin(), id_vector.end());
+//                end_index =
+//                    id_vector.size() - phantom_node_pair.target_phantom.fwd_segment_position;
+//            }
+
+//            if (start_index > end_index)
+//            {
+//                start_index = std::min(start_index, id_vector.size()-1);
+//            }
+
+//            SimpleLogger().Write() << "start_index: " << start_index << ", end_index: " << end_index;
+//            for (std::size_t i = start_index; i != end_index; (start_index < end_index ? ++i : --i))
+//            {
+//                BOOST_ASSERT(i < id_vector.size());
+//                unpacked_path.emplace_back(PathData{id_vector[i],
+//                                           phantom_node_pair.target_phantom.name_id,
+//                                           TurnInstruction::NoTurn,
+//                                           0});
+//            }
+//        }
 
         // there is no equivalent to a node-based node in an edge-expanded graph.
         // two equivalent routes may start (or end) at different node-based edges
