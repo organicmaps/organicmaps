@@ -160,7 +160,7 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
   m_mapping.Load("/Users/deniskoronchik/Documents/develop/omim-maps/Belarus.osrm.ftseg");
 #else
   DataFacadeT facade(GetPlatform().WritablePathForFile("Belarus.osrm"));
-  m_mapping.Load(GetPlatform().WritablePathForFile("Belarus.osrm.ftseg");
+  m_mapping.Load(GetPlatform().WritablePathForFile("Belarus.osrm.ftseg"));
 #endif
   SearchEngineData engine_working_data;
   ShortestPathRouting<DataFacadeT> shortest_path(&facade, engine_working_data);
