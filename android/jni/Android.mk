@@ -133,7 +133,7 @@ LOCAL_CPP_FEATURES += exceptions rtti
 
 LOCAL_MODULE := mapswithme
 LOCAL_STATIC_LIBRARIES := stats_client map gui routing search storage indexer graphics platform anim geometry coding base expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf
-LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-psabi -Wno-extern-c-compat
+LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-extern-c-compat
 
 ifneq ($(NDK_DEBUG),1)
   ifeq ($(PRODUCTION),1)
@@ -197,7 +197,7 @@ LOCAL_SRC_FILES := \
 	nv_thread/nv_thread.cpp \
 	nv_event/nv_event_queue.cpp \
 	nv_event/nv_event.cpp \
-	nv_time/nv_time.cpp
+	nv_time/nv_time.cpp \
 
 LOCAL_LDLIBS := -llog -lGLESv2
 

@@ -31,7 +31,7 @@ namespace search
 namespace
 {
 
-#ifdef DEBUG
+#if 0
 void Houses2KML(ostream & s, map<search::House, double> const & m)
 {
   for (map<search::House, double>::const_iterator it = m.begin(); it != m.end(); ++it)
