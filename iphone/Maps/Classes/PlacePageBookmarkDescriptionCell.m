@@ -50,9 +50,10 @@
   {
     [self.contentView addSubview:webView];
     webView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    CGFloat const xOffset = 6;
+    CGFloat const xOffsetLeft = 6;
+    CGFloat const xOffsetRight = 30;
     CGFloat const yOffset = 1;
-    webView.frame = CGRectMake(xOffset, yOffset, self.width - 2 * xOffset, self.height - 2 * yOffset);
+    webView.frame = CGRectMake(xOffsetLeft, yOffset, self.width - xOffsetLeft - xOffsetRight, self.height - 2 * yOffset);
     webView.clipsToBounds = YES;
     webView.opaque = NO;
     webView.backgroundColor = [UIColor clearColor];
