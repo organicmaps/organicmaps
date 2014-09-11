@@ -4,6 +4,8 @@
 
 #include "../indexer/mercator.hpp"
 
+#include "../platform/platform.hpp"
+
 #include "../3party/osrm/osrm-backend/DataStructures/SearchEngine.h"
 #include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
 #include "../3party/osrm/osrm-backend/Descriptors/DescriptionFactory.h"
@@ -26,7 +28,11 @@ void OsrmRouter::SetFinalPoint(m2::PointD const & finalPt)
 void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback)
 {
   typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
+#ifdef OMIM_OS_DESKTOP
   DataFacadeT facade("/Users/deniskoronchik/Documents/develop/omim-maps/Belarus.osrm");
+#else
+  DataFacadeT facade(GetPlatform().WritablePathForFile("Belarus.osrm"));
+#endif
   SearchEngine<DataFacadeT> engine(&facade);
 
   RawRouteData rawRoute;
