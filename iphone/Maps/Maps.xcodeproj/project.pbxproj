@@ -16,7 +16,10 @@
 		46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
-		49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE1CA213437D7A00A93417 /* libbzip2.a */; };
+		5797B6D516C931EE00FFE6D2 /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D316C931EE00FFE6D2 /* resources-mdpi */; };
+		5797B6D616C931EE00FFE6D2 /* resources-mdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D316C931EE00FFE6D2 /* resources-mdpi */; };
+		5797B6D716C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
+		5797B6D816C931EE00FFE6D2 /* resources-xhdpi in Resources */ = {isa = PBXBuildFile; fileRef = 5797B6D416C931EE00FFE6D2 /* resources-xhdpi */; };
 		972CDCC61887F1B7006641CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972CDCC51887F1B7006641CA /* CFNetwork.framework */; };
 		97354B65196AF97200352536 /* PlacePageRoutingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97354B64196AF97200352536 /* PlacePageRoutingCell.m */; };
 		97354B66196AF97200352536 /* PlacePageRoutingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97354B64196AF97200352536 /* PlacePageRoutingCell.m */; };
@@ -172,22 +175,11 @@
 		ED9CC5F017CA18770051642E /* ios-guides.json in Resources */ = {isa = PBXBuildFile; fileRef = ED9CC5EE17CA18770051642E /* ios-guides.json */; };
 		EDB811A3175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */; };
 		EDB811A4175E1A9C00E36BF2 /* TwoButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB811A2175E1A9C00E36BF2 /* TwoButtonsView.m */; };
-		EDBB18B816972B0600AF0742 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBB18B716972B0600AF0742 /* libzlib.a */; };
-		EDBB18B916972B3000AF0742 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDBB18B716972B0600AF0742 /* libzlib.a */; };
 		EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; };
 		EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDC5C542175F2CA600420E92 /* ShareActionSheet.mm */; };
 		EE026F0611D6AC0D00645242 /* classificator.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE026F0511D6AC0D00645242 /* classificator.txt */; };
-		EE12020911CD464100ABDD5D /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1201FF11CD464100ABDD5D /* libbase.a */; };
-		EE12020A11CD464100ABDD5D /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020011CD464100ABDD5D /* libcoding.a */; };
-		EE12020C11CD464100ABDD5D /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020211CD464100ABDD5D /* libexpat.a */; };
-		EE12020E11CD464100ABDD5D /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020411CD464100ABDD5D /* libgeometry.a */; };
-		EE12020F11CD464100ABDD5D /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020511CD464100ABDD5D /* libindexer.a */; };
-		EE12021011CD464100ABDD5D /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020611CD464100ABDD5D /* libmap.a */; };
-		EE12021211CD464100ABDD5D /* libgraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020811CD464100ABDD5D /* libgraphics.a */; };
 		EE164811135CEE4A003B8A3E /* 06_code2000.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE164810135CEE49003B8A3E /* 06_code2000.ttf */; };
 		EE583CBB12F773F00042CBE3 /* unicode_blocks.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */; };
-		EE5A34E6156FCB9500E34FFE /* libgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5A34E5156FCB9500E34FFE /* libgui.a */; };
-		EE5A34E7156FCBD800E34FFE /* libgui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5A34E5156FCB9500E34FFE /* libgui.a */; };
 		EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		EEA61601134C496A003A9827 /* 01_dejavusans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */; };
@@ -197,12 +189,8 @@
 		EEA61605134C496A003A9827 /* 05_khmeros.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA615E9134C4968003A9827 /* 05_khmeros.ttf */; };
 		EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
 		EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
-		EEF5745512DE1AD50082F472 /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF5745412DE1AD50082F472 /* libfribidi.a */; };
-		EEFC0BBF12B5656A002914FF /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020311CD464100ABDD5D /* libfreetype.a */; };
 		EEFE7C1412F8C9E1006AF8C3 /* fonts_blacklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */; };
 		EEFE7C1512F8C9E1006AF8C3 /* fonts_whitelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */; };
-		EEFFB4E815DCDD8A00BACE1C /* libanim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEFFB4E715DCDD8A00BACE1C /* libanim.a */; };
-		EEFFB4E915DCDD8A00BACE1C /* libanim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEFFB4E715DCDD8A00BACE1C /* libanim.a */; };
 		F7264B8C16388E0B00A8E6C0 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
 		F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
 		F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F785EB3F16386FC4003A38A8 /* BookmarkCell.mm */; };
@@ -239,7 +227,6 @@
 		F7E7BA4016723CD200B4492E /* hotel.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA3E16723CD200B4492E /* hotel.png */; };
 		F7E7BA4116723CD200B4492E /* hotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F7E7BA3F16723CD200B4492E /* hotel@2x.png */; };
 		F7FDD823147F30CC005900FA /* drules_proto.bin in Resources */ = {isa = PBXBuildFile; fileRef = F7FDD822147F30CC005900FA /* drules_proto.bin */; };
-		FA04373212CAB83F00017494 /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA04373112CAB83F00017494 /* libstorage.a */; };
 		FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
 		FA054613155C465E001F4E37 /* SelectSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA054611155C465E001F4E37 /* SelectSetVC.mm */; };
 		FA065FED128614C400FEA989 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA065FEC128614C400FEA989 /* MainWindow-iPad.xib */; };
@@ -252,7 +239,6 @@
 		FA140657162A6288002BC1ED /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA140650162A6288002BC1ED /* eye@2x.png */; };
 		FA140658162A6288002BC1ED /* eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA140650162A6288002BC1ED /* eye@2x.png */; };
 		FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
-		FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2EF9C613630C3B00E3E484 /* libplatform.a */; };
 		FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
 		FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
 		FA36B80E15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
@@ -264,10 +250,7 @@
 		FA7F4B0017F1FFE800FAB1B5 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 		FA85F633145DDDC20090E1A0 /* packed_polygons.bin in Resources */ = {isa = PBXBuildFile; fileRef = FA85F632145DDDC20090E1A0 /* packed_polygons.bin */; };
 		FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
-		FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F8937132D5DB00048E3FE /* libtomcrypt.a */; };
 		FA99CB73147089B100689A9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA99CB71147089B100689A9A /* Localizable.strings */; };
-		FAA0F163196AC14100E01C3F /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA0F162196AC14100E01C3F /* librouting.a */; };
-		FAA0F164196AC15E00E01C3F /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA0F162196AC14100E01C3F /* librouting.a */; };
 		FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C2A1144F135F005337F6 /* LocationManager.mm */; };
 		FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA614B7155F16950031C345 /* AddSetVC.mm */; };
 		FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA614B7155F16950031C345 /* AddSetVC.mm */; };
@@ -276,9 +259,6 @@
 		FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAAEA7D3161D8D3100CCD661 /* BookmarksRootVC.mm */; };
 		FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAAEA7D3161D8D3100CCD661 /* BookmarksRootVC.mm */; };
 		FAAFD697139D9BE2000AE70C /* categories.txt in Resources */ = {isa = PBXBuildFile; fileRef = FAAFD696139D9BE2000AE70C /* categories.txt */; };
-		FAAFD699139D9C6B000AE70C /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAFD698139D9C6B000AE70C /* libsearch.a */; };
-		FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEA8B291437CA80002A6737 /* libjansson.a */; };
-		FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF29846146EEF4A00FF0057 /* libprotobuf.a */; };
 		FAF30A95173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
 		FAF30A96173AB23900818BF6 /* 00_roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAF30A94173AB23900818BF6 /* 00_roboto_regular.ttf */; };
 		FAF457E715597D4600DCCC49 /* Framework.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FAF457E615597D4600DCCC49 /* Framework.cpp */; };
@@ -1329,29 +1309,13 @@
 		FAFB08F2151215EE0041901D /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
 		FAFB08F5151215EE0041901D /* Preferences.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA29FDA9141E77F8004ADF66 /* Preferences.mm */; };
 		FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA5C2A1144F135F005337F6 /* LocationManager.mm */; };
-		FAFB08FB151215EE0041901D /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020311CD464100ABDD5D /* libfreetype.a */; };
 		FAFB08FC151215EE0041901D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		FAFB08FD151215EE0041901D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		FAFB08FE151215EE0041901D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		FAFB08FF151215EE0041901D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26C7210F61FD600ECCA39 /* OpenGLES.framework */; };
 		FAFB0900151215EE0041901D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F26D1E10F626CB00ECCA39 /* QuartzCore.framework */; };
 		FAFB0901151215EE0041901D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB7E22111E9079400080A68 /* CoreLocation.framework */; };
-		FAFB0902151215EE0041901D /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1201FF11CD464100ABDD5D /* libbase.a */; };
-		FAFB0903151215EE0041901D /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020011CD464100ABDD5D /* libcoding.a */; };
-		FAFB0904151215EE0041901D /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020211CD464100ABDD5D /* libexpat.a */; };
-		FAFB0905151215EE0041901D /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020411CD464100ABDD5D /* libgeometry.a */; };
-		FAFB0906151215EE0041901D /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020511CD464100ABDD5D /* libindexer.a */; };
-		FAFB0907151215EE0041901D /* libmap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020611CD464100ABDD5D /* libmap.a */; };
-		FAFB0908151215EE0041901D /* libgraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE12020811CD464100ABDD5D /* libgraphics.a */; };
 		FAFB0909151215EE0041901D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA87151A12B1518F00592DAF /* SystemConfiguration.framework */; };
-		FAFB090A151215EE0041901D /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA04373112CAB83F00017494 /* libstorage.a */; };
-		FAFB090B151215EE0041901D /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF5745412DE1AD50082F472 /* libfribidi.a */; };
-		FAFB090C151215EE0041901D /* libtomcrypt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA8F8937132D5DB00048E3FE /* libtomcrypt.a */; };
-		FAFB090D151215EE0041901D /* libbzip2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DE1CA213437D7A00A93417 /* libbzip2.a */; };
-		FAFB090E151215EE0041901D /* libplatform.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2EF9C613630C3B00E3E484 /* libplatform.a */; };
-		FAFB090F151215EE0041901D /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAFD698139D9C6B000AE70C /* libsearch.a */; };
-		FAFB0910151215EE0041901D /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEA8B291437CA80002A6737 /* libjansson.a */; };
-		FAFB0911151215EE0041901D /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAF29846146EEF4A00FF0057 /* libprotobuf.a */; };
 		FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB63513366E78001A5C59 /* WebViewController.mm */; };
 		FAFF422A1347F101009BBB14 /* World.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FAFF42291347F101009BBB14 /* World.mwm */; };
 /* End PBXBuildFile section */
@@ -2158,7 +2122,6 @@
 			files = (
 				9767701119B5BE2200402693 /* libsqlite3.dylib in Frameworks */,
 				9767700F19B5BE1600402693 /* libz.dylib in Frameworks */,
-				FAA0F163196AC14100E01C3F /* librouting.a in Frameworks */,
 				97D807BE18A93C8800D416E0 /* iAd.framework in Frameworks */,
 				97719D491843B6F700BDD815 /* Security.framework in Frameworks */,
 				97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */,
@@ -2166,37 +2129,18 @@
 				97ECD87A18362B5400F77A46 /* MobileCoreServices.framework in Frameworks */,
 				97ECD87818362B3D00F77A46 /* CoreTelephony.framework in Frameworks */,
 				97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */,
-				EDBB18B816972B0600AF0742 /* libzlib.a in Frameworks */,
-				EEFC0BBF12B5656A002914FF /* libfreetype.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
 				46F26C7310F61FD600ECCA39 /* OpenGLES.framework in Frameworks */,
 				46F26D1F10F626CB00ECCA39 /* QuartzCore.framework in Frameworks */,
 				EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */,
-				EE12020911CD464100ABDD5D /* libbase.a in Frameworks */,
-				EE12020A11CD464100ABDD5D /* libcoding.a in Frameworks */,
 				97DD585518A8EAFA0079837E /* libAarkiSDK.a in Frameworks */,
-				EE12020C11CD464100ABDD5D /* libexpat.a in Frameworks */,
-				EE12020E11CD464100ABDD5D /* libgeometry.a in Frameworks */,
 				974386D91934CBAC00FD5659 /* FacebookSDK.framework in Frameworks */,
-				EE12020F11CD464100ABDD5D /* libindexer.a in Frameworks */,
-				EE12021011CD464100ABDD5D /* libmap.a in Frameworks */,
-				EE12021211CD464100ABDD5D /* libgraphics.a in Frameworks */,
 				97DD585C18A8EB130079837E /* libFlurry_4.3.2.a in Frameworks */,
 				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
-				FA04373212CAB83F00017494 /* libstorage.a in Frameworks */,
-				EEF5745512DE1AD50082F472 /* libfribidi.a in Frameworks */,
-				FA8F8938132D5DB00048E3FE /* libtomcrypt.a in Frameworks */,
-				49DE1CA413437D7A00A93417 /* libbzip2.a in Frameworks */,
 				9767702219B718D700402693 /* libLocalyticsAMP.a in Frameworks */,
-				FA2EF9C713630C3B00E3E484 /* libplatform.a in Frameworks */,
-				FAAFD699139D9C6B000AE70C /* libsearch.a in Frameworks */,
-				FAEA8B2A1437CA80002A6737 /* libjansson.a in Frameworks */,
 				97DD585818A8EB060079837E /* MobileAppTracker.framework in Frameworks */,
-				FAF29847146EEF4A00FF0057 /* libprotobuf.a in Frameworks */,
-				EE5A34E6156FCB9500E34FFE /* libgui.a in Frameworks */,
-				EEFFB4E815DCDD8A00BACE1C /* libanim.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2206,7 +2150,6 @@
 			files = (
 				9767701319B5BE3E00402693 /* libsqlite3.dylib in Frameworks */,
 				9767701219B5BE3800402693 /* libz.dylib in Frameworks */,
-				FAA0F164196AC15E00E01C3F /* librouting.a in Frameworks */,
 				97EDDCE518A299C000AEFB7A /* Twitter.framework in Frameworks */,
 				972CDCC61887F1B7006641CA /* CFNetwork.framework in Frameworks */,
 				97C98656186C734000AF7E9E /* AVFoundation.framework in Frameworks */,
@@ -2223,8 +2166,6 @@
 				97ECD8801836594A00F77A46 /* StoreKit.framework in Frameworks */,
 				97ECD881183674CA00F77A46 /* CoreTelephony.framework in Frameworks */,
 				97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */,
-				EDBB18B916972B3000AF0742 /* libzlib.a in Frameworks */,
-				FAFB08FB151215EE0041901D /* libfreetype.a in Frameworks */,
 				FAFB08FC151215EE0041901D /* Foundation.framework in Frameworks */,
 				97DD585D18A8EB130079837E /* libFlurry_4.3.2.a in Frameworks */,
 				FAFB08FD151215EE0041901D /* UIKit.framework in Frameworks */,
@@ -2233,25 +2174,8 @@
 				FAFB0900151215EE0041901D /* QuartzCore.framework in Frameworks */,
 				9767702319B718D700402693 /* libLocalyticsAMP.a in Frameworks */,
 				FAFB0901151215EE0041901D /* CoreLocation.framework in Frameworks */,
-				FAFB0902151215EE0041901D /* libbase.a in Frameworks */,
 				97DD585918A8EB060079837E /* MobileAppTracker.framework in Frameworks */,
-				FAFB0903151215EE0041901D /* libcoding.a in Frameworks */,
-				FAFB0904151215EE0041901D /* libexpat.a in Frameworks */,
-				FAFB0905151215EE0041901D /* libgeometry.a in Frameworks */,
-				FAFB0906151215EE0041901D /* libindexer.a in Frameworks */,
-				FAFB0907151215EE0041901D /* libmap.a in Frameworks */,
-				FAFB0908151215EE0041901D /* libgraphics.a in Frameworks */,
 				FAFB0909151215EE0041901D /* SystemConfiguration.framework in Frameworks */,
-				FAFB090A151215EE0041901D /* libstorage.a in Frameworks */,
-				FAFB090B151215EE0041901D /* libfribidi.a in Frameworks */,
-				FAFB090C151215EE0041901D /* libtomcrypt.a in Frameworks */,
-				FAFB090D151215EE0041901D /* libbzip2.a in Frameworks */,
-				FAFB090E151215EE0041901D /* libplatform.a in Frameworks */,
-				FAFB090F151215EE0041901D /* libsearch.a in Frameworks */,
-				FAFB0910151215EE0041901D /* libjansson.a in Frameworks */,
-				FAFB0911151215EE0041901D /* libprotobuf.a in Frameworks */,
-				EE5A34E7156FCBD800E34FFE /* libgui.a in Frameworks */,
-				EEFFB4E915DCDD8A00BACE1C /* libanim.a in Frameworks */,
 				97DD585618A8EAFB0079837E /* libAarkiSDK.a in Frameworks */,
 				974386DA1934CBAD00FD5659 /* FacebookSDK.framework in Frameworks */,
 			);
@@ -4777,7 +4701,28 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-lstats_client";
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+				);
 				PRODUCT_NAME = "maps.me dbg lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -4825,7 +4770,28 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-lstats_client";
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+				);
 				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -4894,7 +4860,28 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-lstats_client";
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+				);
 				PRODUCT_NAME = "maps.me dbg lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -4967,7 +4954,28 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-lstats_client";
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+				);
 				PRODUCT_NAME = "maps.me beta lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -5035,7 +5043,28 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-lstats_client";
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+				);
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -5104,7 +5133,28 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-lstats_client";
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+				);
 				PRODUCT_NAME = "maps.me dbg";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -5177,7 +5227,28 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-lstats_client";
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+				);
 				PRODUCT_NAME = "maps.me beta";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -5250,7 +5321,28 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-lstats_client";
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+				);
 				PRODUCT_NAME = maps.me;
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -5322,7 +5414,28 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-lstats_client";
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+				);
 				PRODUCT_NAME = "maps.me rel lite";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -5394,7 +5507,28 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-lstats_client";
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+				);
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -5465,7 +5599,28 @@
 					"-mno-thumb",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-lstats_client";
+				OTHER_LDFLAGS = (
+					"-lstats_client",
+					"-lmap",
+					"-lsearch",
+					"-lgui",
+					"-lgraphics",
+					"-lstorage",
+					"-lrouting",
+					"-lindexer",
+					"-lanim",
+					"-lplatform",
+					"-lgeometry",
+					"-lcoding",
+					"-lbase",
+					"-lfreetype",
+					"-lfribidi",
+					"-lzlib",
+					"-ljansson",
+					"-ltomcrypt",
+					"-lexpat",
+					"-lprotobuf",
+				);
 				PRODUCT_NAME = "maps.me rel";
 				SDKROOT = iphoneos;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -5521,10 +5676,6 @@
 					"${SRCROOT}",
 					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-ObjC",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Simulator Full Release";
@@ -5549,10 +5700,6 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 					"$(PROJECT_DIR)/Statistics/Localitycs",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5579,10 +5726,6 @@
 					"${SRCROOT}",
 					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-ObjC",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Simulator Full";
@@ -5607,10 +5750,6 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 					"$(PROJECT_DIR)/Statistics/Localitycs",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5637,10 +5776,6 @@
 					"${SRCROOT}",
 					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-ObjC",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Debug Full";
@@ -5665,10 +5800,6 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 					"$(PROJECT_DIR)/Statistics/Localitycs",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5695,10 +5826,6 @@
 					"${SRCROOT}",
 					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-ObjC",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Release Lite";
@@ -5723,10 +5850,6 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 					"$(PROJECT_DIR)/Statistics/Localitycs",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};
@@ -5753,10 +5876,6 @@
 					"${SRCROOT}",
 					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-ObjC",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Release Full";
@@ -5782,10 +5901,6 @@
 					"${SRCROOT}",
 					"$(PROJECT_DIR)/Statistics/Localitycs",
 				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-ObjC",
-				);
 				PROVISIONING_PROFILE = "";
 			};
 			name = "Production Lite";
@@ -5810,10 +5925,6 @@
 					"${SRCROOT}/Statistics",
 					"${SRCROOT}",
 					"$(PROJECT_DIR)/Statistics/Localitycs",
-				);
-				OTHER_LDFLAGS = (
-					"-lstats_client",
-					"-ObjC",
 				);
 				PROVISIONING_PROFILE = "";
 			};
