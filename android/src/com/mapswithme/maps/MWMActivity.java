@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -347,7 +348,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
         BuildConfig.IS_PRO &&
-        (Utils.isAppInstalled(Constants.Package.MWM_LITE_PACKAGE) || Utils.isAppInstalled(Constants.Package.MWM_SAMSUNG_PACKAGE)))
+        (Utils.isPackageInstalled(Constants.Package.MWM_LITE_PACKAGE) || Utils.isPackageInstalled(Constants.Package.MWM_SAMSUNG_PACKAGE)))
     {
       if (!mPathManager.containsLiteMapsOnSdcard())
         return;
@@ -743,9 +744,15 @@ public class MWMActivity extends NvEventQueueActivity
           @Override
           public void onClick(View v)
           {
-            final Intent it = new Intent(Intent.ACTION_VIEW);
-            it.setData(Uri.parse(ad.getAppUrl()));
-            startActivity(it);
+            final String appPackage = ad.getAppPackage();
+            if (!TextUtils.isEmpty(appPackage) && Utils.isPackageInstalled(appPackage))
+              Utils.launchPackage(MWMActivity.this, appPackage);
+            else
+            {
+              final Intent it = new Intent(Intent.ACTION_VIEW);
+              it.setData(Uri.parse(ad.getAppUrl()));
+              startActivity(it);
+            }
           }
         });
         mVerticalToolbar.addView(view, startAdMenuPosition++);

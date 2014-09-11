@@ -11,10 +11,11 @@ public class MenuAd implements Parcelable
   private String mHexColor;
   private String mId;
   private String mAppUrl;
+  private String mAppPackage;
   private String mWebUrl;
   private Bitmap mIcon;
 
-  public MenuAd(String iconUrl, String title, String hexColor, String id, String appUrl, String webUrl, Bitmap icon)
+  public MenuAd(String iconUrl, String title, String hexColor, String id, String appUrl, String webUrl, Bitmap icon, String appPackage)
   {
     mIconUrl = iconUrl;
     mTitle = title;
@@ -23,6 +24,7 @@ public class MenuAd implements Parcelable
     mAppUrl = appUrl;
     mWebUrl = webUrl;
     mIcon = icon;
+    mAppPackage = appPackage;
   }
 
   public MenuAd(Parcel source)
@@ -32,6 +34,7 @@ public class MenuAd implements Parcelable
     mHexColor = source.readString();
     mId = source.readString();
     mAppUrl = source.readString();
+    mAppPackage = source.readString();
     mWebUrl = source.readString();
     mIcon = source.readParcelable(Bitmap.class.getClassLoader());
   }
@@ -77,6 +80,16 @@ public class MenuAd implements Parcelable
     return mIcon;
   }
 
+  public String getAppPackage()
+  {
+    return mAppPackage;
+  }
+
+  public void setAppPackage(String appPackage)
+  {
+    mAppPackage = appPackage;
+  }
+
   @Override
   public int describeContents()
   {
@@ -91,6 +104,7 @@ public class MenuAd implements Parcelable
     dest.writeString(mHexColor);
     dest.writeString(mId);
     dest.writeString(mAppUrl);
+    dest.writeString(mAppPackage);
     dest.writeString(mWebUrl);
     dest.writeParcelable(mIcon, 0);
   }

@@ -193,7 +193,7 @@ public class Utils
     return args;
   }
 
-  public static boolean isAppInstalled(String packageUri)
+  public static boolean isPackageInstalled(String packageUri)
   {
     PackageManager pm = MWMApplication.get().getPackageManager();
     boolean installed;
@@ -207,6 +207,14 @@ public class Utils
     }
     return installed;
   }
+
+  public static void launchPackage(Activity activity, String appPackage)
+  {
+    final Intent intent = activity.getPackageManager().getLaunchIntentForPackage(appPackage);
+    if (intent != null)
+      activity.startActivity(intent);
+  }
+
 
   public static boolean isIntentAvailable(Intent intent)
   {

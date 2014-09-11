@@ -40,6 +40,7 @@ public class AdsManager
   private static final String COLOR_KEY = "Color";
   private static final String WEB_URL_KEY = "WebURLs";
   private static final String CACHE_FILE = "menu_ads.json";
+  private static final String ID_APP_PACKAGE = "AppPackage";
 
   private static List<MenuAd> sMenuAds;
 
@@ -137,6 +138,7 @@ public class AdsManager
       final String title = getStringByKeyOrDefault(menuItemJson.getJSONObject(TITLE_KEY), localeKey);
       final String id = menuItemJson.getString(ID_KEY);
       final Bitmap bitmap = loadAdIcon(icon, id);
+      final String appPackage = menuItemJson.optString(ID_APP_PACKAGE);
 
       ads.add(new MenuAd(icon,
           title,
@@ -144,7 +146,8 @@ public class AdsManager
           id,
           menuItemJson.getString(APP_URL_KEY),
           webUrl,
-          bitmap));
+          bitmap,
+          appPackage));
     }
 
     return ads;
