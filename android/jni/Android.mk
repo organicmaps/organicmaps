@@ -19,6 +19,11 @@ MY_PREBUILT_LIBS_PATH := ../../../omim-android-$(OMIM_CONFIG)-$(TARGET_ARCH_ABI)
 ifneq ($(MAKECMDGOALS),clean)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := osrm
+LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libosrm.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := protobuf
 LOCAL_SRC_FILES := $(MY_PREBUILT_LIBS_PATH)/libprotobuf.a
 include $(PREBUILT_STATIC_LIBRARY)
@@ -132,7 +137,7 @@ include $(CLEAR_VARS)
 LOCAL_CPP_FEATURES += exceptions rtti
 
 LOCAL_MODULE := mapswithme
-LOCAL_STATIC_LIBRARIES := stats_client map gui routing search storage indexer graphics platform anim geometry coding base expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf
+LOCAL_STATIC_LIBRARIES := stats_client map gui routing search storage indexer graphics platform anim geometry coding base expat freetype fribidi zlib bzip2 jansson tomcrypt protobuf osrm
 LOCAL_CFLAGS := -ffunction-sections -fdata-sections -Wno-extern-c-compat
 
 ifneq ($(NDK_DEBUG),1)
@@ -199,7 +204,7 @@ LOCAL_SRC_FILES := \
 	nv_event/nv_event.cpp \
 	nv_time/nv_time.cpp \
 
-LOCAL_LDLIBS := -llog -lGLESv2
+LOCAL_LDLIBS := -llog -lGLESv2 -latomic
 
 LOCAL_LDLIBS += -Wl,--gc-sections
 
