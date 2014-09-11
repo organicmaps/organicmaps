@@ -972,32 +972,26 @@ public class MWMActivity extends NvEventQueueActivity
       mInfoView.updateAzimuth(heading);
   }
 
-  public void onLocationStateModeChanged(int newMode)
+  /// Callback from native location GUI element processing.
+  public void onLocationStateModeChangedCallback(final int newMode)
   {
-    LocationButtonImageSetter.setButtonViewFromState(newMode, mLocationButton);
-    switch (newMode)
-    {
-    case LocationState.UNKNOWN_POSITION:
-      pauseLocation();
-      break;
-    case LocationState.PENDING_POSITION:
-      resumeLocation();
-      break;
-    default:
-      break;
-    }
-  }
-
-  /// Callback from native compass GUI element processing.
-  public void onLocationStateModeChangedCallback(int newStatus)
-  {
-    final int val = newStatus;
     runOnUiThread(new Runnable()
     {
       @Override
       public void run()
       {
-        onLocationStateModeChanged(val);
+        LocationButtonImageSetter.setButtonViewFromState(newMode, mLocationButton);
+        switch (newMode)
+        {
+        case LocationState.UNKNOWN_POSITION:
+          pauseLocation();
+          break;
+        case LocationState.PENDING_POSITION:
+          resumeLocation();
+          break;
+        default:
+          break;
+        }
       }
     });
   }
