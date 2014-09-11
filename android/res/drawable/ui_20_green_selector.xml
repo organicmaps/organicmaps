@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/ui_20_green_darker" android:state_pressed="true"/>
-    <item android:drawable="@drawable/ui_20_green_dark_rounded_solid"/>
-
-</selector>

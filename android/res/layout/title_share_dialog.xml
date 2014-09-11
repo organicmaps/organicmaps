@@ -1,7 +1,0 @@
-<TextView
-    android:id="@+id/tv__title"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:textSize="18sp"
-    android:padding="@dimen/margin_medium"
-    android:layout_height="wrap_content"/>
