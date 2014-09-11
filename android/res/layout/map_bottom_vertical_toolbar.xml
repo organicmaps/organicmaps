@@ -66,7 +66,7 @@
       android:gravity="center_vertical"
       android:drawablePadding="@dimen/margin_small"
       android:paddingLeft="10dp"
-      android:text="@string/more_apps_title"
+      android:text="@string/more_apps_guides"
       android:textColor="@android:color/white"/>
 
 </LinearLayout>
