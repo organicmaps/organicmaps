@@ -2001,7 +2001,10 @@ void Framework::InsertRoute(routing::Route const & route)
   Track track(route.GetPoly());
   track.SetName(route.GetName());
   track.SetColor(graphics::Color(0, 0xA3,0xFF, 0xFF));
-  track.SetWidth(8.0f * GetVisualScale());
+  track.SetWidth(4.0f * GetVisualScale());
+  track.SetIsMarked(true);
+  track.SetOutlineWidth(3.0f * GetVisualScale());
+  track.SetOutlineColor(graphics::Color::White());
   cat->AddTrack(track);
   Invalidate();
 }

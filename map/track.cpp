@@ -77,6 +77,13 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
   SimplifyDP(pts1.begin(), pts1.end(), math::sqr(m_width),
              m2::DistanceToLineSquare<m2::PointD>(), MakeBackInsertFunctor(pts2));
 
+  if (IsMarked())
+  {
+    graphics::Pen::Info outlineInfo(m_outlineColor, m_width + 2 * m_outlineWidth);
+    uint32_t outlineId = dlScreen->mapInfo(outlineInfo);
+    dlScreen->drawPath(pts2.data(), pts2.size(), 0, outlineId, graphics::tracksDepth);
+  }
+
   dlScreen->drawPath(pts2.data(), pts2.size(), 0, resId, graphics::tracksDepth);
 
   dlScreen->setDisplayList(0);
@@ -124,6 +131,9 @@ void Track::Swap(Track & rhs)
   swap(m_width, rhs.m_width);
   swap(m_color, rhs.m_color);
   swap(m_rect, rhs.m_rect);
+  swap(m_isMarked, rhs.m_isMarked);
+  swap(m_outlineColor, rhs.m_outlineColor);
+  swap(m_outlineWidth, rhs.m_outlineWidth);
 
   m_name.swap(rhs.m_name);
   m_polyline.Swap(rhs.m_polyline);

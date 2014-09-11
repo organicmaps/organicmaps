@@ -28,12 +28,18 @@ public:
   Track()
     : m_isVisible(true), m_width(5),
       m_color(graphics::Color::fromARGB(0xFFFF0000)),
+      m_isMarked(false),
+      m_outlineWidth(0),
+      m_outlineColor(graphics::Color::White()),
       m_dList(0)
   {}
 
   explicit Track(PolylineD const & polyline)
     : m_isVisible(true), m_width(5),
       m_color(graphics::Color::fromARGB(0xFFFF0000)),
+      m_isMarked(false),
+      m_outlineWidth(0),
+      m_outlineColor(graphics::Color::White()),
       m_polyline(polyline),
       m_dList(0)
   {
@@ -55,11 +61,20 @@ public:
   bool IsVisible() const        { return m_isVisible; }
   void SetVisible(bool visible) { m_isVisible = visible; }
 
-  size_t GetWidth() const { return m_width; }
-  void SetWidth(size_t width) { m_width = width; }
+  float GetWidth() const { return m_width; }
+  void SetWidth(float width) { m_width = width; }
 
-  graphics::Color GetColor() const { return m_color; }
-  void SetColor(graphics::Color color) { m_color = color; }
+  graphics::Color const & GetColor() const { return m_color; }
+  void SetColor(graphics::Color const & color) { m_color = color; }
+
+  bool IsMarked() const { return m_isMarked; }
+  void SetIsMarked(bool isMarked) { m_isMarked = isMarked; }
+
+  float GetOutlineWidth() const { return m_outlineWidth; }
+  void SetOutlineWidth(float outlineWidth) { m_outlineWidth = outlineWidth; }
+
+  graphics::Color const & GetOutlineColor() { return m_outlineColor; }
+  void SetOutlineColor(graphics::Color const & outlineColor) { m_outlineColor = outlineColor; }
 
   string const & GetName() const { return m_name; }
   void SetName(string const & name) { m_name = name; }
@@ -76,8 +91,12 @@ public:
 private:
   bool m_isVisible;
   string m_name;
-  size_t m_width;
+  float m_width;
   graphics::Color m_color;
+
+  bool m_isMarked;
+  float m_outlineWidth;
+  graphics::Color m_outlineColor;
 
   PolylineD m_polyline;
   m2::RectD m_rect;
