@@ -141,7 +141,7 @@ void State::OnLocationUpdate(location::GpsInfo const & info)
 
   if (GetMode() == PendingPosition)
     SetModeInfo(ChangeMode(m_modeInfo, Follow));
-  else
+  else if (GetMode() > NotFollow)
     AnimateFollow();
 
   CallPositionChangedListeners(m_position);
@@ -453,11 +453,15 @@ bool ValidateTransition(State::Mode oldMode, State::Mode newMode)
   }
 
   if (oldMode == State::NotFollow)
-    return newMode == State::Follow;
+  {
+    return newMode == State::Follow ||
+           newMode == State::RotateAndFollow;
+  }
 
   if (oldMode == State::RotateAndFollow)
   {
     return newMode == State::NotFollow ||
+           newMode == State::Follow ||
            newMode == State::UnknownPosition;
   }
 
@@ -482,6 +486,8 @@ void State::AnimateStateTransition(Mode oldMode, Mode newMode)
   }
   else if (newMode == RotateAndFollow)
   {
+    if (oldMode == NotFollow)
+      m_framework->SetViewportCenterAnimated(Position());
     FollowCompass();
   }
   else if (oldMode == RotateAndFollow && newMode == UnknownPosition)
