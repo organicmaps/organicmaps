@@ -41,16 +41,33 @@ namespace
 class UselessTypesChecker
 {
   vector<uint32_t> m_types;
-public:
-  UselessTypesChecker()
+
+  template <size_t N, size_t M>
+  void AddTypes(char const * (&arr)[N][M])
   {
     Classificator const & c = classif();
 
-    char const * arr1[][1] = { { "building" }, { "oneway" }, { "lit" } };
-
-    for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
-      m_types.push_back(c.GetTypeByPath(vector<string>(arr1[i], arr1[i] + 1)));
+    for (size_t i = 0; i < N; ++i)
+      m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + M)));
   }
+
+public:
+  UselessTypesChecker()
+  {
+    char const * arr1[][1] = {
+      { "building" },
+      { "oneway" },
+      { "lit" },
+      { "internet_access" },
+    };
+    char const * arr2[][2] = {
+      { "internet_access", "wlan"},
+    };
+
+    AddTypes(arr1);
+    AddTypes(arr2);
+  }
+
   bool operator() (uint32_t t) const
   {
     return (find(m_types.begin(), m_types.end(), t) != m_types.end());
