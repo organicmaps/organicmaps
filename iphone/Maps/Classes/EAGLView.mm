@@ -81,7 +81,7 @@
   CGRect frameRect = screen.applicationFrame;
   CGRect screenRect = screen.bounds;
 
-  double vs = [screen respondsToSelector:@selector(nativeScale)] ? screen.nativeScale : screen.scale;
+  double vs = screen.scale;
 
   rpParams.m_screenWidth = screenRect.size.width * vs;
   rpParams.m_screenHeight = screenRect.size.height * vs;
@@ -90,10 +90,8 @@
 
   if (vs == 1.0)
     rpParams.m_density = graphics::EDensityMDPI;
-  else if (vs == 2.0)
-    rpParams.m_density = graphics::EDensityXHDPI;
   else
-    rpParams.m_density = graphics::EDensityXXHDPI;
+    rpParams.m_density = graphics::EDensityXHDPI;
 
   rpParams.m_videoTimer = videoTimer;
   rpParams.m_useDefaultFB = false;
