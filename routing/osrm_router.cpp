@@ -26,17 +26,24 @@ namespace routing
 class Point2PhantomNode
 {
   m2::PointD m_point;
-
-  double m_minDist;
-  uint32_t m_segIdx;
-  FeatureID m_fID;
-
   OsrmFtSegMapping const & m_mapping;
+
   CarModel m_carModel;
+
+  struct Candidate
+  {
+    double m_dist;
+    uint32_t m_segIdx;
+    FeatureID m_fID;
+
+    Candidate() : m_dist(numeric_limits<double>::max()) {}
+  };
+
+  buffer_vector<Candidate, 128> m_candidates;
 
 public:
   Point2PhantomNode(m2::PointD const & pt, OsrmFtSegMapping const & mapping)
-    : m_point(pt), m_minDist(numeric_limits<double>::max()), m_segIdx(-1), m_mapping(mapping)
+    : m_point(pt), m_mapping(mapping)
   {
   }
 
@@ -45,58 +52,60 @@ public:
     if (ft.GetFeatureType() != feature::GEOM_LINE || m_carModel.GetSpeed(ft) == 0)
       return;
 
+    Candidate res;
+
     ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
 
     size_t const count = ft.GetPointsCount();
     ASSERT_GREATER(count, 1, ());
     for (size_t i = 1; i < count; ++i)
     {
+      /// @todo Probably, we need to get exact proection distance in meters.
       m2::DistanceToLineSquare<m2::PointD> segDist;
       segDist.SetBounds(ft.GetPoint(i - 1), ft.GetPoint(i));
 
       double const d = segDist(m_point);
-      if (d < m_minDist)
+      if (d < res.m_dist)
       {
-        m_minDist = d;
-        m_fID = ft.GetID();
-        m_segIdx = i - 1;
+        res.m_dist = d;
+        res.m_fID = ft.GetID();
+        res.m_segIdx = i - 1;
       }
     }
-  }
 
-  bool HasFeature() const
-  {
-    return m_fID.IsValid();
+    if (res.m_fID.IsValid())
+      m_candidates.push_back(res);
   }
 
   bool MakeResult(PhantomNode & resultNode, uint32_t & mwmId)
   {
-    ASSERT(m_fID.IsValid(), ());
-
     resultNode.forward_node_id = resultNode.reverse_node_id = -1;
 
-    OsrmFtSegMapping::FtSeg seg;
-    seg.m_fid = m_fID.m_offset;
-    seg.m_pointStart = m_segIdx;
-    seg.m_pointEnd = m_segIdx + 1;
-
-    m_mapping.GetOsrmNode(seg, resultNode.forward_node_id, resultNode.reverse_node_id);
-
-    mwmId = m_fID.m_mwm;
-
-    if (resultNode.forward_node_id == -1 && resultNode.reverse_node_id == -1)
+    sort(m_candidates.begin(), m_candidates.end(), [] (Candidate const & r1, Candidate const & r2)
     {
-      LOG(LINFO, ("Can't find osrm node", seg));
-      m_mapping.DumpSegmentsByFID(seg.m_fid);
-      return false;
-    }
-    else
-      return true;
-  }
+      return (r1.m_dist < r2.m_dist);
+    });
 
-  size_t GetMwmID() const
-  {
-    return m_fID.m_mwm;
+    for (auto const & c : m_candidates)
+    {
+      OsrmFtSegMapping::FtSeg seg;
+      seg.m_fid = c.m_fID.m_offset;
+      seg.m_pointStart = c.m_segIdx;
+      seg.m_pointEnd = c.m_segIdx + 1;
+      m_mapping.GetOsrmNode(seg, resultNode.forward_node_id, resultNode.reverse_node_id);
+
+      mwmId = c.m_fID.m_mwm;
+
+      if (resultNode.forward_node_id != -1 || resultNode.reverse_node_id != -1)
+        return true;
+    }
+
+    if (m_candidates.empty())
+      LOG(LDEBUG, ("No candidates for point:", m_point));
+    else
+      LOG(LINFO, ("Can't find osrm node for feature:", m_candidates[0].m_fID));
+
+    return false;
   }
 };
 
@@ -155,13 +164,15 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
 {
   typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
 
+  string const country = "New-York";
 #ifdef OMIM_OS_DESKTOP
-  DataFacadeT facade("/Users/deniskoronchik/Documents/develop/omim-maps/Belarus.osrm");
-  m_mapping.Load("/Users/deniskoronchik/Documents/develop/omim-maps/Belarus.osrm.ftseg");
+  DataFacadeT facade("/Users/deniskoronchik/Documents/develop/omim-maps/" + country + ".osrm");
+  m_mapping.Load("/Users/deniskoronchik/Documents/develop/omim-maps/" + country + ".osrm.ftseg");
 #else
-  DataFacadeT facade(GetPlatform().WritablePathForFile("Belarus.osrm"));
-  m_mapping.Load(GetPlatform().WritablePathForFile("Belarus.osrm.ftseg"));
+  DataFacadeT facade(GetPlatform().WritablePathForFile(country + ".osrm"));
+  m_mapping.Load(GetPlatform().WritablePathForFile(country + ".osrm.ftseg"));
 #endif
+
   SearchEngineData engine_working_data;
   ShortestPathRouting<DataFacadeT> shortest_path(&facade, engine_working_data);
 
@@ -244,22 +255,12 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
 
 bool OsrmRouter::FindPhantomNode(m2::PointD const & pt, PhantomNode & resultNode, uint32_t & mwmId)
 {
-  double radius = 100.0;
-
   Point2PhantomNode getter(pt, m_mapping);
-  while (radius < 1000.0)
-  {
-    m_pIndex->ForEachInRect(getter,
-                            MercatorBounds::RectByCenterXYAndSizeInMeters(pt, radius),
-                            17);  /// @todo Pass minimal scale when ALL roads are visible.
 
-    if (getter.HasFeature())
-      return getter.MakeResult(resultNode, mwmId);
-    else
-      radius += 100;
-  }
+  /// @todo Review radius of rect and read index scale.
+  m_pIndex->ForEachInRect(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, 1000.0), 17);
 
-  return false;
+  return getter.MakeResult(resultNode, mwmId);
 }
 
 }
