@@ -1,6 +1,7 @@
 #include "feature.hpp"
 #include "feature_visibility.hpp"
 #include "feature_loader_base.hpp"
+#include "classificator.hpp"
 
 #include "../geometry/distance.hpp"
 #include "../geometry/robust_orientation.hpp"
@@ -60,17 +61,14 @@ string FeatureBase::DebugString() const
 {
   ASSERT(m_bCommonParsed, ());
 
-  string res("FEATURE: ");
+  Classificator const & c = classif();
 
+  string res = "Types";
   for (size_t i = 0; i < GetTypesCount(); ++i)
-    res += "Type:" + DebugPrint(m_types[i]) + " ";
+    res += (" : " + c.GetReadableObjectName(m_types[i]));
+  res += "\n";
 
-  res += m_params.DebugString();
-
-  if (GetFeatureType() == GEOM_POINT)
-    res += "Center:" + DebugPrint(m_center) + " ";
-
-  return res;
+  return (res + m_params.DebugString());
 }
 
 
@@ -142,13 +140,29 @@ string FeatureType::DebugString(int scale) const
 
   string s = base_type::DebugString();
 
-  s += "Points:";
-  Points2String(s, m_points);
+  switch (GetFeatureType())
+  {
+  case FEATURE_TYPE_POINT:
+    s += (" Center:" + DebugPrint(m_center));
+    break;
 
-  s += "Triangles:";
-  Points2String(s, m_triangles);
+  case FEATURE_TYPE_LINE:
+    s += " Points:";
+    Points2String(s, m_points);
+    break;
+
+  case FEATURE_TYPE_AREA:
+    s += " Triangles:";
+    Points2String(s, m_triangles);
+    break;
+  }
 
   return s;
+}
+
+string DebugPrint(FeatureType const & ft)
+{
+  return ft.DebugString(FeatureType::BEST_GEOMETRY);
 }
 
 bool FeatureType::IsEmptyGeometry(int scale) const

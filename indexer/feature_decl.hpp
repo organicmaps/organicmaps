@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../std/sstream.hpp"
+#include "../std/string.hpp"
 #include "../std/stdint.hpp"
 
 
@@ -31,3 +33,10 @@ struct FeatureID
     return !(*this == r);
   }
 };
+
+inline string DebugPrint(FeatureID const & id)
+{
+  ostringstream ss;
+  ss << "{ " << id.m_mwm << ", " << id.m_offset << " }";
+  return ss.str();
+}

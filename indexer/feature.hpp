@@ -231,6 +231,7 @@ public:
 
   /// For test cases only.
   string DebugString(int scale) const;
+  friend string DebugPrint(FeatureType const & ft);
 
   string GetHouseNumber() const;
 

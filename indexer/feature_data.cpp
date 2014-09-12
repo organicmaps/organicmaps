@@ -110,12 +110,13 @@ bool FeatureParamsBase::CheckValid() const
 string FeatureParamsBase::DebugString() const
 {
   string utf8name;
-  name.GetString(0, utf8name);
+  name.GetString(StringUtf8Multilang::DEFAULT_CODE, utf8name);
 
-  return ("'" + utf8name + "' Layer:" + DebugPrint(layer) +
+  return ((!utf8name.empty() ? "Name:" + utf8name : "") +
+          (" Layer:" + DebugPrint(layer)) +
           (rank != 0 ? " Rank:" + DebugPrint(rank) : "") +
           (!house.IsEmpty() ? " House:" + house.Get() : "") +
-          (!ref.empty() ? " Ref:" + ref : "") + " ");
+          (!ref.empty() ? " Ref:" + ref : ""));
 }
 
 namespace
@@ -352,11 +353,10 @@ string DebugPrint(FeatureParams const & p)
 {
   Classificator const & c = classif();
 
-  ostringstream out;
-
-  out << "Types: ";
+  string res = "Types";
   for (size_t i = 0; i < p.m_Types.size(); ++i)
-    out << c.GetReadableObjectName(p.m_Types[i]) << "; ";
+    res += (" : " + c.GetReadableObjectName(p.m_Types[i]));
+  res += "\n";
 
-  return (p.DebugString() + out.str());
+  return (res + p.DebugString());
 }
