@@ -90,37 +90,39 @@ TextLayout::TextLayout(strings::UniString const & string,
 
 dp::OverlayHandle * LayoutText(const FeatureID & featureID,
                                m2::PointF const & pivot,
-                               vector<m2::PointF> const & pixelOffset,
+                               vector<TextLayout>::iterator & layoutIter,
+                               vector<m2::PointF>::iterator & pixelOffsetIter,
                                float depth,
-                               vector<Quad4> & positions,
-                               vector<Quad4> & texCoord,
-                               vector<Quad4> & fontColor,
-                               vector<Quad4> & outlineColor,
-                               TextLayout * layouts)
+                               vector<glsl_types::Quad4> & positions,
+                               vector<glsl_types::Quad4> & texCoord,
+                               vector<glsl_types::Quad4> & color,
+                               vector<glsl_types::Quad4> & index,
+                               dp::RefPointer<dp::TextureSetHolder> textures,
+                               int count)
 {
   STATIC_ASSERT(sizeof(vec4) == 4 * sizeof(float));
   STATIC_ASSERT(sizeof(Quad4) == 4 * sizeof(vec4));
 
-  FillColor(fontColor, layouts[0].GetColor());
-  FillColor(outlineColor,layouts[0].GetOutlineColor());
+  FillColor(color, layoutIter->m_font.m_color);
+  FillColor(index,layoutIter->m_font.m_outlineColor);
 
   int counter = 0;
   m2::PointD size(0.0, 0.0);
   m2::PointF offset(numeric_limits<float>::max(), numeric_limits<float>::max());
-  float maxOffset = -numeric_limits<float>::max();
-  for (int j = 0; j < pixelOffset.size(); ++j)
+  float maxOffset = numeric_limits<float>::min();
+  for (int j = 0; j < count; ++j)
   {
     float glyphOffset = 0.0;
-    float textRatio = layouts[j].GetTextRatio();
+    float textRatio = layoutIter->m_textSizeRatio;
     float maxHeight = 0.0f;
     float minHeight = numeric_limits<float>::max();
-    uint32_t glyphCount = layouts[j].GetGlyphCount();
+    uint32_t glyphCount = layoutIter->GetGlyphCount();
     double w;
     for (size_t i = 0; i < glyphCount; ++i)
     {
-      dp::TextureSetHolder::GlyphRegion const & region = layouts[j].GetGlyphRegion(i);
+      dp::TextureSetHolder::GlyphRegion const & region = layoutIter->m_metrics[i];
       ASSERT(region.IsValid(), ());
-      layouts[j].GetTextureQuad(region, depth, texCoord[counter]);
+      layoutIter->GetTextureQuad(region, depth, texCoord[counter]);
 
       float xOffset, yOffset, advance;
       region.GetMetrics(xOffset, yOffset, advance);
@@ -137,91 +139,29 @@ dp::OverlayHandle * LayoutText(const FeatureID & featureID,
       minHeight = min(yOffset, minHeight);
 
       Quad4 & position = positions[counter++];
-      position.v[0] = vec4(pivot, m2::PointF(glyphOffset + xOffset, yOffset) + pixelOffset[j]);
-      position.v[1] = vec4(pivot, m2::PointF(glyphOffset + xOffset, yOffset + h) + pixelOffset[j]);
-      position.v[2] = vec4(pivot, m2::PointF(glyphOffset + w + xOffset, yOffset) + pixelOffset[j]);
-      position.v[3] = vec4(pivot, m2::PointF(glyphOffset + w + xOffset, yOffset + h) + pixelOffset[j]);
+      position.v[0] = vec4(pivot, m2::PointF(glyphOffset + xOffset, yOffset) + *pixelOffsetIter);
+      position.v[1] = vec4(pivot, m2::PointF(glyphOffset + xOffset, yOffset + h) + *pixelOffsetIter);
+      position.v[2] = vec4(pivot, m2::PointF(glyphOffset + w + xOffset, yOffset) + *pixelOffsetIter);
+      position.v[3] = vec4(pivot, m2::PointF(glyphOffset + w + xOffset, yOffset + h) + *pixelOffsetIter);
       glyphOffset += advance;
     }
     glyphOffset += w / 2.0f;
     size.x = max(size.x, (double)glyphOffset);
-    offset.x = min(offset.x, pixelOffset[j].x);
-    offset.y = min(offset.y, pixelOffset[j].y + minHeight);
-    maxOffset = max(maxOffset, pixelOffset[j].y + minHeight);
+    offset.x = min(offset.x, pixelOffsetIter->x);
+    offset.y = min(offset.y, pixelOffsetIter->y + minHeight);
+    maxOffset = max(maxOffset, pixelOffsetIter->y + minHeight);
     size.y = max(size.y, (double)maxHeight);
+    ++layoutIter;
+    ++pixelOffsetIter;
   }
   size.y += maxOffset - offset.y;
   return new StraightTextHandle(featureID, pivot, size, offset, depth);
 }
 
-
-dp::OverlayHandle * TextLayout::LayoutText(const FeatureID & featureID,
-                                           m2::PointF const & pivot,
-                                           m2::PointF const & pixelOffset,
-                                           float depth,
-                                           vector<Quad4> & positions,
-                                           vector<Quad4> & texCoord,
-                                           vector<Quad4> & fontColor,
-                                           vector<Quad4> & outlineColor) const
-{
-  STATIC_ASSERT(sizeof(vec4) == 4 * sizeof(float));
-  STATIC_ASSERT(sizeof(Quad4) == 4 * sizeof(vec4));
-
-  size_t glyphCount = GetGlyphCount();
-  ASSERT(glyphCount <= positions.size(), ());
-  ASSERT(glyphCount <= texCoord.size(), ());
-  ASSERT(glyphCount <= fontColor.size(), ());
-  ASSERT(glyphCount <= outlineColor.size(), ());
-
-  FillColor(fontColor, m_font.m_color);
-  FillColor(outlineColor, m_font.m_outlineColor);
-
-  float maxHeight = 0.0f;
-  float minHeight = numeric_limits<float>::max();
-
-  float glyphOffset = 0.0;
-  for (size_t i = 0; i < glyphCount; ++i)
-  {
-    GlyphRegion const & region = m_metrics[i];
-    ASSERT(region.IsValid(), ());
-    GetTextureQuad(region, depth, texCoord[i]);
-
-    float xOffset, yOffset, advance;
-    region.GetMetrics(xOffset, yOffset, advance);
-
-    xOffset *= m_textSizeRatio;
-    yOffset *= m_textSizeRatio;
-    advance *= m_textSizeRatio;
-
-    m2::PointU size;
-    region.GetPixelSize(size);
-    double const h = size.y * m_textSizeRatio;
-    double const w = size.x * m_textSizeRatio;
-    maxHeight = max((float)h, maxHeight);
-    minHeight = min(yOffset, minHeight);
-
-    Quad4 & position = positions[i];
-    position.v[0] = vec4(pivot, m2::PointF(glyphOffset + xOffset, yOffset) + pixelOffset);
-    position.v[1] = vec4(pivot, m2::PointF(glyphOffset + xOffset, yOffset + h) + pixelOffset);
-    position.v[2] = vec4(pivot, m2::PointF(glyphOffset + w + xOffset, yOffset) + pixelOffset);
-    position.v[3] = vec4(pivot, m2::PointF(glyphOffset + w + xOffset, yOffset + h) + pixelOffset);
-    glyphOffset += advance;
-  }
-
-  GlyphRegion const & region = m_metrics[0];
-  m2::PointU size;
-  region.GetPixelSize(size);
-  double const w = size.x * m_textSizeRatio;
-  glyphOffset += w / 2.0f;
-
-  return new StraightTextHandle(featureID, pivot, m2::PointD(glyphOffset, maxHeight),
-                                m2::PointF(pixelOffset.x, pixelOffset.y + minHeight), depth);
-}
-
 void TextLayout::InitPathText(float depth,
                               vector<glsl_types::Quad4> & texCoord,
                               vector<glsl_types::Quad4> & fontColor,
-                              vector<glsl_types::Quad4> & outlineColor) const
+                              vector<glsl_types::Quad4> & index) const
 {
   STATIC_ASSERT(sizeof(vec4) == 4 * sizeof(float));
   STATIC_ASSERT(sizeof(Quad4) == 4 * sizeof(vec4));
@@ -229,10 +169,10 @@ void TextLayout::InitPathText(float depth,
   size_t glyphCount = GetGlyphCount();
   ASSERT(glyphCount <= texCoord.size(), ());
   ASSERT(glyphCount <= fontColor.size(), ());
-  ASSERT(glyphCount <= outlineColor.size(), ());
+  ASSERT(glyphCount <= index.size(), ());
 
   FillColor(fontColor, m_font.m_color);
-  FillColor(outlineColor, m_font.m_outlineColor);
+  FillColor(index, m_font.m_outlineColor);
 
   for (size_t i = 0; i < glyphCount; ++i)
     GetTextureQuad(m_metrics[i], depth, texCoord[i]);
@@ -313,26 +253,6 @@ float TextLayout::GetPixelLength() const
 float TextLayout::GetPixelHeight() const
 {
   return m_font.m_size;
-}
-
-dp::Color TextLayout::GetColor() const
-{
-  return m_font.m_color;
-}
-
-dp::Color TextLayout::GetOutlineColor() const
-{
-  return m_font.m_outlineColor;
-}
-
-dp::TextureSetHolder::GlyphRegion & TextLayout::GetGlyphRegion(int index)
-{
-  return m_metrics[index];
-}
-
-float TextLayout::GetTextRatio() const
-{
-  return m_textSizeRatio;
 }
 
 void TextLayout::GetTextureQuad(GlyphRegion const & region,

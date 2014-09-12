@@ -27,15 +27,6 @@ public:
              df::FontDecl const & font,
              dp::RefPointer<dp::TextureSetHolder> textures);
 
-  dp::OverlayHandle * LayoutText(FeatureID const & featureID,
-                                 m2::PointF const & pivot,
-                                 m2::PointF const & pixelOffset,
-                                 float depth,
-                                 vector<glsl_types::Quad4> & positions,
-                                 vector<glsl_types::Quad4> & texCoord,
-                                 vector<glsl_types::Quad4> & fontColor,
-                                 vector<glsl_types::Quad4> & outlineColor) const;
-
   void InitPathText(float depth,
                     vector<glsl_types::Quad4> & texCoord,
                     vector<glsl_types::Quad4> & fontColor,
@@ -51,35 +42,31 @@ public:
   uint32_t GetTextureSet() const;
   float GetPixelLength() const;
   float GetPixelHeight() const;
-  float GetTextRatio() const;
-  dp::Color GetColor() const;
-  dp::Color GetOutlineColor() const;
-  GlyphRegion & GetGlyphRegion(int index);
 
 private:
   float AccumulateAdvance(double const & currentValue, GlyphRegion const & reg2) const;
   void InitMetric(strings::UniChar const & unicodePoint, dp::RefPointer<dp::TextureSetHolder> textures);
-
-public:
+  void GetTextureQuad(GlyphRegion const & region, float depth, glsl_types::Quad4 & quad) const;
   void GetMetrics(int32_t const index, float & xOffset, float & yOffset, float & advance,
                   float & halfWidth, float & halfHeight) const;
-  void GetTextureQuad(GlyphRegion const & region, float depth, glsl_types::Quad4 & quad) const;
 
 private:
   buffer_vector<GlyphRegion, 32> m_metrics;
   df::FontDecl m_font;
   float m_textSizeRatio;
-};
 
-dp::OverlayHandle * LayoutText(const FeatureID & featureID,
-                                 m2::PointF const & pivot,
-                                 vector<m2::PointF> const & pixelOffset,
-                                 float depth,
-                                 vector<glsl_types::Quad4> & positions,
-                                 vector<glsl_types::Quad4> & texCoord,
-                                 vector<glsl_types::Quad4> & fontColor,
-                                 vector<glsl_types::Quad4> & outlineColor,
-                                 TextLayout * layouts);
+  friend dp::OverlayHandle * LayoutText(const FeatureID & featureID,
+                                        m2::PointF const & pivot,
+                                        vector<TextLayout>::iterator & layoutIter,
+                                        vector<m2::PointF>::iterator & pixelOffsetIter,
+                                        float depth,
+                                        vector<glsl_types::Quad4> & positions,
+                                        vector<glsl_types::Quad4> & texCoord,
+                                        vector<glsl_types::Quad4> & color,
+                                        vector<glsl_types::Quad4> & index,
+                                        dp::RefPointer<dp::TextureSetHolder> textures,
+                                        int count);
+};
 
 class SharedTextLayout
 {
