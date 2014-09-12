@@ -380,7 +380,7 @@ void State::StopCompassFollowing()
 void State::StopLocationFollow()
 {
   if (GetMode() > NotFollow)
-    SetModeInfo(NotFollow);
+    SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
 }
 
 void State::DragStarted()
