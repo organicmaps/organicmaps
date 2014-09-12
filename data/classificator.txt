@@ -20,6 +20,7 @@ world  +
         atm  -
         bank  -
         bar  -
+        bbq  -
         bench  -
         bicycle_rental  -
         brothel  -

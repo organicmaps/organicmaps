@@ -42,7 +42,7 @@ area|z12-[natural=grassland],
   fill-color: #d0e8c4;
 }
 area|z10-[natural=wood],
-area|z10-[landuse=forest]
+area|z10-[landuse=forest],
 {
   fill-color: #B2D6A5;
 }
@@ -131,6 +131,7 @@ node|z17-[landuse=construction]
   text-color: #404040;
 }
 area|z17-[aeroway=gate],
+node|z17-[aeroway=gate],
 area|z15[landuse=allotments],
 area|z15[landuse=basin],
 area|z15[landuse=brownfield],
@@ -158,16 +159,16 @@ area|z15[landuse=retail],
 area|z15[landuse=salt_pond],
 area|z15[landuse=village_green],
 area|z15[landuse=vineyard],
+area|z14-[landuse=field],
+area|z15-[landuse=residential],
 area|z14-15[natural=bay],
+node|z14-15[natural=bay],
 area|z15[natural=grassland],
 area|z15[natural=meadow],
 area|z15[natural=orchard],
 area|z15[natural=salt_pond],
 area|z15[natural=vineyard],
-node|z17-[aeroway=gate],
-node|z14-15[natural=bay],
-area|z14-[landuse=field],
-area|z15-[landuse=residential],
+area|z15[natural=wood],
 {
   text: name;
   font-size: 12;
@@ -180,6 +181,7 @@ area|z16-[amenity=townhall],
 area|z17-[tourism=caravan_site],
 area|z17-[leisure=garden],
 area|z17-[leisure=park],
+area|z16-[natural=wood],
 node|z13-[highway=motorway_junction],
 node|z17-[tourism=caravan_site],
 node|z17-[tourism=zoo],
@@ -225,6 +227,7 @@ area|z16-[natural=meadow],
 area|z16-[natural=orchard],
 area|z16-[natural=salt_pond],
 area|z16-[natural=vineyard],
+area|z16-[natural=wood],
 node|z16-[landuse=allotments],
 node|z16-[landuse=basin],
 node|z16-[landuse=brownfield],
@@ -258,6 +261,7 @@ node|z16-[natural=meadow],
 node|z16-[natural=orchard],
 node|z16-[natural=salt_pond],
 node|z16-[natural=vineyard],
+node|z16-[natural=wood],
 {
   text: name;
   font-size: 16;

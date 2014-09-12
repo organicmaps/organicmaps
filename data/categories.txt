@@ -644,7 +644,7 @@ ar:معلومات سياحية|معلومات|مناظر|سياحة
 da:4turistinformation|turistinformation|4information|seværdigheder
 tr:4turist bilgileri|görülecek yerler
 
-tourism-picnic_site
+tourism-picnic_site|amenity-bbq
 en:3picnic site|sights
 ru:3пикник|достопримечательность
 uk:3пікнік|зупинка|відпочинок|пам’ятні місця

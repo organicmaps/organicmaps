@@ -984,3 +984,4 @@ craft|gardener
 internet_access
 internet_access|wlan
 amenity|waste_disposal
+amenity|bbq

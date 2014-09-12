@@ -472,3 +472,22 @@ UNIT_TEST(OsmType_Layer)
     TEST_EQUAL(params.layer, 0, ());
   }
 }
+
+UNIT_TEST(OsmType_Amenity)
+{
+  {
+    char const * arr[][2] = {
+      { "amenity", "bbq" },
+      { "fuel", "wood" },
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType(arr[0])), ());
+  }
+}
