@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "ic_btn_zoom_in_normal_mdpi.png"
+      "filename" : "ic_btn_zoom_in_mdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "ic_btn_zoom_in_normal_xhdpi.png"
+      "filename" : "ic_btn_zoom_in_xhdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "ic_btn_zoom_in_normal_xxhdpi.png"
+      "filename" : "ic_btn_zoom_in_xxhdpi.png"
     }
   ],
   "info" : {
