@@ -2,6 +2,7 @@
 
 #include "point2d.hpp"
 #include "rect2d.hpp"
+#include "distance.hpp"
 
 #include "../base/internal/message.hpp"
 
@@ -36,6 +37,21 @@ public:
     return dist;
   }
 
+  double GetShortestSquareDistance(m2::PointD const & point) const
+  {
+    double res = numeric_limits<double>::max();
+    m2::DistanceToLineSquare<m2::PointD> d;
+
+    TIter i = Begin();
+    for (TIter j = i + 1; j != End(); ++i, ++j)
+    {
+      d.SetBounds(*i, *j);
+      res = min(res, d(point));
+    }
+
+    return res;
+  }
+
   Rect<T> GetLimitRect() const
   {
     // @todo add cached value and lazy init
@@ -54,9 +70,10 @@ public:
 
   size_t GetSize() const { return m_points.size(); }
 
-  typedef typename vector<Point<T> >::const_iterator IterT;
-  IterT Begin() const { return m_points.begin(); }
-  IterT End() const { return m_points.end(); }
+  typedef vector<Point<T> > TContainer;
+  typedef typename TContainer::const_iterator TIter;
+  TIter Begin() const { return m_points.begin(); }
+  TIter End() const { return m_points.end(); }
 
   friend string DebugPrint(PolylineT<T> const & p)
   {

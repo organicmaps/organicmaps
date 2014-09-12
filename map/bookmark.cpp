@@ -767,7 +767,7 @@ void BookmarkCategory::SaveToKML(ostream & s)
     s << "    <LineString><coordinates>";
 
     Track::PolylineD const & poly = track->GetPolyline();
-    for (Track::PolylineD::IterT pt = poly.Begin(); pt != poly.End(); ++pt)
+    for (Track::PolylineD::TIter pt = poly.Begin(); pt != poly.End(); ++pt)
       s << PointToString(*pt) << " ";
 
     s << "    </coordinates></LineString>\n"

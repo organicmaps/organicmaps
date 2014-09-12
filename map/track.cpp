@@ -94,7 +94,7 @@ double Track::GetLengthMeters() const
 {
   double res = 0.0;
 
-  PolylineD::IterT i = m_polyline.Begin();
+  PolylineD::TIter i = m_polyline.Begin();
   double lat1 = MercatorBounds::YToLat(i->y);
   double lon1 = MercatorBounds::XToLon(i->x);
   for (++i; i != m_polyline.End(); ++i)
@@ -111,18 +111,7 @@ double Track::GetLengthMeters() const
 
 double Track::GetShortestSquareDistance(m2::PointD const & point) const
 {
-  double res = numeric_limits<double>::max();
-  m2::DistanceToLineSquare<m2::PointD> d;
-
-  typedef PolylineD::IterT IterT;
-  IterT i = m_polyline.Begin();
-  for (IterT j = i+1; j != m_polyline.End(); ++i, ++j)
-  {
-    d.SetBounds(*i, *j);
-    res = min(res, d(point));
-  }
-
-  return res;
+  return m_polyline.GetShortestSquareDistance(point);
 }
 
 void Track::Swap(Track & rhs)

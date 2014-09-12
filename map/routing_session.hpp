@@ -16,9 +16,11 @@ class RoutingSession
 public:
   enum State
   {
-    OnRout,
+    RouteNotReady,
+    RouteNotStarted,
+    OnRoute,
     RouteLeft,
-    RoutFinished
+    RouteFinished
   };
 
   /// startPoint and destPoint in mercator
@@ -38,6 +40,8 @@ private:
   unique_ptr<IRouter> m_router;
   m2::PolylineD m_routeGeometry;
   State m_state;
+
+  constexpr static double MaxValidError = 0.005;
 };
 
 }
