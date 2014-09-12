@@ -1,12 +1,10 @@
 package com.mapswithme.maps.background;
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.mapswithme.country.DownloadActivity;
@@ -16,8 +14,6 @@ import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.util.statistics.Statistics;
-
-import java.util.Calendar;
 
 public class Notifier
 {
@@ -45,8 +41,9 @@ public class Notifier
     final String title = MWMApplication.get().getString(R.string.advise_update_maps);
 
     // Intent to start DownloadUI
-    final Intent i = new Intent(MWMApplication.get(), DownloadActivity.class);
-    final PendingIntent pi = PendingIntent.getActivity(MWMApplication.get(), 0, i, Intent.FLAG_ACTIVITY_NEW_TASK);
+    final Intent i = new Intent(MWMApplication.get(), DownloadActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    final PendingIntent pi = PendingIntent.getActivity(MWMApplication.get(), 0, i,
+        PendingIntent.FLAG_UPDATE_CURRENT);
 
     final Notification notification = Notifier.getBuilder()
         .setContentTitle(title)
@@ -77,8 +74,9 @@ public class Notifier
 
   private static void placeDownloadNotification(String title, String content, Index idx)
   {
-    final PendingIntent pi = PendingIntent
-        .getActivity(MWMApplication.get(), 0, MWMActivity.createShowMapIntent(MWMApplication.get(), idx, false), Intent.FLAG_ACTIVITY_NEW_TASK);
+    final PendingIntent pi = PendingIntent.getActivity(MWMApplication.get(), 0,
+        MWMActivity.createShowMapIntent(MWMApplication.get(), idx, false).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+        PendingIntent.FLAG_UPDATE_CURRENT);
 
     final Notification notification = getBuilder()
         .setContentTitle(title)
@@ -106,8 +104,9 @@ public class Notifier
 
   public static void placeDownloadSuggest(String title, String content, Index countryIndex)
   {
-    final PendingIntent pi = PendingIntent
-        .getActivity(MWMApplication.get(), 0, MWMActivity.createShowMapIntent(MWMApplication.get(), countryIndex, true), Intent.FLAG_ACTIVITY_NEW_TASK);
+    final PendingIntent pi = PendingIntent.getActivity(MWMApplication.get(), 0,
+        MWMActivity.createShowMapIntent(MWMApplication.get(), countryIndex, true).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+        PendingIntent.FLAG_UPDATE_CURRENT);
 
     final Notification notification = getBuilder()
         .setContentTitle(title)
