@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "MenuMoreApps.png"
+      "filename" : "guides_mdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "MenuMoreApps@2x.png"
+      "filename" : "guides_xhdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "menu_more_apps_xxhdpi.png"
+      "filename" : "guides_xxhdpi.png"
     }
   ],
   "info" : {
