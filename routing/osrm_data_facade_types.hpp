@@ -139,18 +139,32 @@ public:
   FtSegVectorT const & GetSegVector(OsrmNodeIdT nodeId) const
   {
     auto it = m_osrm2FtSeg.find(nodeId);
-    ASSERT(it != m_osrm2FtSeg.end(), ());
-    return it->second;
+    if (it != m_osrm2FtSeg.end())
+      return it->second;
+    else
+      return m_empty;
   }
 
-  void DumpSegments(uint32_t fID) const
+  void DumpSegmentsByFID(uint32_t fID) const
   {
     LOG(LINFO, ("Dump segments for feature:", fID));
 
     for (auto it = m_osrm2FtSeg.begin(); it != m_osrm2FtSeg.end(); ++it)
-      for (auto s : it->second)
+      for (auto const & s : it->second)
         if (s.m_fid == fID)
           LOG(LINFO, (s));
+  }
+
+  void DumpSgementByNode(uint32_t nodeId)
+  {
+    LOG(LINFO, ("Dump segments for node:", nodeId));
+
+    auto it = m_osrm2FtSeg.find(nodeId);
+    if (it == m_osrm2FtSeg.end())
+      return;
+
+    for (auto const & s : it->second)
+      LOG(LINFO, (s));
   }
 
   void GetOsrmNode(FtSeg const & seg, OsrmNodeIdT & forward, OsrmNodeIdT & reverse) const
@@ -164,7 +178,7 @@ public:
     {
       /// @todo Do break in production here when both are found.
 
-      for (auto s : it->second)
+      for (auto const & s : it->second)
       {
         if (s.m_fid != seg.m_fid)
           continue;
@@ -191,6 +205,7 @@ public:
 
 private:
   unordered_map<OsrmNodeIdT, FtSegVectorT> m_osrm2FtSeg;
+  FtSegVectorT m_empty;
 };
 
 }

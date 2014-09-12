@@ -87,7 +87,7 @@ public:
     if (resultNode.forward_node_id == -1 && resultNode.reverse_node_id == -1)
     {
       LOG(LINFO, ("Can't find osrm node", seg));
-      m_mapping.DumpSegments(seg.m_fid);
+      m_mapping.DumpSegmentsByFID(seg.m_fid);
       return false;
     }
     else
@@ -215,8 +215,9 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
     // Get all the coordinates for the computed route
     for (PathData const & path_data : rawRoute.unpacked_path_segments[i])
     {
-      OsrmFtSegMapping::FtSegVectorT const & v = m_mapping.GetSegVector(path_data.node);
-      for (OsrmFtSegMapping::FtSeg seg : v)
+      auto const & v = m_mapping.GetSegVector(path_data.node);
+      m_mapping.DumpSgementByNode(path_data.node);
+      for (auto const & seg : v)
       {
         FeatureType ft;
         Index::FeaturesLoaderGuard loader(*m_pIndex, mwmIdStart);

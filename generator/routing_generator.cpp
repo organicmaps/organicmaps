@@ -65,18 +65,19 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
     return;
   }
 
-  uint32_t found = 0, all = 0;
-  uint32_t nodeId = 0;
-  for (osrm::NodeData data : nodeData)
+  uint32_t found = 0, all = 0, multiple = 0, equal = 0, moreThan1Seg = 0;
+
+  for (size_t nodeId = 0; nodeId < nodeData.size(); ++nodeId)
   {
-    uint32_t segId = 0;
+    auto const & data = nodeData[nodeId];
+
     OsrmFtSegMapping::FtSegVectorT vec;
 
-    for (auto seg : data.m_segments)
+    for (auto const & seg : data.m_segments)
     {
-      m2::PointD pts[2] = {{seg.lon1, seg.lat1}, {seg.lon2, seg.lat2}};
+      m2::PointD pts[2] = { { seg.lon1, seg.lat1 }, { seg.lon2, seg.lat2 } };
 
-      all++;
+      ++all;
 
       // now need to determine feature id and segments in it
       uint32_t const fID = osm2ft.GetFeatureID(seg.wayId);
@@ -91,77 +92,102 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
       loader.GetFeature(fID, ft);
 
       ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
-      int32_t indicies[2] = {-1, -1};
-      double minDist[2] = {numeric_limits<double>::max(), numeric_limits<double>::max()};
 
+      typedef pair<int, double> IndexT;
+      vector<IndexT> indices[2];
+
+      // Match input segment points on feature points.
+      for (int j = 0; j < ft.GetPointsCount(); ++j)
+      {
+        double const lon = MercatorBounds::XToLon(ft.GetPoint(j).x);
+        double const lat = MercatorBounds::YToLat(ft.GetPoint(j).y);
+        for (int k = 0; k < 2; ++k)
+        {
+          double const dist = ms::DistanceOnEarth(pts[k].y, pts[k].x, lat, lon);
+          if (dist <= EQUAL_POINT_RADIUS_M)
+            indices[k].push_back(make_pair(j, dist));
+        }
+      }
+
+      if (!indices[0].empty() && !indices[1].empty())
+      {
+        for (int k = 0; k < 2; ++k)
+        {
+          sort(indices[k].begin(), indices[k].end(), [] (IndexT const & r1, IndexT const & r2)
+          {
+            return (r1.second < r2.second);
+          });
+        }
+
+        // Show warnings for multiple or equal choices.
+        if (indices[0].size() != 1 && indices[1].size() != 1)
+        {
+          ++multiple;
+          //LOG(LWARNING, ("Multiple index choices for way:", seg.wayId, indices[0], indices[1]));
+        }
+
+        {
+          size_t const count = min(indices[0].size(), indices[1].size());
+          size_t i = 0;
+          for (; i < count; ++i)
+            if (indices[0][i].first != indices[1][i].first)
+              break;
+
+          if (i == count)
+          {
+            ++equal;
+            LOG(LWARNING, ("Equal choices for way:", seg.wayId, indices[0], indices[1]));
+          }
+        }
+
+        // Find best matching for multiple choices.
+        int ind1 = -1, ind2 = -1, dist = numeric_limits<int>::max();
+        for (auto i1 : indices[0])
+          for (auto i2 : indices[1])
+          {
+            int const d = abs(i1.first - i2.first);
+            if (d < dist && i1.first != i2.first)
+            {
+              ind1 = i1.first;
+              ind2 = i2.first;
+              dist = d;
+            }
+          }
+
+        if (ind1 != -1 && ind2 != -1)
+        {
+          ++found;
+
+          // Emit segment.
+          OsrmFtSegMapping::FtSeg ftSeg(fID, ind1, ind2);
+          if (vec.empty() || !vec.back().Merge(ftSeg))
+            vec.push_back(ftSeg);
+
+          continue;
+        }
+      }
+
+      // Matching error.
+      LOG(LWARNING, ("!!!!! Match not found:", seg.wayId));
+      LOG(LWARNING, ("(Lat, Lon):", pts[0].y, pts[0].x, "; (Lat, Lon):", pts[1].y, pts[1].x));
       for (uint32_t j = 0; j < ft.GetPointsCount(); ++j)
       {
         double lon = MercatorBounds::XToLon(ft.GetPoint(j).x);
         double lat = MercatorBounds::YToLat(ft.GetPoint(j).y);
-        for (uint32_t k = 0; k < 2; ++k)
-        {
-          double const dist = ms::DistanceOnEarth(pts[k].y, pts[k].x, lat, lon);
-
-          if (dist <= EQUAL_POINT_RADIUS_M && dist < minDist[k])
-          {
-            indicies[k] = j;
-            minDist[k] = dist;
-          }
-        }
-      }
-
-      // Check if indicies found
-      if (indicies[0] != -1 && indicies[1] != -1)
-      {
-        found++;
-        /*bool canMerge = !vec.empty();
-        if (canMerge)
-        {
-          if (vec.back().m_fid == fID)
-          {
-            canMerge = true;
-
-            OsrmFtSegMapping::FtSeg & seg = vec.back();
-            if (indicies[0] == seg.m_pointEnd)
-              seg.m_pointEnd = indicies[1];
-            else
-            {
-              if (indicies[1] == seg.m_pointStart)
-                seg.m_pointStart = indicies[0];
-              else
-                canMerge = false;
-            }
-
-          }
-          else
-            canMerge = false;
-        }
-
-        if (!canMerge)*/
-        OsrmFtSegMapping::FtSeg ftSeg(fID, indicies[0], indicies[1]);
-        if (vec.empty() || !vec.back().Merge(ftSeg))
-          vec.push_back(ftSeg);
-
-      }
-      else
-      {
-        LOG(LINFO, ("----------------- Way ID: ", seg.wayId, "--- Segments: ", data.m_segments.size(), " SegId: ", segId));
-        LOG(LINFO, ("P1: ", pts[0].y, " ", pts[0].x, " P2: ", pts[1].y, " ", pts[1].x));
-        for (uint32_t j = 0; j < ft.GetPointsCount(); ++j)
-        {
-          double lon = MercatorBounds::XToLon(ft.GetPoint(j).x);
-          double lat = MercatorBounds::YToLat(ft.GetPoint(j).y);
-          double const dist1 = ms::DistanceOnEarth(pts[0].y, pts[0].x, lat, lon);
-          double const dist2 = ms::DistanceOnEarth(pts[1].y, pts[1].x, lat, lon);
-          LOG(LINFO, ("p", j, ": ", lat, ", ", lon, " Dist1: ", dist1, " Dist2: ", dist2));
-        }
+        double const dist1 = ms::DistanceOnEarth(pts[0].y, pts[0].x, lat, lon);
+        double const dist2 = ms::DistanceOnEarth(pts[1].y, pts[1].x, lat, lon);
+        LOG(LWARNING, ("p", j, ":", lat, lon, "Dist1:", dist1, "Dist2:", dist2));
       }
     }
 
-    mapping.Append(nodeId++, vec);
+    if (vec.size() > 1)
+      ++moreThan1Seg;
+
+    mapping.Append(nodeId, vec);
   }
 
-  LOG(LINFO, ("Found: ", found, " All: ", all));
+  LOG(LINFO, ("All:", all, "Found:", found, "Not found:", all - found, "More that one segs in node:", moreThan1Seg,
+              "Multiple:", multiple, "Equal:", equal));
   mapping.Save(osrmName + ".ftseg");
 }
 
