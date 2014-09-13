@@ -18,9 +18,8 @@
 #import <UIKit/UIKit.h>
 
 #import "FBCacheDescriptor.h"
+#import "FBGraphObjectPickerViewController.h"
 #import "FBGraphPlace.h"
-#import "FBSession.h"
-#import "FBViewController.h"
 
 @protocol FBPlacePickerDelegate;
 
@@ -47,31 +46,7 @@
  data changes. The delegate can also be used to filter the places to display in the
  picker.
  */
-@interface FBPlacePickerViewController : FBViewController
-
-/*!
- @abstract
- Returns an outlet for the spinner used in the view controller.
- */
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *spinner;
-
-/*!
- @abstract
- Returns an outlet for the table view managed by the view controller.
- */
-@property (nonatomic, retain) IBOutlet UITableView *tableView;
-
-/*!
- @abstract
- Addtional fields to fetch when making the Graph API call to get place data.
- */
-@property (nonatomic, copy) NSSet *fieldsForRequest;
-
-/*!
- @abstract
- A Boolean value that indicates whether place profile pictures are displayed.
- */
-@property (nonatomic) BOOL itemPicturesEnabled;
+@interface FBPlacePickerViewController : FBGraphObjectPickerViewController
 
 /*!
  @abstract
@@ -99,45 +74,10 @@
 
 /*!
  @abstract
- The session that is used in the request for place data.
- */
-@property (nonatomic, retain) FBSession *session;
-
-/*!
- @abstract
  The place that is currently selected in the view.  This is nil
  if nothing is selected.
  */
 @property (nonatomic, retain, readonly) id<FBGraphPlace> selection;
-
-/*!
- @abstract
- Clears the current selection, so the picker is ready for a fresh use.
- */
-- (void)clearSelection;
-
-/*!
- @abstract
- Initializes a place picker view controller.
- */
-- (instancetype)init;
-
-/*!
- @abstract
- Initializes a place picker view controller.
-
- @param aDecoder        An unarchiver object.
- */
-- (instancetype)initWithCoder:(NSCoder *)aDecoder;
-
-/*!
- @abstract
- Initializes a place picker view controller.
-
- @param nibNameOrNil            The name of the nib file to associate with the view controller. The nib file name should not contain any leading path information. If you specify nil, the nibName property is set to nil.
- @param nibBundleOrNil          The bundle in which to search for the nib file. This method looks for the nib file in the bundle's language-specific project directories first, followed by the Resources directory. If nil, this method looks for the nib file in the main bundle.
- */
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
 /*!
  @abstract
@@ -151,28 +91,6 @@
  @param cacheDescriptor     The <FBCacheDescriptor> containing the cache query properties.
  */
 - (void)configureUsingCachedDescriptor:(FBCacheDescriptor *)cacheDescriptor;
-
-/*!
- @abstract
- Initiates a query to get place data the first time or in response to changes in
- the search criteria, filter, or location information.
-
-
- @discussion
- A cached copy will be returned if available. The cached view is temporary until a fresh copy is
- retrieved from the server. It is legal to call this more than once.
- */
-- (void)loadData;
-
-/*!
- @abstract
- Updates the view locally without fetching data from the server or from cache.
-
- @discussion
- Use this if the filter properties change. This may affect the order or
- display of information.
- */
-- (void)updateView;
 
 /*!
  @method
@@ -207,8 +125,12 @@
  The `FBPlacePickerDelegate` protocol defines the methods used to receive event
  notifications and allow for deeper control of the <FBPlacePickerViewController>
  view.
+
+ The methods of <FBPlacePickerDelegate> correspond to <FBGraphObjectPickerDelegate>.
+ If a pair of corresponding methods are implemented, the <FBGraphObjectPickerDelegate>
+ method is called first.
  */
-@protocol FBPlacePickerDelegate <FBViewControllerDelegate>
+@protocol FBPlacePickerDelegate <FBGraphObjectPickerDelegate>
 @optional
 
 /*!
@@ -238,6 +160,9 @@
 
  @discussion
  This can be used to implement a search bar that filters the places list.
+
+ If -[<FBGraphObjectPickerDelegate> graphObjectPickerViewController:shouldIncludeGraphObject:]
+ is implemented and returns NO, this method is not called.
 
  @param placePicker         The place picker view controller that is requesting this information.
  @param place               An <FBGraphPlace> object representing the place.

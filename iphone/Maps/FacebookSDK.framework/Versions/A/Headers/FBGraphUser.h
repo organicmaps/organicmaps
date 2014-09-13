@@ -16,7 +16,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FBGraphObject.h"
+#import "FBGraphPerson.h"
 #import "FBGraphPlace.h"
 
 /*!
@@ -32,46 +32,13 @@
  Facebook user object. It may be used to access an `NSDictionary` object that has
  been wrapped with an <FBGraphObject> facade.
  */
-@protocol FBGraphUser<FBGraphObject>
+@protocol FBGraphUser<FBGraphPerson>
 
 /*!
  @abstract use objectID instead
  @deprecated use objectID instead
  */
 @property (retain, nonatomic) NSString *id __attribute__ ((deprecated("use objectID instead")));
-
-/*!
- @property
- @abstract Typed access to the user ID.
- @discussion Note this typically refers to the "id" field of the graph object (i.e., equivalent
- to `[self objectForKey:@"id"]`) but is differently named to avoid conflicting with Apple's
- non-public selectors.
- */
-@property (retain, nonatomic) NSString *objectID;
-
-/*!
- @property
- @abstract Typed access to the user's name.
- */
-@property (retain, nonatomic) NSString *name;
-
-/*!
- @property
- @abstract Typed access to the user's first name.
- */
-@property (retain, nonatomic) NSString *first_name;
-
-/*!
- @property
- @abstract Typed access to the user's middle name.
- */
-@property (retain, nonatomic) NSString *middle_name;
-
-/*!
- @property
- @abstract Typed access to the user's last name.
- */
-@property (retain, nonatomic) NSString *last_name;
 
 /*!
  @property

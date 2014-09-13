@@ -122,7 +122,7 @@ typedef NS_ENUM(NSInteger, FBErrorCode) {
     /*!
      Reserved for future use.
     */
-    FBErrorOperationDisallowedForRestrictedTreament,
+    FBErrorOperationDisallowedForRestrictedTreatment,
 };
 
 /*!

@@ -25,10 +25,10 @@
  @abstract This enum has been deprecated in favor of FBAppEventsFlushBehavior.
  */
 __attribute__ ((deprecated("use FBAppEventsFlushBehavior instead")))
-typedef enum {
+typedef NS_ENUM(NSUInteger, FBInsightsFlushBehavior) {
     FBInsightsFlushBehaviorAuto __attribute__ ((deprecated("use FBAppEventsFlushBehaviorAuto instead"))),
     FBInsightsFlushBehaviorExplicitOnly __attribute__ ((deprecated("use FBAppEventsFlushBehaviorExplicitOnly instead"))),
-} FBInsightsFlushBehavior;
+};
 
 FBSDK_EXTERN NSString *const FBInsightsLoggingResultNotification __attribute__((deprecated));
 

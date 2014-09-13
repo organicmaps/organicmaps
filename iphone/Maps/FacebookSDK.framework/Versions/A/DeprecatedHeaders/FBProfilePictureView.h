@@ -24,7 +24,7 @@
 
  @discussion
  */
-typedef enum {
+typedef NS_ENUM(NSUInteger, FBProfilePictureCropping) {
 
     /*! Square (default) - the square version that the Facebook user defined. */
     FBProfilePictureCroppingSquare      = 0,
@@ -32,7 +32,7 @@ typedef enum {
     /*! Original - the original profile picture, as uploaded. */
     FBProfilePictureCroppingOriginal    = 1
 
-} FBProfilePictureCropping;
+};
 
 /*!
  @class

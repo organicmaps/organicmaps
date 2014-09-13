@@ -38,7 +38,7 @@
 
 /*!
  @abstract
- If YES indicates that a user action is required in order to successfully continue with the facebook operation
+ If YES indicates that a user action is required in order to successfully continue with the Facebook operation.
 
  @discussion
  In general if fberrorShouldNotifyUser is NO, then the application has a straightforward mitigation, such as
@@ -53,7 +53,26 @@
  A message suitable for display to the user, describing a user action necessary to enable Facebook functionality.
  Not all Facebook errors yield a message suitable for user display; however in all cases where
  fberrorShouldNotifyUser is YES, this property returns a localizable message suitable for display.
+
+ @see +[FBErrorUtility userMessageForError:]
  */
 @property (readonly, copy) NSString *fberrorUserMessage;
+
+/*!
+ @abstract
+ A short summary of this error suitable for display to the user.
+ Not all Facebook errors yield a message/title suitable for user display;
+ However in all cases when title is available, user should be notified.
+
+ @see +[FBErrorUtility userTitleForError:]
+ */
+@property (readonly, copy) NSString *fberrorUserTitle;
+
+/*!
+ @abstract
+ YES if this error is transient and may succeed if the initial action is retried as-is.
+ Application may use this information to display a "Retry" button, if user should be notified about this error.
+ */
+@property (readonly) BOOL fberrorIsTransient;
 
 @end

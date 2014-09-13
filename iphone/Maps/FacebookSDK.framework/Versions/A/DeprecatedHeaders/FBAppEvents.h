@@ -491,5 +491,4 @@ FBSDK_EXTERN NSString *const FBAppEventParameterValueNo;
  */
 + (void)flush;
 
-
 @end

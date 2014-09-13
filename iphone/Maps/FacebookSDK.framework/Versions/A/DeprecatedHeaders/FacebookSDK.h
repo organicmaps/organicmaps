@@ -43,6 +43,7 @@
 #import "FBSettings.h"
 #import "FBShareDialogParams.h"
 #import "FBShareDialogPhotoParams.h"
+#import "FBTaggableFriendPickerViewController.h"
 #import "FBUserSettingsViewController.h"
 #import "FBWebDialogs.h"
 #import "NSError+FBError.h"
@@ -137,6 +138,6 @@
 
  */
 
-#define FB_IOS_SDK_VERSION_STRING @"3.16.1"
-#define FB_IOS_SDK_TARGET_PLATFORM_VERSION @"v2.0"
+#define FB_IOS_SDK_VERSION_STRING @"3.18"
+#define FB_IOS_SDK_TARGET_PLATFORM_VERSION @"v2.1"
 

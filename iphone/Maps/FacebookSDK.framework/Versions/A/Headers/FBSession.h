@@ -51,7 +51,7 @@ FBSDK_EXTERN NSString *const FBSessionDidBecomeClosedActiveSessionNotification;
 
  @discussion
  */
-typedef enum {
+typedef NS_ENUM(NSUInteger, FBSessionState) {
     /*! One of two initial states indicating that no valid cached token was found */
     FBSessionStateCreated                   = 0,
     /*! One of two initial session states indicating that a cached token was loaded;
@@ -72,7 +72,7 @@ typedef enum {
     /*! Closed session state indicating that the session was closed, but the users token
      remains cached on the device for later use */
     FBSessionStateClosed                    = 2 | FB_SESSIONSTATETERMINALBIT, // "
-} FBSessionState;
+};
 
 /*! helper macro to test for states that imply an open session */
 #define FB_ISSESSIONOPENWITHSTATE(state) (0 != (state & FB_SESSIONSTATEOPENBIT))
@@ -101,7 +101,7 @@ typedef enum {
  Facebook Login, and only falls back if needed. In rare cases, it may be preferable to disallow
  fallback Facebook Login completely, or to force a fallback login.
  */
-typedef enum {
+typedef NS_ENUM(NSUInteger, FBSessionLoginBehavior) {
     /*! Attempt Facebook Login, ask user for credentials if necessary */
     FBSessionLoginBehaviorWithFallbackToWebView      = 0,
     /*! Attempt Facebook Login, no direct request for credentials will be made */
@@ -112,7 +112,7 @@ typedef enum {
     FBSessionLoginBehaviorUseSystemAccountIfPresent  = 3,
     /*! Attempt only to login with Safari */
     FBSessionLoginBehaviorForcingSafari = 4,
-} FBSessionLoginBehavior;
+};
 
 /*!
  @typedef FBSessionDefaultAudience enum
@@ -126,7 +126,7 @@ typedef enum {
  publication ceiling for the application. This enumerated value allows the application to select which
  audience to ask the user to grant publish permission for.
  */
-typedef enum {
+typedef NS_ENUM(NSUInteger, FBSessionDefaultAudience) {
     /*! No audience needed; this value is useful for cases where data will only be read from Facebook */
     FBSessionDefaultAudienceNone                = 0,
     /*! Indicates that only the user is able to see posts made by the application */
@@ -135,7 +135,7 @@ typedef enum {
     FBSessionDefaultAudienceFriends             = 20,
     /*! Indicates that all Facebook users are able to see posts made by the application */
     FBSessionDefaultAudienceEveryone            = 30,
-} FBSessionDefaultAudience;
+};
 
 /*!
  @typedef FBSessionLoginType enum
@@ -150,7 +150,7 @@ typedef enum {
  given login does not matter, however for certain capabilities, the type of login can impact the behavior
  of other Facebook functionality.
  */
-typedef enum {
+typedef NS_ENUM(NSUInteger, FBSessionLoginType) {
     /*! A login type has not yet been established */
     FBSessionLoginTypeNone                      = 0,
     /*! A system integrated account was used to log the user into the application */
@@ -163,7 +163,7 @@ typedef enum {
     FBSessionLoginTypeWebView                   = 4,
     /*! A test user was used to create an open session */
     FBSessionLoginTypeTestUser                  = 5,
-} FBSessionLoginType;
+};
 
 /*!
  @typedef

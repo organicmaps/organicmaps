@@ -33,14 +33,14 @@
  Please note that this enum and its related methods have been deprecated, please migrate your
  code to use `FBOSIntegratedShareDialogResult` and its related methods.
  */
-typedef enum {
+typedef NS_ENUM(NSUInteger, FBNativeDialogResult) {
     /*! Indicates that the dialog action completed successfully. */
     FBNativeDialogResultSucceeded,
     /*! Indicates that the dialog action was cancelled (either by the user or the system). */
     FBNativeDialogResultCancelled,
     /*! Indicates that the dialog could not be shown (because not on ios6 or ios6 auth was not used). */
     FBNativeDialogResultError
-} FBNativeDialogResult
+}
 __attribute__((deprecated));
 
 /*!

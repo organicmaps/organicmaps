@@ -57,12 +57,12 @@ FBSDK_EXTERN NSString *const FBLoggingBehaviorDeveloperErrors;
  and are therefore only enabled for DEBUG builds. Beta features should not be enabled
  in release builds.
  */
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, FBBetaFeatures) {
     FBBetaFeaturesNone                  = 0,
 #if defined(DEBUG) || defined(FB_BUILD_ONLY)
     FBBetaFeaturesLikeButton            = 1 << 2,
 #endif
-} FBBetaFeatures;
+};
 
 /*!
  @typedef
