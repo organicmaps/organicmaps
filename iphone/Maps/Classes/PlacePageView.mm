@@ -1231,7 +1231,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if (!_backgroundView)
   {
     _backgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
-    _backgroundView.image = [[UIImage imageNamed:@"PlacePageBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 19, 0)];
+    _backgroundView.image = [[UIImage imageNamed:@"PlacePageBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 18, 0)];
     _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   }
   return _backgroundView;
