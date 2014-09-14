@@ -61,6 +61,7 @@ DEFINE_bool(check_mwm, false, "Check map file to be correct.");
 DEFINE_string(delete_section, "", "Delete specified section (defines.hpp) from container.");
 DEFINE_bool(fail_on_coasts, false, "Stop and exit with '255' code if some coastlines are not merged.");
 DEFINE_string(address_file_name, "", "Output file name for storing full addresses.");
+DEFINE_string(export_poly_path, "", "Output dir for osm .poly files created from .borders (countires are read from polygons.lst)");
 
 
 string AddSlashIfNeeded(string const & str)
@@ -253,6 +254,13 @@ int main(int argc, char ** argv)
 
   if (FLAGS_check_mwm)
     check_model::ReadFeatures(datFile);
+
+  if (!FLAGS_export_poly_path.empty())
+  {
+    borders::CountriesContainerT countries;
+    borders::LoadCountriesList(path, countries);
+    borders::ExportOSMPolylines(FLAGS_export_poly_path, countries);
+  }
 
   return 0;
 }

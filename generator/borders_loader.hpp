@@ -32,4 +32,7 @@ namespace borders
   bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries);
 
   void GeneratePackedBorders(string const & baseDir);
+
+  /// Converts our borders into OSM .poly file format
+  void ExportOSMPolylines(string const & outDir, CountriesContainerT const & countries);
 }
