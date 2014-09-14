@@ -13,6 +13,7 @@ include($$ROOT_DIR/common.pri)
 win32*: LIBS *= -lshell32
 win32-g++: LIBS *= -lpthread
 macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
+linux*: QT *= network
 
 QT *= core
 

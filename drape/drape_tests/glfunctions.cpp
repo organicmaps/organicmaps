@@ -240,3 +240,20 @@ int32_t GLFunctions::glGetInteger(glConst pname)
 }
 
 void CheckGLError() {}
+
+// @TODO add actual unit tests
+void GLFunctions::glEnable(glConst mode) {}
+
+void GLFunctions::glBlendEquation(glConst function) {}
+
+void GLFunctions::glBlendFunc(glConst srcFactor, glConst dstFactor) {}
+
+void GLFunctions::glDisable(glConst mode) {}
+
+void GLFunctions::glUniformValueiv(int8_t location, int32_t * v, uint32_t size) {}
+
+void * GLFunctions::glMapBuffer(glConst target) { return 0; }
+
+void GLFunctions::glUnmapBuffer(glConst target) {}
+
+void GLFunctions::glDrawElements(uint16_t indexCount) {}

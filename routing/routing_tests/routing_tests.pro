@@ -6,11 +6,13 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 ROOT_DIR = ../..
-DEPENDENCIES = routing indexer platform geometry coding base protobuf
+DEPENDENCIES = routing indexer platform geometry coding base protobuf tomcrypt
 
 macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
 
 include($$ROOT_DIR/common.pri)
+
+linux*: QT *= core
 
 SOURCES += \
   ../../testing/testingmain.cpp \
