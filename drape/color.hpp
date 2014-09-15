@@ -17,6 +17,8 @@ struct Color
   uint8_t m_green;
   uint8_t m_blue;
   uint8_t m_alfa;
+
+  int GetColorInInt() const { return (m_alfa << 24) | (m_blue << 16) | (m_green << 8) | m_red; }
 };
 
 struct ColorF
