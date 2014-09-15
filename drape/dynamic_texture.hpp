@@ -26,10 +26,11 @@ public:
 
   virtual void UpdateState()
   {
+    this->Bind();
     m_indexer.UploadResources(MakeStackRefPointer<Texture>(this));
   }
 
-private:
+public:
   mutable TIndexer m_indexer;
 };
 
