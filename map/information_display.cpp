@@ -4,6 +4,10 @@
 #include "compass_arrow.hpp"
 #include "framework.hpp"
 #include "ruler.hpp"
+#include "alfa_animation_task.hpp"
+
+#include "../anim/task.hpp"
+#include "../anim/controller.hpp"
 
 #include "../gui/controller.hpp"
 #include "../gui/button.hpp"
@@ -20,23 +24,24 @@ using namespace graphics;
 
 namespace
 {
-  static int const RULLER_X_OFFSET = 10;
-  static int const RULLER_Y_OFFSET = 51;
+  static int const RULLER_X_OFFSET = 6;
+  static int const RULLER_Y_OFFSET = 42;
   static int const FONT_SIZE = 14;
-  static int const COMPASS_X_OFFSET = 21;
-  static int const COMPASS_Y_OFFSET = 53;
+  static int const COMPASS_X_OFFSET = 27;
+  static int const COMPASS_Y_OFFSET = 57;
 }
 
 InformationDisplay::InformationDisplay(Framework * fw)
   : m_visualScale(1)
 {
-  m_fontDesc.m_color = Color(0x44, 0x44, 0x44, 0xFF);
+  m_fontDesc.m_color = Color(0x4D, 0x4D, 0x4D, 0xCC);
 
   InitRuler(fw);
   InitCountryStatusDisplay(fw);
   InitCompassArrow(fw);
   InitLocationState(fw);
   InitDebugLabel();
+  InitCopyright(fw);
 
   enableDebugPoints(false);
   enableDebugInfo(false);
@@ -74,6 +79,33 @@ void InformationDisplay::InitCountryStatusDisplay(Framework * fw)
   p.m_storage = &fw->Storage();
 
   m_countryStatusDisplay.reset(new CountryStatusDisplay(p));
+}
+
+void InformationDisplay::InitCopyright(Framework * fw)
+{
+  gui::CachedTextView::Params p;
+
+  p.m_depth = rulerDepth;
+  p.m_position = EPosAboveLeft;
+  p.m_pivot = m2::PointD(0, 0);
+  p.m_text = "Map data © OpenStreetMap";
+
+  m_copyrightLabel.reset(new gui::CachedTextView(p));
+
+  shared_ptr<anim::Task> task(new AlfaAnimationTask(1.0, 0.0, 0.15, 3.0, fw));
+  task->AddCallback(anim::Task::EEnded, [this]()
+                                        {
+                                          m_controller->RemoveElement(m_copyrightLabel);
+                                          m_copyrightLabel.reset();
+                                        });
+
+  m_copyrightLabel->setAnimated([task]()
+                                {
+                                  AlfaAnimationTask * t = static_cast<AlfaAnimationTask *>(task.get());
+                                  return t->GetCurrentAlfa();
+                                });
+
+  fw->GetAnimController()->AddTask(task);
 }
 
 void InformationDisplay::InitCompassArrow(Framework * fw)
@@ -120,6 +152,7 @@ void InformationDisplay::setController(gui::Controller * controller)
   m_controller->AddElement(m_locationState);
   m_controller->AddElement(m_ruler);
   m_controller->AddElement(m_debugLabel);
+  m_controller->AddElement(m_copyrightLabel);
 }
 
 void InformationDisplay::setDisplayRect(m2::RectI const & rect)
@@ -134,6 +167,12 @@ void InformationDisplay::setDisplayRect(m2::RectI const & rect)
 
   m_ruler->setPivot(m2::PointD(rect.maxX() - RULLER_X_OFFSET * m_visualScale,
                                rect.maxY() - RULLER_Y_OFFSET * m_visualScale));
+
+  if (m_copyrightLabel)
+  {
+    m_copyrightLabel->setPivot(m2::PointD(rect.maxX() - RULLER_X_OFFSET * m_visualScale,
+                                          rect.maxY() - RULLER_Y_OFFSET * m_visualScale));
+  }
 
   m_debugLabel->setPivot(m2::PointD(rect.minX() + 10,
                                     rect.minY() + 50 + 5 * m_visualScale));
@@ -159,6 +198,11 @@ void InformationDisplay::drawDebugPoints(Drawer * pDrawer)
     }
 }
 
+bool InformationDisplay::isCopyrightActive() const
+{
+  return m_copyrightLabel != nullptr;
+}
+
 void InformationDisplay::enableRuler(bool doEnable)
 {
   if (doEnable)
@@ -179,6 +223,7 @@ void InformationDisplay::setVisualScale(double visualScale)
   m_fontDesc.m_size = static_cast<uint32_t>(FONT_SIZE * m_visualScale);
 
   m_ruler->setFont(gui::Element::EActive, m_fontDesc);
+  m_copyrightLabel->setFont(gui::Element::EActive, m_fontDesc);
   m_debugLabel->setFont(gui::Element::EActive, m_fontDesc);
 }
 

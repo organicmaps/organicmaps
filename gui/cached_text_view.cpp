@@ -15,6 +15,7 @@ namespace gui
 {
   CachedTextView::CachedTextView(Params const & p)
     : Element(p)
+    , m_isAnimated(false)
   {
     setText(p.m_text);
 
@@ -35,6 +36,12 @@ namespace gui
     }
   }
 
+  void CachedTextView::setAnimated(TAlfaGetterFn const & fn)
+  {
+    m_isAnimated = true;
+    m_alfaGetter = fn;
+  }
+
   void CachedTextView::setFont(EState state, FontDesc const & desc)
   {
     setIsDirtyLayout(true);
@@ -49,22 +56,34 @@ namespace gui
          back_inserter(rects));
   }
 
-  void CachedTextView::draw(OverlayRenderer *r, math::Matrix<double, 3, 3> const & m) const
+  void CachedTextView::draw(OverlayRenderer * r, math::Matrix<double, 3, 3> const & m) const
   {
     if (isVisible())
     {
       checkDirtyLayout();
 
       math::Matrix<double, 3, 3> id = math::Identity<double, 3>();
+      UniformsHolder holder;
+      UniformsHolder * drawHolder = NULL;
+
+      if (m_isAnimated)
+      {
+        r->applyVarAlfaStates();
+        drawHolder = &holder;
+        ASSERT(m_alfaGetter, ());
+        drawHolder->insertValue(graphics::ETransparency, m_alfaGetter());
+      }
 
       if (m_maskedLayout)
         for (size_t i = 0; i < m_uniText.size(); ++i)
           r->drawDisplayList(m_maskedDls[i].get(),
-                             math::Shift(id, m_maskedLayout->entries()[i].m_pt + m_maskedLayout->pivot()));
+                             math::Shift(id, m_maskedLayout->entries()[i].m_pt + m_maskedLayout->pivot()),
+                             drawHolder);
 
       for (size_t i = 0; i < m_uniText.size(); ++i)
         r->drawDisplayList(m_dls[i].get(),
-                           math::Shift(id, m_layout->entries()[i].m_pt + m_layout->pivot()));
+                           math::Shift(id, m_layout->entries()[i].m_pt + m_layout->pivot()),
+                           drawHolder);
     }
   }
 

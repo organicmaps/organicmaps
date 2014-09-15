@@ -677,7 +677,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   int const drawScale = GetDrawScale();
   m_informationDisplay.setDebugInfo(0, drawScale);
 
-  m_informationDisplay.enableRuler(drawScale > 4);
+  m_informationDisplay.enableRuler(drawScale > 4 && !m_informationDisplay.isCopyrightActive());
 #ifdef DEBUG
   m_informationDisplay.enableDebugInfo(true);
 #endif

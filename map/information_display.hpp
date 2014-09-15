@@ -71,12 +71,15 @@ class InformationDisplay
   shared_ptr<CompassArrow> m_compassArrow;
   shared_ptr<location::State> m_locationState;
   shared_ptr<gui::CachedTextView> m_debugLabel;
+  shared_ptr<gui::CachedTextView> m_copyrightLabel;
 
   void InitRuler(Framework * fw);
   void InitDebugLabel();
   void InitLocationState(Framework * fw);
   void InitCompassArrow(Framework * fw);
   void InitCountryStatusDisplay(Framework * fw);
+
+  void InitCopyright(Framework * fw);
 
 public:
 
@@ -90,6 +93,8 @@ public:
   void enableDebugPoints(bool doEnable);
   void setDebugPoint(int pos, m2::PointD const & pt);
   void drawDebugPoints(Drawer * pDrawer);
+
+  bool isCopyrightActive() const;
 
   void enableRuler(bool doEnable);
   bool isRulerEnabled() const;

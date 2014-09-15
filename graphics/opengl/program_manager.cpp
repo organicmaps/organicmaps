@@ -77,6 +77,8 @@ namespace graphics
         " " PRECISION " float t = color.a;\n"
         "  if (t > Transparency)\n"
         "    t = Transparency;\n"
+        "  if (t < 0.05)\n"
+        "    discard;\n"
         "  gl_FragColor = vec4(color.rgb, t);\n"
         "}\n";
 

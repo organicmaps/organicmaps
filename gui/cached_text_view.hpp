@@ -8,6 +8,7 @@
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/unique_ptr.hpp"
+#include "../std/function.hpp"
 
 
 namespace graphics
@@ -38,6 +39,9 @@ namespace gui
 
     void setText(string const & text);
 
+    typedef function<float ()> TAlfaGetterFn;
+    void setAnimated(TAlfaGetterFn const & fn);
+
     /// @name Overrider from graphics::OverlayElement and gui::Element.
     //@{
     virtual void GetMiniBoundRects(RectsT & rects) const;
@@ -51,5 +55,9 @@ namespace gui
 
     void setPivot(m2::PointD const & pv);
     //@}
+
+  private:
+    bool m_isAnimated;
+    TAlfaGetterFn m_alfaGetter;
   };
 }

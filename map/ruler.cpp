@@ -172,7 +172,7 @@ void Ruler::RulerFrame::Cache(const string & text, FontDesc const & f)
     /*15*/  m2::PointD(CacheLength,  0.0 * k),
     };
 
-    Brush::Info const brushInfo(Color(0, 0, 0, 0x99));
+    Brush::Info const brushInfo(Color(0x4D, 0x4D, 0x4D, 0xCC));
     Resource const * brushRes = cs->fromID(cs->mapInfo(brushInfo));
     m2::PointF const brushCenter = cs->pipeline(brushRes->m_pipelineID).texture()->mapPixel(brushRes->m_texRect.Center());
 
