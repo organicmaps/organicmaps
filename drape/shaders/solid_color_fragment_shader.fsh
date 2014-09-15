@@ -1,6 +1,9 @@
-uniform lowp vec4 u_color;
+varying mediump vec3 v_color_index;
+
+~getTexel~
 
 void main(void)
 {
-  gl_FragColor = u_color;
+  int textureIndex = int(v_color_index.z);
+  gl_FragColor = getTexel(textureIndex, v_color_index.xy);
 }

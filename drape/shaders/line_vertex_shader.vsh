@@ -2,16 +2,16 @@ attribute highp vec4 position;
 attribute highp vec4 deltas;
 attribute highp vec4 width_type;
 attribute highp vec4 centres;
-attribute highp vec4 color1;
-attribute highp vec4 color2;
+attribute lowp vec4 colors;
+attribute mediump float index;
 
 varying highp float v_dx;
 varying highp vec4 v_radius;
 varying highp vec4 v_centres;
 varying highp vec2 v_type;
 
-varying highp vec4 baseColor;
-varying highp vec4 outlineColor;
+varying lowp vec4 v_colors;
+varying mediump float v_index;
 
 uniform highp mat4 modelView;
 uniform highp mat4 projection;
@@ -43,6 +43,6 @@ void main(void)
   v_centres.zw = centr2;
   v_type = width_type.yz;
 
-  baseColor = color1;
-  outlineColor = color2;
+  v_colors = colors;
+  v_index = index;
 }
