@@ -17,6 +17,7 @@ public:
   virtual void GetSymbolRegion(string const & symbolName, SymbolRegion & region) const;
   virtual bool GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const;
   virtual void GetStippleRegion(StipplePenKey const & pen, StippleRegion & region) const;
+  virtual void GetColorRegion(ColorKey const & pen, TextureSetHolder::ColorRegion & region) const;
   virtual int GetMaxTextureSet() const;
 
   virtual void UpdateDynamicTextures();

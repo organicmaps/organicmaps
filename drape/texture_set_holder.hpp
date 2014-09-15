@@ -2,6 +2,7 @@
 
 #include "texture.hpp"
 #include "stipple_pen_resource.hpp"
+#include "texture_of_colors.hpp"
 
 #include "../base/string_utils.hpp"
 
@@ -69,9 +70,16 @@ public:
     uint32_t GetTemplateLength() const;
   };
 
+  class ColorRegion : public BaseRegion
+  {
+  public:
+    ColorRegion() : BaseRegion() {}
+  };
+
   virtual void GetSymbolRegion(string const & symbolName, SymbolRegion & region) const = 0;
   virtual bool GetGlyphRegion(strings::UniChar charCode, GlyphRegion & region) const = 0;
   virtual void GetStippleRegion(StipplePenKey const & pen, StippleRegion & region) const = 0;
+  virtual void GetColorRegion(ColorKey const & pen, ColorRegion & region) const = 0;
   virtual int GetMaxTextureSet() const = 0;
 
   virtual void UpdateDynamicTextures() = 0;
