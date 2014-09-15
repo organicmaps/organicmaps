@@ -230,9 +230,9 @@ protected:
     }
   } m_typeProcessor;
 
-  typedef FeatureBuilder1 feature_builder_t;
+  typedef FeatureBuilder1 FeatureBuilderT;
 
-  void FinishAreaFeature(uint64_t id, feature_builder_t & ft)
+  void FinishAreaFeature(uint64_t id, FeatureBuilderT & ft)
   {
     ASSERT ( ft.IsGeometryClosed(), () );
 
@@ -317,7 +317,7 @@ protected:
 
     void operator() (pts_vec_t const & pts, vector<uint64_t> const & ids)
     {
-      feature_builder_t f;
+      FeatureBuilderT f;
       f.SetParams(m_params);
 
       for (size_t i = 0; i < ids.size(); ++i)
@@ -344,7 +344,7 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
 {
   typedef SecondPassParserBase<TEmitter, THolder> base_type;
 
-  typedef typename base_type::feature_builder_t feature_t;
+  typedef typename base_type::FeatureBuilderT FeatureBuilderT;
 
   uint32_t m_coastType;
 
@@ -355,37 +355,75 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
     return m_addrWriter && checker(params.m_Types);
   }
 
+  void EmitFeatureBase(FeatureBuilderT & ft, FeatureParams const & params, osm::Id const & id)
+  {
+    ft.SetParams(params);
+    if (ft.PreSerialize())
+    {
+      string addr;
+      if (NeedWriteAddress(params) && ft.FormatFullAddress(addr))
+        m_addrWriter->Write(addr.c_str(), addr.size());
+
+      ft.AddOsmId(id);
+
+      base_type::m_emitter(ft);
+    }
+  }
+
+  /// @param[in]  params  Pass by value because it can be modified.
+  //@{
+  void EmitPoint(FeatureBuilderT & ft, FeatureParams params, osm::Id const & id)
+  {
+    if (feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_POINT))
+      EmitFeatureBase(ft, params, id);
+  }
+
+  void EmitLine(FeatureBuilderT & ft, FeatureParams params, uint64_t id)
+  {
+    if ((m_coastType != 0 && params.IsTypeExist(m_coastType)) ||
+        feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_LINE))
+    {
+      ft.SetLinear();
+      EmitFeatureBase(ft, params, osm::Id::Way(id));
+    }
+  }
+
+  bool EmitArea(FeatureBuilderT & ft, FeatureParams params, uint64_t id)
+  {
+    if (feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_AREA))
+    {
+      base_type::FinishAreaFeature(id, ft);
+      EmitFeatureBase(ft, params, osm::Id::Way(id));
+      return true;
+    }
+    else
+      return false;
+  }
+  //@}
+
 protected:
   virtual void EmitElement(XMLElement * p)
   {
-    using namespace feature;
-
     uint64_t id;
-    FeatureParams fValue;
-    if (!base_type::ParseType(p, id, fValue))
+    FeatureParams params;
+    if (!base_type::ParseType(p, id, params))
       return;
 
-    feature_t ft;
-    osm::Id osmId;
+    FeatureBuilderT ft;
+
     if (p->name == "node")
     {
-      osmId = osm::Id::Node(id);
-      if (!feature::RemoveNoDrawableTypes(fValue.m_Types, FEATURE_TYPE_POINT))
-        return;
-
       m2::PointD pt;
       if (p->childs.empty() || !base_type::GetPoint(id, pt))
         return;
 
       ft.SetCenter(pt);
+
+      EmitPoint(ft, params, osm::Id::Node(id));
     }
     else if (p->name == "way")
     {
-      osmId = osm::Id::Way(id);
-      // It's useless here to skip any types by drawing criteria.
-      // Area features can combine all drawing types (point, linear, unique area).
-
-      // geometry of feature
+      // Parse geometry.
       for (size_t i = 0; i < p->childs.size(); ++i)
       {
         if (p->childs[i].name == "nd")
@@ -405,48 +443,23 @@ protected:
       if (count < 2)
         return;
 
-      bool const isClosed = (count > 2 && ft.IsGeometryClosed());
-      // Try to set area feature (point and linear types are also suitable for this)
-      if (isClosed && feature::IsDrawableLike(fValue.m_Types, FEATURE_TYPE_AREA))
-        base_type::FinishAreaFeature(id, ft);
-      else
+      if (count > 2 && ft.IsGeometryClosed())
       {
-        if (isClosed)
+        // The way may be an area feature.
+        if (!EmitArea(ft, params, id))
         {
-          // Make point feature (in center) if geometry is closed and has point drawing rules.
-          FeatureParams params(fValue);
-          if (feature::RemoveNoDrawableTypes(params.m_Types, FEATURE_TYPE_POINT))
-          {
-            feature_t f;
-            f.SetParams(params);
-            f.SetCenter(ft.GetGeometryCenter());
-            if (f.PreSerialize())
-            {
-              string addr;
-              if (NeedWriteAddress(params) && f.FormatFullAddress(addr))
-                m_addrWriter->Write(addr.c_str(), addr.size());
-
-              f.AddOsmId(osmId);
-              base_type::m_emitter(f);
-            }
-          }
+          // The closed way may be a point feature if it has only point styles.
+          FeatureBuilderT ptFt;
+          ptFt.SetCenter(ft.GetGeometryCenter());
+          EmitPoint(ptFt, params, osm::Id::Way(id));
         }
-
-        // Try to set linear feature:
-        // - it's a coastline, OR
-        // - has linear types (remove others)
-        if ((m_coastType != 0 && fValue.IsTypeExist(m_coastType)) ||
-            feature::RemoveNoDrawableTypes(fValue.m_Types, FEATURE_TYPE_LINE))
-        {
-          ft.SetLinear();
-        }
-        else
-          return;
       }
+
+      // Regular linear feature.
+      EmitLine(ft, params, id);
     }
     else if (p->name == "relation")
     {
-      osmId = osm::Id::Relation(id);
       {
         // 1. Check, if this is our processable relation. Here we process only polygon relations.
         size_t i = 0;
@@ -465,7 +478,7 @@ protected:
       }
 
       // 2. Relation should have visible area types.
-      if (!feature::IsDrawableLike(fValue.m_Types, FEATURE_TYPE_AREA))
+      if (!feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_AREA))
         return;
 
       typename base_type::holes_accumulator holes(this);
@@ -488,21 +501,8 @@ protected:
         }
       }
 
-      typename base_type::multipolygons_emitter emitter(this, fValue, holes.GetHoles(), id);
+      typename base_type::multipolygons_emitter emitter(this, params, holes.GetHoles(), id);
       outer.ForEachArea(emitter, true);
-      return;
-    }
-
-    ft.SetParams(fValue);
-    if (ft.PreSerialize())
-    {
-      string addr;
-      if (NeedWriteAddress(fValue) && ft.FormatFullAddress(addr))
-        m_addrWriter->Write(addr.c_str(), addr.size());
-
-      // add osm id for debugging
-      ft.AddOsmId(osmId);
-      base_type::m_emitter(ft);
     }
   }
 
