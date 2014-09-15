@@ -3,6 +3,7 @@
 #include "font_texture.hpp"
 #include "dynamic_texture.hpp"
 #include "stipple_pen_resource.hpp"
+#include "texture_of_colors.hpp"
 
 #include "glfunctions.hpp"
 
@@ -131,7 +132,9 @@ void TextureManager::Init(string const & resourcePrefix)
   }
 
   typedef DynamicTexture<StipplePenIndex, StipplePenKey, Texture::StipplePen> TStippleTexture;
+  typedef DynamicTexture<ColorPalette, ColorKey, Texture::Color> TColorTexture;
   textureSet->AddTexture(MovePointer<Texture>(new TStippleTexture(m2::PointU(1024, 1024), dp::ALPHA)));
+  textureSet->AddTexture(MovePointer<Texture>(new TColorTexture(m2::PointU(1024, 1024), dp::RGBA8)));
 }
 
 void TextureManager::Release()
@@ -179,6 +182,12 @@ void TextureManager::GetStippleRegion(StipplePenKey const & pen, TextureSetHolde
 {
   VERIFY(FindResource(pen, region), ());
 }
+
+void TextureManager::GetColorRegion(ColorKey const & pen, TextureSetHolder::ColorRegion & region) const
+{
+  VERIFY(FindResource(pen, region), ());
+}
+
 
 void TextureManager::BindTextureSet(uint32_t textureSet) const
 {
