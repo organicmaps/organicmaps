@@ -20,6 +20,7 @@ public:
     Symbol,
     Glyph,
     StipplePen,
+    Color,
     UniformValue
   };
 
