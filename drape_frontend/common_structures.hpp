@@ -106,6 +106,7 @@ struct Quad
   TVertex v[4];
 };
 
+typedef Quad<float> Quad1;
 typedef Quad<vec2> Quad2;
 typedef Quad<vec3> Quad3;
 typedef Quad<vec4> Quad4;
