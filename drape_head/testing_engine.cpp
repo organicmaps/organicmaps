@@ -7,6 +7,7 @@
 #include "../drape/shader_def.hpp"
 #include "../drape/overlay_tree.hpp"
 #include "../drape/stipple_pen_resource.hpp"
+#include "../drape/dynamic_texture.hpp"
 
 #include "../drape_frontend/visual_params.hpp"
 #include "../drape_frontend/line_shape.hpp"
@@ -29,6 +30,9 @@
 
 namespace df
 {
+using glsl_types::vec2;
+using glsl_types::vec3;
+using glsl_types::vec4;
 
 class DummyStippleElement : public MapShape
 {
@@ -66,12 +70,12 @@ public:
       m2::PointF(0.0, 1.0), m2::PointF(0.0, -1.0)
     };
 
-    glsl_types::vec3 texCoord[4] =
+    glsl_types::vec4 texCoord[4] =
     {
-      glsl_types::vec3(rect.minX(), rect.minY(), texIndex),
-      glsl_types::vec3(rect.minX(), rect.maxY(), texIndex),
-      glsl_types::vec3(rect.maxX(), rect.minY(), texIndex),
-      glsl_types::vec3(rect.maxX(), rect.maxY(), texIndex)
+      glsl_types::vec4(rect.minX(), rect.minY(), texIndex, 0),
+      glsl_types::vec4(rect.minX(), rect.maxY(), texIndex, 0),
+      glsl_types::vec4(rect.maxX(), rect.minY(), texIndex, 0),
+      glsl_types::vec4(rect.maxX(), rect.maxY(), texIndex, 0)
     };
 
     dp::AttributeProvider provider(3, 4);
@@ -101,7 +105,7 @@ public:
       dp::BindingInfo info(1);
       dp::BindingDecl & decl = info.GetBindingDecl(0);
       decl.m_attributeName = "a_texCoords";
-      decl.m_componentCount = 3;
+      decl.m_componentCount = 4;
       decl.m_componentType = gl_const::GLFloatType;
       decl.m_offset = 0;
       decl.m_stride = 0;
@@ -117,6 +121,127 @@ public:
 
 private:
   m2::PointU m_base;
+};
+
+class DummyColorElement : public MapShape
+{
+public:
+  DummyColorElement() { }
+
+  void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
+  {
+    const int cnt = 6000;
+    uint32_t colors[50000];
+    colors[0] = (255<<24) | (0<<16) | (0<<8) | 255;
+    colors[1] = (255<<24) | (0<<16) | (255<<8) | 0;
+    colors[2] = (255<<24) | (0<<16) | (0<<8) | 255;
+
+    colors[3] = (255<<24) | (0<<16) | (255<<8) | 255;
+    colors[4] = (255<<24) | (255<<16) | (0<<8) | 255;
+    colors[5] = (255<<24) | (255<<16) | (255<<8) | 0;
+
+    colors[6] = (255<<24) | (255<<16) | (255<<8) | 255;
+
+    colors[7] = (255<<24) | (0<<16) | (0<<8) | 0;
+
+    dp::ColorKey key;
+    key.m_color = (255<<24) | (1<<16) | (255<<8) | 0;
+    dp::TextureSetHolder::ColorRegion region;
+    textures->GetColorRegion(key, region);
+    key.m_color = (255<<24) | (0<<16) | (255<<8) | 255;
+    textures->GetColorRegion(key, region);
+    key.m_color = colors[0];
+    textures->GetColorRegion(key, region);
+    key.m_color = colors[1];
+    textures->GetColorRegion(key, region);
+    key.m_color = colors[2];
+    textures->GetColorRegion(key, region);
+    key.m_color = colors[3];
+    textures->GetColorRegion(key, region);
+    key.m_color = colors[4];
+    textures->GetColorRegion(key, region);
+    for (int i = 8; i < cnt; ++i)
+    {
+      colors[i] = (255<<24) | (rand()%256 << 16) | (rand()%256 << 8) | (rand()%256);
+      key.m_color = colors[i];
+      textures->GetColorRegion(key, region);
+    }
+
+    m2::RectF const & rect = region.GetTexRect();
+    float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
+
+    m2::PointF const basePoint(900.0f, 700.0f);
+    m2::PointF positions[4] =
+    {
+      basePoint, basePoint,
+      basePoint, basePoint
+    };
+
+    float const halfSize = 512.0f;
+    m2::PointF normals[4] =
+    {
+      m2::PointF(-halfSize, halfSize), m2::PointF(-halfSize, -halfSize),
+      m2::PointF(halfSize, halfSize), m2::PointF(halfSize, -halfSize)
+    };
+
+    m2::PointF coord = (rect.RightTop() + rect.LeftBottom()) * 0.5f;
+
+//    glsl_types::vec4 texCoord[4] =
+//    {
+//      glsl_types::vec4(m2::PointF(0.0f, 1.0f), texIndex, 0),
+//      glsl_types::vec4(m2::PointF(0.0f, 0.0f), texIndex, 0),
+//      glsl_types::vec4(m2::PointF(1.0f, 1.0f), texIndex, 0),
+//      glsl_types::vec4(m2::PointF(1.0f, 0.0f), texIndex, 0)
+//    };
+
+    glsl_types::vec4 texCoord[4] =
+    {
+      glsl_types::vec4(coord, texIndex, 0),
+      glsl_types::vec4(coord, texIndex, 0),
+      glsl_types::vec4(coord, texIndex, 0),
+      glsl_types::vec4(coord, texIndex, 0)
+    };
+
+    dp::AttributeProvider provider(3, 4);
+    {
+      dp::BindingInfo info(1);
+      dp::BindingDecl & decl = info.GetBindingDecl(0);
+      decl.m_attributeName = "a_position";
+      decl.m_componentCount = 2;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(0, info, dp::MakeStackRefPointer<void>(positions));
+    }
+
+    {
+      dp::BindingInfo info(1);
+      dp::BindingDecl & decl = info.GetBindingDecl(0);
+      decl.m_attributeName = "a_normal";
+      decl.m_componentCount = 2;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(1, info, dp::MakeStackRefPointer<void>(normals));
+    }
+
+    {
+      dp::BindingInfo info(1);
+      dp::BindingDecl & decl = info.GetBindingDecl(0);
+      decl.m_attributeName = "a_texCoords";
+      decl.m_componentCount = 4;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(2, info, dp::MakeStackRefPointer<void>(texCoord));
+    }
+
+    dp::GLState state(gpu::TEXTURING_PROGRAM, dp::GLState::GeometryLayer);
+    state.SetTextureSet(region.GetTextureNode().m_textureSet);
+    state.SetBlending(dp::Blending(true));
+
+    batcher->InsertTriangleStrip(state, dp::MakeStackRefPointer(&provider));
+  }
 };
 
 class SquareHandle : public dp::OverlayHandle
@@ -178,7 +303,17 @@ public:
     formingVectors[2] = m2::PointF( m_radius,  m_radius);
     formingVectors[3] = m2::PointF( m_radius, -m_radius);
 
-    dp::AttributeProvider provider(2, 4);
+    dp::ColorKey key;
+    key.m_color = dp::Color(150, 130, 120, 255).GetColorInInt();
+    dp::TextureSetHolder::ColorRegion region;
+    textures->GetColorRegion(key, region);
+    m2::RectF const & rect1 = region.GetTexRect();
+    m2::PointF coord1 = (rect1.RightTop() + rect1.LeftBottom()) * 0.5f;
+    float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
+
+    vector<vec3> colors(4, vec3(coord1, texIndex));
+
+    dp::AttributeProvider provider(3, 4);
     {
       dp::BindingInfo info(1);
       dp::BindingDecl & decl = info.GetBindingDecl(0);
@@ -200,8 +335,19 @@ public:
       provider.InitStream(1, info, dp::MakeStackRefPointer<void>(&formingVectors[0]));
     }
 
+    {
+      dp::BindingInfo info(1);
+      dp::BindingDecl & decl = info.GetBindingDecl(0);
+      decl.m_attributeName = "a_color_index";
+      decl.m_componentCount = 3;
+      decl.m_componentType = gl_const::GLFloatType;
+      decl.m_offset = 0;
+      decl.m_stride = 0;
+      provider.InitStream(2, info, dp::MakeStackRefPointer<void>(&colors[0]));
+    }
+
     dp::GLState state(gpu::TEST_DYN_ATTR_PROGRAM, dp::GLState::GeometryLayer);
-    state.SetColor(dp::Color(150, 130, 120, 255));
+    state.SetTextureSet(region.GetTextureNode().m_textureSet);
 
     dp::OverlayHandle * handle = new SquareHandle(formingVectors);
 
@@ -516,7 +662,10 @@ void TestingEngine::DrawImpl()
   //sh4.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
   DummyStippleElement e(m2::PointU(100, 900));
-  //e.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+  e.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+
+  DummyColorElement f;
+  f.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 }
 
 void TestingEngine::ModelViewInit()
