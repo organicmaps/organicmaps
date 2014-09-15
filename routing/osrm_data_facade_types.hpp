@@ -67,6 +67,29 @@ public:
       return false;
     }
 
+    bool operator == (FtSeg const & other) const
+    {
+      return (other.m_fid == m_fid)
+          && (other.m_pointEnd == m_pointEnd)
+          && (other.m_pointStart == m_pointStart);
+    }
+
+    bool IsIntersect(FtSeg const & other) const
+    {
+      if (other.m_fid != m_fid)
+        return false;
+
+      auto s1 = min(m_pointStart, m_pointEnd);
+      auto e1 = max(m_pointStart, m_pointEnd);
+      auto s2 = min(other.m_pointStart, other.m_pointEnd);
+      auto e2 = max(other.m_pointStart, other.m_pointEnd);
+
+      return (s1 >= s2 && s1 <= e2) ||
+             (e1 <= e2 && e1 >= s2) ||
+             (s2 >= s1 && s2 <= e1) ||
+             (e2 <= e1 && e2 >= s1);
+    }
+
     friend string DebugPrint(FtSeg const & seg)
     {
       stringstream ss;

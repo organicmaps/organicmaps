@@ -4,7 +4,7 @@
 #include "osrm_data_facade_types.hpp"
 
 class Index;
-class PhantomNode;
+struct PhantomNode;
 
 namespace routing
 {
@@ -22,7 +22,7 @@ public:
 
 
 protected:
-  bool FindPhantomNode(m2::PointD const & pt, PhantomNode & resultNode, uint32_t & mwmId);
+  bool FindPhantomNode(m2::PointD const & pt, PhantomNode & resultNode, uint32_t & mwmId, OsrmFtSegMapping::FtSeg & seg, m2::PointD & segPt);
 
 private:
   Index const * m_pIndex;

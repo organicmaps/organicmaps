@@ -35,6 +35,7 @@ class Point2PhantomNode
     double m_dist;
     uint32_t m_segIdx;
     FeatureID m_fID;
+    m2::PointD m_point;
 
     Candidate() : m_dist(numeric_limits<double>::max()) {}
   };
@@ -61,15 +62,17 @@ public:
     for (size_t i = 1; i < count; ++i)
     {
       /// @todo Probably, we need to get exact proection distance in meters.
-      m2::DistanceToLineSquare<m2::PointD> segDist;
-      segDist.SetBounds(ft.GetPoint(i - 1), ft.GetPoint(i));
+      m2::ProjectionToSection<m2::PointD> segProj;
+      segProj.SetBounds(ft.GetPoint(i - 1), ft.GetPoint(i));
 
-      double const d = segDist(m_point);
+      m2::PointD pt = segProj(m_point);
+      double const d = m_point.SquareLength(pt);
       if (d < res.m_dist)
       {
         res.m_dist = d;
         res.m_fID = ft.GetID();
         res.m_segIdx = i - 1;
+        res.m_point = pt;
       }
     }
 
@@ -77,7 +80,7 @@ public:
       m_candidates.push_back(res);
   }
 
-  bool MakeResult(PhantomNode & resultNode, uint32_t & mwmId)
+  bool MakeResult(PhantomNode & resultNode, uint32_t & mwmId, OsrmFtSegMapping::FtSeg & seg, m2::PointD & pt)
   {
     resultNode.forward_node_id = resultNode.reverse_node_id = -1;
 
@@ -88,10 +91,10 @@ public:
 
     for (auto const & c : m_candidates)
     {
-      OsrmFtSegMapping::FtSeg seg;
       seg.m_fid = c.m_fID.m_offset;
       seg.m_pointStart = c.m_segIdx;
       seg.m_pointEnd = c.m_segIdx + 1;
+      pt = c.m_point;
       m_mapping.GetOsrmNode(seg, resultNode.forward_node_id, resultNode.reverse_node_id);
 
       mwmId = c.m_fID.m_mwm;
@@ -164,7 +167,7 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
 {
   typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
 
-  string const country = "New-York";
+  string const country = "Belarus";
 #ifdef OMIM_OS_DESKTOP
   DataFacadeT facade("/Users/deniskoronchik/Documents/develop/omim-maps/" + country + ".osrm");
   m_mapping.Load("/Users/deniskoronchik/Documents/develop/omim-maps/" + country + ".osrm.ftseg");
@@ -180,15 +183,19 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
   PhantomNodes nodes;
   MakeResultGuard resGuard(callback, GetName());
 
+  OsrmFtSegMapping::FtSeg segBegin;
+  m2::PointD segPointStart;
   uint32_t mwmIdStart = -1;
-  if (!FindPhantomNode(startingPt, nodes.source_phantom, mwmIdStart))
+  if (!FindPhantomNode(startingPt, nodes.source_phantom, mwmIdStart, segBegin, segPointStart))
   {
     resGuard.SetErrorMsg("Can't find start point");
     return;
   }
 
   uint32_t mwmIdEnd = -1;
-  if (!FindPhantomNode(m_finalPt, nodes.target_phantom, mwmIdEnd))
+  OsrmFtSegMapping::FtSeg segEnd;
+  m2::PointD segPointEnd;
+  if (!FindPhantomNode(m_finalPt, nodes.target_phantom, mwmIdEnd, segEnd, segPointEnd))
   {
     resGuard.SetErrorMsg("Can't find end point");
     return;
@@ -200,13 +207,6 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
     return;
   }
 
-  FixedPointCoordinate startPoint((int)(MercatorBounds::YToLat(startingPt.y) * COORDINATE_PRECISION),
-                                  (int)(MercatorBounds::XToLon(startingPt.x) * COORDINATE_PRECISION));
-
-  FixedPointCoordinate endPoint((int)(MercatorBounds::YToLat(m_finalPt.y) * COORDINATE_PRECISION),
-                                (int)(MercatorBounds::XToLon(m_finalPt.x) * COORDINATE_PRECISION));
-
-  rawRoute.raw_via_node_coordinates = { startPoint, endPoint };
   rawRoute.segment_end_coordinates.push_back(nodes);
 
   shortest_path({nodes}, {}, rawRoute);
@@ -224,43 +224,79 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
   for (auto i : osrm::irange<std::size_t>(0, rawRoute.unpacked_path_segments.size()))
   {
     // Get all the coordinates for the computed route
-    for (PathData const & path_data : rawRoute.unpacked_path_segments[i])
+    size_t n = rawRoute.unpacked_path_segments[i].size();
+    for (size_t j = 0; j < n; ++j)
     {
+      PathData const & path_data = rawRoute.unpacked_path_segments[i][j];
       auto const & v = m_mapping.GetSegVector(path_data.node);
-      m_mapping.DumpSgementByNode(path_data.node);
-      for (auto const & seg : v)
+
+      auto correctFn = [&v] (OsrmFtSegMapping::FtSeg const & seg, size_t & ind)
       {
+        auto it = find_if(v.begin(), v.end(), [&] (OsrmFtSegMapping::FtSeg const & s)
+        {
+          return s.IsIntersect(seg);
+        });
+
+        ASSERT(it != v.end(), ());
+        ind = distance(v.begin(), it);
+      };
+
+      //m_mapping.DumpSgementByNode(path_data.node);
+
+      size_t startK = 0, endK = v.size();
+      if (j == 0)
+        correctFn(segBegin, startK);
+      else if (j == n - 1)
+      {
+        correctFn(segEnd, endK);
+        ++endK;
+      }
+
+      for (size_t k = startK; k < endK; ++k)
+      {
+        auto const & seg = v[k];
+
         FeatureType ft;
         Index::FeaturesLoaderGuard loader(*m_pIndex, mwmIdStart);
         loader.GetFeature(seg.m_fid, ft);
         ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+        auto startIdx = seg.m_pointStart;
+        auto endIdx = seg.m_pointEnd;
+
+        if (j == 0 && k == startK)
+          startIdx = (seg.m_pointEnd > seg.m_pointStart) ? segBegin.m_pointStart : segBegin.m_pointEnd;
+        else if (j == n - 1 && k == endK - 1)
+          endIdx = (seg.m_pointEnd > seg.m_pointStart) ? segEnd.m_pointEnd : segEnd.m_pointStart;
 
         if (seg.m_pointEnd > seg.m_pointStart)
         {
-          for (auto j = seg.m_pointStart; j <= seg.m_pointEnd; ++j)
-            points.push_back(ft.GetPoint(j));
+          for (auto idx = startIdx; idx <= endIdx; ++idx)
+            points.push_back(ft.GetPoint(idx));
         }
         else
         {
-          for (auto j = seg.m_pointStart; j > seg.m_pointEnd; --j)
-            points.push_back(ft.GetPoint(j));
-          points.push_back(ft.GetPoint(seg.m_pointEnd));
+          for (auto idx = startIdx; idx > endIdx; --idx)
+            points.push_back(ft.GetPoint(idx));
+          points.push_back(ft.GetPoint(endIdx));
         }
       }
     }
   }
 
+  points.front() = segPointStart;
+  points.back() = segPointEnd;
+
   resGuard.SetGeometry(points);
 }
 
-bool OsrmRouter::FindPhantomNode(m2::PointD const & pt, PhantomNode & resultNode, uint32_t & mwmId)
+bool OsrmRouter::FindPhantomNode(m2::PointD const & pt, PhantomNode & resultNode, uint32_t & mwmId, OsrmFtSegMapping::FtSeg & seg, m2::PointD & segPt)
 {
   Point2PhantomNode getter(pt, m_mapping);
 
   /// @todo Review radius of rect and read index scale.
   m_pIndex->ForEachInRect(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, 1000.0), 17);
 
-  return getter.MakeResult(resultNode, mwmId);
+  return getter.MakeResult(resultNode, mwmId, seg, segPt);
 }
 
 }
