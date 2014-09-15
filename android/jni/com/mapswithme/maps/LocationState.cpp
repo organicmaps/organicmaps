@@ -26,7 +26,7 @@ extern "C"
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_LocationState_addLocationStateModeListener(JNIEnv * env, jobject thiz, jobject obj)
   {
-    g_framework->NativeFramework()->GetLocationState()->AddStateModeListener(bind(&LocationStateModeChanged, _1, jni::make_global_ref(obj)));
+    return g_framework->NativeFramework()->GetLocationState()->AddStateModeListener(bind(&LocationStateModeChanged, _1, jni::make_global_ref(obj)));
   }
 
   JNIEXPORT void JNICALL
