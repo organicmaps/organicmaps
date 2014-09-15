@@ -5,6 +5,8 @@
 #include "../drape/attribute_provider.hpp"
 #include "../drape/glstate.hpp"
 #include "../drape/batcher.hpp"
+#include "../drape/texture_of_colors.hpp"
+#include "../drape/texture_set_holder.hpp"
 
 #include "../base/math.hpp"
 #include "../base/logging.hpp"
@@ -76,7 +78,7 @@ LineShape::LineShape(vector<m2::PointF> const & points,
     m_points = points;
 }
 
-void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> /*textures*/) const
+void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
   int size = m_points.size();
   float const r = 1.0f;
@@ -173,11 +175,27 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     vertex[baseIdx + 3].y = vertex[baseIdx + 1].y;
   }
 
-  vector<vec4> baseColor(numVert, vec4(m_params.m_color));
-  vector<vec4> outlineColor(numVert, vec4(0.5f, 0.5f, 0.5f, 1.0f)); /// TODO this color now not using.
+  dp::ColorKey key;
+  dp::Color clr = m_params.m_color;
+  key.m_color = (clr.m_alfa << 24) | (clr.m_blue << 16) | (clr.m_green << 8) | clr.m_red;
+  dp::TextureSetHolder::ColorRegion region;
+  textures->GetColorRegion(key, region);
+  m2::RectF const & rect1 = region.GetTexRect();
+  m2::PointF coord1 = (rect1.RightTop() + rect1.LeftBottom()) * 0.5f;
+  key.m_color = (255 << 24) | (127 << 16) | (127 << 8) | 127;
+  textures->GetColorRegion(key, region);
+  m2::RectF const & rect2 = region.GetTexRect();
+  m2::PointF coord2 = (rect2.RightTop() + rect2.LeftBottom()) * 0.5f;
+  float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
+
+  vector<vec4> colors(numVert, vec4(coord1, coord2));
+  vector<float> index(numVert, texIndex); /// TODO this color now not using.
   ///We need merge line styles to draw line outline and line by ont pass
 
   dp::GLState state(gpu::SOLID_LINE_PROGRAM, dp::GLState::GeometryLayer);
+  state.SetTextureSet(region.GetTextureNode().m_textureSet);
+  state.SetBlending(dp::Blending(true));
+
   dp::AttributeProvider provider(6, 4 * (size - 1));
 
   {
@@ -227,25 +245,25 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   {
     dp::BindingInfo clr1(1);
     dp::BindingDecl & decl = clr1.GetBindingDecl(0);
-    decl.m_attributeName = "color1";
+    decl.m_attributeName = "colors";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(4, clr1, dp::MakeStackRefPointer((void*)&baseColor[0]));
+    provider.InitStream(4, clr1, dp::MakeStackRefPointer((void*)&colors[0]));
   }
 
   {
-    dp::BindingInfo clr2(1);
-    dp::BindingDecl & decl = clr2.GetBindingDecl(0);
-    decl.m_attributeName = "color2";
-    decl.m_componentCount = 4;
+    dp::BindingInfo ind(1);
+    dp::BindingDecl & decl = ind.GetBindingDecl(0);
+    decl.m_attributeName = "index";
+    decl.m_componentCount = 1;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
 
-    provider.InitStream(5, clr2, dp::MakeStackRefPointer((void*)&outlineColor[0]));
+    provider.InitStream(5, ind, dp::MakeStackRefPointer((void*)&index[0]));
   }
 
   batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), 4);

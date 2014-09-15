@@ -30,13 +30,14 @@ public:
   void InitPathText(float depth,
                     vector<glsl_types::Quad4> & texCoord,
                     vector<glsl_types::Quad4> & fontColor,
-                    vector<glsl_types::Quad4> & outlineColor) const;
+                    vector<glsl_types::Quad1> & index,
+                    dp::RefPointer<dp::TextureSetHolder> textures) const;
   void LayoutPathText(m2::Spline::iterator const & iterator,
                       float const scalePtoG,
                       IntrusiveVector<glsl_types::vec2> & positions,
                       bool isForwardDirection,
                       vector<m2::RectF> & rects,
-                      const ScreenBase & screen) const;
+                      ScreenBase const & screen) const;
 
   uint32_t GetGlyphCount() const;
   uint32_t GetTextureSet() const;
@@ -63,7 +64,7 @@ private:
                                         vector<glsl_types::Quad4> & positions,
                                         vector<glsl_types::Quad4> & texCoord,
                                         vector<glsl_types::Quad4> & color,
-                                        vector<glsl_types::Quad4> & index,
+                                        vector<glsl_types::Quad1> & index,
                                         dp::RefPointer<dp::TextureSetHolder> textures,
                                         int count);
 };

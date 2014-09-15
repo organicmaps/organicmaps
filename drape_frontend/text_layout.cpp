@@ -7,15 +7,29 @@
 #include "../std/limits.hpp"
 
 using glsl_types::vec4;
+using glsl_types::Quad1;
 using glsl_types::Quad4;
 
 namespace
 {
-  void FillColor(vector<Quad4> & data, dp::Color const & color)
+void FillColor(vector<Quad4> & colors,
+               dp::TextureSetHolder::ColorRegion & region,
+               dp::Color const & base, dp::Color const & outline,
+               dp::RefPointer<dp::TextureSetHolder> textures)
   {
-    Quad4 c;
-    c.v[0] = c.v[1] = c.v[2] = c.v[3] = vec4(dp::ColorF(color));
-    fill(data.begin(), data.end(), c);
+  dp::ColorKey key;
+  key.m_color = (base.m_alfa << 24) | (base.m_blue << 16) | (base.m_green << 8) | base.m_red;
+  textures->GetColorRegion(key, region);
+  m2::RectF const & rect1 = region.GetTexRect();
+  m2::PointF coord1 = (rect1.RightTop() + rect1.LeftBottom()) * 0.5f;
+  key.m_color = (outline.m_alfa << 24) | (outline.m_blue << 16) | (outline.m_green << 8) | outline.m_red;
+  textures->GetColorRegion(key, region);
+  m2::RectF const & rect2 = region.GetTexRect();
+  m2::PointF coord2 = (rect2.RightTop() + rect2.LeftBottom()) * 0.5f;
+
+  vec4 clrs(coord1, coord2);
+  Quad4 f(clrs, clrs, clrs, clrs);
+  fill(colors.begin(), colors.end(), f);
   }
 }
 
@@ -96,15 +110,18 @@ dp::OverlayHandle * LayoutText(const FeatureID & featureID,
                                vector<glsl_types::Quad4> & positions,
                                vector<glsl_types::Quad4> & texCoord,
                                vector<glsl_types::Quad4> & color,
-                               vector<glsl_types::Quad4> & index,
+                               vector<glsl_types::Quad1> & index,
                                dp::RefPointer<dp::TextureSetHolder> textures,
                                int count)
 {
   STATIC_ASSERT(sizeof(vec4) == 4 * sizeof(float));
   STATIC_ASSERT(sizeof(Quad4) == 4 * sizeof(vec4));
 
-  FillColor(color, layoutIter->m_font.m_color);
-  FillColor(index,layoutIter->m_font.m_outlineColor);
+  dp::TextureSetHolder::ColorRegion region;
+  FillColor(color, region, layoutIter->m_font.m_color, layoutIter->m_font.m_outlineColor, textures);
+  float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
+  Quad1 f(texIndex, texIndex, texIndex, texIndex);
+  fill(index.begin(), index.end(), f);
 
   int counter = 0;
   m2::PointD size(0.0, 0.0);
@@ -161,7 +178,8 @@ dp::OverlayHandle * LayoutText(const FeatureID & featureID,
 void TextLayout::InitPathText(float depth,
                               vector<glsl_types::Quad4> & texCoord,
                               vector<glsl_types::Quad4> & fontColor,
-                              vector<glsl_types::Quad4> & index) const
+                              vector<glsl_types::Quad1> & index,
+                              dp::RefPointer<dp::TextureSetHolder> textures) const
 {
   STATIC_ASSERT(sizeof(vec4) == 4 * sizeof(float));
   STATIC_ASSERT(sizeof(Quad4) == 4 * sizeof(vec4));
@@ -171,8 +189,11 @@ void TextLayout::InitPathText(float depth,
   ASSERT(glyphCount <= fontColor.size(), ());
   ASSERT(glyphCount <= index.size(), ());
 
-  FillColor(fontColor, m_font.m_color);
-  FillColor(index, m_font.m_outlineColor);
+  dp::TextureSetHolder::ColorRegion region;
+  FillColor(fontColor, region, m_font.m_color, m_font.m_outlineColor, textures);
+  float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
+  Quad1 f(texIndex, texIndex, texIndex, texIndex);
+  fill(index.begin(), index.end(), f);
 
   for (size_t i = 0; i < glyphCount; ++i)
     GetTextureQuad(m_metrics[i], depth, texCoord[i]);

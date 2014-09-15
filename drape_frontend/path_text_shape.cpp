@@ -141,10 +141,11 @@ namespace
                       vector<glsl_types::vec2> & positions,
                       vector<glsl_types::Quad4> & texCoord,
                       vector<glsl_types::Quad4> & fontColor,
-                      vector<glsl_types::Quad4> & outlineColor)
+                      vector<glsl_types::Quad1> & index,
+                      dp::RefPointer<dp::TextureSetHolder> textures)
   {
     ASSERT(!offsets.empty(), ());
-    layout->InitPathText(depth, texCoord, fontColor, outlineColor);
+    layout->InitPathText(depth, texCoord, fontColor, index, textures);
 
     dp::GLState state(gpu::PATH_FONT_PROGRAM, dp::GLState::OverlayLayer);
     state.SetTextureSet(layout->GetTextureSet());
@@ -186,12 +187,12 @@ namespace
       {
         dp::BindingInfo outlineColorBind(1);
         dp::BindingDecl & decl = outlineColorBind.GetBindingDecl(0);
-        decl.m_attributeName = "a_outline_color";
-        decl.m_componentCount = 4;
+        decl.m_attributeName = "a_index";
+        decl.m_componentCount = 1;
         decl.m_componentType = gl_const::GLFloatType;
         decl.m_offset = 0;
         decl.m_stride = 0;
-        provider.InitStream(3, outlineColorBind, dp::MakeStackRefPointer(&outlineColor[0]));
+        provider.InitStream(3, outlineColorBind, dp::MakeStackRefPointer(&index[0]));
       }
 
       dp::OverlayHandle * handle = new PathTextHandle(spline, layout, offsets[i], depth);
@@ -244,7 +245,7 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
   vector<glsl_types::vec2>  positions(glyphCount, vec2(0.0, 0.0));
   vector<glsl_types::Quad4> texCoords(glyphCount);
   vector<glsl_types::Quad4> fontColor(glyphCount);
-  vector<glsl_types::Quad4> outlineColor(glyphCount);
+  vector<glsl_types::Quad1> index(glyphCount);
   buffer_vector<float, 32> offsets;
 
   float const scalePtoG = 1.0f / m_scaleGtoP;
@@ -281,7 +282,7 @@ void PathTextShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp:
   }
 
   BatchPathText(m_spline, offsets, m_params.m_depth, batcher, layout,
-                positions, texCoords, fontColor, outlineColor);
+                positions, texCoords, fontColor, index, textures);
 }
 
 }

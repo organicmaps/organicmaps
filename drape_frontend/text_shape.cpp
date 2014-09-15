@@ -48,15 +48,15 @@ PointF GetShift(dp::Anchor anchor, float width, float height)
 void BatchText(dp::RefPointer<dp::Batcher> batcher, int32_t textureSet,
                vector<glsl_types::Quad4> const & positions,
                vector<glsl_types::Quad4> const & texCoord,
-               vector<glsl_types::Quad4> const & fontColors,
-               vector<glsl_types::Quad4> const & outlineColor,
+               vector<glsl_types::Quad4> const & color,
+               vector<glsl_types::Quad1> const & index,
                size_t glyphCount,
                dp::OverlayHandle * handle)
 {
   ASSERT(glyphCount <= positions.size(), ());
   ASSERT(positions.size() == texCoord.size(), ());
-  ASSERT(positions.size() == fontColors.size(), ());
-  ASSERT(positions.size() == outlineColor.size(), ());
+  ASSERT(positions.size() == color.size(), ());
+  ASSERT(positions.size() == index.size(), ());
 
   dp::GLState state(gpu::FONT_PROGRAM, dp::GLState::OverlayLayer);
   state.SetTextureSet(textureSet);
@@ -91,17 +91,17 @@ void BatchText(dp::RefPointer<dp::Batcher> batcher, int32_t textureSet,
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(2, base_color, dp::MakeStackRefPointer((void*)&fontColors[0]));
+    provider.InitStream(2, base_color, dp::MakeStackRefPointer((void*)&color[0]));
   }
   {
     dp::BindingInfo outline_color(1);
     dp::BindingDecl & decl = outline_color.GetBindingDecl(0);
-    decl.m_attributeName = "a_outline_color";
-    decl.m_componentCount = 4;
+    decl.m_attributeName = "a_index";
+    decl.m_componentCount = 1;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;
     decl.m_stride = 0;
-    provider.InitStream(3, outline_color, dp::MakeStackRefPointer((void*)&outlineColor[0]));
+    provider.InitStream(3, outline_color, dp::MakeStackRefPointer((void*)&index[0]));
   }
 
   batcher->InsertListOfStrip(state, dp::MakeStackRefPointer(&provider), MovePointer(handle), 4);
@@ -260,7 +260,7 @@ void TextShape::DrawMultipleLines(dp::RefPointer<dp::Batcher> batcher, vector<Te
   vector<glsl_types::Quad4> positions(symCount);
   vector<glsl_types::Quad4> texCoord(symCount);
   vector<glsl_types::Quad4> fontColor(symCount);
-  vector<glsl_types::Quad4> indexes(symCount);
+  vector<glsl_types::Quad1> indexes(symCount);
 
   float dy = (1.0f - TEXT_EXPAND_FACTOR) * heights[0];
   vector<PointF> pixelOffset(count);
@@ -284,9 +284,9 @@ void TextShape::DrawMultipleLines(dp::RefPointer<dp::Batcher> batcher, vector<Te
                                               indexes, textures, i + 1);
 
       BatchText(batcher, layouts[0].GetTextureSet(),
-          positions, texCoord,
-          fontColor, indexes,
-          delSymCount, handle);
+                positions, texCoord,
+                fontColor, indexes,
+                delSymCount, handle);
 
       delSymCount = 0;
       lastIndex = i + 1;
