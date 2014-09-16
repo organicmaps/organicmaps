@@ -62,11 +62,27 @@ void OsrmRouter::OnRouteReceived(downloader::HttpRequest & request, ReadyCallbac
           json_t const * jcoords = json_array_get(jgeometry, i);
           if (jcoords)
           {
-            string const coords = json_string_value(jcoords);
-            string const strLat(coords, 0, coords.find(','));
-            string const strLon(coords, coords.find(',') + 1);
             double lat, lon;
-            if (strings::to_double(strLat, lat) && strings::to_double(strLon, lon))
+            bool validCoord = false;
+            if (json_is_array(jcoords))
+            {
+              if (json_array_size(jcoords) >= 2)
+              {
+                lat = json_real_value(json_array_get(jcoords, 0));
+                lon = json_real_value(json_array_get(jcoords, 1));
+                validCoord = true;
+              }
+            }
+            else if (json_is_string(jcoords))
+            {
+              string const coords = json_string_value(jcoords);
+              string const strLat(coords, 0, coords.find(','));
+              string const strLon(coords, coords.find(',') + 1);
+              if (strings::to_double(strLat, lat) && strings::to_double(strLon, lon))
+                validCoord = true;
+            }
+
+            if (validCoord)
               route.push_back(MercatorBounds::FromLatLon(lat, lon));
           }
         }
