@@ -3,6 +3,7 @@ line[highway]
   casing-color: #B5944C;
   casing-width: 0.8;
 }
+
 line[highway=pedestrian],
 line[highway=footway],
 line[highway=track],
@@ -469,8 +470,8 @@ line|z15-[highway=pedestrian]
 {
   color: #B9BA95;
 }
-area|z15-[highway=pedestrian],
-area|z15-[area:highway=pedestrian]
+area|z15-[highway=pedestrian][area?],
+area|z15-[area:highway=pedestrian],
 {
   fill-color: #B9BA95;
 }
@@ -893,7 +894,7 @@ line|z17-[highway=service]
 
 /* Footway with sac_scale is absolutely different type (hiking path, not the pedestrian in the city) */
 
-line|z17[highway=footway][!sac_scale]::dashes
+line|z17[highway=footway][!area][!sac_scale]::dashes
 {
   width: 4;
   z-index: 692;
@@ -901,12 +902,12 @@ line|z17[highway=footway][!sac_scale]::dashes
   linecap: butt;
   dashes: 1,3;
 }
-line|z17-[highway=footway][!sac_scale]
+line|z17-[highway=footway][!area][!sac_scale]
 {
   color: #d0ccbc;
   width: 5;
 }
-line|z18[highway=footway][!sac_scale]::dashes
+line|z18[highway=footway][!area][!sac_scale]::dashes
 {
   width: 8;
   z-index: 692;
@@ -914,13 +915,13 @@ line|z18[highway=footway][!sac_scale]::dashes
   linecap: butt;
   dashes: 1,3;
 }
-line|z18[highway=footway][!sac_scale],
+line|z18[highway=footway][!area][!sac_scale],
 line|z18[highway=service],
-line|z18[highway=pedestrian]
+line|z18[highway=pedestrian],
 {
   width: 9;
 }
-line|z19-[highway=footway][!sac_scale]::dashes
+line|z19-[highway=footway][!area][!sac_scale]::dashes
 {
   width: 16;
   z-index: 692;
@@ -928,9 +929,9 @@ line|z19-[highway=footway][!sac_scale]::dashes
   linecap: butt;
   dashes: 1,4;
 }
-line|z19-[highway=footway][!sac_scale],
+line|z19-[highway=footway][!area][!sac_scale],
 line|z19-[highway=service],
-line|z19-[highway=pedestrian]
+line|z19-[highway=pedestrian],
 {
   width: 17;
 }
@@ -1228,20 +1229,41 @@ line[highway=trunk_link]
   z-index: 56;
 }
 
+/* Should be at the end of all highway changes */
+
 area[area:highway]
 {
   z-index: 400;
 }
 
-/* Should be at the end of all highway changes */
 line[highway]
 {
   text-halo-color: eval(prop("color"));
   text-position: line;
 }
+
+/*
+  - Assign fill color with like a correspondent line color.
+  - Delete line and path-text styles for highway-XXX-area.
+  - Set caption for footway and pedestrian area.
+*/
+
 *[highway][area?]
 {
   fill-color: eval(prop("color"));
   width: 0;
   casing-width: 0;
+  font-size: 0;
+  text: "";
+}
+
+area|z15-[highway=pedestrian][area?],
+area|z15-[area:highway=pedestrian],
+area|z15-[highway=footway][area?][!sac_scale],
+area|z15-[area:highway=footway],
+{
+  text: name;
+  font-size: 11;
+  text-color: #404040;
+  text-position: center
 }

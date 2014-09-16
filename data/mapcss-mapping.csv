@@ -21,8 +21,8 @@ natural|coastline;[natural=coastline];;name;int_name;20;
 place|village;[place=village];;name;int_name;21;
 highway|residential|oneway;[highway=residential][oneway?];x;name;int_name;22;highway|residential
 waterway|river;[waterway=river];;name;int_name;23;
-addr:interpolation|even;[addr:interpolation=even];x;name;int_name;24;oneway
-addr:interpolation|odd;[addr:interpolation=odd];x;name;int_name;25;
+addr:interpolation|even;[addr:interpolation=even];x;name;int_name;24;hwtag|oneway
+addr:interpolation|odd;[addr:interpolation=odd];x;name;int_name;25;hwtag|private
 amenity|parking;[amenity=parking][access?], [amenity=parking][!access];;name;int_name;26;
 highway|primary;[highway=primary]; ;name;int_name;27;
 railway|rail;[railway=rail];;name;int_name;28;
@@ -38,7 +38,7 @@ highway|cycleway;[highway=cycleway];;name;int_name;37;
 landuse|farm;[landuse=farm];;name;int_name;38;
 amenity|place_of_worship;[amenity=place_of_worship];;name;int_name;39;
 highway|track|grade1;[highway=track][tracktype=grade1];;name;int_name;40;
-highway|secondary|oneway;[highway=secondary][oneway];x;name;int_name;41;highway|secondary
+highway|secondary|oneway;[highway=secondary][oneway?];x;name;int_name;41;highway|secondary
 highway|service|driveway;[highway=service][service=driveway];;name;int_name;42;
 man_made|survey_point;[man_made=survey_point];;name;int_name;43;
 highway|motorway_link|oneway;[highway=motorway_link][oneway?];x;name;int_name;44;highway|motorway_link
@@ -146,7 +146,7 @@ amenity|parking|private;[amenity=parking][access=private];;name;int_name;145;
 boundary|administrative|7;[boundary=administrative][admin_level=7];;name;int_name;146;
 tourism|attraction;[tourism=attraction];;name;int_name;147;
 highway|tertiary|junction;[highway=tertiary][junction?];x;name;int_name;148;highway|tertiary
-highway|track|private;[highway=track][access=private];;name;int_name;149;
+highway|track|private;[highway=track][access=private];x;name;int_name;149;highway|track
 railway|tram;[railway=tram];;name;int_name;150;
 amenity|toilets;[amenity=toilets];;name;int_name;151;
 highway|residential|junction;[highway=residential][junction?];x;name;int_name;152;highway|residential
@@ -213,7 +213,7 @@ railway|rail|tunnel;[railway=rail][tunnel?];;name;int_name;212;
 man_made|wastewater_plant;[man_made=wastewater_plant];;name;int_name;213;
 highway|trunk|motorroad;[highway=trunk][motorroad?];x;name;int_name;214;highway|trunk
 place|county;[place=county];;name;int_name;215;
-highway|footway|private;[highway=footway][access=private];;name;int_name;216;
+highway|footway|private;[highway=footway][access=private];x;name;int_name;216;highway|footway
 landuse|conservation;[landuse=conservation];x;name;int_name;217;
 highway|unclassified|junction;[highway=unclassified][junction?];x;name;int_name;218;highway|unclassified
 power|station;[power=station];;name;int_name;219;
@@ -288,7 +288,7 @@ landuse|railway;[landuse=railway];;name;int_name;287;
 leisure|slipway;[leisure=slipway];;name;int_name;288;
 tourism|caravan_site;[tourism=caravan_site];;name;int_name;289;
 place|state;[place=state];;name;int_name;290;
-highway|path|private;[highway=path][access=private];;name;int_name;291;
+highway|path|private;[highway=path][access=private];x;name;int_name;291;highway|path
 railway|subway|tunnel;[railway=subway][tunnel?];;name;int_name;292;
 barrier|city_wall;[barrier=city_wall];;name;int_name;293;
 place|farm;[place=farm];;name;int_name;294;
@@ -436,7 +436,7 @@ highway|primary|construction;[highway=primary][construction?];x;name;int_name;43
 sport|australian_football;[sport=australian_football];;name;int_name;436;
 railway|disused|tunnel;[railway][disused?][tunnel?];x;name;int_name;437;
 highway|secondary_link|junction;[highway=secondary_link][junction?];x;name;int_name;438;highway|secondary_link
-highway|cycleway|private;[highway=cycleway][access=private];;name;int_name;439;
+highway|cycleway|private;[highway=cycleway][access=private];x;name;int_name;439;highway|cycleway
 highway|steps|cutting;[highway=steps][cutting?];x;name;int_name;440;highway|steps
 piste:lift|t-bar;[piste:lift=t-bar];;name;int_name;441;
 highway|trunk|construction;[highway=trunk][construction?];x;name;int_name;442;highway|construction
@@ -489,7 +489,7 @@ highway|bridleway|tunnel;[highway=bridleway][tunnel?];;name;int_name;488;
 highway|motorway_link|tunnel;[highway=motorway_link][tunnel?];;name;int_name;489;
 highway|residential|disused;[highway=residential][disused?];x;name;int_name;490;
 highway|cycleway|construction;[highway=cycleway][construction?];x;name;int_name;491;
-highway|bridleway|private;[highway=bridleway][access=private];;name;int_name;492;
+highway|bridleway|private;[highway=bridleway][access=private];x;name;int_name;492;highway|bridleway
 highway|tertiary_link|bridge;[highway=tertiary_link][bridge?];;name;int_name;493;
 highway|footway|construction;[highway=footway][construction?];x;name;int_name;494;highway|construction
 amenity|parking|park_and_ride;[amenity=parking][parking=park_and_ride];;name;int_name;495;
@@ -518,7 +518,7 @@ highway|footway|disused;[highway=footway][disused?];x;name;int_name;517;
 leisure|playground|tennis;[leisure=playground][sport=tennis];;name;int_name;518;
 highway|secondary|area;[highway=secondary][area?];x;name;int_name;519;
 sport|diving;[sport=diving];;name;int_name;520;
-highway|track|grade3|private;[highway=track][tracktype=grade3][access=private];;name;int_name;521;
+highway|track|grade3|private;[highway=track][tracktype=grade3][access=private];x;name;int_name;521;highway|track|grade3
 boundary|administrative|suburb;[boundary=administrative][border_type=suburb];;name;int_name;522;
 natural|quarry;[natural=quarry];x;name;int_name;523;
 railway|monorail|tunnel;[railway=monorail][tunnel?];;name;int_name;524;
@@ -577,7 +577,7 @@ natural|pond;[natural=pond];;name;int_name;576;
 natural|industrial;[natural=industrial];x;name;int_name;577;
 highway|secondary_link|tunnel;[highway=secondary_link][tunnel?];;name;int_name;578;
 highway|pedestrian|junction;[highway=pedestrian][junction?];x;name;int_name;579;highway|pedestrian
-highway|track|grade5|private;[highway=track][tracktype=grade5][access=private];;name;int_name;580;
+highway|track|grade5|private;[highway=track][tracktype=grade5][access=private];x;name;int_name;580;highway|track|grade5
 highway|track|grade5|area;[highway=track][tracktype=grade5][area?];x;name;int_name;581;
 natural|forest|deciduous;[natural=forest][wood=deciduous];x;name;int_name;582;landuse|forest
 highway|living_street|construction;[highway=living_street][construction?];x;name;int_name;583;highway|construction
@@ -589,7 +589,7 @@ railway|planned;[railway=planned];x;name;int_name;588;
 highway|footway|cycleway;[highway=footway][cycleway?];x;name;int_name;589;highway|footway
 power|line|submarine;[power=line][location=submarine];x;name;int_name;590;power|line
 highway|track|grade3|permissive;[highway=track][tracktype=grade3][access=permissive];;name;int_name;591;
-highway|track|grade4|private;[highway=track][tracktype=grade4][access=private];;name;int_name;592;
+highway|track|grade4|private;[highway=track][tracktype=grade4][access=private];x;name;int_name;592;highway|track|grade4
 highway|byway|permissive;[highway=byway][access=permissive];x;name;int_name;593;highway|track
 natural|railway;[natural=railway];x;name;int_name;594;
 highway|service|dyke;[highway=service][man_made][dyke?];x;name;int_name;595;highway|service
@@ -718,7 +718,7 @@ historic|ruins;[historic=ruins];;name;int_name;717;
 historic|monument;[historic=monument];;name;int_name;718;
 historic|castle;[historic=castle];;name;int_name;719;
 historic|archaeological_site;[historic=archaeological_site];;name;int_name;720;
-highway|residential|private;[highway=residential][access=private];;name;int_name;721;
+highway|residential|private;[highway=residential][access=private];x;name;int_name;721;highway|residential
 man_made|cutline;[man_made=cutline];;name;int_name;722;
 natural|bay;[natural=bay];;name;int_name;723;
 natural|spring;[natural=spring];;name;int_name;724;
@@ -880,7 +880,7 @@ area:highway|motorway;[area:highway=motorway];;name;int_name;879;
 area:highway|trunk;[area:highway=trunk];;name;int_name;880;
 area:highway|residental;[area:highway=residental];x;name;int_name;881;
 entrance;[entrance];;ref;addr:flats;882;
-oneway;[oneway?];;name;int_name;883;
+hwtag|oneway;[hwtag=oneway];;name;int_name;883;
 highway|proposed;[highway=proposed];;name;int_name;884;
 tourism|artwork;[tourism=artwork];;name;int_name;885;
 railway|subway|red;[railway=subway][colour=red];;name;int_name;886;
@@ -941,7 +941,7 @@ shop|beverages;[shop=beverages];;name;int_name;940;
 shop|toys;[shop=toys];;name;int_name;941;
 shop|confectionery;[shop=confectionery];;name;int_name;942;
 shop;[shop?];;name;int_name;943;
-lit;[lit?];;name;int_name;944;
+hwtag|lit;[hwtag=lit];;name;int_name;944;
 office|company;[office=company];;name;int_name;945;
 office|telecommunication;[office=telecommunication];;name;int_name;946;
 office|government;[office=government];;name;int_name;947;
@@ -985,3 +985,4 @@ internet_access;[internet_access=yes];;name;int_name;984;
 internet_access|wlan;[internet_access=wlan];;name;int_name;985;
 amenity|waste_disposal;[amenity=waste_disposal];;name;int_name;986;
 amenity|bbq;[amenity=bbq];;name;int_name;987;
+hwtag|private;[hwtag=private];;name;int_name;988;

@@ -12,6 +12,7 @@
 #include "../base/logging.hpp"
 
 #include "../std/cstring.hpp"
+#include "../std/algorithm.hpp"
 
 
 using namespace feature;
@@ -55,6 +56,20 @@ void FeatureBuilder1::AddPoint(m2::PointD const & p)
 {
   m_polygons.front().push_back(p);
   m_limitRect.Add(p);
+}
+
+void FeatureBuilder1::SetLinear(bool reverseGeometry)
+{
+  m_params.SetGeomType(feature::GEOM_LINE);
+
+  if (reverseGeometry)
+  {
+    ASSERT_EQUAL(m_polygons.size(), 1, ());
+
+    auto & cont = m_polygons.front();
+    ASSERT(!cont.empty(), ());
+    reverse(cont.begin(), cont.end());
+  }
 }
 
 void FeatureBuilder1::SetAreaAddHoles(list<points_t> const & holes)

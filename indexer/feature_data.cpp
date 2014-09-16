@@ -56,20 +56,16 @@ public:
   {
     char const * arr1[][1] = {
       { "building" },
-      { "oneway" },
-      { "lit" },
+      { "hwtag" },
       { "internet_access" },
-    };
-    char const * arr2[][2] = {
-      { "internet_access", "wlan"},
     };
 
     AddTypes(arr1);
-    AddTypes(arr2);
   }
 
   bool operator() (uint32_t t) const
   {
+    ftype::TruncValue(t, 1);
     return (find(m_types.begin(), m_types.end(), t) != m_types.end());
   }
 };
@@ -306,13 +302,6 @@ bool FeatureParams::PopExactType(uint32_t t)
 bool FeatureParams::IsTypeExist(uint32_t t) const
 {
   return (find(m_Types.begin(), m_Types.end(), t) != m_Types.end());
-}
-
-bool FeatureParams::operator == (FeatureParams const & rhs) const
-{
-  return (FeatureParamsBase::operator ==(rhs) &&
-          m_Types == rhs.m_Types &&
-          GetGeomType() == rhs.GetGeomType());
 }
 
 bool FeatureParams::CheckValid() const

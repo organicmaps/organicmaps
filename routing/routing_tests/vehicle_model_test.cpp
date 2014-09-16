@@ -29,7 +29,11 @@ uint32_t GetType(char const * s0, char const * s1 = 0, char const * s2 = 0)
   char const * const t[] = {s0, s1, s2};
   size_t const size = (s0 != 0) + size_t(s1 != 0) + size_t(s2 != 0);
   return classif().GetTypeByPath(vector<string>(t, t + size));
+}
 
+uint32_t GetOnewayType()
+{
+  return GetType("hwtag", "oneway");
 }
 
 void CheckSpeed(vector<uint32_t> types, double expectedSpeed)
@@ -49,7 +53,6 @@ void CheckOneWay(vector<uint32_t> types, bool expectedValue)
     h(types[i]);
   TEST_EQUAL(vehicleModel.IsOneWay(h), expectedValue, ());
 }
-
 
 }
 
@@ -97,17 +100,17 @@ UNIT_TEST(VehicleModel_Speed_MultiTypes)
 UNIT_TEST(VehicleModel_OneWay)
 {
   {
-    uint32_t types[] = { GetType("highway", "secondary", "bridge"), GetType("oneway") };
+    uint32_t types[] = { GetType("highway", "secondary", "bridge"), GetOnewayType() };
     CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
     CheckOneWay(vector<uint32_t>(types, types + ARRAY_SIZE(types)), true);
   }
   {
-    uint32_t types[] = { GetType("oneway"), GetType("highway", "secondary", "bridge") };
+    uint32_t types[] = { GetOnewayType(), GetType("highway", "secondary", "bridge") };
     CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
     CheckOneWay(vector<uint32_t>(types, types + ARRAY_SIZE(types)), true);
   }
   {
-    uint32_t types[] = { GetType("oneway") };
+    uint32_t types[] = { GetOnewayType() };
     CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 0.0);
     CheckOneWay(vector<uint32_t>(types, types + ARRAY_SIZE(types)), true);
   }
@@ -124,7 +127,7 @@ UNIT_TEST(VehicleModel_DifferentSpeeds)
     CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
   }
   {
-    uint32_t types[] = { GetType("highway", "primary"), GetType("oneway"), GetType("highway", "secondary") };
+    uint32_t types[] = { GetType("highway", "primary"), GetOnewayType(), GetType("highway", "secondary") };
     CheckSpeed(vector<uint32_t>(types, types + ARRAY_SIZE(types)), 80.0);
     CheckOneWay(vector<uint32_t>(types, types + ARRAY_SIZE(types)), true);
   }

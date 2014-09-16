@@ -3674,6 +3674,12 @@ node|z16-[railway=station]
   icon-image: railway-station.svg;
 }
 
+line|z16-[natural=tree_row]
+{
+  pattern-image: tree.svg;
+  pattern-spacing: 100;
+}
+
 @import("include/base_publictransport.mapcss");
 
 line[railway]
@@ -3682,8 +3688,9 @@ line[railway]
 }
 
 /* Process bridge and tunnel */
+
 line|z15-[bridge?]::bridgewhite,
-line|z15-[tunnel?]::tunnelwhite
+line|z15-[tunnel?]::tunnelwhite,
 {
   z-index: 30;
   casing-width: eval(prop("width")/2+4);
@@ -3706,7 +3713,9 @@ line|z15-[tunnel?]::tunnelblack
   casing-dashes: 5,5;
 }
 
-line|z16-[oneway?]::arrows
+/* Process highway tags */
+
+line|z16-[hwtag=oneway]::arrows
 {
   pattern-offset: 200;
   z-index: 1000;
@@ -3714,28 +3723,25 @@ line|z16-[oneway?]::arrows
   pattern-spacing: 234;
 }
 
-line|z16-[natural=tree_row]
-{
-  pattern-image: tree.svg;
-  pattern-spacing: 100;
-}
-
-/* Review roads styles for different access. Opacity == 0 is useless. */
 /*
-line[access][access!=yes]::*
+line|z18-[hwtag=lit]::lit
 {
-  opacity: 0;
-  casing-opacity: 0;
+  width: 0.3;
+  color: yellow;
 }
 */
 
-line|z18-[lit]::lit
+line|z15-[hwtag=private]::private
 {
-  width: 0.3;
-  color: yellow
+  width: 2;
+  color: red;
+  z-index: 990;
+  dashes: 5,15;
+  linecap: butt;
 }
 
 /* Do not draw railway and waterway tunnels */
+
 line[railway][railway!=tram][railway!=monorail][railway!=funicular][tunnel?]::*,
 line[waterway][tunnel?]::*
 {

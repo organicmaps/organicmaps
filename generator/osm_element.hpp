@@ -110,18 +110,11 @@ protected:
   /// Feature types processor.
   class type_processor
   {
-    void make_xml_element(RelationElement const & rel, XMLElement & out)
+    static void MakeXMLElement(RelationElement const & rel, XMLElement & out)
     {
-      for (map<string, string>::const_iterator i = rel.tags.begin(); i != rel.tags.end(); ++i)
-      {
-        if (i->first == "type") continue;
-
-        out.childs.push_back(XMLElement());
-        XMLElement & e = out.childs.back();
-        e.name = "tag";
-        e.attrs["k"] = i->first;
-        e.attrs["v"] = i->second;
-      }
+      for (auto i = rel.tags.begin(); i != rel.tags.end(); ++i)
+        if (i->first != "type")
+          out.AddKV(i->first, i->second);
     }
 
     /// @param[in]  ID of processing feature.
@@ -207,7 +200,7 @@ protected:
 
       // make XMLElement struct from relation's tags for GetNameAndType function.
       XMLElement e;
-      make_xml_element(rel, e);
+      MakeXMLElement(rel, e);
 
       // process types of relation and add them to m_val
       RelationValue val;
@@ -247,6 +240,7 @@ protected:
 
     bool IsUseless(uint32_t t) const
     {
+      ftype::TruncValue(t, 1);
       return (find(m_types.begin(), m_types.end(), t) != m_types.end());
     }
 
@@ -255,7 +249,7 @@ protected:
     {
       Classificator const & c = classif();
 
-      char const * arr[][1] = { { "oneway" }, { "lit" } };
+      char const * arr[][1] = { { "hwtag" } };
       for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
         m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 1)));
     }
@@ -271,17 +265,17 @@ protected:
     }
   };
 
-  bool ParseType(XMLElement * p, uint64_t & id, FeatureParams & fValue)
+  bool ParseType(XMLElement * p, uint64_t & id, FeatureParams & params)
   {
     CHECK ( strings::to_uint64(p->attrs["id"], id), (p->attrs["id"]) );
 
     // try to get type from element tags
-    ftype::GetNameAndType(p, fValue);
+    ftype::GetNameAndType(p, params);
 
     // try to get type from relations tags
-    m_typeProcessor.Reset(id, &fValue);
+    m_typeProcessor.Reset(id, &params);
 
-    if (p->name == "node" && !fValue.IsValid())
+    if (p->name == "node" && !params.IsValid())
     {
       // additional process of nodes ONLY if there is no native types
       m_holder.ForEachRelationByNodeCached(id, m_typeProcessor);
@@ -292,11 +286,11 @@ protected:
       m_holder.ForEachRelationByWayCached(id, m_typeProcessor);
     }
 
-    fValue.FinishAddingTypes();
+    params.FinishAddingTypes();
 
     // unrecognized feature by classificator
     static UselessSingleTypes checker;
-    return fValue.IsValid() && checker.IsValid(fValue.m_Types);
+    return params.IsValid() && checker.IsValid(params.m_Types);
   }
 
   class multipolygons_emitter
@@ -317,22 +311,22 @@ protected:
 
     void operator() (pts_vec_t const & pts, vector<uint64_t> const & ids)
     {
-      FeatureBuilderT f;
-      f.SetParams(m_params);
+      FeatureBuilderT ft;
+      ft.SetParams(m_params);
 
       for (size_t i = 0; i < ids.size(); ++i)
-        f.AddOsmId(osm::Id::Way(ids[i]));
+        ft.AddOsmId(osm::Id::Way(ids[i]));
 
       for (size_t i = 0; i < pts.size(); ++i)
-        f.AddPoint(pts[i]);
+        ft.AddPoint(pts[i]);
 
-      if (f.IsGeometryClosed())
+      if (ft.IsGeometryClosed())
       {
-        f.SetAreaAddHoles(m_holes);
-        if (f.PreSerialize())
+        ft.SetAreaAddHoles(m_holes);
+        if (ft.PreSerialize())
         {
-          f.AddOsmId(osm::Id::Relation(m_relID));
-          m_pMain->m_emitter(f);
+          ft.AddOsmId(osm::Id::Relation(m_relID));
+          m_pMain->m_emitter(ft);
         }
       }
     }
@@ -383,7 +377,8 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
     if ((m_coastType != 0 && params.IsTypeExist(m_coastType)) ||
         feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_LINE))
     {
-      ft.SetLinear();
+      ft.SetLinear(params.m_reverseGeometry);
+
       EmitFeatureBase(ft, params, osm::Id::Way(id));
     }
   }

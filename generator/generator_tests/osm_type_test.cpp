@@ -83,7 +83,7 @@ UNIT_TEST(OsmType_Check)
   char const * arr2[][2] = {
     { "highway", "primary" },
     { "name", "Каширское шоссе" },
-    { "oneway", "yes" },
+    { "oneway", "-1" },
     { "motorroad", "yes" }
   };
 
@@ -489,5 +489,51 @@ UNIT_TEST(OsmType_Amenity)
 
     TEST_EQUAL(params.m_Types.size(), 1, (params));
     TEST(params.IsTypeExist(GetType(arr[0])), ());
+  }
+}
+
+UNIT_TEST(OsmType_Hwtag)
+{
+  char const * tags[][2] = {
+    { "hwtag", "oneway" },
+    { "hwtag", "private" },
+    { "hwtag", "lit" },
+  };
+
+  {
+    char const * arr[][2] = {
+      { "railway", "rail" },
+      { "access", "private" },
+      { "oneway", "true" },
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 1, (params));
+    TEST(params.IsTypeExist(GetType(arr[0])), ());
+  }
+
+  {
+    char const * arr[][2] = {
+      { "oneway", "-1" },
+      { "highway", "primary" },
+      { "access", "private" },
+      { "lit", "no" },
+    };
+
+    XMLElement e;
+    FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+
+    TEST_EQUAL(params.m_Types.size(), 3, (params));
+    TEST(params.IsTypeExist(GetType(arr[1])), ());
+    TEST(params.IsTypeExist(GetType(tags[0])), ());
+    TEST(params.IsTypeExist(GetType(tags[1])), ());
   }
 }

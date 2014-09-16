@@ -28,14 +28,10 @@ public:
 
 class IsStreetChecker : public BaseChecker
 {
-  uint32_t m_onewayType;
 public:
   IsStreetChecker();
 
   static IsStreetChecker const & Instance();
-
-  bool IsOneway(FeatureType const & ft) const;
-  bool IsOneway(feature::TypesHolder const & types) const;
 };
 
 class IsBuildingChecker : public BaseChecker

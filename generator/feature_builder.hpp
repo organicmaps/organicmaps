@@ -30,11 +30,11 @@ public:
   void AddPoint(m2::PointD const & p);
 
   /// Set that feature is linear type.
-  inline void SetLinear() { m_params.SetGeomType(feature::GEOM_LINE); }
-  inline void SetArea() { m_params.SetGeomType(feature::GEOM_AREA); }
+  void SetLinear(bool reverseGeometry = false);
 
   /// Set that feature is area and get ownership of holes.
   void SetAreaAddHoles(list<vector<m2::PointD> > const & holes);
+  inline void SetArea() { m_params.SetGeomType(feature::GEOM_AREA); }
 
   void AddPolygon(vector<m2::PointD> & poly);
   //@}

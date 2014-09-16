@@ -29,14 +29,15 @@ namespace ftype
       {
         if (strings::IsInArray(aTrue, *it))
           return 1;
-        if (k != "layer" && strings::IsInArray(aFalse, *it))
+
+        if (k != "layer" && k != "oneway" && strings::IsInArray(aFalse, *it))
           return -1;
 
         ++it;
       }
 
       // "~" means no this tag, so sometimes it means true,
-      // and all other cases - false. Choose according to key.
+      // and all other cases - false. Choose according to a key.
       if (v == "~")
         return (k == "access" ? 1 : -1);
 
@@ -321,14 +322,14 @@ namespace ftype
 
     class do_find_pairs
     {
-      string const (*m_arr) [2];
+      char const * (*m_arr) [2];
       size_t m_size;
 
       vector<bool> m_res;
 
     public:
-      template <size_t N> do_find_pairs(string const (&arr) [N][2])
-        : m_arr(&arr[0]), m_size(N)
+      do_find_pairs(char const * (*arr) [2], size_t sz)
+        : m_arr(arr), m_size(sz)
       {
         m_res.resize(m_size, false);
       }
@@ -368,13 +369,13 @@ namespace ftype
 
   void add_layers(XMLElement * p)
   {
-    static string const arr[][2] = {
+    static char const * arr[][2] = {
       { "bridge", "yes" },
       { "tunnel", "yes" },
       { "layer", "*" },
     };
 
-    do_find_pairs doFind(arr);
+    do_find_pairs doFind(arr, ARRAY_SIZE(arr));
     for_each_tag(p, bind<bool>(ref(doFind), _1, _2));
 
     if (!doFind.IsExist(2))
@@ -400,23 +401,40 @@ namespace ftype
 //  };
 //#endif
 
-  class AddressTypes
+  class CachedTypes
   {
-    uint32_t m_types[2];
+    buffer_vector<uint32_t, 16> m_types;
+
   public:
-    AddressTypes()
+    enum Type { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT };
+
+    CachedTypes()
     {
       Classificator const & c = classif();
 
-      char const * arr1[] = { "building", "address" };
-      m_types[0] = c.GetTypeByPath(vector<string>(arr1, arr1 + 2));
+      char const * arr1[][1] = {
+        { "entrance" },
+        { "highway" }
+      };
+      for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
+        m_types.push_back(c.GetTypeByPath(vector<string>(arr1[i], arr1[i] + 1)));
 
-      char const * arr2[] = { "entrance" };
-      m_types[1] = c.GetTypeByPath(vector<string>(arr2, arr2 + 1));
+      char const * arr2[][2] = {
+        { "building", "address" },
+        { "hwtag", "oneway" },
+        { "hwtag", "private" },
+        { "hwtag", "lit" },
+      };
+      for (size_t i = 0; i < ARRAY_SIZE(arr2); ++i)
+        m_types.push_back(c.GetTypeByPath(vector<string>(arr2[i], arr2[i] + 2)));
     }
 
-    uint32_t Address() const { return m_types[0]; }
-    uint32_t Entrance() const { return m_types[1]; }
+    uint32_t Get(Type t) const { return m_types[t]; }
+    bool IsHighway(uint32_t t) const
+    {
+      ftype::TruncValue(t, 1);
+      return t == Get(HIGHWAY);
+    }
   };
 
   void GetNameAndType(XMLElement * p, FeatureParams & params)
@@ -478,20 +496,51 @@ namespace ftype
 
     } while (true);
 
+    static CachedTypes const types;
+
     if (!params.house.IsEmpty())
     {
-      static AddressTypes types;
-
       // Delete "entrance" type for house number (use it only with refs).
       // Add "address" type if we have house number but no valid types.
-      if (params.PopExactType(types.Entrance()))
+      if (params.PopExactType(types.Get(CachedTypes::ENTRANCE)))
       {
         params.name.Clear();
         // If we have address (house name or number), we should assign valid type.
         // There are a lot of features like this in Czech Republic.
-        params.AddType(types.Address());
+        params.AddType(types.Get(CachedTypes::ADDRESS));
       }
     }
+
+    for (size_t i = 0; i < params.m_Types.size(); ++i)
+      if (types.IsHighway(params.m_Types[i]))
+      {
+        static char const * arr[][2] = {
+          { "oneway", "yes" },
+          { "oneway", "1" },
+          { "oneway", "-1" },
+          { "access", "private" },
+          { "lit", "yes" },
+        };
+
+        do_find_pairs doFind(arr, ARRAY_SIZE(arr));
+        for_each_tag(p, bind<bool>(ref(doFind), _1, _2));
+
+        if (doFind.IsExist(3))
+          params.AddType(types.Get(CachedTypes::PRIVATE));
+
+        if (doFind.IsExist(4))
+          params.AddType(types.Get(CachedTypes::LIT));
+
+        if (doFind.IsExist(0) || doFind.IsExist(1) || doFind.IsExist(2))
+        {
+          params.AddType(types.Get(CachedTypes::ONEWAY));
+
+          if (doFind.IsExist(2))
+            params.m_reverseGeometry = true;
+        }
+
+        break;
+      }
 
     params.FinishAddingTypes();
   }

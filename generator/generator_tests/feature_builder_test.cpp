@@ -30,7 +30,6 @@ UNIT_TEST(FBuilder_ManyTypes)
 
   char const * arr1[][1] = {
     { "building" },
-    { "oneway" }
   };
   AddTypes(params, arr1);
 
@@ -41,7 +40,8 @@ UNIT_TEST(FBuilder_ManyTypes)
     { "place", "region" },
     { "place", "city" },
     { "place", "town" },
-    { "railway", "rail" }
+    { "railway", "rail" },
+    { "hwtag", "oneway" },
   };
   AddTypes(params, arr2);
 

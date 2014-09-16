@@ -171,7 +171,6 @@ world  +
         bridleway  +
             bridge  -
             permissive  -
-            private  -
             tunnel  -
             {}
         bus_stop  -
@@ -179,7 +178,6 @@ world  +
         cycleway  +
             bridge  -
             permissive  -
-            private  -
             tunnel  -
             {}
         footway  +
@@ -193,7 +191,6 @@ world  +
             mountain_hiking  -
             no-access  -
             permissive  -
-            private  -
             tunnel  -
             {}
         ford  -
@@ -224,7 +221,6 @@ world  +
             mountain_hiking  -
             no-access  -
             permissive  -
-            private  -
             tunnel  -
             {}
         pedestrian  +
@@ -245,7 +241,6 @@ world  +
         residential  +
             area  -
             bridge  -
-            private  -
             tunnel  -
             {}
         road  +
@@ -291,21 +286,17 @@ world  +
             grade3  +
                 no-access  -
                 permissive  -
-                private  -
                 {}
             grade4  +
                 no-access  -
                 permissive  -
-                private  -
                 {}
             grade5  +
                 no-access  -
                 permissive  -
-                private  -
                 {}
             no-access  -
             permissive  -
-            private  -
             tunnel  -
             {}
         trunk  +
@@ -336,6 +327,11 @@ world  +
         tomb  -
         wayside_cross  -
         wayside_shrine  -
+        {}
+    hwtag  +
+        lit  -
+        oneway  -
+        private  -
         {}
     internet_access  +
         wlan  -
@@ -411,7 +407,6 @@ world  +
         track  -
         water_park  -
         {}
-    lit  -
     man_made  +
         breakwater  -
         cairn  -
@@ -486,7 +481,6 @@ world  +
         lawyer  -
         telecommunication  -
         {}
-    oneway  -
     piste:lift  +
         j-bar  -
         magic_carpet  -

@@ -218,7 +218,9 @@ public:
   typedef vector<uint32_t> types_t;
   types_t m_Types;
 
-  FeatureParams() : m_geomType(0xFF) {}
+  bool m_reverseGeometry;
+
+  FeatureParams() : m_geomType(0xFF), m_reverseGeometry(false) {}
 
   bool AddName(string const & lang, string const & s);
   bool AddHouseName(string const & s);
@@ -251,19 +253,12 @@ public:
   /// '2' means 2-level type in classificator tree (also skip child types).
   void AddTypes(FeatureParams const & rhs, uint32_t skipType2);
 
-  template <class TIter> void AssignTypes(TIter b, TIter e)
-  {
-    m_Types.assign(b, e);
-  }
-
   bool FinishAddingTypes();
 
   void SetType(uint32_t t);
   bool PopAnyType(uint32_t & t);
   bool PopExactType(uint32_t t);
   bool IsTypeExist(uint32_t t) const;
-
-  bool operator == (FeatureParams const & rhs) const;
 
   bool CheckValid() const;
 

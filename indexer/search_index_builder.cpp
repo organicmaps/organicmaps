@@ -344,7 +344,7 @@ public:
       uint32_t type = types[i];
 
       // Leave only 2 level of type - for example, do not distinguish:
-      // highway-primary-oneway or amenity-parking-fee.
+      // highway-primary-bridge or amenity-parking-fee.
       ftype::TruncValue(type, 2);
 
       // Push to index only categorized types.

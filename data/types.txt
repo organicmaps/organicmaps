@@ -21,8 +21,8 @@ natural|coastline
 place|village
 highway|residential
 waterway|river
-oneway
-mapswithme
+hwtag|oneway
+hwtag|private
 amenity|parking
 highway|primary
 railway|rail
@@ -146,7 +146,7 @@ amenity|parking|private
 boundary|administrative|7
 tourism|attraction
 highway|tertiary
-highway|track|private
+highway|track
 railway|tram
 amenity|toilets
 highway|residential
@@ -213,7 +213,7 @@ railway|rail|tunnel
 man_made|wastewater_plant
 highway|trunk
 place|county
-highway|footway|private
+highway|footway
 mapswithme
 highway|unclassified
 power|station
@@ -288,7 +288,7 @@ landuse|railway
 leisure|slipway
 tourism|caravan_site
 place|state
-highway|path|private
+highway|path
 railway|subway|tunnel
 barrier|city_wall
 place|farm
@@ -436,7 +436,7 @@ highway|construction
 sport|australian_football
 mapswithme
 highway|secondary_link
-highway|cycleway|private
+highway|cycleway
 highway|steps
 piste:lift|t-bar
 highway|construction
@@ -489,7 +489,7 @@ highway|bridleway|tunnel
 highway|motorway_link|tunnel
 mapswithme
 mapswithme
-highway|bridleway|private
+highway|bridleway
 highway|tertiary_link|bridge
 highway|construction
 amenity|parking|park_and_ride
@@ -518,7 +518,7 @@ mapswithme
 leisure|playground|tennis
 mapswithme
 sport|diving
-highway|track|grade3|private
+highway|track|grade3
 boundary|administrative|suburb
 mapswithme
 railway|monorail|tunnel
@@ -577,7 +577,7 @@ natural|pond
 mapswithme
 highway|secondary_link|tunnel
 highway|pedestrian
-highway|track|grade5|private
+highway|track|grade5
 mapswithme
 landuse|forest
 highway|construction
@@ -589,7 +589,7 @@ mapswithme
 highway|footway
 power|line
 highway|track|grade3|permissive
-highway|track|grade4|private
+highway|track|grade4
 highway|track
 mapswithme
 highway|service
@@ -718,7 +718,7 @@ historic|ruins
 historic|monument
 historic|castle
 historic|archaeological_site
-highway|residential|private
+highway|residential
 man_made|cutline
 natural|bay
 natural|spring
@@ -880,7 +880,7 @@ area:highway|motorway
 area:highway|trunk
 mapswithme
 entrance
-oneway
+hwtag|oneway
 highway|proposed
 tourism|artwork
 railway|subway|red
@@ -941,7 +941,7 @@ shop|beverages
 shop|toys
 shop|confectionery
 shop
-lit
+hwtag|lit
 office|company
 office|telecommunication
 office|government
@@ -985,3 +985,4 @@ internet_access
 internet_access|wlan
 amenity|waste_disposal
 amenity|bbq
+hwtag|private
