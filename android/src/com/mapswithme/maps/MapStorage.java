@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 
 import java.io.Serializable;
 
-public class MapStorage
+public enum MapStorage
 {
+  INSTANCE;
+
   public static final int GROUP = -2;
   public static final int COUNTRY = -1;
 
@@ -20,6 +22,9 @@ public class MapStorage
   public static final int UNKNOWN = 5;
   public static final int ON_DISK_OUT_OF_DATE = 6;
 
+  /**
+   * Callbacks are called from native code.
+   */
   public interface Listener
   {
     public void onCountryStatusChanged(Index idx);
@@ -159,10 +164,6 @@ public class MapStorage
   private native String[] nativeGetMapsWithoutSearch();
 
   public static native boolean nativeMoveFile(String oldFile, String newFile);
-
-  public MapStorage()
-  {
-  }
 
   private void runDownloadCountries(Index[] indexes)
   {

@@ -412,7 +412,7 @@ public class MWMActivity extends NvEventQueueActivity
     {
       mNeedCheckUpdate = false;
 
-      MWMApplication.get().getMapStorage().updateMaps(R.string.advise_update_maps, this, new MapStorage.UpdateFunctor()
+      MapStorage.INSTANCE.updateMaps(R.string.advise_update_maps, this, new MapStorage.UpdateFunctor()
       {
         @Override
         public void doUpdate()
@@ -565,7 +565,7 @@ public class MWMActivity extends NvEventQueueActivity
     {
       showProVersionBanner(getString(R.string.search_available_in_pro_version));
     }
-    else if (!MWMApplication.get().getMapStorage().updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
+    else if (!MapStorage.INSTANCE.updateMaps(R.string.search_update_maps, this, new MapStorage.UpdateFunctor()
     {
       @Override
       public void doUpdate()
@@ -1597,10 +1597,9 @@ public class MWMActivity extends NvEventQueueActivity
     @Override
     public boolean run(MWMActivity target)
     {
-      final MapStorage storage = MWMApplication.get().getMapStorage();
       if (mDoAutoDownload)
       {
-        storage.downloadCountry(mIndex);
+        MapStorage.INSTANCE.downloadCountry(mIndex);
         // set zoom level so that download process is visible
         Framework.nativeShowCountry(mIndex, true);
       }

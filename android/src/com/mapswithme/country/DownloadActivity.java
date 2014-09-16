@@ -73,7 +73,7 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
       if (!ConnectionState.isConnected(this))
       {
         final DownloadActivity activity = this;
-        final String country = getDownloadAdapter().mStorage.countryName(idx);
+        final String country = MapStorage.INSTANCE.countryName(idx);
 
         runOnUiThread(new Runnable()
         {

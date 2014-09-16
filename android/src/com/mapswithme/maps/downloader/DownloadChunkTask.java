@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
 
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.Utils;
 
@@ -249,7 +250,7 @@ class DownloadChunkTask extends AsyncTask<Void, byte[], Boolean>
       try
       {
         // download chunk from stream
-        ret = downloadFromStreamImpl(stream, arrSize[i] * 1024);
+        ret = downloadFromStreamImpl(stream, arrSize[i] * Constants.KB);
         break;
       } catch (final IOException ex)
       {

@@ -9,6 +9,7 @@ import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
 
 import java.util.ArrayList;
@@ -129,11 +130,11 @@ class StoragePathAdapter extends BaseAdapter
   {
     final String arrS[] = {"Kb", "Mb", "Gb"};
 
-    long current = 1024;
+    long current = Constants.KB;
     int i = 0;
     for (; i < arrS.length; ++i)
     {
-      final long bound = 1024 * current;
+      final long bound = Constants.KB * current;
       if (size < bound)
         break;
       else

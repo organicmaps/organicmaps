@@ -17,6 +17,7 @@ import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
+import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
@@ -35,7 +36,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   private static MWMApplication mSelf;
 
-  private MapStorage mStorage = null;
 
   private boolean mIsYota = false;
 
@@ -57,24 +57,18 @@ public class MWMApplication extends android.app.Application implements MapStorag
     return mSelf;
   }
 
-  private void showDownloadToast(int resID, Index idx)
-  {
-    final String msg = String.format(getString(resID), mStorage.countryName(idx));
-    Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-  }
-
   @Override
   public void onCountryStatusChanged(Index idx)
   {
-    switch (mStorage.countryStatus(idx))
+    switch (MapStorage.INSTANCE.countryStatus(idx))
     {
     case MapStorage.ON_DISK:
-      Notifier.placeDownloadCompleted(idx, getMapStorage().countryName(idx));
+      Notifier.placeDownloadCompleted(idx, MapStorage.INSTANCE.countryName(idx));
       tryNotifyGuideAvailable(idx);
       break;
 
     case MapStorage.DOWNLOAD_FAILED:
-      Notifier.placeDownloadFailed(idx, getMapStorage().countryName(idx));
+      Notifier.placeDownloadFailed(idx, MapStorage.INSTANCE.countryName(idx));
       break;
     }
   }
@@ -120,7 +114,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     nativeInit(getApkPath(), extStoragePath, extTmpPath,
         getOBBGooglePath(), BuildConfig.IS_PRO, mIsYota);
 
-    getMapStorage().subscribe(this);
+    MapStorage.INSTANCE.subscribe(this);
 
     // init cross-platform strings bundle
     nativeAddLocalization("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));
@@ -149,14 +143,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
       BookmarkManager.getBookmarkManager(getApplicationContext());
 
     WorkerService.startActionUpdateAds(this);
-  }
-
-  public MapStorage getMapStorage()
-  {
-    if (mStorage == null)
-      mStorage = new MapStorage();
-
-    return mStorage;
   }
 
   public String getApkPath()

@@ -87,13 +87,13 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
   {
     Log.d(TAG, "prepareFilesDownload, bytesToDownload:" + bytesToDownload);
 
-    if (bytesToDownload < 1024 * 1024)
+    if (bytesToDownload < Constants.MB)
       mMsgView.setText(String.format(getString(R.string.download_resources),
-          (float) bytesToDownload / 1024,
+          (float) bytesToDownload / Constants.KB,
           getString(R.string.kb)));
     else
       mMsgView.setText(String.format(getString(R.string.download_resources,
-          (float) bytesToDownload / 1024 / 1024,
+          (float) bytesToDownload / Constants.MB,
           getString(R.string.mb))));
 
   }
@@ -131,7 +131,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
   private void initDownloading()
   {
     // Get GUI elements and subscribe to map storage (for country downloading).
-    mMapStorage = mApplication.getMapStorage();
+    mMapStorage = MapStorage.INSTANCE;
     mSlotId = mMapStorage.subscribe(this);
 
     mMsgView = (TextView) findViewById(R.id.download_resources_message);
@@ -451,7 +451,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
               output = new FileOutputStream(tmpFile);
               input = resolver.openInputStream(data);
 
-              final byte buffer[] = new byte[512 * 1024];
+              final byte buffer[] = new byte[Constants.MB / 2];
               int read;
               while ((read = input.read(buffer)) != -1)
                 output.write(buffer, 0, read);
