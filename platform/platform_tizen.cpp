@@ -41,6 +41,7 @@ Platform::Platform()
 
   m_flags[HAS_BOOKMARKS] = true;
   m_flags[HAS_ROTATION] = true;
+  m_flags[HAS_ROUTING] = true;
 }
 
 int Platform::CpuCores() const

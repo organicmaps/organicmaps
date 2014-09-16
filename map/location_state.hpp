@@ -112,7 +112,7 @@ namespace location
     void CachePositionArrow();
     void CacheLocationMark();
 
-    bool HasDirection() const;
+    bool IsRotationActive() const;
     bool IsInRouting() const;
 
     void FollowCompass();

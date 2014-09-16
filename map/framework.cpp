@@ -1942,12 +1942,12 @@ bool Framework::IsRountingActive() const
 
 bool Framework::StartRoutingSession(m2::PointD const & destination)
 {
+  shared_ptr<location::State> state = GetLocationState();
+  if (!GetPlatform().HasRouting() || !state->IsModeHasPosition())
+    return false;
+
   if (IsRountingActive())
     CancelRoutingSession();
-
-  shared_ptr<location::State> state = GetLocationState();
-  if (state->GetMode() < location::State::NotFollow)
-    return false;
 
   m_routingSession.reset(new routing::RoutingSession(CreateRouter()));
   m_routingSession->BuildRoute(state->Position(), destination,

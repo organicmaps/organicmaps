@@ -88,6 +88,7 @@ namespace android
     m_flags[PRO_URL] = isPro;
     m_flags[HAS_BOOKMARKS] = isPro || isYota;
     m_flags[HAS_ROTATION] = isPro;
+    m_flags[HAS_ROUTING] = isPro;
 
     string const obbPath = jni::ToNativeString(env, obbGooglePath);
     Platform::FilesList files;

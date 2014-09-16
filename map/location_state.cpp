@@ -115,7 +115,7 @@ void State::SwitchToNextMode()
       newMode = Follow;
       break;
     case Follow:
-      if (HasDirection())
+      if (IsRotationActive())
         newMode = RotateAndFollow;
       else
         newMode = UnknownPosition;
@@ -126,15 +126,16 @@ void State::SwitchToNextMode()
     }
   }
   else
-    newMode = HasDirection() ? RotateAndFollow : Follow;
+    newMode = IsRotationActive() ? RotateAndFollow : Follow;
 
   SetModeInfo(ChangeMode(m_modeInfo, newMode));
 }
 
 void State::StartRoutingMode()
 {
+  ASSERT(GetPlatform().HasRouting(), ());
   ASSERT(IsModeHasPosition(), ());
-  State::Mode newMode = HasDirection() ? RotateAndFollow : Follow;
+  State::Mode newMode = IsRotationActive() ? RotateAndFollow : Follow;
   SetModeInfo(ChangeMode(IncludeModeBit(m_modeInfo, RoutingSessionBit), newMode));
 }
 
@@ -270,7 +271,7 @@ void State::draw(graphics::OverlayRenderer * r,
   r->drawDisplayList(m_locationMarkDL.get(), drawM);
 
   // if we know look direction than we draw arrow
-  if (HasDirection())
+  if (IsRotationActive())
   {
     double rotateAngle = m_drawDirection + m_framework->GetNavigator().Screen().GetAngle();
 
@@ -358,9 +359,9 @@ void State::CacheLocationMark()
   cacheScreen->endFrame();
 }
 
-bool State::HasDirection() const
+bool State::IsRotationActive() const
 {
-  return TestModeBit(m_modeInfo, KnownDirectionBit);
+  return m_framework->GetNavigator().DoSupportRotation() && TestModeBit(m_modeInfo, KnownDirectionBit);
 }
 
 bool State::IsInRouting() const
@@ -370,17 +371,13 @@ bool State::IsInRouting() const
 
 void State::FollowCompass()
 {
-  if (!m_framework->GetNavigator().DoSupportRotation())
+  if (!IsRotationActive() || GetMode() != RotateAndFollow)
     return;
 
-  if (TestModeBit(m_modeInfo, KnownDirectionBit) && GetMode() == RotateAndFollow)
-  {
-    anim::Controller::Guard guard(m_framework->GetAnimController());
+  anim::Controller::Guard guard(m_framework->GetAnimController());
 
-    m_framework->GetAnimator().RotateScreen(
-          m_framework->GetNavigator().Screen().GetAngle(),
-          -m_drawDirection);
-  }
+  m_framework->GetAnimator().RotateScreen(m_framework->GetNavigator().Screen().GetAngle(),
+                                          -m_drawDirection);
 }
 
 void State::SetModeInfo(uint16_t modeInfo)
