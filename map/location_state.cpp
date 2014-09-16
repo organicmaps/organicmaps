@@ -31,6 +31,11 @@ uint16_t IncludeModeBit(uint16_t mode, uint16_t bit)
   return mode | bit;
 }
 
+uint16_t ExcludeModeBit(uint16_t mode, uint16_t bit)
+{
+  return mode & (~bit);
+}
+
 State::Mode ExcludeAllBits(uint16_t mode)
 {
   return (State::Mode)(mode & 0xF);
@@ -96,34 +101,46 @@ void State::SwitchToNextMode()
 {
   Mode currentMode = GetMode();
   Mode newMode = currentMode;
-  switch (currentMode)
+  if (!IsInRouting())
   {
-  case UnknownPosition:
-    newMode = PendingPosition;
-    break;
-  case PendingPosition:
-    newMode = UnknownPosition;
-    break;
-  case NotFollow:
-    newMode = Follow;
-    break;
-  case Follow:
-    if (TestModeBit(m_modeInfo, KnownDirectionBit))
-      newMode = RotateAndFollow;
-    else
+    switch (currentMode)
+    {
+    case UnknownPosition:
+      newMode = PendingPosition;
+      break;
+    case PendingPosition:
       newMode = UnknownPosition;
-    break;
-  case RotateAndFollow:
-    newMode = UnknownPosition;
-    break;
+      break;
+    case NotFollow:
+      newMode = Follow;
+      break;
+    case Follow:
+      if (HasDirection())
+        newMode = RotateAndFollow;
+      else
+        newMode = UnknownPosition;
+      break;
+    case RotateAndFollow:
+      newMode = UnknownPosition;
+      break;
+    }
   }
+  else
+    newMode = HasDirection() ? RotateAndFollow : Follow;
 
   SetModeInfo(ChangeMode(m_modeInfo, newMode));
 }
 
-void State::RestoreMode()
+void State::StartRoutingMode()
 {
-  SetModeInfo(m_modeInfo);
+  ASSERT(IsModeHasPosition(), ());
+  State::Mode newMode = HasDirection() ? RotateAndFollow : Follow;
+  SetModeInfo(ChangeMode(IncludeModeBit(m_modeInfo, RoutingSessionBit), newMode));
+}
+
+void State::StopRoutingMode()
+{
+  SetModeInfo(ExcludeModeBit(m_modeInfo, RoutingSessionBit));
 }
 
 void State::TurnOff()
@@ -230,8 +247,7 @@ void State::update()
 void State::draw(graphics::OverlayRenderer * r,
                  math::Matrix<double, 3, 3> const & m) const
 {
-  Mode const currentMode = GetMode();
-  if (currentMode < NotFollow || !isVisible())
+  if (!IsModeHasPosition() || !isVisible())
     return;
 
   checkDirtyLayout();
@@ -254,15 +270,15 @@ void State::draw(graphics::OverlayRenderer * r,
   r->drawDisplayList(m_locationMarkDL.get(), drawM);
 
   // if we know look direction than we draw arrow
-  if (TestModeBit(m_modeInfo, KnownDirectionBit))
+  if (HasDirection())
   {
     double rotateAngle = m_drawDirection + m_framework->GetNavigator().Screen().GetAngle();
 
-    math::Matrix<double, 3, 3> compassDrawM =math::Shift(
-                                              math::Rotate(
+    math::Matrix<double, 3, 3> compassDrawM = math::Shift(
+                                                math::Rotate(
                                                   math::Identity<double, 3>(),
                                                   rotateAngle),
-                                              pivot());
+                                                pivot());
 
     r->drawDisplayList(m_positionArrow.get(), compassDrawM * m);
   }
@@ -342,6 +358,16 @@ void State::CacheLocationMark()
   cacheScreen->endFrame();
 }
 
+bool State::HasDirection() const
+{
+  return TestModeBit(m_modeInfo, KnownDirectionBit);
+}
+
+bool State::IsInRouting() const
+{
+  return TestModeBit(m_modeInfo, RoutingSessionBit);
+}
+
 void State::FollowCompass()
 {
   if (!m_framework->GetNavigator().DoSupportRotation())
@@ -395,7 +421,7 @@ void State::DragStarted()
 
 void State::Draged()
 {
-  if (GetMode() < Follow)
+  if (!IsModeChangeViewport())
     return;
 
   StopCompassFollowing();
@@ -416,13 +442,13 @@ void State::DragEnded()
 
 void State::ScaleCorrection(m2::PointD & pt)
 {
-  if (GetMode() > NotFollow)
+  if (IsModeChangeViewport())
     pt = m_framework->GetPixelCenter();
 }
 
 void State::ScaleCorrection(m2::PointD & pt1, m2::PointD & pt2)
 {
-  if (GetMode() > NotFollow)
+  if (IsModeChangeViewport())
   {
     m2::PointD const ptC = (pt1 + pt2) / 2;
     m2::PointD const ptDiff = m_framework->GetPixelCenter() - ptC;

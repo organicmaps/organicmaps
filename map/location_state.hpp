@@ -58,7 +58,9 @@ namespace location
     bool IsModeChangeViewport() const;
     bool IsModeHasPosition() const;
     void SwitchToNextMode();
-    void RestoreMode();
+
+    void StartRoutingMode();
+    void StopRoutingMode();
 
     int  AddStateModeListener(TStateModeListener const & l);
     void RemoveStateModeListener(int slotID);
@@ -110,12 +112,16 @@ namespace location
     void CachePositionArrow();
     void CacheLocationMark();
 
+    bool HasDirection() const;
+    bool IsInRouting() const;
+
     void FollowCompass();
     void SetModeInfo(uint16_t modeInfo);
 
   private:
     // Mode bits
     // {
+    static uint16_t const RoutingSessionBit = 0x40;
     static uint16_t const KnownDirectionBit = 0x80;
     // }
     static uint16_t const s_cacheRadius = 500.0f;

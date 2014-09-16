@@ -671,9 +671,10 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   m_informationDisplay.enableCountryStatusDisplay(isEmptyModel);
   bool const isCompassEnabled = ang::AngleIn2PI(m_navigator.Screen().GetAngle()) > my::DegToRad(3.0);
-  m_informationDisplay.enableCompassArrow(isCompassEnabled ||
-                                          (m_informationDisplay.isCompassArrowEnabled() && m_navigator.InAction()));
+  bool const isCompasActionEnabled = m_informationDisplay.isCompassArrowEnabled() && m_navigator.InAction();
+  bool const isInRouting = IsRountingActive();
 
+  m_informationDisplay.enableCompassArrow(!isInRouting && (isCompassEnabled || isCompasActionEnabled));
   m_informationDisplay.setCompassArrowAngle(m_navigator.Screen().GetAngle());
 
   int const drawScale = GetDrawScale();
@@ -1950,9 +1951,10 @@ bool Framework::StartRoutingSession(m2::PointD const & destination)
 
   m_routingSession.reset(new routing::RoutingSession(CreateRouter()));
   m_routingSession->BuildRoute(state->Position(), destination,
-                               [this](routing::Route const & route)
+                               [this, state](routing::Route const & route)
                                {
                                  InsertRoute(route);
+                                 state->StartRoutingMode();
                                });
 
   return true;
@@ -1961,6 +1963,7 @@ bool Framework::StartRoutingSession(m2::PointD const & destination)
 void Framework::CancelRoutingSession()
 {
   ASSERT(IsRountingActive(), ());
+  GetLocationState()->StopRoutingMode();
   m_routingSession.release();
 
   string const categoryName = m_stringsBundle.GetString("routes");
