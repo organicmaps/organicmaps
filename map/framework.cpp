@@ -254,7 +254,10 @@ Framework::Framework()
   LOG(LDEBUG, ("Guides info initialized"));
 #endif
 
-  m_routingSession.SetRouter(new routing::OsrmRouter(&m_model.GetIndex()));
+  m_routingSession.SetRouter(new routing::OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
+  {
+    return GetSearchEngine()->GetCountryFile(pt);
+  });
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 }

@@ -12,11 +12,17 @@
 #define SEARCH_INDEX_FILE_TAG "sdx"
 #define HEADER_FILE_TAG "header"
 #define VERSION_FILE_TAG "version"
+#define ROUTING_MATRIX_FILE_TAG "matrix"
+#define ROUTING_EDGEDATA_FILE_TAG "edgedata"
+#define ROUTING_EDGEID_FILE_TAG "edgeid"
+#define ROUTING_SHORTCUTS_FILE_TAG  "shortcuts"
+#define ROUTING_FTSEG_FILE_TAG  "ftseg"
 
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume3"
 #define DOWNLOADING_FILE_EXTENSION ".downloading3"
 #define BOOKMARKS_FILE_EXTENSION ".kml"
+#define ROUTING_FILE_EXTENSION ".routing"
 
 #define COUNTRIES_FILE  "countries.txt"
 #define GUIDES_DATA_FILE_SUFFIX  "guides.json"

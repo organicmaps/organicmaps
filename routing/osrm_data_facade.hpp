@@ -1,19 +1,18 @@
 #pragma once
 
+#include "../defines.hpp"
+
 #include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/iostream.hpp"
+
+#include "../coding/file_container.hpp"
 
 #include "../../../succinct/elias_fano.hpp"
 #include "../../../succinct/gamma_vector.hpp"
 #include "../../../succinct/bit_vector.hpp"
 #include "../../../succinct/mapper.hpp"
 
-//#include "../3party/osrm/osrm-backend/DataStructures/RangeTable.h"
-#include "../3party/osrm/osrm-backend/DataStructures/StaticRTree.h"
-#include "../3party/osrm/osrm-backend/DataStructures/EdgeBasedNode.h"
 #include "../3party/osrm/osrm-backend/Server/DataStructures/BaseDataFacade.h"
-#include "../3party/osrm/osrm-backend/DataStructures/OriginalEdgeData.h"
+
 
 namespace routing
 {
@@ -22,53 +21,49 @@ template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeData
 {
   typedef BaseDataFacade<EdgeDataT> super;
 
-  boost::iostreams::mapped_file_source m_edgeDataSource;
   succinct::gamma_vector m_edgeData;
-  boost::iostreams::mapped_file_source m_edgeIdSource;
   succinct::gamma_vector m_edgeId;
-  boost::iostreams::mapped_file_source m_shortcutsSource;
   succinct::bit_vector m_shortcuts;
-
   succinct::elias_fano m_fanoMatrix;
-  boost::iostreams::mapped_file_source m_fanoSource;
+
+  FilesMappingContainer const & m_container;
+
+  FilesMappingContainer::Handle m_handleEdgeData;
+  FilesMappingContainer::Handle m_handleEdgeId;
+  FilesMappingContainer::Handle m_handleShortcuts;
+  FilesMappingContainer::Handle m_handleFanoMatrix;
 
   unsigned m_numberOfNodes;
 
 public:
-  template <typename T>
-  void loadFromFile(T & v, string const & fileName)
+  OsrmDataFacade(FilesMappingContainer const & container)
+    : m_container(container)
   {
-    std::ifstream stream;
-    stream.open(fileName);
-    v.load(stream);
-    stream.close();
-  }
+    m_handleEdgeData = m_container.Map(ROUTING_EDGEDATA_FILE_TAG);
+    ASSERT(m_handleEdgeData.IsValid(), ());
+    succinct::mapper::map(m_edgeData, m_handleEdgeData.GetData());
 
-  OsrmDataFacade(string const & fileName)
-  {
-    m_edgeDataSource.open(fileName + ".edgedata");
-    succinct::mapper::map(m_edgeData, m_edgeDataSource);
+    m_handleEdgeId = m_container.Map(ROUTING_EDGEID_FILE_TAG);
+    ASSERT(m_handleEdgeId.IsValid(), ());
+    succinct::mapper::map(m_edgeId, m_handleEdgeId.GetData());
 
-    m_edgeIdSource.open(fileName + ".edgeid");
-    succinct::mapper::map(m_edgeId, m_edgeIdSource);
+    m_handleShortcuts = m_container.Map(ROUTING_SHORTCUTS_FILE_TAG);
+    ASSERT(m_handleShortcuts.IsValid(), ());
+    succinct::mapper::map(m_shortcuts, m_handleShortcuts.GetData());
 
-    m_shortcutsSource.open(fileName + ".shortcuts");
-    succinct::mapper::map(m_shortcuts, m_shortcutsSource);
+    m_handleFanoMatrix = m_container.Map(ROUTING_MATRIX_FILE_TAG);
+    ASSERT(m_handleFanoMatrix.IsValid(), ());
+    succinct::mapper::map(m_fanoMatrix, m_handleFanoMatrix.GetData());
 
-    m_fanoSource.open(fileName + ".matrix");
-    succinct::mapper::map(m_fanoMatrix, m_fanoSource);
-
-
-    //std::cout << m_fanoMatrix.size() << std::endl;
     m_numberOfNodes = (unsigned)sqrt(m_fanoMatrix.size() / 2) + 1;
   }
 
   ~OsrmDataFacade()
   {
-    m_edgeDataSource.close();
-    m_edgeIdSource.close();
-    m_shortcutsSource.close();
-    m_fanoSource.close();
+    m_handleEdgeData.Unmap();
+    m_handleEdgeId.Unmap();
+    m_handleFanoMatrix.Unmap();
+    m_handleShortcuts.Unmap();
   }
 
 

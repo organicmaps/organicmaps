@@ -1,7 +1,11 @@
 #pragma once
 
+#include "../defines.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
+
+#include "../coding/file_container.hpp"
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
@@ -20,6 +24,11 @@ class OsrmFtSegMapping
 {
 public:
 
+  OsrmFtSegMapping()
+  {
+  }
+
+#pragma pack (push, 1)
   struct FtSeg
   {
     uint32_t m_fid;
@@ -99,6 +108,7 @@ public:
       return ss.str();
     }
   };
+#pragma pack (pop)
 
   typedef vector<FtSeg> FtSegVectorT;
 
@@ -110,7 +120,7 @@ public:
     if (!stream.is_open())
       return;
 
-    uint32_t count = m_osrm2FtSeg.size();
+    uint32_t const count = m_osrm2FtSeg.size();
     stream.write((char*)&count, sizeof(count));
 
     for (uint32_t i = 0; i < count; ++i)
@@ -119,38 +129,36 @@ public:
       CHECK(it != m_osrm2FtSeg.end(), ());
       FtSegVectorT const & v = it->second;
 
-      uint32_t vc = v.size();
+      uint32_t const vc = v.size();
       stream.write((char*)&vc, sizeof(vc));
-      stream.write((char*)v.data(), sizeof(OsrmFtSegMapping::FtSeg) * vc);
+      stream.write((char*)v.data(), sizeof(FtSeg) * vc);
     }
 
     stream.close();
   }
 
-  void Load(string const & filename)
+  void Load(FilesMappingContainer & container)
   {
-    ifstream stream;
-    stream.open(filename);
+    FilesMappingContainer::Handle handle = container.Map(ROUTING_FTSEG_FILE_TAG);
 
-    if (!stream.is_open())
-      return;
+    char const * data = handle.GetData();
 
-    uint32_t count = 0;
-    stream.read((char*)&count, sizeof(count));
+    uint32_t const count = *reinterpret_cast<uint32_t const *>(data);
+    data += sizeof(count);
 
     for (uint32_t i = 0; i < count; ++i)
     {
-      uint32_t vc = 0;
-      stream.read((char*)&vc, sizeof(vc));
+      uint32_t const vc = *reinterpret_cast<uint32_t const *>(data);
+      data += sizeof(vc);
 
-      FtSegVectorT v;
-      v.resize(vc);
-      stream.read((char*)v.data(), sizeof(FtSeg) * vc);
+      FtSeg const * seg = reinterpret_cast<FtSeg const *>(data);
+      FtSegVectorT v(seg, seg + vc);
+      m_osrm2FtSeg[i].swap(v);
 
-      m_osrm2FtSeg[i] = v;
+      data += sizeof(FtSeg) * vc;
     }
 
-    stream.close();
+    handle.Unmap();
   }
 
   void Append(OsrmNodeIdT osrmNodeId, FtSegVectorT & data)

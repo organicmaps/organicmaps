@@ -1,6 +1,8 @@
 #include "routing_generator.hpp"
 #include "gen_mwm_info.hpp"
 
+#include "../coding/file_container.hpp"
+
 #include "../indexer/index.hpp"
 #include "../indexer/classificator_loader.hpp"
 #include "../indexer/feature.hpp"
@@ -188,7 +190,34 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
 
   LOG(LINFO, ("All:", all, "Found:", found, "Not found:", all - found, "More that one segs in node:", moreThan1Seg,
               "Multiple:", multiple, "Equal:", equal));
-  mapping.Save(osrmName + ".ftseg");
+
+  mapping.Save(osrmName + "." + ROUTING_FTSEG_FILE_TAG);
+
+  LOG(LINFO, ("Collect all data into one file..."));
+
+  try
+  {
+    FilesContainerW writer(mwmName + ROUTING_FILE_EXTENSION);
+
+    auto appendFile = [&] (string const & tag)
+    {
+      string const fileName = osrmName + "." + tag;
+      LOG(LINFO, ("Append file", fileName, "with tag", tag));
+      writer.Write(fileName, tag);
+    };
+
+    appendFile(ROUTING_SHORTCUTS_FILE_TAG);
+    appendFile(ROUTING_EDGEDATA_FILE_TAG);
+    appendFile(ROUTING_MATRIX_FILE_TAG);
+    appendFile(ROUTING_EDGEID_FILE_TAG);
+    appendFile(ROUTING_FTSEG_FILE_TAG);
+
+    writer.Finish();
+  }
+  catch (RootException const & ex)
+  {
+    LOG(LCRITICAL, ("Can't write routing index", ex.Msg()));
+  }
 }
 
 }

@@ -115,8 +115,8 @@ public:
 
 // ----------------
 
-OsrmRouter::OsrmRouter(Index const * index)
-  : m_pIndex(index)
+OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
+  : m_pIndex(index), m_countryFn(fn)
 {
 }
 
@@ -165,30 +165,33 @@ public:
 
 void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback)
 {
-  typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
-
-  string const country = "Belarus";
-#ifdef OMIM_OS_DESKTOP
-  DataFacadeT facade("/Users/deniskoronchik/Documents/develop/omim-maps/" + country + ".osrm");
-  m_mapping.Load("/Users/deniskoronchik/Documents/develop/omim-maps/" + country + ".osrm.ftseg");
-#else
-  DataFacadeT facade(GetPlatform().WritablePathForFile(country + ".osrm"));
-  m_mapping.Load(GetPlatform().WritablePathForFile(country + ".osrm.ftseg"));
-#endif
-
-  SearchEngineData engine_working_data;
-  ShortestPathRouting<DataFacadeT> shortest_path(&facade, engine_working_data);
-
-  RawRouteData rawRoute;
-  PhantomNodes nodes;
   MakeResultGuard resGuard(callback, GetName());
+
+  string const fName = m_countryFn(startingPt);
+  if (fName != m_countryFn(m_finalPt))
+  {
+    resGuard.SetErrorMsg("Points are in different MWMs");
+    return;
+  }
+
+  FilesMappingContainer container(GetPlatform().WritablePathForFile(fName + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION));
+
+  typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
+  DataFacadeT facade(container);
+  m_mapping.Load(container);
+
+  SearchEngineData engineData;
+  ShortestPathRouting<DataFacadeT> pathFinder(&facade, engineData);
+  RawRouteData rawRoute;
+
+  PhantomNodes nodes;
 
   OsrmFtSegMapping::FtSeg segBegin;
   m2::PointD segPointStart;
   uint32_t mwmIdStart = -1;
   if (!FindPhantomNode(startingPt, nodes.source_phantom, mwmIdStart, segBegin, segPointStart))
   {
-    resGuard.SetErrorMsg("Can't find start point");
+    resGuard.SetErrorMsg("Can't find start point node");
     return;
   }
 
@@ -197,19 +200,19 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
   m2::PointD segPointEnd;
   if (!FindPhantomNode(m_finalPt, nodes.target_phantom, mwmIdEnd, segEnd, segPointEnd))
   {
-    resGuard.SetErrorMsg("Can't find end point");
+    resGuard.SetErrorMsg("Can't find end point node");
     return;
   }
 
   if (mwmIdEnd != mwmIdStart || mwmIdEnd == -1 || mwmIdStart == -1)
   {
-    resGuard.SetErrorMsg("Points in different MWMs");
+    resGuard.SetErrorMsg("Founded features are in different MWMs");
     return;
   }
 
   rawRoute.segment_end_coordinates.push_back(nodes);
 
-  shortest_path({nodes}, {}, rawRoute);
+  pathFinder({nodes}, {}, rawRoute);
 
   if (INVALID_EDGE_WEIGHT == rawRoute.shortest_path_length
       || rawRoute.segment_end_coordinates.empty()
@@ -289,7 +292,8 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
   resGuard.SetGeometry(points);
 }
 
-bool OsrmRouter::FindPhantomNode(m2::PointD const & pt, PhantomNode & resultNode, uint32_t & mwmId, OsrmFtSegMapping::FtSeg & seg, m2::PointD & segPt)
+bool OsrmRouter::FindPhantomNode(m2::PointD const & pt, PhantomNode & resultNode,
+                                 uint32_t & mwmId, OsrmFtSegMapping::FtSeg & seg, m2::PointD & segPt)
 {
   Point2PhantomNode getter(pt, m_mapping);
 
