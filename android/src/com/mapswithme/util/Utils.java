@@ -61,14 +61,9 @@ public class Utils
 
   public static boolean hasAnyGoogleStoreInstalled()
   {
-    return hasAnyGoogleStoreInstalled(MWMApplication.get());
-  }
-
-  public static boolean hasAnyGoogleStoreInstalled(Context context)
-  {
     final String GooglePlayStorePackageNameOld = "com.google.market";
     final String GooglePlayStorePackageNameNew = "com.android.vending";
-    final PackageManager pm = context.getPackageManager();
+    final PackageManager pm = MWMApplication.get().getPackageManager();
     final List<PackageInfo> packages = pm.getInstalledPackages(0);
     for (final PackageInfo packageInfo : packages)
     {

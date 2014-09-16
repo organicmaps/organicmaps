@@ -292,7 +292,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   private void initMAT(Activity activity)
   {
-    if (!Utils.hasAnyGoogleStoreInstalled(activity))
+    if (!Utils.hasAnyGoogleStoreInstalled())
     {
       mLogger.d("SKIPPING MAT INIT, DOES NOT HAVE GP");
       return;
