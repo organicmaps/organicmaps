@@ -33,13 +33,14 @@ import android.widget.SimpleCursorAdapter;
 import com.facebook.*;
 import com.facebook.model.GraphMultiResult;
 import com.facebook.model.GraphUser;
-import static com.facebook.samples.rps.OpenGraphUtils.*;
 import com.facebook.widget.FriendPickerFragment;
 import com.facebook.widget.PickerFragment;
 import com.facebook.widget.WebDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static com.facebook.samples.rps.OpenGraphUtils.*;
 
 public class FriendActivity extends FragmentActivity {
     private static final String TAG = FriendActivity.class.getName();

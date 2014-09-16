@@ -629,10 +629,19 @@ public class SelectionFragment extends Fragment {
             }
         }
 
+        String title = error.getErrorUserTitle();
+        String message = error.getErrorUserMessage();
+        if (message == null) {
+            message = dialogBody;
+        }
+        if (title == null) {
+            title = getResources().getString(R.string.error_dialog_title);
+        }
+
         new AlertDialog.Builder(getActivity())
                 .setPositiveButton(R.string.error_dialog_button_text, listener)
-                .setTitle(R.string.error_dialog_title)
-                .setMessage(dialogBody)
+                .setTitle(title)
+                .setMessage(message)
                 .show();
     }
 

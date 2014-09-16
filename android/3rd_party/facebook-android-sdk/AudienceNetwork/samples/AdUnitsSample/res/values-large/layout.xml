@@ -1,0 +1,4 @@
+<resources>
+    <item name="main" type="layout">@layout/activity_ad_sample</item>
+    <bool name="is_tablet">true</bool>
+</resources>

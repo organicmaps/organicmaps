@@ -38,7 +38,10 @@ import com.facebook.model.GraphPlace;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class HelloFacebookSampleActivity extends FragmentActivity {
 
@@ -214,6 +217,10 @@ public class HelloFacebookSampleActivity extends FragmentActivity {
     public void onPause() {
         super.onPause();
         uiHelper.onPause();
+
+        // Call the 'deactivateApp' method to log an app event for use in analytics and advertising
+        // reporting.  Do so in the onPause methods of the primary Activities that an app may be launched into.
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override

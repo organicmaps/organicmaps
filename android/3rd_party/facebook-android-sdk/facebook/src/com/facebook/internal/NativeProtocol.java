@@ -25,7 +25,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import com.facebook.*;
+import com.facebook.FacebookException;
+import com.facebook.FacebookOperationCanceledException;
+import com.facebook.SessionDefaultAudience;
+import com.facebook.Settings;
 
 import java.util.*;
 
@@ -57,11 +60,25 @@ public final class NativeProtocol {
     public static final int PROTOCOL_VERSION_20131107 = 20131107;
     public static final int PROTOCOL_VERSION_20140204 = 20140204;
     public static final int PROTOCOL_VERSION_20140324 = 20140324;
+    public static final int PROTOCOL_VERSION_20140701 = 20140701;
 
     public static final String EXTRA_PROTOCOL_VERSION = "com.facebook.platform.protocol.PROTOCOL_VERSION";
     public static final String EXTRA_PROTOCOL_ACTION = "com.facebook.platform.protocol.PROTOCOL_ACTION";
     public static final String EXTRA_PROTOCOL_CALL_ID = "com.facebook.platform.protocol.CALL_ID";
     public static final String EXTRA_GET_INSTALL_DATA_PACKAGE = "com.facebook.platform.extra.INSTALLDATA_PACKAGE";
+
+    public static final String EXTRA_PROTOCOL_BRIDGE_ARGS =
+            "com.facebook.platform.protocol.BRIDGE_ARGS";
+
+    public static final String EXTRA_PROTOCOL_METHOD_ARGS =
+            "com.facebook.platform.protocol.METHOD_ARGS";
+
+    public static final String EXTRA_PROTOCOL_METHOD_RESULTS =
+            "com.facebook.platform.protocol.RESULT_ARGS";
+
+    public static final String BRIDGE_ARG_APP_NAME_STRING = "app_name";
+    public static final String BRIDGE_ARG_ACTION_ID_STRING = "action_id";
+    public static final String BRIDGE_ARG_ERROR_BUNDLE = "error";
 
     // Messages supported by PlatformService:
     public static final int MESSAGE_GET_ACCESS_TOKEN_REQUEST = 0x10000;
@@ -126,11 +143,26 @@ public final class NativeProtocol {
     public static final String EXTRA_DATA_FAILURES_FATAL = "com.facebook.platform.extra.DATA_FAILURES_FATAL";
     public static final String EXTRA_PHOTOS = "com.facebook.platform.extra.PHOTOS";
 
+    public static final String METHOD_ARGS_PLACE_TAG = "PLACE";
+    public static final String METHOD_ARGS_FRIEND_TAGS = "FRIENDS";
+    public static final String METHOD_ARGS_LINK = "LINK";
+    public static final String METHOD_ARGS_IMAGE = "IMAGE";
+    public static final String METHOD_ARGS_TITLE = "TITLE";
+    public static final String METHOD_ARGS_SUBTITLE = "SUBTITLE";
+    public static final String METHOD_ARGS_DESCRIPTION = "DESCRIPTION";
+    public static final String METHOD_ARGS_REF = "REF";
+    public static final String METHOD_ARGS_DATA_FAILURES_FATAL = "DATA_FAILURES_FATAL";
+    public static final String METHOD_ARGS_PHOTOS = "PHOTOS";
+
     // Extras supported for ACTION_OGACTIONPUBLISH_DIALOG:
     public static final String EXTRA_ACTION = "com.facebook.platform.extra.ACTION";
     public static final String EXTRA_ACTION_TYPE = "com.facebook.platform.extra.ACTION_TYPE";
     public static final String EXTRA_PREVIEW_PROPERTY_NAME =
             "com.facebook.platform.extra.PREVIEW_PROPERTY_NAME";
+
+    public static final String METHOD_ARGS_ACTION = "ACTION";
+    public static final String METHOD_ARGS_ACTION_TYPE = "ACTION_TYPE";
+    public static final String METHOD_ARGS_PREVIEW_PROPERTY_NAME = "PREVIEW_PROPERTY_NAME";
 
     // OG objects will have this key to set to true if they should be created as part of OG Action publish
     public static final String OPEN_GRAPH_CREATE_OBJECT_KEY = "fbsdk:create_object";
@@ -157,9 +189,9 @@ public final class NativeProtocol {
     public static final String ERROR_PERMISSION_DENIED = "PermissionDenied";
     public static final String ERROR_SERVICE_DISABLED = "ServiceDisabled";
 
-    public static final String AUDIENCE_ME = "SELF";
-    public static final String AUDIENCE_FRIENDS = "ALL_FRIENDS";
-    public static final String AUDIENCE_EVERYONE = "EVERYONE";
+    public static final String AUDIENCE_ME = "only_me";
+    public static final String AUDIENCE_FRIENDS = "friends";
+    public static final String AUDIENCE_EVERYONE = "everyone";
 
     // Request codes for different categories of native protocol calls.
     public static final int DIALOG_REQUEST_CODE = 0xfacf;
@@ -169,9 +201,6 @@ public final class NativeProtocol {
 
     // Columns returned by PlatformProvider
     private static final String PLATFORM_PROVIDER_VERSION_COLUMN = "version";
-
-    // Broadcast action for asynchronously-executing AppCalls
-    private static final String PLATFORM_ASYNC_APPCALL_ACTION = "com.facebook.platform.AppCallResultBroadcast";
 
     private static abstract class NativeAppInfo {
         abstract protected String getPackage();
@@ -308,7 +337,7 @@ public final class NativeProtocol {
     }
 
     public static Intent createProxyAuthIntent(Context context, String applicationId, List<String> permissions,
-            String e2e, boolean isRerequest) {
+            String e2e, boolean isRerequest, SessionDefaultAudience defaultAudience) {
         for (NativeAppInfo appInfo : facebookAppInfoList) {
             Intent intent = new Intent()
                     .setClassName(appInfo.getPackage(), FACEBOOK_PROXY_AUTH_ACTIVITY)
@@ -323,6 +352,7 @@ public final class NativeProtocol {
 
             intent.putExtra(ServerProtocol.DIALOG_PARAM_RESPONSE_TYPE, ServerProtocol.DIALOG_RESPONSE_TYPE_TOKEN);
             intent.putExtra(ServerProtocol.DIALOG_PARAM_RETURN_SCOPES, ServerProtocol.DIALOG_RETURN_SCOPES_TRUE);
+            intent.putExtra(ServerProtocol.DIALOG_PARAM_DEFAULT_AUDIENCE, defaultAudience.getNativeProtocolAudience());
 
             if (!Settings.getPlatformCompatibilityEnabled()) {
                 // Override the API Version for Auth
@@ -360,6 +390,7 @@ public final class NativeProtocol {
     // Note: be sure this stays sorted in descending order; add new versions at the beginning
     private static final List<Integer> KNOWN_PROTOCOL_VERSIONS =
             Arrays.asList(
+                    PROTOCOL_VERSION_20140701,
                     PROTOCOL_VERSION_20140324,
                     PROTOCOL_VERSION_20140204,
                     PROTOCOL_VERSION_20131107,
@@ -389,15 +420,43 @@ public final class NativeProtocol {
         return intent;
     }
 
-    public static Intent createPlatformActivityIntent(Context context, String action, int version, Bundle extras) {
+    public static boolean isVersionCompatibleWithBucketedIntent(int version) {
+        return KNOWN_PROTOCOL_VERSIONS.contains(version) && version >= PROTOCOL_VERSION_20140701;
+    }
+
+    public static Intent createPlatformActivityIntent(
+            Context context,
+            String callId,
+            String action,
+            int version,
+            String applicationName,
+            Bundle extras) {
         Intent intent = findActivityIntent(context, INTENT_ACTION_PLATFORM_ACTIVITY, action);
         if (intent == null) {
             return null;
         }
 
-        intent.putExtras(extras)
-                .putExtra(EXTRA_PROTOCOL_VERSION, version)
-                .putExtra(EXTRA_PROTOCOL_ACTION, action);
+        String applicationId = Utility.getMetadataApplicationId(context);
+
+        intent.putExtra(EXTRA_PROTOCOL_VERSION, version)
+                .putExtra(EXTRA_PROTOCOL_ACTION, action)
+                .putExtra(EXTRA_APPLICATION_ID, applicationId);
+
+        if (isVersionCompatibleWithBucketedIntent(version)) {
+            // This is a bucketed intent
+            Bundle bridgeArguments = new Bundle();
+            bridgeArguments.putString(BRIDGE_ARG_ACTION_ID_STRING, callId);
+            bridgeArguments.putString(BRIDGE_ARG_APP_NAME_STRING, applicationName);
+            intent.putExtra(EXTRA_PROTOCOL_BRIDGE_ARGS, bridgeArguments);
+
+            Bundle methodArguments = extras == null ? new Bundle() : extras;
+            intent.putExtra(EXTRA_PROTOCOL_METHOD_ARGS, methodArguments);
+        } else {
+            // This is the older flat intent
+            intent.putExtra(EXTRA_PROTOCOL_CALL_ID, callId);
+            intent.putExtra(EXTRA_APPLICATION_NAME, applicationName);
+            intent.putExtras(extras);
+        }
 
         return intent;
     }
@@ -415,8 +474,58 @@ public final class NativeProtocol {
         return null;
     }
 
+    public static int getProtocolVersionFromIntent(Intent intent) {
+        return intent.getIntExtra(EXTRA_PROTOCOL_VERSION, 0);
+    }
+
+    public static UUID getCallIdFromIntent(Intent intent) {
+        int version = getProtocolVersionFromIntent(intent);
+        String callIdString = null;
+        if (isVersionCompatibleWithBucketedIntent(version)) {
+            Bundle bridgeArgs = intent.getBundleExtra(EXTRA_PROTOCOL_BRIDGE_ARGS);
+            if (bridgeArgs != null) {
+                callIdString = bridgeArgs.getString(BRIDGE_ARG_ACTION_ID_STRING);
+            }
+        } else {
+            callIdString = intent.getStringExtra(EXTRA_PROTOCOL_CALL_ID);
+        }
+
+        UUID callId = null;
+        if (callIdString != null) {
+            try {
+                callId = UUID.fromString(callIdString);
+            } catch (IllegalArgumentException exception) {
+            }
+        }
+        return callId;
+    }
+
+    public static Bundle getBridgeArgumentsFromIntent(Intent intent) {
+        int version = getProtocolVersionFromIntent(intent);
+        if (!isVersionCompatibleWithBucketedIntent(version)) {
+            return null;
+        }
+
+        return intent.getBundleExtra(EXTRA_PROTOCOL_BRIDGE_ARGS);
+    }
+
+    public static Bundle getSuccessResultsFromIntent(Intent resultIntent) {
+        int version = getProtocolVersionFromIntent(resultIntent);
+        Bundle extras = resultIntent.getExtras();
+        if (!isVersionCompatibleWithBucketedIntent(version) || extras == null) {
+            return extras;
+        }
+
+        return extras.getBundle(EXTRA_PROTOCOL_METHOD_RESULTS);
+    }
+
     public static boolean isErrorResult(Intent resultIntent) {
-        return resultIntent.hasExtra(STATUS_ERROR_TYPE);
+        Bundle bridgeArgs = getBridgeArgumentsFromIntent(resultIntent);
+        if (bridgeArgs != null) {
+            return bridgeArgs.containsKey(BRIDGE_ARG_ERROR_BUNDLE);
+        } else {
+            return resultIntent.hasExtra(STATUS_ERROR_TYPE);
+        }
     }
 
     public static Exception getErrorFromResult(Intent resultIntent) {
@@ -424,12 +533,27 @@ public final class NativeProtocol {
             return null;
         }
 
-        String type = resultIntent.getStringExtra(STATUS_ERROR_TYPE);
-        String description = resultIntent.getStringExtra(STATUS_ERROR_DESCRIPTION);
+        Bundle bridgeArgs = getBridgeArgumentsFromIntent(resultIntent);
+        if (bridgeArgs != null) {
+            Bundle errorBundle = bridgeArgs.getBundle(BRIDGE_ARG_ERROR_BUNDLE);
+            if (errorBundle != null) {
+                return getErrorFromResult(errorBundle);
+            }
+        }
 
-        if (type.equalsIgnoreCase(ERROR_USER_CANCELED)) {
+        return getErrorFromResult(resultIntent.getExtras());
+    }
+
+    public static Exception getErrorFromResult(Bundle errorBundle) {
+        // TODO This is not going to work for JS dialogs, where the keys are not STATUS_ERROR_TYPE etc.
+        // TODO However, it should keep existing dialogs functional
+        String type = errorBundle.getString(STATUS_ERROR_TYPE);
+        String description = errorBundle.getString(STATUS_ERROR_DESCRIPTION);
+
+        if (type != null && type.equalsIgnoreCase(ERROR_USER_CANCELED)) {
             return new FacebookOperationCanceledException(description);
         }
+
         /* TODO parse error values and create appropriate exception class */
         return new FacebookException(description);
     }

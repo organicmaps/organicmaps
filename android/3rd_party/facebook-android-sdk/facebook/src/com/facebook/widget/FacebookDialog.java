@@ -29,7 +29,10 @@ import com.facebook.internal.AnalyticsEvents;
 import com.facebook.internal.NativeProtocol;
 import com.facebook.internal.Utility;
 import com.facebook.internal.Validate;
-import com.facebook.model.*;
+import com.facebook.model.GraphObject;
+import com.facebook.model.GraphObjectList;
+import com.facebook.model.OpenGraphAction;
+import com.facebook.model.OpenGraphObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -341,9 +344,11 @@ public class FacebookDialog {
         if (callback != null) {
             if (NativeProtocol.isErrorResult(data)) {
                 Exception error = NativeProtocol.getErrorFromResult(data);
+
+                // TODO  - data.getExtras() doesn't work for the bucketed protocol.
                 callback.onError(appCall, error, data.getExtras());
             } else {
-                callback.onComplete(appCall, data.getExtras());
+                callback.onComplete(appCall, NativeProtocol.getSuccessResultsFromIntent(data));
             }
         }
 
@@ -480,7 +485,14 @@ public class FacebookDialog {
         return eventName;
     }
 
-    abstract static class Builder<CONCRETE extends Builder<?>> {
+    /**
+     * Provides a base class for various FacebookDialog builders. This is public primarily to allow its use elsewhere
+     * in the Android SDK; developers are discouraged from constructing their own FacebookDialog builders as the
+     * internal API may change.
+     *
+     * @param <CONCRETE> The concrete base class of the builder.
+     */
+    public abstract static class Builder<CONCRETE extends Builder<?>> {
         final protected Activity activity;
         final protected String applicationId;
         final protected PendingCall appCall;
@@ -489,7 +501,12 @@ public class FacebookDialog {
         protected HashMap<String, Bitmap> imageAttachments = new HashMap<String, Bitmap>();
         protected HashMap<String, File> imageAttachmentFiles = new HashMap<String, File>();
 
-        Builder(Activity activity) {
+        /**
+         * Constructor.
+         *
+         * @param activity the Activity which is presenting the native Share dialog; must not be null
+         */
+        public Builder(Activity activity) {
             Validate.notNull(activity, "activity");
 
             this.activity = activity;
@@ -549,16 +566,26 @@ public class FacebookDialog {
         public FacebookDialog build() {
             validate();
 
-            Bundle extras = new Bundle();
-            putExtra(extras, NativeProtocol.EXTRA_APPLICATION_ID, applicationId);
-            putExtra(extras, NativeProtocol.EXTRA_APPLICATION_NAME, applicationName);
-            extras = setBundleExtras(extras);
-
             String action = getActionForFeatures(getDialogFeatures());
             int protocolVersion = getProtocolVersionForNativeDialog(activity, action,
                     getMinVersionForFeatures(getDialogFeatures()));
 
-            Intent intent = NativeProtocol.createPlatformActivityIntent(activity, action, protocolVersion, extras);
+            Bundle extras = null;
+            if (NativeProtocol.isVersionCompatibleWithBucketedIntent(protocolVersion)) {
+                // Facebook app supports the new bucketed protocol
+                extras = getMethodArguments();
+            } else {
+                // Facebook app only supports the old flat protocol
+                extras = setBundleExtras(new Bundle());
+            }
+
+            Intent intent = NativeProtocol.createPlatformActivityIntent(
+                    activity,
+                    appCall.getCallId().toString(),
+                    action,
+                    protocolVersion,
+                    applicationName,
+                    extras);
             if (intent == null) {
                 logDialogActivity(activity, fragment,
                         getEventName(action, extras.containsKey(NativeProtocol.EXTRA_PHOTOS)),
@@ -567,6 +594,7 @@ public class FacebookDialog {
                 throw new FacebookException(
                         "Unable to create Intent; this likely means the Facebook app is not installed.");
             }
+
             appCall.setRequestIntent(intent);
 
             return new FacebookDialog(activity, fragment, appCall, getOnPresentCallback());
@@ -636,9 +664,11 @@ public class FacebookDialog {
             return new ArrayList<String>(imageAttachments.keySet());
         }
 
-        abstract Bundle setBundleExtras(Bundle extras);
+        protected abstract Bundle setBundleExtras(Bundle extras);
 
-        void putExtra(Bundle extras, String key, String value) {
+        protected abstract Bundle getMethodArguments();
+
+        protected void putExtra(Bundle extras, String key, String value) {
             if (value != null) {
                 extras.putString(key, value);
             }
@@ -800,7 +830,7 @@ public class FacebookDialog {
         }
 
         @Override
-        Bundle setBundleExtras(Bundle extras) {
+        protected Bundle setBundleExtras(Bundle extras) {
             putExtra(extras, NativeProtocol.EXTRA_APPLICATION_ID, applicationId);
             putExtra(extras, NativeProtocol.EXTRA_APPLICATION_NAME, applicationName);
             putExtra(extras, NativeProtocol.EXTRA_TITLE, name);
@@ -817,6 +847,27 @@ public class FacebookDialog {
                 extras.putStringArrayList(NativeProtocol.EXTRA_FRIEND_TAGS, friends);
             }
             return extras;
+        }
+
+        @Override
+        protected Bundle getMethodArguments() {
+            Bundle methodArguments = new Bundle();
+
+            putExtra(methodArguments, NativeProtocol.METHOD_ARGS_TITLE, name);
+            putExtra(methodArguments, NativeProtocol.METHOD_ARGS_SUBTITLE, caption);
+            putExtra(methodArguments, NativeProtocol.METHOD_ARGS_DESCRIPTION, description);
+            putExtra(methodArguments, NativeProtocol.METHOD_ARGS_LINK, link);
+            putExtra(methodArguments, NativeProtocol.METHOD_ARGS_IMAGE, picture);
+            putExtra(methodArguments, NativeProtocol.METHOD_ARGS_PLACE_TAG, place);
+            putExtra(methodArguments, NativeProtocol.METHOD_ARGS_TITLE, name);
+            putExtra(methodArguments, NativeProtocol.METHOD_ARGS_REF, ref);
+
+            methodArguments.putBoolean(NativeProtocol.METHOD_ARGS_DATA_FAILURES_FATAL, dataErrorsFatal);
+            if (!Utility.isNullOrEmpty(friends)) {
+                methodArguments.putStringArrayList(NativeProtocol.METHOD_ARGS_FRIEND_TAGS, friends);
+            }
+
+            return methodArguments;
         }
     }
 
@@ -937,7 +988,7 @@ public class FacebookDialog {
         }
 
         @Override
-        Bundle setBundleExtras(Bundle extras) {
+        protected Bundle setBundleExtras(Bundle extras) {
             putExtra(extras, NativeProtocol.EXTRA_APPLICATION_ID, applicationId);
             putExtra(extras, NativeProtocol.EXTRA_APPLICATION_NAME, applicationName);
             putExtra(extras, NativeProtocol.EXTRA_PLACE_TAG, place);
@@ -947,6 +998,20 @@ public class FacebookDialog {
                 extras.putStringArrayList(NativeProtocol.EXTRA_FRIEND_TAGS, friends);
             }
             return extras;
+        }
+
+        @Override
+        protected Bundle getMethodArguments() {
+            Bundle methodArgs = new Bundle();
+
+            putExtra(methodArgs, NativeProtocol.METHOD_ARGS_PLACE_TAG, place);
+            methodArgs.putStringArrayList(NativeProtocol.METHOD_ARGS_PHOTOS, imageAttachmentUrls);
+
+            if (!Utility.isNullOrEmpty(friends)) {
+                methodArgs.putStringArrayList(NativeProtocol.METHOD_ARGS_FRIEND_TAGS, friends);
+            }
+
+            return methodArgs;
         }
     }
 
@@ -1399,7 +1464,7 @@ public class FacebookDialog {
         }
 
         @Override
-        Bundle setBundleExtras(Bundle extras) {
+        protected Bundle setBundleExtras(Bundle extras) {
             putExtra(extras, NativeProtocol.EXTRA_PREVIEW_PROPERTY_NAME, previewPropertyName);
             putExtra(extras, NativeProtocol.EXTRA_ACTION_TYPE, actionType);
             extras.putBoolean(NativeProtocol.EXTRA_DATA_FAILURES_FATAL, dataErrorsFatal);
@@ -1411,6 +1476,23 @@ public class FacebookDialog {
             putExtra(extras, NativeProtocol.EXTRA_ACTION, jsonString);
 
             return extras;
+        }
+
+        @Override
+        protected Bundle getMethodArguments() {
+            Bundle methodArgs = new Bundle();
+
+            putExtra(methodArgs, NativeProtocol.METHOD_ARGS_PREVIEW_PROPERTY_NAME, previewPropertyName);
+            putExtra(methodArgs, NativeProtocol.METHOD_ARGS_ACTION_TYPE, actionType);
+            methodArgs.putBoolean(NativeProtocol.METHOD_ARGS_DATA_FAILURES_FATAL, dataErrorsFatal);
+
+            JSONObject jsonAction = action.getInnerJSONObject();
+            jsonAction = flattenChildrenOfGraphObject(jsonAction);
+
+            String jsonString = jsonAction.toString();
+            putExtra(methodArgs, NativeProtocol.METHOD_ARGS_ACTION, jsonString);
+
+            return methodArgs;
         }
 
         private JSONObject flattenChildrenOfGraphObject(JSONObject graphObject) {
@@ -1577,7 +1659,6 @@ public class FacebookDialog {
 
         private void setRequestIntent(Intent requestIntent) {
             this.requestIntent = requestIntent;
-            this.requestIntent.putExtra(NativeProtocol.EXTRA_PROTOCOL_CALL_ID, callId.toString());
         }
 
         /**

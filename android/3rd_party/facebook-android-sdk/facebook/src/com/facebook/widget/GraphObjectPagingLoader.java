@@ -20,9 +20,9 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.v4.content.Loader;
 import com.facebook.*;
+import com.facebook.internal.CacheableRequestBatch;
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphObjectList;
-import com.facebook.internal.CacheableRequestBatch;
 
 class GraphObjectPagingLoader<T extends GraphObject> extends Loader<SimpleGraphObjectCursor<T>> {
     private final Class<T> graphObjectClass;

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adUnit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingTop="10dp" >
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                >
+
+            <ImageView
+                    android:id="@+id/nativeAdIcon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="@string/icon_desc"
+                    />
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    >
+
+                <TextView
+                        android:id="@+id/nativeAdTitle"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        />
+
+                <TextView
+                        android:id="@+id/nativeAdBody"
+                        android:lines="2"
+                        android:ellipsize="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black"
+                        />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+                android:id="@+id/nativeAdImage"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:gravity="center"
+                android:contentDescription="@string/image_desc"
+                />
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                >
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <RatingBar
+                        android:id="@+id/nativeAdStarRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:stepSize="0.1"
+                        android:visibility="gone"
+                        android:isIndicator="true" />
+
+                <TextView
+                        android:id="@+id/nativeAdSocialContext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lines="2"
+                        android:ellipsize="end"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black"
+                        />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/nativeAdCallToAction"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:visibility="gone"
+            />
+        </LinearLayout>
+
+    </LinearLayout>

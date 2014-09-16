@@ -33,15 +33,15 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.facebook.*;
 import com.facebook.model.GraphObject;
-import static com.facebook.samples.rps.OpenGraphUtils.*;
-import static com.facebook.samples.rps.RpsGameUtils.*;
-
 import com.facebook.model.OpenGraphAction;
 import com.facebook.model.OpenGraphObject;
 import com.facebook.widget.FacebookDialog;
 
 import java.util.Arrays;
 import java.util.Random;
+
+import static com.facebook.samples.rps.OpenGraphUtils.*;
+import static com.facebook.samples.rps.RpsGameUtils.*;
 
 public class RpsFragment extends Fragment {
 

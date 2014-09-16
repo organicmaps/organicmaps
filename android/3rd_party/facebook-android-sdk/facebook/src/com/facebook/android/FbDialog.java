@@ -18,7 +18,9 @@ package com.facebook.android;
 
 import android.content.Context;
 import android.os.Bundle;
-import com.facebook.*;
+import com.facebook.FacebookDialogException;
+import com.facebook.FacebookException;
+import com.facebook.FacebookOperationCanceledException;
 import com.facebook.android.Facebook.DialogListener;
 import com.facebook.widget.WebDialog;
 

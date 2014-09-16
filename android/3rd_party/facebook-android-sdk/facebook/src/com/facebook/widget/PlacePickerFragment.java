@@ -35,9 +35,9 @@ import android.widget.ListView;
 import com.facebook.*;
 import com.facebook.android.R;
 import com.facebook.internal.AnalyticsEvents;
-import com.facebook.model.GraphPlace;
 import com.facebook.internal.Logger;
 import com.facebook.internal.Utility;
+import com.facebook.model.GraphPlace;
 
 import java.util.*;
 

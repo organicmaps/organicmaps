@@ -30,13 +30,16 @@ import android.util.Log;
 import com.facebook.android.BuildConfig;
 import com.facebook.internal.AttributionIdentifiers;
 import com.facebook.internal.Utility;
-import com.facebook.model.GraphObject;
 import com.facebook.internal.Validate;
+import com.facebook.model.GraphObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -58,6 +61,7 @@ public final class Settings {
     private static volatile String facebookDomain = FACEBOOK_COM;
     private static AtomicLong onProgressThreshold = new AtomicLong(65536);
     private static volatile boolean platformCompatibilityEnabled;
+    private static volatile boolean isLoggingEnabled = BuildConfig.DEBUG;
 
     private static final int DEFAULT_CORE_POOL_SIZE = 5;
     private static final int DEFAULT_MAXIMUM_POOL_SIZE = 128;
@@ -180,8 +184,24 @@ public final class Settings {
      */
     public static final boolean isLoggingBehaviorEnabled(LoggingBehavior behavior) {
         synchronized (loggingBehaviors) {
-            return BuildConfig.DEBUG && loggingBehaviors.contains(behavior);
+            return Settings.isLoggingEnabled() && loggingBehaviors.contains(behavior);
         }
+    }
+
+    /**
+     * Indicates if logging is enabled.
+     */
+    public static final boolean isLoggingEnabled() {
+        return isLoggingEnabled;
+    }
+
+    /**
+     * Used to enable or disable logging, defaults to BuildConfig.DEBUG.
+     * @param enabled
+     *          Logging is enabled if true, disabled if false.
+     */
+    public static final void setIsLoggingEnabled(boolean enabled) {
+        isLoggingEnabled = enabled;
     }
 
     /**
@@ -364,7 +384,8 @@ public final class Settings {
                 } else {
                     return new Response(null, null, null, graphObject, true);
                 }
-            } else if (identifiers.getAndroidAdvertiserId() == null && identifiers.getAttributionId() == null) {
+            } else if (identifiers == null ||
+                       (identifiers.getAndroidAdvertiserId() == null && identifiers.getAttributionId() == null)) {
                 throw new FacebookException("No attribution id available to send to server.");
             } else {
                 if (!Utility.queryAppSettings(applicationId, false).supportsAttribution()) {

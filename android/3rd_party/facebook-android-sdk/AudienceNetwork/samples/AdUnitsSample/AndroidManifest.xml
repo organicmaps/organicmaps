@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.facebook.samples.AdUnitsSample"
+          android:versionCode="1"
+          android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="9"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <application android:label="@string/app_name">
+        <activity android:name="com.facebook.samples.AdUnitsSample.AdUnitsSampleActivity"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.facebook.ads.InterstitialAdActivity"
+                  android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="com.facebook.ads.VideoAdActivity"
+                  android:configChanges="keyboardHidden|orientation"/>
+        <!-- Apps targeting api v13 and higher should add '|screenSize' to the VideoAdActivity configChanges to support video rotation -->
+    </application>
+</manifest> 

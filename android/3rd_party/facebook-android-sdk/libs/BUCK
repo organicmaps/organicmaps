@@ -1,0 +1,15 @@
+prebuilt_jar(
+  name = 'android-support-v4',
+  binary_jar = 'android-support-v4.jar',
+  visibility = [
+    'PUBLIC',
+  ],
+)
+
+prebuilt_jar(
+  name = 'bolts',
+  binary_jar = 'bolts.jar',
+  visibility = [
+    'PUBLIC',
+  ],
+)

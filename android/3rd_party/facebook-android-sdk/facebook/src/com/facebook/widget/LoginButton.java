@@ -33,17 +33,18 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-
 import com.facebook.*;
 import com.facebook.android.R;
 import com.facebook.internal.AnalyticsEvents;
-import com.facebook.model.GraphUser;
 import com.facebook.internal.SessionAuthorizationType;
 import com.facebook.internal.SessionTracker;
 import com.facebook.internal.Utility;
 import com.facebook.internal.Utility.FetchedAppSettings;
+import com.facebook.model.GraphUser;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * A Log In/Log Out button that maintains session state and logs

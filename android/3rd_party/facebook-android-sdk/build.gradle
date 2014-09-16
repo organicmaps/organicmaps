@@ -7,3 +7,9 @@ buildscript {
         classpath 'com.android.tools.build:gradle:0.10.+'
     }
 }
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}

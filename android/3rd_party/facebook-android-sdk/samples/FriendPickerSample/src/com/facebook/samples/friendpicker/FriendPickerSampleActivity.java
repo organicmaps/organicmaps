@@ -25,13 +25,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.facebook.AppEventsLogger;
+import com.facebook.Session;
 import com.facebook.Session.NewPermissionsRequest;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
-import com.facebook.Session;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -89,6 +88,15 @@ public class FriendPickerSampleActivity extends FragmentActivity {
         // Call the 'activateApp' method to log an app event for use in analytics and advertising reporting.  Do so in
         // the onResume methods of the primary Activities that an app may be launched into.
         AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Call the 'deactivateApp' method to log an app event for use in analytics and advertising
+        // reporting.  Do so in the onPause methods of the primary Activities that an app may be launched into.
+        AppEventsLogger.deactivateApp(this);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

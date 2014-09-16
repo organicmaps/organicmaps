@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright 2010-present Facebook.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:background="#E4E5E8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+    <TextView
+            android:id="@+id/adStatusLabel"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:text="@string/loading_status"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="15sp"
+            />
+
+    <LinearLayout
+            android:id="@+id/interstitialAdControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="100dp"
+            >
+
+        <Button
+                android:id="@+id/loadInterstitialButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/load_interstitial"
+                android:textSize="15sp"
+                />
+
+        <Button
+                android:id="@+id/showInterstitialButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_interstitial"
+                android:textSize="15sp"
+                />
+
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/interstitialAdStatusLabel"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_below="@id/interstitialAdControls"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="15sp"
+            />
+
+
+    <RelativeLayout
+            android:id="@+id/adViewContainer"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            />
+
+</RelativeLayout>

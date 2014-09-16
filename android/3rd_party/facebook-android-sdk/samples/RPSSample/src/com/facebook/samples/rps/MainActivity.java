@@ -26,12 +26,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import bolts.AppLinks;
 import com.facebook.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.facebook.samples.rps.RpsGameUtils.*;
+import static com.facebook.samples.rps.RpsGameUtils.INVALID_CHOICE;
 
 public class MainActivity extends FragmentActivity {
     static final int RPS = 0;
@@ -53,9 +54,6 @@ public class MainActivity extends FragmentActivity {
         }
     };
     private boolean hasNativeLink = false;
-
-    // the deep link url should be of the form http://some.path?fb_object_id=xxxxxxxxxx
-    private Pattern deepLinkPattern = Pattern.compile(".*fb_object_id=(\\d*)");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,6 +94,16 @@ public class MainActivity extends FragmentActivity {
         super.onPause();
         uiHelper.onPause();
         isResumed = false;
+
+        // Call the 'deactivateApp' method to log an app event for use in analytics and advertising
+        // reporting.  Do so in the onPause methods of the primary Activities that an app may be launched into.
+        AppEventsLogger.deactivateApp(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        uiHelper.onStop();
     }
 
     @Override
@@ -184,30 +192,29 @@ public class MainActivity extends FragmentActivity {
             }
         }
         // See if we have a deep link in addition.
-        int deepLinkContent = getDeepLinkContent(getIntent().getData());
-        if (deepLinkContent != INVALID_CHOICE) {
+        int appLinkGesture = getAppLinkGesture(getIntent());
+        if (appLinkGesture != INVALID_CHOICE) {
             ContentFragment fragment = (ContentFragment) fragments[CONTENT];
-            fragment.setContentIndex(deepLinkContent);
+            fragment.setContentIndex(appLinkGesture);
             return true;
         }
         return false;
     }
 
-    private int getDeepLinkContent(Uri deepLinkUri) {
-        if (deepLinkUri != null) {
-            String deepLink = deepLinkUri.toString();
-
-            Matcher matcher = deepLinkPattern.matcher(deepLink);
-            if (matcher.matches()) {
-                String objectId = matcher.group(1);
-                for (int i = 0; i < CommonObjects.BUILT_IN_OPEN_GRAPH_OBJECTS.length; i++) {
-                    if (CommonObjects.BUILT_IN_OPEN_GRAPH_OBJECTS[i].equals(objectId)) {
-                        return i;
-                    }
-                }
-            }
-        }
+    private int getAppLinkGesture(Intent intent) {
+      Uri targetURI = AppLinks.getTargetUrl(intent);
+      if (targetURI == null) {
         return INVALID_CHOICE;
+      }
+      String gesture = targetURI.getQueryParameter("gesture");
+      if (gesture != null && gesture.equalsIgnoreCase(getString(R.string.rock))) {
+        return RpsGameUtils.ROCK;
+      } else if (gesture.equalsIgnoreCase(getString(R.string.paper))) {
+        return RpsGameUtils.PAPER;
+      } else if (gesture.equalsIgnoreCase(getString(R.string.scissors))) {
+        return RpsGameUtils.SCISSORS;
+      }
+      return INVALID_CHOICE;
     }
 
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {

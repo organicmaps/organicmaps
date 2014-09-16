@@ -28,6 +28,12 @@ public class AppEventsConstants {
     /** Log this event when an app is being activated. */
     public static final String EVENT_NAME_ACTIVATED_APP = "fb_mobile_activate_app";
 
+    public static final String EVENT_NAME_DEACTIVATED_APP = "fb_mobile_deactivate_app";
+
+    public static final String EVENT_NAME_SESSION_INTERRUPTIONS = "fb_mobile_app_interruptions";
+
+    public static final String EVENT_NAME_TIME_BETWEEN_SESSIONS = "fb_mobile_time_between_sessions";
+
     /** Log this event when a user has completed registration with the app. */
     public static final String EVENT_NAME_COMPLETED_REGISTRATION = "fb_mobile_complete_registration";
 
@@ -156,6 +162,10 @@ public class AppEventsConstants {
     public static final String EVENT_PARAM_DESCRIPTION = "fb_description";
 
 
+    /**
+     * Parameter key used to specify source application package
+     */
+    public static final String EVENT_PARAM_SOURCE_APPLICATION = "fb_mobile_launch_source";
 
     // Parameter values
 
@@ -164,5 +174,4 @@ public class AppEventsConstants {
 
     /** No-valued parameter value to be used with parameter keys that need a Yes/No value */
     public static final String EVENT_PARAM_VALUE_NO = "0";
-
 }

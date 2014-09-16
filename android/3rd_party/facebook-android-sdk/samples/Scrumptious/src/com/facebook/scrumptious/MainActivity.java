@@ -99,6 +99,10 @@ public class MainActivity extends FragmentActivity {
         super.onPause();
         uiHelper.onPause();
         isResumed = false;
+
+        // Call the 'deactivateApp' method to log an app event for use in analytics and advertising
+        // reporting.  Do so in the onPause methods of the primary Activities that an app may be launched into.
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override

@@ -39,6 +39,7 @@ public final class ServerProtocol {
     public static final String DIALOG_PARAM_RESPONSE_TYPE = "response_type";
     public static final String DIALOG_PARAM_RETURN_SCOPES = "return_scopes";
     public static final String DIALOG_PARAM_SCOPE = "scope";
+    public static final String DIALOG_PARAM_DEFAULT_AUDIENCE = "default_audience";
     public static final String DIALOG_REREQUEST_AUTH_TYPE = "rerequest";
     public static final String DIALOG_RESPONSE_TYPE_TOKEN = "token";
     public static final String DIALOG_RETURN_SCOPES_TRUE = "true";
@@ -46,9 +47,7 @@ public final class ServerProtocol {
     // URL components
     private static final String GRAPH_VIDEO_URL_FORMAT = "https://graph-video.%s";
     private static final String GRAPH_URL_FORMAT = "https://graph.%s";
-    private static final String REST_URL_FORMAT = "https://api.%s";
-    public static final String REST_METHOD_BASE = "method";
-    public static final String GRAPH_API_VERSION = "v2.0";
+    public static final String GRAPH_API_VERSION = "v2.1";
 
     private static final String LEGACY_API_VERSION = "v1.0";
 
@@ -67,10 +66,6 @@ public final class ServerProtocol {
 
     public static final String getGraphVideoUrlBase() {
         return String.format(GRAPH_VIDEO_URL_FORMAT, Settings.getFacebookDomain());
-    }
-
-    public static final String getRestUrlBase() {
-        return String.format(REST_URL_FORMAT, Settings.getFacebookDomain());
     }
 
     public static final String getAPIVersion() {

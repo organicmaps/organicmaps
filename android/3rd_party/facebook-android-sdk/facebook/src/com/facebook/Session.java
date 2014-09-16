@@ -16,6 +16,7 @@
 
 package com.facebook;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.*;
 import android.content.pm.ResolveInfo;
@@ -24,7 +25,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
-import com.facebook.internal.*;
+import com.facebook.internal.NativeProtocol;
+import com.facebook.internal.SessionAuthorizationType;
+import com.facebook.internal.Utility;
+import com.facebook.internal.Validate;
 import com.facebook.model.GraphMultiResult;
 import com.facebook.model.GraphObject;
 import com.facebook.model.GraphObjectList;
@@ -124,8 +128,6 @@ public class Session implements Serializable {
     private static final String PUBLISH_PERMISSION_PREFIX = "publish";
     private static final String MANAGE_PERMISSION_PREFIX = "manage";
 
-    private static final String BASIC_INFO_PERMISSION = "basic_info";
-
     @SuppressWarnings("serial")
     private static final Set<String> OTHER_PUBLISH_PERMISSIONS = new HashSet<String>() {{
         add("ads_management");
@@ -190,6 +192,7 @@ public class Session implements Serializable {
      * class should not be modified. If serializations formats change,
      * create a new class SerializationProxyVx.
      */
+    @SuppressWarnings("UnusedDeclaration")
     private static class SerializationProxyV2 implements Serializable {
         private static final long serialVersionUID = 7663436173185080064L;
         private final String applicationId;

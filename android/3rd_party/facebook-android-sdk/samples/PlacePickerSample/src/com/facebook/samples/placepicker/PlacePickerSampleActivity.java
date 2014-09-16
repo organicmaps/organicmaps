@@ -29,11 +29,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.facebook.AppEventsLogger;
+import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphLocation;
 import com.facebook.model.GraphPlace;
-import com.facebook.Session;
 
 public class PlacePickerSampleActivity extends FragmentActivity implements LocationListener {
     private static final int PLACE_ACTIVITY = 1;
@@ -136,6 +136,10 @@ public class PlacePickerSampleActivity extends FragmentActivity implements Locat
     protected void onPause() {
         super.onPause();
         lifecycleHelper.onPause();
+
+        // Call the 'deactivateApp' method to log an app event for use in analytics and advertising
+        // reporting.  Do so in the onPause methods of the primary Activities that an app may be launched into.
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override

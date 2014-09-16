@@ -27,11 +27,7 @@ import com.facebook.internal.Validate;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class represents an access token returned by the Facebook Login service, along with associated
@@ -240,9 +236,11 @@ public final class AccessToken implements Serializable {
     static AccessToken createFromRefresh(AccessToken current, Bundle bundle) {
         // Only tokens obtained via SSO support refresh. Token refresh returns the expiration date in
         // seconds from the epoch rather than seconds from now.
-        assert (current.source == AccessTokenSource.FACEBOOK_APPLICATION_WEB ||
-                current.source == AccessTokenSource.FACEBOOK_APPLICATION_NATIVE ||
-                current.source == AccessTokenSource.FACEBOOK_APPLICATION_SERVICE);
+        if (current.source != AccessTokenSource.FACEBOOK_APPLICATION_WEB &&
+                current.source != AccessTokenSource.FACEBOOK_APPLICATION_NATIVE &&
+                current.source != AccessTokenSource.FACEBOOK_APPLICATION_SERVICE) {
+            throw new FacebookException("Invalid token source: " + current.source);
+        }
 
         Date expires = getBundleLongAsDate(bundle, EXPIRES_IN_KEY, new Date(0));
         String token = bundle.getString(ACCESS_TOKEN_KEY);

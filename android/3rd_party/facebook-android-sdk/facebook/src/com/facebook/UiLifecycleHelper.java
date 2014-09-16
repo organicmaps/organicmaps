@@ -269,14 +269,7 @@ public class UiLifecycleHelper {
             return true;
         }
 
-        String callIdString = data.getStringExtra(NativeProtocol.EXTRA_PROTOCOL_CALL_ID);
-        UUID callId = null;
-        if (callIdString != null) {
-            try {
-                callId = UUID.fromString(callIdString);
-            } catch (IllegalArgumentException exception) {
-            }
-        }
+        UUID callId = NativeProtocol.getCallIdFromIntent(data);
 
         // Was this result for the call we are waiting on?
         if (callId != null && pendingFacebookDialogCall.getCallId().equals(callId)) {

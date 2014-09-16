@@ -32,10 +32,13 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.animation.AlphaAnimation;
 import android.widget.*;
-import com.facebook.*;
+import com.facebook.FacebookException;
+import com.facebook.Request;
+import com.facebook.Session;
+import com.facebook.SessionState;
 import com.facebook.android.R;
-import com.facebook.model.GraphObject;
 import com.facebook.internal.SessionTracker;
+import com.facebook.model.GraphObject;
 
 import java.util.*;
 

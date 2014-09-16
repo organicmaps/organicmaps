@@ -8,6 +8,12 @@ buildscript {
   }
 }
 
+allprojects {
+  repositories {
+    mavenCentral()
+  }
+}
+
 apply plugin: 'com.android.application'
 
 dependencies {

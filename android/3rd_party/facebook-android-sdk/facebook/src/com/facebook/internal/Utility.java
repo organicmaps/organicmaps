@@ -17,27 +17,19 @@
 package com.facebook.internal;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.BatteryManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Parcelable;
-import android.os.StatFs;
 import android.provider.Settings.Secure;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
-import com.facebook.*;
+import com.facebook.FacebookException;
+import com.facebook.Request;
+import com.facebook.Settings;
 import com.facebook.android.BuildConfig;
 import com.facebook.model.GraphObject;
 import org.json.JSONArray;
@@ -84,12 +76,6 @@ public final class Utility {
 
     private static Map<String, FetchedAppSettings> fetchedAppSettings =
             new ConcurrentHashMap<String, FetchedAppSettings>();
-
-    private static int sNumCPUCores = 0;
-    private static long sTotalExternalStorageBytes = -1;
-    private static long sAvailableExternalStorageBytes = -1;
-    private static String sCarrierName = null;
-
 
   public static class FetchedAppSettings {
         private boolean supportsAttribution;
@@ -366,13 +352,13 @@ public final class Utility {
     }
 
     public static void logd(String tag, Exception e) {
-        if (BuildConfig.DEBUG && tag != null && e != null) {
+        if (Settings.isLoggingEnabled() && tag != null && e != null) {
             Log.d(tag, e.getClass().getSimpleName() + ": " + e.getMessage());
         }
     }
 
     public static void logd(String tag, String msg) {
-        if (BuildConfig.DEBUG && tag != null && msg != null) {
+        if (Settings.isLoggingEnabled() && tag != null && msg != null) {
             Log.d(tag, msg);
         }
     }
@@ -514,14 +500,6 @@ public final class Utility {
       extraInfoArray.put(versionName);
 
       params.setProperty("extinfo", extraInfoArray.toString());
-    }
-
-  private static <T> void silentJSONObjectPut(JSONObject object, String key, T data) {
-      try {
-        object.put(key, data);
-      } catch (JSONException e) {
-        // Swallow
-      }
     }
 
     public static Method getMethodQuietly(Class<?> clazz, String methodName, Class<?>... parameterTypes) {

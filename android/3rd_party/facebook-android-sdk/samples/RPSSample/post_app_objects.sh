@@ -56,27 +56,59 @@ echo "  rock=$ROCK_IMAGE_URI"
 echo "  paper=$PAPER_IMAGE_URI"
 echo "  scissors=$SCISSORS_IMAGE_URI"
 
+# step 3 - create facebook hosted applink page for the app:
+# For mobile only app, facebook provide applink host service to generate a page: https://developers.facebook.com/docs/graph-api/reference/v2.0/app/app_link_hosts
+
+echo "creating facebook host applink page for mobile-only app:"
+
+FB_APPLINK_HOST_ID=` \
+curl https://graph.facebook.com/app/app_link_hosts -F access_token="$APPID|$APPSECRET" -F pretty=true -F name="RPSSample" \
+-F ios='[
+    {
+      "url" : "rps-sample-applink-example://",
+      "app_store_id" : 794163692,
+      "app_name" : "RPS Sample",
+    },
+  ]' \
+-F android=' [
+    {
+      "package" : "com.facebook.samples.rps",
+      "app_name" : "RPS Sample",
+    },
+  ]' \
+-F web=' {
+    "should_fallback" : false,
+  }' \
+| perl -ne '/"id":\s*"(.*)"/ && print $1'`
+
+FB_APPLINK_HOST_URL=` \
+curl -X GET https://graph.facebook.com/v2.0/$FB_APPLINK_HOST_ID?access_token="$APPID|$APPSECRET" \
+| perl -ne '/"canonical_url":\s*"(.*)"/ && print $1' `
+
+echo "  applink host url id: $FB_APPLINK_HOST_ID"
+echo "  applink host url: $FB_APPLINK_HOST_URL"
+
 #
-# step 3 - create objects and capture their IDs in variables
+# step 4 - create objects and capture their IDs in variables
 #
 
 # rock
 ROCK_OBJID=` \
-  curl -s -X POST -F "object={\"title\":\"Rock\",\"description\":\"Breaks scissors, alas is covered by paper.\",\"image\":\"$ROCK_IMAGE_URI\"}" "https://graph.facebook.com/$APPID/objects/fb_sample_rps:gesture?access_token=$APPID|$APPSECRET" \
+  curl -s -X POST -F "object={\"title\":\"Rock\",\"description\":\"Breaks scissors, alas is covered by paper.\",\"image\":\"$ROCK_IMAGE_URI\",\"url\":\"$FB_APPLINK_HOST_URL?gesture=rock\"}" "https://graph.facebook.com/$APPID/objects/fb_sample_rps:gesture?access_token=$APPID|$APPSECRET" \
   | perl -ne '/"id":"(.*)"}/ && print $1' `
 
 # paper
 PAPER_OBJID=` \
-  curl -s -X POST -F "object={\"title\":\"Paper\",\"description\":\"Covers rock, sadly scissors cut it.\",\"image\":\"$PAPER_IMAGE_URI\"}" "https://graph.facebook.com/$APPID/objects/fb_sample_rps:gesture?access_token=$APPID|$APPSECRET" \
+  curl -s -X POST -F "object={\"title\":\"Paper\",\"description\":\"Covers rock, sadly scissors cut it.\",\"image\":\"$PAPER_IMAGE_URI\",\"url\":\"$FB_APPLINK_HOST_URL?gesture=paper\"}" "https://graph.facebook.com/$APPID/objects/fb_sample_rps:gesture?access_token=$APPID|$APPSECRET" \
   | perl -ne '/"id":"(.*)"}/ && print $1' `
 
 # scissors
 SCISSORS_OBJID=` \
-  curl -s -X POST -F "object={\"title\":\"Scissors\",\"description\":\"Cuts paper, broken by rock -- bother.\",\"image\":\"$SCISSORS_IMAGE_URI\"}" "https://graph.facebook.com/$APPID/objects/fb_sample_rps:gesture?access_token=$APPID|$APPSECRET" \
+  curl -s -X POST -F "object={\"title\":\"Scissors\",\"description\":\"Cuts paper, broken by rock -- bother.\",\"image\":\"$SCISSORS_IMAGE_URI\",\"url\":\"$FB_APPLINK_HOST_URL?gesture=scissors\"}" "https://graph.facebook.com/$APPID/objects/fb_sample_rps:gesture?access_token=$APPID|$APPSECRET" \
   | perl -ne '/"id":"(.*)"}/ && print $1' `
 
 #
-# step 4 - echo progress
+# step 5 - echo progress
 #
 
 echo "created application objects..."
@@ -85,7 +117,7 @@ echo "  paper=$PAPER_OBJID"
 echo "  scissors=$SCISSORS_OBJID"
 
 #
-# step 5 - write .java file for common objects
+# step 6 - write .java file for common objects
 #
 
 MFILE=src/com/facebook/samples/rps/CommonObjects.java

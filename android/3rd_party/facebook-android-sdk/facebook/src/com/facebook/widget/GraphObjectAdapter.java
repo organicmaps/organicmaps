@@ -23,7 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.*;
-import com.facebook.*;
+import com.facebook.FacebookException;
 import com.facebook.android.R;
 import com.facebook.internal.ImageDownloader;
 import com.facebook.internal.ImageRequest;

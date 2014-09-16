@@ -42,15 +42,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A single request to be sent to the Facebook Platform through either the <a
- * href="https://developers.facebook.com/docs/reference/api/">Graph API</a> or <a
- * href="https://developers.facebook.com/docs/reference/rest/">REST API</a>. The Request class provides functionality
+ * A single request to be sent to the Facebook Platform through the <a
+ * href="https://developers.facebook.com/docs/reference/api/">Graph API</a>. The Request class provides functionality
  * relating to serializing and deserializing requests and responses, making calls in batches (with a single round-trip
  * to the service) and making calls asynchronously.
  *
- * The particular service endpoint that a request targets is determined by either a graph path (see the
- * {@link #setGraphPath(String) setGraphPath} method) or a REST method name (see the {@link #setRestMethod(String)
- * setRestMethod} method); a single request may not target both.
+ * The particular service endpoint that a request targets is determined by a graph path (see the
+ * {@link #setGraphPath(String) setGraphPath} method).
  *
  * A Request can be executed either anonymously or representing an authenticated user. In the former case, no Session
  * needs to be specified, while in the latter, a Session that is in an opened state must be provided. If requests are
@@ -118,7 +116,6 @@ public class Request {
     private HttpMethod httpMethod;
     private String graphPath;
     private GraphObject graphObject;
-    private String restMethod;
     private String batchEntryName;
     private String batchEntryDependsOn;
     private boolean batchEntryOmitResultOnSuccess = true;
@@ -263,26 +260,6 @@ public class Request {
     public static Request newPostRequest(Session session, String graphPath, GraphObject graphObject, Callback callback) {
         Request request = new Request(session, graphPath, null, HttpMethod.POST , callback);
         request.setGraphObject(graphObject);
-        return request;
-    }
-
-    /**
-     * Creates a new Request configured to make a call to the Facebook REST API.
-     *
-     * @param session
-     *            the Session to use, or null; if non-null, the session must be in an opened state
-     * @param restMethod
-     *            the method in the Facebook REST API to execute
-     * @param parameters
-     *            additional parameters to pass along with the Graph API request; parameters must be Strings, Numbers,
-     *            Bitmaps, Dates, or Byte arrays.
-     * @param httpMethod
-     *            the HTTP method to use for the request; must be one of GET, POST, or DELETE
-     * @return a Request that is ready to execute
-     */
-    public static Request newRestRequest(Session session, String restMethod, Bundle parameters, HttpMethod httpMethod) {
-        Request request = new Request(session, null, parameters, httpMethod);
-        request.setRestMethod(restMethod);
         return request;
     }
 
@@ -543,6 +520,7 @@ public class Request {
      * A `null` ID will be provided into the callback if a) there is no native Facebook app, b) no one is logged into
      * it, or c) the app has previously called
      * {@link Settings#setLimitEventAndDataUsage(android.content.Context, boolean)} with `true` for this user.
+     * <b>You must call this method from a background thread for it to work properly.</b>
      *
      * @param session
      *            the Session to issue the Request on, or null; if non-null, the session must be in an opened state.
@@ -577,6 +555,7 @@ public class Request {
      * A `null` ID will be provided into the callback if a) there is no native Facebook app, b) no one is logged into
      * it, or c) the app has previously called
      * {@link Settings#setLimitEventAndDataUsage(android.content.Context, boolean)} ;} with `true` for this user.
+     * <b>You must call this method from a background thread for it to work properly.</b>
      *
      * @param session
      *            the Session to issue the Request on, or null; if non-null, the session must be in an opened state.
@@ -875,7 +854,7 @@ public class Request {
     }
 
     /**
-     * Sets the graph path of this request. A graph path may not be set if a REST method has been specified.
+     * Sets the graph path of this request.
      *
      * @param graphPath
      *            the graph path for this request
@@ -943,25 +922,6 @@ public class Request {
      */
     public final void setParameters(Bundle parameters) {
         this.parameters = parameters;
-    }
-
-    /**
-     * Returns the REST method to call for this request.
-     *
-     * @return the REST method
-     */
-    public final String getRestMethod() {
-        return this.restMethod;
-    }
-
-    /**
-     * Sets the REST method to call for this request. A REST method may not be set if a graph path has been specified.
-     *
-     * @param restMethod
-     *            the REST method to call
-     */
-    public final void setRestMethod(String restMethod) {
-        this.restMethod = restMethod;
     }
 
     /**
@@ -1137,30 +1097,6 @@ public class Request {
     public static RequestAsyncTask executePostRequestAsync(Session session, String graphPath, GraphObject graphObject,
             Callback callback) {
         return newPostRequest(session, graphPath, graphObject, callback).executeAsync();
-    }
-
-    /**
-     * Starts a new Request configured to make a call to the Facebook REST API.
-     * <p/>
-     * This should only be called from the UI thread.
-     *
-     * This method is deprecated. Prefer to call Request.newRestRequest(...).executeAsync();
-     *
-     * @param session
-     *            the Session to use, or null; if non-null, the session must be in an opened state
-     * @param restMethod
-     *            the method in the Facebook REST API to execute
-     * @param parameters
-     *            additional parameters to pass along with the Graph API request; parameters must be Strings, Numbers,
-     *            Bitmaps, Dates, or Byte arrays.
-     * @param httpMethod
-     *            the HTTP method to use for the request; must be one of GET, POST, or DELETE
-     * @return a RequestAsyncTask that is executing the request
-     */
-    @Deprecated
-    public static RequestAsyncTask executeRestRequestAsync(Session session, String restMethod, Bundle parameters,
-            HttpMethod httpMethod) {
-        return newRestRequest(session, restMethod, parameters, httpMethod).executeAsync();
     }
 
     /**
@@ -1391,10 +1327,6 @@ public class Request {
      * @throws IllegalArgumentException
      */
     public static HttpURLConnection toHttpConnection(RequestBatch requests) {
-
-        for (Request request : requests) {
-            request.validate();
-        }
 
         URL url = null;
         try {
@@ -1702,8 +1634,8 @@ public class Request {
     @Override
     public String toString() {
         return new StringBuilder().append("{Request: ").append(" session: ").append(session).append(", graphPath: ")
-                .append(graphPath).append(", graphObject: ").append(graphObject).append(", restMethod: ")
-                .append(restMethod).append(", httpMethod: ").append(httpMethod).append(", parameters: ")
+                .append(graphPath).append(", graphObject: ").append(graphObject)
+                .append(", httpMethod: ").append(httpMethod).append(", parameters: ")
                 .append(parameters).append("}").toString();
     }
 
@@ -1813,13 +1745,7 @@ public class Request {
             throw new FacebookException("Can't override URL for a batch request");
         }
 
-        String baseUrl;
-        if (this.restMethod != null) {
-            baseUrl = getRestPathWithVersion();
-        } else {
-            baseUrl = getGraphPathWithVersion();
-        }
-
+        String baseUrl = getGraphPathWithVersion();
         addCommonParameters();
         return appendParametersToBaseUrl(baseUrl);
     }
@@ -1829,18 +1755,13 @@ public class Request {
             return overriddenURL.toString();
         }
 
-        String baseUrl;
-        if (this.restMethod != null) {
-            baseUrl = String.format("%s/%s", ServerProtocol.getRestUrlBase(), getRestPathWithVersion());
+        String graphBaseUrlBase;
+        if (this.getHttpMethod() == HttpMethod.POST && graphPath != null && graphPath.endsWith(VIDEOS_SUFFIX)) {
+            graphBaseUrlBase = ServerProtocol.getGraphVideoUrlBase();
         } else {
-            String graphBaseUrlBase;
-            if (this.getHttpMethod() == HttpMethod.POST && graphPath != null && graphPath.endsWith(VIDEOS_SUFFIX)) {
-                graphBaseUrlBase = ServerProtocol.getGraphVideoUrlBase();
-            } else {
-                graphBaseUrlBase = ServerProtocol.getGraphUrlBase();
-            }
-            baseUrl = String.format("%s/%s", graphBaseUrlBase, getGraphPathWithVersion());
+            graphBaseUrlBase = ServerProtocol.getGraphUrlBase();
         }
+        String baseUrl = String.format("%s/%s", graphBaseUrlBase, getGraphPathWithVersion());
 
         addCommonParameters();
         return appendParametersToBaseUrl(baseUrl);
@@ -1852,14 +1773,6 @@ public class Request {
             return this.graphPath;
         }
         return String.format("%s/%s", this.version, this.graphPath);
-    }
-
-    private String getRestPathWithVersion() {
-        Matcher matcher = versionPattern.matcher(this.restMethod);
-        if (matcher.matches()) {
-            return this.restMethod;
-        }
-        return String.format("%s/%s/%s", this.version, ServerProtocol.REST_METHOD_BASE, this.restMethod);
     }
 
     private static class Attachment {
@@ -1931,12 +1844,6 @@ public class Request {
         }
 
         batch.put(batchEntry);
-    }
-
-    private void validate() {
-        if (graphPath != null && restMethod != null) {
-            throw new IllegalArgumentException("Only one of a graph path or REST method may be specified per request.");
-        }
     }
 
     private static boolean hasOnProgressCallbacks(RequestBatch requests) {
