@@ -6,18 +6,20 @@
 #include "../DataStructures/QueryEdge.h"
 
 #include "../../../../coding/matrix_traversal.hpp"
-#include "../../../../routing/osrm_data_facade.hpp"
+//#include "../../../../routing/osrm_data_facade.hpp"
 
 #include "../../../succinct/elias_fano.hpp"
 #include "../../../succinct/gamma_vector.hpp"
 #include "../../../succinct/mapper.hpp"
 
+
 namespace  mapsme
 {
 
-#define PRINT_STATUS(v) { if (v) PRINT_OK else PRINT_FAIL std::cout << std::endl; }
-#define PRINT_OK    std::cout << "[Ok]";
-#define PRINT_FAIL  std::cout << "[Fail]";
+void PrintStatus(bool b)
+{
+  std::cout << (b ? "[Ok]" : "[Fail]") << std::endl;
+}
 
 Converter::Converter()
 {
@@ -39,7 +41,7 @@ void Converter::run(const std::string & name)
 
   std::cout << "Create internal data facade for file: " << name << "...";
   InternalDataFacade<QueryEdge::EdgeData> facade(server_paths);
-  PRINT_STATUS(true);
+  PrintStatus(true);
 
   uint64_t nodeCount = facade.GetNumberOfNodes();
 
@@ -71,11 +73,12 @@ void Converter::run(const std::string & name)
       edgeId.push_back(data.id);
     }
   }
-  PRINT_STATUS(true);
+  std::cout << "Edges count: " << edgeId.size() << std::endl;
+  PrintStatus(true);
 
   std::cout << "Sort edges...";
   std::sort(edges.begin(), edges.end());
-  PRINT_STATUS(true);
+  PrintStatus(true);
 
   std::cout << "Edges count: " << edges.size() << std::endl;
 
@@ -104,13 +107,15 @@ void Converter::run(const std::string & name)
   fileName = name + ".shortcuts";
   succinct::mapper::freeze(shortcutsVector, fileName.c_str());
 
+  /// @todo Restore this checking. Now data facade depends on mwm libraries.
+  /*
   std::cout << "--- Test packed data" << std::endl;
   routing::OsrmDataFacade<QueryEdge::EdgeData> facadeNew(name);
 
   std::cout << "Check node count " << facade.GetNumberOfNodes() << " == " << facadeNew.GetNumberOfNodes() <<  "...";
-  PRINT_STATUS(facade.GetNumberOfNodes() == facadeNew.GetNumberOfNodes());
+  PrintStatus(facade.GetNumberOfNodes() == facadeNew.GetNumberOfNodes());
   std::cout << "Check edges count " << facade.GetNumberOfEdges() << " == " << facadeNew.GetNumberOfEdges() << "...";
-  PRINT_STATUS(facade.GetNumberOfEdges() == facadeNew.GetNumberOfEdges());
+  PrintStatus(facade.GetNumberOfEdges() == facadeNew.GetNumberOfEdges());
 
   std::cout << "Check edges data ...";
   bool error = false;
@@ -135,7 +140,7 @@ void Converter::run(const std::string & name)
       break;
     }
   }
-  PRINT_STATUS(!error);
+  PrintStatus(!error);
 
   std::cout << "Check graph structure...";
   error = false;
@@ -154,8 +159,8 @@ void Converter::run(const std::string & name)
       break;
     }
   }
-  PRINT_STATUS(!error);
+  PrintStatus(!error);
+  */
 }
-
 
 }
