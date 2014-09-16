@@ -477,10 +477,11 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   {
     mPlacePageGroup.findViewById(R.id.info_box_share).setOnClickListener(this);
 
-    final TextView returnToCallerTv = (TextView) mPlacePageGroup.findViewById(R.id.info_box_back_to_caller);
-    UiUtils.hide(returnToCallerTv);
+    final TextView tvBackToCaller = (TextView) mPlacePageGroup.findViewById(R.id.info_box_back_to_caller);
+    UiUtils.hide(tvBackToCaller);
 
-    if (mMapObject.getType() == MapObjectType.API_POINT)
+    if (mMapObject.getType() == MapObjectType.API_POINT ||
+        (ParsedMmwRequest.hasRequest() && ParsedMmwRequest.getCurrentRequest().isPickPointMode()))
     {
       // API
       final ParsedMmwRequest r = ParsedMmwRequest.getCurrentRequest();
@@ -500,9 +501,9 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       final SpannableString ss = new SpannableString(txtPattern);
       ss.setSpan(callerIconSpan, spanStart, spanEnd, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
-      UiUtils.show(returnToCallerTv);
-      returnToCallerTv.setText(ss, TextView.BufferType.SPANNABLE);
-      returnToCallerTv.setOnClickListener(this);
+      UiUtils.show(tvBackToCaller);
+      tvBackToCaller.setText(ss, TextView.BufferType.SPANNABLE);
+      tvBackToCaller.setOnClickListener(this);
     }
   }
 
@@ -834,6 +835,8 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       ShareAction.getAnyShare().shareMapObject((Activity) getContext(), mMapObject);
       break;
     case R.id.info_box_back_to_caller:
+      if (ParsedMmwRequest.hasRequest() && ParsedMmwRequest.getCurrentRequest().isPickPointMode())
+        ParsedMmwRequest.getCurrentRequest().setPointData(mMapObject.getLat(), mMapObject.getLon(), mMapObject.getName(), "");
       ParsedMmwRequest.getCurrentRequest().sendResponseAndFinish((Activity) getContext(), true);
       break;
     case R.id.btn_edit_title:
