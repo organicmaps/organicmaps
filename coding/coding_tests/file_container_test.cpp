@@ -204,3 +204,90 @@ UNIT_TEST(FilesContainer_RewriteExisting)
 
   FileWriter::DeleteFileX(fName);
 }
+
+UNIT_TEST(FilesMappingContainer_Smoke)
+{
+  string const fName = "file_container.tmp";
+  char const * key[] = { "3", "2", "1" };
+  uint32_t const count = 1000000;
+
+  // fill container
+  {
+    FilesContainerW writer(fName);
+
+    for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
+    {
+      FileWriter w = writer.GetWriter(key[i]);
+      for (uint32_t j = 0; j < count; ++j)
+      {
+        uint32_t v = j + i;
+        w.Write(&v, sizeof(v));
+      }
+    }
+  }
+
+  {
+    FilesMappingContainer reader(fName);
+    for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
+    {
+      FilesMappingContainer::Handle h = reader.Map(key[i]);
+      uint32_t const * data = reinterpret_cast<uint32_t const *>(h.GetData());
+      for (uint32_t j = 0; j < count; ++j)
+      {
+        TEST_EQUAL(j + i, *data, ());
+        ++data;
+      }
+
+      h.Unmap();
+    }
+  }
+
+  FileWriter::DeleteFileX(fName);
+}
+
+UNIT_TEST(FilesMappingContainer_PageSize)
+{
+  string const fName = "file_container.tmp";
+
+  size_t const pageSize = sysconf(_SC_PAGE_SIZE);
+  LOG(LINFO, ("Page size:", pageSize));
+
+  char const * key[] = { "3", "2", "1" };
+  char const byte[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g' };
+  size_t count[] = { pageSize-1, pageSize, pageSize+1 };
+  size_t const sz = ARRAY_SIZE(key);
+
+  {
+    FilesContainerW writer(fName);
+
+    for (size_t i = 0; i < sz; ++i)
+    {
+      FileWriter w = writer.GetWriter(key[i]);
+      for (size_t j = 0; j < count[i]; ++j)
+        w.Write(&byte[j % ARRAY_SIZE(byte)], 1);
+    }
+  }
+
+  {
+    FilesMappingContainer reader(fName);
+    FilesMappingContainer::Handle handle[sz];
+
+    for (size_t i = 0; i < sz; ++i)
+    {
+      handle[i] = reader.Map(key[i]);
+      TEST_EQUAL(handle[i].GetSize(), count[i], ());
+    }
+
+    for (size_t i = 0; i < sz; ++i)
+    {
+      char const * data = handle[i].GetData();
+      for (size_t j = 0; j < count[i]; ++j)
+        TEST_EQUAL(*data++, byte[j % ARRAY_SIZE(byte)], ());
+    }
+
+    for (size_t i = 0; i < sz; ++i)
+      handle[i].Unmap();
+  }
+
+  FileWriter::DeleteFileX(fName);
+}

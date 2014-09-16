@@ -23,6 +23,13 @@ public:
     friend string DebugPrint(Info const & info);
   };
 
+  Info const * GetInfo(Tag const & tag) const;
+
+  bool IsExist(Tag const & tag) const
+  {
+    return GetInfo(tag) != 0;
+  }
+
 protected:
   struct LessInfo
   {
@@ -74,7 +81,6 @@ protected:
     }
   };
 
-
   typedef vector<Info> InfoContainer;
   InfoContainer m_info;
 
@@ -94,8 +100,6 @@ public:
 
   ReaderT GetReader(Tag const & tag) const;
 
-  bool IsReaderExist(Tag const & tag) const;
-
   template <typename F> void ForEachTag(F f) const
   {
     for (size_t i = 0; i < m_info.size(); ++i)
@@ -107,6 +111,46 @@ public:
 
 private:
   ReaderT m_source;
+};
+
+class FilesMappingContainer : public FilesContainerBase
+{
+public:
+  explicit FilesMappingContainer(string const & fName);
+  ~FilesMappingContainer();
+
+  class Handle
+  {
+  public:
+    Handle()
+      : m_base(0), m_origBase(0), m_size(0), m_origSize(0)
+    {
+    }
+
+    Handle(char const * base, char const * alignBase, uint64_t size, uint64_t origSize)
+      : m_base(base), m_origBase(alignBase), m_size(size), m_origSize(origSize)
+    {
+    }
+
+    ~Handle();
+
+    void Unmap();
+
+    bool IsValid() const { return (m_base != 0 && m_size > 0); }
+    uint64_t GetSize() const { return m_size; }
+    char const * GetData() const { return m_base; }
+
+  private:
+    char const * m_base;
+    char const * m_origBase;
+    uint64_t m_size;
+    uint64_t m_origSize;
+  };
+
+  Handle Map(Tag const & tag) const;
+
+private:
+  int m_fd;
 };
 
 class FilesContainerW : public FilesContainerBase

@@ -17,7 +17,7 @@ void LoadMapHeader(FilesContainerR const & cont, FHeaderT & header)
 {
   ModelReaderPtr headerReader = cont.GetReader(HEADER_FILE_TAG);
 
-  if (!cont.IsReaderExist(VERSION_FILE_TAG))
+  if (!cont.IsExist(VERSION_FILE_TAG))
     header.LoadVer1(headerReader);
   else
   {

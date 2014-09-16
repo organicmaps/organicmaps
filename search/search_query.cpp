@@ -1616,7 +1616,7 @@ void Query::SearchAddress(Results & res)
     Index::MwmLock mwmLock(*m_pIndex, mwmId);
     MwmValue * pMwm = mwmLock.GetValue();
     if (pMwm &&
-        pMwm->m_cont.IsReaderExist(SEARCH_INDEX_FILE_TAG) &&
+        pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG) &&
         pMwm->GetHeader().GetType() == FHeaderT::world)
     {
       impl::Locality city;
@@ -2069,7 +2069,7 @@ void Query::SearchInMWM(Index::MwmLock const & mwmLock, Params const & params,
 {
   if (MwmValue * pMwm = mwmLock.GetValue())
   {
-    if (pMwm->m_cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+    if (pMwm->m_cont.IsExist(SEARCH_INDEX_FILE_TAG))
     {
       FHeaderT const & header = pMwm->GetHeader();
 

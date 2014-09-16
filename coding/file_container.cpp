@@ -5,6 +5,17 @@
 #include "write_to_sink.hpp"
 #include "internal/file_data.hpp"
 
+#ifndef OMIM_OS_WINDOWS
+  #include <unistd.h>
+  #include <sys/mman.h>
+  #include <sys/stat.h>
+  #ifdef OMIM_OS_ANDROID
+    #include <fcntl.h>
+  #else
+    #include <sys/fcntl.h>
+  #endif
+#endif
+
 
 template <class TSource> void Read(TSource & src, FilesContainerBase::Info & i)
 {
@@ -64,21 +75,83 @@ FilesContainerR::FilesContainerR(ReaderT const & file)
 
 FilesContainerR::ReaderT FilesContainerR::GetReader(Tag const & tag) const
 {
-  InfoContainer::const_iterator i =
-    lower_bound(m_info.begin(), m_info.end(), tag, LessInfo());
-
-  if (i != m_info.end() && i->m_tag == tag)
-    return m_source.SubReader(i->m_offset, i->m_size);
+  Info const * p = GetInfo(tag);
+  if (p)
+    return m_source.SubReader(p->m_offset, p->m_size);
   else
     MYTHROW(Reader::OpenException, (tag));
 }
 
-bool FilesContainerR::IsReaderExist(Tag const & tag) const
+FilesContainerBase::Info const * FilesContainerBase::GetInfo(Tag const & tag) const
 {
   InfoContainer::const_iterator i =
     lower_bound(m_info.begin(), m_info.end(), tag, LessInfo());
 
-  return (i != m_info.end() && i->m_tag == tag);
+  if (i != m_info.end() && i->m_tag == tag)
+    return &(*i);
+  else
+    return 0;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// FilesMappingContainer
+/////////////////////////////////////////////////////////////////////////////
+
+FilesMappingContainer::FilesMappingContainer(string const & fName)
+{
+  {
+    FileReader reader(fName, 10, 1);
+    ReadInfo(reader);
+  }
+
+  m_fd = open(fName.c_str(), O_RDONLY | O_NONBLOCK);
+  if (m_fd == -1)
+    MYTHROW(Reader::OpenException, ("Can't open file:", fName));
+}
+
+FilesMappingContainer::~FilesMappingContainer()
+{
+  close(m_fd);
+}
+
+FilesMappingContainer::Handle FilesMappingContainer::Map(Tag const & tag) const
+{
+  Info const * p = GetInfo(tag);
+  if (p)
+  {
+    long const offsetAlign = sysconf(_SC_PAGE_SIZE);
+
+    uint64_t const offset = (p->m_offset / offsetAlign) * offsetAlign;
+    ASSERT_LESS_OR_EQUAL(offset, p->m_offset, ());
+    uint64_t const length = p->m_size + (p->m_offset - offset);
+    ASSERT_GREATER_OR_EQUAL(length, p->m_size, ());
+
+    char const * data = reinterpret_cast<char const *>(mmap(0, length, PROT_READ, MAP_SHARED, m_fd, offset));
+
+    if (data == reinterpret_cast<char const *>(-1))
+      MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", *p));
+
+    char const * d = data + (p->m_offset - offset);
+    return Handle(d, data, p->m_size, length);
+  }
+  else
+    MYTHROW(Reader::OpenException, ("Can't find section:", tag));
+
+  return Handle();
+}
+
+FilesMappingContainer::Handle::~Handle()
+{
+//  CHECK(!IsValid(), ());
+}
+
+void FilesMappingContainer::Handle::Unmap()
+{
+  ASSERT(IsValid(), ());
+  VERIFY(0 == munmap((void*)m_origBase, m_origSize), ());
+
+  m_origBase = m_base = 0;
+  m_origSize = m_size = 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////

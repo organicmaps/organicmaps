@@ -409,7 +409,7 @@ bool indexer::BuildSearchIndexFromDatFile(string const & fName, bool forceRebuil
     {
       FilesContainerR readCont(datFile);
 
-      if (!forceRebuild && readCont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+      if (!forceRebuild && readCont.IsExist(SEARCH_INDEX_FILE_TAG))
         return true;
 
       FileWriter writer(tmpFile);
