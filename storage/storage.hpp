@@ -39,6 +39,9 @@ namespace storage
 
     CountriesContainerT m_countries;
 
+    vector<TIndex> m_downloadedCountries;
+    vector<TIndex> m_outOfDateCountries;
+
     /// store queue for downloading
     typedef list<TIndex> TQueue;
     TQueue m_queue;
@@ -103,10 +106,15 @@ namespace storage
     //@}
 
     Country const & CountryByIndex(TIndex const & index) const;
+    TIndex const & GetDownloadedCountryAt(size_t const & i) const;
+    TIndex const & GetOutOfDateCountryAt(size_t const & i) const;
+
     TIndex FindIndexByFile(string const & name) const;
     void GetGroupAndCountry(TIndex const & index, string & group, string & country) const;
 
     size_t CountriesCount(TIndex const & index) const;
+    size_t GetDownloadedCountriesCount() const;
+    size_t GetOutOfDateCountriesCount() const;
     string const & CountryName(TIndex const & index) const;
     string const & CountryFlag(TIndex const & index) const;
     /// @return Country file name without extension.
@@ -122,7 +130,7 @@ namespace storage
     bool DeleteFromDownloader(TIndex const & index);
     bool IsDownloadInProgress() const;
 
-    void NotifyStatusChanged(TIndex const & index) const;
+    void NotifyStatusChanged(TIndex const & index);
 
     string GetFileDownloadUrl(string const & baseUrl, string const & fName) const;
 
@@ -134,6 +142,9 @@ namespace storage
     //@{
   private:
     guides::GuidesManager m_guideManager;
+
+    void UpdateDownloadedCountriesState();
+    void UpdateDownloadedCountriesState(TIndex const index);
 
   public:
     guides::GuidesManager const & GetGuideManager() const { return m_guideManager; }

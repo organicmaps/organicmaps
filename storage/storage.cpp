@@ -68,6 +68,8 @@ namespace storage
       for (size_t j = 0; j < files.size(); ++j)
         FileWriter::DeleteFileX(dir + files[j]);
     }
+
+    UpdateDownloadedCountriesState();
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -89,6 +91,73 @@ namespace storage
         return root[index.m_group][index.m_country];
       return root[index.m_group][index.m_country][index.m_region];
     }
+  }
+
+  TIndex const & Storage::GetDownloadedCountryAt(size_t const & i) const
+  {
+    return m_downloadedCountries[i];
+  }
+
+  TIndex const & Storage::GetOutOfDateCountryAt(size_t const & i) const
+  {
+    return m_outOfDateCountries[i];
+  }
+
+  void Storage::UpdateDownloadedCountriesState(TIndex const index)
+  {
+    size_t const count = CountriesCount(index);
+    for (size_t i = 0; i < count; ++i)
+    {
+      TIndex indexCopy = index;
+      if (index.m_group == TIndex::INVALID)
+        indexCopy.m_group = i;
+      else if (index.m_country == TIndex::INVALID)
+        indexCopy.m_country = i;
+      else
+        indexCopy.m_region = i;
+
+      UpdateDownloadedCountriesState(indexCopy);
+
+      TStatus const status = CountryStatusEx(indexCopy);
+      if (status != EUnknown && status != ENotDownloaded)
+      {
+        m_downloadedCountries.push_back(indexCopy);
+        if (status == EOnDiskOutOfDate)
+          m_outOfDateCountries.push_back(indexCopy);
+      }
+    }
+  }
+
+  void Storage::UpdateDownloadedCountriesState()
+  {
+    m_downloadedCountries.clear();
+    m_outOfDateCountries.clear();
+
+    UpdateDownloadedCountriesState(TIndex());
+
+    auto predicate = [this](TIndex const & l, TIndex const & r)
+                     {
+                       return CountryFileName(l) == CountryFileName(r);
+                     };
+    unique(m_downloadedCountries.begin(), m_downloadedCountries.end(), predicate);
+    unique(m_outOfDateCountries.begin(), m_outOfDateCountries.end(), predicate);
+
+    auto comparator = [this](TIndex const & l, TIndex const & r)
+                      {
+                        return CountryName(l) < CountryName(r);
+                      };
+    sort(m_downloadedCountries.begin(), m_downloadedCountries.end(), comparator);
+    sort(m_outOfDateCountries.begin(), m_outOfDateCountries.end(), comparator);
+  }
+
+  size_t Storage::GetDownloadedCountriesCount() const
+  {
+    return m_downloadedCountries.size();
+  }
+
+  size_t Storage::GetOutOfDateCountriesCount() const
+  {
+    return m_outOfDateCountries.size();
   }
 
   Country const & Storage::CountryByIndex(TIndex const & index) const
@@ -209,8 +278,9 @@ namespace storage
     }
   }
 
-  void Storage::NotifyStatusChanged(TIndex const & index) const
+  void Storage::NotifyStatusChanged(TIndex const & index)
   {
+    UpdateDownloadedCountriesState();
     for (list<CountryObservers>::const_iterator it = m_observers.begin(); it != m_observers.end(); ++it)
       it->m_changeCountryFn(index);
   }
