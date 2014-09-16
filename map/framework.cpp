@@ -670,7 +670,8 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
     m_informationDisplay.setEmptyCountryIndex(GetCountryIndex(GetViewportCenter()));
 
   m_informationDisplay.enableCountryStatusDisplay(isEmptyModel);
-  bool const isCompassEnabled = ang::AngleIn2PI(m_navigator.Screen().GetAngle()) > my::DegToRad(3.0);
+
+  bool const isCompassEnabled = my::Abs(ang::GetShortestDistance(m_navigator.Screen().GetAngle(), 0.0)) > my::DegToRad(3.0);
   bool const isCompasActionEnabled = m_informationDisplay.isCompassArrowEnabled() && m_navigator.InAction();
   bool const isInRouting = IsRountingActive();
 
