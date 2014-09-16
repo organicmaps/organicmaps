@@ -394,8 +394,8 @@ namespace qt
       {
         if (m_framework->IsRountingActive())
           m_framework->CancelRoutingSession();
-
-        m_framework->StartRoutingSession(m_framework->PtoG(pt));
+        else
+          m_framework->StartRoutingSession(m_framework->PtoG(pt));
       }
       else
       {

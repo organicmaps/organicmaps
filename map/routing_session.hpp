@@ -33,15 +33,16 @@ public:
   State OnLocationPositionChanged(m2::PointD const & position, double errorRadius);
 
 private:
+  // errorRadius is error in determining the position in the Mercator
   bool IsOnRoute(m2::PointD const & position, double errorRadius) const;
   bool IsOnDestPoint(m2::PointD const & position, double errorRadius) const;
 
 private:
   unique_ptr<IRouter> m_router;
-  m2::PolylineD m_routeGeometry;
+  Route m_route;
   State m_state;
 
-  constexpr static double MaxValidError = 0.005;
+  double m_tolerance;
 };
 
 }

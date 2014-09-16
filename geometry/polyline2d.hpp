@@ -37,10 +37,10 @@ public:
     return dist;
   }
 
-  double GetShortestSquareDistance(m2::PointD const & point) const
+  double GetShortestSquareDistance(m2::Point<T> const & point) const
   {
     double res = numeric_limits<double>::max();
-    m2::DistanceToLineSquare<m2::PointD> d;
+    m2::DistanceToLineSquare<m2::Point<T> > d;
 
     TIter i = Begin();
     for (TIter j = i + 1; j != End(); ++i, ++j)
@@ -74,6 +74,8 @@ public:
   typedef typename TContainer::const_iterator TIter;
   TIter Begin() const { return m_points.begin(); }
   TIter End() const { return m_points.end(); }
+  Point<T> const & Front() const { return m_points.front(); }
+  Point<T> const & Back() const { return m_points.back(); }
 
   friend string DebugPrint(PolylineT<T> const & p)
   {

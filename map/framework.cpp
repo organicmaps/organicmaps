@@ -2020,8 +2020,7 @@ void Framework::CheckLocationForRouting()
 
   shared_ptr<location::State> const & state = GetLocationState();
   m2::PointD const & position = state->Position();
-  double error = state->GetErrorRadius();
-  if (m_routingSession->OnLocationPositionChanged(position, error) == routing::RoutingSession::RouteLeft)
+  if (m_routingSession->OnLocationPositionChanged(position, state->GetErrorRadius()) == routing::RoutingSession::RouteLeft)
   {
     m_routingSession->RebuildRoute(position, [this] (routing::Route const & route)
     {

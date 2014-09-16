@@ -684,11 +684,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (void)routeCellDidSetEndPoint:(PlacePageRoutingCell *)cell
 {
-  Framework & fw = GetFramework();
-  if (fw.IsRountingActive())
-    fw.CancelRoutingSession();
-  
-  fw.StartRoutingSession([self pinPoint]);
+  GetFramework().StartRoutingSession([self pinPoint]);
   [self setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
