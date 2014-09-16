@@ -32,7 +32,8 @@ namespace
 }
 
 InformationDisplay::InformationDisplay(Framework * fw)
-  : m_visualScale(1)
+  : m_framework(fw)
+  , m_visualScale(1)
 {
   m_fontDesc.m_color = Color(0x4D, 0x4D, 0x4D, 0xCC);
 
@@ -91,21 +92,6 @@ void InformationDisplay::InitCopyright(Framework * fw)
   p.m_text = "Map data © OpenStreetMap";
 
   m_copyrightLabel.reset(new gui::CachedTextView(p));
-
-  shared_ptr<anim::Task> task(new AlfaAnimationTask(1.0, 0.0, 0.15, 3.0, fw));
-  task->AddCallback(anim::Task::EEnded, [this]()
-                                        {
-                                          m_controller->RemoveElement(m_copyrightLabel);
-                                          m_copyrightLabel.reset();
-                                        });
-
-  m_copyrightLabel->setAnimated([task]()
-                                {
-                                  AlfaAnimationTask * t = static_cast<AlfaAnimationTask *>(task.get());
-                                  return t->GetCurrentAlfa();
-                                });
-
-  fw->GetAnimController()->AddTask(task);
 }
 
 void InformationDisplay::InitCompassArrow(Framework * fw)
@@ -152,7 +138,22 @@ void InformationDisplay::setController(gui::Controller * controller)
   m_controller->AddElement(m_locationState);
   m_controller->AddElement(m_ruler);
   m_controller->AddElement(m_debugLabel);
+
   m_controller->AddElement(m_copyrightLabel);
+  shared_ptr<anim::Task> task(new AlfaAnimationTask(1.0, 0.0, 0.15, 3.0, m_framework));
+  task->AddCallback(anim::Task::EEnded, [this]()
+                                        {
+                                          m_controller->RemoveElement(m_copyrightLabel);
+                                          m_copyrightLabel.reset();
+                                        });
+
+  m_copyrightLabel->setAnimated([task]()
+                                {
+                                  AlfaAnimationTask * t = static_cast<AlfaAnimationTask *>(task.get());
+                                  return t->GetCurrentAlfa();
+                                });
+
+  m_framework->GetAnimController()->AddTask(task);
 }
 
 void InformationDisplay::setDisplayRect(m2::RectI const & rect)
@@ -223,8 +224,9 @@ void InformationDisplay::setVisualScale(double visualScale)
   m_fontDesc.m_size = static_cast<uint32_t>(FONT_SIZE * m_visualScale);
 
   m_ruler->setFont(gui::Element::EActive, m_fontDesc);
-  m_copyrightLabel->setFont(gui::Element::EActive, m_fontDesc);
   m_debugLabel->setFont(gui::Element::EActive, m_fontDesc);
+  if (m_copyrightLabel)
+    m_copyrightLabel->setFont(gui::Element::EActive, m_fontDesc);
 }
 
 void InformationDisplay::enableDebugInfo(bool doEnable)

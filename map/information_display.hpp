@@ -37,6 +37,7 @@ class Ruler;
 /// rules, coordinates, GPS position and heading, compass, Download button, etc.
 class InformationDisplay
 {
+  Framework * m_framework;
   graphics::FontDesc m_fontDesc;
 
   m2::RectI m_displayRect;
