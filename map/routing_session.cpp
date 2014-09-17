@@ -8,6 +8,7 @@ RoutingSession::RoutingSession(IRouter * router)
   : m_router(router)
   , m_route(string())
   , m_state(RouteNotReady)
+  , m_lastMinDist(0.0)
 {
 }
 
@@ -41,22 +42,33 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   case OnRoute:
     if (IsOnDestPoint(position, errorRadius))
       m_state = RouteFinished;
-    else if (!IsOnRoute(position, errorRadius))
+    else if (!IsOnRoute(position, errorRadius, m_lastMinDist))
       m_state = RouteLeft;
     break;
   case RouteNotStarted:
-    m_state = IsOnRoute(position, errorRadius) ? OnRoute : RouteNotReady;
+  {
+    double currentDist = 0.0;
+    m_state = IsOnRoute(position, errorRadius, currentDist) ? OnRoute : RouteNotStarted;
+    if (m_state == RouteNotStarted && currentDist > m_lastMinDist)
+      ++m_moveAwayCounter;
+    else
+      m_moveAwayCounter = 0;
     break;
+  }
   default:
     break;
   }
 
+  if (m_moveAwayCounter > 10)
+    m_state = RouteLeft;
+
   return m_state;
 }
 
-bool RoutingSession::IsOnRoute(m2::PointD const & position, double errorRadius) const
+bool RoutingSession::IsOnRoute(m2::PointD const & position, double errorRadius, double & minDist) const
 {
-  if (errorRadius > m_tolerance || m_route.GetPoly().GetShortestSquareDistance(position) < errorRadius)
+  minDist = sqrt(m_route.GetPoly().GetShortestSquareDistance(position));
+  if (errorRadius > m_tolerance || minDist < errorRadius)
     return true;
 
   return false;
