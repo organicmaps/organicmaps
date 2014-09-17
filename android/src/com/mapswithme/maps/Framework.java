@@ -126,7 +126,6 @@ public class Framework
   public native static void nativeLoadbookmarks();
 
   // routing
-  public native static boolean nativeIsRoutingEnabled();
   public native static boolean nativeIsRoutingActive();
 
   public native static void nativeCancelRoutingSession();

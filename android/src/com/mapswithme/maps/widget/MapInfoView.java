@@ -533,10 +533,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
   private void setUpRoutingButtons()
   {
-    if (Framework.nativeIsRoutingEnabled())
-      UiUtils.show(mRouteStartBtn, mRouteEndBtn);
-    else
-      UiUtils.hide(mRouteStartBtn, mRouteEndBtn);
+    UiUtils.show(mRouteStartBtn, mRouteEndBtn);
   }
 
   public void updateLocation(Location l)

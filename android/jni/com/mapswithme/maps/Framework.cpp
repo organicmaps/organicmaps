@@ -1111,12 +1111,6 @@ extern "C"
   }
 
   JNIEXPORT jboolean JNICALL
-  Java_com_mapswithme_maps_Framework_nativeIsRoutingEnabled(JNIEnv * env, jclass thiz)
-  {
-    return g_framework->NativeFramework()->IsRoutingEnabled();
-  }
-
-  JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_Framework_nativeIsRoutingActive(JNIEnv * env, jclass thiz)
   {
     return g_framework->NativeFramework()->IsRountingActive();

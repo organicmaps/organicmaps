@@ -90,15 +90,8 @@ protected:
 
   mutable unique_ptr<search::Engine> m_pSearchEngine;
 
-  /// @deprecated
-  //@{
-  routing::RoutingEngine m_routingEngine;
-  routing::IRouter * CreateRouter();
-  void RestoreSesame();
-  bool SesameOpen(search::SearchParams const & params);
-  //@}
-
   unique_ptr<routing::RoutingSession> m_routingSession;
+  routing::IRouter * CreateRouter();
 
   model::FeaturesFetcher m_model;
   ScalesProcessor m_scales;
@@ -485,12 +478,6 @@ public:
   BookmarkManager & GetBookmarkManager() { return m_bmManager; }
 
 public:
-  /// @name Routing
-  /// @deprecated
-  //@{
-  bool IsRoutingEnabled() const;
-  //@}
-
   /// @name Routing mode
   //@{
   bool IsRountingActive() const;

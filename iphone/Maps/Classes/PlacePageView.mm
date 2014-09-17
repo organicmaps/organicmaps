@@ -508,7 +508,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (CGFloat)fullHeight
 {
   CGFloat const infoCellHeight = [PlacePageInfoCell cellHeightWithViewWidth:self.tableView.width inMyPositionMode:[self isMyPosition]];
-  CGFloat fullHeight = [self headerHeight] + infoCellHeight + [PlacePageShareCell cellHeight] + (GetFramework().IsRoutingEnabled() ? [PlacePageRoutingCell cellHeight] : 0);
+  CGFloat fullHeight = [self headerHeight] + infoCellHeight + [PlacePageShareCell cellHeight] + [PlacePageRoutingCell cellHeight];
   if ([self isBookmark])
   {
     fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];

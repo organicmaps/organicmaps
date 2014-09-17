@@ -254,10 +254,6 @@ Framework::Framework()
   LOG(LDEBUG, ("Guides info initialized"));
 #endif
 
-  // Restore temporary states from persistent Settings storage
-  RestoreSesame();
-  LOG(LDEBUG, ("Sesame initialized"));
-
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 }
 
@@ -1098,136 +1094,8 @@ void Framework::PrepareSearch(bool hasPt, double lat, double lon)
   GetSearchEngine()->PrepareSearch(GetCurrentViewport(), hasPt, lat, lon);
 }
 
-///////////////////////////// ROUTING /////////////////////////////////////////////////
-
-namespace
-{
-char const * ROUTER_HELICOPTER = "helicopter";
-char const * ROUTER_OSRM = "osrm";
-char const * ROUTER_MAPSME = "routeme";
-}
-
-bool Framework::IsRoutingEnabled() const
-{
-  return m_routingEngine.IsRoutingEnabled();
-}
-
-routing::IRouter * Framework::CreateRouter()
-{
-  //return new routing::DijkstraRouter(&m_model.GetIndex());
-  return new routing::OsrmRouter();
-}
-
-void Framework::RestoreSesame()
-{
-  bool enable = false;
-  if (Settings::Get(ROUTER_HELICOPTER, enable) && enable)
-    m_routingEngine.AddRouter(ROUTER_HELICOPTER);
-  if (Settings::Get(ROUTER_OSRM, enable) && enable)
-    m_routingEngine.AddRouter(ROUTER_OSRM);
-  if (Settings::Get(ROUTER_MAPSME, enable) && enable)
-    m_routingEngine.AddRouter(CreateRouter());
-}
-
-/// Activates hidden features via search queries
-bool Framework::SesameOpen(search::SearchParams const & params)
-{
-  // Quick check
-  string const & q = params.m_query;
-  if (!q.empty() && q[0] != '?')
-    return false;
-
-  char const * searchResult = 0;
-  if (params.m_query == "?routing on")
-  {
-    m_routingEngine.AddRouter(ROUTER_HELICOPTER);
-    m_routingEngine.AddRouter(ROUTER_OSRM);
-    m_routingEngine.AddRouter(CreateRouter());
-
-    // Enable all other engines here
-    Settings::Set(ROUTER_HELICOPTER, true);
-    Settings::Set(ROUTER_OSRM, true);
-    Settings::Set(ROUTER_MAPSME, true);
-    searchResult = "All routing engines activated";
-  }
-  else if (params.m_query == "?routing off")
-  {
-    m_routingEngine.RemoveRouter(ROUTER_HELICOPTER);
-    m_routingEngine.RemoveRouter(ROUTER_OSRM);
-    m_routingEngine.RemoveRouter(ROUTER_MAPSME);
-
-    // Disable all other engines here
-    Settings::Set(ROUTER_HELICOPTER, false);
-    Settings::Set(ROUTER_OSRM, false);
-    Settings::Set(ROUTER_MAPSME, false);
-    searchResult = "All routing engines disabled";
-  }
-  else if (params.m_query == "?heli on")
-  {
-    m_routingEngine.AddRouter(ROUTER_HELICOPTER);
-    Settings::Set(ROUTER_HELICOPTER, true);
-    searchResult = "Helicopter routing activated";
-  }
-  else if (params.m_query == "?heli off")
-  {
-    m_routingEngine.RemoveRouter(ROUTER_HELICOPTER);
-    Settings::Set(ROUTER_HELICOPTER, false);
-    searchResult = "Helicopter routing disabled";
-  }
-  else if (params.m_query == "?online on" || params.m_query == "?osrm on")
-  {
-    m_routingEngine.AddRouter(ROUTER_OSRM);
-    Settings::Set(ROUTER_OSRM, true);
-    searchResult = "OSRM routing activated";
-  }
-  else if (params.m_query == "?online off" || params.m_query == "?osrm off")
-  {
-    m_routingEngine.RemoveRouter(ROUTER_OSRM);
-    Settings::Set(ROUTER_OSRM, false);
-    searchResult = "OSRM routing disabled";
-  }
-  else if (params.m_query == "?routeme on")
-  {
-    m_routingEngine.AddRouter(CreateRouter());
-    Settings::Set(ROUTER_MAPSME, true);
-    searchResult = "maps.me routing activated";
-  }
-  else if (params.m_query == "?routeme off")
-  {
-    m_routingEngine.RemoveRouter(ROUTER_MAPSME);
-    Settings::Set(ROUTER_MAPSME, false);
-    searchResult = "maps.me routing disabled";
-  }
-  else if (params.m_query == "?menulinks off")
-  {
-    Settings::Set("MenuLinksEnabled", false);
-    searchResult = "maps.me menu links disabled";
-  }
-  else if (params.m_query == "?menulinks on")
-  {
-    Settings::Set("MenuLinksEnabled", true);
-    searchResult = "maps.me menu links enabled";
-  }
-
-  if (searchResult)
-  {
-    search::Results results;
-    results.AddResult(search::Result(searchResult, ""));
-    params.m_callback(results);
-    return true;
-  }
-
-  return false;
-}
-
-////////////////////////////////////////////////////////////////////////////////////
-
 bool Framework::Search(search::SearchParams const & params)
 {
-  // Activate hidden features
-  if (SesameOpen(params))
-    return true;
-
 #ifdef FIXED_LOCATION
   search::SearchParams rParams(params);
   if (params.IsValidPosition())
@@ -1936,6 +1804,14 @@ bool Framework::GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & 
   return m_storage.GetGuideManager().GetGuideInfo(m_storage.CountryFileName(index), info);
 }
 
+///////////////////////////// ROUTING /////////////////////////////////////////////////
+
+routing::IRouter * Framework::CreateRouter()
+{
+  //return new routing::DijkstraRouter(&m_model.GetIndex());
+  return new routing::OsrmRouter();
+}
+
 bool Framework::IsRountingActive() const
 {
   return m_routingSession != nullptr;
@@ -2028,3 +1904,5 @@ void Framework::CheckLocationForRouting()
     });
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////////
