@@ -516,7 +516,7 @@ namespace android
         try
         {
           FilesContainerR cont(pl.GetReader(v[i]));
-          if (!cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+          if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
           {
             my::GetNameWithoutExt(v[i]);
             out.push_back(v[i]);
@@ -1122,7 +1122,7 @@ extern "C"
     return g_framework->NativeFramework()->CancelRoutingSession();
   }
 
-  JNIEXPORT jboolean JNICALL
+  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeStartRoutingSession(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
   {
     g_framework->NativeFramework()->StartRoutingSession(MercatorBounds::FromLatLon(lat, lon));
@@ -1145,7 +1145,7 @@ extern "C"
     return env->NewObject(objClazz, methodID, j_name, lat, lon, j_type);
   }
 
-  JNIEXPORT jobject JNICALL
+  JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeActivateUserMark(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
     ::Framework * fr = g_framework->NativeFramework();

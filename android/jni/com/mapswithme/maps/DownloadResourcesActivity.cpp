@@ -70,7 +70,7 @@ extern "C"
       if (name == WORLD_FILE_NAME DATA_FILE_EXTENSION)
       {
         FilesContainerR cont(reader);
-        if (!cont.IsReaderExist(SEARCH_INDEX_FILE_TAG))
+        if (!cont.IsExist(SEARCH_INDEX_FILE_TAG))
         {
           // World.mwm file doesn't have search index - need to download new one.
           return true;
