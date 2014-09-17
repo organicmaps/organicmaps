@@ -21,4 +21,3 @@ CMakeCache.txt
 *.cmake
 Testing/
 CMakeFiles/
-succinct_config.hpp
