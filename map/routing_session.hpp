@@ -16,7 +16,7 @@ class RoutingSession
 public:
   enum State
   {
-    RouteNotReady,   // we request route. Wait when it will be builded
+    RouteNotReady,   // routing not active or we request route and wait when it will be builded
     RouteNotStarted, // route builded but user not on route
     OnRoute,         // user follows the route
     RouteLeft,       // user left from a route
@@ -34,12 +34,15 @@ public:
    * RouteFinished -> RouteNotReady   // start new route
    */
 
-  /// startPoint and destPoint in mercator
-  RoutingSession(IRouter * router);
+  RoutingSession();
+  void SetRouter(IRouter * router);
 
+  /// startPoint and destPoint in mercator
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
                   IRouter::ReadyCallback const & callback);
   void RebuildRoute(m2::PointD const & startPoint, IRouter::ReadyCallback const & callback);
+  bool IsActive() const;
+  void Reset();
 
   State OnLocationPositionChanged(m2::PointD const & position, double errorRadius);
 

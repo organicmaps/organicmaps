@@ -254,6 +254,8 @@ Framework::Framework()
   LOG(LDEBUG, ("Guides info initialized"));
 #endif
 
+  m_routingSession.SetRouter(new routing::OsrmRouter());
+
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 }
 
@@ -1806,15 +1808,9 @@ bool Framework::GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & 
 
 ///////////////////////////// ROUTING /////////////////////////////////////////////////
 
-routing::IRouter * Framework::CreateRouter()
-{
-  //return new routing::DijkstraRouter(&m_model.GetIndex());
-  return new routing::OsrmRouter();
-}
-
 bool Framework::IsRountingActive() const
 {
-  return m_routingSession != nullptr;
+  return m_routingSession.IsActive();
 }
 
 bool Framework::StartRoutingSession(m2::PointD const & destination)
@@ -1826,13 +1822,12 @@ bool Framework::StartRoutingSession(m2::PointD const & destination)
   if (IsRountingActive())
     CancelRoutingSession();
 
-  m_routingSession.reset(new routing::RoutingSession(CreateRouter()));
-  m_routingSession->BuildRoute(state->Position(), destination,
-                               [this, state](routing::Route const & route)
-                               {
-                                 InsertRoute(route);
-                                 state->StartRoutingMode();
-                               });
+  m_routingSession.BuildRoute(state->Position(), destination,
+                              [this, state](routing::Route const & route)
+                              {
+                                InsertRoute(route);
+                                state->StartRoutingMode();
+                              });
 
   return true;
 }
@@ -1841,7 +1836,7 @@ void Framework::CancelRoutingSession()
 {
   ASSERT(IsRountingActive(), ());
   GetLocationState()->StopRoutingMode();
-  m_routingSession.release();
+  m_routingSession.Reset();
 
   string const categoryName = m_stringsBundle.GetString("routes");
   BookmarkCategory * cat = 0;
@@ -1896,12 +1891,12 @@ void Framework::CheckLocationForRouting()
 
   shared_ptr<location::State> const & state = GetLocationState();
   m2::PointD const & position = state->Position();
-  if (m_routingSession->OnLocationPositionChanged(position, state->GetErrorRadius()) == routing::RoutingSession::RouteLeft)
+  if (m_routingSession.OnLocationPositionChanged(position, state->GetErrorRadius()) == routing::RoutingSession::RouteLeft)
   {
-    m_routingSession->RebuildRoute(position, [this] (routing::Route const & route)
-    {
-      InsertRoute(route);
-    });
+    m_routingSession.RebuildRoute(position, [this] (routing::Route const & route)
+                                            {
+                                              InsertRoute(route);
+                                            });
   }
 }
 

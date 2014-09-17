@@ -90,13 +90,13 @@ protected:
 
   mutable unique_ptr<search::Engine> m_pSearchEngine;
 
-  unique_ptr<routing::RoutingSession> m_routingSession;
-  routing::IRouter * CreateRouter();
 
   model::FeaturesFetcher m_model;
   ScalesProcessor m_scales;
   Navigator m_navigator;
   Animator m_animator;
+
+  routing::RoutingSession m_routingSession;
 
   typedef vector<BookmarkCategory *>::iterator CategoryIter;
 
