@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -45,34 +44,19 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   protected final Activity mActivity;
   protected final boolean mHasGoogleStore;
   protected int mSlotID = 0;
-  protected Index mIdx = new Index();
-  protected CountryItem[] mItems;
 
   public BaseDownloadAdapter(Activity activity)
   {
     mActivity = activity;
     mInflater = mActivity.getLayoutInflater();
-
     mHasGoogleStore = Utils.hasAnyGoogleStoreInstalled();
-    fillList();
   }
 
   protected abstract void fillList();
 
-  public void onItemClick(int position, View view)
-  {
-    if (position >= mItems.length)
-      return; // we have reports at GP that it crashes.
+  public abstract void onItemClick(int position, View view);
 
-    if (mItems[position].getStatus() < 0)
-    {
-      // expand next level
-      mIdx = mIdx.getChild(position);
-      fillList();
-    }
-    else
-      onCountryMenuClicked(getItem(position), view);
-  }
+  protected abstract void expandGroup(int position);
 
   protected  void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
   {
@@ -157,29 +141,17 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected  void updateStatuses()
   {
-    for (int i = 0; i < mItems.length; ++i)
+    for (int i = 0; i < getCount(); ++i)
     {
-      final Index idx = mIdx.getChild(i);
-      if (idx.isValid())
-        mItems[i].updateStatus(idx);
+      getItem(i).updateStatus();
     }
   }
-
 
   /**
    * Process routine from parent Activity.
    * @return true If "back" was processed.
    */
-  public boolean onBackPressed()
-  {
-    if (mIdx.isRoot())
-      return false;
-
-    mIdx = mIdx.getParent();
-
-    fillList();
-    return true;
-  }
+  public abstract boolean onBackPressed();
 
   public void onResume(MapStorage.Listener listener)
   {
@@ -202,25 +174,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   @Override
   public int getItemViewType(int position)
   {
-    return mItems[position].getType();
+    return getItem(position).getType();
   }
 
   @Override
   public int getViewTypeCount()
   {
     return TYPES_COUNT;
-  }
-
-  @Override
-  public int getCount()
-  {
-    return (mItems != null ? mItems.length : 0);
-  }
-
-  @Override
-  public CountryItem getItem(int position)
-  {
-    return mItems[position];
   }
 
   @Override
@@ -248,9 +208,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     return mActivity.getString(strID, getSizeString(MapStorage.INSTANCE.countryRemoteSizeInBytes(index)));
   }
 
-  protected  void setFlag(int position, ImageView v)
+  protected void setFlag(int position, ImageView v)
   {
-    final String strID = mItems[position].mFlag;
+    final String strID = getItem(position).mFlag;
 
     int id;
     try
@@ -317,6 +277,16 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
     setItemText(position, holder);
     convertView.setBackgroundResource(R.drawable.list_selector_holo_light);
+    final View fview = convertView;
+
+    convertView.setOnClickListener(new View.OnClickListener()
+    {
+      @Override
+      public void onClick(View view)
+      {
+        onItemClick(position, fview);
+      }
+    });
 
     return convertView;
   }
@@ -333,10 +303,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       UiUtils.invisible(holder.mProgress);
   }
 
+  @Override
+  public abstract CountryItem getItem(int position);
+
   protected  void setItemText(int position, BaseDownloadAdapter.ViewHolder holder)
   {
     // set text and style
-    final CountryItem item = mItems[position];
+    final CountryItem item = getItem(position);
     holder.mName.setText(item.mName);
     holder.mName.setTypeface(item.getTypeface());
     holder.mName.setTextColor(item.getTextColor());
@@ -351,23 +324,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     holder.mName.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
   }
 
-  /**
-   *
-   * @param idx
-   * @return -1 If no such item in display list.
-   */
-  protected  int getItemPosition(Index idx)
-  {
-    if (mIdx.isChild(idx))
-    {
-      final int position = idx.getPosition();
-      if (position >= 0 && position < mItems.length)
-        return position;
-      else
-        Log.e(DownloadActivity.TAG, "Incorrect item position for: " + idx.toString());
-    }
-    return -1;
-  }
+  protected abstract int getItemPosition(Index idx);
 
   /**
    * @param idx
@@ -378,10 +335,10 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     final int position = getItemPosition(idx);
     if (position != -1)
     {
-      mItems[position].updateStatus(idx);
+      getItem(position).updateStatus();
       // use this hard reset, because of caching different ViewHolders according to item's type
       notifyDataSetChanged();
-      return mItems[position].getStatus();
+      return getItem(position).getStatus();
     }
     return MapStorage.UNKNOWN;
   }
@@ -447,7 +404,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       }
     };
 
-    Log.d("TEST", "OnItemShow!");
     if (anchor.getParent() != null) // if view is out of list parent is null and context menu cannot bo shown
     {
       anchor.setOnCreateContextMenuListener(new OnCreateContextMenuListener()
@@ -507,4 +463,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     else
       return (size + Constants.KB - 1) / Constants.KB + " " + mActivity.getString(R.string.kb);
   }
+
+  protected abstract boolean isRoot();
 }

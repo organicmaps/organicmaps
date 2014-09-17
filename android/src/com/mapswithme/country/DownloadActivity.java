@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
 
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MapStorage;
@@ -18,6 +20,7 @@ import com.mapswithme.util.ConnectionState;
 public class DownloadActivity extends MapsWithMeBaseListActivity implements MapStorage.Listener
 {
   static String TAG = DownloadActivity.class.getName();
+  private ExtendedDownloadAdapterWrapper mExtendedAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -26,12 +29,13 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
 
     setContentView(R.layout.downloader_list_view);
 
-    setListAdapter(new DownloadAdapter(this));
+    mExtendedAdapter = new ExtendedDownloadAdapterWrapper(this, new DownloadAdapter(this));
+    setListAdapter(mExtendedAdapter);
   }
 
-  private DownloadAdapter getDownloadAdapter()
+  private BaseDownloadAdapter getDownloadAdapter()
   {
-    return (DownloadAdapter) getListView().getAdapter();
+    return (BaseDownloadAdapter) getListView().getAdapter();
   }
 
   @Override
@@ -55,6 +59,10 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
     {
       // scroll list view to the top
       setSelection(0);
+    }
+    else if (getListAdapter() instanceof DownloadedAdapter)
+    {
+      setListAdapter(mExtendedAdapter);
     }
     else
     {
@@ -119,5 +127,14 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
   public void onCountryProgress(Index idx, long current, long total)
   {
     getDownloadAdapter().onCountryProgress(getListView(), idx, current, total);
+  }
+
+  @Override
+  protected void onListItemClick(ListView l, View v, int position, long id)
+  {
+    if (getListAdapter().getItemViewType(position) == ExtendedDownloadAdapterWrapper.TYPE_EXTENDED)
+    {
+      setListAdapter(new DownloadedAdapter(this));
+    }
   }
 }

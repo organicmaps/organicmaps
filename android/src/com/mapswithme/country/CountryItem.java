@@ -32,7 +32,7 @@ public class CountryItem
     // The aapt can't process resources with name "do". Hack with renaming.
     mFlag = flag.equals("do") ? "do_hack" : flag;
 
-    updateStatus(idx);
+    updateStatus();
   }
 
   public int getStatus()
@@ -46,19 +46,19 @@ public class CountryItem
     }
   }
 
-  public void updateStatus(final MapStorage.Index idx)
+  public void updateStatus()
   {
     mStatusFuture = mExecutor.submit(new Callable<Integer>()
     {
       @Override
       public Integer call() throws Exception
       {
-        if (idx.getCountry() == -1 || (idx.getRegion() == -1 && mFlag.length() == 0))
+        if (mCountryIdx.getCountry() == -1 || (mCountryIdx.getRegion() == -1 && mFlag.length() == 0))
           return MapStorage.GROUP;
-        else if (idx.getRegion() == -1 && MapStorage.INSTANCE.countriesCount(idx) > 0)
+        else if (mCountryIdx.getRegion() == -1 && MapStorage.INSTANCE.countriesCount(mCountryIdx) > 0)
           return MapStorage.COUNTRY;
         else
-          return MapStorage.INSTANCE.countryStatus(idx);
+          return MapStorage.INSTANCE.countryStatus(mCountryIdx);
       }
     });
   }
