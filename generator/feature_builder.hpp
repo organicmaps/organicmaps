@@ -168,7 +168,6 @@ public:
   bool CheckValid() const;
   //@}
 
-protected:
   bool IsHighway() const;
 
 protected:

@@ -450,7 +450,7 @@ namespace feature
           points_t points;
 
           // Do not change linear geometry for the upper scale.
-          if (isLine && i == scalesStart)
+          if (isLine && i == scalesStart && fb.IsHighway())
             points = holder.GetSourcePoints();
           else
             SimplifyPoints(holder.GetSourcePoints(), points, level, isCoast, rect);
