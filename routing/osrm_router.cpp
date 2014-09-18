@@ -65,7 +65,7 @@ public:
       m2::ProjectionToSection<m2::PointD> segProj;
       segProj.SetBounds(ft.GetPoint(i - 1), ft.GetPoint(i));
 
-      m2::PointD pt = segProj(m_point);
+      m2::PointD const pt = segProj(m_point);
       double const d = m_point.SquareLength(pt);
       if (d < res.m_dist)
       {
@@ -116,7 +116,7 @@ public:
 // ----------------
 
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
-  : m_pIndex(index), m_countryFn(fn)
+  : m_countryFn(fn), m_pIndex(index)
 {
 }
 
@@ -206,7 +206,7 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
 
   if (mwmIdEnd != mwmIdStart || mwmIdEnd == -1 || mwmIdStart == -1)
   {
-    resGuard.SetErrorMsg("Founded features are in different MWMs");
+    resGuard.SetErrorMsg("Found features are in different MWMs");
     return;
   }
 
@@ -231,22 +231,22 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
     for (size_t j = 0; j < n; ++j)
     {
       PathData const & path_data = rawRoute.unpacked_path_segments[i][j];
-      auto const & v = m_mapping.GetSegVector(path_data.node);
+      pair<OsrmFtSegMapping::FtSeg const *, size_t> const range = m_mapping.GetSegVector(path_data.node);
 
-      auto correctFn = [&v] (OsrmFtSegMapping::FtSeg const & seg, size_t & ind)
+      auto correctFn = [&range] (OsrmFtSegMapping::FtSeg const & seg, size_t & ind)
       {
-        auto it = find_if(v.begin(), v.end(), [&] (OsrmFtSegMapping::FtSeg const & s)
+        auto it = find_if(range.first, range.first + range.second, [&] (OsrmFtSegMapping::FtSeg const & s)
         {
           return s.IsIntersect(seg);
         });
 
-        ASSERT(it != v.end(), ());
-        ind = distance(v.begin(), it);
+        ASSERT(it != range.first + range.second, ());
+        ind = distance(range.first, it);
       };
 
-      //m_mapping.DumpSgementByNode(path_data.node);
+      //m_mapping.DumpSegmentByNode(path_data.node);
 
-      size_t startK = 0, endK = v.size();
+      size_t startK = 0, endK = range.second;
       if (j == 0)
         correctFn(segBegin, startK);
       else if (j == n - 1)
@@ -257,7 +257,7 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
 
       for (size_t k = startK; k < endK; ++k)
       {
-        auto const & seg = v[k];
+        auto const & seg = range.first[k];
 
         FeatureType ft;
         Index::FeaturesLoaderGuard loader(*m_pIndex, mwmIdStart);

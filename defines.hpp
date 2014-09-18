@@ -16,7 +16,9 @@
 #define ROUTING_EDGEDATA_FILE_TAG "edgedata"
 #define ROUTING_EDGEID_FILE_TAG "edgeid"
 #define ROUTING_SHORTCUTS_FILE_TAG  "shortcuts"
+
 #define ROUTING_FTSEG_FILE_TAG  "ftseg"
+#define ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG  "node2ftseg"
 
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume3"

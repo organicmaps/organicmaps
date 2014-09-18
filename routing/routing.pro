@@ -18,6 +18,7 @@ SOURCES += \
     helicopter_router.cpp \
     osrm_router.cpp \
     osrm_online_router.cpp \
+    osrm2feature_map.cpp \
     road_graph_router.cpp \
     dijkstra_router.cpp \
     features_road_graph.cpp \
@@ -32,7 +33,7 @@ HEADERS += \
     osrm_router.hpp \
     osrm_online_router.hpp \
     osrm_data_facade.hpp \
-    osrm_data_facade_types.hpp \
+    osrm2feature_map.hpp \
     road_graph_router.hpp \
     dijkstra_router.hpp \
     features_road_graph.hpp \

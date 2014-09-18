@@ -11,7 +11,7 @@
 
 #include "../geometry/distance_on_sphere.hpp"
 
-#include "../routing/osrm_data_facade_types.hpp"
+#include "../routing/osrm2feature_map.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -50,7 +50,7 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
 
   string nodeFileName = osrmName + ".nodeData";
 
-  OsrmFtSegMapping mapping;
+  OsrmFtSegMappingBuilder mapping;
 
   ifstream input;
   input.open(nodeFileName);
@@ -67,13 +67,13 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
     return;
   }
 
-  uint32_t found = 0, all = 0, multiple = 0, equal = 0, moreThan1Seg = 0;
+  uint32_t found = 0, all = 0, multiple = 0, equal = 0, moreThan1Seg = 0, stored = 0;
 
   for (size_t nodeId = 0; nodeId < nodeData.size(); ++nodeId)
   {
     auto const & data = nodeData[nodeId];
 
-    OsrmFtSegMapping::FtSegVectorT vec;
+    OsrmFtSegMappingBuilder::FtSegVectorT vec;
 
     for (auto const & seg : data.m_segments)
     {
@@ -163,7 +163,10 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
           // Emit segment.
           OsrmFtSegMapping::FtSeg ftSeg(fID, ind1, ind2);
           if (vec.empty() || !vec.back().Merge(ftSeg))
+          {
             vec.push_back(ftSeg);
+            ++stored;
+          }
 
           continue;
         }
@@ -190,14 +193,15 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
 
   LOG(LINFO, ("All:", all, "Found:", found, "Not found:", all - found, "More that one segs in node:", moreThan1Seg,
               "Multiple:", multiple, "Equal:", equal));
-
-  mapping.Save(osrmName + "." + ROUTING_FTSEG_FILE_TAG);
+  LOG(LINFO, ("Stored:", stored));
 
   LOG(LINFO, ("Collect all data into one file..."));
 
   try
   {
     FilesContainerW writer(mwmName + ROUTING_FILE_EXTENSION);
+
+    mapping.Save(writer);
 
     auto appendFile = [&] (string const & tag)
     {
@@ -210,7 +214,6 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
     appendFile(ROUTING_EDGEDATA_FILE_TAG);
     appendFile(ROUTING_MATRIX_FILE_TAG);
     appendFile(ROUTING_EDGEID_FILE_TAG);
-    appendFile(ROUTING_FTSEG_FILE_TAG);
 
     writer.Finish();
   }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "router.hpp"
-#include "osrm_data_facade_types.hpp"
+#include "osrm2feature_map.hpp"
 
 #include "../std/function.hpp"
 

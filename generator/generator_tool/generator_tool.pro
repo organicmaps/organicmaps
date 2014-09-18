@@ -1,7 +1,7 @@
 # Generator binary
 
 ROOT_DIR = ../..
-DEPENDENCIES = generator storage indexer platform geometry coding base \
+DEPENDENCIES = generator routing storage indexer platform geometry coding base \
                osrm gflags expat sgitess jansson protobuf tomcrypt
 
 include($$ROOT_DIR/common.pri)
