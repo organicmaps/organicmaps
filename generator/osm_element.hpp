@@ -358,7 +358,7 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
       if (NeedWriteAddress(params) && ft.FormatFullAddress(addr))
         m_addrWriter->Write(addr.c_str(), addr.size());
 
-      ft.AddOsmId(id);
+      ft.SetOsmId(id);
 
       base_type::m_emitter(ft);
     }
@@ -378,7 +378,6 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
         feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_LINE))
     {
       ft.SetLinear(params.m_reverseGeometry);
-
       EmitFeatureBase(ft, params, osm::Id::Way(id));
     }
   }

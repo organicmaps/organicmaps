@@ -133,9 +133,12 @@ public:
   /// Set all the parameters, except geometry type (it's set by other functions).
   inline void SetParams(FeatureParams const & params) { m_params.SetParams(params); }
 
-  /// For OSM debugging, store original OSM id
+  /// @name For OSM debugging, store original OSM id
+  //@{
   void AddOsmId(osm::Id id);
+  void SetOsmId(osm::Id id);
   string GetOsmIdsString() const;
+  //@}
 
   int GetMinFeatureDrawScale() const;
 

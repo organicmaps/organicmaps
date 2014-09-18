@@ -61,11 +61,10 @@ void FeatureBuilder1::AddPoint(m2::PointD const & p)
 void FeatureBuilder1::SetLinear(bool reverseGeometry)
 {
   m_params.SetGeomType(feature::GEOM_LINE);
+  m_polygons.resize(1);
 
   if (reverseGeometry)
   {
-    ASSERT_EQUAL(m_polygons.size(), 1, ());
-
     auto & cont = m_polygons.front();
     ASSERT(!cont.empty(), ());
     reverse(cont.begin(), cont.end());
@@ -409,6 +408,11 @@ void FeatureBuilder1::Deserialize(buffer_t & data)
 void FeatureBuilder1::AddOsmId(osm::Id id)
 {
   m_osmIds.push_back(id);
+}
+
+void FeatureBuilder1::SetOsmId(osm::Id id)
+{
+  m_osmIds.assign(1, id);
 }
 
 string FeatureBuilder1::GetOsmIdsString() const
