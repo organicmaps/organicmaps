@@ -22,9 +22,9 @@ template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeData
   typedef BaseDataFacade<EdgeDataT> super;
 
   succinct::gamma_vector m_edgeData;
-  succinct::gamma_vector m_edgeId;
   succinct::bit_vector m_shortcuts;
   succinct::elias_fano m_fanoMatrix;
+  uint32_t const * m_edgeId;
 
   FilesMappingContainer const & m_container;
 
@@ -45,7 +45,7 @@ public:
 
     m_handleEdgeId = m_container.Map(ROUTING_EDGEID_FILE_TAG);
     ASSERT(m_handleEdgeId.IsValid(), ());
-    succinct::mapper::map(m_edgeId, m_handleEdgeId.GetData());
+    m_edgeId = reinterpret_cast<uint32_t const *>(m_handleEdgeId.GetData());
 
     m_handleShortcuts = m_container.Map(ROUTING_SHORTCUTS_FILE_TAG);
     ASSERT(m_handleShortcuts.IsValid(), ());

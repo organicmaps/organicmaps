@@ -43,12 +43,12 @@ void Converter::run(const std::string & name)
   InternalDataFacade<QueryEdge::EdgeData> facade(server_paths);
   PrintStatus(true);
 
-  uint64_t nodeCount = facade.GetNumberOfNodes();
+  uint64_t const nodeCount = facade.GetNumberOfNodes();
 
   std::vector<uint64_t> edges;
-  std::vector<int32_t> edgesData;
+  std::vector<uint32_t> edgesData;
   std::vector<bool> shortcuts;
-  std::vector<int32_t> edgeId;
+  std::vector<uint32_t> edgeId;
 
   std::cout << "Repack graph...";
 
@@ -81,6 +81,7 @@ void Converter::run(const std::string & name)
   PrintStatus(true);
 
   std::cout << "Edges count: " << edges.size() << std::endl;
+  std::cout << "Nodes count: " << nodeCount << std::endl;
 
   std::cout << "--- Save matrix" << std::endl;
   succinct::elias_fano::elias_fano_builder builder(edges.back(), edges.size());
@@ -98,9 +99,19 @@ void Converter::run(const std::string & name)
   succinct::mapper::freeze(edgeVector, fileName.c_str());
 
   std::cout << "--- Save edge shortcut id's" << std::endl;
-  succinct::gamma_vector edgeIdVector(edgeId);
   fileName = name + ".edgeid";
-  succinct::mapper::freeze(edgeIdVector, fileName.c_str());
+  std::ofstream stream;
+  stream.open(fileName);
+  if (stream.is_open())
+  {
+    stream.write(reinterpret_cast<char const *>(edgeId.data()), sizeof(uint32_t) * edgeId.size());
+    stream.close();
+  }
+  else
+  {
+    std::cout << "Can't open file " << fileName << std::endl;
+    std::terminate();
+  }
 
   std::cout << "--- Save edge shortcuts" << std::endl;
   succinct::bit_vector shortcutsVector(shortcuts);
