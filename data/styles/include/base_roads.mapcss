@@ -1243,9 +1243,9 @@ line[highway]
 }
 
 /*
-  - Assign fill color with like a correspondent line color.
+  - Assign fill color with the correspondent line color, assigned before.
   - Delete line and path-text styles for highway-XXX-area.
-  - Set caption for footway and pedestrian area.
+  - Set caption for highway-footway-area and highway-pedestrian-area.
 */
 
 *[highway][area?]

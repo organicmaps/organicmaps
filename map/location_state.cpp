@@ -462,6 +462,7 @@ void State::Rotated()
 namespace
 {
 
+#ifdef DEBUG
 bool ValidateTransition(State::Mode oldMode, State::Mode newMode)
 {
   if (oldMode == State::UnknownPosition)
@@ -495,12 +496,13 @@ bool ValidateTransition(State::Mode oldMode, State::Mode newMode)
 
   return false;
 }
+#endif
 
 }
 
 void State::AnimateStateTransition(Mode oldMode, Mode newMode)
 {
-  ASSERT(ValidateTransition(oldMode, newMode), ("Old mode = ", oldMode, " new mode = ", newMode));
+  ASSERT(ValidateTransition(oldMode, newMode), ("from", oldMode, "to", newMode));
 
   if (oldMode == PendingPosition && newMode == Follow)
   {
