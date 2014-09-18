@@ -7,6 +7,7 @@
 #include "../coding/file_container.hpp"
 
 #include "../../../succinct/elias_fano.hpp"
+#include "../../../succinct/elias_fano_compressed_list.hpp"
 #include "../../../succinct/gamma_vector.hpp"
 #include "../../../succinct/bit_vector.hpp"
 #include "../../../succinct/mapper.hpp"
@@ -21,10 +22,10 @@ template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeData
 {
   typedef BaseDataFacade<EdgeDataT> super;
 
-  succinct::gamma_vector m_edgeData;
+  succinct::elias_fano_compressed_list m_edgeData;
   succinct::bit_vector m_shortcuts;
   succinct::elias_fano m_fanoMatrix;
-  uint32_t const * m_edgeId;
+  succinct::elias_fano_compressed_list m_edgeId;
 
   FilesMappingContainer const & m_container;
 
@@ -45,7 +46,7 @@ public:
 
     m_handleEdgeId = m_container.Map(ROUTING_EDGEID_FILE_TAG);
     ASSERT(m_handleEdgeId.IsValid(), ());
-    m_edgeId = reinterpret_cast<uint32_t const *>(m_handleEdgeId.GetData());
+    succinct::mapper::map(m_edgeId, m_handleEdgeId.GetData());
 
     m_handleShortcuts = m_container.Map(ROUTING_SHORTCUTS_FILE_TAG);
     ASSERT(m_handleShortcuts.IsValid(), ());

@@ -9,6 +9,7 @@
 //#include "../../../../routing/osrm_data_facade.hpp"
 
 #include "../../../succinct/elias_fano.hpp"
+#include "../../../succinct/elias_fano_compressed_list.hpp"
 #include "../../../succinct/gamma_vector.hpp"
 #include "../../../succinct/mapper.hpp"
 
@@ -94,24 +95,13 @@ void Converter::run(const std::string & name)
 
 
   std::cout << "--- Save edge data" << std::endl;
-  succinct::gamma_vector edgeVector(edgesData);
+  succinct::elias_fano_compressed_list edgeVector(edgesData);
   fileName = name + ".edgedata";
   succinct::mapper::freeze(edgeVector, fileName.c_str());
 
-  std::cout << "--- Save edge shortcut id's" << std::endl;
+  succinct::elias_fano_compressed_list edgeIdVector(edgeId);
   fileName = name + ".edgeid";
-  std::ofstream stream;
-  stream.open(fileName);
-  if (stream.is_open())
-  {
-    stream.write(reinterpret_cast<char const *>(edgeId.data()), sizeof(uint32_t) * edgeId.size());
-    stream.close();
-  }
-  else
-  {
-    std::cout << "Can't open file " << fileName << std::endl;
-    std::terminate();
-  }
+  succinct::mapper::freeze(edgeIdVector, fileName.c_str());
 
   std::cout << "--- Save edge shortcuts" << std::endl;
   succinct::bit_vector shortcutsVector(shortcuts);
