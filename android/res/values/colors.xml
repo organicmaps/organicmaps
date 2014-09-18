@@ -70,4 +70,9 @@
   <color name="text_label_bookmarks_green">#1BBB78</color>
   <color name="ab_bookmarks">#15D180</color>
 
+  <!-- downloader -->
+  <color name="downloader_green">#179E4D</color>
+  <color name="downloader_red">#FF4436</color>
+  <color name="downloader_gray_bg">#999999</color>
+
 </resources>

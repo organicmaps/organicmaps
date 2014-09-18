@@ -648,7 +648,7 @@ public class MWMActivity extends NvEventQueueActivity
     }
 
     // slide vertical toolbar
-    mVerticalToolbarAnimation = UiUtils.generateSlideAnimation(0, 0, fromY, toY);
+    mVerticalToolbarAnimation = UiUtils.generateRelativeSlideAnimation(0, 0, fromY, toY);
     mVerticalToolbarAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
     mVerticalToolbarAnimation.setAnimationListener(listener);
     mVerticalToolbar.startAnimation(mVerticalToolbarAnimation);

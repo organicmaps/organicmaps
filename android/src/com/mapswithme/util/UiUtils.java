@@ -105,13 +105,22 @@ public final class UiUtils
     target.startAnimation(anim);
   }
 
-  public static TranslateAnimation generateSlideAnimation(float fromX, float toX, float fromY, float toY)
+  public static TranslateAnimation generateRelativeSlideAnimation(float fromX, float toX, float fromY, float toY)
   {
     return new TranslateAnimation(
         Animation.RELATIVE_TO_SELF, fromX,
         Animation.RELATIVE_TO_SELF, toX,
         Animation.RELATIVE_TO_SELF, fromY,
         Animation.RELATIVE_TO_SELF, toY);
+  }
+
+  public static TranslateAnimation generateAbsoluteSlideAnimation(float fromX, float toX, float fromY, float toY)
+  {
+    return new TranslateAnimation(
+        Animation.ABSOLUTE, fromX,
+        Animation.ABSOLUTE, toX,
+        Animation.ABSOLUTE, fromY,
+        Animation.ABSOLUTE, toY);
   }
 
   public static Drawable setCompoundDrawableBounds(int drawableId, int dimenId, Resources res)

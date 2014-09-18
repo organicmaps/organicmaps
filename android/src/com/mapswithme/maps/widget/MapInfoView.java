@@ -276,7 +276,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     TranslateAnimation slide;
     if (show) // slide up
     {
-      slide = UiUtils.generateSlideAnimation(0, 0, -1, 0);
+      slide = UiUtils.generateRelativeSlideAnimation(0, 0, -1, 0);
       slide.setDuration(SHORT_ANIM_DURATION);
       UiUtils.show(mPlacePageGroup);
       UiUtils.hide(mArrow);
@@ -285,7 +285,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     }
     else // slide down
     {
-      slide = UiUtils.generateSlideAnimation(0, 0, 0, -1);
+      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 0, -1);
 
       slide.setDuration(SHORT_ANIM_DURATION);
       slide.setFillEnabled(true);
@@ -316,7 +316,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     TranslateAnimation slide;
     if (show)
     {
-      slide = UiUtils.generateSlideAnimation(0, 0, -1, 0);
+      slide = UiUtils.generateRelativeSlideAnimation(0, 0, -1, 0);
       UiUtils.show(mPreviewGroup);
       slide.setAnimationListener(new SimpleAnimationListener()
       {
@@ -330,7 +330,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     }
     else
     {
-      slide = UiUtils.generateSlideAnimation(0, 0, 0, -1);
+      slide = UiUtils.generateRelativeSlideAnimation(0, 0, 0, -1);
       slide.setAnimationListener(new SimpleAnimationListener()
       {
         @Override
@@ -350,7 +350,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
 
   private void hideEverything()
   {
-    final TranslateAnimation slideDown = UiUtils.generateSlideAnimation(0, 0, 0, -1);
+    final TranslateAnimation slideDown = UiUtils.generateRelativeSlideAnimation(0, 0, 0, -1);
     slideDown.setDuration(LONG_ANIM_DURATION);
 
     slideDown.setAnimationListener(new SimpleAnimationListener()

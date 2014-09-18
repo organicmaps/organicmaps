@@ -1,44 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:minHeight="?android:attr/listPreferredItemHeight">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="?android:attr/listPreferredItemHeight">
 
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_gravity="center">
+  <ImageView
+      android:id="@+id/country_flag"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_centerVertical="true"
+      android:layout_gravity="center"
+      android:paddingLeft="@dimen/dp_x_3"
+      android:scaleType="center"/>
 
-    <ImageView
-        android:id="@+id/country_flag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:paddingLeft="@dimen/dp_x_3"
-        android:scaleType="center"/>
+  <TextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_toRightOf="@id/country_flag"
+      android:maxLines="2"
+      android:paddingLeft="@dimen/dp_x_3"
+      android:paddingRight="@dimen/dp_x_3"
+      android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/country_flag"
-        android:maxLines="2"
-        android:paddingLeft="@dimen/dp_x_3"
-        android:paddingRight="@dimen/dp_x_3"
-        android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
-  </RelativeLayout>
-
+  <!-- style="@style/Holo.ProgressBar.Horizontal.Light"-->
   <ProgressBar
       android:id="@+id/download_progress"
-      style="@style/Holo.ProgressBar.Horizontal.Light"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom"
-      android:layout_marginBottom="-7dp"
+      style="?android:attr/progressBarStyleHorizontal"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_centerVertical="true"
+      android:layout_toRightOf="@+id/ll__info"
       android:max="100"
-      android:padding="0dp"/>
+      android:paddingRight="@dimen/margin_small"
+      android:progressDrawable="@drawable/progress_bar_download"
+      android:secondaryProgress="100"/>
 
-</FrameLayout>
+  <LinearLayout
+      android:id="@+id/ll__info"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:layout_marginRight="@dimen/margin_small"
+      android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv__percent"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_alignParentRight="true"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:maxLines="1"
+        android:text="DOWNLOAD"
+        android:textAppearance="@style/Holo.TextAppearance.Light"
+        android:textColor="@color/downloader_green"/>
+
+    <TextView
+        android:id="@+id/tv__size"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv__percent"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:maxLines="1"
+        android:shadowColor="@color/downloader_gray_bg"
+        android:textAppearance="@style/Holo.TextAppearance.Light"/>
+
+  </LinearLayout>
+</RelativeLayout>
+
