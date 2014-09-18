@@ -16,6 +16,7 @@
 #import "BookmarkNameVC.h"
 #import "AccountManager.h"
 #import "SettingsAndMoreVC.h"
+#import "RouteView.h"
 
 #import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
@@ -38,10 +39,11 @@
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
 
-@interface MapViewController () <PlacePageViewDelegate, ToolbarViewDelegate, BottomMenuDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate>
+@interface MapViewController () <PlacePageViewDelegate, ToolbarViewDelegate, BottomMenuDelegate, SelectSetVCDelegate, BookmarkDescriptionVCDelegate, BookmarkNameVCDelegate, RouteViewDelegate>
 
 @property (nonatomic) ShareActionSheet * shareActionSheet;
 @property (nonatomic) ToolbarView * toolbarView;
+@property (nonatomic) RouteView * routeView;
 @property (nonatomic) ContainerView * containerView;
 @property (nonatomic) UIImageView * apiBar;
 @property (nonatomic) UILabel * apiTitleLabel;
@@ -103,6 +105,8 @@
                              longitude:info.m_longitude
                     horizontalAccuracy:info.m_horizontalAccuracy
                       verticalAccuracy:info.m_verticalAccuracy];
+
+    [self.routeView updateDistance:@"777" withMetrics:@"M"];
   }
 }
 
@@ -489,6 +493,8 @@
   [self.view addSubview:self.toolbarView];
   self.toolbarView.maxY = self.toolbarView.superview.height;
 
+  [self.view addSubview:self.routeView];
+
   [self.view addSubview:self.searchView];
 
   [self.view addSubview:self.containerView];
@@ -609,6 +615,17 @@
   return _toolbarView;
 }
 
+- (RouteView *)routeView
+{
+  if (!_routeView)
+  {
+    _routeView = [[RouteView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 80)];
+    _routeView.delegate = self;
+    _routeView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+  }
+  return _routeView;
+}
+
 - (SearchView *)searchView
 {
   if (!_searchView)
@@ -725,7 +742,29 @@
   }
 }
 
+- (void)routeViewDidCancelRouting:(RouteView *)routeView
+{
+  GetFramework().CancelRoutingSession();
+  [routeView setVisible:NO animated:YES];
+}
+
 #pragma mark - PlacePageViewDelegate
+
+- (void)placePageViewDidStartRouting:(PlacePageView *)placePage
+{
+  if ([MapsAppDelegate theApp].m_locationManager.lastLocation)
+  {
+    GetFramework().StartRoutingSession([placePage pinPoint]);
+    [placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
+    [self performAfterDelay:0.3 block:^{
+      [self.routeView setVisible:YES animated:YES];
+    }];
+  }
+  else
+  {
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"unknown_current_position", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
+  }
+}
 
 - (void)placePageView:(PlacePageView *)placePage willShareText:(NSString *)text point:(m2::PointD)point
 {
@@ -935,6 +974,7 @@
 
         [UIView animateWithDuration:0.3 animations:^{
           self.toolbarView.maxY = self.view.height;
+          self.routeView.alpha = 1;
         }];
         break;
       }
@@ -965,6 +1005,7 @@
 
         [UIView animateWithDuration:0.3 animations:^{
           self.toolbarView.maxY = self.view.height;
+          self.routeView.alpha = 0;
         }];
 
         break;

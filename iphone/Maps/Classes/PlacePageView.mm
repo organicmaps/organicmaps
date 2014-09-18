@@ -33,6 +33,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) UITableView * tableView;
 @property (nonatomic) CopyLabel * titleLabel;
 @property (nonatomic) UIButton * bookmarkButton;
+@property (nonatomic) UIButton * routeButton;
 @property (nonatomic) UILabel * typeLabel;
 @property (nonatomic) UIButton * shareButton;
 @property (nonatomic) UIImageView * editImageView;
@@ -300,8 +301,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self.delegate placePageView:self willEditProperty:@"Description" inBookmarkAndCategory:GetFramework().FindBookmark([self userMark])];
 }
 
-#define TITLE_LABEL_LEFT_OFFSET 12
-#define TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET 74
+#define TITLE_LABEL_LEFT_OFFSET 20
+#define TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET 116
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
@@ -328,6 +329,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
     self.typeLabel.text = self.types;
 
   self.bookmarkButton.midX = self.headerView.width - 23.5;
+  self.routeButton.maxX = self.bookmarkButton.minX;
+  self.titleLabel.minX = TITLE_LABEL_LEFT_OFFSET;
+
   self.titleLabel.minX = TITLE_LABEL_LEFT_OFFSET;
   CGSize titleSize;
   CGSize typesSize;
@@ -352,6 +356,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     self.typeLabel.origin = CGPointMake(self.titleLabel.minX, self.titleLabel.maxY);
     self.bookmarkButton.midY = 36;
   }
+  self.routeButton.midY = self.bookmarkButton.midY - 1;
 }
 
 - (CGFloat)headerHeight
@@ -373,7 +378,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (void)portraitTitleSize:(CGSize *)titleSize typesSize:(CGSize *)typesSize
 {
   CGFloat const maxHeight = 200;
-  CGFloat const width = self.headerView.width - 90;
+  CGFloat const width = self.headerView.width - 130;
   *titleSize = [self.title sizeWithDrawSize:CGSizeMake(width, maxHeight) font:self.titleLabel.font];
   *typesSize = [self.types sizeWithDrawSize:CGSizeMake(width, maxHeight) font:self.typeLabel.font];
 }
@@ -772,6 +777,11 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self setState:PlacePageStateOpened animated:YES withCallback:YES];
 }
 
+- (void)routeButtonPressed:(UIButton *)sender
+{
+  [self.delegate placePageViewDidStartRouting:self];
+}
+
 - (void)bookmarkButtonPressed:(UIButton *)sender
 {
   if ([self isBookmark])
@@ -1152,13 +1162,26 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   if (!_bookmarkButton)
   {
-    _bookmarkButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 64, 44)];
+    _bookmarkButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 44)];
     _bookmarkButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
     [_bookmarkButton setImage:[UIImage imageNamed:@"PlacePageBookmarkButton"] forState:UIControlStateNormal];
     [_bookmarkButton setImage:[UIImage imageNamed:@"PlacePageBookmarkButtonSelected"] forState:UIControlStateSelected];
     [_bookmarkButton addTarget:self action:@selector(bookmarkButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
   return _bookmarkButton;
+}
+
+- (UIButton *)routeButton
+{
+  if (!_routeButton)
+  {
+    _routeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 44)];
+    _routeButton.contentEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0);
+    _routeButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [_routeButton setImage:[UIImage imageNamed:@"PlacePageRouteButton"] forState:UIControlStateNormal];
+    [_routeButton addTarget:self action:@selector(routeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+  }
+  return _routeButton;
 }
 
 - (UIView *)headerView
@@ -1182,6 +1205,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [_headerView addSubview:self.titleLabel];
     [_headerView addSubview:self.typeLabel];
     [_headerView addSubview:self.bookmarkButton];
+    [_headerView addSubview:self.routeButton];
 
     UIImage * separatorImage = [[UIImage imageNamed:@"PlacePageSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
     CGFloat const offset = 12.5;

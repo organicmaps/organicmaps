@@ -49,6 +49,8 @@
 		9767702519B718D800402693 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9767701D19B718D700402693 /* LICENSE */; };
 		9769D6EF1912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
 		9769D6F01912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
+		976D86F519CB21BD00C920EF /* RouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F419CB21BD00C920EF /* RouteView.m */; };
+		976D86F619CB21BD00C920EF /* RouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F419CB21BD00C920EF /* RouteView.m */; };
 		97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
 		97719D461843B6E500BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
 		97719D481843B6F200BDD815 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D471843B6F200BDD815 /* Security.framework */; };
@@ -1366,6 +1368,8 @@
 		9767701F19B718D700402693 /* LocalyticsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalyticsSession.h; sourceTree = "<group>"; };
 		9769D6ED1912BF3000CA6158 /* ContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerView.h; sourceTree = "<group>"; };
 		9769D6EE1912BF3000CA6158 /* ContainerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContainerView.mm; sourceTree = "<group>"; };
+		976D86F319CB21BD00C920EF /* RouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteView.h; sourceTree = "<group>"; };
+		976D86F419CB21BD00C920EF /* RouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteView.m; sourceTree = "<group>"; };
 		97719D441843B6DC00BDD815 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		97719D471843B6F200BDD815 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		97719D4A1843B86700BDD815 /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
@@ -2410,6 +2414,8 @@
 				97A8000918B210DC000C07A2 /* Search */,
 				9746492518EEE2F8004B4658 /* ToolbarView.h */,
 				9746492618EEE2F8004B4658 /* ToolbarView.m */,
+				976D86F319CB21BD00C920EF /* RouteView.h */,
+				976D86F419CB21BD00C920EF /* RouteView.m */,
 				974386DB19373EA400FD5659 /* ToastView.h */,
 				974386DC19373EA400FD5659 /* ToastView.m */,
 				ED48BBB317C267F5003E7E92 /* ColorPickerView.h */,
@@ -4493,6 +4499,7 @@
 				9778E9A5191A86D800AD850A /* SelectedColorView.m in Sources */,
 				97D807B818A92AAB00D416E0 /* MoreAppsVC.mm in Sources */,
 				9789DB5A188D94F9007C6FAE /* InterstitialView.mm in Sources */,
+				976D86F519CB21BD00C920EF /* RouteView.m in Sources */,
 				FA29FDAA141E77F8004ADF66 /* Preferences.mm in Sources */,
 				97A8000C18B21363000C07A2 /* SearchView.mm in Sources */,
 				FAA5C2A2144F135F005337F6 /* LocationManager.mm in Sources */,
@@ -4567,6 +4574,7 @@
 				FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */,
 				9789DB57188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */,
 				97AA2822190AD21100AE1AAB /* PlacePageShareCell.m in Sources */,
+				976D86F619CB21BD00C920EF /* RouteView.m in Sources */,
 				97D092BA190AA69700FF645B /* SmallCompassView.mm in Sources */,
 				978F9241183B660F000D6C7C /* SettingsViewController.mm in Sources */,
 				97A8001518B2140A000C07A2 /* SearchResultCell.m in Sources */,

@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "PlacePageBookmarkButtonSelected.png"
+      "filename" : "bookmark_placed_mdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "PlacePageBookmarkButtonSelected@2x.png"
+      "filename" : "bookmark_placed_xhdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "place_page_bookmark_button_selected_xxhdpi.png"
+      "filename" : "bookmark_placed_xxhdpi.png"
     }
   ],
   "info" : {

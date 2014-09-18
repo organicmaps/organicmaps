@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "bookmark_new_mdpi.png"
+      "filename" : "close_mdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "bookmark_new_xhdpi.png"
+      "filename" : "close_xhdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "bookmark_new_xxhdpi.png"
+      "filename" : "close_xxhdpi.png"
     }
   ],
   "info" : {

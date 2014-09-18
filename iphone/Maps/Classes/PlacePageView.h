@@ -19,6 +19,8 @@ typedef NS_ENUM(NSUInteger, PlacePageState) {
 - (void)placePageView:(PlacePageView *)placePage willShareText:(NSString *)text point:(m2::PointD)point;
 - (void)placePageView:(PlacePageView *)placePage willShareApiPoint:(ApiMarkPoint const *)point;
 
+- (void)placePageViewDidStartRouting:(PlacePageView *)placePage;
+
 @end
 
 
