@@ -38,7 +38,7 @@
 
  See FBError.h and FBErrorUtility.h for error category and user message details.
  */
-typedef NS_ENUM(NSUInteger, FBRequestConnectionErrorBehavior) {
+typedef enum {
     /*! The default behavior of none */
     FBRequestConnectionErrorBehaviorNone                   = 0,
 
@@ -70,7 +70,7 @@ typedef NS_ENUM(NSUInteger, FBRequestConnectionErrorBehavior) {
      that will be subject to race conditions.
      */
     FBRequestConnectionErrorBehaviorReconnectSession     = 4,
-};
+} FBRequestConnectionErrorBehavior;
 
 /*!
  Normally requests return JSON data that is parsed into a set of `NSDictionary`
@@ -427,21 +427,6 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
  with the connection.
  */
 - (void)cancel;
-
-/*!
- @method
-
- @abstract
- Overrides the default version for a batch request
-
- @discussion
- The SDK automatically prepends a version part, such as "v2.0" to API paths in order to simplify API versioning
- for applications. If you want to override the version part while using batch requests on the connection, call
- this method to set the version for the batch request.
-
- @param version   This is a string in the form @"v2.0" which will be used for the version part of an API path
- */
-- (void)overrideVersionPartWith:(NSString *)version;
 
 /*!
  @method

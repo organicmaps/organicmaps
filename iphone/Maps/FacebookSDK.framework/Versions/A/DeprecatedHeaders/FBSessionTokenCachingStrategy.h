@@ -33,7 +33,7 @@
 
  The first and simplest approach is to instantiate an instance of `FBSessionTokenCachingStrategy`, and then pass
  the instance to `FBSession` class' `init` method. This enables your application to control the key name used in
- the iOS Keychain to store session information. You may consider this approach if you plan to cache session information
+ `NSUserDefaults` to store session information. You may consider this approach if you plan to cache session information
  for multiple users.
 
  The second and more advanced approached is to derive a custom class from `FBSessionTokenCachingStrategy`, which will
@@ -44,7 +44,7 @@
  `[FBSessionTokenCachingStrategy nullCacheInstance]`.
 
  Direct use of `FBSessionTokenCachingStrategy`is an advanced technique. Most applications use <FBSession> objects without
- passing an `FBSessionTokenCachingStrategy`, which yields default caching to the iOS Keychain.
+ passing an `FBSessionTokenCachingStrategy`, which yields default caching to `NSUserDefaults`.
  */
 @interface FBSessionTokenCachingStrategy : NSObject
 
@@ -57,7 +57,7 @@
  @abstract
  Initializes and returns an instance
 
- @param tokenInformationKeyName     Specifies a key name to use for cached token information in the iOS Keychain, nil
+ @param tokenInformationKeyName     Specifies a key name to use for cached token information in NSUserDefaults, nil
  indicates a default value of @"FBAccessTokenInformationKey"
  */
 - (instancetype)initWithUserDefaultTokenInformationKeyName:(NSString *)tokenInformationKeyName;

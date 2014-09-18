@@ -18,9 +18,39 @@
 
 #import "FBCacheDescriptor.h"
 #import "FBGraphUser.h"
-#import "FBPeoplePickerViewController.h"
+#import "FBSession.h"
+#import "FBViewController.h"
 
 @protocol FBFriendPickerDelegate;
+@class FBFriendPickerCacheDescriptor;
+
+/*!
+ @typedef NS_ENUM (NSUInteger, FBFriendSortOrdering)
+
+ @abstract Indicates the order in which friends should be listed in the friend picker.
+
+ @discussion
+ */
+typedef NS_ENUM(NSUInteger, FBFriendSortOrdering) {
+    /*! Sort friends by first, middle, last names. */
+    FBFriendSortByFirstName = 0,
+    /*! Sort friends by last, first, middle names. */
+    FBFriendSortByLastName
+};
+
+/*!
+ @typedef NS_ENUM (NSUInteger, FBFriendDisplayOrdering)
+
+ @abstract Indicates whether friends should be displayed first-name-first or last-name-first.
+
+ @discussion
+ */
+typedef NS_ENUM(NSUInteger, FBFriendDisplayOrdering) {
+    /*! Display friends as First Middle Last. */
+    FBFriendDisplayByFirstName = 0,
+    /*! Display friends as Last First Middle. */
+    FBFriendDisplayByLastName,
+};
 
 
 /*!
@@ -47,7 +77,49 @@
  data changes. The delegate can also be used to filter the friends to display in the
  picker.
  */
-@interface FBFriendPickerViewController : FBPeoplePickerViewController
+@interface FBFriendPickerViewController : FBViewController
+
+/*!
+ @abstract
+ Returns an outlet for the spinner used in the view controller.
+ */
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *spinner;
+
+/*!
+ @abstract
+ Returns an outlet for the table view managed by the view controller.
+ */
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
+
+/*!
+ @abstract
+ A Boolean value that specifies whether multi-select is enabled.
+ */
+@property (nonatomic) BOOL allowsMultipleSelection;
+
+/*!
+ @abstract
+ A Boolean value that indicates whether friend profile pictures are displayed.
+ */
+@property (nonatomic) BOOL itemPicturesEnabled;
+
+/*!
+ @abstract
+ Addtional fields to fetch when making the Graph API call to get friend data.
+ */
+@property (nonatomic, copy) NSSet *fieldsForRequest;
+
+/*!
+ @abstract
+ The session that is used in the request for friend data.
+ */
+@property (nonatomic, retain) FBSession *session;
+
+/*!
+ @abstract
+ The profile ID of the user whose friends are being viewed.
+ */
+@property (nonatomic, copy) NSString *userID;
 
 /*!
  @abstract
@@ -59,7 +131,36 @@
  must be complete id<FBGraphUser> objects (i.e., fetched from a Graph query or from a
  previous picker's selection, with id and appropriate name fields).
  */
-@property (nonatomic, copy, readwrite) NSArray *selection;
+@property (nonatomic, copy) NSArray *selection;
+
+/*!
+ @abstract
+ The order in which friends are sorted in the display.
+ */
+@property (nonatomic) FBFriendSortOrdering sortOrdering;
+
+/*!
+ @abstract
+ The order in which friends' names are displayed.
+ */
+@property (nonatomic) FBFriendDisplayOrdering displayOrdering;
+
+/*!
+ @abstract
+ Initializes a friend picker view controller.
+
+ @param aDecoder        An unarchiver object.
+ */
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+
+/*!
+ @abstract
+ Used to initialize the object
+
+ @param nibNameOrNil            The name of the nib file to associate with the view controller. The nib file name should not contain any leading path information. If you specify nil, the nibName property is set to nil.
+ @param nibBundleOrNil          The bundle in which to search for the nib file. This method looks for the nib file in the bundle's language-specific project directories first, followed by the Resources directory. If nil, this method looks for the nib file in the main bundle.
+ */
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
 /*!
  @abstract
@@ -73,6 +174,32 @@
  @param cacheDescriptor     The <FBCacheDescriptor> containing the cache query properties.
  */
 - (void)configureUsingCachedDescriptor:(FBCacheDescriptor *)cacheDescriptor;
+
+/*!
+ @abstract
+ Initiates a query to get friend data.
+
+ @discussion
+ A cached copy will be returned if available. The cached view is temporary until a fresh copy is
+ retrieved from the server. It is legal to call this more than once.
+ */
+- (void)loadData;
+
+/*!
+ @abstract
+ Updates the view locally without fetching data from the server or from cache.
+
+ @discussion
+ Use this if the filter or sort properties change. This may affect the order or
+ display of friend information but should not need require new data.
+ */
+- (void)updateView;
+
+/*!
+ @abstract
+ Clears the current selection, so the picker is ready for a fresh use.
+ */
+- (void)clearSelection;
 
 /*!
  @method
@@ -112,12 +239,8 @@
  The `FBFriendPickerDelegate` protocol defines the methods used to receive event
  notifications and allow for deeper control of the <FBFriendPickerViewController>
  view.
-
- The methods of <FBFriendPickerDelegate> correspond to <FBGraphObjectPickerDelegate>.
- If a pair of corresponding methods are implemented, the <FBGraphObjectPickerDelegate>
- method is called first.
  */
-@protocol FBFriendPickerDelegate <FBGraphObjectPickerDelegate>
+@protocol FBFriendPickerDelegate <FBViewControllerDelegate>
 @optional
 
 /*!
@@ -147,9 +270,6 @@
 
  @discussion
  This can be used to implement a search bar that filters the friend list.
-
- If -[<FBGraphObjectPickerDelegate> graphObjectPickerViewController:shouldIncludeGraphObject:]
- is implemented and returns NO, this method is not called.
 
  @param friendPicker        The friend picker view controller that is requesting this information.
  @param user                An <FBGraphUser> object representing the friend.
