@@ -40,6 +40,7 @@ SOURCES += \
     font_texture_tests.cpp \
     bingind_info_tests.cpp \
     stipple_pen_tests.cpp \
+    texture_of_colors_tests.cpp \
 
 HEADERS += \
     glmock_functions.hpp \

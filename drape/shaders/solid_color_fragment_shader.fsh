@@ -4,6 +4,5 @@ varying mediump vec3 v_color_index;
 
 void main(void)
 {
-  int textureIndex = int(v_color_index.z);
-  gl_FragColor = getTexel(textureIndex, v_color_index.xy);
+  gl_FragColor = getTexel(int(v_color_index.z), v_color_index.xy);
 }

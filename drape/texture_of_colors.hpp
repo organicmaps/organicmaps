@@ -10,8 +10,11 @@ namespace dp
 class ColorKey : public Texture::Key
 {
 public:
+  ColorKey(uint32_t color) : Texture::Key(), m_color(color) {}
   virtual Texture::ResourceType GetType() const { return Texture::Color; }
   uint32_t GetColor() const { return m_color; }
+  void SetColor(uint32_t color) { m_color = color; }
+private:
   uint32_t m_color;
 };
 
@@ -22,30 +25,24 @@ public:
   virtual Texture::ResourceType GetType() const { return Texture::Color; }
 };
 
-class TextureOfColors
-{
-public:
-  TextureOfColors();
-};
-
 class ColorPalette
 {
 public:
   ColorPalette(m2::PointU const & canvasSize);
-  ~ColorPalette() { delete m_info; }
+  ~ColorPalette();
   ColorResourceInfo const * MapResource(ColorKey const & key);
   void UploadResources(RefPointer<Texture> texture);
-  void AddData(void const * data, uint32_t size);
-public:
-  void Move(uint32_t step);
-  typedef map<uint32_t, uint32_t> TPalette;
+private:
+  typedef MasterPointer<ColorResourceInfo> TResourcePtr;
+  typedef map<uint32_t, TResourcePtr> TPalette;
   typedef pair<TPalette::iterator, bool> TInserted;
+
+  void Move(uint32_t step);
   TPalette m_palette;
   vector<uint32_t> m_pendingNodes;
   m2::PointU m_textureSize;
   uint32_t m_curY;
   uint32_t m_curX;
-  ColorResourceInfo * m_info;
 };
 
 }

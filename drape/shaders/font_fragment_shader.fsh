@@ -11,13 +11,8 @@ const lowp float OUTLINE_MAX_VALUE1 = 0.95;
 const lowp float GLYPH_MIN_VALUE = 0.45;
 const lowp float GLYPH_MAX_VALUE = 0.6;
 
-lowp vec4 colorize(lowp vec4 baseColor)
+lowp vec4 colorize(lowp vec4 base, lowp vec4 outline, lowp float alpha)
 {
-  int textureIndex = int(v_index);
-  lowp vec4 outline = getTexel(textureIndex, v_colors.zw);
-  lowp vec4 base = getTexel(textureIndex, v_colors.xy);
-  lowp float alpha = 1.0 - baseColor.a;
-
   if (alpha > OUTLINE_MAX_VALUE1)
     return vec4(outline.rgb, 0);
   if (alpha > OUTLINE_MAX_VALUE0)
@@ -37,12 +32,8 @@ lowp vec4 colorize(lowp vec4 baseColor)
   return base;
 }
 
-lowp vec4 without_outline(lowp vec4 baseColor)
+lowp vec4 without_outline(lowp vec4 base, lowp float alpha)
 {
-  int textureIndex = int(v_index);
-  lowp vec4 base = getTexel(textureIndex, v_colors.xy);
-  lowp float alpha = 1.0 - baseColor.a;
-
   if (alpha > GLYPH_MIN_VALUE)
   {
     lowp float oFactor = smoothstep(GLYPH_MIN_VALUE, GLYPH_MAX_VALUE, alpha );
@@ -53,14 +44,15 @@ lowp vec4 without_outline(lowp vec4 baseColor)
 
 void main (void)
 {
-  int textureIndex = int(v_texcoord.z / 2.0);
-  int textureIndex2 = int(v_index);
-  lowp vec4 base = getTexel(textureIndex2, v_colors.xy);
-  mediump float alpha = getTexel(textureIndex, v_texcoord.xy).a;
+  int shapeIndex = int(v_texcoord.z / 2.0);
+  int colorIndex = int(v_index);
+  lowp vec4 base = getTexel(colorIndex, v_colors.xy);
+  lowp vec4 outline = getTexel(colorIndex, v_colors.zw);
+  mediump float alpha = getTexel(shapeIndex, v_texcoord.xy).a;
 
   lowp float needOutline = (fract(v_texcoord.z / 2.0)) * 2.0;
   if (needOutline > 0.5)
-    gl_FragColor = colorize(vec4(base.rgb, base.a*alpha));
+    gl_FragColor = colorize(base, outline, 1.0 - base.a*alpha);
   else
-    gl_FragColor = without_outline(vec4(base.rgb, base.a*alpha));
+    gl_FragColor = without_outline(base, 1.0 - base.a*alpha);
 }                    

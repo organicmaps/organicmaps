@@ -13,12 +13,9 @@ varying lowp float v_index;
 
 ~getTexel~
 
-void sphere_join(MAXPREC float gip2)
+void sphere_join(MAXPREC float gip2, lowp vec4 baseColor, lowp vec4 outlineColor)
 {
   MAXPREC float r = v_radius.y;
-  int textureIndex = int(v_index);
-  lowp vec4 baseColor = getTexel(textureIndex, v_colors.xy);
-  lowp vec4 outlineColor = getTexel(textureIndex, v_colors.zw);
   gl_FragColor = baseColor;
   if (gip2 > v_radius.w * v_radius.w)
   {
@@ -101,7 +98,7 @@ void main(void)
         if(gip2 > v_radius.y * v_radius.y)
           discard;
         else
-          sphere_join(gip2);
+          sphere_join(gip2, baseColor, outlineColor);
       }
       else if (v_dx <= -1.0)
       {
@@ -110,7 +107,7 @@ void main(void)
         if(gip2 > v_radius.y * v_radius.y)
           discard;
         else
-          sphere_join(gip2);
+          sphere_join(gip2, baseColor, outlineColor);
       }
     }
   }

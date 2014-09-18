@@ -35,15 +35,13 @@ void AreaShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
 {
   dp::GLState state(gpu::SOLID_AREA_PROGRAM, dp::GLState::GeometryLayer);
 
-  dp::ColorKey key;
-  key.m_color = m_params.m_color.GetColorInInt();
+  dp::ColorKey key(m_params.m_color.GetColorInInt());
   dp::TextureSetHolder::ColorRegion region;
   textures->GetColorRegion(key, region);
-  m2::RectF const & rect1 = region.GetTexRect();
-  m2::PointF coord1 = (rect1.RightTop() + rect1.LeftBottom()) * 0.5f;
+  m2::RectF const & rect = region.GetTexRect();
   float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
 
-  vector<vec3> colors(m_vertexes.size(), vec3(coord1, texIndex));
+  vector<vec3> colors(m_vertexes.size(), vec3(rect.RightTop(), texIndex));
 
   state.SetTextureSet(region.GetTextureNode().m_textureSet);
 

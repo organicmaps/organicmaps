@@ -7,7 +7,6 @@
 #include "../drape/shader_def.hpp"
 #include "../drape/overlay_tree.hpp"
 #include "../drape/stipple_pen_resource.hpp"
-#include "../drape/dynamic_texture.hpp"
 
 #include "../drape_frontend/visual_params.hpp"
 #include "../drape_frontend/line_shape.hpp"
@@ -131,39 +130,12 @@ public:
   void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
   {
     const int cnt = 6000;
-    uint32_t colors[50000];
-    colors[0] = (255<<24) | (0<<16) | (0<<8) | 255;
-    colors[1] = (255<<24) | (0<<16) | (255<<8) | 0;
-    colors[2] = (255<<24) | (0<<16) | (0<<8) | 255;
 
-    colors[3] = (255<<24) | (0<<16) | (255<<8) | 255;
-    colors[4] = (255<<24) | (255<<16) | (0<<8) | 255;
-    colors[5] = (255<<24) | (255<<16) | (255<<8) | 0;
-
-    colors[6] = (255<<24) | (255<<16) | (255<<8) | 255;
-
-    colors[7] = (255<<24) | (0<<16) | (0<<8) | 0;
-
-    dp::ColorKey key;
-    key.m_color = (255<<24) | (1<<16) | (255<<8) | 0;
+    dp::ColorKey key(0);
     dp::TextureSetHolder::ColorRegion region;
-    textures->GetColorRegion(key, region);
-    key.m_color = (255<<24) | (0<<16) | (255<<8) | 255;
-    textures->GetColorRegion(key, region);
-    key.m_color = colors[0];
-    textures->GetColorRegion(key, region);
-    key.m_color = colors[1];
-    textures->GetColorRegion(key, region);
-    key.m_color = colors[2];
-    textures->GetColorRegion(key, region);
-    key.m_color = colors[3];
-    textures->GetColorRegion(key, region);
-    key.m_color = colors[4];
-    textures->GetColorRegion(key, region);
-    for (int i = 8; i < cnt; ++i)
+    for (int i = 0; i < cnt; ++i)
     {
-      colors[i] = (255<<24) | (rand()%256 << 16) | (rand()%256 << 8) | (rand()%256);
-      key.m_color = colors[i];
+      key.SetColor(dp::Color(rand()%256, rand()%256, rand()%256, 255).GetColorInInt());
       textures->GetColorRegion(key, region);
     }
 
@@ -184,23 +156,22 @@ public:
       m2::PointF(halfSize, halfSize), m2::PointF(halfSize, -halfSize)
     };
 
-    m2::PointF coord = (rect.RightTop() + rect.LeftBottom()) * 0.5f;
-
-//    glsl_types::vec4 texCoord[4] =
-//    {
-//      glsl_types::vec4(m2::PointF(0.0f, 1.0f), texIndex, 0),
-//      glsl_types::vec4(m2::PointF(0.0f, 0.0f), texIndex, 0),
-//      glsl_types::vec4(m2::PointF(1.0f, 1.0f), texIndex, 0),
-//      glsl_types::vec4(m2::PointF(1.0f, 0.0f), texIndex, 0)
-//    };
-
-    glsl_types::vec4 texCoord[4] =
+    bool drawEntireTexture = true;
+    glsl_types::vec4 texCoord[4];
+    if (drawEntireTexture)
     {
-      glsl_types::vec4(coord, texIndex, 0),
-      glsl_types::vec4(coord, texIndex, 0),
-      glsl_types::vec4(coord, texIndex, 0),
-      glsl_types::vec4(coord, texIndex, 0)
-    };
+      texCoord[0] = glsl_types::vec4(m2::PointF(0.0f, 1.0f), texIndex, 0);
+      texCoord[1] = glsl_types::vec4(m2::PointF(0.0f, 0.0f), texIndex, 0);
+      texCoord[2] = glsl_types::vec4(m2::PointF(1.0f, 1.0f), texIndex, 0);
+      texCoord[3] = glsl_types::vec4(m2::PointF(1.0f, 0.0f), texIndex, 0);
+    }
+    else
+    {
+      texCoord[0] = glsl_types::vec4(rect.RightTop(), texIndex, 0);
+      texCoord[1] = glsl_types::vec4(rect.RightTop(), texIndex, 0);
+      texCoord[2] = glsl_types::vec4(rect.RightTop(), texIndex, 0);
+      texCoord[3] = glsl_types::vec4(rect.RightTop(), texIndex, 0);
+    }
 
     dp::AttributeProvider provider(3, 4);
     {
@@ -303,15 +274,13 @@ public:
     formingVectors[2] = m2::PointF( m_radius,  m_radius);
     formingVectors[3] = m2::PointF( m_radius, -m_radius);
 
-    dp::ColorKey key;
-    key.m_color = dp::Color(150, 130, 120, 255).GetColorInInt();
+    dp::ColorKey key(dp::Color(150, 130, 120, 255).GetColorInInt());
     dp::TextureSetHolder::ColorRegion region;
     textures->GetColorRegion(key, region);
-    m2::RectF const & rect1 = region.GetTexRect();
-    m2::PointF coord1 = (rect1.RightTop() + rect1.LeftBottom()) * 0.5f;
+    m2::RectF const & rect = region.GetTexRect();
     float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
 
-    vector<vec3> colors(4, vec3(coord1, texIndex));
+    vector<vec3> colors(4, vec3(rect.RightTop(), texIndex));
 
     dp::AttributeProvider provider(3, 4);
     {

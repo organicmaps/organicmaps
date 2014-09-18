@@ -10,6 +10,5 @@ varying MAXPREC float v_textureIndex;
 
 void main(void)
 {
-  int textureIndex = int(v_textureIndex);
-  gl_FragColor = getTexel(textureIndex, v_texCoords);
+  gl_FragColor = getTexel(int(v_textureIndex), v_texCoords);
 }

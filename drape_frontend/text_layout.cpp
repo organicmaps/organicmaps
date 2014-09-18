@@ -17,17 +17,14 @@ void FillColor(vector<Quad4> & colors,
                dp::Color const & base, dp::Color const & outline,
                dp::RefPointer<dp::TextureSetHolder> textures)
   {
-  dp::ColorKey key;
-  key.m_color = (base.m_alfa << 24) | (base.m_blue << 16) | (base.m_green << 8) | base.m_red;
+  dp::ColorKey key(base.GetColorInInt());
   textures->GetColorRegion(key, region);
-  m2::RectF const & rect1 = region.GetTexRect();
-  m2::PointF coord1 = (rect1.RightTop() + rect1.LeftBottom()) * 0.5f;
-  key.m_color = (outline.m_alfa << 24) | (outline.m_blue << 16) | (outline.m_green << 8) | outline.m_red;
+  m2::RectF const & rect = region.GetTexRect();
+  key.SetColor(outline.GetColorInInt());
   textures->GetColorRegion(key, region);
-  m2::RectF const & rect2 = region.GetTexRect();
-  m2::PointF coord2 = (rect2.RightTop() + rect2.LeftBottom()) * 0.5f;
+  m2::RectF const & outlineRect = region.GetTexRect();
 
-  vec4 clrs(coord1, coord2);
+  vec4 clrs(rect.RightTop(), outlineRect.RightTop());
   Quad4 f(clrs, clrs, clrs, clrs);
   fill(colors.begin(), colors.end(), f);
   }

@@ -175,20 +175,16 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     vertex[baseIdx + 3].y = vertex[baseIdx + 1].y;
   }
 
-  dp::ColorKey key;
-  dp::Color clr = m_params.m_color;
-  key.m_color = (clr.m_alfa << 24) | (clr.m_blue << 16) | (clr.m_green << 8) | clr.m_red;
+  dp::ColorKey key(m_params.m_color.GetColorInInt());
   dp::TextureSetHolder::ColorRegion region;
   textures->GetColorRegion(key, region);
-  m2::RectF const & rect1 = region.GetTexRect();
-  m2::PointF coord1 = (rect1.RightTop() + rect1.LeftBottom()) * 0.5f;
-  key.m_color = (255 << 24) | (127 << 16) | (127 << 8) | 127;
+  m2::RectF const & rect = region.GetTexRect();
+  key.SetColor(dp::Color(127, 127, 127, 255).GetColorInInt());
   textures->GetColorRegion(key, region);
-  m2::RectF const & rect2 = region.GetTexRect();
-  m2::PointF coord2 = (rect2.RightTop() + rect2.LeftBottom()) * 0.5f;
+  m2::RectF const & outlineRect = region.GetTexRect();
   float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
 
-  vector<vec4> colors(numVert, vec4(coord1, coord2));
+  vector<vec4> colors(numVert, vec4(rect.RightTop(), outlineRect.RightTop()));
   vector<float> index(numVert, texIndex); /// TODO this color now not using.
   ///We need merge line styles to draw line outline and line by ont pass
 

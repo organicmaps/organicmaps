@@ -53,15 +53,13 @@ void CircleShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::T
   double const TriangleCount = 20.0;
   double const etalonSector = (2.0 * math::pi) / TriangleCount;
 
-  dp::ColorKey key;
-  key.m_color = m_params.m_color.GetColorInInt();
+  dp::ColorKey key(m_params.m_color.GetColorInInt());
   dp::TextureSetHolder::ColorRegion region;
   textures->GetColorRegion(key, region);
-  m2::RectF const & rect1 = region.GetTexRect();
-  m2::PointF coord1 = (rect1.RightTop() + rect1.LeftBottom()) * 0.5f;
+  m2::RectF const & rect = region.GetTexRect();
   float texIndex = static_cast<float>(region.GetTextureNode().m_textureOffset);
 
-  vec3 color(coord1, texIndex);
+  vec3 color(rect.RightTop(), texIndex);
 
   /// x, y, z floats on geompoint
   /// normal x, y on triangle forming normals

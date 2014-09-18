@@ -55,7 +55,7 @@ UNIT_TEST(ColorPalleteMappingTests)
 {
   ColorPalette cp(m2::PointU(32, 16));
 
-  dp::ColorKey key;
+  dp::ColorKey key(0);
   key.SetColor(0);
   ColorResourceInfo const * info1 = cp.MapResource(key);
   key.SetColor(1);
@@ -89,7 +89,7 @@ UNIT_TEST(ColorPalleteUploadingTests1)
   ColorPalette cp(m2::PointU(width, height));
   cp.UploadResources(MakeStackRefPointer<Texture>(&texture));
 
-  dp::ColorKey key;
+  dp::ColorKey key(0);
   key.SetColor(0);
   cp.MapResource(key);
   key.SetColor(1);
@@ -158,7 +158,7 @@ UNIT_TEST(ColorPalleteUploadingTests2)
   InitOpenGLTextures(width, height);
 
   SimpleTexture texture;
-  dp::ColorKey key;
+  dp::ColorKey key(0);
   texture.Create(width, height, dp::RGBA8);
   ColorPalette cp(m2::PointU(width, height));
 
