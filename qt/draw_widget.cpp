@@ -392,7 +392,7 @@ namespace qt
       }
       else if (e->modifiers() & Qt::ShiftModifier)
       {
-        if (m_framework->IsRountingActive())
+        if (m_framework->IsRoutingActive())
           m_framework->CancelRoutingSession();
         else
           m_framework->StartRoutingSession(m_framework->PtoG(pt));

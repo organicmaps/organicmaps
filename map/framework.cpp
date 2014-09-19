@@ -674,7 +674,7 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   bool const isCompassEnabled = my::Abs(ang::GetShortestDistance(m_navigator.Screen().GetAngle(), 0.0)) > my::DegToRad(3.0);
   bool const isCompasActionEnabled = m_informationDisplay.isCompassArrowEnabled() && m_navigator.InAction();
-  bool const isInRouting = IsRountingActive();
+  bool const isInRouting = IsRoutingActive();
 
   m_informationDisplay.enableCompassArrow(!isInRouting && (isCompassEnabled || isCompasActionEnabled));
   m_informationDisplay.setCompassArrowAngle(m_navigator.Screen().GetAngle());
@@ -1811,7 +1811,7 @@ bool Framework::GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & 
 
 ///////////////////////////// ROUTING /////////////////////////////////////////////////
 
-bool Framework::IsRountingActive() const
+bool Framework::IsRoutingActive() const
 {
   return m_routingSession.IsActive();
 }
@@ -1822,7 +1822,7 @@ bool Framework::StartRoutingSession(m2::PointD const & destination)
   if (!GetPlatform().HasRouting() || !state->IsModeHasPosition())
     return false;
 
-  if (IsRountingActive())
+  if (IsRoutingActive())
     CancelRoutingSession();
 
   m_routingSession.BuildRoute(state->Position(), destination,
@@ -1837,7 +1837,7 @@ bool Framework::StartRoutingSession(m2::PointD const & destination)
 
 void Framework::CancelRoutingSession()
 {
-  ASSERT(IsRountingActive(), ());
+  ASSERT(IsRoutingActive(), ());
   GetLocationState()->StopRoutingMode();
   m_routingSession.Reset();
 
@@ -1889,7 +1889,7 @@ void Framework::InsertRoute(routing::Route const & route)
 
 void Framework::CheckLocationForRouting()
 {
-  if (!IsRountingActive())
+  if (!IsRoutingActive())
     return;
 
   shared_ptr<location::State> const & state = GetLocationState();

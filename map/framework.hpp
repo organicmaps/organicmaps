@@ -480,7 +480,7 @@ public:
 public:
   /// @name Routing mode
   //@{
-  bool IsRountingActive() const;
+  bool IsRoutingActive() const;
   bool StartRoutingSession(m2::PointD const & destination);
   void CancelRoutingSession();
 
