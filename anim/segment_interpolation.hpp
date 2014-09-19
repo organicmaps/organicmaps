@@ -22,6 +22,8 @@ namespace anim
                          double interval,
                          m2::PointD & outPt);
 
+    void Reset(m2::PointD const & start, m2::PointD const & end, double interval);
+
     void OnStart(double ts);
     void OnStep(double ts);
     void OnEnd(double ts);

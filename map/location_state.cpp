@@ -8,6 +8,8 @@
 
 #include "../anim/controller.hpp"
 #include "../anim/task.hpp"
+#include "../anim/angle_interpolation.hpp"
+#include "../anim/segment_interpolation.hpp"
 
 #include "../gui/controller.hpp"
 
@@ -19,12 +21,13 @@
 #include "../geometry/rect2d.hpp"
 #include "../geometry/transformations.hpp"
 
-
 namespace location
 {
 
 namespace
 {
+
+static const int POSITION_Y_OFFSET = 120;
 
 uint16_t IncludeModeBit(uint16_t mode, uint16_t bit)
 {
@@ -50,6 +53,102 @@ bool TestModeBit(uint16_t mode, uint16_t bit)
 {
   return (mode & bit) != 0;
 }
+
+class RotateAndFollowAnim : public anim::Task
+{
+public:
+  RotateAndFollowAnim(Framework * fw, m2::PointD const & srcPos, double srcAngle)
+    : m_fw(fw)
+    , m_currentPosition(srcPos)
+    , m_currentAngle(srcAngle)
+  {
+    m2::RectD pixelRect = m_fw->GetNavigator().Screen().PixelRect();
+    m2::PointD pxCenter = pixelRect.Center();
+    m2::PointD dstPxBinging(pxCenter.x, pixelRect.maxY() - POSITION_Y_OFFSET * m_fw->GetVisualScale());
+    anim::SegmentInterpolation * pxBindingAnim = new anim::SegmentInterpolation(m_fw->GetPixelCenter(), dstPxBinging,
+                                                                                0.5, m_pxCurrentBinding);
+
+    m_fw->GetAnimController()->AddTask(shared_ptr<anim::Task>(pxBindingAnim));
+  }
+
+  void SetDestinationParams(m2::PointD const & dstPos, double dstAngle)
+  {
+    double posSpeed = m_fw->GetNavigator().ComputeMoveSpeed(m_currentPosition, dstPos);
+    double angleSpeed = m_fw->GetAnimator().GetRotationSpeed();
+
+    UpdateInnerAnim(m_currentPosition, dstPos, posSpeed,
+                    m_currentAngle, dstAngle, angleSpeed);
+  }
+
+  virtual void OnStart(double ts)
+  {
+    ASSERT(m_angleAnim != nullptr, ());
+    ASSERT(m_posAnim != nullptr, ());
+    if (m_angleAnim->IsReady())
+    {
+      m_angleAnim->Start();
+      m_angleAnim->OnStart(ts);
+    }
+
+    if (m_posAnim->IsReady())
+    {
+      m_posAnim->Start();
+      m_posAnim->OnStart(ts);
+    }
+  }
+
+  virtual void OnStep(double ts)
+  {
+    ASSERT(m_angleAnim != nullptr, ());
+    ASSERT(m_posAnim != nullptr, ());
+
+    if (!m_angleAnim->IsEnded())
+      m_angleAnim->OnStep(ts);
+    if (!m_posAnim->IsEnded())
+      m_posAnim->OnStep(ts);
+
+    UpdateViewport();
+  }
+
+private:
+  void UpdateViewport()
+  {
+    m2::RectD const pixelRect = m_fw->GetNavigator().Screen().PixelRect();
+    m2::PointD const pxCenter = pixelRect.Center();
+
+    double const glbLength = (m_fw->PtoG(pxCenter) - m_fw->PtoG(m_pxCurrentBinding)).Length();
+    m2::PointD const newScreenCenter = m_currentPosition.Move(glbLength, m_currentAngle + my::DegToRad(90.0));
+
+    m_fw->SetViewportCenter(newScreenCenter);
+    m_fw->GetNavigator().SetAngle(m_currentAngle);
+    m_fw->Invalidate();
+  }
+
+  void UpdateInnerAnim(m2::PointD const & srcPos, m2::PointD const & dstPos, double posSpeed,
+                       double srcAngle, double dstAngle, double angleSpeed)
+  {
+    if (m_angleAnim == nullptr)
+      m_angleAnim.reset(new anim::AngleInterpolation(srcAngle, dstAngle, angleSpeed, m_currentAngle));
+    else
+      m_angleAnim->Reset(srcAngle, dstAngle, angleSpeed);
+
+    if (m_posAnim == nullptr)
+      m_posAnim.reset(new anim::SegmentInterpolation(srcPos, dstPos, posSpeed, m_currentPosition));
+    else
+      m_posAnim->Reset(srcPos, dstPos, posSpeed);
+  }
+
+private:
+  Framework * m_fw;
+
+  shared_ptr<anim::AngleInterpolation> m_angleAnim;
+  shared_ptr<anim::SegmentInterpolation> m_posAnim;
+
+  m2::PointD m_currentPosition;
+  double m_currentAngle;
+
+  m2::PointD m_pxCurrentBinding;
+};
 
 }
 
@@ -164,7 +263,7 @@ void State::OnLocationUpdate(location::GpsInfo const & info)
 
   if (GetMode() == PendingPosition)
     SetModeInfo(ChangeMode(m_modeInfo, Follow));
-  else if (GetMode() > NotFollow)
+  else
     AnimateFollow();
 
   CallPositionChangedListeners(m_position);
@@ -180,7 +279,7 @@ void State::OnCompassUpdate(location::CompassInfo const & info)
   else
     m_drawDirection = info.m_magneticHeading;
 
-  FollowCompass();
+  AnimateFollow();
   invalidate();
 }
 
@@ -374,15 +473,34 @@ bool State::IsInRouting() const
   return TestModeBit(m_modeInfo, RoutingSessionBit);
 }
 
-void State::FollowCompass()
+bool State::FollowCompass()
 {
-  if (!IsRotationActive() || GetMode() != RotateAndFollow)
-    return;
+  if (!IsRotationActive() || GetMode() != RotateAndFollow || m_animTask == nullptr)
+    return false;
 
-  anim::Controller::Guard guard(m_framework->GetAnimController());
+  RotateAndFollowAnim * task = static_cast<RotateAndFollowAnim *>(m_animTask.get());
+  task->SetDestinationParams(Position(), -m_drawDirection);
+  return  true;
+}
 
-  m_framework->GetAnimator().RotateScreen(m_framework->GetNavigator().Screen().GetAngle(),
-                                          -m_drawDirection);
+void State::CreateAnimTask()
+{
+  EndAnimation();
+
+  RotateAndFollowAnim * task = new RotateAndFollowAnim(m_framework, Position(),
+                                                       m_framework->GetNavigator().Screen().GetAngle());
+
+  m_animTask.reset(task);
+  m_framework->GetAnimController()->AddTask(m_animTask);
+}
+
+void State::EndAnimation()
+{
+  if (m_animTask != nullptr)
+  {
+    m_animTask->End();
+    m_animTask.reset();
+  }
 }
 
 void State::SetModeInfo(uint16_t modeInfo)
@@ -510,32 +628,32 @@ void State::AnimateStateTransition(Mode oldMode, Mode newMode)
 {
   ASSERT(ValidateTransition(oldMode, newMode), ("from", oldMode, "to", newMode));
 
+  if (oldMode == RotateAndFollow)
+    EndAnimation();
+
   if (oldMode == PendingPosition && newMode == Follow)
   {
     m2::PointD const size(m_errorRadius, m_errorRadius);
     m_framework->ShowRectExVisibleScale(m2::RectD(m_position - size, m_position + size),
                                         scales::GetUpperComfortScale());
   }
-  else if (oldMode == NotFollow && newMode == Follow)
-  {
-    m_framework->SetViewportCenterAnimated(Position());
-  }
   else if (newMode == RotateAndFollow)
   {
-    if (oldMode == NotFollow)
-      m_framework->SetViewportCenterAnimated(Position());
-    FollowCompass();
+    CreateAnimTask();
   }
   else if (oldMode == RotateAndFollow && newMode == UnknownPosition)
-  {
     m_framework->GetAnimator().RotateScreen(m_framework->GetNavigator().Screen().GetAngle(), 0.0);
-  }
+
+  AnimateFollow();
 }
 
 void State::AnimateFollow()
 {
-  m_framework->SetViewportCenterAnimated(Position());
-  FollowCompass();
+  if (!IsModeChangeViewport())
+    return;
+
+  if (!FollowCompass())
+    m_framework->SetViewportCenterAnimated(Position());
 }
 
 }

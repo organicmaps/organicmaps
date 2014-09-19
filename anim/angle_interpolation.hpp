@@ -24,11 +24,16 @@ namespace anim
                        double speed,
                        double & out);
 
+    void Reset(double start, double end, double speed);
+
     void OnStart(double ts);
     void OnStep(double ts);
     void OnEnd(double ts);
 
     double EndAngle() const;
     void SetEndAngle(double val);
+
+  private:
+    void CalcParams(double start, double end, double speed);
   };
 }

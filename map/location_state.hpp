@@ -13,6 +13,7 @@
 class Framework;
 
 namespace graphics { class DisplayList; }
+namespace anim { class Task;}
 
 namespace location
 {
@@ -116,7 +117,6 @@ namespace location
     bool IsDirectionKnown() const;
     bool IsInRouting() const;
 
-    void FollowCompass();
     void SetModeInfo(uint16_t modeInfo);
 
   private:
@@ -142,12 +142,20 @@ namespace location
     TPositionListeners m_positionListeners;
     int m_currentSlotID;
 
-    /// @nameCompass Rendering Parameters
+    /// @name Compass Rendering Parameters
     //@{
     unique_ptr<graphics::DisplayList> m_positionArrow;
     unique_ptr<graphics::DisplayList> m_locationMarkDL;
     unique_ptr<graphics::DisplayList> m_positionMarkDL;
     graphics::Color m_locationAreaColor;
+    //@}
+
+    /// @name Rotation mode animation
+    //@{
+    shared_ptr<anim::Task> m_animTask;
+    bool FollowCompass();
+    void CreateAnimTask();
+    void EndAnimation();
     //@}
   };
 }

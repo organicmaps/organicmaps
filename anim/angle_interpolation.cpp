@@ -10,15 +10,17 @@ namespace anim
                                          double end,
                                          double speed,
                                          double & out)
-    : m_startAngle(start),
-      m_outAngle(out)
+    : m_outAngle(out)
   {
-    m_speed = speed;
-    m_startTime = 0;
-    m_dist = ang::GetShortestDistance(start, end);
-    m_curAngle = m_startAngle;
-    m_endAngle = m_startAngle + m_dist;
-    m_interval = fabs(m_dist) / (2 * math::pi) * m_speed;
+    CalcParams(start, end, speed);
+  }
+
+  void AngleInterpolation::Reset(double start, double end, double speed)
+  {
+    CalcParams(start, end, speed);
+    m_startTime = GetController()->GetCurrentTime();
+    SetState(EReady);
+    Start();
   }
 
   void AngleInterpolation::OnStart(double ts)
@@ -60,8 +62,16 @@ namespace anim
   void AngleInterpolation::SetEndAngle(double val)
   {
     m_startTime = GetController()->GetCurrentTime();
-    m_startAngle = m_curAngle;
-    m_dist = ang::GetShortestDistance(m_startAngle, val);
+    CalcParams(m_curAngle, val, m_speed);
+  }
+
+  void AngleInterpolation::CalcParams(double start, double end, double speed)
+  {
+    m_startAngle = start;
+    m_speed = speed;
+    m_startTime = 0;
+    m_dist = ang::GetShortestDistance(start, end);
+    m_curAngle = m_startAngle;
     m_endAngle = m_startAngle + m_dist;
     m_interval = fabs(m_dist) / (2 * math::pi) * m_speed;
   }

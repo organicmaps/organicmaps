@@ -30,10 +30,13 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, IRouter::ReadyC
 
   m_router->CalculateRoute(startPoint,  [this, callback](Route const & route)
                                         {
+                                          if (route.GetPoly().GetSize() < 2)
+                                            return;
+
                                           m_state = RouteNotStarted;
                                           m_route = route;
                                           callback(route);
-  });
+                                        });
 }
 
 bool RoutingSession::IsActive() const

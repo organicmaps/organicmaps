@@ -1,5 +1,7 @@
 #include "segment_interpolation.hpp"
 
+#include "controller.hpp"
+
 namespace anim
 {
   SegmentInterpolation::SegmentInterpolation(m2::PointD const & startPt,
@@ -11,6 +13,17 @@ namespace anim
       m_outPt(outPt),
       m_interval(interval)
   {}
+
+  void SegmentInterpolation::Reset(m2::PointD const & start, m2::PointD const & end, double interval)
+  {
+    m_startPt = start;
+    m_outPt = start;
+    m_endPt = end;
+    m_interval = interval;
+    m_startTime = GetController()->GetCurrentTime();
+    SetState(EReady);
+    Start();
+  }
 
   void SegmentInterpolation::OnStart(double ts)
   {
