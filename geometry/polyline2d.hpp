@@ -77,6 +77,12 @@ public:
   Point<T> const & Front() const { return m_points.front(); }
   Point<T> const & Back() const { return m_points.back(); }
 
+  Point<T> const & GetPoint(size_t idx) const
+  {
+    ASSERT_LESS(idx, m_points.size(), ());
+    return m_points[idx];
+  }
+
   friend string DebugPrint(PolylineT<T> const & p)
   {
     return ::DebugPrint(p.m_points);

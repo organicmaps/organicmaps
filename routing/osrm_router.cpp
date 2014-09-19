@@ -60,7 +60,7 @@ public:
     ASSERT_GREATER(count, 1, ());
     for (size_t i = 1; i < count; ++i)
     {
-      /// @todo Probably, we need to get exact proection distance in meters.
+      /// @todo Probably, we need to get exact projection distance in meters.
       m2::ProjectionToSection<m2::PointD> segProj;
       segProj.SetBounds(ft.GetPoint(i - 1), ft.GetPoint(i));
 
