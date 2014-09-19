@@ -61,29 +61,33 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   if (m_state == RouteNotReady || m_state == RouteLeft || m_state == RouteFinished)
     return m_state;
 
-  double currentDist = 0.0;
-  bool isOnDest = IsOnDestPoint(position, errorRadius);
-  bool isOnTrack = IsOnRoute(position, errorRadius, currentDist);
-
-  if (isOnDest)
+  if (IsOnDestPoint(position, errorRadius))
     m_state = RouteFinished;
-  else if (isOnTrack)
-    m_state = OnRoute;
   else
   {
-    if (currentDist > m_lastMinDist)
+    double currentDist = 0.0;
+    if (IsOnRoute(position, errorRadius, currentDist))
     {
-      ++m_moveAwayCounter;
-      m_lastMinDist = currentDist;
-    }
-    else
-    {
+      m_state = OnRoute;
       m_moveAwayCounter = 0;
       m_lastMinDist = 0.0;
     }
+    else
+    {
+      if (currentDist > m_lastMinDist)
+      {
+        ++m_moveAwayCounter;
+        m_lastMinDist = currentDist;
+      }
+      else
+      {
+        m_moveAwayCounter = 0;
+        m_lastMinDist = 0.0;
+      }
 
-    if (m_moveAwayCounter > 10)
-      m_state = RouteLeft;
+      if (m_moveAwayCounter > 10)
+        m_state = RouteLeft;
+    }
   }
 
   return m_state;
