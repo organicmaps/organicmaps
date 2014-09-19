@@ -1168,8 +1168,8 @@ void Framework::ShowSearchResult(search::Result const & res)
       return;
   }
 
-  ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, center));
   StopLocationFollow();
+  ShowRectExVisibleScale(m_scales.GetRectForDrawScale(scale, center));
 
   search::AddressInfo info;
   info.MakeFrom(res);

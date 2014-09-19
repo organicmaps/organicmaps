@@ -627,6 +627,8 @@ void State::AnimateStateTransition(Mode oldMode, Mode newMode)
 
   if (oldMode == RotateAndFollow)
     EndAnimation();
+  if (oldMode == Follow)
+    m_framework->GetAnimator().StopMoveScreen();
 
   if (oldMode == PendingPosition && newMode == Follow)
   {
