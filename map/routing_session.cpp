@@ -57,30 +57,34 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
 {
   ASSERT(m_state != RoutingNotActive, ());
   ASSERT(m_router != nullptr, ());
-  switch (m_state)
-  {
-  case OnRoute:
-    if (IsOnDestPoint(position, errorRadius))
-      m_state = RouteFinished;
-    else if (!IsOnRoute(position, errorRadius, m_lastMinDist))
-      m_state = RouteLeft;
-    break;
-  case RouteNotStarted:
-  {
-    double currentDist = 0.0;
-    m_state = IsOnRoute(position, errorRadius, currentDist) ? OnRoute : RouteNotStarted;
-    if (m_state == RouteNotStarted && currentDist > m_lastMinDist)
-      ++m_moveAwayCounter;
-    else
-      m_moveAwayCounter = 0;
-    break;
-  }
-  default:
-    break;
-  }
 
-  if (m_moveAwayCounter > 10)
-    m_state = RouteLeft;
+  if (m_state == RouteNotReady || m_state == RouteLeft || m_state == RouteFinished)
+    return m_state;
+
+  double currentDist = 0.0;
+  bool isOnDest = IsOnDestPoint(position, errorRadius);
+  bool isOnTrack = IsOnRoute(position, errorRadius, currentDist);
+
+  if (isOnDest)
+    m_state = RouteFinished;
+  else if (isOnTrack)
+    m_state = OnRoute;
+  else
+  {
+    if (currentDist > m_lastMinDist)
+    {
+      ++m_moveAwayCounter;
+      m_lastMinDist = currentDist;
+    }
+    else
+    {
+      m_moveAwayCounter = 0;
+      m_lastMinDist = 0.0;
+    }
+
+    if (m_moveAwayCounter > 10)
+      m_state = RouteLeft;
+  }
 
   return m_state;
 }
