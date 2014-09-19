@@ -16,6 +16,7 @@ class RoutingSession
 public:
   enum State
   {
+    RoutingNotActive,
     RouteNotReady,   // routing not active or we request route and wait when it will be builded
     RouteNotStarted, // route builded but user not on route
     OnRoute,         // user follows the route
@@ -24,6 +25,7 @@ public:
   };
 
   /*
+   * RoutingNotActive -> RouteNotReady // wait route
    * RouteNotReady -> RouteNotStarted // rounte builded
    * RouteNotStarted -> OnRoute       // user start follow the route
    * RouteNotStarted -> RouteLeft     // user not like our route.

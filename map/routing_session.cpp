@@ -7,7 +7,7 @@ namespace routing
 RoutingSession::RoutingSession()
   : m_router(nullptr)
   , m_route(string())
-  , m_state(RouteNotReady)
+  , m_state(RoutingNotActive)
   , m_lastMinDist(0.0)
 {
 }
@@ -24,6 +24,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, IRouter::ReadyC
 {
   ASSERT(m_router != nullptr, ());
   Reset();
+  m_state = RouteNotReady;
 
   m2::RectD const errorRect = MercatorBounds::RectByCenterXYAndSizeInMeters(startPoint, 20);
   m_tolerance = (errorRect.SizeX() + errorRect.SizeY()) / 2.0;
@@ -41,12 +42,12 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, IRouter::ReadyC
 
 bool RoutingSession::IsActive() const
 {
-  return m_state != RouteNotReady;
+  return m_state != RoutingNotActive;
 }
 
 void RoutingSession::Reset()
 {
-  m_state = RouteNotReady;
+  m_state = RoutingNotActive;
   m_lastMinDist = 0.0;
   m_route = Route(string());
 }
@@ -54,6 +55,7 @@ void RoutingSession::Reset()
 RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const & position,
                                                                 double errorRadius)
 {
+  ASSERT(m_state != RoutingNotActive, ());
   ASSERT(m_router != nullptr, ());
   switch (m_state)
   {
