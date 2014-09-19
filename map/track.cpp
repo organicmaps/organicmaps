@@ -81,7 +81,7 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
   {
     graphics::Pen::Info const outlineInfo(m_outlineColor, m_width + 2 * m_outlineWidth);
     uint32_t const outlineId = dlScreen->mapInfo(outlineInfo);
-    dlScreen->drawPath(pts2.data(), pts2.size(), 0, outlineId, graphics::tracksDepth);
+    dlScreen->drawPath(pts2.data(), pts2.size(), 0, outlineId, graphics::tracksOutlineDepth);
   }
 
   dlScreen->drawPath(pts2.data(), pts2.size(), 0, resId, graphics::tracksDepth);

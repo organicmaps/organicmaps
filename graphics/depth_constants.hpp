@@ -20,6 +20,7 @@ namespace graphics
   static const int locationDepth = balloonBaseDepth - 10;
   static const int poiDepth = locationDepth - 10;
   static const int bookmarkDepth = poiDepth;
-  static const int tracksDepth = bookmarkDepth - 10;
+  static const int tracksDepth = bookmarkDepth - balloonContentInc;
+  static const int tracksOutlineDepth = tracksDepth - 10;
   static const int activePinDepth = tracksDepth - 10;
 }
