@@ -93,6 +93,8 @@ namespace qt
     void ShowSearchResult(search::Result const & res);
     void CloseSearch();
 
+    void OnLocationUpdate(location::GpsInfo const & info);
+
     void SaveState();
     void LoadState();
 
@@ -143,6 +145,8 @@ namespace qt
     unique_ptr<ScheduledTask> m_scheduledTask;
     m2::PointD m_taskPoint;
     bool m_wasLongClick, m_isCleanSingleClick;
+
+    bool m_emulatingLocation;
 
     PinClickManager & GetBalloonManager() { return m_framework->GetBalloonManager(); }
   };

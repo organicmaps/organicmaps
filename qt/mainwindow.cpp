@@ -331,7 +331,7 @@ void MainWindow::OnLocationError(location::TLocationError errorCode)
 
 void MainWindow::OnLocationUpdated(location::GpsInfo const & info)
 {
-  m_pDrawWidget->GetFramework().OnLocationUpdate(info);
+  m_pDrawWidget->OnLocationUpdate(info);
 }
 
 void MainWindow::OnMyPosition()

@@ -79,7 +79,8 @@ namespace qt
       m_isRotate(false),
       //m_redrawInterval(100),
       m_ratio(1.0),
-      m_pScale(0)
+      m_pScale(0),
+      m_emulatingLocation(false)
   {
     // Initialize with some stubs for test.
     PinClickManager & manager = GetBalloonManager();
@@ -397,6 +398,18 @@ namespace qt
         else
           m_framework->StartRoutingSession(m_framework->PtoG(pt));
       }
+      if (e->modifiers() & Qt::AltModifier)
+      {
+        m_emulatingLocation = true;
+        m2::PointD const point = m_framework->PtoG(pt);
+
+        location::GpsInfo info;
+        info.m_latitude = MercatorBounds::YToLat(point.y);
+        info.m_longitude = MercatorBounds::XToLon(point.x);
+        info.m_horizontalAccuracy = 10.0;
+
+        m_framework->OnLocationUpdate(info);
+      }
       else
       {
         // init press task params
@@ -513,6 +526,9 @@ namespace qt
     QGLWidget::keyReleaseEvent(e);
 
     StopRotating(e);
+
+    if (e->key() == Qt::Key_Alt)
+      m_emulatingLocation = false;
   }
 
   void DrawWidget::StopRotating(QMouseEvent * e)
@@ -529,9 +545,7 @@ namespace qt
   void DrawWidget::StopRotating(QKeyEvent * e)
   {
     if (m_isRotate && (e->key() == Qt::Key_Control))
-    {
       m_framework->StopRotate(GetRotateEvent(mapFromGlobal(QCursor::pos())));
-    }
   }
 
   void DrawWidget::StopDragging(QMouseEvent * e)
@@ -611,6 +625,12 @@ namespace qt
   void DrawWidget::CloseSearch()
   {
     setFocus();
+  }
+
+  void DrawWidget::OnLocationUpdate(location::GpsInfo const & info)
+  {
+    if (!m_emulatingLocation)
+      m_framework->OnLocationUpdate(info);
   }
 
   void DrawWidget::QueryMaxScaleMode()
