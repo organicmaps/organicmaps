@@ -88,7 +88,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
 bool RoutingSession::IsOnRoute(m2::PointD const & position, double errorRadius, double & minDist) const
 {
   minDist = sqrt(m_route.GetPoly().GetShortestSquareDistance(position));
-  if (errorRadius > m_tolerance || minDist < errorRadius)
+  if (errorRadius > m_tolerance || minDist < (errorRadius + m_tolerance))
     return true;
 
   return false;
