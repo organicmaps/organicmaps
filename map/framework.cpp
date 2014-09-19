@@ -12,7 +12,6 @@
 
 #include "../routing/route.hpp"
 #include "../routing/osrm_router.hpp"
-#include "../routing/dijkstra_router.hpp"
 
 #include "../search/search_engine.hpp"
 #include "../search/result.hpp"

@@ -13,28 +13,16 @@ INCLUDEPATH += $$ROOT_DIR/3party/jansson/src \
 
 SOURCES += \
     route.cpp \
-    routing_engine.cpp \
-    road_graph.cpp \
-    helicopter_router.cpp \
     osrm_router.cpp \
     osrm_online_router.cpp \
     osrm2feature_map.cpp \
-    road_graph_router.cpp \
-    dijkstra_router.cpp \
-    features_road_graph.cpp \
     vehicle_model.cpp \
 
 HEADERS += \
     route.hpp \
-    routing_engine.hpp \
     router.hpp \
-    road_graph.hpp \
-    helicopter_router.hpp \
     osrm_router.hpp \
     osrm_online_router.hpp \
     osrm_data_facade.hpp \
     osrm2feature_map.hpp \
-    road_graph_router.hpp \
-    dijkstra_router.hpp \
-    features_road_graph.hpp \
     vehicle_model.hpp \
