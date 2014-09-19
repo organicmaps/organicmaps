@@ -61,8 +61,8 @@ namespace anim
 
   void AngleInterpolation::SetEndAngle(double val)
   {
-    m_startTime = GetController()->GetCurrentTime();
     CalcParams(m_curAngle, val, m_speed);
+    m_startTime = GetController()->GetCurrentTime();
   }
 
   void AngleInterpolation::CalcParams(double start, double end, double speed)

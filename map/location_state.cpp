@@ -141,8 +141,8 @@ private:
 private:
   Framework * m_fw;
 
-  shared_ptr<anim::AngleInterpolation> m_angleAnim;
-  shared_ptr<anim::SegmentInterpolation> m_posAnim;
+  unique_ptr<anim::AngleInterpolation> m_angleAnim;
+  unique_ptr<anim::SegmentInterpolation> m_posAnim;
 
   m2::PointD m_currentPosition;
   double m_currentAngle;
@@ -486,11 +486,8 @@ bool State::FollowCompass()
 void State::CreateAnimTask()
 {
   EndAnimation();
-
-  RotateAndFollowAnim * task = new RotateAndFollowAnim(m_framework, Position(),
-                                                       m_framework->GetNavigator().Screen().GetAngle());
-
-  m_animTask.reset(task);
+  m_animTask.reset(new RotateAndFollowAnim(m_framework, Position(),
+                                           m_framework->GetNavigator().Screen().GetAngle()));
   m_framework->GetAnimController()->AddTask(m_animTask);
 }
 
