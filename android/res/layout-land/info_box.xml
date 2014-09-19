@@ -56,24 +56,15 @@
             android:alpha="@dimen/alpha_edit_button"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_place_page_edit_button"/>
-
-        <Button
-            android:id="@+id/btn_route_from"
-            style="@style/Holo.TextAppearance.Medium.Light"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/info_title"
-            android:text="@string/choose_starting_point"/>
-
-        <Button
-            android:id="@+id/btn_route_to"
-            style="@style/Holo.TextAppearance.Medium.Light"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/btn_route_from"
-            android:layout_below="@id/btn_route_from"
-            android:text="@string/choose_destination"/>
       </RelativeLayout>
+
+      <ImageView
+          android:id="@+id/iv__start_routing"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="0"
+          android:padding="@dimen/margin_small"
+          android:src="@drawable/ic_drive"/>
 
       <CheckBox
           android:id="@+id/info_box_is_bookmarked"

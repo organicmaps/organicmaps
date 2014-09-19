@@ -69,6 +69,7 @@ import com.nvidia.devtech.NvEventQueueActivity;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.Stack;
 
 public class MWMActivity extends NvEventQueueActivity
@@ -95,6 +96,10 @@ public class MWMActivity extends NvEventQueueActivity
   private ImageButton mLocationButton;
   // Info box (place page).
   private MapInfoView mInfoView;
+  private ImageView mIvStartRouting;
+  private TextView mTvRoutingDistance;
+  private RelativeLayout mRlRoutingBox;
+
   private SearchController mSearchController;
   private boolean mNeedCheckUpdate = true;
   private boolean mRenderingInitialized = false;
@@ -690,6 +695,7 @@ public class MWMActivity extends NvEventQueueActivity
     yotaSetup();
 
     setUpInfoBox();
+    setUpRoutingBox();
 
     Framework.nativeConnectBalloonListeners(this);
 
@@ -784,6 +790,16 @@ public class MWMActivity extends NvEventQueueActivity
     mInfoView = (MapInfoView) findViewById(R.id.info_box);
     mInfoView.setOnVisibilityChangedListener(this);
     mInfoView.bringToFront();
+    mIvStartRouting = (ImageView) mInfoView.findViewById(R.id.iv__start_routing);
+    mIvStartRouting.setOnClickListener(this);
+  }
+
+  private void setUpRoutingBox()
+  {
+    mRlRoutingBox = (RelativeLayout) findViewById(R.id.rl__routing_box);
+    mRlRoutingBox.setVisibility(View.GONE);
+    mRlRoutingBox.findViewById(R.id.iv__routing_close).setOnClickListener(this);
+    mTvRoutingDistance = (TextView) mRlRoutingBox.findViewById(R.id.tv__routing_distance);
   }
 
   private void yotaSetup()
@@ -947,6 +963,9 @@ public class MWMActivity extends NvEventQueueActivity
     nativeLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy(), l.getAltitude(), l.getSpeed(), l.getBearing());
     if (mInfoView.getState() != State.HIDDEN)
       mInfoView.updateLocation(l);
+    // TODO get correct values from routing engine
+    if (Framework.nativeIsRoutingActive())
+      mTvRoutingDistance.setText(new Random().nextInt() % 100 + " KM");
   }
 
   @SuppressWarnings("deprecation")
@@ -1146,6 +1165,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     if (ParsedMmwRequest.hasRequest())
     {
+      mInfoView.bringToFront();
       final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
       request.setPointData(lat, lon, name, id);
 
@@ -1178,6 +1198,7 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
+        mInfoView.bringToFront();
         if (!mInfoView.hasMapObject(poi))
         {
           mInfoView.setMapObject(poi);
@@ -1195,6 +1216,7 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
+        mInfoView.bringToFront();
         final Bookmark b = BookmarkManager.getBookmarkManager().getBookmark(category, bookmarkIndex);
         if (!mInfoView.hasMapObject(b))
         {
@@ -1215,6 +1237,10 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
+        if (Framework.nativeIsRoutingActive())
+          mRlRoutingBox.bringToFront();
+        else
+          mInfoView.bringToFront();
         if (!mInfoView.hasMapObject(mypos))
         {
           mInfoView.setMapObject(mypos);
@@ -1232,6 +1258,7 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
+        mInfoView.bringToFront();
         final MapObject sr = new MapObject.SearchResult(name, type, lat, lon);
         if (!mInfoView.hasMapObject(sr))
         {
@@ -1322,9 +1349,45 @@ public class MWMActivity extends NvEventQueueActivity
       setVerticalToolbarVisible(false);
       startActivity(new Intent(this, MoreAppsActivity.class));
       break;
+    case R.id.iv__start_routing:
+      startRouting();
+      break;
+    case R.id.iv__routing_close:
+      stopRouting();
+      break;
     default:
       break;
     }
+  }
+
+  private void startRouting()
+  {
+    if (MWMApplication.get().getLocationState().getLocationStateMode() < LocationState.NOT_FOLLOW)
+    {
+      Toast.makeText(this, R.string.unknown_current_position, Toast.LENGTH_LONG).show();
+      return;
+    }
+
+    Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+    alphaAnimation.setFillBefore(true);
+    alphaAnimation.setFillAfter(true);
+    alphaAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
+    mRlRoutingBox.startAnimation(alphaAnimation);
+    mRlRoutingBox.setVisibility(View.VISIBLE);
+    mRlRoutingBox.bringToFront();
+
+    mInfoView.setState(State.PREVIEW_ONLY);
+
+    Framework.nativeStartRoutingSession(mInfoView.getMapObject().getLat(), mInfoView.getMapObject().getLon());
+  }
+
+  private void stopRouting()
+  {
+    mInfoView.bringToFront();
+    mRlRoutingBox.setVisibility(View.GONE);
+    mRlRoutingBox.clearAnimation();
+
+    Framework.nativeCancelRoutingSession();
   }
 
   @Override

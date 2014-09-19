@@ -129,9 +129,8 @@ public class Framework
   public native static boolean nativeIsRoutingActive();
 
   public native static void nativeCancelRoutingSession();
-  public native static void nativeStartRoutingSession(double lat, double lon);
 
-  //
+  public native static void nativeStartRoutingSession(double lat, double lon);
 
   public native static String nativeGetCountryNameIfAbsent(double lat, double lon);
 

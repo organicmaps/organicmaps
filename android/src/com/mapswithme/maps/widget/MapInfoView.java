@@ -28,7 +28,6 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.webkit.WebView;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -79,8 +78,6 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   private final CheckBox mIsBookmarked;
   private final ImageButton mEditBtn;
   private final LayoutInflater mInflater;
-  private final Button mRouteStartBtn;
-  private final Button mRouteEndBtn;
   private final View mArrow;
   // Place page
   private RelativeLayout mGeoLayout;
@@ -168,10 +165,6 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     // if someone calls setChecked() from code. We need only user interaction.
     mIsBookmarked.setOnClickListener(this);
     mEditBtn = (ImageButton) mPreviewGroup.findViewById(R.id.btn_edit_title);
-    mRouteStartBtn = (Button) mPreviewGroup.findViewById(R.id.btn_route_from);
-    mRouteStartBtn.setOnClickListener(this);
-    mRouteEndBtn = (Button) mPreviewGroup.findViewById(R.id.btn_route_to);
-    mRouteEndBtn.setOnClickListener(this);
 
     // Place Page
     mPlacePageContainer = (ScrollView) mPlacePageGroup.findViewById(R.id.place_page_container);
@@ -452,9 +445,13 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
         setUpPreview();
         setUpGeoInformation();
         setUpBottomButtons();
-        setUpRoutingButtons();
       }
     }
+  }
+
+  public MapObject getMapObject()
+  {
+    return mMapObject;
   }
 
   private void setUpPreview()
@@ -529,11 +526,6 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
       mTvLat.setOnLongClickListener(mLatLonLongClickListener);
       mTvLon.setOnLongClickListener(mLatLonLongClickListener);
     }
-  }
-
-  private void setUpRoutingButtons()
-  {
-    UiUtils.show(mRouteStartBtn, mRouteEndBtn);
   }
 
   public void updateLocation(Location l)
@@ -839,12 +831,6 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     case R.id.btn_edit_title:
       Bookmark bmk = (Bookmark) mMapObject;
       BookmarkActivity.startWithBookmark((Activity) getContext(), bmk.getCategoryId(), bmk.getBookmarkId());
-      break;
-    case R.id.btn_route_from:
-      Framework.nativeCancelRoutingSession();
-      break;
-    case R.id.btn_route_to:
-      Framework.nativeStartRoutingSession(mMapObject.getLat(), mMapObject.getLon());
       break;
     case R.id.info_box_lat:
     case R.id.info_box_lon:
