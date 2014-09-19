@@ -162,7 +162,7 @@ public class MWMActivity extends NvEventQueueActivity
     final int currentLocationMode = state.getLocationStateMode();
     LocationButtonImageSetter.setButtonViewFromState(currentLocationMode, mLocationButton);
 
-    if (currentLocationMode > LocationState.NOT_FOLLOW)
+    if (currentLocationMode > LocationState.UNKNOWN_POSITION)
       resumeLocation();
   }
 
