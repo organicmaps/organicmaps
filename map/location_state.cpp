@@ -320,6 +320,13 @@ void State::RemovePositionChangedListener(int slotID)
   m_positionListeners.erase(slotID);
 }
 
+void State::InvalidatePosition()
+{
+  SetModeInfo(ChangeMode(m_modeInfo, PendingPosition));
+  setIsVisible(false);
+  invalidate();
+}
+
 void State::cache()
 {
   CachePositionArrow();

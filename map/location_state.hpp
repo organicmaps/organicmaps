@@ -69,6 +69,7 @@ namespace location
     int  AddPositionChangedListener(TPositionListener const & func);
     void RemovePositionChangedListener(int slotID);
 
+    void InvalidatePosition();
     void TurnOff();
     void StopCompassFollowing();
     void StopLocationFollow();
