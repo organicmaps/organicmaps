@@ -73,40 +73,31 @@ string DebugPrint(OsrmFtSegMapping::FtSeg const & seg)
 }
 
 
-OsrmFtSegMapping::~OsrmFtSegMapping()
-{
-  if (m_handle.IsValid())
-    m_handle.Unmap();
-}
-
 void OsrmFtSegMapping::Clear()
 {
   m_offsets.clear();
-
-  if (m_handle.IsValid())
-    m_handle.Unmap();
+  m_handle.Unmap();
 }
 
 void OsrmFtSegMapping::Load(FilesMappingContainer & cont)
 {
   Clear();
 
+  /// @todo To reduce memory pressure we can use regular Reader to load m_offsets.
+  /// Also we can try to do mapping here.
   FilesMappingContainer::Handle h = cont.Map(ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG);
 
-  SegOffset const * p = reinterpret_cast<SegOffset const *>(h.GetData());
-
-  ASSERT_EQUAL(h.GetSize() % sizeof(SegOffset), 0, ());
-  m_offsets.assign(p, p + h.GetSize() / sizeof(SegOffset));
+  SegOffset const * p = h.GetData<SegOffset>();
+  m_offsets.assign(p, p + h.GetDataCount<SegOffset>());
 
   h.Unmap();
 
-  m_handle = cont.Map(ROUTING_FTSEG_FILE_TAG);
+  m_handle.Assign(cont.Map(ROUTING_FTSEG_FILE_TAG));
 }
 
 size_t OsrmFtSegMapping::GetSegmentsCount() const
 {
-  ASSERT_EQUAL(m_handle.GetSize() % sizeof(FtSeg), 0, ());
-  return m_handle.GetSize() / sizeof(FtSeg);
+  return m_handle.GetDataCount<FtSeg>();
 }
 
 pair<OsrmFtSegMapping::FtSeg const *, size_t> OsrmFtSegMapping::GetSegVector(OsrmNodeIdT nodeId) const

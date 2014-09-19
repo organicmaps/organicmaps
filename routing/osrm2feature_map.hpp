@@ -61,8 +61,6 @@ public:
   };
 #pragma pack (pop)
 
-  ~OsrmFtSegMapping();
-
   void Clear();
   void Load(FilesMappingContainer & cont);
 
@@ -80,7 +78,7 @@ public:
   pair<size_t, size_t> GetSegmentsRange(uint32_t nodeId) const;
   OsrmNodeIdT GetNodeId(size_t segInd) const;
 
-  FtSeg const * GetSegments() const { return reinterpret_cast<FtSeg const *>(m_handle.GetData()); }
+  FtSeg const * GetSegments() const { return m_handle.GetData<FtSeg>(); }
   size_t GetSegmentsCount() const;
   //@}
 

@@ -126,11 +126,11 @@ FilesMappingContainer::Handle FilesMappingContainer::Map(Tag const & tag) const
     uint64_t const length = p->m_size + (p->m_offset - offset);
     ASSERT_GREATER_OR_EQUAL(length, p->m_size, ());
 
-    char const * data = reinterpret_cast<char const *>(mmap(0, length, PROT_READ, MAP_SHARED, m_fd, offset));
-
-    if (data == reinterpret_cast<char const *>(-1))
+    void * pMap = mmap(0, length, PROT_READ, MAP_SHARED, m_fd, offset);
+    if (pMap == MAP_FAILED)
       MYTHROW(Reader::OpenException, ("Can't map section:", tag, "with [offset, size]:", *p));
 
+    char const * data = reinterpret_cast<char const *>(pMap);
     char const * d = data + (p->m_offset - offset);
     return Handle(d, data, p->m_size, length);
   }
@@ -140,18 +140,40 @@ FilesMappingContainer::Handle FilesMappingContainer::Map(Tag const & tag) const
   return Handle();
 }
 
+/////////////////////////////////////////////////////////////////////////////
+// FilesMappingContainer::Handle
+/////////////////////////////////////////////////////////////////////////////
+
 FilesMappingContainer::Handle::~Handle()
 {
-//  CHECK(!IsValid(), ());
+  Unmap();
+}
+
+void FilesMappingContainer::Handle::Assign(Handle && h)
+{
+  Unmap();
+
+  m_base = h.m_base;
+  m_origBase = h.m_origBase;
+  m_size = h.m_size;
+  m_origSize = h.m_origSize;
+
+  h.Reset();
 }
 
 void FilesMappingContainer::Handle::Unmap()
 {
-  ASSERT(IsValid(), ());
-  VERIFY(0 == munmap((void*)m_origBase, m_origSize), ());
+  if (IsValid())
+  {
+    VERIFY(0 == munmap((void*)m_origBase, m_origSize), ());
+    Reset();
+  }
+}
 
-  m_origBase = m_base = 0;
-  m_origSize = m_size = 0;
+void FilesMappingContainer::Handle::Reset()
+{
+  m_base = m_origBase = 0;
+  m_size = m_origSize = 0;
 }
 
 /////////////////////////////////////////////////////////////////////////////

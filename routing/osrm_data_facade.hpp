@@ -40,31 +40,23 @@ public:
   OsrmDataFacade(FilesMappingContainer const & container)
     : m_container(container)
   {
-    m_handleEdgeData = m_container.Map(ROUTING_EDGEDATA_FILE_TAG);
+    m_handleEdgeData.Assign(m_container.Map(ROUTING_EDGEDATA_FILE_TAG));
     ASSERT(m_handleEdgeData.IsValid(), ());
-    succinct::mapper::map(m_edgeData, m_handleEdgeData.GetData());
+    succinct::mapper::map(m_edgeData, m_handleEdgeData.GetData<char>());
 
-    m_handleEdgeId = m_container.Map(ROUTING_EDGEID_FILE_TAG);
+    m_handleEdgeId.Assign(m_container.Map(ROUTING_EDGEID_FILE_TAG));
     ASSERT(m_handleEdgeId.IsValid(), ());
-    succinct::mapper::map(m_edgeId, m_handleEdgeId.GetData());
+    succinct::mapper::map(m_edgeId, m_handleEdgeId.GetData<char>());
 
-    m_handleShortcuts = m_container.Map(ROUTING_SHORTCUTS_FILE_TAG);
+    m_handleShortcuts.Assign(m_container.Map(ROUTING_SHORTCUTS_FILE_TAG));
     ASSERT(m_handleShortcuts.IsValid(), ());
-    succinct::mapper::map(m_shortcuts, m_handleShortcuts.GetData());
+    succinct::mapper::map(m_shortcuts, m_handleShortcuts.GetData<char>());
 
-    m_handleFanoMatrix = m_container.Map(ROUTING_MATRIX_FILE_TAG);
+    m_handleFanoMatrix.Assign(m_container.Map(ROUTING_MATRIX_FILE_TAG));
     ASSERT(m_handleFanoMatrix.IsValid(), ());
-    succinct::mapper::map(m_fanoMatrix, m_handleFanoMatrix.GetData());
+    succinct::mapper::map(m_fanoMatrix, m_handleFanoMatrix.GetData<char>());
 
     m_numberOfNodes = (unsigned)sqrt(m_fanoMatrix.size() / 2) + 1;
-  }
-
-  ~OsrmDataFacade()
-  {
-    m_handleEdgeData.Unmap();
-    m_handleEdgeId.Unmap();
-    m_handleFanoMatrix.Unmap();
-    m_handleShortcuts.Unmap();
   }
 
 

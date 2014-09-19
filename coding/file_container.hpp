@@ -4,6 +4,7 @@
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
+#include "../std/noncopyable.hpp"
 
 
 class FilesContainerBase
@@ -119,26 +120,42 @@ public:
   explicit FilesMappingContainer(string const & fName);
   ~FilesMappingContainer();
 
-  class Handle
+  class Handle : private noncopyable
   {
+    void Reset();
+
   public:
     Handle()
       : m_base(0), m_origBase(0), m_size(0), m_origSize(0)
     {
     }
-
     Handle(char const * base, char const * alignBase, uint64_t size, uint64_t origSize)
       : m_base(base), m_origBase(alignBase), m_size(size), m_origSize(origSize)
     {
     }
-
+    Handle(Handle && h)
+    {
+      Assign(std::move(h));
+    }
     ~Handle();
+
+    void Assign(Handle && h);
 
     void Unmap();
 
-    bool IsValid() const { return (m_base != 0 && m_size > 0); }
+    bool IsValid() const { return (m_base != 0); }
     uint64_t GetSize() const { return m_size; }
-    char const * GetData() const { return m_base; }
+
+    template <class T> T const * GetData() const
+    {
+      ASSERT_EQUAL(m_size % sizeof(T), 0, ());
+      return reinterpret_cast<T const *>(m_base);
+    }
+    template <class T> size_t GetDataCount() const
+    {
+      ASSERT_EQUAL(m_size % sizeof(T), 0, ());
+      return (m_size / sizeof(T));
+    }
 
   private:
     char const * m_base;

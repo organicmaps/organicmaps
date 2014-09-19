@@ -205,6 +205,34 @@ UNIT_TEST(FilesContainer_RewriteExisting)
   FileWriter::DeleteFileX(fName);
 }
 
+UNIT_TEST(FilesMappingContainer_Handle)
+{
+  string const fName = "file_container.tmp";
+  string const tag = "dummy";
+
+  {
+    FilesContainerW writer(fName);
+    FileWriter w = writer.GetWriter(tag);
+    w.Write(tag.c_str(), tag.size());
+  }
+
+  {
+    FilesMappingContainer cont(fName);
+
+    FilesMappingContainer::Handle h1 = cont.Map(tag);
+    TEST(h1.IsValid(), ());
+
+    FilesMappingContainer::Handle h2;
+    TEST(!h2.IsValid(), ());
+
+    h2.Assign(std::move(h1));
+    TEST(!h1.IsValid(), ());
+    TEST(h2.IsValid(), ());
+  }
+
+  FileWriter::DeleteFileX(fName);
+}
+
 UNIT_TEST(FilesMappingContainer_Smoke)
 {
   string const fName = "file_container.tmp";
@@ -228,10 +256,12 @@ UNIT_TEST(FilesMappingContainer_Smoke)
 
   {
     FilesMappingContainer reader(fName);
+
     for (size_t i = 0; i < ARRAY_SIZE(key); ++i)
     {
       FilesMappingContainer::Handle h = reader.Map(key[i]);
-      uint32_t const * data = reinterpret_cast<uint32_t const *>(h.GetData());
+      uint32_t const * data = h.GetData<uint32_t>();
+
       for (uint32_t j = 0; j < count; ++j)
       {
         TEST_EQUAL(j + i, *data, ());
@@ -274,19 +304,16 @@ UNIT_TEST(FilesMappingContainer_PageSize)
 
     for (size_t i = 0; i < sz; ++i)
     {
-      handle[i] = reader.Map(key[i]);
+      handle[i].Assign(reader.Map(key[i]));
       TEST_EQUAL(handle[i].GetSize(), count[i], ());
     }
 
     for (size_t i = 0; i < sz; ++i)
     {
-      char const * data = handle[i].GetData();
+      char const * data = handle[i].GetData<char>();
       for (size_t j = 0; j < count[i]; ++j)
         TEST_EQUAL(*data++, byte[j % ARRAY_SIZE(byte)], ());
     }
-
-    for (size_t i = 0; i < sz; ++i)
-      handle[i].Unmap();
   }
 
   FileWriter::DeleteFileX(fName);
