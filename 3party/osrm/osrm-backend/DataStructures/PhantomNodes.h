@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef PHANTOM_NODES_H
 #define PHANTOM_NODES_H
 
-#include <osrm/Coordinate.h>
+#include "../Include/osrm/Coordinate.h"
 #include "../Util/SimpleLogger.h"
 #include "../typedefs.h"
 

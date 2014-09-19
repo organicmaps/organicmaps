@@ -4,7 +4,7 @@
 #include "../Util/SimpleLogger.h"
 #include "../typedefs.h"
 
-#include <osrm/Coordinate.h>
+#include "../Include/osrm/Coordinate.h"
 
 #include <boost/assert.hpp>
 

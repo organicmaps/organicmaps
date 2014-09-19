@@ -97,8 +97,26 @@ FilesContainerBase::Info const * FilesContainerBase::GetInfo(Tag const & tag) co
 // FilesMappingContainer
 /////////////////////////////////////////////////////////////////////////////
 
-FilesMappingContainer::FilesMappingContainer(string const & fName)
+FilesMappingContainer::FilesMappingContainer()
+  : m_fd(-1)
 {
+}
+
+FilesMappingContainer::FilesMappingContainer(string const & fName)
+  : m_fd(-1)
+{
+  Open(fName);
+}
+
+FilesMappingContainer::~FilesMappingContainer()
+{
+  Close();
+}
+
+void FilesMappingContainer::Open(string const & fName)
+{
+  Close();
+
   {
     FileReader reader(fName, 10, 1);
     ReadInfo(reader);
@@ -109,9 +127,10 @@ FilesMappingContainer::FilesMappingContainer(string const & fName)
     MYTHROW(Reader::OpenException, ("Can't open file:", fName));
 }
 
-FilesMappingContainer::~FilesMappingContainer()
+void FilesMappingContainer::Close()
 {
-  close(m_fd);
+  if (m_fd != -1)
+    close(m_fd);
 }
 
 FilesMappingContainer::Handle FilesMappingContainer::Map(Tag const & tag) const

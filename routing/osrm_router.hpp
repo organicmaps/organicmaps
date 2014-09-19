@@ -2,9 +2,11 @@
 
 #include "router.hpp"
 #include "osrm2feature_map.hpp"
+#include "osrm_data_facade.hpp"
 
 #include "../std/function.hpp"
 
+#include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
 
 class Index;
 struct PhantomNode;
@@ -33,7 +35,13 @@ protected:
 
 private:
   Index const * m_pIndex;
+
+  typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
+  DataFacadeT m_dataFacade;
   OsrmFtSegMapping m_mapping;
+  string m_lastMwmName;
+
+  FilesMappingContainer m_container;
 };
 
 

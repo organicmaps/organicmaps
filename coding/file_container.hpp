@@ -117,8 +117,12 @@ private:
 class FilesMappingContainer : public FilesContainerBase
 {
 public:
+  FilesMappingContainer();
   explicit FilesMappingContainer(string const & fName);
   ~FilesMappingContainer();
+
+  void Open(string const & fName);
+  void Close();
 
   class Handle : private noncopyable
   {

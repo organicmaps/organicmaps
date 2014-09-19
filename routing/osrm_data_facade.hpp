@@ -6,11 +6,11 @@
 
 #include "../coding/file_container.hpp"
 
-#include "../../../succinct/elias_fano.hpp"
-#include "../../../succinct/elias_fano_compressed_list.hpp"
-#include "../../../succinct/gamma_vector.hpp"
-#include "../../../succinct/bit_vector.hpp"
-#include "../../../succinct/mapper.hpp"
+#include "../3party/succinct/elias_fano.hpp"
+#include "../3party/succinct/elias_fano_compressed_list.hpp"
+#include "../3party/succinct/gamma_vector.hpp"
+#include "../3party/succinct/bit_vector.hpp"
+#include "../3party/succinct/mapper.hpp"
 
 #include "../3party/osrm/osrm-backend/Server/DataStructures/BaseDataFacade.h"
 
@@ -27,8 +27,6 @@ template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeData
   succinct::elias_fano m_fanoMatrix;
   succinct::elias_fano_compressed_list m_edgeId;
 
-  FilesMappingContainer const & m_container;
-
   FilesMappingContainer::Handle m_handleEdgeData;
   FilesMappingContainer::Handle m_handleEdgeId;
   FilesMappingContainer::Handle m_handleShortcuts;
@@ -36,29 +34,53 @@ template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeData
 
   unsigned m_numberOfNodes;
 
-public:
-  OsrmDataFacade(FilesMappingContainer const & container)
-    : m_container(container)
+  template <class T> void ClearContainer(T & t)
   {
-    m_handleEdgeData.Assign(m_container.Map(ROUTING_EDGEDATA_FILE_TAG));
+    T().swap(t);
+  }
+
+public:
+  OsrmDataFacade()
+  {
+  }
+
+  void Load(FilesMappingContainer const & container)
+  {
+    Clear();
+
+    m_handleEdgeData.Assign(container.Map(ROUTING_EDGEDATA_FILE_TAG));
     ASSERT(m_handleEdgeData.IsValid(), ());
     succinct::mapper::map(m_edgeData, m_handleEdgeData.GetData<char>());
 
-    m_handleEdgeId.Assign(m_container.Map(ROUTING_EDGEID_FILE_TAG));
+    m_handleEdgeId.Assign(container.Map(ROUTING_EDGEID_FILE_TAG));
     ASSERT(m_handleEdgeId.IsValid(), ());
     succinct::mapper::map(m_edgeId, m_handleEdgeId.GetData<char>());
 
-    m_handleShortcuts.Assign(m_container.Map(ROUTING_SHORTCUTS_FILE_TAG));
+    m_handleShortcuts.Assign(container.Map(ROUTING_SHORTCUTS_FILE_TAG));
     ASSERT(m_handleShortcuts.IsValid(), ());
     succinct::mapper::map(m_shortcuts, m_handleShortcuts.GetData<char>());
 
-    m_handleFanoMatrix.Assign(m_container.Map(ROUTING_MATRIX_FILE_TAG));
+    m_handleFanoMatrix.Assign(container.Map(ROUTING_MATRIX_FILE_TAG));
     ASSERT(m_handleFanoMatrix.IsValid(), ());
     succinct::mapper::map(m_fanoMatrix, m_handleFanoMatrix.GetData<char>());
 
     m_numberOfNodes = (unsigned)sqrt(m_fanoMatrix.size() / 2) + 1;
   }
 
+  void Clear()
+  {
+    ClearContainer(m_edgeData);
+    m_handleEdgeData.Unmap();
+
+    ClearContainer(m_edgeId);
+    m_handleEdgeId.Unmap();
+
+    ClearContainer(m_shortcuts);
+    m_handleShortcuts.Unmap();
+
+    ClearContainer(m_fanoMatrix);
+    m_handleFanoMatrix.Unmap();
+  }
 
   unsigned GetNumberOfNodes() const
   {

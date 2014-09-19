@@ -1,5 +1,4 @@
 #include "osrm_router.hpp"
-#include "osrm_data_facade.hpp"
 #include "route.hpp"
 #include "vehicle_model.hpp"
 
@@ -13,7 +12,6 @@
 #include "../base/logging.hpp"
 
 #include "../3party/osrm/osrm-backend/DataStructures/SearchEngineData.h"
-#include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
 #include "../3party/osrm/osrm-backend/Descriptors/DescriptionFactory.h"
 #include "../3party/osrm/osrm-backend/RoutingAlgorithms/ShortestPathRouting.h"
 
@@ -174,14 +172,31 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
     return;
   }
 
-  FilesMappingContainer container(GetPlatform().WritablePathForFile(fName + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION));
+  if (m_lastMwmName != fName)
+  {
+    LOG(LDEBUG, ("Load routing index for file:", fName));
+    try
+    {
+      // need to clear while m_fd is valid for handlers
+      m_dataFacade.Clear();
+      m_mapping.Clear();
 
-  typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
-  DataFacadeT facade(container);
-  m_mapping.Load(container);
+      m_container.Open(GetPlatform().WritablePathForFile(fName + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION));
+
+      m_dataFacade.Load(m_container);
+      m_mapping.Load(m_container);
+    }
+    catch(Reader::Exception const & e)
+    {
+      LOG(LERROR, ("Error while loading container", fName, e.Msg()));
+      return;
+    }
+
+    m_lastMwmName = fName;
+  }
 
   SearchEngineData engineData;
-  ShortestPathRouting<DataFacadeT> pathFinder(&facade, engineData);
+  ShortestPathRouting<DataFacadeT> pathFinder(&m_dataFacade, engineData);
   RawRouteData rawRoute;
 
   PhantomNodes nodes;
