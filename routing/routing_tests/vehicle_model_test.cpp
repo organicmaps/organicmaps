@@ -1,9 +1,13 @@
 #include "../../testing/testing.hpp"
 
 #include "../vehicle_model.hpp"
+
 #include "../../indexer/classificator.hpp"
+#include "../../indexer/classificator_loader.hpp"
 #include "../../indexer/feature.hpp"
+
 #include "../../base/macros.hpp"
+
 
 namespace
 {
@@ -58,6 +62,8 @@ void CheckOneWay(vector<uint32_t> types, bool expectedValue)
 
 UNIT_TEST(VehicleModel_MaxSpeed)
 {
+  classificator::Load();
+
   TestVehicleModel vehicleModel;
   TEST_EQUAL(vehicleModel.GetMaxSpeed(), 150, ());
 }
