@@ -12,8 +12,7 @@ namespace
 
 typedef vector<OsrmFtSegMappingBuilder::FtSegVectorT> InputDataT;
 typedef vector< vector<OsrmNodeIdT> > NodeIdDataT;
-typedef pair<size_t, size_t> PR;
-typedef vector<PR> RangeDataT;
+typedef vector< pair<size_t, size_t> > RangeDataT;
 
 
 void TestNodeId(OsrmFtSegMapping const & mapping, NodeIdDataT const & test)
@@ -28,7 +27,11 @@ void TestNodeId(OsrmFtSegMapping const & mapping, NodeIdDataT const & test)
 void TestSegmentRange(OsrmFtSegMapping const & mapping, RangeDataT const & test)
 {
   for (OsrmNodeIdT nodeId = 0; nodeId < test.size(); ++nodeId)
-    TEST_EQUAL(mapping.GetSegmentsRange(nodeId), test[nodeId], ());
+  {
+    // Input test range is { start, count } but we should pass [start, end).
+    auto const & r = test[nodeId];
+    TEST_EQUAL(mapping.GetSegmentsRange(nodeId), make_pair(r.first, r.first + r.second), ());
+  }
 }
 
 void TestMapping(InputDataT const & data,
@@ -59,16 +62,36 @@ void TestMapping(InputDataT const & data,
     for (size_t i = 0; i < mapping.GetSegmentsCount(); ++i)
     {
       OsrmNodeIdT const node = mapping.GetNodeId(i);
-      auto const v = mapping.GetSegVector(node);
-      TEST_EQUAL(v.second, data[node].size(), ());
-      for (size_t j = 0; j < v.second; ++j)
-        TEST_EQUAL(v.first[j], data[node][j], ());
+      size_t count = 0;
+      mapping.ForEachFtSeg(node, [&] (OsrmFtSegMapping::FtSeg const & s)
+      {
+        TEST_EQUAL(s, data[node][count++], ());
+      });
+      TEST_EQUAL(count, data[node].size(), ());
     }
   }
 
   FileWriter::DeleteFileX(fName);
 }
 
+typedef OsrmFtSegMapping::FtSeg SegT;
+
+bool TestFtSeg(SegT const & s)
+{
+  return (SegT(s.Store()) == s);
+}
+
+}
+
+UNIT_TEST(FtSeg_Smoke)
+{
+  SegT arr[] = {
+    { 5, 1, 2 },
+    { 666, 0, 17 },
+  };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    TEST(TestFtSeg(arr[i]), (arr[i].Store()));
 }
 
 UNIT_TEST(OsrmFtSegMappingBuilder_Smoke)
@@ -98,13 +121,13 @@ UNIT_TEST(OsrmFtSegMappingBuilder_Smoke)
 
     RangeDataT ranges =
     {
-      PR(0, 1),
-      PR(1, 1),
-      PR(2, 2),
-      PR(4, 1),
-      PR(5, 3),
-      PR(8, 4),
-      PR(12, 1)
+      { 0, 1 },
+      { 1, 1 },
+      { 2, 2 },
+      { 4, 1 },
+      { 5, 3 },
+      { 8, 4 },
+      { 12, 1 },
     };
 
     TestMapping(data, nodeIds, ranges);
@@ -140,15 +163,15 @@ UNIT_TEST(OsrmFtSegMappingBuilder_Smoke)
 
     RangeDataT ranges =
     {
-      PR(0, 1),
-      PR(1, 1),
-      PR(2, 1),
-      PR(3, 1),
-      PR(4, 1),
-      PR(5, 2),
-      PR(7, 1),
-      PR(8, 3),
-      PR(11, 3)
+      { 0, 1 },
+      { 1, 1 },
+      { 2, 1 },
+      { 3, 1 },
+      { 4, 1 },
+      { 5, 2 },
+      { 7, 1 },
+      { 8, 3 },
+      { 11, 3 },
     };
 
     TestMapping(data, nodeIds, ranges);
@@ -174,10 +197,10 @@ UNIT_TEST(OsrmFtSegMappingBuilder_Smoke)
 
     RangeDataT ranges =
     {
-      PR(0, 2),
-      PR(2, 1),
-      PR(3, 1),
-      PR(4, 2),
+      { 0, 2 },
+      { 2, 1 },
+      { 3, 1 },
+      { 4, 2 },
     };
 
     TestMapping(data, nodeIds, ranges);

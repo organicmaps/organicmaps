@@ -9,6 +9,8 @@
 #include "../std/fstream.hpp"
 #include "../std/sstream.hpp"
 
+#include "../3party/succinct/mapper.hpp"
+
 
 namespace routing
 {
@@ -21,6 +23,18 @@ OsrmFtSegMapping::FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
   CHECK_NOT_EQUAL(ps, pe, ());
   CHECK_EQUAL(m_pointStart, ps, ());
   CHECK_EQUAL(m_pointEnd, pe, ());
+}
+
+OsrmFtSegMapping::FtSeg::FtSeg(uint64_t x)
+{
+  m_fid = x & 0xFFFFFFFF;
+  m_pointEnd = (x >> 32) & 0xFFFF;
+  m_pointStart = (x >> 48);
+}
+
+uint64_t OsrmFtSegMapping::FtSeg::Store() const
+{
+  return (uint64_t(m_pointStart) << 48) + (uint64_t(m_pointEnd) << 32) + uint64_t(m_fid);
 }
 
 bool OsrmFtSegMapping::FtSeg::Merge(FtSeg const & other)
@@ -93,38 +107,29 @@ void OsrmFtSegMapping::Load(FilesMappingContainer & cont)
   h.Unmap();
 
   m_handle.Assign(cont.Map(ROUTING_FTSEG_FILE_TAG));
-}
-
-size_t OsrmFtSegMapping::GetSegmentsCount() const
-{
-  return m_handle.GetDataCount<FtSeg>();
-}
-
-pair<OsrmFtSegMapping::FtSeg const *, size_t> OsrmFtSegMapping::GetSegVector(OsrmNodeIdT nodeId) const
-{
-  pair<size_t, size_t> const r = GetSegmentsRange(nodeId);
-  FtSeg const * p = GetSegments() + r.first;
-  return make_pair(p, p->m_fid == -1 ? 0 : r.second);
+  ASSERT(m_handle.IsValid(), ());
+  succinct::mapper::map(m_segments, m_handle.GetData<char>());
 }
 
 void OsrmFtSegMapping::DumpSegmentsByFID(uint32_t fID) const
 {
 #ifdef DEBUG
-  for (size_t i = 0; i < GetSegmentsCount(); ++i)
+  for (size_t i = 0; i < m_segments.size(); ++i)
   {
-    FtSeg const * p = GetSegments() + i;
-    if (p->m_fid == fID)
-      LOG(LDEBUG, (*p));
+    FtSeg s(m_segments[i]);
+    if (s.m_fid == fID)
+      LOG(LDEBUG, (s));
   }
 #endif
 }
 
-void OsrmFtSegMapping::DumpSegmentByNode(uint32_t nodeId) const
+void OsrmFtSegMapping::DumpSegmentByNode(OsrmNodeIdT nodeId) const
 {
 #ifdef DEBUG
-  auto const range = GetSegVector(nodeId);
-  for (size_t i = 0; i < range.second; ++i)
-    LOG(LDEBUG, (range.first[i]));
+  ForEachFtSeg(nodeId, [] (FtSeg const & s)
+  {
+    LOG(LDEBUG, (s));
+  });
 #endif
 }
 
@@ -139,7 +144,7 @@ void OsrmFtSegMapping::GetOsrmNode(FtSeg const & seg, OsrmNodeIdT & forward, Osr
   size_t const count = GetSegmentsCount();
   for (size_t i = 0; i < count; ++i)
   {
-    FtSeg const & s = GetSegments()[i];
+    FtSeg s(m_segments[i]);
     if (s.m_fid != seg.m_fid)
       continue;
 
@@ -178,9 +183,9 @@ pair<size_t, size_t> OsrmFtSegMapping::GetSegmentsRange(OsrmNodeIdT nodeId) cons
   size_t const start = (index > 0  ? m_offsets[index - 1].m_offset + nodeId : nodeId);
 
   if (index < m_offsets.size() && m_offsets[index].m_nodeId == nodeId)
-    return make_pair(start, m_offsets[index].m_offset + nodeId - start + 1);
+    return make_pair(start, m_offsets[index].m_offset + nodeId + 1);
   else
-    return make_pair(start, 1);
+    return make_pair(start, start + 1);
 }
 
 OsrmNodeIdT OsrmFtSegMapping::GetNodeId(size_t segInd) const
@@ -211,12 +216,17 @@ OsrmFtSegMappingBuilder::OsrmFtSegMappingBuilder()
 
 void OsrmFtSegMappingBuilder::Append(OsrmNodeIdT osrmNodeId, FtSegVectorT const & data)
 {
-  if (data.empty())
-    m_segments.push_back(FtSeg(-1, 0, 1));
-  else
-    m_segments.insert(m_segments.end(), data.begin(), data.end());
+  size_t const count = data.size();
 
-  if (data.size() > 1)
+  if (count == 0)
+    m_buffer.push_back(FtSeg(FtSeg::INVALID_FID, 0, 1).Store());
+  else
+  {
+    for (size_t i = 0; i < count; ++i)
+      m_buffer.push_back(data[i].Store());
+  }
+
+  if (count > 1)
   {
     m_lastOffset += (data.size() - 1);
 
@@ -229,11 +239,16 @@ void OsrmFtSegMappingBuilder::Append(OsrmNodeIdT osrmNodeId, FtSegVectorT const 
 
 void OsrmFtSegMappingBuilder::Save(FilesContainerW & cont) const
 {
-  cont.GetWriter(ROUTING_FTSEG_FILE_TAG).Write(
-        m_segments.data(), sizeof(FtSeg) * m_segments.size());
-
   cont.GetWriter(ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG).Write(
         m_offsets.data(), sizeof(SegOffset) * m_offsets.size());
+
+  string const fName = cont.GetFileName() + "." ROUTING_FTSEG_FILE_TAG;
+
+  succinct::elias_fano_compressed_list compressed(m_buffer);
+  succinct::mapper::freeze(compressed, fName.c_str());
+  cont.Write(fName, ROUTING_FTSEG_FILE_TAG);
+
+  FileWriter::DeleteFileX(fName);
 }
 
 }

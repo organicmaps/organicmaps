@@ -242,26 +242,29 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
   for (auto i : osrm::irange<std::size_t>(0, rawRoute.unpacked_path_segments.size()))
   {
     // Get all the coordinates for the computed route
-    size_t n = rawRoute.unpacked_path_segments[i].size();
+    size_t const n = rawRoute.unpacked_path_segments[i].size();
     for (size_t j = 0; j < n; ++j)
     {
       PathData const & path_data = rawRoute.unpacked_path_segments[i][j];
-      pair<OsrmFtSegMapping::FtSeg const *, size_t> const range = m_mapping.GetSegVector(path_data.node);
 
-      auto correctFn = [&range] (OsrmFtSegMapping::FtSeg const & seg, size_t & ind)
+      typedef OsrmFtSegMapping::FtSeg SegT;
+      buffer_vector<SegT, 8> buffer;
+      m_mapping.ForEachFtSeg(path_data.node, MakeBackInsertFunctor(buffer));
+
+      auto correctFn = [&buffer] (SegT const & seg, size_t & ind)
       {
-        auto it = find_if(range.first, range.first + range.second, [&] (OsrmFtSegMapping::FtSeg const & s)
+        auto it = find_if(buffer.begin(), buffer.end(), [&seg] (OsrmFtSegMapping::FtSeg const & s)
         {
           return s.IsIntersect(seg);
         });
 
-        ASSERT(it != range.first + range.second, ());
-        ind = distance(range.first, it);
+        ASSERT(it != buffer.end(), ());
+        ind = distance(buffer.begin(), it);
       };
 
       //m_mapping.DumpSegmentByNode(path_data.node);
 
-      size_t startK = 0, endK = range.second;
+      size_t startK = 0, endK = buffer.size();
       if (j == 0)
         correctFn(segBegin, startK);
       else if (j == n - 1)
@@ -272,7 +275,7 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
 
       for (size_t k = startK; k < endK; ++k)
       {
-        auto const & seg = range.first[k];
+        SegT const & seg = buffer[k];
 
         FeatureType ft;
         Index::FeaturesLoaderGuard loader(*m_pIndex, mwmIdStart);
