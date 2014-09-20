@@ -8,6 +8,7 @@
 #include "../indexer/data_factory.hpp"
 
 #include "../base/string_utils.hpp"
+#include "../base/logging.hpp"
 
 #include "../std/iostream.hpp"
 #include "../std/iomanip.hpp"
@@ -19,41 +20,17 @@ namespace stats
 {
   void FileContainerStatistic(string const & fPath)
   {
-    feature::DataHeader header;
-    ModelReaderPtr reader(new FileReader(fPath));
-    LoadMapHeader(reader, header);
-
-    vector<string> tags;
-    tags.push_back(VERSION_FILE_TAG);
-    tags.push_back(HEADER_FILE_TAG);
-    tags.push_back(DATA_FILE_TAG);
-
-    cout << "Geometry zoom levels: ";
-    for (size_t i = 0; i < header.GetScalesCount(); ++i)
+    try
     {
-      cout << header.GetScale(i) << " ";
-
-      tags.push_back(feature::GetTagForIndex(GEOMETRY_FILE_TAG, i));
-      tags.push_back(feature::GetTagForIndex(TRIANGLE_FILE_TAG, i));
+      FilesContainerR cont(fPath);
+      cont.ForEachTag([&cont] (FilesContainerR::Tag const & tag)
+      {
+        cout << setw(10) << tag << " : " << cont.GetReader(tag).Size() << endl;
+      });
     }
-
-    cout << endl;
-
-    tags.push_back(INDEX_FILE_TAG);
-    tags.push_back(SEARCH_INDEX_FILE_TAG);
-
-    FilesContainerR cont(reader);
-    for (size_t i = 0; i < tags.size(); ++i)
+    catch (Reader::Exception const & ex)
     {
-      cout << setw(7) << tags[i] << " : ";
-      try
-      {
-        cout << cont.GetReader(tags[i]).Size() << endl;
-      }
-      catch (Reader::Exception const &)
-      {
-        cout << '-' << endl;
-      }
+      LOG(LWARNING, ("Error reading file:", fPath, ex.Msg()));
     }
   }
 

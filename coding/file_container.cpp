@@ -17,7 +17,7 @@
 #endif
 
 
-template <class TSource> void Read(TSource & src, FilesContainerBase::Info & i)
+template <class TSource, class InfoT> void Read(TSource & src, InfoT & i)
 {
   rw::Read(src, i.m_tag);
 
@@ -25,7 +25,7 @@ template <class TSource> void Read(TSource & src, FilesContainerBase::Info & i)
   i.m_size = ReadVarUint<uint64_t>(src);
 }
 
-template <class TSink> void Write(TSink & sink, FilesContainerBase::Info const & i)
+template <class TSink, class InfoT> void Write(TSink & sink, InfoT const & i)
 {
   rw::Write(sink, i.m_tag);
 

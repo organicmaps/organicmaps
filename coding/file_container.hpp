@@ -12,6 +12,12 @@ class FilesContainerBase
 public:
   typedef string Tag;
 
+  bool IsExist(Tag const & tag) const
+  {
+    return GetInfo(tag) != 0;
+  }
+
+protected:
   struct Info
   {
     Tag m_tag;
@@ -20,18 +26,12 @@ public:
 
     Info() {}
     Info(Tag const & tag, uint64_t offset) : m_tag(tag), m_offset(offset) {}
-
-    friend string DebugPrint(Info const & info);
   };
+
+  friend string DebugPrint(Info const & info);
 
   Info const * GetInfo(Tag const & tag) const;
 
-  bool IsExist(Tag const & tag) const
-  {
-    return GetInfo(tag) != 0;
-  }
-
-protected:
   struct LessInfo
   {
     bool operator() (Info const & t1, Info const & t2) const
@@ -87,6 +87,12 @@ protected:
 
   template <class ReaderT>
   void ReadInfo(ReaderT & reader);
+
+public:
+  template <class ToDo> void ForEachTag(ToDo toDo) const
+  {
+    for_each(m_info.begin(), m_info.end(), toDo);
+  }
 };
 
 class FilesContainerR : public FilesContainerBase

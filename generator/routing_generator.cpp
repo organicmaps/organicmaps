@@ -1,13 +1,14 @@
 #include "routing_generator.hpp"
 #include "gen_mwm_info.hpp"
 
-#include "../coding/file_container.hpp"
-
 #include "../indexer/index.hpp"
 #include "../indexer/classificator_loader.hpp"
 #include "../indexer/feature.hpp"
 #include "../indexer/ftypes_matcher.hpp"
 #include "../indexer/mercator.hpp"
+
+#include "../coding/file_container.hpp"
+#include "../coding/internal/file_data.hpp"
 
 #include "../geometry/distance_on_sphere.hpp"
 
@@ -193,13 +194,13 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
 
   LOG(LINFO, ("All:", all, "Found:", found, "Not found:", all - found, "More that one segs in node:", moreThan1Seg,
               "Multiple:", multiple, "Equal:", equal));
-  LOG(LINFO, ("Stored:", stored));
 
   LOG(LINFO, ("Collect all data into one file..."));
+  string const fPath = mwmName + ROUTING_FILE_EXTENSION;
 
   try
   {
-    FilesContainerW writer(mwmName + ROUTING_FILE_EXTENSION);
+    FilesContainerW writer(fPath);
 
     mapping.Save(writer);
 
@@ -221,6 +222,10 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
   {
     LOG(LCRITICAL, ("Can't write routing index", ex.Msg()));
   }
+
+  uint64_t sz;
+  VERIFY(my::GetFileSize(fPath, sz), ());
+  LOG(LINFO, ("Nodes stored:", stored, "Routing index file size:", sz));
 }
 
 }

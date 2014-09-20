@@ -230,6 +230,7 @@ int main(int argc, char ** argv)
     LOG(LINFO, ("Calculating statistics for ", datFile));
 
     stats::FileContainerStatistic(datFile);
+    stats::FileContainerStatistic(datFile + ROUTING_FILE_EXTENSION);
 
     stats::MapInfo info;
     stats::CalcStatistic(datFile, info);
