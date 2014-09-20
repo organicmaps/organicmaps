@@ -171,7 +171,7 @@
 
 "downloading_touch_to_cancel" = "%d%% letöltése, elvetéshez érintse meg";
 
-"downloaded_touch_to_delete" = "Letölve (%@), érintse meg törléshez";
+"downloaded_touch_to_delete" = "Letöltve (%@), érintse meg törléshez";
 
 "connection_settings" = "Kapcsolat beállítások";
 
@@ -221,7 +221,7 @@
 /* REMOVE THIS STRING AFTER REFACTORING */
 "continue_download" = "Folytatás";
 
-"downloaded_touch_to_update" = "Letölve (%@) , érintse meg frissítéshez vagy törléshez";
+"downloaded_touch_to_update" = "Letöltve (%@), érintse meg frissítéshez vagy törléshez";
 
 "update_mb_or_kb" = "%@ frissítése";
 

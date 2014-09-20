@@ -1295,7 +1295,7 @@
     zh-Hant = 已下載的 (%@), 輕觸以刪除
     pl = Pobrano (%@). Naciśnij, aby usunąć.
     pt = Descarregado (%@), toque para eliminar
-    hu = Letölve (%@), érintse meg törléshez
+    hu = Letöltve (%@), érintse meg törléshez
     th = ดาวน์โหลดแล้ว (%@), แตะเพื่อลบ
     zh-Hans = 下载了(%@),轻触删除
     ar = تم تنزيل (%@)، انقر للحذف
@@ -1805,7 +1805,7 @@
     zh-Hant = 下載 (%@), 輕觸以更新或刪除
     pl = Pobrano (%@). Naciśnij, aby zaktualizować lub usunąć.
     pt = Descarregado (%@), toque para atualizar ou eliminar
-    hu = Letölve (%@) , érintse meg frissítéshez vagy törléshez
+    hu = Letöltve (%@), érintse meg frissítéshez vagy törléshez
     th = ดาวน์โหลด (%@) แล้ว, แตะเพื่ออัปเดตหรือลบ
     zh-Hans = 下载 (%@),轻触更新或删除
     ar = تم تنزيل (%@) ، انقر للتحديث أو الحذف

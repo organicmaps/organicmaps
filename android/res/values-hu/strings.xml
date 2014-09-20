@@ -104,7 +104,7 @@
 	<string name="try_again">Újrapróbálkozás</string>
 	<string name="about_menu_title">A MAPS.ME programról</string>
 	<string name="downloading_touch_to_cancel">%d%% letöltése, elvetéshez érintse meg</string>
-	<string name="downloaded_touch_to_delete">Letölve (%s), érintse meg törléshez</string>
+	<string name="downloaded_touch_to_delete">Letöltve (%s), érintse meg törléshez</string>
 	<string name="connection_settings">Kapcsolat beállítások</string>
 	<string name="download_mb_or_kb">Letöltés %s</string>
 	<string name="close">Bezár</string>
@@ -132,7 +132,7 @@
 	<string name="pause">Szünet</string>
 	<!-- REMOVE THIS STRING AFTER REFACTORING -->
 	<string name="continue_download">Folytatás</string>
-	<string name="downloaded_touch_to_update">Letölve (%s) , érintse meg frissítéshez vagy törléshez</string>
+	<string name="downloaded_touch_to_update">Letöltve (%s), érintse meg frissítéshez vagy törléshez</string>
 	<string name="update_mb_or_kb">%s frissítése</string>
 	<!-- Show popup notification when we have downloaded countries without search (from Lite version) -->
 	<string name="search_update_maps">Frissített térképekre lesz szüksége a kereséshez:</string>
