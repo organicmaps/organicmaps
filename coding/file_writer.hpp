@@ -35,6 +35,8 @@ public:
   int64_t Pos() const;
   void Write(void const * p, size_t size);
 
+  void WritePadding(size_t factor);
+
   uint64_t Size() const;
   void Flush();
 

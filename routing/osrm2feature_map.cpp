@@ -2,6 +2,8 @@
 
 #include "../defines.hpp"
 
+#include "../coding/varint.hpp"
+
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
 #include "../base/math.hpp"
@@ -81,8 +83,15 @@ string DebugPrint(OsrmFtSegMapping::FtSeg const & seg)
 {
   stringstream ss;
   ss << "{ fID = " << seg.m_fid <<
-        "; pStart = " << seg.m_pointStart <<
-        "; pEnd = " << seg.m_pointEnd << " }";
+        ", pStart = " << seg.m_pointStart <<
+        ", pEnd = " << seg.m_pointEnd << " }";
+  return ss.str();
+}
+
+string DebugPrint(OsrmFtSegMapping::SegOffset const & off)
+{
+  stringstream ss;
+  ss << "{ " << off.m_nodeId << ", " << off.m_offset << " }";
   return ss.str();
 }
 
@@ -97,14 +106,16 @@ void OsrmFtSegMapping::Load(FilesMappingContainer & cont)
 {
   Clear();
 
-  /// @todo To reduce memory pressure we can use regular Reader to load m_offsets.
-  /// Also we can try to do mapping here.
-  FilesMappingContainer::Handle h = cont.Map(ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG);
-
-  SegOffset const * p = h.GetData<SegOffset>();
-  m_offsets.assign(p, p + h.GetDataCount<SegOffset>());
-
-  h.Unmap();
+  {
+    ReaderSource<FileReader> src = cont.GetReader(ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG);
+    uint32_t const count = ReadVarUint<uint32_t>(src);
+    m_offsets.resize(count);
+    for (uint32_t i = 0; i < count; ++i)
+    {
+      m_offsets[i].m_nodeId = ReadVarUint<OsrmNodeIdT>(src);
+      m_offsets[i].m_offset = ReadVarUint<uint32_t>(src);
+    }
+  }
 
   m_handle.Assign(cont.Map(ROUTING_FTSEG_FILE_TAG));
   ASSERT(m_handle.IsValid(), ());
@@ -214,7 +225,7 @@ OsrmFtSegMappingBuilder::OsrmFtSegMappingBuilder()
 {
 }
 
-void OsrmFtSegMappingBuilder::Append(OsrmNodeIdT osrmNodeId, FtSegVectorT const & data)
+void OsrmFtSegMappingBuilder::Append(OsrmNodeIdT nodeId, FtSegVectorT const & data)
 {
   size_t const count = data.size();
 
@@ -233,14 +244,24 @@ void OsrmFtSegMappingBuilder::Append(OsrmNodeIdT osrmNodeId, FtSegVectorT const 
     uint32_t const off = static_cast<uint32_t>(m_lastOffset);
     CHECK_EQUAL(m_lastOffset, off, ());
 
-    m_offsets.push_back(SegOffset(osrmNodeId, off));
+    m_offsets.push_back(SegOffset(nodeId, off));
   }
 }
-
 void OsrmFtSegMappingBuilder::Save(FilesContainerW & cont) const
 {
-  cont.GetWriter(ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG).Write(
-        m_offsets.data(), sizeof(SegOffset) * m_offsets.size());
+  {
+    FileWriter writer = cont.GetWriter(ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG);
+    uint32_t const count = static_cast<uint32_t>(m_offsets.size());
+    WriteVarUint(writer, count);
+    for (uint32_t i = 0; i < count; ++i)
+    {
+      WriteVarUint(writer, m_offsets[i].m_nodeId);
+      WriteVarUint(writer, m_offsets[i].m_offset);
+    }
+
+    // Write padding to make next elias_fano start address multiple of 4.
+    writer.WritePadding(4);
+  }
 
   string const fName = cont.GetFileName() + "." ROUTING_FTSEG_FILE_TAG;
 

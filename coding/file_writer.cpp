@@ -40,6 +40,19 @@ void FileWriter::Write(void const * p, size_t size)
   m_pFileData->Write(p, size);
 }
 
+void FileWriter::WritePadding(size_t factor)
+{
+  ASSERT(factor > 1, ());
+
+  uint64_t sz = Size();
+  sz = ((sz + factor - 1) / factor) * factor - sz;
+  if (sz > 0)
+  {
+    vector<uint8_t> buffer(sz);
+    Write(buffer.data(), sz);
+  }
+}
+
 string FileWriter::GetName() const
 {
   return m_pFileData->GetName();

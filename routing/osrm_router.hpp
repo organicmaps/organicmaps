@@ -8,6 +8,7 @@
 
 #include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
 
+
 class Index;
 struct PhantomNode;
 
@@ -32,6 +33,7 @@ public:
 protected:
   bool FindPhantomNode(m2::PointD const & pt, PhantomNode & resultNode, uint32_t & mwmId,
                        OsrmFtSegMapping::FtSeg & seg, m2::PointD & segPt);
+  bool NeedReload(string const & fPath) const;
 
 private:
   Index const * m_pIndex;
@@ -39,10 +41,8 @@ private:
   typedef OsrmDataFacade<QueryEdge::EdgeData> DataFacadeT;
   DataFacadeT m_dataFacade;
   OsrmFtSegMapping m_mapping;
-  string m_lastMwmName;
 
   FilesMappingContainer m_container;
 };
-
 
 }

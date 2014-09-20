@@ -19,7 +19,8 @@
 namespace routing
 {
 
-#define FACADE_READ_ZOOM_LEVEL  13
+namespace
+{
 
 class Point2PhantomNode
 {
@@ -110,8 +111,8 @@ public:
   }
 };
 
+}
 
-// ----------------
 
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
   : m_countryFn(fn), m_pIndex(index)
@@ -172,27 +173,28 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
     return;
   }
 
-  if (m_lastMwmName != fName)
+  string const fPath = GetPlatform().WritablePathForFile(fName + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION);
+  if (NeedReload(fPath))
   {
-    LOG(LDEBUG, ("Load routing index for file:", fName));
+    LOG(LDEBUG, ("Load routing index for file:", fPath));
+
     try
     {
-      // need to clear while m_fd is valid for handlers
+      // Clear data while m_container is valid.
       m_dataFacade.Clear();
       m_mapping.Clear();
 
-      m_container.Open(GetPlatform().WritablePathForFile(fName + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION));
+      m_container.Open(fPath);
 
       m_dataFacade.Load(m_container);
       m_mapping.Load(m_container);
     }
-    catch(Reader::Exception const & e)
+    catch (Reader::Exception const & e)
     {
-      LOG(LERROR, ("Error while loading container", fName, e.Msg()));
+      LOG(LERROR, ("Error while loading routing index:", fPath, e.Msg()));
+      resGuard.SetErrorMsg("Routing index absent or incorrect.");
       return;
     }
-
-    m_lastMwmName = fName;
   }
 
   SearchEngineData engineData;
@@ -281,6 +283,7 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
         Index::FeaturesLoaderGuard loader(*m_pIndex, mwmIdStart);
         loader.GetFeature(seg.m_fid, ft);
         ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
         auto startIdx = seg.m_pointStart;
         auto endIdx = seg.m_pointEnd;
 
@@ -319,6 +322,11 @@ bool OsrmRouter::FindPhantomNode(m2::PointD const & pt, PhantomNode & resultNode
   m_pIndex->ForEachInRect(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(pt, 1000.0), 17);
 
   return getter.MakeResult(resultNode, mwmId, seg, segPt);
+}
+
+bool OsrmRouter::NeedReload(string const & fPath) const
+{
+  return (m_container.GetName() != fPath);
 }
 
 }

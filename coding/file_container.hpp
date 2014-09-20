@@ -125,6 +125,7 @@ class FilesMappingContainer : public FilesContainerBase
 public:
   FilesMappingContainer();
   explicit FilesMappingContainer(string const & fName);
+
   ~FilesMappingContainer();
 
   void Open(string const & fName);
@@ -175,8 +176,12 @@ public:
   };
 
   Handle Map(Tag const & tag) const;
+  FileReader GetReader(Tag const & tag) const;
+
+  string const & GetName() const { return m_name; }
 
 private:
+  string m_name;
   int m_fd;
 };
 

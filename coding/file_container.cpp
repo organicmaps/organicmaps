@@ -118,19 +118,23 @@ void FilesMappingContainer::Open(string const & fName)
   Close();
 
   {
-    FileReader reader(fName, 10, 1);
+    FileReader reader(fName);
     ReadInfo(reader);
   }
 
   m_fd = open(fName.c_str(), O_RDONLY | O_NONBLOCK);
   if (m_fd == -1)
     MYTHROW(Reader::OpenException, ("Can't open file:", fName));
+
+  m_name = fName;
 }
 
 void FilesMappingContainer::Close()
 {
   if (m_fd != -1)
     close(m_fd);
+
+  m_name.clear();
 }
 
 FilesMappingContainer::Handle FilesMappingContainer::Map(Tag const & tag) const
@@ -157,6 +161,17 @@ FilesMappingContainer::Handle FilesMappingContainer::Map(Tag const & tag) const
     MYTHROW(Reader::OpenException, ("Can't find section:", tag));
 
   return Handle();
+}
+
+FileReader FilesMappingContainer::GetReader(Tag const & tag) const
+{
+  Info const * p = GetInfo(tag);
+  if (p)
+    return FileReader(m_name).SubReader(p->m_offset, p->m_size);
+  else
+    MYTHROW(Reader::OpenException, ("Can't find section:", tag));
+
+  return FileReader("xxx");
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -340,7 +355,7 @@ void FilesContainerW::Write(ModelReaderPtr reader, Tag const & tag)
   ReaderSource<ModelReaderPtr> src(reader);
   FileWriter writer = GetWriter(tag);
 
-  rw::ReadAndWrite(src, writer, 4*1024);
+  rw::ReadAndWrite(src, writer);
 }
 
 void FilesContainerW::Write(vector<char> const & buffer, Tag const & tag)

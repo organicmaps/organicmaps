@@ -58,6 +58,8 @@ public:
       : m_nodeId(nodeId), m_offset(offset)
     {
     }
+
+    friend string DebugPrint(SegOffset const & off);
   };
 #pragma pack (pop)
 
@@ -110,7 +112,7 @@ public:
 
   typedef vector<FtSeg> FtSegVectorT;
 
-  void Append(OsrmNodeIdT osrmNodeId, FtSegVectorT const & data);
+  void Append(OsrmNodeIdT nodeId, FtSegVectorT const & data);
   void Save(FilesContainerW & cont) const;
 
 private:
