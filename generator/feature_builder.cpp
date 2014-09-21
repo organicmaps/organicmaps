@@ -415,6 +415,12 @@ void FeatureBuilder1::SetOsmId(osm::Id id)
   m_osmIds.assign(1, id);
 }
 
+osm::Id FeatureBuilder1::GetLastOsmId() const
+{
+  ASSERT(!m_osmIds.empty(), ());
+  return m_osmIds.back();
+}
+
 string FeatureBuilder1::GetOsmIdsString() const
 {
   size_t const size = m_osmIds.size();

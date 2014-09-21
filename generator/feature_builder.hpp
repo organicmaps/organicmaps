@@ -137,6 +137,7 @@ public:
   //@{
   void AddOsmId(osm::Id id);
   void SetOsmId(osm::Id id);
+  osm::Id GetLastOsmId() const;
   string GetOsmIdsString() const;
   //@}
 

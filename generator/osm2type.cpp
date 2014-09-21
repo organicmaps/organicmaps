@@ -439,14 +439,6 @@ namespace ftype
 
   void GetNameAndType(XMLElement * p, FeatureParams & params)
   {
-//#ifdef DEBUG
-//    // code to set a breakpoint
-//    if (for_each_tag(p, debug_find_string("bridge")))
-//    {
-//      int break_here = 0;
-//    }
-//#endif
-
     process_synonims(p);
     add_layers(p);
 
@@ -549,5 +541,11 @@ namespace ftype
   {
     char const * arr[] = { "boundary", "administrative" };
     return classif().GetTypeByPath(vector<string>(arr, arr + 2));
+  }
+
+  bool IsValidTypes(FeatureParams const & params)
+  {
+    // Add final types checks (during parsing and generation process) here.
+    return params.IsValid();
   }
 }

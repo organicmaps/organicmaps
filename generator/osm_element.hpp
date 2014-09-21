@@ -6,9 +6,7 @@
 #include "ways_merger.hpp"
 
 #include "../indexer/ftypes_matcher.hpp"
-
 #include "../indexer/feature_visibility.hpp"
-#include "../indexer/classificator.hpp"
 
 #include "../base/string_utils.hpp"
 #include "../base/logging.hpp"
@@ -21,18 +19,11 @@
 /// @param  TEmitter  Feature accumulating policy
 /// @param  THolder   Nodes, ways, relations holder
 template <class TEmitter, class THolder>
-class SecondPassParserBase : public BaseOSMParser
+class SecondPassParser : public BaseOSMParser
 {
-protected:
   TEmitter & m_emitter;
   THolder & m_holder;
 
-  SecondPassParserBase(TEmitter & emitter, THolder & holder)
-    : m_emitter(emitter), m_holder(holder)
-  {
-    static char const * tags[] = { "osm", "node", "way", "relation" };
-    SetTags(tags);
-  }
 
   bool GetPoint(uint64_t id, m2::PointD & pt) const
   {
@@ -48,7 +39,7 @@ protected:
     holes_list_t m_holes;
 
   public:
-    holes_accumulator(SecondPassParserBase * pMain) : m_merger(pMain->m_holder) {}
+    holes_accumulator(SecondPassParser * pMain) : m_merger(pMain->m_holder) {}
 
     void operator() (uint64_t id)
     {
@@ -76,7 +67,7 @@ protected:
     holes_accumulator m_holes;
 
   public:
-    multipolygon_holes_processor(uint64_t id, SecondPassParserBase * pMain)
+    multipolygon_holes_processor(uint64_t id, SecondPassParser * pMain)
       : m_id(id), m_holes(pMain)
     {
     }
@@ -223,47 +214,6 @@ protected:
     }
   } m_typeProcessor;
 
-  typedef FeatureBuilder1 FeatureBuilderT;
-
-  void FinishAreaFeature(uint64_t id, FeatureBuilderT & ft)
-  {
-    ASSERT ( ft.IsGeometryClosed(), () );
-
-    multipolygon_holes_processor processor(id, this);
-    m_holder.ForEachRelationByWay(id, processor);
-    ft.SetAreaAddHoles(processor.GetHoles());
-  }
-
-  class UselessSingleTypes
-  {
-    vector<uint32_t> m_types;
-
-    bool IsUseless(uint32_t t) const
-    {
-      ftype::TruncValue(t, 1);
-      return (find(m_types.begin(), m_types.end(), t) != m_types.end());
-    }
-
-  public:
-    UselessSingleTypes()
-    {
-      Classificator const & c = classif();
-
-      char const * arr[][1] = { { "hwtag" } };
-      for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
-        m_types.push_back(c.GetTypeByPath(vector<string>(arr[i], arr[i] + 1)));
-    }
-
-    bool IsValid(vector<uint32_t> const & types) const
-    {
-      size_t const count = types.size();
-      size_t uselessCount = 0;
-      for (size_t i = 0; i < count; ++i)
-        if (IsUseless(types[i]))
-          ++uselessCount;
-      return (count > uselessCount);
-    }
-  };
 
   bool ParseType(XMLElement * p, uint64_t & id, FeatureParams & params)
   {
@@ -287,21 +237,20 @@ protected:
     }
 
     params.FinishAddingTypes();
-
-    // unrecognized feature by classificator
-    static UselessSingleTypes checker;
-    return params.IsValid() && checker.IsValid(params.m_Types);
+    return ftype::IsValidTypes(params);
   }
+
+  typedef FeatureBuilder1 FeatureBuilderT;
 
   class multipolygons_emitter
   {
-    SecondPassParserBase * m_pMain;
+    SecondPassParser * m_pMain;
     FeatureParams const & m_params;
     holes_list_t & m_holes;
     uint64_t m_relID;
 
   public:
-    multipolygons_emitter(SecondPassParserBase * pMain,
+    multipolygons_emitter(SecondPassParser * pMain,
                           FeatureParams const & params,
                           holes_list_t & holes,
                           uint64_t relID)
@@ -312,7 +261,6 @@ protected:
     void operator() (pts_vec_t const & pts, vector<uint64_t> const & ids)
     {
       FeatureBuilderT ft;
-      ft.SetParams(m_params);
 
       for (size_t i = 0; i < ids.size(); ++i)
         ft.AddOsmId(osm::Id::Way(ids[i]));
@@ -320,25 +268,13 @@ protected:
       for (size_t i = 0; i < pts.size(); ++i)
         ft.AddPoint(pts[i]);
 
-      if (ft.IsGeometryClosed())
+      ft.AddOsmId(osm::Id::Relation(m_relID));
+      m_pMain->EmitArea(ft, m_params, [this](FeatureBuilderT & ft)
       {
         ft.SetAreaAddHoles(m_holes);
-        if (ft.PreSerialize())
-        {
-          ft.AddOsmId(osm::Id::Relation(m_relID));
-          m_pMain->m_emitter(ft);
-        }
-      }
+      });
     }
   };
-};
-
-template <class TEmitter, class THolder>
-class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
-{
-  typedef SecondPassParserBase<TEmitter, THolder> base_type;
-
-  typedef typename base_type::FeatureBuilderT FeatureBuilderT;
 
   uint32_t m_coastType;
 
@@ -349,7 +285,7 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
     return m_addrWriter && checker(params.m_Types);
   }
 
-  void EmitFeatureBase(FeatureBuilderT & ft, FeatureParams const & params, osm::Id const & id)
+  void EmitFeatureBase(FeatureBuilderT & ft, FeatureParams const & params)
   {
     ft.SetParams(params);
     if (ft.PreSerialize())
@@ -358,65 +294,83 @@ class SecondPassParserUsual : public SecondPassParserBase<TEmitter, THolder>
       if (NeedWriteAddress(params) && ft.FormatFullAddress(addr))
         m_addrWriter->Write(addr.c_str(), addr.size());
 
-      ft.SetOsmId(id);
-
-      base_type::m_emitter(ft);
+      m_emitter(ft);
     }
   }
 
   /// @param[in]  params  Pass by value because it can be modified.
   //@{
-  void EmitPoint(FeatureBuilderT & ft, FeatureParams params, osm::Id const & id)
+  void EmitPoint(m2::PointD const & pt, FeatureParams params, osm::Id id)
   {
     if (feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_POINT))
-      EmitFeatureBase(ft, params, id);
+    {
+      FeatureBuilderT ft;
+      ft.SetCenter(pt);
+      ft.SetOsmId(id);
+      EmitFeatureBase(ft, params);
+    }
   }
 
-  void EmitLine(FeatureBuilderT & ft, FeatureParams params, uint64_t id)
+  void EmitLine(FeatureBuilderT & ft, FeatureParams params, osm::Id id)
   {
     if ((m_coastType != 0 && params.IsTypeExist(m_coastType)) ||
         feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_LINE))
     {
       ft.SetLinear(params.m_reverseGeometry);
-      EmitFeatureBase(ft, params, osm::Id::Way(id));
+      ft.SetOsmId(id);
+      EmitFeatureBase(ft, params);
     }
   }
 
-  bool EmitArea(FeatureBuilderT & ft, FeatureParams params, uint64_t id)
+  template <class MakeFnT>
+  void EmitArea(FeatureBuilderT & ft, FeatureParams params, MakeFnT makeFn)
   {
-    if (feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_AREA))
+    using namespace feature;
+
+    // Ensure that we have closed area geometry.
+    if (ft.IsGeometryClosed())
     {
-      base_type::FinishAreaFeature(id, ft);
-      EmitFeatureBase(ft, params, osm::Id::Way(id));
-      return true;
+      // Key point here is that IsDrawableLike and RemoveNoDrawableTypes
+      // work a bit different for FEATURE_TYPE_AREA.
+
+      if (IsDrawableLike(params.m_Types, FEATURE_TYPE_AREA))
+      {
+        // Make the area feature if it has unique area styles.
+        VERIFY ( RemoveNoDrawableTypes(params.m_Types, FEATURE_TYPE_AREA), (params) );
+
+        makeFn(ft);
+
+        EmitFeatureBase(ft, params);
+      }
+      else
+      {
+        // Try to make the point feature if it has point styles.
+        EmitPoint(ft.GetGeometryCenter(), params, ft.GetLastOsmId());
+      }
     }
-    else
-      return false;
   }
   //@}
 
-protected:
+  /// The main entry point for parsing process.
   virtual void EmitElement(XMLElement * p)
   {
     uint64_t id;
     FeatureParams params;
-    if (!base_type::ParseType(p, id, params))
+    if (!ParseType(p, id, params))
       return;
-
-    FeatureBuilderT ft;
 
     if (p->name == "node")
     {
       m2::PointD pt;
-      if (p->childs.empty() || !base_type::GetPoint(id, pt))
+      if (p->childs.empty() || !GetPoint(id, pt))
         return;
 
-      ft.SetCenter(pt);
-
-      EmitPoint(ft, params, osm::Id::Node(id));
+      EmitPoint(pt, params, osm::Id::Node(id));
     }
     else if (p->name == "way")
     {
+      FeatureBuilderT ft;
+
       // Parse geometry.
       for (size_t i = 0; i < p->childs.size(); ++i)
       {
@@ -426,31 +380,27 @@ protected:
           CHECK ( strings::to_uint64(p->childs[i].attrs["ref"], nodeID), (p->childs[i].attrs["ref"]) );
 
           m2::PointD pt;
-          if (!base_type::GetPoint(nodeID, pt))
+          if (!GetPoint(nodeID, pt))
             return;
 
           ft.AddPoint(pt);
         }
       }
 
-      size_t const count = ft.GetPointsCount();
-      if (count < 2)
+      if (ft.GetPointsCount() < 2)
         return;
 
-      if (count > 2 && ft.IsGeometryClosed())
-      {
-        // The way may be an area feature.
-        if (!EmitArea(ft, params, id))
-        {
-          // The closed way may be a point feature if it has only point styles.
-          FeatureBuilderT ptFt;
-          ptFt.SetCenter(ft.GetGeometryCenter());
-          EmitPoint(ptFt, params, osm::Id::Way(id));
-        }
-      }
+      osm::Id const osmID = osm::Id::Way(id);
 
-      // Regular linear feature.
-      EmitLine(ft, params, id);
+      ft.SetOsmId(osmID);
+      EmitArea(ft, params, [id, this] (FeatureBuilderT & ft)
+      {
+        multipolygon_holes_processor processor(id, this);
+        m_holder.ForEachRelationByWay(id, processor);
+        ft.SetAreaAddHoles(processor.GetHoles());
+      });
+
+      EmitLine(ft, params, osmID);
     }
     else if (p->name == "relation")
     {
@@ -471,12 +421,8 @@ protected:
           return;
       }
 
-      // 2. Relation should have visible area types.
-      if (!feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_AREA))
-        return;
-
-      typename base_type::holes_accumulator holes(this);
-      AreaWayMerger<THolder> outer(base_type::m_holder);
+      holes_accumulator holes(this);
+      AreaWayMerger<THolder> outer(m_holder);
 
       // 3. Iterate ways to get 'outer' and 'inner' geometries
       for (size_t i = 0; i < p->childs.size(); ++i)
@@ -495,16 +441,19 @@ protected:
         }
       }
 
-      typename base_type::multipolygons_emitter emitter(this, params, holes.GetHoles(), id);
+      multipolygons_emitter emitter(this, params, holes.GetHoles(), id);
       outer.ForEachArea(emitter, true);
     }
   }
 
 public:
-  SecondPassParserUsual(TEmitter & emitter, THolder & holder,
-                        uint32_t coastType, string const & addrFilePath)
-    : base_type(emitter, holder), m_coastType(coastType)
+  SecondPassParser(TEmitter & emitter, THolder & holder,
+                   uint32_t coastType, string const & addrFilePath)
+    : m_emitter(emitter), m_holder(holder), m_coastType(coastType)
   {
+    char const * tags[] = { "osm", "node", "way", "relation" };
+    SetTags(tags);
+
     if (!addrFilePath.empty())
       m_addrWriter.reset(new FileWriter(addrFilePath));
   }

@@ -12,4 +12,7 @@ namespace ftype
 
   /// @return 'boundary-administrative' type.
   uint32_t GetBoundaryType2();
+
+  /// Check that final types set for feature is valid.
+  bool IsValidTypes(FeatureParams const & params);
 }

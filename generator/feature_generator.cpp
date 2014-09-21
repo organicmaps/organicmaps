@@ -435,7 +435,7 @@ bool GenerateImpl(GenerateInfo & info)
     holder.LoadIndex();
 
     MainFeaturesEmitter bucketer(info);
-    SecondPassParserUsual<MainFeaturesEmitter, holder_t> parser(
+    SecondPassParser<MainFeaturesEmitter, holder_t> parser(
           bucketer, holder,
           info.m_makeCoasts ? classif().GetCoastType() : 0,
           info.m_addressFile);
