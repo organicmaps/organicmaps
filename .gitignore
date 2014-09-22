@@ -9,6 +9,11 @@ Makefile.Release
 object_script.*.Debug
 object_script.*.Release
 
+stxxl.errlog
+stxxl.log
+screenlog.0
+data/*.mwm.osm2ft
+
 # Compiled Python
 crawler/*.pyc
 
