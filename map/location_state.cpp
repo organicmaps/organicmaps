@@ -28,6 +28,7 @@ namespace
 {
 
 static const int POSITION_Y_OFFSET = 120;
+static const int32_t ANIM_THRESHOLD = 0x4;
 
 uint16_t IncludeModeBit(uint16_t mode, uint16_t bit)
 {
@@ -54,19 +55,40 @@ bool TestModeBit(uint16_t mode, uint16_t bit)
   return (mode & bit) != 0;
 }
 
+class PxBindingAnim : anim::SegmentInterpolation
+{
+  typedef anim::SegmentInterpolation TBase;
+public:
+  PxBindingAnim(m2::PointD const & start, m2::PointD const & end,
+                double speed, m2::PointD & outValue)
+    : TBase(start, end, speed, outValue)
+  {
+  }
+
+  virtual bool IsVisual() const
+  {
+    return true;
+  }
+};
+
 class RotateAndFollowAnim : public anim::Task
 {
 public:
   RotateAndFollowAnim(Framework * fw, m2::PointD const & srcPos, double srcAngle)
     : m_fw(fw)
+    , m_posPrevState(EReady)
+    , m_anglePrevState(EReady)
     , m_currentPosition(srcPos)
     , m_currentAngle(srcAngle)
+    , m_freeFrameCount(0)
   {
     m2::RectD pixelRect = m_fw->GetNavigator().Screen().PixelRect();
-    m2::PointD pxCenter = pixelRect.Center();
-    m2::PointD dstPxBinging(pxCenter.x, pixelRect.maxY() - POSITION_Y_OFFSET * m_fw->GetVisualScale());
-    anim::SegmentInterpolation * pxBindingAnim = new anim::SegmentInterpolation(m_fw->GetPixelCenter(), dstPxBinging,
-                                                                                0.5, m_pxCurrentBinding);
+    m2::PointD pixelCenter = pixelRect.Center();
+    m2::PointD dstPxBinging(pixelCenter.x, pixelRect.maxY() - POSITION_Y_OFFSET * m_fw->GetVisualScale());
+
+    m_pxCurrentBinding = pixelCenter;
+    anim::SegmentInterpolation * pxBindingAnim = new anim::SegmentInterpolation(m_pxCurrentBinding, dstPxBinging,
+                                                                                2.0, m_pxCurrentBinding);
 
     m_fw->GetAnimController()->AddTask(shared_ptr<anim::Task>(pxBindingAnim));
   }
@@ -108,6 +130,19 @@ public:
       m_posAnim->OnStep(ts);
 
     UpdateViewport();
+    AnimStateChanged();
+  }
+
+  virtual bool IsVisual() const
+  {
+    if (m_posAnim == nullptr || m_angleAnim == nullptr)
+      return false;
+
+    if (m_freeFrameCount < ANIM_THRESHOLD)
+      return true;
+
+    return m_posAnim->State() == anim::Task::EInProgress ||
+           m_angleAnim->State() == anim::Task::EInProgress;
   }
 
 private:
@@ -138,16 +173,46 @@ private:
       m_posAnim->Reset(srcPos, dstPos, posSpeed);
   }
 
+  void InstallCallbacks(anim::Task * task)
+  {
+    auto callback = [this](){ AnimStateChanged(); };
+    task->AddCallback(anim::Task::EReady, callback);
+    task->AddCallback(anim::Task::EInProgress, callback);
+    task->AddCallback(anim::Task::EEnded, callback);
+  }
+
+  void AnimStateChanged()
+  {
+    anim::Task::EState angleState = m_angleAnim->State();
+    anim::Task::EState posState = m_posAnim->State();
+    if ((posState == anim::Task::EEnded && angleState == anim::Task::EEnded) &&
+        (posState != m_posPrevState || angleState != m_anglePrevState))
+    {
+      ++m_freeFrameCount;
+    }
+    else if ((angleState == anim::Task::EInProgress || posState == anim::Task::EInProgress) &&
+             m_freeFrameCount > ANIM_THRESHOLD)
+    {
+      m_freeFrameCount = 0;
+    }
+
+    m_posPrevState = posState;
+    m_anglePrevState = angleState;
+  }
+
 private:
   Framework * m_fw;
 
   unique_ptr<anim::AngleInterpolation> m_angleAnim;
   unique_ptr<anim::SegmentInterpolation> m_posAnim;
+  anim::Task::EState m_anglePrevState;
+  anim::Task::EState m_posPrevState;
 
   m2::PointD m_currentPosition;
   double m_currentAngle;
 
   m2::PointD m_pxCurrentBinding;
+  int32_t m_freeFrameCount;
 };
 
 }
