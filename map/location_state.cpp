@@ -28,7 +28,7 @@ namespace
 {
 
 static const int POSITION_Y_OFFSET = 120;
-static const int32_t ANIM_THRESHOLD = 0x4;
+static const int ANIM_THRESHOLD = 4;
 
 uint16_t IncludeModeBit(uint16_t mode, uint16_t bit)
 {
@@ -82,9 +82,9 @@ public:
     , m_currentAngle(srcAngle)
     , m_freeFrameCount(0)
   {
-    m2::RectD pixelRect = m_fw->GetNavigator().Screen().PixelRect();
-    m2::PointD pixelCenter = pixelRect.Center();
-    m2::PointD dstPxBinging(pixelCenter.x, pixelRect.maxY() - POSITION_Y_OFFSET * m_fw->GetVisualScale());
+    m2::RectD const pixelRect = m_fw->GetNavigator().Screen().PixelRect();
+    m2::PointD const  pixelCenter = pixelRect.Center();
+    m2::PointD const dstPxBinging(pixelCenter.x, pixelRect.maxY() - POSITION_Y_OFFSET * m_fw->GetVisualScale());
 
     m_pxCurrentBinding = pixelCenter;
     anim::SegmentInterpolation * pxBindingAnim = new anim::SegmentInterpolation(m_pxCurrentBinding, dstPxBinging,
@@ -95,8 +95,8 @@ public:
 
   void SetDestinationParams(m2::PointD const & dstPos, double dstAngle)
   {
-    double posSpeed = m_fw->GetNavigator().ComputeMoveSpeed(m_currentPosition, dstPos);
-    double angleSpeed = m_fw->GetAnimator().GetRotationSpeed();
+    double const  posSpeed = m_fw->GetNavigator().ComputeMoveSpeed(m_currentPosition, dstPos);
+    double const angleSpeed = m_fw->GetAnimator().GetRotationSpeed();
 
     UpdateInnerAnim(m_currentPosition, dstPos, posSpeed,
                     m_currentAngle, dstAngle, angleSpeed);
@@ -183,8 +183,8 @@ private:
 
   void AnimStateChanged()
   {
-    anim::Task::EState angleState = m_angleAnim->State();
-    anim::Task::EState posState = m_posAnim->State();
+    anim::Task::EState const  angleState = m_angleAnim->State();
+    anim::Task::EState const  posState = m_posAnim->State();
     if ((posState == anim::Task::EEnded && angleState == anim::Task::EEnded) &&
         (posState != m_posPrevState || angleState != m_anglePrevState))
     {
@@ -212,7 +212,7 @@ private:
   double m_currentAngle;
 
   m2::PointD m_pxCurrentBinding;
-  int32_t m_freeFrameCount;
+  int m_freeFrameCount;
 };
 
 }
