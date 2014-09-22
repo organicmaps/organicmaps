@@ -39,9 +39,9 @@ void Track::DeleteDisplayList() const
 void Track::AddClosingSymbol(bool isBeginSymbol, string const & symbolName, graphics::EPosition pos, double depth)
 {
   if (isBeginSymbol)
-    m_beginSymbols.push_back(make_pair(symbolName, make_pair(pos, depth)));
+    m_beginSymbols.push_back(ClosingSymbol(symbolName, pos, depth));
   else
-    m_endSymbols.push_back(make_pair(symbolName, make_pair(pos, depth)));
+    m_endSymbols.push_back(ClosingSymbol(symbolName, pos, depth));
 }
 
 void Track::Draw(graphics::Screen * pScreen, MatrixT const & matrix) const
@@ -97,9 +97,9 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
   if (!m_beginSymbols.empty() || !m_endSymbols.empty())
   {
     m2::PointD pivot = pts2.front();
-    auto symDrawer = [&dlScreen, &pivot](TClosingSymbol const & symbol)
+    auto symDrawer = [&dlScreen, &pivot](ClosingSymbol const & symbol)
     {
-      dlScreen->drawSymbol(pivot, symbol.first, symbol.second.first, symbol.second.second);
+      dlScreen->drawSymbol(pivot, symbol.m_iconName, symbol.m_position, symbol.m_depth);
     };
 
     for_each(m_beginSymbols.begin(), m_beginSymbols.end(), symDrawer);

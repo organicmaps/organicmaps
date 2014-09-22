@@ -84,7 +84,8 @@ public:
   m2::RectD const & GetLimitRect() const { return m_rect; }
   //@}
 
-  void AddClosingSymbol(bool isBeginSymbol, string const & symbolName, graphics::EPosition pos, double depth);
+  void AddClosingSymbol(bool isBeginSymbol, string const & symbolName,
+                        graphics::EPosition pos, double depth);
 
   double GetLengthMeters() const;
   double GetShortestSquareDistance(m2::PointD const & point) const;
@@ -101,10 +102,17 @@ private:
   float m_outlineWidth;
   graphics::Color m_outlineColor;
 
-  typedef pair<graphics::EPosition, double> TSymbolVisParams;
-  typedef pair<string, TSymbolVisParams> TClosingSymbol;
-  vector<TClosingSymbol> m_beginSymbols;
-  vector<TClosingSymbol> m_endSymbols;
+  struct ClosingSymbol
+  {
+    ClosingSymbol(string const & iconName, graphics::EPosition pos, double depth)
+      : m_iconName(iconName), m_position(pos), m_depth(depth) {}
+    string m_iconName;
+    graphics::EPosition m_position;
+    double m_depth;
+  };
+
+  vector<ClosingSymbol> m_beginSymbols;
+  vector<ClosingSymbol> m_endSymbols;
 
   PolylineD m_polyline;
   m2::RectD m_rect;
