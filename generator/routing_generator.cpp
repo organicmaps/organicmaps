@@ -1,6 +1,8 @@
 #include "routing_generator.hpp"
 #include "gen_mwm_info.hpp"
 
+#include "../routing/osrm2feature_map.hpp"
+
 #include "../indexer/index.hpp"
 #include "../indexer/classificator_loader.hpp"
 #include "../indexer/feature.hpp"
@@ -11,8 +13,6 @@
 #include "../coding/internal/file_data.hpp"
 
 #include "../geometry/distance_on_sphere.hpp"
-
-#include "../routing/osrm2feature_map.hpp"
 
 #include "../platform/platform.hpp"
 
@@ -26,8 +26,8 @@
 namespace routing
 {
 
+static double const EQUAL_POINT_RADIUS_M = 2.0;
 
-double const EQUAL_POINT_RADIUS_M = 1;
 
 void GenerateNodesInfo(string const & mwmName, string const & osrmName)
 {
