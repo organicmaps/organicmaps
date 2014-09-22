@@ -28,7 +28,9 @@ namespace
 {
 
 static const int POSITION_Y_OFFSET = 120;
+#ifdef USE_FRAME_COUNT
 static const int ANIM_THRESHOLD = 4;
+#endif
 
 uint16_t IncludeModeBit(uint16_t mode, uint16_t bit)
 {
@@ -76,11 +78,13 @@ class RotateAndFollowAnim : public anim::Task
 public:
   RotateAndFollowAnim(Framework * fw, m2::PointD const & srcPos, double srcAngle)
     : m_fw(fw)
-    , m_posPrevState(EReady)
-    , m_anglePrevState(EReady)
     , m_currentPosition(srcPos)
     , m_currentAngle(srcAngle)
+#ifdef USE_FRAME_COUNT
+    , m_anglePrevState(EReady)
+    , m_posPrevState(EReady)
     , m_freeFrameCount(0)
+#endif
   {
     m2::RectD const pixelRect = m_fw->GetNavigator().Screen().PixelRect();
     m2::PointD const pixelCenter = pixelRect.Center();
@@ -130,7 +134,10 @@ public:
       m_posAnim->OnStep(ts);
 
     UpdateViewport();
+
+#ifdef USE_FRAME_COUNT
     AnimStateChanged();
+#endif
   }
 
   virtual bool IsVisual() const
@@ -138,8 +145,10 @@ public:
     if (m_posAnim == nullptr || m_angleAnim == nullptr)
       return false;
 
+#ifdef USE_FRAME_COUNT
     if (m_freeFrameCount < ANIM_THRESHOLD)
       return true;
+#endif
 
     return m_posAnim->State() == anim::Task::EInProgress ||
            m_angleAnim->State() == anim::Task::EInProgress;
@@ -173,14 +182,7 @@ private:
       m_posAnim->Reset(srcPos, dstPos, posSpeed);
   }
 
-  void InstallCallbacks(anim::Task * task)
-  {
-    auto callback = [this](){ AnimStateChanged(); };
-    task->AddCallback(anim::Task::EReady, callback);
-    task->AddCallback(anim::Task::EInProgress, callback);
-    task->AddCallback(anim::Task::EEnded, callback);
-  }
-
+#ifdef USE_FRAME_COUNT
   void AnimStateChanged()
   {
     anim::Task::EState const  angleState = m_angleAnim->State();
@@ -199,20 +201,23 @@ private:
     m_posPrevState = posState;
     m_anglePrevState = angleState;
   }
+#endif
 
 private:
   Framework * m_fw;
 
   unique_ptr<anim::AngleInterpolation> m_angleAnim;
   unique_ptr<anim::SegmentInterpolation> m_posAnim;
-  anim::Task::EState m_anglePrevState;
-  anim::Task::EState m_posPrevState;
 
   m2::PointD m_currentPosition;
   double m_currentAngle;
 
   m2::PointD m_pxCurrentBinding;
+#ifdef USE_FRAME_COUNT
+  anim::Task::EState m_anglePrevState;
+  anim::Task::EState m_posPrevState;
   int m_freeFrameCount;
+#endif
 };
 
 }
