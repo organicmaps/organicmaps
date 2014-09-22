@@ -112,7 +112,10 @@ namespace location
     void CallStateModeListeners();
 
     void CachePositionArrow();
+    void CacheRoutingArrow();
     void CacheLocationMark();
+
+    void CacheArrow(graphics::DisplayList * dl, string const & iconName);
 
     bool IsRotationActive() const;
     bool IsDirectionKnown() const;
@@ -148,6 +151,7 @@ namespace location
     unique_ptr<graphics::DisplayList> m_positionArrow;
     unique_ptr<graphics::DisplayList> m_locationMarkDL;
     unique_ptr<graphics::DisplayList> m_positionMarkDL;
+    unique_ptr<graphics::DisplayList> m_routingArrow;
     graphics::Color m_locationAreaColor;
     //@}
 

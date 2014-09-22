@@ -87,7 +87,7 @@ public:
 #endif
   {
     m2::RectD const pixelRect = m_fw->GetNavigator().Screen().PixelRect();
-    m2::PointD const pixelCenter = pixelRect.Center();
+    m2::PointD const  pixelCenter = pixelRect.Center();
     m2::PointD const dstPxBinging(pixelCenter.x, pixelRect.maxY() - POSITION_Y_OFFSET * m_fw->GetVisualScale());
 
     m_pxCurrentBinding = pixelCenter;
@@ -400,6 +400,7 @@ void State::InvalidatePosition()
 void State::cache()
 {
   CachePositionArrow();
+  CacheRoutingArrow();
   CacheLocationMark();
 
   m_controller->GetCacheScreen()->completeCommands();
@@ -410,6 +411,7 @@ void State::purge()
   m_positionArrow.reset();
   m_locationMarkDL.reset();
   m_positionMarkDL.reset();
+  m_routingArrow.reset();
 }
 
 void State::update()
@@ -457,7 +459,10 @@ void State::draw(graphics::OverlayRenderer * r,
                                                   rotateAngle),
                                                 pivot());
 
+    if (!IsInRouting())
     r->drawDisplayList(m_positionArrow.get(), compassDrawM * m);
+    else
+      r->drawDisplayList(m_routingArrow.get(), compassDrawM * m);
   }
   else
     r->drawDisplayList(m_positionMarkDL.get(), drawM);
@@ -465,44 +470,16 @@ void State::draw(graphics::OverlayRenderer * r,
 
 void State::CachePositionArrow()
 {
-  graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
-  graphics::Icon::Info info("current-position-compas");
-
-  graphics::Resource const * res = cacheScreen->fromID(cacheScreen->findInfo(info));
-  m2::RectU const rect = res->m_texRect;
-  m2::PointD const halfArrowSize(rect.SizeX() / 2.0, rect.SizeY() / 2.0);
-
   m_positionArrow.reset();
-  m_positionArrow.reset(cacheScreen->createDisplayList());
+  m_positionArrow.reset(m_controller->GetCacheScreen()->createDisplayList());
+  CacheArrow(m_positionArrow.get(), "current-position-compas");
+}
 
-  cacheScreen->beginFrame();
-  cacheScreen->setDisplayList(m_positionArrow.get());
-
-  m2::PointD coords[4] =
-  {
-    m2::PointD(-halfArrowSize.x, -halfArrowSize.y),
-    m2::PointD(-halfArrowSize.x,  halfArrowSize.y),
-    m2::PointD( halfArrowSize.x, -halfArrowSize.y),
-    m2::PointD( halfArrowSize.x,  halfArrowSize.y)
-  };
-
-  m2::PointF const normal(0.0, 0.0);
-  shared_ptr<graphics::gl::BaseTexture> texture = cacheScreen->pipeline(res->m_pipelineID).texture();
-
-  m2::PointF texCoords[4] =
-  {
-    texture->mapPixel(m2::PointF(rect.minX(), rect.minY())),
-    texture->mapPixel(m2::PointF(rect.minX(), rect.maxY())),
-    texture->mapPixel(m2::PointF(rect.maxX(), rect.minY())),
-    texture->mapPixel(m2::PointF(rect.maxX(), rect.maxY()))
-  };
-
-  cacheScreen->addTexturedStripStrided(coords, sizeof(m2::PointD),
-                                       &normal, 0,
-                                       texCoords, sizeof(m2::PointF),
-                                       4, depth(), res->m_pipelineID);
-  cacheScreen->setDisplayList(0);
-  cacheScreen->endFrame();
+void State::CacheRoutingArrow()
+{
+  m_routingArrow.reset();
+  m_routingArrow.reset(m_controller->GetCacheScreen()->createDisplayList());
+  CacheArrow(m_routingArrow.get(), "current-routing-compas");
 }
 
 void State::CacheLocationMark()
@@ -532,6 +509,45 @@ void State::CacheLocationMark()
 
   cacheScreen->setDisplayList(0);
 
+  cacheScreen->endFrame();
+}
+
+void State::CacheArrow(graphics::DisplayList * dl, const string & iconName)
+{
+  graphics::Screen * cacheScreen = m_controller->GetCacheScreen();
+  graphics::Icon::Info info(iconName);
+
+  graphics::Resource const * res = cacheScreen->fromID(cacheScreen->findInfo(info));
+  m2::RectU const rect = res->m_texRect;
+  m2::PointD const halfArrowSize(rect.SizeX() / 2.0, rect.SizeY() / 2.0);
+
+  cacheScreen->beginFrame();
+  cacheScreen->setDisplayList(dl);
+
+  m2::PointD coords[4] =
+  {
+    m2::PointD(-halfArrowSize.x, -halfArrowSize.y),
+    m2::PointD(-halfArrowSize.x,  halfArrowSize.y),
+    m2::PointD( halfArrowSize.x, -halfArrowSize.y),
+    m2::PointD( halfArrowSize.x,  halfArrowSize.y)
+  };
+
+  m2::PointF const normal(0.0, 0.0);
+  shared_ptr<graphics::gl::BaseTexture> texture = cacheScreen->pipeline(res->m_pipelineID).texture();
+
+  m2::PointF texCoords[4] =
+  {
+    texture->mapPixel(m2::PointF(rect.minX(), rect.minY())),
+    texture->mapPixel(m2::PointF(rect.minX(), rect.maxY())),
+    texture->mapPixel(m2::PointF(rect.maxX(), rect.minY())),
+    texture->mapPixel(m2::PointF(rect.maxX(), rect.maxY()))
+  };
+
+  cacheScreen->addTexturedStripStrided(coords, sizeof(m2::PointD),
+                                       &normal, 0,
+                                       texCoords, sizeof(m2::PointF),
+                                       4, depth(), res->m_pipelineID);
+  cacheScreen->setDisplayList(0);
   cacheScreen->endFrame();
 }
 
