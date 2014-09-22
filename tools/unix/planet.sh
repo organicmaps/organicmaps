@@ -112,6 +112,9 @@ if [[ $1 == "--full" ]]; then
       date -u
       echo "Will try fresh coasts again in 40 minutes..."
       sleep 2400
+    else
+      # Here we launch parallel routing data preprocessing as we got a 'good' planet
+      ( bash split_planet_by_polygons.sh &> split_planet.log ; bash osrm_generator.sh &> osrm_generator.log ) &
     fi
     set -e
   done
