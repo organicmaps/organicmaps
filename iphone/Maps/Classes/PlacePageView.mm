@@ -8,7 +8,6 @@
 #import "PlacePageInfoCell.h"
 #import "PlacePageEditCell.h"
 #import "PlacePageShareCell.h"
-#import "PlacePageRoutingCell.h"
 #import "PlacePageBookmarkDescriptionCell.h"
 #include "../../search/result.hpp"
 #import "ColorPickerView.h"
@@ -21,11 +20,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   CellRowSet,
   CellRowBookmarkDescription,
   CellRowShare,
-  CellRowRouting,
   CellInvalid     // Sections changed but rows are not
 };
 
-@interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate, PlacePageRoutingCellDelegate, UIWebViewDelegate>
+@interface PlacePageView () <UIGestureRecognizerDelegate, UITableViewDataSource, UITableViewDelegate, PlacePageShareCellDelegate, PlacePageInfoCellDelegate, ColorPickerDelegate, UIAlertViewDelegate, UIWebViewDelegate>
 
 @property (nonatomic) UIImageView * backgroundView;
 @property (nonatomic) UIView * headerView;
@@ -104,7 +102,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [self.tableView registerClass:[PlacePageInfoCell class] forCellReuseIdentifier:[PlacePageInfoCell className]];
     [self.tableView registerClass:[PlacePageEditCell class] forCellReuseIdentifier:[PlacePageEditCell className]];
     [self.tableView registerClass:[PlacePageShareCell class] forCellReuseIdentifier:[PlacePageShareCell className]];
-    [self.tableView registerClass:[PlacePageRoutingCell class] forCellReuseIdentifier:[PlacePageRoutingCell className]];
   }
 
   CGFloat const defaultHeight = 93;
@@ -174,11 +171,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   else if (indexPath.row == 1)
     return [self isBookmark] ? CellRowSet : CellRowShare;
   else if (indexPath.row == 2)
-    return [self isBookmark] ? CellRowBookmarkDescription : CellRowRouting;
+    return CellRowBookmarkDescription;
   else if (indexPath.row == 3)
     return CellRowShare;
-  else if (indexPath.row == 4)
-    return CellRowRouting;
   return CellInvalid;
 }
 
@@ -251,15 +246,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
       cell.apiAppTitle = nil;
     return cell;
   }
-  else if (row == CellRowRouting)
-  {
-    PlacePageRoutingCell * cell = [tableView dequeueReusableCellWithIdentifier:[PlacePageRoutingCell className]];
-    if (!cell) // only for iOS 5
-      cell = [[PlacePageRoutingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[PlacePageRoutingCell className]];
 
-    cell.delegate = self;
-    return cell;
-  }
   return nil;
 }
 
@@ -286,8 +273,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
   else if (row == CellRowShare)
     return [PlacePageShareCell cellHeight];
-  else if (row == CellRowRouting)
-    return [PlacePageRoutingCell cellHeight];
+
   return 0;
 }
 
@@ -513,7 +499,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 - (CGFloat)fullHeight
 {
   CGFloat const infoCellHeight = [PlacePageInfoCell cellHeightWithViewWidth:self.tableView.width inMyPositionMode:[self isMyPosition]];
-  CGFloat fullHeight = [self headerHeight] + infoCellHeight + [PlacePageShareCell cellHeight] + [PlacePageRoutingCell cellHeight];
+  CGFloat fullHeight = [self headerHeight] + infoCellHeight + [PlacePageShareCell cellHeight];
   if ([self isBookmark])
   {
     fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.setName viewWidth:self.tableView.width];
@@ -678,18 +664,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
     [sender.view becomeFirstResponder];
     [menuController update];
   }
-}
-
-- (void)cancelRouting:(PlacePageRoutingCell *)cell
-{
-  GetFramework().CancelRoutingSession();
-  [self setState:PlacePageStateHidden animated:YES withCallback:YES];
-}
-
-- (void)routeCellDidSetEndPoint:(PlacePageRoutingCell *)cell
-{
-  GetFramework().StartRoutingSession([self pinPoint]);
-  [self setState:PlacePageStateHidden animated:YES withCallback:YES];
 }
 
 - (void)infoCellDidPressColorSelector:(PlacePageInfoCell *)cell
