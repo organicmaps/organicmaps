@@ -4,6 +4,7 @@
 #include "../geometry/screenbase.hpp"
 
 #include "../graphics/color.hpp"
+#include "../graphics/defines.hpp"
 
 #include "../std/noncopyable.hpp"
 
@@ -83,6 +84,8 @@ public:
   m2::RectD const & GetLimitRect() const { return m_rect; }
   //@}
 
+  void AddClosingSymbol(bool isBeginSymbol, string const & symbolName, graphics::EPosition pos, double depth);
+
   double GetLengthMeters() const;
   double GetShortestSquareDistance(m2::PointD const & point) const;
 
@@ -97,6 +100,11 @@ private:
   bool m_isMarked;
   float m_outlineWidth;
   graphics::Color m_outlineColor;
+
+  typedef pair<graphics::EPosition, double> TSymbolVisParams;
+  typedef pair<string, TSymbolVisParams> TClosingSymbol;
+  vector<TClosingSymbol> m_beginSymbols;
+  vector<TClosingSymbol> m_endSymbols;
 
   PolylineD m_polyline;
   m2::RectD m_rect;

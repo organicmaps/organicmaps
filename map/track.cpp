@@ -36,6 +36,14 @@ void Track::DeleteDisplayList() const
   }
 }
 
+void Track::AddClosingSymbol(bool isBeginSymbol, string const & symbolName, graphics::EPosition pos, double depth)
+{
+  if (isBeginSymbol)
+    m_beginSymbols.push_back(make_pair(symbolName, make_pair(pos, depth)));
+  else
+    m_endSymbols.push_back(make_pair(symbolName, make_pair(pos, depth)));
+}
+
 void Track::Draw(graphics::Screen * pScreen, MatrixT const & matrix) const
 {
   pScreen->drawDisplayList(m_dList, matrix);
@@ -86,6 +94,20 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
 
   dlScreen->drawPath(pts2.data(), pts2.size(), 0, resId, graphics::tracksDepth);
 
+  if (!m_beginSymbols.empty() || !m_endSymbols.empty())
+  {
+    m2::PointD pivot = pts2.front();
+    auto symDrawer = [&dlScreen, &pivot](TClosingSymbol const & symbol)
+    {
+      dlScreen->drawSymbol(pivot, symbol.first, symbol.second.first, symbol.second.second);
+    };
+
+    for_each(m_beginSymbols.begin(), m_beginSymbols.end(), symDrawer);
+
+    pivot = pts2.back();
+    for_each(m_endSymbols.begin(), m_endSymbols.end(), symDrawer);
+  }
+
   dlScreen->setDisplayList(0);
   dlScreen->endFrame();
 }
@@ -123,6 +145,8 @@ void Track::Swap(Track & rhs)
   swap(m_isMarked, rhs.m_isMarked);
   swap(m_outlineColor, rhs.m_outlineColor);
   swap(m_outlineWidth, rhs.m_outlineWidth);
+  swap(m_beginSymbols, rhs.m_beginSymbols);
+  swap(m_endSymbols, rhs.m_endSymbols);
 
   m_name.swap(rhs.m_name);
   m_polyline.Swap(rhs.m_polyline);

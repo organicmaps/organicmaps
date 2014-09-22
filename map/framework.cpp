@@ -42,6 +42,8 @@
 #include "../geometry/angles.hpp"
 #include "../geometry/distance_on_sphere.hpp"
 
+#include "../graphics/depth_constants.hpp"
+
 #include "../base/math.hpp"
 #include "../base/timer.hpp"
 #include "../base/scope_guard.hpp"
@@ -1882,6 +1884,8 @@ void Framework::InsertRoute(routing::Route const & route)
   track.SetIsMarked(true);
   track.SetOutlineWidth(3.0f * GetVisualScale());
   track.SetOutlineColor(graphics::Color::White());
+  track.AddClosingSymbol(true, "route_from", graphics::EPosCenter, graphics::routingSymbolsDepth);
+  track.AddClosingSymbol(false, "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
   cat->AddTrack(track);
   Invalidate();
 }
