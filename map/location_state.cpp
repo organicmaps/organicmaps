@@ -83,12 +83,12 @@ public:
     , m_freeFrameCount(0)
   {
     m2::RectD const pixelRect = m_fw->GetNavigator().Screen().PixelRect();
-    m2::PointD const  pixelCenter = pixelRect.Center();
+    m2::PointD const pixelCenter = pixelRect.Center();
     m2::PointD const dstPxBinging(pixelCenter.x, pixelRect.maxY() - POSITION_Y_OFFSET * m_fw->GetVisualScale());
 
     m_pxCurrentBinding = pixelCenter;
     anim::SegmentInterpolation * pxBindingAnim = new anim::SegmentInterpolation(m_pxCurrentBinding, dstPxBinging,
-                                                                                2.0, m_pxCurrentBinding);
+                                                                                0.5, m_pxCurrentBinding);
 
     m_fw->GetAnimController()->AddTask(shared_ptr<anim::Task>(pxBindingAnim));
   }
@@ -558,7 +558,7 @@ bool State::FollowCompass()
 void State::CreateAnimTask()
 {
   EndAnimation();
-  m_animTask.reset(new RotateAndFollowAnim(m_framework, Position(),
+  m_animTask.reset(new RotateAndFollowAnim(m_framework, m_framework->PtoG(m_framework->GetPixelCenter()),
                                            m_framework->GetNavigator().Screen().GetAngle()));
   m_framework->GetAnimController()->AddTask(m_animTask);
 }
