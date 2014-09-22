@@ -87,7 +87,7 @@ public:
 #endif
   {
     m2::RectD const pixelRect = m_fw->GetNavigator().Screen().PixelRect();
-    m2::PointD const  pixelCenter = pixelRect.Center();
+    m2::PointD const pixelCenter = pixelRect.Center();
     m2::PointD const dstPxBinging(pixelCenter.x, pixelRect.maxY() - POSITION_Y_OFFSET * m_fw->GetVisualScale());
 
     m_pxCurrentBinding = pixelCenter;
@@ -460,7 +460,7 @@ void State::draw(graphics::OverlayRenderer * r,
                                                 pivot());
 
     if (!IsInRouting())
-    r->drawDisplayList(m_positionArrow.get(), compassDrawM * m);
+      r->drawDisplayList(m_positionArrow.get(), compassDrawM * m);
     else
       r->drawDisplayList(m_routingArrow.get(), compassDrawM * m);
   }
