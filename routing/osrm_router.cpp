@@ -111,7 +111,7 @@ public:
   }
 };
 
-}
+} // namespace
 
 
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
@@ -255,7 +255,7 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
 
       auto correctFn = [&buffer] (SegT const & seg, size_t & ind)
       {
-        auto it = find_if(buffer.begin(), buffer.end(), [&seg] (OsrmFtSegMapping::FtSeg const & s)
+        auto const it = find_if(buffer.begin(), buffer.end(), [&seg] (OsrmFtSegMapping::FtSeg const & s)
         {
           return s.IsIntersect(seg);
         });

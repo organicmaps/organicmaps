@@ -170,8 +170,6 @@ FileReader FilesMappingContainer::GetReader(Tag const & tag) const
     return FileReader(m_name).SubReader(p->m_offset, p->m_size);
   else
     MYTHROW(Reader::OpenException, ("Can't find section:", tag));
-
-  return FileReader("xxx");
 }
 
 /////////////////////////////////////////////////////////////////////////////

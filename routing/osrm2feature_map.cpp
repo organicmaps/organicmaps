@@ -7,6 +7,7 @@
 #include "../base/assert.hpp"
 #include "../base/logging.hpp"
 #include "../base/math.hpp"
+#include "../base/scope_guard.hpp"
 
 #include "../std/fstream.hpp"
 #include "../std/sstream.hpp"
@@ -28,10 +29,8 @@ OsrmFtSegMapping::FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
 }
 
 OsrmFtSegMapping::FtSeg::FtSeg(uint64_t x)
+  : m_fid(x & 0xFFFFFFFF), m_pointStart(x >> 48), m_pointEnd((x >> 32) & 0xFFFF)
 {
-  m_fid = x & 0xFFFFFFFF;
-  m_pointEnd = (x >> 32) & 0xFFFF;
-  m_pointStart = (x >> 48);
 }
 
 uint64_t OsrmFtSegMapping::FtSeg::Store() const
@@ -264,12 +263,11 @@ void OsrmFtSegMappingBuilder::Save(FilesContainerW & cont) const
   }
 
   string const fName = cont.GetFileName() + "." ROUTING_FTSEG_FILE_TAG;
+  MY_SCOPE_GUARD(deleteFileGuard, bind(&FileWriter::DeleteFileX, cref(fName)));
 
   succinct::elias_fano_compressed_list compressed(m_buffer);
   succinct::mapper::freeze(compressed, fName.c_str());
   cont.Write(fName, ROUTING_FTSEG_FILE_TAG);
-
-  FileWriter::DeleteFileX(fName);
 }
 
 }

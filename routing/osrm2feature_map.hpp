@@ -27,6 +27,7 @@ public:
 
     static constexpr uint32_t INVALID_FID = -1;
 
+    // No need to initialize something her (for vector<FtSeg>).
     FtSeg() {}
     FtSeg(uint32_t fid, uint32_t ps, uint32_t pe);
 
