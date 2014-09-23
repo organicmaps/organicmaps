@@ -63,7 +63,8 @@ namespace graphics
     {EDensityMDPI, "mdpi"},
     {EDensityHDPI, "hdpi"},
     {EDensityXHDPI, "xhdpi"},
-    {EDensityXXHDPI, "xxhdpi"}
+    {EDensityXXHDPI, "xxhdpi"},
+    {EDensityIPhone6Plus, "xhdpi"}
   };
 
   char const * convert(EDensity density)
@@ -83,7 +84,7 @@ namespace graphics
 
   double visualScale(EDensity density)
   {
-    static double const vs [5] = { 0.75, 1, 1.5, 2, 3 };
+    static double const vs [6] = { 0.75, 1, 1.5, 2, 3, 2.4 };
     return vs[density];
   }
 

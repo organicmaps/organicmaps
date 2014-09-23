@@ -1,6 +1,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/EAGLDrawable.h>
 
+#import "../Categories/UIKitCategories.h"
+
 #import "EAGLView.h"
 
 #include "RenderBuffer.hpp"
@@ -54,7 +56,7 @@
     // Backbuffer : YES, (to prevent from loosing content when mixing with ordinary layers).
     eaglLayer.drawableProperties = @{kEAGLDrawablePropertyRetainedBacking : @NO, kEAGLDrawablePropertyColorFormat : kEAGLColorFormatRGB565};
     // Correct retina display support in opengl renderbuffer
-    self.contentScaleFactor = [UIScreen mainScreen].scale;
+    self.contentScaleFactor = [self correctContentScale];
   }
 
   NSLog(@"EAGLView initWithCoder Ended");
@@ -81,7 +83,7 @@
   CGRect frameRect = screen.applicationFrame;
   CGRect screenRect = screen.bounds;
 
-  double vs = screen.scale;
+  double vs = self.contentScaleFactor;
 
   rpParams.m_screenWidth = screenRect.size.width * vs;
   rpParams.m_screenHeight = screenRect.size.height * vs;
@@ -90,6 +92,8 @@
 
   if (vs == 1.0)
     rpParams.m_density = graphics::EDensityMDPI;
+  else if (vs > 2.0)
+    rpParams.m_density = graphics::EDensityIPhone6Plus;
   else
     rpParams.m_density = graphics::EDensityXHDPI;
 
@@ -144,6 +148,15 @@
   screen->beginFrame();
   screen->clear(graphics::Screen::s_bgColor);
   screen->endFrame();
+}
+
+- (double)correctContentScale
+{
+  UIScreen * uiScreen = [UIScreen mainScreen];
+  if (SYSTEM_VERSION_IS_LESS_THAN(@"8"))
+    return uiScreen.scale;
+  else
+    return uiScreen.nativeScale;
 }
 
 - (void)drawFrame

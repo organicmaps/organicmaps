@@ -13,7 +13,8 @@ namespace graphics
     EDensityMDPI,
     EDensityHDPI,
     EDensityXHDPI,
-    EDensityXXHDPI
+    EDensityXXHDPI,
+    EDensityIPhone6Plus
   };
 
   /// get density name
