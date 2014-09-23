@@ -4,21 +4,13 @@ import android.graphics.Typeface;
 
 import com.mapswithme.maps.MapStorage;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
 public class CountryItem
 {
   public final String mName;
   public final MapStorage.Index mCountryIdx;
   public final String mFlag;
 
-  private final ExecutorService mExecutor =
-      Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-
-  private Future<Integer> mStatusFuture;
+  private int mStatus;
 
   private static final Typeface LIGHT = Typeface.create("sans-serif-light", Typeface.NORMAL);
   private static final Typeface REGULAR = Typeface.create("sans-serif", Typeface.NORMAL);
@@ -37,30 +29,17 @@ public class CountryItem
 
   public int getStatus()
   {
-    try
-    {
-      return mStatusFuture.get();
-    } catch (final Exception e)
-    {
-      throw new RuntimeException(e);
-    }
+    return mStatus;
   }
 
   public void updateStatus()
   {
-    mStatusFuture = mExecutor.submit(new Callable<Integer>()
-    {
-      @Override
-      public Integer call() throws Exception
-      {
-        if (mCountryIdx.getCountry() == -1 || (mCountryIdx.getRegion() == -1 && mFlag.length() == 0))
-          return MapStorage.GROUP;
-        else if (mCountryIdx.getRegion() == -1 && MapStorage.INSTANCE.countriesCount(mCountryIdx) > 0)
-          return MapStorage.COUNTRY;
-        else
-          return MapStorage.INSTANCE.countryStatus(mCountryIdx);
-      }
-    });
+    if (mCountryIdx.getCountry() == -1 || (mCountryIdx.getRegion() == -1 && mFlag.length() == 0))
+      mStatus = MapStorage.GROUP;
+    else if (mCountryIdx.getRegion() == -1 && MapStorage.INSTANCE.countriesCount(mCountryIdx) > 0)
+      mStatus = MapStorage.COUNTRY;
+    else
+      mStatus = MapStorage.INSTANCE.countryStatus(mCountryIdx);
   }
 
   public int getTextColor()
