@@ -145,7 +145,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   {
     for (int i = 0; i < getCount(); ++i)
     {
-      getItem(i).updateStatus();
+      final CountryItem item = getItem(i);
+      if (item != null)
+        getItem(i).updateStatus();
     }
   }
 
@@ -335,7 +337,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mProgressSlided.setVisibility(View.VISIBLE);
       holder.mInfoSlided.clearAnimation();
       holder.mInfoSlided.setVisibility(View.VISIBLE);
-      holder.mInfo.setVisibility(View.GONE);
+      holder.mInfo.setOnClickListener(null);
+      holder.mInfo.setVisibility(View.INVISIBLE);
       // FIXME
       setHolderPercentString(holder, "0%", R.color.downloader_gray_bg);
       break;
@@ -345,12 +348,37 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mInfoSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
       setHolderPercentString(holder, "UPDATE", R.color.downloader_green);
+      holder.mInfo.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          startItemDownloading(holder, position);
+        }
+      });
+      holder.mProgress.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          stopItemDownloading(holder, position);
+        }
+      });
+      holder.mInfoSlided.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          stopItemDownloading(holder, position);
+        }
+      });
       break;
     case MapStorage.ON_DISK:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.GONE);
       holder.mInfoSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
+      holder.mInfo.setOnClickListener(null);
       setHolderPercentString(holder, "DOWNLOADED", R.color.downloader_gray_bg);
       break;
     case MapStorage.DOWNLOAD_FAILED:
@@ -358,6 +386,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mProgressSlided.setVisibility(View.GONE);
       holder.mInfoSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
+      holder.mInfo.setOnClickListener(null);
       setHolderPercentString(holder, "FAILED", R.color.downloader_red);
       break;
     case MapStorage.IN_QUEUE:
@@ -366,7 +395,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mProgressSlided.setProgress(0);
       holder.mInfoSlided.clearAnimation();
       holder.mInfoSlided.setVisibility(View.VISIBLE);
-      holder.mInfo.setVisibility(View.GONE);
+      holder.mInfo.setVisibility(View.INVISIBLE);
+      holder.mInfo.setOnClickListener(null);
       // FIXME
       setHolderPercentString(holder, "0%", R.color.downloader_gray_bg);
       break;
@@ -432,10 +462,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           public void onAnimationEnd(Animation animation)
           {
             final CountryItem item = getItem(position);
-            processNotDownloaded(item.mCountryIdx, item.mName);
+            if (item.getStatus() == MapStorage.ON_DISK_OUT_OF_DATE)
+              processOutOfDate(item.mCountryIdx, item.mName);
+            else
+              processNotDownloaded(item.mCountryIdx, item.mName);
             holder.mInfoSlided.setVisibility(View.VISIBLE);
             holder.mInfoSlided.bringToFront();
-            holder.mInfo.setVisibility(View.GONE);
+            holder.mInfo.setVisibility(View.INVISIBLE);
             holder.mProgressSlided.setVisibility(View.VISIBLE);
             holder.mProgress.setVisibility(View.GONE);
             holder.mProgress.clearAnimation();
@@ -526,6 +559,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     {
       getItem(position).updateStatus();
       // use this hard reset, because of caching different ViewHolders according to item's type
+      // FIXME
       notifyDataSetChanged();
       return getItem(position).getStatus();
     }

@@ -20,6 +20,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
+      android:layout_toLeftOf="@+id/ll__info"
       android:layout_toRightOf="@id/country_flag"
       android:maxLines="2"
       android:paddingLeft="@dimen/dp_x_3"

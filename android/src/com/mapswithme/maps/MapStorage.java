@@ -165,6 +165,14 @@ public enum MapStorage
 
   public static native boolean nativeMoveFile(String oldFile, String newFile);
 
+  public native int getDownloadedCountriesCount();
+
+  public native int getOutdatedCountriesCount();
+
+  public native Index getOutdatedCountry(int position);
+
+  public native Index getDownloadedCountry(int position);
+
   private void runDownloadCountries(Index[] indexes)
   {
     for (int i = 0; i < indexes.length; ++i)
