@@ -1111,7 +1111,7 @@
     tr = Ülkeyi yakınlaştır
 
   [country_status_added_to_queue]
-    en = ^\nis added to the downloading queue.
+    en = ^\nis added\nto the downloading queue.
     comment = Message to display at the center of the screen when the country is added to the downloading queue
     cs = ^\npřidáno do fronty stahování
     sk = ^\npridané do zoznamu sťahovania
@@ -4878,12 +4878,12 @@
   [move_lite_maps_to_pro]
     tags = android
     comment = Dialog for transferring maps from lite to pro.
-    en = We are transferring your downloaded maps from MAPS.ME Lite to MAPS.ME. It may take a few minutes. 
+    en = We are transferring your downloaded maps from MAPS.ME Lite to MAPS.ME. It may take a few minutes.
     cs = Právě přenášíme tvé stažené mapy z MAPS.ME Lite do MAPS.ME. Může to několik minut trvat.
     sk = Práve prenášame Vaše stiahnuté mapy z MAPS.ME lite na MAPS.ME. Môže to trvať niekoľko minút.
-    de = Wir übertragen Ihre heruntergeladenen Karten von MAPS.ME Lite zu MAPS.ME. Der Vorgang kann einige Minuten in Anspruch nehmen. 
+    de = Wir übertragen Ihre heruntergeladenen Karten von MAPS.ME Lite zu MAPS.ME. Der Vorgang kann einige Minuten in Anspruch nehmen.
     es = Estamos transfiriendo tus mapas descargados de MAPS.ME Lite a MAPS.ME, lo cual puede llevar unos minutos.
-    fr = Nous transférons vos cartes téléchargées de MAPS.ME Lite vers MAPS.ME. Cela peut prendre quelques minutes. 
+    fr = Nous transférons vos cartes téléchargées de MAPS.ME Lite vers MAPS.ME. Cela peut prendre quelques minutes.
     it = Stiamo trasferendo le tue mappe scaricate da MAPS.ME Lite a MAPS.ME. Potrebbe richiedere alcuni minuti.
     ja = ダウンロード済みの地図をMAPS.ME LiteからMAPS.MEに転送します。完了までに数分かかるかもしれません。
     ko = 우리는 MAPS.ME. Lite에서 MAPS.ME로 다운로드된 지도를 전송하고 있습니다. 이는 몇 분 정도 걸릴 수 있습니다.
@@ -4891,12 +4891,12 @@
     ru = Мы переносим загруженные карты из MAPS.ME Lite в MAPS.ME. Это может занять несколько минут.
     uk = Ми переносимо завантажені карти з MAPS.ME Lite в MAPS.ME. Це може зайняти декілька хвилин.
     zh-Hant = 我們正在將您從MAPS.ME Lite下載的地圖傳輸至 MAPS.ME。這可能需要幾分鐘的時間。
-    pl = Przenosimy twoje pobrane mapy z MAPS.ME Lite do MAPS.ME. Może to zająć kilka minut. 
+    pl = Przenosimy twoje pobrane mapy z MAPS.ME Lite do MAPS.ME. Może to zająć kilka minut.
     pt = Estamos a transferir os seus mapas descarregados da MAPS.ME Lite para a MAPS.ME. Isto pode demorar alguns minutos.
     hu = Letöltött térképeidet áthelyezzük a MAPS.ME Lite-ból a MAPS.ME-be. Ez eltarthat pár percig.
     th = เรากำลังโอนแผนที่ที่ดาวน์โหลดของคุณจาก MAPS.ME Lite ไปยัง MAPS.ME อาจใช้เวลาสองสามวินาที
     zh-Hans = 我们正在将您从MAPS.ME Lite 下载的地图传输至 MAPS.ME。这可能需要几分钟的时间。
-    ar = نحن ننقل خرائط التنزيلات الخاصة بك من MAPS.ME Lite إلى MAPS.ME. يمكن أن يستغرق بضع دقائق 
+    ar = نحن ننقل خرائط التنزيلات الخاصة بك من MAPS.ME Lite إلى MAPS.ME. يمكن أن يستغرق بضع دقائق
     da = Vi overfører dine downloadede kort fra MAPS.ME Lite til MAPS.ME. Det kan tage et par minutter.
     tr = MAPS.ME Lite'den indirmiş olduğunuz haritaları MAPS.ME'ye aktarıyoruz. Bu bir kaç dakika sürebilir.
 
