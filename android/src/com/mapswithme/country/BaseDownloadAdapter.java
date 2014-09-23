@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -14,13 +13,11 @@ import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
@@ -91,7 +88,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     }
   }
 
-  protected void processDownloading(final Index idx, final String name)
+  protected void cancelDownloading(final ViewHolder holder, final Index idx, final String name)
   {
     // Confirm canceling
     final Dialog dlg = new AlertDialog.Builder(mActivity)
@@ -102,7 +99,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            MapStorage.INSTANCE.deleteCountry(idx);
+            final int position = getItemPosition(idx);
+            stopItemDownloading(holder, position);
             dlg.dismiss();
           }
         })
@@ -202,6 +200,10 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     public TextView mPercent;
     public TextView mSize;
     private LinearLayout mInfo;
+    private TextView mPercentSlided;
+    private TextView mSizeSlided;
+    private LinearLayout mInfoSlided;
+    private ProgressBar mProgressSlided;
 
     void initFromView(View v)
     {
@@ -211,6 +213,10 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       mPercent = (TextView) v.findViewById(R.id.tv__percent);
       mSize = (TextView) v.findViewById(R.id.tv__size);
       mInfo = (LinearLayout) v.findViewById(R.id.ll__info);
+      mPercentSlided = (TextView) v.findViewById(R.id.tv__percent_slided);
+      mSizeSlided = (TextView) v.findViewById(R.id.tv__size_slided);
+      mInfoSlided = (LinearLayout) v.findViewById(R.id.ll__info_slided);
+      mProgressSlided = (ProgressBar) v.findViewById(R.id.download_progress_slided);
     }
   }
 
@@ -219,7 +225,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     return mActivity.getString(strID, getSizeString(MapStorage.INSTANCE.countryRemoteSizeInBytes(index)));
   }
 
-  protected void setFlag(int position, ImageView v)
+  protected void bindFlag(int position, ImageView v)
   {
     final String strID = getItem(position).mFlag;
 
@@ -245,56 +251,34 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   @Override
   public View getView(final int position, View convertView, ViewGroup parent)
   {
-    ViewHolder holder = null;
+    ViewHolder holder;
     final int type = getItemViewType(position);
 
     if (convertView == null)
     {
       holder = new ViewHolder();
-      switch (type)
-      {
-      case TYPE_GROUP:
-        convertView = mInflater.inflate(R.layout.download_item_group, parent, false);
-        holder.initFromView(convertView);
-        bindGroup(position, type, holder);
-        break;
-
-      case TYPE_COUNTRY_GROUP:
-        convertView = mInflater.inflate(R.layout.download_item_country_group, parent, false);
-        holder.initFromView(convertView);
-        bindRegion(position, type, holder);
-        break;
-
-      case TYPE_COUNTRY_IN_PROCESS:
-      case TYPE_COUNTRY_READY:
-      case TYPE_COUNTRY_NOT_DOWNLOADED:
-        convertView = mInflater.inflate(R.layout.download_item_country, parent, false);
-        holder.initFromView(convertView);
-        bindCountry(position, type, holder);
-        break;
-      }
-
+      convertView = mInflater.inflate(getLayoutForType(type), parent, false);
+      holder.initFromView(convertView);
       convertView.setTag(holder);
     }
     else
-    {
       holder = (ViewHolder) convertView.getTag();
-      switch (type)
-      {
-      case TYPE_GROUP:
-        bindGroup(position, type, holder);
-        break;
 
-      case TYPE_COUNTRY_GROUP:
-        bindRegion(position, type, holder);
-        break;
+    switch (type)
+    {
+    case TYPE_GROUP:
+      bindGroup(position, type, holder);
+      break;
 
-      case TYPE_COUNTRY_IN_PROCESS:
-      case TYPE_COUNTRY_READY:
-      case TYPE_COUNTRY_NOT_DOWNLOADED:
-        bindCountry(position, type, holder);
-        break;
-      }
+    case TYPE_COUNTRY_GROUP:
+      bindRegion(position, type, holder);
+      break;
+
+    case TYPE_COUNTRY_IN_PROCESS:
+    case TYPE_COUNTRY_READY:
+    case TYPE_COUNTRY_NOT_DOWNLOADED:
+      bindCountry(position, type, holder);
+      break;
     }
 
     setItemName(position, holder);
@@ -313,97 +297,202 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     return convertView;
   }
 
-
-  protected void setUpProgress(final BaseDownloadAdapter.ViewHolder holder, final int type, final int position)
+  private int getLayoutForType(int type)
   {
-    if (type == TYPE_COUNTRY_IN_PROCESS && getItem(position).getStatus() != MapStorage.DOWNLOAD_FAILED)
+    switch (type)
     {
-      holder.mProgress.setProgress(0);
-      UiUtils.show(holder.mProgress);
-      final Animation rotateAnim = new RotateAnimation(0.0f, -90.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-      rotateAnim.setFillAfter(true);
-      rotateAnim.setDuration(0);
-      holder.mProgress.startAnimation(rotateAnim);
+    case TYPE_GROUP:
+      return R.layout.download_item_group;
+
+    case TYPE_COUNTRY_GROUP:
+      return R.layout.download_item_country_group;
+
+    case TYPE_COUNTRY_IN_PROCESS:
+    case TYPE_COUNTRY_READY:
+    case TYPE_COUNTRY_NOT_DOWNLOADED:
+      return R.layout.download_item_country;
     }
-    else
+
+    return 0;
+  }
+
+  protected void bindCountry(int position, int type, BaseDownloadAdapter.ViewHolder holder)
+  {
+    bindFlag(position, holder.mFlag);
+    bindSizeAndProgress(holder, type, position);
+  }
+
+  protected void bindSizeAndProgress(final BaseDownloadAdapter.ViewHolder holder, final int type, final int position)
+  {
+    final CountryItem item = getItem(position);
+    if (holder.mSize != null)
+      setHolderSizeString(holder, MapStorage.INSTANCE.countryRemoteSizeInBytes(item.mCountryIdx));
+
+    switch (getItem(position).getStatus())
     {
+    case MapStorage.DOWNLOADING:
+      holder.mProgress.setVisibility(View.GONE);
+      holder.mProgressSlided.setVisibility(View.VISIBLE);
+      holder.mInfoSlided.clearAnimation();
+      holder.mInfoSlided.setVisibility(View.VISIBLE);
+      holder.mInfo.setVisibility(View.GONE);
+      // FIXME
+      setHolderPercentString(holder, "0%", R.color.downloader_gray_bg);
+      break;
+    case MapStorage.ON_DISK_OUT_OF_DATE:
+      holder.mProgress.setVisibility(View.GONE);
+      holder.mProgressSlided.setVisibility(View.GONE);
+      holder.mInfoSlided.setVisibility(View.GONE);
+      holder.mInfo.setVisibility(View.VISIBLE);
+      setHolderPercentString(holder, "UPDATE", R.color.downloader_green);
+      break;
+    case MapStorage.ON_DISK:
+      holder.mProgress.setVisibility(View.GONE);
+      holder.mProgressSlided.setVisibility(View.GONE);
+      holder.mInfoSlided.setVisibility(View.GONE);
+      holder.mInfo.setVisibility(View.VISIBLE);
+      setHolderPercentString(holder, "DOWNLOADED", R.color.downloader_gray_bg);
+      break;
+    case MapStorage.DOWNLOAD_FAILED:
+      holder.mProgress.setVisibility(View.GONE);
+      holder.mProgressSlided.setVisibility(View.GONE);
+      holder.mInfoSlided.setVisibility(View.GONE);
+      holder.mInfo.setVisibility(View.VISIBLE);
+      setHolderPercentString(holder, "FAILED", R.color.downloader_red);
+      break;
+    case MapStorage.IN_QUEUE:
+      holder.mProgress.setVisibility(View.GONE);
+      holder.mProgressSlided.setVisibility(View.VISIBLE);
+      holder.mProgressSlided.setProgress(0);
+      holder.mInfoSlided.clearAnimation();
+      holder.mInfoSlided.setVisibility(View.VISIBLE);
+      holder.mInfo.setVisibility(View.GONE);
+      // FIXME
+      setHolderPercentString(holder, "0%", R.color.downloader_gray_bg);
+      break;
+    case MapStorage.NOT_DOWNLOADED:
+      holder.mProgress.setVisibility(View.GONE);
+      holder.mProgressSlided.setVisibility(View.GONE);
+      holder.mInfo.clearAnimation();
+      holder.mInfo.setVisibility(View.VISIBLE);
+      holder.mInfoSlided.setVisibility(View.GONE);
+      setHolderPercentString(holder, "DOWNLOAD", R.color.downloader_green);
       holder.mInfo.setOnClickListener(new View.OnClickListener()
       {
         @Override
         public void onClick(View v)
         {
-          holder.mPercent.setText("0%");
-          processNotDownloaded(getItem(position).mCountryIdx, getItem(position).mName);
-          //          holder.mProgress.setProgress(0);
-          //          UiUtils.show(holder.mProgress);
-          //          final Animation rotateAnim = new RotateAnimation(0.0f, -90.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-          //          rotateAnim.setFillAfter(true);
-          //          rotateAnim.setDuration(0);
-          //          holder.mProgress.startAnimation(rotateAnim);
-          Log.d("TEST", "Animate " + holder.mProgress.getWidth() + " left");
-          Animation slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
-              -mActivity.getResources().getDimensionPixelOffset(R.dimen.margin_large), 0, 0);
-          slideAnim.setDuration(500);
-          slideAnim.setFillAfter(true);
-          slideAnim.setAnimationListener(
-              new UiUtils.SimpleAnimationListener()
-              {
-                @Override
-                public void onAnimationEnd(Animation animation)
-                {
-                  Log.d("TEST", "Animate completed");
-                  final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.mInfo.getLayoutParams();
-                  params.setMargins(0, 0, 100, 0);
-                  holder.mInfo.clearAnimation();
-                  holder.mInfo.setLayoutParams(params);
-                }
-              }
-          );
-          holder.mInfo.startAnimation(slideAnim);
-
-          UiUtils.show(holder.mProgress);
-          slideAnim = UiUtils.generateRelativeSlideAnimation(0, -1, 0, 0);
-          slideAnim.setDuration(500);
-          slideAnim.setFillAfter(true);
-          holder.mProgress.startAnimation(slideAnim);
+          startItemDownloading(holder, position);
         }
       });
-      UiUtils.invisible(holder.mProgress);
+      holder.mProgress.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          stopItemDownloading(holder, position);
+        }
+      });
+      holder.mProgress.setVisibility(View.GONE);
+
+      holder.mInfoSlided.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          stopItemDownloading(holder, position);
+        }
+      });
+      break;
+
     }
+  }
+
+  private void startItemDownloading(final ViewHolder holder, final int position)
+  {
+    // TODO get actual percent of download
+    holder.mProgressSlided.setProgress(0);
+    holder.mProgressSlided.clearAnimation();
+    holder.mInfoSlided.clearAnimation();
+    setHolderPercentString(holder, "0%", R.color.downloader_gray_bg);
+    Animation slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
+        -mActivity.getResources().getDimensionPixelOffset(R.dimen.margin_large), 0, 0);
+    slideAnim.setDuration(500);
+    slideAnim.setFillAfter(true);
+    holder.mInfo.startAnimation(slideAnim);
+
+    slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
+        -mActivity.getResources().getDimensionPixelOffset(R.dimen.margin_large), 0, 0);
+    slideAnim.setDuration(500);
+    slideAnim.setFillAfter(true);
+    slideAnim.setAnimationListener(
+        new UiUtils.SimpleAnimationListener()
+        {
+          @Override
+          public void onAnimationEnd(Animation animation)
+          {
+            final CountryItem item = getItem(position);
+            processNotDownloaded(item.mCountryIdx, item.mName);
+            holder.mInfoSlided.setVisibility(View.VISIBLE);
+            holder.mInfoSlided.bringToFront();
+            holder.mInfo.setVisibility(View.GONE);
+            holder.mProgressSlided.setVisibility(View.VISIBLE);
+            holder.mProgress.setVisibility(View.GONE);
+            holder.mProgress.clearAnimation();
+          }
+        }
+    );
+    holder.mProgress.startAnimation(slideAnim);
+    holder.mProgress.setVisibility(View.VISIBLE);
+  }
+
+  private void stopItemDownloading(final ViewHolder holder, final int position)
+  {
+    Animation slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
+        mActivity.getResources().getDimensionPixelOffset(R.dimen.margin_large), 0, 0);
+    slideAnim.setDuration(500);
+    slideAnim.setFillAfter(true);
+    slideAnim.setAnimationListener(
+        new UiUtils.SimpleAnimationListener()
+        {
+          @Override
+          public void onAnimationEnd(Animation animation)
+          {
+            holder.mInfo.bringToFront();
+            holder.mInfo.setVisibility(View.VISIBLE);
+            holder.mInfoSlided.setVisibility(View.GONE);
+            holder.mProgressSlided.setVisibility(View.GONE);
+            holder.mProgressSlided.clearAnimation();
+            holder.mProgress.setVisibility(View.GONE);
+            holder.mProgress.clearAnimation();
+            MapStorage.INSTANCE.deleteCountry(getItem(position).mCountryIdx);
+          }
+        }
+    );
+    holder.mInfoSlided.startAnimation(slideAnim);
+
+    slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
+        mActivity.getResources().getDimensionPixelOffset(R.dimen.margin_large), 0, 0);
+    slideAnim.setDuration(500);
+    slideAnim.setFillAfter(true);
+    holder.mProgressSlided.startAnimation(slideAnim);
   }
 
   @Override
   public abstract CountryItem getItem(int position);
 
-  protected void bindCountry(int position, int type, BaseDownloadAdapter.ViewHolder holder)
+  private void setHolderSizeString(ViewHolder holder, long size)
   {
-    setFlag(position, holder.mFlag);
-    setUpProgress(holder, type, position);
-    setItemDetails(position, holder);
+    holder.mSize.setText(getSizeString(size));
+    holder.mSizeSlided.setText(getSizeString(size));
   }
 
-  private void setItemDetails(int position, ViewHolder holder)
+  private void setHolderPercentString(ViewHolder holder, String text, int color)
   {
-    final CountryItem item = getItem(position);
-    if (holder.mSize != null)
-      holder.mSize.setText(getSizeString(MapStorage.INSTANCE.countryRemoteSizeInBytes(item.mCountryIdx)));
-
-    final int status = getItem(position).getStatus();
-    if (status == MapStorage.ON_DISK_OUT_OF_DATE) // out of date has Aquarius icon
-    {
-      holder.mPercent.setText("UPDATE");
-      holder.mPercent.setTextColor(mActivity.getResources().getColor(R.color.downloader_green));
-    }
-    else if (status == MapStorage.ON_DISK)
-    {
-      holder.mPercent.setText("DOWNLOADED");
-      holder.mPercent.setTextColor(mActivity.getResources().getColor(R.color.downloader_gray_bg));
-    }
-    else if (status == MapStorage.NOT_DOWNLOADED)
-    {
-      holder.mPercent.setText("DOWNLOAD");
-      holder.mPercent.setTextColor(mActivity.getResources().getColor(R.color.downloader_green));
-    }
+    holder.mPercent.setText(text);
+    holder.mPercent.setTextColor(mActivity.getResources().getColor(color));
+    holder.mPercentSlided.setText(text);
+    holder.mPercentSlided.setTextColor(mActivity.getResources().getColor(color));
   }
 
   protected void bindGroup(int position, int type, BaseDownloadAdapter.ViewHolder holder)
@@ -412,8 +501,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected void bindRegion(int position, int type, ViewHolder holder)
   {
-    setFlag(position, holder.mFlag);
-    setItemDetails(position, holder);
+    bindFlag(position, holder.mFlag);
   }
 
   protected void setItemName(int position, BaseDownloadAdapter.ViewHolder holder)
@@ -457,8 +545,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         if (holder != null && holder.mProgress != null)
         {
           final int percent = (int) (current * 100 / total);
-          holder.mProgress.setProgress(percent);
+          holder.mProgressSlided.setProgress(percent);
           holder.mPercent.setText(percent + "%");
+          holder.mPercentSlided.setText(percent + "%");
         }
       }
     }
@@ -499,7 +588,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         else if (MENU_DOWNLOAD == id)
           processNotDownloaded(countryIndex, name);
         else if (MENU_CANCEL == id)
-          processDownloading(countryIndex, name);
+          cancelDownloading((ViewHolder) anchor.getTag(), countryIndex, name);
         else if (MENU_SHOW == id)
           showCountry(countryIndex);
         else

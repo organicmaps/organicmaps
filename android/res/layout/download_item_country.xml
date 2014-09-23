@@ -26,18 +26,30 @@
       android:paddingRight="@dimen/dp_x_3"
       android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
 
-  <!-- style="@style/Holo.ProgressBar.Horizontal.Light"-->
   <ProgressBar
       android:id="@+id/download_progress"
       style="?android:attr/progressBarStyleHorizontal"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
+      android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
-      android:layout_toRightOf="@+id/ll__info"
+      android:layout_marginRight="-32dp"
       android:max="100"
-      android:paddingRight="@dimen/margin_small"
       android:progressDrawable="@drawable/progress_bar_download"
       android:secondaryProgress="100"/>
+
+  <ProgressBar
+      android:id="@+id/download_progress_slided"
+      style="?android:attr/progressBarStyleHorizontal"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:max="100"
+      android:progressDrawable="@drawable/progress_bar_download"
+      android:secondaryProgress="100"
+      android:visibility="gone"/>
+  <!--android:paddingRight="@dimen/margin_small"-->
 
   <LinearLayout
       android:id="@+id/ll__info"
@@ -46,15 +58,15 @@
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
       android:layout_marginRight="@dimen/margin_small"
+      android:gravity="right"
+      android:minWidth="60dp"
       android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv__percent"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_alignParentRight="true"
         android:layout_weight="1"
-        android:gravity="right"
         android:maxLines="1"
         android:text="DOWNLOAD"
         android:textAppearance="@style/Holo.TextAppearance.Light"
@@ -62,15 +74,48 @@
 
     <TextView
         android:id="@+id/tv__size"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_alignParentRight="true"
         android:layout_below="@id/tv__percent"
         android:layout_weight="1"
-        android:gravity="right"
         android:maxLines="1"
         android:shadowColor="@color/downloader_gray_bg"
-        android:textAppearance="@style/Holo.TextAppearance.Light"/>
+        android:textAppearance="@style/Holo.TextAppearance.Light"
+        android:textColor="@color/downloader_gray_bg"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:id="@+id/ll__info_slided"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:layout_marginRight="40dp"
+      android:gravity="right"
+      android:minWidth="60dp"
+      android:orientation="vertical"
+      android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tv__percent_slided"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:text="DOWNLOAD"
+        android:textAppearance="@style/Holo.TextAppearance.Light"
+        android:textColor="@color/downloader_green"/>
+
+    <TextView
+        android:id="@+id/tv__size_slided"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:shadowColor="@color/downloader_gray_bg"
+        android:textAppearance="@style/Holo.TextAppearance.Light"
+        android:textColor="@color/downloader_gray_bg"/>
 
   </LinearLayout>
 </RelativeLayout>
