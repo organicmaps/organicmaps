@@ -652,3 +652,30 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi/Internet";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Veuillez mettre à jour la carte pour créer un itinéraire.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "La nouvelle version de MAPS.ME permet de créer des itinéraires à partir de votre position actuelle vers un point de destination. Veuillez mettre à jour les cartes pour utiliser cette fonctionnalité.";
+
+/* Route building error message */
+"routing_error_select_new_dst" = "Une erreur s'est produite lors de la création d'un itinéraire. Veuillez essayer de choisir une autre destination.";
+
+/* Routing between different MWMs error message */
+"routing_one_map_only" = "La création d'itinéraires n'est possible que sur une seule carte.";
+
+/* Update all button text */
+"downloader_update_all" = "Tout mettre à jour";
+
+/* Downloaded maps category */
+"downloader_downloaded" = "Téléchargé";
+
+/* Downloaded maps category */
+"downloader_downloaded_maps" = "Cartes téléchargées";
+
+/* My maps category */
+"downloader_my_maps" = "Mes cartes";
+
+/* Country queued for download */
+"downloader_queued" = "en file d'attente";

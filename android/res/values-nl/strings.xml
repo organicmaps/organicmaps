@@ -388,4 +388,22 @@
 	<string name="pref_calibration_title">Kompascalibratie</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Werk de kaart bij om een route te maken.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">Met de nieuwe versie van MAPS.ME kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">Er deed zich een fout voor bij het maken van een route. Probeer een andere bestemming te kiezen.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">Routes kunnen alleen binnen één kaart worden gemaakt.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Alles bijwerken</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Gedownload</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Gedownloade kaarten</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Mijn kaarten</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">in de wachtrij</string>
 </resources>

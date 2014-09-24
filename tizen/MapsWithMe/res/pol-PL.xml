@@ -107,4 +107,22 @@
 	<text id="IDS_PREF_ZOOM_SUMMARY">Wyświetl na ekranie</text>
 	<!-- Search Suggestion -->
 	<text id="IDS_WIFI">WiFi/Internet</text>
+	<!-- Update map suggestion -->
+	<text id="IDS_ROUTING_MAP_OUTDATED">Proszę zaktualizować mapę, by utworzyć trasę.</text>
+	<!-- Update maps suggestion -->
+	<text id="IDS_ROUTING_UPDATE_MAPS">Nowa wersja aplikacji MAPS.ME pozwala na tworzenie tras z Twojej bieżącej lokalizacji do punktu docelowego. Proszę zaktualizować mapy, by móc korzystać z tej funkcji.</text>
+	<!-- Route building error message -->
+	<text id="IDS_ROUTING_ERROR_SELECT_NEW_DST">Podczas tworzenia trasy wystąpił błąd. Proszę spróbować wybrać inny punkt docelowy.</text>
+	<!-- Routing between different MWMs error message -->
+	<text id="IDS_ROUTING_ONE_MAP_ONLY">Tworzenie tras możliwe jest wyłącznie w obrębie jednej mapy.</text>
+	<!-- Update all button text -->
+	<text id="IDS_DOWNLOADER_UPDATE_ALL">Uaktualnij wszystko</text>
+	<!-- Downloaded maps category -->
+	<text id="IDS_DOWNLOADER_DOWNLOADED">Pobrane</text>
+	<!-- Downloaded maps category -->
+	<text id="IDS_DOWNLOADER_DOWNLOADED_MAPS">Pobrane mapy</text>
+	<!-- My maps category -->
+	<text id="IDS_DOWNLOADER_MY_MAPS">Moje mapy</text>
+	<!-- Country queued for download -->
+	<text id="IDS_DOWNLOADER_QUEUED">w kolejce</text>
 </string_table>

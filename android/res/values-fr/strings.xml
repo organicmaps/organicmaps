@@ -419,4 +419,22 @@
 	<string name="pref_calibration_title">Étalonnage de la boussole</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Veuillez mettre à jour la carte pour créer un itinéraire.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">La nouvelle version de MAPS.ME permet de créer des itinéraires à partir de votre position actuelle vers un point de destination. Veuillez mettre à jour les cartes pour utiliser cette fonctionnalité.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">Une erreur s\&#39;est produite lors de la création d\&#39;un itinéraire. Veuillez essayer de choisir une autre destination.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">La création d\&#39;itinéraires n\&#39;est possible que sur une seule carte.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Tout mettre à jour</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Téléchargé</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Cartes téléchargées</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Mes cartes</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">en file d\&#39;attente</string>
 </resources>

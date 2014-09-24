@@ -412,4 +412,22 @@
 	<string name="pref_calibration_title">Pusula kalibrasyonu</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/İnternet</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">MAPS.ME\&#39;nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">Rotayı oluştururken bir hata meydana geldi. Lütfen başka bir varış noktası seçmeyi deneyin.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">Rota oluşturma sadece bir harita içerisinde mümkündür.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Tümünü güncelle</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">İndirilenler</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">İndirilen haritalar</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Haritalarım</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">sıraya alındı</string>
 </resources>

@@ -410,4 +410,22 @@
 	<string name="pref_calibration_title">Kalibrering af kompas</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Venligst opdatér kortet for at oprette en rute.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">En fejl opstod ved oprettelsen af en rute. Venligst prøv at vælge en anden destination.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">Oprettelse af ruter er kun muligt inden for ét kort.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Opdater alle</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Downloadede</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Downloadede kort</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Mine kort</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">i kø</string>
 </resources>

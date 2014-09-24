@@ -412,4 +412,22 @@
 	<string name="pref_calibration_title">Compass kalibrácia</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Pre vytvorenie trasy si, prosím, aktualizujte mapu.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">Nová verzia aplikácie MAPS.ME umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">Pri vytváraní trasy sa vyskytla chyba. Skúste si, prosím, zvoliť iný cieľ trasy.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">Trasy je možné vytvárať iba v rámci jednej mapy.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Aktualizovať všetky</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Stiahnuté</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Stiahnuté mapy</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Moje mapy</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">V rade</string>
 </resources>

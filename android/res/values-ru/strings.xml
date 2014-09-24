@@ -409,4 +409,22 @@
 	<string name="pref_calibration_title">Калибровка компаса</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Интернет</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Пожалуйста, обновите карту для того, чтобы проложить маршрут.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">В новой версии MAPS.ME вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">Возникла ошибка при создании этого маршрута. Пожалуйста, выберите другой пункт назначения.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">Создание маршрута возможно в пределах одной карты.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Обновить все</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Загруженные</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Загруженные карты”</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Мои карты”</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">в очереди”</string>
 </resources>

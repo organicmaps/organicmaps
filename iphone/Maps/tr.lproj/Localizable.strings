@@ -652,3 +652,30 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi/İnternet";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "MAPS.ME'nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.";
+
+/* Route building error message */
+"routing_error_select_new_dst" = "Rotayı oluştururken bir hata meydana geldi. Lütfen başka bir varış noktası seçmeyi deneyin.";
+
+/* Routing between different MWMs error message */
+"routing_one_map_only" = "Rota oluşturma sadece bir harita içerisinde mümkündür.";
+
+/* Update all button text */
+"downloader_update_all" = "Tümünü güncelle";
+
+/* Downloaded maps category */
+"downloader_downloaded" = "İndirilenler";
+
+/* Downloaded maps category */
+"downloader_downloaded_maps" = "İndirilen haritalar";
+
+/* My maps category */
+"downloader_my_maps" = "Haritalarım";
+
+/* Country queued for download */
+"downloader_queued" = "sıraya alındı";

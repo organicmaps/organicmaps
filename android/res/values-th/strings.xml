@@ -410,4 +410,22 @@
 	<string name="pref_calibration_title">การปรับเทียบเข็มทิศ</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/อินเทอร์เน็ต</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">โปรดอัปเดตแผนที่เพื่อสร้างเส้นทาง</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">เวอร์ชันใหม่ของ MAPS.ME อนุญาติให้สร้างเส้นทางจากตำแหน่งปัจจุบันของคุณไปยังจุดปลายทาง โปรดอัปเดตแผนเพื่อใช้ฟีเจอร์นี้</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">เกิดความผิดพลาดขณะที่สร้างเส้นทาง โปรดลองเลือกปลายทางอื่น</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">การสร้างเส้นทางสามารถทำได้ภายในหนึ่งแผนที่เท่านั้น</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">อัปเดตทั้งหมด</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">ดาวน์โหลดเสร็จ</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">แผนที่ที่ดาวน์โหลดลงมา</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">แผนที่ของฉัน</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">ต่อแถว</string>
 </resources>

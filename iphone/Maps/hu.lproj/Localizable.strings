@@ -652,3 +652,30 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi/Internet";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Kérjük, útvonal létrehozásához frissítsd a térképet.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "A MAPS.ME új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.";
+
+/* Route building error message */
+"routing_error_select_new_dst" = "Hiba történt útvonal létrehozása közben. Kérjük, próbálj másik úticélt kiválasztani.";
+
+/* Routing between different MWMs error message */
+"routing_one_map_only" = "Útvonalak létrehozása csak egy térképen belül lehetséges.";
+
+/* Update all button text */
+"downloader_update_all" = "Mind frissítése";
+
+/* Downloaded maps category */
+"downloader_downloaded" = "Letöltve";
+
+/* Downloaded maps category */
+"downloader_downloaded_maps" = "Letöltött térképek";
+
+/* My maps category */
+"downloader_my_maps" = "Térképeim";
+
+/* Country queued for download */
+"downloader_queued" = "várólistás";

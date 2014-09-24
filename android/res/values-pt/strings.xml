@@ -405,4 +405,22 @@
 	<string name="pref_calibration_title">Calibração de bússola</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Por favor, atualize o mapa para criar uma rota.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">A nova versão do MAPS.ME permite criar rotas a partir da sua posição atual para um ponto de destino. Por favor, atualize o maps para utilizar esta funcionalidade.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">Ocorreu um erro enquanto criava uma rota. Por favor, tente escolher outro destino.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">É possível criar rotas apenas dentro de um mapa.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Atualizar tudo</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Descarregados</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Mapas descarregados</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Os meus mapas</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">Na fila</string>
 </resources>

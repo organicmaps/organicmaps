@@ -412,4 +412,22 @@
 	<string name="pref_calibration_title">معايرة البوصلة</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">واي فاي/الإنترنت</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">يرجى تحديث الخريطة لإنشاء مسار.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">إصدار MAPS.ME الجديد يسمح بإنشاء مسارات انطلاقاً من موقعك الحالي نحو المكان الذي تتجه إليه. يرجى تحديث الخرائط لاستخدام هذه الميزة.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">لقد حدث خطأ أثناء إنشاء المسار. من فضلك، حاول وجهة أخرى.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">خلق المسار ممكن في خريطة واحدة فقط.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">تحديث الكل</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">المُنزَّلة</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">الخرائط المُنزَّلة</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">خرائطي</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">مَصْفوف</string>
 </resources>

@@ -395,4 +395,14 @@
 	<string name="pref_calibration_title">コンパスの調整</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">無線LAN/インターネット</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">全てをアップデート</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">ダウンロード済</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">ダウンロード済みのマップ</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">マイマップ</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">待ち行列型の</string>
 </resources>

@@ -652,3 +652,30 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi/Internet";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Venligst opdatér kortet for at oprette en rute.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.";
+
+/* Route building error message */
+"routing_error_select_new_dst" = "En fejl opstod ved oprettelsen af en rute. Venligst prøv at vælge en anden destination.";
+
+/* Routing between different MWMs error message */
+"routing_one_map_only" = "Oprettelse af ruter er kun muligt inden for ét kort.";
+
+/* Update all button text */
+"downloader_update_all" = "Opdater alle";
+
+/* Downloaded maps category */
+"downloader_downloaded" = "Downloadede";
+
+/* Downloaded maps category */
+"downloader_downloaded_maps" = "Downloadede kort";
+
+/* My maps category */
+"downloader_my_maps" = "Mine kort";
+
+/* Country queued for download */
+"downloader_queued" = "i kø";

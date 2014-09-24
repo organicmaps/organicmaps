@@ -403,4 +403,22 @@
 	<string name="pref_calibration_title">Kompass-Kalibrierung</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Bitte aktualisieren Sie die Karte, um eine Route zu erzeugen.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">Die neue Version von MAPS.ME ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Maps, um diese Funktion nutzen zu können.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">Beim Erstellen der Route ist ein Fehler aufgetreten. Bitte wählen Sie ein anderes Ziel.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">Das Erstellen von Routen ist nur innerhalb einer Karte möglich.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Alles aktualisieren</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Heruntergeladen</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Heruntergeladene Karten</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Meine Karten</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">in der Warteschlange</string>
 </resources>

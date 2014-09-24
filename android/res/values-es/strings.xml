@@ -389,4 +389,22 @@
 	<string name="pref_calibration_title">Calibrado de la brújula</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Por favor, actualiza el mapa para crear una ruta.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">La nueva versión de MAPS.ME permite crear rutas desde tu ubicación actual hasta un punto de destino. Por favor, actualiza los mapas para utilizar esta característica.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">Se ha producido un error mientras se creaba una ruta. Por favor, intenta elegir otro destino.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">Solo es posible crear rutas dentro de un mapa.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Actualizar todos</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Descargados</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Mapas descargados</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Mis mapas</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">En cola</string>
 </resources>

@@ -652,3 +652,30 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi/Internet";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Werk de kaart bij om een route te maken.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "Met de nieuwe versie van MAPS.ME kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.";
+
+/* Route building error message */
+"routing_error_select_new_dst" = "Er deed zich een fout voor bij het maken van een route. Probeer een andere bestemming te kiezen.";
+
+/* Routing between different MWMs error message */
+"routing_one_map_only" = "Routes kunnen alleen binnen één kaart worden gemaakt.";
+
+/* Update all button text */
+"downloader_update_all" = "Alles bijwerken";
+
+/* Downloaded maps category */
+"downloader_downloaded" = "Gedownload";
+
+/* Downloaded maps category */
+"downloader_downloaded_maps" = "Gedownloade kaarten";
+
+/* My maps category */
+"downloader_my_maps" = "Mijn kaarten";
+
+/* Country queued for download */
+"downloader_queued" = "in de wachtrij";

@@ -652,3 +652,30 @@
 
 /* Search Suggestion */
 "wifi" = "無線網絡/互聯網";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Please update the map to create a route";
+
+/* Update maps suggestion */
+"routing_update_maps" = "The new version of MAPS.ME allows creating routes from your current position to a destination point. Please update maps to use this feature.";
+
+/* Route building error message */
+"routing_error_select_new_dst" = "An error occurred while creating a route. Please choose another destination.";
+
+/* Routing between different MWMs error message */
+"routing_one_map_only" = "Creating routes is possible within one map only.";
+
+/* Update all button text */
+"downloader_update_all" = "Update all";
+
+/* Downloaded maps category */
+"downloader_downloaded" = "Downloaded";
+
+/* Downloaded maps category */
+"downloader_downloaded_maps" = "Downloaded maps";
+
+/* My maps category */
+"downloader_my_maps" = "My maps";
+
+/* Country queued for download */
+"downloader_queued" = "queued";

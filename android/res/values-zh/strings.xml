@@ -414,4 +414,14 @@
 	<string name="pref_calibration_title">指南针校准</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">无线网络/互联网</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">更新全部</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">已下载</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">已下载的地图</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">我的地图</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">已排队</string>
 </resources>

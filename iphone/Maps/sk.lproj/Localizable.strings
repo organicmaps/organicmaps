@@ -652,3 +652,30 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi/Internet";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Pre vytvorenie trasy si, prosím, aktualizujte mapu.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "Nová verzia aplikácie MAPS.ME umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.";
+
+/* Route building error message */
+"routing_error_select_new_dst" = "Pri vytváraní trasy sa vyskytla chyba. Skúste si, prosím, zvoliť iný cieľ trasy.";
+
+/* Routing between different MWMs error message */
+"routing_one_map_only" = "Trasy je možné vytvárať iba v rámci jednej mapy.";
+
+/* Update all button text */
+"downloader_update_all" = "Aktualizovať všetky";
+
+/* Downloaded maps category */
+"downloader_downloaded" = "Stiahnuté";
+
+/* Downloaded maps category */
+"downloader_downloaded_maps" = "Stiahnuté mapy";
+
+/* My maps category */
+"downloader_my_maps" = "Moje mapy";
+
+/* Country queued for download */
+"downloader_queued" = "V rade";

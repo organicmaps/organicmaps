@@ -652,3 +652,30 @@
 
 /* Search Suggestion */
 "wifi" = "WiFi/Интернет";
+
+/* Update map suggestion */
+"routing_map_outdated" = "Пожалуйста, обновите карту для того, чтобы проложить маршрут.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "В новой версии MAPS.ME вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.";
+
+/* Route building error message */
+"routing_error_select_new_dst" = "Возникла ошибка при создании этого маршрута. Пожалуйста, выберите другой пункт назначения.";
+
+/* Routing between different MWMs error message */
+"routing_one_map_only" = "Создание маршрута возможно в пределах одной карты.";
+
+/* Update all button text */
+"downloader_update_all" = "Обновить все";
+
+/* Downloaded maps category */
+"downloader_downloaded" = "Загруженные";
+
+/* Downloaded maps category */
+"downloader_downloaded_maps" = "Загруженные карты”";
+
+/* My maps category */
+"downloader_my_maps" = "Мои карты”";
+
+/* Country queued for download */
+"downloader_queued" = "в очереди”";

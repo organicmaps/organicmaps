@@ -115,4 +115,22 @@
 	<text id="IDS_DISAGREE">Я не согласен</text>
 	<!-- Search Suggestion -->
 	<text id="IDS_WIFI">WiFi/Интернет</text>
+	<!-- Update map suggestion -->
+	<text id="IDS_ROUTING_MAP_OUTDATED">Пожалуйста, обновите карту для того, чтобы проложить маршрут.</text>
+	<!-- Update maps suggestion -->
+	<text id="IDS_ROUTING_UPDATE_MAPS">В новой версии MAPS.ME вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.</text>
+	<!-- Route building error message -->
+	<text id="IDS_ROUTING_ERROR_SELECT_NEW_DST">Возникла ошибка при создании этого маршрута. Пожалуйста, выберите другой пункт назначения.</text>
+	<!-- Routing between different MWMs error message -->
+	<text id="IDS_ROUTING_ONE_MAP_ONLY">Создание маршрута возможно в пределах одной карты.</text>
+	<!-- Update all button text -->
+	<text id="IDS_DOWNLOADER_UPDATE_ALL">Обновить все</text>
+	<!-- Downloaded maps category -->
+	<text id="IDS_DOWNLOADER_DOWNLOADED">Загруженные</text>
+	<!-- Downloaded maps category -->
+	<text id="IDS_DOWNLOADER_DOWNLOADED_MAPS">Загруженные карты”</text>
+	<!-- My maps category -->
+	<text id="IDS_DOWNLOADER_MY_MAPS">Мои карты”</text>
+	<!-- Country queued for download -->
+	<text id="IDS_DOWNLOADER_QUEUED">в очереди”</text>
 </string_table>

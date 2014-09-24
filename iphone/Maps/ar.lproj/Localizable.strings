@@ -652,3 +652,30 @@
 
 /* Search Suggestion */
 "wifi" = "واي فاي/الإنترنت";
+
+/* Update map suggestion */
+"routing_map_outdated" = "يرجى تحديث الخريطة لإنشاء مسار.";
+
+/* Update maps suggestion */
+"routing_update_maps" = "إصدار MAPS.ME الجديد يسمح بإنشاء مسارات انطلاقاً من موقعك الحالي نحو المكان الذي تتجه إليه. يرجى تحديث الخرائط لاستخدام هذه الميزة.";
+
+/* Route building error message */
+"routing_error_select_new_dst" = "لقد حدث خطأ أثناء إنشاء المسار. من فضلك، حاول وجهة أخرى.";
+
+/* Routing between different MWMs error message */
+"routing_one_map_only" = "خلق المسار ممكن في خريطة واحدة فقط.";
+
+/* Update all button text */
+"downloader_update_all" = "تحديث الكل";
+
+/* Downloaded maps category */
+"downloader_downloaded" = "المُنزَّلة";
+
+/* Downloaded maps category */
+"downloader_downloaded_maps" = "الخرائط المُنزَّلة";
+
+/* My maps category */
+"downloader_my_maps" = "خرائطي";
+
+/* Country queued for download */
+"downloader_queued" = "مَصْفوف";

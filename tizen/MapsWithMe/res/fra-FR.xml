@@ -115,4 +115,22 @@
 	<text id="IDS_DISAGREE">Je ne suis pas d\&#39;accord</text>
 	<!-- Search Suggestion -->
 	<text id="IDS_WIFI">WiFi/Internet</text>
+	<!-- Update map suggestion -->
+	<text id="IDS_ROUTING_MAP_OUTDATED">Veuillez mettre à jour la carte pour créer un itinéraire.</text>
+	<!-- Update maps suggestion -->
+	<text id="IDS_ROUTING_UPDATE_MAPS">La nouvelle version de MAPS.ME permet de créer des itinéraires à partir de votre position actuelle vers un point de destination. Veuillez mettre à jour les cartes pour utiliser cette fonctionnalité.</text>
+	<!-- Route building error message -->
+	<text id="IDS_ROUTING_ERROR_SELECT_NEW_DST">Une erreur s\&#39;est produite lors de la création d\&#39;un itinéraire. Veuillez essayer de choisir une autre destination.</text>
+	<!-- Routing between different MWMs error message -->
+	<text id="IDS_ROUTING_ONE_MAP_ONLY">La création d\&#39;itinéraires n\&#39;est possible que sur une seule carte.</text>
+	<!-- Update all button text -->
+	<text id="IDS_DOWNLOADER_UPDATE_ALL">Tout mettre à jour</text>
+	<!-- Downloaded maps category -->
+	<text id="IDS_DOWNLOADER_DOWNLOADED">Téléchargé</text>
+	<!-- Downloaded maps category -->
+	<text id="IDS_DOWNLOADER_DOWNLOADED_MAPS">Cartes téléchargées</text>
+	<!-- My maps category -->
+	<text id="IDS_DOWNLOADER_MY_MAPS">Mes cartes</text>
+	<!-- Country queued for download -->
+	<text id="IDS_DOWNLOADER_QUEUED">en file d\&#39;attente</text>
 </string_table>

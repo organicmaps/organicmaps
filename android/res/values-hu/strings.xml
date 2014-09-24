@@ -407,4 +407,22 @@
 	<string name="pref_calibration_title">Iránytű kalibrálás</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Kérjük, útvonal létrehozásához frissítsd a térképet.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">A MAPS.ME új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">Hiba történt útvonal létrehozása közben. Kérjük, próbálj másik úticélt kiválasztani.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">Útvonalak létrehozása csak egy térképen belül lehetséges.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Mind frissítése</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Letöltve</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Letöltött térképek</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Térképeim</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">várólistás</string>
 </resources>

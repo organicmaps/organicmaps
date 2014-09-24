@@ -409,4 +409,22 @@
 	<string name="pref_calibration_title">Kalibracja kompasu</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Proszę zaktualizować mapę, by utworzyć trasę.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">Nowa wersja aplikacji MAPS.ME pozwala na tworzenie tras z Twojej bieżącej lokalizacji do punktu docelowego. Proszę zaktualizować mapy, by móc korzystać z tej funkcji.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">Podczas tworzenia trasy wystąpił błąd. Proszę spróbować wybrać inny punkt docelowy.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">Tworzenie tras możliwe jest wyłącznie w obrębie jednej mapy.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Uaktualnij wszystko</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Pobrane</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Pobrane mapy</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Moje mapy</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">w kolejce</string>
 </resources>

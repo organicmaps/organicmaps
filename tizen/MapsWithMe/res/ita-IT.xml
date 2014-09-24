@@ -107,4 +107,22 @@
 	<text id="IDS_PREF_ZOOM_SUMMARY">Condividi la mia location</text>
 	<!-- Search Suggestion -->
 	<text id="IDS_WIFI">WiFi/Internet</text>
+	<!-- Update map suggestion -->
+	<text id="IDS_ROUTING_MAP_OUTDATED">Aggiorna la mappa per creare un itinerario.</text>
+	<!-- Update maps suggestion -->
+	<text id="IDS_ROUTING_UPDATE_MAPS">La nuova versione di MAPS.ME ti permette di creare itinerari dalla tua posizione attuale a un punto di destinazione. Aggiorna le mappe per utilizzare questa funzione.</text>
+	<!-- Route building error message -->
+	<text id="IDS_ROUTING_ERROR_SELECT_NEW_DST">Si è verificato un errore nella creazione del percorso. Prova a scegliere un\&#39;altra destinazione.</text>
+	<!-- Routing between different MWMs error message -->
+	<text id="IDS_ROUTING_ONE_MAP_ONLY">Gli itinerari si possono creare solo nell\&#39;ambito di una mappa.</text>
+	<!-- Update all button text -->
+	<text id="IDS_DOWNLOADER_UPDATE_ALL">Aggiorna tutto</text>
+	<!-- Downloaded maps category -->
+	<text id="IDS_DOWNLOADER_DOWNLOADED">Scaricate</text>
+	<!-- Downloaded maps category -->
+	<text id="IDS_DOWNLOADER_DOWNLOADED_MAPS">Mappe scaricate</text>
+	<!-- My maps category -->
+	<text id="IDS_DOWNLOADER_MY_MAPS">Le mie mappe</text>
+	<!-- Country queued for download -->
+	<text id="IDS_DOWNLOADER_QUEUED">in coda</text>
 </string_table>

@@ -403,4 +403,22 @@
 	<string name="pref_calibration_title">Калібрування компаса</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Інтернет</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Будь ласка, оновіть карту, щоб продовжити маршрут.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">В новій версії MAPS.ME ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.</string>
+	<!-- Route building error message -->
+	<string name="routing_error_select_new_dst">Сталася помилка при прокладанні цього маршруту. Будь ласка, виберіть інши йпункт призначення.</string>
+	<!-- Routing between different MWMs error message -->
+	<string name="routing_one_map_only">Створення маршруту можливе в межах однієї карти.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Оновити все</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Завантажено</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Завантажені карти</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Мої карти</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">в черзі</string>
 </resources>
