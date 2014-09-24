@@ -38,8 +38,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_LocationState_turnOff(JNIEnv * env, jobject thiz)
   {
-    shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
-    return ls->TurnOff();
+    g_framework->NativeFramework()->GetLocationState()->TurnOff();
   }
 
   JNIEXPORT void JNICALL
