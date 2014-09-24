@@ -149,7 +149,7 @@ public:
       basePoint, basePoint
     };
 
-    float const halfSize = 512.0f;
+    float const halfSize = 12.0f;
     m2::PointF normals[4] =
     {
       m2::PointF(-halfSize, halfSize), m2::PointF(-halfSize, -halfSize),
@@ -635,6 +635,28 @@ void TestingEngine::DrawImpl()
 
   DummyColorElement f;
   f.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
+
+  dp::StipplePenKey key;
+  key.m_pattern.push_back(35);
+  key.m_pattern.push_back(35);
+
+  LineViewParams params7;
+  params7.m_depth = 10;
+  params7.m_color = dp::Color(0, 0, 0, 255);
+  params7.m_width = 4;
+  params7.m_join = dp::LineJoin::RoundJoin;
+  params7.m_cap = dp::LineCap::ButtCap;
+  params7.m_key = key;
+
+  vector<m2::PointF> points;
+  points.push_back(m2::PointF(100.0f, 100.0f));
+  points.push_back(m2::PointF(190.0f, 100.0f));
+  points.push_back(m2::PointF(190.0f, 190.0f));
+  points.push_back(m2::PointF(280.0f, 190.0f));
+  points.push_back(m2::PointF(280.0f, 280.0f));
+  points.push_back(m2::PointF(370.0f, 280.0f));
+  LineShape ls1(path, params7, 1.0f / m_modelView.GetScale());
+  ls1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 }
 
 void TestingEngine::ModelViewInit()
