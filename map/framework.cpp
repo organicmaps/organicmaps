@@ -569,6 +569,7 @@ void Framework::OnSize(int w, int h)
   if (w < 2) w = 2;
   if (h < 2) h = 2;
 
+  m2::RectD oldPixelRect = m_navigator.Screen().PixelRect();
   m_navigator.OnSize(0, 0, w, h);
 
   if (m_renderPolicy)
@@ -579,6 +580,8 @@ void Framework::OnSize(int w, int h)
 
   m_width = w;
   m_height = h;
+  GetLocationState()->OnSize(oldPixelRect);
+
 }
 
 bool Framework::SetUpdatesEnabled(bool doEnable)

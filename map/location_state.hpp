@@ -86,6 +86,8 @@ namespace location
     void Rotated();
     //@}
 
+    void OnSize(m2::RectD const & oldPixelRect);
+
     /// @name GPS location updates routine.
     //@{
     void OnLocationUpdate(location::GpsInfo const & info);

@@ -756,6 +756,25 @@ void State::Rotated()
   StopCompassFollowing(IsInRouting() ? NotFollow : Follow);
 }
 
+void State::OnSize(m2::RectD const & oldPixelRect)
+{
+  if (!IsModeChangeViewport())
+    return;
+
+  m2::PointD const & currentPxOffset =  GetCurrentPixelBinding() - oldPixelRect.Center();
+  double oldHalfW = oldPixelRect.SizeX() / 2.0;
+  double oldHalfH = oldPixelRect.SizeY() / 2.0;
+  double wPart = currentPxOffset.x / oldHalfW;
+  double hPart = currentPxOffset.y / oldHalfH;
+
+  m2::RectD const & newPixelRect = m_framework->GetNavigator().Screen().PixelRect();
+  m2::PointD const newCenter = newPixelRect.Center();
+  double newHalfW = newPixelRect.SizeX() / 2.0;
+  double newHalfH = newPixelRect.SizeY() / 2.0;
+
+  SetCurrentPixelBinding(newCenter + m2::PointD(wPart * newHalfW, hPart * newHalfH));
+}
+
 namespace
 {
 
