@@ -2,6 +2,7 @@
 
 #include "../drape/drape_global.hpp"
 #include "../drape/color.hpp"
+#include "../drape/stipple_pen_resource.hpp"
 
 #include "../indexer/feature_decl.hpp"
 #include "../geometry/point2d.hpp"
@@ -44,6 +45,7 @@ struct LineViewParams : CommonViewParams
   float m_width;
   dp::LineCap m_cap;
   dp::LineJoin m_join;
+  dp::StipplePenKey m_key;
 };
 
 struct FontDecl
