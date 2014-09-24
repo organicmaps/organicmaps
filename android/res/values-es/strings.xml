@@ -407,4 +407,6 @@
 	<string name="downloader_my_maps">Mis mapas</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">En cola</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">Creando rutas en la aplicación MAPS.ME, por favor, tenga en cuenta lo siguiente:\n\n  - Las rutas sugeridas se pueden considerar únicamente como recomendaciones.\n - Las condiciones de la carretera, las normas y las señales de tráfico tienen mayor prioridad que el consejo de navegación.\n - El mapa podría ser incorrecto o estar obsoleto y las rutas pueden no crear el mejor camino posible.\n\n  ¡Esté seguro en las carreteras y cuídese!</string>
 </resources>

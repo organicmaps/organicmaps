@@ -427,4 +427,6 @@
 	<string name="downloader_my_maps">Moje mapy</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">w kolejce</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">Podczas tworzenia tras w aplikacji MAPS.ME pamiętaj o poniższych zasadach:\n\n  - Sugerowane trasy mogą być traktowane jedynie jako propozycje.\n - Warunki na drodze, przepisy ruchu drogowego i znaki mają większy priorytet niż wskazówki nawigacyjne.\n - Mapa może okazać się nieprawidłowa lub nieaktualna a trasy mogą nie zostać utworzone w sposób najlepszy z możliwych.\n\n  Szerokiej drogi, uważaj na siebie!</string>
 </resources>

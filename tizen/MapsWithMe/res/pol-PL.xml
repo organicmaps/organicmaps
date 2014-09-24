@@ -125,4 +125,6 @@
 	<text id="IDS_DOWNLOADER_MY_MAPS">Moje mapy</text>
 	<!-- Country queued for download -->
 	<text id="IDS_DOWNLOADER_QUEUED">w kolejce</text>
+	<!-- Disclaimer message -->
+	<text id="IDS_ROUTING_DISCLAIMER">Podczas tworzenia tras w aplikacji MAPS.ME pamiętaj o poniższych zasadach:\n\n  - Sugerowane trasy mogą być traktowane jedynie jako propozycje.\n - Warunki na drodze, przepisy ruchu drogowego i znaki mają większy priorytet niż wskazówki nawigacyjne.\n - Mapa może okazać się nieprawidłowa lub nieaktualna a trasy mogą nie zostać utworzone w sposób najlepszy z możliwych.\n\n  Szerokiej drogi, uważaj na siebie!</text>
 </string_table>

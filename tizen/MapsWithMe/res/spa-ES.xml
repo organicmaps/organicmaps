@@ -121,4 +121,6 @@
 	<text id="IDS_DOWNLOADER_MY_MAPS">Mis mapas</text>
 	<!-- Country queued for download -->
 	<text id="IDS_DOWNLOADER_QUEUED">En cola</text>
+	<!-- Disclaimer message -->
+	<text id="IDS_ROUTING_DISCLAIMER">Creando rutas en la aplicación MAPS.ME, por favor, tenga en cuenta lo siguiente:\n\n  - Las rutas sugeridas se pueden considerar únicamente como recomendaciones.\n - Las condiciones de la carretera, las normas y las señales de tráfico tienen mayor prioridad que el consejo de navegación.\n - El mapa podría ser incorrecto o estar obsoleto y las rutas pueden no crear el mejor camino posible.\n\n  ¡Esté seguro en las carreteras y cuídese!</text>
 </string_table>

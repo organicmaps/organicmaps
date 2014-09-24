@@ -133,4 +133,6 @@
 	<text id="IDS_DOWNLOADER_MY_MAPS">My maps</text>
 	<!-- Country queued for download -->
 	<text id="IDS_DOWNLOADER_QUEUED">queued</text>
+	<!-- Disclaimer message -->
+	<text id="IDS_ROUTING_DISCLAIMER">Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!</text>
 </string_table>

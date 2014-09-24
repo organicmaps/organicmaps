@@ -110,7 +110,7 @@
 	<!-- Search Suggestion -->
 	<text id="IDS_WIFI">WiFi/Інтернет</text>
 	<!-- Update map suggestion -->
-	<text id="IDS_ROUTING_MAP_OUTDATED">Будь ласка, оновіть карту, щоб продовжити маршрут.</text>
+	<text id="IDS_ROUTING_MAP_OUTDATED">Будь ласка, оновіть карту, щоб прокласти маршрут.</text>
 	<!-- Update maps suggestion -->
 	<text id="IDS_ROUTING_UPDATE_MAPS">В новій версії MAPS.ME ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.</text>
 	<!-- Route building error message -->
@@ -127,4 +127,6 @@
 	<text id="IDS_DOWNLOADER_MY_MAPS">Мої карти</text>
 	<!-- Country queued for download -->
 	<text id="IDS_DOWNLOADER_QUEUED">в черзі</text>
+	<!-- Disclaimer message -->
+	<text id="IDS_ROUTING_DISCLAIMER">Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!</text>
 </string_table>
