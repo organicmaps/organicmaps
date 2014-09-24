@@ -41,4 +41,10 @@ extern "C"
     shared_ptr<location::State> ls = g_framework->NativeFramework()->GetLocationState();
     return ls->TurnOff();
   }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_LocationState_invalidatePosition(JNIEnv * env, jobject thiz)
+  {
+    g_framework->NativeFramework()->GetLocationState()->InvalidatePosition();
+  }
 }

@@ -16,4 +16,5 @@ public class LocationState
   public native void removeLocationStateModeListener(int slotID);
 
   public native void turnOff();
+  public native void invalidatePosition();
 }
