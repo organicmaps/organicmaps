@@ -121,4 +121,4 @@ tizen/*/.*
 !tizen/*/.project
 
 tizen/*/crash-info/*
-.idea/.*
+.idea/*
