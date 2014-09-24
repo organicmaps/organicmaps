@@ -480,13 +480,10 @@ bool CoverageGenerator::CacheCoverage(core::CommandsQueue::Environment const & e
   m_cacheScreen->setDisplayList(m_backCoverage->m_mainElements);
 
   vector<graphics::BlitInfo> infos;
+  infos.reserve(m_coverageInfo.m_tiles.size());
 
-  for (CoverageInfo::TTileSet::const_iterator it = m_coverageInfo.m_tiles.begin();
-       it != m_coverageInfo.m_tiles.end();
-       ++it)
+  for (Tile const * tile : m_coverageInfo.m_tiles)
   {
-    Tile const * tile = *it;
-
     size_t tileWidth = tile->m_renderTarget->width();
     size_t tileHeight = tile->m_renderTarget->height();
 
@@ -496,12 +493,15 @@ bool CoverageGenerator::CacheCoverage(core::CommandsQueue::Environment const & e
     bi.m_srcRect = m2::RectI(0, 0, tileWidth - 2, tileHeight - 2);
     bi.m_texRect = m2::RectU(1, 1, tileWidth - 1, tileHeight - 1);
     bi.m_srcSurface = tile->m_renderTarget;
+    bi.m_depth = tile->m_rectInfo.m_tileScale * 100;
 
     infos.push_back(bi);
   }
 
   if (!infos.empty())
-    m_cacheScreen->blit(&infos[0], infos.size(), true, graphics::minDepth);
+    m_cacheScreen->blit(infos.data(), infos.size(), true);
+
+  m_cacheScreen->clear(graphics::Color(), false);
 
   math::Matrix<double, 3, 3> idM = math::Identity<double, 3>();
 

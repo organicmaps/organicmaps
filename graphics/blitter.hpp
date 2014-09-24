@@ -28,6 +28,7 @@ namespace graphics
     math::Matrix<double, 3, 3> m_matrix;
     m2::RectI m_srcRect;
     m2::RectU m_texRect;
+    double m_depth;
   };
 
   class Blitter : public GeometryBatcher
@@ -54,8 +55,7 @@ namespace graphics
 
     void blit(BlitInfo const * blitInfo,
               size_t s,
-              bool isSubPixel,
-              double depth);
+              bool isSubPixel);
     /// @}
   };
 }

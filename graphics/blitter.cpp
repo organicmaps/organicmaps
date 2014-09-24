@@ -28,8 +28,7 @@ namespace graphics
 
   void Blitter::blit(BlitInfo const * blitInfo,
                      size_t s,
-                     bool isSubPixel,
-                     double depth)
+                     bool isSubPixel)
   {
     vector<m2::PointF> geomPts(4 * s);
     vector<m2::PointF> texPts(4 * s);
@@ -68,15 +67,18 @@ namespace graphics
 
     gl::Vertex * pointsData = (gl::Vertex*)storage.m_vertices->data();
 
-    for (size_t i = 0; i < s * 4; ++i)
+    for (size_t i = 0; i < s; ++i)
     {
-      pointsData[i].pt.x = geomPts[i].x;
-      pointsData[i].pt.y = geomPts[i].y;
-      pointsData[i].depth = depth;
-      pointsData[i].tex.x = texPts[i].x;
-      pointsData[i].tex.y = texPts[i].y;
-      pointsData[i].normal.x = 0;
-      pointsData[i].normal.y = 0;
+      for (size_t j = i * 4; j < (i + 1) * 4; ++j)
+      {
+        pointsData[j].pt.x = geomPts[j].x;
+        pointsData[j].pt.y = geomPts[j].y;
+        pointsData[j].depth = blitInfo[i].m_depth;
+        pointsData[j].tex.x = texPts[j].x;
+        pointsData[j].tex.y = texPts[j].y;
+        pointsData[j].normal.x = 0;
+        pointsData[j].normal.y = 0;
+      }
       //        pointsData[i].color = graphics::Color(255, 255, 255, 255);
     }
 

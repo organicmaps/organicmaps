@@ -239,12 +239,13 @@ void YopmeRP::DrawFrame(shared_ptr<PaintEvent> const & e, ScreenBase const & s)
     info.m_srcRect = m2::RectI(0, 0, width, height);
     info.m_texRect = m2::RectU(0, 0, width, height);
     info.m_matrix = math::Identity<double, 3>();
+    info.m_depth = minDepth;
 
     pScreen->beginFrame();
     pScreen->clear(m_bgColor);
 
     pScreen->applyBlitStates();
-    pScreen->blit(&info, 1, true, minDepth);
+    pScreen->blit(&info, 1, true);
 
     pScreen->clear(m_bgColor, false);
     if (m_drawMyPosition)
