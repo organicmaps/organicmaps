@@ -128,9 +128,14 @@ public:
     ASSERT(m_angleAnim != nullptr, ());
     ASSERT(m_posAnim != nullptr, ());
 
-    if (!m_angleAnim->IsEnded())
+    bool const angEnded = m_angleAnim->IsEnded();
+    bool const posEnded = m_posAnim->IsEnded();
+    if (angEnded && posEnded)
+      return;
+
+    if (!angEnded)
       m_angleAnim->OnStep(ts);
-    if (!m_posAnim->IsEnded())
+    if (!posEnded)
       m_posAnim->OnStep(ts);
 
     UpdateViewport();
