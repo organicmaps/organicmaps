@@ -71,7 +71,7 @@ namespace location
 
     void InvalidatePosition();
     void TurnOff();
-    void StopCompassFollowing();
+    void StopCompassFollowing(Mode mode = Follow);
     void StopLocationFollow();
 
     /// @name User input notification block
@@ -121,7 +121,13 @@ namespace location
     bool IsDirectionKnown() const;
     bool IsInRouting() const;
 
+    m2::PointD const & GetCurrentPixelBinding() const;
+    void SetCurrentPixelBinding(m2::PointD const & pxBinding);
+    m2::PointD const GetModeDefaultPixelBinding(Mode mode) const;
+
     void SetModeInfo(uint16_t modeInfo);
+
+    m2::PointD const GetRaFModeDefaultPxBind() const;
 
   private:
     // Mode bits
@@ -138,6 +144,8 @@ namespace location
     double m_errorRadius;   //< error radius in mercator
     m2::PointD m_position;  //< position in mercator
     double m_drawDirection;
+
+    m2::PointD m_dstPixelBinding;
 
     typedef map<int, TStateModeListener> TModeListeners;
     typedef map<int, TPositionListener> TPositionListeners;
