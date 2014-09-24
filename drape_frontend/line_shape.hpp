@@ -15,6 +15,9 @@ class LineShape : public MapShape
 public:
   LineShape(vector<m2::PointF> const & points,
             LineViewParams const & params);
+  LineShape(vector<m2::PointF> const & points,
+            LineViewParams const & params,
+            float const scaleGtoP);
 
   virtual void Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const;
 
@@ -24,6 +27,7 @@ public:
 private:
   LineViewParams m_params;
   vector<m2::PointF> m_points;
+  float const m_scaleGtoP;
 };
 
 } // namespace df
