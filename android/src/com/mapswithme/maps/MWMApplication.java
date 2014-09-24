@@ -220,6 +220,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
   /// @{
   static public final int FACEBOOK = 0;
   static public final int BUYPRO = 1;
+  static public final int ROUTING = 3;
 
   public native boolean shouldShowDialog(int dlg);
 

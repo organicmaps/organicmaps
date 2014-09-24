@@ -37,6 +37,7 @@ import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.maps.Ads.AdsManager;
 import com.mapswithme.maps.Ads.MenuAd;
 import com.mapswithme.maps.Framework.OnBalloonListener;
+import com.mapswithme.maps.Framework.RoutingListener;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.background.WorkerService;
@@ -72,9 +73,8 @@ import java.util.Locale;
 import java.util.Stack;
 
 public class MWMActivity extends NvEventQueueActivity
-    implements LocationService.LocationListener,
-    OnBalloonListener,
-    OnVisibilityChangedListener, OnClickListener
+    implements LocationService.LocationListener, OnBalloonListener, OnVisibilityChangedListener,
+    OnClickListener, RoutingListener
 {
   public static final String EXTRA_TASK = "map_task";
   private final static String TAG = "MWMActivity";
@@ -116,7 +116,9 @@ public class MWMActivity extends NvEventQueueActivity
 
   private static final String IS_KML_MOVED = "KmlBeenMoved";
   private static final String IS_KITKAT_MIGRATION_COMPLETED = "KitKatMigrationCompleted";
-
+  // for routing
+  private static final String IS_FIRST_ROUTING_VERSION_RUN = "IsFirstRoutingRun";
+  private static final String IS_ROUTING_DISCLAIMER_APPROVED = "IsDisclaimerApproved";
   // ads in vertical toolbar
   private static final String MENU_ADS_ENABLED = "MenuLinksEnabled";
   private BroadcastReceiver mUpdateAdsReceiver = new BroadcastReceiver()
@@ -221,6 +223,7 @@ public class MWMActivity extends NvEventQueueActivity
         checkMeasurementSystem();
         checkUpdateMaps();
         checkKitkatMigrationMove();
+        checkRoutingMaps();
         checkLiteMapsInPro();
         checkFacebookDialog();
         checkBuyProDialog();
@@ -347,10 +350,32 @@ public class MWMActivity extends NvEventQueueActivity
       );
   }
 
+  private void checkRoutingMaps()
+  {
+    if (MWMApplication.get().nativeGetBoolean(IS_FIRST_ROUTING_VERSION_RUN, true))
+    {
+      MWMApplication.get().nativeSetBoolean(IS_FIRST_ROUTING_VERSION_RUN, false);
+      new AlertDialog.Builder(this)
+          .setCancelable(false)
+          .setMessage(getString(R.string.routing_update_maps))
+          .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
+          {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+              dialog.dismiss();
+            }
+          })
+          .create()
+          .show();
+    }
+  }
+
   /**
    * Checks if PRO version is running on KITKAT or greater sdk.
    * If so - checks whether LITE version is installed and contains maps on sd card and then copies them to own directory on sdcard.
    */
+
   private void checkLiteMapsInPro()
   {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
@@ -699,6 +724,7 @@ public class MWMActivity extends NvEventQueueActivity
     setUpInfoBox();
     setUpRoutingBox();
 
+    Framework.nativeAddRoutingListener(this);
     Framework.nativeConnectBalloonListeners(this);
 
     final Intent intent = getIntent();
@@ -1382,6 +1408,11 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void buildRoute()
   {
+    if (!MWMApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))
+    {
+      showRoutingDisclaimer();
+      return;
+    }
     if (LocationState.INSTANCE.getLocationStateMode() < LocationState.NOT_FOLLOW)
     {
       Toast.makeText(this, R.string.unknown_current_position, Toast.LENGTH_LONG).show();
@@ -1405,6 +1436,33 @@ public class MWMActivity extends NvEventQueueActivity
       if (info != null)
         mTvRoutingDistance.setText(info.mDistToTarget + info.mUnits);
     }
+  }
+
+  private void showRoutingDisclaimer()
+  {
+    new AlertDialog.Builder(getActivity())
+        .setMessage(getString(R.string.routing_disclaimer))
+        .setCancelable(false)
+        .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dlg, int which)
+          {
+            MWMApplication.get().nativeSetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, true);
+            dlg.dismiss();
+            buildRoute();
+          }
+        })
+        .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener()
+        {
+          @Override
+          public void onClick(DialogInterface dialog, int which)
+          {
+            dialog.dismiss();
+          }
+        })
+        .create()
+        .show();
   }
 
   private void closeRouting()
@@ -1456,6 +1514,32 @@ public class MWMActivity extends NvEventQueueActivity
 
     super.onActivityResult(requestCode, resultCode, data);
 
+  }
+
+  @Override
+  public void onRoutingError(final String messageId)
+  {
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        new AlertDialog.Builder(MWMActivity.this)
+            .setMessage(messageId)
+            .setCancelable(true)
+            .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+            {
+              @Override
+              public void onClick(DialogInterface dialog, int which)
+              {
+                closeRouting();
+                dialog.dismiss();
+              }
+            })
+            .create()
+            .show();
+      }
+    });
   }
 
   public interface MapTask extends Serializable

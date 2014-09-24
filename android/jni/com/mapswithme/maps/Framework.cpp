@@ -396,7 +396,7 @@ namespace android
       {
         m_work.StopScale(ScaleEvent(m_x1, m_y1, m_x2, m_y2));
 
-        if ((eventType == NV_MULTITOUCH_MOVE))
+        if (eventType == NV_MULTITOUCH_MOVE)
         {
           if (mask == 0x1)
             m_work.StartDrag(DragEvent(x1, y1));
@@ -784,6 +784,13 @@ extern "C"
     JNIEnv * jniEnv = jni::GetEnv();
     const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onDismiss", "()V");
     jniEnv->CallVoidMethod(*obj.get(), methodId);
+  }
+
+  void CallRoutingErrorListener(shared_ptr<jobject> obj, string const & messageID, DialogOptions const & options)
+  {
+    JNIEnv * jniEnv = jni::GetEnv();
+    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onRoutingError", "(Ljava/lang/String;)V");
+    jniEnv->CallVoidMethod(*obj.get(), methodId, jni::ToJavaString(jniEnv, messageID));
   }
 
   /// @name JNI EXPORTS
@@ -1223,5 +1230,12 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jobject thiz, jobject idx, jboolean zoomToDownloadButton)
   {
     g_framework->ShowCountry(ToNative(idx), (bool) zoomToDownloadButton);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeAddRoutingListener(JNIEnv * env, jobject thiz, jobject listener)
+  {
+    shared_ptr<jobject> sharedListener = jni::make_global_ref(listener);
+    frm()->SetShowDialogListener(bind(&CallRoutingErrorListener, sharedListener, _1, _2));
   }
 }

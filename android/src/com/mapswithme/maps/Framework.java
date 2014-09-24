@@ -31,6 +31,11 @@ public class Framework
     public void onDismiss();
   }
 
+  public interface RoutingListener
+  {
+    void onRoutingError(String messageId);
+  }
+
   // this class is just bridge between Java and C++ worlds, we must not create it
   private Framework()
   {}
@@ -132,9 +137,12 @@ public class Framework
   public native static void nativeCloseRouting();
 
   public native static void nativeBuildRoute(double lat, double lon);
+
   public native static void nativeFollowRoute();
 
   public native static LocationState.RoutingInfo nativeGetRouteFollowingInfo();
+
+  public native static void nativeAddRoutingListener(RoutingListener listener);
   //@}
 
   public native static String nativeGetCountryNameIfAbsent(double lat, double lon);
