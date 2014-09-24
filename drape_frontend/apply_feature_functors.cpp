@@ -16,6 +16,7 @@
 #include "../std/algorithm.hpp"
 
 #include "../drape/color.hpp"
+#include "../drape/stipple_pen_resource.hpp"
 
 #include "../graphics/defines.hpp"
 
@@ -33,8 +34,19 @@ dp::Color ToDrapeColor(uint32_t src)
 void Extract(::LineDefProto const * lineRule,
              df::LineViewParams & params)
 {
+  float const scale = df::VisualParams::Instance().GetVisualScale();
   params.m_color = ToDrapeColor(lineRule->color());
-  params.m_width = max(lineRule->width() * df::VisualParams::Instance().GetVisualScale(), 1.0);
+  params.m_width = max(lineRule->width() * scale, 1.0);
+
+  if (lineRule->has_dashdot())
+  {
+    DashDotProto const & dd = lineRule->dashdot();
+
+    int const count = dd.dd_size();
+    params.m_key.m_pattern.reserve(count);
+    for (int i = 0; i < count; ++i)
+      params.m_key.m_pattern.push_back(dd.dd(i) * scale);
+  }
 
   switch(lineRule->cap())
   {
@@ -334,7 +346,10 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       LineViewParams params;
       Extract(pLineRule, params);
       params.m_depth = depth;
-      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_spline->GetPath(), params)));
+      if (params.m_key.m_pattern.empty())
+        m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_spline->GetPath(), params)));
+      else
+        m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_spline->GetPath(), params, m_currentScaleGtoP)));
     }
   }
 }
