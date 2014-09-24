@@ -9,7 +9,8 @@ varying MAXPREC vec4 v_centres;
 varying MAXPREC vec2 v_type;
 
 varying lowp vec4 v_colors;
-varying lowp float v_index;
+varying lowp vec2 v_opacity;
+varying mediump vec2 v_index;
 
 ~getTexel~
 
@@ -38,9 +39,10 @@ void sphere_join(MAXPREC float gip2, lowp vec4 baseColor, lowp vec4 outlineColor
 
 void main(void)
 {
-  int textureIndex = int(v_index);
-  lowp vec4 baseColor = getTexel(textureIndex, v_colors.xy);
-  lowp vec4 outlineColor = getTexel(textureIndex, v_colors.zw);
+  int textureIndex = int(v_index.x);
+  lowp float a = getTexel(int(v_index.y), v_opacity.xy).a;
+  lowp vec4 baseColor = getTexel(textureIndex, v_colors.xy) * a;
+  lowp vec4 outlineColor = getTexel(textureIndex, v_colors.zw) * a;
   MAXPREC float r = v_radius.y;
   MAXPREC float dist = abs(v_radius.x);
   gl_FragColor = baseColor;

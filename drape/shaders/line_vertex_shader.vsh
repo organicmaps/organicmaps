@@ -3,7 +3,7 @@ attribute highp vec4 deltas;
 attribute highp vec4 width_type;
 attribute highp vec4 centres;
 attribute lowp vec4 colors;
-attribute mediump float index;
+attribute mediump vec4 index_opasity;
 
 varying highp float v_dx;
 varying highp vec4 v_radius;
@@ -11,7 +11,8 @@ varying highp vec4 v_centres;
 varying highp vec2 v_type;
 
 varying lowp vec4 v_colors;
-varying mediump float v_index;
+varying lowp vec2 v_opacity;
+varying mediump vec2 v_index;
 
 uniform highp mat4 modelView;
 uniform highp mat4 projection;
@@ -44,5 +45,6 @@ void main(void)
   v_type = width_type.yz;
 
   v_colors = colors;
-  v_index = index;
+  v_index = index_opasity.xy;
+  v_opacity = index_opasity.zw;
 }
