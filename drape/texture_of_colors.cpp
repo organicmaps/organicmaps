@@ -1,5 +1,7 @@
 #include "texture_of_colors.hpp"
 
+#include "../base/stl_add.hpp"
+
 namespace  dp
 {
 
@@ -11,9 +13,7 @@ ColorPalette::ColorPalette(m2::PointU const & canvasSize)
 
 ColorPalette::~ColorPalette()
 {
-  TPalette::iterator it = m_palette.begin();
-  for (; it != m_palette.end(); ++it)
-    it->second.Destroy();
+  DeleteRange(m_palette, MasterPointerDeleter());
 }
 
 ColorResourceInfo const * ColorPalette::MapResource(const ColorKey &key)

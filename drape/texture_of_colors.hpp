@@ -35,9 +35,7 @@ public:
 private:
   typedef MasterPointer<ColorResourceInfo> TResourcePtr;
   typedef map<uint32_t, TResourcePtr> TPalette;
-  typedef pair<TPalette::iterator, bool> TInserted;
 
-  void Move(uint32_t step);
   TPalette m_palette;
   vector<uint32_t> m_pendingNodes;
   m2::PointU m_textureSize;
