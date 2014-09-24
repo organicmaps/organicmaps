@@ -57,7 +57,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
   private ProgressBar mProgress = null;
   private Button mButton = null;
   private CheckBox mDownloadCountryCheckBox = null;
-  private LocationService mLocationService = null;
   private Index mCountryIndex = null;
 
   private MapTask mMapTaskToForward;
@@ -181,8 +180,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
     mBtnNames[PROCEED_TO_MAP] = getString(R.string.download_resources_continue);
 
     // Start listening the location.
-    mLocationService = mApplication.getLocationService();
-    mLocationService.startUpdate(this);
+    LocationService.INSTANCE.startUpdate(this);
   }
 
   private void setAction(int action)
@@ -503,11 +501,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
   {
     super.onDestroy();
 
-    if (mLocationService != null)
-    {
-      mLocationService.stopUpdate(this);
-      mLocationService = null;
-    }
+    LocationService.INSTANCE.stopUpdate(this);
 
     if (mMapStorage != null)
       mMapStorage.unsubscribe(mSlotId);
@@ -518,8 +512,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
   {
     super.onPause();
 
-    if (mLocationService != null)
-      mLocationService.stopUpdate(this);
+    LocationService.INSTANCE.stopUpdate(this);
   }
 
   @Override
@@ -527,8 +520,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
   {
     super.onResume();
 
-    if (mLocationService != null)
-      mLocationService.startUpdate(this);
+    LocationService.INSTANCE.startUpdate(this);
   }
 
   public void onDownloadProgress(int currentTotal, int currentProgress, int globalTotal, int globalProgress)
@@ -591,8 +583,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
           checkBox.setText(checkBoxText);
         }
 
-        mLocationService.stopUpdate(this);
-        mLocationService = null;
+        LocationService.INSTANCE.stopUpdate(this);
       }
     }
   }

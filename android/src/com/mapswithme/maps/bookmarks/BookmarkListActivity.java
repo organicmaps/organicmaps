@@ -106,9 +106,7 @@ public class BookmarkListActivity extends MapsWithMeBaseListActivity
 
   private void createListAdapter()
   {
-    mPinAdapter = new BookmarkListAdapter(this,
-        ((MWMApplication) getApplication()).getLocationService(),
-        mEditedSet);
+    mPinAdapter = new BookmarkListAdapter(this, mEditedSet);
 
     setListAdapter(mPinAdapter);
 

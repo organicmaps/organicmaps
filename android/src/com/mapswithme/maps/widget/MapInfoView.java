@@ -52,6 +52,7 @@ import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.MapObject.MapObjectType;
 import com.mapswithme.maps.bookmarks.data.MapObject.Poi;
 import com.mapswithme.maps.bookmarks.data.MapObject.SearchResult;
+import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.ShareAction;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.UiUtils.SimpleAnimationListener;
@@ -516,7 +517,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     mTvLon = (TextView) mGeoLayout.findViewById(R.id.info_box_lon);
     mTvLon.setOnClickListener(this);
 
-    final Location lastKnown = MWMApplication.get().getLocationService().getLastKnown();
+    final Location lastKnown = LocationService.INSTANCE.getLastKnown();
     updateLocation(lastKnown);
 
     updateCoords();
@@ -579,7 +580,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   {
     if (mGeoLayout != null && mMapObject != null && mMapObject.getType() != MapObjectType.MY_POSITION)
     {
-      final Location l = MWMApplication.get().getLocationService().getLastKnown();
+      final Location l = LocationService.INSTANCE.getLastKnown();
       if (l != null)
       {
         final DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimutFromLatLon(

@@ -30,27 +30,24 @@ public class BookmarkListAdapter extends BaseAdapter
 {
   private final Activity mContext;
   private final BookmarkCategory mCategory;
-  private final LocationService mLocation;
 
   // reuse drawables
   private final Map<String, Drawable> mBmkToCircle = new HashMap<String, Drawable>(8);
 
-  public BookmarkListAdapter(Activity context, LocationService location,
-                             BookmarkCategory cat)
+  public BookmarkListAdapter(Activity context, BookmarkCategory cat)
   {
     mContext = context;
-    mLocation = location;
     mCategory = cat;
   }
 
   public void startLocationUpdate()
   {
-    mLocation.startUpdate(this);
+    LocationService.INSTANCE.startUpdate(this);
   }
 
   public void stopLocationUpdate()
   {
-    mLocation.stopUpdate(this);
+    LocationService.INSTANCE.stopUpdate(this);
   }
 
   @Override
@@ -196,7 +193,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
     void setDistance(Bookmark bmk)
     {
-      final Location loc = mLocation.getLastKnown();
+      final Location loc = LocationService.INSTANCE.getLastKnown();
       if (loc != null)
       {
         final DistanceAndAzimut daa = bmk.getDistanceAndAzimut(loc.getLatitude(), loc.getLongitude(), 0.0);

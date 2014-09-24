@@ -149,14 +149,14 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void pauseLocation()
   {
-    MWMApplication.get().getLocationService().stopUpdate(this);
+    LocationService.INSTANCE.stopUpdate(this);
     // Enable automatic turning screen off while app is idle
     Utils.automaticIdleScreen(true, getWindow());
   }
 
   private void resumeLocation()
   {
-    MWMApplication.get().getLocationService().startUpdate(this);
+    LocationService.INSTANCE.startUpdate(this);
     // Do not turn off the screen while displaying position
     Utils.automaticIdleScreen(false, getWindow());
   }
@@ -456,7 +456,7 @@ public class MWMActivity extends NvEventQueueActivity
     }
     else
     {
-      final Location l = MWMApplication.get().getLocationService().getLastKnown();
+      final Location l = LocationService.INSTANCE.getLastKnown();
       if (l != null && nativeIsInChina(l.getLatitude(), l.getLongitude()))
         return true;
       else
@@ -636,7 +636,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void shareMyLocation()
   {
-    final Location loc = MWMApplication.get().getLocationService().getLastKnown();
+    final Location loc = LocationService.INSTANCE.getLastKnown();
     if (loc != null)
     {
       final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
@@ -704,8 +704,9 @@ public class MWMActivity extends NvEventQueueActivity
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     addTask(intent);
 
+    // TODO test if initialization here is needed
     // Initialize location service
-    MWMApplication.get().getLocationService();
+//    LocationService.INSTANCE;
 
     mSearchController = SearchController.getInstance();
     mSearchController.onCreate(this);

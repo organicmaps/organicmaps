@@ -17,7 +17,6 @@ import com.mapswithme.maps.background.WorkerService;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
-import com.mapswithme.maps.location.LocationService;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
@@ -36,7 +35,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   private static MWMApplication mSelf;
 
-  private LocationService mLocation = null;
   private LocationState mLocationState = null;
   private MapStorage mStorage = null;
 
@@ -143,14 +141,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
       BookmarkManager.getBookmarkManager(getApplicationContext());
 
     WorkerService.startActionUpdateAds(this);
-  }
-
-  public LocationService getLocationService()
-  {
-    if (mLocation == null)
-      mLocation = new LocationService(this);
-
-    return mLocation;
   }
 
   public LocationState getLocationState()

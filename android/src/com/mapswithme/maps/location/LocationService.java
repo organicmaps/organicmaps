@@ -31,13 +31,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-
-public class LocationService implements
+public enum LocationService implements
     android.location.LocationListener, SensorEventListener, WifiLocationScanner.Listener,
     com.google.android.gms.location.LocationListener
 {
-  private static final String TAG = LocationService.class.getName();
-  private final Logger mLogger = SimpleLogger.get(TAG);
+  INSTANCE;
+
+  private final Logger mLogger;
 
   private static final double DEFAULT_SPEED_MPS = 5;
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
@@ -76,8 +76,6 @@ public class LocationService implements
   private GeomagneticField mMagneticField = null;
   private LocationProvider mLocationProvider;
 
-  private MWMApplication mApplication = null;
-
   private double mLastNorth;
   private static final double NOISE_THRESHOLD = 3;
 
@@ -87,14 +85,13 @@ public class LocationService implements
   private final float[] mI = new float[9];
   private final float[] mOrientation = new float[3];
 
-  public LocationService(MWMApplication application)
+  private LocationService()
   {
-    mApplication = application;
-
+    mLogger = SimpleLogger.get(LocationService.class.getName());
     createLocationProvider();
     mLocationProvider.setUp();
 
-    mSensorManager = (SensorManager) mApplication.getSystemService(Context.SENSOR_SERVICE);
+    mSensorManager = (SensorManager) MWMApplication.get().getSystemService(Context.SENSOR_SERVICE);
     if (mSensorManager != null)
     {
       mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -121,15 +118,14 @@ public class LocationService implements
       {
         final int mode = Settings.Secure.getInt(resolver, Settings.Secure.LOCATION_MODE);
         isLocationTurnedOn = mode != Settings.Secure.LOCATION_MODE_OFF;
-      }
-      catch (Settings.SettingNotFoundException e)
+      } catch (Settings.SettingNotFoundException e)
       {
         e.printStackTrace();
       }
     }
 
     if (isLocationTurnedOn &&
-        GooglePlayServicesUtil.isGooglePlayServicesAvailable(mApplication) == ConnectionResult.SUCCESS)
+        GooglePlayServicesUtil.isGooglePlayServicesAvailable(MWMApplication.get().get()) == ConnectionResult.SUCCESS)
     {
       mLogger.d("Use fused provider.");
       mLocationProvider = new GoogleFusedLocationProvider();
@@ -180,19 +176,19 @@ public class LocationService implements
   private void startWifiLocationUpdate()
   {
     if (Statistics.INSTANCE.isStatisticsEnabled() &&
-        ConnectionState.isWifiConnected(mApplication))
+        ConnectionState.isWifiConnected(MWMApplication.get()))
     {
       if (mWifiScanner == null)
         mWifiScanner = new WifiLocationScanner();
 
-      mWifiScanner.startScan(mApplication, this);
+      mWifiScanner.startScan(MWMApplication.get(), this);
     }
   }
 
   private void stopWifiLocationUpdate()
   {
     if (mWifiScanner != null)
-      mWifiScanner.stopScan(mApplication);
+      mWifiScanner.stopScan(MWMApplication.get());
     mWifiScanner = null;
   }
 
@@ -472,7 +468,7 @@ public class LocationService implements
     @Override
     protected void setUp()
     {
-      mLocationManager = (LocationManager) mApplication.getSystemService(Context.LOCATION_SERVICE);
+      mLocationManager = (LocationManager) MWMApplication.get().getSystemService(Context.LOCATION_SERVICE);
     }
 
     private Location findBestNotExpiredLocation(List<String> providers)
@@ -509,7 +505,7 @@ public class LocationService implements
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB &&
             LocationManager.NETWORK_PROVIDER.equals(prov) &&
-            !ConnectionState.isConnected(mApplication))
+            !ConnectionState.isConnected(MWMApplication.get()))
           continue;
 
         acceptedProviders.add(prov);
@@ -534,7 +530,7 @@ public class LocationService implements
     @Override
     protected void setUp()
     {
-      mLocationClient = new LocationClient(mApplication, this, this);
+      mLocationClient = new LocationClient(MWMApplication.get(), this, this);
 
       mLocationRequest = LocationRequest.create();
       mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);

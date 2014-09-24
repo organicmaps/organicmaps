@@ -64,7 +64,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   // Handle voice recognition here
   private final static int RC_VOICE_RECOGNITION = 0xCA11;
   private static String TAG = "SearchActivity";
-  private LocationService mLocation;
   // Search views
   private EditText mSearchEt;
   private ProgressBar mSearchProgress;
@@ -170,7 +169,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       // If now position detected or no country downloaded for position.
       if (mContext.mSearchMode != IN_VIEWPORT)
       {
-        final Location loc = mContext.mLocation.getLastKnown();
+        final Location loc = LocationService.INSTANCE.getLastKnown();
         if (loc == null)
         {
           return mContext.getString(R.string.unknown_current_position);
@@ -543,8 +542,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
         actionBar.hide();
     }
 
-    mLocation = ((MWMApplication) getApplication()).getLocationService();
-
     setContentView(R.layout.search_list_view);
     setUpView();
     // Create search list view adapter.
@@ -663,7 +660,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
     mFlags = 0;
     mNorth = -1.0;
 
-    mLocation.startUpdate(this);
+    LocationService.INSTANCE.startUpdate(this);
 
     // do the search immediately after resume
     Utils.setTextAndCursorToEnd(mSearchEt, getLastQuery());
@@ -673,7 +670,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   @Override
   protected void onPause()
   {
-    mLocation.stopUpdate(this);
+    LocationService.INSTANCE.stopUpdate(this);
 
     super.onPause();
   }
