@@ -43,11 +43,38 @@ public class DownloadedAdapter extends BaseDownloadAdapter
     final int viewType = getItemViewType(position);
     if (viewType == TYPE_HEADER)
     {
-      // TODO
-      return mInflater.inflate(R.layout.download_item_extended, parent, false);
+      View view;
+      ViewHolder holder;
+      if (convertView == null)
+      {
+        view = mInflater.inflate(R.layout.download_item_updated, parent, false);
+        holder = new ViewHolder();
+        holder.initFromView(view);
+        view.setTag(holder);
+      }
+      else
+      {
+        view = convertView;
+        holder = (ViewHolder) view.getTag();
+      }
+      // TODO add strings
+      if (containsOutdated() && position == 0)
+        holder.mName.setText("OUT OF DATE");
+      else
+        holder.mName.setText("UPDATED");
+
+      return view;
     }
     else
-      return super.getView(position, convertView, parent);
+    {
+      final View view = super.getView(position, convertView, parent);
+      final ViewHolder holder = (ViewHolder) view.getTag();
+      if (getOutdatedPosition(position) == -1)
+        holder.mPercent.setVisibility(View.GONE);
+      else
+        holder.mPercent.setVisibility(View.VISIBLE);
+      return view;
+    }
   }
 
   @Override

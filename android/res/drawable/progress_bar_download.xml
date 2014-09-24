@@ -6,7 +6,7 @@
         android:innerRadiusRatio="3"
         android:shape="ring"
         android:thicknessRatio="9.0">
-      <solid android:color="@color/downloader_gray_bg"/>
+      <solid android:color="@color/downloader_gray"/>
     </shape>
   </item>
 

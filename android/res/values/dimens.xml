@@ -45,4 +45,9 @@
   <dimen name="bottom_button_width">90dp</dimen>
 
   <item name="alpha_edit_button" format="float" type="dimen">0.75</item>
+
+  <dimen name="progress_wheel_width">48dp</dimen>
+  <dimen name="progress_wheel_height">40dp</dimen>
+  <dimen name="progress_wheel_width_neg">-48dp</dimen>
+
 </resources>

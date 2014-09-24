@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minHeight="?android:attr/listPreferredItemHeight">
@@ -27,30 +28,30 @@
       android:paddingRight="@dimen/dp_x_3"
       android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
 
-  <ProgressBar
+  <com.mapswithme.maps.widget.WheelProgressView
       android:id="@+id/download_progress"
-      style="?android:attr/progressBarStyleHorizontal"
-      android:layout_width="32dp"
-      android:layout_height="32dp"
+      android:layout_width="@dimen/progress_wheel_width"
+      android:layout_height="@dimen/progress_wheel_height"
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
-      android:layout_marginRight="-32dp"
-      android:max="100"
-      android:progressDrawable="@drawable/progress_bar_download"
-      android:secondaryProgress="100"/>
+      android:layout_marginRight="@dimen/progress_wheel_width_neg"
+      android:paddingLeft="@dimen/margin_tiny"
+      android:paddingRight="@dimen/margin_tiny"
+      wheel:progressColor="@color/red"
+      wheel:secondaryColor="@color/downloader_gray"
+      wheel:thickness="@dimen/margin_micro"/>
 
-  <ProgressBar
+  <com.mapswithme.maps.widget.WheelProgressView
       android:id="@+id/download_progress_slided"
-      style="?android:attr/progressBarStyleHorizontal"
-      android:layout_width="32dp"
-      android:layout_height="32dp"
+      android:layout_width="@dimen/progress_wheel_width"
+      android:layout_height="@dimen/progress_wheel_height"
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
-      android:max="100"
-      android:progressDrawable="@drawable/progress_bar_download"
-      android:secondaryProgress="100"
-      android:visibility="gone"/>
-  <!--android:paddingRight="@dimen/margin_small"-->
+      android:paddingLeft="@dimen/margin_tiny"
+      android:paddingRight="@dimen/margin_tiny"
+      wheel:progressColor="@color/red"
+      wheel:secondaryColor="@color/downloader_gray"
+      wheel:thickness="@dimen/margin_micro"/>
 
   <LinearLayout
       android:id="@+id/ll__info"
@@ -80,9 +81,9 @@
         android:layout_below="@id/tv__percent"
         android:layout_weight="1"
         android:maxLines="1"
-        android:shadowColor="@color/downloader_gray_bg"
+        android:shadowColor="@color/downloader_gray"
         android:textAppearance="@style/Holo.TextAppearance.Light"
-        android:textColor="@color/downloader_gray_bg"/>
+        android:textColor="@color/downloader_gray"/>
 
   </LinearLayout>
 
@@ -92,7 +93,7 @@
       android:layout_height="match_parent"
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
-      android:layout_marginRight="40dp"
+      android:layout_marginRight="56dp"
       android:gravity="right"
       android:minWidth="60dp"
       android:orientation="vertical"
@@ -114,9 +115,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:maxLines="1"
-        android:shadowColor="@color/downloader_gray_bg"
+        android:shadowColor="@color/downloader_gray"
         android:textAppearance="@style/Holo.TextAppearance.Light"
-        android:textColor="@color/downloader_gray_bg"/>
+        android:textColor="@color/downloader_gray"/>
 
   </LinearLayout>
 </RelativeLayout>

@@ -17,7 +17,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
@@ -27,6 +26,7 @@ import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
+import com.mapswithme.maps.widget.WheelProgressView;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -198,27 +198,27 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   {
     public TextView mName;
     public ImageView mFlag;
-    public ProgressBar mProgress;
+    public WheelProgressView mProgress;
     public TextView mPercent;
     public TextView mSize;
     private LinearLayout mInfo;
     private TextView mPercentSlided;
     private TextView mSizeSlided;
     private LinearLayout mInfoSlided;
-    private ProgressBar mProgressSlided;
+    private WheelProgressView mProgressSlided;
 
     void initFromView(View v)
     {
       mName = (TextView) v.findViewById(R.id.title);
       mFlag = (ImageView) v.findViewById(R.id.country_flag);
-      mProgress = (ProgressBar) v.findViewById(R.id.download_progress);
+      mProgress = (WheelProgressView) v.findViewById(R.id.download_progress);
       mPercent = (TextView) v.findViewById(R.id.tv__percent);
       mSize = (TextView) v.findViewById(R.id.tv__size);
       mInfo = (LinearLayout) v.findViewById(R.id.ll__info);
       mPercentSlided = (TextView) v.findViewById(R.id.tv__percent_slided);
       mSizeSlided = (TextView) v.findViewById(R.id.tv__size_slided);
       mInfoSlided = (LinearLayout) v.findViewById(R.id.ll__info_slided);
-      mProgressSlided = (ProgressBar) v.findViewById(R.id.download_progress_slided);
+      mProgressSlided = (WheelProgressView) v.findViewById(R.id.download_progress_slided);
     }
   }
 
@@ -335,12 +335,20 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     case MapStorage.DOWNLOADING:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.VISIBLE);
+      holder.mProgressSlided.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          stopItemDownloading(holder, position);
+        }
+      });
       holder.mInfoSlided.clearAnimation();
       holder.mInfoSlided.setVisibility(View.VISIBLE);
       holder.mInfo.setOnClickListener(null);
       holder.mInfo.setVisibility(View.INVISIBLE);
       // FIXME
-      setHolderPercentString(holder, "0%", R.color.downloader_gray_bg);
+      setHolderPercentString(holder, "0%", R.color.downloader_gray);
       break;
     case MapStorage.ON_DISK_OUT_OF_DATE:
       holder.mProgress.setVisibility(View.GONE);
@@ -379,7 +387,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mInfoSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
       holder.mInfo.setOnClickListener(null);
-      setHolderPercentString(holder, "DOWNLOADED", R.color.downloader_gray_bg);
+      setHolderPercentString(holder, "DOWNLOADED", R.color.downloader_gray);
       break;
     case MapStorage.DOWNLOAD_FAILED:
       holder.mProgress.setVisibility(View.GONE);
@@ -395,18 +403,24 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mProgressSlided.setProgress(0);
       holder.mInfoSlided.clearAnimation();
       holder.mInfoSlided.setVisibility(View.VISIBLE);
+      holder.mProgressSlided.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          stopItemDownloading(holder, position);
+        }
+      });
       holder.mInfo.setVisibility(View.INVISIBLE);
       holder.mInfo.setOnClickListener(null);
       // FIXME
-      setHolderPercentString(holder, "0%", R.color.downloader_gray_bg);
+      setHolderPercentString(holder, "0%", R.color.downloader_gray);
       break;
     case MapStorage.NOT_DOWNLOADED:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.GONE);
       holder.mInfo.clearAnimation();
       holder.mInfo.setVisibility(View.VISIBLE);
-      holder.mInfoSlided.setVisibility(View.GONE);
-      setHolderPercentString(holder, "DOWNLOAD", R.color.downloader_green);
       holder.mInfo.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -415,16 +429,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           startItemDownloading(holder, position);
         }
       });
-      holder.mProgress.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          stopItemDownloading(holder, position);
-        }
-      });
-      holder.mProgress.setVisibility(View.GONE);
-
+      holder.mInfoSlided.setVisibility(View.GONE);
       holder.mInfoSlided.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -433,6 +438,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           stopItemDownloading(holder, position);
         }
       });
+      setHolderPercentString(holder, "DOWNLOAD", R.color.downloader_green);
+      holder.mProgress.setVisibility(View.GONE);
       break;
 
     }
@@ -444,7 +451,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     holder.mProgressSlided.setProgress(0);
     holder.mProgressSlided.clearAnimation();
     holder.mInfoSlided.clearAnimation();
-    setHolderPercentString(holder, "0%", R.color.downloader_gray_bg);
+    setHolderPercentString(holder, "0%", R.color.downloader_gray);
     Animation slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
         -mActivity.getResources().getDimensionPixelOffset(R.dimen.margin_large), 0, 0);
     slideAnim.setDuration(500);

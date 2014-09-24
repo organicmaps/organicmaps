@@ -73,6 +73,7 @@
   <!-- downloader -->
   <color name="downloader_green">#179E4D</color>
   <color name="downloader_red">#FF4436</color>
-  <color name="downloader_gray_bg">#999999</color>
+  <color name="downloader_gray">#999999</color>
+  <color name="downloader_gray_bg">#a0a0a0</color>
 
 </resources>
