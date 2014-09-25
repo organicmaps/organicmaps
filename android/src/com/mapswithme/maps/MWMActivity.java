@@ -163,7 +163,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void checkShouldResumeLocationService()
   {
-    final LocationState state = MWMApplication.get().getLocationState();
+    final LocationState state = LocationState.INSTANCE;
     final int currentLocationMode = state.getLocationStateMode();
     LocationButtonImageSetter.setButtonViewFromState(currentLocationMode, mLocationButton);
 
@@ -293,7 +293,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void onMyPositionClicked(View v)
   {
-    final LocationState state = MWMApplication.get().getLocationState();
+    final LocationState state = LocationState.INSTANCE;
     state.switchToNextMode();
   }
 
@@ -820,7 +820,7 @@ public class MWMActivity extends NvEventQueueActivity
           final double[] latLon = Framework.getScreenRectCenter();
           final double zoom = Framework.getDrawScale();
 
-          final LocationState locState = MWMApplication.get().getLocationState();
+          final LocationState locState = LocationState.INSTANCE;
           final int locationStateMode = locState.getLocationStateMode();
 
           if (locationStateMode > LocationState.NOT_FOLLOW)
@@ -910,7 +910,7 @@ public class MWMActivity extends NvEventQueueActivity
     // Notify user about turned off location services
     if (errorCode == LocationService.ERROR_DENIED)
     {
-      MWMApplication.get().getLocationState().turnOff();
+      LocationState.INSTANCE.turnOff();
 
       // Do not show this dialog on Kindle Fire - it doesn't have location services
       // and even wifi settings can't be opened programmatically
@@ -1018,12 +1018,12 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void startWatchingCompassStatusUpdate()
   {
-    mCompassStatusListenerID = MWMApplication.get().getLocationState().addLocationStateModeListener(this);
+    mCompassStatusListenerID = LocationState.INSTANCE.addLocationStateModeListener(this);
   }
 
   private void stopWatchingCompassStatusUpdate()
   {
-    MWMApplication.get().getLocationState().removeLocationStateModeListener(mCompassStatusListenerID);
+    LocationState.INSTANCE.removeLocationStateModeListener(mCompassStatusListenerID);
   }
 
   @Override
@@ -1363,7 +1363,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void startRouting()
   {
-    if (MWMApplication.get().getLocationState().getLocationStateMode() < LocationState.NOT_FOLLOW)
+    if (LocationState.INSTANCE.getLocationStateMode() < LocationState.NOT_FOLLOW)
     {
       Toast.makeText(this, R.string.unknown_current_position, Toast.LENGTH_LONG).show();
       return;

@@ -35,7 +35,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
 
   private static MWMApplication mSelf;
 
-  private LocationState mLocationState = null;
   private MapStorage mStorage = null;
 
   private boolean mIsYota = false;
@@ -141,14 +140,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
       BookmarkManager.getBookmarkManager(getApplicationContext());
 
     WorkerService.startActionUpdateAds(this);
-  }
-
-  public LocationState getLocationState()
-  {
-    if (mLocationState == null)
-      mLocationState = new LocationState();
-
-    return mLocationState;
   }
 
   public MapStorage getMapStorage()

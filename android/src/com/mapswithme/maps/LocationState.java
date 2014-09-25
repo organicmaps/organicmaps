@@ -1,7 +1,9 @@
 package com.mapswithme.maps;
 
-public class LocationState
+public enum LocationState
 {
+  INSTANCE;
+
   /// These values should correspond to values of
   /// location::State::Mode defined in map/location_state.hpp
   public static final int UNKNOWN_POSITION = 0;
