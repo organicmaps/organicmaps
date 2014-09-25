@@ -59,7 +59,7 @@ public class Yota
 
     if (addLastKnow)
     {
-      final Location lastLocation = LocationService.INSTANCE.getLastKnown();
+      final Location lastLocation = LocationService.INSTANCE.getLastLocation();
       if (lastLocation != null)
       {
         i.putExtra(EXTRA_HAS_LOCATION, true)

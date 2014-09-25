@@ -169,7 +169,7 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
       // If now position detected or no country downloaded for position.
       if (mContext.mSearchMode != IN_VIEWPORT)
       {
-        final Location loc = LocationService.INSTANCE.getLastKnown();
+        final Location loc = LocationService.INSTANCE.getLastLocation();
         if (loc == null)
         {
           return mContext.getString(R.string.unknown_current_position);

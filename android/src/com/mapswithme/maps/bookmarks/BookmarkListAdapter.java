@@ -193,7 +193,7 @@ public class BookmarkListAdapter extends BaseAdapter
 
     void setDistance(Bookmark bmk)
     {
-      final Location loc = LocationService.INSTANCE.getLastKnown();
+      final Location loc = LocationService.INSTANCE.getLastLocation();
       if (loc != null)
       {
         final DistanceAndAzimut daa = bmk.getDistanceAndAzimut(loc.getLatitude(), loc.getLongitude(), 0.0);

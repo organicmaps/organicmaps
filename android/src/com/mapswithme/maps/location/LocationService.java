@@ -137,7 +137,9 @@ public enum LocationService implements
     }
   }
 
-  public Location getLastKnown() { return mLastLocation; }
+  public Location getLastLocation() { return mLastLocation; }
+
+  public long getLastLocationTime() { return mLastLocationTime; }
 
   private void notifyLocationUpdated(final Location l)
   {

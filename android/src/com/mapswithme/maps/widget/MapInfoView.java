@@ -517,7 +517,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
     mTvLon = (TextView) mGeoLayout.findViewById(R.id.info_box_lon);
     mTvLon.setOnClickListener(this);
 
-    final Location lastKnown = LocationService.INSTANCE.getLastKnown();
+    final Location lastKnown = LocationService.INSTANCE.getLastLocation();
     updateLocation(lastKnown);
 
     updateCoords();
@@ -580,7 +580,7 @@ public class MapInfoView extends LinearLayout implements View.OnClickListener
   {
     if (mGeoLayout != null && mMapObject != null && mMapObject.getType() != MapObjectType.MY_POSITION)
     {
-      final Location l = LocationService.INSTANCE.getLastKnown();
+      final Location l = LocationService.INSTANCE.getLastLocation();
       if (l != null)
       {
         final DistanceAndAzimut da = Framework.nativeGetDistanceAndAzimutFromLatLon(

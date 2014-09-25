@@ -456,7 +456,7 @@ public class MWMActivity extends NvEventQueueActivity
     }
     else
     {
-      final Location l = LocationService.INSTANCE.getLastKnown();
+      final Location l = LocationService.INSTANCE.getLastLocation();
       if (l != null && nativeIsInChina(l.getLatitude(), l.getLongitude()))
         return true;
       else
@@ -636,7 +636,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void shareMyLocation()
   {
-    final Location loc = LocationService.INSTANCE.getLastKnown();
+    final Location loc = LocationService.INSTANCE.getLastLocation();
     if (loc != null)
     {
       final String geoUrl = Framework.nativeGetGe0Url(loc.getLatitude(), loc.getLongitude(), Framework.getDrawScale(), "");
