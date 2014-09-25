@@ -103,7 +103,7 @@ public class MWMActivity extends NvEventQueueActivity
   private SearchController mSearchController;
   private boolean mNeedCheckUpdate = true;
   private boolean mRenderingInitialized = false;
-  private int mCompassStatusListenerID = -1;
+  private int mLocationStateModeListenerId = -1;
   // Initialized to invalid combination to force update on the first check
   private boolean mStorageAvailable = false;
   private boolean mStorageWritable = true;
@@ -163,12 +163,18 @@ public class MWMActivity extends NvEventQueueActivity
 
   public void checkShouldResumeLocationService()
   {
-    final LocationState state = LocationState.INSTANCE;
-    final int currentLocationMode = state.getLocationStateMode();
+    final int currentLocationMode = LocationState.INSTANCE.getLocationStateMode();
     LocationButtonImageSetter.setButtonViewFromState(currentLocationMode, mLocationButton);
 
     if (currentLocationMode > LocationState.UNKNOWN_POSITION)
+    {
       resumeLocation();
+
+      final Location location = LocationService.INSTANCE.getLastLocation();
+      if (location == null || LocationUtils.isExpired(location,
+          LocationService.INSTANCE.getLastLocationTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
+        LocationState.INSTANCE.invalidatePosition();
+    }
   }
 
   public void OnDownloadCountryClicked()
@@ -704,10 +710,6 @@ public class MWMActivity extends NvEventQueueActivity
     // because of bug in OS: https://code.google.com/p/android/issues/detail?id=38629
     addTask(intent);
 
-    // TODO test if initialization here is needed
-    // Initialize location service
-//    LocationService.INSTANCE;
-
     mSearchController = SearchController.getInstance();
     mSearchController.onCreate(this);
 
@@ -1016,14 +1018,14 @@ public class MWMActivity extends NvEventQueueActivity
     });
   }
 
-  private void startWatchingCompassStatusUpdate()
+  private void listenLocationStateModeUpdates()
   {
-    mCompassStatusListenerID = LocationState.INSTANCE.addLocationStateModeListener(this);
+    mLocationStateModeListenerId = LocationState.INSTANCE.addLocationStateModeListener(this);
   }
 
   private void stopWatchingCompassStatusUpdate()
   {
-    LocationState.INSTANCE.removeLocationStateModeListener(mCompassStatusListenerID);
+    LocationState.INSTANCE.removeLocationStateModeListener(mLocationStateModeListenerId);
   }
 
   @Override
@@ -1043,10 +1045,8 @@ public class MWMActivity extends NvEventQueueActivity
   {
     super.onResume();
 
+    listenLocationStateModeUpdates();
     checkShouldResumeLocationService();
-
-    startWatchingCompassStatusUpdate();
-
     startWatchingExternalStorage();
 
     UiUtils.showIf(MWMApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true),
