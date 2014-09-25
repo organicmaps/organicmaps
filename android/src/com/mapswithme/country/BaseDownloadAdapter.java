@@ -46,11 +46,22 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   protected final boolean mHasGoogleStore;
   protected int mSlotID = 0;
 
+  protected final String mStatusDownloaded;
+  protected final String mStatusFailed;
+  protected final String mStatusOutdated;
+  protected final String mStatusNotDownloaded;
+
   public BaseDownloadAdapter(Activity activity)
   {
     mActivity = activity;
     mInflater = mActivity.getLayoutInflater();
     mHasGoogleStore = Utils.hasAnyGoogleStoreInstalled();
+
+    mStatusDownloaded = mActivity.getString(R.string.downloader_downloaded).toUpperCase();
+    // FIXME
+    mStatusFailed = "failed";
+    mStatusOutdated = "outdated";
+    mStatusNotDownloaded = mActivity.getString(R.string.download).toUpperCase();
   }
 
   protected abstract void fillList();
@@ -347,15 +358,14 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mInfoSlided.setVisibility(View.VISIBLE);
       holder.mInfo.setOnClickListener(null);
       holder.mInfo.setVisibility(View.INVISIBLE);
-      // FIXME
-      setHolderPercentString(holder, "0%", R.color.downloader_gray);
+      setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
       break;
     case MapStorage.ON_DISK_OUT_OF_DATE:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.GONE);
       holder.mInfoSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
-      setHolderPercentString(holder, "UPDATE", R.color.downloader_green);
+      setHolderPercentString(holder, mStatusOutdated, R.color.downloader_green);
       holder.mInfo.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -387,7 +397,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mInfoSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
       holder.mInfo.setOnClickListener(null);
-      setHolderPercentString(holder, "DOWNLOADED", R.color.downloader_gray);
+      setHolderPercentString(holder, mStatusDownloaded, R.color.downloader_gray);
       break;
     case MapStorage.DOWNLOAD_FAILED:
       holder.mProgress.setVisibility(View.GONE);
@@ -395,7 +405,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mInfoSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
       holder.mInfo.setOnClickListener(null);
-      setHolderPercentString(holder, "FAILED", R.color.downloader_red);
+      setHolderPercentString(holder, mStatusFailed, R.color.downloader_red);
       break;
     case MapStorage.IN_QUEUE:
       holder.mProgress.setVisibility(View.GONE);
@@ -413,8 +423,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       });
       holder.mInfo.setVisibility(View.INVISIBLE);
       holder.mInfo.setOnClickListener(null);
-      // FIXME
-      setHolderPercentString(holder, "0%", R.color.downloader_gray);
+      setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
       break;
     case MapStorage.NOT_DOWNLOADED:
       holder.mProgress.setVisibility(View.GONE);
@@ -438,7 +447,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           stopItemDownloading(holder, position);
         }
       });
-      setHolderPercentString(holder, "DOWNLOAD", R.color.downloader_green);
+      setHolderPercentString(holder, mStatusNotDownloaded, R.color.downloader_green);
       holder.mProgress.setVisibility(View.GONE);
       break;
 
@@ -447,19 +456,18 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   private void startItemDownloading(final ViewHolder holder, final int position)
   {
-    // TODO get actual percent of download
     holder.mProgressSlided.setProgress(0);
     holder.mProgressSlided.clearAnimation();
     holder.mInfoSlided.clearAnimation();
-    setHolderPercentString(holder, "0%", R.color.downloader_gray);
+    setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
     Animation slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
-        -mActivity.getResources().getDimensionPixelOffset(R.dimen.margin_large), 0, 0);
+        -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width), 0, 0);
     slideAnim.setDuration(500);
     slideAnim.setFillAfter(true);
     holder.mInfo.startAnimation(slideAnim);
 
     slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
-        -mActivity.getResources().getDimensionPixelOffset(R.dimen.margin_large), 0, 0);
+        -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width), 0, 0);
     slideAnim.setDuration(500);
     slideAnim.setFillAfter(true);
     slideAnim.setAnimationListener(
@@ -489,7 +497,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   private void stopItemDownloading(final ViewHolder holder, final int position)
   {
     Animation slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
-        mActivity.getResources().getDimensionPixelOffset(R.dimen.margin_large), 0, 0);
+        mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width), 0, 0);
     slideAnim.setDuration(500);
     slideAnim.setFillAfter(true);
     slideAnim.setAnimationListener(
@@ -512,7 +520,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     holder.mInfoSlided.startAnimation(slideAnim);
 
     slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
-        mActivity.getResources().getDimensionPixelOffset(R.dimen.margin_large), 0, 0);
+        mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width), 0, 0);
     slideAnim.setDuration(500);
     slideAnim.setFillAfter(true);
     holder.mProgressSlided.startAnimation(slideAnim);

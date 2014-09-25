@@ -12,7 +12,7 @@
       android:layout_alignParentLeft="true"
       android:layout_centerVertical="true"
       android:layout_marginLeft="@dimen/dp_x_3"
-      android:text="downloaded"
+      android:text="@string/downloader_downloaded"
       android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
 
   <TextView
