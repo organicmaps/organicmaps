@@ -43,10 +43,11 @@ private:
 class StipplePenRasterizator
 {
 public:
-  StipplePenRasterizator() : m_pixelLength(0) {}
+  StipplePenRasterizator() : m_pixelLength(0), m_patternLength(0) {}
   StipplePenRasterizator(StipplePenKey const & key);
 
   uint32_t GetSize() const;
+  uint32_t GetPatternSize() const;
   uint32_t GetBufferSize() const;
 
   void Rasterize(void * buffer);
@@ -54,22 +55,26 @@ public:
 private:
   StipplePenKey m_key;
   uint32_t m_pixelLength;
+  uint32_t m_patternLength;
 };
 
 class StipplePenResourceInfo : public Texture::ResourceInfo
 {
 public:
-  StipplePenResourceInfo(m2::RectF const & texRect, uint32_t pixelLength)
+  StipplePenResourceInfo(m2::RectF const & texRect, uint32_t pixelLength, uint32_t patternLength)
     : Texture::ResourceInfo(texRect)
     , m_pixelLength(pixelLength)
+    , m_patternLength(patternLength)
   {
   }
 
   virtual Texture::ResourceType GetType() const { return Texture::StipplePen; }
   uint32_t GetPixelLength() const { return m_pixelLength; }
+  uint32_t GetPatternLength() const { return m_patternLength; }
 
 private:
   uint32_t m_pixelLength;
+  uint32_t m_patternLength;
 };
 
 class StipplePenPacker

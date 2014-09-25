@@ -63,67 +63,87 @@ void Bisector(float R, PointF const & v1, PointF const & v2, PointF const & v3,
 }
 
 LineShape::LineShape(vector<m2::PointF> const & points,
-                     LineViewParams const & params)
-  : m_params(params)
-  , m_points(params.m_cap == dp::ButtCap ? points.size() : points.size() + 2)
-  , m_scaleGtoP(1.0f)
-{
-  ASSERT_GREATER(points.size(), 1, ());
-
-  int const size = m_points.size();
-  if (m_params.m_cap != dp::ButtCap)
-  {
-    m_points[0] = points[0] + (points[0] - points[1]).Normalize();;
-    m_points[size - 1] = points[size - 3] + (points[size - 3] - points[size - 4]).Normalize();
-    memcpy(&m_points[1], &points[0], (size - 2) * sizeof(PointF));
-  }
-  else
-    m_points = points;
-}
-
-LineShape::LineShape(vector<m2::PointF> const & points,
                      LineViewParams const & params, float const scaleGtoP)
   : m_params(params)
   , m_scaleGtoP(scaleGtoP)
 {
   ASSERT_GREATER(points.size(), 1, ());
 
-  int const size = points.size();
-  if (m_params.m_cap != dp::ButtCap)
-    m_points.push_back(points[0] + (points[0] - points[1]).Normalize());
+  if (m_params.m_pattern.empty())
+  {
+    int const size = params.m_cap == dp::ButtCap ? points.size() : points.size() + 2;
+    m_points.resize(size);
+    if (m_params.m_cap != dp::ButtCap)
+    {
+      m_points[0] = points[0] + (points[0] - points[1]).Normalize();;
+      m_points[size - 1] = points[size - 3] + (points[size - 3] - points[size - 4]).Normalize();
+      memcpy(&m_points[1], &points[0], (size - 2) * sizeof(PointF));
+    }
+    else
+      m_points = points;
+  }
+  else
+    m_points = points;
+}
 
-  dp::StipplePenRasterizator resource(m_params.m_key);
-  uint32_t const patternLength = resource.GetSize();
-  m_points.push_back(points[0]);
+void LineShape::doPartition(uint32_t patternLength, uint32_t templateLength, vector<m2::PointF> & points) const
+{
+  int const size = m_points.size();
+  if (m_params.m_cap != dp::ButtCap)
+    points.push_back(m_points[0] + (m_points[0] - m_points[1]).Normalize());
+
+  points.push_back(m_points[0]);
   for (int i = 1; i < size; ++i)
   {
-    PointF const pt = points[i] - points[i - 1];
+    PointF const pt = m_points[i] - m_points[i - 1];
     float const length = pt.Length() * m_scaleGtoP;
-    uint32_t const patternPart = std::accumulate(m_params.m_key.m_pattern.begin(), m_params.m_key.m_pattern.end(), 0);
-    if (length > patternLength - patternPart)
+    if (length > templateLength - patternLength)
     {
-      int const numParts = static_cast<int>(ceilf(length / (patternLength - patternPart)));
+      int const numParts = static_cast<int>(ceilf(length / (templateLength - patternLength)));
       PointF const addition = pt / (float)numParts;
       for (int j = 1; j < numParts; ++j)
-        m_points.push_back(m_points.back() + addition);
+        points.push_back(points.back() + addition);
     }
-    if (patternLength == patternPart && length > patternLength)
+    if (templateLength == patternLength && length > templateLength)
     {
-      int const numParts = static_cast<int>(ceilf(length / patternLength));
+      int const numParts = static_cast<int>(ceilf(length / templateLength));
       PointF const addition = pt / (float)numParts;
       for (int j = 1; j < numParts; ++j)
-        m_points.push_back(m_points.back() + addition);
+        points.push_back(points.back() + addition);
     }
-    m_points.push_back(points[i]);
+    points.push_back(m_points[i]);
   }
 
   if (m_params.m_cap != dp::ButtCap)
-    m_points.push_back(points[size - 1] + (points[size - 1] - points[size - 2]).Normalize());
+    points.push_back(m_points[size - 1] + (m_points[size - 1] - m_points[size - 2]).Normalize());
 }
 
 void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  int size = m_points.size();
+  float templateLength, patternLength;
+  int textureOpacitySet;
+  m2::RectF rectOpacity;
+  float texIndexPattern;
+  vector<m2::PointF> points;
+  if (!m_params.m_pattern.empty())
+  {
+    dp::StipplePenKey key;
+    key.m_pattern = m_params.m_pattern;
+    dp::TextureSetHolder::StippleRegion region;
+    textures->GetStippleRegion(key, region);
+    patternLength = region.GetPatternLength();
+    templateLength = region.GetTemplateLength();
+
+    rectOpacity = m2::RectF(region.GetTexRect());
+    texIndexPattern = static_cast<float>(region.GetTextureNode().m_textureOffset);
+    textureOpacitySet = region.GetTextureNode().m_textureSet;
+
+    doPartition(patternLength, templateLength, points);
+  }
+
+  vector<m2::PointF> const & activePoints = m_params.m_pattern.empty() ? m_points : points;
+
+  int size = activePoints.size();
   float const r = 1.0f;
 
   int const numVert = (size - 1) * 4;
@@ -134,8 +154,8 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
 
   PointF leftBisector, rightBisector, dx;
 
-  PointF v2 = m_points[0];
-  PointF v3 = m_points[1];
+  PointF v2 = activePoints[0];
+  PointF v3 = activePoints[1];
   PointF v1 = v2 * 2 - v3;
 
   Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
@@ -158,7 +178,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   {
     v1 = v2;
     v2 = v3;
-    v3 = m_points[i + 1];
+    v3 = activePoints[i + 1];
     Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
     float aspect = (v1-v2).Length() / (v2-v3).Length();
 
@@ -225,42 +245,32 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   dp::TextureSetHolder::ColorRegion region;
   textures->GetColorRegion(key, region);
   m2::RectF const & rect = region.GetTexRect();
-  PointF const coordColor = (rect.RightTop() + rect.LeftBottom()) * 0.5f;
+  PointF const coordColor = rect.RightTop();
   key.SetColor(dp::Color(127, 127, 127, 255).GetColorInInt());
   textures->GetColorRegion(key, region);
   m2::RectF const & outlineRect = region.GetTexRect();
-  PointF const coordOutline = (outlineRect.RightTop() + outlineRect.LeftBottom()) * 0.5f;
+  PointF const coordOutline = outlineRect.RightTop();
   float const texIndexColor = static_cast<float>(region.GetTextureNode().m_textureOffset);
   int textureSet = region.GetTextureNode().m_textureSet;
 
-  quad.v[0] = vec4(coordColor, coordOutline);
-  quad.v[1] = vec4(coordColor, coordOutline);
-  quad.v[2] = vec4(coordColor, coordOutline);
-  quad.v[3] = vec4(coordColor, coordOutline);
-  vector<Quad4> colors(numVert / 4, quad);
+  vec4 temp = vec4(coordColor, coordOutline);
+  vector<Quad4> colors(numVert / 4, Quad4(temp, temp, temp, temp));
 
-  if (!m_params.m_key.m_pattern.empty())
+  if (!m_params.m_pattern.empty())
   {
-    dp::TextureSetHolder::StippleRegion region;
-    textures->GetStippleRegion(m_params.m_key, region);
-
-    m2::RectF const & rect = region.GetTexRect();
-    float const texIndexPattern = static_cast<float>(region.GetTextureNode().m_textureOffset);
-    textureSet = region.GetTextureNode().m_textureSet;
-
-    dp::StipplePenRasterizator resource(m_params.m_key);
-    float const patternLength = resource.GetSize() / (rect.maxX() - rect.minX());
-    float const patternPart = std::accumulate(m_params.m_key.m_pattern.begin(), m_params.m_key.m_pattern.end(), 0) / patternLength;
+    textureSet = textureOpacitySet;
+    templateLength /= (rectOpacity.maxX() - rectOpacity.minX());
+    patternLength /= templateLength;
     float const koef = halfWidth / m_scaleGtoP / 2.0f;
     float patternStart = 0.0f;
     for(int i = 1; i < size; ++i)
     {
-      PointF const dif = m_points[i] - m_points[i-1];
+      PointF const dif = activePoints[i] - activePoints[i-1];
       float dx1 = dxVals[(i-1) * 4].x * koef;
       float dx2 = dxVals[(i-1) * 4 + 1].x * koef;
       float dx3 = dxVals[(i-1) * 4 + 2].x * koef;
       float dx4 = dxVals[(i-1) * 4 + 3].x * koef;
-      float const length = dif.Length() * m_scaleGtoP / patternLength / (fabs(dx1) + fabs(dx3) + 1.0);
+      float const length = dif.Length() * m_scaleGtoP / templateLength / (fabs(dx1) + fabs(dx3) + 1.0);
       float const f1 = fabs(dx1) * length;
       float const length2 = (fabs(dx1) + 1.0) * length;
 
@@ -269,24 +279,21 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
       dx3 *= length;
       dx4 *= length;
 
-      quad.v[0] = vec4(texIndexColor, texIndexPattern, rect.minX() + patternStart + dx1 + f1, rect.minY());
-      quad.v[1] = vec4(texIndexColor, texIndexPattern, rect.minX() + patternStart + dx2 + f1, rect.maxY());
-      quad.v[2] = vec4(texIndexColor, texIndexPattern, rect.minX() + patternStart + length2 + dx3, rect.minY());
-      quad.v[3] = vec4(texIndexColor, texIndexPattern, rect.minX() + patternStart + length2 + dx4, rect.maxY());
+      quad = Quad4(vec4(texIndexColor, texIndexPattern, rectOpacity.minX() + patternStart + dx1 + f1, rectOpacity.minY()),
+                   vec4(texIndexColor, texIndexPattern, rectOpacity.minX() + patternStart + dx2 + f1, rectOpacity.maxY()),
+                   vec4(texIndexColor, texIndexPattern, rectOpacity.minX() + patternStart + length2 + dx3, rectOpacity.minY()),
+                   vec4(texIndexColor, texIndexPattern, rectOpacity.minX() + patternStart + length2 + dx4, rectOpacity.maxY()));
 
       patternStart += length2;
-      while (patternStart >= patternPart)
-        patternStart -= patternPart;
+      while (patternStart >= patternLength)
+        patternStart -= patternLength;
       index.push_back(quad);
     }
   }
   else
   {
-    quad.v[0] = vec4(texIndexColor, texIndexColor, coordColor);
-    quad.v[1] = vec4(texIndexColor, texIndexColor, coordColor);
-    quad.v[2] = vec4(texIndexColor, texIndexColor, coordColor);
-    quad.v[3] = vec4(texIndexColor, texIndexColor, coordColor);
-    index.resize(numVert / 4, quad);
+    temp = vec4(texIndexColor, texIndexColor, coordColor);
+    index.resize(numVert / 4, Quad4(temp, temp, temp, temp));
   }
 
   dp::GLState state(gpu::SOLID_LINE_PROGRAM, dp::GLState::GeometryLayer);
@@ -354,7 +361,7 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   {
     dp::BindingInfo ind(1);
     dp::BindingDecl & decl = ind.GetBindingDecl(0);
-    decl.m_attributeName = "index_opasity";
+    decl.m_attributeName = "index_opacity";
     decl.m_componentCount = 4;
     decl.m_componentType = gl_const::GLFloatType;
     decl.m_offset = 0;

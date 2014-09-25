@@ -45,7 +45,7 @@ struct LineViewParams : CommonViewParams
   float m_width;
   dp::LineCap m_cap;
   dp::LineJoin m_join;
-  dp::StipplePenKey m_key;
+  buffer_vector<uint8_t, 8> m_pattern;
 };
 
 struct FontDecl

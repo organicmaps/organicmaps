@@ -68,6 +68,7 @@ public:
     StippleRegion() : BaseRegion() {}
 
     uint32_t GetTemplateLength() const;
+    uint32_t GetPatternLength() const;
   };
 
   class ColorRegion : public BaseRegion

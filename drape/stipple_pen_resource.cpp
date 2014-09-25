@@ -96,15 +96,20 @@ void StipplePenHandle::Init(buffer_vector<uint8_t, 8> const & pattern)
 StipplePenRasterizator::StipplePenRasterizator(StipplePenKey const & key)
   : m_key(key)
 {
-  uint32_t fullPattern = accumulate(m_key.m_pattern.begin(), m_key.m_pattern.end(), 0);
-  ASSERT(fullPattern < MAX_STIPPLE_PEN_LENGTH, ());
-  uint32_t count = floor(MAX_STIPPLE_PEN_LENGTH / fullPattern);
-  m_pixelLength = count * fullPattern;
+  m_patternLength = accumulate(m_key.m_pattern.begin(), m_key.m_pattern.end(), 0);
+  ASSERT(m_patternLength < MAX_STIPPLE_PEN_LENGTH, ());
+  uint32_t count = floor(MAX_STIPPLE_PEN_LENGTH / m_patternLength);
+  m_pixelLength = count * m_patternLength;
 }
 
 uint32_t StipplePenRasterizator::GetSize() const
 {
   return m_pixelLength;
+}
+
+uint32_t StipplePenRasterizator::GetPatternSize() const
+{
+  return m_patternLength;
 }
 
 uint32_t StipplePenRasterizator::GetBufferSize() const
@@ -146,7 +151,8 @@ StipplePenResourceInfo const * StipplePenIndex::MapResource(StipplePenKey const 
 
   typedef pair<TResourceMapping::iterator, bool> TInsertionNode;
   MasterPointer<StipplePenResourceInfo> info(new StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect),
-                                                             resource.GetSize()));
+                                                             resource.GetSize(),
+                                                             resource.GetPatternSize()));
   TInsertionNode result = m_resourceMapping.insert(TResourceMapping::value_type(handle, info));
   ASSERT(result.second, ());
   return result.first->second.GetRaw();

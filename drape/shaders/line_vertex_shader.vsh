@@ -3,7 +3,7 @@ attribute highp vec4 deltas;
 attribute highp vec4 width_type;
 attribute highp vec4 centres;
 attribute lowp vec4 colors;
-attribute mediump vec4 index_opasity;
+attribute mediump vec4 index_opacity;
 
 varying highp float v_dx;
 varying highp vec4 v_radius;
@@ -45,6 +45,6 @@ void main(void)
   v_type = width_type.yz;
 
   v_colors = colors;
-  v_index = index_opasity.xy;
-  v_opacity = index_opasity.zw;
+  v_index = index_opacity.xy;
+  v_opacity = index_opacity.zw;
 }

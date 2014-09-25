@@ -14,8 +14,6 @@ class LineShape : public MapShape
 {
 public:
   LineShape(vector<m2::PointF> const & points,
-            LineViewParams const & params);
-  LineShape(vector<m2::PointF> const & points,
             LineViewParams const & params,
             float const scaleGtoP);
 
@@ -23,6 +21,9 @@ public:
 
   float         GetWidth() const { return m_params.m_width; }
   dp::Color const & GetColor() const { return m_params.m_color; }
+
+private:
+  void doPartition(uint32_t patternLength, uint32_t templateLength, vector<m2::PointF> & points) const;
 
 private:
   LineViewParams m_params;

@@ -418,7 +418,7 @@ private:
 
     vector<m2::PointF> points;
     ParseGeometry(json_object_get(object, "geometry"), points);
-    return new LineShape(points, params);
+    return new LineShape(points, params, 1.0);
   }
 
   MapShape * CreateArea(json_t * object)
@@ -646,7 +646,7 @@ void TestingEngine::DrawImpl()
   params7.m_width = 4;
   params7.m_join = dp::LineJoin::RoundJoin;
   params7.m_cap = dp::LineCap::ButtCap;
-  params7.m_key = key;
+  params7.m_pattern = key.m_pattern;
 
   vector<m2::PointF> points;
   points.push_back(m2::PointF(100.0f, 100.0f));

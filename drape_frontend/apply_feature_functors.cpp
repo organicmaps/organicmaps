@@ -43,9 +43,9 @@ void Extract(::LineDefProto const * lineRule,
     DashDotProto const & dd = lineRule->dashdot();
 
     int const count = dd.dd_size();
-    params.m_key.m_pattern.reserve(count);
+    params.m_pattern.reserve(count);
     for (int i = 0; i < count; ++i)
-      params.m_key.m_pattern.push_back(dd.dd(i) * scale);
+      params.m_pattern.push_back(dd.dd(i) * scale);
   }
 
   switch(lineRule->cap())
@@ -346,10 +346,7 @@ void ApplyLineFeature::ProcessRule(Stylist::rule_wrapper_t const & rule)
       LineViewParams params;
       Extract(pLineRule, params);
       params.m_depth = depth;
-      if (params.m_key.m_pattern.empty())
-        m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_spline->GetPath(), params)));
-      else
-        m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_spline->GetPath(), params, m_currentScaleGtoP)));
+      m_context.InsertShape(m_tileKey, dp::MovePointer<MapShape>(new LineShape(m_spline->GetPath(), params, m_currentScaleGtoP)));
     }
   }
 }
