@@ -1184,6 +1184,45 @@ cont {
   }
 }
 cont {
+  name: "amenity-bbq"
+  element {
+    scale: 17
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 18
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+  element {
+    scale: 19
+    caption {
+      primary {
+        height: 11
+        color: 0
+        stroke_color: 16777215
+        offset_y: 10
+      }
+      priority: 15002
+    }
+  }
+}
+cont {
   name: "amenity-bench"
   element {
     scale: 16
@@ -4430,12 +4469,26 @@ cont {
       color: 14535867
       priority: 1368
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+      }
+      priority: 15367
+    }
   }
   element {
     scale: 16
     area {
       color: 14535867
       priority: 1368
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+      }
+      priority: 15367
     }
   }
   element {
@@ -4444,6 +4497,13 @@ cont {
       color: 14535867
       priority: 1368
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+      }
+      priority: 15367
+    }
   }
   element {
     scale: 18
@@ -4451,12 +4511,26 @@ cont {
       color: 14535867
       priority: 1368
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+      }
+      priority: 15367
+    }
   }
   element {
     scale: 19
     area {
       color: 14535867
       priority: 1368
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+      }
+      priority: 15367
     }
   }
 }
@@ -4582,12 +4656,26 @@ cont {
       color: 12303257
       priority: 1368
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+      }
+      priority: 15367
+    }
   }
   element {
     scale: 16
     area {
       color: 12303257
       priority: 1368
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+      }
+      priority: 15367
     }
   }
   element {
@@ -4596,6 +4684,13 @@ cont {
       color: 12303257
       priority: 1368
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+      }
+      priority: 15367
+    }
   }
   element {
     scale: 18
@@ -4603,12 +4698,26 @@ cont {
       color: 12303257
       priority: 1368
     }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+      }
+      priority: 15367
+    }
   }
   element {
     scale: 19
     area {
       color: 12303257
       priority: 1368
+    }
+    caption {
+      primary {
+        height: 11
+        color: 4473924
+      }
+      priority: 15367
     }
   }
 }
@@ -8211,163 +8320,6 @@ cont {
   }
 }
 cont {
-  name: "highway-bridleway-private"
-  element {
-    scale: 13
-    lines {
-      width: 2.5
-      color: 6710886
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 0.9
-      color: 11197781
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 3.2
-      color: 6710886
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.6
-      color: 8960836
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 4.8
-      color: 6710886
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 3.2
-      color: 14535833
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16000
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 8.0
-      color: 6710886
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 6.4
-      color: 14535833
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16000
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 8.4
-      color: 6710886
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 6.8
-      color: 14535833
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16000
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 8.4
-      color: 6710886
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 6.8
-      color: 14535833
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16000
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 8.4
-      color: 6710886
-      priority: 999
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 6.8
-      color: 14535833
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16000
-    }
-  }
-}
-cont {
   name: "highway-bridleway-tunnel"
   element {
     scale: 13
@@ -9147,104 +9099,6 @@ cont {
   }
 }
 cont {
-  name: "highway-cycleway-private"
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 4504388
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.0
-      color: 10075033
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.0
-      color: 10075033
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 3.0
-      color: 10075033
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 3.0
-      color: 10075033
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 3.0
-      color: 10075033
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-}
-cont {
   name: "highway-cycleway-tunnel"
   element {
     scale: 14
@@ -9727,12 +9581,12 @@ cont {
       color: 14535867
       priority: 1027
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 0
       }
-      priority: 16026
+      priority: 15026
     }
   }
   element {
@@ -9741,87 +9595,54 @@ cont {
       color: 14535867
       priority: 1027
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 0
       }
-      priority: 16026
+      priority: 15026
     }
   }
   element {
     scale: 17
-    lines {
-      width: 4.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
     area {
-      color: 14535867
+      color: 16777198
       priority: 1027
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 0
       }
-      priority: 16026
+      priority: 15026
     }
   }
   element {
     scale: 18
-    lines {
-      width: 8.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
     area {
-      color: 14535867
+      color: 16777198
       priority: 1027
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 0
       }
-      priority: 16026
+      priority: 15026
     }
   }
   element {
     scale: 19
-    lines {
-      width: 16.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 4.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
     area {
-      color: 14535867
+      color: 16777198
       priority: 1027
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 0
       }
-      priority: 16026
+      priority: 15026
     }
   }
 }
@@ -10867,159 +10688,6 @@ cont {
 }
 cont {
   name: "highway-footway-permissive"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 14535867
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 14535867
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.0
-      color: 14535867
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 2.0
-      color: 14535867
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 5.0
-      color: 14535867
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 4.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 9.0
-      color: 14535867
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 8.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 3.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 17.0
-      color: 14535867
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    lines {
-      width: 16.0
-      color: 14535867
-      dashdot {
-        dd: 1.0
-        dd: 4.0
-      }
-      priority: 1736
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-}
-cont {
-  name: "highway-footway-private"
   element {
     scale: 13
     lines {
@@ -16145,142 +15813,6 @@ cont {
   }
 }
 cont {
-  name: "highway-path-private"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 14522675
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 14522675
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 1.0
-      color: 14522675
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 1.0
-      color: 14522675
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 1.0
-      color: 14522675
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 1.0
-      color: 14522675
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 1.0
-      color: 14522675
-      dashdot {
-        dd: 4.0
-        dd: 4.0
-      }
-      priority: 1026
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16026
-    }
-  }
-}
-cont {
   name: "highway-path-tunnel"
   element {
     scale: 13
@@ -16517,10 +16049,6 @@ cont {
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
-    area {
-      color: 12303257
-      priority: 1027
-    }
     path_text {
       primary {
         height: 10
@@ -16537,10 +16065,6 @@ cont {
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 12303257
-      priority: 1027
     }
     path_text {
       primary {
@@ -16559,10 +16083,6 @@ cont {
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
-    area {
-      color: 12303257
-      priority: 1027
-    }
     path_text {
       primary {
         height: 10
@@ -16579,10 +16099,6 @@ cont {
       priority: 1026
       join: ROUNDJOIN
       cap: ROUNDCAP
-    }
-    area {
-      color: 12303257
-      priority: 1027
     }
     path_text {
       primary {
@@ -16601,10 +16117,6 @@ cont {
       join: ROUNDJOIN
       cap: ROUNDCAP
     }
-    area {
-      color: 12303257
-      priority: 1027
-    }
     path_text {
       primary {
         height: 10
@@ -16622,12 +16134,12 @@ cont {
       color: 12303257
       priority: 1027
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 0
       }
-      priority: 16026
+      priority: 15026
     }
   }
   element {
@@ -16636,12 +16148,12 @@ cont {
       color: 12303257
       priority: 1027
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 0
       }
-      priority: 16026
+      priority: 15026
     }
   }
   element {
@@ -16650,12 +16162,12 @@ cont {
       color: 12303257
       priority: 1027
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 0
       }
-      priority: 16026
+      priority: 15026
     }
   }
   element {
@@ -16664,12 +16176,12 @@ cont {
       color: 12303257
       priority: 1027
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 0
       }
-      priority: 16026
+      priority: 15026
     }
   }
   element {
@@ -16678,12 +16190,12 @@ cont {
       color: 12303257
       priority: 1027
     }
-    path_text {
+    caption {
       primary {
-        height: 10
+        height: 11
         color: 0
       }
-      priority: 16026
+      priority: 15026
     }
   }
 }
@@ -16711,10 +16223,6 @@ cont {
       priority: 1004
       join: ROUNDJOIN
       cap: BUTTCAP
-    }
-    area {
-      color: 12303257
-      priority: 1027
     }
     path_text {
       primary {
@@ -16747,10 +16255,6 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
-    area {
-      color: 12303257
-      priority: 1027
-    }
     path_text {
       primary {
         height: 10
@@ -16781,10 +16285,6 @@ cont {
       priority: 1004
       join: ROUNDJOIN
       cap: BUTTCAP
-    }
-    area {
-      color: 12303257
-      priority: 1027
     }
     path_text {
       primary {
@@ -16817,10 +16317,6 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
-    area {
-      color: 12303257
-      priority: 1027
-    }
     path_text {
       primary {
         height: 10
@@ -16851,10 +16347,6 @@ cont {
       priority: 1004
       join: ROUNDJOIN
       cap: BUTTCAP
-    }
-    area {
-      color: 12303257
-      priority: 1027
     }
     path_text {
       primary {
@@ -16894,10 +16386,6 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
-    area {
-      color: 12303257
-      priority: 1027
-    }
     path_text {
       primary {
         height: 10
@@ -16932,10 +16420,6 @@ cont {
       priority: 1004
       join: ROUNDJOIN
       cap: BUTTCAP
-    }
-    area {
-      color: 12303257
-      priority: 1027
     }
     path_text {
       primary {
@@ -16972,10 +16456,6 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
-    area {
-      color: 12303257
-      priority: 1027
-    }
     path_text {
       primary {
         height: 10
@@ -17011,10 +16491,6 @@ cont {
       join: ROUNDJOIN
       cap: BUTTCAP
     }
-    area {
-      color: 12303257
-      priority: 1027
-    }
     path_text {
       primary {
         height: 10
@@ -17049,10 +16525,6 @@ cont {
       priority: 1004
       join: ROUNDJOIN
       cap: BUTTCAP
-    }
-    area {
-      color: 12303257
-      priority: 1027
     }
     path_text {
       primary {
@@ -19399,28 +18871,12 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 15
     area {
       color: 16777215
       priority: 1035
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
     }
   }
   element {
@@ -19429,28 +18885,12 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 17
     area {
       color: 16777215
       priority: 1035
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
     }
   }
   element {
@@ -19459,28 +18899,12 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 19
     area {
       color: 16777215
       priority: 1035
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
     }
   }
 }
@@ -19713,176 +19137,6 @@ cont {
       priority: 1004
       join: ROUNDJOIN
       cap: BUTTCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
-  }
-}
-cont {
-  name: "highway-residential-private"
-  element {
-    scale: 13
-    lines {
-      width: 2.6
-      color: 6710886
-      priority: 1033
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 1.0
-      color: 16777215
-      priority: 1034
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 3.6
-      color: 6710886
-      priority: 1033
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 2.0
-      color: 16777215
-      priority: 1034
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 5.6
-      color: 6710886
-      priority: 1033
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 4.0
-      color: 16777215
-      priority: 1034
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 7.6
-      color: 6710886
-      priority: 1033
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 6.0
-      color: 16777215
-      priority: 1034
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 9.6
-      color: 6710886
-      priority: 1033
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 8.0
-      color: 16777215
-      priority: 1034
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 24.6
-      color: 6710886
-      priority: 1033
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 23.0
-      color: 16777215
-      priority: 1034
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 42.6
-      color: 6710886
-      priority: 1033
-      join: ROUNDJOIN
-      cap: BUTTCAP
-    }
-    lines {
-      width: 41.0
-      color: 16777215
-      priority: 1034
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
     path_text {
       primary {
@@ -22712,26 +21966,12 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 16
     area {
       color: 16777215
       priority: 1035
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16034
     }
   }
   element {
@@ -22740,13 +21980,6 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 18
@@ -22754,26 +21987,12 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 19
     area {
       color: 16777215
       priority: 1035
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16034
     }
   }
 }
@@ -23183,26 +22402,12 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 16
     area {
       color: 16777215
       priority: 1035
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16034
     }
   }
   element {
@@ -23211,13 +22416,6 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 18
@@ -23225,26 +22423,12 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 19
     area {
       color: 16777215
       priority: 1035
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16034
     }
   }
 }
@@ -26156,26 +25340,12 @@ cont {
       color: 13412983
       priority: 1029
     }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
   }
   element {
     scale: 16
     area {
       color: 13412983
       priority: 1029
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
     }
   }
   element {
@@ -26184,13 +25354,6 @@ cont {
       color: 13412983
       priority: 1029
     }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
   }
   element {
     scale: 18
@@ -26198,26 +25361,12 @@ cont {
       color: 13412983
       priority: 1029
     }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
   }
   element {
     scale: 19
     area {
       color: 13412983
       priority: 1029
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
     }
   }
 }
@@ -26940,114 +26089,6 @@ cont {
   }
 }
 cont {
-  name: "highway-track-grade3-private"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 14522675
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 14522675
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 4.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-}
-cont {
   name: "highway-track-grade4"
   element {
     scale: 13
@@ -27265,114 +26306,6 @@ cont {
 }
 cont {
   name: "highway-track-grade4-permissive"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 14522675
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 14522675
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 4.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-}
-cont {
-  name: "highway-track-grade4-private"
   element {
     scale: 13
     lines {
@@ -27804,114 +26737,6 @@ cont {
   }
 }
 cont {
-  name: "highway-track-grade5-private"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 14522675
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 14522675
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 4.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-}
-cont {
   name: "highway-track-no-access"
   element {
     scale: 13
@@ -28021,114 +26846,6 @@ cont {
 }
 cont {
   name: "highway-track-permissive"
-  element {
-    scale: 13
-    lines {
-      width: 1.0
-      color: 14522675
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 14
-    lines {
-      width: 1.0
-      color: 14522675
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 15
-    lines {
-      width: 2.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 16
-    lines {
-      width: 4.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 6.0
-      color: 13412983
-      priority: 1028
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-    path_text {
-      primary {
-        height: 10
-        color: 0
-      }
-      priority: 16028
-    }
-  }
-}
-cont {
-  name: "highway-track-private"
   element {
     scale: 13
     lines {
@@ -30489,28 +29206,12 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 15
     area {
       color: 16777215
       priority: 1035
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
     }
   }
   element {
@@ -30519,28 +29220,12 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 17
     area {
       color: 16777215
       priority: 1035
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
     }
   }
   element {
@@ -30549,28 +29234,12 @@ cont {
       color: 16777215
       priority: 1035
     }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
-    }
   }
   element {
     scale: 19
     area {
       color: 16777215
       priority: 1035
-    }
-    path_text {
-      primary {
-        height: 12
-        color: 0
-        stroke_color: 16777215
-      }
-      priority: 16034
     }
   }
 }
@@ -33326,29 +31995,6 @@ cont {
     area {
       color: 6710886
       priority: 1015
-    }
-  }
-}
-cont {
-  name: "lit"
-  element {
-    scale: 18
-    lines {
-      width: 0.3
-      color: 16776960
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 0.3
-      color: 16776960
-      priority: 1000
-      join: ROUNDJOIN
-      cap: ROUNDCAP
     }
   }
 }
@@ -36584,61 +35230,6 @@ cont {
         offset_y: 10
       }
       priority: 15002
-    }
-  }
-}
-cont {
-  name: "oneway"
-  element {
-    scale: 16
-    lines {
-      width: 0
-      color: 0
-      priority: 1988
-      pathsym {
-        name: "arrow"
-        step: 218.0
-        offset: 200.0
-      }
-    }
-  }
-  element {
-    scale: 17
-    lines {
-      width: 0
-      color: 0
-      priority: 1988
-      pathsym {
-        name: "arrow"
-        step: 218.0
-        offset: 200.0
-      }
-    }
-  }
-  element {
-    scale: 18
-    lines {
-      width: 0
-      color: 0
-      priority: 1988
-      pathsym {
-        name: "arrow"
-        step: 218.0
-        offset: 200.0
-      }
-    }
-  }
-  element {
-    scale: 19
-    lines {
-      width: 0
-      color: 0
-      priority: 1988
-      pathsym {
-        name: "arrow"
-        step: 218.0
-        offset: 200.0
-      }
     }
   }
 }
@@ -41828,14 +40419,14 @@ cont {
       name: "railway-station-mini"
       priority: 16161
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0
         stroke_color: 16777215
         offset_y: 10
       }
-      priority: 16161
+      priority: 15161
     }
   }
   element {
@@ -41844,62 +40435,62 @@ cont {
       name: "railway-station-mini"
       priority: 16161
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0
         stroke_color: 16777215
         offset_y: 10
       }
-      priority: 16161
+      priority: 15161
     }
   }
   element {
     scale: 17
     symbol {
       name: "railway-station"
-      priority: 16000
+      priority: 16173
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0
         stroke_color: 16777215
         offset_y: 10
       }
-      priority: 16000
+      priority: 15173
     }
   }
   element {
     scale: 18
     symbol {
       name: "railway-station"
-      priority: 16000
+      priority: 16173
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0
         stroke_color: 16777215
         offset_y: 10
       }
-      priority: 16000
+      priority: 15173
     }
   }
   element {
     scale: 19
     symbol {
       name: "railway-station"
-      priority: 16000
+      priority: 16173
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 0
         stroke_color: 16777215
         offset_y: 10
       }
-      priority: 16000
+      priority: 15173
     }
   }
 }

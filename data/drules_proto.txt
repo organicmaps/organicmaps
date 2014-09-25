@@ -47311,14 +47311,14 @@ cont {
       name: "railway-station-mini"
       priority: 16177
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
         offset_y: 10
       }
-      priority: 16177
+      priority: 15177
     }
   }
   element {
@@ -47327,62 +47327,62 @@ cont {
       name: "railway-station-mini"
       priority: 16177
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
         offset_y: 10
       }
-      priority: 16177
+      priority: 15177
     }
   }
   element {
     scale: 17
     symbol {
       name: "railway-station"
-      priority: 16000
+      priority: 16189
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
         offset_y: 10
       }
-      priority: 16000
+      priority: 15189
     }
   }
   element {
     scale: 18
     symbol {
       name: "railway-station"
-      priority: 16000
+      priority: 16189
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
         offset_y: 10
       }
-      priority: 16000
+      priority: 15189
     }
   }
   element {
     scale: 19
     symbol {
       name: "railway-station"
-      priority: 16000
+      priority: 16189
     }
-    path_text {
+    caption {
       primary {
         height: 12
         color: 3364317
         stroke_color: 16777215
         offset_y: 10
       }
-      priority: 16000
+      priority: 15189
     }
   }
 }

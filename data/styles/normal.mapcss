@@ -1098,16 +1098,6 @@ line|z14[railway=monorail]::railborder
   width: 2;
   z-index: 555;
 }
-area|z15-[railway=halt],
-node|z15-[railway=halt]
-{
-  font-size: 12;
-  text-halo-radius: 2;
-  text: name;
-  text-color: #3050d8;
-  text-offset: 10;
-  text-halo-color: white;
-}
 line|z14[piste:lift=platter]::d1p3
 {
   color: #202020;
@@ -3591,8 +3581,10 @@ node|z19-[entrance]::flats
   text-offset-y: 10;
 }
 node|z15-[railway=station][!transport],
-area|z15-[railway=station][!transport]
-{ 
+node|z15-[railway=halt],
+area|z15-[railway=station][!transport],
+area|z15-[railway=halt],
+{
   font-size: 12;
   text-halo-radius: 2;
   text: name;
@@ -3601,6 +3593,7 @@ area|z15-[railway=station][!transport]
   text-halo-color: #f8fcff;
   z-index: 170;
 }
+
 /* POI icons */
 
 area|z17-[tourism=information][office],

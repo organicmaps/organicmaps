@@ -5,9 +5,11 @@ line[highway=bus_stop]
 node[highway=bus_stop],
 node[railway=tram_stop],
 node[railway=station],
-way[highway=bus_stop],
-way[railway=tram_stop],
-way[railway=station]
+node[railway=halt],
+area[highway=bus_stop],
+area[railway=tram_stop],
+area[railway=station],
+area[railway=halt],
 {
   text-position: center;
 }
