@@ -56,4 +56,22 @@ namespace anim
     m_outPt = m_endPt;
     Task::OnEnd(ts);
   }
+
+  SafeSegmentInterpolation::SafeSegmentInterpolation(m2::PointD const & startPt, m2::PointD const & endPt,
+                                                     double interval)
+    : TBase(startPt, endPt, interval, m_pt)
+  {
+    m_pt = startPt;
+  }
+
+  void SafeSegmentInterpolation::ResetDestParams(m2::PointD const & dstPt, double interval)
+  {
+    Reset(GetCurrentValue(), dstPt, interval);
+  }
+
+  const m2::PointD &SafeSegmentInterpolation::GetCurrentValue() const
+  {
+    return m_pt;
+  }
+
 }

@@ -41,16 +41,10 @@ namespace anim
   {
     typedef AngleInterpolation TBase;
   public:
-    SafeAngleInterpolation(double start, double end, double speed)
-      : TBase(start, end, speed, m_angle)
-    {
-      m_angle = start;
-    }
+    SafeAngleInterpolation(double start, double end, double speed);
 
-    double GetCurrentValue() const
-    {
-      return m_angle;
-    }
+    void ResetDestParams(double dstAngle, double speed);
+    double GetCurrentValue() const;
 
   private:
     double m_angle;

@@ -28,9 +28,6 @@ namespace
 {
 
 static const int POSITION_Y_OFFSET = 120;
-#ifdef USE_FRAME_COUNT
-static const int ANIM_THRESHOLD = 4;
-#endif
 
 uint16_t IncludeModeBit(uint16_t mode, uint16_t bit)
 {
@@ -63,11 +60,6 @@ public:
   RotateAndFollowAnim(Framework * fw, m2::PointD const & srcPos,
                       double srcAngle, m2::PointD const & srcPixelBinding)
     : m_fw(fw)
-#ifdef USE_FRAME_COUNT
-    , m_anglePrevState(EReady)
-    , m_posPrevState(EReady)
-    , m_freeFrameCount(0)
-#endif
   {
     m_angleAnim.reset(new anim::SafeAngleInterpolation(srcAngle, srcAngle, 0.0));
     m_posAnim.reset(new anim::SafeSegmentInterpolation(srcPos, srcPos, 0.0));
@@ -82,14 +74,14 @@ public:
     double const posSpeed = m_fw->GetNavigator().ComputeMoveSpeed(m_posAnim->GetCurrentValue(), dstPos);
     double const angleSpeed = m_fw->GetAnimator().GetRotationSpeed();
 
-    m_angleAnim->Reset(m_angleAnim->GetCurrentValue(), dstAngle, angleSpeed);
-    m_posAnim->Reset(m_posAnim->GetCurrentValue(), dstPos, posSpeed);
+    m_angleAnim->ResetDestParams(dstAngle, angleSpeed);
+    m_posAnim->ResetDestParams(dstPos, posSpeed);
   }
 
   void SetDestinationPxBinding(m2::PointD const & pxBinding)
   {
     ASSERT(m_pxBindingAnim != nullptr, ());
-    m_pxBindingAnim->Reset(m_pxBindingAnim->GetCurrentValue(), InvertPxBinding(pxBinding), 0.5);
+    m_pxBindingAnim->ResetDestParams(InvertPxBinding(pxBinding), 0.5);
   }
 
   virtual void OnStep(double ts)
@@ -105,10 +97,6 @@ public:
 
     if (updateViewPort)
       UpdateViewport();
-
-#ifdef USE_FRAME_COUNT
-    AnimStateChanged();
-#endif
   }
 
   virtual bool IsVisual() const
@@ -116,11 +104,6 @@ public:
     ASSERT(m_posAnim != nullptr, ());
     ASSERT(m_angleAnim != nullptr, ());
     ASSERT(m_pxBindingAnim != nullptr, ());
-
-#ifdef USE_FRAME_COUNT
-    if (m_freeFrameCount < ANIM_THRESHOLD)
-      return true;
-#endif
 
     return m_posAnim->IsRunning() ||
            m_angleAnim->IsRunning() ||
@@ -164,27 +147,6 @@ private:
     m_fw->Invalidate();
   }
 
-#ifdef USE_FRAME_COUNT
-  void AnimStateChanged()
-  {
-    anim::Task::EState const  angleState = m_angleAnim->State();
-    anim::Task::EState const  posState = m_posAnim->State();
-    if ((posState == anim::Task::EEnded && angleState == anim::Task::EEnded) &&
-        (posState != m_posPrevState || angleState != m_anglePrevState))
-    {
-      ++m_freeFrameCount;
-    }
-    else if ((angleState == anim::Task::EInProgress || posState == anim::Task::EInProgress) &&
-             m_freeFrameCount > ANIM_THRESHOLD)
-    {
-      m_freeFrameCount = 0;
-    }
-
-    m_posPrevState = posState;
-    m_anglePrevState = angleState;
-  }
-#endif
-
   bool OnStep(anim::Task * task, double ts)
   {
     if (task->IsReady())
@@ -193,17 +155,16 @@ private:
       task->OnStart(ts);
     }
 
-    bool isDoSome = false;
     if (task->IsRunning())
     {
       task->OnStep(ts);
-      isDoSome = true;
+      return true;
     }
 
-    return isDoSome;
+    return false;
   }
 
-  m2::PointD InvertPxBinding(m2::PointD const & px)
+  m2::PointD InvertPxBinding(m2::PointD const & px) const
   {
     m2::RectD const & pixelRect = m_fw->GetNavigator().Screen().PixelRect();
     return m2::PointD(px.x, pixelRect.maxY() - px.y);
@@ -215,12 +176,6 @@ private:
   unique_ptr<anim::SafeAngleInterpolation> m_angleAnim;
   unique_ptr<anim::SafeSegmentInterpolation> m_posAnim;
   unique_ptr<anim::SafeSegmentInterpolation> m_pxBindingAnim;
-
-#ifdef USE_FRAME_COUNT
-  anim::Task::EState m_anglePrevState;
-  anim::Task::EState m_posPrevState;
-  int m_freeFrameCount;
-#endif
 };
 
 }

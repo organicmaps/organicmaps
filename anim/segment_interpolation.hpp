@@ -35,16 +35,10 @@ namespace anim
   public:
     SafeSegmentInterpolation(m2::PointD const & startPt,
                              m2::PointD const & endPt,
-                             double interval)
-      : TBase(startPt, endPt, interval, m_pt)
-    {
-      m_pt = startPt;
-    }
+                             double interval);
 
-    m2::PointD const & GetCurrentValue() const
-    {
-      return m_pt;
-    }
+    void ResetDestParams(m2::PointD const & dstPt, double interval);
+    m2::PointD const & GetCurrentValue() const;
 
   private:
     m2::PointD m_pt;

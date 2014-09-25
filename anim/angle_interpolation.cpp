@@ -75,4 +75,21 @@ namespace anim
     m_endAngle = m_startAngle + m_dist;
     m_interval = fabs(m_dist) / (2 * math::pi) * m_speed;
   }
+
+  SafeAngleInterpolation::SafeAngleInterpolation(double start, double end, double speed)
+    : TBase(start, end, speed, m_angle)
+  {
+    m_angle = start;
+  }
+
+  void SafeAngleInterpolation::ResetDestParams(double dstAngle, double speed)
+  {
+    Reset(GetCurrentValue(), dstAngle, speed);
+  }
+
+  double SafeAngleInterpolation::GetCurrentValue() const
+  {
+    return m_angle;
+  }
+
 }
