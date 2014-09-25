@@ -19,8 +19,8 @@ namespace anim
   {
     CalcParams(start, end, speed);
     m_startTime = GetController()->GetCurrentTime();
+    m_outAngle = m_startAngle;
     SetState(EReady);
-    Start();
   }
 
   void AngleInterpolation::OnStart(double ts)

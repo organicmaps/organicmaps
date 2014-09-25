@@ -28,5 +28,26 @@ namespace anim
     void OnStep(double ts);
     void OnEnd(double ts);
   };
+
+  class SafeSegmentInterpolation : public SegmentInterpolation
+  {
+    typedef SegmentInterpolation TBase;
+  public:
+    SafeSegmentInterpolation(m2::PointD const & startPt,
+                             m2::PointD const & endPt,
+                             double interval)
+      : TBase(startPt, endPt, interval, m_pt)
+    {
+      m_pt = startPt;
+    }
+
+    m2::PointD const & GetCurrentValue() const
+    {
+      return m_pt;
+    }
+
+  private:
+    m2::PointD m_pt;
+  };
 }
 
