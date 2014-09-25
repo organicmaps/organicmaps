@@ -28,15 +28,11 @@ CompassArrow::CompassArrow(Params const & p)
 
 void CompassArrow::AnimateShow()
 {
-  if (m_animTask == NULL || IsHidingAnim())
+  if (!isVisible())
   {
-    if (!isBaseVisible())
-    {
-      setIsVisible(true);
-      CreateAnim(0.1, 1.0, 0.2, 0.0, true);
-    }
-    else
-      CreateAnim(GetCurrentAlfa(), 1.0, 0.2, 0.0, true);
+    setIsVisible(true);
+    double startValue = m_animTask == nullptr ? 0.1 : GetCurrentAlfa();
+    CreateAnim(startValue, 1.0, 0.2, 0.0, true);
   }
 }
 
@@ -131,6 +127,7 @@ void CompassArrow::CreateAnim(double startAlfa, double endAlfa, double timeInter
     m_animTask->Cancel();
 
   m_animTask.reset(new AlfaAnimationTask(startAlfa, endAlfa, timeInterval, timeOffset, m_framework));
+  LOG(LINFO, ("Create compas alfa anim = ", m_animTask.get()));
   m_animTask->AddCallback(anim::Task::EEnded, bind(&CompassArrow::AlfaAnimEnded, this, isVisibleAtEnd));
   m_framework->GetAnimController()->AddTask(m_animTask);
 }
