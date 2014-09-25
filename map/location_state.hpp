@@ -146,6 +146,7 @@ namespace location
     double m_errorRadius;   //< error radius in mercator
     m2::PointD m_position;  //< position in mercator
     double m_drawDirection;
+    Mode m_afterPendingMode;
 
     m2::PointD m_dstPixelBinding;
 

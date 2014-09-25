@@ -191,6 +191,7 @@ State::State(Params const & p)
     m_errorRadius(0),
     m_position(0, 0),
     m_drawDirection(0.0),
+    m_afterPendingMode(Follow),
     m_currentSlotID(0)
 {
   m_locationAreaColor = p.m_locationAreaColor;
@@ -236,8 +237,11 @@ void State::SwitchToNextMode()
       newMode = PendingPosition;
       break;
     case PendingPosition:
-      newMode = UnknownPosition;
-      break;
+      {
+        newMode = UnknownPosition;
+        m_afterPendingMode = Follow;
+        break;
+      }
     case NotFollow:
       newMode = Follow;
       break;
@@ -245,11 +249,17 @@ void State::SwitchToNextMode()
       if (IsRotationActive())
         newMode = RotateAndFollow;
       else
+      {
         newMode = UnknownPosition;
+        m_afterPendingMode = Follow;
+      }
       break;
     case RotateAndFollow:
-      newMode = UnknownPosition;
-      break;
+      {
+        newMode = UnknownPosition;
+        m_afterPendingMode = Follow;
+        break;
+      }
     }
   }
   else
@@ -293,8 +303,8 @@ void State::OnLocationUpdate(location::GpsInfo const & info)
 
   if (GetMode() == PendingPosition)
   {
-    SetModeInfo(ChangeMode(m_modeInfo, Follow));
-    SetCurrentPixelBinding(GetModeDefaultPixelBinding(Follow));
+    SetModeInfo(ChangeMode(m_modeInfo, m_afterPendingMode));
+    SetCurrentPixelBinding(GetModeDefaultPixelBinding(m_afterPendingMode));
   }
   else
     AnimateFollow();
@@ -355,6 +365,7 @@ void State::RemovePositionChangedListener(int slotID)
 
 void State::InvalidatePosition()
 {
+  m_afterPendingMode = GetMode();
   SetModeInfo(ChangeMode(m_modeInfo, PendingPosition));
   setIsVisible(false);
   invalidate();
@@ -624,6 +635,7 @@ void State::StopLocationFollow()
 void State::DragStarted()
 {
   m_dragModeInfo = m_modeInfo;
+  m_afterPendingMode = NotFollow;
 }
 
 void State::Draged()
@@ -677,6 +689,7 @@ void State::ScaleCorrection(m2::PointD & pt1, m2::PointD & pt2)
 
 void State::Rotated()
 {
+  m_afterPendingMode = NotFollow;
   StopCompassFollowing(IsInRouting() ? NotFollow : Follow);
 }
 
