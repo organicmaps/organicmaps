@@ -4,6 +4,7 @@
 #include "../std/vector.hpp"
 #include "../std/stdint.hpp"
 
+
 class Classificator;
 class FeatureType;
 
@@ -40,11 +41,17 @@ public:
   double GetSpeed(feature::TypesHolder const & types) const;
   bool IsOneWay(feature::TypesHolder const & types) const;
 
+  bool IsRoad(FeatureType const & f) const;
+  bool IsRoad(vector<uint32_t> const & types) const;
+  bool IsRoad(uint32_t type) const;
+
 private:
   double m_maxSpeed;
+
   typedef unordered_map<uint32_t, SpeedForType> TypesT;
   TypesT m_types;
-  uint32_t m_onewayType;
+
+  uint32_t m_onewayType, m_ferryType;
 };
 
 class CarModel : public VehicleModel

@@ -1,5 +1,7 @@
 #include "feature_builder.hpp"
 
+#include "../routing/vehicle_model.hpp"
+
 #include "../indexer/feature_impl.hpp"
 #include "../indexer/feature_visibility.hpp"
 #include "../indexer/geometry_serialization.hpp"
@@ -175,13 +177,10 @@ namespace
   }
 }
 
-bool FeatureBuilder1::IsHighway() const
+bool FeatureBuilder1::IsRoad() const
 {
-  /// @todo Add additional type for check "route-ferry-motorcar"
-  /// when it will be added as separate type into classificator.
-
-  static feature::TypeSetChecker const checkHighway("highway");
-  return checkHighway.IsEqualV(m_params.m_Types);
+  static routing::CarModel const carModel;
+  return carModel.IsRoad(m_params.m_Types);
 }
 
 bool FeatureBuilder1::PreSerialize()
@@ -212,7 +211,7 @@ bool FeatureBuilder1::PreSerialize()
   case GEOM_LINE:
   {
     // We need refs for road's numbers.
-    if (!IsHighway())
+    if (!IsRoad())
       m_params.ref.clear();
 
     m_params.rank = 0;
@@ -621,7 +620,7 @@ void FeatureBuilder2::Serialize(buffers_holder_t & data, serial::CodingParams co
 
 uint64_t FeatureBuilder2::GetWayIDForRouting() const
 {
-  if (m_osmIds.size() == 1 && m_osmIds[0].IsWay() && IsLine() && IsHighway())
+  if (m_osmIds.size() == 1 && m_osmIds[0].IsWay() && IsLine() && IsRoad())
     return m_osmIds[0].OsmId();
   else
     return 0;

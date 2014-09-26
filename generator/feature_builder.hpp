@@ -168,7 +168,7 @@ public:
   bool CheckValid() const;
   //@}
 
-  bool IsHighway() const;
+  bool IsRoad() const;
 
 protected:
   /// Used for features debugging

@@ -634,7 +634,9 @@ world  +
             {}
         {}
     route  +
-        ferry  -
+        ferry  +
+            motorcar  -
+            {}
         {}
     shop  +
         alcohol  -

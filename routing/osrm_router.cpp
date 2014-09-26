@@ -27,8 +27,6 @@ class Point2PhantomNode
   m2::PointD m_point;
   OsrmFtSegMapping const & m_mapping;
 
-  CarModel m_carModel;
-
   struct Candidate
   {
     double m_dist;
@@ -49,7 +47,8 @@ public:
 
   void operator() (FeatureType const & ft)
   {
-    if (ft.GetFeatureType() != feature::GEOM_LINE || m_carModel.GetSpeed(ft) == 0)
+    static CarModel const carModel;
+    if (ft.GetFeatureType() != feature::GEOM_LINE || !carModel.IsRoad(ft))
       return;
 
     Candidate res;

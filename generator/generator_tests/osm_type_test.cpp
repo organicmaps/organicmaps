@@ -3,6 +3,8 @@
 #include "../xml_element.hpp"
 #include "../osm2type.hpp"
 
+#include "../../routing/vehicle_model.hpp"
+
 #include "../../indexer/feature_data.hpp"
 #include "../../indexer/classificator.hpp"
 #include "../../indexer/classificator_loader.hpp"
@@ -536,4 +538,39 @@ UNIT_TEST(OsmType_Hwtag)
     TEST(params.IsTypeExist(GetType(tags[0])), ());
     TEST(params.IsTypeExist(GetType(tags[1])), ());
   }
+}
+
+UNIT_TEST(OsmType_Ferry)
+{
+  routing::CarModel carModel;
+
+  char const * arr[][2] = {
+    { "motorcar", "yes" },
+    { "highway", "primary" },
+    { "bridge", "yes" },
+    { "route", "ferry" },
+  };
+
+  XMLElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  TEST_EQUAL(params.m_Types.size(), 2, (params));
+
+  char const * type1[] = { "highway", "primary", "bridge" };
+  uint32_t type = GetType(type1);
+  TEST(params.IsTypeExist(type), ());
+  TEST(carModel.IsRoad(type), ());
+
+  char const * type2[] = { "route", "ferry", "motorcar" };
+  type = GetType(type2);
+  TEST(params.IsTypeExist(type), ());
+  TEST(carModel.IsRoad(type), ());
+
+  char const * type3[] = { "route", "ferry" };
+  type = GetType(type3);
+  TEST(!params.IsTypeExist(type), ());
+  TEST(!carModel.IsRoad(type), ());
 }

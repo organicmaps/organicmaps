@@ -56948,6 +56948,149 @@ cont {
   }
 }
 cont {
+  name: "route-ferry-motorcar"
+  element {
+    scale: 10
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1174
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 11
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1174
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 12
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1375
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 13
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1411
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 14
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 3.0
+        dd: 2.0
+      }
+      priority: 1474
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 15
+    lines {
+      width: 1.0
+      color: 10075118
+      dashdot {
+        dd: 7.0
+        dd: 5.0
+      }
+      priority: 1648
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 16
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1834
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 17
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1924
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 18
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1924
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+  element {
+    scale: 19
+    lines {
+      width: 2.0
+      color: 11193565
+      dashdot {
+        dd: 12.0
+        dd: 8.0
+      }
+      priority: 1924
+      join: ROUNDJOIN
+      cap: BUTTCAP
+    }
+  }
+}
+cont {
   name: "shop"
   element {
     scale: 17

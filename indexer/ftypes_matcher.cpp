@@ -8,16 +8,15 @@
 namespace ftypes
 {
 
-uint32_t BaseChecker::PrepareFeatureTypeToMatch(uint32_t featureType)
+uint32_t BaseChecker::PrepareToMatch(uint32_t type)
 {
-  ftype::TruncValue(featureType, 2);
-  return featureType;
+  ftype::TruncValue(type, 2);
+  return type;
 }
 
-bool BaseChecker::IsMatched(uint32_t t) const
+bool BaseChecker::IsMatched(uint32_t type) const
 {
-  ftype::TruncValue(t, 2);
-  return (find(m_types.begin(), m_types.end(), t) != m_types.end());
+  return (find(m_types.begin(), m_types.end(), PrepareToMatch(type)) != m_types.end());
 }
 
 bool BaseChecker::operator() (feature::TypesHolder const & types) const

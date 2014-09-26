@@ -986,3 +986,4 @@ internet_access|wlan
 amenity|waste_disposal
 amenity|bbq
 hwtag|private
+route|ferry|motorcar

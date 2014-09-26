@@ -42,8 +42,13 @@ CarModel::CarModel()
 
 VehicleModel::VehicleModel(Classificator const & c, vector<SpeedForType> const & speedLimits) : m_maxSpeed(0)
 {
-  char const * arr[] = { "hwtag", "oneway" };
-  m_onewayType = c.GetTypeByPath(vector<string>(arr, arr + 2));
+  {
+    char const * arr2[] = { "hwtag", "oneway" };
+    m_onewayType = c.GetTypeByPath(vector<string>(arr2, arr2 + 2));
+
+    char const * arr3[] = { "route", "ferry", "motorcar" };
+    m_ferryType = c.GetTypeByPath(vector<string>(arr3, arr3 + 3));
+  }
 
   for (size_t i = 0; i < speedLimits.size(); ++i)
   {
@@ -62,7 +67,7 @@ double VehicleModel::GetSpeed(feature::TypesHolder const & types) const
   double speed = m_maxSpeed * 2;
   for (size_t i = 0; i < types.Size(); ++i)
   {
-    uint32_t const type = ftypes::BaseChecker::PrepareFeatureTypeToMatch(types[i]);
+    uint32_t const type = ftypes::BaseChecker::PrepareToMatch(types[i]);
     TypesT::const_iterator it = m_types.find(type);
     if (it != m_types.end())
       speed = min(speed, it->second.m_speed);
@@ -81,6 +86,29 @@ bool VehicleModel::IsOneWay(FeatureType const & f) const
 bool VehicleModel::IsOneWay(feature::TypesHolder const & types) const
 {
   return types.Has(m_onewayType);
+}
+
+bool VehicleModel::IsRoad(FeatureType const & f) const
+{
+  feature::TypesHolder types(f);
+  for (size_t i = 0; i < types.Size(); ++i)
+    if (IsRoad(types[i]))
+      return true;
+  return false;
+}
+
+bool VehicleModel::IsRoad(vector<uint32_t> const & types) const
+{
+  for (uint32_t t : types)
+    if (IsRoad(t))
+      return true;
+  return false;
+}
+
+bool VehicleModel::IsRoad(uint32_t type) const
+{
+  return (type == m_ferryType ||
+          m_types.find(ftypes::BaseChecker::PrepareToMatch(type)) != m_types.end());
 }
 
 }

@@ -13,7 +13,7 @@ namespace ftypes
 
 class BaseChecker
 {
-  bool IsMatched(uint32_t t) const;
+  bool IsMatched(uint32_t type) const;
 
 protected:
   vector<uint32_t> m_types;
@@ -23,7 +23,7 @@ public:
   bool operator() (FeatureType const & ft) const;
   bool operator() (vector<uint32_t> const & types) const;
 
-  static uint32_t PrepareFeatureTypeToMatch(uint32_t featureType);
+  static uint32_t PrepareToMatch(uint32_t type);
 };
 
 class IsStreetChecker : public BaseChecker

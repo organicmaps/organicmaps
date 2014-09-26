@@ -986,3 +986,4 @@ internet_access|wlan;[internet_access=wlan];;name;int_name;985;
 amenity|waste_disposal;[amenity=waste_disposal];;name;int_name;986;
 amenity|bbq;[amenity=bbq];;name;int_name;987;
 hwtag|private;[hwtag=private];;name;int_name;988;
+route|ferry|motorcar;[route=ferry];;name;int_name;989;
