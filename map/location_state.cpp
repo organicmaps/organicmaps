@@ -276,6 +276,7 @@ void State::StartRoutingMode()
   ASSERT(IsModeHasPosition(), ());
   State::Mode newMode = IsRotationActive() ? RotateAndFollow : Follow;
   SetModeInfo(ChangeMode(IncludeModeBit(m_modeInfo, RoutingSessionBit), newMode));
+  SetCurrentPixelBinding(GetModeDefaultPixelBinding(GetMode()));
 }
 
 void State::StopRoutingMode()
