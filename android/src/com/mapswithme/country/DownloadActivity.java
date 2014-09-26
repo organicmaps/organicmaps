@@ -6,8 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.mapswithme.maps.MWMActivity;
 import com.mapswithme.maps.MapStorage;
@@ -17,10 +22,12 @@ import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 import com.mapswithme.util.ConnectionState;
 
 
-public class DownloadActivity extends MapsWithMeBaseListActivity implements MapStorage.Listener
+public class DownloadActivity extends MapsWithMeBaseListActivity implements MapStorage.Listener, View.OnClickListener
 {
   static String TAG = DownloadActivity.class.getName();
   private ExtendedDownloadAdapterWrapper mExtendedAdapter;
+  private DownloadedAdapter mDownloadedAdapter;
+  private TextView mAbButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -31,6 +38,21 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
 
     mExtendedAdapter = new ExtendedDownloadAdapterWrapper(this, new DownloadAdapter(this));
     setListAdapter(mExtendedAdapter);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu)
+  {
+    MenuInflater inflater = getMenuInflater();
+    inflater.inflate(R.menu.ab_downloader, menu);
+
+    final MenuItem item = menu.findItem(R.id.item_update);
+    mAbButton = (TextView) item.getActionView();
+    mAbButton.setOnClickListener(this);
+    mAbButton.setVisibility(View.GONE);
+
+    updateActionBar();
+    return true;
   }
 
   private BaseDownloadAdapter getDownloadAdapter()
@@ -75,6 +97,8 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
   @Override
   public void onCountryStatusChanged(final Index idx)
   {
+    updateActionBar();
+
     if (getDownloadAdapter().onCountryStatusChanged(idx) == MapStorage.DOWNLOAD_FAILED)
     {
       // Show wireless settings page if no connection found.
@@ -123,6 +147,22 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
     }
   }
 
+  private void updateActionBar()
+  {
+//    // TODO finish when screen design'll be ready
+//    if ()
+//    {
+//
+//    }
+//    else
+    if (MapStorage.INSTANCE.getOutdatedCountriesCount() > 0 && mAbButton != null)
+    {
+      mAbButton.setText(getString(R.string.downloader_update_all));
+      mAbButton.setTextColor(getResources().getColor(R.color.downloader_green));
+      mAbButton.setVisibility(View.VISIBLE);
+    }
+  }
+
   @Override
   public void onCountryProgress(Index idx, long current, long total)
   {
@@ -133,8 +173,25 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
   protected void onListItemClick(ListView l, View v, int position, long id)
   {
     if (getListAdapter().getItemViewType(position) == ExtendedDownloadAdapterWrapper.TYPE_EXTENDED)
+      setListAdapter(getDownloadedAdapter());
+  }
+
+  private ListAdapter getDownloadedAdapter()
+  {
+    if (mDownloadedAdapter == null)
+      mDownloadedAdapter = new DownloadedAdapter(this);
+
+    return mDownloadedAdapter;
+  }
+
+  @Override
+  public void onClick(View v)
+  {
+    switch (v.getId())
     {
-      setListAdapter(new DownloadedAdapter(this));
+    case R.id.item_update:
+      //
+      break;
     }
   }
 }

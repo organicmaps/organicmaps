@@ -27,6 +27,7 @@ public class WheelProgressView extends View
   private RectF mProgressRect; // main rect for progress wheel
   private RectF mCenterRect; // rect for stop button
   private PointF mCenter; // center of rect
+  private boolean mIsInit;
 
   public WheelProgressView(Context context)
   {
@@ -98,14 +99,18 @@ public class WheelProgressView extends View
     mCenter = new PointF(left + width / 2, top + height / 2);
     mProgressRect = new RectF(mCenter.x - mRadius, mCenter.y - mRadius, mCenter.x + mRadius, mCenter.y + mRadius);
     mCenterRect = new RectF(mCenter.x - width / 6, mCenter.y - height / 6, mCenter.x + width / 6, mCenter.y + height / 6);
+    mIsInit = true;
   }
 
   @Override
   protected void onDraw(Canvas canvas)
   {
-    canvas.drawCircle(mCenter.x, mCenter.y, mRadius, mBgPaint);
-    canvas.drawArc(mProgressRect, -90, 360 * mProgress / 100, false, mFgPaint);
-    canvas.drawRoundRect(mCenterRect, 3, 3, mRectPaint);
+    if (mIsInit)
+    {
+      canvas.drawCircle(mCenter.x, mCenter.y, mRadius, mBgPaint);
+      canvas.drawArc(mProgressRect, -90, 360 * mProgress / 100, false, mFgPaint);
+      canvas.drawRoundRect(mCenterRect, 3, 3, mRectPaint);
+    }
     super.onDraw(canvas);
   }
 }
