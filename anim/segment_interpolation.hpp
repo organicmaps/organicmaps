@@ -1,22 +1,23 @@
 #pragma once
 
 #include "task.hpp"
+
 #include "../geometry/point2d.hpp"
+
 
 namespace anim
 {
   class SegmentInterpolation : public Task
   {
-  private:
-
     m2::PointD m_startPt;
     m2::PointD m_endPt;
     m2::PointD & m_outPt;
-    double m_startTime;
     double m_interval;
 
-  public:
+    m2::PointD m_speed;
+    double m_startTime;
 
+  public:
     SegmentInterpolation(m2::PointD const & startPt,
                          m2::PointD const & endPt,
                          double interval,
@@ -32,6 +33,7 @@ namespace anim
   class SafeSegmentInterpolation : public SegmentInterpolation
   {
     typedef SegmentInterpolation TBase;
+
   public:
     SafeSegmentInterpolation(m2::PointD const & startPt,
                              m2::PointD const & endPt,
@@ -44,4 +46,3 @@ namespace anim
     m2::PointD m_pt;
   };
 }
-

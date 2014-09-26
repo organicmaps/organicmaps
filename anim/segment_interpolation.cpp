@@ -1,6 +1,6 @@
 #include "segment_interpolation.hpp"
-
 #include "controller.hpp"
+
 
 namespace anim
 {
@@ -12,14 +12,20 @@ namespace anim
       m_endPt(endPt),
       m_outPt(outPt),
       m_interval(interval)
-  {}
+  {
+    m_speed = (m_endPt - m_startPt) / m_interval;
+  }
 
   void SegmentInterpolation::Reset(m2::PointD const & start, m2::PointD const & end, double interval)
   {
+    ASSERT_GREATER(interval, 0.0, ());
+
     m_startPt = start;
-    m_outPt = m_startPt;
     m_endPt = end;
+    m_outPt = m_startPt;
     m_interval = interval;
+
+    m_speed = (m_endPt - m_startPt) / m_interval;
     m_startTime = GetController()->GetCurrentTime();
     SetState(EReady);
   }
@@ -33,7 +39,8 @@ namespace anim
 
   void SegmentInterpolation::OnStep(double ts)
   {
-    if (ts - m_startTime >= m_interval)
+    double const elapsed = ts - m_startTime;
+    if (elapsed >= m_interval)
     {
       End();
       return;
@@ -42,10 +49,7 @@ namespace anim
     if (!IsRunning())
       return;
 
-    double elapsedSec = ts - m_startTime;
-    m2::PointD deltaPt = m_endPt - m_startPt;
-
-    m_outPt = m_startPt + deltaPt * (elapsedSec / m_interval);
+    m_outPt = m_startPt + m_speed * elapsed;
 
     Task::OnStep(ts);
   }
@@ -69,9 +73,8 @@ namespace anim
     Reset(GetCurrentValue(), dstPt, interval);
   }
 
-  const m2::PointD &SafeSegmentInterpolation::GetCurrentValue() const
+  m2::PointD const & SafeSegmentInterpolation::GetCurrentValue() const
   {
     return m_pt;
   }
-
 }

@@ -61,10 +61,10 @@ public:
                       double srcAngle, m2::PointD const & srcPixelBinding)
     : m_fw(fw)
   {
-    m_angleAnim.reset(new anim::SafeAngleInterpolation(srcAngle, srcAngle, 0.0));
-    m_posAnim.reset(new anim::SafeSegmentInterpolation(srcPos, srcPos, 0.0));
+    m_angleAnim.reset(new anim::SafeAngleInterpolation(srcAngle, srcAngle, 1.0));
+    m_posAnim.reset(new anim::SafeSegmentInterpolation(srcPos, srcPos, 1.0));
     m2::PointD invertedPxBinding(InvertPxBinding(srcPixelBinding));
-    m_pxBindingAnim.reset(new anim::SafeSegmentInterpolation(invertedPxBinding, invertedPxBinding, 0.0));
+    m_pxBindingAnim.reset(new anim::SafeSegmentInterpolation(invertedPxBinding, invertedPxBinding, 1.0));
   }
 
   void SetDestinationParams(m2::PointD const & dstPos, double dstAngle)
@@ -72,7 +72,7 @@ public:
     ASSERT(m_angleAnim != nullptr, ());
     ASSERT(m_posAnim != nullptr, ());
     double const posSpeed = m_fw->GetNavigator().ComputeMoveSpeed(m_posAnim->GetCurrentValue(), dstPos);
-    double const angleSpeed = m_fw->GetAnimator().GetRotationSpeed();
+    double const angleSpeed = 1.5;//m_fw->GetAnimator().GetRotationSpeed();
 
     m_angleAnim->ResetDestParams(dstAngle, angleSpeed);
     m_posAnim->ResetDestParams(dstPos, posSpeed);
