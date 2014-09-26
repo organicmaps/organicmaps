@@ -18,39 +18,13 @@ namespace anim
     m_controller->Unlock();
   }
 
-  Controller::Controller()
-  {
-    m_LockCount = 0;
-    m_IdleThreshold = 5;
-    m_IdleFrames = 0;
-  }
-
-  Controller::~Controller()
-  {
-  }
-
-  void Controller::AddTaskImpl(list<shared_ptr<Task> > & l, shared_ptr<Task> const & task)
-  {
-    l.push_back(task);
-    task->SetController(this);
-    if (task->IsVisual())
-      m_IdleFrames = m_IdleThreshold;
-  }
-
   void Controller::AddTask(shared_ptr<Task> const & task)
   {
-    m_tasks.ProcessList(bind(&Controller::AddTaskImpl, this, _1, task));
-  }
-
-  void Controller::CopyAndClearTasks(TTasks & from, TTasks & to)
-  {
-    to.clear();
-    swap(from, to);
-  }
-
-  void Controller::MergeTasks(TTasks & from, TTasks & to)
-  {
-    copy(from.begin(), from.end(), back_inserter(to));
+    m_tasks.ProcessList([this, &task](TTasks & taskList)
+    {
+      taskList.push_back(task);
+      task->SetController(this);
+    });
   }
 
   bool Controller::HasTasks()
@@ -58,26 +32,9 @@ namespace anim
     return !m_tasks.Empty();
   }
 
-  void Controller::HasVisualTasksImpl(list<shared_ptr<Task> > &l, bool *res) const
-  {
-    *res = false;
-    for (list<shared_ptr<Task> >::const_iterator it = l.begin();
-         it != l.end();
-         ++it)
-    {
-      if ((*it)->IsVisual())
-      {
-        *res = true;
-        break;
-      }
-    }
-  }
-
   bool Controller::HasVisualTasks()
   {
-    bool res;
-    m_tasks.ProcessList(bind(&Controller::HasVisualTasksImpl, this, _1, &res));
-    return res;
+    return m_hasVisualTasks;
   }
 
   void Controller::Lock()
@@ -98,30 +55,19 @@ namespace anim
 
   void Controller::PerformStep()
   {
-    m_tasks.ProcessList(bind(&Controller::CopyAndClearTasks, _1, ref(m_tasksList)));
+    m_tasks.ProcessList([this](TTasks & from)
+    {
+      m_tasksList.clear();
+      swap(from, m_tasksList);
+    });
 
     double ts = GetCurrentTime();
 
-    TTasks l;
+    TTasks resultList;
 
-    bool hasVisualTasks = false;
-    for (list<shared_ptr<Task> >::const_iterator it = m_tasksList.begin();
-         it != m_tasksList.end();
-         ++it)
-      if ((*it)->IsVisual())
-      {
-        hasVisualTasks = true;
-        break;
-      }
-
-    for (TTasks::const_iterator it = m_tasksList.begin(); it != m_tasksList.end(); ++it)
+    for (TTaskPtr const & task : m_tasksList)
     {
-      shared_ptr<Task> const & task = *it;
-
       task->Lock();
-
-      if (task->IsVisual())
-        m_IdleFrames = m_IdleThreshold;
 
       if (task->IsReady())
       {
@@ -132,7 +78,7 @@ namespace anim
         task->OnStep(ts);
 
       if (task->IsRunning())
-        l.push_back(task);
+        resultList.push_back(task);
       else
       {
         if (task->IsCancelled())
@@ -144,15 +90,15 @@ namespace anim
       task->Unlock();
     }
 
-    if (!hasVisualTasks && m_IdleFrames > 0)
-      m_IdleFrames -= 1;
-
-    m_tasks.ProcessList(bind(&Controller::MergeTasks, ref(l), _1));
-  }
-
-  bool Controller::IsVisuallyPreWarmed() const
-  {
-    return m_IdleFrames > 0;
+    m_hasVisualTasks = false;
+    m_tasks.ProcessList([this, &resultList](TTasks & to)
+    {
+      for_each(resultList.begin(), resultList.end(), [this, &to](shared_ptr<Task> task)
+      {
+        m_hasVisualTasks |= task->IsVisual();
+        to.push_back(task);
+      });
+    });
   }
 
   double Controller::GetCurrentTime() const

@@ -141,8 +141,7 @@ bool RenderPolicy::NeedRedraw() const
 bool RenderPolicy::IsAnimating() const
 {
   return (m_controller->HasVisualTasks()
-      || (m_controller->LockCount() > 0)
-      || (m_controller->IsVisuallyPreWarmed()));
+      || (m_controller->LockCount() > 0));
 }
 
 bool RenderPolicy::IsTiling() const
