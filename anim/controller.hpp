@@ -35,7 +35,7 @@ namespace anim
     };
 
     // Adding animation task to the controller
-    void AddTask(shared_ptr<Task> const & task);
+    void AddTask(TTaskPtr const & task);
     // Do we have animation tasks, which are currently running?
     bool HasTasks();
     // Do we have visual animation tasks, which are currently running?

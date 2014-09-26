@@ -18,9 +18,9 @@ namespace anim
     m_controller->Unlock();
   }
 
-  void Controller::AddTask(shared_ptr<Task> const & task)
+  void Controller::AddTask(TTaskPtr const & task)
   {
-    m_tasks.ProcessList([this, &task](TTasks & taskList)
+    m_tasks.ProcessList([&](TTasks & taskList)
     {
       taskList.push_back(task);
       task->SetController(this);
@@ -91,9 +91,9 @@ namespace anim
     }
 
     m_hasVisualTasks = false;
-    m_tasks.ProcessList([this, &resultList](TTasks & to)
+    m_tasks.ProcessList([&](TTasks & to)
     {
-      for_each(resultList.begin(), resultList.end(), [this, &to](shared_ptr<Task> task)
+      for_each(resultList.begin(), resultList.end(), [&](TTaskPtr const & task)
       {
         m_hasVisualTasks |= task->IsVisual();
         to.push_back(task);
