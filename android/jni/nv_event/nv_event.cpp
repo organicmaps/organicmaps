@@ -799,19 +799,22 @@ static jboolean postUserEvent(JNIEnv* env, jobject thiz,
     return NVEventInsertBlocking(&ev);
   }
   else
-    {
-      NVEventInsert(&ev);
-      return true;
-    }
+  {
+    NVEventInsert(&ev);
+    return true;
+  }
 }
 
-void postMWMEvent(void * pFn)
+void postMWMEvent(void * pFn, bool blocking)
 {
   NVEvent ev;
   ev.m_type = NV_EVENT_MWM;
   ev.m_data.m_mwm.m_pFn = pFn;
 
-  NVEventInsertBlocking(&ev);
+  if (blocking)
+    (void) NVEventInsertBlocking(&ev);
+  else
+    NVEventInsert(&ev);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

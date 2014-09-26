@@ -544,6 +544,6 @@ NVEventPlatformAppHandle NVEventGetPlatformAppHandle();
 
 void InitNVEvent(JavaVM * jvm);
 
-void postMWMEvent(void * pFn);
+void postMWMEvent(void * pFn, bool blocking);
 
 #endif

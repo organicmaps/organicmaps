@@ -57,7 +57,7 @@ string Platform::UniqueClientId() const
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
-  android::Platform::RunOnGuiThreadImpl(fn);
+  android::Platform::RunOnGuiThreadImpl(fn, true);
 }
 
 namespace android
@@ -137,9 +137,9 @@ namespace android
     return platform;
   }
 
-  void Platform::RunOnGuiThreadImpl(TFunctor const & fn)
+  void Platform::RunOnGuiThreadImpl(TFunctor const & fn, bool blocking)
   {
-    postMWMEvent(new TFunctor(fn));
+    postMWMEvent(new TFunctor(fn), blocking);
   }
 }
 

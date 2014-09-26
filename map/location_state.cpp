@@ -29,6 +29,9 @@ namespace
 {
 
 static const int POSITION_Y_OFFSET = 120;
+static const double POSITION_TOLERANCE = 1.0E-6;  // much less than coordinates coding error
+static const double ANGLE_TOLERANCE = my::DegToRad(3.0);
+
 
 uint16_t IncludeModeBit(uint16_t mode, uint16_t bit)
 {
@@ -72,6 +75,11 @@ public:
   {
     ASSERT(m_angleAnim != nullptr, ());
     ASSERT(m_posAnim != nullptr, ());
+
+    if (dstPos.EqualDxDy(m_posAnim->GetCurrentValue(), POSITION_TOLERANCE) &&
+        fabs(ang::GetShortestDistance(m_angleAnim->GetCurrentValue(), dstAngle)) < ANGLE_TOLERANCE)
+      return;
+
     double const posSpeed = m_fw->GetNavigator().ComputeMoveSpeed(m_posAnim->GetCurrentValue(), dstPos);
     double const angleSpeed = 1.5;//m_fw->GetAnimator().GetRotationSpeed();
 
@@ -799,7 +807,10 @@ void State::AnimateFollow()
     return;
 
   if (!FollowCompass())
-    m_framework->SetViewportCenterAnimated(Position());
+  {
+    if (!m_position.EqualDxDy(m_framework->GetViewportCenter(), POSITION_TOLERANCE))
+      m_framework->SetViewportCenterAnimated(m_position);
+  }
 }
 
 }

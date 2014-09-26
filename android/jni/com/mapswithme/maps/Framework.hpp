@@ -46,6 +46,7 @@ namespace android
     //@}
 
     math::LowPassVector<float, 3> m_sensors[2];
+    double m_lastCompass;
 
     unique_ptr<ScheduledTask> m_scheduledTask;
     bool m_wasLongClick;

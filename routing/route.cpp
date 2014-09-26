@@ -14,8 +14,6 @@
 namespace routing
 {
 
-static double const TIME_THRESHOLD_SECONDS = 60.0*1.0;
-
 double GetDistanceOnEarth(m2::PointD const & p1, m2::PointD const & p2)
 {
   return ms::DistanceOnEarth(MercatorBounds::YToLat(p1.y),
@@ -70,9 +68,10 @@ void Route::MoveIterator(m2::PointD const & currPos, location::GpsInfo const & i
   {
     /// @todo Need to distinguish GPS and WiFi locations.
     /// They may have different time metrics in case of incorrect system time on a device.
+    static double const LOCATION_TIME_THRESHOLD = 60.0*1.0;
 
     double const deltaT = info.m_timestamp - m_currentTime;
-    if (deltaT > 0.0 && deltaT < TIME_THRESHOLD_SECONDS)
+    if (deltaT > 0.0 && deltaT < LOCATION_TIME_THRESHOLD)
       predictDistance = info.m_speed * deltaT;
   }
 

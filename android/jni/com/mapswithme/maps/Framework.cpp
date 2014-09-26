@@ -4,6 +4,7 @@
 
 #include "../core/jni_helper.hpp"
 #include "../core/render_context.hpp"
+
 #include "../platform/Platform.hpp"
 
 #include "../../../../../map/framework.hpp"
@@ -12,21 +13,22 @@
 
 #include "../../../../../gui/controller.hpp"
 
+#include "../../../../../graphics/opengl/framebuffer.hpp"
+#include "../../../../../graphics/opengl/opengl.hpp"
+
 #include "../../../../../indexer/drawing_rules.hpp"
 
 #include "../../../../../coding/file_container.hpp"
 #include "../../../../../coding/file_name_utils.hpp"
 
-#include "../../../../../graphics/opengl/framebuffer.hpp"
-#include "../../../../../graphics/opengl/opengl.hpp"
+#include "../../../../../geometry/angles.hpp"
 
 #include "../../../../../platform/platform.hpp"
 #include "../../../../../platform/location.hpp"
+#include "../../../../../platform/preferred_languages.hpp"
 
 #include "../../../../../base/math.hpp"
 #include "../../../../../base/logging.hpp"
-
-#include "../../../../../platform/preferred_languages.hpp"
 
 
 namespace
@@ -47,6 +49,7 @@ namespace android
    : m_mask(0),
      m_isCleanSingleClick(false),
      m_doLoadState(true),
+     m_lastCompass(0.0),
      m_wasLongClick(false)
   {
     ASSERT_EQUAL ( g_framework, 0, () );
@@ -67,12 +70,20 @@ namespace android
 
   void Framework::OnLocationUpdated(location::GpsInfo const & info)
   {
-    Platform::RunOnGuiThreadImpl(bind(&::Framework::OnLocationUpdate, ref(m_work), info));
+    Platform::RunOnGuiThreadImpl(bind(&::Framework::OnLocationUpdate, ref(m_work), info), false);
   }
 
   void Framework::OnCompassUpdated(location::CompassInfo const & info)
   {
-    Platform::RunOnGuiThreadImpl(bind(&::Framework::OnCompassUpdate, ref(m_work), info));
+    static double const COMPASS_THRASHOLD = my::DegToRad(1.0);
+
+    /// @todo Do not emit compass bearing too often while we are passing it through nv-queue.
+    /// Need to make more experiments in future.
+    if (fabs(ang::GetShortestDistance(m_lastCompass, info.m_bearing)) >= COMPASS_THRASHOLD)
+    {
+      m_lastCompass = info.m_bearing;
+      Platform::RunOnGuiThreadImpl(bind(&::Framework::OnCompassUpdate, ref(m_work), info), false);
+    }
   }
 
   void Framework::UpdateCompassSensor(int ind, float * arr)

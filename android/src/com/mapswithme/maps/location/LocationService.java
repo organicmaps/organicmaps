@@ -195,7 +195,7 @@ public enum LocationService implements
   {
     if (mSensorManager != null)
     {
-      final int COMPASS_REFRESH_MKS = SensorManager.SENSOR_DELAY_NORMAL;
+      final int COMPASS_REFRESH_MKS = SensorManager.SENSOR_DELAY_UI;
 
       if (mAccelerometer != null)
         mSensorManager.registerListener(this, mAccelerometer, COMPASS_REFRESH_MKS);
