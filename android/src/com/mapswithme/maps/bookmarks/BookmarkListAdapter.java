@@ -157,15 +157,13 @@ public class BookmarkListAdapter extends BaseAdapter
   }
 
   @Override
-  public void onDrivingHeadingUpdated(long time, double heading, double accuracy)
+  public void onDrivingHeadingUpdated(long time, double heading)
   {
-    //
   }
 
   @Override
   public void onLocationError(int errorCode)
   {
-    //
   }
 
   private class PinHolder

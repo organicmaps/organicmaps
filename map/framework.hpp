@@ -303,7 +303,7 @@ public:
 
   int GetDrawScale() const;
 
-  m2::PointD GetViewportCenter() const;
+  m2::PointD const & GetViewportCenter() const;
   void SetViewportCenter(m2::PointD const & pt);
   shared_ptr<MoveScreenTask> SetViewportCenterAnimated(m2::PointD const & endPt);
 
@@ -482,10 +482,11 @@ public:
   bool IsRoutingActive() const;
   bool StartRoutingSession(m2::PointD const & destination);
   void CancelRoutingSession();
+  void GetRouteFollowingInfo(location::FollowingInfo & info);
 
 private:
   void RemoveRoute();
   void InsertRoute(routing::Route const & route);
-  void CheckLocationForRouting();
+  void CheckLocationForRouting(location::GpsInfo const & info);
   //@}
 };

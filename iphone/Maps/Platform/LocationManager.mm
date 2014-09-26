@@ -120,16 +120,34 @@
 
 - (void)location:(CLLocation *)location toGpsInfo:(location::GpsInfo &)info
 {
-  info.m_horizontalAccuracy = location.horizontalAccuracy;
+  info.m_source = location::EAppleNative;
+
   info.m_latitude = location.coordinate.latitude;
   info.m_longitude = location.coordinate.longitude;
   info.m_timestamp = [location.timestamp timeIntervalSince1970];
-  info.m_source = location::EAppleNative;
 
-  info.m_verticalAccuracy = location.verticalAccuracy;
-  info.m_altitude = location.altitude;
-  info.m_course = location.course;
-  info.m_speed = location.speed;
+  if (location.horizontalAccuracy >= 0.0)
+    info.m_horizontalAccuracy = location.horizontalAccuracy;
+
+  if (location.verticalAccuracy >= 0.0)
+  {
+    info.m_verticalAccuracy = location.verticalAccuracy;
+    info.m_altitude = location.altitude;
+  }
+
+  if (location.course >= 0.0)
+    info.m_bearing = location.course;
+
+  if (location.speed >= 0.0)
+    info.m_speed = location.speed;
+}
+
+- (void)heading:(CLHeading *)heading toCompassInfo:(location::CompassInfo &)info
+{
+  if (heading.trueHeading >= 0.0)
+    info.m_bearing = my::DegToRad(heading.trueHeading);
+  else if (heading.headingAccuracy >= 0.0)
+    info.m_bearing = my::DegToRad(heading.magneticHeading);
 }
 
 - (void)triggerCompass
@@ -137,7 +155,7 @@
   [self locationManager:m_locationManager didUpdateHeading:m_locationManager.heading];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)heading
 {
   // Stop passing driving course if last time stamp for GPS location is later than 20 seconds.
   if (m_lastLocationTime == nil || ([m_lastLocationTime timeIntervalSinceNow] < -20.0))
@@ -145,13 +163,9 @@
 
   if (!m_isCourse)
   {
-    location::CompassInfo newInfo;
-    newInfo.m_magneticHeading = my::DegToRad(newHeading.magneticHeading);
-    newInfo.m_trueHeading = my::DegToRad(newHeading.trueHeading);
-    newInfo.m_accuracy = my::DegToRad(newHeading.headingAccuracy);
-    newInfo.m_timestamp = [newHeading.timestamp timeIntervalSince1970];
-
-    [self notifyCompassUpdate:newInfo];
+    location::CompassInfo info;
+    [self heading:heading toCompassInfo:info];
+    [self notifyCompassUpdate:info];
   }
 }
 
@@ -186,13 +200,9 @@
   {
     m_isCourse = YES;
 
-    location::CompassInfo newInfo;
-    newInfo.m_magneticHeading = my::DegToRad(newLocation.course);
-    newInfo.m_trueHeading = newInfo.m_magneticHeading;
-    newInfo.m_accuracy = 10.0;
-    newInfo.m_timestamp = [newLocation.timestamp timeIntervalSince1970];
-
-    [self notifyCompassUpdate:newInfo];
+    location::CompassInfo info;
+    info.m_bearing = my::DegToRad(newLocation.course);
+    [self notifyCompassUpdate:info];
   }
   else
     m_isCourse = NO;

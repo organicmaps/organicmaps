@@ -320,10 +320,7 @@ void State::OnCompassUpdate(location::CompassInfo const & info)
 {
   SetModeInfo(IncludeModeBit(m_modeInfo, KnownDirectionBit));
 
-  if (info.m_trueHeading >= 0.0)
-    m_drawDirection = info.m_trueHeading;
-  else
-    m_drawDirection = info.m_magneticHeading;
+  m_drawDirection = info.m_bearing;
 
   AnimateFollow();
   invalidate();

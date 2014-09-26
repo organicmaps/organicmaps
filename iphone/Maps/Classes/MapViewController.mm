@@ -96,17 +96,27 @@
   // TODO: Remove this hack for location changing bug
   if (self.navigationController.visibleViewController == self)
   {
-    Framework & f = GetFramework();
-    f.OnLocationUpdate(info);
+    Framework & frm = GetFramework();
+    frm.OnLocationUpdate(info);
 
     [self showPopover];
 
     [[Statistics instance] logLatitude:info.m_latitude
-                             longitude:info.m_longitude
-                    horizontalAccuracy:info.m_horizontalAccuracy
-                      verticalAccuracy:info.m_verticalAccuracy];
+                           longitude:info.m_longitude
+                           horizontalAccuracy:info.m_horizontalAccuracy
+                           verticalAccuracy:info.m_verticalAccuracy];
 
-    [self.routeView updateDistance:@"777" withMetrics:@"M"];
+    if (frm.IsRoutingActive())
+    {
+      location::FollowingInfo res;
+      frm.GetRouteFollowingInfo(res);
+
+      if (res.IsValid())
+      {
+        [self.routeView updateDistance:[NSString stringWithUTF8String:res.m_distToTarget.c_str()]
+                           withMetrics:[NSString stringWithUTF8String:res.m_unitsSuffix.c_str()]];
+      }
+    }
   }
 }
 

@@ -19,4 +19,16 @@ public enum LocationState
 
   public native void turnOff();
   public native void invalidatePosition();
+
+  public static class RoutingInfo
+  {
+    public String mDistToTarget;
+    public String mUnits;
+
+    public RoutingInfo(String distToTarget, String units)
+    {
+      mDistToTarget = distToTarget;
+      mUnits = units;
+    }
+  }
 }

@@ -60,7 +60,10 @@
 
 #define DEFAULT_BOOKMARK_TYPE "placemark-red"
 
+
 using namespace storage;
+using namespace routing;
+using namespace location;
 
 
 #ifdef FIXED_LOCATION
@@ -106,13 +109,13 @@ void Framework::RemoveMap(string const & file)
   m_model.RemoveMap(file);
 }
 
-void Framework::OnLocationError(location::TLocationError error)
+void Framework::OnLocationError(TLocationError error)
 {}
 
-void Framework::OnLocationUpdate(location::GpsInfo const & info)
+void Framework::OnLocationUpdate(GpsInfo const & info)
 {
 #ifdef FIXED_LOCATION
-  location::GpsInfo rInfo(info);
+  GpsInfo rInfo(info);
 
   // get fixed coordinates
   m_fixedPos.GetLon(rInfo.m_longitude);
@@ -124,35 +127,35 @@ void Framework::OnLocationUpdate(location::GpsInfo const & info)
   if (m_fixedPos.HasNorth())
   {
     // pass compass value (for devices without compass)
-    location::CompassInfo compass;
+    CompassInfo compass;
     compass.m_magneticHeading = compass.m_trueHeading = 0.0;
     compass.m_timestamp = rInfo.m_timestamp;
     OnCompassUpdate(compass);
   }
 
 #else
-  location::GpsInfo const & rInfo = info;
+  GpsInfo const & rInfo = info;
 #endif
 
-  shared_ptr<location::State> const & state = m_informationDisplay.locationState();
+  shared_ptr<State> const & state = GetLocationState();
   state->OnLocationUpdate(rInfo);
-  CheckLocationForRouting();
-  m_balloonManager.LocationChanged(rInfo);
+
+  CheckLocationForRouting(info);
 
   if (state->IsModeChangeViewport())
     UpdateUserViewportChanged();
 }
 
-void Framework::OnCompassUpdate(location::CompassInfo const & info)
+void Framework::OnCompassUpdate(CompassInfo const & info)
 {
 #ifdef FIXED_LOCATION
-  location::CompassInfo rInfo(info);
+  CompassInfo rInfo(info);
   m_fixedPos.GetNorth(rInfo.m_trueHeading);
 #else
-  location::CompassInfo const & rInfo = info;
+  CompassInfo const & rInfo = info;
 #endif
 
-  m_informationDisplay.locationState()->OnCompassUpdate(rInfo);
+  GetLocationState()->OnCompassUpdate(rInfo);
 }
 
 void Framework::StopLocationFollow()
@@ -212,6 +215,7 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("my_places", "My Places");
   m_stringsBundle.SetDefaultString("my_position", "My Position");
   m_stringsBundle.SetDefaultString("routes", "Routes");
+  m_stringsBundle.SetDefaultString("recalculating_route", "Recalculating ...");
 
   m_guiController->SetStringsBundle(&m_stringsBundle);
 
@@ -255,7 +259,7 @@ Framework::Framework()
   LOG(LDEBUG, ("Guides info initialized"));
 #endif
 
-  m_routingSession.SetRouter(new routing::OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
+  m_routingSession.SetRouter(new OsrmRouter(&m_model.GetIndex(), [this]  (m2::PointD const & pt)
   {
     return GetSearchEngine()->GetCountryFile(pt);
   }));
@@ -290,7 +294,7 @@ TStatus Framework::GetCountryStatus(TIndex const & index) const
   return m_storage.CountryStatusEx(index);
 }
 
-string Framework::GetCountryName(storage::TIndex const & index) const
+string Framework::GetCountryName(TIndex const & index) const
 {
   string group, name;
   m_storage.GetGroupAndCountry(index, group, name);
@@ -309,7 +313,7 @@ m2::RectD Framework::GetCountryBounds(TIndex const & index) const
   return GetCountryBounds(m_storage.CountryByIndex(index).GetFile().m_fileName);
 }
 
-void Framework::ShowCountry(storage::TIndex const & index)
+void Framework::ShowCountry(TIndex const & index)
 {
   StopLocationFollow();
 
@@ -700,22 +704,21 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
 }
 
-/// Function for calling from platform dependent-paint function.
 void Framework::DoPaint(shared_ptr<PaintEvent> const & e)
 {
   if (m_renderPolicy)
   {
     m_renderPolicy->DrawFrame(e, m_navigator.Screen());
 
-    // don't render additional elements if guiController wasn't initialized
+    // Don't render additional elements if guiController wasn't initialized.
     if (m_guiController->GetCacheScreen() != NULL)
       DrawAdditionalInfo(e);
   }
 }
 
-m2::PointD Framework::GetViewportCenter() const
+m2::PointD const & Framework::GetViewportCenter() const
 {
-  return m_navigator.Screen().GlobalRect().GlobalCenter();
+  return m_navigator.Screen().GetOrg();
 }
 
 void Framework::SetViewportCenter(m2::PointD const & pt)
@@ -727,11 +730,8 @@ void Framework::SetViewportCenter(m2::PointD const & pt)
 shared_ptr<MoveScreenTask> Framework::SetViewportCenterAnimated(m2::PointD const & endPt)
 {
   anim::Controller::Guard guard(GetAnimController());
-  ScreenBase const & s = m_navigator.Screen();
-  m2::PointD const & startPt = s.GetOrg();
-  double const speed = m_navigator.ComputeMoveSpeed(startPt, endPt);
-
-  return m_animator.MoveScreen(startPt, endPt, speed);
+  m2::PointD const & startPt = GetViewportCenter();
+  return m_animator.MoveScreen(startPt, endPt, m_navigator.ComputeMoveSpeed(startPt, endPt));
 }
 
 m2::AnyRectD Framework::ToRotated(m2::RectD const & rect) const
@@ -1089,7 +1089,7 @@ search::Engine * Framework::GetSearchEngine() const
   return m_pSearchEngine.get();
 }
 
-storage::TIndex Framework::GetCountryIndex(m2::PointD const & pt) const
+TIndex Framework::GetCountryIndex(m2::PointD const & pt) const
 {
   return m_storage.FindIndexByFile(GetSearchEngine()->GetCountryFile(pt));
 }
@@ -1127,7 +1127,7 @@ bool Framework::Search(search::SearchParams const & params)
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
 {
-  shared_ptr<location::State> locationState = m_informationDisplay.locationState();
+  shared_ptr<State> locationState = m_informationDisplay.locationState();
 
   if (locationState->IsModeHasPosition())
   {
@@ -1619,7 +1619,7 @@ Navigator & Framework::GetNavigator()
   return m_navigator;
 }
 
-shared_ptr<location::State> const & Framework::GetLocationState() const
+shared_ptr<State> const & Framework::GetLocationState() const
 {
   return m_informationDisplay.locationState();
 }
@@ -1670,7 +1670,7 @@ UserMark const * Framework::GetUserMark(m2::PointD const & pxPoint, bool isLongP
   m2::AnyRectD rect;
   m_navigator.GetTouchRect(pxPoint, TOUCH_PIXEL_RADIUS * GetVisualScale(), rect);
 
-  shared_ptr<location::State> const & locationState = GetLocationState();
+  shared_ptr<State> const & locationState = GetLocationState();
   if (locationState->IsModeHasPosition())
   {
     m2::PointD const & glPivot = locationState->Position();
@@ -1814,7 +1814,7 @@ void Framework::UpdateSavedDataVersion()
   Settings::Set("DataVersion", m_storage.GetCurrentDataVersion());
 }
 
-bool Framework::GetGuideInfo(storage::TIndex const & index, guides::GuideInfo & info) const
+bool Framework::GetGuideInfo(TIndex const & index, guides::GuideInfo & info) const
 {
   return m_storage.GetGuideManager().GetGuideInfo(m_storage.CountryFileName(index), info);
 }
@@ -1828,19 +1828,18 @@ bool Framework::IsRoutingActive() const
 
 bool Framework::StartRoutingSession(m2::PointD const & destination)
 {
-  shared_ptr<location::State> state = GetLocationState();
+  shared_ptr<State> const & state = GetLocationState();
   if (!GetPlatform().HasRouting() || !state->IsModeHasPosition())
     return false;
 
   if (IsRoutingActive())
     CancelRoutingSession();
 
-  m_routingSession.BuildRoute(state->Position(), destination,
-                              [this, state](routing::Route const & route, routing::IRouter::ResultCode e)
-                              {
-                                InsertRoute(route);
-                                state->StartRoutingMode();
-                              });
+  m_routingSession.BuildRoute(state->Position(), destination, [&](Route const & route, routing::IRouter::ResultCode e)
+  {
+    InsertRoute(route);
+    state->StartRoutingMode();
+  });
 
   return true;
 }
@@ -1868,7 +1867,7 @@ void Framework::CancelRoutingSession()
   Invalidate();
 }
 
-void Framework::InsertRoute(routing::Route const & route)
+void Framework::InsertRoute(Route const & route)
 {
   string const categoryName = m_stringsBundle.GetString("routes");
   BookmarkCategory * cat = 0;
@@ -1905,20 +1904,33 @@ void Framework::InsertRoute(routing::Route const & route)
   Invalidate();
 }
 
-void Framework::CheckLocationForRouting()
+void Framework::CheckLocationForRouting(GpsInfo const & info)
 {
   if (!IsRoutingActive())
     return;
 
-  shared_ptr<location::State> const & state = GetLocationState();
+  shared_ptr<State> const & state = GetLocationState();
   m2::PointD const & position = state->Position();
-  if (m_routingSession.OnLocationPositionChanged(position, state->GetErrorRadius()) == routing::RoutingSession::RouteLeft)
+
+  switch (m_routingSession.OnLocationPositionChanged(position, state->GetErrorRadius()))
   {
-    m_routingSession.RebuildRoute(position, [this] (routing::Route const & route, routing::IRouter::ResultCode e)
-                                            {
-                                              InsertRoute(route);
-                                            });
+  case RoutingSession::RouteLeft:
+    m_routingSession.RebuildRoute(position, [this] (Route const & route, routing::IRouter::ResultCode e)
+    {
+      InsertRoute(route);
+    });
+    break;
+
+  case RoutingSession::OnRoute:
+    //m_routingSession.UpdatePosition(position, info);
+    break;
+
+  default:
+    break;
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////
+void Framework::GetRouteFollowingInfo(location::FollowingInfo & info)
+{
+
+}

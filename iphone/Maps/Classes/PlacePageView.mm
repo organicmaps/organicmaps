@@ -157,11 +157,10 @@ typedef NS_ENUM(NSUInteger, CellRow)
   double lat, lon;
   if (![[MapsAppDelegate theApp].m_locationManager getLat:lat Lon:lon])
     return;
-  double const northRad = (info.m_trueHeading < 0) ? info.m_magneticHeading : info.m_trueHeading;
-  m2::PointD const point = MercatorBounds::FromLatLon(lat, lon);
 
   PlacePageInfoCell * cell = (PlacePageInfoCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:ROW_COMMON inSection:0]];
-  cell.compassView.angle = ang::AngleTo(point, [self pinPoint]) + northRad;
+
+  cell.compassView.angle = ang::AngleTo(MercatorBounds::FromLatLon(lat, lon), [self pinPoint]) + info.m_bearing;
 }
 
 - (CellRow)cellRowForIndexPath:(NSIndexPath *)indexPath

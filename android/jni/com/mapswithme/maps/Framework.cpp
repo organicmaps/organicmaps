@@ -70,14 +70,8 @@ namespace android
     Platform::RunOnGuiThreadImpl(bind(&::Framework::OnLocationUpdate, ref(m_work), info));
   }
 
-  void Framework::OnCompassUpdated(uint64_t timestamp, double magneticNorth, double trueNorth, double accuracy)
+  void Framework::OnCompassUpdated(location::CompassInfo const & info)
   {
-    location::CompassInfo info;
-    info.m_timestamp = static_cast<double>(timestamp);
-    info.m_magneticHeading = magneticNorth;
-    info.m_trueHeading = trueNorth;
-    info.m_accuracy = accuracy;
-
     Platform::RunOnGuiThreadImpl(bind(&::Framework::OnCompassUpdate, ref(m_work), info));
   }
 
@@ -1130,20 +1124,43 @@ extern "C"
   }
 
   JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass thiz)
+  {
+    ::Framework * frm = g_framework->NativeFramework();
+
+    if (frm->IsRoutingActive())
+    {
+      location::FollowingInfo info;
+      frm->GetRouteFollowingInfo(info);
+
+      if (info.IsValid())
+      {
+        jclass klass = env->FindClass("com/mapswithme/maps/LocationState$RoutingInfo");
+        jmethodID methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
+
+        return env->NewObject(klass, methodID,
+                              jni::ToJavaString(env, info.m_distToTarget),
+                              jni::ToJavaString(env, info.m_unitsSuffix));
+      }
+    }
+
+    return 0;
+  }
+
+  JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetMapObjectForPoint(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
     search::AddressInfo info;
 
     g_framework->NativeFramework()->GetAddressInfoForGlobalPoint(MercatorBounds::FromLatLon(lat, lon), info);
 
-    jclass objClazz = env->FindClass("com/mapswithme/maps/bookmarks/data/MapObject$Poi");
-    jmethodID methodID = env->GetMethodID(objClazz,
-              "<init>", "(Ljava/lang/String;DDLjava/lang/String;)V");
+    jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/MapObject$Poi");
+    jmethodID methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;DDLjava/lang/String;)V");
 
-    const jstring j_name = jni::ToJavaString(env, info.GetPinName());
-    const jstring j_type = jni::ToJavaString(env, info.GetPinType());
-
-    return env->NewObject(objClazz, methodID, j_name, lat, lon, j_type);
+    return env->NewObject(klass, methodID,
+                          jni::ToJavaString(env, info.GetPinName()),
+                          lat, lon,
+                          jni::ToJavaString(env, info.GetPinType()));
   }
 
   JNIEXPORT void JNICALL

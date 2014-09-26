@@ -56,7 +56,7 @@ public enum LocationService implements
 
     public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
 
-    public void onDrivingHeadingUpdated(long time, double heading, double accuracy);
+    public void onDrivingHeadingUpdated(long time, double heading);
 
     public void onLocationError(int errorCode);
   }
@@ -75,9 +75,6 @@ public enum LocationService implements
   private Sensor mMagnetometer = null;
   private GeomagneticField mMagneticField = null;
   private LocationProvider mLocationProvider;
-
-  private double mLastNorth;
-  private static final double NOISE_THRESHOLD = 3;
 
   private float[] mGravity = null;
   private float[] mGeomagnetic = null;
@@ -155,11 +152,11 @@ public enum LocationService implements
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
-  private void notifyDrivingHeadingUpdated(long time, double heading, double accuracy)
+  private void notifyDrivingHeadingUpdated(long time, double heading)
   {
     final Iterator<LocationListener> it = mListeners.iterator();
     while (it.hasNext())
-      it.next().onDrivingHeadingUpdated(time, heading, accuracy);
+      it.next().onDrivingHeadingUpdated(time, heading);
   }
 
   public void startUpdate(LocationListener listener)
@@ -225,8 +222,6 @@ public enum LocationService implements
   @Override
   public void onLocationChanged(Location l)
   {
-    mLogger.d("Location changed: ", l);
-
     // Completely ignore locations without lat and lon
     if (l.getAccuracy() <= 0.0)
       return;
@@ -253,20 +248,9 @@ public enum LocationService implements
   private void emitCompassResults(long time, double north, double trueNorth, double offset)
   {
     if (mDrivingHeading >= 0.0)
-      notifyDrivingHeadingUpdated(time, mDrivingHeading, offset);
+      notifyDrivingHeadingUpdated(time, mDrivingHeading);
     else
-    {
-      if (Math.abs(Math.toDegrees(north - mLastNorth)) < NOISE_THRESHOLD)
-      {
-        // ignore noise results. makes compass updates smoother.
-      }
-      else
-      {
-        notifyCompassUpdated(time, north, trueNorth, offset);
-        mLastNorth = north;
-      }
-
-    }
+      notifyCompassUpdated(time, north, trueNorth, offset);
   }
 
   @Override
@@ -304,7 +288,7 @@ public enum LocationService implements
       }
       else
       {
-        // positive 'offset' means the magnetic field is rotated east that much from true north
+        // positive 'offset' means the magnetic field is rotated east that match from true north
         final double offset = Math.toRadians(mMagneticField.getDeclination());
         final double trueHeading = LocationUtils.correctAngle(magneticHeading, offset);
 

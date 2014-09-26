@@ -5,10 +5,12 @@
 #include "../platform/Platform.hpp"
 
 #include "../../../nv_event/nv_event.hpp"
-#include "../../../../../base/logging.hpp"
 
 #include "../../../../../map/country_status_display.hpp"
-////////////////////////////////////////////////////////////////////////////////////////////
+
+#include "../../../../../base/logging.hpp"
+
+
 extern "C"
 {
   JNIEXPORT void JNICALL
@@ -26,28 +28,30 @@ extern "C"
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MWMActivity_nativeLocationUpdated(JNIEnv * env, jobject thiz,
-      jlong time, jdouble lat, jdouble lon, jfloat accuracy,
-      jdouble altitude, jfloat speed, jfloat bearing)
+      jlong time, jdouble lat, jdouble lon,
+      jfloat accuracy, jdouble altitude, jfloat speed, jfloat bearing)
   {
-    const double GPS_VALUE_NOT_SET = -9999999.9;
-
     location::GpsInfo info;
-    info.m_horizontalAccuracy = accuracy;
-    info.m_latitude = lat;
-    info.m_longitude = lon;
-    info.m_timestamp = time;
     info.m_source = location::EAndroidNative;
 
-    if (altitude == 0.0)
-      info.m_altitude = info.m_verticalAccuracy = GPS_VALUE_NOT_SET;
-    else
+    info.m_timestamp = static_cast<double>(time) / 1000.0;
+    info.m_latitude = lat;
+    info.m_longitude = lon;
+
+    if (accuracy > 0.0)
+      info.m_horizontalAccuracy = accuracy;
+
+    if (altitude != 0.0)
     {
       info.m_altitude = altitude;
-      // use horizontal accuracy
       info.m_verticalAccuracy = accuracy;
     }
-    info.m_course = (bearing == 0.0 ? GPS_VALUE_NOT_SET : bearing);
-    info.m_speed = (speed == 0.0 ? GPS_VALUE_NOT_SET : speed);
+
+    if (bearing > 0.0)
+      info.m_bearing = bearing;
+
+    if (speed > 0.0)
+      info.m_speed = speed;
 
     g_framework->OnLocationUpdated(info);
   }
@@ -56,7 +60,10 @@ extern "C"
   Java_com_mapswithme_maps_MWMActivity_nativeCompassUpdated(JNIEnv * env, jobject thiz,
       jlong time, jdouble magneticNorth, jdouble trueNorth, jdouble accuracy)
   {
-    g_framework->OnCompassUpdated(time, magneticNorth, trueNorth, accuracy);
+    location::CompassInfo info;
+    info.m_bearing = (trueNorth >= 0.0) ? trueNorth : magneticNorth;
+
+    g_framework->OnCompassUpdated(info);
   }
 
   JNIEXPORT jfloatArray JNICALL

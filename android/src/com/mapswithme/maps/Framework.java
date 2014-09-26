@@ -125,12 +125,16 @@ public class Framework
 
   public native static void nativeLoadbookmarks();
 
-  // routing
+  /// @name Routing.
+  //@{
   public native static boolean nativeIsRoutingActive();
 
   public native static void nativeCancelRoutingSession();
 
   public native static void nativeStartRoutingSession(double lat, double lon);
+
+  public native static LocationState.RoutingInfo nativeGetRouteFollowingInfo();
+  //@}
 
   public native static String nativeGetCountryNameIfAbsent(double lat, double lon);
 

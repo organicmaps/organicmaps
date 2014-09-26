@@ -963,32 +963,45 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onLocationUpdated(final Location l)
   {
-    nativeLocationUpdated(l.getTime(), l.getLatitude(), l.getLongitude(), l.getAccuracy(), l.getAltitude(), l.getSpeed(), l.getBearing());
+    nativeLocationUpdated(
+            l.getTime(),
+            l.getLatitude(),
+            l.getLongitude(),
+            l.getAccuracy(),
+            l.getAltitude(),
+            l.getSpeed(),
+            l.getBearing());
+
     if (mInfoView.getState() != State.HIDDEN)
       mInfoView.updateLocation(l);
-    // TODO get correct values from routing engine
-    if (Framework.nativeIsRoutingActive())
-      mTvRoutingDistance.setText(new Random().nextInt() % 100 + " KM");
+
+    final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+    if (info != null)
+      mTvRoutingDistance.setText(info.mDistToTarget + info.mUnits);
   }
 
   @SuppressWarnings("deprecation")
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    final double angles[] = {magneticNorth, trueNorth};
+    final double angles[] = { magneticNorth, trueNorth };
     LocationUtils.correctCompassAngles(getWindowManager().getDefaultDisplay().getOrientation(), angles);
     nativeCompassUpdated(time, angles[0], angles[1], accuracy);
-    final double north = (angles[1] >= 0.0 ? angles[1] : angles[0]);
 
+    final double north = (angles[1] >= 0.0) ? angles[1] : angles[0];
     if (mInfoView.getState() != State.HIDDEN)
       mInfoView.updateAzimuth(north);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
-  public void onDrivingHeadingUpdated(long time, double heading, double accuracy)
+  public void onDrivingHeadingUpdated(long time, double heading)
   {
-    LocationUtils.correctCompassAngles(getWindowManager().getDefaultDisplay().getOrientation(), new double[]{heading});
-    nativeCompassUpdated(time, heading, heading, accuracy);
+    double arr[] = new double[] { heading };
+    LocationUtils.correctCompassAngles(getWindowManager().getDefaultDisplay().getOrientation(), arr);
+    heading = arr[0];
+
+    nativeCompassUpdated(time, heading, heading, 0.0);
 
     if (mInfoView.getState() != State.HIDDEN)
       mInfoView.updateAzimuth(heading);

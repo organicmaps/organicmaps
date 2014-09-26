@@ -1,8 +1,9 @@
 #pragma once
 
+#include "../base/base.hpp"
+
 #include "../std/string.hpp"
-#include "../std/vector.hpp"
-#include "../std/function.hpp"
+
 
 namespace location
 {
@@ -29,6 +30,12 @@ namespace location
   class GpsInfo
   {
   public:
+    GpsInfo()
+      : m_horizontalAccuracy(100.0),  // use as a default accuracy
+        m_altitude(0.0), m_verticalAccuracy(-1.0), m_bearing(-1.0), m_speed(-1.0)
+    {
+    }
+
     TLocationSource m_source;
     double m_timestamp;           //!< seconds from 1st Jan 1970
     double m_latitude;            //!< degrees
@@ -36,21 +43,22 @@ namespace location
     double m_horizontalAccuracy;  //!< metres
     double m_altitude;            //!< metres
     double m_verticalAccuracy;    //!< metres
-    double m_course;              //!< positive degrees from the true North
+    double m_bearing;             //!< positive degrees from the true North
     double m_speed;               //!< metres per second
 
-    bool HasAltitude() const { return m_verticalAccuracy >= 0.; }
-    bool HasBearing() const  { return m_course >= 0.; }
-    bool HasSpeed() const    { return m_speed >= 0.; }
+    //bool HasAltitude() const { return m_verticalAccuracy >= 0.0; }
+    //bool HasBearing() const  { return m_bearing >= 0.0; }
+    bool HasSpeed() const    { return m_speed >= 0.0; }
   };
 
   class CompassInfo
   {
   public:
-    double m_timestamp;           //!< how many seconds ago the heading was retrieved
-    double m_magneticHeading;     //!< positive radians from the magnetic North
-    double m_trueHeading;         //!< positive radians from the true North
-    double m_accuracy;            //!< offset from the magnetic to the true North in radians
+    //double m_timestamp;           //!< seconds from 1st Jan 1970
+    //double m_magneticHeading;     //!< positive radians from the magnetic North
+    //double m_trueHeading;         //!< positive radians from the true North
+    //double m_accuracy;            //!< offset from the magnetic to the true North in radians
+    double m_bearing;             //!< positive radians from the true North
   };
 
   static inline bool IsLatValid(double lat)
@@ -61,5 +69,17 @@ namespace location
   {
     return lon != 0. && lon < 180. && lon > -180.;
   }
+
+  class FollowingInfo
+  {
+  public:
+    /// @name Formatted covered distance with measurement units suffix.
+    //@{
+    string m_distToTarget;
+    string m_unitsSuffix;
+    //@}
+
+    bool IsValid() const { return !m_distToTarget.empty(); }
+  };
 
 } // namespace location
