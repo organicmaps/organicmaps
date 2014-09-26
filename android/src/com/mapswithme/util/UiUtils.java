@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.R;
+import com.nineoldandroids.animation.Animator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -198,6 +199,21 @@ public final class UiUtils
     @Override
     public void onAnimationRepeat(Animation animation)
     {}
+  }
+
+  public static class SimpleNineoldAnimationListener implements Animator.AnimatorListener
+  {
+    @Override
+    public void onAnimationStart(Animator animation) {}
+
+    @Override
+    public void onAnimationEnd(Animator animation) {}
+
+    @Override
+    public void onAnimationCancel(Animator animation) {}
+
+    @Override
+    public void onAnimationRepeat(Animator animation) {}
   }
 
   public static TextView findViewSetText(View root, int textViewId, CharSequence text)

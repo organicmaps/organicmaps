@@ -20,6 +20,7 @@ dependencies {
   compile propAndroidSupportLibrary, propGooglePlayServices
   compile project(':3rd_party:external_styles')
   compile project(':3rd_party:facebook-android-sdk:facebook')
+  compile 'com.nineoldandroids:library:2.4.0'
   compile fileTree(dir: '3rd_party', include: '*.jar')
 }
 

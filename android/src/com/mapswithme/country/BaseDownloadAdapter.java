@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -12,7 +13,6 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +31,10 @@ import com.mapswithme.util.Constants;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
 
 abstract class BaseDownloadAdapter extends BaseAdapter
 {
@@ -41,6 +45,24 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   static final int TYPE_COUNTRY_NOT_DOWNLOADED = 4;
   static final int TYPES_COUNT = 5;
 
+  private int mActiveAnimationsCount;
+  public static final String PROPERTY_TRANSLATION_X = "translationX";
+  public static final String PROPERTY_ALPHA = "alpha";
+  public static final String PROPERTY_X = "x";
+  private static final long ANIMATION_LENGTH = 250;
+  private Handler mHandler = new Handler();
+  private Runnable mDatasetChangedRunnable = new Runnable()
+  {
+    @Override
+    public void run()
+    {
+      if (mActiveAnimationsCount == 0)
+        notifyDataSetChanged();
+      else
+        mHandler.postDelayed(this, ANIMATION_LENGTH);
+    }
+  };
+
   protected final LayoutInflater mInflater;
   protected final Activity mActivity;
   protected final boolean mHasGoogleStore;
@@ -50,6 +72,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   protected final String mStatusFailed;
   protected final String mStatusOutdated;
   protected final String mStatusNotDownloaded;
+
 
   public BaseDownloadAdapter(Activity activity)
   {
@@ -341,6 +364,10 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     if (holder.mSize != null)
       setHolderSizeString(holder, MapStorage.INSTANCE.countryRemoteSizeInBytes(item.mCountryIdx));
 
+    ViewHelper.setTranslationX(holder.mInfoSlided, 0);
+    ViewHelper.setTranslationX(holder.mInfo, 0);
+    ViewHelper.setTranslationX(holder.mProgress, 0);
+    ViewHelper.setTranslationX(holder.mProgressSlided, 0);
     switch (getItem(position).getStatus())
     {
     case MapStorage.DOWNLOADING:
@@ -354,7 +381,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           stopItemDownloading(holder, position);
         }
       });
-      holder.mInfoSlided.clearAnimation();
       holder.mInfoSlided.setVisibility(View.VISIBLE);
       holder.mInfo.setOnClickListener(null);
       holder.mInfo.setVisibility(View.INVISIBLE);
@@ -411,7 +437,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.VISIBLE);
       holder.mProgressSlided.setProgress(0);
-      holder.mInfoSlided.clearAnimation();
       holder.mInfoSlided.setVisibility(View.VISIBLE);
       holder.mProgressSlided.setOnClickListener(new View.OnClickListener()
       {
@@ -428,7 +453,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     case MapStorage.NOT_DOWNLOADED:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.GONE);
-      holder.mInfo.clearAnimation();
       holder.mInfo.setVisibility(View.VISIBLE);
       holder.mInfo.setOnClickListener(new View.OnClickListener()
       {
@@ -456,74 +480,68 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   private void startItemDownloading(final ViewHolder holder, final int position)
   {
-    holder.mProgressSlided.setProgress(0);
-    holder.mProgressSlided.clearAnimation();
-    holder.mInfoSlided.clearAnimation();
     setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
-    Animation slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
-        -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width), 0, 0);
-    slideAnim.setDuration(500);
-    slideAnim.setFillAfter(true);
-    holder.mInfo.startAnimation(slideAnim);
 
-    slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
-        -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width), 0, 0);
-    slideAnim.setDuration(500);
-    slideAnim.setFillAfter(true);
-    slideAnim.setAnimationListener(
-        new UiUtils.SimpleAnimationListener()
-        {
-          @Override
-          public void onAnimationEnd(Animation animation)
-          {
-            final CountryItem item = getItem(position);
-            if (item.getStatus() == MapStorage.ON_DISK_OUT_OF_DATE)
-              processOutOfDate(item.mCountryIdx, item.mName);
-            else
-              processNotDownloaded(item.mCountryIdx, item.mName);
-            holder.mInfoSlided.setVisibility(View.VISIBLE);
-            holder.mInfoSlided.bringToFront();
-            holder.mInfo.setVisibility(View.INVISIBLE);
-            holder.mProgressSlided.setVisibility(View.VISIBLE);
-            holder.mProgress.setVisibility(View.GONE);
-            holder.mProgress.clearAnimation();
-          }
-        }
-    );
-    holder.mProgress.startAnimation(slideAnim);
+    ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mProgress, PROPERTY_TRANSLATION_X, 0,
+        -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+    animator.setDuration(ANIMATION_LENGTH);
+
+    ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mInfo, PROPERTY_TRANSLATION_X, 0,
+        -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+    infoAnimator.setDuration(ANIMATION_LENGTH);
+
+    AnimatorSet animatorSet = new AnimatorSet();
+    animatorSet.playTogether(animator, infoAnimator);
+    animatorSet.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        final CountryItem item = getItem(position);
+        if (item.getStatus() == MapStorage.ON_DISK_OUT_OF_DATE)
+          processOutOfDate(item.mCountryIdx, item.mName);
+        else
+          processNotDownloaded(item.mCountryIdx, item.mName);
+        holder.mInfoSlided.setVisibility(View.VISIBLE);
+        holder.mInfo.setVisibility(View.INVISIBLE);
+        holder.mProgressSlided.setVisibility(View.VISIBLE);
+        holder.mProgress.setVisibility(View.GONE);
+        mActiveAnimationsCount--;
+      }
+    });
+    mActiveAnimationsCount++;
+    animatorSet.start();
+
     holder.mProgress.setVisibility(View.VISIBLE);
   }
 
   private void stopItemDownloading(final ViewHolder holder, final int position)
   {
-    Animation slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
-        mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width), 0, 0);
-    slideAnim.setDuration(500);
-    slideAnim.setFillAfter(true);
-    slideAnim.setAnimationListener(
-        new UiUtils.SimpleAnimationListener()
-        {
-          @Override
-          public void onAnimationEnd(Animation animation)
-          {
-            holder.mInfo.bringToFront();
-            holder.mInfo.setVisibility(View.VISIBLE);
-            holder.mInfoSlided.setVisibility(View.GONE);
-            holder.mProgressSlided.setVisibility(View.GONE);
-            holder.mProgressSlided.clearAnimation();
-            holder.mProgress.setVisibility(View.GONE);
-            holder.mProgress.clearAnimation();
-            MapStorage.INSTANCE.deleteCountry(getItem(position).mCountryIdx);
-          }
-        }
-    );
-    holder.mInfoSlided.startAnimation(slideAnim);
+    ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mInfoSlided, PROPERTY_TRANSLATION_X, 0,
+        mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+    animator.setDuration(ANIMATION_LENGTH);
 
-    slideAnim = UiUtils.generateAbsoluteSlideAnimation(0,
-        mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width), 0, 0);
-    slideAnim.setDuration(500);
-    slideAnim.setFillAfter(true);
-    holder.mProgressSlided.startAnimation(slideAnim);
+    ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mProgressSlided, PROPERTY_TRANSLATION_X, 0,
+        mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+    infoAnimator.setDuration(ANIMATION_LENGTH);
+
+    AnimatorSet animatorSet = new AnimatorSet();
+    animatorSet.playTogether(animator, infoAnimator);
+    animatorSet.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        holder.mInfo.setVisibility(View.VISIBLE);
+        holder.mInfoSlided.setVisibility(View.GONE);
+        holder.mProgressSlided.setVisibility(View.GONE);
+        holder.mProgress.setVisibility(View.GONE);
+        MapStorage.INSTANCE.deleteCountry(getItem(position).mCountryIdx);
+        mActiveAnimationsCount--;
+      }
+    });
+    mActiveAnimationsCount++;
+    animatorSet.start();
   }
 
   @Override
@@ -574,8 +592,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     {
       getItem(position).updateStatus();
       // use this hard reset, because of caching different ViewHolders according to item's type
-      // FIXME
-      notifyDataSetChanged();
+      mHandler.postDelayed(mDatasetChangedRunnable, ANIMATION_LENGTH);
+
       return getItem(position).getStatus();
     }
     return MapStorage.UNKNOWN;
