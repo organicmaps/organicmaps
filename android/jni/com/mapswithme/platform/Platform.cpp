@@ -57,7 +57,7 @@ string Platform::UniqueClientId() const
 
 void Platform::RunOnGuiThread(TFunctor const & fn)
 {
-  static_cast<android::Platform *>(this)->RunOnGuiThreadImpl(fn);
+  android::Platform::RunOnGuiThreadImpl(fn);
 }
 
 namespace android

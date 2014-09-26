@@ -67,7 +67,7 @@ namespace android
 
   void Framework::OnLocationUpdated(location::GpsInfo const & info)
   {
-    m_work.OnLocationUpdate(info);
+    Platform::RunOnGuiThreadImpl(bind(&::Framework::OnLocationUpdate, ref(m_work), info));
   }
 
   void Framework::OnCompassUpdated(uint64_t timestamp, double magneticNorth, double trueNorth, double accuracy)
@@ -77,7 +77,8 @@ namespace android
     info.m_magneticHeading = magneticNorth;
     info.m_trueHeading = trueNorth;
     info.m_accuracy = accuracy;
-    m_work.OnCompassUpdate(info);
+
+    Platform::RunOnGuiThreadImpl(bind(&::Framework::OnCompassUpdate, ref(m_work), info));
   }
 
   void Framework::UpdateCompassSensor(int ind, float * arr)
