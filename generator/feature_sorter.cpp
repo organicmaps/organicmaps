@@ -419,6 +419,8 @@ namespace feature
     };
     */
 
+    bool IsCountry() const { return m_header.GetType() == feature::DataHeader::country; }
+
   public:
     void operator() (FeatureBuilder2 & fb)
     {
@@ -450,7 +452,7 @@ namespace feature
           points_t points;
 
           // Do not change linear geometry for the upper scale.
-          if (isLine && i == scalesStart && fb.IsHighway())
+          if (isLine && i == scalesStart && IsCountry() && fb.IsHighway())
             points = holder.GetSourcePoints();
           else
             SimplifyPoints(holder.GetSourcePoints(), points, level, isCoast, rect);
