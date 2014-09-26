@@ -25,7 +25,8 @@ public:
     InternalError
   };
 
-  typedef function<void (Route const &, ResultCode)> ReadyCallback;
+  /// Callback takes ownership of passed route.
+  typedef function<void (Route &, ResultCode)> ReadyCallback;
 
   virtual ~IRouter() {}
 

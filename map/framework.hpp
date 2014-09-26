@@ -482,7 +482,7 @@ public:
   bool IsRoutingActive() const;
   bool StartRoutingSession(m2::PointD const & destination);
   void CancelRoutingSession();
-  void GetRouteFollowingInfo(location::FollowingInfo & info);
+  void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
 private:
   void RemoveRoute();

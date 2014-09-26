@@ -215,7 +215,6 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("my_places", "My Places");
   m_stringsBundle.SetDefaultString("my_position", "My Position");
   m_stringsBundle.SetDefaultString("routes", "Routes");
-  m_stringsBundle.SetDefaultString("recalculating_route", "Recalculating ...");
 
   m_guiController->SetStringsBundle(&m_stringsBundle);
 
@@ -1922,7 +1921,7 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
     break;
 
   case RoutingSession::OnRoute:
-    //m_routingSession.UpdatePosition(position, info);
+    m_routingSession.MoveRoutePosition(position, info);
     break;
 
   default:
@@ -1930,7 +1929,7 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   }
 }
 
-void Framework::GetRouteFollowingInfo(location::FollowingInfo & info)
+void Framework::GetRouteFollowingInfo(location::FollowingInfo & info) const
 {
-
+  m_routingSession.GetRouteFollowingInfo(info);
 }

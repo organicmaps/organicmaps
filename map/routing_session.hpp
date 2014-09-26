@@ -3,10 +3,13 @@
 #include "../routing/router.hpp"
 #include "../routing/route.hpp"
 
+#include "../platform/location.hpp"
+
 #include "../geometry/point2d.hpp"
 #include "../geometry/polyline2d.hpp"
 
 #include "../std/unique_ptr.hpp"
+
 
 namespace routing
 {
@@ -39,28 +42,34 @@ public:
   RoutingSession();
   void SetRouter(IRouter * router);
 
-  /// startPoint and destPoint in mercator
+  typedef function<void (Route const &)> ReadyCallback;
+  /// @param[in] startPoint and endPoint in mercator
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
-                  IRouter::ReadyCallback const & callback);
-  void RebuildRoute(m2::PointD const & startPoint, IRouter::ReadyCallback const & callback);
+                  ReadyCallback const & callback);
+
+  void RebuildRoute(m2::PointD const & startPoint, ReadyCallback const & callback);
   bool IsActive() const;
   void Reset();
 
   State OnLocationPositionChanged(m2::PointD const & position, double errorRadius);
 
+  void MoveRoutePosition(m2::PointD const & position, location::GpsInfo const & info);
+  void GetRouteFollowingInfo(location::FollowingInfo & info) const;
+
 private:
-  // errorRadius is error in determining the position in the Mercator
+  /// @param[in] errorRadius Tolerance determining that position belongs to the route (mercator).
   bool IsOnRoute(m2::PointD const & position, double errorRadius, double & minDist) const;
   bool IsOnDestPoint(m2::PointD const & position, double errorRadius) const;
+
+  void AssignRoute(Route & route);
 
 private:
   unique_ptr<IRouter> m_router;
   Route m_route;
   State m_state;
 
-  double m_tolerance;
-  double m_lastMinDist;
-
+  double m_tolerance;         //!< Default tolerance for point-on-route checking (mercator).
+  double m_lastMinDist;       //!< Last calculated position-on-route (mercator).
   uint32_t m_moveAwayCounter;
 };
 

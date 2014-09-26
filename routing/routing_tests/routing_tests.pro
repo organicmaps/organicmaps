@@ -16,7 +16,6 @@ linux*: QT *= core
 
 SOURCES += \
   ../../testing/testingmain.cpp \
-  routing_smoke.cpp \
   osrm_router_test.cpp \
   vehicle_model_test.cpp \
 

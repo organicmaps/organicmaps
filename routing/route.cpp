@@ -2,10 +2,19 @@
 
 #include "../indexer/mercator.hpp"
 
+#include "../platform/location.hpp"
+
 #include "../geometry/distance_on_sphere.hpp"
+
+#include "../base/logging.hpp"
+
+#include "../std/numeric.hpp"
+
 
 namespace routing
 {
+
+static double const TIME_THRESHOLD_SECONDS = 60.0*1.0;
 
 double GetDistanceOnEarth(m2::PointD const & p1, m2::PointD const & p2)
 {
@@ -13,133 +22,175 @@ double GetDistanceOnEarth(m2::PointD const & p1, m2::PointD const & p2)
                              MercatorBounds::XToLon(p1.x),
                              MercatorBounds::YToLat(p2.y),
                              MercatorBounds::XToLon(p2.x));
-};
-
-
-string DebugPrint(Route const & r)
-{
-  return DebugPrint(r.m_poly);
 }
 
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
-  : m_router(router), m_poly(points), m_name(name), m_currentSegment(0)
+  : m_router(router), m_poly(points), m_name(name)
 {
-  UpdateSegInfo();
+  Update();
+}
+
+void Route::Swap(Route & rhs)
+{
+  m_router.swap(rhs.m_router);
+  m_poly.Swap(rhs.m_poly);
+  m_name.swap(rhs.m_name);
+  m_segDistance.swap(rhs.m_segDistance);
+  m_segProj.swap(rhs.m_segProj);
+  swap(m_current, rhs.m_current);
+  swap(m_currentTime, rhs.m_currentTime);
 }
 
 double Route::GetDistance() const
 {
-  double distance = 0.0;
-  size_t const n = m_poly.GetSize() - 1;
-  for (size_t i = 0; i < n; ++i)
-    distance += m_segDistance[i];
-
-  return distance;
+  ASSERT(!m_segDistance.empty(), ());
+  return m_segDistance.back();
 }
 
-double Route::GetDistanceToTarget(m2::PointD const & currPos, double errorRadius, double predictDistance) const
+double Route::GetCurrentDistanceFromBegin() const
 {
-  if (m_poly.GetSize() == m_currentSegment)
-    return -1;
+  ASSERT(IsValid() && m_current.IsValid(), ());
 
-  pair<m2::PointD, size_t> res;
-  if (predictDistance >= 0)
+  return ((m_current.m_ind > 0 ? m_segDistance[m_current.m_ind - 1] : 0.0) +
+          GetDistanceOnEarth(m_poly.GetPoint(m_current.m_ind), m_current.m_pt));
+}
+
+double Route::GetCurrentDistanceToEnd() const
+{
+  ASSERT(IsValid() && m_current.IsValid(), ());
+
+  return (m_segDistance.back() - m_segDistance[m_current.m_ind] +
+          GetDistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
+}
+
+void Route::MoveIterator(m2::PointD const & currPos, location::GpsInfo const & info) const
+{
+  double predictDistance = -1.0;
+  if (m_currentTime > 0.0 && info.HasSpeed())
   {
-    res = GetClosestProjection(currPos, errorRadius, [&] (m2::PointD const & pt, size_t i)
+    /// @todo Need to distinguish GPS and WiFi locations.
+    /// They may have different time metrics in case of incorrect system time on a device.
+
+    double const deltaT = info.m_timestamp - m_currentTime;
+    if (deltaT > 0.0 && deltaT < TIME_THRESHOLD_SECONDS)
+      predictDistance = info.m_speed * deltaT;
+  }
+
+  IterT const res = FindProjection(currPos,
+                                   max(GetOnRoadTolerance(), info.m_horizontalAccuracy),
+                                   predictDistance);
+  if (res.IsValid())
+  {
+    m_current = res;
+    m_currentTime = info.m_timestamp;
+  }
+}
+
+Route::IterT Route::FindProjection(m2::PointD const & currPos,
+                                   double errorRadius,
+                                   double predictDistance) const
+{
+  ASSERT(m_current.IsValid(), ());
+  ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
+  ASSERT_GREATER(errorRadius, 0.0, ());
+
+  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(currPos, errorRadius);
+
+  IterT res;
+  if (predictDistance >= 0.0)
+  {
+    res = GetClosestProjection(currPos, rect, [&] (IterT const & it)
     {
-      return fabs(GetDistanceOnPolyline(m_currentSegment, m_currentPoint, i - 1, pt) - predictDistance);
+      return fabs(GetDistanceOnPolyline(m_current, it) - predictDistance);
     });
   }
   else
   {
-    res = GetClosestProjection(currPos, errorRadius, [&] (m2::PointD const & pt, size_t i)
+    res = GetClosestProjection(currPos, rect, [&] (IterT const & it)
     {
-      return GetDistanceOnEarth(pt, currPos);
+      return GetDistanceOnEarth(it.m_pt, currPos);
     });
   }
 
-  if (res.second == -1)
-    return -1;
-
-  m_currentPoint = res.first;
-  m_currentSegment = res.second;
-
-  return GetDistanceOnPolyline(m_currentSegment, m_currentPoint, m_poly.GetSize() - 1, m_poly.Back());
+  return res;
 }
 
-double Route::GetDistanceOnPolyline(size_t s1, m2::PointD const & p1, size_t s2, m2::PointD const & p2) const
+double Route::GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const
 {
   size_t const n = m_poly.GetSize();
 
-  ASSERT_LESS_OR_EQUAL(s1, s2, ());
-  ASSERT_LESS(s1, n, ());
-  ASSERT_LESS(s2, n, ());
+  ASSERT(it1.IsValid() && it2.IsValid(), ());
+  ASSERT_LESS_OR_EQUAL(it1.m_ind, it2.m_ind, ());
+  ASSERT_LESS(it1.m_ind, n, ());
+  ASSERT_LESS(it2.m_ind, n, ());
 
-  if (s1 == s2)
-    return GetDistanceOnEarth(p1, p2);
+  if (it1.m_ind == it2.m_ind)
+    return GetDistanceOnEarth(it1.m_pt, it2.m_pt);
 
-  double dist = GetDistanceOnEarth(p1, m_poly.GetPoint(s1 + 1));
-  for (size_t i = s1 + 1; i < s2; ++i)
-    dist += m_segDistance[i];
-  dist += GetDistanceOnEarth(p2, m_poly.GetPoint(s2));
-
-  return dist;
+  return (GetDistanceOnEarth(it1.m_pt, m_poly.GetPoint(it1.m_ind + 1)) +
+          m_segDistance[it2.m_ind - 1] - m_segDistance[it1.m_ind] +
+          GetDistanceOnEarth(m_poly.GetPoint(it2.m_ind), it2.m_pt));
 }
 
-
-void Route::UpdateSegInfo()
+void Route::Update()
 {
-  size_t const n = m_poly.GetSize();
+  size_t n = m_poly.GetSize();
   ASSERT_GREATER(n, 1, ());
+  --n;
 
-  m_segDistance.resize(n - 1);
-  m_segProj.resize(n - 1);
+  m_segDistance.resize(n);
+  m_segProj.resize(n);
 
-  for (size_t i = 1; i < n; ++i)
+  double dist = 0.0;
+  for (size_t i = 0; i < n; ++i)
   {
-    m2::PointD const & p1 = m_poly.GetPoint(i - 1);
-    m2::PointD const & p2 = m_poly.GetPoint(i);
+    m2::PointD const & p1 = m_poly.GetPoint(i);
+    m2::PointD const & p2 = m_poly.GetPoint(i + 1);
 
-    m_segDistance[i - 1] = ms::DistanceOnEarth(MercatorBounds::YToLat(p1.y),
-                                               MercatorBounds::XToLon(p1.x),
-                                               MercatorBounds::YToLat(p2.y),
-                                               MercatorBounds::XToLon(p2.x));
+    dist += ms::DistanceOnEarth(MercatorBounds::YToLat(p1.y),
+                                MercatorBounds::XToLon(p1.x),
+                                MercatorBounds::YToLat(p2.y),
+                                MercatorBounds::XToLon(p2.x));
 
-    m_segProj[i - 1].SetBounds(p1, p2);
+    m_segDistance[i] = dist;
+    m_segProj[i].SetBounds(p1, p2);
   }
 
-  m_currentSegment = 0;
-  m_currentPoint = m_poly.Front();
+  m_current = IterT(m_poly.Front(), 0);
+  m_currentTime = 0.0;
 }
 
 template <class DistanceF>
-pair<m2::PointD, size_t> Route::GetClosestProjection(m2::PointD const & currPos, double errorRadius, DistanceF const & distFn) const
+Route::IterT Route::GetClosestProjection(m2::PointD const & currPos,
+                                         m2::RectD const & rect,
+                                         DistanceF const & distFn) const
 {
-  double const errorRadius2 = errorRadius * errorRadius;
-
-  size_t minSeg = -1;
-  m2::PointD minPt;
+  IterT res;
   double minDist = numeric_limits<double>::max();
 
-  for (size_t i = m_currentSegment + 1; i < m_poly.GetSize(); ++i)
+  size_t const count = m_poly.GetSize() - 1;
+  for (size_t i = m_current.m_ind; i < count; ++i)
   {
-    m2::PointD const pt = m_segProj[i - 1](currPos);
-    double const d = pt.SquareLength(currPos);
+    m2::PointD const pt = m_segProj[i](currPos);
 
-    if (d > errorRadius2)
+    if (!rect.IsPointInside(pt))
       continue;
 
-    double const dp = distFn(pt, i);
-
+    IterT it(pt, i);
+    double const dp = distFn(it);
     if (dp < minDist)
     {
-      minSeg = i - 1;
-      minPt = pt;
+      res = it;
       minDist = dp;
     }
   }
 
-  return make_pair(minPt, minSeg);
+  return res;
+}
+
+string DebugPrint(Route const & r)
+{
+  return DebugPrint(r.m_poly);
 }
 
 } // namespace routing
