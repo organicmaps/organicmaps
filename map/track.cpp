@@ -150,11 +150,6 @@ double Track::GetLengthMeters() const
   return res;
 }
 
-double Track::GetShortestSquareDistance(m2::PointD const & point) const
-{
-  return m_polyline.GetShortestSquareDistance(point);
-}
-
 void Track::Swap(Track & rhs)
 {
   swap(m_isVisible, rhs.m_isVisible);

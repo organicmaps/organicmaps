@@ -1818,7 +1818,6 @@ bool Framework::GetGuideInfo(TIndex const & index, guides::GuideInfo & info) con
   return m_storage.GetGuideManager().GetGuideInfo(m_storage.CountryFileName(index), info);
 }
 
-///////////////////////////// ROUTING /////////////////////////////////////////////////
 
 bool Framework::IsRoutingActive() const
 {
@@ -1908,24 +1907,13 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   if (!IsRoutingActive())
     return;
 
-  shared_ptr<State> const & state = GetLocationState();
-  m2::PointD const & position = state->Position();
-
-  switch (m_routingSession.OnLocationPositionChanged(position, state->GetErrorRadius()))
+  m2::PointD const & position = GetLocationState()->Position();
+  if (m_routingSession.OnLocationPositionChanged(position, info) == RoutingSession::RouteLeft)
   {
-  case RoutingSession::RouteLeft:
     m_routingSession.RebuildRoute(position, [this] (Route const & route, routing::IRouter::ResultCode e)
     {
       InsertRoute(route);
     });
-    break;
-
-  case RoutingSession::OnRoute:
-    m_routingSession.MoveRoutePosition(position, info);
-    break;
-
-  default:
-    break;
   }
 }
 

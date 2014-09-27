@@ -14,6 +14,11 @@
 namespace routing
 {
 
+static double const LOCATION_TIME_THRESHOLD = 60.0*1.0;
+static double const ON_ROAD_TOLERANCE_M = 20.0;
+static double const ON_END_TOLERANCE_M = 10.0;
+
+
 double GetDistanceOnEarth(m2::PointD const & p1, m2::PointD const & p2)
 {
   return ms::DistanceOnEarth(MercatorBounds::YToLat(p1.y),
@@ -47,7 +52,7 @@ double Route::GetDistance() const
 
 double Route::GetCurrentDistanceFromBegin() const
 {
-  ASSERT(IsValid() && m_current.IsValid(), ());
+  ASSERT(m_current.IsValid(), ());
 
   return ((m_current.m_ind > 0 ? m_segDistance[m_current.m_ind - 1] : 0.0) +
           GetDistanceOnEarth(m_poly.GetPoint(m_current.m_ind), m_current.m_pt));
@@ -55,34 +60,46 @@ double Route::GetCurrentDistanceFromBegin() const
 
 double Route::GetCurrentDistanceToEnd() const
 {
-  ASSERT(IsValid() && m_current.IsValid(), ());
+  ASSERT(m_current.IsValid(), ());
 
   return (m_segDistance.back() - m_segDistance[m_current.m_ind] +
           GetDistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
 }
 
-void Route::MoveIterator(m2::PointD const & currPos, location::GpsInfo const & info) const
+bool Route::MoveIterator(m2::PointD const & currPos, location::GpsInfo const & info) const
 {
   double predictDistance = -1.0;
   if (m_currentTime > 0.0 && info.HasSpeed())
   {
     /// @todo Need to distinguish GPS and WiFi locations.
     /// They may have different time metrics in case of incorrect system time on a device.
-    static double const LOCATION_TIME_THRESHOLD = 60.0*1.0;
-
     double const deltaT = info.m_timestamp - m_currentTime;
     if (deltaT > 0.0 && deltaT < LOCATION_TIME_THRESHOLD)
       predictDistance = info.m_speed * deltaT;
   }
 
   IterT const res = FindProjection(currPos,
-                                   max(GetOnRoadTolerance(), info.m_horizontalAccuracy),
+                                   max(ON_ROAD_TOLERANCE_M, info.m_horizontalAccuracy),
                                    predictDistance);
   if (res.IsValid())
   {
     m_current = res;
     m_currentTime = info.m_timestamp;
+    return true;
   }
+  else
+    return false;
+}
+
+double Route::GetCurrentSqDistance(m2::PointD const & pt) const
+{
+  ASSERT(m_current.IsValid(), ());
+  return pt.SquareLength(m_current.m_pt);
+}
+
+bool Route::IsCurrentOnEnd() const
+{
+  return (GetCurrentDistanceToEnd() < ON_END_TOLERANCE_M);
 }
 
 Route::IterT Route::FindProjection(m2::PointD const & currPos,

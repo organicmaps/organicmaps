@@ -51,16 +51,10 @@ public:
   bool IsActive() const;
   void Reset();
 
-  State OnLocationPositionChanged(m2::PointD const & position, double errorRadius);
-
-  void MoveRoutePosition(m2::PointD const & position, location::GpsInfo const & info);
+  State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
 private:
-  /// @param[in] errorRadius Tolerance determining that position belongs to the route (mercator).
-  bool IsOnRoute(m2::PointD const & position, double errorRadius, double & minDist) const;
-  bool IsOnDestPoint(m2::PointD const & position, double errorRadius) const;
-
   void AssignRoute(Route & route);
 
 private:
@@ -68,9 +62,9 @@ private:
   Route m_route;
   State m_state;
 
-  double m_tolerance;         //!< Default tolerance for point-on-route checking (mercator).
-  double m_lastMinDist;       //!< Last calculated position-on-route (mercator).
-  uint32_t m_moveAwayCounter;
+  /// Current position metrics to check for RouteLeft state.
+  double m_lastDistance;
+  int m_moveAwayCounter;
 };
 
 }

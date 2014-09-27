@@ -33,9 +33,6 @@ public:
     Update();
   }
 
-  /// Assume that position within road with this tolerance (meters).
-  static double GetOnRoadTolerance() { return 20.0; }
-
   string const & GetRouterId() const { return m_router; }
   m2::PolylineD const & GetPoly() const { return m_poly; }
   string const & GetName() const { return m_name; }
@@ -59,7 +56,13 @@ public:
   double GetCurrentDistanceToEnd() const;
   //@}
 
-  void MoveIterator(m2::PointD const & currPos, location::GpsInfo const & info) const;
+  /// @return true  If position was updated successfully (projection within gps error radius).
+  bool MoveIterator(m2::PointD const & currPos, location::GpsInfo const & info) const;
+
+  /// Square distance to current projection in mercator.
+  double GetCurrentSqDistance(m2::PointD const & pt) const;
+
+  bool IsCurrentOnEnd() const;
 
 private:
   /// @param[in]  errorRadius       Radius to check projection candidates (meters).

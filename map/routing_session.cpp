@@ -9,11 +9,14 @@ using namespace location;
 namespace routing
 {
 
+static int const ON_ROUTE_MISSED_COUNT = 10;
+
+
 RoutingSession::RoutingSession()
   : m_router(nullptr)
   , m_route(string())
   , m_state(RoutingNotActive)
-  , m_lastMinDist(0.0)
+  , m_lastDistance(0.0)
 {
 }
 
@@ -31,10 +34,6 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
   Reset();
   m_state = RouteNotReady;
 
-  m2::RectD const errorRect = MercatorBounds::RectByCenterXYAndSizeInMeters(
-        startPoint, Route::GetOnRoadTolerance());
-  m_tolerance = (errorRect.SizeX() + errorRect.SizeY()) / 2.0;
-
   m_router->CalculateRoute(startPoint, [&] (Route & route, IRouter::ResultCode e)
   {
     AssignRoute(route);
@@ -44,18 +43,18 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
 
 bool RoutingSession::IsActive() const
 {
-  return m_state != RoutingNotActive;
+  return (m_state != RoutingNotActive);
 }
 
 void RoutingSession::Reset()
 {
   m_state = RoutingNotActive;
-  m_lastMinDist = 0.0;
+  m_lastDistance = 0.0;
   Route(string()).Swap(m_route);
 }
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const & position,
-                                                                double errorRadius)
+                                                                GpsInfo const & info)
 {
   ASSERT(m_state != RoutingNotActive, ());
   ASSERT(m_router != nullptr, ());
@@ -63,48 +62,45 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   if (m_state == RouteNotReady || m_state == RouteLeft || m_state == RouteFinished)
     return m_state;
 
-  if (IsOnDestPoint(position, errorRadius))
-    m_state = RouteFinished;
+  ASSERT(m_route.IsValid(), ());
+
+  if (m_route.MoveIterator(position, info))
+  {
+    m_moveAwayCounter = 0;
+    m_lastDistance = 0.0;
+
+    if (m_route.IsCurrentOnEnd())
+      m_state = RouteFinished;
+    else
+      m_state = OnRoute;
+  }
   else
   {
-    double currentDist = 0.0;
-    if (IsOnRoute(position, errorRadius, currentDist))
+    // distance from the last known projection on route
+    double const dist = m_route.GetCurrentSqDistance(position);
+    if (dist > m_lastDistance)
     {
-      m_state = OnRoute;
-      m_moveAwayCounter = 0;
-      m_lastMinDist = 0.0;
+      ++m_moveAwayCounter;
+      m_lastDistance = dist;
     }
     else
     {
-      if (currentDist > m_lastMinDist)
-      {
-        ++m_moveAwayCounter;
-        m_lastMinDist = currentDist;
-      }
-      else
-      {
-        m_moveAwayCounter = 0;
-        m_lastMinDist = 0.0;
-      }
-
-      if (m_moveAwayCounter > 10)
-        m_state = RouteLeft;
+      m_moveAwayCounter = 0;
+      m_lastDistance = 0.0;
     }
+
+    if (m_moveAwayCounter > ON_ROUTE_MISSED_COUNT)
+      m_state = RouteLeft;
   }
 
   return m_state;
 }
 
-void RoutingSession::MoveRoutePosition(m2::PointD const & position, GpsInfo const & info)
-{
-  ASSERT_EQUAL(m_state, OnRoute, ());
-  m_route.MoveIterator(position, info);
-}
-
-void RoutingSession::GetRouteFollowingInfo(location::FollowingInfo & info) const
+void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 {
   if (m_route.IsValid())
   {
+    /// @todo Make better formatting of distance and units.
     MeasurementUtils::FormatDistance(m_route.GetCurrentDistanceToEnd(), info.m_distToTarget);
 
     size_t const delim = info.m_distToTarget.find(' ');
@@ -112,25 +108,6 @@ void RoutingSession::GetRouteFollowingInfo(location::FollowingInfo & info) const
     info.m_unitsSuffix = info.m_distToTarget.substr(delim + 1);
     info.m_distToTarget.erase(delim);
   }
-}
-
-bool RoutingSession::IsOnRoute(m2::PointD const & position, double errorRadius, double & minDist) const
-{
-  minDist = sqrt(m_route.GetPoly().GetShortestSquareDistance(position));
-  if (errorRadius > m_tolerance || minDist < (errorRadius + m_tolerance))
-    return true;
-
-  return false;
-}
-
-bool RoutingSession::IsOnDestPoint(m2::PointD const & position, double errorRadius) const
-{
-  if (errorRadius > m_tolerance)
-    return false;
-
-  if (m_route.GetPoly().Back().SquareLength(position) < errorRadius * errorRadius)
-    return true;
-  return false;
 }
 
 void RoutingSession::AssignRoute(Route & route)

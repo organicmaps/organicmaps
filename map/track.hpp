@@ -68,7 +68,6 @@ public:
                         graphics::EPosition pos, double depth);
 
   double GetLengthMeters() const;
-  double GetShortestSquareDistance(m2::PointD const & point) const;
 
   void Swap(Track & rhs);
 
