@@ -18,11 +18,12 @@ namespace graphics
   static const int balloonBaseDepth = countryStatusDepth - (balloonContentInc + 10);
 
   static const int locationDepth = balloonBaseDepth - 10;
-  static const int poiDepth = locationDepth - 10;
-  static const int bookmarkDepth = poiDepth;
-  static const int routingFinishDepth = bookmarkDepth - balloonContentInc;
-  static const int routingSymbolsDepth = routingFinishDepth;
+  static const int locationFaultDepth = locationDepth - 10;
+
+  static const int routingFinishDepth = locationFaultDepth - balloonContentInc;
+  static const int activePinDepth = routingFinishDepth - balloonContentInc;
+  static const int routingSymbolsDepth = activePinDepth - balloonContentInc;
   static const int tracksDepth = routingSymbolsDepth - balloonContentInc;
   static const int tracksOutlineDepth = tracksDepth - 10;
-  static const int activePinDepth = tracksOutlineDepth - 10;
+  static const int bookmarkDepth = tracksOutlineDepth - balloonContentInc;
 }

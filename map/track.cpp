@@ -36,6 +36,16 @@ void Track::DeleteDisplayList() const
   }
 }
 
+void Track::AddOutline(TrackOutline const * outline, int arraySize)
+{
+  m_outlines.reserve(arraySize);
+  for_each(outline, outline + arraySize, MakeBackInsertFunctor(m_outlines));
+  sort(m_outlines.begin(), m_outlines.end(), [](TrackOutline const & l, TrackOutline const & r)
+  {
+    return l.m_lineWidth > r.m_lineWidth;
+  });
+}
+
 void Track::AddClosingSymbol(bool isBeginSymbol, string const & symbolName, graphics::EPosition pos, double depth)
 {
   if (isBeginSymbol)
@@ -85,11 +95,13 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
   SimplifyDP(pts1.begin(), pts1.end(), math::sqr(m_width),
              m2::DistanceToLineSquare<m2::PointD>(), MakeBackInsertFunctor(pts2));
 
-  if (IsMarked())
+  double baseDepth = graphics::tracksOutlineDepth - 10 * m_outlines.size();
+  for (TrackOutline const & outline : m_outlines)
   {
-    graphics::Pen::Info const outlineInfo(m_outlineColor, m_width + 2 * m_outlineWidth);
+    graphics::Pen::Info const outlineInfo(outline.m_color, outline.m_lineWidth);
     uint32_t const outlineId = dlScreen->mapInfo(outlineInfo);
-    dlScreen->drawPath(pts2.data(), pts2.size(), 0, outlineId, graphics::tracksOutlineDepth);
+    dlScreen->drawPath(pts2.data(), pts2.size(), 0, outlineId, baseDepth);
+    baseDepth += 10;
   }
 
   dlScreen->drawPath(pts2.data(), pts2.size(), 0, resId, graphics::tracksDepth);
@@ -142,9 +154,7 @@ void Track::Swap(Track & rhs)
   swap(m_width, rhs.m_width);
   swap(m_color, rhs.m_color);
   swap(m_rect, rhs.m_rect);
-  swap(m_isMarked, rhs.m_isMarked);
-  swap(m_outlineColor, rhs.m_outlineColor);
-  swap(m_outlineWidth, rhs.m_outlineWidth);
+  swap(m_outlines, rhs.m_outlines);
   swap(m_beginSymbols, rhs.m_beginSymbols);
   swap(m_endSymbols, rhs.m_endSymbols);
 

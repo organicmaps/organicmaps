@@ -692,13 +692,12 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 #endif
 
   m_informationDisplay.doDraw(pDrawer);
-
   pScreen->endFrame();
 
   m_bmManager.DrawItems(e);
-
   m_guiController->UpdateElements();
   m_guiController->DrawFrame(pScreen);
+
 }
 
 /// Function for calling from platform dependent-paint function.
@@ -1880,13 +1879,20 @@ void Framework::InsertRoute(routing::Route const & route)
   else
     cat->ClearTracks();
 
+  float visScale = GetVisualScale();
+
   Track track(route.GetPoly());
   track.SetName(route.GetName());
-  track.SetColor(graphics::Color(0, 0xA3,0xFF, 0xFF));
-  track.SetWidth(4.0f * GetVisualScale());
-  track.SetIsMarked(true);
-  track.SetOutlineWidth(3.0f * GetVisualScale());
-  track.SetOutlineColor(graphics::Color::White());
+  track.SetColor(graphics::Color(0x73, 0xCC,0xFF, 0xFF));
+  track.SetWidth(6.0f * visScale);
+
+  Track::TrackOutline outlines[]
+  {
+    { 12.0f * visScale, graphics::Color(0x40, 0xB9, 0xFF, 0xFF) },
+    { 16.0f * visScale, graphics::Color::White() }
+  };
+
+  track.AddOutline(outlines, ARRAY_SIZE(outlines));
   track.AddClosingSymbol(true, "route_from", graphics::EPosCenter, graphics::routingSymbolsDepth);
   track.AddClosingSymbol(false, "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
   cat->AddTrack(track);

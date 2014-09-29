@@ -278,9 +278,9 @@ void BookmarkManager::DrawItems(shared_ptr<PaintEvent> const & e) const
   pScreen->beginFrame();
 
   PaintOverlayEvent event(e->drawer(), screen);
-  m_selection.Draw(event, m_cache);
   for_each(m_userMarkLayers.begin(), m_userMarkLayers.end(), bind(&UserMarkContainer::Draw, _1, event, m_cache));
   for_each(m_categories.begin(), m_categories.end(), bind(&BookmarkManager::DrawCategory, this, _1, event));
+  m_selection.Draw(event, m_cache);
 
   pScreen->endFrame();
 }

@@ -5,6 +5,7 @@
 
 #include "../graphics/display_list.hpp"
 #include "../graphics/icon.hpp"
+#include "../graphics/depth_constants.hpp"
 
 #include "../anim/controller.hpp"
 #include "../anim/task.hpp"
@@ -474,13 +475,13 @@ void State::CacheLocationMark()
                           0, 2.0 * math::pi,
                           s_cacheRadius,
                           m_locationAreaColor,
-                          depth() - 3);
+                          graphics::locationFaultDepth);
 
   cacheScreen->setDisplayList(m_positionMarkDL.get());
   cacheScreen->drawSymbol(m2::PointD(0, 0),
                           "current-position",
                           graphics::EPosCenter,
-                          depth() - 1);
+                          graphics::locationDepth);
 
   cacheScreen->setDisplayList(0);
 
@@ -521,7 +522,7 @@ void State::CacheArrow(graphics::DisplayList * dl, const string & iconName)
   cacheScreen->addTexturedStripStrided(coords, sizeof(m2::PointD),
                                        &normal, 0,
                                        texCoords, sizeof(m2::PointF),
-                                       4, depth(), res->m_pipelineID);
+                                       4, graphics::locationDepth, res->m_pipelineID);
   cacheScreen->setDisplayList(0);
   cacheScreen->endFrame();
 }

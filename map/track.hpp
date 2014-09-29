@@ -8,14 +8,12 @@
 
 #include "../std/noncopyable.hpp"
 
-
 class Navigator;
 namespace graphics
 {
   class Screen;
   class DisplayList;
 }
-
 
 class Track : private noncopyable
 {
@@ -29,18 +27,12 @@ public:
   Track()
     : m_isVisible(true), m_width(5),
       m_color(graphics::Color::fromARGB(0xFFFF0000)),
-      m_isMarked(false),
-      m_outlineWidth(0),
-      m_outlineColor(graphics::Color::White()),
       m_dList(0)
   {}
 
   explicit Track(PolylineD const & polyline)
     : m_isVisible(true), m_width(5),
       m_color(graphics::Color::fromARGB(0xFFFF0000)),
-      m_isMarked(false),
-      m_outlineWidth(0),
-      m_outlineColor(graphics::Color::White()),
       m_polyline(polyline),
       m_dList(0)
   {
@@ -68,14 +60,13 @@ public:
   graphics::Color const & GetColor() const { return m_color; }
   void SetColor(graphics::Color const & color) { m_color = color; }
 
-  bool IsMarked() const { return m_isMarked; }
-  void SetIsMarked(bool isMarked) { m_isMarked = isMarked; }
+  struct TrackOutline
+  {
+    float m_lineWidth;
+    graphics::Color m_color;
+  };
 
-  float GetOutlineWidth() const { return m_outlineWidth; }
-  void SetOutlineWidth(float outlineWidth) { m_outlineWidth = outlineWidth; }
-
-  graphics::Color const & GetOutlineColor() { return m_outlineColor; }
-  void SetOutlineColor(graphics::Color const & outlineColor) { m_outlineColor = outlineColor; }
+  void AddOutline(TrackOutline const * outline, int arraySize);
 
   string const & GetName() const { return m_name; }
   void SetName(string const & name) { m_name = name; }
@@ -98,9 +89,7 @@ private:
   float m_width;
   graphics::Color m_color;
 
-  bool m_isMarked;
-  float m_outlineWidth;
-  graphics::Color m_outlineColor;
+  vector<TrackOutline> m_outlines;
 
   struct ClosingSymbol
   {
