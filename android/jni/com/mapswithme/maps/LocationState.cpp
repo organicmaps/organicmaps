@@ -3,13 +3,13 @@
 #include "../core/jni_helper.hpp"
 
 
+location::State * GetLocationState()
+{
+  return g_framework->NativeFramework()->GetLocationState().get();
+}
+
 extern "C"
 {
-  shared_ptr<location::State> const & GetLocationState()
-  {
-    return g_framework->NativeFramework()->GetLocationState();
-  }
-
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_LocationState_switchToNextMode(JNIEnv * env, jobject thiz)
   {

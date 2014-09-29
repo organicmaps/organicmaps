@@ -66,7 +66,7 @@ double Route::GetCurrentDistanceToEnd() const
           GetDistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
 }
 
-bool Route::MoveIterator(m2::PointD const & currPos, location::GpsInfo const & info) const
+bool Route::MoveIterator(location::GpsInfo const & info) const
 {
   double predictDistance = -1.0;
   if (m_currentTime > 0.0 && info.HasSpeed())
@@ -78,9 +78,11 @@ bool Route::MoveIterator(m2::PointD const & currPos, location::GpsInfo const & i
       predictDistance = info.m_speed * deltaT;
   }
 
-  IterT const res = FindProjection(currPos,
-                                   max(ON_ROAD_TOLERANCE_M, info.m_horizontalAccuracy),
-                                   predictDistance);
+  m2::RectD const rect = MercatorBounds::MetresToXY(
+        info.m_latitude, info.m_longitude,
+        max(ON_ROAD_TOLERANCE_M, info.m_horizontalAccuracy));
+
+  IterT const res = FindProjection(rect, predictDistance);
   if (res.IsValid())
   {
     m_current = res;
@@ -102,27 +104,23 @@ bool Route::IsCurrentOnEnd() const
   return (GetCurrentDistanceToEnd() < ON_END_TOLERANCE_M);
 }
 
-Route::IterT Route::FindProjection(m2::PointD const & currPos,
-                                   double errorRadius,
-                                   double predictDistance) const
+Route::IterT Route::FindProjection(m2::RectD const & posRect, double predictDistance) const
 {
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
-  ASSERT_GREATER(errorRadius, 0.0, ());
-
-  m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(currPos, errorRadius);
 
   IterT res;
   if (predictDistance >= 0.0)
   {
-    res = GetClosestProjection(currPos, rect, [&] (IterT const & it)
+    res = GetClosestProjection(posRect, [&] (IterT const & it)
     {
       return fabs(GetDistanceOnPolyline(m_current, it) - predictDistance);
     });
   }
   else
   {
-    res = GetClosestProjection(currPos, rect, [&] (IterT const & it)
+    m2::PointD const currPos = posRect.Center();
+    res = GetClosestProjection(posRect, [&] (IterT const & it)
     {
       return GetDistanceOnEarth(it.m_pt, currPos);
     });
@@ -177,19 +175,18 @@ void Route::Update()
 }
 
 template <class DistanceF>
-Route::IterT Route::GetClosestProjection(m2::PointD const & currPos,
-                                         m2::RectD const & rect,
-                                         DistanceF const & distFn) const
+Route::IterT Route::GetClosestProjection(m2::RectD const & posRect, DistanceF const & distFn) const
 {
   IterT res;
   double minDist = numeric_limits<double>::max();
 
+  m2::PointD const currPos = posRect.Center();
   size_t const count = m_poly.GetSize() - 1;
   for (size_t i = m_current.m_ind; i < count; ++i)
   {
     m2::PointD const pt = m_segProj[i](currPos);
 
-    if (!rect.IsPointInside(pt))
+    if (!posRect.IsPointInside(pt))
       continue;
 
     IterT it(pt, i);

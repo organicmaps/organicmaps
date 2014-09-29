@@ -64,7 +64,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
 
   ASSERT(m_route.IsValid(), ());
 
-  if (m_route.MoveIterator(position, info))
+  if (m_route.MoveIterator(info))
   {
     m_moveAwayCounter = 0;
     m_lastDistance = 0.0;

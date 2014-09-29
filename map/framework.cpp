@@ -1126,7 +1126,7 @@ bool Framework::Search(search::SearchParams const & params)
 
 bool Framework::GetCurrentPosition(double & lat, double & lon) const
 {
-  shared_ptr<State> locationState = m_informationDisplay.locationState();
+  shared_ptr<State> const & locationState = m_informationDisplay.locationState();
 
   if (locationState->IsModeHasPosition())
   {
@@ -1135,7 +1135,8 @@ bool Framework::GetCurrentPosition(double & lat, double & lon) const
     lon = MercatorBounds::XToLon(pos.x);
     return true;
   }
-  else return false;
+  else
+    return false;
 }
 
 void Framework::ShowSearchResult(search::Result const & res)

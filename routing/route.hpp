@@ -57,7 +57,7 @@ public:
   //@}
 
   /// @return true  If position was updated successfully (projection within gps error radius).
-  bool MoveIterator(m2::PointD const & currPos, location::GpsInfo const & info) const;
+  bool MoveIterator(location::GpsInfo const & info) const;
 
   /// Square distance to current projection in mercator.
   double GetCurrentSqDistance(m2::PointD const & pt) const;
@@ -65,16 +65,11 @@ public:
   bool IsCurrentOnEnd() const;
 
 private:
-  /// @param[in]  errorRadius       Radius to check projection candidates (meters).
   /// @param[in]  predictDistance   Predict distance from previous FindProjection call (meters).
-  IterT FindProjection(m2::PointD const & currPos,
-                       double errorRadius,
-                       double predictDistance = -1.0) const;
+  IterT FindProjection(m2::RectD const & posRect, double predictDistance = -1.0) const;
 
   template <class DistanceF>
-  IterT GetClosestProjection(m2::PointD const & currPos,
-                             m2::RectD const & rect,
-                             DistanceF const & distFn) const;
+  IterT GetClosestProjection(m2::RectD const & posRect, DistanceF const & distFn) const;
 
   double GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const;
 
