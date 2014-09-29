@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "drive.png"
+      "filename" : "route_go_mdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "drive@2x.png"
+      "filename" : "route_go_xhdpi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "drive@3x.png"
+      "filename" : "route_go_xxhdpi.png"
     }
   ],
   "info" : {

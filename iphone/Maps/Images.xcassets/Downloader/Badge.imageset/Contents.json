@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "drive.png"
+      "filename" : "Badge.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "drive@2x.png"
+      "filename" : "Badge@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "drive@3x.png"
+      "filename" : "Badge@3x.png"
     }
   ],
   "info" : {
