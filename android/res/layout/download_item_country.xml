@@ -6,26 +6,15 @@
     android:layout_height="match_parent"
     android:minHeight="?android:attr/listPreferredItemHeight">
 
-  <ImageView
-      android:id="@+id/country_flag"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
-      android:layout_centerVertical="true"
-      android:layout_gravity="center"
-      android:paddingLeft="@dimen/dp_x_3"
-      android:scaleType="center"/>
-
   <TextView
       android:id="@+id/title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
       android:layout_centerVertical="true"
+      android:layout_marginLeft="@dimen/margin_small"
       android:layout_toLeftOf="@+id/ll__info"
-      android:layout_toRightOf="@id/country_flag"
       android:maxLines="2"
-      android:paddingLeft="@dimen/dp_x_3"
-      android:paddingRight="@dimen/dp_x_3"
       android:textAppearance="@style/Holo.TextAppearance.Large.Light"/>
 
   <com.mapswithme.maps.widget.WheelProgressView

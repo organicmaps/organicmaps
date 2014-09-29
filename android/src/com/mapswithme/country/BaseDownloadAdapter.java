@@ -252,7 +252,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   protected static class ViewHolder
   {
     public TextView mName;
-    public ImageView mFlag;
     public WheelProgressView mProgress;
     public TextView mPercent;
     public TextView mSize;
@@ -267,7 +266,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     void initFromView(View v)
     {
       mName = (TextView) v.findViewById(R.id.title);
-      mFlag = (ImageView) v.findViewById(R.id.country_flag);
       mProgress = (WheelProgressView) v.findViewById(R.id.download_progress);
       mPercent = (TextView) v.findViewById(R.id.tv__percent);
       mSize = (TextView) v.findViewById(R.id.tv__size);
@@ -360,7 +358,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected void bindCountry(int position, int type, ViewHolder holder)
   {
-    bindFlag(position, holder.mFlag);
     bindSizeAndProgress(holder, type, position);
   }
 
@@ -584,7 +581,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected void bindRegion(int position, int type, ViewHolder holder)
   {
-    bindFlag(position, holder.mFlag);
   }
 
   protected void setItemName(int position, BaseDownloadAdapter.ViewHolder holder)
