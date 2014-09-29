@@ -14,33 +14,33 @@ public:
   class iterator
   {
   public:
-    PointF m_pos;
-    PointF m_dir;
-    PointF m_avrDir;
+    PointD m_pos;
+    PointD m_dir;
+    PointD m_avrDir;
     iterator();
     void Attach(Spline const & spl);
-    void Step(float speed);
+    void Step(double speed);
     bool BeginAgain() const;
 
   private:
     friend class Spline;
-    float GetDistance() const;
+    double GetDistance() const;
     int GetIndex() const;
 
   private:
     bool m_checker;
     Spline const * m_spl;
     int m_index;
-    float m_dist;
+    double m_dist;
   };
 
 public:
   Spline() {}
-  Spline(vector<PointF> const & path);
+  Spline(vector<PointD> const & path);
   Spline const & operator = (Spline const & spl);
 
-  void AddPoint(PointF const & pt);
-  vector<PointF> const & GetPath() const { return m_position; }
+  void AddPoint(PointD const & pt);
+  vector<PointD> const & GetPath() const { return m_position; }
 
   template <typename TFunctor>
   void ForEachNode(iterator const & begin, iterator const & end, TFunctor & f) const
@@ -59,25 +59,25 @@ public:
   bool IsEmpty() const;
   bool IsValid() const;
 
-  float GetLength() const;
+  double GetLength() const;
 
 private:
-  vector<PointF> m_position;
-  vector<PointF> m_direction;
-  vector<float> m_length;
+  vector<PointD> m_position;
+  vector<PointD> m_direction;
+  vector<double> m_length;
 };
 
 class SharedSpline
 {
 public:
   SharedSpline() {}
-  SharedSpline(vector<PointF> const & path);
+  SharedSpline(vector<PointD> const & path);
   SharedSpline(SharedSpline const & other);
   SharedSpline const & operator= (SharedSpline const & spl);
 
   bool IsNull() const;
   void Reset(Spline * spline);
-  void Reset(vector<PointF> const & path);
+  void Reset(vector<PointD> const & path);
 
   Spline::iterator CreateIterator() const;
 

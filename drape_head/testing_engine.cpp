@@ -384,6 +384,19 @@ private:
     return 0.0f;
   }
 
+  void ParseGeometry(json_t * object, vector<m2::PointD> & points)
+  {
+    size_t const count = json_array_size(object);
+    ASSERT((count & 1) == 0, ());
+    points.reserve(count >> 1);
+    for (size_t i = 0; i < count; i += 2)
+    {
+      double const x = ParseCoord(json_array_get(object, i));
+      double const y = ParseCoord(json_array_get(object, i + 1));
+      points.push_back(m2::PointD(x, y));
+    }
+  }
+
   void ParseGeometry(json_t * object, vector<m2::PointF> & points)
   {
     size_t const count = json_array_size(object);
@@ -416,7 +429,7 @@ private:
     params.m_join = ParseJoin(json_object_get(object, "join"));
     params.m_cap = ParseCap(json_object_get(object, "cap"));
 
-    vector<m2::PointF> points;
+    vector<m2::PointD> points;
     ParseGeometry(json_object_get(object, "geometry"), points);
     return new LineShape(points, params, 1.0);
   }
@@ -601,7 +614,7 @@ void TestingEngine::DrawImpl()
   TextShape sh2(m2::PointF(250.0f, 250.0f), params);
   //sh2.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 
-  vector<m2::PointF> path;
+  vector<m2::PointD> path;
 
   path.push_back(m2::PointF(200, 650));
   path.push_back(m2::PointF(200, 450));
@@ -648,14 +661,14 @@ void TestingEngine::DrawImpl()
   params7.m_cap = dp::LineCap::ButtCap;
   params7.m_pattern = key.m_pattern;
 
-  vector<m2::PointF> points;
+  vector<m2::PointD> points;
   points.push_back(m2::PointF(100.0f, 100.0f));
   points.push_back(m2::PointF(190.0f, 100.0f));
   points.push_back(m2::PointF(190.0f, 190.0f));
   points.push_back(m2::PointF(280.0f, 190.0f));
   points.push_back(m2::PointF(280.0f, 280.0f));
   points.push_back(m2::PointF(370.0f, 280.0f));
-  LineShape ls1(path, params7, 1.0f / m_modelView.GetScale());
+  LineShape ls1(points, params7, 1.0f / m_modelView.GetScale());
   ls1.Draw(m_batcher.GetRefPointer(), m_textures.GetRefPointer());
 }
 

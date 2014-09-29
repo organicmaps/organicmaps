@@ -7,13 +7,13 @@
 namespace m2
 {
 
-Spline::Spline(vector<PointF> const & path)
+Spline::Spline(vector<PointD> const & path)
 {
   ASSERT(path.size() > 1, ("Wrong path size!"));
   m_position.assign(path.begin(), path.end());
   int cnt = m_position.size() - 1;
-  m_direction = vector<PointF>(cnt);
-  m_length = vector<float>(cnt);
+  m_direction = vector<PointD>(cnt);
+  m_length = vector<double>(cnt);
 
   for(int i = 0; i < cnt; ++i)
   {
@@ -23,7 +23,7 @@ Spline::Spline(vector<PointF> const & path)
   }
 }
 
-void Spline::AddPoint(PointF const & pt)
+void Spline::AddPoint(PointD const & pt)
 {
   /// TODO remove this check when fix generator.
   /// Now we have line objects with zero length segments
@@ -37,7 +37,7 @@ void Spline::AddPoint(PointF const & pt)
     m_position.push_back(pt);
   else
   {
-    PointF dir = pt - m_position.back();
+    PointD dir = pt - m_position.back();
     m_position.push_back(pt);
     m_length.push_back(dir.Length());
     m_direction.push_back(dir.Normalize());
@@ -65,9 +65,9 @@ Spline const & Spline::operator = (Spline const & spl)
   return *this;
 }
 
-float Spline::GetLength() const
+double Spline::GetLength() const
 {
-  return accumulate(m_length.begin(), m_length.end(), 0.0f);
+  return accumulate(m_length.begin(), m_length.end(), 0.0);
 }
 
 Spline::iterator::iterator()
@@ -87,7 +87,7 @@ void Spline::iterator::Attach(Spline const & spl)
   m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
 }
 
-void Spline::iterator::Step(float speed)
+void Spline::iterator::Step(double speed)
 {
   m_dist += speed;
   while(m_dist > m_spl->m_length[m_index])
@@ -111,7 +111,7 @@ bool Spline::iterator::BeginAgain() const
   return m_checker;
 }
 
-float Spline::iterator::GetDistance() const
+double Spline::iterator::GetDistance() const
 {
   return m_dist;
 }
@@ -121,7 +121,7 @@ int Spline::iterator::GetIndex() const
   return m_index;
 }
 
-SharedSpline::SharedSpline(vector<PointF> const & path)
+SharedSpline::SharedSpline(vector<PointD> const & path)
 {
   m_spline.reset(new Spline(path));
 }
@@ -149,7 +149,7 @@ void SharedSpline::Reset(Spline * spline)
   m_spline.reset(spline);
 }
 
-void SharedSpline::Reset(vector<PointF> const & path)
+void SharedSpline::Reset(vector<PointD> const & path)
 {
   m_spline.reset(new Spline(path));
 }

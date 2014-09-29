@@ -213,7 +213,7 @@ void TextLayout::LayoutPathText(m2::Spline::iterator const & iterator,
   int32_t endIndex = isForwardDirection ? glyphCount : -1;
   int32_t incSign = isForwardDirection ? 1 : -1;
 
-  m2::PointF accum = itr.m_dir;
+  m2::PointD accum = itr.m_dir;
   float const koef = 0.7f;
 
   rects.resize(GetGlyphCount());
@@ -226,19 +226,24 @@ void TextLayout::LayoutPathText(m2::Spline::iterator const & iterator,
     advance *= scalePtoG;
 
     ASSERT_NOT_EQUAL(advance, 0.0, ());
-    m2::PointF pos = itr.m_pos;
+    m2::PointD pos = itr.m_pos;
     itr.Step(advance);
     ASSERT(!itr.BeginAgain(), ());
 
-    m2::PointF dir = (itr.m_avrDir.Normalize() * koef + accum * (1.0f - koef)).Normalize();
+    m2::PointD dir = (itr.m_avrDir.Normalize() * koef + accum * (1.0f - koef)).Normalize();
     accum = dir;
-    m2::PointF norm(-dir.y, dir.x);
+    m2::PointD norm(-dir.y, dir.x);
     dir *= halfWidth * scalePtoG;
     norm *= halfHeight * scalePtoG;
 
-    m2::PointF const dirComponent = dir * xOffset / halfWidth;
-    m2::PointF const normalComponent = -norm * incSign * yOffset / halfHeight;
-    m2::PointF const pivot = dirComponent + normalComponent + pos;
+    m2::PointD dirComponent;
+    if (isForwardDirection)
+      dirComponent = dir * xOffset / halfWidth;
+    else
+      dirComponent = dir * (2.0 * halfWidth - xOffset) / halfWidth;
+
+    m2::PointD const normalComponent = -norm * incSign * yOffset / halfHeight;
+    m2::PointD const pivot = dirComponent + normalComponent + pos;
 
     positions.PushBack(glsl_types::vec2(pivot - dir + norm));
     positions.PushBack(glsl_types::vec2(pivot - dir - norm));
