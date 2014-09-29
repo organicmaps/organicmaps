@@ -11,6 +11,8 @@ import com.mapswithme.maps.R;
 public class DownloadedAdapter extends BaseDownloadAdapter
 {
   private static final int TYPE_HEADER = 5;
+  private static final int VIEW_TYPE_COUNT = 6;
+  private static final int INVALID_POSITION = -1;
   private int mDownloadedCount;
   private int mOutdatedCount;
 
@@ -57,11 +59,10 @@ public class DownloadedAdapter extends BaseDownloadAdapter
         view = convertView;
         holder = (ViewHolder) view.getTag();
       }
-      // TODO add strings
       if (containsOutdated() && position == 0)
-        holder.mName.setText("OUT OF DATE");
+        holder.mName.setText(mActivity.getString(R.string.downloader_outdated_maps));
       else
-        holder.mName.setText("UPDATED");
+        holder.mName.setText(mActivity.getString(R.string.downloader_uptodate_maps));
 
       return view;
     }
@@ -69,7 +70,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter
     {
       final View view = super.getView(position, convertView, parent);
       final ViewHolder holder = (ViewHolder) view.getTag();
-      if (getOutdatedPosition(position) == -1)
+      if (getOutdatedPosition(position) == INVALID_POSITION)
         holder.mPercent.setVisibility(View.GONE);
       else
         holder.mPercent.setVisibility(View.VISIBLE);
@@ -92,7 +93,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter
       return null;
 
     int correctedPosition = getOutdatedPosition(position);
-    if (correctedPosition != -1)
+    if (correctedPosition != INVALID_POSITION)
       return new CountryItem(MapStorage.INSTANCE.getOutdatedCountry(correctedPosition));
 
     correctedPosition = getDownloadedPosition(position);
@@ -118,7 +119,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter
   @Override
   public int getViewTypeCount()
   {
-    return 6;
+    return VIEW_TYPE_COUNT;
   }
 
   @Override
@@ -130,7 +131,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter
   @Override
   protected int getItemPosition(MapStorage.Index idx)
   {
-    return -1;
+    return INVALID_POSITION;
   }
 
   @Override
@@ -148,24 +149,24 @@ public class DownloadedAdapter extends BaseDownloadAdapter
   protected int getOutdatedPosition(int position)
   {
     if (!containsOutdated())
-      return -1;
+      return INVALID_POSITION;
 
     if (position <= mOutdatedCount)
       return position - 1;
 
-    return -1;
+    return INVALID_POSITION;
   }
 
   protected int getDownloadedPosition(int position)
   {
     if (!containsDownloaded())
-      return -1;
+      return INVALID_POSITION;
 
     final int startNum = 1 + (containsOutdated() ? mOutdatedCount + 1 : 0);
     if (position >= startNum && position < startNum + mDownloadedCount)
       return position - 1 - (containsOutdated() ? mOutdatedCount + 1 : 0);
 
-    return -1;
+    return INVALID_POSITION;
   }
 
   protected boolean containsOutdated()

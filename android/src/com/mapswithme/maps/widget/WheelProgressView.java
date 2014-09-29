@@ -88,12 +88,12 @@ public class WheelProgressView extends View
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
-    int left = getPaddingLeft();
-    int top = getPaddingTop();
-    int right = w - getPaddingRight();
-    int bottom = h - getPaddingBottom();
-    int width = right - left;
-    int height = bottom - top;
+    final int left = getPaddingLeft();
+    final int top = getPaddingTop();
+    final int right = w - getPaddingRight();
+    final int bottom = h - getPaddingBottom();
+    final int width = right - left;
+    final int height = bottom - top;
 
     mRadius = (Math.min(width, height) - mStrokeWidth) / 2;
     mCenter = new PointF(left + width / 2, top + height / 2);

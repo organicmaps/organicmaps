@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,6 +35,8 @@ import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
+import java.lang.ref.WeakReference;
+
 abstract class BaseDownloadAdapter extends BaseAdapter
 {
   static final int TYPE_GROUP = 0;
@@ -51,17 +52,34 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   public static final String PROPERTY_X = "x";
   private static final long ANIMATION_LENGTH = 250;
   private Handler mHandler = new Handler();
-  private Runnable mDatasetChangedRunnable = new Runnable()
+
+  private static class SafeAdapterRunnable implements Runnable
   {
+    private WeakReference<BaseDownloadAdapter> mAdapterReference;
+
+    public SafeAdapterRunnable(BaseDownloadAdapter adapter)
+    {
+      mAdapterReference = new WeakReference<BaseDownloadAdapter>(adapter);
+    }
+
     @Override
     public void run()
     {
-      if (mActiveAnimationsCount == 0)
-        notifyDataSetChanged();
+      if (mAdapterReference == null)
+        return;
+
+      final BaseDownloadAdapter adapter = mAdapterReference.get();
+      if (adapter == null)
+        return;
+
+      if (adapter.mActiveAnimationsCount == 0)
+        adapter.notifyDataSetChanged();
       else
-        mHandler.postDelayed(this, ANIMATION_LENGTH);
+        adapter.mHandler.postDelayed(this, ANIMATION_LENGTH);
     }
-  };
+  }
+
+  private SafeAdapterRunnable mDatasetChangedRunnable = new SafeAdapterRunnable(this);
 
   protected final LayoutInflater mInflater;
   protected final Activity mActivity;
@@ -81,9 +99,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     mHasGoogleStore = Utils.hasAnyGoogleStoreInstalled();
 
     mStatusDownloaded = mActivity.getString(R.string.downloader_downloaded).toUpperCase();
-    // FIXME
-    mStatusFailed = "failed";
-    mStatusOutdated = "outdated";
+    mStatusFailed = mActivity.getString(R.string.downloader_status_failed).toUpperCase();
+    mStatusOutdated = mActivity.getString(R.string.downloader_status_outdated).toUpperCase();
     mStatusNotDownloaded = mActivity.getString(R.string.download).toUpperCase();
   }
 
@@ -95,6 +112,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
   {
+    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.NO_FREE_SPACE);
     final Dialog dlg = new AlertDialog.Builder(mActivity)
         .setMessage(String.format(mActivity.getString(R.string.free_space_for_country), spaceNeeded, countryName))
         .setNegativeButton(mActivity.getString(R.string.close), new DialogInterface.OnClickListener()
@@ -213,7 +231,10 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   @Override
   public int getItemViewType(int position)
   {
-    return getItem(position).getType();
+    final CountryItem item = getItem(position);
+    if (item != null)
+      return item.getType();
+    return TYPE_GROUP;
   }
 
   @Override
@@ -241,6 +262,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     private LinearLayout mInfoSlided;
     private WheelProgressView mProgressSlided;
 
+    private Animator animator;
+
     void initFromView(View v)
     {
       mName = (TextView) v.findViewById(R.id.title);
@@ -261,29 +284,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     return mActivity.getString(strID, getSizeString(MapStorage.INSTANCE.countryRemoteSizeInBytes(index)));
   }
 
-  protected void bindFlag(int position, ImageView v)
-  {
-    final String strID = getItem(position).mFlag;
-
-    int id;
-    try
-    {
-      // works faster than 'getIdentifier()'
-      id = R.drawable.class.getField(strID).getInt(null);
-
-      if (id > 0)
-      {
-        v.setImageResource(id);
-        v.setVisibility(View.VISIBLE);
-      }
-      else
-        v.setVisibility(View.GONE);
-    } catch (final Exception e)
-    {
-      v.setVisibility(View.GONE);
-    }
-  }
-
   @Override
   public View getView(final int position, View convertView, ViewGroup parent)
   {
@@ -299,6 +299,12 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     }
     else
       holder = (ViewHolder) convertView.getTag();
+
+    if (holder.animator != null)
+    {
+      holder.animator.end();
+      holder.animator = null;
+    }
 
     switch (type)
     {
@@ -352,15 +358,18 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     return 0;
   }
 
-  protected void bindCountry(int position, int type, BaseDownloadAdapter.ViewHolder holder)
+  protected void bindCountry(int position, int type, ViewHolder holder)
   {
     bindFlag(position, holder.mFlag);
     bindSizeAndProgress(holder, type, position);
   }
 
-  protected void bindSizeAndProgress(final BaseDownloadAdapter.ViewHolder holder, final int type, final int position)
+  protected void bindSizeAndProgress(final ViewHolder holder, final int type, final int position)
   {
     final CountryItem item = getItem(position);
+    if (item == null)
+      return;
+
     if (holder.mSize != null)
       setHolderSizeString(holder, MapStorage.INSTANCE.countryRemoteSizeInBytes(item.mCountryIdx));
 
@@ -368,7 +377,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     ViewHelper.setTranslationX(holder.mInfo, 0);
     ViewHelper.setTranslationX(holder.mProgress, 0);
     ViewHelper.setTranslationX(holder.mProgressSlided, 0);
-    switch (getItem(position).getStatus())
+    switch (item.getStatus())
     {
     case MapStorage.DOWNLOADING:
       holder.mProgress.setVisibility(View.GONE);
@@ -498,6 +507,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       public void onAnimationEnd(Animator animation)
       {
         final CountryItem item = getItem(position);
+        if (item == null)
+          return;
         if (item.getStatus() == MapStorage.ON_DISK_OUT_OF_DATE)
           processOutOfDate(item.mCountryIdx, item.mName);
         else
@@ -511,6 +522,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     });
     mActiveAnimationsCount++;
     animatorSet.start();
+    holder.animator = animatorSet;
 
     holder.mProgress.setVisibility(View.VISIBLE);
   }
@@ -532,16 +544,21 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       @Override
       public void onAnimationEnd(Animator animation)
       {
+        final CountryItem item = getItem(position);
+        if (item == null)
+          return;
+
         holder.mInfo.setVisibility(View.VISIBLE);
         holder.mInfoSlided.setVisibility(View.GONE);
         holder.mProgressSlided.setVisibility(View.GONE);
         holder.mProgress.setVisibility(View.GONE);
-        MapStorage.INSTANCE.deleteCountry(getItem(position).mCountryIdx);
+        MapStorage.INSTANCE.deleteCountry(item.mCountryIdx);
         mActiveAnimationsCount--;
       }
     });
     mActiveAnimationsCount++;
     animatorSet.start();
+    holder.animator = animatorSet;
   }
 
   @Override
@@ -574,6 +591,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   {
     // set name and style
     final CountryItem item = getItem(position);
+    if (item == null)
+      return;
+
     holder.mName.setText(item.mName);
     holder.mName.setTypeface(item.getTypeface());
     holder.mName.setTextColor(item.getTextColor());
@@ -588,13 +608,14 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   public int onCountryStatusChanged(Index idx)
   {
     final int position = getItemPosition(idx);
-    if (position != -1)
+    final CountryItem item = getItem(position);
+    if (position != -1 && item != null)
     {
-      getItem(position).updateStatus();
+      item.updateStatus();
       // use this hard reset, because of caching different ViewHolders according to item's type
       mHandler.postDelayed(mDatasetChangedRunnable, ANIMATION_LENGTH);
 
-      return getItem(position).getStatus();
+      return item.getStatus();
     }
     return MapStorage.UNKNOWN;
   }
@@ -628,6 +649,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected void onCountryMenuClicked(final CountryItem countryItem, final View anchor)
   {
+    if (countryItem == null)
+      return;
+
     final int MENU_DELETE = 0;
     final int MENU_UPDATE = 1;
     final int MENU_DOWNLOAD = 2;

@@ -63,6 +63,7 @@ public enum Statistics
     public static final String SEARCH_KEY_CLICKED = "Search key pressed.";
     public static final String SEARCH_ON_MAP_CLICKED = "Search on map clicked.";
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
+    public static final String NO_FREE_SPACE = "Downloader. Not enough free space.";
   }
 
   public static class EventParam

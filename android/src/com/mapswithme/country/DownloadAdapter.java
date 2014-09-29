@@ -40,13 +40,16 @@ class DownloadAdapter extends BaseDownloadAdapter
     if (position >= getCount())
       return; // we have reports at GP that it crashes.
 
-    if (getItem(position).getStatus() < 0)
+    final CountryItem item = getItem(position);
+    if (item == null)
+      return;
+    if (item.getStatus() < 0)
     {
       // expand next level
       expandGroup(position);
     }
     else
-      onCountryMenuClicked(getItem(position), view);
+      onCountryMenuClicked(item, view);
   }
 
   @Override

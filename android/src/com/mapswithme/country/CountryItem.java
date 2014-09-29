@@ -63,6 +63,7 @@ public class CountryItem
     {
     case MapStorage.NOT_DOWNLOADED:
     case MapStorage.DOWNLOADING:
+    case MapStorage.IN_QUEUE:
     case MapStorage.DOWNLOAD_FAILED:
       return LIGHT;
     default:
