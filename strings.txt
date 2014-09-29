@@ -5984,3 +5984,69 @@
     ar = عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!
     zh-hans = 在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！
     uk = Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!
+
+
+  [downloader_outdated_maps]
+    tags = ios,android,tizen
+    comment = Outdated maps category
+    en = Outdated
+    th = ล้าสมัย
+    da = Uddateret
+    tr = Güncel değil
+    sk = Zastarané
+    es = Anticuado
+    sv = Gammal
+    ko = 만료됨
+    pl = Nieaktualne
+    pt = Desatualizado
+    it = Obsoleto
+    jp = 旧式
+    fr = Dépassé
+    de = Veraltet
+    iw = מיושן
+    hu = Elavult
+    cz = Zastaralý
+    nl = Verouderd
+    ar = انتهت صلاحيته
+    zh-hans = 过时的
+    zh-hant = 過時的
+    ru = Неактуальные
+    uk = Неактуальні
+
+
+  [downloader_uptodate_maps]
+    tags = ios,android,tizen
+    comment = Up to date maps category
+    en = Up-to-date
+    th = ทันสมัย
+    da = Up-to-date
+    tr = Güncel
+    sk = Aktualizované
+    es = Actualizado
+    sv = Aktuell
+    ko = 최신
+    pl = Najnowsze
+    pt = Atualizado
+    it = Aggiornato
+    jp = 最新
+    fr = À jour
+    de = Aktuell
+    iw = עדכני
+    hu = Friss
+    cz = Aktuální
+    nl = Up-to-date
+    ar = محدّث
+    zh-hans = 最新的
+    zh-hant = 最新的
+    ru = Обновленные
+    uk = Оновлені
+
+  [downloader_status_outdated]
+    tags = ios,android,tizen
+    comment = Status of outdated country in the list
+    en = Update
+
+  [downloader_status_failed]
+    tags = ios,android,tizen
+    comment = Status of failed country in the list
+    en = Failed
