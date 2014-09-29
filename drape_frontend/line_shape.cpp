@@ -62,7 +62,7 @@ void Bisector(float R, PointF const & v1, PointF const & v2, PointF const & v3,
   rightBisector += v2;
 }
 
-LineShape::LineShape(vector<m2::PointF> const & points,
+LineShape::LineShape(vector<m2::PointD> const & points,
                      LineViewParams const & params, float const scaleGtoP)
   : m_params(params)
   , m_scaleGtoP(scaleGtoP)
@@ -77,13 +77,22 @@ LineShape::LineShape(vector<m2::PointF> const & points,
     {
       m_points[0] = points[0] + (points[0] - points[1]).Normalize();;
       m_points[size - 1] = points[size - 3] + (points[size - 3] - points[size - 4]).Normalize();
-      memcpy(&m_points[1], &points[0], (size - 2) * sizeof(PointF));
+      for (int i = 0; i < size - 2; ++i)
+        m_points[i+1] = points[i];
     }
     else
-      m_points = points;
+    {
+      for (int i = 0; i < size; ++i)
+        m_points[i] = points[i];
+    }
   }
   else
-    m_points = points;
+  {
+    int const size = points.size();
+    m_points.resize(size);
+    for (int i = 0; i < size; ++i)
+      m_points[i] = points[i];
+  }
 }
 
 void LineShape::doPartition(uint32_t patternLength, uint32_t templateLength, vector<m2::PointF> & points) const

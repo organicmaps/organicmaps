@@ -13,7 +13,7 @@ namespace df
 class LineShape : public MapShape
 {
 public:
-  LineShape(vector<m2::PointF> const & points,
+  LineShape(vector<m2::PointD> const & points,
             LineViewParams const & params,
             float const scaleGtoP);
 
