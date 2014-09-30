@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
+                android:background="@drawable/list_selector_holo_light"
                 android:minHeight="?android:attr/listPreferredItemHeight">
 
   <TextView
@@ -20,10 +20,15 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerVertical="true"
+      android:layout_marginLeft="@dimen/dp_x_3"
       android:layout_toRightOf="@id/title"
-      android:paddingLeft="@dimen/dp_x_3"
-      android:paddingRight="@dimen/dp_x_3"
-      android:src="@drawable/ic_next_item"/>
+      android:background="@drawable/bg_downloader_update_count"
+      android:gravity="center"
+      android:minWidth="@dimen/bg_downloader_size"
+      android:paddingLeft="@dimen/margin_micro"
+      android:paddingRight="@dimen/margin_micro"
+      android:src="@drawable/ic_next_item"
+      android:textColor="@android:color/white"/>
 
   <ImageView
       android:id="@+id/disclosure_image"

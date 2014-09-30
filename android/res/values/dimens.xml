@@ -49,5 +49,7 @@
   <dimen name="progress_wheel_width">48dp</dimen>
   <dimen name="progress_wheel_height">40dp</dimen>
   <dimen name="progress_wheel_width_neg">-48dp</dimen>
+  <dimen name="bg_downloader_radius">6dp</dimen>
+  <dimen name="bg_downloader_size">16dp</dimen>
 
 </resources>

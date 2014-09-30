@@ -20,26 +20,7 @@
 
   <drawable name="white">#FFF</drawable>
 
-  <color name="ui_20_gray">#EFEFF4</color>
-
-  <color name="ui_20_text_dark">#333333</color>
-  <drawable name="ui_20_text_dark">#333333</drawable>
-
-  <color name="ui_20_text_green">#53d769</color>
-
-  <color name="ui_20_background_grey">#efeff4</color>
-
-  <color name="ui_20_green">#3dca6a</color>
-  <drawable name="ui_20_green">#3dca6a</drawable>
-
-  <color name="ui_20_green_darker">#5aae74</color>
-  <drawable name="ui_20_green_darker">#5aae74</drawable>
-
-  <color name="ui_20_green_darker_tr">#505aae74</color>
-  <drawable name="ui_20_green_darker_tr">#505aae74</drawable>
-
-  <color name="ui_20_search_dark_gray">#666666</color>
-  <color name="ui_20_search_light_gray">#979797</color>
+  <color name="search_background_gray">#efeff4</color>
 
   <color name="red">#F00</color>
   <color name="green">#0F0</color>
@@ -73,7 +54,9 @@
   <!-- downloader -->
   <color name="downloader_green">#179E4D</color>
   <color name="downloader_red">#FF4436</color>
+  <color name="downloader_blue">#0585ff</color>
   <color name="downloader_gray">#999999</color>
-  <color name="downloader_gray_bg">#a0a0a0</color>
+  <color name="downloader_gray_bg">#efeff4</color>
+  <color name="downloader_progress_bg">#f0f0f0</color>
 
 </resources>
