@@ -20,21 +20,14 @@ class Track : private noncopyable
   typedef math::Matrix<double, 3, 3> MatrixT;
 
 public:
+  Track() {}
   ~Track();
 
   typedef m2::PolylineD PolylineD;
 
-  Track()
-    : m_isVisible(true), m_width(5),
-      m_color(graphics::Color::fromARGB(0xFFFF0000)),
-      m_dList(0)
-  {}
-
   explicit Track(PolylineD const & polyline)
-    : m_isVisible(true), m_width(5),
-      m_color(graphics::Color::fromARGB(0xFFFF0000)),
-      m_polyline(polyline),
-      m_dList(0)
+    : m_isVisible(true),
+      m_polyline(polyline)
   {
     ASSERT_GREATER(polyline.GetSize(), 1, ());
 
@@ -43,6 +36,8 @@ public:
 
   /// @note Move semantics is used here.
   Track * CreatePersistent();
+  float GetMainWidth() const;
+  graphics::Color const & GetMainColor() const;
 
   void Draw(graphics::Screen * pScreen, MatrixT const & matrix) const;
   void CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix) const;
@@ -54,19 +49,13 @@ public:
   bool IsVisible() const        { return m_isVisible; }
   void SetVisible(bool visible) { m_isVisible = visible; }
 
-  float GetWidth() const { return m_width; }
-  void SetWidth(float width) { m_width = width; }
-
-  graphics::Color const & GetColor() const { return m_color; }
-  void SetColor(graphics::Color const & color) { m_color = color; }
-
   struct TrackOutline
   {
     float m_lineWidth;
     graphics::Color m_color;
   };
 
-  void AddOutline(TrackOutline const * outline, int arraySize);
+  void AddOutline(TrackOutline const * outline, size_t arraySize);
 
   string const & GetName() const { return m_name; }
   void SetName(string const & name) { m_name = name; }
@@ -84,10 +73,8 @@ public:
   void Swap(Track & rhs);
 
 private:
-  bool m_isVisible;
+  bool m_isVisible = false;
   string m_name;
-  float m_width;
-  graphics::Color m_color;
 
   vector<TrackOutline> m_outlines;
 
@@ -106,5 +93,5 @@ private:
   PolylineD m_polyline;
   m2::RectD m_rect;
 
-  mutable graphics::DisplayList * m_dList;
+  mutable graphics::DisplayList * m_dList = nullptr;
 };

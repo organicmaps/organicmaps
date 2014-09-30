@@ -1885,15 +1885,14 @@ void Framework::InsertRoute(routing::Route const & route)
   else
     cat->ClearTracks();
 
-  float visScale = GetVisualScale();
+  float const visScale = GetVisualScale();
 
   Track track(route.GetPoly());
   track.SetName(route.GetName());
-  track.SetColor(graphics::Color(0x73, 0xCC,0xFF, 0xFF));
-  track.SetWidth(6.0f * visScale);
 
   Track::TrackOutline outlines[]
   {
+    { 6.0f  * visScale, graphics::Color(0x73, 0xCC,0xFF, 0xFF) },
     { 12.0f * visScale, graphics::Color(0x40, 0xB9, 0xFF, 0xFF) },
     { 16.0f * visScale, graphics::Color::White() }
   };

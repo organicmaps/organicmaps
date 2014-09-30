@@ -27,18 +27,30 @@ Track * Track::CreatePersistent()
   return p;
 }
 
+float Track::GetMainWidth() const
+{
+  ASSERT(!m_outlines.empty(), ());
+  return m_outlines.back().m_lineWidth;
+}
+
+const graphics::Color & Track::GetMainColor() const
+{
+  ASSERT(!m_outlines.empty(), ());
+  return m_outlines.back().m_color;
+}
+
 void Track::DeleteDisplayList() const
 {
   if (m_dList)
   {
     delete m_dList;
-    m_dList = 0;
+    m_dList = nullptr;
   }
 }
 
-void Track::AddOutline(TrackOutline const * outline, int arraySize)
+void Track::AddOutline(TrackOutline const * outline, size_t arraySize)
 {
-  m_outlines.reserve(arraySize);
+  m_outlines.reserve(m_outlines.size() + arraySize);
   for_each(outline, outline + arraySize, MakeBackInsertFunctor(m_outlines));
   sort(m_outlines.begin(), m_outlines.end(), [](TrackOutline const & l, TrackOutline const & r)
   {
@@ -81,9 +93,6 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
   dlScreen->beginFrame();
   dlScreen->setDisplayList(m_dList);
 
-  graphics::Pen::Info info(m_color, m_width);
-  uint32_t resId = dlScreen->mapInfo(info);
-
   typedef buffer_vector<m2::PointD, 32> PointContainerT;
   size_t const count = m_polyline.GetSize();
 
@@ -92,10 +101,10 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
 
   PointContainerT pts2;
   pts2.reserve(count);
-  SimplifyDP(pts1.begin(), pts1.end(), math::sqr(m_width),
+  SimplifyDP(pts1.begin(), pts1.end(), math::sqr(GetMainWidth()),
              m2::DistanceToLineSquare<m2::PointD>(), MakeBackInsertFunctor(pts2));
 
-  double baseDepth = graphics::tracksOutlineDepth - 10 * m_outlines.size();
+  double baseDepth = graphics::tracksDepth - 10 * m_outlines.size();
   for (TrackOutline const & outline : m_outlines)
   {
     graphics::Pen::Info const outlineInfo(outline.m_color, outline.m_lineWidth);
@@ -103,8 +112,6 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
     dlScreen->drawPath(pts2.data(), pts2.size(), 0, outlineId, baseDepth);
     baseDepth += 10;
   }
-
-  dlScreen->drawPath(pts2.data(), pts2.size(), 0, resId, graphics::tracksDepth);
 
   if (!m_beginSymbols.empty() || !m_endSymbols.empty())
   {
@@ -151,8 +158,6 @@ double Track::GetShortestSquareDistance(m2::PointD const & point) const
 void Track::Swap(Track & rhs)
 {
   swap(m_isVisible, rhs.m_isVisible);
-  swap(m_width, rhs.m_width);
-  swap(m_color, rhs.m_color);
   swap(m_rect, rhs.m_rect);
   swap(m_outlines, rhs.m_outlines);
   swap(m_beginSymbols, rhs.m_beginSymbols);

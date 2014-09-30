@@ -404,7 +404,10 @@ namespace
           {
             Track track(m_points);
             track.SetName(m_name);
-            track.SetColor(m_trackColor);
+
+            Track::TrackOutline trackOutline { 5.0f, m_trackColor };
+            track.AddOutline(&trackOutline, 1);
+
             /// @todo Add description, style, timestamp
             m_category.AddTrack(track);
           }
@@ -749,7 +752,7 @@ void BookmarkCategory::SaveToKML(ostream & s)
     s << "</name>\n";
 
     s << "<Style><LineStyle>";
-    graphics::Color const & col = track->GetColor();
+    graphics::Color const & col = track->GetMainColor();
     s << "<color>"
       << NumToHex(col.a)
       << NumToHex(col.b)
@@ -758,7 +761,7 @@ void BookmarkCategory::SaveToKML(ostream & s)
     s << "</color>\n";
 
     s << "<width>"
-      << track->GetWidth();
+      << track->GetMainWidth();
     s << "</width>\n";
 
     s << "</LineStyle></Style>\n";
