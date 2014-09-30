@@ -1179,7 +1179,6 @@ public class MWMActivity extends NvEventQueueActivity
   {
     if (ParsedMmwRequest.hasRequest())
     {
-      mInfoView.bringToFront();
       final ParsedMmwRequest request = ParsedMmwRequest.getCurrentRequest();
       request.setPointData(lat, lon, name, id);
 
