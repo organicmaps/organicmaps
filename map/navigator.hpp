@@ -47,7 +47,7 @@ public:
   void DoRotate(double Angle, double timeInSec);
   void StopRotate(double Angle, double timeInSec);
 
-  void StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
+  void StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec, bool isRotationAllowed);
   void DoScale(m2::PointD const & org, m2::PointD const & p1, m2::PointD const & p2);
   void DoScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);
   void StopScale(m2::PointD const & pt1, m2::PointD const & pt2, double timeInSec);

@@ -71,7 +71,7 @@ namespace location
 
     void InvalidatePosition();
     void TurnOff();
-    void StopCompassFollowing(Mode mode = Follow);
+    void StopCompassFollowing(Mode mode = Follow, bool resetPxBinding = true);
     void StopLocationFollow();
 
     /// @name User input notification block
@@ -83,6 +83,7 @@ namespace location
     void ScaleCorrection(m2::PointD & pt);
     void ScaleCorrection(m2::PointD & pt1, m2::PointD & pt2);
 
+    bool IsRotationAllowed() const;
     void Rotated();
     //@}
 

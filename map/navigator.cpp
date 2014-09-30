@@ -385,13 +385,13 @@ bool Navigator::InAction() const
   return m_InAction;
 }
 
-void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/)
+void Navigator::StartScale(m2::PointD const & pt1, m2::PointD const & pt2, double /*timeInSec*/, bool isRotationAllowed)
 {
   m_StartScreen = m_Screen;
   m_StartPt1 = m_LastPt1 = pt1;
   m_StartPt2 = m_LastPt2 = pt2;
 
-  m_DoCheckRotationThreshold = m_DoSupportRotation;
+  m_DoCheckRotationThreshold = m_DoSupportRotation && isRotationAllowed;
   m_IsRotatingDuringScale = false;
   m_InAction = true;
 }

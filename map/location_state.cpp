@@ -283,6 +283,7 @@ void State::StartRoutingMode()
 void State::StopRoutingMode()
 {
   SetModeInfo(ExcludeModeBit(m_modeInfo, RoutingSessionBit));
+  SetCurrentPixelBinding(GetModeDefaultPixelBinding(GetMode()));
 }
 
 void State::TurnOff()
@@ -615,12 +616,15 @@ m2::PointD const State::GetRaFModeDefaultPxBind() const
                     pixelRect.maxY() - POSITION_Y_OFFSET * visualScale());
 }
 
-void State::StopCompassFollowing(Mode mode)
+void State::StopCompassFollowing(Mode mode, bool resetPxBinding)
 {
   if (GetMode() != RotateAndFollow)
     return;
 
+  EndAnimation();
   SetModeInfo(ChangeMode(m_modeInfo, mode));
+  if (resetPxBinding)
+    SetCurrentPixelBinding(GetModeDefaultPixelBinding(GetMode()));
 
   m_framework->GetAnimator().StopRotation();
   m_framework->GetAnimator().StopChangeViewport();
@@ -631,7 +635,10 @@ void State::StopLocationFollow()
 {
   StopCompassFollowing();
   if (GetMode() > NotFollow)
+  {
     SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
+    SetCurrentPixelBinding(GetModeDefaultPixelBinding(GetMode()));
+  }
 }
 
 void State::DragStarted()
@@ -645,7 +652,7 @@ void State::Draged()
   if (!IsModeChangeViewport())
     return;
 
-  StopCompassFollowing();
+  StopCompassFollowing(NotFollow, false);
   SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
 }
 
@@ -674,13 +681,13 @@ void State::DragEnded()
 
 void State::ScaleCorrection(m2::PointD & pt)
 {
-  if (IsModeChangeViewport())
+  if (GetMode() == Follow)
     pt = m_framework->GetPixelCenter();
 }
 
 void State::ScaleCorrection(m2::PointD & pt1, m2::PointD & pt2)
 {
-  if (IsModeChangeViewport())
+  if (GetMode() == Follow)
   {
     m2::PointD const ptC = (pt1 + pt2) / 2;
     m2::PointD const ptDiff = m_framework->GetPixelCenter() - ptC;
@@ -689,10 +696,16 @@ void State::ScaleCorrection(m2::PointD & pt1, m2::PointD & pt2)
   }
 }
 
+bool State::IsRotationAllowed() const
+{
+  return !(IsInRouting() && GetMode() == RotateAndFollow);
+}
+
 void State::Rotated()
 {
   m_afterPendingMode = NotFollow;
-  StopCompassFollowing(IsInRouting() ? NotFollow : Follow);
+  ASSERT(!IsInRouting() || GetMode() != RotateAndFollow, ());
+  StopCompassFollowing(NotFollow);
 }
 
 void State::OnSize(m2::RectD const & oldPixelRect)
