@@ -37,6 +37,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) UIButton * shareButton;
 @property (nonatomic) UIImageView * editImageView;
 @property (nonatomic) UIImageView * arrowImageView;
+@property (nonatomic) UIImageView * shadowImageView;
 @property (nonatomic) UIView * pickerView;
 @property (nonatomic) UIWebView * bookmarkDescriptionView;
 
@@ -87,6 +88,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   [self addSubview:self.tableView];
   [self addSubview:self.headerView];
   [self addSubview:self.arrowImageView];
+  [self.backgroundView addSubview:self.shadowImageView];
+  self.shadowImageView.minY = self.backgroundView.height;
+  self.arrowImageView.midX = self.width / 2;
 
   NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
   [nc addObserver:self selector:@selector(bookmarkDeletedNotification:) name:BOOKMARK_DELETED_NOTIFICATION object:nil];
@@ -184,11 +188,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 
 - (NSInteger)rowsCount
 {
-  Framework & f = GetFramework();
-  if ([self isBookmark])
-    return f.IsRoutingEnabled() ? 5 : 4;
-  else
-    return f.IsRoutingEnabled() ? 3 : 2;
+  return [self isBookmark] ? 4 : 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -205,7 +205,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
     cell.selectedColorView.alpha = [self isBookmark] ? 1 : 0;
     cell.delegate = self;
     cell.myPositionMode = [self isMyPosition];
-
     return cell;
   }
   else if (row == CellRowSet)
@@ -339,7 +338,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     self.titleLabel.minY = 25;
     self.typeLabel.textAlignment = NSTextAlignmentRight;
     self.typeLabel.size = typesSize;
-    self.typeLabel.minY = self.titleLabel.minY + 3;
+    self.typeLabel.minY = self.titleLabel.minY + 4;
     self.typeLabel.maxX = self.width - TYPES_LABEL_LANDSCAPE_RIGHT_OFFSET;
     self.bookmarkButton.midY = 37;
   }
@@ -425,21 +424,21 @@ typedef NS_ENUM(NSUInteger, CellRow)
   }
 }
 
-#define BOTTOM_SHADOW_OFFSET 18
-
 - (void)layoutSubviews
 {
   if (!updatingTable)
   {
     [self setState:self.state animated:YES withCallback:YES];
     CGFloat const headerHeight = [self headerHeight];
-    self.tableView.frame = CGRectMake(0, headerHeight, self.superview.width, self.backgroundView.height - headerHeight - BOTTOM_SHADOW_OFFSET);
+    self.tableView.frame = CGRectMake(0, headerHeight, self.superview.width, self.backgroundView.height - headerHeight);
   }
 }
 
+#define BOTTOM_SHADOW_OFFSET 18
+
 - (void)updateHeight:(CGFloat)height
 {
-  self.height = height;
+  self.height = height + BOTTOM_SHADOW_OFFSET;
   self.backgroundView.height = height;
   self.headerView.height = [self headerHeight];
 }
@@ -449,9 +448,9 @@ typedef NS_ENUM(NSUInteger, CellRow)
   return self.statusBarIncluded ? (SYSTEM_VERSION_IS_LESS_THAN(@"7") ? -20 : 0) : -20;
 }
 
-- (CGPoint)arrowCenterForHeaderWithHeight:(CGFloat)headerHeight
+- (CGFloat)arrowMinYForHeaderWithHeight:(CGFloat)headerHeight
 {
-  return CGPointMake(self.width / 2, headerHeight + BOTTOM_SHADOW_OFFSET - 12.5);
+  return headerHeight - 14;
 }
 
 - (void)alignAnimated:(BOOL)animated
@@ -467,8 +466,8 @@ typedef NS_ENUM(NSUInteger, CellRow)
       self.arrowImageView.alpha = 1;
     } completion:nil];
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
-      self.arrowImageView.center = [self arrowCenterForHeaderWithHeight:headerHeight];
-      [self updateHeight:(headerHeight + BOTTOM_SHADOW_OFFSET)];
+      self.arrowImageView.minY = [self arrowMinYForHeaderWithHeight:headerHeight];
+      [self updateHeight:headerHeight];
       self.minY = [self viewMinY];
       self.headerSeparator.alpha = 0;
     } completion:nil];
@@ -482,7 +481,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
       self.arrowImageView.alpha = 0;
     }];
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
-      self.arrowImageView.center = [self arrowCenterForHeaderWithHeight:headerHeight];
+      self.arrowImageView.minY = [self arrowMinYForHeaderWithHeight:headerHeight];
       [self updateHeight:[self fullHeight]];
       self.minY = [self viewMinY];
       self.headerSeparator.alpha = 1;
@@ -497,7 +496,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   else if (self.state == PlacePageStateHidden)
   {
     [UIView animateWithDuration:(animated ? 0.4 : 0) delay:0 damping:damping initialVelocity:0 options:options animations:^{
-      self.arrowImageView.center = [self arrowCenterForHeaderWithHeight:headerHeight];
+      self.arrowImageView.minY = [self arrowMinYForHeaderWithHeight:headerHeight];
       self.maxY = 0;
       self.tableView.alpha = 0;
     } completion:nil];
@@ -518,7 +517,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     else
       fullHeight += [PlacePageEditCell cellHeightWithTextValue:self.bookmarkDescription viewWidth:self.tableView.width];
   }
-  fullHeight = MIN(fullHeight + 20, [self maxHeight]);
+  fullHeight = MIN(fullHeight, [self maxHeight]);
 
   return fullHeight;
 }
@@ -549,7 +548,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
   {
     CGFloat const headerHeight = [self headerHeight];
     CGFloat const fullHeight = [self fullHeight];
-    self.tableView.frame = CGRectMake(0, headerHeight, self.superview.width, fullHeight - headerHeight - BOTTOM_SHADOW_OFFSET);
+    self.tableView.frame = CGRectMake(0, headerHeight, self.superview.width, fullHeight - headerHeight);
   }
 
   [self resizeTableAnimated:animated];
@@ -1167,7 +1166,6 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if (!_headerView)
   {
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 0)];
-    _headerView.backgroundColor = [UIColor clearColor];
     _headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
 
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
@@ -1231,10 +1229,21 @@ typedef NS_ENUM(NSUInteger, CellRow)
   if (!_backgroundView)
   {
     _backgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
-    _backgroundView.image = [[UIImage imageNamed:@"PlacePageBackground"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 18, 0)];
+    _backgroundView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.94];
     _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   }
   return _backgroundView;
+}
+
+- (UIImageView *)shadowImageView
+{
+  if (!_shadowImageView)
+  {
+    _shadowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 18)];
+    _shadowImageView.image = [[UIImage imageNamed:@"PlacePageShadow"] resizableImageWithCapInsets:UIEdgeInsetsZero];
+    _shadowImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+  }
+  return _shadowImageView;
 }
 
 - (UIImageView *)arrowImageView
@@ -1244,6 +1253,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     _arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 40)];
     _arrowImageView.image = [UIImage imageNamed:@"PlacePageArrow"];
     _arrowImageView.userInteractionEnabled = YES;
+    _arrowImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
     [_arrowImageView addGestureRecognizer:tap];
   }
