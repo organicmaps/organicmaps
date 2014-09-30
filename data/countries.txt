@@ -304,7 +304,48 @@
     {
      "n":"Japan",
      "c":"jp",
-     "s":504754759
+     "g":[
+      {
+       "n":"Chūbu",
+       "s":13860294,
+       "f":"Japan_Chubu"
+      },
+      {
+       "n":"Chūgoku",
+       "s":158254842,
+       "f":"Japan_Chugoku"
+      },
+      {
+       "n":"Hokkaidō",
+       "s":158254842,
+       "f":"Japan_Hokkaido"
+      },
+      {
+       "n":"Tokyo & Kantō",
+       "s":158254842,
+       "f":"Japan_Kanto"
+      },
+      {
+       "n":"Kinki",
+       "s":158254842,
+       "f":"Japan_Kinki"
+      },
+      {
+       "n":"Kyūshū",
+       "s":158254842,
+       "f":"Japan_Kyushu"
+      },
+      {
+       "n":"Shikoku",
+       "s":158254842,
+       "f":"Japan_Shikoku"
+      },
+      {
+       "n":"Tōhoku",
+       "s":158254842,
+       "f":"Japan_Tohoku"
+      }
+     ]
     },
     {
      "n":"Kazakhstan",
@@ -1945,7 +1986,33 @@
     {
      "n":"Brazil",
      "c":"br",
-     "s":176113416
+     "g":[
+      {
+       "n":"Central-West",
+       "s":13860294,
+       "f":"Brazil_Central-West"
+      },
+      {
+       "n":"North",
+       "s":158254842,
+       "f":"Brazil_North"
+      },
+      {
+       "n":"Northeast",
+       "s":158254842,
+       "f":"Brazil_Northeast"
+      },
+      {
+       "n":"South",
+       "s":158254842,
+       "f":"Brazil_South"
+      },
+      {
+       "n":"Rio & Southeast",
+       "s":158254842,
+       "f":"Brazil_Southeast"
+      }
+     ]
     },
     {
      "n":"Chile",
