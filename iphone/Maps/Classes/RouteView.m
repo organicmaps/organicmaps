@@ -93,7 +93,7 @@
   {
     _closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 44)];
     _closeButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-    [_closeButton setImage:[UIImage imageNamed:@"RoutingCloseButton"] forState:UIControlStateNormal];
+    [_closeButton setImage:[UIImage imageNamed:@"PlacePageCancelRouteButton"] forState:UIControlStateNormal];
     [_closeButton addTarget:self action:@selector(closeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
   }
   return _closeButton;
