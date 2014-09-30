@@ -14,7 +14,18 @@ class Route;
 class IRouter
 {
 public:
-  typedef function<void (Route const &)> ReadyCallback;
+  enum ResultCode
+  {
+    NoError = 0,
+    StartPointNotFound,
+    EndPointNotFound,
+    PointsInDifferentMWM,
+    FeaturesInDifferentMWM,
+    RouteNotFound,
+    InternalError
+  };
+
+  typedef function<void (Route const &, ResultCode)> ReadyCallback;
 
   virtual ~IRouter() {}
 

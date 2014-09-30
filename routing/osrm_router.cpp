@@ -128,71 +128,65 @@ void OsrmRouter::SetFinalPoint(m2::PointD const & finalPt)
   m_finalPt = finalPt;
 }
 
-namespace
-{
-
-class MakeResultGuard
-{
-  IRouter::ReadyCallback const & m_callback;
-  Route m_route;
-  string m_errorMsg;
-
-public:
-  MakeResultGuard(IRouter::ReadyCallback const & callback, string const & name)
-    : m_callback(callback), m_route(name)
-  {
-  }
-
-  ~MakeResultGuard()
-  {
-    if (!m_errorMsg.empty())
-      LOG(LINFO, ("Failed calculate route", m_errorMsg));
-    m_callback(m_route);
-  }
-
-  void SetErrorMsg(char const * msg) { m_errorMsg = msg; }
-
-  void SetGeometry(vector<m2::PointD> const & vec)
-  {
-    m_route.SetGeometry(vec.begin(), vec.end());
-    m_errorMsg.clear();
-  }
-};
-
-}
-
 void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback)
 {
-  MakeResultGuard resGuard(callback, GetName());
-
-  string const fName = m_countryFn(startingPt);
-  if (fName != m_countryFn(m_finalPt))
+  Route route(GetName());
+  try
   {
-    resGuard.SetErrorMsg("Points are in different MWMs");
-    return;
+    ResultCode code = CalculateRouteImpl(startingPt, m_finalPt, route);
+
+    switch (code)
+    {
+    case StartPointNotFound:
+      LOG(LERROR, ("Can't find start point node"));
+      break;
+    case EndPointNotFound:
+      LOG(LERROR, ("Can't find end point node"));
+      break;
+    case PointsInDifferentMWM:
+      LOG(LERROR, ("Points are in different MWMs"));
+      break;
+    case FeaturesInDifferentMWM:
+      LOG(LERROR, ("Found features are in different MWMs"));
+      break;
+    case RouteNotFound:
+      LOG(LERROR, ("Route not found"));
+      break;
+    case NoError:
+      LOG(LINFO, ("Route found"));
+      break;
+
+    default:
+      LOG(LERROR, ("Internal error"));
+    }
+
+    callback(route, code);
   }
+  catch(Reader::Exception const & e)
+  {
+    LOG(LERROR, ("Routing index absent or incorrect. Error while loading routing index:", e.Msg()));
+    callback(route, InternalError);
+  }
+}
+
+OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & finalPt, Route & route)
+{
+  string const fName = m_countryFn(startPt);
+  if (fName != m_countryFn(finalPt))
+    return PointsInDifferentMWM;
 
   string const fPath = GetPlatform().WritablePathForFile(fName + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION);
   if (NeedReload(fPath))
   {
     LOG(LDEBUG, ("Load routing index for file:", fPath));
 
-    try
-    {
-      // Clear data while m_container is valid.
-      m_dataFacade.Clear();
-      m_mapping.Clear();
+    // Clear data while m_container is valid.
+    m_dataFacade.Clear();
+    m_mapping.Clear();
 
-      m_container.Open(fPath);
+    m_container.Open(fPath);
 
-      m_mapping.Load(m_container);
-    }
-    catch (Reader::Exception const & e)
-    {
-      LOG(LERROR, ("Error while loading routing index:", fPath, e.Msg()));
-      resGuard.SetErrorMsg("Routing index absent or incorrect.");
-      return;
-    }
+    m_mapping.Load(m_container);
   }
 
   SearchEngineData engineData;
@@ -204,38 +198,20 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
   OsrmFtSegMapping::FtSeg segBegin;
   m2::PointD segPointStart;
   uint32_t mwmIdStart = -1;
-  if (!FindPhantomNode(startingPt, nodes.source_phantom, mwmIdStart, segBegin, segPointStart))
-  {
-    resGuard.SetErrorMsg("Can't find start point node");
-    return;
-  }
+  if (!FindPhantomNode(startPt, nodes.source_phantom, mwmIdStart, segBegin, segPointStart))
+    return StartPointNotFound;
 
   uint32_t mwmIdEnd = -1;
   OsrmFtSegMapping::FtSeg segEnd;
   m2::PointD segPointEnd;
-  if (!FindPhantomNode(m_finalPt, nodes.target_phantom, mwmIdEnd, segEnd, segPointEnd))
-  {
-    resGuard.SetErrorMsg("Can't find end point node");
-    return;
-  }
+  if (!FindPhantomNode(finalPt, nodes.target_phantom, mwmIdEnd, segEnd, segPointEnd))
+    return EndPointNotFound;
 
   if (mwmIdEnd != mwmIdStart || mwmIdEnd == -1 || mwmIdStart == -1)
-  {
-    resGuard.SetErrorMsg("Found features are in different MWMs");
-    return;
-  }
+    return FeaturesInDifferentMWM;
 
-  try
-  {
-    m_mapping.Clear();
-    m_dataFacade.Load(m_container);
-  }
-  catch(Reader::Exception const & e)
-  {
-    LOG(LERROR, ("Error while loading routing data:", fPath, e.Msg()));
-    resGuard.SetErrorMsg("Routing data absent or incorrect.");
-    return;
-  }
+  m_mapping.Clear();
+  m_dataFacade.Load(m_container);
 
   rawRoute.segment_end_coordinates.push_back(nodes);
 
@@ -247,21 +223,9 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
   if (INVALID_EDGE_WEIGHT == rawRoute.shortest_path_length
       || rawRoute.segment_end_coordinates.empty()
       || rawRoute.source_traversed_in_reverse.empty())
-  {
-    resGuard.SetErrorMsg("Route not found");
-    return;
-  }
+    return RouteNotFound;
 
-  try
-  {
-    m_mapping.Load(m_container);
-  }
-  catch(Reader::Exception const & e)
-  {
-    LOG(LERROR, ("Error while loading routing index:", fPath, e.Msg()));
-    resGuard.SetErrorMsg("Routing index absent or incorrect.");
-    return;
-  }
+  m_mapping.Load(m_container);
 
   // restore route
   vector<m2::PointD> points;
@@ -334,7 +298,9 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
   points.front() = segPointStart;
   points.back() = segPointEnd;
 
-  resGuard.SetGeometry(points);
+  route.SetGeometry(points.begin(), points.end());
+
+  return NoError;
 }
 
 bool OsrmRouter::FindPhantomNode(m2::PointD const & pt, PhantomNode & resultNode,

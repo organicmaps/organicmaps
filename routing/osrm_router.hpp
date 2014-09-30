@@ -35,6 +35,8 @@ protected:
                        OsrmFtSegMapping::FtSeg & seg, m2::PointD & segPt);
   bool NeedReload(string const & fPath) const;
 
+  ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & finalPt, Route & route);
+
 private:
   Index const * m_pIndex;
 

@@ -1836,7 +1836,7 @@ bool Framework::StartRoutingSession(m2::PointD const & destination)
     CancelRoutingSession();
 
   m_routingSession.BuildRoute(state->Position(), destination,
-                              [this, state](routing::Route const & route)
+                              [this, state](routing::Route const & route, routing::IRouter::ResultCode e)
                               {
                                 InsertRoute(route);
                                 state->StartRoutingMode();
@@ -1914,7 +1914,7 @@ void Framework::CheckLocationForRouting()
   m2::PointD const & position = state->Position();
   if (m_routingSession.OnLocationPositionChanged(position, state->GetErrorRadius()) == routing::RoutingSession::RouteLeft)
   {
-    m_routingSession.RebuildRoute(position, [this] (routing::Route const & route)
+    m_routingSession.RebuildRoute(position, [this] (routing::Route const & route, routing::IRouter::ResultCode e)
                                             {
                                               InsertRoute(route);
                                             });
