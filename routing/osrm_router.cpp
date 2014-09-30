@@ -185,7 +185,6 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
 
       m_container.Open(fPath);
 
-      m_dataFacade.Load(m_container);
       m_mapping.Load(m_container);
     }
     catch (Reader::Exception const & e)
@@ -226,15 +225,41 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
     return;
   }
 
+  try
+  {
+    m_mapping.Clear();
+    m_dataFacade.Load(m_container);
+  }
+  catch(Reader::Exception const & e)
+  {
+    LOG(LERROR, ("Error while loading routing data:", fPath, e.Msg()));
+    resGuard.SetErrorMsg("Routing data absent or incorrect.");
+    return;
+  }
+
   rawRoute.segment_end_coordinates.push_back(nodes);
 
   pathFinder({nodes}, {}, rawRoute);
+
+  // unmap routing data
+  m_dataFacade.Clear();
 
   if (INVALID_EDGE_WEIGHT == rawRoute.shortest_path_length
       || rawRoute.segment_end_coordinates.empty()
       || rawRoute.source_traversed_in_reverse.empty())
   {
     resGuard.SetErrorMsg("Route not found");
+    return;
+  }
+
+  try
+  {
+    m_mapping.Load(m_container);
+  }
+  catch(Reader::Exception const & e)
+  {
+    LOG(LERROR, ("Error while loading routing index:", fPath, e.Msg()));
+    resGuard.SetErrorMsg("Routing index absent or incorrect.");
     return;
   }
 
