@@ -405,6 +405,7 @@ public:
 
 private:
   void CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::PointD & pt2) const;
+  bool CanRotate() const;
 public:
   void StartScale(ScaleEvent const & e);
   void DoScale(ScaleEvent const & e);

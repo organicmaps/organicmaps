@@ -704,7 +704,7 @@ bool State::IsRotationAllowed() const
 void State::Rotated()
 {
   m_afterPendingMode = NotFollow;
-  ASSERT(!IsInRouting() || GetMode() != RotateAndFollow, ());
+  ASSERT(IsRotationAllowed(), ());
   StopCompassFollowing(NotFollow);
 }
 
@@ -739,6 +739,7 @@ bool ValidateTransition(State::Mode oldMode, State::Mode newMode)
   if (oldMode == State::PendingPosition)
   {
     return newMode == State::UnknownPosition ||
+           newMode == State::NotFollow ||
            newMode == State::Follow;
   }
 

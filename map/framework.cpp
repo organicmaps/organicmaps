@@ -943,9 +943,7 @@ void Framework::StopDrag(DragEvent const & e)
 
 void Framework::StartRotate(RotateEvent const & e)
 {
-  if (m_renderPolicy &&
-      m_renderPolicy->DoSupportRotation() &&
-      GetLocationState()->IsRotationAllowed())
+  if (CanRotate())
   {
     m_navigator.StartRotate(e.Angle(), ElapsedSeconds());
     m_renderPolicy->StartRotate(e.Angle(), ElapsedSeconds());
@@ -954,9 +952,7 @@ void Framework::StartRotate(RotateEvent const & e)
 
 void Framework::DoRotate(RotateEvent const & e)
 {
-  if (m_renderPolicy &&
-      m_renderPolicy->DoSupportRotation() &&
-      GetLocationState()->IsRotationAllowed())
+  if (CanRotate())
   {
     m_navigator.DoRotate(e.Angle(), ElapsedSeconds());
     m_renderPolicy->DoRotate(e.Angle(), ElapsedSeconds());
@@ -965,9 +961,7 @@ void Framework::DoRotate(RotateEvent const & e)
 
 void Framework::StopRotate(RotateEvent const & e)
 {
-  if (m_renderPolicy &&
-      m_renderPolicy->DoSupportRotation() &&
-      GetLocationState()->IsRotationAllowed())
+  if (CanRotate())
   {
     m_navigator.StopRotate(e.Angle(), ElapsedSeconds());
     GetLocationState()->Rotated();
@@ -1022,6 +1016,13 @@ void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::Poin
   m_informationDisplay.setDebugPoint(0, pt1);
   m_informationDisplay.setDebugPoint(1, pt2);
 #endif
+}
+
+bool Framework::CanRotate() const
+{
+  return m_renderPolicy &&
+         m_renderPolicy->DoSupportRotation() &&
+         GetLocationState()->IsRotationAllowed();
 }
 
 void Framework::StartScale(ScaleEvent const & e)
