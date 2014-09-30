@@ -131,42 +131,40 @@ void OsrmRouter::SetFinalPoint(m2::PointD const & finalPt)
 void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback)
 {
   Route route(GetName());
+  ResultCode code;
+
   try
   {
-    ResultCode code = CalculateRouteImpl(startingPt, m_finalPt, route);
-
+    code = CalculateRouteImpl(startingPt, m_finalPt, route);
     switch (code)
     {
     case StartPointNotFound:
-      LOG(LERROR, ("Can't find start point node"));
+      LOG(LWARNING, ("Can't find start point node"));
       break;
     case EndPointNotFound:
-      LOG(LERROR, ("Can't find end point node"));
+      LOG(LWARNING, ("Can't find end point node"));
       break;
     case PointsInDifferentMWM:
-      LOG(LERROR, ("Points are in different MWMs"));
+      LOG(LWARNING, ("Points are in different MWMs"));
       break;
     case FeaturesInDifferentMWM:
-      LOG(LERROR, ("Found features are in different MWMs"));
+      LOG(LWARNING, ("Found features are in different MWMs"));
       break;
     case RouteNotFound:
-      LOG(LERROR, ("Route not found"));
-      break;
-    case NoError:
-      LOG(LINFO, ("Route found"));
+      LOG(LWARNING, ("Route not found"));
       break;
 
     default:
-      LOG(LERROR, ("Internal error"));
+      break;
     }
-
-    callback(route, code);
   }
-  catch(Reader::Exception const & e)
+  catch (Reader::Exception const & e)
   {
     LOG(LERROR, ("Routing index absent or incorrect. Error while loading routing index:", e.Msg()));
-    callback(route, InternalError);
+    code = InternalError;
   }
+
+  callback(route, code);
 }
 
 OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & finalPt, Route & route)

@@ -1834,7 +1834,7 @@ bool Framework::StartRoutingSession(m2::PointD const & destination)
   if (IsRoutingActive())
     CancelRoutingSession();
 
-  m_routingSession.BuildRoute(state->Position(), destination, [&](Route const & route, routing::IRouter::ResultCode e)
+  m_routingSession.BuildRoute(state->Position(), destination, [&] (Route const & route)
   {
     InsertRoute(route);
     state->StartRoutingMode();
@@ -1843,23 +1843,24 @@ bool Framework::StartRoutingSession(m2::PointD const & destination)
   return true;
 }
 
+BookmarkCategory * Framework::FindCategory(string const & name)
+{
+  for (size_t i = 0; i < m_bmManager.GetBmCategoriesCount(); ++i)
+  {
+    BookmarkCategory * p = m_bmManager.GetBmCategory(i);
+    if (p->GetName() == name)
+      return p;
+  }
+  return 0;
+}
+
 void Framework::CancelRoutingSession()
 {
   ASSERT(IsRoutingActive(), ());
   GetLocationState()->StopRoutingMode();
   m_routingSession.Reset();
 
-  string const categoryName = m_stringsBundle.GetString("routes");
-  BookmarkCategory * cat = 0;
-  for (size_t i = 0; i < m_bmManager.GetBmCategoriesCount(); ++i)
-  {
-    if (m_bmManager.GetBmCategory(i)->GetName() == categoryName)
-    {
-      cat = m_bmManager.GetBmCategory(i);
-      break;
-    }
-  }
-
+  BookmarkCategory * cat = FindCategory(m_stringsBundle.GetString("routes"));
   if (cat)
     cat->ClearTracks();
 
@@ -1868,19 +1869,10 @@ void Framework::CancelRoutingSession()
 
 void Framework::InsertRoute(Route const & route)
 {
-  string const categoryName = m_stringsBundle.GetString("routes");
-  BookmarkCategory * cat = 0;
-  for (size_t i = 0; i < m_bmManager.GetBmCategoriesCount(); ++i)
-  {
-    if (m_bmManager.GetBmCategory(i)->GetName() == categoryName)
-    {
-      cat = m_bmManager.GetBmCategory(i);
-      break;
-    }
-  }
-
-  if (!cat)
-    cat = m_bmManager.GetBmCategory(m_bmManager.CreateBmCategory(categoryName));
+  string const name = m_stringsBundle.GetString("routes");
+  BookmarkCategory * cat = FindCategory(name);
+  if (cat == 0)
+    cat = m_bmManager.GetBmCategory(AddCategory(name));
   else
     cat->ClearTracks();
 
@@ -1909,9 +1901,9 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
     return;
 
   m2::PointD const & position = GetLocationState()->Position();
-  if (m_routingSession.OnLocationPositionChanged(position, info) == RoutingSession::RouteLeft)
+  if (m_routingSession.OnLocationPositionChanged(position, info) == RoutingSession::RouteNeedRebuild)
   {
-    m_routingSession.RebuildRoute(position, [this] (Route const & route, routing::IRouter::ResultCode e)
+    m_routingSession.RebuildRoute(position, [this] (Route const & route)
     {
       InsertRoute(route);
     });

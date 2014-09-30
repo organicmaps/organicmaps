@@ -20,29 +20,29 @@ public:
   enum State
   {
     RoutingNotActive,
-    RouteNotReady,   // routing not active or we request route and wait when it will be builded
-    RouteNotStarted, // route builded but user not on route
-    OnRoute,         // user follows the route
-    RouteLeft,       // user left from a route
-    RouteFinished    // destination point is reached but session not closed
+    RouteNotReady,    // routing is not active or we requested a route and wait when it will be builded
+    RouteNotStarted,  // route is builded but the user isn't on it
+    OnRoute,          // user follows the route
+    RouteNeedRebuild, // user left the route
+    RouteFinished     // destination point is reached but the session isn't closed
   };
 
   /*
-   * RoutingNotActive -> RouteNotReady // wait route
-   * RouteNotReady -> RouteNotStarted // rounte builded
-   * RouteNotStarted -> OnRoute       // user start follow the route
-   * RouteNotStarted -> RouteLeft     // user not like our route.
-   *                                  // He go to the other side. Need to rebuild
-   * OnRoute -> RouteLeft
-   * OnRoute -> RouteFinished
-   * RouteLeft -> RouteNotReady       // start rebuild route
-   * RouteFinished -> RouteNotReady   // start new route
+   * RoutingNotActive -> RouteNotReady    // waiting for route
+   * RouteNotReady -> RouteNotStarted     // route is builded
+   * RouteNotStarted -> OnRoute           // user started following the route
+   * RouteNotStarted -> RouteNeedRebuild  // user doesn't like the route.
+   * OnRoute -> RouteNeedRebuild          // user moves away from route - need to rebuild
+   * OnRoute -> RouteFinished             // user reached the end of route
+   * RouteNeedRebuild -> RouteNotReady    // start rebuild route
+   * RouteFinished -> RouteNotReady       // start new route
    */
 
   RoutingSession();
   void SetRouter(IRouter * router);
 
   typedef function<void (Route const &)> ReadyCallback;
+
   /// @param[in] startPoint and endPoint in mercator
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
                   ReadyCallback const & callback);
@@ -62,7 +62,7 @@ private:
   Route m_route;
   State m_state;
 
-  /// Current position metrics to check for RouteLeft state.
+  /// Current position metrics to check for RouteNeedRebuild state.
   double m_lastDistance;
   int m_moveAwayCounter;
 };

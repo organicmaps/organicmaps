@@ -16,7 +16,6 @@ RoutingSession::RoutingSession()
   : m_router(nullptr)
   , m_route(string())
   , m_state(RoutingNotActive)
-  , m_lastDistance(0.0)
 {
 }
 
@@ -36,8 +35,15 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
 
   m_router->CalculateRoute(startPoint, [&] (Route & route, IRouter::ResultCode e)
   {
-    AssignRoute(route);
-    callback(m_route);
+    if (e == IRouter::NoError)
+    {
+      AssignRoute(route);
+      callback(m_route);
+    }
+    else
+    {
+      /// @todo Save error code here and return to the UI by demand.
+    }
   });
 }
 
@@ -50,6 +56,7 @@ void RoutingSession::Reset()
 {
   m_state = RoutingNotActive;
   m_lastDistance = 0.0;
+  m_moveAwayCounter = 0;
   Route(string()).Swap(m_route);
 }
 
@@ -59,7 +66,15 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
   ASSERT(m_state != RoutingNotActive, ());
   ASSERT(m_router != nullptr, ());
 
-  if (m_state == RouteNotReady || m_state == RouteLeft || m_state == RouteFinished)
+  if (m_state == RouteNotReady)
+  {
+    if (++m_moveAwayCounter > ON_ROUTE_MISSED_COUNT)
+      return RouteNeedRebuild;
+    else
+      return RouteNotReady;
+  }
+
+  if (m_state == RouteNeedRebuild || m_state == RouteFinished)
     return m_state;
 
   ASSERT(m_route.IsValid(), ());
@@ -90,7 +105,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
     }
 
     if (m_moveAwayCounter > ON_ROUTE_MISSED_COUNT)
-      m_state = RouteLeft;
+      m_state = RouteNeedRebuild;
   }
 
   return m_state;
@@ -112,13 +127,9 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
 
 void RoutingSession::AssignRoute(Route & route)
 {
-  if (route.IsValid())
-  {
-    m_state = RouteNotStarted;
-    m_route.Swap(route);
-  }
-  else
-    m_state = RouteNotReady;
+  ASSERT(route.IsValid(), ());
+  m_state = RouteNotStarted;
+  m_route.Swap(route);
 }
 
 void RoutingSession::SetRouter(IRouter * router)
