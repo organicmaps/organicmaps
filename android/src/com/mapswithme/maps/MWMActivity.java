@@ -1154,6 +1154,7 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void run()
         {
+          mInfoView.bringToFront();
           final String poiType = ParsedMmwRequest.getCurrentRequest().getCallerName(MWMApplication.get()).toString();
           final ApiPoint apiPoint = new ApiPoint(name, id, poiType, lat, lon);
 
