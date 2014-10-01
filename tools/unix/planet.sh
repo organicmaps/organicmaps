@@ -8,14 +8,23 @@
 set -e -u -x
 
 # global params
-PLANET_FILE="$HOME/toolchain/v2/data/planet-latest.o5m"
-COASTS_FILE="$HOME/toolchain/v2/data/coastlines-latest.o5m"
-
-FILTER_TOOL="$HOME/toolchain/v2/git/osmctools/osmfilter"
-CONVERT_TOOL="$HOME/toolchain/v2/git/osmctools/osmconvert"
-
-CREATE_COASTS_FILE="$HOME/toolchain/v2/git/osmctools/osmfilter $PLANET_FILE --keep= --keep-ways=\"natural=coastline\" -o=$COASTS_FILE"
-OSM_TO_PIPE="$HOME/toolchain/v2/git/osmctools/osmconvert $PLANET_FILE"
+if [[ `hostname` == "Scout" ]]; then
+  PLANET_FILE="$HOME/toolchain/v2/data/planet-latest.o5m"
+  COASTS_FILE="$HOME/toolchain/v2/data/coastlines-latest.o5m"
+  FILTER_TOOL="$HOME/toolchain/v2/git/osmctools/osmfilter"
+  CONVERT_TOOL="$HOME/toolchain/v2/git/osmctools/osmconvert"
+  CREATE_COASTS_FILE="$HOME/toolchain/v2/git/osmctools/osmfilter $PLANET_FILE --keep= --keep-ways=\"natural=coastline\" -o=$COASTS_FILE"
+  OSM_TO_PIPE="$HOME/toolchain/v2/git/osmctools/osmconvert $PLANET_FILE"
+  UPDATE_PLANET_PATH="$HOME/toolchain/v2"
+else
+  PLANET_FILE="$HOME/planet/planet-latest.o5m"
+  COASTS_FILE="$HOME/planet/coastlines-latest.o5m"
+  FILTER_TOOL="$HOME/osmctools/osmfilter"
+  CONVERT_TOOL="$HOME/osmctools/osmconvert"
+  CREATE_COASTS_FILE="$HOME/osmctools/osmfilter $PLANET_FILE --keep= --keep-ways=\"natural=coastline\" -o=$COASTS_FILE"
+  OSM_TO_PIPE="$HOME/osmctools/osmconvert $PLANET_FILE"
+  UPDATE_PLANET_PATH="$HOME/planet"
+fi
 
 # displays usage and exits
 function Usage {
@@ -100,7 +109,7 @@ if [[ $1 == "--full" ]]; then
   while [[ $EXIT_CODE != 0 ]]; do
 
     # Get fresh data from OSM server
-    pushd  ~/toolchain/v2
+    pushd  "$UPDATE_PLANET_PATH"
        bash update_planet.sh
     popd
 
