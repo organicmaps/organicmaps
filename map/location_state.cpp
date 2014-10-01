@@ -407,6 +407,7 @@ void State::StopCompassFollowing()
 
 void State::StopLocationFollow()
 {
+  StopCompassFollowing();
   if (GetMode() > NotFollow)
     SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
 }

@@ -127,7 +127,6 @@ void CompassArrow::CreateAnim(double startAlfa, double endAlfa, double timeInter
     m_animTask->Cancel();
 
   m_animTask.reset(new AlfaAnimationTask(startAlfa, endAlfa, timeInterval, timeOffset, m_framework));
-  LOG(LINFO, ("Create compas alfa anim = ", m_animTask.get()));
   m_animTask->AddCallback(anim::Task::EEnded, bind(&CompassArrow::AlfaAnimEnded, this, isVisibleAtEnd));
   m_framework->GetAnimController()->AddTask(m_animTask);
 }
