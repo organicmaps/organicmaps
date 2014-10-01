@@ -1883,9 +1883,9 @@ void Framework::InsertRoute(Route const & route)
 
   Track::TrackOutline outlines[]
   {
-    { 6.0f  * visScale, graphics::Color(0x73, 0xCC,0xFF, 0xFF) },
-    { 12.0f * visScale, graphics::Color(0x40, 0xB9, 0xFF, 0xFF) },
-    { 16.0f * visScale, graphics::Color::White() }
+    { 4.0f  * visScale, graphics::Color(0x73, 0xCC,0xFF, 0xFF) },
+    { 8.0f * visScale, graphics::Color(0x40, 0xB9, 0xFF, 0xFF) },
+    { 10.0f * visScale, graphics::Color::White() }
   };
 
   track.AddOutline(outlines, ARRAY_SIZE(outlines));
