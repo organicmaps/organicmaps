@@ -30,7 +30,6 @@ struct LocalityItem
 
 class LocalityFinder
 {
-
   struct Cache
   {
     m4::Tree<LocalityItem> m_tree;

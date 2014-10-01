@@ -14,12 +14,12 @@ double const MAX_RADIUS_CITY = 30000.0;
 class DoLoader
 {
 public:
-  DoLoader(LocalityFinder const & finder, FeaturesVector const & loader, LocalityFinder::Cache & cache, m2::RectD const & rect)
-    : m_finder(finder), m_loader(loader), m_cache(cache), m_rect(rect)
+  DoLoader(LocalityFinder const & finder, FeaturesVector const & loader, LocalityFinder::Cache & cache)
+    : m_finder(finder), m_loader(loader), m_cache(cache)
   {
   }
 
-  void operator() (uint32_t id)
+  void operator() (uint32_t id) const
   {
     FeatureType ft;
     m_loader.Get(id, ft);
@@ -46,7 +46,7 @@ public:
 
     double const radius = ftypes::GetRadiusByPopulation(population);
     m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(ft.GetCenter(), radius);
-    if (!rect.IsIntersect(m_rect))
+    if (!rect.IsIntersect(m_cache.m_rect))
       return;
 
     // read item
@@ -64,7 +64,6 @@ private:
   LocalityFinder const & m_finder;
   FeaturesVector const & m_loader;
   LocalityFinder::Cache & m_cache;
-  m2::RectD m_rect;
 };
 
 
@@ -150,9 +149,8 @@ void LocalityFinder::RecreateCache(Cache & cache, m2::RectD rect) const
       cache.m_rect = rect;
       for (size_t i = 0; i < interval.size(); ++i)
       {
-        index.ForEachInIntervalAndScale(DoLoader(*this, loader, cache, rect),
-                                        interval[i].first, interval[i].second,
-                                        scale);
+        DoLoader doLoader(*this, loader, cache);
+        index.ForEachInIntervalAndScale(doLoader, interval[i].first, interval[i].second, scale);
       }
     }
   }

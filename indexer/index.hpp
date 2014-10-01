@@ -65,42 +65,37 @@ public:
 private:
 
   template <typename F>
-  class ReadFeatureFunctor
-  {
-    FeaturesVector const & m_V;
-    F & m_F;
-    unordered_set<uint32_t> m_offsets;
-    MwmId m_mwmID;
-
-  public:
-    ReadFeatureFunctor(FeaturesVector const & v, F & f, MwmId mwmID)
-      : m_V(v), m_F(f), m_mwmID(mwmID)
-    {
-    }
-
-    void operator() (uint32_t offset)
-    {
-      if (m_offsets.insert(offset).second)
-      {
-        FeatureType feature;
-
-        m_V.Get(offset, feature);
-        feature.SetID(FeatureID(m_mwmID, offset));
-
-        m_F(feature);
-      }
-    }
-  };
-
-  /// old style mwm reading
-  template <typename F>
   class ReadMWMFunctor
   {
-  public:
-    ReadMWMFunctor(F & f)
-      : m_f(f)
+    class ImplFunctor : private noncopyable
     {
-    }
+      FeaturesVector const & m_V;
+      F & m_F;
+      unordered_set<uint32_t> m_offsets;
+      MwmId m_mwmID;
+
+    public:
+      ImplFunctor(FeaturesVector const & v, F & f, MwmId mwmID)
+        : m_V(v), m_F(f), m_mwmID(mwmID)
+      {
+      }
+
+      void operator() (uint32_t offset)
+      {
+        if (m_offsets.insert(offset).second)
+        {
+          FeatureType feature;
+
+          m_V.Get(offset, feature);
+          feature.SetID(FeatureID(m_mwmID, offset));
+
+          m_F(feature);
+        }
+      }
+    };
+
+  public:
+    ReadMWMFunctor(F & f) : m_f(f) {}
 
     void operator() (MwmLock const & lock, covering::CoveringGetter & cov, uint32_t scale) const
     {
@@ -124,9 +119,9 @@ private:
                                          pValue->m_factory);
 
         // iterate through intervals
-        ReadFeatureFunctor<F> f1(fv, m_f, lock.GetID());
+        ImplFunctor implF(fv, m_f, lock.GetID());
         for (size_t i = 0; i < interval.size(); ++i)
-          index.ForEachInIntervalAndScale(f1, interval[i].first, interval[i].second, scale);
+          index.ForEachInIntervalAndScale(implF, interval[i].first, interval[i].second, scale);
       }
     }
 
@@ -137,14 +132,10 @@ private:
   template <typename F>
   class ReadFeatureIndexFunctor
   {
-    struct ImplFunctor
+    struct ImplFunctor : private noncopyable
     {
     public:
-      ImplFunctor(F & f, MwmId id)
-        : m_f(f)
-        , m_id(id)
-      {
-      }
+      ImplFunctor(F & f, MwmId id) : m_f(f), m_id(id) {}
 
       void operator() (uint32_t offset)
       {
@@ -160,10 +151,7 @@ private:
     };
 
   public:
-    ReadFeatureIndexFunctor(F & f)
-      : m_f(f)
-    {
-    }
+    ReadFeatureIndexFunctor(F & f) : m_f(f) {}
 
     void operator() (MwmLock const & lock, covering::CoveringGetter & cov, uint32_t scale) const
     {
@@ -184,9 +172,9 @@ private:
                                          pValue->m_factory);
 
         // iterate through intervals
-        ImplFunctor implFunctor(m_f, lock.GetID());
+        ImplFunctor implF(m_f, lock.GetID());
         for (size_t i = 0; i < interval.size(); ++i)
-          index.ForEachInIntervalAndScale(implFunctor, interval[i].first, interval[i].second, scale);
+          index.ForEachInIntervalAndScale(implF, interval[i].first, interval[i].second, scale);
       }
     }
 

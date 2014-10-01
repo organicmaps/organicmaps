@@ -11,6 +11,7 @@
 #include "../base/stl_add.hpp"
 
 #include "../std/algorithm.hpp"
+#include "../std/bind.hpp"
 
 
 class ScaleIndexBase
@@ -89,12 +90,12 @@ public:
   }
 
   template <typename F>
-  void ForEachInIntervalAndScale(F const & f, uint64_t beg, uint64_t end, uint32_t scale) const
+  void ForEachInIntervalAndScale(F & f, uint64_t beg, uint64_t end, uint32_t scale) const
   {
     size_t const scaleBucket = BucketByScale(scale);
     if (scaleBucket < m_IndexForScale.size())
     {
-      IntervalIndexIFace::FunctionT f1(f);
+      IntervalIndexIFace::FunctionT f1(bind<void>(ref(f), _1));
       for (size_t i = 0; i <= scaleBucket; ++i)
         m_IndexForScale[i]->DoForEach(f1, beg, end);
     }

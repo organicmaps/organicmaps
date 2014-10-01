@@ -279,9 +279,8 @@ void Query::UpdateViewportOffsets(MWMVectorT const & mwmInfo, m2::RectD const & 
 
           for (size_t i = 0; i < interval.size(); ++i)
           {
-            index.ForEachInIntervalAndScale(MakeBackInsertFunctor(offsets[mwmId]),
-                                            interval[i].first, interval[i].second,
-                                            scale);
+            auto collectFn = MakeBackInsertFunctor(offsets[mwmId]);
+            index.ForEachInIntervalAndScale(collectFn, interval[i].first, interval[i].second, scale);
           }
 
           sort(offsets[mwmId].begin(), offsets[mwmId].end());
