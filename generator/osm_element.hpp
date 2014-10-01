@@ -302,7 +302,7 @@ class SecondPassParser : public BaseOSMParser
   //@{
   void EmitPoint(m2::PointD const & pt, FeatureParams params, osm::Id id)
   {
-    if (feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_POINT))
+    if (feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_POINT))
     {
       FeatureBuilderT ft;
       ft.SetCenter(pt);
@@ -314,7 +314,7 @@ class SecondPassParser : public BaseOSMParser
   void EmitLine(FeatureBuilderT & ft, FeatureParams params, osm::Id id)
   {
     if ((m_coastType != 0 && params.IsTypeExist(m_coastType)) ||
-        feature::RemoveNoDrawableTypes(params.m_Types, feature::FEATURE_TYPE_LINE))
+        feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_LINE))
     {
       ft.SetLinear(params.m_reverseGeometry);
       ft.SetOsmId(id);
@@ -331,12 +331,12 @@ class SecondPassParser : public BaseOSMParser
     if (ft.IsGeometryClosed())
     {
       // Key point here is that IsDrawableLike and RemoveNoDrawableTypes
-      // work a bit different for FEATURE_TYPE_AREA.
+      // work a bit different for GEOM_AREA.
 
-      if (IsDrawableLike(params.m_Types, FEATURE_TYPE_AREA))
+      if (IsDrawableLike(params.m_Types, GEOM_AREA))
       {
         // Make the area feature if it has unique area styles.
-        VERIFY ( RemoveNoDrawableTypes(params.m_Types, FEATURE_TYPE_AREA), (params) );
+        VERIFY(RemoveNoDrawableTypes(params.m_Types, GEOM_AREA), (params));
 
         makeFn(ft);
 

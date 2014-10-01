@@ -44,6 +44,7 @@ SOURCES += \
     mwm_version.cpp \
     feature_impl.cpp \
     ftypes_matcher.cpp \
+    feature_decl.cpp \
 
 HEADERS += \
     feature.hpp \

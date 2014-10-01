@@ -78,7 +78,7 @@ UNIT_TEST(FVisibility_RemoveNoDrawableTypes)
   char const * arr[] = { "amenity", "theatre" };
   types.push_back(c.GetTypeByPath(vector<string>(arr, arr + 2)));
 
-  TEST(feature::RemoveNoDrawableTypes(types, feature::FEATURE_TYPE_AREA), ());
+  TEST(feature::RemoveNoDrawableTypes(types, feature::GEOM_AREA), ());
   TEST_EQUAL(types.size(), 2, ());
 }
 

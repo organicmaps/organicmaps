@@ -16,15 +16,6 @@ class FeatureBase;
 
 namespace feature
 {
-  enum EGeomType
-  {
-    GEOM_UNDEFINED = -1,
-    // Note! do not change this values. Should be equal with FeatureGeoType.
-    GEOM_POINT = 0,
-    GEOM_LINE = 1,
-    GEOM_AREA = 2
-  };
-
   enum EHeaderMask
   {
     HEADER_TYPE_MASK = 7U,

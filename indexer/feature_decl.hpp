@@ -1,9 +1,22 @@
 #pragma once
 
-#include "../std/sstream.hpp"
-#include "../std/string.hpp"
 #include "../std/stdint.hpp"
+#include "../std/string.hpp"
 
+
+namespace feature
+{
+
+enum EGeomType
+{
+  GEOM_UNDEFINED = -1,
+  // Note! do not change this values. Should be equal with FeatureGeoType.
+  GEOM_POINT = 0,
+  GEOM_LINE = 1,
+  GEOM_AREA = 2
+};
+
+}
 
 struct FeatureID
 {
@@ -32,11 +45,6 @@ struct FeatureID
   {
     return !(*this == r);
   }
-};
 
-inline string DebugPrint(FeatureID const & id)
-{
-  ostringstream ss;
-  ss << "{ " << id.m_mwm << ", " << id.m_offset << " }";
-  return ss.str();
-}
+  friend string DebugPrint(FeatureID const & id);
+};

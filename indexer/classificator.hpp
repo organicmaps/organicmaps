@@ -2,6 +2,7 @@
 #include "drawing_rule_def.hpp"
 #include "types_mapping.hpp"
 #include "scales.hpp"
+#include "feature_decl.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/string.hpp"
@@ -77,13 +78,12 @@ public:
 
   void ConcatChildNames(string & s) const;
 
-  enum FeatureGeoType { FEATURE_TYPE_POINT = 0, FEATURE_TYPE_LINE, FEATURE_TYPE_AREA };
-  void GetSuitable(int scale, FeatureGeoType ft, drule::KeysT & keys) const;
+  void GetSuitable(int scale, feature::EGeomType ft, drule::KeysT & keys) const;
   inline vector<drule::Key> const & GetDrawingRules() const { return m_drawRule; }
 
   bool IsDrawable(int scale) const;
   bool IsDrawableAny() const;
-  bool IsDrawableLike(FeatureGeoType ft) const;
+  bool IsDrawableLike(feature::EGeomType ft) const;
 
   pair<int, int> GetDrawScaleRange() const;
 

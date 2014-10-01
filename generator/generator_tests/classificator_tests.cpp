@@ -130,7 +130,7 @@ pair<int, int> GetMinMax(int level, vector<uint32_t> const & types)
   pair<int, int> res(numeric_limits<int>::max(), numeric_limits<int>::min());
 
   drule::KeysT keys;
-  feature::GetDrawRule(types, level, feature::FEATURE_TYPE_AREA, keys);
+  feature::GetDrawRule(types, level, feature::GEOM_AREA, keys);
 
   for (size_t i = 0; i < keys.size(); ++i)
   {

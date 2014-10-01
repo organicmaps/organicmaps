@@ -142,16 +142,16 @@ string FeatureType::DebugString(int scale) const
 
   switch (GetFeatureType())
   {
-  case FEATURE_TYPE_POINT:
+  case GEOM_POINT:
     s += (" Center:" + DebugPrint(m_center));
     break;
 
-  case FEATURE_TYPE_LINE:
+  case GEOM_LINE:
     s += " Points:";
     Points2String(s, m_points);
     break;
 
-  case FEATURE_TYPE_AREA:
+  case GEOM_AREA:
     s += " Triangles:";
     Points2String(s, m_triangles);
     break;

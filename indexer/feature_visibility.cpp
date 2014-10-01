@@ -100,13 +100,12 @@ namespace
   class DrawRuleGetter
   {
     int m_scale;
-    ClassifObject::FeatureGeoType m_ft;
+    EGeomType m_ft;
     drule::KeysT & m_keys;
 
   public:
-    DrawRuleGetter(int scale, feature::EGeomType ft,
-                  drule::KeysT & keys)
-      : m_scale(scale), m_ft(ClassifObject::FeatureGeoType(ft)), m_keys(keys)
+    DrawRuleGetter(int scale, feature::EGeomType ft, drule::KeysT & keys)
+      : m_scale(scale), m_ft(ft), m_keys(keys)
     {
     }
 
@@ -177,13 +176,10 @@ namespace
 
   class IsDrawableLikeChecker
   {
-    ClassifObject::FeatureGeoType m_type;
+    EGeomType m_type;
 
   public:
-    IsDrawableLikeChecker(FeatureGeoType type)
-      : m_type(ClassifObject::FeatureGeoType(type))
-    {
-    }
+    IsDrawableLikeChecker(EGeomType type) : m_type(type) {}
 
     typedef bool ResultType;
 
@@ -202,12 +198,12 @@ namespace
   class IsDrawableRulesChecker
   {
     int m_scale;
-    ClassifObject::FeatureGeoType m_ft;
+    EGeomType m_ft;
     bool m_arr[3];
 
   public:
-    IsDrawableRulesChecker(int scale, feature::EGeomType ft, int rules)
-      : m_scale(scale), m_ft(ClassifObject::FeatureGeoType(ft))
+    IsDrawableRulesChecker(int scale, EGeomType ft, int rules)
+      : m_scale(scale), m_ft(ft)
     {
       m_arr[0] = rules & RULE_CAPTION;
       m_arr[1] = rules & RULE_PATH_TEXT;
@@ -243,7 +239,7 @@ bool IsDrawableAny(uint32_t type)
   return classif().GetObject(type)->IsDrawableAny();
 }
 
-bool IsDrawableLike(vector<uint32_t> const & types, FeatureGeoType ft)
+bool IsDrawableLike(vector<uint32_t> const & types, EGeomType ft)
 {
   Classificator const & c = classif();
 
@@ -277,13 +273,10 @@ namespace
   class CheckNonDrawableType
   {
     Classificator & m_c;
-    FeatureGeoType m_type;
+    EGeomType m_type;
 
   public:
-    CheckNonDrawableType(FeatureGeoType ft)
-      : m_c(classif()), m_type(ft)
-    {
-    }
+    CheckNonDrawableType(EGeomType ft) : m_c(classif()), m_type(ft) {}
 
     bool operator() (uint32_t t)
     {
@@ -293,9 +286,9 @@ namespace
 
       // IsDrawableLikeChecker checks only unique area styles,
       // so we need to take into account point styles too.
-      if (m_type == FEATURE_TYPE_AREA)
+      if (m_type == GEOM_AREA)
       {
-        IsDrawableLikeChecker doCheck(FEATURE_TYPE_POINT);
+        IsDrawableLikeChecker doCheck(GEOM_POINT);
         if (m_c.ProcessObjects(t, doCheck))
           return false;
       }
@@ -305,7 +298,7 @@ namespace
   };
 }
 
-bool RemoveNoDrawableTypes(vector<uint32_t> & types, FeatureGeoType ft)
+bool RemoveNoDrawableTypes(vector<uint32_t> & types, EGeomType ft)
 {
   types.erase(remove_if(types.begin(), types.end(), CheckNonDrawableType(ft)), types.end());
   return !types.empty();
