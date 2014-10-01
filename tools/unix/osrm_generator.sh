@@ -28,9 +28,13 @@ echo Started at `date`
 
 for file in "$DATA_PATH"/*.pbf
 do
-  "$EXTRACT" --config "$EXTRACT_CFG" --profile "$PROFILE" "\"$file\""
-  "$PREPARE" --config "$PREPARE_CFG" --profile "$PROFILE" "\"${file/\.*/\.osrm}\""
-  "$MWM" -i "${file/\.*/\.osrm}"
+  # hack to fix boost options bug with spaces and & symbols
+  FILE_SPACES="${file/ /\ }"
+  FILE="${FILE_SPACES/&/\&\&}"
+  "$EXTRACT" --config "$EXTRACT_CFG" --profile "$PROFILE" "\"$FILE\""
+  "$PREPARE" --config "$PREPARE_CFG" --profile "$PROFILE" "\"${FILE/\.*/\.osrm}\""
+  FILE="${FILE_SPACES/&/\&}"
+  "$MWM" -i "${FILE/\.*/\.osrm}"
 done
 
 #popd
