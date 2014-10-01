@@ -4,6 +4,7 @@
 
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
+#include "../std/unordered_map.hpp"
 #include "../std/utility.hpp"
 
 #include "../3party/succinct/elias_fano_compressed_list.hpp"
@@ -13,6 +14,7 @@ namespace routing
 {
 
 typedef uint32_t OsrmNodeIdT;
+extern OsrmNodeIdT const INVALID_NODE_ID;
 
 class OsrmFtSegMapping
 {
@@ -44,6 +46,11 @@ public:
     }
 
     bool IsIntersect(FtSeg const & other) const;
+
+    bool IsValid() const
+    {
+      return m_fid != INVALID_FID;
+    }
 
     friend string DebugPrint(FtSeg const & seg);
   };
@@ -78,7 +85,9 @@ public:
       ++r.first;
     }
   }
-  void GetOsrmNode(FtSeg const & seg, OsrmNodeIdT & forward, OsrmNodeIdT & reverse) const;
+
+  typedef unordered_map<uint64_t, pair<OsrmNodeIdT, OsrmNodeIdT> > OsrmNodesT;
+  void GetOsrmNodes(vector<FtSeg> & segments, OsrmNodesT & res) const;
 
   /// @name For debug purpose only.
   //@{

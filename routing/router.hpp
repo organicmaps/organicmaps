@@ -20,7 +20,6 @@ public:
     StartPointNotFound,
     EndPointNotFound,
     PointsInDifferentMWM,
-    FeaturesInDifferentMWM,
     RouteNotFound,
     InternalError
   };

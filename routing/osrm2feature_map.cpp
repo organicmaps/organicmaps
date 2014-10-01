@@ -18,6 +18,8 @@
 namespace routing
 {
 
+OsrmNodeIdT const INVALID_NODE_ID = -1;
+
 OsrmFtSegMapping::FtSeg::FtSeg(uint32_t fid, uint32_t ps, uint32_t pe)
   : m_fid(fid),
     m_pointStart(static_cast<uint16_t>(ps)),
@@ -143,39 +145,63 @@ void OsrmFtSegMapping::DumpSegmentByNode(OsrmNodeIdT nodeId) const
 #endif
 }
 
-void OsrmFtSegMapping::GetOsrmNode(FtSeg const & seg, OsrmNodeIdT & forward, OsrmNodeIdT & reverse) const
+
+void OsrmFtSegMapping::GetOsrmNodes(vector<FtSeg> & segments, OsrmNodesT & res) const
 {
-  ASSERT_LESS(seg.m_pointStart, seg.m_pointEnd, ());
-
-  OsrmNodeIdT const INVALID = -1;
-
-  forward = reverse = INVALID;
-
-  size_t const count = GetSegmentsCount();
-  for (size_t i = 0; i < count; ++i)
+  auto addResFn = [&res](uint64_t seg, OsrmNodeIdT nodeId, bool forward)
   {
-    FtSeg s(m_segments[i]);
-    if (s.m_fid != seg.m_fid)
-      continue;
-
-    if (s.m_pointStart <= s.m_pointEnd)
-    {
-      if (seg.m_pointStart >= s.m_pointStart && seg.m_pointEnd <= s.m_pointEnd)
-      {
-        ASSERT_EQUAL(forward, INVALID, ());
-        forward = GetNodeId(i);
-        if (reverse != INVALID)
-          break;
-      }
-    }
+    auto it = res.insert({ seg, { forward ? nodeId : INVALID_NODE_ID,
+                                  forward ? INVALID_NODE_ID : nodeId } });
+    if (it.second)
+      return false;
     else
     {
-      if (seg.m_pointStart >= s.m_pointEnd && seg.m_pointEnd <= s.m_pointStart)
+      if (forward)
       {
-        ASSERT_EQUAL(reverse, INVALID, ());
-        reverse = GetNodeId(i);
-        if (forward != INVALID)
-          break;
+        ASSERT_EQUAL(it.first->second.first, INVALID_NODE_ID, ());
+        it.first->second.first = nodeId;
+      }
+      else
+      {
+        ASSERT_EQUAL(it.first->second.second, INVALID_NODE_ID, ());
+        it.first->second.second = nodeId;
+      }
+    }
+    return true;
+  };
+
+  size_t const count = GetSegmentsCount();
+  for (size_t i = 0; i < count && !segments.empty(); ++i)
+  {
+    FtSeg s(m_segments[i]);
+
+    for (size_t j = 0; j < segments.size(); ++j)
+    {
+      FtSeg const & seg = segments[j];
+      if (s.m_fid != seg.m_fid)
+        continue;
+
+      if (s.m_pointStart <= s.m_pointEnd)
+      {
+        if (seg.m_pointStart >= s.m_pointStart && seg.m_pointEnd <= s.m_pointEnd)
+        {
+          if (addResFn(seg.Store(), GetNodeId(i), true))
+          {
+            segments.erase(segments.begin() + j);
+            break;
+          }
+        }
+      }
+      else
+      {
+        if (seg.m_pointStart >= s.m_pointEnd && seg.m_pointEnd <= s.m_pointStart)
+        {
+          if (addResFn(seg.Store(), GetNodeId(i), false))
+          {
+            segments.erase(segments.begin() + j);
+            break;
+          }
+        }
       }
     }
   }

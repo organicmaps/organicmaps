@@ -237,6 +237,30 @@ public:
     void GetFeature(uint32_t offset, FeatureType & ft);
   };
 
+  template <typename F>
+  void ForEachInRectForMWM(F & f, m2::RectD const & rect, uint32_t scale, string const & name) const
+  {
+    MwmId id;
+    {
+      Index * p = const_cast<Index *>(this);
+
+      threads::MutexGuard guard(p->m_lock);
+      UNUSED_VALUE(guard);
+      id = p->GetIdByName(name);
+    }
+
+    if (id != INVALID_MWM_ID)
+    {
+      MwmLock lock(*this, id);
+      if (lock.GetValue())
+      {
+        covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
+        ReadMWMFunctor<F> fn(f);
+        fn(lock, cov, scale);
+      }
+    }
+  }
+
 private:
 
   // "features" must be sorted using FeatureID::operator< as predicate
