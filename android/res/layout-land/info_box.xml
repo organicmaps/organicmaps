@@ -56,6 +56,20 @@
             android:alpha="@dimen/alpha_edit_button"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_place_page_edit_button"/>
+
+        <Button
+            android:id="@+id/btn__use_mock_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/info_subtitle"
+            android:text="start route from here"/>
+
+        <Button
+            android:id="@+id/btn__dont_use_mock_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn__use_mock_location"
+            android:text="use gps data for routing"/>
       </RelativeLayout>
 
       <ImageView

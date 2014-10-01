@@ -57,22 +57,36 @@
             android:paddingRight="5dp"
             android:textColor="@color/text_info_box"
             android:textSize="16sp"/>
+
+        <Button
+            android:id="@+id/btn__use_mock_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/info_subtitle"
+            android:text="start route from here"/>
+
+        <Button
+            android:id="@+id/btn__dont_use_mock_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn__use_mock_location"
+            android:text="use gps data for routing"/>
       </RelativeLayout>
 
       <ImageView
           android:id="@+id/iv__start_routing"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="@dimen/margin_small"
           android:layout_weight="0"
+          android:padding="@dimen/margin_small"
           android:src="@drawable/ic_drive"/>
 
       <CheckBox
           android:id="@+id/info_box_is_bookmarked"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginRight="-8dp"
           android:layout_marginLeft="@dimen/margin_small"
+          android:layout_marginRight="-8dp"
           android:layout_weight="0"
           android:button="@drawable/ic_bookmarks_selector"
           android:padding="@dimen/margin_small"/>

@@ -69,7 +69,6 @@ import com.nvidia.devtech.NvEventQueueActivity;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 import java.util.Stack;
 
 public class MWMActivity extends NvEventQueueActivity
@@ -129,6 +128,8 @@ public class MWMActivity extends NvEventQueueActivity
     }
   };
   private boolean mAreToolbarAdsUpdated;
+
+  private boolean mIsLocationLocked;
 
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
@@ -795,6 +796,8 @@ public class MWMActivity extends NvEventQueueActivity
     mInfoView.bringToFront();
     mIvStartRouting = (ImageView) mInfoView.findViewById(R.id.iv__start_routing);
     mIvStartRouting.setOnClickListener(this);
+    mInfoView.findViewById(R.id.btn__use_mock_location).setOnClickListener(this);
+    mInfoView.findViewById(R.id.btn__dont_use_mock_location).setOnClickListener(this);
   }
 
   private void setUpRoutingBox()
@@ -963,28 +966,31 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onLocationUpdated(final Location l)
   {
-    nativeLocationUpdated(
-            l.getTime(),
-            l.getLatitude(),
-            l.getLongitude(),
-            l.getAccuracy(),
-            l.getAltitude(),
-            l.getSpeed(),
-            l.getBearing());
+    if (!mIsLocationLocked)
+    {
+      nativeLocationUpdated(
+          l.getTime(),
+          l.getLatitude(),
+          l.getLongitude(),
+          l.getAccuracy(),
+          l.getAltitude(),
+          l.getSpeed(),
+          l.getBearing());
 
-    if (mInfoView.getState() != State.HIDDEN)
-      mInfoView.updateLocation(l);
+      if (mInfoView.getState() != State.HIDDEN)
+        mInfoView.updateLocation(l);
 
-    final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-    if (info != null)
-      mTvRoutingDistance.setText(info.mDistToTarget + info.mUnits);
+      final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+      if (info != null)
+        mTvRoutingDistance.setText(info.mDistToTarget + info.mUnits);
+    }
   }
 
   @SuppressWarnings("deprecation")
   @Override
   public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy)
   {
-    final double angles[] = { magneticNorth, trueNorth };
+    final double angles[] = {magneticNorth, trueNorth};
     LocationUtils.correctCompassAngles(getWindowManager().getDefaultDisplay().getOrientation(), angles);
     nativeCompassUpdated(time, angles[0], angles[1], accuracy);
 
@@ -997,7 +1003,7 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onDrivingHeadingUpdated(long time, double heading)
   {
-    double arr[] = new double[] { heading };
+    double arr[] = new double[]{heading};
     LocationUtils.correctCompassAngles(getWindowManager().getDefaultDisplay().getOrientation(), arr);
     heading = arr[0];
 
@@ -1342,6 +1348,17 @@ public class MWMActivity extends NvEventQueueActivity
   {
     switch (v.getId())
     {
+    case R.id.btn__use_mock_location:
+      if (LocationState.INSTANCE.getLocationStateMode() == LocationState.UNKNOWN_POSITION)
+        LocationState.INSTANCE.switchToNextMode();
+      mIsLocationLocked = true;
+      final MapObject object = mInfoView.getMapObject();
+      if (object != null)
+        nativeLocationUpdated(System.currentTimeMillis(), object.getLat(), object.getLon(), 0, 0, 0, 0);
+      break;
+    case R.id.btn__dont_use_mock_location:
+      mIsLocationLocked = false;
+      break;
     case R.id.btn_buy_pro:
       setVerticalToolbarVisible(false);
       UiUtils.openAppInMarket(MWMActivity.this, BuildConfig.PRO_URL);
@@ -1389,9 +1406,15 @@ public class MWMActivity extends NvEventQueueActivity
     mRlRoutingBox.setVisibility(View.VISIBLE);
     mRlRoutingBox.bringToFront();
 
-    mInfoView.setState(State.PREVIEW_ONLY);
+    mInfoView.setState(State.HIDDEN);
 
     Framework.nativeStartRoutingSession(mInfoView.getMapObject().getLat(), mInfoView.getMapObject().getLon());
+    if (mIsLocationLocked)
+    {
+      final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+      if (info != null)
+        mTvRoutingDistance.setText(info.mDistToTarget + info.mUnits);
+    }
   }
 
   private void stopRouting()
