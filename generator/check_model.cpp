@@ -3,37 +3,51 @@
 #include "../defines.hpp"
 
 #include "../indexer/features_vector.hpp"
+#include "../indexer/classificator.hpp"
+#include "../indexer/feature_visibility.hpp"
 
 #include "../base/logging.hpp"
 
 
+using namespace feature;
+
 namespace check_model
 {
-  class DoFullRead
-  {
-  public:
-    void operator() (FeatureType const & ft, uint32_t /*pos*/)
-    {
-      m2::RectD const r = ft.GetLimitRect(FeatureType::BEST_GEOMETRY);
-      CHECK(r.IsValid(), ());
-    }
-  };
-
   void ReadFeatures(string const & fName)
   {
-    try
-    {
-      FilesContainerR cont(fName);
+    Classificator const & c = classif();
 
-      feature::DataHeader header;
-      header.Load(cont.GetReader(HEADER_FILE_TAG));
+    FilesContainerR cont(fName);
 
-      FeaturesVector vec(cont, header);
-      vec.ForEachOffset(DoFullRead());
-    }
-    catch (RootException const & e)
+    DataHeader header;
+    header.Load(cont.GetReader(HEADER_FILE_TAG));
+
+    FeaturesVector vec(cont, header);
+    vec.ForEachOffset([&] (FeatureType const & ft, uint32_t)
     {
-      LOG(LERROR, ("Can't open or read file", fName));
-    }
+      TypesHolder types(ft);
+
+      size_t const count = types.Size();
+      vector<uint32_t> vTypes(count);
+      for (size_t i = 0; i < count; ++i)
+      {
+        CHECK_EQUAL(c.GetTypeForIndex(c.GetIndexForType(types[i])), types[i], ());
+        vTypes[i] = types[i];
+      }
+
+      sort(vTypes.begin(), vTypes.end());
+      CHECK(unique(vTypes.begin(), vTypes.end()) == vTypes.end(), ());
+
+      m2::RectD const r = ft.GetLimitRect(FeatureType::BEST_GEOMETRY);
+      CHECK(r.IsValid(), ());
+
+      EGeomType const type = ft.GetFeatureType();
+      if (type == GEOM_LINE)
+        CHECK_GREATER(ft.GetPointsCount(), 1, ());
+
+      IsDrawableLike(vTypes, ft.GetFeatureType());
+    });
+
+    LOG(LINFO, ("OK"));
   }
 }
