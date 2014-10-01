@@ -27,7 +27,7 @@ public enum MapStorage
    */
   public interface Listener
   {
-    public void onCountryStatusChanged(Index idx)    ;
+    public void onCountryStatusChanged(Index idx);
 
     public void onCountryProgress(Index idx, long current, long total);
   }

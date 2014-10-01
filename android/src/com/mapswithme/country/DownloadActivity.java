@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -40,20 +37,21 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
     setListAdapter(mExtendedAdapter);
   }
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu)
-  {
-    MenuInflater inflater = getMenuInflater();
-    inflater.inflate(R.menu.ab_downloader, menu);
-
-    final MenuItem item = menu.findItem(R.id.item_update);
-    mAbButton = (TextView) item.getActionView();
-    mAbButton.setOnClickListener(this);
-    mAbButton.setVisibility(View.GONE);
-
-    updateActionBar();
-    return true;
-  }
+  // TODO finish updateall/cancelall functions when screen design'll be ready
+//  @Override
+//  public boolean onCreateOptionsMenu(Menu menu)
+//  {
+//    MenuInflater inflater = getMenuInflater();
+//    inflater.inflate(R.menu.ab_downloader, menu);
+//
+//    final MenuItem item = menu.findItem(R.id.item_update);
+//    mAbButton = (TextView) item.getActionView();
+//    mAbButton.setOnClickListener(this);
+//    mAbButton.setVisibility(View.GONE);
+//
+//    updateActionBar();
+//    return true;
+//  }
 
   private BaseDownloadAdapter getDownloadAdapter()
   {
@@ -149,18 +147,18 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
 
   private void updateActionBar()
   {
-//    // TODO finish when screen design'll be ready
+//    // TODO finish updateall/cancelall functions when screen design'll be ready
 //    if ()
 //    {
 //
 //    }
 //    else
-    if (MapStorage.INSTANCE.getOutdatedCountriesCount() > 0 && mAbButton != null)
-    {
-      mAbButton.setText(getString(R.string.downloader_update_all));
-      mAbButton.setTextColor(getResources().getColor(R.color.downloader_green));
-      mAbButton.setVisibility(View.VISIBLE);
-    }
+//    if (MapStorage.INSTANCE.getOutdatedCountriesCount() > 0 && mAbButton != null)
+//    {
+//      mAbButton.setText(getString(R.string.downloader_update_all));
+//      mAbButton.setTextColor(getResources().getColor(R.color.downloader_green));
+//      mAbButton.setVisibility(View.VISIBLE);
+//    }
   }
 
   @Override

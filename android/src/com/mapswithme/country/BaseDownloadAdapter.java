@@ -45,6 +45,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   static final int TYPE_COUNTRY_READY = 3;
   static final int TYPE_COUNTRY_NOT_DOWNLOADED = 4;
   static final int TYPES_COUNT = 5;
+  static final int INVALID_POSITION = -1;
 
   private int mActiveAnimationsCount;
   public static final String PROPERTY_TRANSLATION_X = "translationX";
@@ -306,14 +307,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
     switch (type)
     {
-    case TYPE_GROUP:
-      bindGroup(position, type, holder);
-      break;
-
-    case TYPE_COUNTRY_GROUP:
-      bindRegion(position, type, holder);
-      break;
-
     case TYPE_COUNTRY_IN_PROCESS:
     case TYPE_COUNTRY_READY:
     case TYPE_COUNTRY_NOT_DOWNLOADED:
@@ -325,14 +318,18 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     convertView.setBackgroundResource(R.drawable.list_selector_holo_light);
     final View fview = convertView;
 
-    convertView.setOnClickListener(new View.OnClickListener()
+    final View.OnClickListener listener = new View.OnClickListener()
     {
       @Override
       public void onClick(View view)
       {
         onItemClick(position, fview);
       }
-    });
+    };
+    convertView.setOnClickListener(listener);
+    holder.mProgressSlided.setOnClickListener(listener);
+    holder.mInfoSlided.setOnClickListener(listener);
+    holder.mInfo.setOnClickListener(listener);
 
     return convertView;
   }
@@ -379,6 +376,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     case MapStorage.DOWNLOADING:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.VISIBLE);
+      // TODO show confirmation dialog
       holder.mProgressSlided.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -387,17 +385,14 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           stopItemDownloading(holder, position);
         }
       });
-      holder.mInfoSlided.setVisibility(View.VISIBLE);
-      holder.mInfo.setOnClickListener(null);
       holder.mInfo.setVisibility(View.INVISIBLE);
+      holder.mInfoSlided.setVisibility(View.VISIBLE);
       setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
       break;
     case MapStorage.ON_DISK_OUT_OF_DATE:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.GONE);
-      holder.mInfoSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
-      setHolderPercentString(holder, mStatusOutdated, R.color.downloader_green);
       holder.mInfo.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -406,44 +401,36 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           startItemDownloading(holder, position);
         }
       });
-      holder.mProgress.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          stopItemDownloading(holder, position);
-        }
-      });
-      holder.mInfoSlided.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          stopItemDownloading(holder, position);
-        }
-      });
+      holder.mInfoSlided.setVisibility(View.GONE);
+      setHolderPercentString(holder, mStatusOutdated, R.color.downloader_green);
       break;
     case MapStorage.ON_DISK:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.GONE);
-      holder.mInfoSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
-      holder.mInfo.setOnClickListener(null);
+      holder.mInfoSlided.setVisibility(View.GONE);
       setHolderPercentString(holder, mStatusDownloaded, R.color.downloader_gray);
       break;
     case MapStorage.DOWNLOAD_FAILED:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.GONE);
-      holder.mInfoSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
-      holder.mInfo.setOnClickListener(null);
+      holder.mInfo.setOnClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          // TODO retry downloading
+        }
+      });
+      holder.mInfoSlided.setVisibility(View.GONE);
       setHolderPercentString(holder, mStatusFailed, R.color.downloader_red);
       break;
     case MapStorage.IN_QUEUE:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.VISIBLE);
       holder.mProgressSlided.setProgress(0);
-      holder.mInfoSlided.setVisibility(View.VISIBLE);
+      // TODO show confirmation dialog
       holder.mProgressSlided.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -453,13 +440,14 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         }
       });
       holder.mInfo.setVisibility(View.INVISIBLE);
-      holder.mInfo.setOnClickListener(null);
+      holder.mInfoSlided.setVisibility(View.VISIBLE);
       setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
       break;
     case MapStorage.NOT_DOWNLOADED:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
+      // TODO check action with Max
       holder.mInfo.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -469,18 +457,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         }
       });
       holder.mInfoSlided.setVisibility(View.GONE);
-      holder.mInfoSlided.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          stopItemDownloading(holder, position);
-        }
-      });
       setHolderPercentString(holder, mStatusNotDownloaded, R.color.downloader_green);
-      holder.mProgress.setVisibility(View.GONE);
       break;
-
     }
   }
 
@@ -503,13 +481,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       @Override
       public void onAnimationEnd(Animator animation)
       {
-        final CountryItem item = getItem(position);
-        if (item == null)
-          return;
-        if (item.getStatus() == MapStorage.ON_DISK_OUT_OF_DATE)
-          processOutOfDate(item.mCountryIdx, item.mName);
-        else
-          processNotDownloaded(item.mCountryIdx, item.mName);
         holder.mInfoSlided.setVisibility(View.VISIBLE);
         holder.mInfo.setVisibility(View.INVISIBLE);
         holder.mProgressSlided.setVisibility(View.VISIBLE);
@@ -522,6 +493,14 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     holder.animator = animatorSet;
 
     holder.mProgress.setVisibility(View.VISIBLE);
+
+    final CountryItem item = getItem(position);
+    if (item == null)
+      return;
+    if (item.getStatus() == MapStorage.ON_DISK_OUT_OF_DATE)
+      processOutOfDate(item.mCountryIdx, item.mName);
+    else
+      processNotDownloaded(item.mCountryIdx, item.mName);
   }
 
   private void stopItemDownloading(final ViewHolder holder, final int position)
@@ -541,21 +520,21 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       @Override
       public void onAnimationEnd(Animator animation)
       {
-        final CountryItem item = getItem(position);
-        if (item == null)
-          return;
-
         holder.mInfo.setVisibility(View.VISIBLE);
         holder.mInfoSlided.setVisibility(View.GONE);
         holder.mProgressSlided.setVisibility(View.GONE);
         holder.mProgress.setVisibility(View.GONE);
-        MapStorage.INSTANCE.deleteCountry(item.mCountryIdx);
         mActiveAnimationsCount--;
       }
     });
     mActiveAnimationsCount++;
     animatorSet.start();
     holder.animator = animatorSet;
+
+    final CountryItem item = getItem(position);
+    if (item == null)
+      return;
+    MapStorage.INSTANCE.deleteCountry(item.mCountryIdx);
   }
 
   @Override
@@ -573,14 +552,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     holder.mPercent.setTextColor(mActivity.getResources().getColor(color));
     holder.mPercentSlided.setText(text);
     holder.mPercentSlided.setTextColor(mActivity.getResources().getColor(color));
-  }
-
-  protected void bindGroup(int position, int type, BaseDownloadAdapter.ViewHolder holder)
-  {
-  }
-
-  protected void bindRegion(int position, int type, ViewHolder holder)
-  {
   }
 
   protected void setItemName(int position, BaseDownloadAdapter.ViewHolder holder)
@@ -603,9 +574,11 @@ abstract class BaseDownloadAdapter extends BaseAdapter
    */
   public int onCountryStatusChanged(Index idx)
   {
+    // TODO check if index(or pos or smth else after refactoring) actually belongs to current list
+    // ignore notification if it isnt equal
     final int position = getItemPosition(idx);
     final CountryItem item = getItem(position);
-    if (position != -1 && item != null)
+    if (position != INVALID_POSITION && item != null)
     {
       item.updateStatus();
       // use this hard reset, because of caching different ViewHolders according to item's type
@@ -619,7 +592,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   public void onCountryProgress(ListView list, Index idx, long current, long total)
   {
     final int position = getItemPosition(idx);
-    if (position != -1)
+    if (position != INVALID_POSITION)
     {
       // do update only one item's view; don't call notifyDataSetChanged
       final View v = list.getChildAt(position - list.getFirstVisiblePosition());

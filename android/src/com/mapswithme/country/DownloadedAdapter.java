@@ -12,7 +12,6 @@ public class DownloadedAdapter extends BaseDownloadAdapter
 {
   private static final int TYPE_HEADER = 5;
   private static final int VIEW_TYPE_COUNT = 6;
-  private static final int INVALID_POSITION = -1;
   private int mDownloadedCount;
   private int mOutdatedCount;
 
