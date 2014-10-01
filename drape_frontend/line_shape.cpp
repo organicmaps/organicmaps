@@ -65,71 +65,84 @@ void Bisector(float R, PointF const & v1, PointF const & v2, PointF const & v3,
 LineShape::LineShape(vector<m2::PointD> const & points,
                      LineViewParams const & params, float const scaleGtoP)
   : m_params(params)
+  , m_dpoints(points)
   , m_scaleGtoP(scaleGtoP)
+  , m_counter(0)
+  , m_parts(1)
 {
   ASSERT_GREATER(points.size(), 1, ());
+}
 
-  if (m_params.m_pattern.empty())
+bool LineShape::GetNext(m2::PointF & point) const
+{
+  int const size = m_dpoints.size();
+  if (!m_params.m_pattern.empty())
   {
-    int const size = params.m_cap == dp::ButtCap ? points.size() : points.size() + 2;
-    m_points.resize(size);
-    if (m_params.m_cap != dp::ButtCap)
+    if (m_counter == 0)
     {
-      m_points[0] = points[0] + (points[0] - points[1]).Normalize();;
-      m_points[size - 1] = points[size - 3] + (points[size - 3] - points[size - 4]).Normalize();
-      for (int i = 0; i < size - 2; ++i)
-        m_points[i+1] = points[i];
+      point = m_dpoints[m_counter++];
+      return true;
     }
-    else
+    if (m_counter < size)
     {
-      for (int i = 0; i < size; ++i)
-        m_points[i] = points[i];
+      PointF const pt = m_dpoints[m_counter] - m_dpoints[m_counter - 1];
+      float const length = pt.Length() * m_scaleGtoP;
+      if (length > m_templateLength - m_patternLength)
+      {
+        int const numParts = static_cast<int>(ceilf(length / (m_templateLength - m_patternLength)));
+        PointF const addition = pt / (float)numParts;
+        point = m_dpoints[m_counter - 1] + addition * m_parts;
+        m_parts++;
+        if (m_parts > numParts)
+        {
+          m_parts = 1;
+          m_counter++;
+        }
+        return true;
+      }
+      if (m_templateLength == m_patternLength && length > m_templateLength)
+      {
+        int const numParts = static_cast<int>(ceilf(length / m_templateLength));
+        PointF const addition = pt / (float)numParts;
+        point = m_dpoints[m_counter-1] + addition * m_parts;
+        m_parts++;
+        if (m_parts == numParts)
+        {
+          m_parts = 0;
+          m_counter++;
+        }
+        return true;
+      }
+      point = m_dpoints[m_counter++];
+      return true;
     }
+    if (m_counter == size && m_params.m_cap != dp::ButtCap)
+    {
+      point = m_dpoints[size - 1] + (m_dpoints[size - 1] - m_dpoints[size - 2]).Normalize();
+      m_counter++;
+      return true;
+    }
+    return false;
   }
   else
   {
-    int const size = points.size();
-    m_points.resize(size);
-    for (int i = 0; i < size; ++i)
-      m_points[i] = points[i];
-  }
-}
-
-void LineShape::doPartition(uint32_t patternLength, uint32_t templateLength, vector<m2::PointF> & points) const
-{
-  int const size = m_points.size();
-  if (m_params.m_cap != dp::ButtCap)
-    points.push_back(m_points[0] + (m_points[0] - m_points[1]).Normalize());
-
-  points.push_back(m_points[0]);
-  for (int i = 1; i < size; ++i)
-  {
-    PointF const pt = m_points[i] - m_points[i - 1];
-    float const length = pt.Length() * m_scaleGtoP;
-    if (length > templateLength - patternLength)
+    if (m_counter < size)
     {
-      int const numParts = static_cast<int>(ceilf(length / (templateLength - patternLength)));
-      PointF const addition = pt / (float)numParts;
-      for (int j = 1; j < numParts; ++j)
-        points.push_back(points.back() + addition);
+      point = m_dpoints[m_counter++];
+      return true;
     }
-    if (templateLength == patternLength && length > templateLength)
+    if (m_counter == size && m_params.m_cap != dp::ButtCap)
     {
-      int const numParts = static_cast<int>(ceilf(length / templateLength));
-      PointF const addition = pt / (float)numParts;
-      for (int j = 1; j < numParts; ++j)
-        points.push_back(points.back() + addition);
+      point = m_dpoints[size - 1] + (m_dpoints[size - 1] - m_dpoints[size - 2]).Normalize();
+      m_counter++;
+      return true;
     }
-    points.push_back(m_points[i]);
+    return false;
   }
-
-  if (m_params.m_cap != dp::ButtCap)
-    points.push_back(m_points[size - 1] + (m_points[size - 1] - m_points[size - 2]).Normalize());
 }
 
 void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::TextureSetHolder> textures) const
 {
-  float templateLength, patternLength;
   int textureOpacitySet;
   m2::RectF rectOpacity;
   float texIndexPattern;
@@ -140,22 +153,19 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
     key.m_pattern = m_params.m_pattern;
     dp::TextureSetHolder::StippleRegion region;
     textures->GetStippleRegion(key, region);
-    patternLength = region.GetPatternLength();
-    templateLength = region.GetTemplateLength();
+    m_patternLength = region.GetPatternLength();
+    m_templateLength = region.GetTemplateLength();
 
     rectOpacity = m2::RectF(region.GetTexRect());
     texIndexPattern = static_cast<float>(region.GetTextureNode().m_textureOffset);
     textureOpacitySet = region.GetTextureNode().m_textureSet;
-
-    doPartition(patternLength, templateLength, points);
   }
 
-  vector<m2::PointF> const & activePoints = m_params.m_pattern.empty() ? m_points : points;
-
-  int size = activePoints.size();
+  int const SIZE = 128;
+  int size = SIZE;
   float const r = 1.0f;
 
-  int const numVert = (size - 1) * 4;
+  int numVert = (size - 1) * 4;
   vector<vec4> vertex(numVert);
   vector<vec3> dxVals(numVert);
   vector<vec4> centers(numVert);
@@ -163,8 +173,14 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
 
   PointF leftBisector, rightBisector, dx;
 
-  PointF v2 = activePoints[0];
-  PointF v3 = activePoints[1];
+  PointF v2;
+  if (m_params.m_cap != dp::ButtCap)
+    v2 = m_dpoints[0] + (m_dpoints[0] - m_dpoints[1]).Normalize();
+  else
+    GetNext(v2);
+
+  PointF v3;
+  GetNext(v3);
   PointF v1 = v2 * 2 - v3;
 
   Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
@@ -183,29 +199,48 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   widthType[1] = widthType[3] = vec4(-halfWidth, 0, joinType, insetHalfWidth);
 
   //points in the middle
-  for(int i = 1 ; i < size - 1 ; ++i)
+  PointF nextPoint;
+  int i_counter = 0;
+  while (GetNext(nextPoint))
   {
+    i_counter++;
+    if (i_counter == size - 1)
+    {
+      size += SIZE;
+      numVert = (size - 1) * 4;
+      vertex.resize(numVert);
+      dxVals.resize(numVert);
+      centers.resize(numVert);
+      widthType.resize(numVert);
+    }
     v1 = v2;
     v2 = v3;
-    v3 = activePoints[i + 1];
+    v3 = nextPoint;
     Bisector(r, v1, v2, v3, leftBisector, rightBisector, dx);
     float aspect = (v1-v2).Length() / (v2-v3).Length();
 
-    vertex[(i-1) * 4 + 2] = vec4(v2, leftBisector);
-    vertex[(i-1) * 4 + 3] = vec4(v2, rightBisector);
-    dxVals[(i-1) * 4 + 2] = vec3(dx.x, 1.0f, m_params.m_depth);
-    dxVals[(i-1) * 4 + 3] = vec3(-dx.x, 1.0f, m_params.m_depth);
-    centers[(i-1) * 4 + 2] = centers[(i-1) * 4 + 3] = vec4(v1, v2);
+    vertex[(i_counter-1) * 4 + 2] = vec4(v2, leftBisector);
+    vertex[(i_counter-1) * 4 + 3] = vec4(v2, rightBisector);
+    dxVals[(i_counter-1) * 4 + 2] = vec3(dx.x, 1.0f, m_params.m_depth);
+    dxVals[(i_counter-1) * 4 + 3] = vec3(-dx.x, 1.0f, m_params.m_depth);
+    centers[(i_counter-1) * 4 + 2] = centers[(i_counter-1) * 4 + 3] = vec4(v1, v2);
 
-    vertex[i * 4 + 0] = vec4(v2, leftBisector);
-    vertex[i * 4 + 1] = vec4(v2, rightBisector);
-    dxVals[i * 4 + 0] = vec3(-dx.x * aspect, -1.0f, m_params.m_depth);
-    dxVals[i * 4 + 1] = vec3(dx.x * aspect, -1.0f, m_params.m_depth);
-    centers[i * 4] = centers[i * 4 + 1] = vec4(v2, v3);
+    vertex[i_counter * 4 + 0] = vec4(v2, leftBisector);
+    vertex[i_counter * 4 + 1] = vec4(v2, rightBisector);
+    dxVals[i_counter * 4 + 0] = vec3(-dx.x * aspect, -1.0f, m_params.m_depth);
+    dxVals[i_counter * 4 + 1] = vec3(dx.x * aspect, -1.0f, m_params.m_depth);
+    centers[i_counter * 4] = centers[i_counter * 4 + 1] = vec4(v2, v3);
 
-    widthType[(i * 4) + 0] = widthType[(i * 4) + 2] = vec4(halfWidth, 0, joinType, insetHalfWidth);
-    widthType[(i * 4) + 1] = widthType[(i * 4) + 3] = vec4(-halfWidth, 0, joinType, insetHalfWidth);
+    widthType[(i_counter * 4) + 0] = widthType[(i_counter * 4) + 2] = vec4(halfWidth, 0, joinType, insetHalfWidth);
+    widthType[(i_counter * 4) + 1] = widthType[(i_counter * 4) + 3] = vec4(-halfWidth, 0, joinType, insetHalfWidth);
   }
+
+  size = i_counter + 2;
+  numVert = (size - 1) * 4;
+  vertex.resize(numVert);
+  dxVals.resize(numVert);
+  centers.resize(numVert);
+  widthType.resize(numVert);
 
   //last points
   v1 = v2;
@@ -268,17 +303,20 @@ void LineShape::Draw(dp::RefPointer<dp::Batcher> batcher, dp::RefPointer<dp::Tex
   if (!m_params.m_pattern.empty())
   {
     textureSet = textureOpacitySet;
-    templateLength /= (rectOpacity.maxX() - rectOpacity.minX());
-    patternLength /= templateLength;
+    float const templateLength = (float)m_templateLength / (rectOpacity.maxX() - rectOpacity.minX());
+    float const patternLength = (float)m_patternLength / templateLength;
     float const koef = halfWidth / m_scaleGtoP / 2.0f;
     float patternStart = 0.0f;
     for(int i = 1; i < size; ++i)
     {
-      PointF const dif = activePoints[i] - activePoints[i-1];
-      float dx1 = dxVals[(i-1) * 4].x * koef;
-      float dx2 = dxVals[(i-1) * 4 + 1].x * koef;
-      float dx3 = dxVals[(i-1) * 4 + 2].x * koef;
-      float dx4 = dxVals[(i-1) * 4 + 3].x * koef;
+      int const ind = (i-1) * 4;
+      PointF const beginPoint = PointF(vertex[ind].x, vertex[ind].y);
+      PointF const endPoint = PointF(vertex[ind + 2].x, vertex[ind + 2].y);
+      PointF const dif = endPoint - beginPoint;
+      float dx1 = dxVals[ind].x * koef;
+      float dx2 = dxVals[ind + 1].x * koef;
+      float dx3 = dxVals[ind + 2].x * koef;
+      float dx4 = dxVals[ind + 3].x * koef;
       float const length = dif.Length() * m_scaleGtoP / templateLength / (fabs(dx1) + fabs(dx3) + 1.0);
       float const f1 = fabs(dx1) * length;
       float const length2 = (fabs(dx1) + 1.0) * length;

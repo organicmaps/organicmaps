@@ -24,11 +24,16 @@ public:
 
 private:
   void doPartition(uint32_t patternLength, uint32_t templateLength, vector<m2::PointF> & points) const;
+  bool GetNext(m2::PointF & point) const;
 
 private:
   LineViewParams m_params;
-  vector<m2::PointF> m_points;
+  vector<m2::PointD> m_dpoints;
   float const m_scaleGtoP;
+  mutable int m_counter;
+  mutable int m_parts;
+  mutable uint32_t m_patternLength;
+  mutable uint32_t m_templateLength;
 };
 
 } // namespace df

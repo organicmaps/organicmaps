@@ -287,7 +287,7 @@ ApplyLineFeature::ApplyLineFeature(EngineContext & context, TileKey tileKey,
 
 void ApplyLineFeature::operator ()(CoordPointT const & point)
 {
-  m2::PointF const inputPt(point.first, point.second);
+  m2::PointD const inputPt(point.first, point.second);
 
   if (m_spline.IsNull())
     m_spline.Reset(new m2::Spline());
