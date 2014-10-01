@@ -79,7 +79,7 @@ bool Route::MoveIterator(location::GpsInfo const & info) const
   }
 
   m2::RectD const rect = MercatorBounds::MetresToXY(
-        info.m_latitude, info.m_longitude,
+        info.m_longitude, info.m_latitude,
         max(ON_ROAD_TOLERANCE_M, info.m_horizontalAccuracy));
 
   IterT const res = FindProjection(rect, predictDistance);
