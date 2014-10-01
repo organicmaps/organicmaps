@@ -106,17 +106,17 @@ namespace feature
 
     ~FeaturesCollector2()
     {
+      // write version information
+      {
+        FileWriter w = m_writer.GetWriter(VERSION_FILE_TAG);
+        ver::WriteVersion(w);
+      }
+
       // write own mwm header
       m_header.SetBounds(m_bounds);
       {
         FileWriter w = m_writer.GetWriter(HEADER_FILE_TAG);
         m_header.Save(w);
-      }
-
-      // write version information
-      {
-        FileWriter w = m_writer.GetWriter(VERSION_FILE_TAG);
-        ver::WriteVersion(w);
       }
 
       // assume like we close files

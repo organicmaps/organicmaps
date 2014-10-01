@@ -11,10 +11,9 @@
 
 #include "../coding/file_container.hpp"
 #include "../coding/internal/file_data.hpp"
+#include "../coding/read_write_utils.hpp"
 
 #include "../geometry/distance_on_sphere.hpp"
-
-#include "../platform/platform.hpp"
 
 #include "../base/logging.hpp"
 
@@ -29,44 +28,33 @@ namespace routing
 static double const EQUAL_POINT_RADIUS_M = 2.0;
 
 
-void GenerateNodesInfo(string const & mwmName, string const & osrmName)
+void BuildRoutingIndex(string const & mwmFile, string const & osrmFile)
 {
   classificator::Load();
 
   Index index;
   m2::RectD rect;
-  if (!index.Add(mwmName, rect))
+  if (!index.Add(mwmFile, rect))
   {
-    LOG(LERROR, ("MWM file not found"));
+    LOG(LCRITICAL, ("MWM file not found"));
     return;
   }
-
-  Platform & pl = GetPlatform();
 
   gen::OsmID2FeatureID osm2ft;
   {
-    ReaderSource<ModelReaderPtr> src(pl.GetReader(mwmName + OSM2FEATURE_FILE_EXTENSION));
+    FileReader reader(mwmFile + OSM2FEATURE_FILE_EXTENSION);
+    ReaderSource<FileReader> src(reader);
     osm2ft.Read(src);
   }
 
-  string nodeFileName = osrmName + ".nodeData";
+  osrm::NodeDataVectorT nodeData;
+  if (!osrm::LoadNodeDataFromFile(osrmFile + ".nodeData", nodeData))
+  {
+    LOG(LCRITICAL, ("Can't load node data"));
+    return;
+  }
 
   OsrmFtSegMappingBuilder mapping;
-
-  ifstream input;
-  input.open(nodeFileName);
-  if (!input.is_open())
-  {
-    LOG(LERROR, ("Can't open file ", nodeFileName));
-    return;
-  }
-
-  osrm::NodeDataVectorT nodeData;
-  if (!osrm::LoadNodeDataFromFile(nodeFileName, nodeData))
-  {
-    LOG(LERROR, ("Can't load node data"));
-    return;
-  }
 
   uint32_t found = 0, all = 0, multiple = 0, equal = 0, moreThan1Seg = 0, stored = 0;
 
@@ -196,32 +184,35 @@ void GenerateNodesInfo(string const & mwmName, string const & osrmName)
               "Multiple:", multiple, "Equal:", equal));
 
   LOG(LINFO, ("Collect all data into one file..."));
-  string const fPath = mwmName + ROUTING_FILE_EXTENSION;
+  string const fPath = mwmFile + ROUTING_FILE_EXTENSION;
 
-  try
+  FilesContainerW routingCont(fPath);
+
   {
-    FilesContainerW writer(fPath);
+    // Write version for routing file that is equal to correspondent mwm file.
+    FilesContainerR mwmCont(mwmFile);
 
-    mapping.Save(writer);
-
-    auto appendFile = [&] (string const & tag)
-    {
-      string const fileName = osrmName + "." + tag;
-      LOG(LINFO, ("Append file", fileName, "with tag", tag));
-      writer.Write(fileName, tag);
-    };
-
-    appendFile(ROUTING_SHORTCUTS_FILE_TAG);
-    appendFile(ROUTING_EDGEDATA_FILE_TAG);
-    appendFile(ROUTING_MATRIX_FILE_TAG);
-    appendFile(ROUTING_EDGEID_FILE_TAG);
-
-    writer.Finish();
+    FileWriter w = routingCont.GetWriter(VERSION_FILE_TAG);
+    ReaderSource<ModelReaderPtr> src(mwmCont.GetReader(VERSION_FILE_TAG));
+    rw::ReadAndWrite(src, w);
+    w.WritePadding(4);
   }
-  catch (RootException const & ex)
+
+  mapping.Save(routingCont);
+
+  auto appendFile = [&] (string const & tag)
   {
-    LOG(LCRITICAL, ("Can't write routing index", ex.Msg()));
-  }
+    string const fileName = osrmFile + "." + tag;
+    LOG(LINFO, ("Append file", fileName, "with tag", tag));
+    routingCont.Write(fileName, tag);
+  };
+
+  appendFile(ROUTING_SHORTCUTS_FILE_TAG);
+  appendFile(ROUTING_EDGEDATA_FILE_TAG);
+  appendFile(ROUTING_MATRIX_FILE_TAG);
+  appendFile(ROUTING_EDGEID_FILE_TAG);
+
+  routingCont.Finish();
 
   uint64_t sz;
   VERIFY(my::GetFileSize(fPath, sz), ());

@@ -266,7 +266,7 @@ int main(int argc, char ** argv)
   }
 
   if (!FLAGS_osrm_file_name.empty())
-    routing::GenerateNodesInfo(datFile, FLAGS_osrm_file_name);
+    routing::BuildRoutingIndex(datFile, FLAGS_osrm_file_name);
 
   return 0;
 }
