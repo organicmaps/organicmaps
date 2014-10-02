@@ -71,6 +71,16 @@ public:
   };
 #pragma pack (pop)
 
+  struct FtSegLess
+  {
+    bool operator() (FtSeg const * a, FtSeg const * b) const
+    {
+      return a->Store() < b->Store();
+    }
+  };
+
+  typedef set<FtSeg*, FtSegLess> FtSegSetT;
+
   void Clear();
   void Load(FilesMappingContainer & cont);
 
@@ -87,7 +97,7 @@ public:
   }
 
   typedef unordered_map<uint64_t, pair<OsrmNodeIdT, OsrmNodeIdT> > OsrmNodesT;
-  void GetOsrmNodes(vector<FtSeg> & segments, OsrmNodesT & res) const;
+  void GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) const;
 
   /// @name For debug purpose only.
   //@{

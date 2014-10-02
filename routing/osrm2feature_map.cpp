@@ -146,7 +146,7 @@ void OsrmFtSegMapping::DumpSegmentByNode(OsrmNodeIdT nodeId) const
 }
 
 
-void OsrmFtSegMapping::GetOsrmNodes(vector<FtSeg> & segments, OsrmNodesT & res) const
+void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) const
 {
   auto addResFn = [&res](uint64_t seg, OsrmNodeIdT nodeId, bool forward)
   {
@@ -175,9 +175,9 @@ void OsrmFtSegMapping::GetOsrmNodes(vector<FtSeg> & segments, OsrmNodesT & res) 
   {
     FtSeg s(m_segments[i]);
 
-    for (size_t j = 0; j < segments.size(); ++j)
+    for (auto it = segments.begin(); it != segments.end(); ++it)
     {
-      FtSeg const & seg = segments[j];
+      FtSeg const & seg = *(*it);
       if (s.m_fid != seg.m_fid)
         continue;
 
@@ -187,7 +187,7 @@ void OsrmFtSegMapping::GetOsrmNodes(vector<FtSeg> & segments, OsrmNodesT & res) 
         {
           if (addResFn(seg.Store(), GetNodeId(i), true))
           {
-            segments.erase(segments.begin() + j);
+            segments.erase(it);
             break;
           }
         }
@@ -198,7 +198,7 @@ void OsrmFtSegMapping::GetOsrmNodes(vector<FtSeg> & segments, OsrmNodesT & res) 
         {
           if (addResFn(seg.Store(), GetNodeId(i), false))
           {
-            segments.erase(segments.begin() + j);
+            segments.erase(it);
             break;
           }
         }

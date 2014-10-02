@@ -107,6 +107,8 @@ public:
 
     vector<OsrmFtSegMapping::FtSeg> segments;
     segments.resize(maxCount * 2);
+
+    OsrmFtSegMapping::FtSegSetT segmentSet;
     for (size_t i = 0; i < 2; ++i)
     {
       sort(m_candidates[i].begin(), m_candidates[i].end(), [] (Candidate const & r1, Candidate const & r2)
@@ -123,12 +125,13 @@ public:
         seg.m_fid = c.m_fid;
         seg.m_pointStart = c.m_segIdx;
         seg.m_pointEnd = c.m_segIdx + 1;
+
+        segmentSet.insert(&seg);
       }
     }
 
     OsrmFtSegMapping::OsrmNodesT nodes;
-    vector<OsrmFtSegMapping::FtSeg> scopy(segments);
-    m_mapping.GetOsrmNodes(scopy, nodes);
+    m_mapping.GetOsrmNodes(segmentSet, nodes);
 
     res.clear();
     res.resize(maxCount * 2);
