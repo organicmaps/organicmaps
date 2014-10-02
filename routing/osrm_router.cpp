@@ -99,17 +99,19 @@ public:
       m_candidates[m_ptIdx].push_back(res);
   }
 
-  void MakeResult(OsrmRouter::FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId)
+  void MakeResult(OsrmRouter::FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId, bool needFinal)
   {
     mwmId = m_mwmId;
     if (mwmId == numeric_limits<uint32_t>::max())
       return;
 
     vector<OsrmFtSegMapping::FtSeg> segments;
-    segments.resize(maxCount * 2);
+
+    size_t const processPtCount = needFinal ? 2 : 1;
+    segments.resize(maxCount * processPtCount);
 
     OsrmFtSegMapping::FtSegSetT segmentSet;
-    for (size_t i = 0; i < 2; ++i)
+    for (size_t i = 0; i < processPtCount; ++i)
     {
       sort(m_candidates[i].begin(), m_candidates[i].end(), [] (Candidate const & r1, Candidate const & r2)
       {
@@ -136,10 +138,13 @@ public:
     res.clear();
     res.resize(maxCount * 2);
 
-    for (size_t i = 0; i < 2; ++i)
+    for (size_t i = 0; i < processPtCount; ++i)
       for (size_t j = 0; j < maxCount; ++j)
       {
         size_t const idx = i * maxCount + j;
+
+        if (!segments[idx].IsValid())
+          continue;
 
         auto it = nodes.find(segments[idx].Store());
         if (it != nodes.end())
@@ -171,6 +176,7 @@ string OsrmRouter::GetName() const
 void OsrmRouter::SetFinalPoint(m2::PointD const & finalPt)
 {
   m_finalPt = finalPt;
+  m_cachedFinalNodes.clear();
 }
 
 void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback)
@@ -394,11 +400,20 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fPath, m2::Point
   if (!getter.HasCandidates(0))
     return StartPointNotFound;
 
-  processPt(finalPt, 1);
-  if (!getter.HasCandidates(1))
-    return EndPointNotFound;
+  bool const hasFinalCache = !m_cachedFinalNodes.empty();
+  if (!hasFinalCache)
+  {
+    processPt(finalPt, 1);
+    if (!getter.HasCandidates(1))
+      return EndPointNotFound;
+  }
 
-  getter.MakeResult(res, maxCount, mwmId);
+  getter.MakeResult(res, maxCount, mwmId, !hasFinalCache);
+  if (hasFinalCache)
+    copy(m_cachedFinalNodes.begin(), m_cachedFinalNodes.end(), res.begin() + maxCount);
+  else
+    m_cachedFinalNodes.assign(res.begin() + maxCount, res.end());
+
   return NoError;
 }
 

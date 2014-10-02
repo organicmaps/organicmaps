@@ -55,6 +55,8 @@ private:
   OsrmFtSegMapping m_mapping;
 
   FilesMappingContainer m_container;
+
+  FeatureGraphNodeVecT m_cachedFinalNodes;
 };
 
 }

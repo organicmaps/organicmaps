@@ -148,8 +148,9 @@ void OsrmFtSegMapping::DumpSegmentByNode(OsrmNodeIdT nodeId) const
 
 void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) const
 {
-  auto addResFn = [&res](uint64_t seg, OsrmNodeIdT nodeId, bool forward)
+  auto addResFn = [&](uint64_t seg, size_t idx, bool forward)
   {
+    OsrmNodeIdT const nodeId = GetNodeId(idx);
     auto it = res.insert({ seg, { forward ? nodeId : INVALID_NODE_ID,
                                   forward ? INVALID_NODE_ID : nodeId } });
     if (it.second)
@@ -185,7 +186,7 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) cons
       {
         if (seg.m_pointStart >= s.m_pointStart && seg.m_pointEnd <= s.m_pointEnd)
         {
-          if (addResFn(seg.Store(), GetNodeId(i), true))
+          if (addResFn(seg.Store(), i, true))
           {
             segments.erase(it);
             break;
@@ -196,7 +197,7 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) cons
       {
         if (seg.m_pointStart >= s.m_pointEnd && seg.m_pointEnd <= s.m_pointStart)
         {
-          if (addResFn(seg.Store(), GetNodeId(i), false))
+          if (addResFn(seg.Store(), i, false))
           {
             segments.erase(it);
             break;
