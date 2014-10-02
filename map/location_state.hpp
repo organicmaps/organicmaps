@@ -113,6 +113,7 @@ namespace location
     void CacheLocationMark();
 
     bool IsRotationActive() const;
+    bool IsDirectionKnown() const;
     bool IsInRouting() const;
 
     void FollowCompass();

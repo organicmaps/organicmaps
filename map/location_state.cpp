@@ -271,7 +271,7 @@ void State::draw(graphics::OverlayRenderer * r,
   r->drawDisplayList(m_locationMarkDL.get(), drawM);
 
   // if we know look direction than we draw arrow
-  if (IsRotationActive())
+  if (IsDirectionKnown())
   {
     double rotateAngle = m_drawDirection + m_framework->GetNavigator().Screen().GetAngle();
 
@@ -361,7 +361,12 @@ void State::CacheLocationMark()
 
 bool State::IsRotationActive() const
 {
-  return m_framework->GetNavigator().DoSupportRotation() && TestModeBit(m_modeInfo, KnownDirectionBit);
+  return m_framework->GetNavigator().DoSupportRotation() && IsDirectionKnown();
+}
+
+bool State::IsDirectionKnown() const
+{
+  return TestModeBit(m_modeInfo, KnownDirectionBit);
 }
 
 bool State::IsInRouting() const
