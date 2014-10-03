@@ -207,14 +207,14 @@ void TextLayout::LayoutPathText(m2::Spline::iterator const & iterator,
     positions.SetFillDirection(df::Backward);
 
   m2::Spline::iterator itr = iterator;
+  m2::Spline::iterator leftTentacle, rightTentacle;
 
   uint32_t glyphCount = GetGlyphCount();
   int32_t startIndex = isForwardDirection ? 0 : glyphCount - 1;
   int32_t endIndex = isForwardDirection ? glyphCount : -1;
   int32_t incSign = isForwardDirection ? 1 : -1;
 
-  m2::PointD accum = itr.m_dir;
-  float const koef = 0.7f;
+  float const tentacleLength = m_font.m_size * 1.6f * scalePtoG;
 
   rects.resize(GetGlyphCount());
 
@@ -227,11 +227,29 @@ void TextLayout::LayoutPathText(m2::Spline::iterator const & iterator,
 
     ASSERT_NOT_EQUAL(advance, 0.0, ());
     m2::PointD pos = itr.m_pos;
-    itr.Step(advance);
-    ASSERT(!itr.BeginAgain(), ());
+    double cosa = 1.0;
 
-    m2::PointD dir = (itr.m_avrDir.Normalize() * koef + accum * (1.0f - koef)).Normalize();
-    accum = dir;
+    m2::PointD dir;
+    m2::PointD posOffset;
+    if (itr.GetLength() <= tentacleLength || itr.GetLength() >= itr.GetFullLength() - tentacleLength)
+    {
+      dir = itr.m_avrDir.Normalize();
+    }
+    else
+    {
+      leftTentacle = itr;
+      leftTentacle.StepBack(tentacleLength);
+      rightTentacle = itr;
+      rightTentacle.Step(tentacleLength);
+      dir = (-leftTentacle.m_avrDir + rightTentacle.m_avrDir).Normalize();
+      cosa = m2::DotProduct(-leftTentacle.m_avrDir, rightTentacle.m_avrDir) / rightTentacle.m_avrDir.Length() / leftTentacle.m_avrDir.Length();
+      posOffset = (leftTentacle.m_pos + rightTentacle.m_pos) / 2.0;
+      pos = (posOffset + itr.m_pos) / 2.0;
+    }
+
+    itr.Step(advance + (1.0 - cosa) * advance * 0.7);
+    //ASSERT(!itr.BeginAgain(), ());
+
     m2::PointD norm(-dir.y, dir.x);
     dir *= halfWidth * scalePtoG;
     norm *= halfHeight * scalePtoG;
