@@ -186,9 +186,6 @@ char const * STREET_TOKENS_SEPARATOR = "\t -,.";
 int const HN_NEARBY_DISTANCE = 4;
 double const STREET_CONNECTION_MAX_ANGLE = math::pi / 2.0;
 size_t const HN_COUNT_FOR_ODD_TEST = 16;
-/// @todo We need FeatureType::BEST_GEOMETRY for tests (compare with ethalon),
-/// but 15 - is enough for production code.
-int const HOUSE_READING_SCALE = FeatureType::BEST_GEOMETRY;
 //double const HN_MIN_READ_OFFSET_M = 50.0;
 //int const HN_NEARBY_INDEX_RANGE = 5;
 double const HN_MAX_CONNECTION_DIST_M = 300.0;
@@ -818,7 +815,7 @@ void HouseDetector::ReadHouse(FeatureType const & f, Street * st, ProjectionCalc
     HouseMapT::iterator const it = m_id2house.find(f.GetID());
     bool const isNew = it == m_id2house.end();
 
-    m2::PointD const pt = isNew ? f.GetLimitRect(HOUSE_READING_SCALE).Center() : it->second->GetPosition();
+    m2::PointD const pt = isNew ? f.GetLimitRect(FeatureType::BEST_GEOMETRY).Center() : it->second->GetPosition();
 
     HouseProjection pr;
     if (calc.GetProjection(pt, pr))
