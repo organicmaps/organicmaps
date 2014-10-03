@@ -71,7 +71,7 @@ namespace location
 
     void InvalidatePosition();
     void TurnOff();
-    void StopCompassFollowing(Mode mode = Follow, bool resetPxBinding = true);
+    void StopCompassFollowing();
     void StopLocationFollow();
 
     /// @name User input notification block
@@ -80,10 +80,11 @@ namespace location
     void Draged();
     void DragEnded();
 
+    void ScaleStarted();
     void ScaleCorrection(m2::PointD & pt);
     void ScaleCorrection(m2::PointD & pt1, m2::PointD & pt2);
+    void ScaleEnded();
 
-    bool IsRotationAllowed() const;
     void Rotated();
     //@}
 
@@ -124,13 +125,12 @@ namespace location
     bool IsDirectionKnown() const;
     bool IsInRouting() const;
 
-    m2::PointD const & GetCurrentPixelBinding() const;
-    void SetCurrentPixelBinding(m2::PointD const & pxBinding);
     m2::PointD const GetModeDefaultPixelBinding(Mode mode) const;
+    m2::PointD const GetRaFModeDefaultPxBind() const;
 
     void SetModeInfo(uint16_t modeInfo);
 
-    m2::PointD const GetRaFModeDefaultPxBind() const;
+    void StopAllAnimations();
 
   private:
     // Mode bits
@@ -141,15 +141,14 @@ namespace location
     static uint16_t const s_cacheRadius = 500.0f;
 
     uint16_t m_modeInfo; // combination of Mode enum and "Mode bits"
-    uint16_t m_dragModeInfo;
+    uint16_t m_dragModeInfo = 0;
+    uint16_t m_scaleModeInfo = 0;
     Framework * m_framework;
 
     double m_errorRadius;   //< error radius in mercator
     m2::PointD m_position;  //< position in mercator
     double m_drawDirection;
     Mode m_afterPendingMode;
-
-    m2::PointD m_dstPixelBinding;
 
     typedef map<int, TStateModeListener> TModeListeners;
     typedef map<int, TPositionListener> TPositionListeners;
@@ -172,6 +171,7 @@ namespace location
     shared_ptr<anim::Task> m_animTask;
     bool FollowCompass();
     void CreateAnimTask();
+    void CreateAnimTask(m2::PointD const & srcPx, m2::PointD const & dstPx);
     void EndAnimation();
     //@}
   };

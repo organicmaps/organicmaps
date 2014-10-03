@@ -40,7 +40,7 @@ UNIT_TEST(Navigator_Scale2Points)
   TEST_EQUAL(screen.ClipRect(), m2::RectD(0, 0, 8, 4), ());
 
   navigator.StartScale(screen.GtoP(m2::PointD(1, 1)),
-                       screen.GtoP(m2::PointD(7, 1)), 0, true);
+                       screen.GtoP(m2::PointD(7, 1)), 0);
   navigator.StopScale(screen.GtoP(m2::PointD(1, 1)),
                       screen.GtoP(m2::PointD(4, 1)), 1);
   TEST_EQUAL(screen.ClipRect(), m2::RectD(-1, -1, 15, 7), ());

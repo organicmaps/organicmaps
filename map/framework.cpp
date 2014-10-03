@@ -962,6 +962,7 @@ void Framework::StartRotate(RotateEvent const & e)
   {
     m_navigator.StartRotate(e.Angle(), ElapsedSeconds());
     m_renderPolicy->StartRotate(e.Angle(), ElapsedSeconds());
+    GetLocationState()->ScaleStarted();
   }
 }
 
@@ -980,6 +981,7 @@ void Framework::StopRotate(RotateEvent const & e)
   {
     m_navigator.StopRotate(e.Angle(), ElapsedSeconds());
     GetLocationState()->Rotated();
+    GetLocationState()->ScaleEnded();
     m_renderPolicy->StopRotate(e.Angle(), ElapsedSeconds());
 
     UpdateUserViewportChanged();
@@ -999,7 +1001,7 @@ void Framework::Move(double azDir, double factor)
 void Framework::ScaleToPoint(ScaleToPointEvent const & e)
 {
   m2::PointD pt = m_navigator.ShiftPoint(e.Pt());
-  m_informationDisplay.locationState()->ScaleCorrection(pt);
+  GetLocationState()->ScaleCorrection(pt);
 
   m_animController->AddTask(m_navigator.ScaleToPointAnim(pt, e.ScaleFactor(), 0.25));
 
@@ -1014,7 +1016,9 @@ void Framework::ScaleDefault(bool enlarge)
 
 void Framework::Scale(double scale)
 {
-  m_animController->AddTask(m_navigator.ScaleAnim(scale));
+  m2::PointD center = GetPixelCenter();
+  GetLocationState()->ScaleCorrection(center);
+  m_animController->AddTask(m_navigator.ScaleToPointAnim(center, scale, 0.25));
 
   Invalidate();
   UpdateUserViewportChanged();
@@ -1036,8 +1040,7 @@ void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::Poin
 bool Framework::CanRotate() const
 {
   return m_renderPolicy &&
-         m_renderPolicy->DoSupportRotation() &&
-         GetLocationState()->IsRotationAllowed();
+         m_renderPolicy->DoSupportRotation();
 }
 
 void Framework::StartScale(ScaleEvent const & e)
@@ -1045,7 +1048,8 @@ void Framework::StartScale(ScaleEvent const & e)
   m2::PointD pt1, pt2;
   CalcScalePoints(e, pt1, pt2);
 
-  m_navigator.StartScale(pt1, pt2, ElapsedSeconds(), GetLocationState()->IsRotationAllowed());
+  GetLocationState()->ScaleStarted();
+  m_navigator.StartScale(pt1, pt2, ElapsedSeconds());
   if (m_renderPolicy)
     m_renderPolicy->StartScale();
 }
@@ -1075,6 +1079,8 @@ void Framework::StopScale(ScaleEvent const & e)
     m_renderPolicy->StopScale();
     UpdateUserViewportChanged();
   }
+
+  GetLocationState()->ScaleEnded();
 }
 //@}
 
