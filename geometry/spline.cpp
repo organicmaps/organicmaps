@@ -90,20 +90,51 @@ void Spline::iterator::Attach(Spline const & spl)
 void Spline::iterator::Step(double speed)
 {
   m_dist += speed;
-  while(m_dist > m_spl->m_length[m_index])
+  if (m_checker)
+  {
+    m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
+    return;
+  }
+  while (m_dist > m_spl->m_length[m_index])
   {
     m_dist -= m_spl->m_length[m_index];
     m_index++;
-    if(m_index >= m_spl->m_direction.size())
+    if (m_index >= m_spl->m_direction.size())
     {
-      m_index = 0;
+      m_index--;
+      m_dist += m_spl->m_length[m_index];
       m_checker = true;
+      break;
     }
   }
   m_dir = m_spl->m_direction[m_index];
   m_avrDir = -m_pos;
   m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
   m_avrDir += m_pos;
+}
+
+void Spline::iterator::StepBack(double speed)
+{
+  m_dist -= speed;
+  while(m_dist < 0.0f)
+  {
+    m_index--;
+    m_dist += m_spl->m_length[m_index];
+  }
+  m_dir = m_spl->m_direction[m_index];
+  m_avrDir = -m_pos;
+  m_pos = m_spl->m_position[m_index] + m_dir * m_dist;
+  m_avrDir += m_pos;
+}
+
+double Spline::iterator::GetLength() const
+{
+  return accumulate(m_spl->m_length.begin(), m_spl->m_length.begin() + m_index, m_dist);
+}
+
+double Spline::iterator::GetFullLength() const
+{
+  return m_spl->GetLength();
 }
 
 bool Spline::iterator::BeginAgain() const

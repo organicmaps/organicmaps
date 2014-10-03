@@ -20,7 +20,10 @@ public:
     iterator();
     void Attach(Spline const & spl);
     void Step(double speed);
+    void StepBack(double speed);
     bool BeginAgain() const;
+    double GetLength() const;
+    double GetFullLength() const;
 
   private:
     friend class Spline;
