@@ -483,7 +483,8 @@ public:
   /// @name Routing mode
   //@{
   bool IsRoutingActive() const;
-  bool StartRoutingSession(m2::PointD const & destination);
+  bool BuildRoute(m2::PointD const & destination);
+  void StartRoutingSession();
   void CancelRoutingSession();
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 

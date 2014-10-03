@@ -1376,13 +1376,13 @@ public class MWMActivity extends NvEventQueueActivity
       startActivity(new Intent(this, MoreAppsActivity.class));
       break;
     case R.id.iv__start_routing:
-      startRouting();
+      buildRoute();
       break;
     case R.id.iv__routing_close:
       stopRouting();
       break;
     case R.id.btn__routing_go:
-      // TODO call some native magic
+      startRouting();
       break;
     default:
       break;
@@ -1390,6 +1390,11 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   private void startRouting()
+  {
+    Framework.nativeStartRoutingSession();
+  }
+
+  private void buildRoute()
   {
     if (LocationState.INSTANCE.getLocationStateMode() < LocationState.NOT_FOLLOW)
     {
@@ -1407,7 +1412,7 @@ public class MWMActivity extends NvEventQueueActivity
 
     mInfoView.setState(State.HIDDEN);
 
-    Framework.nativeStartRoutingSession(mInfoView.getMapObject().getLat(), mInfoView.getMapObject().getLon());
+    Framework.nativeBuildRoute(mInfoView.getMapObject().getLat(), mInfoView.getMapObject().getLon());
     if (mIsLocationLocked)
     {
       final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();

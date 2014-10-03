@@ -394,9 +394,17 @@ namespace qt
       else if (e->modifiers() & Qt::ShiftModifier)
       {
         if (m_framework->IsRoutingActive())
-          m_framework->CancelRoutingSession();
+        {
+          static int counter = 0;
+          if (counter % 2 == 0)
+            m_framework->StartRoutingSession();
+          else
+            m_framework->CancelRoutingSession();
+
+          counter++;
+        }
         else
-          m_framework->StartRoutingSession(m_framework->PtoG(pt));
+          m_framework->BuildRoute(m_framework->PtoG(pt));
       }
       if (e->modifiers() & Qt::AltModifier)
       {

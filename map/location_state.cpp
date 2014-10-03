@@ -278,12 +278,24 @@ void State::SwitchToNextMode()
   SetModeInfo(ChangeMode(m_modeInfo, newMode));
 }
 
-void State::StartRoutingMode()
+void State::RouteBuilded()
 {
   ASSERT(GetPlatform().HasRouting(), ());
   ASSERT(IsModeHasPosition(), ());
-  State::Mode newMode = IsRotationActive() ? RotateAndFollow : Follow;
-  SetModeInfo(ChangeMode(IncludeModeBit(m_modeInfo, RoutingSessionBit), newMode));
+  StopAllAnimations();
+  SetModeInfo(ChangeMode(IncludeModeBit(m_modeInfo, RoutingSessionBit), NotFollow));
+}
+
+void State::StartRouteFollow()
+{
+  ASSERT(TestModeBit(m_modeInfo, RoutingSessionBit), ());
+  ASSERT(GetPlatform().HasRouting(), ());
+  ASSERT(IsModeHasPosition(), ());
+  m2::PointD const size(m_errorRadius, m_errorRadius);
+  m_framework->ShowRectExVisibleScale(m2::RectD(m_position - size, m_position + size),
+                                      scales::GetUpperComfortScale());
+
+  SetModeInfo(ChangeMode(m_modeInfo, IsRotationActive() ? RotateAndFollow : Follow));
 }
 
 void State::StopRoutingMode()

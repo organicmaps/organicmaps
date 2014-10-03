@@ -1847,7 +1847,7 @@ bool Framework::IsRoutingActive() const
   return m_routingSession.IsActive();
 }
 
-bool Framework::StartRoutingSession(m2::PointD const & destination)
+bool Framework::BuildRoute(m2::PointD const & destination)
 {
   shared_ptr<State> const & state = GetLocationState();
   if (!GetPlatform().HasRouting() || !state->IsModeHasPosition())
@@ -1859,10 +1859,24 @@ bool Framework::StartRoutingSession(m2::PointD const & destination)
   m_routingSession.BuildRoute(state->Position(), destination, [&] (Route const & route)
   {
     InsertRoute(route);
-    state->StartRoutingMode();
+    state->RouteBuilded();
+
+    m2::PolylineD const & poly = route.GetPoly();
+
+    m2::AnyRectD srcRect = GetNavigator().Screen().GlobalRect();
+    m2::RectD rect = srcRect.GetGlobalRect();
+    for (auto it = poly.Begin(); it != poly.End(); ++it)
+         rect.Add(*it);
+
+    ShowRectExVisibleScale(rect);
   });
 
   return true;
+}
+
+void Framework::StartRoutingSession()
+{
+  GetLocationState()->StartRouteFollow();
 }
 
 BookmarkCategory * Framework::FindCategory(string const & name)

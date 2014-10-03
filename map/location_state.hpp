@@ -60,7 +60,8 @@ namespace location
     bool IsModeHasPosition() const;
     void SwitchToNextMode();
 
-    void StartRoutingMode();
+    void RouteBuilded();
+    void StartRouteFollow();
     void StopRoutingMode();
 
     int  AddStateModeListener(TStateModeListener const & l);

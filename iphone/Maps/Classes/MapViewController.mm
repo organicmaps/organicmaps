@@ -764,7 +764,7 @@
 {
   if ([MapsAppDelegate theApp].m_locationManager.lastLocation)
   {
-    GetFramework().StartRoutingSession([placePage pinPoint]);
+    GetFramework().BuildRoute([placePage pinPoint]);
     [placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
     [self performAfterDelay:0.3 block:^{
       [self.routeView setVisible:YES animated:YES];

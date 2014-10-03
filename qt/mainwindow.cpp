@@ -126,6 +126,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
 #endif // NO_DOWNLOADER
 
   m_pDrawWidget->UpdateAfterSettingsChanged();
+  locState->InvalidatePosition();
 }
 
 #if defined(Q_WS_WIN)

@@ -445,14 +445,16 @@ namespace
                            m2::PointD const &, m2::PointD const &)> TScaleImplFn;
     ZoomAnim(m2::PointD const & startPt, m2::PointD const & endPt,
              m2::PointD const & target, TScaleImplFn const & fn, double deltaTime)
-      : m_targetPt(target)
-      , m_startPt(startPt)
-      , m_endPt(endPt)
-      , m_prevPt(startPt)
-      , m_fn(fn)
+      : m_fn(fn)
       , m_startTime(0.0)
       , m_deltaTime(deltaTime)
     {
+      m_finger1Start = target + (startPt - target);
+      m_prevPt1 = m_finger1Start;
+      m_finger1End = m_finger1Start + (endPt - startPt);
+      m_finger2Start = target - (startPt - target);
+      m_prevPt2 = m_finger2Start;
+      m_finger2End = m_finger2Start - (endPt - startPt);
     }
 
     virtual bool IsVisual() const { return true; }
@@ -471,22 +473,28 @@ namespace
       double t = elapsed / m_deltaTime;
       if (t > 1.0 || my::AlmostEqual(t, 1.0))
       {
-        m_fn(m_targetPt, m_endPt, m_targetPt, m_prevPt);
+        m_fn(m_finger1End, m_finger2End, m_prevPt1, m_prevPt2);
         End();
         return;
       }
 
-      m2::PointD delta = (m_endPt - m_startPt) * t;
-      m2::PointD current = m_startPt + delta;
-      m_fn(m_targetPt, current, m_targetPt, m_prevPt);
-      m_prevPt = current;
+      m2::PointD delta1 = ((m_finger1End - m_finger1Start) * t);
+      m2::PointD delta2 = ((m_finger2End - m_finger2Start) * t);
+      m2::PointD current1 = m_finger1Start + delta1;
+      m2::PointD current2 = m_finger2Start + delta2;
+      m_fn(current1, current2, m_prevPt1, m_prevPt2);
+      m_prevPt1 = current1;
+      m_prevPt2 = current2;
     }
 
   private:
-    m2::PointD m_targetPt;
-    m2::PointD m_startPt;
-    m2::PointD m_endPt;
-    m2::PointD m_prevPt;
+    m2::PointD m_prevPt1;
+    m2::PointD m_prevPt2;
+
+    m2::PointD m_finger1Start;
+    m2::PointD m_finger1End;
+    m2::PointD m_finger2Start;
+    m2::PointD m_finger2End;
 
     TScaleImplFn m_fn;
     double m_startTime;
@@ -636,7 +644,7 @@ void Navigator::Scale(double scale)
 
 shared_ptr<anim::Task> Navigator::ScaleAnim(double scale)
 {
-  return ScaleToPointAnim(m_Screen.PixelRect().Center(), scale, 0.3);
+  return ScaleToPointAnim(m_Screen.PixelRect().Center() + m2::PointD(0.0, 300.0), scale, 0.3);
 }
 
 void Navigator::Rotate(double angle)
