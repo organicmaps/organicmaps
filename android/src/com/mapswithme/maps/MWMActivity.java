@@ -155,27 +155,22 @@ public class MWMActivity extends NvEventQueueActivity
     Utils.automaticIdleScreen(true, getWindow());
   }
 
-  private void resumeLocation()
+  private void listenLocationUpdates()
   {
     LocationService.INSTANCE.startUpdate(this);
     // Do not turn off the screen while displaying position
     Utils.automaticIdleScreen(false, getWindow());
   }
 
-  public void checkShouldResumeLocationService()
+  /**
+   * Invalidates location state in core(core then tries to restore previous location state and notifies us).
+   * Updates location button accordingly.
+   */
+  public void invalidateLocationState()
   {
     final int currentLocationMode = LocationState.INSTANCE.getLocationStateMode();
     LocationButtonImageSetter.setButtonViewFromState(currentLocationMode, mLocationButton);
-
-    if (currentLocationMode > LocationState.UNKNOWN_POSITION)
-    {
-      resumeLocation();
-
-      final Location location = LocationService.INSTANCE.getLastLocation();
-      if (location == null || LocationUtils.isExpired(location,
-          LocationService.INSTANCE.getLastLocationTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_SHORT))
-        LocationState.INSTANCE.invalidatePosition();
-    }
+    LocationState.INSTANCE.invalidatePosition();
   }
 
   public void OnDownloadCountryClicked()
@@ -1028,7 +1023,7 @@ public class MWMActivity extends NvEventQueueActivity
           pauseLocation();
           break;
         case LocationState.PENDING_POSITION:
-          resumeLocation();
+          listenLocationUpdates();
           break;
         default:
           break;
@@ -1065,7 +1060,7 @@ public class MWMActivity extends NvEventQueueActivity
     super.onResume();
 
     listenLocationStateModeUpdates();
-    checkShouldResumeLocationService();
+    invalidateLocationState();
     startWatchingExternalStorage();
 
     UiUtils.showIf(MWMApplication.get().nativeGetBoolean(SettingsActivity.ZOOM_BUTTON_ENABLED, true),
