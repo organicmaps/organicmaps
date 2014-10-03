@@ -201,11 +201,6 @@ public:
     return (m_reader.Size() - m_pos);
   }
 
-  ReaderT const & Reader() const
-  {
-    return m_reader;
-  }
-
   ReaderT SubReader(uint64_t size)
   {
     uint64_t const pos = m_pos;

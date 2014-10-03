@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../base/assert.hpp"
+#include "reader.hpp"
 
 
 /// Reader wrapper to avoid penalty on copy and polymorphic SubReader creation.
@@ -32,4 +32,15 @@ public:
   {
     return SubReaderWrapper(m_p, pos + m_pos, size);
   }
+};
+
+/// Non template reader source for regular functions with incapsulated implementation.
+class ReaderSrc : public ReaderSource<SubReaderWrapper<Reader>>
+{
+  typedef SubReaderWrapper<Reader> ReaderT;
+  typedef ReaderSource<ReaderT> BaseT;
+
+public:
+  explicit ReaderSrc(Reader & reader) : BaseT(ReaderT(&reader)) {}
+  explicit ReaderSrc(Reader * reader) : BaseT(ReaderT(reader)) {}
 };
