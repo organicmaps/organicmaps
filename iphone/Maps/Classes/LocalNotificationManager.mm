@@ -8,6 +8,8 @@
 #import "Statistics.h"
 #import "UIKitCategories.h"
 
+#include "../../../storage/storage_defines.hpp"
+
 #define DOWNLOAD_MAP_ACTION_NAME @"DownloadMapAction"
 
 #define FLAGS_KEY @"DownloadMapNotificationFlags"
@@ -52,7 +54,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
     if (index.IsValid() && [self shouldShowNotificationForIndex:index])
     {
       TStatus const status = f.GetCountryStatus(index);
-      if (status == ENotDownloaded)
+      if (status == TStatus::ENotDownloaded)
       {
         [self markNotificationShowingForIndex:index];
 
@@ -116,7 +118,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 {
   //TODO: zoom in to country correctly to show download progress
   Framework & f = GetFramework();
-  f.Storage().DownloadCountry(index);
+  f.DownloadCountry(index, storage::TMapOptions::EMapOnly);
   m2::RectD const rect = f.GetCountryBounds(index);
   double const lon = MercatorBounds::XToLon(rect.Center().x);
   double const lat = MercatorBounds::YToLat(rect.Center().y);

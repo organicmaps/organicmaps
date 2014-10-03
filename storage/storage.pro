@@ -19,6 +19,7 @@ HEADERS += \
   country_decl.hpp \
   index.hpp \
   guides.hpp \
+  storage_defines.hpp \
 
 SOURCES += \
   country.cpp \

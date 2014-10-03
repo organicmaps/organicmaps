@@ -1,6 +1,8 @@
 #include "update_dialog.hpp"
 #include "info_dialog.hpp"
 
+#include "../storage/storage_defines.hpp"
+
 #include "../platform/settings.hpp"
 
 #include "../base/assert.hpp"
@@ -131,7 +133,7 @@ namespace qt
 
     switch (m_framework.GetCountryStatus(countryIndex))
     {
-    case EOnDiskOutOfDate:
+    case TStatus::EOnDiskOutOfDate:
       {
         // map is already downloaded, so ask user about deleting!
         QMessageBox ask(this);
@@ -148,14 +150,14 @@ namespace qt
         QAbstractButton * res = ask.clickedButton();
 
         if (res == btns[0])
-          st.DownloadCountry(countryIndex);
+          m_framework.DownloadCountry(countryIndex, storage::TMapOptions::EMapOnly);
 
         if (res == btns[1])
-          m_framework.DeleteCountry(countryIndex);
+          m_framework.DeleteCountry(countryIndex, storage::TMapOptions::EMapOnly);
       }
       break;
 
-    case EOnDisk:
+    case TStatus::EOnDisk:
       {
         // map is already downloaded, so ask user about deleting!
         QMessageBox ask(this);
@@ -165,18 +167,18 @@ namespace qt
         ask.setDefaultButton(QMessageBox::No);
 
         if (ask.exec() == QMessageBox::Yes)
-          m_framework.DeleteCountry(countryIndex);
+          m_framework.DeleteCountry(countryIndex, storage::TMapOptions::EMapOnly);
       }
       break;
 
-    case ENotDownloaded:
-    case EDownloadFailed:
-      st.DownloadCountry(countryIndex);
+    case TStatus::ENotDownloaded:
+    case TStatus::EDownloadFailed:
+      m_framework.DownloadCountry(countryIndex, storage::TMapOptions::EMapOnly);
       break;
 
-    case EInQueue:
-    case EDownloading:
-      m_framework.DeleteCountry(countryIndex);
+    case TStatus::EInQueue:
+    case TStatus::EDownloading:
+      m_framework.DeleteCountry(countryIndex, storage::TMapOptions::EMapOnly);
       break;
 
     default:
@@ -248,37 +250,37 @@ namespace qt
       Storage const & st = GetStorage();
       switch (m_framework.GetCountryStatus(index))
       {
-      case ENotDownloaded:
+      case TStatus::ENotDownloaded:
         size = st.CountrySizeInBytes(index);
         if (size.second > 0)
           statusString = tr("Click to download");
         rowColor = COLOR_NOTDOWNLOADED;
         break;
 
-      case EOnDisk:
+      case TStatus::EOnDisk:
         statusString = tr("Installed (click to delete)");
         rowColor = COLOR_ONDISK;
         size = st.CountrySizeInBytes(index);
         break;
 
-      case EOnDiskOutOfDate:
+      case TStatus::EOnDiskOutOfDate:
         statusString = tr("Out of date (click to update or delete)");
         rowColor = COLOR_OUTOFDATE;
         size = st.CountrySizeInBytes(index);
         break;
 
-      case EDownloadFailed:
+      case TStatus::EDownloadFailed:
         statusString = tr("Download has failed");
         rowColor = COLOR_DOWNLOADFAILED;
         size = st.CountrySizeInBytes(index);
         break;
 
-      case EDownloading:
+      case TStatus::EDownloading:
         statusString = tr("Downloading ...");
         rowColor = COLOR_INPROGRESS;
         break;
 
-      case EInQueue:
+      case TStatus::EInQueue:
         statusString = tr("Marked for download");
         rowColor = COLOR_INQUEUE;
         size = st.CountrySizeInBytes(index);

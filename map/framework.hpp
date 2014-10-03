@@ -160,7 +160,10 @@ public:
 
   /// @name This functions is used by Downloader UI.
   //@{
-  void DeleteCountry(storage::TIndex const & index);
+  /// options - flags that signal about parts of map that must be deleted
+  void DeleteCountry(storage::TIndex const & index, storage::TMapOptions const & options);
+  /// options - flags that signal about parts of map that must be downloaded
+  void DownloadCountry(storage::TIndex const & index, storage::TMapOptions const & options);
 
   storage::TStatus GetCountryStatus(storage::TIndex const & index) const;
   string GetCountryName(storage::TIndex const & index) const;

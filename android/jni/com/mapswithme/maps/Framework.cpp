@@ -27,9 +27,12 @@
 #include "../../../../../platform/location.hpp"
 #include "../../../../../platform/preferred_languages.hpp"
 
+#include "../../../../../storage/storage_defines.hpp"
+
 #include "../../../../../base/math.hpp"
 #include "../../../../../base/logging.hpp"
 
+using storage::TStatus;
 
 namespace
 {
@@ -204,7 +207,7 @@ namespace android
 
   void Framework::DeleteCountry(storage::TIndex const & idx)
   {
-    m_work.DeleteCountry(idx);
+    m_work.DeleteCountry(idx, storage::TMapOptions::EMapOnly);
   }
 
   void Framework::Resize(int w, int h)
@@ -553,7 +556,7 @@ namespace android
 
     TIndex const idx = m_work.GetCountryIndex(pt);
     TStatus const status = m_work.GetCountryStatus(idx);
-    if (status != EOnDisk && status != EOnDiskOutOfDate)
+    if (status != TStatus::EOnDisk && status != TStatus::EOnDiskOutOfDate)
       return m_work.GetCountryName(idx);
     else
       return string();

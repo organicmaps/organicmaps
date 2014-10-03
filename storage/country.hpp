@@ -1,5 +1,6 @@
 #pragma once
 
+#include "storage_defines.hpp"
 #include "simple_tree.hpp"
 #include "country_decl.hpp"
 
@@ -34,7 +35,6 @@ namespace storage
   };
 
   typedef buffer_vector<CountryFile, 1> FilesContainerT;
-  typedef pair<uint64_t, uint64_t> LocalAndRemoteSizeT;
 
   /// Serves as a proxy between GUI and downloaded files
   class Country

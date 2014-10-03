@@ -1,5 +1,6 @@
 #pragma once
 
+#include "storage_defines.hpp"
 #include "country.hpp"
 #include "index.hpp"
 #include "guides.hpp"
@@ -16,18 +17,6 @@
 
 namespace storage
 {
-  /// Used in GUI
-  enum TStatus
-  {
-    EOnDisk = 0,
-    ENotDownloaded,
-    EDownloadFailed,
-    EDownloading,
-    EInQueue,
-    EUnknown,
-    EOnDiskOutOfDate
-  };
-
   /// Can be used to store local maps and/or maps available for download
   class Storage
   {
@@ -57,7 +46,7 @@ namespace storage
     /// @name Communicate with GUI
     //@{
     typedef function<void (TIndex const &)> TChangeCountryFunction;
-    typedef function<void (TIndex const &, pair<int64_t, int64_t> const &)> TProgressFunction;
+    typedef function<void (TIndex const &, LocalAndRemoteSizeT const &)> TProgressFunction;
 
     int m_currentSlotId;
 
@@ -106,27 +95,24 @@ namespace storage
     //@}
 
     Country const & CountryByIndex(TIndex const & index) const;
-    TIndex const & GetDownloadedCountryAt(size_t const & i) const;
-    TIndex const & GetOutOfDateCountryAt(size_t const & i) const;
-
     TIndex FindIndexByFile(string const & name) const;
     void GetGroupAndCountry(TIndex const & index, string & group, string & country) const;
 
     size_t CountriesCount(TIndex const & index) const;
-    size_t GetDownloadedCountriesCount() const;
-    size_t GetOutOfDateCountriesCount() const;
     string const & CountryName(TIndex const & index) const;
     string const & CountryFlag(TIndex const & index) const;
     /// @return Country file name without extension.
     string const & CountryFileName(TIndex const & index) const;
     LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index) const;
+    LocalAndRemoteSizeT CountrySizeInBytesEx(TIndex const & index, TMapOptions const & options) const;
     /// Fast version, doesn't check if country is out of date
     TStatus CountryStatus(TIndex const & index) const;
     /// Slow version, but checks if country is out of date
     TStatus CountryStatusEx(TIndex const & index) const;
+    void CountryStatusEx(TIndex const & index, TStatus & status, TMapOptions & options) const;
     //m2::RectD CountryBounds(TIndex const & index) const;
 
-    void DownloadCountry(TIndex const & index);
+    void DownloadCountry(TIndex const & index, TMapOptions const & options);
     bool DeleteFromDownloader(TIndex const & index);
     bool IsDownloadInProgress() const;
 
@@ -142,9 +128,6 @@ namespace storage
     //@{
   private:
     guides::GuidesManager m_guideManager;
-
-    void UpdateDownloadedCountriesState();
-    void UpdateDownloadedCountriesState(TIndex const index);
 
   public:
     guides::GuidesManager const & GetGuideManager() const { return m_guideManager; }

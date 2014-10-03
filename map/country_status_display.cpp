@@ -6,6 +6,7 @@
 #include "../graphics/overlay_renderer.hpp"
 #include "../graphics/display_list.hpp"
 
+#include "../storage/storage_defines.hpp"
 #include "../platform/platform.hpp"
 
 #include "../base/string_format.hpp"
@@ -13,6 +14,8 @@
 #include "../std/bind.hpp"
 #include "../std/sstream.hpp"
 
+using storage::TStatus;
+using storage::TIndex;
 
 CountryStatusDisplay::Params::Params()
   : m_storage(0)
@@ -76,20 +79,20 @@ void CountryStatusDisplay::cache()
   {
     switch (m_countryStatus)
     {
-    case storage::EInQueue:
+    case TStatus::EInQueue:
     {
       SetStatusMessage<string, int>("country_status_added_to_queue", &dn);
       break;
     }
 
-    case storage::EDownloading:
+    case TStatus::EDownloading:
     {
       int const percent = m_countryProgress.first * 100 / m_countryProgress.second;
       SetStatusMessage<string, int>("country_status_downloading", &dn, &percent);
       break;
     }
 
-    case storage::ENotDownloaded:
+    case TStatus::ENotDownloaded:
       if (m_notEnoughSpace)
         SetStatusMessage<int, int>("not_enough_free_space_on_sdcard");
       else
@@ -100,7 +103,7 @@ void CountryStatusDisplay::cache()
       }
       break;
 
-    case storage::EDownloadFailed:
+    case TStatus::EDownloadFailed:
     {
       m_downloadButton->setIsVisible(true);
       m_downloadButton->setText(m_controller->GetStringsBundle()->GetString("try_again"));
@@ -118,7 +121,7 @@ void CountryStatusDisplay::cache()
   setIsVisible(m_statusMsg->isVisible() || m_downloadButton->isVisible());
 }
 
-void CountryStatusDisplay::CountryStatusChanged(storage::TIndex const & idx)
+void CountryStatusDisplay::CountryStatusChanged(TIndex const & idx)
 {
   if (idx == m_countryIdx)
   {
@@ -129,9 +132,9 @@ void CountryStatusDisplay::CountryStatusChanged(storage::TIndex const & idx)
   }
 }
 
-void CountryStatusDisplay::CountryProgress(storage::TIndex const & idx, pair<int64_t, int64_t> const & progress)
+void CountryStatusDisplay::CountryProgress(TIndex const & idx, pair<int64_t, int64_t> const & progress)
 {
-  if ((m_countryIdx == idx) && (m_countryStatus == storage::EDownloading))
+  if ((m_countryIdx == idx) && (m_countryStatus == TStatus::EDownloading))
   {
     m_countryProgress = progress;
 
@@ -178,8 +181,8 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
 
   setIsVisible(false);
 
-  m_countryIdx = storage::TIndex();
-  m_countryStatus = storage::EUnknown;
+  m_countryIdx = TIndex();
+  m_countryStatus = TStatus::EUnknown;
   m_notEnoughSpace = false;
 }
 
@@ -198,7 +201,7 @@ void CountryStatusDisplay::downloadCountry()
     invalidate();
   }
   else
-    m_storage->DownloadCountry(m_countryIdx);
+    m_storage->DownloadCountry(m_countryIdx, storage::TMapOptions::EMapOnly);
 }
 
 void CountryStatusDisplay::setDownloadListener(gui::Button::TOnClickListener const & l)
@@ -217,16 +220,16 @@ void CountryStatusDisplay::UpdateStatusAndProgress()
   m_countryProgress = m_storage->CountrySizeInBytes(m_countryIdx);
 
   m_countryStatus = m_storage->CountryStatus(m_countryIdx);
-  if (m_countryStatus == EUnknown)
+  if (m_countryStatus == TStatus::EUnknown)
   {
     if (m_countryProgress.first > 0)
-      m_countryStatus = EOnDisk;
+      m_countryStatus = TStatus::EOnDisk;
     else
-      m_countryStatus = ENotDownloaded;
+      m_countryStatus = TStatus::ENotDownloaded;
   }
 }
 
-void CountryStatusDisplay::setCountryIndex(storage::TIndex const & idx)
+void CountryStatusDisplay::setCountryIndex(TIndex const & idx)
 {
   if (m_countryIdx != idx)
   {
@@ -279,7 +282,7 @@ void CountryStatusDisplay::setController(gui::Controller * controller)
 
 void CountryStatusDisplay::setPivot(m2::PointD const & pv)
 {
-  if (m_countryStatus == storage::EDownloadFailed)
+  if (m_countryStatus == TStatus::EDownloadFailed)
   {
     size_t const buttonHeight = m_downloadButton->GetBoundRect().SizeY();
     size_t const statusHeight = m_statusMsg->GetBoundRect().SizeY();

@@ -88,13 +88,13 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapStorage_downloadCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    g_framework->Storage().DownloadCountry(IndexBinding(idx).toNative());
+    g_framework->NativeFramework()->DownloadCountry(IndexBinding(idx).toNative(), storage::TMapOptions::EMapOnly);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapStorage_deleteCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    g_framework->DeleteCountry(IndexBinding(idx).toNative());
+    g_framework->NativeFramework()->DeleteCountry(IndexBinding(idx).toNative(), storage::TMapOptions::EMapOnly);
   }
 
   JNIEXPORT jobject JNICALL

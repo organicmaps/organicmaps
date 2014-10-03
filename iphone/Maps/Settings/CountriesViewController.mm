@@ -11,6 +11,8 @@
 
 #include "Framework.h"
 
+#include "../../storage/storage_defines.hpp"
+
 #include "../../platform/platform.hpp"
 #include "../../platform/preferred_languages.hpp"
 
@@ -21,7 +23,6 @@
 
 
 using namespace storage;
-
 
 static TIndex CalculateIndex(TIndex const & parentIndex, NSIndexPath * indexPath)
 {
@@ -110,8 +111,8 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   TIndex const index = CalculateIndex(m_index, indexPath);  
   Framework & frm = GetFramework();
 
-  storage::TStatus const status = frm.GetCountryStatus(index);
-  if (status == EOnDisk || status == EOnDiskOutOfDate)
+  TStatus const status = frm.GetCountryStatus(index);
+  if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
   {
     frm.ShowCountry(index);
     [[[MapsAppDelegate theApp] settingsManager] hide];
@@ -168,7 +169,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
     storage::TStatus const st = frm.GetCountryStatus(countryIndex);
     switch (st)
     {
-    case EOnDisk:
+    case TStatus::EOnDisk:
       cell.textLabel.textColor = [UIColor colorWithRed:0.f/255.f
                                                   green:161.f/255.f
                                                   blue:68.f/255.f
@@ -179,7 +180,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
       cell.accessoryType = [self getZoomIconType];
       break;
 
-    case EOnDiskOutOfDate:
+    case TStatus::EOnDiskOutOfDate:
         cell.textLabel.textColor = [UIColor colorWithRed:1.f
                                                     green:105.f/255.f
                                                     blue:180.f/255.f
@@ -190,7 +191,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
         cell.accessoryType = [self getZoomIconType];
         break;
 
-    case EDownloading:
+    case TStatus::EDownloading:
       {
         cell.textLabel.textColor = [UIColor colorWithRed:52.f/255.f
                                                     green:43.f/255.f
@@ -204,12 +205,13 @@ static bool getGuideName(string & name, storage::TIndex const & index)
         break;
       }
 
-    case EDownloadFailed:
+    case TStatus::EDownloadFailed:
+    case TStatus::EOutOfMemFailed:
       cell.textLabel.textColor = [UIColor redColor];
       cell.detailTextLabel.text = NSLocalizedString(@"download_has_failed", nil);
       break;
 
-    case EInQueue:
+    case TStatus::EInQueue:
       {
         cell.textLabel.textColor = [UIColor colorWithRed:91.f/255.f
                                                     green:148.f/255.f
@@ -219,12 +221,12 @@ static bool getGuideName(string & name, storage::TIndex const & index)
       }
       break;
 
-    case ENotDownloaded:
+    case TStatus::ENotDownloaded:
       cell.textLabel.textColor = [UIColor blackColor];
       cell.detailTextLabel.text = NSLocalizedString(@"touch_to_download", nil);
       break;
 
-    case EUnknown:
+    case TStatus::EUnknown:
       break;
     }
   }
@@ -289,7 +291,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
       [self TryDownloadCountry];
     else if ([title isEqualToString:NSLocalizedString(@"cancel_download", nil)] || [title isEqualToString:NSLocalizedString(@"delete", nil)])
     {
-      f.DeleteCountry(m_clickedIndex);
+      f.DeleteCountry(m_clickedIndex, storage::TMapOptions::EMapOnly);
       m_clickedCell.accessoryType = UITableViewCellAccessoryNone;
     }
     else
@@ -299,7 +301,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 
 - (void)DoDownloadCountry
 {
-  GetFramework().Storage().DownloadCountry(m_clickedIndex);
+  GetFramework().DownloadCountry(m_clickedIndex, storage::TMapOptions::EMapOnly);
 }
 
 // 3G warning confirmation handler
@@ -416,25 +418,26 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 
   switch (m_countryStatus)
   {
-    case EOnDisk:
+    case TStatus::EOnDisk:
     {
       canDelete = YES;
       break;
     }
 
-    case EOnDiskOutOfDate:
+    case TStatus::EOnDiskOutOfDate:
       canDelete = YES;
       [buttonNames addObject:[NSString stringWithFormat:NSLocalizedString(@"update_mb_or_kb", nil), [self GetStringForSize:m_downloadSize]]];
       break;
-    case ENotDownloaded:
+    case TStatus::ENotDownloaded:
       [buttonNames addObject:[NSString stringWithFormat:NSLocalizedString(@"download_mb_or_kb", nil), [self GetStringForSize:m_downloadSize]]];
       break;
 
-    case EDownloadFailed:
+    case TStatus::EDownloadFailed:
+    case TStatus::EOutOfMemFailed:
       [self DoDownloadCountry];
       return;
 
-    case EDownloading:
+    case TStatus::EDownloading:
     {
       // special one, with destructive button
       string guideAdevertiseString;
@@ -450,9 +453,9 @@ static bool getGuideName(string & name, storage::TIndex const & index)
       return;
     }
 
-    case EInQueue:
+    case TStatus::EInQueue:
     {
-      frm.DeleteCountry(m_clickedIndex);
+      frm.DeleteCountry(m_clickedIndex, storage::TMapOptions::EMapOnly);
       return;
     }
 

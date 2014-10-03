@@ -276,8 +276,13 @@ double Framework::GetVisualScale() const
   return m_scales.GetVisualScale();
 }
 
-void Framework::DeleteCountry(TIndex const & index)
+void Framework::DeleteCountry(TIndex const & index, TMapOptions const & options)
 {
+  TMapOptions validOptions = options;
+  if (validOptions & TMapOptions::EMapOnly)
+    validOptions |= TMapOptions::EMapWithCarRouting;
+
+  ///@TODO for vng. Use validOptions
   if (!m_storage.DeleteFromDownloader(index))
   {
     string const & file = m_storage.CountryByIndex(index).GetFile().m_fileName;
@@ -286,6 +291,17 @@ void Framework::DeleteCountry(TIndex const & index)
   }
 
   m_storage.NotifyStatusChanged(index);
+}
+
+void Framework::DownloadCountry(TIndex const & index, TMapOptions const & options)
+{
+  TMapOptions validOptions = TMapOptions::EMapOnly | options;
+  if (validOptions == TMapOptions::EMapOnly || GetPlatform().IsPro())
+    m_storage.DownloadCountry(index, options);
+  else
+  {
+    /// @TODO Show BuyProToRouting Dialog
+  }
 }
 
 TStatus Framework::GetCountryStatus(TIndex const & index) const

@@ -17,7 +17,7 @@
 
 #include "Framework.h"
 
-#include "../../../storage/storage.hpp"
+#include "../../../storage/storage_defines.hpp"
 
 #include "../../../platform/settings.hpp"
 #include "../../../platform/platform.hpp"
@@ -431,7 +431,7 @@ void InitLocalizedStrings()
 {
   Framework const & f = GetFramework();
   guides::GuideInfo guide;
-  if (f.GetCountryStatus(index) == storage::EOnDisk && f.GetGuideInfo(index, guide))
+  if (f.GetCountryStatus(index) == storage::TStatus::EOnDisk && f.GetGuideInfo(index, guide))
     [self ShowNotificationWithGuideInfo:guide];
 }
 
