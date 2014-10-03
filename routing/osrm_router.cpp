@@ -6,8 +6,12 @@
 
 #include "../indexer/mercator.hpp"
 #include "../indexer/index.hpp"
+#include "../indexer/scales.hpp"
+#include "../indexer/mwm_version.hpp"
 
 #include "../platform/platform.hpp"
+
+#include "../coding/reader_wrapper.hpp"
 
 #include "../base/logging.hpp"
 
@@ -20,6 +24,7 @@ namespace routing
 {
 
 size_t const MAX_NODE_CANDIDATES = 10;
+double const FEATURE_BY_POINT_RADIUS_M = 1000.0;
 
 namespace
 {
@@ -215,13 +220,30 @@ void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback con
   callback(route, code);
 }
 
+namespace
+{
+
+bool IsRouteExist(RawRouteData const & r)
+{
+  return !(INVALID_EDGE_WEIGHT == r.shortest_path_length ||
+          r.segment_end_coordinates.empty() ||
+          r.source_traversed_in_reverse.empty());
+}
+
+}
+
 OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & finalPt, Route & route)
 {
-  string const fName = m_countryFn(startPt);
+  // 1. Find country file name and check that we are in the same MWM.
+  string fName = m_countryFn(startPt);
   if (fName != m_countryFn(finalPt))
     return PointsInDifferentMWM;
 
-  string const fPath = GetPlatform().WritablePathForFile(fName + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION);
+  // 2. Open routing file index if needed.
+  Platform & pl = GetPlatform();
+  fName += DATA_FILE_EXTENSION;
+
+  string const fPath = pl.WritablePathForFile(fName + ROUTING_FILE_EXTENSION);
   if (NeedReload(fPath))
   {
     LOG(LDEBUG, ("Load routing index for file:", fPath));
@@ -230,33 +252,45 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
     m_dataFacade.Clear();
     m_mapping.Clear();
 
+    // Open new container and check that mwm and routing have equal timestamp.
     m_container.Open(fPath);
+    {
+      FileReader r1 = m_container.GetReader(VERSION_FILE_TAG);
+      ReaderSrc src1(r1);
+      ModelReaderPtr r2 = FilesContainerR(pl.GetReader(fName)).GetReader(VERSION_FILE_TAG);
+      ReaderSrc src2(r2.GetPtr());
+
+      if (ver::ReadTimestamp(src1) != ver::ReadTimestamp(src2))
+      {
+        m_container.Close();
+        return InconsistentMWMandRoute;
+      }
+    }
 
     m_mapping.Load(m_container);
   }
 
-  SearchEngineData engineData;
-  ShortestPathRouting<DataFacadeT> pathFinder(&m_dataFacade, engineData);
-  RawRouteData rawRoute;
+  // 3. Find start/end nodes.
+  if (!m_mapping.IsMapped())
+    m_mapping.Map(m_container);
 
   FeatureGraphNodeVecT graphNodes;
   uint32_t mwmId = -1;
+  ResultCode const code = FindPhantomNodes(fName, startPt, finalPt, graphNodes, MAX_NODE_CANDIDATES, mwmId);
 
-  ResultCode code = FindPhantomNodes(fName + ".mwm", startPt, finalPt, graphNodes, MAX_NODE_CANDIDATES, mwmId);
+  m_mapping.Unmap();
+
   if (code != NoError)
     return code;
 
-  m_mapping.Clear();
+  // 4. Find route.
   m_dataFacade.Load(m_container);
 
-  auto checkRouteExist = [](RawRouteData const & r)
-  {
-    return !(INVALID_EDGE_WEIGHT == r.shortest_path_length ||
-            r.segment_end_coordinates.empty() ||
-            r.source_traversed_in_reverse.empty());
-  };
-
   ASSERT_EQUAL(graphNodes.size(), MAX_NODE_CANDIDATES * 2, ());
+
+  SearchEngineData engineData;
+  ShortestPathRouting<DataFacadeT> pathFinder(&m_dataFacade, engineData);
+  RawRouteData rawRoute;
 
   size_t ni = 0, nj = 0;
   while (ni < MAX_NODE_CANDIDATES && nj < MAX_NODE_CANDIDATES)
@@ -267,15 +301,17 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
     rawRoute = RawRouteData();
 
-    if ((nodes.source_phantom.forward_node_id != INVALID_NODE_ID || nodes.source_phantom.reverse_node_id != INVALID_NODE_ID) &&
-        (nodes.target_phantom.forward_node_id != INVALID_NODE_ID || nodes.target_phantom.reverse_node_id != INVALID_NODE_ID))
+    if ((nodes.source_phantom.forward_node_id != INVALID_NODE_ID ||
+         nodes.source_phantom.reverse_node_id != INVALID_NODE_ID) &&
+        (nodes.target_phantom.forward_node_id != INVALID_NODE_ID ||
+         nodes.target_phantom.reverse_node_id != INVALID_NODE_ID))
     {
       rawRoute.segment_end_coordinates.push_back(nodes);
 
       pathFinder({nodes}, {}, rawRoute);
     }
 
-    if (!checkRouteExist(rawRoute))
+    if (!IsRouteExist(rawRoute))
     {
       ++ni;
       if (ni == MAX_NODE_CANDIDATES)
@@ -289,16 +325,16 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   }
 
   m_dataFacade.Clear();
-  m_mapping.Load(m_container);
 
-  if (!checkRouteExist(rawRoute))
+  if (!IsRouteExist(rawRoute))
     return RouteNotFound;
+
+  // 5. Restore route.
+  m_mapping.Map(m_container);
 
   ASSERT_LESS(ni, MAX_NODE_CANDIDATES, ());
   ASSERT_LESS(nj, MAX_NODE_CANDIDATES, ());
 
-
-  // restore route
   typedef OsrmFtSegMapping::FtSeg SegT;
 
   FeatureGraphNode const & sNode = graphNodes[ni];
@@ -384,7 +420,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   return NoError;
 }
 
-IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fPath, m2::PointD const & startPt, m2::PointD const & finalPt,
+IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::PointD const & startPt, m2::PointD const & finalPt,
                                                  FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId)
 {
   Point2PhantomNode getter(m_mapping);
@@ -392,8 +428,10 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fPath, m2::Point
   auto processPt = [&](m2::PointD const & p, size_t idx)
   {
     getter.SetPoint(p, idx);
-    /// @todo Review radius of rect and read index scale.
-    m_pIndex->ForEachInRectForMWM(getter, MercatorBounds::RectByCenterXYAndSizeInMeters(p, 1000.0), 17, fPath);
+
+    m_pIndex->ForEachInRectForMWM(getter,
+          MercatorBounds::RectByCenterXYAndSizeInMeters(p, FEATURE_BY_POINT_RADIUS_M),
+          scales::GetUpperScale(), fName);
   };
 
   processPt(startPt, 0);

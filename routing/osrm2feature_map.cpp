@@ -108,7 +108,7 @@ void OsrmFtSegMapping::Load(FilesMappingContainer & cont)
   Clear();
 
   {
-    ReaderSource<FileReader> src = cont.GetReader(ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG);
+    ReaderSource<FileReader> src(cont.GetReader(ROUTING_NODEIND_TO_FTSEGIND_FILE_TAG));
     uint32_t const count = ReadVarUint<uint32_t>(src);
     m_offsets.resize(count);
     for (uint32_t i = 0; i < count; ++i)
@@ -118,9 +118,24 @@ void OsrmFtSegMapping::Load(FilesMappingContainer & cont)
     }
   }
 
+  Map(cont);
+}
+
+void OsrmFtSegMapping::Map(FilesMappingContainer & cont)
+{
   m_handle.Assign(cont.Map(ROUTING_FTSEG_FILE_TAG));
   ASSERT(m_handle.IsValid(), ());
   succinct::mapper::map(m_segments, m_handle.GetData<char>());
+}
+
+void OsrmFtSegMapping::Unmap()
+{
+  m_handle.Unmap();
+}
+
+bool OsrmFtSegMapping::IsMapped() const
+{
+  return m_handle.IsValid();
 }
 
 void OsrmFtSegMapping::DumpSegmentsByFID(uint32_t fID) const

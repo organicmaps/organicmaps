@@ -17,13 +17,13 @@ namespace routing
 
 class OsrmRouter : public IRouter
 {
-
   m2::PointD m_finalPt;
 
   typedef function<string (m2::PointD const &)> CountryFileFnT;
   CountryFileFnT m_countryFn;
 
 public:
+
   struct FeatureGraphNode
   {
     PhantomNode m_node;
@@ -38,9 +38,8 @@ public:
   virtual void SetFinalPoint(m2::PointD const & finalPt);
   virtual void CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback);
 
-
 protected:
-  IRouter::ResultCode FindPhantomNodes(string const & fPath, m2::PointD const & startPt, m2::PointD const & finalPt,
+  IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & startPt, m2::PointD const & finalPt,
                                        FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId);
 
   bool NeedReload(string const & fPath) const;

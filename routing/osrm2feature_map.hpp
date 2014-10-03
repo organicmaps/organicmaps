@@ -84,6 +84,10 @@ public:
   void Clear();
   void Load(FilesMappingContainer & cont);
 
+  void Map(FilesMappingContainer & cont);
+  void Unmap();
+  bool IsMapped() const;
+
   template <class ToDo> void ForEachFtSeg(OsrmNodeIdT nodeId, ToDo toDo) const
   {
     pair<size_t, size_t> r = GetSegmentsRange(nodeId);

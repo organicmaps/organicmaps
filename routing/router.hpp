@@ -17,6 +17,7 @@ public:
   enum ResultCode
   {
     NoError = 0,
+    InconsistentMWMandRoute,
     StartPointNotFound,
     EndPointNotFound,
     PointsInDifferentMWM,
