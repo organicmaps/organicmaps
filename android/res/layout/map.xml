@@ -28,16 +28,22 @@
       android:layout_width="match_parent"
       android:layout_height="80dp"
       android:layout_alignParentTop="true"
-      android:background="@color/bg_top_panels"
-      android:gravity="center_vertical">
+      android:background="@color/bg_top_panels">
+
+    <Button
+        android:id="@+id/btn__routing_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:text="go, routing, go!"/>
 
     <TextView
         android:id="@+id/tv__routing_distance"
         style="@style/Holo.TextAppearance.Large.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="42 KM"/>
+        android:layout_centerInParent="true"/>
 
     <ImageView
         android:id="@+id/iv__routing_close"

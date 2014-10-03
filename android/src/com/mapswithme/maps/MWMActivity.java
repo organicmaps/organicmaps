@@ -800,6 +800,7 @@ public class MWMActivity extends NvEventQueueActivity
     mRlRoutingBox = (RelativeLayout) findViewById(R.id.rl__routing_box);
     mRlRoutingBox.setVisibility(View.GONE);
     mRlRoutingBox.findViewById(R.id.iv__routing_close).setOnClickListener(this);
+    mRlRoutingBox.findViewById(R.id.btn__routing_go).setOnClickListener(this);
     mTvRoutingDistance = (TextView) mRlRoutingBox.findViewById(R.id.tv__routing_distance);
   }
 
@@ -1379,6 +1380,9 @@ public class MWMActivity extends NvEventQueueActivity
       break;
     case R.id.iv__routing_close:
       stopRouting();
+      break;
+    case R.id.btn__routing_go:
+      // TODO call some native magic
       break;
     default:
       break;
