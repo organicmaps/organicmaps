@@ -182,6 +182,7 @@ static void GetResourcesMaps(vector<string> & outMaps)
 Framework::Framework()
   : m_navigator(m_scales),
     m_animator(this),
+    m_routingSession(bind(&Framework::BuildRouteFailed, this, _1)),
     m_queryMaxScaleMode(false),
     m_width(0),
     m_height(0),
@@ -299,9 +300,7 @@ void Framework::DownloadCountry(TIndex const & index, TMapOptions const & option
   if (validOptions == TMapOptions::EMapOnly || GetPlatform().IsPro())
     m_storage.DownloadCountry(index, options);
   else
-  {
-    /// @TODO Show BuyProToRouting Dialog
-  }
+    ShowDialog("routing_only_in_pro", DialogOptions::Cancel | DialogOptions::BuyPro);
 }
 
 TStatus Framework::GetCountryStatus(TIndex const & index) const
@@ -654,6 +653,17 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
 
   if (m_navigator.Update(ElapsedSeconds()))
     Invalidate();
+}
+
+void Framework::ShowDialog(string const & messageID, DialogOptions const & options)
+{
+  if (m_showDlgCallback)
+    m_showDlgCallback(messageID, options);
+}
+
+void Framework::SetShowDialogListener(TShowDialogFn const & fn)
+{
+  m_showDlgCallback = fn;
 }
 
 bool Framework::IsCountryLoaded(m2::PointD const & pt) const
@@ -1862,6 +1872,13 @@ void Framework::BuildRoute(m2::PointD const & destination)
     state->RouteBuilded();
     ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
   });
+}
+
+void Framework::BuildRouteFailed(IRouter::ResultCode errorCode)
+{
+  ///@TODO resolve message about this error
+  string messageID = "route_build_failed_reason";
+  ShowDialog(messageID, DialogOptions::Ok);
 }
 
 void Framework::FollowRoute()

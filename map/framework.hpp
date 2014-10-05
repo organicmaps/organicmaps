@@ -32,6 +32,7 @@
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
 
+#include "../base/enum_flags.hpp"
 #include "../base/strings_bundle.hpp"
 
 #include "../std/vector.hpp"
@@ -55,6 +56,13 @@ namespace anim { class Controller; }
 class CountryStatusDisplay;
 class BenchmarkEngine;
 
+ENUM_FLAGS(DialogOptions)
+enum class DialogOptions
+{
+  Cancel = 0x1,
+  Ok = 0x2,
+  BuyPro = 0x4
+};
 
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
@@ -239,6 +247,14 @@ public:
                  ScreenBase const & screen,
                  m2::RectD const & renderRect,
                  int baseScale, bool isTilingQuery);
+
+  void ShowDialog(string const & messageID, DialogOptions const & options);
+
+  typedef function<void (string const &, DialogOptions const &)> TShowDialogFn;
+  void SetShowDialogListener(TShowDialogFn const & fn);
+
+private:
+  TShowDialogFn m_showDlgCallback;
 
 private:
   search::Engine * GetSearchEngine() const;
@@ -484,6 +500,7 @@ public:
   //@{
   bool IsRoutingActive() const;
   void BuildRoute(m2::PointD const & destination);
+  void BuildRouteFailed(routing::IRouter::ResultCode errorCode);
   void FollowRoute();
   void CloseRouting();
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;

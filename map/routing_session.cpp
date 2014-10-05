@@ -14,22 +14,23 @@ namespace routing
 static int const ON_ROUTE_MISSED_COUNT = 10;
 
 
-RoutingSession::RoutingSession()
+RoutingSession::RoutingSession(TErrorCallbackFn const & errorFn)
   : m_router(nullptr)
   , m_route(string())
   , m_state(RoutingNotActive)
+  , m_errorCallback(errorFn)
 {
 }
 
 void RoutingSession::BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint,
-                                ReadyCallback const & callback)
+                                TReadyCallbackFn const & callback)
 {
   ASSERT(m_router != nullptr, ());
   m_router->SetFinalPoint(endPoint);
   RebuildRoute(startPoint, callback);
 }
 
-void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback const & callback)
+void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackFn const & callback)
 {
   ASSERT(m_router != nullptr, ());
   Reset();
@@ -44,7 +45,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, ReadyCallback c
     }
     else
     {
-      /// @todo Save error code here and return to the UI by demand.
+      m_errorCallback(e);
     }
   });
 }
