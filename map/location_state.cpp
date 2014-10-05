@@ -16,11 +16,11 @@
 
 #include "../indexer/mercator.hpp"
 
-#include "../platform/platform.hpp"
 #include "../platform/location.hpp"
 
 #include "../geometry/rect2d.hpp"
 #include "../geometry/transformations.hpp"
+
 
 namespace location
 {
@@ -31,6 +31,7 @@ namespace
 static const int POSITION_Y_OFFSET = 120;
 static const double POSITION_TOLERANCE = 1.0E-6;  // much less than coordinates coding error
 static const double ANGLE_TOLERANCE = my::DegToRad(3.0);
+static const double GPS_BEARING_LIFETIME_S = 5.0;
 
 
 uint16_t IncludeModeBit(uint16_t mode, uint16_t bit)
@@ -200,6 +201,7 @@ State::State(Params const & p)
     m_errorRadius(0),
     m_position(0, 0),
     m_drawDirection(0.0),
+    m_lastGPSBearing(false),
     m_afterPendingMode(Follow),
     m_currentSlotID(0)
 {
@@ -277,12 +279,13 @@ void State::SwitchToNextMode()
 
 void State::RouteBuilded()
 {
-  ASSERT(GetPlatform().HasRouting(), ());
   StopAllAnimations();
   SetModeInfo(IncludeModeBit(m_modeInfo, RoutingSessionBit));
-  if (GetMode() > NotFollow)
+
+  Mode const mode = GetMode();
+  if (mode > NotFollow)
     SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
-  else if (GetMode() == UnknownPosition)
+  else if (mode == UnknownPosition)
   {
     m_afterPendingMode = NotFollow;
     SetModeInfo(ChangeMode(m_modeInfo, PendingPosition));
@@ -291,9 +294,9 @@ void State::RouteBuilded()
 
 void State::StartRouteFollow()
 {
-  ASSERT(TestModeBit(m_modeInfo, RoutingSessionBit), ());
-  ASSERT(GetPlatform().HasRouting(), ());
+  ASSERT(IsInRouting(), ());
   ASSERT(IsModeHasPosition(), ());
+
   m2::PointD const size(m_errorRadius, m_errorRadius);
   m_framework->ShowRectExVisibleScale(m2::RectD(m_position - size, m_position + size),
                                       scales::GetUpperComfortScale());
@@ -316,12 +319,7 @@ void State::TurnOff()
 
 void State::OnLocationUpdate(location::GpsInfo const & info)
 {
-  m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude,
-                                              info.m_latitude,
-                                              info.m_horizontalAccuracy);
-
-  m_position = rect.Center();
-  m_errorRadius = rect.SizeX() / 2;
+  Assign(info);
 
   setIsVisible(true);
 
@@ -336,12 +334,11 @@ void State::OnLocationUpdate(location::GpsInfo const & info)
 
 void State::OnCompassUpdate(location::CompassInfo const & info)
 {
-  SetModeInfo(IncludeModeBit(m_modeInfo, KnownDirectionBit));
-
-  m_drawDirection = info.m_bearing;
-
-  AnimateFollow();
-  invalidate();
+  if (Assign(info))
+  {
+    AnimateFollow();
+    invalidate();
+  }
 }
 
 void State::CallStateModeListeners()
@@ -802,6 +799,37 @@ void State::AnimateFollow()
     if (!m_position.EqualDxDy(m_framework->GetViewportCenter(), POSITION_TOLERANCE))
       m_framework->SetViewportCenterAnimated(m_position);
   }
+}
+
+void State::Assign(location::GpsInfo const & info)
+{
+  m2::RectD rect = MercatorBounds::MetresToXY(info.m_longitude,
+                                              info.m_latitude,
+                                              info.m_horizontalAccuracy);
+  m_position = rect.Center();
+  m_errorRadius = rect.SizeX() / 2;
+
+  if (info.HasBearing() && info.HasSpeed() && info.m_speed > 1.0)
+  {
+    SetDirection(my::DegToRad(info.m_bearing));
+    m_lastGPSBearing.Reset();
+  }
+}
+
+bool State::Assign(location::CompassInfo const & info)
+{
+  if ((IsInRouting() && GetMode() >= Follow) ||
+      (m_lastGPSBearing.ElapsedSeconds() < GPS_BEARING_LIFETIME_S))
+    return false;
+
+  SetDirection(info.m_bearing);
+  return true;
+}
+
+void State::SetDirection(double bearing)
+{
+  m_drawDirection = bearing;
+  SetModeInfo(IncludeModeBit(m_modeInfo, KnownDirectionBit));
 }
 
 }

@@ -594,11 +594,6 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
   }
 
   @Override
-  public void onDrivingHeadingUpdated(long time, double heading)
-  {
-  }
-
-  @Override
   public void onLocationError(int errorCode)
   {
   }

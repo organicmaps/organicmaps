@@ -24,7 +24,7 @@
     m_isStarted = NO;
     m_observers = [[NSMutableSet alloc] init];
     m_lastLocationTime = nil;
-    m_isCourse = NO;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIDeviceOrientationDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(batteryStateChangedNotification:) name:UIDeviceBatteryStateDidChangeNotification object:nil];
   }
@@ -157,16 +157,9 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)heading
 {
-  // Stop passing driving course if last time stamp for GPS location is later than 20 seconds.
-  if (m_lastLocationTime == nil || ([m_lastLocationTime timeIntervalSinceNow] < -20.0))
-    m_isCourse = NO;
-
-  if (!m_isCourse)
-  {
-    location::CompassInfo info;
-    [self heading:heading toCompassInfo:info];
-    [self notifyCompassUpdate:info];
-  }
+  location::CompassInfo info;
+  [self heading:heading toCompassInfo:info];
+  [self notifyCompassUpdate:info];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -194,18 +187,6 @@
   [self location:newLocation toGpsInfo:newInfo];
   for (id observer in m_observers)
     [observer onLocationUpdate:newInfo];
-
-  // Pass current course if we are moving and GPS course is valid.
-  if (newLocation.speed >= 1.0 && newLocation.course >= 0.0)
-  {
-    m_isCourse = YES;
-
-    location::CompassInfo info;
-    info.m_bearing = my::DegToRad(newLocation.course);
-    [self notifyCompassUpdate:info];
-  }
-  else
-    m_isCourse = NO;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

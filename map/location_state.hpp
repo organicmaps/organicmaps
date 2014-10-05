@@ -4,6 +4,8 @@
 
 #include "../geometry/point2d.hpp"
 
+#include "../base/timer.hpp"
+
 #include "../std/function.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/unique_ptr.hpp"
@@ -135,6 +137,10 @@ namespace location
 
     ScreenBase const & GetModelView() const;
 
+    void Assign(location::GpsInfo const & info);
+    bool Assign(location::CompassInfo const & info);
+    void SetDirection(double bearing);
+
   private:
     // Mode bits
     // {
@@ -151,6 +157,7 @@ namespace location
     double m_errorRadius;   //< error radius in mercator
     m2::PointD m_position;  //< position in mercator
     double m_drawDirection;
+    my::Timer m_lastGPSBearing;
     Mode m_afterPendingMode;
 
     typedef map<int, TStateModeListener> TModeListeners;

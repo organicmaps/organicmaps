@@ -14,7 +14,7 @@ class Timer
   double m_startTime;
 
 public:
-  Timer();
+  explicit Timer(bool start = true);
 
   /// @return current UTC time in seconds, elapsed from 1970.
   static double LocalTime();

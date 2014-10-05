@@ -47,7 +47,7 @@ namespace location
     double m_speed;               //!< metres per second
 
     //bool HasAltitude() const { return m_verticalAccuracy >= 0.0; }
-    //bool HasBearing() const  { return m_bearing >= 0.0; }
+    bool HasBearing() const  { return m_bearing >= 0.0; }
     bool HasSpeed() const    { return m_speed >= 0.0; }
   };
 

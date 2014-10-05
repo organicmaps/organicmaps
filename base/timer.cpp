@@ -11,9 +11,12 @@
 namespace my
 {
 
-Timer::Timer()
+Timer::Timer(bool start/* = true*/)
 {
-  Reset();
+  if (start)
+    Reset();
+  else
+    m_startTime = 0.0;
 }
 
 double Timer::LocalTime()

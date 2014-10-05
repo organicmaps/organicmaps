@@ -128,8 +128,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   {
     // pass compass value (for devices without compass)
     CompassInfo compass;
-    compass.m_magneticHeading = compass.m_trueHeading = 0.0;
-    compass.m_timestamp = rInfo.m_timestamp;
+    m_fixedPos.GetNorth(compass.m_bearing);
     OnCompassUpdate(compass);
   }
 
@@ -150,7 +149,7 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
 {
 #ifdef FIXED_LOCATION
   CompassInfo rInfo(info);
-  m_fixedPos.GetNorth(rInfo.m_trueHeading);
+  m_fixedPos.GetNorth(rInfo.m_bearing);
 #else
   CompassInfo const & rInfo = info;
 #endif
@@ -160,7 +159,7 @@ void Framework::OnCompassUpdate(CompassInfo const & info)
 
 void Framework::StopLocationFollow()
 {
-  m_informationDisplay.locationState()->StopLocationFollow();
+  GetLocationState()->StopLocationFollow();
 }
 
 InformationDisplay & Framework::GetInformationDisplay()

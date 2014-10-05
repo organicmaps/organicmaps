@@ -41,7 +41,6 @@ public enum LocationService implements
 
   private static final double DEFAULT_SPEED_MPS = 5;
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
-  private static final float MIN_SPEED_CALC_DIRECTION_MPS = 1;
   private static final String GS_LOCATION_PROVIDER = "fused";
 
   /// These constants should correspond to values defined in platform/location.hpp
@@ -56,8 +55,6 @@ public enum LocationService implements
 
     public void onCompassUpdated(long time, double magneticNorth, double trueNorth, double accuracy);
 
-    public void onDrivingHeadingUpdated(long time, double heading);
-
     public void onLocationError(int errorCode);
   }
 
@@ -65,8 +62,6 @@ public enum LocationService implements
 
   private Location mLastLocation = null;
   private long mLastLocationTime;
-  /// Current heading if we are moving (-1.0 otherwise)
-  private double mDrivingHeading = -1.0;
   private boolean mIsGPSOff;
 
   private WifiLocationScanner mWifiScanner = null;
@@ -152,13 +147,6 @@ public enum LocationService implements
       it.next().onCompassUpdated(time, magneticNorth, trueNorth, accuracy);
   }
 
-  private void notifyDrivingHeadingUpdated(long time, double heading)
-  {
-    final Iterator<LocationListener> it = mListeners.iterator();
-    while (it.hasNext())
-      it.next().onDrivingHeadingUpdated(time, heading);
-  }
-
   public void startUpdate(LocationListener listener)
   {
     mListeners.add(listener);
@@ -204,14 +192,6 @@ public enum LocationService implements
     }
   }
 
-  private void updateDrivingHeading(Location l)
-  {
-    if (l.getSpeed() >= MIN_SPEED_CALC_DIRECTION_MPS && l.hasBearing())
-      mDrivingHeading = LocationUtils.bearingToHeading(l.getBearing());
-    else
-      mDrivingHeading = -1.0;
-  }
-
   private void emitLocation(Location l)
   {
     mLastLocation = l;
@@ -228,8 +208,6 @@ public enum LocationService implements
 
     if (mLocationProvider.isLocationBetterThanCurrent(l))
     {
-      updateDrivingHeading(l);
-
       if (mSensorManager != null)
       {
         // Recreate magneticField if location has changed significantly
@@ -243,14 +221,6 @@ public enum LocationService implements
 
       emitLocation(l);
     }
-  }
-
-  private void emitCompassResults(long time, double north, double trueNorth, double offset)
-  {
-    if (mDrivingHeading >= 0.0)
-      notifyDrivingHeadingUpdated(time, mDrivingHeading);
-    else
-      notifyCompassUpdated(time, north, trueNorth, offset);
   }
 
   @Override
@@ -284,7 +254,7 @@ public enum LocationService implements
       if (mMagneticField == null)
       {
         // -1.0 - as default parameters
-        emitCompassResults(event.timestamp, magneticHeading, -1.0, -1.0);
+        notifyCompassUpdated(event.timestamp, magneticHeading, -1.0, -1.0);
       }
       else
       {
@@ -292,7 +262,7 @@ public enum LocationService implements
         final double offset = Math.toRadians(mMagneticField.getDeclination());
         final double trueHeading = LocationUtils.correctAngle(magneticHeading, offset);
 
-        emitCompassResults(event.timestamp, magneticHeading, trueHeading, offset);
+        notifyCompassUpdated(event.timestamp, magneticHeading, trueHeading, offset);
       }
     }
   }
@@ -354,7 +324,6 @@ public enum LocationService implements
 
       // Reset current parameters to force initialize in the next startUpdate
       mMagneticField = null;
-      mDrivingHeading = -1.0;
       mIsActive = false;
     }
 

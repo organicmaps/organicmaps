@@ -763,11 +763,6 @@ public class SearchActivity extends MapsWithMeBaseListActivity implements Locati
   }
 
   @Override
-  public void onDrivingHeadingUpdated(long time, double heading)
-  {
-  }
-
-  @Override
   public void onLocationError(int errorCode)
   {
   }
