@@ -32,8 +32,6 @@
 #include "../../../../../base/math.hpp"
 #include "../../../../../base/logging.hpp"
 
-using storage::TStatus;
-
 namespace
 {
 const unsigned LONG_TOUCH_MS = 1000;
@@ -43,6 +41,7 @@ const double DOUBLE_TOUCH_S = SHORT_TOUCH_MS / 1000.0;
 
 android::Framework * g_framework = 0;
 
+using namespace storage;
 
 namespace android
 {
@@ -175,7 +174,7 @@ namespace android
     return true;
   }
 
-  storage::Storage & Framework::Storage()
+  Storage & Framework::Storage()
   {
     return m_work.Storage();
   }
@@ -185,7 +184,7 @@ namespace android
     return m_work.GetCountryStatusDisplay();
   }
 
-  void Framework::ShowCountry(storage::TIndex const & idx, bool zoomToDownloadButton)
+  void Framework::ShowCountry(TIndex const & idx, bool zoomToDownloadButton)
   {
     m_doLoadState = false;
 
@@ -200,14 +199,14 @@ namespace android
       m_work.ShowCountry(idx);
   }
 
-  storage::TStatus Framework::GetCountryStatus(storage::TIndex const & idx) const
+  TStatus Framework::GetCountryStatus(TIndex const & idx) const
   {
     return m_work.GetCountryStatus(idx);
   }
 
-  void Framework::DeleteCountry(storage::TIndex const & idx)
+  void Framework::DeleteCountry(TIndex const & idx)
   {
-    m_work.DeleteCountry(idx, storage::TMapOptions::EMapOnly);
+    m_work.DeleteCountry(idx, TMapOptions::EMapWithCarRouting);
   }
 
   void Framework::Resize(int w, int h)
@@ -540,7 +539,7 @@ namespace android
     }
   }
 
-  storage::TIndex Framework::GetCountryIndex(double lat, double lon) const
+  TIndex Framework::GetCountryIndex(double lat, double lon) const
   {
     return m_work.GetCountryIndex(MercatorBounds::FromLatLon(lat, lon));
   }
@@ -552,8 +551,6 @@ namespace android
 
   string Framework::GetCountryNameIfAbsent(m2::PointD const & pt) const
   {
-    using namespace storage;
-
     TIndex const idx = m_work.GetCountryIndex(pt);
     TStatus const status = m_work.GetCountryStatus(idx);
     if (status != TStatus::EOnDisk && status != TStatus::EOnDiskOutOfDate)
@@ -632,7 +629,7 @@ namespace android
 
   string Framework::GetOutdatedCountriesString()
   {
-    vector<storage::Country const *> countries;
+    vector<Country const *> countries;
     Storage().GetOutdatedCountries(countries);
 
     string res;
@@ -954,7 +951,7 @@ extern "C"
   Java_com_mapswithme_maps_Framework_getGuideInfoForIndex(JNIEnv * env, jclass clazz, jobject index)
   {
     guides::GuideInfo info;
-    if (g_framework->NativeFramework()->GetGuideInfo(storage::ToNative(index), info))
+    if (g_framework->NativeFramework()->GetGuideInfo(ToNative(index), info))
       return GuideNative2Java(env).GetGuide(info);
 
     return NULL;
@@ -1206,11 +1203,11 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeGetCountryIndex(JNIEnv * env, jobject thiz,
       jdouble lat, jdouble lon)
   {
-    storage::TIndex const idx = g_framework->GetCountryIndex(lat, lon);
+    TIndex const idx = g_framework->GetCountryIndex(lat, lon);
 
     // Return 0 if no any country.
     if (idx.IsValid())
-      return storage::ToJava(idx);
+      return ToJava(idx);
     else
       return 0;
   }
@@ -1218,6 +1215,6 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeShowCountry(JNIEnv * env, jobject thiz, jobject idx, jboolean zoomToDownloadButton)
   {
-    g_framework->ShowCountry(storage::ToNative(idx), (bool) zoomToDownloadButton);
+    g_framework->ShowCountry(ToNative(idx), (bool) zoomToDownloadButton);
   }
 }

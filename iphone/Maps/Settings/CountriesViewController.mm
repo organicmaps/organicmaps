@@ -58,7 +58,7 @@ static bool IsOurIndex(TIndex const & theirs, TIndex const & ours)
   return ours == theirsFixed;
 }
 
-static bool getGuideName(string & name, storage::TIndex const & index)
+static bool getGuideName(string & name, TIndex const & index)
 {
   guides::GuideInfo info;
   Framework & f = GetFramework();
@@ -166,7 +166,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   // do not show status for parent categories
   if (![cell.reuseIdentifier isEqual:@"ParentCell"])
   {
-    storage::TStatus const st = frm.GetCountryStatus(countryIndex);
+    TStatus const st = frm.GetCountryStatus(countryIndex);
     switch (st)
     {
     case TStatus::EOnDisk:
@@ -205,8 +205,9 @@ static bool getGuideName(string & name, storage::TIndex const & index)
         break;
       }
 
-    case TStatus::EDownloadFailed:
     case TStatus::EOutOfMemFailed:
+      /// @TODO show specific message for EOutOfMemFailed
+    case TStatus::EDownloadFailed:
       cell.textLabel.textColor = [UIColor redColor];
       cell.detailTextLabel.text = NSLocalizedString(@"download_has_failed", nil);
       break;
@@ -236,7 +237,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   TIndex index = CalculateIndex(m_index, indexPath);
-  storage::Storage & s = GetFramework().Storage();
+  Storage & s = GetFramework().Storage();
 	bool const hasChildren = s.CountriesCount(index) != 0;
 
 	NSString * cellId = hasChildren ? @"ParentCell" : @"DetailCell";
@@ -291,7 +292,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
       [self TryDownloadCountry];
     else if ([title isEqualToString:NSLocalizedString(@"cancel_download", nil)] || [title isEqualToString:NSLocalizedString(@"delete", nil)])
     {
-      f.DeleteCountry(m_clickedIndex, storage::TMapOptions::EMapOnly);
+      f.DeleteCountry(m_clickedIndex, TMapOptions::EMapWithCarRouting);
       m_clickedCell.accessoryType = UITableViewCellAccessoryNone;
     }
     else
@@ -301,7 +302,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 
 - (void)DoDownloadCountry
 {
-  GetFramework().DownloadCountry(m_clickedIndex, storage::TMapOptions::EMapOnly);
+  GetFramework().DownloadCountry(m_clickedIndex, TMapOptions::EMapOnly);
 }
 
 // 3G warning confirmation handler
@@ -409,7 +410,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
   m_clickedIndex = CalculateIndex(m_index, indexPath);
   m_countryStatus = frm.GetCountryStatus(m_clickedIndex);
   m_clickedCell = cell;
-  storage::Storage & s = GetFramework().Storage();
+  Storage & s = GetFramework().Storage();
   m_downloadSize = s.CountrySizeInBytes(m_clickedIndex).second;
 
   NSMutableArray * buttonNames = [[NSMutableArray alloc] init];
@@ -455,7 +456,7 @@ static bool getGuideName(string & name, storage::TIndex const & index)
 
     case TStatus::EInQueue:
     {
-      frm.DeleteCountry(m_clickedIndex, storage::TMapOptions::EMapOnly);
+      frm.DeleteCountry(m_clickedIndex, TMapOptions::EMapOnly);
       return;
     }
 

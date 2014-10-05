@@ -3,6 +3,8 @@
 
 #include "../../../../../coding/internal/file_data.hpp"
 
+using namespace storage;
+
 extern "C"
 {
   class IndexBinding
@@ -41,11 +43,16 @@ extern "C"
       return jni::GetEnv()->GetIntField(object(), m_regionID);
     }
 
-    storage::TIndex const toNative() const
+    TIndex const toNative() const
     {
-      return storage::TIndex(group(), country(), region());
+      return TIndex(group(), country(), region());
     }
   };
+
+  ::Framework * frm()
+  {
+    return g_framework->NativeFramework();
+  }
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_MapStorage_countriesCount(JNIEnv * env, jobject thiz, jobject idx)
@@ -88,13 +95,13 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapStorage_downloadCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    g_framework->NativeFramework()->DownloadCountry(IndexBinding(idx).toNative(), storage::TMapOptions::EMapOnly);
+    frm()->DownloadCountry(IndexBinding(idx).toNative(), TMapOptions::EMapOnly);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapStorage_deleteCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    g_framework->NativeFramework()->DeleteCountry(IndexBinding(idx).toNative(), storage::TMapOptions::EMapOnly);
+    g_framework->DeleteCountry(IndexBinding(idx).toNative());
   }
 
   JNIEXPORT jobject JNICALL
@@ -104,22 +111,22 @@ extern "C"
     if (s == 0)
       return 0;
 
-    storage::TIndex const idx = g_framework->Storage().FindIndexByFile(s);
+    TIndex const idx = g_framework->Storage().FindIndexByFile(s);
     if (idx.IsValid())
-      return storage::ToJava(idx);
+      return ToJava(idx);
     else
       return 0;
   }
 
-  void ReportChangeCountryStatus(shared_ptr<jobject> const & obj, storage::TIndex const & idx)
+  void ReportChangeCountryStatus(shared_ptr<jobject> const & obj, TIndex const & idx)
   {
     JNIEnv * env = jni::GetEnv();
 
     jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onCountryStatusChanged", "(Lcom/mapswithme/maps/MapStorage$Index;)V");
-    env->CallVoidMethod(*obj.get(), methodID, storage::ToJava(idx));
+    env->CallVoidMethod(*obj.get(), methodID, ToJava(idx));
   }
 
-  void ReportCountryProgress(shared_ptr<jobject> const & obj, storage::TIndex const & idx, pair<int64_t, int64_t> const & p)
+  void ReportCountryProgress(shared_ptr<jobject> const & obj, TIndex const & idx, pair<int64_t, int64_t> const & p)
   {
     jlong const current = p.first;
     jlong const total = p.second;
@@ -127,7 +134,7 @@ extern "C"
     JNIEnv * env = jni::GetEnv();
 
     jmethodID methodID = jni::GetJavaMethodID(env, *obj.get(), "onCountryProgress", "(Lcom/mapswithme/maps/MapStorage$Index;JJ)V");
-    env->CallVoidMethod(*obj.get(), methodID, storage::ToJava(idx), current, total);
+    env->CallVoidMethod(*obj.get(), methodID, ToJava(idx), current, total);
   }
 
   JNIEXPORT jint JNICALL

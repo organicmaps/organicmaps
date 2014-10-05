@@ -36,7 +36,7 @@ public:
   storage::TMapOptions GetCountryOptions(TGroup const & group, int position) const;
 
   /// set to nullptr when go out from ActiveMaps activity
-  void SetActiveMapsListener(ActiveMapsListener * listener);
+  void SetListener(ActiveMapsListener * listener);
 
   void ChangeCountryOptions(TGroup const & group, int position, storage::TMapOptions const & options);
   void ResumeDownloading(TGroup const & group, int position);

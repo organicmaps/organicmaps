@@ -42,21 +42,8 @@ inline TIndex GetIndexParent(TIndex const & index)
 CountryTree::CountryTree(Framework * framework)
   : m_framework(framework)
 {
-  auto statusChangedFn = [this](TIndex const & index)
-  {
-    int childPosition = GetChildPosition(index);
-    if (childPosition != -1)
-      m_itemCallback(childPosition);
-  };
-
-  auto progressChangedFn = [this](TIndex const & index, LocalAndRemoteSizeT const & progress)
-  {
-    int childPosition = GetChildPosition(index);
-    if (childPosition != -1)
-      m_progressCallback(childPosition, progress);
-  };
-
-  m_subscribeSlotID = m_framework->Storage().Subscribe(statusChangedFn, progressChangedFn);
+  m_subscribeSlotID = m_framework->Storage().Subscribe(bind(&CountryTree::NotifyStatusChanged, this, _1),
+                                                       bind(&CountryTree::NotifyProgressChanged, this, _1, _2));
 }
 
 CountryTree::~CountryTree()
@@ -147,14 +134,14 @@ void CountryTree::CancelDownloading(int childPosition)
   m_framework->Storage().DeleteFromDownloader(GetChild(childPosition));
 }
 
-void CountryTree::SetItemChangedListener(TItemChangedFn const & callback)
+void CountryTree::SetListener(CountryTreeListener * listener)
 {
-  m_itemCallback = callback;
+  m_listener = listener;
 }
 
-void CountryTree::SetItemProgressListener(TItemProgressChangedFn const & callback)
+void CountryTree::ResetListener()
 {
-  m_progressCallback = callback;
+  m_listener = nullptr;
 }
 
 TIndex const & CountryTree::GetCurrentRoot() const
@@ -180,17 +167,35 @@ TIndex const & CountryTree::GetChild(int childPosition) const
   return m_levelItems[ChildItemsOffset + childPosition];
 }
 
-int CountryTree::GetChildPosition(const TIndex & index)
+int CountryTree::GetChildPosition(TIndex const & index)
 {
   int result = -1;
   if (HasRoot())
   {
-    for (size_t i = ChildItemsOffset; i < m_levelItems.size(); ++i)
-    {
-      if (m_levelItems[i] == index)
-        result = i;
-    }
+    auto iter = find(m_levelItems.begin(), m_levelItems.end(), index);
+    if (iter != m_levelItems.end())
+      result = distance(m_levelItems.begin(), iter) - ChildItemsOffset - 1;
   }
 
   return result;
+}
+
+void CountryTree::NotifyStatusChanged(TIndex const & index)
+{
+  if (m_listener != nullptr)
+  {
+    int position = GetChildPosition(index);
+    if (position != -1)
+      m_listener->ItemStatusChanged(position);
+  }
+}
+
+void CountryTree::NotifyProgressChanged(TIndex const & index, LocalAndRemoteSizeT const & sizes)
+{
+  if (m_listener != nullptr)
+  {
+    int position = GetChildPosition(index);
+    if (position != -1)
+      m_listener->ItemProgressChanged(position, sizes);
+  }
 }

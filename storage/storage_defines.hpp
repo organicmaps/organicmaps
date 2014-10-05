@@ -6,7 +6,7 @@
 namespace storage
 {
   /// Used in GUI
-  enum class TStatus : int
+  enum class TStatus : uint8_t
   {
     EOnDisk = 0,
     ENotDownloaded,
@@ -15,10 +15,10 @@ namespace storage
     EInQueue,
     EUnknown,
     EOnDiskOutOfDate,
-    EOutOfMemFailed  // EDownloadFailed because not enougth memory
+    EOutOfMemFailed  // EDownloadFailed because not enough memory
   };
 
-  enum class TMapOptions : int
+  enum class TMapOptions : uint8_t
   {
     EMapOnly = 0x1,
     ECarRouting = 0x2,
@@ -32,8 +32,7 @@ namespace storage
 
   inline TMapOptions & operator |= (TMapOptions & lhs, TMapOptions rhs)
   {
-    lhs = static_cast<TMapOptions>(static_cast<int>(lhs) | static_cast<int>(rhs));
-    return lhs;
+    return lhs = static_cast<TMapOptions>(static_cast<int>(lhs) | static_cast<int>(rhs));
   }
 
   inline bool operator & (TMapOptions const & testedFlags, TMapOptions const & match)

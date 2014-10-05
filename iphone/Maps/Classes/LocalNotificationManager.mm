@@ -118,7 +118,7 @@ typedef void (^CompletionHandler)(UIBackgroundFetchResult);
 {
   //TODO: zoom in to country correctly to show download progress
   Framework & f = GetFramework();
-  f.DownloadCountry(index, storage::TMapOptions::EMapOnly);
+  f.DownloadCountry(index, TMapOptions::EMapOnly);
   m2::RectD const rect = f.GetCountryBounds(index);
   double const lon = MercatorBounds::XToLon(rect.Center().x);
   double const lat = MercatorBounds::YToLat(rect.Center().y);

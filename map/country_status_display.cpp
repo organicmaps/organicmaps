@@ -14,8 +14,7 @@
 #include "../std/bind.hpp"
 #include "../std/sstream.hpp"
 
-using storage::TStatus;
-using storage::TIndex;
+using namespace storage;
 
 CountryStatusDisplay::Params::Params()
   : m_storage(0)

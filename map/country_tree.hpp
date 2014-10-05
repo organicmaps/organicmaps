@@ -15,6 +15,13 @@ class Framework;
 class CountryTree
 {
 public:
+  class CountryTreeListener
+  {
+  public:
+    virtual void ItemStatusChanged(int childPosition) = 0;
+    virtual void ItemProgressChanged(int childPosition, storage::LocalAndRemoteSizeT const & sizes) = 0;
+  };
+
   CountryTree(Framework * framework);
   ~CountryTree();
 
@@ -41,20 +48,17 @@ public:
   ///@}
   void CancelDownloading(int childPosition);
 
-  /// int - child position for current root
-  typedef function<void (int)> TItemChangedFn;
-  void SetItemChangedListener(TItemChangedFn const & callback);
-
-  /// int - child position for current root
-  /// LocalAndRemoteSizeT - progress change info
-  typedef function<void (int, storage::LocalAndRemoteSizeT const &)> TItemProgressChangedFn;
-  void SetItemProgressListener(TItemProgressChangedFn const & callback);
+  void SetListener(CountryTreeListener * listener);
+  void ResetListener();
 
 private:
   storage::TIndex const & GetCurrentRoot() const;
   void SetRoot(storage::TIndex const & index);
   storage::TIndex const & GetChild(int childPosition) const;
   int GetChildPosition(storage::TIndex const & index);
+
+  void NotifyStatusChanged(storage::TIndex const & index);
+  void NotifyProgressChanged(storage::TIndex const & index, storage::LocalAndRemoteSizeT const & sizes);
 
 private:
   Framework * m_framework = nullptr;
@@ -63,6 +67,5 @@ private:
 
   buffer_vector<storage::TIndex, 16> m_levelItems;
 
-  TItemChangedFn m_itemCallback;
-  TItemProgressChangedFn m_progressCallback;
+  CountryTreeListener * m_listener = nullptr;
 };
