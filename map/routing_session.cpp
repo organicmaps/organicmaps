@@ -14,11 +14,10 @@ namespace routing
 static int const ON_ROUTE_MISSED_COUNT = 10;
 
 
-RoutingSession::RoutingSession(TErrorCallbackFn const & errorFn)
+RoutingSession::RoutingSession()
   : m_router(nullptr)
   , m_route(string())
   , m_state(RoutingNotActive)
-  , m_errorCallback(errorFn)
 {
 }
 
@@ -39,14 +38,9 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackF
   m_router->CalculateRoute(startPoint, [&] (Route & route, IRouter::ResultCode e)
   {
     if (e == IRouter::NoError)
-    {
       AssignRoute(route);
-      callback(m_route);
-    }
-    else
-    {
-      m_errorCallback(e);
-    }
+
+    callback(m_route, e);
   });
 }
 

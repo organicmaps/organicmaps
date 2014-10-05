@@ -38,11 +38,10 @@ public:
    * RouteFinished -> RouteNotReady       // start new route
    */
 
-  typedef function<void (IRouter::ResultCode)> TErrorCallbackFn;
-  RoutingSession(TErrorCallbackFn const & errorFn);
+  RoutingSession();
   void SetRouter(IRouter * router);
 
-  typedef function<void (Route const &)> TReadyCallbackFn;
+  typedef function<void (Route const &, IRouter::ResultCode)> TReadyCallbackFn;
 
   /// @param[in] startPoint and endPoint in mercator
   void BuildRoute(m2::PointD const & startPoint, m2::PointD const & endPoint, TReadyCallbackFn const & callback);
@@ -61,8 +60,6 @@ private:
   unique_ptr<IRouter> m_router;
   Route m_route;
   State m_state;
-
-  TErrorCallbackFn m_errorCallback;
 
   /// Current position metrics to check for RouteNeedRebuild state.
   double m_lastDistance;

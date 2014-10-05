@@ -182,7 +182,6 @@ static void GetResourcesMaps(vector<string> & outMaps)
 Framework::Framework()
   : m_navigator(m_scales),
     m_animator(this),
-    m_routingSession(bind(&Framework::BuildRouteFailed, this, _1)),
     m_queryMaxScaleMode(false),
     m_width(0),
     m_height(0),
@@ -1866,19 +1865,22 @@ void Framework::BuildRoute(m2::PointD const & destination)
   if (IsRoutingActive())
     CloseRouting();
 
-  m_routingSession.BuildRoute(state->Position(), destination, [&] (Route const & route)
+  m_routingSession.BuildRoute(state->Position(), destination, [&] (Route const & route, IRouter::ResultCode code)
   {
-    InsertRoute(route);
-    state->RouteBuilded();
-    ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
+    if (code == IRouter::NoError)
+    {
+      InsertRoute(route);
+      state->RouteBuilded();
+      ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
+    }
+    else
+    {
+      RemoveRoute();
+      ///@TODO resolve message about this error
+      string messageID = "route_build_failed_reason";
+      ShowDialog(messageID, DialogOptions::Ok);
+    }
   });
-}
-
-void Framework::BuildRouteFailed(IRouter::ResultCode errorCode)
-{
-  ///@TODO resolve message about this error
-  string messageID = "route_build_failed_reason";
-  ShowDialog(messageID, DialogOptions::Ok);
 }
 
 void Framework::FollowRoute()
@@ -1897,27 +1899,23 @@ BookmarkCategory * Framework::FindCategory(string const & name)
   return 0;
 }
 
+void Framework::RemoveRoute()
+{
+  GetRoutesCategory()->ClearTracks();
+}
+
 void Framework::CloseRouting()
 {
   ASSERT(IsRoutingActive(), ());
   GetLocationState()->StopRoutingMode();
   m_routingSession.Reset();
-
-  BookmarkCategory * cat = FindCategory(m_stringsBundle.GetString("routes"));
-  if (cat)
-    cat->ClearTracks();
-
+  RemoveRoute();
   Invalidate();
 }
 
 void Framework::InsertRoute(Route const & route)
 {
-  string const name = m_stringsBundle.GetString("routes");
-  BookmarkCategory * cat = FindCategory(name);
-  if (cat == 0)
-    cat = m_bmManager.GetBmCategory(AddCategory(name));
-  else
-    cat->ClearTracks();
+  RemoveRoute();
 
   float const visScale = GetVisualScale();
 
@@ -1934,7 +1932,7 @@ void Framework::InsertRoute(Route const & route)
   track.AddOutline(outlines, ARRAY_SIZE(outlines));
   track.AddClosingSymbol(true, "route_from", graphics::EPosCenter, graphics::routingSymbolsDepth);
   track.AddClosingSymbol(false, "route_to", graphics::EPosCenter, graphics::routingFinishDepth);
-  cat->AddTrack(track);
+  GetRoutesCategory()->AddTrack(track);
   Invalidate();
 }
 
@@ -1946,9 +1944,10 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   m2::PointD const & position = GetLocationState()->Position();
   if (m_routingSession.OnLocationPositionChanged(position, info) == RoutingSession::RouteNeedRebuild)
   {
-    m_routingSession.RebuildRoute(position, [this] (Route const & route)
+    m_routingSession.RebuildRoute(position, [this] (Route const & route, IRouter::ResultCode code)
     {
-      InsertRoute(route);
+      if (code == IRouter::NoError)
+        InsertRoute(route);
     });
   }
 }
@@ -1956,4 +1955,14 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
 void Framework::GetRouteFollowingInfo(location::FollowingInfo & info) const
 {
   m_routingSession.GetRouteFollowingInfo(info);
+}
+
+BookmarkCategory * Framework::GetRoutesCategory()
+{
+  string const name = m_stringsBundle.GetString("routes");
+  BookmarkCategory * cat = FindCategory(name);
+  if (cat == 0)
+    cat = m_bmManager.GetBmCategory(AddCategory(name));
+
+  return cat;
 }

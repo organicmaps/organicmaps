@@ -79,4 +79,3 @@ HEADERS += \
     scheduled_task.hpp \
     thread_pool.hpp \
     stl_iterator.hpp \
-    enum_flags.hpp \

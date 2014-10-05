@@ -32,14 +32,14 @@
 #include "../geometry/rect2d.hpp"
 #include "../geometry/screenbase.hpp"
 
-#include "../base/enum_flags.hpp"
 #include "../base/strings_bundle.hpp"
+
+#include "../3party/enum_flags.hpp"
 
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/unique_ptr.hpp"
 #include "../std/target_os.hpp"
-
 
 //#define DRAW_TOUCH_POINTS
 
@@ -500,12 +500,12 @@ public:
   //@{
   bool IsRoutingActive() const;
   void BuildRoute(m2::PointD const & destination);
-  void BuildRouteFailed(routing::IRouter::ResultCode errorCode);
   void FollowRoute();
   void CloseRouting();
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
 private:
+  BookmarkCategory * GetRoutesCategory();
   BookmarkCategory * FindCategory(string const & name);
 
   void RemoveRoute();
