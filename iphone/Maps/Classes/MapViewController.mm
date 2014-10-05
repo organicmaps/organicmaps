@@ -596,10 +596,21 @@
 
     f.Invalidate();
     f.LoadBookmarks();
+
+    f.SetShowDialogListener([&](string const & messageID, DialogOptions const & options)
+    {
+      [self showDialogWithMessageID:messageID andOptions:options];
+    });
   }
 
   NSLog(@"MapViewController initWithCoder Ended");
   return self;
+}
+
+#pragma mark - ShowDialog callback
+- (void)showDialogWithMessageID:(string const &)messageID andOptions:(DialogOptions const &)options
+{
+  ///@TODO for goga
 }
 
 #pragma mark - Getters
