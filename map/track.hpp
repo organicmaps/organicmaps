@@ -42,7 +42,7 @@ public:
   void Draw(graphics::Screen * pScreen, MatrixT const & matrix) const;
   void CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matrix) const;
   void DeleteDisplayList() const;
-  bool HasDisplayList() const { return m_dList != 0; }
+  bool HasDisplayList() const { return m_dList != nullptr; }
 
   /// @name Simple Getters-Setter
   //@{

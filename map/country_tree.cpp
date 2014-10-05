@@ -41,6 +41,7 @@ inline TIndex GetIndexParent(TIndex const & index)
 
 CountryTree::CountryTree(Framework * framework)
   : m_framework(framework)
+  , m_layout(framework)
 {
   m_subscribeSlotID = m_framework->Storage().Subscribe(bind(&CountryTree::NotifyStatusChanged, this, _1),
                                                        bind(&CountryTree::NotifyProgressChanged, this, _1, _2));
@@ -53,6 +54,7 @@ CountryTree::~CountryTree()
 
 ActiveMapsLayout & CountryTree::GetActiveMapLayout()
 {
+  m_layout.Init();
   return m_layout;
 }
 
@@ -120,13 +122,13 @@ TMapOptions CountryTree::GetLeafOptions(int position) const
 void CountryTree::DownloadCountry(int childPosition, TMapOptions const & options)
 {
   ASSERT(IsLeaf(childPosition), ());
-  m_framework->DownloadCountry(GetChild(childPosition), options);
+  GetActiveMapLayout().DownloadMap(GetChild(childPosition), options);
 }
 
 void CountryTree::DeleteCountry(int childPosition, TMapOptions const & options)
 {
   ASSERT(IsLeaf(childPosition), ());
-  m_framework->DeleteCountry(GetChild(childPosition), options);
+  GetActiveMapLayout().DeleteMap(GetChild(childPosition), options);
 }
 
 void CountryTree::CancelDownloading(int childPosition)
@@ -174,7 +176,7 @@ int CountryTree::GetChildPosition(TIndex const & index)
   {
     auto iter = find(m_levelItems.begin(), m_levelItems.end(), index);
     if (iter != m_levelItems.end())
-      result = distance(m_levelItems.begin(), iter) - ChildItemsOffset - 1;
+      result = distance(m_levelItems.begin(), iter) - ChildItemsOffset;
   }
 
   return result;
