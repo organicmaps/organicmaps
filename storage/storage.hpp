@@ -8,12 +8,12 @@
 #include "../platform/http_request.hpp"
 
 #include "../std/vector.hpp"
-#include "../std/map.hpp"
 #include "../std/list.hpp"
 #include "../std/string.hpp"
 #include "../std/set.hpp"
 #include "../std/function.hpp"
 #include "../std/unique_ptr.hpp"
+
 
 namespace storage
 {
@@ -27,9 +27,6 @@ namespace storage
     int64_t m_currentVersion;
 
     CountriesContainerT m_countries;
-
-    vector<TIndex> m_downloadedCountries;
-    vector<TIndex> m_outOfDateCountries;
 
     /// store queue for downloading
     typedef list<TIndex> TQueue;
