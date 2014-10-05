@@ -1379,19 +1379,19 @@ public class MWMActivity extends NvEventQueueActivity
       buildRoute();
       break;
     case R.id.iv__routing_close:
-      stopRouting();
+      closeRouting();
       break;
     case R.id.btn__routing_go:
-      startRouting();
+      followRoute();
       break;
     default:
       break;
     }
   }
 
-  private void startRouting()
+  private void followRoute()
   {
-    Framework.nativeStartRoutingSession();
+    Framework.nativeFollowRoute();
   }
 
   private void buildRoute()
@@ -1421,13 +1421,13 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  private void stopRouting()
+  private void closeRouting()
   {
     mInfoView.bringToFront();
     mRlRoutingBox.setVisibility(View.GONE);
     mRlRoutingBox.clearAnimation();
 
-    Framework.nativeCancelRoutingSession();
+    Framework.nativeCloseRouting();
   }
 
   @Override

@@ -115,12 +115,6 @@ public:
            m_pxBindingAnim->IsRunning();
   }
 
-  void SetPxBinding(m2::PointD const & pt)
-  {
-    m_pxBindingAnim->Reset(pt, pt, 0.1);
-    UpdateViewport();
-  }
-
 private:
   void UpdateViewport()
   {
@@ -133,8 +127,7 @@ private:
     double currentAngle = m_angleAnim->GetCurrentValue();
 
     //@{ pixel coord system
-    m2::RectD const pixelRect = m_fw->GetNavigator().Screen().PixelRect();
-    m2::PointD const pxCenter = pixelRect.Center();
+    m2::PointD const pxCenter = GetPixelRect().Center();
     m2::PointD vectorToCenter = pxCenter - pxBinding;
     if (!vectorToCenter.IsAlmostZero())
       vectorToCenter = vectorToCenter.Normalize();
@@ -178,8 +171,12 @@ private:
 private:
   m2::PointD InvertPxBinding(m2::PointD const & px) const
   {
-    m2::RectD const & pixelRect = m_fw->GetNavigator().Screen().PixelRect();
-    return m2::PointD(px.x, pixelRect.maxY() - px.y);
+    return m2::PointD(px.x, GetPixelRect().maxY() - px.y);
+  }
+
+  m2::RectD const & GetPixelRect() const
+  {
+    return m_fw->GetNavigator().Screen().PixelRect();
   }
 
 private:
@@ -253,7 +250,7 @@ void State::SwitchToNextMode()
       m_afterPendingMode = Follow;
       break;
     case NotFollow:
-        newMode = Follow;
+      newMode = Follow;
       break;
     case Follow:
       if (IsRotationActive())
@@ -281,9 +278,15 @@ void State::SwitchToNextMode()
 void State::RouteBuilded()
 {
   ASSERT(GetPlatform().HasRouting(), ());
-  ASSERT(IsModeHasPosition(), ());
   StopAllAnimations();
-  SetModeInfo(ChangeMode(IncludeModeBit(m_modeInfo, RoutingSessionBit), NotFollow));
+  SetModeInfo(IncludeModeBit(m_modeInfo, RoutingSessionBit));
+  if (GetMode() > NotFollow)
+    SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
+  else if (GetMode() == UnknownPosition)
+  {
+    m_afterPendingMode = NotFollow;
+    SetModeInfo(ChangeMode(m_modeInfo, PendingPosition));
+  }
 }
 
 void State::StartRouteFollow()
@@ -445,7 +448,7 @@ void State::draw(graphics::OverlayRenderer * r,
   // if we know look direction than we draw arrow
   if (IsDirectionKnown())
   {
-    double rotateAngle = m_drawDirection + m_framework->GetNavigator().Screen().GetAngle();
+    double rotateAngle = m_drawDirection + GetModelView().GetAngle();
 
     math::Matrix<double, 3, 3> compassDrawM = math::Shift(
                                                 math::Rotate(
@@ -590,7 +593,7 @@ void State::CreateAnimTask(const m2::PointD & srcPx, const m2::PointD & dstPx)
 {
   EndAnimation();
   m_animTask.reset(new RotateAndFollowAnim(m_framework, Position(),
-                                           m_framework->GetNavigator().Screen().GetAngle(),
+                                           GetModelView().GetAngle(),
                                            srcPx, dstPx));
   m_framework->GetAnimController()->AddTask(m_animTask);
 }
@@ -620,14 +623,20 @@ void State::SetModeInfo(uint16_t modeInfo)
 void State::StopAllAnimations()
 {
   EndAnimation();
-  m_framework->GetAnimator().StopRotation();
-  m_framework->GetAnimator().StopChangeViewport();
-  m_framework->GetAnimator().StopMoveScreen();
+  Animator & animator = m_framework->GetAnimator();
+  animator.StopRotation();
+  animator.StopChangeViewport();
+  animator.StopMoveScreen();
+}
+
+ScreenBase const & State::GetModelView() const
+{
+  return m_framework->GetNavigator().Screen();
 }
 
 m2::PointD const State::GetRaFModeDefaultPxBind() const
 {
-  m2::RectD const & pixelRect = m_framework->GetNavigator().Screen().PixelRect();
+  m2::RectD const & pixelRect = GetModelView().PixelRect();
   return m2::PointD(pixelRect.Center().x,
                     pixelRect.maxY() - POSITION_Y_OFFSET * visualScale());
 }
@@ -658,12 +667,10 @@ void State::DragStarted()
   StopLocationFollow();
 }
 
-void State::Draged(){}
-
 void State::DragEnded()
 {
   // reset GPS centering mode if we have dragged far from current location
-  ScreenBase const & s = m_framework->GetNavigator().Screen();
+  ScreenBase const & s = GetModelView();
   m2::PointD const defaultPxBinding = GetModeDefaultPixelBinding(ExcludeAllBits(m_dragModeInfo));
   m2::PointD const pxPosition = s.GtoP(Position());
 
@@ -681,18 +688,17 @@ void State::ScaleStarted()
   m_scaleModeInfo = m_modeInfo;
 }
 
-void State::ScaleCorrection(m2::PointD & pt)
+void State::CorrectScalePoint(m2::PointD & pt) const
 {
   if (IsModeChangeViewport() || ExcludeAllBits(m_scaleModeInfo) > NotFollow)
     pt = m_framework->GtoP(Position());
 }
 
-void State::ScaleCorrection(m2::PointD & pt1, m2::PointD & pt2)
+void State::CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const
 {
   if (IsModeChangeViewport() || ExcludeAllBits(m_scaleModeInfo) > NotFollow)
   {
-    m2::PointD const ptC = (pt1 + pt2) / 2;
-    m2::PointD const ptDiff = m_framework->GtoP(Position()) - ptC;
+    m2::PointD const ptDiff = m_framework->GtoP(Position()) - (pt1 + pt2) / 2;
     pt1 += ptDiff;
     pt2 += ptDiff;
   }
@@ -716,8 +722,7 @@ void State::OnSize(m2::RectD const & /*oldPixelRect*/)
   if (GetMode() == RotateAndFollow)
   {
     EndAnimation();
-    m2::PointD pxBind = GetModeDefaultPixelBinding(GetMode());
-    CreateAnimTask(m_framework->GtoP(Position()), pxBind);
+    CreateAnimTask(m_framework->GtoP(Position()), GetModeDefaultPixelBinding(GetMode()));
   }
 }
 
@@ -781,7 +786,7 @@ void State::AnimateStateTransition(Mode oldMode, Mode newMode)
   }
   else if (oldMode == RotateAndFollow && newMode == UnknownPosition)
   {
-    m_framework->GetAnimator().RotateScreen(m_framework->GetNavigator().Screen().GetAngle(), 0.0);
+    m_framework->GetAnimator().RotateScreen(GetModelView().GetAngle(), 0.0);
   }
 
   AnimateFollow();

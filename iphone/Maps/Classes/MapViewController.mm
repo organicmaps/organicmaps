@@ -754,7 +754,7 @@
 
 - (void)routeViewDidCancelRouting:(RouteView *)routeView
 {
-  GetFramework().CancelRoutingSession();
+  GetFramework().CloseRouting();
   [routeView setVisible:NO animated:YES];
 }
 

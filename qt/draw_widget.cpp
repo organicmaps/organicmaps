@@ -397,9 +397,9 @@ namespace qt
         {
           static int counter = 0;
           if (counter % 2 == 0)
-            m_framework->StartRoutingSession();
+            m_framework->FollowRoute();
           else
-            m_framework->CancelRoutingSession();
+            m_framework->CloseRouting();
 
           counter++;
         }

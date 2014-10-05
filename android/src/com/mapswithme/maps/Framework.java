@@ -129,10 +129,10 @@ public class Framework
   //@{
   public native static boolean nativeIsRoutingActive();
 
-  public native static void nativeCancelRoutingSession();
+  public native static void nativeCloseRouting();
 
   public native static void nativeBuildRoute(double lat, double lon);
-  public native static void nativeStartRoutingSession();
+  public native static void nativeFollowRoute();
 
   public native static LocationState.RoutingInfo nativeGetRouteFollowingInfo();
   //@}

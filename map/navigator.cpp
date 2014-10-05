@@ -451,10 +451,11 @@ namespace
     {
       m_finger1Start = target + (startPt - target);
       m_prevPt1 = m_finger1Start;
-      m_finger1End = m_finger1Start + (endPt - startPt);
+      m_deltaFinger1 = (endPt - startPt);
+
       m_finger2Start = target - (startPt - target);
       m_prevPt2 = m_finger2Start;
-      m_finger2End = m_finger2Start - (endPt - startPt);
+      m_deltaFinger2 = -(endPt - startPt);
     }
 
     virtual bool IsVisual() const { return true; }
@@ -473,15 +474,13 @@ namespace
       double t = elapsed / m_deltaTime;
       if (t > 1.0 || my::AlmostEqual(t, 1.0))
       {
-        m_fn(m_finger1End, m_finger2End, m_prevPt1, m_prevPt2);
+        m_fn(m_finger1Start + m_deltaFinger1, m_finger2Start + m_deltaFinger2, m_prevPt1, m_prevPt2);
         End();
         return;
       }
 
-      m2::PointD delta1 = ((m_finger1End - m_finger1Start) * t);
-      m2::PointD delta2 = ((m_finger2End - m_finger2Start) * t);
-      m2::PointD current1 = m_finger1Start + delta1;
-      m2::PointD current2 = m_finger2Start + delta2;
+      m2::PointD const current1 = m_finger1Start + m_deltaFinger1 * t;
+      m2::PointD const current2 = m_finger2Start + m_deltaFinger2 * t;
       m_fn(current1, current2, m_prevPt1, m_prevPt2);
       m_prevPt1 = current1;
       m_prevPt2 = current2;
@@ -492,9 +491,9 @@ namespace
     m2::PointD m_prevPt2;
 
     m2::PointD m_finger1Start;
-    m2::PointD m_finger1End;
+    m2::PointD m_deltaFinger1;
     m2::PointD m_finger2Start;
-    m2::PointD m_finger2End;
+    m2::PointD m_deltaFinger2;
 
     TScaleImplFn m_fn;
     double m_startTime;

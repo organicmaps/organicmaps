@@ -11,6 +11,7 @@
 
 
 class Framework;
+class ScreenBase;
 
 namespace graphics { class DisplayList; }
 namespace anim { class Task;}
@@ -78,12 +79,11 @@ namespace location
     /// @name User input notification block
     //@{
     void DragStarted();
-    void Draged();
     void DragEnded();
 
     void ScaleStarted();
-    void ScaleCorrection(m2::PointD & pt);
-    void ScaleCorrection(m2::PointD & pt1, m2::PointD & pt2);
+    void CorrectScalePoint(m2::PointD & pt) const;
+    void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const;
     void ScaleEnded();
 
     void Rotated();
@@ -132,6 +132,8 @@ namespace location
     void SetModeInfo(uint16_t modeInfo);
 
     void StopAllAnimations();
+
+    ScreenBase const & GetModelView() const;
 
   private:
     // Mode bits

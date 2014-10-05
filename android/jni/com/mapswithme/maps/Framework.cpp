@@ -667,6 +667,11 @@ T const * CastMark(UserMark const * data)
  *             \/
  */
 
+::Framework * frm()
+{
+  return g_framework->NativeFramework();
+}
+
 extern "C"
 {
   // API
@@ -738,7 +743,7 @@ extern "C"
 
   void CallOnUserMarkActivated(shared_ptr<jobject> obj, UserMarkCopy * markCopy)
   {
-    ::Framework * fm = g_framework->NativeFramework();
+    ::Framework * fm = frm();
     UserMark const * mark = markCopy->GetUserMark();
     fm->ActivateUserMark(mark);
     switch (mark->GetMarkType())
@@ -793,7 +798,7 @@ extern "C"
   {
     search::AddressInfo info;
 
-    g_framework->NativeFramework()->GetAddressInfoForGlobalPoint(MercatorBounds::FromLatLon(lat, lon), info);
+    frm()->GetAddressInfoForGlobalPoint(MercatorBounds::FromLatLon(lat, lon), info);
 
     return jni::ToJavaString(env, info.FormatNameAndAddress());
   }
@@ -801,7 +806,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeClearApiPoints(JNIEnv * env, jclass clazz)
   {
-    g_framework->NativeFramework()->GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
+    frm()->GetBookmarkManager().UserMarksClear(UserMarkContainer::API_MARK);
   }
 
   JNIEXPORT void JNICALL
@@ -823,8 +828,9 @@ extern "C"
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetGe0Url(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon, jdouble zoomLevel, jstring name)
   {
-    double const scale = (zoomLevel > 0 ? zoomLevel : g_framework->NativeFramework()->GetDrawScale());
-    const string url = g_framework->NativeFramework()->CodeGe0url(lat, lon, scale, jni::ToNativeString(env, name));
+    ::Framework * fr = frm();
+    double const scale = (zoomLevel > 0 ? zoomLevel : fr->GetDrawScale());
+    const string url = fr->CodeGe0url(lat, lon, scale, jni::ToNativeString(env, name));
     return jni::ToJavaString(env, url);
   }
 
@@ -834,7 +840,7 @@ extern "C"
   {
     string distance;
     double azimut = -1.0;
-    g_framework->NativeFramework()->GetDistanceAndAzimut(m2::PointD(merX, merY), cLat, cLon, north, distance, azimut);
+    frm()->GetDistanceAndAzimut(m2::PointD(merX, merY), cLat, cLon, north, distance, azimut);
 
     jclass daClazz = env->FindClass("com/mapswithme/maps/bookmarks/data/DistanceAndAzimut");
     ASSERT ( daClazz, () );
@@ -904,13 +910,13 @@ extern "C"
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_Framework_nativeIsDataVersionChanged(JNIEnv * env, jclass clazz)
   {
-    return g_framework->NativeFramework()->IsDataVersionUpdated() ? JNI_TRUE : JNI_FALSE;
+    return frm()->IsDataVersionUpdated() ? JNI_TRUE : JNI_FALSE;
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeUpdateSavedDataVersion(JNIEnv * env, jclass clazz)
   {
-    g_framework->NativeFramework()->UpdateSavedDataVersion();
+    frm()->UpdateSavedDataVersion();
   }
 
   namespace
@@ -951,7 +957,7 @@ extern "C"
   Java_com_mapswithme_maps_Framework_getGuideInfoForIndex(JNIEnv * env, jclass clazz, jobject index)
   {
     guides::GuideInfo info;
-    if (g_framework->NativeFramework()->GetGuideInfo(ToNative(index), info))
+    if (frm()->GetGuideInfo(ToNative(index), info))
       return GuideNative2Java(env).GetGuide(info);
 
     return NULL;
@@ -960,20 +966,20 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_setWasAdvertised(JNIEnv * env, jclass clazz, jstring appId)
   {
-    g_framework->NativeFramework()->GetGuidesManager().SetWasAdvertised(jni::ToNativeString(env, appId));
+    frm()->GetGuidesManager().SetWasAdvertised(jni::ToNativeString(env, appId));
   }
 
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_Framework_wasAdvertised(JNIEnv * env, jclass clazz, jstring appId)
   {
-    return g_framework->NativeFramework()->GetGuidesManager().WasAdvertised(jni::ToNativeString(env, appId));
+    return frm()->GetGuidesManager().WasAdvertised(jni::ToNativeString(env, appId));
   }
 
   JNIEXPORT jobjectArray JNICALL
   Java_com_mapswithme_maps_Framework_getGuideIds(JNIEnv * env, jclass clazz)
   {
     std::set<string> guides;
-    g_framework->NativeFramework()->GetGuidesManager().GetGuidesIds(guides);
+    frm()->GetGuidesManager().GetGuidesIds(guides);
 
     jclass klass = env->FindClass("java/lang/String");
     ASSERT ( klass, () );
@@ -995,7 +1001,7 @@ extern "C"
   Java_com_mapswithme_maps_Framework_getGuideById(JNIEnv * env, jclass clazz, jstring guideId)
   {
     guides::GuideInfo info;
-    if (g_framework->NativeFramework()->GetGuidesManager().GetGuideInfoByAppId(jni::ToNativeString(env, guideId), info))
+    if (frm()->GetGuidesManager().GetGuideInfoByAppId(jni::ToNativeString(env, guideId), info))
       return GuideNative2Java(env).GetGuide(info);
 
     return NULL;
@@ -1004,13 +1010,13 @@ extern "C"
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_Framework_getDrawScale(JNIEnv * env, jclass clazz)
   {
-    return static_cast<jint>(g_framework->NativeFramework()->GetDrawScale());
+    return static_cast<jint>(frm()->GetDrawScale());
   }
 
   JNIEXPORT jdoubleArray JNICALL
   Java_com_mapswithme_maps_Framework_getScreenRectCenter(JNIEnv * env, jclass clazz)
   {
-    const m2::PointD center = g_framework->NativeFramework()->GetViewportCenter();
+    const m2::PointD center = frm()->GetViewportCenter();
 
     double latlon[] = {MercatorBounds::YToLat(center.y), MercatorBounds::XToLon(center.x)};
     jdoubleArray jLatLon = env->NewDoubleArray(2);
@@ -1030,7 +1036,7 @@ extern "C"
   {
     const size_t nIndex = static_cast<size_t>(index);
 
-    BookmarkManager & m = g_framework->NativeFramework()->GetBookmarkManager();
+    BookmarkManager & m = frm()->GetBookmarkManager();
     UserMarkContainer::Controller & c = m.UserMarksGetController(UserMarkContainer::SEARCH_MARK);
     ASSERT_LESS(nIndex , c.GetUserMarkCount(), ("Invalid index", nIndex));
     UserMark const * mark = c.GetUserMark(nIndex);
@@ -1054,7 +1060,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_cleanSearchLayerOnMap(JNIEnv * env, jclass clazz)
   {
-    g_framework->NativeFramework()->CancelInteractiveSearch();
+    frm()->CancelInteractiveSearch();
   }
 
   JNIEXPORT void JNICALL
@@ -1113,42 +1119,42 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeLoadbookmarks(JNIEnv * env, jclass thiz)
   {
-    g_framework->NativeFramework()->LoadBookmarks();
+    frm()->LoadBookmarks();
   }
 
   JNIEXPORT jboolean JNICALL
   Java_com_mapswithme_maps_Framework_nativeIsRoutingActive(JNIEnv * env, jclass thiz)
   {
-    return g_framework->NativeFramework()->IsRoutingActive();
+    return frm()->IsRoutingActive();
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeCancelRoutingSession(JNIEnv * env, jclass thiz)
+  Java_com_mapswithme_maps_Framework_nativeCloseRouting(JNIEnv * env, jclass thiz)
   {
-    return g_framework->NativeFramework()->CancelRoutingSession();
+    frm()->CloseRouting();
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeBuildRoute(JNIEnv * env, jclass thiz, jdouble lat, jdouble lon)
   {
-    g_framework->NativeFramework()->BuildRoute(MercatorBounds::FromLatLon(lat, lon));
+    frm()->BuildRoute(MercatorBounds::FromLatLon(lat, lon));
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeStartRoutingSession(JNIEnv * env, jclass thiz)
+  Java_com_mapswithme_maps_Framework_nativeFollowRoute(JNIEnv * env, jclass thiz)
   {
-    return g_framework->NativeFramework()->StartRoutingSession();
+    frm()->FollowRoute();
   }
 
   JNIEXPORT jobject JNICALL
   Java_com_mapswithme_maps_Framework_nativeGetRouteFollowingInfo(JNIEnv * env, jclass thiz)
   {
-    ::Framework * frm = g_framework->NativeFramework();
+    ::Framework * fr = frm();
 
-    if (frm->IsRoutingActive())
+    if (fr->IsRoutingActive())
     {
       location::FollowingInfo info;
-      frm->GetRouteFollowingInfo(info);
+      fr->GetRouteFollowingInfo(info);
 
       if (info.IsValid())
       {
@@ -1169,7 +1175,7 @@ extern "C"
   {
     search::AddressInfo info;
 
-    g_framework->NativeFramework()->GetAddressInfoForGlobalPoint(MercatorBounds::FromLatLon(lat, lon), info);
+    frm()->GetAddressInfoForGlobalPoint(MercatorBounds::FromLatLon(lat, lon), info);
 
     jclass klass = env->FindClass("com/mapswithme/maps/bookmarks/data/MapObject$Poi");
     jmethodID methodID = env->GetMethodID(klass, "<init>", "(Ljava/lang/String;DDLjava/lang/String;)V");
@@ -1183,7 +1189,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeActivateUserMark(JNIEnv * env, jclass clazz, jdouble lat, jdouble lon)
   {
-    ::Framework * fr = g_framework->NativeFramework();
+    ::Framework * fr = frm();
     m2::PointD pxPoint = fr->GtoP(MercatorBounds::FromLatLon(lat, lon));
     UserMark const * mark = fr->GetUserMark(pxPoint, true);
     fr->GetBalloonManager().OnShowMark(mark);

@@ -483,9 +483,9 @@ public:
   /// @name Routing mode
   //@{
   bool IsRoutingActive() const;
-  bool BuildRoute(m2::PointD const & destination);
-  void StartRoutingSession();
-  void CancelRoutingSession();
+  void BuildRoute(m2::PointD const & destination);
+  void FollowRoute();
+  void CloseRouting();
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
 private:

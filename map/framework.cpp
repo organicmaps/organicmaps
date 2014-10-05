@@ -932,7 +932,6 @@ void Framework::DoDrag(DragEvent const & e)
 #endif
 
   m_navigator.DoDrag(pt, ElapsedSeconds());
-  m_informationDisplay.locationState()->Draged();
 
   if (m_renderPolicy)
     m_renderPolicy->DoDrag();
@@ -1001,7 +1000,7 @@ void Framework::Move(double azDir, double factor)
 void Framework::ScaleToPoint(ScaleToPointEvent const & e)
 {
   m2::PointD pt = m_navigator.ShiftPoint(e.Pt());
-  GetLocationState()->ScaleCorrection(pt);
+  GetLocationState()->CorrectScalePoint(pt);
 
   m_animController->AddTask(m_navigator.ScaleToPointAnim(pt, e.ScaleFactor(), 0.25));
 
@@ -1017,7 +1016,7 @@ void Framework::ScaleDefault(bool enlarge)
 void Framework::Scale(double scale)
 {
   m2::PointD center = GetPixelCenter();
-  GetLocationState()->ScaleCorrection(center);
+  GetLocationState()->CorrectScalePoint(center);
   m_animController->AddTask(m_navigator.ScaleToPointAnim(center, scale, 0.25));
 
   Invalidate();
@@ -1029,7 +1028,7 @@ void Framework::CalcScalePoints(ScaleEvent const & e, m2::PointD & pt1, m2::Poin
   pt1 = m_navigator.ShiftPoint(e.Pt1());
   pt2 = m_navigator.ShiftPoint(e.Pt2());
 
-  m_informationDisplay.locationState()->ScaleCorrection(pt1, pt2);
+  m_informationDisplay.locationState()->CorrectScalePoint(pt1, pt2);
 
 #ifdef DRAW_TOUCH_POINTS
   m_informationDisplay.setDebugPoint(0, pt1);
@@ -1847,34 +1846,25 @@ bool Framework::IsRoutingActive() const
   return m_routingSession.IsActive();
 }
 
-bool Framework::BuildRoute(m2::PointD const & destination)
+void Framework::BuildRoute(m2::PointD const & destination)
 {
   shared_ptr<State> const & state = GetLocationState();
   if (!GetPlatform().HasRouting() || !state->IsModeHasPosition())
-    return false;
+    /// show dialog about Buy Pro, or about "Has no locations"
+    return;
 
   if (IsRoutingActive())
-    CancelRoutingSession();
+    CloseRouting();
 
   m_routingSession.BuildRoute(state->Position(), destination, [&] (Route const & route)
   {
     InsertRoute(route);
     state->RouteBuilded();
-
-    m2::PolylineD const & poly = route.GetPoly();
-
-    m2::AnyRectD srcRect = GetNavigator().Screen().GlobalRect();
-    m2::RectD rect = srcRect.GetGlobalRect();
-    for (auto it = poly.Begin(); it != poly.End(); ++it)
-         rect.Add(*it);
-
-    ShowRectExVisibleScale(rect);
+    ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
   });
-
-  return true;
 }
 
-void Framework::StartRoutingSession()
+void Framework::FollowRoute()
 {
   GetLocationState()->StartRouteFollow();
 }
@@ -1890,7 +1880,7 @@ BookmarkCategory * Framework::FindCategory(string const & name)
   return 0;
 }
 
-void Framework::CancelRoutingSession()
+void Framework::CloseRouting()
 {
   ASSERT(IsRoutingActive(), ());
   GetLocationState()->StopRoutingMode();

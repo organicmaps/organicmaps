@@ -3,6 +3,8 @@
 
 #include "../indexer/mercator.hpp"
 
+#include "../platform/platform.hpp"
+
 
 using namespace location;
 
