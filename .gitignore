@@ -13,6 +13,7 @@ stxxl.errlog
 stxxl.log
 screenlog.0
 data/*.mwm.osm2ft
+data/*.mwm.routing
 
 # Compiled Python
 crawler/*.pyc
