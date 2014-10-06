@@ -58,6 +58,12 @@ ActiveMapsLayout & CountryTree::GetActiveMapLayout()
   return m_layout;
 }
 
+ActiveMapsLayout const & CountryTree::GetActiveMapLayout() const
+{
+  m_layout.Init();
+  return m_layout;
+}
+
 void CountryTree::SetDefaultRoot()
 {
   SetRoot(TIndex());
@@ -119,6 +125,33 @@ TMapOptions CountryTree::GetLeafOptions(int position) const
   return options;
 }
 
+bool CountryTree::GetLeafGuideInfo(int position, guides::GuideInfo & info) const
+{
+  ASSERT(IsLeaf(position), ());
+  return GetActiveMapLayout().GetGuideInfo(GetChild(position), info);
+}
+
+LocalAndRemoteSizeT const CountryTree::GetLeafSize(int position) const
+{
+  //TODO for UVR
+  return LocalAndRemoteSizeT(0, 0);
+}
+
+bool CountryTree::IsCountryRoot() const
+{
+  TIndex index = GetCurrentRoot();
+  ASSERT(index.m_region == TIndex::INVALID, ());
+  if (index.m_country != TIndex::INVALID)
+    return true;
+
+  return false;
+}
+
+string const & CountryTree::GetRootName() const
+{
+  return GetStorage().CountryName(GetCurrentRoot());
+}
+
 void CountryTree::DownloadCountry(int childPosition, TMapOptions const & options)
 {
   ASSERT(IsLeaf(childPosition), ());
@@ -146,6 +179,12 @@ void CountryTree::ResetListener()
   m_listener = nullptr;
 }
 
+void CountryTree::ShowLeafOnMap(int position)
+{
+  ASSERT(IsLeaf(position), ());
+  GetActiveMapLayout().ShowMap(GetChild(position));
+}
+
 Storage const & CountryTree::GetStorage() const
 {
   return m_layout.GetStorage();
@@ -162,10 +201,11 @@ TIndex const & CountryTree::GetCurrentRoot() const
   return m_levelItems[RootItemIndex];
 }
 
-void CountryTree::SetRoot(TIndex const & index)
+void CountryTree::SetRoot(TIndex const & newIndex)
 {
   ResetRoot();
 
+  TIndex index(newIndex);
   size_t const count = GetStorage().CountriesCount(index);
   m_levelItems.reserve(ChildItemsOffset + count);
   m_levelItems.push_back(index);

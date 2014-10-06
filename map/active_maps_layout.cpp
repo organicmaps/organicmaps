@@ -121,6 +121,8 @@ int ActiveMapsLayout::GetCountInGroup(TGroup const & group) const
   case TGroup::EUpToDate:
     result = m_items.size() - m_split.second;
     break;
+  default:
+    ASSERT(false, ());
   }
 
   return result;
@@ -128,7 +130,7 @@ int ActiveMapsLayout::GetCountInGroup(TGroup const & group) const
 
 string const & ActiveMapsLayout::GetCountryName(TGroup const & group, int position) const
 {
-  return m_framework.GetCountryName(GetItemInGroup(group, position).m_index);
+  return GetStorage().CountryName(GetItemInGroup(group, position).m_index);
 }
 
 TStatus ActiveMapsLayout::GetCountryStatus(const ActiveMapsLayout::TGroup & group, int position) const
@@ -141,9 +143,31 @@ TMapOptions ActiveMapsLayout::GetCountryOptions(const ActiveMapsLayout::TGroup &
   return GetItemInGroup(group, position).m_options;
 }
 
-void ActiveMapsLayout::SetListener(ActiveMapsLayout::ActiveMapsListener * listener)
+LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TGroup const & group, int position) const
 {
-  m_listener = listener;
+  ///@TODO for UVR
+  return LocalAndRemoteSizeT(0, 0);
+}
+
+int ActiveMapsLayout::AddListener(ActiveMapsListener * listener)
+{
+  m_listeners[m_currentSlotID] = listener;
+  return m_currentSlotID++;
+}
+
+void ActiveMapsLayout::RemoveListener(int slotID)
+{
+  m_listeners.erase(slotID);
+}
+
+bool ActiveMapsLayout::GetGuideInfo(TIndex const & index, guides::GuideInfo & info) const
+{
+  return m_framework.GetGuideInfo(index, info);
+}
+
+bool ActiveMapsLayout::GetGuideInfo(TGroup const & group, int position, guides::GuideInfo & info) const
+{
+  return GetGuideInfo(GetItemInGroup(group, position).m_index, info);
 }
 
 void ActiveMapsLayout::DownloadMap(TIndex const & index, TMapOptions const & options)
@@ -206,6 +230,16 @@ void ActiveMapsLayout::CancelDownloading(TGroup const & group, int position)
   Item & item = GetItemInGroup(group, position);
   m_framework.Storage().DeleteFromDownloader(item.m_index);
   item.m_downloadRequest = item.m_options;
+}
+
+void ActiveMapsLayout::ShowMap(TGroup const & group, int position)
+{
+  ShowMap(GetItemInGroup(group, position).m_index);
+}
+
+void ActiveMapsLayout::ShowMap(TIndex const & index)
+{
+  m_framework.ShowCountry(index);
 }
 
 Storage const & ActiveMapsLayout::GetStorage() const
@@ -305,13 +339,14 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
 
 void ActiveMapsLayout::ProgressChangedCallback(TIndex const & index, LocalAndRemoteSizeT const & sizes)
 {
-  if (m_listener)
-  {
-    TGroup group = TGroup::ENewMap;
-    int position = 0;
-    VERIFY(GetGroupAndPositionByIndex(index, group, position), ());
-    m_listener->DownloadingProgressUpdate(group, position, sizes);
-  }
+  if (m_listeners.empty())
+    return;
+
+  TGroup group = TGroup::ENewMap;
+  int position = 0;
+  VERIFY(GetGroupAndPositionByIndex(index, group, position), ());
+  for (TListenerNode listener : m_listeners)
+    listener.second->DownloadingProgressUpdate(group, position, sizes);
 }
 
 ActiveMapsLayout::Item const & ActiveMapsLayout::GetItemInGroup(TGroup const & group, int position) const
@@ -459,33 +494,33 @@ int ActiveMapsLayout::MoveItemToGroup(TGroup const & group, int position, TGroup
 
 void ActiveMapsLayout::NotifyInsertion(TGroup const & group, int position)
 {
-  if (m_listener)
-    m_listener->CountryGroupChanged(group, -1, group, position);
+  for (TListenerNode listener : m_listeners)
+    listener.second->CountryGroupChanged(group, -1, group, position);
 }
 
 void ActiveMapsLayout::NotifyDeletion(TGroup const & group, int position)
 {
-  if (m_listener)
-    m_listener->CountryGroupChanged(group, position, group, position);
+  for (TListenerNode listener : m_listeners)
+    listener.second->CountryGroupChanged(group, position, group, position);
 }
 
 void ActiveMapsLayout::NotifyMove(TGroup const & oldGroup, int oldPosition,
                                   TGroup const & newGroup, int newPosition)
 {
-  if (m_listener)
-    m_listener->CountryGroupChanged(oldGroup, oldPosition, newGroup, newPosition);
+  for (TListenerNode listener : m_listeners)
+    listener.second->CountryGroupChanged(oldGroup, oldPosition, newGroup, newPosition);
 }
 
 void ActiveMapsLayout::NotifyStatusChanged(TGroup const & group, int position)
 {
-  if (m_listener)
-    m_listener->CountryStatusChanged(group, position);
+  for (TListenerNode listener : m_listeners)
+    listener.second->CountryStatusChanged(group, position);
 }
 
 void ActiveMapsLayout::NotifyOptionsChanged(TGroup const & group, int position)
 {
-  if (m_listener)
-    m_listener->CountryOptionsChanged(group, position);
+  for (TListenerNode listener : m_listeners)
+    listener.second->CountryOptionsChanged(group, position);
 }
 
 TMapOptions ActiveMapsLayout::ValidOptionsForDownload(TMapOptions const & options)

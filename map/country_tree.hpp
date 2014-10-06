@@ -30,6 +30,7 @@ public:
   ~CountryTree();
 
   ActiveMapsLayout & GetActiveMapLayout();
+  ActiveMapsLayout const & GetActiveMapLayout() const;
 
   void SetDefaultRoot();
   void SetParentAsRoot();
@@ -45,6 +46,10 @@ public:
   /// call this only if child IsLeaf == true
   TStatus GetLeafStatus(int position) const;
   TMapOptions GetLeafOptions(int position) const;
+  bool GetLeafGuideInfo(int position, guides::GuideInfo & info) const;
+  LocalAndRemoteSizeT const GetLeafSize(int position) const;
+  bool IsCountryRoot() const;
+  string const & GetRootName() const;
 
   ///@{
   void DownloadCountry(int childPosition, TMapOptions const & options);
@@ -55,13 +60,15 @@ public:
   void SetListener(CountryTreeListener * listener);
   void ResetListener();
 
+  void ShowLeafOnMap(int position);
+
 private:
   Storage const & GetStorage() const;
   Storage & GetStorage();
 
 private:
   TIndex const & GetCurrentRoot() const;
-  void SetRoot(TIndex const & index);
+  void SetRoot(TIndex const & newIndex);
   TIndex const & GetChild(int childPosition) const;
   int GetChildPosition(TIndex const & index);
 
@@ -70,7 +77,7 @@ private:
 
 private:
   int m_subscribeSlotID = 0;
-  ActiveMapsLayout m_layout;
+  mutable ActiveMapsLayout m_layout;
 
   buffer_vector<TIndex, 16> m_levelItems;
 

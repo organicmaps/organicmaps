@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../storage/storage_defines.hpp"
+#include "../storage/guides.hpp"
 #include "../storage/index.hpp"
 
 #include "../std/string.hpp"
@@ -17,9 +18,10 @@ class ActiveMapsLayout
 public:
   enum class TGroup
   {
-    ENewMap,
-    EOutOfDate,
-    EUpToDate
+    ENewMap = 0,
+    EOutOfDate = 1,
+    EUpToDate = 2,
+    EGroupCount = 3
   };
 
   class ActiveMapsListener
@@ -47,9 +49,12 @@ public:
   string const & GetCountryName(TGroup const & group, int position) const;
   TStatus GetCountryStatus(TGroup const & group, int position) const;
   TMapOptions GetCountryOptions(TGroup const & group, int position) const;
+  LocalAndRemoteSizeT const GetCountrySize(TGroup const & group, int position) const;
 
-  /// set to nullptr when go out from ActiveMaps activity
-  void SetListener(ActiveMapsListener * listener);
+  int AddListener(ActiveMapsListener * listener);
+  void RemoveListener(int slotID);
+
+  bool GetGuideInfo(TGroup const & group, int position, guides::GuideInfo & info) const;
 
   void DownloadMap(TIndex const & index, TMapOptions const & options);
   void DownloadMap(TGroup const & group, int position, TMapOptions const & options);
@@ -60,10 +65,16 @@ public:
   bool IsDownloadingActive() const;
   void CancelDownloading(TGroup const & group, int position);
 
+  void ShowMap(TGroup const & group, int position);
+
 private:
   friend class CountryTree;
   Storage const & GetStorage() const;
   Storage & GetStorage();
+
+  bool GetGuideInfo(TIndex const & index, guides::GuideInfo & info) const;
+
+  void ShowMap(TIndex const & index);
 
 private:
   void StatusChangedCallback(TIndex const & index);
@@ -103,7 +114,9 @@ private:
 private:
   Framework & m_framework;
   int m_subscribeSlotID = 0;
-  ActiveMapsListener * m_listener = nullptr;
+  typedef pair<int, ActiveMapsListener *> TListenerNode;
+  map<int, ActiveMapsListener *> m_listeners;
+  int m_currentSlotID = 0;
 
   vector<Item> m_items;
   /// ENewMap    - [0, TRangeSplit.first)
