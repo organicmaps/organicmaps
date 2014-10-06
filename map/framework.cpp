@@ -185,6 +185,7 @@ Framework::Framework()
     m_queryMaxScaleMode(false),
     m_width(0),
     m_height(0),
+    m_countryTree(this),
     m_guiController(new gui::Controller),
     m_animController(new anim::Controller),
     m_informationDisplay(this),
