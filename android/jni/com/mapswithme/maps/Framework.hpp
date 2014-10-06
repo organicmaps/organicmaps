@@ -27,6 +27,11 @@ namespace android
     ::Framework m_work;
     VideoTimer * m_videoTimer;
 
+    shared_ptr<jobject> m_javaCountryListenerPtr;
+    shared_ptr<jobject> m_javaActiveCountryListenerPtr;
+    storage::CountryTree::CountryTreeListener * m_treeListener;
+    storage::ActiveMapsLayout::ActiveMapsListener * m_activeMapsListener;
+
     void CallRepaint();
 
     double m_x1;
@@ -133,7 +138,24 @@ namespace android
     string GetOutdatedCountriesString();
 
     void ShowTrack(int category, int track);
+
+    storage::CountryTree::CountryTreeListener * setCountryTreeListener(shared_ptr<jobject> objPtr);
+
+    void resetCountryTreeListener();
+
+    storage::ActiveMapsLayout::ActiveMapsListener * setActiveMapsListener(shared_ptr<jobject> objPtr);
+
+    void resetActiveMapsListener();
+
+    shared_ptr<jobject> getJavaCountryListener();
+
+    shared_ptr<jobject> getJavaActiveCountryListener();
   };
 }
 
 extern android::Framework * g_framework;
+
+namespace guides
+{
+  jobject GuideNativeToJava(JNIEnv *, GuideInfo const &);
+}

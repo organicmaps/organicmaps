@@ -183,32 +183,6 @@ extern "C"
   {
     return my::RenameFileX(jni::ToNativeString(env, oldFile), jni::ToNativeString(env, newFile));
   }
-
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_MapStorage_getDownloadedCountriesCount(JNIEnv * env, jobject thiz)
-  {
-    return static_cast<jint>(g_framework->Storage().GetDownloadedCountriesCount());
-  }
-
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_MapStorage_getOutdatedCountriesCount(JNIEnv * env, jobject thiz)
-  {
-    return static_cast<jint>(g_framework->Storage().GetOutOfDateCountriesCount());
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_MapStorage_getOutdatedCountry(JNIEnv * env, jobject thiz, jint position)
-  {
-    storage::TIndex const index = g_framework->Storage().GetOutOfDateCountryAt(position);
-    return storage::ToJava(index);
-  }
-
-  JNIEXPORT jobject JNICALL
-  Java_com_mapswithme_maps_MapStorage_getDownloadedCountry(JNIEnv * env, jobject thiz, jint position)
-  {
-    storage::TIndex const index = g_framework->Storage().GetDownloadedCountryAt(position);
-    return storage::ToJava(index);
-  }
 }
 
 namespace storage

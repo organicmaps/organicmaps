@@ -179,6 +179,9 @@ LOCAL_SRC_FILES := \
 	com/mapswithme/core/jni_helper.cpp \
 	com/mapswithme/core/logging.cpp \
 	com/mapswithme/core/render_context.cpp \
+	com/mapswithme/country/country_helper.cpp \
+	com/mapswithme/country/CountryTree.cpp \
+	com/mapswithme/country/ActiveCountryTree.cpp \
 	com/mapswithme/maps/Framework.cpp \
 	com/mapswithme/maps/bookmarks/data/Bookmark.cpp \
 	com/mapswithme/maps/bookmarks/data/BookmarkManager.cpp \

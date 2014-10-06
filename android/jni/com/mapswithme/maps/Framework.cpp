@@ -5,6 +5,8 @@
 #include "../core/jni_helper.hpp"
 #include "../core/render_context.hpp"
 
+#include "../country/country_helper.hpp"
+
 #include "../platform/Platform.hpp"
 
 #include "../../../../../map/framework.hpp"
@@ -43,6 +45,98 @@ android::Framework * g_framework = 0;
 
 using namespace storage;
 
+namespace storage
+{
+  class CountryTreeListenerImpl : public CountryTree::CountryTreeListener
+  {
+  public:
+    void ItemStatusChanged(int position)
+    {
+      JNIEnv * jniEnv = jni::GetEnv();
+      shared_ptr<jobject> m_javaListenerPtr = g_framework->getJavaCountryListener();
+      const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
+                                                      *m_javaListenerPtr.get(),
+                                                      "onItemStatusChanged",
+                                                      "(I)V");
+      ASSERT ( methodID, () );
+
+      jniEnv->CallVoidMethod(*m_javaListenerPtr.get(), methodID, position);
+    }
+
+    void ItemProgressChanged(int position, LocalAndRemoteSizeT const & sizes)
+    {
+      JNIEnv * jniEnv = jni::GetEnv();
+      shared_ptr<jobject> m_javaListenerPtr = g_framework->getJavaCountryListener();
+
+      const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
+                                                      *m_javaListenerPtr.get(),
+                                                      "onItemProgressChanged",
+                                                      "(I[J)V");
+      ASSERT ( methodID, () );
+
+      jniEnv->CallVoidMethod(*m_javaListenerPtr.get(), methodID, position, storage_utils::ToArray(jniEnv, sizes));
+    }
+  };
+
+  class ActiveMapsListenerImpl : public ActiveMapsLayout::ActiveMapsListener
+  {
+  public:
+    void CountryStatusChanged(ActiveMapsLayout::TGroup const & group, int position)
+    {
+      JNIEnv * jniEnv = jni::GetEnv();
+      shared_ptr<jobject> m_javaListenerPtr = g_framework->getJavaActiveCountryListener();
+      const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
+                                                      *m_javaListenerPtr.get(),
+                                                      "onCountryStatusChanged",
+                                                      "(II)V");
+      ASSERT ( methodID, () );
+
+      jniEnv->CallVoidMethod(*m_javaListenerPtr.get(), methodID, group, position);
+    }
+
+    void CountryGroupChanged(ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
+                             ActiveMapsLayout::TGroup const & newGroup, int newPosition)
+    {
+      JNIEnv * jniEnv = jni::GetEnv();
+      shared_ptr<jobject> m_javaListenerPtr = g_framework->getJavaActiveCountryListener();
+      const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
+                                                      *m_javaListenerPtr.get(),
+                                                      "onCountryGroupChanged",
+                                                      "(IIII)V");
+      ASSERT ( methodID, () );
+
+      jniEnv->CallVoidMethod(*m_javaListenerPtr.get(), methodID, oldGroup, oldPosition, newGroup, newPosition);
+    }
+
+    void CountryOptionsChanged(ActiveMapsLayout::TGroup const & group, int position)
+    {
+      JNIEnv * jniEnv = jni::GetEnv();
+      shared_ptr<jobject> m_javaListenerPtr = g_framework->getJavaActiveCountryListener();
+      const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
+                                                      *m_javaListenerPtr.get(),
+                                                      "onCountryOptionsChanged",
+                                                      "(II)V");
+      ASSERT ( methodID, () );
+
+      jniEnv->CallVoidMethod(*m_javaListenerPtr.get(), methodID, group, position);
+    }
+
+    void DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group, int position, LocalAndRemoteSizeT const & sizes)
+    {
+      JNIEnv * jniEnv = jni::GetEnv();
+      shared_ptr<jobject> m_javaListenerPtr = g_framework->getJavaActiveCountryListener();
+
+      const jmethodID methodID = jni::GetJavaMethodID(jniEnv,
+                                                      *m_javaListenerPtr.get(),
+                                                      "onCountryProgressChanged",
+                                                      "(II[J)V");
+      ASSERT ( methodID, () );
+
+      jniEnv->CallVoidMethod(*m_javaListenerPtr.get(), methodID, group, position, storage_utils::ToArray(jniEnv, sizes));
+    }
+  };
+}
+
 namespace android
 {
   void Framework::CallRepaint() {}
@@ -58,6 +152,9 @@ namespace android
     g_framework = this;
 
     m_videoTimer = new VideoTimer(bind(&Framework::CallRepaint, this));
+
+    m_treeListener = new CountryTreeListenerImpl();
+    m_activeMapsListener = new ActiveMapsListenerImpl();
   }
 
   Framework::~Framework()
@@ -644,6 +741,37 @@ namespace android
     NativeFramework()->ShowTrack(*nTrack);
   }
 
+  CountryTree::CountryTreeListener * Framework::setCountryTreeListener(shared_ptr<jobject> objPtr)
+  {
+    m_javaCountryListenerPtr = objPtr;
+    return m_treeListener;
+  }
+
+  void Framework::resetCountryTreeListener()
+  {
+    m_javaCountryListenerPtr.reset();
+  }
+
+  shared_ptr<jobject> Framework::getJavaCountryListener()
+  {
+    return m_javaCountryListenerPtr;
+  }
+
+  ActiveMapsLayout::ActiveMapsListener * Framework::setActiveMapsListener(shared_ptr<jobject> objPtr)
+  {
+    m_javaActiveCountryListenerPtr = objPtr;
+    return m_activeMapsListener;
+  }
+
+  void Framework::resetActiveMapsListener()
+  {
+    m_javaActiveCountryListenerPtr.reset();
+  }
+
+  shared_ptr<jobject> Framework::getJavaActiveCountryListener()
+  {
+    return m_javaActiveCountryListenerPtr;
+  }
 }
 
 template <class T>
@@ -1251,5 +1379,25 @@ extern "C"
   Java_com_mapswithme_maps_Framework_nativeSetBuyProListener(JNIEnv * env, jobject thiz, jobject listener)
   {
     frm()->SetBuyProListener(bind(&CallBuyProListener, jni::make_global_ref(listener)));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_downloadCountry(JNIEnv * env, jobject thiz, jobject idx)
+  {
+    frm()->GetCountryTree().GetActiveMapLayout().DownloadMap(storage::ToNative(idx), TMapOptions::EMapOnly);
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_deleteCountry(JNIEnv * env, jobject thiz, jobject idx)
+  {
+    frm()->GetCountryTree().GetActiveMapLayout().DeleteMap(storage::ToNative(idx), TMapOptions::EMapWithCarRouting);
+  }
+}
+
+namespace guides
+{
+  jobject GuideNativeToJava(JNIEnv * env, GuideInfo const & info)
+  {
+    return GuideNative2Java(env).GetGuide(info);
   }
 }
