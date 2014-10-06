@@ -104,7 +104,8 @@ public:
       m_candidates[m_ptIdx].push_back(res);
   }
 
-  void MakeResult(OsrmRouter::FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId, bool needFinal)
+  void MakeResult(OsrmRouter::FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId,
+                  bool needFinal, volatile bool const & requestCancel)
   {
     mwmId = m_mwmId;
     if (mwmId == numeric_limits<uint32_t>::max())
@@ -138,7 +139,7 @@ public:
     }
 
     OsrmFtSegMapping::OsrmNodesT nodes;
-    m_mapping.GetOsrmNodes(segmentSet, nodes);
+    m_mapping.GetOsrmNodes(segmentSet, nodes, requestCancel);
 
     res.clear();
     res.resize(maxCount * 2);
@@ -169,7 +170,8 @@ public:
 
 
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
-  : m_countryFn(fn), m_pIndex(index), m_isFinalChanged(false), m_isReadyThread(false)
+  : m_countryFn(fn), m_pIndex(index), m_isFinalChanged(false),
+    m_isReadyThread(false), m_requestCancel(false)
 {
 }
 
@@ -180,19 +182,32 @@ string OsrmRouter::GetName() const
 
 void OsrmRouter::SetFinalPoint(m2::PointD const & finalPt)
 {
-  threads::MutexGuard guard(m_paramsMutex);
-  UNUSED_VALUE(guard);
+  {
+    threads::MutexGuard guard(m_paramsMutex);
+    UNUSED_VALUE(guard);
 
-  m_finalPt = finalPt;
-  m_isFinalChanged = true;
+    m_finalPt = finalPt;
+    m_isFinalChanged = true;
+
+    m_requestCancel = true;
+  }
 }
 
 void OsrmRouter::CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback)
 {
-  GetPlatform().RunAsync(bind(&OsrmRouter::CalculateRouteAsync, this, startPt, callback));
+  {
+    threads::MutexGuard guard(m_paramsMutex);
+    UNUSED_VALUE(guard);
+
+    m_startPt = startPt;
+
+    m_requestCancel = true;
+  }
+
+  GetPlatform().RunAsync(bind(&OsrmRouter::CalculateRouteAsync, this, callback));
 }
 
-void OsrmRouter::CalculateRouteAsync(m2::PointD const & startPt, ReadyCallback const & callback)
+void OsrmRouter::CalculateRouteAsync(ReadyCallback const & callback)
 {
   if (m_isReadyThread.test_and_set())
     return;
@@ -206,16 +221,19 @@ void OsrmRouter::CalculateRouteAsync(m2::PointD const & startPt, ReadyCallback c
 
     m_isReadyThread.clear();
 
-    m2::PointD finalPt;
+    m2::PointD startPt, finalPt;
     {
       threads::MutexGuard params(m_paramsMutex);
       UNUSED_VALUE(params);
 
+      startPt = m_startPt;
       finalPt = m_finalPt;
 
       if (m_isFinalChanged)
         m_cachedFinalNodes.clear();
       m_isFinalChanged = false;
+
+      m_requestCancel = false;
     }
 
     try
@@ -251,9 +269,9 @@ void OsrmRouter::CalculateRouteAsync(m2::PointD const & startPt, ReadyCallback c
 
       m_container.Close();
     }
-  }
 
-  GetPlatform().RunOnGuiThread(bind(callback, route, code));
+    GetPlatform().RunOnGuiThread(bind(callback, route, code));
+  }
 }
 
 namespace
@@ -314,6 +332,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   uint32_t mwmId = -1;
   ResultCode const code = FindPhantomNodes(fName, startPt, finalPt, graphNodes, MAX_NODE_CANDIDATES, mwmId);
 
+  if (m_requestCancel)
+    return Cancelled;
+
   m_mapping.Unmap();
 
   if (code != NoError)
@@ -331,6 +352,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   size_t ni = 0, nj = 0;
   while (ni < MAX_NODE_CANDIDATES && nj < MAX_NODE_CANDIDATES)
   {
+    if (m_requestCancel)
+      break;
+
     PhantomNodes nodes;
     nodes.source_phantom = graphNodes[ni].m_node;
     nodes.target_phantom = graphNodes[nj + MAX_NODE_CANDIDATES].m_node;
@@ -365,6 +389,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   if (!IsRouteExist(rawRoute))
     return RouteNotFound;
 
+  if (m_requestCancel)
+    return Cancelled;
+
   // 5. Restore route.
   m_mapping.Map(m_container);
 
@@ -385,6 +412,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   vector<m2::PointD> points;
   for (auto i : osrm::irange<std::size_t>(0, rawRoute.unpacked_path_segments.size()))
   {
+    if (m_requestCancel)
+      return Cancelled;
+
     // Get all the coordinates for the computed route
     size_t const n = rawRoute.unpacked_path_segments[i].size();
     for (size_t j = 0; j < n; ++j)
@@ -482,7 +512,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::Point
       return EndPointNotFound;
   }
 
-  getter.MakeResult(res, maxCount, mwmId, !hasFinalCache);
+  getter.MakeResult(res, maxCount, mwmId, !hasFinalCache, m_requestCancel);
   if (hasFinalCache)
     copy(m_cachedFinalNodes.begin(), m_cachedFinalNodes.end(), res.begin() + maxCount);
   else

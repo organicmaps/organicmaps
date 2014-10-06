@@ -101,7 +101,7 @@ public:
   }
 
   typedef unordered_map<uint64_t, pair<OsrmNodeIdT, OsrmNodeIdT> > OsrmNodesT;
-  void GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) const;
+  void GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, volatile bool const & requestCancel) const;
 
   /// @name For debug purpose only.
   //@{

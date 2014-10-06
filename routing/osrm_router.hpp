@@ -20,8 +20,6 @@ namespace routing
 
 class OsrmRouter : public IRouter
 {
-  m2::PointD m_finalPt;
-
   typedef function<string (m2::PointD const &)> CountryFileFnT;
   CountryFileFnT m_countryFn;
 
@@ -47,7 +45,7 @@ protected:
 
   bool NeedReload(string const & fPath) const;
 
-  void CalculateRouteAsync(m2::PointD const & startPt, ReadyCallback const & callback);
+  void CalculateRouteAsync(ReadyCallback const & callback);
   ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & finalPt, Route & route);
 
 private:
@@ -60,11 +58,14 @@ private:
   FilesMappingContainer m_container;
 
   bool m_isFinalChanged;
+  m2::PointD m_startPt, m_finalPt;
   FeatureGraphNodeVecT m_cachedFinalNodes;
 
   threads::Mutex m_paramsMutex;
   threads::Mutex m_routeMutex;
   atomic_flag m_isReadyThread;
+
+  volatile bool m_requestCancel;
 };
 
 }

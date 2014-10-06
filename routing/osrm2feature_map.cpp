@@ -161,7 +161,7 @@ void OsrmFtSegMapping::DumpSegmentByNode(OsrmNodeIdT nodeId) const
 }
 
 
-void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) const
+void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, volatile bool const & requestCancel) const
 {
   auto addResFn = [&](uint64_t seg, size_t idx, bool forward)
   {
@@ -190,6 +190,9 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res) cons
   for (size_t i = 0; i < count && !segments.empty(); ++i)
   {
     FtSeg s(m_segments[i]);
+
+    if (requestCancel)
+      return;
 
     for (auto it = segments.begin(); it != segments.end(); ++it)
     {
