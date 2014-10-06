@@ -169,7 +169,7 @@ public:
 
 
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
-  : m_countryFn(fn), m_pIndex(index)
+  : m_countryFn(fn), m_pIndex(index), m_isFinalChanged(false), m_isReadyThread(false)
 {
 }
 
@@ -180,44 +180,80 @@ string OsrmRouter::GetName() const
 
 void OsrmRouter::SetFinalPoint(m2::PointD const & finalPt)
 {
+  threads::MutexGuard guard(m_paramsMutex);
+  UNUSED_VALUE(guard);
+
   m_finalPt = finalPt;
-  m_cachedFinalNodes.clear();
+  m_isFinalChanged = true;
 }
 
-void OsrmRouter::CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback)
+void OsrmRouter::CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback)
 {
+  GetPlatform().RunAsync(bind(&OsrmRouter::CalculateRouteAsync, this, startPt, callback));
+}
+
+void OsrmRouter::CalculateRouteAsync(m2::PointD const & startPt, ReadyCallback const & callback)
+{
+  if (m_isReadyThread.test_and_set())
+    return;
+
   Route route(GetName());
   ResultCode code;
 
-  try
   {
-    code = CalculateRouteImpl(startingPt, m_finalPt, route);
-    switch (code)
-    {
-    case StartPointNotFound:
-      LOG(LWARNING, ("Can't find start point node"));
-      break;
-    case EndPointNotFound:
-      LOG(LWARNING, ("Can't find end point node"));
-      break;
-    case PointsInDifferentMWM:
-      LOG(LWARNING, ("Points are in different MWMs"));
-      break;
-    case RouteNotFound:
-      LOG(LWARNING, ("Route not found"));
-      break;
+    threads::MutexGuard guard(m_routeMutex);
+    UNUSED_VALUE(guard);
 
-    default:
-      break;
+    m_isReadyThread.clear();
+
+    m2::PointD finalPt;
+    {
+      threads::MutexGuard params(m_paramsMutex);
+      UNUSED_VALUE(params);
+
+      finalPt = m_finalPt;
+
+      if (m_isFinalChanged)
+        m_cachedFinalNodes.clear();
+      m_isFinalChanged = false;
+    }
+
+    try
+    {
+      code = CalculateRouteImpl(startPt, finalPt, route);
+      switch (code)
+      {
+      case StartPointNotFound:
+        LOG(LWARNING, ("Can't find start point node"));
+        break;
+      case EndPointNotFound:
+        LOG(LWARNING, ("Can't find end point node"));
+        break;
+      case PointsInDifferentMWM:
+        LOG(LWARNING, ("Points are in different MWMs"));
+        break;
+      case RouteNotFound:
+        LOG(LWARNING, ("Route not found"));
+        break;
+
+      default:
+        break;
+      }
+    }
+    catch (Reader::Exception const & e)
+    {
+      LOG(LERROR, ("Routing index absent or incorrect. Error while loading routing index:", e.Msg()));
+      code = InternalError;
+
+      // Clear data while m_container is valid.
+      m_dataFacade.Clear();
+      m_mapping.Clear();
+
+      m_container.Close();
     }
   }
-  catch (Reader::Exception const & e)
-  {
-    LOG(LERROR, ("Routing index absent or incorrect. Error while loading routing index:", e.Msg()));
-    code = InternalError;
-  }
 
-  callback(route, code);
+  GetPlatform().RunOnGuiThread(bind(callback, route, code));
 }
 
 namespace

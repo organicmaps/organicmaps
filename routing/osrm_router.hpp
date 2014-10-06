@@ -4,7 +4,10 @@
 #include "osrm2feature_map.hpp"
 #include "osrm_data_facade.hpp"
 
+#include "../base/mutex.hpp"
+
 #include "../std/function.hpp"
+#include "../std/atomic.hpp"
 
 #include "../3party/osrm/osrm-backend/DataStructures/QueryEdge.h"
 
@@ -36,7 +39,7 @@ public:
 
   virtual string GetName() const;
   virtual void SetFinalPoint(m2::PointD const & finalPt);
-  virtual void CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback);
+  virtual void CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback);
 
 protected:
   IRouter::ResultCode FindPhantomNodes(string const & fName, m2::PointD const & startPt, m2::PointD const & finalPt,
@@ -44,6 +47,7 @@ protected:
 
   bool NeedReload(string const & fPath) const;
 
+  void CalculateRouteAsync(m2::PointD const & startPt, ReadyCallback const & callback);
   ResultCode CalculateRouteImpl(m2::PointD const & startPt, m2::PointD const & finalPt, Route & route);
 
 private:
@@ -55,7 +59,12 @@ private:
 
   FilesMappingContainer m_container;
 
+  bool m_isFinalChanged;
   FeatureGraphNodeVecT m_cachedFinalNodes;
+
+  threads::Mutex m_paramsMutex;
+  threads::Mutex m_routeMutex;
+  atomic_flag m_isReadyThread;
 };
 
 }

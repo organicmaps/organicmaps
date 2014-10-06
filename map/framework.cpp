@@ -1865,22 +1865,24 @@ void Framework::BuildRoute(m2::PointD const & destination)
   if (IsRoutingActive())
     CloseRouting();
 
-  m_routingSession.BuildRoute(state->Position(), destination, [&] (Route const & route, IRouter::ResultCode code)
-  {
-    if (code == IRouter::NoError)
+  m_routingSession.BuildRoute(state->Position(), destination,
+    // Capture all dependent state by value! Functor is passed for async calculation and called in UI thread.
+    [this, state] (Route const & route, IRouter::ResultCode code)
     {
-      InsertRoute(route);
-      state->RouteBuilded();
-      ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
-    }
-    else
-    {
-      RemoveRoute();
-      ///@TODO resolve message about this error
-      string messageID = "route_build_failed_reason";
-      ShowDialog(messageID, DialogOptions::Ok);
-    }
-  });
+      if (code == IRouter::NoError)
+      {
+        InsertRoute(route);
+        state->RouteBuilded();
+        ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
+      }
+      else
+      {
+        RemoveRoute();
+        ///@TODO resolve message about this error
+        string messageID = "route_build_failed_reason";
+        ShowDialog(messageID, DialogOptions::Ok);
+      }
+    });
 }
 
 void Framework::FollowRoute()

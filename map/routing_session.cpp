@@ -35,13 +35,15 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackF
   Reset();
   m_state = RouteNotReady;
 
-  m_router->CalculateRoute(startPoint, [&] (Route & route, IRouter::ResultCode e)
-  {
-    if (e == IRouter::NoError)
-      AssignRoute(route);
+  m_router->CalculateRoute(startPoint,
+    // Capture all dependent state by value! Functor is passed for async calculation and called in UI thread.
+    [this, callback] (Route & route, IRouter::ResultCode e)
+    {
+      if (e == IRouter::NoError)
+        AssignRoute(route);
 
-    callback(m_route, e);
-  });
+      callback(m_route, e);
+    });
 }
 
 bool RoutingSession::IsActive() const
