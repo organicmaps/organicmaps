@@ -115,6 +115,8 @@ namespace location
     void AnimateStateTransition(Mode oldMode, Mode newMode);
     void AnimateFollow();
 
+    void RotateOnNorth();
+
     void CallPositionChangedListeners(m2::PointD const & pt);
     void CallStateModeListeners();
 

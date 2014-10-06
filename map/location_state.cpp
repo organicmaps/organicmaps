@@ -306,7 +306,9 @@ void State::StartRouteFollow()
 
 void State::StopRoutingMode()
 {
-  SetModeInfo(ExcludeModeBit(m_modeInfo, RoutingSessionBit));
+  SetModeInfo(ChangeMode(ExcludeModeBit(m_modeInfo, RoutingSessionBit), Follow));
+  RotateOnNorth();
+  AnimateFollow();
 }
 
 void State::TurnOff()
@@ -783,7 +785,7 @@ void State::AnimateStateTransition(Mode oldMode, Mode newMode)
   }
   else if (oldMode == RotateAndFollow && newMode == UnknownPosition)
   {
-    m_framework->GetAnimator().RotateScreen(GetModelView().GetAngle(), 0.0);
+    RotateOnNorth();
   }
 
   AnimateFollow();
@@ -799,6 +801,11 @@ void State::AnimateFollow()
     if (!m_position.EqualDxDy(m_framework->GetViewportCenter(), POSITION_TOLERANCE))
       m_framework->SetViewportCenterAnimated(m_position);
   }
+}
+
+void State::RotateOnNorth()
+{
+  m_framework->GetAnimator().RotateScreen(GetModelView().GetAngle(), 0.0);
 }
 
 void State::Assign(location::GpsInfo const & info)
