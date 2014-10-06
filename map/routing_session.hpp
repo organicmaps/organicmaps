@@ -20,7 +20,8 @@ public:
   enum State
   {
     RoutingNotActive,
-    RouteNotReady,    // routing is not active or we requested a route and wait when it will be builded
+    RouteBuilding,    // we requested a route and wait when it will be builded
+    RouteNotReady,    // routing was not build
     RouteNotStarted,  // route is builded but the user isn't on it
     OnRoute,          // user follows the route
     RouteNeedRebuild, // user left the route
@@ -28,8 +29,9 @@ public:
   };
 
   /*
-   * RoutingNotActive -> RouteNotReady    // waiting for route
-   * RouteNotReady -> RouteNotStarted     // route is builded
+   * RoutingNotActive -> RouteBuilding    // start route building
+   * RouteBuilding -> RouteNotReady       // waiting for route
+   * RouteBuilding -> RouteNotStarted     // route is builded
    * RouteNotStarted -> OnRoute           // user started following the route
    * RouteNotStarted -> RouteNeedRebuild  // user doesn't like the route.
    * OnRoute -> RouteNeedRebuild          // user moves away from route - need to rebuild

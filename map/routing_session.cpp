@@ -33,17 +33,21 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint, TReadyCallbackF
 {
   ASSERT(m_router != nullptr, ());
   Reset();
-  m_state = RouteNotReady;
+  m_state = RouteBuilding;
 
-  m_router->CalculateRoute(startPoint,
-    // Capture all dependent state by value! Functor is passed for async calculation and called in UI thread.
-    [this, callback] (Route & route, IRouter::ResultCode e)
-    {
-      if (e == IRouter::NoError)
-        AssignRoute(route);
+  // Use old-style callback constraction, because lambda constructs buggy function on Android
+  // (callback param isn't captured by value).
+  m_router->CalculateRoute(startPoint, DoReadyCallback(*this, callback));
+}
 
-      callback(m_route, e);
-    });
+void RoutingSession::DoReadyCallback::operator() (Route & route, IRouter::ResultCode e)
+{
+  if (e == IRouter::NoError)
+    m_rs.AssignRoute(route);
+  else
+    m_rs.m_state = RouteNotReady;
+
+  m_callback(m_rs.m_route, e);
 }
 
 bool RoutingSession::IsActive() const
@@ -73,7 +77,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(m2::PointD const
       return RouteNotReady;
   }
 
-  if (m_state == RouteNeedRebuild || m_state == RouteFinished)
+  if (m_state == RouteNeedRebuild || m_state == RouteFinished || m_state == RouteBuilding)
     return m_state;
 
   ASSERT(m_route.IsValid(), ());
