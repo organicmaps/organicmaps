@@ -7,6 +7,11 @@
 #include "../std/vector.hpp"
 
 class Framework;
+
+namespace storage
+{
+
+class Storage;
 class ActiveMapsLayout
 {
 public:
@@ -28,10 +33,10 @@ public:
     virtual void CountryStatusChanged(TGroup const & group, int position) = 0;
     virtual void CountryOptionsChanged(TGroup const & group, int position) = 0;
     virtual void DownloadingProgressUpdate(TGroup const & group, int position,
-                                           storage::LocalAndRemoteSizeT const & progress) = 0;
+                                           LocalAndRemoteSizeT const & progress) = 0;
   };
 
-  ActiveMapsLayout(Framework * framework);
+  ActiveMapsLayout(Framework & framework);
   ~ActiveMapsLayout();
 
   void Init();
@@ -40,39 +45,44 @@ public:
 
   int GetCountInGroup(TGroup const & group) const;
   string const & GetCountryName(TGroup const & group, int position) const;
-  storage::TStatus GetCountryStatus(TGroup const & group, int position) const;
-  storage::TMapOptions GetCountryOptions(TGroup const & group, int position) const;
+  TStatus GetCountryStatus(TGroup const & group, int position) const;
+  TMapOptions GetCountryOptions(TGroup const & group, int position) const;
 
   /// set to nullptr when go out from ActiveMaps activity
   void SetListener(ActiveMapsListener * listener);
 
-  void DownloadMap(storage::TIndex const & index, storage::TMapOptions const & options);
-  void DownloadMap(TGroup const & group, int position, storage::TMapOptions const & options);
-  void DeleteMap(storage::TIndex const & index, storage::TMapOptions const & options);
-  void DeleteMap(TGroup const & group, int position, storage::TMapOptions const & options);
+  void DownloadMap(TIndex const & index, TMapOptions const & options);
+  void DownloadMap(TGroup const & group, int position, TMapOptions const & options);
+  void DeleteMap(TIndex const & index, TMapOptions const & options);
+  void DeleteMap(TGroup const & group, int position, TMapOptions const & options);
   void RetryDownloading(TGroup const & group, int position);
 
   bool IsDownloadingActive() const;
   void CancelDownloading(TGroup const & group, int position);
 
 private:
-  void StatusChangedCallback(storage::TIndex const & index);
-  void ProgressChangedCallback(storage::TIndex const & index, storage::LocalAndRemoteSizeT const & sizes);
+  friend class CountryTree;
+  Storage const & GetStorage() const;
+  Storage & GetStorage();
+
+private:
+  void StatusChangedCallback(TIndex const & index);
+  void ProgressChangedCallback(TIndex const & index, LocalAndRemoteSizeT const & sizes);
 
 private:
   struct Item
   {
-    storage::TIndex m_index;
-    storage::TStatus m_status;
-    storage::TMapOptions m_options;
-    storage::TMapOptions m_downloadRequest;
+    TIndex m_index;
+    TStatus m_status;
+    TMapOptions m_options;
+    TMapOptions m_downloadRequest;
   };
 
   Item const & GetItemInGroup(TGroup const & group, int position) const;
   Item & GetItemInGroup(TGroup const & group, int position);
   int GetStartIndexInGroup(TGroup const & group) const;
-  bool IsExist(storage::TIndex const & index, Item ** item);
-  bool GetGroupAndPositionByIndex(storage::TIndex const & index, TGroup & group, int & position);
+  Item * FindItem(TIndex const & index);
+  bool GetGroupAndPositionByIndex(TIndex const & index, TGroup & group, int & position);
 
 private:
   int InsertInGroup(TGroup const & group, Item const & item);
@@ -87,11 +97,11 @@ private:
   void NotifyStatusChanged(TGroup const & group, int position);
   void NotifyOptionsChanged(TGroup const & group, int position);
 
-  storage::TMapOptions ValidOptionsForDownload(storage::TMapOptions const & options);
-  storage::TMapOptions ValidOptionsForDelete(storage::TMapOptions const & options);
+  TMapOptions ValidOptionsForDownload(TMapOptions const & options);
+  TMapOptions ValidOptionsForDelete(TMapOptions const & options);
 
 private:
-  Framework * m_framework = nullptr;
+  Framework & m_framework;
   int m_subscribeSlotID = 0;
   ActiveMapsListener * m_listener = nullptr;
 
@@ -101,4 +111,7 @@ private:
   /// EUpToDate  - [TRangeSplit.second, m_items.size)
   typedef pair<int, int> TRangeSplit;
   TRangeSplit m_split;
+  bool m_inited = false;
 };
+
+}

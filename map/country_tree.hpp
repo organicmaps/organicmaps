@@ -12,6 +12,10 @@
 
 class Framework;
 
+namespace storage
+{
+
+class Storage;
 class CountryTree
 {
 public:
@@ -19,10 +23,10 @@ public:
   {
   public:
     virtual void ItemStatusChanged(int childPosition) = 0;
-    virtual void ItemProgressChanged(int childPosition, storage::LocalAndRemoteSizeT const & sizes) = 0;
+    virtual void ItemProgressChanged(int childPosition, LocalAndRemoteSizeT const & sizes) = 0;
   };
 
-  CountryTree(Framework * framework);
+  CountryTree(Framework & framework);
   ~CountryTree();
 
   ActiveMapsLayout & GetActiveMapLayout();
@@ -39,12 +43,12 @@ public:
   bool IsLeaf(int childPosition) const;
   string const & GetChildName(int position) const;
   /// call this only if child IsLeaf == true
-  storage::TStatus GetLeafStatus(int position) const;
-  storage::TMapOptions GetLeafOptions(int position) const;
+  TStatus GetLeafStatus(int position) const;
+  TMapOptions GetLeafOptions(int position) const;
 
   ///@{
-  void DownloadCountry(int childPosition, storage::TMapOptions const & options);
-  void DeleteCountry(int childPosition, storage::TMapOptions const & options);
+  void DownloadCountry(int childPosition, TMapOptions const & options);
+  void DeleteCountry(int childPosition, TMapOptions const & options);
   ///@}
   void CancelDownloading(int childPosition);
 
@@ -52,20 +56,25 @@ public:
   void ResetListener();
 
 private:
-  storage::TIndex const & GetCurrentRoot() const;
-  void SetRoot(storage::TIndex const & index);
-  storage::TIndex const & GetChild(int childPosition) const;
-  int GetChildPosition(storage::TIndex const & index);
-
-  void NotifyStatusChanged(storage::TIndex const & index);
-  void NotifyProgressChanged(storage::TIndex const & index, storage::LocalAndRemoteSizeT const & sizes);
+  Storage const & GetStorage() const;
+  Storage & GetStorage();
 
 private:
-  Framework * m_framework = nullptr;
+  TIndex const & GetCurrentRoot() const;
+  void SetRoot(TIndex const & index);
+  TIndex const & GetChild(int childPosition) const;
+  int GetChildPosition(TIndex const & index);
+
+  void NotifyStatusChanged(TIndex const & index);
+  void NotifyProgressChanged(TIndex const & index, LocalAndRemoteSizeT const & sizes);
+
+private:
   int m_subscribeSlotID = 0;
   ActiveMapsLayout m_layout;
 
-  buffer_vector<storage::TIndex, 16> m_levelItems;
+  buffer_vector<TIndex, 16> m_levelItems;
 
   CountryTreeListener * m_listener = nullptr;
 };
+
+}

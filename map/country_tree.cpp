@@ -4,7 +4,8 @@
 
 #include "../../storage/storage.hpp"
 
-using namespace storage;
+namespace storage
+{
 
 namespace
 {
@@ -39,17 +40,16 @@ inline TIndex GetIndexParent(TIndex const & index)
   return parent;
 }
 
-CountryTree::CountryTree(Framework * framework)
-  : m_framework(framework)
-  , m_layout(framework)
+CountryTree::CountryTree(Framework & framework)
+  : m_layout(framework)
 {
-  m_subscribeSlotID = m_framework->Storage().Subscribe(bind(&CountryTree::NotifyStatusChanged, this, _1),
-                                                       bind(&CountryTree::NotifyProgressChanged, this, _1, _2));
+  m_subscribeSlotID = GetStorage().Subscribe(bind(&CountryTree::NotifyStatusChanged, this, _1),
+                                             bind(&CountryTree::NotifyProgressChanged, this, _1, _2));
 }
 
 CountryTree::~CountryTree()
 {
-  m_framework->Storage().Unsubscribe(m_subscribeSlotID);
+  GetStorage().Unsubscribe(m_subscribeSlotID);
 }
 
 ActiveMapsLayout & CountryTree::GetActiveMapLayout()
@@ -98,24 +98,24 @@ int CountryTree::GetChildCount() const
 
 bool CountryTree::IsLeaf(int childPosition) const
 {
-  return m_framework->Storage().CountriesCount(GetChild(childPosition));
+  return GetStorage().CountriesCount(GetChild(childPosition));
 }
 
 string const & CountryTree::GetChildName(int position) const
 {
-  return m_framework->Storage().CountryName(GetChild(position));
+  return GetStorage().CountryName(GetChild(position));
 }
 
 TStatus CountryTree::GetLeafStatus(int position) const
 {
-  return m_framework->Storage().CountryStatusEx(GetChild(position));
+  return GetStorage().CountryStatusEx(GetChild(position));
 }
 
 TMapOptions CountryTree::GetLeafOptions(int position) const
 {
   TStatus status;
   TMapOptions options;
-  m_framework->Storage().CountryStatusEx(GetChild(position), status, options);
+  GetStorage().CountryStatusEx(GetChild(position), status, options);
   return options;
 }
 
@@ -133,7 +133,7 @@ void CountryTree::DeleteCountry(int childPosition, TMapOptions const & options)
 
 void CountryTree::CancelDownloading(int childPosition)
 {
-  m_framework->Storage().DeleteFromDownloader(GetChild(childPosition));
+  GetStorage().DeleteFromDownloader(GetChild(childPosition));
 }
 
 void CountryTree::SetListener(CountryTreeListener * listener)
@@ -146,6 +146,16 @@ void CountryTree::ResetListener()
   m_listener = nullptr;
 }
 
+Storage const & CountryTree::GetStorage() const
+{
+  return m_layout.GetStorage();
+}
+
+Storage & CountryTree::GetStorage()
+{
+  return m_layout.GetStorage();
+}
+
 TIndex const & CountryTree::GetCurrentRoot() const
 {
   ASSERT(HasRoot(), ());
@@ -156,7 +166,7 @@ void CountryTree::SetRoot(TIndex const & index)
 {
   ResetRoot();
 
-  size_t const count = m_framework->Storage().CountriesCount(index);
+  size_t const count = GetStorage().CountriesCount(index);
   m_levelItems.reserve(ChildItemsOffset + count);
   m_levelItems.push_back(index);
   for (size_t i = 0; i < count; ++i)
@@ -200,4 +210,6 @@ void CountryTree::NotifyProgressChanged(TIndex const & index, LocalAndRemoteSize
     if (position != -1)
       m_listener->ItemProgressChanged(position, sizes);
   }
+}
+
 }

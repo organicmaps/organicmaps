@@ -2,33 +2,33 @@
 
 #include "framework.hpp"
 
-using namespace storage;
+namespace storage
+{
 
-ActiveMapsLayout::ActiveMapsLayout(Framework * framework)
+ActiveMapsLayout::ActiveMapsLayout(Framework & framework)
   : m_framework(framework)
 {
-  m_subscribeSlotID = m_framework->Storage().Subscribe(bind(&ActiveMapsLayout::StatusChangedCallback, this, _1),
+  m_subscribeSlotID = m_framework.Storage().Subscribe(bind(&ActiveMapsLayout::StatusChangedCallback, this, _1),
                                                        bind(&ActiveMapsLayout::ProgressChangedCallback, this, _1, _2));
 }
 
 ActiveMapsLayout::~ActiveMapsLayout()
 {
-  m_framework->Storage().Unsubscribe(m_subscribeSlotID);
+  m_framework.Storage().Unsubscribe(m_subscribeSlotID);
 }
 
 void ActiveMapsLayout::Init()
 {
-  static bool s_inited = false;
-  if (!s_inited)
+  if (!m_inited)
   {
-    Storage & storage = m_framework->Storage();
-    auto insertIndexFn = [&](TIndex index)
+    Storage & storage = m_framework.Storage();
+    auto insertIndexFn = [&](TIndex const & index)
     {
       TStatus status;
       TMapOptions options;
       storage.CountryStatusEx(index, status, options);
       ASSERT(status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate, ());
-      m_items.push_back(Item{index, status, options, options});
+      m_items.push_back({ index, status, options, options });
     };
 
     TIndex root;
@@ -51,12 +51,10 @@ void ActiveMapsLayout::Init()
       }
     }
 
-    auto comparatorFn = [&](Item const & lhs, Item const & rhs)
+    auto comparatorFn = [&storage](Item const & lhs, Item const & rhs)
     {
-      int lStatus = static_cast<int>(lhs.m_status);
-      int rStatus = static_cast<int>(rhs.m_status);
-      if (lStatus != rStatus)
-        return lStatus > rStatus;
+      if (lhs.m_status != rhs.m_status)
+        return lhs.m_status > rhs.m_status;
       else
       {
         return storage.CountryName(lhs.m_index) < storage.CountryName(rhs.m_index);
@@ -65,12 +63,17 @@ void ActiveMapsLayout::Init()
 
     sort(m_items.begin(), m_items.end(), comparatorFn);
 
-    typedef vector<Item>::const_iterator TItemIter;
-    auto iter = lower_bound(m_items.begin(), m_items.end(), TStatus::EOnDisk, [](Item const & lhs, TStatus const & status)
+    m_split = make_pair(0, m_items.size());
+    for (size_t i = 0; i < m_items.size(); ++i)
     {
-      return lhs.m_status < status;
-    });
-    m_split = make_pair(0, distance(m_items.begin(), iter));
+      if (m_items[i].m_status == TStatus::EOnDisk)
+      {
+        m_split.second = i;
+        break;
+      }
+    }
+
+    m_inited = true;
   }
 }
 
@@ -99,7 +102,7 @@ void ActiveMapsLayout::CancelAll()
       downloading.push_back(item.m_index);
   }
 
-  Storage & st = m_framework->Storage();
+  Storage & st = m_framework.Storage();
   for (TIndex const & index : downloading)
     st.DeleteFromDownloader(index);
 }
@@ -107,7 +110,8 @@ void ActiveMapsLayout::CancelAll()
 int ActiveMapsLayout::GetCountInGroup(TGroup const & group) const
 {
   int result = 0;
-  switch (group) {
+  switch (group)
+  {
   case TGroup::ENewMap:
     result = m_split.first;
     break;
@@ -124,7 +128,7 @@ int ActiveMapsLayout::GetCountInGroup(TGroup const & group) const
 
 string const & ActiveMapsLayout::GetCountryName(TGroup const & group, int position) const
 {
-  return m_framework->GetCountryName(GetItemInGroup(group, position).m_index);
+  return m_framework.GetCountryName(GetItemInGroup(group, position).m_index);
 }
 
 TStatus ActiveMapsLayout::GetCountryStatus(const ActiveMapsLayout::TGroup & group, int position) const
@@ -145,27 +149,26 @@ void ActiveMapsLayout::SetListener(ActiveMapsLayout::ActiveMapsListener * listen
 void ActiveMapsLayout::DownloadMap(TIndex const & index, TMapOptions const & options)
 {
   TMapOptions validOptions = ValidOptionsForDownload(options);
-  Item * item = nullptr;
-  if (IsExist(index, &item))
+  Item * item = FindItem(index);
+  if (item)
   {
     ASSERT(item != nullptr, ());
     item->m_downloadRequest = validOptions;
   }
   else
   {
-    int position = InsertInGroup(TGroup::ENewMap, Item{ index, TStatus::ENotDownloaded, validOptions, validOptions });
+    int position = InsertInGroup(TGroup::ENewMap, { index, TStatus::ENotDownloaded, validOptions, validOptions });
     NotifyInsertion(TGroup::ENewMap, position);
   }
 
-  m_framework->DownloadCountry(index, validOptions);
+  m_framework.DownloadCountry(index, validOptions);
 }
 
 void ActiveMapsLayout::DownloadMap(TGroup const & group, int position, TMapOptions const & options)
 {
-  TMapOptions validOptions = ValidOptionsForDownload(options);
   Item & item = GetItemInGroup(group, position);
-  item.m_downloadRequest = validOptions;
-  m_framework->DownloadCountry(item.m_index, item.m_downloadRequest);
+  item.m_downloadRequest = ValidOptionsForDownload(options);
+  m_framework.DownloadCountry(item.m_index, item.m_downloadRequest);
 }
 
 void ActiveMapsLayout::DeleteMap(TIndex const & index, const TMapOptions & options)
@@ -178,14 +181,14 @@ void ActiveMapsLayout::DeleteMap(TIndex const & index, const TMapOptions & optio
 
 void ActiveMapsLayout::DeleteMap(TGroup const & group, int position, TMapOptions const & options)
 {
-  m_framework->DeleteCountry(GetItemInGroup(group, position).m_index, ValidOptionsForDelete(options));
+  m_framework.DeleteCountry(GetItemInGroup(group, position).m_index, ValidOptionsForDelete(options));
 }
 
 void ActiveMapsLayout::RetryDownloading(TGroup const & group, int position)
 {
   Item const & item = GetItemInGroup(group, position);
   ASSERT(item.m_options != item.m_downloadRequest, ());
-  m_framework->DownloadCountry(item.m_index, item.m_downloadRequest);
+  m_framework.DownloadCountry(item.m_index, item.m_downloadRequest);
 }
 
 bool ActiveMapsLayout::IsDownloadingActive() const
@@ -201,15 +204,25 @@ bool ActiveMapsLayout::IsDownloadingActive() const
 void ActiveMapsLayout::CancelDownloading(TGroup const & group, int position)
 {
   Item & item = GetItemInGroup(group, position);
-  m_framework->Storage().DeleteFromDownloader(item.m_index);
+  m_framework.Storage().DeleteFromDownloader(item.m_index);
   item.m_downloadRequest = item.m_options;
+}
+
+Storage const & ActiveMapsLayout::GetStorage() const
+{
+  return m_framework.Storage();
+}
+
+Storage & ActiveMapsLayout::GetStorage()
+{
+  return m_framework.Storage();
 }
 
 void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
 {
   TStatus newStatus = TStatus::EUnknown;
   TMapOptions options = TMapOptions::EMapOnly;
-  m_framework->Storage().CountryStatusEx(index, newStatus, options);
+  m_framework.Storage().CountryStatusEx(index, newStatus, options);
 
   TGroup group = TGroup::ENewMap;
   int position = 0;
@@ -220,14 +233,14 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
   {
     if (group != TGroup::EUpToDate)
     {
-      /// Here we handle
-      /// "NewMap" -> "Actual Map without routing"
-      /// "NewMap" -> "Actual Map with routing"
-      /// "OutOfDate without routing" -> "Actual map without routing"
-      /// "OutOfDate without routing" -> "Actual map with routing"
-      /// "OutOfDate with Routing" -> "Actual map with routing"
-      ///   For "NewMaps" always true - m_options == m_m_downloadRequest == options
-      ///   but we must notify that options changed because for "NewMaps" m_options is virtual state
+      // Here we handle
+      // "NewMap" -> "Actual Map without routing"
+      // "NewMap" -> "Actual Map with routing"
+      // "OutOfDate without routing" -> "Actual map without routing"
+      // "OutOfDate without routing" -> "Actual map with routing"
+      // "OutOfDate with Routing" -> "Actual map with routing"
+      //   For "NewMaps" always true - m_options == m_m_downloadRequest == options
+      //   but we must notify that options changed because for "NewMaps" m_options is virtual state
       if (item.m_options != options || group == TGroup::ENewMap)
       {
         item.m_downloadRequest = item.m_options = options;
@@ -243,9 +256,9 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
     }
     else
     {
-      /// Here we handle
-      /// "Actual map without routing" -> "Actual map with routing"
-      /// "Actual map with routing" -> "Actual map without routing"
+      // Here we handle
+      // "Actual map without routing" -> "Actual map with routing"
+      // "Actual map with routing" -> "Actual map without routing"
       ASSERT(item.m_status == newStatus, ());
       ASSERT(item.m_options != options, ());
       item.m_options = item.m_downloadRequest = options;
@@ -256,24 +269,24 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
   {
     if (group == TGroup::ENewMap)
     {
-      /// "NewMap downloading" -> "Cancel downloading"
-      /// We handle here only status change for "New maps"
-      /// because if new status ENotDownloaded than item.m_options is invalid.
-      /// Map have no options and gui not show routing icon
+      // "NewMap downloading" -> "Cancel downloading"
+      // We handle here only status change for "New maps"
+      // because if new status ENotDownloaded than item.m_options is invalid.
+      // Map have no options and gui not show routing icon
       item.m_status = newStatus;
       NotifyStatusChanged(group, position);
     }
     else
     {
-      /// "Actual of not map been deleted"
-      /// We not notify about options changed!
+      // "Actual of not map been deleted"
+      // We not notify about options changed!
       DeleteFromGroup(group, position);
       NotifyDeletion(group, position);
     }
   }
   else if (newStatus == TStatus::EOnDiskOutOfDate)
   {
-    /// We can drop here only if user start update some map and cancel it
+    // We can drop here only if user start update some map and cancel it
     item.m_status = newStatus;
     NotifyStatusChanged(group, position);
 
@@ -282,9 +295,9 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
   }
   else
   {
-    /// EDownloading
-    /// EInQueue
-    /// downloadig faild for some reason
+    // EDownloading
+    // EInQueue
+    // downloadig faild for some reason
     item.m_status = newStatus;
     NotifyStatusChanged(group, position);
   }
@@ -329,18 +342,17 @@ int ActiveMapsLayout::GetStartIndexInGroup(TGroup const & group) const
   return m_items.size();
 }
 
-bool ActiveMapsLayout::IsExist(TIndex const & index, Item ** item)
+ActiveMapsLayout::Item * ActiveMapsLayout::FindItem(TIndex const & index)
 {
   vector<Item>::iterator iter = find_if(m_items.begin(), m_items.end(), [&index](Item const & item)
   {
     return item.m_index == index;
   });
 
-  bool exist = iter != m_items.end();
-  if (exist)
-    *item = &(*iter);
+  if (iter == m_items.end())
+    return nullptr;
 
-  return exist;
+  return &(*iter);
 }
 
 bool ActiveMapsLayout::GetGroupAndPositionByIndex(TIndex const & index, TGroup & group, int & position)
@@ -401,22 +413,20 @@ int ActiveMapsLayout::InsertInGroup(TGroup const & group, Item const & item)
     endSort = m_items.end();
   }
 
-  Storage & st = m_framework->Storage();
+  ASSERT(m_split.first < m_items.size(), ());
+  ASSERT(m_split.second < m_items.size(), ());
+
+  Storage & st = m_framework.Storage();
   sort(startSort, endSort, [&](Item const & lhs, Item const & rhs)
   {
     ASSERT(lhs.m_status == rhs.m_status, ());
     return st.CountryName(lhs.m_index) < st.CountryName(rhs.m_index);
   });
 
-  TItemIter newPosIter = m_items.end();
-  for (TItemIter it = startSort; it != endSort; ++it)
+  TItemIter newPosIter = find_if(startSort, endSort, [&item](Item const & it)
   {
-    if (it->m_index == item.m_index)
-    {
-      newPosIter = it;
-      break;
-    }
-  }
+    return it.m_index == item.m_index;
+  });
 
   ASSERT(newPosIter != m_items.end(), ());
   return distance(startSort, newPosIter);
@@ -433,6 +443,9 @@ void ActiveMapsLayout::DeleteFromGroup(TGroup const & group, int position)
   {
     --m_split.second;
   }
+
+  ASSERT(m_split.first >= 0, ());
+  ASSERT(m_split.second >= 0, ());
 
   m_items.erase(m_items.begin() + GetStartIndexInGroup(group) + position);
 }
@@ -485,4 +498,6 @@ TMapOptions ActiveMapsLayout::ValidOptionsForDelete(TMapOptions const & options)
   if (options & TMapOptions::EMapOnly)
     return options | TMapOptions::ECarRouting;
   return options;
+}
+
 }

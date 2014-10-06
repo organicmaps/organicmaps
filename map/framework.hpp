@@ -118,7 +118,7 @@ protected:
   void StopLocationFollow();
 
   storage::Storage m_storage;
-  CountryTree m_countryTree;
+  storage::CountryTree m_countryTree;
   unique_ptr<gui::Controller> m_guiController;
   unique_ptr<anim::Controller> m_animController;
   InformationDisplay m_informationDisplay;
@@ -218,7 +218,7 @@ public:
   inline m2::PointD GtoP(m2::PointD const & p) const { return m_navigator.GtoP(p); }
 
   storage::Storage & Storage() { return m_storage; }
-  CountryTree & GetCountryTree() { return m_countryTree; }
+  storage::CountryTree & GetCountryTree() { return m_countryTree; }
 
   /// @name GPS location updates routine.
   //@{
