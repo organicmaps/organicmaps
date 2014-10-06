@@ -27,8 +27,8 @@ void ActiveMapsLayout::Init()
       TStatus status;
       TMapOptions options;
       storage.CountryStatusEx(index, status, options);
-      ASSERT(status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate, ());
-      m_items.push_back({ index, status, options, options });
+      if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
+        m_items.push_back({ index, status, options, options });
     };
 
     TIndex root;
