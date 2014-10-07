@@ -1866,13 +1866,12 @@ void Framework::BuildRoute(m2::PointD const & destination)
     CloseRouting();
 
   m_routingSession.BuildRoute(state->Position(), destination,
-    // Capture all dependent state by value! Functor is passed for async calculation and called in UI thread.
-    [this, state] (Route const & route, IRouter::ResultCode code)
+    [this] (Route const & route, IRouter::ResultCode code)
     {
       if (code == IRouter::NoError)
       {
         InsertRoute(route);
-        state->RouteBuilded();
+        GetLocationState()->RouteBuilded();
         ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
       }
       else

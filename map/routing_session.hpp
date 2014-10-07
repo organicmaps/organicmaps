@@ -56,6 +56,19 @@ public:
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
 private:
+  struct DoReadyCallback
+  {
+    RoutingSession & m_rs;
+    TReadyCallbackFn m_callback;
+
+    DoReadyCallback(RoutingSession & rs, TReadyCallbackFn const & cb)
+      : m_rs(rs), m_callback(cb)
+    {
+    }
+
+    void operator() (Route & route, IRouter::ResultCode e);
+  };
+
   void AssignRoute(Route & route);
 
 private:
