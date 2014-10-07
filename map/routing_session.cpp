@@ -11,7 +11,7 @@ using namespace location;
 namespace routing
 {
 
-static int const ON_ROUTE_MISSED_COUNT = 10;
+static int const ON_ROUTE_MISSED_COUNT = 5;
 
 
 RoutingSession::RoutingSession()
