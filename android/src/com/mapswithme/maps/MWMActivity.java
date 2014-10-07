@@ -1599,7 +1599,7 @@ public class MWMActivity extends NvEventQueueActivity
     {
       if (mDoAutoDownload)
       {
-        MapStorage.INSTANCE.downloadCountry(mIndex);
+        Framework.downloadCountry(mIndex);
         // set zoom level so that download process is visible
         Framework.nativeShowCountry(mIndex, true);
       }

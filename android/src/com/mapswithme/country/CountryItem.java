@@ -6,25 +6,20 @@ import com.mapswithme.maps.MapStorage;
 
 public class CountryItem
 {
-  public final String mName;
-  public final MapStorage.Index mCountryIdx;
-  public final String mFlag;
-
+  private String mName;
+  private int mOptions;
   private int mStatus;
+  private boolean mHasChildren;
 
   private static final Typeface LIGHT = Typeface.create("sans-serif-light", Typeface.NORMAL);
   private static final Typeface REGULAR = Typeface.create("sans-serif", Typeface.NORMAL);
 
-  public CountryItem(MapStorage.Index idx)
+  public CountryItem(String name, int status, int options, boolean hasChildren)
   {
-    mCountryIdx = idx;
-    mName = MapStorage.INSTANCE.countryName(idx);
-
-    final String flag = MapStorage.INSTANCE.countryFlag(idx);
-    // The aapt can't process resources with name "do". Hack with renaming.
-    mFlag = flag.equals("do") ? "do_hack" : flag;
-
-    updateStatus();
+    mName = name;
+    mStatus = status;
+    mOptions = options;
+    mHasChildren = hasChildren;
   }
 
   public int getStatus()
@@ -32,14 +27,34 @@ public class CountryItem
     return mStatus;
   }
 
-  public void updateStatus()
+  public String getName()
   {
-    if (mCountryIdx.getCountry() == -1 || (mCountryIdx.getRegion() == -1 && mFlag.length() == 0))
-      mStatus = MapStorage.GROUP;
-    else if (mCountryIdx.getRegion() == -1 && MapStorage.INSTANCE.countriesCount(mCountryIdx) > 0)
-      mStatus = MapStorage.COUNTRY;
-    else
-      mStatus = MapStorage.INSTANCE.countryStatus(mCountryIdx);
+    return mName;
+  }
+
+  public int getOptions()
+  {
+    return mOptions;
+  }
+
+  public boolean hasChildren()
+  {
+    return mHasChildren;
+  }
+
+  public void setStatus(int mStatus)
+  {
+    this.mStatus = mStatus;
+  }
+
+  public void setName(String name)
+  {
+    mName = name;
+  }
+
+  public void setOptions(int options)
+  {
+    options = options;
   }
 
   public int getTextColor()
@@ -59,7 +74,7 @@ public class CountryItem
 
   public Typeface getTypeface()
   {
-    switch (getStatus())
+    switch (mStatus)
     {
     case MapStorage.NOT_DOWNLOADED:
     case MapStorage.DOWNLOADING:
@@ -73,7 +88,10 @@ public class CountryItem
 
   public int getType()
   {
-    switch (getStatus())
+    if (mHasChildren)
+      return DownloadAdapter.TYPE_GROUP;
+
+    switch (mStatus)
     {
     case MapStorage.GROUP:
       return DownloadAdapter.TYPE_GROUP;

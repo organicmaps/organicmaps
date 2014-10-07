@@ -3,39 +3,22 @@ package com.mapswithme.country;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
-import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.guides.GuideInfo;
 
-public class DownloadedAdapter extends BaseDownloadAdapter
+public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCountryTree.ActiveCountryListener
 {
   private static final int TYPE_HEADER = 5;
   private static final int VIEW_TYPE_COUNT = 6;
-  private int mDownloadedCount;
+  private int mUpdatedCount;
   private int mOutdatedCount;
+  private int mInProgressCount;
+  private int mListenerSlotId;
 
   public DownloadedAdapter(Activity activity)
   {
     super(activity);
-  }
-
-  @Override
-  protected void fillList()
-  {
-
-  }
-
-  @Override
-  protected void expandGroup(int position)
-  {
-    //
-  }
-
-  @Override
-  public boolean onBackPressed()
-  {
-    return false;
   }
 
   @Override
@@ -58,7 +41,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter
         view = convertView;
         holder = (ViewHolder) view.getTag();
       }
-      if (containsOutdated() && position == 0)
+      if (position == mInProgressCount)
         holder.mName.setText(mActivity.getString(R.string.downloader_outdated_maps));
       else
         holder.mName.setText(mActivity.getString(R.string.downloader_uptodate_maps));
@@ -69,7 +52,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter
     {
       final View view = super.getView(position, convertView, parent);
       final ViewHolder holder = (ViewHolder) view.getTag();
-      if (getOutdatedPosition(position) == INVALID_POSITION)
+      if (getGroupByAbsPosition(position) != ActiveCountryTree.GROUP_UP_TO_DATE)
         holder.mPercent.setVisibility(View.GONE);
       else
         holder.mPercent.setVisibility(View.VISIBLE);
@@ -78,11 +61,24 @@ public class DownloadedAdapter extends BaseDownloadAdapter
   }
 
   @Override
+  protected long[] getItemSizes(int position, int options)
+  {
+    return ActiveCountryTree.getCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position), options);
+  }
+
+  @Override
+  protected long[] getDownloadableItemSizes(int position)
+  {
+    return ActiveCountryTree.getDownloadableCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position));
+  }
+
+  @Override
   public int getCount()
   {
-    mDownloadedCount = MapStorage.INSTANCE.getDownloadedCountriesCount();
-    mOutdatedCount = MapStorage.INSTANCE.getOutdatedCountriesCount();
-    return (mDownloadedCount == 0 ? 0 : mDownloadedCount + 1) + (mOutdatedCount == 0 ? 0 : mOutdatedCount + 1);
+    mInProgressCount = ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_NEW);
+    mUpdatedCount = ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_UP_TO_DATE);
+    mOutdatedCount = ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_OUT_OF_DATE);
+    return mInProgressCount + (mUpdatedCount == 0 ? 0 : mUpdatedCount + 1) + (mOutdatedCount == 0 ? 0 : mOutdatedCount + 1);
   }
 
   @Override
@@ -91,12 +87,12 @@ public class DownloadedAdapter extends BaseDownloadAdapter
     if (isHeader(position))
       return null;
 
-    int correctedPosition = getOutdatedPosition(position);
-    if (correctedPosition != INVALID_POSITION)
-      return new CountryItem(MapStorage.INSTANCE.getOutdatedCountry(correctedPosition));
-
-    correctedPosition = getDownloadedPosition(position);
-    return new CountryItem(MapStorage.INSTANCE.getDownloadedCountry(correctedPosition));
+    final int group = getGroupByAbsPosition(position);
+    final int positionInGroup = getPositionInGroup(position);
+    return new CountryItem(ActiveCountryTree.getCountryName(group, positionInGroup),
+        ActiveCountryTree.getCountryStatus(group, positionInGroup),
+        ActiveCountryTree.getCountryOptions(group, positionInGroup),
+        false);
   }
 
   @Override
@@ -110,9 +106,9 @@ public class DownloadedAdapter extends BaseDownloadAdapter
 
   private boolean isHeader(int position)
   {
-    return (containsOutdated() && position == 0) ||
-        (!containsOutdated() && containsDownloaded() && position == 0) ||
-        (containsOutdated() && containsDownloaded() && position == mOutdatedCount + 1);
+    return (containsOutdated() && position == mInProgressCount) ||
+        (!containsOutdated() && containsDownloaded() && position == mInProgressCount) ||
+        (containsOutdated() && containsDownloaded() && position == mInProgressCount + mOutdatedCount + 1);
   }
 
   @Override
@@ -128,44 +124,9 @@ public class DownloadedAdapter extends BaseDownloadAdapter
   }
 
   @Override
-  protected int getItemPosition(MapStorage.Index idx)
-  {
-    return INVALID_POSITION;
-  }
-
-  @Override
-  protected boolean isRoot()
-  {
-    return false;
-  }
-
-  @Override
   public void onItemClick(int position, View view)
   {
-    onCountryMenuClicked(getItem(position), view);
-  }
-
-  protected int getOutdatedPosition(int position)
-  {
-    if (!containsOutdated())
-      return INVALID_POSITION;
-
-    if (position <= mOutdatedCount)
-      return position - 1;
-
-    return INVALID_POSITION;
-  }
-
-  protected int getDownloadedPosition(int position)
-  {
-    if (!containsDownloaded())
-      return INVALID_POSITION;
-
-    final int startNum = 1 + (containsOutdated() ? mOutdatedCount + 1 : 0);
-    if (position >= startNum && position < startNum + mDownloadedCount)
-      return position - 1 - (containsOutdated() ? mOutdatedCount + 1 : 0);
-
-    return INVALID_POSITION;
+    showCountryContextMenu(getItem(position), view, position);
   }
 
   protected boolean containsOutdated()
@@ -175,25 +136,148 @@ public class DownloadedAdapter extends BaseDownloadAdapter
 
   protected boolean containsDownloaded()
   {
-    return mDownloadedCount != 0;
+    return mUpdatedCount != 0;
+  }
+
+  protected boolean containsInProgress()
+  {
+    return mInProgressCount != 0;
   }
 
   @Override
-  protected void updateStatuses()
+  protected void fillList()
+  {
+    notifyDataSetChanged();
+  }
+
+  private int getGroupByAbsPosition(int position)
+  {
+    final int newGroupEnd = mInProgressCount;
+    if (position < newGroupEnd)
+      return ActiveCountryTree.GROUP_NEW;
+
+    final int outdatedGroupEnd = newGroupEnd + mOutdatedCount + 1;
+    if (position < outdatedGroupEnd)
+      return ActiveCountryTree.GROUP_OUT_OF_DATE;
+
+    final int updatedGroupEnd = outdatedGroupEnd + mUpdatedCount + 1;
+    if (position < updatedGroupEnd)
+      return ActiveCountryTree.GROUP_UP_TO_DATE;
+
+    return INVALID_POSITION;
+  }
+
+  private int getPositionInGroup(int position)
+  {
+    final int newGroupEnd = mInProgressCount;
+    if (position < newGroupEnd)
+      return position;
+
+    final int outdatedGroupEnd = newGroupEnd + mOutdatedCount + 1;
+    if (position < outdatedGroupEnd)
+      return position - newGroupEnd - 1;
+
+    final int updatedGroupEnd = outdatedGroupEnd + mUpdatedCount + 1;
+    if (position < updatedGroupEnd)
+      return position - outdatedGroupEnd - 1;
+
+    return INVALID_POSITION;
+  }
+
+  private int getAbsolutePosition(int group, int position)
+  {
+    switch (group)
+    {
+    case ActiveCountryTree.GROUP_NEW:
+      return position;
+    case ActiveCountryTree.GROUP_OUT_OF_DATE:
+      return position + mInProgressCount + 1;
+    default:
+      return position + mInProgressCount + mOutdatedCount + 2;
+    }
+  }
+
+  @Override
+  protected void expandGroup(int position)
+  {
+    // no groups in current design
+  }
+
+  @Override
+  public boolean onBackPressed()
+  {
+    return false;
+  }
+
+  @Override
+  protected GuideInfo getGuideInfo(int position)
+  {
+    return ActiveCountryTree.getGuideInfo(getGroupByAbsPosition(position), getPositionInGroup(position));
+  }
+
+  @Override
+  protected void cancelDownload(int position)
+  {
+    ActiveCountryTree.cancelDownloading(getGroupByAbsPosition(position), getPositionInGroup(position));
+  }
+
+  @Override
+  protected void setCountryListener()
+  {
+    mListenerSlotId = ActiveCountryTree.addListener(this);
+  }
+
+  @Override
+  protected void resetCountryListener()
+  {
+    ActiveCountryTree.removeListener(mListenerSlotId);
+  }
+
+  @Override
+  protected void updateCountry(int position, int options)
+  {
+    ActiveCountryTree.downloadMap(getGroupByAbsPosition(position), getPositionInGroup(position), options);
+  }
+
+  @Override
+  protected void downloadCountry(int position, int options)
+  {
+    ActiveCountryTree.downloadMap(getGroupByAbsPosition(position), getPositionInGroup(position), options);
+  }
+
+  @Override
+  protected void deleteCountry(int position, int options)
+  {
+    ActiveCountryTree.deleteMap(getGroupByAbsPosition(position), getPositionInGroup(position), options);
+  }
+
+  @Override
+  protected void showCountry(int position)
+  {
+    ActiveCountryTree.showOnMap(getGroupByAbsPosition(position), getPositionInGroup(position));
+  }
+
+  @Override
+  public void onCountryProgressChanged(int group, int position, long[] sizes)
+  {
+    onCountryProgress(getAbsolutePosition(group, position), sizes[0], sizes[1]);
+  }
+
+  @Override
+  public void onCountryStatusChanged(int group, int position)
+  {
+    onCountryStatusChanged(getAbsolutePosition(group, position));
+  }
+
+  @Override
+  public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition)
   {
     notifyDataSetChanged();
   }
 
   @Override
-  public void onCountryProgress(ListView list, MapStorage.Index idx, long current, long total)
-  {
-    super.onCountryProgress(list, idx, current, total);
-  }
-
-  @Override
-  public int onCountryStatusChanged(MapStorage.Index idx)
+  public void onCountryOptionsChanged(int group, int position)
   {
     notifyDataSetChanged();
-    return MapStorage.INSTANCE.countryStatus(idx);
   }
 }

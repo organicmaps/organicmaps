@@ -59,7 +59,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:maxLines="1"
-        android:text="DOWNLOAD"
         android:textAppearance="@style/Holo.TextAppearance.Light"
         android:textColor="@color/downloader_green"/>
 
@@ -94,7 +93,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:maxLines="1"
-        android:text="DOWNLOAD"
         android:textAppearance="@style/Holo.TextAppearance.Light"
         android:textColor="@color/downloader_green"/>
 

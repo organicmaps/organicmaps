@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.mapswithme.maps.MapStorage;
 import com.mapswithme.maps.R;
 
 public class ExtendedDownloadAdapterWrapper extends DownloadAdapter
@@ -76,7 +75,9 @@ public class ExtendedDownloadAdapterWrapper extends DownloadAdapter
   public View getView(int position, View convertView, ViewGroup parent)
   {
     final int viewType = getItemViewType(position);
-    ViewHolder holder = new ViewHolderExtended();
+//    Log.d("TEST", "EDAW. Get view. Type = " + viewType);
+//    Log.d("TEST", "EDAW. Get view. Position = " + position);
+    ViewHolderExtended holder = new ViewHolderExtended();
     if (viewType == TYPE_PLACEHOLDER)
     {
       final View view = getPlaceholderView(parent);
@@ -88,6 +89,14 @@ public class ExtendedDownloadAdapterWrapper extends DownloadAdapter
     {
       final View view = getExtendedView(parent);
       holder.initFromView(view);
+      final int count = ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_OUT_OF_DATE);
+      if (count > 0)
+      {
+        holder.tvCount.setVisibility(View.VISIBLE);
+        holder.tvCount.setText(String.valueOf(count));
+      }
+      else
+        holder.tvCount.setVisibility(View.GONE);
       view.setTag(holder);
       return view;
     }
@@ -145,31 +154,19 @@ public class ExtendedDownloadAdapterWrapper extends DownloadAdapter
 
   protected boolean isRootScreen()
   {
-    return mWrappedAdapter.isRoot();
+    return !CountryTree.hasParent();
   }
 
   @Override
-  public void onResume(MapStorage.Listener listener)
+  public void onResume(ListView listView)
   {
-    mWrappedAdapter.onResume(listener);
+    mWrappedAdapter.onResume(listView);
   }
 
   @Override
   public void onPause()
   {
     mWrappedAdapter.onPause();
-  }
-
-  @Override
-  public void onCountryProgress(ListView list, MapStorage.Index idx, long current, long total)
-  {
-    mWrappedAdapter.onCountryProgress(list, idx, current, total);
-  }
-
-  @Override
-  public int onCountryStatusChanged(MapStorage.Index idx)
-  {
-    return mWrappedAdapter.onCountryStatusChanged(idx);
   }
 
   protected static class ViewHolderExtended extends ViewHolder

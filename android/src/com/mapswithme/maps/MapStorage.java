@@ -21,6 +21,7 @@ public enum MapStorage
   public static final int IN_QUEUE = 4;
   public static final int UNKNOWN = 5;
   public static final int ON_DISK_OUT_OF_DATE = 6;
+  public static final int DOWNLOAD_FAILED_OUF_OF_MEMORY = 7;
 
   /**
    * Callbacks are called from native code.
@@ -43,73 +44,20 @@ public enum MapStorage
     public Index()
     {
       mGroup = -1;
-      setCountry(-1);
-      setRegion(-1);
+      mRegion = -1;
+      mCountry = -1;
     }
 
     public Index(int group, int country, int region)
     {
       mGroup = group;
-      setCountry(country);
-      setRegion(region);
-    }
-
-    public boolean isRoot()
-    {
-      return (mGroup == -1 && getCountry() == -1 && getRegion() == -1);
-    }
-
-    public boolean isValid()
-    {
-      return !isRoot();
-    }
-
-    public Index getChild(int position)
-    {
-      final Index ret = new Index(mGroup, getCountry(), getRegion());
-
-      if (ret.mGroup == -1)
-        ret.mGroup = position;
-      else if (ret.getCountry() == -1)
-        ret.setCountry(position);
-      else
-      {
-        assert (ret.getRegion() == -1);
-        ret.setRegion(position);
-      }
-
-      return ret;
-    }
-
-    public Index getParent()
-    {
-      final Index ret = new Index(mGroup, getCountry(), getRegion());
-
-      if (ret.getRegion() != -1)
-        ret.setRegion(-1);
-      else if (ret.getCountry() != -1)
-        ret.setCountry(-1);
-      else
-        ret.mGroup = -1;
-
-      return ret;
+      mCountry = country;
+      mRegion = region;
     }
 
     public boolean isEqual(Index idx)
     {
-      return (mGroup == idx.mGroup && getCountry() == idx.getCountry() && getRegion() == idx.getRegion());
-    }
-
-    public boolean isChild(Index idx)
-    {
-      return (idx.getParent().isEqual(this));
-    }
-
-    public int getPosition()
-    {
-      if (getRegion() != -1) return getRegion();
-      else if (getCountry() != -1) return getCountry();
-      else return mGroup;
+      return (mGroup == idx.mGroup && mCountry == idx.mCountry && mRegion == idx.mRegion);
     }
 
     @Override
@@ -137,6 +85,17 @@ public enum MapStorage
     {
       this.mRegion = mRegion;
     }
+
+    public int getGroup()
+    {
+      return mGroup;
+    }
+
+    public void setGroup(int group)
+    {
+      mGroup = group;
+    }
+
   }
 
   public native int countriesCount(Index idx);
@@ -151,10 +110,6 @@ public enum MapStorage
 
   public native String countryFlag(Index idx);
 
-  public native void downloadCountry(Index idx);
-
-  public native void deleteCountry(Index idx);
-
   public native Index findIndexByFile(String name);
 
   public native int subscribe(Listener l);
@@ -165,20 +120,12 @@ public enum MapStorage
 
   public static native boolean nativeMoveFile(String oldFile, String newFile);
 
-  public native int getDownloadedCountriesCount();
-
-  public native int getOutdatedCountriesCount();
-
-  public native Index getOutdatedCountry(int position);
-
-  public native Index getDownloadedCountry(int position);
-
   private void runDownloadCountries(Index[] indexes)
   {
     for (int i = 0; i < indexes.length; ++i)
     {
       if (indexes[i] != null)
-        downloadCountry(indexes[i]);
+        Framework.downloadCountry(indexes[i]);
     }
   }
 

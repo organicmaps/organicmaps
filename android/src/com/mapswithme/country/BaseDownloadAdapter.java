@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -18,10 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MWMApplication;
 import com.mapswithme.maps.MapStorage;
-import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
@@ -53,6 +51,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   public static final String PROPERTY_X = "x";
   private static final long ANIMATION_LENGTH = 250;
   private Handler mHandler = new Handler();
+  private ListView mListView;
 
   private static class SafeAdapterRunnable implements Runnable
   {
@@ -74,7 +73,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         return;
 
       if (adapter.mActiveAnimationsCount == 0)
-        adapter.notifyDataSetChanged();
+        adapter.fillList();
       else
         adapter.mHandler.postDelayed(this, ANIMATION_LENGTH);
     }
@@ -85,7 +84,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   protected final LayoutInflater mInflater;
   protected final Activity mActivity;
   protected final boolean mHasGoogleStore;
-  protected int mSlotID = 0;
 
   protected final String mStatusDownloaded;
   protected final String mStatusFailed;
@@ -111,39 +109,33 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected abstract void expandGroup(int position);
 
-  protected void showNotEnoughFreeSpaceDialog(String spaceNeeded, String countryName)
+  protected abstract void updateCountry(int position, int newOptions);
+
+  protected abstract void downloadCountry(int position, int options);
+
+  protected abstract void deleteCountry(int position, int options);
+
+  protected abstract long[] getItemSizes(int position, int options);
+
+  protected abstract long[] getDownloadableItemSizes(int position);
+
+  protected abstract GuideInfo getGuideInfo(int position);
+
+  protected abstract void cancelDownload(int position);
+
+  protected abstract void setCountryListener();
+
+  protected abstract void resetCountryListener();
+
+  protected void processNotDownloaded(final String name, int position, int newOptions, ViewHolder holder)
   {
-    Statistics.INSTANCE.trackSimpleNamedEvent(Statistics.EventName.NO_FREE_SPACE);
-    final Dialog dlg = new AlertDialog.Builder(mActivity)
-        .setMessage(String.format(mActivity.getString(R.string.free_space_for_country), spaceNeeded, countryName))
-        .setNegativeButton(mActivity.getString(R.string.close), new DialogInterface.OnClickListener()
-        {
-          @Override
-          public void onClick(DialogInterface dlg, int which)
-          {
-            dlg.dismiss();
-          }
-        })
-        .create();
-    dlg.setCanceledOnTouchOutside(true);
-    dlg.show();
+    // TODO if download is greater then 50MB check 3g/WIFI connection
+    startItemDownloading(holder, position, newOptions);
+    Statistics.INSTANCE.trackCountryDownload();
   }
 
-  protected void processNotDownloaded(final Index idx, final String name)
+  protected void confirmDownloadCancelation(final ViewHolder holder, final int position, final String name)
   {
-    final long size = MapStorage.INSTANCE.countryRemoteSizeInBytes(idx);
-    if (!MWMApplication.get().hasFreeSpace(size + Constants.MB))
-      showNotEnoughFreeSpaceDialog(getSizeString(size), name);
-    else
-    {
-      MapStorage.INSTANCE.downloadCountry(idx);
-      Statistics.INSTANCE.trackCountryDownload();
-    }
-  }
-
-  protected void cancelDownloading(final ViewHolder holder, final Index idx, final String name)
-  {
-    // Confirm canceling
     final Dialog dlg = new AlertDialog.Builder(mActivity)
         .setTitle(name)
         .setMessage(R.string.are_you_sure)
@@ -152,7 +144,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            final int position = getItemPosition(idx);
             stopItemDownloading(holder, position);
             dlg.dismiss();
           }
@@ -162,21 +153,15 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     dlg.show();
   }
 
-  protected void processOutOfDate(final Index idx, final String name)
+  protected void processOutOfDate(final String name, int position, int newOptions)
   {
-    final long remoteSize = MapStorage.INSTANCE.countryRemoteSizeInBytes(idx);
-    if (!MWMApplication.get().hasFreeSpace(remoteSize + Constants.MB))
-      showNotEnoughFreeSpaceDialog(getSizeString(remoteSize), name);
-    else
-    {
-      MapStorage.INSTANCE.downloadCountry(idx);
-      Statistics.INSTANCE.trackCountryUpdate();
-    }
+    // TODO if download is greater then 50MB check 3g/WIFI connection
+    updateCountry(position, newOptions);
+    Statistics.INSTANCE.trackCountryUpdate();
   }
 
-  protected void processOnDisk(final Index idx, final String name)
+  protected void processOnDisk(final String name, final int position, final int newOptions)
   {
-    // Confirm deleting
     new AlertDialog.Builder(mActivity)
         .setTitle(name)
         .setMessage(R.string.are_you_sure)
@@ -185,23 +170,13 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           @Override
           public void onClick(DialogInterface dlg, int which)
           {
-            MapStorage.INSTANCE.deleteCountry(idx);
+            deleteCountry(position, newOptions);
             Statistics.INSTANCE.trackCountryDeleted();
             dlg.dismiss();
           }
         })
         .create()
         .show();
-  }
-
-  protected void updateStatuses()
-  {
-    for (int i = 0; i < getCount(); ++i)
-    {
-      final CountryItem item = getItem(i);
-      if (item != null)
-        getItem(i).updateStatus();
-    }
   }
 
   /**
@@ -211,22 +186,18 @@ abstract class BaseDownloadAdapter extends BaseAdapter
    */
   public abstract boolean onBackPressed();
 
-  public void onResume(MapStorage.Listener listener)
+  public void onResume(ListView listView)
   {
-    if (mSlotID == 0)
-      mSlotID = MapStorage.INSTANCE.subscribe(listener);
+    mListView = listView;
+    setCountryListener();
 
-    updateStatuses();
     notifyDataSetChanged();
   }
 
   public void onPause()
   {
-    if (mSlotID != 0)
-    {
-      MapStorage.INSTANCE.unsubscribe(mSlotID);
-      mSlotID = 0;
-    }
+    mListView = null;
+    resetCountryListener();
   }
 
   @Override
@@ -278,11 +249,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     }
   }
 
-  protected String formatStringWithSize(int strID, Index index)
-  {
-    return mActivity.getString(strID, getSizeString(MapStorage.INSTANCE.countryRemoteSizeInBytes(index)));
-  }
-
   @Override
   public View getView(final int position, View convertView, ViewGroup parent)
   {
@@ -327,9 +293,12 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       }
     };
     convertView.setOnClickListener(listener);
-    holder.mProgressSlided.setOnClickListener(listener);
-    holder.mInfoSlided.setOnClickListener(listener);
-    holder.mInfo.setOnClickListener(listener);
+    if (holder.mProgressSlided != null)
+    {
+      holder.mProgressSlided.setOnClickListener(listener);
+      holder.mInfoSlided.setOnClickListener(listener);
+      holder.mInfo.setOnClickListener(listener);
+    }
 
     return convertView;
   }
@@ -339,11 +308,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     switch (type)
     {
     case TYPE_GROUP:
-      return R.layout.download_item_group;
-
     case TYPE_COUNTRY_GROUP:
-      return R.layout.download_item_country_group;
-
+      return R.layout.download_item_group;
     case TYPE_COUNTRY_IN_PROCESS:
     case TYPE_COUNTRY_READY:
     case TYPE_COUNTRY_NOT_DOWNLOADED:
@@ -364,31 +330,32 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     if (item == null)
       return;
 
-    if (holder.mSize != null)
-      setHolderSizeString(holder, MapStorage.INSTANCE.countryRemoteSizeInBytes(item.mCountryIdx));
-
     ViewHelper.setTranslationX(holder.mInfoSlided, 0);
     ViewHelper.setTranslationX(holder.mInfo, 0);
     ViewHelper.setTranslationX(holder.mProgress, 0);
     ViewHelper.setTranslationX(holder.mProgressSlided, 0);
+    long[] sizes;
     switch (item.getStatus())
     {
     case MapStorage.DOWNLOADING:
       holder.mProgress.setVisibility(View.GONE);
-      holder.mProgressSlided.setVisibility(View.VISIBLE);
-      // TODO show confirmation dialog
       holder.mProgressSlided.setOnClickListener(new View.OnClickListener()
       {
         @Override
         public void onClick(View v)
         {
-          stopItemDownloading(holder, position);
+          confirmDownloadCancelation(holder, position, item.getName());
         }
       });
       holder.mInfo.setVisibility(View.INVISIBLE);
       holder.mInfoSlided.setVisibility(View.VISIBLE);
+      holder.mProgressSlided.setVisibility(View.VISIBLE);
+
+      sizes = getDownloadableItemSizes(position);
+      setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
       break;
+
     case MapStorage.ON_DISK_OUT_OF_DATE:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.GONE);
@@ -398,17 +365,24 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         @Override
         public void onClick(View v)
         {
-          startItemDownloading(holder, position);
+          startItemDownloading(holder, position, getItem(position).getOptions());
         }
       });
       holder.mInfoSlided.setVisibility(View.GONE);
+
+      sizes = getDownloadableItemSizes(position);
+      setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentString(holder, mStatusOutdated, R.color.downloader_green);
       break;
+
     case MapStorage.ON_DISK:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
       holder.mInfoSlided.setVisibility(View.GONE);
+
+      sizes = getItemSizes(position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
+      setHolderSizeString(holder, 0, sizes[0]);
       setHolderPercentString(holder, mStatusDownloaded, R.color.downloader_gray);
       break;
     case MapStorage.DOWNLOAD_FAILED:
@@ -420,49 +394,55 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         @Override
         public void onClick(View v)
         {
-          // TODO retry downloading
+          // TODO retry
+          downloadCountry(position, getItem(position).getOptions());
         }
       });
       holder.mInfoSlided.setVisibility(View.GONE);
+
+      sizes = getDownloadableItemSizes(position);
+      setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentString(holder, mStatusFailed, R.color.downloader_red);
       break;
+
     case MapStorage.IN_QUEUE:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.VISIBLE);
       holder.mProgressSlided.setProgress(0);
-      // TODO show confirmation dialog
       holder.mProgressSlided.setOnClickListener(new View.OnClickListener()
       {
         @Override
         public void onClick(View v)
         {
-          stopItemDownloading(holder, position);
+          confirmDownloadCancelation(holder, position, item.getName());
         }
       });
       holder.mInfo.setVisibility(View.INVISIBLE);
       holder.mInfoSlided.setVisibility(View.VISIBLE);
+
+      sizes = getDownloadableItemSizes(position);
+      setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
       break;
+
     case MapStorage.NOT_DOWNLOADED:
       holder.mProgress.setVisibility(View.GONE);
       holder.mProgressSlided.setVisibility(View.GONE);
       holder.mInfo.setVisibility(View.VISIBLE);
-      // TODO check action with Max
-      holder.mInfo.setOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          startItemDownloading(holder, position);
-        }
-      });
       holder.mInfoSlided.setVisibility(View.GONE);
+
+      sizes = getItemSizes(position, StorageOptions.MAP_OPTION_MAP_ONLY);
+      // FIXME next lines produces HUGE LAGS, fix it!!!
+//      long[] sizesRemote = getItemSizes(position, StorageOptions.MAP_OPTION_CAR_ROUTING);
+//      setHolderSizeString(holder, sizes[1], sizesRemote[1]);
+      setHolderSizeString(holder, sizes[1], 42000000);
       setHolderPercentString(holder, mStatusNotDownloaded, R.color.downloader_green);
       break;
+
     }
   }
 
-  private void startItemDownloading(final ViewHolder holder, final int position)
+  private void startItemDownloading(final ViewHolder holder, final int position, int newOptions)
   {
     setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
 
@@ -497,10 +477,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     final CountryItem item = getItem(position);
     if (item == null)
       return;
-    if (item.getStatus() == MapStorage.ON_DISK_OUT_OF_DATE)
-      processOutOfDate(item.mCountryIdx, item.mName);
-    else
-      processNotDownloaded(item.mCountryIdx, item.mName);
+
+    downloadCountry(position, newOptions);
   }
 
   private void stopItemDownloading(final ViewHolder holder, final int position)
@@ -534,16 +512,22 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     final CountryItem item = getItem(position);
     if (item == null)
       return;
-    MapStorage.INSTANCE.deleteCountry(item.mCountryIdx);
+
+    cancelDownload(position);
   }
 
   @Override
   public abstract CountryItem getItem(int position);
 
-  private void setHolderSizeString(ViewHolder holder, long size)
+  private void setHolderSizeString(ViewHolder holder, long first, long second)
   {
-    holder.mSize.setText(getSizeString(size));
-    holder.mSizeSlided.setText(getSizeString(size));
+    String text;
+    if (first <= 0)
+      text = getSizeString(second);
+    else
+      text = getSizeString(first) + "/" + getSizeString(second);
+    holder.mSize.setText(text);
+    holder.mSizeSlided.setText(text);
   }
 
   private void setHolderPercentString(ViewHolder holder, String text, int color)
@@ -554,83 +538,78 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     holder.mPercentSlided.setTextColor(mActivity.getResources().getColor(color));
   }
 
-  protected void setItemName(int position, BaseDownloadAdapter.ViewHolder holder)
+  protected void setItemName(int position, ViewHolder holder)
   {
     // set name and style
     final CountryItem item = getItem(position);
     if (item == null)
       return;
 
-    holder.mName.setText(item.mName);
+    holder.mName.setText(item.getName());
     holder.mName.setTypeface(item.getTypeface());
     holder.mName.setTextColor(item.getTextColor());
   }
 
-  protected abstract int getItemPosition(Index idx);
-
   /**
-   * @param idx
-   * @return Current country status (@see MapStorage).
+   * Called from children to notify about item status changes.
+   *
+   * @param position
    */
-  public int onCountryStatusChanged(Index idx)
+  protected void onCountryStatusChanged(int position)
   {
-    // TODO check if index(or pos or smth else after refactoring) actually belongs to current list
-    // ignore notification if it isnt equal
-    final int position = getItemPosition(idx);
     final CountryItem item = getItem(position);
-    if (position != INVALID_POSITION && item != null)
+    if (item != null)
     {
-      item.updateStatus();
       // use this hard reset, because of caching different ViewHolders according to item's type
       mHandler.postDelayed(mDatasetChangedRunnable, ANIMATION_LENGTH);
-
-      return item.getStatus();
     }
-    return MapStorage.UNKNOWN;
   }
 
-  public void onCountryProgress(ListView list, Index idx, long current, long total)
+  /**
+   * Called from children to notify about item progress.
+   *
+   * @param position
+   */
+  protected void onCountryProgress(int position, long current, long total)
   {
-    final int position = getItemPosition(idx);
-    if (position != INVALID_POSITION)
+    // do update only one item's view; don't call notifyDataSetChanged
+    final View v = mListView.getChildAt(position - mListView.getFirstVisiblePosition());
+    if (v != null)
     {
-      // do update only one item's view; don't call notifyDataSetChanged
-      final View v = list.getChildAt(position - list.getFirstVisiblePosition());
-      if (v != null)
+      final ViewHolder holder = (ViewHolder) v.getTag();
+      if (holder != null && holder.mProgress != null)
       {
-        final BaseDownloadAdapter.ViewHolder holder = (BaseDownloadAdapter.ViewHolder) v.getTag();
-        if (holder != null && holder.mProgress != null)
-        {
-          final int percent = (int) (current * 100 / total);
-          holder.mProgressSlided.setProgress(percent);
-          holder.mPercent.setText(percent + "%");
-          holder.mPercentSlided.setText(percent + "%");
-        }
+        final int percent = (int) (current * 100 / total);
+        holder.mProgressSlided.setProgress(percent);
+        holder.mPercent.setText(percent + "%");
+        holder.mPercentSlided.setText(percent + "%");
       }
     }
   }
 
-  protected void showCountry(final Index countryIndex)
-  {
-    Framework.nativeShowCountry(countryIndex, false);
-    mActivity.finish();
-  }
+  protected abstract void showCountry(final int position);
 
-  protected void onCountryMenuClicked(final CountryItem countryItem, final View anchor)
+  protected void showCountryContextMenu(final CountryItem countryItem, final View anchor, final int position)
   {
     if (countryItem == null)
       return;
 
-    final int MENU_DELETE = 0;
-    final int MENU_UPDATE = 1;
-    final int MENU_DOWNLOAD = 2;
-    final int MENU_CANCEL = 3;
-    final int MENU_SHOW = 4;
-    final int MENU_GUIDE = 5;
+    final int MENU_CANCEL = 0;
+    final int MENU_DOWNLOAD = 1;
+    final int MENU_UPDATE_MAP_AND_ROUTING = 2;
+    final int MENU_DOWNLOAD_MAP_AND_ROUTING = 3;
+    final int MENU_UPDATE_MAP_DOWNLOAD_ROUTING = 4;
+    final int MENU_UPDATE = 5;
+    final int MENU_DOWNLOAD_ROUTING = 6;
+    final int MENU_SHOW = 7;
+    final int MENU_GUIDE = 8;
+    final int MENU_DELETE_ROUTING = 9;
+    final int MENU_DELETE = 10;
+
 
     final int status = countryItem.getStatus();
-    final Index countryIndex = countryItem.mCountryIdx;
-    final String name = countryItem.mName;
+    final String name = countryItem.getName();
+    final int options = countryItem.getOptions();
 
     final OnMenuItemClickListener menuItemClickListener = new OnMenuItemClickListener()
     {
@@ -639,20 +618,43 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       {
         final int id = item.getItemId();
 
-        if (MENU_DELETE == id)
-          processOnDisk(countryIndex, name);
-        else if (MENU_UPDATE == id)
-          processOutOfDate(countryIndex, name);
-        else if (MENU_GUIDE == id)
-          GuidesUtils.openOrDownloadGuide(Framework.getGuideInfoForIndexWithApiCheck(countryIndex), mActivity);
-        else if (MENU_DOWNLOAD == id)
-          processNotDownloaded(countryIndex, name);
-        else if (MENU_CANCEL == id)
-          cancelDownloading((ViewHolder) anchor.getTag(), countryIndex, name);
-        else if (MENU_SHOW == id)
-          showCountry(countryIndex);
-        else
-          return false;
+        ViewHolder holder = (ViewHolder) anchor.getTag();
+        switch (id)
+        {
+        case MENU_DELETE:
+          processOnDisk(name, position, StorageOptions.MAP_OPTION_MAP_ONLY);
+          break;
+        case MENU_UPDATE:
+          processOutOfDate(name, position, StorageOptions.MAP_OPTION_MAP_ONLY);
+          break;
+        case MENU_DOWNLOAD:
+          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_ONLY, holder);
+          break;
+        case MENU_CANCEL:
+          confirmDownloadCancelation(holder, position, name);
+          break;
+        case MENU_SHOW:
+          showCountry(position);
+          break;
+        case MENU_GUIDE:
+          GuidesUtils.openOrDownloadGuide(getGuideInfo(position), mActivity);
+          break;
+        case MENU_DELETE_ROUTING:
+          processOnDisk(name, position, StorageOptions.MAP_OPTION_CAR_ROUTING);
+          break;
+        case MENU_DOWNLOAD_ROUTING:
+          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_CAR_ROUTING, holder);
+          break;
+        case MENU_DOWNLOAD_MAP_AND_ROUTING:
+          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING, holder);
+          break;
+        case MENU_UPDATE_MAP_DOWNLOAD_ROUTING:
+          // TODO
+          break;
+        case MENU_UPDATE_MAP_AND_ROUTING:
+          processOutOfDate(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
+          break;
+        }
 
         return true;
       }
@@ -665,41 +667,87 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
         {
-          menu.setHeaderTitle(countryItem.mName);
+          menu.setHeaderTitle(countryItem.getName());
 
           if (status == MapStorage.ON_DISK || status == MapStorage.ON_DISK_OUT_OF_DATE)
           {
-            final String titleDelete = mActivity.getString(R.string.delete) + " "
-                + getSizeString(MapStorage.INSTANCE.countryLocalSizeInBytes(countryIndex));
+            String titleDelete = mActivity.getString(R.string.downloader_delete_map);
             menu.add(0, MENU_DELETE, MENU_DELETE, titleDelete).setOnMenuItemClickListener(menuItemClickListener);
+
+            if (options != StorageOptions.MAP_OPTION_MAP_ONLY)
+            {
+              titleDelete = mActivity.getString(R.string.downloader_delete_routing);
+              menu.add(0, MENU_DELETE_ROUTING, MENU_DELETE_ROUTING, titleDelete).setOnMenuItemClickListener(menuItemClickListener);
+            }
 
             final String titleShow = mActivity.getString(R.string.zoom_to_country);
             menu.add(0, MENU_SHOW, MENU_SHOW, titleShow).setOnMenuItemClickListener(menuItemClickListener);
           }
 
+          if (status == MapStorage.ON_DISK)
+          {
+            if (options == StorageOptions.MAP_OPTION_MAP_ONLY)
+            {
+              String titleShow = mActivity.getString(R.string.downloader_download_routing);
+              // TODO add size
+              menu.add(0, MENU_DOWNLOAD_ROUTING, MENU_DOWNLOAD_ROUTING, titleShow).setOnMenuItemClickListener(menuItemClickListener);
+            }
+          }
+
           if (status == MapStorage.ON_DISK_OUT_OF_DATE)
           {
-            final String titleUpdate = formatStringWithSize(R.string.update_mb_or_kb, countryIndex);
-            menu.add(0, MENU_UPDATE, MENU_UPDATE, titleUpdate)
-                .setOnMenuItemClickListener(menuItemClickListener);
+            String titleUpdate;
+            switch (options)
+            {
+            case StorageOptions.MAP_OPTION_MAP_ONLY:
+              titleUpdate = mActivity.getString(R.string.downloader_update_map);
+              // TODO size
+              menu.add(0, MENU_UPDATE, MENU_UPDATE, titleUpdate)
+                  .setOnMenuItemClickListener(menuItemClickListener);
+
+              titleUpdate = mActivity.getString(R.string.downloader_download_routing);
+              menu.add(0, MENU_UPDATE_MAP_DOWNLOAD_ROUTING, MENU_UPDATE_MAP_DOWNLOAD_ROUTING, titleUpdate)
+                  .setOnMenuItemClickListener(menuItemClickListener);
+              break;
+            case StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING:
+              titleUpdate = mActivity.getString(R.string.downloader_update_map);
+              // TODO size
+              menu.add(0, MENU_UPDATE_MAP_AND_ROUTING, MENU_UPDATE_MAP_AND_ROUTING, titleUpdate)
+                  .setOnMenuItemClickListener(menuItemClickListener);
+              break;
+            }
           }
 
           if (status == MapStorage.DOWNLOADING || status == MapStorage.IN_QUEUE)
             menu.add(0, MENU_CANCEL, MENU_CANCEL, mActivity.getString(R.string.cancel_download))
                 .setOnMenuItemClickListener(menuItemClickListener);
-
           if (mHasGoogleStore)
           {
-            final GuideInfo info = Framework.getGuideInfoForIndexWithApiCheck(countryItem.mCountryIdx);
-            if (info != null)
+            final GuideInfo info = getGuideInfo(position);
+            if (info != null && !TextUtils.isEmpty(info.mTitle))
               menu.add(0, MENU_GUIDE, MENU_GUIDE, info.mTitle)
                   .setOnMenuItemClickListener(menuItemClickListener);
           }
 
-          if (status == MapStorage.NOT_DOWNLOADED || status == MapStorage.DOWNLOAD_FAILED)
+          if (status == MapStorage.NOT_DOWNLOADED)
           {
-            final String titleDownload = formatStringWithSize(R.string.download_mb_or_kb, countryIndex);
-            menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, titleDownload)
+            // TODO sizes
+            String title = mActivity.getString(R.string.downloader_download_map);
+            menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, title)
+                .setOnMenuItemClickListener(menuItemClickListener);
+
+            title = mActivity.getString(R.string.downloader_download_map_and_routing);
+            menu.add(0, MENU_DOWNLOAD_MAP_AND_ROUTING, MENU_DOWNLOAD_MAP_AND_ROUTING, title)
+                .setOnMenuItemClickListener(menuItemClickListener);
+          }
+          if (status == MapStorage.DOWNLOAD_FAILED)
+          {
+            String title = mActivity.getString(R.string.downloader_retry);
+            menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, title)
+                .setOnMenuItemClickListener(menuItemClickListener);
+
+            title = mActivity.getString(R.string.downloader_download_map_and_routing);
+            menu.add(0, MENU_DOWNLOAD_MAP_AND_ROUTING, MENU_DOWNLOAD_MAP_AND_ROUTING, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
           }
         }
@@ -717,6 +765,4 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     else
       return (size + Constants.KB - 1) / Constants.KB + " " + mActivity.getString(R.string.kb);
   }
-
-  protected abstract boolean isRoot();
 }

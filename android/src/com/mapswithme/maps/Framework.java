@@ -158,4 +158,8 @@ public class Framework
   public native static String nativeGetViewportCountryNameIfAbsent();
 
   public native static void nativeShowCountry(Index idx, boolean zoomToDownloadButton);
+
+  public native static void downloadCountry(Index idx);
+
+  public native static void deleteCountry(Index idx);
 }

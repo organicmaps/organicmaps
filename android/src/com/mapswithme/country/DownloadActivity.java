@@ -62,7 +62,7 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
   protected void onResume()
   {
     super.onResume();
-    getDownloadAdapter().onResume(this);
+    getDownloadAdapter().onResume(getListView());
   }
 
   @Override
@@ -82,6 +82,8 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
     }
     else if (getListAdapter() instanceof DownloadedAdapter)
     {
+      mDownloadedAdapter.onPause();
+      mExtendedAdapter.onResume(getListView());
       setListAdapter(mExtendedAdapter);
     }
     else
@@ -97,8 +99,8 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
   {
     updateActionBar();
 
-    if (getDownloadAdapter().onCountryStatusChanged(idx) == MapStorage.DOWNLOAD_FAILED)
-    {
+//    if (getDownloadAdapter().onCountryStatusChanged() == MapStorage.DOWNLOAD_FAILED)
+//    {
       // Show wireless settings page if no connection found.
       if (!ConnectionState.isConnected(this))
       {
@@ -142,7 +144,13 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
           }
         });
       }
-    }
+//    }
+  }
+
+  @Override
+  public void onCountryProgress(Index idx, long current, long total)
+  {
+
   }
 
   private void updateActionBar()
@@ -162,16 +170,14 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
   }
 
   @Override
-  public void onCountryProgress(Index idx, long current, long total)
-  {
-    getDownloadAdapter().onCountryProgress(getListView(), idx, current, total);
-  }
-
-  @Override
   protected void onListItemClick(ListView l, View v, int position, long id)
   {
     if (getListAdapter().getItemViewType(position) == ExtendedDownloadAdapterWrapper.TYPE_EXTENDED)
+    {
       setListAdapter(getDownloadedAdapter());
+      mExtendedAdapter.onPause();
+      mDownloadedAdapter.onResume(getListView());
+    }
   }
 
   private ListAdapter getDownloadedAdapter()
@@ -185,11 +191,11 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
   @Override
   public void onClick(View v)
   {
-    switch (v.getId())
-    {
-    case R.id.item_update:
-      //
-      break;
-    }
+//    switch (v.getId())
+//    {
+//    case R.id.item_update:
+
+//      break;
+//    }
   }
 }

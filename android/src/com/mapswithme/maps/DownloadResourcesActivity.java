@@ -289,7 +289,7 @@ public class DownloadResourcesActivity extends MapsWithMeBaseFragmentActivity
         mProgress.setMax((int) mMapStorage.countryRemoteSizeInBytes(mCountryIndex));
         mProgress.setProgress(0);
 
-        mMapStorage.downloadCountry(mCountryIndex);
+        Framework.downloadCountry(mCountryIndex);
 
         setAction(PROCEED_TO_MAP);
       }
