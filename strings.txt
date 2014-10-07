@@ -27,6 +27,7 @@
     ar = يمكنك التصفح بشكل أسهل مع الإصدار الكامل من MAPS.ME الذي يتميز بامكانية البحث بدون الاتصال مع الانترنت. احصل عليه الآن!
     da = Naviger lettere med den fulde version af MAPS.ME med bl.a. offline søgning. Få det nu!
     tr = Çevrimdışı arama özelliğine sahip MAPS.ME’nin tam sürümüyle daha kolay gezinin. Hemen şimdi alın!
+    sv = Navigera enklare med fullversionen av MAPS.ME med bl.a. offline-sökning. Skaffa den nu!
 
   [about]
     tags = tizen
@@ -52,6 +53,7 @@
     ar = نبذة عنا
     da = Om app
     tr = Hakkında
+    sv = Om
 
   [back]
     en = Back
@@ -76,6 +78,7 @@
     ar = رجوع
     da = Tilbage
     tr = Geri
+    sv = Tillbaka
 
   [cancel]
     tags = tizen
@@ -101,6 +104,7 @@
     ar = إلغاء
     da = Afbryd
     tr = İptal
+    sv = Avbryt
 
   [cancel_download]
     tags = tizen
@@ -126,6 +130,7 @@
     ar = إلغاء التنزيل
     da = Annuller download
     tr = İndirme İşlemini İptal Et
+    sv = Avbryt nedladdning
 
   [delete]
     tags = tizen
@@ -151,6 +156,7 @@
     ar = حذف
     da = Slet
     tr = Sil
+    sv = Ta bort
 
   [delete_old_maps]
     en = Delete old maps and proceed
@@ -175,6 +181,7 @@
     ar = حذف الخرائط القديمة و المتابعة
     da = Slet gamle kort og gå videre
     tr = Eski haritaları sil ve ilerle
+    sv = Ta bort gamla kartor och fortsätt
 
   [do_not_ask_me_again]
     en = Do not ask me again
@@ -199,6 +206,7 @@
     ar = لا تسئلني مرة أخرى
     da = Spørg mig ikke igen
     tr = Bunu tekrar sorma
+    sv = Fråga mig inte igen
 
   [do_nothing]
     en = Continue
@@ -223,6 +231,7 @@
     ar = استمرار
     da = Fortsæt
     tr = Devam
+    sv = Fortsätt
 
   [download_maps]
     tags = tizen
@@ -247,6 +256,7 @@
     ar = تنزيل الخرائط
     da = Download kort
     tr = Haritaları İndir
+    sv = Ladda ner kartor
 
   [download_x_kb]
     en = Download %qu kB
@@ -270,6 +280,7 @@
     ar = التنزيل %qu كيلو بايت
     da = Download %qu kB
     tr = %qu kB indir
+    sv = Ladda ner %qu kB
 
   [download_x_mb]
     en = Download %qu MB
@@ -293,6 +304,7 @@
     ar = التنزيل %qu ميجا بايت
     da = Download %qu MB
     tr = %qu MB indir
+    sv = Ladda ner %qu MB
 
   [download_has_failed]
     en = Download has failed, touch again for one more try
@@ -317,6 +329,7 @@
     ar = فشلت عملية التنزيل، انقر مرة أخرى لإعداة المحاولة
     da = Der skete en fejl ved download, tryk for at prøve igen.
     tr = İndirme işlemi başarısız oldu, bir kez daha denemek için tekrar dokunun
+    sv = Nedladdningen misslyckades, tryck för att försöka igen
 
   [downloaded_x_y_touch_to_delete]
     en = Downloaded (%1$qu %2$@), touch to delete
@@ -341,6 +354,7 @@
     ar = تم تنزيل (%1$qu %2$@)، المس لحذفها
     da = Downloaded (%1$qu %2$@), tryk for at slette
     tr = (%1$qu %2$@) indirildi, silmek için dokunun
+    sv = Nedladdad (%1$qu %2$@), tryck för att ta bort
 
   [downloading_x_touch_to_cancel]
     en = Downloading %qu%%, touch to cancel
@@ -365,6 +379,7 @@
     ar = جاري التنزيل %qu%%، انقر للإلغاء
     da = Downloader %qu%%, tryk for at afbryde
     tr = %qu%% indiriliyor, iptal etmek için dokunun
+    sv = Laddar ner %qu%%, tryck för att avbryta
 
   [downloading]
     en = Downloading…
@@ -389,6 +404,7 @@
     ar = جاري التنزيل…
     da = Downloader…
     tr = İndiriliyor…
+    sv = Laddar ner...
 
   [get_it_now]
     en = Get it now
@@ -412,6 +428,7 @@
     ar = احصل عليه الآن
     da = Få det nu
     tr = Hemen al
+    sv = Skaffa det nu
 
   [share_on_facebook_text]
     en = Are you enjoying MAPS.ME? Help your friends and family learn about the app, share it with them on Facebook!
@@ -434,6 +451,7 @@
     ar = هل تستمتع باستخدام تطبيق MAPS.ME ؟ ساعد أصدقائك و أسرتك في تعلم كيفية استخدامه، قم بمشاركته معهم على فيسبوك!
     da = Nyder du MAPS.ME? Hjælp dine venner og familie ved at fortælle dem om denne app, del den med dem på Facebook!
     tr = MAPS.ME hoşunuza gitti mi? Arkadaşlarınızın ve ailenizin uygulama hakkında bilgi sahibi olmalarına yardımcı olun, bunu onlarla Facebook’ta paylaşın!
+    sv = Gillar du MAPS.ME? Hjälp dina vänner och familj att upptäcka appen, dela den med dem på Facebook!
 
   [kb]
     en = kB
@@ -471,6 +489,7 @@
     ar = كيلومتر
     da = Kilometre
     tr = Kilometre
+    sv = Kilometer
 
   [leave_a_review]
     en = Leave a Review
@@ -495,6 +514,7 @@
     ar = اترك تعليق
     da = Lav en bedømmelse
     tr = Bir Yorum Bırak
+    sv = Skriv en recension
 
   [location_services_are_needed_desc]
     en = Location Services are needed to display your current position on the map.
@@ -519,6 +539,7 @@
     ar = أنت بحاجة لخدمة تحديد المواقع من أجل عرض موقعك الحالي على الخريطة
     da = Lokationstjenester er nødt til at være sat til for at vise din nuværende position på kortet
     tr = Haritadaki geçerli konumunuzun gösterilebilmesi için Yer Hizmetleri gereklidir
+    sv = Platstjänster krävs för att visa din position på kartan.
 
   [maps]
     en = Maps
@@ -543,6 +564,7 @@
     ar = خرائط
     da = Kort
     tr = Haritalar
+    sv = Kartor
 
   [marked_for_downloading]
     en = Marked for downloading, touch to cancel
@@ -567,6 +589,7 @@
     ar = تم تحديد العنصر لتنزيله، انقر للإلغاء
     da = Markeret til download, tryk for at afbryde
     tr = İndirmek üzere işaretlendi, iptal etmek için dokunun
+    sv = Markerad för nedladdning, tryck för att avbryta
 
   [mb]
     tags = tizen
@@ -604,6 +627,7 @@
     ar = ميل
     da = Mil
     tr = Mil
+    sv = Mil
 
   [my_position]
     en = My Position
@@ -628,6 +652,7 @@
     ar = موقعي
     da = Min position
     tr = Konumum
+    sv = Min position
 
   [no_internet_connection_detected]
     tags = tizen
@@ -653,6 +678,7 @@
     ar = لم يتم اكتشاف أي اتصال مع الانترنت
     da = Ingen internetforbindelse registreret
     tr = İnternet bağlantısı bulunamadı
+    sv = Ingen internetanslutning upptäcktes
 
   [no_wifi_ask_cellular_download]
     tags = tizen
@@ -678,6 +704,7 @@
     ar = لم يتم العثور على أي اتصال واي فاي. هل ترغب باستخدام حزمة البيانات الخليوية (GPRS ، EDGE أو 3G) من أجل تنزيل %@؟
     da = Ingen WiFi forbindelse registreret. Vil du bruge mobildata (GPRS, EDGE eller 3G) til download %@?
     tr = WiFi bağlantısı bulunamadı. %@ indirmek için hücresel veri (GPRS, EDGE veya 3G) kullanmak ister misiniz?
+    sv = Ingen WiFi-anslutning upptäcktes. Vill du använda mobildata (GPRS, EDGE eller 3G) till att ladda ner %@?
 
   [ok]
     en = OK
@@ -688,6 +715,7 @@
     ar = موافق
     da = Ok
     tr = Tamam
+    sv = OK
 
   [enable_location_services]
     en = Please enable Location Services
@@ -712,6 +740,7 @@
     ar = الرجاء تفعيل خدمة تحديد المواقع
     da = Aktiver venligst lokationstjenester
     tr = Lütfen Yer Hizmetlerini etkinleştirin
+    sv = Vänligen aktivera platstjänster
 
   [free_disk_space_for_country_x]
     en = Please free some space on your device first in order to download %@
@@ -735,6 +764,7 @@
     ar = الرجاء إخلاء بعض المساحة في ذاكرة جهازك أولا لكي تتمكن من تنزيل %@
     da = Frigør venligst noget plads på din telefon først for at downloade %@
     tr = %@ indirmek için lütfen ilk önce cihazınızda biraz alan boşaltın
+    sv = Frigör mer utrymme på din enhet först för att kunna ladda ner %@
 
   [remind_me_later]
     en = Remind me later
@@ -760,6 +790,7 @@
     ar = ذكرني لاحقاً
     da = Påmind mig senere
     tr = Daha sonra hatırlat
+    sv = Påminn mig senare
 
   [later]
     en = Later
@@ -783,6 +814,7 @@
     ar = لاحقا
     da = Senere
     tr = Daha sonra
+    sv = Senare
 
   [never]
     en = Never
@@ -805,6 +837,7 @@
     ar = أبدا
     da = Aldrig
     tr = Asla
+    sv = Aldrig
 
   [report_an_issue]
     en = Report an issue
@@ -829,6 +862,7 @@
     ar = الإبلاغ عن مشكلة
     da = Rapporter et problem
     tr = Bir sorunu bildir
+    sv = Rapportera ett problem
 
   [search]
     en = Search
@@ -853,6 +887,7 @@
     ar = البحث
     da = Søg
     tr = Ara
+    sv = Sök
 
   [search_available_in_pro_version]
     en = Search is only available in the full version of MAPS.ME. Get it right now!
@@ -877,6 +912,7 @@
     ar = البحث متوافر فقط في الإصدار الكامل من MAPS.ME. احصل عليه الآن!
     da = Søgefunktionen er kun tilgængelig i den fulde version af MAPS.ME. Få den nu!
     tr = Arama özelliği sadece MAPS.ME tam sürümünde kullanılabilir. Hemen şimdi al!
+    sv = Sökfunktionen finns bara i fullversionen av MAPS.ME. Skaffa den nu!
 
   [search_map]
     en = Search Map
@@ -901,6 +937,7 @@
     ar = ابحث في الخريطة
     da = Søg kort
     tr = Haritada Ara
+    sv = Sök karta
 
   [not_enough_disk_space]
     en = There is not enough free disk space
@@ -925,6 +962,7 @@
     ar = لا يوجد مساحة كافية على القرص
     da = Der er ikke nok ledig plads på telefonen
     tr = Yeterli boş disk alanı yok
+    sv = Det finns inte tillräckligt mycket ledigt utrymme på telefonen
 
   [touch_to_download]
     en = Touch to download
@@ -949,6 +987,7 @@
     ar = انقر للتنزيل
     da = Tryk for at downloade
     tr = İndirmek için dokunun
+    sv = Trycka för att ladda ner
 
   [use_cellular_data]
     en = Yes
@@ -973,6 +1012,7 @@
     ar = نعم
     da = Ja
     tr = Evet
+    sv = Ja
 
   [use_wifi_recommendation_text]
     tags = tizen
@@ -998,6 +1038,7 @@
     ar = نحن نوصي باستخدام واي فاي لتنزيل الخرائط الكبيرة
     da = Vi anbefaler, at du bruger WiFi for at downloade store kort
     tr = Büyük haritaları indirmek için WiFi kullanmanızı öneriyoruz
+    sv = Vi rekommenderar att använda WiFi för nedladdning av stora kartor
 
   [new_map_data_format_upgrade_dialog]
     en = We've updated the map data and made it smaller. With larger countries, you can now choose to download only the region/state that you need. However, to use the new maps you should delete any older map data previously downloaded.
@@ -1037,6 +1078,7 @@
     ar = ما هو نظام القياس المفضل لديك؟
     da = Hvilken måleenhed foretrækker du?
     tr = Hangi ölçü sistemini tercih edersiniz?
+    sv = Vilket mätsystem föredrar du?
 
   [location_is_disabled_long_text]
     en = You currently have all Location Services for this device or application disabled. Please enable them in Settings.
@@ -1061,6 +1103,7 @@
     ar =  التطبيق أو جميع خدمات تحديد المواقع معطلة لديك في الوقت الحالي. الرجاء تفعيلها في الإعدادات.
     da = Du har alle lokationstjenester for denne enhed eller applikation slukket. Slå dem venligst til i Indstillinger.
     tr = Şu anda bu cihaz için tüm Yer Hizmetleri veya uygulama devre dışı bırakılmış. Lütfen Ayarlar bölümünden etkinleştirin.
+    sv = Du har inaktiverat alla platstjänster för denna enhet eller program. Vänligen aktivera dem i Inställningar.
 
   [device_doesnot_support_location_services]
     en = Your device doesn't support Location Services
@@ -1085,6 +1128,7 @@
     ar = جهازك لا يدعم خدمات تحديد المواقع.
     da = Din enhed understøtter ikke lokationstjenester
     tr = Cihazınız Yer Hizmetlerini desteklemiyor
+    sv = Din enhet stöder inte platstjänster
 
   [zoom_to_country]
     en = Zoom to the country
@@ -1109,6 +1153,7 @@
     ar = تكبير الى الدولة
     da = Zoom til landet
     tr = Ülkeyi yakınlaştır
+    sv = Zooma till landet
 
   [country_status_added_to_queue]
     en = ^\nis added\nto the downloading queue.
@@ -1133,6 +1178,7 @@
     ar = ^\nقد تم إضافته الى صف الانتظار لعملية التنزيل
     da = ^\ner tilføjet til download-køen
     tr = ^\nindirme kuyruğuna eklendi
+    sv = ^\när tillagd till nedladdningskön
 
   [country_status_downloading]
     en = Downloading\n^\n^%
@@ -1157,6 +1203,7 @@
     ar = جاري التنزيل\n^\n^%
     da = Downloader\n^\n^%
     tr = ^\n^%\nindiriliyor
+    sv = Laddar ner\n^\n^%
 
   [country_status_download]
     en = Download\n^
@@ -1180,6 +1227,7 @@
     ar = تنزيل\n^
     da = Download\n^
     tr = ^\nindir
+    sv = Ladda ner\n^
 
   [country_status_download_failed]
     en = Downloading\n^\nhas failed
@@ -1204,6 +1252,7 @@
     ar = فشلت عملية تنزيل\n^
     da = Download\n^\nmislykket
     tr = ^\nindirme işlemi başarısız oldu
+    sv = Downloading\n^har misslyckats
 
   [try_again]
     en = Try Again
@@ -1228,6 +1277,7 @@
     ar = محاولة مرة أخرى
     da = Prøv igen
     tr = Tekrar Deneyin
+    sv = Försök igen
 
   [app_name]
     en = MAPS.ME
@@ -1255,6 +1305,7 @@
     ar = حول MAPS.ME
     da = Om MAPS.ME
     tr = MAPS.ME Hakkında
+    sv = Om MAPS.ME
 
   [downloading_touch_to_cancel]
     en = Downloading %d%%, touch to cancel
@@ -1278,6 +1329,7 @@
     ar = جاري تنزيل %d%% ، انقر للإلغاء
     da = Downloader %d%%, tryk for at afbryde
     tr = %d%% indiriliyor, iptal etmek için dokunun
+    sv = Laddar ner %d%%, tryck för att avbryta
 
   [downloaded_touch_to_delete]
     en = Downloaded (%@), touch to delete
@@ -1301,6 +1353,7 @@
     ar = تم تنزيل (%@)، انقر للحذف
     da = Downloaded (%@), tryk for at slette
     tr = (%@) indirildi, silmek için dokunun
+    sv = Nedladdad (%@), tryck för att ta bort
 
   [connection_settings]
     en = Connection Settings
@@ -1324,6 +1377,7 @@
     ar = اعدادات الاتصال
     da = Forbindelsesindstillinger
     tr = Bağlantı Ayarları
+    sv = Anslutningsinställningar
 
   [download_mb_or_kb]
     en = Download %@
@@ -1346,6 +1400,7 @@
     ar = تنزيل %@
     da = Download %@
     tr = %@ indir
+    sv = Ladda ner %@
 
   [close]
     en = Close
@@ -1369,6 +1424,7 @@
     ar = اغلاق
     da = Luk
     tr = Kapat
+    sv = Stäng
 
   [unsupported_phone]
     en = A hardware accelerated OpenGL is required. Unfortunately, your device is not supported.
@@ -1392,6 +1448,7 @@
     ar = أنت بحاجة الى OpenGL بأجهزة تسريع . لسوء الحظ جهازك لا يدعم هذه الخاصية.
     da = En hardware accelereret OpenGL er påkrævet. Din enhed er desværre ikke understøttet.
     tr = Hızlı donanıma sahip bir OpenGL gerekli. Ne yazık ki cihazınız desteklenmiyor.
+    sv = Hårdvaruaccelererad OpenGL krävs. Din enhet stöds tyvärr inte.
 
   [download]
     tags = tizen
@@ -1415,6 +1472,7 @@
     ar = تنزيل
     da = Download
     tr = İndir
+    sv = Ladda ner
 
   [external_storage_is_not_available]
     en = SD card/USB storage with downloaded maps is not available
@@ -1438,6 +1496,7 @@
     ar = خاصية التخزين بواسطة البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل غير متاحة مع الخرائط التي تم تنزيلها.
     da = SD-kort/USB lagring med de downloadede kort er ikke tilgængeligt
     tr = İndirilen haritalarla SD kart/USB depolama aygıtı kullanılamıyor
+    sv = SD-kort/USB-lagring med nedladdade kartor är inte tillgänglig.
 
   [disconnect_usb_cable]
     en = Please disconnect USB cable or insert memory card to use MAPS.ME
@@ -1461,6 +1520,7 @@
     ar = الرجاء فصل كابل الناقل التسلسلي الشامل أو إدخال بطاقة الذاكرة من أجل استخدام MAPS.ME.
     da = Frakobl venligst USB-kabel eller indsæt et memory kort for at bruge MAPS.ME
     tr = MAPS.ME’yi kullanabilmeniz için lütfen USB kablosunun bağlantısını kesin veya hafıza kartı takın
+    sv = Vänligen koppla ifrån USB-kabeln eller sätt in ett minneskort för att använda MAPS.ME
 
   [not_enough_free_space_on_sdcard]
     en = Please free some space on SD card/USB storage first in order to use the app
@@ -1484,6 +1544,7 @@
     ar = الرجاء إخلاء بعض المساحة في تخزين البطاقة الرقمية الآمنة\الناقل التسلسلي الشامل أولا من أجل استخدام هذا التطبيق.
     da = Frigør venligst plads på dit SD-kort/USB lager først for at bruge denne app
     tr = Uygulamayı kullanabilmeniz için lütfen SD kart/USB depolama aygıtında biraz alan boşaltın
+    sv = Vänligen frigör utrymme på SD-kortet/USB-lagringen först för att använda denna app.
 
   [not_enough_memory]
     en = Not enough memory to launch app
@@ -1507,6 +1568,7 @@
     ar = لا يوجد ذاكرة كافية لتشغيل التطبيق.
     da = Ikke nok hukommelse til at åbne app
     tr = Uygulamayı başlatmak için yeterli hafıza yok
+    sv = Inte tillräckligt med utrymme för att starta appen
 
   [free_space_for_country]
     en = Please free %1$@ on your device first in order to download %2$@
@@ -1530,6 +1592,7 @@
     ar = الرجاء إخلاء %1$@ على جهازك أولا من أجل تنزيل %2$@
     da = Frigør venligst %1$@ på din enhed først for at downloade %2$@
     tr = %2$@ indirebilmeniz için lütfen ilk önce cihazınızda %1$@ alan boşaltın
+    sv = Vänligen frigör %1$@ på din enhet för att kunna ladda ner %2$@
 
   [download_resources]
     en = Before you start let us download general world map into your device.\nIt needs %.1f%@ of data.
@@ -1554,6 +1617,7 @@
     ar = قبل أن تبدأ، دعنا نقوم بتنزيل خريطة العالم العامة على جهازك.\nانها بحاجة الى %.1f%@ من البيانات.
     da = Før du starter, så lad os downloade det generelle verdenskort til din enhed.\nIt behøver %.1f%@ af data.
     tr = Başlamadan önce cihazınıza genel dünya haritasını indirelim.\nVerilerin %.1f%@’si gerekli.
+    sv = Innan du startar, låt oss ladda ner den generella världskartan på din enhet.\nDen behöver %.1f%@ data.
 
   [getting_position]
     en = Getting current position
@@ -1577,6 +1641,7 @@
     ar = الحصول على الموقع الحالي
     da = Henter nuværende lokation
     tr = Geçerli konum alınıyor
+    sv = Hämtar nuvarande position
 
   [download_resources_continue]
     en = Go to Map
@@ -1600,6 +1665,7 @@
     ar = الذهاب الى الخريطة
     da = Gå til kort
     tr = Haritaya Git
+    sv = Gå till karta
 
   [downloading_country_can_proceed]
     en = Downloading %@. You can now\nproceed to the map.
@@ -1623,6 +1689,7 @@
     ar = تنزيل %@. يمكنك الآن\nالمتابعة الى الخريطة.
     da = Downloader %@. Du kan nu\nfortsætte til kortet.
     tr = %@ indiriliyor. Şimdi haritaya\ngidebilirsiniz.
+    sv = Laddar ner %@. Du kan nu\n fortsätta till kartan.
 
   [download_country_ask]
     en = Download %@?
@@ -1646,6 +1713,7 @@
     ar = هل تريد تنزيل %@؟
     da = Download %@?
     tr = %@ indir?
+    sv = Ladda ner %@?
 
   [update_country_ask]
     en = Update %@?
@@ -1669,6 +1737,7 @@
     ar = هل تريد تحديث %@ ؟
     da = Opdater %@?
     tr = %@ güncelle?
+    sv = Uppdatera %@?
 
   [download_location_map_proposal]
     en = You can download the map\nof your current location.
@@ -1693,6 +1762,7 @@
     ar = يمكنك تنزيل خريطة\nموقعك الحالية.
     da = Du kan downloade kort\nassocieret til din nuværende lokation.
     tr = Geçerli konumunuzun haritasını\nindirebilirsiniz.
+    sv = Du kan ladda ner kartan\növer din nuvarande plats.
 
   [download_location_update_map_proposal]
     en = You can update the map\nof your current location.
@@ -1717,6 +1787,7 @@
     ar = يمكنك تحديث خريطة\nموقعك الحالي.
     da = Du kan opdatere kortet associeret\ntil din nuværende lokation.
     tr = Geçerli konumunuzun haritasını\ngüncelleyebilirsiniz.
+    sv = Du kan uppdatera kartan\növer din nuvarande plats.
 
   [download_location_map_up_to_date]
     en = The map of your current\nlocation (%@) is up-to-date
@@ -1741,6 +1812,7 @@
     ar = خريطة موقعك\nالحالي (%@) مُحَدَثَة
     da = Kortet associeret til din nuværende\nlokation (%@) er up to date
     tr = Geçerli\nkonumunuzun haritası (%@) güncel
+    sv = Kartan över din nuvarande\nplats (%@) är akutell
 
   [pause]
     en = Pause
@@ -1764,6 +1836,7 @@
     ar = توقف مؤقت
     da = Pause
     tr = Duraklat
+    sv = Pausa
 
   [continue_download]
     en = Continue
@@ -1788,6 +1861,7 @@
     ar = استمرار
     da = Fortsæt
     tr = Devam
+    sv = Fortsätt
 
   [downloaded_touch_to_update]
     en = Downloaded (%@), touch to update or delete
@@ -1811,6 +1885,7 @@
     ar = تم تنزيل (%@) ، انقر للتحديث أو الحذف
     da = Downloadet (%@), tryk for at opdatere eller slet
     tr = (%@) indirildi, güncellemek veya silmek için dokunun
+    sv = Nedladdad (%@), tryck för att uppdatera eller ta bort
 
   [update_mb_or_kb]
     en = Update %@
@@ -1833,6 +1908,7 @@
     ar = تحديث %@
     da = Opdater %@
     tr = %@ güncelle
+    sv = Uppdatera %@
 
   [search_update_maps]
     en = You need updated maps for search function:
@@ -1858,6 +1934,7 @@
     ar = أنت بحاجة الى تحديث الخرائط من أجل وظيفة البحث:
     da = Du har brug for opdaterede kort for at benytte søgefunktionen:
     tr = Arama işlevi için güncellenmiş haritalara ihtiyacınız var:
+    sv = Du behöver uppdaterade kartor för sökfunktionen:
 
   [advise_update_maps]
     en = Update available for these maps:
@@ -1883,6 +1960,7 @@
     ar = هناك تحديثات متوافرة للخرائط التالية:
     da = Der er opdateringer klar til følgende kort:
     tr = Bu haritalar için güncelleme kullanılabilir:
+    sv = Uppdatering tillgänglig för dessa kartor:
 
   [suggest_uninstall_lite]
     en = You don't need MAPS.ME Lite any more, so you can uninstall it.
@@ -1908,6 +1986,7 @@
     ar = أنت لست بحاجة الى  MAPS.ME Lite بعد الآن، لذلك يمكنك إلغاء تثبيته.
     da = Du har ikke brug for MAPS.ME Lite længere, så du kan godt afinstallere den.
     tr = MAPS.ME Lite’e artık ihtiyacınız yok; bu nedenle uygulamayı kaldırabilirsiniz.
+    sv = Du behöver inte MAPS.ME Lite mer, så du kan avinstallera den.
 
   [download_country_success]
     en = %@ downloaded successfully
@@ -1933,6 +2012,7 @@
     ar = تم تنزيل  %@  بنجاح.
     da = %@ download succesfuldt
     tr = %@ başarılı bir şekilde indirildi
+    sv = %@ nedladdat lyckat
 
   [download_country_failed]
     en = %@ download has failed
@@ -1958,6 +2038,7 @@
     ar = فشلت عملية تنزيل %@
     da = %@ download mislykkedes
     tr = %@ indirme işlemi başarısız oldu
+    sv = %@ nedladdning misslyckades
 
   [add_new_set]
     en = Add new Set
@@ -1983,6 +2064,7 @@
     ar = إضافة مجموعة جديدة
     da = Tilføj nyt sæt
     tr = Yeni Ayar ekle
+    sv = Lägg till ny samling
 
   [add_to_bookmarks]
     en = Add to Bookmarks
@@ -2007,6 +2089,7 @@
     ar = إضافة الى الإشارات المرجعية
     da = Tilføj til Bogmærker
     tr = Yer İmlerine Ekle
+    sv = Lägg till till bokmärken
 
   [bookmark_color]
     en = Bookmark Color
@@ -2032,6 +2115,7 @@
     ar = لون الإشارة المرجعية
     da = Bogmærke Farve
     tr = Yer İmi Rengi
+    sv = Bokmärkesfärg
 
   [bookmark_set_name]
     en = Bookmark Set Name
@@ -2057,6 +2141,7 @@
     ar = اسم مجموعة الإشارات المرجعية
     da = Indstil bogmærkenavn
     tr = Yer İmi Adını Ayarla
+    sv = Bokmärkessamlingens namn
 
   [bookmark_sets]
     en = Bookmark Sets
@@ -2082,6 +2167,7 @@
     ar = مجموعات الإشارات المرجعية
     da = Bogmærk sæt
     tr = Yer İmi Ayarları
+    sv = Bokmärkessamlingar
 
   [bookmarks]
     en = Bookmarks
@@ -2107,6 +2193,7 @@
     ar = الإشارات المرجعية
     da = Bogmærker
     tr = Yer İmleri
+    sv = Bokmärken
 
   [color]
     en = Color
@@ -2131,6 +2218,7 @@
     ar = اللون
     da = Farve
     tr = Renk
+    sv = Färg
 
   [dropped_pin]
     en = Dropped Pin
@@ -2156,6 +2244,7 @@
     ar = الدبوس المُثَبَت
     da = Placeret knappenål
     tr = Bırakılan Pin
+    sv = Släppt knappnål
 
   [my_places]
     en = My Places
@@ -2181,6 +2270,7 @@
     ar = أماكني
     da = Mine Steder
     tr = Yerlerim
+    sv = Mina Platser
 
   [name]
     en = Name
@@ -2205,6 +2295,7 @@
     ar = الاسم
     da = Navn
     tr = Adı
+    sv = Namn
 
   [address]
     en = Address
@@ -2230,6 +2321,7 @@
     ar = العنوان
     da = Adresse
     tr = Adres
+    sv = Adress
 
   [remove_pin]
     en = Remove Pin
@@ -2255,6 +2347,7 @@
     ar = إزالة الدبوس
     da = Fjern knappenål
     tr = Pini Kaldır
+    sv = Ta bort knappnål
 
   [set]
     en = Set
@@ -2280,6 +2373,7 @@
     ar = المجموعة
     da = Sæt
     tr = Ayarla
+    sv = Samling
 
   [bookmarks_usage_hint]
     en = You have no bookmarks yet.\nTap on any place on the map to add a bookmark.\nBookmarks from other sources can also be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from e-mail, Dropbox or weblink.
@@ -2305,6 +2399,7 @@
     ar = ليس لديك أي إشارات مرجعية بعد.\nانقر على أي مكان على الخريطة لإضافة إشارة مرجعية.\nيمكنك أيضا استيراد الإشارات المرجعية من المصادر الأخرى وعرضها في MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الدبابيس المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
     da = Du har ingen bogmærker endnu.\nTryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i MAPS.ME.\nÅbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.
     tr = Henüz hiç yer iminiz yok.\nYer imi eklemek için haritada bir yere dokunun.\nBaşka kaynaklardan da yer imleri alınıp MAPS.ME’de gösterilebilir KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen pinlerle aç.
+    sv = Du har inga bokmärken än.\nTryck var som helst på kartan för att lägga till ett bokmärke.\nBokmärken från andra källor kan också importeras och visas i MAPS.ME. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.
 
   [bookmarks_usage_hint_import_only]
     en = Bookmarks from other sources can be imported and displayed in MAPS.ME. Open KML/KMZ file with saved bookmarks from mail, Dropbox or weblink.
@@ -2330,6 +2425,7 @@
     ar = يمكن استيراد الإشارات المرجعية من المصادر الأخرى و عرضها على MAPS.ME. افتح ملف KML/KMZ الذي يحتوي على الإشارات المرجعية المحفوظة من البريد الالكتروني، دروب بوكس أو ويب لينك.
     da = Du har ingen bogmærker endnu. Tryk på et sted på kortet for at kunne tilføje det til bogmærker. Bogmærker fra andre kilder kan også blive importeret og vist i MAPS.ME. Åbn en KML/KMZ fil med gemte bogmærker/knappenåle på i Mail, Dropbox eller på et link.
     tr = Başka kaynaklardan yer imleri alınıp MAPS.ME’de gösterilebilir. KML/KMZ dosyasını posta, Dropbox veya web bağlantısından kaydedilen yer imleriyle aç.
+    sv = Bokmärken från andra källor kan importeras och visas i MAPS.ME. Öppna KML/KMZ filer med sparade bokmärken från mail, Dropbox eller webadress.
 
   [settings]
     en = Settings
@@ -2355,6 +2451,7 @@
     ar = الإعدادات
     da = Indstillinger
     tr = Ayarlar
+    sv = Inställningar
 
   [maps_storage]
     en = Maps storage
@@ -2380,6 +2477,7 @@
     ar = تخزين الخرائط
     da = Kort lager
     tr = Haritaları depolama
+    sv = Kartlagring
 
   [maps_storage_summary]
     en = Select the place where maps should be downloaded to
@@ -2405,6 +2503,7 @@
     ar = اختر المكان الذي ينبغي تنزيل الخرائط  فيه.
     da = Vælg destination hvor dine kort skal downloades til
     tr = Haritaların indirileceği yeri seçin
+    sv = Välj en plats dit kartor ska laddas ner
 
   [move_maps]
     en = Move maps?
@@ -2430,6 +2529,7 @@
     ar = هل تريد نقل الخرائط؟
     da = Flyt kort?
     tr = Haritaları taşı?
+    sv = Flytta kartor?
 
   [wait_several_minutes]
     en = This can take several minutes.\nPlease wait…
@@ -2455,6 +2555,7 @@
     ar = يمكن أن تستغرق هذه العملية عدة دقائق.\nالرجاء الانتظار…
     da = Dette kan tage flere minutter.\nVent venligst…
     tr = Bu işlem birkaç dakika sürebilir.\nLütfen bekleyin…
+    sv = Detta kan ta flera minuter.\nVänligen vänta…
 
   [visible]
     en = Visible
@@ -2479,6 +2580,7 @@
     ar = مرئي
     da = Synligt
     tr = Görünür
+    sv = Synliga
 
   [bookmarks_in_pro_version]
     en = Bookmarks are only available in the full version of MAPS.ME. Get it right now!
@@ -2504,6 +2606,7 @@
     ar = الإشارات المرجعية متاحة فقط في الإصدار الكامل من MAPS.ME. احصل عليه الآن!
     da = Bogmærker er kun tilgængelige i den fulde version af MAPS.ME. Få det nu!
     tr = Yer imleri sadece MAPS.ME tam sürümünde kullanılabilir. Hemen şimdi al!
+    sv = Bokmärken finns bara i fullversionen av MAPS.ME. Skaffa den nu!
 
   [gps_is_disabled_long_text]
     en = GPS is disabled. Please enable it in Settings.
@@ -2529,6 +2632,7 @@
     ar = تم تعطيل خاصية نظام تحديد المواقع العالمي. الرجاء تفعيله في الاعدادات.
     da = GPS er deaktiveret. Aktiver venligst i Indstillinger.
     tr = GPS devre dışı bırakıldı. Lütfen Ayarlar bölümünden etkinleştirin.
+    sv = GPS har inaktiverats. Vänligen aktivera den i Inställningar.
 
   [measurement_units]
     tags = ios,android,tizen
@@ -2554,6 +2658,7 @@
     ar = وحدات القياس.
     da = Måleenhed
     tr = Ölçü Birimleri
+    sv = Längdenheter
 
   [measurement_units_summary]
     tags = ios,android,tizen
@@ -2579,6 +2684,7 @@
     ar = اختر من بين الأميال و الكيلو مترات.
     da = Vælg mellem mil eller kilometer
     tr = Mil veya kilometre seçimini yap
+    sv = Välj mellan mil och kilometer
 
   [search_mode_all]
     en = Everywhere
@@ -2604,6 +2710,7 @@
     ar = كل مكان
     da = Overalt
     tr = Her Yerde
+    sv = Överallt
 
   [search_mode_nearme]
     en = Near Me
@@ -2629,6 +2736,7 @@
     ar = بجواري
     da = Tæt på mig
     tr = Yakınlarımda
+    sv = I närheten
 
   [search_mode_viewport]
     en = On the Screen
@@ -2654,6 +2762,7 @@
     ar = على الشاشة
     da = På skærmen
     tr = Ekranda
+    sv = På skärmen
 
   [food]
     en = food
@@ -2679,6 +2788,7 @@
     ar = الطعام
     da = mad
     tr = yemek
+    sv = mat
 
   [transport]
     en = transport
@@ -2704,6 +2814,7 @@
     ar = النقل
     da = transport
     tr = ulaşım
+    sv = transport
 
   [fuel]
     en = gas
@@ -2729,6 +2840,7 @@
     ar = الغاز
     da = benzin
     tr = benzin
+    sv = bensin
 
   [parking]
     en = parking
@@ -2754,6 +2866,7 @@
     ar = الاصطفاف
     da = parkering
     tr = otopark
+    sv = parkering
 
   [shop]
     en = shop
@@ -2779,6 +2892,7 @@
     ar = المتجر
     da = butik
     tr = mağaza
+    sv = butik
 
   [hotel]
     en = hotel
@@ -2803,6 +2917,7 @@
     ar = الفندق
     da = hotel
     tr = otel
+    sv = hotell
 
   [tourism]
     en = sights
@@ -2828,6 +2943,7 @@
     ar = سياحة
     da = seværdigheder
     tr = görülecek yerler
+    sv = sevärdheter
 
   [entertainment]
     en = entertainment
@@ -2853,6 +2969,7 @@
     ar = التسلية
     da = underholdning
     tr = eğlence
+    sv = underhållning
 
   [atm]
     en = atm
@@ -2878,6 +2995,7 @@
     ar = ماكينة الصراف الآلي
     da = hæveautomat
     tr = bankamatik
+    sv = bankomat
 
   [bank]
     en = bank
@@ -2903,6 +3021,7 @@
     ar = البنك
     da = bank
     tr = banka
+    sv = bank
 
   [pharmacy]
     en = pharmacy
@@ -2928,6 +3047,7 @@
     ar = الصيدلية
     da = apotek
     tr = eczane
+    sv = apotek
 
   [hospital]
     en = hospital
@@ -2953,6 +3073,7 @@
     ar = المستشفى
     da = hospital
     tr = hastane
+    sv = sjukhus
 
   [toilet]
     en = toilet
@@ -2978,6 +3099,7 @@
     ar = الحمام
     da = toilet
     tr = tuvalet
+    sv = toalett
 
   [post]
     en = post
@@ -3003,6 +3125,7 @@
     ar = البريد
     da = post
     tr = posta
+    sv = post
 
   [police]
     en = police
@@ -3028,6 +3151,7 @@
     ar = الشرطة
     da = politi
     tr = polis
+    sv = polis
 
   [no_search_results_found]
     en = No results found
@@ -3053,6 +3177,7 @@
     ar = لم يتم العثور على أي نتائج
     da = Ingen resultater
     tr = Sonuç bulunamadı
+    sv = Inga resultat
 
   [description]
     en = Notes
@@ -3078,6 +3203,7 @@
     ar = ملاحظات
     da = Noter
     tr = Notlar
+    sv = Anteckningar
 
   [share_by_email]
     en = Share by email
@@ -3102,6 +3228,7 @@
     ar = مشاركة بواسطة البريد الالكتروني
     da = Del via e-mail
     tr = E-postayla paylaş
+    sv = Dela via email
 
   [share_bookmarks_email_subject]
     en = Shared MAPS.ME bookmarks
@@ -3127,6 +3254,7 @@
     ar = تم مشاركة اشارات MAPS.ME المرجعية معك
     da = MAPS.ME bogmærker er blevet delt med dig
     tr = Paylaşılan MAPS.ME yer imleri
+    sv = MAPS.ME bokmärken har delats med dig
 
   [share_bookmarks_email_body]
     en = Greetings,\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open it if you have MAPS.ME Pro installed. If not, download the app for your iOS or Android device following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!
@@ -3152,6 +3280,7 @@
     ar =  مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME Pro مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي:  http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!
     da = Hej, vedhæftet er mine bogmærker fra MAPS.ME offline kort. Åbn venligst vedhæftet hvis du har MAPS.ME Pro installeret. Hvis ikke, så download app'en til din iOS eller Android enhed fra dette link: http://maps.me/get?kmz.\n\ Nyd at rejse med MAPS.ME!
     tr = Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME PRO sende yüklü ise aç. Değilse  iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!
+    sv = Hej,\n\nMina bokmärken från MAPS.ME offline-kartor är bifogade. Öppna dem ifall du har MAPS.ME Pro installerat. Om inte, ladda ner appen till din iOS- eller Android-enhet från denna länk: http://maps.me/get?kmz\n\nNjut av att resa med MAPS.ME!
 
   [load_kmz_title]
     en = Loading Bookmarks
@@ -3177,6 +3306,7 @@
     ar = تحميل الإشارات المرجعية
     da = Indlæser Bogmærker
     tr = Yer İmleri Yükleniyor
+    sv = Läser in bokmärken
 
   [load_kmz_successful]
     en = Bookmarks loaded successfully! You can find them on the map or on the Bookmarks Manager screen.
@@ -3202,6 +3332,7 @@
     ar = تم تحميل الإشارات المرجعية بنجاح! يمكنك العثور عليها على الخريطة أو على شاشة إدارة الإشارات المرجعية.
     da = Bogmærkerne er indlæst! Du kan nu finde dem på kortet eller i Bogmærke Manager sektionen.
     tr = Yer İmleri başarılı bir şekilde yüklendi! Bunları Haritada veya Yer İmleri Yöneticisi ekranında bulabilirsiniz.
+    sv = Bokmärkena lästes in! Du kan hitta dem på kartan eller i Bokmärkeshanteraren.
 
   [load_kmz_failed]
     en = Bookmarks upload failed. The file may be corrupted or defective.
@@ -3227,6 +3358,7 @@
     ar = فشلت عملية تحميل الإشارات المرجعية. قد يكون الملف تالف .
     da = Bogmærkerne kunne ikke indlæses. Fil kan være skadet eller defekte.
     tr = Yer İmlerini yükleme işlemi başarısız oldu. Dosya bozuk veya hatalı olabilir.
+    sv = Inläsningen av bokmärkena misslyckades. Filen kan vara skadad eller defekt.
 
   [edit]
     en = Edit
@@ -3247,6 +3379,7 @@
     ar = تعديل
     da = Rediger
     tr = Düzenle
+    sv = Redigera
 
   [unknown_current_position]
     en = Your location hasn't been determined yet
@@ -3272,6 +3405,7 @@
     ar = لم يتم التعرف على موقعك بعد.
     da = Din lokation er ikke blevet bestemt endnu
     tr = Yeriniz henüz belirlenmedi
+    sv = Din position har inte bestämts ännu
 
   [download_location_country]
     en = Download the country of your current location (%@)
@@ -3297,6 +3431,7 @@
     ar = تنزيل دولة (%@) موقعك الحالي
     da = Download landet bestemt ud fra din nuværende lokation (%@)
     tr = Geçerli konumuzun (%@) ülkesini indirin
+    sv = Ladda ner landet vid din nuvarande position (%@)
 
   [download_viewport_country_to_search]
     en = Download the country you are searching on (%@)
@@ -3322,6 +3457,7 @@
     ar = تنزيل الدولة (%@) التي تبحث فيها
     da = Download landet som du har søgt på (%@)
     tr = Aradığınız (%@) ülkesini indirin
+    sv = Ladda ner landet du söker på (%@)
 
   [cant_change_this_setting]
     en = Sorry, Map Storage settings are currently disabled.
@@ -3347,6 +3483,7 @@
     ar = نأسف، اعدادات تخزين الخرائط معطلة حالياً.
     da = Beklager, Kort Lagring er ikke slået til i indstillinger.
     tr = Üzgünüz, Harita Depolama ayarları şu anda devre dışı.
+    sv = Ledsen, Kartlagring är inaktiverat i inställningar
 
   [downloading_is_active]
     en = Country download is in progress now.
@@ -3372,6 +3509,7 @@
     ar = جاري الآن تنزيل الدولة
     da = Download af kort over land er i gang nu.
     tr = Ülke indirme işlemi şu anda sürüyor.
+    sv = Nedladdning av landet är startat nu.
 
   [appStore_message]
     en = Hope you enjoy using MAPS.ME! If so, please rate or review the app at the App Store. It takes less than a minute but can really help us. Thanks for your support!
@@ -3397,6 +3535,7 @@
     ar = نأمل أن تكون قد استمتعت باستخدام MAPS.ME! إذا كان الأمر كذلك، الرجاء تقييم التطبيق في App Store. يستغرق ذلك أقل من دقيقة لكنه يفيدنا بالفعل. شكرا لك على دعمك!
     da = Vi håber du er glad for at bruge MAPS.ME! Hvis du er, vil du så overveje at bedømme og måske skrive en anmeldelse på App Store? Det tager under et minut, men det kan virkelig hjælpe os. Tak for din hjælp!
     tr = MAPS.ME kullanmaktan keyif aldığınızı umuyoruz! Öyleyse, lütfen App Store’da uygulamaya puan verin veya uygulama hakkında yorum yapın. Bir dakikadan daha kısa sürer ama bize gerçekten yardımcı olabilir. Desteğiniz için teşekkürler!
+    sv = Hoppas du gillar att använda MAPS.ME! I så fall, skriv en recension eller ge ett betyg på App Store. Det tar mindre än en minut men kan verkligen hjälpa oss. Tack för din hjälp!
 
   [no_thanks]
     en = No, thanks
@@ -3422,6 +3561,7 @@
     ar = لا، شكرا
     da = Nej, tak
     tr = Hayır, teşekkürler
+    sv = Nej, tack
 
   [bookmark_share_sms]
     en = Hey, check out my pin at MAPS.ME! %1$@ or %2$@ Don't have offline maps installed? Download here: http://maps.me/get
@@ -3446,6 +3586,7 @@
     ar = هاي، تفقد الدبوس الخاص بي على MAPS.ME!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
     da = Hey, tjek min knappenål på MAPS.ME ud! %1$@ or %2$@ Har du ikke offline kort? Download her: http://maps.me/get
     tr = Hey, MAPS.ME’de pinimi incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yüklü değil mi? Buradan indir: http://maps.me/get
+    sv = Hej, kolla på min pin på MAPS.ME! %1$@ eller %2$@ Har du inte offline-kartor installerat? Ladda ner här: http://maps.me/get
 
   [my_position_share_sms]
     en = Hey, check out my current location at MAPS.ME! %1$@ or %2$@ Don't have offline maps? Download here: http://maps.me/get
@@ -3470,6 +3611,7 @@
     ar = هاي، تفقد الموقع الخاص بي على MAPS.ME!  %1$@ أو %2$@. ليس لديك أي خرائط تعمل بدون الاتصال مع الانترنت مثبتة على جهازك؟ قم بتحميلها من هنا: http://maps.me/get
     da = Hey, tjek min nuværende lokation ud på MAPS.ME! %1$@ or %2$@. Har du ikke offline kort? Download her: http://maps.me/get
     tr = Hey, MAPS.ME’de geçerli konumumu incele! %1$@ veya %2$@ Çevrimiçi haritalar sende yok mu? Buradan indir: http://maps.me/get
+    sv = Hej, kolla på min nuvarande position på MAPS.ME! %1$@ eller %2$@ Har du inte offline-kartor? Ladda ner här: http://maps.me/get
 
   [bookmark_share_email_subject]
     en = Hey, check out my pin at MAPS.ME map!
@@ -3494,6 +3636,7 @@
     ar = هاي، تفقد الدبوس الخاص بي على خريطة MAPS.ME!
     da = Hey, tjek min knappenål på MAPS.ME kortet ud!
     tr = Hey, MAPS.ME haritasında pinimi incele!
+    sv = Hej, kolla på min pin på MAPS.ME kartan
 
   [bookmark_share_email]
     en = Hi,\n\nI pinned: %1$@ at MAPS.ME, world offline maps. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
@@ -3518,6 +3661,7 @@
     ar = مرحبا،\n\nقمت بوضع دبوس : %1$@ على MAPS.ME، خرائط العالم بدون الاتصال مع الانترنت. انقر على هذا الرابط %2$@ أو الرابط التالي %3$@ لمشاهدة الموقع على الخريطة.\n\nشكرا لك.
     da = Hey,\n\nI har lagt en knappenål: %1$@ på MAPS.ME, offline kort over hele Verden. Tryk pådettelink: %2$@ellerdette%3$@foratseknappenåletpåkortet.\n\nTak.
     tr = Merhaba,\n\nDünyanın çevrimdışı haritaları MAPS.ME’d: %1$@ pinledim. Yeri haritadan görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.
+    sv = Hej,\n\nJag lade till en knappnål: %1$@ på MAPS.ME, offline-kartor över hela världen. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.
 
   [my_position_share_email_subject]
     en = Hey, check out my current location at MAPS.ME map!
@@ -3541,6 +3685,7 @@
     ar = يا هلا، تحقق من موقعي الحالي على خريطة MAPS.ME!
     da = Hey, tjek min nuværende lokation ud på MAPS.ME kortet!
     tr = Hey, MAPS.ME’de geçerli konumumu incele!
+    sv = Hej, kolla på min nuvarande position på MAPS.ME kartan!
 
  [my_position_share_email]
     en = Hi,\n\nI'm here now: %1$@. Click this link %2$@ or this one %3$@ to see the place on the map.\n\nThanks.
@@ -3565,6 +3710,7 @@
     ar = مرحبا،\n\nأنا هنا الآن: %1$@  . انقر على هذا الرابط %2$@ أو ذلك الرابط %3$@ لمشاهدة المكان على الخريطة.\n\nشكرا لك.
     da = Hey, her er jeg nu: %1$@. Tryk på dette link %2$@ eller dette %3$@ for at se stedet på kortet. Tak.
     tr = Merhaba,\n\nŞu anda bulunduğum yer: %1$@. Yeri haritada görmek için bu bağlantıya %2$@ veya şuna %3$@ tıkla.\n\nTeşekkürler.
+    sv = Hej,\n\nJag är här nu: %1$@. Klicka på denna länk %2$@ eller denna %3$@ för att se platsen på kartan.\n\nTack.
 
   [share_by_message]
     en = Share by message
@@ -3590,6 +3736,7 @@
     ar = مشاركة بواسطة رسالة
     da = Del via besked
     tr = Mesajla paylaş
+    sv = Dela via meddelande
 
   [share]
     en = Share
@@ -3615,6 +3762,7 @@
     ar = مشاركة
     da = Del
     tr = Paylaş
+    sv = Dela
 
   [message]
     en = Message
@@ -3640,6 +3788,7 @@
     ar = رسالة
     da = Besked
     tr = Mesaj
+    sv = Meddelande
 
   [email]
     en = E-Mail
@@ -3665,6 +3814,7 @@
     ar = البريد الالكتروني
     da = E-Mail
     tr = E-Posta
+    sv = E-Mail
 
   [promocode_activation]
     en = Promo Code Activation
@@ -3681,6 +3831,7 @@
     ar = تفعيل رمز الترويج
     da = Værdikode aktivering
     tr = Promosyon Kodu Etkinleştirme
+    sv = Promokod aktivering
 
   [enter_promocode_hint]
     en = Enter Promo Code
@@ -3698,6 +3849,7 @@
     ar = أدخل رمز الترويج
     da = Indtast værdikode
     tr = Promosyon Kodunu Gir
+    sv = Skriv in promokod
 
   [promocode_success]
     en = Promo code is activated!
@@ -3715,6 +3867,7 @@
     ar = تم تفعيل رمز الترويج!
     da = Værdikoden er aktiveret!
     tr = Promosyon kodu etkinleştirildi!
+    sv = Promokoden är aktiverad!
 
   [promocode_error]
     en = Connection error. Please try again later.
@@ -3732,6 +3885,7 @@
     ar = خطأ في الاتصال. الرجاء المحاولة لاحقا.
     da = Forbindelses fejl. Prøv venligst igen senere.
     tr = Bağlantı hatası. Lütfen daha sonra tekrar deneyin.
+    sv = Anslutningsfel. Försök igen senare.
 
   [promocode_failure]
     en = Invalid promo code. Please try again.
@@ -3749,6 +3903,7 @@
     ar = رمز الترويج غير صحيح. الرجاء إعادة المحاولة.
     da = Forkert værdikode. Prøv venligst igen.
     tr = Geçersiz promosyon kodu. Lütfen tekrar deneyin.
+    sv = Felaktig promokod. Försök igen.
 
   [copy_link]
     en = Copy Link
@@ -3774,6 +3929,7 @@
     ar = نسخ الرابط
     da = Kopier link
     tr = Bağlantıyı Kopyala
+    sv = Kopiera Länk
 
   [more_info]
     en = Show More Info
@@ -3799,6 +3955,7 @@
     ar = إظهار مزيد من المعلومات
     da = Vis mere info
     tr = Daha Fazla Bilgi Göster
+    sv = Visa Mer Info
 
   [copied_to_clipboard]
     en = Copied to Clipboard: %1$@
@@ -3824,6 +3981,7 @@
     ar = تم النسخ الى الحافظة: %1$@
     da = Kopieret til udklipsholderen: %1$@
     tr = Panoya Kopyalandı: %1$@
+    sv = Kopierat till urklippsbordet: %1$@
 
   [allow_statistics]
     en = Send Statistics
@@ -3849,6 +4007,7 @@
     ar = ارسال الاحصائيات
     da = Send statistikker
     tr = İstatistikleri Gönder
+    sv = Skicka statistik
 
   [allow_statistics_hint]
     en = Allow us to collect usage statistics to improve the app
@@ -3874,6 +4033,7 @@
     ar = اسمح لنا بجمع احصائيات الاستخدام من أجل تحسين التطبيق
     da = Tillad os at indhendte brugsstatistikker for at forbedre vores app
     tr = Uygulamayı geliştirebilmemiz için kullanım istatistikleri toplamamıza izin ver
+    sv = Tillåt oss samla in användningsstatistik för att förbättra appen
 
   [info]
     en = Info
@@ -3899,6 +4059,7 @@
     ar = المعلومات
     da = Info
     tr = Bilgi
+    sv = Info
 
   [done]
     en = Done
@@ -3924,6 +4085,7 @@
     ar = تم
     da = Færdig
     tr = Bitti
+    sv = Klar
 
   [yopme_pref_summary]
     tags = android
@@ -3946,6 +4108,7 @@
     ar = اختر اعدادات الشاشة الخلفية
     da = Vælg bagskærmsindstillinger
     tr = Arka Ekran ayarlarını seç
+    sv = Välj bakskärmsinställningar
 
   [yopme_pref_title]
     tags = android
@@ -3968,6 +4131,7 @@
     ar = اعدادات الشاشة الخلفية
     da = Bagskærmsindstillinger
     tr = Arka Ekran Ayarları
+    sv = Bakskärmsinställningar
 
   [show_on_backscreen]
     tags = android
@@ -3990,6 +4154,7 @@
     ar = إظهار في الشاشة الخلفية
     da = Vis på bagskærm
     tr = Arka ekranda göster
+    sv = Visa på bakskärm
 
   [version]
     tags = android,tizen
@@ -4015,6 +4180,7 @@
     ar = الاصدار: %@
     da = Version: %@
     tr = Sürüm: %@
+    sv = Version: %@
 
   [are_you_sure]
     tags = android,tizen
@@ -4040,6 +4206,7 @@
     ar = هل أنت واثق أنك تريد الاستمرار؟
     da = Er du sikker på, at du vil fortsætte?
     tr = Devam etmek istediğinizden emin misiniz?
+    sv = Är du säker på att du vill fortsätta?
 
   [tracks]
     tags = ios,android
@@ -4065,6 +4232,7 @@
     ar = المسارات
     da = Ruter
     tr = Parçalar
+    sv = Rutter
 
   [length]
     tags = ios,android
@@ -4090,6 +4258,7 @@
     ar = الطول
     da = Længde
     tr = Uzunluk
+    sv = Längd
 
   [share_my_location]
     tags = ios,android,tizen
@@ -4114,6 +4283,7 @@
     ar = مشاركة موقعي
     da = Del min lokation
     tr = Yerimi paylaş
+    sv = Dela Min Plats
 
   [become_a_pro]
     tags = tizen
@@ -4138,6 +4308,7 @@
     ar = ترقية
     da = Opgrader
     tr = Yükselt
+    sv = Uppgradera
 
   [menu_search]
     en = Search
@@ -4161,6 +4332,7 @@
     ar = بحث
     da = Søg
     tr = Ara
+    sv = Sök
 
   [pref_zoom_title]
     tags = tizen
@@ -4185,6 +4357,7 @@
     ar = أزرار التكبير
     da = Zoom knapper
     tr = Yakınlaştırma butonları
+    sv = Zoom-knappar
 
   [pref_zoom_summary]
     tags = tizen
@@ -4209,6 +4382,7 @@
     ar = عرض على الشاشة
     da = Vis på skærmen
     tr = Ekranda göster
+    sv = Visa på skärmen
 
   [more_apps_title]
     tags = ios,android
@@ -4233,6 +4407,7 @@
     ar = المزيد من التطبيقات
     da = Flere apps
     tr = Daha fazla uygulama
+    sv = Fler Appar
 
   [more_apps_guides]
     en = Travel Guides
@@ -4255,6 +4430,7 @@
     ar = دليل السفر الارشادي
     da = Rejseguider
     tr = Seyahat rehberleri
+    sv = Reseguider
 
   [more_apps_ads]
     fr = Plus d'applis
@@ -4278,6 +4454,7 @@
     ar = المزيد من التطبيقات
     da = Flere apps
     tr = Daha fazla uygulama
+    sv = Fler Appar
 
   [placepage_distance]
     en = Distance
@@ -4301,6 +4478,7 @@
     ar = المسافة
     da = Afstand
     tr = Mesafe
+    sv = Avstånd
 
   [placepage_coordinates]
     en = Coordinates
@@ -4324,6 +4502,7 @@
     ar = الإحداثيات
     da = Koordinater
     tr = Koordinatlar
+    sv = Koordinater
 
   [placepage_unsorted]
     en = Unsorted
@@ -4347,6 +4526,7 @@
     ar = لم يتم فرزها
     da = Usorteret
     tr = Sıralanmamış
+    sv = Osorterade
 
   [search_show_on_map]
     en = View on map
@@ -4370,6 +4550,7 @@
     ar = مشاهدة على الخريطة
     da = Vis på kortet
     tr = Haritada görüntüle
+    sv = Visa på kartan
 
   [kitkat_migrate_ok]
     tags = android
@@ -4395,6 +4576,7 @@
     ar = تم تحسين وسيلة تخزين بيانات الخريطة. الرجاء اعادة تشغيل التطبيق .\n\nلا حاجة بعد الآن لمجلد MAPS.ME في البطاقة الرقمية الآمنة، يمكنك حذفه.
     da = Kort data lagring er blevet optimeret. Genstart venligst applikationen.\n\nMAPS.ME mappen i SD-kortet er ikke nødvendig mere. Du kan derfor slette den.
     tr = Harita veri depolama optimize edildi. Lütfen uygulamayı yeniden başlatın.\n\nSD kart kaynağındaki MAPS.ME klasörüne artık ihtiyaç yok; silebilirsiniz.
+    sv = Kartdata lagringen har optimerats. Vänligen starta om appen.\n\nMapsWithMe mappen i roten av SD.kortet behövs inte längre, du kan ta bort den.
 
   [kitkat_migrate_failed]
     tags = android
@@ -4420,6 +4602,7 @@
     ar = بسبب التغييرات في نظام أندرويد4.4 ، نحن بحاجة لتحسين وسيلة تخزين بيانات الخريطة، لكن لا يوجد حيز كافٍ لنسخ بيانات الخريطة.\n\nالرجاء إخلاء الذاكرة، وإلا ستتوافر الخرائط في وضع القراءة فقط.
     da = På grund af ændringer i Android 4.4 er vi nødsaget til at optimere kort data lagringen, men der er ikke nok plads til at kopiere kort dataen.\n\nFrigør venligst noget plads på din enhed, ellers vil kortene være skrivebeskyttede.
     tr = Android 4.4’de yapılan değişikliklerden dolayı harita veri depolamasını optimize etmemiz gerekiyor ancak harita verilerini kopyalayacak yeterli alan yok.\n\nLütfen hafızayı boşaltın, aksi takdirde haritalar salt okunur modda kullanılabilir olacaktır.
+    sv = På grund av förändringar i Android 4.4 behöver vi optimera kartadata lagringen, men det finns inte tillräckligt med utrymme för att kopiera kartdata.\n\nVänligen frigör mer minne, annars kommer kartorna vara skrivskyddade.
 
   [bookmark_move_fail]
     tags = android
@@ -4445,6 +4628,7 @@
     ar = نحن بحاجة لنقل الإشارات المرجعية الخاصة بك الى الذاكرة الداخلية، لكن لا يوجد حيز كافٍ لها. الرجاء إخلاء الذاكرة، وإلا لن تكون  الإشارات المرجعية متاحة.
     da = Vi er nødsaget til at flytte dine bogmærker til intern hukommelse, men der er ikke nok plads til dem der. Frigør venligst noget plads, ellers vil dine bogmærker ikke være tilgængelige.
     tr = Yer imlerinizi dâhili hafızaya taşımamız gerekiyor ancak bunlar için kullanılabilir alan yok. Lütfen hafızayı boşaltın, aksi takdirde yer imleri kullanılamaz olacaktır.
+    sv = Vi behöver flytta dina bokmärken till internminnet, men det finns inte tillräckligt med utrymme för dem. Vänligen frigör mer minne, annars kommer bokmärkena inte finnas tillgängliga.
 
   [kitkat_optimization_in_progress]
     tags = android
@@ -4470,6 +4654,7 @@
     ar = لقد تم الآن تحسين وسيلة تخزين الخرائط. الرجاء الانتظار، سيستغرق الأمر دقائق قليلة.
     da = Din kort lagring bliver optimeret nu. Vent venligst, det kan taget nogle minutter.
     tr = Harita depolama şu anda optimize ediliyor. Lütfen bekleyin; bu işlem birkaç dakika sürebilir.
+    sv = Din kartlagring optimeras nu. Vänligen vänta, det kan ta några minuter.
 
   [free]
     tags = ios
@@ -4495,6 +4680,7 @@
     ar = مجاني
     da = Gratis
     tr = Ücretsiz
+    sv = Gratis
 
   [buy]
     tags = ios
@@ -4520,6 +4706,7 @@
     ar = شراء
     da = Køb
     tr = Satın Al
+    sv = Köp
 
   [search_on_map]
     tags = ios
@@ -4545,6 +4732,7 @@
     ar = البحث في الخريطة
     da = Søg på kort
     tr = Haritada Ara
+    sv = Sök på kartan
 
   [no_route_found]
     tags = ios,android
@@ -4775,6 +4963,7 @@
     ja = このアプリケーションはOpenStreetMapプロジェクトから取得された地理的データ（地図、ビジネスリスト、興味のある場所、国境と地域など）を使います。OpenStreetMapのデータの整合性、正確さ、完全性や適合性に関して弊社は保証致しかねます。
     zh-Hans = 这个应用程序使用了源自OpenStreetMap项目的地理数据（包括地图、商业清单、景点、国家和地区边界等）。我们对OpenStreetMap任何数据的一致性、准确性、完整性或适用性不做担保。
     zh-Hant = 此應用程序使用從OpenStreetMap專案擷取之地理數據（包括地圖、商家資訊、興趣點、國家和地區邊界等）。我們不保證OpenStreetMap數據的一致性、準確性、完整性、或適用性。
+    sv = Detta program använder geografisk data (inkluderar kartor, företagsuppgifter, intressepunkter, landsgränser och regioner m.m.) från OpenStreetMap projektet. Vi garanterar ingen konsekvenshet, nogrannhet, fullständighet eller tillämpbarhet av OpenStreetMap datan.
 
   [agree]
     tags = tizen
@@ -4799,6 +4988,7 @@
     ja = 同意しない
     zh-Hans = 我不同意
     zh-Hant = 我不同意
+    sv = Jag accepterar
 
   [download_map_notification]
     tags = ios
@@ -4824,6 +5014,7 @@
     zh-Hant = 下載您所在地方的地圖
     da = Download kortet over det sted, hvor du befinder dig
     tr = Bulunduğun yerin haritasını indir
+    sv = Ladda ner kartan över din nuvarande plats
 
   [pro_version_is_free_today]
     tags = ios
@@ -4849,6 +5040,7 @@
     zh-Hant = MAPS.ME Pro今日免費！馬上下載并告訴您的朋友。
     da = MAPS.ME Pro er gratis i dag! Download nu og fortæl dine venner om det.
     tr = MAPS.ME Pro bugün ücretsiz! İndir ve arkadaşlarına haber ver.
+    sv = MAPS.ME Pro är gratis idag! Ladda ner den nu och berätta för dina vänner.
 
   [pro_version_is_free_today_android]
     tags = android
@@ -4874,6 +5066,7 @@
     ar = MAPS.ME متوفر الآن مع خصم 80٪ على منصة جوجل بلاي. قم بتنزيله الآن وأخبر أصدقائك.
     da = MAPS.ME er tilgængeligt med 80% rabat på Google Play! Del nyheden på Facebook.
     tr = MAPS.ME Google Play'de %80 indirimli! İndir ve arkadaşlarına haber ver.
+    sv = MAPS.ME finns tillgänglig med 80% rabbat på Google Play! Ladda ner nu och berätta för dina vänner.
 
   [move_lite_maps_to_pro]
     tags = android
@@ -4899,6 +5092,7 @@
     ar = نحن ننقل خرائط التنزيلات الخاصة بك من MAPS.ME Lite إلى MAPS.ME. يمكن أن يستغرق بضع دقائق
     da = Vi overfører dine downloadede kort fra MAPS.ME Lite til MAPS.ME. Det kan tage et par minutter.
     tr = MAPS.ME Lite'den indirmiş olduğunuz haritaları MAPS.ME'ye aktarıyoruz. Bu bir kaç dakika sürebilir.
+    sv = Vi flyttar dina nedladdade kartor från MAPS.ME Lite till MAPS.ME. Det kan ta några minuter.
 
   [move_lite_maps_to_pro_ok]
     tags = android
@@ -4924,6 +5118,7 @@
     ar = تم بنجاح نقل خرائطك التي تم تنزيلها إلى MAPS.ME.
     da = Dine downloadede kort er blevet succesfuldt overført til MAPS.ME.
     tr = İndirmiş olduğunuz haritalar başarılı bir şekilde MAPS.ME'ye aktarıldı.
+    sv = Dina nedladdade kartor flyttades till MAPS.ME.
 
   [move_lite_maps_to_pro_failed]
     tags = android
@@ -4949,6 +5144,7 @@
     ar = فشل نقل خرائطك يُرجى حذف MAPS.ME Lite وتنزيل الخرائط مرة أخرى.
     da = Det lykkedes ikke at overføre dine kort. Slet venligst MAPS.ME Lite og download kortene igen.
     tr = Haritanızın aktarımı başarısız oldu. Lütfen MAPS.ME Lite'yi silin ve haritaları tekrar indirin.
+    sv = Flytten av dina kartor misslyckades. Vänligen ta bort MAPS.ME Lite och ladda ner kartorna igen.
 
   [maps_me_is_free_today_ios]
     tags = ios
@@ -4974,6 +5170,7 @@
     ar = تطبيق MAPS.ME مجاني اليوم! يمكنك مشاركة الأخبار على الفيسبوك.
     da = MAPS.ME er gratis i dag! Del nyheden på Facebook.
     tr = MAPS.ME bugün ücretsiz! Haberi Facebook'ta paylaş.
+    sv = MAPS.ME är gratis idag! Dela nyheten på Facebook.
 
   [maps_me_is_free_today_android]
     tags = android
@@ -4999,6 +5196,7 @@
     ar = MAPS.ME متوفر الآن مع خصم 80٪ على منصة جوجل بلاي. يمكنك مشاركة الأخبار على الفيسبوك.
     da = MAPS.ME er tilgængeligt med 80% rabat på Google Play! Del nyheden på Facebook.
     tr = MAPS.ME Google Play'de %80 indirimli! Haberi Facebook'ta paylaş.
+    sv = MAPS.ME finns tillgänglig med 80% rabatt på Google Play! Dela nyheten på Facebook.
 
   [maps_me_is_free_today_facebook_post_ios]
     tags = ios
@@ -5024,6 +5222,7 @@
     ar = تطبيق الخرائط غير المتصلة المذهل MAPS.ME أصبح مجاني على متجر التطبيقات ومتوفر بخصم 80% على Google Play. أسرع للحصول على التطبيق اليوم، فالترويج سوف ينتهي قريبا!
     da = Den fantastiske offline kort app MAPS.ME er gratis i App Store og kan fås på Google Play med 80% i rabat. Skynd dig at få app´en i dag, promotionperioden er snart forbi!
     tr = Mükemmel çevrimdışı harita uygulaması MAPS.ME App Store'da ücretsiz, Google Play üzerinde ise %80 indirimle hizmetinizde. Uygulamayı bugün edinmek için acele edin, promosyon yakında sona erecek!
+    sv = Den fantastiska appen MAPS.ME med offline-kartor är gratis på App Store och finns tillgänglig med 80% rabatt på Google Play. Skynda dig att skaffa appen idag, erbjudandet är snart över!
 
   [maps_me_is_free_today_facebook_post_android]
     tags = android
@@ -5049,6 +5248,7 @@
     ar = لقد تحصلت للتو على MAPS.ME خرائط مجانية على جوجل بلاي. متوفرة أيضا مجانا على اي تيونز. لا نضيع الفرصة!
     da = Jeg har netop fået MAPS.ME offline kort med 80% rabat på Google Play. Det er også tilgængeligt gratis på iTunes. Gå ikke glip af det!
     tr = MAPS.ME çevrimdışı haritaları Google Play'den %80 indirimli aldım. iTunes'ta da ücretsiz. Kaçırma!
+    sv = Jag skaffade nyss MAPS.ME offline-kartor på Google Play. Den finns också tillgänglig gratis på iTunes. Missa inte!
 
   [settings_and_more]
     tags = ios, android
@@ -5074,6 +5274,7 @@
     ar = الإعدادات والمزيد
     da = Indstillinger & Mere
     tr = Ayarlar & Fazlası
+    sv = Inställningar & Mer
 
   [maps_me_community]
     tags = ios, android
@@ -5099,6 +5300,7 @@
     ar = مجتمع MAPS.ME
     da = MAPS.ME Samfund
     tr = MAPS.ME Topluluğu
+    sv = MAPS.ME Gemenskap
 
   [like_on_facebook]
     tags = ios, android
@@ -5124,6 +5326,7 @@
     ar = أعجبني على الفيسبوك
     da = Synes godt om på Facebook
     tr = Facebook'da beğen
+    sv = Gilla på Facebook
 
   [follow_on_twitter]
     tags = ios, android
@@ -5149,6 +5352,7 @@
     ar = تابعونا على تويتر
     da = Følg på Twitter
     tr = Twitter'da takip et
+    sv = Följ på Twitter
 
   [contact_us]
     tags = ios, android
@@ -5174,6 +5378,7 @@
     ar = أتصل بنا
     da = Kontakt os
     tr = İletişim
+    sv = Kontakta oss
 
   [subscribe_to_news]
     tags = ios, android
@@ -5199,6 +5404,7 @@
     ar = أشترك في نشرتنا الإخبارية
     da = Abonnér på vores nyheder
     tr = Haberlerimize abone ol
+    sv = Prenumerera på våra nyheter
 
   [rate_the_app]
     tags = ios, android
@@ -5224,6 +5430,7 @@
     ar = تقييم التطبيق
     da = Bedøm appen
     tr = Uygulamayı değerlendir
+    sv = Get appen ett betyg
 
   [help]
     tags = ios, android
@@ -5249,6 +5456,7 @@
     ar = مساعدة
     da = Hjælp
     tr = Yardım
+    sv = Hjälp
 
   [copyright]
     tags = ios, android
@@ -5274,6 +5482,7 @@
     ar = حقوق الطبع والنشر
     da = Copyright
     tr = Telif hakkı
+    sv = Copyright
 
   [report_a_bug]
     tags = ios, android
@@ -5299,6 +5508,7 @@
     ar = الإبلاغ عن خطأ
     da = Rapportér fejl
     tr = Hata bildir
+    sv = Rapportera en bugg
 
   [subscribe_me_subject]
     tags = ios, android
@@ -5324,6 +5534,7 @@
     ar = يرجى اشتراكي في النشرة البريدية لدى MAPS.ME
     da = Tilmeld mig MAPS.ME-nyhedsbrev
     tr = Lütfen MAPS.ME haber bültenine beni abone yap
+    sv = Anmäl mig till MAPS.ME nyhetsbrev
 
   [subscribe_me_body]
     tags = ios, android
@@ -5349,6 +5560,7 @@
     ar = أريد أن أكون أول من يعرف آخر الأخبار والتحديثات والترقيات. يمكنني إلغاء اشتراكي في أي وقت.
     da = Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.
     tr = En son haberlerden güncellemelerden ve tanıtımlardan ilk önce haberdar olmak istiyorum. Aboneliğimi herhangi bir zaman iptal edebilirim.
+    sv = Jag vill bli först att veta om de senaste uppdateringarna och erbjudandena. Jag kan avbryta min prenumeration när som helst.
 
  [about_text]
     tags = ios, android
@@ -5374,6 +5586,7 @@
     ar = توفر لكم MAPS.ME أحدث الخرائط دون الاتصال بالإنترنت لكافة دول وكافة مدن العالم. سافر وتمتع بالثقة التامة: إينما كنت، تساعدك MAPS.ME على تحديد مكانك على الخريطة، والعثور على أقرب مطعم أو فندق أو بنك أو محطة غاز الخ لا يتطلب الاتصال بالإنترنت.\n\nنحن نعمل دوماً على إدخال مزايا جديدة على التطبيق ونود أن نسمع منك رأيك عن الكيفية التي يمكن بها تحسين تطبيق MAPS.ME في رأيك. إذا واجهتك أي مشاكل مع التطبيق، لا تتردد في الاتصال بنا على support@maps.me. نحن نرد على كافة الطلبات.\n\nهل أعجبك تطبيق MAPS.ME وترغب في دعمنا؟ هناك بعض الطرق السهلة والمجانية بالكامل لعمل ذلك.\n\n- انشر رأيك على متجر التطبيقات الخاص بك\n- اعجب بصفحتنا على موقع Facebook http://www.facebook.com/mapswithme\n- أو أخبر والدتك وأصدقائك وزملائك عن تطبيق MAPS.ME :)\n\nشكراً لك على وجودك معنا. نحن نقدر جداً دعمك لنا!\n\nيُرجى ملاحظة نحن نستقي بيانات الخرائط من OpenStreetMap، مشروع خرائط يشبه موسوعة Wikipedia ويتيح هذا المشروع للمستخدمين إنشاء وتحرير الخرائط. إذا كنت ترى أن هناك خطأ ما أو شيء غير موجود على الخريطة، يمكنك تصحيح الخرائط مباشرة على http://openstreetmap.org، وسوف تظهر تغييراتك على تطبيق MAPS.ME في الإصدار القادم للتطبيق.
     da = MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på http://openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.
     tr = MAPS.ME dünyadaki tüm ülkelerdeki şehirlerin en hızlı çevrimdışı haritalarını sunuyor. Tam güven ile seyahat edin: nerede olursanız olun, MAPS.ME harita üzerinde nerede olduğunuzu belirlemeye, en yakın restoranı, oteli, bankayı, benzin istasyonunu v.b. bulmaya yardımcı olur. İnternet bağlantısı gerektirmez.\n\nHer zaman yeni özellikler üzerinde çalışıyoruz ve sizlerin MAPS.ME'yi nasıl geliştirebileceğimize dair görüşlerinizi almaktan mutluluk duyuyoruz. Eğer uygulama ile ilgili herhangi bir probleminiz varsa, bizimle support@maps.me adresinden temasa geçmekten çekinmeyin. Her talebe cevap veriyoruz!\n\nMAPS.ME'yi beğendiniz ve bize destek olmak ister misiniz? Bunun bazı basit ve tamamıyla ücretsiz yolları var:\n\n- Uygulama Marketinizde bir yorum yazın\n- Facebook sayfamızı beğenin http://www.facebook.com/mapswithme\n- veya sadece annenize, arkadaşlarınıza ve iş arkadaşlarınıza MAPS.ME'den bahsedin :)\n\nBizi tercih ettiğiniz için teşekkür ederiz. Desteğinizden dolayı çok memnuniyet duyarız!\n\nNot: Verileri haritaları kullanıcıların yaratmasına ve düzenlemesine olanak veren Wikipedia benzeri bir proje olan OpenStreetMap'dan almaktayız. Eğer haritada eksik ya da hatalı bir şeyler görürseniz doğrudan haritaları\n\nhttp://openstreetmap.org, adresinden düzeltebilirsiniz ve yaptığınız değişiklikler MAPS.ME'de bir sonraki sürüm yayınlandığında görülebilir olacaktır.
+    sv = MAPS.ME erbjuder de snabbaste offline-kartorna över alla städer och länder i hela världen. Res med förtroende: oavsett var du är hjälper MAPS.ME dig att placera dig på kartan, hitta den närmaste restaurangen, hotellet, banken, bensinstationen m.m. Den kräver inte internetanslutning.\n\nVi arbetar ständigt med nya funktioner och vill gärna veta hur du tycker att vi kan förbättra MAPS.ME. Ifall du har problem med appen, tveka inte att kontakta oss på support@maps.me. Vi svarar på alla mail!\n\nGillar du MAPS.ME och vill hjälpa oss? Det finns några enkla och kostnadsfria sätt:\n\n- posta en recension på din Appmarknad\n- gilla vår Facebooksida http://www.facebook.com/mapswithme\n- eller berätta bara om MAPS.ME för din mamma, vänner eller kollegor :)\n\nTack för att du är med oss. Vi uppskattar ditt stöd väldigt mycket!\n\nP.S. Vi använder oss av kartdata från OpenStreetMap, ett kartprojket som liknar Wikipedia och som tillåter användare att skapa och redigera kartor. Ifall du ser något som saknas eller är fel på kartan så kan du korrigera kartan direkt på http://openstreetmap.org och dina ändringar kommer att finns i MAPS.ME appen när nästa version släpps.
 
   [email_error_body]
     tags = ios
@@ -5399,6 +5612,7 @@
     ar = لم يتم تعيين البريد الإلكتروني للعميل. يرجى تكوينه أو استخدام أي وسيلة أخرى للاتصال بنا على %@
     da = E-mailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %@
     tr = E-posta istemcisi henüz kurulmamış. Lütfen e-posta istemcisini yapılandırın ya da bize %@ adresinden ulaşmak için başka bir yöntem deneyin
+    sv = E-mailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %@
 
   [email_error_title]
     tags = ios
@@ -5424,6 +5638,7 @@
     ar = هناك خطأ في إرسال البريد الإلكتروني
     da = Mailforsendelsesfejl
     tr = Posta gönderme hatası
+    sv = Fel när mailet skulle skickas
 
   [pref_calibration_title]
     tags = ios

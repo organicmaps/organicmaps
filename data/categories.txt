@@ -20,6 +20,7 @@ zh-Hans:自动取款机|钱|atm
 ar:ماكينة الصراف الآلي|الأموال|فلوس|atm
 da:3hæveautomat|penge
 tr:3bankamatik|atm|3para
+sv:3bankomat|pengar
 
 amenity-bank
 en:3bank|money
@@ -43,6 +44,7 @@ zh-Hans:1银行|钱
 ar:البنك|الأموال
 da:3bank|3penge
 tr:3banka|3para
+sv:3bank|pengar
 
 amenity-bureau_de_change
 en:3currency exchange|3exchange|money
@@ -66,6 +68,7 @@ zh-Hans:1货币兑换|兑换|钱
 ar:صرف العملات|الصرف|الأموال
 da:3veksel|3penge
 tr:3döviz bürosu|3para
+sv:3valutaväxling|3växling|pengar
 
 amenity-bar|amenity-pub
 en:2bar|2pub|beer|drink|food
@@ -89,6 +92,7 @@ zh-Hans:1酒吧์|酒馆์|啤酒|饮料|食物
 ar:الحانة|خمارة์|بيرة ์|شراب|الطعام
 da:2bar|øl|pub|drink|mad
 tr:2pub|2bira|içki|yemek
+sv:2bar|2pub|öl|drink|mat
 
 amenity-cafe
 en:3cafe|3restaurant|3food
@@ -112,6 +116,7 @@ zh-Hans:1咖啡馆่|餐厅|食物
 ar:مقهى|مطعم่|طعام|الطعام
 da:3café|restaurant|mad
 tr:3kafeterya่|restoran|3yemek
+sv:3café|3restaurang|3mat
 
 amenity-fast_food
 en:4fast food|3restaurant|3cafe|takeaway|3food
@@ -135,6 +140,7 @@ zh-Hans:1快餐|餐厅|外卖|食物
 ar:وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام|الطعام
 da:4fastfood|restaurant|café|takeaway|mad
 tr:4fast food|3restoran|3kafeterya|yemek
+sv:4snabbmat|3restaurang|3café|takeaway|3mat
 
 amenity-restaurant
 en:3restaurant|3cafe|3food
@@ -158,6 +164,7 @@ zh-Hans:1餐厅|咖啡馆|食物
 ar:1مطعم|مقهى|طعام|الطعام
 da:3restaurant|café|mad
 tr:3restoran|3kafeterya|3yemek
+sv:3restaurang|3café|3mat
 
 amenity-fuel
 en:gas station|3fuel|2gas
@@ -181,6 +188,7 @@ zh-Hans:1加油站|燃料|汽油
 ar:1محطة وقود|وقود|غاز|الغاز
 da:3tankstation|benzin
 tr:3benzin istasyonu|2gaz
+sv:bensinstation|3bränsle|2gas|3bensin
 
 
 shop-bakery
@@ -205,6 +213,7 @@ zh-Hans:1面包店|商店
 ar:مخبزี่|متجر|المتجر
 da:2bager|bageri|butik
 tr:3fırın|mağaza
+sv:3bageri|butik
 
 shop|shop-convenience|shop-mall|shop-doityourself|shop-florist|shop-butcher
 en:2shop
@@ -228,6 +237,7 @@ zh-Hans:商店
 ar:متجر|المتجر
 da:2butik
 tr:2mağaza
+sv:2butik
 
 shop-supermarket|shop-department_store
 en:3supermarket|shop
@@ -251,6 +261,7 @@ zh-Hans:超市|商店
 ar:سوبر ماركت|متجر|المتجر
 da:3supermarked|butik
 tr:3süpermarket|mağaza
+sv:3stormarknad|butik
 
 amenity-marketplace
 en:3marketplace|market|shop
@@ -274,6 +285,7 @@ zh-Hans:2市集|商店
 ar:ساحة السوق|السوق|متجر|المتجر
 da:3markedsplads|marked|butik
 tr:3pazaryeri|mağaza
+sv:3marknadsplats|marknad|butik
 
 shop-clothes
 en:clothes shop|4clothes
@@ -297,6 +309,7 @@ zh-Hans:服装店|商店
 ar:متجر ألبسة|المتجر
 da:tøjbutik|tøj|butik
 tr:giyim mağazası|mağaza
+sv:kläder butik|4kläder
 
 shop-car
 en:car shop
@@ -320,6 +333,7 @@ zh-Hans:车店|商店
 ar:متجر سيارات|المتجر
 da:bilforhandler|butik
 tr:otomobil mağazası|mağaza
+sv:bilåterförsäljare
 
 shop-bicycle
 en:4bicycle shop|cycle|bike|shop
@@ -343,6 +357,7 @@ zh-Hans:自行车|商店
 ar:دراجة هوائية|المتجر
 da:cykelforretning|butik
 tr:bisiklet|mağaza
+sv:4cykelaffär|cykel|cykel|butik
 
 shop-kiosk
 en:kiosk|shop
@@ -366,7 +381,7 @@ zh-Hans:商店
 ar:كشك|المتجر
 da:kiosk|butik
 tr:mağaza
-
+sv:kiosk|butik
 
 highway-bus_stop
 en:bus stop|2bus|stop|4transport
@@ -390,6 +405,7 @@ zh-Hans:1公交车站|公交车|运输|交通
 ar:محطة الحافلة์|حافلة|نقل|النقل
 da:3busstoppested|bus|transport
 tr:otobüs durağı|3otobüs|ulaşım
+sv:busshållplats|2buss|hållplats|4transport
 
 railway-tram_stop
 en:tram stop|3tram|stop|4transport
@@ -413,6 +429,7 @@ zh-Hans:1电车站|运输|交通
 ar:محطة الترام|نقل|النقل
 da:3sporvogn|station|transport
 tr:3tramvay durağı|ulaşım
+sv:spårvagnshållplats|3spårvagn|hållplats|4transport
 
 amenity-bus_station
 en:bus station|2bus|station|4transport
@@ -436,6 +453,7 @@ zh-Hans:1公车站|公交车|运输|交通
 ar:محطة الباص|حافلة|نقل|النقل
 da:2busstation|2bus|station|4transport
 tr:3otobüs durağı|3otobüs|2ulaşım
+sv:busstation|2buss|station|4transport
 
 railway-station|railway-halt
 en:3train station|4railway|railroad|3train|4station|4transport
@@ -459,6 +477,7 @@ zh-Hans:1火车站ี|铁路ี|站ี|运输|交通
 ar:سكة الحديدี|محطة القطارี|محطةี|نقل|النقل
 da:3jernbane|4togstationี|4stationี|transport
 tr:2gar|3demiryolları|ulaşım
+sv:3tågstation|4järnväg|järnväg|3tåg|4station|4transport
 
 railway-subway_entrance|railway-station-subway
 en:3subway|3tube|3metro|3underground|transport
@@ -482,6 +501,7 @@ zh-Hans:地铁|地铁|地铁|地铁|交通
 ar:محطة|القطار الكهربائي النفقي|قطار الأنفاق|المترو|تحت الأرض|النقل
 da:3undergrundsbane|3metro|3undergrund|3transport
 tr:2metro|3yer altı metrosu|ulaşım
+sv:3tunnelbana|3tunnelbana|3metro|3tunnelbana|transport
 
 amenity-ferry_terminal
 en:3ferry|terminal|transport
@@ -505,6 +525,7 @@ zh-Hans:1渡轮|终点站|交通
 ar:مركب|محطة|نقل|النقل
 da:2færge|terminal|transport
 tr:3feribot|terminal|ulaşım
+sv:3färja|terminal|transport
 
 amenity-taxi
 en:3taxi|transport
@@ -528,6 +549,7 @@ zh-Hans:出租车|交通
 ar:تكسي|نقل|النقل
 da:3tax|taxa|transport
 tr:3taksi|ulaşım
+sv:3taxi|transport
 
 amenity-townhall
 en:3town hall|3tourism|3sights
@@ -551,6 +573,7 @@ zh-Hans:1市政厅|旅游|景点
 ar:مبنى البلدية|سياحة|مناظر
 da:3rådhus|3turisme|3sightseeing|3seværdigheder
 tr:3belediye binası|3turizm|3görülecek yerler
+sv:3rådhus|3turism|3sevärdheter
 
 tourism-attraction
 en:3attraction|3tourism|3sights
@@ -574,6 +597,7 @@ zh-Hans:1景点|旅游|景点
 ar:أماكن الجذب|سياحة|مناظر
 da:3attraktioner|3turisme|3sightseeing|3seværdigheder
 tr:3cazibe merkezleri|3turizm|3görülecek yerler
+sv:3attraktion|3turism|3sevärdheter
 
 tourism-artwork
 en:3artwork|3tourism|3sights
@@ -597,6 +621,7 @@ zh-Hans:1旅游|景点
 ar:سياحة|مناظر
 da:3seværdighed|3turisme|3sightseeing|3seværdigheder
 tr:3turizm|3görülecek yerler
+sv:3konstverk|3turism|3sevärdheter
 
 tourism-viewpoint
 en:4viewpoint|tourism|sights
@@ -620,6 +645,7 @@ zh-Hans:1景点|旅游|景点
 ar:أماكن مراقبة|سياحة|مناظر
 da:4synspunkt|turisme|sightseeing|seværdigheder
 tr:3bakış|3turizm|3görülecek yerler
+sv:4utsiktsplats|turism|sevärdheter
 
 tourism-information
 en:4tourist information|4information|sights
@@ -643,6 +669,7 @@ zh-Hans:1旅游信息|信息|景点
 ar:معلومات سياحية|معلومات|مناظر|سياحة
 da:4turistinformation|turistinformation|4information|seværdigheder
 tr:4turist bilgileri|görülecek yerler
+sv:4turistinformation|4information|sevärdheter
 
 tourism-picnic_site|amenity-bbq
 en:3picnic site|sights
@@ -666,6 +693,7 @@ zh-Hans:1野餐地点|景点
 ar:أماكن للرحلات|مناظر|سياحة
 da:3picnic|seværdigheder
 tr:3piknik alanı|görülecek yerler
+sv:3picknickplatser|sevärdheter
 
 amenity-place_of_worship
 en:place of worship|4temple|sights
@@ -689,6 +717,7 @@ zh-Hans:1礼拜场所|景点
 ar:مكان للعبادة|مناظر|سياحة
 da:3tempel|moske|kirke|synagoge|kultsted|sightseeing|seværdigheder
 tr:3ibadet yerleri|4tapınak|görülecek yerler
+sv:plats för tillbedjan|4tempel|sevärdheter
 
 tourism-museum
 en:2museum|attraction|tourism|sights
@@ -712,6 +741,7 @@ zh-Hans:博物馆|景点
 ar:متحف|أماكن الجذب|سياحة|مناظر
 da:2museum|attraktioner|turisme|seværdigheder
 tr:2müze|cazibe merkezleri|turizm|görülecek yerler
+sv:2museum|attraktion|tursim|sevärdheter
 
 waterway-waterfall|natural-waterfall
 en:2waterfall|sights
@@ -735,6 +765,7 @@ zh-Hans:2瀑布|景点
 ar:شلال|مناظر|سياحة
 da:2vandfald|seværdigheder
 tr:2şelale|görülecek yerler
+sv:2vattenfall|sevärdheter
 
 historic-memorial
 en:memorial|monument|attraction|tourism|sights
@@ -758,6 +789,7 @@ zh-Hans:纪念馆|景点
 ar:تمثال|سياحة
 da:mindested|seværdigheder
 tr:anıt|abide|cazibe merkezleri|turizm|görülecek yerler
+sv:minnesmärke|monument|attraktion|turism|sevärdheter
 
 historic-monument
 en:monument|attraction|tourism|sights
@@ -781,6 +813,7 @@ zh-Hans:纪念碑|景点
 ar:تمثال|أماكن الجذب|سياحة
 da:monument|seværdigheder
 tr:abide|cazibe merkezleri|turizm|görülecek yerler
+sv:monument|attraktion|tursim|sevärdheter
 
 historic-ruins
 en:ruins|attraction|tourism|sights
@@ -804,6 +837,7 @@ zh-Hans:废墟|景点
 ar:آثار|أماكن الجذب|سياحة|مناظر
 da:ruiner|bunker|seværdigheder|turisme
 tr:harabeler|cazibe merkezleri|turizm|görülecek yerler
+sv:ruiner|attraktion|turism|sevärdheter
 
 historic-castle
 en:castle|attraction|tourism|sights
@@ -827,6 +861,7 @@ zh-Hans:城堡|景点|旅游
 ar:قلعةأماكن الجذب|سياحة|مناظر
 da:slot|seværdigheder|turisme
 tr:kale|cazibe merkezleri|turizm|görülecek yerler
+sv:slott|attraktion|turism|sevärdheter
 
 historic-archaeological_site
 en:archaeological site|attraction|tourism|sights
@@ -850,6 +885,7 @@ zh-Hans:考古遗址|旅游|景点
 ar:موقع أثري|أماكن الجذب|سياحة|مناظر
 da:arkæologisk sted|seværdigheder|turisme
 tr:arkeolojik alan|cazibe merkezleri|turizm|görülecek yerler
+sv:arkeologisk plats|attraktion|turism|sevärdheter
 
 leisure-garden
 en:2garden|sights
@@ -873,6 +909,7 @@ zh-Hans:2花园|景点
 ar:بستان|مناظر|سياحة
 da:2have|seværdigheder
 tr:2bahçe|görülecek yerler
+sv:2trädgård|sevärdheter
 
 amenity-bench
 en:bench
@@ -895,6 +932,7 @@ zh-Hans:长凳
 ar:مقعد طويل
 da:bænk
 tr:bank
+sv:bänk
 
 amenity-bicycle_rental
 en:4bicycle rental|cycle|bike|3rental
@@ -918,6 +956,7 @@ zh-Hans:1自行车
 ar:دراجة هوائية
 da:4cykel
 tr:4bisiklet
+sv:4cykeluthyrning|cykel|cykel|3uthyrning
 
 amenity-car_sharing|amenity-car_rental
 en:3car rental|car|rental|sharing
@@ -941,7 +980,7 @@ zh-Hans:1汽车出租์|汽车์
 ar:تأجير سيارات|سيارة
 da:4biludlejning|bil
 tr:3araç kiralama|araba
-
+sv:3biluthyrning|bil|uthyrning|delning
 
 amenity-cinema
 en:3cinema|entertainment
@@ -965,6 +1004,7 @@ zh-Hans:1电影院|娱乐
 ar:سينيما|التسلية
 da:3biograf
 tr:3sinema|eğlence
+sv:3bio|underhållning
 
 amenity-theatre
 en:3theatre|theater|entertainment
@@ -988,6 +1028,7 @@ zh-Hans:1剧院|娱乐
 ar:مسرح|التسلية
 da:3teater
 tr:3tiyatro|eğlence
+sv:3teater|teater|underhållning
 
 amenity-nightclub
 en:3nightclub|3disco|dance|entertainment
@@ -1011,6 +1052,7 @@ zh-Hans:3夜总会|娱乐
 ar:نادي ليلي|رقص|التسلية
 da:3natklub|dans|danseklub
 tr:3gece kulübü|dans|eğlence
+sv:3nattklubb|3disco|dans|underhållning
 
 amenity-brothel
 en:brothel|entertainment
@@ -1034,6 +1076,7 @@ zh-Hans:妓院|娱乐
 ar:دعارة|لتسلية
 da:bordel|underholdning
 tr:genelev|eğlence
+sv:bordell|underhållning
 
 amenity-casino
 en:casino|entertainment
@@ -1057,7 +1100,7 @@ zh-Hans:赌场|娱乐
 ar:اكازينو|لتسلية
 da:kasino|underholdning
 tr:casino|eğlence
-
+sv:kasino|underhållning
 
 amenity-college
 en:college
@@ -1081,6 +1124,7 @@ zh-Hans:学院
 ar:كلية
 da:universitet|college|gymnasium
 tr:kolej
+sv:högskola
 
 amenity-drinking_water
 en:4drinking water
@@ -1104,6 +1148,7 @@ zh-Hans:1饮用水
 ar:مياه الشرب
 da:3vand|4drikkevand
 tr:4içme suyu
+sv:4dricksvatten
 
 amenity-fire_station
 en:fire station
@@ -1127,6 +1172,7 @@ zh-Hans:1消防局
 ar:محطة إطفائية
 da:2brandstation
 tr:itfaiye
+sv:brandstation
 
 amenity-fountain
 en:fountain
@@ -1150,6 +1196,7 @@ zh-Hans:1喷泉
 ar:نافورة
 da:3springvand|fontæne
 tr:çeşme
+sv:fontän
 
 amenity-grave_yard|landuse-cemetery
 en:graveyard
@@ -1173,6 +1220,7 @@ zh-Hans:墓地
 ar:مقبرة
 da:kirkegård|gravsted
 tr:3mezarlık
+sv:kyrkogård
 
 amenity-hospital|amenity-doctors
 en:3hospital|clinic|3doctor
@@ -1196,6 +1244,7 @@ zh-Hans:1诊所|医生|医院
 ar:المستشفى|عيادة
 da:3hospital|3klinik
 tr:3hastane|3klinik|doktor
+sv:3sjukhus|klinik|3läkare
 
 amenity-hunting_stand
 en:hunting stand
@@ -1218,6 +1267,7 @@ zh-Hans:狩猎屋
 ar:منصة صيد
 da:jagt|jagtsted
 tr:avlanma alanı
+sv:jakttorn
 
 amenity-kindergarten
 en:kindergarten
@@ -1241,6 +1291,7 @@ zh-Hans:幼儿园
 ar:رياض الأطفال
 da:4børnehave
 tr:4anaokulu
+sv:förskola
 
 amenity-library
 en:3library
@@ -1264,6 +1315,7 @@ zh-Hans:幼儿园
 ar:مكتبة
 da:3bibliotek
 tr:3kütüphane
+sv:3bibliotek
 
 amenity-parking
 en:3parking
@@ -1287,6 +1339,7 @@ zh-Hans:1停车
 ar:الاصطفاف
 da:3parkering
 tr:3otopark
+sv:3parkering
 
 amenity-pharmacy
 en:3pharmacy|3drugstore|apothecary|dispensary
@@ -1310,7 +1363,7 @@ zh-Hans:1药店|药店|药剂师
 ar:الصيدلية
 da:3apotek
 tr:3eczane
-
+sv:3apotek|3apotek|apotekare|apotek
 
 amenity-post_box
 en:3postbox|post
@@ -1334,6 +1387,7 @@ zh-Hans:1邮箱|邮政
 ar:صندوق بريد|البريد
 da:3postboks|3postboks|p/o|post
 tr:3posta kutusu|posta
+sv:3postlåda|post
 
 amenity-post_office
 en:3post
@@ -1357,6 +1411,7 @@ zh-Hans:1邮政
 ar:البريد
 da:3post
 tr:3postane|posta
+sv:3post
 
 amenity-recycling|amenity-waste_disposal
 en:recycling|trash|bin|garbage
@@ -1380,6 +1435,7 @@ zh-Hans:1回收
 ar:تدوير
 da:genbrug|skrald
 tr:geri dönüşüm|çöp|çöplük
+sv:återvinning|skräp|soptunna|avfall
 
 amenity-school
 en:3school
@@ -1403,6 +1459,7 @@ zh-Hans:2学校
 ar:مدرسة
 da:2skole
 tr:3okul
+sv:3skola
 
 amenity-shelter
 en:shelter
@@ -1426,6 +1483,7 @@ zh-Hans:2庇护所
 ar:مأوى
 da:hjem|ly|tilflugtssted
 tr:barınak
+sv:logi
 
 amenity-telephone
 en:2phone
@@ -1449,6 +1507,7 @@ zh-Hans:1手机
 ar:الهاتف
 da:2telefon
 tr:2telefon
+sv:2telefon
 
 amenity-toilets
 en:3toilet|wc
@@ -1472,6 +1531,7 @@ zh-Hans:1厕所
 ar:الحمام
 da:3toilet
 tr:3tuvalet
+sv:3toalett
 
 amenity-university
 en:4university
@@ -1495,6 +1555,7 @@ zh-Hans:1大学
 ar:جامعة
 da:4universitet
 tr:4üniversite
+sv:4universitet
 
 place-continent
 en:continent
@@ -1518,7 +1579,7 @@ zh-Hans:大陆
 ar:قارة
 da:kontinent
 tr:kıta
-
+sv:kontinent
 
 place-country
 en:country
@@ -1542,6 +1603,7 @@ zh-Hans:国家
 ar:دولة
 da:land
 tr:ülke
+sv:land
 
 place-city
 en:city|town
@@ -1565,6 +1627,7 @@ zh-Hans:城市
 ar:مدينة
 da:by|stad
 tr:şehir|kasaba
+sv:stad|stad
 
 place-town
 en:town|city
@@ -1588,6 +1651,7 @@ zh-Hans:镇
 ar:بلدة
 da:by|stad
 tr:kasaba
+sv:stad|stad
 
 place-city-capital
 en:capital|city
@@ -1611,6 +1675,7 @@ zh-Hans:资本
 ar:مدينة
 da:kapital
 tr:sermaye
+sv:huvudstad|stad
 
 place-county
 en:county
@@ -1634,6 +1699,7 @@ zh-Hans:国家
 ar:مقاطعة
 da:amt
 tr:kırsal kesim
+sv:land
 
 place-state
 en:state|province
@@ -1657,6 +1723,7 @@ zh-Hans:州|省
 ar:محافظة
 da:stat|provins
 tr:eyalet
+sv:stat|provins
 
 place-region
 en:region
@@ -1680,6 +1747,7 @@ zh-Hans:区域
 ar:منطقة
 da:region
 tr:bölge
+sv:region
 
 place-island|place-islet
 en:island|islet
@@ -1703,6 +1771,7 @@ zh-Hans:岛
 ar:جزيرة
 da:ø
 tr:ada
+sv:ö
 
 place-suburb
 en:suburb|district
@@ -1726,6 +1795,7 @@ zh-Hans:1市郊
 ar:ضاحية
 da:forstad|distrikt
 tr:banliyö|ilçe
+sv:förort|distrikt
 
 place-hamlet
 en:hamlet|village
@@ -1749,6 +1819,7 @@ zh-Hans:村庄
 ar:قرية صغيرة|قرية
 da:landsby|landsby
 tr:küçük|köy
+sv:by|by
 
 place-village
 en:village|hamlet
@@ -1772,6 +1843,7 @@ zh-Hans:村
 ar:قرية|قرية صغيرة
 da:landsby|landsby
 tr:köy|küçük köy
+sv:by|by
 
 place-locality
 en:locality
@@ -1795,6 +1867,7 @@ zh-Hans:地方
 ar:منطقة مجاورة
 da:lokalitet|sted
 tr:semt
+sv:lokalitet
 
 place-farm
 en:farm
@@ -1818,6 +1891,7 @@ zh-Hans:农场
 ar:مزرعة
 da:gård
 tr:çiftlik
+sv:gård
 
 waterway-river|waterway-stream|waterway-riverbank
 en:river
@@ -1841,6 +1915,7 @@ zh-Hans:河
 ar:نهر
 da:flod
 tr:nehir
+sv:flod
 
 waterway-canal
 en:canal
@@ -1864,6 +1939,7 @@ zh-Hans:运河
 ar:قناة
 da:kanal
 tr:kanal
+sv:kanal
 
 highway-raceway
 en:racetrack
@@ -1887,6 +1963,7 @@ zh-Hans:跑马场
 ar:مسار السباق
 da:væddeløbsbane
 tr:koşu yolu
+sv:racerbana
 
 highway-path|highway-footway|highway-steps
 en:path
@@ -1910,6 +1987,7 @@ zh-Hans:路径
 ar:طريق
 da:sti|gangsti|vej
 tr:yol
+sv:väg
 
 highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-motorway_link|highway-motorway
 en:street|st|str|ave|road|rd
@@ -1933,6 +2011,7 @@ zh-Hans:街头
 ar:شارع
 da:gade
 tr:cadde
+sv:gata|väg
 
 highway-motorway_junction
 en:3exit|3junction
@@ -1953,6 +2032,7 @@ zh-Hans:2出口|连接点
 ar:مخرج|تقاطع
 da:2udgang|kryds|vejkryds
 tr:2çıkış|3kavşak
+sv:3avfart|3korsning
 
 natural-peak
 en:peak|mountain
@@ -1976,6 +2056,7 @@ zh-Hans:1峰|山
 ar:قمة|جبل
 da:2bjerg|bjergtop
 tr:2zirve|dağ
+sv:bergstopp|berg
 
 natural-water|landuse-basin|landuse-reservoir
 en:water
@@ -1999,6 +2080,7 @@ zh-Hans:水
 ar:مياه
 da:vand
 tr:su
+sv:vatten
 
 natural-pond
 en:pond|water
@@ -2022,7 +2104,7 @@ zh-Hans:1池塘|水
 ar:بركة|مياه
 da:dam|vandhul
 tr:gölet|su
-
+sv:damm|vatten
 
 natural-lake
 en:lake|water
@@ -2046,6 +2128,7 @@ zh-Hans:湖|水
 ar:بحيرة|مياه
 da:1sø
 tr:göl|su
+sv:sjö|vatten
 
 natural-wood|landuse-forest
 en:forest
@@ -2069,6 +2152,7 @@ zh-Hans:森林
 ar:غابة
 da:skov
 tr:orman
+sv:skog
 
 leisure-park
 en:park
@@ -2092,7 +2176,7 @@ zh-Hans:公园
 ar:حديقة
 da:park
 tr:park
-
+sv:park
 
 tourism-hostel
 en:3hostel|hotel|motel
@@ -2116,6 +2200,7 @@ zh-Hans:2旅社|旅店
 ar:نزُل|فندق|فندق رخيص|الفندق
 da:3hostel|kro|vandrerhjem|hotel|motel
 tr:3pansiyon|otel|motel
+sv:3vandrarhem|hotell|motell
 
 tourism-hotel
 en:2hotel|motel
@@ -2139,6 +2224,7 @@ zh-Hans:2旅社|汽车旅馆|旅店
 ar:فندق|فندق رخيص|الفندق
 da:2hotel|motel
 tr:2otel|motel
+sv:2hotell|motell
 
 tourism-guest_house
 en:guest house|hotel|hostel
@@ -2162,6 +2248,7 @@ zh-Hans:1招待所์|์旅馆์|์旅社|旅店
 ar:دار الضيافة|فندق|نزُل|الفندق
 da:gæstehus|gæstehjem|hotel|hostel
 tr:misafir evi|pansiyon|otel
+sv:gästhus|hotell|vandrarhem
 
 tourism-motel
 en:3motel|hotel|hostel
@@ -2185,6 +2272,7 @@ zh-Hans:1汽车旅馆|旅店
 ar:فندق رخيص|فندق|نزُل|الفندق
 da:motel|hotel|hostel
 tr:3motel|pansiyon|otel
+sv:3motell|hotell|vandrarhem
 
 tourism-alpine_hut
 en:mountains lodging|hotel|hostel|alpine hut
@@ -2208,7 +2296,7 @@ zh-Hans:山上住宿|旅馆|旅店
 ar:مساكن جبلية|فندق|الفندق
 da:bjerg logi|hotel
 tr:3dağda konaklama|otel
-
+sv:bergsboende|hotell|vandrarhem|fjällstuga
 
 shop-hairdresser
 en:3hairdresser
@@ -2232,6 +2320,7 @@ zh-Hans:2理发师
 ar:مصفف شعر
 da:3frisør
 tr:3kuaför
+sv:3frisör
 
 aeroway-airport|aeroway-aerodrome
 en:3airport|3plane
@@ -2255,6 +2344,7 @@ zh-Hans:机场|飞机
 ar:مطار|طائرة
 da:3lufthavn|fly
 tr:3havaalanıuçak|
+sv:3flygplats|3flygplan
 
 leisure-stadium
 en:stadium|4sport
@@ -2278,6 +2368,7 @@ zh-Hans:体育场
 ar:استاد|رياضة
 da:stadium|sport
 tr:2stadyum
+sv:stadion|4sport
 
 leisure-playground
 en:playground
@@ -2301,6 +2392,7 @@ zh-Hans:操场
 ar:ملعب
 da:legeplads
 tr:oyun alanı
+sv:lekplats
 
 leisure-sports_centre
 en:sports center|sport
@@ -2324,6 +2416,7 @@ zh-Hans:运动
 ar:رياضة
 da:sport
 tr:spor
+sv:sportcenter|sport
 
 leisure-golf_course
 en:golf course|sport
@@ -2347,6 +2440,7 @@ zh-Hans:高尔夫球场
 ar:ملعب جولف|
 da:golf|golfbane
 tr:golf sahası|spor
+sv:golfbana|sport
 
 leisure-pitch
 en:pitch|sport
@@ -2370,6 +2464,7 @@ zh-Hans:2球场|运动
 ar:ميدان اللعب|رياضة
 da:teltplads|fiskested|fodboldbane|bane|sportsplads
 tr:alan|spor
+sv:bana|sport
 
 leisure-swimming_pool
 en:4swimming pool|sport
@@ -2393,6 +2488,7 @@ zh-Hans:2游泳池|运动
 ar:حوض سباحة|رياضة
 da:2pool|svømmingpool|swimmingpool
 tr:2yüzme havuzu|spor
+sv:4simbassäng|sport
 
 building|building-address
 en:building
@@ -2416,6 +2512,7 @@ zh-Hans:1建筑
 ar:مبنى
 da:2bygning
 tr:bina
+sv:byggnad
 
 amenity-police
 en:4police
@@ -2439,6 +2536,7 @@ zh-Hans:2警察
 ar:الشرطة
 da:4politi
 tr:3polis
+sv:4polis
 
 amenity-embassy
 en:4embassy
@@ -2462,6 +2560,7 @@ zh-Hans:使馆
 ar:سفارة
 da:ambassade
 tr:4büyükelçilik
+sv:4ambassad
 
 natural-bay
 en:bay
@@ -2485,6 +2584,7 @@ zh-Hans:
 ar:خليج
 da:bugt|havbugt
 tr:koy
+sv:bukt
 
 natural-spring
 en:spring
@@ -2508,6 +2608,7 @@ zh-Hans:海湾
 ar:خليجc
 da:springflod|kilde
 tr:pınar
+sv:vattenkälla
 
 
 
@@ -2533,7 +2634,7 @@ zh-Hans:3汽车修理店|服务站|
 ar:محل صيانة السيارات|محطة خدمات
 da:3garage|3bilværksted|service station
 tr:3oto tamir dükkanı|servis istasyonu|araba
-
+sv:3 bilreparatör|4servicestation|bil
 
 tourism-camp_site
 en:4camping|campsite|campground
@@ -2557,7 +2658,7 @@ zh-Hans:露营|营地|营地
 ar:تخييم|مكان التخييم|أرض التخييم
 da:camping|campingplads|teltplads|lejrplads
 tr:2kamp alanı|kamp|kamp yeri
-
+sv:4camping|campingplats|campingområde
 
 tourism-caravan_site
 en:4caravan site|RV site
@@ -2581,6 +2682,7 @@ zh-Hans:房车宿营地
 ar:موقع البيت المتنقل
 da:campingvogn|husvogn
 tr:4karavan alanı
+sv:4husvagnsplats
 
 office|office-company|office-government
 en:3office|company
@@ -2604,6 +2706,7 @@ zh-Hans:办公室|公司
 ar:مكتب|شركة
 da:2kontor|firma|virksomhed
 tr:3ofis|şirket
+sv:3kontor|företag
 
 area:highway-footway|area:highway-pedestrian|area:highway-steps
 en:3square
@@ -2627,6 +2730,7 @@ zh-Hans:1广场
 ar:ساحة
 da:3plads|torv|torveplads
 tr:3meydan
+sv:3torg
 
 place-sea
 en:sea
@@ -2650,6 +2754,7 @@ zh-Hans:是
 ar:يكون
 da:er
 tr:deniz
+sv:hav
 
 place-ocean
 en:ocean
@@ -2673,6 +2778,7 @@ zh-Hans:海洋
 ar:المحيط
 da:ocean
 tr:okyanus
+sv:ocean
 
 internet_access|internet_access-wlan
 en:Wi-Fi|wifi|3Internet
