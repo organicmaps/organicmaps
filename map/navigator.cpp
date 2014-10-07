@@ -76,7 +76,7 @@ void Navigator::CenterViewport(m2::PointD const & p)
 
 double Navigator::ComputeMoveSpeed(m2::PointD const & p0, m2::PointD const & p1) const
 {
-  return max(0.1, min(0.5, 0.5 * GtoP(p0).Length(GtoP(p1)) / 50.0));
+  return 0.2;//max(0.5, min(0.5, 0.5 * GtoP(p0).Length(GtoP(p1)) / 50.0));
 }
 
 void Navigator::SaveState()

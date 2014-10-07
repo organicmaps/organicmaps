@@ -91,6 +91,8 @@ namespace location
     void Rotated();
     //@}
 
+    void OnCompassTaped();
+
     void OnSize(m2::RectD const & oldPixelRect);
 
     /// @name GPS location updates routine.

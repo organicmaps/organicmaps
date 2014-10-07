@@ -200,8 +200,7 @@ bool CompassArrow::onTapEnded(m2::PointD const & pt)
   anim::Controller::Guard guard(animController);
 
   // switching off compass follow mode
-  m_framework->GetInformationDisplay().locationState()->StopCompassFollowing();
-  m_framework->GetAnimator().RotateScreen(m_framework->GetNavigator().Screen().GetAngle(), 0.0);
+  m_framework->GetLocationState()->OnCompassTaped();
   m_framework->Invalidate();
 
   return true;

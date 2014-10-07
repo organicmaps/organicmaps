@@ -67,11 +67,14 @@ public:
                       m2::PointD const & srcPixelBinding,
                       m2::PointD const & dstPixelbinding)
     : m_fw(fw)
+    , m_hasPendingAnimation(false)
   {
     m_angleAnim.reset(new anim::SafeAngleInterpolation(srcAngle, srcAngle, 1.0));
     m_posAnim.reset(new anim::SafeSegmentInterpolation(srcPos, srcPos, 1.0));
-    m_pxBindingAnim.reset(new anim::SafeSegmentInterpolation(InvertPxBinding(srcPixelBinding),
-                                                             InvertPxBinding(dstPixelbinding), 1.0));
+    m2::PointD srcInverted = InvertPxBinding(srcPixelBinding);
+    m2::PointD dstInverted = InvertPxBinding(dstPixelbinding);
+    m_pxBindingAnim.reset(new anim::SafeSegmentInterpolation(srcInverted, dstInverted,
+                                                             m_fw->GetNavigator().ComputeMoveSpeed(srcInverted, dstInverted)));
   }
 
   void SetDestinationParams(m2::PointD const & dstPos, double dstAngle)
@@ -79,15 +82,28 @@ public:
     ASSERT(m_angleAnim != nullptr, ());
     ASSERT(m_posAnim != nullptr, ());
 
-    if (dstPos.EqualDxDy(m_posAnim->GetCurrentValue(), POSITION_TOLERANCE) &&
-        fabs(ang::GetShortestDistance(m_angleAnim->GetCurrentValue(), dstAngle)) < ANGLE_TOLERANCE)
+    double shortDist = fabs(ang::GetShortestDistance(m_angleAnim->GetCurrentValue(), dstAngle));
+    if (dstPos.EqualDxDy(m_posAnim->GetCurrentValue(), POSITION_TOLERANCE) && shortDist < ANGLE_TOLERANCE)
       return;
 
-    double const posSpeed = m_fw->GetNavigator().ComputeMoveSpeed(m_posAnim->GetCurrentValue(), dstPos);
-    double const angleSpeed = 1.5;//m_fw->GetAnimator().GetRotationSpeed();
 
-    m_angleAnim->ResetDestParams(dstAngle, angleSpeed);
-    m_posAnim->ResetDestParams(dstPos, posSpeed);
+    if (IsVisual())
+    {
+      m_hasPendingAnimation = true;
+      m_pendingDstPos = dstPos;
+      m_pendingAngle = dstAngle;
+    }
+    else
+      SetParams(dstPos, dstAngle, shortDist);
+  }
+
+  void Update()
+  {
+    if (m_hasPendingAnimation)
+    {
+      m_hasPendingAnimation = false;
+      SetParams(m_pendingDstPos, m_pendingAngle, ang::GetShortestDistance(m_angleAnim->GetCurrentValue(), m_pendingAngle));
+    }
   }
 
   virtual void OnStep(double ts)
@@ -152,6 +168,14 @@ private:
     m_fw->Invalidate();
   }
 
+  void SetParams(m2::PointD const & dstPos, double dstAngle, double angleDist)
+  {
+    double const posSpeed = m_fw->GetNavigator().ComputeMoveSpeed(m_posAnim->GetCurrentValue(), dstPos);
+    double const angleSpeed = angleDist < 1.0 ? 1.5 : m_fw->GetAnimator().GetRotationSpeed();
+    m_angleAnim->ResetDestParams(dstAngle, angleSpeed);
+    m_posAnim->ResetDestParams(dstPos, posSpeed);
+  }
+
   bool OnStep(anim::Task * task, double ts)
   {
     if (task->IsReady())
@@ -186,6 +210,10 @@ private:
   unique_ptr<anim::SafeAngleInterpolation> m_angleAnim;
   unique_ptr<anim::SafeSegmentInterpolation> m_posAnim;
   unique_ptr<anim::SafeSegmentInterpolation> m_pxBindingAnim;
+
+  bool m_hasPendingAnimation;
+  m2::PointD m_pendingDstPos;
+  double m_pendingAngle;
 };
 
 }
@@ -416,6 +444,9 @@ void State::update()
   {
     m2::PointD const pxPosition = m_framework->GetNavigator().GtoP(Position());
     setPivot(pxPosition);
+
+    if (m_animTask)
+      static_cast<RotateAndFollowAnim *>(m_animTask.get())->Update();
   }
 }
 
@@ -716,6 +747,13 @@ void State::Rotated()
     SetModeInfo(ChangeMode(m_modeInfo, NotFollow));
 }
 
+void State::OnCompassTaped()
+{
+  StopCompassFollowing();
+  RotateOnNorth();
+  AnimateFollow();
+}
+
 void State::OnSize(m2::RectD const & /*oldPixelRect*/)
 {
   if (GetMode() == RotateAndFollow)
@@ -787,6 +825,14 @@ void State::AnimateStateTransition(Mode oldMode, Mode newMode)
   {
     RotateOnNorth();
   }
+  else if (oldMode == NotFollow && newMode == Follow)
+  {
+    m2::AnyRectD screenRect = GetModelView().GlobalRect();
+    m2::RectD const & clipRect = GetModelView().ClipRect();
+    screenRect.Inflate(clipRect.SizeX() / 2.0, clipRect.SizeY() / 2.0);
+    if (!screenRect.IsPointInside(m_position))
+      m_framework->SetViewportCenter(m_position);
+  }
 
   AnimateFollow();
 }
@@ -799,7 +845,9 @@ void State::AnimateFollow()
   if (!FollowCompass())
   {
     if (!m_position.EqualDxDy(m_framework->GetViewportCenter(), POSITION_TOLERANCE))
+    {
       m_framework->SetViewportCenterAnimated(m_position);
+    }
   }
 }
 
