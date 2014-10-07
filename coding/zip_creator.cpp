@@ -4,7 +4,11 @@
 
 #include "../../coding/file_name_utils.hpp"
 #include "../../coding/internal/file_data.hpp"
+#include "../../coding/reader.hpp"
 #include "../../coding/constants.hpp"
+
+#include "../../base/logging.hpp"
+#include "../../base/scope_guard.hpp"
 
 #include "../../std/vector.hpp"
 #include "../../std/ctime.hpp"
@@ -53,6 +57,14 @@ void CreateTMZip(tm_zip & res)
 
 bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, string const & zipFilePath)
 {
+  /// Prepare buffer at the very beginning to avoid clang 3.5, loop optimization.
+  /// @todo Need to check with the new XCode (and clang) update.
+
+  size_t const bufSize = ZIP_FILE_BUFFER_SIZE;
+  vector<char> buffer(bufSize);
+
+  // 2. Open zip file for writing.
+  MY_SCOPE_GUARD(outFileGuard, bind(&my::DeleteFileX, cref(zipFilePath)));
   ZipHandle zip(zipFilePath);
   if (!zip.Handle())
     return false;
@@ -60,34 +72,43 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
   // Special syntax to initialize struct with zeroes
   zip_fileinfo zipInfo = zip_fileinfo();
   CreateTMZip(zipInfo.tmz_date);
+
   string fileName = filePath;
   my::GetNameFromFullPath(fileName);
   if (!strings::IsASCIIString(fileName))
-    fileName = "MapsWithMe.kml";
+    fileName = "MapsMe.kml";
 
-  if (::zipOpenNewFileInZip(zip.Handle(), fileName.c_str(), &zipInfo,
+  if (zipOpenNewFileInZip(zip.Handle(), fileName.c_str(), &zipInfo,
                           NULL, 0, NULL, 0, "ZIP from MapsWithMe", Z_DEFLATED, Z_DEFAULT_COMPRESSION) < 0)
   {
     return false;
   }
 
-  my::FileData f(filePath, my::FileData::OP_READ);
-
-  size_t const bufSize = READ_FILE_BUFFER_SIZE;
-  vector<char> buffer(bufSize);
-  size_t const fileSize = f.Size();
-  size_t currSize = 0;
-
-  while (currSize < fileSize)
+  // Write source file into zip file.
+  try
   {
-    size_t const toRead = min(bufSize, fileSize - currSize);
-    f.Read(currSize, &buffer[0], toRead);
+    my::FileData file(filePath, my::FileData::OP_READ);
+    size_t const fileSize = file.Size();
 
-    if (ZIP_OK != ::zipWriteInFileInZip(zip.Handle(), &buffer[0], toRead))
-      return false;
+    size_t currSize = 0;
+    while (currSize < fileSize)
+    {
+      size_t const toRead = min(bufSize, fileSize - currSize);
+      file.Read(currSize, &buffer[0], toRead);
 
-    currSize += toRead;
+      if (ZIP_OK != zipWriteInFileInZip(zip.Handle(), &buffer[0], toRead))
+        return false;
+
+      currSize += toRead;
+    }
+  }
+  catch (Reader::Exception const & ex)
+  {
+    LOG(LERROR, ("Error reading file:", filePath, ex.Msg()));
+    return false;
   }
 
+  // Success.
+  outFileGuard.release();
   return true;
 }

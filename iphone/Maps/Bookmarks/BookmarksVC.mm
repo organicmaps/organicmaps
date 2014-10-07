@@ -261,17 +261,20 @@
     BookmarkCategory const * cat = GetFramework().GetBmCategory(m_categoryIndex);
     if (cat)
     {
-      NSString * filePath = [NSString stringWithUTF8String:cat->GetFileName().c_str()];
       NSMutableString * catName = [NSMutableString stringWithUTF8String:cat->GetName().c_str()];
       if (![catName length])
-        [catName setString:@"maps.me"];
+        [catName setString:@"MapsMe"];
+
+      NSString * filePath = [NSString stringWithUTF8String:cat->GetFileName().c_str()];
       NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];
       [kmzFile replaceCharactersInRange:NSMakeRange([filePath length] - 1, 1) withString:@"z"];
+
       if (CreateZipFromPathDeflatedAndDefaultCompression([filePath UTF8String], [kmzFile UTF8String]))
         [self sendBookmarksWithExtension:@".kmz" andType:@"application/vnd.google-earth.kmz" andFile:kmzFile andCategory:catName];
       else
         [self sendBookmarksWithExtension:@".kml" andType:@"application/vnd.google-earth.kml+xml" andFile:filePath andCategory:catName];
-      my::DeleteFileX([kmzFile UTF8String]);
+
+      (void)my::DeleteFileX([kmzFile UTF8String]);
     }
   }
 }

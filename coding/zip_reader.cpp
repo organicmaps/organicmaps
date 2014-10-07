@@ -4,6 +4,7 @@
 #include "../base/logging.hpp"
 
 #include "../coding/file_writer.hpp"
+#include "../coding/constants.hpp"
 
 #include "../std/bind.hpp"
 
@@ -75,6 +76,12 @@ bool ZipFileReader::IsZip(string const & zipContainer)
 void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileInZip,
                               string const & outFilePath, ProgressFn progressFn)
 {
+  /// Prepare buffer at the very beginning to avoid clang 3.5, loop optimization.
+  /// @todo Need to check with the new XCode (and clang) update.
+
+  size_t const bufSize = ZIP_FILE_BUFFER_SIZE;
+  vector<char> buf(bufSize);
+
   unzFile zip = unzOpen64(zipContainer.c_str());
   if (!zip)
     MYTHROW(OpenZipException, ("Can't get zip file handle", zipContainer));
@@ -91,9 +98,6 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
   if (UNZ_OK != unzGetCurrentFileInfo64(zip, &fileInfo, NULL, 0, NULL, 0, NULL, 0))
     MYTHROW(LocateZipException, ("Can't get uncompressed file size inside zip", fileInZip));
 
-  size_t const BUF_SIZE = 1024 * 50;
-  vector<char> buf(BUF_SIZE);
-
   // First outFile should be closed, then FileWriter::DeleteFileX is called,
   // so make correct order of guards.
   MY_SCOPE_GUARD(outFileGuard, bind(&FileWriter::DeleteFileX, cref(outFilePath)));
@@ -102,7 +106,7 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
   uint64_t pos = 0;
   while (true)
   {
-    int const readBytes = unzReadCurrentFile(zip, &buf[0], BUF_SIZE);
+    int const readBytes = unzReadCurrentFile(zip, &buf[0], bufSize);
     if (readBytes > 0)
       outFile.Write(&buf[0], static_cast<size_t>(readBytes));
     else if (readBytes < 0)
