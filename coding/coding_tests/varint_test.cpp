@@ -2,8 +2,10 @@
 #include "../../testing/testing.hpp"
 
 #include "../byte_stream.hpp"
+
 #include "../../base/macros.hpp"
 #include "../../base/stl_add.hpp"
+
 
 namespace
 {
@@ -151,16 +153,25 @@ UNIT_TEST(ReadVarInt64Array)
 
     ASSERT_GREATER(data.size(), 0, ());
     {
+      // Factor out variables here to show the obvious compiler error.
+      // clang 3.5, loop optimization.
+      /// @todo Need to check with the new XCode (and clang) update.
+
+      void const * pDataStart = &data[0];
+      void const * pDataEnd = &data[0] + data.size();
+
       vector<int64_t> result;
-      void const * pEnd = ReadVarInt64Array(&data[0], &data[0] + data.size(),
+      void const * pEnd = ReadVarInt64Array(pDataStart, pDataEnd,
                                             MakeBackInsertFunctor(result));
-      TEST_EQUAL(pEnd, &data[0] + data.size(), ("UntilBufferEnd", data.size()));
+
+      TEST_EQUAL(pEnd, pDataEnd, ("UntilBufferEnd", data.size()));
       TEST_EQUAL(result, testValues, ("UntilBufferEnd", data.size()));
     }
     {
       vector<int64_t> result;
       void const * pEnd = ReadVarInt64Array(&data[0], testValues.size(),
                                             MakeBackInsertFunctor(result));
+
       TEST_EQUAL(pEnd, &data[0] + data.size(), ("GivenSize", data.size()));
       TEST_EQUAL(result, testValues, ("GivenSize", data.size()));
     }
