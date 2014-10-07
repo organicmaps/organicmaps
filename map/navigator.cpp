@@ -74,8 +74,9 @@ void Navigator::CenterViewport(m2::PointD const & p)
     m_StartScreen.SetOrg(pt);
 }
 
-double Navigator::ComputeMoveSpeed(m2::PointD const & p0, m2::PointD const & p1) const
+double Navigator::ComputeMoveSpeed(m2::PointD const & /*p0*/, m2::PointD const & /*p1*/) const
 {
+  // we think that with fixed time interval will be better
   return 0.2;//max(0.5, min(0.5, 0.5 * GtoP(p0).Length(GtoP(p1)) / 50.0));
 }
 

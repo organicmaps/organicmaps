@@ -71,8 +71,8 @@ public:
   {
     m_angleAnim.reset(new anim::SafeAngleInterpolation(srcAngle, srcAngle, 1.0));
     m_posAnim.reset(new anim::SafeSegmentInterpolation(srcPos, srcPos, 1.0));
-    m2::PointD srcInverted = InvertPxBinding(srcPixelBinding);
-    m2::PointD dstInverted = InvertPxBinding(dstPixelbinding);
+    m2::PointD const srcInverted = InvertPxBinding(srcPixelBinding);
+    m2::PointD const dstInverted = InvertPxBinding(dstPixelbinding);
     m_pxBindingAnim.reset(new anim::SafeSegmentInterpolation(srcInverted, dstInverted,
                                                              m_fw->GetNavigator().ComputeMoveSpeed(srcInverted, dstInverted)));
   }
@@ -82,19 +82,16 @@ public:
     ASSERT(m_angleAnim != nullptr, ());
     ASSERT(m_posAnim != nullptr, ());
 
-    double shortDist = fabs(ang::GetShortestDistance(m_angleAnim->GetCurrentValue(), dstAngle));
-    if (dstPos.EqualDxDy(m_posAnim->GetCurrentValue(), POSITION_TOLERANCE) && shortDist < ANGLE_TOLERANCE)
-      return;
-
-
     if (IsVisual())
     {
+      //Store new params even if animation is active but don't interrupt the current one.
+      //New animation to the pending params will be made after all.
       m_hasPendingAnimation = true;
       m_pendingDstPos = dstPos;
       m_pendingAngle = dstAngle;
     }
     else
-      SetParams(dstPos, dstAngle, shortDist);
+      SetParams(dstPos, dstAngle);
   }
 
   void Update()
@@ -102,7 +99,7 @@ public:
     if (m_hasPendingAnimation)
     {
       m_hasPendingAnimation = false;
-      SetParams(m_pendingDstPos, m_pendingAngle, ang::GetShortestDistance(m_angleAnim->GetCurrentValue(), m_pendingAngle));
+      SetParams(m_pendingDstPos, m_pendingAngle);
     }
   }
 
@@ -168,8 +165,12 @@ private:
     m_fw->Invalidate();
   }
 
-  void SetParams(m2::PointD const & dstPos, double dstAngle, double angleDist)
+  void SetParams(m2::PointD const & dstPos, double dstAngle)
   {
+    double const angleDist = fabs(ang::GetShortestDistance(m_angleAnim->GetCurrentValue(), dstAngle));
+    if (dstPos.EqualDxDy(m_posAnim->GetCurrentValue(), POSITION_TOLERANCE) && angleDist < ANGLE_TOLERANCE)
+      return;
+
     double const posSpeed = m_fw->GetNavigator().ComputeMoveSpeed(m_posAnim->GetCurrentValue(), dstPos);
     double const angleSpeed = angleDist < 1.0 ? 1.5 : m_fw->GetAnimator().GetRotationSpeed();
     m_angleAnim->ResetDestParams(dstAngle, angleSpeed);
@@ -334,7 +335,8 @@ void State::StartRouteFollow()
 
 void State::StopRoutingMode()
 {
-  SetModeInfo(ChangeMode(ExcludeModeBit(m_modeInfo, RoutingSessionBit), Follow));
+  ASSERT(IsInRouting(), ());
+  SetModeInfo(ChangeMode(ExcludeModeBit(m_modeInfo, RoutingSessionBit), GetMode() == RotateAndFollow ? Follow : NotFollow));
   RotateOnNorth();
   AnimateFollow();
 }
