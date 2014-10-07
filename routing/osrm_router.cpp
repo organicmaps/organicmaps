@@ -440,7 +440,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
       size_t startK = 0, endK = buffer.size();
       if (j == 0)
         correctFn(segBegin, startK);
-      else if (j == n - 1)
+      if (j == n - 1)
       {
         correctFn(segEnd, endK);
         ++endK;
@@ -460,7 +460,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 
         if (j == 0 && k == startK)
           startIdx = (seg.m_pointEnd > seg.m_pointStart) ? segBegin.m_pointStart : segBegin.m_pointEnd;
-        else if (j == n - 1 && k == endK - 1)
+        if (j == n - 1 && k == endK - 1)
           endIdx = (seg.m_pointEnd > seg.m_pointStart) ? segEnd.m_pointEnd : segEnd.m_pointStart;
 
         if (seg.m_pointEnd > seg.m_pointStart)
