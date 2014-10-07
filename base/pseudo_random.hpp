@@ -2,6 +2,9 @@
 
 #include "../base/base.hpp"
 
+#include "../std/string.hpp"
+
+
 class LCG32
 {
 public:
@@ -19,3 +22,9 @@ private:
 };
 
 typedef LCG32 PseudoRNG32;
+
+
+namespace rnd
+{
+string GenerateString();
+}

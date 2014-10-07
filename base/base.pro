@@ -29,6 +29,7 @@ SOURCES += \
     object_tracker.cpp \
     scheduled_task.cpp \
     thread_pool.cpp \
+    pseudo_random.cpp \
 
 HEADERS += \
     SRC_FIRST.hpp \

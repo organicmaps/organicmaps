@@ -1,4 +1,3 @@
-#include "../../base/SRC_FIRST.hpp"
 #include "../var_serial_vector.hpp"
 
 #include "../../testing/testing.hpp"
@@ -86,27 +85,12 @@ UNIT_TEST(ReadSerial)
   TEST_EQUAL(reader.Read(2), "ef", ());
 }
 
-namespace
-{
-  string GenString()
-  {
-    static PseudoRNG32 rng;
-    string result;
-    size_t size = rng.Generate() % 20;
-    for (size_t i = 0; i < size; ++i)
-    {
-      result.append(1, static_cast<char>(rng.Generate() + 1));
-    }
-    return result;
-  }
-}
-
 UNIT_TEST(EncodeDecode)
 {
   vector<string> elements;
 
   for (size_t i = 0; i < 1024; ++i)
-    elements.push_back(GenString());
+    elements.push_back(rnd::GenerateString());
 
   string serial;
   PushBackByteSink<string> sink(serial);

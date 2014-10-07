@@ -3,8 +3,6 @@
 #include "constants.hpp"
 
 #include "../coding/file_reader.hpp"
-#include "../coding/base64.hpp"
-#include "../coding/sha2.hpp"
 
 #include <sys/types.h>
 #include <sys/socket.h>

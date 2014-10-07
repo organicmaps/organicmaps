@@ -2,11 +2,12 @@
 
 #include "../framework.hpp"
 #include "../mwm_url.hpp"
+
 #include "../../coding/uri.hpp"
 
 #include "../../base/string_format.hpp"
 #include "../../base/pseudo_random.hpp"
-#include "../../base/logging.hpp"
+
 
 using namespace url_scheme;
 
