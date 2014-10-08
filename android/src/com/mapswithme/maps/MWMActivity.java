@@ -1505,6 +1505,7 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
+        deactivatePopup();
         if (isSuccess)
         {
           Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);

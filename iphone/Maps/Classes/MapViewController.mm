@@ -597,14 +597,16 @@
     f.Invalidate();
     f.LoadBookmarks();
 
-    f.SetRouteBuildingListener([&](bool isSuccess, string const & message, bool openDownloader)
+    f.SetRouteBuildingListener([self, &f](bool isSuccess, string const & message, bool openDownloader)
     {
       if (isSuccess)
       {
-//        [placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
-//        [self performAfterDelay:0.3 block:^{
-//          [self.routeView setVisible:YES animated:YES];
-//        }];
+        f.GetBalloonManager().RemovePin();
+        f.GetBalloonManager().Dismiss();
+        [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
+        [self performAfterDelay:0.3 block:^{
+          [self.routeView setVisible:YES animated:YES];
+        }];
       }
       else
       {
@@ -613,7 +615,7 @@
       }
     });
 
-    f.SetBuyProListener([&]()
+    f.SetBuyProListener([self]()
     {
       [self showBuyProDialog];
     });
