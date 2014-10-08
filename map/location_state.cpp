@@ -765,52 +765,8 @@ void State::OnSize(m2::RectD const & /*oldPixelRect*/)
   }
 }
 
-namespace
-{
-
-#ifdef DEBUG
-bool ValidateTransition(State::Mode oldMode, State::Mode newMode)
-{
-  if (oldMode == State::UnknownPosition)
-    return newMode == State::PendingPosition;
-
-  if (oldMode == State::PendingPosition)
-  {
-    return newMode == State::UnknownPosition ||
-           newMode == State::NotFollow ||
-           newMode == State::Follow;
-  }
-
-  if (oldMode == State::Follow)
-  {
-    return newMode == State::UnknownPosition ||
-           newMode == State::NotFollow ||
-           newMode == State::RotateAndFollow;
-  }
-
-  if (oldMode == State::NotFollow)
-  {
-    return newMode == State::Follow ||
-           newMode == State::RotateAndFollow;
-  }
-
-  if (oldMode == State::RotateAndFollow)
-  {
-    return newMode == State::NotFollow ||
-           newMode == State::Follow ||
-           newMode == State::UnknownPosition;
-  }
-
-  return false;
-}
-#endif
-
-}
-
 void State::AnimateStateTransition(Mode oldMode, Mode newMode)
 {
-  ASSERT(ValidateTransition(oldMode, newMode), ("from", oldMode, "to", newMode));
-
   StopAllAnimations();
 
   if (oldMode == PendingPosition && newMode == Follow)

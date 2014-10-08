@@ -143,7 +143,6 @@ BenchmarkEngine::BenchmarkEngine(Framework * fw)
     m_maxDuration(0),
     m_framework(fw)
 {
-//  m_framework->GetInformationDisplay().enableBenchmarkInfo(true);
 }
 
 void BenchmarkEngine::BenchmarkCommandFinished()
@@ -154,7 +153,6 @@ void BenchmarkEngine::BenchmarkCommandFinished()
   {
     m_maxDuration = duration;
     m_maxDurationRect = m_curBenchmarkRect;
-    m_framework->GetInformationDisplay().addBenchmarkInfo("maxDurationRect: ", m_maxDurationRect, m_maxDuration);
   }
 
   BenchmarkResult res;
