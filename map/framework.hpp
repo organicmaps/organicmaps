@@ -35,8 +35,6 @@
 
 #include "../base/strings_bundle.hpp"
 
-#include "../3party/enum_flags.hpp"
-
 #include "../std/vector.hpp"
 #include "../std/shared_ptr.hpp"
 #include "../std/unique_ptr.hpp"
@@ -56,14 +54,6 @@ namespace anim { class Controller; }
 
 class CountryStatusDisplay;
 class BenchmarkEngine;
-
-ENUM_FLAGS(DialogOptions)
-enum class DialogOptions
-{
-  Cancel = 0x1,
-  Ok = 0x2,
-  BuyPro = 0x4
-};
 
 /// Uncomment line to make fixed position settings and
 /// build version for screenshots.
@@ -250,13 +240,14 @@ public:
                  m2::RectD const & renderRect,
                  int baseScale, bool isTilingQuery);
 
-  void ShowDialog(string const & messageID, DialogOptions const & options);
 
-  typedef function<void (string const &, DialogOptions const &)> TShowDialogFn;
-  void SetShowDialogListener(TShowDialogFn const & fn);
+  void ShowBuyProDialog();
+
+  typedef function<void ()> TShowBuyProCallback;
+  void SetBuyProListener(TShowBuyProCallback const & fn);
 
 private:
-  TShowDialogFn m_showDlgCallback;
+  TShowBuyProCallback m_showDlgCallback;
 
 private:
   search::Engine * GetSearchEngine() const;
@@ -502,6 +493,8 @@ public:
   //@{
   bool IsRoutingActive() const;
   void BuildRoute(m2::PointD const & destination);
+  typedef function<void (bool, string const &, bool)> TRouteBuildingCallback;
+  void SetRouteBuildingListener(TRouteBuildingCallback const & callback);
   void FollowRoute();
   void CloseRouting();
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
@@ -513,5 +506,9 @@ private:
   void RemoveRoute();
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
+  void CallRouteBuilded(bool isSuccess, string const & errorMessage, bool openDownloader);
+  void GetRoutingErrorMessage(routing::IRouter::ResultCode code, string & messageID, bool & openDownloaderOnOk);
+
+  TRouteBuildingCallback m_routingCallback;
   //@}
 };

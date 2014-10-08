@@ -216,6 +216,14 @@ Framework::Framework()
   m_stringsBundle.SetDefaultString("my_position", "My Position");
   m_stringsBundle.SetDefaultString("routes", "Routes");
 
+  m_stringsBundle.SetDefaultString("routing_failed_unknown_my_position", "Current location is undefined. Please specify location to create route.");
+  m_stringsBundle.SetDefaultString("routing_failed_has_no_routing_file", "Additional data is required to create the route. Download data now?");
+  m_stringsBundle.SetDefaultString("routing_failed_start_point_not_found", "Cannot calculate the route. No roads near your starting point.");
+  m_stringsBundle.SetDefaultString("routing_failed_dst_point_not_found", "Cannot calculate the route. No roads near your destination.");
+  m_stringsBundle.SetDefaultString("routing_failed_cross_mwm_building", "Routes can only be created that are fully contained within a single map.");
+  m_stringsBundle.SetDefaultString("routing_failed_route_not_found", "There is no route found between the selected origin and destination.Please select a different start or end point.");
+  m_stringsBundle.SetDefaultString("routing_failed_internal_error", "Internal error occurred. Please try to delete and download the map again. If problem persist please contact us at support@maps.me.");
+
   m_guiController->SetStringsBundle(&m_stringsBundle);
 
   // Init information display.
@@ -302,7 +310,7 @@ void Framework::DeleteCountry(TIndex const & index, TMapOptions opt)
 void Framework::DownloadCountry(TIndex const & index, TMapOptions opt)
 {
   if ((opt & TMapOptions::ECarRouting) && !GetPlatform().IsPro())
-    ShowDialog("routing_only_in_pro", DialogOptions::Cancel | DialogOptions::BuyPro);
+    ShowBuyProDialog();
   else
     m_storage.DownloadCountry(index, opt);
 }
@@ -341,13 +349,13 @@ void Framework::ShowCountry(TIndex const & index)
 void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
 {
   if (opt & TMapOptions::EMapOnly)
-  {
-    m2::RectD rect;
+{
+  m2::RectD rect;
     if (m_model.UpdateMap(fileName, rect))
-      InvalidateRect(rect, true);
+    InvalidateRect(rect, true);
 
-    GetSearchEngine()->ClearViewportsCache();
-  }
+  GetSearchEngine()->ClearViewportsCache();
+}
 
   if (opt & TMapOptions::ECarRouting)
   {
@@ -669,13 +677,13 @@ void Framework::DrawModel(shared_ptr<PaintEvent> const & e,
     Invalidate();
 }
 
-void Framework::ShowDialog(string const & messageID, DialogOptions const & options)
+void Framework::ShowBuyProDialog()
 {
   if (m_showDlgCallback)
-    m_showDlgCallback(messageID, options);
+    m_showDlgCallback();
 }
 
-void Framework::SetShowDialogListener(TShowDialogFn const & fn)
+void Framework::SetBuyProListener(TShowBuyProCallback const & fn)
 {
   m_showDlgCallback = fn;
 }
@@ -1866,10 +1874,18 @@ bool Framework::IsRoutingActive() const
 
 void Framework::BuildRoute(m2::PointD const & destination)
 {
-  shared_ptr<State> const & state = GetLocationState();
-  if (!GetPlatform().HasRouting() || !state->IsModeHasPosition())
-    /// show dialog about Buy Pro, or about "Has no locations"
+  if (!GetPlatform().HasRouting())
+  {
+    ShowBuyProDialog();
     return;
+  }
+
+  shared_ptr<State> const & state = GetLocationState();
+  if (!state->IsModeHasPosition())
+  {
+    CallRouteBuilded(false, m_stringsBundle.GetString("routing_failed_unknown_my_position"), false);
+    return;
+  }
 
   if (IsRoutingActive())
     CloseRouting();
@@ -1882,15 +1898,25 @@ void Framework::BuildRoute(m2::PointD const & destination)
         InsertRoute(route);
         GetLocationState()->RouteBuilded();
         ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
+        CallRouteBuilded(true, "", false);
       }
       else
       {
         RemoveRoute();
-        ///@TODO resolve message about this error
-        string messageID = "route_build_failed_reason";
-        ShowDialog(messageID, DialogOptions::Ok);
+        if (code != IRouter::Cancelled)
+        {
+          string messageID = "";
+          bool openDownloader = false;
+          GetRoutingErrorMessage(code, messageID, openDownloader);
+          CallRouteBuilded(false, m_stringsBundle.GetString(messageID), openDownloader);
+        }
       }
     });
+}
+
+void Framework::SetRouteBuildingListener(TRouteBuildingCallback const & callback)
+{
+  m_routingCallback = callback;
 }
 
 void Framework::FollowRoute()
@@ -1959,6 +1985,43 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
       if (code == IRouter::NoError)
         InsertRoute(route);
     });
+  }
+}
+
+void Framework::CallRouteBuilded(bool isSuccess, string const & errorMessage, bool openDownloader)
+{
+  if (m_routingCallback)
+    m_routingCallback(isSuccess, errorMessage, openDownloader);
+}
+
+void Framework::GetRoutingErrorMessage(IRouter::ResultCode code, string & messageID,
+                                       bool & openDownloaderOnOk)
+{
+  openDownloaderOnOk = false;
+  switch (code)
+  {
+  case IRouter::InconsistentMWMandRoute: // the same as RouteFileNotExist
+  case IRouter::RouteFileNotExist:
+    messageID = "routing_failed_has_no_routing_file";
+    openDownloaderOnOk = true;
+    break;
+  case IRouter::StartPointNotFound:
+    messageID = "routing_failed_start_point_not_found";
+    break;
+  case IRouter::EndPointNotFound:
+    messageID = "routing_failed_dst_point_not_found";
+    break;
+  case IRouter::PointsInDifferentMWM:
+    messageID = "routing_failed_cross_mwm_building";
+    break;
+  case IRouter::RouteNotFound:
+    messageID = "routing_failed_route_not_found";
+    break;
+  case IRouter::InternalError:
+    messageID = "routing_failed_internal_error";
+    break;
+  default:
+    ASSERT(false, ());
   }
 }
 
