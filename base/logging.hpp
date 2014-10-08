@@ -31,9 +31,9 @@ using ::my::LCRITICAL;
 
 // Logging macro.
 // Example usage: LOG(LINFO, (Calc(), m_Var, "Some string constant"));
-#define LOG(level, msg) do { if (level < ::my::g_LogLevel) {} \
+#define LOG(level, msg) do { if ((level) < ::my::g_LogLevel) {} \
   else { ::my::LogMessage(level, SRC(), ::my::impl::Message msg);} } while (false)
 
 // Logging macro with short info (without entry point)
-#define LOG_SHORT(level, msg) do { if (level < ::my::g_LogLevel) {} \
+#define LOG_SHORT(level, msg) do { if ((level) < ::my::g_LogLevel) {} \
   else { ::my::LogMessage(level, my::SrcPoint(), ::my::impl::Message msg);} } while (false)
