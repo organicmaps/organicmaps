@@ -1205,29 +1205,55 @@
     tr = ^\n^%\nindiriliyor
     sv = Laddar ner\n^\n^%
 
+  [country_status_download_routing]
+    en = Download Map + Routing\n^ ^
+    tr = Harita + Rota İndir\n^ ^
+    es = Descargar mapa + itinerario\n^ ^
+    sv = Ladda ner karta + anvisningar\n^ ^
+    th = ดาวน์โหลดแผนที่ + การเลือกเส้นทาง\n^ ^
+    ko = 지도 + 라우팅 다운로드\n^ ^
+    pl = Pobierz mapę + wyznaczanie tras\n^ ^
+    pt = Descarregar Mapa + Roteamento\n^ ^
+    sk = Na stiahnutie Mapa + Trasa\n^ ^
+    iw = הורד מפה + מסלול\n^ ^
+    hu = Térkép + útvonal letöltése\n^ ^
+    it = Scarica mappa e percorso\n^ ^
+    ja = 地図とルートをダウンロード\n^ ^
+    da = Hent kort + ruteangivelse\n^ ^
+    nl = Download kaart + routering\n^ ^
+    fr = Télécharger Carte + Itinéraire\n^ ^
+    de = Karte + Streckenführung herunterladen\n^ ^
+    zh-Hans = 下载地图 + 路线\n^ ^
+    zh-Hant = 下載地圖 + 佈置路線\n^ ^
+    cs = Stáhnout Mapu + Směrování\n^ ^
+    ar = تنزيل الخريطة + تحديد المسار\n^ ^
+    ru = Скачать карту + маршруты\n^ ^
+    uk = Завантажити карту + маршрути\n^ ^
+
   [country_status_download]
-    en = Download\n^
     comment = Button text for the button at the center of the screen when the country is not downloaded
-    cs = Stáhnout\n^
-    sk = Stiahnuť\n^
-    de = Herunterladen\n^
-    es = Descargar\n^
-    fr = Télécharger\n^
-    it = Scarica\n^
-    ja = ^\nをダウンロード
-    ko = 다운로드\n^
-    ru = Загрузить\n^
-    uk = Завантажити\n^
-    zh-Hant = 下載\n^
-    pl = Pobierz\n^
-    pt = Descarga\n^
-    hu = Letöltés\n^
-    th = ดาวน์โหลด\n^
-    zh-Hans = 下载\n^
-    ar = تنزيل\n^
-    da = Download\n^
-    tr = ^\nindir
-    sv = Ladda ner\n^
+    en = Download Map\n^ ^
+    th = ดาวน์โหลดแผนที่\n^ ^
+    uk = Завантажити мапу\n^ ^
+    tr = Haritayı İndir\n^ ^
+    es = Descargar mapa\n^ ^
+    sv = Ladda ner karta\n^ ^
+    pl = Pobierz mapę\n^ ^
+    pt = Descarregar Mapa\n^ ^
+    sk = Stiahnite si Mapu\n^ ^
+    ja = 地図をダウンロード\n^ ^
+    ko = 지도 다운로드\n^ ^
+    iw = הורידו מפה\n^ ^
+    it = Scarica Map\n^ ^
+    de = Karte herunterladen\n^ ^
+    da = Download kort\n^ ^
+    nl = Kaart downloaden\n^ ^
+    zh-Hans = 下载地图\n^ ^
+    zh-Hant = 下載地圖\n^ ^
+    cs = Stáhněte si mapu\n^ ^
+    ar = تحميل الخريطة\n^ ^
+    hu = Térkép letöltése\n^ ^
+    ru = Скачать карту\n^ ^
 
   [country_status_download_failed]
     en = Downloading\n^\nhas failed
