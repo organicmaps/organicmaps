@@ -156,8 +156,10 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "下载 ^\n^%\n中";
 
+"country_status_download_routing" = "下载地图 + 路线\n^ ^";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "下载\n^";
+"country_status_download" = "下载地图\n^ ^";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "下载\n^\n失败了";

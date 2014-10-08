@@ -95,8 +95,9 @@
 	<string name="country_status_added_to_queue">^\när tillagd till nedladdningskön</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">Laddar ner\n^\n^%</string>
+	<string name="country_status_download_routing">Ladda ner karta + anvisningar\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Ladda ner\n^</string>
+	<string name="country_status_download">Ladda ner karta\n^ ^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Downloading\n^har misslyckats</string>
 	<!-- Button text for the button under the country_status_download_failed message -->

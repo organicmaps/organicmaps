@@ -156,8 +156,10 @@
 /* Message to display at the center of the screen when the country is downloading */
 "country_status_downloading" = "Stahování\n^\n^%";
 
+"country_status_download_routing" = "Stáhnout Mapu + Směrování\n^ ^";
+
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Stáhnout\n^";
+"country_status_download" = "Stáhněte si mapu\n^ ^";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "Stahování\n^\nselhalo";

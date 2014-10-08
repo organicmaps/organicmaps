@@ -96,8 +96,9 @@
 	<string name="country_status_added_to_queue">^\ndodano do kolejki pobierania</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">Pobieranie\n^\n^%</string>
+	<string name="country_status_download_routing">Pobierz mapę + wyznaczanie tras\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Pobierz\n^</string>
+	<string name="country_status_download">Pobierz mapę\n^ ^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Pobieranie\n^\nnie powiodło się</string>
 	<!-- Button text for the button under the country_status_download_failed message -->

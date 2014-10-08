@@ -103,8 +103,9 @@
 	<string name="country_status_added_to_queue">^\nis added\nto the downloading queue.</string>
 	<!-- Message to display at the center of the screen when the country is downloading -->
 	<string name="country_status_downloading">Downloading\n^\n^%</string>
+	<string name="country_status_download_routing">Download Map + Routing\n^ ^</string>
 	<!-- Button text for the button at the center of the screen when the country is not downloaded -->
-	<string name="country_status_download">Download\n^</string>
+	<string name="country_status_download">Download Map\n^ ^</string>
 	<!-- Message to display at the center of the screen when the country download has failed -->
 	<string name="country_status_download_failed">Downloading\n^\nhas failed</string>
 	<!-- Button text for the button under the country_status_download_failed message -->
