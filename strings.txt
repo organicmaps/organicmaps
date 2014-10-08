@@ -1254,6 +1254,7 @@
     ar = تحميل الخريطة\n^ ^
     hu = Térkép letöltése\n^ ^
     ru = Скачать карту\n^ ^
+    fr = Téléchargez la carte\n^ ^
 
   [country_status_download_failed]
     en = Downloading\n^\nhas failed
@@ -5770,60 +5771,6 @@
     zh-hans = 使用新版本的MAPS.ME可以创建从您的当前位置至一个目的地的路线。请更新地图以使用该功能。
     uk = В новій версії MAPS.ME ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.
 
-  [routing_error_select_new_dst]
-    tags = ios,android,tizen
-    comment = Route building error message
-    en = An error occurred while creating a route. Please choose another destination.
-    ru = Возникла ошибка при создании этого маршрута. Пожалуйста, выберите другой пункт назначения.
-    th = เกิดความผิดพลาดขณะที่สร้างเส้นทาง โปรดลองเลือกปลายทางอื่น
-    tr = Rotayı oluştururken bir hata meydana geldi. Lütfen başka bir varış noktası seçmeyi deneyin.
-    sv = Ett fel uppstod när rutten skulle skapas. Testa att välja en annan destination.
-    pt = Ocorreu um erro enquanto criava uma rota. Por favor, tente escolher outro destino.
-    sk = Pri vytváraní trasy sa vyskytla chyba. Skúste si, prosím, zvoliť iný cieľ trasy.
-    es = Se ha producido un error mientras se creaba una ruta. Por favor, intenta elegir otro destino.
-    pl = Podczas tworzenia trasy wystąpił błąd. Proszę spróbować wybrać inny punkt docelowy.
-    jp = ルートを作成中にエラーが発生しました。 他の目的地を選択してみてください。
-    ko = 경로를 만드는 동안 오류가 발생했습니다. 다른 목적지를 선택하도록 시도하십시오.
-    hu = Hiba történt útvonal létrehozása közben. Kérjük, próbálj másik úticélt kiválasztani.
-    it = Si è verificato un errore nella creazione del percorso. Prova a scegliere un'altra destinazione.
-    iw = אירעה שגיאה ביצירת מסלול. נא לנסות לבחור יעד אחר.
-    de = Beim Erstellen der Route ist ein Fehler aufgetreten. Bitte wählen Sie ein anderes Ziel.
-    fr = Une erreur s'est produite lors de la création d'un itinéraire. Veuillez essayer de choisir une autre destination.
-    da = En fejl opstod ved oprettelsen af en rute. Venligst prøv at vælge en anden destination.
-    nl = Er deed zich een fout voor bij het maken van een route. Probeer een andere bestemming te kiezen.
-    zh-hant = 在創建路線時出錯。請嘗試選擇另一個目的地。
-    cz = Při vytváření trasy došlo k chybě. Prosím, zkuste zvolit jiný cíl.
-    ar = لقد حدث خطأ أثناء إنشاء المسار. من فضلك، حاول وجهة أخرى.
-    zh-hans = 在创建路线时出错。请尝试选择另一个目的地。
-    uk = Сталася помилка при прокладанні цього маршруту. Будь ласка, виберіть інши йпункт призначення.
-
-  [routing_one_map_only]
-    tags = ios,android,tizen
-    comment = Routing between different MWMs error message
-    en = Creating routes is possible within one map only.
-    ru = Создание маршрута возможно в пределах одной карты.
-    th = การสร้างเส้นทางสามารถทำได้ภายในหนึ่งแผนที่เท่านั้น
-    tr = Rota oluşturma sadece bir harita içerisinde mümkündür.
-    sv = Det går bara att skapa rutter på en karta.
-    pt = É possível criar rotas apenas dentro de um mapa.
-    sk = Trasy je možné vytvárať iba v rámci jednej mapy.
-    es = Solo es posible crear rutas dentro de un mapa.
-    pl = Tworzenie tras możliwe jest wyłącznie w obrębie jednej mapy.
-    jp = ルートの作成は1つのマップの中でのみで可能です。
-    ko = 경로를 생성하는 것은 하나의 지도 내에서만 가능합니다.
-    hu = Útvonalak létrehozása csak egy térképen belül lehetséges.
-    it = Gli itinerari si possono creare solo nell'ambito di una mappa.
-    iw = ניתן ליצור מסלולים בתוך מפה אחת בלבד.
-    de = Das Erstellen von Routen ist nur innerhalb einer Karte möglich.
-    fr = La création d'itinéraires n'est possible que sur une seule carte.
-    da = Oprettelse af ruter er kun muligt inden for ét kort.
-    nl = Routes kunnen alleen binnen één kaart worden gemaakt.
-    zh-hant = 只能夠在一個地圖中創建路線。
-    cz = Vytváření tras je možné pouze v rámci jedné mapy.
-    ar = خلق المسار ممكن في خريطة واحدة فقط.
-    zh-hans = 只能够在一个地图中创建路线。
-    uk = Створення маршруту можливе в межах однієї карти.
-
   [downloader_update_all]
     tags = ios,android,tizen
     comment = Update all button text
@@ -5985,7 +5932,6 @@
     zh-hans = 在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！
     uk = Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!
 
-
   [downloader_outdated_maps]
     tags = ios,android,tizen
     comment = Outdated maps category
@@ -6012,7 +5958,6 @@
     zh-hant = 過時的
     ru = Неактуальные
     uk = Неактуальні
-
 
   [downloader_uptodate_maps]
     tags = ios,android,tizen
@@ -6050,6 +5995,221 @@
     tags = ios,android,tizen
     comment = Status of failed country in the list
     en = Failed
+  [routing_failed_buy_pro]
+    tags = ios, andoird
+    comment = Show in Lite version when user try to download routing files or try to build route
+    en = Routing is only available in the full version of MAPS.ME. Get it right now!
+    th = เส้นทางจะใช้ได้เฉพาะในเวอร์ชันเต็มของ MAPS.ME. รับได้ในขณะนี้!
+    tr = Rotalama sadece MAPS.ME tam sürümünde kullanılabilir. Hemen al!
+    es = La planificación de la ruta solo está disponible en la versión completa de MAPS.ME. ¡Consígala ya!
+    sv = Anvisningar är endast tillgängliga i den fullständiga versionen av MAPS.ME. Skaffa den nu!
+    ja = ルート決定機能はMAPS.MEの完全版でのみ利用可能です。今すぐ入手しましょう！
+    ko = 라우팅은 MAPS.ME의 정식 버전에서만 사용할 수 있습니다 지금 당장 얻으세요!
+    pl = Tworzenie trasy dostępne jest tylko w pełnej wersji aplikacji MAPS.ME. Pobierz pełną wersję, teraz!
+    hu = Az útvonaltervezés csak a MAPS.ME teljes verziójában elérhető. Szerezd meg most!
+    it = Il percorso è disponibile solo nella versione completa di MAPS.ME. Prendila ora!
+    cs = Směrování je k dispozici pouze v plné verzi MAPS.ME. Získejte ji hned teď!
+    ru = Создание маршрутов возможно только в платной версии MAPS.ME. Скачай сейчас!
+    sk = Vytváranie trás je k dispozícii iba v plnej verzii MAPS.ME. Získajte ho hneď teraz!
+    fr = L'itinéraire est uniquement disponible dans la version complète de MAPS.ME. Téléchargez-la dès maintenant !
+    zh-Hans = 布置路线只在MAPS.ME的完整版本中才有。现在就得到它吧！
+    zh-Hant = 佈置路線只在MAPS.ME的完整版本中才有。现在就得到它吧！
+    ar = تحديد المسار متاح فقط من خلال الإصدار الكامل لتطبيق MAPS.ME. احصل عليه الآن!
+    nl = Route aanmaken is alleen beschikbaar in de volledige versie van MAPS.ME. Neem nu meteen!
+    de = Routing ist nur in der Vollversion von MAPS.ME verfügbar. Jetzt holen!
+    uk = Створення маршрутів можливе лише у платній версії MAPS.ME. Завантаж зараз!
+    pt = A criação de rota só está disponível na versão completa de MAPS.ME. Obtenha-a já!
+    da = Oprettelse af ruter er kun tilgængelig i den fulde version af MAPS.ME. Få den nu!
+    iw = הניתוב זמין בגרסה המלאה של  MAPS.ME בלבד. קבל אותה עכשיו!
+
+  [routing_failed_unknown_my_position]
+    tags = android, ios
+    comment = Show when user try build route, but we don't know where he
+    en = Current location is undefined. Please specify location to create route.
+    tr = Geçerli konum tanımlı değil. Rota oluşturmak için lütfen konum belirtin.
+    ru = Невозможно проложить маршрут. Не определено текущее местоположение.
+    uk = Неможливо прокласти маршрут. Не визначено поточне місцезнаходження.
+    sk = Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.
+    es = La ubicación actual no está definida. Por favor, especifique la ubicación para crear la ruta.
+    sv = Nuvarande plats är inte definierad. Ange din plats för att skapa rutt.
+    th = ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง
+    ko = 현재 위치는 정의되지 않습니다. 경로를 생성할 위치를 지정하십시오.
+    pl = Bieżąca lokalizacja nie została zdefiniowana. Aby utworzyć trasę, określ lokalizację.
+    pt = A localização atual não foi definida. Por favor especifique a localização para criar o trajeto.
+    iw = לא הוגדר המיקום הנוכחי. נא לציין מיקום כדי ליצור מסלול.
+    hu = Nem meghatározott a jelenlegi helyszín. Kérjük, határozza meg a helyszínt, hogy útvonal készülhessen.
+    it = La posizione attuale non è definita. Specifica la posizione per creare il percorso.
+    ja = 現在地が設定されていません。ルートを作成するには現在地を設定してください。
+    nl = Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.
+    fr = L'emplacement actuel n'est pas défini. Veuillez préciser l'emplacement pour créer l'itinéraire.
+    zh-Hans = 当前地点未定。请明确地点以创建路线。
+    zh-Hant = 當前地點未定。請明確地點以創建路線。
+    cs = Aktuální umístění je nedefinované. Chcete-li vytvořit trasu, zadejte prosím umístění.
+    ar = الموقع الحالي غير مُعَرّف. يرجى تحديد موقع لإنشاء مسار.
+    de = Der aktuelle Standort ist nicht definiert. Bitte geben Sie den Standort ein, um eine Route zu erstellen.
+    da = Den nuværende placering er ikke defineret. Venligst angiv placering for at oprette en rute.
+
+  [routing_failed_has_no_routing_file]
+    tags = ios, android
+    comment = Show if use has not routing file, or InconsistentMWMandRoute
+    en = Additional data is required to create the route. Download data now?
+    th = ข้อมูลเพิ่มเติมเป็นต้องมีเพื่อสร้างเส้นทาง เริ่มต้นการดาวน์โหลด?
+    tr = Bir rota oluşturmak için ek bilgiler gereklidir. İndirme işlemini başlat?
+    es = Son necesarios datos adicionales para crear la ruta. ¿Empezar la descarga?
+    sv = Ytterligare data behövs för att skapa en rutt. Påbörja nedladdning?
+    ja = ルートを作成するには追加のデータが必要です。ダウンロードを開始しますか？
+    ko = 추가 데이터는 경로를 생성하기 위해 필요합니다. 다운로드를 시작하시겠습니까?
+    pl = Aby stworzyć trasę, potrzebne są dodatkowe dane. Rozpocząć pobieranie?
+    hu = Útvonaltervezéshez további adatok is szükségesek. Elkezded a letöltést?
+    it = Ulteriori dati sono necessari per creare un percorso. Inizio a scaricarli?
+    cs = K vytvoření trasy jsou zapotřebí další data. Začít stahování?
+    ru = Для построения маршрута необходимы дополнительные данные. Перейти к загрузке?
+    sk = Na vytvorenie trasy sú potrebné ďalšie dáta. Začať sťahovanie?
+    fr = Des données supplémentaires sont nécessaires pour créer un itinéraire. Vous désirez lancer le téléchargement ?
+    zh-hans = 需要额外的数据才能创建路线。开始下载吗？
+    zh-hant = 需要額外的數據才能創建路線。開始下載嗎？
+    ar = هناك حاجة إلى بيانات إضافية لإنشاء مسار. بدء التحميل؟
+    nl = Er zijn extra gegevens nodig om een ​​route te creëren. Beginnen met downloaden?
+    de = Zusätzliche Daten werden zum Erstellen einer Route benötigt. Mit dem Download beginnen?
+    uk = Для прокладання маршруту необхідна додаткова інформація. Перейти до завантаження?
+    pt = São necessários dados adicionais para criar uma rota. Iniciar o download?
+    da = Yderligere data er nødvendig, for at oprette en rute. Begynde download?
+    iw = נתונים נוספים נחוצים ליצירת נתיב. להתחיל בהורדה?
+
+  [routing_failed_start_point_not_found]
+    tags = android, ios
+    comment = StartPointNotFound
+    en = Cannot calculate the route. No roads near your starting point.
+    tr = Rota hesaplanamıyor. Başlangıç noktanızın yakınında hiçbir yol yok.
+    ru = Невозможно проложить маршрут. Нет дорог рядом с пунктом отправления.
+    uk = Неможливо прокласти маршрут. Немає доріг поруч з відправною точкою.
+    sk = Nedá sa vypočítať trasa. Žiadne cesty v blízkosti východiskového bodu.
+    es = No se puede calcular la ruta. No hay carreteras cerca de su punto de partida.
+    sv = Rutten kan inte beräknas. Det finns inga vägar vid startpunkten.
+    th = ไม่สามารถคำนวณเส้นทางได้ ไม่มีถนนที่อยู่ใกล้เคียงกับจุดเริ่มต้นของคุณ
+    ko = 경로를 계산할 수 없습니다. 시작 지점 근처에 도로가 없습니다.
+    pl = Nie można obliczyć trasy. Brak dróg w pobliżu punktu rozpoczęcia podróży.
+    pt = Impossível calcular o trajeto. Não há estradas próximas do seu ponto de partida.
+    iw = לא ניתן לחשב את המסלול. אין כבישים ליד נקודת ההתחלה שלך.
+    hu = Az útvonal nem tervezhető meg. Nincsenek utak a kiindulópontja közelében.
+    it = Impossibile calcolare il percorso. Nessuna strada vicina al tuo punto di partenza.
+    ja = ルートを計算できません。出発地点の近くに道路がありません。
+    nl = Kan de route niet berekenen. Geen wegen in de buurt van uw beginpunt.
+    fr = Impossible de calculer l'itinéraire. Aucune route à proximité de votre point de départ.
+    zh-Hans = 无法计算路线。没有在您起点附近的路。
+    zh-Hant = 無法計算路線。沒有在您起點附近的路。
+    cs = Nelze vypočítat trasu. Poblíž Vašeho výchozího bodu nejsou žádné cesty.
+    ar = لا يمكن حساب المسار. لا توجد طرق قرب نقطة البداية لديك.
+    de = Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe von Ihrem Ausgangspunkt.
+    da = Kan ikke beregne ruten. Ingen veje nær dit startpunkt.
+
+  [routing_failed_dst_point_not_found]
+    tags = android, ios
+    comment = EndPointNotFound
+    en = Cannot calculate the route. No roads near your destination.
+    tr = Rota hesaplanamıyor. Varış yerinizin yakınında hiçbir yol yok.
+    ru = Невозможно проложить маршрут. Нет дорог рядом с пунктом назначения.
+    uk = Неможливо прокласти маршрут. Немає доріг поруч з пунктом призначення.
+    sk = Nedá sa vypočítať trasa. Žiadne cesty v blízkosti cieľa.
+    es = No se puede calcular la ruta. No hay carreteras cerca de su destino.
+    sv = Rutten kan inte beräknas. Det finns inga vägar vid målet.
+    th = ไม่สามารถคำนวณเส้นทางได้ ไม่มีถนนที่อยู่ใกล้กับปลายทางของคุณ
+    ko = 경로를 계산할 수 없습니다. 목적지 근처에 도로가 없습니다.
+    pl = Nie można obliczyć trasy. Brak dróg w pobliżu celu podróży.
+    pt = Impossível calcular o trajeto. Não há estradas próximas do seu destino.
+    iw = לא ניתן לחשב את המסלול. אין כבישים ליד היעד שלך.
+    hu = Az útvonal nem tervezhető meg. Nincsenek utak az úti céljának közelében.
+    it = Impossibile calcolare il percorso. Nessuna strada vicina al tuo punto di arrivo.
+    ja = ルートを計算できません。目的地の近くに道路がありません。
+    nl = Kan de route niet berekenen. Geen wegen in de buurt van uw bestemming.
+    fr = Impossible de calculer l'itinéraire. Aucune route à proximité de votre destination.
+    zh-Hans = 无法计算路线。没有在您终点附近的路。
+    zh-Hant = 無法計算路線。沒有在您終點附近的路。
+    cs = Nelze vypočítat trasu. Poblíž Vašeho cílového bodu nejsou žádné cesty.
+    ar = لا يمكن حساب المسار. لا توجد طرق بالقرب من وجهتك المقصودة.
+    de = Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe von Ihrem Ziel.
+    da = Kan ikke beregne ruten. Ingen veje nær din destination.
+
+  [routing_failed_cross_mwm_building]
+    tags = android, ios
+    comment = PointsInDifferentMWM
+    en = Routes can only be created that are fully contained within a single map.
+    tr = Rotalar sadece tamamen tek bir harita dâhilinde oluşturulabilir.
+    ru = Маршрут может быть проложен внутри карты только одного региона.
+    uk = Маршрут бути прокладений всередині мапи тільки одного регіону.
+    sk = Cesty môžu byť vytvorené len tak, že sú plne obsiahnuté v jednej mape.
+    es = Solo se pueden crear rutas que estén totalmente incluidas en un mapa único.
+    sv = Rutter kan endast skapas om de finns inom en enda karta.
+    th = สามารถสร้างเส้นทางแบบสมบูรณ์ได้เฉพาะที่มีอยู่ในแผนที่เดียวเท่านั้น
+    ko = 경로는 하나의 지도에 완전히 포함되도록만 생성할 수 있습니다.
+    pl = Trasy można tworzyć tylko pod warunkiem, że zawarte będą w ramach pojedynczej mapy.
+    pt = Só podem ser criados trajetos que estejam completamente contidos num único mapa.
+    iw = ניתן ליצור רק מסלולים שמוכלים במלואם בתוך מפה אחת.
+    hu = Útvonalakat csak akkor lehet készíteni, ha teljesen rajta vannak egy térképen.
+    it = I percorsi possono essere creati solo se interamente presenti in una singola mappa.
+    ja = 一つの地図に完全に収まるルートのみ作成可能です。
+    nl = Slechts de routes die volledig opgenomen zijn in één kaart kunnen gecreëerd worden.
+    fr = Les itinéraires entièrement contenus sur une seule carte peuvent être créés.
+    zh-Hans = 路程只能完全处在同一地图里时才能被创建。
+    zh-Hant = 路程只能完全處在同一地圖裏時才能被創建。
+    cs = Lze vytvářet jen takové trasy, které jsou zcela leží na území jediné mapy.
+    ar = يمكن فقط إنشاء المسارات التي توجد بشكل كامل ضمن خريطة واحدة.
+    de = Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.
+    da = Ruter kan kun oprettes, hvis de er fuldt indeholdt i ét enkelt kort
+
+  [routing_failed_route_not_found]
+    tags = android, ios
+    comment = RouteNotFound
+    en = There is no route found between the selected origin and destination.Please select a different start or end point.
+    tr = Seçilen kalkış yeriyle varış yeri arasında hiçbir rota bulunamadı. Lütfen farklı bir başlangıç veya bitiş noktası seçin.
+    ru = Невозможно проложить маршрут между выбранными точками. Пожалуйста, измените начало или конец маршрута.
+    uk = Неможливо прокласти маршрут між вибраними точками. Будь ласка, змініть початок і кінець маршруту.
+    sk = Nebol nájdená trasa medzi vybraným východiskom a cieľom. Prosím vyberte iný počiatočný a koncový bod.
+    es = No se ha encontrado ninguna ruta entre el origen seleccionado y el destino. Por favor, seleccione un punto de partida o destino diferente.
+    sv = Ingen rutt hittades mellan vald startpunkt och målet. Välj en annan start- eller slutpunkt.
+    th = ไม่พบเส้นทางที่อยู่ระหว่างต้นทางและปลายทางที่เลือก โปรดเลือกจุดเริ่มต้นและจุดสิ้นสุดอื่น
+    ko = 선택한 출발지와 목적지 사이에서 발견있는 경로가 없습니다. 다른 출발지 또는 도착지를 선택하십시오.
+    pl = Nie znaleziono trasy pomiędzy wybranym punktem rozpoczęcia podróży a jej celem. Wybierz inny punkt początkowy lub końcowy.
+    pt = Não foi encontrado um trajeto entre a origem selecionada e o destino. Por favor selecione um ponto de partida ou de chegada diferente.
+    iw = אין מסלול בין המוצא והיעד שנבחרו. נא לבחור נקודת התחלה או יעד שונה.
+    hu = Nem találtunk útvonalat a kiválasztott kiindulópont és az úti cél között. Kérjük, válasszon másik kiinduló- vagy végpontot.
+    it = Non è stata trovata alcuna strada fra il punto di partenza e d'arrivo selezionati. Seleziona un punto di partenza e d'arrivo diversi.
+    ja = 選択した出発地と目的地との間にルートが見つかりません。別の出発地点と到着地点を選択してください。
+    nl = Er is geen route gevonden tussen het geselecteerde beginpunt en de bestemming. Gelieve een andere beginpunt of een eindbestemming te kiezen.
+    fr = Il n'existe aucun itinéraire entre l'origine et la destination choisies . Veuillez sélectionner un point de départ ou d'arrivée différent.
+    zh-Hans = 找不到所选起点和终点间的路程。请选择不同的起点或终点。
+    zh-Hant = 找不到所選起點和終點間的路程。請選擇不同的起點或終點。
+    cs = Mezi vybraným počátkem a cílem nebyla nalezena žádná trasa. Vyberte prosím jiný počáteční nebo koncový bod.
+    ar = لم يتم العثور على مسار بين المنشأ والوُجْهَة المحددة. الرجاء تحديد نقطة بداية أو نهاية مختلفة.
+    de = Es wurde keine Route zwischen dem ausgewählten Ausgangspunkt und Ziel gefunden. Bitte wählen Sie einen anderen Start- oder Endpunkt.
+    da = Der blev ikke fundet en rute mellem det valgte begyndelsespunkt og destinationen. Venligst vælg et andet start- eller slutpunkt.
+
+  [routing_failed_internal_error]
+    tags = android, ios
+    comment = InternalError
+    en = Internal error occurred. Please try to delete and download the map again. If problem persist please contact us at support@maps.me.
+    tr = Sistem içi hata oluştu. Lütfen haritayı silin ve tekrar yüklemeyi deneyin. Sorun devam ettiği takdirde lütfen support@maps.me adresinden bize ulaşın.
+    ru = Внутренняя ошибка. Пожалуйста, удалите карту и скачайте ее еще раз. Если это не помогло, напишите нам на support@maps.me
+    uk = Внутрішня помилка. Будь ласка, видаліть мапу і завантажте її ще раз. Якщо це не допомогло, напишіть нам на support@maps.me
+    sk = Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support@maps.me.
+    es = Se ha producido un error interno. Por favor, intente eliminar y descargar el mapa otra vez. Si el problema persiste, por favor contáctenos en support@maps.me.
+    sv = Ett internt fel inträffade. Försök att radera och ladda ner kartan igen. Kontakta oss på support@maps.me om problemet kvarstår.
+    th = เกิดข้อผิดพลาดขึ้นภายใน โปรดลองลบและดาวน์โหลดแผนที่อีกครั้ง โปรดติดต่อเราได้ที่ support@maps.me.
+    ko = 내부 오류가 발생했습니다. 다시지도를 삭제하고 다운로드하도록 시도하십시오. 문제가 지속되면 support@maps.me로 문의하시기 바랍니다.
+    pl = Wystąpił wewnętrzny błąd. Spróbuj usunąć mapę i pobrać ją ponownie. Jeśli problem będzie się nadal powtarzał, skontaktuj się z nami pod adresem support@maps.me.
+    pt = Ocorreu um erro interno. Por favor experimente apagar o mapa e depois descarregue-o novamente. Se o problema persistir, contacte-nos através de support@maps.me.
+    iw = אירעה שגיאה פנימית. נא לנסות למחוק את המפה להוריד אותה מחדש. אם הבעיה נמשכת, נא לפנות אלינו בכתובת support@maps.me.
+    hu = Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support@maps.me e-mail címen.
+    it = Si è verificato un errore interno. Prova ad eliminare la mappa e a scaricarla nuovamente. Se il problema dovesse persistere, contattaci all'indirizzo support@maps.me.
+    ja = 内部エラーが発生しました。もう一度地図をダウンロードしてください。問題が解決しない場合は、support@maps.meまでご連絡ください。
+    nl = Er is een interne fout opgetreden. Probeer het kaart te verwijderen en opnieuw te downloaden. Indien het probleem blijft optreden, neem dan contact met ons op support@maps.me.
+    fr = Une erreur interne s'est produite. Veuillez essayer de supprimer la carte et téléchargez la à nouveau. Si le problème persiste, veuillez contacter support@maps.me.
+    zh-Hans = 出现内部错误。请尝试删除并再次下载地图。如果还有问题请联系我们：support@maps.me。
+    zh-Hant = 出現內部錯誤。請嘗試刪除并再次下載地圖。如果還有問題請聯系我們：support@maps.me。
+    cs = Došlo k vnitřní chybě. Zkuste prosím mapu vymazat a stáhnout znovu. Jestliže problém přetrvává, kontaktujte nás prosím na support@maps.me.
+    ar = حدث خطأ داخلي. يرجى محاولة حذف الخريطة وإعادة تنزيلها مرة أخرى. إذا استمرت المشكلة يرجى الاتصال بنا على support@maps.me.
+    de = Es ist ein interner Fehler aufgetreten. Bitte versuchen Sie, die Karte zu löschen und erneut herunterzuladen.
+    da = Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support@maps.me.
 
   [downloader_download_map_and_routing]
     tags = ios,android,tizen
