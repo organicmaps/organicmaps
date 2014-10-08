@@ -437,4 +437,14 @@
 	<string name="downloader_outdated_maps">Güncel değil</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Güncel</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Harita + Rota İndir</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Rota İndir</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Rotayı Sil</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Haritayı İndir</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">Git!</string>
 </resources>

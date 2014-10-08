@@ -430,4 +430,14 @@
 	<string name="downloader_outdated_maps">Desatualizado</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Atualizado</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Descarregar Mapa + Roteamento</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Descarregar Roteamento</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Apagar Roteamento</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Descarregar Mapa</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">Avançar!</string>
 </resources>

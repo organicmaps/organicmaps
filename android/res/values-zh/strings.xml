@@ -425,4 +425,14 @@
 	<string name="downloader_my_maps">我的地图</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已排队</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">下载地图 + 路线</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">下载路线</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">删除路线</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">下载地图</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">出发！</string>
 </resources>

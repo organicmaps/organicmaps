@@ -434,4 +434,14 @@
 	<string name="downloader_outdated_maps">Nieaktualne</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Najnowsze</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Pobierz mapę + wyznaczanie tras</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Pobierz wyznaczanie tras</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Skasuj wyznaczanie tras</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Pobierz mapę</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">Przejdź!</string>
 </resources>

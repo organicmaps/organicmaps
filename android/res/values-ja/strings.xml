@@ -406,4 +406,14 @@
 	<string name="downloader_my_maps">マイマップ</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">地図とルートをダウンロード</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">ルートをダウンロード</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">るーどを削除</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">地図をダウンロード</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">開始！</string>
 </resources>

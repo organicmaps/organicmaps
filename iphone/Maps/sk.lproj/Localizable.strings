@@ -696,3 +696,18 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
+
+/* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "Na stiahnutie Mapa + Trasa";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "Trasa na stiahnutie";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "Zmazať Trasu";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "Stiahnite si Mapu";
+
+/* Button for routing PP. */
+"routing_go" = "Štart!";

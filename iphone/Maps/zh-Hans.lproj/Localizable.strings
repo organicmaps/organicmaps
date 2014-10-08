@@ -696,3 +696,18 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
+
+/* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "下载地图 + 路线";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "下载路线";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "删除路线";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "下载地图";
+
+/* Button for routing PP. */
+"routing_go" = "出发！";

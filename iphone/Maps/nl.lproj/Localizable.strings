@@ -696,3 +696,18 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
+
+/* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "Download kaart + routering";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "Download routering";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "Verwijder routering";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "Kaart downloaden";
+
+/* Button for routing PP. */
+"routing_go" = "Starten!";

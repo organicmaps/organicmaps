@@ -414,4 +414,14 @@
 	<string name="downloader_outdated_maps">Anticuado</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Actualizado</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Descargar mapa + itinerario</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Descargar itinerario</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Eliminar itinerario</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Descargar mapa</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">¡Listo!</string>
 </resources>

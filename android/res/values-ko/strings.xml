@@ -411,4 +411,14 @@
 	<string name="downloader_outdated_maps">만료됨</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">최신</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">지도 + 라우팅 다운로드</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">라우팅 다운로드</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">라우팅 삭제</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">지도 다운로드</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">이동!</string>
 </resources>

@@ -428,4 +428,14 @@
 	<string name="downloader_outdated_maps">Неактуальні</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Оновлені</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Завантажити карту + маршрути</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Завантажити маршрути</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Видалити маршрути</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Завантажити мапу</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">Поїхали!</string>
 </resources>

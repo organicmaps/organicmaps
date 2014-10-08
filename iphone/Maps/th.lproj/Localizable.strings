@@ -696,3 +696,18 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
+
+/* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "ดาวน์โหลดแผนที่ + การเลือกเส้นทาง";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "ดาวน์โหลดการเลือกเส้นทาง";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "ลบการเลือกเส้นทาง";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "ดาวน์โหลดแผนที่";
+
+/* Button for routing PP. */
+"routing_go" = "ไป!";

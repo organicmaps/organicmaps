@@ -390,4 +390,14 @@
 	<string name="pref_calibration_title">指南針校準</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">無線網絡/互聯網</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">下載地圖 + 佈置路線</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">下載路線</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">刪除路線</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">下載地圖</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">開始！</string>
 </resources>

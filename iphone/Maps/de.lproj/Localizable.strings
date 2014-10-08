@@ -696,3 +696,18 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
+
+/* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "Karte + Streckenführung herunterladen";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "Streckenführung herunterladen";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "Streckenführung löschen";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "Karte herunterladen";
+
+/* Button for routing PP. */
+"routing_go" = "Los!";

@@ -428,4 +428,14 @@
 	<string name="downloader_outdated_maps">Veraltet</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Aktuell</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Karte + Streckenführung herunterladen</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Streckenführung herunterladen</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Streckenführung löschen</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Karte herunterladen</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">Los!</string>
 </resources>

@@ -696,3 +696,18 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
+
+/* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "지도 + 라우팅 다운로드";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "라우팅 다운로드";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "라우팅 삭제";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "지도 다운로드";
+
+/* Button for routing PP. */
+"routing_go" = "이동!";

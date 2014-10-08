@@ -416,4 +416,14 @@
 	<string name="pref_calibration_title">Kalibrace kompasu</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Stáhnout Mapu + Směrování</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Stáhnout Směrování</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Smazat Směrování</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Stáhněte si mapu</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">Jet!</string>
 </resources>

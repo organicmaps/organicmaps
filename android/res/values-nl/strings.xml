@@ -415,4 +415,14 @@
 	<string name="downloader_outdated_maps">Verouderd</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Up-to-date</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Download kaart + routering</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Download routering</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Verwijder routering</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Kaart downloaden</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">Starten!</string>
 </resources>

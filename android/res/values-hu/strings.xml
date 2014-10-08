@@ -432,4 +432,14 @@
 	<string name="downloader_outdated_maps">Elavult</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Friss</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Térkép + útvonal letöltése</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Útvonal letöltése</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Útvonal törlése</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Térkép letöltése</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">Indulás!</string>
 </resources>

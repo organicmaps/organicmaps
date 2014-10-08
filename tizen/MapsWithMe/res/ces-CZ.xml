@@ -113,4 +113,14 @@
 	<text id="IDS_DISAGREE">Nesouhlasím</text>
 	<!-- Search Suggestion -->
 	<text id="IDS_WIFI">WiFi/Internet</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Stáhnout Mapu + Směrování</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_ROUTING">Stáhnout Směrování</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Smazat Směrování</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Stáhněte si mapu</text>
+	<!-- Button for routing PP. -->
+	<text id="IDS_ROUTING_GO">Jet!</text>
 </string_table>

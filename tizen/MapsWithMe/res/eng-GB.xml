@@ -143,4 +143,14 @@
 	<text id="IDS_DOWNLOADER_STATUS_OUTDATED">Update</text>
 	<!-- Status of failed country in the list -->
 	<text id="IDS_DOWNLOADER_STATUS_FAILED">Failed</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Download Map + Routing</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_ROUTING">Download Routing</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Delete Routing</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Download Map</text>
+	<!-- Button for routing PP. -->
+	<text id="IDS_ROUTING_GO">Go!</text>
 </string_table>

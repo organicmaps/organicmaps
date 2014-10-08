@@ -696,3 +696,18 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
+
+/* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "地図とルートをダウンロード";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "ルートをダウンロード";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "るーどを削除";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "地図をダウンロード";
+
+/* Button for routing PP. */
+"routing_go" = "開始！";

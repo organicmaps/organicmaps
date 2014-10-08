@@ -437,4 +437,14 @@
 	<string name="downloader_outdated_maps">Zastarané</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Aktualizované</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Na stiahnutie Mapa + Trasa</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Trasa na stiahnutie</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Zmazať Trasu</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Stiahnite si Mapu</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">Štart!</string>
 </resources>

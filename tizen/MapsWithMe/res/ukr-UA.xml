@@ -133,4 +133,14 @@
 	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Неактуальні</text>
 	<!-- Up to date maps category -->
 	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">Оновлені</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Завантажити карту + маршрути</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_ROUTING">Завантажити маршрути</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Видалити маршрути</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Завантажити мапу</text>
+	<!-- Button for routing PP. -->
+	<text id="IDS_ROUTING_GO">Поїхали!</text>
 </string_table>

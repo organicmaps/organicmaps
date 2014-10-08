@@ -433,4 +433,14 @@
 	<string name="downloader_outdated_maps">Gammal</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Aktuell</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Ladda ner karta + anvisningar</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Ladda ner anvisningar</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Radera anvisningar</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Ladda ner karta</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">Kör!</string>
 </resources>

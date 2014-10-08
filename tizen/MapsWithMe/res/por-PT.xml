@@ -131,4 +131,14 @@
 	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Desatualizado</text>
 	<!-- Up to date maps category -->
 	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">Atualizado</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Descarregar Mapa + Roteamento</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_ROUTING">Descarregar Roteamento</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DELETE_ROUTING">Apagar Roteamento</text>
+	<!-- Context menu item for downloader. -->
+	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Descarregar Mapa</text>
+	<!-- Button for routing PP. -->
+	<text id="IDS_ROUTING_GO">Avançar!</text>
 </string_table>

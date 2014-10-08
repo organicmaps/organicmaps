@@ -696,3 +696,18 @@
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
+
+/* Context menu item for downloader. */
+"downloader_download_map_and_routing" = "Скачать карту + маршруты";
+
+/* Context menu item for downloader. */
+"downloader_download_routing" = "Скачать маршруты";
+
+/* Context menu item for downloader. */
+"downloader_delete_routing" = "Удалить маршруты";
+
+/* Context menu item for downloader. */
+"downloader_download_map" = "Скачать карту";
+
+/* Button for routing PP. */
+"routing_go" = "Поехали!";
