@@ -4,6 +4,8 @@
 
 #include "../std/string.hpp"
 
+#include "../base/bits.hpp"
+
 #include "../coding/file_container.hpp"
 
 #include "../3party/succinct/elias_fano.hpp"
@@ -102,14 +104,20 @@ public:
     return (m_fanoMatrix.select(e) / 2) % GetNumberOfNodes();
   }
 
-  //! TODO: Remove static variable
   EdgeDataT & GetEdgeData(const EdgeID e)
+  {
+    static EdgeDataT res;
+    return res;
+  }
+
+  //! TODO: Remove static variable
+  EdgeDataT & GetEdgeData(const EdgeID e, NodeID node)
   {
     static EdgeDataT res;
 
     uint64_t data = m_edgeData[e];
 
-    res.id = m_edgeId[e];
+    res.id = node - bits::ZigZagDecode(m_edgeId[e]);
     res.backward = data & 0x1;
     data >>= 1;
     res.forward = data & 0x1;
