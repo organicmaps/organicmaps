@@ -1,6 +1,7 @@
 #pragma once
 
 #include "element.hpp"
+#include "text_view.hpp"
 
 #include "../std/function.hpp"
 #include "../std/string.hpp"
@@ -20,8 +21,6 @@ namespace graphics
 
 namespace gui
 {
-  class TextView;
-
   class Button : public Element
   {
   public:

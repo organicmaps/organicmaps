@@ -60,7 +60,6 @@
 
 #define DEFAULT_BOOKMARK_TYPE "placemark-red"
 
-
 using namespace storage;
 using namespace routing;
 using namespace location;
@@ -206,7 +205,8 @@ Framework::Framework()
   // Init strings bundle.
   m_stringsBundle.SetDefaultString("country_status_added_to_queue", "^\nis added to the downloading queue");
   m_stringsBundle.SetDefaultString("country_status_downloading", "Downloading\n^\n^%");
-  m_stringsBundle.SetDefaultString("country_status_download", "Download\n^");
+  m_stringsBundle.SetDefaultString("country_status_download", "Download map\n^ MB");
+  m_stringsBundle.SetDefaultString("country_status_download_routing", "Download Map + Routing\n^ MB");
   m_stringsBundle.SetDefaultString("country_status_download_failed", "Downloading\n^\nhas failed");
   m_stringsBundle.SetDefaultString("try_again", "Try Again");
   m_stringsBundle.SetDefaultString("not_enough_free_space_on_sdcard", "Not enough space for downloading");
@@ -701,8 +701,8 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
 
   if (isEmptyModel)
     m_informationDisplay.setEmptyCountryIndex(GetCountryIndex(GetViewportCenter()));
-
-  m_informationDisplay.enableCountryStatusDisplay(isEmptyModel);
+  else
+    m_informationDisplay.setEmptyCountryIndex(storage::TIndex());
 
   bool const isCompassEnabled = my::Abs(ang::GetShortestDistance(m_navigator.Screen().GetAngle(), 0.0)) > my::DegToRad(3.0);
   bool const isCompasActionEnabled = m_informationDisplay.isCompassArrowEnabled() && m_navigator.InAction();
@@ -715,17 +715,12 @@ void Framework::DrawAdditionalInfo(shared_ptr<PaintEvent> const & e)
   m_informationDisplay.setDebugInfo(0, drawScale);
 
   m_informationDisplay.enableRuler(drawScale > 4 && !m_informationDisplay.isCopyrightActive());
-#ifdef DEBUG
-  m_informationDisplay.enableDebugInfo(true);
-#endif
 
-  m_informationDisplay.doDraw(pDrawer);
   pScreen->endFrame();
 
   m_bmManager.DrawItems(e);
   m_guiController->UpdateElements();
   m_guiController->DrawFrame(pScreen);
-
 }
 
 void Framework::DoPaint(shared_ptr<PaintEvent> const & e)

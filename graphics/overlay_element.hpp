@@ -108,10 +108,10 @@ namespace graphics
     void setIsNeedRedraw(bool flag);
 
     bool isDirtyLayout() const;
-    void setIsDirtyLayout(bool flag) const;
+    virtual void setIsDirtyLayout(bool flag) const;
 
     virtual bool isVisible() const;
-    virtual void setIsVisible(bool flag);
+    virtual void setIsVisible(bool flag) const;
 
     bool isValid() const;
     void setIsValid(bool flag);

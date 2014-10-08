@@ -64,12 +64,11 @@ void InformationDisplay::InitRuler(Framework * fw)
 
 void InformationDisplay::InitCountryStatusDisplay(Framework * fw)
 {
-  CountryStatusDisplay::Params p;
+  CountryStatusDisplay::Params p(fw->GetCountryTree().GetActiveMapLayout());
 
   p.m_pivot = m2::PointD(0, 0);
   p.m_position = EPosCenter;
   p.m_depth = countryStatusDepth;
-  p.m_storage = &fw->Storage();
 
   m_countryStatusDisplay.reset(new CountryStatusDisplay(p));
 }

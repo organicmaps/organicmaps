@@ -110,7 +110,7 @@ namespace graphics
     return m_flags[VISIBLE];
   }
 
-  void OverlayElement::setIsVisible(bool flag)
+  void OverlayElement::setIsVisible(bool flag) const
   {
     m_flags[VISIBLE] = flag;
   }

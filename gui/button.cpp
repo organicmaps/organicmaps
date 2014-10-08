@@ -1,6 +1,5 @@
 #include "button.hpp"
 #include "controller.hpp"
-#include "text_view.hpp"
 
 #include "../graphics/screen.hpp"
 #include "../graphics/display_list.hpp"

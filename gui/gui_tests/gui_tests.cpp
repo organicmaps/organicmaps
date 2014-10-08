@@ -8,6 +8,7 @@
 #include "../../graphics/display_list.hpp"
 
 #include "../../map/country_status_display.hpp"
+#include "../../map/framework.hpp"
 
 
 struct ButtonTest
@@ -129,24 +130,23 @@ struct ImageViewTest
 struct CountryStatusDisplayTest
 {
   shared_ptr<CountryStatusDisplay> m_countryStatus;
-  shared_ptr<storage::Storage> m_storage;
+  shared_ptr<Framework> m_framework;
   m2::PointD m_pivot;
 
   void Init(gui::Controller * c)
   {
-    CountryStatusDisplay::Params p;
+    CountryStatusDisplay::Params p(m_framework->GetCountryTree().GetActiveMapLayout());
 
     m_pivot = m2::PointD(400, 400);
 
-    m_storage.reset(new storage::Storage());
+    m_framework.reset(new Framework());
 
     p.m_depth = graphics::maxDepth;
     p.m_pivot = m_pivot;
     p.m_position = graphics::EPosAboveLeft;
-    p.m_storage = m_storage.get();
 
     m_countryStatus.reset(new CountryStatusDisplay(p));
-    m_countryStatus->setCountryIndex(storage::TIndex(1, 1, 1));
+    m_countryStatus->SetCountryIndex(storage::TIndex(1, 1, 1));
     m_countryStatus->setPivot(m_pivot);
     c->AddElement(m_countryStatus);
   }

@@ -1,13 +1,16 @@
 #include "country_status_display.hpp"
+#include "framework.hpp"
 
 #include "../gui/controller.hpp"
+#include "../gui/button.hpp"
 #include "../gui/text_view.hpp"
 
 #include "../graphics/overlay_renderer.hpp"
 #include "../graphics/display_list.hpp"
 
-#include "../storage/storage_defines.hpp"
 #include "../platform/platform.hpp"
+
+#include "../base/thread.hpp"
 
 #include "../base/string_format.hpp"
 
@@ -16,21 +19,224 @@
 
 using namespace storage;
 
-CountryStatusDisplay::Params::Params()
-  : m_storage(0)
+CountryStatusDisplay::CountryStatusDisplay(Params const & p)
+  : gui::Element(p)
+  , m_activeMaps(p.m_activeMaps)
 {
+  m_activeMapsSlotID = m_activeMaps.AddListener(this);
+  gui::Button::Params bp;
+
+  bp.m_depth = depth();
+  bp.m_minWidth = 200;
+  bp.m_minHeight = 40;
+  bp.m_position = graphics::EPosCenter;
+
+  auto createButtonFn = [this](gui::Button::Params const & params)
+  {
+    gui::Button * result = new gui::Button(params);
+    result->setIsVisible(false);
+    result->setOnClickListener(bind(&CountryStatusDisplay::OnButtonClicked, this, _1));
+
+    result->setFont(EActive, graphics::FontDesc(16, graphics::Color(255, 255, 255, 255)));
+    result->setFont(EPressed, graphics::FontDesc(16, graphics::Color(255, 255, 255, 255)));
+
+    result->setColor(EActive, graphics::Color(0, 0, 0, 0.6 * 255));
+    result->setColor(EPressed, graphics::Color(0, 0, 0, 0.4 * 255));
+
+    return result;
+  };
+
+  m_primaryButton.reset(createButtonFn(bp));
+  m_secondaryButton.reset(createButtonFn(bp));
+
+  gui::TextView::Params tp;
+  tp.m_depth = depth();
+  tp.m_position = graphics::EPosCenter;
+
+  m_label.reset(new gui::TextView(tp));
+  m_label->setIsVisible(false);
+  m_label->setFont(gui::Element::EActive, graphics::FontDesc(18));
+
+  setIsVisible(false);
 }
 
-string const CountryStatusDisplay::displayName() const
+CountryStatusDisplay::~CountryStatusDisplay()
 {
-  if (!m_mapGroupName.empty())
-    return m_mapName + " (" + m_mapGroupName + ")";
-  else
-    return m_mapName;
+  m_activeMaps.RemoveListener(m_activeMapsSlotID);
+}
+
+void CountryStatusDisplay::SetCountryIndex(TIndex const & idx)
+{
+  if (m_countryIdx != idx)
+  {
+    m_countryIdx = idx;
+
+    if (m_countryIdx.IsValid())
+    {
+      m_countryStatus = m_activeMaps.GetCountryStatus(m_countryIdx);
+      m_displayMapName = m_activeMaps.GetFormatedCountryName(m_countryIdx);
+    }
+
+    Repaint();
+  }
+}
+
+void CountryStatusDisplay::DownloadCurrentCountry(int options)
+{
+  // I don't know why this work, but it's terrible
+  // This method call only on android, from "AndroidUIThread"
+  DownloadCountry(options, false);
+}
+
+void CountryStatusDisplay::setIsVisible(bool isVisible) const
+{
+  if (isVisible && isVisible != TBase::isVisible())
+    Repaint();
+
+  TBase::setIsVisible(isVisible);
+}
+
+void CountryStatusDisplay::setIsDirtyLayout(bool isDirty) const
+{
+  TBase::setIsDirtyLayout(isDirty);
+  m_label->setIsDirtyLayout(isDirty);
+  m_primaryButton->setIsDirtyLayout(isDirty);
+  m_secondaryButton->setIsDirtyLayout(isDirty);
+
+  if (isDirty)
+    SetVisibilityForState();
+}
+
+void CountryStatusDisplay::draw(graphics::OverlayRenderer * r,
+                                math::Matrix<double, 3, 3> const & m) const
+{
+  if (isVisible())
+  {
+    Lock();
+    checkDirtyLayout();
+
+    m_label->draw(r, m);
+    m_primaryButton->draw(r, m);
+    m_secondaryButton->draw(r, m);
+    Unlock();
+  }
+}
+
+void CountryStatusDisplay::layout()
+{
+  if (!isVisible())
+    return;
+  SetContentForState();
+
+  auto layoutFn = [] (gui::Element * e)
+  {
+    if (e->isVisible())
+      e->layout();
+  };
+
+  layoutFn(m_label.get());
+  layoutFn(m_primaryButton.get());
+  layoutFn(m_secondaryButton.get());
+
+  ComposeElementsForState();
+
+  // !!!! Hack !!!!
+  // ComposeElementsForState modify pivot point of elements.
+  // After setPivot all elements must be relayouted.
+  // For reduce "cache" operations we call layout secondary
+  layoutFn(m_label.get());
+  layoutFn(m_primaryButton.get());
+  layoutFn(m_secondaryButton.get());
+}
+
+void CountryStatusDisplay::purge()
+{
+  m_label->purge();
+  m_primaryButton->purge();
+  m_secondaryButton->purge();
+}
+
+void CountryStatusDisplay::cache()
+{
+  auto cacheFn = [](gui::Element * e)
+  {
+    if (e->isVisible())
+      e->cache();
+  };
+
+  cacheFn(m_label.get());
+  cacheFn(m_primaryButton.get());
+  cacheFn(m_secondaryButton.get());
+}
+
+m2::RectD CountryStatusDisplay::GetBoundRect() const
+{
+  ASSERT(isVisible(), ());
+  m2::RectD r(pivot(), pivot());
+
+  if (m_primaryButton->isVisible())
+    r.Add(m_primaryButton->GetBoundRect());
+  if (m_secondaryButton->isVisible())
+    r.Add(m_secondaryButton->GetBoundRect());
+
+  return r;
+}
+
+void CountryStatusDisplay::setController(gui::Controller * controller)
+{
+  Element::setController(controller);
+  m_label->setController(controller);
+  m_primaryButton->setController(controller);
+  m_secondaryButton->setController(controller);
+}
+
+bool CountryStatusDisplay::onTapStarted(m2::PointD const & pt)
+{
+  return OnTapAction(bind(&gui::Button::onTapStarted, _1, _2), pt);
+}
+
+bool CountryStatusDisplay::onTapMoved(m2::PointD const & pt)
+{
+  return OnTapAction(bind(&gui::Button::onTapMoved, _1, _2), pt);
+}
+
+bool CountryStatusDisplay::onTapEnded(m2::PointD const & pt)
+{
+  return OnTapAction(bind(&gui::Button::onTapEnded, _1, _2), pt);
+}
+
+bool CountryStatusDisplay::onTapCancelled(m2::PointD const & pt)
+{
+  return OnTapAction(bind(&gui::Button::onTapCancelled, _1, _2), pt);
+}
+
+void CountryStatusDisplay::CountryStatusChanged(ActiveMapsLayout::TGroup const & group, int position)
+{
+  TIndex index = m_activeMaps.GetCoreIndex(group, position);
+  if (m_countryIdx == index)
+  {
+    Lock();
+    m_countryStatus = m_activeMaps.GetCountryStatus(index);
+    Repaint();
+    Unlock();
+  }
+}
+
+void CountryStatusDisplay::DownloadingProgressUpdate(ActiveMapsLayout::TGroup const & group, int position, LocalAndRemoteSizeT const & progress)
+{
+  TIndex index = m_activeMaps.GetCoreIndex(group, position);
+  if (m_countryIdx == index)
+  {
+    Lock();
+    m_countryStatus = m_activeMaps.GetCountryStatus(index);
+    m_progressSize = progress;
+    Repaint();
+    Unlock();
+  }
 }
 
 template <class T1, class T2>
-void CountryStatusDisplay::SetStatusMessage(string const & msgID, T1 const * t1, T2 const * t2)
+string CountryStatusDisplay::FormatStatusMessage(string const & msgID, T1 const * t1, T2 const * t2)
 {
   string msg = m_controller->GetStringsBundle()->GetString(msgID);
   if (t1)
@@ -50,279 +256,219 @@ void CountryStatusDisplay::SetStatusMessage(string const & msgID, T1 const * t1,
     }
   }
 
-  m_statusMsg->setIsVisible(true);
-  m_statusMsg->setText(msg);
+  return msg;
 }
 
-void CountryStatusDisplay::layout()
+void CountryStatusDisplay::SetVisibilityForState() const
 {
-  m_downloadButton->setIsDirtyLayout(true);
-  m_statusMsg->setIsDirtyLayout(true);
-}
-
-void CountryStatusDisplay::purge()
-{
-  m_downloadButton->purge();
-  m_statusMsg->purge();
-}
-
-void CountryStatusDisplay::cache()
-{
-  m_downloadButton->setIsVisible(false);
-  m_statusMsg->setIsVisible(false);
-  setIsVisible(false);
-
-  string const dn = displayName();
+  uint8_t visibilityFlags = 0;
+  uint8_t const labelVisibility = 0x1;
+  uint8_t const primeVisibility = 0x2;
+  uint8_t const secondaryVisibility = 0x4;
 
   if (m_countryIdx.IsValid())
   {
     switch (m_countryStatus)
     {
-    case TStatus::EInQueue:
-    {
-      SetStatusMessage<string, int>("country_status_added_to_queue", &dn);
-      break;
-    }
-
-    case TStatus::EDownloading:
-    {
-      int const percent = m_countryProgress.first * 100 / m_countryProgress.second;
-      SetStatusMessage<string, int>("country_status_downloading", &dn, &percent);
-      break;
-    }
-
-    case TStatus::ENotDownloaded:
-      if (m_notEnoughSpace)
-        SetStatusMessage<int, int>("not_enough_free_space_on_sdcard");
-      else
-      {
-        m_downloadButton->setIsVisible(true);
-        string const msg = m_controller->GetStringsBundle()->GetString("country_status_download");
-        m_downloadButton->setText(strings::Format(msg, dn));
-      }
-      break;
-
     case TStatus::EDownloadFailed:
-    {
-      m_downloadButton->setIsVisible(true);
-      m_downloadButton->setText(m_controller->GetStringsBundle()->GetString("try_again"));
-      SetStatusMessage<string, int>("country_status_download_failed", &dn);
-
-      setPivot(pivot());
+      visibilityFlags |= labelVisibility;
+      visibilityFlags |= primeVisibility;
+      break;
+    case TStatus::EDownloading:
+    case TStatus::EInQueue:
+      visibilityFlags |= labelVisibility;
+      break;
+    case TStatus::ENotDownloaded:
+      visibilityFlags |= labelVisibility;
+      visibilityFlags |= primeVisibility;
+      visibilityFlags |= secondaryVisibility;
+      break;
+    default:
       break;
     }
-
-    default:
-      return;
-    }
   }
 
-  setIsVisible(m_statusMsg->isVisible() || m_downloadButton->isVisible());
+  m_label->setIsVisible(visibilityFlags & labelVisibility);
+  m_primaryButton->setIsVisible(visibilityFlags & primeVisibility);
+  m_secondaryButton->setIsVisible(visibilityFlags & secondaryVisibility);
+
+  TBase::setIsVisible(m_label->isVisible() || m_primaryButton->isVisible() || m_secondaryButton->isVisible());
 }
 
-void CountryStatusDisplay::CountryStatusChanged(TIndex const & idx)
+void CountryStatusDisplay::SetContentForState()
 {
-  if (idx == m_countryIdx)
+  if (!isVisible())
+    return;
+
+  switch (m_countryStatus)
   {
-    UpdateStatusAndProgress();
-
-    setIsDirtyLayout(true);
-    invalidate();
+  case TStatus::EDownloadFailed:
+  case TStatus::EOutOfMemFailed:
+    SetContentForError();
+    break;
+  case TStatus::ENotDownloaded:
+    SetContentForDownloadPropose();
+    break;
+  case TStatus::EDownloading:
+    SetContentForProgress();
+    break;
+  case TStatus::EInQueue:
+    SetContentForInQueue();
+    break;
+  default:
+    break;
   }
 }
 
-void CountryStatusDisplay::CountryProgress(TIndex const & idx, pair<int64_t, int64_t> const & progress)
+void CountryStatusDisplay::SetContentForDownloadPropose()
 {
-  if ((m_countryIdx == idx) && (m_countryStatus == TStatus::EDownloading))
-  {
-    m_countryProgress = progress;
+  ASSERT(m_label->isVisible(), ());
+  ASSERT(m_primaryButton->isVisible(), ());
+  ASSERT(m_secondaryButton->isVisible(), ());
 
-    setIsDirtyLayout(true);
-    invalidate();
-  }
+  LocalAndRemoteSizeT mapOnlySize = m_activeMaps.GetCountrySize(m_countryIdx, TMapOptions::EMapOnly);
+  LocalAndRemoteSizeT withRouting = m_activeMaps.GetCountrySize(m_countryIdx, TMapOptions::EMapWithCarRouting);
+
+  m_label->setText(m_displayMapName);
+  int mbToDownload = mapOnlySize.second / (1024 * 1024);
+  m_primaryButton->setText(FormatStatusMessage<int, int>("country_status_download", &mbToDownload));
+  mbToDownload = withRouting.second / (1024 * 1024);
+  m_secondaryButton->setText(FormatStatusMessage<int, int>("country_status_download_routing", &mbToDownload));
 }
 
-CountryStatusDisplay::CountryStatusDisplay(Params const & p)
-  : gui::Element(p), m_storage(p.m_storage)
+void CountryStatusDisplay::SetContentForProgress()
 {
-  m_slotID = m_storage->Subscribe(bind(&CountryStatusDisplay::CountryStatusChanged, this, _1),
-                                  bind(&CountryStatusDisplay::CountryProgress, this, _1, _2));
-
-  using namespace graphics;
-
-  gui::Button::Params bp;
-
-  bp.m_depth = depth();
-  bp.m_minWidth = 200;
-  bp.m_minHeight = 40;
-  bp.m_position = EPosCenter;
-
-  m_downloadButton.reset(new gui::Button(bp));
-  m_downloadButton->setOnClickListener(bind(&CountryStatusDisplay::downloadCountry, this));
-  m_downloadButton->setIsVisible(false);
-  m_downloadButton->setPosition(EPosCenter);
-
-  m_downloadButton->setFont(EActive, FontDesc(16, Color(255, 255, 255, 255)));
-  m_downloadButton->setFont(EPressed, FontDesc(16, Color(255, 255, 255, 255)));
-
-  m_downloadButton->setColor(EActive, Color(Color(0, 0, 0, 0.6 * 255)));
-  m_downloadButton->setColor(EPressed, Color(Color(0, 0, 0, 0.4 * 255)));
-
-  gui::TextView::Params tp;
-  tp.m_depth = depth();
-
-  m_statusMsg.reset(new gui::TextView(tp));
-
-  m_statusMsg->setIsVisible(false);
-  m_statusMsg->setPosition(EPosCenter);
-
-  m_statusMsg->setFont(gui::Element::EActive, FontDesc(18));
-
-  setIsVisible(false);
-
-  m_countryIdx = TIndex();
-  m_countryStatus = TStatus::EUnknown;
-  m_notEnoughSpace = false;
+  ASSERT(m_label->isVisible(), ());
+  int const percent = m_progressSize.first * 100 / m_progressSize.second;
+  m_label->setText(FormatStatusMessage<string, int>("country_status_downloading", &m_displayMapName, &percent));
 }
 
-CountryStatusDisplay::~CountryStatusDisplay()
+void CountryStatusDisplay::SetContentForInQueue()
 {
-  m_storage->Unsubscribe(m_slotID);
+  ASSERT(m_label->isVisible(), ());
+  m_label->setText(FormatStatusMessage<string, int>("country_status_added_to_queue", &m_displayMapName));
 }
 
-void CountryStatusDisplay::downloadCountry()
+void CountryStatusDisplay::SetContentForError()
 {
-  if (GetPlatform().GetWritableStorageStatus(m_countryProgress.second) != Platform::STORAGE_OK)
-  {
-    m_notEnoughSpace = true;
+  ASSERT(m_label->isVisible(), ());
+  ASSERT(m_primaryButton->isVisible(), ());
 
-    setIsDirtyLayout(true);
-    invalidate();
-  }
-  else
-    m_storage->DownloadCountry(m_countryIdx, storage::TMapOptions::EMapOnly);
-}
-
-void CountryStatusDisplay::setDownloadListener(gui::Button::TOnClickListener const & l)
-{
-  m_downloadButton->setOnClickListener(l);
-}
-
-void CountryStatusDisplay::UpdateStatusAndProgress()
-{
-  // Actually right now actual status is getting from Framework.
-  // But here it's enough to get it from Storage because of we need only
-  // download progress statuses.
-
-  using namespace storage;
-
-  m_countryProgress = m_storage->CountrySizeInBytes(m_countryIdx);
-
-  m_countryStatus = m_storage->CountryStatus(m_countryIdx);
-  if (m_countryStatus == TStatus::EUnknown)
-  {
-    if (m_countryProgress.first > 0)
-      m_countryStatus = TStatus::EOnDisk;
-    else
-      m_countryStatus = TStatus::ENotDownloaded;
-  }
-}
-
-void CountryStatusDisplay::setCountryIndex(TIndex const & idx)
-{
-  if (m_countryIdx != idx)
-  {
-    m_countryIdx = idx;
-
-    if (m_countryIdx.IsValid())
-    {
-      m_storage->GetGroupAndCountry(idx, m_mapGroupName, m_mapName);
-      LOG(LDEBUG, (m_mapName, m_mapGroupName));
-
-      UpdateStatusAndProgress();
-
-      m_notEnoughSpace = false;
-    }
-
-    setIsDirtyLayout(true);
-    invalidate();
-  }
-}
-
-void CountryStatusDisplay::draw(graphics::OverlayRenderer *r,
-                                math::Matrix<double, 3, 3> const & m) const
-{
-  if (isVisible())
-  {
-    checkDirtyLayout();
-
-    if (m_downloadButton->isVisible())
-      m_downloadButton->draw(r, m);
-    if (m_statusMsg->isVisible())
-      m_statusMsg->draw(r, m);
-  }
-}
-
-m2::RectD CountryStatusDisplay::GetBoundRect() const
-{
-  m2::RectD r(pivot(), pivot());
-  if (m_downloadButton->isVisible())
-    r.Add(m_downloadButton->GetBoundRect());
-
-  return r;
-}
-
-void CountryStatusDisplay::setController(gui::Controller * controller)
-{
-  Element::setController(controller);
-  m_statusMsg->setController(controller);
-  m_downloadButton->setController(controller);
-}
-
-void CountryStatusDisplay::setPivot(m2::PointD const & pv)
-{
   if (m_countryStatus == TStatus::EDownloadFailed)
-  {
-    size_t const buttonHeight = m_downloadButton->GetBoundRect().SizeY();
-    size_t const statusHeight = m_statusMsg->GetBoundRect().SizeY();
-    size_t const commonHeight = buttonHeight + statusHeight + 10 * visualScale();
+    m_label->setText(FormatStatusMessage<string, int>("country_status_download_failed", &m_displayMapName));
+  else
+    m_label->setText(FormatStatusMessage<int, int>("not_enough_free_space_on_sdcard"));
 
-    m_downloadButton->setPivot(m2::PointD(pv.x, pv.y + commonHeight / 2 - buttonHeight / 2));
-    m_statusMsg->setPivot(m2::PointD(pv.x, pv.y - commonHeight / 2 + statusHeight / 2));
+  m_primaryButton->setText(m_controller->GetStringsBundle()->GetString("try_again"));
+}
+
+void CountryStatusDisplay::ComposeElementsForState()
+{
+  ASSERT(isVisible(), ());
+  int visibleCount = 0;
+  auto visibleCheckFn = [&visibleCount](gui::Element const * e)
+  {
+    if (e->isVisible())
+      ++visibleCount;
+  };
+
+  visibleCheckFn(m_label.get());
+  visibleCheckFn(m_primaryButton.get());
+  visibleCheckFn(m_secondaryButton.get());
+
+  ASSERT(visibleCount > 0, ());
+
+  m2::PointD const & pv = pivot();
+  if (visibleCount == 1)
+    m_label->setPivot(pv);
+  else if (visibleCount == 2)
+  {
+    size_t const labelHeight = m_label->GetBoundRect().SizeY();
+    size_t const buttonHeight = m_primaryButton->GetBoundRect().SizeY();
+    size_t const commonHeight = buttonHeight + labelHeight + 10 * visualScale();
+
+    m_label->setPivot(m2::PointD(pv.x, pv.y - commonHeight / 2 + labelHeight / 2));
+    m_primaryButton->setPivot(m2::PointD(pv.x, pv.y + commonHeight / 2 - buttonHeight / 2));
   }
   else
   {
-    m_downloadButton->setPivot(pv);
-    m_statusMsg->setPivot(pv);
+    size_t const labelHeight = m_label->GetBoundRect().SizeY();
+    size_t const primButtonHeight = m_primaryButton->GetBoundRect().SizeY();
+    size_t const secButtonHeight = m_secondaryButton->GetBoundRect().SizeY();
+    size_t const emptySpace = 10 * visualScale();
+
+    double const offsetFromCenter = (primButtonHeight / 2 + emptySpace);
+
+    m_label->setPivot(m2::PointD(pv.x, pv.y - offsetFromCenter - labelHeight / 2));
+    m_primaryButton->setPivot(pv);
+    m_secondaryButton->setPivot(m2::PointD(pv.x, pv.y + offsetFromCenter + secButtonHeight / 2.0));
   }
-
-  gui::Element::setPivot(pv);
 }
 
-bool CountryStatusDisplay::onTapStarted(m2::PointD const & pt)
+bool CountryStatusDisplay::OnTapAction(TTapActionFn const & action, const m2::PointD & pt)
 {
-  if (m_downloadButton->isVisible())
-    return m_downloadButton->onTapStarted(pt);
-  return false;
+  bool result = false;
+  if (m_primaryButton->isVisible() && m_primaryButton->hitTest(pt))
+    result |= action(m_primaryButton, pt);
+  else if (m_secondaryButton->isVisible() && m_secondaryButton->hitTest(pt))
+    result |= action(m_secondaryButton, pt);
+
+  return result;
 }
 
-bool CountryStatusDisplay::onTapMoved(m2::PointD const & pt)
+void CountryStatusDisplay::OnButtonClicked(gui::Element const * button)
 {
-  if (m_downloadButton->isVisible())
-    return m_downloadButton->onTapMoved(pt);
-  return false;
+  ASSERT(m_countryIdx.IsValid(), ());
+
+  TMapOptions options = TMapOptions::EMapOnly;
+  if (button == m_secondaryButton.get())
+    options |= TMapOptions::ECarRouting;
+
+  DownloadCountry(static_cast<int>(options));
 }
 
-bool CountryStatusDisplay::onTapEnded(m2::PointD const & pt)
+void CountryStatusDisplay::DownloadCountry(int options, bool checkCallback)
 {
-  if (m_downloadButton->isVisible())
-    return m_downloadButton->onTapEnded(pt);
-  return false;
+  ASSERT(m_countryIdx.IsValid(), ());
+  if (checkCallback && m_downloadCallback)
+    m_downloadCallback(options);
+  else
+  {
+    if (IsStatusFailed())
+    {
+      m_progressSize = m_activeMaps.GetDownloadableCountrySize(m_countryIdx);
+      m_activeMaps.RetryDownloading(m_countryIdx);
+    }
+    else
+    {
+      TMapOptions mapOptions = static_cast<TMapOptions>(options);
+      m_progressSize = m_activeMaps.GetCountrySize(m_countryIdx, mapOptions);
+      m_activeMaps.DownloadMap(m_countryIdx, mapOptions);
+    }
+  }
 }
 
-bool CountryStatusDisplay::onTapCancelled(m2::PointD const & pt)
+void CountryStatusDisplay::Repaint() const
 {
-  if (m_downloadButton->isVisible())
-    return m_downloadButton->onTapCancelled(pt);
-  return false;
+  setIsDirtyLayout(true);
+  const_cast<CountryStatusDisplay *>(this)->invalidate();
+}
+
+bool CountryStatusDisplay::IsStatusFailed() const
+{
+  return m_countryStatus == TStatus::EOutOfMemFailed || m_countryStatus == TStatus::EDownloadFailed;
+}
+
+void CountryStatusDisplay::Lock() const
+{
+#ifdef OMIM_OS_ANDROID
+  m_mutex.Lock();
+#endif
+}
+
+void CountryStatusDisplay::Unlock() const
+{
+#ifdef OMIM_OS_ANDROID
+  m_mutex.Unlock();
+#endif
 }
