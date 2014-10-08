@@ -38,6 +38,7 @@ import com.mapswithme.maps.Ads.AdsManager;
 import com.mapswithme.maps.Ads.MenuAd;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.Framework.RoutingListener;
+import com.mapswithme.maps.Framework.ButProListener;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.background.WorkerService;
@@ -74,7 +75,7 @@ import java.util.Stack;
 
 public class MWMActivity extends NvEventQueueActivity
     implements LocationService.LocationListener, OnBalloonListener, OnVisibilityChangedListener,
-    OnClickListener, RoutingListener
+    OnClickListener, RoutingListener, ButProListener
 {
   public static final String EXTRA_TASK = "map_task";
   private final static String TAG = "MWMActivity";
@@ -724,7 +725,8 @@ public class MWMActivity extends NvEventQueueActivity
     setUpInfoBox();
     setUpRoutingBox();
 
-    Framework.nativeAddRoutingListener(this);
+    Framework.nativeSetRoutingListener(this);
+    Framework.nativeSetBuyProListener(this);
     Framework.nativeConnectBalloonListeners(this);
 
     final Intent intent = getIntent();
@@ -1413,29 +1415,8 @@ public class MWMActivity extends NvEventQueueActivity
       showRoutingDisclaimer();
       return;
     }
-    if (LocationState.INSTANCE.getLocationStateMode() < LocationState.NOT_FOLLOW)
-    {
-      Toast.makeText(this, R.string.unknown_current_position, Toast.LENGTH_LONG).show();
-      return;
-    }
-
-    Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
-    alphaAnimation.setFillBefore(true);
-    alphaAnimation.setFillAfter(true);
-    alphaAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
-    mRlRoutingBox.startAnimation(alphaAnimation);
-    mRlRoutingBox.setVisibility(View.VISIBLE);
-    mRlRoutingBox.bringToFront();
-
-    mInfoView.setState(State.HIDDEN);
 
     Framework.nativeBuildRoute(mInfoView.getMapObject().getLat(), mInfoView.getMapObject().getLon());
-    if (mIsLocationLocked)
-    {
-      final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-      if (info != null)
-        mTvRoutingDistance.setText(info.mDistToTarget + info.mUnits);
-    }
   }
 
   private void showRoutingDisclaimer()
@@ -1517,27 +1498,62 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   @Override
-  public void onRoutingError(final String messageId)
+  public void onRoutingError(final boolean isSuccess, final String message, boolean openDownloader)
   {
     runOnUiThread(new Runnable()
     {
       @Override
       public void run()
       {
-        new AlertDialog.Builder(MWMActivity.this)
-            .setMessage(messageId)
-            .setCancelable(true)
-            .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
-            {
-              @Override
-              public void onClick(DialogInterface dialog, int which)
+        if (isSuccess)
+        {
+          Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
+          alphaAnimation.setFillBefore(true);
+          alphaAnimation.setFillAfter(true);
+          alphaAnimation.setDuration(VERT_TOOLBAR_ANIM_DURATION);
+          mRlRoutingBox.startAnimation(alphaAnimation);
+          mRlRoutingBox.setVisibility(View.VISIBLE);
+          mRlRoutingBox.bringToFront();
+
+          mInfoView.setState(State.HIDDEN);
+
+          if (mIsLocationLocked)
+          {
+            final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+            if (info != null)
+              mTvRoutingDistance.setText(info.mDistToTarget + info.mUnits);
+          }
+        }
+        else
+        {
+          /// if openDownloader == true than we need show dialog with 2 button. On positive button - open downloader
+          new AlertDialog.Builder(MWMActivity.this)
+              .setMessage(message)
+              .setCancelable(true)
+              .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
               {
-                closeRouting();
-                dialog.dismiss();
-              }
-            })
-            .create()
-            .show();
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                  closeRouting();
+                  dialog.dismiss();
+                }
+              })
+              .create()
+              .show();
+        }
+      }
+    });
+  }
+
+  public void onBuyPro()
+  {
+    runOnUiThread(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        showProVersionBanner(getString(R.string.routing_failed_buy_pro));
       }
     });
   }

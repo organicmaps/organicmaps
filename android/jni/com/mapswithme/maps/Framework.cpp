@@ -786,11 +786,20 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodId);
   }
 
-  void CallRoutingErrorListener(shared_ptr<jobject> obj, string const & messageID, DialogOptions const & options)
+  void CallRoutingErrorListener(shared_ptr<jobject> obj, bool isSuccess, string const & messageID, bool openDownloader)
   {
     JNIEnv * jniEnv = jni::GetEnv();
-    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onRoutingError", "(Ljava/lang/String;)V");
-    jniEnv->CallVoidMethod(*obj.get(), methodId, jni::ToJavaString(jniEnv, messageID));
+    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onRoutingError", "(ZLjava/lang/String;Z)V");
+    ASSERT(jmethodID != nullptr, ());
+    jniEnv->CallVoidMethod(*obj.get(), methodId, isSuccess, jni::ToJavaString(jniEnv, messageID), openDownloader);
+  }
+
+  void CallBuyProListener(shared_ptr<jobject> obj)
+  {
+    JNIEnv * jniEnv = jni::GetEnv();
+    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onBuyPro", "()V");
+    ASSERT(jmethodID != nullptr, ());
+    jniEnv->CallVoidMethod(*obj.get(), methodId);
   }
 
   /// @name JNI EXPORTS
@@ -1233,9 +1242,14 @@ extern "C"
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_nativeAddRoutingListener(JNIEnv * env, jobject thiz, jobject listener)
+  Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jobject thiz, jobject listener)
   {
-    shared_ptr<jobject> sharedListener = jni::make_global_ref(listener);
-    frm()->SetShowDialogListener(bind(&CallRoutingErrorListener, sharedListener, _1, _2));
+    frm()->SetRouteBuildingListener(bind(&CallRoutingErrorListener, jni::make_global_ref(listener), _1, _2, _3));
+  }
+
+  JNIEXPORT void JNICALL
+  Java_com_mapswithme_maps_Framework_nativeSetBuyProListener(JNIEnv * env, jobject thiz, jobject listener)
+  {
+    frm()->SetBuyProListener(bind(&CallBuyProListener, jni::make_global_ref(listener)));
   }
 }

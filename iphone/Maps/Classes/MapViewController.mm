@@ -597,9 +597,25 @@
     f.Invalidate();
     f.LoadBookmarks();
 
-    f.SetShowDialogListener([&](string const & messageID, DialogOptions const & options)
+    f.SetRouteBuildingListener([&](bool isSuccess, string const & message, bool openDownloader)
     {
-      [self showDialogWithMessageID:messageID andOptions:options];
+      if (isSuccess)
+      {
+//        [placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
+//        [self performAfterDelay:0.3 block:^{
+//          [self.routeView setVisible:YES animated:YES];
+//        }];
+      }
+      else
+      {
+        /// if openDownloader == true than we need show dialog with 2 button. On positive button - open downloader
+        [self showDialogWithMessageID:message];
+      }
+    });
+
+    f.SetBuyProListener([&]()
+    {
+      [self showBuyProDialog];
     });
   }
 
@@ -608,9 +624,16 @@
 }
 
 #pragma mark - ShowDialog callback
-- (void)showDialogWithMessageID:(string const &)messageID andOptions:(DialogOptions const &)options
+- (void)showDialogWithMessageID:(string const &)message
 {
-  ///@TODO for goga
+  ///@TODO for goga.
+  [[[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
+}
+
+- (void)showBuyProDialog
+{
+  ///@TODO for goga. Show buy pro dialog with text [routing_failed_buy_pro]
+  [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"routing_failed_buy_pro", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
 }
 
 #pragma mark - Getters
@@ -773,18 +796,7 @@
 
 - (void)placePageViewDidStartRouting:(PlacePageView *)placePage
 {
-  if ([MapsAppDelegate theApp].m_locationManager.lastLocation)
-  {
-    GetFramework().BuildRoute([placePage pinPoint]);
-    [placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
-    [self performAfterDelay:0.3 block:^{
-      [self.routeView setVisible:YES animated:YES];
-    }];
-  }
-  else
-  {
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"unknown_current_position", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
-  }
+  GetFramework().BuildRoute([placePage pinPoint]);
 }
 
 - (void)placePageView:(PlacePageView *)placePage willShareText:(NSString *)text point:(m2::PointD)point

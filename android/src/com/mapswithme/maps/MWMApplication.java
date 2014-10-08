@@ -135,6 +135,14 @@ public class MWMApplication extends android.app.Application implements MapStorag
     nativeAddLocalization("my_position", getString(R.string.my_position));
     nativeAddLocalization("routes", getString(R.string.routes));
 
+    nativeAddLocalization("routing_failed_unknown_my_position", getString(R.string.routing_failed_unknown_my_position));
+    nativeAddLocalization("routing_failed_has_no_routing_file", getString(R.string.routing_failed_has_no_routing_file));
+    nativeAddLocalization("routing_failed_start_point_not_found", getString(R.string.routing_failed_start_point_not_found));
+    nativeAddLocalization("routing_failed_dst_point_not_found", getString(R.string.routing_failed_dst_point_not_found));
+    nativeAddLocalization("routing_failed_cross_mwm_building", getString(R.string.routing_failed_cross_mwm_building));
+    nativeAddLocalization("routing_failed_route_not_found", getString(R.string.routing_failed_route_not_found));
+    nativeAddLocalization("routing_failed_internal_error", getString(R.string.routing_failed_internal_error));
+
 
     // init BookmarkManager (automatically loads bookmarks)
     if (hasBookmarks())

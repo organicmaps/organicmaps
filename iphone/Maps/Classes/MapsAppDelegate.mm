@@ -43,6 +43,14 @@ void InitLocalizedStrings()
   f.AddString("my_places", [NSLocalizedString(@"my_places", nil) UTF8String]);
   f.AddString("my_position", [NSLocalizedString(@"my_position", nil) UTF8String]);
   f.AddString("routes", [NSLocalizedString(@"routes", nil) UTF8String]);
+
+  f.AddString("routing_failed_unknown_my_position", [NSLocalizedString(@"routing_failed_unknown_my_position", nil) UTF8String]);
+  f.AddString("routing_failed_has_no_routing_file", [NSLocalizedString(@"routing_failed_has_no_routing_file", nil) UTF8String]);
+  f.AddString("routing_failed_start_point_not_found", [NSLocalizedString(@"routing_failed_start_point_not_found", nil) UTF8String]);
+  f.AddString("routing_failed_dst_point_not_found", [NSLocalizedString(@"routing_failed_dst_point_not_found", nil) UTF8String]);
+  f.AddString("routing_failed_cross_mwm_building", [NSLocalizedString(@"routing_failed_cross_mwm_building", nil) UTF8String]);
+  f.AddString("routing_failed_route_not_found", [NSLocalizedString(@"routing_failed_route_not_found", nil) UTF8String]);
+  f.AddString("routing_failed_internal_error", [NSLocalizedString(@"routing_failed_internal_error", nil) UTF8String]);
 }
 
 @interface MapsAppDelegate()
