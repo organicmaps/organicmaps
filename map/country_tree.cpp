@@ -102,7 +102,7 @@ int CountryTree::GetChildCount() const
 
 bool CountryTree::IsLeaf(int childPosition) const
 {
-  return GetStorage().CountriesCount(GetChild(childPosition));
+  return GetStorage().CountriesCount(GetChild(childPosition)) == 0;
 }
 
 string const & CountryTree::GetChildName(int position) const
@@ -217,7 +217,7 @@ void CountryTree::SetRoot(TIndex const & newIndex)
 
 TIndex const & CountryTree::GetChild(int childPosition) const
 {
-  ASSERT(ChildItemsOffset + childPosition < GetChildCount(), ());
+  ASSERT(childPosition < GetChildCount(), ());
   return m_levelItems[ChildItemsOffset + childPosition];
 }
 
