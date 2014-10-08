@@ -41,6 +41,7 @@ namespace storage
 
       void AddOptions(TMapOptions opt);
       bool MoveNextFile();
+      bool Correct();
 
       TIndex const & GetIndex() const { return m_index; }
       TMapOptions GetInitOptions() const { return m_init; }

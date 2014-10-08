@@ -25,7 +25,7 @@ namespace storage
     uint32_t m_mapSize, m_routingSize;
 
   public:
-    CountryFile() {}
+    CountryFile() : m_mapSize(0), m_routingSize(0) {}
     CountryFile(string const & fName, uint32_t mapSize, uint32_t routingSize)
       : m_fileName(fName), m_mapSize(mapSize), m_routingSize(routingSize)
     {

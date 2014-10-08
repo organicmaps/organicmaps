@@ -59,7 +59,7 @@ namespace storage
 
   void Storage::QueuedCountry::AddOptions(TMapOptions opt)
   {
-    TMapOptions arr[] = { TMapOptions::EMapOnly, TMapOptions::ECarRouting };
+    TMapOptions const arr[] = { TMapOptions::EMapOnly, TMapOptions::ECarRouting };
     for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     {
       if (opt & arr[i] && !(m_init & arr[i]))
@@ -82,6 +82,20 @@ namespace storage
     return true;
   }
 
+  bool Storage::QueuedCountry::Correct()
+  {
+    if ((m_init & TMapOptions::ECarRouting) &&
+        (m_pFile->GetFileSize(TMapOptions::ECarRouting) == 0))
+    {
+      if (m_init & TMapOptions::EMapOnly)
+        m_init = m_left = m_current = TMapOptions::EMapOnly;
+      else
+        return false;
+    }
+
+    return true;
+  }
+
   uint64_t Storage::QueuedCountry::GetDownloadSize() const
   {
     return m_pFile->GetRemoteSize(m_current);
@@ -90,13 +104,13 @@ namespace storage
   LocalAndRemoteSizeT Storage::QueuedCountry::GetFullSize() const
   {
     LocalAndRemoteSizeT res(0, 0);
-    TMapOptions arr[] = { TMapOptions::EMapOnly, TMapOptions::ECarRouting };
+    TMapOptions const arr[] = { TMapOptions::EMapOnly, TMapOptions::ECarRouting };
     for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
     {
       if (m_init & arr[i])
       {
-        res.first += m_pFile->GetFileSize(m_current);
-        res.second += m_pFile->GetRemoteSize(m_current);
+        res.first += m_pFile->GetFileSize(arr[i]);
+        res.second += m_pFile->GetRemoteSize(arr[i]);
       }
     }
     return res;
@@ -198,7 +212,7 @@ namespace storage
   TStatus Storage::CountryStatus(TIndex const & index) const
   {
     // first, check if we already downloading this country or have in in the queue
-    auto found = find(m_queue.begin(), m_queue.end(), index);
+    auto const found = find(m_queue.begin(), m_queue.end(), index);
     if (found != m_queue.end())
     {
       if (found == m_queue.begin())
@@ -265,7 +279,7 @@ namespace storage
   void Storage::DownloadCountry(TIndex const & index, TMapOptions opt)
   {
     // check if we already downloading this country
-    auto found = find(m_queue.begin(), m_queue.end(), index);
+    auto const found = find(m_queue.begin(), m_queue.end(), index);
     if (found != m_queue.end())
     {
       found->AddOptions(opt);
@@ -276,7 +290,11 @@ namespace storage
 
     // remove it from failed list
     m_failedCountries.erase(index);
+
     // add it into the queue
+    QueuedCountry cnt(*this, index, opt);
+    if (!cnt.Correct())
+      return;
     m_queue.push_back(QueuedCountry(*this, index, opt));
 
     // and start download if necessary
@@ -332,7 +350,7 @@ namespace storage
   bool Storage::DeleteFromDownloader(TIndex const & index)
   {
     // check if we already downloading this country
-    auto found = find(m_queue.begin(), m_queue.end(), index);
+    auto const found = find(m_queue.begin(), m_queue.end(), index);
     if (found != m_queue.end())
     {
       if (found == m_queue.begin())
@@ -476,7 +494,7 @@ namespace storage
     GetServerListFromRequest(request, urls);
 
     // append actual version and file name
-    string fileName = cnt.GetFileName();
+    string const fileName = cnt.GetFileName();
     for (size_t i = 0; i < urls.size(); ++i)
       urls[i] = GetFileDownloadUrl(urls[i], fileName);
 
