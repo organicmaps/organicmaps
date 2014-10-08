@@ -41,15 +41,20 @@ public:
   ActiveMapsLayout(Framework & framework);
   ~ActiveMapsLayout();
 
-  void Init();
   void UpdateAll();
   void CancelAll();
 
   int GetCountInGroup(TGroup const & group) const;
   string const & GetCountryName(TGroup const & group, int position) const;
+  string const & GetCountryName(storage::TIndex const & index) const;
   TStatus GetCountryStatus(TGroup const & group, int position) const;
+  TStatus GetCountryStatus(storage::TIndex const & index) const;
   TMapOptions GetCountryOptions(TGroup const & group, int position) const;
-  LocalAndRemoteSizeT const GetCountrySize(TGroup const & group, int position) const;
+  TMapOptions GetCountryOptions(storage::TIndex const & index) const;
+  LocalAndRemoteSizeT const GetDownloadableCountrySize(TGroup const & group, int position) const;
+  LocalAndRemoteSizeT const GetDownloadableCountrySize(TIndex const & index) const;
+  LocalAndRemoteSizeT const GetCountrySize(TGroup const & group, int position, TMapOptions const & options) const;
+  LocalAndRemoteSizeT const GetCountrySize(TIndex const & index, TMapOptions const & options) const;
 
   int AddListener(ActiveMapsListener * listener);
   void RemoveListener(int slotID);
@@ -61,6 +66,12 @@ public:
   void DeleteMap(TIndex const & index, TMapOptions const & options);
   void DeleteMap(TGroup const & group, int position, TMapOptions const & options);
   void RetryDownloading(TGroup const & group, int position);
+  void RetryDownloading(TIndex const & index);
+
+  ///@{ For CountryStatusDisplay only
+  TIndex const & GetCoreIndex(TGroup const & group, int position) const;
+  string const GetFormatedCountryName(TIndex const & index);
+  ///@}
 
   bool IsDownloadingActive() const;
   void CancelDownloading(TGroup const & group, int position);
@@ -75,6 +86,7 @@ private:
   bool GetGuideInfo(TIndex const & index, guides::GuideInfo & info) const;
 
   void ShowMap(TIndex const & index);
+  void Init();
 
 private:
   void StatusChangedCallback(TIndex const & index);
@@ -93,6 +105,7 @@ private:
   Item & GetItemInGroup(TGroup const & group, int position);
   int GetStartIndexInGroup(TGroup const & group) const;
   Item * FindItem(TIndex const & index);
+  Item const * FindItem(TIndex const & index) const;
   bool GetGroupAndPositionByIndex(TIndex const & index, TGroup & group, int & position);
 
 private:
@@ -124,7 +137,6 @@ private:
   /// EUpToDate  - [TRangeSplit.second, m_items.size)
   typedef pair<int, int> TRangeSplit;
   TRangeSplit m_split;
-  bool m_inited = false;
 };
 
 }

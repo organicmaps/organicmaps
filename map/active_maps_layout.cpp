@@ -10,6 +10,8 @@ ActiveMapsLayout::ActiveMapsLayout(Framework & framework)
 {
   m_subscribeSlotID = m_framework.Storage().Subscribe(bind(&ActiveMapsLayout::StatusChangedCallback, this, _1),
                                                        bind(&ActiveMapsLayout::ProgressChangedCallback, this, _1, _2));
+
+  Init();
 }
 
 ActiveMapsLayout::~ActiveMapsLayout()
@@ -19,61 +21,56 @@ ActiveMapsLayout::~ActiveMapsLayout()
 
 void ActiveMapsLayout::Init()
 {
-  if (!m_inited)
+  Storage & storage = GetStorage();
+  auto insertIndexFn = [&](TIndex const & index)
   {
-    Storage & storage = m_framework.Storage();
-    auto insertIndexFn = [&](TIndex const & index)
-    {
-      TStatus status;
-      TMapOptions options;
-      storage.CountryStatusEx(index, status, options);
-      if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
-        m_items.push_back({ index, status, options, options });
-    };
+    TStatus status;
+    TMapOptions options;
+    storage.CountryStatusEx(index, status, options);
+    if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
+      m_items.push_back({ index, status, options, options });
+  };
 
-    TIndex root;
-    size_t groupCount = storage.CountriesCount(root);
-    for (size_t groupIt = 0; groupIt < groupCount; ++groupIt)
+  TIndex root;
+  size_t groupCount = storage.CountriesCount(root);
+  for (size_t groupIt = 0; groupIt < groupCount; ++groupIt)
+  {
+    TIndex group(groupIt);
+    size_t countryCount = storage.CountriesCount(group);
+    for (size_t cntIt = 0; cntIt < countryCount; ++cntIt)
     {
-      TIndex group(groupIt);
-      size_t countryCount = storage.CountriesCount(group);
-      for (size_t cntIt = 0; cntIt < countryCount; ++cntIt)
+      TIndex country(groupIt, cntIt);
+      size_t regionCount = storage.CountriesCount(country);
+      if (regionCount != 0)
       {
-        TIndex country(groupIt, cntIt);
-        size_t regionCount = storage.CountriesCount(country);
-        if (regionCount != 0)
-        {
-          for (size_t regionIt = 0; regionIt < regionCount; ++regionIt)
-            insertIndexFn(TIndex(groupIt, cntIt, regionIt));
-        }
-        else
-          insertIndexFn(country);
+        for (size_t regionIt = 0; regionIt < regionCount; ++regionIt)
+          insertIndexFn(TIndex(groupIt, cntIt, regionIt));
       }
-    }
-
-    auto comparatorFn = [&storage](Item const & lhs, Item const & rhs)
-    {
-      if (lhs.m_status != rhs.m_status)
-        return lhs.m_status > rhs.m_status;
       else
-      {
-        return storage.CountryName(lhs.m_index) < storage.CountryName(rhs.m_index);
-      }
-    };
-
-    sort(m_items.begin(), m_items.end(), comparatorFn);
-
-    m_split = make_pair(0, m_items.size());
-    for (size_t i = 0; i < m_items.size(); ++i)
-    {
-      if (m_items[i].m_status == TStatus::EOnDisk)
-      {
-        m_split.second = i;
-        break;
-      }
+        insertIndexFn(country);
     }
+  }
 
-    m_inited = true;
+  auto comparatorFn = [&storage](Item const & lhs, Item const & rhs)
+  {
+    if (lhs.m_status != rhs.m_status)
+      return lhs.m_status > rhs.m_status;
+    else
+    {
+      return storage.CountryName(lhs.m_index) < storage.CountryName(rhs.m_index);
+    }
+  };
+
+  sort(m_items.begin(), m_items.end(), comparatorFn);
+
+  m_split = make_pair(0, m_items.size());
+  for (size_t i = 0; i < m_items.size(); ++i)
+  {
+    if (m_items[i].m_status == TStatus::EOnDisk)
+    {
+      m_split.second = i;
+      break;
+    }
   }
 }
 
@@ -130,23 +127,70 @@ int ActiveMapsLayout::GetCountInGroup(TGroup const & group) const
 
 string const & ActiveMapsLayout::GetCountryName(TGroup const & group, int position) const
 {
-  return GetStorage().CountryName(GetItemInGroup(group, position).m_index);
+  return GetCountryName(GetItemInGroup(group, position).m_index);
 }
 
-TStatus ActiveMapsLayout::GetCountryStatus(const ActiveMapsLayout::TGroup & group, int position) const
+string const & ActiveMapsLayout::GetCountryName(TIndex const & index) const
+{
+  return GetStorage().CountryName(index);
+}
+
+TStatus ActiveMapsLayout::GetCountryStatus(TGroup const & group, int position) const
 {
   return GetItemInGroup(group, position).m_status;
 }
 
-TMapOptions ActiveMapsLayout::GetCountryOptions(const ActiveMapsLayout::TGroup & group, int position) const
+TStatus ActiveMapsLayout::GetCountryStatus(TIndex const & index) const
+{
+  Item const * item = FindItem(index);
+  if (item != nullptr)
+    return item->m_status;
+
+  TStatus status;
+  TMapOptions options;
+  GetStorage().CountryStatusEx(index, status, options);
+  return status;
+}
+
+TMapOptions ActiveMapsLayout::GetCountryOptions(TGroup const & group, int position) const
 {
   return GetItemInGroup(group, position).m_options;
 }
 
-LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TGroup const & group, int position) const
+TMapOptions ActiveMapsLayout::GetCountryOptions(TIndex const & index) const
 {
-  ///@TODO for UVR
-  return LocalAndRemoteSizeT(0, 0);
+  Item const * item = FindItem(index);
+  if (item)
+    return item->m_options;
+
+  TStatus status;
+  TMapOptions options;
+  GetStorage().CountryStatusEx(index, status, options);
+  return options;
+}
+
+LocalAndRemoteSizeT const ActiveMapsLayout::GetDownloadableCountrySize(TGroup const & group, int position) const
+{
+  Item const & item = GetItemInGroup(group, position);
+  return GetStorage().CountrySizeInBytesEx(item.m_index, item.m_downloadRequest);
+}
+
+LocalAndRemoteSizeT const ActiveMapsLayout::GetDownloadableCountrySize(TIndex const & index) const
+{
+  Item const * item = FindItem(index);
+  ASSERT(item, ());
+  return GetStorage().CountrySizeInBytesEx(index, item->m_downloadRequest);
+}
+
+LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TGroup const & group, int position,
+                                                           TMapOptions const & options) const
+{
+  return GetCountrySize(GetItemInGroup(group, position).m_index, options);
+}
+
+LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TIndex const & index, TMapOptions const & options) const
+{
+  return GetStorage().CountrySizeInBytesEx(index, options);
 }
 
 int ActiveMapsLayout::AddListener(ActiveMapsListener * listener)
@@ -213,6 +257,28 @@ void ActiveMapsLayout::RetryDownloading(TGroup const & group, int position)
   Item const & item = GetItemInGroup(group, position);
   ASSERT(item.m_options != item.m_downloadRequest, ());
   m_framework.DownloadCountry(item.m_index, item.m_downloadRequest);
+}
+
+void ActiveMapsLayout::RetryDownloading(TIndex const & index)
+{
+  Item * item = FindItem(index);
+  ASSERT(item != nullptr, ());
+  m_framework.DownloadCountry(item->m_index, item->m_downloadRequest);
+}
+
+TIndex const & ActiveMapsLayout::GetCoreIndex(TGroup const & group, int position) const
+{
+  return GetItemInGroup(group, position).m_index;
+}
+
+string const ActiveMapsLayout::GetFormatedCountryName(TIndex const & index)
+{
+  string group, country;
+  GetStorage().GetGroupAndCountry(index, group, country);
+  if (!group.empty())
+    return country + " (" + group + ")";
+  else
+    return country;
 }
 
 bool ActiveMapsLayout::IsDownloadingActive() const
@@ -390,6 +456,19 @@ ActiveMapsLayout::Item * ActiveMapsLayout::FindItem(TIndex const & index)
   return &(*iter);
 }
 
+ActiveMapsLayout::Item const * ActiveMapsLayout::FindItem(TIndex const & index) const
+{
+  vector<Item>::const_iterator iter = find_if(m_items.begin(), m_items.end(), [&index](Item const & item)
+  {
+    return item.m_index == index;
+  });
+
+  if (iter == m_items.end())
+    return nullptr;
+
+  return &(*iter);
+}
+
 bool ActiveMapsLayout::GetGroupAndPositionByIndex(TIndex const & index, TGroup & group, int & position)
 {
   auto it = find_if(m_items.begin(), m_items.end(), [&index] (Item const & item)
@@ -448,13 +527,9 @@ int ActiveMapsLayout::InsertInGroup(TGroup const & group, Item const & item)
     endSort = m_items.end();
   }
 
-  ASSERT(m_split.first < m_items.size(), ());
-  ASSERT(m_split.second < m_items.size(), ());
-
   Storage & st = m_framework.Storage();
   sort(startSort, endSort, [&](Item const & lhs, Item const & rhs)
   {
-    ASSERT(lhs.m_status == rhs.m_status, ());
     return st.CountryName(lhs.m_index) < st.CountryName(rhs.m_index);
   });
 
@@ -462,6 +537,9 @@ int ActiveMapsLayout::InsertInGroup(TGroup const & group, Item const & item)
   {
     return it.m_index == item.m_index;
   });
+
+  ASSERT(m_split.first <= m_items.size(), ());
+  ASSERT(m_split.second <= m_items.size(), ());
 
   ASSERT(newPosIter != m_items.end(), ());
   return distance(startSort, newPosIter);

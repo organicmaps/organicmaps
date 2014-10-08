@@ -54,13 +54,11 @@ CountryTree::~CountryTree()
 
 ActiveMapsLayout & CountryTree::GetActiveMapLayout()
 {
-  m_layout.Init();
   return m_layout;
 }
 
 ActiveMapsLayout const & CountryTree::GetActiveMapLayout() const
 {
-  m_layout.Init();
   return m_layout;
 }
 
@@ -131,10 +129,14 @@ bool CountryTree::GetLeafGuideInfo(int position, guides::GuideInfo & info) const
   return GetActiveMapLayout().GetGuideInfo(GetChild(position), info);
 }
 
-LocalAndRemoteSizeT const CountryTree::GetLeafSize(int position) const
+LocalAndRemoteSizeT const CountryTree::GetDownloadableLeafSize(int position) const
 {
-  //TODO for UVR
-  return LocalAndRemoteSizeT(0, 0);
+  return GetActiveMapLayout().GetDownloadableCountrySize(GetChild(position));
+}
+
+LocalAndRemoteSizeT const CountryTree::GetLeafSize(int position, TMapOptions const & options) const
+{
+  return GetActiveMapLayout().GetCountrySize(GetChild(position), options);
 }
 
 bool CountryTree::IsCountryRoot() const
