@@ -444,4 +444,12 @@
 	<string name="downloader_queued">queued</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Outdated</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">Up-to-date</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Update</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Failed</string>
 </resources>

@@ -684,3 +684,15 @@
 
 /* Disclaimer message */
 "routing_disclaimer" = "Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!";
+
+/* Outdated maps category */
+"downloader_outdated_maps" = "Неактуальні";
+
+/* Up to date maps category */
+"downloader_uptodate_maps" = "Оновлені";
+
+/* Status of outdated country in the list */
+"downloader_status_outdated" = "Update";
+
+/* Status of failed country in the list */
+"downloader_status_failed" = "Failed";

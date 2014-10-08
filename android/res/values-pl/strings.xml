@@ -430,4 +430,8 @@
 	<string name="downloader_queued">w kolejce</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Podczas tworzenia tras w aplikacji MAPS.ME pamiętaj o poniższych zasadach:\n\n  - Sugerowane trasy mogą być traktowane jedynie jako propozycje.\n - Warunki na drodze, przepisy ruchu drogowego i znaki mają większy priorytet niż wskazówki nawigacyjne.\n - Mapa może okazać się nieprawidłowa lub nieaktualna a trasy mogą nie zostać utworzone w sposób najlepszy z możliwych.\n\n  Szerokiej drogi, uważaj na siebie!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Nieaktualne</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">Najnowsze</string>
 </resources>

@@ -433,4 +433,8 @@
 	<string name="downloader_queued">مَصْفوف</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">انتهت صلاحيته</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">محدّث</string>
 </resources>

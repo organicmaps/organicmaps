@@ -438,4 +438,8 @@
 	<string name="downloader_queued">en file d\&#39;attente</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Quand vous créez des itinéraires sur l\&#39;application MAPS.ME, veuillez garder à l\&#39;esprit les points suivants :\n\n  - Les itinéraires suggérés ne doivent être considérés que comme des recommandations.\n\n  - Les conditions des routes, les règlementations de circulations et les panneaux sont prioritaires sur les conseils de navigation.\n\n  - Il est possible qu\&#39;une carte soit incorrecte ou obsolète, et les itinéraires ne sont pas toujours créés de la meilleure façon possible.\n\n  Soyez prudents sur les routes et prenez soin de vous.</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Dépassé</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">À jour</string>
 </resources>

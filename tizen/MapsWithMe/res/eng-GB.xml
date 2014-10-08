@@ -135,4 +135,12 @@
 	<text id="IDS_DOWNLOADER_QUEUED">queued</text>
 	<!-- Disclaimer message -->
 	<text id="IDS_ROUTING_DISCLAIMER">Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!</text>
+	<!-- Outdated maps category -->
+	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Outdated</text>
+	<!-- Up to date maps category -->
+	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">Up-to-date</text>
+	<!-- Status of outdated country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_OUTDATED">Update</text>
+	<!-- Status of failed country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_FAILED">Failed</text>
 </string_table>

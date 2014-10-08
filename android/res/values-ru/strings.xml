@@ -430,4 +430,8 @@
 	<string name="downloader_queued">в очереди”</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Неактуальные</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">Обновленные</string>
 </resources>

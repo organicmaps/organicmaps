@@ -127,4 +127,8 @@
 	<text id="IDS_DOWNLOADER_QUEUED">w kolejce</text>
 	<!-- Disclaimer message -->
 	<text id="IDS_ROUTING_DISCLAIMER">Podczas tworzenia tras w aplikacji MAPS.ME pamiętaj o poniższych zasadach:\n\n  - Sugerowane trasy mogą być traktowane jedynie jako propozycje.\n - Warunki na drodze, przepisy ruchu drogowego i znaki mają większy priorytet niż wskazówki nawigacyjne.\n - Mapa może okazać się nieprawidłowa lub nieaktualna a trasy mogą nie zostać utworzone w sposób najlepszy z możliwych.\n\n  Szerokiej drogi, uważaj na siebie!</text>
+	<!-- Outdated maps category -->
+	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Nieaktualne</text>
+	<!-- Up to date maps category -->
+	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">Najnowsze</text>
 </string_table>

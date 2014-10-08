@@ -424,4 +424,8 @@
 	<string name="downloader_queued">in der Warteschlange</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Beim Erstellen von Routen mit der MAPS.ME-App sollten Sie Folgendes beachten:\n\n  - Vorgeschlagenen Routen können nur als Empfehlungen angesehen werden.\n - Straßenbedingungen, Verkehrsregeln und Schilder haben höhere Priorität als Navigationsratschläge.\n - Die Karte kann falsch oder veraltet sein und Routen könnten somit nicht auf die bestmögliche Weise erstellt worden sein.\n\n  Bleiben Sie auf der Straße sicher und achten Sie auf sich selbst!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Veraltet</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">Aktuell</string>
 </resources>

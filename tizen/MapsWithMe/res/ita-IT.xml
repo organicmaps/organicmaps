@@ -127,4 +127,8 @@
 	<text id="IDS_DOWNLOADER_QUEUED">in coda</text>
 	<!-- Disclaimer message -->
 	<text id="IDS_ROUTING_DISCLAIMER">Creando percorsi nell\&#39;app MAPS.ME tieni a mente quanto segue:\n\n  - I percorsi suggeriti possono essere considerati solo come consigliati.\n - Le condizioni della strada, le regole del traffico e i segnali hanno una priorità maggiore rispetto ai consigli sulla circolazione.\n - La mappa potrebbe essere scorretta o datata e i percorsi potrebbero non aver creato la strada migliore possibile.\n\n  Stai attento sulle strade e prenditi cura di te!</text>
+	<!-- Outdated maps category -->
+	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Obsoleto</text>
+	<!-- Up to date maps category -->
+	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">Aggiornato</text>
 </string_table>

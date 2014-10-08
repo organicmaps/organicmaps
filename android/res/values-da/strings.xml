@@ -429,4 +429,8 @@
 	<string name="downloader_my_maps">Mine kort</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">i kø</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Uddateret</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">Up-to-date</string>
 </resources>
