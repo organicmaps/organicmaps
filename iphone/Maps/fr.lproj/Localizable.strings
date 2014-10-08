@@ -159,7 +159,7 @@
 "country_status_download_routing" = "Télécharger Carte + Itinéraire\n^ ^";
 
 /* Button text for the button at the center of the screen when the country is not downloaded */
-"country_status_download" = "Download Map\n^ ^";
+"country_status_download" = "Téléchargez la carte\n^ ^";
 
 /* Message to display at the center of the screen when the country download has failed */
 "country_status_download_failed" = "^\n - Échec lors du téléchargement";
@@ -661,12 +661,6 @@
 /* Update maps suggestion */
 "routing_update_maps" = "La nouvelle version de MAPS.ME permet de créer des itinéraires à partir de votre position actuelle vers un point de destination. Veuillez mettre à jour les cartes pour utiliser cette fonctionnalité.";
 
-/* Route building error message */
-"routing_error_select_new_dst" = "Une erreur s'est produite lors de la création d'un itinéraire. Veuillez essayer de choisir une autre destination.";
-
-/* Routing between different MWMs error message */
-"routing_one_map_only" = "La création d'itinéraires n'est possible que sur une seule carte.";
-
 /* Update all button text */
 "downloader_update_all" = "Tout mettre à jour";
 
@@ -697,6 +691,7 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
+<<<<<<< HEAD
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Télécharger Carte + Itinéraire";
 
@@ -711,3 +706,27 @@
 
 /* Button for routing PP. */
 "routing_go" = "Allez-y !";
+=======
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "L'itinéraire est uniquement disponible dans la version complète de MAPS.ME. Téléchargez-la dès maintenant !";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "L'emplacement actuel n'est pas défini. Veuillez préciser l'emplacement pour créer l'itinéraire.";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "Des données supplémentaires sont nécessaires pour créer un itinéraire. Vous désirez lancer le téléchargement ?";
+
+/* StartPointNotFound or EndPointNotFound */
+"routing_failed_start_point_not_found" = "Impossible de calculer l'itinéraire. Aucune route à proximité de votre point de départ.";
+
+"routing_failed_dst_point_not_found" = "Impossible de calculer l'itinéraire. Aucune route à proximité de votre destination.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Les itinéraires entièrement contenus sur une seule carte peuvent être créés.";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "Il n'existe aucun itinéraire entre l'origine et la destination choisies . Veuillez sélectionner un point de départ ou d'arrivée différent.";
+
+/* InternalError */
+"routing_failed_internal_error" = "Une erreur interne s'est produite. Veuillez essayer de supprimer la carte et téléchargez la à nouveau. Si le problème persiste, veuillez contacter support@maps.me.";
+>>>>>>> generated routing fail messages

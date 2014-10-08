@@ -417,10 +417,6 @@
 	<string name="routing_map_outdated">Pre vytvorenie trasy si, prosím, aktualizujte mapu.</string>
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Nová verzia aplikácie MAPS.ME umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.</string>
-	<!-- Route building error message -->
-	<string name="routing_error_select_new_dst">Pri vytváraní trasy sa vyskytla chyba. Skúste si, prosím, zvoliť iný cieľ trasy.</string>
-	<!-- Routing between different MWMs error message -->
-	<string name="routing_one_map_only">Trasy je možné vytvárať iba v rámci jednej mapy.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Aktualizovať všetky</string>
 	<!-- Downloaded maps category -->
@@ -437,14 +433,19 @@
 	<string name="downloader_outdated_maps">Zastarané</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Aktualizované</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map_and_routing">Na stiahnutie Mapa + Trasa</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_routing">Trasa na stiahnutie</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_delete_routing">Zmazať Trasu</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Stiahnite si Mapu</string>
-	<!-- Button for routing PP. -->
-	<string name="routing_go">Štart!</string>
+	<!-- Show in Lite version when user try to download routing files or try to build route -->
+	<string name="routing_failed_buy_pro">Vytváranie trás je k dispozícii iba v plnej verzii MAPS.ME. Získajte ho hneď teraz!</string>
+	<!-- Show when user try build route, but we don't know where he -->
+	<string name="routing_failed_unknown_my_position">Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.</string>
+	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
+	<string name="routing_failed_has_no_routing_file">Na vytvorenie trasy sú potrebné ďalšie dáta. Začať sťahovanie?</string>
+	<!-- StartPointNotFound or EndPointNotFound -->
+	<string name="routing_failed_start_point_not_found">Nedá sa vypočítať trasa. Žiadne cesty v blízkosti východiskového bodu.</string>
+	<string name="routing_failed_dst_point_not_found">Nedá sa vypočítať trasa. Žiadne cesty v blízkosti cieľa.</string>
+	<!-- PointsInDifferentMWM -->
+	<string name="routing_failed_cross_mwm_building">Cesty môžu byť vytvorené len tak, že sú plne obsiahnuté v jednej mape.</string>
+	<!-- RouteNotFound -->
+	<string name="routing_failed_route_not_found">Nebol nájdená trasa medzi vybraným východiskom a cieľom. Prosím vyberte iný počiatočný a koncový bod.</string>
+	<!-- InternalError -->
+	<string name="routing_failed_internal_error">Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support@maps.me.</string>
 </resources>

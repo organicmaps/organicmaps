@@ -395,10 +395,6 @@
 	<string name="routing_map_outdated">Werk de kaart bij om een route te maken.</string>
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Met de nieuwe versie van MAPS.ME kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.</string>
-	<!-- Route building error message -->
-	<string name="routing_error_select_new_dst">Er deed zich een fout voor bij het maken van een route. Probeer een andere bestemming te kiezen.</string>
-	<!-- Routing between different MWMs error message -->
-	<string name="routing_one_map_only">Routes kunnen alleen binnen één kaart worden gemaakt.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Alles bijwerken</string>
 	<!-- Downloaded maps category -->
@@ -415,14 +411,19 @@
 	<string name="downloader_outdated_maps">Verouderd</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Up-to-date</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map_and_routing">Download kaart + routering</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_routing">Download routering</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_delete_routing">Verwijder routering</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Kaart downloaden</string>
-	<!-- Button for routing PP. -->
-	<string name="routing_go">Starten!</string>
+	<!-- Show in Lite version when user try to download routing files or try to build route -->
+	<string name="routing_failed_buy_pro">Route aanmaken is alleen beschikbaar in de volledige versie van MAPS.ME. Neem nu meteen!</string>
+	<!-- Show when user try build route, but we don't know where he -->
+	<string name="routing_failed_unknown_my_position">Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.</string>
+	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
+	<string name="routing_failed_has_no_routing_file">Er zijn extra gegevens nodig om een ​​route te creëren. Beginnen met downloaden?</string>
+	<!-- StartPointNotFound or EndPointNotFound -->
+	<string name="routing_failed_start_point_not_found">Kan de route niet berekenen. Geen wegen in de buurt van uw beginpunt.</string>
+	<string name="routing_failed_dst_point_not_found">Kan de route niet berekenen. Geen wegen in de buurt van uw bestemming.</string>
+	<!-- PointsInDifferentMWM -->
+	<string name="routing_failed_cross_mwm_building">Slechts de routes die volledig opgenomen zijn in één kaart kunnen gecreëerd worden.</string>
+	<!-- RouteNotFound -->
+	<string name="routing_failed_route_not_found">Er is geen route gevonden tussen het geselecteerde beginpunt en de bestemming. Gelieve een andere beginpunt of een eindbestemming te kiezen.</string>
+	<!-- InternalError -->
+	<string name="routing_failed_internal_error">Er is een interne fout opgetreden. Probeer het kaart te verwijderen en opnieuw te downloaden. Indien het probleem blijft optreden, neem dan contact met ons op support@maps.me.</string>
 </resources>

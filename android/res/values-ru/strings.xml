@@ -414,10 +414,6 @@
 	<string name="routing_map_outdated">Пожалуйста, обновите карту для того, чтобы проложить маршрут.</string>
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">В новой версии MAPS.ME вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.</string>
-	<!-- Route building error message -->
-	<string name="routing_error_select_new_dst">Возникла ошибка при создании этого маршрута. Пожалуйста, выберите другой пункт назначения.</string>
-	<!-- Routing between different MWMs error message -->
-	<string name="routing_one_map_only">Создание маршрута возможно в пределах одной карты.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Обновить все</string>
 	<!-- Downloaded maps category -->
@@ -434,14 +430,19 @@
 	<string name="downloader_outdated_maps">Неактуальные</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Обновленные</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map_and_routing">Скачать карту + маршруты</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_routing">Скачать маршруты</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_delete_routing">Удалить маршруты</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Скачать карту</string>
-	<!-- Button for routing PP. -->
-	<string name="routing_go">Поехали!</string>
+	<!-- Show in Lite version when user try to download routing files or try to build route -->
+	<string name="routing_failed_buy_pro">Создание маршрутов возможно только в платной версии MAPS.ME. Скачай сейчас!</string>
+	<!-- Show when user try build route, but we don't know where he -->
+	<string name="routing_failed_unknown_my_position">Невозможно проложить маршрут. Не определено текущее местоположение.</string>
+	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
+	<string name="routing_failed_has_no_routing_file">Для построения маршрута необходимы дополнительные данные. Перейти к загрузке?</string>
+	<!-- StartPointNotFound or EndPointNotFound -->
+	<string name="routing_failed_start_point_not_found">Невозможно проложить маршрут. Нет дорог рядом с пунктом отправления.</string>
+	<string name="routing_failed_dst_point_not_found">Невозможно проложить маршрут. Нет дорог рядом с пунктом назначения.</string>
+	<!-- PointsInDifferentMWM -->
+	<string name="routing_failed_cross_mwm_building">Маршрут может быть проложен внутри карты только одного региона.</string>
+	<!-- RouteNotFound -->
+	<string name="routing_failed_route_not_found">Невозможно проложить маршрут между выбранными точками. Пожалуйста, измените начало или конец маршрута.</string>
+	<!-- InternalError -->
+	<string name="routing_failed_internal_error">Внутренняя ошибка. Пожалуйста, удалите карту и скачайте ее еще раз. Если это не помогло, напишите нам на support@maps.me</string>
 </resources>

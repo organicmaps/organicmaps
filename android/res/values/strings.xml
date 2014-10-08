@@ -428,10 +428,6 @@
 	<string name="routing_map_outdated">Please update the map to create a route</string>
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">The new version of MAPS.ME allows creating routes from your current position to a destination point. Please update maps to use this feature.</string>
-	<!-- Route building error message -->
-	<string name="routing_error_select_new_dst">An error occurred while creating a route. Please choose another destination.</string>
-	<!-- Routing between different MWMs error message -->
-	<string name="routing_one_map_only">Creating routes is possible within one map only.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Update all</string>
 	<!-- Downloaded maps category -->
@@ -452,6 +448,7 @@
 	<string name="downloader_status_outdated">Update</string>
 	<!-- Status of failed country in the list -->
 	<string name="downloader_status_failed">Failed</string>
+<<<<<<< HEAD
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Download Map + Routing</string>
 	<!-- Context menu item for downloader. -->
@@ -462,4 +459,21 @@
 	<string name="downloader_download_map">Download Map</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Go!</string>
+=======
+	<!-- Show in Lite version when user try to download routing files or try to build route -->
+	<string name="routing_failed_buy_pro">Routing is only available in the full version of MAPS.ME. Get it right now!</string>
+	<!-- Show when user try build route, but we don't know where he -->
+	<string name="routing_failed_unknown_my_position">Current location is undefined. Please specify location to create route.</string>
+	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
+	<string name="routing_failed_has_no_routing_file">Additional data is required to create the route. Download data now?</string>
+	<!-- StartPointNotFound or EndPointNotFound -->
+	<string name="routing_failed_start_point_not_found">Cannot calculate the route. No roads near your starting point.</string>
+	<string name="routing_failed_dst_point_not_found">Cannot calculate the route. No roads near your destination.</string>
+	<!-- PointsInDifferentMWM -->
+	<string name="routing_failed_cross_mwm_building">Routes can only be created that are fully contained within a single map.</string>
+	<!-- RouteNotFound -->
+	<string name="routing_failed_route_not_found">There is no route found between the selected origin and destination.Please select a different start or end point.</string>
+	<!-- InternalError -->
+	<string name="routing_failed_internal_error">Internal error occurred. Please try to delete and download the map again. If problem persist please contact us at support@maps.me.</string>
+>>>>>>> generated routing fail messages
 </resources>

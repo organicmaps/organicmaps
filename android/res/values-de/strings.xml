@@ -408,10 +408,6 @@
 	<string name="routing_map_outdated">Bitte aktualisieren Sie die Karte, um eine Route zu erzeugen.</string>
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Die neue Version von MAPS.ME ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Maps, um diese Funktion nutzen zu können.</string>
-	<!-- Route building error message -->
-	<string name="routing_error_select_new_dst">Beim Erstellen der Route ist ein Fehler aufgetreten. Bitte wählen Sie ein anderes Ziel.</string>
-	<!-- Routing between different MWMs error message -->
-	<string name="routing_one_map_only">Das Erstellen von Routen ist nur innerhalb einer Karte möglich.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Alles aktualisieren</string>
 	<!-- Downloaded maps category -->
@@ -428,14 +424,19 @@
 	<string name="downloader_outdated_maps">Veraltet</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Aktuell</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map_and_routing">Karte + Streckenführung herunterladen</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_routing">Streckenführung herunterladen</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_delete_routing">Streckenführung löschen</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Karte herunterladen</string>
-	<!-- Button for routing PP. -->
-	<string name="routing_go">Los!</string>
+	<!-- Show in Lite version when user try to download routing files or try to build route -->
+	<string name="routing_failed_buy_pro">Routing ist nur in der Vollversion von MAPS.ME verfügbar. Jetzt holen!</string>
+	<!-- Show when user try build route, but we don't know where he -->
+	<string name="routing_failed_unknown_my_position">Der aktuelle Standort ist nicht definiert. Bitte geben Sie den Standort ein, um eine Route zu erstellen.</string>
+	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
+	<string name="routing_failed_has_no_routing_file">Zusätzliche Daten werden zum Erstellen einer Route benötigt. Mit dem Download beginnen?</string>
+	<!-- StartPointNotFound or EndPointNotFound -->
+	<string name="routing_failed_start_point_not_found">Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe von Ihrem Ausgangspunkt.</string>
+	<string name="routing_failed_dst_point_not_found">Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe von Ihrem Ziel.</string>
+	<!-- PointsInDifferentMWM -->
+	<string name="routing_failed_cross_mwm_building">Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.</string>
+	<!-- RouteNotFound -->
+	<string name="routing_failed_route_not_found">Es wurde keine Route zwischen dem ausgewählten Ausgangspunkt und Ziel gefunden. Bitte wählen Sie einen anderen Start- oder Endpunkt.</string>
+	<!-- InternalError -->
+	<string name="routing_failed_internal_error">Es ist ein interner Fehler aufgetreten. Bitte versuchen Sie, die Karte zu löschen und erneut herunterzuladen.</string>
 </resources>

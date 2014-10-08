@@ -406,14 +406,19 @@
 	<string name="downloader_my_maps">マイマップ</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map_and_routing">地図とルートをダウンロード</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_routing">ルートをダウンロード</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_delete_routing">るーどを削除</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">地図をダウンロード</string>
-	<!-- Button for routing PP. -->
-	<string name="routing_go">開始！</string>
+	<!-- Show in Lite version when user try to download routing files or try to build route -->
+	<string name="routing_failed_buy_pro">ルート決定機能はMAPS.MEの完全版でのみ利用可能です。今すぐ入手しましょう！</string>
+	<!-- Show when user try build route, but we don't know where he -->
+	<string name="routing_failed_unknown_my_position">現在地が設定されていません。ルートを作成するには現在地を設定してください。</string>
+	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
+	<string name="routing_failed_has_no_routing_file">ルートを作成するには追加のデータが必要です。ダウンロードを開始しますか？</string>
+	<!-- StartPointNotFound or EndPointNotFound -->
+	<string name="routing_failed_start_point_not_found">ルートを計算できません。出発地点の近くに道路がありません。</string>
+	<string name="routing_failed_dst_point_not_found">ルートを計算できません。目的地の近くに道路がありません。</string>
+	<!-- PointsInDifferentMWM -->
+	<string name="routing_failed_cross_mwm_building">一つの地図に完全に収まるルートのみ作成可能です。</string>
+	<!-- RouteNotFound -->
+	<string name="routing_failed_route_not_found">選択した出発地と目的地との間にルートが見つかりません。別の出発地点と到着地点を選択してください。</string>
+	<!-- InternalError -->
+	<string name="routing_failed_internal_error">内部エラーが発生しました。もう一度地図をダウンロードしてください。問題が解決しない場合は、support@maps.meまでご連絡ください。</string>
 </resources>

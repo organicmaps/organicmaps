@@ -661,12 +661,6 @@
 /* Update maps suggestion */
 "routing_update_maps" = "Die neue Version von MAPS.ME ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Maps, um diese Funktion nutzen zu können.";
 
-/* Route building error message */
-"routing_error_select_new_dst" = "Beim Erstellen der Route ist ein Fehler aufgetreten. Bitte wählen Sie ein anderes Ziel.";
-
-/* Routing between different MWMs error message */
-"routing_one_map_only" = "Das Erstellen von Routen ist nur innerhalb einer Karte möglich.";
-
 /* Update all button text */
 "downloader_update_all" = "Alles aktualisieren";
 
@@ -697,6 +691,7 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
+<<<<<<< HEAD
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Karte + Streckenführung herunterladen";
 
@@ -711,3 +706,27 @@
 
 /* Button for routing PP. */
 "routing_go" = "Los!";
+=======
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "Routing ist nur in der Vollversion von MAPS.ME verfügbar. Jetzt holen!";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "Der aktuelle Standort ist nicht definiert. Bitte geben Sie den Standort ein, um eine Route zu erstellen.";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "Zusätzliche Daten werden zum Erstellen einer Route benötigt. Mit dem Download beginnen?";
+
+/* StartPointNotFound or EndPointNotFound */
+"routing_failed_start_point_not_found" = "Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe von Ihrem Ausgangspunkt.";
+
+"routing_failed_dst_point_not_found" = "Die Route kann nicht berechnet werden. Es gibt keine Straßen in der Nähe von Ihrem Ziel.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Es können nur Routen erstellt werden, die vollständig in einer einzigen Karte enthalten sind.";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "Es wurde keine Route zwischen dem ausgewählten Ausgangspunkt und Ziel gefunden. Bitte wählen Sie einen anderen Start- oder Endpunkt.";
+
+/* InternalError */
+"routing_failed_internal_error" = "Es ist ein interner Fehler aufgetreten. Bitte versuchen Sie, die Karte zu löschen und erneut herunterzuladen.";
+>>>>>>> generated routing fail messages

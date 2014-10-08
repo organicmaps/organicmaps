@@ -415,10 +415,6 @@
 	<string name="routing_map_outdated">Venligst opdatér kortet for at oprette en rute.</string>
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.</string>
-	<!-- Route building error message -->
-	<string name="routing_error_select_new_dst">En fejl opstod ved oprettelsen af en rute. Venligst prøv at vælge en anden destination.</string>
-	<!-- Routing between different MWMs error message -->
-	<string name="routing_one_map_only">Oprettelse af ruter er kun muligt inden for ét kort.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Opdater alle</string>
 	<!-- Downloaded maps category -->
@@ -433,14 +429,19 @@
 	<string name="downloader_outdated_maps">Uddateret</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Up-to-date</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map_and_routing">Hent kort + ruteangivelse</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_routing">Hent ruteangivelse</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_delete_routing">Slet ruteangivelse</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Download kort</string>
-	<!-- Button for routing PP. -->
-	<string name="routing_go">Kør!</string>
+	<!-- Show in Lite version when user try to download routing files or try to build route -->
+	<string name="routing_failed_buy_pro">Oprettelse af ruter er kun tilgængelig i den fulde version af MAPS.ME. Få den nu!</string>
+	<!-- Show when user try build route, but we don't know where he -->
+	<string name="routing_failed_unknown_my_position">Den nuværende placering er ikke defineret. Venligst angiv placering for at oprette en rute.</string>
+	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
+	<string name="routing_failed_has_no_routing_file">Yderligere data er nødvendig, for at oprette en rute. Begynde download?</string>
+	<!-- StartPointNotFound or EndPointNotFound -->
+	<string name="routing_failed_start_point_not_found">Kan ikke beregne ruten. Ingen veje nær dit startpunkt.</string>
+	<string name="routing_failed_dst_point_not_found">Kan ikke beregne ruten. Ingen veje nær din destination.</string>
+	<!-- PointsInDifferentMWM -->
+	<string name="routing_failed_cross_mwm_building">Ruter kan kun oprettes, hvis de er fuldt indeholdt i ét enkelt kort</string>
+	<!-- RouteNotFound -->
+	<string name="routing_failed_route_not_found">Der blev ikke fundet en rute mellem det valgte begyndelsespunkt og destinationen. Venligst vælg et andet start- eller slutpunkt.</string>
+	<!-- InternalError -->
+	<string name="routing_failed_internal_error">Intern fejl opstod. Venligt prøv at slette og downloade kortet igen. Hvis problemet vare ved, venligst kontakt os på support@maps.me.</string>
 </resources>

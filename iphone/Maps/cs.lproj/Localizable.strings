@@ -661,12 +661,6 @@
 /* Update maps suggestion */
 "routing_update_maps" = "The new version of MAPS.ME allows creating routes from your current position to a destination point. Please update maps to use this feature.";
 
-/* Route building error message */
-"routing_error_select_new_dst" = "An error occurred while creating a route. Please choose another destination.";
-
-/* Routing between different MWMs error message */
-"routing_one_map_only" = "Creating routes is possible within one map only.";
-
 /* Update all button text */
 "downloader_update_all" = "Update all";
 
@@ -697,6 +691,7 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
+<<<<<<< HEAD
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Stáhnout Mapu + Směrování";
 
@@ -711,3 +706,27 @@
 
 /* Button for routing PP. */
 "routing_go" = "Jet!";
+=======
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "Směrování je k dispozici pouze v plné verzi MAPS.ME. Získejte ji hned teď!";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "Aktuální umístění je nedefinované. Chcete-li vytvořit trasu, zadejte prosím umístění.";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "K vytvoření trasy jsou zapotřebí další data. Začít stahování?";
+
+/* StartPointNotFound or EndPointNotFound */
+"routing_failed_start_point_not_found" = "Nelze vypočítat trasu. Poblíž Vašeho výchozího bodu nejsou žádné cesty.";
+
+"routing_failed_dst_point_not_found" = "Nelze vypočítat trasu. Poblíž Vašeho cílového bodu nejsou žádné cesty.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Lze vytvářet jen takové trasy, které jsou zcela leží na území jediné mapy.";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "Mezi vybraným počátkem a cílem nebyla nalezena žádná trasa. Vyberte prosím jiný počáteční nebo koncový bod.";
+
+/* InternalError */
+"routing_failed_internal_error" = "Došlo k vnitřní chybě. Zkuste prosím mapu vymazat a stáhnout znovu. Jestliže problém přetrvává, kontaktujte nás prosím na support@maps.me.";
+>>>>>>> generated routing fail messages

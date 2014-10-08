@@ -412,10 +412,6 @@
 	<string name="routing_map_outdated">Kérjük, útvonal létrehozásához frissítsd a térképet.</string>
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">A MAPS.ME új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.</string>
-	<!-- Route building error message -->
-	<string name="routing_error_select_new_dst">Hiba történt útvonal létrehozása közben. Kérjük, próbálj másik úticélt kiválasztani.</string>
-	<!-- Routing between different MWMs error message -->
-	<string name="routing_one_map_only">Útvonalak létrehozása csak egy térképen belül lehetséges.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Mind frissítése</string>
 	<!-- Downloaded maps category -->
@@ -432,14 +428,19 @@
 	<string name="downloader_outdated_maps">Elavult</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Friss</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map_and_routing">Térkép + útvonal letöltése</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_routing">Útvonal letöltése</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_delete_routing">Útvonal törlése</string>
-	<!-- Context menu item for downloader. -->
-	<string name="downloader_download_map">Térkép letöltése</string>
-	<!-- Button for routing PP. -->
-	<string name="routing_go">Indulás!</string>
+	<!-- Show in Lite version when user try to download routing files or try to build route -->
+	<string name="routing_failed_buy_pro">Az útvonaltervezés csak a MAPS.ME teljes verziójában elérhető. Szerezd meg most!</string>
+	<!-- Show when user try build route, but we don't know where he -->
+	<string name="routing_failed_unknown_my_position">Nem meghatározott a jelenlegi helyszín. Kérjük, határozza meg a helyszínt, hogy útvonal készülhessen.</string>
+	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
+	<string name="routing_failed_has_no_routing_file">Útvonaltervezéshez további adatok is szükségesek. Elkezded a letöltést?</string>
+	<!-- StartPointNotFound or EndPointNotFound -->
+	<string name="routing_failed_start_point_not_found">Az útvonal nem tervezhető meg. Nincsenek utak a kiindulópontja közelében.</string>
+	<string name="routing_failed_dst_point_not_found">Az útvonal nem tervezhető meg. Nincsenek utak az úti céljának közelében.</string>
+	<!-- PointsInDifferentMWM -->
+	<string name="routing_failed_cross_mwm_building">Útvonalakat csak akkor lehet készíteni, ha teljesen rajta vannak egy térképen.</string>
+	<!-- RouteNotFound -->
+	<string name="routing_failed_route_not_found">Nem találtunk útvonalat a kiválasztott kiindulópont és az úti cél között. Kérjük, válasszon másik kiinduló- vagy végpontot.</string>
+	<!-- InternalError -->
+	<string name="routing_failed_internal_error">Belső hiba történt. Kérjük, próbálja meg kitörölni és újra letölteni a térképet. Ha a probléma továbbra is fennáll, kérjük, vegye fel velünk a kapcsolatot a support@maps.me e-mail címen.</string>
 </resources>

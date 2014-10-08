@@ -113,10 +113,6 @@
 	<text id="IDS_ROUTING_MAP_OUTDATED">Будь ласка, оновіть карту, щоб прокласти маршрут.</text>
 	<!-- Update maps suggestion -->
 	<text id="IDS_ROUTING_UPDATE_MAPS">В новій версії MAPS.ME ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.</text>
-	<!-- Route building error message -->
-	<text id="IDS_ROUTING_ERROR_SELECT_NEW_DST">Сталася помилка при прокладанні цього маршруту. Будь ласка, виберіть інши йпункт призначення.</text>
-	<!-- Routing between different MWMs error message -->
-	<text id="IDS_ROUTING_ONE_MAP_ONLY">Створення маршруту можливе в межах однієї карти.</text>
 	<!-- Update all button text -->
 	<text id="IDS_DOWNLOADER_UPDATE_ALL">Оновити все</text>
 	<!-- Downloaded maps category -->

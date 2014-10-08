@@ -661,12 +661,6 @@
 /* Update maps suggestion */
 "routing_update_maps" = "Den nya versionen av MAPS.ME låter dig skapa rutter från din nuvarande position till en destinationspunkt. Uppdatera kartan för att använda den här funktionen.";
 
-/* Route building error message */
-"routing_error_select_new_dst" = "Ett fel uppstod när rutten skulle skapas. Testa att välja en annan destination.";
-
-/* Routing between different MWMs error message */
-"routing_one_map_only" = "Det går bara att skapa rutter på en karta.";
-
 /* Update all button text */
 "downloader_update_all" = "Uppdatera alla";
 
@@ -697,6 +691,7 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
+<<<<<<< HEAD
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Ladda ner karta + anvisningar";
 
@@ -711,3 +706,27 @@
 
 /* Button for routing PP. */
 "routing_go" = "Kör!";
+=======
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "Anvisningar är endast tillgängliga i den fullständiga versionen av MAPS.ME. Skaffa den nu!";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "Nuvarande plats är inte definierad. Ange din plats för att skapa rutt.";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "Ytterligare data behövs för att skapa en rutt. Påbörja nedladdning?";
+
+/* StartPointNotFound or EndPointNotFound */
+"routing_failed_start_point_not_found" = "Rutten kan inte beräknas. Det finns inga vägar vid startpunkten.";
+
+"routing_failed_dst_point_not_found" = "Rutten kan inte beräknas. Det finns inga vägar vid målet.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Rutter kan endast skapas om de finns inom en enda karta.";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "Ingen rutt hittades mellan vald startpunkt och målet. Välj en annan start- eller slutpunkt.";
+
+/* InternalError */
+"routing_failed_internal_error" = "Ett internt fel inträffade. Försök att radera och ladda ner kartan igen. Kontakta oss på support@maps.me om problemet kvarstår.";
+>>>>>>> generated routing fail messages

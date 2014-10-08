@@ -661,12 +661,6 @@
 /* Update maps suggestion */
 "routing_update_maps" = "MAPS.ME'nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.";
 
-/* Route building error message */
-"routing_error_select_new_dst" = "Rotayı oluştururken bir hata meydana geldi. Lütfen başka bir varış noktası seçmeyi deneyin.";
-
-/* Routing between different MWMs error message */
-"routing_one_map_only" = "Rota oluşturma sadece bir harita içerisinde mümkündür.";
-
 /* Update all button text */
 "downloader_update_all" = "Tümünü güncelle";
 
@@ -697,6 +691,7 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
+<<<<<<< HEAD
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Harita + Rota İndir";
 
@@ -711,3 +706,27 @@
 
 /* Button for routing PP. */
 "routing_go" = "Git!";
+=======
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "Rotalama sadece MAPS.ME tam sürümünde kullanılabilir. Hemen al!";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "Geçerli konum tanımlı değil. Rota oluşturmak için lütfen konum belirtin.";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "Bir rota oluşturmak için ek bilgiler gereklidir. İndirme işlemini başlat?";
+
+/* StartPointNotFound or EndPointNotFound */
+"routing_failed_start_point_not_found" = "Rota hesaplanamıyor. Başlangıç noktanızın yakınında hiçbir yol yok.";
+
+"routing_failed_dst_point_not_found" = "Rota hesaplanamıyor. Varış yerinizin yakınında hiçbir yol yok.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Rotalar sadece tamamen tek bir harita dâhilinde oluşturulabilir.";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "Seçilen kalkış yeriyle varış yeri arasında hiçbir rota bulunamadı. Lütfen farklı bir başlangıç veya bitiş noktası seçin.";
+
+/* InternalError */
+"routing_failed_internal_error" = "Sistem içi hata oluştu. Lütfen haritayı silin ve tekrar yüklemeyi deneyin. Sorun devam ettiği takdirde lütfen support@maps.me adresinden bize ulaşın.";
+>>>>>>> generated routing fail messages

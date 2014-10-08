@@ -661,12 +661,6 @@
 /* Update maps suggestion */
 "routing_update_maps" = "The new version of MAPS.ME allows creating routes from your current position to a destination point. Please update maps to use this feature.";
 
-/* Route building error message */
-"routing_error_select_new_dst" = "An error occurred while creating a route. Please choose another destination.";
-
-/* Routing between different MWMs error message */
-"routing_one_map_only" = "Creating routes is possible within one map only.";
-
 /* Update all button text */
 "downloader_update_all" = "更新全部";
 
@@ -697,6 +691,7 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
+<<<<<<< HEAD
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "下载地图 + 路线";
 
@@ -711,3 +706,27 @@
 
 /* Button for routing PP. */
 "routing_go" = "出发！";
+=======
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "布置路线只在MAPS.ME的完整版本中才有。现在就得到它吧！";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "当前地点未定。请明确地点以创建路线。";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "Additional data is required to create the route. Download data now?";
+
+/* StartPointNotFound or EndPointNotFound */
+"routing_failed_start_point_not_found" = "无法计算路线。没有在您起点附近的路。";
+
+"routing_failed_dst_point_not_found" = "无法计算路线。没有在您终点附近的路。";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "路程只能完全处在同一地图里时才能被创建。";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "找不到所选起点和终点间的路程。请选择不同的起点或终点。";
+
+/* InternalError */
+"routing_failed_internal_error" = "出现内部错误。请尝试删除并再次下载地图。如果还有问题请联系我们：support@maps.me。";
+>>>>>>> generated routing fail messages

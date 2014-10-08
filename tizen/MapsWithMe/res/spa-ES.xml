@@ -107,10 +107,6 @@
 	<text id="IDS_ROUTING_MAP_OUTDATED">Por favor, actualiza el mapa para crear una ruta.</text>
 	<!-- Update maps suggestion -->
 	<text id="IDS_ROUTING_UPDATE_MAPS">La nueva versión de MAPS.ME permite crear rutas desde tu ubicación actual hasta un punto de destino. Por favor, actualiza los mapas para utilizar esta característica.</text>
-	<!-- Route building error message -->
-	<text id="IDS_ROUTING_ERROR_SELECT_NEW_DST">Se ha producido un error mientras se creaba una ruta. Por favor, intenta elegir otro destino.</text>
-	<!-- Routing between different MWMs error message -->
-	<text id="IDS_ROUTING_ONE_MAP_ONLY">Solo es posible crear rutas dentro de un mapa.</text>
 	<!-- Update all button text -->
 	<text id="IDS_DOWNLOADER_UPDATE_ALL">Actualizar todos</text>
 	<!-- Downloaded maps category -->

@@ -417,10 +417,6 @@
 	<string name="routing_map_outdated">Yeni bir rota oluşturmak için lütfen haritayı güncelleyin.</string>
 	<!-- Update maps suggestion -->
 	<string name="routing_update_maps">MAPS.ME\&#39;nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.</string>
-	<!-- Route building error message -->
-	<string name="routing_error_select_new_dst">Rotayı oluştururken bir hata meydana geldi. Lütfen başka bir varış noktası seçmeyi deneyin.</string>
-	<!-- Routing between different MWMs error message -->
-	<string name="routing_one_map_only">Rota oluşturma sadece bir harita içerisinde mümkündür.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Tümünü güncelle</string>
 	<!-- Downloaded maps category -->
@@ -437,6 +433,7 @@
 	<string name="downloader_outdated_maps">Güncel değil</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Güncel</string>
+<<<<<<< HEAD
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">Harita + Rota İndir</string>
 	<!-- Context menu item for downloader. -->
@@ -447,4 +444,21 @@
 	<string name="downloader_download_map">Haritayı İndir</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Git!</string>
+=======
+	<!-- Show in Lite version when user try to download routing files or try to build route -->
+	<string name="routing_failed_buy_pro">Rotalama sadece MAPS.ME tam sürümünde kullanılabilir. Hemen al!</string>
+	<!-- Show when user try build route, but we don't know where he -->
+	<string name="routing_failed_unknown_my_position">Geçerli konum tanımlı değil. Rota oluşturmak için lütfen konum belirtin.</string>
+	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
+	<string name="routing_failed_has_no_routing_file">Bir rota oluşturmak için ek bilgiler gereklidir. İndirme işlemini başlat?</string>
+	<!-- StartPointNotFound or EndPointNotFound -->
+	<string name="routing_failed_start_point_not_found">Rota hesaplanamıyor. Başlangıç noktanızın yakınında hiçbir yol yok.</string>
+	<string name="routing_failed_dst_point_not_found">Rota hesaplanamıyor. Varış yerinizin yakınında hiçbir yol yok.</string>
+	<!-- PointsInDifferentMWM -->
+	<string name="routing_failed_cross_mwm_building">Rotalar sadece tamamen tek bir harita dâhilinde oluşturulabilir.</string>
+	<!-- RouteNotFound -->
+	<string name="routing_failed_route_not_found">Seçilen kalkış yeriyle varış yeri arasında hiçbir rota bulunamadı. Lütfen farklı bir başlangıç veya bitiş noktası seçin.</string>
+	<!-- InternalError -->
+	<string name="routing_failed_internal_error">Sistem içi hata oluştu. Lütfen haritayı silin ve tekrar yüklemeyi deneyin. Sorun devam ettiği takdirde lütfen support@maps.me adresinden bize ulaşın.</string>
+>>>>>>> generated routing fail messages
 </resources>

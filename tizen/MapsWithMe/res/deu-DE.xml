@@ -109,10 +109,6 @@
 	<text id="IDS_ROUTING_MAP_OUTDATED">Bitte aktualisieren Sie die Karte, um eine Route zu erzeugen.</text>
 	<!-- Update maps suggestion -->
 	<text id="IDS_ROUTING_UPDATE_MAPS">Die neue Version von MAPS.ME ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Maps, um diese Funktion nutzen zu können.</text>
-	<!-- Route building error message -->
-	<text id="IDS_ROUTING_ERROR_SELECT_NEW_DST">Beim Erstellen der Route ist ein Fehler aufgetreten. Bitte wählen Sie ein anderes Ziel.</text>
-	<!-- Routing between different MWMs error message -->
-	<text id="IDS_ROUTING_ONE_MAP_ONLY">Das Erstellen von Routen ist nur innerhalb einer Karte möglich.</text>
 	<!-- Update all button text -->
 	<text id="IDS_DOWNLOADER_UPDATE_ALL">Alles aktualisieren</text>
 	<!-- Downloaded maps category -->
