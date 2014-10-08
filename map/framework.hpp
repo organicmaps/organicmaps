@@ -128,7 +128,7 @@ protected:
 
   /// This function is called by m_storage to notify that country downloading is finished.
   /// @param[in] file Country file name (without extensions).
-  void UpdateAfterDownload(string const & file);
+  void UpdateAfterDownload(string const & file, storage::TMapOptions opt);
 
   //my::Timer m_timer;
   inline double ElapsedSeconds() const
@@ -170,9 +170,9 @@ public:
   /// @name This functions is used by Downloader UI.
   //@{
   /// options - flags that signal about parts of map that must be deleted
-  void DeleteCountry(storage::TIndex const & index, storage::TMapOptions const & options);
+  void DeleteCountry(storage::TIndex const & index, storage::TMapOptions opt);
   /// options - flags that signal about parts of map that must be downloaded
-  void DownloadCountry(storage::TIndex const & index, storage::TMapOptions const & options);
+  void DownloadCountry(storage::TIndex const & index, storage::TMapOptions opt);
 
   storage::TStatus GetCountryStatus(storage::TIndex const & index) const;
   string GetCountryName(storage::TIndex const & index) const;

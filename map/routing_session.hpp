@@ -55,6 +55,8 @@ public:
   State OnLocationPositionChanged(m2::PointD const & position, location::GpsInfo const & info);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
+  void DeleteIndexFile(string const & fileName);
+
 private:
   struct DoReadyCallback
   {

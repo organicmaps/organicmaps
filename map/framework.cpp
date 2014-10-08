@@ -245,7 +245,7 @@ Framework::Framework()
   LOG(LDEBUG, ("Map index initialized"));
 
   // Init storage with needed callback.
-  m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1));
+  m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1, _2));
   LOG(LDEBUG, ("Storage initialized"));
 
   // To avoid possible races - init search engine once in constructor.
@@ -276,30 +276,35 @@ double Framework::GetVisualScale() const
   return m_scales.GetVisualScale();
 }
 
-void Framework::DeleteCountry(TIndex const & index, TMapOptions const & options)
+void Framework::DeleteCountry(TIndex const & index, TMapOptions opt)
 {
-  TMapOptions validOptions = options;
-  if (validOptions & TMapOptions::EMapOnly)
-    validOptions |= TMapOptions::EMapWithCarRouting;
+  if (opt & TMapOptions::EMapOnly)
+    opt = TMapOptions::EMapWithCarRouting;
 
-  ///@TODO for vng. Use validOptions
   if (!m_storage.DeleteFromDownloader(index))
   {
-    string const & file = m_storage.CountryByIndex(index).GetFile().m_fileName;
-    if (m_model.DeleteMap(file + DATA_FILE_EXTENSION))
-      InvalidateRect(GetCountryBounds(file), true);
+    CountryFile const & file = m_storage.CountryByIndex(index).GetFile();
+
+    if (opt & TMapOptions::EMapOnly)
+    {
+      string const fName = file.GetFileWithExt(TMapOptions::EMapOnly);
+      if (m_model.DeleteMap(fName))
+        InvalidateRect(GetCountryBounds(fName), true);
+    }
+
+    if (opt & TMapOptions::ECarRouting)
+      m_routingSession.DeleteIndexFile(file.GetFileWithExt(TMapOptions::ECarRouting));
   }
 
   m_storage.NotifyStatusChanged(index);
 }
 
-void Framework::DownloadCountry(TIndex const & index, TMapOptions const & options)
+void Framework::DownloadCountry(TIndex const & index, TMapOptions opt)
 {
-  TMapOptions validOptions = TMapOptions::EMapOnly | options;
-  if (validOptions == TMapOptions::EMapOnly || GetPlatform().IsPro())
-    m_storage.DownloadCountry(index, options);
-  else
+  if ((opt & TMapOptions::ECarRouting) && !GetPlatform().IsPro())
     ShowDialog("routing_only_in_pro", DialogOptions::Cancel | DialogOptions::BuyPro);
+  else
+    m_storage.DownloadCountry(index, opt);
 }
 
 TStatus Framework::GetCountryStatus(TIndex const & index) const
@@ -323,7 +328,7 @@ m2::RectD Framework::GetCountryBounds(string const & file) const
 
 m2::RectD Framework::GetCountryBounds(TIndex const & index) const
 {
-  return GetCountryBounds(m_storage.CountryByIndex(index).GetFile().m_fileName);
+  return GetCountryBounds(m_storage.CountryFileNameWithoutExt(index));
 }
 
 void Framework::ShowCountry(TIndex const & index)
@@ -333,15 +338,25 @@ void Framework::ShowCountry(TIndex const & index)
   ShowRectEx(GetCountryBounds(index));
 }
 
-void Framework::UpdateAfterDownload(string const & file)
+void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
 {
-  m2::RectD rect;
-  if (m_model.UpdateMap(file, rect))
-    InvalidateRect(rect, true);
+  if (opt & TMapOptions::EMapOnly)
+  {
+    m2::RectD rect;
+    if (m_model.UpdateMap(fileName, rect))
+      InvalidateRect(rect, true);
 
-  // Clear search cache of features in all viewports
-  // (there are new features from downloaded file).
-  GetSearchEngine()->ClearViewportsCache();
+    GetSearchEngine()->ClearViewportsCache();
+  }
+
+  if (opt & TMapOptions::ECarRouting)
+  {
+    string routingName = fileName + ROUTING_FILE_EXTENSION;
+    m_routingSession.DeleteIndexFile(routingName);
+
+    routingName = GetPlatform().WritableDir() + routingName;
+    VERIFY(my::RenameFileX(routingName + READY_FILE_EXTENSION, routingName), ());
+  }
 }
 
 void Framework::AddLocalMaps()
@@ -1841,9 +1856,8 @@ void Framework::UpdateSavedDataVersion()
 
 bool Framework::GetGuideInfo(TIndex const & index, guides::GuideInfo & info) const
 {
-  return m_storage.GetGuideManager().GetGuideInfo(m_storage.CountryFileName(index), info);
+  return m_storage.GetGuideManager().GetGuideInfo(m_storage.CountryFileNameWithoutExt(index), info);
 }
-
 
 bool Framework::IsRoutingActive() const
 {

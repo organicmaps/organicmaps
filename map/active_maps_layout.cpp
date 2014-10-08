@@ -146,10 +146,7 @@ TStatus ActiveMapsLayout::GetCountryStatus(TIndex const & index) const
   if (item != nullptr)
     return item->m_status;
 
-  TStatus status;
-  TMapOptions options;
-  GetStorage().CountryStatusEx(index, status, options);
-  return status;
+  return GetStorage().CountryStatusEx(index);
 }
 
 TMapOptions ActiveMapsLayout::GetCountryOptions(TGroup const & group, int position) const
@@ -172,14 +169,14 @@ TMapOptions ActiveMapsLayout::GetCountryOptions(TIndex const & index) const
 LocalAndRemoteSizeT const ActiveMapsLayout::GetDownloadableCountrySize(TGroup const & group, int position) const
 {
   Item const & item = GetItemInGroup(group, position);
-  return GetStorage().CountrySizeInBytesEx(item.m_index, item.m_downloadRequest);
+  return GetStorage().CountrySizeInBytes(item.m_index, item.m_downloadRequest);
 }
 
 LocalAndRemoteSizeT const ActiveMapsLayout::GetDownloadableCountrySize(TIndex const & index) const
 {
   Item const * item = FindItem(index);
   ASSERT(item, ());
-  return GetStorage().CountrySizeInBytesEx(index, item->m_downloadRequest);
+  return GetStorage().CountrySizeInBytes(index, item->m_downloadRequest);
 }
 
 LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TGroup const & group, int position,
@@ -190,7 +187,7 @@ LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TGroup const & group,
 
 LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TIndex const & index, TMapOptions const & options) const
 {
-  return GetStorage().CountrySizeInBytesEx(index, options);
+  return GetStorage().CountrySizeInBytes(index, options);
 }
 
 int ActiveMapsLayout::AddListener(ActiveMapsListener * listener)

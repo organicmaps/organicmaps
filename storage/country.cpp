@@ -10,10 +10,22 @@
 namespace storage
 {
 
-uint32_t CountryFile::GetFileSize() const
+string CountryFile::GetFileWithExt(TMapOptions opt) const
+{
+  switch (opt)
+  {
+  case TMapOptions::EMapOnly: return m_fileName + DATA_FILE_EXTENSION;
+  case TMapOptions::ECarRouting: return m_fileName + DATA_FILE_EXTENSION + ROUTING_FILE_EXTENSION;
+  }
+
+  ASSERT(false, ());
+  return string();
+}
+
+uint32_t CountryFile::GetFileSize(TMapOptions opt) const
 {
   uint64_t size = 0;
-  if (GetPlatform().GetFileSizeByName(GetFileWithExt(), size))
+  if (GetPlatform().GetFileSizeByName(GetFileWithExt(opt), size))
   {
     uint32_t const ret = static_cast<uint32_t>(size);
     ASSERT_EQUAL ( ret, size, () );
@@ -21,6 +33,18 @@ uint32_t CountryFile::GetFileSize() const
   }
   else
     return 0;
+}
+
+uint32_t CountryFile::GetRemoteSize(TMapOptions opt) const
+{
+  switch (opt)
+  {
+  case TMapOptions::EMapOnly: return m_mapSize;
+  case TMapOptions::ECarRouting: return m_routingSize;
+  }
+
+  ASSERT(false, ());
+  return 0;
 }
 
 /*
@@ -51,13 +75,13 @@ m2::RectD Country::Bounds() const
 }
 */
 
-LocalAndRemoteSizeT Country::Size() const
+LocalAndRemoteSizeT Country::Size(TMapOptions opt) const
 {
   uint64_t localSize = 0, remoteSize = 0;
-  for (FilesContainerT::const_iterator it = m_files.begin(); it != m_files.end(); ++it)
+  for (CountryFile const & f : m_files)
   {
-    localSize += it->GetFileSize();
-    remoteSize += it->m_remoteSize;
+    localSize += f.GetFileSize(opt);
+    remoteSize += f.GetRemoteSize(opt);
   }
   return LocalAndRemoteSizeT(localSize, remoteSize);
 }
@@ -76,19 +100,22 @@ void LoadGroupImpl(int depth, json_t * group, ToDo & toDo)
   for (size_t i = 0; i < json_array_size(group); ++i)
   {
     json_t * j = json_array_get(group, i);
+
     // name is mandatory
     char const * name = json_string_value(json_object_get(j, "n"));
     if (!name)
       MYTHROW(my::Json::Exception, ("Country name is missing"));
-    // other fields are optional
-    char const * flag = json_string_value(json_object_get(j, "c"));
+
     char const * file = json_string_value(json_object_get(j, "f"));
     // if file is empty, it's the same as the name
     if (!file)
       file = name;
-    json_int_t const size = json_integer_value(json_object_get(j, "s"));
 
-    toDo(name, file, flag ? flag : "", size, depth);
+    char const * flag = json_string_value(json_object_get(j, "c"));
+    toDo(name, file, flag ? flag : "",
+         json_integer_value(json_object_get(j, "s")),
+         json_integer_value(json_object_get(j, "rs")),
+         depth);
 
     json_t * children = json_object_get(j, "g");
     if (children)
@@ -128,11 +155,11 @@ namespace
     DoStoreCountries(CountriesContainerT & cont) : m_cont(cont) {}
 
     void operator() (string const & name, string const & file, string const & flag,
-                     uint32_t size, int depth)
+                     uint32_t mapSize, uint32_t routingSize, int depth)
     {
       Country country(name, flag);
-      if (size)
-        country.AddFile(CountryFile(file, size));
+      if (mapSize)
+        country.AddFile(CountryFile(file, mapSize, routingSize));
       m_cont.AddAtDepth(depth, country);
     }
   };
@@ -146,12 +173,12 @@ namespace
     DoStoreFile2Info(map<string, CountryInfo> & file2info) : m_file2info(file2info) {}
 
     void operator() (string name, string file, string const & flag,
-                     uint32_t size, int)
+                     uint32_t mapSize, uint32_t, int)
     {
       if (!flag.empty())
         m_lastFlag = flag;
 
-      if (size)
+      if (mapSize)
       {
         CountryInfo info;
 
@@ -187,7 +214,7 @@ namespace
     DoStoreCode2File(multimap<string, string> & code2file) : m_code2file(code2file) {}
 
     void operator() (string const &, string const & file, string const & flag,
-                     uint32_t, int)
+                     uint32_t, uint32_t, int)
     {
       m_code2file.insert(make_pair(flag, file));
     }
@@ -240,10 +267,11 @@ void SaveImpl(T const & v, json_t * jParent)
     if (countriesCount > 0)
     {
       CountryFile const & file = v[i].Value().GetFile();
-      string const strFile = file.m_fileName;
+      string const & strFile = file.GetFileWithoutExt();
       if (strFile != strName)
         json_object_set_new(jCountry.get(), "f", json_string(strFile.c_str()));
-      json_object_set_new(jCountry.get(), "s", json_integer(file.m_remoteSize));
+      json_object_set_new(jCountry.get(), "s", json_integer(file.GetRemoteSize(TMapOptions::EMapOnly)));
+      json_object_set_new(jCountry.get(), "rs", json_integer(file.GetRemoteSize(TMapOptions::ECarRouting)));
     }
 
     if (v[i].SiblingsCount())

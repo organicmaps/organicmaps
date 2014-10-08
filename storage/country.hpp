@@ -19,19 +19,29 @@ namespace update { class SizeUpdater; }
 namespace storage
 {
   /// Information about each file for a country
-  struct CountryFile
+  class CountryFile
   {
-    CountryFile() : m_remoteSize(0) {}
-    CountryFile(string const & fName, uint32_t remoteSize)
-      : m_fileName(fName), m_remoteSize(remoteSize) {}
+    string m_fileName;    /// Same as id of country\region.
+    uint32_t m_mapSize, m_routingSize;
 
-    string GetFileWithExt() const { return m_fileName + DATA_FILE_EXTENSION; }
+  public:
+    CountryFile() {}
+    CountryFile(string const & fName, uint32_t mapSize, uint32_t routingSize)
+      : m_fileName(fName), m_mapSize(mapSize), m_routingSize(routingSize)
+    {
+    }
+
+    void AssignSizes(uint32_t mapSize, uint32_t routingSize)
+    {
+      m_mapSize = mapSize;
+      m_routingSize = routingSize;
+    }
+
+    string GetFileWithExt(TMapOptions opt) const;
     string const & GetFileWithoutExt() const { return m_fileName; }
 
-    uint32_t GetFileSize() const;
-
-    string m_fileName;    /// Same as id of country\region.
-    uint32_t m_remoteSize;
+    uint32_t GetFileSize(TMapOptions opt) const;
+    uint32_t GetRemoteSize(TMapOptions opt) const;
   };
 
   typedef buffer_vector<CountryFile, 1> FilesContainerT;
@@ -79,7 +89,7 @@ namespace storage
 
     /// @return bounds for downloaded parts of the country or empty rect
     //m2::RectD Bounds() const;
-    LocalAndRemoteSizeT Size() const;
+    LocalAndRemoteSizeT Size(TMapOptions opt) const;
   };
 
   typedef SimpleTree<Country> CountriesContainerT;

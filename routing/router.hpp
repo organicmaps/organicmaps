@@ -34,6 +34,8 @@ public:
 
   virtual string GetName() const = 0;
 
+  virtual void ClearState() {}
+
   virtual void SetFinalPoint(m2::PointD const & finalPt) = 0;
   virtual void CalculateRoute(m2::PointD const & startingPt, ReadyCallback const & callback) = 0;
 };

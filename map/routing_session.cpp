@@ -5,6 +5,8 @@
 
 #include "../platform/platform.hpp"
 
+#include "../coding/internal/file_data.hpp"
+
 
 using namespace location;
 
@@ -139,6 +141,12 @@ void RoutingSession::AssignRoute(Route & route)
 void RoutingSession::SetRouter(IRouter * router)
 {
   m_router.reset(router);
+}
+
+void RoutingSession::DeleteIndexFile(string const & fileName)
+{
+  m_router->ClearState();
+  (void) my::DeleteFileX(GetPlatform().WritablePathForFile(fileName));
 }
 
 }

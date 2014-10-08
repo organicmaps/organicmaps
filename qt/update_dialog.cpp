@@ -247,11 +247,13 @@ namespace qt
       QString statusString;
       LocalAndRemoteSizeT size(0, 0);
 
+      storage::TMapOptions const options = storage::TMapOptions::EMapWithCarRouting;
+
       Storage const & st = GetStorage();
       switch (m_framework.GetCountryStatus(index))
       {
       case TStatus::ENotDownloaded:
-        size = st.CountrySizeInBytes(index);
+        size = st.CountrySizeInBytes(index, options);
         if (size.second > 0)
           statusString = tr("Click to download");
         rowColor = COLOR_NOTDOWNLOADED;
@@ -260,19 +262,19 @@ namespace qt
       case TStatus::EOnDisk:
         statusString = tr("Installed (click to delete)");
         rowColor = COLOR_ONDISK;
-        size = st.CountrySizeInBytes(index);
+        size = st.CountrySizeInBytes(index, options);
         break;
 
       case TStatus::EOnDiskOutOfDate:
         statusString = tr("Out of date (click to update or delete)");
         rowColor = COLOR_OUTOFDATE;
-        size = st.CountrySizeInBytes(index);
+        size = st.CountrySizeInBytes(index, options);
         break;
 
       case TStatus::EDownloadFailed:
         statusString = tr("Download has failed");
         rowColor = COLOR_DOWNLOADFAILED;
-        size = st.CountrySizeInBytes(index);
+        size = st.CountrySizeInBytes(index, options);
         break;
 
       case TStatus::EDownloading:
@@ -283,7 +285,7 @@ namespace qt
       case TStatus::EInQueue:
         statusString = tr("Marked for download");
         rowColor = COLOR_INQUEUE;
-        size = st.CountrySizeInBytes(index);
+        size = st.CountrySizeInBytes(index, options);
         break;
 
       default:

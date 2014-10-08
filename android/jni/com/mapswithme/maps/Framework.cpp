@@ -204,11 +204,6 @@ namespace android
     return m_work.GetCountryStatus(idx);
   }
 
-  void Framework::DeleteCountry(TIndex const & idx)
-  {
-    m_work.DeleteCountry(idx, TMapOptions::EMapWithCarRouting);
-  }
-
   void Framework::Resize(int w, int h)
   {
     m_work.OnSize(w, h);

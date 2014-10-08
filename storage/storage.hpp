@@ -29,7 +29,31 @@ namespace storage
     CountriesContainerT m_countries;
 
     /// store queue for downloading
-    typedef list<TIndex> TQueue;
+    class QueuedCountry
+    {
+      TIndex m_index;
+      CountryFile const * m_pFile;
+      TMapOptions m_init, m_left, m_current;
+
+    public:
+      explicit QueuedCountry(TIndex const & index) : m_index(index), m_pFile(0) {}
+      QueuedCountry(Storage const & storage, TIndex const & index, TMapOptions opt);
+
+      void AddOptions(TMapOptions opt);
+      bool MoveNextFile();
+
+      TIndex const & GetIndex() const { return m_index; }
+      TMapOptions GetInitOptions() const { return m_init; }
+
+      bool operator== (TIndex const & index) const { return (m_index == index); }
+
+      uint64_t GetDownloadSize() const;
+      LocalAndRemoteSizeT GetFullSize() const;
+      string GetFileName() const;
+      string GetMapFileName() const;
+    };
+
+    typedef list<QueuedCountry> TQueue;
     TQueue m_queue;
 
     /// stores countries which download has failed recently
@@ -60,7 +84,7 @@ namespace storage
 
     /// @name Communicate with Framework
     //@{
-    typedef function<void (string const &)> TUpdateAfterDownload;
+    typedef function<void (string const &, TMapOptions)> TUpdateAfterDownload;
     TUpdateAfterDownload m_updateAfterDownload;
     //@}
 
@@ -70,26 +94,23 @@ namespace storage
 
     void ReportProgress(TIndex const & index, pair<int64_t, int64_t> const & p);
 
+    /// @name
+    //@{
+    void OnServerListDownloaded(downloader::HttpRequest & request);
+    void OnMapDownloadFinished(downloader::HttpRequest & request);
+    void OnMapDownloadProgress(downloader::HttpRequest & request);
+    void DownloadNextFile(QueuedCountry const & cnt);
+    //@}
+
   public:
     Storage();
 
     void Init(TUpdateAfterDownload const & updateFn);
 
-    /// @name Called from DownloadManager
-    //@{
-    void OnServerListDownloaded(downloader::HttpRequest & request);
-    void OnMapDownloadFinished(downloader::HttpRequest & request);
-    void OnMapDownloadProgress(downloader::HttpRequest & request);
-    //@}
-
-    /// @name Current impl supports only one observer
-    //@{
-
     /// @return unique identifier that should be used with Unsubscribe function
     int Subscribe(TChangeCountryFunction const & change,
                   TProgressFunction const & progress);
     void Unsubscribe(int slotId);
-    //@}
 
     Country const & CountryByIndex(TIndex const & index) const;
     TIndex FindIndexByFile(string const & name) const;
@@ -98,18 +119,20 @@ namespace storage
     size_t CountriesCount(TIndex const & index) const;
     string const & CountryName(TIndex const & index) const;
     string const & CountryFlag(TIndex const & index) const;
-    /// @return Country file name without extension.
-    string const & CountryFileName(TIndex const & index) const;
-    LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index) const;
-    LocalAndRemoteSizeT CountrySizeInBytesEx(TIndex const & index, TMapOptions const & options) const;
+
+    string CountryFileName(TIndex const & index, TMapOptions opt) const;
+    string const & CountryFileNameWithoutExt(TIndex const & index) const;
+    LocalAndRemoteSizeT CountrySizeInBytes(TIndex const & index, TMapOptions opt) const;
+
     /// Fast version, doesn't check if country is out of date
     TStatus CountryStatus(TIndex const & index) const;
     /// Slow version, but checks if country is out of date
     TStatus CountryStatusEx(TIndex const & index) const;
     void CountryStatusEx(TIndex const & index, TStatus & status, TMapOptions & options) const;
+
     //m2::RectD CountryBounds(TIndex const & index) const;
 
-    void DownloadCountry(TIndex const & index, TMapOptions const & options);
+    void DownloadCountry(TIndex const & index, TMapOptions opt);
     bool DeleteFromDownloader(TIndex const & index);
     bool IsDownloadInProgress() const;
 

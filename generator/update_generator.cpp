@@ -43,6 +43,20 @@ namespace update
     string m_dataDir;
     Platform::FilesList & m_files;
 
+    uint64_t GetFileSize(CountryFile const & cnt, TMapOptions opt) const
+    {
+      uint64_t sz = 0;
+      string const fName = cnt.GetFileWithExt(opt);
+      if (!GetPlatform().GetFileSizeByFullPath(m_dataDir + fName, sz))
+      {
+        LOG(opt == TMapOptions::EMapOnly ? LCRITICAL : LWARNING, ("File was not found:", fName));
+        return 0;
+      }
+
+      CHECK_GREATER(sz, 0, ("Zero file size?", fName));
+      return sz;
+    }
+
   public:
     SizeUpdater(string const & dataDir, Platform::FilesList & files)
       : m_processedFiles(0), m_dataDir(dataDir), m_files(files)
@@ -60,21 +74,19 @@ namespace update
     {
       for (size_t i = 0; i < c.Value().m_files.size(); ++i)
       {
+        CountryFile & cnt = c.Value().m_files[i];
+
         ++m_processedFiles;
 
-        uint64_t size = 0;
-        string const fname = c.Value().m_files[i].GetFileWithExt();
-        if (!GetPlatform().GetFileSizeByFullPath(m_dataDir + fname, size))
-          LOG(LERROR, ("File was not found:", fname));
+        cnt.AssignSizes(GetFileSize(cnt, TMapOptions::EMapOnly),
+                        GetFileSize(cnt, TMapOptions::ECarRouting));
 
-        CHECK_GREATER(size, 0, ("Zero file size?", fname));
-
-        c.Value().m_files[i].m_remoteSize = size;
-        Platform::FilesList::iterator found = find(m_files.begin(), m_files.end(), fname);
+        string const fName = cnt.GetFileWithoutExt() + DATA_FILE_EXTENSION;
+        auto found = find(m_files.begin(), m_files.end(), fName);
         if (found != m_files.end())
           m_files.erase(found);
         else
-          LOG(LWARNING, ("No file ", fname, " on disk for the record in countries.txt"));
+          LOG(LWARNING, ("No file ", fName, " on disk for the record in countries.txt"));
       }
     }
   };
@@ -93,8 +105,7 @@ namespace update
 
     for (size_t i = 0; i < ARRAY_SIZE(filesToRemove); ++i)
     {
-      Platform::FilesList::iterator found = std::find(mwmFiles.begin(), mwmFiles.end(),
-                                                      filesToRemove[i]);
+      auto found = find(mwmFiles.begin(), mwmFiles.end(), filesToRemove[i]);
       if (found != mwmFiles.end())
         mwmFiles.erase(found);
     }

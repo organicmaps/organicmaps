@@ -50,6 +50,69 @@ namespace storage
   }
   */
 
+  Storage::QueuedCountry::QueuedCountry(Storage const & storage, TIndex const & index, TMapOptions opt)
+    : m_index(index), m_init(opt), m_left(opt)
+  {
+    m_pFile = &(storage.CountryByIndex(index).GetFile());
+    m_current = (m_init & TMapOptions::EMapOnly ? TMapOptions::EMapOnly : TMapOptions::ECarRouting);
+  }
+
+  void Storage::QueuedCountry::AddOptions(TMapOptions opt)
+  {
+    TMapOptions arr[] = { TMapOptions::EMapOnly, TMapOptions::ECarRouting };
+    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    {
+      if (opt & arr[i] && !(m_init & arr[i]))
+      {
+        m_init |= arr[i];
+        m_left |= arr[i];
+      }
+    }
+  }
+
+  bool Storage::QueuedCountry::MoveNextFile()
+  {
+    if (m_current == m_left)
+      return false;
+
+    if (m_current == TMapOptions::EMapOnly)
+      m_left = m_current = TMapOptions::ECarRouting;
+    else
+      m_left = m_current = TMapOptions::EMapOnly;
+    return true;
+  }
+
+  uint64_t Storage::QueuedCountry::GetDownloadSize() const
+  {
+    return m_pFile->GetRemoteSize(m_current);
+  }
+
+  LocalAndRemoteSizeT Storage::QueuedCountry::GetFullSize() const
+  {
+    LocalAndRemoteSizeT res(0, 0);
+    TMapOptions arr[] = { TMapOptions::EMapOnly, TMapOptions::ECarRouting };
+    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    {
+      if (m_init & arr[i])
+      {
+        res.first += m_pFile->GetFileSize(m_current);
+        res.second += m_pFile->GetRemoteSize(m_current);
+      }
+    }
+    return res;
+  }
+
+  string Storage::QueuedCountry::GetFileName() const
+  {
+    return m_pFile->GetFileWithExt(m_current);
+  }
+
+  string Storage::QueuedCountry::GetMapFileName() const
+  {
+    return m_pFile->GetFileWithExt(TMapOptions::EMapOnly);
+  }
+
+
   Storage::Storage() : m_currentSlotId(0)
   {
     LoadCountriesFile(false);
@@ -70,7 +133,6 @@ namespace storage
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////
   void Storage::Init(TUpdateAfterDownload const & updateFn)
   {
     m_updateAfterDownload = updateFn;
@@ -98,7 +160,7 @@ namespace storage
 
   void Storage::GetGroupAndCountry(TIndex const & index, string & group, string & country) const
   {
-    string fName = CountryByIndex(index).GetFile().m_fileName;
+    string fName = CountryByIndex(index).GetFile().GetFileWithoutExt();
     CountryInfo::FileName2FullName(fName);
     CountryInfo::FullName2GroupAndMap(fName, group, country);
   }
@@ -118,26 +180,25 @@ namespace storage
     return NodeFromIndex(m_countries, index).Value().Flag();
   }
 
-  string const & Storage::CountryFileName(TIndex const & index) const
+  string Storage::CountryFileName(TIndex const & index, TMapOptions opt) const
   {
-    return NodeFromIndex(m_countries, index).Value().GetFile().GetFileWithoutExt();
+    return QueuedCountry(*this, index, opt).GetFileName();
   }
 
-  LocalAndRemoteSizeT Storage::CountrySizeInBytes(TIndex const & index) const
+  string const & Storage::CountryFileNameWithoutExt(TIndex const & index) const
   {
-    return CountryByIndex(index).Size();
+    return CountryByIndex(index).GetFile().GetFileWithoutExt();
   }
 
-  LocalAndRemoteSizeT Storage::CountrySizeInBytesEx(const TIndex & index, const TMapOptions & options) const
+  LocalAndRemoteSizeT Storage::CountrySizeInBytes(const TIndex & index, TMapOptions opt) const
   {
-    ///@TODO for vng
-    return CountryByIndex(index).Size();
+    return QueuedCountry(*this, index, opt).GetFullSize();
   }
 
   TStatus Storage::CountryStatus(TIndex const & index) const
   {
     // first, check if we already downloading this country or have in in the queue
-    TQueue::const_iterator found = std::find(m_queue.begin(), m_queue.end(), index);
+    auto found = find(m_queue.begin(), m_queue.end(), index);
     if (found != m_queue.end())
     {
       if (found == m_queue.begin())
@@ -159,7 +220,7 @@ namespace storage
     if (res == TStatus::EUnknown)
     {
       Country const & c = CountryByIndex(index);
-      LocalAndRemoteSizeT const size = c.Size();
+      LocalAndRemoteSizeT const size = c.Size(TMapOptions::EMapOnly);
 
       if (size.first == 0)
         return TStatus::ENotDownloaded;
@@ -175,10 +236,10 @@ namespace storage
         // Additional check for .ready file.
         // Use EOnDisk status if it's good, or EOnDiskOutOfDate otherwise.
         Platform const & pl = GetPlatform();
-        string const fName = pl.WritablePathForFile(c.GetFile().GetFileWithExt() + READY_FILE_EXTENSION);
+        string const fName = c.GetFile().GetFileWithExt(TMapOptions::EMapOnly) + READY_FILE_EXTENSION;
 
         uint64_t sz = 0;
-        if (!pl.GetFileSizeByFullPath(fName, sz) || sz != size.second)
+        if (!pl.GetFileSizeByFullPath(pl.WritablePathForFile(fName), sz) || sz != size.second)
           res = TStatus::EOnDiskOutOfDate;
       }
     }
@@ -188,22 +249,26 @@ namespace storage
 
   void Storage::CountryStatusEx(TIndex const & index, TStatus & status, TMapOptions & options) const
   {
-    ///@TODO for vng
     status = CountryStatusEx(index);
+
+    if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
+    {
+      options = TMapOptions::EMapOnly;
+
+      string const fName = QueuedCountry(*this, index, TMapOptions::ECarRouting).GetFileName();
+      Platform const & pl = GetPlatform();
+      if (pl.IsFileExistsByFullPath(pl.WritablePathForFile(fName)))
+        options |= TMapOptions::ECarRouting;
+    }
   }
 
-  void Storage::DownloadCountry(TIndex const & index, TMapOptions const & options)
+  void Storage::DownloadCountry(TIndex const & index, TMapOptions opt)
   {
-#ifdef DEBUG
-    if (options & TMapOptions::EMapWithCarRouting)
-      ASSERT(options & TMapOptions::EMapOnly, ());
-#endif
-    ///@TODO for vng. Process options
     // check if we already downloading this country
-    TQueue::const_iterator found = find(m_queue.begin(), m_queue.end(), index);
+    auto found = find(m_queue.begin(), m_queue.end(), index);
     if (found != m_queue.end())
     {
-      // do nothing
+      found->AddOptions(opt);
       return;
     }
 
@@ -212,7 +277,7 @@ namespace storage
     // remove it from failed list
     m_failedCountries.erase(index);
     // add it into the queue
-    m_queue.push_back(index);
+    m_queue.push_back(QueuedCountry(*this, index, opt));
 
     // and start download if necessary
     if (m_queue.size() == 1)
@@ -228,31 +293,32 @@ namespace storage
 
   void Storage::NotifyStatusChanged(TIndex const & index)
   {
-    for (list<CountryObservers>::const_iterator it = m_observers.begin(); it != m_observers.end(); ++it)
-      it->m_changeCountryFn(index);
+    for (CountryObservers const & o : m_observers)
+      o.m_changeCountryFn(index);
   }
 
   void Storage::DownloadNextCountryFromQueue()
   {
     if (!m_queue.empty())
     {
-      TIndex const index = m_queue.front();
-      Country const & country = CountryByIndex(index);
+      QueuedCountry & cnt = m_queue.front();
 
-      /// Reset progress before downloading.
-      /// @todo If we will have more than one file per country,
-      /// we should initialize progress before calling DownloadNextCountryFromQueue().
       m_countryProgress.first = 0;
-      m_countryProgress.second = country.Size().second;
+      m_countryProgress.second = cnt.GetFullSize().second;
 
-      // send Country name for statistics
-      m_request.reset(HttpRequest::PostJson(GetPlatform().MetaServerUrl(),
-              country.GetFile().m_fileName,
-              bind(&Storage::OnServerListDownloaded, this, _1)));
+      DownloadNextFile(cnt);
 
       // new status for country, "Downloading"
-      NotifyStatusChanged(index);
+      NotifyStatusChanged(cnt.GetIndex());
     }
+  }
+
+  void Storage::DownloadNextFile(QueuedCountry const & cnt)
+  {
+    // send Country name for statistics
+    m_request.reset(HttpRequest::PostJson(GetPlatform().MetaServerUrl(),
+            cnt.GetFileName(),
+            bind(&Storage::OnServerListDownloaded, this, _1)));
   }
 
   /*
@@ -266,7 +332,7 @@ namespace storage
   bool Storage::DeleteFromDownloader(TIndex const & index)
   {
     // check if we already downloading this country
-    TQueue::iterator found = find(m_queue.begin(), m_queue.end(), index);
+    auto found = find(m_queue.begin(), m_queue.end(), index);
     if (found != m_queue.end())
     {
       if (found == m_queue.begin())
@@ -326,7 +392,7 @@ namespace storage
 
   void Storage::Unsubscribe(int slotId)
   {
-    for (ObserversContT::iterator i = m_observers.begin(); i != m_observers.end(); ++i)
+    for (auto i = m_observers.begin(); i != m_observers.end(); ++i)
     {
       if (i->m_slotId == slotId)
       {
@@ -344,8 +410,8 @@ namespace storage
       return;
     }
 
-    TIndex const index = m_queue.front();
-    m_queue.pop_front();
+    QueuedCountry & cnt = m_queue.front();
+    TIndex const index = cnt.GetIndex();
 
     if (request.Status() == HttpRequest::EFailed)
     {
@@ -354,11 +420,17 @@ namespace storage
     }
     else
     {
-      Country const & country = CountryByIndex(index);
+      if (cnt.MoveNextFile())
+      {
+        DownloadNextFile(cnt);
+        return;
+      }
 
       // notify framework that downloading is done
-      m_updateAfterDownload(country.GetFile().GetFileWithExt());
+      m_updateAfterDownload(cnt.GetMapFileName(), cnt.GetInitOptions());
     }
+
+    m_queue.pop_front();
 
     NotifyStatusChanged(index);
 
@@ -368,8 +440,8 @@ namespace storage
 
   void Storage::ReportProgress(TIndex const & idx, pair<int64_t, int64_t> const & p)
   {
-    for (ObserversContT::const_iterator i = m_observers.begin(); i != m_observers.end(); ++i)
-      i->m_progressFn(idx, p);
+    for (CountryObservers const & o : m_observers)
+      o.m_progressFn(idx, p);
   }
 
   void Storage::OnMapDownloadProgress(HttpRequest & request)
@@ -386,7 +458,7 @@ namespace storage
       p.first += m_countryProgress.first;
       p.second = m_countryProgress.second;
 
-      ReportProgress(m_queue.front(), p);
+      ReportProgress(m_queue.front().GetIndex(), p);
     }
   }
 
@@ -398,17 +470,18 @@ namespace storage
       return;
     }
 
-    CountryFile const & file = CountryByIndex(m_queue.front()).GetFile();
+    QueuedCountry const & cnt = m_queue.front();
 
     vector<string> urls;
     GetServerListFromRequest(request, urls);
 
     // append actual version and file name
+    string fileName = cnt.GetFileName();
     for (size_t i = 0; i < urls.size(); ++i)
-      urls[i] = GetFileDownloadUrl(urls[i], file.GetFileWithExt());
+      urls[i] = GetFileDownloadUrl(urls[i], fileName);
 
-    string const fileName = GetPlatform().WritablePathForFile(file.GetFileWithExt() + READY_FILE_EXTENSION);
-    m_request.reset(HttpRequest::GetFile(urls, fileName, file.m_remoteSize,
+    string const filePath = GetPlatform().WritablePathForFile(fileName + READY_FILE_EXTENSION);
+    m_request.reset(HttpRequest::GetFile(urls, filePath, cnt.GetDownloadSize(),
                                          bind(&Storage::OnMapDownloadFinished, this, _1),
                                          bind(&Storage::OnMapDownloadProgress, this, _1)));
     ASSERT ( m_request, () );
@@ -423,24 +496,24 @@ namespace storage
   {
     Country const & c = node.Value();
     if (c.GetFilesCount() > 0)
-      return (c.GetFile().m_fileName == name);
+      return (c.GetFile().GetFileWithoutExt() == name);
     else
       return false;
   }
 
   TIndex Storage::FindIndexByFile(string const & name) const
   {
-    for (unsigned i = 0; i < m_countries.SiblingsCount(); ++i)
+    for (size_t i = 0; i < m_countries.SiblingsCount(); ++i)
     {
       if (IsEqualFileName(m_countries[i], name))
         return TIndex(i);
 
-      for (unsigned j = 0; j < m_countries[i].SiblingsCount(); ++j)
+      for (size_t j = 0; j < m_countries[i].SiblingsCount(); ++j)
       {
         if (IsEqualFileName(m_countries[i][j], name))
           return TIndex(i, j);
 
-        for (unsigned k = 0; k < m_countries[i][j].SiblingsCount(); ++k)
+        for (size_t k = 0; k < m_countries[i][j].SiblingsCount(); ++k)
         {
           if (IsEqualFileName(m_countries[i][j][k], name))
             return TIndex(i, j, k);

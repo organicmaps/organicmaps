@@ -180,6 +180,21 @@ string OsrmRouter::GetName() const
   return "mapsme";
 }
 
+void OsrmRouter::ClearState()
+{
+  m_requestCancel = true;
+
+  threads::MutexGuard guard(m_routeMutex);
+  UNUSED_VALUE(guard);
+
+  m_cachedFinalNodes.clear();
+
+  m_dataFacade.Clear();
+  m_mapping.Clear();
+
+  m_container.Close();
+}
+
 void OsrmRouter::SetFinalPoint(m2::PointD const & finalPt)
 {
   {

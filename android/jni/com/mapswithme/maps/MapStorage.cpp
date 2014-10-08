@@ -54,36 +54,44 @@ extern "C"
     return g_framework->NativeFramework();
   }
 
+  Storage & GetStorage()
+  {
+    return g_framework->Storage();
+  }
+
+  /// @todo Pass correct options from UI.
+  TMapOptions g_mapOptions = TMapOptions::EMapWithCarRouting;
+
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_MapStorage_countriesCount(JNIEnv * env, jobject thiz, jobject idx)
   {
-    return static_cast<jint>(g_framework->Storage().CountriesCount(IndexBinding(idx).toNative()));
+    return static_cast<jint>(GetStorage().CountriesCount(IndexBinding(idx).toNative()));
   }
 
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_MapStorage_countryName(JNIEnv * env, jobject thiz, jobject idx)
   {
-    string const name = g_framework->Storage().CountryName(IndexBinding(idx).toNative());
+    string const name = GetStorage().CountryName(IndexBinding(idx).toNative());
     return env->NewStringUTF(name.c_str());
   }
 
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_MapStorage_countryFlag(JNIEnv * env, jobject thiz, jobject idx)
   {
-    string const name = g_framework->Storage().CountryFlag(IndexBinding(idx).toNative());
+    string const name = GetStorage().CountryFlag(IndexBinding(idx).toNative());
     return env->NewStringUTF(name.c_str());
   }
 
   JNIEXPORT jlong JNICALL
   Java_com_mapswithme_maps_MapStorage_countryLocalSizeInBytes(JNIEnv * env, jobject thiz, jobject idx)
   {
-    return g_framework->Storage().CountrySizeInBytes(IndexBinding(idx).toNative()).first;
+    return GetStorage().CountrySizeInBytes(IndexBinding(idx).toNative(), g_mapOptions).first;
   }
 
   JNIEXPORT jlong JNICALL
   Java_com_mapswithme_maps_MapStorage_countryRemoteSizeInBytes(JNIEnv * env, jobject thiz, jobject idx)
   {
-    return g_framework->Storage().CountrySizeInBytes(IndexBinding(idx).toNative()).second;
+    return GetStorage().CountrySizeInBytes(IndexBinding(idx).toNative(), g_mapOptions).second;
   }
 
   JNIEXPORT jint JNICALL
@@ -95,13 +103,13 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapStorage_downloadCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    frm()->DownloadCountry(IndexBinding(idx).toNative(), TMapOptions::EMapOnly);
+    frm()->DownloadCountry(IndexBinding(idx).toNative(), g_mapOptions);
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_MapStorage_deleteCountry(JNIEnv * env, jobject thiz, jobject idx)
   {
-    g_framework->DeleteCountry(IndexBinding(idx).toNative());
+    frm()->DeleteCountry(IndexBinding(idx).toNative(), g_mapOptions);
   }
 
   JNIEXPORT jobject JNICALL
@@ -111,7 +119,7 @@ extern "C"
     if (s == 0)
       return 0;
 
-    TIndex const idx = g_framework->Storage().FindIndexByFile(s);
+    TIndex const idx = GetStorage().FindIndexByFile(s);
     if (idx.IsValid())
       return ToJava(idx);
     else
@@ -142,8 +150,8 @@ extern "C"
   {
     LOG(LDEBUG, ("Subscribe on storage"));
 
-    return g_framework->Storage().Subscribe(bind(&ReportChangeCountryStatus, jni::make_global_ref(obj), _1),
-                                            bind(&ReportCountryProgress, jni::make_global_ref(obj), _1, _2));
+    return GetStorage().Subscribe(bind(&ReportChangeCountryStatus, jni::make_global_ref(obj), _1),
+                               bind(&ReportCountryProgress, jni::make_global_ref(obj), _1, _2));
   }
 
   JNIEXPORT void JNICALL
@@ -151,7 +159,7 @@ extern "C"
   {
     LOG(LDEBUG, ("UnSubscribe from storage"));
 
-    g_framework->Storage().Unsubscribe(slotID);
+    GetStorage().Unsubscribe(slotID);
   }
 
   JNIEXPORT jobjectArray JNICALL

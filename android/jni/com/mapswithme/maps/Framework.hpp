@@ -68,7 +68,6 @@ namespace android
 
     void ShowCountry(storage::TIndex const & idx, bool zoomToDownloadButton);
     storage::TStatus GetCountryStatus(storage::TIndex const & idx) const;
-    void DeleteCountry(storage::TIndex const & idx);
 
     void OnLocationError(int/* == location::TLocationStatus*/ newStatus);
     void OnLocationUpdated(location::GpsInfo const & info);

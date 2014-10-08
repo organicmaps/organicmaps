@@ -148,6 +148,9 @@ static bool getGuideName(string & name, TIndex const & index)
   return iconType;
 }
 
+/// @todo Pass correct options from UI.
+TMapOptions const g_mapOptions = TMapOptions::EMapWithCarRouting;
+
 - (void)UpdateCell:(UITableViewCell *)cell forCountry:(TIndex const &)countryIndex
 {
   cell.accessoryView = nil;
@@ -167,6 +170,7 @@ static bool getGuideName(string & name, TIndex const & index)
   if (![cell.reuseIdentifier isEqual:@"ParentCell"])
   {
     TStatus const st = frm.GetCountryStatus(countryIndex);
+
     switch (st)
     {
     case TStatus::EOnDisk:
@@ -174,7 +178,7 @@ static bool getGuideName(string & name, TIndex const & index)
                                                   green:161.f/255.f
                                                   blue:68.f/255.f
                                                   alpha:1.f];
-      cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloaded_touch_to_delete", nil), [self GetStringForSize: s.CountrySizeInBytes(countryIndex).first]];
+      cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloaded_touch_to_delete", nil), [self GetStringForSize: s.CountrySizeInBytes(countryIndex, g_mapOptions).first]];
 
       // also add "sight" icon for centering on the country
       cell.accessoryType = [self getZoomIconType];
@@ -185,7 +189,7 @@ static bool getGuideName(string & name, TIndex const & index)
                                                     green:105.f/255.f
                                                     blue:180.f/255.f
                                                     alpha:1.f];
-        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloaded_touch_to_update", nil), [self GetStringForSize: s.CountrySizeInBytes(countryIndex).first]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"downloaded_touch_to_update", nil), [self GetStringForSize: s.CountrySizeInBytes(countryIndex, g_mapOptions).first]];
 
         // also add "sight" icon for centering on the country
         cell.accessoryType = [self getZoomIconType];
@@ -292,7 +296,7 @@ static bool getGuideName(string & name, TIndex const & index)
       [self TryDownloadCountry];
     else if ([title isEqualToString:NSLocalizedString(@"cancel_download", nil)] || [title isEqualToString:NSLocalizedString(@"delete", nil)])
     {
-      f.DeleteCountry(m_clickedIndex, TMapOptions::EMapWithCarRouting);
+      f.DeleteCountry(m_clickedIndex, g_mapOptions);
       m_clickedCell.accessoryType = UITableViewCellAccessoryNone;
     }
     else
@@ -302,7 +306,7 @@ static bool getGuideName(string & name, TIndex const & index)
 
 - (void)DoDownloadCountry
 {
-  GetFramework().DownloadCountry(m_clickedIndex, TMapOptions::EMapOnly);
+  GetFramework().DownloadCountry(m_clickedIndex, g_mapOptions);
 }
 
 // 3G warning confirmation handler
@@ -411,7 +415,7 @@ static bool getGuideName(string & name, TIndex const & index)
   m_countryStatus = frm.GetCountryStatus(m_clickedIndex);
   m_clickedCell = cell;
   Storage & s = GetFramework().Storage();
-  m_downloadSize = s.CountrySizeInBytes(m_clickedIndex).second;
+  m_downloadSize = s.CountrySizeInBytes(m_clickedIndex, g_mapOptions).second;
 
   NSMutableArray * buttonNames = [[NSMutableArray alloc] init];
 
@@ -420,15 +424,14 @@ static bool getGuideName(string & name, TIndex const & index)
   switch (m_countryStatus)
   {
     case TStatus::EOnDisk:
-    {
       canDelete = YES;
       break;
-    }
 
     case TStatus::EOnDiskOutOfDate:
       canDelete = YES;
       [buttonNames addObject:[NSString stringWithFormat:NSLocalizedString(@"update_mb_or_kb", nil), [self GetStringForSize:m_downloadSize]]];
       break;
+
     case TStatus::ENotDownloaded:
       [buttonNames addObject:[NSString stringWithFormat:NSLocalizedString(@"download_mb_or_kb", nil), [self GetStringForSize:m_downloadSize]]];
       break;
@@ -456,7 +459,7 @@ static bool getGuideName(string & name, TIndex const & index)
 
     case TStatus::EInQueue:
     {
-      frm.DeleteCountry(m_clickedIndex, TMapOptions::EMapOnly);
+      frm.DeleteCountry(m_clickedIndex, g_mapOptions);
       return;
     }
 

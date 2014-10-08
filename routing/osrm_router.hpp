@@ -36,6 +36,7 @@ public:
   OsrmRouter(Index const * index, CountryFileFnT const & fn);
 
   virtual string GetName() const;
+  virtual void ClearState();
   virtual void SetFinalPoint(m2::PointD const & finalPt);
   virtual void CalculateRoute(m2::PointD const & startPt, ReadyCallback const & callback);
 
