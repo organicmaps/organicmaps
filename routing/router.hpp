@@ -19,6 +19,7 @@ public:
     NoError = 0,
     Cancelled,
     InconsistentMWMandRoute,
+    RouteFileNotExist,
     StartPointNotFound,
     EndPointNotFound,
     PointsInDifferentMWM,

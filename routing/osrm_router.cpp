@@ -253,6 +253,9 @@ void OsrmRouter::CalculateRouteAsync(ReadyCallback const & callback)
       case RouteNotFound:
         LOG(LWARNING, ("Route not found"));
         break;
+      case RouteFileNotExist:
+        LOG(LWARNING, ("There are no routing file"));
+        break;
 
       default:
         break;
@@ -298,6 +301,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   fName += DATA_FILE_EXTENSION;
 
   string const fPath = pl.WritablePathForFile(fName + ROUTING_FILE_EXTENSION);
+  if (!pl.IsFileExistsByFullPath(fPath))
+    return RouteFileNotExist;
+
   if (NeedReload(fPath))
   {
     LOG(LDEBUG, ("Load routing index for file:", fPath));
