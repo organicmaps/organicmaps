@@ -1,5 +1,7 @@
 #include "mercator.hpp"
 
+#include "../geometry/distance_on_sphere.hpp"
+
 double MercatorBounds::minX = -180;
 double MercatorBounds::maxX = 180;
 double MercatorBounds::minY = -180;
@@ -38,4 +40,9 @@ m2::PointD MercatorBounds::GetSmPoint(m2::PointD const & pt, double lonMetresR, 
   double const newLon = min(180.0, max(-180.0, lon + lonDegreeOffset));
 
   return FromLatLon(newLat, newLon);
+}
+
+double MercatorBounds::DistanceOnEarth(m2::PointD const & p1, m2::PointD const & p2)
+{
+  return ms::DistanceOnEarth(YToLat(p1.y), XToLon(p1.x), YToLat(p2.y), XToLon(p2.x));
 }

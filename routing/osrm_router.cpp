@@ -3,6 +3,7 @@
 #include "vehicle_model.hpp"
 
 #include "../geometry/distance.hpp"
+#include "../geometry/distance_on_sphere.hpp"
 
 #include "../indexer/mercator.hpp"
 #include "../indexer/index.hpp"
@@ -47,10 +48,12 @@ class Point2PhantomNode : private noncopyable
   size_t m_ptIdx;
   buffer_vector<Candidate, 128> m_candidates[2];
   uint32_t m_mwmId;
+  Index const * m_pIndex;
 
 public:
-  Point2PhantomNode(OsrmFtSegMapping const & mapping)
-    : m_mapping(mapping), m_ptIdx(0), m_mwmId(numeric_limits<uint32_t>::max())
+  Point2PhantomNode(OsrmFtSegMapping const & mapping, Index const * pIndex)
+    : m_mapping(mapping), m_ptIdx(0),
+      m_mwmId(numeric_limits<uint32_t>::max()), m_pIndex(pIndex)
   {
   }
 
@@ -102,6 +105,104 @@ public:
 
     if (res.m_fid != OsrmFtSegMapping::FtSeg::INVALID_FID)
       m_candidates[m_ptIdx].push_back(res);
+  }
+
+  double CalculateDistance(OsrmFtSegMapping::FtSeg const & s) const
+  {
+    ASSERT_NOT_EQUAL(s.m_pointStart, s.m_pointEnd, ());
+
+    Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmId);
+    FeatureType ft;
+    loader.GetFeature(s.m_fid, ft);
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
+    double dist = 0.0;
+    size_t n = max(s.m_pointEnd, s.m_pointStart);
+    size_t i = min(s.m_pointStart, s.m_pointEnd) + 1;
+    do
+    {
+      dist += MercatorBounds::DistanceOnEarth(ft.GetPoint(i - 1), ft.GetPoint(i));
+      ++i;
+    } while (i <= n);
+
+    return dist;
+  }
+
+  void CalculateOffset(OsrmFtSegMapping::FtSeg const & seg, m2::PointD const & segPt, NodeID & nodeId, int & offset, bool forward) const
+  {
+    if (nodeId == INVALID_NODE_ID)
+      return;
+
+    double distance = 0;
+    auto const range = m_mapping.GetSegmentsRange(nodeId);
+    OsrmFtSegMapping::FtSeg s, cSeg;
+
+    int si = forward ? range.second - 1 : range.first;
+    int ei = forward ? range.first - 1 : range.second;
+    int di = forward ? -1 : 1;
+
+    for (int i = si; i != ei; i += di)
+    {
+      m_mapping.GetSegmentByIndex(i, s);
+      auto s1 = min(s.m_pointStart, s.m_pointEnd);
+      auto e1 = max(s.m_pointEnd, s.m_pointStart);
+
+      // seg.m_pointEnd - seg.m_pointStart == 1, so check
+      // just a case, when seg is inside s
+      if ((seg.m_pointStart != s1 || seg.m_pointEnd != e1) &&
+          (s1 <= seg.m_pointStart && e1 >= seg.m_pointEnd))
+      {
+        cSeg.m_fid = s.m_fid;
+
+        if (s.m_pointStart < s.m_pointEnd)
+        {
+          if (forward)
+          {
+            cSeg.m_pointEnd = seg.m_pointEnd;
+            cSeg.m_pointStart = s.m_pointStart;
+          }
+          else
+          {
+            cSeg.m_pointStart = seg.m_pointStart;
+            cSeg.m_pointEnd = s.m_pointEnd;
+          }
+        }
+        else
+        {
+          if (forward)
+          {
+            cSeg.m_pointStart = seg.m_pointStart;
+            cSeg.m_pointEnd = s.m_pointStart;
+          }
+          else
+          {
+            cSeg.m_pointEnd = seg.m_pointEnd;
+            cSeg.m_pointStart = s.m_pointEnd;
+          }
+        }
+
+        distance += CalculateDistance(cSeg);
+        break;
+      }
+      else
+        distance += CalculateDistance(s);
+    }
+
+    Index::FeaturesLoaderGuard loader(*m_pIndex, m_mwmId);
+    FeatureType ft;
+    loader.GetFeature(seg.m_fid, ft);
+    ft.ParseGeometry(FeatureType::BEST_GEOMETRY);
+
+    // node.m_seg always forward ordered (m_pointStart < m_pointEnd)
+    distance -= MercatorBounds::DistanceOnEarth(ft.GetPoint(forward ? seg.m_pointEnd : seg.m_pointStart), segPt);
+
+    offset = max(static_cast<int>(distance), 1);
+  }
+
+  void CalculateOffsets(OsrmRouter::FeatureGraphNode & node) const
+  {
+    CalculateOffset(node.m_seg, node.m_segPt, node.m_node.forward_node_id, node.m_node.forward_offset, true);
+    CalculateOffset(node.m_seg, node.m_segPt, node.m_node.reverse_node_id, node.m_node.reverse_offset, false);
   }
 
   void MakeResult(OsrmRouter::FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId,
@@ -161,6 +262,8 @@ public:
           node.m_node.reverse_node_id = it->second.second;
           node.m_seg = segments[idx];
           node.m_segPt = m_candidates[i][j].m_point;
+
+          CalculateOffsets(node);
         }
       }
   }
@@ -501,6 +604,9 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
   points.front() = sNode.m_segPt;
   points.back() = eNode.m_segPt;
 
+  if (points.size() < 2)
+    return RouteNotFound;
+
   route.SetGeometry(points.begin(), points.end());
 
   return NoError;
@@ -509,7 +615,7 @@ OsrmRouter::ResultCode OsrmRouter::CalculateRouteImpl(m2::PointD const & startPt
 IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::PointD const & startPt, m2::PointD const & finalPt,
                                                  FeatureGraphNodeVecT & res, size_t maxCount, uint32_t & mwmId)
 {
-  Point2PhantomNode getter(m_mapping);
+  Point2PhantomNode getter(m_mapping, m_pIndex);
 
   auto processPt = [&] (m2::PointD const & p, size_t idx)
   {

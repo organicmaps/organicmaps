@@ -52,6 +52,13 @@ public:
       return m_fid != INVALID_FID;
     }
 
+    void Swap(FtSeg & other)
+    {
+      swap(m_fid, other.m_fid);
+      swap(m_pointStart, other.m_pointStart);
+      swap(m_pointEnd, other.m_pointEnd);
+    }
+
     friend string DebugPrint(FtSeg const & seg);
   };
 
@@ -102,6 +109,8 @@ public:
 
   typedef unordered_map<uint64_t, pair<OsrmNodeIdT, OsrmNodeIdT> > OsrmNodesT;
   void GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, volatile bool const & requestCancel) const;
+
+  void GetSegmentByIndex(size_t idx, FtSeg & seg) const;
 
   /// @name For debug purpose only.
   //@{

@@ -226,6 +226,12 @@ void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, vola
   }
 }
 
+void OsrmFtSegMapping::GetSegmentByIndex(size_t idx, FtSeg & seg) const
+{
+  ASSERT_LESS(idx, m_segments.size(), ());
+  FtSeg(m_segments[idx]).Swap(seg);
+}
+
 pair<size_t, size_t> OsrmFtSegMapping::GetSegmentsRange(OsrmNodeIdT nodeId) const
 {
   SegOffsetsT::const_iterator it = lower_bound(m_offsets.begin(), m_offsets.end(), SegOffset(nodeId, 0),

@@ -19,14 +19,6 @@ static double const ON_ROAD_TOLERANCE_M = 20.0;
 static double const ON_END_TOLERANCE_M = 10.0;
 
 
-double GetDistanceOnEarth(m2::PointD const & p1, m2::PointD const & p2)
-{
-  return ms::DistanceOnEarth(MercatorBounds::YToLat(p1.y),
-                             MercatorBounds::XToLon(p1.x),
-                             MercatorBounds::YToLat(p2.y),
-                             MercatorBounds::XToLon(p2.x));
-}
-
 Route::Route(string const & router, vector<m2::PointD> const & points, string const & name)
   : m_router(router), m_poly(points), m_name(name)
 {
@@ -55,7 +47,7 @@ double Route::GetCurrentDistanceFromBegin() const
   ASSERT(m_current.IsValid(), ());
 
   return ((m_current.m_ind > 0 ? m_segDistance[m_current.m_ind - 1] : 0.0) +
-          GetDistanceOnEarth(m_poly.GetPoint(m_current.m_ind), m_current.m_pt));
+          MercatorBounds::DistanceOnEarth(m_poly.GetPoint(m_current.m_ind), m_current.m_pt));
 }
 
 double Route::GetCurrentDistanceToEnd() const
@@ -63,7 +55,7 @@ double Route::GetCurrentDistanceToEnd() const
   ASSERT(m_current.IsValid(), ());
 
   return (m_segDistance.back() - m_segDistance[m_current.m_ind] +
-          GetDistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
+          MercatorBounds::DistanceOnEarth(m_current.m_pt, m_poly.GetPoint(m_current.m_ind + 1)));
 }
 
 bool Route::MoveIterator(location::GpsInfo const & info) const
@@ -122,7 +114,7 @@ Route::IterT Route::FindProjection(m2::RectD const & posRect, double predictDist
     m2::PointD const currPos = posRect.Center();
     res = GetClosestProjection(posRect, [&] (IterT const & it)
     {
-      return GetDistanceOnEarth(it.m_pt, currPos);
+      return MercatorBounds::DistanceOnEarth(it.m_pt, currPos);
     });
   }
 
@@ -139,11 +131,11 @@ double Route::GetDistanceOnPolyline(IterT const & it1, IterT const & it2) const
   ASSERT_LESS(it2.m_ind, n, ());
 
   if (it1.m_ind == it2.m_ind)
-    return GetDistanceOnEarth(it1.m_pt, it2.m_pt);
+    return MercatorBounds::DistanceOnEarth(it1.m_pt, it2.m_pt);
 
-  return (GetDistanceOnEarth(it1.m_pt, m_poly.GetPoint(it1.m_ind + 1)) +
+  return (MercatorBounds::DistanceOnEarth(it1.m_pt, m_poly.GetPoint(it1.m_ind + 1)) +
           m_segDistance[it2.m_ind - 1] - m_segDistance[it1.m_ind] +
-          GetDistanceOnEarth(m_poly.GetPoint(it2.m_ind), it2.m_pt));
+          MercatorBounds::DistanceOnEarth(m_poly.GetPoint(it2.m_ind), it2.m_pt));
 }
 
 void Route::Update()
