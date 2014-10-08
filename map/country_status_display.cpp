@@ -11,11 +11,11 @@
 #include "../platform/platform.hpp"
 
 #include "../base/thread.hpp"
-
 #include "../base/string_format.hpp"
 
 #include "../std/bind.hpp"
 #include "../std/sstream.hpp"
+
 
 using namespace storage;
 
@@ -322,18 +322,18 @@ void CountryStatusDisplay::SetContentForState()
 
 namespace
 {
-  void FormatMapSize(int sizeInBytes, string & units, int & sizeToDownload)
+  void FormatMapSize(uint64_t sizeInBytes, string & units, uint64_t & sizeToDownload)
   {
     int const mbInBytes = 1024 * 1024;
     int const kbInBytes = 1024;
     if (sizeInBytes < mbInBytes)
     {
-      sizeToDownload = sizeInBytes / kbInBytes;
+      sizeToDownload = (sizeInBytes + kbInBytes / 2) / kbInBytes;
       units = "KB";
     }
     else
     {
-      sizeToDownload = sizeInBytes / mbInBytes;
+      sizeToDownload = (sizeInBytes + mbInBytes / 2) / mbInBytes;
       units = "MB";
     }
   }
@@ -349,12 +349,13 @@ void CountryStatusDisplay::SetContentForDownloadPropose()
   LocalAndRemoteSizeT withRouting = m_activeMaps.GetCountrySize(m_countryIdx, TMapOptions::EMapWithCarRouting);
 
   m_label->setText(m_displayMapName);
-  int sizeToDownload;
+  uint64_t sizeToDownload;
   string units;
   FormatMapSize(mapOnlySize.second, units, sizeToDownload);
-  m_primaryButton->setText(FormatStatusMessage<int, string>("country_status_download", &sizeToDownload, &units));
+  m_primaryButton->setText(FormatStatusMessage("country_status_download", &sizeToDownload, &units));
+
   FormatMapSize(withRouting.second, units, sizeToDownload);
-  m_secondaryButton->setText(FormatStatusMessage<int, string>("country_status_download_routing", &sizeToDownload));
+  m_secondaryButton->setText(FormatStatusMessage("country_status_download_routing", &sizeToDownload, &units));
 }
 
 void CountryStatusDisplay::SetContentForProgress()
