@@ -173,14 +173,14 @@ public class MWMActivity extends NvEventQueueActivity
     LocationState.INSTANCE.invalidatePosition();
   }
 
-  public void OnDownloadCountryClicked()
+  public void OnDownloadCountryClicked(final int options)
   {
     runOnUiThread(new Runnable()
     {
       @Override
       public void run()
       {
-        nativeDownloadCountry();
+        nativeDownloadCountry(options);
       }
     });
   }
@@ -1301,7 +1301,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private native void nativeConnectDownloadButton();
 
-  private native void nativeDownloadCountry();
+  private native void nativeDownloadCountry(int options);
 
   private native void nativeOnLocationError(int errorCode);
 

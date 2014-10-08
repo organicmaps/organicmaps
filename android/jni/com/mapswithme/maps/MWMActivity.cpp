@@ -86,10 +86,11 @@ extern "C"
   }
 
   void CallOnDownloadCountryClicked(shared_ptr<jobject> const & obj,
+                                    int options,
                                     jmethodID methodID)
   {
     JNIEnv * env = jni::GetEnv();
-    env->CallVoidMethod(*obj.get(), methodID);
+    env->CallVoidMethod(*obj.get(), methodID, options);
   }
 
   JNIEXPORT void JNICALL
@@ -97,17 +98,18 @@ extern "C"
   {
     CountryStatusDisplay * display = g_framework->GetCountryStatusDisplay();
 
-    jmethodID methodID = jni::GetJavaMethodID(env, thiz, "OnDownloadCountryClicked", "()V");
+    jmethodID methodID = jni::GetJavaMethodID(env, thiz, "OnDownloadCountryClicked", "(I)V");
 
-    display->setDownloadListener(bind(&CallOnDownloadCountryClicked,
-                                       jni::make_global_ref(thiz),
-                                       methodID));
+    display->SetDownloadCountryListener(bind(&CallOnDownloadCountryClicked,
+                                              jni::make_global_ref(thiz),
+                                              _1,
+                                              methodID));
   }
 
   JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MWMActivity_nativeDownloadCountry(JNIEnv * env, jobject thiz)
+  Java_com_mapswithme_maps_MWMActivity_nativeDownloadCountry(JNIEnv * env, jobject thiz, jint options)
   {
-    g_framework->GetCountryStatusDisplay()->downloadCountry();
+    g_framework->GetCountryStatusDisplay()->DownloadCurrentCountry(options);
   }
 
   JNIEXPORT void JNICALL
