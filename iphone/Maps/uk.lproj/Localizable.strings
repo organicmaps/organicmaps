@@ -691,7 +691,30 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
-<<<<<<< HEAD
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "Створення маршрутів можливе лише у платній версії MAPS.ME. Завантаж зараз!";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "Неможливо прокласти маршрут. Не визначено поточне місцезнаходження.";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "Для прокладання маршруту необхідна додаткова інформація. Перейти до завантаження?";
+
+/* StartPointNotFound */
+"routing_failed_start_point_not_found" = "Неможливо прокласти маршрут. Немає доріг поруч з відправною точкою.";
+
+/* EndPointNotFound */
+"routing_failed_dst_point_not_found" = "Неможливо прокласти маршрут. Немає доріг поруч з пунктом призначення.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Маршрут бути прокладений всередині мапи тільки одного регіону.";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "Неможливо прокласти маршрут між вибраними точками. Будь ласка, змініть початок і кінець маршруту.";
+
+/* InternalError */
+"routing_failed_internal_error" = "Внутрішня помилка. Будь ласка, видаліть мапу і завантажте її ще раз. Якщо це не допомогло, напишіть нам на support@maps.me";
+
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Завантажити карту + маршрути";
 
@@ -706,27 +729,3 @@
 
 /* Button for routing PP. */
 "routing_go" = "Поїхали!";
-=======
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Створення маршрутів можливе лише у платній версії MAPS.ME. Завантаж зараз!";
-
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "Неможливо прокласти маршрут. Не визначено поточне місцезнаходження.";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Для прокладання маршруту необхідна додаткова інформація. Перейти до завантаження?";
-
-/* StartPointNotFound or EndPointNotFound */
-"routing_failed_start_point_not_found" = "Неможливо прокласти маршрут. Немає доріг поруч з відправною точкою.";
-
-"routing_failed_dst_point_not_found" = "Неможливо прокласти маршрут. Немає доріг поруч з пунктом призначення.";
-
-/* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Маршрут бути прокладений всередині мапи тільки одного регіону.";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "Неможливо прокласти маршрут між вибраними точками. Будь ласка, змініть початок і кінець маршруту.";
-
-/* InternalError */
-"routing_failed_internal_error" = "Внутрішня помилка. Будь ласка, видаліть мапу і завантажте її ще раз. Якщо це не допомогло, напишіть нам на support@maps.me";
->>>>>>> generated routing fail messages

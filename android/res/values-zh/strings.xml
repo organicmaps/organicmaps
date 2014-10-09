@@ -425,7 +425,20 @@
 	<string name="downloader_my_maps">我的地图</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">已排队</string>
-<<<<<<< HEAD
+	<!-- Show in Lite version when user try to download routing files or try to build route -->
+	<string name="routing_failed_buy_pro">布置路线只在MAPS.ME的完整版本中才有。现在就得到它吧！</string>
+	<!-- Show when user try build route, but we don't know where he -->
+	<string name="routing_failed_unknown_my_position">当前地点未定。请明确地点以创建路线。</string>
+	<!-- StartPointNotFound -->
+	<string name="routing_failed_start_point_not_found">无法计算路线。没有在您起点附近的路。</string>
+	<!-- EndPointNotFound -->
+	<string name="routing_failed_dst_point_not_found">无法计算路线。没有在您终点附近的路。</string>
+	<!-- PointsInDifferentMWM -->
+	<string name="routing_failed_cross_mwm_building">路程只能完全处在同一地图里时才能被创建。</string>
+	<!-- RouteNotFound -->
+	<string name="routing_failed_route_not_found">找不到所选起点和终点间的路程。请选择不同的起点或终点。</string>
+	<!-- InternalError -->
+	<string name="routing_failed_internal_error">出现内部错误。请尝试删除并再次下载地图。如果还有问题请联系我们：support@maps.me。</string>
 	<!-- Context menu item for downloader. -->
 	<string name="downloader_download_map_and_routing">下载地图 + 路线</string>
 	<!-- Context menu item for downloader. -->
@@ -436,19 +449,4 @@
 	<string name="downloader_download_map">下载地图</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">出发！</string>
-=======
-	<!-- Show in Lite version when user try to download routing files or try to build route -->
-	<string name="routing_failed_buy_pro">布置路线只在MAPS.ME的完整版本中才有。现在就得到它吧！</string>
-	<!-- Show when user try build route, but we don't know where he -->
-	<string name="routing_failed_unknown_my_position">当前地点未定。请明确地点以创建路线。</string>
-	<!-- StartPointNotFound or EndPointNotFound -->
-	<string name="routing_failed_start_point_not_found">无法计算路线。没有在您起点附近的路。</string>
-	<string name="routing_failed_dst_point_not_found">无法计算路线。没有在您终点附近的路。</string>
-	<!-- PointsInDifferentMWM -->
-	<string name="routing_failed_cross_mwm_building">路程只能完全处在同一地图里时才能被创建。</string>
-	<!-- RouteNotFound -->
-	<string name="routing_failed_route_not_found">找不到所选起点和终点间的路程。请选择不同的起点或终点。</string>
-	<!-- InternalError -->
-	<string name="routing_failed_internal_error">出现内部错误。请尝试删除并再次下载地图。如果还有问题请联系我们：support@maps.me。</string>
->>>>>>> generated routing fail messages
 </resources>

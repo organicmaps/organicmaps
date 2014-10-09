@@ -691,7 +691,30 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
-<<<<<<< HEAD
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "เส้นทางจะใช้ได้เฉพาะในเวอร์ชันเต็มของ MAPS.ME. รับได้ในขณะนี้!";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "ข้อมูลเพิ่มเติมเป็นต้องมีเพื่อสร้างเส้นทาง เริ่มต้นการดาวน์โหลด?";
+
+/* StartPointNotFound */
+"routing_failed_start_point_not_found" = "ไม่สามารถคำนวณเส้นทางได้ ไม่มีถนนที่อยู่ใกล้เคียงกับจุดเริ่มต้นของคุณ";
+
+/* EndPointNotFound */
+"routing_failed_dst_point_not_found" = "ไม่สามารถคำนวณเส้นทางได้ ไม่มีถนนที่อยู่ใกล้กับปลายทางของคุณ";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "สามารถสร้างเส้นทางแบบสมบูรณ์ได้เฉพาะที่มีอยู่ในแผนที่เดียวเท่านั้น";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "ไม่พบเส้นทางที่อยู่ระหว่างต้นทางและปลายทางที่เลือก โปรดเลือกจุดเริ่มต้นและจุดสิ้นสุดอื่น";
+
+/* InternalError */
+"routing_failed_internal_error" = "เกิดข้อผิดพลาดขึ้นภายใน โปรดลองลบและดาวน์โหลดแผนที่อีกครั้ง โปรดติดต่อเราได้ที่ support@maps.me.";
+
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "ดาวน์โหลดแผนที่ + การเลือกเส้นทาง";
 
@@ -706,27 +729,3 @@
 
 /* Button for routing PP. */
 "routing_go" = "ไป!";
-=======
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "เส้นทางจะใช้ได้เฉพาะในเวอร์ชันเต็มของ MAPS.ME. รับได้ในขณะนี้!";
-
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "ไม่มีการกำหนดสถานที่ปัจจุบัน โปรดระบุสถานที่ตั้งเพื่อสร้างเส้นทาง";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "ข้อมูลเพิ่มเติมเป็นต้องมีเพื่อสร้างเส้นทาง เริ่มต้นการดาวน์โหลด?";
-
-/* StartPointNotFound or EndPointNotFound */
-"routing_failed_start_point_not_found" = "ไม่สามารถคำนวณเส้นทางได้ ไม่มีถนนที่อยู่ใกล้เคียงกับจุดเริ่มต้นของคุณ";
-
-"routing_failed_dst_point_not_found" = "ไม่สามารถคำนวณเส้นทางได้ ไม่มีถนนที่อยู่ใกล้กับปลายทางของคุณ";
-
-/* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "สามารถสร้างเส้นทางแบบสมบูรณ์ได้เฉพาะที่มีอยู่ในแผนที่เดียวเท่านั้น";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "ไม่พบเส้นทางที่อยู่ระหว่างต้นทางและปลายทางที่เลือก โปรดเลือกจุดเริ่มต้นและจุดสิ้นสุดอื่น";
-
-/* InternalError */
-"routing_failed_internal_error" = "เกิดข้อผิดพลาดขึ้นภายใน โปรดลองลบและดาวน์โหลดแผนที่อีกครั้ง โปรดติดต่อเราได้ที่ support@maps.me.";
->>>>>>> generated routing fail messages

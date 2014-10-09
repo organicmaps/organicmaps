@@ -691,7 +691,30 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
-<<<<<<< HEAD
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "Vytváranie trás je k dispozícii iba v plnej verzii MAPS.ME. Získajte ho hneď teraz!";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "Na vytvorenie trasy sú potrebné ďalšie dáta. Začať sťahovanie?";
+
+/* StartPointNotFound */
+"routing_failed_start_point_not_found" = "Nedá sa vypočítať trasa. Žiadne cesty v blízkosti východiskového bodu.";
+
+/* EndPointNotFound */
+"routing_failed_dst_point_not_found" = "Nedá sa vypočítať trasa. Žiadne cesty v blízkosti cieľa.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Cesty môžu byť vytvorené len tak, že sú plne obsiahnuté v jednej mape.";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "Nebol nájdená trasa medzi vybraným východiskom a cieľom. Prosím vyberte iný počiatočný a koncový bod.";
+
+/* InternalError */
+"routing_failed_internal_error" = "Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support@maps.me.";
+
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Na stiahnutie Mapa + Trasa";
 
@@ -706,27 +729,3 @@
 
 /* Button for routing PP. */
 "routing_go" = "Štart!";
-=======
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Vytváranie trás je k dispozícii iba v plnej verzii MAPS.ME. Získajte ho hneď teraz!";
-
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "Aktuálna lokácia nie je definovaná. Prosím, špecifikujte lokáciu pre vytvorenie trasy.";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Na vytvorenie trasy sú potrebné ďalšie dáta. Začať sťahovanie?";
-
-/* StartPointNotFound or EndPointNotFound */
-"routing_failed_start_point_not_found" = "Nedá sa vypočítať trasa. Žiadne cesty v blízkosti východiskového bodu.";
-
-"routing_failed_dst_point_not_found" = "Nedá sa vypočítať trasa. Žiadne cesty v blízkosti cieľa.";
-
-/* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Cesty môžu byť vytvorené len tak, že sú plne obsiahnuté v jednej mape.";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "Nebol nájdená trasa medzi vybraným východiskom a cieľom. Prosím vyberte iný počiatočný a koncový bod.";
-
-/* InternalError */
-"routing_failed_internal_error" = "Došlo k vnútornej chybe. Prosím, skúste zmazať a znovu stiahnuť mapu. Ak problém pretrvá, prosím, kontaktujte nás na support@maps.me.";
->>>>>>> generated routing fail messages

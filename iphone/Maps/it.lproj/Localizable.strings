@@ -691,7 +691,30 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
-<<<<<<< HEAD
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "Il percorso è disponibile solo nella versione completa di MAPS.ME. Prendila ora!";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "La posizione attuale non è definita. Specifica la posizione per creare il percorso.";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "Ulteriori dati sono necessari per creare un percorso. Inizio a scaricarli?";
+
+/* StartPointNotFound */
+"routing_failed_start_point_not_found" = "Impossibile calcolare il percorso. Nessuna strada vicina al tuo punto di partenza.";
+
+/* EndPointNotFound */
+"routing_failed_dst_point_not_found" = "Impossibile calcolare il percorso. Nessuna strada vicina al tuo punto di arrivo.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "I percorsi possono essere creati solo se interamente presenti in una singola mappa.";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "Non è stata trovata alcuna strada fra il punto di partenza e d'arrivo selezionati. Seleziona un punto di partenza e d'arrivo diversi.";
+
+/* InternalError */
+"routing_failed_internal_error" = "Si è verificato un errore interno. Prova ad eliminare la mappa e a scaricarla nuovamente. Se il problema dovesse persistere, contattaci all'indirizzo support@maps.me.";
+
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Scarica mappa e percorso";
 
@@ -706,27 +729,3 @@
 
 /* Button for routing PP. */
 "routing_go" = "Andare!";
-=======
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Il percorso è disponibile solo nella versione completa di MAPS.ME. Prendila ora!";
-
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "La posizione attuale non è definita. Specifica la posizione per creare il percorso.";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Ulteriori dati sono necessari per creare un percorso. Inizio a scaricarli?";
-
-/* StartPointNotFound or EndPointNotFound */
-"routing_failed_start_point_not_found" = "Impossibile calcolare il percorso. Nessuna strada vicina al tuo punto di partenza.";
-
-"routing_failed_dst_point_not_found" = "Impossibile calcolare il percorso. Nessuna strada vicina al tuo punto di arrivo.";
-
-/* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "I percorsi possono essere creati solo se interamente presenti in una singola mappa.";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "Non è stata trovata alcuna strada fra il punto di partenza e d'arrivo selezionati. Seleziona un punto di partenza e d'arrivo diversi.";
-
-/* InternalError */
-"routing_failed_internal_error" = "Si è verificato un errore interno. Prova ad eliminare la mappa e a scaricarla nuovamente. Se il problema dovesse persistere, contattaci all'indirizzo support@maps.me.";
->>>>>>> generated routing fail messages

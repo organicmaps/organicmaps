@@ -691,7 +691,30 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
-<<<<<<< HEAD
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "La planificación de la ruta solo está disponible en la versión completa de MAPS.ME. ¡Consígala ya!";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "La ubicación actual no está definida. Por favor, especifique la ubicación para crear la ruta.";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "Son necesarios datos adicionales para crear la ruta. ¿Empezar la descarga?";
+
+/* StartPointNotFound */
+"routing_failed_start_point_not_found" = "No se puede calcular la ruta. No hay carreteras cerca de su punto de partida.";
+
+/* EndPointNotFound */
+"routing_failed_dst_point_not_found" = "No se puede calcular la ruta. No hay carreteras cerca de su destino.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Solo se pueden crear rutas que estén totalmente incluidas en un mapa único.";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "No se ha encontrado ninguna ruta entre el origen seleccionado y el destino. Por favor, seleccione un punto de partida o destino diferente.";
+
+/* InternalError */
+"routing_failed_internal_error" = "Se ha producido un error interno. Por favor, intente eliminar y descargar el mapa otra vez. Si el problema persiste, por favor contáctenos en support@maps.me.";
+
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Descargar mapa + itinerario";
 
@@ -706,27 +729,3 @@
 
 /* Button for routing PP. */
 "routing_go" = "¡Listo!";
-=======
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "La planificación de la ruta solo está disponible en la versión completa de MAPS.ME. ¡Consígala ya!";
-
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "La ubicación actual no está definida. Por favor, especifique la ubicación para crear la ruta.";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Son necesarios datos adicionales para crear la ruta. ¿Empezar la descarga?";
-
-/* StartPointNotFound or EndPointNotFound */
-"routing_failed_start_point_not_found" = "No se puede calcular la ruta. No hay carreteras cerca de su punto de partida.";
-
-"routing_failed_dst_point_not_found" = "No se puede calcular la ruta. No hay carreteras cerca de su destino.";
-
-/* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Solo se pueden crear rutas que estén totalmente incluidas en un mapa único.";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "No se ha encontrado ninguna ruta entre el origen seleccionado y el destino. Por favor, seleccione un punto de partida o destino diferente.";
-
-/* InternalError */
-"routing_failed_internal_error" = "Se ha producido un error interno. Por favor, intente eliminar y descargar el mapa otra vez. Si el problema persiste, por favor contáctenos en support@maps.me.";
->>>>>>> generated routing fail messages

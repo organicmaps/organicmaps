@@ -691,7 +691,30 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
-<<<<<<< HEAD
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "Tworzenie trasy dostępne jest tylko w pełnej wersji aplikacji MAPS.ME. Pobierz pełną wersję, teraz!";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "Bieżąca lokalizacja nie została zdefiniowana. Aby utworzyć trasę, określ lokalizację.";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "Aby stworzyć trasę, potrzebne są dodatkowe dane. Rozpocząć pobieranie?";
+
+/* StartPointNotFound */
+"routing_failed_start_point_not_found" = "Nie można obliczyć trasy. Brak dróg w pobliżu punktu rozpoczęcia podróży.";
+
+/* EndPointNotFound */
+"routing_failed_dst_point_not_found" = "Nie można obliczyć trasy. Brak dróg w pobliżu celu podróży.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Trasy można tworzyć tylko pod warunkiem, że zawarte będą w ramach pojedynczej mapy.";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "Nie znaleziono trasy pomiędzy wybranym punktem rozpoczęcia podróży a jej celem. Wybierz inny punkt początkowy lub końcowy.";
+
+/* InternalError */
+"routing_failed_internal_error" = "Wystąpił wewnętrzny błąd. Spróbuj usunąć mapę i pobrać ją ponownie. Jeśli problem będzie się nadal powtarzał, skontaktuj się z nami pod adresem support@maps.me.";
+
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Pobierz mapę + wyznaczanie tras";
 
@@ -706,27 +729,3 @@
 
 /* Button for routing PP. */
 "routing_go" = "Przejdź!";
-=======
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Tworzenie trasy dostępne jest tylko w pełnej wersji aplikacji MAPS.ME. Pobierz pełną wersję, teraz!";
-
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "Bieżąca lokalizacja nie została zdefiniowana. Aby utworzyć trasę, określ lokalizację.";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Aby stworzyć trasę, potrzebne są dodatkowe dane. Rozpocząć pobieranie?";
-
-/* StartPointNotFound or EndPointNotFound */
-"routing_failed_start_point_not_found" = "Nie można obliczyć trasy. Brak dróg w pobliżu punktu rozpoczęcia podróży.";
-
-"routing_failed_dst_point_not_found" = "Nie można obliczyć trasy. Brak dróg w pobliżu celu podróży.";
-
-/* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Trasy można tworzyć tylko pod warunkiem, że zawarte będą w ramach pojedynczej mapy.";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "Nie znaleziono trasy pomiędzy wybranym punktem rozpoczęcia podróży a jej celem. Wybierz inny punkt początkowy lub końcowy.";
-
-/* InternalError */
-"routing_failed_internal_error" = "Wystąpił wewnętrzny błąd. Spróbuj usunąć mapę i pobrać ją ponownie. Jeśli problem będzie się nadal powtarzał, skontaktuj się z nami pod adresem support@maps.me.";
->>>>>>> generated routing fail messages

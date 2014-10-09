@@ -691,7 +691,30 @@
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";
 
-<<<<<<< HEAD
+/* Show in Lite version when user try to download routing files or try to build route */
+"routing_failed_buy_pro" = "Route aanmaken is alleen beschikbaar in de volledige versie van MAPS.ME. Neem nu meteen!";
+
+/* Show when user try build route, but we don't know where he */
+"routing_failed_unknown_my_position" = "Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.";
+
+/* Show if use has not routing file, or InconsistentMWMandRoute */
+"routing_failed_has_no_routing_file" = "Er zijn extra gegevens nodig om een ​​route te creëren. Beginnen met downloaden?";
+
+/* StartPointNotFound */
+"routing_failed_start_point_not_found" = "Kan de route niet berekenen. Geen wegen in de buurt van uw beginpunt.";
+
+/* EndPointNotFound */
+"routing_failed_dst_point_not_found" = "Kan de route niet berekenen. Geen wegen in de buurt van uw bestemming.";
+
+/* PointsInDifferentMWM */
+"routing_failed_cross_mwm_building" = "Slechts de routes die volledig opgenomen zijn in één kaart kunnen gecreëerd worden.";
+
+/* RouteNotFound */
+"routing_failed_route_not_found" = "Er is geen route gevonden tussen het geselecteerde beginpunt en de bestemming. Gelieve een andere beginpunt of een eindbestemming te kiezen.";
+
+/* InternalError */
+"routing_failed_internal_error" = "Er is een interne fout opgetreden. Probeer het kaart te verwijderen en opnieuw te downloaden. Indien het probleem blijft optreden, neem dan contact met ons op support@maps.me.";
+
 /* Context menu item for downloader. */
 "downloader_download_map_and_routing" = "Download kaart + routering";
 
@@ -706,27 +729,3 @@
 
 /* Button for routing PP. */
 "routing_go" = "Starten!";
-=======
-/* Show in Lite version when user try to download routing files or try to build route */
-"routing_failed_buy_pro" = "Route aanmaken is alleen beschikbaar in de volledige versie van MAPS.ME. Neem nu meteen!";
-
-/* Show when user try build route, but we don't know where he */
-"routing_failed_unknown_my_position" = "Huidige locatie is niet gedefinieerd. Gelieve de locatie te specificeren om de route te creëren.";
-
-/* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Er zijn extra gegevens nodig om een ​​route te creëren. Beginnen met downloaden?";
-
-/* StartPointNotFound or EndPointNotFound */
-"routing_failed_start_point_not_found" = "Kan de route niet berekenen. Geen wegen in de buurt van uw beginpunt.";
-
-"routing_failed_dst_point_not_found" = "Kan de route niet berekenen. Geen wegen in de buurt van uw bestemming.";
-
-/* PointsInDifferentMWM */
-"routing_failed_cross_mwm_building" = "Slechts de routes die volledig opgenomen zijn in één kaart kunnen gecreëerd worden.";
-
-/* RouteNotFound */
-"routing_failed_route_not_found" = "Er is geen route gevonden tussen het geselecteerde beginpunt en de bestemming. Gelieve een andere beginpunt of een eindbestemming te kiezen.";
-
-/* InternalError */
-"routing_failed_internal_error" = "Er is een interne fout opgetreden. Probeer het kaart te verwijderen en opnieuw te downloaden. Indien het probleem blijft optreden, neem dan contact met ons op support@maps.me.";
->>>>>>> generated routing fail messages

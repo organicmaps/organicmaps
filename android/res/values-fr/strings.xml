@@ -446,8 +446,9 @@
 	<string name="routing_failed_unknown_my_position">L\&#39;emplacement actuel n\&#39;est pas défini. Veuillez préciser l\&#39;emplacement pour créer l\&#39;itinéraire.</string>
 	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
 	<string name="routing_failed_has_no_routing_file">Des données supplémentaires sont nécessaires pour créer un itinéraire. Vous désirez lancer le téléchargement ?</string>
-	<!-- StartPointNotFound or EndPointNotFound -->
+	<!-- StartPointNotFound -->
 	<string name="routing_failed_start_point_not_found">Impossible de calculer l\&#39;itinéraire. Aucune route à proximité de votre point de départ.</string>
+	<!-- EndPointNotFound -->
 	<string name="routing_failed_dst_point_not_found">Impossible de calculer l\&#39;itinéraire. Aucune route à proximité de votre destination.</string>
 	<!-- PointsInDifferentMWM -->
 	<string name="routing_failed_cross_mwm_building">Les itinéraires entièrement contenus sur une seule carte peuvent être créés.</string>
@@ -455,4 +456,14 @@
 	<string name="routing_failed_route_not_found">Il n\&#39;existe aucun itinéraire entre l\&#39;origine et la destination choisies . Veuillez sélectionner un point de départ ou d\&#39;arrivée différent.</string>
 	<!-- InternalError -->
 	<string name="routing_failed_internal_error">Une erreur interne s\&#39;est produite. Veuillez essayer de supprimer la carte et téléchargez la à nouveau. Si le problème persiste, veuillez contacter support@maps.me.</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map_and_routing">Télécharger Carte + Itinéraire</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_routing">Télécharger Itinéraire</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_delete_routing">Supprimer Itinéraire</string>
+	<!-- Context menu item for downloader. -->
+	<string name="downloader_download_map">Téléchargez la carte</string>
+	<!-- Button for routing PP. -->
+	<string name="routing_go">Allez-y !</string>
 </resources>
