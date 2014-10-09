@@ -30,17 +30,31 @@
       wheel:secondaryColor="@color/downloader_progress_bg"
       wheel:thickness="@dimen/margin_micro"/>
 
-  <com.mapswithme.maps.widget.WheelProgressView
-      android:id="@+id/download_progress_slided"
+  <RelativeLayout
+      android:id="@+id/fl__status_slided"
       android:layout_width="@dimen/progress_wheel_width"
       android:layout_height="@dimen/progress_wheel_height"
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
       android:paddingLeft="@dimen/margin_tiny"
-      android:paddingRight="@dimen/margin_tiny"
-      wheel:progressColor="@color/downloader_blue"
-      wheel:secondaryColor="@color/downloader_progress_bg"
-      wheel:thickness="@dimen/margin_micro"/>
+      android:paddingRight="@dimen/margin_tiny">
+
+    <ImageView
+        android:id="@+id/iv__routing_status_slided"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="center"/>
+
+    <com.mapswithme.maps.widget.WheelProgressView
+        android:id="@+id/download_progress_slided"
+        android:layout_width="@dimen/progress_wheel_width"
+        android:layout_height="@dimen/progress_wheel_height"
+        wheel:progressColor="@color/downloader_blue"
+        wheel:secondaryColor="@color/downloader_progress_bg"
+        wheel:thickness="@dimen/margin_micro"/>
+
+  </RelativeLayout>
+
 
   <LinearLayout
       android:id="@+id/ll__info"

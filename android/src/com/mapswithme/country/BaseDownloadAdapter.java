@@ -15,8 +15,10 @@ import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MapStorage;
@@ -223,15 +225,17 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected static class ViewHolder
   {
-    public TextView mName;
-    public WheelProgressView mProgress;
-    public TextView mPercent;
-    public TextView mSize;
-    private LinearLayout mInfo;
-    private TextView mPercentSlided;
-    private TextView mSizeSlided;
-    private LinearLayout mInfoSlided;
-    private WheelProgressView mProgressSlided;
+    TextView mName;
+    WheelProgressView mProgress;
+    TextView mPercent;
+    TextView mSize;
+    LinearLayout mInfo;
+    TextView mPercentSlided;
+    TextView mSizeSlided;
+    LinearLayout mInfoSlided;
+    WheelProgressView mProgressSlided;
+    RelativeLayout mStatusLayout;
+    ImageView mImageRoutingStatus;
 
     private Animator animator;
 
@@ -246,6 +250,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       mSizeSlided = (TextView) v.findViewById(R.id.tv__size_slided);
       mInfoSlided = (LinearLayout) v.findViewById(R.id.ll__info_slided);
       mProgressSlided = (WheelProgressView) v.findViewById(R.id.download_progress_slided);
+      mStatusLayout = (RelativeLayout) v.findViewById(R.id.fl__status_slided);
+      mImageRoutingStatus = (ImageView) v.findViewById(R.id.iv__routing_status_slided);
     }
   }
 
@@ -293,9 +299,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       }
     };
     convertView.setOnClickListener(listener);
-    if (holder.mProgressSlided != null)
+    if (holder.mStatusLayout != null)
     {
-      holder.mProgressSlided.setOnClickListener(listener);
+      holder.mStatusLayout.setOnClickListener(listener);
       holder.mInfoSlided.setOnClickListener(listener);
       holder.mInfo.setOnClickListener(listener);
     }
@@ -319,12 +325,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     return 0;
   }
 
-  protected void bindCountry(int position, int type, ViewHolder holder)
-  {
-    bindSizeAndProgress(holder, type, position);
-  }
-
-  protected void bindSizeAndProgress(final ViewHolder holder, final int type, final int position)
+  protected void bindCountry(final int position, int type, final ViewHolder holder)
   {
     final CountryItem item = getItem(position);
     if (item == null)
@@ -332,13 +333,15 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
     ViewHelper.setTranslationX(holder.mInfoSlided, 0);
     ViewHelper.setTranslationX(holder.mInfo, 0);
+    ViewHelper.setTranslationX(holder.mStatusLayout, 0);
     ViewHelper.setTranslationX(holder.mProgress, 0);
-    ViewHelper.setTranslationX(holder.mProgressSlided, 0);
     long[] sizes;
     switch (item.getStatus())
     {
     case MapStorage.DOWNLOADING:
-      holder.mProgress.setVisibility(View.GONE);
+      UiUtils.show(holder.mInfoSlided, holder.mProgressSlided, holder.mStatusLayout);
+      UiUtils.hide(holder.mImageRoutingStatus, holder.mProgress);
+      UiUtils.invisible(holder.mInfo);
       holder.mProgressSlided.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -347,9 +350,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           confirmDownloadCancelation(holder, position, item.getName());
         }
       });
-      holder.mInfo.setVisibility(View.INVISIBLE);
-      holder.mInfoSlided.setVisibility(View.VISIBLE);
-      holder.mProgressSlided.setVisibility(View.VISIBLE);
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
@@ -357,39 +357,41 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       break;
 
     case MapStorage.ON_DISK_OUT_OF_DATE:
-      holder.mProgress.setVisibility(View.GONE);
-      holder.mProgressSlided.setVisibility(View.GONE);
-      holder.mInfo.setVisibility(View.VISIBLE);
-      holder.mInfo.setOnClickListener(new View.OnClickListener()
+      UiUtils.show(holder.mInfoSlided, holder.mStatusLayout, holder.mImageRoutingStatus);
+      UiUtils.hide(holder.mProgress);
+      UiUtils.invisible(holder.mInfo, holder.mProgressSlided);
+      holder.mInfoSlided.setOnClickListener(new View.OnClickListener()
       {
         @Override
         public void onClick(View v)
         {
-          startItemDownloading(holder, position, getItem(position).getOptions());
+          startItemUpdating(holder, position, getItem(position).getOptions());
+          Statistics.INSTANCE.trackCountryUpdate();
         }
       });
-      holder.mInfoSlided.setVisibility(View.GONE);
 
+      bindCarRoutingIcon(holder, item);
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentString(holder, mStatusOutdated, R.color.downloader_green);
       break;
 
     case MapStorage.ON_DISK:
-      holder.mProgress.setVisibility(View.GONE);
-      holder.mProgressSlided.setVisibility(View.GONE);
-      holder.mInfo.setVisibility(View.VISIBLE);
-      holder.mInfoSlided.setVisibility(View.GONE);
+      UiUtils.show(holder.mInfoSlided, holder.mStatusLayout, holder.mImageRoutingStatus);
+      UiUtils.hide(holder.mProgress, holder.mProgressSlided);
+      UiUtils.invisible(holder.mInfo);
 
+      bindCarRoutingIcon(holder, item);
       sizes = getItemSizes(position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
       setHolderSizeString(holder, 0, sizes[0]);
       setHolderPercentString(holder, mStatusDownloaded, R.color.downloader_gray);
       break;
     case MapStorage.DOWNLOAD_FAILED:
-      holder.mProgress.setVisibility(View.GONE);
-      holder.mProgressSlided.setVisibility(View.GONE);
-      holder.mInfo.setVisibility(View.VISIBLE);
-      holder.mInfo.setOnClickListener(new View.OnClickListener()
+      UiUtils.show(holder.mInfoSlided, holder.mStatusLayout, holder.mProgressSlided);
+      UiUtils.hide(holder.mProgress, holder.mImageRoutingStatus);
+      UiUtils.invisible(holder.mInfo);
+      // TODO change color and center img
+      holder.mInfoSlided.setOnClickListener(new View.OnClickListener()
       {
         @Override
         public void onClick(View v)
@@ -398,7 +400,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           downloadCountry(position, getItem(position).getOptions());
         }
       });
-      holder.mInfoSlided.setVisibility(View.GONE);
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
@@ -406,8 +407,10 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       break;
 
     case MapStorage.IN_QUEUE:
-      holder.mProgress.setVisibility(View.GONE);
-      holder.mProgressSlided.setVisibility(View.VISIBLE);
+      UiUtils.show(holder.mInfoSlided, holder.mStatusLayout, holder.mProgressSlided);
+      UiUtils.hide(holder.mProgress, holder.mImageRoutingStatus);
+      UiUtils.invisible(holder.mInfo);
+
       holder.mProgressSlided.setProgress(0);
       holder.mProgressSlided.setOnClickListener(new View.OnClickListener()
       {
@@ -417,7 +420,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           confirmDownloadCancelation(holder, position, item.getName());
         }
       });
-      holder.mInfo.setVisibility(View.INVISIBLE);
       holder.mInfoSlided.setVisibility(View.VISIBLE);
 
       sizes = getDownloadableItemSizes(position);
@@ -426,20 +428,26 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       break;
 
     case MapStorage.NOT_DOWNLOADED:
-      holder.mProgress.setVisibility(View.GONE);
-      holder.mProgressSlided.setVisibility(View.GONE);
-      holder.mInfo.setVisibility(View.VISIBLE);
-      holder.mInfoSlided.setVisibility(View.GONE);
+      UiUtils.show(holder.mInfo);
+      UiUtils.hide(holder.mInfoSlided, holder.mStatusLayout);
 
       sizes = getItemSizes(position, StorageOptions.MAP_OPTION_MAP_ONLY);
       // FIXME next lines produces HUGE LAGS, fix it!!!
-//      long[] sizesRemote = getItemSizes(position, StorageOptions.MAP_OPTION_CAR_ROUTING);
-//      setHolderSizeString(holder, sizes[1], sizesRemote[1]);
+      //      long[] sizesRemote = getItemSizes(position, StorageOptions.MAP_OPTION_CAR_ROUTING);
+      //      setHolderSizeString(holder, sizes[1], sizesRemote[1]);
       setHolderSizeString(holder, sizes[1], 42000000);
       setHolderPercentString(holder, mStatusNotDownloaded, R.color.downloader_green);
       break;
 
     }
+  }
+
+  private void bindCarRoutingIcon(ViewHolder holder, CountryItem item)
+  {
+    if (item.getOptions() == StorageOptions.MAP_OPTION_MAP_ONLY)
+      holder.mImageRoutingStatus.setImageResource(R.drawable.ic_routing_get);
+    else
+      holder.mImageRoutingStatus.setImageResource(R.drawable.ic_routing_ok);
   }
 
   private void startItemDownloading(final ViewHolder holder, final int position, int newOptions)
@@ -474,11 +482,44 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
     holder.mProgress.setVisibility(View.VISIBLE);
 
-    final CountryItem item = getItem(position);
-    if (item == null)
-      return;
-
     downloadCountry(position, newOptions);
+  }
+
+  private void startItemUpdating(final ViewHolder holder, int position, int options)
+  {
+    setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
+
+    ObjectAnimator fadeOutAnim = ObjectAnimator.ofFloat(holder.mImageRoutingStatus, PROPERTY_ALPHA, 1, 0);
+    fadeOutAnim.setDuration(ANIMATION_LENGTH / 2);
+    fadeOutAnim.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        holder.mProgressSlided.setVisibility(View.VISIBLE);
+      }
+
+    });
+
+    ObjectAnimator fadeInAnim = ObjectAnimator.ofFloat(holder.mProgressSlided, PROPERTY_ALPHA, 0, 1);
+    fadeInAnim.setDuration(ANIMATION_LENGTH / 2);
+
+    AnimatorSet animatorSet = new AnimatorSet();
+    animatorSet.playSequentially(fadeOutAnim, fadeInAnim);
+    animatorSet.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        holder.mImageRoutingStatus.setVisibility(View.GONE);
+        mActiveAnimationsCount--;
+      }
+    });
+    mActiveAnimationsCount++;
+    animatorSet.start();
+    holder.animator = animatorSet;
+
+    downloadCountry(position, options);
   }
 
   private void stopItemDownloading(final ViewHolder holder, final int position)
