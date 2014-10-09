@@ -11,7 +11,7 @@
 #include "../3party/succinct/elias_fano.hpp"
 #include "../3party/succinct/elias_fano_compressed_list.hpp"
 #include "../3party/succinct/gamma_vector.hpp"
-#include "../3party/succinct/bit_vector.hpp"
+#include "../3party/succinct/rs_bit_vector.hpp"
 #include "../3party/succinct/mapper.hpp"
 
 #include "../3party/osrm/osrm-backend/Server/DataStructures/BaseDataFacade.h"
@@ -25,12 +25,13 @@ template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeData
   typedef BaseDataFacade<EdgeDataT> super;
 
   succinct::elias_fano_compressed_list m_edgeData;
-  succinct::bit_vector m_shortcuts;
+  succinct::rs_bit_vector m_shortcuts;
   succinct::elias_fano m_fanoMatrix;
   succinct::elias_fano_compressed_list m_edgeId;
 
   FilesMappingContainer::Handle m_handleEdgeData;
   FilesMappingContainer::Handle m_handleEdgeId;
+  FilesMappingContainer::Handle m_handleEdgeIdFano;
   FilesMappingContainer::Handle m_handleShortcuts;
   FilesMappingContainer::Handle m_handleFanoMatrix;
 
@@ -117,7 +118,8 @@ public:
 
     uint64_t data = m_edgeData[e];
 
-    res.id = node - bits::ZigZagDecode(m_edgeId[e]);
+    res.id = 0;
+    res.id = node - bits::ZigZagDecode(m_edgeId[m_shortcuts.rank(e)]);
     res.backward = data & 0x1;
     data >>= 1;
     res.forward = data & 0x1;
@@ -132,17 +134,6 @@ public:
   EdgeDataT const & GetEdgeData(const EdgeID e) const
   {
     static EdgeDataT res;
-
-    uint64_t data = m_edgeData[e];
-
-    res.id = m_edgeId[e];
-    res.backward = data & 0x1;
-    data >>= 1;
-    res.forward = data & 0x1;
-    data >>= 1;
-    res.distance = data;
-    res.shortcut = m_shortcuts[e];
-
     return res;
   }
 

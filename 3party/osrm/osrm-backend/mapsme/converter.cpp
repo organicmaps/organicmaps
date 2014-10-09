@@ -14,6 +14,7 @@
 #include "../../../succinct/elias_fano.hpp"
 #include "../../../succinct/elias_fano_compressed_list.hpp"
 #include "../../../succinct/gamma_vector.hpp"
+#include "../../../succinct/rs_bit_vector.hpp"
 #include "../../../succinct/mapper.hpp"
 
 
@@ -78,7 +79,8 @@ void Converter::run(const std::string & name)
       int id1 = data.id;
       int id2 = node;
 
-      edgeId.push_back(bits::ZigZagEncode(id2 - id1));
+      if (data.shortcut)
+        edgeId.push_back(bits::ZigZagEncode(id2 - id1));
     }
   }
   std::cout << "Edges count: " << edgeId.size() << std::endl;
@@ -97,22 +99,22 @@ void Converter::run(const std::string & name)
     builder.push_back(e);
   succinct::elias_fano matrix(&builder);
 
-  std::string fileName = name + ".matrix";
+  std::string fileName = name + "." + ROUTING_MATRIX_FILE_TAG;
   succinct::mapper::freeze(matrix, fileName.c_str());
 
 
   std::cout << "--- Save edge data" << std::endl;
   succinct::elias_fano_compressed_list edgeVector(edgesData);
-  fileName = name + ".edgedata";
+  fileName = name + "." + ROUTING_EDGEDATA_FILE_TAG;
   succinct::mapper::freeze(edgeVector, fileName.c_str());
 
   succinct::elias_fano_compressed_list edgeIdVector(edgeId);
-  fileName = name + ".edgeid";
+  fileName = name + "." + ROUTING_EDGEID_FILE_TAG;
   succinct::mapper::freeze(edgeIdVector, fileName.c_str());
 
   std::cout << "--- Save edge shortcuts" << std::endl;
-  succinct::bit_vector shortcutsVector(shortcuts);
-  fileName = name + ".shortcuts";
+  succinct::rs_bit_vector shortcutsVector(shortcuts);
+  fileName = name + "." + ROUTING_SHORTCUTS_FILE_TAG;
   succinct::mapper::freeze(shortcutsVector, fileName.c_str());
 
   /// @todo Restore this checking. Now data facade depends on mwm libraries.
@@ -182,7 +184,7 @@ void Converter::run(const std::string & name)
       if (d1.backward != d2.backward ||
           d1.forward != d2.forward ||
           d1.distance != d2.distance ||
-          d1.id != d2.id ||
+          (d1.id != d2.id && (d1.shortcut || d2.shortcut)) ||
           d1.shortcut != d2.shortcut)
       {
         stringstream ss;
