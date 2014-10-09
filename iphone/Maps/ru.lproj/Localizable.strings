@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "Поехали!";
+
+/* Item status in downloader. */
+"downloader_retry" = "Повторите попытку";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Карта + Маршруты";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Удалить карту";
+
+/* Item in context menu. */
+"downloader_update_map" = "Обновить карту";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Обновить карту + Маршруты";

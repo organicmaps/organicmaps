@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "Git!";
+
+/* Item status in downloader. */
+"downloader_retry" = "Tekrar Dene";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Harita + Rota";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Haritayı Sil";
+
+/* Item in context menu. */
+"downloader_update_map" = "Haritayı Güncelle";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Harita + Rota Güncelle";

@@ -149,4 +149,14 @@
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Download Map</text>
 	<!-- Button for routing PP. -->
 	<text id="IDS_ROUTING_GO">Go!</text>
+	<!-- Item status in downloader. -->
+	<text id="IDS_DOWNLOADER_RETRY">Retry</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_MAP_AND_ROUTING">Map + Routing</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_DELETE_MAP">Delete Map</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP">Update Map</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Update Map + Routing</text>
 </string_table>

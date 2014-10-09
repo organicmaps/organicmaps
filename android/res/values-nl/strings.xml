@@ -437,4 +437,14 @@
 	<string name="downloader_download_map">Kaart downloaden</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Starten!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">Opnieuw proberen</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Kaart + route</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">Kaart verwijderen</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">Kaart bijwerken</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Kaart bijwerken + route</string>
 </resources>

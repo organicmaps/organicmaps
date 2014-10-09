@@ -455,4 +455,14 @@
 	<string name="downloader_download_map">Download kort</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Kør!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">Prøv igen</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Kort og rutevejledning</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">Slet kort</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">Opdater kort</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Opdater kort og rutevejledning</string>
 </resources>

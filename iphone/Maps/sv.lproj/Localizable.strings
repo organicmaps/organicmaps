@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "Kör!";
+
+/* Item status in downloader. */
+"downloader_retry" = "Försök igen";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Karta + Navigering";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Radera karta";
+
+/* Item in context menu. */
+"downloader_update_map" = "Uppdatera karta";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Uppdatera karta + Navigering";

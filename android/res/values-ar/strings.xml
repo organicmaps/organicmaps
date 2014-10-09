@@ -459,4 +459,14 @@
 	<string name="downloader_download_map">تحميل الخريطة</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">انطلق!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">إعادة المحاولة</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">الخريطة + تحديد المسار</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">حذف الخريطة</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">تحديث الخريطة</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">تحديث الخريطة + تحديد المسار</string>
 </resources>

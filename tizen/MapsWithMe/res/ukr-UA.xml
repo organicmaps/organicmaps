@@ -139,4 +139,14 @@
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Завантажити мапу</text>
 	<!-- Button for routing PP. -->
 	<text id="IDS_ROUTING_GO">Поїхали!</text>
+	<!-- Item status in downloader. -->
+	<text id="IDS_DOWNLOADER_RETRY">Спробуйте знову</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_MAP_AND_ROUTING">Мапа + Маршрути</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_DELETE_MAP">Видалити мапу</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP">Оновити мапу</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Оновити мапу + Маршрути</text>
 </string_table>

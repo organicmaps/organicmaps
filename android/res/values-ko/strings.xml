@@ -433,4 +433,14 @@
 	<string name="downloader_download_map">지도 다운로드</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">이동!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">다시 시도</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">지도 + 라우팅</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">지도 삭제</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">지도 업데이트</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">지도 + 라우팅 업데이트</string>
 </resources>

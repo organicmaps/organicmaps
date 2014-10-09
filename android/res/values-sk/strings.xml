@@ -459,4 +459,14 @@
 	<string name="downloader_download_map">Stiahnite si Mapu</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Štart!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">Skúsiť znova</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Mapa + Smerovanie</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">Zmazať mapu</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">Aktualizovať mapu</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Aktualizovať mapu + Smerovanie</string>
 </resources>

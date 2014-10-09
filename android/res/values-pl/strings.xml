@@ -456,4 +456,14 @@
 	<string name="downloader_download_map">Pobierz mapę</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Przejdź!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">Spróbuj ponownie</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Mapa + trasy</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">Usuń mapę</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">Aktualizuj mapę</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Aktualizuj mapę + trasy</string>
 </resources>

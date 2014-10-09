@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "開始！";
+
+/* Item status in downloader. */
+"downloader_retry" = "重試";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "地圖 + 布置路線";
+
+/* Item in context menu. */
+"downloader_delete_map" = "刪除地圖";
+
+/* Item in context menu. */
+"downloader_update_map" = "更新地圖";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "更新地圖 + 布置路線";

@@ -135,4 +135,14 @@
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Karte herunterladen</text>
 	<!-- Button for routing PP. -->
 	<text id="IDS_ROUTING_GO">Los!</text>
+	<!-- Item status in downloader. -->
+	<text id="IDS_DOWNLOADER_RETRY">Wiederholen</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_MAP_AND_ROUTING">Karte + Routenplanung</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_DELETE_MAP">Karte löschen</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP">Karte aktualisieren</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Karte + Routenplanung aktualisieren</text>
 </string_table>

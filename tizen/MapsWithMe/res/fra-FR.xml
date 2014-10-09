@@ -145,4 +145,14 @@
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Téléchargez la carte</text>
 	<!-- Button for routing PP. -->
 	<text id="IDS_ROUTING_GO">Allez-y !</text>
+	<!-- Item status in downloader. -->
+	<text id="IDS_DOWNLOADER_RETRY">Réessayer</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_MAP_AND_ROUTING">Carte + itinéraire</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_DELETE_MAP">Supprimer carte</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP">Mise à jour carte</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Mise à jour carte + itinéraire</text>
 </string_table>

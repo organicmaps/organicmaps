@@ -456,4 +456,14 @@
 	<string name="downloader_download_map">Скачать карту</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Поехали!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">Повторите попытку</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Карта + Маршруты</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">Удалить карту</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">Обновить карту</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Обновить карту + Маршруты</string>
 </resources>

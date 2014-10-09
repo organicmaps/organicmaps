@@ -459,4 +459,14 @@
 	<string name="downloader_download_map">Haritayı İndir</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Git!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">Tekrar Dene</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Harita + Rota</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">Haritayı Sil</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">Haritayı Güncelle</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Harita + Rota Güncelle</string>
 </resources>

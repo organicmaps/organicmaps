@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "이동!";
+
+/* Item status in downloader. */
+"downloader_retry" = "다시 시도";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "지도 + 라우팅";
+
+/* Item in context menu. */
+"downloader_delete_map" = "지도 삭제";
+
+/* Item in context menu. */
+"downloader_update_map" = "지도 업데이트";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "지도 + 라우팅 업데이트";

@@ -432,4 +432,14 @@
 	<string name="downloader_download_map">地図をダウンロード</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">開始！</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">再試行</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">地図とルート</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">地図を削除</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">地図を更新</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">地図とルートを更新</string>
 </resources>

@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "Starten!";
+
+/* Item status in downloader. */
+"downloader_retry" = "Opnieuw proberen";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Kaart + route";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Kaart verwijderen";
+
+/* Item in context menu. */
+"downloader_update_map" = "Kaart bijwerken";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Kaart bijwerken + route";

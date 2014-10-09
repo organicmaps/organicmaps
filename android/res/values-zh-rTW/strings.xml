@@ -414,4 +414,14 @@
 	<string name="downloader_download_map">下載地圖</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">開始！</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">重試</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">地圖 + 布置路線</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">刪除地圖</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">更新地圖</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">更新地圖 + 布置路線</string>
 </resources>

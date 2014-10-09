@@ -450,4 +450,14 @@
 	<string name="downloader_download_map">Завантажити мапу</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Поїхали!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">Спробуйте знову</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Мапа + Маршрути</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">Видалити мапу</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">Оновити мапу</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Оновити мапу + Маршрути</string>
 </resources>

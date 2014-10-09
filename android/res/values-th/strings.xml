@@ -457,4 +457,14 @@
 	<string name="downloader_download_map">ดาวน์โหลดแผนที่</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">ไป!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">ลองอีกครั้ง</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">แผนที่ + เส้นทาง</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">ลบแผนที่</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">อัปเดตแผนที่</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">อัปเดตแผนที่ + เส้นทาง</string>
 </resources>

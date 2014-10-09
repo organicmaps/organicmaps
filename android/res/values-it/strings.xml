@@ -442,4 +442,14 @@
 	<string name="downloader_download_map">Scarica Map</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Andare!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">Riprova</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Mappa + percorso</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">Elimina mappa</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">Aggiorna mappa</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Aggiorna mappa + percorso</string>
 </resources>

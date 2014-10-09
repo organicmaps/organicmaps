@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "Kør!";
+
+/* Item status in downloader. */
+"downloader_retry" = "Prøv igen";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Kort og rutevejledning";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Slet kort";
+
+/* Item in context menu. */
+"downloader_update_map" = "Opdater kort";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Opdater kort og rutevejledning";

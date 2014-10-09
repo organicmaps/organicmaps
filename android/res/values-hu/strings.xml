@@ -454,4 +454,14 @@
 	<string name="downloader_download_map">Térkép letöltése</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Indulás!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">Újra próbál</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Térkép + útvonal megállapítása</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">Térkép törlése</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">Térkép frissítése</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Térkép frissítése + útvonal megállapítása</string>
 </resources>

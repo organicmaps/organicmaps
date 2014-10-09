@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "Indulás!";
+
+/* Item status in downloader. */
+"downloader_retry" = "Újra próbál";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Térkép + útvonal megállapítása";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Térkép törlése";
+
+/* Item in context menu. */
+"downloader_update_map" = "Térkép frissítése";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Térkép frissítése + útvonal megállapítása";

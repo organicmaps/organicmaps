@@ -133,4 +133,14 @@
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Descargar mapa</text>
 	<!-- Button for routing PP. -->
 	<text id="IDS_ROUTING_GO">¡Listo!</text>
+	<!-- Item status in downloader. -->
+	<text id="IDS_DOWNLOADER_RETRY">Reintentar</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_MAP_AND_ROUTING">Mapa + itinerario</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_DELETE_MAP">Eliminar mapa</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP">Actualizar mapa</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Actualizar mapa + itinerario</text>
 </string_table>

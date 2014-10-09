@@ -452,4 +452,14 @@
 	<string name="downloader_download_map">Descarregar Mapa</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Avançar!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">Tentar de novo</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Mapa + Criação de Trajeto</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">Apagar Mapa</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">Atualizar Mapa</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Atualizar Mapa + Criação de Trajeto</string>
 </resources>

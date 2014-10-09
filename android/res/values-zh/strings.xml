@@ -449,4 +449,14 @@
 	<string name="downloader_download_map">下载地图</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">出发！</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">重试</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">地图 + 布置路线</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">删除地图</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">更新地图</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">更新地图 + 布置路线</string>
 </resources>

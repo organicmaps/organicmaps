@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "開始！";
+
+/* Item status in downloader. */
+"downloader_retry" = "再試行";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "地図とルート";
+
+/* Item in context menu. */
+"downloader_delete_map" = "地図を削除";
+
+/* Item in context menu. */
+"downloader_update_map" = "地図を更新";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "地図とルートを更新";

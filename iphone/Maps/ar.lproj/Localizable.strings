@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "انطلق!";
+
+/* Item status in downloader. */
+"downloader_retry" = "إعادة المحاولة";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "الخريطة + تحديد المسار";
+
+/* Item in context menu. */
+"downloader_delete_map" = "حذف الخريطة";
+
+/* Item in context menu. */
+"downloader_update_map" = "تحديث الخريطة";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "تحديث الخريطة + تحديد المسار";

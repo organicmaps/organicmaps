@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "¡Listo!";
+
+/* Item status in downloader. */
+"downloader_retry" = "Reintentar";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Mapa + itinerario";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Eliminar mapa";
+
+/* Item in context menu. */
+"downloader_update_map" = "Actualizar mapa";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Actualizar mapa + itinerario";

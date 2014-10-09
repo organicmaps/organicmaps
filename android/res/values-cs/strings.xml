@@ -442,4 +442,14 @@
 	<string name="downloader_download_map">Stáhněte si mapu</string>
 	<!-- Button for routing PP. -->
 	<string name="routing_go">Jet!</string>
+	<!-- Item status in downloader. -->
+	<string name="downloader_retry">Zkusit znovu</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_and_routing">Mapa + trasy</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_delete_map">Vymazat mapu</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map">Aktualizovat mapu</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_update_map_and_routing">Aktualizovat mapu + trasy</string>
 </resources>

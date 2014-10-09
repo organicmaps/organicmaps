@@ -729,3 +729,18 @@
 
 /* Button for routing PP. */
 "routing_go" = "Štart!";
+
+/* Item status in downloader. */
+"downloader_retry" = "Skúsiť znova";
+
+/* Item in context menu. */
+"downloader_map_and_routing" = "Mapa + Smerovanie";
+
+/* Item in context menu. */
+"downloader_delete_map" = "Zmazať mapu";
+
+/* Item in context menu. */
+"downloader_update_map" = "Aktualizovať mapu";
+
+/* Item in context menu. */
+"downloader_update_map_and_routing" = "Aktualizovať mapu + Smerovanie";

@@ -123,4 +123,14 @@
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP">Stáhněte si mapu</text>
 	<!-- Button for routing PP. -->
 	<text id="IDS_ROUTING_GO">Jet!</text>
+	<!-- Item status in downloader. -->
+	<text id="IDS_DOWNLOADER_RETRY">Zkusit znovu</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_MAP_AND_ROUTING">Mapa + trasy</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_DELETE_MAP">Vymazat mapu</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP">Aktualizovat mapu</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Aktualizovat mapu + trasy</text>
 </string_table>
