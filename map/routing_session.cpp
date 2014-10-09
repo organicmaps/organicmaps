@@ -145,6 +145,7 @@ void RoutingSession::SetRouter(IRouter * router)
 
 void RoutingSession::DeleteIndexFile(string const & fileName)
 {
+  Reset();
   m_router->ClearState();
   (void) my::DeleteFileX(GetPlatform().WritablePathForFile(fileName));
 }

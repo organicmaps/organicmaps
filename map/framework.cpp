@@ -353,14 +353,27 @@ void Framework::ShowCountry(TIndex const & index)
 void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
 {
   if (opt & TMapOptions::EMapOnly)
-{
-  m2::RectD rect;
+  {
+    // Delete old (splitted) map files, if any.
+    char const * arr[] = { "Japan", "Brazil" };
+    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+      if (fileName.find(arr[i]) == 0)
+      {
+        if (m_model.DeleteMap(string(arr[i]) + DATA_FILE_EXTENSION))
+          Invalidate(true);
+
+        // Routing index doesn't exist for this map files.
+      }
+
+    // Add downloaded map.
+    m2::RectD rect;
     if (m_model.UpdateMap(fileName, rect))
-    InvalidateRect(rect, true);
+      InvalidateRect(rect, true);
 
   GetSearchEngine()->ClearViewportsCache();
 }
 
+  // Replace routing file.
   if (opt & TMapOptions::ECarRouting)
   {
     string routingName = fileName + ROUTING_FILE_EXTENSION;
