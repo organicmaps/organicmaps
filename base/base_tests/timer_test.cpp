@@ -33,12 +33,25 @@ UNIT_TEST(Timer_TimestampConversion)
   TEST_EQUAL(StringToTimestamp("2012-12-02T21:08:34Z"), 1354482514, ());
   TEST_EQUAL(StringToTimestamp("2012-12-03T00:38:34+03:30"), 1354482514, ());
   TEST_EQUAL(StringToTimestamp("2012-12-02T11:08:34-10:00"), 1354482514, ());
+  TEST_EQUAL(StringToTimestamp("2014-09-30T23:59:59+23:59"), 1412035259, ());
 
-  time_t now = time(0);
+  time_t const now = time(0);
   TEST_EQUAL(now, StringToTimestamp(TimestampToString(now)), ());
 
   TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("asd23423adsfbhj657"), ());
+
   TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2012-aa-02T21:08:34Z"), ());
   TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2012-12-0ZT21:08:34Z"), ());
   TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2012:12:02T21-08-34Z"), ());
+
+  TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2012-"), ());
+  TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2012-12-02"), ());
+  TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("1970-01-01T"), ());
+  TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("1970-01-01T21:"), ());
+  TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("1970-01-01T21:08:34"), ());
+
+  TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("1000-12-02T11:08:34-10:00"), ());
+  TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2000-00-02T11:08:34-10:00"), ());
+  TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2100-01--1T11:08:34-10:00"), ());
+  TEST_EQUAL(INVALID_TIME_STAMP, StringToTimestamp("2012-12-02T11:08:34-25:88"), ());
 }

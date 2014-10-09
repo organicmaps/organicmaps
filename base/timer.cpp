@@ -105,35 +105,73 @@ string TimestampToString(time_t time)
   return buf;
 }
 
+namespace
+{
+
+template <class T> bool ParseInt(char const * & s, T & i, size_t sz)
+{
+  char * stop;
+  long const x = strtol(s, &stop, 10);
+  if (stop && (stop - s == sz))
+  {
+    i = x;
+    s = stop;
+    return true;
+  }
+  return false;
+}
+
+bool IsValid(tm const & t)
+{
+  return (t.tm_year >= 1900 &&
+          t.tm_mon >= 1 && t.tm_mon <= 12 &&
+          t.tm_mday >= 1 && t.tm_mday <= 31 &&
+          t.tm_hour >= 0 && t.tm_hour <= 23 &&
+          t.tm_min >= 0 && t.tm_min <= 59 &&
+          t.tm_sec >= 0 && t.tm_sec <= 59);
+}
+
+}
+
 time_t StringToTimestamp(string const & s)
 {
-  tm t;
-  memset(&t, 0, sizeof(t));
+  tm t = {};
+
   // Return current time in the case of failure
   time_t res = INVALID_TIME_STAMP;
-  // Parse UTC format
+  char const * p = s.c_str();
+
+  if (ParseInt(p, t.tm_year, 4) && *p++ == '-' &&
+      ParseInt(p, t.tm_mon, 2)  && *p++ == '-' &&
+      ParseInt(p, t.tm_mday, 2) && *p++ == 'T' &&
+      ParseInt(p, t.tm_hour, 2) && *p++ == ':' &&
+      ParseInt(p, t.tm_min, 2)  && *p++ == ':' &&
+      ParseInt(p, t.tm_sec, 2) && IsValid(t))
+  {
+    t.tm_year -= 1900;
+    t.tm_mon -= 1;
+  }
+  else
+    return res;
+
   if (s.size() == 20)
   {
-    if (6 == sscanf(s.c_str(), "%4d-%2d-%2dT%2d:%2d:%2dZ", &t.tm_year,
-                    &t.tm_mon, &t.tm_mday, &t.tm_hour, &t.tm_min, &t.tm_sec))
-    {
-      t.tm_year -= 1900;
-      t.tm_mon -= 1;
+    // Parse UTC format
+    if (*p == 'Z')
       res = my_timegm(&t);
-    }
   }
   else if (s.size() == 25)
   {
     // Parse custom time zone offset format
-    char sign;
+    char const sign = *p++;
     int tzHours, tzMinutes;
-    if (9 == sscanf(s.c_str(), "%4d-%2d-%2dT%2d:%2d:%2d%c%2d:%2d", &t.tm_year,
-                    &t.tm_mon, &t.tm_mday, &t.tm_hour, &t.tm_min, &t.tm_sec,
-                    &sign, &tzHours, &tzMinutes))
+    if (ParseInt(p, tzHours, 2)   && *p++ == ':' &&
+        ParseInt(p, tzMinutes, 2) && *p == 0 &&
+        tzHours >= 0 && tzHours <= 23 &&
+        tzMinutes >= 0 && tzMinutes <= 59)
     {
-      t.tm_year -= 1900;
-      t.tm_mon -= 1;
       time_t const tt = my_timegm(&t);
+
       // Fix timezone offset
       if (sign == '-')
         res = tt + tzHours * 3600 + tzMinutes * 60;
