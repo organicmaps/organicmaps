@@ -84,3 +84,17 @@ void InitAssertLog()
 }
 
 }
+
+extern "C" {
+
+void DbgPrintC(char const * format, ...)
+{
+  va_list argptr;
+  va_start(argptr, format);
+
+  __android_log_vprint(ANDROID_LOG_INFO, "MapsWithMe_Debug", format, argptr);
+
+  va_end(argptr);
+}
+
+}
