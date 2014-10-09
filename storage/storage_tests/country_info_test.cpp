@@ -27,18 +27,20 @@ UNIT_TEST(CountryInfo_GetByPoint_Smoke)
 {
   unique_ptr<CountryInfoT> const getter(GetCountryInfo());
 
-  // Minsk
   CountryInfo info;
-  getter->GetRegionInfo(MercatorBounds::FromLatLon(53.9022651, 27.5618818), info);
 
+  // Minsk
+  getter->GetRegionInfo(MercatorBounds::FromLatLon(53.9022651, 27.5618818), info);
   TEST_EQUAL(info.m_name, "Belarus", ());
   TEST_EQUAL(info.m_flag, "by", ());
 
-
   getter->GetRegionInfo(MercatorBounds::FromLatLon(-6.4146288, -38.0098101), info);
-
-  TEST_EQUAL(info.m_name, "Brazil", ());
+  TEST_EQUAL(info.m_name, "Brazil, Northeast", ());
   TEST_EQUAL(info.m_flag, "br", ());
+
+  getter->GetRegionInfo(MercatorBounds::FromLatLon(34.6509, 135.5018), info);
+  TEST_EQUAL(info.m_name, "Japan, Kinki", ());
+  TEST_EQUAL(info.m_flag, "jp", ());
 }
 
 namespace
