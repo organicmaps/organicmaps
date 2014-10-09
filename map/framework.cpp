@@ -78,29 +78,23 @@ namespace
   static const int BM_TOUCH_PIXEL_INCREASE = 20;
 }
 
-void Framework::AddMap(string const & file)
+int Framework::AddMap(string const & file)
 {
   LOG(LINFO, ("Loading map:", file));
 
   int const version = m_model.AddMap(file);
-  switch (version)
+  if (version == feature::DataHeader::v1)
   {
-  case -1:
-    // Error in adding map - do nothing.
-    break;
-
-  case feature::DataHeader::v1:
     // Now we do force delete of old (April 2011) maps.
     LOG(LINFO, ("Deleting old map:", file));
-    RemoveMap(file);
-    VERIFY ( my::DeleteFileX(GetPlatform().WritablePathForFile(file)), () );
-    break;
 
-  default:
-    if (m_lowestMapVersion > version)
-      m_lowestMapVersion = version;
-    break;
+    RemoveMap(file);
+    VERIFY(my::DeleteFileX(GetPlatform().WritablePathForFile(file)), ());
+
+    return -1;
   }
+
+  return version;
 }
 
 void Framework::RemoveMap(string const & file)
@@ -108,8 +102,9 @@ void Framework::RemoveMap(string const & file)
   m_model.RemoveMap(file);
 }
 
-void Framework::OnLocationError(TLocationError error)
-{}
+void Framework::OnLocationError(TLocationError /*error*/)
+{
+}
 
 void Framework::OnLocationUpdate(GpsInfo const & info)
 {
@@ -171,11 +166,31 @@ CountryStatusDisplay * Framework::GetCountryStatusDisplay() const
   return m_informationDisplay.countryStatusDisplay().get();
 }
 
-static void GetResourcesMaps(vector<string> & outMaps)
+void Framework::GetMaps(vector<string> & maps) const
 {
   Platform & pl = GetPlatform();
-  pl.GetFilesByExt(pl.ResourcesDir(), DATA_FILE_EXTENSION, outMaps);
+
+  pl.GetFilesByExt(pl.ResourcesDir(), DATA_FILE_EXTENSION, maps);
+  pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, maps);
+
+  // Remove duplicate maps if they're both present in resources and in WritableDir.
+  sort(maps.begin(), maps.end());
+  maps.erase(unique(maps.begin(), maps.end()), maps.end());
+
+#ifdef OMIM_OS_ANDROID
+  // On Android World and WorldCoasts can be stored in alternative /Android/obb/ path.
+  char const * arrCheck[] = { WORLD_FILE_NAME DATA_FILE_EXTENSION,
+                              WORLD_COASTS_FILE_NAME DATA_FILE_EXTENSION };
+
+  for (size_t i = 0; i < ARRAY_SIZE(arrCheck); ++i)
+  {
+    auto const it = lower_bound(maps.begin(), maps.end(), arrCheck[i]);
+    if (it == maps.end() || *it != arrCheck[i])
+      maps.insert(it, arrCheck[i]);
+  }
+#endif
 }
+
 
 Framework::Framework()
   : m_navigator(m_scales),
@@ -187,7 +202,6 @@ Framework::Framework()
     m_guiController(new gui::Controller),
     m_animController(new anim::Controller),
     m_informationDisplay(this),
-    m_lowestMapVersion(numeric_limits<int>::max()),
     m_benchmarkEngine(0),
     m_bmManager(*this),
     m_balloonManager(*this),
@@ -236,29 +250,18 @@ Framework::Framework()
   m_model.InitClassificator();
   LOG(LDEBUG, ("Classificator initialized"));
 
-  // Get all available maps.
-  vector<string> maps;
-  GetResourcesMaps(maps);
+  // To avoid possible races - init search engine once in constructor.
+  (void)GetSearchEngine();
+  LOG(LDEBUG, ("Search engine initialized"));
+
 #ifndef OMIM_OS_ANDROID
-  // On Android, local maps are added and removed when external storage is connected/disconnected.
-  GetLocalMaps(maps);
+  AddMaps();
 #endif
-
-  // Remove duplicate maps if they're both present in resources and in WritableDir.
-  sort(maps.begin(), maps.end());
-  maps.erase(unique(maps.begin(), maps.end()), maps.end());
-
-  // Add founded maps to index.
-  for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
-  LOG(LDEBUG, ("Map index initialized"));
+  LOG(LDEBUG, ("Maps initialized"));
 
   // Init storage with needed callback.
   m_storage.Init(bind(&Framework::UpdateAfterDownload, this, _1, _2));
   LOG(LDEBUG, ("Storage initialized"));
-
-  // To avoid possible races - init search engine once in constructor.
-  (void)GetSearchEngine();
-  LOG(LDEBUG, ("Search engine initialized"));
 
 #ifndef OMIM_OS_DESKTOP
   // Init guides manager
@@ -270,6 +273,7 @@ Framework::Framework()
   {
     return GetSearchEngine()->GetCountryFile(pt);
   }));
+  LOG(LDEBUG, ("Routing engine initialized"));
 
   LOG(LINFO, ("System languages:", languages::GetPreferred()));
 }
@@ -367,19 +371,29 @@ void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
   }
 }
 
-void Framework::AddLocalMaps()
+void Framework::AddMaps()
 {
-  // add maps to the model
-  Platform::FilesList maps;
-  GetLocalMaps(maps);
+  //ASSERT(m_model.IsEmpty(), ());
 
-  for_each(maps.begin(), maps.end(), bind(&Framework::AddMap, this, _1));
+  int minVersion = numeric_limits<int>::max();
 
-  m_pSearchEngine->SupportOldFormat(m_lowestMapVersion < feature::DataHeader::v3);
+  vector<string> maps;
+  GetMaps(maps);
+  for_each(maps.begin(), maps.end(), [&] (string const & file)
+  {
+    int const v = AddMap(file);
+    if (v != -1 && v < minVersion)
+      minVersion = v;
+  });
+
+  m_countryTree.Init(maps);
+
+  GetSearchEngine()->SupportOldFormat(minVersion < feature::DataHeader::v3);
 }
 
-void Framework::RemoveLocalMaps()
+void Framework::RemoveMaps()
 {
+  m_countryTree.Clear();
   m_model.RemoveAll();
 }
 
@@ -535,22 +549,6 @@ bool Framework::AddBookmarksFile(string const & filePath)
   m_bmManager.LoadBookmark(fileSavePath);
 
   return true;
-}
-
-void Framework::GetLocalMaps(vector<string> & outMaps) const
-{
-  Platform & pl = GetPlatform();
-  pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, outMaps);
-
-#ifdef OMIM_OS_ANDROID
-  // On Android World and WorldCoasts can be stored in alternative /Android/obb/ path.
-  char const * arrCheck[] = { WORLD_FILE_NAME DATA_FILE_EXTENSION,
-                              WORLD_COASTS_FILE_NAME DATA_FILE_EXTENSION };
-
-  for (size_t i = 0; i < ARRAY_SIZE(arrCheck); ++i)
-    if (find(outMaps.begin(), outMaps.end(), arrCheck[i]) == outMaps.end())
-      outMaps.push_back(arrCheck[i]);
-#endif
 }
 
 void Framework::PrepareToShutdown()
@@ -1124,8 +1122,6 @@ search::Engine * Framework::GetSearchEngine() const
                               pl.GetReader(PACKED_POLYGONS_FILE),
                               pl.GetReader(COUNTRIES_FILE),
                               languages::GetCurrentOrig()));
-
-      m_pSearchEngine->SupportOldFormat(m_lowestMapVersion < feature::DataHeader::v3);
     }
     catch (RootException const & e)
     {

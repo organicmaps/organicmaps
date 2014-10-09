@@ -83,10 +83,12 @@ private:
   Storage const & GetStorage() const;
   Storage & GetStorage();
 
+  void Init(vector<string> const & maps);
+  void Clear();
+
   bool GetGuideInfo(TIndex const & index, guides::GuideInfo & info) const;
 
   void ShowMap(TIndex const & index);
-  void Init();
 
 private:
   void StatusChangedCallback(TIndex const & index);

@@ -126,10 +126,7 @@ struct MapsCollector
 void BenchmarkEngine::PrepareMaps()
 {
   // remove all previously added maps in framework constructor
-  Platform::FilesList files;
-  m_framework->GetLocalMaps(files);
-  for_each(files.begin(), files.end(),
-           bind(&Framework::RemoveMap, m_framework, _1));
+  m_framework->RemoveMaps();
 
   // add only maps needed for benchmarks
   MapsCollector collector;

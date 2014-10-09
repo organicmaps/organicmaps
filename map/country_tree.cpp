@@ -52,6 +52,17 @@ CountryTree::~CountryTree()
   GetStorage().Unsubscribe(m_subscribeSlotID);
 }
 
+void CountryTree::Init(vector<string> const & maps)
+{
+  m_layout.Init(maps);
+}
+
+void CountryTree::Clear()
+{
+  ResetRoot();
+  m_layout.Clear();
+}
+
 ActiveMapsLayout & CountryTree::GetActiveMapLayout()
 {
   return m_layout;

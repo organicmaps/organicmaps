@@ -493,12 +493,12 @@ namespace android
 
   void Framework::AddLocalMaps()
   {
-    m_work.AddLocalMaps();
+    m_work.AddMaps();
   }
 
   void Framework::RemoveLocalMaps()
   {
-    m_work.RemoveLocalMaps();
+    m_work.RemoveMaps();
   }
 
   void Framework::GetMapsWithoutSearch(vector<string> & out) const
@@ -508,7 +508,7 @@ namespace android
     ::Platform const & pl = GetPlatform();
 
     vector<string> v;
-    m_work.GetLocalMaps(v);
+    m_work.GetMaps(v);
 
     for (size_t i = 0; i < v.size(); ++i)
     {

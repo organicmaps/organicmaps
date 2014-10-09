@@ -1,6 +1,8 @@
 #include "active_maps_layout.hpp"
-
 #include "framework.hpp"
+
+#include "../std/algorithm.hpp"
+
 
 namespace storage
 {
@@ -8,27 +10,29 @@ namespace storage
 ActiveMapsLayout::ActiveMapsLayout(Framework & framework)
   : m_framework(framework)
 {
-  m_subscribeSlotID = m_framework.Storage().Subscribe(bind(&ActiveMapsLayout::StatusChangedCallback, this, _1),
-                                                       bind(&ActiveMapsLayout::ProgressChangedCallback, this, _1, _2));
-
-  Init();
+  m_subscribeSlotID = GetStorage().Subscribe(bind(&ActiveMapsLayout::StatusChangedCallback, this, _1),
+                                             bind(&ActiveMapsLayout::ProgressChangedCallback, this, _1, _2));
 }
 
 ActiveMapsLayout::~ActiveMapsLayout()
 {
-  m_framework.Storage().Unsubscribe(m_subscribeSlotID);
+  GetStorage().Unsubscribe(m_subscribeSlotID);
 }
 
-void ActiveMapsLayout::Init()
+void ActiveMapsLayout::Init(vector<string> const & maps)
 {
   Storage & storage = GetStorage();
-  auto insertIndexFn = [&](TIndex const & index)
+  auto insertIndexFn = [&] (TIndex const & index)
   {
-    TStatus status;
-    TMapOptions options;
-    storage.CountryStatusEx(index, status, options);
-    if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
-      m_items.push_back({ index, status, options, options });
+    string const fName = storage.CountryFileNameWithoutExt(index) + DATA_FILE_EXTENSION;
+    if (binary_search(maps.begin(), maps.end(), fName))
+    {
+      TStatus status;
+      TMapOptions options;
+      storage.CountryStatusEx(index, status, options);
+      if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
+        m_items.push_back({ index, status, options, options });
+    }
   };
 
   TIndex root;
@@ -63,7 +67,7 @@ void ActiveMapsLayout::Init()
 
   sort(m_items.begin(), m_items.end(), comparatorFn);
 
-  m_split = make_pair(0, m_items.size());
+  m_split = { 0, m_items.size() };
   for (size_t i = 0; i < m_items.size(); ++i)
   {
     if (m_items[i].m_status == TStatus::EOnDisk)
@@ -72,6 +76,12 @@ void ActiveMapsLayout::Init()
       break;
     }
   }
+}
+
+void ActiveMapsLayout::Clear()
+{
+  m_items.clear();
+  m_split = { 0, 0 };
 }
 
 void ActiveMapsLayout::UpdateAll()

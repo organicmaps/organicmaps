@@ -29,6 +29,10 @@ public:
   CountryTree(Framework & framework);
   ~CountryTree();
 
+  /// @param[in]  Sorted vector of current .mwm files.
+  void Init(vector<string> const & maps);
+  void Clear();
+
   ActiveMapsLayout & GetActiveMapLayout();
   ActiveMapsLayout const & GetActiveMapLayout() const;
 

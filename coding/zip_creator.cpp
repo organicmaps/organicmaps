@@ -66,8 +66,7 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
   if (!zip.Handle())
     return false;
 
-  // Special syntax to initialize struct with zeroes
-  zip_fileinfo zipInfo = zip_fileinfo();
+  zip_fileinfo zipInfo = {};
   CreateTMZip(zipInfo.tmz_date);
 
   string fileName = filePath;

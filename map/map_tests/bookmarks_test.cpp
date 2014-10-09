@@ -395,7 +395,7 @@ UNIT_TEST(Bookmarks_AddressInfo)
 {
   // Maps added in constructor (we need minsk-pass.mwm only)
   Framework fm;
-  fm.RemoveLocalMaps();
+  fm.RemoveMaps();
   fm.AddMap("minsk-pass.mwm");
 
   fm.OnSize(800, 600);

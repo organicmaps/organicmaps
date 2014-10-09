@@ -127,10 +127,6 @@ protected:
     return 0.0;
   }
 
-  /// Stores lowest loaded map version or MAX_INT if no maps added.
-  /// @see feature::DataHeader::Version
-  int m_lowestMapVersion;
-
   void DrawAdditionalInfo(shared_ptr<PaintEvent> const & e);
 
   BenchmarkEngine * m_benchmarkEngine;
@@ -148,14 +144,15 @@ public:
 
   /// @name Process storage connecting/disconnecting.
   //@{
-  void AddLocalMaps();
-  void RemoveLocalMaps();
+  /// @param[out] maps  File names without path.
+  void GetMaps(vector<string> & maps) const;
 
-  void AddMap(string const & file);
+  void AddMaps();
+  void RemoveMaps();
+
+  /// @return Inner mwm data version from header or -1 in case of error.
+  int AddMap(string const & file);
   //@}
-
-  /// @return File names without path.
-  void GetLocalMaps(vector<string> & outMaps) const;
 
   /// @name This functions is used by Downloader UI.
   //@{
