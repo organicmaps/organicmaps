@@ -36,7 +36,7 @@ public:
   virtual ~HttpRequest() = 0;
 
   StatusT Status() const { return m_status; }
-  ProgressT Progress() const { return m_progress; }
+  ProgressT const & Progress() const { return m_progress; }
   /// Either file path (for chunks) or downloaded data
   virtual string const & Data() const = 0;
 

@@ -438,6 +438,11 @@ namespace storage
     }
     else
     {
+      HttpRequest::ProgressT const & p = request.Progress();
+      ASSERT_EQUAL(p.first, p.second, ());
+      ASSERT_EQUAL(p.first, cnt.GetDownloadSize(), ());
+
+      m_countryProgress.first += p.first;
       if (cnt.MoveNextFile())
       {
         DownloadNextFile(cnt);
@@ -510,55 +515,36 @@ namespace storage
     return baseUrl + OMIM_OS_NAME "/" + strings::to_string(m_currentVersion)  + "/" + UrlEncode(fName);
   }
 
-  bool IsEqualFileName(SimpleTree<Country> const & node, string const & name)
-  {
-    Country const & c = node.Value();
-    if (c.GetFilesCount() > 0)
-      return (c.GetFile().GetFileWithoutExt() == name);
-    else
-      return false;
-  }
-
   TIndex Storage::FindIndexByFile(string const & name) const
   {
+    auto const isEqualFileName = [&name] (SimpleTree<Country> const & node)
+    {
+      Country const & c = node.Value();
+      if (c.GetFilesCount() > 0)
+        return (c.GetFile().GetFileWithoutExt() == name);
+      else
+        return false;
+    };
+
     for (size_t i = 0; i < m_countries.SiblingsCount(); ++i)
     {
-      if (IsEqualFileName(m_countries[i], name))
+      if (isEqualFileName(m_countries[i]))
         return TIndex(i);
 
       for (size_t j = 0; j < m_countries[i].SiblingsCount(); ++j)
       {
-        if (IsEqualFileName(m_countries[i][j], name))
+        if (isEqualFileName(m_countries[i][j]))
           return TIndex(i, j);
 
         for (size_t k = 0; k < m_countries[i][j].SiblingsCount(); ++k)
         {
-          if (IsEqualFileName(m_countries[i][j][k], name))
+          if (isEqualFileName(m_countries[i][j][k]))
             return TIndex(i, j, k);
         }
       }
     }
 
     return TIndex();
-  }
-
-  namespace
-  {
-    bool IsNotUpdatable(string const & t)
-    {
-      return (t == WORLD_COASTS_FILE_NAME) || (t == WORLD_FILE_NAME);
-    }
-
-    class IsNotOutdatedFilter
-    {
-      Storage const & m_storage;
-    public:
-      IsNotOutdatedFilter(Storage const & storage) : m_storage(storage) {}
-      bool operator() (string const & file) const
-      {
-        return (m_storage.CountryStatusEx(m_storage.FindIndexByFile(file)) != TStatus::EOnDiskOutOfDate);
-      }
-    };
   }
 
   void Storage::GetOutdatedCountries(vector<Country const *> & res) const
@@ -568,8 +554,16 @@ namespace storage
     pl.GetFilesByExt(pl.WritableDir(), DATA_FILE_EXTENSION, fList);
 
     for_each(fList.begin(), fList.end(), bind(&my::GetNameWithoutExt, _1));
-    fList.erase(remove_if(fList.begin(), fList.end(), &IsNotUpdatable), fList.end());
-    fList.erase(remove_if(fList.begin(), fList.end(), IsNotOutdatedFilter(*this)), fList.end());
+
+    fList.erase(remove_if(fList.begin(), fList.end(), [] (string const & t)
+    {
+      return (t == WORLD_COASTS_FILE_NAME) || (t == WORLD_FILE_NAME);
+    }), fList.end());
+
+    fList.erase(remove_if(fList.begin(), fList.end(), [this] (string const & file)
+    {
+      return (CountryStatusEx(FindIndexByFile(file)) != TStatus::EOnDiskOutOfDate);
+    }), fList.end());
 
     for (size_t i = 0; i < fList.size(); ++i)
       res.push_back(&CountryByIndex(FindIndexByFile(fList[i])));
