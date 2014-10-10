@@ -5,7 +5,8 @@
 #include "../std/target_os.hpp"
 #include "../std/systime.hpp"
 #include "../std/cstdio.hpp"
-#include "../std/cstring.hpp"
+#include "../std/sstream.hpp"
+#include "../std/iomanip.hpp"
 
 
 namespace my
@@ -108,75 +109,47 @@ string TimestampToString(time_t time)
 namespace
 {
 
-template <class T> bool ParseInt(char const * & s, T & i, size_t sz)
-{
-  char * stop;
-  long const x = strtol(s, &stop, 10);
-  if (stop && (stop - s == sz))
-  {
-    i = x;
-    s = stop;
-    return true;
-  }
-  return false;
-}
-
 bool IsValid(tm const & t)
 {
-  return (t.tm_year >= 1900 &&
-          t.tm_mon >= 1 && t.tm_mon <= 12 &&
-          t.tm_mday >= 1 && t.tm_mday <= 31 &&
-          t.tm_hour >= 0 && t.tm_hour <= 23 &&
-          t.tm_min >= 0 && t.tm_min <= 59 &&
-          t.tm_sec >= 0 && t.tm_sec <= 59);
+  /// @todo Funny thing, but "00" month is accepted as valid in get_time function.
+  /// Seems like a bug in the std library.
+  return (t.tm_mon >= 0 && t.tm_mon <= 11);
 }
 
 }
 
 time_t StringToTimestamp(string const & s)
 {
-  tm t = {};
-
   // Return current time in the case of failure
   time_t res = INVALID_TIME_STAMP;
-  char const * p = s.c_str();
-
-  if (ParseInt(p, t.tm_year, 4) && *p++ == '-' &&
-      ParseInt(p, t.tm_mon, 2)  && *p++ == '-' &&
-      ParseInt(p, t.tm_mday, 2) && *p++ == 'T' &&
-      ParseInt(p, t.tm_hour, 2) && *p++ == ':' &&
-      ParseInt(p, t.tm_min, 2)  && *p++ == ':' &&
-      ParseInt(p, t.tm_sec, 2) && IsValid(t))
-  {
-    t.tm_year -= 1900;
-    t.tm_mon -= 1;
-  }
-  else
-    return res;
 
   if (s.size() == 20)
   {
-    // Parse UTC format
-    if (*p == 'Z')
+    // Parse UTC format: 1970-01-01T00:00:00Z
+    tm t;
+    istringstream ss(s);
+    ss >> get_time(&t, "%Y-%m-%dT%H:%M:%SZ");
+
+    if (!ss.fail() && IsValid(t))
       res = my_timegm(&t);
   }
   else if (s.size() == 25)
   {
-    // Parse custom time zone offset format
-    char const sign = *p++;
-    int tzHours, tzMinutes;
-    if (ParseInt(p, tzHours, 2)   && *p++ == ':' &&
-        ParseInt(p, tzMinutes, 2) && *p == 0 &&
-        tzHours >= 0 && tzHours <= 23 &&
-        tzMinutes >= 0 && tzMinutes <= 59)
+    // Parse custom time zone offset format: 2012-12-03T00:38:34+03:30
+    tm t1, t2;
+    char sign;
+    istringstream ss(s);
+    ss >> get_time(&t1, "%Y-%m-%dT%H:%M:%S") >> sign >> get_time(&t2, "%H:%M");
+
+    if (!ss.fail() && IsValid(t1))
     {
-      time_t const tt = my_timegm(&t);
+      time_t const tt = my_timegm(&t1);
 
       // Fix timezone offset
       if (sign == '-')
-        res = tt + tzHours * 3600 + tzMinutes * 60;
+        res = tt + t2.tm_hour * 3600 + t2.tm_min * 60;
       else if (sign == '+')
-        res = tt - tzHours * 3600 - tzMinutes * 60;
+        res = tt - t2.tm_hour * 3600 - t2.tm_min * 60;
     }
   }
 
