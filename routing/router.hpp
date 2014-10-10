@@ -18,6 +18,7 @@ public:
   {
     NoError = 0,
     Cancelled,
+    NoCurrentPosition,
     InconsistentMWMandRoute,
     RouteFileNotExist,
     StartPointNotFound,

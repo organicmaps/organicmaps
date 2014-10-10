@@ -353,7 +353,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void checkRoutingMaps()
   {
-    if (MWMApplication.get().nativeGetBoolean(IS_FIRST_ROUTING_VERSION_RUN, true))
+    if (BuildConfig.IS_PRO && MWMApplication.get().nativeGetBoolean(IS_FIRST_ROUTING_VERSION_RUN, true))
     {
       MWMApplication.get().nativeSetBoolean(IS_FIRST_ROUTING_VERSION_RUN, false);
       new AlertDialog.Builder(this)
@@ -1410,7 +1410,7 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void buildRoute()
   {
-    if (!MWMApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))
+    if (BuildConfig.IS_PRO && !MWMApplication.get().nativeGetBoolean(IS_ROUTING_DISCLAIMER_APPROVED, false))
     {
       showRoutingDisclaimer();
       return;

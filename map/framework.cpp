@@ -370,8 +370,8 @@ void Framework::UpdateAfterDownload(string const & fileName, TMapOptions opt)
     if (m_model.UpdateMap(fileName, rect))
       InvalidateRect(rect, true);
 
-  GetSearchEngine()->ClearViewportsCache();
-}
+    GetSearchEngine()->ClearViewportsCache();
+  }
 
   // Replace routing file.
   if (opt & TMapOptions::ECarRouting)
@@ -1892,7 +1892,7 @@ void Framework::BuildRoute(m2::PointD const & destination)
   shared_ptr<State> const & state = GetLocationState();
   if (!state->IsModeHasPosition())
   {
-    CallRouteBuilded(false, m_stringsBundle.GetString("routing_failed_unknown_my_position"), false);
+    CallRouteBuilded(IRouter::NoCurrentPosition);
     return;
   }
 
@@ -1907,19 +1907,11 @@ void Framework::BuildRoute(m2::PointD const & destination)
         InsertRoute(route);
         GetLocationState()->RouteBuilded();
         ShowRectExVisibleScale(route.GetPoly().GetLimitRect());
-        CallRouteBuilded(true, "", false);
       }
       else
-      {
         RemoveRoute();
-        if (code != IRouter::Cancelled)
-        {
-          string messageID = "";
-          bool openDownloader = false;
-          GetRoutingErrorMessage(code, messageID, openDownloader);
-          CallRouteBuilded(false, m_stringsBundle.GetString(messageID), openDownloader);
-        }
-      }
+
+      CallRouteBuilded(code);
     });
 }
 
@@ -1997,22 +1989,36 @@ void Framework::CheckLocationForRouting(GpsInfo const & info)
   }
 }
 
-void Framework::CallRouteBuilded(bool isSuccess, string const & errorMessage, bool openDownloader)
+void Framework::CallRouteBuilded(IRouter::ResultCode code)
 {
+  if (code == IRouter::Cancelled)
+    return;
+
   if (m_routingCallback)
-    m_routingCallback(isSuccess, errorMessage, openDownloader);
+  {
+    if (code == IRouter::NoError)
+      m_routingCallback(true, "", false);
+    else
+    {
+      bool openDownloader = false;
+      if (code == IRouter::InconsistentMWMandRoute || code == IRouter::RouteFileNotExist)
+        openDownloader = true;
+      m_routingCallback(false, GetRoutingErrorMessage(code), openDownloader);
+    }
+  }
 }
 
-void Framework::GetRoutingErrorMessage(IRouter::ResultCode code, string & messageID,
-                                       bool & openDownloaderOnOk)
+string Framework::GetRoutingErrorMessage(IRouter::ResultCode code)
 {
-  openDownloaderOnOk = false;
+  string messageID = "";
   switch (code)
   {
+  case IRouter::NoCurrentPosition:
+    messageID = "routing_failed_unknown_my_position";
+    break;
   case IRouter::InconsistentMWMandRoute: // the same as RouteFileNotExist
   case IRouter::RouteFileNotExist:
     messageID = "routing_failed_has_no_routing_file";
-    openDownloaderOnOk = true;
     break;
   case IRouter::StartPointNotFound:
     messageID = "routing_failed_start_point_not_found";
@@ -2032,6 +2038,8 @@ void Framework::GetRoutingErrorMessage(IRouter::ResultCode code, string & messag
   default:
     ASSERT(false, ());
   }
+
+  return m_stringsBundle.GetString(messageID);
 }
 
 void Framework::GetRouteFollowingInfo(location::FollowingInfo & info) const

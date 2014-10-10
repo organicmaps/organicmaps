@@ -503,8 +503,8 @@ private:
   void RemoveRoute();
   void InsertRoute(routing::Route const & route);
   void CheckLocationForRouting(location::GpsInfo const & info);
-  void CallRouteBuilded(bool isSuccess, string const & errorMessage, bool openDownloader);
-  void GetRoutingErrorMessage(routing::IRouter::ResultCode code, string & messageID, bool & openDownloaderOnOk);
+  void CallRouteBuilded(routing::IRouter::ResultCode code);
+  string GetRoutingErrorMessage(routing::IRouter::ResultCode code);
 
   TRouteBuildingCallback m_routingCallback;
   //@}
