@@ -129,6 +129,18 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected abstract void resetCountryListener();
 
+  protected abstract void showCountry(final int position);
+
+  /**
+   * Process routine from parent Activity.
+   *
+   * @return true If "back" was processed.
+   */
+  public abstract boolean onBackPressed();
+
+  @Override
+  public abstract CountryItem getItem(int position);
+
   protected void processNotDownloaded(final String name, int position, int newOptions, ViewHolder holder)
   {
     // TODO if download is greater then 50MB check 3g/WIFI connection
@@ -180,13 +192,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         .create()
         .show();
   }
-
-  /**
-   * Process routine from parent Activity.
-   *
-   * @return true If "back" was processed.
-   */
-  public abstract boolean onBackPressed();
 
   public void onResume(ListView listView)
   {
@@ -560,9 +565,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     cancelDownload(position);
   }
 
-  @Override
-  public abstract CountryItem getItem(int position);
-
   private void setHolderSizeString(ViewHolder holder, long first, long second)
   {
     String text;
@@ -630,8 +632,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       }
     }
   }
-
-  protected abstract void showCountry(final int position);
 
   protected void showCountryContextMenu(final CountryItem countryItem, final View anchor, final int position)
   {

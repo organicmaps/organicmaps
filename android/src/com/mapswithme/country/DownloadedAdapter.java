@@ -255,6 +255,8 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   protected void showCountry(int position)
   {
     ActiveCountryTree.showOnMap(getGroupByAbsPosition(position), getPositionInGroup(position));
+    resetCountryListener();
+    mActivity.finish();
   }
 
   @Override
