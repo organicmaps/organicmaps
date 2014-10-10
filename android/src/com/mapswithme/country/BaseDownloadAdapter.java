@@ -692,7 +692,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
           processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING, holder);
           break;
         case MENU_UPDATE_MAP_DOWNLOAD_ROUTING:
-          // TODO
+          processNotDownloaded(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING, holder);
           break;
         case MENU_UPDATE_MAP_AND_ROUTING:
           processOutOfDate(name, position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
