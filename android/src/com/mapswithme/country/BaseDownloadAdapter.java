@@ -386,6 +386,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       setHolderSizeString(holder, 0, sizes[0]);
       setHolderPercentString(holder, mStatusDownloaded, R.color.downloader_gray);
       break;
+
     case MapStorage.DOWNLOAD_FAILED:
       UiUtils.checkConnectionAndShowAlert(mActivity, String.format(mActivity.getString(R.string.download_country_failed), item.getName()));
 
@@ -727,19 +728,17 @@ abstract class BaseDownloadAdapter extends BaseAdapter
             menu.add(0, MENU_SHOW, MENU_SHOW, titleShow).setOnMenuItemClickListener(menuItemClickListener);
           }
 
-          if (status == MapStorage.ON_DISK)
+          if (status == MapStorage.ON_DISK && options == StorageOptions.MAP_OPTION_MAP_ONLY)
           {
-            if (options == StorageOptions.MAP_OPTION_MAP_ONLY)
-            {
               String titleShow = mActivity.getString(R.string.downloader_download_routing);
               // TODO add size
               menu.add(0, MENU_DOWNLOAD_ROUTING, MENU_DOWNLOAD_ROUTING, titleShow).setOnMenuItemClickListener(menuItemClickListener);
-            }
           }
 
           if (status == MapStorage.ON_DISK_OUT_OF_DATE)
           {
             String titleUpdate;
+
             switch (options)
             {
             case StorageOptions.MAP_OPTION_MAP_ONLY:
@@ -752,6 +751,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
               menu.add(0, MENU_UPDATE_MAP_DOWNLOAD_ROUTING, MENU_UPDATE_MAP_DOWNLOAD_ROUTING, titleUpdate)
                   .setOnMenuItemClickListener(menuItemClickListener);
               break;
+
             case StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING:
               titleUpdate = mActivity.getString(R.string.downloader_update_map);
               // TODO size
@@ -761,9 +761,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
             }
           }
 
-          if (status == MapStorage.DOWNLOADING || status == MapStorage.IN_QUEUE)
-            menu.add(0, MENU_CANCEL, MENU_CANCEL, mActivity.getString(R.string.cancel_download))
-                .setOnMenuItemClickListener(menuItemClickListener);
           if (mHasGoogleStore)
           {
             final GuideInfo info = getGuideInfo(position);
@@ -772,8 +769,15 @@ abstract class BaseDownloadAdapter extends BaseAdapter
                   .setOnMenuItemClickListener(menuItemClickListener);
           }
 
-          if (status == MapStorage.NOT_DOWNLOADED)
+          switch (status)
           {
+          case MapStorage.DOWNLOADING:
+          case MapStorage.IN_QUEUE:
+            menu.add(0, MENU_CANCEL, MENU_CANCEL, mActivity.getString(R.string.cancel_download))
+                .setOnMenuItemClickListener(menuItemClickListener);
+            break;
+
+          case MapStorage.NOT_DOWNLOADED:
             // TODO sizes
             String title = mActivity.getString(R.string.downloader_download_map);
             menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, title)
@@ -782,16 +786,18 @@ abstract class BaseDownloadAdapter extends BaseAdapter
             title = mActivity.getString(R.string.downloader_download_map_and_routing);
             menu.add(0, MENU_DOWNLOAD_MAP_AND_ROUTING, MENU_DOWNLOAD_MAP_AND_ROUTING, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
-          }
-          if (status == MapStorage.DOWNLOAD_FAILED)
-          {
-            String title = mActivity.getString(R.string.downloader_retry);
+            break;
+
+          case MapStorage.DOWNLOAD_FAILED:
+            title = mActivity.getString(R.string.downloader_retry);
             menu.add(0, MENU_DOWNLOAD, MENU_DOWNLOAD, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
 
             title = mActivity.getString(R.string.downloader_download_map_and_routing);
             menu.add(0, MENU_DOWNLOAD_MAP_AND_ROUTING, MENU_DOWNLOAD_MAP_AND_ROUTING, title)
                 .setOnMenuItemClickListener(menuItemClickListener);
+
+            break;
           }
         }
       });
