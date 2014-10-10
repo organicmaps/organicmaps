@@ -26,7 +26,7 @@ template <class EdgeDataT> class OsrmDataFacade : public BaseDataFacade<EdgeData
 
   succinct::elias_fano_compressed_list m_edgeData;
   succinct::rs_bit_vector m_shortcuts;
-  succinct::elias_fano m_fanoMatrix;
+  succinct::elias_fano m_matrix;
   succinct::elias_fano_compressed_list m_edgeId;
 
   FilesMappingContainer::Handle m_handleEdgeData;
@@ -65,9 +65,9 @@ public:
 
     m_handleFanoMatrix.Assign(container.Map(ROUTING_MATRIX_FILE_TAG));
     ASSERT(m_handleFanoMatrix.IsValid(), ());
-    succinct::mapper::map(m_fanoMatrix, m_handleFanoMatrix.GetData<char>());
+    succinct::mapper::map(m_matrix, m_handleFanoMatrix.GetData<char>());
 
-    m_numberOfNodes = (unsigned)sqrt(m_fanoMatrix.size() / 2) + 1;
+    m_numberOfNodes = (unsigned)sqrt(m_matrix.size() / 2) + 1;
   }
 
   void Clear()
@@ -81,7 +81,7 @@ public:
     ClearContainer(m_shortcuts);
     m_handleShortcuts.Unmap();
 
-    ClearContainer(m_fanoMatrix);
+    ClearContainer(m_matrix);
     m_handleFanoMatrix.Unmap();
   }
 
@@ -102,7 +102,7 @@ public:
 
   NodeID GetTarget(const EdgeID e) const
   {
-    return (m_fanoMatrix.select(e) / 2) % GetNumberOfNodes();
+    return (m_matrix.select(e) / 2) % GetNumberOfNodes();
   }
 
   EdgeDataT & GetEdgeData(const EdgeID e)
@@ -116,16 +116,12 @@ public:
   {
     static EdgeDataT res;
 
-    uint64_t data = m_edgeData[e];
 
-    res.id = 0;
-    res.id = node - bits::ZigZagDecode(m_edgeId[m_shortcuts.rank(e)]);
-    res.backward = data & 0x1;
-    data >>= 1;
-    res.forward = data & 0x1;
-    data >>= 1;
-    res.distance = data;
     res.shortcut = m_shortcuts[e];
+    res.id = res.shortcut ? (node - bits::ZigZagDecode(m_edgeId[m_shortcuts.rank(e)])) : 0;
+    res.backward = (m_matrix.select(e) % 2 == 1);
+    res.forward = !res.backward;
+    res.distance = m_edgeData[e];
 
     return res;
   }
@@ -139,13 +135,13 @@ public:
 
   EdgeID BeginEdges(const NodeID n) const
   {
-    return n == 0 ? 0 : m_fanoMatrix.rank(2 * n * (uint64_t)GetNumberOfNodes());
+    return n == 0 ? 0 : m_matrix.rank(2 * n * (uint64_t)GetNumberOfNodes());
   }
 
   EdgeID EndEdges(const NodeID n) const
   {
     uint64_t const idx = 2 * (n + 1) * (uint64_t)GetNumberOfNodes();
-    return m_fanoMatrix.rank(std::min(idx, m_fanoMatrix.size()));
+    return m_matrix.rank(std::min(idx, m_matrix.size()));
   }
 
   EdgeRange GetAdjacentEdgeRange(const NodeID node) const
