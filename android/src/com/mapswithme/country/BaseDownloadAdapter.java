@@ -387,6 +387,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       setHolderPercentString(holder, mStatusDownloaded, R.color.downloader_gray);
       break;
     case MapStorage.DOWNLOAD_FAILED:
+      UiUtils.checkConnectionAndShowAlert(mActivity, String.format(mActivity.getString(R.string.download_country_failed), item.getName()));
+
       UiUtils.show(holder.mInfoSlided, holder.mStatusLayout, holder.mProgressSlided);
       UiUtils.hide(holder.mProgress, holder.mImageRoutingStatus);
       UiUtils.invisible(holder.mInfo);

@@ -37,7 +37,7 @@ public class ActiveCountryTree
 
   public static native void cancelDownloading(int group, int position);
 
-  public static native boolean isDownloadingActive(int group, int position);
+  public static native boolean isDownloadingActive();
 
   public static native void retryDownloading(int group, int position);
 

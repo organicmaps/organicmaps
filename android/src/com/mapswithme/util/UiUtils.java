@@ -14,6 +14,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -350,6 +351,49 @@ public final class UiUtils
     }
 
     return "hdpi";
+  }
+
+  public static void checkConnectionAndShowAlert(final Activity activity, final String message)
+  {
+    if (!ConnectionState.isConnected(activity))
+    {
+      activity.runOnUiThread(new Runnable()
+      {
+        @Override
+        public void run()
+        {
+          new AlertDialog.Builder(activity)
+              .setCancelable(false)
+              .setMessage(message)
+              .setPositiveButton(activity.getString(R.string.connection_settings), new DialogInterface.OnClickListener()
+              {
+                @Override
+                public void onClick(DialogInterface dlg, int which)
+                {
+                  try
+                  {
+                    activity.startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS));
+                  } catch (final Exception ex)
+                  {
+                    ex.printStackTrace();
+                  }
+
+                  dlg.dismiss();
+                }
+              })
+              .setNegativeButton(activity.getString(R.string.close), new DialogInterface.OnClickListener()
+              {
+                @Override
+                public void onClick(DialogInterface dlg, int which)
+                {
+                  dlg.dismiss();
+                }
+              })
+              .create()
+              .show();
+        }
+      });
+    }
   }
 
   // utility class

@@ -159,6 +159,7 @@ public class Framework
 
   public native static void nativeShowCountry(Index idx, boolean zoomToDownloadButton);
 
+  // TODO consider removal of that methods
   public native static void downloadCountry(Index idx);
 
   public native static void deleteCountry(Index idx);
