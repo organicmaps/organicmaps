@@ -161,6 +161,4 @@ public class Framework
 
   // TODO consider removal of that methods
   public native static void downloadCountry(Index idx);
-
-  public native static void deleteCountry(Index idx);
 }

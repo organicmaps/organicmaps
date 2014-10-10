@@ -1386,12 +1386,6 @@ extern "C"
   {
     storage_utils::GetMapLayout().DownloadMap(storage::ToNative(idx), TMapOptions::EMapOnly);
   }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_Framework_deleteCountry(JNIEnv * env, jobject thiz, jobject idx)
-  {
-    storage_utils::GetMapLayout().DeleteMap(storage::ToNative(idx), TMapOptions::EMapWithCarRouting);
-  }
 }
 
 namespace guides

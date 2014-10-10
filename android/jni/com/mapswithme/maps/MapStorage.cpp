@@ -63,15 +63,6 @@ extern "C"
     }
   };
 
-  /// @todo Pass correct options from UI.
-  TMapOptions g_mapOptions = TMapOptions::EMapWithCarRouting;
-
-  JNIEXPORT jint JNICALL
-  Java_com_mapswithme_maps_MapStorage_countriesCount(JNIEnv * env, jobject thiz, jobject idx)
-  {
-    return static_cast<jint>(GetStorage().CountriesCount(IndexBinding(idx).toNative()));
-  }
-
   JNIEXPORT jstring JNICALL
   Java_com_mapswithme_maps_MapStorage_countryName(JNIEnv * env, jobject thiz, jobject idx)
   {
@@ -79,41 +70,17 @@ extern "C"
     return env->NewStringUTF(name.c_str());
   }
 
-  JNIEXPORT jstring JNICALL
-  Java_com_mapswithme_maps_MapStorage_countryFlag(JNIEnv * env, jobject thiz, jobject idx)
-  {
-    string const name = GetStorage().CountryFlag(IndexBinding(idx).toNative());
-    return env->NewStringUTF(name.c_str());
-  }
-
-  JNIEXPORT jlong JNICALL
-  Java_com_mapswithme_maps_MapStorage_countryLocalSizeInBytes(JNIEnv * env, jobject thiz, jobject idx)
-  {
-    return GetStorage().CountrySizeInBytes(IndexBinding(idx).toNative(), g_mapOptions).first;
-  }
-
   JNIEXPORT jlong JNICALL
   Java_com_mapswithme_maps_MapStorage_countryRemoteSizeInBytes(JNIEnv * env, jobject thiz, jobject idx)
   {
-    return GetStorage().CountrySizeInBytes(IndexBinding(idx).toNative(), g_mapOptions).second;
+    // This function is used in the start screen (downloading resources).
+    return GetStorage().CountrySizeInBytes(IndexBinding(idx).toNative(), TMapOptions::EMapOnly).second;
   }
 
   JNIEXPORT jint JNICALL
   Java_com_mapswithme_maps_MapStorage_countryStatus(JNIEnv * env, jobject thiz, jobject idx)
   {
     return static_cast<jint>(g_framework->GetCountryStatus(IndexBinding(idx).toNative()));
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MapStorage_downloadCountry(JNIEnv * env, jobject thiz, jobject idx)
-  {
-    frm()->DownloadCountry(IndexBinding(idx).toNative(), g_mapOptions);
-  }
-
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MapStorage_deleteCountry(JNIEnv * env, jobject thiz, jobject idx)
-  {
-    frm()->DeleteCountry(IndexBinding(idx).toNative(), g_mapOptions);
   }
 
   JNIEXPORT jobject JNICALL

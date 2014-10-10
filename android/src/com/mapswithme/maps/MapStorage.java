@@ -98,17 +98,11 @@ public enum MapStorage
 
   }
 
-  public native int countriesCount(Index idx);
-
   public native int countryStatus(Index idx);
-
-  public native long countryLocalSizeInBytes(Index idx);
 
   public native long countryRemoteSizeInBytes(Index idx);
 
   public native String countryName(Index idx);
-
-  public native String countryFlag(Index idx);
 
   public native Index findIndexByFile(String name);
 
