@@ -395,13 +395,12 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
       int newPosition = MoveItemToGroup(group, position, TGroup::EUpToDate);
       NotifyMove(group, position, TGroup::EUpToDate, newPosition);
     }
-    else
+    else if (item.m_options != options)
     {
       // Here we handle
       // "Actual map without routing" -> "Actual map with routing"
       // "Actual map with routing" -> "Actual map without routing"
-      ASSERT(item.m_options != options, ());
-      TMapOptions requestOpt = item.m_downloadRequest;
+	  TMapOptions requestOpt = item.m_downloadRequest;
       item.m_options = item.m_downloadRequest = options;
       NotifyOptionsChanged(group, position, item.m_options, requestOpt);
     }

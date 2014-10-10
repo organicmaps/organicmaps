@@ -35,7 +35,8 @@
 #define ALERT_VIEW_FACEBOOK 1
 #define ALERT_VIEW_APPSTORE 2
 #define ALERT_VIEW_BOOKMARKS 4
-#define ALERT_VIEW_ERROR 5
+#define ALERT_VIEW_DOWNLOADER 5
+#define ALERT_VIEW_PRO_VERSION_ROUTING 6
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
 
@@ -513,10 +514,6 @@
   [self.view addSubview:self.containerView];
 
   [self.view addSubview:self.bottomMenu];
-
-//  [self performAfterDelay:0.3 block:^{
-//    [self bottomMenu:self.bottomMenu didPressItemWithName:@"Maps" appURL:nil webURL:nil];
-//  }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -606,19 +603,23 @@
 
     f.SetRouteBuildingListener([self, &f](bool isSuccess, string const & message, bool openDownloader)
     {
+      [self.containerView.placePage showBuildingRoutingActivity:NO];
       if (isSuccess)
       {
         f.GetBalloonManager().RemovePin();
         f.GetBalloonManager().Dismiss();
         [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:YES];
+        [self.searchView setState:SearchViewStateHidden animated:YES withCallback:YES];
         [self performAfterDelay:0.3 block:^{
           [self.routeView setVisible:YES animated:YES];
         }];
       }
       else
       {
-        /// if openDownloader == true than we need show dialog with 2 button. On positive button - open downloader
-        [self showDialogWithMessageID:message];
+        if (openDownloader)
+          [self showDownloaderDialogWithMessageID:message];
+        else
+          [self showDialogWithMessageID:message];
       }
     });
 
@@ -633,16 +634,24 @@
 }
 
 #pragma mark - ShowDialog callback
+
 - (void)showDialogWithMessageID:(string const &)message
 {
-  ///@TODO for goga.
   [[[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
+}
+
+- (void)showDownloaderDialogWithMessageID:(string const &)message
+{
+  UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithUTF8String:message.c_str()] message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"ok", nil), nil];
+  alertView.tag = ALERT_VIEW_DOWNLOADER;
+  [alertView show];
 }
 
 - (void)showBuyProDialog
 {
-  ///@TODO for goga. Show buy pro dialog with text [routing_failed_buy_pro]
-  [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"routing_failed_buy_pro", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"ok", nil) otherButtonTitles:nil] show];
+  UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"routing_failed_buy_pro", nil) message:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) otherButtonTitles:NSLocalizedString(@"get_it_now", nil), nil];
+  alert.tag = ALERT_VIEW_PRO_VERSION_ROUTING;
+  [alert show];
 }
 
 #pragma mark - Getters
@@ -753,6 +762,8 @@
   return _apiTitleLabel;
 }
 
+#pragma mark - Api methods
+
 - (void)clearApiMode:(id)sender
 {
   [self setApiMode:NO animated:YES];
@@ -765,17 +776,14 @@
   [[UIApplication sharedApplication] openURL:url];
 }
 
+#pragma mark - ToolbarView delegate
+
 - (void)toolbar:(ToolbarView *)toolbar didPressItemWithName:(NSString *)itemName
 {
   if ([itemName isEqualToString:@"Location"])
-  {
-//    [self onMyPositionClicked:nil];
-    [self.routeView setVisible:!self.routeView.visible animated:YES];
-  }
+    [self onMyPositionClicked:nil];
   else if ([itemName isEqualToString:@"Search"])
-  {
     [self.searchView setState:SearchViewStateFullscreen animated:YES withCallback:YES];
-  }
   else if ([itemName isEqualToString:@"Bookmarks"])
   {
     if (GetPlatform().IsPro())
@@ -791,14 +799,15 @@
     }
   }
   else if ([itemName isEqualToString:@"Menu"])
-  {
     [self.bottomMenu setMenuHidden:NO animated:YES];
-  }
 }
 
-- (void)routeViewDidStartRouting:(RouteView *)routeView
-{
+#pragma mark - Routing
 
+- (void)routeViewDidStartFollowing:(RouteView *)routeView
+{
+  [routeView hideFollowButton];
+  GetFramework().FollowRoute();
 }
 
 - (void)routeViewDidCancelRouting:(RouteView *)routeView
@@ -811,6 +820,7 @@
 
 - (void)placePageViewDidStartRouting:(PlacePageView *)placePage
 {
+  [placePage showBuildingRoutingActivity:YES];
   GetFramework().BuildRoute([placePage pinPoint]);
 }
 
@@ -988,11 +998,24 @@
         [[UIApplication sharedApplication] openProVersionFrom:@"ios_toolabar_bookmarks"];
       }
     }
-    case ALERT_VIEW_ERROR:
+    case ALERT_VIEW_DOWNLOADER:
     {
       if (buttonIndex != alertView.cancelButtonIndex)
       {
-
+        CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
+        [self.navigationController pushViewController:vc animated:YES];
+      }
+    }
+    case ALERT_VIEW_PRO_VERSION_ROUTING:
+    {
+      if (buttonIndex == alertView.cancelButtonIndex)
+      {
+        [[Statistics instance] logProposalReason:@"Routing Menu" withAnswer:@"NO"];
+      }
+      else
+      {
+        [[UIApplication sharedApplication] openProVersionFrom:@"ios_routing_alert"];
+        [[Statistics instance] logProposalReason:@"Routing Menu" withAnswer:@"YES"];
       }
     }
     default:
@@ -1017,7 +1040,8 @@
 
         [UIView animateWithDuration:0.3 animations:^{
           self.toolbarView.maxY = self.view.height;
-          self.routeView.alpha = 1;
+          if (GetFramework().IsRoutingActive())
+            self.routeView.minY = 0;
         }];
         break;
       }
@@ -1045,11 +1069,11 @@
             framework.SetViewportCenterAnimated(framework.GetViewportCenter() + offset);
           }
         }
-
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
           self.toolbarView.maxY = self.view.height;
-          self.routeView.alpha = 0;
-        }];
+          if (GetFramework().IsRoutingActive())
+            self.routeView.minY = self.containerView.placePage.maxY - 20;
+        } completion:^(BOOL finished) {}];
 
         break;
       }
@@ -1070,6 +1094,20 @@
     {
       GetFramework().ActivateUserMark(NULL);
       [self.containerView.placePage setState:PlacePageStateHidden animated:YES withCallback:NO];
+    }
+    else if (self.searchView.state == SearchViewStateResults)
+    {
+      [UIView animateWithDuration:0.3 animations:^{
+        if (GetFramework().IsRoutingActive())
+          self.routeView.minY = self.searchView.searchBar.maxY - 14;
+      }];
+    }
+    else if (self.searchView.state == SearchViewStateHidden)
+    {
+      [UIView animateWithDuration:0.3 animations:^{
+        if (GetFramework().IsRoutingActive())
+          self.routeView.minY = 0;
+      }];
     }
   }
 }

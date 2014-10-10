@@ -1,11 +1,15 @@
 
 #import "ToolbarView.h"
+#import "MapsAppDelegate.h"
+#import "Framework.h"
+#import "BadgeView.h"
 
 @interface ToolbarView ()
 
 @property (nonatomic) UIButton * searchButton;
 @property (nonatomic) UIButton * bookmarkButton;
 @property (nonatomic) UIButton * menuButton;
+@property (nonatomic) BadgeView * menuBadge;
 @property (nonatomic) UIImageView * backgroundImageView;
 
 @end
@@ -32,7 +36,28 @@
 
   [self layoutButtons];
 
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outOfDateCountriesCountChanged:) name:MapsStatusChangedNotification object:nil];
+  [self updateMenuBadgeWithCount:GetFramework().GetCountryTree().GetActiveMapLayout().GetCountInGroup(storage::ActiveMapsLayout::TGroup::EOutOfDate)];
   return self;
+}
+
+- (void)outOfDateCountriesCountChanged:(NSNotification *)notification
+{
+  [self updateMenuBadgeWithCount:[[notification userInfo][@"OutOfDate"] integerValue]];
+}
+
+- (void)updateMenuBadgeWithCount:(NSInteger)count
+{
+  [self.menuBadge removeFromSuperview];
+  if (count > 0)
+  {
+    BadgeView * badge = [[BadgeView alloc] init];
+    badge.value = count;
+    badge.minY = 4;
+    badge.minX = self.menuButton.width / 2 + 10;
+    [self.menuButton addSubview:badge];
+    self.menuBadge = badge;
+  }
 }
 
 - (void)locationButtonPressed:(id)sender
@@ -104,6 +129,11 @@
     _backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   }
   return _backgroundImageView;
+}
+
+- (void)dealloc
+{
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

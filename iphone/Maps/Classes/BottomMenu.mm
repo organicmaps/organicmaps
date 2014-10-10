@@ -6,6 +6,8 @@
 #include "../../../platform/settings.hpp"
 #import "AppInfo.h"
 #import "ImageDownloader.h"
+#import "MapsAppDelegate.h"
+#import "Framework.h"
 
 @interface BottomMenu () <UITableViewDataSource, UITableViewDelegate, ImageDownloaderDelegate>
 
@@ -23,8 +25,8 @@
   self = [super initWithFrame:frame];
 
   self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-  [self addSubview:self.fadeView];
 
+  [self addSubview:self.fadeView];
   [self addSubview:self.tableView];
 
   _menuHidden = YES;
@@ -32,8 +34,18 @@
   self.imageDownloaders = [[NSMutableDictionary alloc] init];
 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appInfoSynced:) name:AppInfoSyncedNotification object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outOfDateCountriesCountChanged:) name:MapsStatusChangedNotification object:nil];
 
   return self;
+}
+
+- (void)outOfDateCountriesCountChanged:(NSNotification *)notification
+{
+  NSInteger const row = [self.items indexOfObjectPassingTest:^(id obj, NSUInteger i, BOOL *stop){
+    return [obj[@"Id"] isEqualToString:@"Maps"];
+  }];
+  BottomMenuCell * cell = (BottomMenuCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
+  cell.badgeView.value = [[notification userInfo][@"OutOfDate"] integerValue];
 }
 
 - (NSArray *)generateItems
@@ -153,6 +165,11 @@
 
     cell.titleLabel.text = title;
   }
+
+  if ([item[@"Id"] isEqualToString:@"Maps"])
+    cell.badgeView.value = GetFramework().GetCountryTree().GetActiveMapLayout().GetCountInGroup(storage::ActiveMapsLayout::TGroup::EOutOfDate);
+  else
+    cell.badgeView.value = 0;
 
   return cell;
 }

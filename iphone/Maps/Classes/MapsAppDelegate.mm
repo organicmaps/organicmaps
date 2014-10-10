@@ -1,6 +1,5 @@
 #import "MapsAppDelegate.h"
 #import "MapViewController.h"
-#import "SettingsManager.h"
 #import "Preferences.h"
 #import "LocationManager.h"
 #import "Statistics.h"
@@ -15,14 +14,13 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 
-#include "Framework.h"
-
 #include "../../../storage/storage_defines.hpp"
 
 #include "../../../platform/settings.hpp"
 #include "../../../platform/platform.hpp"
 #include "../../../platform/preferred_languages.hpp"
 
+NSString * const MapsStatusChangedNotification = @"MapsStatusChangedNotification";
 
 #define NOTIFICATION_ALERT_VIEW_TAG 665
 
@@ -67,6 +65,7 @@ void InitLocalizedStrings()
 
   NSString * m_scheme;
   NSString * m_sourceApplication;
+  ActiveMapsObserver * m_mapsObserver;
 }
 
 + (MapsAppDelegate *)theApp
@@ -229,7 +228,7 @@ void InitLocalizedStrings()
     UIPasteboard * pasteboard = [UIPasteboard generalPasteboard];
     if ([pasteboard.string length])
     {
-      if (GetFramework().ShowMapForURL([pasteboard.string UTF8String]))
+      if (f.ShowMapForURL([pasteboard.string UTF8String]))
       {
         [self showMap];
         pasteboard.string = @"";
@@ -255,17 +254,13 @@ void InitLocalizedStrings()
 #ifdef OMIM_FULL
   [[AccountManager sharedManager] applicationDidBecomeActive:application];
 #endif
-}
 
-- (SettingsManager *)settingsManager
-{
-  if (!m_settingsManager)
-    m_settingsManager = [[SettingsManager alloc] init];
-  return m_settingsManager;
+  f.GetLocationState()->InvalidatePosition();
 }
 
 - (void)dealloc
 {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
   // Global cleanup
   DeleteFramework();
 }
@@ -424,36 +419,38 @@ void InitLocalizedStrings()
 
 - (void)subscribeToStorage
 {
-  typedef void (*TChangeFunc)(id, SEL, storage::TIndex const &);
-  SEL changeSel = @selector(OnCountryChange:);
-  TChangeFunc changeImpl = (TChangeFunc)[self methodForSelector:changeSel];
+  __weak MapsAppDelegate * weakSelf = self;
+  m_mapsObserver = new ActiveMapsObserver(weakSelf);
+  GetFramework().GetCountryTree().GetActiveMapLayout().AddListener(m_mapsObserver);
 
-  typedef void (*TProgressFunc)(id, SEL, storage::TIndex const &, pair<int64_t, int64_t> const &);
-  SEL emptySel = @selector(EmptyFunction:withProgress:);
-  TProgressFunc progressImpl = (TProgressFunc)[self methodForSelector:emptySel];
-
-  GetFramework().Storage().Subscribe(bind(changeImpl, self, changeSel, _1),
-                                     bind(progressImpl, self, emptySel, _1, _2));
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(outOfDateCountriesCountChanged:) name:MapsStatusChangedNotification object:nil];
 }
 
-- (void)OnCountryChange:(storage::TIndex const &)index
+- (void)countryStatusChangedAtPosition:(int)position inGroup:(storage::ActiveMapsLayout::TGroup const &)group
 {
-  Framework const & f = GetFramework();
-  guides::GuideInfo guide;
-  if (f.GetCountryStatus(index) == storage::TStatus::EOnDisk && f.GetGuideInfo(index, guide))
-    [self ShowNotificationWithGuideInfo:guide];
+  ActiveMapsLayout & l = GetFramework().GetCountryTree().GetActiveMapLayout();
+  TStatus const & status = l.GetCountryStatus(group, position);
+  guides::GuideInfo info;
+  if (status == storage::TStatus::EOnDisk && l.GetGuideInfo(group, position, info))
+    [self showNotificationWithGuideInfo:info];
+
+  int const outOfDateCount = l.GetCountInGroup(storage::ActiveMapsLayout::TGroup::EOutOfDate);
+  [[NSNotificationCenter defaultCenter] postNotificationName:MapsStatusChangedNotification object:nil userInfo:@{@"OutOfDate" : @(outOfDateCount)}];
 }
 
-- (void)EmptyFunction:(storage::TIndex const &)index withProgress:(pair<int64_t, int64_t> const &)progress {}
+- (void)outOfDateCountriesCountChanged:(NSNotification *)notification
+{
+  [UIApplication sharedApplication].applicationIconBadgeNumber = [[notification userInfo][@"OutOfDate"] integerValue];
+}
 
-- (BOOL)ShowNotificationWithGuideInfo:(guides::GuideInfo const &)guide
+- (void)showNotificationWithGuideInfo:(guides::GuideInfo const &)guide
 {
   guides::GuidesManager & guidesManager = GetFramework().GetGuidesManager();
   string const appID = guide.GetAppID();
 
   if (guidesManager.WasAdvertised(appID) ||
       [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithUTF8String:appID.c_str()]]])
-    return NO;
+    return;
 
   UILocalNotification * notification = [[UILocalNotification alloc] init];
   notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
@@ -474,8 +471,6 @@ void InitLocalizedStrings()
   [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 
   guidesManager.SetWasAdvertised(appID);
-
-  return YES;
 }
 
 @end

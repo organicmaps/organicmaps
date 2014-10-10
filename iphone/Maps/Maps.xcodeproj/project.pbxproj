@@ -23,8 +23,8 @@
 		974386DA1934CBAD00FD5659 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 974386D81934CBAC00FD5659 /* FacebookSDK.framework */; };
 		974386DD19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
 		974386DE19373EA400FD5659 /* ToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 974386DC19373EA400FD5659 /* ToastView.m */; };
-		9746492718EEE2F8004B4658 /* ToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.m */; };
-		9746492818EEE2F8004B4658 /* ToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.m */; };
+		9746492718EEE2F8004B4658 /* ToolbarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.mm */; };
+		9746492818EEE2F8004B4658 /* ToolbarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9746492618EEE2F8004B4658 /* ToolbarView.mm */; };
 		9747264318323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
 		9747264418323080006B7CB7 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747264118323080006B7CB7 /* UIKitCategories.m */; };
 		9747278418338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9747278318338F0C006B7CB7 /* UIViewController+Navigation.m */; };
@@ -47,6 +47,10 @@
 		9767702519B718D800402693 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9767701D19B718D700402693 /* LICENSE */; };
 		9769D6EF1912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
 		9769D6F01912BF3000CA6158 /* ContainerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9769D6EE1912BF3000CA6158 /* ContainerView.mm */; };
+		976D86EC19C8697700C920EF /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86EB19C8697700C920EF /* ProgressView.m */; };
+		976D86ED19C8697700C920EF /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86EB19C8697700C920EF /* ProgressView.m */; };
+		976D86F119C877E600C920EF /* MapCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F019C877E600C920EF /* MapCell.mm */; };
+		976D86F219C877E600C920EF /* MapCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F019C877E600C920EF /* MapCell.mm */; };
 		976D86F519CB21BD00C920EF /* RouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F419CB21BD00C920EF /* RouteView.m */; };
 		976D86F619CB21BD00C920EF /* RouteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 976D86F419CB21BD00C920EF /* RouteView.m */; };
 		97719D451843B6DC00BDD815 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97719D441843B6DC00BDD815 /* MessageUI.framework */; };
@@ -63,6 +67,14 @@
 		9778E9A2191A663700AD850A /* BookmarkNameVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9778E9A0191A663700AD850A /* BookmarkNameVC.mm */; };
 		9778E9A5191A86D800AD850A /* SelectedColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9778E9A4191A86D800AD850A /* SelectedColorView.m */; };
 		9778E9A6191A86D800AD850A /* SelectedColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9778E9A4191A86D800AD850A /* SelectedColorView.m */; };
+		977E26B919E2E64200BA2219 /* MapsObservers.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26B819E2E64200BA2219 /* MapsObservers.mm */; };
+		977E26BA19E2E64200BA2219 /* MapsObservers.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26B819E2E64200BA2219 /* MapsObservers.mm */; };
+		977E26BE19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26BD19E31BBE00BA2219 /* CountryTreeVC.mm */; };
+		977E26BF19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26BD19E31BBE00BA2219 /* CountryTreeVC.mm */; };
+		977E26C219E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26C119E31BCC00BA2219 /* ActiveMapsVC.mm */; };
+		977E26C319E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26C119E31BCC00BA2219 /* ActiveMapsVC.mm */; };
+		977E26C619E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26C519E31BDF00BA2219 /* DownloaderParentVC.mm */; };
+		977E26C719E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977E26C519E31BDF00BA2219 /* DownloaderParentVC.mm */; };
 		9789DB56188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9789DB55188D5E2A007C6FAE /* InAppMessagesManager.mm */; };
 		9789DB57188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9789DB55188D5E2A007C6FAE /* InAppMessagesManager.mm */; };
 		9789DB5A188D94F9007C6FAE /* InterstitialView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9789DB59188D94F9007C6FAE /* InterstitialView.mm */; };
@@ -89,8 +101,8 @@
 		97908B31196591FB003DD7C6 /* SearchShowOnMapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97908B2F196591F7003DD7C6 /* SearchShowOnMapCell.m */; };
 		97A0EEFA192F3B43009B2779 /* BottomMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF7192F3B43009B2779 /* BottomMenu.mm */; };
 		97A0EEFB192F3B43009B2779 /* BottomMenu.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF7192F3B43009B2779 /* BottomMenu.mm */; };
-		97A0EEFC192F3B43009B2779 /* BottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF9192F3B43009B2779 /* BottomMenuCell.m */; };
-		97A0EEFD192F3B43009B2779 /* BottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF9192F3B43009B2779 /* BottomMenuCell.m */; };
+		97A0EEFC192F3B43009B2779 /* BottomMenuCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF9192F3B43009B2779 /* BottomMenuCell.mm */; };
+		97A0EEFD192F3B43009B2779 /* BottomMenuCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A0EEF9192F3B43009B2779 /* BottomMenuCell.mm */; };
 		97A5967F19B9CD47007A963F /* copyright.html in Resources */ = {isa = PBXBuildFile; fileRef = 97A5967E19B9CD47007A963F /* copyright.html */; };
 		97A5968019B9CD47007A963F /* copyright.html in Resources */ = {isa = PBXBuildFile; fileRef = 97A5967E19B9CD47007A963F /* copyright.html */; };
 		97A8000C18B21363000C07A2 /* SearchView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97A8000B18B21363000C07A2 /* SearchView.mm */; };
@@ -151,6 +163,8 @@
 		97ECD881183674CA00F77A46 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87718362B3D00F77A46 /* CoreTelephony.framework */; };
 		97ECD8821836751100F77A46 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD87918362B5400F77A46 /* MobileCoreServices.framework */; };
 		97EDDCE518A299C000AEFB7A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97EDDCE418A299C000AEFB7A /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		97F0817E19AF72590098FB0B /* BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F0817D19AF72590098FB0B /* BadgeView.m */; };
+		97F0817F19AF72590098FB0B /* BadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F0817D19AF72590098FB0B /* BadgeView.m */; };
 		97F61781183E6172009919E2 /* LocationButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F6177F183E6172009919E2 /* LocationButton.mm */; };
 		97F61782183E6172009919E2 /* LocationButton.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97F6177F183E6172009919E2 /* LocationButton.mm */; };
 		97F61794183E7445009919E2 /* LinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F61793183E7445009919E2 /* LinkCell.m */; };
@@ -238,8 +252,6 @@
 		FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA34BEC81338D72F00FFB2A7 /* CustomAlertView.mm */; };
 		FA36B80D15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
 		FA36B80E15403A4F004560CC /* BookmarksVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA36B80615403A4F004560CC /* BookmarksVC.mm */; };
-		FA4135EA120A263C0062D5B4 /* CountriesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */; };
-		FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E7120A263C0062D5B4 /* SettingsManager.mm */; };
 		FA459EB414327AF700B5BB3C /* WorldCoasts.mwm in Resources */ = {isa = PBXBuildFile; fileRef = FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */; };
 		FA46DA2C12D4166E00968C36 /* countries.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA46DA2B12D4166E00968C36 /* countries.txt */; };
 		FA64D9A913F975AD00350ECF /* types.txt in Resources */ = {isa = PBXBuildFile; fileRef = FA64D9A813F975AD00350ECF /* types.txt */; };
@@ -1297,8 +1309,6 @@
 		FAFB08EA151215EE0041901D /* MapsAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MapsAppDelegate.mm */; };
 		FAFB08EB151215EE0041901D /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 46F26CD710F623BA00ECCA39 /* EAGLView.mm */; };
 		FAFB08EC151215EE0041901D /* MapViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = EED10A4411F78D120095FAD4 /* MapViewController.mm */; };
-		FAFB08ED151215EE0041901D /* CountriesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */; };
-		FAFB08EE151215EE0041901D /* SettingsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA4135E7120A263C0062D5B4 /* SettingsManager.mm */; };
 		FAFB08EF151215EE0041901D /* RenderBuffer.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297D1219ECA300EB67A9 /* RenderBuffer.mm */; };
 		FAFB08F0151215EE0041901D /* RenderContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE7F297E1219ECA300EB67A9 /* RenderContext.mm */; };
 		FAFB08F1151215EE0041901D /* WebViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAFCB63513366E78001A5C59 /* WebViewController.mm */; };
@@ -1345,7 +1355,7 @@
 		974386DB19373EA400FD5659 /* ToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToastView.h; sourceTree = "<group>"; };
 		974386DC19373EA400FD5659 /* ToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToastView.m; sourceTree = "<group>"; };
 		9746492518EEE2F8004B4658 /* ToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolbarView.h; sourceTree = "<group>"; };
-		9746492618EEE2F8004B4658 /* ToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolbarView.m; sourceTree = "<group>"; };
+		9746492618EEE2F8004B4658 /* ToolbarView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ToolbarView.mm; sourceTree = "<group>"; };
 		9747264118323080006B7CB7 /* UIKitCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIKitCategories.m; path = Categories/UIKitCategories.m; sourceTree = "<group>"; };
 		9747264218323080006B7CB7 /* UIKitCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIKitCategories.h; path = Categories/UIKitCategories.h; sourceTree = "<group>"; };
 		9747278218338F0C006B7CB7 /* UIViewController+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+Navigation.h"; path = "Classes/UIViewController+Navigation.h"; sourceTree = "<group>"; };
@@ -1365,6 +1375,10 @@
 		9767701F19B718D700402693 /* LocalyticsSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalyticsSession.h; sourceTree = "<group>"; };
 		9769D6ED1912BF3000CA6158 /* ContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerView.h; sourceTree = "<group>"; };
 		9769D6EE1912BF3000CA6158 /* ContainerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ContainerView.mm; sourceTree = "<group>"; };
+		976D86EA19C8697700C920EF /* ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressView.h; path = Classes/ProgressView.h; sourceTree = "<group>"; };
+		976D86EB19C8697700C920EF /* ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressView.m; path = Classes/ProgressView.m; sourceTree = "<group>"; };
+		976D86EF19C877E600C920EF /* MapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapCell.h; path = Classes/MapCell.h; sourceTree = "<group>"; };
+		976D86F019C877E600C920EF /* MapCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MapCell.mm; path = Classes/MapCell.mm; sourceTree = "<group>"; };
 		976D86F319CB21BD00C920EF /* RouteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteView.h; sourceTree = "<group>"; };
 		976D86F419CB21BD00C920EF /* RouteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteView.m; sourceTree = "<group>"; };
 		97719D441843B6DC00BDD815 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -1378,6 +1392,14 @@
 		9778E9A0191A663700AD850A /* BookmarkNameVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BookmarkNameVC.mm; sourceTree = "<group>"; };
 		9778E9A3191A86D800AD850A /* SelectedColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedColorView.h; sourceTree = "<group>"; };
 		9778E9A4191A86D800AD850A /* SelectedColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectedColorView.m; sourceTree = "<group>"; };
+		977E26B819E2E64200BA2219 /* MapsObservers.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MapsObservers.mm; path = Classes/MapsObservers.mm; sourceTree = "<group>"; };
+		977E26BB19E2E65E00BA2219 /* MapsObservers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapsObservers.h; path = Classes/MapsObservers.h; sourceTree = "<group>"; };
+		977E26BC19E31BBE00BA2219 /* CountryTreeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountryTreeVC.h; sourceTree = "<group>"; };
+		977E26BD19E31BBE00BA2219 /* CountryTreeVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CountryTreeVC.mm; sourceTree = "<group>"; };
+		977E26C019E31BCC00BA2219 /* ActiveMapsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActiveMapsVC.h; sourceTree = "<group>"; };
+		977E26C119E31BCC00BA2219 /* ActiveMapsVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ActiveMapsVC.mm; sourceTree = "<group>"; };
+		977E26C419E31BDF00BA2219 /* DownloaderParentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloaderParentVC.h; sourceTree = "<group>"; };
+		977E26C519E31BDF00BA2219 /* DownloaderParentVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DownloaderParentVC.mm; sourceTree = "<group>"; };
 		9789DB54188D5E2A007C6FAE /* InAppMessagesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppMessagesManager.h; sourceTree = "<group>"; };
 		9789DB55188D5E2A007C6FAE /* InAppMessagesManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InAppMessagesManager.mm; sourceTree = "<group>"; };
 		9789DB58188D94F9007C6FAE /* InterstitialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialView.h; sourceTree = "<group>"; };
@@ -1403,7 +1425,7 @@
 		97A0EEF6192F3B43009B2779 /* BottomMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomMenu.h; sourceTree = "<group>"; };
 		97A0EEF7192F3B43009B2779 /* BottomMenu.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BottomMenu.mm; sourceTree = "<group>"; };
 		97A0EEF8192F3B43009B2779 /* BottomMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomMenuCell.h; sourceTree = "<group>"; };
-		97A0EEF9192F3B43009B2779 /* BottomMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomMenuCell.m; sourceTree = "<group>"; };
+		97A0EEF9192F3B43009B2779 /* BottomMenuCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BottomMenuCell.mm; sourceTree = "<group>"; };
 		97A5967E19B9CD47007A963F /* copyright.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = copyright.html; path = ../../data/copyright.html; sourceTree = "<group>"; };
 		97A8000A18B21363000C07A2 /* SearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
 		97A8000B18B21363000C07A2 /* SearchView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SearchView.mm; sourceTree = "<group>"; };
@@ -1458,6 +1480,8 @@
 		97ECD87918362B5400F77A46 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		97ECD87E1836594400F77A46 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		97EDDCE418A299C000AEFB7A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		97F0817C19AF72590098FB0B /* BadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BadgeView.h; path = Classes/BadgeView.h; sourceTree = "<group>"; };
+		97F0817D19AF72590098FB0B /* BadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BadgeView.m; path = Classes/BadgeView.m; sourceTree = "<group>"; };
 		97F6177F183E6172009919E2 /* LocationButton.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocationButton.mm; sourceTree = "<group>"; };
 		97F61780183E6172009919E2 /* LocationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationButton.h; sourceTree = "<group>"; };
 		97F6178F183E742E009919E2 /* LinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinkCell.h; path = Settings/LinkCell.h; sourceTree = "<group>"; };
@@ -1557,10 +1581,6 @@
 		FA34BEC91338D72F00FFB2A7 /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
 		FA36B80515403A4F004560CC /* BookmarksVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BookmarksVC.h; path = Bookmarks/BookmarksVC.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA36B80615403A4F004560CC /* BookmarksVC.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = BookmarksVC.mm; path = Bookmarks/BookmarksVC.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		FA4135E1120A263C0062D5B4 /* CountriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = CountriesViewController.h; path = Settings/CountriesViewController.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = CountriesViewController.mm; path = Settings/CountriesViewController.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		FA4135E6120A263C0062D5B4 /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsManager.h; path = Settings/SettingsManager.h; sourceTree = SOURCE_ROOT; };
-		FA4135E7120A263C0062D5B4 /* SettingsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = SettingsManager.mm; path = Settings/SettingsManager.mm; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */ = {isa = PBXFileReference; lastKnownFileType = file; name = WorldCoasts.mwm; path = ../../data/WorldCoasts.mwm; sourceTree = "<group>"; };
 		FA46DA2B12D4166E00968C36 /* countries.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = countries.txt; path = ../../data/countries.txt; sourceTree = SOURCE_ROOT; };
 		FA5940D2171C964D0045C9BB /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2224,6 +2244,7 @@
 				CB252D6816FF82C8001E41E9 /* Statistics */,
 				FA36B8011540388B004560CC /* Bookmarks */,
 				FA34BEC71338D6DB00FFB2A7 /* Common */,
+				976D86EE19C8777500C920EF /* Downloader */,
 				97354B6B196EDCE200352536 /* Login & sharing */,
 				FA6E1F1B124E6B2800F59149 /* Platform */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -2334,6 +2355,27 @@
 			path = Localitycs;
 			sourceTree = "<group>";
 		};
+		976D86EE19C8777500C920EF /* Downloader */ = {
+			isa = PBXGroup;
+			children = (
+				97F0817C19AF72590098FB0B /* BadgeView.h */,
+				97F0817D19AF72590098FB0B /* BadgeView.m */,
+				976D86EA19C8697700C920EF /* ProgressView.h */,
+				976D86EB19C8697700C920EF /* ProgressView.m */,
+				976D86EF19C877E600C920EF /* MapCell.h */,
+				976D86F019C877E600C920EF /* MapCell.mm */,
+				977E26BB19E2E65E00BA2219 /* MapsObservers.h */,
+				977E26B819E2E64200BA2219 /* MapsObservers.mm */,
+				977E26C419E31BDF00BA2219 /* DownloaderParentVC.h */,
+				977E26C519E31BDF00BA2219 /* DownloaderParentVC.mm */,
+				977E26BC19E31BBE00BA2219 /* CountryTreeVC.h */,
+				977E26BD19E31BBE00BA2219 /* CountryTreeVC.mm */,
+				977E26C019E31BCC00BA2219 /* ActiveMapsVC.h */,
+				977E26C119E31BCC00BA2219 /* ActiveMapsVC.mm */,
+			);
+			name = Downloader;
+			sourceTree = "<group>";
+		};
 		9770A04618AD19D300126E5C /* More Apps */ = {
 			isa = PBXGroup;
 			children = (
@@ -2375,7 +2417,7 @@
 				97A0EEF6192F3B43009B2779 /* BottomMenu.h */,
 				97A0EEF7192F3B43009B2779 /* BottomMenu.mm */,
 				97A0EEF8192F3B43009B2779 /* BottomMenuCell.h */,
-				97A0EEF9192F3B43009B2779 /* BottomMenuCell.m */,
+				97A0EEF9192F3B43009B2779 /* BottomMenuCell.mm */,
 				9750841D199501F100A7457D /* ImageDownloader.h */,
 				9750841E199501F100A7457D /* ImageDownloader.m */,
 			);
@@ -2410,7 +2452,7 @@
 				97D092AD190A67CA00FF645B /* Place Page */,
 				97A8000918B210DC000C07A2 /* Search */,
 				9746492518EEE2F8004B4658 /* ToolbarView.h */,
-				9746492618EEE2F8004B4658 /* ToolbarView.m */,
+				9746492618EEE2F8004B4658 /* ToolbarView.mm */,
 				976D86F319CB21BD00C920EF /* RouteView.h */,
 				976D86F419CB21BD00C920EF /* RouteView.m */,
 				974386DB19373EA400FD5659 /* ToastView.h */,
@@ -2603,10 +2645,6 @@
 			isa = PBXGroup;
 			children = (
 				978F924D183BB5D6000D6C7C /* Cells */,
-				FA4135E1120A263C0062D5B4 /* CountriesViewController.h */,
-				FA4135E2120A263C0062D5B4 /* CountriesViewController.mm */,
-				FA4135E6120A263C0062D5B4 /* SettingsManager.h */,
-				FA4135E7120A263C0062D5B4 /* SettingsManager.mm */,
 				978F923F183B660F000D6C7C /* SettingsViewController.h */,
 				978F9239183B660F000D6C7C /* SettingsViewController.mm */,
 				97508421199522D300A7457D /* SettingsAndMoreVC.h */,
@@ -4469,26 +4507,29 @@
 				978D4A291996C17300D72CA7 /* RichTextVC.m in Sources */,
 				9747278418338F0C006B7CB7 /* UIViewController+Navigation.m in Sources */,
 				97908B30196591F7003DD7C6 /* SearchShowOnMapCell.m in Sources */,
+				976D86F119C877E600C920EF /* MapCell.mm in Sources */,
+				977E26C219E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */,
 				1D3623260D0F684500981E51 /* MapsAppDelegate.mm in Sources */,
-				9746492718EEE2F8004B4658 /* ToolbarView.m in Sources */,
+				9746492718EEE2F8004B4658 /* ToolbarView.mm in Sources */,
 				46F26CD810F623BA00ECCA39 /* EAGLView.mm in Sources */,
 				EED10A4511F78D120095FAD4 /* MapViewController.mm in Sources */,
-				FA4135EA120A263C0062D5B4 /* CountriesViewController.mm in Sources */,
-				FA4135ED120A263C0062D5B4 /* SettingsManager.mm in Sources */,
 				EE7F29811219ECA300EB67A9 /* RenderBuffer.mm in Sources */,
 				97D092B5190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */,
 				9750841F199501F100A7457D /* ImageDownloader.m in Sources */,
 				978F9253183BD530000D6C7C /* NavigationController.mm in Sources */,
 				974386DD19373EA400FD5659 /* ToastView.m in Sources */,
 				97C9851E186AE3C500AF7E9E /* Reachability.m in Sources */,
+				977E26B919E2E64200BA2219 /* MapsObservers.mm in Sources */,
 				EE7F29821219ECA300EB67A9 /* RenderContext.mm in Sources */,
 				FAFCB63613366E78001A5C59 /* WebViewController.mm in Sources */,
 				FA34BECA1338D72F00FFB2A7 /* CustomAlertView.mm in Sources */,
 				97F61781183E6172009919E2 /* LocationButton.mm in Sources */,
 				9747264318323080006B7CB7 /* UIKitCategories.m in Sources */,
-				97A0EEFC192F3B43009B2779 /* BottomMenuCell.m in Sources */,
+				977E26BE19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */,
+				97A0EEFC192F3B43009B2779 /* BottomMenuCell.mm in Sources */,
 				97D092B9190AA69700FF645B /* SmallCompassView.mm in Sources */,
 				97A8001418B2140A000C07A2 /* SearchResultCell.m in Sources */,
+				97F0817E19AF72590098FB0B /* BadgeView.m in Sources */,
 				97A8002718B2741C000C07A2 /* SearchCell.m in Sources */,
 				97908B2C19658767003DD7C6 /* SearchCategoryCell.m in Sources */,
 				9778E9A5191A86D800AD850A /* SelectedColorView.m in Sources */,
@@ -4509,6 +4550,7 @@
 				97CC93BB19599F4700369B42 /* SearchSuggestCell.m in Sources */,
 				FA054612155C465E001F4E37 /* SelectSetVC.mm in Sources */,
 				FAA614B8155F16950031C345 /* AddSetVC.mm in Sources */,
+				977E26C619E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */,
 				FAAEA7D5161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
 				F785EB4016386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				9789DB56188D5E2A007C6FAE /* InAppMessagesManager.mm in Sources */,
@@ -4524,6 +4566,7 @@
 				9773DB8F198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m in Sources */,
 				97ABBA4518C8DF620079333C /* PlacePageView.mm in Sources */,
 				97F61794183E7445009919E2 /* LinkCell.m in Sources */,
+				976D86EC19C8697700C920EF /* ProgressView.m in Sources */,
 				97D092B1190A681F00FF645B /* PlacePageInfoCell.mm in Sources */,
 				97A8001018B21395000C07A2 /* SearchBar.mm in Sources */,
 				EDC5C543175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
@@ -4543,26 +4586,29 @@
 				978D4A2A1996C17300D72CA7 /* RichTextVC.m in Sources */,
 				FAFB08EA151215EE0041901D /* MapsAppDelegate.mm in Sources */,
 				97908B31196591FB003DD7C6 /* SearchShowOnMapCell.m in Sources */,
+				976D86F219C877E600C920EF /* MapCell.mm in Sources */,
+				977E26C319E31BCC00BA2219 /* ActiveMapsVC.mm in Sources */,
 				FAFB08EB151215EE0041901D /* EAGLView.mm in Sources */,
 				97A8001118B21395000C07A2 /* SearchBar.mm in Sources */,
 				FAFB08EC151215EE0041901D /* MapViewController.mm in Sources */,
-				FAFB08ED151215EE0041901D /* CountriesViewController.mm in Sources */,
-				FAFB08EE151215EE0041901D /* SettingsManager.mm in Sources */,
 				FAFB08EF151215EE0041901D /* RenderBuffer.mm in Sources */,
 				97DEA09718D75BB000C5F963 /* ContextViews.mm in Sources */,
 				978F9254183BD530000D6C7C /* NavigationController.mm in Sources */,
 				97508420199501F100A7457D /* ImageDownloader.m in Sources */,
-				97A0EEFD192F3B43009B2779 /* BottomMenuCell.m in Sources */,
+				97A0EEFD192F3B43009B2779 /* BottomMenuCell.mm in Sources */,
 				97C9851F186AE3C500AF7E9E /* Reachability.m in Sources */,
 				97ABBA4618C8DF620079333C /* PlacePageView.mm in Sources */,
+				977E26BA19E2E64200BA2219 /* MapsObservers.mm in Sources */,
 				9789DB5B188D94F9007C6FAE /* InterstitialView.mm in Sources */,
 				FAFB08F0151215EE0041901D /* RenderContext.mm in Sources */,
 				FAFB08F1151215EE0041901D /* WebViewController.mm in Sources */,
 				9769D6F01912BF3000CA6158 /* ContainerView.mm in Sources */,
 				FAFB08F2151215EE0041901D /* CustomAlertView.mm in Sources */,
+				977E26BF19E31BBE00BA2219 /* CountryTreeVC.mm in Sources */,
 				97F61782183E6172009919E2 /* LocationButton.mm in Sources */,
 				9747264418323080006B7CB7 /* UIKitCategories.m in Sources */,
 				FAFB08F5151215EE0041901D /* Preferences.mm in Sources */,
+				97F0817F19AF72590098FB0B /* BadgeView.m in Sources */,
 				97D807BD18A933FB00D416E0 /* MoreAppsCell.m in Sources */,
 				97908B2D1965876C003DD7C6 /* SearchCategoryCell.m in Sources */,
 				FAFB08F6151215EE0041901D /* LocationManager.mm in Sources */,
@@ -4583,6 +4629,7 @@
 				97CC93BC19599F4700369B42 /* SearchSuggestCell.m in Sources */,
 				FAA614B9155F16950031C345 /* AddSetVC.mm in Sources */,
 				FAAEA7D6161D8D3100CCD661 /* BookmarksRootVC.mm in Sources */,
+				977E26C719E31BDF00BA2219 /* DownloaderParentVC.mm in Sources */,
 				97D092B6190A6E1D00FF645B /* PlacePageEditCell.mm in Sources */,
 				F785EB4116386FC4003A38A8 /* BookmarkCell.mm in Sources */,
 				97C98523186AE3CF00AF7E9E /* AppInfo.mm in Sources */,
@@ -4598,11 +4645,12 @@
 				9773DB90198652E600C4A9E9 /* PlacePageBookmarkDescriptionCell.m in Sources */,
 				97F61795183E7445009919E2 /* LinkCell.m in Sources */,
 				EDC5C544175F2CA600420E92 /* ShareActionSheet.mm in Sources */,
+				976D86ED19C8697700C920EF /* ProgressView.m in Sources */,
 				9778E9A6191A86D800AD850A /* SelectedColorView.m in Sources */,
 				97A8000D18B21363000C07A2 /* SearchView.mm in Sources */,
 				ED48BBBB17C2B1E2003E7E92 /* CircleView.mm in Sources */,
 				97D092B2190A681F00FF645B /* PlacePageInfoCell.mm in Sources */,
-				9746492818EEE2F8004B4658 /* ToolbarView.m in Sources */,
+				9746492818EEE2F8004B4658 /* ToolbarView.mm in Sources */,
 				ED48BBC417C3B3BF003E7E92 /* ColorPickerView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

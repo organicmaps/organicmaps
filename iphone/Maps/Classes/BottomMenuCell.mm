@@ -5,6 +5,9 @@
 @interface BottomMenuCell ()
 
 @property (nonatomic) UIImageView * separator;
+@property (nonatomic) UIImageView * iconImageView;
+@property (nonatomic) UILabel * titleLabel;
+@property (nonatomic) BadgeView * badgeView;
 
 @end
 
@@ -23,6 +26,7 @@
   [self.contentView addSubview:self.titleLabel];
   [self.contentView addSubview:self.iconImageView];
   [self.contentView addSubview:self.separator];
+  [self.contentView addSubview:self.badgeView];
 
   return self;
 }
@@ -41,7 +45,14 @@
   self.separator.width = self.width - 2 * shift;
   self.separator.maxY = self.height;
 
-  self.titleLabel.frame = CGRectMake(53, -2, self.width - 70, self.height);
+  self.titleLabel.size = CGSizeMake(self.width - 70, self.height);
+  [self.titleLabel sizeToFit];
+  self.titleLabel.minX = 53;
+  self.titleLabel.midY = self.height / 2 - 2;
+
+  self.badgeView.minX = self.titleLabel.maxX + 4;
+  self.badgeView.minY = self.titleLabel.minY - 5;
+
   self.iconImageView.origin = CGPointMake(11, 4.5);
 }
 
@@ -50,7 +61,7 @@
   if (!_separator)
   {
     UIImage * separatorImage = [[UIImage imageNamed:@"SearchCellSeparator"] resizableImageWithCapInsets:UIEdgeInsetsZero];
-    _separator = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, separatorImage.size.height)];
+    _separator = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1)];
     _separator.image = separatorImage;
   }
   return _separator;
@@ -75,6 +86,13 @@
     _titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17.5];
   }
   return _titleLabel;
+}
+
+- (BadgeView *)badgeView
+{
+  if (!_badgeView)
+    _badgeView = [[BadgeView alloc] init];
+  return _badgeView;
 }
 
 @end

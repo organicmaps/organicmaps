@@ -1,13 +1,15 @@
+
 #import <UIKit/UIKit.h>
 #import "NavigationController.h"
+#import "MapsObservers.h"
 
 @class MapViewController;
-@class SettingsManager;
 @class LocationManager;
 
-@interface MapsAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate>
+extern NSString * const MapsStatusChangedNotification;
+
+@interface MapsAppDelegate : NSObject <UIApplicationDelegate, UIAlertViewDelegate, ActiveMapsObserverProtocol>
 {
-  SettingsManager * m_settingsManager;
   NSInteger m_standbyCounter;
   NSInteger m_activeDownloadsCounter;
   UIBackgroundTaskIdentifier m_backgroundTask;
@@ -20,8 +22,6 @@
 @property (nonatomic, readonly) LocationManager * m_locationManager;
 
 + (MapsAppDelegate *)theApp;
-
-- (SettingsManager *)settingsManager;
 
 - (void)disableStandby;
 - (void)enableStandby;

@@ -32,6 +32,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
 @property (nonatomic) CopyLabel * titleLabel;
 @property (nonatomic) UIButton * bookmarkButton;
 @property (nonatomic) UIButton * routeButton;
+@property (nonatomic) UIActivityIndicatorView * routingActivity;
 @property (nonatomic) UILabel * typeLabel;
 @property (nonatomic) UIButton * shareButton;
 @property (nonatomic) UIImageView * editImageView;
@@ -342,6 +343,7 @@ typedef NS_ENUM(NSUInteger, CellRow)
     self.bookmarkButton.midY = 36;
   }
   self.routeButton.midY = self.bookmarkButton.midY - 1;
+  self.routeButton.hidden = [self isMyPosition];
 }
 
 - (CGFloat)headerHeight
@@ -810,6 +812,23 @@ typedef NS_ENUM(NSUInteger, CellRow)
 {
   delete m_bookmarkData;
   m_bookmarkData = NULL;
+}
+
+- (void)showBuildingRoutingActivity:(BOOL)building
+{
+  if (building)
+  {
+    self.routeButton.hidden = YES;
+    self.routingActivity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.routingActivity.center = CGPointMake(self.routeButton.midX, self.routeButton.midY + 2);
+    [self.routeButton.superview addSubview:self.routingActivity];
+    [self.routingActivity startAnimating];
+  }
+  else
+  {
+    self.routeButton.hidden = NO;
+    [self.routingActivity removeFromSuperview];
+  }
 }
 
 - (BOOL)isMarkOfType:(UserMark::Type)type

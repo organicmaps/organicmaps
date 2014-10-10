@@ -6,13 +6,14 @@
 @protocol RouteViewDelegate <NSObject>
 
 - (void)routeViewDidCancelRouting:(RouteView *)routeView;
-- (void)routeViewDidStartRouting:(RouteView *)routeView;
+- (void)routeViewDidStartFollowing:(RouteView *)routeView;
 
 @end
 
 @interface RouteView : UIView
 
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated;
+- (void)hideFollowButton;
 
 - (void)updateDistance:(NSString *)distance withMetrics:(NSString *)metrics;
 
