@@ -29,6 +29,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +67,9 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.Yota;
 import com.mapswithme.util.statistics.Statistics;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
 import com.nvidia.devtech.NvEventQueueActivity;
 
 import java.io.Serializable;
@@ -99,6 +103,7 @@ public class MWMActivity extends NvEventQueueActivity
   private ImageView mIvStartRouting;
   private TextView mTvRoutingDistance;
   private RelativeLayout mRlRoutingBox;
+  private LinearLayout mLayoutRoutingGo;
 
   private SearchController mSearchController;
   private boolean mNeedCheckUpdate = true;
@@ -828,7 +833,8 @@ public class MWMActivity extends NvEventQueueActivity
     mRlRoutingBox = (RelativeLayout) findViewById(R.id.rl__routing_box);
     mRlRoutingBox.setVisibility(View.GONE);
     mRlRoutingBox.findViewById(R.id.iv__routing_close).setOnClickListener(this);
-    mRlRoutingBox.findViewById(R.id.btn__routing_go).setOnClickListener(this);
+    mLayoutRoutingGo = (LinearLayout) mRlRoutingBox.findViewById(R.id.ll__routing_go);
+    mLayoutRoutingGo.setOnClickListener(this);
     mTvRoutingDistance = (TextView) mRlRoutingBox.findViewById(R.id.tv__routing_distance);
   }
 
@@ -1395,7 +1401,7 @@ public class MWMActivity extends NvEventQueueActivity
     case R.id.iv__routing_close:
       closeRouting();
       break;
-    case R.id.btn__routing_go:
+    case R.id.ll__routing_go:
       followRoute();
       break;
     default:
@@ -1406,6 +1412,9 @@ public class MWMActivity extends NvEventQueueActivity
   private void followRoute()
   {
     Framework.nativeFollowRoute();
+
+    Animator animator = ObjectAnimator.ofFloat(mLayoutRoutingGo, "alpha", 1, 0);
+    animator.start();
   }
 
   private void buildRoute()
@@ -1498,7 +1507,7 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   @Override
-  public void onRoutingError(final boolean isSuccess, final String message, boolean openDownloader)
+  public void onRoutingError(final boolean isSuccess, final String message, final boolean openDownloader)
   {
     runOnUiThread(new Runnable()
     {
@@ -1508,6 +1517,7 @@ public class MWMActivity extends NvEventQueueActivity
         deactivatePopup();
         if (isSuccess)
         {
+          ViewHelper.setAlpha(mLayoutRoutingGo, 1);
           Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
           alphaAnimation.setFillBefore(true);
           alphaAnimation.setFillAfter(true);
@@ -1518,30 +1528,53 @@ public class MWMActivity extends NvEventQueueActivity
 
           mInfoView.setState(State.HIDDEN);
 
-          if (mIsLocationLocked)
-          {
-            final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-            if (info != null)
-              mTvRoutingDistance.setText(info.mDistToTarget + info.mUnits);
-          }
+          final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+          if (info != null)
+            mTvRoutingDistance.setText(info.mDistToTarget + info.mUnits);
         }
         else
         {
-          /// if openDownloader == true than we need show dialog with 2 button. On positive button - open downloader
-          new AlertDialog.Builder(MWMActivity.this)
+
+          AlertDialog.Builder builder = new AlertDialog.Builder(MWMActivity.this)
               .setMessage(message)
-              .setCancelable(true)
-              .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
-              {
-                @Override
-                public void onClick(DialogInterface dialog, int which)
+              .setCancelable(true);
+          if (openDownloader)
+          {
+            builder
+                .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
                 {
-                  closeRouting();
-                  dialog.dismiss();
-                }
-              })
-              .create()
-              .show();
+                  @Override
+                  public void onClick(DialogInterface dialog, int which)
+                  {
+                    runDownloadActivity();
+                    closeRouting();
+                    dialog.dismiss();
+                  }
+                })
+                .setNegativeButton(android.R.string.cancel, new Dialog.OnClickListener()
+                {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which)
+                  {
+                    closeRouting();
+                    dialog.dismiss();
+                  }
+                });
+          }
+          else
+          {
+            builder
+                .setPositiveButton(android.R.string.ok, new Dialog.OnClickListener()
+                {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which)
+                  {
+                    closeRouting();
+                    dialog.dismiss();
+                  }
+                });
+          }
+          builder.create().show();
         }
       }
     });
