@@ -36,7 +36,7 @@ public class Framework
     void onRoutingError(boolean isSuccess, String message, boolean openDownloader);
   }
 
-  public interface ButProListener
+  public interface BuyProListener
   {
     void onBuyPro();
   }
@@ -148,7 +148,7 @@ public class Framework
   public native static LocationState.RoutingInfo nativeGetRouteFollowingInfo();
 
   public native static void nativeSetRoutingListener(RoutingListener listener);
-  public native static void nativeSetBuyProListener(ButProListener listener);
+  public native static void nativeSetBuyProListener(BuyProListener listener);
   //@}
 
   public native static String nativeGetCountryNameIfAbsent(double lat, double lon);

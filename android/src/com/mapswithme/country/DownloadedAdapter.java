@@ -41,7 +41,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
         view = convertView;
         holder = (ViewHolder) view.getTag();
       }
-      if (position == mInProgressCount)
+      if (position == mInProgressCount && containsOutdated())
         holder.mName.setText(mActivity.getString(R.string.downloader_outdated_maps));
       else
         holder.mName.setText(mActivity.getString(R.string.downloader_uptodate_maps));
@@ -112,9 +112,8 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
 
   private boolean isHeader(int position)
   {
-    return (containsOutdated() && position == mInProgressCount) ||
-        (!containsOutdated() && containsDownloaded() && position == mInProgressCount) ||
-        (containsOutdated() && containsDownloaded() && position == mInProgressCount + mOutdatedCount + 1);
+    return ((containsOutdated() || containsUpdated()) && position == mInProgressCount) ||
+        (containsOutdated() && containsUpdated() && position == mInProgressCount + mOutdatedCount + 1);
   }
 
   @Override
@@ -140,7 +139,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
     return mOutdatedCount != 0;
   }
 
-  protected boolean containsDownloaded()
+  protected boolean containsUpdated()
   {
     return mUpdatedCount != 0;
   }
@@ -162,11 +161,11 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
     if (position < newGroupEnd)
       return ActiveCountryTree.GROUP_NEW;
 
-    final int outdatedGroupEnd = newGroupEnd + mOutdatedCount + 1;
+    final int outdatedGroupEnd = containsOutdated() ? newGroupEnd + mOutdatedCount + 1 : newGroupEnd;
     if (position < outdatedGroupEnd)
       return ActiveCountryTree.GROUP_OUT_OF_DATE;
 
-    final int updatedGroupEnd = outdatedGroupEnd + mUpdatedCount + 1;
+    final int updatedGroupEnd = containsUpdated() ? outdatedGroupEnd + mUpdatedCount + 1 : outdatedGroupEnd;
     if (position < updatedGroupEnd)
       return ActiveCountryTree.GROUP_UP_TO_DATE;
 
@@ -179,11 +178,11 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
     if (position < newGroupEnd)
       return position;
 
-    final int outdatedGroupEnd = newGroupEnd + mOutdatedCount + 1;
+    final int outdatedGroupEnd = containsOutdated() ? newGroupEnd + mOutdatedCount + 1 : newGroupEnd;
     if (position < outdatedGroupEnd)
       return position - newGroupEnd - 1;
 
-    final int updatedGroupEnd = outdatedGroupEnd + mUpdatedCount + 1;
+    final int updatedGroupEnd = containsUpdated() ? outdatedGroupEnd + mUpdatedCount + 1 : outdatedGroupEnd;
     if (position < updatedGroupEnd)
       return position - outdatedGroupEnd - 1;
 
