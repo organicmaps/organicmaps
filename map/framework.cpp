@@ -306,9 +306,10 @@ void Framework::DeleteCountry(TIndex const & index, TMapOptions opt)
 
     if (opt & TMapOptions::ECarRouting)
       m_routingSession.DeleteIndexFile(file.GetFileWithExt(TMapOptions::ECarRouting));
+
+    m_storage.NotifyStatusChanged(index);
   }
 
-  m_storage.NotifyStatusChanged(index);
 }
 
 void Framework::DownloadCountry(TIndex const & index, TMapOptions opt)

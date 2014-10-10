@@ -301,7 +301,7 @@ bool ActiveMapsLayout::IsDownloadingActive() const
 void ActiveMapsLayout::CancelDownloading(TGroup const & group, int position)
 {
   Item & item = GetItemInGroup(group, position);
-  m_framework.Storage().DeleteFromDownloader(item.m_index);
+  GetStorage().DeleteFromDownloader(item.m_index);
   item.m_downloadRequest = item.m_options;
 }
 
@@ -329,12 +329,13 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
 {
   TStatus newStatus = TStatus::EUnknown;
   TMapOptions options = TMapOptions::EMapOnly;
-  m_framework.Storage().CountryStatusEx(index, newStatus, options);
+  GetStorage().CountryStatusEx(index, newStatus, options);
 
   TGroup group = TGroup::ENewMap;
   int position = 0;
   VERIFY(GetGroupAndPositionByIndex(index, group, position), ());
   Item & item = GetItemInGroup(group, position);
+  item.m_status = newStatus;
 
   if (newStatus == TStatus::EOnDisk)
   {
@@ -354,8 +355,6 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
         NotifyOptionsChanged(group, position);
       }
 
-      ASSERT(item.m_status != newStatus, ());
-      item.m_status = newStatus;
       NotifyStatusChanged(group, position);
 
       int newPosition = MoveItemToGroup(group, position, TGroup::EUpToDate);
@@ -366,7 +365,6 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
       // Here we handle
       // "Actual map without routing" -> "Actual map with routing"
       // "Actual map with routing" -> "Actual map without routing"
-      ASSERT(item.m_status == newStatus, ());
       ASSERT(item.m_options != options, ());
       item.m_options = item.m_downloadRequest = options;
       NotifyOptionsChanged(group, position);
@@ -380,7 +378,6 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
       // We handle here only status change for "New maps"
       // because if new status ENotDownloaded than item.m_options is invalid.
       // Map have no options and gui not show routing icon
-      item.m_status = newStatus;
       NotifyStatusChanged(group, position);
     }
     else
@@ -394,7 +391,6 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
   else if (newStatus == TStatus::EOnDiskOutOfDate)
   {
     // We can drop here only if user start update some map and cancel it
-    item.m_status = newStatus;
     NotifyStatusChanged(group, position);
 
     ASSERT(item.m_options == options, ());
@@ -405,7 +401,6 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
     // EDownloading
     // EInQueue
     // downloadig faild for some reason
-    item.m_status = newStatus;
     NotifyStatusChanged(group, position);
   }
 }

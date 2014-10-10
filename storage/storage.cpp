@@ -368,6 +368,7 @@ namespace storage
         m_queue.erase(found);
       }
 
+      NotifyStatusChanged(index);
       return true;
     }
 
