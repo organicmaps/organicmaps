@@ -125,7 +125,7 @@
 {
   if (!_startButton)
   {
-    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StopRoutingButton"]];
+    UIImageView * imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"StartRoutingButton"]];
     NSString * title = @"Поехали!";
     UIFont * font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
     CGFloat const width = [title sizeWithDrawSize:CGSizeMake(200, 30) font:font].width + imageView.width + 40;

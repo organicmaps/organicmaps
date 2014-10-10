@@ -17,8 +17,8 @@
 #import "AccountManager.h"
 #import "SettingsAndMoreVC.h"
 #import "RouteView.h"
+#import "CountryTreeVC.h"
 
-#import "../Settings/SettingsManager.h"
 #import "../../Common/CustomAlertView.h"
 
 #include "Framework.h"
@@ -35,7 +35,7 @@
 #define ALERT_VIEW_FACEBOOK 1
 #define ALERT_VIEW_APPSTORE 2
 #define ALERT_VIEW_BOOKMARKS 4
-#define ALERT_VIEW_PROMO 777
+#define ALERT_VIEW_ERROR 5
 #define FACEBOOK_URL @"http://www.facebook.com/MapsWithMe"
 #define FACEBOOK_SCHEME @"fb://profile/111923085594432"
 
@@ -129,6 +129,8 @@
 
 - (void)onLocationStateModeChanged:(location::State::Mode)newMode
 {
+  [UIApplication sharedApplication].idleTimerDisabled = NO;
+
   switch (newMode)
   {
     case location::State::UnknownPosition:
@@ -170,6 +172,7 @@
     {
       [self.toolbarView.locationButton setImage:[UIImage imageNamed:@"LocationFollow"] forState:UIControlStateSelected];
       self.toolbarView.locationButton.selected = YES;
+      [UIApplication sharedApplication].idleTimerDisabled = YES;
       break;
     }
   }
@@ -510,6 +513,10 @@
   [self.view addSubview:self.containerView];
 
   [self.view addSubview:self.bottomMenu];
+
+//  [self performAfterDelay:0.3 block:^{
+//    [self bottomMenu:self.bottomMenu didPressItemWithName:@"Maps" appURL:nil webURL:nil];
+//  }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -762,7 +769,8 @@
 {
   if ([itemName isEqualToString:@"Location"])
   {
-    [self onMyPositionClicked:nil];
+//    [self onMyPositionClicked:nil];
+    [self.routeView setVisible:!self.routeView.visible animated:YES];
   }
   else if ([itemName isEqualToString:@"Search"])
   {
@@ -786,6 +794,11 @@
   {
     [self.bottomMenu setMenuHidden:NO animated:YES];
   }
+}
+
+- (void)routeViewDidStartRouting:(RouteView *)routeView
+{
+
 }
 
 - (void)routeViewDidCancelRouting:(RouteView *)routeView
@@ -868,7 +881,8 @@
 {
   if ([itemName isEqualToString:@"Maps"])
   {
-    [[[MapsAppDelegate theApp] settingsManager] show:self];
+    CountryTreeVC * vc = [[CountryTreeVC alloc] initWithNodePosition:-1];
+    [self.navigationController pushViewController:vc animated:YES];
   }
   else if ([itemName isEqualToString:@"Settings"])
   {
@@ -974,17 +988,11 @@
         [[UIApplication sharedApplication] openProVersionFrom:@"ios_toolabar_bookmarks"];
       }
     }
-    case ALERT_VIEW_PROMO:
+    case ALERT_VIEW_ERROR:
     {
-      if (buttonIndex == alertView.cancelButtonIndex)
+      if (buttonIndex != alertView.cancelButtonIndex)
       {
-        [[Statistics instance] logEvent:@"17th august promo" withParameters:@{@"Shared" : @"NO"}];
-      }
-      else
-      {
-        [[AccountManager sharedManager] shareToFacebookWithCompletion:^(BOOL success) {
-          [[Statistics instance] logEvent:@"17th august promo" withParameters:@{@"Shared" : (success ? @"YES" : @"NO")}];
-        }];
+
       }
     }
     default:

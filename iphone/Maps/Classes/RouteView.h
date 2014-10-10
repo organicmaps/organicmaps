@@ -6,6 +6,7 @@
 @protocol RouteViewDelegate <NSObject>
 
 - (void)routeViewDidCancelRouting:(RouteView *)routeView;
+- (void)routeViewDidStartRouting:(RouteView *)routeView;
 
 @end
 
@@ -16,5 +17,6 @@
 - (void)updateDistance:(NSString *)distance withMetrics:(NSString *)metrics;
 
 @property (nonatomic, weak) id <RouteViewDelegate> delegate;
+@property (nonatomic, readonly) BOOL visible;
 
 @end
