@@ -97,6 +97,7 @@ extern "C"
   Java_com_mapswithme_country_CountryTree_showLeafOnMap(JNIEnv * env, jclass clazz, jint position)
   {
     GetTree().ShowLeafOnMap(position);
+    g_framework->DontLoadState();
   }
 
   JNIEXPORT jobject JNICALL
