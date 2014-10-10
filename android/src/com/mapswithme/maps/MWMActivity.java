@@ -38,7 +38,7 @@ import com.mapswithme.maps.Ads.AdsManager;
 import com.mapswithme.maps.Ads.MenuAd;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.Framework.RoutingListener;
-import com.mapswithme.maps.Framework.ButProListener;
+import com.mapswithme.maps.Framework.BuyProListener;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.background.WorkerService;
@@ -75,7 +75,7 @@ import java.util.Stack;
 
 public class MWMActivity extends NvEventQueueActivity
     implements LocationService.LocationListener, OnBalloonListener, OnVisibilityChangedListener,
-    OnClickListener, RoutingListener, ButProListener
+    OnClickListener, RoutingListener, BuyProListener
 {
   public static final String EXTRA_TASK = "map_task";
   private final static String TAG = "MWMActivity";
