@@ -3,7 +3,21 @@
 
 #include "../../../../../coding/internal/file_data.hpp"
 
+
 using namespace storage;
+
+namespace
+{
+  ::Framework * frm()
+  {
+    return g_framework->NativeFramework();
+  }
+
+  Storage & GetStorage()
+  {
+    return frm()->Storage();
+  }
+}
 
 extern "C"
 {
@@ -48,16 +62,6 @@ extern "C"
       return TIndex(group(), country(), region());
     }
   };
-
-  ::Framework * frm()
-  {
-    return g_framework->NativeFramework();
-  }
-
-  Storage & GetStorage()
-  {
-    return g_framework->Storage();
-  }
 
   /// @todo Pass correct options from UI.
   TMapOptions g_mapOptions = TMapOptions::EMapWithCarRouting;
