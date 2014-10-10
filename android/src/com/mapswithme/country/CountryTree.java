@@ -50,6 +50,9 @@ public class CountryTree
 
   public static native long[] getLeafSize(int position, int options);
 
+  /// returns remote sizes for 2 options [map, map + route].
+  public static native long[] getRemoteLeafSizes(int position);
+
   public static native void setListener(CountryTreeListener listener);
 
   public static native void resetListener();

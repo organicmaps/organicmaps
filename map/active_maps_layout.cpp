@@ -200,6 +200,18 @@ LocalAndRemoteSizeT const ActiveMapsLayout::GetCountrySize(TIndex const & index,
   return GetStorage().CountrySizeInBytes(index, options);
 }
 
+LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TGroup const & group, int position) const
+{
+  return GetRemoteCountrySizes(GetItemInGroup(group, position).m_index);
+}
+
+LocalAndRemoteSizeT const ActiveMapsLayout::GetRemoteCountrySizes(TIndex const & index) const
+{
+  CountryFile const & c = GetStorage().CountryByIndex(index).GetFile();
+  size_t const mapSize = c.GetRemoteSize(TMapOptions::EMapOnly);
+  return { mapSize, mapSize + c.GetRemoteSize(TMapOptions::ECarRouting) };
+}
+
 int ActiveMapsLayout::AddListener(ActiveMapsListener * listener)
 {
   m_listeners[m_currentSlotID] = listener;

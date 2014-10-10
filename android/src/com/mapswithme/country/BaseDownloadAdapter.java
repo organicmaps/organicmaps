@@ -119,6 +119,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
   protected abstract long[] getItemSizes(int position, int options);
 
+  /// returns remote sizes for 2 options [map, map + route].
+  protected abstract long[] getRemoteItemSizes(int position);
+
   protected abstract long[] getDownloadableItemSizes(int position);
 
   protected abstract GuideInfo getGuideInfo(int position);
@@ -439,11 +442,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       UiUtils.show(holder.mInfo);
       UiUtils.hide(holder.mInfoSlided, holder.mStatusLayout);
 
-      sizes = getItemSizes(position, StorageOptions.MAP_OPTION_MAP_ONLY);
-      // FIXME next lines produces HUGE LAGS, fix it!!!
-      //      long[] sizesRemote = getItemSizes(position, StorageOptions.MAP_OPTION_CAR_ROUTING);
-      //      setHolderSizeString(holder, sizes[1], sizesRemote[1]);
-      setHolderSizeString(holder, sizes[1], 42000000);
+      sizes = getRemoteItemSizes(position);
+      setHolderSizeString(holder, sizes[0], sizes[1]);
       setHolderPercentString(holder, mStatusNotDownloaded, R.color.downloader_green);
       break;
 

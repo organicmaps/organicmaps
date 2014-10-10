@@ -38,6 +38,12 @@ extern "C"
   }
 
   JNIEXPORT jlongArray JNICALL
+  Java_com_mapswithme_country_ActiveCountryTree_getRemoteCountrySizes(JNIEnv * env, jclass clazz, jint group, jint position)
+  {
+    return ToArray(env, GetMapLayout().GetRemoteCountrySizes(ToGroup(group), position));
+  }
+
+  JNIEXPORT jlongArray JNICALL
   Java_com_mapswithme_country_ActiveCountryTree_getDownloadableCountrySize(JNIEnv * env, jclass clazz, jint group, jint position)
   {
     return ToArray(env, GetMapLayout().GetDownloadableCountrySize(ToGroup(group), position));

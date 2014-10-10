@@ -33,6 +33,9 @@ public class ActiveCountryTree
   // returns array of two elements : local and remote size.
   public static native long[] getCountrySize(int group, int position, int options);
 
+  /// returns remote sizes for 2 options [map, map + route].
+  public static native long[] getRemoteCountrySizes(int group, int position);
+
   public static native long[] getDownloadableCountrySize(int group, int position);
 
   public static native void cancelDownloading(int group, int position);

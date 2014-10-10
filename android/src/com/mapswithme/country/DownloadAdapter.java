@@ -101,6 +101,12 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   }
 
   @Override
+  protected long[] getRemoteItemSizes(int position)
+  {
+    return CountryTree.getRemoteLeafSizes(position);
+  }
+
+  @Override
   protected long[] getDownloadableItemSizes(int position)
   {
     return CountryTree.getDownloadableLeafSize(position);

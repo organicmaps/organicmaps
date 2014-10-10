@@ -67,6 +67,12 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   }
 
   @Override
+  protected long[] getRemoteItemSizes(int position)
+  {
+    return ActiveCountryTree.getRemoteCountrySizes(getGroupByAbsPosition(position), getPositionInGroup(position));
+  }
+
+  @Override
   protected long[] getDownloadableItemSizes(int position)
   {
     return ActiveCountryTree.getDownloadableCountrySize(getGroupByAbsPosition(position), getPositionInGroup(position));

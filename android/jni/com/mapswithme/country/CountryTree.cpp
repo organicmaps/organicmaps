@@ -121,6 +121,12 @@ extern "C"
     return ToArray(env, GetTree().GetLeafSize(position, ToOptions(options)));
   }
 
+  JNIEXPORT jlongArray JNICALL
+  Java_com_mapswithme_country_CountryTree_getRemoteLeafSizes(JNIEnv * env, jclass clazz, jint position)
+  {
+    return ToArray(env, GetTree().GetRemoteLeafSizes(position));
+  }
+
   JNIEXPORT void JNICALL
   Java_com_mapswithme_country_CountryTree_setListener(JNIEnv * env, jclass clazz, jobject listener)
   {

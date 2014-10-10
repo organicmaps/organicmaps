@@ -53,6 +53,7 @@ public:
   bool GetLeafGuideInfo(int position, guides::GuideInfo & info) const;
   LocalAndRemoteSizeT const GetDownloadableLeafSize(int position) const;
   LocalAndRemoteSizeT const GetLeafSize(int position, TMapOptions const & options) const;
+  LocalAndRemoteSizeT const GetRemoteLeafSizes(int position) const;
   bool IsCountryRoot() const;
   string const & GetRootName() const;
 

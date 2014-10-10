@@ -150,6 +150,11 @@ LocalAndRemoteSizeT const CountryTree::GetLeafSize(int position, TMapOptions con
   return GetActiveMapLayout().GetCountrySize(GetChild(position), options);
 }
 
+LocalAndRemoteSizeT const CountryTree::GetRemoteLeafSizes(int position) const
+{
+  return GetActiveMapLayout().GetRemoteCountrySizes(GetChild(position));
+}
+
 bool CountryTree::IsCountryRoot() const
 {
   TIndex index = GetCurrentRoot();

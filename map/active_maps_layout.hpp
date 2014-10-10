@@ -55,6 +55,8 @@ public:
   LocalAndRemoteSizeT const GetDownloadableCountrySize(TIndex const & index) const;
   LocalAndRemoteSizeT const GetCountrySize(TGroup const & group, int position, TMapOptions const & options) const;
   LocalAndRemoteSizeT const GetCountrySize(TIndex const & index, TMapOptions const & options) const;
+  LocalAndRemoteSizeT const GetRemoteCountrySizes(TGroup const & group, int position) const;
+  LocalAndRemoteSizeT const GetRemoteCountrySizes(TIndex const & index) const;
 
   int AddListener(ActiveMapsListener * listener);
   void RemoveListener(int slotID);
