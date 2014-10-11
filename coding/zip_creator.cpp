@@ -13,6 +13,7 @@
 #include "../../std/vector.hpp"
 #include "../../std/ctime.hpp"
 #include "../../std/algorithm.hpp"
+#include "../../std/unique_ptr.hpp"
 
 #include "../../3party/zlib/contrib/minizip/zip.h"
 
@@ -57,11 +58,7 @@ void CreateTMZip(tm_zip & res)
 
 bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, string const & zipFilePath)
 {
-  /// Prepare buffer at the very beginning to avoid clang 3.5, loop optimization.
-  /// @todo Need to check with the new XCode (and clang) update.
-
-  size_t const bufSize = ZIP_FILE_BUFFER_SIZE;
-  vector<char> buffer(bufSize);
+  unique_ptr<char[]> buffer(new char[ZIP_FILE_BUFFER_SIZE]);
 
   // 2. Open zip file for writing.
   MY_SCOPE_GUARD(outFileGuard, bind(&my::DeleteFileX, cref(zipFilePath)));
@@ -93,7 +90,7 @@ bool CreateZipFromPathDeflatedAndDefaultCompression(string const & filePath, str
     size_t currSize = 0;
     while (currSize < fileSize)
     {
-      size_t const toRead = min(bufSize, fileSize - currSize);
+      size_t const toRead = min(ZIP_FILE_BUFFER_SIZE, fileSize - currSize);
       file.Read(currSize, &buffer[0], toRead);
 
       if (ZIP_OK != zipWriteInFileInZip(zip.Handle(), &buffer[0], toRead))

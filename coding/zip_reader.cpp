@@ -76,11 +76,7 @@ bool ZipFileReader::IsZip(string const & zipContainer)
 void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileInZip,
                               string const & outFilePath, ProgressFn progressFn)
 {
-  /// Prepare buffer at the very beginning to avoid clang 3.5, loop optimization.
-  /// @todo Need to check with the new XCode (and clang) update.
-
-  size_t const bufSize = ZIP_FILE_BUFFER_SIZE;
-  vector<char> buf(bufSize);
+  unique_ptr<char[]> buf(new char[ZIP_FILE_BUFFER_SIZE]);
 
   unzFile zip = unzOpen64(zipContainer.c_str());
   if (!zip)
@@ -106,7 +102,7 @@ void ZipFileReader::UnzipFile(string const & zipContainer, string const & fileIn
   uint64_t pos = 0;
   while (true)
   {
-    int const readBytes = unzReadCurrentFile(zip, &buf[0], bufSize);
+    int const readBytes = unzReadCurrentFile(zip, &buf[0], ZIP_FILE_BUFFER_SIZE);
     if (readBytes > 0)
       outFile.Write(&buf[0], static_cast<size_t>(readBytes));
     else if (readBytes < 0)
