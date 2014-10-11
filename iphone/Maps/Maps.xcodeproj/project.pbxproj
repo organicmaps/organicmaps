@@ -138,8 +138,8 @@
 		97DD585618A8EAFB0079837E /* libAarkiSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585218A8EAFA0079837E /* libAarkiSDK.a */; };
 		97DD585818A8EB060079837E /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585718A8EB060079837E /* MobileAppTracker.framework */; };
 		97DD585918A8EB060079837E /* MobileAppTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585718A8EB060079837E /* MobileAppTracker.framework */; };
-		97DD585C18A8EB130079837E /* libFlurry_5.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_5.3.0.a */; };
-		97DD585D18A8EB130079837E /* libFlurry_5.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_5.3.0.a */; };
+		97DD585C18A8EB130079837E /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_5.4.0.a */; };
+		97DD585D18A8EB130079837E /* libFlurry_5.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97DD585A18A8EB120079837E /* libFlurry_5.4.0.a */; };
 		97DEA09618D75BB000C5F963 /* ContextViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97DEA09518D75BB000C5F963 /* ContextViews.mm */; };
 		97DEA09718D75BB000C5F963 /* ContextViews.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97DEA09518D75BB000C5F963 /* ContextViews.mm */; };
 		97ECD871183620CE00F77A46 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ECD870183620CE00F77A46 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -1447,7 +1447,7 @@
 		97DD585318A8EAFA0079837E /* Aarki.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Aarki.h; sourceTree = "<group>"; };
 		97DD585418A8EAFA0079837E /* AarkiContact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AarkiContact.h; sourceTree = "<group>"; };
 		97DD585718A8EB060079837E /* MobileAppTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MobileAppTracker.framework; sourceTree = "<group>"; };
-		97DD585A18A8EB120079837E /* libFlurry_5.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.3.0.a; sourceTree = "<group>"; };
+		97DD585A18A8EB120079837E /* libFlurry_5.4.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_5.4.0.a; sourceTree = "<group>"; };
 		97DD585B18A8EB120079837E /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		97DEA09018D706C300C5F963 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		97DEA09418D75BB000C5F963 /* ContextViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContextViews.h; sourceTree = "<group>"; };
@@ -2133,7 +2133,7 @@
 				EEB7E22211E9079400080A68 /* CoreLocation.framework in Frameworks */,
 				97DD585518A8EAFA0079837E /* libAarkiSDK.a in Frameworks */,
 				974386D91934CBAC00FD5659 /* FacebookSDK.framework in Frameworks */,
-				97DD585C18A8EB130079837E /* libFlurry_5.3.0.a in Frameworks */,
+				97DD585C18A8EB130079837E /* libFlurry_5.4.0.a in Frameworks */,
 				FA87151B12B1518F00592DAF /* SystemConfiguration.framework in Frameworks */,
 				9767702219B718D700402693 /* libLocalyticsAMP.a in Frameworks */,
 				97DD585818A8EB060079837E /* MobileAppTracker.framework in Frameworks */,
@@ -2163,7 +2163,7 @@
 				97ECD881183674CA00F77A46 /* CoreTelephony.framework in Frameworks */,
 				97ECD872183625F900F77A46 /* AdSupport.framework in Frameworks */,
 				FAFB08FC151215EE0041901D /* Foundation.framework in Frameworks */,
-				97DD585D18A8EB130079837E /* libFlurry_5.3.0.a in Frameworks */,
+				97DD585D18A8EB130079837E /* libFlurry_5.4.0.a in Frameworks */,
 				FAFB08FD151215EE0041901D /* UIKit.framework in Frameworks */,
 				FAFB08FE151215EE0041901D /* CoreGraphics.framework in Frameworks */,
 				FAFB08FF151215EE0041901D /* OpenGLES.framework in Frameworks */,
@@ -2475,7 +2475,7 @@
 				97C9851C186AE3C500AF7E9E /* Reachability.m */,
 				CB252D6B16FF82C8001E41E9 /* Statistics.h */,
 				CB252D6C16FF82C8001E41E9 /* Statistics.mm */,
-				97DD585A18A8EB120079837E /* libFlurry_5.3.0.a */,
+				97DD585A18A8EB120079837E /* libFlurry_5.4.0.a */,
 				97DD585B18A8EB120079837E /* Flurry.h */,
 				97DD585718A8EB060079837E /* MobileAppTracker.framework */,
 				97DD585218A8EAFA0079837E /* libAarkiSDK.a */,
