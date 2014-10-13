@@ -60,6 +60,7 @@ public:
   ///@{
   void DownloadCountry(int childPosition, TMapOptions const & options);
   void DeleteCountry(int childPosition, TMapOptions const & options);
+  void RetryDownloading(int childPosition);
   ///@}
   void CancelDownloading(int childPosition);
 

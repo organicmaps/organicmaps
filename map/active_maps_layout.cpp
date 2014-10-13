@@ -84,6 +84,19 @@ void ActiveMapsLayout::Clear()
   m_split = { 0, 0 };
 }
 
+size_t ActiveMapsLayout::GetSizeToUpdateAllInBytes() const
+{
+  size_t result = 0;
+  for (int i = m_split.first; i < m_split.second; ++i)
+  {
+    Item const & item = m_items[i];
+    if (item.m_status != TStatus::EInQueue && item.m_status != TStatus::EDownloading)
+      result += GetStorage().CountryByIndex(item.m_index).GetFile().GetRemoteSize(item.m_options);
+  }
+
+  return result;
+}
+
 void ActiveMapsLayout::UpdateAll()
 {
   vector<Item> toDownload;

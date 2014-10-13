@@ -41,6 +41,7 @@ public:
   ActiveMapsLayout(Framework & framework);
   ~ActiveMapsLayout();
 
+  size_t GetSizeToUpdateAllInBytes() const;
   void UpdateAll();
   void CancelAll();
 

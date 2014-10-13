@@ -182,6 +182,12 @@ void CountryTree::DeleteCountry(int childPosition, TMapOptions const & options)
   GetActiveMapLayout().DeleteMap(GetChild(childPosition), options);
 }
 
+void CountryTree::RetryDownloading(int childPosition)
+{
+  ASSERT(IsLeaf(childPosition), ());
+  GetActiveMapLayout().RetryDownloading(GetChild(childPosition));
+}
+
 void CountryTree::CancelDownloading(int childPosition)
 {
   GetStorage().DeleteFromDownloader(GetChild(childPosition));
