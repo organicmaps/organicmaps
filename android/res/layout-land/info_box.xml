@@ -75,21 +75,21 @@
       <FrameLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_weight="0"
-          android:paddingRight="@dimen/margin_tiny"
-          android:padding="@dimen/margin_small">
+          android:layout_weight="0">
 
         <ImageView
             android:id="@+id/iv__start_routing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:padding="@dimen/margin_small"
             android:src="@drawable/ic_drive"/>
 
         <ProgressBar
             android:id="@+id/pb__routing_progress"
             android:layout_width="@dimen/routing_progress_size"
             android:layout_height="@dimen/routing_progress_size"
+            android:layout_gravity="center"
             android:visibility="gone"/>
 
       </FrameLayout>

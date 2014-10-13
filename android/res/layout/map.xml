@@ -46,7 +46,7 @@
           android:id="@+id/tv__routing_go"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="@dimen/margin_medium"
+          android:paddingLeft="@dimen/margin_medium"
           android:text="@string/routing_go"
           android:textColor="@color/downloader_green"/>
 

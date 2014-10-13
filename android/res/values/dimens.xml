@@ -52,7 +52,7 @@
   <dimen name="bg_downloader_radius">6dp</dimen>
   <dimen name="bg_downloader_size">16dp</dimen>
   <dimen name="routing_pp_height">80dp</dimen>
-  <dimen name="routing_button_height">48dp</dimen>
-  <dimen name="routing_progress_size">24dp</dimen>
+  <dimen name="routing_button_height">42dp</dimen>
+  <dimen name="routing_progress_size">32dp</dimen>
 
 </resources>

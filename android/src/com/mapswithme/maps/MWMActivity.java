@@ -18,7 +18,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -1013,9 +1016,19 @@ public class MWMActivity extends NvEventQueueActivity
       if (mInfoView.getState() != State.HIDDEN)
         mInfoView.updateLocation(l);
 
-      final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-      if (info != null)
-        mTvRoutingDistance.setText(info.mDistToTarget + info.mUnits);
+      updateRoutingDistance();
+    }
+  }
+
+  private void updateRoutingDistance()
+  {
+    final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
+    if (info != null)
+    {
+      final SpannableStringBuilder builder = new SpannableStringBuilder(info.mDistToTarget).append(" ").append(info.mUnits);
+      builder.setSpan(new AbsoluteSizeSpan(30, true), 0, info.mDistToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.setSpan(new AbsoluteSizeSpan(15, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      mTvRoutingDistance.setText(builder);
     }
   }
 
@@ -1095,9 +1108,20 @@ public class MWMActivity extends NvEventQueueActivity
 
     mSearchController.onResume();
     mInfoView.onResume();
+    tryResumeRouting();
 
     MWMApplication.get().onMwmResume(this);
 
+  }
+
+  private void tryResumeRouting()
+  {
+    if (Framework.nativeIsRoutingActive())
+    {
+      updateRoutingDistance();
+      mRlRoutingBox.setVisibility(View.VISIBLE);
+      mInfoView.setState(State.HIDDEN);
+    }
   }
 
   private void updateExternalStorageState()
@@ -1445,7 +1469,7 @@ public class MWMActivity extends NvEventQueueActivity
       return;
     }
 
-    mIvStartRouting.setVisibility(View.GONE);
+    mIvStartRouting.setVisibility(View.INVISIBLE);
     mPbRoutingProgress.setVisibility(View.VISIBLE);
     Framework.nativeBuildRoute(mInfoView.getMapObject().getLat(), mInfoView.getMapObject().getLon());
   }
@@ -1553,9 +1577,7 @@ public class MWMActivity extends NvEventQueueActivity
 
           mInfoView.setState(State.HIDDEN);
 
-          final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
-          if (info != null)
-            mTvRoutingDistance.setText(info.mDistToTarget + info.mUnits);
+          updateRoutingDistance();
         }
         else
         {
