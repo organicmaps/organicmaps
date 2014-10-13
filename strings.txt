@@ -3972,7 +3972,7 @@
     cs = Zobrazit další informace
     sk = Zobraziť ďaľšie informácie
     nl = Toon meer info
-    zh-Hant = 显示更多信息"
+    zh-Hant = 显示更多信息
     pl = Pokaż więcej informacji
     uk = Докладніше
     pt = Mostrar informação adicional
@@ -5798,6 +5798,33 @@
     sv = Uppdatera alla
     sk = Aktualizovať všetky
 
+  [downloader_cancel_all]
+    tags = ios,android,tizen
+    comment = Cancel all button text
+    en = Cancel All
+    th = ยกเลิกทั้งหมด
+    tr = Tümünü İptal Et
+    es = Cancelar todo
+    sv = Avbryt alla
+    pt = Cancelar Tudo
+    sk = Zrušiť všetko
+    jp = すべてキャンセル
+    uk = Скасувати всі
+    ru = Отменить все
+    ko = 모두 취소
+    pl = Anuluj wszystko
+    hu =  Mindent visszavon
+    it = Annulla tutto
+    iw = בטל הכול
+    fr = Tout annuler
+    de = Alle abbrechen
+    da = Aflys Alt
+    nl = Alles annuleren
+    cz = Zrušit vše
+    zh-hant = 取消全部
+    ar = إلغاء الكل
+    zh-hans = 全部取消
+
   [downloader_downloaded]
     tags = ios,android,tizen
     comment = Downloaded maps category
@@ -5829,7 +5856,7 @@
     tags = ios,android,tizen
     comment = Downloaded maps category
     en = Downloaded maps
-    ru = Загруженные карты”
+    ru = Загруженные карты
     ja = ダウンロード済みのマップ
     ko = 다운로드한 지도
     it = Mappe scaricate
@@ -5856,7 +5883,7 @@
     tags = ios,android,tizen
     comment = My maps category
     en = My maps
-    ru = Мои карты”
+    ru = Мои карты
     ja = マイマップ
     ko = 내 지도
     it = Le mie mappe
@@ -5883,7 +5910,7 @@
     tags = ios,android,tizen
     comment = Country queued for download
     en = queued
-    ru = в очереди”
+    ru = в очереди
     ja = 待ち行列型の
     ko = 대기
     it = in coda
@@ -5990,11 +6017,57 @@
     tags = ios,android,tizen
     comment = Status of outdated country in the list
     en = Update
+    cs = Aktualizace
+    sk = Aktualizácia
+    de = Aktualisiere
+    es = Actualizar
+    fr = Mettre à jour
+    it = Aggiorna
+    ja = を更新
+    ko = 업데이트
+    ru = Обновить
+    uk = Oновити
+    zh-Hant = 更新
+    pl = Aktualizacja
+    pt = Atualizar
+    hu = Frissítése
+    th = ปรับปรุง
+    zh-Hans = 下载
+    ar = تحديث
+    da = Opdater
+    tr = güncelle
+    sv = Uppdatera
+    iw = לְעַדְכֵּן
+    tr = Güncelle
 
   [downloader_status_failed]
     tags = ios,android,tizen
     comment = Status of failed country in the list
     en = Failed
+    ru = Ошибка
+    uk = Помилка
+    th = ล้มเหลว
+    pt = Falhou
+    tr = Başarısız
+    sk = Zlyhalo
+    es = Fallo
+    sv = Misslyckades
+    pl = Nieudane
+    jp = 失敗
+    ko = 실패함
+    iw = נכשלה
+    hu = Sikertelen
+    it = Fallito
+    nl = Mislukt
+    fr = A échoué
+    de = Fehlgeschlagen
+    cz = Nezdařilo se
+    da = Mislykkedes
+    ar = فشل
+    zh-hans = 下载失败
+    zh-hant = 失敗
+
+
   [routing_failed_buy_pro]
     tags = ios, andoird
     comment = Show in Lite version when user try to download routing files or try to build route
