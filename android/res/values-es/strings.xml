@@ -396,6 +396,8 @@
 	<string name="routing_update_maps">La nueva versión de MAPS.ME permite crear rutas desde tu ubicación actual hasta un punto de destino. Por favor, actualiza los mapas para utilizar esta característica.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Actualizar todos</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Cancelar todo</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Descargados</string>
 	<!-- Downloaded maps category -->
@@ -410,6 +412,10 @@
 	<string name="downloader_outdated_maps">Anticuado</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Actualizado</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Actualizar</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Fallo</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">La planificación de la ruta solo está disponible en la versión completa de MAPS.ME. ¡Consígala ya!</string>
 	<!-- Show when user try build route, but we don't know where he -->

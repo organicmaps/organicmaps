@@ -410,6 +410,8 @@
 	<string name="routing_update_maps">В новій версії MAPS.ME ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Оновити все</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Скасувати всі</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Завантажено</string>
 	<!-- Downloaded maps category -->
@@ -424,6 +426,10 @@
 	<string name="downloader_outdated_maps">Неактуальні</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Оновлені</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Oновити</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Помилка</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Створення маршрутів можливе лише у платній версії MAPS.ME. Завантаж зараз!</string>
 	<!-- Show when user try build route, but we don't know where he -->

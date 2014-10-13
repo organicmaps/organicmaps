@@ -664,6 +664,9 @@
 /* Update all button text */
 "downloader_update_all" = "Aggiorna tutto";
 
+/* Cancel all button text */
+"downloader_cancel_all" = "Annulla tutto";
+
 /* Downloaded maps category */
 "downloader_downloaded" = "Scaricate";
 
@@ -686,10 +689,10 @@
 "downloader_uptodate_maps" = "Aggiornato";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "Aggiorna";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "Fallito";
 
 /* Show in Lite version when user try to download routing files or try to build route */
 "routing_failed_buy_pro" = "Il percorso è disponibile solo nella versione completa di MAPS.ME. Prendila ora!";

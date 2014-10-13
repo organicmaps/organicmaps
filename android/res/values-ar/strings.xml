@@ -419,6 +419,8 @@
 	<string name="routing_update_maps">إصدار MAPS.ME الجديد يسمح بإنشاء مسارات انطلاقاً من موقعك الحالي نحو المكان الذي تتجه إليه. يرجى تحديث الخرائط لاستخدام هذه الميزة.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">تحديث الكل</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">إلغاء الكل</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">المُنزَّلة</string>
 	<!-- Downloaded maps category -->
@@ -433,6 +435,10 @@
 	<string name="downloader_outdated_maps">انتهت صلاحيته</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">محدّث</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">تحديث</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">فشل</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">تحديد المسار متاح فقط من خلال الإصدار الكامل لتطبيق MAPS.ME. احصل عليه الآن!</string>
 	<!-- Show when user try build route, but we don't know where he -->

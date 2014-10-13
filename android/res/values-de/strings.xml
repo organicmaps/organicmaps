@@ -410,6 +410,8 @@
 	<string name="routing_update_maps">Die neue Version von MAPS.ME ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Maps, um diese Funktion nutzen zu können.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Alles aktualisieren</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Alle abbrechen</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Heruntergeladen</string>
 	<!-- Downloaded maps category -->
@@ -424,6 +426,10 @@
 	<string name="downloader_outdated_maps">Veraltet</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Aktuell</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Aktualisiere</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Fehlgeschlagen</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Routing ist nur in der Vollversion von MAPS.ME verfügbar. Jetzt holen!</string>
 	<!-- Show when user try build route, but we don't know where he -->

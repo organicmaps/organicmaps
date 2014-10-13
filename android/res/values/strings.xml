@@ -430,6 +430,8 @@
 	<string name="routing_update_maps">The new version of MAPS.ME allows creating routes from your current position to a destination point. Please update maps to use this feature.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Update all</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Cancel All</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Downloaded</string>
 	<!-- Downloaded maps category -->

@@ -275,7 +275,7 @@
 	<!-- Copy Link -->
 	<string name="copy_link">拷贝链接</string>
 	<!-- Text for the button that returns to caller application -->
-	<string name="more_info">显示更多信息\&quot;</string>
+	<string name="more_info">显示更多信息</string>
 	<!-- Text for message when used successfully copied something -->
 	<string name="copied_to_clipboard">已複製到剪貼板：%1$s</string>
 	<!-- Setting label for statistics turn on/off -->
@@ -390,6 +390,8 @@
 	<string name="pref_calibration_title">指南針校準</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">無線網絡/互聯網</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">更新</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">佈置路線只在MAPS.ME的完整版本中才有。现在就得到它吧！</string>
 	<!-- Show when user try build route, but we don't know where he -->

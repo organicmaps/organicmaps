@@ -416,20 +416,26 @@
 	<string name="routing_update_maps">В новой версии MAPS.ME вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Обновить все</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Отменить все</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Загруженные</string>
 	<!-- Downloaded maps category -->
-	<string name="downloader_downloaded_maps">Загруженные карты”</string>
+	<string name="downloader_downloaded_maps">Загруженные карты</string>
 	<!-- My maps category -->
-	<string name="downloader_my_maps">Мои карты”</string>
+	<string name="downloader_my_maps">Мои карты</string>
 	<!-- Country queued for download -->
-	<string name="downloader_queued">в очереди”</string>
+	<string name="downloader_queued">в очереди</string>
 	<!-- Disclaimer message -->
 	<string name="routing_disclaimer">Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!</string>
 	<!-- Outdated maps category -->
 	<string name="downloader_outdated_maps">Неактуальные</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Обновленные</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Обновить</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Ошибка</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Создание маршрутов возможно только в платной версии MAPS.ME. Скачай сейчас!</string>
 	<!-- Show when user try build route, but we don't know where he -->

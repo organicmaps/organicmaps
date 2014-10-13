@@ -121,6 +121,8 @@
 	<text id="IDS_ROUTING_UPDATE_MAPS">La nouvelle version de MAPS.ME permet de créer des itinéraires à partir de votre position actuelle vers un point de destination. Veuillez mettre à jour les cartes pour utiliser cette fonctionnalité.</text>
 	<!-- Update all button text -->
 	<text id="IDS_DOWNLOADER_UPDATE_ALL">Tout mettre à jour</text>
+	<!-- Cancel all button text -->
+	<text id="IDS_DOWNLOADER_CANCEL_ALL">Tout annuler</text>
 	<!-- Downloaded maps category -->
 	<text id="IDS_DOWNLOADER_DOWNLOADED">Téléchargé</text>
 	<!-- Downloaded maps category -->
@@ -135,6 +137,10 @@
 	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Dépassé</text>
 	<!-- Up to date maps category -->
 	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">À jour</text>
+	<!-- Status of outdated country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_OUTDATED">Mettre à jour</text>
+	<!-- Status of failed country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_FAILED">A échoué</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Télécharger Carte + Itinéraire</text>
 	<!-- Context menu item for downloader. -->

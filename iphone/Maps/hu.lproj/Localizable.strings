@@ -664,6 +664,9 @@
 /* Update all button text */
 "downloader_update_all" = "Mind frissítése";
 
+/* Cancel all button text */
+"downloader_cancel_all" = "Mindent visszavon";
+
 /* Downloaded maps category */
 "downloader_downloaded" = "Letöltve";
 
@@ -686,10 +689,10 @@
 "downloader_uptodate_maps" = "Friss";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "Frissítése";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "Sikertelen";
 
 /* Show in Lite version when user try to download routing files or try to build route */
 "routing_failed_buy_pro" = "Az útvonaltervezés csak a MAPS.ME teljes verziójában elérhető. Szerezd meg most!";

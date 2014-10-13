@@ -414,6 +414,8 @@
 	<string name="routing_update_maps">A MAPS.ME új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Mind frissítése</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Mindent visszavon</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Letöltve</string>
 	<!-- Downloaded maps category -->
@@ -428,6 +430,10 @@
 	<string name="downloader_outdated_maps">Elavult</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Friss</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Frissítése</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Sikertelen</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Az útvonaltervezés csak a MAPS.ME teljes verziójában elérhető. Szerezd meg most!</string>
 	<!-- Show when user try build route, but we don't know where he -->

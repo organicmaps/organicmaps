@@ -397,6 +397,8 @@
 	<string name="routing_update_maps">Met de nieuwe versie van MAPS.ME kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Alles bijwerken</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Alles annuleren</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Gedownload</string>
 	<!-- Downloaded maps category -->
@@ -411,6 +413,8 @@
 	<string name="downloader_outdated_maps">Verouderd</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Up-to-date</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Mislukt</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Route aanmaken is alleen beschikbaar in de volledige versie van MAPS.ME. Neem nu meteen!</string>
 	<!-- Show when user try build route, but we don't know where he -->

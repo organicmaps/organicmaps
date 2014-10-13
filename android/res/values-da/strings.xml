@@ -417,6 +417,8 @@
 	<string name="routing_update_maps">Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Opdater alle</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Aflys Alt</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Downloadede</string>
 	<!-- Downloaded maps category -->
@@ -429,6 +431,10 @@
 	<string name="downloader_outdated_maps">Uddateret</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Up-to-date</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Opdater</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Mislykkedes</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Oprettelse af ruter er kun tilgængelig i den fulde version af MAPS.ME. Få den nu!</string>
 	<!-- Show when user try build route, but we don't know where he -->

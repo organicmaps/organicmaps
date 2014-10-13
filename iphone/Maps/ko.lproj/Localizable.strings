@@ -664,6 +664,9 @@
 /* Update all button text */
 "downloader_update_all" = "모두 업데이트";
 
+/* Cancel all button text */
+"downloader_cancel_all" = "모두 취소";
+
 /* Downloaded maps category */
 "downloader_downloaded" = "다운로드";
 
@@ -686,10 +689,10 @@
 "downloader_uptodate_maps" = "최신";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "업데이트";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "실패함";
 
 /* Show in Lite version when user try to download routing files or try to build route */
 "routing_failed_buy_pro" = "라우팅은 MAPS.ME의 정식 버전에서만 사용할 수 있습니다 지금 당장 얻으세요!";

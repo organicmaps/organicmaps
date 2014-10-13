@@ -113,6 +113,8 @@
 	<text id="IDS_ROUTING_UPDATE_MAPS">A nova versão do MAPS.ME permite criar rotas a partir da sua posição atual para um ponto de destino. Por favor, atualize o maps para utilizar esta funcionalidade.</text>
 	<!-- Update all button text -->
 	<text id="IDS_DOWNLOADER_UPDATE_ALL">Atualizar tudo</text>
+	<!-- Cancel all button text -->
+	<text id="IDS_DOWNLOADER_CANCEL_ALL">Cancelar Tudo</text>
 	<!-- Downloaded maps category -->
 	<text id="IDS_DOWNLOADER_DOWNLOADED">Descarregados</text>
 	<!-- Downloaded maps category -->
@@ -127,6 +129,10 @@
 	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Desatualizado</text>
 	<!-- Up to date maps category -->
 	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">Atualizado</text>
+	<!-- Status of outdated country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_OUTDATED">Atualizar</text>
+	<!-- Status of failed country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_FAILED">Falhou</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Descarregar Mapa + Roteamento</text>
 	<!-- Context menu item for downloader. -->

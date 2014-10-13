@@ -664,6 +664,9 @@
 /* Update all button text */
 "downloader_update_all" = "Uaktualnij wszystko";
 
+/* Cancel all button text */
+"downloader_cancel_all" = "Anuluj wszystko";
+
 /* Downloaded maps category */
 "downloader_downloaded" = "Pobrane";
 
@@ -686,10 +689,10 @@
 "downloader_uptodate_maps" = "Najnowsze";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "Aktualizacja";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "Nieudane";
 
 /* Show in Lite version when user try to download routing files or try to build route */
 "routing_failed_buy_pro" = "Tworzenie trasy dostępne jest tylko w pełnej wersji aplikacji MAPS.ME. Pobierz pełną wersję, teraz!";

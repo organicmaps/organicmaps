@@ -121,20 +121,26 @@
 	<text id="IDS_ROUTING_UPDATE_MAPS">В новой версии MAPS.ME вы сможете строить маршруты от текущего местоположения до точки назначения. Чтобы воспользоваться этой функцией, обновите, пожалуйста, карты.</text>
 	<!-- Update all button text -->
 	<text id="IDS_DOWNLOADER_UPDATE_ALL">Обновить все</text>
+	<!-- Cancel all button text -->
+	<text id="IDS_DOWNLOADER_CANCEL_ALL">Отменить все</text>
 	<!-- Downloaded maps category -->
 	<text id="IDS_DOWNLOADER_DOWNLOADED">Загруженные</text>
 	<!-- Downloaded maps category -->
-	<text id="IDS_DOWNLOADER_DOWNLOADED_MAPS">Загруженные карты”</text>
+	<text id="IDS_DOWNLOADER_DOWNLOADED_MAPS">Загруженные карты</text>
 	<!-- My maps category -->
-	<text id="IDS_DOWNLOADER_MY_MAPS">Мои карты”</text>
+	<text id="IDS_DOWNLOADER_MY_MAPS">Мои карты</text>
 	<!-- Country queued for download -->
-	<text id="IDS_DOWNLOADER_QUEUED">в очереди”</text>
+	<text id="IDS_DOWNLOADER_QUEUED">в очереди</text>
 	<!-- Disclaimer message -->
 	<text id="IDS_ROUTING_DISCLAIMER">Используя маршруты в приложении MAPS.ME, пожалуйста, учитывайте следующее:\n\n  - Предлагаемые маршруты могут рассматриваться только в качестве рекомендации.\n - Дорожная обстановка, правила дорожного движения, знаки являются более приоритетными по сравнению с советами навигационной программы.\n - Карта может быть неточной или неактуальной, а предложенный маршрут не самым оптимальным.\n\n  Будьте внимательны на дорогах и берегите себя!</text>
 	<!-- Outdated maps category -->
 	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Неактуальные</text>
 	<!-- Up to date maps category -->
 	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">Обновленные</text>
+	<!-- Status of outdated country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_OUTDATED">Обновить</text>
+	<!-- Status of failed country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_FAILED">Ошибка</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Скачать карту + маршруты</text>
 	<!-- Context menu item for downloader. -->

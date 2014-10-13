@@ -415,6 +415,8 @@
 	<string name="routing_update_maps">Den nya versionen av MAPS.ME låter dig skapa rutter från din nuvarande position till en destinationspunkt. Uppdatera kartan för att använda den här funktionen.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Uppdatera alla</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Avbryt alla</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Nedladdade</string>
 	<!-- Downloaded maps category -->
@@ -429,6 +431,10 @@
 	<string name="downloader_outdated_maps">Gammal</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Aktuell</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Uppdatera</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Misslyckades</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Anvisningar är endast tillgängliga i den fullständiga versionen av MAPS.ME. Skaffa den nu!</string>
 	<!-- Show when user try build route, but we don't know where he -->

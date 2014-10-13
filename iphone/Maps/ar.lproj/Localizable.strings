@@ -664,6 +664,9 @@
 /* Update all button text */
 "downloader_update_all" = "تحديث الكل";
 
+/* Cancel all button text */
+"downloader_cancel_all" = "إلغاء الكل";
+
 /* Downloaded maps category */
 "downloader_downloaded" = "المُنزَّلة";
 
@@ -686,10 +689,10 @@
 "downloader_uptodate_maps" = "محدّث";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "تحديث";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "فشل";
 
 /* Show in Lite version when user try to download routing files or try to build route */
 "routing_failed_buy_pro" = "تحديد المسار متاح فقط من خلال الإصدار الكامل لتطبيق MAPS.ME. احصل عليه الآن!";

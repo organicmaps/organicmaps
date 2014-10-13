@@ -416,6 +416,8 @@
 	<string name="routing_update_maps">Nowa wersja aplikacji MAPS.ME pozwala na tworzenie tras z Twojej bieżącej lokalizacji do punktu docelowego. Proszę zaktualizować mapy, by móc korzystać z tej funkcji.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Uaktualnij wszystko</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Anuluj wszystko</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Pobrane</string>
 	<!-- Downloaded maps category -->
@@ -430,6 +432,10 @@
 	<string name="downloader_outdated_maps">Nieaktualne</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Najnowsze</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Aktualizacja</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Nieudane</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Tworzenie trasy dostępne jest tylko w pełnej wersji aplikacji MAPS.ME. Pobierz pełną wersję, teraz!</string>
 	<!-- Show when user try build route, but we don't know where he -->

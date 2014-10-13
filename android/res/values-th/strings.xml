@@ -417,6 +417,8 @@
 	<string name="routing_update_maps">เวอร์ชันใหม่ของ MAPS.ME อนุญาติให้สร้างเส้นทางจากตำแหน่งปัจจุบันของคุณไปยังจุดปลายทาง โปรดอัปเดตแผนเพื่อใช้ฟีเจอร์นี้</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">อัปเดตทั้งหมด</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">ยกเลิกทั้งหมด</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">ดาวน์โหลดเสร็จ</string>
 	<!-- Downloaded maps category -->
@@ -431,6 +433,10 @@
 	<string name="downloader_outdated_maps">ล้าสมัย</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">ทันสมัย</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">ปรับปรุง</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">ล้มเหลว</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">เส้นทางจะใช้ได้เฉพาะในเวอร์ชันเต็มของ MAPS.ME. รับได้ในขณะนี้!</string>
 	<!-- Show when user try build route, but we don't know where he -->

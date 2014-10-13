@@ -664,6 +664,9 @@
 /* Update all button text */
 "downloader_update_all" = "อัปเดตทั้งหมด";
 
+/* Cancel all button text */
+"downloader_cancel_all" = "ยกเลิกทั้งหมด";
+
 /* Downloaded maps category */
 "downloader_downloaded" = "ดาวน์โหลดเสร็จ";
 
@@ -686,10 +689,10 @@
 "downloader_uptodate_maps" = "ทันสมัย";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "ปรับปรุง";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "ล้มเหลว";
 
 /* Show in Lite version when user try to download routing files or try to build route */
 "routing_failed_buy_pro" = "เส้นทางจะใช้ได้เฉพาะในเวอร์ชันเต็มของ MAPS.ME. รับได้ในขณะนี้!";

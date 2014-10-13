@@ -664,6 +664,9 @@
 /* Update all button text */
 "downloader_update_all" = "全てをアップデート";
 
+/* Cancel all button text */
+"downloader_cancel_all" = "Cancel All";
+
 /* Downloaded maps category */
 "downloader_downloaded" = "ダウンロード済";
 
@@ -686,7 +689,7 @@
 "downloader_uptodate_maps" = "Up-to-date";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "を更新";
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";

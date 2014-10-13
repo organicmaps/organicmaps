@@ -664,6 +664,9 @@
 /* Update all button text */
 "downloader_update_all" = "Оновити все";
 
+/* Cancel all button text */
+"downloader_cancel_all" = "Скасувати всі";
+
 /* Downloaded maps category */
 "downloader_downloaded" = "Завантажено";
 
@@ -686,10 +689,10 @@
 "downloader_uptodate_maps" = "Оновлені";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "Oновити";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "Помилка";
 
 /* Show in Lite version when user try to download routing files or try to build route */
 "routing_failed_buy_pro" = "Створення маршрутів можливе лише у платній версії MAPS.ME. Завантаж зараз!";

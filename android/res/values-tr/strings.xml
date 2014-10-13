@@ -419,6 +419,8 @@
 	<string name="routing_update_maps">MAPS.ME\&#39;nin yeni sürümü mevcut pozisyonunuzdan varış noktasına rotalar oluşturmanıza imkan verir. Lütfen bu özelliği kullanmak için haritaları güncelleyin.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Tümünü güncelle</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Tümünü İptal Et</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">İndirilenler</string>
 	<!-- Downloaded maps category -->
@@ -433,6 +435,10 @@
 	<string name="downloader_outdated_maps">Güncel değil</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Güncel</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Güncelle</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Başarısız</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Rotalama sadece MAPS.ME tam sürümünde kullanılabilir. Hemen al!</string>
 	<!-- Show when user try build route, but we don't know where he -->

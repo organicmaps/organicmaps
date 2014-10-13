@@ -416,6 +416,8 @@
 	<string name="pref_calibration_title">Kalibrace kompasu</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Aktualizace</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Směrování je k dispozici pouze v plné verzi MAPS.ME. Získejte ji hned teď!</string>
 	<!-- Show when user try build route, but we don't know where he -->

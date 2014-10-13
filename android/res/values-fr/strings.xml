@@ -426,6 +426,8 @@
 	<string name="routing_update_maps">La nouvelle version de MAPS.ME permet de créer des itinéraires à partir de votre position actuelle vers un point de destination. Veuillez mettre à jour les cartes pour utiliser cette fonctionnalité.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Tout mettre à jour</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Tout annuler</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Téléchargé</string>
 	<!-- Downloaded maps category -->
@@ -440,6 +442,10 @@
 	<string name="downloader_outdated_maps">Dépassé</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">À jour</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Mettre à jour</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">A échoué</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">L\&#39;itinéraire est uniquement disponible dans la version complète de MAPS.ME. Téléchargez-la dès maintenant !</string>
 	<!-- Show when user try build route, but we don't know where he -->

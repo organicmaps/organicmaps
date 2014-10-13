@@ -664,6 +664,9 @@
 /* Update all button text */
 "downloader_update_all" = "Update all";
 
+/* Cancel all button text */
+"downloader_cancel_all" = "Cancel All";
+
 /* Downloaded maps category */
 "downloader_downloaded" = "Downloaded";
 

@@ -111,6 +111,8 @@
 	<text id="IDS_ROUTING_UPDATE_MAPS">Die neue Version von MAPS.ME ermöglicht das Erzeugen von Routen von Ihrem aktuellen Standort bis zum gewünschten Ziel. Bitte aktualisieren Sie Maps, um diese Funktion nutzen zu können.</text>
 	<!-- Update all button text -->
 	<text id="IDS_DOWNLOADER_UPDATE_ALL">Alles aktualisieren</text>
+	<!-- Cancel all button text -->
+	<text id="IDS_DOWNLOADER_CANCEL_ALL">Alle abbrechen</text>
 	<!-- Downloaded maps category -->
 	<text id="IDS_DOWNLOADER_DOWNLOADED">Heruntergeladen</text>
 	<!-- Downloaded maps category -->
@@ -125,6 +127,10 @@
 	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Veraltet</text>
 	<!-- Up to date maps category -->
 	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">Aktuell</text>
+	<!-- Status of outdated country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_OUTDATED">Aktualisiere</text>
+	<!-- Status of failed country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_FAILED">Fehlgeschlagen</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Karte + Streckenführung herunterladen</text>
 	<!-- Context menu item for downloader. -->

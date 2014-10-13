@@ -406,6 +406,8 @@
 	<string name="downloader_my_maps">マイマップ</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">を更新</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">ルート決定機能はMAPS.MEの完全版でのみ利用可能です。今すぐ入手しましょう！</string>
 	<!-- Show when user try build route, but we don't know where he -->

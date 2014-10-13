@@ -113,6 +113,8 @@
 	<text id="IDS_DISAGREE">Nesouhlasím</text>
 	<!-- Search Suggestion -->
 	<text id="IDS_WIFI">WiFi/Internet</text>
+	<!-- Status of outdated country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_OUTDATED">Aktualizace</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Stáhnout Mapu + Směrování</text>
 	<!-- Context menu item for downloader. -->

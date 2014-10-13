@@ -113,6 +113,8 @@
 	<text id="IDS_ROUTING_UPDATE_MAPS">Nowa wersja aplikacji MAPS.ME pozwala na tworzenie tras z Twojej bieżącej lokalizacji do punktu docelowego. Proszę zaktualizować mapy, by móc korzystać z tej funkcji.</text>
 	<!-- Update all button text -->
 	<text id="IDS_DOWNLOADER_UPDATE_ALL">Uaktualnij wszystko</text>
+	<!-- Cancel all button text -->
+	<text id="IDS_DOWNLOADER_CANCEL_ALL">Anuluj wszystko</text>
 	<!-- Downloaded maps category -->
 	<text id="IDS_DOWNLOADER_DOWNLOADED">Pobrane</text>
 	<!-- Downloaded maps category -->
@@ -127,6 +129,10 @@
 	<text id="IDS_DOWNLOADER_OUTDATED_MAPS">Nieaktualne</text>
 	<!-- Up to date maps category -->
 	<text id="IDS_DOWNLOADER_UPTODATE_MAPS">Najnowsze</text>
+	<!-- Status of outdated country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_OUTDATED">Aktualizacja</text>
+	<!-- Status of failed country in the list -->
+	<text id="IDS_DOWNLOADER_STATUS_FAILED">Nieudane</text>
 	<!-- Context menu item for downloader. -->
 	<text id="IDS_DOWNLOADER_DOWNLOAD_MAP_AND_ROUTING">Pobierz mapę + wyznaczanie tras</text>
 	<!-- Context menu item for downloader. -->

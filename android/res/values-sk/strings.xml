@@ -419,6 +419,8 @@
 	<string name="routing_update_maps">Nová verzia aplikácie MAPS.ME umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">Aktualizovať všetky</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Zrušiť všetko</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">Stiahnuté</string>
 	<!-- Downloaded maps category -->
@@ -433,6 +435,10 @@
 	<string name="downloader_outdated_maps">Zastarané</string>
 	<!-- Up to date maps category -->
 	<string name="downloader_uptodate_maps">Aktualizované</string>
+	<!-- Status of outdated country in the list -->
+	<string name="downloader_status_outdated">Aktualizácia</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Zlyhalo</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Vytváranie trás je k dispozícii iba v plnej verzii MAPS.ME. Získajte ho hneď teraz!</string>
 	<!-- Show when user try build route, but we don't know where he -->

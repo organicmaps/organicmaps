@@ -467,7 +467,7 @@
 "copy_link" = "拷贝链接";
 
 /* Text for the button that returns to caller application */
-"more_info" = "显示更多信息\"";
+"more_info" = "显示更多信息";
 
 /* Text for message when used successfully copied something */
 "copied_to_clipboard" = "已複製到剪貼板：%1$@";
@@ -664,6 +664,9 @@
 /* Update all button text */
 "downloader_update_all" = "Update all";
 
+/* Cancel all button text */
+"downloader_cancel_all" = "Cancel All";
+
 /* Downloaded maps category */
 "downloader_downloaded" = "Downloaded";
 
@@ -686,7 +689,7 @@
 "downloader_uptodate_maps" = "Up-to-date";
 
 /* Status of outdated country in the list */
-"downloader_status_outdated" = "Update";
+"downloader_status_outdated" = "更新";
 
 /* Status of failed country in the list */
 "downloader_status_failed" = "Failed";

@@ -664,6 +664,9 @@
 /* Update all button text */
 "downloader_update_all" = "Alles bijwerken";
 
+/* Cancel all button text */
+"downloader_cancel_all" = "Alles annuleren";
+
 /* Downloaded maps category */
 "downloader_downloaded" = "Gedownload";
 
@@ -689,7 +692,7 @@
 "downloader_status_outdated" = "Update";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "Mislukt";
 
 /* Show in Lite version when user try to download routing files or try to build route */
 "routing_failed_buy_pro" = "Route aanmaken is alleen beschikbaar in de volledige versie van MAPS.ME. Neem nu meteen!";
