@@ -1,7 +1,6 @@
 package com.mapswithme.country;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -268,7 +267,6 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   @Override
   public void onCountryProgressChanged(int group, int position, long[] sizes)
   {
-    Log.d("TEST", "Country progress changed. Group " + group + " position  " + position + " abs pos " + getAbsolutePosition(group, position));
     onCountryProgress(getAbsolutePosition(group, position), sizes[0], sizes[1]);
   }
 
