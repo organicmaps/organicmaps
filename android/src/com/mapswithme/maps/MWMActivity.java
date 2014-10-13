@@ -1507,7 +1507,7 @@ public class MWMActivity extends NvEventQueueActivity
   }
 
   @Override
-  public void onRoutingError(final boolean isSuccess, final String message, final boolean openDownloader)
+  public void onRoutingEvent(final boolean isSuccess, final String message, final boolean openDownloader)
   {
     runOnUiThread(new Runnable()
     {

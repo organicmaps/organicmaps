@@ -914,10 +914,10 @@ extern "C"
     jniEnv->CallVoidMethod(*obj.get(), methodId);
   }
 
-  void CallRoutingErrorListener(shared_ptr<jobject> obj, bool isSuccess, string const & messageID, bool openDownloader)
+  void CallRoutingListener(shared_ptr<jobject> obj, bool isSuccess, string const & messageID, bool openDownloader)
   {
     JNIEnv * jniEnv = jni::GetEnv();
-    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onRoutingError", "(ZLjava/lang/String;Z)V");
+    const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onRoutingEvent", "(ZLjava/lang/String;Z)V");
     ASSERT(jmethodID != nullptr, ());
     jniEnv->CallVoidMethod(*obj.get(), methodId, isSuccess, jni::ToJavaString(jniEnv, messageID), openDownloader);
   }
@@ -1372,7 +1372,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jobject thiz, jobject listener)
   {
-    frm()->SetRouteBuildingListener(bind(&CallRoutingErrorListener, jni::make_global_ref(listener), _1, _2, _3));
+    frm()->SetRouteBuildingListener(bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2, _3));
   }
 
   JNIEXPORT void JNICALL

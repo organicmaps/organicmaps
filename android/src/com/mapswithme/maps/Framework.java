@@ -33,7 +33,7 @@ public class Framework
 
   public interface RoutingListener
   {
-    void onRoutingError(boolean isSuccess, String message, boolean openDownloader);
+    void onRoutingEvent(boolean isSuccess, String message, boolean openDownloader);
   }
 
   public interface BuyProListener
