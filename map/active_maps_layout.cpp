@@ -281,7 +281,8 @@ void ActiveMapsLayout::DeleteMap(TIndex const & index, const TMapOptions & optio
 
 void ActiveMapsLayout::DeleteMap(TGroup const & group, int position, TMapOptions const & options)
 {
-  m_framework.DeleteCountry(GetItemInGroup(group, position).m_index, ValidOptionsForDelete(options));
+  TIndex indexCopy = GetItemInGroup(group, position).m_index;
+  m_framework.DeleteCountry(indexCopy, ValidOptionsForDelete(options));
 }
 
 void ActiveMapsLayout::RetryDownloading(TGroup const & group, int position)
