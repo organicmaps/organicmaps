@@ -2,6 +2,7 @@ package com.mapswithme.maps.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
@@ -28,6 +29,7 @@ public class WheelProgressView extends View
   private RectF mCenterRect; // rect for stop button
   private PointF mCenter; // center of rect
   private boolean mIsInit;
+  private Bitmap mCenterBitmap;
 
   public WheelProgressView(Context context)
   {
@@ -85,6 +87,18 @@ public class WheelProgressView extends View
     return mProgress;
   }
 
+  public void setProgressColor(int color)
+  {
+    mFgPaint.setColor(color);
+    invalidate();
+  }
+
+  public void setDrawable(Bitmap bitmap)
+  {
+    mCenterBitmap = bitmap;
+    invalidate();
+  }
+
   @Override
   protected void onSizeChanged(int w, int h, int oldw, int oldh)
   {
@@ -109,7 +123,11 @@ public class WheelProgressView extends View
     {
       canvas.drawCircle(mCenter.x, mCenter.y, mRadius, mBgPaint);
       canvas.drawArc(mProgressRect, -90, 360 * mProgress / 100, false, mFgPaint);
-      canvas.drawRoundRect(mCenterRect, 3, 3, mRectPaint);
+      if (mCenterBitmap == null)
+        canvas.drawRoundRect(mCenterRect, 3, 3, mRectPaint);
+      else
+        canvas.drawBitmap(mCenterBitmap, mCenter.x - mCenterBitmap.getScaledWidth(canvas) / 2,
+            mCenter.y - mCenterBitmap.getScaledHeight(canvas) / 2, null);
     }
     super.onDraw(canvas);
   }

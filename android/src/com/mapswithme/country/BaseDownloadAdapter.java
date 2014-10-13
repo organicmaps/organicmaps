@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.ContextMenu;
@@ -397,26 +398,30 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       break;
 
     case MapStorage.DOWNLOAD_FAILED:
-      UiUtils.checkConnectionAndShowAlert(mActivity, String.format(mActivity.getString(R.string.download_country_failed), item.getName()));
-
       UiUtils.show(holder.mInfoSlided, holder.mStatusLayout, holder.mProgressSlided);
       UiUtils.hide(holder.mProgress, holder.mImageRoutingStatus);
       UiUtils.invisible(holder.mInfo);
-      // TODO change color and center img
-      holder.mInfoSlided.setOnClickListener(new View.OnClickListener()
+
+      final View.OnClickListener listener = new View.OnClickListener()
       {
         @Override
         public void onClick(View v)
         {
-          // TODO retry
+          holder.mProgressSlided.setProgressColor(mActivity.getResources().getColor(R.color.downloader_blue));
+          holder.mProgressSlided.setDrawable(null);
           downloadCountry(position, getItem(position).getOptions());
         }
-      });
+      };
+      holder.mProgressSlided.setOnClickListener(listener);
+      holder.mInfoSlided.setOnClickListener(listener);
+      holder.mProgressSlided.setProgressColor(mActivity.getResources().getColor(R.color.downloader_red));
+      holder.mProgressSlided.setDrawable(BitmapFactory.decodeResource(mActivity.getResources(), R.drawable.ic_retry));
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentString(holder, mStatusFailed, R.color.downloader_red);
       break;
+
 
     case MapStorage.IN_QUEUE:
       UiUtils.show(holder.mInfoSlided, holder.mStatusLayout, holder.mProgressSlided);
