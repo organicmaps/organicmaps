@@ -1534,7 +1534,6 @@ public class MWMActivity extends NvEventQueueActivity
         }
         else
         {
-
           AlertDialog.Builder builder = new AlertDialog.Builder(MWMActivity.this)
               .setMessage(message)
               .setCancelable(true);
