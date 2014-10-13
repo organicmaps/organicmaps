@@ -416,8 +416,32 @@
 	<string name="pref_calibration_title">Kalibrace kompasu</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">WiFi/Internet</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">Prosím aktualizujte mapu pro vytvoření trasy.</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">Nová verze MAPS.ME umožňuje vytvářet trasy z vaší aktuální polohy do cílového bodu. Prosím aktualizujte mapy, chcete-li tuto funkci používat.</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">Aktualizovat vše</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">Zrušit vše</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">Staženo</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">Stažené mapy</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">Moje mapy</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">zařazeno do fronty</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">Při vytváření tras v aplikaci MAPS.ME mějte prosím na paměti následující:\n\n  - Navrhované trasy lze brát přinejlepším jako doporučení.\n - Podmínky na silnici, pravidla silničního provozu a dopravní značení mají přednost před doporučeními z navigace.\n - Mapa může být nepřesná nebo zastaralá a cesty možná nebyly vytvořeny tak dobře, jak mohly být.\n\n  Cestujte bezpečně, a šťastnou cestu!</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">Zastaralý</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">Aktuální</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">Aktualizace</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">Nezdařilo se</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">Směrování je k dispozici pouze v plné verzi MAPS.ME. Získejte ji hned teď!</string>
 	<!-- Show when user try build route, but we don't know where he -->

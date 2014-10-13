@@ -656,43 +656,43 @@
 "wifi" = "WiFi/Internet";
 
 /* Update map suggestion */
-"routing_map_outdated" = "Please update the map to create a route";
+"routing_map_outdated" = "Prosím aktualizujte mapu pro vytvoření trasy.";
 
 /* Update maps suggestion */
-"routing_update_maps" = "The new version of MAPS.ME allows creating routes from your current position to a destination point. Please update maps to use this feature.";
+"routing_update_maps" = "Nová verze MAPS.ME umožňuje vytvářet trasy z vaší aktuální polohy do cílového bodu. Prosím aktualizujte mapy, chcete-li tuto funkci používat.";
 
 /* Update all button text */
-"downloader_update_all" = "Update all";
+"downloader_update_all" = "Aktualizovat vše";
 
 /* Cancel all button text */
-"downloader_cancel_all" = "Cancel All";
+"downloader_cancel_all" = "Zrušit vše";
 
 /* Downloaded maps category */
-"downloader_downloaded" = "Downloaded";
+"downloader_downloaded" = "Staženo";
 
 /* Downloaded maps category */
-"downloader_downloaded_maps" = "Downloaded maps";
+"downloader_downloaded_maps" = "Stažené mapy";
 
 /* My maps category */
-"downloader_my_maps" = "My maps";
+"downloader_my_maps" = "Moje mapy";
 
 /* Country queued for download */
-"downloader_queued" = "queued";
+"downloader_queued" = "zařazeno do fronty";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!";
+"routing_disclaimer" = "Při vytváření tras v aplikaci MAPS.ME mějte prosím na paměti následující:\n\n  - Navrhované trasy lze brát přinejlepším jako doporučení.\n - Podmínky na silnici, pravidla silničního provozu a dopravní značení mají přednost před doporučeními z navigace.\n - Mapa může být nepřesná nebo zastaralá a cesty možná nebyly vytvořeny tak dobře, jak mohly být.\n\n  Cestujte bezpečně, a šťastnou cestu!";
 
 /* Outdated maps category */
-"downloader_outdated_maps" = "Outdated";
+"downloader_outdated_maps" = "Zastaralý";
 
 /* Up to date maps category */
-"downloader_uptodate_maps" = "Up-to-date";
+"downloader_uptodate_maps" = "Aktuální";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "Aktualizace";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "Nezdařilo se";
 
 /* Show in Lite version when user try to download routing files or try to build route */
 "routing_failed_buy_pro" = "Směrování je k dispozici pouze v plné verzi MAPS.ME. Získejte ji hned teď!";

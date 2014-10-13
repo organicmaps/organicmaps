@@ -390,12 +390,38 @@
 	<string name="pref_calibration_title">指南針校準</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">無線網絡/互聯網</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">請更新地圖以創建一條路線。</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">使用新版本的MAPS.ME可以創建從您的當前位置至一個目的地的路線。請更新地圖以使用該功能。</string>
+	<!-- Update all button text -->
+	<string name="downloader_update_all">更新全部</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">取消全部</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded">已下載</string>
+	<!-- Downloaded maps category -->
+	<string name="downloader_downloaded_maps">已下載的地圖</string>
+	<!-- My maps category -->
+	<string name="downloader_my_maps">我的地圖</string>
+	<!-- Country queued for download -->
+	<string name="downloader_queued">已佇列</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">過時的</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">最新的</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">更新</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">失敗</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">佈置路線只在MAPS.ME的完整版本中才有。现在就得到它吧！</string>
 	<!-- Show when user try build route, but we don't know where he -->
 	<string name="routing_failed_unknown_my_position">當前地點未定。請明確地點以創建路線。</string>
+	<!-- Show if use has not routing file, or InconsistentMWMandRoute -->
+	<string name="routing_failed_has_no_routing_file">需要額外的數據才能創建路線。開始下載嗎？</string>
 	<!-- StartPointNotFound -->
 	<string name="routing_failed_start_point_not_found">無法計算路線。沒有在您起點附近的路。</string>
 	<!-- EndPointNotFound -->

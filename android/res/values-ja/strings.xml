@@ -396,8 +396,14 @@
 	<string name="pref_calibration_title">コンパスの調整</string>
 	<!-- Search Suggestion -->
 	<string name="wifi">無線LAN/インターネット</string>
+	<!-- Update map suggestion -->
+	<string name="routing_map_outdated">ルートを作成するためにマップを更新してください。</string>
+	<!-- Update maps suggestion -->
+	<string name="routing_update_maps">新バージョンのMAPS.MEは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。</string>
 	<!-- Update all button text -->
 	<string name="downloader_update_all">全てをアップデート</string>
+	<!-- Cancel all button text -->
+	<string name="downloader_cancel_all">すべてキャンセル</string>
 	<!-- Downloaded maps category -->
 	<string name="downloader_downloaded">ダウンロード済</string>
 	<!-- Downloaded maps category -->
@@ -406,8 +412,16 @@
 	<string name="downloader_my_maps">マイマップ</string>
 	<!-- Country queued for download -->
 	<string name="downloader_queued">待ち行列型の</string>
+	<!-- Disclaimer message -->
+	<string name="routing_disclaimer">MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！</string>
+	<!-- Outdated maps category -->
+	<string name="downloader_outdated_maps">旧式</string>
+	<!-- Up to date maps category -->
+	<string name="downloader_uptodate_maps">最新</string>
 	<!-- Status of outdated country in the list -->
 	<string name="downloader_status_outdated">を更新</string>
+	<!-- Status of failed country in the list -->
+	<string name="downloader_status_failed">失敗</string>
 	<!-- Show in Lite version when user try to download routing files or try to build route -->
 	<string name="routing_failed_buy_pro">ルート決定機能はMAPS.MEの完全版でのみ利用可能です。今すぐ入手しましょう！</string>
 	<!-- Show when user try build route, but we don't know where he -->

@@ -656,16 +656,16 @@
 "wifi" = "无线网络/互联网";
 
 /* Update map suggestion */
-"routing_map_outdated" = "Please update the map to create a route";
+"routing_map_outdated" = "请更新地图以创建一条路线。";
 
 /* Update maps suggestion */
-"routing_update_maps" = "The new version of MAPS.ME allows creating routes from your current position to a destination point. Please update maps to use this feature.";
+"routing_update_maps" = "使用新版本的MAPS.ME可以创建从您的当前位置至一个目的地的路线。请更新地图以使用该功能。";
 
 /* Update all button text */
 "downloader_update_all" = "更新全部";
 
 /* Cancel all button text */
-"downloader_cancel_all" = "Cancel All";
+"downloader_cancel_all" = "全部取消";
 
 /* Downloaded maps category */
 "downloader_downloaded" = "已下载";
@@ -680,19 +680,19 @@
 "downloader_queued" = "已排队";
 
 /* Disclaimer message */
-"routing_disclaimer" = "Creating routes in MAPS.ME app, please keep in mind the following:\n\n  - Suggested routes can be considered as recommendations only.\n - Road conditions, traffic rules and signs have higher priority than navigation advice.\n - The map may be incorrect or outdated, and routes may not be created the best possible way.\n\n  Be safe on roads and take care of yourself!";
+"routing_disclaimer" = "在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！";
 
 /* Outdated maps category */
-"downloader_outdated_maps" = "Outdated";
+"downloader_outdated_maps" = "过时的";
 
 /* Up to date maps category */
-"downloader_uptodate_maps" = "Up-to-date";
+"downloader_uptodate_maps" = "最新的";
 
 /* Status of outdated country in the list */
 "downloader_status_outdated" = "下载";
 
 /* Status of failed country in the list */
-"downloader_status_failed" = "Failed";
+"downloader_status_failed" = "下载失败";
 
 /* Show in Lite version when user try to download routing files or try to build route */
 "routing_failed_buy_pro" = "布置路线只在MAPS.ME的完整版本中才有。现在就得到它吧！";
@@ -701,7 +701,7 @@
 "routing_failed_unknown_my_position" = "当前地点未定。请明确地点以创建路线。";
 
 /* Show if use has not routing file, or InconsistentMWMandRoute */
-"routing_failed_has_no_routing_file" = "Additional data is required to create the route. Download data now?";
+"routing_failed_has_no_routing_file" = "需要额外的数据才能创建路线。开始下载吗？";
 
 /* StartPointNotFound */
 "routing_failed_start_point_not_found" = "无法计算路线。没有在您起点附近的路。";
