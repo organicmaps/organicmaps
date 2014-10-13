@@ -30,6 +30,7 @@ import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,9 +38,9 @@ import android.widget.Toast;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.maps.Ads.AdsManager;
 import com.mapswithme.maps.Ads.MenuAd;
+import com.mapswithme.maps.Framework.BuyProListener;
 import com.mapswithme.maps.Framework.OnBalloonListener;
 import com.mapswithme.maps.Framework.RoutingListener;
-import com.mapswithme.maps.Framework.BuyProListener;
 import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.api.ParsedMmwRequest;
 import com.mapswithme.maps.background.WorkerService;
@@ -104,6 +105,7 @@ public class MWMActivity extends NvEventQueueActivity
   private TextView mTvRoutingDistance;
   private RelativeLayout mRlRoutingBox;
   private LinearLayout mLayoutRoutingGo;
+  private ProgressBar mPbRoutingProgress;
 
   private SearchController mSearchController;
   private boolean mNeedCheckUpdate = true;
@@ -824,6 +826,7 @@ public class MWMActivity extends NvEventQueueActivity
     mInfoView.bringToFront();
     mIvStartRouting = (ImageView) mInfoView.findViewById(R.id.iv__start_routing);
     mIvStartRouting.setOnClickListener(this);
+    mPbRoutingProgress = (ProgressBar) mInfoView.findViewById(R.id.pb__routing_progress);
     mInfoView.findViewById(R.id.btn__use_mock_location).setOnClickListener(this);
     mInfoView.findViewById(R.id.btn__dont_use_mock_location).setOnClickListener(this);
   }
@@ -1217,6 +1220,8 @@ public class MWMActivity extends NvEventQueueActivity
           {
             mInfoView.setMapObject(apiPoint);
             mInfoView.setState(State.PREVIEW_ONLY);
+            mIvStartRouting.setVisibility(View.VISIBLE);
+            mPbRoutingProgress.setVisibility(View.GONE);
           }
         }
       });
@@ -1238,6 +1243,8 @@ public class MWMActivity extends NvEventQueueActivity
         {
           mInfoView.setMapObject(poi);
           mInfoView.setState(State.PREVIEW_ONLY);
+          mIvStartRouting.setVisibility(View.VISIBLE);
+          mPbRoutingProgress.setVisibility(View.GONE);
         }
       }
     });
@@ -1257,6 +1264,8 @@ public class MWMActivity extends NvEventQueueActivity
         {
           mInfoView.setMapObject(b);
           mInfoView.setState(State.PREVIEW_ONLY);
+          mIvStartRouting.setVisibility(View.VISIBLE);
+          mPbRoutingProgress.setVisibility(View.GONE);
         }
       }
     });
@@ -1272,14 +1281,16 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void run()
       {
-        if (Framework.nativeIsRoutingActive())
-          mRlRoutingBox.bringToFront();
-        else
-          mInfoView.bringToFront();
-        if (!mInfoView.hasMapObject(mypos))
+        if (!Framework.nativeIsRoutingActive())
         {
-          mInfoView.setMapObject(mypos);
-          mInfoView.setState(State.PREVIEW_ONLY);
+          mInfoView.bringToFront();
+          if (!mInfoView.hasMapObject(mypos))
+          {
+            mInfoView.setMapObject(mypos);
+            mInfoView.setState(State.PREVIEW_ONLY);
+            mIvStartRouting.setVisibility(View.GONE);
+            mPbRoutingProgress.setVisibility(View.GONE);
+          }
         }
       }
     });
@@ -1299,6 +1310,7 @@ public class MWMActivity extends NvEventQueueActivity
         {
           mInfoView.setMapObject(sr);
           mInfoView.setState(State.PREVIEW_ONLY);
+          mIvStartRouting.setVisibility(View.VISIBLE);
         }
       }
     });
@@ -1414,6 +1426,14 @@ public class MWMActivity extends NvEventQueueActivity
     Framework.nativeFollowRoute();
 
     Animator animator = ObjectAnimator.ofFloat(mLayoutRoutingGo, "alpha", 1, 0);
+    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    {
+      @Override
+      public void onAnimationEnd(Animator animation)
+      {
+        mLayoutRoutingGo.setVisibility(View.GONE);
+      }
+    });
     animator.start();
   }
 
@@ -1425,6 +1445,8 @@ public class MWMActivity extends NvEventQueueActivity
       return;
     }
 
+    mIvStartRouting.setVisibility(View.GONE);
+    mPbRoutingProgress.setVisibility(View.VISIBLE);
     Framework.nativeBuildRoute(mInfoView.getMapObject().getLat(), mInfoView.getMapObject().getLon());
   }
 
@@ -1460,6 +1482,7 @@ public class MWMActivity extends NvEventQueueActivity
     mInfoView.bringToFront();
     mRlRoutingBox.setVisibility(View.GONE);
     mRlRoutingBox.clearAnimation();
+    mPbRoutingProgress.setVisibility(View.GONE);
 
     Framework.nativeCloseRouting();
   }
@@ -1518,6 +1541,8 @@ public class MWMActivity extends NvEventQueueActivity
         if (isSuccess)
         {
           ViewHelper.setAlpha(mLayoutRoutingGo, 1);
+          mLayoutRoutingGo.setVisibility(View.VISIBLE);
+
           Animation alphaAnimation = new AlphaAnimation(0.0f, 1.0f);
           alphaAnimation.setFillBefore(true);
           alphaAnimation.setFillAfter(true);

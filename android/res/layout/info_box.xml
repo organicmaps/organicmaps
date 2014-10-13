@@ -73,13 +73,27 @@
             android:text="use gps data for routing"/>
       </RelativeLayout>
 
-      <ImageView
-          android:id="@+id/iv__start_routing"
+      <FrameLayout
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="0"
           android:padding="@dimen/margin_small"
-          android:src="@drawable/ic_drive"/>
+          android:paddingRight="@dimen/margin_tiny">
+
+        <ImageView
+            android:id="@+id/iv__start_routing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_drive"/>
+
+        <ProgressBar
+            android:id="@+id/pb__routing_progress"
+            android:layout_width="@dimen/routing_progress_size"
+            android:layout_height="@dimen/routing_progress_size"
+            android:visibility="gone"/>
+
+      </FrameLayout>
 
       <CheckBox
           android:id="@+id/info_box_is_bookmarked"
