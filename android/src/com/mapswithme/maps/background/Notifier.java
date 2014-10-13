@@ -61,7 +61,7 @@ public class Notifier
     final String title = MWMApplication.get().getString(R.string.app_name);
     final String content = MWMApplication.get().getString(R.string.download_country_success, name);
 
-    Notifier.placeDownloadNotification(title, content, idx);
+    placeDownloadNotification(title, content, idx);
   }
 
   public static void placeDownloadFailed(Index idx, String name)
