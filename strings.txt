@@ -5729,7 +5729,7 @@
     sk = Pre vytvorenie trasy si, prosím, aktualizujte mapu.
     es = Por favor, actualiza el mapa para crear una ruta.
     pl = Proszę zaktualizować mapę, by utworzyć trasę.
-    jp = ルートを作成するためにマップを更新してください。
+    ja = ルートを作成するためにマップを更新してください。
     ko = 경로를 생성하도록 지도를 업데이트하십시오.
     hu = Kérjük, útvonal létrehozásához frissítsd a térképet.
     it = Aggiorna la mappa per creare un itinerario.
@@ -5738,10 +5738,10 @@
     fr = Veuillez mettre à jour la carte pour créer un itinéraire.
     da = Venligst opdatér kortet for at oprette en rute.
     nl = Werk de kaart bij om een route te maken.
-    zh-hant = 請更新地圖以創建一條路線。
-    cz = Prosím aktualizujte mapu pro vytvoření trasy.
+    zh-Hant = 請更新地圖以創建一條路線。
+    cs = Prosím aktualizujte mapu pro vytvoření trasy.
     ar = يرجى تحديث الخريطة لإنشاء مسار.
-    zh-hans = 请更新地图以创建一条路线。
+    zh-Hans = 请更新地图以创建一条路线。
     uk = Будь ласка, оновіть карту, щоб прокласти маршрут.
 
   [routing_update_maps]
@@ -5756,7 +5756,7 @@
     sk = Nová verzia aplikácie MAPS.ME umožňuje vytvárať trasy z vašej aktuálnej polohy do cieľového bodu. Pre použitie tejto funkcie si, prosím, aktualizujte mapy.
     es = La nueva versión de MAPS.ME permite crear rutas desde tu ubicación actual hasta un punto de destino. Por favor, actualiza los mapas para utilizar esta característica.
     pl = Nowa wersja aplikacji MAPS.ME pozwala na tworzenie tras z Twojej bieżącej lokalizacji do punktu docelowego. Proszę zaktualizować mapy, by móc korzystać z tej funkcji.
-    jp = 新バージョンのMAPS.MEは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。
+    ja = 新バージョンのMAPS.MEは現在地から目的地までのルートを作成可能です。 この機能を使うためにマップを更新してください。
     ko = MAPS.ME의 새로운 버전으로 당신의 현재 위치에서 목적지 지점으로 경로를 생성할 수 있습니다. 이 기능을 사용하려면 지도를 업데이트하십시오.
     hu = A MAPS.ME új verziójában már útvonalakt is létrehozhatsz tartózkodási helyedtől az úticélodig. Kérjük, ennek a funkciónak a használatához frissítsd a térképeket.
     it = La nuova versione di MAPS.ME ti permette di creare itinerari dalla tua posizione attuale a un punto di destinazione. Aggiorna le mappe per utilizzare questa funzione.
@@ -5765,10 +5765,10 @@
     fr = La nouvelle version de MAPS.ME permet de créer des itinéraires à partir de votre position actuelle vers un point de destination. Veuillez mettre à jour les cartes pour utiliser cette fonctionnalité.
     da = Den nye version af MAPS.ME gør det muligt at oprette ruter fra din nuværende position til et destinationspunkt. Venligst opdatér kortene for at bruge denne funktion.
     nl = Met de nieuwe versie van MAPS.ME kunt u routes maken vanaf uw huidige positie naar een punt van bestemming. Werk kaarten bij om deze functie te gebruiken.
-    zh-hant = 使用新版本的MAPS.ME可以創建從您的當前位置至一個目的地的路線。請更新地圖以使用該功能。
-    cz = Nová verze MAPS.ME umožňuje vytvářet trasy z vaší aktuální polohy do cílového bodu. Prosím aktualizujte mapy, chcete-li tuto funkci používat.
+    zh-Hant = 使用新版本的MAPS.ME可以創建從您的當前位置至一個目的地的路線。請更新地圖以使用該功能。
+    cs = Nová verze MAPS.ME umožňuje vytvářet trasy z vaší aktuální polohy do cílového bodu. Prosím aktualizujte mapy, chcete-li tuto funkci používat.
     ar = إصدار MAPS.ME الجديد يسمح بإنشاء مسارات انطلاقاً من موقعك الحالي نحو المكان الذي تتجه إليه. يرجى تحديث الخرائط لاستخدام هذه الميزة.
-    zh-hans = 使用新版本的MAPS.ME可以创建从您的当前位置至一个目的地的路线。请更新地图以使用该功能。
+    zh-Hans = 使用新版本的MAPS.ME可以创建从您的当前位置至一个目的地的路线。请更新地图以使用该功能。
     uk = В новій версії MAPS.ME ви зможете прокладати маршрут від поточного місця перебування до точки призначення. Щоб скористатися цією функцією, будь ласка, оновіть карти.
 
   [downloader_update_all]
@@ -5783,8 +5783,8 @@
     fr = Tout mettre à jour
     de = Alles aktualisieren
     nl = Alles bijwerken
-    zh-hant = 更新全部
-    cz = Aktualizovat vše
+    zh-Hant = 更新全部
+    cs = Aktualizovat vše
     es = Actualizar todos
     uk = Оновити все
     pl = Uaktualnij wszystko
@@ -5808,7 +5808,7 @@
     sv = Avbryt alla
     pt = Cancelar Tudo
     sk = Zrušiť všetko
-    jp = すべてキャンセル
+    ja = すべてキャンセル
     uk = Скасувати всі
     ru = Отменить все
     ko = 모두 취소
@@ -5820,10 +5820,10 @@
     de = Alle abbrechen
     da = Aflys Alt
     nl = Alles annuleren
-    cz = Zrušit vše
-    zh-hant = 取消全部
+    cs = Zrušit vše
+    zh-Hant = 取消全部
     ar = إلغاء الكل
-    zh-hans = 全部取消
+    zh-Hans = 全部取消
 
   [downloader_downloaded]
     tags = ios,android,tizen
@@ -5837,8 +5837,8 @@
     fr = Téléchargé
     de = Heruntergeladen
     nl = Gedownload
-    zh-hant = 已下載
-    cz = Staženo
+    zh-Hant = 已下載
+    cs = Staženo
     es = Descargados
     uk = Завантажено
     pl = Pobrane
@@ -5864,8 +5864,8 @@
     fr = Cartes téléchargées
     de = Heruntergeladene Karten
     nl = Gedownloade kaarten
-    zh-hant = 已下載的地圖
-    cz = Stažené mapy
+    zh-Hant = 已下載的地圖
+    cs = Stažené mapy
     es = Mapas descargados
     uk = Завантажені карти
     pl = Pobrane mapy
@@ -5891,8 +5891,8 @@
     fr = Mes cartes
     de = Meine Karten
     nl = Mijn kaarten
-    zh-hant = 我的地圖
-    cz = Moje mapy
+    zh-Hant = 我的地圖
+    cs = Moje mapy
     es = Mis mapas
     uk = Мої карти
     pl = Moje mapy
@@ -5918,8 +5918,8 @@
     fr = en file d'attente
     de =  in der Warteschlange
     nl = in de wachtrij
-    zh-hant = 已佇列
-    cz = zařazeno do fronty
+    zh-Hant = 已佇列
+    cs = zařazeno do fronty
     es = En cola
     uk = в черзі
     pl = w kolejce
@@ -5948,15 +5948,15 @@
     pt = Ao criar rotas na aplicação MAPS.ME, por favor, lembre-se do seguinte:\n\n  - As rotas sugeridas podem apenas ser consideradas como recomendações.\n - As condições da estrada, regras de trânsito e sinais têm maior prioridade do que os conselhos de navegação.\n - O mapa poderá estar errado, ou desatualizado, e as rotas poderão não ser criadas da melhor forma possível.\n\n  Circule em segurança nas estradas e cuide do seu bem estar!
     hu = Amikor útvonalakat készít a MAPS.ME appban, kérjük, vegye figyelembe a következőket:\n\n  - Az ajánlott útvonalak csak javaslatoknak tekintendők.\n - Az utak kondíciója, a forgalmi szabályok és jelzőtáblák magasabb prioritásúak, mint a navigációs javaslatok.\n - A térkép lehet, hogy hibás vagy idejétmúlt, az útvonalak pedig lehet, hogy nem a lehető legjobb módon készülnek el.\n\n  Legyen óvatos az utakon és vigyázzon magára!
     it = Creando percorsi nell'app MAPS.ME tieni a mente quanto segue:\n\n  - I percorsi suggeriti possono essere considerati solo come consigliati.\n - Le condizioni della strada, le regole del traffico e i segnali hanno una priorità maggiore rispetto ai consigli sulla circolazione.\n - La mappa potrebbe essere scorretta o datata e i percorsi potrebbero non aver creato la strada migliore possibile.\n\n  Stai attento sulle strade e prenditi cura di te!
-    jp = MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！
+    ja = MAPS.MEアプリでルートを作成する時は、以下のことに留意してください：\n\n  - 提案されたルートは推奨するだけです。\n - 道路状況、交通規則と標識はナビゲーションのアドバイスより優先度が高くなっています。\n - マップが不正確または古くなっている場合や、ルートが最適な方法で作成されていないことがあります。\n\n  安全運転でご自愛ください！
     nl = Bij het creëren van routes in MAPS.ME-app, dient u rekening te houden met het volgende:\n\n  - Voorgestelde routes kunnen uitsluitend als aanbevelingen beschouwd worden.\n - Wegconditie, verkeersregels en borden hebben een hogere prioriteit dan het navigatie-advies.\n - De kaart kan onjuist of verouderd zijn en de routes kunnen niet op de beste mogelijke manier gecreëerd zijn.\n\n  Wees veilig op wegen en zorg goed voor uzelf!
     fr = Quand vous créez des itinéraires sur l'application MAPS.ME, veuillez garder à l'esprit les points suivants :\n\n  - Les itinéraires suggérés ne doivent être considérés que comme des recommandations.\n\n  - Les conditions des routes, les règlementations de circulations et les panneaux sont prioritaires sur les conseils de navigation.\n\n  - Il est possible qu'une carte soit incorrecte ou obsolète, et les itinéraires ne sont pas toujours créés de la meilleure façon possible.\n\n  Soyez prudents sur les routes et prenez soin de vous.
     de = Beim Erstellen von Routen mit der MAPS.ME-App sollten Sie Folgendes beachten:\n\n  - Vorgeschlagenen Routen können nur als Empfehlungen angesehen werden.\n - Straßenbedingungen, Verkehrsregeln und Schilder haben höhere Priorität als Navigationsratschläge.\n - Die Karte kann falsch oder veraltet sein und Routen könnten somit nicht auf die bestmögliche Weise erstellt worden sein.\n\n  Bleiben Sie auf der Straße sicher und achten Sie auf sich selbst!
     iw = כשאתם בונים מסלולים באמצעות אפליקציית MAPS.ME, שימו לב:\n\n  יש להתייחס למסלולים מוצעים כהמלצות בלבד.\n תנאי הדרך, חוקי התנועה והתמרורים נמצאים בעדיפות גבוהה יותר מאשר עצת הניווט.\n יתכן שהמפה אינה נכונה או \n    אינה מעודכנת, וקיימת אפשרות שהמסלולים לא ייבנו באופן הטוב ביותר.\n\n  נסיעה בטוחה ושמרו על עצמכם!\n\n
-    zh-hant = 在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！
-    cz = Při vytváření tras v aplikaci MAPS.ME mějte prosím na paměti následující:\n\n  - Navrhované trasy lze brát přinejlepším jako doporučení.\n - Podmínky na silnici, pravidla silničního provozu a dopravní značení mají přednost před doporučeními z navigace.\n - Mapa může být nepřesná nebo zastaralá a cesty možná nebyly vytvořeny tak dobře, jak mohly být.\n\n  Cestujte bezpečně, a šťastnou cestu!
+    zh-Hant = 在MAPS.ME應用中制定路線時請謹記以下幾點：\n\n  - 建議路線僅可當作推薦路線。\n - 路況、交通規則以及標誌應優先於導航建議。\n - 地圖可能會不正確或者過時，路線也可能不是以最佳可能方式制定的。\n\n  行車安全，請照顧好您自己！
+    cs = Při vytváření tras v aplikaci MAPS.ME mějte prosím na paměti následující:\n\n  - Navrhované trasy lze brát přinejlepším jako doporučení.\n - Podmínky na silnici, pravidla silničního provozu a dopravní značení mají přednost před doporučeními z navigace.\n - Mapa může být nepřesná nebo zastaralá a cesty možná nebyly vytvořeny tak dobře, jak mohly být.\n\n  Cestujte bezpečně, a šťastnou cestu!
     ar = عند إنشاء مسارات الطرق في تطبيق MAPS.ME، يرجى أخذ التالي في الحسبان:\n\n  - المسارات المقترحة تعتبر مجرد اقتراحات فقط.\n - حالة الطريق وقوانينه والإشارات الموجودة فيه لها الأولولية أثناء تقديم نصائح الملاحة.\n - قد تكون الخريطة خاطئة أو قديمة، لذا فإنه يمكن ألا تُرسم المسارات بالشكل الأمثل.\n\n  كن آمنا على الطريق وانتبه لتفسك!
-    zh-hans = 在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！
+    zh-Hans = 在MAPS.ME应用中制定路线时请谨记以下 几点：\n\n  - 建议路线仅可当作推荐路线。\n - 路况、交通规则以及标志应优先于导航建议。\n - 地图可能会不正确或者过时，路线也可能不是以最佳可能方式制定的。\n\n  行车安全，请照顾好您自己！
     uk = Використовуючи маршрути в програмі MAPS.ME, будь ласка, враховуйте наступне:\n\n  - Пропоновані маршрути можуть розглядатися тільки в якості рекомендації.\n - Дорожні умови, правила дорожнього руху, знаки являються більш пріоритетними в порівнянні з порадами навігаційної програми.\n - Карта може бути неточною або неактуальною , а запропонований маршрут не найоптимальнішим.\n\n  Будьте уважні на дорозі та бережіть себе!
 
   [downloader_outdated_maps]
@@ -5973,16 +5973,16 @@
     pl = Nieaktualne
     pt = Desatualizado
     it = Obsoleto
-    jp = 旧式
+    ja = 旧式
     fr = Dépassé
     de = Veraltet
     iw = מיושן
     hu = Elavult
-    cz = Zastaralý
+    cs = Zastaralý
     nl = Verouderd
     ar = انتهت صلاحيته
-    zh-hans = 过时的
-    zh-hant = 過時的
+    zh-Hans = 过时的
+    zh-Hant = 過時的
     ru = Неактуальные
     uk = Неактуальні
 
@@ -6000,16 +6000,16 @@
     pl = Najnowsze
     pt = Atualizado
     it = Aggiornato
-    jp = 最新
+    ja = 最新
     fr = À jour
     de = Aktuell
     iw = עדכני
     hu = Friss
-    cz = Aktuální
+    cs = Aktuální
     nl = Up-to-date
     ar = محدّث
-    zh-hans = 最新的
-    zh-hant = 最新的
+    zh-Hans = 最新的
+    zh-Hant = 最新的
     ru = Обновленные
     uk = Оновлені
 
@@ -6053,7 +6053,7 @@
     es = Fallo
     sv = Misslyckades
     pl = Nieudane
-    jp = 失敗
+    ja = 失敗
     ko = 실패함
     iw = נכשלה
     hu = Sikertelen
@@ -6061,11 +6061,11 @@
     nl = Mislukt
     fr = A échoué
     de = Fehlgeschlagen
-    cz = Nezdařilo se
+    cs = Nezdařilo se
     da = Mislykkedes
     ar = فشل
-    zh-hans = 下载失败
-    zh-hant = 失敗
+    zh-Hans = 下载失败
+    zh-Hant = 失敗
 
 
   [routing_failed_buy_pro]
@@ -6139,8 +6139,8 @@
     ru = Для построения маршрута необходимы дополнительные данные. Перейти к загрузке?
     sk = Na vytvorenie trasy sú potrebné ďalšie dáta. Začať sťahovanie?
     fr = Des données supplémentaires sont nécessaires pour créer un itinéraire. Vous désirez lancer le téléchargement ?
-    zh-hans = 需要额外的数据才能创建路线。开始下载吗？
-    zh-hant = 需要額外的數據才能創建路線。開始下載嗎？
+    zh-Hans = 需要额外的数据才能创建路线。开始下载吗？
+    zh-Hant = 需要額外的數據才能創建路線。開始下載嗎？
     ar = هناك حاجة إلى بيانات إضافية لإنشاء مسار. بدء التحميل؟
     nl = Er zijn extra gegevens nodig om een ​​route te creëren. Beginnen met downloaden?
     de = Zusätzliche Daten werden zum Erstellen einer Route benötigt. Mit dem Download beginnen?
