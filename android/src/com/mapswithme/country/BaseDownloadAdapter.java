@@ -389,7 +389,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       UiUtils.invisible(holder.mInfo);
 
       bindCarRoutingIcon(holder, item);
-      sizes = getItemSizes(position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
+      sizes = getRemoteItemSizes(position);
       if (item.getOptions() == StorageOptions.MAP_OPTION_MAP_ONLY)
         setHolderSizeString(holder, 0, sizes[0]);
       else
