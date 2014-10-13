@@ -68,8 +68,10 @@ public:
 private:
   virtual void CountryGroupChanged(storage::ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
                                    storage::ActiveMapsLayout::TGroup const & newGroup, int newPosition) {}
-  virtual void CountryStatusChanged(storage::ActiveMapsLayout::TGroup const & group, int position);
-  virtual void CountryOptionsChanged(storage::ActiveMapsLayout::TGroup const & group, int position){}
+  virtual void CountryStatusChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
+                                    storage::TStatus const & oldStatus, storage::TStatus const & newStatus);
+  virtual void CountryOptionsChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
+                                     storage::TMapOptions const & oldOpt, storage::TMapOptions const & newOpt){}
   virtual void DownloadingProgressUpdate(storage::ActiveMapsLayout::TGroup const & group, int position,
                                          storage::LocalAndRemoteSizeT const & progress);
 

@@ -13,6 +13,7 @@
 #include "../../../../../base/strings_bundle.hpp"
 
 #include "../../../../../std/shared_ptr.hpp"
+#include "../../../../../std/map.hpp"
 
 #include "../../../nv_event/nv_event.hpp"
 
@@ -21,16 +22,21 @@ class CountryStatusDisplay;
 
 namespace android
 {
-  class Framework
+  class Framework : public storage::CountryTree::CountryTreeListener,
+                    public storage::ActiveMapsLayout::ActiveMapsListener
   {
   private:
     ::Framework m_work;
     VideoTimer * m_videoTimer;
 
-    shared_ptr<jobject> m_javaCountryListenerPtr;
-    shared_ptr<jobject> m_javaActiveCountryListenerPtr;
-    storage::CountryTree::CountryTreeListener * m_treeListener;
-    storage::ActiveMapsLayout::ActiveMapsListener * m_activeMapsListener;
+    typedef shared_ptr<jobject> TJobject;
+
+    TJobject m_javaCountryListener;
+    typedef map<int, TJobject> TListenerMap;
+    TListenerMap m_javaActiveMapListeners;
+    int m_currentSlotID;
+
+    int m_activeMapsConnectionID;
 
     void CallRepaint();
 
@@ -141,17 +147,24 @@ namespace android
 
     void ShowTrack(int category, int track);
 
-    storage::CountryTree::CountryTreeListener * setCountryTreeListener(shared_ptr<jobject> objPtr);
+    void SetCountryTreeListener(shared_ptr<jobject> objPtr);
+    void ResetCountryTreeListener();
 
-    void resetCountryTreeListener();
+    int AddActiveMapsListener(shared_ptr<jobject> obj);
+    void RemoveActiveMapsListener(int slotID);
 
-    storage::ActiveMapsLayout::ActiveMapsListener * setActiveMapsListener(shared_ptr<jobject> objPtr);
+  public:
+    virtual void ItemStatusChanged(int childPosition);
+    virtual void ItemProgressChanged(int childPosition, storage::LocalAndRemoteSizeT const & sizes);
 
-    void resetActiveMapsListener();
-
-    shared_ptr<jobject> getJavaCountryListener();
-
-    shared_ptr<jobject> getJavaActiveCountryListener();
+    virtual void CountryGroupChanged(storage::ActiveMapsLayout::TGroup const & oldGroup, int oldPosition,
+                                     storage::ActiveMapsLayout::TGroup const & newGroup, int newPosition);
+    virtual void CountryStatusChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
+                                      storage::TStatus const & oldStatus, storage::TStatus const & newStatus);
+    virtual void CountryOptionsChanged(storage::ActiveMapsLayout::TGroup const & group, int position,
+                                       storage::TMapOptions const & oldOpt, storage::TMapOptions const & newOpt);
+    virtual void DownloadingProgressUpdate(storage::ActiveMapsLayout::TGroup const & group, int position,
+                                           storage::LocalAndRemoteSizeT const & progress);
   };
 }
 

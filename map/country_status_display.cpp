@@ -210,13 +210,14 @@ bool CountryStatusDisplay::onTapCancelled(m2::PointD const & pt)
   return OnTapAction(bind(&gui::Button::onTapCancelled, _1, _2), pt);
 }
 
-void CountryStatusDisplay::CountryStatusChanged(ActiveMapsLayout::TGroup const & group, int position)
+void CountryStatusDisplay::CountryStatusChanged(ActiveMapsLayout::TGroup const & group, int position,
+                                                TStatus const & /*oldStatus*/, TStatus const & newStatus)
 {
   TIndex index = m_activeMaps.GetCoreIndex(group, position);
   if (m_countryIdx == index)
   {
     Lock();
-    m_countryStatus = m_activeMaps.GetCountryStatus(index);
+    m_countryStatus = newStatus;
     Repaint();
     Unlock();
   }

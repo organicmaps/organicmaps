@@ -32,8 +32,10 @@ public:
     /// if group of country been changed. than oldGroup != newGroup, oldPosition >= 0 and newPosition >= 0
     virtual void CountryGroupChanged(TGroup const & oldGroup, int oldPosition,
                                      TGroup const & newGroup, int newPosition) = 0;
-    virtual void CountryStatusChanged(TGroup const & group, int position) = 0;
-    virtual void CountryOptionsChanged(TGroup const & group, int position) = 0;
+    virtual void CountryStatusChanged(TGroup const & group, int position,
+                                      TStatus const & oldStatus, TStatus const & newStatus) = 0;
+    virtual void CountryOptionsChanged(TGroup const & group, int position,
+                                       TMapOptions const & oldOpt, TMapOptions const & newOpt) = 0;
     virtual void DownloadingProgressUpdate(TGroup const & group, int position,
                                            LocalAndRemoteSizeT const & progress) = 0;
   };
@@ -123,8 +125,10 @@ private:
   void NotifyMove(TGroup const & oldGroup, int oldPosition,
                   TGroup const & newGroup, int newPosition);
 
-  void NotifyStatusChanged(TGroup const & group, int position);
-  void NotifyOptionsChanged(TGroup const & group, int position);
+  void NotifyStatusChanged(TGroup const & group, int position,
+                           TStatus const & oldStatus, TStatus const & newStatus);
+  void NotifyOptionsChanged(TGroup const & group, int position,
+                            TMapOptions const & oldOpt, TMapOptions const & newOpt);
 
   TMapOptions ValidOptionsForDownload(TMapOptions const & options);
   TMapOptions ValidOptionsForDelete(TMapOptions const & options);

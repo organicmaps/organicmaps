@@ -1,6 +1,7 @@
 #include <jni.h>
 
 #include "../maps/Framework.hpp"
+#include "../maps/MapStorage.hpp"
 #include "../core/jni_helper.hpp"
 #include "country_helper.hpp"
 
@@ -108,13 +109,19 @@ extern "C"
   JNIEXPORT int JNICALL
   Java_com_mapswithme_country_ActiveCountryTree_addListener(JNIEnv * env, jclass clazz, jobject listener)
   {
-    return GetMapLayout().AddListener(g_framework->setActiveMapsListener(jni::make_global_ref(listener)));
+    return g_framework->AddActiveMapsListener(jni::make_global_ref(listener));
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_country_ActiveCountryTree_removeListener(JNIEnv * env, jclass clazz, jint slotID)
   {
-    g_framework->resetActiveMapsListener();
-    GetMapLayout().RemoveListener(slotID);
+    g_framework->RemoveActiveMapsListener(slotID);
+  }
+
+  JNIEXPORT jobject JNICALL
+  Java_com_mapswithme_country_ActiveCountryTree_getCoreIndex(JNIEnv * env, jclass clazz, jint group, jint position)
+  {
+    return storage::ToJava(GetMapLayout().GetCoreIndex(static_cast<storage::ActiveMapsLayout::TGroup>(group),
+                                                       static_cast<int>(position)));
   }
 }

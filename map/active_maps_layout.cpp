@@ -361,6 +361,8 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
   int position = 0;
   VERIFY(GetGroupAndPositionByIndex(index, group, position), ());
   Item & item = GetItemInGroup(group, position);
+
+  TStatus oldStatus = item.m_status;
   item.m_status = newStatus;
 
   if (newStatus == TStatus::EOnDisk)
@@ -377,11 +379,12 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
       //   but we must notify that options changed because for "NewMaps" m_options is virtual state
       if (item.m_options != options || group == TGroup::ENewMap)
       {
+        TMapOptions requestOptions = options;
         item.m_downloadRequest = item.m_options = options;
-        NotifyOptionsChanged(group, position);
+        NotifyOptionsChanged(group, position, item.m_options, requestOptions);
       }
 
-      NotifyStatusChanged(group, position);
+      NotifyStatusChanged(group, position, oldStatus, item.m_status);
 
       int newPosition = MoveItemToGroup(group, position, TGroup::EUpToDate);
       NotifyMove(group, position, TGroup::EUpToDate, newPosition);
@@ -392,8 +395,9 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
       // "Actual map without routing" -> "Actual map with routing"
       // "Actual map with routing" -> "Actual map without routing"
       ASSERT(item.m_options != options, ());
+      TMapOptions requestOpt = item.m_downloadRequest;
       item.m_options = item.m_downloadRequest = options;
-      NotifyOptionsChanged(group, position);
+      NotifyOptionsChanged(group, position, item.m_options, requestOpt);
     }
   }
   else if (newStatus == TStatus::ENotDownloaded)
@@ -404,7 +408,7 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
       // We handle here only status change for "New maps"
       // because if new status ENotDownloaded than item.m_options is invalid.
       // Map have no options and gui not show routing icon
-      NotifyStatusChanged(group, position);
+      NotifyStatusChanged(group, position, oldStatus, item.m_status);
     }
     else
     {
@@ -417,7 +421,7 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
   else if (newStatus == TStatus::EOnDiskOutOfDate)
   {
     // We can drop here only if user start update some map and cancel it
-    NotifyStatusChanged(group, position);
+    NotifyStatusChanged(group, position, oldStatus, item.m_status);
 
     ASSERT(item.m_options == options, ());
     item.m_downloadRequest = item.m_options = options;
@@ -427,7 +431,7 @@ void ActiveMapsLayout::StatusChangedCallback(TIndex const & index)
     // EDownloading
     // EInQueue
     // downloadig faild for some reason
-    NotifyStatusChanged(group, position);
+    NotifyStatusChanged(group, position, oldStatus, item.m_status);
   }
 }
 
@@ -607,7 +611,7 @@ void ActiveMapsLayout::NotifyInsertion(TGroup const & group, int position)
 void ActiveMapsLayout::NotifyDeletion(TGroup const & group, int position)
 {
   for (TListenerNode listener : m_listeners)
-    listener.second->CountryGroupChanged(group, position, group, position);
+    listener.second->CountryGroupChanged(group, position, group, -1);
 }
 
 void ActiveMapsLayout::NotifyMove(TGroup const & oldGroup, int oldPosition,
@@ -617,16 +621,18 @@ void ActiveMapsLayout::NotifyMove(TGroup const & oldGroup, int oldPosition,
     listener.second->CountryGroupChanged(oldGroup, oldPosition, newGroup, newPosition);
 }
 
-void ActiveMapsLayout::NotifyStatusChanged(TGroup const & group, int position)
+void ActiveMapsLayout::NotifyStatusChanged(TGroup const & group, int position,
+                                           TStatus const & oldStatus, TStatus const & newStatus)
 {
   for (TListenerNode listener : m_listeners)
-    listener.second->CountryStatusChanged(group, position);
+    listener.second->CountryStatusChanged(group, position, oldStatus, newStatus);
 }
 
-void ActiveMapsLayout::NotifyOptionsChanged(TGroup const & group, int position)
+void ActiveMapsLayout::NotifyOptionsChanged(TGroup const & group, int position,
+                                            TMapOptions const & oldOpt, TMapOptions const & newOpt)
 {
   for (TListenerNode listener : m_listeners)
-    listener.second->CountryOptionsChanged(group, position);
+    listener.second->CountryOptionsChanged(group, position, oldOpt, newOpt);
 }
 
 TMapOptions ActiveMapsLayout::ValidOptionsForDownload(TMapOptions const & options)

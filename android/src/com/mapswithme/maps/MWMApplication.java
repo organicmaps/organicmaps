@@ -18,6 +18,8 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.guides.GuideInfo;
 import com.mapswithme.maps.guides.GuidesUtils;
 import com.mapswithme.maps.location.LocationService;
+import com.mapswithme.country.ActiveCountryTree;
+import com.mapswithme.country.StorageOptions;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.FbUtil;
 import com.mapswithme.util.Utils;
@@ -25,10 +27,12 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.StubLogger;
 import com.mobileapptracker.MobileAppTracker;
 
+
+
 import java.io.File;
 import java.io.IOException;
 
-public class MWMApplication extends android.app.Application implements MapStorage.Listener
+public class MWMApplication extends android.app.Application implements ActiveCountryTree.ActiveCountryListener
 {
   private final static String TAG = "MWMApplication";
   private static final CharSequence PRO_PACKAGE_POSTFIX = ".pro";
@@ -58,26 +62,36 @@ public class MWMApplication extends android.app.Application implements MapStorag
   }
 
   @Override
-  public void onCountryStatusChanged(Index idx)
-  {
-    switch (MapStorage.INSTANCE.countryStatus(idx))
-    {
-    case MapStorage.ON_DISK:
-      Notifier.placeDownloadCompleted(idx, MapStorage.INSTANCE.countryName(idx));
-      tryNotifyGuideAvailable(idx);
-      break;
+  public void onCountryProgressChanged(int group, int position, long[] sizes) {}
 
-    case MapStorage.DOWNLOAD_FAILED:
-      Notifier.placeDownloadFailed(idx, MapStorage.INSTANCE.countryName(idx));
-      break;
+  @Override
+  public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
+  {
+    if (newStatus == MapStorage.DOWNLOAD_FAILED)
+      Notifier.placeDownloadFailed(ActiveCountryTree.getCoreIndex(group, position), ActiveCountryTree.getCountryName(group, position));
+  }
+
+  @Override
+  public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition) {}
+
+  @Override
+  public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions)
+  {
+    if (ActiveCountryTree.getCountryStatus(group, position) != MapStorage.ON_DISK)
+      return;
+
+    if (newOptions == requestOptions)
+    {
+      Notifier.placeDownloadCompleted(ActiveCountryTree.getCoreIndex(group, position), ActiveCountryTree.getCountryName(group, position));
+      tryNotifyGuideAvailable(group, position);
     }
   }
 
-  private void tryNotifyGuideAvailable(Index idx)
+  private void tryNotifyGuideAvailable(int group, int position)
   {
     if (Utils.hasAnyGoogleStoreInstalled())
     {
-      final GuideInfo info = Framework.getGuideInfoForIndexWithApiCheck(idx);
+      final GuideInfo info = ActiveCountryTree.getGuideInfo(group, position);
       if (info != null && !GuidesUtils.isGuideInstalled(info.mAppId, this)
           && !Framework.wasAdvertised(info.mAppId))
       {
@@ -85,11 +99,6 @@ public class MWMApplication extends android.app.Application implements MapStorag
         Framework.setWasAdvertised(info.mAppId);
       }
     }
-  }
-
-  @Override
-  public void onCountryProgress(Index idx, long current, long total)
-  {
   }
 
   @Override
@@ -114,7 +123,7 @@ public class MWMApplication extends android.app.Application implements MapStorag
     nativeInit(getApkPath(), extStoragePath, extTmpPath,
         getOBBGooglePath(), BuildConfig.IS_PRO, mIsYota);
 
-    MapStorage.INSTANCE.subscribe(this);
+    ActiveCountryTree.addListener(this);
 
     // init cross-platform strings bundle
     nativeAddLocalization("country_status_added_to_queue", getString(R.string.country_status_added_to_queue));

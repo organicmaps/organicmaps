@@ -131,13 +131,12 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_country_CountryTree_setListener(JNIEnv * env, jclass clazz, jobject listener)
   {
-    GetTree().SetListener(g_framework->setCountryTreeListener(jni::make_global_ref(listener)));
+    g_framework->SetCountryTreeListener(jni::make_global_ref(listener));
   }
 
   JNIEXPORT void JNICALL
   Java_com_mapswithme_country_CountryTree_resetListener(JNIEnv * env, jclass clazz, jobject listener)
   {
-    g_framework->resetCountryTreeListener();
-    GetTree().ResetListener();
+    g_framework->ResetCountryTreeListener();
   }
 }

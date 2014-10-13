@@ -1,20 +1,21 @@
 package com.mapswithme.country;
 
 import com.mapswithme.maps.guides.GuideInfo;
+import com.mapswithme.maps.MapStorage.Index;
 
 public class ActiveCountryTree
 {
   private ActiveCountryTree() {}
 
-  interface ActiveCountryListener extends CountryTree.BaseListener
+  public interface ActiveCountryListener extends CountryTree.BaseListener
   {
     void onCountryProgressChanged(int group, int position, long[] sizes);
 
-    void onCountryStatusChanged(int group, int position);
+    void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus);
 
     void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition);
 
-    void onCountryOptionsChanged(int group, int position);
+    void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions);
   }
 
   // Should be equal to values from ActiveMapsLayout::TGroup enum
@@ -47,6 +48,7 @@ public class ActiveCountryTree
   public static native void downloadMap(int group, int position, int options);
 
   public static native void deleteMap(int group, int position, int options);
+  public static native Index getCoreIndex(int group, int position);
 
   public static native void showOnMap(int group, int position);
 

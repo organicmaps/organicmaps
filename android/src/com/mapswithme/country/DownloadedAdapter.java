@@ -271,7 +271,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   }
 
   @Override
-  public void onCountryStatusChanged(int group, int position)
+  public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
   {
     onCountryStatusChanged(getAbsolutePosition(group, position));
   }
@@ -283,7 +283,7 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
   }
 
   @Override
-  public void onCountryOptionsChanged(int group, int position)
+  public void onCountryOptionsChanged(int group, int position, int newOpt, int requestOpt)
   {
     notifyDataSetChanged();
   }
