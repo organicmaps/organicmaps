@@ -391,7 +391,10 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
       bindCarRoutingIcon(holder, item);
       sizes = getItemSizes(position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
-      setHolderSizeString(holder, 0, sizes[0]);
+      if(item.getOptions() == StorageOptions.MAP_OPTION_MAP_ONLY)
+        setHolderSizeString(holder, 0, sizes[0]);
+      else
+        setHolderSizeString(holder, 0, sizes[1]);
       setHolderPercentString(holder, mStatusDownloaded, R.color.downloader_gray);
       break;
 
