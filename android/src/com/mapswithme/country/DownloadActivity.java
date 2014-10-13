@@ -125,8 +125,7 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
     if (ActiveCountryTree.isDownloadingActive())
     {
       mMode = MODE_CANCEL_ALL;
-      // TODO text - stop all
-      mAbButton.setText(getString(R.string.cancel));
+      mAbButton.setText(getString(R.string.downloader_cancel_all));
       mAbButton.setTextColor(getResources().getColor(R.color.downloader_red));
       mAbButton.setVisibility(View.VISIBLE);
     }
