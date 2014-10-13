@@ -75,7 +75,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         return;
 
       if (adapter.mActiveAnimationsCount == 0)
-        adapter.fillList();
+        adapter.notifyDataSetChanged();
       else
         adapter.mHandler.postDelayed(this, ANIMATION_LENGTH);
     }
@@ -104,8 +104,6 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     mStatusOutdated = mActivity.getString(R.string.downloader_status_outdated).toUpperCase();
     mStatusNotDownloaded = mActivity.getString(R.string.download).toUpperCase();
   }
-
-  protected abstract void fillList();
 
   public abstract void onItemClick(int position, View view);
 
@@ -391,7 +389,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
       bindCarRoutingIcon(holder, item);
       sizes = getItemSizes(position, StorageOptions.MAP_OPTION_MAP_AND_CAR_ROUTING);
-      if(item.getOptions() == StorageOptions.MAP_OPTION_MAP_ONLY)
+      if (item.getOptions() == StorageOptions.MAP_OPTION_MAP_ONLY)
         setHolderSizeString(holder, 0, sizes[0]);
       else
         setHolderSizeString(holder, 0, sizes[1]);
@@ -611,6 +609,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     {
       // use this hard reset, because of caching different ViewHolders according to item's type
       mHandler.postDelayed(mDatasetChangedRunnable, ANIMATION_LENGTH);
+
+      if (item.getStatus() == MapStorage.DOWNLOAD_FAILED)
+        UiUtils.checkConnectionAndShowAlert(mActivity, String.format(mActivity.getString(R.string.download_country_failed), item.getName()));
     }
   }
 
@@ -733,9 +734,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
           if (status == MapStorage.ON_DISK && options == StorageOptions.MAP_OPTION_MAP_ONLY)
           {
-              String titleShow = mActivity.getString(R.string.downloader_download_routing);
-              // TODO add size
-              menu.add(0, MENU_DOWNLOAD_ROUTING, MENU_DOWNLOAD_ROUTING, titleShow).setOnMenuItemClickListener(menuItemClickListener);
+            String titleShow = mActivity.getString(R.string.downloader_download_routing);
+            // TODO add size
+            menu.add(0, MENU_DOWNLOAD_ROUTING, MENU_DOWNLOAD_ROUTING, titleShow).setOnMenuItemClickListener(menuItemClickListener);
           }
 
           if (status == MapStorage.ON_DISK_OUT_OF_DATE)

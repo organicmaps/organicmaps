@@ -149,12 +149,6 @@ public class DownloadedAdapter extends BaseDownloadAdapter implements ActiveCoun
     return mInProgressCount != 0;
   }
 
-  @Override
-  protected void fillList()
-  {
-    notifyDataSetChanged();
-  }
-
   private int getGroupByAbsPosition(int position)
   {
     final int newGroupEnd = mInProgressCount;

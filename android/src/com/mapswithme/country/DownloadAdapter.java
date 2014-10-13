@@ -7,32 +7,10 @@ import com.mapswithme.maps.guides.GuideInfo;
 
 class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.CountryTreeListener
 {
-  protected CountryItem[] mItems;
-
   public DownloadAdapter(Activity activity)
   {
     super(activity);
     CountryTree.setDefaultRoot();
-    fillList();
-  }
-
-  /**
-   * Get items from native and notify dataset changes.
-   */
-  protected void fillList()
-  {
-    final int count = CountryTree.getChildCount();
-    if (count > 0)
-    {
-      mItems = new CountryItem[count];
-      for (int i = 0; i < count; ++i)
-      {
-        mItems[i] = new CountryItem(CountryTree.getChildName(i), CountryTree.getLeafStatus(i),
-            CountryTree.getLeafOptions(i), !CountryTree.isLeaf(i));
-      }
-    }
-
-    notifyDataSetChanged();
   }
 
   @Override
@@ -54,13 +32,14 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   @Override
   public int getCount()
   {
-    return (mItems != null ? mItems.length : 0);
+    return CountryTree.getChildCount();
   }
 
   @Override
   public CountryItem getItem(int position)
   {
-    return mItems[position];
+    return new CountryItem(CountryTree.getChildName(position), CountryTree.getLeafStatus(position),
+        CountryTree.getLeafOptions(position), !CountryTree.isLeaf(position));
   }
 
   @Override
@@ -74,7 +53,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
   protected void expandGroup(int position)
   {
     CountryTree.setChildAsRoot(position);
-    fillList();
+    notifyDataSetChanged();
   }
 
   @Override
@@ -84,7 +63,7 @@ class DownloadAdapter extends BaseDownloadAdapter implements CountryTree.Country
       return false;
 
     CountryTree.setParentAsRoot();
-    fillList();
+    notifyDataSetChanged();
     return true;
   }
 

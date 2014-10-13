@@ -106,4 +106,10 @@ public class CountryItem
       return DownloadAdapter.TYPE_COUNTRY_IN_PROCESS;
     }
   }
+
+  @Override
+  public String toString()
+  {
+    return "Name : " + mName + "; options : " + mOptions + "; status : " + mStatus + "; has children : " + mHasChildren;
+  }
 }
