@@ -204,9 +204,13 @@ namespace storage
     return CountryByIndex(index).GetFile().GetFileWithoutExt();
   }
 
-  LocalAndRemoteSizeT Storage::CountrySizeInBytes(const TIndex & index, TMapOptions opt) const
+  LocalAndRemoteSizeT Storage::CountrySizeInBytes(TIndex const & index, TMapOptions opt) const
   {
-    return QueuedCountry(*this, index, opt).GetFullSize();
+    LocalAndRemoteSizeT sizes = QueuedCountry(*this, index, opt).GetFullSize();
+    if (m_request != nullptr && m_queue.front().GetIndex() == index)
+      sizes.first = m_request->Progress().first + m_countryProgress.first;
+
+    return sizes;
   }
 
   TStatus Storage::CountryStatus(TIndex const & index) const
