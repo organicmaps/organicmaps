@@ -6553,3 +6553,31 @@
     ar = تحديث الخريطة + تحديد المسار
     de = Karte + Routenplanung aktualisieren
     da = Opdater kort og rutevejledning
+
+
+  [downloader_map_only]
+    tags = ios,android,tizen
+    comment = Item in context menu.
+    en = Map Only
+    ru = Только карта
+    uk = Тільки карта
+    th = แผนที่เท่านั้น
+    pt = Apenas Mapa
+    tr = Sadece harita
+    sk = Iba mapa
+    es = Solo mapa
+    sv = Endast karta
+    pl = Tylko mapa
+    ja = 地図のみ
+    ko = 지도만
+    iw = מפה בלבד
+    hu = Csak térkép
+    it = Solo mappa
+    nl = Alleen de kaart
+    fr = Carte uniquement
+    de = Nur Karte
+    cs = Jenom mapa
+    da = Kun kort
+    ar = الخريطة فقط
+    zh-Hant = 只有地圖
+    zh-Hans = 只有地图
