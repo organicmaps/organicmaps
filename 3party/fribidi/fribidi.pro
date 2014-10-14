@@ -3,7 +3,7 @@
 TEMPLATE = lib
 CONFIG += staticlib
 
-INCLUDEPATH += ./lib
+INCLUDEPATH += ./lib ./
 
 ROOT_DIR = ../..
 

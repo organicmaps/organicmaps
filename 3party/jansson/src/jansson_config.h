@@ -24,7 +24,7 @@
 #ifdef __cplusplus
 #define JSON_INLINE inline
 #else
-#define JSON_INLINE inline
+#define JSON_INLINE
 #endif
 
 /* If your compiler supports the `long long` type and the strtoll()

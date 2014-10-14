@@ -14,6 +14,14 @@
   #else
     #include <sys/fcntl.h>
   #endif
+#else
+  // @TODO what to do with mmap on Windows?
+  #define MAP_FAILED (void*)0
+  #define mmap(a,b,c,d,e,f) MAP_FAILED
+  #define sysconf(a) {}
+  #define open(a,b) {}
+  #define munmap(a,b) MAP_FAILED
+  #define close(a) {}
 #endif
 
 

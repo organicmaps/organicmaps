@@ -31,7 +31,7 @@ CountryStatusDisplay::CountryStatusDisplay(Params const & p)
   bp.m_minHeight = 40;
   bp.m_position = graphics::EPosCenter;
 
-  auto createButtonFn = [this](gui::Button::Params const & params)
+  auto createButtonFn = [this] (gui::Button::Params const & params)
   {
     gui::Button * result = new gui::Button(params);
     result->setIsVisible(false);
@@ -158,7 +158,7 @@ void CountryStatusDisplay::purge()
 
 void CountryStatusDisplay::cache()
 {
-  auto cacheFn = [](gui::Element * e)
+  auto cacheFn = [] (gui::Element * e)
   {
     if (e->isVisible())
       e->cache();
@@ -389,7 +389,7 @@ void CountryStatusDisplay::ComposeElementsForState()
 {
   ASSERT(isVisible(), ());
   int visibleCount = 0;
-  auto visibleCheckFn = [&visibleCount](gui::Element const * e)
+  auto visibleCheckFn = [&visibleCount] (gui::Element const * e)
   {
     if (e->isVisible())
       ++visibleCount;

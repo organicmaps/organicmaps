@@ -698,21 +698,20 @@ void TestingEngine::ModelViewInit()
 
 void TestingEngine::ProjectionInit()
 {
-  float left = m_viewport.GetX0();
-  float right = left + m_viewport.GetWidth();
-  float bottom = m_viewport.GetY0();
-  float top = bottom + m_viewport.GetHeight();
-  float near = -20000.0f;
-  float far = 20000.0f;
+  float const left = m_viewport.GetX0();
+  float const right = left + m_viewport.GetWidth();
+  float const bottom = m_viewport.GetY0();
+  float const top = bottom + m_viewport.GetHeight();
+  float const nearClip = -20000.0f;
+  float const farClip = 20000.0f;
 
-  float m[4 * 4];
-  memset(m, 0, sizeof(m));
+  float m[4 * 4] = {0.};
   m[0]  = 2.0f / (right - left);
   m[3]  = - (right + left) / (right - left);
   m[5]  = 2.0f / (bottom - top);
   m[7]  = - (bottom + top) / (bottom - top);
-  m[10] = -2.0f / (far - near);
-  m[11] = - (far + near) / (far - near);
+  m[10] = -2.0f / (farClip - nearClip);
+  m[11] = - (farClip + nearClip) / (farClip - nearClip);
   m[15] = 1.0;
 
   m_generalUniforms.SetMatrix4x4Value("projection", m);

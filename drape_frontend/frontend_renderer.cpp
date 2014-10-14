@@ -25,15 +25,15 @@ const double VSyncInterval = 0.014;
 //const double InitAvarageTimePerMessage = 0.001;
 #endif
 
-void OrthoMatrix(float * m, float left, float right, float bottom, float top, float near, float far)
+void OrthoMatrix(float * m, float left, float right, float bottom, float top, float nearClip, float farClip)
 {
   memset(m, 0, 16 * sizeof(float));
   m[0]  = 2.0f / (right - left);
   m[3]  = - (right + left) / (right - left);
   m[5]  = 2.0f / (top - bottom);
   m[7]  = - (top + bottom) / (top - bottom);
-  m[10] = -2.0f / (far - near);
-  m[11] = - (far + near) / (far - near);
+  m[10] = -2.0f / (farClip - nearClip);
+  m[11] = - (farClip + nearClip) / (farClip - nearClip);
   m[15] = 1.0;
 }
 

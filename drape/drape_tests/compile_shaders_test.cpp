@@ -131,18 +131,18 @@ UNIT_TEST(CompileShaders_Test)
   ShaderEnumGuard guard;
   QString compilerPath = QString::fromStdString(glslCompilerPath);
   QString shaderType = "-v";
-  auto argsPrepareFn = [&shaderType](QStringList & args, QString const & fileName)
+  auto argsPrepareFn = [&shaderType] (QStringList & args, QString const & fileName)
                        {
                          args << fileName
                               << fileName + ".bin"
                               << shaderType;
                        };
-  auto successComparator = [](QString const & output) { return output.indexOf("Success") != -1; };
+  auto successComparator = [] (QString const & output) { return output.indexOf("Success") != -1; };
 
-  ForEachShader(gpu::VertexEnum, compilerPath, [](QProcess const &){},
+  ForEachShader(gpu::VertexEnum, compilerPath, [] (QProcess const &) {},
                 argsPrepareFn, successComparator, ss);
   shaderType = "-f";
-  ForEachShader(gpu::FragmentEnum, compilerPath,[](QProcess const &){},
+  ForEachShader(gpu::FragmentEnum, compilerPath,[] (QProcess const &) {},
                 argsPrepareFn, successComparator, ss);
 
   TEST_EQUAL(errorLog.isEmpty(), true, (errorLog));
@@ -163,9 +163,9 @@ void TestMaliShaders(QString const & driver,
 
   QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
   env.insert("MALICM_LOCATION", QString::fromStdString(platform.ResourcesDir() + "shaders_compiler/" MALI_DIR));
-  auto procPrepare = [&env](QProcess & p) { p.setProcessEnvironment(env); };
+  auto procPrepare = [&env] (QProcess & p) { p.setProcessEnvironment(env); };
   QString shaderType = "-v";
-  auto argForming = [&](QStringList & args, QString const & fileName)
+  auto argForming = [&] (QStringList & args, QString const & fileName)
   {
     args << shaderType
          << "-V"
@@ -178,7 +178,7 @@ void TestMaliShaders(QString const & driver,
          << fileName;
   };
 
-  auto succesComparator = [](QString const & output)
+  auto succesComparator = [] (QString const & output)
                             {
                               return output.indexOf("Compilation succeeded.") != -1;
                             };

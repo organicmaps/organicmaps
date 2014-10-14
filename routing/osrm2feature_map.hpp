@@ -27,7 +27,7 @@ public:
     uint16_t m_pointStart;
     uint16_t m_pointEnd;
 
-    static constexpr uint32_t INVALID_FID = -1;
+    static const uint32_t INVALID_FID = -1;
 
     // No need to initialize something her (for vector<FtSeg>).
     FtSeg() {}

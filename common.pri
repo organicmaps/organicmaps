@@ -18,8 +18,10 @@ CONFIG -= depend_includepath
 
 CONFIG *= c++11
 
-QMAKE_CFLAGS   *= -Wno-deprecated-register
-QMAKE_CXXFLAGS *= -Wno-deprecated-register
+!win32* {
+  QMAKE_CFLAGS   *= -Wno-deprecated-register
+  QMAKE_CXXFLAGS *= -Wno-deprecated-register
+}
 
 # Automatically enable release config for production
 CONFIG(production) {
@@ -64,10 +66,7 @@ unix|win32-g++|tizen* {
 
 # Add libraries' dependencies.
 for(project, DEPENDENCIES) {
-  equals(project,expat):linux* {
-  } else {
-    PRE_TARGETDEPS += $$BINARIES_PATH/$$LIB_PREFIX$$project$$LIB_EXT
-  }
+  PRE_TARGETDEPS += $$BINARIES_PATH/$$LIB_PREFIX$$project$$LIB_EXT
   LIBS += -l$$project
 }
 
@@ -84,9 +83,9 @@ win32 {
 
 win32-msvc* {
   QMAKE_CLEAN += *.user
-  DEFINES += _SCL_SECURE_NO_WARNINGS _CRT_SECURE_NO_WARNINGS _CRT_NONSTDC_NO_WARNINGS NOMINMAX NO_MIN_MAX
-  QMAKE_CXXFLAGS += /Fd$${DESTDIR}/$${TARGET}.pdb /Zi /fp:fast
-  QMAKE_CFLAGS += /Fd$${DESTDIR}/$${TARGET}.pdb /Zi /fp:fast
+  DEFINES += _SCL_SECURE_NO_WARNINGS _CRT_SECURE_NO_WARNINGS _CRT_NONSTDC_NO_WARNINGS NOMINMAX NO_MIN_MAX _USE_MATH_DEFINES BOOST_ALL_NO_LIB
+  QMAKE_CXXFLAGS += /Zi /fp:fast
+  QMAKE_CFLAGS += /Zi /fp:fast
 
   QMAKE_CXXFLAGS_RELEASE -= /O2
   # don't set -GL - bug in msvc2008
@@ -95,7 +94,7 @@ win32-msvc* {
   QMAKE_LFLAGS_RELEASE += /MACHINE:X86
 
   QMAKE_LFLAGS *= /OPT:REF
-  QMAKE_LFLAGS_RELEASE *= /OPT:ICF
+  QMAKE_LFLAGS_RELEASE *= /OPT:REF,ICF
   QMAKE_LFLAGS_DEBUG *= /OPT:NOICF
 
   CONFIG(release, debug|release) {
@@ -105,8 +104,10 @@ win32-msvc* {
 
 win32-msvc201* {
   # disable tr1 and c++0x features to avoid build errors
-  DEFINES += _HAS_CPP0X=0
-  DEFINES += BOOST_NO_CXX11_HDR_ARRAY BOOST_NO_CXX11_HDR_TYPEINDEX BOOST_NO_CXX11_SMART_PTR
+#  DEFINES += _HAS_CPP0X=0
+#  DEFINES += BOOST_NO_CXX11_HDR_ARRAY BOOST_NO_CXX11_HDR_TYPEINDEX BOOST_NO_CXX11_SMART_PTR
+  QMAKE_CFLAGS *= /wd4100
+  QMAKE_CXXFLAGS *= /wd4100
   QMAKE_CFLAGS_RELEASE += /GL
   QMAKE_CXXFLAGS_RELEASE += /GL
   QMAKE_LFLAGS_RELEASE += /LTCG

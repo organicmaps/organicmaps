@@ -75,21 +75,22 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
 
   /// FrameCommands could contain commands from the previous frame if
   /// the processed pipeline is allowed to be executed partially.
-  if (m_Pipelines[pipelineNum].m_FrameCommands.empty())
-    m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderer::PacketsPipeline::FillFrameCommands, &m_Pipelines[pipelineNum], _1, 1));
+  PacketsPipeline & ppl = m_Pipelines[pipelineNum];
+  if (ppl.m_FrameCommands.empty())
+    ppl.m_Queue.processList([&ppl] (list<graphics::Packet> & queueData) { ppl.FillFrameCommands(queueData, 1); });
 
-  cmdProcessed = m_Pipelines[pipelineNum].m_FrameCommands.size();
+  cmdProcessed = ppl.m_FrameCommands.size();
 
   list<graphics::Packet>::iterator it;
 
-  bool res = !m_Pipelines[pipelineNum].m_FrameCommands.empty();
-  bool partialExecution = m_Pipelines[pipelineNum].m_CouldExecutePartially;
+  bool res = !ppl.m_FrameCommands.empty();
+  bool partialExecution = ppl.m_CouldExecutePartially;
 
-  graphics::Packet::EType bucketType = m_Pipelines[pipelineNum].m_Type;
+  graphics::Packet::EType bucketType = ppl.m_Type;
 
-  while (!m_Pipelines[pipelineNum].m_FrameCommands.empty())
+  while (!ppl.m_FrameCommands.empty())
   {
-    it = m_Pipelines[pipelineNum].m_FrameCommands.begin();
+    it = ppl.m_FrameCommands.begin();
     if (it->m_command)
     {
       it->m_command->setRenderContext(m_RenderContext.get());
@@ -111,7 +112,7 @@ bool QueuedRenderer::RenderQueuedCommands(int pipelineNum)
 
     bool isCheckpoint = (it->m_type == graphics::Packet::ECheckPoint);
 
-    m_Pipelines[pipelineNum].m_FrameCommands.pop_front();
+    ppl.m_FrameCommands.pop_front();
 
     /// if we found a checkpoint instead of frameboundary and this
     /// pipeline is allowed to be partially executed we are
@@ -180,7 +181,7 @@ void QueuedRenderer::PacketsPipeline::FillFrameCommands(list<graphics::Packet> &
   }
 }
 
-void QueuedRenderer::CopyQueuedCommands(list<graphics::Packet> &l, list<graphics::Packet> &r)
+void QueuedRenderer::CopyQueuedCommands(list<graphics::Packet> & l, list<graphics::Packet> & r)
 {
   swap(l, r);
 }
@@ -189,14 +190,12 @@ void QueuedRenderer::CancelQueuedCommands(int pipelineNum)
 {
   m_Pipelines[pipelineNum].m_Queue.cancel();
 
-  list<graphics::Packet> l;
+  list<graphics::Packet> r;
 
-  m_Pipelines[pipelineNum].m_Queue.processList(bind(&QueuedRenderer::CopyQueuedCommands, this, _1, ref(l)));
+  m_Pipelines[pipelineNum].m_Queue.processList([this, &r] (list<graphics::Packet> & l) { CopyQueuedCommands(l, r); });
 
-  for (list<graphics::Packet>::iterator it = l.begin(); it != l.end(); ++it)
+  for (graphics::Packet const & p : r)
   {
-    graphics::Packet p = *it;
-
     if (p.m_command)
       p.m_command->cancel();
   }

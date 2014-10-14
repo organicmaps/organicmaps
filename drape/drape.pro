@@ -17,6 +17,8 @@ include($$ROOT_DIR/common.pri)
 DRAPE_DIR = .
 include($$DRAPE_DIR/drape_common.pri)
 
+INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
+
 SOURCES += glfunctions.cpp
 
 OTHER_FILES += \

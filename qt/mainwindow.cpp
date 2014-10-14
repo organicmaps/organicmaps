@@ -50,7 +50,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
 {
   m_pDrawWidget = new DrawWidget(this);
   shared_ptr<location::State> locState = m_pDrawWidget->GetFramework().GetLocationState();
-  locState->AddStateModeListener([this](location::State::Mode mode)
+  locState->AddStateModeListener([this] (location::State::Mode mode)
                                  {
                                     LocationStateModeChanged(mode);
                                  });
@@ -71,7 +71,7 @@ MainWindow::MainWindow() : m_locationService(CreateDesktopLocationService(*this)
 #else
   {
     // create items in the system menu
-    HMENU menu = ::GetSystemMenu(winId(), FALSE);
+    HMENU menu = ::GetSystemMenu((HWND)winId(), FALSE);
     MENUITEMINFOA item;
     item.cbSize = sizeof(MENUITEMINFOA);
     item.fMask = MIIM_FTYPE | MIIM_ID | MIIM_STRING;

@@ -62,12 +62,18 @@ void ReadManager::UpdateCoverage(ScreenBase const & screen, set<TileKey> const &
   {
     // Find rects that go out from viewport
     buffer_vector<tileinfo_ptr, 8> outdatedTiles;
+#ifdef _MSC_VER
+    vs_bug::
+#endif
     set_difference(m_tileInfos.begin(), m_tileInfos.end(),
                    tiles.begin(), tiles.end(),
                    back_inserter(outdatedTiles), LessCoverageCell());
 
     // Find rects that go in into viewport
     buffer_vector<TileKey, 8> inputRects;
+#ifdef _MSC_VER
+    vs_bug::
+#endif
     set_difference(tiles.begin(), tiles.end(),
                    m_tileInfos.begin(), m_tileInfos.end(),
                    back_inserter(inputRects), LessCoverageCell());

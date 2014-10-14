@@ -16,6 +16,8 @@ win32 {
 }
 macx-*: LIBS *= "-framework Foundation"
 
+INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
+
 HEADERS += \
 
 SOURCES += \

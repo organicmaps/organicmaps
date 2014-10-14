@@ -6,12 +6,7 @@ CONFIG += staticlib warn_on
 
 ROOT_DIR = ..
 
-
-INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src
-# use expat from the system on linux
-!linux*: INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
-INCLUDEPATH *= $$ROOT_DIR/3party/expat/lib
-
+INCLUDEPATH *= $$ROOT_DIR/3party/protobuf/src $$ROOT_DIR/3party/expat/lib
 
 include($$ROOT_DIR/common.pri)
 

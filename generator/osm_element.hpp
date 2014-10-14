@@ -269,7 +269,7 @@ class SecondPassParser : public BaseOSMParser
         ft.AddPoint(pts[i]);
 
       ft.AddOsmId(osm::Id::Relation(m_relID));
-      m_pMain->EmitArea(ft, m_params, [this](FeatureBuilderT & ft)
+      m_pMain->EmitArea(ft, m_params, [this] (FeatureBuilderT & ft)
       {
         ft.SetAreaAddHoles(m_holes);
       });

@@ -55,7 +55,7 @@ void ActiveMapsLayout::Init(vector<string> const & maps)
     }
   }
 
-  auto comparatorFn = [&storage](Item const & lhs, Item const & rhs)
+  auto comparatorFn = [&storage] (Item const & lhs, Item const & rhs)
   {
     if (lhs.m_status != rhs.m_status)
       return lhs.m_status > rhs.m_status;
@@ -66,7 +66,7 @@ void ActiveMapsLayout::Init(vector<string> const & maps)
   };
 
   sort(m_items.begin(), m_items.end(), comparatorFn);
-  auto uniqPredicate = [](Item const & item1, Item const & item2)
+  auto uniqPredicate = [] (Item const & item1, Item const & item2)
   {
     return item1.m_index == item2.m_index;
   };
@@ -327,7 +327,7 @@ string const ActiveMapsLayout::GetFormatedCountryName(TIndex const & index)
 
 bool ActiveMapsLayout::IsDownloadingActive() const
 {
-  auto iter = find_if(m_items.begin(), m_items.end(), [](Item const & item)
+  auto iter = find_if(m_items.begin(), m_items.end(), [] (Item const & item)
   {
     return item.m_status == TStatus::EDownloading || item.m_status == TStatus::EInQueue;
   });
@@ -486,7 +486,7 @@ int ActiveMapsLayout::GetStartIndexInGroup(TGroup const & group) const
 
 ActiveMapsLayout::Item * ActiveMapsLayout::FindItem(TIndex const & index)
 {
-  vector<Item>::iterator iter = find_if(m_items.begin(), m_items.end(), [&index](Item const & item)
+  vector<Item>::iterator iter = find_if(m_items.begin(), m_items.end(), [&index] (Item const & item)
   {
     return item.m_index == index;
   });
@@ -499,7 +499,7 @@ ActiveMapsLayout::Item * ActiveMapsLayout::FindItem(TIndex const & index)
 
 ActiveMapsLayout::Item const * ActiveMapsLayout::FindItem(TIndex const & index) const
 {
-  vector<Item>::const_iterator iter = find_if(m_items.begin(), m_items.end(), [&index](Item const & item)
+  vector<Item>::const_iterator iter = find_if(m_items.begin(), m_items.end(), [&index] (Item const & item)
   {
     return item.m_index == index;
   });
@@ -569,12 +569,12 @@ int ActiveMapsLayout::InsertInGroup(TGroup const & group, Item const & item)
   }
 
   Storage & st = m_framework.Storage();
-  sort(startSort, endSort, [&](Item const & lhs, Item const & rhs)
+  sort(startSort, endSort, [&] (Item const & lhs, Item const & rhs)
   {
     return st.CountryName(lhs.m_index) < st.CountryName(rhs.m_index);
   });
 
-  TItemIter newPosIter = find_if(startSort, endSort, [&item](Item const & it)
+  TItemIter newPosIter = find_if(startSort, endSort, [&item] (Item const & it)
   {
     return it.m_index == item.m_index;
   });

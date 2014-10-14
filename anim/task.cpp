@@ -37,7 +37,7 @@ namespace anim
   void Task::PerformCallbacks(EState state)
   {
     list<TCallback> const & cb = m_Callbacks[state];
-    for_each(cb.begin(), cb.end(), [] (TCallback const & cb) { cb(); });
+    for_each(cb.begin(), cb.end(), [] (TCallback const & el) { el(); });
   }
 
   void Task::OnStart(double ts)

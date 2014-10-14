@@ -133,13 +133,13 @@ void InformationDisplay::setController(gui::Controller * controller)
 
   m_controller->AddElement(m_copyrightLabel);
   shared_ptr<anim::Task> task(new AlfaAnimationTask(1.0, 0.0, 0.15, 3.0, m_framework));
-  task->AddCallback(anim::Task::EEnded, [this]()
+  task->AddCallback(anim::Task::EEnded, [this] ()
                                         {
                                           m_controller->RemoveElement(m_copyrightLabel);
                                           m_copyrightLabel.reset();
                                         });
 
-  m_copyrightLabel->setAnimated([task]()
+  m_copyrightLabel->setAnimated([task] ()
                                 {
                                   AlfaAnimationTask * t = static_cast<AlfaAnimationTask *>(task.get());
                                   return t->GetCurrentAlfa();

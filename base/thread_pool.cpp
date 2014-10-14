@@ -95,7 +95,7 @@ namespace threads
       }
 
       m_threads.clear();
-      m_tasks.ProcessList(bind(&ThreadPool::Impl::FinishTasksOnStop, this, _1));
+      m_tasks.ProcessList([this] (list<threads::IRoutine *> & tasks) { FinishTasksOnStop(tasks); });
       m_tasks.Clear();
     }
 

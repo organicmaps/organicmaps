@@ -361,14 +361,20 @@ void CoverageGenerator::ComputeCoverTasks()
   size_t firstTileForAdd = 0;
   buffer_vector<const Tile *, 64> diff_tiles;
   diff_tiles.reserve(m_coverageInfo.m_tiles.size() + tiles.size());
+#ifdef _MSC_VER
+    vs_bug::
+#endif
   set_difference(m_coverageInfo.m_tiles.begin(), m_coverageInfo.m_tiles.end(),
                  tiles.begin(), tiles.end(),
-                 back_inserter(diff_tiles), CoverageInfo::TTileSet::key_compare());
+                 back_inserter(diff_tiles), tiles.key_comp());
 
   firstTileForAdd = diff_tiles.size();
+#ifdef _MSC_VER
+    vs_bug::
+#endif
   set_difference(tiles.begin(), tiles.end(),
                  m_coverageInfo.m_tiles.begin(), m_coverageInfo.m_tiles.end(),
-                 back_inserter(diff_tiles), CoverageInfo::TTileSet::key_compare());
+                 back_inserter(diff_tiles), tiles.key_comp());
 
   for (size_t i = 0; i < firstTileForAdd; ++i)
     tileCache.UnlockTile(diff_tiles[i]->m_rectInfo);

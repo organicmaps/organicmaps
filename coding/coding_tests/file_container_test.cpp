@@ -279,7 +279,12 @@ UNIT_TEST(FilesMappingContainer_PageSize)
 {
   string const fName = "file_container.tmp";
 
-  size_t const pageSize = sysconf(_SC_PAGE_SIZE);
+  size_t const pageSize =
+#ifndef OMIM_OS_WINDOWS
+      sysconf(_SC_PAGE_SIZE);
+#else
+      4096;
+#endif
   LOG(LINFO, ("Page size:", pageSize));
 
   char const * key[] = { "3", "2", "1" };

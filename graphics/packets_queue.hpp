@@ -121,13 +121,13 @@ namespace graphics
     void cancelCommands();
 
     template <typename Fn>
-    void processFn(Fn fn, bool performOnCancel = false)
+    void processFn(Fn const & fn, bool performOnCancel = false)
     {
       processPacket(Packet(make_shared<FunctorCommand<Fn>>(fn), Packet::ECommand));
     }
 
     template <typename Fn>
-    void processList(Fn fn)
+    void processList(Fn const & fn)
     {
       m_packets.ProcessList(fn);
     }

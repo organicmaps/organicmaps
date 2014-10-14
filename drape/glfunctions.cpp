@@ -6,6 +6,9 @@
 
 #include "../std/cstring.hpp"
 
+#ifndef OMIM_OS_WINDOWS
+#define APIENTRY
+#endif
 
 namespace
 {
@@ -14,58 +17,58 @@ namespace
     return (v == true) ? GL_TRUE : GL_FALSE;
   }
 
-  void (*glClearColorFn)(GLfloat r, GLfloat g, GLfloat b, GLfloat a)                                      = NULL;
-  void (*glClearFn)(GLbitfield mask)                                                                      = NULL;
-  void (*glViewportFn)(GLint x, GLint y, GLsizei w, GLsizei h)                                            = NULL;
-  void (*glFlushFn)()                                                                                     = NULL;
+  void (APIENTRY *glClearColorFn)(GLfloat r, GLfloat g, GLfloat b, GLfloat a)                                      = NULL;
+  void (APIENTRY *glClearFn)(GLbitfield mask)                                                                      = NULL;
+  void (APIENTRY *glViewportFn)(GLint x, GLint y, GLsizei w, GLsizei h)                                            = NULL;
+  void (APIENTRY *glFlushFn)()                                                                                     = NULL;
 
-  void (*glBindFramebufferFn)(GLenum target, GLuint id)                                                   = NULL;
+  void (APIENTRY *glBindFramebufferFn)(GLenum target, GLuint id)                                                   = NULL;
 
   /// VAO
-  void (*glGenVertexArraysFn)(GLsizei n, GLuint * ids)                                                    = NULL;
-  void (*glBindVertexArrayFn)(GLuint id)                                                                  = NULL;
-  void (*glDeleteVertexArrayFn)(GLsizei n, GLuint const * ids)                                            = NULL;
+  void (APIENTRY *glGenVertexArraysFn)(GLsizei n, GLuint * ids)                                                    = NULL;
+  void (APIENTRY *glBindVertexArrayFn)(GLuint id)                                                                  = NULL;
+  void (APIENTRY *glDeleteVertexArrayFn)(GLsizei n, GLuint const * ids)                                            = NULL;
 
   /// VBO
-  void (*glGenBuffersFn)(GLsizei n, GLuint * buffers)                                                     = NULL;
-  void (*glBindBufferFn)(GLenum target, GLuint buffer)                                                    = NULL;
-  void (*glDeleteBuffersFn)(GLsizei n, GLuint const * buffers)                                            = NULL;
-  void (*glBufferDataFn)(GLenum target, GLsizeiptr size, GLvoid const * data, GLenum usage)               = NULL;
-  void (*glBufferSubDataFn)(GLenum target, GLintptr offset, GLsizeiptr size, GLvoid const * data)         = NULL;
-  void * (*glMapBufferFn)(GLenum target, GLenum access)                                                   = NULL;
-  GLboolean (*glUnmapBufferFn)(GLenum target)                                                             = NULL;
+  void (APIENTRY *glGenBuffersFn)(GLsizei n, GLuint * buffers)                                                     = NULL;
+  void (APIENTRY *glBindBufferFn)(GLenum target, GLuint buffer)                                                    = NULL;
+  void (APIENTRY *glDeleteBuffersFn)(GLsizei n, GLuint const * buffers)                                            = NULL;
+  void (APIENTRY *glBufferDataFn)(GLenum target, GLsizeiptr size, GLvoid const * data, GLenum usage)               = NULL;
+  void (APIENTRY *glBufferSubDataFn)(GLenum target, GLintptr offset, GLsizeiptr size, GLvoid const * data)         = NULL;
+  void * (APIENTRY *glMapBufferFn)(GLenum target, GLenum access)                                                   = NULL;
+  GLboolean (APIENTRY *glUnmapBufferFn)(GLenum target)                                                             = NULL;
 
   /// Shaders
-  GLuint (*glCreateShaderFn)(GLenum type)                                                                 = NULL;
-  void (*glShaderSourceFn)(GLuint shaderID, GLsizei count, GLchar const ** string, GLint const * length)  = NULL;
-  void (*glCompileShaderFn)(GLuint shaderID)                                                              = NULL;
-  void (*glDeleteShaderFn)(GLuint shaderID)                                                               = NULL;
-  void (*glGetShaderivFn)(GLuint shaderID, GLenum name, GLint * p)                                        = NULL;
-  void (*glGetShaderInfoLogFn)(GLuint shaderID, GLsizei maxLength, GLsizei * length, GLchar * infoLog)    = NULL;
+  GLuint (APIENTRY *glCreateShaderFn)(GLenum type)                                                                 = NULL;
+  void (APIENTRY *glShaderSourceFn)(GLuint shaderID, GLsizei count, GLchar const ** string, GLint const * length)  = NULL;
+  void (APIENTRY *glCompileShaderFn)(GLuint shaderID)                                                              = NULL;
+  void (APIENTRY *glDeleteShaderFn)(GLuint shaderID)                                                               = NULL;
+  void (APIENTRY *glGetShaderivFn)(GLuint shaderID, GLenum name, GLint * p)                                        = NULL;
+  void (APIENTRY *glGetShaderInfoLogFn)(GLuint shaderID, GLsizei maxLength, GLsizei * length, GLchar * infoLog)    = NULL;
 
-  GLuint (*glCreateProgramFn)()                                                                           = NULL;
-  void (*glAttachShaderFn)(GLuint programID, GLuint shaderID)                                             = NULL;
-  void (*glDetachShaderFn)(GLuint programID, GLuint shaderID)                                             = NULL;
-  void (*glLinkProgramFn)(GLuint programID)                                                               = NULL;
-  void (*glDeleteProgramFn)(GLuint programID)                                                             = NULL;
-  void (*glGetProgramivFn)(GLuint programID, GLenum name, GLint * p)                                      = NULL;
-  void (*glGetProgramInfoLogFn)(GLuint programID, GLsizei maxLength, GLsizei * length, GLchar * infoLog)  = NULL;
+  GLuint (APIENTRY *glCreateProgramFn)()                                                                           = NULL;
+  void (APIENTRY *glAttachShaderFn)(GLuint programID, GLuint shaderID)                                             = NULL;
+  void (APIENTRY *glDetachShaderFn)(GLuint programID, GLuint shaderID)                                             = NULL;
+  void (APIENTRY *glLinkProgramFn)(GLuint programID)                                                               = NULL;
+  void (APIENTRY *glDeleteProgramFn)(GLuint programID)                                                             = NULL;
+  void (APIENTRY *glGetProgramivFn)(GLuint programID, GLenum name, GLint * p)                                      = NULL;
+  void (APIENTRY *glGetProgramInfoLogFn)(GLuint programID, GLsizei maxLength, GLsizei * length, GLchar * infoLog)  = NULL;
 
-  void (*glUseProgramFn)(GLuint programID)                                                                = NULL;
-  GLint (*glGetAttribLocationFn)(GLuint program, GLchar const * name)                                     = NULL;
-  void (*glBindAttribLocationFn)(GLuint program, GLuint index, GLchar const * name)                       = NULL;
+  void (APIENTRY *glUseProgramFn)(GLuint programID)                                                                = NULL;
+  GLint (APIENTRY *glGetAttribLocationFn)(GLuint program, GLchar const * name)                                     = NULL;
+  void (APIENTRY *glBindAttribLocationFn)(GLuint program, GLuint index, GLchar const * name)                       = NULL;
 
-  void (*glEnableVertexAttributeFn)(GLuint location)                                                      = NULL;
-  void (*glVertexAttributePointerFn)(GLuint index,
+  void (APIENTRY *glEnableVertexAttributeFn)(GLuint location)                                                      = NULL;
+  void (APIENTRY *glVertexAttributePointerFn)(GLuint index,
                                      GLint count,
                                      GLenum type,
                                      GLboolean normalize,
                                      GLsizei stride,
                                      GLvoid const * p)                                                    = NULL;
 
-  GLint (*glGetUniformLocationFn)(GLuint programID, GLchar const * name)                                  = NULL;
+  GLint (APIENTRY *glGetUniformLocationFn)(GLuint programID, GLchar const * name)                                  = NULL;
 
-  void (*glGetActiveUniformFn)(GLuint programID,
+  void (APIENTRY *glGetActiveUniformFn)(GLuint programID,
                                GLuint uniformIndex,
                                GLsizei bufSize,
                                GLsizei * length,
@@ -73,19 +76,19 @@ namespace
                                GLenum * type,
                                GLchar * name)                                                             = NULL;
 
-  void (*glUniform1iFn)(GLint location, GLint value)                                                      = NULL;
-  void (*glUniform2iFn)(GLint location, GLint v1, GLint v2)                                               = NULL;
-  void (*glUniform3iFn)(GLint location, GLint v1, GLint v2, GLint v3)                                     = NULL;
-  void (*glUniform4iFn)(GLint location, GLint v1, GLint v2, GLint v3, GLint v4)                           = NULL;
-  void (*glUniform1ivFn)(GLint location, GLsizei count, GLint const * value)                              = NULL;
+  void (APIENTRY *glUniform1iFn)(GLint location, GLint value)                                                      = NULL;
+  void (APIENTRY *glUniform2iFn)(GLint location, GLint v1, GLint v2)                                               = NULL;
+  void (APIENTRY *glUniform3iFn)(GLint location, GLint v1, GLint v2, GLint v3)                                     = NULL;
+  void (APIENTRY *glUniform4iFn)(GLint location, GLint v1, GLint v2, GLint v3, GLint v4)                           = NULL;
+  void (APIENTRY *glUniform1ivFn)(GLint location, GLsizei count, GLint const * value)                              = NULL;
 
-  void (*glUniform1fFn)(GLint location, GLfloat value)                                                    = NULL;
-  void (*glUniform2fFn)(GLint location, GLfloat v1, GLfloat v2)                                           = NULL;
-  void (*glUniform3fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3)                               = NULL;
-  void (*glUniform4fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4)                   = NULL;
-  void (*glUniform1fvFn)(GLint location, GLsizei count, GLfloat const * value)                            = NULL;
+  void (APIENTRY *glUniform1fFn)(GLint location, GLfloat value)                                                    = NULL;
+  void (APIENTRY *glUniform2fFn)(GLint location, GLfloat v1, GLfloat v2)                                           = NULL;
+  void (APIENTRY *glUniform3fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3)                               = NULL;
+  void (APIENTRY *glUniform4fFn)(GLint location, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4)                   = NULL;
+  void (APIENTRY *glUniform1fvFn)(GLint location, GLsizei count, GLfloat const * value)                            = NULL;
 
-  void (*glUniformMatrix4fvFn)(GLint location, GLsizei count, GLboolean transpose, GLfloat const * value) = NULL;
+  void (APIENTRY *glUniformMatrix4fvFn)(GLint location, GLsizei count, GLboolean transpose, GLfloat const * value) = NULL;
 
   int const GLCompileStatus = GL_COMPILE_STATUS;
   int const GLLinkStatus = GL_LINK_STATUS;
@@ -126,7 +129,7 @@ void GLFunctions::Init()
 
   /// Shaders
   glCreateShaderFn = &::glCreateShader;
-  typedef void (*glShaderSource_Type)(GLuint shaderID, GLsizei count, GLchar const ** string, GLint const * length);
+  typedef void (APIENTRY *glShaderSource_Type)(GLuint shaderID, GLsizei count, GLchar const ** string, GLint const * length);
   glShaderSourceFn = reinterpret_cast<glShaderSource_Type>(&::glShaderSource);
   glCompileShaderFn = &::glCompileShader;
   glDeleteShaderFn = &::glDeleteShader;

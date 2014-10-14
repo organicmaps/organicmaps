@@ -20,11 +20,10 @@ QT *= core
 DRAPE_DIR = ..
 include($$DRAPE_DIR/drape_common.pri)
 
-INCLUDEPATH += $$ROOT_DIR/3party/gmock/include $$ROOT_DIR/3party/gmock/gtest/include
+INCLUDEPATH *= $$ROOT_DIR/3party/gmock/include $$ROOT_DIR/3party/gmock/gtest/include $$ROOT_DIR/3party/expat/lib
 
-macx-* {
-  LIBS *= "-framework CoreLocation" "-framework Foundation"
-}
+win32* : LIBS *= -lShell32
+macx-* : LIBS *= "-framework CoreLocation" "-framework Foundation"
 
 SOURCES += \
     glfunctions.cpp \

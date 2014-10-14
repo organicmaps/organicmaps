@@ -175,7 +175,7 @@
 # endif // _PTHREADS
 
 # ifdef _WIN32THREADS
-#   include <windows.h>
+#   include "../../std/windows.hpp"
 /**
  * Macro alias to `volatile' semantics.  Here it is truly volatile since
  * it is in a multi-threaded (Win32 threads) environment.

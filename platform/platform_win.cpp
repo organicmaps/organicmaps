@@ -127,7 +127,7 @@ Platform::TStorageStatus Platform::GetWritableStorageStatus(uint64_t neededSize)
     return STORAGE_DISCONNECTED;
   }
 
-  if (freeSpace.u.LowPart + (freeSpace.u.HighPart << 32) < neededSize)
+  if (freeSpace.u.LowPart + (static_cast<uint64_t>(freeSpace.u.HighPart) << 32) < neededSize)
     return NOT_ENOUGH_SPACE;
 
   return STORAGE_OK;

@@ -176,18 +176,18 @@ void GeneratePackedBorders(string const & baseDir)
 
 void ExportOSMPolylines(string const & outDir, CountriesContainerT const & countries)
 {
-  countries.ForEach( [&](CountryPolygons const & cp)
+  countries.ForEach( [&] (CountryPolygons const & cp)
   {
     // .poly file format described here: http://wiki.openstreetmap.org/wiki/Osmosis/Polygon_Filter_File_Format
     ostringstream stream;
     stream << cp.m_name << endl;
 
     size_t regionNumber = 0;
-    cp.m_regions.ForEach( [&](Region const & r)
+    cp.m_regions.ForEach( [&] (Region const & r)
     {
       stream << ++regionNumber << endl;
 
-      r.ForEachPoint( [&](m2::PointD const & pt)
+      r.ForEachPoint( [&] (m2::PointD const & pt)
       {
         stream << '\t' << std::scientific << MercatorBounds::XToLon(pt.x) << '\t' << MercatorBounds::YToLat(pt.y) << endl;
       } );

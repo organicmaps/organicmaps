@@ -283,7 +283,10 @@ class GFLAGS_DLL_DECL FlagSaver {
   FlagSaver(const FlagSaver&);  // no copying!
   void operator=(const FlagSaver&);
 }
-__attribute__ ((unused));
+#ifndef _MSC_VER
+__attribute__ ((unused))
+#endif
+;
 
 // --------------------------------------------------------------------
 // Some deprecated or hopefully-soon-to-be-deprecated functions.

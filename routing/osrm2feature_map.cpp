@@ -163,7 +163,7 @@ void OsrmFtSegMapping::DumpSegmentByNode(OsrmNodeIdT nodeId) const
 
 void OsrmFtSegMapping::GetOsrmNodes(FtSegSetT & segments, OsrmNodesT & res, volatile bool const & requestCancel) const
 {
-  auto addResFn = [&](uint64_t seg, size_t idx, bool forward)
+  auto addResFn = [&] (uint64_t seg, size_t idx, bool forward)
   {
     OsrmNodeIdT const nodeId = GetNodeId(idx);
     auto it = res.insert({ seg, { forward ? nodeId : INVALID_NODE_ID,

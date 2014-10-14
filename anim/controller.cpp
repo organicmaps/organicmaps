@@ -22,7 +22,7 @@ namespace anim
 
   void Controller::AddTask(TTaskPtr const & task)
   {
-    m_tasks.ProcessList([&](TTasks & taskList)
+    m_tasks.ProcessList([&] (TTasks & taskList)
     {
       taskList.push_back(task);
       task->SetController(this);
@@ -57,7 +57,7 @@ namespace anim
 
   void Controller::PerformStep()
   {
-    m_tasks.ProcessList([this](TTasks & from)
+    m_tasks.ProcessList([this] (TTasks & from)
     {
       m_tasksList.clear();
       swap(from, m_tasksList);
@@ -93,9 +93,9 @@ namespace anim
     }
 
     m_hasVisualTasks = false;
-    m_tasks.ProcessList([&](TTasks & to)
+    m_tasks.ProcessList([&] (TTasks & to)
     {
-      for_each(resultList.begin(), resultList.end(), [&](TTaskPtr const & task)
+      for_each(resultList.begin(), resultList.end(), [&] (TTaskPtr const & task)
       {
         m_hasVisualTasks |= task->IsVisual();
         to.push_back(task);

@@ -8,7 +8,7 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src \
+INCLUDEPATH *= $$ROOT_DIR/3party/gflags/src $$ROOT_DIR/3party/expat/lib \
                $$ROOT_DIR/3party/osrm/osrm-backend/Include
 
 QT *= core

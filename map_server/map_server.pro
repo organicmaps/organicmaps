@@ -23,6 +23,7 @@ macx* {
   LIBS *= "-framework Foundation" "-framework CoreWLAN" \
           "-framework QuartzCore" "-framework IOKit"
 }
+win32* : LIBS *= -lshell32
 
 SOURCES += main.cpp \
     render_context.cpp \

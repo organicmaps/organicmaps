@@ -24,6 +24,7 @@ namespace threads
       virtual void Wait() = 0;
       virtual bool Wait(unsigned ms) = 0;
       virtual void Lock() = 0;
+      virtual bool TryLock() = 0;
       virtual void Unlock() = 0;
     };
 
@@ -274,6 +275,11 @@ namespace threads
   void Condition::Lock()
   {
     m_pImpl->Lock();
+  }
+
+  bool Condition::TryLock()
+  {
+    return m_pImpl->TryLock();
   }
 
   void Condition::Unlock()

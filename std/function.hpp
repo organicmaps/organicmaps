@@ -5,7 +5,7 @@
 #undef new
 #endif
 
-#if (__cplusplus > 199711L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
+#ifdef CPP11_IS_SUPPORTED
 
   #include <functional>
   using std::function;

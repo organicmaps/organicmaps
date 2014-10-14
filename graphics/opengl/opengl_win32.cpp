@@ -58,6 +58,9 @@ namespace graphics
 #include "gl_procedures.inl"
 #undef DEFINE_GL_PROC
 
+      // glFlush is a globally defined function
+      glFlushFn = &glFlush;
+
       graphics::gl::g_isBufferObjectsSupported = glBindBufferFn
                                         && glGenBuffersFn
                                         && glBufferDataFn

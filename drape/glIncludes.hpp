@@ -8,6 +8,11 @@
 #elif defined(OMIM_OS_MAC)
   #include <OpenGL/gl.h>
   #include <OpenGL/glext.h>
+#elif defined(OMIM_OS_WINDOWS)
+  #include "../std/windows.hpp"
+  #define GL_GLEXT_PROTOTYPES
+  #include <GL/gl.h>
+  #include "../3party/GL/glext.h"
 #else
   #define GL_GLEXT_PROTOTYPES
   #include <GL/gl.h>

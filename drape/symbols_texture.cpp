@@ -138,7 +138,7 @@ void SymbolsTexture::Load(string const & skinPathName)
 
     {
       ReaderPtr<Reader> reader = GetPlatform().GetReader(skinPathName + ".png");
-      uint64_t size = reader.Size();
+      size_t const size = reader.Size();
       rawData.resize(size);
       reader.Read(0, &rawData[0], size);
     }

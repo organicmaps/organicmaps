@@ -7,10 +7,7 @@ ROOT_DIR = ..
 
 include($$ROOT_DIR/common.pri)
 
-INCLUDEPATH *= ../3party/tomcrypt/src/headers ../3party/zlib
-
-# use expat from the system on linux
-!linux*: INCLUDEPATH *= ../3party/expat/lib
+INCLUDEPATH *= $$ROOT_DIR/3party/tomcrypt/src/headers $$ROOT_DIR/3party/zlib $$ROOT_DIR/3party/expat/lib
 
 SOURCES += \
     internal/file_data.cpp \

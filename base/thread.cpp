@@ -1,9 +1,7 @@
 #include "thread.hpp"
 #include "assert.hpp"
 
-#if defined(OMIM_OS_WINDOWS_NATIVE)
-  #include "../std/windows.hpp"
-#else
+#if !defined(OMIM_OS_WINDOWS_NATIVE)
   #include <pthread.h>
   #if defined (OMIM_OS_ANDROID)
     /// External implementations are in android/jni code

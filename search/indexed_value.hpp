@@ -64,7 +64,7 @@ void SortByIndexedValue(vector<T> & vec, CompFactory factory)
   }
 
   // prepare combined criteria
-  for_each(vec.begin(), vec.end(), bind(&IndexedValueBase<CompFactory::SIZE>::SortIndex, _1));
+  for_each(vec.begin(), vec.end(), [] (IndexedValueBase<CompFactory::SIZE> & p) { p.SortIndex(); });
 
   // sort results according to combined criteria
   sort(vec.begin(), vec.end(), &IndexedValueBase<CompFactory::SIZE>::Less);

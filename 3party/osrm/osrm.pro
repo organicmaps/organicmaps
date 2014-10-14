@@ -4,7 +4,7 @@ CONFIG += staticlib
 
 ROOT_DIR = ../..
 
-QMAKE_CXXFLAGS *= -Wno-unused-function -Wno-unused-const-variable -Wno-ignored-qualifiers
+!win32* : QMAKE_CXXFLAGS *= -Wno-unused-function -Wno-unused-const-variable -Wno-ignored-qualifiers
 
 include($$ROOT_DIR/common.pri)
 

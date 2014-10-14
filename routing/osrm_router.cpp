@@ -171,8 +171,9 @@ public:
 
 OsrmRouter::OsrmRouter(Index const * index, CountryFileFnT const & fn)
   : m_countryFn(fn), m_pIndex(index), m_isFinalChanged(false),
-    m_isReadyThread(false), m_requestCancel(false)
+    m_requestCancel(false)
 {
+  m_isReadyThread.clear();
 }
 
 string OsrmRouter::GetName() const
@@ -510,7 +511,7 @@ IRouter::ResultCode OsrmRouter::FindPhantomNodes(string const & fName, m2::Point
 {
   Point2PhantomNode getter(m_mapping);
 
-  auto processPt = [&](m2::PointD const & p, size_t idx)
+  auto processPt = [&] (m2::PointD const & p, size_t idx)
   {
     getter.SetPoint(p, idx);
 

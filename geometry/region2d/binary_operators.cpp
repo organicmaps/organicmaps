@@ -1,7 +1,5 @@
-#include "../../base/SRC_FIRST.hpp"
-
-#include "binary_operators.hpp"
 #include "boost_concept.hpp"
+#include "binary_operators.hpp"
 
 
 namespace m2

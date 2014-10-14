@@ -12,7 +12,10 @@ macx-*: LIBS *= "-framework Foundation" "-framework IOKit"
 
 include($$ROOT_DIR/common.pri)
 
-linux*: QT *= core
+QT *= core
+
+win32* : LIBS *= -lShell32
+
 
 SOURCES += \
   ../../testing/testingmain.cpp \

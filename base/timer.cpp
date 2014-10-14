@@ -33,7 +33,7 @@ double Timer::LocalTime()
 
 #else
   timeval tv;
-  gettimeofday(&tv, 0);
+  ::gettimeofday(&tv, 0);
   return tv.tv_sec + tv.tv_usec / 1000000.0;
 #endif
 }

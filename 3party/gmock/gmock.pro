@@ -4,7 +4,7 @@ include($$ROOT_DIR/common.pri)
 
 TEMPLATE = lib
 CONFIG += staticlib warn_off
-INCLUDEPATH += ./gtest/ ./gtest/include ./include
+INCLUDEPATH += ./gtest/ ./gtest/include ./include ./
 
 SOURCES += \
     src/gmock-all.cc \

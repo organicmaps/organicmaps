@@ -242,7 +242,7 @@ namespace core
     /// to prevent the situation when Executor could start processing some command
     /// between "operation A" and "operation B" which could lead to underflow of m_activeCommands
 
-    m_commands.ProcessList(bind(&CommandsQueue::ClearImpl, this, _1));
+    m_commands.ProcessList([this] (list<shared_ptr<CommandsQueue::Command> > & l) { ClearImpl(l); });
   }
 
   int CommandsQueue::ExecutorsCount() const

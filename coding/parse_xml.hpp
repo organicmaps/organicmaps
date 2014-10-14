@@ -16,7 +16,7 @@ uint64_t ParseXMLSequence(SequenceT & source, XMLDispatcherT & dispatcher, bool 
   int const BUFFER_SIZE = 16 * 1024;
 
   uint64_t res = 0;
-  int readed;
+  uint64_t readed;
   do
   {
     char * buffer = static_cast<char *>(parser.GetBuffer(BUFFER_SIZE));
@@ -48,7 +48,7 @@ public:
   SequenceAdapter(SourceT & source) : m_source(source) {}
   uint64_t Read(void * p, uint64_t size)
   {
-    uint64_t const correctSize = min(size, m_source.Size());
+    size_t const correctSize = min(size, m_source.Size());
     m_source.Read(p, correctSize);
     return correctSize;
   }

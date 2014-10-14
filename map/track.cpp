@@ -52,7 +52,7 @@ void Track::AddOutline(TrackOutline const * outline, size_t arraySize)
 {
   m_outlines.reserve(m_outlines.size() + arraySize);
   for_each(outline, outline + arraySize, MakeBackInsertFunctor(m_outlines));
-  sort(m_outlines.begin(), m_outlines.end(), [](TrackOutline const & l, TrackOutline const & r)
+  sort(m_outlines.begin(), m_outlines.end(), [] (TrackOutline const & l, TrackOutline const & r)
   {
     return l.m_lineWidth > r.m_lineWidth;
   });
@@ -116,7 +116,7 @@ void Track::CreateDisplayList(graphics::Screen * dlScreen, MatrixT const & matri
   if (!m_beginSymbols.empty() || !m_endSymbols.empty())
   {
     m2::PointD pivot = pts2.front();
-    auto symDrawer = [&dlScreen, &pivot](ClosingSymbol const & symbol)
+    auto symDrawer = [&dlScreen, &pivot] (ClosingSymbol const & symbol)
     {
       dlScreen->drawSymbol(pivot, symbol.m_iconName, symbol.m_position, symbol.m_depth);
     };

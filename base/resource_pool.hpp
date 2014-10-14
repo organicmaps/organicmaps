@@ -131,7 +131,7 @@ struct SeparateFreePoolTraits : TBase
 
   void UpdateState()
   {
-    m_freePool.ProcessList(bind(&SeparateFreePoolTraits<TElemFactory, TBase>::UpdateStateImpl, this, _1));
+    m_freePool.ProcessList([this] (list<elem_t> & l) { UpdateStateImpl(l); });
   }
 };
 
@@ -195,7 +195,7 @@ struct AllocateOnDemandMultiThreadedPoolTraits : TBase
   elem_t const Reserve()
   {
     elem_t res;
-    base_t::m_pool.ProcessList(bind(&self_t::AllocateAndReserve, this, _1, ref(res)));
+    base_t::m_pool.ProcessList([this, &res] (list<elem_t> & l) { AllocateAndReserve(l, res); });
     return res;
   }
 
@@ -241,7 +241,7 @@ struct AllocateOnDemandSingleThreadedPoolTraits : TBase
     elem_t res;
     /// allocate resources if needed if we're on the main thread.
     if (threads::GetCurrentThreadID() == base_t::m_MainThreadID)
-      base_t::m_pool.ProcessList(bind(&self_t::AllocateAndReserve, this, _1, ref(res)));
+      base_t::m_pool.ProcessList([this, &res] (list<elem_t> & l) { AllocateAndReserve(l, res); });
     else
       res = base_t::Reserve();
     return res;
@@ -259,7 +259,7 @@ struct AllocateOnDemandSingleThreadedPoolTraits : TBase
   void UpdateState()
   {
     base_t::UpdateState();
-    base_t::m_pool.ProcessList(bind(&self_t::AllocateIfNeeded, this, _1));
+    base_t::m_pool.ProcessList([this] (list<elem_t> & l) { AllocateIfNeeded(l); });
   }
 };
 
