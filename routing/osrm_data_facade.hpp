@@ -65,9 +65,9 @@ public:
 
     m_handleFanoMatrix.Assign(container.Map(ROUTING_MATRIX_FILE_TAG));
     ASSERT(m_handleFanoMatrix.IsValid(), ());
-    succinct::mapper::map(m_matrix, m_handleFanoMatrix.GetData<char>());
 
-    m_numberOfNodes = (unsigned)sqrt(m_matrix.size() / 2) + 1;
+    m_numberOfNodes = *m_handleFanoMatrix.GetData<unsigned>();
+    succinct::mapper::map(m_matrix, m_handleFanoMatrix.GetData<char>() + sizeof(unsigned));
   }
 
   void Clear()
@@ -135,13 +135,14 @@ public:
 
   EdgeID BeginEdges(const NodeID n) const
   {
-    return n == 0 ? 0 : m_matrix.rank(2 * n * (uint64_t)GetNumberOfNodes());
+    uint64_t idx = 2 * n * (uint64_t)GetNumberOfNodes();
+    return n == 0 ? 0 : m_matrix.rank(min(idx, m_matrix.size()));
   }
 
   EdgeID EndEdges(const NodeID n) const
   {
     uint64_t const idx = 2 * (n + 1) * (uint64_t)GetNumberOfNodes();
-    return m_matrix.rank(std::min(idx, m_matrix.size()));
+    return m_matrix.rank(min(idx, m_matrix.size()));
   }
 
   EdgeRange GetAdjacentEdgeRange(const NodeID node) const

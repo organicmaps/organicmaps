@@ -2,12 +2,13 @@
 
 #include <iostream>
 
-#include "../Server/DataStructures/InternalDataFacade.h"
+
+#include "../../../../base/bits.hpp"
+#include "../../../../base/logging.hpp"
 
 #include "../../../../coding/matrix_traversal.hpp"
 #include "../../../../coding/internal/file_data.hpp"
-#include "../../../../base/bits.hpp"
-#include "../../../../base/logging.hpp"
+
 #include "../../../../routing/osrm_data_facade.hpp"
 
 #include "../../../succinct/elias_fano.hpp"
@@ -16,6 +17,7 @@
 #include "../../../succinct/rs_bit_vector.hpp"
 #include "../../../succinct/mapper.hpp"
 
+#include "../Server/DataStructures/InternalDataFacade.h"
 
 namespace  mapsme
 {
@@ -54,7 +56,7 @@ void Converter::run(const std::string & name)
   InternalDataFacade<QueryEdge::EdgeData> facade(server_paths);
   PrintStatus(true);
 
-  uint64_t const nodeCount = facade.GetNumberOfNodes();
+  unsigned const nodeCount = facade.GetNumberOfNodes();
 
   std::vector<uint64_t> edges;
   std::vector<uint32_t> edgesData;
@@ -183,8 +185,10 @@ void Converter::run(const std::string & name)
   succinct::elias_fano matrix(&builder);
 
   std::string fileName = name + "." + ROUTING_MATRIX_FILE_TAG;
-  succinct::mapper::freeze(matrix, fileName.c_str());
-
+  std::ofstream fout(fileName, std::ios::binary);
+  fout.write((const char*)&nodeCount, sizeof(nodeCount));
+  succinct::mapper::freeze(matrix, fout);
+  fout.close();
 
   std::cout << "--- Save edge data" << std::endl;
   succinct::elias_fano_compressed_list edgeVector(edgesData);
@@ -234,10 +238,10 @@ void Converter::run(const std::string & name)
   facadeNew.Load(container);
 
   uint64_t edgesCount = facadeNew.GetNumberOfEdges() - copiedEdges + ignoredEdges;
-  std::cout << "Check node count " << facade.GetNumberOfNodes() << " == " << facadeNew.GetNumberOfNodes() <<  "...";
-  PrintStatus(facade.GetNumberOfNodes() == facadeNew.GetNumberOfNodes());
-  std::cout << "Check edges count " << facade.GetNumberOfEdges() << " == " << edgesCount << "...";
-  PrintStatus(facade.GetNumberOfEdges() == edgesCount);
+  std::cout << "Check node count " << facade.GetNumberOfNodes() << " == " << facadeNew.GetNumberOfNodes() <<  "..." << std::endl;
+  CHECK_EQUAL(facade.GetNumberOfNodes(), facadeNew.GetNumberOfNodes(), ());
+  std::cout << "Check edges count " << facade.GetNumberOfEdges() << " == " << edgesCount << "..." << std::endl;
+  CHECK_EQUAL(facade.GetNumberOfEdges(), edgesCount, ());
 
   std::cout << "Check edges data ...";
   bool error = false;
