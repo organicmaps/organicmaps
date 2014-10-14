@@ -340,10 +340,12 @@ void State::StartRouteFollow()
 
 void State::StopRoutingMode()
 {
-  ASSERT(IsInRouting(), ());
-  SetModeInfo(ChangeMode(ExcludeModeBit(m_modeInfo, RoutingSessionBit), GetMode() == RotateAndFollow ? Follow : NotFollow));
-  RotateOnNorth();
-  AnimateFollow();
+  if (IsInRouting())
+  {
+    SetModeInfo(ChangeMode(ExcludeModeBit(m_modeInfo, RoutingSessionBit), GetMode() == RotateAndFollow ? Follow : NotFollow));
+    RotateOnNorth();
+    AnimateFollow();
+  }
 }
 
 void State::TurnOff()
