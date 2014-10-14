@@ -429,7 +429,7 @@ public class MWMActivity extends NvEventQueueActivity
         @Override
         public void doUpdate()
         {
-          runDownloadActivity();
+          runDownloadActivity(false);
         }
 
         @Override
@@ -582,7 +582,7 @@ public class MWMActivity extends NvEventQueueActivity
       @Override
       public void doUpdate()
       {
-        runDownloadActivity();
+        runDownloadActivity(false);
       }
 
       @Override
@@ -703,9 +703,10 @@ public class MWMActivity extends NvEventQueueActivity
     }
   }
 
-  private void runDownloadActivity()
+  private void runDownloadActivity(boolean openDownloadedList)
   {
-    startActivity(new Intent(this, DownloadActivity.class));
+    final Intent intent = new Intent(this, DownloadActivity.class).putExtra(DownloadActivity.EXTRA_OPEN_DOWNLOADED_LIST, openDownloadedList);
+    startActivity(intent);
   }
 
   @Override
@@ -1427,7 +1428,7 @@ public class MWMActivity extends NvEventQueueActivity
       break;
     case R.id.btn_download_maps:
       setVerticalToolbarVisible(false);
-      runDownloadActivity();
+      runDownloadActivity(false);
       break;
     case R.id.btn_more_apps:
       setVerticalToolbarVisible(false);
@@ -1594,7 +1595,8 @@ public class MWMActivity extends NvEventQueueActivity
                   @Override
                   public void onClick(DialogInterface dialog, int which)
                   {
-                    runDownloadActivity();
+                    // TODO start country download automatically?
+                    runDownloadActivity(true);
                     closeRouting();
                     dialog.dismiss();
                   }

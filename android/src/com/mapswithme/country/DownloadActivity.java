@@ -31,6 +31,7 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements View
   private static final int MODE_UPDATE_ALL = 1;
   private static final int MODE_CANCEL_ALL = 2;
 
+  public static final String EXTRA_OPEN_DOWNLOADED_LIST = "open_downloaded";
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -39,10 +40,15 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements View
 
     setContentView(R.layout.downloader_list_view);
 
-    mExtendedAdapter = new ExtendedDownloadAdapterWrapper(this, new DownloadAdapter(this));
-    setListAdapter(mExtendedAdapter);
-    mMode = MODE_DISABLED;
-    mListenerSlotId = ActiveCountryTree.addListener(this);
+    if (getIntent().getBooleanExtra(EXTRA_OPEN_DOWNLOADED_LIST, false))
+      openDownloadedList();
+    else
+    {
+      mExtendedAdapter = getExtendedAdater();
+      setListAdapter(mExtendedAdapter);
+      mMode = MODE_DISABLED;
+      mListenerSlotId = ActiveCountryTree.addListener(this);
+    }
   }
 
   @Override
@@ -99,6 +105,7 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements View
     {
       mMode = MODE_DISABLED;
       mDownloadedAdapter.onPause();
+      mExtendedAdapter = getExtendedAdater();
       mExtendedAdapter.onResume(getListView());
       setListAdapter(mExtendedAdapter);
       updateActionBar();
@@ -141,13 +148,17 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements View
   protected void onListItemClick(ListView l, View v, int position, long id)
   {
     if (getListAdapter().getItemViewType(position) == ExtendedDownloadAdapterWrapper.TYPE_EXTENDED)
-    {
-      setListAdapter(getDownloadedAdapter());
-      mMode = MODE_NONE;
-      updateActionBar();
+      openDownloadedList();
+  }
+
+  private void openDownloadedList()
+  {
+    setListAdapter(getDownloadedAdapter());
+    mMode = MODE_NONE;
+    updateActionBar();
+    if (mExtendedAdapter != null)
       mExtendedAdapter.onPause();
-      mDownloadedAdapter.onResume(getListView());
-    }
+    mDownloadedAdapter.onResume(getListView());
   }
 
   private ListAdapter getDownloadedAdapter()
@@ -156,6 +167,14 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements View
       mDownloadedAdapter = new DownloadedAdapter(this);
 
     return mDownloadedAdapter;
+  }
+
+  private ExtendedDownloadAdapterWrapper getExtendedAdater()
+  {
+    if (mExtendedAdapter == null)
+      mExtendedAdapter = new ExtendedDownloadAdapterWrapper(this, new DownloadAdapter(this));
+
+    return mExtendedAdapter;
   }
 
   @Override

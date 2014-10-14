@@ -360,7 +360,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
-      setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
+      setHolderPercentString(holder, "0%", R.color.downloader_gray);
       break;
 
     case MapStorage.ON_DISK_OUT_OF_DATE:
@@ -627,6 +627,9 @@ abstract class BaseDownloadAdapter extends BaseAdapter
    */
   protected void onCountryProgress(int position, long current, long total)
   {
+    if (mListView == null)
+      return;
+
     // do update only one item's view; don't call notifyDataSetChanged
     final View v = mListView.getChildAt(position - mListView.getFirstVisiblePosition());
     if (v != null)
