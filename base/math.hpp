@@ -1,12 +1,13 @@
 #pragma once
-#include "../base/base.hpp"
-#include "../base/assert.hpp"
+#include "assert.hpp"
 
 #include "../std/cmath.hpp"
 #include "../std/limits.hpp"
 #include "../std/type_traits.hpp"
+#include "../std/algorithm.hpp"
 
 #include <boost/integer.hpp>
+
 
 namespace my
 {
@@ -140,10 +141,10 @@ inline uint32_t NextPowOf2(uint32_t v)
 }
 
 // Greatest Common Divisor
-inline uint32_t GCD(uint32_t a, uint32_t b)
+template <typename T> T GCD(T a, T b)
 {
-  uint32_t multiplier = 1;
-  uint32_t gcd = 1;
+  T multiplier = 1;
+  T gcd = 1;
   while (true)
   {
     if (a == 0 || b == 0)
@@ -168,8 +169,8 @@ inline uint32_t GCD(uint32_t a, uint32_t b)
 
     if ((a & 0x1) != 0 && (b & 0x1) != 0)
     {
-      uint32_t minV = min(a, b);
-      uint32_t maxV = max(a, b);
+      T minV = min(a, b);
+      T maxV = max(a, b);
       a = (maxV - minV) >> 1;
       b = minV;
       continue;

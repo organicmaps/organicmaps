@@ -1,11 +1,13 @@
 #include "testregister.hpp"
 #include "testing.hpp"
+
 #include "../base/logging.hpp"
-#include "../std/algorithm.hpp"
+
 #include "../std/iostream.hpp"
 #include "../std/string.hpp"
 #include "../std/vector.hpp"
 #include "../std/target_os.hpp"
+
 
 #ifdef OMIM_UNIT_TEST_WITH_QT_EVENT_LOOP
   #include <Qt>
@@ -68,6 +70,7 @@ int main(int argc, char * argv[])
       cerr << "\n\nSOMETHING IS REALLY WRONG IN THE UNIT TEST FRAMEWORK!!!" << endl;
       return 5;
     }
+
     try
     {
       // Run the test.
@@ -85,16 +88,19 @@ int main(int argc, char * argv[])
         ++numFailedTests;
       }
 
-    } catch (TestFailureException const & )
+    }
+    catch (TestFailureException const & )
     {
       testResults[iTest] = false;
       ++numFailedTests;
-    } catch (std::exception const & ex)
+    }
+    catch (std::exception const & ex)
     {
       cerr << "FAILED" << endl << "<<<Exception thrown [" << ex.what() << "].>>>" << endl;
       testResults[iTest] = false;
       ++numFailedTests;
-    } catch (...)
+    }
+    catch (...)
     {
       cerr << "FAILED" << endl << "<<<Unknown exception thrown.>>>" << endl;
       testResults[iTest] = false;

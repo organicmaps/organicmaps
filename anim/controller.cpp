@@ -3,7 +3,9 @@
 
 #include "../base/assert.hpp"
 #include "../base/timer.hpp"
-#include "../std/bind.hpp"
+
+#include "../std/algorithm.hpp"
+
 
 namespace anim
 {

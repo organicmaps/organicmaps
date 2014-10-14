@@ -1,12 +1,9 @@
 #pragma once
-#include "assert.hpp"
 #include "base.hpp"
-#include "casts.hpp"
-#include "pseudo_random.hpp"
-#include "internal/message.hpp"
+
 #include "../std/sstream.hpp"
 #include "../std/string.hpp"
-#include "../std/vector.hpp"
+
 
 namespace my
 {
@@ -27,7 +24,7 @@ public:
   void operator() (T const & x)
   {
     ++m_Count;
-    m_Sum += implicit_cast<double>(x);
+    m_Sum += x;
   }
 
   string GetStatsStr() const

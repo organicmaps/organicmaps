@@ -7,6 +7,7 @@
 #include "../std/cstdio.hpp"
 #include "../std/sstream.hpp"
 #include "../std/iomanip.hpp"
+#include "../std/algorithm.hpp"
 
 
 namespace my

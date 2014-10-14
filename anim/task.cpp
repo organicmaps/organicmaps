@@ -1,8 +1,9 @@
 #include "task.hpp"
 
-#include "../std/bind.hpp"
-
 #include "../base/assert.hpp"
+
+#include "../std/algorithm.hpp"
+
 
 namespace anim
 {
@@ -36,7 +37,7 @@ namespace anim
   void Task::PerformCallbacks(EState state)
   {
     list<TCallback> const & cb = m_Callbacks[state];
-    for_each(cb.begin(), cb.end(), bind(&TCallback::operator(), _1));
+    for_each(cb.begin(), cb.end(), [] (TCallback const & cb) { cb(); });
   }
 
   void Task::OnStart(double ts)

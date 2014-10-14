@@ -30,6 +30,7 @@ SOURCES += \
     scheduled_task.cpp \
     thread_pool.cpp \
     pseudo_random.cpp \
+    src_point.cpp
 
 HEADERS += \
     SRC_FIRST.hpp \
@@ -50,7 +51,6 @@ HEADERS += \
     swap.hpp \
     thread.hpp \
     mutex.hpp \
-    casts.hpp \
     string_utils.hpp \
     rolling_hash.hpp \
     stl_add.hpp \

@@ -1,9 +1,10 @@
 #pragma once
+#include "assert.hpp"
+#include "swap.hpp"
 
 #include "../std/algorithm.hpp"
 #include "../std/vector.hpp"
-#include "../base/assert.hpp"
-#include "../base/swap.hpp"
+
 
 template <class T, size_t N> class buffer_vector
 {
