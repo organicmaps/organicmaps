@@ -11,19 +11,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MWMActivity;
-import com.mapswithme.maps.MapStorage;
-import com.mapswithme.maps.MapStorage.Index;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.MapsWithMeBaseListActivity;
 
+import static com.mapswithme.country.ActiveCountryTree.ActiveCountryListener;
 
-public class DownloadActivity extends MapsWithMeBaseListActivity implements MapStorage.Listener, View.OnClickListener
+
+public class DownloadActivity extends MapsWithMeBaseListActivity implements View.OnClickListener, ActiveCountryListener
 {
   static String TAG = DownloadActivity.class.getName();
   private ExtendedDownloadAdapterWrapper mExtendedAdapter;
   private DownloadedAdapter mDownloadedAdapter;
   private TextView mAbButton;
   private int mMode = MODE_DISABLED;
+  private int mListenerSlotId;
 
   private static final int MODE_DISABLED = -1;
   private static final int MODE_NONE = 0;
@@ -41,6 +42,15 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
     mExtendedAdapter = new ExtendedDownloadAdapterWrapper(this, new DownloadAdapter(this));
     setListAdapter(mExtendedAdapter);
     mMode = MODE_DISABLED;
+    mListenerSlotId = ActiveCountryTree.addListener(this);
+  }
+
+  @Override
+  protected void onDestroy()
+  {
+    super.onDestroy();
+
+    ActiveCountryTree.removeListener(mListenerSlotId);
   }
 
   @Override
@@ -99,18 +109,6 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
       // Always show map as parent
       startActivity(new Intent(this, MWMActivity.class));
     }
-  }
-
-  @Override
-  public void onCountryStatusChanged(final Index idx)
-  {
-    updateActionBar();
-  }
-
-  @Override
-  public void onCountryProgress(Index idx, long current, long total)
-  {
-
   }
 
   private void updateActionBar()
@@ -173,5 +171,23 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements MapS
       updateActionBar();
       break;
     }
+  }
+
+  @Override
+  public void onCountryProgressChanged(int group, int position, long[] sizes) { }
+
+  @Override
+  public void onCountryStatusChanged(int group, int position, int oldStatus, int newStatus)
+  {
+    updateActionBar();
+  }
+
+  @Override
+  public void onCountryGroupChanged(int oldGroup, int oldPosition, int newGroup, int newPosition) { }
+
+  @Override
+  public void onCountryOptionsChanged(int group, int position, int newOptions, int requestOptions)
+  {
+    updateActionBar();
   }
 }
