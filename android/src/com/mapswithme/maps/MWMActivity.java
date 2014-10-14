@@ -38,6 +38,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mapswithme.country.ActiveCountryTree;
 import com.mapswithme.country.DownloadActivity;
 import com.mapswithme.maps.Ads.AdsManager;
 import com.mapswithme.maps.Ads.MenuAd;
@@ -363,7 +364,8 @@ public class MWMActivity extends NvEventQueueActivity
 
   private void checkRoutingMaps()
   {
-    if (BuildConfig.IS_PRO && MWMApplication.get().nativeGetBoolean(IS_FIRST_ROUTING_VERSION_RUN, true))
+    if (BuildConfig.IS_PRO && MWMApplication.get().nativeGetBoolean(IS_FIRST_ROUTING_VERSION_RUN, true)
+        && ActiveCountryTree.getCountInGroup(ActiveCountryTree.GROUP_OUT_OF_DATE) != 0)
     {
       MWMApplication.get().nativeSetBoolean(IS_FIRST_ROUTING_VERSION_RUN, false);
       new AlertDialog.Builder(this)
