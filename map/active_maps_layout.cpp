@@ -66,6 +66,12 @@ void ActiveMapsLayout::Init(vector<string> const & maps)
   };
 
   sort(m_items.begin(), m_items.end(), comparatorFn);
+  auto uniqPredicate = [](Item const & item1, Item const & item2)
+  {
+    return item1.m_index == item2.m_index;
+  };
+
+  m_items.erase(unique(m_items.begin(), m_items.end(), uniqPredicate), m_items.end());
 
   m_split = { 0, m_items.size() };
   for (size_t i = 0; i < m_items.size(); ++i)
