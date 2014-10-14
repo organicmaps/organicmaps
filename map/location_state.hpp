@@ -145,6 +145,8 @@ namespace location
     bool Assign(location::CompassInfo const & info);
     void SetDirection(double bearing);
 
+    const m2::PointD GetPositionForDraw() const;
+
   private:
     // Mode bits
     // {

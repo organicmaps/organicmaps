@@ -103,6 +103,11 @@ public:
     }
   }
 
+  m2::PointD const & GetPositionForDraw()
+  {
+    return m_posAnim->GetCurrentValue();
+  }
+
   virtual void OnStep(double ts)
   {
     ASSERT(m_angleAnim != nullptr, ());
@@ -171,7 +176,7 @@ private:
     if (dstPos.EqualDxDy(m_posAnim->GetCurrentValue(), POSITION_TOLERANCE) && angleDist < ANGLE_TOLERANCE)
       return;
 
-    double const posSpeed = m_fw->GetNavigator().ComputeMoveSpeed(m_posAnim->GetCurrentValue(), dstPos);
+    double const posSpeed = 2 * m_fw->GetNavigator().ComputeMoveSpeed(m_posAnim->GetCurrentValue(), dstPos);
     double const angleSpeed = angleDist < 1.0 ? 1.5 : m_fw->GetAnimator().GetRotationSpeed();
     m_angleAnim->ResetDestParams(dstAngle, angleSpeed);
     m_posAnim->ResetDestParams(dstPos, posSpeed);
@@ -467,13 +472,14 @@ void State::draw(graphics::OverlayRenderer * r,
         m_framework->GetNavigator().GtoP(Position() + m2::PointD(m_errorRadius, 0.0)));
 
   double const drawScale = pxErrorRadius / s_cacheRadius;
+  m2::PointD const & pivotPosition = GetPositionForDraw();
 
   math::Matrix<double, 3, 3> locationDrawM = math::Shift(
                                                math::Scale(
                                                  math::Identity<double, 3>(),
                                                  drawScale,
                                                  drawScale),
-                                               pivot());
+                                               pivotPosition);
 
   math::Matrix<double, 3, 3> const drawM = locationDrawM * m;
   // draw error sector
@@ -488,7 +494,7 @@ void State::draw(graphics::OverlayRenderer * r,
                                                 math::Rotate(
                                                   math::Identity<double, 3>(),
                                                   rotateAngle),
-                                                pivot());
+                                                pivotPosition);
 
     if (!IsInRouting())
       r->drawDisplayList(m_positionArrow.get(), compassDrawM * m);
@@ -845,6 +851,14 @@ void State::SetDirection(double bearing)
 {
   m_drawDirection = bearing;
   SetModeInfo(IncludeModeBit(m_modeInfo, KnownDirectionBit));
+}
+
+m2::PointD const State::GetPositionForDraw() const
+{
+  if (m_animTask != nullptr)
+    return m_framework->GtoP(static_cast<RotateAndFollowAnim *>(m_animTask.get())->GetPositionForDraw());
+
+  return pivot();
 }
 
 }
