@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -51,6 +52,8 @@ public class WheelProgressView extends View
 
   private void init(AttributeSet attrs)
   {
+    setBackgroundColor(Color.WHITE);
+
     final TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.WheelProgressView, 0, 0);
     mStrokeWidth = typedArray.getDimensionPixelSize(R.styleable.WheelProgressView_thickness, DEFAULT_THICKNESS);
     final int color = typedArray.getColor(R.styleable.WheelProgressView_progressColor, getResources().getColor(R.color.downloader_progress_bg));
@@ -121,6 +124,7 @@ public class WheelProgressView extends View
   {
     if (mIsInit)
     {
+      canvas.drawColor(Color.WHITE);
       canvas.drawCircle(mCenter.x, mCenter.y, mRadius, mBgPaint);
       canvas.drawArc(mProgressRect, -90, 360 * mProgress / 100, false, mFgPaint);
       if (mCenterBitmap == null)

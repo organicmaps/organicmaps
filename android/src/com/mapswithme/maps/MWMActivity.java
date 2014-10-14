@@ -1028,9 +1028,9 @@ public class MWMActivity extends NvEventQueueActivity
     final LocationState.RoutingInfo info = Framework.nativeGetRouteFollowingInfo();
     if (info != null)
     {
-      final SpannableStringBuilder builder = new SpannableStringBuilder(info.mDistToTarget).append(" ").append(info.mUnits);
-      builder.setSpan(new AbsoluteSizeSpan(30, true), 0, info.mDistToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-      builder.setSpan(new AbsoluteSizeSpan(15, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      final SpannableStringBuilder builder = new SpannableStringBuilder(info.mDistToTarget).append(" ").append(info.mUnits.toUpperCase());
+      builder.setSpan(new AbsoluteSizeSpan(32, true), 0, info.mDistToTarget.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      builder.setSpan(new AbsoluteSizeSpan(10, true), info.mDistToTarget.length(), builder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
       mTvRoutingDistance.setText(builder);
     }
   }

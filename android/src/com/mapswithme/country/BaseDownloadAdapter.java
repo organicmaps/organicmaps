@@ -92,6 +92,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   protected final String mStatusFailed;
   protected final String mStatusOutdated;
   protected final String mStatusNotDownloaded;
+  protected final String mMapOnly;
 
 
   public BaseDownloadAdapter(Activity activity)
@@ -104,6 +105,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
     mStatusFailed = mActivity.getString(R.string.downloader_status_failed).toUpperCase();
     mStatusOutdated = mActivity.getString(R.string.downloader_status_outdated).toUpperCase();
     mStatusNotDownloaded = mActivity.getString(R.string.download).toUpperCase();
+    mMapOnly = mActivity.getString(R.string.downloader_map_only).toUpperCase();
   }
 
   public abstract void onItemClick(int position, View view);
@@ -340,15 +342,15 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
     ViewHelper.setTranslationX(holder.mInfoSlided, 0);
     ViewHelper.setTranslationX(holder.mInfo, 0);
-    ViewHelper.setTranslationX(holder.mStatusLayout, 0);
     ViewHelper.setTranslationX(holder.mProgress, 0);
+    ViewHelper.setTranslationX(holder.mProgressSlided, 0);
     long[] sizes;
     switch (item.getStatus())
     {
     case MapStorage.DOWNLOADING:
-      UiUtils.show(holder.mInfoSlided, holder.mProgressSlided, holder.mStatusLayout);
       UiUtils.hide(holder.mImageRoutingStatus, holder.mProgress);
       UiUtils.invisible(holder.mInfo);
+      UiUtils.show(holder.mStatusLayout, holder.mInfoSlided, holder.mProgressSlided);
       holder.mProgressSlided.setOnClickListener(new View.OnClickListener()
       {
         @Override
@@ -360,7 +362,7 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
       sizes = getDownloadableItemSizes(position);
       setHolderSizeString(holder, 0, sizes[1]);
-      setHolderPercentString(holder, "0%", R.color.downloader_gray);
+      setHolderPercentString(holder, (int) sizes[0] * 100 / sizes[1] + "%", R.color.downloader_gray);
       break;
 
     case MapStorage.ON_DISK_OUT_OF_DATE:
@@ -391,10 +393,15 @@ abstract class BaseDownloadAdapter extends BaseAdapter
       bindCarRoutingIcon(holder, item);
       sizes = getRemoteItemSizes(position);
       if (item.getOptions() == StorageOptions.MAP_OPTION_MAP_ONLY)
+      {
+        setHolderPercentString(holder, mMapOnly, R.color.downloader_gray);
         setHolderSizeString(holder, 0, sizes[0]);
+      }
       else
+      {
+        setHolderPercentString(holder, mStatusDownloaded, R.color.downloader_gray);
         setHolderSizeString(holder, 0, sizes[1]);
-      setHolderPercentString(holder, mStatusDownloaded, R.color.downloader_gray);
+      }
       break;
 
     case MapStorage.DOWNLOAD_FAILED:
@@ -446,7 +453,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
 
     case MapStorage.NOT_DOWNLOADED:
       UiUtils.show(holder.mInfo);
-      UiUtils.hide(holder.mInfoSlided, holder.mStatusLayout);
+      UiUtils.hide(holder.mInfoSlided, holder.mStatusLayout, holder.mProgress, holder.mImageRoutingStatus,
+          holder.mProgressSlided);
 
       sizes = getRemoteItemSizes(position);
       setHolderSizeString(holder, sizes[0], sizes[1]);
@@ -467,34 +475,42 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   private void startItemDownloading(final ViewHolder holder, final int position, int newOptions)
   {
     setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
+    holder.mProgress.setVisibility(View.VISIBLE);
 
     ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mProgress, PROPERTY_TRANSLATION_X, 0,
         -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
     animator.setDuration(ANIMATION_LENGTH);
 
-    ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mInfo, PROPERTY_TRANSLATION_X, 0,
-        -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
-    infoAnimator.setDuration(ANIMATION_LENGTH);
-
     AnimatorSet animatorSet = new AnimatorSet();
-    animatorSet.playTogether(animator, infoAnimator);
     animatorSet.addListener(new UiUtils.SimpleNineoldAnimationListener()
     {
       @Override
       public void onAnimationEnd(Animator animation)
       {
         holder.mInfoSlided.setVisibility(View.VISIBLE);
-        holder.mInfo.setVisibility(View.INVISIBLE);
+        holder.mInfo.setVisibility(View.GONE);
+        holder.mStatusLayout.setVisibility(View.VISIBLE);
         holder.mProgressSlided.setVisibility(View.VISIBLE);
+        holder.mImageRoutingStatus.setVisibility(View.GONE);
         holder.mProgress.setVisibility(View.GONE);
         mActiveAnimationsCount--;
       }
     });
-    mActiveAnimationsCount++;
+
+    if (getItem(position).getStatus() == MapStorage.NOT_DOWNLOADED)
+    {
+      ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mInfo, PROPERTY_TRANSLATION_X, 0,
+          -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+      infoAnimator.setDuration(ANIMATION_LENGTH);
+
+      animatorSet.playTogether(animator, infoAnimator);
+    }
+    else
+      animatorSet.play(animator);
+
     animatorSet.start();
     holder.animator = animatorSet;
-
-    holder.mProgress.setVisibility(View.VISIBLE);
+    mActiveAnimationsCount++;
 
     downloadCountry(position, newOptions);
   }
@@ -503,72 +519,92 @@ abstract class BaseDownloadAdapter extends BaseAdapter
   {
     setHolderPercentString(holder, mActivity.getString(R.string.downloader_queued), R.color.downloader_gray);
 
-    ObjectAnimator fadeOutAnim = ObjectAnimator.ofFloat(holder.mImageRoutingStatus, PROPERTY_ALPHA, 1, 0);
-    fadeOutAnim.setDuration(ANIMATION_LENGTH / 2);
-    fadeOutAnim.addListener(new UiUtils.SimpleNineoldAnimationListener()
+    ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mProgress, PROPERTY_TRANSLATION_X, 0,
+        -mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+    animator.setDuration(ANIMATION_LENGTH);
+
+    animator.addListener(new UiUtils.SimpleNineoldAnimationListener()
     {
       @Override
       public void onAnimationEnd(Animator animation)
       {
+        holder.mInfoSlided.setVisibility(View.VISIBLE);
+        holder.mInfo.setVisibility(View.GONE);
+        holder.mStatusLayout.setVisibility(View.VISIBLE);
         holder.mProgressSlided.setVisibility(View.VISIBLE);
-      }
-
-    });
-
-    ObjectAnimator fadeInAnim = ObjectAnimator.ofFloat(holder.mProgressSlided, PROPERTY_ALPHA, 0, 1);
-    fadeInAnim.setDuration(ANIMATION_LENGTH / 2);
-
-    AnimatorSet animatorSet = new AnimatorSet();
-    animatorSet.playSequentially(fadeOutAnim, fadeInAnim);
-    animatorSet.addListener(new UiUtils.SimpleNineoldAnimationListener()
-    {
-      @Override
-      public void onAnimationEnd(Animator animation)
-      {
         holder.mImageRoutingStatus.setVisibility(View.GONE);
+        holder.mProgress.setVisibility(View.GONE);
         mActiveAnimationsCount--;
       }
     });
+
+    animator.start();
+    holder.animator = animator;
     mActiveAnimationsCount++;
-    animatorSet.start();
-    holder.animator = animatorSet;
 
     downloadCountry(position, options);
   }
 
   private void stopItemDownloading(final ViewHolder holder, final int position)
   {
-    ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mInfoSlided, PROPERTY_TRANSLATION_X, 0,
-        mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
-    animator.setDuration(ANIMATION_LENGTH);
-
-    ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mProgressSlided, PROPERTY_TRANSLATION_X, 0,
-        mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
-    infoAnimator.setDuration(ANIMATION_LENGTH);
-
-    AnimatorSet animatorSet = new AnimatorSet();
-    animatorSet.playTogether(animator, infoAnimator);
-    animatorSet.addListener(new UiUtils.SimpleNineoldAnimationListener()
-    {
-      @Override
-      public void onAnimationEnd(Animator animation)
-      {
-        holder.mInfo.setVisibility(View.VISIBLE);
-        holder.mInfoSlided.setVisibility(View.GONE);
-        holder.mProgressSlided.setVisibility(View.GONE);
-        holder.mProgress.setVisibility(View.GONE);
-        mActiveAnimationsCount--;
-      }
-    });
     mActiveAnimationsCount++;
-    animatorSet.start();
-    holder.animator = animatorSet;
-
+    cancelDownload(position); // cancel download before checking real item status(now its just DOWNLOADING or IN_
     final CountryItem item = getItem(position);
-    if (item == null)
-      return;
+    if (item.getStatus() == MapStorage.NOT_DOWNLOADED)
+    {
+      ObjectAnimator animator = ObjectAnimator.ofFloat(holder.mInfoSlided, PROPERTY_TRANSLATION_X, 0,
+          mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+      animator.setDuration(ANIMATION_LENGTH);
 
-    cancelDownload(position);
+      ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mProgressSlided, PROPERTY_TRANSLATION_X, 0,
+          mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+      infoAnimator.setDuration(ANIMATION_LENGTH);
+
+      AnimatorSet animatorSet = new AnimatorSet();
+      animatorSet.playTogether(animator, infoAnimator);
+      animatorSet.addListener(new UiUtils.SimpleNineoldAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animator animation)
+        {
+          holder.mInfo.setVisibility(View.VISIBLE);
+          holder.mInfoSlided.setVisibility(View.GONE);
+          holder.mStatusLayout.setVisibility(View.GONE);
+          holder.mProgressSlided.setVisibility(View.GONE);
+          holder.mProgress.setVisibility(View.GONE);
+
+          mActiveAnimationsCount--;
+        }
+      });
+      animatorSet.start();
+      holder.animator = animatorSet;
+    }
+    else
+    {
+      holder.mStatusLayout.setVisibility(View.VISIBLE);
+      holder.mImageRoutingStatus.setVisibility(View.VISIBLE);
+      bindCarRoutingIcon(holder, item);
+
+      ObjectAnimator infoAnimator = ObjectAnimator.ofFloat(holder.mProgressSlided, PROPERTY_TRANSLATION_X, 0,
+          mActivity.getResources().getDimensionPixelOffset(R.dimen.progress_wheel_width));
+      infoAnimator.setDuration(ANIMATION_LENGTH);
+
+      infoAnimator.addListener(new UiUtils.SimpleNineoldAnimationListener()
+      {
+        @Override
+        public void onAnimationEnd(Animator animation)
+        {
+          holder.mInfo.setVisibility(View.GONE);
+          holder.mInfoSlided.setVisibility(View.VISIBLE);
+          holder.mProgress.setVisibility(View.GONE);
+          holder.mStatusLayout.setVisibility(View.VISIBLE);
+          holder.mProgressSlided.setVisibility(View.GONE);
+          mActiveAnimationsCount--;
+        }
+      });
+      infoAnimator.start();
+      holder.animator = infoAnimator;
+    }
   }
 
   private void setHolderSizeString(ViewHolder holder, long first, long second)

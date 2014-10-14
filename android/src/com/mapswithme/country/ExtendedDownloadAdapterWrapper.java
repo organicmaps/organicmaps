@@ -75,8 +75,6 @@ public class ExtendedDownloadAdapterWrapper extends DownloadAdapter
   public View getView(int position, View convertView, ViewGroup parent)
   {
     final int viewType = getItemViewType(position);
-//    Log.d("TEST", "EDAW. Get view. Type = " + viewType);
-//    Log.d("TEST", "EDAW. Get view. Position = " + position);
     ViewHolderExtended holder = new ViewHolderExtended();
     if (viewType == TYPE_PLACEHOLDER)
     {
