@@ -475,4 +475,6 @@
 	<string name="downloader_update_map">Aktualizovať mapu</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">Aktualizovať mapu + Smerovanie</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Iba mapa</string>
 </resources>

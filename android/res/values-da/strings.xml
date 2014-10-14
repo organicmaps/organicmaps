@@ -471,4 +471,6 @@
 	<string name="downloader_update_map">Opdater kort</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">Opdater kort og rutevejledning</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Kun kort</string>
 </resources>

@@ -477,4 +477,6 @@
 	<string name="downloader_update_map">更新地图</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">更新地图 + 布置路线</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">只有地图</string>
 </resources>

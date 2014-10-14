@@ -747,3 +747,6 @@
 
 /* Item in context menu. */
 "downloader_update_map_and_routing" = "Оновити мапу + Маршрути";
+
+/* Item in context menu. */
+"downloader_map_only" = "Тільки карта";

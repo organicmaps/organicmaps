@@ -747,3 +747,6 @@
 
 /* Item in context menu. */
 "downloader_update_map_and_routing" = "지도 + 라우팅 업데이트";
+
+/* Item in context menu. */
+"downloader_map_only" = "지도만";

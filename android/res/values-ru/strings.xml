@@ -472,4 +472,6 @@
 	<string name="downloader_update_map">Обновить карту</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">Обновить карту + Маршруты</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Только карта</string>
 </resources>

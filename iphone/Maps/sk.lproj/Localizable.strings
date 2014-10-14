@@ -747,3 +747,6 @@
 
 /* Item in context menu. */
 "downloader_update_map_and_routing" = "Aktualizovať mapu + Smerovanie";
+
+/* Item in context menu. */
+"downloader_map_only" = "Iba mapa";

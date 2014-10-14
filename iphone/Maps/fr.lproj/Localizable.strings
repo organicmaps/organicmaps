@@ -747,3 +747,6 @@
 
 /* Item in context menu. */
 "downloader_update_map_and_routing" = "Mise à jour carte + itinéraire";
+
+/* Item in context menu. */
+"downloader_map_only" = "Carte uniquement";

@@ -451,4 +451,6 @@
 	<string name="downloader_update_map">Kaart bijwerken</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">Kaart bijwerken + route</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Alleen de kaart</string>
 </resources>

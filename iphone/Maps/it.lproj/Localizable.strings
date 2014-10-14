@@ -747,3 +747,6 @@
 
 /* Item in context menu. */
 "downloader_update_map_and_routing" = "Aggiorna mappa + percorso";
+
+/* Item in context menu. */
+"downloader_map_only" = "Solo mappa";

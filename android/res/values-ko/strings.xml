@@ -449,4 +449,6 @@
 	<string name="downloader_update_map">지도 업데이트</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">지도 + 라우팅 업데이트</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">지도만</string>
 </resources>

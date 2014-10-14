@@ -161,4 +161,6 @@
 	<text id="IDS_DOWNLOADER_UPDATE_MAP">Обновить карту</text>
 	<!-- Item in context menu. -->
 	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Обновить карту + Маршруты</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_MAP_ONLY">Только карта</text>
 </string_table>

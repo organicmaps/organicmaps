@@ -472,4 +472,6 @@
 	<string name="downloader_update_map">Aktualizuj mapę</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">Aktualizuj mapę + trasy</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Tylko mapa</string>
 </resources>

@@ -482,4 +482,6 @@
 	<string name="downloader_update_map">Mise à jour carte</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">Mise à jour carte + itinéraire</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Carte uniquement</string>
 </resources>

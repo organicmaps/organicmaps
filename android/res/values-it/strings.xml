@@ -458,4 +458,6 @@
 	<string name="downloader_update_map">Aggiorna mappa</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">Aggiorna mappa + percorso</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Solo mappa</string>
 </resources>

@@ -747,3 +747,6 @@
 
 /* Item in context menu. */
 "downloader_update_map_and_routing" = "Atualizar Mapa + Criação de Trajeto";
+
+/* Item in context menu. */
+"downloader_map_only" = "Apenas Mapa";

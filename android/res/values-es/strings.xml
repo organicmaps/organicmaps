@@ -452,4 +452,6 @@
 	<string name="downloader_update_map">Actualizar mapa</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">Actualizar mapa + itinerario</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Solo mapa</string>
 </resources>

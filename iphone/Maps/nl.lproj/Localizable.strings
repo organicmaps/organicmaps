@@ -747,3 +747,6 @@
 
 /* Item in context menu. */
 "downloader_update_map_and_routing" = "Kaart bijwerken + route";
+
+/* Item in context menu. */
+"downloader_map_only" = "Alleen de kaart";

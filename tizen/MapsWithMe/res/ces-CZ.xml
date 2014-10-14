@@ -159,4 +159,6 @@
 	<text id="IDS_DOWNLOADER_UPDATE_MAP">Aktualizovat mapu</text>
 	<!-- Item in context menu. -->
 	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Aktualizovat mapu + trasy</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_MAP_ONLY">Jenom mapa</text>
 </string_table>

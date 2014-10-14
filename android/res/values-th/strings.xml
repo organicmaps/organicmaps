@@ -473,4 +473,6 @@
 	<string name="downloader_update_map">อัปเดตแผนที่</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">อัปเดตแผนที่ + เส้นทาง</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">แผนที่เท่านั้น</string>
 </resources>

@@ -161,4 +161,6 @@
 	<text id="IDS_DOWNLOADER_UPDATE_MAP">Mise à jour carte</text>
 	<!-- Item in context menu. -->
 	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Mise à jour carte + itinéraire</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_MAP_ONLY">Carte uniquement</text>
 </string_table>

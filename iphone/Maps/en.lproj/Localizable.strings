@@ -747,3 +747,6 @@
 
 /* Item in context menu. */
 "downloader_update_map_and_routing" = "Update Map + Routing";
+
+/* Item in context menu. */
+"downloader_map_only" = "Map Only";

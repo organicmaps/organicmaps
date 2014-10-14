@@ -475,4 +475,6 @@
 	<string name="downloader_update_map">تحديث الخريطة</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">تحديث الخريطة + تحديد المسار</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">الخريطة فقط</string>
 </resources>

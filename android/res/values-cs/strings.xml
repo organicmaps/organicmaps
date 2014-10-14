@@ -478,4 +478,6 @@
 	<string name="downloader_update_map">Aktualizovat mapu</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">Aktualizovat mapu + trasy</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">Jenom mapa</string>
 </resources>

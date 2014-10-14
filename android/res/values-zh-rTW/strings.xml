@@ -452,4 +452,6 @@
 	<string name="downloader_update_map">更新地圖</string>
 	<!-- Item in context menu. -->
 	<string name="downloader_update_map_and_routing">更新地圖 + 布置路線</string>
+	<!-- Item in context menu. -->
+	<string name="downloader_map_only">只有地圖</string>
 </resources>

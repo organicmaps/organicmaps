@@ -153,4 +153,6 @@
 	<text id="IDS_DOWNLOADER_UPDATE_MAP">Aggiorna mappa</text>
 	<!-- Item in context menu. -->
 	<text id="IDS_DOWNLOADER_UPDATE_MAP_AND_ROUTING">Aggiorna mappa + percorso</text>
+	<!-- Item in context menu. -->
+	<text id="IDS_DOWNLOADER_MAP_ONLY">Solo mappa</text>
 </string_table>
