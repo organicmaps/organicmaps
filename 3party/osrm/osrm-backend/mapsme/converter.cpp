@@ -61,12 +61,12 @@ void Converter::run(const std::string & name)
   std::vector<bool> shortcuts;
   std::vector<uint64_t> edgeId;
 
-  std::cout << "Repack graph...";
+  std::cout << "Repack graph..." << std::endl;
 
   typedef pair<uint64_t, QueryEdge::EdgeData> EdgeInfoT;
   typedef vector<EdgeInfoT> EdgeInfoVecT;
 
-  uint64_t copiedEdges = 0;
+  uint64_t copiedEdges = 0, ignoredEdges = 0;
   for (uint64_t node = 0; node < nodeCount; ++node)
   {
     EdgeInfoVecT edgesInfo;
@@ -86,13 +86,10 @@ void Converter::run(const std::string & name)
       if (a.second.forward != b.second.forward)
         return a.second.forward > b.second.forward;
 
-      return false;
+      return a.second.id < b.second.id;
     };
 
     sort(edgesInfo.begin(), edgesInfo.end(), compareFn);
-    /*std::cout << "---" << std::endl;
-    for (auto e : edgesInfo)
-      std::cout << e.first << ", " << EdgeDataToString(e.second) << std::endl;*/
 
     uint64_t lastTarget = 0;
     for (auto edge : edgesInfo)
@@ -109,8 +106,43 @@ void Converter::run(const std::string & name)
       auto addDataFn = [&](bool b)
       {
         uint64_t e = TraverseMatrixInRowOrder<uint64_t>(nodeCount, node, target, b);
-        if (!edges.empty() && (edges.back() >= e))
-          LOG(LCRITICAL, ("Invalid order of edges", e, edges.back(), nodeCount, node, target, b));
+
+        auto compressId = [&](uint64_t id)
+        {
+          int id1 = id;
+          int id2 = node;
+
+          return bits::ZigZagEncode(id2 - id1);
+        };
+
+        if (!edges.empty())
+          CHECK_GREATER_OR_EQUAL(e, edges.back(), ());
+
+        if (!edges.empty() && (edges.back() == e))
+        {
+          LOG(LWARNING, ("Invalid order of edges", e, edges.back(), nodeCount, node, target, b));
+          CHECK(data.shortcut == shortcuts.back(), ());
+
+          auto last = edgesData.back();
+          if (data.distance <= last)
+          {
+            if (!edgeId.empty() && data.shortcut)
+            {
+              CHECK(shortcuts.back(), ());
+              auto oldId = node - bits::ZigZagDecode(edgeId.back());
+
+              if (data.distance == last)
+                edgeId.back() = compressId(min(oldId, (uint64_t)data.id));
+              else
+                edgeId.back() = compressId(data.id);
+            }
+
+            edgesData.back() = data.distance;
+          }
+
+          ++ignoredEdges;
+          return;
+        }
 
         edges.push_back(e);
         edgesData.push_back(data.distance);
@@ -201,7 +233,7 @@ void Converter::run(const std::string & name)
   DataFacadeT facadeNew;
   facadeNew.Load(container);
 
-  uint64_t edgesCount = facadeNew.GetNumberOfEdges() - copiedEdges;
+  uint64_t edgesCount = facadeNew.GetNumberOfEdges() - copiedEdges + ignoredEdges;
   std::cout << "Check node count " << facade.GetNumberOfNodes() << " == " << facadeNew.GetNumberOfNodes() <<  "...";
   PrintStatus(facade.GetNumberOfNodes() == facadeNew.GetNumberOfNodes());
   std::cout << "Check edges count " << facade.GetNumberOfEdges() << " == " << edgesCount << "...";
@@ -222,9 +254,52 @@ void Converter::run(const std::string & name)
   {
     EdgeDataT v1, v2;
 
+    // get all edges from osrm datafacade and store just minimal weights for duplicates
+    typedef pair<NodeID, QueryEdge::EdgeData> EdgeOsrmT;
+    vector<EdgeOsrmT> edgesOsrm;
     for (auto e : facade.GetAdjacentEdgeRange(i))
+      edgesOsrm.push_back(EdgeOsrmT(facade.GetTarget(e), facade.GetEdgeData(e)));
+
+    auto edgeOsrmLess = [](EdgeOsrmT const & a, EdgeOsrmT const & b)
     {
-      QueryEdge::EdgeData d = facade.GetEdgeData(e);
+      if (a.first != b.first)
+        return a.first < b.first;
+
+      if (a.second.forward != b.second.forward)
+        return a.second.forward < b.second.forward;
+
+      if (a.second.backward != b.second.backward)
+        return a.second.backward < b.second.backward;
+
+      if (a.second.distance != b.second.distance)
+        return a.second.distance < b.second.distance;
+
+      return a.second.id < b.second.id;
+    };
+    sort(edgesOsrm.begin(), edgesOsrm.end(), edgeOsrmLess);
+
+    for (size_t k = 1; k < edgesOsrm.size();)
+    {
+      auto const & e1 = edgesOsrm[k - 1];
+      auto const & e2 = edgesOsrm[k];
+
+      if (e1.first != e2.first ||
+          e1.second.forward != e2.second.forward ||
+          e1.second.backward != e2.second.backward)
+      {
+        ++k;
+        continue;
+      }
+
+      if (e1.second.distance > e2.second.distance)
+        edgesOsrm.erase(edgesOsrm.begin() + k - 1);
+      else
+        edgesOsrm.erase(edgesOsrm.begin() + k);
+    }
+
+    for (auto e : edgesOsrm)
+    {
+      QueryEdge::EdgeData d = e.second;
       if (d.forward && d.backward)
       {
         d.backward = false;
@@ -241,17 +316,29 @@ void Converter::run(const std::string & name)
 
     if (v1.size() != v2.size())
     {
+      auto printV = [](EdgeDataT const & v, stringstream & ss)
+      {
+        for (auto i : v)
+          ss << EdgeDataToString(i) << std::endl;
+      };
+
+      sort(v1.begin(), v1.end(), EdgeLess());
+      sort(v2.begin(), v2.end(), EdgeLess());
+
       stringstream ss;
       ss << "File name: " << name << std::endl;
       ss << "Not equal edges count for node: " << i << std::endl;
       ss << "v1: " << v1.size() << " v2: " << v2.size() << std::endl;
+      ss << "--- v1 ---" << std::endl;
+      printV(v1, ss);
+      ss << "--- v2 ---" << std::endl;
+      printV(v2, ss);
 
       errorFn(ss.str());
     }
 
     sort(v1.begin(), v1.end(), EdgeLess());
     sort(v2.begin(), v2.end(), EdgeLess());
-
 
     // compare vectors
     for (size_t k = 0; k < v1.size(); ++k)
