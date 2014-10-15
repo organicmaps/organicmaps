@@ -54,7 +54,7 @@ namespace storage
     : m_index(index), m_init(opt), m_left(opt)
   {
     m_pFile = &(storage.CountryByIndex(index).GetFile());
-    m_current = (m_init & TMapOptions::EMapOnly ? TMapOptions::EMapOnly : TMapOptions::ECarRouting);
+    m_current = (m_init & TMapOptions::ECarRouting ? TMapOptions::ECarRouting : TMapOptions::EMapOnly);
   }
 
   void Storage::QueuedCountry::AddOptions(TMapOptions opt)
@@ -75,22 +75,40 @@ namespace storage
     if (m_current == m_left)
       return false;
 
-    if (m_current == TMapOptions::EMapOnly)
-      m_left = m_current = TMapOptions::ECarRouting;
-    else
-      m_left = m_current = TMapOptions::EMapOnly;
+    /// if m_current != m_left than we download map and routing
+    /// routing already downloaded and we need to download map
+    ASSERT(m_current == TMapOptions::ECarRouting, ());
+    m_left = m_current = TMapOptions::EMapOnly;
     return true;
   }
 
-  bool Storage::QueuedCountry::Correct()
+  bool Storage::QueuedCountry::Correct(TStatus currentStatus)
   {
-    if ((m_init & TMapOptions::ECarRouting) &&
-        (m_pFile->GetFileSize(TMapOptions::ECarRouting) == 0))
+    ASSERT(currentStatus != TStatus::EDownloadFailed, ());
+    ASSERT(currentStatus != TStatus::EOutOfMemFailed, ());
+    ASSERT(currentStatus != TStatus::EInQueue, ());
+    ASSERT(currentStatus != TStatus::EDownloading, ());
+    ASSERT(currentStatus != TStatus::EUnknown, ());
+
+    if (m_init == TMapOptions::EMapOnly && currentStatus == TStatus::EOnDisk)
+      return false;
+
+#ifdef DEBUG
+    if (currentStatus == TStatus::EOnDiskOutOfDate && m_init == TMapOptions::EMapOnly)
+      ASSERT(m_pFile->GetFileSize(TMapOptions::ECarRouting) == 0, ());
+#endif
+
+    if (m_init & TMapOptions::ECarRouting)
     {
-      if (m_init & TMapOptions::EMapOnly)
-        m_init = m_left = m_current = TMapOptions::EMapOnly;
-      else
-        return false;
+      ASSERT(m_init & TMapOptions::EMapOnly, ());
+
+      if (currentStatus == TStatus::EOnDisk)
+      {
+        if (m_pFile->GetFileSize(TMapOptions::ECarRouting) == 0)
+          m_init = m_left = m_current = TMapOptions::ECarRouting;
+        else
+          return false;
+      }
     }
 
     return true;
@@ -234,35 +252,7 @@ namespace storage
 
   TStatus Storage::CountryStatusEx(TIndex const & index) const
   {
-    TStatus res = CountryStatus(index);
-    if (res == TStatus::EUnknown)
-    {
-      Country const & c = CountryByIndex(index);
-      LocalAndRemoteSizeT const size = c.Size(TMapOptions::EMapOnly);
-
-      if (size.first == 0)
-        return TStatus::ENotDownloaded;
-
-      if (size.second == 0)
-        return TStatus::EUnknown;
-
-      res = TStatus::EOnDisk;
-      if (size.first != size.second)
-      {
-        /// @todo Do better version check, not just size comparison.
-
-        // Additional check for .ready file.
-        // Use EOnDisk status if it's good, or EOnDiskOutOfDate otherwise.
-        Platform const & pl = GetPlatform();
-        string const fName = c.GetFile().GetFileWithExt(TMapOptions::EMapOnly) + READY_FILE_EXTENSION;
-
-        uint64_t sz = 0;
-        if (!pl.GetFileSizeByFullPath(pl.WritablePathForFile(fName), sz) || sz != size.second)
-          res = TStatus::EOnDiskOutOfDate;
-      }
-    }
-
-    return res;
+    return CountryStatusFull(index, CountryStatus(index));
   }
 
   void Storage::CountryStatusEx(TIndex const & index, TStatus & status, TMapOptions & options) const
@@ -282,6 +272,7 @@ namespace storage
 
   void Storage::DownloadCountry(TIndex const & index, TMapOptions opt)
   {
+    ASSERT(opt == TMapOptions::EMapOnly || opt == TMapOptions::EMapWithCarRouting, ());
     // check if we already downloading this country
     auto const found = find(m_queue.begin(), m_queue.end(), index);
     if (found != m_queue.end())
@@ -297,9 +288,9 @@ namespace storage
 
     // add it into the queue
     QueuedCountry cnt(*this, index, opt);
-    if (!cnt.Correct())
+    if (!cnt.Correct(CountryStatusWithoutFailed(index)))
       return;
-    m_queue.push_back(QueuedCountry(*this, index, opt));
+    m_queue.push_back(cnt);
 
     // and start download if necessary
     if (m_queue.size() == 1)
@@ -572,5 +563,53 @@ namespace storage
 
     for (size_t i = 0; i < fList.size(); ++i)
       res.push_back(&CountryByIndex(FindIndexByFile(fList[i])));
+  }
+
+  TStatus Storage::CountryStatusWithoutFailed(TIndex const & index) const
+  {
+    // first, check if we already downloading this country or have in in the queue
+    auto const found = find(m_queue.begin(), m_queue.end(), index);
+    if (found != m_queue.end())
+    {
+      if (found == m_queue.begin())
+        return TStatus::EDownloading;
+      else
+        return TStatus::EInQueue;
+    }
+
+    return CountryStatusFull(index, TStatus::EUnknown);
+  }
+
+  TStatus Storage::CountryStatusFull(TIndex const & index, TStatus const status) const
+  {
+    if (status != TStatus::EUnknown)
+      return status;
+
+    TStatus res = status;
+    Country const & c = CountryByIndex(index);
+    LocalAndRemoteSizeT const size = c.Size(TMapOptions::EMapOnly);
+
+    if (size.first == 0)
+      return TStatus::ENotDownloaded;
+
+    if (size.second == 0)
+      return TStatus::EUnknown;
+
+    res = TStatus::EOnDisk;
+    if (size.first != size.second)
+    {
+      /// @todo Do better version check, not just size comparison.
+
+      // Additional check for .ready file.
+      // Use EOnDisk status if it's good, or EOnDiskOutOfDate otherwise.
+      Platform const & pl = GetPlatform();
+      string const fName = c.GetFile().GetFileWithExt(TMapOptions::EMapOnly) + READY_FILE_EXTENSION;
+
+      uint64_t sz = 0;
+      if (!pl.GetFileSizeByFullPath(pl.WritablePathForFile(fName), sz) || sz != size.second)
+        res = TStatus::EOnDiskOutOfDate;
+    }
+
+    return res;
   }
 }

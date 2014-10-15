@@ -41,7 +41,7 @@ namespace storage
 
       void AddOptions(TMapOptions opt);
       bool MoveNextFile();
-      bool Correct();
+      bool Correct(TStatus currentStatus);
 
       TIndex const & GetIndex() const { return m_index; }
       TMapOptions GetInitOptions() const { return m_init; }
@@ -145,6 +145,10 @@ namespace storage
     void GetOutdatedCountries(vector<Country const *> & res) const;
 
     int64_t GetCurrentDataVersion() const { return m_currentVersion; }
+
+  private:
+    TStatus CountryStatusWithoutFailed(TIndex const & index) const;
+    TStatus CountryStatusFull(TIndex const & index, TStatus const status) const;
 
     //@{
   private:
