@@ -5,8 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:gravity="top"
-    android:orientation="vertical"
-    android:paddingRight="@dimen/zoom_margin_right">
+    android:orientation="vertical">
 
   <ImageButton
       android:id="@+id/yop_it"
@@ -14,6 +13,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentRight="true"
+      android:layout_marginRight="@dimen/margin_tiny"
       android:src="@drawable/ic_btn_yota_ptb"/>
 
   <View
@@ -21,7 +21,8 @@
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:layout_centerVertical="true"
-      android:layout_marginBottom="-30dp"/>
+      android:layout_marginBottom="-30dp"
+      android:layout_marginRight="@dimen/margin_tiny"/>
 
   <ImageButton
       android:id="@+id/map_button_plus"

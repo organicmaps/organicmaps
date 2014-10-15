@@ -28,27 +28,33 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/routing_pp_height"
       android:layout_alignParentTop="true"
-      android:background="@android:color/transparent">
+      android:background="@android:color/transparent"
+      android:paddingLeft="@dimen/margin_tiny_and_half"
+      android:paddingRight="@dimen/margin_tiny_and_half"
+      android:paddingTop="@dimen/margin_tiny">
 
     <LinearLayout
         android:id="@+id/ll__routing_go"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/routing_button_height"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_tiny"
         android:layout_toLeftOf="@+id/iv__routing_close"
         android:background="@drawable/ic_route_bg"
         android:gravity="center_vertical"
-        android:paddingRight="@dimen/margin_small"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_small_and_half"
+        android:paddingRight="@dimen/margin_small_and_half">
 
       <TextView
           android:id="@+id/tv__routing_go"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:paddingLeft="@dimen/margin_medium"
+          android:layout_height="match_parent"
+          android:layout_marginRight="@dimen/margin_small"
+          android:gravity="center"
           android:text="@string/routing_go"
-          android:textColor="@color/downloader_green"/>
+          android:textColor="@color/downloader_green"
+          android:textSize="18sp"/>
 
       <ImageView
           android:layout_width="wrap_content"
@@ -59,11 +65,10 @@
 
     <ImageView
         android:id="@+id/iv__routing_close"
-        android:layout_width="@dimen/routing_button_height"
+        android:layout_width="@dimen/routing_button_width"
         android:layout_height="@dimen/routing_button_height"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/margin_small"
         android:background="@drawable/ic_route_bg"
         android:padding="@dimen/margin_medium"
         android:scaleType="center"
@@ -75,7 +80,6 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/routing_button_height"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/margin_small"
         android:background="@drawable/ic_route_bg"
         android:gravity="center"
         android:paddingLeft="@dimen/margin_small"

@@ -10,7 +10,9 @@
 
   <dimen name="margin_micro">2dp</dimen>
   <dimen name="margin_tiny">4dp</dimen>
+  <dimen name="margin_tiny_and_half">6dp</dimen>
   <dimen name="margin_small">8dp</dimen>
+  <dimen name="margin_small_and_half">12dp</dimen>
   <dimen name="margin_medium">16dp</dimen>
   <dimen name="margin_large">32dp</dimen>
 
@@ -35,7 +37,7 @@
   <dimen name="color_chooser_radius">24dp</dimen>
   <dimen name="dialog_max_height">320dp</dimen>
   <dimen name="zoom_plus_top_margin">0dp</dimen>
-  <dimen name="zoom_margin">5dp</dimen>
+  <dimen name="zoom_margin">6dp</dimen>
   <dimen name="zoom_margin_right">4dp</dimen>
   <dimen name="map_controls_margin">7dp</dimen>
   <dimen name="bottom_panel_height">46dp</dimen>
@@ -51,8 +53,10 @@
   <dimen name="progress_wheel_width_neg">-48dp</dimen>
   <dimen name="bg_downloader_radius">6dp</dimen>
   <dimen name="bg_downloader_size">16dp</dimen>
-  <dimen name="routing_pp_height">80dp</dimen>
+
+  <dimen name="routing_pp_height">46dp</dimen>
   <dimen name="routing_button_height">42dp</dimen>
+  <dimen name="routing_button_width">42dp</dimen>
   <dimen name="routing_progress_size">32dp</dimen>
 
 </resources>
