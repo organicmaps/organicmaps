@@ -27,7 +27,7 @@
       android:id="@+id/rl__routing_box"
       android:layout_width="match_parent"
       android:layout_height="@dimen/routing_pp_height"
-      android:layout_alignParentTop="true"
+      android:layout_below="@id/search_box"
       android:background="@android:color/transparent"
       android:paddingLeft="@dimen/margin_tiny_and_half"
       android:paddingRight="@dimen/margin_tiny_and_half"
@@ -91,7 +91,7 @@
       layout="@layout/map_navigation_buttons"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:layout_below="@id/search_box"/>
+      android:layout_below="@id/rl__routing_box"/>
 
   <ImageView
       android:id="@+id/fade_view"
