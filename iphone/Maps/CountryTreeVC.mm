@@ -52,7 +52,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-
   [self.tableView reloadData];
 }
 
@@ -66,7 +65,7 @@
 - (void)outOfDateCountriesCountChanged:(NSNotification *)notification
 {
   NSInteger const count = [[notification userInfo][@"OutOfDate"] integerValue];
-  if ([self isRootScreen])
+  if ([self activeMapsRowIsVisible])
   {
     MapCell * cell = (MapCell *)[self.tableView cellForRowAtIndexPath:[self downloadedCountriesIndexPath]];
     cell.badgeView.value = count;
@@ -75,11 +74,6 @@
 
 #pragma mark - Helpers
 
-- (BOOL)isRootScreen
-{
-  return !self.tree.HasParent();
-}
-
 - (CountryTree &)tree
 {
   return GetFramework().GetCountryTree();
@@ -87,13 +81,34 @@
 
 - (MapCell *)cellAtPositionInNode:(int)position
 {
-  NSInteger const section = [self isRootScreen] ? [self downloadedCountriesIndexPath].section + 1 : 0;
+  NSInteger const section = [self activeMapsRowIsVisible] ? [self downloadedCountriesIndexPath].section + 1 : 0;
   return (MapCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:position inSection:section]];
+}
+
+- (BOOL)activeMapsRowIsVisible
+{
+  return !self.tree.GetActiveMapLayout().IsEmpty() && !self.tree.HasParent();
 }
 
 - (BOOL)isActiveMapsIndexPath:(NSIndexPath *)indexPath
 {
-  return [self isRootScreen] && [indexPath isEqual:[self downloadedCountriesIndexPath]];
+  return [self activeMapsRowIsVisible] && [indexPath isEqual:[self downloadedCountriesIndexPath]];
+}
+
+- (void)configureSizeLabelOfMapCell:(MapCell *)cell position:(int)position status:(TStatus const &)status options:(TMapOptions const &)options
+{
+  if (self.tree.IsLeaf(position))
+  {
+    if (status == TStatus::ENotDownloaded)
+    {
+      LocalAndRemoteSizeT const size = self.tree.GetRemoteLeafSizes(position);
+      cell.sizeLabel.text = [NSString stringWithFormat:@"%@ / %@", [self formattedMapSize:size.first], [self formattedMapSize:size.second]];
+    }
+    else if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
+      cell.sizeLabel.text = [self formattedMapSize:self.tree.GetLeafSize(position, options).second];
+    else if (status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed || status == TStatus::EDownloading || status == TStatus::EInQueue)
+      cell.sizeLabel.text = [self formattedMapSize:self.tree.GetDownloadableLeafSize(position).second];
+  }
 }
 
 #pragma mark - DownloaderParentVC virtual methods implementation
@@ -183,12 +198,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return [self isRootScreen] ? 1 + TOP_ROWS_COUNT : 1;
+  return [self activeMapsRowIsVisible] ? 1 + TOP_ROWS_COUNT : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if ([self isRootScreen] && section == [self downloadedCountriesIndexPath].section)
+  if ([self activeMapsRowIsVisible] && section == [self downloadedCountriesIndexPath].section)
     return TOP_ROWS_COUNT;
   else
     return self.tree.GetChildCount();
@@ -221,28 +236,14 @@
     {
       TMapOptions const options = self.tree.GetLeafOptions(position);
       TStatus const status = self.tree.GetLeafStatus(position);
-
-      NSString * sizeString;
-      if (status == TStatus::ENotDownloaded)
-      {
-        LocalAndRemoteSizeT const size = self.tree.GetRemoteLeafSizes(position);
-        sizeString = [NSString stringWithFormat:@"%@ / %@", [self formattedMapSize:size.first], [self formattedMapSize:size.second]];
-      }
-      else if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
-      {
-        size_t const size = self.tree.GetLeafSize(position, options).second;
-        sizeString = [self formattedMapSize:size];
-      }
-      else if (status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed || status == TStatus::EDownloading || status == TStatus::EInQueue)
+      if (status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed || status == TStatus::EDownloading || status == TStatus::EInQueue)
       {
         LocalAndRemoteSizeT const size = self.tree.GetDownloadableLeafSize(position);
-        sizeString = [self formattedMapSize:size.second];
         cell.downloadProgress = (double)size.first / size.second;
       }
-
-      cell.sizeLabel.text = sizeString;
       cell.status = status;
       cell.options = options;
+      [self configureSizeLabelOfMapCell:cell position:position status:status options:options];
     }
   }
 
@@ -251,15 +252,21 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  TStatus const status = self.tree.GetLeafStatus(indexPath.row);
-  return status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate;
+  int const position = indexPath.row;
+  if (self.tree.IsLeaf(position))
+  {
+    TStatus const status = self.tree.GetLeafStatus(position);
+    return status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate;
+  }
+  return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
   if (editingStyle == UITableViewCellEditingStyleDelete)
   {
-    self.tree.DeleteCountry(indexPath.row, TMapOptions::EMapWithCarRouting);
+    int const position = indexPath.row;
+    self.tree.DeleteCountry(position, self.tree.GetLeafOptions(position));
     [tableView setEditing:NO animated:YES];
   }
 }
@@ -309,7 +316,7 @@
 - (void)mapCellDidCancelDownloading:(MapCell *)cell
 {
   self.selectedPosition = [self.tableView indexPathForCell:cell].row;
-  [[self actionSheetToDeleteSelectedMap] showFromRect:cell.frame inView:cell.superview animated:YES];
+  [[self actionSheetToCancelDownloadingSelectedMap] showFromRect:cell.frame inView:cell.superview animated:YES];
 }
 
 #pragma mark - CountryTree core callbacks
@@ -317,7 +324,10 @@
 - (void)countryStatusChangedAtPositionInNode:(int)position
 {
   MapCell * cell = [self cellAtPositionInNode:position];
-  [cell setStatus:self.tree.GetLeafStatus(position) options:self.tree.GetLeafOptions(position) animated:YES];
+  TStatus const status = self.tree.GetLeafStatus(position);
+  TMapOptions const options = self.tree.GetLeafOptions(position);
+  [self configureSizeLabelOfMapCell:cell position:position status:status options:options];
+  [cell setStatus:self.tree.GetLeafStatus(position) options:options animated:YES];
 }
 
 - (void)countryDownloadingProgressChanged:(LocalAndRemoteSizeT const &)progress atPositionInNode:(int)position

@@ -48,6 +48,7 @@ public:
   void CancelAll();
 
   int GetCountInGroup(TGroup const & group) const;
+  bool IsEmpty() const;
   string const & GetCountryName(TGroup const & group, int position) const;
   string const & GetCountryName(storage::TIndex const & index) const;
   TStatus GetCountryStatus(TGroup const & group, int position) const;

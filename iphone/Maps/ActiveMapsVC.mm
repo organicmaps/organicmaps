@@ -95,6 +95,19 @@
   self.selectedGroup = [self groupWithSection:indexPath.section];
 }
 
+- (void)configureSizeLabelOfMapCell:(MapCell *)cell position:(int)position group:(ActiveMapsLayout::TGroup const &)group status:(TStatus const &)status options:(TMapOptions const &)options
+{
+  if (status == TStatus::ENotDownloaded)
+  {
+    LocalAndRemoteSizeT const size = self.mapsLayout.GetRemoteCountrySizes(group, position);
+    cell.sizeLabel.text = [NSString stringWithFormat:@"%@ / %@", [self formattedMapSize:size.first], [self formattedMapSize:size.second]];
+  }
+  else if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
+    cell.sizeLabel.text = [self formattedMapSize:self.mapsLayout.GetCountrySize(group, position, options).second];
+  else if (status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed || status == TStatus::EDownloading || status == TStatus::EInQueue)
+    cell.sizeLabel.text = [self formattedMapSize:self.mapsLayout.GetDownloadableCountrySize(group, position).second];
+}
+
 #pragma mark - DownloaderParentVC virtual methods implementation
 
 - (NSString *)parentTitle
@@ -245,25 +258,12 @@
   cell.delegate = self;
   cell.badgeView.value = 0;
 
-  NSString * sizeString;
-  if (status == TStatus::ENotDownloaded)
+  if (status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed || status == TStatus::EDownloading || status == TStatus::EInQueue)
   {
-    LocalAndRemoteSizeT const size = self.mapsLayout.GetRemoteCountrySizes(position);
-    sizeString = [NSString stringWithFormat:@"%@ / %@", [self formattedMapSize:size.first], [self formattedMapSize:size.second]];
-  }
-  else if (status == TStatus::EOnDisk || status == TStatus::EOnDiskOutOfDate)
-  {
-    size_t const size = self.mapsLayout.GetCountrySize(position, options).second;
-    sizeString = [self formattedMapSize:size];
-  }
-  else if (status == TStatus::EOutOfMemFailed || status == TStatus::EDownloadFailed || status == TStatus::EDownloading || status == TStatus::EInQueue)
-  {
-    LocalAndRemoteSizeT const size = self.mapsLayout.GetDownloadableCountrySize(position);
-    sizeString = [self formattedMapSize:size.second];
+    LocalAndRemoteSizeT const size = self.mapsLayout.GetDownloadableCountrySize(group, position);
     cell.downloadProgress = (double)size.first / size.second;
   }
-
-  cell.sizeLabel.text = sizeString;
+  [self configureSizeLabelOfMapCell:cell position:position group:group status:status options:options];
 
   return cell;
 }
@@ -279,11 +279,9 @@
   if (editingStyle == UITableViewCellEditingStyleDelete)
   {
     int const position = indexPath.row;
-    ActiveMapsLayout::TGroup const group = [self groupWithSection:position];
+    ActiveMapsLayout::TGroup const group = [self groupWithSection:indexPath.section];
     TMapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
-
     self.mapsLayout.DeleteMap(group, position, options);
-
     [tableView setEditing:NO animated:YES];
   }
 }
@@ -321,7 +319,7 @@
   self.selectedPosition = indexPath.row;
   self.selectedGroup = [self groupWithSection:indexPath.section];
 
-  [[self actionSheetToDeleteSelectedMap] showFromRect:cell.frame inView:cell.superview animated:YES];
+  [[self actionSheetToCancelDownloadingSelectedMap] showFromRect:cell.frame inView:cell.superview animated:YES];
 }
 
 #pragma mark - ActiveMaps core callbacks
@@ -331,6 +329,10 @@
   [self refreshTopRightButton];
 
   MapCell * cell = [self cellAtPosition:position inGroup:group];
+
+  TStatus const status = self.mapsLayout.GetCountryStatus(group, position);
+  TMapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
+  [self configureSizeLabelOfMapCell:cell position:position group:group status:status options:options];
   [cell setStatus:self.mapsLayout.GetCountryStatus(group, position) options:self.mapsLayout.GetCountryOptions(group, position) animated:YES];
 
   self.outOfDateBadge.value = self.mapsLayout.GetCountInGroup(ActiveMapsLayout::TGroup::EOutOfDate);
@@ -339,6 +341,10 @@
 - (void)countryOptionsChangedAtPosition:(int)position inGroup:(ActiveMapsLayout::TGroup const &)group
 {
   MapCell * cell = [self cellAtPosition:position inGroup:group];
+
+  TStatus const status = self.mapsLayout.GetCountryStatus(group, position);
+  TMapOptions const options = self.mapsLayout.GetCountryOptions(group, position);
+  [self configureSizeLabelOfMapCell:cell position:position group:group status:status options:options];
   [cell setStatus:self.mapsLayout.GetCountryStatus(group, position) options:self.mapsLayout.GetCountryOptions(group, position) animated:YES];
 }
 

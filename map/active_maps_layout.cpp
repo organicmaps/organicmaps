@@ -154,6 +154,11 @@ int ActiveMapsLayout::GetCountInGroup(TGroup const & group) const
   return result;
 }
 
+bool ActiveMapsLayout::IsEmpty() const
+{
+  return GetCountInGroup(TGroup::ENewMap) == 0 && GetCountInGroup(TGroup::EOutOfDate) == 0 && GetCountInGroup(TGroup::EUpToDate) == 0;
+}
+
 string const & ActiveMapsLayout::GetCountryName(TGroup const & group, int position) const
 {
   return GetCountryName(GetItemInGroup(group, position).m_index);

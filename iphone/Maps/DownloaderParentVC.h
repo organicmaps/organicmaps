@@ -29,7 +29,6 @@ using namespace storage;
 - (void)openGuideWithInfo:(guides::GuideInfo const &)info;
 
 - (BOOL)canDownloadSelectedMap;
-- (UIActionSheet *)actionSheetToDeleteSelectedMap;
 - (UIActionSheet *)actionSheetToCancelDownloadingSelectedMap;
 - (UIActionSheet *)actionSheetToPerformActionOnSelectedMap;
 

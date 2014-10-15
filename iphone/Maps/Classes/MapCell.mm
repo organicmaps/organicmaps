@@ -9,7 +9,6 @@
 @property (nonatomic) UILabel * statusLabel;
 @property (nonatomic) UILabel * sizeLabel;
 @property (nonatomic) ProgressView * progressView;
-@property (nonatomic) UIView * rightTapZone;
 @property (nonatomic) UIImageView * arrowView;
 @property (nonatomic) BadgeView * badgeView;
 @property (nonatomic) UIImageView * routingImageView;
@@ -37,7 +36,6 @@
   self.status = status;
   self.options = options;
 
-  self.rightTapZone.userInteractionEnabled = NO;
   self.progressView.failedMode = NO;
 
   if (options == TMapOptions::EMapOnly)
@@ -55,21 +53,15 @@
        self.statusLabel.text = L(@"downloader_status_outdated").uppercaseString;
 
       self.statusLabel.textColor = [UIColor colorWithColorCode:@"179E4D"];
-      self.rightTapZone.userInteractionEnabled = YES;
       [self setProgressMode:NO withAnimatedLayout:animated];
       break;
 
     case TStatus::EInQueue:
-      self.statusLabel.text = L(@"downloader_queued").uppercaseString;
-      self.statusLabel.textColor = [UIColor colorWithColorCode:@"999999"];
-      [self.progressView setProgress:0 animated:animated];
-      [self setProgressMode:YES withAnimatedLayout:animated];
-      break;
-
     case TStatus::EDownloading:
       self.statusLabel.textColor = [UIColor colorWithColorCode:@"999999"];
-      [self.progressView setProgress:self.downloadProgress animated:animated];
-      [self setProgressMode:YES withAnimatedLayout:animated];
+      [self setDownloadProgress:self.downloadProgress animated:animated];
+      if (status == TStatus::EInQueue)
+        self.statusLabel.text = L(@"downloader_queued").uppercaseString;
       break;
 
     case TStatus::EOnDisk:
@@ -95,7 +87,6 @@
       self.progressView.failedMode = YES;
       self.statusLabel.text = L(@"downloader_retry").uppercaseString;
       self.statusLabel.textColor = [UIColor colorWithColorCode:@"FF4436"];
-      self.rightTapZone.userInteractionEnabled = YES;
       [self setProgressMode:YES withAnimatedLayout:animated];
       break;
 
@@ -116,6 +107,8 @@
 - (void)setProgressMode:(BOOL)progressMode withAnimatedLayout:(BOOL)withLayout
 {
   _progressMode = progressMode;
+
+  self.progressView.progress = self.downloadProgress;
   if (withLayout)
   {
     if (progressMode)
@@ -130,6 +123,7 @@
   }
   else
   {
+    [self alignProgressView];
     [self alignSubviews];
   }
 }
@@ -165,31 +159,30 @@
   self.subtitleLabel.frame = CGRectMake([self leftOffset], self.titleLabel.maxY + 1, leftLabelsWith, 18);
   self.subtitleLabel.hidden = self.subtitleLabel.text == nil;
 
-  CGFloat const rightTapWidth = rightLabelsMaxWidth + [self rightOffset] + [self betweenSpace];
-  self.rightTapZone.frame = CGRectMake(self.width - rightTapWidth, 0, rightTapWidth - [self rightOffset] + 4, self.height);
-  if (self.parentMode)
-    self.rightTapZone.userInteractionEnabled = NO;
-
   self.routingImageView.center = CGPointMake(self.width - 25, self.height / 2 - 1);
   self.routingImageView.alpha = [self shouldShowRoutingView];
 }
 
-- (BOOL)shouldShowRoutingView
-{
-  return !self.progressMode && !self.parentMode && self.status != TStatus::ENotDownloaded;
-}
-
 - (void)layoutSubviews
 {
-  [self alignProgressView];
-  [self setStatus:self.status options:self.options animated:NO];
-
+  [self alignSubviews];
+  if (!self.parentMode)
+  {
+    [self alignProgressView];
+    [self setStatus:self.status options:self.options animated:NO];
+  }
   self.badgeView.minX = self.titleLabel.maxX + 4;
   self.badgeView.minY = self.titleLabel.minY - 5;
 
   self.separator.minX = self.titleLabel.minX;
   self.separator.size = CGSizeMake(self.width - 2 * self.separator.minX, 1);
   self.separator.maxY = self.height + 0.5;
+}
+
+
+- (BOOL)shouldShowRoutingView
+{
+  return !self.progressMode && !self.parentMode && self.status != TStatus::ENotDownloaded;
 }
 
 - (CGFloat)leftOffset
@@ -295,17 +288,6 @@
     _sizeLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
   }
   return _sizeLabel;
-}
-
-- (UIView *)rightTapZone
-{
-  if (!_rightTapZone)
-  {
-    _rightTapZone = [[UIView alloc] initWithFrame:CGRectZero];
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(rightTap:)];
-    [_rightTapZone addGestureRecognizer:tap];
-  }
-  return _rightTapZone;
 }
 
 - (UIImageView *)routingImageView

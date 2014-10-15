@@ -188,7 +188,7 @@
     actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
   }
 
-  if (status == TStatus::EDownloading)
+  if (status == TStatus::EDownloading || status == TStatus::EInQueue)
   {
     [self addButtonWithTitle:L(@"cancel_download") action:DownloaderActionCancelDownloading toActionSheet:actionSheet];
     actionSheet.destructiveButtonIndex = actionSheet.numberOfButtons - 1;
@@ -201,14 +201,6 @@
   }
 
   return actionSheet;
-}
-
-- (UIActionSheet *)actionSheetToDeleteSelectedMap
-{
-  [self.actionSheetActions removeAllObjects];
-  self.actionSheetActions[@0] = @(DownloaderActionDeleteAll);
-
-  return [[UIActionSheet alloc] initWithTitle:[self actionSheetTitle] delegate:self cancelButtonTitle:L(@"cancel") destructiveButtonTitle:L(@"downloader_delete_map") otherButtonTitles:nil];
 }
 
 - (UIActionSheet *)actionSheetToCancelDownloadingSelectedMap
