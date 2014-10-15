@@ -131,6 +131,20 @@ namespace storage
         res.second += m_pFile->GetRemoteSize(arr[i]);
       }
     }
+
+    return res;
+  }
+
+  size_t Storage::QueuedCountry::GetFullRemoteSize() const
+  {
+    size_t res = 0;
+    TMapOptions const arr[] = { TMapOptions::EMapOnly, TMapOptions::ECarRouting };
+    for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
+    {
+      if (m_init & arr[i])
+        res += m_pFile->GetRemoteSize(arr[i]);
+    }
+
     return res;
   }
 
@@ -224,9 +238,17 @@ namespace storage
 
   LocalAndRemoteSizeT Storage::CountrySizeInBytes(TIndex const & index, TMapOptions opt) const
   {
-    LocalAndRemoteSizeT sizes = QueuedCountry(*this, index, opt).GetFullSize();
-    if (m_request != nullptr && m_queue.front().GetIndex() == index)
-      sizes.first = m_request->Progress().first + m_countryProgress.first;
+    LocalAndRemoteSizeT sizes(0, 0);
+    QueuedCountry cnt(*this, index, opt);
+    auto const found = find(m_queue.begin(), m_queue.end(), index);
+    if (found != m_queue.end())
+    {
+      sizes.second = cnt.GetFullRemoteSize();
+      if (m_request != nullptr && m_queue.front().GetIndex() == index)
+        sizes.first = m_request->Progress().first + m_countryProgress.first;
+    }
+    else
+      sizes = cnt.GetFullSize();
 
     return sizes;
   }
@@ -317,7 +339,7 @@ namespace storage
       QueuedCountry & cnt = m_queue.front();
 
       m_countryProgress.first = 0;
-      m_countryProgress.second = cnt.GetFullSize().second;
+      m_countryProgress.second = cnt.GetFullRemoteSize();
 
       DownloadNextFile(cnt);
 

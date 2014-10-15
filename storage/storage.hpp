@@ -50,6 +50,7 @@ namespace storage
 
       uint64_t GetDownloadSize() const;
       LocalAndRemoteSizeT GetFullSize() const;
+      size_t GetFullRemoteSize() const;
       string GetFileName() const;
       string GetMapFileName() const;
     };
