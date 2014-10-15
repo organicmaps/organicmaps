@@ -1944,7 +1944,6 @@ void Framework::RemoveRoute()
 
 void Framework::CloseRouting()
 {
-  ASSERT(IsRoutingActive(), ());
   GetLocationState()->StopRoutingMode();
   m_routingSession.Reset();
   RemoveRoute();
