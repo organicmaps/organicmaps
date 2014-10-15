@@ -58,19 +58,6 @@
             android:textColor="@color/text_info_box"
             android:textSize="16sp"/>
 
-        <Button
-            android:id="@+id/btn__use_mock_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/info_subtitle"
-            android:text="start route from here"/>
-
-        <Button
-            android:id="@+id/btn__dont_use_mock_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btn__use_mock_location"
-            android:text="use gps data for routing"/>
       </RelativeLayout>
 
       <FrameLayout

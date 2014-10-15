@@ -143,8 +143,6 @@ public class MWMActivity extends NvEventQueueActivity
   };
   private boolean mAreToolbarAdsUpdated;
 
-  private boolean mIsLocationLocked;
-
   public static Intent createShowMapIntent(Context context, Index index, boolean doAutoDownload)
   {
     return new Intent(context, DownloadResourcesActivity.class)
@@ -833,8 +831,6 @@ public class MWMActivity extends NvEventQueueActivity
     mIvStartRouting = (ImageView) mInfoView.findViewById(R.id.iv__start_routing);
     mIvStartRouting.setOnClickListener(this);
     mPbRoutingProgress = (ProgressBar) mInfoView.findViewById(R.id.pb__routing_progress);
-    mInfoView.findViewById(R.id.btn__use_mock_location).setOnClickListener(this);
-    mInfoView.findViewById(R.id.btn__dont_use_mock_location).setOnClickListener(this);
   }
 
   private void setUpRoutingBox()
@@ -1005,22 +1001,19 @@ public class MWMActivity extends NvEventQueueActivity
   @Override
   public void onLocationUpdated(final Location l)
   {
-    if (!mIsLocationLocked)
-    {
-      nativeLocationUpdated(
-          l.getTime(),
-          l.getLatitude(),
-          l.getLongitude(),
-          l.getAccuracy(),
-          l.getAltitude(),
-          l.getSpeed(),
-          l.getBearing());
+    nativeLocationUpdated(
+        l.getTime(),
+        l.getLatitude(),
+        l.getLongitude(),
+        l.getAccuracy(),
+        l.getAltitude(),
+        l.getSpeed(),
+        l.getBearing());
 
-      if (mInfoView.getState() != State.HIDDEN)
-        mInfoView.updateLocation(l);
+    if (mInfoView.getState() != State.HIDDEN)
+      mInfoView.updateLocation(l);
 
-      updateRoutingDistance();
-    }
+    updateRoutingDistance();
   }
 
   private void updateRoutingDistance()
@@ -1403,17 +1396,7 @@ public class MWMActivity extends NvEventQueueActivity
   {
     switch (v.getId())
     {
-    case R.id.btn__use_mock_location:
-      if (LocationState.INSTANCE.getLocationStateMode() == LocationState.UNKNOWN_POSITION)
-        LocationState.INSTANCE.switchToNextMode();
-      mIsLocationLocked = true;
-      final MapObject object = mInfoView.getMapObject();
-      if (object != null)
-        nativeLocationUpdated(System.currentTimeMillis(), object.getLat(), object.getLon(), 0, 0, 0, 0);
-      break;
-    case R.id.btn__dont_use_mock_location:
-      mIsLocationLocked = false;
-      break;
+
     case R.id.btn_buy_pro:
       setVerticalToolbarVisible(false);
       UiUtils.openAppInMarket(MWMActivity.this, BuildConfig.PRO_URL);
