@@ -892,6 +892,7 @@ extern "C"
   {
     JNIEnv * jniEnv = jni::GetEnv();
     const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onDismiss", "()V");
+    ASSERT(methodId, ());
     jniEnv->CallVoidMethod(*obj.get(), methodId);
   }
 
@@ -899,7 +900,7 @@ extern "C"
   {
     JNIEnv * jniEnv = jni::GetEnv();
     const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onRoutingEvent", "(ZLjava/lang/String;Z)V");
-    ASSERT(jmethodID != nullptr, ());
+    ASSERT(methodId, ());
     jniEnv->CallVoidMethod(*obj.get(), methodId, isSuccess, jni::ToJavaString(jniEnv, messageID), openDownloader);
   }
 
@@ -907,7 +908,7 @@ extern "C"
   {
     JNIEnv * jniEnv = jni::GetEnv();
     const jmethodID methodId = jni::GetJavaMethodID(jniEnv, *obj.get(), "onBuyPro", "()V");
-    ASSERT(jmethodID != nullptr, ());
+    ASSERT(methodId, ());
     jniEnv->CallVoidMethod(*obj.get(), methodId);
   }
 
