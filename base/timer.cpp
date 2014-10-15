@@ -157,4 +157,20 @@ time_t StringToTimestamp(string const & s)
   return res;
 }
 
+HighResTimer::HighResTimer(bool start/* = true*/)
+{
+  if (start)
+    Reset();
+}
+
+void HighResTimer::Reset()
+{
+  m_start = high_resolution_clock::now();
+}
+
+uint64_t HighResTimer::ElapsedNano() const
+{
+  return duration_cast<nanoseconds>(high_resolution_clock::now() - m_start).count();
+}
+
 }

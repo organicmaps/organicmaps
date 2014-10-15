@@ -3,6 +3,7 @@
 #include "../std/stdint.hpp"
 #include "../std/string.hpp"
 #include "../std/ctime.hpp"
+#include "../std/chrono.hpp"
 
 
 namespace my
@@ -36,5 +37,19 @@ time_t const INVALID_TIME_STAMP = -1;
 /// And with custom time offset:   1997-07-16T10:30:15+03:00
 /// @return INVALID_TIME_STAMP if string is invalid
 time_t StringToTimestamp(string const & s);
+
+
+/// High resolution timer to use in comparison tests.
+class HighResTimer
+{
+  typedef high_resolution_clock::time_point PointT;
+  PointT m_start;
+
+public:
+  explicit HighResTimer(bool start = true);
+
+  void Reset();
+  uint64_t ElapsedNano() const;
+};
 
 }
