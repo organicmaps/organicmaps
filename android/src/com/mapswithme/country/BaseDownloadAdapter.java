@@ -603,6 +603,8 @@ abstract class BaseDownloadAdapter extends BaseAdapter
         }
       });
       infoAnimator.start();
+      // invalidation is needed for 'update all/cancel all' buttons
+      mHandler.postDelayed(mDatasetChangedRunnable, ANIMATION_LENGTH);
       holder.animator = infoAnimator;
     }
   }

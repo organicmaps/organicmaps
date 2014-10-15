@@ -1,6 +1,7 @@
 package com.mapswithme.country;
 
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -164,7 +165,17 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements View
   private ListAdapter getDownloadedAdapter()
   {
     if (mDownloadedAdapter == null)
+    {
       mDownloadedAdapter = new DownloadedAdapter(this);
+      mDownloadedAdapter.registerDataSetObserver(new DataSetObserver()
+      {
+        @Override
+        public void onChanged()
+        {
+          updateActionBar();
+        }
+      });
+    }
 
     return mDownloadedAdapter;
   }
@@ -172,7 +183,17 @@ public class DownloadActivity extends MapsWithMeBaseListActivity implements View
   private ExtendedDownloadAdapterWrapper getExtendedAdater()
   {
     if (mExtendedAdapter == null)
+    {
       mExtendedAdapter = new ExtendedDownloadAdapterWrapper(this, new DownloadAdapter(this));
+      mExtendedAdapter.registerDataSetObserver(new DataSetObserver()
+      {
+        @Override
+        public void onChanged()
+        {
+          updateActionBar();
+        }
+      });
+    }
 
     return mExtendedAdapter;
   }
