@@ -90,8 +90,10 @@ extern "C"
   Java_com_mapswithme_country_ActiveCountryTree_getGuideInfo(JNIEnv * env, jclass clazz, jint group, jint position)
   {
     guides::GuideInfo info;
-    GetMapLayout().GetGuideInfo(ToGroup(group), position, info);
-    return guides::GuideNativeToJava(env, info);
+    if (GetMapLayout().GetGuideInfo(ToGroup(group), position, info))
+      return guides::GuideNativeToJava(env, info);
+
+    return NULL;
   }
 
   JNIEXPORT void JNICALL
